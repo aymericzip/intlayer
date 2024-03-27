@@ -26,6 +26,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.1.0
         version: 19.1.0
+      '@commitlint/types':
+        specifier: ^19.0.3
+        version: 19.0.3
       husky:
         specifier: ^9.0.11
         version: 9.0.11

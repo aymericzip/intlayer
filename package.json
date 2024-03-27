@@ -15,8 +15,8 @@
   },
   "scripts": {
     "test": "",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
     "typecheck": "tsc --project ./tsconfig.json --noEmit",
     "prepare": "husky",
@@ -41,6 +41,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
+    "@commitlint/types": "^19.0.3",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2"
   }
