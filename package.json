@@ -1,0 +1,38 @@
+{
+  "name": "intlayer-monorepo",
+  "description": "IntLayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
+  "version": "1.00.0",
+  "private": false,
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aypineau"
+  },
+  "homepage": "https://github.com/aypineau/intlayer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aypineau/intlayer"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+  },
+  "bug": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "yarn": "please-use-pnpm",
+    "npm": "please-use-pnpm",
+    "pnpm": "^8.15.4"
+  },
+  "packageManager": "pnpm@8.15.4",
+  "dependencies": {
+    "@utils/eslint-config": "workspace:^",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.4.0"
+  }
+}

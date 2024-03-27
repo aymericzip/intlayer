@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "allowJs": true,
+    "checkJs": true
+  },
+  "exclude": ["node_modules", "dist", "build"],
+  "include": [
+    "**/*.ts",
+    "./config/**/*.js",
+    "**/*.cjs",
+    "**/*.mjs",
+    "**/*.json"
+  ]
+}

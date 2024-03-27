@@ -1,0 +1,58 @@
+{
+  "name": "intlayer",
+  "description": "IntLayer - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
+  "version": "0.1.0",
+  "private": false,
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aypineau"
+  },
+  "homepage": "https://github.com/aypineau/intlayer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aypineau/intlayer"
+  },
+  "bug": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
+  "scripts": {
+    "build": "tsc",
+    "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
+    "clean": "rimraf ./dist",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "./package.json"
+      ],
+      "source-files": [
+        "./dist/source-files"
+      ]
+    }
+  },
+  "files": [
+    "./dist/**/*.{js,ts,map}",
+    "./src",
+    "./package.json"
+  ],
+  "devDependencies": {
+    "@utils/eslint-config": "workspace:^",
+    "rimraf": "5.0.5",
+    "typescript": "^5.4.3"
+  },
+  "engines": {
+    "node": ">=14.18"
+  }
+}
