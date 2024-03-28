@@ -1,5 +1,5 @@
-import type { Content, ContentModule } from 'intlayer';
 import { resolve } from 'path';
+import type { Content, ContentModule } from 'intlayer';
 
 // Function to load and evaluate the module file
 const loadModule = async (modulePath: string): Promise<ContentModule> => {

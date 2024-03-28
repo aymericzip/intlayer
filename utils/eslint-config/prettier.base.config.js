@@ -13,5 +13,8 @@ module.exports = {
   useTabs: false,
   endOfLine: 'lf',
   overrides: [],
-  plugins: ['prettier-plugin-tailwindcss', 'prettier-plugin-organize-imports'],
+  plugins: [
+    'prettier-plugin-tailwindcss',
+    // 'prettier-plugin-organize-imports'
+  ],
 };

@@ -42,7 +42,7 @@ const listDirFiles = async (
 };
 
 export const listFiles = async (dir: string, fileExtensions: string[]) => {
-  console.log(
+  console.info(
     'Listing files extended by:',
     fileExtensions,
     ' in directory:',
@@ -51,7 +51,7 @@ export const listFiles = async (dir: string, fileExtensions: string[]) => {
 
   const result = await listDirFiles(dir, fileExtensions);
 
-  console.log('Files found:', result);
+  console.info('Files found:', result);
 
   return result;
 };

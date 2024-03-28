@@ -4,8 +4,6 @@ const fakeFetch = async () => {
   // Wait for 200ms to simulate a fetch from the server
   await new Promise((resolve) => setTimeout(resolve, 200));
 
-  console.log('Content fetched from the server');
-
   return 'This is the content fetched from the server';
 };
 

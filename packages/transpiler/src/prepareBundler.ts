@@ -46,7 +46,7 @@ export const createMainFile = async (
   // Create the main.js file with the dynamic imports
   await writeFile(mainFilePath, mainFileContent, 'utf8')
     .then(() => {
-      console.log(`${entryFileName} has been created successfully.`);
+      console.info(`${entryFileName} has been created successfully.`);
     })
     .catch((err) => {
       console.error(`Error creating ${entryFileName}:`, err);

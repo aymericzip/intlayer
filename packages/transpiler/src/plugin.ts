@@ -1,5 +1,5 @@
-import { sync } from 'glob';
 import { relative, resolve } from 'path';
+import { sync } from 'glob';
 import type { Compiler } from 'webpack-dev-server';
 import {
   BUNDLE_DIR,
@@ -25,15 +25,13 @@ export class IntLayerPlugin {
       // Get a set of files that will be emitted in this compilation
       const currentEmitFiles = new Set(Object.keys(compilation.assets));
 
-      console.log('Current emit files:', [...currentEmitFiles]);
-
       // Detect new files by comparing with files emitted in previous compilation
       const newFiles = new Set(
         [...currentEmitFiles].filter((x) => !this.previousEmitFiles.has(x))
       );
 
       if (newFiles.size !== this.previousEmitFiles.size) {
-        console.log('New files detected:', [...newFiles]);
+        console.info('New files detected:', [...newFiles]);
         // Perform any specific logic when new files are detected
       }
 

@@ -1,5 +1,5 @@
-import { sync } from 'glob';
 import { parse } from 'path';
+import { sync } from 'glob';
 import { HotModuleReplacementPlugin, type Configuration } from 'webpack';
 import {
   BUNDLE_DIR,
