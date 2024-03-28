@@ -17,6 +17,9 @@ module.exports = {
     es6: true,
     node: true,
   },
+  rules: {
+    'sonarjs/no-duplicate-string': ['error', { threshold: 6 }],
+  },
   overrides: [
     {
       files: sonarPatterns.files,
@@ -32,10 +35,9 @@ module.exports = {
       rules: {
         // relax complexity for react code
         'sonarjs/cognitive-complexity': ['error', 15],
-        // relax duplicate strings
-        'sonarjs/no-duplicate-string': 'off',
       },
     },
+
     {
       // relax javascript code as it often contains obscure configs
       files: ['*.js', '*.cjs'],
@@ -44,7 +46,6 @@ module.exports = {
         ecmaVersion: 2020,
       },
       rules: {
-        'sonarjs/no-duplicate-string': 'off',
         'sonarjs/no-all-duplicated-branches': 'off',
       },
     },

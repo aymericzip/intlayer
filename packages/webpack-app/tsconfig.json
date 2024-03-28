@@ -3,19 +3,24 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "target": "ESNext",
-    "lib": ["esnext", "dom"],
-    "module": "ESNext",
+    "lib": ["esnext", "DOM"],
+    "module": "CommonJS",
     "declaration": true,
     "noEmit": false,
     "incremental": true,
+    "resolveJsonModule": true,
     "strict": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "intlayer": ["../intlayer/src/index.ts"],
+      "intlayer-cli": ["../cli/src/index.ts"]
+    }
   },
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs"
     }
   },
-  "exclude": ["node_modules", "dist", "_archive"],
-  "include": ["src/**/*"]
+  "exclude": ["node_modules", "dist"],
+  "include": ["**/*"]
 }

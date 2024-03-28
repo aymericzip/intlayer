@@ -4,7 +4,6 @@ require('@rushstack/eslint-patch/modern-module-resolution');
 module.exports = {
   parser: '@typescript-eslint/parser',
 
-
   ignorePatterns: [
     `node_modules`,
     `**/node_modules`,

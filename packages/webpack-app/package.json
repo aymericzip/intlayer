@@ -1,7 +1,17 @@
 {
-  "name": "intlayer-transpiler",
-  "description": "Transpiler for IntLayer - Webpack process to transpile TypeScript files to JavaScript files into IntLayer dictionaries.",
-  "version": "0.1.0",
+  "name": "intlayer-webpack-app",
+  "description": "Webpack application for IntLayer - Webpack process to transpile TypeScript files to JavaScript files into IntLayer dictionaries.",
+  "keywords": [
+    "intlayer",
+    "webpack",
+    "application",
+    "transpile",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "version": "0.0.0",
   "private": false,
   "author": {
     "name": "Aymeric PINEAU",
@@ -18,35 +28,33 @@
   },
   "scripts": {
     "build": "tsc",
-    "serve": "webpack serve",
-    "transpile": "webpack",
-    "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
+    "dev": "webpack serve --config ./src/webpack.config.ts",
+    "serve": "webpack serve --config ./dist/intlayer-webpack-app/src/webpack.config.js",
+    "transpile": "webpack --config ./dist/intlayer-webpack-app/src/webpack.config.js",
     "clean": "rimraf ./dist",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
     "typecheck": "tsc --project ./tsconfig.json --noEmit"
   },
+  "bin": {
+    "intlayer": "./dist/webpack-app/src/bin/cli.js"
+  },
   "exports": {
-    ".": {
-      "require": "./src/index.ts"
-    },
+    ".": "./dist/intlayer-webpack-app/src/index.js",
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
       "package.json": [
         "./package.json"
-      ],
-      "source-files": [
-        "./dist/source-files"
       ]
     }
   },
   "files": [
-    "./bin/cli.cjs",
     "./dist/**/*.{js,ts,map}",
     "./src",
+    "./bin",
     "./package.json"
   ],
   "devDependencies": {
@@ -56,16 +64,17 @@
     "@utils/eslint-config": "workspace:^",
     "rimraf": "5.0.5",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.3.3",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@swc-node/register": "^1.9.0",
+    "glob": "^10.3.10",
+    "intlayer": "workspace:^",
+    "intlayer-cli": "workspace:^",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4",
     "yargs": "^17.7.2"
-  },
-  "dependencies": {
-    "@swc/register": "^0.1.10",
-    "glob": "^10.3.10",
-    "intlayer": "workspace:^"
   },
   "engines": {
     "node": ">=14.18"

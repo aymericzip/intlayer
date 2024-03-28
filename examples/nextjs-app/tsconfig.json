@@ -20,7 +20,9 @@
     "paths": {
       "@component/*": ["./src/*"],
       "@assets/": ["./src/*"],
-      "@libs/*": ["./src/*"]
+      "@libs/*": ["./src/*"],
+      "intlayer": ["../../packages/intlayer"],
+      "intlayer-plugin": ["../../packages/webpack-app"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

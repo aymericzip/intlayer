@@ -1,7 +1,19 @@
 {
   "name": "intlayer",
   "description": "IntLayer - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
-  "version": "0.1.0",
+  "keywords": [
+    "intlayer",
+    "layer",
+    "abstraction",
+    "data",
+    "internationalization",
+    "i18n",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "version": "0.0.0",
   "private": false,
   "author": {
     "name": "Aymeric PINEAU",
@@ -37,9 +49,6 @@
     "*": {
       "package.json": [
         "./package.json"
-      ],
-      "source-files": [
-        "./dist/source-files"
       ]
     }
   },

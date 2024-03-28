@@ -1,12 +1,12 @@
 import { relative, resolve } from 'path';
 import { sync } from 'glob';
-import type { Compiler } from 'webpack-dev-server';
+import type { Compiler } from 'webpack';
 import {
   BUNDLE_DIR,
   DIR_PATH,
   OUTPUT_FILES_PATTERN_WITH_PATH,
-} from '../settings';
-import { transpileBundledCode } from './transpileBundledCode';
+} from './settings';
+import { transpileBundledCode } from './transpiler/transpileBundledCode';
 
 export class IntLayerPlugin {
   private previousEmitFiles: Set<string>;

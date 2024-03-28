@@ -1,0 +1,30 @@
+{
+  "name": "intlayer-cli",
+  "version": "1.0.0",
+  "description": "Command Line Interface for IntLayer - CLI process to start the applications server.",
+  "keywords": [
+    "intlayer",
+    "cli",
+    "command",
+    "line",
+    "interface",
+    "server"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json",
+    "./tsconfig.json": "./tsconfig.json"
+  },
+  "scripts": {
+    "test": "",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30"
+  }
+}

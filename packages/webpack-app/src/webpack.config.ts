@@ -1,12 +1,7 @@
 import { parse } from 'path';
 import { sync } from 'glob';
 import { HotModuleReplacementPlugin, type Configuration } from 'webpack';
-import {
-  BUNDLE_DIR,
-  IntLayerPlugin,
-  WATCHED_FILES_PATTERN,
-  WATCHED_FILES_PATTERN_WITH_PATH,
-} from './src';
+import { BUNDLE_DIR, IntLayerPlugin, WATCHED_FILES_PATTERN_WITH_PATH } from '.';
 
 const entry: Record<string, string> = sync(
   WATCHED_FILES_PATTERN_WITH_PATH
@@ -48,11 +43,6 @@ const config: Configuration = {
     extensions: ['.ts', '.js', '.json'],
   },
   plugins: [new IntLayerPlugin(), new HotModuleReplacementPlugin()],
-  devServer: {
-    hot: true,
-    static: BUNDLE_DIR,
-    watchFiles: WATCHED_FILES_PATTERN,
-  },
 };
 
 export default config;

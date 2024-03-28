@@ -13,6 +13,10 @@
       "path": "examples/nextjs-app",
     },
     {
+      "name": "🍂 react app",
+      "path": "examples/react-app",
+    },
+    {
       "name": "🍂 CLI",
       "path": "examples/cli",
     },
@@ -21,8 +25,12 @@
       "path": "packages/intlayer",
     },
     {
-      "name": "📦 transpiler",
-      "path": "packages/transpiler",
+      "name": "📦 webpack app",
+      "path": "packages/webpack-app",
+    },
+    {
+      "name": "📦 cli",
+      "path": "packages/cli",
     },
   ],
   "extensions": {
@@ -53,14 +61,17 @@
       "./examples/nextjs-app",
       "./examples/cli",
       "./packages/intlayer",
-      "./packages/transpiler",
+      "./packages/webpack-app",
+      "./packages/cli",
       "./utils/eslint-config",
     ],
     "jest.disabledWorkspaceFolders": [
       "🍂 next-app",
+      "🍂 react-app",
       "🍂 cli",
       "📦 intlayer",
-      "📦 transpiler",
+      "📦 webpack-app",
+      "📦 cli",
       "🪄 eslint-config",
     ],
   },
