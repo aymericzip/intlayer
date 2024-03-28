@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { listFiles } from './listFiles';
-import { getEntryKey, getEntryName, getEntryPath } from './utils';
+import { getEntryKey, getEntryName, getEntryPath } from './utils/formatEntries';
 
 export const createMainFile = async (
   entryPath: string,

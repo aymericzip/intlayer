@@ -1,4 +1,7 @@
-const identicFileNameTSContent = {
+import type { ContentModule } from 'intlayer';
+
+const identicFileNameTSContent: ContentModule = {
+  id: 'identicFileName - TS',
   testInSubPath: {
     en: 'Manage profile',
     fr: 'Gérer le profil',

@@ -1,7 +1,22 @@
+import { sync } from 'glob';
+import { parse } from 'path';
 import { HotModuleReplacementPlugin, type Configuration } from 'webpack';
-import { BUNDLE_DIR, ENTRY_PATH, FILE_EXTENSION, IntLayerPlugin } from './src';
-import { listFiles } from './src/listFiles';
-import { getEntryName } from './src/utils';
+import {
+  BUNDLE_DIR,
+  IntLayerPlugin,
+  WATCHED_FILES_PATTERN,
+  WATCHED_FILES_PATTERN_WITH_PATH,
+} from './src';
+
+const entry: Record<string, string> = sync(
+  WATCHED_FILES_PATTERN_WITH_PATH
+).reduce(
+  (obj, el) => {
+    obj[parse(el).name] = el;
+    return obj;
+  },
+  {} as Record<string, string>
+);
 
 const config: Configuration = {
   // Define the environment mode (development or production)
@@ -9,26 +24,7 @@ const config: Configuration = {
   // Entry point of the application
   target: 'node', // Specifies the target environment
 
-  entry: async () => {
-    // const mainFilePath = resolve(
-    //   ENTRY_PATH,
-    //   RESULT_FOLDER_NAME,
-    //   ENTRY_FILE_NAME
-    // );
-
-    const filesList: string[] = await listFiles(ENTRY_PATH, FILE_EXTENSION);
-
-    const filesEntries: Record<string, string> = filesList.reduce(
-      (acc, filePath, index) => {
-        const entryName = getEntryName(filePath, FILE_EXTENSION, index);
-        acc[entryName] = filePath; // Correct syntax for adding a property to an object in JavaScript
-        return acc;
-      },
-      {} as Record<string, string>
-    );
-
-    return filesEntries;
-  },
+  entry,
   output: {
     clean: true, // Clean the output directory before emit
     library: 'IntlLayerContent',
@@ -55,7 +51,7 @@ const config: Configuration = {
   devServer: {
     hot: true,
     static: BUNDLE_DIR,
-    watchFiles: FILE_EXTENSION.map((ext) => `**/*${ext}`),
+    watchFiles: WATCHED_FILES_PATTERN,
   },
 };
 

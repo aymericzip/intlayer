@@ -1,6 +1,11 @@
-import { resolve } from 'path';
+import { sync } from 'glob';
+import { relative, resolve } from 'path';
 import type { Compiler } from 'webpack-dev-server';
-import { BUNDLE_DIR } from '../settings';
+import {
+  BUNDLE_DIR,
+  DIR_PATH,
+  OUTPUT_FILES_PATTERN_WITH_PATH,
+} from '../settings';
 import { transpileBundledCode } from './transpileBundledCode';
 
 export class IntLayerPlugin {
@@ -12,14 +17,9 @@ export class IntLayerPlugin {
 
   apply(compiler: Compiler): void {
     // Code to run before the compilation starts
-    compiler.hooks.environment.tap('IntLayerPlugin', async () => {
-      // await createMainFile(
-      //   ENTRY_PATH,
-      //   ENTRY_FILE_NAME,
-      //   RESULT_FOLDER_NAME,
-      //   FILE_EXTENSION
-      // ).catch((err) => console.error('Error creating main file:', err));
-    });
+    // compiler.hooks.environment.tap('IntLayerPlugin', async () => {
+
+    // });
 
     compiler.hooks.emit.tapAsync('IntLayerPlugin', (compilation, callback) => {
       // Get a set of files that will be emitted in this compilation
@@ -45,20 +45,21 @@ export class IntLayerPlugin {
 
     // Code to run after the compilation has completed
     compiler.hooks.done.tap('IntLayerPlugin', async () => {
-      // await transpileTsCode(
-      //   ENTRY_PATH,
-      //   RESULT_FOLDER_NAME,
-      //   ENTRY_FILE_NAME,
-      //   OUTPUT_FILE_NAME
-      // );
-
       const outputFiles = [...this.previousEmitFiles].map((file) =>
         resolve(BUNDLE_DIR, file)
       );
 
-      console.log('Current emit files:', outputFiles);
-
       await transpileBundledCode(outputFiles);
+
+      const dictionaries = sync(OUTPUT_FILES_PATTERN_WITH_PATH);
+
+      console.info(
+        `Dictionaries: \n ${dictionaries.map(getRelativePath).join('\n')}`
+      );
     });
   }
 }
+
+const getRelativePath = (filePath: string) => {
+  return relative(DIR_PATH, filePath);
+};

@@ -7,7 +7,6 @@ module.exports = {
   },
   rules: {
     // optional overrides
-    'no-console': 'off',
     "@typescript-eslint/no-var-requires": "off"
 
   },

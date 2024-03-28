@@ -16,6 +16,6 @@ module.exports = {
         singleReturnOnly: false,
       },
     ],
-    'no-console': ['warn', { allow: ['warn', 'error'] }],
+    'no-console': ['warn', { allow: ['warn', 'info', 'error'] }],
   },
 };

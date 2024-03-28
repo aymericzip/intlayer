@@ -6,12 +6,13 @@ import {
 
 export type LanguageContent<Content> = Record<Locales, Content>;
 
-type Content = Partial<LanguageContent<string>> & NoteStackTraceInfo;
+export type TranslationContent = Partial<LanguageContent<string>> &
+  NoteStackTraceInfo;
 
 /**
  * Create a JSON string with the content and the stack trace information
  * @param {string | Partial<LanguageContent<string>>} content - The content to be translated
- * @returns {string} A JSON string containing the content and stack trace information
+ * @returns { TranslationContent } A JSON string containing the content and stack trace information
  */
 export const translations = (
   content?: Partial<LanguageContent<string>> | string
@@ -19,7 +20,7 @@ export const translations = (
   const stackTraceInfo = getStackTraceInfo();
 
   if (typeof content === 'string') {
-    const result: Content = {
+    const result: TranslationContent = {
       ...stackTraceInfo,
       [defaultLocale]: content,
     };
@@ -27,7 +28,7 @@ export const translations = (
     return result;
   }
 
-  const result: Content = {
+  const result: TranslationContent = {
     ...stackTraceInfo,
     ...content,
   };

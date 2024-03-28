@@ -63,6 +63,8 @@
     "yargs": "^17.7.2"
   },
   "dependencies": {
+    "@swc/register": "^0.1.10",
+    "glob": "^10.3.10",
     "intlayer": "workspace:^"
   },
   "engines": {

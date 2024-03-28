@@ -2,7 +2,8 @@ import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { DICTIONARIES_DIR } from '../settings';
-import { getEntryName } from './utils';
+import { extractObjectsWithId } from './extractNestedJSON';
+import { processModule } from './processModule';
 
 export const transpileBundledCode = async (
   bundledEntriesPaths: string[] | string
@@ -16,11 +17,6 @@ export const transpileBundledCode = async (
 
   for (const bundledEntryPath of bundledEntriesPaths) {
     const entryFilePath = resolve(bundledEntryPath);
-    const bundledEntryName = getEntryName(entryFilePath, ['.bundle.js']);
-
-    const outputFileName = `${bundledEntryName}.json`;
-
-    const resultFilePath = resolve(DICTIONARIES_DIR, outputFileName);
 
     const isEntryFilePathExist = existsSync(entryFilePath);
 
@@ -31,18 +27,30 @@ export const transpileBundledCode = async (
 
     try {
       const entry = require(entryFilePath);
-      const result = entry.default ?? entry;
+      let result;
 
-      const resultString = JSON.stringify(result);
+      if (entry.default) {
+        // JS or TS file
+        result = await processModule(entryFilePath);
+      } else {
+        // JSON file
+        result = entry;
+      }
 
-      // Create the json file
-      await writeFile(resultFilePath, resultString, 'utf8')
-        .then(() => {
-          console.log(`${outputFileName} has been created successfully.`);
-        })
-        .catch((err) => {
+      const nestedContent = extractObjectsWithId(result);
+
+      for (const content of nestedContent) {
+        const contentString = JSON.stringify(content);
+
+        const id = content.id;
+        const outputFileName = `${id}.json`;
+        const resultFilePath = resolve(DICTIONARIES_DIR, outputFileName);
+
+        // Create the json file
+        await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
           console.error(`Error creating ${outputFileName}:`, err);
         });
+      }
     } catch (err) {
       console.error(`Error transpiling ${entryFilePath}:`, err);
     }

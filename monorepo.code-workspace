@@ -13,8 +13,8 @@
       "path": "examples/nextjs-app",
     },
     {
-      "name": "🍂 simple files",
-      "path": "examples/simple-file",
+      "name": "🍂 CLI",
+      "path": "examples/cli",
     },
     {
       "name": "📦 intlayer",
@@ -51,14 +51,14 @@
     // https://github.com/Microsoft/vscode-eslint#mono-repository-setup
     "eslint.workingDirectories": [
       "./examples/nextjs-app",
-      "./examples/simple-file",
+      "./examples/cli",
       "./packages/intlayer",
       "./packages/transpiler",
       "./utils/eslint-config",
     ],
     "jest.disabledWorkspaceFolders": [
       "🍂 next-app",
-      "🍂 simple-file",
+      "🍂 cli",
       "📦 intlayer",
       "📦 transpiler",
       "🪄 eslint-config",
