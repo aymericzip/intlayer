@@ -33,6 +33,7 @@
   },
   "packageManager": "pnpm@8.15.4",
   "dependencies": {
+    "@changesets/cli": "2.27.1",
     "@utils/eslint-config": "workspace:^",
     "@vitejs/plugin-react": "^4.2.1",
     "vite-tsconfig-paths": "^4.3.2",
