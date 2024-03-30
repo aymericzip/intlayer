@@ -1,12 +1,12 @@
 import { relative, resolve } from 'path';
 import { sync } from 'glob';
+import { getConfiguration } from 'intlayer-config';
 import type { Compiler } from 'webpack';
-import {
-  BUNDLE_DIR,
-  DIR_PATH,
-  OUTPUT_FILES_PATTERN_WITH_PATH,
-} from './settings';
+
 import { transpileBundledCode } from './transpiler/transpileBundledCode';
+
+const { bundleDir, outputFilesPatternWithPath, baseDirPath } =
+  getConfiguration();
 
 export class IntLayerPlugin {
   private previousEmitFiles: Set<string>;
@@ -44,12 +44,12 @@ export class IntLayerPlugin {
     // Code to run after the compilation has completed
     compiler.hooks.done.tap('IntLayerPlugin', async () => {
       const outputFiles = [...this.previousEmitFiles].map((file) =>
-        resolve(BUNDLE_DIR, file)
+        resolve(bundleDir, file)
       );
 
       await transpileBundledCode(outputFiles);
 
-      const dictionaries = sync(OUTPUT_FILES_PATTERN_WITH_PATH);
+      const dictionaries = sync(outputFilesPatternWithPath);
 
       console.info(
         `Dictionaries: \n ${dictionaries.map(getRelativePath).join('\n')}`
@@ -59,5 +59,5 @@ export class IntLayerPlugin {
 }
 
 const getRelativePath = (filePath: string) => {
-  return relative(DIR_PATH, filePath);
+  return relative(baseDirPath, filePath);
 };

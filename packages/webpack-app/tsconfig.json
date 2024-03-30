@@ -10,17 +10,13 @@
     "incremental": true,
     "resolveJsonModule": true,
     "strict": true,
-    "outDir": "dist",
-    "paths": {
-      "intlayer": ["../intlayer/src/index.ts"],
-      "intlayer-cli": ["../cli/src/index.ts"]
-    }
+    "outDir": "dist"
   },
   "ts-node": {
     "compilerOptions": {
-      "module": "commonjs"
+      "module": "CommonJS"
     }
   },
   "exclude": ["node_modules", "dist"],
-  "include": ["**/*"]
+  "include": ["src", "packages.json", "bin"]
 }

@@ -1,11 +1,12 @@
 import { parse } from 'path';
 import { sync } from 'glob';
+import { getConfiguration } from 'intlayer-config';
 import { HotModuleReplacementPlugin, type Configuration } from 'webpack';
-import { BUNDLE_DIR, IntLayerPlugin, WATCHED_FILES_PATTERN_WITH_PATH } from '.';
+import { IntLayerPlugin } from '.';
 
-const entry: Record<string, string> = sync(
-  WATCHED_FILES_PATTERN_WITH_PATH
-).reduce(
+const { bundleDir, watchedFilesPatternWithPath } = getConfiguration();
+
+const entry: Record<string, string> = sync(watchedFilesPatternWithPath).reduce(
   (obj, el) => {
     obj[parse(el).name] = el;
     return obj;
@@ -25,7 +26,7 @@ const config: Configuration = {
     library: 'IntlLayerContent',
     libraryTarget: 'umd',
     filename: '[name].bundle.js',
-    path: BUNDLE_DIR,
+    path: bundleDir,
   },
 
   // devtool: 'source-map',

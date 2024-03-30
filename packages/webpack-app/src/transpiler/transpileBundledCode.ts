@@ -1,9 +1,11 @@
 import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
-import { DICTIONARIES_DIR } from '../settings';
+import { getConfiguration } from 'intlayer-config';
 import { extractObjectsWithId } from './extractNestedJSON';
 import { processModule } from './processModule';
+
+const { dictionariesDir } = getConfiguration();
 
 export const transpileBundledCode = async (
   bundledEntriesPaths: string[] | string
@@ -13,7 +15,7 @@ export const transpileBundledCode = async (
   }
 
   // Create the dist folder if it doesn't exist
-  await mkdir(resolve(DICTIONARIES_DIR), { recursive: true });
+  await mkdir(resolve(dictionariesDir), { recursive: true });
 
   for (const bundledEntryPath of bundledEntriesPaths) {
     const entryFilePath = resolve(bundledEntryPath);
@@ -44,7 +46,7 @@ export const transpileBundledCode = async (
 
         const id = content.id;
         const outputFileName = `${id}.json`;
-        const resultFilePath = resolve(DICTIONARIES_DIR, outputFileName);
+        const resultFilePath = resolve(dictionariesDir, outputFileName);
 
         // Create the json file
         await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {

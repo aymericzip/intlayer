@@ -10,21 +10,39 @@
     "interface",
     "server"
   ],
+  "main": "dist/cjs/src/index.js",
   "exports": {
-    ".": "./dist/index.js",
-    "./package.json": "./package.json",
-    "./tsconfig.json": "./tsconfig.json"
+    ".": {
+      "types": "./dist/types/src/index.d.ts",
+      "require": "./dist/cjs/src/index.js",
+      "import": "./dist/esm/src/index.js",
+      "default": "./dist/esm/src/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "test": "",
-    "build": "tsc"
+    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "clean": "rimraf ./dist"
   },
-  "author": "",
-  "license": "ISC",
+  "private": false,
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aypineau"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aypineau/intlayer"
+  },
+  "bug": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
   "dependencies": {
     "commander": "^12.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30"
+    "@types/node": "^20.11.30",
+    "rimraf": "5.0.5"
   }
 }

@@ -32,6 +32,10 @@
       "name": "📦 cli",
       "path": "packages/cli",
     },
+    {
+      "name": "📦 config",
+      "path": "packages/config",
+    },
   ],
   "extensions": {
     "recommendations": [
@@ -63,6 +67,7 @@
       "./packages/intlayer",
       "./packages/webpack-app",
       "./packages/cli",
+      "./packages/config",
       "./utils/eslint-config",
     ],
     "jest.disabledWorkspaceFolders": [
@@ -72,6 +77,7 @@
       "📦 intlayer",
       "📦 webpack-app",
       "📦 cli",
+      "📦 config",
       "🪄 eslint-config",
     ],
   },

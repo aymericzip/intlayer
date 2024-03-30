@@ -16,6 +16,7 @@
   "scripts": {
     "test": "pnpm recursive run test --parallel",
     "build": "pnpm recursive run build",
+    "clean": "pnpm recursive run clean",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",

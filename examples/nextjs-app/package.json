@@ -2,6 +2,7 @@
   "name": "nextjs-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev && intlayer serve",
     "build": "intlayer build && next build",
@@ -11,6 +12,7 @@
     "intlayer build": "intlayer build"
   },
   "dependencies": {
+    "intlayer": "workspace:^",
     "intlayer-webpack-app": "workspace:^",
     "next": "14.1.4",
     "react": "^18",
