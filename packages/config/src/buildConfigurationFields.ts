@@ -93,7 +93,7 @@ export const buildConfigurationFields = (
     ),
 
     // Pattern of files to output
-    outputFilesPatternWithPath: `${baseDirDerivedConfiguration.resultDir}/**/*.json`,
+    outputFilesPatternWithPath: `${resultDirDerivedConfiguration.dictionariesDir}/**/*.json`,
   };
 
   storedConfiguration = {

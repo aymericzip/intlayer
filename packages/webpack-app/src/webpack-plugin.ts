@@ -1,60 +1,97 @@
-import { relative, resolve } from 'path';
+import { basename, extname, relative, resolve } from 'path';
+import { SHA3 } from 'crypto-js';
 import { sync } from 'glob';
 import { getConfiguration } from 'intlayer-config';
 import type { Compiler } from 'webpack';
 
 import { transpileBundledCode } from './transpiler/transpileBundledCode';
+import { getFileHash } from './utils';
 
-const { bundleDir, outputFilesPatternWithPath, baseDirPath } =
-  getConfiguration();
+const {
+  bundleDir,
+  outputFilesPatternWithPath,
+  baseDirPath,
+  bundleFileExtension,
+} = getConfiguration();
 
 export class IntLayerPlugin {
   private previousEmitFiles: Set<string>;
+  private changedFiles: Set<string>;
 
   constructor() {
     this.previousEmitFiles = new Set();
+    this.changedFiles = new Set();
   }
 
   apply(compiler: Compiler): void {
     // Code to run before the compilation starts
-    // compiler.hooks.environment.tap('IntLayerPlugin', async () => {
+    // compiler.hooks.environment.tap('IntLayerPlugin', async () => {});
 
-    // });
+    compiler.hooks.emit.tapAsync(
+      'IntLayerPlugin',
+      async (compilation, callback) => {
+        // Get a set of files that will be emitted in this compilation
+        const currentEmitFiles = new Set(Object.keys(compilation.assets));
 
-    compiler.hooks.emit.tapAsync('IntLayerPlugin', (compilation, callback) => {
-      // Get a set of files that will be emitted in this compilation
-      const currentEmitFiles = new Set(Object.keys(compilation.assets));
+        if (!this.previousEmitFiles.size) {
+          const outputFiles = [...currentEmitFiles].map((file) =>
+            resolve(bundleDir, file)
+          );
 
-      // Detect new files by comparing with files emitted in previous compilation
-      const newFiles = new Set(
-        [...currentEmitFiles].filter((x) => !this.previousEmitFiles.has(x))
-      );
+          await transpileBundledCode(outputFiles);
 
-      if (newFiles.size !== this.previousEmitFiles.size) {
-        console.info('New files detected:', [...newFiles]);
-        // Perform any specific logic when new files are detected
+          // Update previousEmitFiles for the next compilation
+          this.previousEmitFiles = currentEmitFiles;
+
+          const dictionaries = sync(outputFilesPatternWithPath);
+
+          console.info(
+            `Dictionaries: \n ${dictionaries.map(getRelativePath).join('\n')}`
+          );
+        } else {
+          // Detect new files by comparing with files emitted in previous compilation
+          const newFiles = new Set(
+            [...currentEmitFiles].filter((x) => !this.previousEmitFiles.has(x))
+          );
+
+          if (newFiles.size > 0) {
+            console.info('New files detected:', [...newFiles]);
+
+            // Update previousEmitFiles for the next compilation
+            this.previousEmitFiles = currentEmitFiles;
+          }
+        }
+
+        callback();
       }
+    );
 
-      // Update previousEmitFiles for the next compilation
-      this.previousEmitFiles = currentEmitFiles;
+    // Detect modified files on watch mode
+    compiler.hooks.watchRun.tap('IntLayerPlugin', (compilation) => {
+      if (compilation.modifiedFiles) {
+        const changedFiles = Array.from(compilation.modifiedFiles);
 
-      callback();
+        const outputFileNames = changedFiles.map((file) => {
+          const hash = getFileHash(file);
+
+          return `${bundleDir}/${hash}${bundleFileExtension}`;
+        });
+
+        this.changedFiles = new Set(outputFileNames);
+      }
     });
 
-    // Code to run after the compilation has completed
-    compiler.hooks.done.tap('IntLayerPlugin', async () => {
-      const outputFiles = [...this.previousEmitFiles].map((file) =>
-        resolve(bundleDir, file)
-      );
+    compiler.hooks.afterEmit.tapAsync(
+      'IntLayerPlugin',
+      async (compilation, callback) => {
+        if (this.changedFiles.size > 0) {
+          await transpileBundledCode([...this.changedFiles]);
 
-      await transpileBundledCode(outputFiles);
-
-      const dictionaries = sync(outputFilesPatternWithPath);
-
-      console.info(
-        `Dictionaries: \n ${dictionaries.map(getRelativePath).join('\n')}`
-      );
-    });
+          this.changedFiles.clear();
+        }
+        callback();
+      }
+    );
   }
 }
 

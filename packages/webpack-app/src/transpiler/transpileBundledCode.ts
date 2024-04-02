@@ -1,6 +1,7 @@
 import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
+import type { ContentModule } from 'intlayer';
 import { getConfiguration } from 'intlayer-config';
 import { extractObjectsWithId } from './extractNestedJSON';
 import { processModule } from './processModule';
@@ -34,8 +35,16 @@ export const transpileBundledCode = async (
     }
 
     try {
-      const entry = require(entryFilePath);
-      let result;
+      // Resolve the full path of the module
+      const fullPath = require.resolve(entryFilePath);
+
+      // Remove the module from the cache
+      delete require.cache[fullPath];
+
+      // Require the module anew
+      const entry = await import(fullPath);
+
+      let result: ContentModule | undefined;
 
       if (entry.default) {
         // JS or TS file
@@ -43,6 +52,11 @@ export const transpileBundledCode = async (
       } else {
         // JSON file
         result = entry;
+      }
+
+      if (!result) {
+        console.error(`No content found in ${entryFilePath}`);
+        continue;
       }
 
       const nestedContent = extractObjectsWithId(result);

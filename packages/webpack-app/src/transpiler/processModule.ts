@@ -4,7 +4,8 @@ import type { Content, ContentModule } from 'intlayer';
 // Function to load and evaluate the module file
 const loadModule = async (modulePath: string): Promise<ContentModule> => {
   // @TODO: Sandbox the module to prevent malicious code execution
-  return await require(modulePath).default;
+
+  return (await import(modulePath)).default;
 };
 
 // Function to replace async function fields with their results

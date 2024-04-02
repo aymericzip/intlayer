@@ -1,22 +1,55 @@
 import { join } from 'path';
 import { sync } from 'glob';
 import { getConfiguration } from 'intlayer-config';
-import { v4 as uuidv4 } from 'uuid';
-import { HotModuleReplacementPlugin, type Configuration } from 'webpack';
+import type {
+  // HotModuleReplacementPlugin,
+  Configuration as WebPackConfiguration,
+} from 'webpack';
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { IntLayerPlugin } from './src';
+import { getFileHash } from './src/utils';
 
 const { bundleDir, watchedFilesPatternWithPath, bundleFileExtension } =
   getConfiguration();
 
 const entry: Record<string, string> = sync(watchedFilesPatternWithPath).reduce(
   (obj, el) => {
-    obj[uuidv4()] = el;
+    const hash = getFileHash(el);
+
+    obj[hash] = el;
     return obj;
   },
   {} as Record<string, string>
 );
 
-const config: Configuration = {
+console.info('ENTRY:', entry);
+
+// For web interface
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const devServerConfig: DevServerConfiguration = {
+  // Enable hot module replacement
+  hot: true,
+
+  // Open the browser
+  open: true,
+
+  // Enable compression
+  compress: true,
+
+  // History API fallback
+  historyApiFallback: true,
+
+  // Host and port
+  host: 'localhost',
+  port: 8080,
+
+  // Content base
+  static: {
+    directory: bundleDir,
+  },
+};
+
+const webpackConfig: WebPackConfiguration = {
   // Define the environment mode (development or production)
   mode: 'production', // or 'production'
   // Entry point of the application
@@ -32,10 +65,7 @@ const config: Configuration = {
   },
 
   // devtool: 'source-map',
-  // stats: {
-  //   // errorDetails: true,
-  //   warnings: false,
-  // },
+
   stats: 'errors-only',
   resolve: {
     // Resolve TypeScript, JavaScript and JSON files
@@ -96,8 +126,12 @@ const config: Configuration = {
       // JSON files are supported natively by Webpack 5, no specific loader required
     ],
   },
+  // devServer: devServerConfig,
 
-  plugins: [new IntLayerPlugin(), new HotModuleReplacementPlugin()],
+  plugins: [
+    new IntLayerPlugin(),
+    // new HotModuleReplacementPlugin()
+  ],
 };
 
-export default config;
+export default webpackConfig;

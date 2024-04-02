@@ -214,6 +214,9 @@ importers:
       '@swc/wasm':
         specifier: ^1.4.11
         version: 1.4.11
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
       glob:
         specifier: ^10.3.10
         version: 10.3.10
@@ -244,9 +247,6 @@ importers:
       util:
         specifier: ^0.12.5
         version: 0.12.5
-      uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
       webpack:
         specifier: ^5.91.0
         version: 5.91.0(@swc/core@1.4.11)(webpack-cli@5.1.4)
@@ -272,6 +272,9 @@ importers:
       '@swc/core':
         specifier: ^1.4.11
         version: 1.4.11
+      '@types/crypto-js':
+        specifier: ^4.2.2
+        version: 4.2.2
       '@types/node':
         specifier: ^20.11.30
         version: 20.11.30
@@ -4892,6 +4895,13 @@ packages:
       '@types/node': 20.11.30
     dev: true
 
+  /@types/crypto-js@4.2.2:
+    resolution:
+      {
+        integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==,
+      }
+    dev: true
+
   /@types/debug@4.1.12:
     resolution:
       {
@@ -8186,6 +8196,13 @@ packages:
       randombytes: 2.1.0
       randomfill: 1.0.4
     dev: true
+
+  /crypto-js@4.2.0:
+    resolution:
+      {
+        integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==,
+      }
+    dev: false
 
   /crypto-random-string@2.0.0:
     resolution:
@@ -20618,14 +20635,6 @@ packages:
         integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==,
       }
     hasBin: true
-
-  /uuid@9.0.1:
-    resolution:
-      {
-        integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==,
-      }
-    hasBin: true
-    dev: false
 
   /uvu@0.5.6:
     resolution:
