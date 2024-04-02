@@ -1,5 +1,5 @@
 import type { Compiler } from 'webpack';
-import * as WebpackDevServer from 'webpack-dev-server';
+const WebpackDevServer = require('webpack-dev-server');
 
 export const startServer = (compiler: Compiler) => {
   // Define options for webpack-dev-server

@@ -8,6 +8,7 @@ import {
   RESULT_DIR_NAME,
   EXCLUDED_PATHS,
   BASE_DIR_PATH,
+  BUNDLE_FILE_EXTENSION,
 } from './defaultValues/server';
 import type {
   BaseDirDerivedConfiguration,
@@ -47,6 +48,9 @@ export const buildConfigurationFields = (
     resultDirName: customConfiguration?.resultDirName ?? RESULT_DIR_NAME,
     // Bundle directory name
     bundleDirName: customConfiguration?.bundleDirName ?? BUNDLE_DIR_NAME,
+    // Bundle file extension
+    bundleFileExtension:
+      customConfiguration?.bundleFileExtension ?? BUNDLE_FILE_EXTENSION,
     // Dictionary directory name
     dictionariesDirName:
       customConfiguration?.dictionariesDirName ?? DICTIONARIES_DIR_NAME,

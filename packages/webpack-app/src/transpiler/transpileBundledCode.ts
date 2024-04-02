@@ -5,7 +5,7 @@ import { getConfiguration } from 'intlayer-config';
 import { extractObjectsWithId } from './extractNestedJSON';
 import { processModule } from './processModule';
 
-const { dictionariesDir } = getConfiguration();
+const { dictionariesDir, bundleFileExtension } = getConfiguration();
 
 export const transpileBundledCode = async (
   bundledEntriesPaths: string[] | string
@@ -14,7 +14,7 @@ export const transpileBundledCode = async (
     bundledEntriesPaths = [bundledEntriesPaths];
   }
 
-  // Create the dist folder if it doesn't exist
+  // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dictionariesDir), { recursive: true });
 
   for (const bundledEntryPath of bundledEntriesPaths) {
@@ -25,6 +25,12 @@ export const transpileBundledCode = async (
     if (!isEntryFilePathExist) {
       console.error('Entry file not found. ' + entryFilePath);
       return;
+    }
+
+    const isEntryPathValid = entryFilePath.endsWith(bundleFileExtension);
+
+    if (!isEntryPathValid) {
+      continue;
     }
 
     try {

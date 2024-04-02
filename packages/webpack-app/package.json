@@ -11,7 +11,6 @@
     "json",
     "file"
   ],
-  "type": "commonjs",
   "version": "0.0.0",
   "private": false,
   "author": {
@@ -28,10 +27,11 @@
     "url": "https://github.com/aypineau/intlayer/issues"
   },
   "scripts": {
-    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json ./tsconfig.bin.json",
-    "dev": "webpack serve --config ./src/webpack.config.ts",
-    "serve": "webpack serve --config ./dist/intlayer-webpack-app/src/webpack.config.js",
-    "transpile": "webpack --config ./dist/intlayer-webpack-app/src/webpack.config.js",
+    "build-src": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "build-bin": "tsc -b ./tsconfig.bin.json",
+    "build": "pnpm build-src && pnpm build-bin",
+    "serve": "webpack serve --config ./webpack.config.ts",
+    "transpile": "webpack --config ./webpack.config.ts",
     "clean": "rimraf ./dist",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
@@ -42,7 +42,7 @@
     "intlayer": "./dist/bin/bin/cli.js"
   },
   "module": "dist/intlayer-webpack-app/index.js",
-  "main": "dist/cjs/webpack-app/src/index.js",
+  "main": "src/index.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -68,19 +68,30 @@
   "devDependencies": {
     "@changesets/changelog-github": "0.5.0",
     "@changesets/cli": "2.27.1",
+    "@swc/cli": "^0.3.10",
+    "@swc/core": "^1.4.11",
     "@types/node": "^20.11.30",
+    "@types/uuid": "^9.0.8",
     "@types/yargs": "^17.0.32",
     "@utils/eslint-config": "workspace:^",
-    "rimraf": "5.0.5",
-    "ts-loader": "^9.5.1",
+    "node-polyfill-webpack-plugin": "^3.0.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@swc-node/register": "^1.9.0",
+    "@swc/register": "^0.1.10",
+    "@swc/wasm": "^1.4.11",
     "glob": "^10.3.10",
     "intlayer": "workspace:^",
     "intlayer-cli": "workspace:^",
     "intlayer-config": "workspace:^",
+    "intlayer-webpack-app": "link:dist/bin",
+    "node-loader": "^2.0.0",
+    "swc-loader": "^0.2.6",
+    "ts-loader": "^9.5.1",
+    "util": "^0.12.5",
+    "uuid": "^9.0.1",
+    "rimraf": "5.0.5",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4",

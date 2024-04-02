@@ -4,7 +4,7 @@ import { setAPI } from 'intlayer-cli';
 import { webpack } from 'webpack';
 import * as packageJson from '../package.json';
 import { startServer, bundle } from '../src/scripts';
-import webpackConfig from '../src/webpack.config';
+import webpackConfig from '../webpack.config';
 
 // Create a Webpack compiler instance with your configuration
 const compiler = webpack(webpackConfig);

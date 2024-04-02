@@ -1,4 +1,6 @@
-import { runInNewContext } from 'vm';
+/* eslint-disable @typescript-eslint/no-var-requires */
+import { readFileSync } from 'fs';
+import { type Context, runInNewContext } from 'vm';
 import { transformFileSync } from '@swc/core';
 import { searchConfigurationFile } from './searchConfigurationFile';
 import type { CustomIntlayerConfig } from './types';
@@ -17,47 +19,58 @@ export const loadConfigurationFile = (
   const configFileExtension = configFilePath.split('.').pop() ?? '';
 
   try {
-    if (['ts', 'js', 'mjs'].includes(configFileExtension)) {
-      // Transpile the code
-      const moduleResult = transformFileSync(configFilePath, {
-        jsc: {
-          target: 'es5',
-        },
-        module: {
-          type: 'commonjs',
-        },
-      }).code;
+    if (configFileExtension === 'json') {
+      // Assume JSON
+      return require(configFilePath);
+    }
 
-      // Run the transpiled code and get the result
-      const sandbox = {
-        exports: {
-          default: {},
-        },
-        module: {
-          exports: {},
-        },
-        console: console,
-        require: require,
-      };
+    if (configFileExtension === 'cjs') {
+      // Load CJS directly
+      return require(configFilePath).default;
+    }
 
-      runInNewContext(moduleResult, sandbox);
+    // Rest is JS, MJS or TS
 
-      if (Object.keys(sandbox.exports.default).length > 0) {
-        // ES Module
-        customConfiguration = sandbox.exports.default;
-      } else if (Object.keys(sandbox.module.exports).length > 0) {
-        // CommonJS
-        customConfiguration = sandbox.module.exports;
-      }
-    } else if (configFileExtension === 'cjs') {
+    let isESModule = false;
+
+    // For .js files, attempt to determine if they're using ES Module syntax
+    if (configFileExtension === 'js') {
+      const fileContents = readFileSync(configFilePath, 'utf8');
+
+      isESModule = fileContents.match(/import |export /) !== null;
+    }
+
+    const type =
+      isESModule || configFileExtension === 'mjs' ? 'es6' : 'commonjs';
+
+    const moduleResult = transformFileSync(configFilePath, {
+      jsc: {
+        target: 'es5',
+      },
+      module: {
+        type,
+      },
+    }).code;
+
+    const sandbox: Context = {
+      exports: {
+        default: {},
+      },
+      module: {
+        exports: {},
+      },
+      console: console,
+      require: require,
+    };
+
+    runInNewContext(moduleResult, sandbox);
+
+    if (Object.keys(sandbox.exports.default).length > 0) {
+      // ES Module
+      customConfiguration = sandbox.exports.default;
+    } else if (Object.keys(sandbox.module.exports).length > 0) {
       // CommonJS
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const configurationFileContent = require(configFilePath);
-
-      customConfiguration = configurationFileContent.default;
-    } else {
-      // JSON
-      customConfiguration = require(configFilePath);
+      customConfiguration = sandbox.module.exports;
     }
 
     return customConfiguration;

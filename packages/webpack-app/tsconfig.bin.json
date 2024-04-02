@@ -1,11 +1,22 @@
 {
   "extends": "./tsconfig.json",
+
   "compilerOptions": {
+    // "module": "AMD",
+
+    "module": "CommonJS",
+    "target": "ESNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "./dist/bin",
-    "declaration": true,
-    "module": "commonjs",
     "resolveJsonModule": true,
-    "strict": true
+    "baseUrl": "./bin"
+    // "noResolve": true
+
+    // "outFile": "./dist/bin/cli.js"
   },
-  "include": ["bin"]
+  "include": ["./bin/cli.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "src"]
 }

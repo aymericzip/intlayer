@@ -6,7 +6,6 @@
     "lib": ["esnext", "DOM"],
     "module": "CommonJS",
     "declaration": true,
-    "noEmit": false,
     "incremental": true,
     "resolveJsonModule": true,
     "strict": true,
@@ -17,6 +16,12 @@
       "module": "CommonJS"
     }
   },
-  "exclude": ["node_modules", "dist"],
-  "include": ["src", "packages.json", "bin"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*.stories.*"
+  ],
+  "include": ["src", "bin", "packages.json", "webpack.config.ts"]
 }

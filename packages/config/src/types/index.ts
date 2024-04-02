@@ -42,6 +42,9 @@ export type CustomIntlayerConfig = Partial<{
   // Bundle directory
   bundleDir: string; // default {{resultDir}} / {{bundleDirName}}
 
+  // Bundle file extension
+  bundleFileExtension: string; // default '.bundle.js'
+
   // Dictionary directory name
   dictionariesDirName: string; // default 'dictionary'
 

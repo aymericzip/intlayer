@@ -17,11 +17,13 @@
     "url": "https://github.com/aypineau/intlayer/issues"
   },
   "scripts": {
-    "test": ""
+    "test": "",
+    "build": "npx intlayer build"
   },
   "keywords": [],
   "dependencies": {
-    "intlayer": "workspace:*"
+    "intlayer": "workspace:*",
+    "intlayer-webpack-app": "workspace:^"
   },
   "devDependencies": {
     "typescript": "^5.4.3"
