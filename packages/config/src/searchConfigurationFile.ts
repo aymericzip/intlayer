@@ -1,6 +1,5 @@
 import { existsSync } from 'fs';
-import { relative, resolve } from 'path';
-import { BASE_DIR_PATH } from './defaultValues/server';
+import { resolve } from 'path';
 
 const EXTENSION = ['ts', 'js', 'json', 'cjs', 'mjs', ''];
 const CONFIGURATION_FILE_NAME_1 = 'intlayer.config';
@@ -12,9 +11,15 @@ const intLayerConfigFiles = EXTENSION.filter(
 
 const configurationFiles = [...intLayerConfigFiles, CONFIGURATION_FILE_NAME_2];
 
+type SearchConfigurationFileResult = {
+  configurationFilePath?: string;
+  numCustomConfiguration: number;
+};
+
 export const searchConfigurationFile = (
-  configFilePath: string
-): string | undefined => {
+  configFilePath: string,
+  verbose = false
+): SearchConfigurationFileResult => {
   let configurationFilePath: string | undefined = undefined;
   let numCustomConfiguration = 0;
 
@@ -26,11 +31,7 @@ export const searchConfigurationFile = (
       if (!existsSync(filePath)) {
         continue;
       } else {
-        const relativeOutputPath = relative(BASE_DIR_PATH, filePath);
-
         numCustomConfiguration += 1;
-
-        console.info(`Configuration file found: ${relativeOutputPath}`);
 
         if (!configurationFilePath) {
           configurationFilePath = filePath;
@@ -44,15 +45,5 @@ export const searchConfigurationFile = (
     }
   }
 
-  if (numCustomConfiguration === 0) {
-    console.info('Configuration file not found, using default configuration.');
-  } else if (numCustomConfiguration > 1) {
-    const relativeOutputPath = relative(BASE_DIR_PATH, configurationFilePath!);
-
-    console.warn(
-      `Multiple configuration files found, using ${relativeOutputPath}.`
-    );
-  }
-
-  return configurationFilePath;
+  return { configurationFilePath, numCustomConfiguration };
 };

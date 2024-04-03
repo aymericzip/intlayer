@@ -5,12 +5,15 @@ import type {
   // HotModuleReplacementPlugin,
   Configuration as WebPackConfiguration,
 } from 'webpack';
-import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
+import type {
+  Configuration as DevServerConfiguration,
+  WatchOptions,
+} from 'webpack-dev-server';
 import { IntLayerPlugin } from './src';
 import { getFileHash } from './src/utils';
 
 const { bundleDir, watchedFilesPatternWithPath, bundleFileExtension } =
-  getConfiguration();
+  getConfiguration({ verbose: true });
 
 const entry: Record<string, string> = sync(watchedFilesPatternWithPath).reduce(
   (obj, el) => {
@@ -22,11 +25,9 @@ const entry: Record<string, string> = sync(watchedFilesPatternWithPath).reduce(
   {} as Record<string, string>
 );
 
-console.info('ENTRY:', entry);
-
 // For web interface
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const devServerConfig: DevServerConfiguration = {
+export const devServerConfig: DevServerConfiguration = {
   // Enable hot module replacement
   hot: true,
 
@@ -49,7 +50,7 @@ const devServerConfig: DevServerConfiguration = {
   },
 };
 
-const webpackConfig: WebPackConfiguration = {
+export const webpackConfig: WebPackConfiguration = {
   // Define the environment mode (development or production)
   mode: 'production', // or 'production'
   // Entry point of the application
@@ -66,7 +67,11 @@ const webpackConfig: WebPackConfiguration = {
 
   // devtool: 'source-map',
 
-  stats: 'errors-only',
+  stats: {
+    preset: 'errors-only',
+    warnings: false,
+  },
+  ignoreWarnings: [/./],
   resolve: {
     // Resolve TypeScript, JavaScript and JSON files
     extensions: ['.ts', '.js', '.json'],

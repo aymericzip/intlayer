@@ -2,14 +2,14 @@
   "name": "nextjs-app",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev && intlayer serve",
     "build": "intlayer build && next build",
     "start": "next start",
     "lint": "next lint",
-    "intlayer serve": "intlayer serve",
-    "intlayer build": "intlayer build"
+    "watch": "npx intlayer watch",
+    "serve": "npx intlayer serve",
+    "transpile": "npx intlayer transpile"
   },
   "dependencies": {
     "intlayer": "workspace:^",

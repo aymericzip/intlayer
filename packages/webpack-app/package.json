@@ -88,7 +88,6 @@
     "intlayer": "workspace:^",
     "intlayer-cli": "workspace:^",
     "intlayer-config": "workspace:^",
-    "intlayer-webpack-app": "link:dist/bin",
     "node-loader": "^2.0.0",
     "rimraf": "5.0.5",
     "swc-loader": "^0.2.6",

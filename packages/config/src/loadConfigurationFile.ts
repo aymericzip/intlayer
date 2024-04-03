@@ -2,19 +2,12 @@
 import { readFileSync } from 'fs';
 import { type Context, runInNewContext } from 'vm';
 import { transformFileSync } from '@swc/core';
-import { searchConfigurationFile } from './searchConfigurationFile';
 import type { CustomIntlayerConfig } from './types';
 
 export const loadConfigurationFile = (
-  baseDirPath: string
+  configFilePath: string
 ): CustomIntlayerConfig | undefined => {
   let customConfiguration: CustomIntlayerConfig | undefined = undefined;
-
-  const configFilePath = searchConfigurationFile(baseDirPath);
-
-  if (!configFilePath) {
-    return;
-  }
 
   const configFileExtension = configFilePath.split('.').pop() ?? '';
 

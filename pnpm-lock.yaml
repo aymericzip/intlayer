@@ -42,7 +42,7 @@ importers:
   examples/cli:
     dependencies:
       intlayer:
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/intlayer
       intlayer-webpack-app:
         specifier: workspace:^
@@ -229,9 +229,6 @@ importers:
       intlayer-config:
         specifier: workspace:^
         version: link:../config
-      intlayer-webpack-app:
-        specifier: link:dist/bin
-        version: link:dist/bin
       node-loader:
         specifier: ^2.0.0
         version: 2.0.0(webpack@5.91.0)
