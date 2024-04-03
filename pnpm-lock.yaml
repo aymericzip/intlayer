@@ -292,11 +292,10 @@ importers:
         version: 5.4.3
 
   utils/eslint-config:
-    dependencies:
+    devDependencies:
       '@rushstack/eslint-patch':
         specifier: ^1.8.0
         version: 1.8.0
-    devDependencies:
       '@types/node':
         specifier: ^20.11.30
         version: 20.11.30
@@ -312,9 +311,6 @@ importers:
       eslint-import-resolver-typescript:
         specifier: ^3.6.1
         version: 3.6.1(@typescript-eslint/parser@7.4.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-patch:
-        specifier: link:@types/rushstack/eslint-patch
-        version: link:@types/rushstack/eslint-patch
       eslint-plugin-import:
         specifier: ^2.29.1
         version: 2.29.1(@typescript-eslint/parser@7.4.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
