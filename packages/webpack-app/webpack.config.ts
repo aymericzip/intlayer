@@ -5,10 +5,7 @@ import type {
   // HotModuleReplacementPlugin,
   Configuration as WebPackConfiguration,
 } from 'webpack';
-import type {
-  Configuration as DevServerConfiguration,
-  WatchOptions,
-} from 'webpack-dev-server';
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { IntLayerPlugin } from './src';
 import { getFileHash } from './src/utils';
 

@@ -51,6 +51,18 @@ export type CustomIntlayerConfig = Partial<{
   // Dictionary directory
   dictionariesDir: string; // default {{resultDir}} / {{dictionaryDirName}}
 
+  // Types directory name
+  typeDirName: string; // default 'types'
+
+  // Types directory
+  typesDir: string; // default {{resultDir}} / {{typeDirName}}
+
+  // Main directory name
+  mainDirName: string; // default 'main'
+
+  // Main directory
+  mainDir: string; // default {{resultDir}} / {{mainDirName}}
+
   /**
    * Server configuration
    */
@@ -69,7 +81,12 @@ export type FixedIntlayerConfig = {
 
 export type NotDerivedConfiguration = Omit<
   Required<CustomIntlayerConfig>,
-  'contentDir' | 'resultDir' | 'bundleDir' | 'dictionariesDir'
+  | 'contentDir'
+  | 'resultDir'
+  | 'bundleDir'
+  | 'dictionariesDir'
+  | 'typesDir'
+  | 'mainDir'
 >;
 
 export type BaseDirDerivedConfiguration = Pick<
@@ -79,7 +96,7 @@ export type BaseDirDerivedConfiguration = Pick<
 
 export type ResultDirDerivedConfiguration = Pick<
   Required<CustomIntlayerConfig>,
-  'bundleDir' | 'dictionariesDir'
+  'bundleDir' | 'dictionariesDir' | 'typesDir' | 'mainDir'
 >;
 
 export type IntlayerConfig = Required<CustomIntlayerConfig> &

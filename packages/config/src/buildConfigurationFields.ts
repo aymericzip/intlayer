@@ -9,6 +9,8 @@ import {
   EXCLUDED_PATHS,
   BASE_DIR_PATH,
   BUNDLE_FILE_EXTENSION,
+  TYPES_DIR_NAME,
+  MAIN_DIR_NAME,
 } from './defaultValues/server';
 import type {
   BaseDirDerivedConfiguration,
@@ -54,6 +56,10 @@ export const buildConfigurationFields = (
     // Dictionary directory name
     dictionariesDirName:
       customConfiguration?.dictionariesDirName ?? DICTIONARIES_DIR_NAME,
+    // Types directory name
+    typeDirName: customConfiguration?.typeDirName ?? TYPES_DIR_NAME,
+    // Main directory name
+    mainDirName: customConfiguration?.mainDirName ?? MAIN_DIR_NAME,
     // Directories to exclude
     excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
   };
@@ -78,6 +84,16 @@ export const buildConfigurationFields = (
     dictionariesDir: resolve(
       baseDirDerivedConfiguration.resultDir,
       configuration.dictionariesDirName
+    ),
+    // Directory where the types will be stored
+    typesDir: resolve(
+      baseDirDerivedConfiguration.resultDir,
+      configuration.typeDirName
+    ),
+    // Directory where the main files will be stored
+    mainDir: resolve(
+      baseDirDerivedConfiguration.resultDir,
+      configuration.mainDirName
     ),
   };
 

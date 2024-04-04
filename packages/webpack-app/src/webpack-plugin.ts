@@ -1,18 +1,21 @@
-import { basename, extname, relative, resolve } from 'path';
-import { SHA3 } from 'crypto-js';
-import { sync } from 'glob';
+import { relative, resolve } from 'path';
 import { getConfiguration } from 'intlayer-config';
 import type { Compiler } from 'webpack';
-
-import { transpileBundledCode } from './transpiler/transpileBundledCode';
+import { createDictionaryList } from './transpiler/dictionary_to_main/createDictionaryList';
+import { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAumgentation';
+import { createTypes } from './transpiler/dictionary_to_type/createType';
+import { transpileBundledCode } from './transpiler/intlater_module_to_dictionary/transpileBundledCode';
 import { getFileHash } from './utils';
 
-const {
-  bundleDir,
-  outputFilesPatternWithPath,
-  baseDirPath,
-  bundleFileExtension,
-} = getConfiguration();
+const getRelativePath = (filePath: string) => relative(baseDirPath, filePath);
+
+const getBundledFilePathFromIntlayerModule = (filePath: string): string => {
+  const hash = getFileHash(filePath);
+
+  return `${bundleDir}/${hash}${bundleFileExtension}`;
+};
+
+const { bundleDir, baseDirPath, bundleFileExtension } = getConfiguration();
 
 export class IntLayerPlugin {
   private previousEmitFiles: Set<string>;
@@ -27,6 +30,7 @@ export class IntLayerPlugin {
     // Code to run before the compilation starts
     // compiler.hooks.environment.tap('IntLayerPlugin', async () => {});
 
+    // Code to run after the compilation has been made
     compiler.hooks.emit.tapAsync(
       'IntLayerPlugin',
       async (compilation, callback) => {
@@ -34,20 +38,27 @@ export class IntLayerPlugin {
         const currentEmitFiles = new Set(Object.keys(compilation.assets));
 
         if (!this.previousEmitFiles.size) {
+          // Update previousEmitFiles for the next compilation
+          this.previousEmitFiles = currentEmitFiles;
+
           const outputFiles = [...currentEmitFiles].map((file) =>
             resolve(bundleDir, file)
           );
 
-          await transpileBundledCode(outputFiles);
-
-          // Update previousEmitFiles for the next compilation
-          this.previousEmitFiles = currentEmitFiles;
-
-          const dictionaries = sync(outputFilesPatternWithPath);
+          const dictionaries = (await transpileBundledCode(outputFiles)) ?? [];
 
           console.info(
             `Dictionaries: \n ${dictionaries.map(getRelativePath).join('\n')}`
           );
+
+          console.info('Building TypeScript types...');
+          createTypes(dictionaries);
+
+          console.info('Building type index...');
+          createModuleAugmentation();
+
+          console.info('Building main...');
+          createDictionaryList();
         } else {
           // Detect new files by comparing with files emitted in previous compilation
           const newFiles = new Set(
@@ -71,21 +82,27 @@ export class IntLayerPlugin {
       if (compilation.modifiedFiles) {
         const changedFiles = Array.from(compilation.modifiedFiles);
 
-        const outputFileNames = changedFiles.map((file) => {
-          const hash = getFileHash(file);
-
-          return `${bundleDir}/${hash}${bundleFileExtension}`;
-        });
+        const outputFileNames = changedFiles.map(
+          getBundledFilePathFromIntlayerModule
+        );
 
         this.changedFiles = new Set(outputFileNames);
       }
     });
 
+    // After the compilation, transpile the changed files if any
     compiler.hooks.afterEmit.tapAsync(
       'IntLayerPlugin',
       async (compilation, callback) => {
         if (this.changedFiles.size > 0) {
-          await transpileBundledCode([...this.changedFiles]);
+          const dictionaries =
+            (await transpileBundledCode([...this.changedFiles])) ?? [];
+
+          console.info(
+            `Updated dictionaries: \n ${dictionaries.map(getRelativePath).join('\n')}`
+          );
+
+          createTypes(dictionaries);
 
           this.changedFiles.clear();
         }
@@ -94,7 +111,3 @@ export class IntLayerPlugin {
     );
   }
 }
-
-const getRelativePath = (filePath: string) => {
-  return relative(baseDirPath, filePath);
-};

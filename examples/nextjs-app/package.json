@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev && intlayer serve",
+    "dev": "next dev",
     "build": "intlayer build && next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "intlayer": "workspace:^",
+    "intlayer-react": "workspace:^",
     "intlayer-webpack-app": "workspace:^",
     "next": "14.1.4",
     "react": "^18",

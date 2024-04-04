@@ -12,3 +12,7 @@ export const BUNDLE_DIR_NAME = 'bundle';
 export const BUNDLE_FILE_EXTENSION = '.bundle.js';
 
 export const DICTIONARIES_DIR_NAME = 'dictionary';
+
+export const TYPES_DIR_NAME = 'types';
+
+export const MAIN_DIR_NAME = 'main';

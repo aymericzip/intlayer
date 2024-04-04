@@ -1,14 +1,18 @@
 import { resolve } from 'path';
 import type { Content, ContentModule } from 'intlayer';
 
-// Function to load and evaluate the module file
+/**
+ * Function to load the module file in a sandboxed environment
+ */
 const loadModule = async (modulePath: string): Promise<ContentModule> => {
   // @TODO: Sandbox the module to prevent malicious code execution
 
   return (await import(modulePath)).default;
 };
 
-// Function to replace async function fields with their results
+/**
+ * Function to replace function and async function fields with their results in the object
+ */
 const processFunctionResults = async (entry: Content) => {
   if (entry && typeof entry === 'object') {
     const promises: Promise<void>[] = [];
@@ -39,6 +43,9 @@ const processFunctionResults = async (entry: Content) => {
   return entry;
 };
 
+/**
+ * Function to load, process the module and return the Intlayer ContentModule from the module file
+ */
 export const processModule = async (file: string) => {
   try {
     const functionPath = resolve(file);

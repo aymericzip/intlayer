@@ -7,7 +7,9 @@ import {
 export type LanguageContent<Content> = Record<Locales, Content>;
 
 export type TranslationContent = Partial<LanguageContent<string>> &
-  NoteStackTraceInfo;
+  NoteStackTraceInfo & {
+    type: 'translation';
+  };
 
 const { defaultLocale } = getConfiguration();
 /**
@@ -22,6 +24,7 @@ export const translations = (
 
   if (typeof content === 'string') {
     const result: TranslationContent = {
+      type: 'translation',
       ...stackTraceInfo,
       [defaultLocale]: content,
     };
@@ -30,6 +33,7 @@ export const translations = (
   }
 
   const result: TranslationContent = {
+    type: 'translation',
     ...stackTraceInfo,
     ...content,
   };

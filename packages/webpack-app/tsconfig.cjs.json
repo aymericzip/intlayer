@@ -5,6 +5,7 @@
     "module": "commonjs",
     "resolveJsonModule": true,
     "strict": true,
-    "noEmit": false
+    "noEmit": false,
+    "declaration": false
   }
 }

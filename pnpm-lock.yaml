@@ -57,6 +57,9 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../../packages/intlayer
+      intlayer-react:
+        specifier: workspace:^
+        version: link:../../packages/intlayer-react
       intlayer-webpack-app:
         specifier: workspace:^
         version: link:../../packages/webpack-app
@@ -186,6 +189,28 @@ importers:
 
   packages/intlayer:
     dependencies:
+      intlayer-config:
+        specifier: workspace:^
+        version: link:../config
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.30
+        version: 20.11.30
+      '@utils/eslint-config':
+        specifier: workspace:^
+        version: link:../../utils/eslint-config
+      rimraf:
+        specifier: 5.0.5
+        version: 5.0.5
+      typescript:
+        specifier: ^5.4.3
+        version: 5.4.3
+
+  packages/intlayer-react:
+    dependencies:
+      intlayer:
+        specifier: workspace:^
+        version: link:../intlayer
       intlayer-config:
         specifier: workspace:^
         version: link:../config

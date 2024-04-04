@@ -1,0 +1,76 @@
+{
+  "name": "intlayer-react",
+  "description": "Internationalization layer for React applications - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
+  "keywords": [
+    "intlayer",
+    "layer",
+    "abstraction",
+    "data",
+    "internationalization",
+    "i18n",
+    "typescript",
+    "javascript",
+    "react",
+    "json",
+    "file"
+  ],
+  "version": "0.0.0",
+  "private": false,
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aypineau"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aypineau/intlayer"
+  },
+  "bug": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
+  "homepage": "https://github.com/aypineau/intlayer",
+  "scripts": {
+    "test": "",
+    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "clean": "rimraf ./dist",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+  },
+  "main": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/src/index.d.ts",
+      "require": "./dist/cjs/src/index.js",
+      "import": "./dist/esm/src/index.js",
+      "default": "./dist/esm/src/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "files": [
+    "./dist/**/*.{js,ts,map}",
+    "./src",
+    "./package.json"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@utils/eslint-config": "workspace:^",
+    "rimraf": "5.0.5",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "intlayer": "workspace:^",
+    "intlayer-config": "workspace:^"
+  },
+  "engines": {
+    "node": ">=14.18"
+  }
+}
