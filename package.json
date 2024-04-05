@@ -14,9 +14,17 @@
     "url": "https://github.com/aypineau/intlayer"
   },
   "scripts": {
-    "test": "pnpm recursive run test --parallel",
-    "build": "pnpm recursive run build",
-    "clean": "pnpm recursive run clean",
+    "test": "pnpm recursive test --parallel",
+    "build-all": "pnpm recursive build",
+    "build-packages": "pnpm --filter './packages/**' build",
+    "build-examples": "pnpm --filter './examples/**' build",
+    "build": "pnpm build-packages && pnpm build-examples",
+    "clean": "pnpm recursive clean",
+    "clean-packages": "pnpm --filter './packages/**' clean",
+    "clean-examples": "pnpm --filter './examples/**' clean",
+    "reset-packages": "pnpm clean-packages && pnpm build-packages",
+    "reset-examples": "pnpm clean-examples && pnpm build-examples",
+    "reset": "pnpm reset-packages && pnpm install -f && pnpm reset-examples",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
@@ -36,18 +44,16 @@
     "pnpm": "^8.15.4"
   },
   "packageManager": "pnpm@8.15.4",
-  "dependencies": {
-    "@changesets/cli": "2.27.1",
-    "@utils/eslint-config": "workspace:^",
-    "@vitejs/plugin-react": "^4.2.1",
-    "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^1.4.0"
-  },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
     "@commitlint/types": "^19.0.3",
+    "@changesets/cli": "2.27.1",
+    "@utils/eslint-config": "workspace:^",
+    "@vitejs/plugin-react": "^4.2.1",
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.2"
+    "lint-staged": "^15.2.2",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.4.0"
   }
 }
