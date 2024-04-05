@@ -1,0 +1,103 @@
+{
+  "name": "next-intlayer",
+  "description": "Webpack configuration for IntLayer using NextJS",
+  "keywords": [
+    "intlayer",
+    "webpack",
+    "application",
+    "transpile",
+    "nextjs",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "version": "0.0.0",
+  "private": false,
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aypineau"
+  },
+  "homepage": "https://github.com/aypineau/intlayer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aypineau/intlayer"
+  },
+  "bug": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
+  "scripts": {
+    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "serve": "webpack serve --config ./webpack.config.ts",
+    "transpile": "webpack --config ./webpack.config.ts",
+    "watch": "webpack --config ./webpack.config.ts --watch",
+    "clean": "rimraf ./dist",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+  },
+  "module": "dist/intlayer-webpack-app/index.js",
+  "main": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "files": [
+    "./dist/**/*.{js,ts,map}",
+    "./src",
+    "./bin",
+    "./package.json"
+  ],
+  "devDependencies": {
+    "@changesets/changelog-github": "0.5.0",
+    "@changesets/cli": "2.27.1",
+    "@swc/cli": "^0.3.10",
+    "@swc/core": "^1.4.11",
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^20.11.30",
+    "@types/uuid": "^9.0.8",
+    "@types/webpack-watch-files-plugin": "^1.1.3",
+    "@types/yargs": "^17.0.32",
+    "@utils/eslint-config": "workspace:^",
+    "node-polyfill-webpack-plugin": "^3.0.0",
+    "typescript": "^5.3.3",
+    "webpack-watch-files-plugin": "^1.2.1"
+  },
+  "dependencies": {
+    "@swc-node/register": "^1.9.0",
+    "@swc/register": "^0.1.10",
+    "@swc/wasm": "^1.4.11",
+    "crypto-js": "^4.2.0",
+    "glob": "^10.3.10",
+    "intlayer": "workspace:^",
+    "intlayer-cli": "workspace:^",
+    "intlayer-config": "workspace:^",
+    "next": "14.1.4",
+    "node-loader": "^2.0.0",
+    "rimraf": "5.0.5",
+    "swc-loader": "^0.2.6",
+    "ts-loader": "^9.5.1",
+    "util": "^0.12.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4",
+    "yargs": "^17.7.2"
+  },
+  "engines": {
+    "node": ">=14.18"
+  }
+}

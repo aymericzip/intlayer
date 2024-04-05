@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "lib": ["esnext", "DOM"],
+    "module": "CommonJS",
+    "declaration": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "outDir": "dist",
+    "esModuleInterop": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*.stories.*"
+  ],
+  "include": ["src", "bin", "packages.json", "webpack.config.ts"]
+}
