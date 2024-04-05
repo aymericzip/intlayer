@@ -60,10 +60,11 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
+    "@swc-node/register": "^1.9.0",
     "@swc/cli": "^0.3.10",
     "@swc/core": "^1.4.11",
-    "@swc-node/register": "^1.9.0",
-    "@types/node": "^20.11.30"
+    "@types/node": "^20.11.30",
+    "intlayer": "workspace:^"
   },
   "engines": {
     "node": ">=14.18"

@@ -1,10 +1,7 @@
 import { join } from 'path';
 import { sync } from 'glob';
 import { getConfiguration } from 'intlayer-config';
-import type {
-  // HotModuleReplacementPlugin,
-  Configuration as WebPackConfiguration,
-} from 'webpack';
+import type { Configuration as WebPackConfiguration } from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { IntLayerPlugin } from './src';
 import { getFileHash } from './src/utils';
@@ -12,34 +9,41 @@ import { getFileHash } from './src/utils';
 const { bundleDir, watchedFilesPatternWithPath, bundleFileExtension } =
   getConfiguration({ verbose: true });
 
-const entry: Record<string, string> = sync(watchedFilesPatternWithPath).reduce(
-  (obj, el) => {
-    const hash = getFileHash(el);
+const getEntry = (): Record<string, string> =>
+  sync(watchedFilesPatternWithPath).reduce(
+    (obj, el) => {
+      const hash = getFileHash(el);
 
-    obj[hash] = el;
-    return obj;
-  },
-  {} as Record<string, string>
-);
+      obj[hash] = el;
+      return obj;
+    },
+    {} as Record<string, string>
+  );
 
 // For web interface
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const devServerConfig: DevServerConfiguration = {
   // Enable hot module replacement
   hot: true,
-
   // Open the browser
-  open: true,
+  open: false,
+  liveReload: false,
 
   // Enable compression
   compress: true,
 
   // History API fallback
-  historyApiFallback: true,
+  historyApiFallback: false,
 
   // Host and port
   host: 'localhost',
   port: 8080,
+
+  watchFiles: './src/', // watchedFilesPatternWithPath,
+
+  devMiddleware: {
+    // Enable write to disk to reuse the output
+    writeToDisk: true,
+  },
 
   // Content base
   static: {
@@ -53,7 +57,7 @@ export const webpackConfig: WebPackConfiguration = {
   // Entry point of the application
   target: 'node', // Specifies the target environment
 
-  entry,
+  entry: getEntry,
   output: {
     clean: true, // Clean the output directory before emit
     library: 'IntlLayerContent',
@@ -61,6 +65,8 @@ export const webpackConfig: WebPackConfiguration = {
     filename: `[name]${bundleFileExtension}`,
     path: bundleDir,
   },
+
+  cache: false,
 
   // devtool: 'source-map',
 
@@ -128,7 +134,7 @@ export const webpackConfig: WebPackConfiguration = {
       // JSON files are supported natively by Webpack 5, no specific loader required
     ],
   },
-  // devServer: devServerConfig,
+  devServer: devServerConfig,
 
   plugins: [
     new IntLayerPlugin(),

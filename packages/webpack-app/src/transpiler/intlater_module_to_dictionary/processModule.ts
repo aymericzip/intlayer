@@ -53,6 +53,6 @@ export const processModule = async (file: string) => {
 
     return (await processFunctionResults(entry)) as ContentModule;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error processing module:', error);
   }
 };

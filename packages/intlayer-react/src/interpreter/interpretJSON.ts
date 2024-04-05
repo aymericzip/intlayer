@@ -1,5 +1,5 @@
 import type { ContentModule } from 'intlayer';
 
-export const interpretContent = (json: string): ContentModule => {
-  return JSON.parse(json) as ContentModule;
+export const interpretContent = (json: ContentModule): ContentModule => {
+  return json;
 };

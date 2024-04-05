@@ -9,7 +9,8 @@
     "incremental": true,
     "resolveJsonModule": true,
     "strict": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "esModuleInterop": true
   },
   "ts-node": {
     "compilerOptions": {
