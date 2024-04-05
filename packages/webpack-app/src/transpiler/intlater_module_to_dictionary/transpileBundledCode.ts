@@ -80,10 +80,15 @@ export const transpileBundledCode = async (
     bundledEntriesPaths = [bundledEntriesPaths];
   }
 
+  const filteredBundledEntriesPaths: string[] = bundledEntriesPaths.filter(
+    // Filter js files;
+    (bundledEntryPath) => bundledEntryPath.endsWith(bundleFileExtension)
+  );
+
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dictionariesDir), { recursive: true });
 
-  for await (const bundledEntryPath of bundledEntriesPaths) {
+  for await (const bundledEntryPath of filteredBundledEntriesPaths) {
     const result = await loadBundledModule(bundledEntryPath);
 
     if (!result) {

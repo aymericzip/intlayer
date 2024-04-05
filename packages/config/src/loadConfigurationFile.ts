@@ -4,6 +4,17 @@ import { type Context, runInNewContext } from 'vm';
 import { transformFileSync } from '@swc/core';
 import type { CustomIntlayerConfig } from './types';
 
+const sandbox: Context = {
+  exports: {
+    default: {},
+  },
+  module: {
+    exports: {},
+  },
+  console: console,
+  require: require,
+};
+
 export const loadConfigurationFile = (
   configFilePath: string
 ): CustomIntlayerConfig | undefined => {
@@ -44,17 +55,6 @@ export const loadConfigurationFile = (
         type,
       },
     }).code;
-
-    const sandbox: Context = {
-      exports: {
-        default: {},
-      },
-      module: {
-        exports: {},
-      },
-      console: console,
-      require: require,
-    };
 
     runInNewContext(moduleResult, sandbox);
 

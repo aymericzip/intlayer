@@ -31,7 +31,7 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
 
   // Format Dictionary Map
   const formattedDictionaryMap: string = dictionariesRef
-    .map((dictionary) => `  "${dictionary.id}": ${dictionary.hash};`)
+    .map((dictionary) => `    "${dictionary.id}": ${dictionary.hash};`)
     .join('\n');
 
   /**
