@@ -1,38 +1,43 @@
+import {
+  resolve,
+  // relative, join
+} from 'path';
+// import configurator from 'intlayer-config';
 import type { NextConfig } from 'next';
 
 type PluginOptions = {
   // TODO: add options
 };
 
-export const withContentlayer =
+// const { mainDir, baseDirPath } = configurator.getConfiguration();
+
+export const withIntlayer =
   (_pluginOptions: PluginOptions = {}) =>
   (nextConfig: Partial<NextConfig> = {}): Partial<NextConfig> => {
-    // could be either `next dev` or just `next`
-    const isNextDev =
-      process.argv.includes('dev') ||
-      process.argv.some((_) => _.endsWith('/.bin/next'));
-
-    if (isNextDev) {
-      // runContentlayerDev()
-    }
-
     return {
       ...nextConfig,
-      // Since Next.js doesn't provide some kind of real "plugin system" we're (ab)using the `redirects` option here
-      // in order to hook into and block the `next build` and initial `next dev` run.
 
-      webpack: (config, options) => {
-        config.watchOptions = {
-          ...config.watchOptions,
-          // ignored: /node_modules([\\]+|\/)+(?!\.contentlayer)/,
-          ignored: ['**/node_modules/!(.intlayer)/**/*'],
+      webpack: (config) => {
+        config.externals.push({
+          '@swc/core': '@swc/core',
+          vm: 'vm',
+        });
+
+        // const relativeMainPath = relative(baseDirPath, mainDir);
+        // const relativePath = join(relativeMainPath, 'dictionaries.cjs');
+
+        const path = '.intlayer/main/dictionaries.cjs';
+
+        config.resolve.alias = {
+          ...config.resolve.alias,
+          // your aliases
+          '@intlayer/dictionariesEntryPoint': resolve(path),
         };
 
-        if (typeof nextConfig.webpack === 'function') {
-          return nextConfig.webpack(config, options);
-        }
-
+        // Important: return the modified config
         return config;
       },
     };
   };
+
+export default withIntlayer;

@@ -2,7 +2,7 @@ import { t, type ContentModule } from 'intlayer';
 
 const pageContent: ContentModule = {
   id: 'page',
-  title: 'My example of puta babou',
+  title: 'Example of Page content',
   profileText: t({
     en: 'Manage profile',
     fr: 'Gérer le profil',

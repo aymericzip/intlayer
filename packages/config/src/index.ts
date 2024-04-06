@@ -1,3 +1,17 @@
-export * from './defaultValues';
-export * from './types';
-export * from './getConfiguration';
+import { getConfiguration } from './getConfiguration';
+
+export type {
+  CustomIntlayerConfig,
+  FixedIntlayerConfig,
+  IntlayerConfig,
+  NotDerivedConfiguration,
+  BaseDirDerivedConfiguration,
+  ResultDirDerivedConfiguration,
+} from './types';
+export type { Locales } from './defaultValues/locales';
+
+export { getConfiguration };
+
+export default {
+  getConfiguration,
+};

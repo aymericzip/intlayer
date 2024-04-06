@@ -1,1 +1,1 @@
-export { translations as t } from './translations';
+export * from './translations';

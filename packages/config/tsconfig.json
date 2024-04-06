@@ -23,10 +23,5 @@
     }
   },
   "exclude": ["node_modules", "dist"],
-  "include": [
-    "**/*",
-    "./tsconfig.cjs.json",
-    "./tsconfig.esm.json",
-    "./tsconfig.types.json"
-  ]
+  "include": ["src"]
 }

@@ -18,8 +18,10 @@
     "intlayer-react": "workspace:^",
     "intlayer-webpack-app": "workspace:^",
     "next": "14.1.4",
+    "next-intlayer": "workspace:^",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "webpack": "^5.91.0"
   },
   "devDependencies": {
     "@types/node": "^20",

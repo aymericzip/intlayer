@@ -17,9 +17,7 @@ const { defaultLocale } = getConfiguration();
  * @param {string | Partial<LanguageContent<string>>} content - The content to be translated
  * @returns { TranslationContent } A JSON string containing the content and stack trace information
  */
-export const translations = (
-  content?: Partial<LanguageContent<string>> | string
-) => {
+const translations = (content?: Partial<LanguageContent<string>> | string) => {
   const stackTraceInfo = getStackTraceInfo();
 
   if (typeof content === 'string') {
@@ -40,3 +38,5 @@ export const translations = (
 
   return result;
 };
+
+export { translations as t };
