@@ -30,21 +30,21 @@
   "homepage": "https://github.com/aypineau/intlayer",
   "scripts": {
     "test": "",
-    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "build": "tsup",
     "clean": "rimraf ./dist",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
-    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+    "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "main": "./src/index.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/src/index.d.ts",
-      "require": "./dist/cjs/src/index.js",
-      "import": "./dist/esm/src/index.js",
-      "default": "./dist/esm/src/index.js"
+      "types": "./dist/index.d.mts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -64,6 +64,7 @@
     "@types/node": "^20.11.30",
     "@utils/eslint-config": "workspace:^",
     "rimraf": "5.0.5",
+    "tsup": "^8.0.2",
     "typescript": "^5.4.3"
   },
   "dependencies": {

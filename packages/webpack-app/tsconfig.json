@@ -6,7 +6,6 @@
     "lib": ["esnext", "DOM"],
     "module": "CommonJS",
     "declaration": true,
-    "incremental": true,
     "resolveJsonModule": true,
     "strict": true,
     "outDir": "dist",
@@ -24,5 +23,5 @@
     "**/*.spec.*",
     "**/*.stories.*"
   ],
-  "include": ["src", "bin", "packages.json", "webpack.config.ts"]
+  "include": ["**/*"]
 }

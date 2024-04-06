@@ -28,7 +28,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
-    "typecheck": "tsc --project ./tsconfig.json --noEmit",
+    "typecheck": "tsup--project ./tsconfig.json --noEmit",
     "prepare": "husky",
     "lint-staged": "lint-staged --allow-empty",
     "release:dev": "pnpm build && pnpm recursive run publish --verbose --topological-dev --parallel --no-private --tolerate-republish --tag=dev",

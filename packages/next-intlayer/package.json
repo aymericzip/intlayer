@@ -1,6 +1,5 @@
 {
   "name": "next-intlayer",
-  "type": "module",
   "description": "Webpack configuration for IntLayer using NextJS",
   "keywords": [
     "intlayer",
@@ -29,7 +28,7 @@
     "url": "https://github.com/aypineau/intlayer/issues"
   },
   "scripts": {
-    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "build": "tsup",
     "serve": "webpack serve --config ./webpack.config.ts",
     "transpile": "webpack --config ./webpack.config.ts",
     "watch": "webpack --config ./webpack.config.ts --watch",
@@ -37,15 +36,15 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
-    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+    "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
-  "main": "src/withIntlayer.ts",
+  "main": "src/index.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/withIntlayer.d.ts",
-      "require": "./dist/cjs/withIntlayer.js",
-      "import": "./dist/esm/withIntlayer.js",
-      "default": "./dist/esm/withIntlayer.js"
+      "types": "./dist/index.d.mts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -74,6 +73,7 @@
     "@types/yargs": "^17.0.32",
     "@utils/eslint-config": "workspace:^",
     "node-polyfill-webpack-plugin": "^3.0.0",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3",
     "webpack-watch-files-plugin": "^1.2.1"
   },

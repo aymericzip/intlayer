@@ -7,7 +7,6 @@
     "module": "CommonJS",
     "declaration": true,
     "noEmit": false,
-    "incremental": true,
     "resolveJsonModule": true,
     "strict": true,
     "outDir": "dist",
@@ -23,10 +22,5 @@
     }
   },
   "exclude": ["node_modules", "dist"],
-  "include": [
-    "**/*",
-    "./tsconfig.cjs.json",
-    "./tsconfig.esm.json",
-    "./tsconfig.types.json"
-  ]
+  "include": ["**/*"]
 }

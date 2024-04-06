@@ -1,6 +1,5 @@
 {
   "name": "intlayer-config",
-  "type": "module",
   "description": "Shared configuration package for IntLayer - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "keywords": [
     "intlayer",
@@ -15,7 +14,7 @@
     "file"
   ],
   "scripts": {
-    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "build": "tsup",
     "clean": "rimraf ./dist"
   },
   "version": "0.0.0",
@@ -36,10 +35,10 @@
   "main": "./src/index.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/src/index.d.ts",
-      "require": "./dist/cjs/src/index.js",
-      "import": "./dist/esm/src/index.js",
-      "default": "./dist/esm/src/index.js"
+      "types": "./dist/index.d.mts",
+      "require": "./dist/index.js",
+      "import": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -58,6 +57,7 @@
   "devDependencies": {
     "@utils/eslint-config": "workspace:^",
     "rimraf": "5.0.5",
+    "tsup": "^8.0.2",
     "typescript": "^5.4.3"
   },
   "dependencies": {
