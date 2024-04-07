@@ -37,8 +37,8 @@
     ".": {
       "types": "./dist/index.d.mts",
       "require": "./dist/index.js",
-      "import": "./dist/esm/index.js",
-      "default": "./dist/esm/index.js"
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
   },
