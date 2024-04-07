@@ -21,6 +21,7 @@
     "clean": "pnpm recursive clean",
     "clean-examples": "pnpm --filter './examples/**' clean",
     "clean-packages": "pnpm --filter './packages/**' clean",
+    "dev-packages": "pnpm --parallel --filter './packages/**' dev",
     "lint": "eslint .",
     "lint-staged": "lint-staged --allow-empty",
     "lint:fix": "eslint . --fix",
