@@ -51,6 +51,7 @@
   "scripts": {
     "build": "tsup",
     "clean": "rimraf ./dist",
+    "dev": "tsup --watch",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
