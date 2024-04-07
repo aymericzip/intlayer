@@ -1,27 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "noEmit": true,
     "moduleResolution": "node",
-    "target": "ESNext",
-    "lib": ["esnext", "DOM"],
-    "module": "CommonJS",
-    "declaration": true,
     "resolveJsonModule": true,
-    "strict": true,
-    "outDir": "dist",
-    "esModuleInterop": true
+    "strict": true
   },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.*",
-    "**/*.spec.*",
-    "**/*.stories.*"
-  ],
+  "exclude": ["node_modules", "dist"],
   "include": ["**/*"]
 }
