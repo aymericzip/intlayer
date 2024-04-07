@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "build": "next build",
     "dev": "next dev",
     "dev-all": "npx intlayer watch & next dev",
-    "build": "next build",
-    "start": "next start",
     "lint": "next lint",
-    "watch": "npx intlayer watch",
     "serve": "npx intlayer serve",
-    "transpile": "npx intlayer transpile"
+    "start": "next start",
+    "transpile": "npx intlayer transpile",
+    "watch": "npx intlayer watch"
   },
   "dependencies": {
     "intlayer": "workspace:^",

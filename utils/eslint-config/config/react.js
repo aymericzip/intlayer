@@ -1,8 +1,3 @@
-/**
- * Opinionated config base for projects using react.
- * @see https://github.com/aypineau/sayaup/tree/main/packages/eslint-config-bases
- */
-
 const reactPatterns = {
   files: ['*.{jsx,tsx}'],
 };

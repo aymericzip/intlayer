@@ -1,8 +1,3 @@
-/**
- * Opinionated config base for projects using playwright.
- * @see https://github.com/aypineau/sayaup/tree/main/packages/eslint-config-bases
- */
-
 const playwrightPatterns = {
   files: ['**/e2e/**/*.test.{js,ts}'],
 };

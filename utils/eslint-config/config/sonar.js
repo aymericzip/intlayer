@@ -1,8 +1,3 @@
-/**
- * Opinionated config base for projects that enable sonarjs
- * @see https://github.com/aypineau/sayaup/tree/main/packages/eslint-config-bases
- */
-
 const sonarPatterns = {
   files: ['*.{js,jsx,ts,tsx}'],
   excludedFiles: [

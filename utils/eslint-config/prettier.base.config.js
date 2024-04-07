@@ -14,6 +14,7 @@ module.exports = {
   endOfLine: 'lf',
   overrides: [],
   plugins: [
+    'prettier-plugin-packagejson',
     'prettier-plugin-tailwindcss',
     // 'prettier-plugin-organize-imports'
   ],

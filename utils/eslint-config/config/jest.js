@@ -1,8 +1,3 @@
-/**
- * Custom config base for projects using jest.
- * @see https://github.com/aypineau/sayaup/tree/main/packages/eslint-config-bases
- */
-
 const jestPatterns = {
   files: ['**/?(*.)+(test).{js,jsx,ts,tsx}'],
 };

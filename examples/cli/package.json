@@ -1,33 +1,33 @@
 {
   "name": "simple-file",
   "version": "1.0.0",
-  "description": "Example of IntList configuration for simple files in src directory",
   "private": false,
-  "author": {
-    "name": "Aymeric PINEAU",
-    "url": "https://github.com/aypineau"
-  },
+  "description": "Example of IntList configuration for simple files in src directory",
+  "keywords": [],
   "homepage": "https://github.com/aypineau/intlayer",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/aypineau/intlayer"
   },
-  "bug": {
-    "url": "https://github.com/aypineau/intlayer/issues"
+  "license": "MIT",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aypineau"
   },
   "scripts": {
-    "test": "",
-    "watch": "npx intlayer watch",
     "serve": "npx intlayer serve",
-    "transpile": "npx intlayer transpile"
+    "test": "",
+    "transpile": "npx intlayer transpile",
+    "watch": "npx intlayer watch"
   },
-  "keywords": [],
   "dependencies": {
     "intlayer": "workspace:^",
     "intlayer-webpack-app": "workspace:^"
   },
   "devDependencies": {
     "typescript": "^5.4.3"
+  },
+  "bug": {
+    "url": "https://github.com/aypineau/intlayer/issues"
   }
 }

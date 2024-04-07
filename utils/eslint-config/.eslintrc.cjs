@@ -19,6 +19,7 @@ module.exports = {
   extends: [
     './config/javascript',
     './config/jest',
+    './config/json',
     './config/mdx',
     './config/playwright',
     './config/prettier-config',

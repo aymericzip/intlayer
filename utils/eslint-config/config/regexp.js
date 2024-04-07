@@ -1,8 +1,3 @@
-/**
- * Custom config base for projects that wants to enable regexp rules.
- * @see https://github.com/aypineau/sayaup/tree/main/packages/eslint-config-bases
- */
-
 const regexpPatterns = {
   files: ['*.{js,jsx,jsx,tsx}'],
 };

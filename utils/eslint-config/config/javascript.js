@@ -1,8 +1,3 @@
-/**
- * Custom config base for projects using prettier.
- * @see https://github.com/aypineau/sayaup/tree/main/packages/eslint-config-bases
- */
-
 // Allow to pass an env to check cycles, defaults to 2 (lint time+++)
 // @see https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-cycle.md
 // @see https://medium.com/@steven-lemon182/are-typescript-barrel-files-an-anti-pattern-72a713004250
