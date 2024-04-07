@@ -1,20 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "noEmit": true,
     "moduleResolution": "node",
-    "target": "ESNext",
-    "lib": ["esnext", "DOM"],
-    "module": "CommonJS",
-    "declaration": true,
-    "noEmit": false,
     "resolveJsonModule": true,
-    "strict": true,
-    "outDir": "dist"
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
+    "strict": true
   },
   "exclude": ["node_modules", "dist"],
   "include": ["**/*"]
