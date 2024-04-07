@@ -1,1 +1,1 @@
-export * from './withIntLayer';
+export * from './withIntlayer';

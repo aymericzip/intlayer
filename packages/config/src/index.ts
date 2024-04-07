@@ -8,7 +8,7 @@ export type {
   BaseDirDerivedConfiguration,
   ResultDirDerivedConfiguration,
 } from './types';
-export type { Locales } from './defaultValues/locales';
+export { Locales } from './defaultValues/locales';
 
 export { getConfiguration };
 

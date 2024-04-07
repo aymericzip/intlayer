@@ -20,7 +20,8 @@
       "@component/*": ["./src/*"],
       "@assets/": ["./src/*"],
       "@libs/*": ["./src/*"]
-    }
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
