@@ -2,17 +2,27 @@
   "name": "@utils/eslint-config",
   "version": "1.0.0",
   "private": false,
+  "exports": {
+    ".": "./.eslintrc.cjs",
+    "./.eslintrc.cjs": "./.eslintrc.cjs",
+    "./prettier.base.config.js": "./prettier.base.config.js"
+  },
+  "files": [
+    ".eslintrc.js",
+    "prettier.base.config.js"
+  ],
   "scripts": {},
   "devDependencies": {
+    "@rushstack/eslint-patch": "^1.8.0",
     "@types/node": "^20.11.30",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "eslint": "8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
-    "@rushstack/eslint-patch": "^1.8.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jest": "^27.6.3",
     "eslint-plugin-jest-formatting": "^3.1.0",
+    "eslint-plugin-json-format": "^2.0.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-mdx": "3.1.5",
     "eslint-plugin-playwright": "^1.0.0",
@@ -27,15 +37,7 @@
     "eslint-plugin-testing-library": "^6.2.0",
     "prettier": "3.2.5",
     "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-packagejson": "^2.4.14",
     "prettier-plugin-tailwindcss": "^0.5.12"
-  },
-  "exports": {
-    ".": "./.eslintrc.cjs",
-    "./.eslintrc.cjs": "./.eslintrc.cjs",
-    "./prettier.base.config.js": "./prettier.base.config.js"
-  },
-  "files": [
-    ".eslintrc.js",
-    "prettier.base.config.js"
-  ]
+  }
 }

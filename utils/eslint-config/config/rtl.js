@@ -1,8 +1,3 @@
-/**
- * Opinionated config base for projects using react-testing-library
- * @see https://github.com/aypineau/sayaup/tree/main/packages/eslint-config-bases
- */
-
 const rtlPatterns = {
   files: ['**/?(*.)+(test).{js,jsx,ts,tsx}'],
 };
