@@ -1,7 +1,9 @@
-// disable ts error
+/**
+ * @intlayer/dictionariesEntryPoint should match with an alias
+ */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-import * as dictionaries from '@intlayer/dictionariesEntryPoint';
+// @ts-ignore
+import dictionaries from '@intlayer/dictionariesEntryPoint';
 import type { IntLayerDictionaryTypesConnector } from 'intlayer';
 import { interpretContent } from './interpretJSON';
 
@@ -12,9 +14,15 @@ type UseIntlayer = <T extends DictionaryKeys>(
 ) => IntLayerDictionaryTypesConnector[T];
 
 /**
- * @intlayer/dictionariesEntryPoint should match with an alias
+ * ALTERNATIVE WAY TO IMPORT DICTIONARIES INSTEAD OF USING ALIAS
+ * This alternative don't work with webpack hot reload
+ * ---------------------------------------------------------------------------------
+ * import { getConfiguration } from 'intlayer-config';
+ * import { join } from 'path';
+ * const { mainDir } = getConfiguration();
+ * const dictionariesPath = join(mainDir, 'dictionaries.cjs');
+ * const dictionaries = require(dictionariesPath);
  */
-// const dictionaries = require('@intlayer/dictionariesEntryPoint');
 
 export const useIntlayer: UseIntlayer = <T extends DictionaryKeys>(id: T) => {
   const dictionaryContent = dictionaries[id];

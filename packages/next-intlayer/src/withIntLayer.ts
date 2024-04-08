@@ -19,19 +19,12 @@ export const withIntlayer =
         vm: 'vm',
       });
 
-      // const relativeMainPath = relative(baseDirPath, mainDir);
-      // const relativePath = join(relativeMainPath, 'dictionaries.cjs');
-      const relativePath = '.intlayer/main/dictionaries.cjs';
+      const mainPath = join(mainDir, 'dictionaries.cjs');
+      const relativeMainPath = relative(baseDirPath, mainPath);
 
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        // your aliases
-        '@intlayer/dictionariesEntryPoint': resolve(relativePath),
-      };
+      config.resolve.alias['@intlayer/dictionariesEntryPoint'] =
+        resolve(relativeMainPath);
 
-      console.log('config.resolve.alias', config.resolve.alias);
-
-      // Important: return the modified config
       return config;
     },
   });

@@ -4,12 +4,11 @@ import * as packageJson from './package.json';
 const options: Options = {
   entryPoints: [packageJson.main],
   format: ['cjs', 'esm'],
+  target: 'esnext',
   dts: true,
-  external: ['fs', 'path'],
+  external: ['fs', 'path', '@intlayer/dictionariesEntryPoint'],
   clean: true,
-  shims: true,
   sourcemap: true,
-  skipNodeModulesBundle: true,
 };
 
 export default defineConfig(options);

@@ -54,6 +54,7 @@
     "build-bin": "tsup --config tsup.config.bin.ts",
     "build-src": "tsup --config tsup.config.ts",
     "clean": "rimraf ./dist",
+    "dev": "tsup --watch",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
