@@ -8,9 +8,9 @@ const options: Options = {
   external: ['fs', 'path'],
   outDir: 'dist/bin',
   clean: true,
-  shims: true,
+
   sourcemap: true,
-  skipNodeModulesBundle: true,
+
   bundle: true,
 };
 

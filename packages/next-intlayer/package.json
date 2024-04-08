@@ -24,12 +24,13 @@
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aypineau"
   },
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
