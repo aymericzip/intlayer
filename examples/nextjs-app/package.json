@@ -14,9 +14,7 @@
   },
   "dependencies": {
     "intlayer": "workspace:^",
-    "intlayer-config": "workspace:^",
-    "intlayer-react": "workspace:^",
-    "intlayer-webpack-app": "workspace:^",
+    "intlayer-cli": "workspace:^",
     "next": "14.1.4",
     "next-intlayer": "workspace:^",
     "react": "^18",

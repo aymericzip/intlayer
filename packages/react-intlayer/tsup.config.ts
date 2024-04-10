@@ -6,9 +6,9 @@ const options: Options = {
   format: ['cjs', 'esm'],
   target: 'esnext',
   dts: true,
+  external: ['fs', 'path', '@intlayer-alias/dictionaries-entry'],
   clean: true,
-  sourcemap: false,
-  minify: true,
+  sourcemap: true,
 };
 
 export default defineConfig(options);

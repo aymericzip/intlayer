@@ -9,5 +9,5 @@
     "checkJs": true
   },
   "exclude": ["node_modules", "dist"],
-  "include": ["**/*", "../@intlayer/webpack/src/scripts"]
+  "include": ["**/*"]
 }
