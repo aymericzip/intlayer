@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "intlayer": "workspace:^",
-    "intlayer-webpack-app": "workspace:^"
+    "intlayer-cli": "workspace:^"
   },
   "devDependencies": {
     "typescript": "^5.4.3"

@@ -3,12 +3,12 @@ import * as packageJson from './package.json';
 
 const options: Options = {
   entryPoints: [packageJson.main],
-  format: ['cjs', 'esm'],
-  target: 'esnext',
-  dts: true,
+  format: ['cjs'],
+  dts: false,
+  outDir: 'dist/',
   clean: true,
   sourcemap: false,
-  minify: true,
+  bundle: true,
 };
 
 export default defineConfig(options);

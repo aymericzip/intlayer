@@ -1,5 +1,5 @@
 import { resolve, relative, join } from 'path';
-import { getConfiguration } from 'intlayer-config';
+import { getConfiguration } from '@intlayer/config';
 import type { NextConfig } from 'next';
 
 type PluginOptions = {
@@ -22,8 +22,10 @@ export const withIntlayer =
       const mainPath = join(mainDir, 'dictionaries.cjs');
       const relativeMainPath = relative(baseDirPath, mainPath);
 
-      config.resolve.alias['@intlayer/dictionariesEntryPoint'] =
+      config.resolve.alias['@intlayer-alias/dictionaries-entry'] =
         resolve(relativeMainPath);
+
+      console.log('config.resolve.alias', config.resolve.alias);
 
       return config;
     },

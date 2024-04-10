@@ -1,7 +1,6 @@
-import { useIntlayer } from 'intlayer-react';
 import Image from 'next/image';
+import { useIntlayer } from 'next-intlayer';
 import content2 from '../../.intlayer/dictionary/page.json';
-import dictionaries from '../../.intlayer/main/dictionaries.mjs';
 
 const Page = () => {
   const content = useIntlayer('page');

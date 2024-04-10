@@ -6,9 +6,10 @@ const options: Options = {
   format: ['cjs', 'esm'],
   target: 'esnext',
   dts: true,
+  external: ['fs', 'path', '@swc/core'],
   clean: true,
-  sourcemap: false,
-  minify: true,
+
+  sourcemap: true,
 };
 
 export default defineConfig(options);
