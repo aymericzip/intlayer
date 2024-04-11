@@ -11,6 +11,7 @@ import {
   BUNDLE_FILE_EXTENSION,
   TYPES_DIR_NAME,
   MAIN_DIR_NAME,
+  MODULE_AUGMENTATION_DIR_NAME,
 } from './defaultValues/server';
 import type {
   BaseDirDerivedConfiguration,
@@ -48,6 +49,10 @@ export const buildConfigurationFields = (
     contentDirName: customConfiguration?.contentDir ?? CONTENT_DIR_NAME,
     // Result directory name
     resultDirName: customConfiguration?.resultDirName ?? RESULT_DIR_NAME,
+    // Module augmentation directory name
+    moduleAugmentationDirName:
+      customConfiguration?.moduleAugmentationDirName ??
+      MODULE_AUGMENTATION_DIR_NAME,
     // Bundle directory name
     bundleDirName: customConfiguration?.bundleDirName ?? BUNDLE_DIR_NAME,
     // Bundle file extension
@@ -72,6 +77,11 @@ export const buildConfigurationFields = (
     ),
     // Directory where the result will be stored
     resultDir: resolve(configuration.baseDirPath, configuration.resultDirName),
+    // Directory where the module augmentation will be stored
+    moduleAugmentationDir: resolve(
+      configuration.baseDirPath,
+      configuration.moduleAugmentationDirName
+    ),
   };
 
   const resultDirDerivedConfiguration: ResultDirDerivedConfiguration = {

@@ -2,11 +2,12 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "noEmit": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "strict": true,
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "dist"],
   "include": ["**/*"]

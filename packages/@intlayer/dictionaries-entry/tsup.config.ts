@@ -6,7 +6,7 @@ const options: Options = {
   format: ['cjs', 'esm'],
   target: 'esnext',
   dts: true,
-  external: ['@intlayer/dictionaries-entry'],
+  external: ['fs', 'path'],
   clean: true,
   sourcemap: true,
 };

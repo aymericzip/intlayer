@@ -1,20 +1,13 @@
 {
-  "name": "react-intlayer",
+  "name": "@intlayer/dictionaries-entry",
   "version": "0.0.0",
   "private": false,
-  "description": "Internationalization layer for React applications - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
+  "description": "IntLayer - Dictionaries Entry. This package only returns the dictionary entry path. For bundle configuration, this packages should be replaced by using an alias.",
   "keywords": [
     "intlayer",
-    "layer",
-    "abstraction",
-    "data",
-    "internationalization",
-    "i18n",
-    "typescript",
-    "javascript",
-    "react",
-    "json",
-    "file"
+    "alias",
+    "dictionaries",
+    "entry"
   ],
   "homepage": "https://github.com/aypineau/intlayer",
   "repository": {
@@ -36,6 +29,7 @@
     "./package.json": "./package.json"
   },
   "main": "./src/index.ts",
+  "module": "",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -55,14 +49,12 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
     "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "test": "",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:^",
-    "@intlayer/dictionaries-entry": "workspace:^",
-    "intlayer": "workspace:^"
+    "@intlayer/config": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",

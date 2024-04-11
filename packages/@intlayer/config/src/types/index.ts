@@ -36,6 +36,12 @@ export type CustomIntlayerConfig = Partial<{
   // Result directory
   resultDir: string; // default {{baseDirPath}} / {{resultDirName}}
 
+  // Module augmentation directory name
+  moduleAugmentationDirName: string; // default 'types'
+
+  // Result directory
+  moduleAugmentationDir: string; // default {{baseDirPath}} / {{moduleAugmentationDirName}}
+
   // Bundle directory name
   bundleDirName: string; // default 'bundle'
 
@@ -87,11 +93,12 @@ export type NotDerivedConfiguration = Omit<
   | 'dictionariesDir'
   | 'typesDir'
   | 'mainDir'
+  | 'moduleAugmentationDir'
 >;
 
 export type BaseDirDerivedConfiguration = Pick<
   Required<CustomIntlayerConfig>,
-  'contentDir' | 'resultDir'
+  'contentDir' | 'resultDir' | 'moduleAugmentationDir'
 >;
 
 export type ResultDirDerivedConfiguration = Pick<

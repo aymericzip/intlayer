@@ -4,7 +4,7 @@ import { getConfiguration } from '@intlayer/config';
 import { sync } from 'glob';
 import { getFileHash, transformToCamelCase } from '../../utils';
 
-const { mainDir, typesDir } = getConfiguration();
+const { mainDir, moduleAugmentationDir, typesDir } = getConfiguration();
 
 export const getTypeName = (id: string): string =>
   transformToCamelCase(`${id}Content`);
@@ -13,7 +13,7 @@ export const getTypeName = (id: string): string =>
  * This function generates the content of the module augmentation file
  */
 const generateTypeIndexContent = (typeFiles: string[]): string => {
-  let content = "// @ts-nocheck\n\nimport '@intlayer/core';\n\n";
+  let content = "import 'intlayer';\n\n";
 
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
     relativePath: relative(mainDir, dictionaryPath),
@@ -38,7 +38,7 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    * Write the module augmentation to extend the intlayer module with the dictionaries types
    * Will suggest the type resulting of the dictionaries
    *
-   * declare module '@intlayer/core' {
+   * declare module 'intlayer' {
    *   interface IntLayerDictionaryTypesConnector = {
    *     dictionaries: {
    *       id: DictionaryType;
@@ -47,7 +47,7 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    *
    * See https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
    */
-  content += `declare module '@intlayer/core' {\n  interface IntLayerDictionaryTypesConnector {    \n${formattedDictionaryMap}\n  };\n}`;
+  content += `declare module 'intlayer' {\n  interface IntLayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  };\n};`;
 
   return content;
 };
@@ -65,5 +65,5 @@ export const createModuleAugmentation = () => {
   // Create the dictionary list file
 
   const tsContent = generateTypeIndexContent(dictionaries);
-  writeFileSync(resolve(mainDir, 'intlayer.d.ts'), tsContent);
+  writeFileSync(resolve(moduleAugmentationDir, 'intlayer.d.ts'), tsContent);
 };

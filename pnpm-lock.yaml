@@ -135,6 +135,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.23
         version: 18.2.24
+      intlayer:
+        specifier: workspace:^
+        version: link:../../packages/intlayer
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -205,6 +208,28 @@ importers:
         version: 5.4.4
 
   packages/@intlayer/core:
+    dependencies:
+      '@intlayer/config':
+        specifier: workspace:^
+        version: link:../config
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.30
+        version: 20.12.6
+      '@utils/eslint-config':
+        specifier: workspace:^
+        version: link:../../../utils/eslint-config
+      rimraf:
+        specifier: 5.0.5
+        version: 5.0.5
+      tsup:
+        specifier: ^8.0.2
+        version: 8.0.2(@swc/core@1.4.13)(typescript@5.4.4)
+      typescript:
+        specifier: ^5.4.3
+        version: 5.4.4
+
+  packages/@intlayer/dictionaries-entry:
     dependencies:
       '@intlayer/config':
         specifier: workspace:^
@@ -396,6 +421,9 @@ importers:
 
   packages/next-intlayer:
     dependencies:
+      '@formatjs/intl-localematcher':
+        specifier: ^0.5.4
+        version: 0.5.4
       '@intlayer/cli':
         specifier: workspace:^
         version: link:../@intlayer/cli
@@ -405,6 +433,9 @@ importers:
       '@intlayer/core':
         specifier: workspace:^
         version: link:../@intlayer/core
+      '@intlayer/dictionaries-entry':
+        specifier: workspace:^
+        version: link:../@intlayer/dictionaries-entry
       '@swc-node/register':
         specifier: ^1.9.0
         version: 1.9.0(@swc/core@1.4.13)(@swc/types@0.1.6)(typescript@5.4.4)
@@ -417,6 +448,15 @@ importers:
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
+      intlayer:
+        specifier: workspace:^
+        version: link:../intlayer
+      module-alias:
+        specifier: ^2.2.3
+        version: 2.2.3
+      negotiator:
+        specifier: ^0.6.3
+        version: 0.6.3
       next:
         specifier: 14.1.4
         version: 14.1.4(@babel/core@7.24.4)(react-dom@18.2.0)(react@18.2.0)
@@ -457,6 +497,9 @@ importers:
       '@types/crypto-js':
         specifier: ^4.2.2
         version: 4.2.2
+      '@types/negotiator':
+        specifier: ^0.6.3
+        version: 0.6.3
       '@types/node':
         specifier: ^20.11.30
         version: 20.12.6
@@ -493,6 +536,12 @@ importers:
       '@intlayer/core':
         specifier: workspace:^
         version: link:../@intlayer/core
+      '@intlayer/dictionaries-entry':
+        specifier: workspace:^
+        version: link:../@intlayer/dictionaries-entry
+      intlayer:
+        specifier: workspace:^
+        version: link:../intlayer
     devDependencies:
       '@types/node':
         specifier: ^20.11.30
@@ -3752,6 +3801,15 @@ packages:
       }
     engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
 
+  /@formatjs/intl-localematcher@0.5.4:
+    resolution:
+      {
+        integrity: sha512-zTwEpWOzZ2CiKcB93BLngUX59hQkuZjT2+SAQEscSm52peDW/getsawMcWF1rGRpMCX6D7nSJA3CzJ8gn13N/g==,
+      }
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
   /@humanwhocodes/config-array@0.11.14:
     resolution:
       {
@@ -5624,6 +5682,13 @@ packages:
     resolution:
       {
         integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==,
+      }
+    dev: true
+
+  /@types/negotiator@0.6.3:
+    resolution:
+      {
+        integrity: sha512-JkXTOdKs5MF086b/pt8C3+yVp3iDUwG635L7oCH6HvJvvr6lSUU5oe/gLXnPEfYRROHjJIPgCV6cuAg8gGkntQ==,
       }
     dev: true
 
@@ -15669,6 +15734,13 @@ packages:
       pkg-types: 1.0.3
       ufo: 1.5.3
     dev: true
+
+  /module-alias@2.2.3:
+    resolution:
+      {
+        integrity: sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==,
+      }
+    dev: false
 
   /mri@1.2.0:
     resolution:
