@@ -19,11 +19,18 @@ export const withIntlayer =
         vm: 'vm',
       });
 
-      const mainPath = join(mainDir, 'dictionaries.cjs');
-      const relativeMainPath = relative(baseDirPath, mainPath);
+      const typesPath = join(mainDir, 'intlayer.d.ts');
+      const relativeTypesPath = relative(baseDirPath, typesPath);
 
-      config.resolve.alias['@intlayer-alias/dictionaries-entry'] =
-        resolve(relativeMainPath);
+      config.resolve.alias['@intlayer/dictionaries-entry/types'] =
+        resolve(relativeTypesPath);
+
+      const dictionariesPath = join(mainDir, 'dictionaries.cjs');
+      const relativeDictionariesPath = relative(baseDirPath, dictionariesPath);
+
+      config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
+        relativeDictionariesPath
+      );
 
       console.log('config.resolve.alias', config.resolve.alias);
 

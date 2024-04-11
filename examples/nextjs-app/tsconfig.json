@@ -28,8 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.json",
-    ".next/types/**/*.ts",
-    ".intlayer/**/*.ts" // Add this line for auto-completion
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
