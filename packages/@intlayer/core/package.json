@@ -53,7 +53,7 @@
     "dev": "tsup --watch",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
-    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "prettier:fix": "prettier --write src/**/*",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "test": "",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
