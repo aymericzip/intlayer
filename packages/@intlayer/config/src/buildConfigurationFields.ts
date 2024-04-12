@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { join } from 'path';
 import { DEFAULT_LOCALE, LOCALES } from './defaultValues/internationalization';
 import {
   BUNDLE_DIR_NAME,
@@ -7,12 +7,12 @@ import {
   FILE_EXTENSIONS,
   RESULT_DIR_NAME,
   EXCLUDED_PATHS,
-  BASE_DIR_PATH,
   BUNDLE_FILE_EXTENSION,
   TYPES_DIR_NAME,
   MAIN_DIR_NAME,
   MODULE_AUGMENTATION_DIR_NAME,
 } from './defaultValues/server';
+import type { GetConfigurationOptions } from './getConfiguration';
 import type {
   BaseDirDerivedConfiguration,
   CustomIntlayerConfig,
@@ -25,6 +25,7 @@ import type {
 let storedConfiguration: IntlayerConfig;
 
 export const buildConfigurationFields = (
+  options: GetConfigurationOptions,
   customConfiguration?: CustomIntlayerConfig
 ): IntlayerConfig => {
   const configuration: NotDerivedConfiguration = {
@@ -44,7 +45,7 @@ export const buildConfigurationFields = (
     // File extensions of content to look for
     fileExtensions: customConfiguration?.fileExtensions ?? FILE_EXTENSIONS,
     // Directory name of the project
-    baseDirPath: customConfiguration?.baseDirPath ?? BASE_DIR_PATH,
+    baseDirPath: customConfiguration?.baseDirPath ?? options.baseDirPath,
     // Directory name where the content is stored
     contentDirName: customConfiguration?.contentDir ?? CONTENT_DIR_NAME,
     // Result directory name
@@ -71,14 +72,11 @@ export const buildConfigurationFields = (
 
   const baseDirDerivedConfiguration: BaseDirDerivedConfiguration = {
     // Directory where the content is stored
-    contentDir: resolve(
-      configuration.baseDirPath,
-      configuration.contentDirName
-    ),
+    contentDir: join(configuration.baseDirPath, configuration.contentDirName),
     // Directory where the result will be stored
-    resultDir: resolve(configuration.baseDirPath, configuration.resultDirName),
+    resultDir: join(configuration.baseDirPath, configuration.resultDirName),
     // Directory where the module augmentation will be stored
-    moduleAugmentationDir: resolve(
+    moduleAugmentationDir: join(
       configuration.baseDirPath,
       configuration.moduleAugmentationDirName
     ),
@@ -86,22 +84,22 @@ export const buildConfigurationFields = (
 
   const resultDirDerivedConfiguration: ResultDirDerivedConfiguration = {
     // Directory where the bundle will be stored
-    bundleDir: resolve(
+    bundleDir: join(
       baseDirDerivedConfiguration.resultDir,
       configuration.bundleDirName
     ),
     // Directory where the dictionaries will be stored
-    dictionariesDir: resolve(
+    dictionariesDir: join(
       baseDirDerivedConfiguration.resultDir,
       configuration.dictionariesDirName
     ),
     // Directory where the types will be stored
-    typesDir: resolve(
+    typesDir: join(
       baseDirDerivedConfiguration.resultDir,
       configuration.typeDirName
     ),
     // Directory where the main files will be stored
-    mainDir: resolve(
+    mainDir: join(
       baseDirDerivedConfiguration.resultDir,
       configuration.mainDirName
     ),

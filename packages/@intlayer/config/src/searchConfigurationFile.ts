@@ -17,8 +17,7 @@ type SearchConfigurationFileResult = {
 };
 
 export const searchConfigurationFile = (
-  configFilePath: string,
-  verbose = false
+  configFilePath: string
 ): SearchConfigurationFileResult => {
   let configurationFilePath: string | undefined = undefined;
   let numCustomConfiguration = 0;

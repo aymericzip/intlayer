@@ -6,25 +6,39 @@ type PluginOptions = {
   // TODO: add options
 };
 
-const { mainDir, baseDirPath } = getConfiguration();
+const intlayerConfig = getConfiguration({
+  verbose: true,
+});
+
+/**
+ * Format a key to corresponding environment variable name
+ *
+ * Example:
+ *  toEnvVariable('mainDir') => 'INTLAYER_MAIN_DIR'
+ */
+const formatEnvName = (key: string): string =>
+  'INTLAYER_' + key.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toUpperCase();
+
+// Set all configuration values as environment variables
+const env: Record<string, string> = {};
+for (const [key, value] of Object.entries(intlayerConfig)) {
+  if (typeof value === 'string') {
+    env[formatEnvName(key)] = value;
+  } else {
+    env[formatEnvName(key)] = JSON.stringify(value);
+  }
+}
+
+const { mainDir, baseDirPath } = intlayerConfig;
 
 export const withIntlayer =
   (_pluginOptions: PluginOptions = {}) =>
   (nextConfig: Partial<NextConfig> = {}): Partial<NextConfig> => ({
     ...nextConfig,
 
+    env,
+
     webpack: (config) => {
-      config.externals.push({
-        '@swc/core': '@swc/core',
-        vm: 'vm',
-      });
-
-      const typesPath = join(mainDir, 'intlayer.d.ts');
-      const relativeTypesPath = relative(baseDirPath, typesPath);
-
-      config.resolve.alias['@intlayer/dictionaries-entry/types'] =
-        resolve(relativeTypesPath);
-
       const dictionariesPath = join(mainDir, 'dictionaries.cjs');
       const relativeDictionariesPath = relative(baseDirPath, dictionariesPath);
 
@@ -32,7 +46,10 @@ export const withIntlayer =
         relativeDictionariesPath
       );
 
-      console.log('config.resolve.alias', config.resolve.alias);
+      config.module.rules.push({
+        test: /\.node$/,
+        loader: 'node-loader',
+      });
 
       return config;
     },

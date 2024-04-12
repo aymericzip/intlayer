@@ -7,9 +7,10 @@
 import { join } from 'path';
 import { getConfiguration } from '@intlayer/config';
 
-const { mainDir } = getConfiguration();
+const { mainDir } = getConfiguration({
+  baseDirPath: process.cwd(),
+});
 const dictionariesPath = join(mainDir, 'dictionaries.cjs');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const dictionaries = import(dictionariesPath);
 
 export default dictionaries;

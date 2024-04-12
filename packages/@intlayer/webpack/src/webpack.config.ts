@@ -7,7 +7,9 @@ import { getFileHash } from './utils';
 import { IntLayerPlugin } from './webpack-plugin';
 
 const { bundleDir, watchedFilesPatternWithPath, bundleFileExtension } =
-  getConfiguration({ verbose: true });
+  getConfiguration({
+    verbose: true,
+  });
 
 const getEntry = (): Record<string, string> =>
   sync(watchedFilesPatternWithPath).reduce(
