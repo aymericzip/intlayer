@@ -1,4 +1,5 @@
-import { getConfiguration, type Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/config';
+import { intlayerConfiguration } from '../../config';
 import {
   getStackTraceInfo,
   type NoteStackTraceInfo,
@@ -11,7 +12,6 @@ export type TranslationContent = Partial<LanguageContent<string>> &
     type: 'translation';
   };
 
-const { defaultLocale } = getConfiguration();
 /**
  * Create a JSON string with the content and the stack trace information
  * @param {string | Partial<LanguageContent<string>>} content - The content to be translated
@@ -24,7 +24,7 @@ const translations = (content?: Partial<LanguageContent<string>> | string) => {
     const result: TranslationContent = {
       type: 'translation',
       ...stackTraceInfo,
-      [defaultLocale]: content,
+      [intlayerConfiguration.defaultLocale]: content,
     };
 
     return result;
