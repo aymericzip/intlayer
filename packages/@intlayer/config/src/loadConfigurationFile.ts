@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { readFileSync } from 'fs';
+import { createRequire } from 'module';
 import { type Context, runInNewContext } from 'vm';
-import { transformFileSync } from '@swc/core';
+import { type Options, transformFileSync } from '@swc/core';
 import type { CustomIntlayerConfig } from './types';
 
-const sandbox: Context = {
+const isESModule = typeof import.meta.url === 'string';
+
+const sandboxContext: Context = {
   exports: {
     default: {},
   },
   module: {
     exports: {},
   },
-  console: console,
-  require: require,
+  console,
+  require: isESModule ? createRequire(import.meta.url) : require,
 };
 
 export const loadConfigurationFile = (
@@ -35,35 +37,40 @@ export const loadConfigurationFile = (
 
     // Rest is JS, MJS or TS
 
-    let isESModule = false;
-
-    // For .js files, attempt to determine if they're using ES Module syntax
-    if (configFileExtension === 'js') {
-      const fileContents = readFileSync(configFilePath, 'utf8');
-
-      isESModule = fileContents.match(/import |export /) !== null;
-    }
-
-    const type =
-      isESModule || configFileExtension === 'mjs' ? 'es6' : 'commonjs';
-
-    const moduleResult = transformFileSync(configFilePath, {
+    const transformationOption: Options = {
       jsc: {
-        target: 'es5',
+        parser: {
+          syntax: 'typescript',
+          tsx: false,
+        },
+        loose: false,
+        minify: {
+          compress: false,
+          mangle: false,
+        },
       },
       module: {
-        type,
+        type: 'commonjs',
       },
-    }).code;
+      minify: false,
+      isModule: true,
+      sourceMaps: false,
+      filename: configFilePath,
+    };
 
-    runInNewContext(moduleResult, sandbox);
+    const moduleResult = transformFileSync(
+      configFilePath,
+      transformationOption
+    ).code;
 
-    if (Object.keys(sandbox.exports.default).length > 0) {
+    runInNewContext(moduleResult, sandboxContext);
+
+    if (Object.keys(sandboxContext.exports.default).length > 0) {
       // ES Module
-      customConfiguration = sandbox.exports.default;
-    } else if (Object.keys(sandbox.module.exports).length > 0) {
+      customConfiguration = sandboxContext.exports.default;
+    } else if (Object.keys(sandboxContext.module.exports).length > 0) {
       // CommonJS
-      customConfiguration = sandbox.module.exports;
+      customConfiguration = sandboxContext.module.exports;
     }
 
     return customConfiguration;
