@@ -26,7 +26,7 @@
     "lint-staged": "lint-staged --allow-empty",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
-    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "prettier:fix": "prettier --write src/**/*",
     "release": "pnpm build && pnpm recursive run publish --verbose --topological-dev --parallel --no-private --tolerate-republish",
     "release:dev": "pnpm build && pnpm recursive run publish --verbose --topological-dev --parallel --no-private --tolerate-republish --tag=dev",
     "reset": "pnpm reset-packages && pnpm install -f && pnpm reset-examples",

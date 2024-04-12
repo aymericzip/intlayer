@@ -51,7 +51,7 @@
     "dev": "tsup  --config tsup.config.ts --watch & tsup --config tsup.config.bin.ts --watch",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
-    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "prettier:fix": "prettier --write src/**/*",
     "serve": "webpack serve --config ./webpack.config.ts",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsup--project ./tsconfig.json --noEmit",

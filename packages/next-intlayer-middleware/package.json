@@ -54,7 +54,7 @@
     "dev": "tsup --watch",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
-    "prettier:fix": "prettier --write **/*.{ts,tsx,js,json,md}",
+    "prettier:fix": "prettier --write src/**/*",
     "test": "",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
