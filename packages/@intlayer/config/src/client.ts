@@ -10,4 +10,7 @@ export { Locales } from './defaultValues/locales';
 export {
   getConfiguration,
   intlayerConfiguration,
+  intlayerContentConfiguration,
+  intlayerIntlConfiguration,
+  intlayerMiddlewareConfiguration,
 } from './envVariables/getConfiguration';

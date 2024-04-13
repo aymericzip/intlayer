@@ -1,5 +1,10 @@
 import { resolve } from 'path';
-import type { Content, ContentModule } from '@intlayer/core';
+import type {
+  Content,
+  ContentModule,
+  FlatContent,
+  FlatContentValue,
+} from '@intlayer/core';
 
 /**
  * Function to load the module file in a sandboxed environment
@@ -13,24 +18,28 @@ const loadModule = async (modulePath: string): Promise<ContentModule> => {
 /**
  * Function to replace function and async function fields with their results in the object
  */
-const processFunctionResults = async (entry: Content) => {
+const processFunctionResults = async (entry: Content): Promise<FlatContent> => {
   if (entry && typeof entry === 'object') {
     const promises: Promise<void>[] = [];
-    const result: Content = {};
+    const result: FlatContent = {};
 
     for (const key of Object.keys(entry)) {
       const field = entry?.[key];
+
+      if (typeof field === 'object') {
+        return processFunctionResults(field as Content);
+      }
 
       if (typeof field === 'function') {
         // Wait for the function to resolve if it's an async function
         const promise = (async () => {
           // Execute the function and await the result if it's a Promise
           const value = await field();
-          result[key] = value;
+          result[key] = value as FlatContentValue;
         })();
         promises.push(promise);
       } else {
-        result[key] = field;
+        result[key] = field as FlatContentValue;
       }
     }
 

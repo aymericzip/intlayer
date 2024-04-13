@@ -33,6 +33,18 @@
       "import": "./dist/index.mjs",
       "default": "./dist/index.mjs"
     },
+    "./server": {
+      "types": "./dist/server/index.d.mts",
+      "require": "./dist/server/index.js",
+      "import": "./dist/server/index.mjs",
+      "default": "./dist/server/index.mjs"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.mts",
+      "require": "./dist/client/index.js",
+      "import": "./dist/client/index.mjs",
+      "default": "./dist/client/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./src/index.ts",
@@ -65,11 +77,16 @@
     "intlayer": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.78",
     "@utils/eslint-config": "workspace:^",
+    "react": "^18.2.0",
     "rimraf": "5.0.5",
     "tsup": "^8.0.2",
     "typescript": "^5.4.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
   },
   "engines": {
     "node": ">=14.18"

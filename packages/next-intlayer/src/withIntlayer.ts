@@ -42,6 +42,9 @@ export const withIntlayer =
 
         config.externals.push({
           '@swc/core': '@swc/core',
+          react: 'react',
+          module: 'module',
+          fs: 'fs',
         });
 
         config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
@@ -57,5 +60,3 @@ export const withIntlayer =
       },
     });
   };
-
-export default withIntlayer;

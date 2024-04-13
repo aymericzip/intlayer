@@ -2,11 +2,14 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "noEmit": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
     "resolveJsonModule": true,
     "strict": true,
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    "jsx": "react-jsx",
+    "types": ["react/canary", "node"]
   },
   "exclude": ["node_modules", "dist"],
   "include": ["**/*"]
