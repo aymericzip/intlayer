@@ -1,6 +1,0 @@
-/src
-
-.env
-
-.tsconfig.*
-.tsup.config.ts

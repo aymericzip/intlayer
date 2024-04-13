@@ -17,7 +17,6 @@
     "intlayer-cli": "workspace:^",
     "next": "14.1.4",
     "next-intlayer": "workspace:^",
-    "next-intlayer-middleware": "workspace:^",
     "react": "^18",
     "react-dom": "^18"
   },
