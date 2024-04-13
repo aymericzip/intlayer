@@ -9,13 +9,13 @@ let storedConfigurationFilePath: string | undefined;
 let storedNumCustomConfiguration: number | undefined;
 
 export type GetConfigurationOptions = {
-  baseDirPath: string;
+  baseDir: string;
   verbose: boolean;
 };
 
 const BASE_DIR_PATH = process.env.INTLAYER_BASE_DIR_PATH ?? process.cwd();
 const defaultOptions: GetConfigurationOptions = {
-  baseDirPath: BASE_DIR_PATH,
+  baseDir: BASE_DIR_PATH,
   verbose: false,
 };
 
@@ -23,12 +23,12 @@ export const getConfiguration = (
   options?: Partial<GetConfigurationOptions>
 ): IntlayerConfig => {
   const mergedOptions = { ...defaultOptions, ...options };
-  const { baseDirPath, verbose } = mergedOptions;
+  const { baseDir, verbose } = mergedOptions;
 
   if (!storedConfiguration) {
     // Search for configuration files
     const { configurationFilePath, numCustomConfiguration } =
-      searchConfigurationFile(baseDirPath);
+      searchConfigurationFile(baseDir);
 
     // Load the custom configuration
     let customConfiguration: CustomIntlayerConfig | undefined;

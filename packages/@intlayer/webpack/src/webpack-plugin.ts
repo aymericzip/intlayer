@@ -10,7 +10,7 @@ import {
 import { transpileBundledCode } from './transpiler/intlater_module_to_dictionary';
 import { getFileHash } from './utils';
 
-const getRelativePath = (filePath: string) => relative(baseDirPath, filePath);
+const getRelativePath = (filePath: string) => relative(baseDir, filePath);
 
 const getBundledFilePathFromIntlayerModule = (filePath: string): string => {
   const hash = getFileHash(filePath);
@@ -18,12 +18,9 @@ const getBundledFilePathFromIntlayerModule = (filePath: string): string => {
   return `${bundleDir}/${hash}${bundleFileExtension}`;
 };
 
-const {
-  bundleDir,
-  baseDirPath,
-  bundleFileExtension,
-  watchedFilesPatternWithPath,
-} = getConfiguration();
+const { content } = getConfiguration();
+const { bundleDir, baseDir, bundleFileExtension, watchedFilesPatternWithPath } =
+  content;
 
 export class IntLayerPlugin {
   private managedFiles: Set<string>;

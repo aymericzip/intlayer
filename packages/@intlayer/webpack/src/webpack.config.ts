@@ -6,10 +6,10 @@ import type { Configuration as DevServerConfiguration } from 'webpack-dev-server
 import { getFileHash } from './utils';
 import { IntLayerPlugin } from './webpack-plugin';
 
-const { bundleDir, watchedFilesPatternWithPath, bundleFileExtension } =
-  getConfiguration({
-    verbose: true,
-  });
+const { content } = getConfiguration({
+  verbose: true,
+});
+const { bundleDir, bundleFileExtension, watchedFilesPatternWithPath } = content;
 
 const getEntry = (): Record<string, string> =>
   sync(watchedFilesPatternWithPath).reduce(

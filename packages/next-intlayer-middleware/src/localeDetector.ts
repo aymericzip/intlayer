@@ -1,10 +1,10 @@
 import { match } from '@formatjs/intl-localematcher';
 import type { Locales } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/client';
 import Negotiator from 'negotiator';
 import type { NextRequest } from 'next/server.js';
-import { intlayerConfiguration } from './config';
 
-const { locales, defaultLocale } = intlayerConfiguration;
+const { locales, defaultLocale } = getConfiguration().internationalization;
 
 export const localeDetector = (request: NextRequest): Locales => {
   const negotiatorHeaders: Record<string, string> = {};

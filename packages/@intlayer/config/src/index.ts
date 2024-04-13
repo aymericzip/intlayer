@@ -2,13 +2,17 @@ import { getConfiguration } from './getConfiguration';
 
 export type {
   CustomIntlayerConfig,
-  FixedIntlayerConfig,
+  PatternsContentConfig as FixedIntlayerConfig,
   IntlayerConfig,
-  NotDerivedConfiguration,
-  BaseDirDerivedConfiguration,
-  ResultDirDerivedConfiguration,
+  BaseContentConfig as NotDerivedConfiguration,
+  BaseDerivedConfig as BaseDirDerivedConfiguration,
+  ResultDirDerivedConfig as ResultDirDerivedConfiguration,
 } from './types';
 export { Locales } from './defaultValues/locales';
+export {
+  getConfiguration as getClientConfiguration,
+  intlayerConfiguration,
+} from './envConfiguration';
 
 export { getConfiguration };
 

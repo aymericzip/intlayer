@@ -1,8 +1,7 @@
 import { defineConfig, type Options } from 'tsup';
-import * as packageJson from './package.json';
 
 const options: Options = {
-  entryPoints: [packageJson.main],
+  entry: ['src/**/*.ts'],
   format: ['cjs', 'esm'],
   target: 'esnext',
   dts: true,

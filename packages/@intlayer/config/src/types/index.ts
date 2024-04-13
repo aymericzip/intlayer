@@ -1,31 +1,62 @@
 import type { Locales } from '../defaultValues/locales';
 
-export type CustomIntlayerConfig = Partial<{
-  /**
-   * Internationalization configuration
-   */
-
+export type InternationalizationConfig = {
   // Available languages in the app
   locales: Locales[]; // default [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH]
 
   // Default language
   defaultLocale: Locales; // default Locales.ENGLISH
+};
+
+export type ServerSetCookieRule = 'always' | 'never';
+export type MiddlewareConfig = {
+  // Header name to get the language
+  headerName: string; // default 'x-intlayer-locale'
+
+  // Cookie name to get the language
+  cookieName: string; // default 'NEXT_LOCALE'
+
+  // Prefix the default language in the URL
+  prefixDefault: boolean; // default false
+
+  // Base path
+  basePath: string; // default ''
+
+  // Set cookie on server
+  serverSetCookie: ServerSetCookieRule; // default 'always'
+
+  // No prefix
+  noPrefix: boolean; // default false;
+};
+
+export type CustomIntlayerConfig = {
+  /**
+   * Internationalization configuration
+   */
+
+  internationalization: InternationalizationConfig;
+
+  /**
+   * Middleware configuration
+   */
+
+  middleware: MiddlewareConfig;
 
   /**
    * Content configuration
    */
+  content: ContentConfig;
+};
 
+export type BaseContentConfig = {
   // File extensions of content to look for
   fileExtensions: string[]; // default ['.content.ts', '.content.js', '.content.json']
 
   // Directory of the project
-  baseDirPath: string; // default process.cwd()
+  baseDir: string; // default process.cwd()
 
   // Directory name where the content is stored
   contentDirName: string; // default 'src'
-
-  // Directory to watch - emplacement where the content is stored
-  contentDir: string; // default {{baseDirPath}} / {{contentDirName}}
 
   // Directories to exclude
   excludedPath: string[]; // default ['node_modules']
@@ -33,20 +64,11 @@ export type CustomIntlayerConfig = Partial<{
   // Result directory name
   resultDirName: string; // default '.intlayer'
 
-  // Result directory
-  resultDir: string; // default {{baseDirPath}} / {{resultDirName}}
-
   // Module augmentation directory name
   moduleAugmentationDirName: string; // default 'types'
 
-  // Result directory
-  moduleAugmentationDir: string; // default {{baseDirPath}} / {{moduleAugmentationDirName}}
-
   // Bundle directory name
   bundleDirName: string; // default 'bundle'
-
-  // Bundle directory
-  bundleDir: string; // default {{resultDir}} / {{bundleDirName}}
 
   // Bundle file extension
   bundleFileExtension: string; // default '.bundle.js'
@@ -54,27 +76,39 @@ export type CustomIntlayerConfig = Partial<{
   // Dictionary directory name
   dictionariesDirName: string; // default 'dictionary'
 
-  // Dictionary directory
-  dictionariesDir: string; // default {{resultDir}} / {{dictionaryDirName}}
-
   // Types directory name
   typeDirName: string; // default 'types'
+
+  // Main directory name
+  mainDirName: string; // default 'main'
+};
+
+export type BaseDerivedConfig = {
+  // Directory to watch - emplacement where the content is stored
+  contentDir: string; // default {{baseDir}} / {{contentDirName}}
+
+  // Result directory
+  resultDir: string; // default {{baseDir}} / {{resultDirName}}
+
+  // Result directory
+  moduleAugmentationDir: string; // default {{baseDir}} / {{moduleAugmentationDirName}}
+};
+
+export type ResultDirDerivedConfig = {
+  // Bundle directory
+  bundleDir: string; // default {{resultDir}} / {{bundleDirName}}
+
+  // Dictionary directory
+  dictionariesDir: string; // default {{resultDir}} / {{dictionaryDirName}}
 
   // Types directory
   typesDir: string; // default {{resultDir}} / {{typeDirName}}
 
-  // Main directory name
-  mainDirName: string; // default 'main'
-
   // Main directory
   mainDir: string; // default {{resultDir}} / {{mainDirName}}
+};
 
-  /**
-   * Server configuration
-   */
-}>;
-
-export type FixedIntlayerConfig = {
+export type PatternsContentConfig = {
   // Pattern of files to watch
   watchedFilesPattern: string[];
 
@@ -85,26 +119,9 @@ export type FixedIntlayerConfig = {
   outputFilesPatternWithPath: string;
 };
 
-export type NotDerivedConfiguration = Omit<
-  Required<CustomIntlayerConfig>,
-  | 'contentDir'
-  | 'resultDir'
-  | 'bundleDir'
-  | 'dictionariesDir'
-  | 'typesDir'
-  | 'mainDir'
-  | 'moduleAugmentationDir'
->;
+export type ContentConfig = BaseContentConfig &
+  BaseDerivedConfig &
+  ResultDirDerivedConfig &
+  PatternsContentConfig;
 
-export type BaseDirDerivedConfiguration = Pick<
-  Required<CustomIntlayerConfig>,
-  'contentDir' | 'resultDir' | 'moduleAugmentationDir'
->;
-
-export type ResultDirDerivedConfiguration = Pick<
-  Required<CustomIntlayerConfig>,
-  'bundleDir' | 'dictionariesDir' | 'typesDir' | 'mainDir'
->;
-
-export type IntlayerConfig = Required<CustomIntlayerConfig> &
-  FixedIntlayerConfig;
+export type IntlayerConfig = Required<CustomIntlayerConfig>;

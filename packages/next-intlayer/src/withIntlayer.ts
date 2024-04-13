@@ -18,11 +18,16 @@ const intlayerConfig = getConfiguration({
  *  toEnvVariable('mainDir') => 'INTLAYER_MAIN_DIR'
  */
 const formatEnvName = (key: string): string =>
-  'INTLAYER_' + key.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toUpperCase();
+  'NEXT_PUBLIC_INTLAYER_' +
+  key.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toUpperCase();
 
 // Set all configuration values as environment variables
 const env: Record<string, string> = {};
-for (const [key, value] of Object.entries(intlayerConfig)) {
+for (const [key, value] of Object.entries({
+  ...intlayerConfig.content,
+  ...intlayerConfig.internationalization,
+  ...intlayerConfig.middleware,
+})) {
   if (typeof value === 'string') {
     env[formatEnvName(key)] = value;
   } else {
@@ -30,7 +35,7 @@ for (const [key, value] of Object.entries(intlayerConfig)) {
   }
 }
 
-const { mainDir, baseDirPath } = intlayerConfig;
+const { mainDir, baseDir } = intlayerConfig.content;
 
 const mergeEnvVariable = (
   nextEnv: Record<string, unknown> | undefined = {}
@@ -55,10 +60,7 @@ export const withIntlayer =
 
       webpack: (config: Parameters<NextJsWebpackConfig>['0']) => {
         const dictionariesPath = join(mainDir, 'dictionaries.cjs');
-        const relativeDictionariesPath = relative(
-          baseDirPath,
-          dictionariesPath
-        );
+        const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
         config.externals.push({
           '@swc/core': '@swc/core',
