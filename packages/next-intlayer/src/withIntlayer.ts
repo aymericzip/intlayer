@@ -1,5 +1,5 @@
 import { resolve, relative, join } from 'path';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, formatEnvVariable } from '@intlayer/config';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 
@@ -11,30 +11,8 @@ const intlayerConfig = getConfiguration({
   verbose: true,
 });
 
-/**
- * Format a key to corresponding environment variable name
- *
- * Example:
- *  toEnvVariable('mainDir') => 'INTLAYER_MAIN_DIR'
- */
-const formatEnvName = (key: string): string =>
-  'NEXT_PUBLIC_INTLAYER_' +
-  key.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toUpperCase();
-
 // Set all configuration values as environment variables
-const env: Record<string, string> = {};
-for (const [key, value] of Object.entries({
-  ...intlayerConfig.content,
-  ...intlayerConfig.internationalization,
-  ...intlayerConfig.middleware,
-})) {
-  if (typeof value === 'string') {
-    env[formatEnvName(key)] = value;
-  } else {
-    env[formatEnvName(key)] = JSON.stringify(value);
-  }
-}
-
+const env = formatEnvVariable('NEXT_PUBLIC_INTLAYER_');
 const { mainDir, baseDir } = intlayerConfig.content;
 
 const mergeEnvVariable = (

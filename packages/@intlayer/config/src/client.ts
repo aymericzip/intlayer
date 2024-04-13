@@ -1,5 +1,3 @@
-import { getConfiguration } from './configFile/getConfiguration';
-
 export type {
   CustomIntlayerConfig,
   PatternsContentConfig as FixedIntlayerConfig,
@@ -10,9 +8,6 @@ export type {
 } from './types';
 export { Locales } from './defaultValues/locales';
 export {
-  getConfiguration as getClientConfiguration,
+  getConfiguration,
   intlayerConfiguration,
-  formatEnvVariable,
-} from './envVariables';
-
-export { getConfiguration };
+} from './envVariables/getConfiguration';

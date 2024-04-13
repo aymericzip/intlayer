@@ -1,7 +1,7 @@
 import { defineConfig, type Options } from 'tsup';
 
 const options: Options = {
-  entry: ['src/index.ts', 'src/envConfiguration.ts'],
+  entry: ['src/index.ts', 'src/client.ts'],
   format: ['cjs', 'esm'],
   target: 'esnext',
   dts: true,
