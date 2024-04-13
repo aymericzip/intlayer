@@ -4,7 +4,8 @@ import { getConfiguration } from '@intlayer/config';
 import { sync } from 'glob';
 import { getFileHash } from '../../utils';
 
-const { mainDir, dictionariesDir } = getConfiguration();
+const { content } = getConfiguration();
+const { dictionariesDir, mainDir } = content;
 
 /**
  * This function generates the content of the dictionary list file

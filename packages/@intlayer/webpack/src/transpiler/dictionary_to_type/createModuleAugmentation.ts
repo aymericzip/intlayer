@@ -4,7 +4,8 @@ import { getConfiguration } from '@intlayer/config';
 import { sync } from 'glob';
 import { getFileHash, transformToCamelCase } from '../../utils';
 
-const { mainDir, moduleAugmentationDir, typesDir } = getConfiguration();
+const { content } = getConfiguration();
+const { mainDir, typesDir, moduleAugmentationDir } = content;
 
 export const getTypeName = (id: string): string =>
   transformToCamelCase(`${id}Content`);

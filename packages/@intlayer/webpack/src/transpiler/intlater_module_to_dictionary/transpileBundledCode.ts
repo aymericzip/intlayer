@@ -6,7 +6,8 @@ import type { ContentModule } from '@intlayer/core';
 import { extractObjectsWithId } from './extractNestedJSON';
 import { processModule } from './processModule';
 
-const { dictionariesDir, bundleFileExtension } = getConfiguration();
+const { content } = getConfiguration();
+const { dictionariesDir, bundleFileExtension } = content;
 
 const loadBundledModule = async (bundledEntryPath: string) => {
   const entryFilePath = resolve(bundledEntryPath);

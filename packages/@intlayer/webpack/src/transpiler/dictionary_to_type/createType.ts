@@ -8,7 +8,8 @@ import type {
 } from '@intlayer/core';
 import { getTypeName } from './createModuleAugmentation';
 
-const { typesDir } = getConfiguration();
+const { content } = getConfiguration();
+const { typesDir } = content;
 
 /**
  *

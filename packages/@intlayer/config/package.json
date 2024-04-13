@@ -27,10 +27,16 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs",
       "default": "./dist/index.mjs"
+    },
+    "./client": {
+      "types": "./dist/envConfiguration.d.ts",
+      "require": "./dist/envConfiguration.js",
+      "import": "./dist/envConfiguration.mjs",
+      "default": "./dist/envConfiguration.mjs"
     },
     "./package.json": "./package.json"
   },

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "dev-all": "npx intlayer watch & next dev",
+    "dev-all": "npx intlayer watch | next dev",
     "lint": "next lint",
     "serve": "npx intlayer serve",
     "start": "next start",
