@@ -1,11 +1,11 @@
-import type { Locales } from './defaultValues/locales';
+import type { Locales } from '../defaultValues/locales';
 import type {
   ContentConfig,
   InternationalizationConfig,
   IntlayerConfig,
   MiddlewareConfig,
   ServerSetCookieRule,
-} from './types';
+} from '../types';
 import { getEnvValue } from './utils';
 
 export const intlayerInternationalizationConfiguration: InternationalizationConfig =
@@ -119,4 +119,4 @@ export const intlayerConfiguration: IntlayerConfig = {
   content: intlayerContentConfiguration,
 };
 
-export const getConfiguration = () => intlayerConfiguration;
+export const getConfiguration = (): IntlayerConfig => intlayerConfiguration;

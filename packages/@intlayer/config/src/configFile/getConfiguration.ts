@@ -1,8 +1,8 @@
 import { relative } from 'path';
+import type { CustomIntlayerConfig, IntlayerConfig } from '../types';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
-import type { CustomIntlayerConfig, IntlayerConfig } from './types';
 
 let storedConfiguration: IntlayerConfig | undefined;
 let storedConfigurationFilePath: string | undefined;

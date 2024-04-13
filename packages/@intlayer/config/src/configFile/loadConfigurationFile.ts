@@ -2,7 +2,7 @@
 import { createRequire } from 'module';
 import { type Context, runInNewContext } from 'vm';
 import { type Options, transformFileSync } from '@swc/core';
-import type { CustomIntlayerConfig } from './types';
+import type { CustomIntlayerConfig } from '../types';
 
 const isESModule = typeof import.meta.url === 'string';
 

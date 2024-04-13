@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { DEFAULT_LOCALE, LOCALES } from './defaultValues/internationalization';
+import { DEFAULT_LOCALE, LOCALES } from '../defaultValues/internationalization';
 import {
   BASE_PATH,
   COOKIE_NAME,
@@ -7,7 +7,7 @@ import {
   NO_PREFIX,
   PREFIX_DEFAULT,
   SERVER_SET_COOKIE,
-} from './defaultValues/middleware';
+} from '../defaultValues/middleware';
 import {
   BUNDLE_DIR_NAME,
   CONTENT_DIR_NAME,
@@ -19,8 +19,7 @@ import {
   TYPES_DIR_NAME,
   MAIN_DIR_NAME,
   MODULE_AUGMENTATION_DIR_NAME,
-} from './defaultValues/server';
-import type { GetConfigurationOptions } from './getConfiguration';
+} from '../defaultValues/server';
 import type {
   BaseDerivedConfig,
   ContentConfig,
@@ -31,7 +30,8 @@ import type {
   MiddlewareConfig,
   BaseContentConfig,
   ResultDirDerivedConfig,
-} from './types';
+} from '../types';
+import type { GetConfigurationOptions } from './getConfiguration';
 
 let storedConfiguration: IntlayerConfig;
 

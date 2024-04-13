@@ -69,7 +69,6 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
-    "intlayer": "workspace:^",
     "negotiator": "^0.6.3",
     "next": "14.1.4",
     "webpack": "^5.91.0"
