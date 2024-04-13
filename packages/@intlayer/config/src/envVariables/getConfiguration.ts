@@ -8,17 +8,16 @@ import type {
 } from '../types';
 import { getEnvValue } from './utils';
 
-export const intlayerInternationalizationConfiguration: InternationalizationConfig =
-  {
-    locales: getEnvValue<Locales>(
-      process.env.NEXT_PUBLIC_INTLAYER_LOCALES,
-      'array'
-    )!,
-    defaultLocale: getEnvValue<Locales>(
-      process.env.NEXT_PUBLIC_INTLAYER_DEFAULT_LOCALE,
-      'string'
-    )!,
-  };
+export const intlayerIntlConfiguration: InternationalizationConfig = {
+  locales: getEnvValue<Locales>(
+    process.env.NEXT_PUBLIC_INTLAYER_LOCALES,
+    'array'
+  )!,
+  defaultLocale: getEnvValue<Locales>(
+    process.env.NEXT_PUBLIC_INTLAYER_DEFAULT_LOCALE,
+    'string'
+  )!,
+};
 
 export const intlayerMiddlewareConfiguration: MiddlewareConfig = {
   headerName: getEnvValue(
@@ -114,7 +113,7 @@ export const intlayerContentConfiguration: ContentConfig = {
 };
 
 export const intlayerConfiguration: IntlayerConfig = {
-  internationalization: intlayerInternationalizationConfiguration,
+  internationalization: intlayerIntlConfiguration,
   middleware: intlayerMiddlewareConfiguration,
   content: intlayerContentConfiguration,
 };

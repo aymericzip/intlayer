@@ -2,7 +2,7 @@
 import 'intlayer';
 
 declare module 'intlayer' {
-  interface IntLayerDictionaryTypesConnector {
+  interface IntlayerDictionaryTypesConnector {
     // This type is empty and should augmented by the dictionaries types in the .intlayer folder
     // See https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
   }

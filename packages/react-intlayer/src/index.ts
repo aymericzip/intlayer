@@ -1,1 +1,2 @@
-export * from './interpreter';
+export * from './getTranslation';
+export * from './getContent';

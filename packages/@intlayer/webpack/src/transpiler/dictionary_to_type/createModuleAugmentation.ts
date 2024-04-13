@@ -40,7 +40,7 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    * Will suggest the type resulting of the dictionaries
    *
    * declare module 'intlayer' {
-   *   interface IntLayerDictionaryTypesConnector = {
+   *   interface IntlayerDictionaryTypesConnector = {
    *     dictionaries: {
    *       id: DictionaryType;
    *     }
@@ -48,7 +48,7 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    *
    * See https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
    */
-  content += `declare module 'intlayer' {\n  interface IntLayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  };\n};`;
+  content += `declare module 'intlayer' {\n  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  };\n};`;
 
   return content;
 };
