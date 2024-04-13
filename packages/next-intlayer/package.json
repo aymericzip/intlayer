@@ -32,6 +32,12 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./middleware": {
+      "types": "./dist/middleware/index.d.ts",
+      "require": "./dist/middleware/index.cjs",
+      "import": "./dist/middleware/index.js",
+      "default": "./dist/middleware/index.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "src/index.ts",
