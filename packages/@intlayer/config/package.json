@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "@utils/eslint-config": "workspace:^",
+    "@utils/ts-config": "workspace:^",
     "rimraf": "5.0.5",
     "tsup": "^8.0.2",
     "typescript": "^5.4.3"

@@ -2,12 +2,10 @@ import { relative, resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import { sync } from 'glob';
 import { DynamicEntryPlugin, type Compiler } from 'webpack';
-import { createDictionaryList } from './transpiler/dictionary_to_main';
-import {
-  createTypes,
-  createModuleAugmentation,
-} from './transpiler/dictionary_to_type';
-import { transpileBundledCode } from './transpiler/intlater_module_to_dictionary';
+import { createDictionaryList } from './transpiler/dictionary_to_main/createDictionaryList';
+import { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
+import { createTypes } from './transpiler/dictionary_to_type/createType';
+import { transpileBundledCode } from './transpiler/intlater_module_to_dictionary/transpileBundledCode';
 import { getFileHash } from './utils';
 
 const getRelativePath = (filePath: string) => relative(baseDir, filePath);

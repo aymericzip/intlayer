@@ -9,10 +9,10 @@ export type {
   ResultDirDerivedConfig as ResultDirDerivedConfiguration,
 } from './types';
 export { Locales } from './defaultValues/locales';
+export { formatEnvVariable } from './envVariables/formatEnvVariable';
 export {
   getConfiguration as getClientConfiguration,
   intlayerConfiguration,
-  formatEnvVariable,
-} from './envVariables';
+} from './envVariables/getConfiguration';
 
 export { getConfiguration };

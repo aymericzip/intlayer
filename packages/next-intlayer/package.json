@@ -24,19 +24,24 @@
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aypineau"
   },
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./middleware": {
       "types": "./dist/middleware/index.d.ts",
       "require": "./dist/middleware/index.cjs",
       "import": "./dist/middleware/index.js",
       "default": "./dist/middleware/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "require": "./dist/server/index.cjs",
+      "import": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -80,6 +85,7 @@
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.78",
     "@utils/eslint-config": "workspace:^",
+    "@utils/ts-config": "workspace:^",
     "react": "^18.2.0",
     "rimraf": "5.0.5",
     "tsup": "^8.0.2",
