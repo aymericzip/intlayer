@@ -2,9 +2,9 @@ import {
   type Locales,
   intlayerIntlConfiguration,
 } from '@intlayer/config/client';
-import type { FC, PropsWithChildren } from 'react';
-import { LocaleServerContextProvider } from '../server';
-import { LocaleClientContextProvider } from '.';
+import React, { type FC, type PropsWithChildren } from 'react';
+import { LocaleServerContextProvider } from '../server/LocaleServerContextProvider';
+import { LocaleClientContextProvider } from './LocaleClientContextProvider';
 
 const defaultLocale = intlayerIntlConfiguration.defaultLocale;
 

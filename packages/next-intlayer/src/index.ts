@@ -1,6 +1,5 @@
 'use client';
 
-export { getTranslation } from 'react-intlayer';
-export { useIntlayer } from 'react-intlayer/client';
+// export { getTranslation } from 'react-intlayer';
 export * from './withIntlayer';
-export * from './client';
+export * from './client/index';

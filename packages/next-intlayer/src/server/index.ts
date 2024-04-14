@@ -1,1 +1,5 @@
-export * from 'react-intlayer/server';
+// export {
+//   useIntlayer,
+//   getContent,
+//   getLocaleContent,
+// } from 'react-intlayer/server';

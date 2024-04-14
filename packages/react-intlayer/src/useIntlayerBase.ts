@@ -6,7 +6,7 @@
 import type { Locales } from '@intlayer/config';
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { processDictionary } from './processDictionary';
+import { processDictionary } from './processDictionary/index';
 
 export type StringFallback<T> = T extends never ? string : T; // If no keys are found, return string to disable error, and accept any string as dictionary key
 export type DictionaryKeys = StringFallback<

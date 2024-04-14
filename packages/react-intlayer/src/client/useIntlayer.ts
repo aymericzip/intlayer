@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from 'react';
 import { type DictionaryKeys, useIntlayerBase } from '../useIntlayerBase';
 import { LocaleContext } from './LocaleClientContextProvider';

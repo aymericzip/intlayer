@@ -1,4 +1,4 @@
-import { bundle, startServer, watch } from './scripts';
+import { bundle, startServer, watch } from './scripts/index';
 import { IntLayerPlugin } from './webpack-plugin';
 import { devServerConfig, webpackConfig } from './webpack.config';
 

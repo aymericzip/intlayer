@@ -1,14 +1,6 @@
-import { defineConfig, type Options } from 'tsup';
-import * as packageJson from './package.json';
+import { packageBuildOptions } from '@utils/ts-config/tsup';
+import { type Options, defineConfig } from 'tsup';
 
-const options: Options = {
-  entryPoints: ['src/index.ts', 'src/server/index.ts', 'src/client/index.ts'],
-  format: ['cjs', 'esm'],
-  target: 'esnext',
-  dts: true,
-  external: ['@intlayer/dictionaries-entry'],
-  clean: true,
-  sourcemap: true,
-};
+const option: Options = packageBuildOptions as Options;
 
-export default defineConfig(options);
+export default defineConfig(option);

@@ -1,4 +1,4 @@
-import { getConfiguration } from '../configFile';
+import { getConfiguration } from '../configFile/getConfiguration';
 
 export const formatEnvVariable = (
   prefix = 'NEXT_PUBLIC_INTLAYER_'

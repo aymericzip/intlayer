@@ -1,7 +1,7 @@
-export const contentRender = async (content: string) => {
-  const isEditable = process.env.NODE_ENV === 'development';
+import { ContentEditor } from './ContentEditor';
 
-  const { ContentEditor } = await import('./index');
+export const contentRender = (content: string) => {
+  const isEditable = process.env.NODE_ENV === 'development';
 
   if (isEditable && ContentEditor) {
     return (<ContentEditor>{content}</ContentEditor>) as unknown as string;

@@ -1,0 +1,20 @@
+{
+  "name": "@utils/ts-config",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "exports": {
+    ".": "./tsconfig.json",
+    "./tsup": "./tsup-config.mjs"
+  },
+  "scripts": {},
+  "dependencies": {
+    "esbuild": "^0.20.2",
+    "tsup": "^8.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.3"
+  }
+}

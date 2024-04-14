@@ -1,15 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "compilerOptions": {
-    "noEmit": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "strict": true,
-    "allowJs": true,
-    "checkJs": true,
-    "module": "ESNext",
-    "target": "ESNext"
-  },
-  "exclude": ["node_modules", "dist"],
+  "extends": "@utils/ts-config",
   "include": ["**/*"]
 }

@@ -1,5 +1,3 @@
-import react from 'react';
-
 /**
  * Creates a new datastore for a given server context.
  * Attempts to closely mimic the `createContext` API.
@@ -11,6 +9,8 @@ import react from 'react';
  *      {children}
  * </LocaleServerContext.Provider>
  */
+
+import react from 'react';
 
 type CacheType<T> = () => { value: T | undefined };
 

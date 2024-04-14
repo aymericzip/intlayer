@@ -1,16 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@utils/ts-config",
   "compilerOptions": {
-    "noEmit": true,
-    "moduleResolution": "Bundler",
-    "module": "ESNext",
-    "resolveJsonModule": true,
-    "strict": true,
-    "allowJs": true,
-    "checkJs": true,
-    "jsx": "react-jsx",
-    "types": ["react/canary", "node"]
-  },
-  "exclude": ["node_modules", "dist"],
-  "include": ["**/*"]
+    "types": ["react/canary", "node", "./types/intlayer.d.ts"]
+  }
 }
