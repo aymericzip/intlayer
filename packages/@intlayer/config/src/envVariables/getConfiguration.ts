@@ -32,7 +32,7 @@ export const intlayerMiddlewareConfiguration: MiddlewareConfig = {
     process.env.NEXT_PUBLIC_INTLAYER_PREFIX_DEFAULT,
     'boolean'
   )!,
-  basePath: getEnvValue('NEXT_PUBLIC_INTLAYER_BASE_PATH', 'string')!,
+  basePath: getEnvValue(process.env.NEXT_PUBLIC_INTLAYER_BASE_PATH, 'string')!,
   serverSetCookie: getEnvValue<ServerSetCookieRule>(
     process.env.NEXT_PUBLIC_INTLAYER_SERVER_SET_COOKIE,
     'string'

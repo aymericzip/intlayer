@@ -171,17 +171,17 @@ const handleDefaultLocaleRedirect = (
   basePathTrailingSlash: boolean
 ): NextResponse => {
   if (!prefixDefault && pathLocale === defaultLocale) {
-    const pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
-    return redirectUrl(
-      request,
-      constructPath(
-        pathLocale,
-        pathWithoutLocale,
-        basePath,
-        basePathTrailingSlash,
-        request.nextUrl.search
-      )
-    );
+    let pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
+
+    if (basePathTrailingSlash) {
+      pathWithoutLocale = pathWithoutLocale.slice(1);
+    }
+
+    if (request.nextUrl.search) {
+      pathWithoutLocale += request.nextUrl.search;
+    }
+
+    return rewriteUrl(request, `${basePath}${pathWithoutLocale}`, pathLocale);
   }
   return rewriteUrl(request, pathname, pathLocale);
 };
