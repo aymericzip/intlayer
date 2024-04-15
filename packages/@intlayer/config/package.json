@@ -27,14 +27,14 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "types": "./dist/esm/index.d.mts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
     },
     "./client": {
-      "types": "./dist/client.d.ts",
-      "require": "./dist/client.js",
-      "import": "./dist/client.mjs"
+      "types": "./dist/esm/client.d.mts",
+      "require": "./dist/cjs/client.cjs",
+      "import": "./dist/esm/client.mjs"
     },
     "./package.json": "./package.json"
   },

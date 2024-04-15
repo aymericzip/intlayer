@@ -1,5 +1,9 @@
-// export {
-//   useIntlayer,
-//   getContent,
-//   getLocaleContent,
-// } from 'react-intlayer/server';
+export {
+  getContent,
+  getLocaleContent,
+  useTraduction,
+  LocaleServerContext,
+  LocaleServerContextProvider,
+  locale,
+  useIntlayer,
+} from 'react-intlayer/server';

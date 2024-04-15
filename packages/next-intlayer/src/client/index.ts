@@ -1,1 +1,1 @@
-export * from './useCurrentLocale';
+export { useCurrentLocale } from './useCurrentLocale';

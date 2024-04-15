@@ -72,10 +72,10 @@ export const webpackConfig: WebPackConfiguration = {
 
   // devtool: 'source-map',
 
-  stats: {
-    preset: 'errors-only',
-    warnings: false,
-  },
+  // stats: {
+  //   preset: 'errors-only',
+  //   warnings: false,
+  // },
   ignoreWarnings: [/./],
   resolve: {
     // Resolve TypeScript, JavaScript and JSON files

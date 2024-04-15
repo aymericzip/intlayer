@@ -25,10 +25,9 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.mjs"
+      "types": "./dist/esm/index.d.mts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
     },
     "./package.json": "./package.json"
   },

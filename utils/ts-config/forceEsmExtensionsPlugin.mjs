@@ -12,7 +12,9 @@ export const forceEsmExtensionsPlugin = () => ({
         // Only target CJS/ESM files.
         // This ignores additional files emitted, like sourcemaps ("*.js.map").
         if (
-          !(outputFile.path.endsWith('.js') || outputFile.path.endsWith('.mjs'))
+          !(
+            outputFile.path.endsWith('.cjs') || outputFile.path.endsWith('.mjs')
+          )
         ) {
           continue;
         }
@@ -29,30 +31,42 @@ export const forceEsmExtensionsPlugin = () => ({
 const CJS_RELATIVE_IMPORT_EXP = /require\(["'](\..+)["']\)(;)?/g;
 const ESM_RELATIVE_IMPORT_EXP = /from ["'](\..+)["'](;)?/g;
 
-const modifyRelativeImports = (contents, isEsm) => {
-  const extension = isEsm ? '.mjs' : '.js';
-  const importExpression = isEsm
-    ? ESM_RELATIVE_IMPORT_EXP
-    : CJS_RELATIVE_IMPORT_EXP;
+const ESMExtension = '.mjs';
+const CJSExtension = '.cjs';
 
+const modifyRelativeImports = (contents, isEsm) =>
+  isEsm ? modifyEsmImports(contents) : modifyCjsImports(contents);
+
+const modifyEsmImports = (contents) => {
   return contents.replace(
-    importExpression,
+    ESM_RELATIVE_IMPORT_EXP,
     (_, importPath, maybeSemicolon = '') => {
       if (importPath.endsWith('.') || importPath.endsWith('/')) {
-        return isEsm
-          ? `from '${importPath}/index${extension}'${maybeSemicolon}`
-          : `require("${importPath}/index${extension}")${maybeSemicolon}`;
+        return `from '${importPath}/index${ESMExtension}'${maybeSemicolon}`;
       }
 
-      if (importPath.endsWith(extension)) {
-        return isEsm
-          ? `from '${importPath}'${maybeSemicolon}`
-          : `require("${importPath}")${maybeSemicolon}`;
+      if (importPath.endsWith(ESMExtension)) {
+        return `from '${importPath}'${maybeSemicolon}`;
       }
 
-      return isEsm
-        ? `from '${importPath}${extension}'${maybeSemicolon}`
-        : `require("${importPath}${extension}")${maybeSemicolon}`;
+      return `from '${importPath}${ESMExtension}'${maybeSemicolon}`;
+    }
+  );
+};
+
+const modifyCjsImports = (contents) => {
+  return contents.replace(
+    CJS_RELATIVE_IMPORT_EXP,
+    (_, importPath, maybeSemicolon = '') => {
+      if (importPath.endsWith('.') || importPath.endsWith('/')) {
+        return `require('${importPath}/index${CJSExtension}')${maybeSemicolon}`;
+      }
+
+      if (importPath.endsWith(CJSExtension)) {
+        return `require('${importPath}')${maybeSemicolon}`;
+      }
+
+      return `require('${importPath}${CJSExtension}')${maybeSemicolon}`;
     }
   );
 };

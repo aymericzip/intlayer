@@ -1,8 +1,8 @@
 'use client';
 
 import {
-  type Locales,
   intlayerIntlConfiguration,
+  type Locales,
 } from '@intlayer/config/client';
 import { createContext, useContext, type FC } from 'react';
 import type { LocaleContextProviderProps } from './LocaleContextProvider';

@@ -6,7 +6,7 @@ export type {
   BaseDerivedConfig as BaseDirDerivedConfiguration,
   ResultDirDerivedConfig as ResultDirDerivedConfiguration,
 } from './types';
-export { Locales } from './defaultValues/locales';
+export type { Locales } from './defaultValues/locales';
 export {
   getConfiguration,
   intlayerConfiguration,

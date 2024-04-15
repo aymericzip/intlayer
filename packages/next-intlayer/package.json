@@ -26,22 +26,19 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.mjs"
+      "types": "./dist/esm/index.d.mts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
     },
     "./middleware": {
-      "types": "./dist/middleware/index.d.ts",
-      "require": "./dist/middleware/index.cjs",
-      "import": "./dist/middleware/index.js",
-      "default": "./dist/middleware/index.js"
+      "types": "./dist/esm/middleware/index.d.mts",
+      "require": "./dist/cjs/middleware/index.cjs",
+      "import": "./dist/esm/middleware/index.mjs"
     },
     "./server": {
-      "types": "./dist/server/index.d.ts",
-      "require": "./dist/server/index.cjs",
-      "import": "./dist/server/index.js",
-      "default": "./dist/server/index.js"
+      "types": "./dist/esm/server/index.d.mts",
+      "require": "./dist/cjs/server/index.cjs",
+      "import": "./dist/esm/server/index.mjs"
     },
     "./package.json": "./package.json"
   },

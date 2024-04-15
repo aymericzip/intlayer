@@ -6,6 +6,7 @@
 import type { Locales } from '@intlayer/config';
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import type { Content } from './processDictionary/contentDictionary';
 import { processDictionary } from './processDictionary/index';
 
 export type StringFallback<T> = T extends never ? string : T; // If no keys are found, return string to disable error, and accept any string as dictionary key
@@ -13,7 +14,7 @@ export type DictionaryKeys = StringFallback<
   keyof IntlayerDictionaryTypesConnector
 >;
 
-type UseIntlayer = <T extends DictionaryKeys>(
+export type UseIntlayer = <T extends DictionaryKeys>(
   id: T,
   locale?: Locales
 ) => IntlayerDictionaryTypesConnector[T];
@@ -22,7 +23,10 @@ export const useIntlayerBase: UseIntlayer = <T extends DictionaryKeys>(
   id: T,
   locale?: Locales
 ) => {
-  dictionaries[id] as IntlayerDictionaryTypesConnector[T];
+  const dictionary: Content = dictionaries[id];
 
-  return processDictionary(dictionaries[id], locale);
+  return processDictionary(
+    dictionary,
+    locale
+  ) as IntlayerDictionaryTypesConnector[T];
 };
