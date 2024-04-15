@@ -25,7 +25,7 @@
   "exports": {
     ".": {
       "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.js",
+      "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
     "./package.json": "./package.json"

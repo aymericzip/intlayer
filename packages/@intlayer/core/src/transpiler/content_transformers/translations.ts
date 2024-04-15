@@ -1,4 +1,5 @@
 import { type Locales, intlayerConfiguration } from '@intlayer/config';
+import type { ReactNode } from 'react';
 import { NodeType } from '../../types/index';
 import {
   getStackTraceInfo,
@@ -7,7 +8,7 @@ import {
 
 export type LanguageContent<Content> = Record<Locales, Content>;
 
-export type TranslationContent = Partial<LanguageContent<string>> &
+export type TranslationContent = Partial<LanguageContent<ReactNode>> &
   NoteStackTraceInfo & {
     type: NodeType;
   };

@@ -3,5 +3,6 @@
   "extends": "@utils/ts-config",
   "compilerOptions": {
     "types": ["react/canary", "node", "./@types/intlayer.d.ts"]
-  }
+  },
+  "include": ["**/*"]
 }
