@@ -24,10 +24,9 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "types": "./dist/esm/index.d.mts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -40,7 +39,7 @@
     }
   },
   "bin": {
-    "intlayer": "./dist/index.js"
+    "intlayer": "./dist/cjs/index.cjs"
   },
   "files": [
     "./dist",

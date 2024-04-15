@@ -1,5 +1,5 @@
-import type { Locales } from '@intlayer/config';
-import { intlayerConfiguration } from '../../config';
+import { type Locales, intlayerConfiguration } from '@intlayer/config';
+import { NodeType } from '../../types/index';
 import {
   getStackTraceInfo,
   type NoteStackTraceInfo,
@@ -9,7 +9,7 @@ export type LanguageContent<Content> = Record<Locales, Content>;
 
 export type TranslationContent = Partial<LanguageContent<string>> &
   NoteStackTraceInfo & {
-    type: 'translation';
+    type: NodeType;
   };
 
 /**
@@ -20,16 +20,16 @@ const translations = (content?: Partial<LanguageContent<string>> | string) => {
 
   if (typeof content === 'string') {
     const result: TranslationContent = {
-      type: 'translation',
+      type: NodeType.Translation,
       ...stackTraceInfo,
-      [intlayerConfiguration.defaultLocale]: content,
+      [intlayerConfiguration.internationalization.defaultLocale]: content,
     };
 
     return result;
   }
 
   const result: TranslationContent = {
-    type: 'translation',
+    type: NodeType.Translation,
     ...stackTraceInfo,
     ...content,
   };

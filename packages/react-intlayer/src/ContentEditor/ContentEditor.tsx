@@ -101,8 +101,12 @@ export const ContentEditor: FC<ContentEditorProps> = ({ children }) => {
       suppressContentEditableWarning={true} // To suppress the warning for controlled components
       style={
         isEditing
-          ? { backgroundColor: 'lightyellow', cursor: 'text' }
-          : { cursor: 'pointer' }
+          ? {
+              backgroundColor: 'transparent',
+              cursor: 'text',
+              display: 'inline',
+            }
+          : { cursor: 'pointer', display: 'inline' }
       }
       ref={divRef}
     >

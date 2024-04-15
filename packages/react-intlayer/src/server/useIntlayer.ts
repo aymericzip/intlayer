@@ -1,10 +1,17 @@
 import type { Locales } from '@intlayer/config';
-import { type DictionaryKeys, useIntlayerBase } from '../useIntlayerBase';
+import {
+  type DictionaryKeys,
+  useIntlayerBase,
+  type UseIntlayer,
+} from '../useIntlayerBase';
 import { LocaleServerContext } from './LocaleServerContextProvider';
 import { getServerContext } from './serverContext';
 
-export const useIntlayer = <T extends DictionaryKeys>(id: T) => {
-  const locale = getServerContext<Locales>(LocaleServerContext);
+export const useIntlayer: UseIntlayer = <T extends DictionaryKeys>(
+  id: T,
+  locale?: Locales
+) => {
+  const localeTarget = locale ?? getServerContext<Locales>(LocaleServerContext);
 
-  return useIntlayerBase(id, locale);
+  return useIntlayerBase(id, localeTarget);
 };

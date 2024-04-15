@@ -42,7 +42,6 @@ export const withIntlayer =
 
         config.externals.push({
           '@swc/core': '@swc/core',
-          react: 'react',
           module: 'module',
           fs: 'fs',
         });

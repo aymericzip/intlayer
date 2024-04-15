@@ -2,6 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
   "compilerOptions": {
-    "types": ["react/canary", "node", "./types/intlayer.d.ts"]
+    "types": ["react/canary", "node", "./@types/intlayer.d.ts"]
   }
 }

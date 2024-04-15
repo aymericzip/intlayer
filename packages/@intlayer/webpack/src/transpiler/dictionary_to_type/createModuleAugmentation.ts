@@ -1,11 +1,11 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { basename, relative, resolve } from 'path';
+import { basename, join, relative } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import { sync } from 'glob';
 import { getFileHash, transformToCamelCase } from '../../utils';
 
 const { content } = getConfiguration();
-const { mainDir, typesDir, moduleAugmentationDir } = content;
+const { typesDir, moduleAugmentationDir } = content;
 
 export const getTypeName = (id: string): string =>
   transformToCamelCase(`${id}Content`);
@@ -17,7 +17,7 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
   let content = "import 'intlayer';\n\n";
 
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
-    relativePath: relative(mainDir, dictionaryPath),
+    relativePath: relative(moduleAugmentationDir, dictionaryPath),
     id: basename(dictionaryPath, '.d.ts'), // Get the base name as the dictionary id
     hash: `_${getFileHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
   }));
@@ -58,13 +58,13 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
  */
 export const createModuleAugmentation = () => {
   // Create main directory if it doesn't exist
-  if (!existsSync(mainDir)) {
-    mkdirSync(mainDir, { recursive: true });
+  if (!existsSync(moduleAugmentationDir)) {
+    mkdirSync(moduleAugmentationDir, { recursive: true });
   }
 
   const dictionaries: string[] = sync(`${typesDir}/**/*.d.ts`);
   // Create the dictionary list file
 
   const tsContent = generateTypeIndexContent(dictionaries);
-  writeFileSync(resolve(moduleAugmentationDir, 'intlayer.d.ts'), tsContent);
+  writeFileSync(join(moduleAugmentationDir, 'intlayer.d.ts'), tsContent);
 };

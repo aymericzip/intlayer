@@ -1,5 +1,8 @@
-import type { Locales } from '@intlayer/config';
-import type { LanguageContent } from '@intlayer/core';
+import {
+  type Locales,
+  intlayerIntlConfiguration,
+} from '@intlayer/config/client';
+import { NodeType, type LanguageContent } from '@intlayer/core';
 import { getTranslation } from '../getTranslation';
 import type {
   Content,
@@ -8,12 +11,14 @@ import type {
   TranslatedContentValue,
 } from './contentDictionary';
 
+const defaultLocale = intlayerIntlConfiguration.defaultLocale;
+
 /**
  * Function to replace the multi lingual content with content in the current locale
  */
 export const processDictionary = (
   content: Content,
-  locale?: Locales
+  locale: Locales = defaultLocale
 ): TranslatedContent => {
   if (content && typeof content === 'object') {
     const result: TranslatedContentValue = {};
@@ -21,7 +26,7 @@ export const processDictionary = (
     for (const key of Object.keys(content)) {
       const field = content?.[key];
 
-      if (typeof field === 'object' && field.type === 'translation') {
+      if (typeof field === 'object' && field.type === NodeType.Translation) {
         const languageContent: LanguageContent<ContentValue> = {
           [locale as string]: field[locale as keyof typeof field],
         } as LanguageContent<ContentValue>;

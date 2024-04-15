@@ -1,16 +1,11 @@
 'use client';
 
 import type { Locales } from '@intlayer/config';
+import { intlayerMiddlewareConfiguration } from '@intlayer/config/client';
 import { usePathname } from 'next/navigation.js';
 
-export const headerName = 'x-intlayer-locale';
-export const cookieName = 'NEXT_LOCALE';
-export const prefixDefault = false;
-export const basePath = '';
-export const serverSetCookie: 'always' | 'never' = 'always' as unknown as
-  | 'always'
-  | 'never';
-export const noPrefix = false;
+const { basePath, cookieName, noPrefix, prefixDefault } =
+  intlayerMiddlewareConfiguration;
 
 const locales = JSON.parse(
   process.env.INTLAYER_LOCALES ?? '[]'

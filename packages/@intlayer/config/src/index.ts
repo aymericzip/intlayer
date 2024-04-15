@@ -1,18 +1,23 @@
-import { getConfiguration } from './configFile/getConfiguration';
+export { getConfiguration } from './configFile/getConfiguration';
 
 export type {
+  InternationalizationConfig,
+  ServerSetCookieRule,
+  MiddlewareConfig,
   CustomIntlayerConfig,
-  PatternsContentConfig as FixedIntlayerConfig,
+  BaseContentConfig,
+  BaseDerivedConfig,
+  ResultDirDerivedConfig,
+  PatternsContentConfig,
+  ContentConfig,
   IntlayerConfig,
-  BaseContentConfig as NotDerivedConfiguration,
-  BaseDerivedConfig as BaseDirDerivedConfiguration,
-  ResultDirDerivedConfig as ResultDirDerivedConfiguration,
 } from './types';
 export { Locales } from './defaultValues/locales';
-export { formatEnvVariable } from './envVariables/formatEnvVariable';
 export {
-  getConfiguration as getClientConfiguration,
+  formatEnvVariable,
+  intlayerIntlConfiguration,
+  intlayerMiddlewareConfiguration,
+  intlayerContentConfiguration,
   intlayerConfiguration,
-} from './envVariables/getConfiguration';
-
-export { getConfiguration };
+  getConfiguration as getClientConfiguration,
+} from './envVariables/index';

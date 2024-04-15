@@ -27,7 +27,9 @@ const processFunctionResults = async (entry: Content): Promise<FlatContent> => {
       const field = entry?.[key];
 
       if (typeof field === 'object') {
-        return processFunctionResults(field as Content);
+        result[key] = (await processFunctionResults(
+          field as Content
+        )) as FlatContentValue;
       }
 
       if (typeof field === 'function') {

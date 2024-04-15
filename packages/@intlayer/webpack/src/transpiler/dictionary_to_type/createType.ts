@@ -1,10 +1,15 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import type { Content, ContentModule } from '@intlayer/core';
+import {
+  type Content,
+  type ContentModule,
+  NodeType,
+  type TranslationContent,
+} from '@intlayer/core';
 import { getTypeName } from './createModuleAugmentation';
 
-const { content } = getConfiguration();
+const { content, internationalization } = getConfiguration();
 const { typesDir } = content;
 
 /**
@@ -56,6 +61,15 @@ export const generateTypeScriptTypeContent = (obj: Content): string => {
 
   for (const [key, value] of Object.entries(obj)) {
     if (
+      // Check if the value is a nested object
+      typeof value === 'object' &&
+      (value as TranslationContent).type === NodeType.Translation
+    ) {
+      // Primitive type
+      const tsType =
+        typeof value[internationalization.defaultLocale as keyof typeof value];
+      typeDefinition += `  ${key}: ${tsType},\n`;
+    } else if (
       // Check if the value is a nested object
       typeof value === 'object' &&
       !Array.isArray(value)

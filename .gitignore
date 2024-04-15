@@ -16,6 +16,7 @@ node_modules
 # Intlater
 .intlayer
 dictionaries
+**/intlayer.d.ts
 
 # WIP
 /keywords.txt

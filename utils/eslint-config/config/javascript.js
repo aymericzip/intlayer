@@ -26,7 +26,6 @@ module.exports = {
     ...(checkCycles ? { 'import/no-cycle': 2 } : {}),
     // will use 'import/no-duplicates'.
     'no-duplicate-imports': 'off',
-    'import/extensions': ['error', 'never', { ignorePackages: true }],
     'spaced-comment': [
       'error',
       'always',

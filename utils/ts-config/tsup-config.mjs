@@ -1,13 +1,38 @@
 import { forceEsmExtensionsPlugin } from './forceEsmExtensionsPlugin.mjs';
 
-export const packageBuildOptions = {
+const commonOptions = {
   entryPoints: ['src/**/*'],
-  format: ['cjs', 'esm'],
   target: 'esnext',
   dts: true,
   external: ['fs', 'path'],
   clean: true,
   sourcemap: true,
   bundle: false,
-  esbuildPlugins: [forceEsmExtensionsPlugin()],
 };
+
+export const packageBuildOptions = [
+  {
+    ...commonOptions,
+    format: ['cjs'],
+    outDir: 'dist/cjs',
+    esbuildPlugins: [forceEsmExtensionsPlugin()],
+    outExtension: () => ({
+      js: '.cjs',
+    }),
+  },
+  {
+    ...commonOptions,
+    format: ['esm'],
+    outDir: 'dist/esm',
+    esbuildPlugins: [forceEsmExtensionsPlugin()],
+    outExtension: () => ({
+      js: '.mjs',
+    }),
+  },
+  // {
+  //   ...commonOptions,
+  //   format: ['esm'],
+  //   dts: true,
+  //   outDir: 'dist/types',
+  // },
+];
