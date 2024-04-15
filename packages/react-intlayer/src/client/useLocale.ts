@@ -1,10 +1,10 @@
 'use client';
 
 import { useContext } from 'react';
-import { LocaleContext } from './LocaleClientContextProvider';
+import { LocaleClientContext } from './LocaleClientContextProvider';
 
 export const useLocale = () => {
-  const { locale } = useContext(LocaleContext);
+  const { locale } = useContext(LocaleClientContext);
 
   return { locale };
 };

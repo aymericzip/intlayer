@@ -1,7 +1,6 @@
-export type { LocaleContextProviderProps } from './LocaleContextProvider';
-export { LocaleContextProvider } from './LocaleContextProvider';
+export type { LocaleClientContextProviderProps } from './LocaleClientContextProvider';
 export {
-  LocaleContext,
+  LocaleClientContext,
   useLocaleContext,
   LocaleClientContextProvider,
 } from './LocaleClientContextProvider';

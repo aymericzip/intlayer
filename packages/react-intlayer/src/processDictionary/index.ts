@@ -21,7 +21,7 @@ export const processDictionary = (
   locale: Locales = defaultLocale
 ): TranslatedContent => {
   if (content && typeof content === 'object') {
-    const result: TranslatedContentValue = {};
+    const result: TranslatedContent = {};
 
     for (const key of Object.keys(content)) {
       const field = content?.[key];
@@ -39,7 +39,7 @@ export const processDictionary = (
         result[key] = translation;
       } else if (typeof field === 'object') {
         result[key] = processDictionary(
-          field,
+          field as Content,
           locale
         ) as TranslatedContentValue;
       } else {

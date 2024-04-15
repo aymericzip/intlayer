@@ -7,13 +7,13 @@ import {
   useIntlayerBase,
   type UseIntlayer,
 } from '../useIntlayerBase';
-import { LocaleContext } from './LocaleClientContextProvider';
+import { LocaleClientContext } from './LocaleClientContextProvider';
 
 export const useIntlayer: UseIntlayer = <T extends DictionaryKeys>(
   id: T,
   locale?: Locales
 ) => {
-  const { locale: currentLocale } = useContext(LocaleContext);
+  const { locale: currentLocale } = useContext(LocaleClientContext);
   const localeTarget = locale ?? currentLocale;
 
   return useIntlayerBase(id, localeTarget);

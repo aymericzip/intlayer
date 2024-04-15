@@ -1,10 +1,9 @@
 export { getTranslation } from './getTranslation';
 export { getContent } from './getContent';
 export {
-  type LocaleContextProviderProps,
-  LocaleContextProvider,
   LocaleClientContextProvider,
-  LocaleContext,
+  type LocaleClientContextProviderProps,
+  LocaleClientContext,
   useLocaleContext,
   useIntlayer,
   useLocale,

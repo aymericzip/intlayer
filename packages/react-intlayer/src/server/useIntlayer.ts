@@ -13,5 +13,7 @@ export const useIntlayer: UseIntlayer = <T extends DictionaryKeys>(
 ) => {
   const localeTarget = locale ?? getServerContext<Locales>(LocaleServerContext);
 
+  console.log('useIntlayer', id, localeTarget);
+
   return useIntlayerBase(id, localeTarget);
 };
