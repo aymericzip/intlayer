@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { createRequire } from 'module';
 import { type Context, runInNewContext } from 'vm';
-import { type Options, transformFileSync } from '@swc/core';
+import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import type { CustomIntlayerConfig } from '../types';
 
 const isESModule = typeof import.meta.url === 'string';
@@ -17,6 +17,23 @@ const sandboxContext: Context = {
   require: isESModule ? createRequire(import.meta.url) : require,
 };
 
+const transformationOption: BuildOptions = {
+  loader: {
+    '.js': 'js',
+    '.jsx': 'jsx',
+    '.mjs': 'js',
+    '.ts': 'ts',
+    '.tsx': 'tsx',
+    '.cjs': 'js',
+    '.json': 'json',
+  },
+  format: 'cjs', // Output format as commonjs
+  target: 'es2017',
+  packages: 'external',
+  write: false,
+  bundle: true,
+};
+
 export const loadConfigurationFile = (
   configFilePath: string
 ): CustomIntlayerConfig | undefined => {
@@ -30,46 +47,46 @@ export const loadConfigurationFile = (
       return require(configFilePath);
     }
 
-    if (configFileExtension === 'cjs') {
-      // Load CJS directly
-      return require(configFilePath).default;
-    }
-
     // Rest is JS, MJS or TS
 
-    const transformationOption: Options = {
-      jsc: {
-        parser: {
-          syntax: 'typescript',
-          tsx: false,
-        },
-        loose: false,
-        minify: {
-          compress: false,
-          mangle: false,
-        },
-      },
-      module: {
-        type: 'commonjs',
-      },
-      minify: false,
-      isModule: true,
-      sourceMaps: false,
-      filename: configFilePath,
-    };
+    const moduleResult: BuildResult = buildSync({
+      entryPoints: [configFilePath],
 
-    const moduleResult = transformFileSync(
-      configFilePath,
-      transformationOption
-    ).code;
+      ...transformationOption,
+    });
 
-    runInNewContext(moduleResult, sandboxContext);
+    const moduleResultString = moduleResult.outputFiles?.[0].text;
 
-    if (Object.keys(sandboxContext.exports.default).length > 0) {
+    if (!moduleResultString) {
+      console.error('Configuration file could not be loaded.');
+      return undefined;
+    }
+
+    runInNewContext(moduleResultString, sandboxContext);
+
+    if (
+      sandboxContext.exports.default &&
+      Object.keys(sandboxContext.exports.default).length > 0
+    ) {
       // ES Module
       customConfiguration = sandboxContext.exports.default;
-    } else if (Object.keys(sandboxContext.module.exports).length > 0) {
+    } else if (
+      sandboxContext.module.exports.defaults &&
+      Object.keys(sandboxContext.module.exports.defaults).length > 0
+    ) {
       // CommonJS
+      customConfiguration = sandboxContext.module.exports.default;
+    } else if (
+      sandboxContext.module.exports.default &&
+      Object.keys(sandboxContext.module.exports.default).length > 0
+    ) {
+      // ES Module
+      customConfiguration = sandboxContext.module.exports.default;
+    } else if (
+      sandboxContext.module.exports &&
+      Object.keys(sandboxContext.module.exports).length > 0
+    ) {
+      // Other
       customConfiguration = sandboxContext.module.exports;
     }
 

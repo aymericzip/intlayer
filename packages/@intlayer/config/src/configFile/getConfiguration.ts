@@ -45,7 +45,7 @@ export const getConfiguration = (
     storedNumCustomConfiguration = numCustomConfiguration;
   }
 
-  // Log wa rning if multiple configuration files are found
+  // Log warning if multiple configuration files are found
   if (verbose)
     logConfigFileResult(
       storedNumCustomConfiguration,

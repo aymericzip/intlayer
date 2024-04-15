@@ -41,7 +41,7 @@ export const withIntlayer =
         const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
         config.externals.push({
-          '@swc/core': '@swc/core',
+          esbuild: 'esbuild',
           module: 'module',
           fs: 'fs',
         });
