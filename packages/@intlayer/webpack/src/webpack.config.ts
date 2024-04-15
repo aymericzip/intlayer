@@ -124,32 +124,14 @@ export const webpackConfig: WebPackConfiguration = {
         test: /\.node$/,
         loader: 'node-loader',
       },
+      // Use esbuild to compile JavaScript & TypeScript
       {
-        test: /\.m?js$/,
-        // exclude: /(node_modules)/,
-        use: {
-          // `.swcrc` can be used to configure swc
-          loader: 'swc-loader',
-          options: {
-            // parseMap: true,
-          },
-        },
-      },
-      {
-        test: /\.ts$/,
-        // exclude: /(node_modules)/,
-        use: {
-          loader: 'swc-loader',
-          options: {
-            // This makes swc-loader invoke swc synchronously.
-            sync: true,
-
-            jsc: {
-              parser: {
-                syntax: 'typescript',
-              },
-            },
-          },
+        // Match `.js`, `.jsx`, `.ts` or `.tsx` files
+        test: /\.[jt]sx?$/,
+        loader: 'esbuild-loader',
+        options: {
+          // JavaScript version to compile to
+          target: 'es2015',
         },
       },
 
