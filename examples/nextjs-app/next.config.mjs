@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-import { withIntlayer } from 'next-intlayer';
+import { withIntlayer } from 'next-intlayer/server';
 
 const nextConfig = {};
 

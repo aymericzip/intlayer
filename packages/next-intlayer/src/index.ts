@@ -1,4 +1,3 @@
-export { withIntlayer } from './withIntlayer';
 export { useCurrentLocale } from './client/index';
 export {
   getTranslation,

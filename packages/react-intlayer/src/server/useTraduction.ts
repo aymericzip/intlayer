@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/config/client';
 import type { LanguageContent } from '@intlayer/core';
 import { getTranslation } from '../getTranslation';
 import { LocaleServerContext } from './LocaleServerContextProvider';

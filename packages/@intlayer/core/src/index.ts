@@ -1,4 +1,3 @@
-export { type IntlayerConfig, Locales } from '@intlayer/config';
 export type {
   LanguageContent,
   TranslationContent,

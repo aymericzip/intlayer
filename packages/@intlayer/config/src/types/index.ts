@@ -34,6 +34,25 @@ export type CustomIntlayerConfig = {
    * Internationalization configuration
    */
 
+  internationalization?: Partial<InternationalizationConfig>;
+
+  /**
+   * Middleware configuration
+   */
+
+  middleware?: Partial<MiddlewareConfig>;
+
+  /**
+   * Content configuration
+   */
+  content?: Partial<ContentConfig>;
+};
+
+export type IntlayerConfig = {
+  /**
+   * Internationalization configuration
+   */
+
   internationalization: InternationalizationConfig;
 
   /**
@@ -123,5 +142,3 @@ export type ContentConfig = BaseContentConfig &
   BaseDerivedConfig &
   ResultDirDerivedConfig &
   PatternsContentConfig;
-
-export type IntlayerConfig = Required<CustomIntlayerConfig>;

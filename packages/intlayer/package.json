@@ -57,6 +57,7 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
+    "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "webpack": "^5.91.0"
   },

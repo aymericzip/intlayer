@@ -1,7 +1,9 @@
 'use client';
 
-import type { Locales } from '@intlayer/config';
-import { intlayerMiddlewareConfiguration } from '@intlayer/config/client';
+import {
+  type Locales,
+  intlayerMiddlewareConfiguration,
+} from '@intlayer/config/client';
 import { usePathname } from 'next/navigation.js';
 
 const { basePath, cookieName, noPrefix, prefixDefault } =
