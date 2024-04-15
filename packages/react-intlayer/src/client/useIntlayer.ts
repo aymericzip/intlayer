@@ -1,6 +1,6 @@
 'use client';
 
-import type { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/config/client';
 import { useContext } from 'react';
 import {
   type DictionaryKeys,

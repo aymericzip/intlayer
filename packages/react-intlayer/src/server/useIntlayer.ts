@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/config/client';
 import {
   type DictionaryKeys,
   useIntlayerBase,

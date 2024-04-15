@@ -13,9 +13,7 @@ const isESModule = typeof import.meta.url === 'string';
 
 const requireFunction = isESModule ? createRequire(import.meta.url) : require;
 
-const { content } = getConfiguration({
-  baseDir: process.cwd(),
-});
+const { content } = getConfiguration();
 const dictionariesPath = join(content.mainDir, 'dictionaries.cjs');
 const dictionaries = requireFunction(dictionariesPath);
 

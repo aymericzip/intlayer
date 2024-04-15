@@ -350,6 +350,9 @@ importers:
 
   packages/intlayer:
     dependencies:
+      '@intlayer/config':
+        specifier: workspace:^
+        version: link:../@intlayer/config
       '@intlayer/core':
         specifier: workspace:^
         version: link:../@intlayer/core

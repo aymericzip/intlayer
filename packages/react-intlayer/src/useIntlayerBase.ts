@@ -3,7 +3,7 @@
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
-import type { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/config/client';
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { Content } from './processDictionary/contentDictionary';

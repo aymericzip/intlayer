@@ -30,6 +30,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./client": {
+      "types": "./dist/esm/client/index.d.mts",
+      "require": "./dist/cjs/client/index.cjs",
+      "import": "./dist/esm/client/index.mjs"
+    },
     "./middleware": {
       "types": "./dist/esm/middleware/index.d.mts",
       "require": "./dist/cjs/middleware/index.cjs",

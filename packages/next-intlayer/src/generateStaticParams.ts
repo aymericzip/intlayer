@@ -1,4 +1,4 @@
-import { intlayerIntlConfiguration } from '@intlayer/config';
+import { intlayerIntlConfiguration } from '@intlayer/config/client';
 
 const { locales } = intlayerIntlConfiguration;
 

@@ -6,6 +6,9 @@ export type {
   FlatContentValue,
   FlatContent,
   ContentModule,
-  IntlayerConfig,
 } from '@intlayer/core';
-export { Locales, t } from '@intlayer/core';
+export { t } from '@intlayer/core';
+export {
+  type CustomIntlayerConfig as IntlayerConfig,
+  Locales,
+} from '@intlayer/config/client';

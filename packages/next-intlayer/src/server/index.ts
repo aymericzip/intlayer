@@ -7,3 +7,4 @@ export {
   locale,
   useIntlayer,
 } from 'react-intlayer/server';
+export { withIntlayer } from './withIntlayer';
