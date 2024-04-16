@@ -1,5 +1,4 @@
-export { getContent } from '../getContent';
-export { getLocaleContent } from './getLocaleContent';
+export { getLocaleTranslation as getLocaleContent } from './getLocaleTranslation';
 export { useTraduction } from './useTraduction';
 export {
   LocaleServerContext,

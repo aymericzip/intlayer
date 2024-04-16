@@ -1,4 +1,4 @@
-import { type Locales, intlayerConfiguration } from '@intlayer/config/client';
+import { type Locales, intlayerConfiguration } from '@intlayer/config';
 import type { ReactNode } from 'react';
 import { NodeType } from '../../types/index';
 import {

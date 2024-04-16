@@ -1,5 +1,4 @@
 export { getTranslation } from './getTranslation';
-export { getContent } from './getContent';
 export {
   LocaleClientContextProvider,
   type LocaleClientContextProviderProps,
