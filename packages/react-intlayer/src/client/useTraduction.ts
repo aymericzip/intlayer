@@ -1,5 +1,3 @@
-'use client';
-
 import type { LanguageContent } from '@intlayer/core';
 import { useContext } from 'react';
 import { getTranslation } from '../getTranslation';

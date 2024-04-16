@@ -11,3 +11,5 @@ export type {
   ContentModule,
 } from './types/index';
 export { NodeType } from './types/index';
+export { getLocaleName } from './getLocaleName';
+export { localeList } from './localeList';

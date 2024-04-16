@@ -500,7 +500,16 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../intlayer
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
+      react-cookie:
+        specifier: ^7.1.4
+        version: 7.1.4(react@18.2.0)
     devDependencies:
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/node':
         specifier: ^20.12.7
         version: 20.12.7
@@ -5376,6 +5385,13 @@ packages:
       '@types/node': 20.12.7
     dev: true
 
+  /@types/cookie@0.6.0:
+    resolution:
+      {
+        integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==,
+      }
+    dev: false
+
   /@types/crypto-js@4.2.2:
     resolution:
       {
@@ -5482,6 +5498,16 @@ packages:
       '@types/unist': 3.0.2
     dev: true
 
+  /@types/hoist-non-react-statics@3.3.5:
+    resolution:
+      {
+        integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==,
+      }
+    dependencies:
+      '@types/react': 18.2.78
+      hoist-non-react-statics: 3.3.2
+    dev: false
+
   /@types/html-minifier-terser@6.1.0:
     resolution:
       {
@@ -5551,6 +5577,13 @@ packages:
       jest-matcher-utils: 27.5.1
       pretty-format: 27.5.1
     dev: false
+
+  /@types/js-cookie@3.0.6:
+    resolution:
+      {
+        integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==,
+      }
+    dev: true
 
   /@types/json-schema@7.0.15:
     resolution:
@@ -12322,6 +12355,15 @@ packages:
       minimalistic-crypto-utils: 1.0.1
     dev: true
 
+  /hoist-non-react-statics@3.3.2:
+    resolution:
+      {
+        integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==,
+      }
+    dependencies:
+      react-is: 16.13.1
+    dev: false
+
   /hoopy@0.1.4:
     resolution:
       {
@@ -14114,6 +14156,14 @@ packages:
         integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==,
       }
     engines: { node: '>=10' }
+
+  /js-cookie@3.0.5:
+    resolution:
+      {
+        integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==,
+      }
+    engines: { node: '>=14' }
+    dev: false
 
   /js-tokens@4.0.0:
     resolution:
@@ -18250,6 +18300,20 @@ packages:
       whatwg-fetch: 3.6.20
     dev: false
 
+  /react-cookie@7.1.4(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-wDxxa/HYaSXSMlyWJvJ5uZTzIVtQTPf1gMksFgwAz/2/W3lCtY8r4OChCXMPE7wax0PAdMY97UkNJedGv7KnDw==,
+      }
+    peerDependencies:
+      react: '>= 16.3.0'
+    dependencies:
+      '@types/hoist-non-react-statics': 3.3.5
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      universal-cookie: 7.1.4
+    dev: false
+
   /react-dev-utils@12.0.1(eslint@8.56.0)(typescript@4.9.5)(webpack@5.91.0):
     resolution:
       {
@@ -21351,6 +21415,16 @@ packages:
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
     dev: true
+
+  /universal-cookie@7.1.4:
+    resolution:
+      {
+        integrity: sha512-Q+DVJsdykStWRMtXr2Pdj3EF98qZHUH/fXv/gwFz/unyToy1Ek1w5GsWt53Pf38tT8Gbcy5QNsj61Xe9TggP4g==,
+      }
+    dependencies:
+      '@types/cookie': 0.6.0
+      cookie: 0.6.0
+    dev: false
 
   /universalify@0.1.2:
     resolution:

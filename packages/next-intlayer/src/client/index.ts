@@ -1,10 +1,10 @@
 export { useCurrentLocale } from './useCurrentLocale';
 export {
   getTranslation,
-  getContent,
   LocaleClientContextProvider,
   LocaleClientContext,
   useIntlayer,
-  useLocale,
   useTraduction,
+  useLocaleCookie,
 } from 'react-intlayer';
+export { useLocale } from './useLocale';

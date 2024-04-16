@@ -50,6 +50,8 @@ export enum Locales {
   BULGARIAN = 'bg',
   // Bulgarian language as used in Bulgaria
   BULGARIAN_BULGARIA = 'bg-BG',
+  // Bosnian
+  BOSNIAN = 'bs',
   // Bosnian language as used in Bosnia and Herzegovina
   BOSNIAN_BOSNIA_AND_HERZEGOVINA = 'bs-BA',
   // Catalan language
@@ -372,6 +374,8 @@ export enum Locales {
   ALBANIAN = 'sq',
   // Albanian language as used in Albania
   ALBANIAN_ALBANIA = 'sq-AL',
+  // Servian language (Latin script)
+  SERBIAN_LATIN = 'sr',
   // Serbian language (Latin script) as used in Bosnia and Herzegovina
   SERBIAN_LATIN_BOSNIA_AND_HERZEGOVINA = 'sr-BA',
   // Serbian language (Latin script) as used in Serbia and Montenegro
@@ -382,8 +386,12 @@ export enum Locales {
   SWEDISH_FINLAND = 'sv-FI',
   // Swedish language as used in Sweden
   SWEDISH_SWEDEN = 'sv-SE',
+  // Swahili language
+  SWAHILI = 'sw',
   // Swahili language as used in Kenya
   SWAHILI_KENYA = 'sw-KE',
+  // Syriac language
+  SYRIAC = 'syr',
   // Syriac language as used in Syria
   SYRIAC_SYRIA = 'syr-SY',
   // Tamil language
@@ -448,6 +456,8 @@ export enum Locales {
   CHINESE_SINGAPORE = 'zh-SG',
   // Chinese language (Traditional script)
   CHINESE_TRADITIONAL = 'zh-TW',
+  // Zulu language
+  ZULU = 'zu',
   // Zulu language as used in South Africa
   ZULU_SOUTH_AFRICA = 'zu-ZA',
 }
