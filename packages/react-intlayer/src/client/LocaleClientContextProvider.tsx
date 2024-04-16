@@ -10,13 +10,14 @@ import {
   useContext,
   type FC,
 } from 'react';
+import { localeCookie } from './useLocaleCookie';
 
 type LocaleContextValue = {
   locale: Locales;
 };
 
 export const LocaleClientContext = createContext<LocaleContextValue>({
-  locale: intlayerIntlConfiguration.defaultLocale,
+  locale: localeCookie ?? intlayerIntlConfiguration.defaultLocale,
 });
 
 export const useLocaleContext = () => useContext(LocaleClientContext);

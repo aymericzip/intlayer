@@ -7,3 +7,8 @@ export {
 export { useIntlayer } from './useIntlayer';
 export { useLocale } from './useLocale';
 export { useTraduction } from './useTraduction';
+export {
+  useLocaleCookie,
+  localeCookie,
+  setLocaleCookie,
+} from './useLocaleCookie';

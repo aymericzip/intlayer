@@ -7,9 +7,8 @@ export {
   useIntlayer,
   useLocale,
   useTraduction,
-} from './client/index';
-export {
   useLocaleCookie,
   localeCookie,
   setLocaleCookie,
-} from './useLocaleCookie';
+} from './client/index';
+export {} from './client/useLocaleCookie';

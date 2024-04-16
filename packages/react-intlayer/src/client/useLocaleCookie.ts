@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import {
   type Locales,
   intlayerMiddlewareConfiguration,
@@ -14,7 +15,7 @@ const cookieAttributes: Cookies.CookieAttributes = {
   sameSite: 'strict',
 };
 
-export const localeCookie = Cookies.get(cookieName);
+export const localeCookie = Cookies.get(cookieName) as Locales | undefined;
 
 export const setLocaleCookie = (locale: Locales) => {
   Cookies.set(cookieName, locale, cookieAttributes);
