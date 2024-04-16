@@ -5,21 +5,21 @@ export type ContentValue =
   | {
       [key: string]: ContentValue;
     }
-  | TranslationContent;
+  | TranslationContent<unknown>;
 
 export type Content = Record<string, ContentValue | undefined>;
 
-export type TranslatedContentValue =
+export type TransformedContentValue =
   | string
   | {
-      [key: string]: TranslatedContentValue;
+      [key: string]: TransformedContentValue;
     }
-  | TranslationContent
-  | undefined;
+  | undefined
+  | ((quantity: number) => TransformedContentValue);
 
-export type TranslatedContent = Record<
+export type TransformedContent = Record<
   string,
-  TranslatedContentValue | undefined
+  TransformedContentValue | undefined
 >;
 
 export type ContentDictionary = Content & {

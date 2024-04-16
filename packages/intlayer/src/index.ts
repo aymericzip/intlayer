@@ -7,7 +7,13 @@ export type {
   FlatContent,
   ContentModule,
 } from '@intlayer/core';
-export { t, getLocaleName } from '@intlayer/core';
+export {
+  t,
+  getLocaleName,
+  enu,
+  getEnumerationContent,
+  getTranslationContent,
+} from '@intlayer/core';
 export {
   type CustomIntlayerConfig as IntlayerConfig,
   Locales,

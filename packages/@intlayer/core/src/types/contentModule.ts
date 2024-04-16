@@ -1,4 +1,11 @@
-import type { TranslationContent } from '../transpiler/content_transformers/translations';
+import type {
+  EnumerationContent,
+  TranslationContent,
+} from '../transpiler/index';
+
+export type TypedNode =
+  | TranslationContent<unknown>
+  | EnumerationContent<unknown>;
 
 export type ContentValue =
   | string
@@ -7,7 +14,7 @@ export type ContentValue =
     }
   | (() => ContentValue)
   | Promise<ContentValue>
-  | TranslationContent;
+  | TypedNode;
 
 export type Content = Record<string, ContentValue | undefined>;
 
@@ -16,7 +23,7 @@ export type FlatContentValue =
   | {
       [key: string]: FlatContentValue;
     }
-  | TranslationContent;
+  | TypedNode;
 
 export type FlatContent = Record<string, FlatContentValue | undefined>;
 

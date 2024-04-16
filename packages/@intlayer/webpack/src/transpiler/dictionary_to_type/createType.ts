@@ -2,10 +2,10 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import {
+  NodeType,
   type Content,
   type ContentModule,
-  NodeType,
-  type TranslationContent,
+  type TypedNode,
 } from '@intlayer/core';
 import { getTypeName } from './createModuleAugmentation';
 
@@ -60,15 +60,26 @@ export const generateTypeScriptTypeContent = (obj: Content): string => {
   let typeDefinition = ``;
 
   for (const [key, value] of Object.entries(obj)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const nodeType: NodeType | undefined = (value as TypedNode).nodeType;
+
     if (
-      // Check if the value is a nested object
+      // Check if the value is a typed node
       typeof value === 'object' &&
-      (value as TranslationContent).type === NodeType.Translation
+      nodeType === NodeType.Translation
     ) {
-      // Primitive type
       const tsType =
         typeof value[internationalization.defaultLocale as keyof typeof value];
       typeDefinition += `  ${key}: ${tsType},\n`;
+    } else if (
+      // Check if the value is a typed node
+      typeof value === 'object' &&
+      nodeType === NodeType.Enumeration
+    ) {
+      const tsType =
+        typeof value[internationalization.defaultLocale as keyof typeof value];
+
+      typeDefinition += `  ${key}: (quantity: number) => ${tsType},\n`;
     } else if (
       // Check if the value is a nested object
       typeof value === 'object' &&

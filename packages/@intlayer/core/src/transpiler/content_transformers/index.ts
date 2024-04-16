@@ -1,3 +1,2 @@
-export type { LanguageContent, TranslationContent } from './translations';
-export { t } from './translations';
-export { getTranslation } from './getTranslation';
+export * from './translation/index';
+export * from './enumeration/index';

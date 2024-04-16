@@ -6,7 +6,8 @@ import type { LanguageContent } from './translations';
 
 const defaultLocale = intlayerIntlConfiguration.defaultLocale;
 
-export const getTranslation = <Content>(
+export const getTranslationContent = <Content>(
   languageContent: LanguageContent<Content>,
   locale: Locales
-) => languageContent[locale ?? defaultLocale] ?? languageContent[defaultLocale];
+): Content =>
+  languageContent[locale ?? defaultLocale] ?? languageContent[defaultLocale];
