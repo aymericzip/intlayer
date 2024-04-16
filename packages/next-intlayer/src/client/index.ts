@@ -1,4 +1,3 @@
-export { useCurrentLocale } from './useCurrentLocale';
 export {
   getTranslation,
   LocaleClientContextProvider,

@@ -1,4 +1,3 @@
-export { useCurrentLocale } from './client/index';
 export {
   getTranslation,
   LocaleClientContextProvider,
