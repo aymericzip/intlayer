@@ -2,7 +2,10 @@ import {
   type Locales,
   intlayerIntlConfiguration,
 } from '@intlayer/config/client';
-import type { LanguageContent } from '@intlayer/core';
+import {
+  type LanguageContent,
+  getTranslation as getBaseTranslation,
+} from '@intlayer/core';
 import { contentRender } from './ContentEditor/contentRender';
 
 export const getTranslation = <Content>(
@@ -11,8 +14,10 @@ export const getTranslation = <Content>(
 ): Content => {
   const { defaultLocale } = intlayerIntlConfiguration;
 
-  const result: Content =
-    languageContent[locale ?? defaultLocale] ?? languageContent[defaultLocale];
+  const result: Content = getBaseTranslation<Content>(
+    languageContent,
+    locale ?? defaultLocale
+  );
 
   if (typeof result === 'string') {
     return contentRender(result) as Content;
