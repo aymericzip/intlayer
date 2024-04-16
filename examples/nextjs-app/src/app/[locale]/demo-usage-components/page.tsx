@@ -1,4 +1,5 @@
 import { ClientComponentExample } from '@component/components/ClientComponentExample';
+import { LocaleSwitcher } from '@component/components/LangSwitcherDropDown';
 import { NestedServerComponentExample } from '@component/components/NestedServerComponentExample';
 import { ServerComponentExample } from '@component/components/ServerComponentExample';
 import {
@@ -20,10 +21,13 @@ const PageDemoUsageComponents: NextPageIntlayer = ({ params: { locale } }) => {
          *   LocaleClientContextProvider can be set in any parent component, including the layout
          */}
         <LocaleClientContextProvider locale={locale}>
-          <div className="size-screen	 m-auto flex max-w-xl flex-col items-center justify-center gap-8 p-20">
+          <main className="size-screen	 m-auto flex max-w-xl flex-col items-center justify-center gap-8 p-20">
             <ClientComponentExample />
             <ServerComponentExample />
             <NestedServerComponentExample />
+          </main>
+          <div className="absolute bottom-5 right-5 z-50">
+            <LocaleSwitcher />
           </div>
         </LocaleClientContextProvider>
       </LocaleServerContextProvider>

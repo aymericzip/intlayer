@@ -8,3 +8,8 @@ export {
   useLocale,
   useTraduction,
 } from './client/index';
+export {
+  useLocaleCookie,
+  localeCookie,
+  setLocaleCookie,
+} from './useLocaleCookie';

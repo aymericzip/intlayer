@@ -66,9 +66,12 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
-    "intlayer": "workspace:^"
+    "intlayer": "workspace:^",
+    "js-cookie": "^3.0.5",
+    "react-cookie": "^7.1.4"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.12.7",
     "@types/react": "^18.2.78",
     "@utils/eslint-config": "workspace:^",

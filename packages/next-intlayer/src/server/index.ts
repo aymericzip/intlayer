@@ -1,5 +1,4 @@
 export {
-  getContent,
   getLocaleContent,
   useTraduction,
   LocaleServerContext,
