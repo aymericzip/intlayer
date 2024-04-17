@@ -26,9 +26,8 @@
     "lint-staged": "lint-staged --allow-empty",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
-    "prettier:fix": "prettier --write src/**/*",
-    "release": "pnpm build && pnpm recursive run publish --verbose --topological-dev --parallel --no-private --tolerate-republish",
-    "release:dev": "pnpm build && pnpm recursive run publish --verbose --topological-dev --parallel --no-private --tolerate-republish --tag=dev",
+    "prettier:fix": "prettier --write packages/**/* examples/**/*",
+    "release": "",
     "reset": "pnpm reset-packages && pnpm install -f && pnpm reset-examples",
     "reset-examples": "pnpm clean-examples && pnpm build-examples",
     "reset-packages": "pnpm clean-packages && pnpm build-packages",
@@ -52,7 +51,7 @@
   "engines": {
     "node": ">=16.0.0",
     "npm": "please-use-pnpm",
-    "pnpm": ">=7.33.7",
+    "pnpm": ">=8.0.0",
     "yarn": "please-use-pnpm"
   },
   "bug": {
