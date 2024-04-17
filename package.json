@@ -33,6 +33,7 @@
     "reset-examples": "pnpm clean-examples && pnpm build-examples",
     "reset-packages": "pnpm clean-packages && pnpm build-packages",
     "test": "pnpm recursive test --parallel",
+    "test-packages": "pnpm recursive test --parallel --filter './packages/**'",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "devDependencies": {
@@ -47,11 +48,11 @@
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.4.0"
   },
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm",
   "engines": {
     "node": ">=16.0.0",
     "npm": "please-use-pnpm",
-    "pnpm": "^8.15.4",
+    "pnpm": ">=7.33.7",
     "yarn": "please-use-pnpm"
   },
   "bug": {
