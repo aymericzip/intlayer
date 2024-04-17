@@ -1,5 +1,3 @@
-// @ts-check
-
 const prettierConfig = require('@utils/eslint-config/prettier.base.config.js');
 
 /**
@@ -7,6 +5,7 @@ const prettierConfig = require('@utils/eslint-config/prettier.base.config.js');
  */
 const config = {
   ...prettierConfig,
+  singleQuote: true,
   overrides: [
     {
       files: '*.md',
