@@ -13,6 +13,7 @@
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aypineau"
   },
+  "type": "module",
   "scripts": {
     "build": "pnpm build-packages && pnpm build-examples",
     "build-all": "pnpm recursive build",
@@ -26,7 +27,8 @@
     "lint-staged": "lint-staged --allow-empty",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
-    "prettier:fix": "prettier --write packages/**/* examples/**/*",
+    "prettier": "prettier packages examples --check",
+    "prettier:fix": "prettier packages examples --write",
     "release": "",
     "reset": "pnpm reset-packages && pnpm install -f && pnpm reset-examples",
     "reset-examples": "pnpm clean-examples && pnpm build-examples",
