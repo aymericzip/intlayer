@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Intlayer
+.intlayer
+**/intlayer.d.ts
