@@ -4,11 +4,21 @@
     "@changesets/changelog-github",
     { "repo": "aypineau/intlayer" }
   ],
+  "fixed": [
+    [
+      "@intlayer/*",
+      "intlayer",
+      "next-intlayer",
+      "react-intlayer",
+      "intlayer-cli"
+    ]
+  ],
+  "ignore": [],
   "privatePackages": { "version": true, "tag": true },
-  "commit": true,
+  "commit": "chore: release package(s)",
+  "title": "chore: release package(s)",
   "linked": [],
-  "access": "restricted",
+  "access": "public",
   "baseBranch": "main",
-  "updateInternalDependencies": "patch",
-  "ignore": []
+  "updateInternalDependencies": "patch"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/webpack",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "description": "Webpack application for IntLayer - Webpack process to transpile TypeScript files to JavaScript files into IntLayer dictionaries.",
   "keywords": [
@@ -16,7 +16,7 @@
   "homepage": "https://github.com/aypineau/intlayer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aypineau/intlayer"
+    "url": "git+https://github.com/aypineau/intlayer.git"
   },
   "license": "MIT",
   "author": {

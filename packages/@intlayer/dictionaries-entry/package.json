@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/dictionaries-entry",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "description": "IntLayer - Dictionaries Entry. This package only returns the dictionary entry path. For bundle configuration, this packages should be replaced by using an alias.",
   "keywords": [
@@ -12,7 +12,7 @@
   "homepage": "https://github.com/aypineau/intlayer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aypineau/intlayer"
+    "url": "git+https://github.com/aypineau/intlayer.git"
   },
   "license": "MIT",
   "author": {

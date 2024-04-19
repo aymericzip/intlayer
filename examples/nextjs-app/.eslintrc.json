@@ -7,5 +7,6 @@
   },
   "overrides": [
     // optional overrides
-  ]
+  ],
+  "ignorePatterns": ["**/intlayer.d.ts"]
 }

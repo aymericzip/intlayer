@@ -57,7 +57,6 @@
     "recommendations": [
       "folke.vscode-monorepo-workspace",
       "dbaeumer.vscode-eslint",
-      "esbenp.prettier-vscode",
       "vitest.explorer",
       "Orta.vscode-jest",
     ],
@@ -90,6 +89,7 @@
       "./packages/@intlayer/config",
       "./utils/eslint-config",
     ],
+    "prettier.configPath": ".prettierrc.cjs",
     "jest.disabledWorkspaceFolders": [
       "🍂 example - next-app",
       "🍂 example - react-app",

@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   extends: ['@utils/eslint-config'],
   parser: '@typescript-eslint/parser',
-  
+
   parserOptions: {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
@@ -14,4 +14,5 @@ module.exports = {
   overrides: [
     // optional overrides
   ],
+  ignorePatterns: ['**/intlayer.d.ts'],
 };

@@ -1,0 +1,73 @@
+name: 🔨 Build & Test
+
+on:
+  pull_request:
+    types: [opened]
+    branches:
+      - 'main'
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build:
+    # github.actor!= 'github-actions' -> Ignore the pull request which comes from user depbot.
+    # github.repository_owner == 'aypineau' -> Prevents the workflow from running on forks
+    if: ${{ github.repository_owner == 'aypineau' && github.actor != 'github-actions' }}
+
+    name: 🔨 Build & Test
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [lts/*]
+        pnpm-version: [8]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 🥡 Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 🎈 Get pnpm store directory
+        id: get-pnpm-cache-dir
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: 🔆 Cache pnpm modules
+        uses: actions/cache@v4
+        id: pnpm-cache
+        with:
+          path: ${{ steps.get-pnpm-cache-dir.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 📝 Run eslint
+        run: pnpm run lint
+
+      - name: 🏗️ Build
+        id: build-the-mono-repo
+        run: |
+          pnpm build-packages
+
+      - name: 🧪 Test packages
+        run: npm test

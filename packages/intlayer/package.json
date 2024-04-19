@@ -1,6 +1,6 @@
 {
   "name": "intlayer",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "description": "IntLayer is a layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "keywords": [
@@ -15,7 +15,7 @@
   "homepage": "https://github.com/aypineau/intlayer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aypineau/intlayer"
+    "url": "git+https://github.com/aypineau/intlayer.git"
   },
   "license": "MIT",
   "author": {
@@ -50,7 +50,8 @@
     "dev": "tsup --watch",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
-    "prettier:fix": "prettier --write src/**/*",
+    "prettier": "prettier --check src",
+    "prettier:fix": "prettier --write src",
     "serve": "webpack serve --config ./webpack.config.ts",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsup--project ./tsconfig.json --noEmit",

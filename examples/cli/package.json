@@ -1,13 +1,13 @@
 {
-  "name": "simple-file",
+  "name": "cli-example",
   "version": "1.0.0",
-  "private": false,
+  "private": true,
   "description": "Example of IntList configuration for simple files in src directory",
   "keywords": [],
   "homepage": "https://github.com/aypineau/intlayer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aypineau/intlayer"
+    "url": "git+https://github.com/aypineau/intlayer.git"
   },
   "license": "MIT",
   "author": {

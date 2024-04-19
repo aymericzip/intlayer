@@ -1,12 +1,12 @@
 {
-  "name": "react-app",
+  "name": "react-app-example",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test --watchAll=false"
   },
   "browserslist": {
     "production": [

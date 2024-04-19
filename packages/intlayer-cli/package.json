@@ -1,6 +1,6 @@
 {
   "name": "intlayer-cli",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "description": "IntLayer is a layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "keywords": [
@@ -15,7 +15,7 @@
   "homepage": "https://github.com/aypineau/intlayer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aypineau/intlayer"
+    "url": "git+https://github.com/aypineau/intlayer.git"
   },
   "license": "MIT",
   "author": {
