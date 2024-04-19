@@ -7,6 +7,14 @@ type ServeParams = {
   watch: () => void;
 };
 
+/**
+ * Set the API for the CLI
+ *
+ * Example of commands:
+ *
+ * npm run dev
+ * npm run transpile
+ */
 export const setAPI = ({ serve, transpile, watch }: ServeParams): Command => {
   const program = new Command();
 

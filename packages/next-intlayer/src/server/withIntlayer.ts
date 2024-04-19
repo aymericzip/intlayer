@@ -26,6 +26,16 @@ const mergeStats = (
     warnings: false,
   });
 
+/**
+ * A Next.js plugin that adds the intlayer configuration to the webpack configuration
+ * and sets the environment variables
+ *
+ * Usage:
+ *
+ * // next.config.js
+ * export default withIntlayer(nextConfig)
+ *
+ */
 export const withIntlayer =
   (_pluginOptions: PluginOptions = {}) =>
   (nextConfig: Partial<NextConfig> = {}): Partial<NextConfig> => {

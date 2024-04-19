@@ -124,4 +124,9 @@ export const intlayerConfiguration: IntlayerConfig = {
   content: intlayerContentConfiguration,
 };
 
+/**
+ * Get all configuration values using environment variables
+ * Can be used in the client side as the server side
+ * To use it, be sure to have the environment variables set
+ */
 export const getConfiguration = (): IntlayerConfig => intlayerConfiguration;

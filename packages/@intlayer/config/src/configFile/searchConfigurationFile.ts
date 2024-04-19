@@ -16,6 +16,17 @@ type SearchConfigurationFileResult = {
   numCustomConfiguration: number;
 };
 
+/**
+ * Search for the configuration file in the given path
+ *
+ * List of detected configuration files:
+ * - intlayer.config.ts
+ * - intlayer.config.js
+ * - intlayer.config.json
+ * - intlayer.config.cjs
+ * - intlayer.config.mjs
+ * - .intlayerrc
+ */
 export const searchConfigurationFile = (
   configFilePath: string
 ): SearchConfigurationFileResult => {
