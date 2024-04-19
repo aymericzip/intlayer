@@ -363,6 +363,9 @@ importers:
       '@intlayer/core':
         specifier: workspace:^
         version: link:../@intlayer/core
+      intlayer:
+        specifier: workspace:^
+        version: 'link:'
       webpack:
         specifier: ^5.91.0
         version: 5.91.0(esbuild@0.19.12)

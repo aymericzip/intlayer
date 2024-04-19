@@ -2,12 +2,16 @@ import {
   type Locales,
   intlayerIntlConfiguration,
 } from '@intlayer/config/client';
-import type { LanguageContent } from './translations';
+import type { CustomizableLanguageContent } from './types';
 
 const defaultLocale = intlayerIntlConfiguration.defaultLocale;
 
-export const getTranslationContent = <Content>(
-  languageContent: LanguageContent<Content>,
+type GetTranslationContent = <Content = string>(
+  languageContent: CustomizableLanguageContent<Content>,
   locale: Locales
-): Content =>
-  languageContent[locale ?? defaultLocale] ?? languageContent[defaultLocale];
+) => Content;
+
+export const getTranslationContent: GetTranslationContent = <Content = string>(
+  languageContent: CustomizableLanguageContent<Content>,
+  locale: Locales
+) => languageContent[locale ?? defaultLocale] ?? languageContent[defaultLocale];

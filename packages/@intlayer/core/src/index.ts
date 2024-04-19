@@ -1,8 +1,10 @@
 export type {
+  CustomizableLanguageContent,
   LanguageContent,
   TranslationContent,
   EnumerationContent,
   QuantityContent,
+  CustomLocales as Locales,
 } from './transpiler/content_transformers/index';
 export {
   t,

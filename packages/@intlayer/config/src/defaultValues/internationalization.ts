@@ -1,4 +1,4 @@
-import { Locales } from './locales';
+import { Locales } from '../types/locales';
 
 export const LOCALES: Locales[] = [
   Locales.ENGLISH,

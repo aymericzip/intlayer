@@ -461,3 +461,9 @@ export enum Locales {
   // Zulu language as used in South Africa
   ZULU_SOUTH_AFRICA = 'zu-ZA',
 }
+
+// Utility type to extract the values from an enum
+type ValueOf<T> = T[keyof T];
+
+// Define MyType using the ValueOf utility type on Locales
+export type LocalesValues = ValueOf<typeof Locales>;
