@@ -19,7 +19,7 @@
     "build-all": "pnpm recursive build",
     "build-examples": "pnpm --filter './examples/**' build",
     "build-packages": "pnpm --filter './packages/@intlayer/config' build && pnpm --filter './packages/@intlayer/core' build && pnpm --filter './packages/@intlayer/cli' build && pnpm --filter './packages/@intlayer/dictionaries-entry' build && pnpm --filter './packages/@intlayer/webpack' build && pnpm --filter './packages/intlayer' build && pnpm --filter './packages/react-intlayer' build && pnpm --filter './packages/next-intlayer' build && pnpm --filter './packages/intlayer-cli' build",
-    "changeset": "npm run changeset",
+    "changeset": "changeset",
     "clean": "pnpm recursive clean",
     "clean-examples": "pnpm --filter './examples/**' clean",
     "clean-packages": "pnpm --filter './packages/**' clean",
@@ -30,14 +30,14 @@
     "prepare": "husky",
     "prettier": "prettier packages examples --check",
     "prettier:fix": "prettier packages examples --write",
-    "publish:packages": "npm run changeset publish",
+    "publish:packages": "changeset publish",
     "reset": "pnpm reset-packages && pnpm install -f && pnpm reset-examples",
     "reset-examples": "pnpm clean-examples && pnpm build-examples",
     "reset-packages": "pnpm clean-packages && pnpm build-packages",
     "test": "pnpm recursive test --parallel",
     "test-packages": "pnpm recursive test --parallel --filter './packages/**'",
     "typecheck": "tsup--project ./tsconfig.json --noEmit",
-    "version:packages": "npm run changeset version"
+    "version:packages": "changeset version"
   },
   "dependencies": {
     "changelog": "link:@changesets/cli/changelog"
