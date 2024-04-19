@@ -1,16 +1,18 @@
 ---
-"nextjs-app": major
 "@intlayer/dictionaries-entry": patch
 "@intlayer/webpack": patch
 "@intlayer/config": patch
 "@intlayer/core": patch
 "react-intlayer": patch
+"@intlayer/cli": patch
 "next-intlayer": patch
 "intlayer-cli": patch
+"nextjs-app-example": patch
+"@utils/eslint-config": patch
+"react-app-example": patch
 "intlayer": patch
-"simple-file": patch
-"react-app": patch
-"@intlayer/cli": patch
+"@utils/ts-config": patch
+"cli-example": patch
 ---
 
-Release intlayer v1 for nextjs
+Initialize changeset

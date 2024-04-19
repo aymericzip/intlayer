@@ -19,7 +19,7 @@
   "homepage": "https://github.com/aypineau/intlayer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aypineau/intlayer"
+    "url": "git+https://github.com/aypineau/intlayer.git"
   },
   "license": "MIT",
   "author": {

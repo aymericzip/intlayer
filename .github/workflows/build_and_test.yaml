@@ -1,25 +1,20 @@
-# This workflow will release the packages with Changesets
-
-name: 🚀 Release
+name: 🔨 Build & Test
 
 on:
-  push:
+  pull_request:
+    types: [opened]
     branches:
       - 'main'
-  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
 jobs:
-  release:
-    # Prevents the workflow from running on forks
-    if: ${{ github.repository_owner == 'aypineau' }}
+  build:
+    # github.actor!= 'github-actions' -> Ignore the pull request which comes from user depbot.
+    # github.repository_owner == 'aypineau' -> Prevents the workflow from running on forks
+    if: ${{ github.repository_owner == 'aypineau' && github.actor != 'github-actions' }}
 
-    name: 🚀 Release
+    name: 🔨 Build & Test
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -66,19 +61,13 @@ jobs:
         id: install-dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: 📝 Run eslint
+        run: pnpm run lint
+
       - name: 🏗️ Build
         id: build-the-mono-repo
         run: |
           pnpm build-packages
 
-      - name: 📣 Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          commit: 'chore(release): version packages'
-          title: 'chore(release): version packages'
-          version: node .github/changeset-version.js
-          publish: npx changeset publish
-        env:
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+      - name: 🧪 Test packages
+        run: npm test
