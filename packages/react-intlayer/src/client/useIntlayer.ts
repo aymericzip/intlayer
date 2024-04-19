@@ -9,6 +9,11 @@ import {
 } from '../useIntlayerBase';
 import { LocaleClientContext } from './LocaleClientContextProvider';
 
+/**
+ * On the client side, Hook that picking one dictionary by its id and return the content
+ *
+ * If the locale is not provided, it will use the locale from the client context
+ */
 export const useIntlayer: UseIntlayer = <T extends DictionaryKeys>(
   id: T,
   locale?: Locales

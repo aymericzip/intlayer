@@ -73,7 +73,7 @@ export const processNode = (
 };
 
 /**
- * Function to replace the multi lingual content with content in the current locale
+ * Function that process a dictionary and return the result to be used in the application.
  */
 export const processDictionary = (
   content: Content,

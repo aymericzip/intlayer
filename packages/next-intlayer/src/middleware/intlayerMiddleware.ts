@@ -13,6 +13,21 @@ const {
   noPrefix,
 } = middleware;
 
+/**
+ * Middleware that handles the internationalization layer
+ *
+ * Usage:
+ *
+ * // ./src/middleware.ts
+ *
+ * export { intlayerMiddleware as middleware } from '@intlayer/next/middleware';
+ *
+ * // applies this middleware only to files in the app directory
+ * export const config = {
+ *   matcher: '/((?!api|static|.*\\..*|_next).*)',
+ * };
+ *
+ */
 export const intlayerMiddleware = (request: NextRequest): NextResponse => {
   const pathname = request.nextUrl.pathname;
   const cookieLocale = getCookieLocale(request);

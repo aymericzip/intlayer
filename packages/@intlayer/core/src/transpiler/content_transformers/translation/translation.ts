@@ -6,25 +6,22 @@ import type { CustomizableLanguageContent, TranslationContent } from './types';
 const { defaultLocale } = intlayerConfiguration.internationalization;
 
 /**
- * Transpile multilingual dictionary content
  *
- * Usage
+ * Function intended to be used to build intlayer dictionaries.
  *
- *  translation<string>({
- *    "en": "test",
- *    "fr": "test",
- *    // ... any other available locale
- *  })
+ * Get the content of a translation based on the locale.
  *
- * translation<number, Locales.ENGLISH>({
- *  "en": 1
+ * Usage:
+ *
+ * translation<string>({
+ *   "en": "Hello",
+ *   "fr": "Bonjour",
+ *   // ... any other available locale
  * })
  *
- * translation<string, Locales.ENGLISH | Locales.FRENCH>({
- *  "fr": "test",
- *  "en": "test"
- * })
- *
+ * Using TypeScript:
+ * - this function require each locale to be defined if defined in the project configuration.
+ * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
 const translation = <Content = string>(
   content?: CustomizableLanguageContent<Content>

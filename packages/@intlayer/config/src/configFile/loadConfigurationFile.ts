@@ -34,6 +34,19 @@ const transformationOption: BuildOptions = {
   bundle: true,
 };
 
+const filterValidConfiguration = (
+  configuration: CustomIntlayerConfig
+): CustomIntlayerConfig => {
+  // @TODO Implement filtering of valid configuration
+  return configuration;
+};
+
+/**
+ * Load the configuration file from the given path
+ * Example of configuration file: intlayer.config.js
+ *
+ * Accepts JSON, JS, MJS and TS files as configuration
+ */
 export const loadConfigurationFile = (
   configFilePath: string
 ): CustomIntlayerConfig | undefined => {
@@ -90,7 +103,12 @@ export const loadConfigurationFile = (
       customConfiguration = sandboxContext.module.exports;
     }
 
-    return customConfiguration;
+    if (typeof customConfiguration === 'undefined') {
+      console.error('Configuration file could not be loaded.');
+      return undefined;
+    }
+
+    return filterValidConfiguration(customConfiguration);
   } catch (error) {
     console.error('Error:', error);
   }

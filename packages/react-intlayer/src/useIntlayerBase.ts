@@ -1,9 +1,9 @@
+import type { Locales } from '@intlayer/config/client';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
-import type { Locales } from '@intlayer/config/client';
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { Content } from './processDictionary/contentDictionary';
@@ -19,6 +19,9 @@ export type UseIntlayer = <T extends DictionaryKeys>(
   locale?: Locales
 ) => IntlayerDictionaryTypesConnector[T];
 
+/**
+ * Hook that picking one dictionary by its id and return the content.
+ */
 export const useIntlayerBase: UseIntlayer = <T extends DictionaryKeys>(
   id: T,
   locale?: Locales

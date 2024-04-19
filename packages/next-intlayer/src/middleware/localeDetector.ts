@@ -6,6 +6,11 @@ import type { NextRequest } from 'next/server.js';
 
 const { locales, defaultLocale } = getConfiguration().internationalization;
 
+/**
+ * Detects the locale from the request headers
+ *
+ * Headers are provided by the browser and can be used to determine the user's preferred language
+ */
 export const localeDetector = (request: NextRequest): Locales => {
   const negotiatorHeaders: Record<string, string> = {};
 

@@ -7,6 +7,9 @@ import { LocaleClientContext } from './LocaleClientContextProvider';
 
 const { defaultLocale, locales: availableLocales } = intlayerIntlConfiguration;
 
+/**
+ * On the client side, hook to get the current locale and all related fields
+ */
 export const useLocale = () => {
   const { locale } = useContext(LocaleClientContext);
 

@@ -1,5 +1,8 @@
 import { getConfiguration } from '../configFile/getConfiguration';
 
+/**
+ * Format all configuration values as environment variables
+ */
 export const formatEnvVariable = (
   prefix = 'NEXT_PUBLIC_INTLAYER_'
 ): Record<string, string> => {

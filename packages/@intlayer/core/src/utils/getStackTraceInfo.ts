@@ -6,7 +6,7 @@ export type NoteStackTraceInfo = {
 
 /**
  * Get the file path, line number, and column number of the caller of this function
- * @returns {Object} An object containing file, line, and column numbers
+ * Return an object containing file, line, and column numbers
  */
 export const getStackTraceInfo = (): NoteStackTraceInfo => {
   // Create a new Error object to capture the stack trace

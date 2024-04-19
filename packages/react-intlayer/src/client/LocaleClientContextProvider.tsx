@@ -16,16 +16,25 @@ type LocaleContextValue = {
   locale: Locales;
 };
 
+/**
+ * Context that store the current locale on the client side
+ */
 export const LocaleClientContext = createContext<LocaleContextValue>({
   locale: localeCookie ?? intlayerIntlConfiguration.defaultLocale,
 });
 
+/**
+ * Hook that provides the current locale
+ */
 export const useLocaleContext = () => useContext(LocaleClientContext);
 
 export type LocaleClientContextProviderProps = PropsWithChildren & {
   locale: Locales;
 };
 
+/**
+ * Provider that store the current locale on the client side
+ */
 export const LocaleClientContextProvider: FC<
   LocaleClientContextProviderProps
 > = ({ locale, children }) => (

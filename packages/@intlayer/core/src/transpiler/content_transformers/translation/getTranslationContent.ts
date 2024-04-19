@@ -11,6 +11,24 @@ type GetTranslationContent = <Content = string>(
   locale: Locales
 ) => Content;
 
+/**
+ *
+ * Allow to pick a content based on a locale.
+ * If not locale found, it will return the content related to the default locale.
+ *
+ * Usage:
+ *
+ * const content = getTranslationContent({
+ * en: 'Hello',
+ * fr: 'Bonjour',
+ * },
+ * 'fr');
+ * // 'Bonjour'
+ *
+ * Using TypeScript:
+ * - this function will require each locale to be defined if defined in the project configuration.
+ * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
+ */
 export const getTranslationContent: GetTranslationContent = <Content = string>(
   languageContent: CustomizableLanguageContent<Content>,
   locale: Locales

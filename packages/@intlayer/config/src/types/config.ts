@@ -1,64 +1,105 @@
 import type { Locales } from './locales';
 
+/**
+ * Configuration for internationalization settings
+ */
 export type InternationalizationConfig = {
-  // Available languages in the app
-  locales: Locales[]; // default [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH]
+  /**
+   * Locales available in the application
+   *
+   * Default: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH]
+   */
+  locales: Locales[];
 
-  // Default language
-  defaultLocale: Locales; // default Locales.ENGLISH
+  /**
+   * Default locale of the application for fallback
+   *
+   * Default: Locales.ENGLISH
+   */
+  defaultLocale: Locales;
 };
 
 export type ServerSetCookieRule = 'always' | 'never';
+
+/**
+ * Configuration for middleware behaviors
+ */
 export type MiddlewareConfig = {
-  // Header name to get the language
-  headerName: string; // default 'x-intlayer-locale'
+  /**
+   * Header name to get the locale from the request
+   *
+   * Default: 'x-intlayer-locale'
+   */
+  headerName: string;
 
-  // Cookie name to get the language
-  cookieName: string; // default 'NEXT_LOCALE'
+  /**
+   * Cookie name to store the locale information
+   *
+   * Default: 'NEXT_LOCALE'
+   */
+  cookieName: string;
 
-  // Prefix the default language in the URL
-  prefixDefault: boolean; // default false
+  /**
+   * Whether to prefix the default locale in the URL
+   *
+   * Default: false
+   */
+  prefixDefault: boolean;
 
-  // Base path
-  basePath: string; // default ''
+  /**
+   * Base path for application URLs
+   *
+   * Default: ''
+   */
+  basePath: string;
 
-  // Set cookie on server
-  serverSetCookie: ServerSetCookieRule; // default 'always'
+  /**
+   * Strategy for setting the locale cookie on the server
+   *
+   * Default: 'always'
+   */
+  serverSetCookie: ServerSetCookieRule;
 
-  // No prefix
-  noPrefix: boolean; // default false;
+  /**
+   * Indicates if no prefix should be used in the URL for locale
+   *
+   * Default: false
+   */
+  noPrefix: boolean;
 };
 
+/**
+ * Custom configuration that can be provided to override default settings
+ */
 export type CustomIntlayerConfig = {
   /**
-   * Internationalization configuration
+   * Custom internationalization configuration
    */
-
   internationalization?: Partial<InternationalizationConfig>;
 
   /**
-   * Middleware configuration
+   * Custom middleware configuration
    */
-
   middleware?: Partial<MiddlewareConfig>;
 
   /**
-   * Content configuration
+   * Custom content configuration
    */
   content?: Partial<ContentConfig>;
 };
 
+/**
+ * Combined configuration for internationalization, middleware, and content
+ */
 export type IntlayerConfig = {
   /**
    * Internationalization configuration
    */
-
   internationalization: InternationalizationConfig;
 
   /**
    * Middleware configuration
    */
-
   middleware: MiddlewareConfig;
 
   /**
@@ -67,77 +108,171 @@ export type IntlayerConfig = {
   content: ContentConfig;
 };
 
+/**
+ * Base configuration for content handling
+ */
 export type BaseContentConfig = {
-  // File extensions of content to look for
-  fileExtensions: string[]; // default ['.content.ts', '.content.js', '.content.json']
+  /**
+   * File extensions of content to look for
+   *
+   * Default: ['.content.ts', '.content.js', '.content.json']
+   */
+  fileExtensions: string[];
 
-  // Directory of the project
-  baseDir: string; // default process.cwd()
+  /**
+   * Absolute path of the project's base directory
+   *
+   * Default: process.cwd()
+   */
+  baseDir: string;
 
-  // Directory name where the content is stored
-  contentDirName: string; // default 'src'
+  /**
+   * Name of the directory where the content is stored
+   *
+   * Default: 'src'
+   */
+  contentDirName: string;
 
-  // Directories to exclude
-  excludedPath: string[]; // default ['node_modules']
+  /**
+   * Directories to be excluded from content processing
+   *
+   * Default: ['node_modules']
+   */
+  excludedPath: string[];
 
-  // Result directory name
-  resultDirName: string; // default '.intlayer'
+  /**
+   * Name of the directory where results are stored
+   *
+   * Default: '.intlayer'
+   */
+  resultDirName: string;
 
-  // Module augmentation directory name
-  moduleAugmentationDirName: string; // default 'types'
+  /**
+   * Name of the directory for module augmentation
+   *
+   * Default: 'types'
+   */
+  moduleAugmentationDirName: string;
 
-  // Bundle directory name
-  bundleDirName: string; // default 'bundle'
+  /**
+   * Name of the directory where bundles are stored
+   *
+   * Default: 'bundle'
+   */
+  bundleDirName: string;
 
-  // Bundle file extension
-  bundleFileExtension: string; // default '.bundle.js'
+  /**
+   * File extension for bundle files
+   *
+   * Default: '.bundle.js'
+   */
+  bundleFileExtension: string;
 
-  // Dictionary directory name
-  dictionariesDirName: string; // default 'dictionary'
+  /**
+   * Name of the directory where dictionaries are stored
+   *
+   * Default: 'dictionary'
+   */
+  dictionariesDirName: string;
 
-  // Types directory name
-  typeDirName: string; // default 'types'
+  /**
+   * Name of the directory where dictionary types are stored
+   *
+   * Default: 'types'
+   */
+  typeDirName: string;
 
-  // Main directory name
-  mainDirName: string; // default 'main'
+  /**
+   * Name of the directory where the main files are stored
+   *
+   * Default: 'main'
+   */
+  mainDirName: string;
 };
 
+/**
+ * Configuration derived based on the base content configuration
+ */
 export type BaseDerivedConfig = {
-  // Directory to watch - emplacement where the content is stored
-  contentDir: string; // default {{baseDir}} / {{contentDirName}}
+  /**
+   * Directory where the content is stored, relative to the base directory
+   *
+   * Default: {{baseDir}} / {{contentDirName}}
+   */
+  contentDir: string;
 
-  // Result directory
-  resultDir: string; // default {{baseDir}} / {{resultDirName}}
+  /**
+   * Directory where the results are stored, relative to the base directory
+   *
+   * Default: {{baseDir}} / {{resultDirName}}
+   */
+  resultDir: string;
 
-  // Result directory
-  moduleAugmentationDir: string; // default {{baseDir}} / {{moduleAugmentationDirName}}
+  /**
+   * Directory for module augmentation, relative to the base directory
+   *
+   * Default: {{baseDir}} / {{moduleAugmentationDirName}}
+   */
+  moduleAugmentationDir: string;
 };
 
+/**
+ * Configuration derived based on the result directory
+ */
 export type ResultDirDerivedConfig = {
-  // Bundle directory
-  bundleDir: string; // default {{resultDir}} / {{bundleDirName}}
+  /**
+   * Directory where bundles are stored, relative to the result directory
+   *
+   * Default: {{resultDir}} / {{bundleDirName}}
+   */
+  bundleDir: string;
 
-  // Dictionary directory
-  dictionariesDir: string; // default {{resultDir}} / {{dictionaryDirName}}
+  /**
+   * Directory where dictionaries are stored, relative to the result directory
+   *
+   * Default: {{resultDir}} / {{dictionariesDirName}}
+   */
+  dictionariesDir: string;
 
-  // Types directory
-  typesDir: string; // default {{resultDir}} / {{typeDirName}}
+  /**
+   * Directory where dictionary types are stored, relative to the result directory
+   *
+   * Default: {{resultDir}} / {{typeDirName}}
+   */
+  typesDir: string;
 
-  // Main directory
-  mainDir: string; // default {{resultDir}} / {{mainDirName}}
+  /**
+   * Directory where the main files are stored, relative to the result directory
+   *
+   * Default: {{resultDir}} / {{mainDirName}}
+   */
+  mainDir: string;
 };
 
+/**
+ * Configuration for content patterns
+ */
 export type PatternsContentConfig = {
-  // Pattern of files to watch
+  /**
+   * Patterns of files to watch for changes
+   */
   watchedFilesPattern: string[];
 
-  // Pattern of files to watch including the relative path
+  /**
+   * Patterns of files to watch for changes including the relative path
+   */
   watchedFilesPatternWithPath: string[];
 
-  // Pattern of files to output
+  /**
+   * Pattern for output files including the relative path
+   */
   outputFilesPatternWithPath: string;
 };
 
+// @TODO: Implement exclusion of non configurable fields, to not allow them to be set in the config
+/**
+ * General configuration derived the config file
+ */
 export type ContentConfig = BaseContentConfig &
   BaseDerivedConfig &
   ResultDirDerivedConfig &

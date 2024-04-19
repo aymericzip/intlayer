@@ -19,6 +19,9 @@ const defaultOptions: GetConfigurationOptions = {
   verbose: false,
 };
 
+/**
+ * Get the configuration for the intlayer by reading the configuration file (e.g. intlayer.config.js)
+ */
 export const getConfiguration = (
   options?: Partial<GetConfigurationOptions>
 ): IntlayerConfig => {

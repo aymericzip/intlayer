@@ -3,6 +3,9 @@ import { type LanguageContent, getTranslationContent } from '@intlayer/core';
 import { LocaleServerContext } from './LocaleServerContextProvider';
 import { getServerContext } from './serverContext';
 
+/**
+ * On the server side, get the translation content based on the locale
+ */
 export const getLocaleTranslation = <Content>(
   languageContent: LanguageContent<Content>
 ) => {
