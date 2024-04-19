@@ -16,9 +16,12 @@
     "file"
   ],
   "homepage": "https://github.com/aypineau/intlayer",
+  "bugs": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/aypineau/intlayer"
+    "url": "git+https://github.com/aypineau/intlayer.git"
   },
   "license": "MIT",
   "author": {
@@ -76,6 +79,9 @@
   },
   "engines": {
     "node": ">=14.18"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "bug": {
     "url": "https://github.com/aypineau/intlayer/issues"

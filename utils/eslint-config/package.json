@@ -1,7 +1,7 @@
 {
   "name": "@utils/eslint-config",
   "version": "1.0.0",
-  "private": false,
+  "private": true,
   "exports": {
     ".": "./.eslintrc.cjs",
     "./.eslintrc.cjs": "./.eslintrc.cjs",
