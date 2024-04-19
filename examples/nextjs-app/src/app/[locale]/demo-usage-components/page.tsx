@@ -11,6 +11,7 @@ import { LocaleServerContextProvider } from 'next-intlayer/server';
 const PageDemoUsageComponents: NextPageIntlayer = ({ params: { locale } }) => {
   return (
     <>
+      Change
       {/**
        *   LocaleServerContextProvider is used to provide the locale to the server children
        *   LocaleServerContextProvider don't work if set in the layout
