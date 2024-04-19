@@ -1,5 +1,7 @@
-import { intlayerMiddlewareConfiguration } from '@intlayer/config/client';
-import type { Locales } from 'intlayer';
+import {
+  type Locales,
+  intlayerMiddlewareConfiguration,
+} from '@intlayer/config/client';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { useLocale as useReactLocale, useLocaleCookie } from 'react-intlayer';
 
@@ -18,7 +20,7 @@ export const useLocale = () => {
   } = reactLocaleHook;
 
   const setLocale = (locale: Locales) => {
-    if (currentLocale === locale) return;
+    if (currentLocale.toString() === locale.toString()) return;
 
     if (!availableLocales.includes(locale)) {
       console.error(`Locale ${locale} is not available`);
@@ -28,7 +30,7 @@ export const useLocale = () => {
     setLocaleCookie(locale);
 
     const pathWithoutLocale =
-      !prefixDefault && currentLocale === defaultLocale
+      !prefixDefault && currentLocale.toString() === defaultLocale.toString()
         ? pathname
         : pathname.slice(`/${currentLocale}`.length) || '/';
 
