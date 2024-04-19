@@ -45,12 +45,15 @@ export const intlayerContentConfiguration: ContentConfig = {
     process.env.NEXT_PUBLIC_INTLAYER_FILE_EXTENSIONS,
     'array'
   )!,
-  baseDir: getEnvValue('NEXT_PUBLIC_INTLAYER_BASE_DIR', 'string')!,
+  baseDir: getEnvValue(process.env.NEXT_PUBLIC_INTLAYER_BASE_DIR, 'string')!,
   contentDirName: getEnvValue(
     process.env.NEXT_PUBLIC_INTLAYER_CONTENT_DIR_NAME,
     'string'
   )!,
-  contentDir: getEnvValue('NEXT_PUBLIC_INTLAYER_CONTENT_DIR', 'string')!,
+  contentDir: getEnvValue(
+    process.env.NEXT_PUBLIC_INTLAYER_CONTENT_DIR,
+    'string'
+  )!,
   excludedPath: getEnvValue<string>(
     process.env.NEXT_PUBLIC_INTLAYER_EXCLUDED_PATH,
     'array'
@@ -59,7 +62,10 @@ export const intlayerContentConfiguration: ContentConfig = {
     process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR_NAME,
     'string'
   )!,
-  resultDir: getEnvValue('NEXT_PUBLIC_INTLAYER_RESULT_DIR', 'string')!,
+  resultDir: getEnvValue(
+    process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR,
+    'string'
+  )!,
   moduleAugmentationDirName: getEnvValue(
     process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
     'string'

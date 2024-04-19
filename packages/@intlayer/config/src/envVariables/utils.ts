@@ -10,11 +10,6 @@ function getEnvValue(
   value: unknown,
   type: 'string' | 'boolean' | 'number' | 'object' | 'array'
 ) {
-  // Handle cases where the environment variable is not set
-  if (value === undefined) {
-    return undefined;
-  }
-
   try {
     switch (type) {
       case 'boolean':
@@ -27,12 +22,18 @@ function getEnvValue(
 
       case 'string':
         // Return the string directly
-        return value;
+        return value ?? '';
 
       case 'object':
       case 'array':
         // Attempt to parse the value as JSON
-        return JSON.parse(value as string);
+        try {
+          return JSON.parse(value as string);
+        } catch (error) {
+          // Log error and return undefined if any error occurs during parsing
+          console.error(`Error parsing environment variable`);
+          return undefined;
+        }
 
       default:
         return undefined;
