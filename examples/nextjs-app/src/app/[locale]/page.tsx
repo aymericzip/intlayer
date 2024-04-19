@@ -4,6 +4,9 @@ import type { NextPageIntlayer } from 'next-intlayer';
 import { LocaleClientContextProvider } from 'next-intlayer/client';
 import { useIntlayer, LocaleServerContextProvider } from 'next-intlayer/server';
 
+import { generateMetadata } from './metadata';
+export { generateMetadata };
+
 const Page: NextPageIntlayer = ({ params: { locale } }) => {
   // Because the page is not wrapped in the LocaleServerContextProvider, we need to use add the locale to the useIntlayer hook
   const content = useIntlayer('page', locale);

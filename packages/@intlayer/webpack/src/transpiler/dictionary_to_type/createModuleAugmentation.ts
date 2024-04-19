@@ -1,11 +1,12 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, join, relative } from 'path';
-import { getConfiguration } from '@intlayer/config';
+import { Locales, getConfiguration } from '@intlayer/config';
 import { sync } from 'glob';
 import { getFileHash, transformToCamelCase } from '../../utils';
 
-const { content } = getConfiguration();
+const { content, internationalization } = getConfiguration();
 const { typesDir, moduleAugmentationDir } = content;
+const { locales } = internationalization;
 
 export const getTypeName = (id: string): string =>
   transformToCamelCase(`${id}Content`);
@@ -14,7 +15,8 @@ export const getTypeName = (id: string): string =>
  * This function generates the content of the module augmentation file
  */
 const generateTypeIndexContent = (typeFiles: string[]): string => {
-  let content = "import 'intlayer';\n\n";
+  let content =
+    "/* eslint-disable */\nimport 'intlayer';\nimport { Locales } from '@intlayer/config'\n";
 
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
     relativePath: relative(moduleAugmentationDir, dictionaryPath),
@@ -35,6 +37,16 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
     .map((dictionary) => `    "${dictionary.id}": ${dictionary.hash};`)
     .join('\n');
 
+  const formatLocales = locales
+    .map((locale) => {
+      for (const key in Locales) {
+        if (Locales[key as keyof typeof Locales] === locale) {
+          return `    ${key} = '${locale}'`;
+        }
+      }
+    })
+    .join(',\n');
+
   /**
    * Write the module augmentation to extend the intlayer module with the dictionaries types
    * Will suggest the type resulting of the dictionaries
@@ -44,11 +56,24 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    *     dictionaries: {
    *       id: DictionaryType;
    *     }
-   * }
+   *   }
    *
+   *   enum ConfigLocales {
+   *     ENGLISH = 'en',
+   *     FRENCH = 'fr',
+   *     SPANISH = 'es',
+   *   }
+   *
+   *   interface IConfigLocales<Content> extends Record<ConfigLocales, Content> {}
+   *
+   * }
    * See https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
    */
-  content += `declare module 'intlayer' {\n  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  };\n};`;
+  content += `declare module 'intlayer' {\n`;
+  content += `  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  }\n\n`;
+  content += `  enum ConfigLocales {\n${formatLocales}\n  };\n\n`;
+  content += `  interface IConfigLocales<Content> extends Record<ConfigLocales, Content> {}\n`;
+  content += `};`;
 
   return content;
 };

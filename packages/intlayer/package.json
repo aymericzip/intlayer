@@ -28,6 +28,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./augmentation": {
+      "types": "./dist/esm/augmentation.d.mts",
+      "require": "./dist/cjs/augmentation.cjs",
+      "import": "./dist/esm/augmentation.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "src/index.ts",
@@ -60,6 +65,7 @@
   "dependencies": {
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
+    "intlayer": "workspace:^",
     "webpack": "^5.91.0"
   },
   "devDependencies": {

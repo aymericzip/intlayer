@@ -1,4 +1,4 @@
-import type { Locales } from '../defaultValues/locales';
+import type { Locales } from './locales';
 
 export type InternationalizationConfig = {
   // Available languages in the app

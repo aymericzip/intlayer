@@ -1,5 +1,5 @@
 import { relative } from 'path';
-import type { CustomIntlayerConfig, IntlayerConfig } from '../types';
+import type { CustomIntlayerConfig, IntlayerConfig } from '../types/config';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';

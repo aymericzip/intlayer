@@ -30,7 +30,7 @@ import type {
   MiddlewareConfig,
   BaseContentConfig,
   ResultDirDerivedConfig,
-} from '../types';
+} from '../types/config';
 import type { GetConfigurationOptions } from './getConfiguration';
 
 let storedConfiguration: IntlayerConfig;

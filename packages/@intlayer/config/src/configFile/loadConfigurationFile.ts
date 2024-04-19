@@ -2,7 +2,7 @@
 import { createRequire } from 'module';
 import { type Context, runInNewContext } from 'vm';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
-import type { CustomIntlayerConfig } from '../types';
+import type { CustomIntlayerConfig } from '../types/config';
 
 const isESModule = typeof import.meta.url === 'string';
 
