@@ -1,9 +1,5 @@
 import { Locales } from '../types/locales';
 
-export const LOCALES: Locales[] = [
-  Locales.ENGLISH,
-  Locales.FRENCH,
-  Locales.SPANISH,
-];
+export const LOCALES: Locales[] = [Locales.ENGLISH];
 
-export const DEFAULT_LOCALE = Locales.ENGLISH;
+export const DEFAULT_LOCALE: Locales = Locales.ENGLISH;
