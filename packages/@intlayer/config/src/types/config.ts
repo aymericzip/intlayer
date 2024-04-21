@@ -7,7 +7,9 @@ export type InternationalizationConfig = {
   /**
    * Locales available in the application
    *
-   * Default: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH]
+   * Default: [Locales.ENGLISH]
+   *
+   * You can define a list of available locales to support in the application.
    */
   locales: Locales[];
 
@@ -15,6 +17,8 @@ export type InternationalizationConfig = {
    * Default locale of the application for fallback
    *
    * Default: Locales.ENGLISH
+   *
+   * Used to specify a fallback locale in case no other locale is set.
    */
   defaultLocale: Locales;
 };
@@ -29,6 +33,8 @@ export type MiddlewareConfig = {
    * Header name to get the locale from the request
    *
    * Default: 'x-intlayer-locale'
+   *
+   * The HTTP header key used to determine the current locale.
    */
   headerName: string;
 
@@ -36,6 +42,8 @@ export type MiddlewareConfig = {
    * Cookie name to store the locale information
    *
    * Default: 'NEXT_LOCALE'
+   *
+   * The cookie key where the locale information is stored.
    */
   cookieName: string;
 
@@ -43,6 +51,8 @@ export type MiddlewareConfig = {
    * Whether to prefix the default locale in the URL
    *
    * Default: false
+   *
+   * When set to true, the default locale is prefixed in the URL for localization purposes.
    */
   prefixDefault: boolean;
 
@@ -50,6 +60,8 @@ export type MiddlewareConfig = {
    * Base path for application URLs
    *
    * Default: ''
+   *
+   * Defines the base path where the application is accessible from.
    */
   basePath: string;
 
@@ -57,6 +69,8 @@ export type MiddlewareConfig = {
    * Strategy for setting the locale cookie on the server
    *
    * Default: 'always'
+   *
+   * This setting controls when the server sets the locale cookie. It can either set the cookie on every request or never set it.
    */
   serverSetCookie: ServerSetCookieRule;
 
@@ -64,6 +78,8 @@ export type MiddlewareConfig = {
    * Indicates if no prefix should be used in the URL for locale
    *
    * Default: false
+   *
+   * If true, no locale-based prefix is used in the URL.
    */
   noPrefix: boolean;
 };
@@ -116,6 +132,8 @@ export type BaseContentConfig = {
    * File extensions of content to look for
    *
    * Default: ['.content.ts', '.content.js', '.content.json']
+   *
+   * List of file extensions to scan for content.
    */
   fileExtensions: string[];
 
@@ -123,6 +141,8 @@ export type BaseContentConfig = {
    * Absolute path of the project's base directory
    *
    * Default: process.cwd()
+   *
+   * The root directory of the project, typically used for resolving other paths.
    */
   baseDir: string;
 
@@ -130,6 +150,8 @@ export type BaseContentConfig = {
    * Name of the directory where the content is stored
    *
    * Default: 'src'
+   *
+   * Specifies the directory where the primary content is stored.
    */
   contentDirName: string;
 
@@ -137,6 +159,8 @@ export type BaseContentConfig = {
    * Directories to be excluded from content processing
    *
    * Default: ['node_modules']
+   *
+   * A list of directories to exclude from content processing.
    */
   excludedPath: string[];
 
@@ -144,6 +168,8 @@ export type BaseContentConfig = {
    * Name of the directory where results are stored
    *
    * Default: '.intlayer'
+   *
+   * The directory for storing intermediate or output results.
    */
   resultDirName: string;
 
@@ -151,6 +177,8 @@ export type BaseContentConfig = {
    * Name of the directory for module augmentation
    *
    * Default: 'types'
+   *
+   * Defines the directory for additional module types.
    */
   moduleAugmentationDirName: string;
 
@@ -158,6 +186,8 @@ export type BaseContentConfig = {
    * Name of the directory where bundles are stored
    *
    * Default: 'bundle'
+   *
+   * Specifies the directory for storing build bundles.
    */
   bundleDirName: string;
 
@@ -165,6 +195,8 @@ export type BaseContentConfig = {
    * File extension for bundle files
    *
    * Default: '.bundle.js'
+   *
+   * Specifies the file extension used for build bundles.
    */
   bundleFileExtension: string;
 
@@ -172,6 +204,8 @@ export type BaseContentConfig = {
    * Name of the directory where dictionaries are stored
    *
    * Default: 'dictionary'
+   *
+   * The directory for storing localization dictionaries.
    */
   dictionariesDirName: string;
 
@@ -179,6 +213,8 @@ export type BaseContentConfig = {
    * Name of the directory where dictionary types are stored
    *
    * Default: 'types'
+   *
+   * The directory for storing dictionary type definitions.
    */
   typeDirName: string;
 
@@ -186,6 +222,8 @@ export type BaseContentConfig = {
    * Name of the directory where the main files are stored
    *
    * Default: 'main'
+   *
+   * Specifies the directory for storing main application files.
    */
   mainDirName: string;
 };
@@ -198,6 +236,8 @@ export type BaseDerivedConfig = {
    * Directory where the content is stored, relative to the base directory
    *
    * Default: {{baseDir}} / {{contentDirName}}
+   *
+   * Derived content directory based on the base configuration.
    */
   contentDir: string;
 
@@ -205,6 +245,8 @@ export type BaseDerivedConfig = {
    * Directory where the results are stored, relative to the base directory
    *
    * Default: {{baseDir}} / {{resultDirName}}
+   *
+   * Derived results directory based on the base configuration.
    */
   resultDir: string;
 
@@ -212,6 +254,8 @@ export type BaseDerivedConfig = {
    * Directory for module augmentation, relative to the base directory
    *
    * Default: {{baseDir}} / {{moduleAugmentationDirName}}
+   *
+   * Defines the derived path for module augmentation.
    */
   moduleAugmentationDir: string;
 };
@@ -224,6 +268,8 @@ export type ResultDirDerivedConfig = {
    * Directory where bundles are stored, relative to the result directory
    *
    * Default: {{resultDir}} / {{bundleDirName}}
+   *
+   * Specifies the derived path for bundles relative to the result directory.
    */
   bundleDir: string;
 
@@ -231,6 +277,8 @@ export type ResultDirDerivedConfig = {
    * Directory where dictionaries are stored, relative to the result directory
    *
    * Default: {{resultDir}} / {{dictionariesDirName}}
+   *
+   * Specifies the derived path for dictionaries relative to the result directory.
    */
   dictionariesDir: string;
 
@@ -238,6 +286,8 @@ export type ResultDirDerivedConfig = {
    * Directory where dictionary types are stored, relative to the result directory
    *
    * Default: {{resultDir}} / {{typeDirName}}
+   *
+   * Specifies the derived path for dictionary types relative to the result directory.
    */
   typesDir: string;
 
@@ -245,6 +295,8 @@ export type ResultDirDerivedConfig = {
    * Directory where the main files are stored, relative to the result directory
    *
    * Default: {{resultDir}} / {{mainDirName}}
+   *
+   * Specifies the derived path for the main files relative to the result directory.
    */
   mainDir: string;
 };
@@ -255,23 +307,35 @@ export type ResultDirDerivedConfig = {
 export type PatternsContentConfig = {
   /**
    * Patterns of files to watch for changes
+   *
+   * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json']
+   *
+   * Defines file patterns for content to watch for changes.
    */
   watchedFilesPattern: string[];
 
   /**
    * Patterns of files to watch for changes including the relative path
+   *
+   * Default: ['{{contentDir}}/**\/*.content.ts', '{{contentDir}}/**\/*.content.js', '{{contentDir}}/**\/*.content.json']
+   *
+   * Specifies the file patterns for content to watch, including relative paths.
    */
   watchedFilesPatternWithPath: string[];
 
   /**
    * Pattern for output files including the relative path
+   *
+   * Default: '{{dictionariesDir}}/**\/*.json'
+   *
+   * Defines the pattern for output files, including the relative path.
    */
   outputFilesPatternWithPath: string;
 };
 
 // @TODO: Implement exclusion of non configurable fields, to not allow them to be set in the config
 /**
- * General configuration derived the config file
+ * General configuration derived from the config file
  */
 export type ContentConfig = BaseContentConfig &
   BaseDerivedConfig &

@@ -49,7 +49,7 @@ Modify your `package.json` to include scripts for building and watching your dic
 
 Configure your Next.js setup to use Intlayer:
 
-```javascript
+```typescript
 // next.config.mjs
 import { withIntlayer } from "next-intlayer/server";
 
@@ -81,7 +81,7 @@ Change `src/app/page.ts` to `src/app/[locale]/page.ts`
 
 Create and manage your content dictionaries:
 
-```typescript
+```tsx
 // src/app/[locale]/page.content.ts
 import { t, type ContentModule } from "intlayer";
 
@@ -99,6 +99,8 @@ const pageContent: ContentModule = {
 
 export default pageContent;
 ```
+
+[See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme.md).
 
 ### Step 7: Utilize Content in Your Code
 

@@ -121,7 +121,6 @@ const buildContentFields = (
   customConfiguration?: Partial<ContentConfig>
 ): ContentConfig => {
   const notDerivedContentConfig: BaseContentConfig = {
-    // File extensions of content to look for
     /**
      * File extensions of content to look for to build the dictionaries
      *
@@ -220,7 +219,6 @@ const buildContentFields = (
     bundleFileExtension:
       customConfiguration?.bundleFileExtension ?? BUNDLE_FILE_EXTENSION,
 
-    // Dictionary directory name
     /**
      * Related to the intlayer result directory
      *
@@ -252,7 +250,6 @@ const buildContentFields = (
      */
     typeDirName: customConfiguration?.typeDirName ?? TYPES_DIR_NAME,
 
-    // Main directory name
     /**
      * Related to the intlayer result directory
      *
@@ -267,7 +264,6 @@ const buildContentFields = (
      */
     mainDirName: customConfiguration?.mainDirName ?? MAIN_DIR_NAME,
 
-    // Directories to exclude
     /**
      * Should exclude some directories from the content search
      *
@@ -339,8 +335,6 @@ const buildContentFields = (
   };
 
   const resultDirDerivedConfiguration: ResultDirDerivedConfig = {
-    // Directory where the bundle will be stored
-
     /**
      * Directory where the bundle will be stored
      *
@@ -416,8 +410,6 @@ const buildContentFields = (
   };
 
   const patternsConfiguration: PatternsContentConfig = {
-    // Pattern of files to watch
-
     /**
      * Pattern of files to watch
      *

@@ -1,0 +1,225 @@
+# Intlayer Configuration Documentation
+
+## Overview
+
+Intlayer configuration files allow customization of various aspects of the plugin, such as internationalization, middleware, and content handling. This document provides a detailed description of each property in the configuration.
+
+---
+
+## Configuration File Support
+
+Intlayer accepts JSON, JS, MJS and TS configuration file formats:
+
+- `intlayer.config.ts`
+- `intlayer.config.js`
+- `intlayer.config.json`
+- `intlayer.config.cjs`
+- `intlayer.config.mjs`
+- `.intlayerrc`
+
+---
+
+## Example config file
+
+```typescript
+// intlayer.config.ts
+
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH],
+  },
+  content: {
+    typesDir: "content/types",
+  },
+  middleware: {
+    noPrefix: false,
+  },
+};
+
+export default config;
+```
+
+```javascript
+// intlayer.config.cjs
+
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH],
+  },
+  content: {
+    typesDir: "content/types",
+  },
+  middleware: {
+    noPrefix: false,
+  },
+};
+
+module.exports = config;
+```
+
+```json
+// .intlayerrc
+
+{
+  "internationalization": {
+    "locales": ["en"]
+  },
+  "content": {
+    "typesDir": "content/types"
+  },
+  "middleware": {
+    "noPrefix": false
+  }
+}
+```
+
+---
+
+## Configuration Reference
+
+The following sections describe the various configuration settings available for Intlayer.
+
+---
+
+### Internationalization Configuration
+
+Defines settings related to internationalization, including available locales and the default locale for the application.
+
+#### Properties
+
+- **locales**:
+  - _Type_: `string[]`
+  - _Default_: `['en']`
+  - _Description_: The list of supported locales in the application.
+  - _Example_: `['en', 'fr', 'es']`
+- **defaultLocale**:
+  - _Type_: `string`
+  - _Default_: `'en'`
+  - _Description_: The default locale used as a fallback if the requested locale is not found.
+  - _Example_: `'en'`
+  - _Note_: This is used to determine the locale when none is specified in the URL, cookie, or header.
+
+---
+
+### Middleware Configuration
+
+Settings that control middleware behavior, including how the application handles cookies, headers, and URL prefixes for locale management.
+
+#### Properties
+
+- **headerName**:
+  - _Type_: `string`
+  - _Default_: `'x-intlayer-locale'`
+  - _Description_: The name of the HTTP header used to determine the locale.
+  - _Example_: `'x-custom-locale'`
+  - _Note_: This is useful for API-based locale determination.
+- **cookieName**:
+  - _Type_: `string`
+  - _Default_: `'intlayer-locale'`
+  - _Description_: The name of the cookie used to store the locale.
+  - _Example_: `'custom-locale'`
+  - _Note_: Used to persist the locale across sessions.
+- **prefixDefault**:
+  - _Type_: `boolean`
+  - _Default_: `true`
+  - _Description_: Whether to include the default locale in the URL.
+  - _Example_: `false`
+  - _Note_: If `false`, URLs for the default locale will not have a locale prefix.
+- **basePath**:
+  - _Type_: `string`
+  - _Default_: `''`
+  - _Description_: The base path for the application URLs.
+  - _Example_: `'/my-app'`
+  - _Note_: This affects how URLs are constructed for the application.
+- **serverSetCookie**:
+  - _Type_: `string`
+  - _Default_: `'always'`
+  - _Description_: Rule for setting the locale cookie on the server.
+  - _Options_: `'always'`, `'never'`
+  - _Example_: `'never'`
+  - _Note_: Controls whether the locale cookie is set on every request or never.
+- **noPrefix**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Whether to omit the locale prefix from URLs.
+  - _Example_: `true`
+  - _Note_: If `true`, URLs will not contain locale information.
+
+---
+
+### Content Configuration
+
+Settings related to content handling within the application, including directory names, file extensions, and derived configurations.
+
+#### Properties
+
+- **fileExtensions**:
+  - _Type_: `string[]`
+  - _Default_: `['.content.ts', '.content.js', '.content.json']`
+  - _Description_: File extensions to look for when building dictionaries.
+  - _Example_: `['.data.ts', '.data.js', '.data.json']`
+  - _Note_: Customizing file extensions can help avoid conflicts.
+- **baseDir**:
+  - _Type_: `string`
+  - _Default_: `process.cwd()`
+  - _Description_: The base directory for the project.
+  - _Example_: `'/path/to/project'`
+  - _Note_: This is used to resolve all Intlayer-related directories.
+- **contentDirName**:
+  - _Type_: `string`
+  - _Default_: `'src'`
+  - _Description_: The name of the directory where the content is stored.
+  - _Example_: `'data'`, `'content'`, `'locales'`
+  - _Note_: If not at the base directory level, update the `contentDir`.
+- **resultDirName**:
+  - _Type_: `string`
+  - _Default_: `'.intlayer'`
+  - _Description_: The name of the directory where results are stored.
+  - _Example_: `'outputOFIntlayer'`
+  - _Note_: If this directory is not at the base level, update `resultDir`.
+- **moduleAugmentationDirName**:
+  - _Type_: `string`
+  - _Default_: `'types'`
+  - _Description_: Directory for module augmentation, allowing better IDE suggestions and type checking.
+  - _Example_: `'intlayer-types'`
+  - _Note_: Be sure to include this in `tsconfig.json`.
+- **bundleDirName**:
+  - _Type_: `string`
+  - _Default_: `'bundle'`
+  - _Description_: The name of the directory where the bundle is stored.
+  - _Example_: `'intlayer-bundle'`
+  - _Note_: If bundle location changes, update `bundleDir`.
+- **bundleFileExtension**:
+  - _Type_: `string`
+  - _Default_: `'.bundle.js'`
+  - _Description_: File extension for the bundle file.
+  - _Example_: `'.intlayer-bundle.js'`
+  - _Note_: Avoid common file extensions to prevent conflicts.
+- **dictionariesDirName**:
+  - _Type_: `string`
+  - _Default_: `'dictionary'`
+  - _Description_: Directory for storing dictionaries.
+  - _Example_: `'translations'`
+  - _Note_: If not at the result directory level, update `dictionariesDir`.
+- **typeDirName**:
+  - _Type_: `string`
+  - _Default_: `'types'`
+  - _Description_: Directory for storing dictionary types.
+  - _Example_: `'intlayer-types'`
+  - _Note_: If not at the result directory level, update `typesDir`.
+- **mainDirName**:
+  - _Type_: `string`
+  - _Default_: `'main'`
+  - _Description_: Directory for storing main files.
+  - _Example_: `'intlayer-main'`
+  - _Note_: If not at the result directory level, update `mainDir`.
+- **excludedPath**:
+  - _Type_: `string[]`
+  - _Default_: `['node_modules']`
+  - _Description_: Directories excluded from content search.
+  - _Note_: This setting is not yet used, but planned for future implementation.
