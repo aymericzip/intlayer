@@ -1,5 +1,6 @@
 import { resolve, relative, join } from 'path';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
+import { IntLayerPlugin } from '@intlayer/webpack';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 
@@ -7,24 +8,7 @@ type PluginOptions = {
   // TODO: add options
 };
 
-const intlayerConfig = getConfiguration({
-  verbose: true,
-});
-
-// Set all configuration values as environment variables
-const env = formatEnvVariable('NEXT_PUBLIC_INTLAYER_');
-const { mainDir, baseDir } = intlayerConfig.content;
-
-const mergeEnvVariable = (
-  nextEnv: Record<string, unknown> | undefined = {}
-): Record<string, string> => Object.assign({}, nextEnv, env);
-
-const mergeStats = (
-  nextStats: Record<string, unknown> | undefined = {}
-): Record<string, unknown> =>
-  Object.assign({}, nextStats, {
-    warnings: false,
-  });
+type WebpackParams = Parameters<NextJsWebpackConfig>;
 
 /**
  * A Next.js plugin that adds the intlayer configuration to the webpack configuration
@@ -41,29 +25,40 @@ export const withIntlayer =
   (nextConfig: Partial<NextConfig> = {}): Partial<NextConfig> => {
     if (typeof nextConfig !== 'object') nextConfig = {};
 
+    const intlayerConfig = getConfiguration();
+
+    // Set all configuration values as environment variables
+    const env = formatEnvVariable('NEXT_PUBLIC_INTLAYER_');
+    const { mainDir, baseDir } = intlayerConfig.content;
+
     return Object.assign({}, nextConfig, {
-      env: mergeEnvVariable(nextConfig.env),
+      env: { ...nextConfig.env, ...env },
 
-      stats: mergeStats(nextConfig.stats),
-
-      webpack: (config: Parameters<NextJsWebpackConfig>['0']) => {
+      webpack: (
+        config: WebpackParams['0'],
+        { isServer, nextRuntime }: WebpackParams[1]
+      ) => {
         const dictionariesPath = join(mainDir, 'dictionaries.cjs');
         const relativeDictionariesPath = relative(baseDir, dictionariesPath);
+
+        config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
+          relativeDictionariesPath
+        );
 
         config.externals.push({
           esbuild: 'esbuild',
           module: 'module',
           fs: 'fs',
         });
-
-        config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
-          relativeDictionariesPath
-        );
-
         config.module.rules.push({
           test: /\.node$/,
           loader: 'node-loader',
         });
+
+        // Apply IntLayerPlugin only on the server-side
+        if (isServer && nextRuntime === 'nodejs') {
+          config.plugins.push(new IntLayerPlugin());
+        }
 
         return config;
       },

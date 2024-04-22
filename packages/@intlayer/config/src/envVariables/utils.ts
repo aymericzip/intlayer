@@ -1,14 +1,32 @@
-function getEnvValue(value: unknown, type: 'boolean'): boolean | undefined;
-function getEnvValue(value: unknown, type: 'number'): number | undefined;
-function getEnvValue<T extends string>(
-  value: unknown,
-  type: 'string'
-): T | undefined;
-function getEnvValue<T>(value: unknown, type: 'object'): T | undefined;
-function getEnvValue<T>(value: unknown, type: 'array'): T[] | undefined;
 function getEnvValue(
   value: unknown,
-  type: 'string' | 'boolean' | 'number' | 'object' | 'array'
+  type: 'boolean',
+  verbose?: boolean
+): boolean | undefined;
+function getEnvValue(
+  value: unknown,
+  type: 'number',
+  verbose?: boolean
+): number | undefined;
+function getEnvValue<T extends string>(
+  value: unknown,
+  type: 'string',
+  verbose?: boolean
+): T | undefined;
+function getEnvValue<T>(
+  value: unknown,
+  type: 'object',
+  verbose?: boolean
+): T | undefined;
+function getEnvValue<T>(
+  value: unknown,
+  type: 'array',
+  verbose?: boolean
+): T[] | undefined;
+function getEnvValue(
+  value: unknown,
+  type: 'string' | 'boolean' | 'number' | 'object' | 'array',
+  verbose = false
 ) {
   try {
     switch (type) {
@@ -27,20 +45,18 @@ function getEnvValue(
       case 'object':
       case 'array':
         // Attempt to parse the value as JSON
-        try {
-          return JSON.parse(value as string);
-        } catch (error) {
-          // Log error and return undefined if any error occurs during parsing
-          console.error(`Error parsing environment variable`);
-          return undefined;
-        }
+        return JSON.parse(value as string);
 
       default:
         return undefined;
     }
   } catch (error) {
     // Log error and return undefined if any error occurs during parsing
-    console.error(`Error parsing environment variable`);
+    if (verbose) {
+      console.error(
+        `Error parsing environment variable, parsing : ${((value ?? '') as string).toString()}`
+      );
+    }
     return undefined;
   }
 }

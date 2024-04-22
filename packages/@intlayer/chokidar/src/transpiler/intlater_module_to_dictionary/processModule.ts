@@ -5,15 +5,7 @@ import type {
   FlatContent,
   FlatContentValue,
 } from '@intlayer/core';
-
-/**
- * Function to load the module file in a sandboxed environment
- */
-const loadModule = async (modulePath: string): Promise<ContentModule> => {
-  // @TODO: Sandbox the module to prevent malicious code execution
-
-  return (await import(modulePath)).default;
-};
+import { loadContentDeclaration } from './loadContentDeclaration';
 
 /**
  * Function to replace function and async function fields with their results in the object
@@ -57,10 +49,15 @@ const processFunctionResults = async (entry: Content): Promise<FlatContent> => {
 /**
  * Function to load, process the module and return the Intlayer ContentModule from the module file
  */
-export const processModule = async (file: string) => {
+export const processContentDeclaration = async (file: string) => {
   try {
     const functionPath = resolve(file);
-    const entry = await loadModule(functionPath);
+    const entry = loadContentDeclaration(functionPath);
+
+    if (!entry) {
+      console.error('No entry found in module:', functionPath);
+      return;
+    }
 
     return (await processFunctionResults(entry)) as ContentModule;
   } catch (error) {

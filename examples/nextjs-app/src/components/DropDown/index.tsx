@@ -36,7 +36,6 @@ export const DropDown: UnrollablePanelType = ({
     id={`unrollable-panel-${identifier}`}
   >
     <MaxHeightSmoother
-      isHidden={isHidden}
       className={
         'overflow-x-hidden ' + isOverable
           ? `group-hover/unrollable-panel:grid-rows-[1fr] group-hover/unrollable-panel:overflow-x-auto`

@@ -1,26 +1,20 @@
 import { join } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import { sync } from 'glob';
 import type { Configuration as WebPackConfiguration } from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
-import { getFileHash } from './utils';
+import { getEntries } from './getEntries';
+import { defineDirname } from './utils';
 import { IntLayerPlugin } from './webpack-plugin';
 
 const { content } = getConfiguration({
-  verbose: true,
+  verbose: false,
 });
-const { bundleDir, bundleFileExtension, watchedFilesPatternWithPath } = content;
+const { bundleDir, bundleFileExtension, fileExtensions } = content;
 
-const getEntry = (): Record<string, string> =>
-  sync(watchedFilesPatternWithPath).reduce(
-    (obj, el) => {
-      const hash = getFileHash(el);
-
-      obj[hash] = el;
-      return obj;
-    },
-    {} as Record<string, string>
-  );
+/**
+ * Set the __dirname global variable to make the config work in both ESM and CJS environments
+ */
+defineDirname();
 
 // For web interface
 export const devServerConfig: DevServerConfiguration = {
@@ -59,7 +53,7 @@ export const webpackConfig: WebPackConfiguration = {
   // Entry point of the application
   target: 'node', // Specifies the target environment
 
-  entry: getEntry,
+  entry: getEntries,
   output: {
     clean: true, // Clean the output directory before emit
     library: 'IntlLayerContent',
@@ -70,7 +64,7 @@ export const webpackConfig: WebPackConfiguration = {
 
   cache: false,
 
-  // devtool: 'source-map',
+  devtool: 'source-map',
 
   // stats: {
   //   preset: 'errors-only',
@@ -82,7 +76,7 @@ export const webpackConfig: WebPackConfiguration = {
     extensions: ['.ts', '.js', '.json', '.wasm', '.ts', '.tsx', '.mjs', '.cjs'],
     modules: [
       // To find the loader module
-      join(__dirname, '..', 'node_modules'), // In the project node_modules
+      join(globalThis.__dirname, '..', 'node_modules'), // In the project node_modules
       join(process.cwd(), 'node_modules'), // In the project node_modules
       join(process.cwd(), 'node_modules', 'intlayer-cli', 'node_modules'), // Or via another project by importing intlayer
       join(
@@ -111,15 +105,28 @@ export const webpackConfig: WebPackConfiguration = {
         'node_modules'
       ), // Or via another project by importing intlayer
     ],
-    // roots: [
-    //   join(process.cwd()), // Project context
-    //   join(process.cwd(), '@intlayer/webpack'), // Or via CLI in another project
-    //   join(process.cwd(), 'intlayer', '@intlayer/webpack'), // Or via CLI in another project
-    // ],
   },
 
   module: {
     rules: [
+      {
+        // Rule for .content.ts files
+        test: new RegExp(`(${fileExtensions.join('|')})$`),
+        use: [
+          {
+            // Transpile with esbuild-loader
+            loader: 'esbuild-loader',
+            options: {
+              // JavaScript version to compile to
+              target: 'es2015',
+            },
+          },
+          // {
+          //   // Custom loader to process the transpiled code
+          //   loader: resolve('./intlayer-loader'),
+          // },
+        ],
+      },
       {
         test: /\.node$/,
         loader: 'node-loader',
@@ -127,7 +134,7 @@ export const webpackConfig: WebPackConfiguration = {
       // Use esbuild to compile JavaScript & TypeScript
       {
         // Match `.js`, `.jsx`, `.ts` or `.tsx` files
-        test: /\.[jt]sx?$/,
+        test: /\.(jsx|js|ts|tsx|mjs|cjs)?$/,
         loader: 'esbuild-loader',
         options: {
           // JavaScript version to compile to
