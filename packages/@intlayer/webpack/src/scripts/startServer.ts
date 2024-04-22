@@ -1,7 +1,6 @@
 import type { Compiler } from 'webpack';
+import { default as WebpackDevServer } from 'webpack-dev-server';
 import { devServerConfig } from '../webpack.config';
-
-const WebpackDevServer = require('webpack-dev-server');
 
 export const startServer = (compiler: Compiler) => {
   // Create a new instance of webpack-dev-server

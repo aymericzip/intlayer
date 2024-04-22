@@ -1,5 +1,6 @@
 import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
+import { createRequire } from 'module';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import type { ContentModule } from '@intlayer/core';
@@ -8,6 +9,9 @@ import { processModule } from './processModule';
 
 const { content } = getConfiguration();
 const { dictionariesDir, bundleFileExtension } = content;
+
+const isESModule = typeof import.meta.url === 'string';
+const requireFunction = isESModule ? createRequire(import.meta.url) : require;
 
 const loadBundledModule = async (bundledEntryPath: string) => {
   const entryFilePath = resolve(bundledEntryPath);
@@ -29,8 +33,7 @@ const loadBundledModule = async (bundledEntryPath: string) => {
     // Remove the module from the cache
     delete require.cache[entryFilePath];
 
-    // Require the module anew
-    const entry = await import(entryFilePath);
+    const entry = requireFunction(entryFilePath);
 
     let result: ContentModule | undefined;
 
