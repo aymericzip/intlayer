@@ -86,14 +86,14 @@
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^20.11.30",
-    "@types/react": "^18.2.78",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.79",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
     "react": "^18.2.0",
     "rimraf": "5.0.5",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.5"
   },
   "peerDependencies": {
     "react": "^18.2.0"

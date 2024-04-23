@@ -66,7 +66,7 @@
     "crypto-js": "^4.2.0",
     "esbuild": "^0.20.2",
     "esbuild-loader": "^4.1.0",
-    "glob": "^10.3.10",
+    "glob": "^10.3.12",
     "intlayer": "workspace:^",
     "node-loader": "^2.0.0",
     "rimraf": "5.0.5",
@@ -78,11 +78,11 @@
   "devDependencies": {
     "@changesets/cli": "2.27.1",
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.7",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
     "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   },
   "engines": {
     "node": ">=14.18"

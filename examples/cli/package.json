@@ -25,7 +25,7 @@
     "intlayer-cli": "workspace:^"
   },
   "devDependencies": {
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.5"
   },
   "bug": {
     "url": "https://github.com/aypineau/intlayer/issues"
