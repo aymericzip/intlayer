@@ -1,5 +1,15 @@
 # intlayer-cli
 
+## 1.1.0
+
+### Patch Changes
+
+- Updated dependencies [[`e9e2778`](https://github.com/aypineau/intlayer/commit/e9e2778bde46a9d3d2fd1570f47935b5bd4d6886)]:
+  - @intlayer/config@1.1.0
+  - @intlayer/core@1.1.0
+  - @intlayer/webpack@1.1.0
+  - @intlayer/cli@1.1.0
+
 ## 1.0.1
 
 ### Patch Changes
