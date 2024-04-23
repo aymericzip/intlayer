@@ -6,102 +6,108 @@ import type {
   ServerSetCookieRule,
 } from '../types/config';
 import type { Locales } from '../types/locales';
+import { extractEnvVariable } from './extractEnvVariable';
 import { getEnvValue } from './utils';
+
+const env = extractEnvVariable();
 
 export const intlayerIntlConfiguration: InternationalizationConfig = {
   locales: getEnvValue<Locales>(
-    process.env.NEXT_PUBLIC_INTLAYER_LOCALES,
+    env.intlayerIntlConfiguration.locales,
     'array'
   )!,
   defaultLocale: getEnvValue<Locales>(
-    process.env.NEXT_PUBLIC_INTLAYER_DEFAULT_LOCALE,
+    env.intlayerIntlConfiguration.defaultLocale,
     'string'
   )!,
 };
 
 export const intlayerMiddlewareConfiguration: MiddlewareConfig = {
   headerName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_HEADER_NAME,
+    env.intlayerMiddlewareConfiguration.headerName,
     'string'
   )!,
   cookieName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_COOKIE_NAME,
+    env.intlayerMiddlewareConfiguration.cookieName,
     'string'
   )!,
   prefixDefault: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_PREFIX_DEFAULT,
+    env.intlayerMiddlewareConfiguration.prefixDefault,
     'boolean'
   )!,
-  basePath: getEnvValue(process.env.NEXT_PUBLIC_INTLAYER_BASE_PATH, 'string')!,
-  serverSetCookie: getEnvValue<ServerSetCookieRule>(
-    process.env.NEXT_PUBLIC_INTLAYER_SERVER_SET_COOKIE,
+  basePath: getEnvValue(
+    env.intlayerMiddlewareConfiguration.basePath,
     'string'
   )!,
-  noPrefix: getEnvValue(process.env.NEXT_PUBLIC_INTLAYER_NO_PREFIX, 'boolean')!,
+  serverSetCookie: getEnvValue<ServerSetCookieRule>(
+    env.intlayerMiddlewareConfiguration.serverSetCookie,
+    'string'
+  )!,
+  noPrefix: getEnvValue(
+    env.intlayerMiddlewareConfiguration.noPrefix,
+    'boolean'
+  )!,
 };
 
 export const intlayerContentConfiguration: ContentConfig = {
   fileExtensions: getEnvValue<string>(
-    process.env.NEXT_PUBLIC_INTLAYER_FILE_EXTENSIONS,
+    env.intlayerContentConfiguration.fileExtensions,
     'array'
   )!,
-  baseDir: getEnvValue(process.env.NEXT_PUBLIC_INTLAYER_BASE_DIR, 'string')!,
+  baseDir: getEnvValue(env.intlayerContentConfiguration.baseDir, 'string')!,
   contentDirName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_CONTENT_DIR_NAME,
+    env.intlayerContentConfiguration.contentDirName,
     'string'
   )!,
   contentDir: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_CONTENT_DIR,
+    env.intlayerContentConfiguration.contentDir,
     'string'
   )!,
   excludedPath: getEnvValue<string>(
-    process.env.NEXT_PUBLIC_INTLAYER_EXCLUDED_PATH,
+    env.intlayerContentConfiguration.excludedPath,
     'array'
   )!,
   resultDirName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR_NAME,
+    env.intlayerContentConfiguration.resultDirName,
     'string'
   )!,
-  resultDir: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR,
-    'string'
-  )!,
+  resultDir: getEnvValue(env.intlayerContentConfiguration.resultDir, 'string')!,
   moduleAugmentationDirName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
+    env.intlayerContentConfiguration.moduleAugmentationDirName,
     'string'
   )!,
   moduleAugmentationDir: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR,
+    env.intlayerContentConfiguration.moduleAugmentationDir,
     'string'
   )!,
   dictionariesDirName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_DICTIONARIES_DIR_NAME,
+    env.intlayerContentConfiguration.dictionariesDirName,
     'string'
   )!,
   dictionariesDir: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_DICTIONARIES_DIR,
+    env.intlayerContentConfiguration.dictionariesDir,
     'string'
   )!,
   typeDirName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_TYPES_DIR_NAME,
+    env.intlayerContentConfiguration.typeDirName,
     'string'
   )!,
-  typesDir: getEnvValue(process.env.NEXT_PUBLIC_INTLAYER_TYPES_DIR, 'string')!,
+  typesDir: getEnvValue(env.intlayerContentConfiguration.typesDir, 'string')!,
   mainDirName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_MAIN_DIR_NAME,
+    env.intlayerContentConfiguration.mainDirName,
     'string'
   )!,
-  mainDir: getEnvValue(process.env.NEXT_PUBLIC_INTLAYER_MAIN_DIR, 'string')!,
+  mainDir: getEnvValue(env.intlayerContentConfiguration.mainDir, 'string')!,
   watchedFilesPattern: getEnvValue<string>(
-    process.env.NEXT_PUBLIC_INTLAYER_WATCHED_FILES_PATTERN,
+    env.intlayerContentConfiguration.watchedFilesPattern,
     'array'
   )!,
   watchedFilesPatternWithPath: getEnvValue<string>(
-    process.env.NEXT_PUBLIC_INTLAYER_WATCHED_FILES_PATTERN_WITH_PATH,
+    env.intlayerContentConfiguration.watchedFilesPatternWithPath,
     'array'
   )!,
   outputFilesPatternWithPath: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_OUTPUT_FILES_PATTERN,
+    env.intlayerContentConfiguration.outputFilesPatternWithPath,
     'string'
   )!,
 };

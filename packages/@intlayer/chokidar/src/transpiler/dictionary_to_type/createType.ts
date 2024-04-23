@@ -66,20 +66,23 @@ export const generateTypeScriptTypeContent = (obj: Content): string => {
   for (const [key, value] of Object.entries(obj)) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const nodeType: NodeType | undefined = (value as TypedNode).nodeType;
+    type ValueKey = keyof typeof value;
 
     if (
       // Check if the value is a typed node
       typeof value === 'object' &&
       nodeType === NodeType.Translation
     ) {
-      const tsType = typeof value[internationalization.defaultLocale];
+      const tsType =
+        typeof value?.[internationalization.defaultLocale as ValueKey];
       typeDefinition += `  ${key}: ${tsType},\n`;
     } else if (
       // Check if the value is a typed node
       typeof value === 'object' &&
       nodeType === NodeType.Enumeration
     ) {
-      const tsType = typeof value[internationalization.defaultLocale];
+      const tsType =
+        typeof value?.[internationalization.defaultLocale as ValueKey];
 
       typeDefinition += `  ${key}: (quantity: number) => ${tsType},\n`;
     } else if (
