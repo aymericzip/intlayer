@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/webpack",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": false,
   "description": "Webpack application for IntLayer - Webpack process to transpile TypeScript files to JavaScript files into IntLayer dictionaries.",
   "keywords": [
