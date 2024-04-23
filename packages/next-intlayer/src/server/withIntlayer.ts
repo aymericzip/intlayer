@@ -28,7 +28,8 @@ export const withIntlayer =
     const intlayerConfig = getConfiguration();
 
     // Set all configuration values as environment variables
-    const env = formatEnvVariable('NEXT_PUBLIC_INTLAYER_');
+    const env = formatEnvVariable('next');
+
     const { mainDir, baseDir } = intlayerConfig.content;
 
     return Object.assign({}, nextConfig, {
