@@ -1,6 +1,6 @@
 import { intlayerIntlConfiguration } from '@intlayer/config/client';
 import { type LanguageContent, getTranslationContent } from '@intlayer/core';
-import { LocaleServerContext } from './LocaleServerContextProvider';
+import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 
 /**
@@ -9,7 +9,7 @@ import { getServerContext } from './serverContext';
 export const getLocaleTranslation = <Content>(
   languageContent: LanguageContent<Content>
 ) => {
-  const locale = getServerContext(LocaleServerContext);
+  const locale = getServerContext(IntlayerServerContext);
   const content = getTranslationContent<Content>(
     languageContent,
     locale ?? intlayerIntlConfiguration.defaultLocale

@@ -3,11 +3,11 @@
  * Attempts to closely mimic the `createContext` API.
  *
  * @example
- * const LocaleServerContext = createServerContext<string | null>(null);
+ * const IntlayerServer = createServerContext<string | null>(null);
  *
- * <LocaleServerContext.Provider value={locale}>
+ * <IntlayerServer.Provider value={locale}>
  *      {children}
- * </LocaleServerContext.Provider>
+ * </IntlayerServer.Provider>
  */
 
 import react from 'react';
@@ -44,7 +44,7 @@ export const createServerContext = <T>(defaultValue?: T): ServerContext<T> => {
  * Attempts to closely mimic the `useContext` API.
  *
  * @example
- * getServerContext(LocaleServerContext);
+ * getServerContext(IntlayerServer);
  */
 export const getServerContext = <T>({
   _storage,

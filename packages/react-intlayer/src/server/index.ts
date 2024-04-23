@@ -1,8 +1,8 @@
 export { getLocaleTranslation as getLocaleContent } from './getLocaleTranslation';
 export { useTraduction } from './useTraduction';
 export {
-  LocaleServerContext,
+  IntlayerServerContext as IntlayerServer,
   locale,
-  LocaleServerContextProvider,
-} from './LocaleServerContextProvider';
+  IntlayerServerProvider,
+} from './IntlayerServerProvider';
 export { useIntlayer } from './useIntlayer';

@@ -99,11 +99,8 @@ import { ClientComponentExample } from "@component/components/ClientComponentExa
 import { LocaleSwitcher } from "@component/components/LangSwitcherDropDown";
 import { NestedServerComponentExample } from "@component/components/NestedServerComponentExample";
 import { ServerComponentExample } from "@component/components/ServerComponentExample";
-import {
-  type NextPageIntlayer,
-  LocaleClientContextProvider,
-} from "next-intlayer";
-import { LocaleServerContextProvider, useIntlayer } from "next-intlayer/server";
+import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => {
   const content = useIntlayer("page", locale);
@@ -115,19 +112,19 @@ const Page: NextPageIntlayer = ({ params: { locale } }) => {
         <code>{content.getStarted.pageLink}</code>
       </p>
       {/**
-       *   LocaleServerContextProvider is used to provide the locale to the server children
+       *   IntlayerServerProvider is used to provide the locale to the server children
        *   Don't work if set in the layout
        */}
-      <LocaleServerContextProvider locale={locale}>
+      <IntlayerServerProvider locale={locale}>
         <ServerComponentExample />
-      </LocaleServerContextProvider>
+      </IntlayerServerProvider>
       {/**
-       *   LocaleClientContextProvider is used to provide the locale to the client children
+       *   IntlayerClientProvider is used to provide the locale to the client children
        *   Can be set in any parent component, including the layout
        */}
-      <LocaleClientContextProvider locale={locale}>
+      <IntlayerClientProvider locale={locale}>
         <ClientComponentExample />
-      </LocaleClientContextProvider>
+      </IntlayerClientProvider>
     </>
   );
 };

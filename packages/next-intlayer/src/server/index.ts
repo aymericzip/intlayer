@@ -1,8 +1,8 @@
 export {
   getLocaleContent,
   useTraduction,
-  LocaleServerContext,
-  LocaleServerContextProvider,
+  IntlayerServer,
+  IntlayerServerProvider,
   locale,
   useIntlayer,
 } from 'react-intlayer/server';

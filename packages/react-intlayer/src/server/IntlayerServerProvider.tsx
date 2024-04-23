@@ -8,31 +8,32 @@ import { createServerContext, getServerContext } from './serverContext';
 /**
  * Context that store the current locale on the server side
  */
-export const LocaleServerContext = createServerContext<Locales>(
+export const IntlayerServerContext = createServerContext<Locales>(
   intlayerIntlConfiguration.defaultLocale
 );
 
 /**
  * Hook that provides the current locale
  */
-export const useLocaleContext = () => getServerContext(LocaleServerContext);
+export const useIntlayer = () => getServerContext(IntlayerServerContext);
 
 /**
  * Get the current locale
  */
-export const locale = getServerContext(LocaleServerContext);
+export const locale = getServerContext(IntlayerServerContext);
 
-export type LocaleServerContextProviderProps = PropsWithChildren & {
+export type IntlayerServerProviderProps = PropsWithChildren & {
   locale: Locales;
 };
 
 /**
  * Provider that store the current locale on the server side
  */
-export const LocaleServerContextProvider: FC<
-  LocaleServerContextProviderProps
-> = ({ children, locale }) => (
-  <LocaleServerContext.Provider value={locale}>
+export const IntlayerServerProvider: FC<IntlayerServerProviderProps> = ({
+  children,
+  locale,
+}) => (
+  <IntlayerServerContext.Provider value={locale}>
     {children}
-  </LocaleServerContext.Provider>
+  </IntlayerServerContext.Provider>
 );
