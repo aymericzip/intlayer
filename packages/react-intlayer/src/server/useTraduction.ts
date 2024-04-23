@@ -1,7 +1,7 @@
 import type { Locales } from '@intlayer/config/client';
 import type { LanguageContent } from '@intlayer/core';
 import { getTranslation } from '../getTranslation';
-import { LocaleServerContext } from './LocaleServerContextProvider';
+import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 
 /**
@@ -27,7 +27,7 @@ import { getServerContext } from './serverContext';
 export const useTraduction = <Content = string>(
   languageContent: LanguageContent<Content>
 ) => {
-  const locale = getServerContext<Locales>(LocaleServerContext);
+  const locale = getServerContext<Locales>(IntlayerServerContext);
 
   return getTranslation(languageContent, locale);
 };

@@ -7,7 +7,7 @@ import {
   useIntlayerBase,
   type UseIntlayer,
 } from '../useIntlayerBase';
-import { LocaleClientContext } from './LocaleClientContextProvider';
+import { IntlayerClientContext } from './IntlayerClientProvider';
 
 /**
  * On the client side, Hook that picking one dictionary by its id and return the content
@@ -18,7 +18,7 @@ export const useIntlayer: UseIntlayer = <T extends DictionaryKeys>(
   id: T,
   locale?: Locales
 ) => {
-  const { locale: currentLocale } = useContext(LocaleClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget = locale ?? currentLocale;
 
   return useIntlayerBase(id, localeTarget);

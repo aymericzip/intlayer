@@ -1,7 +1,7 @@
 import type { LanguageContent } from '@intlayer/core';
 import { useContext } from 'react';
 import { getTranslation } from '../getTranslation';
-import { LocaleClientContext } from './LocaleClientContextProvider';
+import { IntlayerClientContext } from './IntlayerClientProvider';
 
 /**
  * On the client side, Hook that picking one dictionary by its id and return the content.
@@ -26,7 +26,7 @@ import { LocaleClientContext } from './LocaleClientContextProvider';
 export const useTraduction = <Content = string>(
   languageContent: LanguageContent<Content>
 ): Content => {
-  const { locale } = useContext(LocaleClientContext);
+  const { locale } = useContext(IntlayerClientContext);
 
   return getTranslation(languageContent, locale);
 };

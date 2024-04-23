@@ -3,7 +3,7 @@
 import { intlayerIntlConfiguration } from '@intlayer/config/client';
 import { localeList } from '@intlayer/core';
 import { useContext } from 'react';
-import { LocaleClientContext } from './LocaleClientContextProvider';
+import { IntlayerClientContext } from './IntlayerClientProvider';
 
 const { defaultLocale, locales: availableLocales } = intlayerIntlConfiguration;
 
@@ -11,7 +11,7 @@ const { defaultLocale, locales: availableLocales } = intlayerIntlConfiguration;
  * On the client side, hook to get the current locale and all related fields
  */
 export const useLocale = () => {
-  const { locale } = useContext(LocaleClientContext);
+  const { locale } = useContext(IntlayerClientContext);
 
   return {
     locale, // Current locale

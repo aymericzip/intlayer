@@ -12,33 +12,34 @@ import {
 } from 'react';
 import { localeCookie } from './useLocaleCookie';
 
-type LocaleContextValue = {
+type IntlayerValue = {
   locale: Locales;
 };
 
 /**
  * Context that store the current locale on the client side
  */
-export const LocaleClientContext = createContext<LocaleContextValue>({
+export const IntlayerClientContext = createContext<IntlayerValue>({
   locale: localeCookie ?? intlayerIntlConfiguration.defaultLocale,
 });
 
 /**
  * Hook that provides the current locale
  */
-export const useLocaleContext = () => useContext(LocaleClientContext);
+export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
-export type LocaleClientContextProviderProps = PropsWithChildren & {
+export type IntlayerClientProviderProps = PropsWithChildren & {
   locale: Locales;
 };
 
 /**
  * Provider that store the current locale on the client side
  */
-export const LocaleClientContextProvider: FC<
-  LocaleClientContextProviderProps
-> = ({ locale, children }) => (
-  <LocaleClientContext.Provider value={{ locale }}>
+export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
+  locale,
+  children,
+}) => (
+  <IntlayerClientContext.Provider value={{ locale }}>
     {children}
-  </LocaleClientContext.Provider>
+  </IntlayerClientContext.Provider>
 );

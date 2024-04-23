@@ -1,28 +1,28 @@
 import { LocaleSwitcher } from '@component/components/LangSwitcherDropDown';
 import Image from 'next/image';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { LocaleClientContextProvider } from 'next-intlayer/client';
-import { useIntlayer, LocaleServerContextProvider } from 'next-intlayer/server';
+import { IntlayerClientProvider } from 'next-intlayer/client';
+import { useIntlayer, IntlayerServerProvider } from 'next-intlayer/server';
 
 import { generateMetadata } from './metadata';
 export { generateMetadata };
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => {
-  // Because the page is not wrapped in the LocaleServerContextProvider, we need to use add the locale to the useIntlayer hook
+  // Because the page is not wrapped in the IntlayerServerProvider, we need to use add the locale to the useIntlayer hook
   const content = useIntlayer('page', locale);
 
   return (
     <>
       {/**
-       *   LocaleServerContextProvider is used to provide the locale to the server children
-       *   LocaleServerContextProvider don't work if set in the layout
+       *   IntlayerServerProvider is used to provide the locale to the server children
+       *   IntlayerServerProvider don't work if set in the layout
        */}
-      <LocaleServerContextProvider locale={locale}>
+      <IntlayerServerProvider locale={locale}>
         {/**
-         *   LocaleClientContextProvider is used to provide the locale to the client children
-         *   LocaleClientContextProvider can be set in any parent component, including the layout
+         *   IntlayerClientProvider is used to provide the locale to the client children
+         *   IntlayerClientProvider can be set in any parent component, including the layout
          */}
-        <LocaleClientContextProvider locale={locale}>
+        <IntlayerClientProvider locale={locale}>
           <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
               <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200  lg:p-4 dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:dark:bg-zinc-800/30">
@@ -137,8 +137,8 @@ const Page: NextPageIntlayer = ({ params: { locale } }) => {
           <div className="absolute bottom-5 right-5 z-50">
             <LocaleSwitcher />
           </div>
-        </LocaleClientContextProvider>
-      </LocaleServerContextProvider>
+        </IntlayerClientProvider>
+      </IntlayerServerProvider>
     </>
   );
 };
