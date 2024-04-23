@@ -108,12 +108,6 @@ importers:
 
   examples/react-app:
     dependencies:
-      '@intlayer/core':
-        specifier: workspace:^
-        version: link:../../packages/@intlayer/core
-      '@intlayer/webpack':
-        specifier: workspace:^
-        version: link:../../packages/@intlayer/webpack
       '@testing-library/jest-dom':
         specifier: ^5.17.0
         version: 5.17.0
@@ -138,12 +132,18 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../../packages/intlayer
+      intlayer-cli:
+        specifier: workspace:^
+        version: link:../../packages/intlayer-cli
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      react-intlayer:
+        specifier: workspace:^
+        version: link:../../packages/react-intlayer
       react-scripts:
         specifier: 5.0.1
         version: 5.0.1(@babel/plugin-syntax-flow@7.24.1)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.57.0)(react@18.2.0)(typescript@4.9.5)
