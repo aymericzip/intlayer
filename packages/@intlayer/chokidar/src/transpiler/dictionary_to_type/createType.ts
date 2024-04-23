@@ -1,4 +1,5 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { createRequire } from 'module';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import {
@@ -11,6 +12,9 @@ import { getTypeName } from './createModuleAugmentation';
 
 const { content, internationalization } = getConfiguration();
 const { typesDir } = content;
+
+const isESModule = typeof import.meta.url === 'string';
+const requireFunction = isESModule ? createRequire(import.meta.url) : require;
 
 /**
  *
@@ -68,16 +72,14 @@ export const generateTypeScriptTypeContent = (obj: Content): string => {
       typeof value === 'object' &&
       nodeType === NodeType.Translation
     ) {
-      const tsType =
-        typeof value[internationalization.defaultLocale as keyof typeof value];
+      const tsType = typeof value[internationalization.defaultLocale];
       typeDefinition += `  ${key}: ${tsType},\n`;
     } else if (
       // Check if the value is a typed node
       typeof value === 'object' &&
       nodeType === NodeType.Enumeration
     ) {
-      const tsType =
-        typeof value[internationalization.defaultLocale as keyof typeof value];
+      const tsType = typeof value[internationalization.defaultLocale];
 
       typeDefinition += `  ${key}: (quantity: number) => ${tsType},\n`;
     } else if (
@@ -125,7 +127,7 @@ export const createTypes = (dictionariesPaths: string[]): string[] => {
   }
 
   for (const dictionaryPath of dictionariesPaths) {
-    const contentModule: ContentModule = require(dictionaryPath);
+    const contentModule: ContentModule = requireFunction(dictionaryPath);
     const dictionaryName: string = contentModule.id;
     const typeDefinition: string = generateTypeScriptType(contentModule);
 

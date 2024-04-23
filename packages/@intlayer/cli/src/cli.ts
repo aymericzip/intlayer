@@ -3,7 +3,6 @@ import { Command } from 'commander';
 type ServeParams = {
   version: string;
   transpile: () => void;
-  serve: () => void;
   watch: () => void;
 };
 
@@ -15,14 +14,10 @@ type ServeParams = {
  * npm run dev
  * npm run transpile
  */
-export const setAPI = ({ serve, transpile, watch }: ServeParams): Command => {
+export const setAPI = ({ transpile, watch }: ServeParams): Command => {
   const program = new Command();
 
   program.version('1.0.0').description('Intlayer CLI');
-
-  program.command('serve').description('Start the application').action(serve);
-  program.command('start').description('Start the application').action(serve);
-  program.command('dev').description('Start the application').action(serve);
 
   program
     .command('build')

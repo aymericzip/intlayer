@@ -20,32 +20,18 @@ Setting up Intlayer in a Next.js application is straightforward:
 Install the necessary packages using npm:
 
 ```bash
-npm install intlayer next-intlayer intlayer-cli
+npm install intlayer next-intlayer
 ```
 
 ```bash
-yarn install intlayer next-intlayer intlayer-cli
+yarn install intlayer next-intlayer
 ```
 
 ```bash
-pnpm install intlayer next-intlayer intlayer-cli
+pnpm install intlayer next-intlayer
 ```
 
-### Step 2: Update Package Scripts
-
-Modify your `package.json` to include scripts for building and watching your dictionaries:
-
-```json
-"scripts": {
-  "build": "next build",
-  "dev": "next dev",
-  "start": "next start",
-  "transpile": "npx intlayer transpile",
-  "transpile:watch": "npx intlayer watch"
-}
-```
-
-### Step 3: Integrate Intlayer in Your Next.js Configuration
+### Step 2: Integrate Intlayer in Your Next.js Configuration
 
 Configure your Next.js setup to use Intlayer:
 
@@ -58,7 +44,7 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-### Step 4: Configure Middleware for Locale Detection
+### Step 3: Configure Middleware for Locale Detection
 
 Set up middleware to detect the user's preferred locale:
 
@@ -71,13 +57,13 @@ export const config = {
 };
 ```
 
-### Step 5: Define Dynamic Locale Routes
+### Step 4: Define Dynamic Locale Routes
 
 Implement dynamic routing for localized content:
 
 Change `src/app/page.ts` to `src/app/[locale]/page.ts`
 
-### Step 6: Manage Your Content
+### Step 5: Manage Your Content
 
 Create and manage your content dictionaries:
 
@@ -102,7 +88,7 @@ export default pageContent;
 
 [See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme.md).
 
-### Step 7: Utilize Content in Your Code
+### Step 6: Utilize Content in Your Code
 
 Access your content dictionaries throughout your application:
 

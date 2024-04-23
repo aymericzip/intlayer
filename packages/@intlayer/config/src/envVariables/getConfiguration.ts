@@ -74,18 +74,6 @@ export const intlayerContentConfiguration: ContentConfig = {
     process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR,
     'string'
   )!,
-  bundleDirName: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_BUNDLE_DIR_NAME,
-    'string'
-  )!,
-  bundleDir: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_BUNDLE_DIR,
-    'string'
-  )!,
-  bundleFileExtension: getEnvValue(
-    process.env.NEXT_PUBLIC_INTLAYER_BUNDLE_FILE_EXTENSION,
-    'string'
-  )!,
   dictionariesDirName: getEnvValue(
     process.env.NEXT_PUBLIC_INTLAYER_DICTIONARIES_DIR_NAME,
     'string'

@@ -61,7 +61,8 @@
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/config": "workspace:^"
+    "@intlayer/config": "workspace:^",
+    "chokidar": "^3.6.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",

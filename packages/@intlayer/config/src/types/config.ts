@@ -183,24 +183,6 @@ export type BaseContentConfig = {
   moduleAugmentationDirName: string;
 
   /**
-   * Name of the directory where bundles are stored
-   *
-   * Default: 'bundle'
-   *
-   * Specifies the directory for storing build bundles.
-   */
-  bundleDirName: string;
-
-  /**
-   * File extension for bundle files
-   *
-   * Default: '.bundle.js'
-   *
-   * Specifies the file extension used for build bundles.
-   */
-  bundleFileExtension: string;
-
-  /**
    * Name of the directory where dictionaries are stored
    *
    * Default: 'dictionary'
@@ -264,15 +246,6 @@ export type BaseDerivedConfig = {
  * Configuration derived based on the result directory
  */
 export type ResultDirDerivedConfig = {
-  /**
-   * Directory where bundles are stored, relative to the result directory
-   *
-   * Default: {{resultDir}} / {{bundleDirName}}
-   *
-   * Specifies the derived path for bundles relative to the result directory.
-   */
-  bundleDir: string;
-
   /**
    * Directory where dictionaries are stored, relative to the result directory
    *

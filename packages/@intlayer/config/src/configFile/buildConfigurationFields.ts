@@ -9,13 +9,11 @@ import {
   SERVER_SET_COOKIE,
 } from '../defaultValues/middleware';
 import {
-  BUNDLE_DIR_NAME,
   CONTENT_DIR_NAME,
   DICTIONARIES_DIR_NAME,
   FILE_EXTENSIONS,
   RESULT_DIR_NAME,
   EXCLUDED_PATHS,
-  BUNDLE_FILE_EXTENSION,
   TYPES_DIR_NAME,
   MAIN_DIR_NAME,
   MODULE_AUGMENTATION_DIR_NAME,
@@ -196,32 +194,6 @@ const buildContentFields = (
     /**
      * Related to the intlayer result directory
      *
-     * Directory name where the bundle will be stored
-     *
-     * Default: 'bundle'
-     *
-     * Note:
-     * - If this directory is not at the result directory level, update the bundleDir field instead
-     */
-    bundleDirName: customConfiguration?.bundleDirName ?? BUNDLE_DIR_NAME,
-
-    /**
-     * File extension of the bundle file
-     *
-     * Default: '.bundle.js'
-     *
-     * Example: '.intlayer-bundle.js'
-     *
-     * Note:
-     * - Avoid using common file extensions like '.ts', '.js', '.json' to avoid conflicts
-     * - Customizing the bundle file extension may break usage of next-intlayer or react-intlayer
-     */
-    bundleFileExtension:
-      customConfiguration?.bundleFileExtension ?? BUNDLE_FILE_EXTENSION,
-
-    /**
-     * Related to the intlayer result directory
-     *
      * Directory name where the dictionaries will be stored
      *
      * Default: 'dictionary'
@@ -335,24 +307,6 @@ const buildContentFields = (
   };
 
   const resultDirDerivedConfiguration: ResultDirDerivedConfig = {
-    /**
-     * Directory where the bundle will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: {{resultDir}} / {{bundleDirName}}
-     *
-     * Example: '/path/to/project/.intlayer/bundle'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the bundleDirName field instead
-     *
-     */
-    bundleDir: join(
-      baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.bundleDirName
-    ),
-
     /**
      * Directory where the dictionaries will be stored
      *
