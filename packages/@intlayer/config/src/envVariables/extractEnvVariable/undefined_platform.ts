@@ -1,9 +1,9 @@
-import { ReplaceValue, IntlayerConfigEnvVariable } from './types';
-import {
+import type {
   InternationalizationConfig,
   MiddlewareConfig,
   ContentConfig,
 } from '../../types/config';
+import type { ReplaceValue, IntlayerConfigEnvVariable } from './types';
 
 export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
   const internationalization: ReplaceValue<InternationalizationConfig> = {

@@ -1,10 +1,9 @@
-import { Platform } from '../detectPlatform';
-import { getPlatform } from '../detectPlatform';
+import { type Platform, getPlatform } from '../detectPlatform';
 import { extractNextEnvVariable } from './next';
 import { extractReactAppEnvVariable } from './react_app';
-import { extractViteEnvVariable } from './vite';
+import type { IntlayerConfigEnvVariable } from './types';
 import { extractEmptyEnvVariable } from './undefined_platform';
-import { IntlayerConfigEnvVariable } from './types';
+import { extractViteEnvVariable } from './vite';
 
 export const extractEnvVariable = (): IntlayerConfigEnvVariable => {
   const platform: Platform = getPlatform();

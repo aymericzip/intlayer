@@ -1,4 +1,4 @@
-import { IntlayerConfig } from '../../client';
+import type { IntlayerConfig } from '../../client';
 
 // Utility type that replaces all values of a given type with another type
 export type ReplaceValue<T> = {

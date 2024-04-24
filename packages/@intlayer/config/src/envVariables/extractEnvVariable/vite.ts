@@ -1,10 +1,10 @@
-import { IntlayerConfigEnvVariable, ReplaceValue } from './types';
-import {
+import type {
   InternationalizationConfig,
   MiddlewareConfig,
   ContentConfig,
 } from '../../types/config';
-import { ViteEnvVar } from '../detectPlatform';
+import type { ViteEnvVar } from '../detectPlatform';
+import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 
 export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
   const internationalization: ReplaceValue<InternationalizationConfig> = {

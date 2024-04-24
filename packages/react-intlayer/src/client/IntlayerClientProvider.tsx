@@ -50,8 +50,6 @@ export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
 
   const setLocale = useCallback(
     (newLocale: Locales) => {
-      console.log('newLocale', newLocale);
-
       if (currentLocale.toString() === newLocale.toString()) return;
 
       if (!intlayerIntlConfiguration.locales.includes(newLocale)) {
