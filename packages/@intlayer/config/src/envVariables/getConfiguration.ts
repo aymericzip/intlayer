@@ -6,108 +6,63 @@ import type {
   ServerSetCookieRule,
 } from '../types/config';
 import type { Locales } from '../types/locales';
-import { extractEnvVariable } from './extractEnvVariable';
+import { extractEnvVariable } from './extractEnvVariable/index';
 import { getEnvValue } from './utils';
 
 const env = extractEnvVariable();
 
 export const intlayerIntlConfiguration: InternationalizationConfig = {
-  locales: getEnvValue<Locales>(
-    env.intlayerIntlConfiguration.locales,
-    'array'
-  )!,
+  locales: getEnvValue<Locales>(env.internationalization.locales, 'array')!,
   defaultLocale: getEnvValue<Locales>(
-    env.intlayerIntlConfiguration.defaultLocale,
+    env?.internationalization.defaultLocale,
     'string'
   )!,
 };
 
 export const intlayerMiddlewareConfiguration: MiddlewareConfig = {
-  headerName: getEnvValue(
-    env.intlayerMiddlewareConfiguration.headerName,
-    'string'
-  )!,
-  cookieName: getEnvValue(
-    env.intlayerMiddlewareConfiguration.cookieName,
-    'string'
-  )!,
-  prefixDefault: getEnvValue(
-    env.intlayerMiddlewareConfiguration.prefixDefault,
-    'boolean'
-  )!,
-  basePath: getEnvValue(
-    env.intlayerMiddlewareConfiguration.basePath,
-    'string'
-  )!,
+  headerName: getEnvValue(env.middleware.headerName, 'string')!,
+  cookieName: getEnvValue(env.middleware.cookieName, 'string')!,
+  prefixDefault: getEnvValue(env.middleware.prefixDefault, 'boolean')!,
+  basePath: getEnvValue(env.middleware.basePath, 'string')!,
   serverSetCookie: getEnvValue<ServerSetCookieRule>(
-    env.intlayerMiddlewareConfiguration.serverSetCookie,
+    env.middleware.serverSetCookie,
     'string'
   )!,
-  noPrefix: getEnvValue(
-    env.intlayerMiddlewareConfiguration.noPrefix,
-    'boolean'
-  )!,
+  noPrefix: getEnvValue(env.middleware.noPrefix, 'boolean')!,
 };
 
 export const intlayerContentConfiguration: ContentConfig = {
-  fileExtensions: getEnvValue<string>(
-    env.intlayerContentConfiguration.fileExtensions,
-    'array'
-  )!,
-  baseDir: getEnvValue(env.intlayerContentConfiguration.baseDir, 'string')!,
-  contentDirName: getEnvValue(
-    env.intlayerContentConfiguration.contentDirName,
-    'string'
-  )!,
-  contentDir: getEnvValue(
-    env.intlayerContentConfiguration.contentDir,
-    'string'
-  )!,
-  excludedPath: getEnvValue<string>(
-    env.intlayerContentConfiguration.excludedPath,
-    'array'
-  )!,
-  resultDirName: getEnvValue(
-    env.intlayerContentConfiguration.resultDirName,
-    'string'
-  )!,
-  resultDir: getEnvValue(env.intlayerContentConfiguration.resultDir, 'string')!,
+  fileExtensions: getEnvValue<string>(env.content.fileExtensions, 'array')!,
+  baseDir: getEnvValue(env.content.baseDir, 'string')!,
+  contentDirName: getEnvValue(env.content.contentDirName, 'string')!,
+  contentDir: getEnvValue(env.content.contentDir, 'string')!,
+  excludedPath: getEnvValue<string>(env.content.excludedPath, 'array')!,
+  resultDirName: getEnvValue(env.content.resultDirName, 'string')!,
+  resultDir: getEnvValue(env.content.resultDir, 'string')!,
   moduleAugmentationDirName: getEnvValue(
-    env.intlayerContentConfiguration.moduleAugmentationDirName,
+    env.content.moduleAugmentationDirName,
     'string'
   )!,
   moduleAugmentationDir: getEnvValue(
-    env.intlayerContentConfiguration.moduleAugmentationDir,
+    env.content.moduleAugmentationDir,
     'string'
   )!,
-  dictionariesDirName: getEnvValue(
-    env.intlayerContentConfiguration.dictionariesDirName,
-    'string'
-  )!,
-  dictionariesDir: getEnvValue(
-    env.intlayerContentConfiguration.dictionariesDir,
-    'string'
-  )!,
-  typeDirName: getEnvValue(
-    env.intlayerContentConfiguration.typeDirName,
-    'string'
-  )!,
-  typesDir: getEnvValue(env.intlayerContentConfiguration.typesDir, 'string')!,
-  mainDirName: getEnvValue(
-    env.intlayerContentConfiguration.mainDirName,
-    'string'
-  )!,
-  mainDir: getEnvValue(env.intlayerContentConfiguration.mainDir, 'string')!,
+  dictionariesDirName: getEnvValue(env.content.dictionariesDirName, 'string')!,
+  dictionariesDir: getEnvValue(env.content.dictionariesDir, 'string')!,
+  typeDirName: getEnvValue(env.content.typeDirName, 'string')!,
+  typesDir: getEnvValue(env.content.typesDir, 'string')!,
+  mainDirName: getEnvValue(env.content.mainDirName, 'string')!,
+  mainDir: getEnvValue(env.content.mainDir, 'string')!,
   watchedFilesPattern: getEnvValue<string>(
-    env.intlayerContentConfiguration.watchedFilesPattern,
+    env.content.watchedFilesPattern,
     'array'
   )!,
   watchedFilesPatternWithPath: getEnvValue<string>(
-    env.intlayerContentConfiguration.watchedFilesPatternWithPath,
+    env.content.watchedFilesPatternWithPath,
     'array'
   )!,
   outputFilesPatternWithPath: getEnvValue(
-    env.intlayerContentConfiguration.outputFilesPatternWithPath,
+    env.content.outputFilesPatternWithPath,
     'string'
   )!,
 };

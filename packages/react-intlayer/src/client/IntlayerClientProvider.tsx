@@ -8,12 +8,16 @@ import {
   type PropsWithChildren,
   createContext,
   useContext,
+  useMemo,
   type FC,
+  useState,
+  useCallback,
 } from 'react';
-import { localeCookie } from './useLocaleCookie';
+import { localeCookie, setLocaleCookie } from './useLocaleCookie';
 
 type IntlayerValue = {
   locale: Locales;
+  setLocale: (newLocale: Locales) => void;
 };
 
 /**
@@ -21,6 +25,7 @@ type IntlayerValue = {
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
   locale: localeCookie ?? intlayerIntlConfiguration.defaultLocale,
+  setLocale: () => null,
 });
 
 /**
@@ -29,7 +34,7 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
 export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
 export type IntlayerClientProviderProps = PropsWithChildren & {
-  locale: Locales;
+  locale?: Locales;
 };
 
 /**
@@ -38,8 +43,34 @@ export type IntlayerClientProviderProps = PropsWithChildren & {
 export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
   locale,
   children,
-}) => (
-  <IntlayerClientContext.Provider value={{ locale }}>
-    {children}
-  </IntlayerClientContext.Provider>
-);
+}) => {
+  const [currentLocale, setCurrentLocale] = useState(
+    locale ?? localeCookie ?? intlayerIntlConfiguration.defaultLocale
+  );
+
+  const setLocale = useCallback(
+    (newLocale: Locales) => {
+      if (currentLocale.toString() === newLocale.toString()) return;
+
+      if (!intlayerIntlConfiguration.locales.includes(newLocale)) {
+        console.error(`Locale ${locale} is not available`);
+        return;
+      }
+
+      setCurrentLocale(newLocale); // Update state
+      setLocaleCookie(newLocale); // Optionally set cookie for persistence
+    },
+    [currentLocale, locale]
+  );
+
+  const value: IntlayerValue = useMemo<IntlayerValue>(
+    () => ({ locale: currentLocale, setLocale }),
+    [currentLocale, setLocale]
+  );
+
+  return (
+    <IntlayerClientContext.Provider value={value}>
+      {children}
+    </IntlayerClientContext.Provider>
+  );
+};

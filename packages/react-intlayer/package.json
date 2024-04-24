@@ -37,6 +37,16 @@
       "require": "./dist/cjs/server/index.cjs",
       "import": "./dist/esm/server/index.mjs"
     },
+    "./craco-plugin": {
+      "types": "./dist/esm/craco/intlayerCracoPlugin.d.mts",
+      "require": "./dist/cjs/craco/intlayerCracoPlugin.cjs",
+      "import": "./dist/esm/craco/intlayerCracoPlugin.mjs"
+    },
+    "./craco-config": {
+      "types": "./dist/esm/craco/craco.config.d.mts",
+      "require": "./dist/cjs/craco/craco.config.cjs",
+      "import": "./dist/esm/craco/craco.config.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./src/index.ts",
@@ -46,6 +56,9 @@
         "./package.json"
       ]
     }
+  },
+  "bin": {
+    "react-intlayer": "./dist/cjs/cli/react-intlayer.cjs"
   },
   "files": [
     "./dist",
@@ -66,11 +79,16 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
+    "@intlayer/webpack": "workspace:^",
+    "cross-spawn": "^7.0.3",
     "intlayer": "workspace:^",
     "js-cookie": "^3.0.5",
-    "react-cookie": "^7.1.4"
+    "react-cookie": "^7.1.4",
+    "webpack": "^5.91.0"
   },
   "devDependencies": {
+    "@craco/types": "^7.1.0",
+    "@types/cross-spawn": "^6.0.6",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.12.7",
     "@types/react": "^18.2.79",

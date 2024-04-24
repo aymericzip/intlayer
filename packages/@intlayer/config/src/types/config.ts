@@ -131,7 +131,7 @@ export type BaseContentConfig = {
   /**
    * File extensions of content to look for
    *
-   * Default: ['.content.ts', '.content.js', '.content.json']
+   * Default: ['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']
    *
    * List of file extensions to scan for content.
    */
@@ -281,7 +281,7 @@ export type PatternsContentConfig = {
   /**
    * Patterns of files to watch for changes
    *
-   * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json']
+   * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json', '/**\/*.content.cjs', '/**\/*.content.mjs', '/**\/*.content.tsx', '/**\/*.content.jsx']
    *
    * Defines file patterns for content to watch for changes.
    */
@@ -290,7 +290,7 @@ export type PatternsContentConfig = {
   /**
    * Patterns of files to watch for changes including the relative path
    *
-   * Default: ['{{contentDir}}/**\/*.content.ts', '{{contentDir}}/**\/*.content.js', '{{contentDir}}/**\/*.content.json']
+   * Default: ['{{contentDir}}/**\/*.content.ts', '{{contentDir}}/**\/*.content.js', '{{contentDir}}/**\/*.content.json', '{{contentDir}}/**\/*.content.cjs', '{{contentDir}}/**\/*.content.mjs', '{{contentDir}}/**\/*.content.tsx', '{{contentDir}}/**\/*.content.jsx']
    *
    * Specifies the file patterns for content to watch, including relative paths.
    */

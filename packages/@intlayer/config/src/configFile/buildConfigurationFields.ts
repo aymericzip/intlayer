@@ -122,7 +122,7 @@ const buildContentFields = (
     /**
      * File extensions of content to look for to build the dictionaries
      *
-     * - Default: ['.content.ts', '.content.js', '.content.json']
+     * - Default: ['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']
      *
      * - Example: ['.data.ts', '.data.js', '.data.json']
      *
@@ -367,7 +367,7 @@ const buildContentFields = (
     /**
      * Pattern of files to watch
      *
-     * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json']
+     * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json', '/**\/*.content.cjs', '/**\/*.content.mjs', '/**\/*.content.tsx', '/**\/*.content.jsx']
      */
     watchedFilesPattern: notDerivedContentConfig.fileExtensions.map(
       (ext) => `/**/*${ext}`
@@ -376,7 +376,7 @@ const buildContentFields = (
     /**
      * Pattern of files to watch including the relative path
      *
-     * Default: ['{{contentDir}}/**\/*.content.ts', '{{contentDir}}/**\/*.content.js', '{{contentDir}}/**\/*.content.json']
+     * Default: ['{{contentDir}}/**\/*.content.ts', '{{contentDir}}/**\/*.content.js', '{{contentDir}}/**\/*.content.json', '{{contentDir}}/**\/*.content.cjs', '{{contentDir}}/**\/*.content.mjs', '{{contentDir}}/**\/*.content.tsx', '{{contentDir}}/**\/*.content.jsx']
      */
     watchedFilesPatternWithPath: notDerivedContentConfig.fileExtensions.map(
       (ext) => `${baseDirDerivedConfiguration.contentDir}/**/*${ext}`
