@@ -10,7 +10,7 @@ function AppContent() {
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
 
-      {/* <p>{[content.getStarted] as ReactNode}</p> */}
+      {content.getStarted}
       <a
         className="App-link"
         href={content.reactLink.href}

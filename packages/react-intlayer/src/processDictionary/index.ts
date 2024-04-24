@@ -8,6 +8,7 @@ import {
   type QuantityContent,
   type LanguageContent,
 } from '@intlayer/core';
+import { type ReactElement, createElement } from 'react';
 import { getEnumeration } from '../getEnumeration';
 import { getTranslation } from '../getTranslation';
 import type {
@@ -46,6 +47,11 @@ const processEnumeration = (
   };
 };
 
+const isReactNode = (node: Record<string, unknown>): boolean =>
+  typeof node?.key !== 'undefined' &&
+  typeof node?.props !== 'undefined' &&
+  typeof node?.type !== 'undefined';
+
 export const processNode = (
   field: ContentValue | undefined,
   locale: Locales
@@ -72,6 +78,29 @@ export const processNode = (
   return field as TransformedContentValue;
 };
 
+// This function recursively creates React elements from a given JSON-like structure
+const renderReactElement = (element: ReactElement) => {
+  if (typeof element === 'string') {
+    // If it's a string, simply return it (used for text content)
+    return element;
+  }
+
+  // Destructure the component properties
+  const { type, props } = element;
+
+  let children = props.children;
+
+  if (typeof children === 'object') {
+    // Create the children elements recursively, if any
+    children = children.map((children: ReactElement) =>
+      renderReactElement(children)
+    );
+  }
+
+  // Create and return the React element
+  return createElement(type, props, children);
+};
+
 /**
  * Function that process a dictionary and return the result to be used in the application.
  */
@@ -79,6 +108,13 @@ export const processDictionary = (
   content: Content,
   locale: Locales = defaultLocale
 ): TransformedContent => {
+  // If it's a React element, render it
+  if (isReactNode(content)) {
+    return renderReactElement(
+      content as unknown as ReactElement
+    ) as unknown as TransformedContent;
+  }
+
   if (content && typeof content === 'object') {
     const result: TransformedContent = {};
 

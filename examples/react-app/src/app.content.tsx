@@ -1,9 +1,10 @@
 import { t, type ContentModule } from 'intlayer';
+import { ReactNode } from 'react';
 
 const pageContent: ContentModule = {
   id: 'app',
 
-  getStarted: t({
+  getStarted: t<ReactNode>({
     en: (
       <>
         Edit <code>src/App.tsx</code> and save to reload
@@ -11,12 +12,12 @@ const pageContent: ContentModule = {
     ),
     fr: (
       <>
-        Commencez par éditer <code>src/App.tsx</code>
+        Éditez <code>src/App.tsx</code> et enregistrez pour recharger
       </>
     ),
     es: (
       <>
-        Comience por editar <code>src/App.tsx</code>
+        Edita <code>src/App.tsx</code> y guarda para recargar
       </>
     ),
   }),

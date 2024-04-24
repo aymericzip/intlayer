@@ -60,12 +60,27 @@ export const generateTypeScriptType = (obj: ContentModule): string => {
   return typeDefinition;
 };
 
-export const generateTypeScriptTypeContent = (obj: Content): string => {
-  let typeDefinition = ``;
+const isReactNode = (node: Record<string, unknown>): boolean =>
+  typeof node?.key !== 'undefined' &&
+  typeof node?.props !== 'undefined' &&
+  typeof node?.type !== 'undefined';
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
+export const generateTypeScriptTypeContent = (obj: Content): string => {
+  if (typeof obj !== 'object') {
+    return `${typeof obj}`;
+  }
+
+  const isReactNodeValue = isReactNode(obj as Record<string, unknown>);
+
+  if (isReactNodeValue) {
+    // ReactNode handling
+    return `JSX.Element`;
+  }
+
+  let typeDefinition = ``;
   for (const [key, value] of Object.entries(obj)) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const nodeType: NodeType | undefined = (value as TypedNode).nodeType;
+    const nodeType: NodeType | undefined = (value as TypedNode)?.nodeType;
     type ValueKey = keyof typeof value;
 
     if (
@@ -73,33 +88,37 @@ export const generateTypeScriptTypeContent = (obj: Content): string => {
       typeof value === 'object' &&
       nodeType === NodeType.Translation
     ) {
-      const tsType =
-        typeof value?.[internationalization.defaultLocale as ValueKey];
+      const tsType = generateTypeScriptTypeContent(
+        value?.[internationalization.defaultLocale as ValueKey]
+      );
       typeDefinition += `  ${key}: ${tsType},\n`;
     } else if (
       // Check if the value is a typed node
       typeof value === 'object' &&
       nodeType === NodeType.Enumeration
     ) {
-      const tsType =
-        typeof value?.[internationalization.defaultLocale as ValueKey];
+      const tsType = generateTypeScriptTypeContent(
+        value?.[internationalization.defaultLocale as ValueKey] as Content
+      );
 
       typeDefinition += `  ${key}: (quantity: number) => ${tsType},\n`;
     } else if (
       // Check if the value is a nested object
-      typeof value === 'object' &&
-      !Array.isArray(value)
+      typeof value === 'object'
     ) {
-      // Nested object, recurse
-      const nestedType = generateTypeScriptTypeContent(value as Content);
-      typeDefinition += `  ${key}: {${nestedType}},\n`;
-    } else if (
-      // Check if the value is an array
-      Array.isArray(value)
-    ) {
-      // Array handling (simplified, assumes non-empty arrays with uniform type)
-      const arrayType = typeof value[0];
-      typeDefinition += `  ${key}: ${arrayType}[],\n`;
+      const isArray = Array.isArray(value);
+
+      if (isArray) {
+        // Array handling (simplified, assumes non-empty arrays with uniform type)
+        const arrayType = generateTypeScriptTypeContent(value as Content);
+
+        typeDefinition += `  ${key}: ${arrayType}[],\n`;
+      } else {
+        // Nested object, recurse
+        const nestedType = generateTypeScriptTypeContent(value as Content);
+
+        typeDefinition += `  ${key}: {${nestedType}},\n`;
+      }
     } else if (
       // Check if the value is an 'id'
       typeof value === 'string' &&
