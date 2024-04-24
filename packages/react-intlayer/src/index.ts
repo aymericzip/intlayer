@@ -9,5 +9,6 @@ export {
   useLocaleCookie,
   localeCookie,
   setLocaleCookie,
+  getBrowserLocale,
+  useLocaleBase,
 } from './client/index';
-export {} from './client/useLocaleCookie';

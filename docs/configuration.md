@@ -160,7 +160,7 @@ Settings related to content handling within the application, including directory
 
 - **fileExtensions**:
   - _Type_: `string[]`
-  - _Default_: `['.content.ts', '.content.js', '.content.json']`
+  - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _Description_: File extensions to look for when building dictionaries.
   - _Example_: `['.data.ts', '.data.js', '.data.json']`
   - _Note_: Customizing file extensions can help avoid conflicts.

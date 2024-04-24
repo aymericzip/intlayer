@@ -14,6 +14,7 @@ export const watch = (options?: WatchOptions) => {
   const { content } = getConfiguration({
     verbose: true,
   });
+
   const { watchedFilesPatternWithPath, baseDir } = content;
 
   const files: string[] = sync(watchedFilesPatternWithPath);

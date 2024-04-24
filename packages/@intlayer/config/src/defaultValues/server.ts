@@ -1,4 +1,12 @@
-export const FILE_EXTENSIONS = ['.content.ts', '.content.js', '.content.json'];
+export const FILE_EXTENSIONS = [
+  '.content.ts',
+  '.content.js',
+  '.content.cjs',
+  '.content.mjs',
+  '.content.json',
+  '.content.tsx',
+  '.content.jsx',
+];
 export const EXCLUDED_PATHS = ['node_modules'];
 
 export const CONTENT_DIR_NAME = 'src';

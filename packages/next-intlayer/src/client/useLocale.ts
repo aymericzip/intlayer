@@ -3,13 +3,13 @@ import {
   intlayerMiddlewareConfiguration,
 } from '@intlayer/config/client';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { useLocale as useReactLocale, useLocaleCookie } from 'react-intlayer';
+import { useLocaleCookie, useLocaleBase } from 'react-intlayer';
 
 const { prefixDefault } = intlayerMiddlewareConfiguration;
 
 export const useLocale = () => {
   const { setLocaleCookie } = useLocaleCookie();
-  const reactLocaleHook = useReactLocale();
+  const reactLocaleHook = useLocaleBase();
   const router = useRouter();
   const pathname = usePathname();
 
