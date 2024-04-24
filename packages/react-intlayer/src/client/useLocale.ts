@@ -1,26 +1,23 @@
-import type { Locales } from '@intlayer/config/client';
-import { useLocaleBase } from './useLocaleBase';
-import { useLocaleCookie } from './useLocaleCookie';
+'use client';
 
+import { intlayerIntlConfiguration } from '@intlayer/config/client';
+import { localeList } from '@intlayer/core';
+import { useContext } from 'react';
+import { IntlayerClientContext } from './IntlayerClientProvider';
+
+const { defaultLocale, locales: availableLocales } = intlayerIntlConfiguration;
+
+/**
+ * On the client side, hook to get the current locale and all related fields
+ */
 export const useLocale = () => {
-  const { setLocaleCookie } = useLocaleCookie();
-  const reactLocaleHook = useLocaleBase();
-
-  const { availableLocales, locale: currentLocale } = reactLocaleHook;
-
-  const setLocale = (locale: Locales) => {
-    if (currentLocale.toString() === locale.toString()) return;
-
-    if (!availableLocales.includes(locale)) {
-      console.error(`Locale ${locale} is not available`);
-      return;
-    }
-
-    setLocaleCookie(locale);
-  };
+  const { locale, setLocale } = useContext(IntlayerClientContext);
 
   return {
-    ...reactLocaleHook,
-    setLocale,
+    locale, // Current locale
+    defaultLocale, // Principal locale defined in config
+    availableLocales, // List of the available locales defined in config
+    localeList, // List of all available locales
+    setLocale, // Function to set the locale
   };
 };

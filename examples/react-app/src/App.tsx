@@ -1,31 +1,37 @@
 import logo from './logo.svg';
 import './App.css';
-import {
-  getBrowserLocale,
-  IntlayerClientProvider,
-  useIntlayer,
-} from 'react-intlayer';
+import { IntlayerClientProvider, useIntlayer } from 'react-intlayer';
+import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 
-function App() {
-  const locale = getBrowserLocale();
-  const content = useIntlayer('app', locale);
+function AppContent() {
+  const content = useIntlayer('app');
 
   return (
-    <IntlayerClientProvider locale={locale}>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+    <header className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
 
-          {/* <p>{[content.getStarted] as ReactNode}</p> */}
-          <a
-            className="App-link"
-            href={content.reactLink.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {content.reactLink.content}
-          </a>
-        </header>
+      {/* <p>{[content.getStarted] as ReactNode}</p> */}
+      <a
+        className="App-link"
+        href={content.reactLink.href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {content.reactLink.content}
+      </a>
+    </header>
+  );
+}
+
+function App() {
+  return (
+    <IntlayerClientProvider>
+      <div className="App">
+        {/* To use the useIntlayer hook properly, you should access your data in a children component */}
+        <AppContent />
+      </div>
+      <div className="absolute bottom-5 right-5 z-50">
+        <LocaleSwitcher />
       </div>
     </IntlayerClientProvider>
   );
