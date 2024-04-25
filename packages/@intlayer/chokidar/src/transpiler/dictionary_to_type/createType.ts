@@ -61,9 +61,7 @@ export const generateTypeScriptType = (obj: ContentModule): string => {
 };
 
 const isReactNode = (node: Record<string, unknown>): boolean =>
-  typeof node?.key !== 'undefined' &&
-  typeof node?.props !== 'undefined' &&
-  typeof node?.type !== 'undefined';
+  typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export const generateTypeScriptTypeContent = (obj: Content): string => {

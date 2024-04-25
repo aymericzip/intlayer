@@ -1,4 +1,5 @@
 import { t, type ContentModule } from 'intlayer';
+import { ReactNode } from 'react';
 
 const pageContent: ContentModule = {
   id: 'app',
@@ -22,23 +23,23 @@ const pageContent: ContentModule = {
     es: 'el recuento es ',
   }),
 
-  // edit: t<ReactNode>({
-  //   en: (
-  //     <>
-  //       Edit <code>src/App.tsx</code> and save to test HMR
-  //     </>
-  //   ),
-  //   fr: (
-  //     <>
-  //       Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
-  //     </>
-  //   ),
-  //   es: (
-  //     <>
-  //       Edita <code>src/App.tsx</code> y guarda para probar HMR
-  //     </>
-  //   ),
-  // }),
+  edit: t<ReactNode>({
+    en: (
+      <>
+        Edit <code>src/App.tsx</code> and save to test HMR
+      </>
+    ),
+    fr: (
+      <>
+        Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
+      </>
+    ),
+    es: (
+      <>
+        Edita <code>src/App.tsx</code> y guarda para probar HMR
+      </>
+    ),
+  }),
 
   readTheDocs: t({
     en: 'Click on the Vite and React logos to learn more',
