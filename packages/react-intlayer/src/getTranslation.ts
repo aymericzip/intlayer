@@ -1,7 +1,4 @@
-import {
-  type Locales,
-  intlayerIntlConfiguration,
-} from '@intlayer/config/client';
+import { type Locales, getConfiguration } from '@intlayer/config/client';
 import { type LanguageContent, getTranslationContent } from '@intlayer/core';
 import { contentRender } from './ContentEditor/contentRender';
 
@@ -30,7 +27,7 @@ export const getTranslation = <Content = string>(
   languageContent: LanguageContent<Content>,
   locale?: Locales
 ): Content => {
-  const { defaultLocale } = intlayerIntlConfiguration;
+  const { defaultLocale } = getConfiguration().internationalization;
 
   const result: Content = getTranslationContent<Content>(
     languageContent,

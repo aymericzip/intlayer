@@ -41,7 +41,7 @@ export const LocaleSwitcher: FC = () => {
               onClick={() => setLocale(lang)}
               aria-label={`${content.langButtonLabel} ${lang}`}
               aria-selected={lang === locale}
-              disabled={!availableLocales?.includes(lang)}
+              disabled={!(availableLocales ?? []).includes(lang)}
             >
               {getLocaleName(lang)}
             </ButtonItem>

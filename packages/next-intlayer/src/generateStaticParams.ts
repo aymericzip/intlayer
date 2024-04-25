@@ -1,5 +1,5 @@
-import { intlayerIntlConfiguration } from '@intlayer/config/client';
+import { getConfiguration } from '@intlayer/config/client';
 
-const { locales } = intlayerIntlConfiguration;
+const { locales } = getConfiguration().internationalization;
 
 export const generateStaticParams = () => locales.map((locale) => ({ locale }));

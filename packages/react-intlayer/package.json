@@ -47,6 +47,11 @@
       "require": "./dist/cjs/craco/craco.config.cjs",
       "import": "./dist/esm/craco/craco.config.mjs"
     },
+    "./vite-plugin": {
+      "types": "./dist/esm/vite/intlayerPlugin.d.mts",
+      "require": "./dist/cjs/vite/intlayerPlugin.cjs",
+      "import": "./dist/esm/vite/intlayerPlugin.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./src/index.ts",
@@ -76,6 +81,7 @@
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@intlayer/chokidar": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
@@ -84,6 +90,7 @@
     "intlayer": "workspace:^",
     "js-cookie": "^3.0.5",
     "react-cookie": "^7.1.4",
+    "vite": "^5.2.0",
     "webpack": "^5.91.0"
   },
   "devDependencies": {

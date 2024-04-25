@@ -8,10 +8,4 @@ export type {
 } from './types/config';
 export type { LocalesValues } from './types/locales';
 export { Locales } from './types/locales';
-export {
-  getConfiguration,
-  intlayerConfiguration,
-  intlayerContentConfiguration,
-  intlayerIntlConfiguration,
-  intlayerMiddlewareConfiguration,
-} from './envVariables/getConfiguration';
+export { getConfiguration } from './envVariables/getConfiguration';

@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  type Locales,
-  intlayerIntlConfiguration,
-} from '@intlayer/config/client';
+import { type Locales, getConfiguration } from '@intlayer/config/client';
 import {
   NodeType,
   type QuantityContent,
   type LanguageContent,
 } from '@intlayer/core';
-import { type ReactElement, createElement } from 'react';
+import { type ReactElement, createElement, type ReactNode } from 'react';
 import { getEnumeration } from '../getEnumeration';
 import { getTranslation } from '../getTranslation';
 import type {
@@ -18,7 +15,7 @@ import type {
   TransformedContentValue,
 } from './contentDictionary';
 
-const defaultLocale = intlayerIntlConfiguration.defaultLocale;
+const { defaultLocale } = getConfiguration().internationalization;
 
 const processTranslation = (
   languageContent: LanguageContent<ContentValue>,
@@ -48,9 +45,7 @@ const processEnumeration = (
 };
 
 const isReactNode = (node: Record<string, unknown>): boolean =>
-  typeof node?.key !== 'undefined' &&
-  typeof node?.props !== 'undefined' &&
-  typeof node?.type !== 'undefined';
+  typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
 
 export const processNode = (
   field: ContentValue | undefined,
@@ -79,26 +74,29 @@ export const processNode = (
 };
 
 // This function recursively creates React elements from a given JSON-like structure
-const renderReactElement = (element: ReactElement) => {
+const createReactElement = (element: ReactElement) => {
   if (typeof element === 'string') {
     // If it's a string, simply return it (used for text content)
     return element;
   }
 
   // Destructure the component properties
-  const { type, props } = element;
+  const {
+    type,
+    props: { children, ...propsWithoutChildren },
+  } = element;
 
-  let children = props.children;
+  const childrenResult: ReactNode[] = [];
 
   if (typeof children === 'object') {
     // Create the children elements recursively, if any
-    children = children.map((children: ReactElement) =>
-      renderReactElement(children)
-    );
+    Object.keys(children).forEach((key) => {
+      childrenResult.push(createReactElement(children[key]));
+    });
   }
 
   // Create and return the React element
-  return createElement(type, props, children);
+  return createElement(type ?? 'div', propsWithoutChildren, ...childrenResult);
 };
 
 /**
@@ -110,7 +108,7 @@ export const processDictionary = (
 ): TransformedContent => {
   // If it's a React element, render it
   if (isReactNode(content)) {
-    return renderReactElement(
+    return createReactElement(
       content as unknown as ReactElement
     ) as unknown as TransformedContent;
   }

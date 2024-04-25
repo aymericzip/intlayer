@@ -1,20 +1,24 @@
 export type Platform = 'next' | 'vite' | 'react_app' | 'unknown';
-export type ViteEnvVar = { env: Record<string, string> };
 
 export const getPlatform = (): Platform => {
-  if (typeof process.env.NEXT_PUBLIC_INTLAYER_DEFAULT_LOCALE === 'string') {
-    // Likely Next.js
-    return 'next';
-  } else if (
-    typeof process.env.REACT_APP_INTLAYER_DEFAULT_LOCALE === 'string'
-  ) {
-    // Likely Create React App
-    return 'react_app';
-  } else if (
-    (import.meta as unknown as ViteEnvVar)?.env?.VITE_INTLAYER_DEFAULT_LOCALE
+  if (
+    // eslint-disable-next-line
+    typeof import.meta !== 'undefined' &&
+    typeof import.meta.env !== 'undefined' &&
+    typeof import.meta.env.VITE_INTLAYER_DEFAULT_LOCALE !== 'undefined'
   ) {
     // Likely Vite
     return 'vite';
+  } else if (
+    typeof process.env.NEXT_PUBLIC_INTLAYER_DEFAULT_LOCALE !== 'undefined'
+  ) {
+    // Likely Next.js
+    return 'next';
+  } else if (
+    typeof process.env.REACT_APP_INTLAYER_DEFAULT_LOCALE !== 'undefined'
+  ) {
+    // Likely Create React App
+    return 'react_app';
   }
 
   return 'unknown';

@@ -1,8 +1,8 @@
-import { type Locales, intlayerConfiguration } from '@intlayer/config/client';
+import { type Locales, getConfiguration } from '@intlayer/config/client';
 import { type NextRequest, NextResponse } from 'next/server';
 import { localeDetector } from './localeDetector';
 
-const { internationalization, middleware } = intlayerConfiguration;
+const { internationalization, middleware } = getConfiguration();
 const { locales, defaultLocale } = internationalization;
 const {
   headerName,
