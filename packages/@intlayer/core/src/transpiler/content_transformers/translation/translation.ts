@@ -13,11 +13,13 @@ const { defaultLocale } = intlayerConfiguration.internationalization;
  *
  * Usage:
  *
+ * ```ts
  * translation<string>({
  *   "en": "Hello",
  *   "fr": "Bonjour",
  *   // ... any other available locale
  * })
+ * ```
  *
  * Using TypeScript:
  * - this function require each locale to be defined if defined in the project configuration.

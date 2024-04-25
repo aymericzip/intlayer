@@ -50,6 +50,12 @@ importers:
         specifier: workspace:^
         version: link:../../packages/intlayer-cli
     devDependencies:
+      '@types/react':
+        specifier: ^18.2.79
+        version: 18.2.79
+      '@types/react-dom':
+        specifier: ^18.2.25
+        version: 18.2.25
       typescript:
         specifier: ^5.4.5
         version: 5.4.5

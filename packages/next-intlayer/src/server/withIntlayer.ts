@@ -16,8 +16,10 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  *
  * Usage:
  *
+ * ```ts
  * // next.config.js
  * export default withIntlayer(nextConfig)
+ * ```
  *
  */
 export const withIntlayer =

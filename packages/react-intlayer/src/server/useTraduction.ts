@@ -13,12 +13,13 @@ import { getServerContext } from './serverContext';
  *
  * Usage:
  *
- * const content = getTranslation<string>({
+ * ```ts
+ * const content = useTraduction<string>({
  * en: 'Hello',
  * fr: 'Bonjour',
- * },
- * 'fr');
+ * }, 'fr');
  * // 'Bonjour'
+ * ```
  *
  * Using TypeScript:
  * - this function will require each locale to be defined if defined in the project configuration.

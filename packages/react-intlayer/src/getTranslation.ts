@@ -14,12 +14,13 @@ import { contentRender } from './ContentEditor/contentRender';
  *
  * Usage:
  *
+ * ```ts
  * const content = getTranslation<string>({
  * en: 'Hello',
  * fr: 'Bonjour',
- * },
- * 'fr');
+ * }, 'fr');
  * // 'Bonjour'
+ * ```
  *
  * Using TypeScript:
  * - this function will require each locale to be defined if defined in the project configuration.

@@ -170,30 +170,60 @@ Settings related to content handling within the application, including directory
   - _Description_: The base directory for the project.
   - _Example_: `'/path/to/project'`
   - _Note_: This is used to resolve all Intlayer-related directories.
+- **dictionaryOutput**:
+  - _Type_: `string[]`
+  - _Default_: `['intlayer']`
+  - _Description_: The type of dictionary output to use, e.g., `'intlayer'` or `'i18next'`.
 - **contentDirName**:
   - _Type_: `string`
   - _Default_: `'src'`
   - _Description_: The name of the directory where the content is stored.
   - _Example_: `'data'`, `'content'`, `'locales'`
   - _Note_: If not at the base directory level, update the `contentDir`.
+- **contentDir**:
+
+  - _Type_: `string`
+  - _DerivedFrom_: `'baseDir'` / `'contentDirName'`
+  - _Description_: The directory path where content is stored.
+
 - **resultDirName**:
   - _Type_: `string`
   - _Default_: `'.intlayer'`
   - _Description_: The name of the directory where results are stored.
   - _Example_: `'outputOFIntlayer'`
   - _Note_: If this directory is not at the base level, update `resultDir`.
+- **resultDir**:
+
+  - _Type_: `string`
+  - _DerivedFrom_: `'baseDir'` / `'resultDirName'`
+  - _Description_: The directory path for storing intermediate or output results.
+
 - **moduleAugmentationDirName**:
+
   - _Type_: `string`
   - _Default_: `'types'`
   - _Description_: Directory for module augmentation, allowing better IDE suggestions and type checking.
   - _Example_: `'intlayer-types'`
   - _Note_: Be sure to include this in `tsconfig.json`.
+
+- **moduleAugmentationDir**:
+
+  - _Type_: `string`
+  - _DerivedFrom_: `'baseDir'` / `'moduleAugmentationDirName'`
+  - _Description_: The path for module augmentation and additional type definitions.
+
 - **dictionariesDirName**:
   - _Type_: `string`
   - _Default_: `'dictionary'`
   - _Description_: Directory for storing dictionaries.
   - _Example_: `'translations'`
   - _Note_: If not at the result directory level, update `dictionariesDir`.
+- **dictionariesDir**:
+
+  - _Type_: `string`
+  - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
+  - _Description_: The directory for storing localization dictionaries.
+
 - **i18nDictionariesDirName**:
   - _Type_: `string`
   - _Default_: `'i18_dictionary'`
@@ -201,18 +231,37 @@ Settings related to content handling within the application, including directory
   - _Example_: `'translations'`
   - _Note_: If not at the result directory level, update `i18nDictionariesDir`.
   - _Note_: Ensure the i18n dictionaries output includes i18next to build the dictionaries for i18next
+- **i18nDictionariesDir**:
+
+  - _Type_: `string`
+  - _DerivedFrom_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _Description_: The directory for storing i18n dictionaries.
+  - _Note_: Ensure this directory is configured for the i18next output type.
+
 - **typeDirName**:
+
   - _Type_: `string`
   - _Default_: `'types'`
   - _Description_: Directory for storing dictionary types.
   - _Example_: `'intlayer-types'`
   - _Note_: If not at the result directory level, update `typesDir`.
+
+- **typesDir**:
+
+  - _Type_: `string`
+  - _DerivedFrom_: `'resultDir'` / `'typeDirName'`
+  - _Description_: The directory for storing dictionary types.
+
 - **mainDirName**:
   - _Type_: `string`
   - _Default_: `'main'`
   - _Description_: Directory for storing main files.
   - _Example_: `'intlayer-main'`
   - _Note_: If not at the result directory level, update `mainDir`.
+- **mainDir**:
+  - _Type_: `string`
+  - _DerivedFrom_: `'resultDir'` / `'mainDirName'`
+  - _Description_: The directory where main application files are stored.
 - **excludedPath**:
   - _Type_: `string[]`
   - _Default_: `['node_modules']`

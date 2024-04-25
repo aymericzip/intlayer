@@ -1,3 +1,5 @@
 {
-  "locales": ["en", "fr"]
+  "internationalization": {
+    "locales": ["en", "fr"]
+  }
 }

@@ -8,22 +8,25 @@ import { contentRender } from './ContentEditor/contentRender';
  *
  * Usage:
  *
+ * ```ts
  * const content = getEnumeration({
  *  '<=-2.3': 'You have less than -2.3',
  *  '<1': 'You have less than one',
  *  '2': 'You have two',
  *  '>=3': 'You have three or more',
- * },
- * 2);
+ * }, 2);
  * // 'You have two'
+ * ```
  *
  * The order of the keys will define the priority of the content.
  *
+ * ```ts
  * const content = getEnumeration({
- * '<4': 'You have less than four',
- * '2': 'You have two',
- * });
+ *  '<4': 'You have less than four',
+ *  '2': 'You have two',
+ * }, 2);
  * // 'You have less than four'
+ * ```
  *
  */
 export const getEnumeration = <Content>(

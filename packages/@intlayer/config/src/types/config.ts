@@ -1,7 +1,5 @@
 import type { Locales } from './locales';
 
-export type DictionaryOutput = 'intlayer' | 'i18next';
-
 /**
  * Configuration for internationalization settings
  */
@@ -226,6 +224,8 @@ export type BaseContentConfig = {
    */
   mainDirName: string;
 };
+
+export type DictionaryOutput = 'intlayer' | 'i18next';
 
 /**
  * Configuration derived based on the base content configuration

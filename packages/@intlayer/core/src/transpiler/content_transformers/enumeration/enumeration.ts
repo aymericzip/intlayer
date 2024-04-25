@@ -38,12 +38,14 @@ export type EnumerationContent<Content> = Partial<QuantityContent<Content>> &
  *
  * Usage:
  *
+ * ```ts
  * const content = enu({
  *  '<=-2.3': 'You have less than -2.3',
  *  '<1': 'You have less than one',
  *  '2': 'You have two',
  *  '>=3': 'You have three or more',
  * });
+ * ```
  *
  * The order of the keys will define the priority of the content.
  *

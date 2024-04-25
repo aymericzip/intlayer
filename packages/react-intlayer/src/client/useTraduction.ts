@@ -12,12 +12,13 @@ import { IntlayerClientContext } from './IntlayerClientProvider';
  *
  * Usage:
  *
- * const content = getTranslation<string>({
- * en: 'Hello',
- * fr: 'Bonjour',
- * },
- * 'fr');
+ * ```tsx
+ * const content = useTraduction<string>({
+ *  en: 'Hello',
+ *  fr: 'Bonjour',
+ * }, 'fr');
  * // 'Bonjour'
+ * ```
  *
  * Using TypeScript:
  * - this function will require each locale to be defined if defined in the project configuration.

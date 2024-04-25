@@ -1,21 +1,8 @@
-# Intlayer: Next-Level Content Management in JavaScript
-
-**Intlayer** is an innovative Content Management System (CMS) designed specifically for JavaScript developers. It enables seamless transpilation of JavaScript content into structured dictionaries, making integration into your codebase straightforward and efficient.
-
-## Why Choose Intlayer?
-
-- **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
-- **Simplified Setup**: Get up and running quickly with minimal configuration, especially optimized for Next.js projects.
-- **Server Component Support**: Perfectly suited for Next.js server components, ensuring smooth server-side rendering.
-- **Enhanced Routing**: Full support for Next.js app routing, adapting seamlessly to complex application structures.
-
-## Getting Started with Intlayer
+# Getting Started with Intlayer
 
 Setting up Intlayer in a Next.js application is straightforward:
 
-### Step 1: Install Dependencies
+## Step 1: Install Dependencies
 
 Install the necessary packages using npm:
 
@@ -31,7 +18,7 @@ yarn install intlayer next-intlayer
 pnpm install intlayer next-intlayer
 ```
 
-### Step 2: Integrate Intlayer in Your Next.js Configuration
+## Step 2: Integrate Intlayer in Your Next.js Configuration
 
 Configure your Next.js setup to use Intlayer:
 
@@ -44,7 +31,7 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-### Step 3: Configure Middleware for Locale Detection
+## Step 3: Configure Middleware for Locale Detection
 
 Set up middleware to detect the user's preferred locale:
 
@@ -57,13 +44,13 @@ export const config = {
 };
 ```
 
-### Step 4: Define Dynamic Locale Routes
+## Step 4: Define Dynamic Locale Routes
 
 Implement dynamic routing for localized content:
 
 Change `src/app/page.ts` to `src/app/[locale]/page.ts`
 
-### Step 5: Manage Your Content
+## Step 5: Declare Your Content
 
 Create and manage your content dictionaries:
 
@@ -86,9 +73,9 @@ const pageContent: ContentModule = {
 export default pageContent;
 ```
 
-[See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme.md).
+[See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/docs/content_declaration/get_started.md).
 
-### Step 6: Utilize Intlayer in Your Code
+## Step 6: Utilize Content in Your Code
 
 Access your content dictionaries throughout your application:
 
@@ -170,7 +157,7 @@ export const ServerComponentExample = () => {
 
 For more detailed usage of intlayer into Client, or Server component, see the [nextJS example here](https://github.com/aypineau/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
 
-## Configuration of your project
+# Configuration of your project
 
 Create a config file to configure the languages of your application:
 
@@ -193,7 +180,3 @@ export default config;
 ```
 
 To see all available parameters, refer to the [configuration documentation here](https://github.com/aypineau/intlayer/blob/main/docs/configuration.md).
-
----
-
-This version emphasizes ease of use, practical steps, and the professional application of Intlayer in a Next.js environment.

@@ -18,12 +18,13 @@ type GetTranslationContent = <Content = string>(
  *
  * Usage:
  *
+ * ```ts
  * const content = getTranslationContent({
- * en: 'Hello',
- * fr: 'Bonjour',
- * },
- * 'fr');
+ *  en: 'Hello',
+ *  fr: 'Bonjour',
+ * }, 'fr');
  * // 'Bonjour'
+ * ```
  *
  * Using TypeScript:
  * - this function will require each locale to be defined if defined in the project configuration.

@@ -25,6 +25,8 @@
     "intlayer-cli": "workspace:^"
   },
   "devDependencies": {
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
     "typescript": "^5.4.5"
   },
   "bug": {

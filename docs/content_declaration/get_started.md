@@ -1,12 +1,4 @@
-# Intlayer: Next-Level Content Management in JavaScript
-
-**Intlayer** is an innovative Content Management System (CMS) designed specifically for JavaScript developers. It enables seamless transpilation of JavaScript content into structured dictionaries, making integration into your codebase straightforward and efficient.
-
-## Why Choose Intlayer?
-
-- **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
+# Intlayer Package Documentation
 
 ## intlayer package
 
@@ -171,4 +163,4 @@ module.exports = pageContent;
 }
 ```
 
-This version emphasizes ease of use, practical steps, and the professional application of Intlayer in a Next.js environment.
+Warning, JSON content declaration make impossible to implement (function fetching)[https://github.com/aypineau/intlayer/blob/main/docs/content_declaration/function_fetching.md]
