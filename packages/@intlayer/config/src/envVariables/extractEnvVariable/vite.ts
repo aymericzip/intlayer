@@ -44,6 +44,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
     dictionariesDirName: (import.meta as unknown as ViteEnvVar).env
       .VITE_INTLAYER_DICTIONARIES_DIR_NAME,
+    i18nDictionariesDirName: (import.meta as unknown as ViteEnvVar).env
+      .VITE_INTLAYER_I18N_DICTIONARIES_DIR_NAME,
     typeDirName: (import.meta as unknown as ViteEnvVar).env
       .VITE_INTLAYER_TYPE_DIR_NAME,
     mainDirName: (import.meta as unknown as ViteEnvVar).env
@@ -54,6 +56,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR,
     dictionariesDir: (import.meta as unknown as ViteEnvVar).env
       .VITE_INTLAYER_DICTIONARIES_DIR,
+    i18nDictionariesDir: (import.meta as unknown as ViteEnvVar).env
+      .VITE_INTLAYER_I18N_DICTIONARIES_DIR,
     typesDir: (import.meta as unknown as ViteEnvVar).env.VITE_INTLAYER_TYPE_DIR,
     mainDir: (import.meta as unknown as ViteEnvVar).env.VITE_INTLAYER_MAIN_DIR,
     watchedFilesPattern: (import.meta as unknown as ViteEnvVar).env
@@ -62,6 +66,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
       .VITE_INTLAYER_WATCHED_FILES_PATTERN_WITH_PATH,
     outputFilesPatternWithPath: (import.meta as unknown as ViteEnvVar).env
       .VITE_INTLAYER_OUTPUT_FILES_PATTERN_WITH_PATH,
+    dictionaryOutput: (import.meta as unknown as ViteEnvVar).env
+      .VITE_INTLAYER_DICTIONARY_OUTPUT,
   };
 
   return {

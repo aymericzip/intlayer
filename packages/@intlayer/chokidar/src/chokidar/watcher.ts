@@ -2,12 +2,12 @@ import { relative } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import chokidar, { type WatchOptions } from 'chokidar';
 import { sync } from 'glob';
+import { buildDictionary } from '../transpiler/declaration_file_to_dictionary';
 import { createDictionaryList } from '../transpiler/dictionary_to_main/createDictionaryList';
 import {
   createTypes,
   createModuleAugmentation,
 } from '../transpiler/dictionary_to_type/index';
-import { transpileContentDeclaration } from '../transpiler/intlater_module_to_dictionary/transpileContentDeclaration';
 
 // Initialize chokidar watcher (non-persistent)
 export const watch = (options?: WatchOptions) => {
@@ -26,7 +26,7 @@ export const watch = (options?: WatchOptions) => {
       ...options,
     })
     .on('ready', async () => {
-      const dictionariesPaths = await transpileContentDeclaration(files);
+      const dictionariesPaths = await buildDictionary(files);
 
       console.info('Building Intlayer types...');
       createTypes(dictionariesPaths);
@@ -46,21 +46,11 @@ export const watch = (options?: WatchOptions) => {
     .on('unlink', (filePath) => {
       // Process the file with the functionToRun
       console.info('Removed file detected: ', relative(baseDir, filePath));
-      // await transpileContentDeclaration(filePath);
-
-      // console.info('Building TypeScript types...');
-      // createTypes([filePath]);
-
-      // console.info('Building type index...');
-      // createModuleAugmentation();
-
-      // console.info('Building main...');
-      // createDictionaryList();
     })
     .on('add', async (filePath) => {
       // Process the file with the functionToRun
       console.info('Additional file detected: ', relative(baseDir, filePath));
-      const dictionaries = await transpileContentDeclaration(filePath);
+      const dictionaries = await buildDictionary(filePath);
 
       console.info('Building TypeScript types...');
       createTypes(dictionaries);
@@ -74,7 +64,7 @@ export const watch = (options?: WatchOptions) => {
     .on('change', async (filePath) => {
       // Process the file with the functionToRun
       console.info('Change detected: ', relative(baseDir, filePath));
-      const dictionaries = await transpileContentDeclaration(filePath);
+      const dictionaries = await buildDictionary(filePath);
 
       console.info('Building TypeScript types...');
       createTypes(dictionaries);

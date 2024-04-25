@@ -30,12 +30,15 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     moduleAugmentationDirName:
       process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
     dictionariesDirName: process.env.NEXT_PUBLIC_INTLAYER_DICTIONARIES_DIR_NAME,
+    i18nDictionariesDir: process.env.NEXT_PUBLIC_INTLAYER_I18N_DICTIONARIES_DIR,
     typeDirName: process.env.NEXT_PUBLIC_INTLAYER_TYPE_DIR_NAME,
     mainDirName: process.env.NEXT_PUBLIC_INTLAYER_MAIN_DIR_NAME,
     resultDir: process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR,
     moduleAugmentationDir:
       process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR,
     dictionariesDir: process.env.NEXT_PUBLIC_INTLAYER_DICTIONARIES_DIR,
+    i18nDictionariesDirName:
+      process.env.NEXT_PUBLIC_INTLAYER_I18N_DICTIONARIES_DIR_NAME,
     typesDir: process.env.NEXT_PUBLIC_INTLAYER_TYPE_DIR,
     mainDir: process.env.NEXT_PUBLIC_INTLAYER_MAIN_DIR,
     watchedFilesPattern: process.env.NEXT_PUBLIC_INTLAYER_WATCHED_FILES_PATTERN,
@@ -43,6 +46,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
       process.env.NEXT_PUBLIC_INTLAYER_WATCHED_FILES_PATTERN_WITH_PATH,
     outputFilesPatternWithPath:
       process.env.NEXT_PUBLIC_INTLAYER_OUTPUT_FILES_PATTERN_WITH_PATH,
+    dictionaryOutput: process.env.NEXT_PUBLIC_INTLAYER_DICTIONARY_OUTPUT,
   };
 
   return {

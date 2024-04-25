@@ -43,7 +43,7 @@ export const extractObjectsWithId = (input: ContentModule): ContentModule[] => {
   // Function to recursively search and extract nested objects with an 'id'
   const search = (obj: Content, results: ContentModule[]): void => {
     if (obj && typeof obj === 'object') {
-      if (Object.prototype.hasOwnProperty.call(obj, 'id')) {
+      if (Object.hasOwn(obj, 'id')) {
         results.push(obj as ContentModule);
       }
       for (const key of Object.keys(obj)) {

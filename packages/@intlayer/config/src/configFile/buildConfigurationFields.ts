@@ -17,6 +17,8 @@ import {
   TYPES_DIR_NAME,
   MAIN_DIR_NAME,
   MODULE_AUGMENTATION_DIR_NAME,
+  I18N_DICTIONARIES_DIR_NAME,
+  DICTIONARY_OUTPUT,
 } from '../defaultValues/server';
 import type {
   BaseDerivedConfig,
@@ -42,6 +44,7 @@ const buildInternationalizationFields = (
    * Locales available in the application
    *
    * Default: ['en']
+   *
    */
   locales: customConfiguration?.locales ?? LOCALES,
 
@@ -208,6 +211,23 @@ const buildContentFields = (
       customConfiguration?.dictionariesDirName ?? DICTIONARIES_DIR_NAME,
 
     /**
+     * Related to the intlayer result directory
+     *
+     * Directory name where the dictionaries will be stored
+     *
+     * Default: 'dictionary'
+     *
+     * Example: 'translations'
+     *
+     * Note:
+     * - If this directory is not at the result directory level, update the dictionariesDir field instead
+     *
+     */
+    i18nDictionariesDirName:
+      customConfiguration?.i18nDictionariesDirName ??
+      I18N_DICTIONARIES_DIR_NAME,
+
+    /**
      *  Related to the intlayer result directory
      *
      * Directory name where the dictionaries types will be stored
@@ -304,6 +324,18 @@ const buildContentFields = (
       notDerivedContentConfig.baseDir,
       notDerivedContentConfig.moduleAugmentationDirName
     ),
+
+    /**
+     * Output format of the dictionary
+     *
+     * Default: ['intlayer']
+     *
+     * Note:
+     * - 'i18next' is not yet ensure a 1:1 mapping with the i18next library.
+     * - Removing 'intlayer' will break the compatibility with react-intlayer or next-intlayer
+     */
+    dictionaryOutput:
+      customConfiguration?.dictionaryOutput ?? DICTIONARY_OUTPUT,
   };
 
   const resultDirDerivedConfiguration: ResultDirDerivedConfig = {
@@ -325,6 +357,23 @@ const buildContentFields = (
     dictionariesDir: join(
       baseDirDerivedConfiguration.resultDir,
       notDerivedContentConfig.dictionariesDirName
+    ),
+
+    /**
+     * Directory where the 18n dictionaries will be stored
+     *
+     * Relative to the result directory
+     *
+     * Default: {{resultDir}} / {{i18nDictionariesDirName}}
+     *
+     * Example: '/path/to/project/.intlayer/dictionary/i18n'
+     *
+     * Note:
+     * - If the types are not at the result directory level, update the i18nDictionariesDirName field instead
+     */
+    i18nDictionariesDir: join(
+      baseDirDerivedConfiguration.resultDir,
+      notDerivedContentConfig.i18nDictionariesDirName
     ),
 
     /**

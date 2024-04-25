@@ -3,12 +3,12 @@ import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import type { ContentModule } from '@intlayer/core';
 import { extractObjectsWithId } from './extractNestedJSON';
-import { processContentDeclaration } from './processModule';
+import { processContentDeclaration } from './processContentDeclaration';
 
 const { content } = getConfiguration();
 const { dictionariesDir } = content;
 
-const buildDictionary = async (dictionaries: ContentModule[]) => {
+const writeDictionary = async (dictionaries: ContentModule[]) => {
   const resultDictionariesPaths: string[] = [];
 
   for await (const content of dictionaries) {
@@ -32,7 +32,7 @@ const buildDictionary = async (dictionaries: ContentModule[]) => {
 /**
  * This function transpile the bundled code to to make dictionaries as JSON files
  */
-export const transpileContentDeclaration = async (
+export const buildIntlayerDictionary = async (
   contentDeclarationsPaths: string[] | string
 ) => {
   const resultDictionariesPaths: string[] = [];
@@ -53,7 +53,7 @@ export const transpileContentDeclaration = async (
 
     const nestedContent: ContentModule[] = extractObjectsWithId(result);
 
-    const dictionariesPaths: string[] = await buildDictionary(nestedContent);
+    const dictionariesPaths: string[] = await writeDictionary(nestedContent);
 
     resultDictionariesPaths.push(...dictionariesPaths);
   }
