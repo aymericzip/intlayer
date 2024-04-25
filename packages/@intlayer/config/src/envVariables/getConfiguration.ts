@@ -1,5 +1,6 @@
 import type {
   ContentConfig,
+  DictionaryOutput,
   InternationalizationConfig,
   IntlayerConfig,
   MiddlewareConfig,
@@ -47,8 +48,17 @@ export const intlayerContentConfiguration: ContentConfig = {
     env.content.moduleAugmentationDir,
     'string'
   )!,
+  dictionaryOutput: getEnvValue<DictionaryOutput>(
+    env.content.dictionaryOutput,
+    'array'
+  )!,
   dictionariesDirName: getEnvValue(env.content.dictionariesDirName, 'string')!,
   dictionariesDir: getEnvValue(env.content.dictionariesDir, 'string')!,
+  i18nDictionariesDirName: getEnvValue(
+    env.content.i18nDictionariesDirName,
+    'string'
+  )!,
+  i18nDictionariesDir: getEnvValue(env.content.i18nDictionariesDir, 'string')!,
   typeDirName: getEnvValue(env.content.typeDirName, 'string')!,
   typesDir: getEnvValue(env.content.typesDir, 'string')!,
   mainDirName: getEnvValue(env.content.mainDirName, 'string')!,

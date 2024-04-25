@@ -1,5 +1,7 @@
 import type { Locales } from './locales';
 
+export type DictionaryOutput = 'intlayer' | 'i18next';
+
 /**
  * Configuration for internationalization settings
  */
@@ -188,8 +190,23 @@ export type BaseContentConfig = {
    * Default: 'dictionary'
    *
    * The directory for storing localization dictionaries.
+   *
+   * Note:
+   * - Ensure the dictionaries output includes intlayer to build the dictionaries for intlayer
    */
   dictionariesDirName: string;
+
+  /**
+   * Name of the directory where dictionaries are stored
+   *
+   * Default: 'i18n_dictionary'
+   *
+   * The directory for storing localization dictionaries.
+   *
+   * Note:
+   * - Ensure the dictionaries output includes 'i18next' to build the dictionaries for i18next
+   */
+  i18nDictionariesDirName: string;
 
   /**
    * Name of the directory where dictionary types are stored
@@ -240,6 +257,20 @@ export type BaseDerivedConfig = {
    * Defines the derived path for module augmentation.
    */
   moduleAugmentationDir: string;
+
+  /**
+   * Type of dictionary to use as an output
+   *
+   * Default: ['intlayer']
+   *
+   * The type of dictionary to use as an output. It can be either 'intlayer' or 'i18next'.
+   *
+   * Note:
+   * - 'i18next' is not yet ensure a 1:1 mapping with the i18next library.
+   * - Removing 'intlayer' will break the compatibility with react-intlayer or next-intlayer
+   *
+   */
+  dictionaryOutput: DictionaryOutput[];
 };
 
 /**
@@ -254,6 +285,19 @@ export type ResultDirDerivedConfig = {
    * Specifies the derived path for dictionaries relative to the result directory.
    */
   dictionariesDir: string;
+
+  /**
+   *
+   * Directory where dictionaries are stored, relative to the result directory
+   *
+   * Default: {{resultDir}} / {{i18nDictionariesDirName}}
+   *
+   * Specifies the derived path for dictionaries relative to the result directory.
+   *
+   * Note:
+   * - Ensure the i18n dictionaries output includes i18next to build the dictionaries for i18next
+   */
+  i18nDictionariesDir: string;
 
   /**
    * Directory where dictionary types are stored, relative to the result directory

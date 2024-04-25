@@ -29,16 +29,19 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     resultDirName: undefined,
     moduleAugmentationDirName: undefined,
     dictionariesDirName: undefined,
+    i18nDictionariesDirName: undefined,
     typeDirName: undefined,
     mainDirName: undefined,
     resultDir: undefined,
     moduleAugmentationDir: undefined,
     dictionariesDir: undefined,
+    i18nDictionariesDir: undefined,
     typesDir: undefined,
     mainDir: undefined,
     watchedFilesPattern: undefined,
     watchedFilesPatternWithPath: undefined,
     outputFilesPatternWithPath: undefined,
+    dictionaryOutput: undefined,
   };
 
   return {

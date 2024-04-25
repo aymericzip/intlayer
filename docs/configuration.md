@@ -194,6 +194,13 @@ Settings related to content handling within the application, including directory
   - _Description_: Directory for storing dictionaries.
   - _Example_: `'translations'`
   - _Note_: If not at the result directory level, update `dictionariesDir`.
+- **i18nDictionariesDirName**:
+  - _Type_: `string`
+  - _Default_: `'i18_dictionary'`
+  - _Description_: Directory for storing i18n dictionaries.
+  - _Example_: `'translations'`
+  - _Note_: If not at the result directory level, update `i18nDictionariesDir`.
+  - _Note_: Ensure the i18n dictionaries output includes i18next to build the dictionaries for i18next
 - **typeDirName**:
   - _Type_: `string`
   - _Default_: `'types'`
