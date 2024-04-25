@@ -67,7 +67,7 @@ const isReactNode = (node: Record<string, unknown>): boolean =>
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export const generateTypeScriptTypeContent = (obj: Content): string => {
-  if (typeof obj !== 'object') {
+  if (typeof obj !== 'object' || obj === null) {
     return `${typeof obj}`;
   }
 

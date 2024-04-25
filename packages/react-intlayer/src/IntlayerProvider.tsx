@@ -1,4 +1,4 @@
-import { intlayerIntlConfiguration } from '@intlayer/config/client';
+import { getConfiguration } from '@intlayer/config/client';
 import type { FC } from 'react';
 import {
   IntlayerClientProvider,
@@ -9,7 +9,7 @@ import {
   type IntlayerServerProviderProps,
 } from './server/IntlayerServerProvider';
 
-const defaultLocale = intlayerIntlConfiguration.defaultLocale;
+const { defaultLocale } = getConfiguration().internationalization;
 
 type IntlayerProviderProps = IntlayerClientProviderProps &
   IntlayerServerProviderProps;

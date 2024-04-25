@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  type Locales,
-  intlayerIntlConfiguration,
-} from '@intlayer/config/client';
+import { type Locales, getConfiguration } from '@intlayer/config/client';
 import {
   NodeType,
   type QuantityContent,
@@ -18,7 +15,7 @@ import type {
   TransformedContentValue,
 } from './contentDictionary';
 
-const defaultLocale = intlayerIntlConfiguration.defaultLocale;
+const { defaultLocale } = getConfiguration().internationalization;
 
 const processTranslation = (
   languageContent: LanguageContent<ContentValue>,

@@ -1,13 +1,9 @@
-import {
-  type Locales,
-  intlayerMiddlewareConfiguration,
-} from '@intlayer/config/client';
+import { type Locales, getConfiguration } from '@intlayer/config/client';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { useLocaleCookie, useLocaleBase } from 'react-intlayer';
 
-const { prefixDefault } = intlayerMiddlewareConfiguration;
-
 export const useLocale = () => {
+  const { prefixDefault } = getConfiguration().middleware;
   const { setLocaleCookie } = useLocaleCookie();
   const reactLocaleHook = useLocaleBase();
   const router = useRouter();

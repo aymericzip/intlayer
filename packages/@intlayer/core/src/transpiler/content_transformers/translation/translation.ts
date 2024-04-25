@@ -1,9 +1,7 @@
-import { intlayerConfiguration } from '@intlayer/config/client';
+import { getConfiguration } from '@intlayer/config/client';
 import { NodeType } from '../../../types/index';
 import { getStackTraceInfo } from '../../../utils/getStackTraceInfo';
 import type { CustomizableLanguageContent, TranslationContent } from './types';
-
-const { defaultLocale } = intlayerConfiguration.internationalization;
 
 /**
  *
@@ -28,6 +26,10 @@ const { defaultLocale } = intlayerConfiguration.internationalization;
 const translation = <Content = string>(
   content?: CustomizableLanguageContent<Content>
 ) => {
+  const {
+    internationalization: { defaultLocale },
+  } = getConfiguration();
+
   const stackTraceInfo = getStackTraceInfo();
 
   if (typeof content === 'string') {
