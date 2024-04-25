@@ -2,7 +2,7 @@ import { relative } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import chokidar, { type WatchOptions } from 'chokidar';
 import { sync } from 'glob';
-import { buildDictionary } from '../transpiler/declaration_file_to_dictionary';
+import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
 import { createDictionaryList } from '../transpiler/dictionary_to_main/createDictionaryList';
 import {
   createTypes,

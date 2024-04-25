@@ -32,17 +32,18 @@ In addition to synchronous functions, Intlayer supports asynchronous functions, 
 Below is an example of an asynchronous function that simulates a server fetch:
 
 ```typescript
+import { setTimeout } from "node:timers/promises";
 import type { ContentModule } from "intlayer";
 
-const fakeFetch = async () => {
-  // Simulate a server fetch with a delay
-  await new Promise((resolve) => setTimeout(resolve, 200));
-
-  return "This is the content fetched from the server";
+const fakeFetch = async (): Promise<string> => {
+  // Wait for 200ms to simulate a fetch from the server
+  return await setTimeout(200).then(
+    () => "This is the content fetched from the server"
+  );
 };
 
 const asyncFunctionContent: ContentModule = {
-  id: "async_function_content",
+  id: "async_function",
   text: fakeFetch,
 };
 

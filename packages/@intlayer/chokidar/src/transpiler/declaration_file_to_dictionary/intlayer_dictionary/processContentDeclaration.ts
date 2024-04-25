@@ -22,13 +22,12 @@ const processFunctionResults = async (entry: Content): Promise<FlatContent> => {
         result[key] = (await processFunctionResults(
           field as Content
         )) as FlatContentValue;
-      }
-
-      if (typeof field === 'function') {
+      } else if (typeof field === 'function') {
         // Wait for the function to resolve if it's an async function
         const promise = (async () => {
           // Execute the function and await the result if it's a Promise
           const value = await field();
+
           result[key] = value as FlatContentValue;
         })();
         promises.push(promise);
