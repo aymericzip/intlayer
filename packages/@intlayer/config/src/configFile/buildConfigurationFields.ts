@@ -1,5 +1,9 @@
 import { join } from 'path';
-import { DEFAULT_LOCALE, LOCALES } from '../defaultValues/internationalization';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  STRICT_MODE,
+} from '../defaultValues/internationalization';
 import {
   BASE_PATH,
   COOKIE_NAME,
@@ -47,6 +51,16 @@ const buildInternationalizationFields = (
    *
    */
   locales: customConfiguration?.locales ?? LOCALES,
+
+  /**
+   * Ensure strong implementations of internationalized content using typescript.
+   * - If set to "strict", the translation `t` function will require each declared locales to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
+   * - If set to "required_only", the translation `t` function will require each declared locales to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exist.
+   * - If set to "loose", the translation `t` function will accept any existing locale.
+   *
+   * Default: "required_only"
+   */
+  strictMode: customConfiguration?.strictMode ?? STRICT_MODE,
 
   /**
    * Default locale of the application for fallback

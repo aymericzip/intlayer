@@ -1,10 +1,10 @@
 export type {
   CustomIntlayerConfig,
-  PatternsContentConfig as FixedIntlayerConfig,
+  PatternsContentConfig,
   IntlayerConfig,
-  BaseContentConfig as NotDerivedConfiguration,
-  BaseDerivedConfig as BaseDirDerivedConfiguration,
-  ResultDirDerivedConfig as ResultDirDerivedConfiguration,
+  BaseContentConfig,
+  BaseDerivedConfig,
+  ResultDirDerivedConfig,
 } from './types/config';
 export type { LocalesValues } from './types/locales';
 export { Locales } from './types/locales';

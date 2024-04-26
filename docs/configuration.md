@@ -97,6 +97,15 @@ Defines settings related to internationalization, including available locales an
   - _Default_: `['en']`
   - _Description_: The list of supported locales in the application.
   - _Example_: `['en', 'fr', 'es']`
+- **strictMode**:
+
+  - _Type_: `string`
+  - _Default_: `required_only`
+  - _Description_: Ensure strong implementations of internationalized content using typescript.
+  - _Note_: If set to "strict", the translation `t` function will require each declared locales to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
+  - _Note_: If set to "required_only", the translation `t` function will require each declared locales to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exist.
+  - _Note_: If set to "loose", the translation `t` function will accept any existing locale.
+
 - **defaultLocale**:
   - _Type_: `string`
   - _Default_: `'en'`

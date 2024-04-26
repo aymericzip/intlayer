@@ -8,6 +8,7 @@ import type { ReplaceValue, IntlayerConfigEnvVariable } from './types';
 export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
   const internationalization: ReplaceValue<InternationalizationConfig> = {
     locales: undefined,
+    strictMode: undefined,
     defaultLocale: undefined,
   };
 

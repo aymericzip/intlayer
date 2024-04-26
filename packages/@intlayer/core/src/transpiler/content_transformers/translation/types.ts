@@ -32,7 +32,6 @@ export type CustomLocales = ConfigLocales extends never
  * }
  */
 export type LanguageContent<Content> = Partial<Record<LocalesValues, Content>>;
-export type ConfigLanguageContent<Content> = Record<ConfigLocales, Content>;
 
 /**
  * Valid
@@ -64,7 +63,7 @@ export type ConfigLanguageContent<Content> = Record<ConfigLocales, Content>;
 export type CustomizableLanguageContent<Content = string> =
   ConfigLocales extends never
     ? LanguageContent<Content>
-    : ConfigLanguageContent<Content>;
+    : IConfigLocales<Content>;
 
 export type TranslationContent<Content> = LanguageContent<Content> &
   NoteStackTraceInfo & {

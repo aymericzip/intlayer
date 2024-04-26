@@ -1,4 +1,10 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type ContentModule, type IConfigLocales } from 'intlayer';
+
+export const test1: IConfigLocales<string> = {
+  en: '',
+  es: '',
+  fr: '',
+};
 
 const pageContent: ContentModule = {
   id: 'page',
@@ -8,6 +14,8 @@ const pageContent: ContentModule = {
       en: 'Get started by editing',
       fr: 'Commencez par éditer',
       es: 'Comience por editar',
+      // ru: 'Начните с редактирования',
+      // rooou: 'Начните с редактирования',
     }),
     pageLink: 'src/app/page.tsx',
   },

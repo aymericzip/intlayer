@@ -8,6 +8,7 @@ import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
   const internationalization: ReplaceValue<InternationalizationConfig> = {
     locales: process.env.REACT_APP_INTLAYER_LOCALES,
+    strictMode: process.env.REACT_APP_INTLAYER_STRICT_MODE,
     defaultLocale: process.env.REACT_APP_INTLAYER_DEFAULT_LOCALE,
   };
 

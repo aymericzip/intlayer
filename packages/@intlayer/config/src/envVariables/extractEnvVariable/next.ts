@@ -8,6 +8,7 @@ import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
   const internationalization: ReplaceValue<InternationalizationConfig> = {
     locales: process.env.NEXT_PUBLIC_INTLAYER_LOCALES,
+    strictMode: process.env.NEXT_PUBLIC_INTLAYER_STRICT_MODE,
     defaultLocale: process.env.NEXT_PUBLIC_INTLAYER_DEFAULT_LOCALE,
   };
 

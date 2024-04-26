@@ -10,6 +10,7 @@ export type {
   ResultDirDerivedConfig,
   PatternsContentConfig,
   ContentConfig,
+  StrictMode,
   IntlayerConfig,
 } from './types/config';
 export type { LocalesValues } from './types/locales';
