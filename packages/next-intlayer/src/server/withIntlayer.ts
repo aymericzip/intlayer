@@ -33,17 +33,35 @@ export const withIntlayer =
     const env = formatEnvVariable('next');
 
     const { mainDir, baseDir } = intlayerConfig.content;
+    const dictionariesPath = join(mainDir, 'dictionaries.mjs');
+    const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
     return Object.assign({}, nextConfig, {
       env: { ...nextConfig.env, ...env },
+
+      experimental: {
+        ...(nextConfig.experimental ?? {}),
+        // Using Intlayer with Turbopack is not supported as long external modules can't be resolved (such as esbuild or fs)
+        turbo: {
+          ...(nextConfig.experimental?.turbo ?? {}),
+          resolveAlias: {
+            ...nextConfig.experimental?.turbo?.resolveAlias,
+            '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+          },
+
+          rules: {
+            '*.node': {
+              as: '*.node',
+              loaders: ['node-loader'],
+            },
+          },
+        },
+      },
 
       webpack: (
         config: WebpackParams['0'],
         { isServer, nextRuntime }: WebpackParams[1]
       ) => {
-        const dictionariesPath = join(mainDir, 'dictionaries.cjs');
-        const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
         config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
           relativeDictionariesPath
         );
@@ -65,5 +83,5 @@ export const withIntlayer =
 
         return config;
       },
-    });
+    } satisfies Partial<NextConfig>);
   };
