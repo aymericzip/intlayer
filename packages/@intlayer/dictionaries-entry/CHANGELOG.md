@@ -1,5 +1,12 @@
 # @intlayer/dictionaries-entry
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`6a5c28a`](https://github.com/aypineau/intlayer/commit/6a5c28a2d5916b3a6c4e91d48bcdd3e6158cfa87)]:
+  - @intlayer/config@1.2.1
+
 ## 1.2.0
 
 ### Minor Changes
