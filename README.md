@@ -59,9 +59,13 @@ If you're using Next.js, Intlayer is designed to work seamlessly with it. The in
 
 Follow this guide to [set up Intlayer with Next.js](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_nextjs.md).
 
-### Integrating with React
+### Integrating with Create React App
 
 For Create React App users, Intlayer also provides an easy way to integrate internationalization. Learn how to [set up Intlayer with Create React App](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_create_react_app.md).
+
+### Integrating with Vite + React
+
+Intlayer is also compatible with vite and rollup environments. Check how to [set up Intlayer with Vite + React](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_vite+react.md).
 
 ### Configuration
 
