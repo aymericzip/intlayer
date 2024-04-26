@@ -81,22 +81,35 @@ const createReactElement = (element: ReactElement) => {
   }
 
   // Destructure the component properties
-  const {
-    type,
-    props: { children, ...propsWithoutChildren },
-  } = element;
 
-  const childrenResult: ReactNode[] = [];
+  const convertChildrenAsArray = (element: ReactElement): ReactElement => {
+    if (element?.props && typeof element.props.children === 'object') {
+      const childrenResult: ReactNode[] = [];
+      const { children } = element.props;
 
-  if (typeof children === 'object') {
-    // Create the children elements recursively, if any
-    Object.keys(children).forEach((key) => {
-      childrenResult.push(createReactElement(children[key]));
-    });
-  }
+      // Create the children elements recursively, if any
+      Object.keys(children).forEach((key) => {
+        childrenResult.push(createReactElement(children[key]));
+      });
+
+      return {
+        ...element,
+        props: { ...element.props, children: childrenResult },
+      };
+    }
+
+    return {
+      ...element,
+      props: { ...element.props, children: element.props.children },
+    };
+  };
+
+  const fixedElement = convertChildrenAsArray(element);
+
+  const { type, props } = fixedElement;
 
   // Create and return the React element
-  return createElement(type ?? 'div', propsWithoutChildren, ...childrenResult);
+  return createElement(type ?? 'div', props, ...props.children);
 };
 
 /**
