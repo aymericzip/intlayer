@@ -62,19 +62,19 @@ const config = {
 module.exports = config;
 ```
 
-```json
+```json5
 // .intlayerrc
 
 {
   "internationalization": {
-    "locales": ["en"]
+    "locales": ["en"],
   },
   "content": {
-    "typesDir": "content/types"
+    "typesDir": "content/types",
   },
   "middleware": {
-    "noPrefix": false
-  }
+    "noPrefix": false,
+  },
 }
 ```
 

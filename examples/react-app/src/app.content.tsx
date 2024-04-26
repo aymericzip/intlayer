@@ -1,7 +1,7 @@
 import { t, type ContentModule } from 'intlayer';
 import { ReactNode } from 'react';
 
-const pageContent: ContentModule = {
+const appContent: ContentModule = {
   id: 'app',
 
   getStarted: t<ReactNode>({
@@ -31,4 +31,4 @@ const pageContent: ContentModule = {
   },
 };
 
-export default pageContent;
+export default appContent;

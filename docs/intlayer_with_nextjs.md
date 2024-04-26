@@ -180,3 +180,25 @@ export default config;
 ```
 
 To see all available parameters, refer to the [configuration documentation here](https://github.com/aypineau/intlayer/blob/main/docs/configuration.md).
+
+## Configure TypeScript
+
+Intlayer use module augmentation to get benefits of TypeScript and make your codebase stronger.
+
+![alt text](https://github.com/aypineau/intlayer/blob/main/docs/assets/autocompletion.png)
+
+![alt text](https://github.com/aypineau/intlayer/blob/main/docs/assets/translation_error.png)
+
+Ensure your typescript configuration includes
+
+```json5
+// tsconfig.json
+
+{
+  // your custom config
+  "include": [
+    "src",
+    "types", // <- Include the auto generated types
+  ],
+}
+```

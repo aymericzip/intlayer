@@ -136,7 +136,9 @@ module.exports = pageContent;
 
 #### Using JSON
 
-```json
+```json5
+// src/app/[locale]/page.content.json
+
 {
   "id": "page",
   "getStarted": {
@@ -144,9 +146,9 @@ module.exports = pageContent;
       "nodeType": "translation",
       "en": "Get started by editing",
       "fr": "Commencez par éditer",
-      "es": "Comience por editar"
+      "es": "Comience por editar",
     },
-    "pageLink": "src/app/page.tsx"
+    "pageLink": "src/app/page.tsx",
   },
   "nestedContent": {
     "id": "enumeration",
@@ -157,9 +159,9 @@ module.exports = pageContent;
       "0": "No cars",
       "1": "One car",
       ">5": "Some cars",
-      ">19": "Many cars"
-    }
-  }
+      ">19": "Many cars",
+    },
+  },
 }
 ```
 
