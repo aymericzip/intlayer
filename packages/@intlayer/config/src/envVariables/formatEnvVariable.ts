@@ -26,6 +26,7 @@ export const formatEnvVariable = (
     ...intlayerConfig.content,
     ...intlayerConfig.internationalization,
     ...intlayerConfig.middleware,
+    ...intlayerConfig.editor,
   })) {
     if (typeof value === 'string') {
       env[formatEnvName(key, prefix)] = value;

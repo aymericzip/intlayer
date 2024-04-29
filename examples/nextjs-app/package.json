@@ -9,12 +9,14 @@
     "lint": "next lint",
     "serve": "npx intlayer serve",
     "start": "next start",
+    "start:editor": "npx intlayer-editor start",
     "transpile": "npx intlayer transpile",
     "watch": "npx intlayer watch"
   },
   "dependencies": {
     "intlayer": "workspace:^",
     "intlayer-cli": "workspace:^",
+    "intlayer-editor": "workspace:^",
     "next": "14.1.4",
     "next-intlayer": "workspace:^",
     "react": "^18.2.0",

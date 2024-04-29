@@ -85,6 +85,20 @@ export type MiddlewareConfig = {
 };
 
 /**
+ * Configuration for intlayer editor
+ */
+export type EditorConfig = {
+  /**
+   * Port number for the editor server
+   *
+   * Default: 4000
+   *
+   * The port number where the editor server runs.
+   */
+  port: number;
+};
+
+/**
  * Custom configuration that can be provided to override default settings
  */
 export type CustomIntlayerConfig = {
@@ -102,6 +116,11 @@ export type CustomIntlayerConfig = {
    * Custom content configuration
    */
   content?: Partial<ContentConfig>;
+
+  /**
+   * Custom editor configuration
+   */
+  editor?: Partial<EditorConfig>;
 };
 
 /**
@@ -122,6 +141,11 @@ export type IntlayerConfig = {
    * Content configuration
    */
   content: ContentConfig;
+
+  /**
+   * Intlayer editor configuration
+   */
+  editor: EditorConfig;
 };
 
 /**

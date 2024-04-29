@@ -2,6 +2,7 @@ import type {
   InternationalizationConfig,
   MiddlewareConfig,
   ContentConfig,
+  EditorConfig,
 } from '../../types/config';
 import type { ReplaceValue, IntlayerConfigEnvVariable } from './types';
 
@@ -44,9 +45,14 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryOutput: undefined,
   };
 
+  const editor: ReplaceValue<EditorConfig> = {
+    port: undefined,
+  };
+
   return {
     internationalization,
     middleware,
     content,
+    editor,
   };
 };

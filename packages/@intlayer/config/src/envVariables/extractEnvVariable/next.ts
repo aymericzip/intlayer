@@ -2,6 +2,7 @@ import type {
   InternationalizationConfig,
   MiddlewareConfig,
   ContentConfig,
+  EditorConfig,
 } from '../../types/config';
 import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 
@@ -49,9 +50,14 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryOutput: process.env.NEXT_PUBLIC_INTLAYER_DICTIONARY_OUTPUT,
   };
 
+  const editor: ReplaceValue<EditorConfig> = {
+    port: process.env.NEXT_PUBLIC_INTLAYER_EDITOR_PORT,
+  };
+
   return {
     internationalization,
     middleware,
     content,
+    editor,
   };
 };
