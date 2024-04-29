@@ -732,6 +732,9 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../intlayer
+      intlayer-editor:
+        specifier: workspace:^
+        version: link:../intlayer-editor
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5

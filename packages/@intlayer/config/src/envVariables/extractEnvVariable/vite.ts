@@ -59,7 +59,7 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
   };
 
   const editor: ReplaceValue<EditorConfig> = {
-    port: import.meta.env.VITE_INTLAYER_EDITOR_PORT,
+    port: import.meta.env.VITE_INTLAYER_PORT,
   };
 
   return {

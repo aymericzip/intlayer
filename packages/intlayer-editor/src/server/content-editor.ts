@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { createRequire } from 'module';
 import { parse } from '@babel/parser';
 import type {
@@ -8,9 +8,18 @@ import type {
   Identifier,
   StringLiteral,
   AssignmentExpression,
+  ObjectProperty,
+  CallExpression,
+  ObjectMethod,
+  SpreadElement,
 } from '@babel/types';
+import { NodeType } from '@intlayer/core';
 import prettier from 'prettier';
-import type { ReactNode } from 'react';
+import type {
+  KeyPath,
+  ObjectExpressionNode,
+  TranslationOrEnumerationNode,
+} from './types';
 
 const requireFunction =
   typeof import.meta.url === 'undefined'
@@ -24,23 +33,48 @@ const { default: generate } = requireFunction('@babel/generator');
  */
 const findNestedProperty = (
   obj: ObjectExpression,
-  keyPath: string[]
+  keyPath: KeyPath[]
 ): ObjectExpression | undefined => {
   let currentObj = obj;
   for (const key of keyPath) {
-    const foundProperty = currentObj.properties.find(
-      (prop) => 'key' in prop && (prop.key as Identifier).name === key
-    );
+    let foundProperty:
+      | ObjectProperty
+      | ObjectMethod
+      | SpreadElement
+      | undefined;
+
     if (
-      foundProperty &&
-      'value' in foundProperty &&
-      foundProperty.value.type === 'ObjectExpression'
+      // if the keyPath is an object, select the related node
+      (key as ObjectExpressionNode).type === 'ObjectExpression'
     ) {
-      currentObj = foundProperty.value;
+      foundProperty = currentObj.properties.find(
+        (prop) =>
+          'key' in prop &&
+          (prop.key as Identifier).name === (key as ObjectExpressionNode).key
+      );
+    }
+
+    if (
+      // if the keypath is a translation or enumeration node, go across the function and select the related node
+      Object.values(NodeType).includes(
+        (key as TranslationOrEnumerationNode).type
+      )
+    ) {
+      foundProperty = (
+        (currentObj as unknown as CallExpression)
+          .arguments[0] as ObjectExpression
+      ).properties.find(
+        (prop) => 'key' in prop && (prop.key as Identifier).name === key.key
+      );
+    }
+
+    if (foundProperty && 'value' in foundProperty) {
+      currentObj = foundProperty.value as ObjectExpression;
     } else {
       return undefined;
     }
   }
+
   return currentObj;
 };
 
@@ -49,21 +83,16 @@ const findNestedProperty = (
  */
 const findAndUpdate = (
   objExpr: ObjectExpression,
-  keyPath: string[],
-  newValue: ReactNode
+  keyPath: KeyPath[],
+  newValue: string
 ) => {
-  const lastKey = keyPath.pop(); // Get the last key in the path
+  const lastKey = keyPath[keyPath.length - 1]; // Get the last key in the path
+
   if (lastKey) {
-    const nestedProperty = findNestedProperty(objExpr, keyPath); // Traverse the key path
+    const propertyToUpdate = findNestedProperty(objExpr, keyPath); // Traverse the key path
 
-    if (nestedProperty) {
-      const propertyToUpdate = nestedProperty.properties.find(
-        (prop) => 'key' in prop && (prop.key as Identifier).name === lastKey
-      );
-
-      if (propertyToUpdate && 'value' in propertyToUpdate) {
-        (propertyToUpdate.value as StringLiteral).value = newValue as string; // Update the value of the specified key
-      }
+    if (propertyToUpdate && 'value' in propertyToUpdate) {
+      (propertyToUpdate as unknown as StringLiteral).value = newValue; // Update the value of the specified key
     }
   }
 };
@@ -71,11 +100,7 @@ const findAndUpdate = (
 /**
  * Traverse the AST and update based on key path and new value
  */
-const traverseNode = (
-  node: Program,
-  keyPath: string[],
-  newValue: ReactNode
-) => {
+const traverseNode = (node: Program, keyPath: KeyPath[], newValue: string) => {
   if (Array.isArray(node.body)) {
     (node.body as unknown as Program[]).forEach((subNode) =>
       traverseNode(subNode, keyPath, newValue)
@@ -84,8 +109,10 @@ const traverseNode = (
     traverseNode(node.body, keyPath, newValue);
   }
 
-  if ('declarations' in node) {
+  if (
     // For ES Module (e.g., `const variable = ...`)
+    'declarations' in node
+  ) {
     (node.declarations as VariableDeclarator[]).forEach((declaration) => {
       if (declaration.init?.type === 'ObjectExpression') {
         findAndUpdate(declaration.init, keyPath, newValue);
@@ -94,10 +121,10 @@ const traverseNode = (
   }
 
   if (
+    // For CommonJS (e.g., `module.exports = ...`)
     'expression' in node &&
     (node.expression as AssignmentExpression).right.type === 'ObjectExpression'
   ) {
-    // For CommonJS (e.g., `module.exports = ...`)
     findAndUpdate(
       (node.expression as AssignmentExpression).right as ObjectExpression,
       keyPath,
@@ -133,12 +160,12 @@ const format = async (content: string) => {
  * Edit the content of a file based on the key path and new value
  */
 export const editContent = async (
-  filePath: string,
-  keyPath: string[],
-  newValue: ReactNode
+  dictionaryPath: string,
+  keyPath: KeyPath[],
+  newValue: string
 ) => {
   // Read the file
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  const fileContent = readFileSync(dictionaryPath, 'utf-8');
 
   // Parse the content with TypeScript support
   const parsed = parse(fileContent, {
@@ -153,12 +180,12 @@ export const editContent = async (
   const updatedContent = generate(parsed).code;
 
   if (fileContent === updatedContent) {
-    console.info(`Could not find specified key path in ${filePath}.`);
+    console.info(`Could not find specified key path in ${dictionaryPath}.`);
   } else {
     const formattedContent = await format(updatedContent);
 
     // Write back to the file
-    fs.writeFileSync(filePath, formattedContent, 'utf-8');
+    writeFileSync(dictionaryPath, formattedContent, 'utf-8');
 
     console.info('Updated the file successfully.');
   }

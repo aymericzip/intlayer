@@ -53,7 +53,15 @@ export const buildIntlayerDictionary = async (
 
     const nestedContent: ContentModule[] = extractObjectsWithId(result);
 
-    const dictionariesPaths: string[] = await writeDictionary(nestedContent);
+    const contentWithFilePath: ContentModule[] = nestedContent.map(
+      (content) => ({
+        ...content,
+        filePath: contentDeclarationPath,
+      })
+    );
+
+    const dictionariesPaths: string[] =
+      await writeDictionary(contentWithFilePath);
 
     resultDictionariesPaths.push(...dictionariesPaths);
   }

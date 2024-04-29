@@ -29,4 +29,5 @@ export type FlatContent = Record<string, FlatContentValue | undefined>;
 
 export type ContentModule = Content & {
   id: string;
+  filePath?: string;
 };

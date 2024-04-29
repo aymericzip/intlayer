@@ -18,7 +18,7 @@
     "build": "pnpm build-packages && pnpm build-examples",
     "build-all": "pnpm recursive build",
     "build-examples": "pnpm --filter './examples/**' build",
-    "build-packages": "pnpm --filter './packages/@intlayer/config' build && pnpm --filter './packages/@intlayer/core' build && pnpm --filter './packages/@intlayer/chokidar' build && pnpm --filter './packages/@intlayer/cli' build && pnpm --filter './packages/@intlayer/dictionaries-entry' build && pnpm --filter './packages/@intlayer/webpack' build && pnpm --filter './packages/intlayer' build && pnpm --filter './packages/react-intlayer' build && pnpm --filter './packages/next-intlayer' build && pnpm --filter './packages/intlayer-cli' build",
+    "build-packages": "pnpm --filter './packages/@intlayer/config' build && pnpm --filter './packages/@intlayer/core' build && pnpm --filter './packages/@intlayer/chokidar' build && pnpm --filter './packages/@intlayer/cli' build && pnpm --filter './packages/@intlayer/dictionaries-entry' build && pnpm --filter './packages/@intlayer/webpack' build && pnpm --filter './packages/intlayer' build  && pnpm --filter './packages/intlayer-editor' build && pnpm --filter './packages/react-intlayer' build && pnpm --filter './packages/next-intlayer' build && pnpm --filter './packages/intlayer-cli' build",
     "changeset": "changeset",
     "clean": "pnpm recursive clean",
     "clean-examples": "pnpm --filter './examples/**' clean",

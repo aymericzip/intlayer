@@ -10,6 +10,7 @@ export {
   t,
   enu,
   getTranslationContent,
+  findMatchingCondition,
   getEnumerationContent,
 } from './transpiler/content_transformers/index';
 export type {

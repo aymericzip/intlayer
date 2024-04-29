@@ -16,7 +16,7 @@ type SuperiorOrEqual = `>=${Numbers}`;
 type Inferior = `<${Numbers}`;
 type InferiorOrEqual = `<=${Numbers}`;
 
-type EnterFormat =
+export type EnterFormat =
   | Equal
   | EqualString
   | Superior

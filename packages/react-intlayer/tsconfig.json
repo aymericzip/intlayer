@@ -4,5 +4,5 @@
   "compilerOptions": {
     "types": ["react/canary", "node", "./@types/intlayer.d.ts"]
   },
-  "include": ["**/*"]
+  "include": ["**/*", "../intlayer-editor/src/client"]
 }

@@ -23,14 +23,18 @@
     "url": "https://github.com/aypineau"
   },
   "exports": {
-    ".": {
-      "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+    "./client": {
+      "types": "./dist/esm/client/index.d.mts",
+      "require": "./dist/cjs/client/index.cjs",
+      "import": "./dist/esm/client/index.mjs"
+    },
+    "./server": {
+      "types": "./dist/esm/server/index.d.mts",
+      "require": "./dist/cjs/server/index.cjs",
+      "import": "./dist/esm/server/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "src/index.ts",
   "typesVersions": {
     "*": {
       "package.json": [

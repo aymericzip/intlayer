@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { program } = require('commander');
-const { startIntlayerEditor } = require('../dist/cjs/index.cjs');
+const { startIntlayerEditor } = require('../dist/cjs/server/index.cjs');
 const pkg = require('../package.json');
 
 program

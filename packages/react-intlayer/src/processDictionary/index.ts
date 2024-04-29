@@ -4,7 +4,10 @@ import {
   NodeType,
   type QuantityContent,
   type LanguageContent,
+  findMatchingCondition,
 } from '@intlayer/core';
+import { renderContentEditor } from 'intlayer-editor/client';
+import type { KeyPath } from 'intlayer-editor/server';
 import { type ReactElement, createElement, type ReactNode } from 'react';
 import { getEnumeration } from '../getEnumeration';
 import { getTranslation } from '../getTranslation';
@@ -15,23 +18,39 @@ import type {
   TransformedContentValue,
 } from './contentDictionary';
 
-const { defaultLocale } = getConfiguration().internationalization;
+const {
+  internationalization: { defaultLocale },
+} = getConfiguration();
 
 const processTranslation = (
   languageContent: LanguageContent<ContentValue>,
-  locale: Locales
+  locale: Locales,
+  dictionaryPath: string,
+  keyPath: KeyPath[] = []
 ): TransformedContent => {
   const translationResult: ContentValue = getTranslation<ContentValue>(
     languageContent,
     locale
   );
 
-  return processDictionary(translationResult as Content, locale);
+  const resultKeyPath: KeyPath[] = [
+    ...keyPath,
+    { type: NodeType.Translation, key: locale },
+  ];
+
+  return processDictionary(
+    translationResult as Content,
+    dictionaryPath,
+    resultKeyPath,
+    locale
+  );
 };
 
 const processEnumeration = (
   enumerationContent: QuantityContent<ContentValue>,
-  locale: Locales
+  locale: Locales,
+  dictionaryPath: string,
+  keyPath: KeyPath[] = []
 ): TransformedContentValue => {
   return (quantity: number): TransformedContentValue => {
     const enumerationResult: ContentValue = getEnumeration<ContentValue>(
@@ -39,8 +58,23 @@ const processEnumeration = (
       quantity
     );
 
+    const matchingCondition = findMatchingCondition(
+      enumerationContent,
+      quantity
+    );
+
+    const resultKeyPath: KeyPath[] = [
+      ...keyPath,
+      { type: NodeType.Enumeration, key: matchingCondition.toString() },
+    ];
+
     //
-    return processDictionary(enumerationResult as Content, locale);
+    return processDictionary(
+      enumerationResult as Content,
+      dictionaryPath,
+      resultKeyPath,
+      locale
+    );
   };
 };
 
@@ -49,28 +83,31 @@ const isReactNode = (node: Record<string, unknown>): boolean =>
 
 export const processNode = (
   field: ContentValue | undefined,
-  locale: Locales
+  locale: Locales,
+  dictionaryPath: string,
+  keyPath: KeyPath[] = []
 ): TransformedContentValue => {
-  if (typeof field !== 'object' || field === null) {
-    return field;
+  if (typeof field === 'object') {
+    if (field.nodeType === NodeType.Translation) {
+      return processTranslation(
+        field as LanguageContent<ContentValue>,
+        locale,
+        dictionaryPath,
+        keyPath
+      );
+    }
+
+    if (field.nodeType === NodeType.Enumeration) {
+      return processEnumeration(
+        field satisfies QuantityContent<ContentValue>,
+        locale,
+        dictionaryPath,
+        keyPath
+      );
+    }
   }
 
-  if (field.nodeType === NodeType.Translation) {
-    return processTranslation(field as LanguageContent<ContentValue>, locale);
-  }
-
-  if (field.nodeType === NodeType.Enumeration) {
-    return processEnumeration(
-      field satisfies QuantityContent<ContentValue>,
-      locale
-    );
-  }
-
-  if (typeof (field as any).type === 'undefined') {
-    return processDictionary(field as Content, locale);
-  }
-
-  return field as TransformedContentValue;
+  return processDictionary(field as Content, dictionaryPath, keyPath, locale);
 };
 
 // This function recursively creates React elements from a given JSON-like structure
@@ -117,6 +154,8 @@ const createReactElement = (element: ReactElement) => {
  */
 export const processDictionary = (
   content: Content,
+  dictionaryPath: string,
+  keyPath: KeyPath[] = [],
   locale: Locales = defaultLocale
 ): TransformedContent => {
   // If it's a React element, render it
@@ -133,10 +172,26 @@ export const processDictionary = (
     for (const key of Object.keys(content)) {
       const field = content[key];
 
-      result[key] = processNode(field, locale);
+      const resultKeyPath: KeyPath[] = [
+        ...keyPath,
+        { type: 'ObjectExpression', key },
+      ];
+
+      result[key] = processNode(field, locale, dictionaryPath, resultKeyPath);
     }
 
     return result;
+  }
+
+  if (typeof content === 'string') {
+    try {
+      // renderContentEditor come from intlayer-editor, which is an optional dependency.
+      // intlayer-editor should be installed in the project to use the content editor.
+      return renderContentEditor(content, dictionaryPath, keyPath);
+    } catch (e) {
+      // If renderContentEditor not available, it will return the content as is.
+      return content;
+    }
   }
 
   // If it's a string, number, or function, return it

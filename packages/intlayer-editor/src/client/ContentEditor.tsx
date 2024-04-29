@@ -1,5 +1,6 @@
 'use client';
 
+import { getConfiguration } from '@intlayer/config/client';
 import {
   useEffect,
   useState,
@@ -8,14 +9,39 @@ import {
   type FC,
   type MouseEventHandler,
 } from 'react';
-
-type ContentEditorProps = {
-  children?: string;
-};
+import type { KeyPath } from '../server/types';
 
 const PRESS_DETECT_DURATION = 500;
 
-export const ContentEditor: FC<ContentEditorProps> = ({ children }) => {
+const editContent = async (
+  dictionaryPath: string,
+  keyPath: KeyPath[],
+  newValue: string
+) => {
+  const {
+    editor: { port },
+  } = getConfiguration();
+
+  await fetch(`http://localhost:${port}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ dictionaryPath, keyPath, newValue }),
+  });
+};
+
+type ContentEditorProps = {
+  children: string;
+  dictionaryPath: string;
+  keyPath: KeyPath[];
+};
+
+export const ContentEditor: FC<ContentEditorProps> = ({
+  dictionaryPath,
+  keyPath,
+  children,
+}) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = useState(false);
   const pressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -79,9 +105,12 @@ export const ContentEditor: FC<ContentEditorProps> = ({ children }) => {
     setIsEditing(false);
   };
 
-  const onContentChange = (_e: React.FormEvent<HTMLDivElement>) => {
-    // console.log(e.currentTarget.textContent);
-  };
+  const onContentChange = async (e: React.FormEvent<HTMLDivElement>) =>
+    await editContent(
+      dictionaryPath,
+      keyPath,
+      e.currentTarget.textContent ?? ''
+    );
 
   return (
     <div

@@ -51,7 +51,7 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
   };
 
   const editor: ReplaceValue<EditorConfig> = {
-    port: process.env.REACT_APP_INTLAYER_EDITOR_PORT,
+    port: process.env.REACT_APP_INTLAYER_PORT,
   };
 
   return {
