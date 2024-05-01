@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NodeType } from '../../../types/index';
-import {
-  getStackTraceInfo,
-  type NoteStackTraceInfo,
-} from '../../../utils/getStackTraceInfo';
 
 type Positif = number | `${number}`;
 type Negatif = `-${number}`;
@@ -26,10 +22,9 @@ export type EnterFormat =
 
 export type QuantityContent<Content> = Record<EnterFormat, Content>;
 
-export type EnumerationContent<Content> = Partial<QuantityContent<Content>> &
-  NoteStackTraceInfo & {
-    nodeType: NodeType.Enumeration;
-  };
+export type EnumerationContent<Content> = Partial<QuantityContent<Content>> & {
+  nodeType: NodeType.Enumeration;
+};
 
 /**
  * Function intended to be used to build intlayer dictionaries.
@@ -51,12 +46,9 @@ export type EnumerationContent<Content> = Partial<QuantityContent<Content>> &
  *
  */
 const enumeration = <Content>(content?: Partial<QuantityContent<Content>>) => {
-  const stackTraceInfo = getStackTraceInfo();
-
   if (typeof content === 'string') {
     const result: EnumerationContent<Content> = {
       nodeType: NodeType.Enumeration,
-      ...stackTraceInfo,
       1: content,
     };
 
@@ -65,7 +57,6 @@ const enumeration = <Content>(content?: Partial<QuantityContent<Content>>) => {
 
   const result: EnumerationContent<Content> = {
     nodeType: NodeType.Enumeration,
-    ...stackTraceInfo,
     ...content,
   };
 

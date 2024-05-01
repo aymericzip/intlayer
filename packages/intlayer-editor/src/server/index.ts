@@ -1,10 +1,8 @@
 import { getConfiguration } from '@intlayer/config';
+import type { KeyPath } from '@intlayer/core';
 import bodyParser from 'body-parser';
 import express, { type Request, type Response } from 'express';
 import { editContent } from './content-editor';
-import type { KeyPath } from './types';
-
-export type { KeyPath };
 
 type EditContentBody = {
   dictionaryPath: string;

@@ -1,4 +1,5 @@
 import { t, type ContentModule } from 'intlayer';
+
 const pageContent: ContentModule = {
   id: 'page',
   getStarted: {

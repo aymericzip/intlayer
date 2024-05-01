@@ -1,6 +1,5 @@
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
 import {
   useEffect,
   useState,
@@ -8,52 +7,40 @@ import {
   useCallback,
   type FC,
   type MouseEventHandler,
+  type HTMLAttributes,
 } from 'react';
-import type { KeyPath } from '../server/types';
+import tw from 'twin.macro';
 
-const PRESS_DETECT_DURATION = 500;
+const DEFAULT_PRESS_DETECT_DURATION = 400;
 
-const editContent = async (
-  dictionaryPath: string,
-  keyPath: KeyPath[],
-  newValue: string
-) => {
-  const {
-    editor: { port },
-  } = getConfiguration();
+type PressableDivProps = {
+  onPress: () => void;
+  onClickOutside?: () => void;
+  pressDuration?: number;
+} & HTMLAttributes<HTMLDivElement>;
 
-  await fetch(`http://localhost:${port}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ dictionaryPath, keyPath, newValue }),
-  });
-};
+const StyledContentSelector = tw.div`inline cursor-pointer outline outline-offset-4 outline-2 outline-transparent outline-white/[0]	hover:outline-white/[1] rounded-md transition-all duration-200 delay-100`;
 
-type ContentEditorProps = {
-  children: string;
-  dictionaryPath: string;
-  keyPath: KeyPath[];
-};
-
-export const ContentEditor: FC<ContentEditorProps> = ({
-  dictionaryPath,
-  keyPath,
+export const PressableDiv: FC<PressableDivProps> = ({
   children,
+  onPress: onSelect,
+  onClickOutside: onUnselect,
+  pressDuration = DEFAULT_PRESS_DETECT_DURATION,
+  ...props
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isSelecting, setIsSelecting] = useState(false);
   const pressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleOnLongPress = () => {
-    setIsEditing(true);
+    setIsSelecting(true);
+    onSelect();
   };
 
   const startPressTimer = () => {
     pressTimerRef.current = setTimeout(() => {
       handleOnLongPress();
-    }, PRESS_DETECT_DURATION);
+    }, pressDuration);
   };
 
   const clearPressTimer = () => {
@@ -76,10 +63,11 @@ export const ContentEditor: FC<ContentEditorProps> = ({
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       if (divRef.current && !divRef.current.contains(event.target as Node)) {
-        setIsEditing(false);
+        setIsSelecting(false);
+        onUnselect?.();
       }
     },
-    [divRef]
+    [onUnselect]
   );
 
   useEffect(() => {
@@ -89,12 +77,12 @@ export const ContentEditor: FC<ContentEditorProps> = ({
     return () => {
       // Cleanup
       document.removeEventListener('mousedown', handleClickOutside);
-      clearPressTimer(); // Ensure to clear the timer when component unmounts
+      // clearPressTimer(); // Ensure to clear the timer when component unmounts
     };
   }, [handleClickOutside]);
 
   const handleOnClick: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (isEditing) {
+    if (isSelecting) {
       e.preventDefault();
       e.stopPropagation();
     }
@@ -102,23 +90,14 @@ export const ContentEditor: FC<ContentEditorProps> = ({
 
   const handleOnBlur = () => {
     // Stop editing when the element loses focus
-    setIsEditing(false);
+    setIsSelecting(false);
   };
 
-  const onContentChange = async (e: React.FormEvent<HTMLDivElement>) =>
-    await editContent(
-      dictionaryPath,
-      keyPath,
-      e.currentTarget.textContent ?? ''
-    );
-
   return (
-    <div
-      role="textbox"
+    <StyledContentSelector
+      role="button"
       tabIndex={0}
       onKeyUp={() => null}
-      contentEditable={isEditing}
-      onInput={onContentChange}
       onClick={handleOnClick}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
@@ -127,19 +106,10 @@ export const ContentEditor: FC<ContentEditorProps> = ({
       onTouchEnd={handleMouseUp}
       onTouchCancel={handleMouseUp}
       onBlur={handleOnBlur}
-      suppressContentEditableWarning={true} // To suppress the warning for controlled components
-      style={
-        isEditing
-          ? {
-              backgroundColor: 'transparent',
-              cursor: 'text',
-              display: 'inline',
-            }
-          : { cursor: 'pointer', display: 'inline' }
-      }
       ref={divRef}
+      {...props}
     >
       {children}
-    </div>
+    </StyledContentSelector>
   );
 };

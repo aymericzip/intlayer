@@ -3,7 +3,11 @@ require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
   parser: '@typescript-eslint/parser',
-
+  parserOptions: {
+    ecmaVersion: 2020,
+    project: ['tsconfig.json'],
+    sourceType: 'module',
+  },
   ignorePatterns: [
     `node_modules`,
     `**/node_modules`,

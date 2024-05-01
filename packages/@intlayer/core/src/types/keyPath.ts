@@ -1,4 +1,4 @@
-import type { NodeType } from '@intlayer/core';
+import type { NodeType } from './nodeType';
 
 export type ObjectExpressionNode = {
   type: 'ObjectExpression';

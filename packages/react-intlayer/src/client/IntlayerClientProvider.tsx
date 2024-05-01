@@ -10,6 +10,7 @@ import {
   useState,
   useCallback,
 } from 'react';
+import { ContentEditionLayout } from './ContentEditionLayout';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
 
 type IntlayerValue = {
@@ -70,7 +71,13 @@ export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
 
   return (
     <IntlayerClientContext.Provider value={value}>
-      {children}
+      <ContentEditionLayout
+        locale={currentLocale}
+        setLocale={setLocale}
+        localeList={availableLocales}
+      >
+        {children}
+      </ContentEditionLayout>
     </IntlayerClientContext.Provider>
   );
 };

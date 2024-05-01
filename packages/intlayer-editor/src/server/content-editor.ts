@@ -13,13 +13,13 @@ import type {
   ObjectMethod,
   SpreadElement,
 } from '@babel/types';
-import { NodeType } from '@intlayer/core';
+import {
+  NodeType,
+  type KeyPath,
+  type ObjectExpressionNode,
+  type TranslationOrEnumerationNode,
+} from '@intlayer/core';
 import prettier from 'prettier';
-import type {
-  KeyPath,
-  ObjectExpressionNode,
-  TranslationOrEnumerationNode,
-} from './types';
 
 const requireFunction =
   typeof import.meta.url === 'undefined'

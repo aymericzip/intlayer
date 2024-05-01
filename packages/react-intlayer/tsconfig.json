@@ -4,5 +4,9 @@
   "compilerOptions": {
     "types": ["react/canary", "node", "./@types/intlayer.d.ts"]
   },
-  "include": ["**/*", "../intlayer-editor/src/client"]
+  "include": [
+    "**/*",
+    "../intlayer-editor/src/client",
+    "../@intlayer/design-system/src/components/ContentSelector/ContentSelector.tsx"
+  ]
 }

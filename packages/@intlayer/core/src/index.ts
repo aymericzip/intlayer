@@ -20,6 +20,9 @@ export type {
   FlatContent,
   TypedNode,
   ContentModule,
+  KeyPath,
+  ObjectExpressionNode,
+  TranslationOrEnumerationNode,
 } from './types/index';
 export { NodeType } from './types/index';
 export { getLocaleName } from './getLocaleName';
