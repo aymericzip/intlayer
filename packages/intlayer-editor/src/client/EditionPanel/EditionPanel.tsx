@@ -36,6 +36,8 @@ export const EditionPanel: FC<EditionPanelProps> = ({
     useEditedContentStore();
   const { editContentRequest } = useEditorServer();
 
+  console.log('editedContent', editedContent);
+
   // Use effect to react to changes in focusedContent
   useEffect(() => {
     if (focusedContent !== null) {

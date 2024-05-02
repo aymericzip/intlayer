@@ -111,7 +111,7 @@ const traverseNode = (node: Program, keyPath: KeyPath[], newValue: string) => {
   }
 
   if (
-    // For ES Module (e.g., `const variable = ...`)
+    // For ES Module (e.g., `const variable = ...;  export default variable`)
     'declarations' in node
   ) {
     (node.declarations as VariableDeclarator[]).forEach((declaration) => {
@@ -122,16 +122,30 @@ const traverseNode = (node: Program, keyPath: KeyPath[], newValue: string) => {
   }
 
   if (
+    // For ES Module (e.g., `export default { ... }`)
+    'declaration' in node &&
+    (node.declaration as ObjectExpression).type === 'ObjectExpression'
+  ) {
+    return findAndUpdate(
+      node.declaration as ObjectExpression,
+      keyPath,
+      newValue
+    );
+  }
+
+  if (
     // For CommonJS (e.g., `module.exports = ...`)
     'expression' in node &&
     (node.expression as AssignmentExpression).right.type === 'ObjectExpression'
   ) {
-    findAndUpdate(
+    return findAndUpdate(
       (node.expression as AssignmentExpression).right as ObjectExpression,
       keyPath,
       newValue
     );
   }
+
+  // throw new Error('Could not find the specified key path in the AST.');
 };
 
 /**
