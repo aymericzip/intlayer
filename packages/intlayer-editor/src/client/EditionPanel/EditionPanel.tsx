@@ -15,9 +15,9 @@ import {
  */
 import dictionaries from '@intlayer/dictionaries-entry';
 import { type FC, useEffect } from 'react';
-import { useEditedContentStore } from '../useEditedContentStore';
+import { useEditorServer } from '../useEditorServer';
+import { useEditedContentStore } from './useEditedContentStore';
 import { useEditionPanelStore } from './useEditionPanelStore';
-import { useEditorServer } from './useEditorServer';
 
 type EditionPanelProps = {
   locale: Locales;

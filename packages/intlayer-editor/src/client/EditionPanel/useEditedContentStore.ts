@@ -19,6 +19,11 @@ type EditedContentStore = {
     keyPath: KeyPath[]
   ) => void;
   clearEditedDictionaryContent: (dictionaryPath: DictionaryPath) => void;
+  clearEditedContent: () => void;
+  getEditedContentValue: (
+    dictionaryPath: DictionaryPath,
+    keyPath: KeyPath[]
+  ) => string | undefined;
 };
 
 const isSameKeyPath = (keyPath1: KeyPath[], keyPath2: KeyPath[]) =>
@@ -31,7 +36,7 @@ const isSameKeyPath = (keyPath1: KeyPath[], keyPath2: KeyPath[]) =>
 
 export const useEditedContentStore = create(
   persist<EditedContentStore>(
-    (set) => ({
+    (set, get) => ({
       editedContent: {},
       addEditedContent: (dictionaryPath, keyPath, newValue) => {
         set((state) => {
@@ -75,6 +80,15 @@ export const useEditedContentStore = create(
           },
         }));
       },
+
+      clearEditedContent: () => {
+        set({ editedContent: {} });
+      },
+
+      getEditedContentValue: (dictionaryPath, keyPath): string | undefined =>
+        get().editedContent[dictionaryPath]?.find((content) =>
+          isSameKeyPath(content.keyPath, keyPath)
+        )?.newValue,
     }),
     {
       name: 'edited-content-store',

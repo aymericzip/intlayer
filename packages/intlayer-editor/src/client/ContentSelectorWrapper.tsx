@@ -3,6 +3,7 @@
 import type { KeyPath } from '@intlayer/core';
 import { ContentSelector } from '@intlayer/design-system';
 import type { FC } from 'react';
+import { useEditedContentStore } from './EditionPanel/useEditedContentStore';
 import { useEditionPanelStore } from './EditionPanel/useEditionPanelStore';
 
 type ContentSelectorWrapperProps = {
@@ -26,5 +27,12 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
       keyPath,
     });
 
-  return <ContentSelector onSelect={handleSelect}>{children}</ContentSelector>;
+  const { getEditedContentValue } = useEditedContentStore();
+  const editedValue = getEditedContentValue(dictionaryPath, keyPath);
+
+  return (
+    <ContentSelector onSelect={handleSelect}>
+      {editedValue ?? children}
+    </ContentSelector>
+  );
 };

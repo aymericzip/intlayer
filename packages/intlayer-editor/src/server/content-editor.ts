@@ -20,7 +20,7 @@ import {
   type TranslationOrEnumerationNode,
 } from '@intlayer/core';
 import prettier from 'prettier';
-import type { EditedContent } from '../client';
+import type { EditedContent } from '../client/index';
 
 const requireFunction =
   typeof import.meta.url === 'undefined'

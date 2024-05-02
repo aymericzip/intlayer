@@ -1,8 +1,8 @@
 import { getConfiguration } from '@intlayer/config/client';
-import { useEditedContentStore } from '../useEditedContentStore';
+import { useEditedContentStore } from './EditionPanel/useEditedContentStore';
 
 export const useEditorServer = () => {
-  const { editedContent } = useEditedContentStore();
+  const { editedContent, clearEditedContent } = useEditedContentStore();
 
   const editContentRequest = async () => {
     const {
@@ -15,7 +15,16 @@ export const useEditorServer = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(editedContent),
-    });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to edit content');
+        }
+        clearEditedContent();
+      })
+      .catch((error) => {
+        console.error('Failed to edit content:', error);
+      });
   };
 
   return { editContentRequest };
