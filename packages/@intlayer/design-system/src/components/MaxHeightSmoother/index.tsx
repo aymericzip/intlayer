@@ -1,5 +1,5 @@
 import type { FC, HTMLAttributes, ReactNode } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 interface MaxHeightSmootherProps extends HTMLAttributes<HTMLDivElement> {

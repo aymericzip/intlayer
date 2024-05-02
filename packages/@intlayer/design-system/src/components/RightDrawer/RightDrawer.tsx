@@ -2,7 +2,7 @@
 
 import { X } from 'lucide-react';
 import { type ReactNode, type FC, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import tw from 'twin.macro';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
 import { capitalize } from '../../utils/capitalize';

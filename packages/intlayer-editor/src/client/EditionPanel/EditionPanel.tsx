@@ -36,8 +36,6 @@ export const EditionPanel: FC<EditionPanelProps> = ({
     useEditedContentStore();
   const { editContentRequest } = useEditorServer();
 
-  console.log('editedContent', editedContent);
-
   // Use effect to react to changes in focusedContent
   useEffect(() => {
     if (focusedContent !== null) {
@@ -51,7 +49,7 @@ export const EditionPanel: FC<EditionPanelProps> = ({
 
   const dictionary: ContentModule = dictionaries[focusedContent.dictionaryId];
 
-  if (!(dictionary && dictionary.filePath)) {
+  if (!dictionary?.filePath) {
     return null;
   }
 

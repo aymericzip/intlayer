@@ -14,5 +14,5 @@ module.exports = {
   overrides: [
     // optional overrides
   ],
-  ignorePatterns: ['**/intlayer.d.ts'],
+  ignorePatterns: ['**/intlayer.d.ts', '*.config.*'],
 };
