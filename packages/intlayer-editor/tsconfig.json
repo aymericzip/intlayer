@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@utils/ts-config",
+  "include": [
+    "**/*",
+    "../@intlayer/design-system/src/components/ContentSelector/ContentSelector.tsx"
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
+}

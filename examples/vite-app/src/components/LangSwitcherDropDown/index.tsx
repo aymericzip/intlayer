@@ -1,1 +1,1 @@
-export * from './LangSwitcher';
+export { LocaleSwitcher } from './LangSwitcher';

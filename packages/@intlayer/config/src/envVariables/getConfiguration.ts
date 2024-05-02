@@ -89,10 +89,15 @@ export const getConfiguration = (): IntlayerConfig => {
     )!,
   };
 
+  const intlayerEditorConfiguration = {
+    port: getEnvValue(env.editor.port, 'number')!,
+  };
+
   const intlayerConfiguration: IntlayerConfig = {
     internationalization: intlayerIntlConfiguration,
     middleware: intlayerMiddlewareConfiguration,
     content: intlayerContentConfiguration,
+    editor: intlayerEditorConfiguration,
   };
 
   return intlayerConfiguration;

@@ -1,4 +1,4 @@
-const prettierConfig = require('@utils/eslint-config/prettier.base.config.js');
+import prettierConfig from '@utils/eslint-config/prettier.base.config.js';
 
 /**
  * @type {import('prettier').Config}
@@ -17,4 +17,4 @@ const config = {
   ],
 };
 
-module.exports = config;
+export default config;

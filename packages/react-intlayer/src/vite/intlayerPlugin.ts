@@ -53,7 +53,7 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
       persistent: (import.meta as any).env === 'development',
     });
   },
-  configureServer: (server) => {
+  configureServer: () => {
     // Custom server configuration, if needed
   },
 });

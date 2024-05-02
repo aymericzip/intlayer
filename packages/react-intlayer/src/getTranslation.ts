@@ -1,6 +1,5 @@
 import { type Locales, getConfiguration } from '@intlayer/config/client';
 import { type LanguageContent, getTranslationContent } from '@intlayer/core';
-import { contentRender } from './ContentEditor/contentRender';
 
 /**
  *
@@ -33,10 +32,6 @@ export const getTranslation = <Content = string>(
     languageContent,
     locale ?? defaultLocale
   );
-
-  if (typeof result === 'string') {
-    return contentRender(result) as Content;
-  }
 
   return result;
 };

@@ -10,6 +10,7 @@ export {
   t,
   enu,
   getTranslationContent,
+  findMatchingCondition,
   getEnumerationContent,
 } from './transpiler/content_transformers/index';
 export type {
@@ -19,6 +20,9 @@ export type {
   FlatContent,
   TypedNode,
   ContentModule,
+  KeyPath,
+  ObjectExpressionNode,
+  TranslationOrEnumerationNode,
 } from './types/index';
 export { NodeType } from './types/index';
 export { getLocaleName } from './getLocaleName';

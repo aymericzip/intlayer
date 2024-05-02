@@ -2,6 +2,7 @@ import type {
   InternationalizationConfig,
   MiddlewareConfig,
   ContentConfig,
+  EditorConfig,
 } from '../../types/config';
 import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 import { extractEmptyEnvVariable } from './undefined_platform';
@@ -57,9 +58,14 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryOutput: import.meta.env.VITE_INTLAYER_DICTIONARY_OUTPUT,
   };
 
+  const editor: ReplaceValue<EditorConfig> = {
+    port: import.meta.env.VITE_INTLAYER_PORT,
+  };
+
   return {
     internationalization,
     middleware,
     content,
+    editor,
   };
 };

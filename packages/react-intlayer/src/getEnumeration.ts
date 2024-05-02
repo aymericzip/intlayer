@@ -1,5 +1,4 @@
 import { type QuantityContent, getEnumerationContent } from '@intlayer/core';
-import { contentRender } from './ContentEditor/contentRender';
 
 /**
  * Allow to pick a content based on a quantity.
@@ -37,10 +36,6 @@ export const getEnumeration = <Content>(
     enumerationContent,
     quantity
   );
-
-  if (typeof result === 'string') {
-    return contentRender(result) as Content;
-  }
 
   return result;
 };

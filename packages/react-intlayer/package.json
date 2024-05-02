@@ -108,8 +108,14 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
+    "intlayer-editor": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "intlayer-editor": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=14.18"

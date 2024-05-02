@@ -1,6 +1,5 @@
 import { getConfiguration } from '@intlayer/config/client';
 import { NodeType } from '../../../types/index';
-import { getStackTraceInfo } from '../../../utils/getStackTraceInfo';
 import type { CustomizableLanguageContent, TranslationContent } from './types';
 
 /**
@@ -30,12 +29,9 @@ const translation = <Content = string>(
     internationalization: { defaultLocale },
   } = getConfiguration();
 
-  const stackTraceInfo = getStackTraceInfo();
-
   if (typeof content === 'string') {
     const result: TranslationContent<Content> = {
       nodeType: NodeType.Translation,
-      ...stackTraceInfo,
       [defaultLocale]: content,
     } as TranslationContent<Content>;
 
@@ -44,7 +40,6 @@ const translation = <Content = string>(
 
   const result: TranslationContent<Content> = {
     nodeType: NodeType.Translation,
-    ...stackTraceInfo,
     ...(content as unknown as object),
   } as TranslationContent<Content>;
 

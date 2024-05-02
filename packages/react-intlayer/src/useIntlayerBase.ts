@@ -30,6 +30,9 @@ export const useIntlayerBase: UseIntlayer = <T extends DictionaryKeys>(
 
   return processDictionary(
     dictionary,
+    id,
+    dictionary.filePath as string,
+    [],
     locale
   ) as IntlayerDictionaryTypesConnector[T];
 };

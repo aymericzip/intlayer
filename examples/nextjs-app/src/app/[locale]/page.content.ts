@@ -2,7 +2,6 @@ import { t, type ContentModule } from 'intlayer';
 
 const pageContent: ContentModule = {
   id: 'page',
-
   getStarted: {
     main: t({
       en: 'Get started by editing',
@@ -11,13 +10,11 @@ const pageContent: ContentModule = {
     }),
     pageLink: 'src/app/page.tsx',
   },
-
   byVersel: t({
     en: 'By',
     fr: 'Par',
     es: 'Por',
   }),
-
   docs: {
     title: 'Docs',
     detail: t({
@@ -26,7 +23,6 @@ const pageContent: ContentModule = {
       es: 'Encuentre información detallada sobre las funciones y la API de Next.js.',
     }),
   },
-
   learn: {
     title: t({
       en: 'Learn',
@@ -39,7 +35,6 @@ const pageContent: ContentModule = {
       es: '¡Aprende sobre Next.js en un curso interactivo con cuestionarios!',
     }),
   },
-
   templates: {
     title: t({
       en: 'Templates',
@@ -52,7 +47,6 @@ const pageContent: ContentModule = {
       es: 'Explore plantillas de inicio para Next.js.',
     }),
   },
-
   deploy: {
     title: t({
       en: 'Deploy',
@@ -66,5 +60,4 @@ const pageContent: ContentModule = {
     }),
   },
 };
-
 export default pageContent;

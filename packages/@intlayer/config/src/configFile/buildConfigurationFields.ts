@@ -30,6 +30,7 @@ import type {
   MiddlewareConfig,
   BaseContentConfig,
   ResultDirDerivedConfig,
+  EditorConfig,
 } from '../types/config';
 import type { GetConfigurationOptions } from './getConfiguration';
 
@@ -447,6 +448,17 @@ const buildContentFields = (
   };
 };
 
+const buildEditorFields = (
+  customConfiguration?: Partial<EditorConfig>
+): EditorConfig => ({
+  /**
+   * Port of the editor server
+   *
+   * Default: 4000
+   */
+  port: customConfiguration?.port ?? 4000,
+});
+
 /**
  * Build the configuration fields by merging the default values with the custom configuration
  */
@@ -464,10 +476,13 @@ export const buildConfigurationFields = (
 
   const contentConfig = buildContentFields(customConfiguration?.content);
 
+  const editorConfig = buildEditorFields(customConfiguration?.editor);
+
   storedConfiguration = {
     internationalization: internationalizationConfig,
     middleware: middlewareConfig,
     content: contentConfig,
+    editor: editorConfig,
   };
 
   return storedConfiguration;

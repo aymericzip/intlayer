@@ -37,6 +37,10 @@
       "path": "packages/@intlayer/config",
     },
     {
+      "name": "🛠️ @intlayer/chokidar",
+      "path": "packages/@intlayer/chokidar",
+    },
+    {
       "name": "📦 intlayer",
       "path": "packages/intlayer",
     },
@@ -51,6 +55,10 @@
     {
       "name": "📦 react-intlayer",
       "path": "packages/react-intlayer",
+    },
+    {
+      "name": "📦 intlayer-editor",
+      "path": "packages/intlayer-editor",
     },
   ],
   "extensions": {
@@ -83,13 +91,15 @@
       "./packages/intlayer-cli",
       "./packages/next-intlayer",
       "./packages/react-intlayer",
+      "./packages/intlayer-editor",
       "./packages/@intlayer/core",
       "./packages/@intlayer/webpack",
       "./packages/@intlayer/cli",
       "./packages/@intlayer/config",
+      "./packages/@intlayer/chokidar",
       "./utils/eslint-config",
     ],
-    "prettier.configPath": ".prettierrc.cjs",
+    "prettier.configPath": ".prettierrc.mjs",
     "jest.disabledWorkspaceFolders": [
       "🍂 example - next-app",
       "🍂 example - react-app",
@@ -98,10 +108,12 @@
       "📦 intlayer-cli",
       "📦 react-intlayer",
       "📦 next-intlayer",
+      "📦 intlayer-editor",
       "🛠️ @intlayer/core",
       "🛠️ @intlayer/webpack",
       "🛠️ @intlayer/cli",
       "🛠️ @intlayer/config",
+      "🛠️ @intlayer/chokidar",
       "🪄 eslint-config",
     ],
   },
