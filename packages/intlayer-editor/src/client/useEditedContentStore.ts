@@ -1,15 +1,11 @@
 import type { KeyPath } from '@intlayer/core';
+import type { FileContent } from '@intlayer/design-system';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-type FileContent = {
-  keyPath: KeyPath[];
-  newValue: string;
-};
-
 type DictionaryPath = string;
 
-type EditedContent = Record<DictionaryPath, FileContent[]>;
+export type EditedContent = Record<DictionaryPath, FileContent[]>;
 
 type EditedContentStore = {
   editedContent: EditedContent;
@@ -22,6 +18,7 @@ type EditedContentStore = {
     dictionaryPath: DictionaryPath,
     keyPath: KeyPath[]
   ) => void;
+  clearEditedDictionaryContent: (dictionaryPath: DictionaryPath) => void;
 };
 
 const isSameKeyPath = (keyPath1: KeyPath[], keyPath2: KeyPath[]) =>
@@ -68,6 +65,15 @@ export const useEditedContentStore = create(
             },
           };
         });
+      },
+
+      clearEditedDictionaryContent: (dictionaryPath) => {
+        set((state) => ({
+          editedContent: {
+            ...state.editedContent,
+            [dictionaryPath]: [],
+          },
+        }));
       },
     }),
     {

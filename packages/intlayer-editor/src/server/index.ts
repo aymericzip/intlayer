@@ -1,14 +1,8 @@
 import { getConfiguration } from '@intlayer/config';
-import type { KeyPath } from '@intlayer/core';
 import bodyParser from 'body-parser';
 import express, { type Request, type Response } from 'express';
+import type { EditedContent } from '../client';
 import { editContent } from './content-editor';
-
-type EditContentBody = {
-  dictionaryPath: string;
-  keyPath: KeyPath[];
-  newValue: string;
-};
 
 export const startIntlayerEditor = () => {
   const app = express();
@@ -22,15 +16,15 @@ export const startIntlayerEditor = () => {
   app.post(
     '/',
     async (
-      req: Request<undefined, undefined, EditContentBody>,
+      req: Request<undefined, undefined, EditedContent>,
       res: Response
     ) => {
-      const { dictionaryPath, keyPath, newValue } = req.body;
+      const editedContent = req.body;
 
       try {
-        await editContent(dictionaryPath, keyPath, newValue);
+        await editContent(editedContent);
 
-        res.send({ success: true, dictionaryPath });
+        res.send({ success: true, editedContent });
       } catch (error) {
         console.error(error);
         res.status(500).send({ success: false });

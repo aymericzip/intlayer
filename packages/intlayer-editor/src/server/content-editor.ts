@@ -20,6 +20,7 @@ import {
   type TranslationOrEnumerationNode,
 } from '@intlayer/core';
 import prettier from 'prettier';
+import type { EditedContent } from '../client';
 
 const requireFunction =
   typeof import.meta.url === 'undefined'
@@ -159,34 +160,36 @@ const format = async (content: string) => {
 /**
  * Edit the content of a file based on the key path and new value
  */
-export const editContent = async (
-  dictionaryPath: string,
-  keyPath: KeyPath[],
-  newValue: string
-) => {
-  // Read the file
-  const fileContent = readFileSync(dictionaryPath, 'utf-8');
+export const editContent = async (editedContent: EditedContent) => {
+  // Loop into each dictionary path
+  for (const dictionaryPath of Object.keys(editedContent)) {
+    // Read the file
+    const fileContent = readFileSync(dictionaryPath, 'utf-8');
 
-  // Parse the content with TypeScript support
-  const parsed = parse(fileContent, {
-    sourceType: 'module',
-    plugins: ['jsx', 'typescript'],
-  });
+    // Parse the content with TypeScript support
+    const parsed = parse(fileContent, {
+      sourceType: 'module',
+      plugins: ['jsx', 'typescript'],
+    });
 
-  // Update values based on key paths
-  traverseNode(parsed.program, keyPath, newValue);
+    // Loop into each key path and new value
+    for (const { keyPath, newValue } of editedContent[dictionaryPath]) {
+      // Update values based on key paths
+      traverseNode(parsed.program, keyPath, newValue);
+    }
 
-  // Generate the updated code
-  const updatedContent = generate(parsed).code;
+    // Generate the updated code
+    const updatedContent = generate(parsed).code;
 
-  if (fileContent === updatedContent) {
-    console.info(`Could not find specified key path in ${dictionaryPath}.`);
-  } else {
-    const formattedContent = await format(updatedContent);
+    if (fileContent === updatedContent) {
+      console.info(`Could not find specified key path in ${dictionaryPath}.`);
+    } else {
+      const formattedContent = await format(updatedContent);
 
-    // Write back to the file
-    writeFileSync(dictionaryPath, formattedContent, 'utf-8');
+      // Write back to the file
+      writeFileSync(dictionaryPath, formattedContent, 'utf-8');
 
-    console.info('Updated the file successfully.');
+      console.info('Updated the file successfully.');
+    }
   }
 };

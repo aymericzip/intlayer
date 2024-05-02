@@ -10,6 +10,7 @@ import {
 } from '@intlayer/core';
 import { ContentEditor } from '../ContentEditor';
 import { Container, ItemLayout } from './ItemLayout';
+import type { FileContent } from '.';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -22,6 +23,7 @@ interface ItemWrapperProps {
     | EnumerationContent<unknown>;
   onContentChange: (content: { keyPath: KeyPath[]; newValue: string }) => void;
   locale: Locales;
+  editedContent?: FileContent[];
   focusedKeyPath: KeyPath[] | undefined;
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
 }
@@ -34,6 +36,7 @@ export const ItemWrapper = (props: ItemWrapperProps) => {
     onFocusKeyPath,
     locale,
     focusedKeyPath,
+    editedContent,
   } = props;
 
   const isSelectedKeyPath = (keyPath: KeyPath[]) =>
@@ -107,6 +110,10 @@ export const ItemWrapper = (props: ItemWrapperProps) => {
   }
 
   if (typeof section === 'string') {
+    const editedContentValue = editedContent?.find((content) =>
+      isSelectedKeyPath(content.keyPath)
+    )?.newValue;
+
     return (
       <Container
         $level={keyPath.length}
@@ -118,7 +125,7 @@ export const ItemWrapper = (props: ItemWrapperProps) => {
         <ContentEditor
           onContentChange={(newValue) => onContentChange({ keyPath, newValue })}
         >
-          {section}
+          {editedContentValue ?? section}
         </ContentEditor>
       </Container>
     );
