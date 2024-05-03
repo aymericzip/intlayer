@@ -6,7 +6,7 @@ import { getFileHash, transformToCamelCase } from '../../utils';
 
 const { content, internationalization } = getConfiguration();
 const { typesDir, moduleAugmentationDir } = content;
-const { locales } = internationalization;
+const { locales, strictMode } = internationalization;
 
 export const getTypeName = (id: string): string =>
   transformToCamelCase(`${id}Content`);
@@ -15,8 +15,7 @@ export const getTypeName = (id: string): string =>
  * This function generates the content of the module augmentation file
  */
 const generateTypeIndexContent = (typeFiles: string[]): string => {
-  let content =
-    "/* eslint-disable */\nimport 'intlayer';\nimport { Locales } from '@intlayer/config'\n";
+  let content = "/* eslint-disable */\nimport { Locales } from 'intlayer'\n";
 
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
     relativePath: relative(moduleAugmentationDir, dictionaryPath),
@@ -41,11 +40,18 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
     .map((locale) => {
       for (const key in Locales) {
         if (Locales[key as keyof typeof Locales] === locale) {
-          return `    ${key} = '${locale}'`;
+          return `Locales.${key}`;
         }
       }
     })
-    .join(',\n');
+    .join(' | ');
+
+  const strictModeRecord =
+    strictMode === 'strict'
+      ? `interface IConfigLocales<Content> extends Record<ExtractedLocales, Content> {}`
+      : strictMode === 'required_only'
+        ? `interface IConfigLocales<Content> extends Record<ExtractedLocales, Content>, Partial<Record<ExcludedLocales, Content>> {}`
+        : `interface IConfigLocales<Content> extends Partial<Record<Locales, Content>> {}`;
 
   /**
    * Write the module augmentation to extend the intlayer module with the dictionaries types
@@ -58,22 +64,23 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    *     }
    *   }
    *
-   *   enum ConfigLocales {
-   *     ENGLISH = 'en',
-   *     FRENCH = 'fr',
-   *     SPANISH = 'es',
-   *   }
+   *   type ConfigLocales = Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH;
+   *   type ExtractedLocales = Extract<Locales, ConfigLocales>;
+   *   type ExcludedLocales = Exclude<Locales, ConfigLocales>;
    *
-   *   interface IConfigLocales<Content> extends Record<ConfigLocales, Content> {}
+   *   interface IConfigLocales<Content> extends Record<ExtractedLocales, Content>, Partial<Record<ExcludedLocales, Content>> {}
+   *
    *
    * }
    * See https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
    */
   content += `declare module 'intlayer' {\n`;
   content += `  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  }\n\n`;
-  content += `  enum ConfigLocales {\n${formatLocales}\n  };\n\n`;
-  content += `  interface IConfigLocales<Content> extends Record<ConfigLocales, Content> {}\n`;
-  content += `};`;
+  content += `  type ConfigLocales = ${formatLocales};\n`;
+  content += `  type ExtractedLocales = Extract<Locales, ConfigLocales>;\n`;
+  content += `  type ExcludedLocales = Exclude<Locales, ConfigLocales>;\n\n`;
+  content += `  ${strictModeRecord}\n`;
+  content += `}`;
 
   return content;
 };

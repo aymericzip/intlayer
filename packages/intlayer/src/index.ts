@@ -14,12 +14,10 @@ export interface IConfigLocales<Content> {
 
 type ConfigLocales = keyof IConfigLocales<unknown>;
 
-type ConfigLanguageContent<Content> = Record<ConfigLocales, Content>;
-
 export type CustomizableLanguageContent<Content = string> =
   ConfigLocales extends never
     ? LanguageContent<Content>
-    : ConfigLanguageContent<Content>;
+    : IConfigLocales<Content>;
 
 // Re-exporting the following functions from the core package: to use module augmentation
 export const t: <Content = string>(
@@ -37,7 +35,8 @@ export type {
   ContentModule,
 } from '@intlayer/core';
 export { getLocaleName, enu, getEnumerationContent } from '@intlayer/core';
-export {
-  type CustomIntlayerConfig as IntlayerConfig,
-  Locales,
+export type {
+  LocalesValues,
+  CustomIntlayerConfig as IntlayerConfig,
 } from '@intlayer/config/client';
+export { Locales } from '@intlayer/config/client';

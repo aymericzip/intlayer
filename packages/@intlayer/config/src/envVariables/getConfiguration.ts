@@ -5,6 +5,7 @@ import type {
   IntlayerConfig,
   MiddlewareConfig,
   ServerSetCookieRule,
+  StrictMode,
 } from '../types/config';
 import type { Locales } from '../types/locales';
 import { extractEnvVariable } from './extractEnvVariable/index';
@@ -20,6 +21,10 @@ export const getConfiguration = (): IntlayerConfig => {
 
   const intlayerIntlConfiguration: InternationalizationConfig = {
     locales: getEnvValue<Locales>(env.internationalization.locales, 'array')!,
+    strictMode: getEnvValue<StrictMode>(
+      env.internationalization.strictMode,
+      'string'
+    )!,
     defaultLocale: getEnvValue<Locales>(
       env?.internationalization.defaultLocale,
       'string'

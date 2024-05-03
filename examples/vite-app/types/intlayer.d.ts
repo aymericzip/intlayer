@@ -1,6 +1,5 @@
 /* eslint-disable */
-import 'intlayer';
-import { Locales } from '@intlayer/config'
+import { Locales } from 'intlayer'
 import type { LangSwitcherContent as _YkjbEelveUG9JBa9yVBA } from '../.intlayer/types/lang-switcher.d.ts';
 import type { AppContent as _YuiiN4uGEtPTSmA72xqT } from '../.intlayer/types/app.d.ts';
 
@@ -10,11 +9,9 @@ declare module 'intlayer' {
     "app": _YuiiN4uGEtPTSmA72xqT;
   }
 
-  enum ConfigLocales {
-    ENGLISH = 'en',
-    FRENCH = 'fr',
-    SPANISH = 'es'
-  };
+  type ConfigLocales = Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH;
+  type ExtractedLocales = Extract<Locales, ConfigLocales>;
+  type ExcludedLocales = Exclude<Locales, ConfigLocales>;
 
-  interface IConfigLocales<Content> extends Record<ConfigLocales, Content> {}
-};
+  interface IConfigLocales<Content> extends Record<ExtractedLocales, Content>, Partial<Record<ExcludedLocales, Content>> {}
+}
