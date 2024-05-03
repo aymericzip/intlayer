@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "private": false,
   "description": "IntLayer Editor is a tool that allow you to edit your IntLayer declaration files using a graphical interface.",
   "keywords": [
