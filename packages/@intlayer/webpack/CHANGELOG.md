@@ -1,5 +1,16 @@
 # @intlayer/webpack
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies [[`0582240`](https://github.com/aypineau/intlayer/commit/058224018537c06a95f5f8484213d20a00500c7a), [`878e41a`](https://github.com/aypineau/intlayer/commit/878e41a8309bfc3f191a5b09a50d0aced57d4ccc)]:
+  - @intlayer/chokidar@2.0.0
+  - @intlayer/config@2.0.0
+  - @intlayer/core@2.0.0
+  - intlayer@2.0.0
+  - @intlayer/cli@2.0.0
+
 ## 1.2.1
 
 ### Patch Changes
