@@ -1,7 +1,6 @@
 import { LocaleSwitcher } from '@component/components/LangSwitcherDropDown';
 import Image from 'next/image';
-import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerClientProvider } from 'next-intlayer/client';
+import { type NextPageIntlayer, IntlayerClientProvider } from 'next-intlayer';
 import { useIntlayer, IntlayerServerProvider } from 'next-intlayer/server';
 
 import { generateMetadata } from './metadata';
@@ -19,8 +18,8 @@ const Page: NextPageIntlayer = ({ params: { locale } }) => {
        */}
       <IntlayerServerProvider locale={locale}>
         {/**
-         *   IntlayerProvider is used to provide the locale to the client children
-         *   IntlayerProvider can be set in any parent component, including the layout
+         *   IntlayerClientProvider is used to provide the locale to the client children
+         *   IntlayerClientProvider can be set in any parent component, including the layout
          */}
         <IntlayerClientProvider locale={locale}>
           <main className="flex min-h-screen flex-col items-center justify-between p-24">
