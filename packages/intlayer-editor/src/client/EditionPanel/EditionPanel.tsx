@@ -30,10 +30,17 @@ export const EditionPanel: FC<EditionPanelProps> = ({
   localeList,
   setLocale,
 }) => {
-  const { open } = useRightDrawerStore();
-  const { focusedContent, setFocusedContent } = useEditionPanelStore();
+  const { open } = useRightDrawerStore((s) => ({ open: s.open }));
+  const { focusedContent, setFocusedContent } = useEditionPanelStore((s) => ({
+    focusedContent: s.focusedContent,
+    setFocusedContent: s.setFocusedContent,
+  }));
   const { editedContent, addEditedContent, clearEditedDictionaryContent } =
-    useEditedContentStore();
+    useEditedContentStore((s) => ({
+      editedContent: s.editedContent,
+      addEditedContent: s.addEditedContent,
+      clearEditedDictionaryContent: s.clearEditedDictionaryContent,
+    }));
   const { editContentRequest } = useEditorServer();
 
   // Use effect to react to changes in focusedContent

@@ -2,7 +2,10 @@ import { getConfiguration } from '@intlayer/config/client';
 import { useEditedContentStore } from './EditionPanel/useEditedContentStore';
 
 export const useEditorServer = () => {
-  const { editedContent, clearEditedContent } = useEditedContentStore();
+  const { editedContent, clearEditedContent } = useEditedContentStore((s) => ({
+    editedContent: s.editedContent,
+    clearEditedContent: s.clearEditedContent,
+  }));
 
   const editContentRequest = async () => {
     const {

@@ -34,7 +34,10 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   header,
   closeOnOutsideClick = true,
 }) => {
-  const { isOpen, close } = useRightDrawerStore();
+  const { isOpen, close } = useRightDrawerStore((s) => ({
+    isOpen: s.isOpen,
+    close: s.close,
+  }));
   const panelRef = useRef<HTMLDivElement>(null);
 
   useScrollBlockage({

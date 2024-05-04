@@ -19,14 +19,16 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   dictionaryPath,
   keyPath,
 }) => {
-  const { setFocusedContent } = useEditionPanelStore();
+  const setFocusedContent = useEditionPanelStore((s) => s.setFocusedContent);
   const handleSelect = () =>
     setFocusedContent({
       dictionaryId,
       dictionaryPath,
       keyPath,
     });
-  const { getEditedContentValue } = useEditedContentStore();
+  const getEditedContentValue = useEditedContentStore(
+    (s) => s.getEditedContentValue
+  );
   const editedValue = getEditedContentValue(dictionaryPath, keyPath);
 
   return (
