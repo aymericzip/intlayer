@@ -10,7 +10,7 @@ import {
   useState,
   useCallback,
 } from 'react';
-import { ContentEditionLayout } from '../ContentEditionLayout';
+import { ContentEditionLayout } from './ContentEditionLayout';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
 
 type IntlayerValue = {
@@ -51,7 +51,7 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
     locale ?? localeCookie ?? defaultLocale
   );
 
-  const setLocale = useCallback(
+  const setLocaleBase = useCallback(
     (newLocale: Locales) => {
       if (currentLocale.toString() === newLocale.toString()) return;
 
@@ -66,9 +66,11 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
     [availableLocales, currentLocale, locale]
   );
 
+  const setLocale = setLocaleProp ?? setLocaleBase;
+
   const value: IntlayerValue = useMemo<IntlayerValue>(
-    () => ({ locale: currentLocale, setLocale: setLocaleProp ?? setLocale }),
-    [currentLocale, setLocale, setLocaleProp]
+    () => ({ locale: currentLocale, setLocale: setLocale }),
+    [currentLocale, setLocale]
   );
 
   return (

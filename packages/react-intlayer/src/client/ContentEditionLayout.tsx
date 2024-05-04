@@ -12,4 +12,4 @@ const BlankLayout: FC<ContentEditionLayoutProps> = ({ children }) => (
 export const ContentEditionLayout: FC<ContentEditionLayoutProps> =
   typeof ContentEditionLayoutBase === 'undefined'
     ? BlankLayout
-    : (ContentEditionLayoutBase as typeof ContentEditionLayout);
+    : ContentEditionLayoutBase;
