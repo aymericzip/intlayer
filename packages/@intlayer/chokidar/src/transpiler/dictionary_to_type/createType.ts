@@ -16,6 +16,9 @@ const { typesDir } = content;
 const isESModule = typeof import.meta.url === 'string';
 const requireFunction = isESModule ? createRequire(import.meta.url) : require;
 
+const getFirstValue = (obj: Record<string, DictionaryValue>): DictionaryValue =>
+  Object.values(obj)[0];
+
 /**
  *
  * This function generates a TypeScript type definition from a JSON object
@@ -53,9 +56,9 @@ export const generateTypeScriptType = (obj: Dictionary): string => {
 
   const typeName = getTypeName(obj.id);
 
-  typeDefinition += `export type ${typeName} = {\n`;
+  typeDefinition += `export type ${typeName} = `;
   typeDefinition += generateTypeScriptTypeContent(obj as DictionaryValue);
-  typeDefinition += '};\n\n';
+  typeDefinition += ';\n\n';
 
   return typeDefinition;
 };
@@ -76,68 +79,53 @@ export const generateTypeScriptTypeContent = (obj: DictionaryValue): string => {
     return `JSX.Element`;
   }
 
-  let typeDefinition = ``;
-  for (const [key, value] of Object.entries(obj)) {
-    const nodeType: NodeType | undefined = (value as TypedNode)?.nodeType;
-    type ValueKey = keyof typeof value;
+  if (
+    // Check if the value is a typed node
+    (obj as TypedNode).nodeType === NodeType.Translation
+  ) {
+    const { nodeType, ...content } = obj as TypedNode;
 
-    if (
-      // Check if the value is a typed node
-      typeof value === 'object' &&
-      nodeType === NodeType.Translation
-    ) {
-      const tsType = generateTypeScriptTypeContent(
-        value?.[internationalization.defaultLocale as ValueKey]
-      );
-      typeDefinition += `  ${key}: ${tsType},\n`;
-    } else if (
-      // Check if the value is a typed node
-      typeof value === 'object' &&
-      nodeType === NodeType.Enumeration
-    ) {
-      const tsType = generateTypeScriptTypeContent(
-        value?.[
-          internationalization.defaultLocale as ValueKey
-        ] as DictionaryValue
-      );
+    const languageValue: DictionaryValue = getFirstValue(
+      content as Record<string, DictionaryValue>
+    );
 
-      typeDefinition += `  ${key}: (quantity: number) => ${tsType},\n`;
-    } else if (
-      // Check if the value is a nested object
-      typeof value === 'object'
-    ) {
-      const isArray = Array.isArray(value);
+    const tsType = generateTypeScriptTypeContent(languageValue);
+    return `${tsType}`;
+  } else if (
+    // Check if the value is a typed node
+    (obj as TypedNode).nodeType === NodeType.Enumeration
+  ) {
+    const { nodeType, ...content } = obj as TypedNode;
 
-      if (isArray) {
-        // Array handling (simplified, assumes non-empty arrays with uniform type)
-        const arrayType = generateTypeScriptTypeContent(
-          value[0] as DictionaryValue
-        );
+    const quantifiedValue: DictionaryValue = getFirstValue(
+      content as Record<string, DictionaryValue>
+    );
 
-        typeDefinition += `  ${key}: ${arrayType}[],\n`;
-      } else {
-        // Nested object, recurse
-        const nestedType = generateTypeScriptTypeContent(
-          value as DictionaryValue
-        );
+    const tsType = generateTypeScriptTypeContent(quantifiedValue);
 
-        typeDefinition += `  ${key}: {${nestedType}},\n`;
-      }
-    } else if (
-      // Check if the value is an 'id'
-      typeof value === 'string' &&
-      key === 'id'
-    ) {
-      // Special handling for 'id' field
-      const tsType = `"${value}"`;
-      typeDefinition += `  ${key}: ${tsType},\n`;
-    } else {
-      // Primitive type
-      const tsType = typeof value;
-      typeDefinition += `  ${key}: ${tsType},\n`;
-    }
+    return `(quantity: number) => ${tsType}`;
+  } else if (Array.isArray(obj)) {
+    // Array handling (simplified, assumes non-empty arrays with uniform type)
+    const arrayType = generateTypeScriptTypeContent(obj[0] as DictionaryValue);
+
+    return `${arrayType}[]`;
   }
 
+  let typeDefinition = '{';
+  // Nested object, recurse
+  for (const [key, value] of Object.entries(obj)) {
+    const isLast =
+      Object.keys(obj).indexOf(key) === Object.keys(obj).length - 1;
+
+    const nestedType = generateTypeScriptTypeContent(value as DictionaryValue);
+
+    typeDefinition += `'${key}': ${nestedType}`;
+
+    if (!isLast) {
+      typeDefinition += ',';
+    }
+  }
+  typeDefinition += '}';
   return typeDefinition;
 };
 
