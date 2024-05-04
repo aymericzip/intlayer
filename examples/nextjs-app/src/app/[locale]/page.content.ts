@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const pageContent: ContentModule = {
+const pageContent: DeclarationContent = {
   id: 'page',
   getStarted: {
     main: t({

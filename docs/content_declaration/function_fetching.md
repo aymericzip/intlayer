@@ -13,9 +13,9 @@ Intlayer allows you to declare content functions in your content modules, which 
 Here's an example of a simple synchronous function fetching content:
 
 ```typescript
-import type { ContentModule } from "intlayer";
+import type { DeclarationContent } from "intlayer";
 
-const functionContent: ContentModule = {
+const functionContent: DeclarationContent = {
   id: "function_content",
   text: () => "This is the content rendered by a function",
 };
@@ -33,7 +33,7 @@ Below is an example of an asynchronous function that simulates a server fetch:
 
 ```typescript
 import { setTimeout } from "node:timers/promises";
-import type { ContentModule } from "intlayer";
+import type { DeclarationContent } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
   // Wait for 200ms to simulate a fetch from the server
@@ -42,7 +42,7 @@ const fakeFetch = async (): Promise<string> => {
   );
 };
 
-const asyncFunctionContent: ContentModule = {
+const asyncFunctionContent: DeclarationContent = {
   id: "async_function",
   text: fakeFetch,
 };

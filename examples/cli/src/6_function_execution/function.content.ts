@@ -1,6 +1,6 @@
-import type { ContentModule } from 'intlayer';
+import type { DeclarationContent } from 'intlayer';
 
-const functionContent: ContentModule = {
+const functionContent: DeclarationContent = {
   id: 'function',
   text: () => 'This is the content render by a function',
 };

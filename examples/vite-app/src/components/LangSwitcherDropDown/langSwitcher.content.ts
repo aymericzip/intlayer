@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const langSwitcherContent: ContentModule = {
+const langSwitcherContent: DeclarationContent = {
   id: 'lang-switcher',
   title: t({
     en: 'Change locale ⬍',

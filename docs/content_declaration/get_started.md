@@ -35,9 +35,9 @@ Create and manage your content dictionaries:
 
 ```typescript
 // src/app/[locale]/page.content.ts
-import { t, enu, type ContentModule } from "intlayer";
+import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent: ContentModule = {
+const pageContent: DeclarationContent = {
   id: "page",
   getStarted: {
     main: t({
@@ -71,7 +71,7 @@ export default pageContent;
 
 import { t } from "intlayer";
 
-/** @type {import('intlayer').ContentModule} */
+/** @type {import('intlayer').DeclarationContent} */
 const pageContent = {
   id: "page",
   getStarted: {
@@ -106,7 +106,7 @@ export default pageContent;
 
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').ContentModule} */
+/** @type {import('intlayer').DeclarationContent} */
 const pageContent = {
   id: "page",
   getStarted: {

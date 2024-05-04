@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const tsContent: ContentModule = {
+const tsContent: DeclarationContent = {
   id: 'tsFile',
   profileText: t({
     en: 'Manage profile',

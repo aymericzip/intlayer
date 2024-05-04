@@ -38,10 +38,10 @@ Create and manage your content dictionaries:
 
 ```tsx
 // src/app.content.ts
-import { t, type ContentModule } from "intlayer";
+import { t, type DeclarationContent } from "intlayer";
 import { ReactNode } from "react";
 
-const appContent: ContentModule = {
+const appContent: DeclarationContent = {
   id: "app",
 
   getStarted: t<ReactNode>({

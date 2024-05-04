@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const NestedServerComponent: ContentModule = {
+const NestedServerComponent: DeclarationContent = {
   id: 'nested-server-component-example',
   title: t({
     en: 'Server Component wrapped inside a client component example',

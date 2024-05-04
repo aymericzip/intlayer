@@ -1,6 +1,6 @@
-import { enu, type ContentModule } from 'intlayer';
+import { enu, type DeclarationContent } from 'intlayer';
 
-const multipleLocalsContent: ContentModule = {
+const multipleLocalsContent: DeclarationContent = {
   id: 'enumeration',
   numberOfCar: enu({
     '<-1': 'Less than minus one car',

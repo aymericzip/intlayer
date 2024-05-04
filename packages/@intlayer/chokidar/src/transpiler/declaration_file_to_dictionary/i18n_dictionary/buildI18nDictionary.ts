@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import type { ContentModule } from '@intlayer/core';
+import type { DeclarationContent } from '@intlayer/core';
 import {
   processContentDeclaration,
   extractObjectsWithId,
@@ -68,7 +68,7 @@ export const buildI18nDictionary = async (
       continue;
     }
 
-    const nestedContent: ContentModule[] = extractObjectsWithId(result);
+    const nestedContent: DeclarationContent[] = extractObjectsWithId(result);
 
     // Create dictionaries for each nested content and format them
     const dictionariesDeclaration: DictionariesDeclaration =

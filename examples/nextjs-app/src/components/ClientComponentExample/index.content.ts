@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const clientComponentExampleContent: ContentModule = {
+const clientComponentExampleContent: DeclarationContent = {
   id: 'client-component-example',
   title: t({
     en: 'Client Component Example',

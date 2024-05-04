@@ -1,11 +1,11 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
 interface ICustomContent {
   title: string;
   content: string;
 }
 
-const customContent: ContentModule = {
+const customContent: DeclarationContent = {
   id: 'custom_content',
   profileText: t<ICustomContent>({
     en: {

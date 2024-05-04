@@ -153,9 +153,9 @@ export const createTypes = (dictionariesPaths: string[]): string[] => {
   }
 
   for (const dictionaryPath of dictionariesPaths) {
-    const contentModule: Dictionary = requireFunction(dictionaryPath);
-    const dictionaryName: string = contentModule.id;
-    const typeDefinition: string = generateTypeScriptType(contentModule);
+    const dictionary: Dictionary = requireFunction(dictionaryPath);
+    const dictionaryName: string = dictionary.id;
+    const typeDefinition: string = generateTypeScriptType(dictionary);
 
     const outputPath: string = resolve(typesDir, `${dictionaryName}.d.ts`);
 

@@ -11,9 +11,9 @@ The `t` function in `intlayer` allows you to declare content in multiple languag
 Here's an example of how to declare content with translations in a TypeScript file:
 
 ```typescript
-import { t, type ContentModule } from "intlayer";
+import { t, type DeclarationContent } from "intlayer";
 
-const multiLangContent: ContentModule = {
+const multiLangContent: DeclarationContent = {
   id: "multi_lang",
   welcomeMessage: t({
     en: "Welcome to our application",
@@ -122,14 +122,14 @@ This component fetches the corresponding translation based on the current locale
 `intlayer` supports custom content objects for translation, allowing you to define more complex structures while ensuring type safety. Here's an example with a custom object:
 
 ```typescript
-import { t, type ContentModule } from "intlayer";
+import { t, type DeclarationContent } from "intlayer";
 
 interface ICustomContent {
   title: string;
   content: string;
 }
 
-const customContent: ContentModule = {
+const customContent: DeclarationContent = {
   id: "custom_content",
   profileText: t<ICustomContent>({
     en: {

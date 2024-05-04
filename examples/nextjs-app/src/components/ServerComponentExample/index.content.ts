@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const serverComponentExampleContent: ContentModule = {
+const serverComponentExampleContent: DeclarationContent = {
   id: 'server-component-example',
   title: t({
     en: 'Server Component Example',

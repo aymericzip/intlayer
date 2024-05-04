@@ -5,8 +5,8 @@ export type {
   FlatContentValue,
   FlatContent,
   TypedNode,
-  ContentModule,
-} from './contentModule';
+  DeclarationContent,
+} from './declarationContent';
 export { NodeType } from './nodeType';
 export type {
   KeyPath,

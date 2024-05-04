@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import type {
   Content,
-  ContentModule,
+  DeclarationContent,
   FlatContent,
   FlatContentValue,
 } from '@intlayer/core';
@@ -53,7 +53,7 @@ const processFunctionResults = async (entry: Content): Promise<FlatContent> => {
 };
 
 /**
- * Function to load, process the module and return the Intlayer ContentModule from the module file
+ * Function to load, process the module and return the Intlayer DeclarationContent from the module file
  */
 export const processContentDeclaration = async (file: string) => {
   try {
@@ -65,7 +65,7 @@ export const processContentDeclaration = async (file: string) => {
       return;
     }
 
-    return (await processFunctionResults(entry)) as ContentModule;
+    return (await processFunctionResults(entry)) as DeclarationContent;
   } catch (error) {
     console.error('Error processing module:', error);
   }

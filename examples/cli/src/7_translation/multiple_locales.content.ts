@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const multipleLocalsContent: ContentModule = {
+const multipleLocalsContent: DeclarationContent = {
   id: 'multiple_locals',
   profileText: t({
     en: 'Manage profile',

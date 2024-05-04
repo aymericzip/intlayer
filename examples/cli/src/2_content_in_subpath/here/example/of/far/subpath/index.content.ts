@@ -1,6 +1,6 @@
-import type { ContentModule } from 'intlayer';
+import type { DeclarationContent } from 'intlayer';
 
-const tsContentInSubPath: ContentModule = {
+const tsContentInSubPath: DeclarationContent = {
   id: 'tsSubpath',
   testInSubPath: {
     en: 'Manage profile',

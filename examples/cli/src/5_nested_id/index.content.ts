@@ -1,6 +1,6 @@
-import type { ContentModule } from 'intlayer';
+import type { DeclarationContent } from 'intlayer';
 
-const nestedContent: ContentModule = {
+const nestedContent: DeclarationContent = {
   id: 'nested_id_1',
   text: 'here the fist id',
 

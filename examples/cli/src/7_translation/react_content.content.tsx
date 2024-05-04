@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const customContent: ContentModule = {
+const customContent: DeclarationContent = {
   id: 'react_content',
   profileText: t<JSX.Element>({
     en: <h1>Title of the page</h1>,

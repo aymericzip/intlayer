@@ -38,7 +38,7 @@ export type FlatContentValue =
 
 export type FlatContent = Record<string, FlatContentValue | undefined>;
 
-export type ContentModule = Content & {
+export type DeclarationContent = Content & {
   id: string;
   filePath?: string;
 };
