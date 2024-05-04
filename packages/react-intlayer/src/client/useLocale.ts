@@ -3,7 +3,7 @@
 import { getConfiguration } from '@intlayer/config/client';
 import { localeList } from '@intlayer/core';
 import { useContext } from 'react';
-import { IntlayerClientContext } from './IntlayerClientProvider';
+import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
  * On the client side, hook to get the current locale and all related fields

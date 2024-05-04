@@ -10,7 +10,7 @@ import {
   useState,
   useCallback,
 } from 'react';
-import { ContentEditionLayout } from './ContentEditionLayout';
+import { ContentEditionLayout } from '../ContentEditionLayout';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
 
 type IntlayerValue = {
@@ -31,16 +31,18 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
  */
 export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
-export type IntlayerClientProviderProps = PropsWithChildren & {
+export type IntlayerProviderProps = PropsWithChildren & {
   locale?: Locales;
+  setLocale?: (locale: Locales) => void;
 };
 
 /**
  * Provider that store the current locale on the client side
  */
-export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
+export const IntlayerProvider: FC<IntlayerProviderProps> = ({
   locale,
   children,
+  setLocale: setLocaleProp,
 }) => {
   const { defaultLocale, locales: availableLocales } =
     getConfiguration().internationalization;
@@ -65,8 +67,8 @@ export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
   );
 
   const value: IntlayerValue = useMemo<IntlayerValue>(
-    () => ({ locale: currentLocale, setLocale }),
-    [currentLocale, setLocale]
+    () => ({ locale: currentLocale, setLocale: setLocaleProp ?? setLocale }),
+    [currentLocale, setLocale, setLocaleProp]
   );
 
   return (

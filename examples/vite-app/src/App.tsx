@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
-import { IntlayerClientProvider, useIntlayer } from 'react-intlayer';
+import { IntlayerProvider, useIntlayer } from 'react-intlayer';
 
 function AppContent() {
   const [count, setCount] = useState(0);
@@ -37,9 +37,9 @@ function AppContent() {
 
 function App() {
   return (
-    <IntlayerClientProvider>
+    <IntlayerProvider>
       <AppContent />
-    </IntlayerClientProvider>
+    </IntlayerProvider>
   );
 }
 

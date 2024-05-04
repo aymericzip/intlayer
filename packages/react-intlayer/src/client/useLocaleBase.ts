@@ -3,7 +3,7 @@
 import { getConfiguration } from '@intlayer/config/client';
 import { localeList } from '@intlayer/core';
 import { useContext } from 'react';
-import { IntlayerClientContext } from './IntlayerClientProvider';
+import { IntlayerClientContext } from './IntlayerProvider';
 
 const { defaultLocale, locales: availableLocales } =
   getConfiguration().internationalization;

@@ -1,4 +1,5 @@
 import { type Locales, getConfiguration } from '@intlayer/config/client';
+import { ContentEditionLayout } from 'intlayer-editor/client';
 import type { FC, PropsWithChildren } from 'react';
 import { createServerContext, getServerContext } from './serverContext';
 

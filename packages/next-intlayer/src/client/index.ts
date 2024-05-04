@@ -1,7 +1,7 @@
 export {
   getTranslation,
-  IntlayerClientProvider,
-  IntlayerClient,
+  IntlayerProvider as IntlayerClientProvider,
+  IntlayerClientContext,
   useIntlayer,
   useTraduction,
   useLocaleCookie,

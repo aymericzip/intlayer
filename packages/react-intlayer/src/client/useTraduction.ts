@@ -1,7 +1,7 @@
 import type { LanguageContent } from '@intlayer/core';
 import { useContext } from 'react';
 import { getTranslation } from '../getTranslation';
-import { IntlayerClientContext } from './IntlayerClientProvider';
+import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
  * On the client side, Hook that picking one dictionary by its id and return the content.
