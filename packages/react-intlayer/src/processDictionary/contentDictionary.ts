@@ -20,7 +20,10 @@ export type TransformedContentValue =
   | ((quantity: number) => TransformedContentValue);
 
 export type TransformedContent =
-  | Record<string, TransformedContentValue | undefined>
+  | Record<
+      string,
+      TransformedContentValue | TransformedContentValue[] | undefined
+    >
   | ReactNode;
 
 export type ContentDictionary = Content & {

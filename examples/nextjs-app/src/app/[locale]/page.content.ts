@@ -1,10 +1,4 @@
-import { t, type ContentModule, type IConfigLocales } from 'intlayer';
-
-export const test1: IConfigLocales<string> = {
-  en: '',
-  es: '',
-  fr: '',
-};
+import { t, type ContentModule } from 'intlayer';
 
 const pageContent: ContentModule = {
   id: 'page',

@@ -26,7 +26,6 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
       dictionaryPath,
       keyPath,
     });
-
   const { getEditedContentValue } = useEditedContentStore();
   const editedValue = getEditedContentValue(dictionaryPath, keyPath);
 

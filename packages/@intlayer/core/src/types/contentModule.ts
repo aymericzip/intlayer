@@ -16,7 +16,16 @@ export type ContentValue =
   | Promise<ContentValue>
   | TypedNode;
 
-export type Content = Record<string, ContentValue | undefined>;
+type ArrayOfSameType<T> = T extends (infer U)[]
+  ? U extends T[number]
+    ? T
+    : never
+  : never;
+
+export type Content = Record<
+  string,
+  ContentValue | ArrayOfSameType<ContentValue[]> | undefined
+>;
 
 export type FlatContentValue =
   | string

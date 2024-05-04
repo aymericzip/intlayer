@@ -2,7 +2,7 @@ import { getConfiguration } from '@intlayer/config';
 import bodyParser from 'body-parser';
 import express, { type Request, type Response } from 'express';
 import type { EditedContent } from '../client';
-import { editContent } from './content-editor';
+import { processEdition } from './processEdition';
 
 export const startIntlayerEditor = () => {
   const app = express();
@@ -22,7 +22,7 @@ export const startIntlayerEditor = () => {
       const editedContent = req.body;
 
       try {
-        await editContent(editedContent);
+        await processEdition(editedContent);
 
         res.send({ success: true, editedContent });
       } catch (error) {

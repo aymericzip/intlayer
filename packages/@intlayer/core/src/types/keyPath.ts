@@ -5,9 +5,17 @@ export type ObjectExpressionNode = {
   key: string;
 };
 
+export type ArrayExpressionNode = {
+  type: 'ArrayExpression';
+  key: number;
+};
+
 export type TranslationOrEnumerationNode = {
   type: NodeType;
   key: string;
 };
 
-export type KeyPath = ObjectExpressionNode | TranslationOrEnumerationNode;
+export type KeyPath =
+  | ObjectExpressionNode
+  | ArrayExpressionNode
+  | TranslationOrEnumerationNode;

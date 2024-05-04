@@ -108,7 +108,7 @@ export const generateTypeScriptTypeContent = (obj: Content): string => {
 
       if (isArray) {
         // Array handling (simplified, assumes non-empty arrays with uniform type)
-        const arrayType = generateTypeScriptTypeContent(value as Content);
+        const arrayType = generateTypeScriptTypeContent(value[0] as Content);
 
         typeDefinition += `  ${key}: ${arrayType}[],\n`;
       } else {

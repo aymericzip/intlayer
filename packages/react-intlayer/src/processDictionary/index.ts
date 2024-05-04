@@ -48,14 +48,15 @@ const processTranslation = (
   );
 };
 
-const processEnumeration = (
-  enumerationContent: QuantityContent<ContentValue>,
-  locale: Locales,
-  dictionaryId: string,
-  dictionaryPath: string,
-  keyPath: KeyPath[] = []
-): TransformedContentValue => {
-  return (quantity: number): TransformedContentValue => {
+const processEnumeration =
+  (
+    enumerationContent: QuantityContent<ContentValue>,
+    locale: Locales,
+    dictionaryId: string,
+    dictionaryPath: string,
+    keyPath: KeyPath[] = []
+  ): TransformedContentValue =>
+  (quantity: number): TransformedContentValue => {
     const enumerationResult: ContentValue = getEnumeration<ContentValue>(
       enumerationContent,
       quantity
@@ -71,16 +72,14 @@ const processEnumeration = (
       { type: NodeType.Enumeration, key: matchingCondition.toString() },
     ];
 
-    //
     return processDictionary(
       enumerationResult as Content,
       dictionaryId,
       dictionaryPath,
       resultKeyPath,
       locale
-    );
+    ) as TransformedContentValue;
   };
-};
 
 const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
@@ -100,7 +99,7 @@ export const processNode = (
         dictionaryId,
         dictionaryPath,
         keyPath
-      );
+      ) as TransformedContentValue;
     }
 
     if (field.nodeType === NodeType.Enumeration) {
@@ -120,7 +119,7 @@ export const processNode = (
     dictionaryPath,
     keyPath,
     locale
-  );
+  ) as TransformedContentValue;
 };
 
 // This function recursively creates React elements from a given JSON-like structure
@@ -173,6 +172,7 @@ export const processDictionary = (
   dictionaryPath: string,
   keyPath: KeyPath[] = [],
   locale: Locales = defaultLocale
+  // eslint-disable-next-line sonarjs/cognitive-complexity
 ): TransformedContent => {
   // If it's a React element, render it
   if (isReactNode(content)) {
@@ -182,29 +182,50 @@ export const processDictionary = (
   }
 
   if (content && typeof content === 'object') {
-    const result: TransformedContent = {};
+    const isArray = Array.isArray(content);
 
-    // List each key in the content and process it
-    for (const key of Object.keys(content)) {
-      const field = content[key];
+    let result: TransformedContent = {};
 
-      if (traceKeys.includes(key)) {
-        result[key] = field as TransformedContentValue;
-        continue;
+    if (isArray) {
+      // Eslint fix because promises are awaited during build stage
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      result = (content as ContentValue[]).map((field, key) => {
+        const resultKeyPath: KeyPath[] = [
+          ...keyPath,
+          { type: 'ArrayExpression', key },
+        ];
+
+        return processNode(
+          field,
+          locale,
+          dictionaryId,
+          dictionaryPath,
+          resultKeyPath
+        );
+      }) as TransformedContent;
+    } else {
+      // List each key in the content and process it
+      for (const key of Object.keys(content)) {
+        const field = content[key];
+
+        if (traceKeys.includes(key)) {
+          result[key] = field as TransformedContentValue;
+          continue;
+        }
+
+        const resultKeyPath: KeyPath[] = [
+          ...keyPath,
+          { type: 'ObjectExpression', key },
+        ];
+
+        result[key] = processNode(
+          field,
+          locale,
+          dictionaryId,
+          dictionaryPath,
+          resultKeyPath
+        );
       }
-
-      const resultKeyPath: KeyPath[] = [
-        ...keyPath,
-        { type: 'ObjectExpression', key },
-      ];
-
-      result[key] = processNode(
-        field,
-        locale,
-        dictionaryId,
-        dictionaryPath,
-        resultKeyPath
-      );
     }
 
     return result;

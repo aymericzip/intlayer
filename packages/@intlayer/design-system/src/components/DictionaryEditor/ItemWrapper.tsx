@@ -28,6 +28,14 @@ interface ItemWrapperProps {
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
 }
 
+const isEqualKeyPath = (keyPath1: KeyPath[], keyPath2: KeyPath[]) =>
+  keyPath1.every(
+    (element, index) =>
+      keyPath2[index] &&
+      keyPath2[index].key === element.key &&
+      keyPath2[index].type === element.type
+  );
+
 export const ItemWrapper = (props: ItemWrapperProps) => {
   const {
     keyPath,
@@ -35,26 +43,24 @@ export const ItemWrapper = (props: ItemWrapperProps) => {
     onContentChange,
     onFocusKeyPath,
     locale,
-    focusedKeyPath,
+    focusedKeyPath = [],
     editedContent,
   } = props;
-
-  const isSelectedKeyPath = (keyPath: KeyPath[]) =>
-    keyPath.every(
-      (element, index) =>
-        (focusedKeyPath ?? [])[index] &&
-        (focusedKeyPath ?? [])[index].key === element.key &&
-        (focusedKeyPath ?? [])[index].type === element.type
-    );
 
   if (typeof section === 'object') {
     if (
       (section as TranslationContent<unknown>).nodeType === NodeType.Translation
     ) {
+      const newKeyPathEl: KeyPath = {
+        type: NodeType.Translation,
+        key: locale,
+      };
+      const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
+
       return (
         <ItemWrapper
           {...props}
-          keyPath={[...keyPath, { key: locale, type: NodeType.Translation }]}
+          keyPath={newKeyPath}
           section={section[locale as keyof typeof section]}
         />
       );
@@ -63,29 +69,52 @@ export const ItemWrapper = (props: ItemWrapperProps) => {
     if (
       (section as EnumerationContent<unknown>).nodeType === NodeType.Enumeration
     ) {
+      const newKeyPathEl: KeyPath = {
+        type: NodeType.Enumeration,
+        key: locale,
+      };
+      const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
+
       return (
-        <ItemLayout
-          level={keyPath.length}
-          title="enumeration"
-          description=""
-          isSelected={isSelectedKeyPath(keyPath)}
-          onClick={(e) => {
-            e.stopPropagation();
-            onFocusKeyPath(keyPath);
-          }}
-        >
-          <>enumeration</>
-        </ItemLayout>
+        <>
+          {Object.keys(section)
+            .filter((key) => !traceKeys.includes(key))
+            .map((key) => {
+              <ItemWrapper
+                {...props}
+                key={key}
+                keyPath={newKeyPath}
+                section={section[key as keyof typeof section]}
+              />;
+            })}
+        </>
       );
+    }
+
+    if (Array.isArray(section)) {
+      return section.map((subSection, key) => {
+        const newKeyPathEl: KeyPath = {
+          key,
+          type: 'ArrayExpression',
+        };
+        const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
+
+        return (
+          <ItemWrapper
+            {...props}
+            key={key}
+            keyPath={newKeyPath}
+            section={subSection}
+          />
+        );
+      });
     }
 
     return Object.keys(section)
       .filter((key) => !traceKeys.includes(key))
       .map((key) => {
-        const newKeyPath: KeyPath[] = [
-          ...keyPath,
-          { key, type: 'ObjectExpression' },
-        ];
+        const newKeyPathEl: KeyPath = { key, type: 'ObjectExpression' };
+        const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
         return (
           <ItemLayout
@@ -93,7 +122,7 @@ export const ItemWrapper = (props: ItemWrapperProps) => {
             key={key}
             title={key}
             description=""
-            isSelected={isSelectedKeyPath(newKeyPath)}
+            isSelected={isEqualKeyPath(newKeyPath, focusedKeyPath)}
             onClick={(e) => {
               e.stopPropagation();
               onFocusKeyPath(newKeyPath);
@@ -111,7 +140,7 @@ export const ItemWrapper = (props: ItemWrapperProps) => {
 
   if (typeof section === 'string') {
     const editedContentValue = editedContent?.find((content) =>
-      isSelectedKeyPath(content.keyPath)
+      isEqualKeyPath(content.keyPath, focusedKeyPath)
     )?.newValue;
 
     return (

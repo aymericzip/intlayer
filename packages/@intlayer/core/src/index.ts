@@ -22,6 +22,7 @@ export type {
   ContentModule,
   KeyPath,
   ObjectExpressionNode,
+  ArrayExpressionNode,
   TranslationOrEnumerationNode,
 } from './types/index';
 export { NodeType } from './types/index';

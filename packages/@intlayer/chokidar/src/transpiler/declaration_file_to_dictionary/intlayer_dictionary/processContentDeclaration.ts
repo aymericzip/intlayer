@@ -17,8 +17,15 @@ const processFunctionResults = async (entry: Content): Promise<FlatContent> => {
 
     for (const key of Object.keys(entry)) {
       const field = entry?.[key];
+      const isArray = Array.isArray(field);
 
-      if (typeof field === 'object') {
+      if (typeof field === 'object' && isArray) {
+        result[key] = (await Promise.all(
+          field.map(async (el) => {
+            return await processFunctionResults(el as Content);
+          })
+        )) as unknown as FlatContentValue;
+      } else if (typeof field === 'object') {
         result[key] = (await processFunctionResults(
           field as Content
         )) as FlatContentValue;
