@@ -10,6 +10,7 @@ import {
   type DictionaryValue,
   type TranslationContent,
   type EnumerationContent,
+  type TypedNode,
 } from '@intlayer/core';
 import { renderContentEditor } from 'intlayer-editor/client';
 import { type ReactElement, createElement, type ReactNode } from 'react';
@@ -194,7 +195,15 @@ export const processDictionary = (
 
     let result: TransformedContent = {};
 
-    if (isArray) {
+    if (typeof (content as TypedNode).nodeType !== 'undefined') {
+      return processNode(
+        content as DictionaryValue,
+        locale,
+        dictionaryId,
+        dictionaryPath,
+        keyPath
+      ) as TransformedContent;
+    } else if (isArray) {
       // Eslint fix because promises are awaited during build stage
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       result = (content as DictionaryValue[]).map((field, key) => {
