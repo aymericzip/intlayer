@@ -1,7 +1,7 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { ContentModule } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import {
   useRightDrawerStore,
   RightDrawer,
@@ -54,7 +54,7 @@ export const EditionPanel: FC<EditionPanelProps> = ({
     return null;
   }
 
-  const dictionary: ContentModule = dictionaries[focusedContent.dictionaryId];
+  const dictionary: Dictionary = dictionaries[focusedContent.dictionaryId];
 
   if (!dictionary?.filePath) {
     return null;

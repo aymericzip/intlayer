@@ -4,8 +4,8 @@ import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import {
   NodeType,
-  type Content,
-  type ContentModule,
+  type Dictionary,
+  type DictionaryValue,
   type TypedNode,
 } from '@intlayer/core';
 import { getTypeName } from './createModuleAugmentation';
@@ -48,13 +48,13 @@ const requireFunction = isESModule ? createRequire(import.meta.url) : require;
  * };
  *
  */
-export const generateTypeScriptType = (obj: ContentModule): string => {
+export const generateTypeScriptType = (obj: Dictionary): string => {
   let typeDefinition = ``;
 
   const typeName = getTypeName(obj.id);
 
   typeDefinition += `export type ${typeName} = {\n`;
-  typeDefinition += generateTypeScriptTypeContent(obj);
+  typeDefinition += generateTypeScriptTypeContent(obj as DictionaryValue);
   typeDefinition += '};\n\n';
 
   return typeDefinition;
@@ -64,7 +64,7 @@ const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
-export const generateTypeScriptTypeContent = (obj: Content): string => {
+export const generateTypeScriptTypeContent = (obj: DictionaryValue): string => {
   if (typeof obj !== 'object' || obj === null) {
     return `${typeof obj}`;
   }
@@ -96,7 +96,9 @@ export const generateTypeScriptTypeContent = (obj: Content): string => {
       nodeType === NodeType.Enumeration
     ) {
       const tsType = generateTypeScriptTypeContent(
-        value?.[internationalization.defaultLocale as ValueKey] as Content
+        value?.[
+          internationalization.defaultLocale as ValueKey
+        ] as DictionaryValue
       );
 
       typeDefinition += `  ${key}: (quantity: number) => ${tsType},\n`;
@@ -108,12 +110,16 @@ export const generateTypeScriptTypeContent = (obj: Content): string => {
 
       if (isArray) {
         // Array handling (simplified, assumes non-empty arrays with uniform type)
-        const arrayType = generateTypeScriptTypeContent(value[0] as Content);
+        const arrayType = generateTypeScriptTypeContent(
+          value[0] as DictionaryValue
+        );
 
         typeDefinition += `  ${key}: ${arrayType}[],\n`;
       } else {
         // Nested object, recurse
-        const nestedType = generateTypeScriptTypeContent(value as Content);
+        const nestedType = generateTypeScriptTypeContent(
+          value as DictionaryValue
+        );
 
         typeDefinition += `  ${key}: {${nestedType}},\n`;
       }
@@ -147,11 +153,11 @@ export const createTypes = (dictionariesPaths: string[]): string[] => {
   }
 
   for (const dictionaryPath of dictionariesPaths) {
-    const contentModule: ContentModule = requireFunction(dictionaryPath);
+    const contentModule: Dictionary = requireFunction(dictionaryPath);
     const dictionaryName: string = contentModule.id;
     const typeDefinition: string = generateTypeScriptType(contentModule);
 
-    const outputPath = resolve(typesDir, `${dictionaryName}.d.ts`);
+    const outputPath: string = resolve(typesDir, `${dictionaryName}.d.ts`);
 
     writeFileSync(outputPath, typeDefinition);
 

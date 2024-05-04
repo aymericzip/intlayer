@@ -7,6 +7,14 @@ export type TypedNode =
   | TranslationContent<unknown>
   | EnumerationContent<unknown>;
 
+type ArrayOfSameType<T> = T extends (infer U)[]
+  ? U extends T[number]
+    ? T
+    : never
+  : never;
+
+export type ContentValueArray = ArrayOfSameType<ContentValue[]>;
+
 export type ContentValue =
   | string
   | {
@@ -16,15 +24,9 @@ export type ContentValue =
   | Promise<ContentValue>
   | TypedNode;
 
-type ArrayOfSameType<T> = T extends (infer U)[]
-  ? U extends T[number]
-    ? T
-    : never
-  : never;
-
 export type Content = Record<
   string,
-  ContentValue | ArrayOfSameType<ContentValue[]> | undefined
+  ContentValue | ContentValueArray | undefined
 >;
 
 export type FlatContentValue =

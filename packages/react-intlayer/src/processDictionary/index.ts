@@ -6,14 +6,16 @@ import {
   type LanguageContent,
   findMatchingCondition,
   type KeyPath,
+  type Dictionary,
+  type DictionaryValue,
+  type TranslationContent,
+  type EnumerationContent,
 } from '@intlayer/core';
 import { renderContentEditor } from 'intlayer-editor/client';
 import { type ReactElement, createElement, type ReactNode } from 'react';
 import { getEnumeration } from '../getEnumeration';
 import { getTranslation } from '../getTranslation';
 import type {
-  Content,
-  ContentValue,
   TransformedContent,
   TransformedContentValue,
 } from './contentDictionary';
@@ -23,13 +25,13 @@ const {
 } = getConfiguration();
 
 const processTranslation = (
-  languageContent: LanguageContent<ContentValue>,
+  languageContent: LanguageContent<DictionaryValue>,
   locale: Locales,
   dictionaryId: string,
   dictionaryPath: string,
   keyPath: KeyPath[] = []
 ): TransformedContent => {
-  const translationResult: ContentValue = getTranslation<ContentValue>(
+  const translationResult: DictionaryValue = getTranslation<DictionaryValue>(
     languageContent,
     locale
   );
@@ -40,7 +42,7 @@ const processTranslation = (
   ];
 
   return processDictionary(
-    translationResult as Content,
+    translationResult,
     dictionaryId,
     dictionaryPath,
     resultKeyPath,
@@ -50,14 +52,14 @@ const processTranslation = (
 
 const processEnumeration =
   (
-    enumerationContent: QuantityContent<ContentValue>,
+    enumerationContent: QuantityContent<DictionaryValue>,
     locale: Locales,
     dictionaryId: string,
     dictionaryPath: string,
     keyPath: KeyPath[] = []
   ): TransformedContentValue =>
   (quantity: number): TransformedContentValue => {
-    const enumerationResult: ContentValue = getEnumeration<ContentValue>(
+    const enumerationResult: DictionaryValue = getEnumeration<DictionaryValue>(
       enumerationContent,
       quantity
     );
@@ -73,7 +75,7 @@ const processEnumeration =
     ];
 
     return processDictionary(
-      enumerationResult as Content,
+      enumerationResult,
       dictionaryId,
       dictionaryPath,
       resultKeyPath,
@@ -85,16 +87,19 @@ const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
 
 export const processNode = (
-  field: ContentValue | undefined,
+  field: DictionaryValue | undefined,
   locale: Locales,
   dictionaryId: string,
   dictionaryPath: string,
   keyPath: KeyPath[] = []
 ): TransformedContentValue => {
   if (typeof field === 'object') {
-    if (field.nodeType === NodeType.Translation) {
+    if (
+      (field as TranslationContent<DictionaryValue>).nodeType ===
+      NodeType.Translation
+    ) {
       return processTranslation(
-        field as LanguageContent<ContentValue>,
+        field as LanguageContent<DictionaryValue>,
         locale,
         dictionaryId,
         dictionaryPath,
@@ -102,9 +107,12 @@ export const processNode = (
       ) as TransformedContentValue;
     }
 
-    if (field.nodeType === NodeType.Enumeration) {
+    if (
+      (field as EnumerationContent<DictionaryValue>).nodeType ===
+      NodeType.Enumeration
+    ) {
       return processEnumeration(
-        field satisfies QuantityContent<ContentValue>,
+        field as QuantityContent<DictionaryValue>,
         locale,
         dictionaryId,
         dictionaryPath,
@@ -114,7 +122,7 @@ export const processNode = (
   }
 
   return processDictionary(
-    field as Content,
+    field!,
     dictionaryId,
     dictionaryPath,
     keyPath,
@@ -167,7 +175,7 @@ const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
  * Function that process a dictionary and return the result to be used in the application.
  */
 export const processDictionary = (
-  content: Content,
+  content: Dictionary | DictionaryValue,
   dictionaryId: string,
   dictionaryPath: string,
   keyPath: KeyPath[] = [],
@@ -175,7 +183,7 @@ export const processDictionary = (
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ): TransformedContent => {
   // If it's a React element, render it
-  if (isReactNode(content)) {
+  if (isReactNode(content as Record<string, unknown>)) {
     return createReactElement(
       content as unknown as ReactElement
     ) as unknown as TransformedContent;
@@ -189,7 +197,7 @@ export const processDictionary = (
     if (isArray) {
       // Eslint fix because promises are awaited during build stage
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      result = (content as ContentValue[]).map((field, key) => {
+      result = (content as DictionaryValue[]).map((field, key) => {
         const resultKeyPath: KeyPath[] = [
           ...keyPath,
           { type: 'ArrayExpression', key },
@@ -206,7 +214,7 @@ export const processDictionary = (
     } else {
       // List each key in the content and process it
       for (const key of Object.keys(content)) {
-        const field = content[key];
+        const field = content[key as keyof typeof content];
 
         if (traceKeys.includes(key)) {
           result[key] = field as TransformedContentValue;

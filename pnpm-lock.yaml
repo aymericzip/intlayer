@@ -491,6 +491,9 @@ importers:
         specifier: workspace:^
         version: link:../config
     devDependencies:
+      '@intlayer/core':
+        specifier: workspace:^
+        version: link:../core
       '@types/node':
         specifier: ^20.12.7
         version: 20.12.7

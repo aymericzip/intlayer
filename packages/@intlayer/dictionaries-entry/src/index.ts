@@ -9,6 +9,7 @@ import { existsSync } from 'fs';
 import { createRequire } from 'module';
 import { join } from 'path';
 import { getConfiguration } from '@intlayer/config';
+import type { Dictionary } from '@intlayer/core';
 
 const isESModule = typeof import.meta.url === 'string';
 let dictionaries = undefined;
@@ -24,4 +25,4 @@ if (existsSync(dictionariesPath)) {
   dictionaries = requireFunction(dictionariesPath);
 }
 
-export default dictionaries ?? {};
+export default (dictionaries ?? {}) as Record<string, Dictionary>;

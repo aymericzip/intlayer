@@ -1,5 +1,6 @@
 export type {
   ContentValue,
+  ContentValueArray,
   Content,
   FlatContentValue,
   FlatContent,
@@ -13,3 +14,4 @@ export type {
   ArrayExpressionNode,
   TranslationOrEnumerationNode,
 } from './keyPath';
+export type { DictionaryValue, Dictionary } from './dictionary';

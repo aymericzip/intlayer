@@ -1,14 +1,4 @@
-import type { TranslationContent } from '@intlayer/core';
 import type { ReactNode } from 'react';
-
-export type ContentValue =
-  | string
-  | {
-      [key: string]: ContentValue;
-    }
-  | TranslationContent<unknown>;
-
-export type Content = Record<string, ContentValue | undefined>;
 
 export type TransformedContentValue =
   | string
@@ -25,7 +15,3 @@ export type TransformedContent =
       TransformedContentValue | TransformedContentValue[] | undefined
     >
   | ReactNode;
-
-export type ContentDictionary = Content & {
-  id: string;
-};

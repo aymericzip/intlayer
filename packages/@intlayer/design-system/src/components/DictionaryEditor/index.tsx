@@ -1,11 +1,11 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { ContentModule, ContentValue, KeyPath } from '@intlayer/core';
+import type { Dictionary, KeyPath } from '@intlayer/core';
 import { Check, X } from 'lucide-react';
 import type { FC } from 'react';
 import tw from 'twin.macro';
-import { ItemWrapper } from './ItemWrapper';
+import { NodeWrapper } from './NodeWrapper';
 
 export type FileContent = {
   keyPath: KeyPath[];
@@ -13,7 +13,7 @@ export type FileContent = {
 };
 
 interface DictionaryEditorProps {
-  dictionary: ContentModule;
+  dictionary: Dictionary;
   onContentChange: (keyPath: KeyPath[], newValue: string) => void;
   onValidEdition: () => void;
   onCancelEdition: () => void;
@@ -41,11 +41,11 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   return (
     <StyledContainer>
       <div>
-        <ItemWrapper
+        <NodeWrapper
           {...props}
           keyPath={[]}
           focusedKeyPath={focusedKeyPath}
-          section={dictionary as ContentValue}
+          section={dictionary}
           onContentChange={(content) =>
             onContentChange(content.keyPath, content.newValue)
           }
