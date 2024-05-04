@@ -43,8 +43,6 @@
   },
   "files": [
     "./dist",
-    "./src",
-    "./bin",
     "./package.json"
   ],
   "scripts": {

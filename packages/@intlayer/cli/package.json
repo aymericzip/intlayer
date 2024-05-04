@@ -32,6 +32,10 @@
     "./package.json": "./package.json"
   },
   "main": "./src/index.ts",
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "scripts": {
     "build": "tsup",
     "clean": "rimraf ./dist",
