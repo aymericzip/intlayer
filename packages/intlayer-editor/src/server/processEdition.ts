@@ -14,6 +14,7 @@ import type {
   ObjectMethod,
   SpreadElement,
   ArrayExpression,
+  PrivateName,
 } from '@babel/types';
 import {
   NodeType,
@@ -62,11 +63,10 @@ const findNestedProperty = (
 
       if (result && 'value' in result) {
         currentObj = result.value as ObjectExpression;
+        foundProperty = result;
       } else {
         return undefined;
       }
-
-      foundProperty = result;
     }
 
     if (
@@ -86,19 +86,34 @@ const findNestedProperty = (
         (key as TranslationOrEnumerationNode).type
       )
     ) {
-      const result = (
-        (currentObj as unknown as CallExpression)
-          .arguments[0] as ObjectExpression
-      ).properties.find(
+      const argument = (currentObj as unknown as CallExpression)
+        .arguments[0] as ObjectExpression;
+
+      const identifierResult = argument.properties.find(
         (prop) => 'key' in prop && (prop.key as Identifier).name === key.key
       );
-      if (result && 'value' in result) {
-        currentObj = result.value as ObjectExpression;
+
+      const stringResult = argument.properties.find(
+        (prop) => 'key' in prop && (prop.key as StringLiteral).value === key.key
+      );
+
+      if (stringResult) {
+        // Correspond to StringLiteral oject property (e.g., { 'key': 'value' })
+        if ('value' in stringResult) {
+          currentObj = stringResult.value as ObjectExpression;
+        }
+        foundProperty = stringResult;
+      } else if (identifierResult) {
+        // Correspond to Identifier object property (e.g., { key: 'value' })
+        if ('name' in identifierResult) {
+          currentObj = identifierResult.name as ObjectExpression;
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        foundProperty = identifierResult;
       } else {
         return undefined;
       }
-
-      foundProperty = result;
     }
   }
 
