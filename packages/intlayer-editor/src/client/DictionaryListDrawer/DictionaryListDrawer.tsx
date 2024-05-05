@@ -9,7 +9,10 @@ import { RightDrawer, RedirectionButton } from '@intlayer/design-system';
  */
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { FC } from 'react';
-import { useDictionaryEditionDrawerControl } from '../DictionaryEditionDrawer/index';
+import {
+  useDictionaryEditionDrawerControl,
+  useEditedContentStore,
+} from '../DictionaryEditionDrawer/index';
 import {
   dictionaryListDrawerIdentifier,
   useDictionaryListDrawer,
@@ -20,12 +23,19 @@ export const DictionaryListDrawer: FC = () => {
   const { open: openDictionaryEditionDrawer } =
     useDictionaryEditionDrawerControl();
   const { close } = useDictionaryListDrawer();
+  const editedContent = useEditedContentStore((s) => s.editedContent);
 
   const handleClickDictionary = (dictionaryId: string) => {
     const { filePath } = dictionaries[dictionaryId];
 
     close();
     openDictionaryEditionDrawer({ dictionaryId, dictionaryPath: filePath });
+  };
+
+  const isDictionaryEdited = (dictionaryId: string) => {
+    const dictionaryPath = dictionaries[dictionaryId].filePath;
+
+    return Object.keys(editedContent).includes(dictionaryPath);
   };
 
   return (
@@ -39,7 +49,9 @@ export const DictionaryListDrawer: FC = () => {
           label={`Open dictionary editor ${dictionaryId}`}
           onClick={() => handleClickDictionary(dictionaryId)}
         >
-          {dictionaryId}
+          {isDictionaryEdited(dictionaryId)
+            ? `✎ ${dictionaryId}`
+            : dictionaryId}
         </RedirectionButton>
       ))}
     </RightDrawer>

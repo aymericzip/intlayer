@@ -65,12 +65,24 @@ export const useEditedContentStore = create(
       },
 
       clearEditedDictionaryContent: (dictionaryPath) => {
-        set((state) => ({
-          editedContent: {
-            ...state.editedContent,
-            [dictionaryPath]: [],
-          },
-        }));
+        set((state) => {
+          const filteredEditedContent = Object.entries(
+            state.editedContent
+          ).reduce((acc, [path, content]) => {
+            if (path === dictionaryPath) {
+              return acc;
+            }
+
+            return {
+              ...acc,
+              [path]: content,
+            };
+          }, {});
+
+          return {
+            editedContent: filteredEditedContent,
+          };
+        });
       },
 
       clearEditedContent: () => {

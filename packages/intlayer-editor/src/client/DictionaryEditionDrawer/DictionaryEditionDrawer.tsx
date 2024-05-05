@@ -57,10 +57,7 @@ export const DictionaryEditionDrawerContent: FC<
         addEditedContent(dictionaryPath, keyPath, newValue)
       }
       onValidEdition={editContentRequest}
-      onCancelEdition={() => {
-        clearEditedDictionaryContent(dictionaryPath);
-        setFocusedContent(null);
-      }}
+      onCancelEdition={() => clearEditedDictionaryContent(dictionaryPath)}
     />
   );
 };
