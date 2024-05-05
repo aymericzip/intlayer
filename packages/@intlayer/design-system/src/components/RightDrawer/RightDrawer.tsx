@@ -10,7 +10,7 @@ import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { useRightDrawerStore } from './useRightDrawerStore';
 
 const StyledPositioner = tw.div`absolute right-0 top-0 h-full z-50`;
-const StyledPanelContainer = tw.div`h-screen flex flex-col bg-white/80 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur text-black relative w-[400px]`;
+const StyledPanelContainer = tw.div`h-screen flex flex-col bg-white/80 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur text-black relative w-full md:w-[400px]`;
 const StyledHeader = tw.div`flex flex-col p-6 gap-3`;
 const StyledNavBar = tw.div`flex justify-between items-center`;
 const StyledScrollableContainer = tw.div`overflow-y-auto h-full p-2`;
