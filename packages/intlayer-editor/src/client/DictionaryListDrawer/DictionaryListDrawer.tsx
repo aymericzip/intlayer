@@ -1,5 +1,3 @@
-'use client';
-
 import type { Locales } from '@intlayer/config/client';
 import { RightDrawer, RedirectionButton } from '@intlayer/design-system';
 /**

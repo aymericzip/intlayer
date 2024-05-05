@@ -6,7 +6,7 @@ import {
 import type { FC } from 'react';
 
 const {
-  editor: { isActive },
+  editor: { enabled },
 } = getConfiguration();
 
 const BlankLayout: FC<ContentEditionLayoutProps> = ({ children }) => (
@@ -15,6 +15,6 @@ const BlankLayout: FC<ContentEditionLayoutProps> = ({ children }) => (
 
 // intlayer-editor is an optional dependency. If it's not installed, return the blank layout
 export const ContentEditionLayout: FC<ContentEditionLayoutProps> =
-  typeof ContentEditionLayoutBase === 'undefined' || !isActive
+  typeof ContentEditionLayoutBase === 'undefined' || !enabled
     ? BlankLayout
     : ContentEditionLayoutBase;

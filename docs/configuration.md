@@ -128,7 +128,7 @@ Defines settings related to the integrated editor, including server port and act
   - _Description_: The port number where the editor server runs.
   - _Example_: `4000`
 
-- **isActive**:
+- **enabled**:
   - _Type_: `boolean`
   - _Default_: `true`
   - _Description_: Indicates if the editor is active.

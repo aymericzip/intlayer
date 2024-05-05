@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { IS_ACTIVE } from '../defaultValues/editor';
+import { IS_ENABLED } from '../defaultValues/editor';
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -486,12 +486,12 @@ const buildEditorFields = (
    * {
    *  // Other configurations
    *  editor: {
-   *   isActive: process.env.NODE_ENV === 'development',
+   *   enabled: process.env.NODE_ENV === 'development',
    *  }
    * };
    * ```
    */
-  isActive: customConfiguration?.isActive ?? IS_ACTIVE,
+  enabled: customConfiguration?.enabled ?? IS_ENABLED,
 });
 
 /**

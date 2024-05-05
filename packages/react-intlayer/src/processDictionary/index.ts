@@ -23,7 +23,7 @@ import type {
 
 const {
   internationalization: { defaultLocale },
-  editor: { isActive },
+  editor: { enabled },
 } = getConfiguration();
 
 const processTranslation = (
@@ -249,7 +249,7 @@ export const processDictionary = (
     return result;
   }
 
-  if (typeof content === 'string' && isActive) {
+  if (typeof content === 'string' && enabled) {
     try {
       // renderContentEditor come from intlayer-editor, which is an optional dependency.
       // intlayer-editor should be installed in the project to use the content editor.
