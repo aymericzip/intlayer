@@ -1,7 +1,13 @@
 'use client';
 
 import { ChevronLeft, X } from 'lucide-react';
-import { type ReactNode, type FC, useEffect, useRef } from 'react';
+import {
+  type ReactNode,
+  type FC,
+  useEffect,
+  useRef,
+  type MouseEventHandler,
+} from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 import { useDevice } from '../../hooks/useDevice';
@@ -15,7 +21,7 @@ const StyledPanelContainer = tw.div`h-screen flex flex-col bg-white/80 shadow-[0
 const StyledHeader = tw.div`flex flex-col p-6 gap-3`;
 const StyledNavBar = tw.div`flex justify-between gap-3`;
 const StyledScrollableContainer = tw.div`overflow-y-auto h-full p-2 flex flex-col`;
-const StyledSpareSpace = tw.div`flex-1`;
+const StyledChildrenContainer = tw.div`flex-1`;
 const StyledBackButton = tw.button`text-left flex flex-row items-center gap-1 cursor-pointer`;
 const StyledTitle = tw.h2`text-lg font-bold flex justify-center items-center`;
 const StyledCloseButton = styled(X)`
@@ -46,6 +52,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 }) => {
   const { isMobile } = useDevice('md');
   const panelRef = useRef<HTMLDivElement>(null);
+  const childrenContainerRef = useRef<HTMLDivElement>(null);
   const { isOpen, close } = useRightDrawerStore(identifier)();
 
   useScrollBlockage({
@@ -71,7 +78,12 @@ export const RightDrawer: FC<RightDrawerProps> = ({
     };
   }, [isOpen, close, closeOnOutsideClick]); // Make sure the effect runs only if isOpen or close changes
 
-  const handleSpareSpaceClick = () => {
+  const handleSpareSpaceClick: MouseEventHandler<HTMLDivElement> = (e) => {
+    // Check if the click trigger the background
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+
     if (isMobile) {
       close();
     }
@@ -100,8 +112,12 @@ export const RightDrawer: FC<RightDrawerProps> = ({
           </StyledHeader>
 
           <StyledScrollableContainer>
-            <div>{children}</div>
-            <StyledSpareSpace onClick={handleSpareSpaceClick} />
+            <StyledChildrenContainer
+              onClick={handleSpareSpaceClick}
+              ref={childrenContainerRef}
+            >
+              {children}
+            </StyledChildrenContainer>
           </StyledScrollableContainer>
         </StyledPanelContainer>
       </MaxWidthSmoother>
