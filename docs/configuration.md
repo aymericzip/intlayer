@@ -115,6 +115,26 @@ Defines settings related to internationalization, including available locales an
 
 ---
 
+### Editor Configuration
+
+Defines settings related to the integrated editor, including server port and active status.
+
+#### Properties
+
+- **port**:
+
+  - _Type_: `number`
+  - _Default_: `4000`
+  - _Description_: The port number where the editor server runs.
+  - _Example_: `4000`
+
+- **isActive**:
+  - _Type_: `boolean`
+  - _Default_: `true`
+  - _Description_: Indicates if the editor is active.
+  - _Example_: `true`
+  - _Note_: Can be set using NODE_ENV, or other dedicated env variable
+
 ### Middleware Configuration
 
 Settings that control middleware behavior, including how the application handles cookies, headers, and URL prefixes for locale management.

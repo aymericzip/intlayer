@@ -107,6 +107,27 @@ export type EditorConfig = {
    * The port number where the editor server runs.
    */
   port: number;
+
+  /**
+   * Indicates if the editor is active
+   *
+   * Default: true;
+   *
+   * If true, the editor is active and can be accessed.
+   * If false, the editor is inactive and cannot be accessed.
+   *
+   * Usage:
+   * ```js
+   * {
+   *  // Other configurations
+   *  editor: {
+   *   isActive: process.env.NODE_ENV === 'development',
+   *  }
+   * };
+   * ```
+   *
+   */
+  isActive: boolean;
 };
 
 /**

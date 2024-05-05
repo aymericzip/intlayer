@@ -48,6 +48,7 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const editor: ReplaceValue<EditorConfig> = {
     port: undefined,
+    isActive: undefined,
   };
 
   return {
