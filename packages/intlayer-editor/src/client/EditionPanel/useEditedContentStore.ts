@@ -1,4 +1,4 @@
-import type { KeyPath } from '@intlayer/core';
+import { type KeyPath, isSameKeyPath } from '@intlayer/core';
 import type { FileContent } from '@intlayer/design-system';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
@@ -25,14 +25,6 @@ type EditedContentStore = {
     keyPath: KeyPath[]
   ) => string | undefined;
 };
-
-const isSameKeyPath = (keyPath1: KeyPath[], keyPath2: KeyPath[]) =>
-  keyPath1.every(
-    (element, index) =>
-      keyPath2[index] &&
-      keyPath2[index].key === element.key &&
-      keyPath2[index].type === element.type
-  );
 
 export const useEditedContentStore = create(
   persist<EditedContentStore>(

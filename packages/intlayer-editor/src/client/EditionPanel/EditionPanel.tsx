@@ -3,10 +3,10 @@
 import type { Locales } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 import {
-  useRightDrawerStore,
   RightDrawer,
   DictionaryEditor,
   LocaleSwitcher,
+  type FileContent,
 } from '@intlayer/design-system';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -14,10 +14,54 @@ import {
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 import dictionaries from '@intlayer/dictionaries-entry';
-import { type FC, useEffect } from 'react';
-import { useEditorServer } from '../useEditorServer';
-import { useEditedContentStore } from './useEditedContentStore';
-import { useEditionPanelStore } from './useEditionPanelStore';
+import type { FC } from 'react';
+import {
+  type FileContent as FileContentWithDictionaryPath,
+  useEditionPanel,
+} from './useEditionPanel';
+
+type EditionPanelContentProps = {
+  focusedContent: FileContentWithDictionaryPath;
+  locale: Locales;
+};
+
+export const EditionPanelContent: FC<EditionPanelContentProps> = ({
+  focusedContent,
+  locale,
+}) => {
+  const {
+    setFocusedContent,
+    editContentRequest,
+    editedContent,
+    addEditedContent,
+    clearEditedDictionaryContent,
+  } = useEditionPanel();
+
+  const dictionaryId: string = focusedContent.dictionaryId;
+  const dictionary: Dictionary = dictionaries[dictionaryId];
+  const dictionaryPath: string = dictionary.filePath;
+  const editedDictionaryContent: FileContent[] = editedContent[dictionaryPath];
+
+  return (
+    <DictionaryEditor
+      dictionary={dictionary}
+      locale={locale}
+      focusedKeyPath={focusedContent.keyPath}
+      editedContent={editedDictionaryContent}
+      onFocusKeyPath={(keyPath) =>
+        setFocusedContent({ ...focusedContent, keyPath })
+      }
+      onContentChange={(keyPath, newValue) =>
+        addEditedContent(dictionaryPath, keyPath, newValue)
+      }
+      onValidEdition={editContentRequest}
+      onCancelEdition={() => {
+        clearEditedDictionaryContent(dictionaryPath);
+        setFocusedContent(null);
+      }}
+    />
+  );
+};
 
 type EditionPanelProps = {
   locale: Locales;
@@ -30,43 +74,14 @@ export const EditionPanel: FC<EditionPanelProps> = ({
   localeList,
   setLocale,
 }) => {
-  const { open } = useRightDrawerStore((s) => ({ open: s.open }));
-  const { focusedContent, setFocusedContent } = useEditionPanelStore((s) => ({
-    focusedContent: s.focusedContent,
-    setFocusedContent: s.setFocusedContent,
-  }));
-  const { editedContent, addEditedContent, clearEditedDictionaryContent } =
-    useEditedContentStore((s) => ({
-      editedContent: s.editedContent,
-      addEditedContent: s.addEditedContent,
-      clearEditedDictionaryContent: s.clearEditedDictionaryContent,
-    }));
-  const { editContentRequest } = useEditorServer();
+  const { focusedContent } = useEditionPanel();
 
-  // Use effect to react to changes in focusedContent
-  useEffect(() => {
-    if (focusedContent !== null) {
-      open(); // Call the open function from useRightDrawerStore
-    }
-  }, [focusedContent, open]); // Depend on focusedContent and open to trigger the effect
-
-  if (!focusedContent) {
-    return null;
-  }
-
-  const dictionary: Dictionary = dictionaries[focusedContent.dictionaryId];
-
-  if (!dictionary?.filePath) {
-    return null;
-  }
-
-  const dictionaryPath = dictionary.filePath;
-  const editedDictionaryContent = editedContent[dictionaryPath] ?? [];
+  const dictionaryId: string | undefined = focusedContent?.dictionaryId;
 
   return (
     <RightDrawer
-      title={dictionary.id}
-      label={`Edit dictionary ${dictionary.id}`}
+      title={dictionaryId}
+      label={`Edit dictionary ${dictionaryId}`}
       header={
         <LocaleSwitcher
           setLocale={setLocale}
@@ -75,23 +90,9 @@ export const EditionPanel: FC<EditionPanelProps> = ({
         />
       }
     >
-      <DictionaryEditor
-        dictionary={dictionary}
-        locale={locale}
-        focusedKeyPath={focusedContent.keyPath}
-        editedContent={editedDictionaryContent}
-        onFocusKeyPath={(keyPath) =>
-          setFocusedContent({ ...focusedContent, keyPath })
-        }
-        onContentChange={(keyPath, newValue) =>
-          addEditedContent(dictionaryPath, keyPath, newValue)
-        }
-        onValidEdition={editContentRequest}
-        onCancelEdition={() => {
-          clearEditedDictionaryContent(dictionaryPath);
-          setFocusedContent(null);
-        }}
-      />
+      {focusedContent && (
+        <EditionPanelContent focusedContent={focusedContent} locale={locale} />
+      )}
     </RightDrawer>
   );
 };
