@@ -16,8 +16,6 @@ export const useLocale = () => {
   } = reactLocaleHook;
 
   const setLocale = (locale: Locales) => {
-    if (currentLocale.toString() === locale.toString()) return;
-
     if (!availableLocales.includes(locale)) {
       console.error(`Locale ${locale} is not available`);
       return;
