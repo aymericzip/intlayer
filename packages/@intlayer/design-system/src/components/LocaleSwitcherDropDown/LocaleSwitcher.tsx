@@ -49,12 +49,16 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
       aria-label="Language switcher"
     >
       <StyledListContainer>
-        <DropDown.Trigger identifier="local-switcher">
+        <DropDown.Trigger
+          identifier="local-switcher"
+          aria-label="Language selector"
+          aria-selected={true}
+        >
           {locale && (
-            <ButtonItem aria-label="Language selector" aria-selected={true}>
+            <>
               {locale ? getLocaleName(locale) : 'Select a locale'}
               <StyledMoveVertical />
-            </ButtonItem>
+            </>
           )}
           <StyledDropDown identifier="local-switcher" isOverable isFocusable>
             {localeList
