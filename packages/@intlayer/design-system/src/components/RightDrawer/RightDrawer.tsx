@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import { type ReactNode, type FC, useEffect, useRef } from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
+import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
 import { capitalize } from '../../utils/capitalize';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
@@ -13,7 +14,8 @@ const StyledPositioner = tw.div`absolute right-0 top-0 h-full z-50 flex justify-
 const StyledPanelContainer = tw.div`h-screen flex flex-col bg-white/80 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur text-black relative w-screen md:w-[400px]`;
 const StyledHeader = tw.div`flex flex-col p-6 gap-3`;
 const StyledNavBar = tw.div`flex justify-between items-center`;
-const StyledScrollableContainer = tw.div`overflow-y-auto h-full p-2`;
+const StyledScrollableContainer = tw.div`overflow-y-auto h-full p-2 flex flex-col`;
+const StyledSpareSpace = tw.div`flex-1`;
 
 const StyledCloseButton = styled(X)`
   ${tw`cursor-pointer`}
@@ -34,6 +36,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   header,
   closeOnOutsideClick = true,
 }) => {
+  const { isMobile } = useDevice('md');
   const { isOpen, close } = useRightDrawerStore((s) => ({
     isOpen: s.isOpen,
     close: s.close,
@@ -63,6 +66,12 @@ export const RightDrawer: FC<RightDrawerProps> = ({
     };
   }, [isOpen, close, closeOnOutsideClick]); // Make sure the effect runs only if isOpen or close changes
 
+  const handleSpareSpaceClick = () => {
+    if (isMobile) {
+      close();
+    }
+  };
+
   return (
     <StyledPositioner>
       <MaxWidthSmoother isHidden={!isOpen} align="right">
@@ -74,7 +83,11 @@ export const RightDrawer: FC<RightDrawerProps> = ({
             </StyledNavBar>
             {header}
           </StyledHeader>
-          <StyledScrollableContainer>{children}</StyledScrollableContainer>
+
+          <StyledScrollableContainer>
+            <div>{children}</div>
+            <StyledSpareSpace onClick={handleSpareSpaceClick} />
+          </StyledScrollableContainer>
         </StyledPanelContainer>
       </MaxWidthSmoother>
     </StyledPositioner>
