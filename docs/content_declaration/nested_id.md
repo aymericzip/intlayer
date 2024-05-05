@@ -17,9 +17,9 @@ Nested IDs in `intlayer` allow you to declare complex content structures efficie
 To declare nested IDs in your content file, you create a structure with inner nodes containing additional content and unique identifiers. This setup is ideal for scenarios where content is vast or highly organized. Here's a typical example of a nested ID structure:
 
 ```typescript
-import type { ContentModule } from "intlayer";
+import type { DeclarationContent } from "intlayer";
 
-const nestedContent: ContentModule = {
+const nestedContent: DeclarationContent = {
   id: "parent_id",
   text: "This is the parent node",
 
@@ -75,9 +75,9 @@ Nested IDs offer several benefits:
 To further optimize the performance of nested IDs, you can declare multiple nested levels or use additional unique identifiers within the structure. Here's an example with deeper nesting:
 
 ```typescript
-import type { ContentModule } from "intlayer";
+import type { DeclarationContent } from "intlayer";
 
-const deeplyNestedContent: ContentModule = {
+const deeplyNestedContent: DeclarationContent = {
   id: "level_1",
   text: "Level 1 content",
 

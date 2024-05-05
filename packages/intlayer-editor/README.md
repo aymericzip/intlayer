@@ -1,175 +1,91 @@
-# Intlayer: Next-Level Content Management in JavaScript
+# Intlayer Editor Documentation
 
-**Intlayer** is an innovative Content Management System (CMS) designed specifically for JavaScript developers. It enables seamless transpilation of JavaScript content into structured dictionaries, making integration into your codebase straightforward and efficient.
+The Intlayer Editor is a tool that transforms your application into a visual editor. With Intlayer Editor, your teams can manage your site's content in all configured languages.
 
-## Why Choose Intlayer?
+![Intlayer Editor Interface](https://github.com/aypineau/intlayer/blob/main/docs/assets/enabledpletion.png)
 
-- **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
+The `intlayer-editor` package is based on Intlayer and is available for JavaScript applications, such as React (Create React App), Vite + React, and Next.js.
 
-## intlayer package
+For more details on how to install the package, see the relevant section below:
 
-`intlayer` package intend to declare your content in a structured way, using JavaScript.
+### Integrating with Next.js
 
-To build dictionaries from this declaration, you can use [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme.md).
-And to interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme.md), or [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme.md)
+For integration with Next.js, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_nextjs.md).
 
-## Getting Started with Intlayer
+### Integrating with Create React App
 
-[See how to use intlayer with NextJS](https://github.com/aypineau/intlayer/blob/main/readme.md)
+For integration with Create React App, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_create_react_app.md).
 
-### Install Package
+### Integrating with Vite + React
 
-Install the necessary packages using npm:
+For integration with Vite + React, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_vite+react.md).
+
+## How Intlayer Editor Works
+
+Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/docs/content_declaration/get_started.md), wherever these files are declared in your project.
+
+In this way, you don't have to worry about where the file is declared or about finding your key in your dictionary collection.
+
+## Installation
+
+Once Intlayer is configured in your project, simply install `intlayer-editor` as a development dependency:
 
 ```bash
-npm install intlayer
+npm install intlayer-editor -D
 ```
 
 ```bash
-yarn install intlayer
+yarn install intlayer-editor -D
 ```
 
 ```bash
-pnpm install intlayer
+pnpm install intlayer-editor -D
 ```
 
-### Manage Your Content
-
-Create and manage your content dictionaries:
-
-#### Using typescript
+In your Intlayer configuration file, you can customize the editor settings:
 
 ```typescript
-// src/app/[locale]/page.content.ts
-import { t, enu, type ContentModule } from "intlayer";
-
-const pageContent: ContentModule = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    }),
+const config: IntlayerConfig = {
+  // ... other configuration settings
+  editor: {
+    enabled: process.env.NODE_ENV === "development", // If false, the editor is inactive and cannot be accessed.
+    port: 3000, // Port of the intlayer-editor backend
   },
 };
-
-// Content should be exported as default
-export default pageContent;
 ```
 
-#### Using ECMAScript modules
+To see all available parameters, refer to the [configuration documentation](https://github.com/aypineau/intlayer/blob/main/docs/configuration.md).
 
-```javascript
-// src/app/[locale]/page.content.mjs
+### Start Editing
 
-import { t } from "intlayer";
+To start editing, launch the editor server using `npx intlayer-editor start`.
 
-/** @type {import('intlayer').ContentModule} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    }),
-  },
-};
-
-// Content should be exported as default
-export default pageContent;
-```
-
-#### Using CommonJS modules
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').ContentModule} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    }),
-  },
-};
-
-// Content should be exported as default
-module.exports = pageContent;
-```
-
-#### Using JSON
+You can also create a custom script in your `package.json` file:
 
 ```json5
-// src/app/[locale]/page.content.json
 {
-  "id": "page",
-  "getStarted": {
-    "main": {
-      "nodeType": "translation",
-      "en": "Get started by editing",
-      "fr": "Commencez par éditer",
-      "es": "Comience por editar",
-    },
-    "pageLink": "src/app/page.tsx",
-  },
-  "nestedContent": {
-    "id": "enumeration",
-    "nodeType": "enumeration",
-    "numberOfCar": {
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    },
+  "scripts": {
+    "start:editor": "npx intlayer-editor start",
   },
 }
 ```
 
-This version emphasizes ease of use, practical steps, and the professional application of Intlayer in a Next.js environment.
+To start both the Next.js server and the Intlayer Editor simultaneously, you can use the [concurrently](https://github.com/open-cli-tools/concurrently) tool:
+
+```json5
+{
+  "scripts": {
+    "dev": "next dev",
+    "start:editor": "npx intlayer-editor start",
+    "dev:all": "concurrently \"npm run dev:nextjs\" \"npm run dev:intlayer-editor\"",
+  },
+}
+```
+
+## Using the Editor
+
+When the editor is installed, enabled, and started, you can view each field indexed by Intlayer by hovering over your content with your cursor.
+
+![Hovering over content](https://github.com/aypineau/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+
+If your content is outlined, you can long-press it to display the edit drawer.

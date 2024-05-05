@@ -1,4 +1,5 @@
 import { join } from 'path';
+import { IS_ENABLED } from '../defaultValues/editor';
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -471,6 +472,26 @@ const buildEditorFields = (
    * Default: 4000
    */
   port: customConfiguration?.port ?? 4000,
+
+  /**
+   * Indicates if the editor is active
+   *
+   * Default: true;
+   *
+   * If true, the editor is active and can be accessed.
+   * If false, the editor is inactive and cannot be accessed.
+   *
+   * Usage:
+   * ```js
+   * {
+   *  // Other configurations
+   *  editor: {
+   *   enabled: process.env.NODE_ENV === 'development',
+   *  }
+   * };
+   * ```
+   */
+  enabled: customConfiguration?.enabled ?? IS_ENABLED,
 });
 
 /**

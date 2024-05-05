@@ -14,7 +14,7 @@ interface ItemWrapperProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Container = styled.div<{ $level: number; $isSelected?: boolean }>(
   ({ $level, $isSelected }) => [
-    tw`p-2 mt-1 rounded-md transition`,
+    tw`p-2 rounded-md transition`,
     tw`hover:bg-slate-100/30 [&:has(.section:hover)]:bg-transparent`,
     $level === 0 && tw``,
     $level === 2 && tw`hover:bg-slate-100/30`,

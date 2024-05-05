@@ -1,4 +1,4 @@
-import type { Content, ContentModule } from '@intlayer/core';
+import type { Content, DeclarationContent } from '@intlayer/core';
 
 /**
  *
@@ -39,12 +39,14 @@ import type { Content, ContentModule } from '@intlayer/core';
  * }]
  *
  */
-export const extractObjectsWithId = (input: ContentModule): ContentModule[] => {
+export const extractObjectsWithId = (
+  input: DeclarationContent
+): DeclarationContent[] => {
   // Function to recursively search and extract nested objects with an 'id'
-  const search = (obj: Content, results: ContentModule[]): void => {
+  const search = (obj: Content, results: DeclarationContent[]): void => {
     if (obj && typeof obj === 'object') {
       if (Object.hasOwn(obj, 'id')) {
-        results.push(obj as ContentModule);
+        results.push(obj as DeclarationContent);
       }
       for (const key of Object.keys(obj)) {
         if (typeof obj[key] === 'object') {
@@ -54,7 +56,7 @@ export const extractObjectsWithId = (input: ContentModule): ContentModule[] => {
     }
   };
 
-  const results: ContentModule[] = [];
+  const results: DeclarationContent[] = [];
   search(input, results);
   return results;
 };

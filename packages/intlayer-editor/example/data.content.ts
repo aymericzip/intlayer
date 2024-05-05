@@ -1,6 +1,6 @@
-import type { ContentModule } from 'intlayer';
+import type { DeclarationContent } from 'intlayer';
 
-const customContent: ContentModule = {
+const customContent: DeclarationContent = {
   id: 'custom_content',
   introductionText: 'example of text',
   nestedText: {

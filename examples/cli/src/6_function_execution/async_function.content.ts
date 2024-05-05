@@ -1,5 +1,5 @@
 import { setTimeout } from 'node:timers/promises';
-import type { ContentModule } from 'intlayer';
+import type { DeclarationContent } from 'intlayer';
 
 const fakeFetch = async (): Promise<string> => {
   // Wait for 200ms to simulate a fetch from the server
@@ -8,7 +8,7 @@ const fakeFetch = async (): Promise<string> => {
   );
 };
 
-const asyncFunctionContent: ContentModule = {
+const asyncFunctionContent: DeclarationContent = {
   id: 'async_function',
   text: fakeFetch,
 };

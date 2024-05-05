@@ -1,7 +1,6 @@
 import { LocaleSwitcher } from '@component/components/LangSwitcherDropDown';
 import Image from 'next/image';
-import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerClientProvider } from 'next-intlayer/client';
+import { type NextPageIntlayer, IntlayerClientProvider } from 'next-intlayer';
 import { useIntlayer, IntlayerServerProvider } from 'next-intlayer/server';
 
 import { generateMetadata } from './metadata';

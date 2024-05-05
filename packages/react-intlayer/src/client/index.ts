@@ -1,9 +1,9 @@
-export type { IntlayerClientProviderProps } from './IntlayerClientProvider';
 export {
-  IntlayerClientContext as IntlayerClient,
+  type IntlayerProviderProps,
+  IntlayerClientContext,
   useIntlayerContext,
-  IntlayerClientProvider,
-} from './IntlayerClientProvider';
+  IntlayerProvider,
+} from './IntlayerProvider';
 export { useIntlayer } from './useIntlayer';
 export { useLocaleBase } from './useLocaleBase';
 export { useLocale } from './useLocale';

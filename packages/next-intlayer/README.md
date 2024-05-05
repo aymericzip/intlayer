@@ -69,9 +69,9 @@ Create and manage your content dictionaries:
 
 ```tsx
 // src/app/[locale]/page.content.ts
-import { t, type ContentModule } from "intlayer";
+import { t, type DeclarationContent } from "intlayer";
 
-const pageContent: ContentModule = {
+const pageContent: DeclarationContent = {
   id: "page",
   getStarted: {
     main: t({
@@ -99,7 +99,7 @@ import { ClientComponentExample } from "@component/components/ClientComponentExa
 import { LocaleSwitcher } from "@component/components/LangSwitcherDropDown";
 import { NestedServerComponentExample } from "@component/components/NestedServerComponentExample";
 import { ServerComponentExample } from "@component/components/ServerComponentExample";
-import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
+import { type NextPageIntlayer, IntlayerProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => {
@@ -119,12 +119,12 @@ const Page: NextPageIntlayer = ({ params: { locale } }) => {
         <ServerComponentExample />
       </IntlayerServerProvider>
       {/**
-       *   IntlayerClientProvider is used to provide the locale to the client children
+       *   IntlayerProvider is used to provide the locale to the client children
        *   Can be set in any parent component, including the layout
        */}
-      <IntlayerClientProvider locale={locale}>
+      <IntlayerProvider locale={locale}>
         <ClientComponentExample />
-      </IntlayerClientProvider>
+      </IntlayerProvider>
     </>
   );
 };

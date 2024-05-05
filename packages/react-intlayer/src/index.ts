@@ -1,8 +1,8 @@
 export { getTranslation } from './getTranslation';
 export {
-  IntlayerClientProvider,
-  type IntlayerClientProviderProps,
-  IntlayerClient,
+  IntlayerProvider,
+  type IntlayerProviderProps,
+  IntlayerClientContext,
   useIntlayer,
   useLocale,
   useTraduction,

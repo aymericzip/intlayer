@@ -39,10 +39,10 @@ Create and manage your content dictionaries:
 
 ```tsx
 // src/app.content.ts
-import { t, type ContentModule } from "intlayer";
+import { t, type DeclarationContent } from "intlayer";
 import { ReactNode } from "react";
 
-const appContent: ContentModule = {
+const appContent: DeclarationContent = {
   id: "app",
 
   viteLogo: t({
@@ -102,7 +102,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { LocaleSwitcher } from "./components/LangSwitcherDropDown";
-import { IntlayerClientProvider, useIntlayer } from "react-intlayer";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
 
 function AppContent() {
   const [count, setCount] = useState(0);
@@ -136,9 +136,9 @@ function AppContent() {
 
 function App() {
   return (
-    <IntlayerClientProvider>
+    <IntlayerProvider>
       <AppContent />
-    </IntlayerClientProvider>
+    </IntlayerProvider>
   );
 }
 

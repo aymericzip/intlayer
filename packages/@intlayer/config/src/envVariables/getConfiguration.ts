@@ -96,6 +96,7 @@ export const getConfiguration = (): IntlayerConfig => {
 
   const intlayerEditorConfiguration = {
     port: getEnvValue(env.editor.port, 'number')!,
+    enabled: getEnvValue(env.editor.enabled, 'boolean')!,
   };
 
   const intlayerConfiguration: IntlayerConfig = {

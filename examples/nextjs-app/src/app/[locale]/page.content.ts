@@ -1,12 +1,6 @@
-import { t, type ContentModule, type IConfigLocales } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-export const test1: IConfigLocales<string> = {
-  en: '',
-  es: '',
-  fr: '',
-};
-
-const pageContent: ContentModule = {
+const pageContent: DeclarationContent = {
   id: 'page',
   getStarted: {
     main: t({

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { readFileSync, writeFileSync } from 'fs';
 import { createRequire } from 'module';
 import { parse } from '@babel/parser';
@@ -12,15 +13,18 @@ import type {
   CallExpression,
   ObjectMethod,
   SpreadElement,
+  ArrayExpression,
+  PrivateName,
 } from '@babel/types';
 import {
   NodeType,
   type KeyPath,
+  type ArrayExpressionNode,
   type ObjectExpressionNode,
   type TranslationOrEnumerationNode,
 } from '@intlayer/core';
-import prettier from 'prettier';
 import type { EditedContent } from '../client/index';
+import { format } from './formatPrettier';
 
 const requireFunction =
   typeof import.meta.url === 'undefined'
@@ -29,14 +33,17 @@ const requireFunction =
 
 const { default: generate } = requireFunction('@babel/generator');
 
+type ObjectOrArrayExpression = ObjectExpression | ArrayExpression;
+
 /**
  * Helper function to find a nested property in an ObjectExpression based on a key path
  */
 const findNestedProperty = (
-  obj: ObjectExpression,
+  obj: ObjectOrArrayExpression,
   keyPath: KeyPath[]
-): ObjectExpression | undefined => {
-  let currentObj = obj;
+): ObjectOrArrayExpression | undefined => {
+  let currentObj: ObjectOrArrayExpression = obj;
+
   for (const key of keyPath) {
     let foundProperty:
       | ObjectProperty
@@ -48,11 +55,29 @@ const findNestedProperty = (
       // if the keyPath is an object, select the related node
       (key as ObjectExpressionNode).type === 'ObjectExpression'
     ) {
-      foundProperty = currentObj.properties.find(
+      const result = (currentObj as ObjectExpression).properties.find(
         (prop) =>
           'key' in prop &&
           (prop.key as Identifier).name === (key as ObjectExpressionNode).key
       );
+
+      if (result && 'value' in result) {
+        currentObj = result.value as ObjectExpression;
+        foundProperty = result;
+      } else {
+        return undefined;
+      }
+    }
+
+    if (
+      // if the keyPath is an array, select the related node
+      (key as ArrayExpressionNode).type === 'ArrayExpression'
+    ) {
+      const result = (currentObj as ArrayExpression).elements[
+        (key as ArrayExpressionNode).key
+      ] as unknown as ObjectProperty;
+
+      currentObj = result as unknown as ObjectExpression;
     }
 
     if (
@@ -61,18 +86,34 @@ const findNestedProperty = (
         (key as TranslationOrEnumerationNode).type
       )
     ) {
-      foundProperty = (
-        (currentObj as unknown as CallExpression)
-          .arguments[0] as ObjectExpression
-      ).properties.find(
+      const argument = (currentObj as unknown as CallExpression)
+        .arguments[0] as ObjectExpression;
+
+      const identifierResult = argument.properties.find(
         (prop) => 'key' in prop && (prop.key as Identifier).name === key.key
       );
-    }
 
-    if (foundProperty && 'value' in foundProperty) {
-      currentObj = foundProperty.value as ObjectExpression;
-    } else {
-      return undefined;
+      const stringResult = argument.properties.find(
+        (prop) => 'key' in prop && (prop.key as StringLiteral).value === key.key
+      );
+
+      if (stringResult) {
+        // Correspond to StringLiteral oject property (e.g., { 'key': 'value' })
+        if ('value' in stringResult) {
+          currentObj = stringResult.value as ObjectExpression;
+        }
+        foundProperty = stringResult;
+      } else if (identifierResult) {
+        // Correspond to Identifier object property (e.g., { key: 'value' })
+        if ('name' in identifierResult) {
+          currentObj = identifierResult.name as ObjectExpression;
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        foundProperty = identifierResult;
+      } else {
+        return undefined;
+      }
     }
   }
 
@@ -144,37 +185,12 @@ const traverseNode = (node: Program, keyPath: KeyPath[], newValue: string) => {
       newValue
     );
   }
-
-  // throw new Error('Could not find the specified key path in the AST.');
-};
-
-/**
- * Format the content with Prettier
- */
-const format = async (content: string) => {
-  // Resolve the configuration from the project
-  let options: prettier.Options = {};
-
-  try {
-    // Resolve the prettier configuration from the project
-    options =
-      (await prettier.resolveConfig(content, {
-        editorconfig: true,
-      })) ?? {};
-  } catch (error) {
-    console.error('Failed to resolve Prettier configuration:', error);
-  }
-
-  // Add the parser option to the resolved config
-  const config: prettier.Options = { ...options, parser: 'typescript' };
-
-  return prettier.format(content, config);
 };
 
 /**
  * Edit the content of a file based on the key path and new value
  */
-export const editContent = async (editedContent: EditedContent) => {
+export const processEdition = async (editedContent: EditedContent) => {
   // Loop into each dictionary path
   for (const dictionaryPath of Object.keys(editedContent)) {
     // Read the file

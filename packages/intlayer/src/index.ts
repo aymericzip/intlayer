@@ -32,7 +32,7 @@ export type {
   LanguageContent,
   QuantityContent,
   ContentValue,
-  ContentModule,
+  DeclarationContent,
 } from '@intlayer/core';
 export { getLocaleName, enu, getEnumerationContent } from '@intlayer/core';
 export type {

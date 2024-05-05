@@ -38,10 +38,10 @@ Create and manage your content dictionaries:
 
 ```tsx
 // src/app.content.ts
-import { t, type ContentModule } from "intlayer";
+import { t, type DeclarationContent } from "intlayer";
 import { ReactNode } from "react";
 
-const appContent: ContentModule = {
+const appContent: DeclarationContent = {
   id: "app",
 
   getStarted: t<ReactNode>({
@@ -81,7 +81,7 @@ Access your content dictionaries throughout your application:
 ```tsx
 import logo from "./logo.svg";
 import "./App.css";
-import { IntlayerClientProvider, useIntlayer } from "react-intlayer";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { LocaleSwitcher } from "./components/LangSwitcherDropDown";
 
 function AppContent() {
@@ -106,7 +106,7 @@ function AppContent() {
 
 function App() {
   return (
-    <IntlayerClientProvider>
+    <IntlayerProvider>
       <div className="App">
         {/* To use the useIntlayer hook properly, you should access your data in a children component */}
         <AppContent />
@@ -114,7 +114,7 @@ function App() {
       <div className="absolute bottom-5 right-5 z-50">
         <LocaleSwitcher />
       </div>
-    </IntlayerClientProvider>
+    </IntlayerProvider>
   );
 }
 

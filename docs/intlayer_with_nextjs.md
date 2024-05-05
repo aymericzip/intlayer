@@ -56,9 +56,9 @@ Create and manage your content dictionaries:
 
 ```tsx
 // src/app/[locale]/page.content.ts
-import { t, type ContentModule } from "intlayer";
+import { t, type DeclarationContent } from "intlayer";
 
-const pageContent: ContentModule = {
+const pageContent: DeclarationContent = {
   id: "page",
   getStarted: {
     main: t({

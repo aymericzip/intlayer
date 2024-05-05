@@ -37,9 +37,9 @@ pnpm add intlayer
 Intlayer allows you to declare your content in various formats, including TypeScript, ECMAScript modules, CommonJS modules, and JSON. Here's an example of a content declaration using TypeScript:
 
 ```typescript
-import { t, type ContentModule } from "intlayer";
+import { t, type DeclarationContent } from "intlayer";
 
-const exampleContent: ContentModule = {
+const exampleContent: DeclarationContent = {
   id: "example",
   welcome: t({
     en: "Welcome",

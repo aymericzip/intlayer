@@ -1,6 +1,6 @@
-import { t, type ContentModule } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const customContent: ContentModule = {
+const customContent: DeclarationContent = {
   id: 'react_fragment_content',
   profileText: t<JSX.Element>({
     en: (

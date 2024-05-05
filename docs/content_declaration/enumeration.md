@@ -13,9 +13,9 @@ In Intlayer, enumeration is achieved through the `enu` function, which maps spec
 To set up enumeration in your Intlayer project, you need to create a content module that includes enumeration definitions. Here's an example of a simple enumeration for the number of cars:
 
 ```typescript
-import { enu, type ContentModule } from "intlayer";
+import { enu, type DeclarationContent } from "intlayer";
 
-const carEnumeration: ContentModule = {
+const carEnumeration: DeclarationContent = {
   id: "car_count",
   numberOfCar: enu({
     "<-1": "Less than minus one car",

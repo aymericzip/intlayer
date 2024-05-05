@@ -31,16 +31,18 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
  */
 export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
-export type IntlayerClientProviderProps = PropsWithChildren & {
+export type IntlayerProviderProps = PropsWithChildren & {
   locale?: Locales;
+  setLocale?: (locale: Locales) => void;
 };
 
 /**
  * Provider that store the current locale on the client side
  */
-export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
+export const IntlayerProvider: FC<IntlayerProviderProps> = ({
   locale,
   children,
+  setLocale: setLocaleProp,
 }) => {
   const { defaultLocale, locales: availableLocales } =
     getConfiguration().internationalization;
@@ -49,7 +51,7 @@ export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
     locale ?? localeCookie ?? defaultLocale
   );
 
-  const setLocale = useCallback(
+  const setLocaleBase = useCallback(
     (newLocale: Locales) => {
       if (currentLocale.toString() === newLocale.toString()) return;
 
@@ -64,8 +66,10 @@ export const IntlayerClientProvider: FC<IntlayerClientProviderProps> = ({
     [availableLocales, currentLocale, locale]
   );
 
+  const setLocale = setLocaleProp ?? setLocaleBase;
+
   const value: IntlayerValue = useMemo<IntlayerValue>(
-    () => ({ locale: currentLocale, setLocale }),
+    () => ({ locale: currentLocale, setLocale: setLocale }),
     [currentLocale, setLocale]
   );
 

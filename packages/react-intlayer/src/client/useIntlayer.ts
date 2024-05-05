@@ -7,7 +7,7 @@ import {
   useIntlayerBase,
   type UseIntlayer,
 } from '../useIntlayerBase';
-import { IntlayerClientContext } from './IntlayerClientProvider';
+import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
  * On the client side, Hook that picking one dictionary by its id and return the content

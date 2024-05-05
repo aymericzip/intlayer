@@ -1,6 +1,6 @@
-import type { ContentModule } from 'intlayer';
+import type { DeclarationContent } from 'intlayer';
 
-const identicFileNameTSContent: ContentModule = {
+const identicFileNameTSContent: DeclarationContent = {
   id: 'identicFileName - TS',
   testInSubPath: {
     en: 'Manage profile',

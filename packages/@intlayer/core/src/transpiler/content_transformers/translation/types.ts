@@ -2,7 +2,6 @@ import type { LocalesValues } from '@intlayer/config/client';
 // @ts-expect-error intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';
 import type { NodeType } from '../../../types';
-import type { NoteStackTraceInfo } from '../../../utils/getStackTraceInfo';
 
 /**
  * If module augmented, it will return the configured locales such as Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH | ...
@@ -65,7 +64,6 @@ export type CustomizableLanguageContent<Content = string> =
     ? LanguageContent<Content>
     : IConfigLocales<Content>;
 
-export type TranslationContent<Content> = LanguageContent<Content> &
-  NoteStackTraceInfo & {
-    nodeType: NodeType.Translation;
-  };
+export type TranslationContent<Content> = LanguageContent<Content> & {
+  nodeType: NodeType.Translation;
+};

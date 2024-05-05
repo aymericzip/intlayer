@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { createRequire } from 'module';
 import { type Context, runInNewContext } from 'vm';
-import type { ContentModule } from '@intlayer/core';
+import type { DeclarationContent } from '@intlayer/core';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 
 const isESModule = typeof import.meta.url === 'string';
@@ -35,8 +35,8 @@ const transformationOption: BuildOptions = {
 };
 
 const filterValidContentDeclaration = (
-  contentDeclaration: ContentModule
-): ContentModule => {
+  contentDeclaration: DeclarationContent
+): DeclarationContent => {
   // @TODO Implement filtering of valid content declaration
   return contentDeclaration;
 };
@@ -48,8 +48,8 @@ const filterValidContentDeclaration = (
  */
 export const loadContentDeclaration = (
   contentDeclarationFilePath: string
-): ContentModule | undefined => {
-  let contentDeclaration: ContentModule | undefined = undefined;
+): DeclarationContent | undefined => {
+  let contentDeclaration: DeclarationContent | undefined = undefined;
 
   const fileExtension = contentDeclarationFilePath.split('.').pop() ?? '';
 

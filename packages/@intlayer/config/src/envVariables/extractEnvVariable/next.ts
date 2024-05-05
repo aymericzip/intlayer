@@ -53,6 +53,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const editor: ReplaceValue<EditorConfig> = {
     port: process.env.NEXT_PUBLIC_INTLAYER_PORT,
+    enabled: process.env.NEXT_PUBLIC_INTLAYER_ENABLED,
   };
 
   return {
