@@ -2,7 +2,7 @@
 
 The Intlayer Editor is a tool that transforms your application into a visual editor. With Intlayer Editor, your teams can manage your site's content in all configured languages.
 
-![Intlayer Editor Interface](https://github.com/aypineau/intlayer/blob/main/docs/assets/enabledpletion.png)
+![Intlayer Editor Interface](https://github.com/aypineau/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
 The `intlayer-editor` package is based on Intlayer and is available for JavaScript applications, such as React (Create React App), Vite + React, and Next.js.
 

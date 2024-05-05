@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "dev-all": "npx intlayer watch | next dev",
+    "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
     "lint": "next lint",
     "serve": "npx intlayer serve",
     "start": "next start",
@@ -28,6 +28,7 @@
     "@types/react-dom": "^18.2.25",
     "@utils/eslint-config": "workspace:^",
     "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.4",
     "postcss": "^8.4.38",
