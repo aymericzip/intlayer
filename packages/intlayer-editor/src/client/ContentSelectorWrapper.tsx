@@ -18,7 +18,8 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   dictionaryPath,
   keyPath,
 }) => {
-  const { open, getEditedContentValue } = useDictionaryEditionDrawer();
+  const { open, getEditedContentValue } =
+    useDictionaryEditionDrawer(dictionaryId);
   const editedValue = getEditedContentValue(dictionaryPath, keyPath);
 
   const handleSelect = () =>

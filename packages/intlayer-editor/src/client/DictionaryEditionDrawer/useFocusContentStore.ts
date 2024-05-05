@@ -5,7 +5,7 @@ type DictionaryPath = string;
 type FileContent = {
   dictionaryPath: DictionaryPath;
   dictionaryId: string;
-  keyPath: KeyPath[];
+  keyPath?: KeyPath[];
 };
 
 type EditionPanelStore = {

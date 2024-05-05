@@ -1,6 +1,7 @@
 import type { Locales } from '@intlayer/config/client';
 import type { FC, ReactNode } from 'react';
-import { DictionaryEditionDrawer } from './DictionaryEditionDrawer/index';
+import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer/index';
+import { DictionaryListDrawer } from './DictionaryListDrawer/index';
 
 export type ContentEditionLayoutProps = {
   children?: ReactNode;
@@ -17,10 +18,11 @@ export const ContentEditionLayout: FC<ContentEditionLayoutProps> = ({
 }) => (
   <>
     {children}
-    <DictionaryEditionDrawer
+    <DictionaryEditionDrawerController
       locale={locale}
       localeList={localeList}
       setLocale={setLocale}
     />
+    <DictionaryListDrawer />
   </>
 );

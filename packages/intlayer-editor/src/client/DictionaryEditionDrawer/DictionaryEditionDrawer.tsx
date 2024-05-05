@@ -15,26 +15,29 @@ import {
  */
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { FC } from 'react';
+import { useDictionaryListDrawer } from '../DictionaryListDrawer/index';
 import {
   type FileContent as FileContentWithDictionaryPath,
   useDictionaryEditionDrawer,
 } from './useDictionaryEditionDrawer';
+import { useEditionPanelStore } from './useFocusContentStore';
 
 type DictionaryEditionDrawerContentProps = {
   focusedContent: FileContentWithDictionaryPath;
   locale: Locales;
+  identifier: string;
 };
 
 export const DictionaryEditionDrawerContent: FC<
   DictionaryEditionDrawerContentProps
-> = ({ focusedContent, locale }) => {
+> = ({ focusedContent, locale, identifier }) => {
   const {
     setFocusedContent,
     editContentRequest,
     editedContent,
     addEditedContent,
     clearEditedDictionaryContent,
-  } = useDictionaryEditionDrawer();
+  } = useDictionaryEditionDrawer(identifier);
 
   const dictionaryId: string = focusedContent.dictionaryId;
   const dictionary: Dictionary = dictionaries[dictionaryId];
@@ -62,25 +65,33 @@ export const DictionaryEditionDrawerContent: FC<
   );
 };
 
-type DictionaryEditionDrawerProps = {
-  locale: Locales;
-  localeList: Locales[];
-  setLocale: (locale: Locales) => void;
+type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
+  dictionaryId: string;
 };
+
+export const getDrawerIdentifier = (dictionaryId: string) =>
+  `dictionary_edition_${dictionaryId}`;
 
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   locale,
   localeList,
   setLocale,
+  dictionaryId,
 }) => {
-  const { focusedContent } = useDictionaryEditionDrawer();
+  const id = getDrawerIdentifier(dictionaryId);
 
-  const dictionaryId: string | undefined = focusedContent?.dictionaryId;
+  const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryId);
+  const { open: openDictionaryListDrawer } = useDictionaryListDrawer();
+
+  const handleOnBack = () => {
+    close();
+    openDictionaryListDrawer();
+  };
 
   return (
     <RightDrawer
       title={dictionaryId}
-      label={`Edit dictionary ${dictionaryId}`}
+      identifier={id}
       header={
         <LocaleSwitcher
           setLocale={setLocale}
@@ -88,13 +99,44 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
           localeList={localeList}
         />
       }
+      backButton={{
+        onBack: handleOnBack,
+        text: 'Dictionary list',
+      }}
     >
       {focusedContent && (
         <DictionaryEditionDrawerContent
           focusedContent={focusedContent}
           locale={locale}
+          identifier={id}
         />
       )}
     </RightDrawer>
+  );
+};
+
+type DictionaryEditionDrawerControllerProps = {
+  locale: Locales;
+  localeList: Locales[];
+  setLocale: (locale: Locales) => void;
+};
+
+export const DictionaryEditionDrawerController: FC<
+  DictionaryEditionDrawerControllerProps
+> = ({ locale, localeList, setLocale }) => {
+  const focusedContent = useEditionPanelStore((s) => s.focusedContent);
+  const dictionaryId: string | undefined = focusedContent?.dictionaryId;
+
+  if (!dictionaryId) {
+    return null;
+  }
+
+  return (
+    <DictionaryEditionDrawer
+      locale={locale}
+      localeList={localeList}
+      setLocale={setLocale}
+      dictionaryId={dictionaryId}
+    />
   );
 };

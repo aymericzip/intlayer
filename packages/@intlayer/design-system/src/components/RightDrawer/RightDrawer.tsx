@@ -1,6 +1,6 @@
 'use client';
 
-import { X } from 'lucide-react';
+import { ChevronLeft, X } from 'lucide-react';
 import { type ReactNode, type FC, useEffect, useRef } from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
@@ -13,39 +13,44 @@ import { useRightDrawerStore } from './useRightDrawerStore';
 const StyledPositioner = tw.div`absolute right-0 top-0 h-full z-50 flex justify-end`;
 const StyledPanelContainer = tw.div`h-screen flex flex-col bg-white/80 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur text-black relative w-screen md:w-[400px]`;
 const StyledHeader = tw.div`flex flex-col p-6 gap-3`;
-const StyledNavBar = tw.div`flex justify-between items-center`;
+const StyledNavBar = tw.div`flex justify-between gap-3`;
 const StyledScrollableContainer = tw.div`overflow-y-auto h-full p-2 flex flex-col`;
 const StyledSpareSpace = tw.div`flex-1`;
-
+const StyledBackButton = tw.button`text-left flex flex-row items-center gap-1 cursor-pointer`;
+const StyledTitle = tw.h2`text-lg font-bold flex justify-center items-center`;
 const StyledCloseButton = styled(X)`
-  ${tw`cursor-pointer`}
+  ${tw`cursor-pointer ml-auto`}
 `;
+
+type BackButtonProps = {
+  onBack: () => void;
+  text?: string;
+};
 
 type RightDrawerProps = {
   title?: ReactNode;
-  label?: string;
+  identifier: string;
   children?: ReactNode;
   header?: ReactNode;
   closeOnOutsideClick?: boolean;
+  backButton?: BackButtonProps;
 };
 
 export const RightDrawer: FC<RightDrawerProps> = ({
   title,
-  label,
+  identifier,
   children,
   header,
   closeOnOutsideClick = true,
+  backButton,
 }) => {
   const { isMobile } = useDevice('md');
-  const { isOpen, close } = useRightDrawerStore((s) => ({
-    isOpen: s.isOpen,
-    close: s.close,
-  }));
   const panelRef = useRef<HTMLDivElement>(null);
+  const { isOpen, close } = useRightDrawerStore(identifier)();
 
   useScrollBlockage({
     disableScroll: isOpen,
-    key: label ? 'right_drawer' : `right_drawer_${label}`,
+    key: identifier ? 'right_drawer' : `right_drawer_${identifier}`,
   });
 
   useEffect(() => {
@@ -78,9 +83,19 @@ export const RightDrawer: FC<RightDrawerProps> = ({
         <StyledPanelContainer ref={panelRef}>
           <StyledHeader>
             <StyledNavBar>
-              <h2>{typeof title === 'string' ? capitalize(title) : title}</h2>
+              <div>
+                {backButton && (
+                  <StyledBackButton onClick={backButton.onBack}>
+                    <ChevronLeft />
+                    {backButton?.text}
+                  </StyledBackButton>
+                )}
+              </div>
               <StyledCloseButton onClick={close} />
             </StyledNavBar>
+            <StyledTitle>
+              {typeof title === 'string' ? capitalize(title) : title}
+            </StyledTitle>
             {header}
           </StyledHeader>
 

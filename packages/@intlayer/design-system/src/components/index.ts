@@ -7,3 +7,4 @@ export * from './ContentSelector';
 export * from './DictionaryEditor';
 export * from './DropDown';
 export * from './LocaleSwitcherDropDown';
+export * from './RedirectionButton';

@@ -1,6 +1,7 @@
 import type { KeyPath } from '@intlayer/core';
 import { useRightDrawerStore } from '@intlayer/design-system';
 import { useEditorServer } from '../useEditorServer';
+import { getDrawerIdentifier } from './DictionaryEditionDrawer';
 import {
   type EditedContent,
   useEditedContentStore,
@@ -11,7 +12,7 @@ type DictionaryPath = string;
 export type FileContent = {
   dictionaryPath: DictionaryPath;
   dictionaryId: string;
-  keyPath: KeyPath[];
+  keyPath?: KeyPath[];
 };
 
 type DictionaryEditionDrawer = {
@@ -34,12 +35,17 @@ type DictionaryEditionDrawer = {
   clearEditedDictionaryContent: (dictionaryPath: DictionaryPath) => void;
 };
 
-export const useDictionaryEditionDrawer = (): DictionaryEditionDrawer => {
-  const { isOpen, openPanel, closePanel } = useRightDrawerStore((s) => ({
-    isOpen: s.isOpen,
-    openPanel: s.open,
-    closePanel: s.close,
-  }));
+type OpenDictionaryEditionDrawerProps = {
+  dictionaryId: string;
+  dictionaryPath: string;
+  keyPath?: KeyPath[];
+};
+
+export const useDictionaryEditionDrawer = (
+  dictionaryId: string
+): DictionaryEditionDrawer => {
+  const id = getDrawerIdentifier(dictionaryId);
+  const { isOpen, open, close } = useRightDrawerStore(id)();
   const {
     editedContent,
     getEditedContentValue,
@@ -57,18 +63,26 @@ export const useDictionaryEditionDrawer = (): DictionaryEditionDrawer => {
   }));
   const { editContentRequest } = useEditorServer();
 
+  const openDictionaryEditionDrawer = ({
+    dictionaryId,
+    dictionaryPath,
+    keyPath = [],
+  }: OpenDictionaryEditionDrawerProps) => {
+    setFocusedContent({
+      dictionaryId,
+      dictionaryPath,
+      keyPath,
+    });
+
+    open();
+  };
+
   return {
     isOpen,
     focusedContent,
     setFocusedContent,
-    open: (content) => {
-      setFocusedContent(content);
-      openPanel();
-    },
-    close: () => {
-      closePanel();
-      setFocusedContent(null);
-    },
+    open: openDictionaryEditionDrawer,
+    close,
     getEditedContentValue,
     editContentRequest,
     editedContent,
@@ -76,3 +90,40 @@ export const useDictionaryEditionDrawer = (): DictionaryEditionDrawer => {
     clearEditedDictionaryContent,
   };
 };
+
+type DictionaryEditionDrawerControl = {
+  open: (content: FileContent) => void;
+  close: (dictionaryId: string) => void;
+};
+
+export const useDictionaryEditionDrawerControl =
+  (): DictionaryEditionDrawerControl => {
+    const setFocusedContent = useEditionPanelStore((s) => s.setFocusedContent);
+
+    const open = ({
+      dictionaryId,
+      dictionaryPath,
+      keyPath = [],
+    }: OpenDictionaryEditionDrawerProps) => {
+      setFocusedContent({
+        dictionaryId,
+        dictionaryPath,
+        keyPath,
+      });
+
+      const id = getDrawerIdentifier(dictionaryId);
+
+      useRightDrawerStore(id).getState().open();
+    };
+
+    const close = (dictionaryId: string) => {
+      const id = getDrawerIdentifier(dictionaryId);
+
+      useRightDrawerStore(id).getState().close();
+    };
+
+    return {
+      open,
+      close,
+    };
+  };
