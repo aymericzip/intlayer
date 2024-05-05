@@ -17,25 +17,24 @@ import dictionaries from '@intlayer/dictionaries-entry';
 import type { FC } from 'react';
 import {
   type FileContent as FileContentWithDictionaryPath,
-  useEditionPanel,
-} from './useEditionPanel';
+  useDictionaryEditionDrawer,
+} from './useDictionaryEditionDrawer';
 
-type EditionPanelContentProps = {
+type DictionaryEditionDrawerContentProps = {
   focusedContent: FileContentWithDictionaryPath;
   locale: Locales;
 };
 
-export const EditionPanelContent: FC<EditionPanelContentProps> = ({
-  focusedContent,
-  locale,
-}) => {
+export const DictionaryEditionDrawerContent: FC<
+  DictionaryEditionDrawerContentProps
+> = ({ focusedContent, locale }) => {
   const {
     setFocusedContent,
     editContentRequest,
     editedContent,
     addEditedContent,
     clearEditedDictionaryContent,
-  } = useEditionPanel();
+  } = useDictionaryEditionDrawer();
 
   const dictionaryId: string = focusedContent.dictionaryId;
   const dictionary: Dictionary = dictionaries[dictionaryId];
@@ -63,18 +62,18 @@ export const EditionPanelContent: FC<EditionPanelContentProps> = ({
   );
 };
 
-type EditionPanelProps = {
+type DictionaryEditionDrawerProps = {
   locale: Locales;
   localeList: Locales[];
   setLocale: (locale: Locales) => void;
 };
 
-export const EditionPanel: FC<EditionPanelProps> = ({
+export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   locale,
   localeList,
   setLocale,
 }) => {
-  const { focusedContent } = useEditionPanel();
+  const { focusedContent } = useDictionaryEditionDrawer();
 
   const dictionaryId: string | undefined = focusedContent?.dictionaryId;
 
@@ -91,7 +90,10 @@ export const EditionPanel: FC<EditionPanelProps> = ({
       }
     >
       {focusedContent && (
-        <EditionPanelContent focusedContent={focusedContent} locale={locale} />
+        <DictionaryEditionDrawerContent
+          focusedContent={focusedContent}
+          locale={locale}
+        />
       )}
     </RightDrawer>
   );

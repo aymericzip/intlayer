@@ -14,7 +14,7 @@ export type FileContent = {
   keyPath: KeyPath[];
 };
 
-type EditionPanel = {
+type DictionaryEditionDrawer = {
   focusedContent: FileContent | null;
   setFocusedContent: (content: FileContent | null) => void;
   isOpen: boolean;
@@ -34,7 +34,7 @@ type EditionPanel = {
   clearEditedDictionaryContent: (dictionaryPath: DictionaryPath) => void;
 };
 
-export const useEditionPanel = (): EditionPanel => {
+export const useDictionaryEditionDrawer = (): DictionaryEditionDrawer => {
   const { isOpen, openPanel, closePanel } = useRightDrawerStore((s) => ({
     isOpen: s.isOpen,
     openPanel: s.open,

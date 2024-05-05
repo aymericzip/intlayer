@@ -1,6 +1,6 @@
 import type { Locales } from '@intlayer/config/client';
 import type { FC, ReactNode } from 'react';
-import { EditionPanel } from './EditionPanel/index';
+import { DictionaryEditionDrawer } from './DictionaryEditionDrawer/index';
 
 export type ContentEditionLayoutProps = {
   children?: ReactNode;
@@ -17,7 +17,7 @@ export const ContentEditionLayout: FC<ContentEditionLayoutProps> = ({
 }) => (
   <>
     {children}
-    <EditionPanel
+    <DictionaryEditionDrawer
       locale={locale}
       localeList={localeList}
       setLocale={setLocale}
