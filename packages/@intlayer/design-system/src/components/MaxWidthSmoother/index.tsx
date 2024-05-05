@@ -2,10 +2,13 @@ import React from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
+type Align = 'left' | 'right';
+
 type MaxHeightSmootherProps = {
   children: React.ReactNode;
   isHidden: boolean;
   minWidth?: number;
+  align?: Align;
 };
 
 const StyledMasker = styled.div<{ $isHidden: boolean }>`
@@ -13,18 +16,22 @@ const StyledMasker = styled.div<{ $isHidden: boolean }>`
   ${({ $isHidden }) => ($isHidden ? '' : tw`grid-cols-[1fr]`)}
 `;
 
-const StyledChildrenWrapper = tw.div``;
+const StyledChildrenWrapper = styled.div<{ $align: Align }>`
+  ${({ $align }) => $align === 'right' && tw`ml-auto`}
+`;
 
 export const MaxWidthSmoother = ({
   children,
   isHidden,
   minWidth = 0,
+  align = 'left',
 }: MaxHeightSmootherProps) => (
   <StyledMasker aria-hidden={isHidden} $isHidden={isHidden}>
     <StyledChildrenWrapper
       style={{
         minWidth: `${minWidth}px`,
       }}
+      $align={align}
     >
       {children}
     </StyledChildrenWrapper>
