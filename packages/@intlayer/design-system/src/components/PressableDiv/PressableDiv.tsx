@@ -9,6 +9,7 @@ import {
   type MouseEventHandler,
   type HTMLAttributes,
 } from 'react';
+import styled from 'styled-components';
 import tw from 'twin.macro';
 
 const DEFAULT_PRESS_DETECT_DURATION = 400;
@@ -17,23 +18,32 @@ type PressableDivProps = {
   onPress: () => void;
   onClickOutside?: () => void;
   pressDuration?: number;
+  isSelecting?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
-const StyledContentSelector = tw.div`inline cursor-pointer outline outline-offset-4 outline-2 outline-transparent outline-white/[0]	hover:outline-white/[1] rounded-md transition-all duration-200 delay-100`;
+const StyledContentSelector = styled.div<{ $isSelecting?: boolean }>(
+  ({ $isSelecting }) => [
+    tw`inline cursor-pointer outline outline-offset-4 outline-2 outline-transparent rounded-md transition-all duration-200 delay-100`,
+    $isSelecting
+      ? tw`outline-white/[1]`
+      : tw`outline-white/[0]	hover:outline-white/[1]`,
+  ]
+);
 
 export const PressableDiv: FC<PressableDivProps> = ({
   children,
   onPress: onSelect,
   onClickOutside: onUnselect,
   pressDuration = DEFAULT_PRESS_DETECT_DURATION,
+  isSelecting: isSelectingProp,
   ...props
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const [isSelecting, setIsSelecting] = useState(false);
+  const [isSelectingState, setIsSelectingState] = useState(isSelectingProp);
   const pressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleOnLongPress = () => {
-    setIsSelecting(true);
+    setIsSelectingState(true);
     onSelect();
   };
 
@@ -63,7 +73,7 @@ export const PressableDiv: FC<PressableDivProps> = ({
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       if (divRef.current && !divRef.current.contains(event.target as Node)) {
-        setIsSelecting(false);
+        setIsSelectingState(false);
         onUnselect?.();
       }
     },
@@ -82,7 +92,7 @@ export const PressableDiv: FC<PressableDivProps> = ({
   }, [handleClickOutside]);
 
   const handleOnClick: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (isSelecting) {
+    if (isSelectingState) {
       e.preventDefault();
       e.stopPropagation();
     }
@@ -90,7 +100,7 @@ export const PressableDiv: FC<PressableDivProps> = ({
 
   const handleOnBlur = () => {
     // Stop editing when the element loses focus
-    setIsSelecting(false);
+    setIsSelectingState(false);
   };
 
   return (
@@ -107,6 +117,7 @@ export const PressableDiv: FC<PressableDivProps> = ({
       onTouchCancel={handleMouseUp}
       onBlur={handleOnBlur}
       ref={divRef}
+      $isSelecting={isSelectingProp ?? isSelectingState}
       {...props}
     >
       {children}

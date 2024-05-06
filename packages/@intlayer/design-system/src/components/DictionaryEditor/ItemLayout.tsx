@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import type { ReactNode, FC, HTMLAttributes } from 'react';
+import { styled } from 'styled-components';
 import tw from 'twin.macro';
 import { Accordion } from '../Accordion';
 
@@ -12,16 +12,16 @@ interface ItemWrapperProps extends HTMLAttributes<HTMLDivElement> {
   isSelected: boolean;
 }
 
-export const Container = styled.div<{ $level: number; $isSelected?: boolean }>(
-  ({ $level, $isSelected }) => [
-    tw`p-2 rounded-md transition`,
-    tw`hover:bg-slate-100/30 [&:has(.section:hover)]:bg-transparent`,
-    $level === 0 && tw``,
-    $level === 2 && tw`hover:bg-slate-100/30`,
-    $level >= 3 && tw``,
-    $isSelected === true && tw`bg-slate-100/40`,
-  ]
-);
+export const StyledContainer = styled.div<{
+  $level: number;
+  $isSelected?: boolean;
+}>(({ $level, $isSelected }) => [
+  tw`p-2 rounded-md transition`,
+  tw`hover:bg-slate-100/30 [&:has(.section:hover)]:bg-transparent`,
+  $level === 2 && tw`hover:bg-slate-100/30`,
+  $level >= 3 && tw``,
+  $isSelected === true && tw`bg-slate-100/40`,
+]);
 
 const Description = styled.p(tw`text-sm text-slate-400 pl-3`);
 
@@ -46,7 +46,7 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
   isSelected,
   ...props
 }) => (
-  <Container $level={level} $isSelected={isSelected} {...props}>
+  <StyledContainer $level={level} $isSelected={isSelected} {...props}>
     <Accordion
       isOpen={isSelected}
       identifier={`accordion_${title}`}
@@ -62,5 +62,5 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
     >
       {children}
     </Accordion>
-  </Container>
+  </StyledContainer>
 );
