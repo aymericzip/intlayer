@@ -1,6 +1,6 @@
 'use client';
 
-import type { KeyPath } from '@intlayer/core';
+import { isSameKeyPath, type KeyPath } from '@intlayer/core';
 import { ContentSelector } from '@intlayer/design-system';
 import type { FC } from 'react';
 import { useDictionaryEditionDrawer } from './DictionaryEditionDrawer/useDictionaryEditionDrawer';
@@ -18,7 +18,7 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   dictionaryPath,
   keyPath,
 }) => {
-  const { open, getEditedContentValue } =
+  const { open, getEditedContentValue, focusedContent, isOpen } =
     useDictionaryEditionDrawer(dictionaryId);
   const editedValue = getEditedContentValue(dictionaryPath, keyPath);
 
@@ -29,8 +29,14 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
       keyPath,
     });
 
+  const isSelected =
+    (isOpen &&
+      (focusedContent?.keyPath?.length ?? 0) > 0 &&
+      isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
+    false;
+
   return (
-    <ContentSelector onSelect={handleSelect}>
+    <ContentSelector onSelect={handleSelect} isSelecting={isSelected}>
       {editedValue ?? children}
     </ContentSelector>
   );

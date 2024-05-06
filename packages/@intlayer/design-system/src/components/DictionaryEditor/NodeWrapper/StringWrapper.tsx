@@ -1,7 +1,7 @@
 import { isSameKeyPath } from '@intlayer/core';
 import type { FC } from 'react';
 import { ContentEditor } from '../../ContentEditor';
-import { Container } from '../ItemLayout';
+import { StyledContainer } from '../ItemLayout';
 import type { NodeWrapperProps } from './index';
 
 interface StringWrapperProps extends Omit<NodeWrapperProps, 'section'> {
@@ -23,7 +23,7 @@ export const StringWrapper: FC<StringWrapperProps> = (props) => {
   )?.newValue;
 
   return (
-    <Container
+    <StyledContainer
       $level={keyPath.length}
       onClick={(e) => {
         e.stopPropagation();
@@ -36,6 +36,6 @@ export const StringWrapper: FC<StringWrapperProps> = (props) => {
       >
         {editedContentValue ?? section}
       </ContentEditor>
-    </Container>
+    </StyledContainer>
   );
 };

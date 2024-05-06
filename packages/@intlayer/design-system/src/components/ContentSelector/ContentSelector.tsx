@@ -3,20 +3,24 @@
 import type { FC } from 'react';
 import { PressableDiv } from '../PressableDiv';
 
-type ContentEditorProps = {
+type ContentSelectorProps = {
   children: string;
   onSelect: () => void;
   onUnselect?: () => void;
+  isSelecting?: boolean;
 };
 
-export const ContentSelector: FC<ContentEditorProps> = ({
+export const ContentSelector: FC<ContentSelectorProps> = ({
   children,
   onSelect,
   onUnselect,
-}) => {
-  return (
-    <PressableDiv onPress={onSelect} onClickOutside={onUnselect}>
-      {children}
-    </PressableDiv>
-  );
-};
+  isSelecting,
+}) => (
+  <PressableDiv
+    onPress={onSelect}
+    onClickOutside={onUnselect}
+    isSelecting={isSelecting}
+  >
+    {children}
+  </PressableDiv>
+);
