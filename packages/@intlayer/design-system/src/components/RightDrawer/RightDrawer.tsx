@@ -8,7 +8,7 @@ import {
   useRef,
   type MouseEventHandler,
 } from 'react';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import tw from 'twin.macro';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
@@ -17,7 +17,16 @@ import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { useRightDrawerStore } from './useRightDrawerStore';
 
 const StyledPositioner = tw.div`absolute right-0 top-0 h-full z-50 flex justify-end`;
-const StyledPanelContainer = tw.div`h-screen flex flex-col bg-white/80 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur text-black relative w-screen md:w-[400px]`;
+const StyledPanelContainer = styled.div(() => [
+  tw`h-screen flex flex-col bg-white/80 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur text-black relative w-screen md:w-[400px]`,
+  css`
+    -webkit-backdrop-filter: var(--tw-backdrop-blur)
+      var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
+      var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
+      var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
+      var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  `,
+]);
 const StyledHeader = tw.div`flex flex-col p-6 gap-3`;
 const StyledNavBar = tw.div`flex justify-between gap-3`;
 const StyledScrollableContainer = tw.div`overflow-y-auto h-full p-2 flex flex-col`;
