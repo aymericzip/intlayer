@@ -4,18 +4,16 @@ import { Check, X } from 'lucide-react';
 import { useState, type FC } from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
-import { PressableDiv } from '../PressableDiv';
 
 type ContentEditorProps = {
   children: string;
   onContentChange: (content: string) => void;
+  isEditing?: boolean;
 };
 
-const StyledPressableDiv = styled(PressableDiv)<{ $isEditing: boolean }>`
-  ${({ $isEditing }) =>
-    $isEditing
-      ? tw`bg-transparent cursor-text inline`
-      : tw`bg-transparent cursor-pointer inline`}
+const StyledPressableDiv = styled.div<{ $isEditing: boolean }>`
+  ${tw`bg-transparent inline outline-none m-3 w-full`}
+  ${({ $isEditing }) => ($isEditing ? tw`cursor-text` : tw`cursor-pointer`)}
 `;
 const StyledContainer = tw.div`flex flex-row items-center justify-between gap-2`;
 const StyledValidIcon = tw(Check)`hover:scale-110 cursor-pointer`;
@@ -24,20 +22,17 @@ const StyledCancelIcon = tw(X)`hover:scale-110 cursor-pointer`;
 export const ContentEditor: FC<ContentEditorProps> = ({
   children,
   onContentChange,
+  isEditing,
 }) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newValue, setNewValue] = useState<string>(children);
   const [resetIncrementor, setResetIncrementor] = useState<number>(0); // To reset the div on cancel
-  const isEdited: boolean = newValue !== children && isEditing;
+  const isEdited: boolean = newValue !== children;
 
-  const handleOnLongPress = () => setIsEditing(true);
   const handleCancel = () => {
-    setIsEditing(false);
     setNewValue(children);
     setResetIncrementor((prev) => prev + 1);
   };
   const handleValid = () => {
-    setIsEditing(false);
     onContentChange(newValue);
   };
 
@@ -49,10 +44,9 @@ export const ContentEditor: FC<ContentEditorProps> = ({
       <StyledPressableDiv
         role="textbox"
         contentEditable={isEditing}
-        onPress={handleOnLongPress}
         onInput={handleOnContentChange}
         suppressContentEditableWarning={true} // To suppress the warning for controlled components
-        $isEditing={isEditing}
+        $isEditing={isEditing ?? false}
         key={resetIncrementor}
       >
         {children}

@@ -7,7 +7,6 @@ import {
   NodeType,
   type KeyPath,
   type DictionaryValue,
-  type LanguageContent,
 } from '@intlayer/core';
 import type { FC } from 'react';
 import type { FileContent } from '../';

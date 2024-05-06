@@ -32,6 +32,7 @@ export const StringWrapper: FC<StringWrapperProps> = (props) => {
     >
       <ContentEditor
         onContentChange={(newValue) => onContentChange({ keyPath, newValue })}
+        isEditing={true}
       >
         {editedContentValue ?? section}
       </ContentEditor>
