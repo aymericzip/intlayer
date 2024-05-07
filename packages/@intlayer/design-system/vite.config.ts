@@ -45,9 +45,13 @@ export default defineConfig(() => ({
       fileName: (format, entry) => `${entry}.${format}.js`,
     },
 
+    // cssCodeSplit: true,
     manifest: true,
     rollupOptions: {
       external: [...Object.keys(packageJson.peerDependencies)],
+      // input: {
+      //   import: './style.css',
+      // },
 
       output: {
         banner: `"use client";`,

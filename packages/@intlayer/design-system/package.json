@@ -21,7 +21,9 @@
   },
   "dependencies": {
     "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:^"
+    "@intlayer/core": "workspace:^",
+    "framer-motion": "^11.1.9",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.4",
