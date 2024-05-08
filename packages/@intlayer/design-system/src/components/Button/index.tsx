@@ -105,6 +105,19 @@ const StyledButton = styled.button<VariantProps<typeof buttonVariants>>(
     buttonVariants({ variant, color, size, className })
 );
 
+type ButtonIconProps = {
+  Icon?: LucideIcon | FC;
+  isLoading: boolean;
+} & LoaderProps;
+const ButtonIcon: FC<ButtonIconProps> = ({
+  Icon,
+  isLoading,
+  ...loaderProps
+}) => (isLoading ? <Loader {...loaderProps} /> : Icon && <Icon />);
+const StyledButtonIcon = styled(ButtonIcon)<VariantProps<typeof iconVariants>>(
+  ({ size, className }) => iconVariants({ size, className })
+);
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -114,7 +127,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       Icon,
       iconClassName,
-      isLoading,
+      isLoading = false,
       isActive,
       disabled,
       label,
@@ -123,12 +136,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const isLink = variant === 'link' || variant === 'invisible-link';
-
-    const ButtonIcon = (isLoading ? Loader : Icon) as FC<LoaderProps>;
-
-    const StyledButtonIcon = styled(ButtonIcon)<
-      VariantProps<typeof iconVariants>
-    >(({ size, className }) => iconVariants({ size, className }));
 
     return (
       <StyledButton
@@ -145,7 +152,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {StyledButtonIcon ? (
           <>
-            <StyledButtonIcon className={iconClassName} />
+            <StyledButtonIcon
+              className={iconClassName}
+              size={size}
+              isLoading={isLoading}
+              Icon={Icon}
+            />
             {children}
           </>
         ) : (

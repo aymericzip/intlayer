@@ -7,4 +7,8 @@ export {
 } from 'react-intlayer';
 export { generateStaticParams } from './generateStaticParams';
 export type { LocalParams, NextPageIntlayer } from './types/index';
-export { useLocale, IntlayerClientProvider } from './client/index';
+export {
+  useLocale,
+  IntlayerClientProvider,
+  type IntlayerClientProviderProps,
+} from './client/index';

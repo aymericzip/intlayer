@@ -13,7 +13,7 @@ export type LinkGroup = { title: string; links: Link[] };
 
 type FooterProps = { links?: LinkGroup[] };
 
-const StyledFooter = tw.footer`flex-0`;
+const StyledFooter = tw.footer`flex-auto`;
 const StyledFooterContent = tw.div`m-auto flex w-full flex-row justify-evenly p-6 md:w-1/2`;
 const StyledColumn = tw.div`flex flex-col gap-2`;
 const StyledColumnRow = tw.div`mx-auto flex flex-col gap-4`;

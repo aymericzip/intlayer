@@ -8,6 +8,11 @@
       "import": "./dist/components/index.es.js",
       "require": "./dist/components/index.cjs.js",
       "types": "./dist/components/index.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks/index.es.js",
+      "require": "./dist/hooks/index.cjs.js",
+      "types": "./dist/hooks/index.d.ts"
     }
   },
   "files": [
