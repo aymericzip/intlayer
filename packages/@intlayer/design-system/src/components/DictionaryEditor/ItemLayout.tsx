@@ -17,13 +17,13 @@ export const StyledContainer = styled.div<{
   $isSelected?: boolean;
 }>(({ $level, $isSelected }) => [
   tw`p-2 rounded-md transition`,
-  tw`hover:bg-slate-100/30 [&:has(.section:hover)]:bg-transparent`,
-  $level === 2 && tw`hover:bg-slate-100/30`,
+  tw`hover:bg-card/30 dark:hover:bg-card-dark/30 [&:has(.section:hover)]:bg-transparent`,
+  $level === 2 && tw`hover:bg-card/30 dark:hover:bg-card-dark/30`,
   $level >= 3 && tw``,
-  $isSelected === true && tw`bg-slate-100/40`,
+  $isSelected === true && tw`bg-card/40 dark:bg-card-dark/40`,
 ]);
 
-const Description = styled.p(tw`text-sm text-slate-400 pl-3`);
+const Description = tw.p`text-sm text-card pl-3`;
 
 const Title = styled.span<{ $level: number }>(({ $level }) => [
   tw``,
@@ -33,9 +33,7 @@ const Title = styled.span<{ $level: number }>(({ $level }) => [
   $level >= 3 && tw`text-base`,
 ]);
 
-const RightParamContainer = styled.div(
-  tw`flex w-full items-center justify-between p-3 sm:w-auto`
-);
+const RightParamContainer = tw.div`flex w-full items-center justify-between p-3 sm:w-auto`;
 
 export const ItemLayout: FC<ItemWrapperProps> = ({
   level,
