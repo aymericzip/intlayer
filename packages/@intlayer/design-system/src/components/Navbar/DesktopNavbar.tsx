@@ -2,7 +2,7 @@
 
 import type { FC, ReactNode } from 'react';
 
-import styled from 'styled-components';
+import { css, styled } from 'styled-components';
 import tw from 'twin.macro';
 import { Button } from '../Button';
 import { useNavActions } from './useNavigation';
@@ -14,12 +14,19 @@ type DesktopNavbarProps = {
   rightItems?: ReactNode;
 };
 
-const StyledNav = tw.nav`bg-card/80 sticky top-0 z-50 flex w-screen items-center px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur`;
+const StyledNav = styled.nav(() => [
+  tw`bg-card/80 dark:bg-card-dark/80 sticky top-0 z-50 flex w-screen items-center px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur`,
+  css`
+    -webkit-backdrop-filter: var(--tw-backdrop-blur)
+      var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
+      var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
+      var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
+      var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  `,
+]);
 const StyledList = tw.div`ml-[10vw] flex flex-row gap-6 tracking-wide text-neutral-800`;
-const StyledListItem = styled(Button)`
-  ${tw`hover:text-primary`}
-`;
-const StyledRightItemContainer = tw.div`mr-4 flex w-full justify-end gap-2`;
+
+const StyledRightItemContainer = tw.div`mr-4 flex w-full justify-end items-center gap-2`;
 
 export const DesktopNavbar: FC<DesktopNavbarProps> = ({
   logo,
@@ -37,7 +44,7 @@ export const DesktopNavbar: FC<DesktopNavbarProps> = ({
         aria-multiselectable="false"
       >
         {sections?.map(({ id, url, label, title, onClick }) => (
-          <StyledListItem
+          <Button
             key={id}
             role="tab"
             variant="invisible-link"
@@ -50,7 +57,7 @@ export const DesktopNavbar: FC<DesktopNavbarProps> = ({
             }}
           >
             {title}
-          </StyledListItem>
+          </Button>
         ))}
       </StyledList>
       <StyledRightItemContainer>{rightItems}</StyledRightItemContainer>

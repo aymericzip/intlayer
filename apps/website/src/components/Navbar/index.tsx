@@ -7,33 +7,48 @@ import {
   LocaleSwitcher,
   Navbar as UINavBar,
   Logo,
+  type NavSection,
 } from '@intlayer/design-system';
 import { useRouter } from 'next/navigation';
-import { useLocale } from 'next-intlayer';
+import { signOut } from 'next-auth/react';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 import {
   DesktopThemeSwitcher,
   MobileThemeSwitcher,
 } from '../ThemeSwitcherDropDown';
-import { getNavbarContent } from '@/components/Navbar/navbarContent';
+import { PagesRoutes } from '@/Routes';
 import { useUser } from '@/utils/auth/next-auth/useUser';
 
 export const Navbar: FC = () => {
   const { locale, setLocale, availableLocales } = useLocale();
-  const router = useRouter();
   const { isLoggedIn, isLoading, name, imageURL } = useUser();
-  const { logo, sections, bottomSections, login, profile } = getNavbarContent(
-    isLoggedIn,
-    router
+  const { logo, sections, bottomSections, login, profile } =
+    useIntlayer('navbar');
+  const router = useRouter();
+
+  const sectionWithClick: NavSection[] = Object.values(sections).map(
+    (section) => ({
+      ...section,
+      onClick: () => router.push(section.url),
+    })
   );
+  const bottomSectionsWithClick: NavSection[] = [
+    { ...bottomSections.login, onClick: () => bottomSections.login.url },
+    { ...bottomSections.logout, onClick: () => void signOut() },
+  ];
 
   return (
     <UINavBar
-      key={locale} // Refresh router when locale changes
-      desktopSections={sections}
-      mobileTopSections={sections}
-      mobileBottomSections={bottomSections}
-      logo={<Logo onClick={logo.onClick} aria-label={logo.label} />}
+      desktopSections={sectionWithClick}
+      mobileTopSections={sectionWithClick}
+      mobileBottomSections={bottomSectionsWithClick}
+      logo={
+        <Logo
+          onClick={() => router.push(PagesRoutes.Home)}
+          aria-label={logo.label}
+        />
+      }
       mobileTopChildren={
         <Button variant="invisible-link" color="text" label={profile.label}>
           <div className="flex w-full flex-col items-center justify-center gap-2 pb-10">
@@ -68,6 +83,7 @@ export const Navbar: FC = () => {
             locale={locale}
           />
           <DesktopThemeSwitcher />
+
           {isLoggedIn ? (
             <ProfileDropDown
               isLoggedIn={isLoggedIn}
@@ -77,7 +93,7 @@ export const Navbar: FC = () => {
             />
           ) : (
             <Button
-              onClick={() => login.onClick()}
+              onClick={() => router.push(PagesRoutes.LogIn)}
               variant="invisible-link"
               color="text"
               label={login.label}

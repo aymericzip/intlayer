@@ -8,7 +8,8 @@ import NextAuthProvider, {
 import { ReactQueryClientProvider } from './ReactQueryClientProvider';
 import { ThemeProvider } from './ThemeProvider';
 
-type AppProvidersProps = IntlayerClientProviderProps & NextAuthProviderProps;
+export type AppProvidersProps = IntlayerClientProviderProps &
+  NextAuthProviderProps;
 
 export const AppProviders: FC<AppProvidersProps> = ({
   children,

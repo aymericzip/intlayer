@@ -1,5 +1,6 @@
 export enum PagesRoutes {
   Home = '/',
+  Demo = '/demo',
 
   LogIn = '/auth/sign-in',
   SignUp = '/auth/sign-up',

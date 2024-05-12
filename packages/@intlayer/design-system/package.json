@@ -13,6 +13,11 @@
       "import": "./dist/hooks/index.es.js",
       "require": "./dist/hooks/index.cjs.js",
       "types": "./dist/hooks/index.d.ts"
+    },
+    "./tailwind-config": {
+      "import": "./tailwind.config.ts",
+      "require": "./tailwind.config.ts",
+      "types": "./tailwind.config.ts"
     }
   },
   "files": [
@@ -27,6 +32,7 @@
   "dependencies": {
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "framer-motion": "^11.1.9",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -39,7 +45,6 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@utils/ts-config": "workspace:^",
     "@vitejs/plugin-react": "^4.2.1",
-    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "emotions": "^0.0.1",
     "eslint": "^8.57.0",

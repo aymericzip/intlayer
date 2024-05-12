@@ -73,7 +73,7 @@ export const buildI18nDictionary = async (
     // Create dictionaries for each nested content and format them
     const dictionariesDeclaration: DictionariesDeclaration =
       nestedContent.reduce((acc, content) => {
-        const id = content.id;
+        const id: string = content.id;
         const i18Content = createI18nDictionaries(content);
 
         return {

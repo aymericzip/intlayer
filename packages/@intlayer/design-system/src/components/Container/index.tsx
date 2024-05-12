@@ -1,65 +1,94 @@
-import { cva, type VariantProps } from 'class-variance-authority';
-import { forwardRef, type DetailedHTMLProps, type HTMLAttributes } from 'react';
+import { type PropsWithChildren, forwardRef } from 'react';
 import { styled } from 'styled-components';
+import tw, { type TwStyle } from 'twin.macro';
 
-const containerVariants = cva(
-  'flex flex-col justify-between rounded-lg shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur',
-  {
-    variants: {
-      roundedSize: {
-        none: 'rounded-none',
-        sm: 'rounded-sm',
-        md: 'rounded-md',
-        lg: 'rounded-lg',
-        xl: 'rounded-xl',
-        '2xl': 'rounded-2xl',
-        '3xl': 'rounded-3xl',
-        full: 'rounded-full',
-      },
-      transparency: {
-        none: 'bg-card',
-        sm: 'bg-card/80',
-        md: 'bg-card/60',
-        lg: 'bg-card/40',
-        xl: 'bg-card/20',
-      },
-      padding: {
-        none: 'p-0',
-        sm: 'p-1',
-        md: 'p-2',
-        lg: 'p-3',
-        xl: 'p-4',
-      },
-    },
-    defaultVariants: {
-      roundedSize: 'md',
-      transparency: 'md',
-    },
-  }
-);
+// Define a basic container with default styles
+const BaseContainer = tw.div`flex flex-col justify-between shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] shadow-sm backdrop-blur`;
 
-type ContainerProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
-> &
-  VariantProps<typeof containerVariants>;
+type RoundedSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+type Transparency = 'none' | 'sm' | 'md' | 'lg' | 'xl';
+type Padding = 'none' | 'sm' | 'md' | 'lg' | 'xl';
+type Separator = 'without' | 'x' | 'y' | 'both';
 
-const StyledContainer = styled.div<VariantProps<typeof containerVariants>>(
-  ({ roundedSize, padding, transparency, className }) =>
-    containerVariants({
-      roundedSize,
-      padding,
-      transparency,
-      className,
-    })
-);
+// Variant configurations using twin.macro utilities directly
+const roundedSizeVariants: Record<RoundedSize, TwStyle> = {
+  none: tw`rounded-none`,
+  sm: tw`rounded-sm`,
+  md: tw`rounded-md`,
+  lg: tw`rounded-lg`,
+  xl: tw`rounded-xl`,
+  '2xl': tw`rounded-2xl`,
+  '3xl': tw`rounded-3xl`,
+  full: tw`rounded-full`,
+};
 
+const transparencyVariants: Record<Transparency, TwStyle> = {
+  none: tw`bg-card dark:bg-card-dark`,
+  sm: tw`bg-card/80 dark:bg-card-dark/80`,
+  md: tw`bg-card/60 dark:bg-card-dark/60`,
+  lg: tw`bg-card/40 dark:bg-card-dark/40`,
+  xl: tw`bg-card/20 dark:bg-card-dark/20`,
+};
+
+const paddingVariants: Record<Padding, TwStyle> = {
+  none: tw`p-0`,
+  sm: tw`p-1`,
+  md: tw`p-2`,
+  lg: tw`p-3`,
+  xl: tw`p-4`,
+};
+
+const separatorVariants: Record<Separator, TwStyle> = {
+  without: tw``,
+  x: tw`divide-x divide-dashed divide-text/20 dark:divide-text-dark/20`,
+  y: tw`divide-y divide-dashed divide-text/20 dark:divide-text-dark/20`,
+  both: tw`divide-x divide-y divide-dashed divide-text/20 dark:divide-text-dark/20`,
+};
+
+type ContainerStyleProps = {
+  $roundedSize?: RoundedSize;
+  $transparency?: Transparency;
+  $padding?: Padding;
+  $separator?: Separator;
+};
+
+export const getContainerStyles = ({
+  $roundedSize = 'md',
+  $transparency = 'md',
+  $padding = 'none',
+  $separator = 'without',
+}: ContainerStyleProps): TwStyle[] => [
+  roundedSizeVariants[$roundedSize],
+  transparencyVariants[$transparency],
+  paddingVariants[$padding],
+  separatorVariants[$separator],
+];
+
+// Extended styled component with dynamic styling based on props
+const StyledContainer =
+  styled(BaseContainer)<ContainerStyleProps>(getContainerStyles);
+
+type ContainerProps = PropsWithChildren<{
+  roundedSize?: RoundedSize;
+  transparency?: Transparency;
+  padding?: Padding;
+  separator?: Separator;
+}>;
+
+// Container component
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   (
-    { children, roundedSize, padding, transparency, className, ...props },
+    { children, roundedSize, padding, transparency, separator, ...props },
     ref
   ) => (
-    <StyledContainer ref={ref} {...props}>
+    <StyledContainer
+      ref={ref}
+      $roundedSize={roundedSize}
+      $padding={padding}
+      $transparency={transparency}
+      $separator={separator}
+      {...props}
+    >
       {children}
     </StyledContainer>
   )

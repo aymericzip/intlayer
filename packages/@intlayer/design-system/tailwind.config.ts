@@ -36,7 +36,7 @@ const tailwindConfig = {
           dark: 'rgba(255, 245, 237, <alpha-value>)',
           opposite: {
             DEFAULT: 'rgba(255, 245, 237, <alpha-value>)',
-            dark: 'rgba(18, 18, 18, <alpha-value>)',
+            dark: 'rgba(28, 28, 28, <alpha-value>)',
           },
         },
         card: {
@@ -134,8 +134,8 @@ const tailwindConfig = {
           '950': 'rgba(67, 29, 5, <alpha-value>)',
         },
         destructive: {
-          DEFAULT: 'rgba(255, 245, 237, <alpha-value>)',
-          dark: 'rgba(255, 245, 237, <alpha-value>)',
+          DEFAULT: 'rgba(251, 125, 60, <alpha-value>)',
+          dark: 'rgba(251, 125, 60, <alpha-value>)',
           '50': 'rgba(255, 245, 237, <alpha-value>)',
           '100': 'rgba(255, 232, 213, <alpha-value>)',
           '200': 'rgba(254, 206, 170, <alpha-value>)',
@@ -166,7 +166,10 @@ const tailwindConfig = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 } satisfies Partial<Config>;
 
 export default tailwindConfig;

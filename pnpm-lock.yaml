@@ -472,6 +472,9 @@ importers:
       '@intlayer/core':
         specifier: workspace:^
         version: link:../core
+      '@tailwindcss/aspect-ratio':
+        specifier: ^0.4.2
+        version: 0.4.2(tailwindcss@3.4.3)
       framer-motion:
         specifier: ^11.1.9
         version: 11.1.9(react-dom@18.3.1)(react@18.3.1)
@@ -512,9 +515,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.2.1
         version: 4.2.1(vite@5.2.10)
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.0
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -6226,6 +6226,17 @@ packages:
       defer-to-connect: 2.0.1
     dev: false
 
+  /@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.3):
+    resolution:
+      {
+        integrity: sha512-8QPrypskfBa7QIMuKHg2TA7BqES6vhBrDLOv8Unb6FcFyd3TjKbc6lcmb9UPQHxfl24sXoJ41ux/H7qQQvfaSQ==,
+      }
+    peerDependencies:
+      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
+    dependencies:
+      tailwindcss: 3.4.3
+    dev: false
+
   /@tanstack/query-core@5.35.1:
     resolution:
       {
@@ -9595,15 +9606,6 @@ packages:
       }
     dev: false
 
-  /class-variance-authority@0.7.0:
-    resolution:
-      {
-        integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==,
-      }
-    dependencies:
-      clsx: 2.0.0
-    dev: true
-
   /clean-css@5.3.3:
     resolution:
       {
@@ -9728,14 +9730,6 @@ packages:
         integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==,
       }
     engines: { node: '>=0.8' }
-    dev: true
-
-  /clsx@2.0.0:
-    resolution:
-      {
-        integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==,
-      }
-    engines: { node: '>=6' }
     dev: true
 
   /clsx@2.1.1:

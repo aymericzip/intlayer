@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { useRef, useState, type FC, type ReactNode } from 'react';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import tw from 'twin.macro';
 import { useScrollBlockage, useScrollDetection } from '../../hooks';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
@@ -108,10 +108,19 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
 
   const isBurgerShowed = topSections.length + bottomSections.length > 0;
 
-  const bgStyle = tw`bg-card/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur`;
+  const bgStyle = [
+    tw`bg-card/95 dark:bg-card-dark/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur`,
+    css`
+      -webkit-backdrop-filter: var(--tw-backdrop-blur)
+        var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
+        var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
+        var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
+        var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+    `,
+  ];
 
   const StyledNav = styled.nav<{ $isHidden: boolean }>(({ $isHidden }) => [
-    bgStyle,
+    ...bgStyle,
     tw`relative sticky top-0 z-50 flex w-screen flex-col  transition`,
     $isHidden ? tw`-translate-y-full` : tw`translate-y-0`,
   ]);
@@ -119,7 +128,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
   const StyledRightItemContainer = tw.div`flex w-full items-center justify-end gap-6`;
   const StyledRightCustomItemContainer = tw.div`flex w-full items-center justify-end gap-1`;
   const StyledFullScreenPanel = styled.div(() => [
-    bgStyle,
+    ...bgStyle,
     tw`absolute bottom-0 left-0 w-full translate-y-full`,
   ]);
   const StyledFullScreenPanelContent = styled(motion.div)(

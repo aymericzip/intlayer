@@ -4,7 +4,7 @@ import tw from 'twin.macro';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import type { UnrollablePanelTriggerProps, UnrollablePanelType } from './types';
 
-const StyledDropDownTriggerButton = tw.button`relative cursor-pointer w-full `;
+const StyledDropDownTriggerButton = tw.button`relative cursor-pointer`;
 
 const DropDownTrigger: FC<UnrollablePanelTriggerProps> = ({
   children,
@@ -23,7 +23,7 @@ const DropDownTrigger: FC<UnrollablePanelTriggerProps> = ({
   </StyledDropDownTriggerButton>
 );
 
-const StyledDropDownContainer = tw.div`absolute right-0 translate-y-2 w-full`;
+const StyledDropDownContainer = tw.div`absolute right-0 translate-y-2 min-w-full`;
 const StyledMaxHeightSmoother = styled(MaxHeightSmoother)<{
   isHidden: boolean | undefined;
   $isOverable: boolean;

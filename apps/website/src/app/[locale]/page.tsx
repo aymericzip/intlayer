@@ -1,19 +1,10 @@
-import { Footer } from '@components/Footer';
-import { Navbar } from '@components/Navbar';
+import { PageLayout } from '@layouts/PageLayout';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { generateMetadata } from './metadata';
-import { AppProviders } from '@/providers/AppProviders';
 export { generateMetadata };
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => {
-  return (
-    <AppProviders locale={locale}>
-      <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
-
-      <Footer />
-    </AppProviders>
-  );
+  return <PageLayout locale={locale}></PageLayout>;
 };
 
 export default Page;

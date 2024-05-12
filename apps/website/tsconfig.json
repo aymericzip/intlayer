@@ -18,6 +18,7 @@
       }
     ],
     "paths": {
+      "@layouts/*": ["./src/layouts/*"],
       "@components/*": ["./src/components/*"],
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]

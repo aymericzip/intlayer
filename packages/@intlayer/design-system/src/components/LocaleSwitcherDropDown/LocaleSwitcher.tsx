@@ -4,18 +4,24 @@ import type { Locales } from '@intlayer/config/client';
 import { getLocaleName } from '@intlayer/core';
 import { MoveVertical } from 'lucide-react';
 import type { ButtonHTMLAttributes, FC } from 'react';
+import { styled } from 'styled-components';
 import tw from 'twin.macro';
+import { Container } from '../Container';
 import { DropDown } from '../DropDown';
 
-const StyledButtonContainer = tw.div`w-full border-gray-50 p-0.5 relative`;
-const StyledButton = tw.button`my-0.5 w-full cursor-pointer rounded-lg p-1 text-left hover:bg-white/10 focus:bg-white/40 focus:outline-none disabled:text-white/25`;
+const StyledButtonContainer = tw.div`w-full relative p-0.5`;
+const StyledButton = tw.button`w-full cursor-pointer rounded-lg p-1 text-left hover:bg-text/10 dark:hover:bg-text-opposite/10 focus:bg-text-opposite/20 dark:focus:bg-text-opposite/20 focus:outline-none disabled:text-white/25`;
 
 const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
   ...props
 }) => (
   <StyledButtonContainer>
-    <StyledButton data-role="language-switcher" data-mode="system" {...props}>
+    <StyledButton
+      data-role="language-switcher-item"
+      data-mode="system"
+      {...props}
+    >
       {children}
     </StyledButton>
   </StyledButtonContainer>
@@ -28,14 +34,15 @@ type LocaleSwitcherProps = {
   setLocale: (locale: Locales) => void;
 };
 
-const StyledLocaleSwitcherContainer = tw.div`rounded border transition-colors`;
-const StyledListContainer = tw.div`items-end divide-y divide-dashed p-1`;
-const StyledMoveVertical = tw(
-  MoveVertical
-)`absolute top-1/2 right-2 w-5 h-5 transform -translate-y-1/2`;
+const StyledLocaleSwitcherContainer = tw.div`text-text dark:text-text-dark rounded border border-text dark:border-text-dark transition-colors`;
+const StyledTrigger = styled(DropDown.Trigger)`p-0`;
+const StyledTriggerContent = tw.div`flex justify-between items-center`;
+const StyledLocaleText = tw.div`px-2 py-1`;
+const StyledMoveVertical = tw(MoveVertical)`self-center w-5`;
 const StyledDropDown = tw(
   DropDown
-)`bg-gray-300/80 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur rounded`;
+)`w-full divide-x divide-y divide-dotted divide-text dark:divide-text-dark`;
+const StyledListContainer = tw(Container)``;
 
 export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   locale,
@@ -48,19 +55,21 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
       data-role="locale-switcher"
       aria-label="Language switcher"
     >
-      <StyledListContainer>
-        <DropDown.Trigger
-          identifier="local-switcher"
-          aria-label="Language selector"
-          aria-selected={true}
-        >
-          {locale && (
-            <>
+      <StyledTrigger
+        identifier="local-switcher"
+        aria-label="Language selector"
+        aria-selected={true}
+      >
+        {locale && (
+          <StyledTriggerContent>
+            <StyledLocaleText>
               {locale ? getLocaleName(locale) : 'Select a locale'}
-              <StyledMoveVertical />
-            </>
-          )}
-          <StyledDropDown identifier="local-switcher" isOverable isFocusable>
+            </StyledLocaleText>
+            <StyledMoveVertical />
+          </StyledTriggerContent>
+        )}
+        <StyledDropDown identifier="local-switcher" isOverable isFocusable>
+          <StyledListContainer separator="y">
             {localeList
               .filter((lang) => lang !== locale)
               .map((lang) => (
@@ -74,9 +83,9 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   {getLocaleName(lang)}
                 </ButtonItem>
               ))}
-          </StyledDropDown>
-        </DropDown.Trigger>
-      </StyledListContainer>
+          </StyledListContainer>
+        </StyledDropDown>
+      </StyledTrigger>
     </StyledLocaleSwitcherContainer>
   );
 };
