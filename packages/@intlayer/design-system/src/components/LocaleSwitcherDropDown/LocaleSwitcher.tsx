@@ -35,7 +35,7 @@ type LocaleSwitcherProps = {
 };
 
 const StyledLocaleSwitcherContainer = tw.div`text-text dark:text-text-dark rounded border border-text dark:border-text-dark transition-colors`;
-const StyledTrigger = styled(DropDown.Trigger)`p-0`;
+const StyledTrigger = tw(DropDown.Trigger)`p-0 w-full`;
 const StyledTriggerContent = tw.div`flex justify-between items-center`;
 const StyledLocaleText = tw.div`px-2 py-1`;
 const StyledMoveVertical = tw(MoveVertical)`self-center w-5`;
