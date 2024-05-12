@@ -23,7 +23,7 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
   <div className="flex-0 flex h-full flex-col">
     {navbar ?? <Navbar />}
     <main
-      className={cn('z-0 flex min-h-full w-full flex-1 flex-col', className)}
+      className={cn('z-0 flex w-full flex-1 flex-col', className)}
       {...props}
     >
       {children}
