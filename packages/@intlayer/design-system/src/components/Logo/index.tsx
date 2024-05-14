@@ -36,9 +36,13 @@ export const Logo: FC<LogoProps> = ({
   width = undefined,
   ...props
 }) => {
-  const logoProps = {
+  const isClickable: boolean = props.onClick !== undefined;
+
+  const logoProps: LogoBaseProps = {
     width,
     height,
+    role: isClickable ? 'button' : undefined,
+    'aria-label': isClickable ? 'Intlayer logo button' : 'Intlayer logo',
     ...props,
   };
 
