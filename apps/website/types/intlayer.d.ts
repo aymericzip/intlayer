@@ -6,6 +6,7 @@ import type { ProjectsContent as _rlQZwZc6CAgIk7Wjbx9S } from '../.intlayer/type
 import type { NavbarContent as _eSaundIdvDAYYWPGeUFm } from '../.intlayer/types/navbar.d.ts';
 import type { LogoutContent as _9ImtPLJvlkj2GVDkyF2r } from '../.intlayer/types/logout.d.ts';
 import type { LoginContent as _G4zFsoAOYx5bVzwKfCzO } from '../.intlayer/types/login.d.ts';
+import type { LandingSectionContent as _SV4xWSrFi2nb8qB5R3Tn } from '../.intlayer/types/landing-section.d.ts';
 import type { HomeContent as _RJpFHKCAA7kClQnpGLrC } from '../.intlayer/types/home.d.ts';
 import type { FooterContent as _tBu3wcC3fX7PIel1y04O } from '../.intlayer/types/footer.d.ts';
 import type { DemoContent as _OaEHP1XbcfrRRIHZlWf0 } from '../.intlayer/types/demo.d.ts';
@@ -20,6 +21,7 @@ declare module 'intlayer' {
     "navbar": _eSaundIdvDAYYWPGeUFm;
     "logout": _9ImtPLJvlkj2GVDkyF2r;
     "login": _G4zFsoAOYx5bVzwKfCzO;
+    "landing-section": _SV4xWSrFi2nb8qB5R3Tn;
     "home": _RJpFHKCAA7kClQnpGLrC;
     "footer": _tBu3wcC3fX7PIel1y04O;
     "demo": _OaEHP1XbcfrRRIHZlWf0;

@@ -1,7 +1,15 @@
-/** @type {import('next').NextConfig} */
-
 import { withIntlayer } from 'next-intlayer/server';
 
-const nextConfig = {};
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+
+    return config;
+  },
+};
 
 export default withIntlayer(nextConfig);

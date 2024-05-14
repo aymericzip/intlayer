@@ -1,4 +1,3 @@
-import { getServerSession } from 'next-auth';
 import type { FC } from 'react';
 import {
   type PageContentLayoutProps,
@@ -27,7 +26,10 @@ export const PageLayout: FC<PageLayoutProps> = ({
   return (
     <RootHTMLLayout locale={locale}>
       <AppProviders locale={locale}>
-        <AuthenticationBarrier accessRule={accessRule} session={undefined}>
+        <AuthenticationBarrier
+          accessRule={accessRule}
+          // session={session}
+        >
           <PageContentLayout {...props}>{children}</PageContentLayout>
         </AuthenticationBarrier>
       </AppProviders>

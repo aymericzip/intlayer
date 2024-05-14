@@ -8,7 +8,7 @@ interface BurgerProps extends HTMLAttributes<HTMLDivElement> {
 
 const StyledContainer = tw.div`relative mr-3 size-10 cursor-pointer`;
 
-const StyledLine = tw.span`bg-text absolute top-1/2 block h-[2px] w-8 transition duration-300`;
+const StyledLine = tw.span`bg-text dark:bg-text-dark absolute top-1/2 block h-[2px] w-8 transition duration-300`;
 
 const StyledTopLineCross = styled(StyledLine)<{ $isActive: boolean }>(
   ({ $isActive }) => [$isActive ? tw`rotate-[-45deg]` : tw`rotate-0`]

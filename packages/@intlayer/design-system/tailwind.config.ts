@@ -29,7 +29,7 @@ const tailwindConfig = {
       colors: {
         background: {
           DEFAULT: 'rgba(255, 255, 255, <alpha-value>)',
-          dark: 'rgba(18, 18, 18, <alpha-value>)',
+          dark: 'rgba(23, 23, 23, <alpha-value>)',
         },
         text: {
           DEFAULT: 'rgba(18, 18, 18, <alpha-value>)',

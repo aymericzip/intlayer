@@ -17,7 +17,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => {
       <body
         className={cn(
           inter.className,
-          'bg-background dark:bg-background-dark h-screen overflow-y-auto overflow-x-hidden scroll-smooth  transition'
+          'bg-background dark:bg-background-dark h-screen overflow-y-auto overflow-x-hidden scroll-smooth transition'
         )}
       >
         {children}

@@ -28,3 +28,7 @@ export enum APIRoutes {
   ConfirmPassword = '/api/auth/proxy/password/reset/confirm',
   VerifyEmail = '/api/auth/proxy/email-verification',
 }
+
+export enum ExternalLinks {
+  Github = 'https://github.com/aypineau/intlayer',
+}

@@ -4,7 +4,6 @@ import type { Locales } from '@intlayer/config/client';
 import { getLocaleName } from '@intlayer/core';
 import { MoveVertical } from 'lucide-react';
 import type { ButtonHTMLAttributes, FC } from 'react';
-import { styled } from 'styled-components';
 import tw from 'twin.macro';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
@@ -42,7 +41,7 @@ const StyledMoveVertical = tw(MoveVertical)`self-center w-5`;
 const StyledDropDown = tw(
   DropDown
 )`w-full divide-x divide-y divide-dotted divide-text dark:divide-text-dark`;
-const StyledListContainer = tw(Container)``;
+const StyledListContainer = tw(Container)`p-1`;
 
 export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   locale,

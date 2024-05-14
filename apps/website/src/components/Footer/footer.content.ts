@@ -10,36 +10,58 @@ export const footerContent: DeclarationContent<FooterContent> = {
   id: 'footer',
   content: [
     {
-      title: t({
-        en: 'Services',
-        es: 'Servicios',
-        fr: 'Services',
-      }),
+      title: 'Docs',
       links: [
         {
-          href: PagesRoutes.Pricing,
+          href: 'https://github.com/aypineau/intlayer/blob/main/docs/content_declaration/get_started.md',
           text: t({
-            en: 'Pricing',
-            es: 'Precios',
-            fr: 'Tarification',
+            en: 'Getting started',
+            es: 'Empezando',
+            fr: 'Mise en route',
           }),
           label: t({
-            en: 'Go to the online estimation page',
-            es: 'Ir a la página de estimación en línea',
-            fr: 'Aller à la page d’estimation en ligne',
+            en: 'See getting started documentation',
+            es: 'Ver documentación de inicio',
+            fr: 'Voir la documentation de démarrage',
           }),
         },
         {
-          href: PagesRoutes.ChatWithUs,
+          href: 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_nextjs.md',
           text: t({
-            en: 'Chat with us',
-            es: 'Chatea con nosotros',
-            fr: 'Discutez avec nous',
+            en: 'Intlayer with NextJs',
+            es: 'Intlayer con NextJs',
+            fr: 'Intlayer avec NextJs',
           }),
           label: t({
-            en: 'Display chatbot interface',
-            es: 'Muestra la interfaz del chatbot',
-            fr: 'Afficher l’interface du chatbot',
+            en: 'See Intlayer with NextJs documentation',
+            es: 'Ver documentación de Intlayer con NextJs',
+            fr: 'Voir la documentation de Intlayer avec NextJs',
+          }),
+        },
+        {
+          href: 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_create_react_app.md',
+          text: t({
+            en: 'Intlayer with ReactJS (CRA)',
+            es: 'Intlayer con ReactJS (CRA)',
+            fr: 'Intlayer avec ReactJS (CRA)',
+          }),
+          label: t({
+            en: 'See Intlayer with ReactJS (CRA) documentation',
+            es: 'Ver documentación de Intlayer con ReactJS (CRA)',
+            fr: 'Voir la documentation de Intlayer avec ReactJS (CRA)',
+          }),
+        },
+        {
+          href: 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_vite%2Breact.md',
+          text: t({
+            en: 'Intlayer with React+Vite',
+            es: 'Intlayer con React+Vite',
+            fr: 'Intlayer avec React+Vite',
+          }),
+          label: t({
+            en: 'See Intlayer with React+Vite documentation',
+            es: 'Ver documentación de Intlayer con React+Vite',
+            fr: 'Voir la documentation de Intlayer avec React+Vite',
           }),
         },
       ],

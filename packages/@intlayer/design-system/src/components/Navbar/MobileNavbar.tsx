@@ -51,7 +51,7 @@ const navVariants: Variants = {
 };
 
 const StyledSection = styled(motion.div)`
-  ${tw`text-text hover:text-primary aria-selected:text-primary w-full cursor-pointer p-3 text-center transition focus:bg-neutral-100`}
+  ${tw`hover:text-primary aria-selected:text-primary w-full cursor-pointer p-3 text-center transition`}
 `;
 
 const SectionList: FC<SectionListProps> = ({
@@ -132,7 +132,8 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
     tw`absolute bottom-0 left-0 w-full translate-y-full`,
   ]);
   const StyledFullScreenPanelContent = styled(motion.div)(
-    () => tw`flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide`
+    () =>
+      tw`flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide text-text dark:text-text-dark`
   );
   const StyledSectionContainer = tw.div`flex h-full flex-col justify-between`;
 
