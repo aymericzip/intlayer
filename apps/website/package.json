@@ -21,12 +21,14 @@
     "framer-motion": "^11.1.9",
     "intlayer": "workspace:^",
     "lucide-react": "^0.376.0",
+    "markdown-to-jsx": "^7.4.7",
     "next": "14.2.3",
     "next-auth": "^4.24.7",
     "next-intlayer": "workspace:^",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-syntax-highlighter": "^15.5.0",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
@@ -37,7 +39,11 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
+    "react-markdown": "^9.0.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "peerDependencies": {
+    "react-markdown": "^9.0.1"
   }
 }

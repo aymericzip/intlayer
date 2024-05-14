@@ -7,6 +7,11 @@ const nextConfig = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
+    config.module.rules.push({
+      test: /\.md$/,
+      // This is the asset module.
+      type: 'asset/source',
+    });
 
     return config;
   },

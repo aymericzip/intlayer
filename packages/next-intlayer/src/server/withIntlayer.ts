@@ -59,12 +59,10 @@ export const withIntlayer = (
     },
 
     webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
-      console.log('nextConfig.webpack', nextConfig.webpack);
       if (nextConfig.webpack) {
         // Invoke the existing webpack config if it exists
         config = nextConfig.webpack(config, options);
       }
-      console.log('nextConfig', config);
 
       config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
         relativeDictionariesPath
@@ -87,7 +85,6 @@ export const withIntlayer = (
         config.plugins.push(new IntLayerPlugin());
       }
 
-      console.log('config', config.module.rules);
       return config;
     },
   } satisfies Partial<NextConfig>);

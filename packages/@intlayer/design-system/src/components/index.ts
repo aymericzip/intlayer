@@ -16,3 +16,4 @@ export * from './Navbar';
 export * from './ProfileDropDown';
 export * from './Avatar';
 export * from './Logo';
+export * from './IDE';
