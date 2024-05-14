@@ -31,4 +31,5 @@ export enum APIRoutes {
 
 export enum ExternalLinks {
   Github = 'https://github.com/aypineau/intlayer',
+  InterestOfIntlayer = 'https://github.com/aypineau/intlayer/blob/main/docs/interest_of_intlayer.md',
 }

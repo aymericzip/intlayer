@@ -1,6 +1,7 @@
 import { IDE } from '@components/IDE';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { ActionButtons } from './ActionButtons';
 import tab1Content from './tab1.md';
 import tab2Content from './tab2.md';
 
@@ -23,6 +24,7 @@ export const LandingSection: FC = () => {
       <div className="flex size-full flex-col items-center justify-center gap-6 md:w-1/2">
         <h1 className="text-4xl font-bold ">{title}</h1>
         <span className="text-neutral-500">{description}</span>
+        <ActionButtons />
       </div>
       <div className="flex w-full flex-col items-center justify-center gap-3 md:w-1/2">
         <div className="flex max-h-full w-full max-w-full">
