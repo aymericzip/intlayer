@@ -1,4 +1,7 @@
-import { MobileThemeSwitcher as MobileThemeSwitcherUI } from '@intlayer/design-system';
+import {
+  MobileThemeSwitcher as MobileThemeSwitcherUI,
+  type Modes,
+} from '@intlayer/design-system';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
@@ -7,9 +10,9 @@ export const MobileThemeSwitcher: FC = () => {
 
   return (
     <MobileThemeSwitcherUI
-      theme={theme}
+      theme={theme as Modes}
       setTheme={setTheme}
-      systemTheme={systemTheme}
+      systemTheme={systemTheme as Modes}
     />
   );
 };
