@@ -51,7 +51,7 @@ const variantVariant: Record<Variant, TwStyle> = {
 };
 
 const StyledButton = styled.button<ButtonStyleProps>`
-  ${tw`inline-flex items-center whitespace-nowrap text-sm font-medium focus-visible:outline-none gap-2 transition disabled:pointer-events-none disabled:opacity-50`}
+  ${tw`inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none gap-2 transition disabled:pointer-events-none disabled:opacity-50`}
   ${({ $size }) => sizeVariant[$size]}
   ${({ $color }) => colorVariant[$color]}
   ${({ $variant }) => variantVariant[$variant]}
@@ -97,8 +97,11 @@ const ButtonIcon: FC<ButtonIconProps> = ({
   isLoading,
   ...loaderProps
 }) => (isLoading ? <Loader {...loaderProps} /> : Icon && <Icon />);
+
+const StyledButtonIconContainer = tw.div`flex flex-row w-full`;
+const StyledButtonIconContent = tw.div`flex flex-row w-full justify-center`;
 const StyledButtonIcon = styled(ButtonIcon)<ButtonIconStyleProps>(
-  ({ $size }) => iconSizeVariant[$size]
+  ({ $size }) => [iconSizeVariant[$size], tw`self-start`]
 );
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -134,15 +137,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {StyledButtonIcon ? (
-          <>
+          <StyledButtonIconContainer>
             <StyledButtonIcon
               className={iconClassName}
               $size={size}
               isLoading={isLoading}
               Icon={Icon}
             />
-            {children}
-          </>
+            <StyledButtonIconContent>{children}</StyledButtonIconContent>
+          </StyledButtonIconContainer>
         ) : (
           children
         )}
