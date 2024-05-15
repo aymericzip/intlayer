@@ -14,14 +14,14 @@ export type LinkGroup = { title: string; links: Link[] };
 
 type FooterProps = { links?: LinkGroup[] };
 
-const StyledFooter = tw.footer`flex flex-auto flex-row justify-between p-6 items-center`;
+const StyledFooter = tw.footer`flex flex-auto flex-row justify-around p-6 items-center`;
 
-const StyledAsideContent = tw.aside`flex flex-col justify-between items-center w-1/4`;
+const StyledAsideContent = tw.aside`flex flex-col justify-between items-center w-1/3`;
 const StyledAsideDescription = tw.span`text-sm text-neutral text-center`;
 
-const StyledFooterContent = tw.div`w-full flex flex-row justify-evenly p-6 m-auto`;
+const StyledFooterContent = tw.div`w-full flex flex-row justify-around m-auto`;
 const StyledColumn = tw.div`flex flex-col gap-2`;
-const StyledColumnRow = tw.div`flex flex-col gap-4`;
+const StyledColumnRow = tw.div`flex flex-col gap-3`;
 
 export const Footer: FC<FooterProps> = ({ links }) => (
   <StyledFooter>
@@ -37,7 +37,7 @@ export const Footer: FC<FooterProps> = ({ links }) => (
             {links.map((link) => (
               <Button
                 variant="link"
-                color="text"
+                color="neutral"
                 size="sm"
                 key={link.href}
                 onClick={link.onClick}
