@@ -22,66 +22,70 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  * ```
  *
  */
-export const withIntlayer =
-  (_pluginOptions: PluginOptions = {}) =>
-  (nextConfig: Partial<NextConfig> = {}): Partial<NextConfig> => {
-    if (typeof nextConfig !== 'object') nextConfig = {};
+export const withIntlayer = (
+  nextConfig: Partial<NextConfig> = {}
+): Partial<NextConfig> => {
+  if (typeof nextConfig !== 'object') nextConfig = {};
 
-    const intlayerConfig = getConfiguration();
+  const intlayerConfig = getConfiguration();
 
-    // Set all configuration values as environment variables
-    const env = formatEnvVariable('next');
+  // Set all configuration values as environment variables
+  const env = formatEnvVariable('next');
 
-    const { mainDir, baseDir } = intlayerConfig.content;
-    const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-    const relativeDictionariesPath = relative(baseDir, dictionariesPath);
+  const { mainDir, baseDir } = intlayerConfig.content;
+  const dictionariesPath = join(mainDir, 'dictionaries.mjs');
+  const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-    return Object.assign({}, nextConfig, {
-      env: { ...nextConfig.env, ...env },
+  return Object.assign({}, nextConfig, {
+    env: { ...nextConfig.env, ...env },
 
-      experimental: {
-        ...(nextConfig.experimental ?? {}),
-        // Using Intlayer with Turbopack is not supported as long external modules can't be resolved (such as esbuild or fs)
-        turbo: {
-          ...(nextConfig.experimental?.turbo ?? {}),
-          resolveAlias: {
-            ...nextConfig.experimental?.turbo?.resolveAlias,
-            '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-          },
+    experimental: {
+      ...(nextConfig.experimental ?? {}),
+      // Using Intlayer with Turbopack is not supported as long external modules can't be resolved (such as esbuild or fs)
+      turbo: {
+        ...(nextConfig.experimental?.turbo ?? {}),
+        resolveAlias: {
+          ...nextConfig.experimental?.turbo?.resolveAlias,
+          '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+        },
 
-          rules: {
-            '*.node': {
-              as: '*.node',
-              loaders: ['node-loader'],
-            },
+        rules: {
+          '*.node': {
+            as: '*.node',
+            loaders: ['node-loader'],
           },
         },
       },
+    },
 
-      webpack: (
-        config: WebpackParams['0'],
-        { isServer, nextRuntime }: WebpackParams[1]
-      ) => {
-        config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
-          relativeDictionariesPath
-        );
+    webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
+      if (nextConfig.webpack) {
+        // Invoke the existing webpack config if it exists
+        config = nextConfig.webpack(config, options);
+      }
 
-        config.externals.push({
-          esbuild: 'esbuild',
-          module: 'module',
-          fs: 'fs',
-        });
-        config.module.rules.push({
-          test: /\.node$/,
-          loader: 'node-loader',
-        });
+      config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
+        relativeDictionariesPath
+      );
 
-        // Apply IntLayerPlugin only on the server-side
-        if (isServer && nextRuntime === 'nodejs') {
-          config.plugins.push(new IntLayerPlugin());
-        }
+      config.externals.push({
+        esbuild: 'esbuild',
+        module: 'module',
+        fs: 'fs',
+      });
+      config.module.rules.push({
+        test: /\.node$/,
+        loader: 'node-loader',
+      });
 
-        return config;
-      },
-    } satisfies Partial<NextConfig>);
-  };
+      const { isServer, nextRuntime } = options;
+
+      // Apply IntLayerPlugin only on the server-side
+      if (isServer && nextRuntime === 'nodejs') {
+        config.plugins.push(new IntLayerPlugin());
+      }
+
+      return config;
+    },
+  } satisfies Partial<NextConfig>);
+};

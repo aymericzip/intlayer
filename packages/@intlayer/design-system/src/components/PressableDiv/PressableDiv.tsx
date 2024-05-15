@@ -9,7 +9,7 @@ import {
   type MouseEventHandler,
   type HTMLAttributes,
 } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 const DEFAULT_PRESS_DETECT_DURATION = 400;
@@ -24,9 +24,7 @@ type PressableDivProps = {
 const StyledContentSelector = styled.div<{ $isSelecting?: boolean }>(
   ({ $isSelecting }) => [
     tw`inline cursor-pointer outline outline-offset-4 outline-2 outline-transparent rounded-md transition-all duration-200 delay-100`,
-    $isSelecting
-      ? tw`outline-white/[1]`
-      : tw`outline-white/[0]	hover:outline-white/[1]`,
+    $isSelecting ? tw`outline-inherit` : tw`hover:outline-inherit`,
   ]
 );
 

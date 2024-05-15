@@ -11,10 +11,10 @@ const { dictionariesDir } = content;
 const writeDictionary = async (dictionaries: DeclarationContent[]) => {
   const resultDictionariesPaths: string[] = [];
 
-  for await (const content of dictionaries) {
-    const contentString = JSON.stringify(content);
+  for await (const dictionaryContent of dictionaries) {
+    const contentString = JSON.stringify(dictionaryContent);
 
-    const id = content.id;
+    const id = dictionaryContent.id;
     const outputFileName = `${id}.json`;
     const resultFilePath = resolve(dictionariesDir, outputFileName);
 

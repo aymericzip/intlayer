@@ -6,4 +6,7 @@ export {
   useLocaleCookie,
 } from 'react-intlayer';
 export { useLocale } from './useLocale';
-export { IntlayerClientProvider } from './IntlayerClientProvider';
+export {
+  IntlayerClientProvider,
+  type IntlayerClientProviderProps,
+} from './IntlayerClientProvider';

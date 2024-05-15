@@ -8,6 +8,16 @@
       "import": "./dist/components/index.es.js",
       "require": "./dist/components/index.cjs.js",
       "types": "./dist/components/index.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks/index.es.js",
+      "require": "./dist/hooks/index.cjs.js",
+      "types": "./dist/hooks/index.d.ts"
+    },
+    "./tailwind-config": {
+      "import": "./tailwind.config.ts",
+      "require": "./tailwind.config.ts",
+      "types": "./tailwind.config.ts"
     }
   },
   "files": [
@@ -21,18 +31,25 @@
   },
   "dependencies": {
     "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:^"
+    "@intlayer/core": "workspace:^",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "framer-motion": "^11.1.9",
+    "markdown-to-jsx": "^7.4.7",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-markdown": "^9.0.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@types/react": "^18.2.79",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^18.2.25",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@utils/ts-config": "workspace:^",
     "@vitejs/plugin-react": "^4.2.1",
-    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "emotions": "^0.0.1",
     "eslint": "^8.57.0",
@@ -40,6 +57,9 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "glob": "^10.3.12",
     "lucide-react": "^0.376.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.0",
     "rollup-plugin-preserve-directives": "^0.4.0",
     "styled-components": "^6.1.8",
     "tailwind-merge": "^2.3.0",
@@ -53,6 +73,9 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.0",
     "zustand": "^4.5.2"
   },
   "babelMacros": {
