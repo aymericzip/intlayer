@@ -136,7 +136,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         $size={size}
         {...props}
       >
-        {StyledButtonIcon ? (
+        {Icon ? (
           <StyledButtonIconContainer>
             <StyledButtonIcon
               className={iconClassName}
