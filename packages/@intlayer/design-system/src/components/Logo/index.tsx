@@ -4,6 +4,9 @@ import { LogoNoFrame } from './LogoNoFrame';
 import { LogoSquare } from './LogoSquare';
 import { LogoSquircle } from './LogoSquircle';
 import { LogoTextOnly } from './LogoTextOnly';
+import { LogoWithTextBelowCircle } from './LogoWithTextBelowCircle';
+import { LogoWithTextBelowNoFrame } from './LogoWithTextBelowNoFrame';
+import { LogoWithTextBelowSquircle } from './LogoWithTextBelowSquircle';
 import { LogoWithTextCircle } from './LogoWithTextCircle';
 import { LogoWithTextNoFrame } from './LogoWithTextNoFrame';
 import { LogoWithTextSquircle } from './LogoWithTextSquircle';
@@ -13,7 +16,7 @@ export type LogoBaseProps = SVGProps<SVGSVGElement> & {
 };
 
 type LogoWithTextProps = {
-  type?: 'logoWithText';
+  type?: 'logoWithText' | 'logoWithTextBelow';
   frame?: 'squicle' | 'none' | 'circle';
 };
 type LogoOnlyProps = {
@@ -55,6 +58,16 @@ export const Logo: FC<LogoProps> = ({
       case 'none':
       default:
         return <LogoWithTextNoFrame {...logoProps} />;
+    }
+  } else if (type === 'logoWithTextBelow') {
+    switch (frame) {
+      case 'circle':
+        return <LogoWithTextBelowCircle {...logoProps} />;
+      case 'squicle':
+        return <LogoWithTextBelowSquircle {...logoProps} />;
+      case 'none':
+      default:
+        return <LogoWithTextBelowNoFrame {...logoProps} />;
     }
   } else if (type === 'logoOnly') {
     switch (frame) {
