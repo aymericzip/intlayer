@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import tw from 'twin.macro';
 import { Button } from '../Button';
+import { Logo } from '../Logo';
 
 type Link = {
   href: string;
@@ -13,13 +14,21 @@ export type LinkGroup = { title: string; links: Link[] };
 
 type FooterProps = { links?: LinkGroup[] };
 
-const StyledFooter = tw.footer`flex-auto`;
-const StyledFooterContent = tw.div`m-auto flex w-full flex-row justify-evenly p-6 md:w-1/2`;
+const StyledFooter = tw.footer`flex flex-auto flex-row justify-between p-6 items-center`;
+
+const StyledAsideContent = tw.aside`flex flex-col justify-between items-center w-1/4`;
+const StyledAsideDescription = tw.span`text-sm text-neutral text-center`;
+
+const StyledFooterContent = tw.div`w-full flex flex-row justify-evenly p-6 m-auto`;
 const StyledColumn = tw.div`flex flex-col gap-2`;
-const StyledColumnRow = tw.div`mx-auto flex flex-col gap-4`;
+const StyledColumnRow = tw.div`flex flex-col gap-4`;
 
 export const Footer: FC<FooterProps> = ({ links }) => (
   <StyledFooter>
+    <StyledAsideContent>
+      <Logo type="logoWithTextBelow" width={100} height={100} />
+      <StyledAsideDescription>© 2024 Intlayer, Inc.</StyledAsideDescription>
+    </StyledAsideContent>
     <StyledFooterContent>
       {(links ?? []).map(({ title, links }) => (
         <StyledColumn key={title}>
