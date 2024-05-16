@@ -14,6 +14,7 @@ module.exports = {
     '**/.cache',
     'build',
     'dist',
+    'public',
     'storybook-static',
     '.pnpm',
     '.turbo',
