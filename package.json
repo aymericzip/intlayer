@@ -53,6 +53,7 @@
     "husky": "^9.0.11",
     "inquirer": "^9.2.20",
     "lint-staged": "^15.2.2",
+    "next": "14.2.3",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.5.0"
   },
