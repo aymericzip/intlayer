@@ -74,50 +74,6 @@ export const footerContent: DeclarationContent<FooterContent> = {
       }),
       links: [
         {
-          href: PagesRoutes.TermsOfService,
-          text: t({
-            en: 'Terms of service',
-            es: 'Términos de servicio',
-            fr: 'Conditions de service',
-          }),
-          label: t({
-            en: 'Read our terms of service',
-            es: 'Lee nuestros términos de servicio',
-            fr: 'Lisez nos conditions de service',
-          }),
-        },
-        {
-          href: PagesRoutes.PrivacyPolicy,
-          text: t({
-            en: 'Privacy Notice',
-            es: 'Aviso de privacidad',
-            fr: 'Avis de confidentialité',
-          }),
-          label: t({
-            en: 'Read our privacy notice',
-            es: 'Lee nuestro aviso de privacidad',
-            fr: 'Lisez notre avis de confidentialité',
-          }),
-        },
-        {
-          href: 'https://www.linkedin.com/',
-          text: 'LinkedIn',
-          label: t({
-            en: 'Go to our LinkedIn page',
-            es: 'Ir a nuestra página de LinkedIn',
-            fr: 'Aller sur notre page LinkedIn',
-          }),
-        },
-      ],
-    },
-    {
-      title: t({
-        en: 'Lean more',
-        es: 'Aprende más',
-        fr: 'En savoir plus',
-      }),
-      links: [
-        {
           href: ExternalLinks.ExampleIntlayerWithNextjs,
           text: t({
             en: 'Intlayer with NextJS',
@@ -154,6 +110,50 @@ export const footerContent: DeclarationContent<FooterContent> = {
             en: 'See how to set up Intlayer with Vite+React',
             es: 'Ver cómo configurar Intlayer con Vite+React',
             fr: 'Voir comment configuer Intlayer avec Vite+React',
+          }),
+        },
+      ],
+    },
+    {
+      title: t({
+        en: 'Lean more',
+        es: 'Aprende más',
+        fr: 'En savoir plus',
+      }),
+      links: [
+        {
+          href: PagesRoutes.TermsOfService,
+          text: t({
+            en: 'Terms of service',
+            es: 'Términos de servicio',
+            fr: 'Conditions de service',
+          }),
+          label: t({
+            en: 'Read our terms of service',
+            es: 'Lee nuestros términos de servicio',
+            fr: 'Lisez nos conditions de service',
+          }),
+        },
+        {
+          href: PagesRoutes.PrivacyPolicy,
+          text: t({
+            en: 'Privacy Notice',
+            es: 'Aviso de privacidad',
+            fr: 'Avis de confidentialité',
+          }),
+          label: t({
+            en: 'Read our privacy notice',
+            es: 'Lee nuestro aviso de privacidad',
+            fr: 'Lisez notre avis de confidentialité',
+          }),
+        },
+        {
+          href: 'https://www.linkedin.com/',
+          text: 'LinkedIn',
+          label: t({
+            en: 'Go to our LinkedIn page',
+            es: 'Ir a nuestra página de LinkedIn',
+            fr: 'Aller sur notre page LinkedIn',
           }),
         },
       ],
