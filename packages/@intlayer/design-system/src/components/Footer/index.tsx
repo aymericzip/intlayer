@@ -26,7 +26,7 @@ const StyledColumnRow = tw.div`flex flex-col gap-3`;
 export const Footer: FC<FooterProps> = ({ links }) => (
   <StyledFooter>
     <StyledAsideContent>
-      <Logo type="logoWithTextBelow" width={100} height={100} />
+      <Logo type="logoWithTextBelow" width={80} height={80} />
       <StyledAsideDescription>© 2024 Intlayer, Inc.</StyledAsideDescription>
     </StyledAsideContent>
     <StyledFooterContent>
