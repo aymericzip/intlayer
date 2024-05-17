@@ -1,6 +1,6 @@
 import type { LinkGroup } from '@intlayer/design-system';
 import { t, type DeclarationContent } from 'intlayer';
-import { PagesRoutes } from '../../Routes';
+import { ExternalLinks, PagesRoutes } from '../../Routes';
 
 type FooterContent = {
   content: LinkGroup[];
@@ -68,9 +68,9 @@ export const footerContent: DeclarationContent<FooterContent> = {
     },
     {
       title: t({
-        en: 'Lean more',
-        es: 'Aprende más',
-        fr: 'En savoir plus',
+        en: 'Examples',
+        es: 'Ejemplos',
+        fr: 'Exemples',
       }),
       links: [
         {
@@ -106,6 +106,54 @@ export const footerContent: DeclarationContent<FooterContent> = {
             en: 'Go to our LinkedIn page',
             es: 'Ir a nuestra página de LinkedIn',
             fr: 'Aller sur notre page LinkedIn',
+          }),
+        },
+      ],
+    },
+    {
+      title: t({
+        en: 'Lean more',
+        es: 'Aprende más',
+        fr: 'En savoir plus',
+      }),
+      links: [
+        {
+          href: ExternalLinks.ExampleIntlayerWithNextjs,
+          text: t({
+            en: 'Intlayer with NextJS',
+            es: 'Intlayer con NextJS',
+            fr: 'Intlayer avec NextJS',
+          }),
+          label: t({
+            en: 'See how to set up Intlayer with NextJS',
+            es: 'Ver cómo configurar Intlayer con NextJS',
+            fr: 'Voir comment configuer Intlayer avec NextJS',
+          }),
+        },
+        {
+          href: ExternalLinks.ExampleIntlayerWithReactJS,
+          text: t({
+            en: 'Intlayer with ReactJS (CRA)',
+            es: 'Intlayer con ReactJS (CRA)',
+            fr: 'Intlayer avec ReactJS (CRA)',
+          }),
+          label: t({
+            en: 'See how to set up Intlayer with ReactJS (CRA)',
+            es: 'Ver cómo configurar Intlayer con ReactJS (CRA)',
+            fr: 'Voir comment configuer Intlayer avec ReactJS (CRA)',
+          }),
+        },
+        {
+          href: ExternalLinks.ExampleIntlayerWithViteAndReact,
+          text: t({
+            en: 'Intlayer with Vite+React',
+            es: 'Intlayer con Vite+React',
+            fr: 'Intlayer avec Vite+React',
+          }),
+          label: t({
+            en: 'See how to set up Intlayer with Vite+React',
+            es: 'Ver cómo configurar Intlayer con Vite+React',
+            fr: 'Voir comment configuer Intlayer avec Vite+React',
           }),
         },
       ],

@@ -35,4 +35,7 @@ export enum ExternalLinks {
   IntlayerWithNextjs = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_nextjs.md',
   IntlayerWithReact = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_create_react_app.md',
   IntlayerWithVite = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_vite%2Breact.md',
+  ExampleIntlayerWithNextjs = 'https://github.com/aypineau/intlayer/tree/main/examples/nextjs-app',
+  ExampleIntlayerWithReactJS = 'https://github.com/aypineau/intlayer/tree/main/examples/react-app',
+  ExampleIntlayerWithViteAndReact = 'https://github.com/aypineau/intlayer/tree/main/examples/vite-app',
 }
