@@ -99,7 +99,7 @@ const ButtonIcon: FC<ButtonIconProps> = ({
 }) => (isLoading ? <Loader {...loaderProps} /> : Icon && <Icon />);
 
 const StyledButtonIconContainer = tw.div`flex flex-row w-full`;
-const StyledButtonIconContent = tw.div`flex flex-row w-full justify-center`;
+const StyledButtonIconContent = tw.div`flex flex-row w-full justify-center items-center`;
 const StyledButtonIcon = styled(ButtonIcon)<ButtonIconStyleProps>(
   ({ $size }) => [iconSizeVariant[$size], tw`self-start`]
 );
