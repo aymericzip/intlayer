@@ -9,6 +9,9 @@ const config: IntlayerConfig = {
     locales,
     strictMode: 'strict',
   },
+  editor: {
+    enabled: process.env.NODE_ENV === 'development',
+  },
 };
 
 export default config;
