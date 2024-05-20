@@ -1,5 +1,4 @@
 import { t, type DeclarationContent } from 'intlayer';
-import { ExternalLinks } from '@/Routes';
 
 const availableTechnoContent: DeclarationContent = {
   id: 'available-techno-section',
@@ -9,7 +8,6 @@ const availableTechnoContent: DeclarationContent = {
     es: 'Disponible en',
   }),
   react: {
-    href: ExternalLinks.IntlayerWithReact,
     label: t({
       en: 'Go to ReactJS official website',
       fr: 'Aller sur le site officiel de ReactJS',
@@ -17,7 +15,6 @@ const availableTechnoContent: DeclarationContent = {
     }),
   },
   nextjs: {
-    href: ExternalLinks.IntlayerWithNextjs,
     label: t({
       en: 'Go to NextJS official website',
       fr: 'Aller sur le site officiel de NextJS',
@@ -25,7 +22,6 @@ const availableTechnoContent: DeclarationContent = {
     }),
   },
   vite: {
-    href: ExternalLinks.IntlayerWithVite,
     label: t({
       en: 'Go to ViteJS official website',
       fr: 'Aller sur le site officiel de ViteJS',
