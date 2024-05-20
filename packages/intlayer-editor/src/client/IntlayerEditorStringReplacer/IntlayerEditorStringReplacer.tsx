@@ -15,14 +15,14 @@ import {
   intlayerStringIdentifier,
 } from './nodeStringReplacer';
 
-const replacableElParams: string[] = [
+const replacableElParams: (keyof HTMLElement)[] = [
   'textContent',
   'ariaLabel',
   'ariaDescription',
-  'href',
-  'alt',
   'innerHTML',
 ];
+
+const replacableAttributes: string[] = ['href', 'alt'];
 
 const getIntlayerElements = (): Element[] => {
   const elements = document.querySelectorAll('body *');
@@ -74,6 +74,22 @@ export const IntlayerEditorStringReplacer: FC<PropsWithChildren> = ({
                 } else {
                   (el[key as Key] as string) = content;
                 }
+              }
+            }
+          });
+
+        replacableAttributes
+          .filter((param) =>
+            (el.getAttribute(param) ?? '').startsWith(intlayerStringIdentifier)
+          )
+          .forEach((key) => {
+            const value = el.getAttribute(key);
+
+            if (typeof value === 'string') {
+              const { content, keyPath } = decodeIntlayerString(value ?? '');
+
+              if (keyPath.length > 0) {
+                el.setAttribute(key, content);
               }
             }
           });
