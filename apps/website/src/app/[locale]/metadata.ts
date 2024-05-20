@@ -83,11 +83,22 @@ export const generateMetadata = ({
       ),
     },
     icons: {
-      icon: [{ url: '/assets/favicon.ico', type: 'image/x-icon' }],
-      shortcut: ['/assets/apple-icon-180.png'],
+      icon: [
+        { url: '/assets/favicon.ico', type: 'image/x-icon' },
+        {
+          url: '/assets/favicon-16x16.png',
+          type: 'image/png',
+          sizes: '16x16',
+        },
+        {
+          url: '/assets/favicon-32x32.png',
+          type: 'image/png',
+          sizes: '32x32',
+        },
+      ],
       apple: [
         {
-          url: '/assets/apple-icon-180.png',
+          url: '/assets/apple-touch-icon.png',
           sizes: '180x180',
           type: 'image/png',
         },
