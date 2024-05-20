@@ -2,11 +2,11 @@
 
 import { isSameKeyPath, type KeyPath } from '@intlayer/core';
 import { ContentSelector } from '@intlayer/design-system';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useDictionaryEditionDrawer } from './DictionaryEditionDrawer/useDictionaryEditionDrawer';
 
 type ContentSelectorWrapperProps = {
-  children: string;
+  children: ReactNode;
   dictionaryId: string;
   dictionaryPath: string;
   keyPath: KeyPath[];

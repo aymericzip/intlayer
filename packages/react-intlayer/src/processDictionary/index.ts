@@ -12,7 +12,7 @@ import {
   type EnumerationContent,
   type TypedNode,
 } from '@intlayer/core';
-import { renderContentEditor } from 'intlayer-editor/client';
+import { encodeIntlayerString } from 'intlayer-editor/client';
 import { type ReactElement, createElement, type ReactNode } from 'react';
 import { getEnumeration } from '../getEnumeration';
 import { getTranslation } from '../getTranslation';
@@ -250,19 +250,7 @@ export const processDictionary = (
   }
 
   if (typeof content === 'string' && enabled) {
-    try {
-      // renderContentEditor come from intlayer-editor, which is an optional dependency.
-      // intlayer-editor should be installed in the project to use the content editor.
-      return renderContentEditor(
-        content,
-        dictionaryId,
-        dictionaryPath,
-        keyPath
-      );
-    } catch (e) {
-      // If renderContentEditor not available, it will return the content as is.
-      return content;
-    }
+    return encodeIntlayerString(content, keyPath, dictionaryId, dictionaryPath);
   }
 
   // If it's a string, number, or function, return it

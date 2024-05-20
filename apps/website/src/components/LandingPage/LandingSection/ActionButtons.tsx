@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@intlayer/design-system';
-import { AArrowDownIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -13,6 +12,7 @@ export const ActionButtons: FC = () => {
     secondaryBtn: { label: secondaryLabel, content: secondaryContent },
   } = useIntlayer('landing-section-action-button');
   const router = useRouter();
+
   return (
     <div className="mt-10 flex w-full flex-col gap-4 sm:flex-row">
       <Button

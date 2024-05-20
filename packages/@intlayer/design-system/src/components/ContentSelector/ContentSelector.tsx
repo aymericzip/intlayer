@@ -1,10 +1,10 @@
 'use client';
 
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { PressableDiv } from '../PressableDiv';
 
 type ContentSelectorProps = {
-  children: string;
+  children: ReactNode;
   onSelect: () => void;
   onUnselect?: () => void;
   isSelecting?: boolean;
