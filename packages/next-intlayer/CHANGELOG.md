@@ -1,5 +1,22 @@
 # next-intlayer
 
+## 3.0.0
+
+### Minor Changes
+
+- [#24](https://github.com/aypineau/intlayer/pull/24) [`2d3028f`](https://github.com/aypineau/intlayer/commit/2d3028f85cc58e554f2a219bf3ceedbceac7c716) Thanks [@aypineau](https://github.com/aypineau)! - release of intlayer editor
+
+### Patch Changes
+
+- Updated dependencies [[`2d3028f`](https://github.com/aypineau/intlayer/commit/2d3028f85cc58e554f2a219bf3ceedbceac7c716)]:
+  - @intlayer/dictionaries-entry@2.0.1
+  - @intlayer/chokidar@2.0.1
+  - @intlayer/webpack@2.0.1
+  - @intlayer/config@2.0.1
+  - @intlayer/core@2.0.1
+  - react-intlayer@2.0.1
+  - intlayer@2.0.1
+
 ## 2.0.0
 
 ### Patch Changes
