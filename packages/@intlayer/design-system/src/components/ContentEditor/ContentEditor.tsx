@@ -5,7 +5,7 @@ import { useState, type FC } from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
-type ContentEditorProps = {
+export type ContentEditorProps = {
   children: string;
   onContentChange: (content: string) => void;
   isEditing?: boolean;

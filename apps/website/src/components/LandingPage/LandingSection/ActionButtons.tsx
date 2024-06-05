@@ -16,7 +16,7 @@ export const ActionButtons: FC = () => {
   return (
     <div className="mt-10 flex w-full flex-col gap-4 sm:flex-row">
       <Button
-        label={secondaryLabel}
+        label={secondaryLabel.value}
         variant="outline"
         onClick={() => router.push(ExternalLinks.InterestOfIntlayer)}
         size="lg"
@@ -26,7 +26,7 @@ export const ActionButtons: FC = () => {
         {secondaryContent}
       </Button>
       <Button
-        label={primaryLabel}
+        label={primaryLabel.value}
         onClick={() => router.push(ExternalLinks.Github)}
         variant="default"
         size="lg"

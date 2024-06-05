@@ -1,16 +1,16 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import tw from 'twin.macro';
 import { Button } from '../Button';
 import { Logo } from '../Logo';
 
-type Link = {
+export type Link = {
   href: string;
-  text: string;
+  text: ReactNode;
   onClick?: () => void;
   label: string;
 };
 
-export type LinkGroup = { title: string; links: Link[] };
+export type LinkGroup = { title: ReactNode; links: Link[] };
 
 type FooterProps = { links?: LinkGroup[] };
 

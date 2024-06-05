@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type {
   EnumerationContent,
   TranslationContent,
@@ -40,7 +41,7 @@ export type FlatContent = Record<string, FlatContentValue | undefined>;
 
 // Utility type that performs recursive replacement
 type ReplaceContentValue<T> = {
-  [P in keyof T]: T[P] extends string | number | boolean | null
+  [P in keyof T]: T[P] extends string | number | boolean | null | ReactNode
     ? ContentValue
     : T[P] extends object
       ? ReplaceContentValue<T[P]>

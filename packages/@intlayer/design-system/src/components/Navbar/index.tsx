@@ -6,7 +6,7 @@ import { DesktopNavbar } from './DesktopNavbar';
 import { MobileNavbar } from './MobileNavbar';
 
 export interface NavSection {
-  title: string;
+  title: ReactNode;
   id: string;
   onClick: MouseEventHandler;
   url?: string;
