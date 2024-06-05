@@ -2,7 +2,7 @@
 
 import { isSameKeyPath, type KeyPath } from '@intlayer/core';
 import { ContentSelector } from '@intlayer/design-system';
-import type { FC, ReactNode } from 'react';
+import { useCallback, type FC, type ReactNode } from 'react';
 import { useDictionaryEditionDrawer } from './DictionaryEditionDrawer/useDictionaryEditionDrawer';
 
 type ContentSelectorWrapperProps = {
@@ -22,12 +22,15 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
     useDictionaryEditionDrawer(dictionaryId);
   const editedValue = getEditedContentValue(dictionaryPath, keyPath);
 
-  const handleSelect = () =>
-    open({
-      dictionaryId,
-      dictionaryPath,
-      keyPath,
-    });
+  const handleSelect = useCallback(
+    () =>
+      open({
+        dictionaryId,
+        dictionaryPath,
+        keyPath,
+      }),
+    [dictionaryId, dictionaryPath, keyPath, open]
+  );
 
   const isSelected =
     (isOpen &&

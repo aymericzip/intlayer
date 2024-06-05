@@ -23,8 +23,11 @@ export const Navbar: FC = () => {
 
   const sectionWithClick: NavSection[] = Object.values(sections).map(
     (section) => ({
-      ...section,
-      onClick: () => router.push(section.url),
+      title: section.title,
+      id: section.id.value,
+      url: section.url.value,
+      label: section.label.value,
+      onClick: () => router.push(section.url.value),
     })
   );
 
@@ -35,7 +38,7 @@ export const Navbar: FC = () => {
       logo={
         <Logo
           onClick={() => router.push(PagesRoutes.Home)}
-          aria-label={logo.label}
+          aria-label={logo.label.value}
           type="logoWithText"
           className="cursor-pointer"
         />

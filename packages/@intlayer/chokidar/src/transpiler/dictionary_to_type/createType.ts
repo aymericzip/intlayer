@@ -10,7 +10,7 @@ import {
 } from '@intlayer/core';
 import { getTypeName } from './createModuleAugmentation';
 
-const { content, internationalization } = getConfiguration();
+const { content } = getConfiguration();
 const { typesDir } = content;
 
 const isESModule = typeof import.meta.url === 'string';

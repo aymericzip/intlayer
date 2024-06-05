@@ -12,7 +12,6 @@ import {
   type EnumerationContent,
   type TypedNode,
 } from '@intlayer/core';
-import { encodeIntlayerString } from 'intlayer-editor/client';
 import { type ReactElement, createElement, type ReactNode } from 'react';
 import { getEnumeration } from '../getEnumeration';
 import { getTranslation } from '../getTranslation';
@@ -23,7 +22,6 @@ import type {
 
 const {
   internationalization: { defaultLocale },
-  editor: { enabled },
 } = getConfiguration();
 
 const processTranslation = (
@@ -171,7 +169,7 @@ const createReactElement = (element: ReactElement) => {
   return createElement(type ?? 'div', props, ...props.children);
 };
 
-const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
+const traceKeys: string[] = ['filePath', 'nodeType'];
 
 /**
  * Function that process a dictionary and return the result to be used in the application.
@@ -236,23 +234,25 @@ export const processDictionary = (
           { type: 'ObjectExpression', key },
         ];
 
-        result[key] = processNode(
+        const nodeResult = processNode(
           field,
           locale,
           dictionaryId,
           dictionaryPath,
           resultKeyPath
         );
+
+        result[key] = nodeResult;
       }
     }
 
     return result;
   }
 
-  if (typeof content === 'string' && enabled) {
-    return encodeIntlayerString(content, keyPath, dictionaryId, dictionaryPath);
-  }
-
-  // If it's a string, number, or function, return it
-  return content;
+  return {
+    content,
+    keyPath,
+    dictionaryId,
+    dictionaryPath,
+  };
 };

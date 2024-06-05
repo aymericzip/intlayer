@@ -16,21 +16,21 @@ export const AvailableTechnoSection: FC = () => {
         <Link
           href={ExternalLinks.IntlayerWithReact}
           className="grow-0"
-          aria-label={react.label}
+          aria-label={react.label.value}
         >
           <React className="size-full max-h-full" />
         </Link>
         <Link
           href={ExternalLinks.IntlayerWithNextjs}
           className="grow-0"
-          aria-label={nextjs.label}
+          aria-label={nextjs.label.value}
         >
           <Nextjs className="size-full max-h-full" />
         </Link>
         <Link
           href={ExternalLinks.IntlayerWithVite}
           className="grow-0"
-          aria-label={vite.label}
+          aria-label={vite.label.value}
         >
           <Vite className="size-full max-h-full" />
         </Link>
