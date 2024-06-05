@@ -11,10 +11,7 @@ import type {
   AssignmentExpression,
   ObjectProperty,
   CallExpression,
-  ObjectMethod,
-  SpreadElement,
   ArrayExpression,
-  PrivateName,
 } from '@babel/types';
 import {
   NodeType,
@@ -45,79 +42,75 @@ const findNestedProperty = (
   let currentObj: ObjectOrArrayExpression = obj;
 
   for (const key of keyPath) {
-    let foundProperty:
-      | ObjectProperty
-      | ObjectMethod
-      | SpreadElement
-      | undefined;
+    const nextProperty = getNextProperty(currentObj, key);
 
-    if (
-      // if the keyPath is an object, select the related node
-      (key as ObjectExpressionNode).type === 'ObjectExpression'
-    ) {
-      const result = (currentObj as ObjectExpression).properties.find(
-        (prop) =>
-          'key' in prop &&
-          (prop.key as Identifier).name === (key as ObjectExpressionNode).key
-      );
+    if (!nextProperty)
+      throw new Error('Could not find the specified key path.');
 
-      if (result && 'value' in result) {
-        currentObj = result.value as ObjectExpression;
-        foundProperty = result;
-      } else {
-        return undefined;
-      }
-    }
-
-    if (
-      // if the keyPath is an array, select the related node
-      (key as ArrayExpressionNode).type === 'ArrayExpression'
-    ) {
-      const result = (currentObj as ArrayExpression).elements[
-        (key as ArrayExpressionNode).key
-      ] as unknown as ObjectProperty;
-
-      currentObj = result as unknown as ObjectExpression;
-    }
-
-    if (
-      // if the keypath is a translation or enumeration node, go across the function and select the related node
-      Object.values(NodeType).includes(
-        (key as TranslationOrEnumerationNode).type
-      )
-    ) {
-      const argument = (currentObj as unknown as CallExpression)
-        .arguments[0] as ObjectExpression;
-
-      const identifierResult = argument.properties.find(
-        (prop) => 'key' in prop && (prop.key as Identifier).name === key.key
-      );
-
-      const stringResult = argument.properties.find(
-        (prop) => 'key' in prop && (prop.key as StringLiteral).value === key.key
-      );
-
-      if (stringResult) {
-        // Correspond to StringLiteral oject property (e.g., { 'key': 'value' })
-        if ('value' in stringResult) {
-          currentObj = stringResult.value as ObjectExpression;
-        }
-        foundProperty = stringResult;
-      } else if (identifierResult) {
-        // Correspond to Identifier object property (e.g., { key: 'value' })
-        if ('name' in identifierResult) {
-          currentObj = identifierResult.name as ObjectExpression;
-        }
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        foundProperty = identifierResult;
-      } else {
-        return undefined;
-      }
-    }
+    currentObj = nextProperty;
   }
 
   return currentObj;
+};
+
+const getNextProperty = (
+  obj: ObjectOrArrayExpression,
+  key: KeyPath
+): ObjectOrArrayExpression | undefined => {
+  if ((key as ObjectExpressionNode).type === 'ObjectExpression') {
+    return findInObjectExpression(
+      obj as ObjectExpression,
+      key as ObjectExpressionNode
+    );
+  }
+
+  if ((key as ArrayExpressionNode).type === 'ArrayExpression') {
+    return (obj as ArrayExpression).elements[
+      (key as ArrayExpressionNode).key
+    ] as ObjectOrArrayExpression;
+  }
+
+  if (
+    Object.values(NodeType).includes((key as TranslationOrEnumerationNode).type)
+  ) {
+    return findInTranslationOrEnumerationNode(
+      obj as unknown as CallExpression,
+      key as TranslationOrEnumerationNode
+    );
+  }
+
+  return undefined;
+};
+
+const findInObjectExpression = (
+  obj: ObjectExpression,
+  key: ObjectExpressionNode
+): ObjectOrArrayExpression | undefined => {
+  const result = obj.properties.find(
+    (prop) => 'key' in prop && (prop.key as Identifier).name === key.key
+  );
+
+  return result && 'value' in result
+    ? (result.value as ObjectOrArrayExpression)
+    : undefined;
+};
+
+const findInTranslationOrEnumerationNode = (
+  obj: CallExpression,
+  key: TranslationOrEnumerationNode
+): ObjectOrArrayExpression | undefined => {
+  const argument = obj.arguments[0] as ObjectExpression;
+  const identifierResult = argument.properties.find(
+    (prop) => 'key' in prop && (prop.key as Identifier).name === key.key
+  ) as ObjectProperty;
+
+  const stringResult = identifierResult.value as StringLiteral;
+
+  return stringResult
+    ? (identifierResult as unknown as ObjectOrArrayExpression)
+    : identifierResult && 'name' in identifierResult
+      ? (identifierResult.name as ObjectOrArrayExpression)
+      : undefined;
 };
 
 /**
@@ -133,8 +126,12 @@ const findAndUpdate = (
   if (lastKey) {
     const propertyToUpdate = findNestedProperty(objExpr, keyPath); // Traverse the key path
 
-    if (propertyToUpdate && 'value' in propertyToUpdate) {
-      (propertyToUpdate as unknown as StringLiteral).value = newValue; // Update the value of the specified key
+    if (!propertyToUpdate) {
+      throw new Error('Could not find the specified key path.');
+    }
+
+    if ('value' in propertyToUpdate) {
+      (propertyToUpdate.value as StringLiteral).value = newValue; // Update the value of the specified key
     }
   }
 };
@@ -144,11 +141,11 @@ const findAndUpdate = (
  */
 const traverseNode = (node: Program, keyPath: KeyPath[], newValue: string) => {
   if (Array.isArray(node.body)) {
-    (node.body as unknown as Program[]).forEach((subNode) =>
-      traverseNode(subNode, keyPath, newValue)
+    node.body.forEach((subNode) =>
+      traverseNode(subNode as unknown as Program, keyPath, newValue)
     );
   } else if (node.body) {
-    traverseNode(node.body, keyPath, newValue);
+    traverseNode(node.body as Program, keyPath, newValue);
   }
 
   if (
@@ -191,35 +188,40 @@ const traverseNode = (node: Program, keyPath: KeyPath[], newValue: string) => {
  * Edit the content of a file based on the key path and new value
  */
 export const processEdition = async (editedContent: EditedContent) => {
-  // Loop into each dictionary path
   for (const dictionaryPath of Object.keys(editedContent)) {
-    // Read the file
     const fileContent = readFileSync(dictionaryPath, 'utf-8');
+    const parsedBase = parseFileContent(fileContent);
+    const parsed = parseFileContent(fileContent);
 
-    // Parse the content with TypeScript support
-    const parsed = parse(fileContent, {
-      sourceType: 'module',
-      plugins: ['jsx', 'typescript'],
-    });
-
-    // Loop into each key path and new value
     for (const { keyPath, newValue } of editedContent[dictionaryPath]) {
-      // Update values based on key paths
       traverseNode(parsed.program, keyPath, newValue);
     }
 
-    // Generate the updated code
-    const updatedContent = generate(parsed).code;
+    await writeUpdatedContent(dictionaryPath, parsedBase, parsed);
+  }
+};
 
-    if (fileContent === updatedContent) {
-      console.info(`Could not find specified key path in ${dictionaryPath}.`);
-    } else {
-      const formattedContent = await format(updatedContent);
+const parseFileContent = (fileContent: string) =>
+  parse(fileContent, {
+    sourceType: 'module',
+    plugins: ['jsx', 'typescript'],
+  });
 
-      // Write back to the file
-      writeFileSync(dictionaryPath, formattedContent, 'utf-8');
+const writeUpdatedContent = async (
+  dictionaryPath: string,
+  parsedBase: ReturnType<typeof parseFileContent>,
+  parsed: ReturnType<typeof parseFileContent>
+) => {
+  const baseContent = generate(parsedBase).code;
+  const updatedContent = generate(parsed).code;
 
-      console.info('Updated the file successfully.');
-    }
+  if (baseContent === updatedContent) {
+    console.info(
+      `No change made on the dictionary - dictionaryPath: ${dictionaryPath}.`
+    );
+  } else {
+    const formattedContent = await format(updatedContent);
+    writeFileSync(dictionaryPath, formattedContent, 'utf-8');
+    console.info('Updated the file successfully.');
   }
 };
