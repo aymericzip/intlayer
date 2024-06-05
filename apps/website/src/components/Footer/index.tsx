@@ -6,7 +6,6 @@ import type { FC } from 'react';
 
 export const Footer: FC = () => {
   const { locale } = useLocale();
-
   const { content } = useIntlayer('footer');
 
   const links: LinkGroup[] = content.map((section) => ({
