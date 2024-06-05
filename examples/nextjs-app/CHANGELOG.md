@@ -10,9 +10,9 @@
 
 - Updated dependencies [[`2d3028f`](https://github.com/aypineau/intlayer/commit/2d3028f85cc58e554f2a219bf3ceedbceac7c716)]:
   - intlayer-editor@2.1.0
-  - next-intlayer@3.0.0
-  - intlayer-cli@3.0.0
-  - intlayer@3.0.0
+  - next-intlayer@2.0.1
+  - intlayer-cli@2.0.1
+  - intlayer@2.0.1
 
 ## 1.0.0
 

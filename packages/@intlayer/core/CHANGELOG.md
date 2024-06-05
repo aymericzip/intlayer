@@ -9,7 +9,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`2d3028f`](https://github.com/aypineau/intlayer/commit/2d3028f85cc58e554f2a219bf3ceedbceac7c716)]:
-  - @intlayer/config@3.0.0
+  - @intlayer/config@2.0.1
 
 ## 2.0.0
 

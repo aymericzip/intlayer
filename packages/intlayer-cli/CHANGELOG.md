@@ -9,10 +9,10 @@
 ### Patch Changes
 
 - Updated dependencies [[`2d3028f`](https://github.com/aypineau/intlayer/commit/2d3028f85cc58e554f2a219bf3ceedbceac7c716)]:
-  - @intlayer/chokidar@3.0.0
-  - @intlayer/config@3.0.0
-  - @intlayer/core@3.0.0
-  - @intlayer/cli@3.0.0
+  - @intlayer/chokidar@2.0.1
+  - @intlayer/config@2.0.1
+  - @intlayer/core@2.0.1
+  - @intlayer/cli@2.0.1
 
 ## 2.0.0
 
