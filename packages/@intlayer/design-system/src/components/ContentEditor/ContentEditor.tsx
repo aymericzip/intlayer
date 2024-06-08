@@ -13,6 +13,7 @@ export type ContentEditorProps = {
 
 const StyledPressableDiv = styled.div<{ $isEditing: boolean }>`
   ${tw`bg-transparent inline outline-none m-3 w-full`}
+  word-break: break-word;
   ${({ $isEditing }) => ($isEditing ? tw`cursor-text` : tw`cursor-pointer`)}
 `;
 const StyledContainer = tw.div`flex flex-row items-center justify-between gap-2`;
