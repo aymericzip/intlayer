@@ -1,5 +1,6 @@
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { AnimatedDiv } from './AnimatedDiv';
 
 export const WhyToChoseIntlayerSection: FC = () => {
   const { title, content } = useIntlayer('why-to-chose-intlayer-section');
@@ -10,7 +11,7 @@ export const WhyToChoseIntlayerSection: FC = () => {
 
       <div className="m-auto mt-3 flex flex-wrap justify-evenly gap-3 px-10 py-2">
         {content.map((asset, index) => (
-          <div
+          <AnimatedDiv
             className="flex max-w-[200px] flex-col items-center gap-3 text-center"
             key={index}
           >
@@ -18,8 +19,10 @@ export const WhyToChoseIntlayerSection: FC = () => {
               {index}
             </span>
             <h3 className="text-xl">{asset.title}</h3>
-            <p className="text-neutral text-xs">{asset.descrition}</p>
-          </div>
+            <AnimatedDiv>
+              <p className="text-neutral text-xs">{asset.descrition}</p>
+            </AnimatedDiv>
+          </AnimatedDiv>
         ))}
       </div>
     </div>
