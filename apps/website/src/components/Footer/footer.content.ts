@@ -6,7 +6,7 @@ type FooterContent = {
   content: LinkGroup[];
 };
 
-export const footerContent: DeclarationContent<FooterContent> = {
+const footerContent: DeclarationContent<FooterContent> = {
   id: 'footer',
   content: [
     {
@@ -160,3 +160,4 @@ export const footerContent: DeclarationContent<FooterContent> = {
     },
   ],
 };
+export default footerContent;
