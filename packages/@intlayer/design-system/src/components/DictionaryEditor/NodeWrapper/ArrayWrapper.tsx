@@ -1,5 +1,10 @@
-import type { DictionaryValue, KeyPath } from '@intlayer/core';
+import {
+  isSameKeyPath,
+  type DictionaryValue,
+  type KeyPath,
+} from '@intlayer/core';
 import type { FC } from 'react';
+import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
 interface ArrayWrapperProps extends Omit<NodeWrapperProps, 'section'> {
@@ -7,7 +12,7 @@ interface ArrayWrapperProps extends Omit<NodeWrapperProps, 'section'> {
 }
 
 export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
-  const { keyPath, section } = props;
+  const { keyPath, section, onFocusKeyPath, focusedKeyPath = [] } = props;
 
   return section.map((subSection, key) => {
     const newKeyPathEl: KeyPath = {
@@ -17,12 +22,24 @@ export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
     const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
     return (
-      <NodeWrapper
-        {...props}
+      <ItemLayout
+        level={keyPath.length}
         key={key}
-        keyPath={newKeyPath}
-        section={subSection}
-      />
+        title={`${key}`}
+        description=""
+        isSelected={isSameKeyPath(newKeyPath, focusedKeyPath)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onFocusKeyPath(newKeyPath);
+        }}
+      >
+        <NodeWrapper
+          {...props}
+          key={key}
+          keyPath={newKeyPath}
+          section={subSection}
+        />
+      </ItemLayout>
     );
   });
 };
