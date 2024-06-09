@@ -17,3 +17,4 @@ export * from './ProfileDropDown';
 export * from './Avatar';
 export * from './Logo';
 export * from './IDE';
+export * from './Popover';
