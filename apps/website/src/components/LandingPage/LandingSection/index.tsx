@@ -2,6 +2,8 @@ import { IDE } from '@components/IDE';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { ActionButtons } from './ActionButtons';
+import { AnimatedDescription } from './AnimatedDescription';
+import { AnimatedTitle } from './AnimatedTitle';
 import tab1Content from './tab1.md';
 import tab2Content from './tab2.md';
 
@@ -22,8 +24,10 @@ export const LandingSection: FC = () => {
   return (
     <div className="flex h-[150vh] w-full flex-col gap-16 p-20 md:size-full md:flex-row">
       <div className="flex h-[100vh] w-full flex-col items-center justify-center gap-6 md:h-full md:w-3/5">
-        <h1 className="text-4xl font-bold ">{title}</h1>
-        <span className="text-neutral-500">{description}</span>
+        <AnimatedTitle className="text-4xl font-bold" text={title.value} />
+        <AnimatedDescription className="text-neutral-500">
+          {description}
+        </AnimatedDescription>
         <ActionButtons />
       </div>
       <div className="flex w-full flex-col items-center justify-center gap-3 md:w-2/5">
