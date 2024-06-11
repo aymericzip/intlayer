@@ -23,8 +23,8 @@ const whyToChoseIntlayerContent: DeclarationContent = {
     {
       title: t({
         en: 'Type-Safe Environment',
-        es: 'Entorno Type-Safe',
-        fr: 'Environnement de Type-Safe',
+        es: 'Type-Safe Entorno',
+        fr: 'Type-Safe Environnement',
       }),
       descrition: t({
         en: 'Leverage TypeScript to ensure all your content definitions are precise and error-free.',
