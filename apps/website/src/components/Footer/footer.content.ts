@@ -148,7 +148,7 @@ const footerContent: DeclarationContent<FooterContent> = {
           }),
         },
         {
-          href: 'https://www.linkedin.com/',
+          href: 'https://www.linkedin.com/company/intlayerorg/',
           text: 'LinkedIn',
           label: t({
             en: 'Go to our LinkedIn page',
