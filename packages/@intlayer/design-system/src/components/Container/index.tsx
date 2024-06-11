@@ -1,9 +1,18 @@
 import { type PropsWithChildren, forwardRef } from 'react';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import tw, { type TwStyle } from 'twin.macro';
 
 // Define a basic container with default styles
-const BaseContainer = tw.div`flex flex-col justify-between shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] shadow-sm backdrop-blur`;
+const BaseContainer = styled.div(() => [
+  tw`flex flex-col justify-between shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] shadow-sm backdrop-blur`,
+  css`
+    -webkit-backdrop-filter: var(--tw-backdrop-blur)
+      var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
+      var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
+      var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
+      var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  `,
+]);
 
 type RoundedSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
 type Transparency = 'none' | 'sm' | 'md' | 'lg' | 'xl';
