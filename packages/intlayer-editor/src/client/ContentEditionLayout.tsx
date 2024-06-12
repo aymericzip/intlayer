@@ -17,7 +17,7 @@ export const ContentEditionLayout: FC<ContentEditionLayoutProps> = ({
   locale,
   setLocale,
   localeList,
-  editorEnabled,
+  editorEnabled = true,
 }) => {
   return (
     <>
