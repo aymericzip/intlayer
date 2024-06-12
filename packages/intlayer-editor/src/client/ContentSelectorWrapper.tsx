@@ -2,7 +2,8 @@
 
 import { isSameKeyPath, type KeyPath } from '@intlayer/core';
 import { ContentSelector } from '@intlayer/design-system';
-import { useCallback, type FC, type ReactNode } from 'react';
+import { useCallback, useContext, type FC, type ReactNode } from 'react';
+import { IntlayerEditorContext } from './ContentEditorProvider';
 import { useDictionaryEditionDrawer } from './DictionaryEditionDrawer/useDictionaryEditionDrawer';
 
 type ContentSelectorWrapperProps = {
@@ -21,6 +22,7 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   const { open, getEditedContentValue, focusedContent, isOpen } =
     useDictionaryEditionDrawer(dictionaryId);
   const editedValue = getEditedContentValue(dictionaryPath, keyPath);
+  const { editorEnabled } = useContext(IntlayerEditorContext);
 
   const handleSelect = useCallback(
     () =>
@@ -37,6 +39,10 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
       (focusedContent?.keyPath?.length ?? 0) > 0 &&
       isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
     false;
+
+  if (!editorEnabled) {
+    return children;
+  }
 
   return (
     <ContentSelector onSelect={handleSelect} isSelecting={isSelected}>

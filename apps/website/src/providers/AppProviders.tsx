@@ -15,8 +15,9 @@ export const AppProviders: FC<AppProvidersProps> = ({
   children,
   session,
   locale,
+  editorEnabled,
 }) => (
-  <LocaleContextProvider locale={locale}>
+  <LocaleContextProvider locale={locale} editorEnabled={editorEnabled}>
     <NextAuthProvider session={session}>
       <ReactQueryClientProvider>
         <ThemeProvider>

@@ -34,6 +34,7 @@ export const useIntlayerContext = () => useContext(IntlayerClientContext);
 export type IntlayerProviderProps = PropsWithChildren & {
   locale?: Locales;
   setLocale?: (locale: Locales) => void;
+  editorEnabled?: boolean;
 };
 
 /**
@@ -43,6 +44,7 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
   locale,
   children,
   setLocale: setLocaleProp,
+  editorEnabled,
 }) => {
   const { defaultLocale, locales: availableLocales } =
     getConfiguration().internationalization;
@@ -79,6 +81,7 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
         locale={currentLocale}
         setLocale={setLocale}
         localeList={availableLocales}
+        editorEnabled={editorEnabled}
       >
         {children}
       </ContentEditionLayout>

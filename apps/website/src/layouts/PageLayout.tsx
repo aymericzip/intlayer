@@ -11,10 +11,11 @@ type PageLayoutProps = AppProvidersProps & PageContentLayoutProps;
 export const PageLayout: FC<PageLayoutProps> = ({
   locale,
   children,
+  editorEnabled,
   ...props
 }) => (
   <RootHTMLLayout locale={locale}>
-    <AppProviders locale={locale}>
+    <AppProviders locale={locale} editorEnabled={editorEnabled}>
       <PageContentLayout {...props}>{children}</PageContentLayout>
     </AppProviders>
   </RootHTMLLayout>

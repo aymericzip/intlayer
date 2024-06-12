@@ -5,7 +5,7 @@ import { generateMetadata } from './metadata';
 export { generateMetadata };
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
-  <PageLayout locale={locale}>
+  <PageLayout locale={locale} editorEnabled={false}>
     <LandingPage />
   </PageLayout>
 );
