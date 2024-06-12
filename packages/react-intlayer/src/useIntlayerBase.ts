@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Locales } from '@intlayer/config';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -60,32 +61,28 @@ type Data<T extends DictionaryKeys> = ExcludeIntlayerUtilsKeys<
 /**
  * Parcourt the object. If a object has a keyPath, render the intlayer editor if editor enabled.
  */
-export const recursiveTransformContent = (obj: object): object =>
-  Object.entries(obj).reduce((acc, [key, value]) => {
-    if (
-      typeof value === 'object' &&
-      typeof value.keyPath !== 'undefined' &&
-      typeof value.dictionaryId !== 'undefined' &&
-      typeof value.dictionaryPath !== 'undefined'
-    ) {
-      return {
-        ...acc,
-        [key]: renderIntlayerEditor(value),
-      };
-    } else if (typeof value === 'object' && Array.isArray(value)) {
-      return {
-        ...acc,
-        [key]: value.map(recursiveTransformContent),
-      };
-    } else if (typeof value === 'object') {
-      return {
+export const recursiveTransformContent = (value: any): object => {
+  if (
+    typeof value === 'object' &&
+    typeof value.keyPath !== 'undefined' &&
+    typeof value.dictionaryId !== 'undefined' &&
+    typeof value.dictionaryPath !== 'undefined'
+  ) {
+    return renderIntlayerEditor(value);
+  } else if (typeof value === 'object' && Array.isArray(value)) {
+    return value.map(recursiveTransformContent);
+  } else if (typeof value === 'object') {
+    return Object.entries(value).reduce(
+      (acc, [key, value]) => ({
         ...acc,
         [key]: recursiveTransformContent(value),
-      };
-    }
+      }),
+      {} as object
+    );
+  }
 
-    return acc;
-  }, {});
+  return value.value;
+};
 
 type DeepStrinfifyContent<T> =
   T extends React.ComponentType<unknown>
