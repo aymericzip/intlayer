@@ -108,9 +108,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
               </div>
               <StyledCloseButton onClick={close} />
             </StyledNavBar>
-            <StyledTitle>
-              {typeof title === 'string' ? capitalize(title) : title}
-            </StyledTitle>
+            <StyledTitle>{title}</StyledTitle>
             {header}
           </StyledHeader>
 
