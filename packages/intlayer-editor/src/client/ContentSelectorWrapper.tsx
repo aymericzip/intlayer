@@ -45,7 +45,11 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   }
 
   return (
-    <ContentSelector onSelect={handleSelect} isSelecting={isSelected}>
+    <ContentSelector
+      onSelect={handleSelect}
+      isSelecting={isSelected}
+      popoverContent="Long press to edit"
+    >
       {editedValue ?? children}
     </ContentSelector>
   );
