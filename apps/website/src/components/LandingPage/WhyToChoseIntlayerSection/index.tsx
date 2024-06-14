@@ -15,10 +15,10 @@ export const WhyToChoseIntlayerSection: FC = () => {
             className="flex max-w-[200px] flex-col items-center gap-3 text-center"
             key={index}
           >
-            <span className="flex size-10 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
+            <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
               {index}
             </span>
-            <h3 className="text-xl">{asset.title}</h3>
+            <h3 className="text-lg font-semibold">{asset.title}</h3>
             <AnimatedDiv>
               <p className="text-neutral text-xs">{asset.descrition}</p>
             </AnimatedDiv>
