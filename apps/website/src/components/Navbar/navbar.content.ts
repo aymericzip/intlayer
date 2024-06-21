@@ -1,24 +1,16 @@
+import type { NavSection } from '@intlayer/design-system';
 import { type DeclarationContent, t } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
 
-// type SectionsContent = {
-//   sections: NavSection[];
-//   bottomSections: NavSection[];
-//   logo: {
-//     label: string;
-//     onClick: () => void;
-//   };
-//   profile: {
-//     label: string;
-//   };
-//   login: {
-//     text: string;
-//     label: string;
-//     onClick: () => void;
-//   };
-// };
+type SectionsContent = {
+  sections: Omit<NavSection, 'onClick'>[];
+  // bottomSections: Omit<NavSection, 'onClick'>[];
+  logo: {
+    label: string;
+  };
+};
 
-export const navbarContent: DeclarationContent = {
+export const navbarContent: DeclarationContent<SectionsContent> = {
   id: 'navbar',
   logo: {
     label: t({
@@ -51,9 +43,19 @@ export const navbarContent: DeclarationContent = {
       }),
       url: PagesRoutes.Demo,
       label: t({
-        en: 'Go to demo page',
+        en: 'Go to the demo page',
         fr: 'Aller à la page de démo',
         es: 'Ir a la página de demostración',
+      }),
+    },
+    {
+      id: 'doc',
+      title: 'Doc',
+      url: PagesRoutes.Doc,
+      label: t({
+        en: 'Go to the documentation page',
+        fr: 'Aller à la page de documentation',
+        es: 'Ir a la página de documentation',
       }),
     },
   ],

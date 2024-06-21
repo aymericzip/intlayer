@@ -5,7 +5,7 @@ import type { Locales } from '@intlayer/config';
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary, NodeType } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import { renderIntlayerEditor } from 'intlayer-editor/client';
@@ -34,15 +34,35 @@ export type DictionaryKeys = StringFallback<
   keyof IntlayerDictionaryTypesConnector
 >;
 
-export type IntlayerNode = ReactNode & {
-  value: string;
+export type IntlayerNode<T = string> = ReactNode & {
+  value: T;
 };
 
-type DeepTransformContent<T> = T extends object
-  ? {
-      [K in keyof T]: DeepTransformContent<T[K]>;
-    }
-  : IntlayerNode;
+type TransformNodeType<T, L extends Locales> = T extends {
+  [NodeType.Enumeration]: { '1': any };
+}
+  ? (quantity: number) => DeepTransformContent<T[NodeType.Enumeration]['1'], L>
+  : T extends {
+        [NodeType.Translation]: object;
+      }
+    ? L extends keyof T[NodeType.Translation]
+      ? DeepTransformContent<T[NodeType.Translation][L], L> // DeepTransformContent<T[L], L>
+      : never
+    : T;
+
+type DeepTransformContent<T, L extends Locales> = T extends object // Check if the property is an object
+  ? T extends (infer U)[] // If it's an array, infer the type of array elements
+    ? DeepTransformContent<U, L>[] // Apply DeepTransformContent recursively to each element of the array
+    : T extends {
+          nodeType: NodeType | string;
+        }
+      ? TransformNodeType<T, L>
+      : {
+          [K in keyof T]: DeepTransformContent<T[K], L>;
+        }
+  : T extends undefined
+    ? never
+    : IntlayerNode<T>;
 
 /**
  * Excludes the 'id' and 'filePath' keys from the dictionary content,
@@ -54,15 +74,20 @@ type ExcludeIntlayerUtilsKeys<T> = Omit<T, 'id' | 'filePath'>;
  * Represents the data type returned by the useIntlayer hook,
  * excluding the 'id' and 'filePath' keys from the dictionary content.
  */
-type Data<T extends DictionaryKeys> = ExcludeIntlayerUtilsKeys<
-  DeepTransformContent<IntlayerDictionaryTypesConnector[T]>
+type Data<
+  T extends DictionaryKeys,
+  K extends Locales,
+> = ExcludeIntlayerUtilsKeys<
+  DeepTransformContent<IntlayerDictionaryTypesConnector[T], K>
 >;
 
 /**
  * Parcourt the object. If a object has a keyPath, render the intlayer editor if editor enabled.
  */
 export const recursiveTransformContent = (value: any): object => {
-  if (
+  if (typeof value === 'function') {
+    return (props: any) => recursiveTransformContent(value(props));
+  } else if (
     typeof value === 'object' &&
     typeof value.keyPath !== 'undefined' &&
     typeof value.dictionaryId !== 'undefined' &&
@@ -84,58 +109,28 @@ export const recursiveTransformContent = (value: any): object => {
   return value.value;
 };
 
-type DeepStrinfifyContent<T> =
-  T extends React.ComponentType<unknown>
-    ? string
-    : T extends object
-      ? {
-          [K in keyof T]: DeepStrinfifyContent<T[K]>;
-        }
-      : T;
-
-export const recursiveStringifyContent = <T extends object>(
-  obj: T
-): DeepStrinfifyContent<T> =>
-  Object.entries(obj).reduce((acc, [key, value]) => {
-    if (typeof value === 'object' && typeof value.value !== 'undefined') {
-      return {
-        ...acc,
-        [key]: value.value,
-      };
-    } else if (typeof value === 'object' && Array.isArray(value)) {
-      return {
-        ...acc,
-        [key]: value.map(recursiveStringifyContent),
-      };
-    } else if (typeof value === 'object') {
-      return {
-        ...acc,
-        [key]: recursiveStringifyContent(value),
-      };
-    }
-
-    return acc;
-  }, {}) as DeepStrinfifyContent<T>;
-
 /**
  * Type definition for the useIntlayer hook, which takes a dictionary ID and an optional locale,
  * and returns the deeply transformed dictionary content.
  *
  */
-export type UseIntlayer = <T extends DictionaryKeys>(
+export type UseIntlayer = <T extends DictionaryKeys, L extends Locales>(
   id: T,
-  locale?: Locales
-) => Data<T>;
+  locale?: L
+) => Data<T, L>;
 
 /**
  * Hook that picks one dictionary by its ID and returns the content,
  * deeply transformed according to the dictionary structure and metadata.
  */
-export const useIntlayerBase: UseIntlayer = <T extends DictionaryKeys>(
+export const useIntlayerBase: UseIntlayer = <
+  T extends DictionaryKeys,
+  L extends Locales,
+>(
   id: T,
-  locale?: Locales
+  locale?: L
 ) => {
-  const dictionary: Dictionary = dictionaries[id];
+  const dictionary: Dictionary = dictionaries[id as keyof typeof dictionaries];
 
   const result = processDictionary(
     dictionary,
@@ -145,5 +140,5 @@ export const useIntlayerBase: UseIntlayer = <T extends DictionaryKeys>(
     locale
   ) as object;
 
-  return recursiveTransformContent(result) as Data<T>;
+  return recursiveTransformContent(result) as Data<T, L>;
 };

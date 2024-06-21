@@ -99,7 +99,9 @@ export const processNode = (
       NodeType.Translation
     ) {
       return processTranslation(
-        field as LanguageContent<DictionaryValue>,
+        field[
+          NodeType.Translation as keyof typeof field
+        ] as LanguageContent<DictionaryValue>,
         locale,
         dictionaryId,
         dictionaryPath,
@@ -112,7 +114,9 @@ export const processNode = (
       NodeType.Enumeration
     ) {
       return processEnumeration(
-        field as QuantityContent<DictionaryValue>,
+        field[
+          NodeType.Enumeration as keyof typeof field
+        ] as QuantityContent<DictionaryValue>,
         locale,
         dictionaryId,
         dictionaryPath,
@@ -136,8 +140,6 @@ const createReactElement = (element: ReactElement) => {
     // If it's a string, simply return it (used for text content)
     return element;
   }
-
-  // Destructure the component properties
 
   const convertChildrenAsArray = (element: ReactElement): ReactElement => {
     if (element?.props && typeof element.props.children === 'object') {

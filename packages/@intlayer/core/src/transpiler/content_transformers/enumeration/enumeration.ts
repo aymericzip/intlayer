@@ -22,8 +22,9 @@ export type EnterFormat =
 
 export type QuantityContent<Content> = Record<EnterFormat, Content>;
 
-export type EnumerationContent<Content> = Partial<QuantityContent<Content>> & {
+export type EnumerationContent<Content> = {
   nodeType: NodeType.Enumeration;
+  [NodeType.Enumeration]: Partial<QuantityContent<Content>>;
 };
 
 /**
@@ -49,7 +50,7 @@ const enumeration = <Content>(content?: Partial<QuantityContent<Content>>) => {
   if (typeof content === 'string') {
     const result: EnumerationContent<Content> = {
       nodeType: NodeType.Enumeration,
-      1: content,
+      [NodeType.Enumeration]: { 1: content },
     };
 
     return result;
@@ -57,7 +58,7 @@ const enumeration = <Content>(content?: Partial<QuantityContent<Content>>) => {
 
   const result: EnumerationContent<Content> = {
     nodeType: NodeType.Enumeration,
-    ...content,
+    [NodeType.Enumeration]: { ...content },
   };
 
   return result;

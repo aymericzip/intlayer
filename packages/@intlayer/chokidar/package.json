@@ -61,6 +61,7 @@
     "glob": "^10.3.12",
     "intlayer": "workspace:^",
     "node-loader": "^2.0.0",
+    "quicktype-core": "^23.0.170",
     "rimraf": "5.0.5"
   },
   "devDependencies": {

@@ -64,6 +64,7 @@ export type CustomizableLanguageContent<Content = string> =
     ? LanguageContent<Content>
     : IConfigLocales<Content>;
 
-export type TranslationContent<Content> = LanguageContent<Content> & {
+export type TranslationContent<Content> = {
   nodeType: NodeType.Translation;
+  [NodeType.Translation]: LanguageContent<Content>;
 };

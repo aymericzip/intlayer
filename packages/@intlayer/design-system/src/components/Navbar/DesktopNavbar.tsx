@@ -24,7 +24,7 @@ const StyledNav = styled.nav(() => [
       var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   `,
 ]);
-const StyledList = tw.div`ml-[10vw] flex flex-row gap-6 tracking-wide text-neutral-800`;
+const StyledList = tw.div`ml-[10vw] flex flex-row gap-6 tracking-wide text-neutral dark:text-neutral-dark`;
 
 const StyledRightItemContainer = tw.div`mr-4 flex w-full justify-end items-center gap-2`;
 

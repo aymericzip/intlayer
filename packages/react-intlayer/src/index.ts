@@ -12,4 +12,3 @@ export {
   getBrowserLocale,
   useLocaleBase,
 } from './client/index';
-export { recursiveStringifyContent } from './useIntlayerBase';

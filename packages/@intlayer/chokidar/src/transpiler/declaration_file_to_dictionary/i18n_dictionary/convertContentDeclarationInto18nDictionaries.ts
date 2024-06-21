@@ -27,7 +27,9 @@ const buildDictionary = (content: Dictionary, locale: Locales): unknown => {
     content &&
     (content as TypedNode).nodeType === NodeType.Translation
   ) {
-    const result = (content as TranslationContent<unknown>)[locale];
+    const result = (content as TranslationContent<unknown>)[
+      NodeType.Translation
+    ][locale];
 
     return buildDictionary(result as Dictionary, locale);
   } else if (
@@ -37,7 +39,9 @@ const buildDictionary = (content: Dictionary, locale: Locales): unknown => {
   ) {
     const plurals: Record<string, unknown> = {};
 
-    Object.keys(content).forEach((quantity) => {
+    Object.keys(
+      (content as EnumerationContent<unknown>)[NodeType.Enumeration]
+    ).forEach((quantity) => {
       const letterNumber = convertPluralsValues(quantity);
 
       const value = (content as EnumerationContent<unknown>)[

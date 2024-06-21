@@ -32,7 +32,7 @@ const translation = <Content = string>(
   if (typeof content === 'string') {
     const result: TranslationContent<Content> = {
       nodeType: NodeType.Translation,
-      [defaultLocale]: content,
+      [NodeType.Translation]: { [defaultLocale]: content },
     } as TranslationContent<Content>;
 
     return result;
@@ -40,7 +40,7 @@ const translation = <Content = string>(
 
   const result: TranslationContent<Content> = {
     nodeType: NodeType.Translation,
-    ...(content as unknown as object),
+    [NodeType.Translation]: content,
   } as TranslationContent<Content>;
 
   return result;

@@ -28,14 +28,17 @@ export const watch = (options?: WatchOptions) => {
     .on('ready', async () => {
       const dictionariesPaths = await buildDictionary(files);
 
-      console.info('Building Intlayer types...');
-      createTypes(dictionariesPaths);
+      console.info('Building TypeScript types...');
+      await createTypes(dictionariesPaths);
+      console.info('TypeScript types built');
 
       console.info('Building Intlayer module augmentation...');
       createModuleAugmentation();
+      console.info('Intlayer module augmentation built');
 
       console.info('Building Intlayer dictionary list...');
       createDictionaryList();
+      console.info('Intlayer dictionary list built');
 
       const relativeDictionariesPath = dictionariesPaths.map((dictionary) =>
         relative(baseDir, dictionary)
@@ -53,10 +56,12 @@ export const watch = (options?: WatchOptions) => {
       const dictionaries = await buildDictionary(filePath);
 
       console.info('Building TypeScript types...');
-      createTypes(dictionaries);
+      await createTypes(dictionaries);
+      console.info('TypeScript types built');
 
-      console.info('Building type index...');
+      console.info('Building Intlayer module augmentation...');
       createModuleAugmentation();
+      console.info('Intlayer module augmentation built');
 
       console.info('Building main...');
       createDictionaryList();
@@ -67,7 +72,8 @@ export const watch = (options?: WatchOptions) => {
       const dictionaries = await buildDictionary(filePath);
 
       console.info('Building TypeScript types...');
-      createTypes(dictionaries);
+      await createTypes(dictionaries);
+      console.info('TypeScript types built');
     })
     .on('error', (error) => {
       console.error('Watcher error:', error);

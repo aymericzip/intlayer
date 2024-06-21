@@ -1,4 +1,4 @@
-import { type PropsWithChildren, forwardRef } from 'react';
+import { type PropsWithChildren, forwardRef, type HTMLAttributes } from 'react';
 import { css, styled } from 'styled-components';
 import tw, { type TwStyle } from 'twin.macro';
 
@@ -82,7 +82,8 @@ type ContainerProps = PropsWithChildren<{
   transparency?: Transparency;
   padding?: Padding;
   separator?: Separator;
-}>;
+}> &
+  HTMLAttributes<HTMLDivElement>;
 
 // Container component
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
