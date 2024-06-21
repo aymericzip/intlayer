@@ -2,6 +2,7 @@ import { type DeclarationContent, t, enu } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
 
 type NavLink = {
+  key: string;
   title: string;
   subSections?: NavLink[];
   url?: string;
@@ -15,14 +16,17 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
   id: 'doc-page',
   navbar: [
     {
+      key: 'get-started',
       title: t({ fr: 'Commencez', en: 'Get started', es: 'Comenzar' }),
       url: PagesRoutes.Doc_GetStarted,
       subSections: [],
     },
     {
+      key: 'concept',
       title: t({ fr: 'Concept', en: 'Concept', es: 'Concepto' }),
       subSections: [
         {
+          key: 'configuration',
           title: t({
             fr: 'Configuration',
             en: 'Configuration',
@@ -31,6 +35,8 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           url: PagesRoutes.Doc_Configuration,
         },
         {
+          key: 'interest-of-intlayer',
+
           title: t({
             fr: 'Intérêt de intlayer',
             en: 'Interest of intlayer',
@@ -39,6 +45,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           url: PagesRoutes.Doc_Interest,
         },
         {
+          key: 'intlayer-editor',
           title: t({
             fr: 'Éditeur Intlayer',
             en: 'Intlayer editor',
@@ -47,6 +54,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           url: PagesRoutes.Doc_IntlayerEditor,
         },
         {
+          key: 'content-declaration',
           title: t({
             fr: 'Déclaration de contenu',
             en: 'Content declaration',
@@ -55,6 +63,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           url: PagesRoutes.Doc_ContentDeclaration,
           subSections: [
             {
+              key: 'traduction',
               title: t({
                 fr: 'Traduction',
                 en: 'Translation',
@@ -63,6 +72,8 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
               url: PagesRoutes.Doc_ContentDeclaration_Translation,
             },
             {
+              key: 'enumeration',
+
               title: t({
                 fr: 'Énumération',
                 en: 'Enumeration',
@@ -71,6 +82,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
               url: PagesRoutes.Doc_ContentDeclaration_Enumeration,
             },
             {
+              key: 'function-fetching',
               title: t({
                 fr: 'Récupération de fonction',
                 en: 'Function fetching',
@@ -79,6 +91,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
               url: PagesRoutes.Doc_ContentDeclaration_FunctionFetching,
             },
             {
+              key: 'nested-id',
               title: t({
                 fr: 'ID imbriqué',
                 en: 'Nested ID',
@@ -91,9 +104,11 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
       ],
     },
     {
+      key: 'environments',
       title: t({ fr: 'Environnements', en: 'Environments', es: 'Entornos' }),
       subSections: [
         {
+          key: 'nextjs',
           title: t({
             fr: 'Intlayer avec NextJS',
             en: 'Intlayer with NextJS',
@@ -102,6 +117,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           url: PagesRoutes.Doc_Environment_NextJS,
         },
         {
+          key: 'react-cra',
           title: t({
             fr: 'Intlayer avec React (CRA)',
             en: 'Intlayer with React (CRA)',
@@ -110,6 +126,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           url: PagesRoutes.Doc_Environment_CRA,
         },
         {
+          key: 'vite+react',
           title: t({
             fr: 'Intlayer avec ViteJS+React',
             en: 'Intlayer with ViteJS+React',
