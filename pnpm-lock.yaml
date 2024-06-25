@@ -157,10 +157,6 @@ importers:
         version: 5.5.2
 
   docs:
-    dependencies:
-      fs:
-        specifier: 0.0.1-security
-        version: 0.0.1-security
     devDependencies:
       '@types/node':
         specifier: ^20.12.7
@@ -14772,6 +14768,7 @@ packages:
       {
         integrity: sha512-3XY9e1pP0CVEUCdj5BmfIZxRBTSDycnbqhIOGec9QYtmVH2fbLpj86CFWkrNOkt/Fvty4KZG5lTglL9j/gJ87w==,
       }
+    dev: true
 
   /fsevents@2.3.3:
     resolution:
