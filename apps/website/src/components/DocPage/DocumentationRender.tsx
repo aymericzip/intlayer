@@ -15,7 +15,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
 }) => {
   const theme = useTheme();
   const { locale } = useLocale();
-  const doc = getDoc(docName, locale);
+  const doc = getDoc(docName as unknown as DocsKeys, locale);
 
   const isDarkMode = theme.theme === 'dark';
   return <MarkdownRenderer isDarkMode={isDarkMode}>{doc}</MarkdownRenderer>;
