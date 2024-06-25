@@ -8,7 +8,7 @@ export { generateMetadata };
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
   <PageLayout locale={locale} editorEnabled={false}>
-    <DocPageLayout activeSections={['environment', 'vite+react']}>
+    <DocPageLayout activeSections={['environment', 'vite_react']}>
       <DocumentationRender docName="intlayer_with_vite_react" />
     </DocPageLayout>
   </PageLayout>

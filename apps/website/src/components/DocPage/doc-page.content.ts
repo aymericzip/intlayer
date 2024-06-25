@@ -134,7 +134,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           url: PagesRoutes.Doc_Environment_CRA,
         },
         {
-          key: 'vite+react',
+          key: 'vite_react',
           title: t({
             fr: 'Intlayer avec ViteJS+React',
             en: 'Intlayer with ViteJS+React',
