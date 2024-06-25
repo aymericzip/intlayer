@@ -118,7 +118,7 @@ const pageContent: DeclarationContent = {
 export default pageContent;
 ```
 
-[See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme.md).
+[See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme_en.md).
 
 ### Step 6: Utilize Intlayer in Your Code
 
@@ -224,7 +224,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-To see all available parameters, refer to the [configuration documentation here](https://github.com/aypineau/intlayer/blob/main/docs/configuration.md).
+To see all available parameters, refer to the [configuration documentation here](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_en.md).
 
 ---
 

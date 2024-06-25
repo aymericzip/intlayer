@@ -20,7 +20,6 @@ export type {
   FlatContent,
   TypedNode,
   DeclarationContent,
-  ContentValueArray,
   KeyPath,
   ObjectExpressionNode,
   ArrayExpressionNode,

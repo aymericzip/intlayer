@@ -11,15 +11,19 @@ import {
   // gruvboxLight,
   // nord,
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import styled from 'styled-components';
 import tw from 'twin.macro';
 
 type CodeCompProps = {
   children: string;
   language: string;
   isDarkMode?: boolean;
+  showLineNumbers?: boolean;
 };
 
-const StyledContainer = tw.div`relative`;
+const StyledContainer = styled.div<{ $showLineNumbers: boolean }>(
+  ({ $showLineNumbers }) => [tw`relative p-3`, $showLineNumbers && tw`ml-0`]
+);
 const StyledCopyButton = tw.button`top-3 right-3 absolute`;
 const StyledCopyIcon = tw(CopyIcon)`w-4 h-4`;
 const StyledCopyCheckIcon = tw(CopyCheckIcon)`w-4 h-4`;
@@ -28,6 +32,7 @@ export const Code: FC<CodeCompProps> = ({
   children,
   language,
   isDarkMode,
+  showLineNumbers = true,
   ...props
 }) => {
   const [copied, setCopied] = useState(false);
@@ -40,7 +45,7 @@ export const Code: FC<CodeCompProps> = ({
   }, [copied]);
 
   return (
-    <StyledContainer>
+    <StyledContainer $showLineNumbers={showLineNumbers}>
       <CopyToClipboard text={children} onCopy={() => setCopied(true)}>
         <StyledCopyButton>
           {copied ? <StyledCopyCheckIcon /> : <StyledCopyIcon />}
@@ -57,7 +62,7 @@ export const Code: FC<CodeCompProps> = ({
         }}
         language={language ?? 'javascript'}
         style={isDarkMode ? okaidia : coldarkCold}
-        showLineNumbers
+        showLineNumbers={showLineNumbers}
         {...props}
       >
         {String(children).replace(/\n$/, '')}

@@ -10,19 +10,19 @@ For more details on how to install the package, see the relevant section below:
 
 ### Integrating with Next.js
 
-For integration with Next.js, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_nextjs.md).
+For integration with Next.js, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
 
 ### Integrating with Create React App
 
-For integration with Create React App, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_create_react_app.md).
+For integration with Create React App, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
 
 ### Integrating with Vite + React
 
-For integration with Vite + React, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_vite+react.md).
+For integration with Vite + React, refer to the [setup guide](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md).
 
 ## How Intlayer Editor Works
 
-Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/docs/content_declaration/get_started.md), wherever these files are declared in your project.
+Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md), wherever these files are declared in your project.
 
 In this way, you don't have to worry about where the file is declared or about finding your key in your dictionary collection.
 
@@ -54,7 +54,7 @@ const config: IntlayerConfig = {
 };
 ```
 
-To see all available parameters, refer to the [configuration documentation](https://github.com/aypineau/intlayer/blob/main/docs/configuration.md).
+To see all available parameters, refer to the [configuration documentation](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_en.md).
 
 ### Start Editing
 
@@ -64,7 +64,7 @@ You can also create a custom script in your `package.json` file:
 
 ```json5
 {
-  "scripts": {
+  scripts: {
     "start:editor": "npx intlayer-editor start",
   },
 }
@@ -74,8 +74,8 @@ To start both the Next.js server and the Intlayer Editor simultaneously, you can
 
 ```json5
 {
-  "scripts": {
-    "dev": "next dev",
+  scripts: {
+    dev: "next dev",
     "start:editor": "npx intlayer-editor start",
     "dev:all": "concurrently \"npm run dev:nextjs\" \"npm run dev:intlayer-editor\"",
   },

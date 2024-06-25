@@ -8,12 +8,18 @@ import { useState, type FC, type ReactNode } from 'react';
 
 type DocPageLayoutProps = {
   children?: ReactNode;
+  activeSections?: string[];
 };
 
-export const DocPageLayout: FC<DocPageLayoutProps> = ({ children }) => {
+export const DocPageLayout: FC<DocPageLayoutProps> = ({
+  children,
+  activeSections: initialActiveSections = [],
+}) => {
   const { navbar } = useIntlayer('doc-page');
   const router = useRouter();
-  const [activeSections, setActiveSections] = useState<string[]>([]);
+  const [activeSections, setActiveSections] = useState<string[]>(
+    initialActiveSections
+  );
 
   return (
     <div className="flex size-full border-b-[0.5px]">
@@ -121,7 +127,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({ children }) => {
           </nav>
         </div>
       </Container>
-      <div className="grow">{children}</div>
+      <div className="w-full grow">{children}</div>
     </div>
   );
 };

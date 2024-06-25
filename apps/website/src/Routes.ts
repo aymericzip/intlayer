@@ -3,43 +3,43 @@ export enum PagesRoutes {
   Demo = '/demo',
   Doc = '/doc',
   Doc_GetStarted = '/doc/get_started',
-  Doc_Configuration = '/doc/configuration',
-  Doc_Interest = '/doc/interest-of-intlayer',
-  Doc_IntlayerEditor = '/doc/intlayer-editor',
-  Doc_ContentDeclaration = '/doc/content-declaration',
-  Doc_ContentDeclaration_Translation = '/doc/content-declaration/translation',
-  Doc_ContentDeclaration_Enumeration = '/doc/content-declaration/enumeration',
-  Doc_ContentDeclaration_FunctionFetching = '/doc/content-declaration/function-fetching',
-  Doc_ContentDeclaration_NestedId = '/doc/content-declaration/nested-id',
-  Doc_Environment_NextJS = '/doc/environment/intlayer-with-nextjs',
-  Doc_Environment_CRA = '/doc/environment/intlayer-with-create-react-app',
-  Doc_Environment_ViteAndReact = '/doc/environment/intlayer-with-vite-and-react',
+  Doc_Configuration = '/doc/concept/configuration',
+  Doc_Interest = '/doc/concept/interest_of_intlayer',
+  Doc_IntlayerEditor = '/doc/concept/intlayer_editor',
+  Doc_IntlayerWithI18n = '/doc/concept/intlayer_with_i18n',
+  Doc_ContentDeclaration_Translation = '/doc/concept/content_declaration/translation',
+  Doc_ContentDeclaration_Enumeration = '/doc/concept/content_declaration/enumeration',
+  Doc_ContentDeclaration_FunctionFetching = '/doc/concept/content_declaration/function_fetching',
+  Doc_ContentDeclaration_NestedId = '/doc/concept/content_declaration/nested_id',
+  Doc_Environment_NextJS = '/doc/environment/intlayer_with_nextjs',
+  Doc_Environment_CRA = '/doc/environment/intlayer_with_create_react_app',
+  Doc_Environment_ViteAndReact = '/doc/environment/intlayer_with_vite_and_react',
 
-  LogIn = '/auth/sign-in',
-  SignUp = '/auth/sign-up',
+  LogIn = '/auth/sign_in',
+  SignUp = '/auth/sign_up',
   ForgotPassword = '/auth/password/reset',
   ChangePassword = '/auth/password/change',
 
-  PrivacyPolicy = '/privacy-notice',
-  TermsOfService = '/terms-of-services',
+  PrivacyPolicy = '/privacy_notice',
+  TermsOfService = '/terms_of_services',
 
-  ChatWithUs = '/chat-with-us',
+  ChatWithUs = '/chat_with_us',
   Pricing = '/pricing',
-  AboutUs = '/about-us',
+  AboutUs = '/about_us',
 
   // Post
-  CreatePost = '/create-post',
+  CreatePost = '/create_post',
 }
 
 export enum APIRoutes {
   // Auth
-  SignUp = '/api/auth/proxy/sign-up',
-  SignIn = '/api/auth/proxy/sign-in',
-  DeleteUser = '/api/auth/proxy/delete-user',
+  SignUp = '/api/auth/proxy/sign_up',
+  SignIn = '/api/auth/proxy/sign_in',
+  DeleteUser = '/api/auth/proxy/delete_user',
   UpdatePassword = '/api/auth/proxy/password/update',
   SendPasswordResetEmail = '/api/auth/proxy/password/reset',
   ConfirmPassword = '/api/auth/proxy/password/reset/confirm',
-  VerifyEmail = '/api/auth/proxy/email-verification',
+  VerifyEmail = '/api/auth/proxy/email_verification',
 }
 
 export enum ExternalLinks {
@@ -48,7 +48,7 @@ export enum ExternalLinks {
   IntlayerWithNextjs = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_nextjs.md',
   IntlayerWithReact = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_create_react_app.md',
   IntlayerWithVite = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_vite%2Breact.md',
-  ExampleIntlayerWithNextjs = 'https://github.com/aypineau/intlayer/tree/main/examples/nextjs-app',
-  ExampleIntlayerWithReactJS = 'https://github.com/aypineau/intlayer/tree/main/examples/react-app',
-  ExampleIntlayerWithViteAndReact = 'https://github.com/aypineau/intlayer/tree/main/examples/vite-app',
+  ExampleIntlayerWithNextjs = 'https://github.com/aypineau/intlayer/tree/main/examples/nextjs_app',
+  ExampleIntlayerWithReactJS = 'https://github.com/aypineau/intlayer/tree/main/examples/react_app',
+  ExampleIntlayerWithViteAndReact = 'https://github.com/aypineau/intlayer/tree/main/examples/vite_app',
 }

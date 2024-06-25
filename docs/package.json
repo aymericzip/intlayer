@@ -1,0 +1,60 @@
+{
+  "name": "@intlayer/docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "IntLayer documentation",
+  "keywords": [
+    "intlayer",
+    "documentation",
+    "application",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "homepage": "https://github.com/aypineau/intlayer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aypineau/intlayer.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aypineau"
+  },
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "import": "./index.cjs",
+      "require": "./index.cjs",
+      "types": "./index.d.ts"
+    },
+    "./en": {
+      "import": "./index_en.cjs",
+      "require": "./index_en.cjs",
+      "types": "./index_en.d.ts"
+    },
+    "./fr": {
+      "import": "./index_fr.cjs",
+      "require": "./index_fr.cjs",
+      "types": "./index_fr.d.ts"
+    },
+    "./es": {
+      "import": "./index_es.cjs",
+      "require": "./index_es.cjs",
+      "types": "./index_es.d.ts"
+    }
+  },
+  "files": [
+    "**/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.12.7"
+  },
+  "engines": {
+    "node": ">=14.18"
+  },
+  "bug": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  }
+}

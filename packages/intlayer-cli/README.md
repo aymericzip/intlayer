@@ -29,11 +29,11 @@ pnpm install intlayer-cli
 
 ## intlayer-cli package
 
-`intlayer-cli` package intend to transpile your [intlayer](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme.md) declarations into dictionaries.
+`intlayer-cli` package intend to transpile your [intlayer](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme_en.md) declarations into dictionaries.
 
-This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme.md).
+This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme_en.md).
 
-To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme.md), or [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme.md)
+To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_en.md), or [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_en.md)
 
 ## Configuration File Support
 
@@ -46,7 +46,7 @@ Intlayer accepts multiple configuration file formats:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aypineau/intlayer/blob/main/docs/configuration.md).
+To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_en.md).
 
 ### Run intlayer commands
 

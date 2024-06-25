@@ -1,6 +1,5 @@
 export type {
   ContentValue,
-  ContentValueArray,
   Content,
   FlatContentValue,
   FlatContent,

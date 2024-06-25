@@ -12,12 +12,12 @@
 
 `intlayer` package intend to declare your content in a structured way, using JavaScript.
 
-To build dictionaries from this declaration, you can use [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme.md).
-And to interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme.md), or [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme.md)
+To build dictionaries from this declaration, you can use [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme_en.md).
+And to interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_en.md), or [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_en.md)
 
 ## Getting Started with Intlayer
 
-[See how to use intlayer with NextJS](https://github.com/aypineau/intlayer/blob/main/readme.md)
+[See how to use intlayer with NextJS](https://github.com/aypineau/intlayer/blob/main/readme_en.md)
 
 ### Install Package
 
@@ -95,8 +95,8 @@ const pageContent = {
     numberOfCar: enu({
       "<-1": "Less than minus one car",
       "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
+      0: "No cars",
+      1: "One car",
       ">5": "Some cars",
       ">19": "Many cars",
     }),
@@ -130,8 +130,8 @@ const pageContent = {
     numberOfCar: enu({
       "<-1": "Less than minus one car",
       "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
+      0: "No cars",
+      1: "One car",
       ">5": "Some cars",
       ">19": "Many cars",
     }),
@@ -147,20 +147,20 @@ module.exports = pageContent;
 ```json5
 // src/app/[locale]/page.content.json
 {
-  "id": "page",
-  "getStarted": {
-    "main": {
-      "nodeType": "translation",
-      "en": "Get started by editing",
-      "fr": "Commencez par éditer",
-      "es": "Comience por editar",
+  id: "page",
+  getStarted: {
+    main: {
+      nodeType: "translation",
+      en: "Get started by editing",
+      fr: "Commencez par éditer",
+      es: "Comience por editar",
     },
-    "pageLink": "src/app/page.tsx",
+    pageLink: "src/app/page.tsx",
   },
-  "nestedContent": {
-    "id": "enumeration",
-    "nodeType": "enumeration",
-    "numberOfCar": {
+  nestedContent: {
+    id: "enumeration",
+    nodeType: "enumeration",
+    numberOfCar: {
       "<-1": "Less than minus one car",
       "-1": "Minus one car",
       "0": "No cars",

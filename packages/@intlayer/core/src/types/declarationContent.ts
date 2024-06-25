@@ -8,16 +8,11 @@ export type TypedNode =
   | TranslationContent<unknown>
   | EnumerationContent<unknown>;
 
-type ArrayOfSameType<T> = T extends (infer U)[]
-  ? U extends T[number]
-    ? T
-    : never
-  : never;
-
-export type ContentValueArray = ArrayOfSameType<ContentValue[]>;
-
 export type ContentValue =
   | string
+  | string[]
+  | number
+  | number[]
   | {
       [key: string]: ContentValue;
     }
@@ -25,10 +20,7 @@ export type ContentValue =
   | Promise<ContentValue>
   | TypedNode;
 
-export type Content = Record<
-  string,
-  ContentValue | ContentValueArray | undefined
->;
+export type Content = Record<string, ContentValue | ContentValue[] | undefined>;
 
 export type FlatContentValue =
   | string
