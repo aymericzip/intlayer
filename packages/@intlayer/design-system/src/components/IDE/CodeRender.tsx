@@ -52,9 +52,14 @@ export const Code: FC<CodeCompProps> = ({
         </StyledCopyButton>
       </CopyToClipboard>
       <SyntaxHighlighter
+        lineProps={{
+          style: { whiteSpace: 'pre-wrap' },
+        }}
+        wrapLines={true}
         customStyle={{
           display: undefined,
           overflowX: undefined,
+          overflowY: 'scroll',
           padding: undefined,
           color: undefined,
           background: 'inherit',
