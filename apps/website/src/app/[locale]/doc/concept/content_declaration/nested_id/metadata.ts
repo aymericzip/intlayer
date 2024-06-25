@@ -10,36 +10,39 @@ export const generateMetadata = ({
 
   return {
     title: t<string>({
-      en: 'Intlayer | Documentation',
-      fr: 'Intlayer | Documentation',
-      es: 'Intlayer | Documentación',
+      en: 'Intlayer | Nested ID',
+      fr: 'Intlayer | ID imbriqué',
+      es: 'Intlayer | ID anidado',
     }),
     description: t<string>({
-      en: 'Transform your website into a multilingual application in 2 minutes. Discover the full range of Intlayer features through this online documentation.',
-      fr: "Transformez votre site web en application multilingue en 2 minutes. Découvrez l'ensemble des fonctionnalités de Intlayer à travers cette documentation en ligne.",
-      es: 'Transforme su sitio web en una aplicación multilingüe en 2 minutos. Descubra todas las funcionalidades de Intlayer a través de esta documentación en línea.',
+      en: 'Discover how to declare and use nested IDs in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.',
+      fr: 'Découvrez comment déclarer et utiliser des ID imbriqués dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.',
+      es: 'Descubra cómo declarar y usar IDs anidados en su sitio web multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.',
     }),
-    generator: undefined,
+
     keywords: t<string[]>({
       en: [
-        'Documentation',
+        'Nested ID',
         'Internationalization',
+        'Documentation',
         'Intlayer',
         'Next.js',
         'JavaScript',
         'React',
       ],
       fr: [
-        'Documentation',
+        'ID imbriqué',
         'Internationalisation',
+        'Documentación',
         'Intlayer',
         'Next.js',
         'JavaScript',
         'React',
       ],
       es: [
-        'Documentation',
+        'ID anidado',
         'Internacionalización',
+        'Documentación',
         'Intlayer',
         'Next.js',
         'JavaScript',

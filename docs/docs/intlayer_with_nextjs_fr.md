@@ -1,4 +1,4 @@
-# Commencer avec Intlayer
+# Commencer avec Intlayer et Next.js
 
 Mettre en place Intlayer dans une application Next.js est simple :
 

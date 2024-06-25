@@ -19,13 +19,14 @@ export const generateMetadata = ({
       fr: "Transformez votre site web en application multilingue en 2 minutes. Découvrez l'ensemble des fonctionnalités de Intlayer à travers cette documentation en ligne.",
       es: 'Transforme su sitio web en una aplicación multilingüe en 2 minutos. Descubra todas las funcionalidades de Intlayer a través de esta documentación en línea.',
     }),
-    generator: undefined,
+
     keywords: t<string[]>({
       en: [
         'Documentation',
         'Internationalization',
         'Intlayer',
         'Next.js',
+        'Vite',
         'JavaScript',
         'React',
       ],
@@ -33,6 +34,7 @@ export const generateMetadata = ({
         'Documentation',
         'Internationalisation',
         'Intlayer',
+        'Vite',
         'Next.js',
         'JavaScript',
         'React',
@@ -41,6 +43,7 @@ export const generateMetadata = ({
         'Documentation',
         'Internacionalización',
         'Intlayer',
+        'Vite',
         'Next.js',
         'JavaScript',
         'React',

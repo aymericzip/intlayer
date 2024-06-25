@@ -1,4 +1,9 @@
 const docs = {
+  introduction: {
+    en: require('./docs/introduction_en.md'),
+    fr: require('./docs/introduction_fr.md'),
+    es: require('./docs/introduction_es.md'),
+  },
   configuration: {
     en: require('./docs/configuration_en.md'),
     fr: require('./docs/configuration_fr.md'),

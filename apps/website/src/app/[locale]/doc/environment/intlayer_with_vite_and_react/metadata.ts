@@ -10,40 +10,40 @@ export const generateMetadata = ({
 
   return {
     title: t<string>({
-      en: 'Intlayer | Documentation',
-      fr: 'Intlayer | Documentation',
-      es: 'Intlayer | Documentación',
+      en: 'Intlayer | Intlayer with Vite + React',
+      fr: 'Intlayer | Intlayer avec Vite + React',
+      es: 'Intlayer | Intlayer con Vite + React',
     }),
     description: t<string>({
-      en: 'Transform your website into a multilingual application in 2 minutes. Discover the full range of Intlayer features through this online documentation.',
-      fr: "Transformez votre site web en application multilingue en 2 minutes. Découvrez l'ensemble des fonctionnalités de Intlayer à travers cette documentation en ligne.",
-      es: 'Transforme su sitio web en una aplicación multilingüe en 2 minutos. Descubra todas las funcionalidades de Intlayer a través de esta documentación en línea.',
+      en: 'Discover how to use Intlayer with Vite + React to make your website multilingual. Follow the steps in this online documentation to set up your project in a few minutes.',
+      fr: 'Découvrez comment utiliser Intlayer avec Vite et React pour rendre votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.',
+      es: 'Descubra cómo usar Intlayer con Vite y React para hacer que su sitio web sea multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.',
     }),
-    generator: undefined,
+
     keywords: t<string[]>({
       en: [
-        'Documentation',
         'Internationalization',
+        'Documentation',
         'Intlayer',
-        'Next.js',
-        'JavaScript',
+        'Vite',
         'React',
+        'JavaScript',
       ],
       fr: [
-        'Documentation',
         'Internationalisation',
+        'Documentation',
         'Intlayer',
-        'Next.js',
-        'JavaScript',
+        'Vite',
         'React',
+        'JavaScript',
       ],
       es: [
-        'Documentation',
         'Internacionalización',
+        'Documentación',
         'Intlayer',
-        'Next.js',
-        'JavaScript',
+        'Vite',
         'React',
+        'JavaScript',
       ],
     }),
   };

@@ -10,36 +10,39 @@ export const generateMetadata = ({
 
   return {
     title: t<string>({
-      en: 'Intlayer | Documentation',
-      fr: 'Intlayer | Documentation',
-      es: 'Intlayer | Documentación',
+      en: 'Intlayer | Configuration',
+      fr: 'Intlayer | Configuration',
+      es: 'Intlayer | Configuración',
     }),
     description: t<string>({
-      en: 'Transform your website into a multilingual application in 2 minutes. Discover the full range of Intlayer features through this online documentation.',
-      fr: "Transformez votre site web en application multilingue en 2 minutes. Découvrez l'ensemble des fonctionnalités de Intlayer à travers cette documentation en ligne.",
-      es: 'Transforme su sitio web en una aplicación multilingüe en 2 minutos. Descubra todas las funcionalidades de Intlayer a través de esta documentación en línea.',
+      en: 'Discover how to configure Intlayer to make your website multilingual. Follow the steps in this online documentation to set up your project in a few minutes.',
+      fr: 'Découvrez comment configurer Intlayer pour rendre votre site web multilingue. Suivez les étapes de cette documentation en ligne pour mettre en place votre projet en quelques minutes.',
+      es: 'Descubra cómo configurar Intlayer para hacer que su sitio web sea multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.',
     }),
-    generator: undefined,
+
     keywords: t<string[]>({
       en: [
-        'Documentation',
+        'Configuration',
         'Internationalization',
+        'Documentation',
         'Intlayer',
         'Next.js',
         'JavaScript',
         'React',
       ],
       fr: [
-        'Documentation',
+        'Configuration',
         'Internationalisation',
+        'Documentación',
         'Intlayer',
         'Next.js',
         'JavaScript',
         'React',
       ],
       es: [
-        'Documentation',
+        'Configuración',
         'Internacionalización',
+        'Documentación',
         'Intlayer',
         'Next.js',
         'JavaScript',

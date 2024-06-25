@@ -1,4 +1,4 @@
-# Démarrer avec Intlayer
+# Démarrer avec Intlayer vitejs + react
 
 Configurer Intlayer dans une application Create React App est simple :
 

@@ -1,4 +1,4 @@
-# Bien démarrer avec Intlayer
+# Bien démarrer avec Intlayer et React Create App
 
 Configurer Intlayer dans une application Create React App est simple :
 

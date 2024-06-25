@@ -1,4 +1,4 @@
-# Getting Started with Intlayer
+# Getting Started with Intlayer and React Create App
 
 Setting up Intlayer in a Create React App application is straightforward:
 
