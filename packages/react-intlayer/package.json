@@ -89,22 +89,22 @@
     "intlayer": "workspace:^",
     "js-cookie": "^3.0.5",
     "react-cookie": "^7.1.4",
-    "vite": "^5.2.0",
-    "webpack": "^5.91.0"
+    "vite": "^5.3.1",
+    "webpack": "^5.92.1"
   },
   "devDependencies": {
     "@craco/types": "^7.1.0",
     "@types/cross-spawn": "^6.0.6",
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "^20.12.7",
-    "@types/react": "^18.2.79",
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "rimraf": "5.0.5",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.5"
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.2"
   },
   "peerDependencies": {
     "intlayer-editor": "workspace:^",

@@ -56,12 +56,12 @@
   },
   "devDependencies": {
     "@intlayer/core": "workspace:^",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.14.9",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
     "rimraf": "5.0.5",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.5"
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.2"
   },
   "engines": {
     "node": ">=14.18"

@@ -43,13 +43,13 @@
     "test": ""
   },
   "dependencies": {
-    "commander": "^12.0.0"
+    "commander": "^12.1.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.14.9",
     "@utils/ts-config": "workspace:^",
     "rimraf": "5.0.5",
-    "tsup": "^8.0.2"
+    "tsup": "^8.1.0"
   },
   "bug": {
     "url": "https://github.com/aypineau/intlayer/issues"
