@@ -11,6 +11,7 @@ export enum PagesRoutes {
   Doc_ContentDeclaration_Enumeration = '/doc/concept/content_declaration/enumeration',
   Doc_ContentDeclaration_FunctionFetching = '/doc/concept/content_declaration/function_fetching',
   Doc_ContentDeclaration_NestedId = '/doc/concept/content_declaration/nested_id',
+  Doc_ContentDeclaration_DeclarationWatching = '/doc/concept/content_declaration/declaration_watching',
   Doc_Environment_NextJS = '/doc/environment/intlayer_with_nextjs',
   Doc_Environment_CRA = '/doc/environment/intlayer_with_create_react_app',
   Doc_Environment_ViteAndReact = '/doc/environment/intlayer_with_vite_and_react',

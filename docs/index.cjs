@@ -44,10 +44,10 @@ const docs = {
     fr: require('./docs/intlayer_with_vite+react_fr.md'),
     es: require('./docs/intlayer_with_vite+react_es.md'),
   },
-  content_declaration__declaration_watching: {
-    en: require('./docs/content_declaration/declaration_watching_en.md'),
-    fr: require('./docs/content_declaration/declaration_watching_fr.md'),
-    es: require('./docs/content_declaration/declaration_watching_es.md'),
+  content_declaration__translation: {
+    en: require('./docs/content_declaration/translation_en.md'),
+    fr: require('./docs/content_declaration/translation_fr.md'),
+    es: require('./docs/content_declaration/translation_es.md'),
   },
   content_declaration__enumeration: {
     en: require('./docs/content_declaration/enumeration_en.md'),
@@ -68,6 +68,11 @@ const docs = {
     en: require('./docs/content_declaration/nested_id_en.md'),
     fr: require('./docs/content_declaration/nested_id_fr.md'),
     es: require('./docs/content_declaration/nested_id_es.md'),
+  },
+  content_declaration__declaration_watching: {
+    en: require('./docs/content_declaration/declaration_watching_en.md'),
+    fr: require('./docs/content_declaration/declaration_watching_fr.md'),
+    es: require('./docs/content_declaration/declaration_watching_es.md'),
   },
 };
 

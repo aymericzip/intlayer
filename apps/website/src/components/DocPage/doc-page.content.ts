@@ -1,7 +1,7 @@
 import { type DeclarationContent, t, enu } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
 
-type NavLink = {
+export type NavLink = {
   key: string;
   title: string;
   subSections?: NavLink[];
@@ -97,6 +97,15 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
                 es: 'ID anidado',
               }),
               url: PagesRoutes.Doc_ContentDeclaration_NestedId,
+            },
+            {
+              key: 'declaration_watching',
+              title: t({
+                fr: 'Actualisation des changements',
+                en: 'Declaration file watching',
+                es: 'Actualización de los cambios',
+              }),
+              url: PagesRoutes.Doc_ContentDeclaration_DeclarationWatching,
             },
           ],
         },

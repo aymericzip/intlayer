@@ -12,3 +12,4 @@ export {
   getBrowserLocale,
   useLocaleBase,
 } from './client/index';
+export type { IntlayerNode } from './useIntlayerBase';

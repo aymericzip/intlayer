@@ -84,7 +84,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                                 )
                               }
                             >
-                              <div className="text-neutral hover:text-text dark:hover:text-text-dark border-neutral dark:border-neutral-dark flex flex-col items-start gap-2 border-l-[0.5px] p-1 transition-colors">
+                              <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 border-l-[0.5px] p-1 transition-colors">
                                 {section2.subSections.map((section3) => (
                                   <button
                                     className={cn([
