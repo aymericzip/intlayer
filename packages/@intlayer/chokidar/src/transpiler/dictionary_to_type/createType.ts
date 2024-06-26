@@ -2,17 +2,14 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { createRequire } from 'module';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import { NodeType, type Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import {
   quicktype,
   InputData,
   jsonInputForTargetLanguage,
 } from 'quicktype-core';
 
-const {
-  content,
-  internationalization: { locales },
-} = getConfiguration();
+const { content } = getConfiguration();
 const { typesDir } = content;
 
 const isESModule = typeof import.meta.url === 'string';

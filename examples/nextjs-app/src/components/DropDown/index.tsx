@@ -30,7 +30,6 @@ export const DropDown: UnrollablePanelType = ({
 }) => (
   <div
     aria-hidden={isHidden}
-    aria-description="Hidden panel controlled by trigger button"
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     className="absolute right-0 translate-y-2"
     id={`unrollable-panel-${identifier}`}

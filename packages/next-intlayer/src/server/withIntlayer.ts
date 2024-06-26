@@ -4,10 +4,6 @@ import { IntLayerPlugin } from '@intlayer/webpack';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 
-type PluginOptions = {
-  // TODO: add options
-};
-
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
 /**

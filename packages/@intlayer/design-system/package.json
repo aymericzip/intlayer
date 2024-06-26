@@ -30,6 +30,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.2.2",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -40,8 +41,6 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
     "@types/react": "^18.3.3",
     "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^18.3.0",
@@ -51,7 +50,6 @@
     "@utils/ts-config": "workspace:^",
     "@vitejs/plugin-react": "^4.3.1",
     "clsx": "^2.1.1",
-    "emotions": "^0.0.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",

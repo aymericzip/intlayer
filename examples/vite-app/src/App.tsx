@@ -13,10 +13,14 @@ function AppContent() {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt={content.viteLogo} />
+          <img src={viteLogo} className="logo" alt={content.viteLogo.value} />
         </a>
         <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt={content.reactLogo} />
+          <img
+            src={reactLogo}
+            className="logo react"
+            alt={content.reactLogo.value}
+          />
         </a>
       </div>
       <h1>{content.title}</h1>

@@ -11,7 +11,7 @@ import {
   // gruvboxLight,
   // nord,
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 type CodeCompProps = {
