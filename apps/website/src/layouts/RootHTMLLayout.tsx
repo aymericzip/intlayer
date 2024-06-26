@@ -1,3 +1,4 @@
+import GoogleAnalytics from '@components/GoogleAnalytics';
 import { cn } from '@utils/cn';
 import type { Locales } from 'intlayer';
 import { Inter } from 'next/font/google';
@@ -14,6 +15,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => {
 
   return (
     <html lang={activeLocale} className="h-screen w-screen">
+      <GoogleAnalytics />
       <body
         className={cn(
           inter.className,

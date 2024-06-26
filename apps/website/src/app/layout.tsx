@@ -5,6 +5,6 @@ const RootLayout = ({
   children,
 }: Readonly<{
   children: ReactNode;
-}>) => <>{children}</>;
+}>) => children;
 
 export default RootLayout;
