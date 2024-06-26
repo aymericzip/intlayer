@@ -17,7 +17,7 @@ const footerContent: DeclarationContent<FooterContent> = {
           text: t({
             en: 'Getting started',
             es: 'Empezando',
-            fr: 'Mise en route',
+            fr: 'Commencez facilement',
           }),
           label: t({
             en: 'See getting started documentation',
