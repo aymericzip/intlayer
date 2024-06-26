@@ -65,7 +65,6 @@ const SectionList: FC<SectionListProps> = ({
         role="tab"
         key={id}
         id={id}
-        title={title}
         aria-label={label}
         onClick={(e) => {
           onClickSection(id, url);
