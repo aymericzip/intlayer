@@ -14,7 +14,9 @@ const cookieAttributes: Cookies.CookieAttributes = {
 /**
  * Get the locale cookie
  */
-export const localeCookie = Cookies.get(cookieName) as Locales | undefined;
+export const localeCookie = Cookies.get(cookieName) as unknown as
+  | Locales
+  | undefined;
 
 /**
  * Set the locale cookie

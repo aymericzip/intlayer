@@ -29,8 +29,9 @@ export const EnumerationWrapper: FC<EnumerationWrapperProps> = (props) => {
           };
           const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
-          const subSection: DictionaryValue =
-            section[key as keyof typeof section]!;
+          const subSection = section[
+            key as keyof typeof section
+          ] as DictionaryValue;
 
           return (
             <>

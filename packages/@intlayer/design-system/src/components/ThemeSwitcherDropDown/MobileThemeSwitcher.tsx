@@ -2,7 +2,7 @@
 
 import { Moon, Sun, CircleDashed } from 'lucide-react';
 import { useState, type FC } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import tw, { type TwStyle } from 'twin.macro';
 import { Modes } from './types';
 

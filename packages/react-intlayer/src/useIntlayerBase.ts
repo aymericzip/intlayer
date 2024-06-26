@@ -9,7 +9,7 @@ import type { Dictionary, NodeType } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import { renderIntlayerEditor } from 'intlayer-editor/client';
-import type { ReactNode } from 'react';
+import { isValidElement, type ReactNode } from 'react';
 import { processDictionary } from './processDictionary/index';
 
 /**
@@ -57,9 +57,11 @@ type DeepTransformContent<T, L extends Locales> = T extends object // Check if t
           nodeType: NodeType | string;
         }
       ? TransformNodeType<T, L>
-      : {
-          [K in keyof T]: DeepTransformContent<T[K], L>;
-        }
+      : T extends { _owner: any; key: any; props: any; ref: any }
+        ? ReactNode
+        : {
+            [K in keyof T]: DeepTransformContent<T[K], L>;
+          }
   : T extends undefined
     ? never
     : IntlayerNode<T>;
@@ -96,6 +98,8 @@ export const recursiveTransformContent = (value: any): object => {
     return renderIntlayerEditor(value);
   } else if (typeof value === 'object' && Array.isArray(value)) {
     return value.map(recursiveTransformContent);
+  } else if (typeof value === 'object' && isValidElement(value)) {
+    return value;
   } else if (typeof value === 'object') {
     return Object.entries(value).reduce(
       (acc, [key, value]) => ({

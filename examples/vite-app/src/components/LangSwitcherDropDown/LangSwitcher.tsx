@@ -29,7 +29,7 @@ export const LocaleSwitcher: FC = () => {
     <div
       className="rounded border border-[#61dafb] bg-[#5e6678]/40 px-2 py-1 transition-colors hover:border-gray-300"
       data-role="dark-mode-switcher"
-      aria-label={content.langSwitcherLabel}
+      aria-label={content.langSwitcherLabel.value}
     >
       <MaxHeightSmoother>
         <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">

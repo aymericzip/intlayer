@@ -23,23 +23,24 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 
 export const LocaleSwitcher: FC = () => {
   const { locale, localeList, availableLocales, setLocale } = useLocale();
-  const content = useIntlayer('lang-switcher');
+  const { langButtonLabel, langSwitcherLabel, title } =
+    useIntlayer('lang-switcher');
 
   return (
     <div
       className="rounded border px-2 py-1 transition-colors hover:border-gray-300 dark:border-neutral-700 dark:bg-neutral-800/40 hover:dark:bg-neutral-900/95"
       data-role="dark-mode-switcher"
-      aria-label={content.langSwitcherLabel}
+      aria-label={langSwitcherLabel.value}
     >
       <MaxHeightSmoother>
         <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">
-          <h2 className={`mb-3 text-xl font-semibold`}>{content.title} </h2>
+          <h2 className={`mb-3 text-xl font-semibold`}>{title} </h2>
 
           {localeList.map((lang) => (
             <ButtonItem
               key={lang}
               onClick={() => setLocale(lang)}
-              aria-label={`${content.langButtonLabel} ${lang}`}
+              aria-label={`${langButtonLabel.value} ${lang}`}
               aria-selected={lang === locale}
               disabled={!availableLocales.includes(lang)}
             >

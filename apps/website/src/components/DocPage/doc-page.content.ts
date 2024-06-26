@@ -1,4 +1,4 @@
-import { type DeclarationContent, t, enu } from 'intlayer';
+import { type DeclarationContent, t } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
 
 export type NavLink = {

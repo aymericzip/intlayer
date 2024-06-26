@@ -12,7 +12,6 @@ import { styled } from 'styled-components';
 import tw from 'twin.macro';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
-import { capitalize } from '../../utils/capitalize';
 import { Container } from '../Container';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { useRightDrawerStore } from './useRightDrawerStore';

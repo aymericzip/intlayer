@@ -50,7 +50,6 @@ export const DropDown: UnrollablePanelType = ({
 }) => (
   <StyledDropDownContainer
     aria-hidden={isHidden}
-    aria-description="Hidden panel controlled by trigger button"
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     id={`unrollable-panel-${identifier}`}
   >
