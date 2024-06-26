@@ -32,7 +32,7 @@ export const Footer: FC<FooterProps> = ({ links }) => (
     <StyledFooterContent>
       {(links ?? []).map(({ title, links }) => (
         <StyledColumn key={title}>
-          <h3>{title}</h3>
+          <strong>{title}</strong>
           <StyledColumnRow>
             {links.map((link) => (
               <Button

@@ -71,7 +71,6 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
     <StyledTrigger aria-label="Theme selector" className="group">
       <StyledCircleDashed
         onClick={toggleMode}
-        data-role="dark-mode-switcher"
         data-mode="system"
         isCurrentMode={mode === Modes.system}
         isNextMode={nextMode === Modes.system}
@@ -79,7 +78,6 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
 
       <StyledMoon
         onClick={toggleMode}
-        data-role="dark-mode-switcher"
         data-mode="light"
         isCurrentMode={mode === Modes.dark}
         isNextMode={nextMode === Modes.dark}
@@ -87,7 +85,6 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
 
       <StyledSun
         onClick={toggleMode}
-        data-role="dark-mode-switcher"
         data-mode="dark"
         isCurrentMode={mode === Modes.light}
         isNextMode={nextMode === Modes.light}

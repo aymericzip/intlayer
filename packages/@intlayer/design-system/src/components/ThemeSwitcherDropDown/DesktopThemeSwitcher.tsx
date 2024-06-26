@@ -15,13 +15,7 @@ const StyledButton = tw(
 
 const ButtonItem: FC<ButtonProps> = ({ Icon, ref, children, ...props }) => (
   <StyledButtonContainer>
-    <StyledButton
-      Icon={Icon}
-      data-role="dark-mode-switcher"
-      data-mode="system"
-      variant="none"
-      {...props}
-    >
+    <StyledButton Icon={Icon} data-mode="system" variant="none" {...props}>
       {children}
     </StyledButton>
   </StyledButtonContainer>
@@ -60,16 +54,11 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
   return (
     <StyledTriggerButton
       identifier={panelIdentifier}
-      data-role="dark-mode-switcher"
       aria-label="Theme selector"
     >
       {mode === Modes.system && <CircleDashed data-mode="system" />}
-      {mode === Modes.light && (
-        <Sun data-role="dark-mode-switcher" data-mode="light" />
-      )}
-      {mode === Modes.dark && (
-        <Moon data-role="dark-mode-switcher" data-mode="dark" />
-      )}
+      {mode === Modes.light && <Sun data-mode="light" />}
+      {mode === Modes.dark && <Moon data-mode="dark" />}
       <DropDown identifier={panelIdentifier} isFocusable isOverable>
         <StyledDropdownContent separator="y">
           <ButtonItem

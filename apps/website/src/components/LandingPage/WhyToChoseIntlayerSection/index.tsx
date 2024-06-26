@@ -18,7 +18,7 @@ export const WhyToChoseIntlayerSection: FC = () => {
             <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
               {index}
             </span>
-            <h3 className="text-lg font-semibold">{asset.title}</h3>
+            <strong className="text-lg font-semibold">{asset.title}</strong>
             <AnimatedDiv>
               <p className="text-neutral text-xs">{asset.descrition}</p>
             </AnimatedDiv>

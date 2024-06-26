@@ -18,7 +18,7 @@ const StyledContainer = tw(
   Container
 )`flex flex-col h-full w-full shadow-lg overflow-scroll`;
 
-const StyledTabBar = tw.div`flex items-center justify-start w-full bg-neutral-200 dark:bg-neutral-700 rounded-t-3xl text-xs text-neutral-500 overflow-scroll`;
+const StyledTabBar = tw.div`flex items-center justify-start w-full bg-neutral-200 dark:bg-neutral-700 rounded-t-3xl text-xs text-neutral dark:text-neutral-dark overflow-scroll`;
 const StyledWindowButtonContainer = tw.div`flex items-center justify-start gap-2 p-1 mx-2`;
 
 const StyledWindowButton = tw.div`w-3 h-3 rounded-full`;

@@ -11,7 +11,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 }) => (
   <div className="w-full border-gray-50 p-0.5 ">
     <button
-      data-role="language-switcher"
+      aria-label="language switcher"
       data-mode="system"
       className="my-1 w-full cursor-pointer rounded-lg p-2 text-left hover:bg-white/10 focus:bg-white/10 focus:outline-none disabled:text-white/25"
       {...props}
@@ -22,14 +22,13 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 );
 
 export const LocaleSwitcher: FC = () => {
-  const { locale, localeList, availableLocales, setLocale } = useLocale();
+  const { localeList, availableLocales, setLocale } = useLocale();
   const { langButtonLabel, langSwitcherLabel, title } =
     useIntlayer('lang-switcher');
 
   return (
     <div
       className="rounded border px-2 py-1 transition-colors hover:border-gray-300 dark:border-neutral-700 dark:bg-neutral-800/40 hover:dark:bg-neutral-900/95"
-      data-role="dark-mode-switcher"
       aria-label={langSwitcherLabel.value}
     >
       <MaxHeightSmoother>
@@ -41,7 +40,6 @@ export const LocaleSwitcher: FC = () => {
               key={lang}
               onClick={() => setLocale(lang)}
               aria-label={`${langButtonLabel.value} ${lang}`}
-              aria-selected={lang === locale}
               disabled={!availableLocales.includes(lang)}
             >
               {getLocaleName(lang)}
