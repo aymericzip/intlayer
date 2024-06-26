@@ -1,24 +1,24 @@
 ---
-"website": minor
-"@intlayer/docs": minor
-"cli-example": minor
-"nextjs-app-example": minor
-"react-app-example": minor
-"my-vite-app": minor
-"@intlayer/chokidar": minor
-"@intlayer/cli": minor
-"@intlayer/config": minor
-"@intlayer/core": minor
-"@intlayer/design-system": minor
-"@intlayer/dictionaries-entry": minor
-"@intlayer/webpack": minor
-"intlayer": minor
-"intlayer-cli": minor
-"intlayer-editor": minor
-"next-intlayer": minor
-"react-intlayer": minor
-"@utils/eslint-config": minor
-"@utils/ts-config": minor
+"website": patch
+"@intlayer/docs": patch
+"cli-example": patch
+"nextjs-app-example": patch
+"react-app-example": patch
+"my-vite-app": patch
+"@intlayer/chokidar": patch
+"@intlayer/cli": patch
+"@intlayer/config": patch
+"@intlayer/core": patch
+"@intlayer/design-system": patch
+"@intlayer/dictionaries-entry": patch
+"@intlayer/webpack": patch
+"intlayer": patch
+"intlayer-cli": patch
+"intlayer-editor": patch
+"next-intlayer": patch
+"react-intlayer": patch
+"@utils/eslint-config": patch
+"@utils/ts-config": patch
 ---
 
 update packages

@@ -150,7 +150,7 @@ const tailwindConfig = {
         },
         neutral: {
           DEFAULT: 'rgba(93, 93, 93, <alpha-value>)',
-          dark: 'rgba(93, 93, 93, <alpha-value>)',
+          dark: 'rgba(136, 136, 136, <alpha-value>)',
           '50': 'rgba(246, 246, 246, <alpha-value>)',
           '100': 'rgba(231, 231, 231, <alpha-value>)',
           '200': 'rgba(209, 209, 209, <alpha-value>)',

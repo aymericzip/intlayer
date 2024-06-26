@@ -47,7 +47,7 @@ export const Code: FC<CodeCompProps> = ({
   return (
     <StyledContainer $showLineNumbers={showLineNumbers}>
       <CopyToClipboard text={children} onCopy={() => setCopied(true)}>
-        <StyledCopyButton>
+        <StyledCopyButton aria-label="Copy code">
           {copied ? <StyledCopyCheckIcon /> : <StyledCopyIcon />}
         </StyledCopyButton>
       </CopyToClipboard>

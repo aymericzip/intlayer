@@ -16,11 +16,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   ...props
 }) => (
   <StyledButtonContainer>
-    <StyledButton
-      data-role="language-switcher-item"
-      data-mode="system"
-      {...props}
-    >
+    <StyledButton data-mode="system" {...props}>
       {children}
     </StyledButton>
   </StyledButtonContainer>
@@ -50,15 +46,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   setLocale,
 }) => {
   return (
-    <StyledLocaleSwitcherContainer
-      data-role="locale-switcher"
-      aria-label="Language switcher"
-    >
-      <StyledTrigger
-        identifier="local-switcher"
-        aria-label="Language selector"
-        aria-selected={true}
-      >
+    <StyledLocaleSwitcherContainer aria-label="Language switcher">
+      <StyledTrigger identifier="local-switcher" aria-label="Language selector">
         {locale && (
           <StyledTriggerContent>
             <StyledLocaleText>
@@ -76,7 +65,6 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   key={lang}
                   onClick={() => setLocale(lang)}
                   aria-label={`Switch to ${lang}`}
-                  aria-selected={false}
                   disabled={!(availableLocales ?? localeList).includes(lang)}
                 >
                   {getLocaleName(lang)}
