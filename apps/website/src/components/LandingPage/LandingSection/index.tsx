@@ -22,8 +22,8 @@ export const LandingSection: FC = () => {
   const { title, description } = useIntlayer('landing-section');
 
   return (
-    <div className="flex h-[150vh] w-full flex-col gap-16 p-20 md:size-full md:flex-row">
-      <div className="flex h-[100vh] w-full flex-col items-center justify-center gap-6 md:h-full md:w-3/5">
+    <div className="flex w-full flex-col gap-16 p-20 md:flex-row">
+      <div className="flex w-full flex-col items-center justify-center gap-6 md:h-[75vh] md:w-3/5">
         <AnimatedTitle className="text-4xl font-bold" text={title.value} />
         <AnimatedDescription className=" text-neutral dark:text-neutral-dark">
           {description}

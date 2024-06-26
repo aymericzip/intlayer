@@ -8,7 +8,7 @@ export const DemoPage: FC = () => {
   const { title, landingParagraph, tutoParagraphs } = useIntlayer('demo-page');
 
   return (
-    <div className="m-auto flex w-full flex-col p-20 md:size-full">
+    <div className="m-auto flex w-full flex-col p-20 md:size-full md:p-10">
       <div className="flex h-[70vh] w-full flex-col items-center gap-10">
         <div className="max-w-[500px]">
           <AsideImage />

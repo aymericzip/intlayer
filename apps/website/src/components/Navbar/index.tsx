@@ -14,7 +14,7 @@ import {
   DesktopThemeSwitcher,
   MobileThemeSwitcher,
 } from '../ThemeSwitcherDropDown';
-import { ExternalLinks, PagesRoutes } from '@/Routes';
+import { ExternalLinks } from '@/Routes';
 
 export const Navbar: FC = () => {
   const { locale, setLocale, availableLocales } = useLocale();
@@ -37,7 +37,7 @@ export const Navbar: FC = () => {
       mobileTopSections={sectionWithClick}
       logo={
         <Logo
-          onClick={() => router.push(PagesRoutes.Home)}
+          onClick={() => router.push(logo.url.value)}
           aria-label={logo.label.value}
           type="logoWithText"
           className="cursor-pointer"

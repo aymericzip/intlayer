@@ -7,6 +7,7 @@ type SectionsContent = {
   // bottomSections: Omit<NavSection, 'onClick'>[];
   logo: {
     label: string;
+    url: string;
   };
 };
 
@@ -18,6 +19,7 @@ export const navbarContent: DeclarationContent<SectionsContent> = {
       fr: "Logo de l'entreprise - Aller à la page d’accueil",
       es: 'Logotipo de la empresa - Ir a la página de inicio',
     }),
+    url: PagesRoutes.Home,
   },
   sections: [
     {
