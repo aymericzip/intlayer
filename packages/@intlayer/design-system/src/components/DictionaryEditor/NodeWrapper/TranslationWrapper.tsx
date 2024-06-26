@@ -21,9 +21,10 @@ export const TranslationWrapper: FC<TranslationWrapperProps> = (props) => {
 
   const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
-  const subSection = section[
-    locale as unknown as keyof typeof section
-  ] as DictionaryValue;
+  const subSection =
+    section.translation[
+      locale as unknown as keyof (typeof section)['translation']
+    ]!;
 
   return <NodeWrapper {...props} keyPath={newKeyPath} section={subSection} />;
 };
