@@ -1,6 +1,6 @@
 {
   "name": "cli-example",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "description": "Example of IntList configuration for simple files in src directory",
   "keywords": [],
