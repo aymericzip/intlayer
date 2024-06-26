@@ -22,13 +22,13 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   );
 
   return (
-    <div className="flex size-full border-b-[0.5px]">
+    <div className="flex flex-col border-b-[0.5px] md:size-full md:flex-row">
       <Container
-        className="h-full flex-none"
+        className="h-full md:flex-none"
         roundedSize="none"
         transparency="sm"
       >
-        <div className="sticky top-16">
+        <div className="sticky px-20 md:top-16 md:px-0">
           <nav className="flex flex-col gap-5 px-6 py-10">
             {navbar.map((section1) => (
               <div key={section1.title.value}>
@@ -84,7 +84,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                                 )
                               }
                             >
-                              <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 border-l-[0.5px] p-1 transition-colors">
+                              <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
                                 {section2.subSections.map((section3) => (
                                   <button
                                     className={cn([
