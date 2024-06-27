@@ -71,6 +71,15 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           }),
           subSections: [
             {
+              key: 'get_started',
+              title: t({
+                fr: 'Déclarez votre contenu',
+                en: 'Declare your content',
+                es: 'Declare su contenido',
+              }),
+              url: PagesRoutes.Doc_GetStarted,
+            },
+            {
               key: 'translation',
               title: t({
                 fr: 'Traduction',
