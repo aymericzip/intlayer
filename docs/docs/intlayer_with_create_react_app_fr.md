@@ -30,7 +30,7 @@ Modifiez vos scripts pour utiliser react-intlayer
   },
 ```
 
-Note : les scripts react-intlayer sont basés sur craco. Vous pouvez également implémenter votre propre configuration basée sur le plugin intlayer craco. (Voir un exemple ici)[https://github.com/aypineau/intlayer/blob/main/examples/react-app/craco.config.js].
+Note : les scripts react-intlayer sont basés sur craco. Vous pouvez également implémenter votre propre configuration basée sur le plugin intlayer craco. [Voir un exemple ici](https://github.com/aypineau/intlayer/blob/main/examples/react-app/craco.config.js).
 
 ## Étape 3 : Déclarer votre contenu
 

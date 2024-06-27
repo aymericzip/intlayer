@@ -30,7 +30,7 @@ Change your scripts to use react-intlayer
   },
 ```
 
-Note: react-intlayer scripts are based on craco. You can also implement your own setup based on the intlayer craco plugin. (See example here)[https://github.com/aypineau/intlayer/blob/main/examples/react-app/craco.config.js].
+Note: react-intlayer scripts are based on craco. You can also implement your own setup based on the intlayer craco plugin. [See example here](https://github.com/aypineau/intlayer/blob/main/examples/react-app/craco.config.js).
 
 ## Step 3: Declare Your Content
 
