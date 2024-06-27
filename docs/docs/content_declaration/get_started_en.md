@@ -165,4 +165,4 @@ module.exports = pageContent;
 }
 ```
 
-Warning, JSON content declaration make impossible to implement (function fetching)[https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/function_fetching.md]
+Warning, JSON content declaration make impossible to implement [function fetching](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/function_fetching.md)

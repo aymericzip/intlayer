@@ -165,4 +165,4 @@ module.exports = pageContent;
 }
 ```
 
-Attention, la déclaration de contenu JSON rend impossible la mise en œuvre de (récupération de fonction)[https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/function_fetching.md].
+Attention, la déclaration de contenu JSON rend impossible la mise en œuvre de [récupération de fonction](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/function_fetching.md).

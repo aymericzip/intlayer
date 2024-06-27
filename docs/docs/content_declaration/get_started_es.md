@@ -165,4 +165,4 @@ module.exports = pageContent;
 }
 ```
 
-Advertencia, la declaración de contenido JSON hace imposible implementar (funciones de obtención)[https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/function_fetching.md]
+Advertencia, la declaración de contenido JSON hace imposible implementar [funciones de obtención](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/function_fetching.md)
