@@ -36,7 +36,7 @@ Pour cela intlayer procède à plusieurs étapes :
 
 Intlayer est composé de plusieurs packages, chacun ayant un rôle spécifique dans le processus de traduction. Voici une représentation graphique de la structure de ce paquet :
 
-[paquets de intlayer](https://github.com/aypineau/intlayer/blob/main/docs/assets/packages_dependency_graph.svg)
+![paquets de intlayer](https://github.com/aypineau/intlayer/blob/main/docs/assets/packages_dependency_graph.svg)
 
 ### intlayer
 
