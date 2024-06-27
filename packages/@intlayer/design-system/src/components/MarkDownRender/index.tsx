@@ -17,6 +17,7 @@ const StyledUl = tw.ul`flex flex-col pl-5 mt-5 gap-3`;
 const StyledOl = tw.ul`flex flex-col pl-5 mt-5 gap-3`;
 const StyledWrapper = tw.div`text-text dark:text-text-dark flex flex-col gap-6 p-10`;
 const StyledLink = tw.a`text-neutral dark:text-neutral-dark underline`;
+const StyledImage = tw.img`max-w-full rounded-md`;
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
@@ -52,11 +53,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
         ol: StyledOl,
         img: (props) => (
           // eslint-disable-next-line jsx-a11y/alt-text
-          <img
-            {...props}
-            className="max-w-full"
-            src={`${props.src}?raw=true`}
-          />
+          <StyledImage {...props} src={`${props.src}?raw=true`} />
         ),
         a: StyledLink,
       },
