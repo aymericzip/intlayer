@@ -255,7 +255,7 @@ Settings related to content handling within the application, including directory
 
 - **i18nDictionariesDirName**:
   - _Type_: `string`
-  - _Default_: `'i18_dictionary'`
+  - _Default_: `'i18n_dictionary'`
   - _Description_: Directory for storing i18n dictionaries.
   - _Example_: `'translations'`
   - _Note_: If not at the result directory level, update `i18nDictionariesDir`.

@@ -3,6 +3,7 @@ export enum PagesRoutes {
   Demo = '/demo',
   Doc = '/doc',
   Doc_GetStarted = '/doc/get_started',
+  Doc_HowWorksIntlayer = '/doc/concept/how_works_intlayer',
   Doc_Configuration = '/doc/concept/configuration',
   Doc_Interest = '/doc/concept/interest_of_intlayer',
   Doc_IntlayerEditor = '/doc/concept/intlayer_editor',

@@ -246,7 +246,7 @@ Name'`
   - _Descripción_: El directorio para almacenar diccionarios de localización.
 - **i18nDictionariesDirName**:
   - _Tipo_: `string`
-  - _Predeterminado_: `'i18_dictionary'`
+  - _Predeterminado_: `'i18n_dictionary'`
   - _Descripción_: Directorio para almacenar diccionarios i18n.
   - _Ejemplo_: `'translations'`
   - _Nota_: Si no está en el nivel del directorio de resultados, actualiza `i18nDictionariesDir`.

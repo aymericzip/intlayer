@@ -1,5 +1,9 @@
 # Contributing to IntLayer
 
+## Understanding the project
+
+To understand the project, you can read the [documentation named "How Intlayer Works"](https://github.com/aypineau/intlayer/blob/main/docs/docs/how_works_intlayer_en.md).
+
 ## Development setup
 
 IntLayer is developed as a mono-repo using pmpm.

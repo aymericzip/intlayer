@@ -1,6 +1,7 @@
 declare module '@intlayer/docs' {
   export enum DocsKeys {
     introduction,
+    how_works_intlayer,
     configuration,
     interest_of_intlayer,
     intlayer_cli,

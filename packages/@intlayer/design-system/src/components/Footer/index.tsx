@@ -1,6 +1,5 @@
 import type { FC, ReactNode } from 'react';
 import tw from 'twin.macro';
-import { Button } from '../Button';
 import { Logo } from '../Logo';
 
 export type Link = {
@@ -30,8 +29,8 @@ export const Footer: FC<FooterProps> = ({ links }) => (
       <StyledAsideDescription>© 2024 Intlayer, Inc.</StyledAsideDescription>
     </StyledAsideContent>
     <StyledFooterContent>
-      {(links ?? []).map(({ title, links }) => (
-        <StyledColumn key={title}>
+      {(links ?? []).map(({ title, links }, index) => (
+        <StyledColumn key={index}>
           <strong>{title}</strong>
           <StyledColumnRow>
             {links.map((link) => (

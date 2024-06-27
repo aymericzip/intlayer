@@ -4,7 +4,7 @@ import { Button } from '@intlayer/design-system';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { ExternalLinks } from '@/Routes';
+import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 export const ActionButtons: FC = () => {
   const {
@@ -18,7 +18,7 @@ export const ActionButtons: FC = () => {
       <Button
         label={secondaryLabel.value}
         variant="outline"
-        onClick={() => router.push(ExternalLinks.InterestOfIntlayer)}
+        onClick={() => router.push(PagesRoutes.Doc_Interest)}
         size="lg"
         color="text"
         className="w-full md:w-auto"

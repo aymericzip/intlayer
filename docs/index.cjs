@@ -4,6 +4,11 @@ const docs = {
     fr: require('./docs/introduction_fr.md'),
     es: require('./docs/introduction_es.md'),
   },
+  how_works_intlayer: {
+    en: require('./docs/how_works_intlayer_en.md'),
+    fr: require('./docs/how_works_intlayer_fr.md'),
+    es: require('./docs/how_works_intlayer_es.md'),
+  },
   configuration: {
     en: require('./docs/configuration_en.md'),
     fr: require('./docs/configuration_fr.md'),

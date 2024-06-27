@@ -1,0 +1,28 @@
+website: https://playground.diagram.codes/d/graph
+
+"inltayer" as a
+"react-intlayer" as b
+"intlayer-cli" as c
+"next-intlayer" as d
+"intlayer-editor" as e
+"@intlayer/chokidar" as f
+"@intlayer/config" as g
+"@intlayer/core" as h
+"@intlayer/dictionaries-entry" as i
+"@intlayer/webpack" as j
+"@intlayer/cli" as k
+"nextjs website" as l
+"react website" as m
+
+
+a->l,m
+b->d,m
+c->
+d->l
+e->l
+f->b,c,d,e,g,h,j
+g->b,c,d,e,h
+h->b,c,d,e
+i->e,j
+j->d
+k->c

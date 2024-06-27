@@ -26,6 +26,15 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
       title: t({ fr: 'Concept', en: 'Concept', es: 'Concepto' }),
       subSections: [
         {
+          key: 'how_works_intlayer',
+          title: t({
+            en: 'How Intlayer Works',
+            fr: 'Comment Intlayer fonctionne',
+            es: 'Cómo funciona Intlayer',
+          }),
+          url: PagesRoutes.Doc_HowWorksIntlayer,
+        },
+        {
           key: 'configuration',
           title: t({
             fr: 'Configuration',

@@ -258,7 +258,7 @@ Paramètres relatifs à la gestion du contenu au sein de l'application, y compri
 
 - **i18nDictionariesDirName** :
   - _Type_ : `string`
-  - _Défaut_ : `'i18_dictionary'`
+  - _Défaut_ : `'i18n_dictionary'`
   - _Description_ : Répertoire pour stocker les dictionnaires i18n.
   - _Exemple_ : `'translations'`
   - _Note_ : Si ce répertoire n'est pas au niveau des résultats, mettez à jour `i18nDictionariesDir`.
