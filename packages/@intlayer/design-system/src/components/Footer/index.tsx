@@ -35,16 +35,9 @@ export const Footer: FC<FooterProps> = ({ links }) => (
           <strong>{title}</strong>
           <StyledColumnRow>
             {links.map((link) => (
-              <Button
-                variant="link"
-                color="neutral"
-                size="sm"
-                key={link.href}
-                onClick={link.onClick}
-                label={link.label}
-              >
+              <a key={link.href} href={link.href} aria-label={link.label}>
                 {link.text}
-              </Button>
+              </a>
             ))}
           </StyledColumnRow>
         </StyledColumn>

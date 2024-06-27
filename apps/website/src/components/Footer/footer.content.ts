@@ -13,7 +13,7 @@ const footerContent: DeclarationContent<FooterContent> = {
       title: 'Docs',
       links: [
         {
-          href: 'https://github.com/aypineau/intlayer/blob/main/docs/content_declaration/get_started.md',
+          href: PagesRoutes.Doc_GetStarted,
           text: t({
             en: 'Getting started',
             es: 'Empezando',
@@ -26,7 +26,7 @@ const footerContent: DeclarationContent<FooterContent> = {
           }),
         },
         {
-          href: 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_nextjs.md',
+          href: PagesRoutes.Doc_Environment_NextJS,
           text: t({
             en: 'Intlayer with NextJs',
             es: 'Intlayer con NextJs',
@@ -39,7 +39,7 @@ const footerContent: DeclarationContent<FooterContent> = {
           }),
         },
         {
-          href: 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_create_react_app.md',
+          href: PagesRoutes.Doc_Environment_CRA,
           text: t({
             en: 'Intlayer with ReactJS (CRA)',
             es: 'Intlayer con ReactJS (CRA)',
@@ -52,7 +52,7 @@ const footerContent: DeclarationContent<FooterContent> = {
           }),
         },
         {
-          href: 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_vite%2Breact.md',
+          href: PagesRoutes.Doc_Environment_ViteAndReact,
           text: t({
             en: 'Intlayer with React+Vite',
             es: 'Intlayer con React+Vite',
@@ -148,7 +148,7 @@ const footerContent: DeclarationContent<FooterContent> = {
           }),
         },
         {
-          href: 'https://www.linkedin.com/company/intlayerorg/',
+          href: ExternalLinks.LinkedIn,
           text: 'LinkedIn',
           label: t({
             en: 'Go to our LinkedIn page',

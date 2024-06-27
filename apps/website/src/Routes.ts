@@ -45,11 +45,8 @@ export enum APIRoutes {
 
 export enum ExternalLinks {
   Github = 'https://github.com/aypineau/intlayer',
-  InterestOfIntlayer = 'https://github.com/aypineau/intlayer/blob/main/docs/interest_of_intlayer.md',
-  IntlayerWithNextjs = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_nextjs.md',
-  IntlayerWithReact = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_create_react_app.md',
-  IntlayerWithVite = 'https://github.com/aypineau/intlayer/blob/main/docs/intlayer_with_vite%2Breact.md',
-  ExampleIntlayerWithNextjs = 'https://github.com/aypineau/intlayer/tree/main/examples/nextjs_app',
-  ExampleIntlayerWithReactJS = 'https://github.com/aypineau/intlayer/tree/main/examples/react_app',
-  ExampleIntlayerWithViteAndReact = 'https://github.com/aypineau/intlayer/tree/main/examples/vite_app',
+  LinkedIn = 'https://www.linkedin.com/company/intlayerorg/',
+  ExampleIntlayerWithNextjs = 'https://github.com/aypineau/intlayer/tree/3c64451e85648f8a354a54d84216a27b68f4cb2d/examples/nextjs-app',
+  ExampleIntlayerWithReactJS = 'https://github.com/aypineau/intlayer/tree/3c64451e85648f8a354a54d84216a27b68f4cb2d/examples/react-app',
+  ExampleIntlayerWithViteAndReact = 'https://github.com/aypineau/intlayer/tree/3c64451e85648f8a354a54d84216a27b68f4cb2d/examples/vite-app',
 }
