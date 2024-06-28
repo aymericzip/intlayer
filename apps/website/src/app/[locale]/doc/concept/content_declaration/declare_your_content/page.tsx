@@ -9,7 +9,11 @@ export { generateMetadata };
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
   <PageLayout locale={locale} editorEnabled={false}>
     <DocPageLayout
-      activeSections={['concept', 'content_declaration', 'get_started']}
+      activeSections={[
+        'concept',
+        'content_declaration',
+        'declare_your_content',
+      ]}
     >
       <DocumentationRender docName="content_declaration__get_started" />
     </DocPageLayout>
