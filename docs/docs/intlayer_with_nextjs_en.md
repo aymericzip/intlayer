@@ -26,6 +26,7 @@ Configure your Next.js setup to use Intlayer:
 // next.config.mjs
 import { withIntlayer } from "next-intlayer/server";
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {};
 
 export default withIntlayer(nextConfig);
@@ -37,10 +38,10 @@ Set up middleware to detect the user's preferred locale:
 
 ```typescript
 // src/middleware.ts
-export { intlayerMiddleware as middleware } from 'next-intlayer/middleware';
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
 
 export const config = {
-  matcher: '/((?!api|static|._\\.._|\_next).*),
+  matcher: "/((?!api|static|.*\\..*|_next).*)",
 };
 ```
 
