@@ -1,5 +1,16 @@
 # @intlayer/chokidar
 
+## 2.0.5
+
+### Patch Changes
+
+- [`7795f57`](https://github.com/aypineau/intlayer/commit/7795f57ca8d616c2539f22e5692d07ab92403d3e) Thanks [@aypineau](https://github.com/aypineau)! - add react peer dependency @inlayer/chokidar
+
+- Updated dependencies []:
+  - @intlayer/config@2.0.5
+  - @intlayer/core@2.0.5
+  - intlayer@2.0.5
+
 ## 2.0.4
 
 ### Patch Changes

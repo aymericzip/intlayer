@@ -1,5 +1,15 @@
 # intlayer-cli
 
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`7795f57`](https://github.com/aypineau/intlayer/commit/7795f57ca8d616c2539f22e5692d07ab92403d3e)]:
+  - @intlayer/chokidar@2.0.5
+  - @intlayer/cli@2.0.5
+  - @intlayer/config@2.0.5
+  - @intlayer/core@2.0.5
+
 ## 2.0.4
 
 ### Patch Changes
