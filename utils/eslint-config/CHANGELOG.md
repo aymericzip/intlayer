@@ -1,5 +1,11 @@
 # @utils/eslint-config
 
+## 1.0.3
+
+### Patch Changes
+
+- [`622a49d`](https://github.com/aypineau/intlayer/commit/622a49d4eaf8477f3b42579a3fc27a3fefd41043) Thanks [@aypineau](https://github.com/aypineau)! - fix usage of next-intlayer without intlayer-editor
+
 ## 1.0.2
 
 ### Patch Changes
