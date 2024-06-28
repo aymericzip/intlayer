@@ -1,5 +1,17 @@
 # website
 
+## 0.1.4
+
+### Patch Changes
+
+- [`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5) Thanks [@aypineau](https://github.com/aypineau)! - fix react app set up
+
+- Updated dependencies [[`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5)]:
+  - @intlayer/docs@2.0.4
+  - @intlayer/design-system@2.0.4
+  - intlayer@2.0.4
+  - next-intlayer@2.0.4
+
 ## 0.1.3
 
 ### Patch Changes
