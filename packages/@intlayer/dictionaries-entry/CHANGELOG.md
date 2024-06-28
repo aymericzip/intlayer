@@ -1,5 +1,12 @@
 # @intlayer/dictionaries-entry
 
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @intlayer/config@2.0.5
+
 ## 2.0.4
 
 ### Patch Changes
