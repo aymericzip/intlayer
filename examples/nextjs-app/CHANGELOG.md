@@ -1,5 +1,17 @@
 # nextjs-app-example
 
+## 1.1.2
+
+### Patch Changes
+
+- [`622a49d`](https://github.com/aypineau/intlayer/commit/622a49d4eaf8477f3b42579a3fc27a3fefd41043) Thanks [@aypineau](https://github.com/aypineau)! - fix usage of next-intlayer without intlayer-editor
+
+- Updated dependencies [[`622a49d`](https://github.com/aypineau/intlayer/commit/622a49d4eaf8477f3b42579a3fc27a3fefd41043)]:
+  - intlayer@2.0.3
+  - intlayer-cli@2.0.3
+  - intlayer-editor@2.1.2
+  - next-intlayer@2.0.3
+
 ## 1.1.1
 
 ### Patch Changes
