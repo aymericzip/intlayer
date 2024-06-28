@@ -1,5 +1,20 @@
 # react-intlayer
 
+## 2.0.4
+
+### Patch Changes
+
+- [`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5) Thanks [@aypineau](https://github.com/aypineau)! - fix react app set up
+
+- Updated dependencies [[`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5)]:
+  - @intlayer/chokidar@2.0.4
+  - @intlayer/config@2.0.4
+  - @intlayer/core@2.0.4
+  - @intlayer/dictionaries-entry@2.0.4
+  - @intlayer/webpack@2.0.4
+  - intlayer@2.0.4
+  - intlayer-editor@2.1.3
+
 ## 2.0.3
 
 ### Patch Changes

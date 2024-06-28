@@ -1,5 +1,11 @@
 # @utils/ts-config
 
+## 1.0.4
+
+### Patch Changes
+
+- [`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5) Thanks [@aypineau](https://github.com/aypineau)! - fix react app set up
+
 ## 1.0.3
 
 ### Patch Changes
