@@ -1,5 +1,20 @@
 # react-intlayer
 
+## 2.0.3
+
+### Patch Changes
+
+- [`622a49d`](https://github.com/aypineau/intlayer/commit/622a49d4eaf8477f3b42579a3fc27a3fefd41043) Thanks [@aypineau](https://github.com/aypineau)! - fix usage of next-intlayer without intlayer-editor
+
+- Updated dependencies [[`622a49d`](https://github.com/aypineau/intlayer/commit/622a49d4eaf8477f3b42579a3fc27a3fefd41043)]:
+  - @intlayer/chokidar@2.0.3
+  - @intlayer/config@2.0.3
+  - @intlayer/core@2.0.3
+  - @intlayer/dictionaries-entry@2.0.3
+  - @intlayer/webpack@2.0.3
+  - intlayer@2.0.3
+  - intlayer-editor@2.1.2
+
 ## 2.0.2
 
 ### Patch Changes
