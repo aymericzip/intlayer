@@ -1,5 +1,17 @@
 # nextjs-app-example
 
+## 1.1.3
+
+### Patch Changes
+
+- [`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5) Thanks [@aypineau](https://github.com/aypineau)! - fix react app set up
+
+- Updated dependencies [[`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5)]:
+  - intlayer@2.0.4
+  - intlayer-cli@2.0.4
+  - intlayer-editor@2.1.3
+  - next-intlayer@2.0.4
+
 ## 1.1.2
 
 ### Patch Changes

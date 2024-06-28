@@ -1,5 +1,17 @@
 # intlayer-cli
 
+## 2.0.4
+
+### Patch Changes
+
+- [`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5) Thanks [@aypineau](https://github.com/aypineau)! - fix react app set up
+
+- Updated dependencies [[`e9cc032`](https://github.com/aypineau/intlayer/commit/e9cc03211e3a86daa169c2e711566e202644f1d5), [`013e454`](https://github.com/aypineau/intlayer/commit/013e45437e30076daf120a17d581ed9d1e364ec4)]:
+  - @intlayer/chokidar@2.0.4
+  - @intlayer/cli@2.0.4
+  - @intlayer/config@2.0.4
+  - @intlayer/core@2.0.4
+
 ## 2.0.3
 
 ### Patch Changes
