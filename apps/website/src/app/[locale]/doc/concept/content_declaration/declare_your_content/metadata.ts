@@ -10,9 +10,9 @@ export const generateMetadata = ({
 
   return {
     title: t<string>({
-      en: 'Intlayer | Get Started - Content Declaration',
-      fr: 'Intlayer | Commencer - Déclaration de Contenu',
-      es: 'Intlayer | Empezar - Declaración de Contenido',
+      en: 'Intlayer | Declare Your Content',
+      fr: 'Intlayer | Déclarer Votre Contenu',
+      es: 'Intlayer | Declarar Su Contenido',
     }),
     description: t<string>({
       en: 'Discover how to declare and use content declaration in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.',

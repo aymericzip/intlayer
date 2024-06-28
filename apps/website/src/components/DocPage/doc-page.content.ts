@@ -71,13 +71,13 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           }),
           subSections: [
             {
-              key: 'get_started',
+              key: 'declare_your_content',
               title: t({
                 fr: 'Déclarez votre contenu',
                 en: 'Declare your content',
                 es: 'Declare su contenido',
               }),
-              url: PagesRoutes.Doc_GetStarted,
+              url: PagesRoutes.Doc_ContentDeclaration_DeclareYourContent,
             },
             {
               key: 'translation',
