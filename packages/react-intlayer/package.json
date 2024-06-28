@@ -80,6 +80,7 @@
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@intlayer/chokidar": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
