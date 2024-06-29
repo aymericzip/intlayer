@@ -1,5 +1,18 @@
 # react-intlayer
 
+## 2.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`fcd421e`](https://github.com/aypineau/intlayer/commit/fcd421e8c2d2246d0e2d1877a870d6bc0608e48d)]:
+  - @intlayer/chokidar@2.0.6
+  - @intlayer/webpack@2.0.6
+  - @intlayer/config@2.0.6
+  - @intlayer/core@2.0.6
+  - @intlayer/dictionaries-entry@2.0.6
+  - intlayer@2.0.6
+  - intlayer-editor@2.1.5
+
 ## 2.0.5
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # website
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - intlayer-cli@2.0.6
+  - next-intlayer@2.0.6
+  - @intlayer/docs@2.0.6
+  - @intlayer/design-system@2.0.6
+  - intlayer@2.0.6
+
 ## 0.1.5
 
 ### Patch Changes

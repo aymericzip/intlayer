@@ -1,5 +1,16 @@
 # @intlayer/chokidar
 
+## 2.0.6
+
+### Patch Changes
+
+- [`fcd421e`](https://github.com/aypineau/intlayer/commit/fcd421e8c2d2246d0e2d1877a870d6bc0608e48d) Thanks [@aypineau](https://github.com/aypineau)! - fix import react in content declaration
+
+- Updated dependencies []:
+  - @intlayer/config@2.0.6
+  - @intlayer/core@2.0.6
+  - intlayer@2.0.6
+
 ## 2.0.5
 
 ### Patch Changes
