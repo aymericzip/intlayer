@@ -39,13 +39,14 @@ Crea y gestiona tus diccionarios de contenido:
 ```tsx
 // src/app.content.ts
 import { t, type DeclarationContent } from "intlayer";
-import { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 
 const appContent: DeclarationContent = {
   id: "app",
 
   getStarted: t<ReactNode>({
     en: (
+      // No olvides importar React si usas un React node en tu contenido
       <>
         Edit <code>src/App.tsx</code> and save to reload
       </>
