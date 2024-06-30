@@ -1,5 +1,14 @@
 # react-app-example
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - intlayer-cli@2.0.6
+  - react-intlayer@2.0.6
+  - intlayer@2.0.6
+
 ## 0.2.4
 
 ### Patch Changes

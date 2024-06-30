@@ -1,5 +1,13 @@
 # cli-example
 
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - intlayer-cli@2.0.6
+  - intlayer@2.0.6
+
 ## 1.1.4
 
 ### Patch Changes

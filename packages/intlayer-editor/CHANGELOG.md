@@ -1,5 +1,16 @@
 # intlayer-editor
 
+## 2.1.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @intlayer/config@2.0.6
+  - @intlayer/core@2.0.6
+  - @intlayer/design-system@2.0.6
+  - @intlayer/dictionaries-entry@2.0.6
+  - intlayer@2.0.6
+
 ## 2.1.4
 
 ### Patch Changes
