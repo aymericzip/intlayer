@@ -38,7 +38,7 @@ export default defineConfig({
 Créez et gérez vos dictionnaires de contenu :
 
 ```tsx
-// src/app.content.ts
+// src/app.content.tsx
 import { t, type DeclarationContent } from "intlayer";
 import React, { type ReactNode } from "react";
 

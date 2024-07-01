@@ -37,7 +37,7 @@ Note: react-intlayer scripts are based on craco. You can also implement your own
 Create and manage your content dictionaries:
 
 ```tsx
-// src/app.content.ts
+// src/app.content.tsx
 import { t, type DeclarationContent } from "intlayer";
 import React, { type ReactNode } from "react";
 
