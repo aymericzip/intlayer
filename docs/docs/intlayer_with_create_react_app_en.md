@@ -95,7 +95,7 @@ function AppContent() {
       {content.getStarted}
       <a
         className="App-link"
-        href={content.reactLink.href}
+        href={content.reactLink.href.value}
         target="_blank"
         rel="noopener noreferrer"
       >
