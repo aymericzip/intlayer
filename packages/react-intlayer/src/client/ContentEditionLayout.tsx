@@ -1,4 +1,3 @@
-import { createRequire } from 'module';
 import type { ContentEditionLayoutProps } from 'intlayer-editor/client';
 import type { FC } from 'react';
 
@@ -8,9 +7,9 @@ const BlankLayout: FC<ContentEditionLayoutProps> = ({ children }) => (
 
 const requireFunction = (packagePath: string) => {
   try {
-    return typeof import.meta.url === 'undefined'
-      ? require(packagePath)
-      : createRequire(import.meta.url)(packagePath);
+    return typeof require === 'undefined'
+      ? import(packagePath)
+      : require(packagePath);
   } catch (error) {
     return undefined;
   }
