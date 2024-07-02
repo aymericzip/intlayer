@@ -1,5 +1,18 @@
 # next-intlayer
 
+## 2.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`698a4dd`](https://github.com/aypineau/intlayer/commit/698a4ddacafb17c9fa11caba5719f1b0d3e11d8d)]:
+  - react-intlayer@2.0.7
+  - @intlayer/chokidar@2.0.7
+  - @intlayer/config@2.0.7
+  - @intlayer/core@2.0.7
+  - @intlayer/dictionaries-entry@2.0.7
+  - @intlayer/webpack@2.0.7
+  - intlayer@2.0.7
+
 ## 2.0.6
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # react-intlayer
 
+## 2.0.7
+
+### Patch Changes
+
+- [`698a4dd`](https://github.com/aypineau/intlayer/commit/698a4ddacafb17c9fa11caba5719f1b0d3e11d8d) Thanks [@aypineau](https://github.com/aypineau)! - fix vite implementation
+
+- Updated dependencies []:
+  - @intlayer/chokidar@2.0.7
+  - @intlayer/config@2.0.7
+  - @intlayer/core@2.0.7
+  - @intlayer/dictionaries-entry@2.0.7
+  - @intlayer/webpack@2.0.7
+  - intlayer@2.0.7
+  - intlayer-editor@2.1.6
+
 ## 2.0.6
 
 ### Patch Changes
