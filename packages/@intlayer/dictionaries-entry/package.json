@@ -27,7 +27,6 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "./src/index.ts",
   "module": "",
   "typesVersions": {
     "*": {
