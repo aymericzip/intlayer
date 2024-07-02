@@ -6,18 +6,17 @@ const BlankLayout: FC<ContentEditionLayoutProps> = ({ children }) => (
   <>{children}</>
 );
 
-const requireFunction = (packagePath: string) => {
+const requireFunction = () => {
   try {
     return typeof import.meta.url === 'undefined'
-      ? require(packagePath)
-      : createRequire(import.meta.url)(packagePath);
+      ? require('intlayer-editor/client')
+      : createRequire(import.meta.url)('intlayer-editor/client');
   } catch (error) {
     return undefined;
   }
 };
 // intlayer-editor is an optional dependency. If it's not installed, return the blank layout
 export const ContentEditionLayout: FC<ContentEditionLayoutProps> =
-  typeof requireFunction('intlayer-editor/client')?.ContentEditionLayoutBase ===
-  'undefined'
+  typeof requireFunction()?.ContentEditionLayoutBase === 'undefined'
     ? BlankLayout
-    : requireFunction('intlayer-editor/client').ContentEditionLayoutBase;
+    : requireFunction().ContentEditionLayoutBase;

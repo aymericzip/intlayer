@@ -1,11 +1,11 @@
 import { createRequire } from 'module';
 import type { IntlayerEditorElementProps } from 'intlayer-editor/client';
 
-const requireFunction = (packagePath: string) => {
+const requireFunction = () => {
   try {
     return typeof import.meta.url === 'undefined'
-      ? require(packagePath)
-      : createRequire(import.meta.url)(packagePath);
+      ? require('intlayer-editor/client')
+      : createRequire(import.meta.url)('intlayer-editor/client');
   } catch (error) {
     return undefined;
   }
@@ -21,9 +21,7 @@ const IntlayerEditorElement = ({
 IntlayerEditorElement.content = '';
 
 export const renderIntlayerEditor = (props: IntlayerEditorElementProps) => {
-  const _renderIntlayerEditor = requireFunction(
-    'intlayer-editor/client'
-  )?.renderIntlayerEditor;
+  const _renderIntlayerEditor = requireFunction()?.renderIntlayerEditor;
 
   if (typeof _renderIntlayerEditor === 'undefined') {
     const Result = <IntlayerEditorElement {...props} />;
