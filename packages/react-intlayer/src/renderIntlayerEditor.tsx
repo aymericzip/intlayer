@@ -1,3 +1,4 @@
+import { createRequire } from 'module';
 import type {
   IntlayerEditorElementProps,
   RenderIntlayerEditorResult,
@@ -8,7 +9,7 @@ const requireFunction = () => {
   try {
     return typeof import.meta.url === 'undefined'
       ? require('intlayer-editor/client')
-      : module.require('intlayer-editor/client');
+      : createRequire(import.meta.url)('intlayer-editor/client');
   } catch (error) {
     return undefined;
   }
