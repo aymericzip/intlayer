@@ -1,5 +1,14 @@
 # react-app-example
 
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`b172b8e`](https://github.com/aypineau/intlayer/commit/b172b8e4bbe06725f566846ad78eb7c79e8eb940)]:
+  - react-intlayer@2.0.8
+  - intlayer@2.0.8
+  - intlayer-cli@2.0.8
+
 ## 0.2.6
 
 ### Patch Changes

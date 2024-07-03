@@ -1,5 +1,20 @@
 # react-intlayer
 
+## 2.0.8
+
+### Patch Changes
+
+- [`b172b8e`](https://github.com/aypineau/intlayer/commit/b172b8e4bbe06725f566846ad78eb7c79e8eb940) Thanks [@aypineau](https://github.com/aypineau)! - fix vite conditional import
+
+- Updated dependencies [[`b172b8e`](https://github.com/aypineau/intlayer/commit/b172b8e4bbe06725f566846ad78eb7c79e8eb940)]:
+  - intlayer-editor@2.1.7
+  - @intlayer/chokidar@2.0.8
+  - @intlayer/config@2.0.8
+  - @intlayer/core@2.0.8
+  - @intlayer/dictionaries-entry@2.0.8
+  - @intlayer/webpack@2.0.8
+  - intlayer@2.0.8
+
 ## 2.0.7
 
 ### Patch Changes
