@@ -8,9 +8,9 @@ import type { Locales } from '@intlayer/config';
 import type { Dictionary, NodeType } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import { renderIntlayerEditor } from 'intlayer-editor/client';
 import { isValidElement, type ReactNode } from 'react';
 import { processDictionary } from './processDictionary/index';
-import { renderIntlayerEditor } from './renderIntlayerEditor';
 
 /**
  * Provides a fallback to string type if the generic type T is never,

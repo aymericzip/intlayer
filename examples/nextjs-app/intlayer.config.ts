@@ -7,6 +7,9 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     strictMode: 'strict',
   },
+  editor: {
+    enabled: process.env.NODE_ENV === 'development',
+  },
 };
 
 export default config;
