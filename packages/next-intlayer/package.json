@@ -1,6 +1,6 @@
 {
   "name": "next-intlayer",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "private": false,
   "description": "Webpack configuration for IntLayer using NextJS",
   "keywords": [
