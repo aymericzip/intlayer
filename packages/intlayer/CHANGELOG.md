@@ -1,5 +1,14 @@
 # intlayer
 
+## 2.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @intlayer/config@2.0.10
+  - @intlayer/core@2.0.10
+  - intlayer@2.0.10
+
 ## 2.0.9
 
 ### Patch Changes
