@@ -1,5 +1,15 @@
 # nextjs-app-example
 
+## 1.1.7
+
+### Patch Changes
+
+- Updated dependencies [[`b172b8e`](https://github.com/aypineau/intlayer/commit/b172b8e4bbe06725f566846ad78eb7c79e8eb940)]:
+  - intlayer-editor@2.1.7
+  - next-intlayer@2.0.8
+  - intlayer@2.0.8
+  - intlayer-cli@2.0.8
+
 ## 1.1.6
 
 ### Patch Changes
