@@ -1,5 +1,20 @@
 # react-intlayer
 
+## 2.0.7
+
+### Patch Changes
+
+- [`eec0f63`](https://github.com/aypineau/intlayer/commit/eec0f630b824e80589c21916c343546588c736cd) Thanks [@aypineau](https://github.com/aypineau)! - restore react-intlayer change
+
+- Updated dependencies []:
+  - @intlayer/chokidar@2.0.7
+  - @intlayer/config@2.0.7
+  - @intlayer/core@2.0.7
+  - @intlayer/dictionaries-entry@2.0.7
+  - @intlayer/webpack@2.0.7
+  - intlayer@2.0.7
+  - intlayer-editor@2.1.6
+
 ## 2.0.6
 
 ### Patch Changes
