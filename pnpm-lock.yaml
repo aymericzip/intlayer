@@ -1004,6 +1004,9 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../intlayer
+      intlayer-editor:
+        specifier: workspace:^
+        version: link:../intlayer-editor
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -1038,9 +1041,6 @@ importers:
       '@utils/ts-config':
         specifier: workspace:^
         version: link:../../utils/ts-config
-      intlayer-editor:
-        specifier: workspace:^
-        version: link:../intlayer-editor
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -5753,7 +5753,7 @@ packages:
       react-refresh: 0.11.0
       schema-utils: 4.2.0
       source-map: 0.7.4
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
       webpack-dev-server: 4.15.2(webpack@5.92.1)
     dev: false
 
@@ -9255,7 +9255,7 @@ packages:
       loader-utils: 2.0.4
       make-dir: 3.1.0
       schema-utils: 2.7.1
-      webpack: 5.92.1(esbuild@0.20.2)(webpack-cli@5.1.4)
+      webpack: 5.92.1(esbuild@0.21.5)
 
   /babel-plugin-istanbul@6.1.1:
     resolution:
@@ -11129,7 +11129,7 @@ packages:
       postcss-modules-values: 4.0.0(postcss@8.4.38)
       postcss-value-parser: 4.2.0
       semver: 7.6.2
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /css-minimizer-webpack-plugin@3.4.1(esbuild@0.21.5)(webpack@5.92.1):
@@ -13679,7 +13679,7 @@ packages:
       micromatch: 4.0.7
       normalize-path: 3.0.0
       schema-utils: 4.2.0
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
 
   /eslint@8.56.0:
     resolution:
@@ -14232,7 +14232,7 @@ packages:
     dependencies:
       loader-utils: 2.0.4
       schema-utils: 3.3.0
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /file-type@17.1.6:
@@ -14482,7 +14482,7 @@ packages:
       semver: 7.6.2
       tapable: 1.1.3
       typescript: 5.5.2
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /form-data@3.0.1:
@@ -15427,7 +15427,7 @@ packages:
       lodash: 4.17.21
       pretty-error: 4.0.0
       tapable: 2.2.1
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /htmlparser2@6.1.0:
@@ -19103,7 +19103,7 @@ packages:
     dependencies:
       schema-utils: 4.2.0
       tapable: 2.2.1
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /minimalistic-assert@1.0.1:
@@ -21064,7 +21064,7 @@ packages:
       klona: 2.0.6
       postcss: 8.4.38
       semver: 7.6.2
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /postcss-logical@5.0.4(postcss@8.4.38):
@@ -22330,7 +22330,7 @@ packages:
       strip-ansi: 6.0.1
       text-table: 0.2.0
       typescript: 5.5.2
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -23417,7 +23417,7 @@ packages:
     dependencies:
       klona: 2.0.6
       neo-async: 2.6.2
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /sax@1.2.4:
@@ -23995,7 +23995,7 @@ packages:
       abab: 2.0.6
       iconv-lite: 0.6.3
       source-map-js: 1.2.0
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /source-map-support@0.5.21:
@@ -24550,7 +24550,7 @@ packages:
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /style-to-object@1.0.6:
@@ -25040,6 +25040,7 @@ packages:
       serialize-javascript: 6.0.2
       terser: 5.31.1
       webpack: 5.92.1
+    dev: false
 
   /terser@5.31.1:
     resolution:
@@ -26741,7 +26742,7 @@ packages:
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 4.2.0
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
     dev: false
 
   /webpack-dev-middleware@7.2.1(webpack@5.92.1):
@@ -26808,7 +26809,7 @@ packages:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
       webpack-dev-middleware: 5.3.4(webpack@5.92.1)
       ws: 8.17.1
     transitivePeerDependencies:
@@ -26882,7 +26883,7 @@ packages:
       webpack: ^4.44.2 || ^5.47.0
     dependencies:
       tapable: 2.2.1
-      webpack: 5.92.1
+      webpack: 5.92.1(esbuild@0.21.5)
       webpack-sources: 2.3.1
     dev: false
 
@@ -26985,6 +26986,7 @@ packages:
       - '@swc/core'
       - esbuild
       - uglify-js
+    dev: false
 
   /webpack@5.92.1(@swc/core@1.6.5)(esbuild@0.20.2):
     resolution:
@@ -27495,7 +27497,7 @@ packages:
       fast-json-stable-stringify: 2.1.0
       pretty-bytes: 5.6.0
       upath: 1.2.0
-      webpack: 5.92.1(esbuild@0.20.2)(webpack-cli@5.1.4)
+      webpack: 5.92.1(esbuild@0.21.5)
       webpack-sources: 1.4.3
       workbox-build: 6.6.0
     transitivePeerDependencies:

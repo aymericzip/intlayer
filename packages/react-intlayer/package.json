@@ -87,6 +87,7 @@
     "@intlayer/webpack": "workspace:^",
     "cross-spawn": "^7.0.3",
     "intlayer": "workspace:^",
+    "intlayer-editor": "workspace:^",
     "js-cookie": "^3.0.5",
     "react-cookie": "^7.1.4",
     "vite": "^5.3.1",
@@ -100,7 +101,6 @@
     "@types/react": "^18.3.3",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
-    "intlayer-editor": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rimraf": "5.0.5",
@@ -110,11 +110,6 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  },
-  "peerDependenciesMeta": {
-    "intlayer-editor": {
-      "optional": true
-    }
   },
   "engines": {
     "node": ">=14.18"
