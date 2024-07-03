@@ -1,26 +1,27 @@
-import { createRequire } from 'module';
-import type { IntlayerEditorElementProps } from 'intlayer-editor/client';
+import type {
+  IntlayerEditorElementProps,
+  RenderIntlayerEditorResult,
+} from 'intlayer-editor/client';
+import type { FC } from 'react';
 
 const requireFunction = () => {
   try {
     return typeof import.meta.url === 'undefined'
       ? require('intlayer-editor/client')
-      : createRequire(import.meta.url)('intlayer-editor/client');
+      : module.require('intlayer-editor/client');
   } catch (error) {
     return undefined;
   }
 };
 
-const IntlayerEditorElement = ({
+const IntlayerEditorElement: FC<IntlayerEditorElementProps> = ({
   content,
   ..._props
-}: IntlayerEditorElementProps) => {
-  return content;
-};
+}) => content;
 
-IntlayerEditorElement.content = '';
-
-export const renderIntlayerEditor = (props: IntlayerEditorElementProps) => {
+export const renderIntlayerEditor = (
+  props: IntlayerEditorElementProps
+): RenderIntlayerEditorResult => {
   const _renderIntlayerEditor = requireFunction()?.renderIntlayerEditor;
 
   if (typeof _renderIntlayerEditor === 'undefined') {

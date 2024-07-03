@@ -14,7 +14,7 @@ export type IntlayerEditorElementProps = {
   keyPath: KeyPath[];
 };
 
-type RenderIntlayerEditorResult = ReactNode & { value: string };
+export type RenderIntlayerEditorResult = ReactNode & { value: string };
 
 const IntlayerEditorElement = ({
   content,
