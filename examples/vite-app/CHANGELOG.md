@@ -1,5 +1,13 @@
 # my-vite-app
 
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies [[`6cf345a`](https://github.com/aypineau/intlayer/commit/6cf345a6ab2302f945a405db6dea0d41f58ec7f5)]:
+  - react-intlayer@2.0.9
+  - intlayer@2.0.9
+
 ## 0.1.7
 
 ### Patch Changes

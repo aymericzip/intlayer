@@ -1,5 +1,20 @@
 # react-intlayer
 
+## 2.0.9
+
+### Patch Changes
+
+- [`6cf345a`](https://github.com/aypineau/intlayer/commit/6cf345a6ab2302f945a405db6dea0d41f58ec7f5) Thanks [@aypineau](https://github.com/aypineau)! - restore createRequire
+
+- Updated dependencies []:
+  - @intlayer/chokidar@2.0.9
+  - @intlayer/config@2.0.9
+  - @intlayer/core@2.0.9
+  - @intlayer/dictionaries-entry@2.0.9
+  - @intlayer/webpack@2.0.9
+  - intlayer@2.0.9
+  - intlayer-editor@2.1.8
+
 ## 2.0.8
 
 ### Patch Changes
