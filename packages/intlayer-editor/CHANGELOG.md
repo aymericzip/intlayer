@@ -1,5 +1,18 @@
 # intlayer-editor
 
+## 2.1.7
+
+### Patch Changes
+
+- [`b172b8e`](https://github.com/aypineau/intlayer/commit/b172b8e4bbe06725f566846ad78eb7c79e8eb940) Thanks [@aypineau](https://github.com/aypineau)! - fix vite conditional import
+
+- Updated dependencies []:
+  - @intlayer/config@2.0.8
+  - @intlayer/core@2.0.8
+  - @intlayer/design-system@2.0.8
+  - @intlayer/dictionaries-entry@2.0.8
+  - intlayer@2.0.8
+
 ## 2.1.6
 
 ### Patch Changes

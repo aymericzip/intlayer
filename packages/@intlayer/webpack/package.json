@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/webpack",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "private": false,
   "description": "Webpack application for IntLayer - Transpile Intlayer declaration files into dictionaries using webpack.",
   "keywords": [
