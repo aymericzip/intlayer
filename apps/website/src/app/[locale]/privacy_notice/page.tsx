@@ -8,7 +8,9 @@ export { generateMetadata };
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
   <PageLayout locale={locale} editorEnabled={false}>
-    <DocumentationRender docName="privacy_notice" />
+    <div className="m-auto max-w-2xl">
+      <DocumentationRender docName="privacy_notice" />
+    </div>
   </PageLayout>
 );
 export default Page;
