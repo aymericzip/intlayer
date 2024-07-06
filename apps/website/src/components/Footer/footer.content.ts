@@ -74,7 +74,7 @@ const footerContent: DeclarationContent<FooterContent> = {
       }),
       links: [
         {
-          href: ExternalLinks.ExampleIntlayerWithNextjs,
+          href: PagesRoutes.Doc_Environment_NextJS,
           text: t({
             en: 'Intlayer with NextJS',
             es: 'Intlayer con NextJS',
@@ -87,7 +87,7 @@ const footerContent: DeclarationContent<FooterContent> = {
           }),
         },
         {
-          href: ExternalLinks.ExampleIntlayerWithReactJS,
+          href: PagesRoutes.Doc_Environment_CRA,
           text: t({
             en: 'Intlayer with ReactJS (CRA)',
             es: 'Intlayer con ReactJS (CRA)',
@@ -100,7 +100,7 @@ const footerContent: DeclarationContent<FooterContent> = {
           }),
         },
         {
-          href: ExternalLinks.ExampleIntlayerWithViteAndReact,
+          href: PagesRoutes.Doc_Environment_ViteAndReact,
           text: t({
             en: 'Intlayer with Vite+React',
             es: 'Intlayer con Vite+React',
