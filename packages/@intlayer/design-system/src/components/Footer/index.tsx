@@ -20,7 +20,7 @@ const StyledAsideDescription = tw.span`text-sm text-neutral text-center text-xs`
 
 const StyledFooterContent = tw.div`w-full flex flex-row justify-around m-auto flex-wrap gap-x-3 gap-y-6 md:w-2/3`;
 const StyledColumn = tw.div`flex flex-col gap-2`;
-const StyledColumnRow = tw.div`flex flex-col gap-3`;
+const StyledColumnRow = tw.div`flex flex-col gap-3 text-sm`;
 
 export const Footer: FC<FooterProps> = ({ links }) => (
   <StyledFooter>
