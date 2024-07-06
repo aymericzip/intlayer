@@ -24,7 +24,7 @@ export enum PagesRoutes {
   ChangePassword = '/auth/password/change',
 
   PrivacyPolicy = '/privacy_notice',
-  TermsOfService = '/terms_of_services',
+  TermsOfService = '/terms_of_service',
 
   ChatWithUs = '/chat_with_us',
   Pricing = '/pricing',

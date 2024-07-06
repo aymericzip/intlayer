@@ -79,6 +79,16 @@ const docs = {
     fr: require('./docs/content_declaration/declaration_watching_fr.md'),
     es: require('./docs/content_declaration/declaration_watching_es.md'),
   },
+  terms_of_service: {
+    en: require('./docs/terms_of_service_en.md'),
+    fr: require('./docs/terms_of_service_fr.md'),
+    es: require('./docs/terms_of_service_es.md'),
+  },
+  privacy_notice: {
+    en: require('./docs/privacy_notice_en.md'),
+    fr: require('./docs/privacy_notice_fr.md'),
+    es: require('./docs/privacy_notice_es.md'),
+  },
 };
 
 const getDocs = (lang) =>

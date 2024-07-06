@@ -16,6 +16,8 @@ declare module '@intlayer/docs' {
     content_declaration__get_started,
     content_declaration__nested_id,
     content_declaration__translation,
+    terms_of_service,
+    privacy_notice,
   }
 
   export function getDocs(lang: string): Docs;
