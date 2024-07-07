@@ -16,7 +16,7 @@ export const WhyToChoseIntlayerSection: FC = () => {
             key={index}
           >
             <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
-              {index}
+              {index + 1}
             </span>
             <strong className="text-lg font-semibold">{asset.title}</strong>
             <AnimatedDiv>
