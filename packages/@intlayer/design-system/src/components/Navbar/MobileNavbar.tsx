@@ -79,6 +79,34 @@ const SectionList: FC<SectionListProps> = ({
   </div>
 );
 
+const bgStyle = [
+  tw`bg-card/95 dark:bg-card-dark/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur`,
+  css`
+    -webkit-backdrop-filter: var(--tw-backdrop-blur)
+      var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
+      var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
+      var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
+      var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  `,
+];
+const StyledNav = styled.nav<{ $isHidden: boolean }>(({ $isHidden }) => [
+  ...bgStyle,
+  tw`relative sticky top-0 z-50 flex w-screen flex-col  transition`,
+  $isHidden ? tw`-translate-y-full` : tw`translate-y-0`,
+]);
+const StyledHeaderContainer = tw.div`flex w-full items-center justify-between gap-[10vw] px-4 py-3`;
+const StyledRightItemContainer = tw.div`flex w-full items-center justify-end gap-6`;
+const StyledRightCustomItemContainer = tw.div`flex w-full items-center justify-end gap-1`;
+const StyledFullScreenPanel = styled.div(() => [
+  ...bgStyle,
+  tw`absolute bottom-0 left-0 w-full translate-y-full`,
+]);
+const StyledFullScreenPanelContent = styled(motion.div)(
+  () =>
+    tw`flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide text-text dark:text-text-dark`
+);
+const StyledSectionContainer = tw.div`flex h-full flex-col justify-between`;
+
 export const MobileNavbar: FC<MobileNavbarProps> = ({
   logo,
   topChildren,
@@ -106,35 +134,6 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
   const backDivHeight = !isHidden ? navRef.current?.clientHeight ?? 0 : 0;
 
   const isBurgerShowed = topSections.length + bottomSections.length > 0;
-
-  const bgStyle = [
-    tw`bg-card/95 dark:bg-card-dark/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur`,
-    css`
-      -webkit-backdrop-filter: var(--tw-backdrop-blur)
-        var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
-        var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
-        var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
-        var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-    `,
-  ];
-
-  const StyledNav = styled.nav<{ $isHidden: boolean }>(({ $isHidden }) => [
-    ...bgStyle,
-    tw`relative sticky top-0 z-50 flex w-screen flex-col  transition`,
-    $isHidden ? tw`-translate-y-full` : tw`translate-y-0`,
-  ]);
-  const StyledHeaderContainer = tw.div`flex w-full items-center justify-between gap-[10vw] px-4 py-3`;
-  const StyledRightItemContainer = tw.div`flex w-full items-center justify-end gap-6`;
-  const StyledRightCustomItemContainer = tw.div`flex w-full items-center justify-end gap-1`;
-  const StyledFullScreenPanel = styled.div(() => [
-    ...bgStyle,
-    tw`absolute bottom-0 left-0 w-full translate-y-full`,
-  ]);
-  const StyledFullScreenPanelContent = styled(motion.div)(
-    () =>
-      tw`flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide text-text dark:text-text-dark`
-  );
-  const StyledSectionContainer = tw.div`flex h-full flex-col justify-between`;
 
   return (
     <StyledNav id="mobile-menu" $isHidden={isHidden}>

@@ -12,6 +12,22 @@ type MobileThemeSwitcherProps = {
   setTheme: (theme: Modes) => void;
 };
 
+type IconStyle = {
+  isCurrentMode: boolean;
+  isNextMode: boolean;
+};
+const getIconStyle = ({ isCurrentMode, isNextMode }: IconStyle): TwStyle[] => [
+  tw`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`,
+  tw`opacity-0 transition-opacity duration-300 ease-in-out`,
+  isCurrentMode ? tw`opacity-100 group-hover:opacity-0` : tw``,
+  isNextMode ? tw`group-hover:opacity-100` : tw``,
+];
+
+const StyledCircleDashed = styled(CircleDashed)<IconStyle>(getIconStyle);
+const StyledMoon = styled(Moon)<IconStyle>(getIconStyle);
+const StyledSun = styled(Sun)<IconStyle>(getIconStyle);
+const StyledTrigger = tw.button`relative size-10`;
+
 export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
   theme,
   systemTheme,
@@ -47,25 +63,6 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
     }
     setMode(nextMode);
   };
-
-  const StyledTrigger = tw.button`relative size-10`;
-
-  type IconStyle = {
-    isCurrentMode: boolean;
-    isNextMode: boolean;
-  };
-  const getIconStyle = ({
-    isCurrentMode,
-    isNextMode,
-  }: IconStyle): TwStyle[] => [
-    tw`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`,
-    tw`opacity-0 transition-opacity duration-300 ease-in-out`,
-    isCurrentMode ? tw`opacity-100 group-hover:opacity-0` : tw``,
-    isNextMode ? tw`group-hover:opacity-100` : tw``,
-  ];
-  const StyledCircleDashed = styled(CircleDashed)<IconStyle>(getIconStyle);
-  const StyledMoon = styled(Moon)<IconStyle>(getIconStyle);
-  const StyledSun = styled(Sun)<IconStyle>(getIconStyle);
 
   return (
     <StyledTrigger aria-label="Theme selector" className="group">
