@@ -7,6 +7,7 @@ export interface LoaderProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const StyledContainer = tw.div`max-w-[100vw] flex size-full max-h-screen items-center justify-center`;
+const StyledSpinner = tw(Spinner)`w-10 h-10`;
 
 // Component can be use as a wrapper or standalone
 // Example:
@@ -20,19 +21,17 @@ const StyledContainer = tw.div`max-w-[100vw] flex size-full max-h-screen items-c
 // <Loader />
 
 export const Loader: FC<LoaderProps> = ({
-  className,
   children,
   isLoading = true,
   ...props
-}) => {
-  return isLoading ? (
+}) =>
+  isLoading ? (
     <StyledContainer
       aria-label="Animated icon, meaning that the website is processing"
       {...props}
     >
-      <Spinner />
+      <StyledSpinner />
     </StyledContainer>
   ) : (
-    <>{children ?? <></>}</>
+    children ?? <></>
   );
-};

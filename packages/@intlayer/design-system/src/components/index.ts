@@ -20,3 +20,4 @@ export * from './IDE';
 export * from './Popover';
 export * from './MarkDownRender';
 export * from './Headers';
+export * from './Loader';

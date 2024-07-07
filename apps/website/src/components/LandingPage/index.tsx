@@ -1,12 +1,32 @@
+import { Loader } from '@intlayer/design-system';
+import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { AvailableTechnoSection } from './AvailableTechnoSection';
 import { LandingSection } from './LandingSection';
-import { WhyToChoseIntlayerSection } from './WhyToChoseIntlayerSection';
+
+const DynamicAvailableTechnoSection = dynamic(
+  () =>
+    import('./AvailableTechnoSection').then(
+      (mod) => mod.AvailableTechnoSection
+    ),
+  {
+    loading: () => <Loader />,
+  }
+);
+
+const DynamicWhyToChoseIntlayerSection = dynamic(
+  () =>
+    import('./WhyToChoseIntlayerSection').then(
+      (mod) => mod.WhyToChoseIntlayerSection
+    ),
+  {
+    loading: () => <Loader />,
+  }
+);
 
 export const LandingPage: FC = () => (
   <>
     <LandingSection />
-    <AvailableTechnoSection />
-    <WhyToChoseIntlayerSection />
+    <DynamicAvailableTechnoSection />
+    <DynamicWhyToChoseIntlayerSection />
   </>
 );
