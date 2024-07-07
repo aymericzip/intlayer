@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import React, { type HTMLAttributes, type FC } from 'react';
 
 type AnimatedCharactersProps = {
@@ -16,7 +16,7 @@ export const AnimatedTitle: FC<AnimatedCharactersProps> = ({
 }) => (
   <h1 {...props}>
     {text.split(' ').map((el, i) => (
-      <motion.span
+      <m.span
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: false }}
@@ -27,7 +27,7 @@ export const AnimatedTitle: FC<AnimatedCharactersProps> = ({
         key={i}
       >
         {el}{' '}
-      </motion.span>
+      </m.span>
     ))}
   </h1>
 );

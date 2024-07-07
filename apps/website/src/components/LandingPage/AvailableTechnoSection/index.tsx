@@ -11,7 +11,7 @@ export const AvailableTechnoSection: FC = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
-      <span className="text-neutral">{text}</span>
+      <span className="text-neutral dark:text-neutral-dark">{text}</span>
       <div className="flex h-28 w-3/4 flex-row justify-evenly gap-6 p-6">
         <Link
           href={PagesRoutes.Doc_Environment_CRA}

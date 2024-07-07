@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import React, { type HTMLAttributes, type FC } from 'react';
 
 type AnimatedDescriptionProps = Pick<
@@ -15,7 +15,7 @@ export const AnimatedDescription: FC<AnimatedDescriptionProps> = ({
   children,
   ...props
 }) => (
-  <motion.p
+  <m.p
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     viewport={{ once: false }}
@@ -25,5 +25,5 @@ export const AnimatedDescription: FC<AnimatedDescriptionProps> = ({
     {...props}
   >
     {children}
-  </motion.p>
+  </m.p>
 );

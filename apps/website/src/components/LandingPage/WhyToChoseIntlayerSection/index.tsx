@@ -7,7 +7,7 @@ export const WhyToChoseIntlayerSection: FC = () => {
 
   return (
     <div className="my-10 flex w-full flex-col items-center justify-center">
-      <span className="text-neutral">{title}</span>
+      <span className="text-neutral dark:text-neutral-dark">{title}</span>
 
       <div className="m-auto mt-3 flex flex-wrap justify-evenly gap-3 px-10 py-2">
         {content.map((asset, index) => (
@@ -20,7 +20,9 @@ export const WhyToChoseIntlayerSection: FC = () => {
             </span>
             <strong className="text-lg font-semibold">{asset.title}</strong>
             <AnimatedDiv>
-              <p className="text-neutral text-xs">{asset.descrition}</p>
+              <p className="text-neutral dark:text-neutral-dark text-xs">
+                {asset.descrition}
+              </p>
             </AnimatedDiv>
           </AnimatedDiv>
         ))}

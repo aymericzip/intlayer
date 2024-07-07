@@ -17,7 +17,9 @@ export const DemoPage: FC = () => {
           <AnimatedTitle className="mb-3 mt-24 text-4xl font-bold">
             {title}
           </AnimatedTitle>
-          <p className="text-neutral text-md">{landingParagraph}</p>
+          <p className="text-neutral dark:text-neutral-dark text-md">
+            {landingParagraph}
+          </p>
         </div>
       </div>
       <div className="relative mx-auto my-10 flex max-w-[700px] flex-col gap-28">
@@ -28,7 +30,9 @@ export const DemoPage: FC = () => {
             </span>
             <div>
               <h3 className="mb-2 text-lg font-semibold">{paragraph.title}</h3>
-              <p className="text-neutral text-sm">{paragraph.description}</p>
+              <p className="text-neutral dark:text-neutral-dark text-sm">
+                {paragraph.description}
+              </p>
             </div>
           </AnimatedDiv>
         ))}

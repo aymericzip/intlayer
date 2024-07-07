@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
 import { useRef, useState, type FC, type ReactNode } from 'react';
 import { css, styled } from 'styled-components';
 import tw from 'twin.macro';
@@ -50,7 +50,7 @@ const navVariants: Variants = {
   },
 };
 
-const StyledSection = styled(motion.div)`
+const StyledSection = styled(m.div)`
   ${tw`hover:text-primary aria-selected:text-primary w-full cursor-pointer p-3 text-center transition`}
 `;
 
@@ -101,7 +101,7 @@ const StyledFullScreenPanel = styled.div(() => [
   ...bgStyle,
   tw`absolute bottom-0 left-0 w-full translate-y-full`,
 ]);
-const StyledFullScreenPanelContent = styled(motion.div)(
+const StyledFullScreenPanelContent = styled(m.div)(
   () =>
     tw`flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide text-text dark:text-text-dark`
 );

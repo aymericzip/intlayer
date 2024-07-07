@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
@@ -14,15 +14,13 @@ interface ModalProps {
   disableScroll?: boolean;
 }
 
-const StyledBackground = styled(motion.div)<{
+const StyledBackground = styled(m.div)<{
   $isOpen: boolean;
 }>(({ $isOpen }) => [
   tw`fixed left-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto bg-background/60 backdrop-blur`,
   $isOpen ? tw`visible` : tw`hidden`,
 ]);
-const StyledModal = tw(
-  motion.div
-)`cursor-default overflow-hidden rounded shadow`;
+const StyledModal = tw(m.div)`cursor-default overflow-hidden rounded shadow`;
 
 export const Modal = ({
   children,
