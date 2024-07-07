@@ -13,16 +13,17 @@ website: https://playground.diagram.codes/d/graph
 "@intlayer/cli" as k
 "nextjs website" as l
 "react website" as m
+"vite+react website" as n
 
 
-a->l,m
-b->d,m
-c->
+a->l,m,n,f
+b->d,m,n
+c->l,m,n
 d->l
-e->l
-f->b,c,d,e,g,h,j
-g->b,c,d,e,h
-h->b,c,d,e
+e->b,l,m,n
+f->b,c,d,e,j
+g->b,c,d,e,h,f
+h->b,c,d,e,a,f
 i->e,j
-j->d
+j->d,b
 k->c
