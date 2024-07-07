@@ -1,4 +1,3 @@
-import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { PageLayout } from '@layouts/PageLayout';
 import type { NextPageIntlayer } from 'next-intlayer';

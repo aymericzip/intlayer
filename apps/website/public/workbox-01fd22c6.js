@@ -471,12 +471,11 @@ define(['exports'], function (t) {
         : function (t) {
             for (var e = 1; e < arguments.length; e++) {
               var s = arguments[e];
-              for (var n in s)
-                Object.prototype.hasOwnProperty.call(s, n) && (t[n] = s[n]);
+              for (var n in s) ({}).hasOwnProperty.call(s, n) && (t[n] = s[n]);
             }
             return t;
           }),
-      q.apply(this, arguments)
+      q.apply(null, arguments)
     );
   }
   const D = (t, e) => e.some((e) => t instanceof e);
