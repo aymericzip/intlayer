@@ -4,12 +4,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
   okaidia,
-  // solarizedlight,
   coldarkCold,
-  // darcula,
-  // gruvboxDark,
-  // gruvboxLight,
-  // nord,
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';

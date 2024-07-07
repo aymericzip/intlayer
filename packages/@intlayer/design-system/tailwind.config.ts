@@ -41,7 +41,7 @@ const tailwindConfig = {
         },
         card: {
           DEFAULT: 'rgba(231, 231, 231, <alpha-value>)',
-          dark: 'rgba(69, 69, 69, <alpha-value>)',
+          dark: 'rgba(39, 39, 39, <alpha-value>)',
           hover: {
             DEFAULT: 'rgba(231, 231, 231, <alpha-value>)',
             dark: 'rgba(79, 79, 79, <alpha-value>)',
@@ -161,7 +161,7 @@ const tailwindConfig = {
           '700': 'rgba(79, 79, 79, <alpha-value>)',
           '800': 'rgba(69, 69, 69, <alpha-value>)',
           '900': 'rgba(61, 61, 61, <alpha-value>)',
-          '950': 'rgba(18, 18, 18, <alpha-value>)',
+          '950': 'rgba(48, 48, 48, <alpha-value>)',
         },
       },
     },
