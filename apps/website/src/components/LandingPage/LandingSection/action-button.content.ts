@@ -1,4 +1,5 @@
 import { t, type DeclarationContent } from 'intlayer';
+import { PagesRoutes } from '@/Routes';
 
 const actionButtonContent: DeclarationContent = {
   id: 'landing-section-action-button',
@@ -13,6 +14,7 @@ const actionButtonContent: DeclarationContent = {
       fr: 'Commencer',
       es: 'Empezar',
     }),
+    url: PagesRoutes.Doc_GetStarted,
   },
   secondaryBtn: {
     label: t({
@@ -25,6 +27,7 @@ const actionButtonContent: DeclarationContent = {
       fr: 'Pourquoi Intlayer?',
       es: '¿Por qué Intlayer?',
     }),
+    url: PagesRoutes.Doc_Interest,
   },
 };
 

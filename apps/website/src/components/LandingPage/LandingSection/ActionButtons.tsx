@@ -4,12 +4,19 @@ import { Button } from '@intlayer/design-system';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 export const ActionButtons: FC = () => {
   const {
-    primaryBtn: { label: primaryLabel, content: primaryContent },
-    secondaryBtn: { label: secondaryLabel, content: secondaryContent },
+    primaryBtn: {
+      label: primaryLabel,
+      content: primaryContent,
+      url: primaryUrl,
+    },
+    secondaryBtn: {
+      label: secondaryLabel,
+      content: secondaryContent,
+      url: secondaryUrl,
+    },
   } = useIntlayer('landing-section-action-button');
   const router = useRouter();
 
@@ -18,7 +25,7 @@ export const ActionButtons: FC = () => {
       <Button
         label={secondaryLabel.value}
         variant="outline"
-        onClick={() => router.push(PagesRoutes.Doc_Interest)}
+        onClick={() => router.push(primaryUrl.value)}
         size="lg"
         color="text"
         className="w-full md:w-auto"
@@ -27,7 +34,7 @@ export const ActionButtons: FC = () => {
       </Button>
       <Button
         label={primaryLabel.value}
-        onClick={() => router.push(ExternalLinks.Github)}
+        onClick={() => router.push(secondaryUrl.value)}
         variant="default"
         size="lg"
         color="text"
