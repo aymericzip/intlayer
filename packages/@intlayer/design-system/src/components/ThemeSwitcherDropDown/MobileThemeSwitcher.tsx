@@ -13,14 +13,17 @@ type MobileThemeSwitcherProps = {
 };
 
 type IconStyle = {
-  isCurrentMode: boolean;
-  isNextMode: boolean;
+  $isCurrentMode: boolean;
+  $isNextMode: boolean;
 };
-const getIconStyle = ({ isCurrentMode, isNextMode }: IconStyle): TwStyle[] => [
+const getIconStyle = ({
+  $isCurrentMode,
+  $isNextMode,
+}: IconStyle): TwStyle[] => [
   tw`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`,
   tw`opacity-0 transition-opacity duration-300 ease-in-out`,
-  isCurrentMode ? tw`opacity-100 group-hover:opacity-0` : tw``,
-  isNextMode ? tw`group-hover:opacity-100` : tw``,
+  $isCurrentMode ? tw`opacity-100 group-hover:opacity-0` : tw``,
+  $isNextMode ? tw`group-hover:opacity-100` : tw``,
 ];
 
 const StyledCircleDashed = styled(CircleDashed)<IconStyle>(getIconStyle);
@@ -69,22 +72,22 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
       <StyledCircleDashed
         onClick={toggleMode}
         data-mode="system"
-        isCurrentMode={mode === Modes.system}
-        isNextMode={nextMode === Modes.system}
+        $isCurrentMode={mode === Modes.system}
+        $isNextMode={nextMode === Modes.system}
       />
 
       <StyledMoon
         onClick={toggleMode}
         data-mode="light"
-        isCurrentMode={mode === Modes.dark}
-        isNextMode={nextMode === Modes.dark}
+        $isCurrentMode={mode === Modes.dark}
+        $isNextMode={nextMode === Modes.dark}
       />
 
       <StyledSun
         onClick={toggleMode}
         data-mode="dark"
-        isCurrentMode={mode === Modes.light}
-        isNextMode={nextMode === Modes.light}
+        $isCurrentMode={mode === Modes.light}
+        $isNextMode={nextMode === Modes.light}
       />
     </StyledTrigger>
   );
