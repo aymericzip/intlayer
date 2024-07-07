@@ -14,7 +14,7 @@ const actionButtonContent: DeclarationContent = {
       fr: 'Commencer',
       es: 'Empezar',
     }),
-    url: PagesRoutes.Doc_GetStarted,
+    url: PagesRoutes.Doc,
   },
   secondaryBtn: {
     label: t({

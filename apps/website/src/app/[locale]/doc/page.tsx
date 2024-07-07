@@ -19,7 +19,7 @@ const DynamicDocumentationRender = dynamic(
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
   <PageLayout locale={locale} editorEnabled={false}>
-    <DocPageLayout>
+    <DocPageLayout activeSections={['get_started']}>
       <DynamicDocumentationRender docName="introduction" />
     </DocPageLayout>
   </PageLayout>

@@ -13,7 +13,7 @@ const footerContent: DeclarationContent<FooterContent> = {
       title: 'Docs',
       links: [
         {
-          href: PagesRoutes.Doc_GetStarted,
+          href: PagesRoutes.Doc,
           text: t({
             en: 'Getting started',
             es: 'Empezando',

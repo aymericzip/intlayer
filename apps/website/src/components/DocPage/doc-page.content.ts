@@ -18,7 +18,7 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
     {
       key: 'get_started',
       title: t({ fr: 'Commencez', en: 'Get started', es: 'Comenzar' }),
-      url: PagesRoutes.Doc_GetStarted,
+      url: PagesRoutes.Doc,
       subSections: [],
     },
     {
