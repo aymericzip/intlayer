@@ -22,19 +22,15 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   );
 
   return (
-    <div className="flex flex-col border-b-[0.5px] md:size-full md:flex-row">
-      <Container
-        className="h-full md:flex-none"
-        roundedSize="none"
-        transparency="sm"
-      >
+    <div className="flex-1 border-b-[0.5px] md:grid md:size-full md:grid-cols-[1fr_auto]">
+      <Container className="h-full" roundedSize="none" transparency="sm">
         <div className="sticky px-20 md:top-16 md:px-0">
-          <nav className="flex flex-col gap-5 px-6 py-10">
+          <nav className="flex min-w-40 flex-col gap-5 px-6 py-10 md:max-w-80">
             {navbar.map((section1) => (
               <div key={section1.title.value}>
                 <button
                   className={cn([
-                    'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer text-left font-semibold transition-colors dark:text-neutral-200',
+                    'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer text-nowrap text-left font-semibold transition-colors dark:text-neutral-200',
                     section1.key.value === activeSections[0] &&
                       'text-primary dark:text-primary-dark',
                   ])}
@@ -55,7 +51,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                       <div key={section2.title.value}>
                         <button
                           className={cn([
-                            'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer p-2 text-left text-sm transition-colors dark:text-neutral-200',
+                            'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
                             section1.key.value === activeSections[0] &&
                               section2.key.value === activeSections[1] &&
                               'text-primary dark:text-primary-dark',
@@ -88,7 +84,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                                 {section2.subSections.map((section3) => (
                                   <button
                                     className={cn([
-                                      'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer p-2 text-left text-xs transition-colors dark:text-neutral-200',
+                                      'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200',
                                       section1.key.value ===
                                         activeSections[0] &&
                                         section2.key.value ===
@@ -127,6 +123,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
           </nav>
         </div>
       </Container>
+
       <div className="w-full grow">{children}</div>
     </div>
   );

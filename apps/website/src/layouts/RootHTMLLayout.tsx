@@ -14,12 +14,12 @@ export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => {
   const activeLocale = locale;
 
   return (
-    <html lang={activeLocale} className="h-screen w-screen">
+    <html lang={activeLocale}>
       <GoogleAnalytics />
       <body
         className={cn(
           inter.className,
-          'bg-background dark:bg-background-dark h-screen overflow-y-auto overflow-x-hidden scroll-smooth transition'
+          'bg-background dark:bg-background-dark h-full w-full overflow-scroll scroll-smooth transition'
         )}
       >
         {children}
