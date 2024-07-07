@@ -1,6 +1,7 @@
 export enum PagesRoutes {
   Home = '/',
   Demo = '/demo',
+
   Doc = '/doc',
   Doc_GetStarted = '/doc/get_started',
   Doc_HowWorksIntlayer = '/doc/concept/how_works_intlayer',
@@ -18,20 +19,8 @@ export enum PagesRoutes {
   Doc_Environment_CRA = '/doc/environment/intlayer_with_create_react_app',
   Doc_Environment_ViteAndReact = '/doc/environment/intlayer_with_vite_and_react',
 
-  LogIn = '/auth/sign_in',
-  SignUp = '/auth/sign_up',
-  ForgotPassword = '/auth/password/reset',
-  ChangePassword = '/auth/password/change',
-
   PrivacyPolicy = '/privacy_notice',
   TermsOfService = '/terms_of_service',
-
-  ChatWithUs = '/chat_with_us',
-  Pricing = '/pricing',
-  AboutUs = '/about_us',
-
-  // Post
-  CreatePost = '/create_post',
 }
 
 export enum APIRoutes {

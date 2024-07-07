@@ -1,6 +1,6 @@
 import type { LinkGroup } from '@intlayer/design-system';
 import { t, type DeclarationContent } from 'intlayer';
-import { ExternalLinks, PagesRoutes } from '../../Routes';
+import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type FooterContent = {
   content: LinkGroup[];
