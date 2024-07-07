@@ -208,42 +208,6 @@ const sitemap = (): MetadataRoute.Sitemap => [
     },
   },
   {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_GetStarted}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_GetStarted}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_GetStarted}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Configuration}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Configuration}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Configuration}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Interest}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Interest}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Interest}/fr`,
-      },
-    },
-  },
-  {
     url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.PrivacyPolicy}`,
     lastModified: new Date(),
     changeFrequency: 'yearly',
