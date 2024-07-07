@@ -3,8 +3,6 @@ import type { Metadata, Viewport } from 'next';
 import type { LocalParams } from 'next-intlayer';
 import { locales } from '../../../intlayer.config';
 
-const PUBLIC_URL = 'https://intlayer.org';
-
 export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
@@ -27,7 +25,7 @@ export const generateMetadata = ({
     authors: [
       {
         name: 'Intlayer',
-        url: PUBLIC_URL,
+        url: process.env.NEXT_PUBLIC_URL,
       },
       { name: 'Aymeric PINEAU', url: 'https://github.com/aypineau' },
     ],
@@ -74,7 +72,7 @@ export const generateMetadata = ({
     creator: 'Aymeric PINEAU',
     publisher: '/',
     robots: 'index, follow',
-    metadataBase: new URL(PUBLIC_URL),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     alternates: {
       canonical: '/',
       languages: locales.reduce(
@@ -105,7 +103,7 @@ export const generateMetadata = ({
       ],
       other: [],
     },
-    manifest: `${PUBLIC_URL}/manifest.json`,
+    manifest: `${process.env.NEXT_PUBLIC_URL}/manifest.json`,
     openGraph: null,
     twitter: null,
     verification: undefined,
