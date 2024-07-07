@@ -53,7 +53,11 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
         ol: StyledOl,
         img: (props) => (
           // eslint-disable-next-line jsx-a11y/alt-text
-          <StyledImage {...props} src={`${props.src}?raw=true`} />
+          <StyledImage
+            {...props}
+            loading="lazy"
+            src={`${props.src}?raw=true`}
+          />
         ),
         a: StyledLink,
       },
