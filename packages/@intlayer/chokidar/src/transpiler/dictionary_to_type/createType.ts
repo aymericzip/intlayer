@@ -15,6 +15,11 @@ const { typesDir } = content;
 const isESModule = typeof import.meta.url === 'string';
 const requireFunction = isESModule ? createRequire(import.meta.url) : require;
 
+const requireUncached = (module: string) => {
+  delete requireFunction.cache[requireFunction.resolve(module)];
+  return requireFunction(module);
+};
+
 const kebabCaseToCammelCase = (name: string): string =>
   name
     .split(/[\s\-_]+/) // Regular expression to match space, hyphen, or underscore
@@ -80,7 +85,7 @@ export const createTypes = async (
   }
 
   for (const dictionaryPath of dictionariesPaths) {
-    const dictionary: Dictionary = requireFunction(dictionaryPath);
+    const dictionary: Dictionary = requireUncached(dictionaryPath);
     const dictionaryName: string = dictionary.id;
     const dictionaryNameCamelCase: string =
       kebabCaseToCammelCase(dictionaryName) + 'Content';

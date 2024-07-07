@@ -28,23 +28,20 @@ export const watch = (options?: WatchOptions) => {
     .on('ready', async () => {
       const dictionariesPaths = await buildDictionary(files);
 
-      console.info('Building TypeScript types...');
       await createTypes(dictionariesPaths);
-      console.info('TypeScript types built');
+      console.info('[intlayer] TypeScript types built');
 
-      console.info('Building Intlayer module augmentation...');
       createModuleAugmentation();
-      console.info('Intlayer module augmentation built');
+      console.info('[intlayer] Intlayer module augmentation built');
 
-      console.info('Building Intlayer dictionary list...');
       createDictionaryList();
-      console.info('Intlayer dictionary list built');
+      console.info('[intlayer] Intlayer dictionary list built');
 
       const relativeDictionariesPath = dictionariesPaths.map((dictionary) =>
         relative(baseDir, dictionary)
       );
 
-      console.info('Dictionaries:', relativeDictionariesPath);
+      console.info('[intlayer] Dictionaries:', relativeDictionariesPath);
     })
     .on('unlink', (filePath) => {
       // Process the file with the functionToRun
@@ -52,18 +49,18 @@ export const watch = (options?: WatchOptions) => {
     })
     .on('add', async (filePath) => {
       // Process the file with the functionToRun
-      console.info('Additional file detected: ', relative(baseDir, filePath));
+      console.info(
+        '[intlayer] Additional file detected: ',
+        relative(baseDir, filePath)
+      );
       const dictionaries = await buildDictionary(filePath);
 
-      console.info('Building TypeScript types...');
       await createTypes(dictionaries);
-      console.info('TypeScript types built');
+      console.info('[intlayer] TypeScript types built');
 
-      console.info('Building Intlayer module augmentation...');
       createModuleAugmentation();
-      console.info('Intlayer module augmentation built');
+      console.info('[intlayer] Intlayer module augmentation built');
 
-      console.info('Building main...');
       createDictionaryList();
     })
     .on('change', async (filePath) => {
@@ -71,9 +68,8 @@ export const watch = (options?: WatchOptions) => {
       console.info('Change detected: ', relative(baseDir, filePath));
       const dictionaries = await buildDictionary(filePath);
 
-      console.info('Building TypeScript types...');
       await createTypes(dictionaries);
-      console.info('TypeScript types built');
+      console.info('[intlayer] TypeScript types built');
     })
     .on('error', (error) => {
       console.error('Watcher error:', error);
