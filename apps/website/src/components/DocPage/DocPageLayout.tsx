@@ -34,7 +34,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
               <div key={section1.title.value}>
                 <button
                   className={cn([
-                    'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer font-semibold transition-colors dark:text-neutral-200',
+                    'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer text-left font-semibold transition-colors dark:text-neutral-200',
                     section1.key.value === activeSections[0] &&
                       'text-primary dark:text-primary-dark',
                   ])}
@@ -55,7 +55,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                       <div key={section2.title.value}>
                         <button
                           className={cn([
-                            'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer p-2 text-sm transition-colors dark:text-neutral-200',
+                            'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer p-2 text-left text-sm transition-colors dark:text-neutral-200',
                             section1.key.value === activeSections[0] &&
                               section2.key.value === activeSections[1] &&
                               'text-primary dark:text-primary-dark',
@@ -88,7 +88,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                                 {section2.subSections.map((section3) => (
                                   <button
                                     className={cn([
-                                      'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer p-2 text-xs transition-colors dark:text-neutral-200',
+                                      'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer p-2 text-left text-xs transition-colors dark:text-neutral-200',
                                       section1.key.value ===
                                         activeSections[0] &&
                                         section2.key.value ===
