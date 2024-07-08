@@ -25,7 +25,7 @@ export const ActionButtons: FC = () => {
       <Button
         label={secondaryLabel.value}
         variant="outline"
-        onClick={() => router.push(primaryUrl.value)}
+        onClick={() => router.push(secondaryUrl.value)}
         size="lg"
         color="text"
         className="w-full md:w-auto"
@@ -34,7 +34,7 @@ export const ActionButtons: FC = () => {
       </Button>
       <Button
         label={primaryLabel.value}
-        onClick={() => router.push(secondaryUrl.value)}
+        onClick={() => router.push(primaryUrl.value)}
         variant="default"
         size="lg"
         color="text"
