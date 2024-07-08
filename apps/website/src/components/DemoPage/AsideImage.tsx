@@ -13,5 +13,5 @@ export const AsideImage: FC = () => {
 
   const src = theme === 'dark' ? LightScreenshot : DarkScreenshot;
 
-  return <Image src={src} alt={imageAlt.value} />;
+  return <Image src={src} alt={imageAlt.value} className="rounded-md" />;
 };
