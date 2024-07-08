@@ -23,7 +23,7 @@ type PressableDivProps = {
 
 const StyledContentSelector = styled.div<{ $isSelecting?: boolean }>(
   ({ $isSelecting }) => [
-    tw`inline cursor-pointer outline outline-offset-4 outline-2 outline-transparent rounded-md transition-all duration-200 delay-100`,
+    tw`inline cursor-pointer select-none outline outline-offset-4 outline-2 outline-transparent rounded-md transition-all duration-200 delay-100`,
     $isSelecting ? tw`outline-inherit` : tw`hover:outline-inherit`,
   ]
 );
