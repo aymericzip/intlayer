@@ -1,1 +1,5 @@
-export type { LocalParams, NextPageIntlayer } from './NextPage';
+export type {
+  LocalParams,
+  NextPageIntlayer,
+  NextLayoutIntlayer,
+} from './NextPage';

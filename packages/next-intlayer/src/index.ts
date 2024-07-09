@@ -7,7 +7,11 @@ export {
   type IntlayerNode,
 } from 'react-intlayer';
 export { generateStaticParams } from './generateStaticParams';
-export type { LocalParams, NextPageIntlayer } from './types/index';
+export type {
+  LocalParams,
+  NextPageIntlayer,
+  NextLayoutIntlayer,
+} from './types/index';
 export {
   useLocale,
   IntlayerClientProvider,
