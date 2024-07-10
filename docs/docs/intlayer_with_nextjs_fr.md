@@ -18,7 +18,33 @@ yarn install intlayer next-intlayer
 pnpm install intlayer next-intlayer
 ```
 
-## Étape 2 : Intégrer Intlayer dans votre Configuration Next.js
+## Étape 2 : Configurer votre Projet
+
+Créez un fichier de configuration pour configurer les langues de votre application :
+
+```typescript
+// intlayer.config.ts
+
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // Vos autres langues
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_fr.md).
+
+## Étape 3 : Intégrer Intlayer dans votre Configuration Next.js
 
 Configurez votre installation Next.js pour utiliser Intlayer :
 
@@ -32,7 +58,7 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-## Étape 3 : Configurer le Middleware pour la Détection de Langue
+## Étape 4 : Configurer le Middleware pour la Détection de Langue
 
 Mettez en place le middleware pour détecter la langue préférée de l'utilisateur :
 
@@ -45,7 +71,7 @@ export const config = {
 };
 ```
 
-## Étape 4 : Définir des Routes Dynamiques pour les Langues
+## Étape 5 : Définir des Routes Dynamiques pour les Langues
 
 Implémentez le routage dynamique pour le contenu localisé :
 
@@ -56,34 +82,40 @@ Ensuite, implémentez la fonction generateStaticParams dans votre Layout d'appli
 ```tsx
 // src/app/layout.tsx
 
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export { generateStaticParams } from "next-intlayer"; // Ligne à insérer
-
-export const metadata: Metadata = {
-  title: "Créer une Application Next",
-  description: "Généré par créer une application Next",
-};
 
 const RootLayout = ({
   children,
 }: Readonly<{
   children: ReactNode;
-}>) => (
-  <html lang="en">
-    <body className={inter.className}>{children}</body>
-  </html>
-);
+}>) => children;
 
 export default RootLayout;
 ```
 
-## Étape 5 : Déclarer votre Contenu
+Puis ajoutez un nouveau layout dans votre `[locale]` repertoire :
+
+```tsx
+// src/app/[locale]/layout.tsx
+
+import { NextLayoutIntlayer } from "next-intlayer";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
+  <html lang={locale}>
+    <body className={inter.className}>{children}</body>
+  </html>
+);
+
+export default LocaleLayout;
+```
+
+## Étape 6 : Déclarer votre Contenu
 
 Créez et gérez vos dictionnaires de contenu :
 
@@ -108,7 +140,7 @@ export default pageContent;
 
 [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
 
-## Étape 6 : Utiliser le Contenu dans votre Code
+## Étape 7 : Utiliser le Contenu dans votre Code
 
 Accédez à vos dictionnaires de contenu dans toute votre application :
 
@@ -188,31 +220,45 @@ export const ServerComponentExample = () => {
 };
 ```
 
+> Note: Si vous souhaitez utiliser un votre contenu dans un attribut de type `string`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous devez appeler la valeur de la fonction, tel que :
+>
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> ```
+
 Pour une utilisation plus détaillée d'intlayer dans un composant Client ou Server, consultez l'[exemple nextJS ici](https://github.com/aypineau/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
 
-# Configuration de votre projet
+## (Optionnel) Étape 8: Internationalisation de votre métadonnées
 
-Créez un fichier de configuration pour configurer les langues de votre application :
+Dans le cas où vous souhaitez internationaliser vos métadonnées, tels que le titre de votre page, vous pouvez utiliser la fonction `generateMetadata` fournie par NextJS. À l'intérieur de la fonction, utilisez la fonction `getTranslationContent` pour traduire vos métadonnées.
 
 ```typescript
-// intlayer.config.ts
+// src/app/[locale]/metadata.ts
 
-import { Locales, type IntlayerConfig } from "intlayer";
+import { type IConfigLocales, getTranslationContent } from "intlayer";
+import type { Metadata } from "next";
+import type { LocalParams } from "next-intlayer";
 
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      // Vos autres langues
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
+export const generateMetadata = ({
+  params: { locale },
+}: LocalParams): Metadata => {
+  const t = <T>(content: IConfigLocales<T>) =>
+    getTranslationContent(content, locale);
+
+  return {
+    title: t<string>({
+      en: "My title",
+      fr: "Mon titre",
+      es: "Mi título",
+    }),
+    description: t({
+      en: "My description",
+      fr: "Ma description",
+      es: "Mi descripción",
+    }),
+  };
 };
-
-export default config;
 ```
-
-Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_fr.md).
 
 ## Configurer TypeScript
 
