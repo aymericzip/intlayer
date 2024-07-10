@@ -18,6 +18,7 @@ const StyledOl = tw.ul`flex flex-col pl-5 mt-5 gap-3`;
 const StyledWrapper = tw.div`text-text dark:text-text-dark flex flex-col gap-6 p-10`;
 const StyledLink = tw.a`text-neutral dark:text-neutral-dark underline`;
 const StyledImage = tw.img`max-w-full rounded-md`;
+const StyledBlockquote = tw.blockquote`flex flex-col pl-5 mt-5 gap-3 border-l-4 border-card dark:border-card-dark text-neutral dark:text-neutral-dark`;
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
@@ -49,6 +50,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               </Container>
             ),
         },
+        blockquote: (props) => <StyledBlockquote {...props} />,
         ul: StyledUl,
         ol: StyledOl,
         img: (props) => (
