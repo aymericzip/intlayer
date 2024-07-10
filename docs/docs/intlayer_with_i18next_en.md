@@ -33,6 +33,9 @@ Intlayer facilitates the sharing of content declaration files across multiple ap
 
 ### Configuring Intlayer to Export i18next Dictionaries
 
+> Important Notes
+> The exportation of i18next dictionaries is currently in beta and does not ensure a 1: 1 compatibility with other frameworks. It is recommended to stick to a configuration based on Intlayer to minimize issues.
+
 To export i18next dictionaries, you need to configure Intlayer appropriately. Below is an example of how to set up Intlayer to export both Intlayer and i18next dictionaries.
 
 ```typescript
@@ -73,7 +76,3 @@ i18next
     )
   );
 ```
-
-## Important Notes
-
-The exportation of i18next dictionaries is currently in beta and does not ensure a 1:1 compatibility with other frameworks. It is recommended to stick to a configuration based on Intlayer to minimize issues.

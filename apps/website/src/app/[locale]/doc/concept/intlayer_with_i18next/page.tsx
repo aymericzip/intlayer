@@ -19,8 +19,8 @@ const DynamicDocumentationRender = dynamic(
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
   <PageLayout locale={locale} editorEnabled={false}>
-    <DocPageLayout activeSections={['concept', 'intlayer_with_i18n']}>
-      <DynamicDocumentationRender docName="intlayer_with_i18n" />
+    <DocPageLayout activeSections={['concept', 'intlayer_with_i18next']}>
+      <DynamicDocumentationRender docName="intlayer_with_i18next" />
     </DocPageLayout>
   </PageLayout>
 );

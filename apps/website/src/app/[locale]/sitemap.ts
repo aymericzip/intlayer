@@ -196,14 +196,14 @@ const sitemap = (): MetadataRoute.Sitemap => [
     },
   },
   {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18n}`,
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18next}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.8,
     alternates: {
       languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18n}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18n}/fr`,
+        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18next}/es`,
+        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18next}/fr`,
       },
     },
   },

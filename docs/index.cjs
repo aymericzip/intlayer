@@ -34,10 +34,10 @@ const docs = {
     fr: require('./docs/intlayer_with_create_react_app_fr.md'),
     es: require('./docs/intlayer_with_create_react_app_es.md'),
   },
-  intlayer_with_i18n: {
-    en: require('./docs/intlayer_with_i18n_en.md'),
-    fr: require('./docs/intlayer_with_i18n_fr.md'),
-    es: require('./docs/intlayer_with_i18n_es.md'),
+  intlayer_with_i18next: {
+    en: require('./docs/intlayer_with_i18next_en.md'),
+    fr: require('./docs/intlayer_with_i18next_fr.md'),
+    es: require('./docs/intlayer_with_i18next_es.md'),
   },
   intlayer_with_nextjs: {
     en: require('./docs/intlayer_with_nextjs_en.md'),

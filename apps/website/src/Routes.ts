@@ -7,7 +7,7 @@ export enum PagesRoutes {
   Doc_Configuration = '/doc/concept/configuration',
   Doc_Interest = '/doc/concept/interest_of_intlayer',
   Doc_IntlayerEditor = '/doc/concept/intlayer_editor',
-  Doc_IntlayerWithI18n = '/doc/concept/intlayer_with_i18n',
+  Doc_IntlayerWithI18next = '/doc/concept/intlayer_with_i18next',
   Doc_ContentDeclaration_DeclareYourContent = '/doc/concept/content_declaration/declare_your_content',
   Doc_ContentDeclaration_Translation = '/doc/concept/content_declaration/translation',
   Doc_ContentDeclaration_Enumeration = '/doc/concept/content_declaration/enumeration',

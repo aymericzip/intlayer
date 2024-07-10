@@ -33,6 +33,9 @@ Intlayer facilita la compartición de archivos de declaración de contenido entr
 
 ### Configurar Intlayer para Exportar Diccionarios de i18next
 
+> Notas Importantes
+> La exportación de diccionarios de i18next está actualmente en beta y no garantiza una compatibilidad 1:1 con otros marcos. Se recomienda seguir una configuración basada en Intlayer para minimizar problemas.
+
 Para exportar diccionarios de i18next, necesitas configurar Intlayer adecuadamente. A continuación, se muestra un ejemplo de cómo configurar Intlayer para exportar tanto diccionarios de Intlayer como de i18next.
 
 ```typescript
@@ -73,7 +76,3 @@ i18next
     )
   );
 ```
-
-## Notas Importantes
-
-La exportación de diccionarios de i18next está actualmente en beta y no garantiza una compatibilidad 1:1 con otros marcos. Se recomienda seguir una configuración basada en Intlayer para minimizar problemas.

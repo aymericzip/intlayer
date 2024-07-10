@@ -128,13 +128,13 @@ export const navbarContent: DeclarationContent<NavbarContent> = {
           ],
         },
         {
-          key: 'intlayer_with_i18n',
+          key: 'intlayer_with_i18next',
           title: t({
-            fr: 'Intlayer avec i18n',
-            en: 'Intlayer with i18n',
-            es: 'Intlayer con i18n',
+            fr: 'Intlayer avec i18next',
+            en: 'Intlayer with i18next',
+            es: 'Intlayer con i18next',
           }),
-          url: PagesRoutes.Doc_IntlayerWithI18n,
+          url: PagesRoutes.Doc_IntlayerWithI18next,
         },
       ],
     },

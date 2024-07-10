@@ -7,7 +7,7 @@ declare module '@intlayer/docs' {
     intlayer_cli,
     intlayer_editor,
     intlayer_with_create_react_app,
-    intlayer_with_i18n,
+    intlayer_with_i18next,
     intlayer_with_nextjs,
     intlayer_with_vite_react,
     content_declaration__declaration_watching,
