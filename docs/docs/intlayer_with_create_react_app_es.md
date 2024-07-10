@@ -18,7 +18,33 @@ yarn install intlayer react-intlayer
 pnpm install intlayer react-intlayer
 ```
 
-## Paso 2: Integrar Intlayer en tu Configuración de CRA
+## Paso 2: Configuración de tu proyecto
+
+Crea un archivo de configuración para configurar los idiomas de tu aplicación:
+
+```typescript
+// intlayer.config.ts
+
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // Tus otros idiomas
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Para ver todos los parámetros disponibles, consulta la [documentación de configuración aquí](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_es.md).
+
+## Paso 3: Integrar Intlayer en tu Configuración de CRA
 
 Cambia tus scripts para usar react-intlayer
 
@@ -32,7 +58,7 @@ Cambia tus scripts para usar react-intlayer
 
 Nota: los scripts de react-intlayer se basan en craco. También puedes implementar tu propia configuración basada en el plugin craco de intlayer. [Ver ejemplo aquí](https://github.com/aypineau/intlayer/blob/main/examples/react-app/craco.config.js).
 
-## Paso 3: Declarar tu Contenido
+## Paso 4: Declarar tu Contenido
 
 Crea y gestiona tus diccionarios de contenido:
 
@@ -75,7 +101,11 @@ const appContent: DeclarationContent = {
 export default appContent;
 ```
 
-### Paso 4: Utilizar Intlayer en tu Código
+> Nota: Si tu contenido incluye código TSX, debes pensar en importar `import React from "react";` en tu archivo de contenido.
+
+[Consulta cómo declarar tus archivos de declaración de Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md).
+
+### Paso 5: Utilizar Intlayer en tu Código
 
 Accede a tus diccionarios de contenido en toda tu aplicación:
 
@@ -122,29 +152,11 @@ function App() {
 export default App;
 ```
 
-## Configuración de tu proyecto
-
-Crea un archivo de configuración para configurar los idiomas de tu aplicación:
-
-```typescript
-// intlayer.config.ts
-
-import { Locales, type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      // Tus otros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-Para ver todos los parámetros disponibles, consulta la [documentación de configuración aquí](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_es.md).
+> Nota: Si deseas utilizar tu contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar al valor de la función, como:
+>
+> ```tsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> ```
 
 ## Configurar TypeScript
 

@@ -138,6 +138,8 @@ const pageContent: DeclarationContent = {
 export default pageContent;
 ```
 
+> Nota: Si tu contenido incluye código TSX, debes pensar en importar `import React from "react";` en tu archivo de contenido.
+
 [Consulta cómo declarar tus archivos de declaración de Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md).
 
 ## Paso 7: Utilizar Contenido en tu Código
