@@ -1,8 +1,4 @@
-# Intlayer Enumeration Documentation
-
-## Overview
-
-Enumeration in Intlayer allows developers to define structured content with multiple variations based on specific conditions or thresholds. This is useful for scenarios like pluralization, numeric ranges, or general content-based enumeration. Using enumerations, you can create content that is dynamic and adaptable to varying conditions, such as changing language or different numbers of items.
+# Enumeration / Plurielisation
 
 ## How Enumeration Works
 

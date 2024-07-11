@@ -1,14 +1,4 @@
-# Intlayer Package Documentation
-
-## Overview
-
-The `intlayer` package offers a comprehensive solution to declare your content in a structured way using JavaScript. This guide will explain the concept of nested IDs, a method to manage large declaration files with improved performance, allowing you to efficiently define, manage, and access your content.
-
-## Intlayer Package
-
-The `intlayer` package is designed to help you structure and manage content in a multi-lingual environment. It integrates with tools like [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme_en.md) to create dictionaries from your declarations, and with interpreters like [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_en.md) and [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_en.md) to use these dictionaries in different frameworks.
-
-## Getting Started with Nested IDs
+# Getting Started with Nested IDs
 
 Nested IDs in `intlayer` allow you to declare complex content structures efficiently. By introducing nested IDs, you can organize content into a hierarchical structure, leading to better performance and easier management in large-scale applications.
 

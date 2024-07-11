@@ -1,14 +1,4 @@
-# Documentación del Paquete Intlayer
-
-## Visión General
-
-El paquete `intlayer` ofrece una solución integral para declarar tu contenido de manera estructurada utilizando JavaScript. Esta guía explicará el concepto de IDs anidados, un método para gestionar archivos de declaración grandes con un rendimiento mejorado, permitiéndote definir, gestionar y acceder a tu contenido de manera eficiente.
-
-## Paquete Intlayer
-
-El paquete `intlayer` está diseñado para ayudarte a estructurar y gestionar contenido en un entorno multilingüe. Se integra con herramientas como [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme_es.md) para crear diccionarios a partir de tus declaraciones, y con intérpretes como [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_es.md) y [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_es.md) para usar estos diccionarios en diferentes frameworks.
-
-## Comenzando con IDs Anidados
+# Comenzando con IDs Anidados
 
 Los IDs anidados en `intlayer` te permiten declarar estructuras de contenido complejas de manera eficiente. Al introducir IDs anidados, puedes organizar el contenido en una estructura jerárquica, lo que lleva a un mejor rendimiento y una gestión más sencilla en aplicaciones a gran escala.
 

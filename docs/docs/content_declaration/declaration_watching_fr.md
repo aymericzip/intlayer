@@ -1,10 +1,4 @@
-# Documentation du Package Intlayer : Personnalisation des Extensions de Contenu
-
-## Aperçu
-
-Le package `intlayer` est une solution polyvalente conçue pour structurer votre contenu pour des applications multilingues utilisant JavaScript. Cette documentation se concentre sur la personnalisation des extensions de fichiers de contenu pour améliorer l'efficacité de la compilation et éviter les conflits dans les grands projets.
-
-Pour construire des dictionnaires à partir de vos déclarations de contenu, vous pouvez utiliser [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme_fr.md). Pour interpréter ces dictionnaires, envisagez d'utiliser [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_fr.md) ou [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_fr.md).
+# Personnalisation des Extensions de Contenu
 
 ## Extensions de Fichiers de Contenu
 

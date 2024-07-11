@@ -1,10 +1,4 @@
-# Intlayer Package Documentation: Content Extension Customization
-
-## Overview
-
-The `intlayer` package is a versatile solution designed to structure your content for multi-language applications using JavaScript. This documentation focuses on customizing content file extensions to enhance build efficiency and avoid conflicts in large projects.
-
-To build dictionaries from your content declarations, you can use [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme_en.md). For interpreting these dictionaries, consider [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_en.md) or [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_en.md).
+# Content Extension Customization
 
 ## Content File Extensions
 

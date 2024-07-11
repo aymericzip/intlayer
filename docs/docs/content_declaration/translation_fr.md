@@ -1,6 +1,4 @@
-# Documentation sur la Traduction avec Intlayer
-
-Le package `intlayer` propose un cadre robuste pour déclarer le contenu de manière structurée en utilisant JavaScript. Il est conçu pour être polyvalent, supportant les traductions multilingues et une variété de cas d'utilisation pour les applications web. Ce guide se concentrera sur comment utiliser `intlayer` pour la traduction dans votre application.
+# Traduction
 
 ## Définition des Traductions
 

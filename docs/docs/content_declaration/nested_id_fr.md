@@ -1,14 +1,4 @@
-# Documentation du package Intlayer
-
-## Aperçu
-
-Le package `intlayer` offre une solution complète pour déclarer votre contenu de manière structurée en utilisant JavaScript. Ce guide expliquera le concept des identifiants imbriqués, une méthode pour gérer de gros fichiers de déclaration avec une performance améliorée, vous permettant de définir, gérer et accéder efficacement à votre contenu.
-
-## Package Intlayer
-
-Le package `intlayer` est conçu pour vous aider à structurer et gérer du contenu dans un environnement multilingue. Il s'intègre avec des outils comme [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme_fr.md) pour créer des dictionnaires à partir de vos déclarations, et avec des interpréteurs comme [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_fr.md) et [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_fr.md) pour utiliser ces dictionnaires dans différents frameworks.
-
-## Commencer avec les identifiants imbriqués
+# Commencer avec les identifiants imbriqués
 
 Les identifiants imbriqués dans `intlayer` vous permettent de déclarer des structures de contenu complexes de manière efficace. En introduisant des identifiants imbriqués, vous pouvez organiser le contenu en une structure hiérarchique, conduisant à une meilleure performance et une gestion plus facile dans les applications à grande échelle.
 

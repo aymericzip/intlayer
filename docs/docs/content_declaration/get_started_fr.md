@@ -1,13 +1,4 @@
-# Documentation du Package Intlayer
-
-## Package intlayer
-
-Le package `intlayer` a pour but de déclarer votre contenu de manière structurée, en utilisant JavaScript.
-
-Pour construire des dictionnaires à partir de cette déclaration, vous pouvez utiliser [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme_fr.md).
-Et pour interpréter les dictionnaires intlayer, vous pouvez utiliser des interpréteurs, tels que [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_fr.md) ou [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_fr.md).
-
-## Commencer avec Intlayer
+# Commencer la Declaration de Votre Contenu
 
 [Voir comment utiliser intlayer avec NextJS](https://github.com/aypineau/intlayer/blob/main/readme_fr.md)
 

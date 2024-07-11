@@ -1,6 +1,4 @@
-# Intlayer Translation Documentation
-
-The `intlayer` package offers a robust framework for declaring content in a structured way using JavaScript. It is designed to be versatile, supporting multi-language translations and a variety of use cases for web applications. This guide will focus on how to use `intlayer` for translation in your application.
+# Translation
 
 ## Defining Translations
 

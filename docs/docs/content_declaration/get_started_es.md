@@ -1,13 +1,4 @@
-# Documentación del Paquete Intlayer
-
-## Paquete intlayer
-
-El paquete `intlayer` tiene como objetivo declarar tu contenido de una manera estructurada, utilizando JavaScript.
-
-Para construir diccionarios a partir de esta declaración, puedes usar [intlayer-cli](https://github.com/aypineau/intlayer/blob/main/packages/intlayer-cli/readme_es.md).
-Y para interpretar diccionarios de intlayer puedes usar intérpretes, como [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_es.md) o [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_es.md).
-
-## Comenzando con Intlayer
+# Comenzando la Gestion de tu Contenido
 
 [Mira cómo usar intlayer con NextJS](https://github.com/aypineau/intlayer/blob/main/readme_es.md)
 
