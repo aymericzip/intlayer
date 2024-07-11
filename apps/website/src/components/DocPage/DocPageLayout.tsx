@@ -1,11 +1,8 @@
-'use client';
-
 import { Container, MaxHeightSmoother } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import type { Locales } from 'intlayer';
-import { useRouter } from 'next/navigation';
-import { useLocale } from 'next-intlayer';
-import type { FC, ReactNode } from 'react';
+import Link from 'next/link';
+import React, { type ReactNode, type FC, type ComponentProps } from 'react';
 import { getDocData } from './docData';
 
 type DocPageLayoutProps = {
@@ -14,12 +11,18 @@ type DocPageLayoutProps = {
   locale?: Locales;
 };
 
+type OptionalLinkProps = ComponentProps<typeof Link>;
+
+const OptionalLink: FC<OptionalLinkProps> = ({ href, ...props }) => {
+  if (!href) return <span {...props} />;
+  return <Link {...props} href={href} />;
+};
+
 export const DocPageLayout: FC<DocPageLayoutProps> = ({
   children,
   locale,
   activeSections = [],
 }) => {
-  const router = useRouter();
   const docData = getDocData(locale);
 
   return (
@@ -31,23 +34,19 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
               const section1Data = docData[key1];
               const sectionDefault = section1Data.default;
               const subSections = section1Data.subSections;
+              const isActive = key1 === activeSections[0];
 
               return (
                 <div key={key1}>
-                  <button
+                  <OptionalLink
+                    href={sectionDefault?.url ?? ''}
                     className={cn([
-                      'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer text-nowrap text-left font-semibold transition-colors dark:text-neutral-200',
-                      key1 === activeSections[0] &&
-                        'text-primary dark:text-primary-dark',
+                      'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap text-left font-semibold transition-colors dark:text-neutral-200',
+                      isActive && 'text-primary dark:text-primary-dark',
                     ])}
-                    onClick={() => {
-                      if (typeof sectionDefault?.url === 'string') {
-                        router.push(sectionDefault.url);
-                      }
-                    }}
                   >
                     {section1Data.title}
-                  </button>
+                  </OptionalLink>
 
                   {subSections && Object.keys(subSections).length > 0 && (
                     <div className="border-neutral dark:border-neutral-dark mt-4 flex flex-col gap-4 border-l-[0.5px] p-1">
@@ -55,24 +54,22 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                         const section2Data = subSections[key2];
                         const sectionDefault = section2Data.default;
                         const subSections2 = section2Data.subSections;
+                        const isActive =
+                          key1 === activeSections[0] &&
+                          key2 === activeSections[1];
 
                         return (
                           <div key={key2}>
-                            <button
+                            <OptionalLink
+                              href={sectionDefault?.url ?? ''}
                               className={cn([
-                                'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
-                                key1 === activeSections[0] &&
-                                  key2 === activeSections[1] &&
+                                'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
+                                isActive &&
                                   'text-primary dark:text-primary-dark',
                               ])}
-                              onClick={() => {
-                                if (typeof sectionDefault?.url === 'string') {
-                                  router.push(sectionDefault.url);
-                                }
-                              }}
                             >
                               {section2Data?.title}
-                            </button>
+                            </OptionalLink>
 
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
@@ -90,27 +87,23 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                                       const sectionDefault =
                                         section3Data.default;
 
+                                      const isActive =
+                                        key1 === activeSections[0] &&
+                                        key2 === activeSections[1] &&
+                                        key3 === activeSections[2];
+
                                       return (
-                                        <button
+                                        <OptionalLink
                                           key={key3}
+                                          href={sectionDefault?.url ?? ''}
                                           className={cn([
-                                            'text-neutral hover:text-text dark:hover:text-text-dark cursor-pointer text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200',
-                                            key1 === activeSections[0] &&
-                                              key2 === activeSections[1] &&
-                                              key3 === activeSections[2] &&
+                                            'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200',
+                                            isActive &&
                                               'text-primary dark:text-primary-dark',
                                           ])}
-                                          onClick={() => {
-                                            if (
-                                              typeof sectionDefault?.url ===
-                                              'string'
-                                            ) {
-                                              router.push(sectionDefault.url);
-                                            }
-                                          }}
                                         >
                                           {section3Data.title}
-                                        </button>
+                                        </OptionalLink>
                                       );
                                     })}
                                   </div>
