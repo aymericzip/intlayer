@@ -827,31 +827,33 @@ export const getDoc = (
   }
 };
 
-const getDocSectionPaths = (
-  docData: Section,
-  presetKeys: string[] = []
-): string[][] => {
+const getDocSectionPaths = (docData: Section, presetKeys: string[] = []) => {
   const paths: string[][] = [];
+  const docs: DocData[] = [];
 
   for (const key of Object.keys(docData)) {
     const docDataValue = docData[key];
 
     if (typeof docDataValue.default !== 'undefined') {
+      docs.push(docDataValue.default);
       paths.push([...presetKeys, key]);
     } else if (typeof docDataValue.subSections !== 'undefined') {
-      const subSectionsPaths: string[][] = getDocSectionPaths(
-        docDataValue.subSections,
-        [...presetKeys, key]
-      );
+      const { paths: subSectionsPaths, docs: subSectionsDocs } =
+        getDocSectionPaths(docDataValue.subSections, [...presetKeys, key]);
 
+      docs.push(...subSectionsDocs);
       paths.push(...subSectionsPaths);
     }
   }
 
-  return paths;
+  return { paths, docs };
 };
 
-export const getDocPaths = () => {
-  const docData = getDocData();
-  return getDocSectionPaths(docData);
+export const getDocPaths = (locale?: Locales) => {
+  const docData = getDocData(locale);
+  return getDocSectionPaths(docData).paths;
+};
+export const getDocArray = (locale?: Locales) => {
+  const docData = getDocData(locale);
+  return getDocSectionPaths(docData).docs;
 };

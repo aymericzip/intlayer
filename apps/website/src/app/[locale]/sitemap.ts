@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next';
-import type { LocalParams } from 'next-intlayer';
 import { PagesRoutes } from '@/Routes';
 
 const sitemap = (): MetadataRoute.Sitemap => [
@@ -10,20 +9,20 @@ const sitemap = (): MetadataRoute.Sitemap => [
     priority: 1,
     alternates: {
       languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}/fr`,
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Home}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Home}`,
       },
     },
   },
   {
-    url: `${process.env.NEXT_PUBLIC_URL}/${PagesRoutes.Demo}`,
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.8,
     alternates: {
       languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}/fr`,
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Demo}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Demo}`,
       },
     },
   },
@@ -34,200 +33,8 @@ const sitemap = (): MetadataRoute.Sitemap => [
     priority: 0.8,
     alternates: {
       languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Configuration}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Configuration}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Configuration}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Interest}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Interest}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Interest}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_CRA}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_CRA}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_CRA}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_ViteAndReact}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_ViteAndReact}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_ViteAndReact}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_NextJS}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_NextJS}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Environment_NextJS}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_Translation}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_Translation}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_Translation}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_Enumeration}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_Enumeration}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_Enumeration}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_FunctionFetching}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_FunctionFetching}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_FunctionFetching}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_NestedId}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_NestedId}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_NestedId}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_DeclarationWatching}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_DeclarationWatching}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_DeclarationWatching}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerEditor}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerEditor}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerEditor}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_HowWorksIntlayer}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_HowWorksIntlayer}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_HowWorksIntlayer}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18next}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18next}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_IntlayerWithI18next}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.PrivacyPolicy}`,
-    lastModified: new Date(),
-    changeFrequency: 'yearly',
-    priority: 0.3,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.PrivacyPolicy}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.PrivacyPolicy}/fr`,
-      },
-    },
-  },
-  {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.TermsOfService}`,
-    lastModified: new Date(),
-    changeFrequency: 'yearly',
-    priority: 0.3,
-    alternates: {
-      languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.TermsOfService}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.TermsOfService}/fr`,
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Doc}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Doc}`,
       },
     },
   },
