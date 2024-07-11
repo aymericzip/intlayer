@@ -1,13 +1,13 @@
 import { DemoPage } from '@components/DemoPage';
-import { PageLayout } from '@layouts/PageLayout';
 import type { NextPageIntlayer } from 'next-intlayer';
+import { IntlayerServerProvider } from 'next-intlayer/server';
 import { generateMetadata } from './metadata';
 
 export { generateMetadata };
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
-  <PageLayout locale={locale}>
+  <IntlayerServerProvider locale={locale}>
     <DemoPage />
-  </PageLayout>
+  </IntlayerServerProvider>
 );
 export default Page;

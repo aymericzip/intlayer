@@ -100,14 +100,14 @@ const sitemap = (): MetadataRoute.Sitemap => [
     },
   },
   {
-    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_DeclareYourContent}`,
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.8,
     alternates: {
       languages: {
-        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_DeclareYourContent}/es`,
-        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration_DeclareYourContent}/fr`,
+        es: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration}/es`,
+        fr: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_ContentDeclaration}/fr`,
       },
     },
   },

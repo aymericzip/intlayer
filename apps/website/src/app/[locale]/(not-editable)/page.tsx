@@ -1,10 +1,10 @@
 import { LandingPage } from '@components/LandingPage';
-import { PageLayout } from '@layouts/PageLayout';
 import type { NextPageIntlayer } from 'next-intlayer';
+import { IntlayerServerProvider } from 'next-intlayer/server';
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
-  <PageLayout locale={locale} editorEnabled={false}>
+  <IntlayerServerProvider locale={locale}>
     <LandingPage />
-  </PageLayout>
+  </IntlayerServerProvider>
 );
 export default Page;

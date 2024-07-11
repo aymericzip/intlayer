@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
 type DocumentationRenderProps = {
-  docName: keyof typeof DocsKeys;
+  docName: DocsKeys;
 };
 
 export const DocumentationRender: FC<DocumentationRenderProps> = ({

@@ -1,7 +1,7 @@
 import { Loader } from '@intlayer/design-system';
-import { PageLayout } from '@layouts/PageLayout';
 import dynamic from 'next/dynamic';
 import type { NextPageIntlayer } from 'next-intlayer';
+import { IntlayerServerProvider } from 'next-intlayer/server';
 import { generateMetadata } from './metadata';
 
 export { generateMetadata };
@@ -17,10 +17,10 @@ const DynamicDocumentationRender = dynamic(
 );
 
 const Page: NextPageIntlayer = ({ params: { locale } }) => (
-  <PageLayout locale={locale} editorEnabled={false}>
+  <IntlayerServerProvider locale={locale}>
     <div className="m-auto max-w-2xl">
       <DynamicDocumentationRender docName="privacy_notice" />
     </div>
-  </PageLayout>
+  </IntlayerServerProvider>
 );
 export default Page;

@@ -1,11 +1,7 @@
-import type { ReactNode } from 'react';
-import { generateMetadata } from './metadata';
-export { generateMetadata };
+import type { FC, PropsWithChildren } from 'react';
+export { generateMetadata } from './metadata';
+export { generateStaticParams } from 'next-intlayer';
 
-const LocaleLayout = ({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) => children;
+const LocaleLayout: FC<PropsWithChildren> = ({ children }) => children;
 
 export default LocaleLayout;

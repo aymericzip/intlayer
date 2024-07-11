@@ -1,5 +1,5 @@
 declare module '@intlayer/docs' {
-  export enum DocsKeys {
+  enum DocsKeysEnum {
     introduction,
     how_works_intlayer,
     configuration,
@@ -19,6 +19,8 @@ declare module '@intlayer/docs' {
     terms_of_service,
     privacy_notice,
   }
+
+  export type DocsKeys = keyof typeof DocsKeysEnum;
 
   export function getDocs(lang: string): Docs;
   export function getDoc<T extends DocsKeys>(docName: T, lang: string): Docs[T];
