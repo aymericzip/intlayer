@@ -21,7 +21,7 @@ const OptionalLink: FC<OptionalLinkProps> = ({ href, ...props }) => {
 export const DocPageLayout: FC<DocPageLayoutProps> = ({
   children,
   locale,
-  activeSections = [],
+  activeSections = ['get_started'],
 }) => {
   const docData = getDocData(locale);
 

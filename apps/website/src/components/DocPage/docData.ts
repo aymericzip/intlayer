@@ -809,11 +809,14 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
 };
 
 export const getDoc = (
-  docPath: string[],
+  docPath: string[] = [],
   locale: Locales = Locales.ENGLISH
 ): DocData | undefined => {
-  const docData = getDocData(locale); // Retrieve all documentation data for the given locale
-  let currentSection = docData;
+  let currentSection = getDocData(locale);
+
+  if (docPath.length === 0) {
+    return currentSection.get_started.default;
+  }
 
   // Traverse the nested structure based on the docPath array
   for (const path of docPath) {
