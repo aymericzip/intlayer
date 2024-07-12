@@ -10,7 +10,7 @@ const config: IntlayerConfig = {
     strictMode: 'strict',
   },
   editor: {
-    enabled: process.env.NODE_ENV === 'development',
+    enabled: true,
   },
 };
 
