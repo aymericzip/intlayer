@@ -1,8 +1,14 @@
 # Comenzando la Gestion de tu Contenido
 
-[Mira cómo usar intlayer con NextJS](https://github.com/aypineau/intlayer/blob/main/readme_es.md)
+## Configuración de Intlayer para tu proyecto
 
-### Instalar el Paquete
+[Mira cómo usar intlayer con NextJS](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_nextjs_es.md)
+
+[Mira cómo usar intlayer con ReactJS](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_es.md)
+
+[Mira cómo usar intlayer con Vite+React](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_vite+react_es.md)
+
+## Instalar el Paquete
 
 Instala los paquetes necesarios usando npm:
 
@@ -18,11 +24,11 @@ yarn install intlayer
 pnpm install intlayer
 ```
 
-### Gestiona tu Contenido
+## Gestiona tu Contenido
 
 Crea y gestiona tus diccionarios de contenido:
 
-#### Usando TypeScript
+### Usando TypeScript
 
 ```typescript
 // src/app/[locale]/page.content.ts
@@ -55,7 +61,7 @@ const pageContent: DeclarationContent = {
 export default pageContent;
 ```
 
-#### Usando módulos ECMAScript
+### Usando módulos ECMAScript
 
 ```javascript
 // src/app/[locale]/page.content.mjs
@@ -90,7 +96,7 @@ const pageContent = {
 export default pageContent;
 ```
 
-#### Usando módulos CommonJS
+### Usando módulos CommonJS
 
 ```javascript
 // src/app/[locale]/page.content.cjs
@@ -125,7 +131,7 @@ const pageContent = {
 module.exports = pageContent;
 ```
 
-#### Usando JSON
+### Usando JSON
 
 ```json5
 // src/app/[locale]/page.content.json

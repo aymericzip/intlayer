@@ -10,7 +10,7 @@ declare module '@intlayer/docs' {
     intlayer_with_i18next,
     intlayer_with_nextjs,
     intlayer_with_vite_react,
-    content_declaration__declaration_watching,
+    content_declaration__content_extention_customization,
     content_declaration__enumeration,
     content_declaration__function_fetching,
     content_declaration__get_started,

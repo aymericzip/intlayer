@@ -1,4 +1,6 @@
-### Install Package
+# Intlayer CLI
+
+## Install Package
 
 Install the necessary packages using npm:
 
@@ -14,7 +16,7 @@ yarn install intlayer-cli
 pnpm install intlayer-cli
 ```
 
-# intlayer-cli package
+## intlayer-cli package
 
 `intlayer-cli` package intend to transpile your [intlayer](https://github.com/aypineau/intlayer/blob/main/packages/intlayer/readme_en.md) declarations into dictionaries.
 
@@ -22,7 +24,7 @@ This package will transpile all intlayer files, such as `src/**/*.content.{ts|js
 
 To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/react-intlayer/readme_en.md), or [next-intlayer](https://github.com/aypineau/intlayer/blob/main/packages/next-intlayer/readme_en.md)
 
-# Configuration File Support
+## Configuration File Support
 
 Intlayer accepts multiple configuration file formats:
 
