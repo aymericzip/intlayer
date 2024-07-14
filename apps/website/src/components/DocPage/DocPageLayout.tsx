@@ -1,6 +1,7 @@
 import { Container, MaxHeightSmoother } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import type { Locales } from 'intlayer';
+import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import React, { type ReactNode, type FC, type ComponentProps } from 'react';
 import { getDocData } from './docData';
@@ -54,6 +55,8 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                         const section2Data = subSections[key2];
                         const sectionDefault = section2Data.default;
                         const subSections2 = section2Data.subSections;
+                        const hasSubsections =
+                          subSections2 && Object.keys(subSections2).length > 0;
                         const isActive =
                           key1 === activeSections[0] &&
                           key2 === activeSections[1];
@@ -63,24 +66,20 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                             <OptionalLink
                               href={sectionDefault?.url ?? ''}
                               className={cn([
-                                'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
+                                'text-neutral hover:text-text dark:hover:text-text-dark flex flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
                                 isActive &&
                                   'text-primary dark:text-primary-dark',
                               ])}
                             >
                               {section2Data?.title}
+                              {hasSubsections && !isActive && (
+                                <ChevronDown className="ml-1 size-4" />
+                              )}
                             </OptionalLink>
 
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
-                                <MaxHeightSmoother
-                                  isHidden={
-                                    !(
-                                      key1 === activeSections[0] &&
-                                      key2 === activeSections[1]
-                                    )
-                                  }
-                                >
+                                <MaxHeightSmoother isHidden={!isActive}>
                                   <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
                                     {Object.keys(subSections2).map((key3) => {
                                       const section3Data = subSections2[key3];
