@@ -16,7 +16,6 @@ const secureHeaders = createSecureHeaders({
         'fonts.googleapis.com',
       ],
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
-      frameSrc: ["'self'"],
       connectSrc: [
         "'self'",
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
@@ -42,7 +41,8 @@ const secureHeaders = createSecureHeaders({
         'data:',
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
-      frameAncestors: ["'self'"],
+      frameSrc: ["'self'", 'codesandbox.io'],
+      frameAncestors: ["'self'", 'codesandbox.io'],
 
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],
