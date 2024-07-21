@@ -1,5 +1,20 @@
 # react-intlayer
 
+## 2.0.11
+
+### Patch Changes
+
+- [`211df95`](https://github.com/aypineau/intlayer/commit/211df95a075d30984bb8809cd6d11ad324ac70a5) Thanks [@aypineau](https://github.com/aypineau)! - Prepare release
+
+- Updated dependencies [[`211df95`](https://github.com/aypineau/intlayer/commit/211df95a075d30984bb8809cd6d11ad324ac70a5)]:
+  - intlayer@2.0.11
+  - @intlayer/chokidar@2.0.11
+  - @intlayer/config@2.0.11
+  - @intlayer/webpack@2.0.11
+  - intlayer-editor@2.1.10
+  - @intlayer/core@2.0.11
+  - @intlayer/dictionaries-entry@2.0.11
+
 ## 2.0.10
 
 ### Patch Changes

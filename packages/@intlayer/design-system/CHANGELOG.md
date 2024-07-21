@@ -1,5 +1,13 @@
 # @intlayer/design-system
 
+## 2.0.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @intlayer/config@2.0.11
+  - @intlayer/core@2.0.11
+
 ## 2.0.10
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # intlayer-cli
 
+## 2.0.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @intlayer/chokidar@2.0.11
+  - @intlayer/config@2.0.11
+  - @intlayer/core@2.0.11
+  - @intlayer/cli@2.0.11
+
 ## 2.0.10
 
 ### Patch Changes
