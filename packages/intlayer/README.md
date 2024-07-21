@@ -1,3 +1,22 @@
+<div align="center">
+  <a href="https://www.npmjs.com/package/intlayer">
+    <img src="docs/assets/logo.png" width="500" alt="intlayer" />
+  </a>
+</div>
+
+<div align="center">
+  <a href="https://www.npmjs.com/package/intlayer">
+    <img alt="npm" src="https://img.shields.io/npm/v/intlayer.svg?labelColor=49516F&color=8994BC" />
+  </a>
+  <a href="https://npmjs.org/package/intlayer">
+    <img alt="downloads" src="https://badgen.net/npm/dm/intlayer?labelColor=49516F&color=8994BC" />
+  </a>
+  <a href="https://npmjs.org/package/intlayer">
+    <img alt="types included" src="https://badgen.net/npm/types/intlayer?labelColor=49516F&color=8994BC" 
+  />
+  </a>
+</div>
+
 # Intlayer: Next-Level Content Management in JavaScript
 
 **Intlayer** is an innovative Content Management System (CMS) designed specifically for JavaScript developers. It enables seamless transpilation of JavaScript content into structured dictionaries, making integration into your codebase straightforward and efficient.

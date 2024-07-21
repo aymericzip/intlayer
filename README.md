@@ -1,3 +1,22 @@
+<div align="center">
+  <a href="https://www.npmjs.com/package/intlayer">
+    <img src="docs/assets/logo.png" width="500" alt="intlayer" />
+  </a>
+</div>
+
+<div align="center">
+  <a href="https://www.npmjs.com/package/intlayer">
+    <img alt="npm" src="https://img.shields.io/npm/v/intlayer.svg?labelColor=49516F&color=8994BC" />
+  </a>
+  <a href="https://npmjs.org/package/intlayer">
+    <img alt="downloads" src="https://badgen.net/npm/dm/intlayer?labelColor=49516F&color=8994BC" />
+  </a>
+  <a href="https://npmjs.org/package/intlayer">
+    <img alt="types included" src="https://badgen.net/npm/types/intlayer?labelColor=49516F&color=8994BC" 
+  />
+  </a>
+</div>
+
 # Intlayer: A closer way to translate your application
 
 Intlayer is an innovative internationalization framework designed to replace i18next for Next.js and React applications. It streamlines the process of internationalization with flexible content declaration and robust configuration options.
