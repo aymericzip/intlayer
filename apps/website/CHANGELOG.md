@@ -1,5 +1,16 @@
 # website
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [[`211df95`](https://github.com/aypineau/intlayer/commit/211df95a075d30984bb8809cd6d11ad324ac70a5)]:
+  - intlayer@2.0.11
+  - next-intlayer@2.0.11
+  - intlayer-cli@2.0.11
+  - @intlayer/design-system@2.0.11
+  - @intlayer/docs@2.0.11
+
 ## 0.1.10
 
 ### Patch Changes

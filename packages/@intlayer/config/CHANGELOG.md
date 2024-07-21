@@ -1,5 +1,12 @@
 # @intlayer/config
 
+## 2.0.11
+
+### Patch Changes
+
+- Updated dependencies [[`211df95`](https://github.com/aypineau/intlayer/commit/211df95a075d30984bb8809cd6d11ad324ac70a5)]:
+  - intlayer@2.0.11
+
 ## 2.0.10
 
 ### Patch Changes
