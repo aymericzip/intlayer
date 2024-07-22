@@ -18,6 +18,7 @@ export enum PagesRoutes {
   Doc_Environment_NextJS = '/doc/environment/intlayer_with_nextjs',
   Doc_Environment_CRA = '/doc/environment/intlayer_with_create_react_app',
   Doc_Environment_ViteAndReact = '/doc/environment/intlayer_with_vite_and_react',
+  Doc_Intlayer_with_I18next = '/doc/blog/intlayer_with_i18next',
 
   PrivacyPolicy = '/privacy_notice',
   TermsOfService = '/terms_of_service',

@@ -19,7 +19,7 @@ export const generateMetadata = ({
   const docData = getDoc(doc, locale);
 
   if (!docData) {
-    throw new Error('Doc not found');
+    throw new Error(`Doc not found ${JSON.stringify(doc)}`);
   }
 
   return {

@@ -752,6 +752,72 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         },
       },
     },
+    blog: {
+      title: t({
+        en: 'Blog',
+        fr: 'Blog',
+        es: 'Blog',
+      }),
+      subSections: {
+        intlayer_with_i18next: {
+          title: t({
+            en: 'Intlayer and i18next',
+            fr: 'Intlayer et i18next',
+            es: 'Intlayer y i18next',
+          }),
+          default: {
+            docName: 'intlayer_with_i18next',
+            url: PagesRoutes.Doc_Intlayer_with_I18next,
+            githubUrl: GithubRoutes.IntlayerWithI18next,
+            title: t({
+              en: 'Intlayer with i18next',
+              fr: 'Intlayer avec i18next',
+              es: 'Intlayer con i18next',
+            }),
+            description: t({
+              en: 'Compare Intlayer with i18next',
+              fr: 'Comparer Intlayer avec i18next',
+              es: 'Comparar Intlayer con i18next',
+            }),
+            keywords: t({
+              en: [
+                'i18next',
+                'next-intl',
+                'Intlayer',
+                'Internationalization',
+                'Documentation',
+                'Intlayer',
+                'Next.js',
+                'JavaScript',
+                'React',
+              ],
+              es: [
+                'i18next',
+                'next-intl',
+                'Intlayer',
+                'Internacionalización',
+                'Documentación',
+                'Intlayer',
+                'Next.js',
+                'JavaScript',
+                'React',
+              ],
+              fr: [
+                'i18next',
+                'next-intl',
+                'Intlayer',
+                'Internationalisation',
+                'Documentation',
+                'Intlayer',
+                'Next.js',
+                'JavaScript',
+                'React',
+              ],
+            }),
+          },
+        },
+      },
+    },
   };
 
   return result;
