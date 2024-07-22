@@ -30,7 +30,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
     <div className="flex-1 border-b-[0.5px] md:grid md:size-full md:grid-cols-[1fr_auto]">
       <Container className="h-full" roundedSize="none" transparency="sm">
         <div className="sticky px-20 md:top-16 md:px-0">
-          <nav className="flex min-w-40 flex-col gap-5 px-6 py-10 md:max-w-80">
+          <nav className="flex min-w-40 flex-col gap-5 overflow-auto px-6 py-10 pb-20 md:max-h-screen md:max-w-80">
             {Object.keys(docData).map((key1) => {
               const section1Data = docData[key1];
               const sectionDefault = section1Data.default;
