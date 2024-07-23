@@ -2,30 +2,38 @@
   "name": "react-intlayer",
   "version": "2.0.11",
   "private": false,
-  "description": "Internationalization layer for React applications - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
+  "description": "Internationalization layer for React applications. Declare your multilingual contant in the same lever than your component. Powered by TypeScript, declaration files.",
   "keywords": [
     "intlayer",
-    "layer",
-    "abstraction",
     "data",
     "internationalization",
+    "multilingual",
     "i18n",
     "typescript",
-    "javascript",
     "react",
-    "json",
-    "file"
+    "vite",
+    "json"
   ],
-  "homepage": "https://github.com/aypineau/intlayer",
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aypineau/intlayer.git"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": {
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aypineau"
   },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aypineau"
+    }
+  ],
   "exports": {
     ".": {
       "types": "./dist/esm/index.d.mts",
@@ -54,6 +62,8 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [

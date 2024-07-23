@@ -2,26 +2,36 @@
   "name": "intlayer",
   "version": "2.0.11",
   "private": false,
-  "description": "IntLayer is a layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
+  "description": "Manage internationalization in a simple way, through TypeScript, declaration file, declare your multilingual every where in your code.",
   "keywords": [
     "intlayer",
     "application",
     "transpile",
     "typescript",
-    "javascript",
-    "json",
-    "file"
+    "multilingual",
+    "i18n",
+    "internationalization"
   ],
-  "homepage": "https://github.com/aypineau/intlayer",
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aypineau/intlayer.git"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": {
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aypineau"
   },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aypineau"
+    }
+  ],
   "exports": {
     ".": {
       "types": "./dist/esm/index.d.mts",
@@ -30,6 +40,8 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [

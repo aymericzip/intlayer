@@ -3,16 +3,26 @@
   "version": "1.00.0",
   "private": false,
   "description": "IntLayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
-  "homepage": "https://github.com/aypineau/intlayer",
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aypineau/intlayer.git"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": {
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aypineau"
   },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aypineau"
+    }
+  ],
   "type": "module",
   "scripts": {
     "build": "pnpm build-packages && pnpm build-examples",

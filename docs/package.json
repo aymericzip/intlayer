@@ -12,16 +12,23 @@
     "json",
     "file"
   ],
-  "homepage": "https://github.com/aypineau/intlayer",
+  "homepage": "https://intlayer.org",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aypineau/intlayer.git"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": {
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aypineau"
   },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aypineau"
+    }
+  ],
   "type": "commonjs",
   "exports": {
     ".": {
@@ -45,6 +52,8 @@
       "types": "./index_es.d.ts"
     }
   },
+  "main": "./index.cjs",
+  "module": "./index.cjs",
   "files": [
     "**/*"
   ],
