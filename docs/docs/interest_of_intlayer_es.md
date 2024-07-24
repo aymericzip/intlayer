@@ -1,6 +1,47 @@
 # Intlayer: Una forma más cercana de traducir tu aplicación
 
-**Intlayer** es un innovador Sistema de Gestión de Contenidos (CMS) diseñado específicamente para desarrolladores de JavaScript. Convierte la declaración de contenido multilingüe de JavaScript en diccionarios estructurados, haciendo que la integración en tu base de código sea sencilla y eficiente.
+**Intlayer** es una librería de internationalization diseñada específicamente para desarrolladores de JavaScript. Permite la declaración de su contenido en cualquier lugar en su código. Convierte la declaración de su contenido multilingüe en diccionarios estructurados para facilitar la integración en su base de código. Utilizando TypeScript, **Intlayer** hace que el desarrollo sea más fuerte y eficiente.
+
+## Ejemplo de uso
+
+```bash
+.
+├── Component1
+│   ├── index.content.ts
+│   └── index.tsx
+└── Component2
+    ├── index.content.ts
+    └── index.tsx
+```
+
+```tsx
+// ./Component1/index.content.ts
+
+import { DeclarationContent, t } from "intlayer";
+
+const component1Content: DeclarationContent = {
+  id: "component1",
+  myTranslatedContent: t({
+    en: "Hello World",
+    fr: "Bonjour le monde",
+    es: "Hola Mundo",
+  }),
+};
+
+export default component1Content;
+```
+
+```tsx
+// ./Component1/index.tsx
+
+import { useIntlayer } from "react-intlayer";
+
+export const Component1 = () => {
+  const { myTranslatedContent } = useIntlayer("component1");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
 ## ¿Por qué elegir Intlayer?
 

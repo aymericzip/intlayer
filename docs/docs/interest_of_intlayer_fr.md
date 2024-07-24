@@ -1,6 +1,47 @@
 # Intlayer : Une manière plus proche de traduire votre application
 
-**Intlayer** est un système de gestion de contenu (CMS) innovant spécialement conçu pour les développeurs JavaScript. Il convertit la déclaration de contenu JavaScript multilingue en dictionnaires structurés, ce qui facilite et rend efficace l'intégration dans votre codebase.
+**Intlayer** est une librarie d'internationalisation conçue spécifiquement pour les développeurs JavaScript. Elle permet la déclaration de votre contenu à n'importe quel endroit dans votre code. Elle convertit la déclaration de votre contenu multilingue en dictionnaires structurés pour faciliter l'intégration dans votre codebase. En utilisant TypeScript, **Intlayer** rend votre developpement plus fort et efficace.
+
+## Exemple d'utilisation
+
+```bash
+.
+├── Component1
+│   ├── index.content.ts
+│   └── index.tsx
+└── Component2
+    ├── index.content.ts
+    └── index.tsx
+```
+
+```tsx
+// ./Component1/index.content.ts
+
+import { DeclarationContent, t } from "intlayer";
+
+const component1Content: DeclarationContent = {
+  id: "component1",
+  myTranslatedContent: t({
+    en: "Hello World",
+    fr: "Bonjour le monde",
+    es: "Hola Mundo",
+  }),
+};
+
+export default component1Content;
+```
+
+```tsx
+// ./Component1/index.tsx
+
+import { useIntlayer } from "react-intlayer";
+
+export const Component1 = () => {
+  const { myTranslatedContent } = useIntlayer("component1");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
 ## Pourquoi choisir Intlayer ?
 
@@ -11,3 +52,7 @@
 - **Support des composants serveur** : Parfaitement adapté aux composants serveur de Next.js, garantissant un rendu côté serveur fluide.
 - **Routage amélioré** : Support complet pour le routage des applications Next.js, s'adaptant parfaitement aux structures d'applications complexes.
 - **Interopérabilité** : Permet l'interopérabilité avec i18next. (bêta)
+
+```
+
+```

@@ -8,9 +8,9 @@ const landingSectionContent: DeclarationContent = {
     es: 'Traduzca su sitio web de manera más eficiente',
   }),
   description: t({
-    en: 'Intlayer is an innovative Content Management System (CMS) designed specifically for JavaScript developers. It converts declaration of multilingual JavaScript content into structured dictionaries, making integration into your codebase straightforward and efficient.',
-    fr: 'Intlayer est un système de gestion de contenu (CMS) innovant conçu spécifiquement pour les développeurs JavaScript. Il convertit la déclaration de contenu JavaScript multilingue en dictionnaires structurés, facilitant l’intégration dans votre base de code de manière simple et efficace.',
-    es: 'Intlayer es un innovador Sistema de Gestión de Contenidos (CMS) diseñado específicamente para desarrolladores de JavaScript. Convierte la declaración de contenido JavaScript multilingüe en diccionarios estructurados, lo que facilita la integración en su base de código de manera sencilla y eficiente.',
+    en: 'Intlayer is an internationalization library designed specifically for JavaScript developers. It allow the declaration of your content everywhere in your code. It converts declaration of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, Intlayer make your development stronger and more efficient.',
+    fr: "Intlayer est une librarie d'internationalisation conçue spécifiquement pour les développeurs JavaScript. Elle permet la déclaration de votre contenu à n'importe quel endroit dans votre code. Elle convertit la déclaration de votre contenu multilingue en dictionnaires structurés pour faciliter l'intégration dans votre codebase. En utilisant TypeScript, Intlayer rend votre developpement plus fort et efficace.",
+    es: 'Intlayer es una librería de internationalization diseñada específicamente para desarrolladores de JavaScript. Permite la declaración de su contenido en cualquier lugar en su código. Convierte la declaración de su contenido multilingüe en diccionarios estructurados para facilitar la integración en su base de código. Utilizando TypeScript, Intlayer hace que el desarrollo sea más fuerte y eficiente.',
   }),
 };
 

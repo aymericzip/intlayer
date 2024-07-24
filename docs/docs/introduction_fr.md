@@ -6,11 +6,50 @@ Bienvenue dans la documentation Intlayer. Ce guide offre un aperçu d'Intlayer, 
 
 ### Qu'est-ce que Intlayer ?
 
-**Intlayer** est un système de gestion de contenu (CMS) innovant conçu spécifiquement pour les développeurs JavaScript. Il convertit la déclaration de contenu JavaScript multilingue en dictionnaires structurés, rendant l'intégration dans votre base de code simple et efficace.
-
-Avec Intlayer, vous pouvez facilement gérer votre contenu dans toutes les langues configurées, offrant une expérience transparente pour vos utilisateurs.
+**Intlayer** est une librarie d'internationalisation conçue spécifiquement pour les développeurs JavaScript. Elle permet la déclaration de votre contenu à n'importe quel endroit dans votre code. Elle convertit la déclaration de votre contenu multilingue en dictionnaires structurés pour faciliter l'intégration dans votre codebase. En utilisant TypeScript, **Intlayer** rend votre developpement plus fort et efficace.
 
 Intlayer offre également un éditeur visuel optionnel qui vous permet de modifier et de gérer facilement votre contenu. Cet éditeur est particulièrement utile pour les développeurs qui préfèrent une interface visuelle pour la gestion de contenu, ou pour les équipes générant du contenu sans avoir à se soucier du code.
+
+## Exemple d'utilisation
+
+```bash
+.
+├── Component1
+│   ├── index.content.ts
+│   └── index.tsx
+└── Component2
+    ├── index.content.ts
+    └── index.tsx
+```
+
+```tsx
+// ./Component1/index.content.ts
+
+import { DeclarationContent, t } from "intlayer";
+
+const component1Content: DeclarationContent = {
+  id: "component1",
+  myTranslatedContent: t({
+    en: "Hello World",
+    fr: "Bonjour le monde",
+    es: "Hola Mundo",
+  }),
+};
+
+export default component1Content;
+```
+
+```tsx
+// ./Component1/index.tsx
+
+import { useIntlayer } from "react-intlayer";
+
+export const Component1 = () => {
+  const { myTranslatedContent } = useIntlayer("component1");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
 ### Fonctionnalités Principales
 

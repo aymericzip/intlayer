@@ -6,11 +6,50 @@ Bienvenido a la Documentación de Intlayer. Esta guía proporciona una visión g
 
 ### ¿Qué es Intlayer?
 
-**Intlayer** es un innovador Sistema de Gestión de Contenidos (CMS) diseñado específicamente para desarrolladores de JavaScript. Convierte la declaración de contenido de JavaScript multilingüe en diccionarios estructurados, facilitando la integración en su base de código de manera directa y eficiente.
-
-Con Intlayer, puede gestionar fácilmente su contenido en todos los idiomas configurados, proporcionando una experiencia fluida para sus usuarios.
+**Intlayer** es una librería de internationalization diseñada específicamente para desarrolladores de JavaScript. Permite la declaración de su contenido en cualquier lugar en su código. Convierte la declaración de su contenido multilingüe en diccionarios estructurados para facilitar la integración en su base de código. Utilizando TypeScript, **Intlayer** hace que el desarrollo sea más fuerte y eficiente.
 
 Intlayer también ofrece un editor visual opcional que le permite editar y gestionar su contenido fácilmente. Este editor es particularmente útil para desarrolladores que prefieren una interfaz visual para la gestión de contenido, o para equipos que generan contenido sin tener que preocuparse por el código.
+
+## Ejemplo de uso
+
+```bash
+.
+├── Component1
+│   ├── index.content.ts
+│   └── index.tsx
+└── Component2
+    ├── index.content.ts
+    └── index.tsx
+```
+
+```tsx
+// ./Component1/index.content.ts
+
+import { DeclarationContent, t } from "intlayer";
+
+const component1Content: DeclarationContent = {
+  id: "component1",
+  myTranslatedContent: t({
+    en: "Hello World",
+    fr: "Bonjour le monde",
+    es: "Hola Mundo",
+  }),
+};
+
+export default component1Content;
+```
+
+```tsx
+// ./Component1/index.tsx
+
+import { useIntlayer } from "react-intlayer";
+
+export const Component1 = () => {
+  const { myTranslatedContent } = useIntlayer("component1");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
 ### Características Principales
 

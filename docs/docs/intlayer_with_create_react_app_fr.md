@@ -158,6 +158,25 @@ export default App;
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
+## (Optionnel) Étape 6: Changer la langue de votre contenu
+
+Pour changer la langue de votre contenu, vous pouvez utiliser la fonction `setLocale` fournie par le `useLocale` hook. Cette fonction vous permet de définir la langue de l'application et de mettre à jour le contenu en conséquence.
+
+```tsx
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const MyComponent = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Change Language to English
+    </button>
+  );
+};
+```
+
 ## Configurer TypeScript
 
 Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et renforcer votre base de code.

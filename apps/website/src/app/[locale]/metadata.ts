@@ -18,7 +18,7 @@ export const generateMetadata = ({
     description: t({
       en: 'Intlayer offers a more flexible and modern approach to internationalization. Its seamless integration with Next.js and React, customizable configuration, and support for various content declaration formats make it a powerful choice for internationalization.',
       es: 'Intlayer ofrece un enfoque más flexible y moderno para la internacionalización. Su integración perfecta con Next.js y React, su configuración personalizable y su soporte para varios formatos de declaración de contenido lo convierten en una opción potente para la internacionalización.',
-      fr: 'Intlayer offre une approche plus flexible et moderne de l’internationalisation. Son intégration transparente avec Next.js et React, sa configuration personnalisable et son support pour divers formats de déclaration de contenu en font un choix puissant pour l’internationalisation.',
+      fr: "Intlayer offre une approche plus flexible et moderne de l'internationalisation. Son intégration transparente avec Next.js et React, sa configuration personnalisable et son support pour divers formats de déclaration de contenu en font un choix puissant pour l'internationalisation.",
     }),
     applicationName:
       'Intlayer | Internationalization made easy with Next.js and React',

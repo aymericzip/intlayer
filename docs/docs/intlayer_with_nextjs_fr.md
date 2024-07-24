@@ -262,6 +262,23 @@ export const generateMetadata = ({
 };
 ```
 
+## (Optionnel) Étape 9: Changer la langue de votre contenu
+
+Pour changer la langue de votre contenu, vous pouvez utiliser la fonction `setLocale` fournie par le `useLocale` hook. Cette fonction vous permet de définir la langue de l'application et de mettre à jour le contenu en conséquence.
+
+```tsx
+import { Locales } from "intlayer";
+import { useLocale } from "next-intlayer";
+
+const MyComponent = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>Change Language</button>
+  );
+};
+```
+
 ## Configurer TypeScript
 
 Intlayer utilise l'augmentation de module pour tirer parti de TypeScript et renforcer votre base de code.

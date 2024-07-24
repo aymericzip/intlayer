@@ -6,11 +6,51 @@ Welcome to the Intlayer Documentation. This guide provides an overview of Intlay
 
 ### What is Intlayer?
 
-**Intlayer** is an innovative Content Management System (CMS) designed specifically for JavaScript developers. It converts declaration of multilingual JavaScript content into structured dictionaries, making integration into your codebase straightforward and efficient.
-
-With Intlayer, you can easily manage your content in all configured languages, providing a seamless experience for your users.
+**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allow the declaration of your content everywhere in your code. It converts declaration of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** make your development stronger and more efficient.
 
 Intlayer also provides an optional visual editor that allows you to easily edit and manage your content. This editor is particularly useful for developers who prefer a visual interface for content management, or for teams generating content without having to worry about code.
+
+## Example of usage
+
+```bash
+.
+├── ClientComponent
+│   ├── index.content.ts
+│   └── index.tsx
+└── ServerComponent
+    ├── index.tsx
+    └── index.content.ts
+```
+
+```tsx
+// ./ClientComponent/index.content.ts
+
+import { DeclarationContent, t } from "intlayer";
+
+const clientComponentContent: DeclarationContent = {
+  id: "client-component",
+  myTranslatedContent: t({
+    en: "Hello World",
+    fr: "Bonjour le monde",
+    es: "Hola Mundo",
+  }),
+};
+
+export default clientComponentContent;
+```
+
+```tsx
+// ./ClientComponent/index.tsx
+"use client";
+
+import { useIntlayer } from "next-intlayer";
+
+export const ClientComponent = () => {
+  const { myTranslatedContent } = useIntlayer("client-component");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
 ### Main Features
 

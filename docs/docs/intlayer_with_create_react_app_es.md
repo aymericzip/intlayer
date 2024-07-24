@@ -105,7 +105,7 @@ export default appContent;
 
 [Consulta cómo declarar tus archivos de declaración de Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md).
 
-### Paso 5: Utilizar Intlayer en tu Código
+## Paso 5: Utilizar Intlayer en tu Código
 
 Accede a tus diccionarios de contenido en toda tu aplicación:
 
@@ -157,6 +157,25 @@ export default App;
 > ```tsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
+
+## (Opcional) Paso 6: Cambiar el idioma de tu contenido
+
+Para cambiar el idioma de tu contenido, puedes utilizar la función `setLocale` proporcionada por el `useLocale` hook. Esta función te permite establecer el idioma de la aplicación y actualizar el contenido de acuerdo.
+
+```tsx
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const MyComponent = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Change Language to English
+    </button>
+  );
+};
+```
 
 ## Configurar TypeScript
 

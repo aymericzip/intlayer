@@ -19,7 +19,46 @@
 
 # Intlayer: Next-Level Content Management in JavaScript
 
-**Intlayer** is an innovative Content Management System (CMS) designed specifically for JavaScript developers. It enables seamless transpilation of JavaScript content into structured dictionaries, making integration into your codebase straightforward and efficient.
+**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allow the declaration of your content everywhere in your code. It converts declaration of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** make your development stronger and more efficient.
+
+## Example of usage
+
+```bash
+.
+├── Component1
+│   ├── index.content.ts
+│   └── index.tsx
+└── Component2
+    ├── index.tsx
+    └── index.content.ts
+```
+
+```tsx
+// ./Component1/index.content.ts
+
+import { DeclarationContent, t } from "intlayer";
+
+const component1Content: DeclarationContent = {
+  id: "component1",
+  myTranslatedContent: t({
+    en: "Hello World",
+    fr: "Bonjour le monde",
+    es: "Hola Mundo",
+  }),
+};
+```
+
+```tsx
+// ./Component1/index.tsx
+
+import { useIntlayer } from "react-intlayer";
+
+export const Component1 = () => {
+  const { myTranslatedContent } = useIntlayer("component1");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
 ## Why Choose Intlayer?
 
@@ -137,7 +176,7 @@ export default appContent;
 
 [See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md).
 
-### Step 5: Utilize Intlayer in Your Code
+## Step 5: Utilize Intlayer in Your Code
 
 Access your content dictionaries throughout your application:
 
@@ -189,6 +228,25 @@ export default App;
 > ```tsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
+
+## (Optional) Step 6: Change the language of your content
+
+To change the language of your content, you can use the `setLocale` function provided by the `useLocale` hook. This function allows you to set the locale of the application and update the content accordingly.
+
+```tsx
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const MyComponent = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Change Language to English
+    </button>
+  );
+};
+```
 
 ## Configure TypeScript
 

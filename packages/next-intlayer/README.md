@@ -19,7 +19,49 @@
 
 # Intlayer: Next-Level Content Management in JavaScript
 
-**Intlayer** is an innovative Content Management System (CMS) designed specifically for JavaScript developers. It enables seamless transpilation of JavaScript content into structured dictionaries, making integration into your codebase straightforward and efficient.
+**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allow the declaration of your content everywhere in your code. It converts declaration of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** make your development stronger and more efficient.
+
+## Example of usage
+
+```bash
+.
+├── ClientComponent
+│   ├── index.content.ts
+│   └── index.tsx
+└── ServerComponent
+    ├── index.tsx
+    └── index.content.ts
+```
+
+```tsx
+// ./ClientComponent/index.content.ts
+
+import { DeclarationContent, t } from "intlayer";
+
+const clientComponentContent: DeclarationContent = {
+  id: "client-component",
+  myTranslatedContent: t({
+    en: "Hello World",
+    fr: "Bonjour le monde",
+    es: "Hola Mundo",
+  }),
+};
+
+export default clientComponentContent;
+```
+
+```tsx
+// ./ClientComponent/index.tsx
+"use client";
+
+import { useIntlayer } from "next-intlayer";
+
+export const ClientComponent = () => {
+  const { myTranslatedContent } = useIntlayer("client-component");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
 ## Why Choose Intlayer?
 
@@ -291,6 +333,23 @@ export const generateMetadata = ({
       es: 'Mi descripción',
     }),
 
+};
+```
+
+## (Optional) Step 9: Change the language of your content
+
+To change the language of your content, you can use the `setLocale` function provided by the `useLocale` hook. This function allows you to set the locale of the application and update the content accordingly.
+
+```tsx
+import { Locales } from "intlayer";
+import { useLocale } from "next-intlayer";
+
+const MyComponent = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>Change Language</button>
+  );
 };
 ```
 
