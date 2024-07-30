@@ -19,6 +19,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
         code: {
           component: (props) => <Code {...props} isDarkMode={isDarkMode} />,
         },
+        pre: (props) => props.children,
       },
     }}
   >

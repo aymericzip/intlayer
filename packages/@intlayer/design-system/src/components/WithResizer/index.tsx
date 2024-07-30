@@ -1,0 +1,93 @@
+import React, {
+  useState,
+  useCallback,
+  type PropsWithChildren,
+  useEffect,
+  type FC,
+  useRef,
+} from 'react';
+import { styled } from 'styled-components';
+import tw from 'twin.macro';
+
+type WithResizerProps = {
+  initialWidth: number;
+  maxWidth?: number;
+  minWidth?: number;
+};
+
+const StyledContainer = styled.div<{ $minWidth?: string; $maxWidth?: string }>(
+  ({ $minWidth, $maxWidth }) => [
+    $minWidth && tw`${$minWidth}`,
+    $maxWidth && tw`${$maxWidth}`,
+    tw`relative w-full h-full max-w-[80%] cursor-ew-resize border-r-[2px] border-neutral-200 dark:border-neutral-950`,
+    tw`after:content-[""] after:w-2 after:h-10 after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:translate-x-1/2 after:block after:absolute after:bg-neutral-200 after:dark:bg-neutral-950 after:rounded-full after:cursor-ew-resize`,
+  ]
+);
+const StyledWrapper = tw.div`absolute top-0 left-0 w-full h-full overflow-hidden cursor-default`;
+
+export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
+  initialWidth,
+  maxWidth,
+  minWidth = 0,
+  children,
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(initialWidth);
+  const [isResizing, setIsResizing] = useState(false);
+
+  // Handler to start resizing
+  const startResizing = useCallback(
+    (mouseDownEvent: React.MouseEvent<HTMLDivElement>) => {
+      setIsResizing(true);
+      mouseDownEvent.preventDefault();
+    },
+    []
+  );
+
+  // Handler to stop resizing
+  const stopResizing = useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  // Handler to resize the div
+  const resize = useCallback(
+    (mouseMoveEvent: MouseEvent) => {
+      const container = containerRef.current;
+      if (isResizing && container && parent) {
+        const { left: containerLeft } = container.getBoundingClientRect();
+
+        const newWidth = mouseMoveEvent.clientX - containerLeft;
+
+        const correctedWidth = Math.max(newWidth, 0);
+
+        setWidth(correctedWidth);
+      }
+    },
+    [isResizing]
+  );
+
+  // Add event listeners for mouse move and mouse up
+  useEffect(() => {
+    window.addEventListener('mousemove', resize);
+    window.addEventListener('mouseup', stopResizing);
+
+    return () => {
+      window.removeEventListener('mousemove', resize);
+      window.removeEventListener('mouseup', stopResizing);
+    };
+  }, [resize, stopResizing]);
+
+  return (
+    <StyledContainer
+      style={{
+        width: `${width}px`,
+      }}
+      $maxWidth={`max-w-[${maxWidth}px]`}
+      $minWidth={`min-w-[${minWidth}px]`}
+      ref={containerRef}
+      onMouseDown={startResizing}
+    >
+      <StyledWrapper>{children}</StyledWrapper>
+    </StyledContainer>
+  );
+};

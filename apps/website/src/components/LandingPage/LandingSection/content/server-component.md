@@ -1,10 +1,10 @@
 ```tsx
-// src/component/component.content.ts
+// src/component/server/component.content.ts
 
 import { t, type DeclarationContent } from "intlayer";
 
 const componentContent: DeclarationContent = {
-  id: "component",
+  id: "server-component",
   title: t({
     en: "Title of my component",
     fr: "Titre de mon component",

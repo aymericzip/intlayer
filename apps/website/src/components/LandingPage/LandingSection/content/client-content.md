@@ -1,5 +1,5 @@
 ```tsx
-// src/component/Component.tsx
+// src/component/client/Component.tsx
 
 "use client";
 
@@ -10,7 +10,7 @@ export const Component = () => {
 
   return (
     <div>
-      <h2>{title} </h2>
+      <h2>{title}</h2>
       <p>{content}</p>
     </div>
   );

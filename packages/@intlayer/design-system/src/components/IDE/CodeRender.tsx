@@ -17,8 +17,12 @@ type CodeCompProps = {
 };
 
 const StyledContainer = styled.div<{ $showLineNumbers: boolean }>(
-  ({ $showLineNumbers }) => [tw`relative p-3`, $showLineNumbers && tw`ml-0`]
+  ({ $showLineNumbers }) => [
+    tw`relative w-full h-full`,
+    $showLineNumbers && tw`ml-0`,
+  ]
 );
+const StyledScroller = tw.div`w-full h-full p-3 overflow-auto`;
 const StyledCopyButton = tw.button`top-3 right-3 absolute`;
 const StyledCopyIcon = tw(CopyIcon)`w-4 h-4`;
 const StyledCopyCheckIcon = tw(CopyCheckIcon)`w-4 h-4`;
@@ -46,27 +50,26 @@ export const Code: FC<CodeCompProps> = ({
           {copied ? <StyledCopyCheckIcon /> : <StyledCopyIcon />}
         </StyledCopyButton>
       </CopyToClipboard>
-      <SyntaxHighlighter
-        lineProps={{
-          style: { whiteSpace: 'pre-wrap' },
-        }}
-        wrapLines={true}
-        customStyle={{
-          display: undefined,
-          overflowX: undefined,
-          overflowY: 'scroll',
-          padding: undefined,
-          color: undefined,
-          background: 'inherit',
-          margin: undefined,
-        }}
-        language={language ?? 'javascript'}
-        style={isDarkMode ? okaidia : coldarkCold}
-        showLineNumbers={showLineNumbers}
-        {...props}
-      >
-        {String(children).replace(/\n$/, '')}
-      </SyntaxHighlighter>
+      <StyledScroller>
+        <SyntaxHighlighter
+          customStyle={{
+            display: undefined,
+            overflowX: undefined,
+            overflowY: 'scroll',
+            padding: undefined,
+            color: undefined,
+            background: 'inherit',
+            margin: undefined,
+          }}
+          PreTag={(props) => props.children}
+          language={language ?? 'javascript'}
+          style={isDarkMode ? okaidia : coldarkCold}
+          showLineNumbers={showLineNumbers}
+          {...props}
+        >
+          {String(children).replace(/\n$/, '')}
+        </SyntaxHighlighter>
+      </StyledScroller>
     </StyledContainer>
   );
 };

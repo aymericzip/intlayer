@@ -4,17 +4,37 @@ import type { FC } from 'react';
 import { ActionButtons } from './ActionButtons';
 import { AnimatedDescription } from './AnimatedDescription';
 import { AnimatedTitle } from './AnimatedTitle';
-import tab1Content from './tab1.md';
-import tab2Content from './tab2.md';
+import clientComponent from './content/client-component.md';
+import clientComponentContent from './content/client-content.md';
+import configFile from './content/config-file.md';
+import serverComponent from './content/server-component.md';
+import serverComponentContent from './content/server-content.md';
 
 export const ideTabs = [
   {
-    title: 'component.content.ts',
-    content: tab1Content,
+    path: 'src/components/client/component.content.ts',
+    content: clientComponent,
+    isOpen: true,
   },
   {
-    title: 'Component.tsx',
-    content: tab2Content,
+    path: 'src/components/client/Component.tsx',
+    content: clientComponentContent,
+    isOpen: true,
+  },
+  {
+    path: 'src/components/server/component.content.ts',
+    content: serverComponent,
+    isOpen: false,
+  },
+  {
+    path: 'src/components/server/Component.tsx',
+    content: serverComponentContent,
+    isOpen: false,
+  },
+  {
+    path: 'intlayer.config.ts',
+    content: configFile,
+    isOpen: false,
   },
 ];
 
@@ -32,7 +52,7 @@ export const LandingSection: FC = () => {
       </div>
       <div className="flex w-full flex-col items-center justify-center gap-3 md:w-2/5">
         <div className="flex max-h-full w-full max-w-full">
-          <IDE tabs={ideTabs} />
+          <IDE pages={ideTabs} className="max-h-[550px] min-h-[550px]" />
         </div>
       </div>
     </div>
