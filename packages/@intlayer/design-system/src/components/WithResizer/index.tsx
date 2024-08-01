@@ -37,7 +37,11 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 
   // Handler to start resizing
   const startResizing = useCallback(
-    (mouseDownEvent: React.MouseEvent<HTMLDivElement>) => {
+    (
+      mouseDownEvent:
+        | React.MouseEvent<HTMLDivElement>
+        | React.TouchEvent<HTMLDivElement>
+    ) => {
       setIsResizing(true);
       mouseDownEvent.preventDefault();
     },
@@ -51,13 +55,19 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 
   // Handler to resize the div
   const resize = useCallback(
-    (mouseMoveEvent: MouseEvent) => {
+    (mouseMoveEvent: MouseEvent | TouchEvent) => {
       const container = containerRef.current;
       if (isResizing && container && parent) {
         const { left: containerLeft } = container.getBoundingClientRect();
 
-        const newWidth = mouseMoveEvent.clientX - containerLeft;
+        let clientX = 0;
+        if (mouseMoveEvent instanceof MouseEvent) {
+          clientX = mouseMoveEvent.clientX;
+        } else if (mouseMoveEvent instanceof TouchEvent) {
+          clientX = mouseMoveEvent.touches[0].clientX;
+        }
 
+        const newWidth = clientX - containerLeft;
         const correctedWidth = Math.max(newWidth, 0);
 
         setWidth(correctedWidth);
@@ -70,10 +80,14 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   useEffect(() => {
     window.addEventListener('mousemove', resize);
     window.addEventListener('mouseup', stopResizing);
+    window.addEventListener('touchmove', resize);
+    window.addEventListener('touchend', stopResizing);
 
     return () => {
       window.removeEventListener('mousemove', resize);
       window.removeEventListener('mouseup', stopResizing);
+      window.removeEventListener('touchmove', resize);
+      window.removeEventListener('touchend', stopResizing);
     };
   }, [resize, stopResizing]);
 
@@ -86,8 +100,14 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       $minWidth={`min-w-[${minWidth}px]`}
       ref={containerRef}
       onMouseDown={startResizing}
+      onTouchStart={startResizing}
     >
-      <StyledWrapper>{children}</StyledWrapper>
+      <StyledWrapper
+        onMouseDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+      >
+        {children}
+      </StyledWrapper>
     </StyledContainer>
   );
 };

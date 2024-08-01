@@ -29,6 +29,10 @@ const StyledChevron = styled(ChevronRight)<{
   $isActive: boolean;
 }>(({ $isActive }) => [tw`transition`, $isActive && tw`transform rotate-90`]);
 
+const StyledMaxHeightSmoother = styled(MaxHeightSmoother)(
+  tw`overflow-x-hidden`
+);
+
 const concatFilePath = (paths: string[]) => paths.join('/');
 
 type FileItemProps = {
@@ -92,14 +96,14 @@ const FileItem: FC<FileItemProps> = ({
         {path}
       </StyledFile>
       {subPath && (
-        <MaxHeightSmoother isHidden={!subPathOpen}>
+        <StyledMaxHeightSmoother isHidden={!subPathOpen}>
           <FileTree
             filesPaths={newPath}
             activeFile={activeFile}
             onClickFile={onClickFile}
             prePaths={[...prePaths, path]}
           />
-        </MaxHeightSmoother>
+        </StyledMaxHeightSmoother>
       )}
     </>
   );
