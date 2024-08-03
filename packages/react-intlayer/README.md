@@ -29,8 +29,8 @@
 │   ├── index.content.ts
 │   └── index.tsx
 └── Component2
-    ├── index.tsx
-    └── index.content.ts
+    ├── index.content.ts
+    └── index.tsx
 ```
 
 ```tsx

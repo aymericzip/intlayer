@@ -18,8 +18,8 @@ Intlayer also provides an optional visual editor that allows you to easily edit 
 │   ├── index.content.ts
 │   └── index.tsx
 └── ServerComponent
-    ├── index.tsx
-    └── index.content.ts
+    ├── index.content.ts
+    └── index.tsx
 ```
 
 ```tsx
