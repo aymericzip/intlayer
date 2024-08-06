@@ -18,7 +18,7 @@ import { useRightDrawerStore } from './useRightDrawerStore';
 
 const StyledPositioner = tw.div`fixed right-0 top-0 h-full z-50 flex justify-end`;
 const StyledPanelContainer = styled(Container)(() => [
-  tw`h-screen flex flex-col  relative w-screen md:w-[400px]`,
+  tw`h-screen flex flex-col  relative w-screen md:w-[400px] text-text dark:text-text-dark`,
 ]);
 const StyledHeader = tw.div`flex flex-col p-6 gap-3`;
 const StyledNavBar = tw.div`flex justify-between gap-3`;
