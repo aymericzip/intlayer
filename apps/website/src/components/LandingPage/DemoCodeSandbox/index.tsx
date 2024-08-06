@@ -37,7 +37,7 @@ export const DemoCodeSandbox: FC = () => {
       <Loader isLoading={!isVisible} />
       {isVisible && (
         <iframe
-          src="https://codesandbox.io/p/github/aypineau/intlayer-example-nextjs/main?embed=1&file=%2Fintlayer.config.ts&showConsole=true"
+          src="https://codesandbox.io/p/github/aypineau/intlayer-example-nextjs/main?import=true&file=%2Fintlayer.config.ts&embed=1"
           className="m-auto size-full overflow-hidden rounded-lg border-0 p-10 md:p-20"
           title="aypineau/intlayer-example-nextjs/main"
           sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
