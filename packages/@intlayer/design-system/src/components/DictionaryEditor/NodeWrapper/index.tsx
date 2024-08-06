@@ -8,7 +8,13 @@ import {
   type KeyPath,
   type DictionaryValue,
 } from '@intlayer/core';
-import type { FC } from 'react';
+import {
+  createElement,
+  type ReactElement,
+  type ReactNode,
+  type FC,
+} from 'react';
+import tw from 'twin.macro';
 import type { FileContent } from '../';
 import { ArrayWrapper } from './ArrayWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
@@ -17,6 +23,11 @@ import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
+
+const isReactNode = (node: Record<string, unknown>): boolean =>
+  typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
+
+const StyledWarning = tw.span`text-neutral dark:text-neutral-dark text-xs`;
 
 export interface NodeWrapperProps {
   keyPath: KeyPath[];
@@ -28,10 +39,55 @@ export interface NodeWrapperProps {
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
 }
 
+const createReactElement = (element: ReactElement) => {
+  if (typeof element === 'string') {
+    // If it's a string, simply return it (used for text content)
+    return element;
+  }
+
+  const convertChildrenAsArray = (element: ReactElement): ReactElement => {
+    if (element?.props && typeof element.props.children === 'object') {
+      const childrenResult: ReactNode[] = [];
+      const { children } = element.props;
+
+      // Create the children elements recursively, if any
+      Object.keys(children).forEach((key) => {
+        childrenResult.push(createReactElement(children[key]));
+      });
+
+      return {
+        ...element,
+        props: { ...element.props, children: childrenResult },
+      };
+    }
+
+    return {
+      ...element,
+      props: { ...element.props, children: element.props.children },
+    };
+  };
+
+  const fixedElement = convertChildrenAsArray(element);
+
+  const { type, props } = fixedElement;
+
+  // Create and return the React element
+  return createElement(type ?? 'div', props, ...props.children);
+};
+
 export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
   const { section } = props;
 
   if (typeof section === 'object') {
+    if (isReactNode(section as Record<string, unknown>)) {
+      return (
+        <>
+          {createReactElement(section as unknown as ReactElement)}
+          <StyledWarning>React node not editable</StyledWarning>
+        </>
+      );
+    }
+
     if (
       (section as TranslationContent<DictionaryValue>).nodeType ===
       NodeType.Translation

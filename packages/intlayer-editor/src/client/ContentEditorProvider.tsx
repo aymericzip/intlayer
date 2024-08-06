@@ -24,9 +24,9 @@ export const IntlayerEditorContext = createContext<IntlayerEditorValue>({
  */
 export const useIntlayerEditorContext = () => useContext(IntlayerEditorContext);
 
-export type IntlayerEditorProviderProps = PropsWithChildren & {
+export type IntlayerEditorProviderProps = PropsWithChildren<{
   editorEnabled?: boolean;
-};
+}>;
 
 const {
   editor: { enabled },

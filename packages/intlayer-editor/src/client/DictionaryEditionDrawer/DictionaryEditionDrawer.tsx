@@ -125,7 +125,7 @@ export const DictionaryEditionDrawerController: FC<
   const dictionaryId: string | undefined = focusedContent?.dictionaryId;
 
   if (!dictionaryId) {
-    return null;
+    return <></>;
   }
 
   return (
