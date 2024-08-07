@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/core",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "private": false,
   "description": "IntLayer - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "keywords": [

@@ -1,5 +1,16 @@
 # intlayer-editor
 
+## 2.1.12
+
+### Patch Changes
+
+- Updated dependencies [[`6130ad6`](https://github.com/aypineau/intlayer/commit/6130ad6eb9fd11e2c474c6909404fe20e2ffee01)]:
+  - @intlayer/design-system@2.0.13
+  - @intlayer/config@2.0.13
+  - @intlayer/core@2.0.13
+  - @intlayer/dictionaries-entry@2.0.13
+  - intlayer@2.0.13
+
 ## 2.1.11
 
 ### Patch Changes

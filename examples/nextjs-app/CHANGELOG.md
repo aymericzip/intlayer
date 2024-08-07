@@ -1,5 +1,15 @@
 # nextjs-app-example
 
+## 1.1.12
+
+### Patch Changes
+
+- Updated dependencies []:
+  - intlayer-editor@2.1.12
+  - next-intlayer@2.0.13
+  - intlayer@2.0.13
+  - intlayer-cli@2.0.13
+
 ## 1.1.11
 
 ### Patch Changes

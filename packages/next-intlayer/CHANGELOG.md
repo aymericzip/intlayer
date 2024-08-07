@@ -1,5 +1,18 @@
 # next-intlayer
 
+## 2.0.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - react-intlayer@2.0.13
+  - @intlayer/chokidar@2.0.13
+  - @intlayer/config@2.0.13
+  - @intlayer/core@2.0.13
+  - @intlayer/dictionaries-entry@2.0.13
+  - @intlayer/webpack@2.0.13
+  - intlayer@2.0.13
+
 ## 2.0.12
 
 ### Patch Changes

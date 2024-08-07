@@ -1,5 +1,13 @@
 # my-vite-app
 
+## 0.1.12
+
+### Patch Changes
+
+- Updated dependencies []:
+  - react-intlayer@2.0.13
+  - intlayer@2.0.13
+
 ## 0.1.11
 
 ### Patch Changes
