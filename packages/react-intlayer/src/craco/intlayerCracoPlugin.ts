@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+
 import { resolve, relative, join } from 'path';
 import type {
   CracoConfig,

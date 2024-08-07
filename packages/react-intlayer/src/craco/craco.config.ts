@@ -1,11 +1,11 @@
-import type { CracoConfig } from '@craco/types';
+import type { CracoConfig, CracoPlugin } from '@craco/types';
 import * as intlayerPlugin from './intlayerCracoPlugin';
 
 // Usage Example
 module.exports = {
   plugins: [
     {
-      plugin: intlayerPlugin,
+      plugin: intlayerPlugin as CracoPlugin,
     },
   ],
 } satisfies CracoConfig;
