@@ -1,5 +1,16 @@
 # @intlayer/webpack
 
+## 2.0.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @intlayer/chokidar@2.0.13
+  - @intlayer/cli@2.0.13
+  - @intlayer/config@2.0.13
+  - @intlayer/core@2.0.13
+  - intlayer@2.0.13
+
 ## 2.0.12
 
 ### Patch Changes

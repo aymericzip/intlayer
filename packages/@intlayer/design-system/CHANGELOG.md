@@ -1,5 +1,15 @@
 # @intlayer/design-system
 
+## 2.0.13
+
+### Patch Changes
+
+- [`6130ad6`](https://github.com/aypineau/intlayer/commit/6130ad6eb9fd11e2c474c6909404fe20e2ffee01) Thanks [@aypineau](https://github.com/aypineau)! - Fix usage and JSX in editor and style of editor
+
+- Updated dependencies []:
+  - @intlayer/config@2.0.13
+  - @intlayer/core@2.0.13
+
 ## 2.0.12
 
 ### Patch Changes
