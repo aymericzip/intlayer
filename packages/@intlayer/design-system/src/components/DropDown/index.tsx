@@ -6,6 +6,19 @@ import type { UnrollablePanelTriggerProps, UnrollablePanelType } from './types';
 
 const StyledDropDownTriggerButton = tw.button`relative cursor-pointer`;
 
+/**
+ * Trigger allowing to open a dropdown menu.
+ *
+ * Example:
+ * ```jsx
+ * <DropDownTrigger identifier="dropdown">
+ *   <Button>Open dropdown</Button>
+ *   <DropDown identifier="dropdown">
+ *     <div>Content</div>
+ *   </DropDown>
+ * </DropDownTrigger>
+ * ```
+ */
 const DropDownTrigger: FC<UnrollablePanelTriggerProps> = ({
   children,
   className,
@@ -40,6 +53,19 @@ const StyledMaxHeightSmoother = styled(MaxHeightSmoother)<{
       : ''}
 `;
 
+/**
+ * Component that opens a dropdown menu when the trigger is clicked.
+ *
+ * Example:
+ * ```jsx
+ * <DropDownTrigger identifier="dropdown">
+ *   <Button>Open dropdown</Button>
+ *   <DropDown identifier="dropdown">
+ *     <div>Content</div>
+ *   </DropDown>
+ * </DropDownTrigger>
+ * ```
+ */
 export const DropDown: UnrollablePanelType = ({
   children,
   isHidden = undefined,
