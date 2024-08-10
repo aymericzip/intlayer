@@ -134,3 +134,7 @@ For more information on the CLI and its usage, [refer to the CLI documentation](
 Intlayer offers a more flexible and modern approach to internationalization. Its seamless integration with Next.js and React, customizable configuration, and support for various content declaration formats make it a powerful choice for internationalization.
 
 For additional resources, guides, and examples, explore the [Intlayer documentation](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
+
+## Live tutorial on YouTube
+
+[![How to Internationalize your application using Intlayer](https://i.ytimg.com/vi/W2G7KxuSD4c/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/W2G7KxuSD4c?si=GyU_KpVhr61razRw)
