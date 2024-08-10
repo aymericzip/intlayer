@@ -101,6 +101,11 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       ref={containerRef}
       onMouseDown={startResizing}
       onTouchStart={startResizing}
+      role="slider"
+      aria-valuemin={minWidth}
+      aria-valuemax={maxWidth}
+      aria-valuenow={width}
+      aria-label="Resizable component"
     >
       <StyledWrapper
         onMouseDown={(e) => e.stopPropagation()}
