@@ -43,8 +43,11 @@ export const LandingSection: FC = () => {
 
   return (
     <div className="flex w-full flex-col gap-16 p-8 sm:p-12 md:flex-row md:p-20">
-      <div className="flex w-full flex-col items-center justify-center gap-6 md:h-[75vh] md:w-3/5">
-        <AnimatedTitle className="text-4xl font-bold" text={title.value} />
+      <div className="flex h-[80vh] w-full flex-col items-center justify-between gap-6 md:h-[75vh] md:w-3/5 md:justify-center">
+        <AnimatedTitle
+          className="text-4xl font-bold max-md:mt-24"
+          text={title.value}
+        />
         <AnimatedDescription className=" text-neutral dark:text-neutral-dark">
           {description}
         </AnimatedDescription>
