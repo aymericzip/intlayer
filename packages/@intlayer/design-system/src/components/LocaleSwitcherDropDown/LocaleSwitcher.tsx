@@ -9,7 +9,7 @@ import { Container } from '../Container';
 import { DropDown } from '../DropDown';
 
 const StyledButtonContainer = tw.div`w-full relative p-0.5`;
-const StyledButton = tw.button`w-full cursor-pointer rounded-lg p-1 text-left hover:bg-text/10 dark:hover:bg-text-opposite/10 focus:bg-text-opposite/20 dark:focus:bg-text-opposite/20 focus:outline-none disabled:text-white/25`;
+const StyledButton = tw.button`w-full cursor-pointer rounded-lg py-1 px-3 text-left hover:bg-text/10 dark:hover:bg-text-opposite/10 focus:bg-text-opposite/20 dark:focus:bg-text-opposite/20 focus:outline-none disabled:text-white/25 aria-selected:bg-text-opposite/20 dark:aria-selected:bg-text-opposite/20 aria-selected:hover:cursor-default`;
 
 const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
@@ -26,10 +26,11 @@ type LocaleSwitcherProps = {
   locale?: Locales;
   localeList: Locales[];
   availableLocales?: Locales[];
+  fullLocaleName?: boolean;
   setLocale: (locale: Locales) => void;
 };
 
-const StyledLocaleSwitcherContainer = tw.div`text-text dark:text-text-dark rounded border border-text dark:border-text-dark transition-colors`;
+const StyledLocaleSwitcherContainer = tw.div`text-text dark:text-text-dark rounded-xl border border-text dark:border-text-dark transition-colors`;
 const StyledTrigger = tw(DropDown.Trigger)`p-0 w-full`;
 const StyledTriggerContent = tw.div`flex justify-between items-center`;
 const StyledLocaleText = tw.div`px-2 py-1`;
@@ -43,33 +44,37 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   locale,
   localeList,
   availableLocales,
+  fullLocaleName = true,
   setLocale,
 }) => {
+  let localeName = 'Select a locale';
+
+  if (locale) {
+    localeName = fullLocaleName ? getLocaleName(locale) : locale.toUpperCase();
+  }
+
   return (
     <StyledLocaleSwitcherContainer aria-label="Language switcher">
       <StyledTrigger identifier="local-switcher" aria-label="Language selector">
         {locale && (
           <StyledTriggerContent>
-            <StyledLocaleText>
-              {locale ? getLocaleName(locale) : 'Select a locale'}
-            </StyledLocaleText>
+            <StyledLocaleText>{localeName}</StyledLocaleText>
             <StyledMoveVertical />
           </StyledTriggerContent>
         )}
         <StyledDropDown identifier="local-switcher" isOverable isFocusable>
           <StyledListContainer separator="y">
-            {localeList
-              .filter((lang) => lang !== locale)
-              .map((lang) => (
-                <ButtonItem
-                  key={lang}
-                  onClick={() => setLocale(lang)}
-                  aria-label={`Switch to ${lang}`}
-                  disabled={!(availableLocales ?? localeList).includes(lang)}
-                >
-                  {getLocaleName(lang)}
-                </ButtonItem>
-              ))}
+            {localeList.map((lang) => (
+              <ButtonItem
+                key={lang}
+                onClick={() => setLocale(lang)}
+                aria-label={`Switch to ${lang}`}
+                disabled={!(availableLocales ?? localeList).includes(lang)}
+                aria-selected={locale === lang}
+              >
+                {getLocaleName(lang)}
+              </ButtonItem>
+            ))}
           </StyledListContainer>
         </StyledDropDown>
       </StyledTrigger>

@@ -26,7 +26,7 @@ const StyledNav = styled.nav(() => [
 ]);
 const StyledList = tw.div`ml-[10vw] flex flex-row gap-6 tracking-wide text-neutral dark:text-neutral-dark`;
 
-const StyledRightItemContainer = tw.div`mr-4 flex w-full justify-end items-center gap-2`;
+const StyledRightItemContainer = tw.div`mr-4 flex w-full justify-end items-center gap-2 md:gap-4`;
 
 export const DesktopNavbar: FC<DesktopNavbarProps> = ({
   logo,

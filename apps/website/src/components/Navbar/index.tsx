@@ -13,8 +13,6 @@ import { useRouter } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
-import { ExternalLinks } from '@/Routes';
-
 export const Navbar: FC = () => {
   const { locale, setLocale, availableLocales } = useLocale();
   const { logo, sections, github } = useIntlayer('navbar');
@@ -48,6 +46,7 @@ export const Navbar: FC = () => {
             setLocale={setLocale}
             localeList={availableLocales}
             locale={locale}
+            fullLocaleName={false}
           />
           <SwitchThemeSwitcher />
         </>
@@ -58,6 +57,7 @@ export const Navbar: FC = () => {
             setLocale={setLocale}
             localeList={availableLocales}
             locale={locale}
+            fullLocaleName={false}
           />
           <SwitchThemeSwitcher />
           <button
