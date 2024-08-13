@@ -82,6 +82,11 @@ const StyledChoiceIndicator = styled.div<SwitchSelectorStyleProps>`
   ${tw`absolute w-auto h-full rounded-full ease-in-out transition-[left,width] duration-300 motion-reduce:transition-none top-0 z-0`}
 `;
 
+type PositionState = {
+  left: number;
+  width: number;
+};
+
 /**
  *
  * Component that allows the user to select one of the provided choices.
@@ -108,10 +113,8 @@ export const SwitchSelector = <T,>({
 }: SwitchSelectorProps<T>) => {
   const optionsRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
-  const [choiceIndicatorPosition, setChoiceIndicatorPosition] = useState({
-    left: 0,
-    width: 40,
-  });
+  const [choiceIndicatorPosition, setChoiceIndicatorPosition] =
+    useState<PositionState | null>(null);
 
   useEffect(() => {
     const calculateSelectedOptionRef = () => {
@@ -119,8 +122,10 @@ export const SwitchSelector = <T,>({
         (option) => option?.getAttribute('aria-selected') === 'true'
       );
 
-      const choiceIndicatorLeftPosition = selectedOptionRef?.offsetLeft ?? 0;
-      const choiceIndicatorWidth = selectedOptionRef?.offsetWidth ?? 40;
+      if (!selectedOptionRef) return;
+
+      const choiceIndicatorLeftPosition = selectedOptionRef?.offsetLeft;
+      const choiceIndicatorWidth = selectedOptionRef?.offsetWidth;
 
       setChoiceIndicatorPosition({
         left: choiceIndicatorLeftPosition,
@@ -131,9 +136,15 @@ export const SwitchSelector = <T,>({
     calculateSelectedOptionRef();
 
     window.addEventListener('resize', calculateSelectedOptionRef);
+    window.addEventListener('DOMContentLoaded', calculateSelectedOptionRef);
 
-    return () =>
+    return () => {
       window.removeEventListener('resize', calculateSelectedOptionRef);
+      window.removeEventListener(
+        'DOMContentLoaded',
+        calculateSelectedOptionRef
+      );
+    };
   }, [selectedChoice]);
 
   return (
@@ -162,11 +173,13 @@ export const SwitchSelector = <T,>({
             </StyledChoice>
           );
         })}
-        <StyledChoiceIndicator
-          $color={color}
-          style={choiceIndicatorPosition}
-          ref={indicatorRef}
-        />
+        {choiceIndicatorPosition && (
+          <StyledChoiceIndicator
+            $color={color}
+            style={choiceIndicatorPosition}
+            ref={indicatorRef}
+          />
+        )}
       </StyledChoiceIndicatorWrapper>
     </StyledContainer>
   );

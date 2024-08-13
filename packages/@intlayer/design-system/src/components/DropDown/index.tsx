@@ -74,13 +74,14 @@ const StyledMaxHeightSmoother = styled(MaxHeightSmoother)<{
   $isFocusable: boolean;
 }>`
   ${tw`overflow-x-hidden`}
+  ${({ isHidden }) => (isHidden !== false ? tw`invisible` : tw`visible`)}
   ${({ $isOverable }) =>
     $isOverable
-      ? tw`group-hover:grid-rows-[1fr] group-hover:overflow-x-auto`
+      ? tw`group-hover:grid-rows-[1fr] group-hover:overflow-x-auto group-hover:visible`
       : ''}
   ${({ $isFocusable }) =>
     $isFocusable
-      ? tw`group-focus-within:grid-rows-[1fr] group-focus-within:overflow-x-auto`
+      ? tw`group-focus-within:grid-rows-[1fr] group-focus-within:overflow-x-auto group-focus-within:visible`
       : ''}
 `;
 

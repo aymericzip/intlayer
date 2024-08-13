@@ -26,7 +26,15 @@ const StyledMasker = styled.div<{
     $isFocusable && tw`focus:grid-rows-[1fr] focus:overflow-x-auto`}
 `;
 
-const StyledChildrenWrapper = tw.div``;
+export const StyledChildrenWrapper = styled.div<{
+  $isHidden?: boolean;
+  $isOverable: boolean;
+  $isFocusable: boolean;
+}>`
+  ${({ $isHidden }) => ($isHidden === true ? tw`invisible` : tw`visible`)}
+  ${({ $isOverable }) => $isOverable && tw`group-hover:visible`}
+  ${({ $isFocusable }) => $isFocusable && tw`group-focus:visible`}
+`;
 
 export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
   children,
@@ -42,13 +50,16 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
     $isHidden={isHidden}
     $isOverable={isOverable}
     $isFocusable={isFocusable}
-    className={className}
+    className={`group ${className}`}
     {...props}
   >
     <StyledChildrenWrapper
       style={{
         minHeight: `${minHeight}px`,
       }}
+      $isHidden={isHidden && minHeight === 0}
+      $isOverable={isOverable}
+      $isFocusable={isFocusable}
     >
       {children}
     </StyledChildrenWrapper>
