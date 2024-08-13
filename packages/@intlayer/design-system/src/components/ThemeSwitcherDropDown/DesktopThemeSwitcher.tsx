@@ -52,14 +52,17 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
   const panelIdentifier = 'theme-switcher';
 
   return (
-    <StyledTriggerButton
-      identifier={panelIdentifier}
-      aria-label="Theme selector"
-    >
-      {mode === Modes.system && <CircleDashed data-mode="system" />}
-      {mode === Modes.light && <Sun data-mode="light" />}
-      {mode === Modes.dark && <Moon data-mode="dark" />}
-      <DropDown identifier={panelIdentifier} isFocusable isOverable>
+    <DropDown identifier={panelIdentifier}>
+      <StyledTriggerButton
+        identifier={panelIdentifier}
+        aria-label="Theme selector"
+      >
+        {mode === Modes.system && <CircleDashed data-mode="system" />}
+        {mode === Modes.light && <Sun data-mode="light" />}
+        {mode === Modes.dark && <Moon data-mode="dark" />}
+      </StyledTriggerButton>
+
+      <DropDown.Panel identifier={panelIdentifier} isFocusable isOverable>
         <StyledDropdownContent separator="y">
           <ButtonItem
             Icon={CircleDashed}
@@ -86,7 +89,7 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
             Dark
           </ButtonItem>
         </StyledDropdownContent>
-      </DropDown>
-    </StyledTriggerButton>
+      </DropDown.Panel>
+    </DropDown>
   );
 };

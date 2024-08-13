@@ -1,5 +1,3 @@
-'use client';
-
 import type { Locales } from '@intlayer/config/client';
 import { getLocaleName } from '@intlayer/core';
 import { MoveVertical } from 'lucide-react';
@@ -35,8 +33,8 @@ const StyledTrigger = tw(DropDown.Trigger)`p-0 w-full`;
 const StyledTriggerContent = tw.div`flex justify-between items-center`;
 const StyledLocaleText = tw.div`px-2 py-1`;
 const StyledMoveVertical = tw(MoveVertical)`self-center w-5`;
-const StyledDropDown = tw(
-  DropDown
+const StyledPanel = tw(
+  DropDown.Panel
 )`w-full divide-x divide-y divide-dotted divide-text dark:divide-text-dark`;
 const StyledListContainer = tw(Container)`p-1`;
 
@@ -55,14 +53,20 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
 
   return (
     <StyledLocaleSwitcherContainer aria-label="Language switcher">
-      <StyledTrigger identifier="local-switcher" aria-label="Language selector">
-        {locale && (
-          <StyledTriggerContent>
-            <StyledLocaleText>{localeName}</StyledLocaleText>
-            <StyledMoveVertical />
-          </StyledTriggerContent>
-        )}
-        <StyledDropDown identifier="local-switcher" isOverable isFocusable>
+      <DropDown identifier="local-switcher">
+        <StyledTrigger
+          identifier="local-switcher"
+          aria-label="Language selector"
+        >
+          {locale && (
+            <StyledTriggerContent>
+              <StyledLocaleText>{localeName}</StyledLocaleText>
+              <StyledMoveVertical />
+            </StyledTriggerContent>
+          )}
+        </StyledTrigger>
+
+        <StyledPanel identifier="local-switcher" isOverable isFocusable>
           <StyledListContainer separator="y">
             {localeList.map((lang) => (
               <ButtonItem
@@ -76,8 +80,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
               </ButtonItem>
             ))}
           </StyledListContainer>
-        </StyledDropDown>
-      </StyledTrigger>
+        </StyledPanel>
+      </DropDown>
     </StyledLocaleSwitcherContainer>
   );
 };

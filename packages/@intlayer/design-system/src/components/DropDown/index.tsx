@@ -2,41 +2,72 @@ import type { FC } from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
-import type { UnrollablePanelTriggerProps, UnrollablePanelType } from './types';
+import type { DropDownType, PanelProps, TriggerProps } from './types';
 
-const StyledDropDownTriggerButton = tw.button`relative cursor-pointer`;
+const StyledDropDown = tw.div`relative`;
 
 /**
  * Trigger allowing to open a dropdown menu.
  *
  * Example:
  * ```jsx
- * <DropDownTrigger identifier="dropdown">
- *   <Button>Open dropdown</Button>
- *   <DropDown identifier="dropdown">
+ * <DropDown identifier="dropdown">
+ *   <DropDown.Trigger>
+ *     Open dropdown
+ *   </DropDown.Trigger>
+ *
+ *   <DropDown.Panel identifier="dropdown">
  *     <div>Content</div>
- *   </DropDown>
- * </DropDownTrigger>
+ *   </DropDown.Panel>
+ * </DropDown>
  * ```
  */
-const DropDownTrigger: FC<UnrollablePanelTriggerProps> = ({
+export const DropDown: DropDownType = ({
+  children,
+  className,
+  identifier,
+  ...props
+}) => (
+  <StyledDropDown
+    className={`group ${className}`}
+    aria-label={`DropDown ${identifier}`}
+    aria-haspopup
+    {...props}
+  >
+    {children}
+  </StyledDropDown>
+);
+
+const StyledDropDownTriggerButton = tw.button`cursor-pointer`;
+
+/**
+ * Trigger allowing to open a dropdown menu.
+ *
+ * Example:
+ * ```jsx
+ * <DropDown.Trigger identifier="dropdown">
+ *   <div>Open dropdown</div>
+ * </DropDown.Trigger>
+ * ```
+ *
+ * > Note: Don't add button inside the trigger, it will be automatically added by the component.
+ */
+const Trigger: FC<TriggerProps> = ({
   children,
   className,
   identifier,
   ...props
 }) => (
   <StyledDropDownTriggerButton
-    className={`group ${className}`}
     aria-label={`Open panel ${identifier}`}
     id={`unrollable-panel-button-${identifier}`}
-    aria-haspopup
     {...props}
   >
     {children}
   </StyledDropDownTriggerButton>
 );
 
-const StyledDropDownContainer = tw.div`absolute right-0 translate-y-2 min-w-full`;
+const StyledPanelContainer = tw.div`absolute right-0 translate-y-2 min-w-full`;
 const StyledMaxHeightSmoother = styled(MaxHeightSmoother)<{
   isHidden: boolean | undefined;
   $isOverable: boolean;
@@ -49,7 +80,7 @@ const StyledMaxHeightSmoother = styled(MaxHeightSmoother)<{
       : ''}
   ${({ $isFocusable }) =>
     $isFocusable
-      ? tw`group-focus:grid-rows-[1fr] group-focus:overflow-x-auto`
+      ? tw`group-focus-within:grid-rows-[1fr] group-focus-within:overflow-x-auto`
       : ''}
 `;
 
@@ -58,15 +89,12 @@ const StyledMaxHeightSmoother = styled(MaxHeightSmoother)<{
  *
  * Example:
  * ```jsx
- * <DropDownTrigger identifier="dropdown">
- *   <Button>Open dropdown</Button>
- *   <DropDown identifier="dropdown">
- *     <div>Content</div>
- *   </DropDown>
- * </DropDownTrigger>
+ * <DropDown.Panel identifier="dropdown">
+ *   <div>Content</div>
+ * </DropDown.Panel>
  * ```
  */
-export const DropDown: UnrollablePanelType = ({
+const Panel: FC<PanelProps> = ({
   children,
   isHidden = undefined,
   isOverable = false,
@@ -74,7 +102,7 @@ export const DropDown: UnrollablePanelType = ({
   identifier,
   ...props
 }) => (
-  <StyledDropDownContainer
+  <StyledPanelContainer
     aria-hidden={isHidden}
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     id={`unrollable-panel-${identifier}`}
@@ -87,7 +115,8 @@ export const DropDown: UnrollablePanelType = ({
     >
       {children}
     </StyledMaxHeightSmoother>
-  </StyledDropDownContainer>
+  </StyledPanelContainer>
 );
 
-DropDown.Trigger = DropDownTrigger;
+DropDown.Trigger = Trigger;
+DropDown.Panel = Panel;

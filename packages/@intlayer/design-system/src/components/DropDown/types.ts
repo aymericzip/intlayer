@@ -1,16 +1,21 @@
 import type { HTMLAttributes, FC } from 'react';
 
-export type UnrollablePanelTriggerProps = HTMLAttributes<HTMLButtonElement> & {
+export type DropDownProps = HTMLAttributes<HTMLDivElement> & {
   identifier: string;
 };
 
-type UnrollablePanelProps = HTMLAttributes<HTMLDivElement> & {
+export type DropDownType = FC<DropDownProps> & {
+  Trigger: FC<TriggerProps>;
+  Panel: FC<PanelProps>;
+};
+
+export type TriggerProps = HTMLAttributes<HTMLButtonElement> & {
+  identifier: string;
+};
+
+export type PanelProps = HTMLAttributes<HTMLDivElement> & {
   isFocusable?: boolean;
   isHidden?: boolean;
   isOverable?: boolean;
   identifier: string;
-};
-
-export type UnrollablePanelType = FC<UnrollablePanelProps> & {
-  Trigger: FC<UnrollablePanelTriggerProps>;
 };
