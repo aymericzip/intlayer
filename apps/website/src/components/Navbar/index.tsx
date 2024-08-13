@@ -9,6 +9,7 @@ import {
   type NavSection,
 } from '@intlayer/design-system';
 import { StarIcon } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
@@ -33,12 +34,12 @@ export const Navbar: FC = () => {
       desktopSections={sectionWithClick}
       mobileTopSections={sectionWithClick}
       logo={
-        <Logo
-          onClick={() => router.push(logo.url.value)}
-          aria-label={logo.label.value}
-          type="logoWithText"
-          className="cursor-pointer"
-        />
+        <Link href={logo.url.value} aria-label={logo.label.value}>
+          <Logo
+            type="logoWithText"
+            className="max-h-4 cursor-pointer sm:max-h-6"
+          />
+        </Link>
       }
       rightItemsMobile={
         <>
@@ -60,9 +61,9 @@ export const Navbar: FC = () => {
             fullLocaleName={false}
           />
           <SwitchThemeSwitcher />
-          <button
+          <Link
             aria-label={github.label.value}
-            onClick={() => router.push(github.url.value)}
+            href={github.url.value}
             className="group/github bg-text dark:bg-text-dark text-text-dark dark:text-text flex cursor-pointer items-center gap-2 rounded-full p-1"
           >
             <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
@@ -70,7 +71,7 @@ export const Navbar: FC = () => {
               width={18}
               className="group-hover/github:fill-text-dark dark:group-hover/github:fill-text mr-1"
             />
-          </button>
+          </Link>
         </>
       }
     />
