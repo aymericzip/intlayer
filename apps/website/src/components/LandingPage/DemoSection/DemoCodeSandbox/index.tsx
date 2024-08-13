@@ -33,14 +33,15 @@ export const DemoCodeSandbox: FC = () => {
   }, [isVisible]);
 
   return (
-    <div ref={ref} className="m-auto h-[700px] w-full">
+    <div ref={ref} className="m-auto w-full">
       <Loader isLoading={!isVisible} />
       {isVisible && (
         <iframe
           src="https://codesandbox.io/p/github/aypineau/intlayer-example-nextjs/main?import=true&file=%2Fintlayer.config.ts&embed=1"
-          className="m-auto size-full overflow-hidden rounded-lg border-0 p-10 md:p-20"
-          title="aypineau/intlayer-example-nextjs/main"
+          className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-[16/9] md:w-full"
+          title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
           sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+          loading="lazy"
         />
       )}
     </div>

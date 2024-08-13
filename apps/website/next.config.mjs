@@ -41,9 +41,18 @@ const secureHeaders = createSecureHeaders({
         'data:',
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
-      frameSrc: ["'self'", '*.codesandbox.io', 'codesandbox.io'],
-      frameAncestors: ["'self'", '*.codesandbox.io', 'codesandbox.io'],
-
+      frameSrc: [
+        "'self'",
+        '*.codesandbox.io',
+        'codesandbox.io',
+        '*.youtube.com',
+      ],
+      frameAncestors: [
+        "'self'",
+        '*.codesandbox.io',
+        'codesandbox.io',
+        '*.youtube.com',
+      ],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],
     },

@@ -1,7 +1,6 @@
 import { Loader } from '@intlayer/design-system';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { DemoCodeSandbox } from './DemoCodeSandbox';
 import { LandingSection } from './LandingSection';
 
 const DynamicAvailableTechnoSection = dynamic(
@@ -24,11 +23,18 @@ const DynamicWhyToChoseIntlayerSection = dynamic(
   }
 );
 
+const DynamicDemoSection = dynamic(
+  () => import('./DemoSection').then((mod) => mod.DemoSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 export const LandingPage: FC = () => (
   <>
     <LandingSection />
     <DynamicAvailableTechnoSection />
     <DynamicWhyToChoseIntlayerSection />
-    <DemoCodeSandbox />
+    <DynamicDemoSection />
   </>
 );
