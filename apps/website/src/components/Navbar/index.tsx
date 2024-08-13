@@ -31,13 +31,27 @@ export const Navbar: FC = () => {
 
   return (
     <UINavBar
-      desktopSections={sectionWithClick}
-      mobileTopSections={sectionWithClick}
       logo={
         <Link href={logo.url.value} aria-label={logo.label.value}>
           <Logo
             type="logoWithText"
             className="max-h-4 cursor-pointer sm:max-h-6"
+          />
+        </Link>
+      }
+      desktopSections={sectionWithClick}
+      mobileTopSections={sectionWithClick}
+      mobileBottomChildren={
+        <Link
+          aria-label={github.label.value}
+          href={github.url.value}
+          className="group/github border-text dark:border-text-dark text-text dark:text-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 p-1"
+        >
+          <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
+          GitHub
+          <StarIcon
+            width={18}
+            className="group-hover/github:fill-text dark:group-hover/github:fill-text-dark mr-1"
           />
         </Link>
       }

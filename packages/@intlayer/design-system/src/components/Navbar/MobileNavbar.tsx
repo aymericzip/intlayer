@@ -14,6 +14,7 @@ type MobileNavbarProps = {
   logo: ReactNode;
   topChildren?: ReactNode;
   topSections?: NavSection[];
+  bottomChildren?: ReactNode;
   bottomSections?: NavSection[];
   rightItems?: ReactNode;
 };
@@ -106,11 +107,13 @@ const StyledFullScreenPanelContent = styled(m.div)(
     tw`flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide text-text dark:text-text-dark`
 );
 const StyledSectionContainer = tw.div`flex h-full flex-col justify-between`;
+const StyledBottomChildrenContainer = tw.div`flex w-full items-center justify-center gap-1 px-5 py-3 max-w-[400px] m-auto`;
 
 export const MobileNavbar: FC<MobileNavbarProps> = ({
   logo,
   topChildren,
   topSections = [],
+  bottomChildren,
   bottomSections = [],
   rightItems,
 }) => {
@@ -177,6 +180,10 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
                 onClickSection={onClickSection}
               />
             </StyledSectionContainer>
+
+            <StyledBottomChildrenContainer>
+              {bottomChildren}
+            </StyledBottomChildrenContainer>
           </StyledFullScreenPanelContent>
         </MaxHeightSmoother>
       </StyledFullScreenPanel>

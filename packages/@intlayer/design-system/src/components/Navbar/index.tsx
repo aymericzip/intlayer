@@ -18,6 +18,7 @@ interface NavbarProps {
   desktopSections?: NavSection[];
   mobileTopChildren?: ReactNode;
   mobileTopSections?: NavSection[];
+  mobileBottomChildren?: ReactNode;
   mobileBottomSections?: NavSection[];
   rightItemsDesktop?: ReactNode;
   rightItemsMobile?: ReactNode;
@@ -28,6 +29,7 @@ export const Navbar: FC<NavbarProps> = ({
   mobileTopChildren,
   desktopSections = [],
   mobileTopSections = [],
+  mobileBottomChildren,
   mobileBottomSections = [],
   rightItemsDesktop,
   rightItemsMobile,
@@ -43,6 +45,7 @@ export const Navbar: FC<NavbarProps> = ({
         <MobileNavbar
           topChildren={mobileTopChildren}
           topSections={mobileTopSections}
+          bottomChildren={mobileBottomChildren}
           bottomSections={mobileBottomSections}
           logo={logo}
           rightItems={rightItemsMobile}
