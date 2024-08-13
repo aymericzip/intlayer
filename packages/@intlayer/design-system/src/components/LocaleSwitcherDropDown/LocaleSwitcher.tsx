@@ -74,6 +74,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 onClick={() => setLocale(lang)}
                 aria-label={`Switch to ${lang}`}
                 disabled={!(availableLocales ?? localeList).includes(lang)}
+                role="option"
                 aria-selected={locale === lang}
               >
                 {getLocaleName(lang)}

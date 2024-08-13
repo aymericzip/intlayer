@@ -15,7 +15,13 @@ const StyledButton = tw(
 
 const ButtonItem: FC<ButtonProps> = ({ Icon, ref, children, ...props }) => (
   <StyledButtonContainer>
-    <StyledButton Icon={Icon} data-mode="system" variant="none" {...props}>
+    <StyledButton
+      Icon={Icon}
+      data-mode="system"
+      role="option"
+      variant="none"
+      {...props}
+    >
       {children}
     </StyledButton>
   </StyledButtonContainer>
