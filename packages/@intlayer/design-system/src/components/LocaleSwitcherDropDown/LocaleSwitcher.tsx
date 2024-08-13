@@ -9,7 +9,7 @@ import { Container } from '../Container';
 import { DropDown } from '../DropDown';
 
 const StyledButtonContainer = tw.div`w-full relative p-0.5`;
-const StyledButton = tw.button`w-full cursor-pointer rounded-lg py-1 px-3 text-left hover:bg-text/10 dark:hover:bg-text-opposite/10 focus:bg-text-opposite/20 dark:focus:bg-text-opposite/20 focus:outline-none disabled:text-white/25 aria-selected:bg-text-opposite/20 dark:aria-selected:bg-text-opposite/20 aria-selected:hover:cursor-default`;
+const StyledButton = tw.button`w-full cursor-pointer rounded-lg py-1 px-3 text-left hover:bg-text/10 dark:hover:bg-text-opposite/10 focus:bg-text-opposite/20 dark:focus:bg-text-opposite/20 focus:outline-none disabled:text-white/25 aria-selected:bg-text/20 dark:aria-selected:bg-text-opposite/20 aria-selected:hover:cursor-default`;
 
 const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
