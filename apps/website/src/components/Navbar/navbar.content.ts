@@ -1,10 +1,17 @@
 import type { NavSection } from '@intlayer/design-system';
 import { type DeclarationContent, t } from 'intlayer';
-import { PagesRoutes } from '@/Routes';
+import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type SectionsContent = {
   sections: Omit<NavSection, 'onClick'>[];
   // bottomSections: Omit<NavSection, 'onClick'>[];
+  github: {
+    id: string;
+    url: string;
+    title: string;
+    label: string;
+    gitHubLogoAlt: string;
+  };
   logo: {
     label: string;
     url: string;
@@ -61,7 +68,26 @@ export const navbarContent: DeclarationContent<SectionsContent> = {
       }),
     },
   ],
-  // bottomSections: {
+  github: {
+    id: 'github',
+    url: ExternalLinks.Github,
+    title: t({
+      en: 'Github',
+      fr: 'Github',
+      es: 'Github',
+    }),
+    label: t({
+      en: 'Go to the github repo',
+      fr: 'Aller sur le dépôt github',
+      es: 'Ir al repositorio de github',
+    }),
+    gitHubLogoAlt: t({
+      en: 'Github logo',
+      fr: 'Logo Github',
+      es: 'Logo de Github',
+    }),
+  },
+
   //   logout: {
   //     id: 'logout',
   //     url: '/auth/signout',

@@ -19,6 +19,7 @@ type SwitchSelectorProps<T = string> = {
   selectedChoice: T;
   onChange: (choice: T) => void;
   color?: Color;
+  size?: Size;
 };
 
 type Color =
@@ -29,9 +30,16 @@ type Color =
   | 'light'
   | 'dark'
   | 'text';
+type Size = 'sm' | 'md' | 'lg';
 
 type SwitchSelectorStyleProps = {
   $color: Color;
+};
+
+const sizeVariant: Record<Size, TwStyle> = {
+  sm: tw`p-1`,
+  md: tw`p-2`,
+  lg: tw`p-4 p-3`,
 };
 
 const containerColorVariant: Record<Color, TwStyle> = {
@@ -59,7 +67,15 @@ const StyledContainer = styled.div<SwitchSelectorStyleProps>`
   ${tw`flex flex-row gap-2 rounded-full border border-[1.5px] p-[1.5px]`}
 `;
 const StyledChoiceIndicatorWrapper = tw.div`size-full relative flex flex-row items-center justify-center`;
-const StyledChoice = tw.button`px-3 py-2 text-sm font-medium ease-in-out transition-all motion-reduce:transition-none duration-300 z-1 aria-selected:cursor-default aria-selected:text-text-dark dark:aria-selected:text-text`;
+
+type StyledChoiceProps = {
+  $size: Size;
+};
+
+const StyledChoice = styled.button<StyledChoiceProps>`
+  ${({ $size }) => sizeVariant[$size]}
+  ${tw`text-sm font-medium ease-in-out transition-all motion-reduce:transition-none duration-300 z-1 aria-selected:cursor-default aria-selected:text-text-dark dark:aria-selected:text-text`}
+`;
 
 const StyledChoiceIndicator = styled.div<SwitchSelectorStyleProps>`
   ${({ $color }) => indicatorColorVariant[$color]}
@@ -88,6 +104,7 @@ export const SwitchSelector = <T,>({
   selectedChoice,
   onChange,
   color = 'primary',
+  size = 'md',
 }: SwitchSelectorProps<T>) => {
   const optionsRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
@@ -139,6 +156,7 @@ export const SwitchSelector = <T,>({
               aria-selected={isSelected}
               disabled={isSelected}
               ref={(el) => (optionsRefs.current[index] = el)}
+              $size={size}
             >
               {content}
             </StyledChoice>
