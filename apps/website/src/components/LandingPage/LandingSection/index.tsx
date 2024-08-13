@@ -55,7 +55,10 @@ export const LandingSection: FC = () => {
       </div>
       <div className="flex w-full flex-col items-center justify-center gap-3 md:w-2/5">
         <div className="flex max-h-full w-full max-w-full">
-          <IDE pages={ideTabs} className="max-h-[550px] min-h-[550px]" />
+          <IDE
+            pages={ideTabs}
+            className="max-h-[370px] min-h-[370px] md:max-h-[450px] md:min-h-[450px]"
+          />
         </div>
       </div>
     </div>
