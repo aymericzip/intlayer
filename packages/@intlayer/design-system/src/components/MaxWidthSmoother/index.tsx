@@ -1,11 +1,10 @@
-import React from 'react';
+import type { HTMLAttributes } from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 type Align = 'left' | 'right';
 
-type MaxHeightSmootherProps = {
-  children: React.ReactNode;
+type MaxHeightSmootherProps = HTMLAttributes<HTMLDivElement> & {
   isHidden: boolean;
   minWidth?: number;
   align?: Align;
@@ -25,8 +24,9 @@ export const MaxWidthSmoother = ({
   isHidden,
   minWidth = 0,
   align = 'left',
+  ...props
 }: MaxHeightSmootherProps) => (
-  <StyledMasker aria-hidden={isHidden} $isHidden={isHidden}>
+  <StyledMasker aria-hidden={isHidden} $isHidden={isHidden} {...props}>
     <StyledChildrenWrapper
       style={{
         minWidth: `${minWidth}px`,
