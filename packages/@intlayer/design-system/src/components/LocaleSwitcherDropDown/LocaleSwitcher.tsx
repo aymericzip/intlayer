@@ -67,7 +67,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
         </StyledTrigger>
 
         <StyledPanel identifier="local-switcher" isOverable isFocusable>
-          <StyledListContainer separator="y">
+          <StyledListContainer separator="y" role="listbox">
             {localeList.map((lang) => (
               <ButtonItem
                 key={lang}
