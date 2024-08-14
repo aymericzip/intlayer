@@ -85,7 +85,7 @@ const nextConfig = {
   },
 
   compiler: {
-    removeConsole: true,
+    removeConsole: isProd,
   },
 
   headers: async () => [
