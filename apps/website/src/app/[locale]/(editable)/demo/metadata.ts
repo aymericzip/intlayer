@@ -1,6 +1,8 @@
 import { type IConfigLocales, getTranslationContent } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
+import { locales } from '../../../../../intlayer.config';
+import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = ({
   params: { locale },
@@ -19,6 +21,17 @@ export const generateMetadata = ({
       es: 'Pruebe el nuevo editor en línea de Intlayer. Permita que sus equipos tomen el control de su contenido y transformen su aplicación en un CMS.',
       fr: 'Essayez le nouveau Intlayer editeur online. Permettez à vos équipes de prendre la main sur votre contenu et transformez votre application en CMS.',
     }),
+
+    alternates: {
+      canonical: PagesRoutes.Demo,
+      languages: locales.reduce(
+        (acc, locale) => ({
+          ...acc,
+          [locale]: `/${locale}${PagesRoutes.Demo}`,
+        }),
+        {}
+      ),
+    },
 
     keywords: t<string[]>({
       en: [

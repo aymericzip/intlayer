@@ -1,6 +1,8 @@
 import { type IConfigLocales, getTranslationContent } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
+import { locales } from '../../../../../intlayer.config';
+import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = ({
   params: { locale },
@@ -15,10 +17,21 @@ export const generateMetadata = ({
       es: 'Intlayer | Términos de Servicio',
     }),
     description: t<string>({
-      en: 'Review the terms under which Intlayer is provided. Understand the conditions for using our open-source tool, including commercial use, code modifications, and contribution guidelines. For further details, contact us at contact@intlayer.org.',
-      fr: "Consultez les termes sous lesquels Intlayer est fourni. Comprenez les conditions d'utilisation de notre outil open-source, y compris l'utilisation commerciale, les modifications du code et les directives de contribution. Pour plus de détails, contactez-nous à contact@intlayer.org.",
-      es: 'Revise los términos bajo los cuales se proporciona Intlayer. Entienda las condiciones para usar nuestra herramienta de código abierto, incluido el uso comercial, las modificaciones de código y las directrices de contribución. Para más detalles, contáctenos en contact@intlayer.org.',
+      en: "Review Intlayer's terms of use, including commercial use, code modifications, and contribution guidelines. For details, contact us at contact@intlayer.org.",
+      fr: "Consultez les termes d'utilisation d'Intlayer, y compris l'utilisation commerciale, les modifications de code, et les directives de contribution. Pour plus de détails, contactez-nous à contact@intlayer.org.",
+      es: 'Revise los términos de uso de Intlayer, incluido el uso comercial, las modificaciones de código y las directrices de contribución. Para más detalles, contáctenos en contact@intlayer.org.',
     }),
+
+    alternates: {
+      canonical: PagesRoutes.TermsOfService,
+      languages: locales.reduce(
+        (acc, locale) => ({
+          ...acc,
+          [locale]: `/${locale}/${PagesRoutes.TermsOfService}`,
+        }),
+        {}
+      ),
+    },
 
     keywords: t<string[]>({
       en: [

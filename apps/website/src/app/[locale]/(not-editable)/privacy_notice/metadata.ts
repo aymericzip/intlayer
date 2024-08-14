@@ -1,6 +1,8 @@
 import { type IConfigLocales, getTranslationContent } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
+import { locales } from '../../../../../intlayer.config';
+import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = ({
   params: { locale },
@@ -15,10 +17,21 @@ export const generateMetadata = ({
       es: 'Intlayer | Aviso de privacidad',
     }),
     description: t<string>({
-      en: "Explore Intlayer's commitment to privacy with our detailed Privacy Notice. Learn about our use of Google Analytics, our cookie policy, and how we handle user information. For any privacy concerns, contact us directly at contact@intlayer.org. Stay informed about any updates by visiting this page regularly.",
-      fr: "Découvrez notre engagement envers la confidentialité avec notre avis de confidentialité détaillé. Découvrez notre utilisation de Google Analytics, notre politique de cookie, et comment nous traitons les informations de l'utilisateur. Pour toute question de confidentialité, contactez-nous directement à contact@intlayer.org. Restez informé des mises à jour en visitant cette page régulièrement.",
-      es: 'Explora nuestro compromiso con la privacidad con nuestro aviso detallado de privacidad. Aprenda sobre nuestro uso de Google Analytics, nuestra política de cookies, y cómo manejamos la información de los usuarios. Para cualquier preocupación de privacidad, contáctenos directamente a contact@intlayer.org. Manténgase informado sobre cualquier actualización visitando esta página regularmente.',
+      en: 'Explore our Privacy Notice to understand how we use Google Analytics and handle your information. For privacy concerns, contact us at contact@intlayer.org.',
+      fr: 'Découvrez notre avis de confidentialité et comment nous utilisons Google Analytics. Pour des questions de confidentialité, contactez-nous à contact@intlayer.org.',
+      es: 'Conoce nuestro aviso de privacidad y cómo usamos Google Analytics. Para inquietudes de privacidad, contáctanos en contact@intlayer.org.',
     }),
+
+    alternates: {
+      canonical: PagesRoutes.PrivacyPolicy,
+      languages: locales.reduce(
+        (acc, locale) => ({
+          ...acc,
+          [locale]: `/${locale}${PagesRoutes.PrivacyPolicy}`,
+        }),
+        {}
+      ),
+    },
 
     keywords: t<string[]>({
       en: [

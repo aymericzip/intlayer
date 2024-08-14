@@ -26,7 +26,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
     getTranslationContent(content, locale);
 
   const result: Record<string, CategorizedDocData> = {
-    get_started: {
+    'get-started': {
       title: t({
         en: 'Get Started',
         fr: 'Commencer',
@@ -73,7 +73,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         es: 'Concepto',
       }),
       subSections: {
-        how_works_intlayer: {
+        'how-works-intlayer': {
           title: t({
             en: 'How works Intlayer',
             fr: 'Comment Intlayer fonctionne',
@@ -181,7 +181,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
             }),
           },
         },
-        interest_of_intlayer: {
+        interest: {
           title: t({
             en: 'Interest of Intlayer',
             fr: "Intérêt d'Intlayer",
@@ -232,7 +232,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
             }),
           },
         },
-        intlayer_cli: {
+        cli: {
           title: t({
             en: 'Intayer CLI',
             fr: 'Intlayer CLI',
@@ -286,7 +286,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
             }),
           },
         },
-        intlayer_editor: {
+        editor: {
           title: t({
             en: 'Intlayer Editor',
             fr: 'Intlayer Editor',
@@ -337,7 +337,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
             }),
           },
         },
-        content_declaration: {
+        content: {
           title: t({
             en: 'Content Declaration',
             fr: 'Déclaration de Contenu',
@@ -490,7 +490,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
                 }),
               },
             },
-            function_fetching: {
+            'function-fetching': {
               title: t({
                 en: 'Function Fetching',
                 fr: 'Fonction Fetching',
@@ -541,7 +541,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
                 }),
               },
             },
-            nested_id: {
+            'nested-id': {
               title: t({
                 en: 'Nested ID',
                 fr: 'ID imbriqué',
@@ -603,7 +603,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         es: 'Entornos',
       }),
       subSections: {
-        intlayer_with_nextjs: {
+        nextjs: {
           title: t({
             en: 'Intlayer with Next.js',
             fr: 'Intlayer avec Next.js',
@@ -651,7 +651,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
             }),
           },
         },
-        intlayer_with_create_react_app: {
+        'create-react-app': {
           title: t({
             en: 'Intlayer with React CRA',
             fr: 'Intlayer avec React CRA',
@@ -702,7 +702,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
             }),
           },
         },
-        intlayer_with_vite_and_react: {
+        'vite-and-react': {
           title: t({
             en: 'Intlayer with Vite+React',
             fr: 'Intlayer avec Vite+React',
@@ -759,7 +759,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         es: 'Blog',
       }),
       subSections: {
-        intlayer_with_i18next: {
+        i18next: {
           title: t({
             en: 'Intlayer and i18next',
             fr: 'Intlayer et i18next',

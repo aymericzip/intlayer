@@ -2,6 +2,7 @@ import { type IConfigLocales, getTranslationContent } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
 import { locales } from '../../../../../intlayer.config';
+import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = ({
   params: { locale },
@@ -55,9 +56,12 @@ export const generateMetadata = ({
     }),
 
     alternates: {
-      canonical: '/404',
+      canonical: PagesRoutes.NotFound,
       languages: locales.reduce(
-        (acc, locale) => ({ ...acc, [locale]: `/${locale}/404` }),
+        (acc, locale) => ({
+          ...acc,
+          [locale]: `/${locale}${PagesRoutes.NotFound}`,
+        }),
         {}
       ),
     },
