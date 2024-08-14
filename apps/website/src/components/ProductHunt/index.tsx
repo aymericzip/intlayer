@@ -43,7 +43,7 @@ export const ProductHunt = () => {
   return (
     <Container
       className={cn([
-        'border-text dark:border-text-dark group fixed bottom-5 left-5 z-[100] mr-5 border-2 p-2 transition',
+        'border-text dark:border-text-dark group fixed bottom-5 left-5 z-[100] mr-5 border-2 p-2 transition-all duration-500',
         'hover:translate-x-0 hover:translate-y-0 hover:scale-100',
         isMiniaturizable && '-translate-x-1/4 translate-y-1/4 scale-50',
       ])}
@@ -69,7 +69,7 @@ export const ProductHunt = () => {
             <div className="flex w-72 flex-col gap-2 overflow-hidden rounded-lg">
               <strong className="text-xl uppercase">{title}</strong>
               <span>{content}</span>
-              <span className="text-neutral dark:text-neutral text-sm">
+              <span className="text-neutral dark:text-neutral-dark text-sm">
                 {details}
               </span>
             </div>
