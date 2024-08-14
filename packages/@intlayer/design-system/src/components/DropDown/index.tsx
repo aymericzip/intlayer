@@ -31,6 +31,7 @@ export const DropDown: DropDownType = ({
   <StyledDropDown
     className={`group ${className}`}
     aria-label={`DropDown ${identifier}`}
+    id={`unrollable-panel-button-${identifier}`}
     aria-haspopup
     {...props}
   >
@@ -60,7 +61,6 @@ const Trigger: FC<TriggerProps> = ({
 }) => (
   <StyledDropDownTriggerButton
     aria-label={`Open panel ${identifier}`}
-    id={`unrollable-panel-button-${identifier}`}
     {...props}
   >
     {children}
@@ -105,6 +105,7 @@ const Panel: FC<PanelProps> = ({
 }) => (
   <StyledPanelContainer
     aria-hidden={isHidden}
+    role="region"
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     id={`unrollable-panel-${identifier}`}
   >
