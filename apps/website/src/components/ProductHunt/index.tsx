@@ -13,7 +13,7 @@ const VISIBLE_START_TIME = 3000;
 const MINIATURIZING_END_TIME = 6000;
 
 export const ProductHunt = () => {
-  const { isMobile } = useDevice();
+  const { isMobile } = useDevice('sm');
   const [isVisible, setIsVisible] = useState(false);
   const [isMiniaturized, setIsMiniaturized] = useState(false);
   const { title, content, details } = useIntlayer('product-hunt');
