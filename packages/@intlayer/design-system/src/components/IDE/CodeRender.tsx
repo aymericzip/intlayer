@@ -1,13 +1,26 @@
 import { CopyCheckIcon, CopyIcon } from 'lucide-react';
-import { type FC, useEffect, useState } from 'react';
+import {
+  type FC,
+  useEffect,
+  useState,
+  lazy,
+  Suspense,
+  type ReactNode,
+} from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
   okaidia,
   coldarkCold,
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
+import { Loader } from '../Loader';
+
+const SyntaxHighlighter = lazy(() =>
+  import('react-syntax-highlighter').then((module) => ({
+    default: module.Prism,
+  }))
+);
 
 type CodeCompProps = {
   children: string;
@@ -51,24 +64,26 @@ export const Code: FC<CodeCompProps> = ({
         </StyledCopyButton>
       </CopyToClipboard>
       <StyledScroller>
-        <SyntaxHighlighter
-          customStyle={{
-            display: undefined,
-            overflowX: undefined,
-            overflowY: 'scroll',
-            padding: undefined,
-            color: undefined,
-            background: 'inherit',
-            margin: undefined,
-          }}
-          PreTag={(props) => props.children}
-          language={language ?? 'javascript'}
-          style={isDarkMode ? okaidia : coldarkCold}
-          showLineNumbers={showLineNumbers}
-          {...props}
-        >
-          {String(children).replace(/\n$/, '')}
-        </SyntaxHighlighter>
+        <Suspense fallback={<Loader />}>
+          <SyntaxHighlighter
+            customStyle={{
+              display: undefined,
+              overflowX: undefined,
+              overflowY: 'scroll',
+              padding: undefined,
+              color: undefined,
+              background: 'inherit',
+              margin: undefined,
+            }}
+            PreTag={(props: { children: ReactNode }) => props.children}
+            language={language ?? 'javascript'}
+            style={isDarkMode ? okaidia : coldarkCold}
+            showLineNumbers={showLineNumbers}
+            {...props}
+          >
+            {String(children).replace(/\n$/, '')}
+          </SyntaxHighlighter>
+        </Suspense>
       </StyledScroller>
     </StyledContainer>
   );
