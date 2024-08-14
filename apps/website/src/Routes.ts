@@ -1,6 +1,7 @@
 export enum PagesRoutes {
   Home = '/',
   Demo = '/demo',
+  NotFound = '/404',
 
   Doc = '/doc',
   Doc_GetStarted = '/doc/get_started',

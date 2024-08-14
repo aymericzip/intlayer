@@ -4,7 +4,7 @@ const robots = (): MetadataRoute.Robots => ({
   rules: {
     userAgent: '*',
     allow: '/',
-    // disallow: '/private/',
+    disallow: ['/404'],
   },
   sitemap: 'https://acme.com/sitemap.xml',
 });

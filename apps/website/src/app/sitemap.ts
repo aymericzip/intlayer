@@ -54,6 +54,18 @@ const sitemap = (): MetadataRoute.Sitemap => [
       },
     },
   },
+  {
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`,
+    lastModified: new Date(),
+    changeFrequency: 'never',
+    priority: 0.1,
+    alternates: {
+      languages: {
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.NotFound}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.NotFound}`,
+      },
+    },
+  },
   ...docSitemap,
 ];
 
