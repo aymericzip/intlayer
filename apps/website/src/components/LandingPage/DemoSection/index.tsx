@@ -30,10 +30,10 @@ export const DemoSection: FC = () => {
   ] as SwitchSelectorChoices<DemoType>;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center">
-      <span className="text-neutral dark:text-neutral-dark">{title}</span>
+    <section className="flex w-full flex-col items-center justify-center">
+      <h2 className="text-neutral dark:text-neutral-dark">{title}</h2>
 
-      <div className="my-6 flex w-full max-w-[1000px] flex-col items-center gap-3 px-10 md:px-20">
+      <div className="my-6 flex w-full max-w-[1000px] flex-col items-center gap-5 px-10 md:px-20">
         <SwitchSelector
           choices={demoSection}
           selectedChoice={demoType}
@@ -43,6 +43,6 @@ export const DemoSection: FC = () => {
         {demoType === DemoType.Youtube && <DemoYoutube />}
         {demoType === DemoType.CodeSandbox && <DemoCodeSandbox />}
       </div>
-    </div>
+    </section>
   );
 };

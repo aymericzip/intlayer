@@ -6,8 +6,8 @@ export const WhyToChoseIntlayerSection: FC = () => {
   const { title, content } = useIntlayer('why-to-chose-intlayer-section');
 
   return (
-    <div className="my-10 flex w-full flex-col items-center justify-center">
-      <span className="text-neutral dark:text-neutral-dark">{title}</span>
+    <section className="my-10 flex w-full flex-col items-center justify-center">
+      <h2 className="text-neutral dark:text-neutral-dark">{title}</h2>
 
       <div className="m-auto mt-3 flex flex-wrap justify-evenly gap-3 px-10 py-2">
         {content.map((asset, index) => (
@@ -27,6 +27,6 @@ export const WhyToChoseIntlayerSection: FC = () => {
           </AnimatedDiv>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
