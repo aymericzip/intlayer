@@ -1,6 +1,6 @@
-// import { DiceScene } from '@components/DiceScene';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
+export { generateMetadata } from './metadata';
 
 const NotFount: NextPageIntlayer = ({ params: { locale } }) => {
   const { title, content } = useIntlayer('not-found', locale);
@@ -15,11 +15,6 @@ const NotFount: NextPageIntlayer = ({ params: { locale } }) => {
           </span>
           <span>{content}</span>
         </span>
-        <section id="dice" className="h-full overflow-visible">
-          <div className="h-[200px] translate-x-0 md:w-[200vw] md:translate-x-[-70vw]">
-            {/* <DiceScene /> */}
-          </div>
-        </section>
       </div>
     </>
   );
