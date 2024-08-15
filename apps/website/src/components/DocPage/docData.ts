@@ -830,7 +830,7 @@ export const getDoc = (
   let currentSection = getDocData(locale);
 
   if (docPath.length === 0) {
-    return currentSection.get_started.default;
+    return currentSection['get-started'].default;
   }
 
   // Traverse the nested structure based on the docPath array
