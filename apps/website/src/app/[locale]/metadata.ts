@@ -9,17 +9,21 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const title = t<string>({
+    en: 'Intlayer | Internationalization made easy',
+    fr: 'Intlayer | Internationalisation simplifiée',
+    es: 'Intlayer | Internacionalización hecha fácil',
+  });
+
+  const description = t({
+    en: 'Intlayer offers a flexible, modern approach to internationalization, integrating seamlessly with Next.js and React. It supports various content formats, making it a powerful choice.',
+    fr: "Intlayer propose une approche moderne et flexible de l'internationalisation. Son intégration parfaite avec Next.js et React et son support de divers formats de contenu en font un choix puissant.",
+    es: 'Intlayer propone un enfoque moderno y flexible para la internacionalización, integrándose perfectamente con Next.js y React. Admite varios formatos de contenido, siendo una opción potente.',
+  });
+
   return {
-    title: t<string>({
-      en: 'Intlayer | Internationalization made easy',
-      fr: 'Intlayer | Internationalisation simplifiée',
-      es: 'Intlayer | Internacionalización hecha fácil',
-    }),
-    description: t({
-      en: 'Intlayer offers a flexible, modern approach to internationalization, integrating seamlessly with Next.js and React. It supports various content formats, making it a powerful choice.',
-      fr: "Intlayer propose une approche moderne et flexible de l'internationalisation. Son intégration parfaite avec Next.js et React et son support de divers formats de contenu en font un choix puissant.",
-      es: 'Intlayer propone un enfoque moderno y flexible para la internacionalización, integrándose perfectamente con Next.js y React. Admite varios formatos de contenido, siendo una opción potente.',
-    }),
+    title,
+    description,
     applicationName:
       'Intlayer | Internationalization made easy with Next.js and React',
     authors: [
@@ -29,7 +33,7 @@ export const generateMetadata = ({
       },
       { name: 'Aymeric PINEAU', url: 'https://github.com/aypineau' },
     ],
-    generator: undefined,
+    generator: 'Next.js',
     keywords: t<string[]>({
       en: [
         'translation',
@@ -82,31 +86,56 @@ export const generateMetadata = ({
     },
     icons: {
       icon: [
-        { url: '/assets/favicon.ico', type: 'image/x-icon' },
         {
-          url: '/assets/favicon-16x16.png',
+          url: `${process.env.NEXT_PUBLIC_URL}/assets/favicon.ico`,
+          type: 'image/x-icon',
+        },
+        {
+          url: `${process.env.NEXT_PUBLIC_URL}/assets/favicon-16x16.png`,
           type: 'image/png',
           sizes: '16x16',
         },
         {
-          url: '/assets/favicon-32x32.png',
+          url: `${process.env.NEXT_PUBLIC_URL}/assets/favicon-32x32.png`,
           type: 'image/png',
           sizes: '32x32',
         },
       ],
       apple: [
         {
-          url: '/assets/apple-touch-icon.png',
+          url: `${process.env.NEXT_PUBLIC_URL}/assets/apple-touch-icon.png`,
           sizes: '180x180',
           type: 'image/png',
         },
       ],
       other: [],
     },
-    openGraph: null,
-    twitter: null,
+    openGraph: {
+      type: 'website',
+      url: new URL(process.env.NEXT_PUBLIC_URL!),
+      title,
+      description,
+      siteName: 'Intlayer',
+      images: [
+        {
+          url: `${process.env.NEXT_PUBLIC_URL}/assets/android-chrome-512x512.png`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      site: '@Intlayer183096',
+      creator: '@aymericzip',
+      images: `${process.env.NEXT_PUBLIC_URL}/assets/cover.png`,
+    },
     verification: undefined,
-    appleWebApp: null,
+    appleWebApp: {
+      capable: true,
+      title: 'Intlayer',
+      statusBarStyle: 'black-translucent',
+    },
     formatDetection: {
       email: true,
       address: true,
@@ -118,8 +147,8 @@ export const generateMetadata = ({
     archives: null,
     assets: null,
     bookmarks: null,
-    category: null,
-    classification: null,
+    category: 'Development Tools',
+    classification: 'Developers',
     other: undefined,
   };
 };
