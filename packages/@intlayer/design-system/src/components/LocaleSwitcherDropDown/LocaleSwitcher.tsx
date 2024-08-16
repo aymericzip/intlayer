@@ -80,6 +80,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 disabled={!(availableLocales ?? localeList).includes(lang)}
                 role="option"
                 aria-selected={locale === lang}
+                lang={lang}
               >
                 {getLocaleName(lang)}
               </ButtonItem>
