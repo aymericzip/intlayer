@@ -13,7 +13,7 @@ export type DocData = {
   keywords: string[];
 };
 
-type Section = Record<string, CategorizedDocData>;
+export type Section = Record<string, CategorizedDocData>;
 
 export type CategorizedDocData = {
   title: string;

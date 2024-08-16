@@ -105,7 +105,7 @@ export default appContent;
 
 [See how to declare your Intlayer declaration files](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md).
 
-### Step 5: Utilize Intlayer in Your Code
+## Step 5: Utilize Intlayer in Your Code
 
 Access your content dictionaries throughout your application:
 

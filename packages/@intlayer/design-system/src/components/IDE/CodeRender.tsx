@@ -35,7 +35,7 @@ const StyledContainer = styled.div<{ $showLineNumbers: boolean }>(
     $showLineNumbers && tw`ml-0`,
   ]
 );
-const StyledScroller = tw.div`w-full h-full p-3 overflow-auto`;
+const StyledScroller = tw.div`w-full h-full p-3 overflow-auto grid grid-cols-[0px]`;
 const StyledCopyButton = tw.button`top-3 right-3 absolute`;
 const StyledCopyIcon = tw(CopyIcon)`w-4 h-4`;
 const StyledCopyCheckIcon = tw(CopyCheckIcon)`w-4 h-4`;
@@ -68,8 +68,8 @@ export const Code: FC<CodeCompProps> = ({
           <SyntaxHighlighter
             customStyle={{
               display: undefined,
-              overflowX: undefined,
-              overflowY: 'scroll',
+              overflowX: 'auto',
+              overflowY: 'auto',
               padding: undefined,
               color: undefined,
               background: 'inherit',

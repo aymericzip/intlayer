@@ -42,7 +42,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             typeof props.className === 'undefined' ? (
               <StyledInlineCode>{props.children}</StyledInlineCode>
             ) : (
-              <Container className="max-w-full overflow-x-scroll">
+              <Container>
                 <Code
                   isDarkMode={isDarkMode}
                   showLineNumbers={false}
@@ -63,6 +63,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
           />
         ),
         a: StyledLink,
+        pre: (props) => props.children,
       },
       wrapper: (props) => (
         <>

@@ -52,7 +52,3 @@ export const Component1 = () => {
 - **Server Component Support**: Perfectly suited for Next.js server components, ensuring smooth server-side rendering.
 - **Enhanced Routing**: Full support for Next.js app routing, adapting seamlessly to complex application structures.
 - **Interoperability**: Allow i18next interoperability. (beta)
-
-```
-
-```

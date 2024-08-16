@@ -2,7 +2,7 @@
 
 Los IDs anidados en `intlayer` te permiten declarar estructuras de contenido complejas de manera eficiente. Al introducir IDs anidados, puedes organizar el contenido en una estructura jerárquica, lo que lleva a un mejor rendimiento y una gestión más sencilla en aplicaciones a gran escala.
 
-### Declaración de IDs Anidados
+## Declaración de IDs Anidados
 
 Para declarar IDs anidados en tu archivo de contenido, debes crear una estructura con nodos internos que contengan contenido adicional e identificadores únicos. Esta configuración es ideal para escenarios donde el contenido es vasto o está altamente organizado. Aquí tienes un ejemplo típico de una estructura de ID anidado:
 
@@ -24,7 +24,7 @@ export default nestedContent;
 
 En este ejemplo, el `parent_id` contiene un nodo de contenido anidado con un `id` de `child_id`. Esta estructura permite a `intlayer` crear diccionarios separados para cada ID, proporcionando flexibilidad en la gestión del contenido.
 
-### Usando IDs Anidados en React
+## Usando IDs Anidados en React
 
 Para utilizar IDs anidados en un componente de React, puedes emplear el hook `useIntlayer` para acceder al contenido desde un ID dado. Este enfoque te permite extraer piezas específicas de contenido haciendo referencia a sus IDs únicos. Aquí tienes un ejemplo de cómo recuperar contenido con IDs anidados:
 
@@ -52,7 +52,7 @@ export default MyComponent;
 
 En este ejemplo, el hook `useIntlayer` recupera el contenido basado en los IDs especificados. Luego puedes mostrar el contenido según sea necesario, con la flexibilidad de acceder tanto al contenido padre como al contenido hijo de manera independiente.
 
-### Beneficios Clave de los IDs Anidados
+## Beneficios Clave de los IDs Anidados
 
 Los IDs anidados ofrecen varios beneficios:
 
@@ -60,7 +60,7 @@ Los IDs anidados ofrecen varios beneficios:
 - **Flexibilidad**: La estructura jerárquica te permite acceder a partes específicas del contenido, proporcionando una mayor flexibilidad en el diseño de la aplicación.
 - **Escalabilidad**: A medida que las aplicaciones crecen, los IDs anidados facilitan la gestión de estructuras de contenido complejas sin perder organización ni rendimiento.
 
-### Uso Avanzado de IDs Anidados
+## Uso Avanzado de IDs Anidados
 
 Para optimizar aún más el rendimiento de los IDs anidados, puedes declarar múltiples niveles de anidación o usar identificadores únicos adicionales dentro de la estructura. Aquí tienes un ejemplo con un anidamiento más profundo:
 
@@ -87,6 +87,6 @@ export default deeplyNestedContent;
 
 En este ejemplo, la estructura del contenido tiene tres niveles de anidación, cada uno con un identificador único. Este diseño te permite recuperar contenido en cualquier nivel de la jerarquía, proporcionando una flexibilidad significativa en la gestión del contenido.
 
-### Conclusión
+## Conclusión
 
 Los IDs anidados en `intlayer` ofrecen una herramienta poderosa para organizar y gestionar estructuras de contenido complejas de una manera que optimiza el rendimiento y la escalabilidad. Siguiendo los ejemplos y las pautas de esta documentación, puedes construir declaraciones de contenido eficientes que sean fáciles de mantener y expandir a medida que tu aplicación crezca.
