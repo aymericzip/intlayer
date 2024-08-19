@@ -53,12 +53,7 @@ const StyledDropDownTriggerButton = tw.button`cursor-pointer`;
  *
  * > Note: Don't add button inside the trigger, it will be automatically added by the component.
  */
-const Trigger: FC<TriggerProps> = ({
-  children,
-  className,
-  identifier,
-  ...props
-}) => (
+const Trigger: FC<TriggerProps> = ({ children, identifier, ...props }) => (
   <StyledDropDownTriggerButton
     aria-label={`Open panel ${identifier}`}
     {...props}
@@ -67,7 +62,7 @@ const Trigger: FC<TriggerProps> = ({
   </StyledDropDownTriggerButton>
 );
 
-const StyledPanelContainer = tw.div`absolute right-0 translate-y-2 min-w-full`;
+const StyledPanelContainer = tw.div`absolute right-0 translate-y-2 min-w-full z-[1000]`;
 const StyledMaxHeightSmoother = styled(MaxHeightSmoother)<{
   isHidden: boolean | undefined;
   $isOverable: boolean;

@@ -35,7 +35,7 @@ const StyledLocaleText = tw.div`px-2 py-1`;
 const StyledMoveVertical = tw(MoveVertical)`self-center w-5`;
 const StyledPanel = tw(
   DropDown.Panel
-)`w-full divide-x divide-y divide-dotted divide-text dark:divide-text-dark`;
+)`w-full divide-x divide-y divide-dotted divide-text dark:divide-text-dark z-50`;
 const StyledListContainer = tw(Container)`p-1`;
 
 export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
