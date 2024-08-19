@@ -17,8 +17,8 @@ const StyledHeader = tw.div`flex justify-between items-center cursor-pointer`;
 const StyledChevronDown = styled(ChevronDown)<{
   $isOpen: boolean;
 }>`
-  ${({ $isOpen }) =>
-    $isOpen ? tw`transform rotate-0` : tw`transform rotate-180`}
+  ${tw`transform transition-transform duration-200 ease-in-out`}
+  ${({ $isOpen }) => ($isOpen ? tw`rotate-0` : tw`rotate-180`)}
 `;
 
 export const Accordion: FC<AccordionProps> = ({

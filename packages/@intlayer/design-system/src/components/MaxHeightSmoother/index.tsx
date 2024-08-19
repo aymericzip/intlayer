@@ -27,21 +27,19 @@ const StyledMasker = styled.div<{
 `;
 
 export const StyledChildrenWrapper = styled.div<{
-  $isHidden?: boolean;
   $isOverable: boolean;
   $isFocusable: boolean;
 }>`
-  ${({ $isHidden }) => ($isHidden === true ? tw`invisible` : tw`visible`)}
   ${({ $isOverable }) => $isOverable && tw`group-hover:visible`}
   ${({ $isFocusable }) => $isFocusable && tw`group-focus:visible`}
 `;
 
 export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
   children,
-  className,
+  isHidden,
+  className = '',
   isOverable = false,
   isFocusable = false,
-  isHidden,
   minHeight = 0,
   ...props
 }) => (
@@ -57,7 +55,6 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
       style={{
         minHeight: `${minHeight}px`,
       }}
-      $isHidden={isHidden && minHeight === 0}
       $isOverable={isOverable}
       $isFocusable={isFocusable}
     >
