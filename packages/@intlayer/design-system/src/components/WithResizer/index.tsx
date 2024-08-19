@@ -19,8 +19,9 @@ const StyledContainer = styled.div<{ $minWidth?: string; $maxWidth?: string }>(
   ({ $minWidth, $maxWidth }) => [
     $minWidth && tw`${$minWidth}`,
     $maxWidth && tw`${$maxWidth}`,
-    tw`relative w-full h-full max-w-[80%] cursor-ew-resize border-r-[2px] border-neutral-200 dark:border-neutral-950`,
-    tw`after:content-[""] after:w-2 after:h-10 after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:translate-x-1/2 after:block after:absolute after:bg-neutral-200 after:dark:bg-neutral-950 after:rounded-full after:cursor-ew-resize`,
+    tw`relative w-full h-full max-w-[80%] cursor-ew-resize border-r-[2px] border-neutral-200 dark:border-neutral-950 transition`,
+    tw`after:content-[""] after:w-2 after:h-10 after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:translate-x-1/2 after:block after:absolute after:bg-neutral-200 after:dark:bg-neutral-950 after:rounded-full after:cursor-ew-resize after:transition`,
+    tw`active:border-neutral-400 dark:active:border-neutral-600 after:active:bg-neutral-400 dark:after:active:bg-neutral-600`,
   ]
 );
 const StyledWrapper = tw.div`absolute top-0 left-0 w-full h-full overflow-hidden cursor-default`;
