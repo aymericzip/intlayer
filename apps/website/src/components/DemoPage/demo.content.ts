@@ -22,7 +22,7 @@ const demoContent: DeclarationContent = {
     {
       title: t({
         fr: 'Sélectionnez le contenu à modifier',
-        en: 'Hover over the content to be modified',
+        en: 'Hover the content to be modified',
         es: 'Pase el cursor sobre el contenido a modificar',
       }),
       description: t({
