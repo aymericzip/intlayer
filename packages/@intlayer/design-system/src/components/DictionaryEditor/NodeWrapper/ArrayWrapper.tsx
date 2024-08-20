@@ -3,6 +3,7 @@ import {
   type DictionaryValue,
   type KeyPath,
 } from '@intlayer/core';
+import { Edit } from 'lucide-react';
 import type { FC } from 'react';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps } from './index';
@@ -12,7 +13,13 @@ interface ArrayWrapperProps extends Omit<NodeWrapperProps, 'section'> {
 }
 
 export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
-  const { keyPath, section, onFocusKeyPath, focusedKeyPath = [] } = props;
+  const {
+    keyPath,
+    section,
+    onFocusKeyPath,
+    onClickEdit,
+    focusedKeyPath = [],
+  } = props;
 
   return section.map((subSection, key) => {
     const newKeyPathEl: KeyPath = {
@@ -32,6 +39,18 @@ export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
           e.stopPropagation();
           onFocusKeyPath(newKeyPath);
         }}
+        rightParam={
+          <Edit
+            size={16}
+            role="button"
+            aria-label="Open the editor"
+            onClick={(e) => {
+              e.stopPropagation();
+
+              onClickEdit?.(newKeyPath);
+            }}
+          />
+        }
       >
         <NodeWrapper
           {...props}

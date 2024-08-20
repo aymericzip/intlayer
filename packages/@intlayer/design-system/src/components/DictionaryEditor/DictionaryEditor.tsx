@@ -1,5 +1,3 @@
-'use client';
-
 import type { Locales } from '@intlayer/config/client';
 import type { Dictionary, DictionaryValue, KeyPath } from '@intlayer/core';
 import type { FC } from 'react';
@@ -21,6 +19,7 @@ interface DictionaryEditorProps {
   editedContent?: FileContent[];
   focusedKeyPath?: KeyPath[];
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
+  onClickEdit?: (keyPath: KeyPath[]) => void;
 }
 
 const StyledContainer = tw.div`flex flex-col justify-between gap-2 h-full`;

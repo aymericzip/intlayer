@@ -37,6 +37,7 @@ export interface NodeWrapperProps {
   editedContent?: FileContent[];
   focusedKeyPath: KeyPath[] | undefined;
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
+  onClickEdit?: (keyPath: KeyPath[]) => void;
 }
 
 const createReactElement = (element: ReactElement) => {

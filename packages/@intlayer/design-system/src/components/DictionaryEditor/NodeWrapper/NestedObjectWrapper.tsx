@@ -1,8 +1,11 @@
+import { getConfiguration } from '@intlayer/config';
 import {
   type KeyPath,
   isSameKeyPath,
   type DictionaryValue,
+  type TranslationContent,
 } from '@intlayer/core';
+import { Edit } from 'lucide-react';
 import type { FC } from 'react';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
@@ -12,7 +15,13 @@ interface NestedObjectWrapperProps extends Omit<NodeWrapperProps, 'section'> {
 }
 
 export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
-  const { keyPath, section, focusedKeyPath = [], onFocusKeyPath } = props;
+  const {
+    keyPath,
+    section,
+    focusedKeyPath = [],
+    onClickEdit,
+    onFocusKeyPath,
+  } = props;
 
   return Object.keys(section)
     .filter((key) => !traceKeys.includes(key))
@@ -31,6 +40,18 @@ export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
             e.stopPropagation();
             onFocusKeyPath(newKeyPath);
           }}
+          rightParam={
+            <Edit
+              size={16}
+              role="button"
+              aria-label="Open the editor"
+              onClick={(e) => {
+                e.stopPropagation();
+
+                onClickEdit?.(newKeyPath);
+              }}
+            />
+          }
         >
           <NodeWrapper {...props} keyPath={newKeyPath} section={section[key]} />
         </ItemLayout>

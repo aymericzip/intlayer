@@ -1,15 +1,13 @@
 'use client';
 
 import type { FC, ReactNode } from 'react';
-import { Popover } from '../Popover';
-import { PressableDiv } from '../PressableDiv';
+import { PressableSpan } from '../PressableSpan';
 
 type ContentSelectorProps = {
   children: ReactNode;
   onSelect: () => void;
   onUnselect?: () => void;
   isSelecting?: boolean;
-  popoverContent?: string;
 };
 
 export const ContentSelector: FC<ContentSelectorProps> = ({
@@ -17,15 +15,12 @@ export const ContentSelector: FC<ContentSelectorProps> = ({
   onSelect,
   onUnselect,
   isSelecting,
-  popoverContent = 'Long press',
 }) => (
-  <Popover content={popoverContent}>
-    <PressableDiv
-      onPress={onSelect}
-      onClickOutside={onUnselect}
-      isSelecting={isSelecting}
-    >
-      {children}
-    </PressableDiv>
-  </Popover>
+  <PressableSpan
+    onPress={onSelect}
+    onClickOutside={onUnselect}
+    isSelecting={isSelecting}
+  >
+    {children}
+  </PressableSpan>
 );

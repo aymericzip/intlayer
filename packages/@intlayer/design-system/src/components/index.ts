@@ -1,7 +1,7 @@
 export * from './MaxHeightSmoother';
 export * from './MaxWidthSmoother';
 export * from './RightDrawer';
-export * from './PressableDiv';
+export * from './PressableSpan';
 export * from './ContentEditor';
 export * from './ContentSelector';
 export * from './DictionaryEditor';
@@ -23,3 +23,4 @@ export * from './Headers';
 export * from './Loader';
 export * from './WithResizer';
 export * from './SwitchSelector';
+export * from './Modal';

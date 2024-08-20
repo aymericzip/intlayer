@@ -12,6 +12,7 @@ import { styled } from 'styled-components';
 import tw from 'twin.macro';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
+import { isElementAtTopAndNotCovered } from '../../utils/isElementAtTopAndNotCovered';
 import { Container } from '../Container';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { useRightDrawerStore } from './useRightDrawerStore';
@@ -64,20 +65,22 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isOpen &&
-        closeOnOutsideClick &&
-        panelRef.current &&
-        !panelRef.current.contains(event.target as Node)
-      ) {
+      if (!panelRef.current) return;
+
+      // Check if drawer is open and click outside is enabled
+      const isClickAble = isOpen && closeOnOutsideClick;
+      // Check if click is outside the drawer panel
+      const isClickOutside = !panelRef.current.contains(event.target as Node);
+      // Check if event propagation has been stopped
+      const isAtTopAndVisible = isElementAtTopAndNotCovered(panelRef.current);
+
+      if (isClickAble && isClickOutside && isAtTopAndVisible) {
         close();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, close, closeOnOutsideClick]); // Make sure the effect runs only if isOpen or close changes
 
   const handleSpareSpaceClick: MouseEventHandler<HTMLDivElement> = (e) => {

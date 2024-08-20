@@ -21,14 +21,14 @@ type PressableDivProps = {
   isSelecting?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
-const StyledContentSelector = styled.div<{ $isSelecting?: boolean }>(
+const StyledContentSelector = styled.span<{ $isSelecting?: boolean }>(
   ({ $isSelecting }) => [
     tw`inline cursor-pointer select-none outline outline-offset-4 outline-2 outline-transparent rounded-md transition-all duration-200 delay-100`,
     $isSelecting ? tw`outline-inherit` : tw`hover:outline-inherit`,
   ]
 );
 
-export const PressableDiv: FC<PressableDivProps> = ({
+export const PressableSpan: FC<PressableDivProps> = ({
   children,
   onPress: onSelect,
   onClickOutside: onUnselect,

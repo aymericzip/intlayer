@@ -32,6 +32,8 @@ const Title = styled.span<{ $level: number }>(({ $level }) => [
   $level === 2 && tw`text-lg`,
   $level >= 3 && tw`text-base`,
 ]);
+const StyledHeaderContainer = tw.div`flex w-full`;
+const StyledHeader = tw.div`flex justify-between items-center w-full`;
 
 const RightParamContainer = tw.div`flex w-full items-center justify-between p-3 sm:w-auto`;
 
@@ -49,13 +51,15 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
       isOpen={isSelected}
       identifier={`accordion_${title}`}
       header={
-        <div>
-          <Title $level={level}>{title}</Title>
-          <Description>{description}</Description>
-          {rightParam && (
-            <RightParamContainer>{rightParam}</RightParamContainer>
-          )}
-        </div>
+        <StyledHeaderContainer>
+          <StyledHeader>
+            <Title $level={level}>{title}</Title>
+            {rightParam && (
+              <RightParamContainer>{rightParam}</RightParamContainer>
+            )}
+          </StyledHeader>
+          {description && <Description>{description}</Description>}
+        </StyledHeaderContainer>
       }
     >
       {children}
