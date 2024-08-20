@@ -1,6 +1,6 @@
 'use client';
 
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { styled } from 'styled-components';
@@ -17,14 +17,14 @@ interface ModalProps {
   hasCloseButton?: boolean;
 }
 
-const StyledBackground = styled(m.div)<{
+const StyledBackground = styled(motion.div)<{
   $isOpen: boolean;
 }>(({ $isOpen }) => [
   tw`fixed left-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto bg-background/60 dark:bg-background-dark/60 backdrop-blur`,
   $isOpen ? tw`visible` : tw`hidden`,
 ]);
 const StyledModal = tw(
-  m(Container)
+  motion(Container)
 )`cursor-default overflow-auto shadow p-3 max-w-[80vw] max-h-[80vh]`;
 
 const StyledCloseButton = tw(X)`ml-auto right-2 top-2 mb-3 cursor-pointer`;
@@ -53,6 +53,7 @@ export const Modal = ({
         onClose();
       }}
       $isOpen={isOpen}
+      aria-hidden={!isOpen}
     >
       <StyledModal
         onClick={(e) => e.stopPropagation()}
