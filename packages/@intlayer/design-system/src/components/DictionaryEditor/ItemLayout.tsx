@@ -35,7 +35,7 @@ const Title = styled.span<{ $level: number }>(({ $level }) => [
 const StyledHeaderContainer = tw.div`flex w-full`;
 const StyledHeader = tw.div`flex justify-between items-center w-full`;
 
-const RightParamContainer = tw.div`flex w-full items-center justify-between p-3 sm:w-auto`;
+const RightParamContainer = tw.div`flex items-center justify-between p-3 w-auto`;
 
 export const ItemLayout: FC<ItemWrapperProps> = ({
   level,
