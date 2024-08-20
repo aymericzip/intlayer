@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import type { FC } from 'react';
 import { createPortal } from 'react-dom';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
@@ -15,6 +16,7 @@ interface ModalProps {
   container?: HTMLElement;
   disableScroll?: boolean;
   hasCloseButton?: boolean;
+  title?: string;
 }
 
 const StyledBackground = styled(motion.div)<{
@@ -27,21 +29,38 @@ const StyledModal = tw(
   motion(Container)
 )`cursor-default overflow-auto shadow p-3 max-w-[80vw] max-h-[80vh]`;
 
-const StyledCloseButton = tw(X)`ml-auto right-2 top-2 mb-3 cursor-pointer`;
+const StyledHeader = styled.div<{
+  $hasCloseButton: boolean;
+  $hasTitle: boolean;
+}>(({ $hasCloseButton, $hasTitle }) =>
+  $hasCloseButton && $hasTitle
+    ? tw`flex justify-center items-center`
+    : $hasCloseButton
+      ? tw`flex justify-end items-center`
+      : $hasTitle
+        ? tw`items-center`
+        : tw`hidden`
+);
+const StyledTitle = tw.h2`text-lg font-bold flex justify-center items-center`;
+const StyledCloseButton = tw(X)`ml-auto right-2 top-2 cursor-pointer`;
+const StyledContentContainer = tw.div`flex flex-col justify-center items-center overflow-auto my-4 mx-2`;
 
-export const Modal = ({
+export const Modal: FC<ModalProps> = ({
   children,
   isOpen,
   container,
   disableScroll = false,
   onClose,
   hasCloseButton = false,
-}: ModalProps) => {
+  title,
+}) => {
   const containerElement = useGetElementOrWindow(container);
 
   useScrollBlockage({ key: 'modal', disableScroll: isOpen && disableScroll });
 
   if (!containerElement) return <></>;
+
+  const hasTitle = typeof title === 'string';
 
   return createPortal(
     <StyledBackground
@@ -64,17 +83,20 @@ export const Modal = ({
         aria-modal
         roundedSize="2xl"
       >
-        {hasCloseButton && (
-          <StyledCloseButton
-            role="button"
-            aria-label="Close modal"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClose();
-            }}
-          />
-        )}
-        {children}
+        <StyledHeader $hasCloseButton={hasCloseButton} $hasTitle={hasTitle}>
+          {hasTitle && <StyledTitle>{title}</StyledTitle>}
+          {hasCloseButton && (
+            <StyledCloseButton
+              role="button"
+              aria-label="Close modal"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
+            />
+          )}
+        </StyledHeader>
+        <StyledContentContainer>{children}</StyledContentContainer>
       </StyledModal>
     </StyledBackground>,
     containerElement

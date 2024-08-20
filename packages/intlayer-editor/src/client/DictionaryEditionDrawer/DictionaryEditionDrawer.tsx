@@ -54,6 +54,7 @@ export const DictionaryEditionDrawerContent: FC<
         isOpen={keyPathEditionModal !== null}
         onClose={() => setKeyPathEditionModal(null)}
         hasCloseButton
+        title="Edit field"
       >
         <>{JSON.stringify(keyPathEditionModal)}</>
       </Modal>
