@@ -226,3 +226,14 @@ Assurez-vous que votre configuration TypeScript inclut les types générés auto
   ],
 }
 ```
+
+## Configuration Git
+
+Il est recommandé d'ignorer les fichiers générés automatiquement par Intlayer. Cela permet de ne pas les commiter dans le dépôt Git.
+
+Pour cela, vous pouvez d'ajouter les instructions suivantes dans votre fichier `.gitignore` :
+
+```gitignore
+# Ignorer les fichiers générés par Intlayer
+.intlayer
+```
