@@ -103,11 +103,12 @@ Puis ajoutez un nouveau layout dans votre `[locale]` repertoire :
 
 import { NextLayoutIntlayer } from "next-intlayer";
 import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
-  <html lang={locale}>
+  <html lang={locale} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>{children}</body>
   </html>
 );
@@ -235,7 +236,7 @@ Pour une utilisation plus détaillée d'intlayer dans un composant Client ou Ser
 Dans le cas où vous souhaitez internationaliser vos métadonnées, tels que le titre de votre page, vous pouvez utiliser la fonction `generateMetadata` fournie par NextJS. À l'intérieur de la fonction, utilisez la fonction `getTranslationContent` pour traduire vos métadonnées.
 
 ```typescript
-// src/app/[locale]/metadata.ts
+// src/app/[locale]/layout.tsx ou src/app/[locale]/metadata.ts
 
 import { type IConfigLocales, getTranslationContent } from "intlayer";
 import type { Metadata } from "next";
@@ -260,6 +261,8 @@ export const generateMetadata = ({
     }),
   };
 };
+
+// ... reste du code
 ```
 
 ## (Optionnel) Étape 9: Changer la langue de votre contenu

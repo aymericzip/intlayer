@@ -29,5 +29,6 @@ export type {
 } from './types/index';
 export { NodeType } from './types/index';
 export { getLocaleName } from './getLocaleName';
+export { getHTMLTextDir } from './getHTMLTextDir';
 export { localeList } from './localeList';
 export { isSameKeyPath } from './utils/isSameKeyPath';

@@ -177,11 +177,12 @@ Then add a new layout in your `[locale]` directory:
 
 import { NextLayoutIntlayer } from "next-intlayer";
 import { Inter } from "next/font/google";
+import { getHTMLTextDir } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
-  <html lang={locale}>
+  <html lang={locale} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>{children}</body>
   </html>
 );

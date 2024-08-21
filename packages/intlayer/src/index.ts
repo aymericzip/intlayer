@@ -34,7 +34,12 @@ export type {
   ContentValue,
   DeclarationContent,
 } from '@intlayer/core';
-export { getLocaleName, enu, getEnumerationContent } from '@intlayer/core';
+export {
+  getLocaleName,
+  enu,
+  getEnumerationContent,
+  getHTMLTextDir,
+} from '@intlayer/core';
 export type {
   LocalesValues,
   CustomIntlayerConfig as IntlayerConfig,
