@@ -6,8 +6,9 @@ import {
   RightDrawer,
   DictionaryEditor,
   LocaleSwitcher,
-  type FileContent,
+  type FieldContent,
   Modal,
+  DictionaryFieldEditor,
 } from '@intlayer/design-system';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -46,7 +47,7 @@ export const DictionaryEditionDrawerContent: FC<
   const dictionaryId: string = focusedContent.dictionaryId;
   const dictionary: Dictionary = dictionaries[dictionaryId];
   const dictionaryPath: string = dictionary.filePath;
-  const editedDictionaryContent: FileContent[] = editedContent[dictionaryPath];
+  const editedDictionaryContent: FieldContent[] = editedContent[dictionaryPath];
 
   return (
     <>
@@ -55,8 +56,23 @@ export const DictionaryEditionDrawerContent: FC<
         onClose={() => setKeyPathEditionModal(null)}
         hasCloseButton
         title="Edit field"
+        size="lg"
       >
-        <>{JSON.stringify(keyPathEditionModal)}</>
+        <DictionaryFieldEditor
+          dictionary={dictionary}
+          keyPath={keyPathEditionModal ?? []}
+          locale={locale}
+          editedContent={editedDictionaryContent}
+          onFocusKeyPath={(keyPath) => {
+            setFocusedContent({ ...focusedContent, keyPath });
+            setKeyPathEditionModal(keyPath);
+          }}
+          onContentChange={(keyPath, newValue) =>
+            addEditedContent(dictionaryPath, keyPath, newValue)
+          }
+          onValidEdition={editContentRequest}
+          onCancelEdition={() => clearEditedDictionaryContent(dictionaryPath)}
+        />
       </Modal>
       <DictionaryEditor
         dictionary={dictionary}

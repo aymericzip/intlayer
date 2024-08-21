@@ -4,7 +4,7 @@ import tw, { type TwStyle } from 'twin.macro';
 
 // Define a basic container with default styles
 const BaseContainer = styled.div(() => [
-  tw`flex flex-col justify-between shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] shadow-sm backdrop-blur`,
+  tw`flex flex-col shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] shadow-sm backdrop-blur`,
   css`
     -webkit-backdrop-filter: var(--tw-backdrop-blur)
       var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)

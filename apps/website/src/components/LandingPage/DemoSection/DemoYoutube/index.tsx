@@ -19,7 +19,7 @@ export const DemoYoutube: FC = () => {
       loading="lazy"
       width={1080}
       height="auto"
-      src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=0&rel=1`}
+      src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://intlayer.org&controls=0&rel=1`}
     />
   );
 };

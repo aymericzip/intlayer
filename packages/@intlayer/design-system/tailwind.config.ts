@@ -73,10 +73,8 @@ const tailwindConfig = {
             dark: 'rgba(246, 246, 246, <alpha-value>)',
           },
           border: {
-            DEFAULT: {
-              DEFAULT: 'rgba(246, 246, 246, <alpha-value>)',
-              dark: 'rgba(79, 79, 79, <alpha-value>)',
-            },
+            DEFAULT: 'rgba(246, 246, 246, <alpha-value>)',
+            dark: 'rgba(79, 79, 79, <alpha-value>)',
             hover: {
               DEFAULT: 'rgba(231, 231, 231, <alpha-value>)',
               dark: 'rgba(93, 93, 93, <alpha-value>)',

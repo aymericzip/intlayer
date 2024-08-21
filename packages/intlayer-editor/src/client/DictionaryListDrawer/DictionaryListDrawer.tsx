@@ -1,11 +1,12 @@
 import type { Locales } from '@intlayer/config/client';
-import { RightDrawer, RedirectionButton } from '@intlayer/design-system';
+import { RightDrawer, Button } from '@intlayer/design-system';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 import dictionaries from '@intlayer/dictionaries-entry';
+import { ChevronRight } from 'lucide-react';
 import type { FC } from 'react';
 import {
   useDictionaryEditionDrawerControl,
@@ -42,15 +43,21 @@ export const DictionaryListDrawer: FC = () => {
       identifier={dictionaryListDrawerIdentifier}
     >
       {dictionaryKeyList.map((dictionaryId) => (
-        <RedirectionButton
-          key={dictionaryId}
-          label={`Open dictionary editor ${dictionaryId}`}
-          onClick={() => handleClickDictionary(dictionaryId)}
-        >
-          {isDictionaryEdited(dictionaryId)
-            ? `✎ ${dictionaryId}`
-            : dictionaryId}
-        </RedirectionButton>
+        <div key={dictionaryId}>
+          <Button
+            label={`Open dictionary editor ${dictionaryId}`}
+            onClick={() => handleClickDictionary(dictionaryId)}
+            variant="hoverable"
+            color="text"
+            IconRight={ChevronRight}
+            size="md"
+            isFullWidth
+          >
+            {isDictionaryEdited(dictionaryId)
+              ? `✎ ${dictionaryId}`
+              : dictionaryId}
+          </Button>
+        </div>
       ))}
     </RightDrawer>
   );

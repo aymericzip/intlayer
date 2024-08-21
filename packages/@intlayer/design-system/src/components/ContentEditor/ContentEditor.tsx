@@ -1,7 +1,7 @@
 'use client';
 
 import { Check, X } from 'lucide-react';
-import { useState, type FC } from 'react';
+import { type HTMLAttributes, useState, type FC } from 'react';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -9,7 +9,7 @@ export type ContentEditorProps = {
   children: string;
   onContentChange: (content: string) => void;
   isEditing?: boolean;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
 const StyledPressableDiv = styled.div<{ $isEditing: boolean }>`
   ${tw`bg-transparent inline outline-none m-3 w-full`}
@@ -24,6 +24,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
   children,
   onContentChange,
   isEditing,
+  ...props
 }) => {
   const [newValue, setNewValue] = useState<string>(children);
   const [resetIncrementor, setResetIncrementor] = useState<number>(0); // To reset the div on cancel
@@ -49,6 +50,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
         suppressContentEditableWarning={true} // To suppress the warning for controlled components
         $isEditing={isEditing ?? false}
         key={resetIncrementor}
+        {...props}
       >
         {children}
       </StyledPressableDiv>

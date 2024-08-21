@@ -1,12 +1,24 @@
-import { isSameKeyPath } from '@intlayer/core';
+import { isSameKeyPath, type KeyPath } from '@intlayer/core';
 import type { FC } from 'react';
 import { ContentEditor } from '../../ContentEditor';
+import type { FieldContent } from '../../DictionaryFieldEditor';
 import { StyledContainer } from '../ItemLayout';
 import type { NodeWrapperProps } from './index';
 
 interface StringWrapperProps extends Omit<NodeWrapperProps, 'section'> {
   section: string;
 }
+
+export const getEditedContentValue = (
+  editedContent: FieldContent[] | undefined,
+  keyPath: KeyPath[]
+): string | undefined => {
+  const result = editedContent?.find((content) =>
+    isSameKeyPath(content.keyPath, keyPath)
+  );
+
+  return result?.newValue;
+};
 
 export const StringWrapper: FC<StringWrapperProps> = (props) => {
   const {
@@ -18,9 +30,10 @@ export const StringWrapper: FC<StringWrapperProps> = (props) => {
     focusedKeyPath = [],
   } = props;
 
-  const editedContentValue = editedContent?.find((content) =>
-    isSameKeyPath(content.keyPath, focusedKeyPath)
-  )?.newValue;
+  const editedContentValue = getEditedContentValue(
+    editedContent,
+    focusedKeyPath
+  );
 
   return (
     <StyledContainer
