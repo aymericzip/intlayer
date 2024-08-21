@@ -1,9 +1,7 @@
-import { getConfiguration } from '@intlayer/config';
 import {
   type KeyPath,
   isSameKeyPath,
   type DictionaryValue,
-  type TranslationContent,
 } from '@intlayer/core';
 import { Edit } from 'lucide-react';
 import type { FC } from 'react';

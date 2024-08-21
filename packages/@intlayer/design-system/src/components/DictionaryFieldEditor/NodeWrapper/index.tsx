@@ -38,7 +38,6 @@ export interface NodeWrapperProps {
 }
 
 const StyledNavButtonContainer = tw.div`flex justify-between gap-2 flex-col`;
-const StyledChevron = tw(ChevronRight)`ml-auto`;
 
 const createReactElement = (element: ReactElement) => {
   if (typeof element === 'string') {

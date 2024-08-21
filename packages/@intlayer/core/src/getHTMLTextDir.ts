@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/config';
+import { Locales } from '@intlayer/config/client';
 
 type Dir = 'ltr' | 'rtl' | 'auto';
 
