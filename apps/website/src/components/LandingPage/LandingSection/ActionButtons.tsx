@@ -21,7 +21,7 @@ export const ActionButtons: FC = () => {
   const router = useRouter();
 
   return (
-    <div className="mt-10 flex w-full flex-col gap-4 sm:flex-row">
+    <div className="flex w-full flex-col gap-4 sm:flex-row">
       <Button
         label={secondaryLabel.value}
         variant="outline"
