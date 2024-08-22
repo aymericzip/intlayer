@@ -4,7 +4,7 @@ import { Container, Flag } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { getHTMLTextDir, getLocaleName, type Locales } from 'intlayer';
 import { useLocale } from 'next-intlayer/client';
-import { type FC, useMemo } from 'react';
+import { type FC, type HTMLAttributes, useMemo } from 'react';
 
 const shuffleArray = (array: string[], limit?: number) => {
   const shuffled = [...array];
@@ -58,7 +58,10 @@ const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
   </div>
 );
 
-export const LanguageSection: FC = () => {
+export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
+  className,
+  ...props
+}) => {
   const { localeList } = useLocale();
 
   const firstPart = useMemo(() => shuffleArray(localeList, 15), [localeList]);
@@ -67,13 +70,19 @@ export const LanguageSection: FC = () => {
   const fourthPart = useMemo(() => shuffleArray(localeList, 15), [localeList]);
 
   return (
-    <div className="my-10 w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+    <section
+      className={cn(
+        'my-10 w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]',
+        className
+      )}
+      {...props}
+    >
       <div className="relative grid size-full gap-5 overflow-hidden whitespace-nowrap py-3">
         <LocalCardList localeList={firstPart} className="horizontal-loop-1" />
         <LocalCardList localeList={secondPart} className="horizontal-loop-2" />
         <LocalCardList localeList={thirdPart} className="horizontal-loop-1" />
         <LocalCardList localeList={fourthPart} className="horizontal-loop-2" />
       </div>
-    </div>
+    </section>
   );
 };
