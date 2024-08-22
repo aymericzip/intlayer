@@ -25,3 +25,4 @@ export * from './WithResizer';
 export * from './SwitchSelector';
 export * from './Modal';
 export * from './Breadcrumb';
+export * from './Flags';

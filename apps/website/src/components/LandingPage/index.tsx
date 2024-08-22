@@ -13,6 +13,13 @@ const DynamicAvailableTechnoSection = dynamic(
   }
 );
 
+const DynamicLanguageSection = dynamic(
+  () => import('./LanguageSection').then((mod) => mod.LanguageSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 const DynamicWhyToChoseIntlayerSection = dynamic(
   () =>
     import('./WhyToChoseIntlayerSection').then(
@@ -34,6 +41,7 @@ export const LandingPage: FC = () => (
   <>
     <LandingSection />
     <DynamicAvailableTechnoSection />
+    <DynamicLanguageSection />
     <DynamicWhyToChoseIntlayerSection />
     <DynamicDemoSection />
   </>

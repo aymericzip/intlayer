@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes infiniteScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes infiniteScrollInverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.horizontal-loop-1 {
+  animation-name: infiniteScroll;
+  animation-duration: 85s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.horizontal-loop-2 {
+  animation-name: infiniteScrollInverse;
+  animation-duration: 85s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}

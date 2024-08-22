@@ -131,6 +131,10 @@ export const getLocaleName = (locale: Locales): string => {
       return 'Srpski';
     case Locales.SWEDISH:
       return 'Svenska';
+    case Locales.SWEDISH_FINLAND:
+      return 'Svenska (Finland)';
+    case Locales.SWEDISH_SWEDEN:
+      return 'Svenska (Sverige)';
     case Locales.SWAHILI:
       return 'Kiswahili';
     case Locales.SYRIAC:

@@ -6,7 +6,7 @@ import {
   RightDrawer,
   DictionaryEditor,
   LocaleSwitcher,
-  type FieldContent,
+  type FileContent,
   Modal,
   DictionaryFieldEditor,
 } from '@intlayer/design-system';
@@ -47,7 +47,7 @@ export const DictionaryEditionDrawerContent: FC<
   const dictionaryId: string = focusedContent.dictionaryId;
   const dictionary: Dictionary = dictionaries[dictionaryId];
   const dictionaryPath: string = dictionary.filePath;
-  const editedDictionaryContent: FieldContent[] = editedContent[dictionaryPath];
+  const editedDictionaryContent: FileContent[] = editedContent[dictionaryPath];
 
   return (
     <>
