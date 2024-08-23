@@ -1,0 +1,90 @@
+{
+  "name": "backend",
+  "version": "0.1.13",
+  "private": true,
+  "description": "IntLayer Backend is a an application that allow you to manage your IntLayer content and interact with the intlayer editor.",
+  "keywords": [
+    "intlayer",
+    "backend",
+    "application",
+    "editor",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aypineau/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aypineau/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aypineau"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aypineau"
+    }
+  ],
+  "type": "module",
+  "module": "dist/index.js",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "dev": "tsc --watch",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/crypto-js": "^4.2.2",
+    "@types/validator": "^13.12.0",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "csrf": "^3.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.3",
+    "tsx": "^4.17.0",
+    "validator": "^13.12.0",
+    "winston": "^3.14.2"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/csurf": "^1.11.5",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^22.1.0",
+    "@utils/ts-config": "workspace:^",
+    "eslint": "^8.57.0",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
+    "typescript": "^5.5.4"
+  },
+  "_moduleAliases": {
+    "@controllers": "dist/controllers",
+    "@models": "dist/models",
+    "@routes": "dist/routes",
+    "@middlewares": "dist/middlewares",
+    "@logger": "dist/logger",
+    "@schemas": "dist/schemas",
+    "@utils": "dist/utils",
+    "@services": "dist/services"
+  }
+}
