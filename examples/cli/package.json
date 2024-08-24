@@ -6,22 +6,22 @@
   "keywords": [],
   "homepage": "https://intlayer.org",
   "bugs": {
-    "url": "https://github.com/aypineau/intlayer/issues"
+    "url": "https://github.com/aymericzip/intlayer/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aypineau/intlayer.git"
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
     "name": "Aymeric PINEAU",
-    "url": "https://github.com/aypineau"
+    "url": "https://github.com/aymericzip"
   },
   "contributors": [
     {
       "name": "Aymeric Pineau",
       "email": "ay.pineau@gmail.com",
-      "url": "https://github.com/aypineau"
+      "url": "https://github.com/aymericzip"
     }
   ],
   "scripts": {
@@ -41,6 +41,6 @@
     "typescript": "^5.4.5"
   },
   "bug": {
-    "url": "https://github.com/aypineau/intlayer/issues"
+    "url": "https://github.com/aymericzip/intlayer/issues"
   }
 }

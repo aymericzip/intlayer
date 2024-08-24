@@ -1,6 +1,6 @@
 /**
  * Opinionated config base for https://github.com/mdx-js/eslint-mdx
- * @see https://github.com/aypineau/sayaup/tree/main/packages/eslint-config-bases
+ * @see https://github.com/aymericzip/sayaup/tree/main/packages/eslint-config-bases
  */
 
 const mdxPatterns = {

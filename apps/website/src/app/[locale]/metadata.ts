@@ -31,7 +31,7 @@ export const generateMetadata = ({
         name: 'Intlayer',
         url: process.env.NEXT_PUBLIC_URL,
       },
-      { name: 'Aymeric PINEAU', url: 'https://github.com/aypineau' },
+      { name: 'Aymeric PINEAU', url: 'https://github.com/aymericzip' },
     ],
     generator: 'Next.js',
     keywords: t<string[]>({

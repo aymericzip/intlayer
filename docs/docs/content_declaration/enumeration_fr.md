@@ -70,8 +70,8 @@ Pour vous assurer que vos énumérations fonctionnent comme prévu, suivez ces m
 
 Pour des informations plus détaillées sur la configuration et l'utilisation, consultez les ressources suivantes :
 
-- [Documentation CLI Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_cli_fr.md)
-- [Documentation React Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_fr.md)
-- [Documentation Next Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/intlayer_with_nextjs_fr.md)
+- [Documentation CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_cli_fr.md)
+- [Documentation React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_fr.md)
+- [Documentation Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_fr.md)
 
 Ces ressources fournissent des informations supplémentaires sur la configuration et l'utilisation d'Intlayer dans différents environnements et avec divers frameworks.

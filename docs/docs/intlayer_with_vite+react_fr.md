@@ -42,7 +42,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_fr.md).
+Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
 
 ## Étape 3 : Intégrer Intlayer dans votre configuration Vite
 
@@ -121,7 +121,7 @@ export default appContent;
 
 > Note : Si votre fichier de contenu inclut du code TSX, vous devrez penser à importer `import React from "react";` dans votre fichier de contenu.
 
-[Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
+[Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
 
 ## Étape 5 : Utilisez Intlayer dans votre code
 
@@ -209,9 +209,9 @@ const MyComponent = () => {
 
 Intlayer utilise l'augmentation de module pour tirer parti de TypeScript et renforcer votre code.
 
-![texte alternatif](https://github.com/aypineau/intlayer/blob/main/docs/assets/autocompletion.png)
+![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![texte alternatif](https://github.com/aypineau/intlayer/blob/main/docs/assets/translation_error.png)
+![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
 Assurez-vous que votre configuration TypeScript inclut les types générés automatiquement.
 

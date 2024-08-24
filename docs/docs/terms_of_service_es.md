@@ -6,7 +6,7 @@ Al usar Intlayer, usted acepta estar sujeto a estos términos de uso. Si no acep
 
 ## 2. Licencia
 
-Intlayer se distribuye bajo la licencia **Apache 2.0**, que permite el uso, modificación y distribución del código para proyectos tanto de código abierto como comerciales. Los usuarios tienen permitido modificar el código fuente y enviar contribuciones a través de pull requests de acuerdo con las directrices establecidas en nuestra [guía de contribución](https://github.com/aypineau/intlayer/blob/main/CONTRIBUTING.md). Está estrictamente prohibido el robo de código para uso comercial.
+Intlayer se distribuye bajo la licencia **Apache 2.0**, que permite el uso, modificación y distribución del código para proyectos tanto de código abierto como comerciales. Los usuarios tienen permitido modificar el código fuente y enviar contribuciones a través de pull requests de acuerdo con las directrices establecidas en nuestra [guía de contribución](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md). Está estrictamente prohibido el robo de código para uso comercial.
 
 ## 3. Uso Comercial
 
@@ -14,7 +14,7 @@ Se le permite usar Intlayer para proyectos comerciales. Sin embargo, está prohi
 
 ## 4. Responsabilidad
 
-Los mantenedores de Intlayer se esfuerzan por corregir errores y problemas de seguridad tan pronto como se descubren. Sin embargo, declinan toda responsabilidad por los daños resultantes de tales problemas en las infraestructuras de los usuarios. Alentamos a los usuarios a reportar problemas a través de nuestro [sistema de seguimiento de problemas](https://github.com/aypineau/intlayer/issues).
+Los mantenedores de Intlayer se esfuerzan por corregir errores y problemas de seguridad tan pronto como se descubren. Sin embargo, declinan toda responsabilidad por los daños resultantes de tales problemas en las infraestructuras de los usuarios. Alentamos a los usuarios a reportar problemas a través de nuestro [sistema de seguimiento de problemas](https://github.com/aymericzip/intlayer/issues).
 
 ## 5. Privacidad
 

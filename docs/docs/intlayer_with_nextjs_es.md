@@ -42,7 +42,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Para ver todos los parámetros disponibles, consulta la [documentación de configuración aquí](https://github.com/aypineau/intlayer/blob/main/docs/docs/configuration_es.md).
+Para ver todos los parámetros disponibles, consulta la [documentación de configuración aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_es.md).
 
 ## Paso 3: Integrar Intlayer en tu Configuración de Next.js
 
@@ -141,7 +141,7 @@ export default pageContent;
 
 > Nota: Si tu contenido incluye código TSX, debes pensar en importar `import React from "react";` en tu archivo de contenido.
 
-[Consulta cómo declarar tus archivos de declaración de Intlayer](https://github.com/aypineau/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md).
+[Consulta cómo declarar tus archivos de declaración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md).
 
 ## Paso 7: Utilizar Contenido en tu Código
 
@@ -229,7 +229,7 @@ export const ServerComponentExample = () => {
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-Para un uso más detallado de intlayer en el Cliente o en el componente del Servidor, consulta el [ejemplo de nextJS aquí](https://github.com/aypineau/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
+Para un uso más detallado de intlayer en el Cliente o en el componente del Servidor, consulta el [ejemplo de nextJS aquí](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
 
 ## (Opcional) Paso 8: Internacionalización de tus metadatos
 
@@ -286,9 +286,9 @@ const MyComponent = () => {
 
 Intlayer utiliza la ampliación de módulos para aprovechar los beneficios de TypeScript y hacer que tu base de código sea más sólida.
 
-![texto alternativo](https://github.com/aypineau/intlayer/blob/main/docs/assets/autocompletion.png)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![texto alternativo](https://github.com/aypineau/intlayer/blob/main/docs/assets/translation_error.png)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
 Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
 

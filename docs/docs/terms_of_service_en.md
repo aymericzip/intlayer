@@ -6,7 +6,7 @@ By using Intlayer, you agree to be bound by these terms of use. If you do not ac
 
 ## 2. License
 
-Intlayer is distributed under the **Apache 2.0 license** which allows the use, modification, and distribution of the code for both open-source and commercial projects. Users are allowed to modify the source code and submit contributions via pull requests in accordance with the guidelines established in our [contribution guide](https://github.com/aypineau/intlayer/blob/main/CONTRIBUTING.md). Code theft for commercial use is strictly prohibited.
+Intlayer is distributed under the **Apache 2.0 license** which allows the use, modification, and distribution of the code for both open-source and commercial projects. Users are allowed to modify the source code and submit contributions via pull requests in accordance with the guidelines established in our [contribution guide](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md). Code theft for commercial use is strictly prohibited.
 
 ## 3. Commercial Use
 
@@ -14,7 +14,7 @@ You are permitted to use Intlayer for commercial projects. However, reusing the 
 
 ## 4. Liability
 
-The maintainers of Intlayer strive to correct bugs and security issues as soon as they are discovered. However, they disclaim any responsibility for damages resulting from such issues on user infrastructures. We encourage users to report issues via our [issue tracking system](https://github.com/aypineau/intlayer/issues).
+The maintainers of Intlayer strive to correct bugs and security issues as soon as they are discovered. However, they disclaim any responsibility for damages resulting from such issues on user infrastructures. We encourage users to report issues via our [issue tracking system](https://github.com/aymericzip/intlayer/issues).
 
 ## 5. Privacy
 
