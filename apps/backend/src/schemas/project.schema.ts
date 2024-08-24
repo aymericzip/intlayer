@@ -1,11 +1,11 @@
 import {
-  NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
-} from '@utils/validation/validateOrganization';
+  NAME_MAX_LENGTH,
+} from '@utils/validation/validateProject';
 import { Schema } from 'mongoose';
-import type { Organization } from './organization.type';
+import type { Project } from './project.type';
 
-export const organizationSchema = new Schema<Organization>(
+export const projectSchema = new Schema<Project>(
   {
     name: {
       type: String,

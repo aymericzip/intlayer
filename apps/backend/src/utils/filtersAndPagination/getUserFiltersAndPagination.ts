@@ -9,6 +9,11 @@ export type UserFilters = {
   firstName?: string;
 };
 
+/**
+ * Extracts filters and pagination information from the request body.
+ * @param req - Express request object.
+ * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
+ */
 export const getUserFiltersAndPagination = (
   req: Request<FiltersAndPagination<UserFilters>>
 ) => {

@@ -4,7 +4,7 @@ import {
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
 
-export type OrganizationFilters = {
+export type ProjectFilters = {
   ids?: string;
   name?: string;
 };
@@ -14,11 +14,11 @@ export type OrganizationFilters = {
  * @param req - Express request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
-export const getOrganizationFiltersAndPagination = (
-  req: Request<FiltersAndPagination<OrganizationFilters>>
+export const getProjectFiltersAndPagination = (
+  req: Request<FiltersAndPagination<ProjectFilters>>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<OrganizationFilters>(req);
+    getFiltersAndPaginationFromBody<ProjectFilters>(req);
 
   let filters = {};
 

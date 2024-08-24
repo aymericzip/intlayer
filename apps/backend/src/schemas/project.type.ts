@@ -1,7 +1,7 @@
 import type { Model } from 'mongoose';
 import type { User } from './user.type';
 
-export type Organization = Document & {
+export type Project = Document & {
   _id: string;
   name: string;
   description: string;
@@ -10,4 +10,4 @@ export type Organization = Document & {
   createdAt: number;
 };
 
-export type OrganizationModel = Model<Organization>;
+export type ProjectModel = Model<Project>;

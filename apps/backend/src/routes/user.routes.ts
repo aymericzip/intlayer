@@ -2,7 +2,6 @@ import {
   signUp,
   signIn,
   logByFirebase,
-  isRegistered,
   logOut,
 } from '@controllers/auth.controller';
 import {
@@ -21,7 +20,6 @@ export const userRouter = Router();
 userRouter.post('/register', signUp);
 userRouter.post('/login', signIn);
 userRouter.post('/logByFirebase', logByFirebase);
-userRouter.post('/isRegistered', isRegistered);
 userRouter.get('/logout', logOut);
 
 userRouter.get('/', getUsers);

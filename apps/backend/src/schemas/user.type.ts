@@ -1,6 +1,6 @@
-import type { ObjectId, Model } from 'mongoose';
+import type { ObjectId, Model, Document } from 'mongoose';
 
-export type User = Document & {
+export type User = {
   _id: string;
   firebaseUid?: string;
   email: string;
@@ -12,10 +12,16 @@ export type User = Document & {
   passwordHash?: string;
   secret?: string;
   createdAt: number;
+  updatedAt: number;
 };
 
-export type UserWithPasswordNotHashed = Omit<User, 'passwordHash'> & {
-  password: string;
+export type UserDocument = Document<User> & User;
+
+export type UserWithPasswordNotHashed = Pick<
+  User,
+  'firstname' | 'lastname' | 'phone' | 'email' | 'secret'
+> & {
+  password?: string;
 };
 
 export type UserModelType = Model<User> & {

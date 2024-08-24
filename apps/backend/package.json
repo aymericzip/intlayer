@@ -33,14 +33,13 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "type": "module",
   "module": "dist/index.js",
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "tsc --watch",
+    "dev": "node --watch -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
-    "start": "node dist/index.js"
+    "start": "node -r ts-node/register dist/index.js"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -75,6 +74,7 @@
     "eslint": "^8.57.0",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
   },
   "_moduleAliases": {

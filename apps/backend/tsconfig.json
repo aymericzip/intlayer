@@ -10,6 +10,8 @@
     "allowImportingTsExtensions": false,
     "baseUrl": ".",
     "removeComments": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
     "paths": {
       "@controllers/*": ["./src/controllers/*"],
       "@models/*": ["./src/models/*"],

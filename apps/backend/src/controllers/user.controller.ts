@@ -1,6 +1,5 @@
-import { OrganizationModel } from '@models/organization.model';
+import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import { UserModel } from '@models/user.model';
-import type { Organization } from '@schemas/organization.type';
 import type { User } from '@schemas/user.type';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
@@ -8,184 +7,245 @@ import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndP
 import type { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { logger } from '@/logger';
+import {
+  findUsers,
+  countUsers,
+  changeUserPassword,
+  updateUserById,
+  activateUser,
+  requestPasswordReset,
+  resetUserPassword,
+  getUserById,
+} from '@/services/user.service';
 
+/**
+ * Retrieves a list of users based on filters and pagination.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the list of users and pagination details.
+ */
 export const getUsers = async (
   req: Request<FiltersAndPagination<UserFilters>>,
-  res: Response
+  res: ResponseWithInformation
 ) => {
-  // Get the filters and pagination from the request
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
-  // Get the organizations from the database
-  const organizations = await OrganizationModel.find(filters)
-    .skip(skip)
-    .limit(pageSize);
+  try {
+    const users = await findUsers(filters, skip, pageSize);
+    const totalItems = await countUsers(filters);
 
-  // Get the total number of organizations
-  const totalItems = await OrganizationModel.countDocuments(filters);
+    return res.status(200).json({
+      success: true,
+      data: users,
+      page,
+      page_size: pageSize,
+      total_pages: getNumberOfPages(totalItems),
+      total_items: totalItems,
+    });
+  } catch (error) {
+    const errorMessage: string = (error as { message: string }).message;
 
-  // Return the formatted organization
-  return res.status(200).json({
-    success: true,
-    data: organizations,
-    page,
-    page_size: pageSize,
-    total_pages: getNumberOfPages(totalItems),
-    total_items: totalItems,
-  });
-};
-
-export const updatePassword = async (req: Request, res: Response) => {
-  const { oldPassword, newPassword } = req.body;
-  let user: User | undefined = res.locals.user;
-  const organization: Organization | undefined = res.locals.organization;
-
-  if (!!user && organization) {
-    try {
-      if (newPassword != '') {
-        user = await UserModel.changePassword(
-          user._id,
-          oldPassword,
-          newPassword
-        );
-        // await mailController.passwordChanged(user, organization);
-
-        logger.info(
-          `Password changed - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id} `
-        );
-
-        if (user) res.status(200).json(user);
-        else res.sendStatus(500);
-      }
-    } catch (err) {
-      logger.error(err);
-      return res.status(403).json({ erreur: err });
-    }
-  } else return res.sendStatus(404);
-};
-
-export const updateUser = async (req: Request, res: Response) => {
-  const { phone, dateOfBirth } = req.body;
-  const user = res.locals.user;
-
-  if (user) {
-    if (phone) user.phone = phone;
-    if (dateOfBirth) user.dateOfBirth = dateOfBirth;
-
-    await user.save();
-
-    logger.info(
-      `User updated : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id} `
-    );
-
-    return res.status(200).json(user);
-  } else return res.sendStatus(404);
-};
-
-const activeUser = async (user: User) => {
-  return await UserModel.updateOne(
-    { _id: user._id },
-    {
-      $set: {
-        emailValidated: true,
-      },
-    }
-  );
-};
-
-export const validEmail = async (req: Request, res: Response) => {
-  const userId = req.params.userId as unknown as User['_id'];
-  const secret = req.params.secret as unknown as string;
-  const organization: Organization | undefined = res.locals.organization;
-
-  if (organization && Types.ObjectId.isValid(userId.toString())) {
-    const user = await UserModel.findById(userId);
-
-    if (user && secret && user.secret === secret) {
-      user.emailValidated = true;
-      await user.save();
-
-      await activeUser(user);
-
-      logger.info(
-        `Email validated - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id} `
-      );
-
-      return res.status(200).json(user);
-    } else return res.sendStatus(404);
-  } else return res.sendStatus(404);
-};
-
-const makeSecret = (length: number) => {
-  let result = '';
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    logger.error(`errors: ${errorMessage}`);
+    return res.status(500).json({ success: false, message: errorMessage });
   }
-  return result;
 };
 
-export const askResetPassword = async (req: Request, res: Response) => {
-  const organization: Organization | undefined = res.locals.organization;
+/**
+ * Updates the user's password.
+ * @param req - Express request object.
+ * @param  res - Express response object.
+ * @returns  Response containing the updated user or error message.
+ */
+export const updatePassword = async (
+  req: Request,
+  res: ResponseWithInformation
+) => {
+  const { oldPassword, newPassword } = req.body;
+  let user = res.locals.user;
+
+  if (!user) {
+    return res.sendStatus(404).json();
+  }
 
   try {
-    const user = await UserModel.findOne({ email: req.body.email });
-
-    if (user && organization) {
-      user.secret = makeSecret(35);
-      await user.save();
-
-      // await mailController.resetPassword(user, organization);
+    if (newPassword !== '') {
+      user = await changeUserPassword(user._id, oldPassword, newPassword);
 
       logger.info(
-        `Ask changing password - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id} `
+        `Password changed - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id}`
       );
 
-      res.status(200).json({ emailState: 'Email envoyé', user: user._id });
-    } else {
-      res.status(200).json({ emailState: 'Email incorrect', user: 'none' });
+      if (user) return res.status(200).json(user);
+      else return res.sendStatus(500);
     }
   } catch (err) {
     logger.error(err);
-    res.sendStatus(500);
+    return res.status(403).json({ error: err });
   }
 };
 
-export const resetPassword = async (req: Request, res: Response) => {
+/**
+ * Updates user information (phone number, date of birth).
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the updated user or error message.
+ */
+export const updateUser = async (
+  req: Request,
+  res: ResponseWithInformation
+) => {
+  const { phone, dateOfBirth } = req.body;
+  const user = res.locals.user;
+
+  if (!user) {
+    return res
+      .sendStatus(404)
+      .json({ success: false, message: 'User not found' });
+  }
+
+  try {
+    const updatedUser = await updateUserById(user, { phone, dateOfBirth });
+
+    logger.info(
+      `User updated: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
+    );
+
+    return res.status(200).json({ success: true, user: updatedUser });
+  } catch (error) {
+    const errorMessage: string = (error as { message: string }).message;
+
+    logger.error(`errors: ${errorMessage}`);
+    return res.status(500).json({ success: false, message: errorMessage });
+  }
+};
+
+/**
+ * Validates a user's email based on the provided secret and user ID.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the validated user or error message.
+ */
+export const validEmail = async (
+  req: Request,
+  res: ResponseWithInformation
+) => {
+  const userId = req.params.userId as unknown as User['_id'];
+  const secret = req.params.secret;
+  const organization = res.locals.organization;
+
+  if (!Types.ObjectId.isValid(userId.toString())) {
+    return res
+      .sendStatus(404)
+      .json({ success: false, message: 'User id not valid' });
+  }
+
+  if (!organization) {
+    return res
+      .sendStatus(404)
+      .json({ success: false, message: 'Organization not found' });
+  }
+
+  const user = await getUserById(userId);
+
+  if (!user) {
+    return res
+      .sendStatus(404)
+      .json({ success: false, message: 'User not found' });
+  }
+
+  if (secret !== user.secret) {
+    return res
+      .sendStatus(500)
+      .json({ success: false, message: 'Secret not valid' });
+  }
+
+  user.emailValidated = true;
+  await user.save();
+
+  await activateUser(user);
+
+  logger.info(
+    `User activated - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
+  );
+
+  return res.status(200).json(user);
+};
+
+/**
+ * Requests a password reset for a user.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response indicating the status of the password reset request.
+ */
+export const askResetPassword = async (
+  req: Request,
+  res: ResponseWithInformation
+) => {
+  try {
+    const user = await requestPasswordReset(req.body.email);
+
+    if (!user) {
+      return res
+        .status(200)
+        .json({ emailState: 'Email incorrect', user: 'none' });
+    }
+
+    logger.info(
+      `Ask changing password - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
+    );
+
+    return res.status(200).json({ emailState: 'Email sent', user: user._id });
+  } catch (err) {
+    logger.error(err);
+    return res.sendStatus(500);
+  }
+};
+
+/**
+ * Resets a user's password based on the provided secret and user ID.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the updated user or error message.
+ */
+export const resetPassword = async (
+  req: Request,
+  res: ResponseWithInformation
+): Promise<Response> => {
   const userId = req.params.userId as unknown as User['_id'];
   const secret: string = req.params.secret;
   const password: string = req.body.password;
-  const organization: Organization | undefined = res.locals.organization;
+  const organization = res.locals.organization;
 
-  if (!(Types.ObjectId.isValid(userId.toString()) && organization))
-    res.sendStatus(404);
-  else if (!secret) return res.status(400);
-  else {
-    try {
-      const user = await UserModel.findById(userId);
+  if (!Types.ObjectId.isValid(userId.toString())) {
+    return res
+      .sendStatus(404)
+      .json({ success: false, message: 'User id not valid' });
+  }
 
-      if (user) {
-        if (secret != user.secret) return res.sendStatus(404);
-        else {
-          await UserModel.resetPassword(user._id, password);
-          logger.info(`${user._id} password changed`);
-          // await mailController.passwordChanged(user, organization);
-          logger.info(
-            `Password changed - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id} `
-          );
+  if (!organization) {
+    return res
+      .sendStatus(404)
+      .json({ success: false, message: 'Organization not found' });
+  }
 
-          res.status(200).json(user);
-        }
-      } else {
-        return res.sendStatus(404);
-      }
-    } catch (err) {
-      res
-        .status(400)
-        .json({ emailState: 'Not send', user: 'not created', error: err });
-    }
+  if (!secret) {
+    return res
+      .status(400)
+      .json({ success: false, message: 'Secret not provided' });
+  }
+
+  try {
+    const user = await resetUserPassword(userId, secret, password);
+
+    logger.info(
+      `Password changed - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
+    );
+
+    return res.status(200).json(user);
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ emailState: 'Not sent', user: 'not created', error: err });
   }
 };

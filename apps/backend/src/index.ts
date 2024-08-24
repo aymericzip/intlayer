@@ -1,8 +1,10 @@
 import { controlJWT } from '@controllers/auth.controller';
 import { checkUser, checkOrganization } from '@middlewares/auth.middleware';
-import { logRequestURL } from '@middlewares/request.middleware';
+import { logAPIRequestURL } from '@middlewares/request.middleware';
 import { organizationRouter } from '@routes/organization.routes';
+import { projectRouter } from '@routes/project.routes';
 import { userRouter } from '@routes/user.routes';
+import { connectDB } from '@utils/mongoDB/connectDB';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -10,19 +12,24 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { logger } from './logger';
-
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
-logger.info(`run as ${process.env.NODE_ENV}`);
+import 'dotenv/config.js';
 
 const app = express();
+
+const env = app.get('env');
+
+logger.info(`run as ${env}`);
+
+dotenv.config({ path: ['.env', `.env.${env}`] });
+
+connectDB();
 
 // Compress all HTTP responses
 app.use(compression());
 
 const whitelist: string[] = [process.env.CLIENT_URL ?? ''];
 
-logger.info('url whitelist :');
-logger.info(whitelist);
+logger.info('url whitelist : ', whitelist.join(', '));
 
 const corsOptions = {
   origin: whitelist,
@@ -34,7 +41,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(logRequestURL);
+app.use(logAPIRequestURL);
 app.use(cookieParser());
 
 app.use(bodyParser.json());
@@ -52,6 +59,7 @@ app.get('/api/token', controlJWT);
 // Routes
 app.use('/api/user', userRouter);
 app.use('/api/organization', organizationRouter);
+app.use('/api/project', projectRouter);
 
 // Server
 app.listen(process.env.PORT, () => {

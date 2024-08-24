@@ -1,84 +1,73 @@
+import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import { UserModel } from '@models/user.model';
-import type { User } from '@schemas/user.type';
+import type { User, UserWithPasswordNotHashed } from '@schemas/user.type';
+import {
+  clearCSRFToken,
+  clearOrganizationAuth,
+  clearProjectAuth,
+  clearUserAuth,
+  generateRandomString,
+  loginUser,
+  setCSRFToken,
+  setUserAuth,
+} from '@services/auth.service';
+import { createUser, getUserByEmail } from '@services/user.service';
 import type { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import { logger } from '@/logger';
 
-const MAX_AGE = 3 * 24 * 60 * 60 * 1000;
-const TOKEN_SECRET = process.env.TOKEN_SECRET!;
-const DOMAIN = process.env.DOMAIN!;
-
-const createToken = (user: User | null) => {
-  const tokenData = {
-    userId: user?._id ?? '',
-    email: user?.email ?? '',
-  };
-  const date = new Date().toDateString();
-
-  return {
-    jwt_auth: jwt.sign({ tokenData }, TOKEN_SECRET, { expiresIn: MAX_AGE }),
-    jwt_logged: jwt.sign({ date }, TOKEN_SECRET, { expiresIn: MAX_AGE }),
-  };
+type CSRFTokenProps = {
+  csrfToken: () => string;
 };
 
-const generateRandomString = (length: number) => {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  return Array.from(
-    { length },
-    () => characters[Math.floor(Math.random() * characters.length)]
-  ).join('');
-};
+type RequestWithCSRFToken<
+  P = any,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = qs.ParsedQs,
+  Locals extends Record<string, any> = Record<string, any>,
+> = Request<P, ResBody, ReqBody, ReqQuery, Locals> & CSRFTokenProps;
 
-export const controlJWT = (req: Request, res: Response) => {
-  const user: User | null = res.locals.user;
-  const csrfToken = (
-    req as unknown as Request & { csrfToken: () => string }
-  ).csrfToken();
+/**
+ * Handles JWT generation and setting cookies.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing CSRF token and user information.
+ */
+export const controlJWT = (req: Request, res: ResponseWithInformation) => {
+  const csrfToken = (req as RequestWithCSRFToken).csrfToken();
 
-  if (csrfToken) {
-    res.cookie('XSRF-TOKEN', csrfToken, {
-      httpOnly: false,
-      maxAge: MAX_AGE,
-      secure: true,
-      domain: DOMAIN,
-      sameSite: 'strict',
-    });
+  if (!csrfToken) {
+    clearCSRFToken(res);
   }
 
+  setCSRFToken(res, csrfToken);
+
+  const user = res.locals.user;
+
   if (user) {
-    const token = createToken(user);
-    if (token) {
-      res.cookie('jwt_auth', token.jwt_auth, {
-        httpOnly: true,
-        path: '/',
-        maxAge: MAX_AGE,
-        secure: true,
-        domain: DOMAIN,
-        sameSite: 'strict',
-      });
-      res.cookie('jwt_logged', token.jwt_logged, {
-        httpOnly: false,
-        path: '/',
-        maxAge: MAX_AGE,
-        secure: true,
-        domain: DOMAIN,
-        sameSite: 'strict',
-      });
-    }
+    setUserAuth(res, user);
   }
 
   return res.status(200).json({ csrfToken, user });
 };
 
-export const signUp = async (req: Request, res: Response) => {
+/**
+ * Handles user registration.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response with user information or error status.
+ */
+export const signUp = async (
+  req: Request<any, any, UserWithPasswordNotHashed>,
+  res: ResponseWithInformation
+) => {
   const { email, password, firstname, lastname, phone } = req.body;
 
   try {
-    const existingUser = await UserModel.findOne({ email });
+    const existingUser = await getUserByEmail(email);
 
-    if (!existingUser?.passwordHash) {
-      const newUser = await UserModel.create({
+    if (!existingUser) {
+      const newUser = await createUser({
         email,
         firstname,
         lastname,
@@ -87,12 +76,19 @@ export const signUp = async (req: Request, res: Response) => {
         secret: generateRandomString(35),
       });
 
-      if (newUser) {
-        logger.info(
-          `New registration: ${newUser.firstname} ${newUser.lastname} - ${newUser.email}`
-        );
-        return res.status(200).json(newUser);
+      if (!newUser) {
+        const errorMessage = `User creation failed - ${email}`;
+
+        logger.error(errorMessage);
+
+        return res.sendStatus(401).json({ error: errorMessage });
       }
+
+      logger.info(
+        `New registration: ${newUser.firstname} ${newUser.lastname} - ${newUser.email}`
+      );
+
+      return res.status(200).json(newUser);
     }
 
     return res.sendStatus(401);
@@ -102,74 +98,69 @@ export const signUp = async (req: Request, res: Response) => {
   }
 };
 
-export const signIn = async (req: Request, res: Response) => {
+export type UserLogInAttributes = {
+  email: string;
+  password: string;
+};
+
+/**
+ * Handles user login.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response with user information or error status.
+ */
+export const signIn = async (
+  req: Request<any, any, UserLogInAttributes>,
+  res: ResponseWithInformation
+) => {
   const { email, password } = req.body;
 
   try {
-    const user = await UserModel.login(email, password);
-    if (user) {
-      const token = createToken(user);
-      logger.info(
-        `New log: ${user.firstname} ${user.lastname} - ${user.email}`
-      );
+    const user = await loginUser(email, password);
 
-      if (token) {
-        res.cookie('jwt_logged', token.jwt_logged, {
-          httpOnly: false,
-          maxAge: MAX_AGE,
-          secure: true,
-          domain: DOMAIN,
-          sameSite: 'strict',
-        });
-        res.cookie('jwt_auth', token.jwt_auth, {
-          httpOnly: true,
-          maxAge: MAX_AGE,
-          secure: true,
-          domain: DOMAIN,
-          sameSite: 'strict',
-        });
-      }
+    setUserAuth(res, user);
 
-      return res.status(200).json(user);
-    }
-
-    return res.status(200).json(null);
+    return res.status(200).json(user);
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
 
-    logger.error(`errors: ${errorMessage}`);
-    return res.sendStatus(401);
+    logger.error(errorMessage);
+    return res.sendStatus(401).json({ error: errorMessage });
   }
 };
 
-export const logByFirebase = async (req: Request, res: Response) => {
+/**
+ * Handles login via Firebase authentication.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response with user information or error status.
+ */
+export const logByFirebase = async (
+  req: Request<any, any, User>,
+  res: ResponseWithInformation
+) => {
   const userData: User = req.body;
 
   try {
-    let user = await UserModel.findOne({ email: userData.email });
+    let user = await getUserByEmail(userData.email);
+
+    if (!user) {
+      user = await createUser(userData);
+
+      logger.info(
+        `New firebase registration: ${user.firstname} ${user.lastname} - ${user.email}`
+      );
+    }
 
     if (user) {
+      setUserAuth(res, user);
+
       logger.info(
         `New log: ${user.firstname} ${user.lastname} - ${user.email}`
       );
-      const token = createToken(user);
-
-      if (token) {
-        res.cookie('jwt_auth', token.jwt_auth, {
-          httpOnly: true,
-          maxAge: MAX_AGE,
-        });
-        res.cookie('jwt_logged', token.jwt_logged, {
-          httpOnly: false,
-          maxAge: MAX_AGE,
-        });
-      }
 
       return res.status(200).json(user);
     }
-
-    user = await UserModel.create(userData);
-    if (user) return res.status(200).json(user);
 
     return res.sendStatus(401);
   } catch (err) {
@@ -180,38 +171,30 @@ export const logByFirebase = async (req: Request, res: Response) => {
   }
 };
 
-export const isRegistered = async (req: Request, res: Response) => {
-  const { email } = req.body;
-
-  try {
-    const user = await UserModel.findOne({ email });
-    return res.status(200).json({ user: !!user, actived: !!user });
-  } catch (err) {
-    const errorMessage: string = (err as { message: string }).message;
-
-    logger.error(`errors: ${errorMessage}`);
-    return res.status(200).json({ err });
-  }
-};
-
-export const logOut = (req: Request, res: Response) => {
+/**
+ * Handles user logout and clears cookies.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response indicating logout success.
+ */
+export const logOut = (
+  _req: Request,
+  res: ResponseWithInformation
+): Response => {
   const user: User | null = res.locals.user;
 
-  if (user) {
-    logger.info(`Unlog: ${user.firstname} ${user.lastname} - ${user.email}`);
+  if (!user) {
+    const errorMessage = `User logout failed`;
+
+    logger.error(errorMessage);
+    return res.sendStatus(401).json({ error: errorMessage });
   }
 
-  const clearCookieOptions = {
-    maxAge: 1,
-    path: '/',
-    httpOnly: true,
-    secure: true,
-    domain: DOMAIN,
-    sameSite: 'lax' as 'lax' | 'strict' | 'none',
-  };
+  clearUserAuth(res);
+  clearOrganizationAuth(res);
+  clearProjectAuth(res);
 
-  res.cookie('jwt_auth', '', clearCookieOptions);
-  res.cookie('jwt_logged', '', { ...clearCookieOptions, httpOnly: false });
+  logger.info(`Logout: ${user.firstname} ${user.lastname} - ${user.email}`);
 
-  return res.status(200).json(null);
+  return res.status(200);
 };

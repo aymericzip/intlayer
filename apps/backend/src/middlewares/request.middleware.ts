@@ -1,12 +1,15 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { Request, NextFunction } from 'express';
+import type { ResponseWithInformation } from './auth.middleware';
 import { logger } from '@/logger';
 
-export const logRequestURL = (
+export const logAPIRequestURL = (
   req: Request,
-  res: Response,
+  res: ResponseWithInformation,
   next: NextFunction
 ) => {
-  process.env.NODE_ENV === 'developement' &&
-    logger.info(`Request - ${req.method} - ${req.originalUrl}`);
+  if (process.env.NODE_ENV === 'developement') {
+    logger.info(`API Request - ${req.method} - ${req.originalUrl}`);
+  }
+
   next();
 };

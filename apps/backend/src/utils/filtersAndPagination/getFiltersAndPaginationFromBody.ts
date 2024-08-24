@@ -16,6 +16,11 @@ export type FiltersAndPaginationResult<T extends Filters> = {
   getNumberOfPages: (totalItems: number) => number;
 };
 
+/**
+ * Extracts filters and pagination information from the request body.
+ * @param req - Express request object.
+ * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
+ */
 export const getFiltersAndPaginationFromBody = <T extends Filters>(
   req: Request<FiltersAndPagination<T>>
 ): FiltersAndPaginationResult<T> => {
@@ -54,5 +59,11 @@ export const getFiltersAndPaginationFromBody = <T extends Filters>(
   const getNumberOfPages = (totalItems: number) =>
     Math.ceil(totalItems / pageSize);
 
-  return { filters, skip, page, pageSize, getNumberOfPages };
+  return {
+    filters,
+    skip,
+    page,
+    pageSize,
+    getNumberOfPages,
+  };
 };

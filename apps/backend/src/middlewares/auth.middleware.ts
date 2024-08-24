@@ -1,5 +1,14 @@
 import { OrganizationModel } from '@models/organization.model';
+import { ProjectModel } from '@models/project.model';
 import { UserModel } from '@models/user.model';
+import type { Organization } from '@schemas/organization.type';
+import type { Project } from '@schemas/project.type';
+import type { User } from '@schemas/user.type';
+import {
+  clearUserAuth,
+  clearOrganizationAuth,
+  clearProjectAuth,
+} from '@services/auth.service';
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
@@ -8,8 +17,22 @@ type Test = {
     userId: string;
     email: string;
     organizationId: string;
+    projectId: string;
   };
 };
+
+type UserInformation = {
+  user: User | null;
+  organization: Organization | null;
+  project: Project | null;
+};
+
+export type ResponseWithInformation<ResBody = any> = Response<
+  ResBody,
+  UserInformation
+>;
+
+const tokenSecret = process.env.TOKEN_SECRET!;
 
 export const checkUser = async (
   req: Request,
@@ -17,75 +40,34 @@ export const checkUser = async (
   next: NextFunction
 ) => {
   const jwtTokenAuth = req.cookies.jwt_auth;
-  const jwtTokenAuth2 = req.cookies.jwt_auth_2;
-  const tokenSecret = process.env.TOKEN_SECRET!;
 
-  if (jwtTokenAuth && jwtTokenAuth !== 'undefined') {
-    const decodedTokenAuth = jwt.verify(jwtTokenAuth, tokenSecret);
+  if (!jwtTokenAuth || jwtTokenAuth === 'undefined') {
+    clearUserAuth(res);
+    return next();
+  }
 
-    const userData = (decodedTokenAuth as Test).tokenData;
+  const decodedTokenAuth = jwt.verify(jwtTokenAuth, tokenSecret);
 
-    const user = await UserModel.findOne({
-      _id: userData.userId,
-      email: userData.email,
-    });
-    if (userData && user) {
-      res.locals.user = user;
-    } else {
-      res.locals.user = null;
-      res.cookie('jwt_auth', '', {
-        httpOnly: true,
-        path: '/',
-        maxAge: 1,
-        secure: true,
-        domain: process.env.DOMAIN,
-        sameSite: 'strict',
-      });
-      res.cookie('jwt_auth_2', '', {
-        httpOnly: true,
-        path: '/',
-        maxAge: 1,
-        secure: true,
-        domain: process.env.DOMAIN,
-        sameSite: 'strict',
-      });
-      res.cookie('jwt_logged', '', {
-        httpOnly: true,
-        path: '/',
-        maxAge: 1,
-        secure: true,
-        domain: process.env.DOMAIN,
-        sameSite: 'strict',
-      });
-    }
-  } else res.locals.user = null;
+  const userData = (decodedTokenAuth as Test).tokenData;
 
-  if (jwtTokenAuth2 && jwtTokenAuth2 !== 'undefined') {
-    const decodedTokenAuth2 = jwt.verify(jwtTokenAuth2, tokenSecret);
+  if (!userData) {
+    clearUserAuth(res);
+    return next();
+  }
 
-    const userData = (decodedTokenAuth2 as Test).tokenData;
-    const unregisteredUser = await UserModel.findOne({
-      _id: userData.userId,
-      email: userData.email,
-    });
+  const user = await UserModel.findOne({
+    _id: userData.userId,
+    email: userData.email,
+  });
 
-    if (userData && unregisteredUser) {
-      res.locals.unregisteredUser = unregisteredUser;
-    } else {
-      res.locals.unregisteredUser = null;
+  if (!user) {
+    clearUserAuth(res);
+    return next();
+  }
 
-      res.cookie('jwt_auth_2', '', {
-        httpOnly: true,
-        path: '/',
-        maxAge: 1,
-        secure: true,
-        domain: process.env.DOMAIN,
-        sameSite: 'strict',
-      });
-    }
-  } else res.locals.unregisteredUser = null;
+  res.locals.user = user;
 
-  next();
+  return next();
 };
 
 export const checkOrganization = async (
@@ -94,38 +76,73 @@ export const checkOrganization = async (
   next: NextFunction
 ) => {
   const jwtTokenOrganization = req.cookies.jwt_organization;
-  const tokenSecret = process.env.TOKEN_SECRET!;
-  const host = req.get('host');
 
   res.locals.organization = await OrganizationModel.findById(
     process.env.ORGANIZATION_ID
   );
 
-  if (jwtTokenOrganization && jwtTokenOrganization !== 'undefined') {
-    const decodedTokenOrganization = jwt.verify(
-      jwtTokenOrganization,
-      tokenSecret
-    );
-    const organizationData = (decodedTokenOrganization as Test).tokenData;
-    const organization = await OrganizationModel.findById(
-      organizationData.organizationId
-    );
-
-    if (organizationData && organization) {
-      res.locals.organization = organization;
-    } else
-      res.cookie('jwt_organization', '', {
-        httpOnly: true,
-        path: '/',
-        maxAge: 1,
-        secure: true,
-        domain: process.env.DOMAIN,
-        sameSite: 'strict',
-      });
-  } else if (host) {
-    const organization = await OrganizationModel.findOne({ domain: host });
-    if (organization) res.locals.organization = organization;
+  if (!jwtTokenOrganization || jwtTokenOrganization === 'undefined') {
+    clearOrganizationAuth(res);
+    return next();
   }
 
-  next();
+  const decodedTokenOrganization = jwt.verify(
+    jwtTokenOrganization,
+    tokenSecret
+  );
+
+  const organizationData = (decodedTokenOrganization as Test).tokenData;
+
+  if (!organizationData) {
+    clearOrganizationAuth(res);
+    return next();
+  }
+
+  const organization = await OrganizationModel.findById(
+    organizationData.organizationId
+  );
+
+  if (!organization) {
+    clearOrganizationAuth(res);
+    return next();
+  }
+
+  res.locals.organization = organization;
+  return next();
+};
+
+export const checkProject = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const jwtTokenProject = req.cookies.jwt_project;
+
+  res.locals.organization = await OrganizationModel.findById(
+    process.env.ORGANIZATION_ID
+  );
+
+  if (!jwtTokenProject || jwtTokenProject === 'undefined') {
+    clearProjectAuth(res);
+    return next();
+  }
+
+  const decodedTokenProject = jwt.verify(jwtTokenProject, tokenSecret);
+
+  const projectData = (decodedTokenProject as Test).tokenData;
+
+  if (!projectData) {
+    clearProjectAuth(res);
+    return next();
+  }
+
+  const project = await ProjectModel.findById(projectData.projectId);
+
+  if (!project) {
+    clearProjectAuth(res);
+    return next();
+  }
+
+  res.locals.project = project;
+  return next();
 };
