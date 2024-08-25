@@ -1,19 +1,19 @@
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
-import type { Project } from '@schemas/project.type';
+import {
+  findProjects as findProjectsService,
+  countProjects as countProjectsService,
+  createProject as createProjectService,
+  updateProjectById as updateProjectByIdService,
+  deleteProjectById as deleteProjectByIdService,
+} from '@services/project.service';
+import type { Project, ProjectData } from '@types/project.type';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getProjectFiltersAndPagination,
   type ProjectFilters,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import type { Request, Response } from 'express';
-import {
-  findProjects,
-  countProjects,
-  createProject,
-  updateProjectById,
-  deleteProjectById,
-} from '@/services/project.service';
 
 /**
  * Retrieves a list of projects based on filters and pagination.
@@ -29,8 +29,8 @@ export const getProjects = async (
     getProjectFiltersAndPagination(req);
 
   try {
-    const projects = await findProjects(filters, skip, pageSize);
-    const totalItems = await countProjects(filters);
+    const projects = await findProjectsService(filters, skip, pageSize);
+    const totalItems = await countProjectsService(filters);
 
     return res.status(200).json({
       success: true,
@@ -53,20 +53,26 @@ export const getProjects = async (
  * @returns Response containing the created project.
  */
 export const addProject = async (
-  req: Request<any, any, Project | undefined>,
+  req: Request<any, any, ProjectData | undefined>,
   res: ResponseWithInformation
 ): Promise<Response> => {
-  const project: Project | undefined = req.body;
+  const organizationId = req.params.organizationId;
+  const projectData = req.body;
 
-  if (!project) {
+  if (!projectData) {
     const errorMessage = 'Project not found';
 
     logger.error(errorMessage);
     return res.status(400).json({ error: errorMessage });
   }
 
+  const project: ProjectData = {
+    ...projectData,
+    organizationId,
+  };
+
   try {
-    const newProject = await createProject(project);
+    const newProject = await createProjectService(project);
     return res.status(200).json(newProject);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
@@ -81,10 +87,10 @@ export const addProject = async (
  * @returns Response containing the updated project.
  */
 export const updateProject = async (
-  req: Request<any, any, Project | undefined>,
+  req: Request<any, any, Partial<Project> | undefined>,
   res: ResponseWithInformation
 ): Promise<Response> => {
-  const project: Project | undefined = req.body;
+  const project = req.body;
 
   if (!project) {
     const errorMessage = 'Project not found';
@@ -93,8 +99,15 @@ export const updateProject = async (
     return res.status(400).json({ error: errorMessage });
   }
 
+  if (typeof project._id === 'undefined') {
+    const errorMessage = 'Project id not found';
+
+    logger.error(errorMessage);
+    return res.status(400).json({ error: errorMessage });
+  }
+
   try {
-    const updatedProject = await updateProjectById(project._id, project);
+    const updatedProject = await updateProjectByIdService(project._id, project);
     return res.status(200).json(updatedProject);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
@@ -115,7 +128,7 @@ export const deleteProject = async (
   const projectId = req.params.projectId;
 
   try {
-    const deletedProject = await deleteProjectById(projectId);
+    const deletedProject = await deleteProjectByIdService(projectId);
     return res.status(200).json(deletedProject);
   } catch (error) {
     const errorMessage: string = (error as Error).message;

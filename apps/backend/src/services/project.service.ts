@@ -1,6 +1,6 @@
 import { logger } from '@logger/index';
 import { ProjectModel } from '@models/project.model';
-import type { Project } from '@schemas/project.type';
+import type { Project, ProjectData } from '@types/project.type';
 import type { ProjectFilters } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import { validateProject } from '@utils/validation/validateProject';
 
@@ -42,8 +42,8 @@ export const countProjects = async (filters: object): Promise<number> => {
  * @param  project - The project data to create.
  * @returns The created project.
  */
-export const createProject = async (project: Project): Promise<Project> => {
-  const errors = validateProject(project);
+export const createProject = async (project: ProjectData): Promise<Project> => {
+  const errors = await validateProject(project);
 
   if (Object.keys(errors).length > 0) {
     const errorMessage = `Project invalid fields - ${JSON.stringify(errors)}`;
@@ -62,7 +62,7 @@ export const createProject = async (project: Project): Promise<Project> => {
  */
 export const updateProjectById = async (
   projectId: string,
-  project: Project
+  project: Partial<Project>
 ): Promise<Project> => {
   const errors = validateProject(project);
 

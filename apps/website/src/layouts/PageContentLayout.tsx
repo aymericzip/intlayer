@@ -22,7 +22,10 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
 }) => (
   <div className="flex-0 flex min-h-screen flex-col">
     {navbar ?? <Navbar />}
-    <main className={cn('flex w-full flex-1 flex-col', className)} {...props}>
+    <main
+      className={cn('relative flex w-full flex-1 flex-col', className)}
+      {...props}
+    >
       {children}
     </main>
 

@@ -1,9 +1,10 @@
-import type { Organization } from '@schemas/organization.type';
+import type { Organization } from '@types/organization.type';
+import { validateArray } from './validateArray';
 import { validateString } from './validateString';
 
 type OrganizationFields = (keyof Organization)[];
 
-const defaultFieldsToCheck: OrganizationFields = ['name'];
+const defaultFieldsToCheck: OrganizationFields = ['name', 'members'];
 
 type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<
@@ -12,6 +13,8 @@ type ValidationErrors = Partial<
 
 export const NAME_MIN_LENGTH = 4;
 export const NAME_MAX_LENGTH = 100;
+
+export const MEMBERS_MIN_LENGTH = 1;
 
 /**
  * Validates an organization object.
@@ -45,6 +48,20 @@ export const validateOrganization = (
 
       if (nameErrors.length > 0) {
         errors[field] = nameErrors;
+      }
+    }
+
+    if (field === 'members') {
+      const membersErrors = validateArray<string>(
+        value as string[],
+        'Members',
+        'string',
+        undefined,
+        MEMBERS_MIN_LENGTH
+      );
+
+      if (membersErrors.length > 0) {
+        errors[field] = membersErrors;
       }
     }
 

@@ -22,6 +22,11 @@ export enum PagesRoutes {
 
   PrivacyPolicy = '/privacy_notice',
   TermsOfService = '/terms_of_service',
+
+  Auth_SignIn = '/auth/login',
+  Auth_SignUp = '/auth/register',
+  Auth_ResetPassword = '/auth/password/reset',
+  Auth_ChangePassword = '/auth/password/change',
 }
 
 export enum ExternalLinks {

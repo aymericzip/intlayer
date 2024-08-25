@@ -31,16 +31,20 @@
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.2",
+    "@hookform/resolvers": "^3.9.0",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
+    "@radix-ui/react-slot": "^1.1.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "clsx": "^2.1.1",
     "framer-motion": "^11.2.12",
     "markdown-to-jsx": "^7.4.7",
     "react-copy-to-clipboard": "^5.1.0",
+    "react-hook-form": "^7.53.0",
     "react-markdown": "^9.0.1",
     "react-syntax-highlighter": "^15.5.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

@@ -2,9 +2,9 @@ import { logger } from '@logger/index';
 import { UserModel } from '@models/user.model';
 import type { Organization } from '@schemas/organization.type';
 import type { Project } from '@schemas/project.type';
-import type { User } from '@schemas/user.type';
 import type { CookieOptions, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import type { User } from '@/types/user.type';
 
 export const DOMAIN = process.env.DOMAIN!;
 export const MAX_AGE = 3 * 24 * 60 * 60 * 1000;

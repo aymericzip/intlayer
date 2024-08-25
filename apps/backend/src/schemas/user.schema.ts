@@ -3,18 +3,18 @@ import {
   hackUserPassword,
   testUserPassword,
 } from '@services/user.service';
+import type {
+  User,
+  UserModelType,
+  UserDocument,
+  UserWithPasswordNotHashed,
+} from '@types/user.type';
 import {
   NAMES_MAX_LENGTH,
   NAMES_MIN_LENGTH,
 } from '@utils/validation/validateUser';
 import { Schema } from 'mongoose';
 import validator from 'validator';
-import type {
-  User,
-  UserDocument,
-  UserModelType,
-  UserWithPasswordNotHashed,
-} from './user.type';
 
 export const userSchema = new Schema<User>(
   {

@@ -12,6 +12,9 @@ const tailwindConfig = {
   ],
   prefix: '',
   theme: {
+    aria: {
+      invalid: 'invalid="true"',
+    },
     screens: {
       ...defaultTheme.screens,
     },
@@ -83,15 +86,15 @@ const tailwindConfig = {
               DEFAULT: 'rgba(209, 209, 209, <alpha-value>)',
               dark: 'rgba(176, 176, 176, <alpha-value>)',
             },
-            error: {
-              DEFAULT: 'rgba(232, 121, 249, <alpha-value>)',
-              dark: 'rgba(241, 171, 252, <alpha-value>)',
-            },
-            success: {
-              DEFAULT: 'rgba(255, 230, 109, <alpha-value>)',
-              dark: 'rgba(255, 216, 69, <alpha-value>)',
-            },
           },
+        },
+        error: {
+          DEFAULT: 'rgba(181, 24, 13, <alpha-value>)',
+          dark: 'rgba(255, 88, 77, <alpha-value>)',
+        },
+        success: {
+          DEFAULT: 'rgba(255, 230, 109, <alpha-value>)',
+          dark: 'rgba(255, 216, 69, <alpha-value>)',
         },
         white: {
           DEFAULT: 'rgba(255, 255, 255, <alpha-value>)',

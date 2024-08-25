@@ -26,3 +26,6 @@ export * from './SwitchSelector';
 export * from './Modal';
 export * from './Breadcrumb';
 export * from './Flags';
+export * from './InformationTag';
+export * from './Form';
+export * from './Label';

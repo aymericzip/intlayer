@@ -17,7 +17,9 @@ const DynamicDocumentationRender = dynamic(
   }
 );
 
-const Page: NextPageIntlayer<DocProps> = ({ params: { locale, doc } }) => {
+const DocumentationPage: NextPageIntlayer<DocProps> = ({
+  params: { locale, doc },
+}) => {
   const docData = getDoc(doc, locale);
 
   if (!docData) {
@@ -30,4 +32,4 @@ const Page: NextPageIntlayer<DocProps> = ({ params: { locale, doc } }) => {
     </IntlayerServerProvider>
   );
 };
-export default Page;
+export default DocumentationPage;

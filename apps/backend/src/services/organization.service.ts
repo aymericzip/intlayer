@@ -1,6 +1,6 @@
 import { logger } from '@logger/index';
 import { OrganizationModel } from '@models/organization.model';
-import type { Organization } from '@schemas/organization.type';
+import type { Organization } from '@types/organization.type';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import { validateOrganization } from '@utils/validation/validateOrganization';
 
@@ -17,6 +17,26 @@ export const findOrganizations = async (
   limit: number
 ): Promise<Organization[]> => {
   return await OrganizationModel.find(filters).skip(skip).limit(limit);
+};
+
+/**
+ * Finds an organization by its ID.
+ * @param organizationId - The ID of the organization to find.
+ * @returns The organization matching the ID.
+ */
+export const getOrganizationById = async (
+  organizationId: string
+): Promise<Organization> => {
+  const organization = await OrganizationModel.findById(organizationId);
+
+  if (!organization) {
+    const errorMessage = `Organization not found - ${organizationId}`;
+
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  return organization;
 };
 
 /**
@@ -66,7 +86,7 @@ export const createOrganization = async (
  */
 export const updateOrganizationById = async (
   organizationId: string,
-  organization: Organization
+  organization: Partial<Organization>
 ): Promise<Organization> => {
   const errors = validateOrganization(organization);
 

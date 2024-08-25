@@ -66,6 +66,54 @@ const sitemap = (): MetadataRoute.Sitemap => [
       },
     },
   },
+  {
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`,
+    lastModified: new Date(),
+    changeFrequency: 'never',
+    priority: 0.1,
+    alternates: {
+      languages: {
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Auth_SignIn}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Auth_SignIn}`,
+      },
+    },
+  },
+  {
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`,
+    lastModified: new Date(),
+    changeFrequency: 'never',
+    priority: 0.1,
+    alternates: {
+      languages: {
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Auth_SignUp}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Auth_SignUp}`,
+      },
+    },
+  },
+  {
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`,
+    lastModified: new Date(),
+    changeFrequency: 'never',
+    priority: 0.1,
+    alternates: {
+      languages: {
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Auth_ResetPassword}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Auth_ResetPassword}`,
+      },
+    },
+  },
+  {
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`,
+    lastModified: new Date(),
+    changeFrequency: 'never',
+    priority: 0.1,
+    alternates: {
+      languages: {
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Auth_ChangePassword}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Auth_ChangePassword}`,
+      },
+    },
+  },
   ...docSitemap,
 ];
 

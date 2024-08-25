@@ -1,14 +1,14 @@
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import { UserModel } from '@models/user.model';
-import type { Organization } from '@schemas/organization.type';
-import type { Project } from '@schemas/project.type';
-import type { User } from '@schemas/user.type';
 import {
   clearUserAuth,
   clearOrganizationAuth,
   clearProjectAuth,
 } from '@services/auth.service';
+import type { Organization } from '@types/organization.type';
+import type { Project } from '@types/project.type';
+import type { User } from '@types/user.type';
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 

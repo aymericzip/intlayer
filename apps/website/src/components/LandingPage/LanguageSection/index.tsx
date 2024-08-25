@@ -4,7 +4,12 @@ import { Container, Flag } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { getHTMLTextDir, getLocaleName, type Locales } from 'intlayer';
 import { useLocale } from 'next-intlayer/client';
-import { type FC, type HTMLAttributes, useMemo } from 'react';
+import {
+  type FC,
+  type HTMLAttributes,
+  type PropsWithChildren,
+  useMemo,
+} from 'react';
 
 const shuffleArray = (array: string[], limit?: number) => {
   const shuffled = [...array];
@@ -86,3 +91,12 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
     </section>
   );
 };
+
+export const LanguageBackground: FC<PropsWithChildren> = ({ children }) => (
+  <>
+    <div className="absolute left-0 top-0 -z-0 flex size-full items-center justify-center">
+      <LanguageSection className="mt-[30%]" />
+    </div>
+    {children}
+  </>
+);

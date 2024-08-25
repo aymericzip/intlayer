@@ -1,5 +1,9 @@
 import { controlJWT } from '@controllers/auth.controller';
-import { checkUser, checkOrganization } from '@middlewares/auth.middleware';
+import {
+  checkUser,
+  checkOrganization,
+  checkProject,
+} from '@middlewares/auth.middleware';
 import { logAPIRequestURL } from '@middlewares/request.middleware';
 import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
@@ -48,8 +52,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // middleware - jwt
-app.use('*', checkOrganization);
 app.use('*', checkUser);
+app.use('*', checkOrganization);
+app.use('*', checkProject);
 
 // Liveness check
 app.get('/', (_req, res) => res.sendStatus(200));

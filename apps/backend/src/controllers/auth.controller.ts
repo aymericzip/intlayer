@@ -1,17 +1,19 @@
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
-import { UserModel } from '@models/user.model';
-import type { User, UserWithPasswordNotHashed } from '@schemas/user.type';
 import {
-  clearCSRFToken,
-  clearOrganizationAuth,
-  clearProjectAuth,
-  clearUserAuth,
-  generateRandomString,
-  loginUser,
-  setCSRFToken,
-  setUserAuth,
+  clearCSRFToken as clearCSRFTokenService,
+  clearOrganizationAuth as clearOrganizationAuthService,
+  clearProjectAuth as clearProjectAuthService,
+  clearUserAuth as clearUserAuthService,
+  generateRandomString as generateRandomStringService,
+  loginUser as loginUserService,
+  setCSRFToken as setCSRFTokenService,
+  setUserAuth as setUserAuthService,
 } from '@services/auth.service';
-import { createUser, getUserByEmail } from '@services/user.service';
+import {
+  createUser as createUserService,
+  getUserByEmail as getUserByEmailService,
+} from '@services/user.service';
+import type { User, UserWithPasswordNotHashed } from '@types/user.type';
 import type { Request, Response } from 'express';
 import { logger } from '@/logger';
 
@@ -37,15 +39,15 @@ export const controlJWT = (req: Request, res: ResponseWithInformation) => {
   const csrfToken = (req as RequestWithCSRFToken).csrfToken();
 
   if (!csrfToken) {
-    clearCSRFToken(res);
+    clearCSRFTokenService(res);
   }
 
-  setCSRFToken(res, csrfToken);
+  setCSRFTokenService(res, csrfToken);
 
   const user = res.locals.user;
 
   if (user) {
-    setUserAuth(res, user);
+    setUserAuthService(res, user);
   }
 
   return res.status(200).json({ csrfToken, user });
@@ -61,37 +63,33 @@ export const signUp = async (
   req: Request<any, any, UserWithPasswordNotHashed>,
   res: ResponseWithInformation
 ) => {
-  const { email, password, firstname, lastname, phone } = req.body;
+  const userData = req.body;
 
   try {
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await getUserByEmailService(userData.email);
 
-    if (!existingUser) {
-      const newUser = await createUser({
-        email,
-        firstname,
-        lastname,
-        phone,
-        password,
-        secret: generateRandomString(35),
-      });
-
-      if (!newUser) {
-        const errorMessage = `User creation failed - ${email}`;
-
-        logger.error(errorMessage);
-
-        return res.sendStatus(401).json({ error: errorMessage });
-      }
-
-      logger.info(
-        `New registration: ${newUser.firstname} ${newUser.lastname} - ${newUser.email}`
-      );
-
-      return res.status(200).json(newUser);
+    if (existingUser) {
+      return res.sendStatus(401);
     }
 
-    return res.sendStatus(401);
+    const newUser = await createUserService({
+      ...userData,
+      secret: generateRandomStringService(35),
+    });
+
+    if (!newUser) {
+      const errorMessage = `User creation failed - ${userData.email}`;
+
+      logger.error(errorMessage);
+
+      return res.sendStatus(401).json({ error: errorMessage });
+    }
+
+    logger.info(
+      `New registration: ${newUser.firstname} ${newUser.lastname} - ${newUser.email}`
+    );
+
+    return res.status(200).json(newUser);
   } catch (err) {
     logger.error(err);
     return res.sendStatus(500);
@@ -116,9 +114,9 @@ export const signIn = async (
   const { email, password } = req.body;
 
   try {
-    const user = await loginUser(email, password);
+    const user = await loginUserService(email, password);
 
-    setUserAuth(res, user);
+    setUserAuthService(res, user);
 
     return res.status(200).json(user);
   } catch (err) {
@@ -142,18 +140,10 @@ export const logByFirebase = async (
   const userData: User = req.body;
 
   try {
-    let user = await getUserByEmail(userData.email);
-
-    if (!user) {
-      user = await createUser(userData);
-
-      logger.info(
-        `New firebase registration: ${user.firstname} ${user.lastname} - ${user.email}`
-      );
-    }
+    let user = await getUserByEmailService(userData.email);
 
     if (user) {
-      setUserAuth(res, user);
+      setUserAuthService(res, user);
 
       logger.info(
         `New log: ${user.firstname} ${user.lastname} - ${user.email}`
@@ -162,12 +152,16 @@ export const logByFirebase = async (
       return res.status(200).json(user);
     }
 
-    return res.sendStatus(401);
+    user = await createUserService(userData);
+
+    logger.info(
+      `New firebase registration: ${user.firstname} ${user.lastname} - ${user.email}`
+    );
+
+    return res.status(200).json(user);
   } catch (err) {
     logger.error(err);
-    return res
-      .status(200)
-      .json({ state: 'Not send', user: 'Not created', errors: err });
+    return res.status(200).json({ state: 'Not send', user: null, errors: err });
   }
 };
 
@@ -190,9 +184,9 @@ export const logOut = (
     return res.sendStatus(401).json({ error: errorMessage });
   }
 
-  clearUserAuth(res);
-  clearOrganizationAuth(res);
-  clearProjectAuth(res);
+  clearUserAuthService(res);
+  clearOrganizationAuthService(res);
+  clearProjectAuthService(res);
 
   logger.info(`Logout: ${user.firstname} ${user.lastname} - ${user.email}`);
 

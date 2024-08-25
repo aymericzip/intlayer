@@ -1,6 +1,6 @@
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
-import type { Organization } from '@schemas/organization.type';
+import type { Organization } from '@types/organization.type';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
@@ -8,11 +8,12 @@ import {
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { Request } from 'express';
 import {
-  findOrganizations,
-  countOrganizations,
-  createOrganization,
-  updateOrganizationById,
-  deleteOrganizationById,
+  findOrganizations as findOrganizationsService,
+  countOrganizations as countOrganizationsService,
+  createOrganization as createOrganizationService,
+  updateOrganizationById as updateOrganizationByIdService,
+  deleteOrganizationById as deleteOrganizationByIdService,
+  getOrganizationById as getOrganizationByIdService,
 } from '@/services/organization.service';
 
 /**
@@ -29,8 +30,12 @@ export const getOrganizations = async (
     getOrganizationFiltersAndPagination(req);
 
   try {
-    const organizations = await findOrganizations(filters, skip, pageSize);
-    const totalItems = await countOrganizations(filters);
+    const organizations = await findOrganizationsService(
+      filters,
+      skip,
+      pageSize
+    );
+    const totalItems = await countOrganizationsService(filters);
 
     return res.status(200).json({
       success: true,
@@ -40,6 +45,34 @@ export const getOrganizations = async (
       total_pages: getNumberOfPages(totalItems),
       total_items: totalItems,
     });
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+    return res.status(500).json({ success: false, message: errorMessage });
+  }
+};
+
+/**
+ * Retrieves an organization by its ID.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the organization.
+ */
+export const getOrganization = async (
+  req: Request<{ organizationId: string | undefined }, any, any>,
+  res: ResponseWithInformation
+) => {
+  const organizationId = req.params.organizationId;
+
+  if (!organizationId) {
+    const errorMessage = 'Organization id not found';
+
+    logger.error(errorMessage);
+    return res.status(400).json({ error: errorMessage });
+  }
+
+  try {
+    const organization = await getOrganizationByIdService(organizationId);
+    return res.status(200).json(organization);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
     return res.status(500).json({ success: false, message: errorMessage });
@@ -66,7 +99,7 @@ export const addOrganization = async (
   }
 
   try {
-    const newOrganization = await createOrganization(organization);
+    const newOrganization = await createOrganizationService(organization);
     return res.status(200).json(newOrganization);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
@@ -82,10 +115,10 @@ export const addOrganization = async (
  * @returns Response containing the updated organization.
  */
 export const updateOrganization = async (
-  req: Request<undefined, undefined, Organization | undefined>,
+  req: Request<undefined, undefined, Partial<Organization> | undefined>,
   res: ResponseWithInformation
 ) => {
-  const organization: Organization | undefined = req.body;
+  const organization = req.body;
 
   if (!organization) {
     const errorMessage = 'Organization not found';
@@ -94,8 +127,15 @@ export const updateOrganization = async (
     return res.status(400).json({ error: errorMessage });
   }
 
+  if (typeof organization._id === 'undefined') {
+    const errorMessage = 'Organization id not found';
+
+    logger.error(errorMessage);
+    return res.status(400).json({ error: errorMessage });
+  }
+
   try {
-    const updatedOrganization = await updateOrganizationById(
+    const updatedOrganization = await updateOrganizationByIdService(
       organization._id,
       organization
     );
@@ -120,7 +160,8 @@ export const deleteOrganization = async (
   const organizationId = req.params.organizationId;
 
   try {
-    const deletedOrganization = await deleteOrganizationById(organizationId);
+    const deletedOrganization =
+      await deleteOrganizationByIdService(organizationId);
     return res.status(200).json(deletedOrganization);
   } catch (error) {
     const errorMessage: string = (error as Error).message;

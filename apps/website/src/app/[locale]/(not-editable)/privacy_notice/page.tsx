@@ -16,11 +16,11 @@ const DynamicDocumentationRender = dynamic(
   }
 );
 
-const Page: NextPageIntlayer = ({ params: { locale } }) => (
+const PrivacyNoticePage: NextPageIntlayer = ({ params: { locale } }) => (
   <IntlayerServerProvider locale={locale}>
     <div className="m-auto max-w-2xl">
       <DynamicDocumentationRender docName="privacy_notice" />
     </div>
   </IntlayerServerProvider>
 );
-export default Page;
+export default PrivacyNoticePage;

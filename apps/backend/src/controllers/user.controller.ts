@@ -1,6 +1,4 @@
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
-import { UserModel } from '@models/user.model';
-import type { User } from '@schemas/user.type';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -8,15 +6,41 @@ import type { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { logger } from '@/logger';
 import {
-  findUsers,
-  countUsers,
-  changeUserPassword,
-  updateUserById,
-  activateUser,
-  requestPasswordReset,
-  resetUserPassword,
-  getUserById,
+  findUsers as findUsersService,
+  countUsers as countUsersService,
+  changeUserPassword as changeUserPasswordService,
+  updateUserById as updateUserByIdService,
+  activateUser as activateUserService,
+  requestPasswordReset as requestPasswordResetService,
+  resetUserPassword as resetUserPasswordService,
+  getUserById as getUserByIdService,
+  createUser as createUserService,
 } from '@/services/user.service';
+import type { User } from '@/types/user.type';
+
+export const createUser = async (
+  req: Request<any, any, User | undefined>,
+  res: ResponseWithInformation
+) => {
+  const user: User | undefined = req.body;
+
+  if (!user) {
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+    return res.status(404).json({ error: errorMessage });
+  }
+
+  try {
+    const newUser = await createUserService(user);
+    return res.status(200).json(newUser);
+  } catch (error) {
+    const errorMessage: string = (error as { message: string }).message;
+
+    logger.error(`errors: ${errorMessage}`);
+    return res.status(500).json({ success: false, message: errorMessage });
+  }
+};
 
 /**
  * Retrieves a list of users based on filters and pagination.
@@ -32,8 +56,8 @@ export const getUsers = async (
     getOrganizationFiltersAndPagination(req);
 
   try {
-    const users = await findUsers(filters, skip, pageSize);
-    const totalItems = await countUsers(filters);
+    const users = await findUsersService(filters, skip, pageSize);
+    const totalItems = await countUsersService(filters);
 
     return res.status(200).json({
       success: true,
@@ -70,7 +94,11 @@ export const updatePassword = async (
 
   try {
     if (newPassword !== '') {
-      user = await changeUserPassword(user._id, oldPassword, newPassword);
+      user = await changeUserPasswordService(
+        user._id,
+        oldPassword,
+        newPassword
+      );
 
       logger.info(
         `Password changed - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id}`
@@ -92,20 +120,28 @@ export const updatePassword = async (
  * @returns Response containing the updated user or error message.
  */
 export const updateUser = async (
-  req: Request,
+  req: Request<any, any, Partial<User> | undefined>,
   res: ResponseWithInformation
 ) => {
-  const { phone, dateOfBirth } = req.body;
+  const userData = req.body;
   const user = res.locals.user;
 
   if (!user) {
-    return res
-      .sendStatus(404)
-      .json({ success: false, message: 'User not found' });
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+    return res.status(404).json({ error: errorMessage });
+  }
+
+  if (typeof userData !== 'object') {
+    const errorMessage = 'User data not found';
+
+    logger.error(errorMessage);
+    return res.status(400).json({ error: errorMessage });
   }
 
   try {
-    const updatedUser = await updateUserById(user, { phone, dateOfBirth });
+    const updatedUser = await updateUserByIdService(user._id, userData);
 
     logger.info(
       `User updated: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
@@ -146,7 +182,7 @@ export const validEmail = async (
       .json({ success: false, message: 'Organization not found' });
   }
 
-  const user = await getUserById(userId);
+  const user = await getUserByIdService(userId);
 
   if (!user) {
     return res
@@ -163,7 +199,7 @@ export const validEmail = async (
   user.emailValidated = true;
   await user.save();
 
-  await activateUser(user);
+  await activateUserService(user);
 
   logger.info(
     `User activated - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
@@ -183,7 +219,7 @@ export const askResetPassword = async (
   res: ResponseWithInformation
 ) => {
   try {
-    const user = await requestPasswordReset(req.body.email);
+    const user = await requestPasswordResetService(req.body.email);
 
     if (!user) {
       return res
@@ -236,7 +272,7 @@ export const resetPassword = async (
   }
 
   try {
-    const user = await resetUserPassword(userId, secret, password);
+    const user = await resetUserPasswordService(userId, secret, password);
 
     logger.info(
       `Password changed - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`

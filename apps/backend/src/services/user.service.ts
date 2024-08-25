@@ -1,9 +1,9 @@
 import { logger } from '@logger/index';
 import { UserModel } from '@models/user.model';
-import type { User, UserWithPasswordNotHashed } from '@schemas/user.type';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import { validateUser } from '@utils/validation/validateUser';
 import { compare, genSalt, hash } from 'bcrypt';
+import type { User, UserWithPasswordNotHashed } from '@/types/user.type';
 
 /**
  * Creates a new user in the database.
@@ -71,10 +71,10 @@ export const getUserById = async (userId: string) => {
 
 /**
  * Finds users based on filters and pagination options.
- * @param {object} filters - MongoDB filter query.
- * @param {number} skip - Number of documents to skip.
- * @param {number} limit - Number of documents to limit.
- * @returns {Promise<User[]>} List of users matching the filters.
+ * @param filters - MongoDB filter query.
+ * @param skip - Number of documents to skip.
+ * @param limit - Number of documents to limit.
+ * @returns List of users matching the filters.
  */
 export const findUsers = async (
   filters: UserFilters,
@@ -109,7 +109,7 @@ export const countUsers = async (filters: UserFilters): Promise<number> => {
  * @returns The updated user.
  */
 export const updateUserById = async (
-  userId: User,
+  userId: string,
   updates: Partial<User>
 ): Promise<User> => {
   const errors = validateUser(updates);
@@ -146,11 +146,8 @@ export const updateUserById = async (
  * @param user - The user object.
  * @returns
  */
-export const activateUser = async (user: User): Promise<void> => {
-  await UserModel.updateOne(
-    { _id: user._id },
-    { $set: { emailValidated: true } }
-  );
+export const activateUser = async (userId: string): Promise<void> => {
+  await updateUserById(userId, { emailValidated: true });
 };
 
 /**

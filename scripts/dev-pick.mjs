@@ -3,6 +3,7 @@
 
 import { spawn } from 'child_process';
 import fs from 'fs';
+import { get } from 'http';
 import path from 'path';
 import Enquirer from 'enquirer';
 import { glob } from 'glob';
@@ -22,8 +23,9 @@ const getPackages = (pattern, index) => {
   });
 };
 
+const apps = getPackages('./apps/**/package.json', 'app');
 const packages = getPackages('./packages/**/package.json', 'packages');
-const apps = getPackages('./examples/**/package.json', 'example');
+const examples = getPackages('./examples/**/package.json', 'example');
 
 const askCheckboxPlus = (message, choices) => {
   return Enquirer.prompt({
@@ -41,8 +43,9 @@ const main = async () => {
   const selectedPackages = await askCheckboxPlus(
     'Select packages to start in development mode:',
     [
+      { name: 'all apps', value: 'all_apps', choices: apps },
       { name: 'all packages', value: 'all_packages', choices: packages },
-      { name: 'all apps', value: 'all_examples', choices: apps },
+      { name: 'all examples', value: 'all_examples', choices: examples },
     ]
   );
 
@@ -59,12 +62,18 @@ const main = async () => {
         .map((pkg) => `--filter "./${pkg.replace('packages:', '')}"`);
 
   const appFilters = isAllAppsSelected
+    ? ['--filter "./apps"']
+    : selectedPackagesArray
+        .filter((app) => app.startsWith('app:'))
+        .map((app) => `--filter "./${app.replace('app:', '')}"`);
+
+  const exampleFilters = isAllAppsSelected
     ? ['--filter "./examples"']
     : selectedPackagesArray
         .filter((app) => app.startsWith('example:'))
         .map((app) => `--filter "./${app.replace('example:', '')}"`);
 
-  const command = `pnpm ${[...packageFilters, ...appFilters].join(' ')} dev`;
+  const command = `pnpm ${[...packageFilters, ...appFilters, ...exampleFilters].join(' ')} dev`;
 
   console.info('->', command);
 
