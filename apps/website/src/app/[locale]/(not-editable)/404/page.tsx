@@ -1,4 +1,4 @@
-import { NotFountPage } from '../[...not-found]/page';
+import NotFountPage from '../[...not-found]/page';
 
 export { generateMetadata } from '../[...not-found]/metadata';
 

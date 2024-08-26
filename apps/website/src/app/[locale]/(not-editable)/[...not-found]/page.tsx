@@ -1,9 +1,8 @@
-import { LanguageSection } from '@components/LandingPage/LanguageSection';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 export { generateMetadata } from './metadata';
 
-export const NotFountPage: NextPageIntlayer = ({ params: { locale } }) => {
+const NotFountPage: NextPageIntlayer = ({ params: { locale } }) => {
   const { title, content } = useIntlayer('not-found', locale);
 
   return (
