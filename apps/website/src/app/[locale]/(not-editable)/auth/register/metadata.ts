@@ -43,11 +43,11 @@ export const generateMetadata = ({
     }),
 
     alternates: {
-      canonical: PagesRoutes.Register,
+      canonical: PagesRoutes.Auth_SignUp,
       languages: locales.reduce(
         (acc, locale) => ({
           ...acc,
-          [locale]: `/${locale}${PagesRoutes.Register}`,
+          [locale]: `/${locale}${PagesRoutes.Auth_SignUp}`,
         }),
         {}
       ),
