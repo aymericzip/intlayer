@@ -12,9 +12,6 @@ const tailwindConfig = {
   ],
   prefix: '',
   theme: {
-    aria: {
-      invalid: 'invalid="true"',
-    },
     screens: {
       ...defaultTheme.screens,
     },
@@ -29,6 +26,9 @@ const tailwindConfig = {
       },
     },
     extend: {
+      aria: {
+        invalid: 'invalid="true"',
+      },
       colors: {
         background: {
           DEFAULT: 'rgba(255, 255, 255, <alpha-value>)',
