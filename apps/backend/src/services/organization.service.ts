@@ -1,8 +1,9 @@
 import { logger } from '@logger/index';
 import { OrganizationModel } from '@models/organization.model';
-import type { Organization } from '@types/organization.type';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import { validateOrganization } from '@utils/validation/validateOrganization';
+import type { ObjectId } from 'mongoose';
+import type { Organization } from '@/types/organization.types';
 
 /**
  * Finds organizations based on filters and pagination options.
@@ -25,12 +26,13 @@ export const findOrganizations = async (
  * @returns The organization matching the ID.
  */
 export const getOrganizationById = async (
-  organizationId: string
+  organizationId: ObjectId | string
 ): Promise<Organization> => {
   const organization = await OrganizationModel.findById(organizationId);
 
   if (!organization) {
-    const errorMessage = `Organization not found - ${organizationId}`;
+    const organizationIdString = String(organizationId);
+    const errorMessage = `Organization not found - ${organizationIdString}`;
 
     logger.error(errorMessage);
     throw new Error(errorMessage);
@@ -85,13 +87,14 @@ export const createOrganization = async (
  * @returns The updated organization.
  */
 export const updateOrganizationById = async (
-  organizationId: string,
+  organizationId: ObjectId,
   organization: Partial<Organization>
 ): Promise<Organization> => {
   const errors = validateOrganization(organization);
+  const organizationIdString = String(organizationId);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Organization invalid fields - ${organizationId} - ${JSON.stringify(
+    const errorMessage = `Organization invalid fields - ${organizationIdString} - ${JSON.stringify(
       errors
     )}`;
     logger.error(errorMessage);
@@ -104,14 +107,12 @@ export const updateOrganizationById = async (
   );
 
   if (result.matchedCount === 0) {
-    const errorMessage = `Organization update failed - ${organizationId}`;
+    const errorMessage = `Organization update failed - ${organizationIdString}`;
     logger.error(errorMessage);
     throw new Error(errorMessage);
   }
 
-  const organizations = await findOrganizations({ ids: organizationId }, 0, 1);
-
-  return organizations[0];
+  return await getOrganizationById(organizationId);
 };
 
 /**
@@ -121,6 +122,17 @@ export const updateOrganizationById = async (
  */
 export const deleteOrganizationById = async (
   organizationId: string
-): Promise<object> => {
-  return await OrganizationModel.deleteOne({ _id: organizationId });
+): Promise<Organization> => {
+  const organization =
+    await OrganizationModel.findByIdAndDelete(organizationId);
+
+  if (!organization) {
+    const organizationIdString = String(organizationId);
+    const errorMessage = `Organization not found - ${organizationIdString}`;
+
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  return organization;
 };

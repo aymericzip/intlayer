@@ -237,6 +237,12 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
+      '@utils/ts-config':
+        specifier: workspace:^
+        version: link:../../utils/ts-config
+      backend:
+        specifier: workspace:^
+        version: link:../backend
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2

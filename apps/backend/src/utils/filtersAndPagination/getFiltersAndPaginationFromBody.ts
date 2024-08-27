@@ -1,12 +1,16 @@
 import type { Request } from 'express';
 
-type Filters = Record<string, unknown>;
+const DEFAULT_PAGE_SIZE = 100;
+const DEFAULT_PAGE = 1;
 
-export type FiltersAndPagination<T extends Filters> = {
-  filters: T;
-  page?: number | string;
-  pageSize?: number | string;
-};
+type Filters = Record<string, string | string[]>;
+
+export type FiltersAndPagination<T extends Filters> =
+  | ({
+      page?: string;
+      pageSize?: string;
+    } & T)
+  | undefined;
 
 export type FiltersAndPaginationResult<T extends Filters> = {
   filters: T;
@@ -25,8 +29,8 @@ export const getFiltersAndPaginationFromBody = <T extends Filters>(
   req: Request<FiltersAndPagination<T>>
 ): FiltersAndPaginationResult<T> => {
   let filters = {} as T;
-  let pageSize = 100;
-  let page = 1;
+  let pageSize = DEFAULT_PAGE_SIZE;
+  let page = DEFAULT_PAGE;
 
   const query = req.query as unknown as FiltersAndPagination<T>;
 
@@ -34,7 +38,7 @@ export const getFiltersAndPaginationFromBody = <T extends Filters>(
     const {
       pageSize: pageSizeRequest,
       page: pageRequest,
-      filters: filtersRequest,
+      ...filtersRequest
     } = query;
 
     if (typeof pageSizeRequest === 'string') {
@@ -49,8 +53,8 @@ export const getFiltersAndPaginationFromBody = <T extends Filters>(
       page = pageRequest;
     }
 
-    if (Object.keys(filtersRequest).length > 0) {
-      filters = filtersRequest;
+    if (filtersRequest && Object.keys(filtersRequest).length > 0) {
+      filters = filtersRequest as T;
     }
   }
 

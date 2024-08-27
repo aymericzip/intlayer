@@ -2,8 +2,15 @@ import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
+import { HttpStatusCodes } from '@utils/httpStatusCodes';
+import {
+  formatPaginatedResponse,
+  formatResponse,
+  type PaginatedResponse,
+  type ResponseData,
+} from '@utils/responseData';
 import type { Request, Response } from 'express';
-import { Types } from 'mongoose';
+import { type ObjectId, Types } from 'mongoose';
 import { logger } from '@/logger';
 import {
   findUsers as findUsersService,
@@ -16,31 +23,64 @@ import {
   getUserById as getUserByIdService,
   createUser as createUserService,
 } from '@/services/user.service';
-import type { User } from '@/types/user.type';
+import type {
+  User,
+  UserData,
+  UserWithPasswordNotHashed,
+} from '@/types/user.types';
 
+export type CreateUserBody = UserData;
+export type CreateUserResult = ResponseData<User>;
+
+/**
+ * Creates a new user.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the created user or error message.
+ */
 export const createUser = async (
-  req: Request<any, any, User | undefined>,
-  res: ResponseWithInformation
+  req: Request<any, any, UserWithPasswordNotHashed>,
+  res: ResponseWithInformation<CreateUserResult>
 ) => {
-  const user: User | undefined = req.body;
+  const user: UserWithPasswordNotHashed | undefined = req.body;
 
   if (!user) {
     const errorMessage = 'User not found';
 
     logger.error(errorMessage);
-    return res.status(404).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.NOT_FOUND;
+    const responseData = formatResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   try {
     const newUser = await createUserService(user);
-    return res.status(200).json(newUser);
+
+    const responseData = formatResponse<User>({ data: newUser });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as { message: string }).message;
 
-    logger.error(`errors: ${errorMessage}`);
-    return res.status(500).json({ success: false, message: errorMessage });
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type GetUserParams = FiltersAndPagination<UserFilters>;
+export type GetUserResult = PaginatedResponse<User>;
 
 /**
  * Retrieves a list of users based on filters and pagination.
@@ -49,8 +89,8 @@ export const createUser = async (
  * @returns Response containing the list of users and pagination details.
  */
 export const getUsers = async (
-  req: Request<FiltersAndPagination<UserFilters>>,
-  res: ResponseWithInformation
+  req: Request<GetUserParams>,
+  res: ResponseWithInformation<GetUserResult>
 ) => {
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
@@ -59,21 +99,35 @@ export const getUsers = async (
     const users = await findUsersService(filters, skip, pageSize);
     const totalItems = await countUsersService(filters);
 
-    return res.status(200).json({
-      success: true,
+    const responseData = formatPaginatedResponse<User>({
       data: users,
       page,
-      page_size: pageSize,
-      total_pages: getNumberOfPages(totalItems),
-      total_items: totalItems,
+      pageSize,
+      totalPages: getNumberOfPages(totalItems),
+      totalItems,
     });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as { message: string }).message;
 
     logger.error(`errors: ${errorMessage}`);
-    return res.status(500).json({ success: false, message: errorMessage });
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatPaginatedResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type UpdatePasswordBody = {
+  oldPassword: string;
+  newPassword: string;
+};
+export type UpdatePasswordResult = ResponseData<User>;
 
 /**
  * Updates the user's password.
@@ -82,8 +136,8 @@ export const getUsers = async (
  * @returns  Response containing the updated user or error message.
  */
 export const updatePassword = async (
-  req: Request,
-  res: ResponseWithInformation
+  req: Request<undefined, any, UpdatePasswordBody>,
+  res: ResponseWithInformation<UpdatePasswordResult>
 ) => {
   const { oldPassword, newPassword } = req.body;
   let user = res.locals.user;
@@ -100,18 +154,44 @@ export const updatePassword = async (
         newPassword
       );
 
+      if (!user || typeof user !== 'object') {
+        const errorMessage = 'User data not found';
+
+        logger.error(errorMessage);
+
+        const responseCode = HttpStatusCodes.BAD_REQUEST;
+        const responseData = formatResponse<User>({
+          error: errorMessage,
+          status: responseCode,
+        });
+
+        return res.status(responseCode).json(responseData);
+      }
+
       logger.info(
         `Password changed - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id}`
       );
 
-      if (user) return res.status(200).json(user);
-      else return res.sendStatus(500);
+      const responseData = formatResponse<User>({ data: user });
+
+      return res.json(responseData);
     }
   } catch (err) {
-    logger.error(err);
-    return res.status(403).json({ error: err });
+    const errorMessage: string = (err as { message: string }).message;
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.FORBIDDEN;
+    const responseData = formatResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type UpdateUserBody = Partial<User>;
+export type UpdateUserResult = ResponseData<User>;
 
 /**
  * Updates user information (phone number, date of birth).
@@ -120,8 +200,8 @@ export const updatePassword = async (
  * @returns Response containing the updated user or error message.
  */
 export const updateUser = async (
-  req: Request<any, any, Partial<User> | undefined>,
-  res: ResponseWithInformation
+  req: Request<any, any, UpdateUserBody | undefined>,
+  res: ResponseWithInformation<UpdateUserResult>
 ) => {
   const userData = req.body;
   const user = res.locals.user;
@@ -130,14 +210,28 @@ export const updateUser = async (
     const errorMessage = 'User not found';
 
     logger.error(errorMessage);
-    return res.status(404).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.NOT_FOUND;
+    const responseData = formatResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   if (typeof userData !== 'object') {
     const errorMessage = 'User data not found';
 
     logger.error(errorMessage);
-    return res.status(400).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   try {
@@ -147,14 +241,26 @@ export const updateUser = async (
       `User updated: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
     );
 
-    return res.status(200).json({ success: true, user: updatedUser });
+    const responseData = formatResponse<User>({ data: updatedUser });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as { message: string }).message;
 
-    logger.error(`errors: ${errorMessage}`);
-    return res.status(500).json({ success: false, message: errorMessage });
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type ValidEmailParams = { secret: string; userId: string };
+export type ValidEmailResult = ResponseData<User>;
 
 /**
  * Validates a user's email based on the provided secret and user ID.
@@ -163,50 +269,66 @@ export const updateUser = async (
  * @returns Response containing the validated user or error message.
  */
 export const validEmail = async (
-  req: Request,
-  res: ResponseWithInformation
+  req: Request<ValidEmailParams, any, any>,
+  res: ResponseWithInformation<ValidEmailResult>
 ) => {
   const userId = req.params.userId as unknown as User['_id'];
   const secret = req.params.secret;
   const organization = res.locals.organization;
 
   if (!Types.ObjectId.isValid(userId.toString())) {
-    return res
-      .sendStatus(404)
-      .json({ success: false, message: 'User id not valid' });
+    const responseCode = HttpStatusCodes.NOT_FOUND;
+
+    const responseData = formatResponse<User>({
+      error: 'User id not valid',
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   if (!organization) {
-    return res
-      .sendStatus(404)
-      .json({ success: false, message: 'Organization not found' });
+    const responseCode = HttpStatusCodes.NOT_FOUND;
+
+    const responseData = formatResponse<User>({
+      error: 'Organization not found',
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   const user = await getUserByIdService(userId);
 
   if (!user) {
-    return res
-      .sendStatus(404)
-      .json({ success: false, message: 'User not found' });
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.NOT_FOUND;
+    const responseData = formatResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
-  if (secret !== user.secret) {
-    return res
-      .sendStatus(500)
-      .json({ success: false, message: 'Secret not valid' });
-  }
-
-  user.emailValidated = true;
-  await user.save();
-
-  await activateUserService(user);
+  await activateUserService(user._id, secret);
 
   logger.info(
     `User activated - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
   );
 
-  return res.status(200).json(user);
+  const responseData = formatResponse<User>({ data: user });
+
+  return res.json(responseData);
 };
+
+export type AskResetPasswordBody = {
+  email: string;
+};
+export type AskResetPasswordResult = ResponseData<undefined>;
 
 /**
  * Requests a password reset for a user.
@@ -215,28 +337,56 @@ export const validEmail = async (
  * @returns Response indicating the status of the password reset request.
  */
 export const askResetPassword = async (
-  req: Request,
-  res: ResponseWithInformation
+  req: Request<undefined, any, AskResetPasswordBody>,
+  res: ResponseWithInformation<AskResetPasswordResult>
 ) => {
-  try {
-    const user = await requestPasswordResetService(req.body.email);
+  const { email } = req.body as Partial<AskResetPasswordBody>;
 
-    if (!user) {
-      return res
-        .status(200)
-        .json({ emailState: 'Email incorrect', user: 'none' });
+  if (!email) {
+    const errorMessage = 'Email not provided';
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<undefined>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  try {
+    const updatedUser = await requestPasswordResetService(email);
+
+    if (!updatedUser) {
+      const errorMessage = 'User not found';
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.NOT_FOUND;
+      const responseData = formatResponse<undefined>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
     }
 
     logger.info(
-      `Ask changing password - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
+      `Ask changing password - User: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
     );
 
-    return res.status(200).json({ emailState: 'Email sent', user: user._id });
+    const responseData = formatResponse<undefined>({ data: undefined });
+
+    return res.json(responseData);
   } catch (err) {
     logger.error(err);
     return res.sendStatus(500);
   }
 };
+
+export type ResetPasswordParams = { secret: string; userId: string };
+export type ResetPasswordResult = ResponseData<undefined>;
 
 /**
  * Resets a user's password based on the provided secret and user ID.
@@ -245,43 +395,66 @@ export const askResetPassword = async (
  * @returns Response containing the updated user or error message.
  */
 export const resetPassword = async (
-  req: Request,
-  res: ResponseWithInformation
-): Promise<Response> => {
-  const userId = req.params.userId as unknown as User['_id'];
-  const secret: string = req.params.secret;
+  req: Request<ResetPasswordParams, any, any>,
+  res: Response<ResetPasswordResult>
+) => {
+  const { secret, userId } = req.params as Partial<ResetPasswordParams>;
   const password: string = req.body.password;
-  const organization = res.locals.organization;
 
-  if (!Types.ObjectId.isValid(userId.toString())) {
-    return res
-      .sendStatus(404)
-      .json({ success: false, message: 'User id not valid' });
-  }
+  const userIdString = String(userId);
 
-  if (!organization) {
-    return res
-      .sendStatus(404)
-      .json({ success: false, message: 'Organization not found' });
+  if (!userId || !userIdString || !Types.ObjectId.isValid(userIdString)) {
+    const errorMessage = `User id invalid - ${userIdString}`;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<undefined>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   if (!secret) {
-    return res
-      .status(400)
-      .json({ success: false, message: 'Secret not provided' });
+    const errorMessage = 'Secret not provided';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<undefined>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   try {
-    const user = await resetUserPasswordService(userId, secret, password);
-
-    logger.info(
-      `Password changed - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
+    const updatedUser = await resetUserPasswordService(
+      userId,
+      secret,
+      password
     );
 
-    return res.status(200).json(user);
+    logger.info(
+      `Password changed - User: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
+    );
+
+    const responseData = formatResponse<undefined>({ data: undefined });
+
+    return res.json(responseData);
   } catch (err) {
-    return res
-      .status(400)
-      .json({ emailState: 'Not sent', user: 'not created', error: err });
+    const errorMessage: string = (err as { message: string }).message;
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<undefined>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };

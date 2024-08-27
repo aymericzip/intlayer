@@ -7,13 +7,23 @@ import {
   updateProjectById as updateProjectByIdService,
   deleteProjectById as deleteProjectByIdService,
 } from '@services/project.service';
-import type { Project, ProjectData } from '@types/project.type';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getProjectFiltersAndPagination,
   type ProjectFilters,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
+import { HttpStatusCodes } from '@utils/httpStatusCodes';
+import {
+  formatPaginatedResponse,
+  type ResponseData,
+  type PaginatedResponse,
+  formatResponse,
+} from '@utils/responseData';
 import type { Request, Response } from 'express';
+import type { Project, ProjectData } from '@/types/project.types';
+
+export type GetProjectsParams = FiltersAndPagination<ProjectFilters>;
+export type GetProjectsResult = PaginatedResponse<Project>;
 
 /**
  * Retrieves a list of projects based on filters and pagination.
@@ -22,8 +32,8 @@ import type { Request, Response } from 'express';
  * @returns Response containing the list of projects and pagination details.
  */
 export const getProjects = async (
-  req: Request<FiltersAndPagination<ProjectFilters>>,
-  res: ResponseWithInformation
+  req: Request<GetProjectsParams>,
+  res: ResponseWithInformation<GetProjectsResult>
 ): Promise<Response> => {
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
@@ -32,19 +42,32 @@ export const getProjects = async (
     const projects = await findProjectsService(filters, skip, pageSize);
     const totalItems = await countProjectsService(filters);
 
-    return res.status(200).json({
-      success: true,
+    const responseData = formatPaginatedResponse<Project>({
       data: projects,
       page,
-      page_size: pageSize,
-      total_pages: getNumberOfPages(totalItems),
-      total_items: totalItems,
+      pageSize,
+      totalPages: getNumberOfPages(totalItems),
+      totalItems,
     });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
-    return res.status(500).json({ success: false, message: errorMessage });
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatPaginatedResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type AddProjectBody = ProjectData;
+export type AddProjectResult = ResponseData<Project>;
 
 /**
  * Adds a new project to the database.
@@ -53,8 +76,8 @@ export const getProjects = async (
  * @returns Response containing the created project.
  */
 export const addProject = async (
-  req: Request<any, any, ProjectData | undefined>,
-  res: ResponseWithInformation
+  req: Request<any, any, AddProjectBody>,
+  res: ResponseWithInformation<AddProjectResult>
 ): Promise<Response> => {
   const organizationId = req.params.organizationId;
   const projectData = req.body;
@@ -63,7 +86,14 @@ export const addProject = async (
     const errorMessage = 'Project not found';
 
     logger.error(errorMessage);
-    return res.status(400).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   const project: ProjectData = {
@@ -73,12 +103,27 @@ export const addProject = async (
 
   try {
     const newProject = await createProjectService(project);
-    return res.status(200).json(newProject);
+
+    const responseData = formatResponse<Project>({ data: newProject });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
-    return res.status(500).json({ success: false, message: errorMessage });
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type UpdateProjectBody = Partial<Project>;
+export type UpdateProjectResult = ResponseData<Project>;
 
 /**
  * Updates an existing project in the database.
@@ -87,8 +132,8 @@ export const addProject = async (
  * @returns Response containing the updated project.
  */
 export const updateProject = async (
-  req: Request<any, any, Partial<Project> | undefined>,
-  res: ResponseWithInformation
+  req: Request<any, any, UpdateProjectBody>,
+  res: ResponseWithInformation<UpdateProjectResult>
 ): Promise<Response> => {
   const project = req.body;
 
@@ -96,24 +141,53 @@ export const updateProject = async (
     const errorMessage = 'Project not found';
 
     logger.error(errorMessage);
-    return res.status(400).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   if (typeof project._id === 'undefined') {
     const errorMessage = 'Project id not found';
 
     logger.error(errorMessage);
-    return res.status(400).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   try {
     const updatedProject = await updateProjectByIdService(project._id, project);
-    return res.status(200).json(updatedProject);
+
+    const responseData = formatResponse<Project>({ data: updatedProject });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
-    return res.status(500).json({ success: false, message: errorMessage });
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type DeleteProjectParam = { projectId: string };
+export type DeleteProjectResult = ResponseData<Project>;
 
 /**
  * Deletes a project from the database by its ID.
@@ -122,16 +196,44 @@ export const updateProject = async (
  * @returns Response confirming the deletion.
  */
 export const deleteProject = async (
-  req: Request,
-  res: ResponseWithInformation
+  req: Request<DeleteProjectParam>,
+  res: ResponseWithInformation<DeleteProjectResult>
 ): Promise<Response> => {
-  const projectId = req.params.projectId;
+  const { projectId } = req.params as Partial<DeleteProjectParam>;
+
+  if (!projectId) {
+    const errorMessage = 'Project id not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
 
   try {
     const deletedProject = await deleteProjectByIdService(projectId);
-    return res.status(200).json(deletedProject);
+
+    logger.info(`Project deleted: ${deletedProject._id}`);
+
+    const responseData = formatResponse<Project>({ data: deletedProject });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
-    return res.status(500).json({ success: false, message: errorMessage });
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };

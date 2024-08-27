@@ -13,15 +13,16 @@ export type UserData = {
 };
 
 export type User = UserData & {
-  _id: string;
+  _id: ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
 export type UserDocument = Document<User> & User;
 
-export type UserWithPasswordNotHashed = UserData & {
-  password?: string;
+export type UserWithPasswordNotHashed = Partial<UserData> & {
+  email: string;
+  password: string;
 };
 
 export type UserModelType = Model<User> & {

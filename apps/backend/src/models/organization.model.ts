@@ -1,6 +1,6 @@
 import { organizationSchema } from '@schemas/organization.schema';
-import type { Organization } from '@types/organization.type';
 import { model } from 'mongoose';
+import type { Organization } from '@/types/organization.types';
 
 export const OrganizationModel = model<Organization>(
   'organization',

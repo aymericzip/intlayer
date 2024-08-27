@@ -7,6 +7,7 @@ import {
   useForm,
   // useToast,
 } from '@intlayer/design-system';
+import { backendAPI } from '@utils/backend-api';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type FC, useEffect, type ReactNode } from 'react';
@@ -40,7 +41,11 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
   // const { toast } = useToast();
 
   const onSubmitSuccess = async ({ email }: ResetPassword) => {
-    //
+    const result = await backendAPI.user.askResetPassword(email);
+
+    if (!result.success) {
+      return router.push(callbackUrl);
+    }
   };
 
   const onSubmitError = (error: Error) => {

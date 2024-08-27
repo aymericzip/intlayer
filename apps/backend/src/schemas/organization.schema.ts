@@ -1,9 +1,10 @@
-import type { Organization } from '@types/organization.type';
 import {
+  MEMBERS_MIN_LENGTH,
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateOrganization';
 import { Schema } from 'mongoose';
+import type { Organization } from '@/types/organization.types';
 
 export const organizationSchema = new Schema<Organization>(
   {
@@ -18,9 +19,14 @@ export const organizationSchema = new Schema<Organization>(
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-        minlength: M,
+        minlength: MEMBERS_MIN_LENGTH,
       },
     ],
+    creatorId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   {
     timestamps: true,

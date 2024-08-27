@@ -1,11 +1,17 @@
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
-import type { Organization } from '@types/organization.type';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
   type OrganizationFilters,
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
+import { HttpStatusCodes } from '@utils/httpStatusCodes';
+import {
+  formatPaginatedResponse,
+  formatResponse,
+  type PaginatedResponse,
+  type ResponseData,
+} from '@utils/responseData';
 import type { Request } from 'express';
 import {
   findOrganizations as findOrganizationsService,
@@ -15,6 +21,10 @@ import {
   deleteOrganizationById as deleteOrganizationByIdService,
   getOrganizationById as getOrganizationByIdService,
 } from '@/services/organization.service';
+import type { Organization } from '@/types/organization.types';
+
+export type GetOrganizationsParams = FiltersAndPagination<OrganizationFilters>;
+export type GetOrganizationsResult = PaginatedResponse<Organization>;
 
 /**
  * Retrieves a list of organizations based on filters and pagination.
@@ -23,8 +33,8 @@ import {
  * @returns Response containing the list of organizations and pagination details.
  */
 export const getOrganizations = async (
-  req: Request<FiltersAndPagination<OrganizationFilters>>,
-  res: ResponseWithInformation
+  req: Request<GetOrganizationsParams>,
+  res: ResponseWithInformation<GetOrganizationsResult>
 ) => {
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
@@ -37,19 +47,32 @@ export const getOrganizations = async (
     );
     const totalItems = await countOrganizationsService(filters);
 
-    return res.status(200).json({
-      success: true,
+    const responseData = formatPaginatedResponse<Organization>({
       data: organizations,
       page,
-      page_size: pageSize,
-      total_pages: getNumberOfPages(totalItems),
-      total_items: totalItems,
+      pageSize,
+      totalPages: getNumberOfPages(totalItems),
+      totalItems,
     });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
-    return res.status(500).json({ success: false, message: errorMessage });
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatPaginatedResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type GetOrganizationParam = { organizationId: string };
+export type GetOrganizationResult = ResponseData<Organization>;
 
 /**
  * Retrieves an organization by its ID.
@@ -58,26 +81,48 @@ export const getOrganizations = async (
  * @returns Response containing the organization.
  */
 export const getOrganization = async (
-  req: Request<{ organizationId: string | undefined }, any, any>,
-  res: ResponseWithInformation
+  req: Request<GetOrganizationParam, any, any>,
+  res: ResponseWithInformation<GetOrganizationResult>
 ) => {
-  const organizationId = req.params.organizationId;
+  const { organizationId } = req.params as Partial<GetOrganizationParam>;
 
   if (!organizationId) {
     const errorMessage = 'Organization id not found';
 
     logger.error(errorMessage);
-    return res.status(400).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   try {
     const organization = await getOrganizationByIdService(organizationId);
-    return res.status(200).json(organization);
+
+    const responseData = formatResponse<Organization>({ data: organization });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
-    return res.status(500).json({ success: false, message: errorMessage });
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type AddOrganizationBody = Organization;
+export type AddOrganizationResult = ResponseData<Organization>;
 
 /**
  * Adds a new organization to the database.
@@ -86,8 +131,8 @@ export const getOrganization = async (
  * @returns Response containing the created organization.
  */
 export const addOrganization = async (
-  req: Request<any, any, Organization | undefined>,
-  res: ResponseWithInformation
+  req: Request<any, any, AddOrganizationBody>,
+  res: ResponseWithInformation<AddOrganizationResult>
 ) => {
   const organization: Organization | undefined = req.body;
 
@@ -95,18 +140,41 @@ export const addOrganization = async (
     const errorMessage = 'Organization not found';
 
     logger.error(errorMessage);
-    return res.status(400).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   try {
     const newOrganization = await createOrganizationService(organization);
-    return res.status(200).json(newOrganization);
+
+    const responseData = formatResponse<Organization>({
+      data: newOrganization,
+    });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
-    return res.status(500).json({ success: false, message: errorMessage });
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type UpdateOrganizationBody = Partial<Organization>;
+export type UpdateOrganizationResult = ResponseData<Organization>;
 
 /**
  * Updates an existing organization in the database.
@@ -115,8 +183,8 @@ export const addOrganization = async (
  * @returns Response containing the updated organization.
  */
 export const updateOrganization = async (
-  req: Request<undefined, undefined, Partial<Organization> | undefined>,
-  res: ResponseWithInformation
+  req: Request<undefined, undefined, UpdateOrganizationBody>,
+  res: ResponseWithInformation<UpdateOrganizationResult>
 ) => {
   const organization = req.body;
 
@@ -124,14 +192,28 @@ export const updateOrganization = async (
     const errorMessage = 'Organization not found';
 
     logger.error(errorMessage);
-    return res.status(400).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   if (typeof organization._id === 'undefined') {
     const errorMessage = 'Organization id not found';
 
     logger.error(errorMessage);
-    return res.status(400).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   try {
@@ -139,13 +221,29 @@ export const updateOrganization = async (
       organization._id,
       organization
     );
-    return res.status(200).json(updatedOrganization);
+
+    const responseData = formatResponse<Organization>({
+      data: updatedOrganization,
+    });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
-    return res.status(500).json({ success: false, message: errorMessage });
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
+
+export type DeleteOrganizationParam = { organizationId: string };
+export type DeleteOrganizationResult = ResponseData<Organization>;
 
 /**
  * Deletes an organization from the database by its ID.
@@ -154,17 +252,47 @@ export const updateOrganization = async (
  * @returns Response confirming the deletion.
  */
 export const deleteOrganization = async (
-  req: Request,
+  req: Request<DeleteOrganizationParam>,
   res: ResponseWithInformation
 ) => {
-  const organizationId = req.params.organizationId;
+  const { organizationId } = req.params as Partial<DeleteOrganizationParam>;
+
+  if (!organizationId) {
+    const errorMessage = 'Organization id not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
 
   try {
     const deletedOrganization =
       await deleteOrganizationByIdService(organizationId);
-    return res.status(200).json(deletedOrganization);
+
+    logger.info(`Organization deleted: ${deletedOrganization._id}`);
+
+    const responseData = formatResponse<Organization>({
+      data: deletedOrganization,
+    });
+
+    return res.json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
-    return res.status(500).json({ success: false, message: errorMessage });
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };

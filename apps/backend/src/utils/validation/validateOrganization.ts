@@ -1,6 +1,6 @@
-import type { Organization } from '@types/organization.type';
 import { validateArray } from './validateArray';
 import { validateString } from './validateString';
+import type { Organization } from '@/types/organization.types';
 
 type OrganizationFields = (keyof Organization)[];
 
@@ -53,7 +53,7 @@ export const validateOrganization = (
 
     if (field === 'members') {
       const membersErrors = validateArray<string>(
-        value as string[],
+        value as unknown as string[],
         'Members',
         'string',
         undefined,

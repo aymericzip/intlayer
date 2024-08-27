@@ -7,7 +7,10 @@ import {
   InputPasswordElement,
   useForm,
 } from '@intlayer/design-system';
+import { backendAPI } from '@utils/backend-api';
 import Link from 'next/link';
+import router from 'next/router';
+import { signIn } from 'next-auth/react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { SignUpSchema, type SignUp } from './SignUpSchema';
@@ -32,7 +35,23 @@ export const SignUpForm: FC<SignUpFormProps> = ({
   // const { signUp } = useFirebase();
 
   const onSubmitSuccess = async ({ email, password }: SignUp) => {
-    //
+    const response = await backendAPI.user.register({
+      email,
+      password,
+    });
+
+    if (response.success) {
+      const nextAuthResult = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+        callbackUrl,
+      });
+
+      if (!nextAuthResult?.ok) {
+        console.error(nextAuthResult);
+      }
+    }
   };
 
   const onSubmitError = (error: Error) => {

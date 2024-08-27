@@ -21,7 +21,6 @@
       "@logger/*": ["./src/logger/*"],
       "@schemas/*": ["./src/schemas/*"],
       "@utils/*": ["./src/utils/*"],
-      "@types/*": ["./src/types/*"],
       "@/*": ["./src/*"]
     }
   },

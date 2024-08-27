@@ -76,15 +76,5 @@
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
-  },
-  "_moduleAliases": {
-    "@controllers": "dist/controllers",
-    "@models": "dist/models",
-    "@routes": "dist/routes",
-    "@middlewares": "dist/middlewares",
-    "@logger": "dist/logger",
-    "@schemas": "dist/schemas",
-    "@utils": "dist/utils",
-    "@services": "dist/services"
   }
 }

@@ -3,7 +3,8 @@ import { UserModel } from '@models/user.model';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import { validateUser } from '@utils/validation/validateUser';
 import { compare, genSalt, hash } from 'bcrypt';
-import type { User, UserWithPasswordNotHashed } from '@/types/user.type';
+import type { ObjectId } from 'mongoose';
+import type { User, UserWithPasswordNotHashed } from '@/types/user.types';
 
 /**
  * Creates a new user in the database.
@@ -56,11 +57,12 @@ export const getUserByEmail = async (email: string) => {
  * @param userId - User's ID.
  * @returns User object or null if no user was found.
  */
-export const getUserById = async (userId: string) => {
+export const getUserById = async (userId: string | ObjectId) => {
   const user = await UserModel.findById(userId);
 
   if (!user) {
-    const errorMessage = `User not found - ${userId}`;
+    const userIdString = String(userId);
+    const errorMessage = `User not found - ${userIdString}`;
 
     logger.error(errorMessage);
     throw new Error(errorMessage);
@@ -109,13 +111,15 @@ export const countUsers = async (filters: UserFilters): Promise<number> => {
  * @returns The updated user.
  */
 export const updateUserById = async (
-  userId: string,
+  userId: string | ObjectId,
   updates: Partial<User>
 ): Promise<User> => {
   const errors = validateUser(updates);
 
+  const userIdString = String(userId);
+
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `User invalid fields - ${userId} - ${JSON.stringify(
+    const errorMessage = `User invalid fields - ${userIdString} - ${JSON.stringify(
       errors
     )}`;
     logger.error(errorMessage);
@@ -125,7 +129,7 @@ export const updateUserById = async (
   const result = await UserModel.updateOne({ _id: userId }, { $set: updates });
 
   if (result.matchedCount === 0) {
-    const errorMessage = `User update failed - ${userId}`;
+    const errorMessage = `User update failed - ${userIdString}`;
     logger.error(errorMessage);
     throw new Error(errorMessage);
   }
@@ -133,7 +137,7 @@ export const updateUserById = async (
   const updatedUser = await UserModel.findById(userId);
 
   if (!updatedUser) {
-    const errorMessage = `Failed to find the updated user - ${userId}`;
+    const errorMessage = `Failed to find the updated user - ${userIdString}`;
     logger.error(errorMessage);
     throw new Error(errorMessage);
   }
@@ -146,7 +150,18 @@ export const updateUserById = async (
  * @param user - The user object.
  * @returns
  */
-export const activateUser = async (userId: string): Promise<void> => {
+export const activateUser = async (
+  userId: string | ObjectId,
+  secret: string
+): Promise<void> => {
+  const user = await getUserById(userId);
+
+  if (user.secret !== secret) {
+    const userIdString = String(userId);
+    const errorMessage = `Secret not valid - ${userIdString}`;
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
   await updateUserById(userId, { emailValidated: true });
 };
 
@@ -188,20 +203,21 @@ export const requestPasswordReset = async (
  * @returns The updated user or null if the reset failed.
  */
 export const resetUserPassword = async (
-  userId: string,
+  userId: string | ObjectId,
   secret: string,
   newPassword: string
 ): Promise<User> => {
   const user = await UserModel.findById(userId);
+  const userIdString = String(userId);
 
   if (!user) {
-    const errorMessage = `User not found - ${userId}`;
+    const errorMessage = `User not found - ${userIdString}`;
     logger.error(errorMessage);
     throw new Error(errorMessage);
   }
 
   if (user.secret !== secret) {
-    const errorMessage = `Secret not valid - ${userId}`;
+    const errorMessage = `Secret not valid - ${userIdString}`;
     logger.error(errorMessage);
     throw new Error(errorMessage);
   }
@@ -209,7 +225,7 @@ export const resetUserPassword = async (
   const newUser = await UserModel.resetPassword(user._id, newPassword);
 
   if (!newUser) {
-    const errorMessage = `Password reset failed - ${userId}`;
+    const errorMessage = `Password reset failed - ${userIdString}`;
     logger.error(errorMessage);
     throw new Error(errorMessage);
   }
@@ -239,6 +255,11 @@ export const testUserPassword = async (email: string, password: string) => {
     const errorMessage = `Incorrect email or password: ${email}`;
 
     logger.error(errorMessage);
+
+    // Await a random time to prevent brute force attacks
+    const randomNumber = Math.floor(Math.random() * 1000) + 1000;
+    await new Promise((resolve) => setTimeout(resolve, randomNumber));
+
     throw new Error(errorMessage);
   }
 
@@ -284,11 +305,12 @@ export const formatUser = (user: User) => {
  * @returns The updated user or null if the password change failed.
  */
 export const changeUserPassword = async (
-  userId: string,
+  userId: string | ObjectId,
   oldPassword: string,
   newPassword: string
 ) => {
-  const user = await testUserPassword(userId, oldPassword);
+  const { email } = await getUserById(userId);
+  const user = await testUserPassword(email, oldPassword);
 
   user.passwordHash = await hash(newPassword, await genSalt());
   await user.save();

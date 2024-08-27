@@ -8,7 +8,7 @@ import { PagesRoutes } from '@/Routes';
 import { useUser } from '@/utils/auth/next-auth/useUser';
 
 export const ProfilePanel: FC = () => {
-  const { isUnauthenticated, name } = useUser();
+  const { isUnauthenticated, user } = useUser();
   const router = useRouter();
 
   if (isUnauthenticated) {
@@ -17,8 +17,8 @@ export const ProfilePanel: FC = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      {name && (
-        <span className="whitespace-nowrap text-lg font-bold">{name}</span>
+      {user?.name && (
+        <span className="whitespace-nowrap text-lg font-bold">{user.name}</span>
       )}
       <Button
         variant="link"

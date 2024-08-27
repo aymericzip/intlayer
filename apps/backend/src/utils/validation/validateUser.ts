@@ -1,8 +1,8 @@
 /* eslint-disable sonarjs/cognitive-complexity */
-import type { User } from '@types/user.type';
 import { validateEmail } from './validateEmail';
 import { validatePhone } from './validatePhone';
 import { validateString } from './validateString';
+import type { User } from '@/types/user.types';
 
 type UserFields = (keyof User)[];
 

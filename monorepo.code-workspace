@@ -9,6 +9,10 @@
       "path": "apps/website",
     },
     {
+      "name": "backend",
+      "path": "apps/backend",
+    },
+    {
       "name": "🪄 eslint config",
       "path": "utils/eslint-config",
     },
@@ -90,6 +94,7 @@
     // https://github.com/Microsoft/vscode-eslint#mono-repository-setup
     "eslint.workingDirectories": [
       "./apps/website",
+      "./apps/backend",
       "./examples/nextjs-app",
       "./examples/cli",
       "./packages/intlayer",
@@ -107,6 +112,7 @@
     "prettier.configPath": ".prettierrc.mjs",
     "jest.disabledWorkspaceFolders": [
       "📖 website",
+      "🎛️ backend",
       "🍂 example - next-app",
       "🍂 example - react-app",
       "🍂 example - cli",

@@ -1,4 +1,6 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@utils/ts-config",
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -21,9 +23,16 @@
     "paths": {
       "@layouts/*": ["./src/layouts/*"],
       "@components/*": ["./src/components/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@utils/*": ["./src/utils/*", "../backend/src/utils/*"],
       "@assets/*": ["./src/assets/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*", "../backend/src/*"],
+      "@controllers/*": ["../backend/src/controllers/*"],
+      "@models/*": ["../backend/src/models/*"],
+      "@services/*": ["../backend/src/services/*"],
+      "@routes/*": ["../backend/src/routes/*"],
+      "@middlewares/*": ["../backend/src/middlewares/*"],
+      "@logger/*": ["../backend/src/logger/*"],
+      "@schemas/*": ["../backend/src/schemas/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -8,6 +8,7 @@ import {
   useForm,
   // useToast,
 } from '@intlayer/design-system';
+import { backendAPI } from '@utils/backend-api';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -42,13 +43,20 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
 
   // const { toast } = useToast();
   const router = useRouter();
-  const user = useUser();
+  const { user } = useUser();
 
   const onSubmitSuccess = async ({
     currentPassword,
     newPassword,
   }: ChangePassword) => {
-    //
+    const result = await backendAPI.user.changePassword({
+      oldPassword: currentPassword,
+      newPassword,
+    });
+
+    if (!result.success) {
+      return router.push(callbackUrl);
+    }
   };
 
   const onSubmitError = (error: Error) => {

@@ -45,7 +45,7 @@ export const Navbar: FC = () => {
         <Link
           aria-label={github.label.value}
           href={github.url.value}
-          className="group/github border-text dark:border-text-dark text-text dark:text-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 p-1"
+          className="group/github border-text text-text dark:border-text-dark dark:text-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 p-1"
         >
           <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
           GitHub
@@ -78,7 +78,7 @@ export const Navbar: FC = () => {
           <Link
             aria-label={github.label.value}
             href={github.url.value}
-            className="group/github bg-text dark:bg-text-dark text-text-dark dark:text-text flex cursor-pointer items-center gap-2 rounded-full p-1"
+            className="group/github bg-text text-text-dark dark:bg-text-dark dark:text-text flex cursor-pointer items-center gap-2 rounded-full p-1"
           >
             <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
             <StarIcon

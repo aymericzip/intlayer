@@ -17,7 +17,7 @@ export const DemoPage: FC = () => {
           <AnimatedTitle className="mb-3 mt-24 text-4xl font-bold">
             {title}
           </AnimatedTitle>
-          <p className="text-neutral dark:text-neutral-dark text-md">
+          <p className="text-md text-neutral dark:text-neutral-dark">
             {landingParagraph}
           </p>
         </div>

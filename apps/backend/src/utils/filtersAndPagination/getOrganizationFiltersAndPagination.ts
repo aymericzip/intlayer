@@ -5,6 +5,14 @@ import {
 } from './getFiltersAndPaginationFromBody';
 
 export type OrganizationFilters = {
+  /**
+   * Comma separated list of ids
+   *
+   * ```
+   * GET /organizations?ids=5f8d9f1d8a1e4f0e8c0c,5f8d9f1d8a1e4f0e8d1
+   * -> ids: "5f8d9f1d8a1e4f0e8c0c,5f8d9f1d8a1e4f0e8d1"
+   * ```
+   */
   ids?: string;
   name?: string;
 };

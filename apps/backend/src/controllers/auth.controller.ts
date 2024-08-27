@@ -13,9 +13,11 @@ import {
   createUser as createUserService,
   getUserByEmail as getUserByEmailService,
 } from '@services/user.service';
-import type { User, UserWithPasswordNotHashed } from '@types/user.type';
+import { HttpStatusCodes } from '@utils/httpStatusCodes';
+import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request, Response } from 'express';
 import { logger } from '@/logger';
+import type { User, UserWithPasswordNotHashed } from '@/types/user.types';
 
 type CSRFTokenProps = {
   csrfToken: () => string;
@@ -29,13 +31,19 @@ type RequestWithCSRFToken<
   Locals extends Record<string, any> = Record<string, any>,
 > = Request<P, ResBody, ReqBody, ReqQuery, Locals> & CSRFTokenProps;
 
+type JWTData = { csrfToken: string; user: User | null };
+type ControlJWTResult = ResponseData<JWTData>;
+
 /**
  * Handles JWT generation and setting cookies.
  * @param req - Express request object.
  * @param res - Express response object.
  * @returns Response containing CSRF token and user information.
  */
-export const controlJWT = (req: Request, res: ResponseWithInformation) => {
+export const controlJWT = (
+  req: Request,
+  res: ResponseWithInformation<ControlJWTResult>
+) => {
   const csrfToken = (req as RequestWithCSRFToken).csrfToken();
 
   if (!csrfToken) {
@@ -50,8 +58,15 @@ export const controlJWT = (req: Request, res: ResponseWithInformation) => {
     setUserAuthService(res, user);
   }
 
-  return res.status(200).json({ csrfToken, user });
+  const responseData = formatResponse<JWTData>({
+    data: { csrfToken, user },
+  });
+
+  return res.json(responseData);
 };
+
+export type RegisterBody = UserWithPasswordNotHashed;
+export type RegisterResult = ResponseData<User>;
 
 /**
  * Handles user registration.
@@ -59,9 +74,9 @@ export const controlJWT = (req: Request, res: ResponseWithInformation) => {
  * @param res - Express response object.
  * @returns Response with user information or error status.
  */
-export const signUp = async (
-  req: Request<any, any, UserWithPasswordNotHashed>,
-  res: ResponseWithInformation
+export const register = async (
+  req: Request<any, any, RegisterBody>,
+  res: ResponseWithInformation<RegisterResult>
 ) => {
   const userData = req.body;
 
@@ -82,24 +97,33 @@ export const signUp = async (
 
       logger.error(errorMessage);
 
-      return res.sendStatus(401).json({ error: errorMessage });
+      const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+      const responseData = formatResponse<User>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
     }
 
     logger.info(
       `New registration: ${newUser.firstname} ${newUser.lastname} - ${newUser.email}`
     );
 
-    return res.status(200).json(newUser);
+    const responseData = formatResponse<User>({ data: newUser });
+
+    return res.json(responseData);
   } catch (err) {
     logger.error(err);
     return res.sendStatus(500);
   }
 };
 
-export type UserLogInAttributes = {
+export type LoginBody = {
   email: string;
   password: string;
 };
+export type LoginResult = ResponseData<User>;
 
 /**
  * Handles user login.
@@ -107,8 +131,8 @@ export type UserLogInAttributes = {
  * @param res - Express response object.
  * @returns Response with user information or error status.
  */
-export const signIn = async (
-  req: Request<any, any, UserLogInAttributes>,
+export const login = async (
+  req: Request<any, any, LoginBody>,
   res: ResponseWithInformation
 ) => {
   const { email, password } = req.body;
@@ -118,52 +142,25 @@ export const signIn = async (
 
     setUserAuthService(res, user);
 
-    return res.status(200).json(user);
+    const responseData = formatResponse<User>({ data: user });
+
+    return res.json(responseData);
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
 
     logger.error(errorMessage);
-    return res.sendStatus(401).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.UNAUTHORIZED;
+    const responseData = formatResponse<User>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
 
-/**
- * Handles login via Firebase authentication.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response with user information or error status.
- */
-export const logByFirebase = async (
-  req: Request<any, any, User>,
-  res: ResponseWithInformation
-) => {
-  const userData: User = req.body;
-
-  try {
-    let user = await getUserByEmailService(userData.email);
-
-    if (user) {
-      setUserAuthService(res, user);
-
-      logger.info(
-        `New log: ${user.firstname} ${user.lastname} - ${user.email}`
-      );
-
-      return res.status(200).json(user);
-    }
-
-    user = await createUserService(userData);
-
-    logger.info(
-      `New firebase registration: ${user.firstname} ${user.lastname} - ${user.email}`
-    );
-
-    return res.status(200).json(user);
-  } catch (err) {
-    logger.error(err);
-    return res.status(200).json({ state: 'Not send', user: null, errors: err });
-  }
-};
+export type LogoutResult = ResponseData<undefined>;
 
 /**
  * Handles user logout and clears cookies.
@@ -173,7 +170,7 @@ export const logByFirebase = async (
  */
 export const logOut = (
   _req: Request,
-  res: ResponseWithInformation
+  res: ResponseWithInformation<LogoutResult>
 ): Response => {
   const user: User | null = res.locals.user;
 
@@ -181,7 +178,14 @@ export const logOut = (
     const errorMessage = `User logout failed`;
 
     logger.error(errorMessage);
-    return res.sendStatus(401).json({ error: errorMessage });
+
+    const responseCode = HttpStatusCodes.UNAUTHORIZED;
+    const responseData = formatResponse<undefined>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   clearUserAuthService(res);
@@ -190,5 +194,7 @@ export const logOut = (
 
   logger.info(`Logout: ${user.firstname} ${user.lastname} - ${user.email}`);
 
-  return res.status(200);
+  const responseData = formatResponse<undefined>({ data: undefined });
+
+  return res.json(responseData);
 };

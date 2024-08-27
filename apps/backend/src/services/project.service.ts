@@ -1,8 +1,9 @@
 import { logger } from '@logger/index';
 import { ProjectModel } from '@models/project.model';
-import type { Project, ProjectData } from '@types/project.type';
 import type { ProjectFilters } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import { validateProject } from '@utils/validation/validateProject';
+import type { ObjectId } from 'mongoose';
+import type { Project, ProjectData } from '@/types/project.types';
 
 /**
  * Finds projects based on filters and pagination options.
@@ -17,6 +18,27 @@ export const findProjects = async (
   limit = 100
 ): Promise<Project[]> => {
   return await ProjectModel.find(filters).skip(skip).limit(limit);
+};
+
+/**
+ * Finds a project by its ID.
+ * @param projectId - The ID of the project to find.
+ * @returns The project matching the ID.
+ */
+export const getProjectById = async (
+  projectId: string | ObjectId
+): Promise<Project> => {
+  const project = await ProjectModel.findById(projectId);
+
+  if (!project) {
+    const projectIdString = String(projectId);
+    const errorMessage = `Project not found - ${projectIdString}`;
+
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  return project;
 };
 
 /**
@@ -61,13 +83,14 @@ export const createProject = async (project: ProjectData): Promise<Project> => {
  * @returns The updated project.
  */
 export const updateProjectById = async (
-  projectId: string,
+  projectId: string | ObjectId,
   project: Partial<Project>
 ): Promise<Project> => {
   const errors = validateProject(project);
+  const projectIdString = String(projectId);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Project invalid fields - ${projectId} - ${JSON.stringify(
+    const errorMessage = `Project invalid fields - ${projectIdString} - ${JSON.stringify(
       errors
     )}`;
     logger.error(errorMessage);
@@ -77,14 +100,12 @@ export const updateProjectById = async (
   const result = await ProjectModel.updateOne({ _id: projectId }, project);
 
   if (result.matchedCount === 0) {
-    const errorMessage = `Project update failed - ${projectId}`;
+    const errorMessage = `Project update failed - ${projectIdString}`;
     logger.error(errorMessage);
     throw new Error(errorMessage);
   }
 
-  const projects = await findProjects({ ids: projectId }, 0, 1);
-
-  return projects[0];
+  return await getProjectById(projectId);
 };
 
 /**
@@ -92,5 +113,18 @@ export const updateProjectById = async (
  * @param projectId - The ID of the project to delete.
  * @returns The result of the deletion operation.
  */
-export const deleteProjectById = async (projectId: string): Promise<object> =>
-  await ProjectModel.deleteOne({ _id: projectId });
+export const deleteProjectById = async (
+  projectId: string
+): Promise<Project> => {
+  const project = await ProjectModel.findByIdAndDelete(projectId);
+
+  if (!project) {
+    const projectIdString = String(projectId);
+    const errorMessage = `Project not found - ${projectIdString}`;
+
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  return project;
+};

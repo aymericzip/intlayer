@@ -1,8 +1,8 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import { getOrganizationById } from '@services/organization.service';
-import type { Project } from '@types/project.type';
 import { validateArray } from './validateArray';
 import { validateString } from './validateString';
+import type { Project } from '@/types/project.types';
 
 type ProjectFields = (keyof Project)[];
 
@@ -81,10 +81,10 @@ export const validateProject = async (
 
     if (field === 'members') {
       const membersErrors = validateArray<string>(
-        value as string[],
+        value as unknown as string[],
         'Members',
         'string',
-        (item) => organization?.members.includes(item),
+        (item) => (organization?.members as unknown as string[]).includes(item),
         MEMBERS_MIN_LENGTH
       );
 

@@ -35,21 +35,16 @@ export const SignInForm: FC<SignInFormProps> = ({
   const { form, isSubmitting } = useForm(SignInSchema);
 
   const onSubmitSuccess = async ({ email, password }: SignIn) => {
-    await signIn('credentials', {
+    const result = await signIn('credentials', {
       email,
       password,
       redirect: false,
       callbackUrl,
-    }).then((res) => {
-      if (res?.ok) {
-        router.push(PagesRoutes.Home);
-      } else {
-        //   toast({
-        //     title: "Email or password doesn't match. Please try again.",
-        //     variant: 'default',
-        //   });
-      }
     });
+
+    if (!result?.ok) {
+      console.error(result);
+    }
   };
 
   const onSubmitError = (error: Error) => {

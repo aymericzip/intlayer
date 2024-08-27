@@ -6,11 +6,11 @@ import {
   clearOrganizationAuth,
   clearProjectAuth,
 } from '@services/auth.service';
-import type { Organization } from '@types/organization.type';
-import type { Project } from '@types/project.type';
-import type { User } from '@types/user.type';
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import type { Organization } from '@/types/organization.types';
+import type { Project } from '@/types/project.types';
+import type { User } from '@/types/user.types';
 
 type Test = {
   tokenData: {
