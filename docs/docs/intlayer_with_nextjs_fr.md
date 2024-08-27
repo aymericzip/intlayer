@@ -103,12 +103,12 @@ Puis ajoutez un nouveau layout dans votre `[locale]` repertoire :
 
 import { NextLayoutIntlayer } from "next-intlayer";
 import { Inter } from "next/font/google";
-import { getHTMLTextDir } from "intlayer";
+import { getHTMLTextDir, getHTMLLang } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
-  <html lang={locale} dir={getHTMLTextDir(locale)}>
+  <html lang={getHTMLLang(locale)} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>{children}</body>
   </html>
 );

@@ -38,6 +38,7 @@ export {
   getLocaleName,
   enu,
   getEnumerationContent,
+  getHTMLLang,
   getHTMLTextDir,
 } from '@intlayer/core';
 export type {

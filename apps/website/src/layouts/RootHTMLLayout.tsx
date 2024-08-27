@@ -1,6 +1,6 @@
 import GoogleAnalytics from '@components/GoogleAnalytics';
 import { cn } from '@utils/cn';
-import { type Locales, getHTMLTextDir } from 'intlayer';
+import { type Locales, getHTMLTextDir, getHTMLLang } from 'intlayer';
 import { Inter } from 'next/font/google';
 import type { FC, PropsWithChildren } from 'react';
 
@@ -14,7 +14,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => {
   const activeLocale = locale;
 
   return (
-    <html lang={activeLocale} dir={getHTMLTextDir(activeLocale)}>
+    <html lang={getHTMLLang(activeLocale)} dir={getHTMLTextDir(activeLocale)}>
       <GoogleAnalytics />
       <body
         className={cn(

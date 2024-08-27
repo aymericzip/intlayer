@@ -30,5 +30,6 @@ export type {
 export { NodeType } from './types/index';
 export { getLocaleName } from './getLocaleName';
 export { getHTMLTextDir } from './getHTMLTextDir';
+export { getHTMLLang } from './getHTMLLang';
 export { localeList } from './localeList';
 export { isSameKeyPath } from './utils/isSameKeyPath';

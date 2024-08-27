@@ -1,5 +1,6 @@
 import {
   getHTMLTextDir,
+  getHTMLLang,
   type IConfigLocales,
   getTranslationContent,
 } from 'intlayer';
@@ -36,7 +37,7 @@ export const generateMetadata = ({
 };
 
 const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
-  <html lang={locale} dir={getHTMLTextDir(locale)}>
+  <html lang={getHTMLLang(locale)} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>{children}</body>
   </html>
 );

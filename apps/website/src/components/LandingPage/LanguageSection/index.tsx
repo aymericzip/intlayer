@@ -2,7 +2,12 @@
 
 import { Container, Flag } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
-import { getHTMLTextDir, getLocaleName, type Locales } from 'intlayer';
+import {
+  getHTMLTextDir,
+  getHTMLLang,
+  getLocaleName,
+  type Locales,
+} from 'intlayer';
 import { useLocale } from 'next-intlayer/client';
 import {
   type FC,
@@ -37,7 +42,7 @@ const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
         />
         <span
           dir={getHTMLTextDir(locale as Locales)}
-          lang={locale}
+          lang={getHTMLLang(locale as Locales)}
           className="flex text-nowrap"
         >
           {getLocaleName(locale as Locales)}
@@ -82,12 +87,12 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
       )}
       {...props}
     >
-      <div className="relative grid size-full gap-5 overflow-hidden whitespace-nowrap py-3">
+      <ul className="relative grid size-full gap-5 overflow-hidden whitespace-nowrap py-3">
         <LocalCardList localeList={firstPart} className="horizontal-loop-1" />
         <LocalCardList localeList={secondPart} className="horizontal-loop-2" />
         <LocalCardList localeList={thirdPart} className="horizontal-loop-1" />
         <LocalCardList localeList={fourthPart} className="horizontal-loop-2" />
-      </div>
+      </ul>
     </section>
   );
 };
