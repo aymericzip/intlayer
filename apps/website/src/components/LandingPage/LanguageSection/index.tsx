@@ -57,15 +57,17 @@ const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
   className,
   ...props
 }) => (
-  <div className={cn('flex items-center justify-start ', className)} {...props}>
-    {localeList.map((locale) => (
-      <LocalCard key={locale} locale={locale} />
-    ))}
+  <li className={cn('list-none', className)} {...props}>
+    <ul className="flex size-full items-center justify-start">
+      {localeList.map((locale) => (
+        <LocalCard key={locale} locale={locale} />
+      ))}
 
-    {localeList.map((locale) => (
-      <LocalCard key={locale} locale={locale} />
-    ))}
-  </div>
+      {localeList.map((locale) => (
+        <LocalCard key={locale} locale={locale} />
+      ))}
+    </ul>
+  </li>
 );
 
 export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
