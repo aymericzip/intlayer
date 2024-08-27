@@ -4,7 +4,6 @@ import { Container, Flag } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import {
   getHTMLTextDir,
-  getHTMLLang,
   getLocaleName,
   type Locales,
   localeList,
@@ -43,7 +42,7 @@ const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
         />
         <span
           dir={getHTMLTextDir(locale as Locales)}
-          lang={getHTMLLang(locale as Locales)}
+          lang={locale as Locales}
           className="flex text-nowrap"
         >
           {getLocaleName(locale as Locales)}
