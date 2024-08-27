@@ -27,7 +27,7 @@ export const authOptions: AuthOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        email: { label: 'email', type: 'text', placeholder: 'jsmith' },
+        email: { label: 'email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
@@ -55,6 +55,9 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    signIn: () => true,
+  },
 
   secret: process.env.NEXTAUTH_SECRET,
 };
