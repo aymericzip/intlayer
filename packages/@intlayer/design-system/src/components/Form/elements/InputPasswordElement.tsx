@@ -1,13 +1,15 @@
-import type { FC } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { InputPassword } from '../../Input';
 import { FormElement, type FormElementProps } from '.';
 
-interface InputPasswordElementsProps
-  extends Omit<FormElementProps<typeof InputPassword>, 'Element'>,
-    React.ComponentProps<typeof InputPassword> {
-  name: string;
-  autoComplete: 'current-password' | 'new-password';
-}
+type InputPasswordElementsProps = Omit<
+  FormElementProps<typeof InputPassword>,
+  'Element'
+> &
+  ComponentProps<typeof InputPassword> & {
+    name: string;
+    autoComplete: 'current-password' | 'new-password';
+  };
 
 export const InputPasswordElement: FC<InputPasswordElementsProps> = ({
   autoComplete,
@@ -21,5 +23,6 @@ export const InputPasswordElement: FC<InputPasswordElementsProps> = ({
     minLength={6}
     maxLength={255}
     {...props}
+    value={undefined}
   />
 );

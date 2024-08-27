@@ -28,7 +28,6 @@ export const FormElementWrapper: FC<FormElementWrapperProps> = (props) => {
     values: z.infer<typeof objectFormSchema>,
     event: FormEvent<HTMLFormElement>
   ) => {
-    console.log('onSubmitForm');
     const parsedValues = objectFormSchema.safeParse(values);
     if (parsedValues.success) {
       onSubmit?.(event);
@@ -40,7 +39,6 @@ export const FormElementWrapper: FC<FormElementWrapperProps> = (props) => {
       <form
         {...rest}
         onSubmit={(e) => {
-          console.log('form submit');
           e.preventDefault();
           form.handleSubmit((values) => onSubmitForm(values, e));
         }}

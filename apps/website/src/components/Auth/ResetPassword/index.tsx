@@ -31,8 +31,12 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
     backToLoginButton,
   } = useIntlayer('reset-password-form');
 
-  const { form, isSubmitting, isSubmitted, isValid } =
-    useForm(ResetPasswordSchema);
+  const { form, isSubmitting, isSubmitted, isValid } = useForm(
+    ResetPasswordSchema,
+    {
+      defaultValues: { email },
+    }
+  );
   const [submissionState, setSubmissionState] = useState({
     isFrozen: isValid,
     remainingTime: 0,
@@ -111,7 +115,6 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
           autoComplete="email"
           minLength={5}
           maxLength={50}
-          defaultValue={email}
         />
       </div>
 

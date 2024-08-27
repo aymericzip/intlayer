@@ -7,13 +7,11 @@ interface TextAreaElementsProps
   name: string;
 }
 
-export const TextAreaElement = (props: TextAreaElementsProps) => {
-  return (
-    <FormElement
-      Element={TextArea}
-      id={props.name}
-      data-testid={props.name}
-      {...props}
-    />
-  );
-};
+export const TextAreaElement = (props: TextAreaElementsProps) => (
+  <FormElement
+    Element={TextArea}
+    id={props.name}
+    data-testid={props.name}
+    {...props}
+  />
+);

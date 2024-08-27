@@ -8,6 +8,7 @@ import {
   type FormProviderProps,
   useForm as useFormReactHookForm,
   type UseFormProps,
+  type ResolverResult,
 } from 'react-hook-form';
 import type { ZodType, z } from 'zod';
 
@@ -70,9 +71,9 @@ Form.displayName = 'Form';
 
 export const useForm = <T extends ZodType>(
   schema: T,
-  props?: UseFormProps<T>
+  props?: UseFormProps<z.infer<T>>
 ) => {
-  const form = useFormReactHookForm<T>({
+  const form = useFormReactHookForm<z.infer<T>>({
     resolver: zodResolver(schema),
     ...props,
   });
