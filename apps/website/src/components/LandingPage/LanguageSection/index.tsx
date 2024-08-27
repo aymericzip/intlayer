@@ -7,13 +7,14 @@ import {
   getHTMLLang,
   getLocaleName,
   type Locales,
+  localeList,
 } from 'intlayer';
-import { useLocale } from 'next-intlayer/client';
 import {
+  useEffect,
+  useState,
   type FC,
   type HTMLAttributes,
   type PropsWithChildren,
-  useMemo,
 } from 'react';
 
 const shuffleArray = (array: string[], limit?: number) => {
@@ -70,16 +71,23 @@ const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
   </li>
 );
 
+const NUM_OF_LOCALES = 15;
+
+const emptyArrayOfLocale: string[][] = new Array(4).fill(0).map(() => []);
+const arrayOfLocale: string[][] = new Array(4)
+  .fill(0)
+  .map(() => shuffleArray(localeList, NUM_OF_LOCALES));
+
 export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
   className,
   ...props
 }) => {
-  const { localeList } = useLocale();
+  const [localeList, setLocaleList] = useState(emptyArrayOfLocale);
+  const [firstPart, secondPart, thirdPart, fourthPart] = localeList;
 
-  const firstPart = useMemo(() => shuffleArray(localeList, 15), [localeList]);
-  const secondPart = useMemo(() => shuffleArray(localeList, 15), [localeList]);
-  const thirdPart = useMemo(() => shuffleArray(localeList, 15), [localeList]);
-  const fourthPart = useMemo(() => shuffleArray(localeList, 15), [localeList]);
+  useEffect(() => {
+    setLocaleList(arrayOfLocale);
+  }, []);
 
   return (
     <section

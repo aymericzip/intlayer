@@ -40,6 +40,7 @@ export {
   getEnumerationContent,
   getHTMLLang,
   getHTMLTextDir,
+  localeList,
 } from '@intlayer/core';
 export type {
   LocalesValues,
