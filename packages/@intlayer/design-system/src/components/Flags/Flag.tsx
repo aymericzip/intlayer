@@ -1,7 +1,5 @@
-/* eslint-disable sonarjs/max-switch-cases */
 /* eslint-disable import/order */
 /* eslint-disable sonarjs/no-duplicate-string */
-/* eslint-disable sonarjs/max-switch-cases */
 import { Locales } from '@intlayer/config/client';
 import type { FC, ImgHTMLAttributes } from 'react';
 
@@ -280,700 +278,246 @@ type FlagProps = ImgHTMLAttributes<HTMLImageElement> & {
   locale: Locales;
 };
 
-export const Flag: FC<FlagProps> = ({ locale, ...props }) => {
-  let logo = undefined;
+const flagRecord: Record<Locales, typeof unknown> = {
+  [Locales.ENGLISH]: unitedStatesOfAmerica,
+  [Locales.FRENCH]: france,
+  [Locales.SPANISH]: spain,
+  [Locales.PORTUGUESE]: portugal,
+  [Locales.GERMAN]: germany,
+  [Locales.AFRIKAANS]: southAfrica,
+  [Locales.ARABIC]: saudiArabia,
+  [Locales.AZERI_LATIN]: azerbaijan,
+  [Locales.BELARUSIAN]: belarus,
+  [Locales.BULGARIAN]: bulgaria,
+  [Locales.BOSNIAN]: bosniaAndHerzegovina,
+  [Locales.CATALAN]: catalonia,
+  [Locales.CZECH]: czechRepublic,
+  [Locales.WELSH]: wales,
+  [Locales.DANISH]: denmark,
+  [Locales.DIVEHI]: maldives,
+  [Locales.GREEK]: greece,
+  [Locales.ESPERANTO]: unknown, // No specific flag
+  [Locales.ESTONIAN]: estonia,
+  [Locales.BASQUE]: basqueCountry,
+  [Locales.FARSI]: iran,
+  [Locales.FINNISH]: finland,
+  [Locales.FAROESE]: faroeIslands,
+  [Locales.GALICIAN]: galicia,
+  [Locales.GUJARATI]: india,
+  [Locales.HEBREW]: israel,
+  [Locales.HINDI]: india,
+  [Locales.CROATIAN]: croatia,
+  [Locales.HUNGARIAN]: hungary,
+  [Locales.ARMENIAN]: armenia,
+  [Locales.INDONESIAN]: indonesia,
+  [Locales.ICELANDIC]: iceland,
+  [Locales.ITALIAN]: italy,
+  [Locales.JAPANESE]: japan,
+  [Locales.GEORGIAN]: georgia,
+  [Locales.KAZAKH]: kazakhstan,
+  [Locales.KANNADA]: india,
+  [Locales.KOREAN]: southKorea,
+  [Locales.KONKANI]: india,
+  [Locales.KYRGYZ]: kyrgyzstan,
+  [Locales.LITHUANIAN]: lithuania,
+  [Locales.LATVIAN]: latvia,
+  [Locales.MAORI]: newZealand,
+  [Locales.FYRO_MACEDONIAN]: northMacedonia,
+  [Locales.MONGOLIAN]: mongolia,
+  [Locales.MARATHI]: india,
+  [Locales.MALAY]: malaysia,
+  [Locales.MALTESE]: malta,
+  [Locales.NORWEGIAN_BOKMAL]: norway,
+  [Locales.DUTCH]: netherlands,
+  [Locales.NORTHERN_SOTHO]: southAfrica,
+  [Locales.PUNJABI]: india,
+  [Locales.POLISH]: poland,
+  [Locales.PASHTO]: afghanistan,
+  [Locales.QUECHUA]: peru,
+  [Locales.ROMANIAN]: romania,
+  [Locales.RUSSIAN]: russia,
+  [Locales.SANSKRIT]: india,
+  [Locales.SAMI_NORTHERN]: norway, // No specific flag, assuming Norway
+  [Locales.SLOVAK]: slovakia,
+  [Locales.SLOVENIAN]: slovenia,
+  [Locales.ALBANIAN]: albania,
+  [Locales.SERBIAN_LATIN]: serbia,
+  [Locales.SWEDISH]: sweden,
+  [Locales.SWEDISH_FINLAND]: finland,
+  [Locales.SWEDISH_SWEDEN]: sweden,
+  [Locales.SWAHILI]: kenya,
+  [Locales.SYRIAC]: syria,
+  [Locales.TAMIL]: india,
+  [Locales.TELUGU]: india,
+  [Locales.THAI]: thailand,
+  [Locales.TAGALOG]: philippines,
+  [Locales.TSWANA]: southAfrica,
+  [Locales.TURKISH]: türkiye,
+  [Locales.TATAR]: russia, // Assuming Russian Federation
+  [Locales.UKRAINIAN]: ukraine,
+  [Locales.URDU]: pakistan,
+  [Locales.UZBEK_LATIN]: uzbekistan,
+  [Locales.VIETNAMESE]: vietnam,
+  [Locales.XHOSA]: southAfrica,
+  [Locales.CHINESE_SIMPLIFIED]: china,
+  [Locales.CHINESE_TRADITIONAL]: taiwan,
+  [Locales.ZULU]: southAfrica,
+  [Locales.AFRIKAANS_SOUTH_AFRICA]: southAfrica,
+  [Locales.ARABIC_UNITED_ARAB_EMIRATES]: unitedArabEmirates,
+  [Locales.ARABIC_BAHRAIN]: bahrain,
+  [Locales.ARABIC_ALGERIA]: algeria,
+  [Locales.ARABIC_EGYPT]: egypt,
+  [Locales.ARABIC_IRAQ]: iraq,
+  [Locales.ARABIC_JORDAN]: jordan,
+  [Locales.ARABIC_KUWAIT]: kuwait,
+  [Locales.ARABIC_LEBANON]: lebanon,
+  [Locales.ARABIC_LIBYA]: libya,
+  [Locales.ARABIC_MOROCCO]: morocco,
+  [Locales.ARABIC_OMAN]: oman,
+  [Locales.ARABIC_QATAR]: qatar,
+  [Locales.ARABIC_SAUDI_ARABIA]: saudiArabia,
+  [Locales.ARABIC_SYRIA]: syria,
+  [Locales.ARABIC_TUNISIA]: tunisia,
+  [Locales.ARABIC_YEMEN]: yemen,
+  [Locales.AZERI_LATIN_AZERBAIJAN]: azerbaijan,
+  [Locales.BELARUSIAN_BELARUS]: belarus,
+  [Locales.BULGARIAN_BULGARIA]: bulgaria,
+  [Locales.BOSNIAN_BOSNIA_AND_HERZEGOVINA]: bosniaAndHerzegovina,
+  [Locales.CATALAN_SPAIN]: catalonia,
+  [Locales.CZECH_CZECH_REPUBLIC]: czechRepublic,
+  [Locales.WELSH_UNITED_KINGDOM]: wales,
+  [Locales.DANISH_DENMARK]: denmark,
+  [Locales.GERMAN_AUSTRIA]: austria,
+  [Locales.GERMAN_SWITZERLAND]: switzerland,
+  [Locales.GERMAN_GERMANY]: germany,
+  [Locales.GERMAN_LIECHTENSTEIN]: liechtenstein,
+  [Locales.GERMAN_LUXEMBOURG]: luxembourg,
+  [Locales.DIVEHI_MALDIVES]: maldives,
+  [Locales.GREEK_GREECE]: greece,
+  [Locales.ENGLISH_AUSTRALIA]: australia,
+  [Locales.ENGLISH_BELIZE]: belize,
+  [Locales.ENGLISH_CANADA]: canada,
+  [Locales.ENGLISH_CARIBBEAN]: unknown, // No specific flag
+  [Locales.ENGLISH_UNITED_KINGDOM]: unitedKingdom,
+  [Locales.ENGLISH_IRELAND]: ireland,
+  [Locales.ENGLISH_JAMAICA]: jamaica,
+  [Locales.ENGLISH_NEW_ZEALAND]: newZealand,
+  [Locales.ENGLISH_PHILIPPINES]: philippines,
+  [Locales.ENGLISH_TRINIDAD_AND_TOBAGO]: trinidadAndTobago,
+  [Locales.ENGLISH_UNITED_STATES]: unitedStatesOfAmerica,
+  [Locales.ENGLISH_SOUTH_AFRICA]: southAfrica,
+  [Locales.ENGLISH_ZIMBABWE]: zimbabwe,
+  [Locales.SPANISH_ARGENTINA]: argentina,
+  [Locales.SPANISH_BOLIVIA]: bolivia,
+  [Locales.SPANISH_CHILE]: chile,
+  [Locales.SPANISH_COLOMBIA]: colombia,
+  [Locales.SPANISH_COSTA_RICA]: costaRica,
+  [Locales.SPANISH_DOMINICAN_REPUBLIC]: dominicanRepublic,
+  [Locales.SPANISH_ECUADOR]: ecuador,
+  [Locales.SPANISH_SPAIN]: spain,
+  [Locales.SPANISH_GUATEMALA]: guatemala,
+  [Locales.SPANISH_HONDURAS]: honduras,
+  [Locales.SPANISH_MEXICO]: mexico,
+  [Locales.SPANISH_NICARAGUA]: nicaragua,
+  [Locales.SPANISH_PANAMA]: panama,
+  [Locales.SPANISH_PERU]: peru,
+  [Locales.SPANISH_PUERTO_RICO]: puertoRico,
+  [Locales.SPANISH_PARAGUAY]: paraguay,
+  [Locales.SPANISH_EL_SALVADOR]: elSalvador,
+  [Locales.SPANISH_URUGUAY]: uruguay,
+  [Locales.SPANISH_VENEZUELA]: venezuela,
+  [Locales.ESTONIAN_ESTONIA]: estonia,
+  [Locales.BASQUE_SPAIN]: basqueCountry,
+  [Locales.FARSI_IRAN]: iran,
+  [Locales.FINNISH_FINLAND]: finland,
+  [Locales.FAROESE_FAROE_ISLANDS]: faroeIslands,
+  [Locales.FRENCH_BELGIUM]: belgium,
+  [Locales.FRENCH_CANADA]: canada,
+  [Locales.FRENCH_SWITZERLAND]: switzerland,
+  [Locales.FRENCH_FRANCE]: france,
+  [Locales.FRENCH_LUXEMBOURG]: luxembourg,
+  [Locales.FRENCH_PRINCIPALITY_OF_MONACO]: monaco,
+  [Locales.GALICIAN_SPAIN]: galicia,
+  [Locales.GUJARATI_INDIA]: india,
+  [Locales.HEBREW_ISRAEL]: israel,
+  [Locales.HINDI_INDIA]: india,
+  [Locales.CROATIAN_BOSNIA_AND_HERZEGOVINA]: bosniaAndHerzegovina,
+  [Locales.CROATIAN_CROATIA]: croatia,
+  [Locales.HUNGARIAN_HUNGARY]: hungary,
+  [Locales.ARMENIAN_ARMENIA]: armenia,
+  [Locales.INDONESIAN_INDONESIA]: indonesia,
+  [Locales.ICELANDIC_ICELAND]: iceland,
+  [Locales.ITALIAN_SWITZERLAND]: switzerland,
+  [Locales.ITALIAN_ITALY]: italy,
+  [Locales.JAPANESE_JAPAN]: japan,
+  [Locales.GEORGIAN_GEORGIA]: georgia,
+  [Locales.KAZAKH_KAZAKHSTAN]: kazakhstan,
+  [Locales.KANNADA_INDIA]: india,
+  [Locales.KOREAN_KOREA]: southKorea,
+  [Locales.KONKANI_INDIA]: india,
+  [Locales.KYRGYZ_KYRGYZSTAN]: kyrgyzstan,
+  [Locales.LITHUANIAN_LITHUANIA]: lithuania,
+  [Locales.LATVIAN_LATVIA]: latvia,
+  [Locales.MAORI_NEW_ZEALAND]: newZealand,
+  [Locales.FYRO_MACEDONIAN_MACEDONIA]: northMacedonia,
+  [Locales.MONGOLIAN_MONGOLIA]: mongolia,
+  [Locales.MARATHI_INDIA]: india,
+  [Locales.MALAY_BRUNEI_DARUSSALAM]: bruneiDarussalam,
+  [Locales.MALAY_MALAYSIA]: malaysia,
+  [Locales.MALTESE_MALTA]: malta,
+  [Locales.NORWEGIAN_BOKMAL_NORWAY]: norway,
+  [Locales.DUTCH_BELGIUM]: belgium,
+  [Locales.DUTCH_NETHERLANDS]: netherlands,
+  [Locales.NORWEGIAN_NYNORSK_NORWAY]: norway,
+  [Locales.NORTHERN_SOTHO_SOUTH_AFRICA]: southAfrica,
+  [Locales.PUNJABI_INDIA]: india,
+  [Locales.POLISH_POLAND]: poland,
+  [Locales.PASHTO_AFGHANISTAN]: afghanistan,
+  [Locales.PORTUGUESE_BRAZIL]: brazil,
+  [Locales.PORTUGUESE_PORTUGAL]: portugal,
+  [Locales.QUECHUA_BOLIVIA]: bolivia,
+  [Locales.QUECHUA_ECUADOR]: ecuador,
+  [Locales.QUECHUA_PERU]: peru,
+  [Locales.ROMANIAN_ROMANIA]: romania,
+  [Locales.RUSSIAN_RUSSIA]: russia,
+  [Locales.SANSKRIT_INDIA]: india,
+  [Locales.SAMI_NORTHERN_FINLAND]: finland,
+  [Locales.SAMI_NORTHERN_NORWAY]: norway,
+  [Locales.SAMI_NORTHERN_SWEDEN]: sweden,
+  [Locales.SLOVAK_SLOVAKIA]: slovakia,
+  [Locales.SLOVENIAN_SLOVENIA]: slovenia,
+  [Locales.ALBANIAN_ALBANIA]: albania,
+  [Locales.SERBIAN_LATIN_BOSNIA_AND_HERZEGOVINA]: bosniaAndHerzegovina,
+  [Locales.SERBIAN_LATIN_SERBIA_AND_MONTENEGRO]: serbia,
+  [Locales.SWAHILI_KENYA]: kenya,
+  [Locales.SYRIAC_SYRIA]: syria,
+  [Locales.TAMIL_INDIA]: india,
+  [Locales.TELUGU_INDIA]: india,
+  [Locales.THAI_THAILAND]: thailand,
+  [Locales.TAGALOG_PHILIPPINES]: philippines,
+  [Locales.TSWANA_SOUTH_AFRICA]: southAfrica,
+  [Locales.TURKISH_TURKEY]: türkiye,
+  [Locales.TATAR_RUSSIA]: russia,
+  [Locales.TSOGA]: unknown, // No specific flag
+  [Locales.UKRAINIAN_UKRAINE]: ukraine,
+  [Locales.URDU_ISLAMIC_REPUBLIC_OF_PAKISTAN]: pakistan,
+  [Locales.UZBEK_LATIN_UZBEKISTAN]: uzbekistan,
+  [Locales.VIETNAMESE_VIET_NAM]: vietnam,
+  [Locales.XHOSA_SOUTH_AFRICA]: southAfrica,
+  [Locales.CHINESE]: china,
+  [Locales.CHINESE_SIMPLIFIED_CHINA]: china,
+  [Locales.CHINESE_HONG_KONG]: hongKong,
+  [Locales.CHINESE_MACAU]: macau,
+  [Locales.CHINESE_SINGAPORE]: singapore,
+  [Locales.ZULU_SOUTH_AFRICA]: southAfrica,
+};
 
-  switch (locale) {
-    case Locales.ENGLISH:
-      logo = unitedStatesOfAmerica;
-      break;
-    case Locales.FRENCH:
-      logo = france;
-      break;
-    case Locales.SPANISH:
-      logo = spain;
-      break;
-    case Locales.PORTUGUESE:
-      logo = portugal;
-      break;
-    case Locales.GERMAN:
-      logo = germany;
-      break;
-    case Locales.AFRIKAANS:
-      logo = southAfrica;
-      break;
-    case Locales.ARABIC:
-      logo = saudiArabia;
-      break;
-    case Locales.AZERI_LATIN:
-      logo = azerbaijan;
-      break;
-    case Locales.BELARUSIAN:
-      logo = belarus;
-      break;
-    case Locales.BULGARIAN:
-      logo = bulgaria;
-      break;
-    case Locales.BOSNIAN:
-      logo = bosniaAndHerzegovina;
-      break;
-    case Locales.CATALAN:
-      logo = catalonia;
-      break;
-    case Locales.CZECH:
-      logo = czechRepublic;
-      break;
-    case Locales.WELSH:
-      logo = wales;
-      break;
-    case Locales.DANISH:
-      logo = denmark;
-      break;
-    case Locales.DIVEHI:
-      logo = maldives;
-      break;
-    case Locales.GREEK:
-      logo = greece;
-      break;
-    case Locales.ESPERANTO:
-      logo = unknown; // No specific flag
-      break;
-    case Locales.ESTONIAN:
-      logo = estonia;
-      break;
-    case Locales.BASQUE:
-      logo = basqueCountry;
-      break;
-    case Locales.FARSI:
-      logo = iran;
-      break;
-    case Locales.FINNISH:
-      logo = finland;
-      break;
-    case Locales.FAROESE:
-      logo = faroeIslands;
-      break;
-    case Locales.GALICIAN:
-      logo = galicia;
-      break;
-    case Locales.GUJARATI:
-      logo = india;
-      break;
-    case Locales.HEBREW:
-      logo = israel;
-      break;
-    case Locales.HINDI:
-      logo = india;
-      break;
-    case Locales.CROATIAN:
-      logo = croatia;
-      break;
-    case Locales.HUNGARIAN:
-      logo = hungary;
-      break;
-    case Locales.ARMENIAN:
-      logo = armenia;
-      break;
-    case Locales.INDONESIAN:
-      logo = indonesia;
-      break;
-    case Locales.ICELANDIC:
-      logo = iceland;
-      break;
-    case Locales.ITALIAN:
-      logo = italy;
-      break;
-    case Locales.JAPANESE:
-      logo = japan;
-      break;
-    case Locales.GEORGIAN:
-      logo = georgia;
-      break;
-    case Locales.KAZAKH:
-      logo = kazakhstan;
-      break;
-    case Locales.KANNADA:
-      logo = india;
-      break;
-    case Locales.KOREAN:
-      logo = southKorea;
-      break;
-    case Locales.KONKANI:
-      logo = india;
-      break;
-    case Locales.KYRGYZ:
-      logo = kyrgyzstan;
-      break;
-    case Locales.LITHUANIAN:
-      logo = lithuania;
-      break;
-    case Locales.LATVIAN:
-      logo = latvia;
-      break;
-    case Locales.MAORI:
-      logo = newZealand;
-      break;
-    case Locales.FYRO_MACEDONIAN:
-      logo = northMacedonia;
-      break;
-    case Locales.MONGOLIAN:
-      logo = mongolia;
-      break;
-    case Locales.MARATHI:
-      logo = india;
-      break;
-    case Locales.MALAY:
-      logo = malaysia;
-      break;
-    case Locales.MALTESE:
-      logo = malta;
-      break;
-    case Locales.NORWEGIAN_BOKMAL:
-      logo = norway;
-      break;
-    case Locales.DUTCH:
-      logo = netherlands;
-      break;
-    case Locales.NORTHERN_SOTHO:
-      logo = southAfrica;
-      break;
-    case Locales.PUNJABI:
-      logo = india;
-      break;
-    case Locales.POLISH:
-      logo = poland;
-      break;
-    case Locales.PASHTO:
-      logo = afghanistan;
-      break;
-    case Locales.QUECHUA:
-      logo = peru;
-      break;
-    case Locales.ROMANIAN:
-      logo = romania;
-      break;
-    case Locales.RUSSIAN:
-      logo = russia;
-      break;
-    case Locales.SANSKRIT:
-      logo = india;
-      break;
-    case Locales.SAMI_NORTHERN:
-      logo = norway; // No specific flag, assuming Norway
-      break;
-    case Locales.SLOVAK:
-      logo = slovakia;
-      break;
-    case Locales.SLOVENIAN:
-      logo = slovenia;
-      break;
-    case Locales.ALBANIAN:
-      logo = albania;
-      break;
-    case Locales.SERBIAN_LATIN:
-      logo = serbia;
-      break;
-    case Locales.SWEDISH:
-      logo = sweden;
-      break;
-    case Locales.SWEDISH_FINLAND:
-      logo = finland;
-      break;
-    case Locales.SWEDISH_SWEDEN:
-      logo = sweden;
-      break;
-    case Locales.SWAHILI:
-      logo = kenya;
-      break;
-    case Locales.SYRIAC:
-      logo = syria;
-      break;
-    case Locales.TAMIL:
-      logo = india;
-      break;
-    case Locales.TELUGU:
-      logo = india;
-      break;
-    case Locales.THAI:
-      logo = thailand;
-      break;
-    case Locales.TAGALOG:
-      logo = philippines;
-      break;
-    case Locales.TSWANA:
-      logo = southAfrica;
-      break;
-    case Locales.TURKISH:
-      logo = türkiye;
-      break;
-    case Locales.TATAR:
-      logo = russia; // Assuming Russian Federation
-      break;
-    case Locales.UKRAINIAN:
-      logo = ukraine;
-      break;
-    case Locales.URDU:
-      logo = pakistan;
-      break;
-    case Locales.UZBEK_LATIN:
-      logo = uzbekistan;
-      break;
-    case Locales.VIETNAMESE:
-      logo = vietnam;
-      break;
-    case Locales.XHOSA:
-      logo = southAfrica;
-      break;
-    case Locales.CHINESE_SIMPLIFIED:
-      logo = china;
-      break;
-    case Locales.CHINESE_TRADITIONAL:
-      logo = taiwan;
-      break;
-    case Locales.ZULU:
-      logo = southAfrica;
-      break;
-    case Locales.AFRIKAANS_SOUTH_AFRICA:
-      logo = southAfrica;
-      break;
-    case Locales.ARABIC_UNITED_ARAB_EMIRATES:
-      logo = unitedArabEmirates;
-      break;
-    case Locales.ARABIC_BAHRAIN:
-      logo = bahrain;
-      break;
-    case Locales.ARABIC_ALGERIA:
-      logo = algeria;
-      break;
-    case Locales.ARABIC_EGYPT:
-      logo = egypt;
-      break;
-    case Locales.ARABIC_IRAQ:
-      logo = iraq;
-      break;
-    case Locales.ARABIC_JORDAN:
-      logo = jordan;
-      break;
-    case Locales.ARABIC_KUWAIT:
-      logo = kuwait;
-      break;
-    case Locales.ARABIC_LEBANON:
-      logo = lebanon;
-      break;
-    case Locales.ARABIC_LIBYA:
-      logo = libya;
-      break;
-    case Locales.ARABIC_MOROCCO:
-      logo = morocco;
-      break;
-    case Locales.ARABIC_OMAN:
-      logo = oman;
-      break;
-    case Locales.ARABIC_QATAR:
-      logo = qatar;
-      break;
-    case Locales.ARABIC_SAUDI_ARABIA:
-      logo = saudiArabia;
-      break;
-    case Locales.ARABIC_SYRIA:
-      logo = syria;
-      break;
-    case Locales.ARABIC_TUNISIA:
-      logo = tunisia;
-      break;
-    case Locales.ARABIC_YEMEN:
-      logo = yemen;
-      break;
-    case Locales.AZERI_LATIN_AZERBAIJAN:
-      logo = azerbaijan;
-      break;
-    case Locales.BELARUSIAN_BELARUS:
-      logo = belarus;
-      break;
-    case Locales.BULGARIAN_BULGARIA:
-      logo = bulgaria;
-      break;
-    case Locales.BOSNIAN_BOSNIA_AND_HERZEGOVINA:
-      logo = bosniaAndHerzegovina;
-      break;
-    case Locales.CATALAN_SPAIN:
-      logo = catalonia;
-      break;
-    case Locales.CZECH_CZECH_REPUBLIC:
-      logo = czechRepublic;
-      break;
-    case Locales.WELSH_UNITED_KINGDOM:
-      logo = wales;
-      break;
-    case Locales.DANISH_DENMARK:
-      logo = denmark;
-      break;
-    case Locales.GERMAN_AUSTRIA:
-      logo = austria;
-      break;
-    case Locales.GERMAN_SWITZERLAND:
-      logo = switzerland;
-      break;
-    case Locales.GERMAN_GERMANY:
-      logo = germany;
-      break;
-    case Locales.GERMAN_LIECHTENSTEIN:
-      logo = liechtenstein;
-      break;
-    case Locales.GERMAN_LUXEMBOURG:
-      logo = luxembourg;
-      break;
-    case Locales.DIVEHI_MALDIVES:
-      logo = maldives;
-      break;
-    case Locales.GREEK_GREECE:
-      logo = greece;
-      break;
-    case Locales.ENGLISH_AUSTRALIA:
-      logo = australia;
-      break;
-    case Locales.ENGLISH_BELIZE:
-      logo = belize;
-      break;
-    case Locales.ENGLISH_CANADA:
-      logo = canada;
-      break;
-    case Locales.ENGLISH_CARIBBEAN:
-      logo = unknown; // No specific flag
-      break;
-    case Locales.ENGLISH_UNITED_KINGDOM:
-      logo = unitedKingdom;
-      break;
-    case Locales.ENGLISH_IRELAND:
-      logo = ireland;
-      break;
-    case Locales.ENGLISH_JAMAICA:
-      logo = jamaica;
-      break;
-    case Locales.ENGLISH_NEW_ZEALAND:
-      logo = newZealand;
-      break;
-    case Locales.ENGLISH_PHILIPPINES:
-      logo = philippines;
-      break;
-    case Locales.ENGLISH_TRINIDAD_AND_TOBAGO:
-      logo = trinidadAndTobago;
-      break;
-    case Locales.ENGLISH_UNITED_STATES:
-      logo = unitedStatesOfAmerica;
-      break;
-    case Locales.ENGLISH_SOUTH_AFRICA:
-      logo = southAfrica;
-      break;
-    case Locales.ENGLISH_ZIMBABWE:
-      logo = zimbabwe;
-      break;
-    case Locales.SPANISH_ARGENTINA:
-      logo = argentina;
-      break;
-    case Locales.SPANISH_BOLIVIA:
-      logo = bolivia;
-      break;
-    case Locales.SPANISH_CHILE:
-      logo = chile;
-      break;
-    case Locales.SPANISH_COLOMBIA:
-      logo = colombia;
-      break;
-    case Locales.SPANISH_COSTA_RICA:
-      logo = costaRica;
-      break;
-    case Locales.SPANISH_DOMINICAN_REPUBLIC:
-      logo = dominicanRepublic;
-      break;
-    case Locales.SPANISH_ECUADOR:
-      logo = ecuador;
-      break;
-    case Locales.SPANISH_SPAIN:
-      logo = spain;
-      break;
-    case Locales.SPANISH_GUATEMALA:
-      logo = guatemala;
-      break;
-    case Locales.SPANISH_HONDURAS:
-      logo = honduras;
-      break;
-    case Locales.SPANISH_MEXICO:
-      logo = mexico;
-      break;
-    case Locales.SPANISH_NICARAGUA:
-      logo = nicaragua;
-      break;
-    case Locales.SPANISH_PANAMA:
-      logo = panama;
-      break;
-    case Locales.SPANISH_PERU:
-      logo = peru;
-      break;
-    case Locales.SPANISH_PUERTO_RICO:
-      logo = puertoRico;
-      break;
-    case Locales.SPANISH_PARAGUAY:
-      logo = paraguay;
-      break;
-    case Locales.SPANISH_EL_SALVADOR:
-      logo = elSalvador;
-      break;
-    case Locales.SPANISH_URUGUAY:
-      logo = uruguay;
-      break;
-    case Locales.SPANISH_VENEZUELA:
-      logo = venezuela;
-      break;
-    case Locales.ESTONIAN_ESTONIA:
-      logo = estonia;
-      break;
-    case Locales.BASQUE_SPAIN:
-      logo = basqueCountry;
-      break;
-    case Locales.FARSI_IRAN:
-      logo = iran;
-      break;
-    case Locales.FINNISH_FINLAND:
-      logo = finland;
-      break;
-    case Locales.FAROESE_FAROE_ISLANDS:
-      logo = faroeIslands;
-      break;
-    case Locales.FRENCH_BELGIUM:
-      logo = belgium;
-      break;
-    case Locales.FRENCH_CANADA:
-      logo = canada;
-      break;
-    case Locales.FRENCH_SWITZERLAND:
-      logo = switzerland;
-      break;
-    case Locales.FRENCH_FRANCE:
-      logo = france;
-      break;
-    case Locales.FRENCH_LUXEMBOURG:
-      logo = luxembourg;
-      break;
-    case Locales.FRENCH_PRINCIPALITY_OF_MONACO:
-      logo = monaco;
-      break;
-    case Locales.GALICIAN_SPAIN:
-      logo = galicia;
-      break;
-    case Locales.GUJARATI_INDIA:
-      logo = india;
-      break;
-    case Locales.HEBREW_ISRAEL:
-      logo = israel;
-      break;
-    case Locales.HINDI_INDIA:
-      logo = india;
-      break;
-    case Locales.CROATIAN_BOSNIA_AND_HERZEGOVINA:
-      logo = bosniaAndHerzegovina;
-      break;
-    case Locales.CROATIAN_CROATIA:
-      logo = croatia;
-      break;
-    case Locales.HUNGARIAN_HUNGARY:
-      logo = hungary;
-      break;
-    case Locales.ARMENIAN_ARMENIA:
-      logo = armenia;
-      break;
-    case Locales.INDONESIAN_INDONESIA:
-      logo = indonesia;
-      break;
-    case Locales.ICELANDIC_ICELAND:
-      logo = iceland;
-      break;
-    case Locales.ITALIAN_SWITZERLAND:
-      logo = switzerland;
-      break;
-    case Locales.ITALIAN_ITALY:
-      logo = italy;
-      break;
-    case Locales.JAPANESE_JAPAN:
-      logo = japan;
-      break;
-    case Locales.GEORGIAN_GEORGIA:
-      logo = georgia;
-      break;
-    case Locales.KAZAKH_KAZAKHSTAN:
-      logo = kazakhstan;
-      break;
-    case Locales.KANNADA_INDIA:
-      logo = india;
-      break;
-    case Locales.KOREAN_KOREA:
-      logo = southKorea;
-      break;
-    case Locales.KONKANI_INDIA:
-      logo = india;
-      break;
-    case Locales.KYRGYZ_KYRGYZSTAN:
-      logo = kyrgyzstan;
-      break;
-    case Locales.LITHUANIAN_LITHUANIA:
-      logo = lithuania;
-      break;
-    case Locales.LATVIAN_LATVIA:
-      logo = latvia;
-      break;
-    case Locales.MAORI_NEW_ZEALAND:
-      logo = newZealand;
-      break;
-    case Locales.FYRO_MACEDONIAN_MACEDONIA:
-      logo = northMacedonia;
-      break;
-    case Locales.MONGOLIAN_MONGOLIA:
-      logo = mongolia;
-      break;
-    case Locales.MARATHI_INDIA:
-      logo = india;
-      break;
-    case Locales.MALAY_BRUNEI_DARUSSALAM:
-      logo = bruneiDarussalam;
-      break;
-    case Locales.MALAY_MALAYSIA:
-      logo = malaysia;
-      break;
-    case Locales.MALTESE_MALTA:
-      logo = malta;
-      break;
-    case Locales.NORWEGIAN_BOKMAL_NORWAY:
-      logo = norway;
-      break;
-    case Locales.DUTCH_BELGIUM:
-      logo = belgium;
-      break;
-    case Locales.DUTCH_NETHERLANDS:
-      logo = netherlands;
-      break;
-    case Locales.NORWEGIAN_NYNORSK_NORWAY:
-      logo = norway;
-      break;
-    case Locales.NORTHERN_SOTHO_SOUTH_AFRICA:
-      logo = southAfrica;
-      break;
-    case Locales.PUNJABI_INDIA:
-      logo = india;
-      break;
-    case Locales.POLISH_POLAND:
-      logo = poland;
-      break;
-    case Locales.PASHTO_AFGHANISTAN:
-      logo = afghanistan;
-      break;
-    case Locales.PORTUGUESE_BRAZIL:
-      logo = brazil;
-      break;
-    case Locales.PORTUGUESE_PORTUGAL:
-      logo = portugal;
-      break;
-    case Locales.QUECHUA_BOLIVIA:
-      logo = bolivia;
-      break;
-    case Locales.QUECHUA_ECUADOR:
-      logo = ecuador;
-      break;
-    case Locales.QUECHUA_PERU:
-      logo = peru;
-      break;
-    case Locales.ROMANIAN_ROMANIA:
-      logo = romania;
-      break;
-    case Locales.RUSSIAN_RUSSIA:
-      logo = russia;
-      break;
-    case Locales.SANSKRIT_INDIA:
-      logo = india;
-      break;
-    case Locales.SAMI_NORTHERN_FINLAND:
-      logo = finland;
-      break;
-    case Locales.SAMI_NORTHERN_NORWAY:
-      logo = norway;
-      break;
-    case Locales.SAMI_NORTHERN_SWEDEN:
-      logo = sweden;
-      break;
-    case Locales.SLOVAK_SLOVAKIA:
-      logo = slovakia;
-      break;
-    case Locales.SLOVENIAN_SLOVENIA:
-      logo = slovenia;
-      break;
-    case Locales.ALBANIAN_ALBANIA:
-      logo = albania;
-      break;
-    case Locales.SERBIAN_LATIN_BOSNIA_AND_HERZEGOVINA:
-      logo = bosniaAndHerzegovina;
-      break;
-    case Locales.SERBIAN_LATIN_SERBIA_AND_MONTENEGRO:
-      logo = serbia;
-      break;
-    case Locales.SWAHILI_KENYA:
-      logo = kenya;
-      break;
-    case Locales.SYRIAC_SYRIA:
-      logo = syria;
-      break;
-    case Locales.TAMIL_INDIA:
-      logo = india;
-      break;
-    case Locales.TELUGU_INDIA:
-      logo = india;
-      break;
-    case Locales.THAI_THAILAND:
-      logo = thailand;
-      break;
-    case Locales.TAGALOG_PHILIPPINES:
-      logo = philippines;
-      break;
-    case Locales.TSWANA_SOUTH_AFRICA:
-      logo = southAfrica;
-      break;
-    case Locales.TURKISH_TURKEY:
-      logo = türkiye;
-      break;
-    case Locales.TATAR_RUSSIA:
-      logo = russia;
-      break;
-    case Locales.TSOGA:
-      logo = unknown; // No specific flag
-      break;
-    case Locales.UKRAINIAN_UKRAINE:
-      logo = ukraine;
-      break;
-    case Locales.URDU_ISLAMIC_REPUBLIC_OF_PAKISTAN:
-      logo = pakistan;
-      break;
-    case Locales.UZBEK_LATIN_UZBEKISTAN:
-      logo = uzbekistan;
-      break;
-    case Locales.VIETNAMESE_VIET_NAM:
-      logo = vietnam;
-      break;
-    case Locales.XHOSA_SOUTH_AFRICA:
-      logo = southAfrica;
-      break;
-    case Locales.CHINESE_HONG_KONG:
-      logo = hongKong;
-      break;
-    case Locales.CHINESE_MACAU:
-      logo = macau;
-      break;
-    case Locales.CHINESE_SINGAPORE:
-      logo = singapore;
-      break;
-    case Locales.ZULU_SOUTH_AFRICA:
-      logo = southAfrica;
-      break;
-    default:
-      logo = unknown;
-  }
-
-  return <img src={logo} alt={`${locale} flag`} {...props} />;
+export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => {
+  return (
+    <img
+      src={flagRecord[locale] as unknown as string}
+      alt={`${locale} flag`}
+      {...props}
+    />
+  );
 };

@@ -23,9 +23,6 @@
     "noFallthroughCasesInSwitch": true
   },
 
-  "include": [
-    "src",
-    "../../intlayer-editor/src/client/renderContentEditor.tsx"
-  ],
+  "include": ["src", "types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

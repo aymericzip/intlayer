@@ -446,8 +446,10 @@ export enum Locales {
   XHOSA_SOUTH_AFRICA = 'xh-ZA',
   /** Chinese language */
   CHINESE = 'zh',
-  /** Chinese language (Simplified script) */
-  CHINESE_SIMPLIFIED = 'zh-CN',
+  /** Chinese language (Simplified) */
+  CHINESE_SIMPLIFIED = 'zh-Hans',
+  /** Chinese language (Simplified, People's Republic of China) */
+  CHINESE_SIMPLIFIED_CHINA = 'zh-CN',
   /** Chinese language as used in Hong Kong */
   CHINESE_HONG_KONG = 'zh-HK',
   /** Chinese language as used in Macau */
@@ -455,7 +457,7 @@ export enum Locales {
   /** Chinese language as used in Singapore */
   CHINESE_SINGAPORE = 'zh-SG',
   /** Chinese language (Traditional script) */
-  CHINESE_TRADITIONAL = 'zh-TW',
+  CHINESE_TRADITIONAL = 'zh-Hant',
   /** Zulu language */
   ZULU = 'zu',
   /** Zulu language as used in South Africa */
