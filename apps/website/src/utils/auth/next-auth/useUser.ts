@@ -1,20 +1,21 @@
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 export const useUser = () => {
   const session = useSession();
 
   const status = session?.status ?? 'unauthenticated';
 
-  const isLoggedIn = status === 'authenticated';
+  const isAuthenticated = status === 'authenticated';
   const isLoading = status === 'loading';
   const isUnauthenticated = status === 'unauthenticated';
 
   const user = session?.data?.user;
 
   return {
-    isLoggedIn,
+    isAuthenticated,
     isLoading,
     isUnauthenticated,
     user,
+    signOut,
   };
 };

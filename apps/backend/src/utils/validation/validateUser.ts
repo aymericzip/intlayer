@@ -14,7 +14,7 @@ const defaultFieldsToCheck: UserFields = [
   'phone',
 ];
 
-type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
+export type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<
   Record<(typeof defaultFieldsToCheck)[number], string[]>
 >;

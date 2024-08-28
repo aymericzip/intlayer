@@ -1,6 +1,6 @@
 import type { ObjectId, Model, Document } from 'mongoose';
 
-export type UserData = {
+export interface UserData {
   firebaseUid?: string;
   email: string;
   emailValidated?: boolean;
@@ -10,13 +10,18 @@ export type UserData = {
   dateOfBirth?: Date;
   passwordHash?: string;
   secret?: string;
-};
+}
 
-export type User = UserData & {
+export interface User extends UserData {
   _id: ObjectId;
   createdAt: number;
   updatedAt: number;
-};
+}
+
+export interface UserAPI
+  extends Omit<User, '_id' | 'passwordHash' | 'secret' | 'emailValidated'> {
+  role: string;
+}
 
 export type UserDocument = Document<User> & User;
 

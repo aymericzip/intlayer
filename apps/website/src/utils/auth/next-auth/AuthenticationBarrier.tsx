@@ -11,28 +11,25 @@ export type AuthenticationBarrierProps = NextAuthProviderProps & {
 
 export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
   children,
-  accessRule: barrierType = 'public',
+  accessRule = 'public',
   redirectionRoute = PagesRoutes.Home,
   session,
 }) => {
-  if (
-    !session &&
-    (barrierType === 'authenticated' || barrierType === 'admin')
-  ) {
+  if (!session && (accessRule === 'authenticated' || accessRule === 'admin')) {
     redirect(redirectionRoute);
   }
 
-  if (session && barrierType === 'none-authenticated') {
+  if (session && accessRule === 'none-authenticated') {
     redirect(redirectionRoute);
   }
 
   if (
     session &&
-    barrierType === 'admin' &&
+    accessRule === 'admin' &&
     !session.user.role.includes('admin')
   ) {
     redirect(redirectionRoute);
   }
 
-  return <>{children}</>;
+  return children;
 };

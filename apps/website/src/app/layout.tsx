@@ -1,10 +1,9 @@
-import type { ReactNode } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import './globals.css';
+import NextAuthProvider from '@/providers/NextAuthProvider';
 
-const RootLayout = ({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) => children;
+const RootLayout: FC<PropsWithChildren> = ({ children }) => (
+  <NextAuthProvider>{children}</NextAuthProvider>
+);
 
 export default RootLayout;

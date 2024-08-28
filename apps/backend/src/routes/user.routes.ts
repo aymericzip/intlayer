@@ -19,8 +19,7 @@ userRouter.get('/logout', logOut);
 userRouter.get('/', getUsers);
 userRouter.put('/', updateUser);
 
-userRouter.post('/password/reset', askResetPassword);
-
 userRouter.put('/password', updatePassword);
+userRouter.post('/password/reset', askResetPassword);
 userRouter.put('/:userId/password/reset/:secret', resetPassword);
 userRouter.put('/:userId/active/:secret', validEmail);

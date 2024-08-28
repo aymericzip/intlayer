@@ -1,10 +1,17 @@
 import { logger } from '@logger/index';
 import { UserModel } from '@models/user.model';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
-import { validateUser } from '@utils/validation/validateUser';
+import {
+  type FieldsToCheck,
+  validateUser,
+} from '@utils/validation/validateUser';
 import { compare, genSalt, hash } from 'bcrypt';
 import type { ObjectId } from 'mongoose';
-import type { User, UserWithPasswordNotHashed } from '@/types/user.types';
+import type {
+  User,
+  UserAPI,
+  UserWithPasswordNotHashed,
+} from '@/types/user.types';
 
 /**
  * Creates a new user in the database.
@@ -12,7 +19,8 @@ import type { User, UserWithPasswordNotHashed } from '@/types/user.types';
  * @returns Created user object.
  */
 export const createUser = async (user: UserWithPasswordNotHashed) => {
-  const errors = validateUser(user);
+  const fieldsToCheck: FieldsToCheck[] = ['email'];
+  const errors = validateUser(user, fieldsToCheck);
 
   if (Object.keys(errors).length > 0) {
     const errorMessage = `User invalid fields - ${user.email} - ${JSON.stringify(
@@ -22,10 +30,13 @@ export const createUser = async (user: UserWithPasswordNotHashed) => {
     throw new Error(errorMessage);
   }
 
-  const newUser = await UserModel.create(user);
+  const userWithHashedPassword = await hashUserPassword(
+    user as unknown as UserWithPasswordNotHashed
+  );
+  const newUser = await UserModel.create(userWithHashedPassword);
 
   if (!newUser) {
-    const errorMessage = `User creation failed - ${user.firstname} ${user.lastname}`;
+    const errorMessage = `User creation failed - ${user.email}`;
 
     logger.error(errorMessage);
     throw new Error(errorMessage);
@@ -50,6 +61,16 @@ export const getUserByEmail = async (email: string) => {
   }
 
   return user;
+};
+
+/**
+ * Checks if a user exists by email.
+ * @param email - User's email.
+ * @returns True if the user exists, false otherwise.
+ */
+export const checkUserExists = async (email: string) => {
+  const user = await UserModel.exists({ email });
+  return user !== null;
 };
 
 /**
@@ -222,15 +243,12 @@ export const resetUserPassword = async (
     throw new Error(errorMessage);
   }
 
-  const newUser = await UserModel.resetPassword(user._id, newPassword);
+  user.passwordHash = await hash(newPassword, await genSalt());
+  user.secret = undefined;
 
-  if (!newUser) {
-    const errorMessage = `Password reset failed - ${userIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
-  }
+  await user.save();
 
-  return newUser;
+  return user;
 };
 
 /**
@@ -266,7 +284,7 @@ export const testUserPassword = async (email: string, password: string) => {
   return user;
 };
 
-export const hackUserPassword = async (
+export const hashUserPassword = async (
   userWithPasswordNotHashed: UserWithPasswordNotHashed
 ): Promise<Partial<User>> => {
   const { password, ...user } = userWithPasswordNotHashed;
@@ -284,7 +302,7 @@ export const hackUserPassword = async (
   return { ...user, passwordHash };
 };
 
-export const formatUser = (user: User) => {
+export const formatUserName = (user: Pick<User, 'firstname' | 'lastname'>) => {
   const { firstname, lastname } = user;
 
   const formattedUser: Partial<User> = {
@@ -335,3 +353,11 @@ export const resetPassword = async (userId: string, password: string) => {
 
   throw new Error('Incorrect password');
 };
+
+export const formatUserForAPI = (user: User): UserAPI => {
+  const { emailValidated, secret, passwordHash, ...userAPI } = user;
+
+  return { ...userAPI, role: 'user' };
+};
+export const formatUsersForAPI = (users: User[]): UserAPI[] =>
+  users.map(formatUserForAPI);

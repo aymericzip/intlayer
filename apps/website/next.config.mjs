@@ -19,6 +19,7 @@ const secureHeaders = createSecureHeaders({
       connectSrc: [
         "'self'",
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
         '*.google-analytics.com',
         '*.googletagmanager.com',
         '*.openai.com',

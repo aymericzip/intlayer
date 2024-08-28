@@ -1,28 +1,26 @@
 import { logger } from '@logger/index';
-import { UserModel } from '@models/user.model';
 import type { CookieOptions, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { testUserPassword } from './user.service';
 import type { Organization } from '@/types/organization.types';
 import type { Project } from '@/types/project.types';
 import type { User } from '@/types/user.types';
 
-export const DOMAIN = process.env.DOMAIN!;
 export const MAX_AGE = 3 * 24 * 60 * 60 * 1000;
-export const TOKEN_SECRET = process.env.TOKEN_SECRET!;
 
-const cookieOptions: CookieOptions = {
+const getCookieOptions = (): CookieOptions => ({
   maxAge: MAX_AGE,
   path: '/',
   httpOnly: true,
   secure: true,
-  domain: DOMAIN,
+  domain: process.env.DOMAIN,
   sameSite: 'strict',
-};
+});
 
-const clearCookieOptions: CookieOptions = {
-  ...cookieOptions,
+const getClearCookieOptions = (): CookieOptions => ({
+  ...getCookieOptions(),
   maxAge: 1,
-};
+});
 
 /**
  * Generates a random string of specified length.
@@ -41,8 +39,11 @@ export const generateRandomString = (length: number): string => {
   return randomString;
 };
 
-export const loginUser = async (email: string, password: string) => {
-  const user = await UserModel.login(email, password);
+export const loginUser = async (
+  email: string,
+  password: string
+): Promise<User> => {
+  const user = await testUserPassword(email, password);
 
   if (!user) {
     const errorMessage = `User login failed - ${email}`;
@@ -65,7 +66,9 @@ export const setUserAuth = (res: Response, user: User) => {
     email: user.email,
   };
 
-  const userToken = jwt.sign(userData, TOKEN_SECRET, { expiresIn: MAX_AGE });
+  const userToken = jwt.sign(userData, process.env.JWT_TOKEN_SECRET!, {
+    expiresIn: MAX_AGE,
+  });
 
   if (!userToken) {
     const errorMessage = `JWT token creation failed for user ${user.firstname} ${user.lastname} - ${user.email}`;
@@ -73,7 +76,7 @@ export const setUserAuth = (res: Response, user: User) => {
     throw new Error(errorMessage);
   }
 
-  res.cookie('jwt_auth', userToken, cookieOptions);
+  res.cookie('jwt_auth', userToken, getCookieOptions());
 
   res.locals.user = user;
 };
@@ -85,7 +88,7 @@ export const setUserAuth = (res: Response, user: User) => {
 export const clearUserAuth = (res: Response) => {
   res.locals.user = null;
 
-  res.cookie('jwt_auth', '', clearCookieOptions);
+  res.cookie('jwt_auth', '', getClearCookieOptions());
 };
 
 /**
@@ -103,9 +106,13 @@ export const setOrganizationAuth = (
     name: organization.name,
   };
 
-  const organizationToken = jwt.sign(organizationData, TOKEN_SECRET, {
-    expiresIn: MAX_AGE,
-  });
+  const organizationToken = jwt.sign(
+    organizationData,
+    process.env.JWT_TOKEN_SECRET!,
+    {
+      expiresIn: MAX_AGE,
+    }
+  );
 
   if (!organizationToken) {
     const errorMessage = `JWT token creation failed for organization ${organization.name}`;
@@ -113,7 +120,7 @@ export const setOrganizationAuth = (
     throw new Error(errorMessage);
   }
 
-  res.cookie('jwt_organization', organizationToken, cookieOptions);
+  res.cookie('jwt_organization', organizationToken, getCookieOptions());
 
   res.locals.organization = organization;
 };
@@ -125,7 +132,7 @@ export const setOrganizationAuth = (
 export const clearOrganizationAuth = (res: Response) => {
   res.locals.organization = null;
 
-  res.cookie('jwt_organization', '', clearCookieOptions);
+  res.cookie('jwt_organization', '', getClearCookieOptions());
 };
 
 /**
@@ -139,7 +146,7 @@ export const setProjectAuth = (res: Response, project: Project) => {
     name: project.name,
   };
 
-  const projectToken = jwt.sign(projectData, TOKEN_SECRET, {
+  const projectToken = jwt.sign(projectData, process.env.JWT_TOKEN_SECRET!, {
     expiresIn: MAX_AGE,
   });
 
@@ -149,7 +156,7 @@ export const setProjectAuth = (res: Response, project: Project) => {
     throw new Error(errorMessage);
   }
 
-  res.cookie('jwt_project', projectToken, cookieOptions);
+  res.cookie('jwt_project', projectToken, getCookieOptions());
 
   res.locals.project = project;
 };
@@ -161,7 +168,7 @@ export const setProjectAuth = (res: Response, project: Project) => {
 export const clearProjectAuth = (res: Response) => {
   res.locals.project = null;
 
-  res.cookie('jwt_project', '', clearCookieOptions);
+  res.cookie('jwt_project', '', getClearCookieOptions());
 };
 
 /**
@@ -170,7 +177,7 @@ export const clearProjectAuth = (res: Response) => {
  * @param csrfToken - XSRF token
  */
 export const setCSRFToken = (res: Response, csrfToken: string) => {
-  res.cookie('XSRF-TOKEN', csrfToken, cookieOptions);
+  res.cookie('XSRF-TOKEN', csrfToken, getCookieOptions());
 };
 
 /**
@@ -178,5 +185,5 @@ export const setCSRFToken = (res: Response, csrfToken: string) => {
  * @param res - Express response object.
  */
 export const clearCSRFToken = (res: Response) => {
-  res.cookie('XSRF-TOKEN', '', clearCookieOptions);
+  res.cookie('XSRF-TOKEN', '', getClearCookieOptions());
 };

@@ -38,3 +38,8 @@ next-env.d.ts
 # Intlayer
 .intlayer
 **/intlayer.d.ts
+
+# env
+.env
+.env.*
+!.env.template

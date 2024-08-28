@@ -35,16 +35,12 @@ export const SignInForm: FC<SignInFormProps> = ({
   const { form, isSubmitting } = useForm(SignInSchema);
 
   const onSubmitSuccess = async ({ email, password }: SignIn) => {
-    const result = await signIn('credentials', {
+    await signIn('credentials', {
       email,
       password,
-      redirect: false,
+      redirect: true,
       callbackUrl,
     });
-
-    if (!result?.ok) {
-      console.error(result);
-    }
   };
 
   const onSubmitError = (error: Error) => {

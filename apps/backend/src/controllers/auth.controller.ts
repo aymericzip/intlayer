@@ -10,8 +10,8 @@ import {
   setUserAuth as setUserAuthService,
 } from '@services/auth.service';
 import {
+  checkUserExists,
   createUser as createUserService,
-  getUserByEmail as getUserByEmailService,
 } from '@services/user.service';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import { formatResponse, type ResponseData } from '@utils/responseData';
@@ -81,10 +81,20 @@ export const register = async (
   const userData = req.body;
 
   try {
-    const existingUser = await getUserByEmailService(userData.email);
+    const existingUser = await checkUserExists(userData.email);
 
     if (existingUser) {
-      return res.sendStatus(401);
+      const errorMessage = `User already exists - ${userData.email}`;
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.BAD_REQUEST;
+      const responseData = formatResponse<User>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
     }
 
     const newUser = await createUserService({
@@ -143,6 +153,8 @@ export const login = async (
     setUserAuthService(res, user);
 
     const responseData = formatResponse<User>({ data: user });
+
+    logger.info(`Login: ${user.email}`);
 
     return res.json(responseData);
   } catch (err) {

@@ -18,12 +18,19 @@ export type AvatarProps = ComponentProps<'div'> & {
   isLoggedIn?: boolean;
 };
 
-const StyledRoundedContainer = tw.div`size-10 rounded-full bg-neutral-100 p-[0.15rem]`;
-const StyledRoundedBumble = tw.div`bg-primary flex size-full flex-col items-center justify-center rounded-full`;
-const StyledLoader = styled(Loader)(() => tw`w-3/4`);
+const StyledRoundedContainer = styled.div<{ $isClickable: boolean }>(
+  ({ $isClickable }) => [
+    tw`size-9 rounded-full border-text dark:border-text-dark border-[1.5px] p-[1.5px]`,
+    $isClickable && tw`cursor-pointer`,
+  ]
+);
+const StyledWrapper = tw.div`size-full relative flex flex-row items-center justify-center`;
+const StyledRoundedBumble = tw.div`absolute top-0 left-0 bg-text dark:bg-text-dark flex size-full flex-col items-center justify-center rounded-full`;
+
+const StyledLoader = tw(Loader)`w-3/4`;
 const StyledAvatar = tw.img`size-full rounded-full`;
-const StyledInitialsContainer = tw.div`text-sm text-text flex size-full items-center justify-center gap-[0.1rem] font-bold`;
-const StyledUserPictogram = styled(User)(() => tw`text-white`);
+const StyledInitialsContainer = tw.div`text-sm text-text-dark flex size-full items-center justify-center gap-[0.1rem] font-bold`;
+const StyledUserPictogram = tw(User)`text-text-dark dark:text-text`;
 
 export const Avatar: FC<AvatarProps> = ({
   fullname,
@@ -31,6 +38,7 @@ export const Avatar: FC<AvatarProps> = ({
   isLoading,
   isLoggedIn,
   src,
+  onClick,
   ...props
 }) => {
   const isImageDefined = Boolean(src);
@@ -45,26 +53,34 @@ export const Avatar: FC<AvatarProps> = ({
   const displayUserIcon =
     isLoggedIn && !displayLoader && !displayAvatar && !displayInitials;
 
+  const isClickable = onClick !== undefined;
+
   return (
-    <StyledRoundedContainer {...props}>
-      <StyledRoundedBumble>
-        {displayLoader && <StyledLoader />}
-        {displayAvatar && (
-          <StyledAvatar
-            src={src}
-            srcSet={src}
-            alt={`avatar of ${fullname}`}
-            width={59}
-            height={59}
-          />
-        )}
-        {displayInitials && (
-          <StyledInitialsContainer aria-label="Initials of user's name">
-            {capitals?.map((capital) => <span key={capital}>{capital}</span>)}
-          </StyledInitialsContainer>
-        )}
-        {displayUserIcon && <StyledUserPictogram size={25} />}
-      </StyledRoundedBumble>
+    <StyledRoundedContainer
+      onClick={onClick}
+      {...props}
+      $isClickable={isClickable}
+    >
+      <StyledWrapper>
+        <StyledRoundedBumble>
+          {displayLoader && <StyledLoader />}
+          {displayAvatar && (
+            <StyledAvatar
+              src={src}
+              srcSet={src}
+              alt={`avatar of ${fullname}`}
+              width={59}
+              height={59}
+            />
+          )}
+          {displayInitials && (
+            <StyledInitialsContainer aria-label="Initials of user's name">
+              {capitals?.map((capital) => <span key={capital}>{capital}</span>)}
+            </StyledInitialsContainer>
+          )}
+          {displayUserIcon && <StyledUserPictogram size={25} />}
+        </StyledRoundedBumble>
+      </StyledWrapper>
     </StyledRoundedContainer>
   );
 };

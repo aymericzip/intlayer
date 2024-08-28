@@ -28,9 +28,10 @@ export const authOptions: AuthOptions = {
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: { label: 'email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
+        password: { label: 'password', type: 'password' },
       },
-      authorize: async (credentials) => {
+      // eslint-disable-next-line prefer-arrow-functions/prefer-arrow-functions
+      async authorize(credentials) {
         const { email, password } = credentials ?? {};
 
         if (!email || !password) return null;
@@ -44,20 +45,10 @@ export const authOptions: AuthOptions = {
 
         if (!user) return null;
 
-        const nextAuthUser: User = {
-          id: String(user._id),
-          name: `${user.firstname} ${user.lastname}`,
-          email: user.email,
-          role: 'user',
-        };
-
-        return nextAuthUser;
+        return user as unknown as User;
       },
     }),
   ],
-  callbacks: {
-    signIn: () => true,
-  },
 
   secret: process.env.NEXTAUTH_SECRET,
 };

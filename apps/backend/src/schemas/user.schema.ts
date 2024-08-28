@@ -1,20 +1,10 @@
 import {
-  formatUser,
-  hackUserPassword,
-  testUserPassword,
-} from '@services/user.service';
-import {
   NAMES_MAX_LENGTH,
   NAMES_MIN_LENGTH,
 } from '@utils/validation/validateUser';
 import { Schema } from 'mongoose';
 import validator from 'validator';
-import type {
-  User,
-  UserModelType,
-  UserDocument,
-  UserWithPasswordNotHashed,
-} from '@/types/user.types';
+import type { User } from '@/types/user.types';
 
 export const userSchema = new Schema<User>(
   {
@@ -58,19 +48,3 @@ export const userSchema = new Schema<User>(
     timestamps: true,
   }
 );
-
-userSchema.pre<UserModelType>('save', async (next) => {
-  const user = this as unknown as UserDocument;
-
-  const userWithPasswordNotHashed = (await hackUserPassword(
-    this as unknown as UserWithPasswordNotHashed
-  )) as User;
-
-  const formattedUser = formatUser(userWithPasswordNotHashed);
-
-  user.set(formattedUser);
-
-  next();
-});
-
-userSchema.statics.login = testUserPassword;

@@ -19,7 +19,7 @@ import type {
   ValidEmailResult,
 } from '@controllers/user.controller';
 
-const UserAPIRoute = `${process.env.NEXT_BACKEND_URL}/api/user`;
+const USER_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`;
 
 /**
  * Retrieves a list of users based on filters and pagination.
@@ -28,7 +28,7 @@ const UserAPIRoute = `${process.env.NEXT_BACKEND_URL}/api/user`;
 const getUser = async (filters?: GetUserParams): Promise<GetUserResult> => {
   const searchParams = new URLSearchParams(filters);
 
-  const response = await fetch(`${UserAPIRoute}?${searchParams.toString()}`, {
+  const response = await fetch(`${USER_API_ROUTE}?${searchParams.toString()}`, {
     method: 'GET',
   });
   return response.json();
@@ -39,7 +39,7 @@ const getUser = async (filters?: GetUserParams): Promise<GetUserResult> => {
  * @param user - User credentials.
  */
 const login = async (user: LoginBody): Promise<LoginResult> => {
-  const response = await fetch(`${UserAPIRoute}/login`, {
+  const response = await fetch(`${USER_API_ROUTE}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ const verifyEmail = async (
   params: ValidEmailParams
 ): Promise<ValidEmailResult> => {
   const { userId, secret } = params;
-  const response = await fetch(`${UserAPIRoute}/active/${userId}/${secret}`, {
+  const response = await fetch(`${USER_API_ROUTE}/active/${userId}/${secret}`, {
     method: 'PUT',
   });
   return response.json();
@@ -68,7 +68,7 @@ const verifyEmail = async (
  * @param user - User credentials.
  */
 const register = async (user: RegisterBody): Promise<RegisterResult> => {
-  const response = await fetch(`${UserAPIRoute}/register`, {
+  const response = await fetch(`${USER_API_ROUTE}/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const register = async (user: RegisterBody): Promise<RegisterResult> => {
 const askResetPassword = async (
   email: AskResetPasswordBody['email']
 ): Promise<AskResetPasswordResult> => {
-  const response = await fetch(`${UserAPIRoute}/password/reset`, {
+  const response = await fetch(`${USER_API_ROUTE}/password/reset`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const resetPassword = async (
   const searchParams = new URLSearchParams(params);
 
   const response = await fetch(
-    `${UserAPIRoute}/password/reset?${searchParams.toString()}`,
+    `${USER_API_ROUTE}/password/reset?${searchParams.toString()}`,
     {
       method: 'POST',
     }
@@ -120,7 +120,7 @@ const resetPassword = async (
 const changePassword = async (
   data: UpdatePasswordBody
 ): Promise<UpdatePasswordResult> => {
-  const response = await fetch(`${UserAPIRoute}/password`, {
+  const response = await fetch(`${USER_API_ROUTE}/password`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ const changePassword = async (
  * @param user - Updated user data.
  */
 const updateUser = async (user: UpdateUserBody): Promise<UpdateUserResult> => {
-  const response = await fetch(`${UserAPIRoute}`, {
+  const response = await fetch(`${USER_API_ROUTE}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

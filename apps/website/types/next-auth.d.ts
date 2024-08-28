@@ -1,4 +1,4 @@
-import type { DefaultSession } from 'next-auth';
+import type { UserAPI } from '@/types/user.types';
 
 // @link https://next-auth.js.org/getting-started/typescript#module-augmentation
 
@@ -7,7 +7,7 @@ declare module 'next-auth' {
    * The shape of the user object returned by the OAuth providers' `profile` callback,
    * or the second parameter of the `session` callback, when using a database.
    */
-  interface User {
+  interface User extends UserAPI {
     role: string;
   }
   /**
@@ -17,11 +17,9 @@ declare module 'next-auth' {
   // interface Account {}
   /** The OAuth profile returned from your provider */
   // interface Profile {}
-
   interface Session {
-    user: {
-      role: string;
-    } & DefaultSession['user'];
+    user: UserAPI;
+    eee: string;
   }
 }
 

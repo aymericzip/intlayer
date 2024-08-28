@@ -2,6 +2,7 @@ import { transports, createLogger, format } from 'winston';
 
 export const logger = createLogger({
   format: format.combine(
+    format.colorize(),
     format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),

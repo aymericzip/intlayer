@@ -19,3 +19,8 @@ dictionaries
 
 # WIP
 /keywords.txt
+
+# env
+.env
+.env.*
+!.env.template

@@ -11,7 +11,7 @@ import type {
   UpdateOrganizationResult,
 } from '@controllers/organization.controller';
 
-const OrganizationAPIRoute = `${process.env.NEXT_BACKEND_URL}/api/organization`;
+const ORGANIZATION_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/organization`;
 
 /**
  * Retrieves a list of organizations based on filters and pagination.
@@ -22,9 +22,12 @@ const getOrganizations = async (
 ): Promise<GetOrganizationsResult> => {
   const params = new URLSearchParams(filters);
 
-  const response = await fetch(`${OrganizationAPIRoute}?${params.toString()}`, {
-    method: 'GET',
-  });
+  const response = await fetch(
+    `${ORGANIZATION_API_ROUTE}?${params.toString()}`,
+    {
+      method: 'GET',
+    }
+  );
   return response.json();
 };
 
@@ -35,7 +38,7 @@ const getOrganizations = async (
 const getOrganization = async (
   organizationId: GetOrganizationParam['organizationId']
 ): Promise<GetOrganizationResult> => {
-  const response = await fetch(`${OrganizationAPIRoute}/${organizationId}`, {
+  const response = await fetch(`${ORGANIZATION_API_ROUTE}/${organizationId}`, {
     method: 'GET',
   });
   return response.json();
@@ -48,7 +51,7 @@ const getOrganization = async (
 const addOrganization = async (
   organization: AddOrganizationBody
 ): Promise<AddOrganizationResult> => {
-  const response = await fetch(OrganizationAPIRoute, {
+  const response = await fetch(ORGANIZATION_API_ROUTE, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -65,7 +68,7 @@ const addOrganization = async (
 const updateOrganization = async (
   organization: UpdateOrganizationBody
 ): Promise<UpdateOrganizationResult> => {
-  const response = await fetch(OrganizationAPIRoute, {
+  const response = await fetch(ORGANIZATION_API_ROUTE, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -82,7 +85,7 @@ const updateOrganization = async (
 const deleteOrganization = async (
   organizationId: DeleteOrganizationParam['organizationId']
 ): Promise<DeleteOrganizationResult> => {
-  const response = await fetch(OrganizationAPIRoute, {
+  const response = await fetch(ORGANIZATION_API_ROUTE, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

@@ -5,6 +5,7 @@
 # env
 .env
 .env.*
+!.env.template
 
 # build 
 dist

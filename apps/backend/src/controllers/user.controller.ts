@@ -10,7 +10,7 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { Request, Response } from 'express';
-import { type ObjectId, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { logger } from '@/logger';
 import {
   findUsers as findUsersService,
@@ -22,15 +22,18 @@ import {
   resetUserPassword as resetUserPasswordService,
   getUserById as getUserByIdService,
   createUser as createUserService,
+  formatUserForAPI,
+  formatUsersForAPI,
 } from '@/services/user.service';
 import type {
   User,
+  UserAPI,
   UserData,
   UserWithPasswordNotHashed,
 } from '@/types/user.types';
 
 export type CreateUserBody = UserData;
-export type CreateUserResult = ResponseData<User>;
+export type CreateUserResult = ResponseData<UserAPI>;
 
 /**
  * Creates a new user.
@@ -50,7 +53,7 @@ export const createUser = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.NOT_FOUND;
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -61,7 +64,9 @@ export const createUser = async (
   try {
     const newUser = await createUserService(user);
 
-    const responseData = formatResponse<User>({ data: newUser });
+    const formattedUser = formatUserForAPI(newUser);
+
+    const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     return res.json(responseData);
   } catch (error) {
@@ -70,7 +75,7 @@ export const createUser = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -80,7 +85,7 @@ export const createUser = async (
 };
 
 export type GetUserParams = FiltersAndPagination<UserFilters>;
-export type GetUserResult = PaginatedResponse<User>;
+export type GetUserResult = PaginatedResponse<UserAPI>;
 
 /**
  * Retrieves a list of users based on filters and pagination.
@@ -99,8 +104,10 @@ export const getUsers = async (
     const users = await findUsersService(filters, skip, pageSize);
     const totalItems = await countUsersService(filters);
 
-    const responseData = formatPaginatedResponse<User>({
-      data: users,
+    const formattedUsers = formatUsersForAPI(users);
+
+    const responseData = formatPaginatedResponse<UserAPI>({
+      data: formattedUsers,
       page,
       pageSize,
       totalPages: getNumberOfPages(totalItems),
@@ -114,7 +121,7 @@ export const getUsers = async (
     logger.error(`errors: ${errorMessage}`);
 
     const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
-    const responseData = formatPaginatedResponse<User>({
+    const responseData = formatPaginatedResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -127,7 +134,7 @@ export type UpdatePasswordBody = {
   oldPassword: string;
   newPassword: string;
 };
-export type UpdatePasswordResult = ResponseData<User>;
+export type UpdatePasswordResult = ResponseData<UserAPI>;
 
 /**
  * Updates the user's password.
@@ -160,7 +167,7 @@ export const updatePassword = async (
         logger.error(errorMessage);
 
         const responseCode = HttpStatusCodes.BAD_REQUEST;
-        const responseData = formatResponse<User>({
+        const responseData = formatResponse<UserAPI>({
           error: errorMessage,
           status: responseCode,
         });
@@ -172,7 +179,9 @@ export const updatePassword = async (
         `Password changed - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id}`
       );
 
-      const responseData = formatResponse<User>({ data: user });
+      const formattedUser = formatUserForAPI(user);
+
+      const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
       return res.json(responseData);
     }
@@ -181,7 +190,7 @@ export const updatePassword = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.FORBIDDEN;
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -191,7 +200,7 @@ export const updatePassword = async (
 };
 
 export type UpdateUserBody = Partial<User>;
-export type UpdateUserResult = ResponseData<User>;
+export type UpdateUserResult = ResponseData<UserAPI>;
 
 /**
  * Updates user information (phone number, date of birth).
@@ -212,7 +221,7 @@ export const updateUser = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.NOT_FOUND;
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -226,7 +235,7 @@ export const updateUser = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.BAD_REQUEST;
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -241,7 +250,8 @@ export const updateUser = async (
       `User updated: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
     );
 
-    const responseData = formatResponse<User>({ data: updatedUser });
+    const formattedUser = formatUserForAPI(updatedUser);
+    const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     return res.json(responseData);
   } catch (error) {
@@ -250,7 +260,7 @@ export const updateUser = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -260,7 +270,7 @@ export const updateUser = async (
 };
 
 export type ValidEmailParams = { secret: string; userId: string };
-export type ValidEmailResult = ResponseData<User>;
+export type ValidEmailResult = ResponseData<UserAPI>;
 
 /**
  * Validates a user's email based on the provided secret and user ID.
@@ -279,7 +289,7 @@ export const validEmail = async (
   if (!Types.ObjectId.isValid(userId.toString())) {
     const responseCode = HttpStatusCodes.NOT_FOUND;
 
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: 'User id not valid',
       status: responseCode,
     });
@@ -290,7 +300,7 @@ export const validEmail = async (
   if (!organization) {
     const responseCode = HttpStatusCodes.NOT_FOUND;
 
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: 'Organization not found',
       status: responseCode,
     });
@@ -306,7 +316,7 @@ export const validEmail = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.NOT_FOUND;
-    const responseData = formatResponse<User>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -320,7 +330,8 @@ export const validEmail = async (
     `User activated - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
   );
 
-  const responseData = formatResponse<User>({ data: user });
+  const formattedUser = formatUserForAPI(user);
+  const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
   return res.json(responseData);
 };
@@ -386,7 +397,7 @@ export const askResetPassword = async (
 };
 
 export type ResetPasswordParams = { secret: string; userId: string };
-export type ResetPasswordResult = ResponseData<undefined>;
+export type ResetPasswordResult = ResponseData<UserAPI>;
 
 /**
  * Resets a user's password based on the provided secret and user ID.
@@ -409,7 +420,7 @@ export const resetPassword = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.BAD_REQUEST;
-    const responseData = formatResponse<undefined>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -423,7 +434,7 @@ export const resetPassword = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.BAD_REQUEST;
-    const responseData = formatResponse<undefined>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });
@@ -442,7 +453,8 @@ export const resetPassword = async (
       `Password changed - User: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
     );
 
-    const responseData = formatResponse<undefined>({ data: undefined });
+    const formattedUser = formatUserForAPI(updatedUser);
+    const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     return res.json(responseData);
   } catch (err) {
@@ -450,7 +462,7 @@ export const resetPassword = async (
     logger.error(errorMessage);
 
     const responseCode = HttpStatusCodes.BAD_REQUEST;
-    const responseData = formatResponse<undefined>({
+    const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
     });

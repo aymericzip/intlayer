@@ -9,7 +9,7 @@ import type {
   UpdateProjectResult,
 } from '@controllers/project.controller';
 
-const BackendAPIRoute = `${process.env.NEXT_BACKEND_URL}/api/project`;
+const PROJECT_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/project`;
 
 /**
  * Retrieves a list of projects based on filters and pagination.
@@ -20,7 +20,7 @@ const getProjects = async (
 ): Promise<GetProjectsResult> => {
   const params = new URLSearchParams(filters);
 
-  const response = await fetch(`${BackendAPIRoute}?${params.toString()}`, {
+  const response = await fetch(`${PROJECT_API_ROUTE}?${params.toString()}`, {
     method: 'GET',
   });
   return response.json();
@@ -33,7 +33,7 @@ const getProjects = async (
 const addProject = async (
   project: AddProjectBody
 ): Promise<AddProjectResult> => {
-  const response = await fetch(`${BackendAPIRoute}`, {
+  const response = await fetch(`${PROJECT_API_ROUTE}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ const addProject = async (
 const updateProject = async (
   project: UpdateProjectBody
 ): Promise<UpdateProjectResult> => {
-  const response = await fetch(`${BackendAPIRoute}`, {
+  const response = await fetch(`${PROJECT_API_ROUTE}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const updateProject = async (
 const deleteProject = async (
   id: DeleteProjectParam['projectId']
 ): Promise<DeleteProjectResult> => {
-  const response = await fetch(`${BackendAPIRoute}`, {
+  const response = await fetch(`${PROJECT_API_ROUTE}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
