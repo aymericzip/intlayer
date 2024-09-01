@@ -6,13 +6,7 @@ import type { User } from '@/types/user.types';
 
 type UserFields = (keyof User)[];
 
-const defaultFieldsToCheck: UserFields = [
-  'firstname',
-  'lastname',
-  'phone',
-  'email',
-  'phone',
-];
+const defaultFieldsToCheck: UserFields = ['name', 'phone', 'email', 'phone'];
 
 export type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<
@@ -43,7 +37,7 @@ export const validateUser = (
     errors[field] = [];
 
     // Check for name validity
-    if (field === 'firstname' || field === 'lastname') {
+    if (field === 'name') {
       const nameErrors = validateString(
         value,
         `User ${field}`,

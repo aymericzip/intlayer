@@ -1,9 +1,9 @@
 import type { FC, PropsWithChildren } from 'react';
 import './globals.css';
-import NextAuthProvider from '@/providers/NextAuthProvider';
+import { AuthProvider } from '@/providers/AuthProvider';
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (
-  <NextAuthProvider>{children}</NextAuthProvider>
+  <AuthProvider>{children}</AuthProvider>
 );
 
 export default RootLayout;

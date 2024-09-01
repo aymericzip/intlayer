@@ -45,7 +45,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
   // const { toast } = useToast();
 
   const onSubmitSuccess = async ({ email }: ResetPassword) => {
-    const result = await backendAPI.user.askResetPassword(email);
+    const result = await backendAPI.auth.askResetPassword(email);
 
     if (!result.success) {
       return router.push(callbackUrl);

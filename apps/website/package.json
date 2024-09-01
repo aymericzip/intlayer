@@ -59,7 +59,6 @@
     "lucide-react": "^0.424.0",
     "markdown-to-jsx": "^7.4.7",
     "next": "14.2.6",
-    "next-auth": "^4.24.7",
     "next-intlayer": "workspace:^",
     "next-secure-headers": "^2.2.0",
     "next-themes": "^0.3.0",
@@ -72,6 +71,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/next-pwa": "^5.6.9",
     "@types/node": "^22.1.0",
     "@types/react": "^18.3.3",

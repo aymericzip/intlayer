@@ -7,9 +7,9 @@ export const logAPIRequestURL = (
   res: ResponseWithInformation,
   next: NextFunction
 ) => {
-  if (process.env.NODE_ENV === 'developement') {
-    logger.info(`API Request - ${req.method} - ${req.originalUrl}`);
-  }
+  logger.info(
+    `API Request - ${req.method} - ${req.originalUrl} - ${JSON.stringify(res.locals)}`
+  );
 
   next();
 };

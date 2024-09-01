@@ -1,18 +1,17 @@
 import { LanguageBackground } from '@components/LandingPage/LanguageSection';
-import { AuthenticationBarrier } from '@utils/auth/next-auth/AuthenticationBarrier';
-import { authOptions } from '@utils/auth/next-auth/authOptions';
-import { getServerSession } from 'next-auth';
+import { AuthenticationBarrier } from '@utils/auth/auth/AuthenticationBarrier';
 import type { FC, PropsWithChildren } from 'react';
+import { getServerSession } from '@/providers/getServerSession';
 import { PagesRoutes } from '@/Routes';
 
 const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
 
   return (
     <AuthenticationBarrier
       accessRule="none-authenticated"
-      session={session}
       redirectionRoute={PagesRoutes.Home}
+      session={session}
     >
       <LanguageBackground>{children}</LanguageBackground>
     </AuthenticationBarrier>

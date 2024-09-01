@@ -9,16 +9,16 @@ export type ResponseData<T = null> = {
 };
 
 type ValidResponseStatus =
-  | HttpStatusCodes.OK
-  | HttpStatusCodes.CREATED
-  | HttpStatusCodes.ACCEPTED
-  | HttpStatusCodes.NON_AUTHORITATIVE_INFORMATION
-  | HttpStatusCodes.NO_CONTENT
-  | HttpStatusCodes.RESET_CONTENT
-  | HttpStatusCodes.PARTIAL_CONTENT
-  | HttpStatusCodes.MULTI_STATUS
-  | HttpStatusCodes.ALREADY_REPORTED
-  | HttpStatusCodes.IM_USED;
+  | HttpStatusCodes.OK_200
+  | HttpStatusCodes.CREATED_201
+  | HttpStatusCodes.ACCEPTED_202
+  | HttpStatusCodes.NON_AUTHORITATIVE_INFORMATION_203
+  | HttpStatusCodes.NO_CONTENT_204
+  | HttpStatusCodes.RESET_CONTENT_205
+  | HttpStatusCodes.PARTIAL_CONTENT_206
+  | HttpStatusCodes.MULTI_STATUS_207
+  | HttpStatusCodes.ALREADY_REPORTED_208
+  | HttpStatusCodes.IM_USED_226;
 
 type SuccessResponseArgs<T = undefined> = {
   data: T;
@@ -34,17 +34,17 @@ type ErrorResponseArgs = {
 
 const isSuccessStatus = (
   status: HttpStatusCodes
-): status is HttpStatusCodes.OK =>
-  status === HttpStatusCodes.OK ||
-  status === HttpStatusCodes.CREATED ||
-  status === HttpStatusCodes.ACCEPTED ||
-  status === HttpStatusCodes.NON_AUTHORITATIVE_INFORMATION ||
-  status === HttpStatusCodes.NO_CONTENT ||
-  status === HttpStatusCodes.RESET_CONTENT ||
-  status === HttpStatusCodes.PARTIAL_CONTENT ||
-  status === HttpStatusCodes.MULTI_STATUS ||
-  status === HttpStatusCodes.ALREADY_REPORTED ||
-  status === HttpStatusCodes.IM_USED;
+): status is HttpStatusCodes.OK_200 =>
+  status === HttpStatusCodes.OK_200 ||
+  status === HttpStatusCodes.CREATED_201 ||
+  status === HttpStatusCodes.ACCEPTED_202 ||
+  status === HttpStatusCodes.NON_AUTHORITATIVE_INFORMATION_203 ||
+  status === HttpStatusCodes.NO_CONTENT_204 ||
+  status === HttpStatusCodes.RESET_CONTENT_205 ||
+  status === HttpStatusCodes.PARTIAL_CONTENT_206 ||
+  status === HttpStatusCodes.MULTI_STATUS_207 ||
+  status === HttpStatusCodes.ALREADY_REPORTED_208 ||
+  status === HttpStatusCodes.IM_USED_226;
 
 export function formatResponse<T>({
   data,
@@ -57,7 +57,7 @@ export function formatResponse<T>({
 export function formatResponse<T>({
   data,
   error,
-  status = HttpStatusCodes.OK,
+  status = HttpStatusCodes.OK_200,
 }: SuccessResponseArgs<T> | ErrorResponseArgs): ResponseData<T> {
   const success = isSuccessStatus(status);
 
@@ -112,7 +112,7 @@ export function formatPaginatedResponse<T>({
   status,
 }: ErrorPaginatedResponseArgs): PaginatedResponse<T>;
 export function formatPaginatedResponse<T>({
-  status = HttpStatusCodes.OK,
+  status = HttpStatusCodes.OK_200,
   data,
   error,
   page,

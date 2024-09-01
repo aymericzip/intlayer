@@ -1,34 +1,31 @@
 import type { ObjectId, Model, Document } from 'mongoose';
+import type { Session, SessionProviders } from './session.types';
 
 export interface UserData {
-  firebaseUid?: string;
   email: string;
-  emailValidated?: boolean;
-  firstname: string;
-  lastname: string;
+  name: string;
   phone?: string;
   dateOfBirth?: Date;
-  passwordHash?: string;
-  secret?: string;
 }
 
 export interface User extends UserData {
   _id: ObjectId;
+  provider?: SessionProviders[];
+  session?: Session;
   createdAt: number;
   updatedAt: number;
 }
 
-export interface UserAPI
-  extends Omit<User, '_id' | 'passwordHash' | 'secret' | 'emailValidated'> {
+export interface UserAPI extends Omit<User, '_id' | 'provider'> {
   role: string;
 }
 
 export type UserDocument = Document<User> & User;
 
-export type UserWithPasswordNotHashed = Partial<UserData> & {
-  email: string;
-  password: string;
-};
+export type UserWithPasswordNotHashed = Partial<User> &
+  Pick<User, 'email'> & {
+    password?: string;
+  };
 
 export type UserModelType = Model<User> & {
   login: (email: string, password: string) => Promise<User>;

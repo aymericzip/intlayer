@@ -9,30 +9,28 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { Request, Response } from 'express';
-import { Types } from 'mongoose';
+import type { Request } from 'express';
 import { logger } from '@/logger';
 import {
   findUsers as findUsersService,
   countUsers as countUsersService,
-  changeUserPassword as changeUserPasswordService,
   updateUserById as updateUserByIdService,
-  activateUser as activateUserService,
-  requestPasswordReset as requestPasswordResetService,
-  resetUserPassword as resetUserPasswordService,
   getUserById as getUserByIdService,
+  getUserByAccount as getUserByAccountService,
   createUser as createUserService,
-  formatUserForAPI,
-  formatUsersForAPI,
+  formatUserForAPI as formatUserForAPIService,
+  formatUsersForAPI as formatUsersForAPIService,
+  getUserByEmail as getUserByEmailService,
+  deleteUser as deleteUserService,
 } from '@/services/user.service';
+import type { SessionProviders } from '@/types/session.types';
 import type {
   User,
   UserAPI,
-  UserData,
   UserWithPasswordNotHashed,
 } from '@/types/user.types';
 
-export type CreateUserBody = UserData;
+export type CreateUserBody = { email: string; password?: string };
 export type CreateUserResult = ResponseData<UserAPI>;
 
 /**
@@ -52,7 +50,7 @@ export const createUser = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.NOT_FOUND;
+    const responseCode = HttpStatusCodes.NOT_FOUND_404;
     const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
@@ -64,7 +62,7 @@ export const createUser = async (
   try {
     const newUser = await createUserService(user);
 
-    const formattedUser = formatUserForAPI(newUser);
+    const formattedUser = formatUserForAPIService(newUser);
 
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
@@ -74,7 +72,7 @@ export const createUser = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
@@ -84,8 +82,8 @@ export const createUser = async (
   }
 };
 
-export type GetUserParams = FiltersAndPagination<UserFilters>;
-export type GetUserResult = PaginatedResponse<UserAPI>;
+export type GetUsersParams = FiltersAndPagination<UserFilters>;
+export type GetUsersResult = PaginatedResponse<UserAPI>;
 
 /**
  * Retrieves a list of users based on filters and pagination.
@@ -94,8 +92,8 @@ export type GetUserResult = PaginatedResponse<UserAPI>;
  * @returns Response containing the list of users and pagination details.
  */
 export const getUsers = async (
-  req: Request<GetUserParams>,
-  res: ResponseWithInformation<GetUserResult>
+  req: Request<GetUsersParams>,
+  res: ResponseWithInformation<GetUsersResult>
 ) => {
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
@@ -104,7 +102,7 @@ export const getUsers = async (
     const users = await findUsersService(filters, skip, pageSize);
     const totalItems = await countUsersService(filters);
 
-    const formattedUsers = formatUsersForAPI(users);
+    const formattedUsers = formatUsersForAPIService(users);
 
     const responseData = formatPaginatedResponse<UserAPI>({
       data: formattedUsers,
@@ -120,7 +118,7 @@ export const getUsers = async (
 
     logger.error(`errors: ${errorMessage}`);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatPaginatedResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
@@ -130,72 +128,109 @@ export const getUsers = async (
   }
 };
 
-export type UpdatePasswordBody = {
-  oldPassword: string;
-  newPassword: string;
-};
-export type UpdatePasswordResult = ResponseData<UserAPI>;
+export type GetUserByIdParams = { userId: string };
+export type GetUserByIdResult = ResponseData<UserAPI>;
 
-/**
- * Updates the user's password.
- * @param req - Express request object.
- * @param  res - Express response object.
- * @returns  Response containing the updated user or error message.
- */
-export const updatePassword = async (
-  req: Request<undefined, any, UpdatePasswordBody>,
-  res: ResponseWithInformation<UpdatePasswordResult>
+export const getUserById = async (
+  req: Request<GetUserByIdParams>,
+  res: ResponseWithInformation<GetUserByIdResult>
 ) => {
-  const { oldPassword, newPassword } = req.body;
-  let user = res.locals.user;
-
-  if (!user) {
-    return res.sendStatus(404).json();
-  }
+  const { userId } = req.params;
 
   try {
-    if (newPassword !== '') {
-      user = await changeUserPasswordService(
-        user._id,
-        oldPassword,
-        newPassword
-      );
+    const user = await getUserByIdService(userId);
 
-      if (!user || typeof user !== 'object') {
-        const errorMessage = 'User data not found';
+    if (!user) {
+      const errorMessage = `User not found - ${userId}`;
 
-        logger.error(errorMessage);
+      logger.error(errorMessage);
 
-        const responseCode = HttpStatusCodes.BAD_REQUEST;
-        const responseData = formatResponse<UserAPI>({
-          error: errorMessage,
-          status: responseCode,
-        });
+      const responseCode = HttpStatusCodes.NOT_FOUND_404;
+      const responseData = formatResponse<UserAPI>({
+        error: errorMessage,
+        status: responseCode,
+      });
 
-        return res.status(responseCode).json(responseData);
-      }
-
-      logger.info(
-        `Password changed - User : Firstname : ${user.firstname}, Lastname : ${user.lastname}, id : ${user._id}`
-      );
-
-      const formattedUser = formatUserForAPI(user);
-
-      const responseData = formatResponse<UserAPI>({ data: formattedUser });
-
-      return res.json(responseData);
+      return res.status(responseCode).json(responseData);
     }
-  } catch (err) {
-    const errorMessage: string = (err as { message: string }).message;
+
+    const formattedUser = formatUserForAPIService(user);
+    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+
+    return res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as { message: string }).message;
+
     logger.error(errorMessage);
+  }
+};
 
-    const responseCode = HttpStatusCodes.FORBIDDEN;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
+export type GetUserByEmailParams = { email: string };
+export type GetUserByEmailResult = ResponseData<UserAPI>;
 
-    return res.status(responseCode).json(responseData);
+export const getUserByEmail = async (
+  req: Request<GetUserByEmailParams>,
+  res: ResponseWithInformation<GetUserByEmailResult>
+) => {
+  const { email } = req.params;
+
+  try {
+    const user = await getUserByEmailService(email);
+
+    if (!user) {
+      const errorMessage = `User not found - ${email}`;
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.NOT_FOUND_404;
+      const responseData = formatResponse<UserAPI>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
+    }
+
+    const formattedUser = formatUserForAPIService(user);
+    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+
+    res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as { message: string }).message;
+
+    logger.error(errorMessage);
+  }
+};
+
+export type GetUserByAccountParams = {
+  providerAccountId: string;
+  provider: SessionProviders['provider'];
+};
+export type GetUserByAccountResult = ResponseData<UserAPI>;
+
+/**
+ * Retrieves a user by account.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the user or error message.
+ */
+export const getUserByAccount = async (
+  req: Request<GetUserByAccountParams>,
+  res: ResponseWithInformation<GetUserByAccountResult>
+) => {
+  const { providerAccountId, provider } = req.params;
+
+  try {
+    const user = await getUserByAccountService(provider, providerAccountId);
+
+    const formattedUser = formatUserForAPIService(user);
+    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+
+    res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as { message: string }).message;
+
+    logger.error(errorMessage);
   }
 };
 
@@ -220,7 +255,7 @@ export const updateUser = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.NOT_FOUND;
+    const responseCode = HttpStatusCodes.NOT_FOUND_404;
     const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
@@ -234,7 +269,7 @@ export const updateUser = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
@@ -247,10 +282,10 @@ export const updateUser = async (
     const updatedUser = await updateUserByIdService(user._id, userData);
 
     logger.info(
-      `User updated: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
+      `User updated: Name: ${updatedUser.name}, id: ${updatedUser._id}`
     );
 
-    const formattedUser = formatUserForAPI(updatedUser);
+    const formattedUser = formatUserForAPIService(updatedUser);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     return res.json(responseData);
@@ -259,7 +294,7 @@ export const updateUser = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<UserAPI>({
       error: errorMessage,
       status: responseCode,
@@ -269,204 +304,31 @@ export const updateUser = async (
   }
 };
 
-export type ValidEmailParams = { secret: string; userId: string };
-export type ValidEmailResult = ResponseData<UserAPI>;
+export type DeleteUserParams = { userId: string };
+export type DeleteUserResult = ResponseData<UserAPI>;
 
 /**
- * Validates a user's email based on the provided secret and user ID.
+ * Deletes a user based on the provided ID.
  * @param req - Express request object.
  * @param res - Express response object.
- * @returns Response containing the validated user or error message.
+ * @returns Response containing the deleted user or error message.
  */
-export const validEmail = async (
-  req: Request<ValidEmailParams, any, any>,
-  res: ResponseWithInformation<ValidEmailResult>
+export const deleteUser = async (
+  req: Request<any, any, DeleteUserParams>,
+  res: ResponseWithInformation<DeleteUserResult>
 ) => {
-  const userId = req.params.userId as unknown as User['_id'];
-  const secret = req.params.secret;
-  const organization = res.locals.organization;
-
-  if (!Types.ObjectId.isValid(userId.toString())) {
-    const responseCode = HttpStatusCodes.NOT_FOUND;
-
-    const responseData = formatResponse<UserAPI>({
-      error: 'User id not valid',
-      status: responseCode,
-    });
-
-    return res.status(responseCode).json(responseData);
-  }
-
-  if (!organization) {
-    const responseCode = HttpStatusCodes.NOT_FOUND;
-
-    const responseData = formatResponse<UserAPI>({
-      error: 'Organization not found',
-      status: responseCode,
-    });
-
-    return res.status(responseCode).json(responseData);
-  }
-
-  const user = await getUserByIdService(userId);
-
-  if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.NOT_FOUND;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    return res.status(responseCode).json(responseData);
-  }
-
-  await activateUserService(user._id, secret);
-
-  logger.info(
-    `User activated - User: Firstname: ${user.firstname}, Lastname: ${user.lastname}, id: ${user._id}`
-  );
-
-  const formattedUser = formatUserForAPI(user);
-  const responseData = formatResponse<UserAPI>({ data: formattedUser });
-
-  return res.json(responseData);
-};
-
-export type AskResetPasswordBody = {
-  email: string;
-};
-export type AskResetPasswordResult = ResponseData<undefined>;
-
-/**
- * Requests a password reset for a user.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response indicating the status of the password reset request.
- */
-export const askResetPassword = async (
-  req: Request<undefined, any, AskResetPasswordBody>,
-  res: ResponseWithInformation<AskResetPasswordResult>
-) => {
-  const { email } = req.body as Partial<AskResetPasswordBody>;
-
-  if (!email) {
-    const errorMessage = 'Email not provided';
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
-    const responseData = formatResponse<undefined>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    return res.status(responseCode).json(responseData);
-  }
+  const { userId } = req.params;
 
   try {
-    const updatedUser = await requestPasswordResetService(email);
+    const user = await deleteUserService(userId);
 
-    if (!updatedUser) {
-      const errorMessage = 'User not found';
-
-      logger.error(errorMessage);
-
-      const responseCode = HttpStatusCodes.NOT_FOUND;
-      const responseData = formatResponse<undefined>({
-        error: errorMessage,
-        status: responseCode,
-      });
-
-      return res.status(responseCode).json(responseData);
-    }
-
-    logger.info(
-      `Ask changing password - User: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
-    );
-
-    const responseData = formatResponse<undefined>({ data: undefined });
-
-    return res.json(responseData);
-  } catch (err) {
-    logger.error(err);
-    return res.sendStatus(500);
-  }
-};
-
-export type ResetPasswordParams = { secret: string; userId: string };
-export type ResetPasswordResult = ResponseData<UserAPI>;
-
-/**
- * Resets a user's password based on the provided secret and user ID.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the updated user or error message.
- */
-export const resetPassword = async (
-  req: Request<ResetPasswordParams, any, any>,
-  res: Response<ResetPasswordResult>
-) => {
-  const { secret, userId } = req.params as Partial<ResetPasswordParams>;
-  const password: string = req.body.password;
-
-  const userIdString = String(userId);
-
-  if (!userId || !userIdString || !Types.ObjectId.isValid(userIdString)) {
-    const errorMessage = `User id invalid - ${userIdString}`;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    return res.status(responseCode).json(responseData);
-  }
-
-  if (!secret) {
-    const errorMessage = 'Secret not provided';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    return res.status(responseCode).json(responseData);
-  }
-
-  try {
-    const updatedUser = await resetUserPasswordService(
-      userId,
-      secret,
-      password
-    );
-
-    logger.info(
-      `Password changed - User: Firstname: ${updatedUser.firstname}, Lastname: ${updatedUser.lastname}, id: ${updatedUser._id}`
-    );
-
-    const formattedUser = formatUserForAPI(updatedUser);
+    const formattedUser = formatUserForAPIService(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    return res.json(responseData);
-  } catch (err) {
-    const errorMessage: string = (err as { message: string }).message;
+    res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as { message: string }).message;
+
     logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    return res.status(responseCode).json(responseData);
   }
 };

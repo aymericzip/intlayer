@@ -1,32 +1,42 @@
+'use client';
+
 import { redirect } from 'next/navigation';
 import type { FC, ReactNode } from 'react';
-import type { NextAuthProviderProps } from '@/providers/NextAuthProvider';
+import { useAuth, type AuthProviderProps } from '@/providers/AuthProvider';
 import { PagesRoutes } from '@/Routes';
 
-export type AuthenticationBarrierProps = NextAuthProviderProps & {
+export type AuthenticationBarrierProps = AuthProviderProps & {
   children?: ReactNode;
   accessRule?: 'public' | 'authenticated' | 'admin' | 'none-authenticated';
   redirectionRoute?: string;
+  session?: AuthProviderProps['session'];
 };
 
 export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
   children,
   accessRule = 'public',
   redirectionRoute = PagesRoutes.Home,
-  session,
+  session: sessionProp,
 }) => {
-  if (!session && (accessRule === 'authenticated' || accessRule === 'admin')) {
+  const { session: sessionClient } = useAuth();
+
+  const session = sessionClient ?? sessionProp;
+
+  if (
+    !session?.user &&
+    (accessRule === 'authenticated' || accessRule === 'admin')
+  ) {
     redirect(redirectionRoute);
   }
 
-  if (session && accessRule === 'none-authenticated') {
+  if (session?.user && accessRule === 'none-authenticated') {
     redirect(redirectionRoute);
   }
 
   if (
-    session &&
+    session?.user &&
     accessRule === 'admin' &&
-    !session.user.role.includes('admin')
+    !session.user?.role.includes('admin')
   ) {
     redirect(redirectionRoute);
   }

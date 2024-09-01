@@ -39,6 +39,7 @@ const addProject = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(project),
+    credentials: 'include',
   });
   return response.json();
 };
@@ -56,6 +57,7 @@ const updateProject = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(project),
+    credentials: 'include',
   });
   return response.json();
 };
@@ -73,6 +75,7 @@ const deleteProject = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ id }),
+    credentials: 'include',
   });
   return response.json();
 };

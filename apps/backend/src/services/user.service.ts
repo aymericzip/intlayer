@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { logger } from '@logger/index';
 import { UserModel } from '@models/user.model';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -5,21 +6,24 @@ import {
   type FieldsToCheck,
   validateUser,
 } from '@utils/validation/validateUser';
-import { compare, genSalt, hash } from 'bcrypt';
 import type { ObjectId } from 'mongoose';
+import { hashUserPassword } from './auth.service';
+import type { SessionProviders } from '@/types/session.types';
 import type {
   User,
   UserAPI,
+  UserDocument,
   UserWithPasswordNotHashed,
 } from '@/types/user.types';
 
 /**
- * Creates a new user in the database.
+ * Creates a new user with password in the database and hashes the password.
  * @param user - User object with password not hashed.
  * @returns Created user object.
  */
 export const createUser = async (user: UserWithPasswordNotHashed) => {
   const fieldsToCheck: FieldsToCheck[] = ['email'];
+
   const errors = validateUser(user, fieldsToCheck);
 
   if (Object.keys(errors).length > 0) {
@@ -30,10 +34,15 @@ export const createUser = async (user: UserWithPasswordNotHashed) => {
     throw new Error(errorMessage);
   }
 
-  const userWithHashedPassword = await hashUserPassword(
-    user as unknown as UserWithPasswordNotHashed
-  );
-  const newUser = await UserModel.create(userWithHashedPassword);
+  let newUser: User;
+
+  if (user.password) {
+    const userWithHashedPassword = await hashUserPassword(user);
+
+    newUser = await UserModel.create(userWithHashedPassword);
+  } else {
+    newUser = await UserModel.create(user);
+  }
 
   if (!newUser) {
     const errorMessage = `User creation failed - ${user.email}`;
@@ -50,17 +59,8 @@ export const createUser = async (user: UserWithPasswordNotHashed) => {
  * @param email - User's email.
  * @returns User object or null if no user was found.
  */
-export const getUserByEmail = async (email: string) => {
-  const user = await UserModel.findOne({ email });
-
-  if (!user) {
-    const errorMessage = `User not found - ${email}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
-  }
-
-  return user;
+export const getUserByEmail = async (email: string): Promise<User | null> => {
+  return await UserModel.findOne({ email });
 };
 
 /**
@@ -78,12 +78,56 @@ export const checkUserExists = async (email: string) => {
  * @param userId - User's ID.
  * @returns User object or null if no user was found.
  */
-export const getUserById = async (userId: string | ObjectId) => {
-  const user = await UserModel.findById(userId);
+export const getUserById = async (
+  userId: string | ObjectId
+): Promise<User | null> => {
+  return await UserModel.findById(userId);
+};
+
+/**
+ * Retrieves a user by session token.
+ * @param sessionToken - The session token.
+ * @returns User object or null if no user was found.
+ */
+export const getUserBySession = async (sessionToken: string) => {
+  // Get an user by session token and check if it expired
+  const user = await UserModel.findOne({
+    'session.sessionToken': sessionToken,
+  });
 
   if (!user) {
-    const userIdString = String(userId);
-    const errorMessage = `User not found - ${userIdString}`;
+    const errorMessage = `User not found - ${sessionToken}`;
+
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  if (user.session?.expires && user.session.expires < new Date()) {
+    const errorMessage = `User session expired - ${sessionToken} - ${user.id}`;
+
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  return user;
+};
+
+/**
+ * Retrieves a user by account.
+ * @param provider - The provider of the account.
+ * @param providerAccountId - The provider account ID.
+ * @returns User object or null if no user was found.
+ */
+export const getUserByAccount = async (
+  provider: SessionProviders['provider'],
+  providerAccountId: string
+): Promise<User> => {
+  const user = await UserModel.findOne({
+    provider: [{ provider, providerAccountId }],
+  });
+
+  if (!user) {
+    const errorMessage = `User not found - ${provider} - ${providerAccountId}`;
 
     logger.error(errorMessage);
     throw new Error(errorMessage);
@@ -135,7 +179,8 @@ export const updateUserById = async (
   userId: string | ObjectId,
   updates: Partial<User>
 ): Promise<User> => {
-  const errors = validateUser(updates);
+  const keyToValidate = Object.keys(updates) as (keyof User)[];
+  const errors = validateUser(updates, keyToValidate);
 
   const userIdString = String(userId);
 
@@ -167,197 +212,47 @@ export const updateUserById = async (
 };
 
 /**
- * Activates a user by setting the emailValidated flag to true.
- * @param user - The user object.
+ * Deletes a user from the database.
+ * @param userId - The user object.
  * @returns
  */
-export const activateUser = async (
-  userId: string | ObjectId,
-  secret: string
-): Promise<void> => {
-  const user = await getUserById(userId);
+export const deleteUser = async (userId: string | ObjectId) => {
+  await getUserById(userId);
 
-  if (user.secret !== secret) {
-    const userIdString = String(userId);
-    const errorMessage = `Secret not valid - ${userIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
-  }
-  await updateUserById(userId, { emailValidated: true });
-};
-
-/**
- * Generates a random secret string of a specified length.
- * @param {number} length - The length of the secret.
- * @returns {string} The generated secret string.
- */
-export const generateSecret = (length: number): string => {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  return Array.from({ length }, () =>
-    characters.charAt(Math.floor(Math.random() * characters.length))
-  ).join('');
-};
-
-/**
- * Handles a password reset request for a user.
- * @param email - The user's email.
- * @param organization - The organization associated with the user.
- * @returns The user object or null if no user was found.
- */
-export const requestPasswordReset = async (
-  email: string
-): Promise<User | null> => {
-  const user = await UserModel.findOne({ email });
-  if (user) {
-    user.secret = generateSecret(35);
-    await user.save();
-  }
-  return user;
-};
-
-/**
- * Resets a user's password.
- * @param userId - The ID of the user.
- * @param secret - The secret token associated with the user.
- * @param newPassword - The new password to set.
- * @returns The updated user or null if the reset failed.
- */
-export const resetUserPassword = async (
-  userId: string | ObjectId,
-  secret: string,
-  newPassword: string
-): Promise<User> => {
-  const user = await UserModel.findById(userId);
-  const userIdString = String(userId);
+  const user = await UserModel.findByIdAndDelete(userId);
 
   if (!user) {
-    const errorMessage = `User not found - ${userIdString}`;
+    const userIdString = String(userId);
+    const errorMessage = `No user found for deletion - ${userIdString}`;
     logger.error(errorMessage);
-    throw new Error(errorMessage);
-  }
-
-  if (user.secret !== secret) {
-    const errorMessage = `Secret not valid - ${userIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
-  }
-
-  user.passwordHash = await hash(newPassword, await genSalt());
-  user.secret = undefined;
-
-  await user.save();
-
-  return user;
-};
-
-/**
- * Logs in a user.
- * @param email - The user's email.
- * @param password - The user's password.
- * @returns The user object.
- */
-export const testUserPassword = async (email: string, password: string) => {
-  const user = await getUserByEmail(email);
-
-  if (!user?.passwordHash) {
-    const errorMessage = `User request to login but no password defined: ${email}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
-  }
-
-  const isMatch = await compare(password, user.passwordHash);
-
-  if (!isMatch) {
-    const errorMessage = `Incorrect email or password: ${email}`;
-
-    logger.error(errorMessage);
-
-    // Await a random time to prevent brute force attacks
-    const randomNumber = Math.floor(Math.random() * 1000) + 1000;
-    await new Promise((resolve) => setTimeout(resolve, randomNumber));
-
     throw new Error(errorMessage);
   }
 
   return user;
 };
 
-export const hashUserPassword = async (
-  userWithPasswordNotHashed: UserWithPasswordNotHashed
-): Promise<Partial<User>> => {
-  const { password, ...user } = userWithPasswordNotHashed;
+/**
+ * Formats a user for API response. Removes sensitive information and adds role.
+ * @param user - The user object to format.
+ * @returns The formatted user object.
+ */
+export const formatUserForAPI = (user: User | UserDocument): UserAPI => {
+  let userObject: User = user;
 
-  if (!password) {
-    const errorMessage = `No password defined: ${userWithPasswordNotHashed.email}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+  // If the user is a mongoose document, convert it to an object
+  if (typeof (user as UserDocument).toObject === 'function') {
+    userObject = (user as UserDocument).toObject();
   }
 
-  const salt = await genSalt();
-  const passwordHash = await hash(password, salt);
-
-  return { ...user, passwordHash };
-};
-
-export const formatUserName = (user: Pick<User, 'firstname' | 'lastname'>) => {
-  const { firstname, lastname } = user;
-
-  const formattedUser: Partial<User> = {
-    ...user,
-    firstname:
-      firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-    lastname: lastname.toUpperCase(),
-  };
-
-  return formattedUser;
-};
-
-/**
- * Changes a user's password.
- * @param userId - The ID of the user.
- * @param oldPassword - The user's old password.
- * @param newPassword - The user's new password.
- * @returns The updated user or null if the password change failed.
- */
-export const changeUserPassword = async (
-  userId: string | ObjectId,
-  oldPassword: string,
-  newPassword: string
-) => {
-  const { email } = await getUserById(userId);
-  const user = await testUserPassword(email, oldPassword);
-
-  user.passwordHash = await hash(newPassword, await genSalt());
-  await user.save();
-  return user;
-};
-
-/**
- * Resets a user's password.
- * @param userId - The ID of the user.
- * @param secret - The secret token associated with the user.
- * @param newPassword - The new password to set.
- * @returns The updated user or null if the reset failed.
- */
-export const resetPassword = async (userId: string, password: string) => {
-  const user = await getUserById(userId);
-
-  if (user) {
-    user.passwordHash = await hash(password, await genSalt());
-    await user.save();
-    return user;
-  }
-
-  throw new Error('Incorrect password');
-};
-
-export const formatUserForAPI = (user: User): UserAPI => {
-  const { emailValidated, secret, passwordHash, ...userAPI } = user;
+  const { provider, ...userAPI } = userObject;
 
   return { ...userAPI, role: 'user' };
 };
+
+/**
+ * Formats an array of users for API response. Removes sensitive information and adds role.
+ * @param users - The array of user objects to format.
+ * @returns The formatted array of user objects.
+ */
 export const formatUsersForAPI = (users: User[]): UserAPI[] =>
   users.map(formatUserForAPI);

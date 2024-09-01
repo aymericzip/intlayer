@@ -9,20 +9,18 @@ import {
 } from '@intlayer/design-system';
 import { backendAPI } from '@utils/backend-api';
 import Link from 'next/link';
-import router from 'next/router';
-import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { SignUpSchema, type SignUp } from './SignUpSchema';
+import { useAuth } from '@/providers/AuthProvider';
 import { PagesRoutes } from '@/Routes';
 
 type SignUpFormProps = {
   callbackUrl?: string;
 };
 
-export const SignUpForm: FC<SignUpFormProps> = ({
-  callbackUrl = PagesRoutes.Home,
-}) => {
+export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const {
     emailInput,
     passwordInput,
@@ -30,26 +28,22 @@ export const SignUpForm: FC<SignUpFormProps> = ({
     signUpButton,
     loginLink,
   } = useIntlayer('sign-up-form');
+  const router = useRouter();
 
   const { form, isSubmitting } = useForm(SignUpSchema);
-  // const { signUp } = useFirebase();
+  const { checkSession } = useAuth();
 
   const onSubmitSuccess = async ({ email, password }: SignUp) => {
-    const response = await backendAPI.user.register({
+    const response = await backendAPI.auth.register({
       email,
       password,
     });
 
-    if (response.success) {
-      const nextAuthResult = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-        callbackUrl,
-      });
+    if (response.data) {
+      await checkSession();
 
-      if (!nextAuthResult?.ok) {
-        console.error(nextAuthResult);
+      if (callbackUrl) {
+        router.push(callbackUrl);
       }
     }
   };
@@ -105,7 +99,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         {signUpButton.text}
       </Button>
 
-      <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex items-center justify-center text-center align-middle text-xs">
+      <span className="text-neutral dark:text-neutral-dark m-auto mt-3 block w-full text-center align-middle text-xs">
         {loginLink.message}
         <Link
           href={PagesRoutes.Auth_SignIn}

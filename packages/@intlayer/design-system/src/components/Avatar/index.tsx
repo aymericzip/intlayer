@@ -25,12 +25,12 @@ const StyledRoundedContainer = styled.div<{ $isClickable: boolean }>(
   ]
 );
 const StyledWrapper = tw.div`size-full relative flex flex-row items-center justify-center`;
-const StyledRoundedBumble = tw.div`absolute top-0 left-0 bg-text dark:bg-text-dark flex size-full flex-col items-center justify-center rounded-full`;
+const StyledRoundedBumble = tw.div`absolute top-0 left-0 bg-text dark:bg-text-dark text-text-dark dark:text-text flex size-full flex-col items-center justify-center rounded-full`;
 
 const StyledLoader = tw(Loader)`w-3/4`;
 const StyledAvatar = tw.img`size-full rounded-full`;
-const StyledInitialsContainer = tw.div`text-sm text-text-dark flex size-full items-center justify-center gap-[0.1rem] font-bold`;
-const StyledUserPictogram = tw(User)`text-text-dark dark:text-text`;
+const StyledInitialsContainer = tw.div`text-sm flex size-full items-center justify-center gap-[0.1rem] font-bold`;
+const StyledUserPictogram = tw(User)``;
 
 export const Avatar: FC<AvatarProps> = ({
   fullname,

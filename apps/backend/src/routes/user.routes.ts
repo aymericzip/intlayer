@@ -1,25 +1,20 @@
-import { register, login, logOut } from '@controllers/auth.controller';
 import {
   getUsers,
   updateUser,
-  updatePassword,
-  validEmail,
-  askResetPassword,
-  resetPassword,
+  getUserByEmail,
+  getUserById,
+  createUser,
+  getUserByAccount,
 } from '@controllers/user.controller';
 import { Router } from 'express';
 
 export const userRouter = Router();
 
-// Authentication
-userRouter.post('/register', register);
-userRouter.post('/login', login);
-userRouter.get('/logout', logOut);
-
 userRouter.get('/', getUsers);
 userRouter.put('/', updateUser);
+userRouter.post('/', createUser);
+userRouter.get('/:userId', getUserById);
+userRouter.get('/email/:email', getUserByEmail);
+userRouter.get('/account/:provider/:providerAccountId', getUserByAccount);
 
-userRouter.put('/password', updatePassword);
-userRouter.post('/password/reset', askResetPassword);
-userRouter.put('/:userId/password/reset/:secret', resetPassword);
-userRouter.put('/:userId/active/:secret', validEmail);
+userRouter.delete('/:userId', getUserById);

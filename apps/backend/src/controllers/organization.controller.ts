@@ -61,7 +61,7 @@ export const getOrganizations = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatPaginatedResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -91,7 +91,7 @@ export const getOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -111,7 +111,7 @@ export const getOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -141,7 +141,7 @@ export const addOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -163,7 +163,7 @@ export const addOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -193,7 +193,7 @@ export const updateOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -207,7 +207,7 @@ export const updateOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -232,7 +232,7 @@ export const updateOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -262,7 +262,7 @@ export const deleteOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,
@@ -287,7 +287,7 @@ export const deleteOrganization = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Organization>({
       error: errorMessage,
       status: responseCode,

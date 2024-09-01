@@ -8,6 +8,7 @@ import {
   useForm,
   // useToast,
 } from '@intlayer/design-system';
+import { useUser } from '@utils/auth/auth/useUser';
 import { backendAPI } from '@utils/backend-api';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -18,7 +19,6 @@ import {
   type ChangePassword,
 } from './ChangePasswordSchema';
 import { PagesRoutes } from '@/Routes';
-import { useUser } from '@/utils/auth/next-auth/useUser';
 
 type ChangePasswordFormProps = {
   callbackUrl?: string;
@@ -49,7 +49,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     currentPassword,
     newPassword,
   }: ChangePassword) => {
-    const result = await backendAPI.user.changePassword({
+    const result = await backendAPI.auth.changePassword({
       oldPassword: currentPassword,
       newPassword,
     });

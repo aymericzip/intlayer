@@ -56,7 +56,7 @@ export const getProjects = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatPaginatedResponse<Project>({
       error: errorMessage,
       status: responseCode,
@@ -87,7 +87,7 @@ export const addProject = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Project>({
       error: errorMessage,
       status: responseCode,
@@ -112,7 +112,7 @@ export const addProject = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Project>({
       error: errorMessage,
       status: responseCode,
@@ -142,7 +142,7 @@ export const updateProject = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Project>({
       error: errorMessage,
       status: responseCode,
@@ -156,7 +156,7 @@ export const updateProject = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Project>({
       error: errorMessage,
       status: responseCode,
@@ -176,7 +176,7 @@ export const updateProject = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Project>({
       error: errorMessage,
       status: responseCode,
@@ -206,7 +206,7 @@ export const deleteProject = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST;
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
     const responseData = formatResponse<Project>({
       error: errorMessage,
       status: responseCode,
@@ -228,7 +228,7 @@ export const deleteProject = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Project>({
       error: errorMessage,
       status: responseCode,

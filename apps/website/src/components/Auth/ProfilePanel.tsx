@@ -1,14 +1,13 @@
 'use client';
 
 import { Button } from '@intlayer/design-system';
+import { useUser } from '@utils/auth/auth/useUser';
 import { useRouter } from 'next/navigation';
-import { signOut } from 'next-auth/react';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
-import { useUser } from '@/utils/auth/next-auth/useUser';
 
 export const ProfilePanel: FC = () => {
-  const { isUnauthenticated, user } = useUser();
+  const { isUnauthenticated, user, logout } = useUser();
   const router = useRouter();
 
   if (isUnauthenticated) {
@@ -17,10 +16,8 @@ export const ProfilePanel: FC = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      {user?.firstname && (
-        <span className="whitespace-nowrap text-lg font-bold">
-          {user.firstname}
-        </span>
+      {user?.name && (
+        <span className="whitespace-nowrap text-lg font-bold">{user.name}</span>
       )}
       <Button
         variant="link"
@@ -33,7 +30,7 @@ export const ProfilePanel: FC = () => {
       <Button
         variant="outline"
         color="text"
-        onClick={() => signOut()}
+        onClick={logout}
         label="Logout from app"
       >
         Logout

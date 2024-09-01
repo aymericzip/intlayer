@@ -9,7 +9,7 @@ import {
   type NavSection,
   Avatar,
 } from '@intlayer/design-system';
-import { useUser } from '@utils/auth/next-auth/useUser';
+import { useUser } from '@utils/auth/auth/useUser';
 import { StarIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -20,7 +20,7 @@ export const Navbar: FC = () => {
   const { locale, setLocale, availableLocales } = useLocale();
   const { logo, sections, github } = useIntlayer('navbar');
   const router = useRouter();
-  const { isAuthenticated, user, signOut } = useUser();
+  const { isAuthenticated, user, logout } = useUser();
 
   const sectionWithClick: NavSection[] = Object.values(sections).map(
     (section) => ({
@@ -32,7 +32,7 @@ export const Navbar: FC = () => {
     })
   );
 
-  const userName = user?.firstname ?? user?.email ?? '';
+  const userName = user?.name ?? user?.email ?? '';
 
   return (
     <UINavBar
@@ -95,7 +95,7 @@ export const Navbar: FC = () => {
             <Avatar
               fullname={userName}
               isLoggedIn={isAuthenticated}
-              onClick={() => signOut()}
+              onClick={logout}
             />
           )}
         </>

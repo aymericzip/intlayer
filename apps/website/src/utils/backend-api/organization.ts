@@ -26,6 +26,7 @@ const getOrganizations = async (
     `${ORGANIZATION_API_ROUTE}?${params.toString()}`,
     {
       method: 'GET',
+      credentials: 'include',
     }
   );
   return response.json();
@@ -40,6 +41,7 @@ const getOrganization = async (
 ): Promise<GetOrganizationResult> => {
   const response = await fetch(`${ORGANIZATION_API_ROUTE}/${organizationId}`, {
     method: 'GET',
+    credentials: 'include',
   });
   return response.json();
 };
@@ -57,6 +59,7 @@ const addOrganization = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(organization),
+    credentials: 'include',
   });
   return response.json();
 };
@@ -74,6 +77,7 @@ const updateOrganization = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(organization),
+    credentials: 'include',
   });
   return response.json();
 };
@@ -91,6 +95,7 @@ const deleteOrganization = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ id: organizationId }),
+    credentials: 'include',
   });
   return response.json();
 };

@@ -6,6 +6,44 @@ import { Schema } from 'mongoose';
 import validator from 'validator';
 import type { User } from '@/types/user.types';
 
+const SessionSchema = new Schema(
+  {
+    sessionToken: {
+      type: String,
+      required: true,
+    },
+    expires: {
+      type: Date,
+      required: true,
+    },
+  },
+  { _id: false } // This prevents Mongoose from creating an _id field for the session subdocument
+);
+
+const ProviderSchema = new Schema(
+  {
+    provider: {
+      type: String,
+      required: true,
+    },
+    providerAccountId: {
+      type: String,
+    },
+    secret: {
+      type: String,
+      maxlength: 1024,
+      minlength: 6,
+    },
+    emailValidated: {
+      type: Boolean,
+    },
+    passwordHash: {
+      type: String,
+    },
+  },
+  { _id: false } // This prevents Mongoose from creating an _id field for the session subdocument
+);
+
 export const userSchema = new Schema<User>(
   {
     email: {
@@ -16,18 +54,8 @@ export const userSchema = new Schema<User>(
       lowercase: true,
       trim: true,
     },
-    emailValidated: {
-      type: Boolean,
-      default: false,
-    },
-    firstname: {
+    name: {
       type: String,
-      maxlength: NAMES_MAX_LENGTH,
-      minlength: NAMES_MIN_LENGTH,
-    },
-    lastname: {
-      type: String,
-      uppercase: true,
       maxlength: NAMES_MAX_LENGTH,
       minlength: NAMES_MIN_LENGTH,
     },
@@ -35,13 +63,15 @@ export const userSchema = new Schema<User>(
       type: String,
       maxlength: 20,
     },
-    passwordHash: {
-      type: String,
+    session: {
+      type: SessionSchema,
+      required: false,
     },
-    secret: {
-      type: String,
-      maxlength: 1024,
-      minlength: 6,
+
+    provider: {
+      type: [ProviderSchema],
+      default: undefined,
+      required: false,
     },
   },
   {

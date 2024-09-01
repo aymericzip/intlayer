@@ -6,18 +6,20 @@ import {
   clearOrganizationAuth,
   clearProjectAuth,
 } from '@services/auth.service';
+import { getUserBySession as getUserBySessionService } from '@services/user.service';
+import { Cookies } from '@utils/cookies';
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import type { Organization } from '@/types/organization.types';
 import type { Project } from '@/types/project.types';
 import type { User } from '@/types/user.types';
 
-type Test = {
+type JWTContent = {
   tokenData: {
     userId: string;
     email: string;
-    organizationId: string;
-    projectId: string;
+    organizationId?: string;
+    projectId?: string;
   };
 };
 
@@ -32,40 +34,20 @@ export type ResponseWithInformation<ResBody = any> = Response<
   UserInformation
 >;
 
-const tokenSecret = process.env.TOKEN_SECRET!;
-
 export const checkUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const jwtTokenAuth = req.cookies.jwt_auth;
+  const { [Cookies.JWT_AUTH]: sessionToken } = req.cookies;
 
-  if (!jwtTokenAuth || jwtTokenAuth === 'undefined') {
-    clearUserAuth(res);
-    return next();
+  if (sessionToken) {
+    const user = await getUserBySessionService(sessionToken);
+
+    if (user) {
+      res.locals.user = user;
+    }
   }
-
-  const decodedTokenAuth = jwt.verify(jwtTokenAuth, tokenSecret);
-
-  const userData = (decodedTokenAuth as Test).tokenData;
-
-  if (!userData) {
-    clearUserAuth(res);
-    return next();
-  }
-
-  const user = await UserModel.findOne({
-    _id: userData.userId,
-    email: userData.email,
-  });
-
-  if (!user) {
-    clearUserAuth(res);
-    return next();
-  }
-
-  res.locals.user = user;
 
   return next();
 };
@@ -88,10 +70,10 @@ export const checkOrganization = async (
 
   const decodedTokenOrganization = jwt.verify(
     jwtTokenOrganization,
-    tokenSecret
+    process.env.JWT_TOKEN_SECRET!
   );
 
-  const organizationData = (decodedTokenOrganization as Test).tokenData;
+  const organizationData = (decodedTokenOrganization as JWTContent).tokenData;
 
   if (!organizationData) {
     clearOrganizationAuth(res);
@@ -127,9 +109,12 @@ export const checkProject = async (
     return next();
   }
 
-  const decodedTokenProject = jwt.verify(jwtTokenProject, tokenSecret);
+  const decodedTokenProject = jwt.verify(
+    jwtTokenProject,
+    process.env.JWT_TOKEN_SECRET!
+  );
 
-  const projectData = (decodedTokenProject as Test).tokenData;
+  const projectData = (decodedTokenProject as JWTContent).tokenData;
 
   if (!projectData) {
     clearProjectAuth(res);

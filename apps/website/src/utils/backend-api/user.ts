@@ -1,22 +1,16 @@
 import type {
-  RegisterBody,
-  LoginBody,
-  LoginResult,
-  RegisterResult,
-} from '@controllers/auth.controller';
-import type {
-  AskResetPasswordBody,
-  AskResetPasswordResult,
-  GetUserParams,
-  GetUserResult,
-  ResetPasswordParams,
-  ResetPasswordResult,
-  UpdatePasswordBody,
-  UpdatePasswordResult,
+  CreateUserBody,
+  CreateUserResult,
+  GetUserByAccountParams,
+  GetUserByAccountResult,
+  GetUserByEmailParams,
+  GetUserByEmailResult,
+  GetUserByIdParams,
+  GetUserByIdResult,
+  GetUsersParams,
+  GetUsersResult,
   UpdateUserBody,
   UpdateUserResult,
-  ValidEmailParams,
-  ValidEmailResult,
 } from '@controllers/user.controller';
 
 const USER_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`;
@@ -24,108 +18,80 @@ const USER_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`;
 /**
  * Retrieves a list of users based on filters and pagination.
  * @param filters - Filters and pagination options.
+ * @returns List of users.
  */
-const getUser = async (filters?: GetUserParams): Promise<GetUserResult> => {
+const getUsers = async (filters?: GetUsersParams): Promise<GetUsersResult> => {
   const searchParams = new URLSearchParams(filters);
 
   const response = await fetch(`${USER_API_ROUTE}?${searchParams.toString()}`, {
     method: 'GET',
+    credentials: 'include',
   });
   return response.json();
 };
 
 /**
- * Logs in a user with the provided credentials.
- * @param user - User credentials.
+ * Retrieves a user by ID.
+ * @param userId - User ID.
+ * @returns User object.
  */
-const login = async (user: LoginBody): Promise<LoginResult> => {
-  const response = await fetch(`${USER_API_ROUTE}/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
+const getUserById = async (
+  userId: GetUserByIdParams['userId']
+): Promise<GetUserByIdResult> => {
+  const response = await fetch(`${USER_API_ROUTE}/${userId}`, {
+    method: 'GET',
+    credentials: 'include',
   });
   return response.json();
 };
 
 /**
- * Verifies the email address of a user with the provided token.
- * @param params - User ID and secret key.
+ * Retrieves a user by email.
+ * @param email - User email.
+ * @returns User object.
  */
-const verifyEmail = async (
-  params: ValidEmailParams
-): Promise<ValidEmailResult> => {
-  const { userId, secret } = params;
-  const response = await fetch(`${USER_API_ROUTE}/active/${userId}/${secret}`, {
-    method: 'PUT',
+const getUserByEmail = async (
+  email: GetUserByEmailParams['email']
+): Promise<GetUserByEmailResult> => {
+  const response = await fetch(`${USER_API_ROUTE}/email/${email}`, {
+    method: 'GET',
+    credentials: 'include',
   });
   return response.json();
 };
 
 /**
- * Registers a new user with the provided credentials.
- * @param user - User credentials.
+ * Retrieves a user by account.
+ * @param providerAccountId - The provider account ID.
+ * @param provider - The provider of the account.
  */
-const register = async (user: RegisterBody): Promise<RegisterResult> => {
-  const response = await fetch(`${USER_API_ROUTE}/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  });
-  return response.json();
-};
-
-/**
- * Ask to resets the password of a user with the provided email address.
- * @param email - Email address of the user.
- */
-const askResetPassword = async (
-  email: AskResetPasswordBody['email']
-): Promise<AskResetPasswordResult> => {
-  const response = await fetch(`${USER_API_ROUTE}/password/reset`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email }),
-  });
-  return response.json();
-};
-
-/**
- * Resets the password of a user with the provided email address.
- * @param email - Email address of the user.
- */
-const resetPassword = async (
-  params: ResetPasswordParams
-): Promise<ResetPasswordResult> => {
-  const searchParams = new URLSearchParams(params);
-
+const getUserByAccount = async (
+  providerAccountId: GetUserByAccountParams['providerAccountId'],
+  provider: GetUserByAccountParams['provider']
+): Promise<GetUserByAccountResult> => {
   const response = await fetch(
-    `${USER_API_ROUTE}/password/reset?${searchParams.toString()}`,
+    `${USER_API_ROUTE}/account/${provider}/${providerAccountId}`,
     {
-      method: 'POST',
+      method: 'GET',
+      credentials: 'include',
     }
   );
   return response.json();
 };
 
 /**
- * Changes the password of a user with the provided data.
- * @param data - New password and confirmation.
+ * Creates a new user.
+ * @param user - User credentials.
+ * @returns User object.
  */
-const changePassword = async (
-  data: UpdatePasswordBody
-): Promise<UpdatePasswordResult> => {
-  const response = await fetch(`${USER_API_ROUTE}/password`, {
-    method: 'PUT',
+const createUser = async (user: CreateUserBody): Promise<CreateUserResult> => {
+  const response = await fetch(`${USER_API_ROUTE}/`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(user),
+    credentials: 'include',
   });
   return response.json();
 };
@@ -133,6 +99,7 @@ const changePassword = async (
 /**
  * Updates the user with the provided data.
  * @param user - Updated user data.
+ * @returns User object.
  */
 const updateUser = async (user: UpdateUserBody): Promise<UpdateUserResult> => {
   const response = await fetch(`${USER_API_ROUTE}`, {
@@ -141,17 +108,30 @@ const updateUser = async (user: UpdateUserBody): Promise<UpdateUserResult> => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
+    credentials: 'include',
+  });
+  return response.json();
+};
+
+/**
+ * Deletes a user with the provided ID.
+ * @param userId - User ID.
+ * @returns User object.
+ */
+const deleteUser = async (userId: string): Promise<UpdateUserResult> => {
+  const response = await fetch(`${USER_API_ROUTE}/${userId}`, {
+    method: 'DELETE',
+    credentials: 'include',
   });
   return response.json();
 };
 
 export const userAPI = {
-  verifyEmail,
-  login,
-  register,
-  resetPassword,
-  askResetPassword,
-  changePassword,
-  getUser,
+  createUser,
+  getUsers,
+  getUserById,
+  getUserByAccount,
+  getUserByEmail,
   updateUser,
+  deleteUser,
 };

@@ -17,13 +17,12 @@ const SignInPage: NextPageIntlayer = ({ params: { locale } }) => {
           roundedSize="xl"
           transparency="sm"
         >
-          <div className="flex flex-col gap-3 text-center">
+          <div className="flex flex-col gap-3 py-3 text-center">
             <h2 className="font-extrabold">{title2}</h2>
             <span className="text-neutral dark:text-neutral-dark text-xs">
               {description}
             </span>
           </div>
-
           <SignInForm />
         </Container>
       </div>

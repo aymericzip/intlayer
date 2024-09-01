@@ -8,26 +8,21 @@ import {
   useForm,
   // useToast,
 } from '@intlayer/design-system';
+import { backendAPI } from '@utils/backend-api';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import {
-  GoogleLoginButton,
-  GitHubLoginButton,
-  ExtLoginButtons,
-} from '../ExtLoginButtons';
+import { ExternalsLoginButtons } from '../ExternalsLoginButtons';
 import { SignInSchema, type SignIn } from './SignInSchema';
+import { useAuth } from '@/providers/AuthProvider';
 import { PagesRoutes } from '@/Routes';
 
 type SignInFormProps = {
   callbackUrl?: string;
 };
 
-export const SignInForm: FC<SignInFormProps> = ({
-  callbackUrl = PagesRoutes.Home,
-}) => {
+export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
   const {
     forgotPasswordLink,
     signUpLink,
@@ -35,17 +30,24 @@ export const SignInForm: FC<SignInFormProps> = ({
     emailInput,
     passwordInput,
   } = useIntlayer('sign-in-form');
+  const { checkSession } = useAuth();
   const router = useRouter();
   // const { toast } = useToast();
   const { form, isSubmitting } = useForm(SignInSchema);
 
   const onSubmitSuccess = async ({ email, password }: SignIn) => {
-    await signIn('credentials', {
+    const response = await backendAPI.auth.login({
       email,
       password,
-      redirect: true,
-      callbackUrl,
     });
+
+    if (response.data) {
+      await checkSession();
+
+      if (callbackUrl) {
+        router.push(callbackUrl);
+      }
+    }
   };
 
   const onSubmitError = (error: Error) => {
@@ -98,7 +100,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           {signInButton.text}
         </Button>
 
-        <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex items-center justify-center text-center align-middle text-xs">
+        <span className="text-neutral dark:text-neutral-dark mt-3 block w-full text-center align-middle text-xs">
           {signUpLink.message}
           <Link
             href={PagesRoutes.Auth_SignUp}
@@ -109,7 +111,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           </Link>
         </span>
       </Form>
-      <ExtLoginButtons />
+      <ExternalsLoginButtons />
     </>
   );
 };

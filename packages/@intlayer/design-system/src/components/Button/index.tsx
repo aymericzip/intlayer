@@ -23,7 +23,8 @@ type Color =
   | 'neutral'
   | 'light'
   | 'dark'
-  | 'text';
+  | 'text'
+  | 'custom';
 type Size = 'sm' | 'md' | 'lg' | 'xl' | 'icon';
 
 type ButtonStyleProps = {
@@ -47,9 +48,10 @@ const colorVariant: Record<Color, TwStyle> = {
   secondary: tw`border-secondary dark:border-secondary-dark bg-secondary dark:bg-secondary-dark text-secondary dark:text-secondary-dark hover:bg-secondary-300 hover:dark:bg-secondary-100`,
   destructive: tw`border-destructive dark:border-destructive-dark bg-destructive dark:bg-destructive-dark text-destructive hover:bg-destructive-500 hover:dark:bg-destructive-200`,
   neutral: tw`border-neutral dark:border-neutral-dark bg-neutral dark:bg-neutral-dark text-neutral dark:text-neutral-dark hover:bg-neutral-600 hover:dark:bg-neutral-400`,
-  light: tw`border-white border-white bg-white text-white hover:bg-neutral-50`,
+  light: tw`border-white border-white bg-white text-white hover:bg-neutral-500`,
   dark: tw`border-neutral-800 bg-neutral-800 text-neutral-800 hover:bg-neutral-900 dark:hover:bg-neutral-700`,
-  text: tw`border-text dark:border-text-dark bg-text dark:bg-text-dark text-text dark:text-text-dark`,
+  text: tw`border-text dark:border-text-dark bg-text dark:bg-text-dark text-text dark:text-text-dark hover:opacity-80`,
+  custom: tw``,
 };
 
 const variantVariant: Record<Variant, TwStyle> = {

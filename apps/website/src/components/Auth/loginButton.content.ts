@@ -1,7 +1,7 @@
 import { t, type DeclarationContent } from 'intlayer';
 
-const loginButtonContent: DeclarationContent = {
-  id: 'ext-login-button',
+const externalsLoginButtonContent: DeclarationContent = {
+  id: 'externals-login-button',
   span: t({
     en: 'or',
     fr: 'ou',
@@ -33,4 +33,4 @@ const loginButtonContent: DeclarationContent = {
   },
 };
 
-export default loginButtonContent;
+export default externalsLoginButtonContent;
