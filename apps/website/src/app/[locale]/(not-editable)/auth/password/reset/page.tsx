@@ -1,7 +1,7 @@
 import { Container } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { ResetPasswordForm } from '@/components/Auth/ResetPassword';
+import { ResetPasswordForm } from '@/components/Auth/ResetPasswordForm';
 export { generateMetadata } from './metadata';
 
 const ResetPasswordPage: NextPageIntlayer = ({ params: { locale } }) => {

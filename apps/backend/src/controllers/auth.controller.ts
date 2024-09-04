@@ -618,7 +618,7 @@ export const getSessionInformation = async (
     }
 
     const formattedUser: SessionInformation['user'] = {
-      ...user,
+      ...formatUserForAPIService(user),
       role: 'user',
     };
 

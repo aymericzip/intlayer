@@ -14,3 +14,4 @@ export {
   setLocaleCookie,
 } from './useLocaleCookie';
 export { getBrowserLocale } from './getBrowserLocale';
+export { t } from './t';

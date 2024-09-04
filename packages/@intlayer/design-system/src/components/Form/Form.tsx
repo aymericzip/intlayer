@@ -8,7 +8,6 @@ import {
   type FormProviderProps,
   useForm as useFormReactHookForm,
   type UseFormProps,
-  type ResolverResult,
 } from 'react-hook-form';
 import type { ZodType, z } from 'zod';
 

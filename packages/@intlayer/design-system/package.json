@@ -32,8 +32,6 @@
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.2",
     "@hookform/resolvers": "^3.9.0",
-    "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:^",
     "@radix-ui/react-slot": "^1.1.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "clsx": "^2.1.1",
@@ -71,8 +69,12 @@
     "vite-plugin-dts": "^3.9.1"
   },
   "peerDependencies": {
+    "@intlayer/config": "workspace:^",
+    "@intlayer/core": "workspace:^",
+    "intlayer": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-intlayer": "workspace:^",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.0",
     "zustand": "^4.5.2"

@@ -653,6 +653,9 @@ importers:
       framer-motion:
         specifier: ^11.2.12
         version: 11.2.12(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1)(react@18.3.1)
+      intlayer:
+        specifier: workspace:^
+        version: link:../../intlayer
       markdown-to-jsx:
         specifier: ^7.4.7
         version: 7.4.7(react@18.3.1)
@@ -668,6 +671,9 @@ importers:
       react-hook-form:
         specifier: ^7.53.0
         version: 7.53.0(react@18.3.1)
+      react-intlayer:
+        specifier: workspace:^
+        version: link:../../react-intlayer
       react-markdown:
         specifier: ^9.0.1
         version: 9.0.1(@types/react@18.3.3)(react@18.3.1)

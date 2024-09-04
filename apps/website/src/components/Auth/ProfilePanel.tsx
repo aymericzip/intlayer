@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@intlayer/design-system';
-import { useUser } from '@utils/auth/auth/useUser';
+import { useUser } from '@utils/auth/useUser';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -18,6 +18,9 @@ export const ProfilePanel: FC = () => {
     <div className="flex flex-col gap-5">
       {user?.name && (
         <span className="whitespace-nowrap text-lg font-bold">{user.name}</span>
+      )}
+      {user?.email && (
+        <span className="whitespace-nowrap text-base">{user.email}</span>
       )}
       <Button
         variant="link"

@@ -5,6 +5,7 @@ export {
   useTraduction,
   useLocaleCookie,
   type IntlayerNode,
+  t,
 } from 'react-intlayer';
 export { generateStaticParams } from './generateStaticParams';
 export type {

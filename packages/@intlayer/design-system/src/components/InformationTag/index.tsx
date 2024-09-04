@@ -10,5 +10,6 @@ const StyledI = tw.i`text-xs text-neutral-400`;
 
 export const InformationTag: FC<CopiedTextInformationProps> = ({
   className,
+  children,
   ...props
 }) => <StyledI {...props}>ⓘ {children}</StyledI>;

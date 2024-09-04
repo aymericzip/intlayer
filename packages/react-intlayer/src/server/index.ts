@@ -6,3 +6,4 @@ export {
   IntlayerServerProvider,
 } from './IntlayerServerProvider';
 export { useIntlayer } from './useIntlayer';
+export { t } from './t';

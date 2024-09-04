@@ -1,15 +1,14 @@
 'use client';
 
 import GithubLogo from '@assets/github.svg';
+import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
 import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
 import {
   LocaleSwitcher,
   Navbar as UINavBar,
   Logo,
   type NavSection,
-  Avatar,
 } from '@intlayer/design-system';
-import { useUser } from '@utils/auth/auth/useUser';
 import { StarIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -20,7 +19,6 @@ export const Navbar: FC = () => {
   const { locale, setLocale, availableLocales } = useLocale();
   const { logo, sections, github } = useIntlayer('navbar');
   const router = useRouter();
-  const { isAuthenticated, user, logout } = useUser();
 
   const sectionWithClick: NavSection[] = Object.values(sections).map(
     (section) => ({
@@ -31,8 +29,6 @@ export const Navbar: FC = () => {
       onClick: () => router.push(section.url.value),
     })
   );
-
-  const userName = user?.name ?? user?.email ?? '';
 
   return (
     <UINavBar
@@ -91,13 +87,7 @@ export const Navbar: FC = () => {
               className="group-hover/github:fill-text-dark dark:group-hover/github:fill-text mr-1"
             />
           </Link>
-          {isAuthenticated && (
-            <Avatar
-              fullname={userName}
-              isLoggedIn={isAuthenticated}
-              onClick={logout}
-            />
-          )}
+          <ProfileDropDown />
         </>
       }
     />

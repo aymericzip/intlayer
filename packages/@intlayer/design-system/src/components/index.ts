@@ -29,3 +29,5 @@ export * from './Flags';
 export * from './InformationTag';
 export * from './Form';
 export * from './Label';
+export * from './Input';
+export * from './Auth';

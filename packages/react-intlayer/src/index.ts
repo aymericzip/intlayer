@@ -11,5 +11,6 @@ export {
   setLocaleCookie,
   getBrowserLocale,
   useLocaleBase,
+  t,
 } from './client/index';
 export type { IntlayerNode } from './useIntlayerBase';
