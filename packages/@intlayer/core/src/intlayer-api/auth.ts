@@ -4,6 +4,8 @@ import type {
   CreateSessionBody,
   CreateSessionResult,
   GetSessionInformationQuery,
+  GithubLoginQueryParams,
+  GoogleLoginQueryParams,
   GetSessionInformationResult,
   LoginBody,
   LoginResult,
@@ -35,6 +37,18 @@ const login = async (user: LoginBody): Promise<LoginResult> => {
     body: JSON.stringify(user),
   });
   return response.json();
+};
+
+const getLoginWithGitHubURL = (params: GithubLoginQueryParams): string => {
+  const searchParams = new URLSearchParams(params);
+
+  return `${AUTH_API_ROUTE}/login/github?${searchParams.toString()}`;
+};
+
+const getLoginWithGoogleURL = (params: GoogleLoginQueryParams): string => {
+  const searchParams = new URLSearchParams(params);
+
+  return `${AUTH_API_ROUTE}/login/google?${searchParams.toString()}`;
 };
 
 /**
@@ -188,6 +202,8 @@ const getSessionInformation = async (
 
 export const authAPI = {
   login,
+  getLoginWithGitHubURL,
+  getLoginWithGoogleURL,
   register,
   logout,
   resetPassword,

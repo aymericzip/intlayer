@@ -1,6 +1,6 @@
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
+import { intlayerAPI } from '@intlayer/core';
 import type { FC } from 'react';
 import { Button } from '../../Button';
 import { GithubLogo } from './assets/GithubLogo';
@@ -8,20 +8,13 @@ import { GoogleLogo } from './assets/GoogleLogo';
 import { getExternalsLoginButtonsContent } from './externalsLoginButtons.content';
 
 export const GitHubLoginButton: FC = () => {
-  const {
-    editor: { backendURL, githubClientId },
-  } = getConfiguration();
-
   const externalsLoginButtonsContent = getExternalsLoginButtonsContent();
   const loginWithGitHub = () => {
     const origin = window.location.href;
 
-    const encodedOrigin = encodeURIComponent(origin);
+    const authURL = intlayerAPI.auth.getLoginWithGitHubURL({ origin });
 
-    const redirectURI = `${backendURL}/api/auth/callback/github?redirect_uri=${encodedOrigin}`;
-    const encodedRedirectURI = encodeURIComponent(redirectURI);
-
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${githubClientId}&redirect_uri=${encodedRedirectURI}`;
+    window.location.href = authURL;
   };
 
   return (
@@ -37,27 +30,12 @@ export const GitHubLoginButton: FC = () => {
 };
 
 export const GoogleLoginButton: FC = () => {
-  const {
-    editor: { backendURL, googleClientId },
-  } = getConfiguration();
-
   const externalsLoginButtonsContent = getExternalsLoginButtonsContent();
 
   const loginWithGoogle = () => {
-    const origin = window.location.href;
-    const responseType = 'code';
-    const scope = [
-      'https%3A//www.googleapis.com/auth/userinfo.email',
-      'https%3A//www.googleapis.com/auth/userinfo.profile',
-    ].join(' ');
-    const includeGrantedScopes = 'false';
+    const authURL = intlayerAPI.auth.getLoginWithGoogleURL({ origin });
 
-    const encodedOrigin = encodeURIComponent(origin);
-    const state = JSON.stringify({ redirect_uri: encodedOrigin });
-
-    const redirectURI = `${backendURL}/api/auth/callback/google`;
-
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${redirectURI}&response_type=${responseType}&scope=${scope}&include_granted_scopes=${includeGrantedScopes}&state=${state}`;
+    window.location.href = authURL;
   };
 
   return (

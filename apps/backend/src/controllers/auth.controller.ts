@@ -640,6 +640,36 @@ export const getSessionInformation = async (
   }
 };
 
+export type GithubLoginQueryParams = {
+  origin: string;
+};
+export type GithubLoginQueryResult = ResponseData<undefined>;
+
+export const githubLoginQuery = (
+  req: Request<undefined, undefined, undefined, GithubLoginQueryParams>,
+  res: ResponseWithInformation<GithubLoginQueryResult>
+) => {
+  const { origin } = req.query;
+  const { user } = res.locals;
+
+  if (typeof user !== 'undefined') {
+    const errorMessage = `User already logged in - ${user?.email}`;
+
+    logger.error(errorMessage);
+
+    return res.redirect(origin);
+  }
+
+  const encodedOrigin = encodeURIComponent(origin);
+
+  const redirectURI = `${process.env.BACKEND_URL}/api/auth/callback/github?redirect_uri=${encodedOrigin}`;
+  const encodedRedirectURI = encodeURIComponent(redirectURI);
+
+  return res.redirect(
+    `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${encodedRedirectURI}`
+  );
+};
+
 export type GithubCallbackQuery = {
   code: string;
   redirect_uri: string;
@@ -802,6 +832,44 @@ export const githubCallback = async (
 
     return res.redirect(responseCode, redirect_uri);
   }
+};
+
+export type GoogleLoginQueryParams = {
+  origin: string;
+};
+
+export type GoogleLoginResult = ResponseData<undefined>;
+
+export const googleLoginQuery = (
+  req: Request<undefined, undefined, undefined, GoogleLoginQueryParams>,
+  res: ResponseWithInformation<GoogleLoginResult>
+) => {
+  const { origin } = req.query;
+  const { user } = res.locals;
+
+  if (typeof user !== 'undefined') {
+    const errorMessage = `User already logged in - ${user?.email}`;
+
+    logger.error(errorMessage);
+
+    return res.redirect(origin);
+  }
+
+  const responseType = 'code';
+  const scope = [
+    'https%3A//www.googleapis.com/auth/userinfo.email',
+    'https%3A//www.googleapis.com/auth/userinfo.profile',
+  ].join(' ');
+  const includeGrantedScopes = 'false';
+
+  const encodedOrigin = encodeURIComponent(origin);
+  const state = JSON.stringify({ redirect_uri: encodedOrigin });
+
+  const redirectURI = `${process.env.BACKEND_URL}/api/auth/callback/google`;
+
+  return res.redirect(
+    `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${redirectURI}&response_type=${responseType}&scope=${scope}&include_granted_scopes=${includeGrantedScopes}&state=${state}`
+  );
 };
 
 export type GoogleCallbackQuery = {

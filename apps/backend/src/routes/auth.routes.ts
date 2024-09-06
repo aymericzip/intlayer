@@ -9,6 +9,8 @@ import {
   getSessionInformation,
   githubCallback,
   googleCallback,
+  githubLoginQuery,
+  googleLoginQuery,
 } from '@controllers/auth.controller';
 import { Router } from 'express';
 
@@ -31,7 +33,9 @@ authRouter.put('/:userId/active/:secret', validEmail);
 authRouter.get('/session', getSessionInformation);
 
 // Github auth
+authRouter.get('/login/github', githubLoginQuery);
 authRouter.get('/callback/github', githubCallback);
 
 // Google auth
+authRouter.get('/login/google', googleLoginQuery);
 authRouter.get('/callback/google', googleCallback);
