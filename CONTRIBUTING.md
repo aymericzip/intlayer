@@ -28,7 +28,17 @@ pmpm build-packages
 
 # One-time build for example applications
 pmpm build-examples
+
+# One-time build for website
+pnpm build-website
+
+# One-time build for backend
+pnpm build-backend
 ```
+
+### Setup environment variables
+
+For each project necessitating environment variables, you can fond a `.env.template` file in the root of the project. Copy the file and rename it to `.env`. Then, fill the variables with the correct values.
 
 ### Development mode
 
