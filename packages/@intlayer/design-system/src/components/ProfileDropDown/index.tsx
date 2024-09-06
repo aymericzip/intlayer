@@ -1,6 +1,4 @@
 import type { FC, PropsWithChildren } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
 import { type AvatarProps, Avatar } from '../Avatar';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
@@ -8,8 +6,6 @@ import { DropDown } from '../DropDown';
 type ProfileDropDownProps = PropsWithChildren<AvatarProps>;
 
 const DROPDOWN_IDENTIFIER = 'profile';
-
-const StyledContainer = styled(Container)(() => tw`min-w-[100px] p-6`);
 
 export const ProfileDropDown: FC<ProfileDropDownProps> = ({
   children,
@@ -20,7 +16,7 @@ export const ProfileDropDown: FC<ProfileDropDownProps> = ({
       <Avatar {...props} />
     </DropDown.Trigger>
     <DropDown.Panel identifier={DROPDOWN_IDENTIFIER} isFocusable isOverable>
-      <StyledContainer>{children}</StyledContainer>
+      <Container className="min-w-[100px] p-6">{children}</Container>
     </DropDown.Panel>
   </DropDown>
 );

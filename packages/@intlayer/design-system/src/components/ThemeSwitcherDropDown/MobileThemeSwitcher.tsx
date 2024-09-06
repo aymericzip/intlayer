@@ -2,8 +2,7 @@
 
 import { Moon, Sun, CircleDashed } from 'lucide-react';
 import { useState, type FC } from 'react';
-import { styled } from 'styled-components';
-import tw, { type TwStyle } from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { Modes } from './types';
 
 type MobileThemeSwitcherProps = {
@@ -12,24 +11,19 @@ type MobileThemeSwitcherProps = {
   setTheme: (theme: Modes) => void;
 };
 
-type IconStyle = {
-  $isCurrentMode: boolean;
-  $isNextMode: boolean;
-};
 const getIconStyle = ({
-  $isCurrentMode,
-  $isNextMode,
-}: IconStyle): TwStyle[] => [
-  tw`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`,
-  tw`opacity-0 transition-opacity duration-300 ease-in-out`,
-  $isCurrentMode ? tw`opacity-100 group-hover:opacity-0` : tw``,
-  $isNextMode ? tw`group-hover:opacity-100` : tw``,
-];
-
-const StyledCircleDashed = styled(CircleDashed)<IconStyle>(getIconStyle);
-const StyledMoon = styled(Moon)<IconStyle>(getIconStyle);
-const StyledSun = styled(Sun)<IconStyle>(getIconStyle);
-const StyledTrigger = tw.button`relative size-10`;
+  isCurrentMode,
+  isNextMode,
+}: {
+  isCurrentMode: boolean;
+  isNextMode: boolean;
+}) =>
+  cn(
+    `absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`,
+    `opacity-0 transition-opacity duration-300 ease-in-out`,
+    isCurrentMode && `opacity-100 group-hover:opacity-0`,
+    isNextMode && `group-hover:opacity-100`
+  );
 
 export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
   theme,
@@ -68,27 +62,33 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
   };
 
   return (
-    <StyledTrigger aria-label="Theme selector" className="group">
-      <StyledCircleDashed
+    <button className="group relative size-10" aria-label="Theme selector">
+      <CircleDashed
+        className={getIconStyle({
+          isCurrentMode: mode === Modes.system,
+          isNextMode: nextMode === Modes.system,
+        })}
         onClick={toggleMode}
         data-mode="system"
-        $isCurrentMode={mode === Modes.system}
-        $isNextMode={nextMode === Modes.system}
       />
 
-      <StyledMoon
+      <Moon
+        className={getIconStyle({
+          isCurrentMode: mode === Modes.light,
+          isNextMode: nextMode === Modes.light,
+        })}
         onClick={toggleMode}
         data-mode="light"
-        $isCurrentMode={mode === Modes.dark}
-        $isNextMode={nextMode === Modes.dark}
       />
 
-      <StyledSun
+      <Sun
+        className={getIconStyle({
+          isCurrentMode: mode === Modes.dark,
+          isNextMode: nextMode === Modes.dark,
+        })}
         onClick={toggleMode}
         data-mode="dark"
-        $isCurrentMode={mode === Modes.light}
-        $isNextMode={nextMode === Modes.light}
       />
-    </StyledTrigger>
+    </button>
   );
 };

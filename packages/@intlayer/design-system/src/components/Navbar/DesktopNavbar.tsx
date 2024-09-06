@@ -2,8 +2,6 @@
 
 import type { FC, ReactNode } from 'react';
 
-import { css, styled } from 'styled-components';
-import tw from 'twin.macro';
 import { Button } from '../Button';
 import { useNavActions } from './useNavigation';
 import type { NavSection } from '.';
@@ -14,19 +12,13 @@ type DesktopNavbarProps = {
   rightItems?: ReactNode;
 };
 
-const StyledNav = styled.nav(() => [
-  tw`bg-card/80 dark:bg-card-dark/80 sticky top-0 z-50 flex w-screen items-center px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur`,
-  css`
-    -webkit-backdrop-filter: var(--tw-backdrop-blur)
-      var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
-      var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
-      var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
-      var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  `,
-]);
-const StyledList = tw.div`ml-[10vw] flex flex-row gap-6 tracking-wide text-neutral dark:text-neutral-dark`;
-
-const StyledRightItemContainer = tw.div`mr-4 flex w-full justify-end items-center gap-2 md:gap-4`;
+// css`
+//   -webkit-backdrop-filter: var(--tw-backdrop-blur)
+//     var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
+//     var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
+//     var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
+//     var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+// `,
 
 export const DesktopNavbar: FC<DesktopNavbarProps> = ({
   logo,
@@ -36,9 +28,10 @@ export const DesktopNavbar: FC<DesktopNavbarProps> = ({
   const { activeSection, onClickSection } = useNavActions();
 
   return (
-    <StyledNav>
+    <nav className="bg-card/80 dark:bg-card-dark/80 sticky top-0 z-50 flex w-screen items-center px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
       {logo}
-      <StyledList
+      <div
+        className="text-neutral dark:text-neutral-dark ml-[10vw] flex flex-row gap-6 tracking-wide"
         role="tablist"
         aria-orientation="horizontal"
         aria-multiselectable="false"
@@ -59,8 +52,10 @@ export const DesktopNavbar: FC<DesktopNavbarProps> = ({
             {title}
           </Button>
         ))}
-      </StyledList>
-      <StyledRightItemContainer>{rightItems}</StyledRightItemContainer>
-    </StyledNav>
+      </div>
+      <div className="mr-4 flex w-full items-center justify-end gap-2 md:gap-4">
+        {rightItems}
+      </div>
+    </nav>
   );
 };

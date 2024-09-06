@@ -3,7 +3,6 @@ import { Locales, type IntlayerConfig } from 'intlayer';
 export const locales = [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH];
 
 /** @type {import('intlayer').IntlayerConfig} */
-
 const config: IntlayerConfig = {
   internationalization: {
     locales,
@@ -12,6 +11,10 @@ const config: IntlayerConfig = {
   },
   editor: {
     enabled: true,
+    backendURL:
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3100'
+        : undefined,
   },
 };
 

@@ -23,7 +23,7 @@ export * from './Headers';
 export * from './Loader';
 export * from './WithResizer';
 export * from './SwitchSelector';
-export * from './Modal';
+export * from './Modal/Modal';
 export * from './Breadcrumb';
 export * from './Flags';
 export * from './InformationTag';

@@ -1,13 +1,9 @@
 import type { FC, HTMLAttributes } from 'react';
-import tw from 'twin.macro';
 import { Spinner } from './spinner';
 
 export interface LoaderProps extends HTMLAttributes<HTMLDivElement> {
   isLoading?: boolean;
 }
-
-const StyledContainer = tw.div`max-w-[100vw] flex size-full max-h-screen items-center justify-center`;
-const StyledSpinner = tw(Spinner)`w-10 h-10`;
 
 /**
  *
@@ -35,13 +31,14 @@ export const Loader: FC<LoaderProps> = ({
   ...props
 }) =>
   isLoading ? (
-    <StyledContainer
+    <div
+      className="flex size-full max-h-screen max-w-[100vw] items-center justify-center"
       role="status"
       aria-label="Animated icon, meaning that the website is processing"
       {...props}
     >
-      <StyledSpinner />
-    </StyledContainer>
+      <Spinner className="size-10" />
+    </div>
   ) : (
     children ?? <></>
   );

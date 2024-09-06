@@ -1,3 +1,5 @@
+'use client';
+
 import { CopyCheckIcon, CopyIcon } from 'lucide-react';
 import {
   type FC,
@@ -12,8 +14,7 @@ import {
   okaidia,
   coldarkCold,
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
 const SyntaxHighlighter = lazy(() =>
@@ -28,17 +29,6 @@ type CodeCompProps = {
   isDarkMode?: boolean;
   showLineNumbers?: boolean;
 };
-
-const StyledContainer = styled.div<{ $showLineNumbers: boolean }>(
-  ({ $showLineNumbers }) => [
-    tw`relative w-full h-full`,
-    $showLineNumbers && tw`ml-0`,
-  ]
-);
-const StyledScroller = tw.div`w-full h-full p-3 overflow-auto grid grid-cols-[0px]`;
-const StyledCopyButton = tw.button`top-3 right-3 absolute`;
-const StyledCopyIcon = tw(CopyIcon)`w-4 h-4`;
-const StyledCopyCheckIcon = tw(CopyCheckIcon)`w-4 h-4`;
 
 export const Code: FC<CodeCompProps> = ({
   children,
@@ -57,13 +47,17 @@ export const Code: FC<CodeCompProps> = ({
   }, [copied]);
 
   return (
-    <StyledContainer $showLineNumbers={showLineNumbers}>
+    <div className={cn('relative h-full w-full', showLineNumbers && 'ml-0')}>
       <CopyToClipboard text={children} onCopy={() => setCopied(true)}>
-        <StyledCopyButton aria-label="Copy code">
-          {copied ? <StyledCopyCheckIcon /> : <StyledCopyIcon />}
-        </StyledCopyButton>
+        <button className="absolute right-3 top-3" aria-label="Copy code">
+          {copied ? (
+            <CopyCheckIcon className="size-4" />
+          ) : (
+            <CopyIcon className="size-4" />
+          )}
+        </button>
       </CopyToClipboard>
-      <StyledScroller>
+      <div className="grid size-full grid-cols-[0px] overflow-auto p-3">
         <Suspense fallback={<Loader />}>
           <SyntaxHighlighter
             customStyle={{
@@ -84,7 +78,7 @@ export const Code: FC<CodeCompProps> = ({
             {String(children).replace(/\n$/, '')}
           </SyntaxHighlighter>
         </Suspense>
-      </StyledScroller>
-    </StyledContainer>
+      </div>
+    </div>
   );
 };

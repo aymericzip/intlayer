@@ -1,14 +1,14 @@
 'use client';
 
+import { intlayerAPI } from '@intlayer/core';
 import {
   SignInForm as SignInFormUI,
+  useAuth,
   type SignIn,
   // useToast,
 } from '@intlayer/design-system';
-import { backendAPI } from '@utils/backend-api';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { useAuth } from '@/providers/AuthProvider';
 import { PagesRoutes } from '@/Routes';
 
 type SignInFormProps = {
@@ -21,7 +21,7 @@ export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
   // const { toast } = useToast();
 
   const onSubmitSuccess = async ({ email, password }: SignIn) => {
-    const response = await backendAPI.auth.login({
+    const response = await intlayerAPI.auth.login({
       email,
       password,
     });
@@ -35,7 +35,7 @@ export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
     }
   };
 
-  const onSubmitError = (error: Error) => {
+  const onSubmitError = (_error: Error) => {
     // toast({
     //   title: error.message,
     //   variant: 'default',

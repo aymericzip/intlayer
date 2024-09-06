@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, type FC, useEffect, type ReactNode } from 'react';
-import tw from 'twin.macro';
 import { Button } from '../../Button';
 import { InputElement, useForm, Form } from '../../Form';
 import { getResetPasswordContent } from './index.content';
@@ -16,9 +15,6 @@ type ForgotPasswordFormProps = {
   onSubmitError: (error: Error) => void;
   onClickBackToLogin: () => void;
 };
-
-const StyledDiv = tw.div`flex flex-col gap-y-6`;
-const StyledSubmitButton = tw(Button)`mt-12 w-full`;
 
 export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
   email,
@@ -92,7 +88,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
       onSubmitError={onSubmitError}
       {...form}
     >
-      <StyledDiv>
+      <div className="flex flex-col gap-y-6">
         <InputElement
           name="email"
           label={emailInput.label}
@@ -102,9 +98,10 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
           minLength={5}
           maxLength={50}
         />
-      </StyledDiv>
+      </div>
 
-      <StyledSubmitButton
+      <Button
+        className="mt-12 w-full"
         type="submit"
         isLoading={isSubmitting}
         disabled={!isValid || submissionState.isFrozen}
@@ -112,7 +109,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
         label={sendRecoveryEmailButton.ariaLabel}
       >
         {getSubmitButtonText()}
-      </StyledSubmitButton>
+      </Button>
       {isSubmitted && (
         <Button
           type="button"

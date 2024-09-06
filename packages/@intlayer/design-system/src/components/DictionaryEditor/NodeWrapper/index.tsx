@@ -14,7 +14,6 @@ import {
   type ReactNode,
   type FC,
 } from 'react';
-import tw from 'twin.macro';
 import type { FileContent } from '../';
 import { ArrayWrapper } from './ArrayWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
@@ -26,8 +25,6 @@ export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
 const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
-
-const StyledWarning = tw.span`text-neutral dark:text-neutral-dark text-xs`;
 
 export interface NodeWrapperProps {
   keyPath: KeyPath[];
@@ -84,7 +81,9 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       return (
         <>
           {createReactElement(section as unknown as ReactElement)}
-          <StyledWarning>React node not editable</StyledWarning>
+          <span className="text-neutral dark:text-neutral-dark text-xs">
+            React node not editable
+          </span>
         </>
       );
     }

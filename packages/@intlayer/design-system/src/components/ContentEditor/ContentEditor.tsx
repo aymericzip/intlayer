@@ -2,23 +2,13 @@
 
 import { Check, X } from 'lucide-react';
 import { type HTMLAttributes, useState, type FC } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 
 export type ContentEditorProps = {
   children: string;
   onContentChange: (content: string) => void;
   isEditing?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
-
-const StyledPressableDiv = styled.div<{ $isEditing: boolean }>`
-  ${tw`bg-transparent inline outline-none m-3 w-full`}
-  word-break: break-word;
-  ${({ $isEditing }) => ($isEditing ? tw`cursor-text` : tw`cursor-pointer`)}
-`;
-const StyledContainer = tw.div`flex flex-row items-center justify-between gap-2`;
-const StyledValidIcon = tw(Check)`hover:scale-110 cursor-pointer`;
-const StyledCancelIcon = tw(X)`hover:scale-110 cursor-pointer`;
 
 export const ContentEditor: FC<ContentEditorProps> = ({
   children,
@@ -42,24 +32,35 @@ export const ContentEditor: FC<ContentEditorProps> = ({
     setNewValue(e.currentTarget.textContent ?? '');
 
   return (
-    <StyledContainer>
-      <StyledPressableDiv
+    <div className="flex flex-row items-center justify-between gap-2">
+      <div
+        className={cn(
+          'break-word m-3 inline w-full bg-transparent outline-none',
+          isEditing ? 'cursor-text' : 'cursor-pointer'
+        )}
         role="textbox"
         contentEditable={isEditing}
         onInput={handleOnContentChange}
         suppressContentEditableWarning={true} // To suppress the warning for controlled components
-        $isEditing={isEditing ?? false}
         key={resetIncrementor}
         {...props}
       >
         {children}
-      </StyledPressableDiv>
+      </div>
       {isEdited && (
-        <StyledContainer>
-          <StyledValidIcon size={16} onClick={handleValid} />
-          <StyledCancelIcon size={16} onClick={handleCancel} />
-        </StyledContainer>
+        <div className="flex flex-row items-center justify-between gap-2">
+          <Check
+            className="cursor-pointer hover:scale-110"
+            size={16}
+            onClick={handleValid}
+          />
+          <X
+            className="cursor-pointer hover:scale-110"
+            size={16}
+            onClick={handleCancel}
+          />
+        </div>
       )}
-    </StyledContainer>
+    </div>
   );
 };

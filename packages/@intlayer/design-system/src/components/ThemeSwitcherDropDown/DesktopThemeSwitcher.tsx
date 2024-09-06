@@ -2,20 +2,15 @@
 
 import { Moon, Sun, CircleDashed } from 'lucide-react';
 import { useState, type FC } from 'react';
-import tw from 'twin.macro';
 import { type ButtonProps, Button } from '../Button';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
 import { Modes } from './types';
 
-const StyledButtonContainer = tw.div`w-full relative p-0.5`;
-const StyledButton = tw(
-  Button
-)`w-full cursor-pointer rounded-lg p-1 text-left hover:bg-text/10 dark:hover:bg-text-opposite/10 focus:bg-text-opposite/20 dark:focus:bg-text-opposite/20 focus:outline-none disabled:text-white/25`;
-
 const ButtonItem: FC<ButtonProps> = ({ Icon, ref, children, ...props }) => (
-  <StyledButtonContainer>
-    <StyledButton
+  <div className="relative w-full p-0.5">
+    <Button
+      className="hover:bg-text/10 dark:hover:bg-text-opposite/10 focus:bg-text-opposite/20 dark:focus:bg-text-opposite/20 w-full cursor-pointer rounded-lg p-1 text-left focus:outline-none disabled:text-white/25"
       Icon={Icon}
       data-mode="system"
       role="option"
@@ -23,8 +18,8 @@ const ButtonItem: FC<ButtonProps> = ({ Icon, ref, children, ...props }) => (
       {...props}
     >
       {children}
-    </StyledButton>
-  </StyledButtonContainer>
+    </Button>
+  </div>
 );
 
 type DesktopThemeSwitcherProps = {
@@ -32,9 +27,6 @@ type DesktopThemeSwitcherProps = {
   setTheme: (theme: Modes) => void;
   systemTheme: Modes;
 };
-
-const StyledTriggerButton = tw(DropDown.Trigger)`p-2`;
-const StyledDropdownContent = tw(Container)`min-w-[100px] items-start p-1`;
 
 export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
   theme,
@@ -59,17 +51,18 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
 
   return (
     <DropDown identifier={panelIdentifier}>
-      <StyledTriggerButton
+      <DropDown.Trigger
+        className="p-2"
         identifier={panelIdentifier}
         aria-label="Theme selector"
       >
         {mode === Modes.system && <CircleDashed data-mode="system" />}
         {mode === Modes.light && <Sun data-mode="light" />}
         {mode === Modes.dark && <Moon data-mode="dark" />}
-      </StyledTriggerButton>
+      </DropDown.Trigger>
 
       <DropDown.Panel identifier={panelIdentifier} isFocusable isOverable>
-        <StyledDropdownContent separator="y">
+        <Container className="min-w-[100px] items-start p-1" separator="y">
           <ButtonItem
             Icon={CircleDashed}
             onClick={() => switchMode(Modes.system)}
@@ -94,7 +87,7 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
           >
             Dark
           </ButtonItem>
-        </StyledDropdownContent>
+        </Container>
       </DropDown.Panel>
     </DropDown>
   );

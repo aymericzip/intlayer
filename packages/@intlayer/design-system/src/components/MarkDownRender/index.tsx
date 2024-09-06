@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 'use client';
 
 import Markdown from 'markdown-to-jsx';
 import type { FC } from 'react';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { H1, H2, H3 } from '../Headers';
 import { SectionScroller } from '../Headers/SectionScroller';
@@ -12,14 +13,6 @@ type MarkdownRendererProps = {
   isDarkMode?: boolean;
   children: string;
 };
-
-const StyledInlineCode = tw.strong`shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] bg-card/60 p-1 rounded dark:bg-card-dark/60 shadow-sm backdrop-blur`;
-const StyledUl = tw.ul`flex flex-col pl-5 mt-5 gap-3`;
-const StyledOl = tw.ul`flex flex-col pl-5 mt-5 gap-3`;
-const StyledWrapper = tw.div`text-text dark:text-text-dark flex flex-col gap-6 p-10`;
-const StyledLink = tw.a`text-neutral dark:text-neutral-dark underline`;
-const StyledImage = tw.img`max-w-full rounded-md`;
-const StyledBlockquote = tw.blockquote`flex flex-col pl-5 mt-5 gap-3 border-l-4 border-card dark:border-card-dark text-neutral dark:text-neutral-dark`;
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
@@ -40,7 +33,9 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
         code: {
           component: (props) =>
             typeof props.className === 'undefined' ? (
-              <StyledInlineCode>{props.children}</StyledInlineCode>
+              <strong className="bg-card/60 dark:bg-card-dark/60 rounded p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+                {props.children}
+              </strong>
             ) : (
               <Container>
                 <Code
@@ -51,24 +46,57 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               </Container>
             ),
         },
-        blockquote: (props) => <StyledBlockquote {...props} />,
-        ul: StyledUl,
-        ol: StyledOl,
-        img: (props) => (
+        blockquote: ({ className, ...props }) => (
+          <blockquote
+            className={cn(
+              'border-card dark:border-card-dark text-neutral dark:text-neutral-dark mt-5 flex flex-col gap-3 border-l-4 pl-5',
+              className
+            )}
+            {...props}
+          />
+        ),
+        ul: ({ className, ...props }) => (
+          <ul
+            className={cn('mt-5 flex flex-col gap-3 pl-5', className)}
+            {...props}
+          />
+        ),
+        ol: ({ className, ...props }) => (
+          <ol
+            className={cn('mt-5 flex flex-col gap-3 pl-5', className)}
+            {...props}
+          />
+        ),
+        img: ({ className, ...props }) => (
           // eslint-disable-next-line jsx-a11y/alt-text
-          <StyledImage
+          <img
             {...props}
             loading="lazy"
+            className={cn('max-w-full rounded-md', className)}
             src={`${props.src}?raw=true`}
           />
         ),
-        a: StyledLink,
+        a: ({ className, ...props }) => (
+          <a
+            className={cn(
+              'text-neutral dark:text-neutral-dark underline',
+              className
+            )}
+            {...props}
+          />
+        ),
         pre: (props) => props.children,
       },
-      wrapper: (props) => (
+      wrapper: ({ className, ...props }) => (
         <>
           <SectionScroller />
-          <StyledWrapper {...props} />
+          <div
+            className={cn(
+              'text-text dark:text-text-dark flex flex-col gap-6 p-10',
+              className
+            )}
+            {...props}
+          />
         </>
       ),
     }}

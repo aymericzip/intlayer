@@ -1,6 +1,5 @@
 import { ChevronRightIcon } from 'lucide-react';
 import type { FC } from 'react';
-import tw from 'twin.macro';
 import { Button } from '../Button';
 
 type LinkProps = {
@@ -56,10 +55,8 @@ type BreadcrumbProps = {
   links: BreadcrumbLink[];
 };
 
-const StyledContainer = tw.div`flex flex-row items-center gap-2 text-sm flex-wrap`;
-
 export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
-  <StyledContainer>
+  <div className="flex flex-row flex-wrap items-center gap-2 text-sm">
     {links.map((link, index) => {
       const isLastLink = index === links.length - 1;
       const isLink = typeof link === 'object' && typeof link.href === 'string';
@@ -95,5 +92,5 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
         </>
       );
     })}
-  </StyledContainer>
+  </div>
 );

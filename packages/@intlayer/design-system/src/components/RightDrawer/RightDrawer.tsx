@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 'use client';
 
 import { ChevronLeft, X } from 'lucide-react';
@@ -8,28 +10,12 @@ import {
   useRef,
   type MouseEventHandler,
 } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
 import { isElementAtTopAndNotCovered } from '../../utils/isElementAtTopAndNotCovered';
 import { Container } from '../Container';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { useRightDrawerStore } from './useRightDrawerStore';
-
-const StyledPositioner = tw.div`fixed right-0 top-0 h-full z-50 flex justify-end`;
-const StyledPanelContainer = styled(Container)(() => [
-  tw`h-screen flex flex-col  relative w-screen md:w-[400px] text-text dark:text-text-dark`,
-]);
-const StyledHeader = tw.div`flex flex-col p-6 gap-3`;
-const StyledNavBar = tw.div`flex justify-between gap-3`;
-const StyledScrollableContainer = tw.div`overflow-y-auto h-full p-2 flex flex-col`;
-const StyledChildrenContainer = tw.div`flex-1`;
-const StyledBackButton = tw.button`text-left flex flex-row items-center gap-1 cursor-pointer`;
-const StyledTitle = tw.h2`text-lg font-bold flex justify-center items-center`;
-const StyledCloseButton = styled(X)`
-  ${tw`cursor-pointer ml-auto`}
-`;
 
 type BackButtonProps = {
   onBack: () => void;
@@ -60,7 +46,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
   useScrollBlockage({
     disableScroll: isOpen,
-    key: identifier ? 'right_drawer' : `right_drawer_${identifier}`,
+    key: identifier ? 'right_drawer' : 'right_drawer_${identifier}',
   });
 
   useEffect(() => {
@@ -95,35 +81,45 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   };
 
   return (
-    <StyledPositioner>
+    <div className="fixed right-0 top-0 z-50 flex h-full justify-end">
       <MaxWidthSmoother isHidden={!isOpen} align="right">
-        <StyledPanelContainer ref={panelRef} roundedSize="none">
-          <StyledHeader>
-            <StyledNavBar>
+        <Container
+          className="text-text dark:text-text-dark relative  flex h-screen w-screen flex-col md:w-[400px]"
+          ref={panelRef}
+          roundedSize="none"
+        >
+          <div className="flex flex-col gap-3 p-6">
+            <div className="flex justify-between gap-3">
               <div>
                 {backButton && (
-                  <StyledBackButton onClick={backButton.onBack}>
+                  <button
+                    className="flex cursor-pointer flex-row items-center gap-1 text-left"
+                    onClick={backButton.onBack}
+                  >
                     <ChevronLeft />
                     {backButton?.text}
-                  </StyledBackButton>
+                  </button>
                 )}
               </div>
-              <StyledCloseButton onClick={close} />
-            </StyledNavBar>
-            <StyledTitle>{title}</StyledTitle>
+              <X className="ml-auto cursor-pointer" onClick={close} />
+            </div>
+            <h2 className="flex items-center justify-center text-lg font-bold">
+              {title}
+            </h2>
             {header}
-          </StyledHeader>
+          </div>
 
-          <StyledScrollableContainer>
-            <StyledChildrenContainer
+          <div className="flex h-full flex-col overflow-y-auto p-2">
+            <div
+              className="flex-1"
               onClick={handleSpareSpaceClick}
               ref={childrenContainerRef}
             >
               {children}
-            </StyledChildrenContainer>
-          </StyledScrollableContainer>
-        </StyledPanelContainer>
+            </div>
+          </div>
+        </Container>
       </MaxWidthSmoother>
-    </StyledPositioner>
+    </div>
   );
 };

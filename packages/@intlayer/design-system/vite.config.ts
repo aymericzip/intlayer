@@ -2,7 +2,8 @@ import { fileURLToPath } from 'node:url';
 import { extname, relative } from 'path';
 import react from '@vitejs/plugin-react';
 import { glob } from 'glob';
-import { defineConfig } from 'vite';
+import preserveDirectives from 'rollup-preserve-directives';
+import { defineConfig, type Plugin } from 'vite';
 import macrosPlugin from 'vite-plugin-babel-macros';
 import dts from 'vite-plugin-dts';
 import * as packageJson from './package.json';
@@ -14,22 +15,31 @@ export default defineConfig(() => ({
     react(),
     macrosPlugin(),
     dts({
+      exclude: ['**/*.stories.*', '**/*.test.*'],
       beforeWriteFile: (filePath, content) => ({
         filePath: filePath.replace('@intlayer/design-system/src/', ''),
         content,
       }),
     }),
+    preserveDirectives() as Plugin,
   ],
   define: {
     'process.env': {},
   },
 
   build: {
+    emptyOutDir: true,
+    copyPublicDir: false,
+    sourcemap: true,
+    manifest: true,
+    minify: false,
+    target: ['esnext'],
+
     lib: {
       entry: Object.fromEntries(
         glob
           .sync('src/**/*.{ts,tsx,js,jsx,mjs,cjs}', {
-            ignore: 'src/**/*.{stories,test}.{ts,tsx,js,jsx,mjs,cjs}',
+            ignore: 'src/**/*.{stories,test,specs}.{ts,tsx,js,jsx,mjs,cjs}',
           })
           .map((file) => [
             // The name of the entry point
@@ -45,16 +55,13 @@ export default defineConfig(() => ({
       fileName: (format, entry) => `${entry}.${format}.js`,
     },
 
-    // cssCodeSplit: true,
-    manifest: true,
     rollupOptions: {
       external: [...Object.keys(packageJson.peerDependencies)],
-      // input: {
-      //   import: './style.css',
-      // },
-
       output: {
-        banner: `"use client";`,
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
       },
     },
   },

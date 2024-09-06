@@ -1,16 +1,13 @@
+'use client';
+
 import {
   forwardRef,
   type ElementRef,
   type ComponentPropsWithoutRef,
 } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { Label } from '../Label';
 import { useFormField } from '.';
-
-const StyledLabel = styled(Label)<{ $hasError: boolean }>(
-  ({ $hasError }) => $hasError && tw`text-error dark:text-error-dark`
-);
 
 export const FormLabel = forwardRef<
   ElementRef<typeof Label>,
@@ -19,10 +16,10 @@ export const FormLabel = forwardRef<
   const { error, formItemId } = useFormField();
 
   return (
-    <StyledLabel
+    <Label
+      className={cn(error && 'text-error dark:text-error-dark')}
       ref={ref}
       htmlFor={formItemId}
-      $hasError={!!error}
       {...props}
     />
   );

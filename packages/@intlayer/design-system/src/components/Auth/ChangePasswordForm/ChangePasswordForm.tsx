@@ -1,7 +1,4 @@
-'use client';
-
 import type { FC } from 'react';
-import tw from 'twin.macro';
 import { Button } from '../../Button';
 import { InputPasswordElement, useForm, Form } from '../../Form';
 import {
@@ -16,10 +13,6 @@ type ChangePasswordFormProps = {
   onClickResetPassword: () => void;
   onClickBackToHome: () => void;
 };
-
-const StyledDiv = tw.div`flex flex-col gap-y-6`;
-const StyledSubmitButton = tw(Button)`mt-12 w-full`;
-const StyledResetPasswordButton = tw(Button)`mt-4 w-full`;
 
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
   onSubmitSuccess,
@@ -47,7 +40,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       onSubmitError={onSubmitError}
       {...form}
     >
-      <StyledDiv>
+      <div className="flex flex-col gap-y-6">
         <div>
           <InputPasswordElement
             name="currentPassword"
@@ -80,9 +73,10 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
           autoComplete="new-password"
           isRequired
         />
-      </StyledDiv>
+      </div>
 
-      <StyledSubmitButton
+      <Button
+        className="mt-12 w-full"
         type="submit"
         isLoading={isSubmitting}
         disabled={!isValid}
@@ -90,15 +84,16 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         label={changePasswordButton.ariaLabel}
       >
         {changePasswordButton.text}
-      </StyledSubmitButton>
+      </Button>
       {isSubmitted && (
-        <StyledResetPasswordButton
+        <Button
+          className="mt-4 w-full"
           type="button"
           label={backToHomeButton.ariaLabel}
           onClick={onClickBackToHome}
         >
           {backToHomeButton.text}
-        </StyledResetPasswordButton>
+        </Button>
       )}
     </Form>
   );

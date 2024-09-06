@@ -4,14 +4,14 @@
   "include": ["**/*"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
+    "baseUrl": ".",
     "esModuleInterop": true,
-    "outDir": "dist",
     "noEmit": false,
     "allowImportingTsExtensions": false,
-    "baseUrl": ".",
-    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "module": "commonjs",
+    "outDir": "dist/build",
     "paths": {
       "@controllers/*": ["./src/controllers/*"],
       "@models/*": ["./src/models/*"],
@@ -21,11 +21,16 @@
       "@logger/*": ["./src/logger/*"],
       "@schemas/*": ["./src/schemas/*"],
       "@utils/*": ["./src/utils/*"],
+      "@utils/ts-config/tsup": ["../../utils/ts-config/tsup-config.mjs"],
       "@/*": ["./src/*"]
     }
   },
   "tsc-alias": {
-    "resolveFullPaths": true,
-    "verbose": false
+    "resolveFullPaths": true
+    // "verbose": false,
+    // "fileExtensions": {
+    //   "inputGlob": "{js,jsx,mjs}",
+    //   "outputCheck": ["js", "json", "jsx", "mjs"]
+    // }
   }
 }

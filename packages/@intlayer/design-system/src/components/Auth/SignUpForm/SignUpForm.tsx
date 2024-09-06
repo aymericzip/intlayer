@@ -1,7 +1,6 @@
 'use client';
 
 import type { FC } from 'react';
-import tw from 'twin.macro';
 import { Button } from '../../Button';
 import { Form, InputElement, InputPasswordElement, useForm } from '../../Form';
 import { getSignUpContent } from './index.content';
@@ -12,10 +11,6 @@ type SignUpFormProps = {
   onSubmitError: (error: Error) => void;
   onClickBackToSignIn: () => void;
 };
-
-const StyledDiv = tw.div`flex flex-col gap-y-6`;
-const StyledLoginMessageContainer = tw.span`text-neutral dark:text-neutral-dark m-auto mt-3 flex gap-2 w-full text-center align-middle text-xs justify-center`;
-const StyledSubmitButton = tw(Button)`mt-12 w-full`;
 
 export const SignUpForm: FC<SignUpFormProps> = ({
   onSubmitSuccess,
@@ -39,7 +34,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
       onSubmitError={onSubmitError}
       {...form}
     >
-      <StyledDiv>
+      <div className="flex flex-col gap-y-6">
         <InputElement
           name="email"
           label={emailInput.label}
@@ -65,17 +60,18 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           autoComplete="new-password"
           isRequired
         />
-      </StyledDiv>
+      </div>
 
-      <StyledSubmitButton
+      <Button
+        className="mt-12 w-full"
         type="submit"
         isLoading={isSubmitting}
         label={signUpButton.ariaLabel}
       >
         {signUpButton.text}
-      </StyledSubmitButton>
+      </Button>
 
-      <StyledLoginMessageContainer>
+      <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full justify-center gap-2 text-center align-middle text-xs">
         {loginLink.message}
         <Button
           variant="link"
@@ -87,7 +83,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         >
           {loginLink.text}
         </Button>
-      </StyledLoginMessageContainer>
+      </span>
     </Form>
   );
 };

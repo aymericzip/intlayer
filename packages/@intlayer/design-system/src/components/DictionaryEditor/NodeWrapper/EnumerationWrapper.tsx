@@ -5,21 +5,17 @@ import {
   type DictionaryValue,
 } from '@intlayer/core';
 import type { FC } from 'react';
-import tw from 'twin.macro';
 import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
 
 interface EnumerationWrapperProps extends Omit<NodeWrapperProps, 'section'> {
   section: EnumerationContent<DictionaryValue>;
 }
 
-const StyledEnumerationWrapperContainer = tw.div`grid grid-cols-2 grid-cols-[auto,1fr] gap-2 ml-2`;
-const StyledKey = tw.span`font-bold flex items-center`;
-
 export const EnumerationWrapper: FC<EnumerationWrapperProps> = (props) => {
   const { keyPath, section } = props;
 
   return (
-    <StyledEnumerationWrapperContainer>
+    <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
       {Object.keys(section)
         .filter((key) => !traceKeys.includes(key))
         .map((key) => {
@@ -34,7 +30,7 @@ export const EnumerationWrapper: FC<EnumerationWrapperProps> = (props) => {
 
           return (
             <>
-              <StyledKey>{key}</StyledKey>
+              <span className="flex items-center font-bold">{key}</span>
               <NodeWrapper
                 {...props}
                 key={key}
@@ -44,6 +40,6 @@ export const EnumerationWrapper: FC<EnumerationWrapperProps> = (props) => {
             </>
           );
         })}
-    </StyledEnumerationWrapperContainer>
+    </div>
   );
 };

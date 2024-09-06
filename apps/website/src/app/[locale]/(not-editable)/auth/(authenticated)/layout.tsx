@@ -1,17 +1,22 @@
 import { LanguageBackground } from '@components/LandingPage/LanguageSection';
-import { AuthenticationBarrier } from '@utils/auth/AuthenticationBarrier';
+import { AuthenticationBarrier } from '@intlayer/design-system';
+import { redirect } from 'next/navigation';
 import type { FC, PropsWithChildren } from 'react';
-import { getServerSession } from '@/providers/getServerSession';
 import { PagesRoutes } from '@/Routes';
 
-const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const session = await getServerSession();
+// eslint-disable-next-line @typescript-eslint/require-await
+const serverRedirection = async (url: string) => {
+  'use server';
 
+  redirect(url);
+};
+
+const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <AuthenticationBarrier
       accessRule="authenticated"
       redirectionRoute={PagesRoutes.Home}
-      session={session}
+      redirectionFunction={serverRedirection}
     >
       <LanguageBackground>{children}</LanguageBackground>
     </AuthenticationBarrier>

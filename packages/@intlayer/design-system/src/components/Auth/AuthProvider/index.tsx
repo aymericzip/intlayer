@@ -1,6 +1,7 @@
 'use client';
 
-import { backendAPI } from '@utils/backend-api';
+import type { Organization, Project, UserAPI } from '@intlayer/backend';
+import { intlayerAPI } from '@intlayer/core';
 import {
   type PropsWithChildren,
   type FC,
@@ -10,9 +11,6 @@ import {
   useState,
   useCallback,
 } from 'react';
-import type { Organization } from '@/types/organization.types';
-import type { Project } from '@/types/project.types';
-import type { UserAPI } from '@/types/user.types';
 
 export type Session = {
   user: UserAPI | null;
@@ -53,7 +51,7 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
     }
 
     try {
-      const { data } = await backendAPI.auth.getSessionInformation();
+      const { data } = await intlayerAPI.auth.getSessionInformation();
 
       if (!data) {
         return setSession(null);

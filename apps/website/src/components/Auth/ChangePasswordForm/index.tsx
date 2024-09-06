@@ -1,12 +1,11 @@
 'use client';
 
+import { intlayerAPI } from '@intlayer/core';
 import {
   ChangePasswordForm as ChangePasswordFormUI,
   type ChangePassword,
-  // useToast,
+  useUser,
 } from '@intlayer/design-system';
-import { useUser } from '@utils/auth/useUser';
-import { backendAPI } from '@utils/backend-api';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -26,7 +25,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     currentPassword,
     newPassword,
   }: ChangePassword) => {
-    const result = await backendAPI.auth.changePassword({
+    const result = await intlayerAPI.auth.changePassword({
       oldPassword: currentPassword,
       newPassword,
     });
@@ -36,7 +35,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     }
   };
 
-  const onSubmitError = (error: Error) => {
+  const onSubmitError = (_error: Error) => {
     // toast({
     //   title: error.message,
     //   variant: 'default',

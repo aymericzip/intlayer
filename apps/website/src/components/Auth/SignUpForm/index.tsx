@@ -1,13 +1,13 @@
 'use client';
 
+import { intlayerAPI } from '@intlayer/core';
 import {
   SignUpForm as SignUpFormUI,
+  useAuth,
   type SignUp,
 } from '@intlayer/design-system';
-import { backendAPI } from '@utils/backend-api';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { useAuth } from '@/providers/AuthProvider';
 import { PagesRoutes } from '@/Routes';
 
 type SignUpFormProps = {
@@ -20,7 +20,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const { checkSession } = useAuth();
 
   const onSubmitSuccess = async ({ email, password }: SignUp) => {
-    const response = await backendAPI.auth.register({
+    const response = await intlayerAPI.auth.register({
       email,
       password,
     });
@@ -34,7 +34,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
     }
   };
 
-  const onSubmitError = (error: Error) => {
+  const onSubmitError = (_error: Error) => {
     // toast({
     //   title: error.message,
     //   variant: 'default',

@@ -2,8 +2,7 @@
 
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useState, type FC, type ReactNode } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 type AccordionProps = {
@@ -13,14 +12,20 @@ type AccordionProps = {
   isOpen?: boolean;
 };
 
-const StyledHeader = tw.div`flex justify-between items-center cursor-pointer`;
-const StyledChevronDown = styled(ChevronDown)<{
-  $isOpen: boolean;
-}>`
-  ${tw`transform transition-transform duration-200 ease-in-out`}
-  ${({ $isOpen }) => ($isOpen ? tw`rotate-0` : tw`rotate-180`)}
-`;
-
+/**
+ * Accordion component that allows the user to expand and collapse content.
+ * It provides a header with a chevron icon that controls the visibility of the content.
+ *
+ * @param header - The content of the header.
+ * @param children - The content to be expanded and collapsed.
+ * @param isOpen - Whether the content is expanded or collapsed by default.
+ *
+ * @example
+ * <Accordion header="Accordion Header" isOpen={true}>
+ *   <p>Accordion content</p>
+ * </Accordion>
+ *
+ */
 export const Accordion: FC<AccordionProps> = ({
   children,
   header,
@@ -37,10 +42,19 @@ export const Accordion: FC<AccordionProps> = ({
 
   return (
     <>
-      <StyledHeader onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}>
+      <button
+        onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
+        className="flex w-full cursor-pointer items-center justify-between"
+      >
         {header}
-        <StyledChevronDown size={24} $isOpen={isOpen} />
-      </StyledHeader>
+        <ChevronDown
+          size={24}
+          className={cn(
+            'transform transition-transform duration-200 ease-in-out',
+            isOpen ? 'rotate-0' : 'rotate-180'
+          )}
+        />
+      </button>
 
       <MaxHeightSmoother isHidden={isHidden}>{children}</MaxHeightSmoother>
     </>

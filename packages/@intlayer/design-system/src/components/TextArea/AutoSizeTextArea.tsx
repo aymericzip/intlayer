@@ -10,7 +10,7 @@ import {
   type TextareaHTMLAttributes,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { TextArea } from '.';
+import { TextArea } from './TextArea';
 
 type TextAreaProps = Omit<
   DetailedHTMLProps<

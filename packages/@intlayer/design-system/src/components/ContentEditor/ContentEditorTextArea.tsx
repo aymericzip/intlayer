@@ -8,18 +8,12 @@ import {
   type ChangeEventHandler,
   useEffect,
 } from 'react';
-import tw from 'twin.macro';
 import { AutoSizedTextArea } from '../TextArea';
 
 export type ContentEditorTextAreaProps = {
   children: string;
   onContentChange: (content: string) => void;
 } & HTMLAttributes<HTMLTextAreaElement>;
-
-const StyledContainer = tw.div`flex flex-col items-center justify-between gap-2 w-full h-full`;
-const StyledButtonContainer = tw.div`flex items-center justify-end w-full gap-2`;
-const StyledValidIcon = tw(Check)`hover:scale-110 cursor-pointer`;
-const StyledCancelIcon = tw(X)`hover:scale-110 cursor-pointer`;
 
 export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   children,
@@ -46,7 +40,10 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   }, [children]);
 
   return (
-    <StyledContainer key={children}>
+    <div
+      className="flex size-full flex-col items-center justify-between gap-2"
+      key={children}
+    >
       <AutoSizedTextArea
         onChange={handleOnContentChange}
         key={resetIncrementor}
@@ -55,11 +52,19 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
         {children}
       </AutoSizedTextArea>
       {isEdited && (
-        <StyledButtonContainer>
-          <StyledValidIcon size={20} onClick={handleValid} />
-          <StyledCancelIcon size={20} onClick={handleCancel} />
-        </StyledButtonContainer>
+        <div className="flex w-full items-center justify-end gap-2">
+          <Check
+            className="cursor-pointer hover:scale-110"
+            size={20}
+            onClick={handleValid}
+          />
+          <X
+            className="cursor-pointer hover:scale-110"
+            size={20}
+            onClick={handleCancel}
+          />
+        </div>
       )}
-    </StyledContainer>
+    </div>
   );
 };

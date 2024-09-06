@@ -100,13 +100,13 @@ export type MiddlewareConfig = {
  */
 export type EditorConfig = {
   /**
-   * Port number for the editor server
+   * URL of the backend
    *
-   * Default: 4000
+   * Default: 'https://back.intlayer.org'
    *
-   * The port number where the editor server runs.
+   * The URL of the backend server.
    */
-  port: number;
+  backendURL: string;
 
   /**
    * Indicates if the editor is active

@@ -1,4 +1,4 @@
-export const forceEsmExtensionsPlugin = () => ({
+export const forceExtensionsPlugin = () => ({
   name: 'forceEsmExtensionsPlugin',
   setup: (build) => {
     const isEsm = build.initialOptions.format === 'esm';
@@ -66,8 +66,6 @@ const modifyCjsImports = (contents) => {
   return contents.replace(
     CJS_RELATIVE_IMPORT_EXP,
     (_, importPath, maybeSemicolon = '') => {
-      console.log('importPath', importPath);
-
       if (importPath.endsWith('.') || importPath.endsWith('/')) {
         return `require('${importPath}/index${CJSExtension}')${maybeSemicolon}`;
       }
@@ -77,8 +75,6 @@ const modifyCjsImports = (contents) => {
       }
 
       if (hasExtensionRegex.test(importPath)) {
-        console.log('importPath', importPath);
-
         return `require('${importPath}')${maybeSemicolon}`;
       }
 

@@ -8,7 +8,7 @@ import {
 } from '@controllers/user.controller';
 import { Router } from 'express';
 
-export const userRouter = Router();
+export const userRouter: Router = Router();
 
 userRouter.get('/', getUsers);
 userRouter.put('/', updateUser);

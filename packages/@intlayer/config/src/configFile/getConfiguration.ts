@@ -68,7 +68,9 @@ const logConfigFileResult = (
     const relativeOutputPath = relative(BASE_DIR_PATH, configurationFilePath!);
 
     if (numCustomConfiguration === 1) {
-      console.info(`Configuration file found: ${relativeOutputPath}.`);
+      console.info(
+        `[intlayer] Configuration file found: ${relativeOutputPath}.`
+      );
     } else {
       console.warn(
         `Multiple configuration files found, using ${relativeOutputPath}.`

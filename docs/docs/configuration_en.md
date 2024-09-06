@@ -121,12 +121,12 @@ Defines settings related to the integrated editor, including server port and act
 
 #### Properties
 
-- **port**:
+- **backendURL**:
 
-  - _Type_: `number`
-  - _Default_: `4000`
-  - _Description_: The port number where the editor server runs.
-  - _Example_: `4000`
+  - _Type_: `string`
+  - _Default_: `https://back.intlayer.org`
+  - _Description_: The URL of the backend server.
+  - _Example_: `http://localhost:4000`
 
 - **enabled**:
   - _Type_: `boolean`

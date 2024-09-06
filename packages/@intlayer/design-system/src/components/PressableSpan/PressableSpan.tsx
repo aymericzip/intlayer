@@ -9,8 +9,7 @@ import {
   type MouseEventHandler,
   type HTMLAttributes,
 } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 
 const DEFAULT_PRESS_DETECT_DURATION = 400;
 
@@ -20,13 +19,6 @@ type PressableDivProps = {
   pressDuration?: number;
   isSelecting?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
-
-const StyledContentSelector = styled.span<{ $isSelecting?: boolean }>(
-  ({ $isSelecting }) => [
-    tw`inline cursor-pointer select-none outline outline-offset-4 outline-2 outline-transparent rounded-md transition-all duration-200 delay-100`,
-    $isSelecting ? tw`outline-inherit` : tw`hover:outline-inherit`,
-  ]
-);
 
 export const PressableSpan: FC<PressableDivProps> = ({
   children,
@@ -102,7 +94,13 @@ export const PressableSpan: FC<PressableDivProps> = ({
   };
 
   return (
-    <StyledContentSelector
+    <span
+      className={cn(
+        'inline cursor-pointer select-none rounded-md outline outline-2 outline-offset-4 outline-transparent transition-all delay-100 duration-200',
+        isSelectingProp ?? isSelectingState
+          ? 'outline-inherit'
+          : 'hover:outline-inherit'
+      )}
       role="button"
       tabIndex={0}
       onKeyUp={() => null}
@@ -115,10 +113,9 @@ export const PressableSpan: FC<PressableDivProps> = ({
       onTouchCancel={handleMouseUp}
       onBlur={handleOnBlur}
       ref={divRef}
-      $isSelecting={isSelectingProp ?? isSelectingState}
       {...props}
     >
       {children}
-    </StyledContentSelector>
+    </span>
   );
 };

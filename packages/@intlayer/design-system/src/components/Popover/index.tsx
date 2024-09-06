@@ -1,22 +1,23 @@
 import type { FC, ReactNode } from 'react';
-import tw from 'twin.macro';
 
 type PopoverProps = {
   content: ReactNode | string;
   children: ReactNode;
 };
 
-const StyledTrigger = tw.div`relative`;
-const StyledContent = tw.div`z-50 opacity-0 group-hover:opacity-100 absolute left-5 bottom-0 translate-y-[150%] text-opacity-75 text-xs rounded-md p-1 transition-all duration-200 delay-200 ease-in hover:delay-0 ease-in-out ring-current ring-2 bg-card dark:bg-card-dark`;
-
 export const Popover: FC<PopoverProps> = ({ children, content }) => (
-  <StyledTrigger
-    className="group"
+  <div
+    className="group relative"
     aria-haspopup={true}
     aria-expanded={false}
     aria-label="Display the popup by hovering this element"
   >
     {children}
-    <StyledContent aria-hidden={true}>{content}</StyledContent>
-  </StyledTrigger>
+    <div
+      className="bg-card dark:bg-card-dark absolute bottom-0 left-5 z-50 translate-y-[150%] rounded-md p-1 text-xs text-opacity-75 opacity-0 ring-2 ring-current transition-all delay-200 duration-200 ease-in-out hover:delay-0 group-hover:opacity-100"
+      aria-hidden={true}
+    >
+      {content}
+    </div>
+  </div>
 );

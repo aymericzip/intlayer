@@ -12,7 +12,7 @@ import {
 } from '@controllers/auth.controller';
 import { Router } from 'express';
 
-export const authRouter = Router();
+export const authRouter: Router = Router();
 
 // Authentication
 authRouter.post('/register', registerEmailPassword);

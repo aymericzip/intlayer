@@ -48,6 +48,7 @@
     "watch": "npx intlayer watch"
   },
   "dependencies": {
+    "@intlayer/core": "workspace:^",
     "@intlayer/design-system": "workspace:^",
     "@intlayer/docs": "workspace:^",
     "@tanstack/react-query": "^5.51.21",
@@ -70,6 +71,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@intlayer/backend": "workspace:^",
     "@svgr/webpack": "^8.1.0",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/next-pwa": "^5.6.9",
@@ -77,7 +79,6 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@utils/ts-config": "workspace:^",
-    "backend": "workspace:^",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.5",

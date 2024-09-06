@@ -2,7 +2,6 @@
 
 import { Check, X } from 'lucide-react';
 import type { FC } from 'react';
-import tw from 'twin.macro';
 import type { FileContent } from '.';
 
 interface ValidDictionaryChangeButtonsProps {
@@ -10,10 +9,6 @@ interface ValidDictionaryChangeButtonsProps {
   onCancelEdition: () => void;
   editedContent?: FileContent[];
 }
-
-const StyledButtonsContainer = tw.div`flex flex-row items-center justify-end gap-2`;
-const StyledValidIcon = tw(Check)`hover:scale-110 cursor-pointer`;
-const StyledCancelIcon = tw(X)`hover:scale-110 cursor-pointer`;
 
 export const ValidDictionaryChangeButtons: FC<
   ValidDictionaryChangeButtonsProps
@@ -23,11 +18,19 @@ export const ValidDictionaryChangeButtons: FC<
   return (
     <>
       {isEditing && (
-        <StyledButtonsContainer>
+        <div className="flex flex-row items-center justify-end gap-2">
           <span>Valid dictionary changes</span>
-          <StyledValidIcon size={16} onClick={onValidEdition} />
-          <StyledCancelIcon size={16} onClick={onCancelEdition} />
-        </StyledButtonsContainer>
+          <Check
+            className="cursor-pointer hover:scale-110"
+            size={16}
+            onClick={onValidEdition}
+          />
+          <X
+            className="cursor-pointer hover:scale-110"
+            size={16}
+            onClick={onCancelEdition}
+          />
+        </div>
       )}
     </>
   );

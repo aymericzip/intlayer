@@ -1,8 +1,7 @@
 'use client';
 
 import { type HTMLAttributes, useState, type FC } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { WithResizer } from '../WithResizer';
 import { FileTree } from './FileTree';
@@ -16,33 +15,6 @@ export type IDEProps = {
   }[];
   isDarkMode?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
-
-export const StyledContainer = tw(
-  Container
-)`flex flex-col h-full w-full shadow-lg overflow-scroll justify-start`;
-
-export const StyledWindow = tw.div`flex flex-row h-full w-full shadow-lg justify-start flex-1 relative`;
-export const StyledWindowButtonContainer = tw.div`flex items-center justify-start gap-2 p-1 mx-2`;
-
-export const StyledAbsolute = tw.div`absolute top-0 left-0 w-full h-full`;
-
-export const StyledWindowButton = tw.div`w-3 h-3 rounded-full`;
-export const StyledCloseButton = tw(StyledWindowButton)`bg-red-500`;
-export const StyledMinimizeButton = tw(StyledWindowButton)`bg-yellow-500`;
-export const StyledMaximizeButton = tw(StyledWindowButton)`bg-green-500`;
-
-export const StyledTabScroller = tw.div`flex w-full h-full overflow-y-auto`;
-export const StyledTabBar = tw.div`flex flex-row w-auto items-center gap-1 justify-start bg-neutral-200 dark:bg-neutral-950 rounded-t-3xl text-xs text-neutral dark:text-neutral-dark`;
-export const StyledTab = styled.div<{ $isActive: boolean }>(({ $isActive }) => [
-  tw`flex items-center justify-start min-w-20 h-8 py-1 px-3 transition`,
-  $isActive
-    ? tw`bg-card dark:bg-card-dark`
-    : tw`bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-950 dark:hover:bg-card-dark cursor-pointer`,
-]);
-
-export const StyledContent = tw.div`w-full h-full text-xs md:text-sm pt-2 flex-1 overflow-auto`;
-
-export const StyledDivColTemplate = tw.div`w-full h-full flex`;
 
 export const IDE: FC<IDEProps> = ({
   pages: initialPages,
@@ -79,33 +51,44 @@ export const IDE: FC<IDEProps> = ({
   };
 
   return (
-    <StyledContainer roundedSize="3xl" transparency="none" {...props}>
-      <StyledTabBar>
-        <StyledWindowButtonContainer>
-          <StyledCloseButton />
-          <StyledMinimizeButton />
-          <StyledMaximizeButton />
-        </StyledWindowButtonContainer>
-        <StyledTabScroller>
+    <Container
+      className="flex size-full flex-col justify-start overflow-scroll shadow-lg"
+      roundedSize="3xl"
+      transparency="none"
+      {...props}
+    >
+      <div className="text-neutral dark:text-neutral-dark flex w-auto flex-row items-center justify-start gap-1 rounded-t-3xl bg-neutral-200 text-xs dark:bg-neutral-950">
+        <div className="mx-2 flex items-center justify-start gap-2 p-1">
+          <div className="size-3 rounded-full bg-red-500" />
+          <div className="size-3 rounded-full bg-yellow-500" />
+          <div className="size-3 rounded-full bg-green-500" />
+        </div>
+        <div className="flex size-full overflow-y-auto">
           {tabs.map(({ path }, index) => {
             const fullPath = path.split('/');
             const title = fullPath[fullPath.length - 1];
+            const isActive = index === activeTab;
 
             return (
-              <StyledTab
+              <button
+                className={cn(
+                  'flex h-8 min-w-20 items-center justify-start px-3 py-1 transition',
+                  isActive
+                    ? 'bg-card dark:bg-card-dark'
+                    : 'dark:hover:bg-card-dark cursor-pointer bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-950'
+                )}
                 key={title}
                 onClick={() => setActiveTab(index)}
-                $isActive={activeTab === index}
               >
                 {title}
-              </StyledTab>
+              </button>
             );
           })}
-        </StyledTabScroller>
-      </StyledTabBar>
-      <StyledWindow>
-        <StyledAbsolute>
-          <StyledDivColTemplate>
+        </div>
+      </div>
+      <div className="relative flex size-full flex-1 flex-row justify-start">
+        <div className="absolute left-0 top-0 size-full">
+          <div className="flex size-full">
             <WithResizer initialWidth={20}>
               <FileTree
                 filesPaths={filePaths}
@@ -114,14 +97,14 @@ export const IDE: FC<IDEProps> = ({
               />
             </WithResizer>
 
-            <StyledContent>
+            <div className="size-full flex-1 overflow-auto pt-2 text-xs md:text-sm">
               <MarkdownRenderer isDarkMode={isDarkMode}>
                 {content}
               </MarkdownRenderer>
-            </StyledContent>
-          </StyledDivColTemplate>
-        </StyledAbsolute>
-      </StyledWindow>
-    </StyledContainer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
   );
 };

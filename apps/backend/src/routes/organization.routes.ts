@@ -6,7 +6,7 @@ import {
 } from '@controllers/organization.controller';
 import { Router } from 'express';
 
-export const organizationRouter = Router();
+export const organizationRouter: Router = Router();
 
 organizationRouter.get('/', getOrganizations);
 

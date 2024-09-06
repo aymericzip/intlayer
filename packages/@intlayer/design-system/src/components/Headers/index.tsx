@@ -1,17 +1,63 @@
-import type { HTMLAttributes, MouseEvent } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import type { FC, HTMLAttributes, MouseEvent } from 'react';
 
-const styledHeading = tw`relative scroll-m-8 scroll-p-8 after:content-['#'] after:scale-75 after:px-6 after:text-neutral after:absolute after:top-0 after:h-full after:-left-12 after:hover:cursor-pointer dark:after:text-neutral-dark after:absolute after:to-neutral after:md:opacity-0 after:transition-opacity hover:after:opacity-80 after:duration-200 after:delay-100`;
+import { cn } from '../../utils/cn';
 
-const StyledH1 = tw.h1`mt-10 text-4xl font-bold`;
-const StyledH2 = styled.h2(() => [tw`mt-5 text-2xl font-bold`, styledHeading]);
-const StyledH3 = styled.h3(() => [tw`mt-3 text-xl font-bold`, styledHeading]);
-const StyledH4 = styled.h4(() => [tw`mt-3 text-lg font-bold`, styledHeading]);
-const StyledH5 = styled.h5(() => [tw`mt-3 text-base font-bold`, styledHeading]);
+const styledHeading = `relative scroll-m-8 scroll-p-8 after:content-['#'] after:scale-75 after:px-6 after:text-neutral after:absolute after:top-0 after:h-full after:-left-12 after:hover:cursor-pointer dark:after:text-neutral-dark after:absolute after:to-neutral after:md:opacity-0 after:transition-opacity hover:after:opacity-80 after:duration-200 after:delay-100`;
+
+const StyledH1: FC<HTMLAttributes<HTMLHeadingElement>> = ({
+  className,
+  ...props
+}) => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
+  <h1 className={cn('mt-5 text-2xl font-bold', className)} {...props} />
+);
+
+const StyledH2: FC<HTMLAttributes<HTMLHeadingElement>> = ({
+  className,
+  ...props
+}) => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
+  <h2
+    className={cn('mt-5 text-2xl font-bold', styledHeading, className)}
+    {...props}
+  />
+);
+
+const StyledH3: FC<HTMLAttributes<HTMLHeadingElement>> = ({
+  className,
+  ...props
+}) => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
+  <h3
+    className={cn('mt-3 text-xl font-bold', styledHeading, className)}
+    {...props}
+  />
+);
+
+const StyledH4: FC<HTMLAttributes<HTMLHeadingElement>> = ({
+  className,
+  ...props
+}) => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
+  <h4
+    className={cn('mt-3 text-lg font-bold', styledHeading, className)}
+    {...props}
+  />
+);
+
+const StyledH5: FC<HTMLAttributes<HTMLHeadingElement>> = ({
+  className,
+  ...props
+}) => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
+  <h5
+    className={cn('mt-3 text-base font-bold', styledHeading, className)}
+    {...props}
+  />
+);
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
-  H: typeof StyledH1;
+  H: FC<HTMLAttributes<HTMLHeadingElement>>;
 };
 type HeadingType = (props: HeadingProps) => JSX.Element;
 
@@ -24,7 +70,7 @@ const getId = (children: string) =>
     .replace(/\s+/g, '-')
     .toLowerCase();
 
-const scrolltoHash = (id: string) => {
+const scrollToHash = (id: string) => {
   const element = document.getElementById(id);
   const offset = 150;
   const y =
@@ -72,7 +118,7 @@ const HeadingWrapper: HeadingType = ({ H, children, ...props }) => {
       // copy the url to the clipboard
       await navigator.clipboard.writeText(url);
 
-      scrolltoHash(id);
+      scrollToHash(id);
     }
   };
 
@@ -89,6 +135,7 @@ const HeadingWrapper: HeadingType = ({ H, children, ...props }) => {
 };
 
 export const H1 = StyledH1;
+
 export const H2 = (props: HTMLAttributes<HTMLHeadingElement>) => (
   <HeadingWrapper H={StyledH2} {...props} />
 );

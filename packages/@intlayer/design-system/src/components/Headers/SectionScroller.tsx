@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const scrolltoHash = (id: string) => {
+const scrollToHash = (id: string) => {
   const element = document.getElementById(id);
   const offset = 150;
   const y =
@@ -27,7 +27,7 @@ export const SectionScroller = () => {
 
   useEffect(() => {
     if (hash) {
-      scrolltoHash(hash);
+      scrollToHash(hash);
     }
   }, [hash]);
 

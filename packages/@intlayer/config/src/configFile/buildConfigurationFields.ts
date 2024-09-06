@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { IS_ENABLED } from '../defaultValues/editor';
+import { BACKEND_URL, IS_ENABLED } from '../defaultValues/editor';
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -469,9 +469,9 @@ const buildEditorFields = (
   /**
    * Port of the editor server
    *
-   * Default: 4000
+   * Default: 'https://back.intlayer.org'
    */
-  port: customConfiguration?.port ?? 4000,
+  backendURL: customConfiguration?.backendURL ?? BACKEND_URL,
 
   /**
    * Indicates if the editor is active

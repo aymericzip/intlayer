@@ -1,3 +1,5 @@
+'use client';
+
 import React, {
   useState,
   useCallback,
@@ -6,8 +8,7 @@ import React, {
   type FC,
   useRef,
 } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 
 type WithResizerProps = {
   initialWidth: number;
@@ -15,24 +16,13 @@ type WithResizerProps = {
   minWidth?: number;
 };
 
-const StyledContainer = styled.div<{ $minWidth?: string; $maxWidth?: string }>(
-  ({ $minWidth, $maxWidth }) => [
-    $minWidth && tw`${$minWidth}`,
-    $maxWidth && tw`${$maxWidth}`,
-    tw`relative w-full h-full max-w-[80%] cursor-ew-resize border-r-[2px] border-neutral-200 dark:border-neutral-950 transition`,
-    tw`after:content-[""] after:w-2 after:h-10 after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:translate-x-1/2 after:block after:absolute after:bg-neutral-200 after:dark:bg-neutral-950 after:rounded-full after:cursor-ew-resize after:transition`,
-    tw`active:border-neutral-400 dark:active:border-neutral-600 after:active:bg-neutral-400 dark:after:active:bg-neutral-600`,
-  ]
-);
-const StyledWrapper = tw.div`absolute top-0 left-0 w-full h-full overflow-hidden cursor-default`;
-
 export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   initialWidth,
   maxWidth,
   minWidth = 0,
   children,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLButtonElement>(null);
   const [width, setWidth] = useState(initialWidth);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -40,8 +30,8 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   const startResizing = useCallback(
     (
       mouseDownEvent:
-        | React.MouseEvent<HTMLDivElement>
-        | React.TouchEvent<HTMLDivElement>
+        | React.MouseEvent<HTMLButtonElement>
+        | React.TouchEvent<HTMLButtonElement>
     ) => {
       setIsResizing(true);
       mouseDownEvent.preventDefault();
@@ -93,27 +83,33 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   }, [resize, stopResizing]);
 
   return (
-    <StyledContainer
+    <button
+      className={cn(
+        minWidth && `max-w-[${maxWidth}px]`,
+        maxWidth && `min-w-[${minWidth}px]`,
+        'relative h-full w-full max-w-[80%] cursor-ew-resize border-r-[2px] border-neutral-200 transition dark:border-neutral-950',
+        'after:absolute after:right-0 after:top-1/2 after:block after:h-10 after:w-2 after:-translate-y-1/2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] after:dark:bg-neutral-950',
+        'active:border-neutral-400 after:active:bg-neutral-400 dark:active:border-neutral-600 dark:after:active:bg-neutral-600'
+      )}
       style={{
         width: `${width}px`,
       }}
-      $maxWidth={`max-w-[${maxWidth}px]`}
-      $minWidth={`min-w-[${minWidth}px]`}
       ref={containerRef}
       onMouseDown={startResizing}
       onTouchStart={startResizing}
-      role="slider"
       aria-valuemin={minWidth}
       aria-valuemax={maxWidth}
       aria-valuenow={width}
       aria-label="Resizable component"
+      role="slider"
     >
-      <StyledWrapper
+      <button
+        className="absolute left-0 top-0 size-full cursor-default overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
       >
         {children}
-      </StyledWrapper>
-    </StyledContainer>
+      </button>
+    </button>
   );
 };

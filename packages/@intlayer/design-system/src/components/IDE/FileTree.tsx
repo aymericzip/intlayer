@@ -2,8 +2,7 @@
 
 import { ChevronRight } from 'lucide-react';
 import { useState, type FC } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import { createFileTree, type FilePath } from './createFileTree';
 
@@ -13,25 +12,6 @@ type FileTreeProps = {
   onClickFile?: (filePath: string) => void;
   prePaths?: string[];
 };
-
-const StyledFileBar = tw.div`w-full flex flex-col items-start justify-start py-1 text-neutral dark:text-neutral-dark`;
-const StyledFile = styled.div<{ $isActive: boolean }>(({ $isActive }) => [
-  tw`flex items-start justify-start transition text-nowrap text-xs w-full py-1 px-2 whitespace-pre`,
-  $isActive
-    ? tw`bg-neutral-200 dark:bg-neutral-700`
-    : tw`hover:bg-neutral-300 dark:hover:bg-neutral-900 cursor-pointer`,
-]);
-const StyledIndentation = styled.span<{
-  $isFile: boolean;
-}>(({ $isFile }) => [tw`whitespace-pre`, $isFile && tw`ml-2`]);
-
-const StyledChevron = styled(ChevronRight)<{
-  $isActive: boolean;
-}>(({ $isActive }) => [tw`transition`, $isActive && tw`transform rotate-90`]);
-
-const StyledMaxHeightSmoother = styled(MaxHeightSmoother)(
-  tw`overflow-x-hidden`
-);
 
 const concatFilePath = (paths: string[]) => paths.join('/');
 
@@ -79,8 +59,13 @@ const FileItem: FC<FileItemProps> = ({
 
   return (
     <>
-      <StyledFile
-        $isActive={isActive}
+      <button
+        className={cn(
+          'flex w-full items-start justify-start whitespace-pre text-nowrap px-2 py-1 text-xs transition',
+          isActive
+            ? 'bg-neutral-200 dark:bg-neutral-700'
+            : 'cursor-pointer hover:bg-neutral-300 dark:hover:bg-neutral-900'
+        )}
         key={path}
         onClick={() => {
           if (isFile) {
@@ -90,20 +75,30 @@ const FileItem: FC<FileItemProps> = ({
           }
         }}
       >
-        <StyledIndentation $isFile={isFile}>{indentation}</StyledIndentation>
+        <span className={cn('whitespace-pre', isFile && 'ml-2')}>
+          {indentation}
+        </span>
 
-        {!isFile && <StyledChevron size={16} $isActive={subPathOpen} />}
+        {!isFile && (
+          <ChevronRight
+            className={cn(`transition`, subPathOpen && `rotate-90 transform`)}
+            size={16}
+          />
+        )}
         {path}
-      </StyledFile>
+      </button>
       {subPath && (
-        <StyledMaxHeightSmoother isHidden={!subPathOpen}>
+        <MaxHeightSmoother
+          isHidden={!subPathOpen}
+          className="overflow-x-hidden"
+        >
           <FileTree
             filesPaths={newPath}
             activeFile={activeFile}
             onClickFile={onClickFile}
             prePaths={[...prePaths, path]}
           />
-        </StyledMaxHeightSmoother>
+        </MaxHeightSmoother>
       )}
     </>
   );
@@ -118,7 +113,7 @@ export const FileTree: FC<FileTreeProps> = ({
   const fileTree = createFileTree(filesPaths);
 
   return (
-    <StyledFileBar>
+    <div className="text-neutral dark:text-neutral-dark flex size-full flex-col items-start justify-start py-1">
       {fileTree.map(({ path, subPath, isFile }) => (
         <FileItem
           key={path}
@@ -131,6 +126,6 @@ export const FileTree: FC<FileTreeProps> = ({
           filesPaths={filesPaths}
         />
       ))}
-    </StyledFileBar>
+    </div>
   );
 };

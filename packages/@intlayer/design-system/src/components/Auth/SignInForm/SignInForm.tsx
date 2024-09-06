@@ -1,10 +1,9 @@
 'use client';
 
 import type { FC } from 'react';
-import tw from 'twin.macro';
 import { Button } from '../../Button';
 import { Form, InputElement, InputPasswordElement, useForm } from '../../Form';
-// import { ExternalsLoginButtons } from '../ExternalsLoginButtons';
+import { ExternalsLoginButtons } from '../ExternalsLoginButtons';
 import { getSignInContent } from './index.content';
 import { getSignInSchema, type SignIn } from './SignInSchema';
 
@@ -14,11 +13,6 @@ type SignInFormProps = {
   onClickForgotPassword: () => void;
   onClickSignUp: () => void;
 };
-
-const StyledDiv = tw.div`flex flex-col gap-y-6`;
-const StyledForgotPasswordButton = tw(Button)`block ml-auto mt-2`;
-const StyledSubmitButton = tw(Button)`mt-12 w-full`;
-const StyledLoginMessageContainer = tw.span`text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full text-center align-middle text-xs gap-2 justify-center`;
 
 export const SignInForm: FC<SignInFormProps> = ({
   onSubmitSuccess,
@@ -38,7 +32,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         onSubmitError={onSubmitError}
         {...form}
       >
-        <StyledDiv>
+        <div className="flex flex-col gap-y-6">
           <InputElement
             name="email"
             label={signInContent.emailInput.label}
@@ -54,9 +48,10 @@ export const SignInForm: FC<SignInFormProps> = ({
             isRequired
             autoComplete="current-password"
           />
-        </StyledDiv>
+        </div>
 
-        <StyledForgotPasswordButton
+        <Button
+          className="ml-auto mt-2 block"
           variant="link"
           label={signInContent.forgotPasswordLink.ariaLabel}
           color="primary"
@@ -64,17 +59,18 @@ export const SignInForm: FC<SignInFormProps> = ({
           onClick={onClickForgotPassword}
         >
           {signInContent.forgotPasswordLink.text}
-        </StyledForgotPasswordButton>
+        </Button>
 
-        <StyledSubmitButton
+        <Button
+          className="mt-12 w-full"
           type="submit"
           isLoading={isSubmitting}
           label={signInContent.loginButton.ariaLabel}
         >
           {signInContent.loginButton.text}
-        </StyledSubmitButton>
+        </Button>
 
-        <StyledLoginMessageContainer>
+        <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full justify-center gap-2 text-center align-middle text-xs">
           {signInContent.signUpLink.message}
           <Button
             variant="link"
@@ -85,9 +81,9 @@ export const SignInForm: FC<SignInFormProps> = ({
           >
             {signInContent.signUpLink.text}
           </Button>
-        </StyledLoginMessageContainer>
+        </span>
       </Form>
-      {/* <ExternalsLoginButtons /> */}
+      <ExternalsLoginButtons />
     </>
   );
 };

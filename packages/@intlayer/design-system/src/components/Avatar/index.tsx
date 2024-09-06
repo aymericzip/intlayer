@@ -1,7 +1,6 @@
 import { User } from 'lucide-react';
 import type { ComponentProps, FC } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
 const getCapitals = (name: string): string[] =>
@@ -11,26 +10,12 @@ const getCapitals = (name: string): string[] =>
     .filter(Boolean) // remove empty strings
     .map((char) => char.toUpperCase()); // convert to uppercase
 
-export type AvatarProps = ComponentProps<'div'> & {
+export type AvatarProps = ComponentProps<'button'> & {
   src?: string;
   fullname?: string;
   isLoading?: boolean;
   isLoggedIn?: boolean;
 };
-
-const StyledRoundedContainer = styled.div<{ $isClickable: boolean }>(
-  ({ $isClickable }) => [
-    tw`size-9 rounded-full border-text dark:border-text-dark border-[1.5px] p-[1.5px]`,
-    $isClickable && tw`cursor-pointer`,
-  ]
-);
-const StyledWrapper = tw.div`size-full relative flex flex-row items-center justify-center`;
-const StyledRoundedBumble = tw.div`absolute top-0 left-0 bg-text dark:bg-text-dark text-text-dark dark:text-text flex size-full flex-col items-center justify-center rounded-full`;
-
-const StyledLoader = tw(Loader)`w-3/4`;
-const StyledAvatar = tw.img`size-full rounded-full`;
-const StyledInitialsContainer = tw.div`text-sm flex size-full items-center justify-center gap-[0.1rem] font-bold`;
-const StyledUserPictogram = tw(User)``;
 
 export const Avatar: FC<AvatarProps> = ({
   fullname,
@@ -56,16 +41,21 @@ export const Avatar: FC<AvatarProps> = ({
   const isClickable = onClick !== undefined;
 
   return (
-    <StyledRoundedContainer
+    <button
+      role={isClickable ? 'button' : undefined}
+      className={cn(
+        `border-text dark:border-text-dark size-9 rounded-full border-[1.5px] p-[1.5px]`,
+        isClickable && `cursor-pointer`
+      )}
       onClick={onClick}
       {...props}
-      $isClickable={isClickable}
     >
-      <StyledWrapper>
-        <StyledRoundedBumble>
-          {displayLoader && <StyledLoader />}
+      <div className="relative flex size-full flex-row items-center justify-center">
+        <div className="bg-text dark:bg-text-dark text-text-dark dark:text-text absolute left-0 top-0 flex size-full flex-col items-center justify-center rounded-full">
+          {displayLoader && <Loader className="w-3/4" />}
           {displayAvatar && (
-            <StyledAvatar
+            <img
+              className="size-full rounded-full"
               src={src}
               srcSet={src}
               alt={`avatar of ${fullname}`}
@@ -74,13 +64,16 @@ export const Avatar: FC<AvatarProps> = ({
             />
           )}
           {displayInitials && (
-            <StyledInitialsContainer aria-label="Initials of user's name">
+            <div
+              className="flex size-full items-center justify-center gap-[0.1rem] text-sm font-bold"
+              aria-label="Initials of user's name"
+            >
               {capitals?.map((capital) => <span key={capital}>{capital}</span>)}
-            </StyledInitialsContainer>
+            </div>
           )}
-          {displayUserIcon && <StyledUserPictogram size={25} />}
-        </StyledRoundedBumble>
-      </StyledWrapper>
-    </StyledRoundedContainer>
+          {displayUserIcon && <User size={25} />}
+        </div>
+      </div>
+    </button>
   );
 };

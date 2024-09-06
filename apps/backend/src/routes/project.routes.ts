@@ -6,7 +6,7 @@ import {
 } from '@controllers/project.controller';
 import { Router } from 'express';
 
-export const projectRouter = Router();
+export const projectRouter: Router = Router();
 
 projectRouter.get('/', getProjects);
 

@@ -1,38 +1,20 @@
 import type { HTMLAttributes } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 
 interface BurgerProps extends HTMLAttributes<HTMLDivElement> {
   isActive?: boolean;
 }
 
-const StyledContainer = tw.div`relative mr-3 size-10 cursor-pointer`;
+const lineStyle =
+  'bg-text dark:bg-text-dark absolute top-1/2 block h-[2px] w-8 transition duration-300';
 
-const StyledLine = tw.span`bg-text dark:bg-text-dark absolute top-1/2 block h-[2px] w-8 transition duration-300`;
-
-const StyledTopLineCross = styled(StyledLine)<{ $isActive: boolean }>(
-  ({ $isActive }) => [$isActive ? tw`rotate-[-45deg]` : tw`rotate-0`]
-);
-const StyledTopLine = styled(StyledLine)<{ $isActive: boolean }>(
-  ({ $isActive }) =>
-    $isActive ? tw`-translate-y-3 opacity-0` : tw`-translate-y-2 opacity-100`
-);
-
-const StyledCenterLine = styled(StyledLine)<{ $isActive: boolean }>(
-  ({ $isActive }) => [$isActive ? tw`opacity-0` : tw`opacity-100`]
-);
-
-const StyledBottomLineCross = styled(StyledLine)<{ $isActive: boolean }>(
-  ({ $isActive }) => [$isActive ? tw`rotate-[45deg]` : tw`rotate-0`]
-);
-
-const StyledBottomLine = styled(StyledLine)<{ $isActive: boolean }>(
-  ({ $isActive }) =>
-    $isActive ? tw`translate-y-3 opacity-0` : tw`translate-y-2 opacity-100`
-);
-
-export const Burger = ({ isActive = false, ...props }: BurgerProps) => (
-  <StyledContainer
+export const Burger = ({
+  isActive = false,
+  className,
+  ...props
+}: BurgerProps) => (
+  <div
+    className={cn('relative mr-3 size-10 cursor-pointer', className)}
     aria-checked={isActive}
     aria-expanded={isActive}
     aria-controls="mobile-menu"
@@ -41,17 +23,31 @@ export const Burger = ({ isActive = false, ...props }: BurgerProps) => (
     {...props}
   >
     <div>
-      <StyledTopLineCross $isActive={isActive} />
-      <StyledTopLine $isActive={isActive} />
+      <div
+        className={cn(lineStyle, isActive ? 'rotate-[-45deg]' : 'rotate-0')}
+      />
+      <div
+        className={cn(
+          lineStyle,
+          isActive ? '-translate-y-3 opacity-0' : '-translate-y-2 opacity-100'
+        )}
+      />
     </div>
 
     <div>
-      <StyledCenterLine $isActive={isActive} />
+      <div className={cn(lineStyle, isActive ? 'opacity-0' : 'opacity-100')} />
     </div>
 
     <div>
-      <StyledBottomLineCross $isActive={isActive} />
-      <StyledBottomLine $isActive={isActive} />
+      <div
+        className={cn(lineStyle, isActive ? 'rotate-[45deg]' : 'rotate-0')}
+      />
+      <div
+        className={cn(
+          lineStyle,
+          isActive ? 'translate-y-3 opacity-0' : 'translate-y-2 opacity-100'
+        )}
+      />
     </div>
-  </StyledContainer>
+  </div>
 );

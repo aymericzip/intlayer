@@ -15,9 +15,11 @@ import type {
   UpdatePasswordResult,
   ValidEmailParams,
   ValidEmailResult,
-} from '@/controllers/auth.controller';
+} from '@intlayer/backend';
+import { getConfiguration } from '@intlayer/config/client';
 
-const AUTH_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth`;
+const backendURL = getConfiguration().editor.backendURL;
+const AUTH_API_ROUTE = `${backendURL}/api/auth`;
 
 /**
  * Logs in a user with the provided credentials.

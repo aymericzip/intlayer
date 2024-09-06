@@ -1,7 +1,7 @@
+import { ChangePasswordForm } from '@components/Auth/ChangePasswordForm';
 import { Container } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { ChangePasswordForm } from '@/components/Auth/ChangePassword';
 export { generateMetadata } from './metadata';
 
 const ChangePasswordPage: NextPageIntlayer = ({ params: { locale } }) => {

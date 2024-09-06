@@ -72,6 +72,7 @@
     "chokidar": "^3.6.0"
   },
   "devDependencies": {
+    "@intlayer/backend": "workspace:^",
     "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
     "@utils/eslint-config": "workspace:^",

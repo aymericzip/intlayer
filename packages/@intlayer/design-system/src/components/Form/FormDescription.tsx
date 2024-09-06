@@ -1,8 +1,7 @@
-import { forwardRef, type HTMLAttributes } from 'react';
-import tw from 'twin.macro';
-import { useFormField } from '.';
+'use client';
 
-const StyledDescription = tw.p`text-sm text-gray-500 dark:text-gray-400`;
+import { forwardRef, type HTMLAttributes } from 'react';
+import { useFormField } from '.';
 
 export const FormDescription = forwardRef<
   HTMLParagraphElement,
@@ -10,7 +9,14 @@ export const FormDescription = forwardRef<
 >((props, ref) => {
   const { formDescriptionId } = useFormField();
 
-  return <StyledDescription ref={ref} id={formDescriptionId} {...props} />;
+  return (
+    <p
+      className="text-sm text-gray-500 dark:text-gray-400"
+      ref={ref}
+      id={formDescriptionId}
+      {...props}
+    />
+  );
 });
 
 FormDescription.displayName = 'FormDescription';

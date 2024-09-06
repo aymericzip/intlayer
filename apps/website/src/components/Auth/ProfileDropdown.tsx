@@ -1,5 +1,7 @@
-import { ProfileDropDown as ProfileDropDownUI } from '@intlayer/design-system';
-import { useUser } from '@utils/auth/useUser';
+import {
+  ProfileDropDown as ProfileDropDownUI,
+  useUser,
+} from '@intlayer/design-system';
 import type { FC } from 'react';
 import { ProfilePanel } from './ProfilePanel';
 

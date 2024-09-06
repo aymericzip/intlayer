@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "@intlayer/backend",
   "version": "0.1.13",
   "private": true,
   "description": "IntLayer Backend is a an application that allow you to manage your IntLayer content and interact with the intlayer editor.",
@@ -33,13 +33,21 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/package/export.d.mjs",
+      "require": "./dist/package/export.cjs",
+      "import": "./dist/package/export.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "module": "dist/build/index.js",
   "scripts": {
-    "build": "tsc && tsc-alias",
+    "build": "tsup && tsc-alias",
     "dev": "node --watch -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
-    "start": "node -r ts-node/register dist/index.js"
+    "start": "node --experimental-default-type=\"module\" dist/build/index.js"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -56,6 +64,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.3",
+    "tsup": "^8.2.4",
     "tsx": "^4.17.0",
     "uuid": "^10.0.0",
     "validator": "^13.12.0",
@@ -71,6 +80,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^22.1.0",
     "@types/uuid": "^10.0.0",
+    "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
     "eslint": "^8.57.0",
     "ts-node": "^10.9.2",

@@ -18,7 +18,7 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
   showErrorMessage = true,
   htmlFor,
 }) => (
-  <FormItem className="w-full">
+  <FormItem className="w-full space-y-2">
     <div className="space-y-1 leading-none">
       <FormLabelLayout
         label={label}

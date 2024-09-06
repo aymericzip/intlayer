@@ -11,9 +11,11 @@ import type {
   GetUsersResult,
   UpdateUserBody,
   UpdateUserResult,
-} from '@controllers/user.controller';
+} from '@intlayer/backend';
+import { getConfiguration } from '@intlayer/config/client';
 
-const USER_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`;
+const backendURL = getConfiguration().editor.backendURL;
+const USER_API_ROUTE = `${backendURL}/api/user`;
 
 /**
  * Retrieves a list of users based on filters and pagination.

@@ -6,7 +6,6 @@ import {
   type KeyPath,
 } from '@intlayer/core';
 import type { FC } from 'react';
-import tw from 'twin.macro';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
 import { NodeWrapper } from './NodeWrapper';
 
@@ -25,12 +24,6 @@ interface DictionaryFieldEditorProps {
   editedContent?: FieldContent[];
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
 }
-
-const StyledContainer = tw.div`flex-1 flex flex-col gap-10 flex-col w-full h-full`;
-const StyledColumnLayout = tw.div`flex flex-row gap-2 flex-1 h-full`;
-const StyledColumn1 = tw.div`max-md:hidden`;
-const StyledColumn2 = tw.div`max-sm:hidden`;
-const StyledColumn3 = tw.div`flex-1 flex items-start max-md:justify-center rounded-xl border-text dark:border-text-dark sm:border-[1.5px] p-2`;
 
 const getSection = (
   dictionary: Dictionary,
@@ -93,30 +86,30 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const section3 = getSection(dictionary, columns3KeyPath);
 
   return (
-    <StyledContainer>
+    <div className="flex size-full flex-1 flex-col gap-10">
       <Breadcrumb links={formattedKeyPath} />
-      <StyledColumnLayout>
+      <div className="flex h-full flex-1 flex-row gap-2">
         {section1 && columns2KeyPath?.length > 0 && (
-          <StyledColumn1>
+          <div className="max-md:hidden">
             <NodeWrapper
               {...props}
               keyPath={columns1KeyPath}
               section={section1}
               onFocusKeyPath={onFocusKeyPath}
             />
-          </StyledColumn1>
+          </div>
         )}
         {section2 && columns3KeyPath?.length > 0 && (
-          <StyledColumn2>
+          <div className="max-sm:hidden">
             <NodeWrapper
               {...props}
               keyPath={columns2KeyPath}
               section={section2}
               onFocusKeyPath={onFocusKeyPath}
             />
-          </StyledColumn2>
+          </div>
         )}
-        <StyledColumn3>
+        <div className="border-text dark:border-text-dark flex flex-1 items-start rounded-xl p-2 max-md:justify-center sm:border-[1.5px]">
           <NodeWrapper
             {...props}
             keyPath={columns3KeyPath}
@@ -126,8 +119,8 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             }
             onFocusKeyPath={onFocusKeyPath}
           />
-        </StyledColumn3>
-      </StyledColumnLayout>
-    </StyledContainer>
+        </div>
+      </div>
+    </div>
   );
 };

@@ -1,6 +1,5 @@
 import type { ReactNode, FC, HTMLAttributes } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { Accordion } from '../Accordion';
 
 interface ItemWrapperProps extends HTMLAttributes<HTMLDivElement> {
@@ -12,31 +11,6 @@ interface ItemWrapperProps extends HTMLAttributes<HTMLDivElement> {
   isSelected: boolean;
 }
 
-export const StyledContainer = styled.div<{
-  $level: number;
-  $isSelected?: boolean;
-}>(({ $level, $isSelected }) => [
-  tw`p-2 rounded-md transition`,
-  tw`hover:bg-card/30 dark:hover:bg-card-dark/30 [&:has(.section:hover)]:bg-transparent`,
-  $level === 2 && tw`hover:bg-card/30 dark:hover:bg-card-dark/30`,
-  $level >= 3 && tw``,
-  $isSelected === true && tw`bg-card/40 dark:bg-card-dark/40`,
-]);
-
-const Description = tw.p`text-sm text-card pl-3`;
-
-const Title = styled.span<{ $level: number }>(({ $level }) => [
-  tw``,
-  $level === 0 && tw`text-2xl`,
-  $level === 1 && tw`text-xl`,
-  $level === 2 && tw`text-lg`,
-  $level >= 3 && tw`text-base`,
-]);
-const StyledHeaderContainer = tw.div`flex w-full`;
-const StyledHeader = tw.div`flex justify-between items-center w-full`;
-
-const RightParamContainer = tw.div`flex items-center justify-between p-3 w-auto`;
-
 export const ItemLayout: FC<ItemWrapperProps> = ({
   level,
   title,
@@ -46,23 +20,45 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
   isSelected,
   ...props
 }) => (
-  <StyledContainer $level={level} $isSelected={isSelected} {...props}>
+  <div
+    className={cn(
+      'rounded-md p-2 transition',
+      'hover:bg-card/30 dark:hover:bg-card-dark/30 [&:has(.section:hover)]:bg-transparent',
+      level === 2 && 'hover:bg-card/30 dark:hover:bg-card-dark/30',
+      level >= 3 && '',
+      isSelected === true && 'bg-card/40 dark:bg-card-dark/40'
+    )}
+    {...props}
+  >
     <Accordion
       isOpen={isSelected}
       identifier={`accordion_${title}`}
       header={
-        <StyledHeaderContainer>
-          <StyledHeader>
-            <Title $level={level}>{title}</Title>
+        <div className="flex w-full">
+          <div className="flex w-full items-center justify-between">
+            <span
+              className={cn(
+                level === 0 && 'text-2xl',
+                level === 1 && 'text-xl',
+                level === 2 && 'text-lg',
+                level >= 3 && 'text-base'
+              )}
+            >
+              {title}
+            </span>
             {rightParam && (
-              <RightParamContainer>{rightParam}</RightParamContainer>
+              <div className="flex w-auto items-center justify-between p-3">
+                {rightParam}
+              </div>
             )}
-          </StyledHeader>
-          {description && <Description>{description}</Description>}
-        </StyledHeaderContainer>
+          </div>
+          {description && (
+            <p className="text-card pl-3 text-sm">{description}</p>
+          )}
+        </div>
       }
     >
       {children}
     </Accordion>
-  </StyledContainer>
+  </div>
 );

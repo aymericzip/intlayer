@@ -512,12 +512,10 @@ const flagRecord: Record<Locales, typeof unknown> = {
   [Locales.ZULU_SOUTH_AFRICA]: southAfrica,
 };
 
-export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => {
-  return (
-    <img
-      src={flagRecord[locale] as unknown as string}
-      alt={`${locale} flag`}
-      {...props}
-    />
-  );
-};
+export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => (
+  <img
+    src={flagRecord[locale] as unknown as string}
+    alt={`${locale} flag`}
+    {...props}
+  />
+);

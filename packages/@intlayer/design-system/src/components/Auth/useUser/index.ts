@@ -1,6 +1,6 @@
-import { backendAPI } from '@utils/backend-api';
+import { intlayerAPI } from '@intlayer/core';
 import { useContext } from 'react';
-import { SessionContext } from '@/providers/AuthProvider';
+import { SessionContext } from '../AuthProvider';
 
 export const useUser = () => {
   const { session, checkSession, setSession } = useContext(SessionContext);
@@ -14,8 +14,8 @@ export const useUser = () => {
 
   const logout = async () => {
     setSession(null);
-    await backendAPI.auth.logout().then(() => {
-      checkSession();
+    await intlayerAPI.auth.logout().then(async () => {
+      await checkSession();
     });
   };
 

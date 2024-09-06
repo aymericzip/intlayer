@@ -9,9 +9,10 @@ import type {
   GetOrganizationsResult,
   UpdateOrganizationBody,
   UpdateOrganizationResult,
-} from '@controllers/organization.controller';
+} from '@intlayer/backend';
+import { getConfiguration } from '@intlayer/config/client';
 
-const ORGANIZATION_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/organization`;
+const ORGANIZATION_API_ROUTE = `${getConfiguration().editor.backendURL}/api/organization`;
 
 /**
  * Retrieves a list of organizations based on filters and pagination.

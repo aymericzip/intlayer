@@ -29,7 +29,6 @@ import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { updateUser } from './user.controller';
 import { logger } from '@/logger';
 import type {
   Session,

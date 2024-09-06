@@ -1,7 +1,8 @@
+'use client';
+
 import type { Locales } from '@intlayer/config/client';
 import type { Dictionary, DictionaryValue, KeyPath } from '@intlayer/core';
 import type { FC } from 'react';
-import tw from 'twin.macro';
 import { NodeWrapper } from './NodeWrapper';
 import { ValidDictionaryChangeButtons } from './ValidDictionaryChangeButtons';
 
@@ -22,8 +23,6 @@ interface DictionaryEditorProps {
   onClickEdit?: (keyPath: KeyPath[]) => void;
 }
 
-const StyledContainer = tw.div`flex flex-col justify-between gap-2 h-full`;
-
 export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   dictionary,
   onContentChange,
@@ -32,7 +31,7 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   onValidEdition,
   ...props
 }) => (
-  <StyledContainer>
+  <div className="flex h-full flex-col justify-between gap-2">
     <div>
       <NodeWrapper
         {...props}
@@ -49,5 +48,5 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
       onValidEdition={onValidEdition}
       editedContent={props.editedContent}
     />
-  </StyledContainer>
+  </div>
 );

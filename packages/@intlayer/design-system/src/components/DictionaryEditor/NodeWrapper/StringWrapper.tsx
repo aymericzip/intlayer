@@ -1,8 +1,8 @@
 import { isSameKeyPath, type KeyPath } from '@intlayer/core';
 import type { FC } from 'react';
+import { cn } from '../../../utils/cn';
 import { ContentEditor } from '../../ContentEditor';
 import type { FieldContent } from '../../DictionaryFieldEditor';
-import { StyledContainer } from '../ItemLayout';
 import type { NodeWrapperProps } from './index';
 
 interface StringWrapperProps extends Omit<NodeWrapperProps, 'section'> {
@@ -35,13 +35,21 @@ export const StringWrapper: FC<StringWrapperProps> = (props) => {
     focusedKeyPath
   );
 
+  const level = keyPath.length;
+
   return (
-    <StyledContainer
-      $level={keyPath.length}
+    <button
+      className={cn(
+        'rounded-md p-2 transition',
+        'hover:bg-card/30 dark:hover:bg-card-dark/30 [&:has(.section:hover)]:bg-transparent',
+        level === 2 && 'hover:bg-card/30 dark:hover:bg-card-dark/30',
+        level >= 3 && ''
+      )}
       onClick={(e) => {
         e.stopPropagation();
         onFocusKeyPath(keyPath);
       }}
+      {...props}
     >
       <ContentEditor
         onContentChange={(newValue) => onContentChange({ keyPath, newValue })}
@@ -49,6 +57,6 @@ export const StringWrapper: FC<StringWrapperProps> = (props) => {
       >
         {editedContentValue ?? section}
       </ContentEditor>
-    </StyledContainer>
+    </button>
   );
 };

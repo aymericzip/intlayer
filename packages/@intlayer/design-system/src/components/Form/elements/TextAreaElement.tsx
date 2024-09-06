@@ -1,4 +1,4 @@
-import { TextArea } from '../../../components/TextArea';
+import { TextArea } from '../../TextArea/TextArea';
 import { FormElement, type FormElementProps } from '.';
 
 interface TextAreaElementsProps

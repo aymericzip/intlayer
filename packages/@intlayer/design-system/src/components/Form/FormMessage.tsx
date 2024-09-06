@@ -1,8 +1,7 @@
-import type { FC, HTMLAttributes } from 'react';
-import tw from 'twin.macro';
-import { useFormField } from '.';
+'use client';
 
-const StyledFormMessage = tw.p`text-xs font-medium text-error dark:text-error-dark`;
+import type { FC, HTMLAttributes } from 'react';
+import { useFormField } from '.';
 
 export const FormMessage: FC<HTMLAttributes<HTMLParagraphElement>> = ({
   children,
@@ -16,8 +15,13 @@ export const FormMessage: FC<HTMLAttributes<HTMLParagraphElement>> = ({
   }
 
   return (
-    <StyledFormMessage role="alert" id={formMessageId} {...props}>
+    <p
+      className="text-error dark:text-error-dark text-xs font-medium"
+      role="alert"
+      id={formMessageId}
+      {...props}
+    >
       {body}
-    </StyledFormMessage>
+    </p>
   );
 };

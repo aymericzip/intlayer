@@ -1,15 +1,17 @@
 import type { DetailedHTMLProps, FC } from 'react';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 
 type CopiedTextInformationProps = DetailedHTMLProps<
   React.HTMLAttributes<HTMLElement>,
   HTMLElement
 >;
 
-const StyledI = tw.i`text-xs text-neutral-400`;
-
 export const InformationTag: FC<CopiedTextInformationProps> = ({
   className,
   children,
   ...props
-}) => <StyledI {...props}>ⓘ {children}</StyledI>;
+}) => (
+  <i className={cn('text-xs text-neutral-400', className)} {...props}>
+    ⓘ {children}
+  </i>
+);

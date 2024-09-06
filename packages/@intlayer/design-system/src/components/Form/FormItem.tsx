@@ -1,9 +1,6 @@
 'use client';
 
 import { forwardRef, type HTMLAttributes, useId, createContext } from 'react';
-import tw from 'twin.macro';
-
-const StyledFormItem = tw.div`space-y-2`;
 
 export const FormItem = forwardRef<
   HTMLDivElement,
@@ -13,7 +10,7 @@ export const FormItem = forwardRef<
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <StyledFormItem ref={ref} {...props} />
+      <div className="space-y-2" ref={ref} {...props} />
     </FormItemContext.Provider>
   );
 });

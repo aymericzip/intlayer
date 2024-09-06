@@ -7,9 +7,11 @@ import type {
   GetProjectsResult,
   UpdateProjectBody,
   UpdateProjectResult,
-} from '@controllers/project.controller';
+} from '@intlayer/backend';
+import { getConfiguration } from '@intlayer/config/client';
 
-const PROJECT_API_ROUTE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/project`;
+const backendURL = getConfiguration().editor.backendURL;
+const PROJECT_API_ROUTE = `${backendURL}/api/project`;
 
 /**
  * Retrieves a list of projects based on filters and pagination.

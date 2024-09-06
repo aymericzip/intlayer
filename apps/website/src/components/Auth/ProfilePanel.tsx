@@ -1,7 +1,6 @@
 'use client';
 
-import { Button } from '@intlayer/design-system';
-import { useUser } from '@utils/auth/useUser';
+import { Button, useUser } from '@intlayer/design-system';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';

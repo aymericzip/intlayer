@@ -2,9 +2,8 @@
 
 import { m, type Variants } from 'framer-motion';
 import { useRef, useState, type FC, type ReactNode } from 'react';
-import { css, styled } from 'styled-components';
-import tw from 'twin.macro';
 import { useScrollBlockage, useScrollDetection } from '../../hooks';
+import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import { Burger } from './Burger';
 import { useNavActions } from './useNavigation';
@@ -51,9 +50,7 @@ const navVariants: Variants = {
   },
 };
 
-const StyledSection = styled(m.div)`
-  ${tw`hover:text-primary aria-selected:text-primary w-full cursor-pointer p-3 text-center transition`}
-`;
+const MotionSection = m.div;
 
 const SectionList: FC<SectionListProps> = ({
   sections,
@@ -62,7 +59,8 @@ const SectionList: FC<SectionListProps> = ({
 }) => (
   <div role="tablist" aria-orientation="vertical" aria-multiselectable="false">
     {sections?.map(({ id, label, url, title, onClick }) => (
-      <StyledSection
+      <MotionSection
+        className="hover:text-primary aria-selected:text-primary w-full cursor-pointer p-3 text-center transition"
         role="tab"
         key={id}
         id={id}
@@ -75,39 +73,20 @@ const SectionList: FC<SectionListProps> = ({
         aria-selected={activeSection === id}
       >
         {title}
-      </StyledSection>
+      </MotionSection>
     ))}
   </div>
 );
 
-const bgStyle = [
-  tw`bg-card/95 dark:bg-card-dark/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur`,
-  css`
-    -webkit-backdrop-filter: var(--tw-backdrop-blur)
-      var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
-      var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
-      var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
-      var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  `,
-];
-const StyledNav = styled.nav<{ $isHidden: boolean }>(({ $isHidden }) => [
-  ...bgStyle,
-  tw`relative sticky top-0 z-50 flex w-screen flex-col  transition`,
-  $isHidden ? tw`-translate-y-full` : tw`translate-y-0`,
-]);
-const StyledHeaderContainer = tw.div`flex w-full items-center justify-between gap-[10vw] px-4 py-3`;
-const StyledRightItemContainer = tw.div`flex w-full items-center justify-end gap-6`;
-const StyledRightCustomItemContainer = tw.div`flex w-full items-center justify-end gap-1`;
-const StyledFullScreenPanel = styled.div(() => [
-  ...bgStyle,
-  tw`absolute bottom-0 left-0 w-full translate-y-full`,
-]);
-const StyledFullScreenPanelContent = styled(m.div)(
-  () =>
-    tw`flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide text-text dark:text-text-dark`
-);
-const StyledSectionContainer = tw.div`flex h-full flex-col justify-between`;
-const StyledBottomChildrenContainer = tw.div`flex w-full items-center justify-center gap-1 px-5 py-3 max-w-[400px] m-auto`;
+const bgStyle =
+  'bg-card/95 dark:bg-card-dark/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur';
+// css`
+//   -webkit-backdrop-filter: var(--tw-backdrop-blur)
+//     var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
+//     var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
+//     var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
+//     var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+// `,
 
 export const MobileNavbar: FC<MobileNavbarProps> = ({
   logo,
@@ -139,14 +118,24 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
   const isBurgerShowed = topSections.length + bottomSections.length > 0;
 
   return (
-    <StyledNav id="mobile-menu" $isHidden={isHidden}>
-      <StyledHeaderContainer ref={navRef}>
+    <nav
+      className={cn(
+        ...bgStyle,
+        'sticky top-0 z-50 flex w-screen flex-col  transition',
+        isHidden ? '-translate-y-full' : 'translate-y-0'
+      )}
+      id="mobile-menu"
+    >
+      <div
+        className="flex w-full items-center justify-between gap-[10vw] px-4 py-3"
+        ref={navRef}
+      >
         {logo}
 
-        <StyledRightItemContainer>
-          <StyledRightCustomItemContainer>
+        <div className="flex w-full items-center justify-end gap-6">
+          <div className="flex w-full items-center justify-end gap-1">
             {rightItems}
-          </StyledRightCustomItemContainer>
+          </div>
 
           {isBurgerShowed && (
             <Burger
@@ -154,12 +143,18 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
               onClick={() => setIsUnrolled((isUnrolled) => !isUnrolled)}
             />
           )}
-        </StyledRightItemContainer>
-      </StyledHeaderContainer>
+        </div>
+      </div>
 
-      <StyledFullScreenPanel>
+      <div
+        className={cn(
+          ...bgStyle,
+          'absolute bottom-0 left-0 w-full translate-y-full'
+        )}
+      >
         <MaxHeightSmoother isHidden={!isUnrolled}>
-          <StyledFullScreenPanelContent
+          <m.div
+            className="text-text dark:text-text-dark flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide"
             onClick={() => setIsUnrolled(false)}
             animate={isUnrolled ? 'open' : 'closed'}
             variants={navVariants}
@@ -168,7 +163,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
             }}
           >
             {topChildren}
-            <StyledSectionContainer>
+            <div className="flex h-full flex-col justify-between">
               <SectionList
                 sections={topSections}
                 activeSection={activeSection}
@@ -179,14 +174,14 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
                 activeSection={activeSection}
                 onClickSection={onClickSection}
               />
-            </StyledSectionContainer>
+            </div>
 
-            <StyledBottomChildrenContainer>
+            <div className="m-auto flex w-full max-w-[400px] items-center justify-center gap-1 px-5 py-3">
               {bottomChildren}
-            </StyledBottomChildrenContainer>
-          </StyledFullScreenPanelContent>
+            </div>
+          </m.div>
         </MaxHeightSmoother>
-      </StyledFullScreenPanel>
-    </StyledNav>
+      </div>
+    </nav>
   );
 };

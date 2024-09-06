@@ -1,7 +1,7 @@
-import { backendAPI } from '@utils/backend-api';
-import { Cookies } from '@utils/cookies';
+import { Cookies } from '@intlayer/backend';
+import { intlayerAPI } from '@intlayer/core';
 import { cookies } from 'next/headers';
-import type { Session } from './AuthProvider';
+import type { Session } from '../AuthProvider';
 
 export const getServerSession = async () => {
   const cookiesStore = cookies();
@@ -12,7 +12,7 @@ export const getServerSession = async () => {
   }
 
   try {
-    const { data } = await backendAPI.auth.getSessionInformation(
+    const { data } = await intlayerAPI.auth.getSessionInformation(
       session_token.value
     );
 

@@ -1,6 +1,7 @@
-import { forceEsmExtensionsPlugin } from './forceEsmExtensionsPlugin.mjs';
+import { forceExtensionsPlugin } from './forceEsmExtensionsPlugin.mjs';
 
-const commonOptions = {
+/** @type {import('tsup').Options} */
+export const commonOptions = {
   entryPoints: ['src/**/*'],
   target: 'esnext',
   dts: true,
@@ -8,14 +9,15 @@ const commonOptions = {
   clean: true,
   sourcemap: true,
   bundle: false,
+  esbuildPlugins: [forceExtensionsPlugin()],
 };
 
+/** @type {import('tsup').Options[]} */
 export const packageBuildOptions = [
   {
     ...commonOptions,
     format: ['cjs'],
     outDir: 'dist/cjs',
-    esbuildPlugins: [forceEsmExtensionsPlugin()],
     outExtension: () => ({
       js: '.cjs',
     }),
@@ -24,15 +26,8 @@ export const packageBuildOptions = [
     ...commonOptions,
     format: ['esm'],
     outDir: 'dist/esm',
-    esbuildPlugins: [forceEsmExtensionsPlugin()],
     outExtension: () => ({
       js: '.mjs',
     }),
   },
-  // {
-  //   ...commonOptions,
-  //   format: ['esm'],
-  //   dts: true,
-  //   outDir: 'dist/types',
-  // },
 ];

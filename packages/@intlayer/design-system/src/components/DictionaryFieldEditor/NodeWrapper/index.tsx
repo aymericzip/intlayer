@@ -1,5 +1,3 @@
-'use client';
-
 import type { Locales } from '@intlayer/config/client';
 import {
   type EnumerationContent,
@@ -15,7 +13,6 @@ import {
   type ReactNode,
   type FC,
 } from 'react';
-import tw from 'twin.macro';
 import type { FieldContent } from '..';
 import { Button } from '../../Button';
 import { ContentEditorTextArea } from '../../ContentEditor/ContentEditorTextArea';
@@ -26,8 +23,6 @@ export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
 
-const StyledWarning = tw.span`text-neutral dark:text-neutral-dark text-xs`;
-
 export interface NodeWrapperProps {
   keyPath: KeyPath[];
   section: DictionaryValue;
@@ -36,8 +31,6 @@ export interface NodeWrapperProps {
   editedContent?: FieldContent[];
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
 }
-
-const StyledNavButtonContainer = tw.div`flex justify-between gap-2 flex-col`;
 
 const createReactElement = (element: ReactElement) => {
   if (typeof element === 'string') {
@@ -84,7 +77,9 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       return (
         <>
           {createReactElement(section as unknown as ReactElement)}
-          <StyledWarning>React node not editable</StyledWarning>
+          <span className="text-neutral dark:text-neutral-dark text-xs">
+            React node not editable
+          </span>
         </>
       );
     }
@@ -94,7 +89,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       NodeType.Translation
     ) {
       return (
-        <StyledNavButtonContainer>
+        <div className="flex flex-col justify-between gap-2">
           {Object.keys(
             (section as TranslationContent<DictionaryValue>)[
               NodeType.Translation
@@ -116,7 +111,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
               {translationKey}
             </Button>
           ))}
-        </StyledNavButtonContainer>
+        </div>
       );
     }
 
@@ -125,7 +120,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       NodeType.Enumeration
     ) {
       return (
-        <StyledNavButtonContainer>
+        <div className="flex flex-col justify-between gap-2">
           {Object.keys(
             (section as EnumerationContent<DictionaryValue>)[
               NodeType.Enumeration
@@ -147,13 +142,13 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
               {enumKey}
             </Button>
           ))}
-        </StyledNavButtonContainer>
+        </div>
       );
     }
 
     if (Array.isArray(section)) {
       return (
-        <StyledNavButtonContainer>
+        <div className="flex flex-col justify-between gap-2">
           {section.map((_subSection, index) => (
             <Button
               label={`Go to item ${index}`}
@@ -171,12 +166,12 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
               {index}
             </Button>
           ))}
-        </StyledNavButtonContainer>
+        </div>
       );
     }
 
     return (
-      <StyledNavButtonContainer>
+      <div className="flex flex-col justify-between gap-2">
         {Object.keys(section).map((key) => (
           <Button
             label={`Go to ${key}`}
@@ -191,7 +186,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
             {key}
           </Button>
         ))}
-      </StyledNavButtonContainer>
+      </div>
     );
   }
 

@@ -1,10 +1,7 @@
 import type { FC } from 'react';
-import { styled } from 'styled-components';
-import tw from 'twin.macro';
+import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import type { DropDownType, PanelProps, TriggerProps } from './types';
-
-const StyledDropDown = tw.div`relative`;
 
 /**
  * Trigger allowing to open a dropdown menu.
@@ -28,18 +25,16 @@ export const DropDown: DropDownType = ({
   identifier,
   ...props
 }) => (
-  <StyledDropDown
-    className={`group ${className}`}
+  <div
+    className={cn('group relative', className)}
     aria-label={`DropDown ${identifier}`}
     id={`unrollable-panel-button-${identifier}`}
     aria-haspopup
     {...props}
   >
     {children}
-  </StyledDropDown>
+  </div>
 );
-
-const StyledDropDownTriggerButton = tw.button`cursor-pointer`;
 
 /**
  * Trigger allowing to open a dropdown menu.
@@ -54,31 +49,14 @@ const StyledDropDownTriggerButton = tw.button`cursor-pointer`;
  * > Note: Don't add button inside the trigger, it will be automatically added by the component.
  */
 const Trigger: FC<TriggerProps> = ({ children, identifier, ...props }) => (
-  <StyledDropDownTriggerButton
+  <button
+    className="cursor-pointer"
     aria-label={`Open panel ${identifier}`}
     {...props}
   >
     {children}
-  </StyledDropDownTriggerButton>
+  </button>
 );
-
-const StyledPanelContainer = tw.div`absolute right-0 translate-y-2 min-w-full z-[1000]`;
-const StyledMaxHeightSmoother = styled(MaxHeightSmoother)<{
-  isHidden: boolean | undefined;
-  $isOverable: boolean;
-  $isFocusable: boolean;
-}>`
-  ${tw`overflow-x-hidden`}
-  ${({ isHidden }) => (isHidden !== false ? tw`invisible` : tw`visible`)}
-  ${({ $isOverable }) =>
-    $isOverable
-      ? tw`group-hover:grid-rows-[1fr] group-hover:overflow-x-auto group-hover:visible`
-      : ''}
-  ${({ $isFocusable }) =>
-    $isFocusable
-      ? tw`group-focus-within:grid-rows-[1fr] group-focus-within:overflow-x-auto group-focus-within:visible`
-      : ''}
-`;
 
 /**
  * Component that opens a dropdown menu when the trigger is clicked.
@@ -98,21 +76,27 @@ const Panel: FC<PanelProps> = ({
   identifier,
   ...props
 }) => (
-  <StyledPanelContainer
+  <div
+    className="absolute right-0 z-[1000] min-w-full translate-y-2"
     aria-hidden={isHidden}
     role="region"
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     id={`unrollable-panel-${identifier}`}
   >
-    <StyledMaxHeightSmoother
-      $isOverable={isOverable}
-      $isFocusable={isFocusable}
-      isHidden={isHidden}
+    <MaxHeightSmoother
+      className={cn(
+        'overflow-x-hidden',
+        isHidden !== false ? 'invisible' : 'visible',
+        isOverable &&
+          'group-hover:visible group-hover:grid-rows-[1fr] group-hover:overflow-x-auto',
+        isFocusable &&
+          'group-focus-within:visible group-focus-within:grid-rows-[1fr] group-focus-within:overflow-x-auto'
+      )}
       {...props}
     >
       {children}
-    </StyledMaxHeightSmoother>
-  </StyledPanelContainer>
+    </MaxHeightSmoother>
+  </div>
 );
 
 DropDown.Trigger = Trigger;

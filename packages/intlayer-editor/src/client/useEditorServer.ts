@@ -9,10 +9,10 @@ export const useEditorServer = () => {
 
   const editContentRequest = async () => {
     const {
-      editor: { port },
+      editor: { backendURL },
     } = getConfiguration();
 
-    await fetch(`http://localhost:${port}`, {
+    await fetch(backendURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
