@@ -23,7 +23,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   minWidth = 0,
   children,
 }) => {
-  const containerRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(initialWidth);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -31,8 +31,8 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   const startResizing = useCallback(
     (
       mouseDownEvent:
-        | React.MouseEvent<HTMLButtonElement>
-        | React.TouchEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLDivElement>
+        | React.TouchEvent<HTMLDivElement>
     ) => {
       setIsResizing(true);
       mouseDownEvent.preventDefault();
@@ -84,7 +84,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   }, [resize, stopResizing]);
 
   return (
-    <button
+    <div
       className={cn(
         minWidth && `max-w-[${maxWidth}px]`,
         maxWidth && `min-w-[${minWidth}px]`,
@@ -103,6 +103,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       aria-valuenow={width}
       aria-label="Resizable component"
       role="slider"
+      tabIndex={0}
     >
       <div
         className="absolute left-0 top-0 size-full cursor-default overflow-hidden"
@@ -111,6 +112,6 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       >
         {children}
       </div>
-    </button>
+    </div>
   );
 };
