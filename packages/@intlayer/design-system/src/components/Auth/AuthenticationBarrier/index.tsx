@@ -18,7 +18,7 @@ export type AuthenticationBarrierProps = AuthProviderProps & {
    * redirectionMethod={(url) => redirect(url)}
    * ```
    */
-  redirectionMethod?: (redirectionRoute: string) => void;
+  redirectionFunction?: (redirectionRoute: string) => void;
 };
 
 const redirect = (redirectionRoute: string) =>
@@ -29,7 +29,7 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
   accessRule = 'public',
   redirectionRoute = '/',
   session: sessionProp,
-  redirectionMethod = redirect,
+  redirectionFunction: redirectionMethod = redirect,
 }) => {
   const { session: sessionClient } = useAuth();
 
