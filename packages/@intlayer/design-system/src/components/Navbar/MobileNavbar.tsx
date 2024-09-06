@@ -120,7 +120,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
   return (
     <nav
       className={cn(
-        ...bgStyle,
+        bgStyle,
         'sticky top-0 z-50 flex w-screen flex-col  transition',
         isHidden ? '-translate-y-full' : 'translate-y-0'
       )}
@@ -148,7 +148,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
 
       <div
         className={cn(
-          ...bgStyle,
+          bgStyle,
           'absolute bottom-0 left-0 w-full translate-y-full'
         )}
       >

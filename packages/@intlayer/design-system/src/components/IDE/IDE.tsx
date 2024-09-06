@@ -52,7 +52,7 @@ export const IDE: FC<IDEProps> = ({
 
   return (
     <Container
-      className="flex size-full flex-col justify-start overflow-scroll shadow-lg"
+      className="flex size-full flex-col justify-start overflow-hidden shadow-lg"
       roundedSize="3xl"
       transparency="none"
       {...props}

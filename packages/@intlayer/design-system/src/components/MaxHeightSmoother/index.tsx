@@ -21,7 +21,7 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
   <div
     aria-hidden={isHidden}
     className={cn(
-      'group relative grid w-full grid-rows-[0fr] overflow-hidden transition-all duration-700 ease-in-out',
+      'group/height-smoother relative grid w-full grid-rows-[0fr] overflow-hidden transition-all duration-700 ease-in-out',
       typeof isHidden !== 'undefined' &&
         !isHidden &&
         'grid-rows-[1fr] overflow-x-auto',
@@ -36,8 +36,8 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
         minHeight: `${minHeight}px`,
       }}
       className={cn(
-        isOverable && 'group-hover:visible',
-        isFocusable && 'group-focus:visible',
+        isOverable && 'group-hover/height-smoother:visible',
+        isFocusable && 'group-focus/height-smoother:visible',
         className
       )}
     >

@@ -26,7 +26,7 @@ export const DropDown: DropDownType = ({
   ...props
 }) => (
   <div
-    className={cn('group relative', className)}
+    className={cn(`group/dropdown relative`, className)}
     aria-label={`DropDown ${identifier}`}
     id={`unrollable-panel-button-${identifier}`}
     aria-haspopup
@@ -48,9 +48,14 @@ export const DropDown: DropDownType = ({
  *
  * > Note: Don't add button inside the trigger, it will be automatically added by the component.
  */
-const Trigger: FC<TriggerProps> = ({ children, identifier, ...props }) => (
+const Trigger: FC<TriggerProps> = ({
+  children,
+  identifier,
+  className,
+  ...props
+}) => (
   <button
-    className="cursor-pointer"
+    className={cn('cursor-pointer', className)}
     aria-label={`Open panel ${identifier}`}
     {...props}
   >
@@ -74,23 +79,28 @@ const Panel: FC<PanelProps> = ({
   isOverable = false,
   isFocusable = false,
   identifier,
+  className,
   ...props
 }) => (
   <div
-    className="absolute right-0 z-[1000] min-w-full translate-y-2"
+    className={cn(
+      'absolute right-0 z-[1000] min-w-full translate-y-2',
+      className
+    )}
     aria-hidden={isHidden}
     role="region"
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     id={`unrollable-panel-${identifier}`}
   >
     <MaxHeightSmoother
+      isHidden={isHidden}
       className={cn(
-        'overflow-x-hidden',
+        'overflow-x-visible',
         isHidden !== false ? 'invisible' : 'visible',
         isOverable &&
-          'group-hover:visible group-hover:grid-rows-[1fr] group-hover:overflow-x-auto',
+          'group-hover/dropdown:visible group-hover/dropdown:grid-rows-[1fr]',
         isFocusable &&
-          'group-focus-within:visible group-focus-within:grid-rows-[1fr] group-focus-within:overflow-x-auto'
+          'group-focus-within/dropdown:visible group-focus-within/dropdown:grid-rows-[1fr]'
       )}
       {...props}
     >

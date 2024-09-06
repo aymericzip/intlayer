@@ -28,6 +28,8 @@ type LocaleSwitcherProps = {
   setLocale: (locale: Locales) => void;
 };
 
+const DROPDOWN_IDENTIFIER = 'locale-switcher';
+
 export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   locale,
   localeList,
@@ -46,28 +48,20 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
       className="text-text dark:text-text-dark border-text dark:border-text-dark rounded-xl border transition-colors"
       aria-label="Language switcher"
     >
-      <DropDown identifier="local-switcher">
+      <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger
-          className="w-full p-0"
-          identifier="local-switcher"
+          identifier={DROPDOWN_IDENTIFIER}
           aria-label="Language selector"
         >
-          {locale && (
-            <div className="flex items-center justify-between">
-              <div className="px-2 py-1">{localeName}</div>
-              <MoveVertical className="w-5 self-center" />
-            </div>
-          )}
+          <div className="flex items-center justify-between">
+            <div className="px-2 py-1">{localeName}</div>
+            <MoveVertical className="w-5 self-center" />
+          </div>
         </DropDown.Trigger>
 
-        <DropDown.Panel
-          className="divide-text dark:divide-text-dark z-50 w-full divide-x divide-y divide-dotted"
-          identifier="local-switcher"
-          isOverable
-          isFocusable
-        >
+        <DropDown.Panel identifier={DROPDOWN_IDENTIFIER} isOverable isFocusable>
           <Container
-            className="p-1"
+            className="w-28 p-1"
             separator="y"
             role="listbox"
             aria-label="Language list"

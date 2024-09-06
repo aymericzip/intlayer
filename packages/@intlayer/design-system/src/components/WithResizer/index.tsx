@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 'use client';
 
 import React, {
@@ -103,13 +104,13 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       aria-label="Resizable component"
       role="slider"
     >
-      <button
+      <div
         className="absolute left-0 top-0 size-full cursor-default overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
       >
         {children}
-      </button>
+      </div>
     </button>
   );
 };

@@ -1,5 +1,5 @@
 import { User } from 'lucide-react';
-import type { ComponentProps, FC } from 'react';
+import type { ComponentProps, FC, HTMLAttributes, HTMLProps } from 'react';
 import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
@@ -40,9 +40,11 @@ export const Avatar: FC<AvatarProps> = ({
 
   const isClickable = onClick !== undefined;
 
+  const Container = (props: HTMLAttributes<HTMLElement>) =>
+    isClickable ? <button {...props} /> : <div {...props} />;
+
   return (
-    <button
-      role={isClickable ? 'button' : undefined}
+    <Container
       className={cn(
         `border-text dark:border-text-dark size-9 rounded-full border-[1.5px] p-[1.5px]`,
         isClickable && `cursor-pointer`
@@ -74,6 +76,6 @@ export const Avatar: FC<AvatarProps> = ({
           {displayUserIcon && <User size={25} />}
         </div>
       </div>
-    </button>
+    </Container>
   );
 };
