@@ -28,7 +28,7 @@ export default defineConfig(() => ({
   },
 
   build: {
-    emptyOutDir: true,
+    emptyOutDir: false,
     copyPublicDir: false,
     sourcemap: true,
     manifest: true,

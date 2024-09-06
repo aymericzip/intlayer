@@ -15,16 +15,19 @@
       "types": "./dist/hooks/index.d.ts"
     },
     "./tailwind-config": {
-      "import": "./tailwind.config.ts",
-      "require": "./tailwind.config.ts",
-      "types": "./tailwind.config.ts"
-    }
+      "import": "./tailwind.config.js",
+      "require": "./tailwind.config.js",
+      "types": "./tailwind.config.d.ts"
+    },
+    "./css": "./dist/tailwind.css"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "pnpm build:packages && pnpm build:css && pnpm build:storybook",
+    "build:css": "tailwindcss --minify -i ./src/tailwind.css -o ./dist/tailwind.css",
+    "build:package": "vite build",
     "build:storybook": "storybook build",
     "dev": "vite build --watch",
     "lint": "eslint src --ext js,jsx",
