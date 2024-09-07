@@ -19,6 +19,7 @@ export type IDEProps = {
 export const IDE: FC<IDEProps> = ({
   pages: initialPages,
   isDarkMode,
+  className,
   ...props
 }) => {
   const [pages, setPages] = useState(initialPages);
@@ -52,7 +53,10 @@ export const IDE: FC<IDEProps> = ({
 
   return (
     <Container
-      className="flex size-full flex-col justify-start overflow-hidden shadow-lg"
+      className={cn(
+        'flex size-full flex-col justify-start overflow-hidden shadow-lg',
+        className
+      )}
       roundedSize="3xl"
       transparency="none"
       {...props}

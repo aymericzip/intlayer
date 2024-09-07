@@ -26,7 +26,7 @@ export const DropDown: DropDownType = ({
   ...props
 }) => (
   <div
-    className={cn(`group/dropdown relative`, className)}
+    className={cn(`group/dropdown relative flex`, className)}
     aria-label={`DropDown ${identifier}`}
     id={`unrollable-panel-button-${identifier}`}
     aria-haspopup
@@ -84,7 +84,7 @@ const Panel: FC<PanelProps> = ({
 }) => (
   <div
     className={cn(
-      'absolute right-0 z-[1000] min-w-full translate-y-2',
+      'absolute right-0 top-[calc(100%+0.5rem)] z-[1000] min-w-full',
       className
     )}
     aria-hidden={isHidden}
