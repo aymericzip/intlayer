@@ -1,13 +1,15 @@
-'use client';
+import type { ReactNode } from 'react';
+import type { AuthProviderProps } from '../AuthProvider';
 
-import type { FC, ReactNode } from 'react';
-import { useAuth, type AuthProviderProps } from '../AuthProvider';
+export { AuthenticationBarrierServer } from './AuthenticationBarrierServer';
+export { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
 
 export type AuthenticationBarrierProps = AuthProviderProps & {
   children?: ReactNode;
   accessRule?: 'public' | 'authenticated' | 'admin' | 'none-authenticated';
   redirectionRoute?: string;
   session?: AuthProviderProps['session'];
+  sessionToken?: string | undefined;
   /**
    * Function to replace for a nextjs redirection
    *
@@ -18,41 +20,5 @@ export type AuthenticationBarrierProps = AuthProviderProps & {
    * redirectionMethod={(url) => redirect(url)}
    * ```
    */
-  redirectionFunction?: (redirectionRoute: string) => void;
-};
-
-const redirect = (redirectionRoute: string) =>
-  (window.location.href = redirectionRoute);
-
-export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
-  children,
-  accessRule = 'public',
-  redirectionRoute = '/',
-  session: sessionProp,
-  redirectionFunction: redirectionMethod = redirect,
-}) => {
-  const { session: sessionClient } = useAuth();
-
-  const session = sessionClient ?? sessionProp;
-
-  if (
-    !session?.user &&
-    (accessRule === 'authenticated' || accessRule === 'admin')
-  ) {
-    redirectionMethod(redirectionRoute);
-  }
-
-  if (session?.user && accessRule === 'none-authenticated') {
-    redirectionMethod(redirectionRoute);
-  }
-
-  if (
-    session?.user &&
-    accessRule === 'admin' &&
-    !session.user?.role.includes('admin')
-  ) {
-    redirectionMethod(redirectionRoute);
-  }
-
-  return children;
+  redirectionFunction: (redirectionRoute: string) => void;
 };

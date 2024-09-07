@@ -6,5 +6,4 @@ export * from './ResetPasswordForm';
 export * from './AuthModal';
 export * from './AuthProvider';
 export * from './AuthenticationBarrier';
-export * from './getServerSession';
 export * from './useUser';

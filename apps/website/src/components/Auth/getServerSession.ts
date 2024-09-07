@@ -1,7 +1,7 @@
 import { Cookies } from '@intlayer/backend';
 import { intlayerAPI } from '@intlayer/core';
+import type { Session } from '@intlayer/design-system';
 import { cookies } from 'next/headers';
-import type { Session } from '../AuthProvider';
 
 export const getServerSession = async () => {
   const cookiesStore = cookies();
