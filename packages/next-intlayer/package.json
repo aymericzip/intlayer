@@ -88,9 +88,9 @@
     "@intlayer/webpack": "workspace:^",
     "intlayer": "workspace:^",
     "negotiator": "^0.6.3",
-    "next": "14.2.6",
+    "next": "14.2.7",
     "react-intlayer": "workspace:^",
-    "webpack": "^5.93.0"
+    "webpack": "^5.94.0"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",

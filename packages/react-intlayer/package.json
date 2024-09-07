@@ -101,7 +101,7 @@
     "js-cookie": "^3.0.5",
     "react-cookie": "^7.1.4",
     "vite": "^5.3.1",
-    "webpack": "^5.92.1"
+    "webpack": "^5.94.0"
   },
   "devDependencies": {
     "@craco/types": "^7.1.0",
