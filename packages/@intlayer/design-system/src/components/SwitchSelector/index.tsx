@@ -21,7 +21,8 @@ type SwitchSelectorProps<T = string> = {
   choices: SwitchSelectorChoices<T>;
   selectedChoice: T;
   onChange: (choice: T) => void;
-} & VariantProps<typeof switchSelectorVariant>;
+} & VariantProps<typeof switchSelectorVariant> &
+  VariantProps<typeof choiceVariant>;
 
 const switchSelectorVariant = cva(
   'flex flex-row gap-2 rounded-full border-[1.5px] p-[1.5px]',

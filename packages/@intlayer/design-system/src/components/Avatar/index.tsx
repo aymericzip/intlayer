@@ -1,5 +1,5 @@
 import { User } from 'lucide-react';
-import type { ComponentProps, FC, HTMLAttributes, HTMLProps } from 'react';
+import type { ComponentProps, FC, HTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
