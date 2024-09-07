@@ -10,12 +10,9 @@
     "./tsup": "./tsup-config.mjs"
   },
   "scripts": {},
-  "dependencies": {
-    "esbuild": "^0.20.2",
-    "tsup": "^8.0.2"
-  },
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "esbuild": "^0.20.2",
     "typescript": "^5.4.5"
   }
 }
