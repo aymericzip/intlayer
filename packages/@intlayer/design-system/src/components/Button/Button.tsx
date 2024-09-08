@@ -77,7 +77,7 @@ const buttonVariants = cva(
         'invisible-link':
           'h-auto justify-start border-inherit bg-transparent p-0 underline-offset-4 hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent',
         hoverable:
-          'bg-opacity-0! hover:bg-opacity-10! dark:hover:bg-opacity-10! rounded-lg border-none bg-none transition dark:border-none dark:bg-none',
+          'bg-opacity-0! hover:bg-opacity-10! dark:hover:bg-opacity-10! rounded-lg border-none bg-inherit transition dark:border-none dark:bg-inherit',
       },
       isFullWidth: {
         true: 'w-full',
