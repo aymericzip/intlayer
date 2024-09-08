@@ -82,3 +82,5 @@ app.use('/api/project', projectRouter);
 app.listen(process.env.PORT, () => {
   logger.info(`Listening on port ${process.env.PORT}`);
 });
+
+export default app;
