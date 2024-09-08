@@ -43,6 +43,7 @@ export const DropDown: UnrollablePanelType = ({
             ? `group-focus/unrollable-panel:grid-rows-[1fr] group-focus/unrollable-panel:overflow-x-auto`
             : '' + className
       }
+      tabIndex={isHidden !== false ? undefined : -1}
       {...props}
     >
       {children}

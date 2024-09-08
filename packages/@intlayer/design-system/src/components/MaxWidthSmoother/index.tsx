@@ -30,6 +30,7 @@ export const MaxWidthSmoother = ({
       style={{
         minWidth: `${minWidth}px`,
       }}
+      tabIndex={isHidden !== false ? undefined : -1}
       className={cn(align === 'right' && 'ml-auto')}
     >
       {children}

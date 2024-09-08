@@ -56,7 +56,12 @@ export const Accordion: FC<AccordionProps> = ({
         />
       </button>
 
-      <MaxHeightSmoother isHidden={isHidden}>{children}</MaxHeightSmoother>
+      <MaxHeightSmoother
+        tabIndex={isHidden !== false ? undefined : -1}
+        isHidden={isHidden}
+      >
+        {children}
+      </MaxHeightSmoother>
     </>
   );
 };
