@@ -55,7 +55,7 @@ const Trigger: FC<TriggerProps> = ({
   ...props
 }) => (
   <button
-    className={cn('cursor-pointer', className)}
+    className={cn('w-full cursor-pointer', className)}
     aria-label={`Open panel ${identifier}`}
     {...props}
   >

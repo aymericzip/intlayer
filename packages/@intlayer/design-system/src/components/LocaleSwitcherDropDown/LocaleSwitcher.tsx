@@ -53,7 +53,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           aria-label="Language selector"
         >
-          <div className="flex items-center justify-between">
+          <div className="flex w-full items-center justify-between">
             <div className="px-2 py-1">{localeName}</div>
             <MoveVertical className="w-5 self-center" />
           </div>
@@ -61,7 +61,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
 
         <DropDown.Panel identifier={DROPDOWN_IDENTIFIER} isOverable isFocusable>
           <Container
-            className="w-28 p-1"
+            className="min-w-28 p-1"
             separator="y"
             role="listbox"
             aria-label="Language list"
