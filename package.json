@@ -68,7 +68,7 @@
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^2.0.5"
   },
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@9.4.0",
   "engines": {
     "node": ">=16.0.0",
     "npm": "please-use-pnpm",

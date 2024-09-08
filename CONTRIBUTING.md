@@ -20,6 +20,12 @@ git clone git@github.com:aymericzip/intlayer.git
 pnpm install
 ```
 
+### Preparing the project
+
+```sh
+pnpm prepare
+```
+
 ### Building the source
 
 ```sh
