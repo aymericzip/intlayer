@@ -4,6 +4,7 @@
   "include": ["**/*"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
+    "strict": false,
     "baseUrl": ".",
     "esModuleInterop": true,
     "noEmit": false,

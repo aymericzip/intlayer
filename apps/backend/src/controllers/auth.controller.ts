@@ -178,8 +178,16 @@ export const registerEmailPassword = async (
 
     return res.json(responseData);
   } catch (err) {
-    logger.error(err);
-    return res.sendStatus(500);
+    const errorMessage: string = (err as { message: string }).message;
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<UserAPI>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
 
@@ -302,7 +310,17 @@ export const updatePassword = async (
   let user = res.locals.user;
 
   if (!user) {
-    return res.sendStatus(404).json();
+    const errorMessage = 'User not connected';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<UserAPI>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 
   try {
@@ -471,8 +489,17 @@ export const askResetPassword = async (
 
     return res.json(responseData);
   } catch (err) {
-    logger.error(err);
-    return res.sendStatus(500);
+    const errorMessage: string = (err as { message: string }).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<undefined>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
   }
 };
 

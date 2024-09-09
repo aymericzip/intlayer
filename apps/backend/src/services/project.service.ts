@@ -46,7 +46,9 @@ export const getProjectById = async (
  * @param filters - MongoDB filter query.
  * @returns Total number of projects.
  */
-export const countProjects = async (filters: object): Promise<number> => {
+export const countProjects = async (
+  filters: ProjectFilters
+): Promise<number> => {
   const result = await ProjectModel.countDocuments(filters);
 
   if (typeof result === 'undefined') {

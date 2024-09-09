@@ -14,7 +14,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { type Request, type Response } from 'express';
 import { logger } from './logger';
 
 const app = express();
@@ -68,7 +68,7 @@ if (isDev) {
 }
 
 // Liveness check
-app.get('/', (_req, res) => res.sendStatus(200));
+app.get('/', (_req: Request, res: Response) => res.send('ok'));
 
 app.get('/api/token', controlJWT);
 
@@ -83,4 +83,5 @@ app.listen(process.env.PORT, () => {
   logger.info(`Listening on port ${process.env.PORT}`);
 });
 
+// Export tu use as serverless function
 export default app;
