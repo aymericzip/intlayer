@@ -244,7 +244,7 @@ export const formatUserForAPI = (user: User | UserDocument): UserAPI => {
     userObject = (user as UserDocument).toObject();
   }
 
-  const { provider, ...userAPI } = userObject;
+  const { provider, session, createdAt, ...userAPI } = userObject;
 
   return { ...userAPI, role: 'user' };
 };

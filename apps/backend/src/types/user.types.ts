@@ -16,7 +16,8 @@ export interface User extends UserData {
   updatedAt: number;
 }
 
-export interface UserAPI extends Omit<User, '_id' | 'provider'> {
+export interface UserAPI
+  extends Omit<User, '_id' | 'provider' | 'session' | 'createdAt'> {
   role: string;
 }
 

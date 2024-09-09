@@ -95,6 +95,21 @@ export const getUsers = async (
   req: Request<GetUsersParams>,
   res: ResponseWithInformation<GetUsersResult>
 ) => {
+  const { user } = res.locals;
+
+  if (!user) {
+    const errorMessage = 'User not found';
+    const responseCode = HttpStatusCodes.UNAUTHORIZED_401;
+
+    logger.error(errorMessage);
+    const responseData = formatPaginatedResponse<UserAPI>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
