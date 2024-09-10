@@ -13,6 +13,7 @@ import type {
   UpdateUserResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
+import { fetcher } from './fetcher';
 
 const backendURL = getConfiguration().editor.backendURL;
 const USER_API_ROUTE = `${backendURL}/api/user`;
@@ -22,45 +23,26 @@ const USER_API_ROUTE = `${backendURL}/api/user`;
  * @param filters - Filters and pagination options.
  * @returns List of users.
  */
-const getUsers = async (filters?: GetUsersParams): Promise<GetUsersResult> => {
-  const searchParams = new URLSearchParams(filters as URLSearchParams);
-
-  const response = await fetch(`${USER_API_ROUTE}?${searchParams.toString()}`, {
-    method: 'GET',
-    credentials: 'include',
+const getUsers = async (filters?: GetUsersParams) =>
+  await fetcher<GetUsersResult>(USER_API_ROUTE, {
+    params: filters,
   });
-  return response.json();
-};
 
 /**
  * Retrieves a user by ID.
  * @param userId - User ID.
  * @returns User object.
  */
-const getUserById = async (
-  userId: GetUserByIdParams['userId']
-): Promise<GetUserByIdResult> => {
-  const response = await fetch(`${USER_API_ROUTE}/${userId}`, {
-    method: 'GET',
-    credentials: 'include',
-  });
-  return response.json();
-};
+const getUserById = async (userId: GetUserByIdParams['userId']) =>
+  await fetcher<GetUserByIdResult>(`${USER_API_ROUTE}/${userId}`);
 
 /**
  * Retrieves a user by email.
  * @param email - User email.
  * @returns User object.
  */
-const getUserByEmail = async (
-  email: GetUserByEmailParams['email']
-): Promise<GetUserByEmailResult> => {
-  const response = await fetch(`${USER_API_ROUTE}/email/${email}`, {
-    method: 'GET',
-    credentials: 'include',
-  });
-  return response.json();
-};
+const getUserByEmail = async (email: GetUserByEmailParams['email']) =>
+  await fetcher<GetUserByEmailResult>(`${USER_API_ROUTE}/email/${email}`);
 
 /**
  * Retrieves a user by account.
@@ -70,63 +52,42 @@ const getUserByEmail = async (
 const getUserByAccount = async (
   providerAccountId: GetUserByAccountParams['providerAccountId'],
   provider: GetUserByAccountParams['provider']
-): Promise<GetUserByAccountResult> => {
-  const response = await fetch(
-    `${USER_API_ROUTE}/account/${provider}/${providerAccountId}`,
-    {
-      method: 'GET',
-      credentials: 'include',
-    }
+) =>
+  await fetcher<GetUserByAccountResult>(
+    `${USER_API_ROUTE}/account/${provider}/${providerAccountId}`
   );
-  return response.json();
-};
 
 /**
  * Creates a new user.
  * @param user - User credentials.
  * @returns User object.
  */
-const createUser = async (user: CreateUserBody): Promise<CreateUserResult> => {
-  const response = await fetch(`${USER_API_ROUTE}/`, {
+const createUser = async (user: CreateUserBody) =>
+  await fetcher<CreateUserResult>(`${USER_API_ROUTE}/`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-    credentials: 'include',
+    body: user,
   });
-  return response.json();
-};
 
 /**
  * Updates the user with the provided data.
  * @param user - Updated user data.
  * @returns User object.
  */
-const updateUser = async (user: UpdateUserBody): Promise<UpdateUserResult> => {
-  const response = await fetch(`${USER_API_ROUTE}`, {
+const updateUser = async (user: UpdateUserBody) =>
+  await fetcher<UpdateUserResult>(`${USER_API_ROUTE}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-    credentials: 'include',
+    body: user,
   });
-  return response.json();
-};
 
 /**
  * Deletes a user with the provided ID.
  * @param userId - User ID.
  * @returns User object.
  */
-const deleteUser = async (userId: string): Promise<UpdateUserResult> => {
-  const response = await fetch(`${USER_API_ROUTE}/${userId}`, {
+const deleteUser = async (userId: string) =>
+  await fetcher<UpdateUserResult>(`${USER_API_ROUTE}/${userId}`, {
     method: 'DELETE',
-    credentials: 'include',
   });
-  return response.json();
-};
 
 export const userAPI = {
   createUser,

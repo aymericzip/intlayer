@@ -85,6 +85,9 @@ importers:
       csrf:
         specifier: ^3.1.0
         version: 3.1.0
+      csrf-csrf:
+        specifier: ^3.0.6
+        version: 3.0.6
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -13304,6 +13307,15 @@ packages:
     engines: { node: '>=12' }
     dependencies:
       type-fest: 1.4.0
+    dev: false
+
+  /csrf-csrf@3.0.6:
+    resolution:
+      {
+        integrity: sha512-FkeKRBhtVhA9rOo9dwU/nHePVtCCsVgQj+OIw/c4BINrjqPWTWuBEd+iB4wfPVuC879OhUqdyPLCRJnAZEX4fQ==,
+      }
+    dependencies:
+      http-errors: 2.0.0
     dev: false
 
   /csrf@3.1.0:

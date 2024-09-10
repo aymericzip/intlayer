@@ -59,6 +59,7 @@
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "csrf": "^3.1.0",
+    "csrf-csrf": "^3.0.6",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",

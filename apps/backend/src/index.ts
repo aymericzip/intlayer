@@ -14,7 +14,9 @@ import { connectDB } from '@utils/mongoDB/connectDB';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
+import { doubleCsrf } from 'csrf-csrf';
 import dotenv from 'dotenv';
+import { getCookieOptions } from 'export';
 import express, { type Request, type Response } from 'express';
 import { logger } from './logger';
 
@@ -62,6 +64,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use('*', checkUser);
 app.use('*', checkOrganization);
 app.use('*', checkProject);
+
+// CSRF
+const {
+  generateToken, // Use this in your routes to provide a CSRF hash + token cookie and token.
+  doubleCsrfProtection, // This is the default CSRF protection middleware.
+} = doubleCsrf({
+  getSecret: () => process.env.CSRF_SECRET,
+  getTokenFromRequest: (req) => req.body.csrfToken,
+  cookieName: 'csrf_token',
+  cookieOptions: getCookieOptions(),
+});
+
+app.get('/csrf-token', (req, res) => {
+  const csrfToken = generateToken(req, res);
+  // You could also pass the token into the context of a HTML response.
+  res.json({ csrfToken });
+});
+app.use(doubleCsrfProtection);
 
 // debug
 if (isDev) {

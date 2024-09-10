@@ -11,6 +11,7 @@ import type {
   UpdateOrganizationResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
+import { fetcher } from './fetcher';
 
 const ORGANIZATION_API_ROUTE = `${getConfiguration().editor.backendURL}/api/organization`;
 
@@ -18,20 +19,10 @@ const ORGANIZATION_API_ROUTE = `${getConfiguration().editor.backendURL}/api/orga
  * Retrieves a list of organizations based on filters and pagination.
  * @param filters - Filters and pagination options.
  */
-const getOrganizations = async (
-  filters?: GetOrganizationsParams
-): Promise<GetOrganizationsResult> => {
-  const params = new URLSearchParams(filters as URLSearchParams);
-
-  const response = await fetch(
-    `${ORGANIZATION_API_ROUTE}?${params.toString()}`,
-    {
-      method: 'GET',
-      credentials: 'include',
-    }
-  );
-  return response.json();
-};
+const getOrganizations = async (filters?: GetOrganizationsParams) =>
+  await fetcher<GetOrganizationsResult>(ORGANIZATION_API_ROUTE, {
+    params: filters,
+  });
 
 /**
  * Retrieves an organization by its ID.
@@ -39,49 +30,30 @@ const getOrganizations = async (
  */
 const getOrganization = async (
   organizationId: GetOrganizationParam['organizationId']
-): Promise<GetOrganizationResult> => {
-  const response = await fetch(`${ORGANIZATION_API_ROUTE}/${organizationId}`, {
-    method: 'GET',
-    credentials: 'include',
-  });
-  return response.json();
-};
+) =>
+  await fetcher<GetOrganizationResult>(
+    `${ORGANIZATION_API_ROUTE}/${organizationId}`
+  );
 
 /**
  * Adds a new organization to the database.
  * @param organization - Organization data.
  */
-const addOrganization = async (
-  organization: AddOrganizationBody
-): Promise<AddOrganizationResult> => {
-  const response = await fetch(ORGANIZATION_API_ROUTE, {
+const addOrganization = async (organization: AddOrganizationBody) =>
+  await fetcher<AddOrganizationResult>(ORGANIZATION_API_ROUTE, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(organization),
-    credentials: 'include',
+    body: organization,
   });
-  return response.json();
-};
 
 /**
  * Updates an existing organization in the database.
  * @param organization - Updated organization data.
  */
-const updateOrganization = async (
-  organization: UpdateOrganizationBody
-): Promise<UpdateOrganizationResult> => {
-  const response = await fetch(ORGANIZATION_API_ROUTE, {
+const updateOrganization = async (organization: UpdateOrganizationBody) =>
+  fetcher<UpdateOrganizationResult>(ORGANIZATION_API_ROUTE, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(organization),
-    credentials: 'include',
+    body: organization,
   });
-  return response.json();
-};
 
 /**
  * Deletes an organization from the database by its ID.
@@ -89,17 +61,12 @@ const updateOrganization = async (
  */
 const deleteOrganization = async (
   organizationId: DeleteOrganizationParam['organizationId']
-): Promise<DeleteOrganizationResult> => {
-  const response = await fetch(ORGANIZATION_API_ROUTE, {
+) =>
+  await fetcher<DeleteOrganizationResult>(ORGANIZATION_API_ROUTE, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id: organizationId }),
-    credentials: 'include',
+
+    body: { id: organizationId },
   });
-  return response.json();
-};
 
 export const organizationAPI = {
   getOrganizations,

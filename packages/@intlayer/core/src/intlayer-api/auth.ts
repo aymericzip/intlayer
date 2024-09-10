@@ -19,6 +19,7 @@ import type {
   ValidEmailResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
+import { fetcher } from './fetcher';
 
 const backendURL = getConfiguration().editor.backendURL;
 const AUTH_API_ROUTE = `${backendURL}/api/auth`;
@@ -27,24 +28,28 @@ const AUTH_API_ROUTE = `${backendURL}/api/auth`;
  * Logs in a user with the provided credentials.
  * @param user - User credentials.
  */
-const login = async (user: LoginBody): Promise<LoginResult> => {
-  const response = await fetch(`${AUTH_API_ROUTE}/login`, {
+const login = async (user: LoginBody) =>
+  await fetcher<LoginResult>(`${AUTH_API_ROUTE}/login`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify(user),
+    body: user,
   });
-  return response.json();
-};
 
+/**
+ * Gets the login with GitHub URL.
+ * @param params - The parameters for the login with GitHub URL.
+ * @returns The login with GitHub URL.
+ */
 const getLoginWithGitHubURL = (params: GithubLoginQueryParams): string => {
   const searchParams = new URLSearchParams(params);
 
   return `${AUTH_API_ROUTE}/login/github?${searchParams.toString()}`;
 };
 
+/**
+ * Gets the login with Google URL.
+ * @param params - The parameters for the login with Google URL.
+ * @returns The login with Google URL.
+ */
 const getLoginWithGoogleURL = (params: GoogleLoginQueryParams): string => {
   const searchParams = new URLSearchParams(params);
 
@@ -56,68 +61,46 @@ const getLoginWithGoogleURL = (params: GoogleLoginQueryParams): string => {
  * @param user - User credentials.
  * @returns User object.
  */
-const register = async (user: RegisterBody): Promise<RegisterResult> => {
-  const response = await fetch(`${AUTH_API_ROUTE}/register`, {
+const register = async (user: RegisterBody) =>
+  await fetcher<RegisterResult>(`${AUTH_API_ROUTE}/register`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify(user),
+    body: user,
   });
-  return response.json();
-};
 
 /**
  * Signs out the user.
  * @returns User object.
  */
-const logout = async (): Promise<void> => {
-  const response = await fetch(`${AUTH_API_ROUTE}/logout`, {
+const logout = async () =>
+  await fetcher<void>(`${AUTH_API_ROUTE}/logout`, {
     method: 'POST',
-    credentials: 'include',
   });
-
-  return response.json();
-};
 
 /**
  * Ask to resets the password of a user with the provided email address.
  * @param email - Email address of the user.
  * @returns User object.
  */
-const askResetPassword = async (
-  email: AskResetPasswordBody['email']
-): Promise<AskResetPasswordResult> => {
-  const response = await fetch(`${AUTH_API_ROUTE}/password/reset`, {
+const askResetPassword = async (email: AskResetPasswordBody['email']) =>
+  await fetcher<AskResetPasswordResult>(`${AUTH_API_ROUTE}/password/reset`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify({ email }),
+    body: { email },
   });
-  return response.json();
-};
 
 /**
  * Resets the password of a user with the provided email address.
  * @param email - Email address of the user.
  * @returns User object.
  */
-const resetPassword = async (
-  params: ResetPasswordParams
-): Promise<ResetPasswordResult> => {
+const resetPassword = async (params: ResetPasswordParams) => {
   const searchParams = new URLSearchParams(params);
 
-  const response = await fetch(
+  return await fetcher<ResetPasswordResult>(
     `${AUTH_API_ROUTE}/password/reset?${searchParams.toString()}`,
     {
       method: 'POST',
-      credentials: 'include',
     }
   );
-  return response.json();
 };
 
 /**
@@ -125,34 +108,26 @@ const resetPassword = async (
  * @param data - New password and confirmation.
  * @returns User object.
  */
-const changePassword = async (
-  data: UpdatePasswordBody
-): Promise<UpdatePasswordResult> => {
-  const response = await fetch(`${AUTH_API_ROUTE}/password`, {
+const changePassword = async (data: UpdatePasswordBody) =>
+  await fetcher<UpdatePasswordResult>(`${AUTH_API_ROUTE}/password`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-    credentials: 'include',
+    body: data,
   });
-  return response.json();
-};
 
 /**
  * Verifies the email address of a user with the provided token.
  * @param params - User ID and secret key.
  * @returns User object.
  */
-const verifyEmail = async (
-  params: ValidEmailParams
-): Promise<ValidEmailResult> => {
+const verifyEmail = async (params: ValidEmailParams) => {
   const { userId, secret } = params;
-  const response = await fetch(`${AUTH_API_ROUTE}/active/${userId}/${secret}`, {
-    method: 'PUT',
-    credentials: 'include',
-  });
-  return response.json();
+
+  return await fetcher<ValidEmailResult>(
+    `${AUTH_API_ROUTE}/active/${userId}/${secret}`,
+    {
+      method: 'PUT',
+    }
+  );
 };
 
 /**
@@ -160,20 +135,11 @@ const verifyEmail = async (
  * @param params - User ID and secret key.
  * @returns User object.
  */
-const createSession = async (
-  data: CreateSessionBody
-): Promise<CreateSessionResult> => {
-  const response = await fetch(`${AUTH_API_ROUTE}/session`, {
+const createSession = async (data: CreateSessionBody) =>
+  await fetcher<CreateSessionResult>(`${AUTH_API_ROUTE}/session`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-    credentials: 'include',
+    body: data,
   });
-
-  return response.json();
-};
 
 /**
  * Gets a session and user.
@@ -182,23 +148,24 @@ const createSession = async (
  */
 const getSessionInformation = async (
   sessionToken?: GetSessionInformationQuery['session_token']
-): Promise<GetSessionInformationResult> => {
+) => {
   let params = '';
 
   if (sessionToken) {
     params = `?${new URLSearchParams({ session_token: sessionToken }).toString()}`;
   }
 
-  const response = await fetch(`${AUTH_API_ROUTE}/session${params}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-  });
-
-  return response.json();
+  return await fetcher<GetSessionInformationResult>(
+    `${AUTH_API_ROUTE}/session${params}`
+  );
 };
+
+/**
+ * Gets the CSRF token.
+ * @returns The CSRF token.
+ */
+const getCSRFToken = async () =>
+  await fetcher<string>(`${AUTH_API_ROUTE}/csrf-token`);
 
 export const authAPI = {
   login,
@@ -212,4 +179,5 @@ export const authAPI = {
   changePassword,
   createSession,
   getSessionInformation,
+  getCSRFToken,
 };

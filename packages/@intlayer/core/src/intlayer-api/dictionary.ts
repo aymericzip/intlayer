@@ -9,6 +9,7 @@ import type {
   UpdateDictionaryResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
+import { fetcher } from './fetcher';
 
 const backendURL = getConfiguration().editor.backendURL;
 const PROJECT_API_ROUTE = `${backendURL}/api/dictionary`;
@@ -17,70 +18,40 @@ const PROJECT_API_ROUTE = `${backendURL}/api/dictionary`;
  * Retrieves a list of dictionaries based on filters and pagination.
  * @param filters - Filters and pagination options.
  */
-const getDictionaries = async (
-  filters?: GetDictionariesParams
-): Promise<GetDictionariesResult> => {
-  const params = new URLSearchParams(filters as URLSearchParams);
-
-  const response = await fetch(`${PROJECT_API_ROUTE}?${params.toString()}`, {
-    method: 'GET',
+const getDictionaries = async (filters?: GetDictionariesParams) =>
+  await fetcher<GetDictionariesResult>(PROJECT_API_ROUTE, {
+    params: filters,
   });
-  return response.json();
-};
 
 /**
  * Adds a new dictionary to the database.
  * @param dictionary - Dictionary data.
  */
-const addDictionary = async (
-  dictionary: AddDictionaryBody
-): Promise<AddDictionaryResult> => {
-  const response = await fetch(`${PROJECT_API_ROUTE}`, {
+const addDictionary = async (dictionary: AddDictionaryBody) =>
+  await fetcher<AddDictionaryResult>(`${PROJECT_API_ROUTE}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dictionary),
-    credentials: 'include',
+    body: dictionary,
   });
-  return response.json();
-};
 
 /**
  * Updates an existing dictionary in the database.
  * @param dictionary - Updated dictionary data.
  */
-const updateDictionary = async (
-  dictionary: UpdateDictionaryBody
-): Promise<UpdateDictionaryResult> => {
-  const response = await fetch(`${PROJECT_API_ROUTE}`, {
+const updateDictionary = async (dictionary: UpdateDictionaryBody) =>
+  await fetcher<UpdateDictionaryResult>(`${PROJECT_API_ROUTE}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dictionary),
-    credentials: 'include',
+    body: dictionary,
   });
-  return response.json();
-};
 
 /**
  * Deletes a dictionary from the database by its ID.
  * @param id - Dictionary ID.
  */
-const deleteDictionary = async (
-  id: DeleteDictionaryParam['dictionaryId']
-): Promise<DeleteDictionaryResult> => {
-  const response = await fetch(`${PROJECT_API_ROUTE}`, {
+const deleteDictionary = async (id: DeleteDictionaryParam['dictionaryId']) =>
+  await fetcher<DeleteDictionaryResult>(`${PROJECT_API_ROUTE}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id }),
-    credentials: 'include',
+    body: { id },
   });
-  return response.json();
-};
 
 export const dictionaryAPI = {
   getDictionaries,
