@@ -614,33 +614,27 @@ export const getSessionInformation = async (
     }
 
     if (!user) {
-      const errorMessage = 'User not found';
-
-      logger.error(errorMessage);
-
-      const responseCode = HttpStatusCodes.NOT_FOUND_404;
       const responseData = formatResponse<SessionInformation>({
-        error: errorMessage,
-        status: responseCode,
+        data: {
+          session: null,
+          user: null,
+        },
       });
 
-      return res.status(responseCode).json(responseData);
+      return res.json(responseData);
     }
 
     const session = user.session;
 
     if (!session) {
-      const errorMessage = 'Session not found';
-
-      logger.error(errorMessage);
-
-      const responseCode = HttpStatusCodes.NOT_FOUND_404;
       const responseData = formatResponse<SessionInformation>({
-        error: errorMessage,
-        status: responseCode,
+        data: {
+          session: null,
+          user: formatUserForAPIService(user),
+        },
       });
 
-      return res.status(responseCode).json(responseData);
+      return res.json(responseData);
     }
 
     const formattedUser: SessionInformation['user'] = {
