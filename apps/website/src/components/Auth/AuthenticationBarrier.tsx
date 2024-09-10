@@ -1,5 +1,3 @@
-import { Cookies } from '@intlayer/backend';
-import { intlayerAPI } from '@intlayer/core';
 import {
   AuthenticationBarrierServer as AuthenticationBarrierServerUI,
   AuthenticationBarrierClient as AuthenticationBarrierClientUI,

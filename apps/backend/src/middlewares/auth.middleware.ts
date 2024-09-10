@@ -1,8 +1,6 @@
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
-import { UserModel } from '@models/user.model';
 import {
-  clearUserAuth,
   clearOrganizationAuth,
   clearProjectAuth,
 } from '@services/auth.service';
@@ -43,12 +41,16 @@ export const checkUser = async (
 
   res.locals.user = null;
 
-  if (sessionToken) {
-    const user = await getUserBySessionService(sessionToken);
+  try {
+    if (sessionToken) {
+      const user = await getUserBySessionService(sessionToken);
 
-    if (user) {
-      res.locals.user = user;
+      if (user) {
+        res.locals.user = user;
+      }
     }
+  } catch (error) {
+    console.error('Error fetching session:', error);
   }
 
   return next();
@@ -60,35 +62,40 @@ export const checkOrganization = async (
   next: NextFunction
 ) => {
   const jwtTokenOrganization = req.cookies.jwt_organization;
-  res.locals.project = null;
+  res.locals.organization = null;
 
-  if (!jwtTokenOrganization || jwtTokenOrganization === 'undefined') {
-    clearOrganizationAuth(res);
-    return next();
+  try {
+    if (!jwtTokenOrganization || jwtTokenOrganization === 'undefined') {
+      clearOrganizationAuth(res);
+      return next();
+    }
+
+    const decodedTokenOrganization = jwt.verify(
+      jwtTokenOrganization,
+      process.env.JWT_TOKEN_SECRET!
+    );
+
+    const organizationData = (decodedTokenOrganization as JWTContent).tokenData;
+
+    if (!organizationData) {
+      clearOrganizationAuth(res);
+      return next();
+    }
+
+    const organization = await OrganizationModel.findById(
+      organizationData.organizationId
+    );
+
+    if (!organization) {
+      clearOrganizationAuth(res);
+      return next();
+    }
+
+    res.locals.organization = organization;
+  } catch (error) {
+    console.error('Error fetching organization:', error);
   }
 
-  const decodedTokenOrganization = jwt.verify(
-    jwtTokenOrganization,
-    process.env.JWT_TOKEN_SECRET!
-  );
-
-  const organizationData = (decodedTokenOrganization as JWTContent).tokenData;
-
-  if (!organizationData) {
-    clearOrganizationAuth(res);
-    return next();
-  }
-
-  const organization = await OrganizationModel.findById(
-    organizationData.organizationId
-  );
-
-  if (!organization) {
-    clearOrganizationAuth(res);
-    return next();
-  }
-
-  res.locals.organization = organization;
   return next();
 };
 
@@ -100,30 +107,35 @@ export const checkProject = async (
   const jwtTokenProject = req.cookies.jwt_project;
   res.locals.project = null;
 
-  if (!jwtTokenProject || jwtTokenProject === 'undefined') {
-    clearProjectAuth(res);
-    return next();
+  try {
+    if (!jwtTokenProject || jwtTokenProject === 'undefined') {
+      clearProjectAuth(res);
+      return next();
+    }
+
+    const decodedTokenProject = jwt.verify(
+      jwtTokenProject,
+      process.env.JWT_TOKEN_SECRET!
+    );
+
+    const projectData = (decodedTokenProject as JWTContent).tokenData;
+
+    if (!projectData) {
+      clearProjectAuth(res);
+      return next();
+    }
+
+    const project = await ProjectModel.findById(projectData.projectId);
+
+    if (!project) {
+      clearProjectAuth(res);
+      return next();
+    }
+
+    res.locals.project = project;
+  } catch (error) {
+    console.error('Error fetching project:', error);
   }
 
-  const decodedTokenProject = jwt.verify(
-    jwtTokenProject,
-    process.env.JWT_TOKEN_SECRET!
-  );
-
-  const projectData = (decodedTokenProject as JWTContent).tokenData;
-
-  if (!projectData) {
-    clearProjectAuth(res);
-    return next();
-  }
-
-  const project = await ProjectModel.findById(projectData.projectId);
-
-  if (!project) {
-    clearProjectAuth(res);
-    return next();
-  }
-
-  res.locals.project = project;
   return next();
 };

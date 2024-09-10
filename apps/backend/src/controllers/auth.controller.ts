@@ -35,7 +35,7 @@ import type {
   GithubSessionProvider,
   GoogleSessionProvider,
 } from '@/types/session.types';
-import type { User, UserAPI, UserData } from '@/types/user.types';
+import type { UserAPI, UserData } from '@/types/user.types';
 
 type CSRFTokenProps = {
   csrfToken: () => string;

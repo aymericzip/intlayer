@@ -13,7 +13,7 @@ import { userRouter } from '@routes/user.routes';
 import { connectDB } from '@utils/mongoDB/connectDB';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
+import cors, { type CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express, { type Request, type Response } from 'express';
 import { logger } from './logger';
@@ -33,11 +33,11 @@ connectDB();
 // Compress all HTTP responses
 app.use(compression());
 
-const whitelist: string[] = [process.env.CLIENT_URL ?? ''];
+const whitelist: string[] = [process.env.CLIENT_URL!];
 
 logger.info('url whitelist : ', whitelist.join(', '));
 
-const corsOptions = {
+const corsOptions: CorsOptions = {
   origin: whitelist,
   credentials: true,
   allowedHeaders: [
