@@ -17,6 +17,12 @@ const sandboxContext: Context = {
   require: isESModule ? createRequire(import.meta.url) : require,
 };
 
+const define: Record<string, string> = {};
+
+for (const k in process.env) {
+  define[`process.env.${k}`] = JSON.stringify(process.env[k]);
+}
+
 const transformationOption: BuildOptions = {
   loader: {
     '.js': 'js',
@@ -32,6 +38,7 @@ const transformationOption: BuildOptions = {
   packages: 'external',
   write: false,
   bundle: true,
+  define,
 };
 
 const filterValidConfiguration = (

@@ -2,6 +2,14 @@ import { Locales, type IntlayerConfig } from 'intlayer';
 
 export const locales = [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH];
 
+const getBackendURL = () => {
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3100';
+  }
+
+  return 'https://back.intlayer.org';
+};
+
 /** @type {import('intlayer').IntlayerConfig} */
 const config: IntlayerConfig = {
   internationalization: {
@@ -11,10 +19,7 @@ const config: IntlayerConfig = {
   },
   editor: {
     enabled: true,
-    backendURL:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3100'
-        : undefined,
+    backendURL: getBackendURL(),
   },
 };
 
