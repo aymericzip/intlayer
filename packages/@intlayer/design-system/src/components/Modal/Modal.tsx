@@ -37,7 +37,7 @@ const modalVariants = cva('cursor-default overflow-auto p-3 shadow', {
 
 type Size = 'sm' | 'md' | 'lg' | 'xl' | 'unset';
 
-const MotionModal = motion(Container);
+const MotionModal = motion.create(Container);
 
 export const Modal: FC<ModalProps> = ({
   children,
