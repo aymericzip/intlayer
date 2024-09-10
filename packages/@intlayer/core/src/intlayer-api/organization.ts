@@ -21,7 +21,7 @@ const ORGANIZATION_API_ROUTE = `${getConfiguration().editor.backendURL}/api/orga
 const getOrganizations = async (
   filters?: GetOrganizationsParams
 ): Promise<GetOrganizationsResult> => {
-  const params = new URLSearchParams(filters);
+  const params = new URLSearchParams(filters as URLSearchParams);
 
   const response = await fetch(
     `${ORGANIZATION_API_ROUTE}?${params.toString()}`,

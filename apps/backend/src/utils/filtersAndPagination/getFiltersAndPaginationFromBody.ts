@@ -1,9 +1,10 @@
 import type { Request } from 'express';
+import type { ObjectId } from 'mongoose';
 
 const DEFAULT_PAGE_SIZE = 100;
 const DEFAULT_PAGE = 1;
 
-type Filters = Record<string, string | string[]>;
+type Filters = Record<string, string | string[] | ObjectId | ObjectId[]>;
 
 export type FiltersAndPagination<T extends Filters> =
   | ({

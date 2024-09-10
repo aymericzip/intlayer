@@ -20,7 +20,7 @@ const PROJECT_API_ROUTE = `${backendURL}/api/project`;
 const getProjects = async (
   filters?: GetProjectsParams
 ): Promise<GetProjectsResult> => {
-  const params = new URLSearchParams(filters);
+  const params = new URLSearchParams(filters as URLSearchParams);
 
   const response = await fetch(`${PROJECT_API_ROUTE}?${params.toString()}`, {
     method: 'GET',

@@ -1,4 +1,5 @@
 import { authAPI } from './auth';
+import { dictionaryAPI } from './dictionary';
 import { organizationAPI } from './organization';
 import { projectAPI } from './project';
 import { userAPI } from './user';
@@ -8,4 +9,5 @@ export const intlayerAPI = {
   project: projectAPI,
   user: userAPI,
   auth: authAPI,
+  dictionary: dictionaryAPI,
 };

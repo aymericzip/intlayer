@@ -1,12 +1,14 @@
 import type { Request } from 'express';
+import type { ObjectId } from 'mongoose';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
 
 export type ProjectFilters = {
-  ids?: string;
+  ids?: string | string[];
   name?: string;
+  organizationId?: string;
 };
 
 /**
@@ -23,17 +25,30 @@ export const getProjectFiltersAndPagination = (
   let filters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids } = filtersRequest;
+    const { name, ids, organizationId } = filtersRequest;
 
     filters = {};
 
     if (ids) {
-      const idsArray = ids.split(',');
+      let idsArray: string[];
+
+      if (typeof ids === 'string') {
+        idsArray = ids.split(',');
+      } else if (Array.isArray(ids)) {
+        idsArray = ids;
+      } else {
+        idsArray = [ids];
+      }
+
       filters = { ...filters, id: { $in: idsArray } };
     }
 
     if (name) {
       filters = { ...filters, name: new RegExp(name, 'i') };
+    }
+
+    if (organizationId) {
+      filters = { ...filters, organizationId };
     }
   }
 

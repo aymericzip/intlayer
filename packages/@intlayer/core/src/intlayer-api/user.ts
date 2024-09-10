@@ -23,7 +23,7 @@ const USER_API_ROUTE = `${backendURL}/api/user`;
  * @returns List of users.
  */
 const getUsers = async (filters?: GetUsersParams): Promise<GetUsersResult> => {
-  const searchParams = new URLSearchParams(filters);
+  const searchParams = new URLSearchParams(filters as URLSearchParams);
 
   const response = await fetch(`${USER_API_ROUTE}?${searchParams.toString()}`, {
     method: 'GET',

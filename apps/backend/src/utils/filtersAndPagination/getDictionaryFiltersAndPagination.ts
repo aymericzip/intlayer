@@ -5,9 +5,9 @@ import {
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
 
-export type UserFilters = {
+export type DictionaryFilters = {
   ids?: string | string[];
-  firstName?: string;
+  name?: string;
 };
 
 /**
@@ -15,16 +15,16 @@ export type UserFilters = {
  * @param req - Express request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
-export const getUserFiltersAndPagination = (
-  req: Request<FiltersAndPagination<UserFilters>>
+export const getDictionaryFiltersAndPagination = (
+  req: Request<FiltersAndPagination<DictionaryFilters>>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<UserFilters>(req);
+    getFiltersAndPaginationFromBody<DictionaryFilters>(req);
 
   let filters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { firstName, ids } = filtersRequest;
+    const { name, ids } = filtersRequest;
 
     filters = {};
 
@@ -42,8 +42,8 @@ export const getUserFiltersAndPagination = (
       filters = { ...filters, id: { $in: idsArray } };
     }
 
-    if (firstName) {
-      filters = { ...filters, firstName: new RegExp(firstName, 'i') };
+    if (name) {
+      filters = { ...filters, name: new RegExp(name, 'i') };
     }
   }
 

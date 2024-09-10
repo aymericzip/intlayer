@@ -1,4 +1,5 @@
 import type { Request } from 'express';
+import type { ObjectId } from 'mongoose';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
@@ -13,7 +14,7 @@ export type OrganizationFilters = {
    * -> ids: "5f8d9f1d8a1e4f0e8c0c,5f8d9f1d8a1e4f0e8d1"
    * ```
    */
-  ids?: string;
+  ids?: string | string[];
   name?: string;
 };
 
@@ -36,7 +37,16 @@ export const getOrganizationFiltersAndPagination = (
     filters = {};
 
     if (ids) {
-      const idsArray = ids.split(',');
+      let idsArray: string[];
+
+      if (typeof ids === 'string') {
+        idsArray = ids.split(',');
+      } else if (Array.isArray(ids)) {
+        idsArray = ids;
+      } else {
+        idsArray = [ids];
+      }
+
       filters = { ...filters, id: { $in: idsArray } };
     }
 

@@ -1,5 +1,6 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 type ElementType = 'string' | 'number' | 'boolean' | 'object' | 'array';
-type ElementValidator<T> = (value: T) => boolean;
+type ElementValidator<T> = (value: T) => boolean | string[];
 
 /**
  * Validates a email field.
@@ -32,10 +33,20 @@ export const validateArray = <T = unknown>(
       errors.push(`${entityName} must contain only ${elementType} elements.`);
     }
   } else if (elementValidator) {
-    const isValid = value.every(elementValidator);
+    const isValidOrErrorList = value.every(elementValidator);
 
-    if (!isValid) {
-      errors.push(`${entityName} must contain only valid elements.`);
+    if (Array.isArray(isValidOrErrorList)) {
+      const isValid = isValidOrErrorList.length > 0;
+
+      if (!isValid) {
+        errors.push(...isValidOrErrorList);
+      }
+    } else {
+      const isValid = isValidOrErrorList;
+
+      if (!isValid) {
+        errors.push(`${entityName} must contain valid elements.`);
+      }
     }
   }
 

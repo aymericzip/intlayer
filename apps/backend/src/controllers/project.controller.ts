@@ -4,6 +4,7 @@ import {
   findProjects as findProjectsService,
   countProjects as countProjectsService,
   createProject as createProjectService,
+  getProjectById as getProjectByIdService,
   updateProjectById as updateProjectByIdService,
   deleteProjectById as deleteProjectByIdService,
 } from '@services/project.service';
@@ -79,7 +80,7 @@ export const addProject = async (
   req: Request<any, any, AddProjectBody>,
   res: ResponseWithInformation<AddProjectResult>
 ): Promise<Response> => {
-  const organizationId = req.params.organizationId;
+  const { organization } = res.locals;
   const projectData = req.body;
 
   if (!projectData) {
@@ -98,7 +99,7 @@ export const addProject = async (
 
   const project: ProjectData = {
     ...projectData,
-    organizationId,
+    organizationId: organization._id,
   };
 
   try {
@@ -135,6 +136,7 @@ export const updateProject = async (
   req: Request<any, any, UpdateProjectBody>,
   res: ResponseWithInformation<UpdateProjectResult>
 ): Promise<Response> => {
+  const { organization } = res.locals;
   const project = req.body;
 
   if (!project) {
@@ -148,6 +150,16 @@ export const updateProject = async (
       status: responseCode,
     });
 
+    return res.status(responseCode).json(responseData);
+  }
+
+  if (project.organizationId !== organization._id) {
+    const errorMessage = `You don't have access to this project`;
+    const responseCode = HttpStatusCodes.FORBIDDEN_403;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
     return res.status(responseCode).json(responseData);
   }
 
@@ -199,6 +211,7 @@ export const deleteProject = async (
   req: Request<DeleteProjectParam>,
   res: ResponseWithInformation<DeleteProjectResult>
 ): Promise<Response> => {
+  const { organization } = res.locals;
   const { projectId } = req.params as Partial<DeleteProjectParam>;
 
   if (!projectId) {
@@ -216,6 +229,18 @@ export const deleteProject = async (
   }
 
   try {
+    const projectToDelete = await getProjectByIdService(projectId);
+
+    if (projectToDelete.organizationId !== organization._id) {
+      const errorMessage = `You don't have access to this project`;
+      const responseCode = HttpStatusCodes.FORBIDDEN_403;
+      const responseData = formatResponse<Project>({
+        error: errorMessage,
+        status: responseCode,
+      });
+      return res.status(responseCode).json(responseData);
+    }
+
     const deletedProject = await deleteProjectByIdService(projectId);
 
     logger.info(`Project deleted: ${deletedProject._id}`);

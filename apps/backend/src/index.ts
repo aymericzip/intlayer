@@ -6,6 +6,7 @@ import {
 } from '@middlewares/auth.middleware';
 import { logAPIRequestURL } from '@middlewares/request.middleware';
 import { authRouter } from '@routes/auth.routes';
+import { dictionaryRouter } from '@routes/dictionary.routes';
 import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
 import { userRouter } from '@routes/user.routes';
@@ -77,6 +78,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/organization', organizationRouter);
 app.use('/api/project', projectRouter);
+app.use('/api/dictionary', dictionaryRouter);
 
 // Server
 app.listen(process.env.PORT, () => {
