@@ -68,7 +68,7 @@ export const addSession = async (user: User): Promise<User> => {
 };
 
 export const removeSession = async (user: User): Promise<User> => {
-  const session = undefined;
+  const session = null;
 
   const updatedUser: User = await updateUserById(user._id, { session });
 
@@ -111,8 +111,11 @@ export const setUserAuth = async (res: Response, user: User) => {
  * Clears the JWT auth cookies and user locals object.
  * @param res - Express response object.
  */
-export const clearUserAuth = (res: Response) => {
+export const clearUserAuth = async (res: Response) => {
+  const { user } = res.locals;
   const cookiesOptions = getClearCookieOptions();
+
+  await removeSession(user);
 
   res.cookie(Cookies.JWT_AUTH, '', cookiesOptions);
   res.cookie(Cookies.JWT_USER, '', cookiesOptions);

@@ -259,10 +259,10 @@ export type LogoutResult = ResponseData<undefined>;
  * @param res - Express response object.
  * @returns Response indicating logout success.
  */
-export const logOut = (
+export const logOut = async (
   _req: Request,
   res: ResponseWithInformation<LogoutResult>
-): Response => {
+) => {
   const { user } = res.locals;
 
   if (!user) {
@@ -279,7 +279,7 @@ export const logOut = (
     return res.status(responseCode).json(responseData);
   }
 
-  clearUserAuthService(res);
+  await clearUserAuthService(res);
   clearOrganizationAuthService(res);
   clearProjectAuthService(res);
 
