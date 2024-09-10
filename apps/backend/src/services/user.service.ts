@@ -96,7 +96,7 @@ export const getUserBySession = async (sessionToken: string) => {
   });
 
   if (!user) {
-    const errorMessage = `User not found - ${sessionToken}`;
+    const errorMessage = `User not found - Token: ${sessionToken}`;
 
     logger.error(errorMessage);
     throw new Error(errorMessage);

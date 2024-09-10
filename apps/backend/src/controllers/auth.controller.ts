@@ -70,7 +70,7 @@ export const controlJWT = async (
 
   setCSRFTokenService(res, csrfToken);
 
-  const user = res.locals.user;
+  const { user } = res.locals;
 
   if (!user) {
     return res.json(
@@ -101,7 +101,7 @@ export const registerEmailPassword = async (
   req: Request<any, any, RegisterBody>,
   res: ResponseWithInformation<RegisterResult>
 ) => {
-  const user = res.locals.user;
+  const { user } = res.locals;
 
   if (user) {
     const errorMessage = `User already logged in`;
@@ -207,7 +207,7 @@ export const loginEmailPassword = async (
   req: Request<any, any, LoginBody>,
   res: ResponseWithInformation<LoginResult>
 ) => {
-  const user = res.locals.user;
+  const { user } = res.locals;
 
   if (user) {
     const errorMessage = `User already logged in`;
@@ -263,7 +263,7 @@ export const logOut = (
   _req: Request,
   res: ResponseWithInformation<LogoutResult>
 ): Response => {
-  const user: User | null = res.locals.user;
+  const { user } = res.locals;
 
   if (!user) {
     const errorMessage = `User logout failed`;
@@ -307,7 +307,7 @@ export const updatePassword = async (
   res: ResponseWithInformation<UpdatePasswordResult>
 ) => {
   const { oldPassword, newPassword } = req.body;
-  let user = res.locals.user;
+  let { user } = res.locals;
 
   if (!user) {
     const errorMessage = 'User not connected';
@@ -382,9 +382,8 @@ export const validEmail = async (
   req: Request<ValidEmailParams, any, any>,
   res: ResponseWithInformation<ValidEmailResult>
 ) => {
-  const userId = req.params.userId as unknown as User['_id'];
-  const secret = req.params.secret;
-  const organization = res.locals.organization;
+  const { userId, secret } = req.params;
+  const { organization } = res.locals;
 
   if (!Types.ObjectId.isValid(userId.toString())) {
     const responseCode = HttpStatusCodes.NOT_FOUND_404;
@@ -606,7 +605,7 @@ export const getSessionInformation = async (
 ) => {
   const { session_token: sessionToken } = req.query;
 
-  let user = res.locals.user;
+  let { user } = res.locals;
 
   try {
     if (sessionToken) {
@@ -673,7 +672,7 @@ export const githubLoginQuery = (
   const { origin } = req.query;
   const { user } = res.locals;
 
-  if (typeof user !== 'undefined') {
+  if (user) {
     const errorMessage = `User already logged in - ${user?.email}`;
 
     logger.error(errorMessage);
@@ -715,9 +714,7 @@ export const githubCallback = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-
-    return res.redirect(responseCode, redirect_uri);
+    return res.redirect(redirect_uri);
   }
 
   if (!redirect_uri) {
@@ -725,9 +722,7 @@ export const githubCallback = async (
 
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-
-    return res.redirect(responseCode, redirect_uri);
+    return res.redirect(redirect_uri);
   }
 
   try {
@@ -849,9 +844,7 @@ export const githubCallback = async (
     const errorMessage: string = (err as { message: string }).message;
     logger.error(errorMessage);
 
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-
-    return res.redirect(responseCode, redirect_uri);
+    return res.redirect(redirect_uri);
   }
 };
 
@@ -868,7 +861,7 @@ export const googleLoginQuery = (
   const { origin } = req.query;
   const { user } = res.locals;
 
-  if (typeof user !== 'undefined') {
+  if (user) {
     const errorMessage = `User already logged in - ${user?.email}`;
 
     logger.error(errorMessage);

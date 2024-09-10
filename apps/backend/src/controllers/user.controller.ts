@@ -263,7 +263,7 @@ export const updateUser = async (
   res: ResponseWithInformation<UpdateUserResult>
 ) => {
   const userData = req.body;
-  const user = res.locals.user;
+  const { user } = res.locals;
 
   if (!user) {
     const errorMessage = 'User not found';

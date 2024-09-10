@@ -41,6 +41,8 @@ export const checkUser = async (
 ) => {
   const { [Cookies.JWT_AUTH]: sessionToken } = req.cookies;
 
+  res.locals.user = null;
+
   if (sessionToken) {
     const user = await getUserBySessionService(sessionToken);
 
@@ -58,10 +60,7 @@ export const checkOrganization = async (
   next: NextFunction
 ) => {
   const jwtTokenOrganization = req.cookies.jwt_organization;
-
-  res.locals.organization = await OrganizationModel.findById(
-    process.env.ORGANIZATION_ID
-  );
+  res.locals.project = null;
 
   if (!jwtTokenOrganization || jwtTokenOrganization === 'undefined') {
     clearOrganizationAuth(res);
@@ -99,10 +98,7 @@ export const checkProject = async (
   next: NextFunction
 ) => {
   const jwtTokenProject = req.cookies.jwt_project;
-
-  res.locals.organization = await OrganizationModel.findById(
-    process.env.ORGANIZATION_ID
-  );
+  res.locals.project = null;
 
   if (!jwtTokenProject || jwtTokenProject === 'undefined') {
     clearProjectAuth(res);
