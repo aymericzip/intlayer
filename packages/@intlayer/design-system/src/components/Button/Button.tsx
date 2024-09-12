@@ -35,6 +35,17 @@ const buttonVariants = cva(
         xl: 'h-11 px-10 text-xl',
         icon: 'p-0',
       },
+      variant: {
+        default: 'text-text-opposite dark:text-text-opposite-dark rounded-lg',
+        none: 'border-none bg-opacity-0 text-inherit hover:bg-opacity-0 dark:bg-opacity-0 dark:text-inherit dark:hover:bg-opacity-0',
+        outline:
+          'rounded-lg border-[1.5px] bg-opacity-0 hover:bg-opacity-30 dark:bg-opacity-0',
+        link: 'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline dark:bg-transparent hover:dark:bg-transparent',
+        'invisible-link':
+          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent',
+        hoverable:
+          'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
+      },
       color: {
         primary:
           'border-primary dark:border-primary-dark bg-primary dark:bg-primary-dark text-primary dark:text-primary-dark hover:bg-primary-500 hover:dark:bg-primary-300',
@@ -49,17 +60,7 @@ const buttonVariants = cva(
         text: 'border-text dark:border-text-dark bg-text dark:bg-text-dark text-text dark:text-text-dark hover:opacity-80',
         custom: '',
       },
-      variant: {
-        default: 'text-text-opposite dark:text-text-opposite-dark rounded-lg',
-        none: 'border-none bg-opacity-0 text-inherit hover:bg-opacity-0 dark:bg-opacity-0 dark:text-inherit dark:hover:bg-opacity-0',
-        outline:
-          'rounded-lg border-[1.5px] bg-opacity-0 hover:bg-opacity-30 dark:bg-opacity-0',
-        link: 'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline dark:bg-transparent dark:hover:bg-transparent',
-        'invisible-link':
-          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent',
-        hoverable:
-          'bg-opacity-0! hover:bg-opacity-10! dark:hover:bg-opacity-10! rounded-lg border-none bg-inherit transition dark:border-none dark:bg-inherit',
-      },
+
       isFullWidth: {
         true: 'w-full',
         false: '',
