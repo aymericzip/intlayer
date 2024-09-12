@@ -20,7 +20,8 @@ type SessionContextProps = {
   session: Session | null | undefined;
   setSession: (session: Session | null) => void;
   checkSession: () => Promise<void>;
-  csrfToken: string | null;
+  csrfToken: string | null | undefined;
+  csrfTokenFetched: boolean;
   setCsrfToken: (csrfToken: string | null) => void;
 };
 
@@ -29,6 +30,7 @@ export const SessionContext = createContext<SessionContextProps>({
   setSession: () => null,
   checkSession: () => Promise.resolve(),
   csrfToken: null,
+  csrfTokenFetched: false,
   setCsrfToken: () => null,
 });
 
@@ -45,8 +47,8 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   children,
   session: sessionProp,
 }) => {
+  const { csrfToken, setCsrfToken, csrfTokenFetched } = useCSRF();
   const { session, setSession, fetchSession } = useSession(sessionProp);
-  const { csrfToken, setCsrfToken } = useCSRF();
 
   return (
     <SessionContext.Provider
@@ -55,6 +57,7 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
         setSession,
         checkSession: fetchSession,
         csrfToken,
+        csrfTokenFetched,
         setCsrfToken,
       }}
     >

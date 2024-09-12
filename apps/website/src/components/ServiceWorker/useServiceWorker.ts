@@ -10,8 +10,10 @@ const registerServiceWorker = async () =>
   });
 
 export const useServiceWorker = () => {
+  const isServiceWorkerEnabled = process.env.NODE_ENV === 'production';
+
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    if (isServiceWorkerEnabled && 'serviceWorker' in navigator) {
       registerServiceWorker().catch((err) => console.error(err));
     }
   }, []);

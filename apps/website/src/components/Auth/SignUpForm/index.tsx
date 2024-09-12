@@ -1,8 +1,10 @@
 'use client';
 
+import { error } from 'console';
 import {
   SignUpForm as SignUpFormUI,
   useAuth,
+  useToast,
   type SignUp,
 } from '@intlayer/design-system';
 import { useRegister } from '@intlayer/design-system/hooks';
@@ -19,12 +21,22 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
 
   const { checkSession } = useAuth();
   const { register } = useRegister();
+  const { toast } = useToast();
 
   const onSubmitSuccess = async ({ email, password }: SignUp) => {
     const response = await register({
       email,
       password,
     });
+
+    if (response.error) {
+      toast({
+        title: [response.error].flatMap((error) => error).join(', '),
+        variant: 'error',
+      });
+
+      return;
+    }
 
     if (response.data) {
       await checkSession();
@@ -35,11 +47,11 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
     }
   };
 
-  const onSubmitError = (_error: Error) => {
-    // toast({
-    //   title: error.message,
-    //   variant: 'default',
-    // });
+  const onSubmitError = (error: Error) => {
+    toast({
+      title: error.message,
+      variant: 'error',
+    });
   };
 
   const onClickBackToSignIn = () => {

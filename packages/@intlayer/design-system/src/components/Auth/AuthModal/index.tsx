@@ -9,6 +9,7 @@ import {
   useRegister,
 } from '../../../hooks';
 import { Modal } from '../../Modal/Modal';
+import { useToast } from '../../Toaster';
 import { useAuth } from '../AuthProvider';
 import { type ChangePassword, ChangePasswordForm } from '../ChangePasswordForm';
 import { type ResetPassword, ResetPasswordForm } from '../ResetPasswordForm';
@@ -47,6 +48,7 @@ export const AuthModal: FC<AuthModalProps> = ({
   const { register } = useRegister();
   const { askResetPassword } = useAskResetPassword();
   const { changePassword } = useChangePassword();
+  const { toast } = useToast();
 
   const onSubmitSignInSuccess = async ({ email, password }: SignIn) => {
     const response = await login({
@@ -54,17 +56,19 @@ export const AuthModal: FC<AuthModalProps> = ({
       password,
     });
 
+    if (response.error) {
+      toast({
+        title: [response.error].flatMap((error) => error).join(', '),
+        variant: 'error',
+      });
+
+      return;
+    }
+
     if (response.data) {
       await checkSession();
       await onSignInSuccess?.(response.data);
     }
-  };
-
-  const onSubmitSignInError = (_error: Error) => {
-    // toast({
-    //   title: error.message,
-    //   variant: 'default',
-    // });
   };
 
   const onSubmitSignUpSuccess = async ({ email, password }: SignUp) => {
@@ -73,33 +77,37 @@ export const AuthModal: FC<AuthModalProps> = ({
       password,
     });
 
+    if (response.error) {
+      toast({
+        title: [response.error].flatMap((error) => error).join(', '),
+        variant: 'error',
+      });
+
+      return;
+    }
+
     if (response.data) {
       await checkSession();
       await onSignUpSuccess?.(response.data);
     }
   };
 
-  const onSubmitSignUpError = (_error: Error) => {
-    // toast({
-    //   title: error.message,
-    //   variant: 'default',
-    // });
-  };
-
   const onSubmitResetPasswordSuccess = async ({ email }: ResetPassword) => {
     const response = await askResetPassword(email);
+
+    if (response.error) {
+      toast({
+        title: [response.error].flatMap((error) => error).join(', '),
+        variant: 'error',
+      });
+
+      return;
+    }
 
     if (response.data) {
       await checkSession();
       await onResetPasswordSuccess?.(response.data);
     }
-  };
-
-  const onSubmitResetPasswordError = (_error: Error) => {
-    // toast({
-    //   title: error.message,
-    //   variant: 'default',
-    // });
   };
 
   const onSubmitChangePasswordSuccess = async ({
@@ -111,17 +119,26 @@ export const AuthModal: FC<AuthModalProps> = ({
       newPassword,
     });
 
+    if (response.error) {
+      toast({
+        title: [response.error].flatMap((error) => error).join(', '),
+        variant: 'error',
+      });
+
+      return;
+    }
+
     if (response.data) {
       await checkSession();
       await onChangePasswordSuccess?.(response.data);
     }
   };
 
-  const onSubmitChangePasswordError = (_error: Error) => {
-    // toast({
-    //   title: error.message,
-    //   variant: 'default',
-    // });
+  const onSubmitError = (error: Error) => {
+    toast({
+      title: error.message,
+      variant: 'error',
+    });
   };
 
   return (
@@ -129,7 +146,7 @@ export const AuthModal: FC<AuthModalProps> = ({
       {state === AuthState.SignIn && (
         <SignInForm
           onSubmitSuccess={onSubmitSignInSuccess}
-          onSubmitError={onSubmitSignInError}
+          onSubmitError={onSubmitError}
           onClickForgotPassword={() => setState(AuthState.ResetPassword)}
           onClickSignUp={() => setState(AuthState.SignUp)}
         />
@@ -137,21 +154,21 @@ export const AuthModal: FC<AuthModalProps> = ({
       {state === AuthState.SignUp && (
         <SignUpForm
           onSubmitSuccess={onSubmitSignUpSuccess}
-          onSubmitError={onSubmitSignUpError}
+          onSubmitError={onSubmitError}
           onClickBackToSignIn={() => setState(AuthState.SignIn)}
         />
       )}
       {state === AuthState.ResetPassword && (
         <ResetPasswordForm
           onSubmitSuccess={onSubmitResetPasswordSuccess}
-          onSubmitError={onSubmitResetPasswordError}
+          onSubmitError={onSubmitError}
           onClickBackToLogin={() => setState(AuthState.SignIn)}
         />
       )}
       {state === AuthState.ChangePassword && (
         <ChangePasswordForm
           onSubmitSuccess={onSubmitChangePasswordSuccess}
-          onSubmitError={onSubmitChangePasswordError}
+          onSubmitError={onSubmitError}
           onClickBackToHome={() => setState(AuthState.SignIn)}
         />
       )}

@@ -1,3 +1,5 @@
+import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorkerSubscriber';
+import { AuthProvider, Toaster } from '@intlayer/design-system';
 import type { IntlayerClientProviderProps } from 'next-intlayer/client';
 import type { FC } from 'react';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
@@ -12,13 +14,17 @@ export const AppProviders: FC<AppProvidersProps> = ({
   locale,
   editorEnabled,
 }) => (
-  <LocaleContextProvider locale={locale} editorEnabled={editorEnabled}>
-    <ReactQueryClientProvider>
-      <ThemeProvider>
-        <AnimatePresenceProvider>
-          <>{children}</>
-        </AnimatePresenceProvider>
-      </ThemeProvider>
-    </ReactQueryClientProvider>
-  </LocaleContextProvider>
+  <AuthProvider>
+    <LocaleContextProvider locale={locale} editorEnabled={editorEnabled}>
+      <ReactQueryClientProvider>
+        <ThemeProvider>
+          <AnimatePresenceProvider>
+            <ServiceWorkerSubscriber />
+            <Toaster />
+            {children}
+          </AnimatePresenceProvider>
+        </ThemeProvider>
+      </ReactQueryClientProvider>
+    </LocaleContextProvider>
+  </AuthProvider>
 );

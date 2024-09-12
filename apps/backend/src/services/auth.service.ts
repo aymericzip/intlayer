@@ -28,28 +28,6 @@ import type {
 import type { User, UserWithPasswordNotHashed } from '@/types/user.types';
 
 /**
- * Logs in a user.
- * @param email - The user's email.
- * @param password - The user's password.
- * @returns The user object.
- */
-export const loginUser = async (
-  email: string,
-  password: string
-): Promise<User> => {
-  const user = await testUserPassword(email, password);
-
-  if (!user) {
-    const errorMessage = `User login failed - ${email}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
-  }
-
-  return user;
-};
-
-/**
  * Adds a session to a user or updates the existing one.
  * @param user - User object.
  * @returns Updated user object.
@@ -522,20 +500,24 @@ export const removeUserProvider = async (
   });
 };
 
+type TestUserPasswordResult = { user: User | null; error?: string };
+
 /**
  * Logs in a user.
  * @param email - The user's email.
  * @param password - The user's password.
  * @returns The user object.
  */
-export const testUserPassword = async (email: string, password: string) => {
+export const testUserPassword = async (
+  email: string,
+  password: string
+): Promise<TestUserPasswordResult> => {
   const user = await getUserByEmail(email);
 
   if (!user) {
     const errorMessage = `User not found - ${email}`;
 
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    return { user: null, error: errorMessage };
   }
 
   const userEmailPasswordProvider = user.provider?.find(
@@ -545,8 +527,7 @@ export const testUserPassword = async (email: string, password: string) => {
   if (!userEmailPasswordProvider?.passwordHash) {
     const errorMessage = `User request to login but no password defined: ${user.email}`;
 
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    return { user: null, error: errorMessage };
   }
 
   const isMatch = await compare(
@@ -563,10 +544,10 @@ export const testUserPassword = async (email: string, password: string) => {
     const randomNumber = Math.floor(Math.random() * 1000) + 1000;
     await new Promise((resolve) => setTimeout(resolve, randomNumber));
 
-    throw new Error(errorMessage);
+    return { user: null, error: errorMessage };
   }
 
-  return user;
+  return { user };
 };
 
 /**

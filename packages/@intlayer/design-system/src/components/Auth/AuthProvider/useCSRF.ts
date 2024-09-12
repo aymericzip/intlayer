@@ -1,44 +1,30 @@
 'use client';
 
-import type { Organization, Project, UserAPI } from '@intlayer/backend';
-import {
-  type PropsWithChildren,
-  useEffect,
-  useState,
-  useCallback,
-} from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { intlayerAPI } from '../../../libs/intlayer-api';
 
-export type Session = {
-  user: UserAPI | null;
-  organization: Organization | null;
-  project: Project | null;
-};
-
-export type AuthProviderProps = PropsWithChildren<{
-  /**
-   * auth session
-   */
-  session?: Session | null;
-}>;
-
 export const useCSRF = () => {
-  const [csrfToken, setCsrfToken] = useState<string | null>(null);
+  const [csrfToken, setCsrfToken] = useState<string | null | undefined>();
+  const [csrfTokenFetched, setCsrfTokenFetched] = useState(false);
 
   const fetchCSRFToken = useCallback(async () => {
-    if (csrfToken) {
+    if (csrfToken ?? csrfTokenFetched) {
       return;
     }
 
     try {
+      setCsrfTokenFetched(true);
+
       const { data } = await intlayerAPI.auth.getCSRFToken();
 
-      if (!data) {
-        return setCsrfToken(null);
+      if (data?.csrf_token) {
+        return setCsrfToken(data.csrf_token);
       }
 
-      setCsrfToken(data.csrf_token);
+      setCsrfToken(null);
     } catch (error) {
+      setCsrfToken(null);
+
       console.error('Error fetching csrf token:', error);
     }
   }, [csrfToken]);
@@ -50,7 +36,9 @@ export const useCSRF = () => {
   }, [fetchCSRFToken]);
 
   return {
-    csrfToken: csrfToken ?? null,
+    csrfToken,
     setCsrfToken,
+    csrfTokenFetched,
+    setCsrfTokenFetched,
   };
 };

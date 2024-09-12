@@ -3,12 +3,12 @@
 import {
   SignInForm as SignInFormUI,
   useAuth,
+  useToast,
   type SignIn,
-  // useToast,
 } from '@intlayer/design-system';
 import { useLogin } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
-import type { FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type SignInFormProps = {
@@ -18,14 +18,23 @@ type SignInFormProps = {
 export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
   const { checkSession } = useAuth();
   const router = useRouter();
-  const { login } = useLogin();
-  // const { toast } = useToast();
+  const { login, error } = useLogin();
+  const { toast } = useToast();
 
   const onSubmitSuccess = async ({ email, password }: SignIn) => {
     const response = await login({
       email,
       password,
     });
+
+    if (response.error) {
+      toast({
+        title: [response.error].flatMap((error) => error).join(', '),
+        variant: 'error',
+      });
+
+      return;
+    }
 
     if (response.data) {
       await checkSession();
@@ -36,12 +45,21 @@ export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
     }
   };
 
-  const onSubmitError = (_error: Error) => {
-    // toast({
-    //   title: error.message,
-    //   variant: 'default',
-    // });
+  const onSubmitError = (error: Error) => {
+    toast({
+      title: error.message,
+      variant: 'error',
+    });
   };
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: error,
+        variant: 'error',
+      });
+    }
+  }, [error, toast]);
 
   const onClickForgotPassword = () =>
     router.push(PagesRoutes.Auth_ResetPassword);

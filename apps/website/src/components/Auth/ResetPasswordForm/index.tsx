@@ -2,8 +2,8 @@
 
 import {
   ResetPasswordForm as ResetPasswordFormUI,
+  useToast,
   type ResetPassword,
-  // useToast,
 } from '@intlayer/design-system';
 import { useAskResetPassword } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
@@ -21,21 +21,30 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
 }) => {
   const router = useRouter();
   const { askResetPassword } = useAskResetPassword();
-  // const { toast } = useToast();
+  const { toast } = useToast();
 
   const onSubmitSuccess = async ({ email }: ResetPassword) => {
-    const result = await askResetPassword(email);
+    const response = await askResetPassword(email);
 
-    if (!result.success) {
-      return router.push(callbackUrl);
+    if (response.error) {
+      toast({
+        title: [response.error].flatMap((error) => error).join(', '),
+        variant: 'error',
+      });
+
+      return;
+    }
+
+    if (response.data ?? callbackUrl) {
+      router.push(callbackUrl);
     }
   };
 
-  const onSubmitError = (_error: Error) => {
-    // toast({
-    //   title: error.message,
-    //   variant: 'default',
-    // });
+  const onSubmitError = (error: Error) => {
+    toast({
+      title: error.message,
+      variant: 'error',
+    });
   };
 
   const onClickBackToLogin = () => router.push(callbackUrl);

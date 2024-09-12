@@ -5,7 +5,6 @@ import {
   clearOrganizationAuth as clearOrganizationAuthService,
   clearProjectAuth as clearProjectAuthService,
   clearUserAuth as clearUserAuthService,
-  loginUser as loginUserService,
   setCSRFToken as setCSRFTokenService,
   setUserAuth as setUserAuthService,
   changeUserPassword as changeUserPasswordService,
@@ -15,6 +14,7 @@ import {
   addUserProvider as addUserProviderService,
   getUserProvider as getUserProviderService,
   updateUserProvider as updateUserProviderService,
+  testUserPassword,
 } from '@services/auth.service';
 import {
   createUser as createUserService,
@@ -240,7 +240,25 @@ export const loginEmailPassword = async (
   const { email, password } = req.body;
 
   try {
-    const loggedInUser = await loginUserService(email, password);
+    const { user: loggedInUser, error } = await testUserPassword(
+      email,
+      password
+    );
+
+    if (error) {
+      const errorMessage: string = error;
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.OK_200;
+      const responseData = formatResponse<UserAPI>({
+        data: null,
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
+    }
 
     await setUserAuthService(res, loggedInUser);
 
@@ -338,37 +356,44 @@ export const updatePassword = async (
   }
 
   try {
-    if (newPassword !== '') {
-      user = await changeUserPasswordService(
-        user._id,
-        oldPassword,
-        newPassword
-      );
+    const { error } = await testUserPassword(user.email, oldPassword);
 
-      if (!user || typeof user !== 'object') {
-        const errorMessage = 'User data not found';
-
-        logger.error(errorMessage);
-
-        const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-        const responseData = formatResponse<UserAPI>({
-          error: errorMessage,
-          status: responseCode,
-        });
-
-        return res.status(responseCode).json(responseData);
-      }
-
-      logger.info(
-        `Password changed - User : Name : ${user.name}, id : ${user._id}`
-      );
-
-      const formattedUser = formatUserForAPIService(user);
-
-      const responseData = formatResponse<UserAPI>({ data: formattedUser });
-
+    if (error) {
+      const errorMessage: string = error;
+      logger.error(errorMessage);
+      const responseCode = HttpStatusCodes.OK_200;
+      const responseData = formatResponse<UserAPI>({
+        error: errorMessage,
+        status: responseCode,
+      });
       return res.json(responseData);
     }
+
+    user = await changeUserPasswordService(user._id, oldPassword, newPassword);
+
+    if (!user || typeof user !== 'object') {
+      const errorMessage = 'User data not found';
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+      const responseData = formatResponse<UserAPI>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
+    }
+
+    logger.info(
+      `Password changed - User : Name : ${user.name}, id : ${user._id}`
+    );
+
+    const formattedUser = formatUserForAPIService(user);
+
+    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+
+    return res.json(responseData);
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
     logger.error(errorMessage);

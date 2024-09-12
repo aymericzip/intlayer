@@ -63,6 +63,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// debug
+if (isDev) {
+  app.use(logAPIRequestURL);
+}
+
 // middleware - jwt
 app.use('*', checkUser);
 app.use('*', checkOrganization);
@@ -74,11 +79,6 @@ app.get('/session', getSessionInformation);
 // CSRF
 app.get('/csrf-token', setCSRFToken);
 app.use(doubleCsrfProtection);
-
-// debug
-if (isDev) {
-  app.use(logAPIRequestURL);
-}
 
 // Liveness check
 app.get('/', (_req: Request, res: Response) => res.send('ok'));

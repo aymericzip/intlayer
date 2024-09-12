@@ -55,6 +55,8 @@ export const useAsync = <
         if (newRetryCount >= retryLimit) {
           setIsDisabled(true); // Disable after reaching retry limit
         }
+
+        throw new Error(errorMessage);
       }
     }) as T,
     [asyncFunction, error, functionName, isLoading, retryCount, retryLimit]

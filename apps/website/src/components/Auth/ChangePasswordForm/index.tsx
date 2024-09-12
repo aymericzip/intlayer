@@ -4,6 +4,7 @@ import {
   ChangePasswordForm as ChangePasswordFormUI,
   type ChangePassword,
   useUser,
+  useToast,
 } from '@intlayer/design-system';
 import { useChangePassword } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
@@ -17,7 +18,7 @@ type ChangePasswordFormProps = {
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
   callbackUrl = PagesRoutes.Home,
 }) => {
-  // const { toast } = useToast();
+  const { toast } = useToast();
   const router = useRouter();
   const { user } = useUser();
   const { changePassword } = useChangePassword();
@@ -26,21 +27,30 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     currentPassword,
     newPassword,
   }: ChangePassword) => {
-    const result = await changePassword({
+    const response = await changePassword({
       oldPassword: currentPassword,
       newPassword,
     });
 
-    if (!result.success) {
-      return router.push(callbackUrl);
+    if (response.error) {
+      toast({
+        title: [response.error].flatMap((error) => error).join(', '),
+        variant: 'error',
+      });
+
+      return;
+    }
+
+    if (response.data ?? callbackUrl) {
+      router.push(callbackUrl);
     }
   };
 
-  const onSubmitError = (_error: Error) => {
-    // toast({
-    //   title: error.message,
-    //   variant: 'default',
-    // });
+  const onSubmitError = (error: Error) => {
+    toast({
+      title: error.message,
+      variant: 'error',
+    });
   };
 
   const onClickBackToHome = () => router.push(callbackUrl);

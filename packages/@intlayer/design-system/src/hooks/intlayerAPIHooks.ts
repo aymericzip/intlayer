@@ -1,28 +1,5 @@
-'use client';
-
-import { useEffect } from 'react';
-import { useAuth } from '../components/Auth/AuthProvider';
-import { getIntlayerAPI } from '../libs/intlayer-api';
 import { useAsync } from './useAsync';
-
-export const useIntlayerAPI = () => {
-  const { csrfToken, setCsrfToken } = useAuth();
-
-  useEffect(() => {
-    if (csrfToken) return;
-
-    getIntlayerAPI()
-      .auth.getCSRFToken()
-      .then(({ data }) => {
-        setCsrfToken(data?.csrf_token ?? null);
-      })
-      .catch((err) => console.error(err));
-  }, [csrfToken]);
-
-  return getIntlayerAPI({
-    body: { csrf_token: csrfToken },
-  });
-};
+import { useIntlayerAPI } from './useIntlayerAPI';
 
 export const useLogin = () => useAsync('login', useIntlayerAPI().auth.login);
 export const useRegister = () =>
