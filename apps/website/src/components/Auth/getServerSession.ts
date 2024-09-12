@@ -1,6 +1,6 @@
 import { Cookies } from '@intlayer/backend';
-import { intlayerAPI } from '@intlayer/core';
 import type { Session } from '@intlayer/design-system';
+import { getIntlayerAPI } from '@intlayer/design-system/libs';
 import { cookies } from 'next/headers';
 
 export const getServerSession = async () => {
@@ -12,7 +12,7 @@ export const getServerSession = async () => {
   }
 
   try {
-    const { data } = await intlayerAPI.auth.getSessionInformation(
+    const { data } = await getIntlayerAPI().auth.getSession(
       session_token.value
     );
 

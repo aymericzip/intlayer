@@ -61,13 +61,6 @@ authRouter.put(
   validEmail
 );
 
-// Sessions
-authRouter.get(
-  '/session',
-  apiAccessControlMiddleWare(AccessRule.public),
-  getSessionInformation
-);
-
 // Github auth
 authRouter.get(
   '/login/github',

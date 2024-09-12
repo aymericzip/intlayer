@@ -1,7 +1,6 @@
 'use client';
 
 import type { Organization, Project, UserAPI } from '@intlayer/backend';
-
 import {
   type PropsWithChildren,
   type FC,
@@ -18,17 +17,19 @@ export type Session = {
 };
 
 type SessionContextProps = {
-  session: Session | null;
+  session: Session | null | undefined;
   setSession: (session: Session | null) => void;
   checkSession: () => Promise<void>;
   csrfToken: string | null;
+  setCsrfToken: (csrfToken: string | null) => void;
 };
 
 export const SessionContext = createContext<SessionContextProps>({
-  session: null,
+  session: undefined,
   setSession: () => null,
   checkSession: () => Promise.resolve(),
   csrfToken: null,
+  setCsrfToken: () => null,
 });
 
 export const useAuth = () => useContext(SessionContext);
@@ -45,15 +46,16 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   session: sessionProp,
 }) => {
   const { session, setSession, fetchSession } = useSession(sessionProp);
-  const { csrfToken } = useCSRF();
+  const { csrfToken, setCsrfToken } = useCSRF();
 
   return (
     <SessionContext.Provider
       value={{
-        session: session ?? null,
+        session,
         setSession,
         checkSession: fetchSession,
         csrfToken,
+        setCsrfToken,
       }}
     >
       {children}

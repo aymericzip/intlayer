@@ -10,21 +10,18 @@ import { getChangePasswordContent } from './index.content';
 type ChangePasswordFormProps = {
   onSubmitSuccess: (data: ChangePassword) => Promise<void>;
   onSubmitError: (error: Error) => void;
-  onClickResetPassword: () => void;
   onClickBackToHome: () => void;
 };
 
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
   onSubmitSuccess,
   onSubmitError,
-  onClickResetPassword,
   onClickBackToHome,
 }) => {
   const {
     currentPasswordInput,
     newPasswordInput,
     confirmPasswordInput,
-    forgotPasswordLink,
     changePasswordButton,
     backToHomeButton,
   } = getChangePasswordContent();
@@ -41,24 +38,13 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
-        <div>
-          <InputPasswordElement
-            name="currentPassword"
-            label={currentPasswordInput.label}
-            placeholder={currentPasswordInput.placeholder}
-            autoComplete="current-password"
-            isRequired
-          />
-          <Button
-            variant="link"
-            label={forgotPasswordLink.ariaLabel}
-            color="primary"
-            onClick={onClickResetPassword}
-            type="button"
-          >
-            {forgotPasswordLink.text}
-          </Button>
-        </div>
+        <InputPasswordElement
+          name="currentPassword"
+          label={currentPasswordInput.label}
+          placeholder={currentPasswordInput.placeholder}
+          autoComplete="current-password"
+          isRequired
+        />
         <InputPasswordElement
           name="newPassword"
           label={newPasswordInput.label}

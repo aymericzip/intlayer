@@ -39,18 +39,6 @@ export const getChangePasswordContent = () => ({
       es: 'Confirma tu nueva contraseña',
     }),
   },
-  forgotPasswordLink: {
-    ariaLabel: t({
-      en: 'Click to reset your password',
-      fr: 'Cliquez pour réinitialiser votre mot de passe',
-      es: 'Haz clic para restablecer tu contraseña',
-    }),
-    text: t({
-      en: 'Forgot password?',
-      fr: 'Mot de passe oublié ?',
-      es: '¿Olvidaste tu contraseña?',
-    }),
-  },
   changePasswordButton: {
     text: t({
       en: 'Change password',

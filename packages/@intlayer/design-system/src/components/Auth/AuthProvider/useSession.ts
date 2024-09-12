@@ -1,11 +1,11 @@
 'use client';
 
-import { intlayerAPI } from '@intlayer/core';
 import { useEffect, useState, useCallback } from 'react';
+import { getIntlayerAPI } from '../../../libs/intlayer-api';
 import type { Session } from './useCSRF';
 
 export const useSession = (sessionProp?: Session | null) => {
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   const fetchSession = useCallback(async () => {
     if (sessionProp) {
@@ -13,7 +13,7 @@ export const useSession = (sessionProp?: Session | null) => {
     }
 
     try {
-      const { data } = await intlayerAPI.auth.getSessionInformation();
+      const { data } = await getIntlayerAPI().auth.getSession();
 
       if (!data) {
         return setSession(null);
@@ -38,7 +38,7 @@ export const useSession = (sessionProp?: Session | null) => {
   }, [fetchSession, sessionProp]);
 
   return {
-    session: session ?? null,
+    session,
     setSession,
     fetchSession,
   };

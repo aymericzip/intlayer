@@ -56,7 +56,11 @@ export default defineConfig(() => ({
     },
 
     rollupOptions: {
-      external: [...Object.keys(packageJson.peerDependencies)],
+      external: [
+        ...Object.keys(packageJson.peerDependencies),
+        ...Object.keys(packageJson.devDependencies),
+        '@intlayer/config/client',
+      ],
       output: {
         globals: {
           react: 'React',

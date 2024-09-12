@@ -10,6 +10,7 @@
     "checkJs": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "declarationMap": true,
     "jsx": "react-jsx",
     "types": ["node"],
     "allowImportingTsExtensions": true,

@@ -15,8 +15,8 @@ export const getCookieOptions = (
 ): CookieOptions => ({
   maxAge: MAX_AGE,
   path: '/',
-  httpOnly: true,
   domain: process.env.DOMAIN,
+  httpOnly: true,
   secure: process.env.NODE_ENV === 'production', // Enable for HTTPS in production
   sameSite: 'strict',
   priority: 'high',

@@ -33,4 +33,3 @@ export { getHTMLTextDir } from './getHTMLTextDir';
 export { getHTMLLang } from './getHTMLLang';
 export { localeList } from './localeList';
 export { isSameKeyPath } from './utils/isSameKeyPath';
-export { intlayerAPI } from './intlayer-api/index';

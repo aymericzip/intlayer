@@ -1,11 +1,11 @@
 'use client';
 
-import { intlayerAPI } from '@intlayer/core';
 import {
   SignUpForm as SignUpFormUI,
   useAuth,
   type SignUp,
 } from '@intlayer/design-system';
+import { useRegister } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -18,9 +18,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const router = useRouter();
 
   const { checkSession } = useAuth();
+  const { register } = useRegister();
 
   const onSubmitSuccess = async ({ email, password }: SignUp) => {
-    const response = await intlayerAPI.auth.register({
+    const response = await register({
       email,
       password,
     });

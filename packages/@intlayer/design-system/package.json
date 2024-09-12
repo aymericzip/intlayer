@@ -14,6 +14,11 @@
       "require": "./dist/hooks/index.cjs.js",
       "types": "./dist/hooks/index.d.ts"
     },
+    "./libs": {
+      "import": "./dist/libs/index.es.js",
+      "require": "./dist/libs/index.cjs.js",
+      "types": "./dist/libs/index.d.ts"
+    },
     "./tailwind-config": {
       "import": "./tailwind.config.js",
       "require": "./tailwind.config.js",
@@ -39,18 +44,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@chromatic-com/storybook": "^1.8.0",
-    "@emotion/is-prop-valid": "^1.2.2",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-slot": "^1.1.0",
-    "@storybook/addon-essentials": "^8.2.9",
-    "@storybook/addon-interactions": "^8.2.9",
-    "@storybook/addon-links": "^8.2.9",
-    "@storybook/addon-onboarding": "^8.2.9",
-    "@storybook/blocks": "^8.2.9",
-    "@storybook/react": "^8.2.9",
-    "@storybook/react-vite": "^8.2.9",
-    "@storybook/test": "^8.2.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -61,13 +56,20 @@
     "react-markdown": "^9.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "rollup-preserve-directives": "^1.1.1",
-    "storybook": "^8.2.9",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.8.0",
     "@intlayer/backend": "workspace:^",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-interactions": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/blocks": "^8.2.9",
     "@storybook/react": "^8.2.9",
+    "@storybook/react-vite": "^8.2.9",
+    "@storybook/test": "^8.2.9",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@types/react": "^18.3.3",
@@ -86,6 +88,7 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "glob": "^10.4.2",
     "lucide-react": "^0.376.0",
+    "storybook": "^8.2.9",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.2",

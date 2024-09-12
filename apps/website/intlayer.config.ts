@@ -6,8 +6,6 @@ const getBackendURL = () => {
   if (process.env.NODE_ENV === 'development') {
     return 'http://localhost:3100';
   }
-
-  return 'https://back.intlayer.org';
 };
 
 /** @type {import('intlayer').IntlayerConfig} */

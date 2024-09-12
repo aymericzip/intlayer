@@ -1,11 +1,11 @@
 'use client';
 
-import { intlayerAPI } from '@intlayer/core';
 import {
   ChangePasswordForm as ChangePasswordFormUI,
   type ChangePassword,
   useUser,
 } from '@intlayer/design-system';
+import { useChangePassword } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -15,17 +15,18 @@ type ChangePasswordFormProps = {
 };
 
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
-  callbackUrl = PagesRoutes.Auth_SignIn,
+  callbackUrl = PagesRoutes.Home,
 }) => {
   // const { toast } = useToast();
   const router = useRouter();
   const { user } = useUser();
+  const { changePassword } = useChangePassword();
 
   const onSubmitSuccess = async ({
     currentPassword,
     newPassword,
   }: ChangePassword) => {
-    const result = await intlayerAPI.auth.changePassword({
+    const result = await changePassword({
       oldPassword: currentPassword,
       newPassword,
     });
@@ -42,9 +43,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     // });
   };
 
-  const onClickResetPassword = () => router.push(callbackUrl);
-
-  const onClickBackToHome = () => router.push(PagesRoutes.Home);
+  const onClickBackToHome = () => router.push(callbackUrl);
 
   if (!user) return null;
 
@@ -52,7 +51,6 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     <ChangePasswordFormUI
       onSubmitSuccess={onSubmitSuccess}
       onSubmitError={onSubmitError}
-      onClickResetPassword={onClickResetPassword}
       onClickBackToHome={onClickBackToHome}
     />
   );

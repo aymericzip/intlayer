@@ -1,12 +1,12 @@
 'use client';
 
-import { intlayerAPI } from '@intlayer/core';
 import {
   SignInForm as SignInFormUI,
   useAuth,
   type SignIn,
   // useToast,
 } from '@intlayer/design-system';
+import { useLogin } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -18,10 +18,11 @@ type SignInFormProps = {
 export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
   const { checkSession } = useAuth();
   const router = useRouter();
+  const { login } = useLogin();
   // const { toast } = useToast();
 
   const onSubmitSuccess = async ({ email, password }: SignIn) => {
-    const response = await intlayerAPI.auth.login({
+    const response = await login({
       email,
       password,
     });

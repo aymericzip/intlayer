@@ -1,13 +1,13 @@
 'use client';
 
 import type { Organization, Project, UserAPI } from '@intlayer/backend';
-import { intlayerAPI } from '@intlayer/core';
 import {
   type PropsWithChildren,
   useEffect,
   useState,
   useCallback,
 } from 'react';
+import { intlayerAPI } from '../../../libs/intlayer-api';
 
 export type Session = {
   user: UserAPI | null;
@@ -36,6 +36,8 @@ export const useCSRF = () => {
       if (!data) {
         return setCsrfToken(null);
       }
+
+      setCsrfToken(data.csrf_token);
     } catch (error) {
       console.error('Error fetching csrf token:', error);
     }

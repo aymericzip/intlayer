@@ -1,9 +1,10 @@
-import { intlayerAPI } from '@intlayer/core';
 import { useContext } from 'react';
+import { useLogout } from '../../../hooks';
 import { SessionContext } from '../AuthProvider';
 
 export const useUser = () => {
   const { session, checkSession, setSession } = useContext(SessionContext);
+  const { logout } = useLogout();
 
   const status = session?.user ? 'authenticated' : 'unauthenticated';
 
@@ -12,9 +13,9 @@ export const useUser = () => {
 
   const user = session?.user;
 
-  const logout = async () => {
+  const logoutHandle = async () => {
     setSession(null);
-    await intlayerAPI.auth.logout().then(async () => {
+    await logout().then(async () => {
       await checkSession();
     });
   };
@@ -23,6 +24,6 @@ export const useUser = () => {
     isAuthenticated,
     isUnauthenticated,
     user,
-    logout,
+    logout: logoutHandle,
   };
 };

@@ -21,20 +21,22 @@ export const AuthenticationBarrierClient: FC<
   const { session: sessionClient, setSession } = useContext(SessionContext);
 
   useEffect(() => {
-    if (!sessionClient && sessionProp) {
-      setSession(sessionProp);
+    if (!sessionClient) {
+      setSession(sessionProp ?? null);
     }
   }, [sessionClient, sessionProp, setSession]);
 
   useEffect(() => {
-    accessValidation(
-      accessRule,
-      sessionClient,
-      (redirectionRoute) => {
-        window.location.href = redirectionRoute;
-      },
-      redirectionRoute
-    );
+    if (typeof sessionClient !== 'undefined') {
+      accessValidation(
+        accessRule,
+        sessionClient,
+        (redirectionRoute) => {
+          window.location.href = redirectionRoute;
+        },
+        redirectionRoute
+      );
+    }
   }, [accessRule, redirectionRoute, sessionClient]);
 
   return children;

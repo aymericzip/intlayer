@@ -1,4 +1,8 @@
-import { controlJWT } from '@controllers/auth.controller';
+import {
+  controlJWT,
+  getSessionInformation,
+  setCSRFToken,
+} from '@controllers/auth.controller';
 import {
   checkUser,
   checkOrganization,
@@ -10,13 +14,12 @@ import { dictionaryRouter } from '@routes/dictionary.routes';
 import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
 import { userRouter } from '@routes/user.routes';
+import { doubleCsrfProtection } from '@utils/CSRF';
 import { connectDB } from '@utils/mongoDB/connectDB';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
-import { doubleCsrf } from 'csrf-csrf';
 import dotenv from 'dotenv';
-import { getCookieOptions } from 'export';
 import express, { type Request, type Response } from 'express';
 import { logger } from './logger';
 
@@ -65,22 +68,11 @@ app.use('*', checkUser);
 app.use('*', checkOrganization);
 app.use('*', checkProject);
 
-// CSRF
-const {
-  generateToken, // Use this in your routes to provide a CSRF hash + token cookie and token.
-  doubleCsrfProtection, // This is the default CSRF protection middleware.
-} = doubleCsrf({
-  getSecret: () => process.env.CSRF_SECRET,
-  getTokenFromRequest: (req) => req.body.csrfToken,
-  cookieName: 'csrf_token',
-  cookieOptions: getCookieOptions(),
-});
+// Sessions
+app.get('/session', getSessionInformation);
 
-app.get('/csrf-token', (req, res) => {
-  const csrfToken = generateToken(req, res);
-  // You could also pass the token into the context of a HTML response.
-  res.json({ csrfToken });
-});
+// CSRF
+app.get('/csrf-token', setCSRFToken);
 app.use(doubleCsrfProtection);
 
 // debug

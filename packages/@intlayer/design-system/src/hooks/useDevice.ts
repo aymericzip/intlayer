@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
 export type SizeType = 'sm' | 'md' | 'lg' | 'xl' | '2xl';

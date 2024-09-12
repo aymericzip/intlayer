@@ -1,7 +1,7 @@
 'use client';
 
-import { intlayerAPI } from '@intlayer/core';
 import type { FC } from 'react';
+import { intlayerAPI } from '../../../libs/intlayer-api';
 import { Button } from '../../Button';
 import { GithubLogo } from './assets/GithubLogo';
 import { GoogleLogo } from './assets/GoogleLogo';

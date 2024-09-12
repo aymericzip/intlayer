@@ -1,8 +1,13 @@
 'use client';
 
 import type { UserAPI } from '@intlayer/backend';
-import { intlayerAPI } from '@intlayer/core';
 import { useState, type FC } from 'react';
+import {
+  useAskResetPassword,
+  useChangePassword,
+  useLogin,
+  useRegister,
+} from '../../../hooks';
 import { Modal } from '../../Modal/Modal';
 import { useAuth } from '../AuthProvider';
 import { type ChangePassword, ChangePasswordForm } from '../ChangePasswordForm';
@@ -38,9 +43,13 @@ export const AuthModal: FC<AuthModalProps> = ({
 }) => {
   const [state, setState] = useState<AuthState>(initialState);
   const { checkSession } = useAuth();
+  const { login } = useLogin();
+  const { register } = useRegister();
+  const { askResetPassword } = useAskResetPassword();
+  const { changePassword } = useChangePassword();
 
   const onSubmitSignInSuccess = async ({ email, password }: SignIn) => {
-    const response = await intlayerAPI.auth.login({
+    const response = await login({
       email,
       password,
     });
@@ -59,7 +68,7 @@ export const AuthModal: FC<AuthModalProps> = ({
   };
 
   const onSubmitSignUpSuccess = async ({ email, password }: SignUp) => {
-    const response = await intlayerAPI.auth.register({
+    const response = await register({
       email,
       password,
     });
@@ -78,7 +87,7 @@ export const AuthModal: FC<AuthModalProps> = ({
   };
 
   const onSubmitResetPasswordSuccess = async ({ email }: ResetPassword) => {
-    const response = await intlayerAPI.auth.askResetPassword(email);
+    const response = await askResetPassword(email);
 
     if (response.data) {
       await checkSession();
@@ -97,7 +106,7 @@ export const AuthModal: FC<AuthModalProps> = ({
     currentPassword,
     newPassword,
   }: ChangePassword) => {
-    const response = await intlayerAPI.auth.changePassword({
+    const response = await changePassword({
       oldPassword: currentPassword,
       newPassword,
     });
@@ -143,7 +152,6 @@ export const AuthModal: FC<AuthModalProps> = ({
         <ChangePasswordForm
           onSubmitSuccess={onSubmitChangePasswordSuccess}
           onSubmitError={onSubmitChangePasswordError}
-          onClickResetPassword={() => setState(AuthState.ResetPassword)}
           onClickBackToHome={() => setState(AuthState.SignIn)}
         />
       )}

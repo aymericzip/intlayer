@@ -1,5 +1,5 @@
-import { HttpStatusCodes } from 'export';
 import type { NextFunction, Request, Response } from 'express';
+import { HttpStatusCodes } from './httpStatusCodes';
 import { logger } from '@/logger';
 
 type ApiAccessControlResult =

@@ -37,7 +37,7 @@ export const Loader: FC<LoaderProps> = ({
       aria-label="Animated icon, meaning that the website is processing"
       {...props}
     >
-      <Spinner className="size-10" />
+      <Spinner className="size-10 max-h-full max-w-full" />
     </div>
   ) : (
     children ?? <></>

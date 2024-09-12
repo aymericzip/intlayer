@@ -24,6 +24,7 @@ import {
   getUserBySession as getUserBySessionService,
   updateUserById as updateUserByIdService,
 } from '@services/user.service';
+import { generateToken } from '@utils/CSRF';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request, Response } from 'express';
@@ -37,8 +38,21 @@ import type {
 } from '@/types/session.types';
 import type { UserAPI, UserData } from '@/types/user.types';
 
-type CSRFTokenProps = {
-  csrfToken: () => string;
+export type CSRFTokenData = { csrf_token: string };
+export type SetCSRFTokenResult = ResponseData<CSRFTokenData>;
+
+export const setCSRFToken = (
+  req: Request,
+  res: Response<SetCSRFTokenResult>
+) => {
+  const csrf_token = generateToken(req, res);
+
+  const responseData = formatResponse<CSRFTokenData>({
+    data: { csrf_token },
+  });
+
+  res.locals.csrf_token = csrf_token;
+  res.json(responseData);
 };
 
 type RequestWithCSRFToken<
@@ -47,7 +61,7 @@ type RequestWithCSRFToken<
   ReqBody = any,
   ReqQuery = qs.ParsedQs,
   Locals extends Record<string, any> = Record<string, any>,
-> = Request<P, ResBody, ReqBody, ReqQuery, Locals> & CSRFTokenProps;
+> = Request<P, ResBody, ReqBody, ReqQuery, Locals> & CSRFTokenData;
 
 type JWTData = { csrfToken: string; user: UserAPI | null };
 type ControlJWTResult = ResponseData<JWTData>;

@@ -7,9 +7,9 @@ import {
   type FC,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { Loader, type LoaderProps } from '../Loader';
+import { Loader } from '../Loader';
 
-const buttonIconVariants = cva('flex size-4 items-center justify-center', {
+const buttonIconVariants = cva('size-4', {
   variants: {
     size: {
       sm: 'w-4',
@@ -24,31 +24,12 @@ const buttonIconVariants = cva('flex size-4 items-center justify-center', {
   },
 });
 
-type ButtonIconProps = {
-  Icon?: LucideIcon | FC;
-  isLoading?: boolean;
-  width?: number;
-} & VariantProps<typeof buttonIconVariants> &
-  LoaderProps;
-
-const ButtonIcon: FC<ButtonIconProps> = ({
-  Icon,
-  isLoading = false,
-  className,
-  ...loaderProps
-}) =>
-  isLoading ? (
-    <Loader {...loaderProps} />
-  ) : (
-    Icon && <Icon className={className} />
-  );
-
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'gap-3 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
-        sm: 'h-8 gap-1 px-3 text-xs',
+        sm: 'h-8 px-3 text-xs',
         md: 'h-9 px-6 text-base',
         lg: 'h-10 px-8 text-lg',
         xl: 'h-11 px-10 text-xl',
@@ -73,9 +54,9 @@ const buttonVariants = cva(
         none: 'border-none bg-opacity-0 text-inherit hover:bg-opacity-0 dark:bg-opacity-0 dark:text-inherit dark:hover:bg-opacity-0',
         outline:
           'rounded-lg border-[1.5px] bg-opacity-0 hover:bg-opacity-30 dark:bg-opacity-0',
-        link: 'h-auto justify-start border-inherit bg-transparent p-0 underline-offset-4 hover:bg-transparent hover:underline dark:bg-transparent dark:hover:bg-transparent',
+        link: 'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline dark:bg-transparent dark:hover:bg-transparent',
         'invisible-link':
-          'h-auto justify-start border-inherit bg-transparent p-0 underline-offset-4 hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent',
+          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent',
         hoverable:
           'bg-opacity-0! hover:bg-opacity-10! dark:hover:bg-opacity-10! rounded-lg border-none bg-inherit transition dark:border-none dark:bg-inherit',
       },
@@ -83,17 +64,12 @@ const buttonVariants = cva(
         true: 'w-full',
         false: '',
       },
-      hasRightIcon: {
-        true: 'justify-between',
-        false: 'justify-center',
-      },
     },
     defaultVariants: {
       variant: 'default',
       size: 'md',
       color: 'primary',
       isFullWidth: false,
-      hasRightIcon: false,
     },
   }
 );
@@ -146,43 +122,42 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         aria-label={label}
         aria-busy={isLoading}
         role={isLink ? 'link' : undefined}
-        className={cn(
-          buttonVariants({
-            variant,
-            size,
-            color,
-            isFullWidth,
-            hasRightIcon: !!IconRight,
-            className,
-          })
-        )}
+        className={buttonVariants({
+          variant,
+          size,
+          color,
+          isFullWidth,
+          className,
+        })}
         {...props}
       >
-        {Icon ? (
-          <div className="flex w-full flex-row">
-            <ButtonIcon
-              className={cn(
-                buttonIconVariants({ size, className: iconClassName }),
-                'self-start'
-              )}
-              isLoading={isLoading}
-              Icon={Icon}
-            />
-            <div className="flex w-full flex-row items-center justify-center">
-              {children}
-            </div>
-          </div>
-        ) : (
-          children
-        )}
-        {IconRight && (
-          <ButtonIcon
+        {Icon && !isLoading && (
+          <Icon
             className={cn(
-              buttonIconVariants({ size, className: iconClassName })
+              buttonIconVariants({ size, className: iconClassName }),
+              'float-start'
             )}
-            Icon={IconRight}
           />
         )}
+
+        {IconRight && (
+          <IconRight
+            className={cn(
+              buttonIconVariants({ size, className: iconClassName }),
+              'float-end'
+            )}
+          />
+        )}
+
+        <Loader
+          className={cn(
+            buttonIconVariants({ size, className: iconClassName }),
+            'float-start'
+          )}
+          isLoading={isLoading}
+        />
+
+        <div>{children}</div>
       </button>
     );
   }
