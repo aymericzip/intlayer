@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/migration-from-tailwind-2 */
 'use client';
 
 import GithubLogo from '@assets/github.svg';
@@ -57,7 +58,6 @@ export const Navbar: FC = () => {
           <Link
             aria-label={github.label.value}
             href={github.url.value}
-            // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
             className="group/github border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 p-1 hover:bg-opacity-30 dark:bg-opacity-0"
           >
             <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
@@ -80,7 +80,11 @@ export const Navbar: FC = () => {
               {logoutContent.title}
             </Button>
           ) : (
-            <Link aria-label={login.label.value} href={login.url.value}>
+            <Link
+              aria-label={login.label.value}
+              href={login.url.value}
+              className="border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 p-1 hover:bg-opacity-30 dark:bg-opacity-0"
+            >
               {login.title}
             </Link>
           )}

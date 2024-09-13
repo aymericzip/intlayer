@@ -109,7 +109,7 @@ export const navbarContent: DeclarationContent<SectionsContent> = {
     }),
   },
   login: {
-    url: '/auth/signin',
+    url: PagesRoutes.Auth_SignIn,
     title: t({
       en: 'Login',
       fr: 'Connexion',
