@@ -9,6 +9,7 @@ const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
   const session = await getServerSession();
 
   const redirectionURLQuery = getQueryParams();
+
   const redirectURL = redirectionURLQuery ?? PagesRoutes.Home;
 
   return (
