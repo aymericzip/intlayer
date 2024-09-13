@@ -12,8 +12,6 @@ const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
 
   const redirectURL = redirectionURLQuery ?? PagesRoutes.Home;
 
-  console.log('redirectURL', redirectURL);
-
   return (
     <AuthenticationBarrier
       accessRule="none-authenticated"
