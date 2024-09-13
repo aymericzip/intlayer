@@ -8,17 +8,27 @@ import {
   Navbar as UINavBar,
   Logo,
   type NavSection,
+  useUser,
+  Button,
+  Avatar,
 } from '@intlayer/design-system';
 import { StarIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import type { FC } from 'react';
+import { use, type FC } from 'react';
 
 export const Navbar: FC = () => {
   const { locale, setLocale, availableLocales } = useLocale();
-  const { logo, sections, github } = useIntlayer('navbar');
+  const {
+    logo,
+    sections,
+    github,
+    login,
+    logout: logoutContent,
+  } = useIntlayer('navbar');
   const router = useRouter();
+  const { isAuthenticated, logout, user } = useUser();
 
   const sectionWithClick: NavSection[] = Object.values(sections).map(
     (section) => ({
@@ -43,21 +53,41 @@ export const Navbar: FC = () => {
       desktopSections={sectionWithClick}
       mobileTopSections={sectionWithClick}
       mobileBottomChildren={
-        <Link
-          aria-label={github.label.value}
-          href={github.url.value}
-          className="group/github border-text text-text dark:border-text-dark dark:text-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 p-1"
-        >
-          <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
-          GitHub
-          <StarIcon
-            width={18}
-            className="group-hover/github:fill-text dark:group-hover/github:fill-text-dark mr-1"
-          />
-        </Link>
+        <div className="flex w-full flex-col gap-4">
+          <Link
+            aria-label={github.label.value}
+            href={github.url.value}
+            // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
+            className="group/github border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 p-1 hover:bg-opacity-30 dark:bg-opacity-0"
+          >
+            <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
+            GitHub
+            <StarIcon
+              width={18}
+              className="group-hover/github:fill-text dark:group-hover/github:fill-text-dark mr-1"
+            />
+          </Link>
+
+          {isAuthenticated ? (
+            <Button
+              variant="outline"
+              color="text"
+              label={logoutContent.label.value}
+              onClick={logout}
+              className="!rounded-full"
+              size="lg"
+            >
+              {logoutContent.title}
+            </Button>
+          ) : (
+            <Link aria-label={login.label.value} href={login.url.value}>
+              {login.title}
+            </Link>
+          )}
+        </div>
       }
       rightItemsMobile={
-        <>
+        <div className="flex gap-2">
           <LocaleSwitcher
             setLocale={setLocale}
             localeList={availableLocales}
@@ -65,7 +95,10 @@ export const Navbar: FC = () => {
             fullLocaleName={false}
           />
           <SwitchThemeSwitcher />
-        </>
+          {isAuthenticated && (
+            <Avatar isLoggedIn={isAuthenticated} fullname={user?.name} />
+          )}
+        </div>
       }
       rightItemsDesktop={
         <>

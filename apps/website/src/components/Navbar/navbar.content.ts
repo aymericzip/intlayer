@@ -4,7 +4,6 @@ import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type SectionsContent = {
   sections: Omit<NavSection, 'onClick'>[];
-  // bottomSections: Omit<NavSection, 'onClick'>[];
   github: {
     id: string;
     url: string;
@@ -15,6 +14,15 @@ type SectionsContent = {
   logo: {
     label: string;
     url: string;
+  };
+  logout: {
+    title: string;
+    label: string;
+  };
+  login: {
+    url: string;
+    title: string;
+    label: string;
   };
 };
 
@@ -88,52 +96,29 @@ export const navbarContent: DeclarationContent<SectionsContent> = {
     }),
   },
 
-  //   logout: {
-  //     id: 'logout',
-  //     url: '/auth/signout',
-  //     title: t({
-  //       en: 'Logout',
-  //       fr: 'Déconnexion',
-  //       es: 'Cerrar sesión',
-  //     }),
-  //     label: t({
-  //       en: 'Logout',
-  //       fr: 'Se déconnecter',
-  //       es: 'Cerrar sesión',
-  //     }),
-  //   },
-  //   login: {
-  //     id: 'login',
-  //     url: '/auth/signin',
-  //     title: t({
-  //       en: 'Login',
-  //       fr: 'Connexion',
-  //       es: 'Iniciar sesión',
-  //     }),
-  //     label: t({
-  //       en: 'Go to login page',
-  //       fr: 'Aller à la page de connexion',
-  //       es: 'Ir a la página de inicio de sesión',
-  //     }),
-  //   },
-  // },
-  // profile: {
-  //   label: t({
-  //     en: 'Manage profile',
-  //     fr: 'Gérer le profil',
-  //     es: 'Administrar perfil',
-  //   }),
-  // },
-  // login: {
-  //   text: t({
-  //     en: 'Login',
-  //     fr: 'Connexion',
-  //     es: 'Iniciar sesión',
-  //   }),
-  //   label: t({
-  //     en: 'Login to app',
-  //     fr: "Connexion à l'application",
-  //     es: 'Iniciar sesión en la aplicación',
-  //   }),
-  // },
+  logout: {
+    title: t({
+      en: 'Logout',
+      fr: 'Déconnexion',
+      es: 'Cerrar sesión',
+    }),
+    label: t({
+      en: 'Logout',
+      fr: 'Se déconnecter',
+      es: 'Cerrar sesión',
+    }),
+  },
+  login: {
+    url: '/auth/signin',
+    title: t({
+      en: 'Login',
+      fr: 'Connexion',
+      es: 'Iniciar sesión',
+    }),
+    label: t({
+      en: 'Go to login page',
+      fr: 'Aller à la page de connexion',
+      es: 'Ir a la página de inicio de sesión',
+    }),
+  },
 };
