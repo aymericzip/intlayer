@@ -11,7 +11,7 @@ type AuthenticationBarrierProps = Omit<
   AuthenticationBarrierPropsUI,
   'sessionToken' | 'redirectionFunction'
 > & {
-  redirectionRoute?: PagesRoutes;
+  redirectionRoute?: PagesRoutes | string;
 };
 
 export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({

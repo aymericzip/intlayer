@@ -3,6 +3,8 @@ export enum PagesRoutes {
   Demo = '/demo',
   NotFound = '/404',
 
+  Dashboard = '/dashboard',
+
   Doc = '/doc',
   Doc_GetStarted = '/doc/get-started',
   Doc_HowWorksIntlayer = '/doc/concept/how-works-intlayer',

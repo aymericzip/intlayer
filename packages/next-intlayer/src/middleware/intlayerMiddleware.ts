@@ -1,5 +1,9 @@
 import { type Locales, getConfiguration } from '@intlayer/config/client';
-import { type NextRequest, NextResponse } from 'next/server';
+import {
+  type NextFetchEvent,
+  type NextRequest,
+  NextResponse,
+} from 'next/server';
 import { localeDetector } from './localeDetector';
 
 const { internationalization, middleware } = getConfiguration();
@@ -30,7 +34,11 @@ const {
  * ```
  *
  */
-export const intlayerMiddleware = (request: NextRequest): NextResponse => {
+export const intlayerMiddleware = (
+  request: NextRequest,
+  _event?: NextFetchEvent,
+  _response?: NextResponse
+): NextResponse => {
   const pathname = request.nextUrl.pathname;
   const cookieLocale = getCookieLocale(request);
   const basePathTrailingSlash = basePath.endsWith('/');
@@ -164,7 +172,6 @@ const handleExistingPathLocale = (
 
 const handleCookieLocaleMismatch = (
   request: NextRequest,
-
   pathname: string,
   pathLocale: Locales,
   cookieLocale: Locales,
