@@ -7,7 +7,7 @@ import {
   type SignIn,
 } from '@intlayer/design-system';
 import { useLogin } from '@intlayer/design-system/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
@@ -18,8 +18,12 @@ type SignInFormProps = {
 export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
   const { checkSession } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { login, error } = useLogin();
   const { toast } = useToast();
+
+  const redirectURLQuery = searchParams.get('redirect_url');
+  const redirectURL = callbackUrl ?? redirectURLQuery;
 
   const onSubmitSuccess = async ({ email, password }: SignIn) => {
     const response = await login({
@@ -39,8 +43,8 @@ export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
     if (response.data) {
       await checkSession();
 
-      if (callbackUrl) {
-        router.push(callbackUrl);
+      if (redirectURL) {
+        router.push(redirectURL);
       }
     }
   };
