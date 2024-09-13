@@ -58,7 +58,7 @@
     "intlayer-cli": "workspace:^",
     "lucide-react": "^0.441.0",
     "markdown-to-jsx": "^7.4.7",
-    "next": "14.2.7",
+    "next": "14.2.8",
     "next-intlayer": "workspace:^",
     "next-secure-headers": "^2.2.0",
     "next-themes": "^0.3.0",
