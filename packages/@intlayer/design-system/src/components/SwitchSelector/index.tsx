@@ -1,14 +1,8 @@
 'use client';
 
 import { cva, type VariantProps } from 'class-variance-authority';
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ReactNode,
-  type HTMLAttributes,
-} from 'react';
-
+import { useRef, type ReactNode, type HTMLAttributes } from 'react';
+import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';
 
 export type SwitchSelectorChoice<T> = {
@@ -85,11 +79,6 @@ const indicatorVariant = cva(
   }
 );
 
-type PositionState = {
-  left: number;
-  width: number;
-};
-
 /**
  *
  * Component that allows the user to select one of the provided choices.
@@ -114,41 +103,9 @@ export const SwitchSelector = <T,>({
   color = 'primary',
   size = 'md',
 }: SwitchSelectorProps<T>) => {
-  const optionsRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const optionsRefs = useRef<HTMLButtonElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
-  const [choiceIndicatorPosition, setChoiceIndicatorPosition] =
-    useState<PositionState | null>(null);
-
-  useEffect(() => {
-    const calculateSelectedOptionRef = () => {
-      const selectedOptionRef = optionsRefs.current.find(
-        (option) => option?.getAttribute('aria-selected') === 'true'
-      );
-
-      if (!selectedOptionRef) return;
-
-      const choiceIndicatorLeftPosition = selectedOptionRef?.offsetLeft;
-      const choiceIndicatorWidth = selectedOptionRef?.offsetWidth;
-
-      setChoiceIndicatorPosition({
-        left: choiceIndicatorLeftPosition,
-        width: choiceIndicatorWidth,
-      });
-    };
-
-    calculateSelectedOptionRef();
-
-    window.addEventListener('resize', calculateSelectedOptionRef);
-    window.addEventListener('DOMContentLoaded', calculateSelectedOptionRef);
-
-    return () => {
-      window.removeEventListener('resize', calculateSelectedOptionRef);
-      window.removeEventListener(
-        'DOMContentLoaded',
-        calculateSelectedOptionRef
-      );
-    };
-  }, [selectedChoice]);
+  const { choiceIndicatorPosition } = useItemSelector(optionsRefs);
 
   return (
     <div
@@ -182,7 +139,7 @@ export const SwitchSelector = <T,>({
               aria-selected={isSelected}
               disabled={isSelected}
               ref={(el) => {
-                optionsRefs.current[index] = el;
+                optionsRefs.current[index] = el!;
               }}
             >
               {content}

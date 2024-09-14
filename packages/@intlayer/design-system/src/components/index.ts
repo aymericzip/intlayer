@@ -32,3 +32,5 @@ export * from './Label';
 export * from './Input';
 export * from './Auth';
 export * from './Toaster';
+export * from './Link';
+export * from './TabSelector';

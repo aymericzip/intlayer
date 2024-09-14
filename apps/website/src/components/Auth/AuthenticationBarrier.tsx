@@ -19,16 +19,13 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
   redirectionRoute = PagesRoutes.Home,
   ...props
 }) => (
-  <AuthenticationBarrierServerUI
-    {...props}
-    redirectionRoute={redirectionRoute}
-    redirectionFunction={redirect}
-  >
-    <AuthenticationBarrierClientUI
-      {...props}
-      redirectionRoute={redirectionRoute}
-    >
-      {children}
-    </AuthenticationBarrierClientUI>
-  </AuthenticationBarrierServerUI>
+  // <AuthenticationBarrierServerUI
+  //   {...props}
+  //   redirectionRoute={redirectionRoute}
+  //   redirectionFunction={redirect}
+  // >
+  <AuthenticationBarrierClientUI {...props} redirectionRoute={redirectionRoute}>
+    {children}
+  </AuthenticationBarrierClientUI>
+  // </AuthenticationBarrierServerUI>
 );

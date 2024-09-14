@@ -20,7 +20,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   </div>
 );
 
-type LocaleSwitcherProps = {
+export type LocaleSwitcherProps = {
   locale?: Locales;
   localeList: Locales[];
   availableLocales?: Locales[];

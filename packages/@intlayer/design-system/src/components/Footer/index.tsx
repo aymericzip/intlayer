@@ -1,14 +1,14 @@
 import type { FC, ReactNode } from 'react';
 import { Logo } from '../Logo';
 
-export type Link = {
+export type FooterLink = {
   href: string;
   text: ReactNode;
   onClick?: () => void;
   label: string;
 };
 
-export type LinkGroup = { title: ReactNode; links: Link[] };
+export type LinkGroup = { title: ReactNode; links: FooterLink[] };
 
 type FooterProps = { links?: LinkGroup[] };
 

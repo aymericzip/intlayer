@@ -3,9 +3,9 @@
 
 import GithubLogo from '@assets/github.svg';
 import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
+import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
 import {
-  LocaleSwitcher,
   Navbar as UINavBar,
   Logo,
   type NavSection,
@@ -16,11 +16,10 @@ import {
 import { StarIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useIntlayer, useLocale } from 'next-intlayer';
-import { use, type FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import type { FC } from 'react';
 
 export const Navbar: FC = () => {
-  const { locale, setLocale, availableLocales } = useLocale();
   const {
     logo,
     sections,
@@ -92,12 +91,7 @@ export const Navbar: FC = () => {
       }
       rightItemsMobile={
         <div className="flex gap-2">
-          <LocaleSwitcher
-            setLocale={setLocale}
-            localeList={availableLocales}
-            locale={locale}
-            fullLocaleName={false}
-          />
+          <LocaleSwitcher />
           <SwitchThemeSwitcher />
           {isAuthenticated && (
             <Avatar isLoggedIn={isAuthenticated} fullname={user?.name} />
@@ -106,12 +100,7 @@ export const Navbar: FC = () => {
       }
       rightItemsDesktop={
         <>
-          <LocaleSwitcher
-            setLocale={setLocale}
-            localeList={availableLocales}
-            locale={locale}
-            fullLocaleName={false}
-          />
+          <LocaleSwitcher />
           <SwitchThemeSwitcher />
           <Link
             aria-label={github.label.value}

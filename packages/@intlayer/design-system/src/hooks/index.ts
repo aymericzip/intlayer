@@ -5,3 +5,4 @@ export * from './useIsMounted';
 export * from './useScrollDetection';
 export * from './useAsync';
 export * from './intlayerAPIHooks';
+export * from './useItemSelector';
