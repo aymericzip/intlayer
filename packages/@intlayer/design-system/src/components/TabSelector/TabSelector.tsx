@@ -55,13 +55,13 @@ const indicatorVariant = cva(
 );
 
 type TabProps = HTMLAttributes<HTMLElement> & {
-  value: string | number;
+  key: string | number;
 };
 
 type TabSelectorProps<T extends TabProps> = {
   tabs: ReactElement<T>[];
-  selectedChoice: T['value'];
-  onTabClick?: (choice: T['value']) => void;
+  selectedChoice: T['key'];
+  onTabClick?: (choice: T['key']) => void;
   hoverable?: boolean;
 } & VariantProps<typeof tabSelectorVariant>;
 
@@ -74,10 +74,11 @@ type TabSelectorProps<T extends TabProps> = {
  * <TabSelector
  *   selectedChoice="option1"
  *   onTabClick={(choice) => console.log(choice)}
+ *   hoverable={true}
  * >
- *   <Button value="option1"/>
- *   <Button value="option2"/>
- *   <Button value="option3"/>
+ *   <Button key="option1"/>
+ *   <Button key="option2"/>
+ *   <Button key="option3"/>
  * </TabSelector>
  * ```
  */
@@ -104,14 +105,14 @@ export const TabSelector = <T extends TabProps>({
       role="tablist"
     >
       {tabs.map((Tab, index) => {
-        const value = Tab.props.value;
+        const key = Tab.key!;
 
-        const isSelected = selectedChoice === value;
+        const isSelected = selectedChoice === key;
 
         return cloneElement(Tab, {
-          key: value ?? index,
+          key: key ?? index,
           role: 'tab',
-          onClick: () => onTabClick?.(value),
+          onClick: () => onTabClick?.(key),
           'aria-selected': isSelected,
           ref: (el: HTMLElement) => {
             optionsRefs.current[index] = el!;

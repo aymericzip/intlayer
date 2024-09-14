@@ -45,7 +45,6 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links, organization }) => {
             <Link
               key={url}
               href={url}
-              value={url}
               label={label}
               color="text"
               variant="invisible-link"
