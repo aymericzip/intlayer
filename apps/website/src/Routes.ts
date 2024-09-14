@@ -4,8 +4,10 @@ export enum PagesRoutes {
   NotFound = '/404',
 
   Dashboard = '/dashboard',
-  Dashboard_Profile = '/dashboard/profile',
+  Dashboard_Content = '/dashboard/content',
   Dashboard_Projects = '/dashboard/projects',
+  Dashboard_Organization = '/dashboard/organization',
+  Dashboard_Profile = '/dashboard/profile',
 
   Doc = '/doc',
   Doc_GetStarted = '/doc/get-started',

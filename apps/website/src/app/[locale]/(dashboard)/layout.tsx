@@ -1,32 +1,37 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier';
 import { getServerSession } from '@components/Auth/getServerSession';
-import {
-  type NavbarProps,
-  DashboardNavbar,
-} from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
+import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import type { OrganizationData } from '@intlayer/backend';
 import { PageLayout } from '@layouts/PageLayout';
 import type { NextLayoutIntlayer } from 'next-intlayer';
+import { useIntlayer } from 'next-intlayer/server';
 import { PagesRoutes } from '@/Routes';
-
-const defaultLinks: NavbarProps['links'] = [
-  {
-    url: PagesRoutes.Dashboard_Projects,
-    label: 'Go to projects dashboard',
-    title: 'Projects',
-  },
-  {
-    url: PagesRoutes.Dashboard_Profile,
-    label: 'Go to profile dashboard',
-    title: 'Profile',
-  },
-];
 
 const DashboardLayout: NextLayoutIntlayer = async ({
   children,
   params: { locale },
 }) => {
   const session = await getServerSession();
+  const { links } = useIntlayer('dashboard-navbar-content');
+
+  const formattedLinks = links
+    .filter(
+      (el) =>
+        el.url.value !== PagesRoutes.Dashboard_Projects ||
+        (el.url.value === PagesRoutes.Dashboard_Projects &&
+          typeof session?.organization !== 'undefined')
+    )
+    .filter(
+      (el) =>
+        el.url.value !== PagesRoutes.Dashboard_Content ||
+        (el.url.value === PagesRoutes.Dashboard_Content &&
+          typeof session?.organization !== 'undefined')
+    )
+    .map((el) => ({
+      ...el,
+      url: el.url.value,
+      label: el.label.value,
+    }));
 
   return (
     <AuthenticationBarrier
@@ -40,7 +45,7 @@ const DashboardLayout: NextLayoutIntlayer = async ({
         navbar={
           <DashboardNavbar
             organization={{ name: 'Organization' } as OrganizationData}
-            links={defaultLinks}
+            links={formattedLinks}
           />
         }
         footer={<></>}

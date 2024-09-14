@@ -23,7 +23,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links, organization }) => {
   const pathname = usePathname();
 
   return (
-    <Container className="flex flex-col gap-3 p-4" roundedSize="none">
+    <Container className="z-50 flex flex-col gap-3 p-4" roundedSize="none">
       <div className="flex justify-between">
         <div className="flex items-center gap-4">
           <Link href={PagesRoutes.Home} label="Dashboard" color="text">
@@ -48,8 +48,9 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links, organization }) => {
               label={label}
               color="text"
               variant="invisible-link"
+              className="flex px-4 py-0.5"
             >
-              <span className="px-2">{title}</span>
+              {title}
             </Link>
           ))}
           hoverable

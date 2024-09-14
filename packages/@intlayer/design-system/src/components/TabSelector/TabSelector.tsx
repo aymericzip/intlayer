@@ -10,7 +10,7 @@ import {
 import { useItemSelector } from '../../hooks';
 
 const tabSelectorVariant = cva(
-  'relative flex size-full flex-row items-center gap-4',
+  'relative flex size-full flex-row items-center gap-2',
   {
     variants: {
       color: {
