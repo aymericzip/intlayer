@@ -14,9 +14,9 @@ const ChangePasswordPage: NextPageIntlayer = ({ params: { locale } }) => {
     <IntlayerServerProvider locale={locale}>
       <h1 className="hidden">{title}</h1>
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-5 p-10">
+      <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5 md:p-10">
         <Container
-          className="w-[85%] max-w-md justify-center gap-16 p-10 text-2xl"
+          className="w-full max-w-md justify-center gap-16 p-10 text-2xl"
           padding="xl"
           roundedSize="xl"
           transparency="sm"
