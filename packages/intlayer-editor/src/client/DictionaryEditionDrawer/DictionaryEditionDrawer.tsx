@@ -47,8 +47,8 @@ export const DictionaryEditionDrawerContent: FC<
   const dictionaryId: string = focusedContent.dictionaryId;
   const dictionary: Dictionary = dictionaries[dictionaryId];
   const dictionaryPath: string | undefined = dictionary.filePath;
-  const editedDictionaryContent: FileContent[] | undefined = dictionaryPath
-    ? editedContent[dictionaryPath]
+  const editedDictionaryContent: FileContent[] | undefined = dictionaryId
+    ? editedContent[dictionaryId]
     : undefined;
 
   return (

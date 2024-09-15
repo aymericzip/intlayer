@@ -21,7 +21,7 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
 }) => {
   const { open, getEditedContentValue, focusedContent, isOpen } =
     useDictionaryEditionDrawer(dictionaryId);
-  const editedValue = getEditedContentValue(dictionaryPath, keyPath);
+  const editedValue = getEditedContentValue(dictionaryId, keyPath);
   const { editorEnabled } = useContext(IntlayerEditorContext);
 
   const handleSelect = useCallback(

@@ -25,7 +25,7 @@ const buttonIconVariants = cva('size-4', {
 });
 
 const buttonVariants = cva(
-  'gap-3 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'flex items-center gap-3 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -61,6 +61,12 @@ const buttonVariants = cva(
         custom: '',
       },
 
+      textAlign: {
+        left: 'text-left',
+        center: 'text-center',
+        right: 'text-right',
+      },
+
       isFullWidth: {
         true: 'w-full',
         false: '',
@@ -70,6 +76,7 @@ const buttonVariants = cva(
       variant: 'default',
       size: 'md',
       color: 'primary',
+      textAlign: 'center',
       isFullWidth: false,
     },
   }
@@ -106,6 +113,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading = false,
       isActive,
       isFullWidth = false,
+      textAlign = IconRight ? 'left' : 'center',
       disabled,
       label,
       className,
@@ -128,6 +136,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           size,
           color,
           isFullWidth,
+          textAlign,
           className,
         })}
         {...props}
@@ -141,15 +150,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           />
         )}
 
-        {IconRight && (
-          <IconRight
-            className={cn(
-              buttonIconVariants({ size, className: iconClassName }),
-              'float-end'
-            )}
-          />
-        )}
-
         <Loader
           className={cn(
             buttonIconVariants({ size, className: iconClassName }),
@@ -158,7 +158,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           isLoading={isLoading}
         />
 
-        <div>{children}</div>
+        <div className="flex-1">{children}</div>
+
+        {IconRight && (
+          <IconRight
+            className={cn(
+              buttonIconVariants({ size, className: iconClassName }),
+              ''
+            )}
+          />
+        )}
       </button>
     );
   }
