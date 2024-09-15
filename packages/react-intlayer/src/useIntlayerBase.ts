@@ -5,9 +5,9 @@ import type { Locales } from '@intlayer/config';
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
-import type { Dictionary, NodeType } from '@intlayer/core';
+import type { DeclarationContent, Dictionary, NodeType } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import { t, type IntlayerDictionaryTypesConnector } from 'intlayer';
 import { renderIntlayerEditor } from 'intlayer-editor/client';
 import { isValidElement, type ReactNode } from 'react';
 import { processDictionary } from './processDictionary/index';
@@ -46,7 +46,7 @@ type TransformNodeType<T, L extends Locales> = T extends {
         [NodeType.Translation]: object;
       }
     ? L extends keyof T[NodeType.Translation]
-      ? DeepTransformContent<T[NodeType.Translation][L], L> // DeepTransformContent<T[L], L>
+      ? DeepTransformContent<T[NodeType.Translation][L], L>
       : never
     : T;
 
@@ -73,18 +73,7 @@ type DeepTransformContent<T, L extends Locales> = T extends object // Check if t
 type ExcludeIntlayerUtilsKeys<T> = Omit<T, 'id' | 'filePath'>;
 
 /**
- * Represents the data type returned by the useIntlayer hook,
- * excluding the 'id' and 'filePath' keys from the dictionary content.
- */
-type Data<
-  T extends DictionaryKeys,
-  K extends Locales,
-> = ExcludeIntlayerUtilsKeys<
-  DeepTransformContent<IntlayerDictionaryTypesConnector[T], K>
->;
-
-/**
- * Parcourt the object. If a object has a keyPath, render the intlayer editor if editor enabled.
+ * Go through the object. If a object has a keyPath, render the intlayer editor if editor enabled.
  */
 export const recursiveTransformContent = (value: any): object => {
   if (typeof value === 'function') {
@@ -110,8 +99,50 @@ export const recursiveTransformContent = (value: any): object => {
     );
   }
 
-  return value.value;
+  return value?.value ?? value;
 };
+
+type DataFromDictionary<
+  T extends DeclarationContent,
+  K extends Locales,
+> = ExcludeIntlayerUtilsKeys<DeepTransformContent<T, K>>;
+
+export type UseDictionary = <T extends DeclarationContent, L extends Locales>(
+  dictionary: T,
+  locale?: L
+) => DataFromDictionary<T, L>;
+
+// Add description is JSDoc
+/**
+ * Hook that picks one dictionary by its id and return the content
+ *
+ * If the locale is not provided, it will use the locale from the client context
+ */
+export const useDictionary = <T extends DeclarationContent, L extends Locales>(
+  dictionary: T,
+  locale?: L
+) => {
+  const result = processDictionary(
+    dictionary as Dictionary,
+    dictionary.id,
+    dictionary.filePath,
+    [],
+    locale
+  ) as object;
+
+  return recursiveTransformContent(result) as DataFromDictionary<T, L>;
+};
+
+/**
+ * Represents the data type returned by the useIntlayer hook,
+ * excluding the 'id' and 'filePath' keys from the dictionary content.
+ */
+type DataFromDictionaryId<
+  T extends DictionaryKeys,
+  K extends Locales,
+> = ExcludeIntlayerUtilsKeys<
+  DeepTransformContent<IntlayerDictionaryTypesConnector[T], K>
+>;
 
 /**
  * Type definition for the useIntlayer hook, which takes a dictionary ID and an optional locale,
@@ -121,7 +152,7 @@ export const recursiveTransformContent = (value: any): object => {
 export type UseIntlayer = <T extends DictionaryKeys, L extends Locales>(
   id: T,
   locale?: L
-) => Data<T, L>;
+) => DataFromDictionaryId<T, L>;
 
 /**
  * Hook that picks one dictionary by its ID and returns the content,
@@ -136,13 +167,8 @@ export const useIntlayerBase: UseIntlayer = <
 ) => {
   const dictionary: Dictionary = dictionaries[id as keyof typeof dictionaries];
 
-  const result = processDictionary(
-    dictionary,
-    id,
-    dictionary.filePath,
-    [],
+  return useDictionary(
+    dictionary as DeclarationContent,
     locale
-  ) as object;
-
-  return recursiveTransformContent(result) as Data<T, L>;
+  ) as DataFromDictionaryId<T, L>;
 };

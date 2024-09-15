@@ -13,4 +13,4 @@ export {
   useLocaleBase,
   t,
 } from './client/index';
-export type { IntlayerNode } from './useIntlayerBase';
+export { type IntlayerNode, useDictionary } from './useIntlayerBase';

@@ -4,6 +4,7 @@ export {
   useIntlayer,
   useTraduction,
   useLocaleCookie,
+  useDictionary,
   type IntlayerNode,
   t,
 } from 'react-intlayer';

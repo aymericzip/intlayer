@@ -28,7 +28,7 @@ const processTranslation = (
   languageContent: LanguageContent<DictionaryValue>,
   locale: Locales,
   dictionaryId: string,
-  dictionaryPath: string,
+  dictionaryPath?: string,
   keyPath: KeyPath[] = []
 ): TransformedContent => {
   const translationResult: DictionaryValue = getTranslation<DictionaryValue>(
@@ -55,7 +55,7 @@ const processEnumeration =
     enumerationContent: QuantityContent<DictionaryValue>,
     locale: Locales,
     dictionaryId: string,
-    dictionaryPath: string,
+    dictionaryPath?: string,
     keyPath: KeyPath[] = []
   ): TransformedContentValue =>
   (quantity: number): TransformedContentValue => {
@@ -90,7 +90,7 @@ export const processNode = (
   field: DictionaryValue | undefined,
   locale: Locales,
   dictionaryId: string,
-  dictionaryPath: string,
+  dictionaryPath?: string,
   keyPath: KeyPath[] = []
 ): TransformedContentValue => {
   if (typeof field === 'object') {
@@ -126,6 +126,7 @@ export const processNode = (
   }
 
   return processDictionary(
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     field!,
     dictionaryId,
     dictionaryPath,
@@ -179,7 +180,7 @@ const traceKeys: string[] = ['filePath', 'nodeType'];
 export const processDictionary = (
   content: Dictionary | DictionaryValue,
   dictionaryId: string,
-  dictionaryPath: string,
+  dictionaryPath?: string,
   keyPath: KeyPath[] = [],
   locale: Locales = defaultLocale
   // eslint-disable-next-line sonarjs/cognitive-complexity

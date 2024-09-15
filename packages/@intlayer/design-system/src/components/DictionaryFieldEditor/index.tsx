@@ -33,15 +33,15 @@ const getSection = (
 
   for (const key of keyPath) {
     if (key.type === 'ObjectExpression' || key.type === 'ArrayExpression') {
-      section = section[key.key as keyof typeof section];
+      section = section?.[key.key as keyof typeof section];
     } else if (key.type === NodeType.Translation) {
       section =
-        section[NodeType.Translation as keyof typeof section][
+        section?.[NodeType.Translation as keyof typeof section][
           key.key as keyof typeof section
         ];
     } else if (key.type === NodeType.Enumeration) {
       section =
-        section[NodeType.Enumeration as keyof typeof section][
+        section?.[NodeType.Enumeration as keyof typeof section][
           key.key as keyof typeof section
         ];
     }

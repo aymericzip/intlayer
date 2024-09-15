@@ -1,5 +1,6 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier';
 import { getServerSession } from '@components/Auth/getServerSession';
+import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import type { OrganizationData } from '@intlayer/backend';
 import { PageLayout } from '@layouts/PageLayout';
@@ -12,9 +13,9 @@ const DashboardLayout: NextLayoutIntlayer = async ({
   params: { locale },
 }) => {
   const session = await getServerSession();
-  const { links } = useIntlayer('dashboard-navbar-content');
+  const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
 
-  const formattedLinks = links
+  const formattedNavbarLinks = navbarLinks
     .filter(
       (el) =>
         el.url.value !== PagesRoutes.Dashboard_Projects ||
@@ -33,6 +34,12 @@ const DashboardLayout: NextLayoutIntlayer = async ({
       label: el.label.value,
     }));
 
+  const formattedFooterLinks = footerLinks.map((el) => ({
+    ...el,
+    href: el.href.value,
+    label: el.label.value,
+  }));
+
   return (
     <AuthenticationBarrier
       accessRule="authenticated"
@@ -45,10 +52,12 @@ const DashboardLayout: NextLayoutIntlayer = async ({
         navbar={
           <DashboardNavbar
             organization={{ name: 'Organization' } as OrganizationData}
-            links={formattedLinks}
+            links={formattedNavbarLinks}
           />
         }
-        footer={<></>}
+        footer={
+          <DashboardFooter locale={locale} links={formattedFooterLinks} />
+        }
       >
         {children}
       </PageLayout>

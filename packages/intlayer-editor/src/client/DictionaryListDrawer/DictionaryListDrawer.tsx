@@ -31,11 +31,8 @@ export const DictionaryListDrawer: FC = () => {
     openDictionaryEditionDrawer({ dictionaryId, dictionaryPath: filePath });
   };
 
-  const isDictionaryEdited = (dictionaryId: string) => {
-    const dictionaryPath = dictionaries[dictionaryId].filePath;
-
-    return Object.keys(editedContent).includes(dictionaryPath);
-  };
+  const isDictionaryEdited = (dictionaryId: string) =>
+    Object.keys(editedContent).includes(dictionaryId);
 
   return (
     <RightDrawer

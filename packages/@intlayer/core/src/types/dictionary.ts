@@ -6,6 +6,7 @@ import type {
 export type RecursiveDictionaryValue =
   | number
   | string
+  | undefined
   | { [paramKey: string]: RecursiveDictionaryValue }
   | RecursiveDictionaryValue[];
 
@@ -16,6 +17,6 @@ export type DictionaryValue =
 
 export type Dictionary = {
   id: string;
-  filePath: string;
+  filePath?: string;
   [key: string]: DictionaryValue;
 };

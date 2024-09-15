@@ -46,8 +46,10 @@ export const DictionaryEditionDrawerContent: FC<
 
   const dictionaryId: string = focusedContent.dictionaryId;
   const dictionary: Dictionary = dictionaries[dictionaryId];
-  const dictionaryPath: string = dictionary.filePath;
-  const editedDictionaryContent: FileContent[] = editedContent[dictionaryPath];
+  const dictionaryPath: string | undefined = dictionary.filePath;
+  const editedDictionaryContent: FileContent[] | undefined = dictionaryPath
+    ? editedContent[dictionaryPath]
+    : undefined;
 
   return (
     <>
@@ -68,10 +70,10 @@ export const DictionaryEditionDrawerContent: FC<
             setKeyPathEditionModal(keyPath);
           }}
           onContentChange={(keyPath, newValue) =>
-            addEditedContent(dictionaryPath, keyPath, newValue)
+            addEditedContent(dictionaryId, dictionaryPath, keyPath, newValue)
           }
           onValidEdition={editContentRequest}
-          onCancelEdition={() => clearEditedDictionaryContent(dictionaryPath)}
+          onCancelEdition={() => clearEditedDictionaryContent(dictionaryId)}
         />
       </Modal>
       <DictionaryEditor
@@ -83,10 +85,10 @@ export const DictionaryEditionDrawerContent: FC<
           setFocusedContent({ ...focusedContent, keyPath })
         }
         onContentChange={(keyPath, newValue) =>
-          addEditedContent(dictionaryPath, keyPath, newValue)
+          addEditedContent(dictionaryId, dictionaryPath, keyPath, newValue)
         }
         onValidEdition={editContentRequest}
-        onCancelEdition={() => clearEditedDictionaryContent(dictionaryPath)}
+        onCancelEdition={() => clearEditedDictionaryContent(dictionaryId)}
         onClickEdit={setKeyPathEditionModal}
       />
     </>

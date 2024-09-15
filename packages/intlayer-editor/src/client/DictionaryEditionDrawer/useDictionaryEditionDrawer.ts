@@ -8,9 +8,11 @@ import {
 } from './useEditedContentStore';
 import { useEditionPanelStore } from './useFocusContentStore';
 
+type DictionaryId = string;
 type DictionaryPath = string;
+
 export type FileContent = {
-  dictionaryPath: DictionaryPath;
+  dictionaryPath: DictionaryPath | undefined;
   dictionaryId: string;
   keyPath?: KeyPath[];
 };
@@ -24,7 +26,8 @@ type DictionaryEditionDrawer = {
   editContentRequest: () => Promise<void>;
   editedContent: EditedContent;
   addEditedContent: (
-    dictionaryPath: DictionaryPath,
+    dictionaryId: DictionaryId,
+    dictionaryPath: DictionaryPath | undefined,
     keyPath: KeyPath[],
     newValue: string
   ) => void;
@@ -37,7 +40,7 @@ type DictionaryEditionDrawer = {
 
 type OpenDictionaryEditionDrawerProps = {
   dictionaryId: string;
-  dictionaryPath: string;
+  dictionaryPath: string | undefined;
   keyPath?: KeyPath[];
 };
 

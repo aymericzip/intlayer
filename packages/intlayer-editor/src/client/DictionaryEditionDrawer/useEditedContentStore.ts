@@ -3,25 +3,24 @@ import type { FileContent } from '@intlayer/design-system';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-type DictionaryPath = string;
+type DictionaryId = string;
+type DictionaryPath = string | undefined;
 
-export type EditedContent = Record<DictionaryPath, FileContent[]>;
+export type EditedContent = Record<DictionaryId, FileContent[]>;
 
 type EditedContentStore = {
   editedContent: EditedContent;
   addEditedContent: (
+    dictionaryId: DictionaryId,
     dictionaryPath: DictionaryPath,
     keyPath: KeyPath[],
     newValue: string
   ) => void;
-  removeEditedContent: (
-    dictionaryPath: DictionaryPath,
-    keyPath: KeyPath[]
-  ) => void;
-  clearEditedDictionaryContent: (dictionaryPath: DictionaryPath) => void;
+  removeEditedContent: (dictionaryId: DictionaryId, keyPath: KeyPath[]) => void;
+  clearEditedDictionaryContent: (dictionaryId: DictionaryId) => void;
   clearEditedContent: () => void;
   getEditedContentValue: (
-    dictionaryPath: DictionaryPath,
+    dictionaryId: DictionaryId,
     keyPath: KeyPath[]
   ) => string | undefined;
 };
@@ -30,17 +29,18 @@ export const useEditedContentStore = create(
   persist<EditedContentStore>(
     (set, get) => ({
       editedContent: {},
-      addEditedContent: (dictionaryPath, keyPath, newValue) => {
+      addEditedContent: (dictionaryId, dictionaryPath, keyPath, newValue) => {
         set((state) => {
-          const editedContent = state.editedContent[dictionaryPath] ?? [];
+          const editedContent = state.editedContent[dictionaryId] ?? [];
           return {
             editedContent: {
               ...state.editedContent,
-              [dictionaryPath]: [
+              [dictionaryId]: [
                 ...editedContent.filter(
                   (content) => !isSameKeyPath(content.keyPath, keyPath)
                 ),
                 {
+                  dictionaryPath,
                   keyPath,
                   newValue,
                 },
@@ -50,13 +50,13 @@ export const useEditedContentStore = create(
         });
       },
 
-      removeEditedContent: (dictionaryPath, keyPath) => {
+      removeEditedContent: (dictionaryId, keyPath) => {
         set((state) => {
-          const editedContent = state.editedContent[dictionaryPath] ?? [];
+          const editedContent = state.editedContent[dictionaryId] ?? [];
           return {
             editedContent: {
               ...state.editedContent,
-              [dictionaryPath]: editedContent.filter(
+              [dictionaryId]: editedContent.filter(
                 (content) => content.keyPath !== keyPath
               ),
             },
@@ -64,12 +64,12 @@ export const useEditedContentStore = create(
         });
       },
 
-      clearEditedDictionaryContent: (dictionaryPath) => {
+      clearEditedDictionaryContent: (dictionaryId) => {
         set((state) => {
           const filteredEditedContent = Object.entries(
             state.editedContent
           ).reduce((acc, [path, content]) => {
-            if (path === dictionaryPath) {
+            if (path === dictionaryId) {
               return acc;
             }
 
@@ -89,8 +89,8 @@ export const useEditedContentStore = create(
         set({ editedContent: {} });
       },
 
-      getEditedContentValue: (dictionaryPath, keyPath): string | undefined =>
-        get().editedContent[dictionaryPath]?.find((content) =>
+      getEditedContentValue: (dictionaryId, keyPath): string | undefined =>
+        get().editedContent[dictionaryId]?.find((content) =>
           isSameKeyPath(content.keyPath, keyPath)
         )?.newValue,
     }),
