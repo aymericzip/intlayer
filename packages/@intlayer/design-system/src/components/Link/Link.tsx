@@ -64,7 +64,9 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     },
     ref
   ) => {
-    const isExternalLink = isExternalLinkProp ?? isExternal(props.href);
+    const isChildrenString = typeof children === 'string';
+    const isExternalLink =
+      isChildrenString ?? isExternalLinkProp ?? isExternal(props.href);
 
     return (
       <a

@@ -7,7 +7,7 @@ import type { Locales } from '@intlayer/config';
  */
 import type { DeclarationContent, Dictionary, NodeType } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
-import { t, type IntlayerDictionaryTypesConnector } from 'intlayer';
+import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import { renderIntlayerEditor } from 'intlayer-editor/client';
 import { isValidElement, type ReactNode } from 'react';
 import { processDictionary } from './processDictionary/index';
@@ -81,8 +81,7 @@ export const recursiveTransformContent = (value: any): object => {
   } else if (
     typeof value === 'object' &&
     typeof value.keyPath !== 'undefined' &&
-    typeof value.dictionaryId !== 'undefined' &&
-    typeof value.dictionaryPath !== 'undefined'
+    typeof value.dictionaryId !== 'undefined'
   ) {
     return renderIntlayerEditor(value);
   } else if (typeof value === 'object' && Array.isArray(value)) {
@@ -167,8 +166,13 @@ export const useIntlayerBase: UseIntlayer = <
 ) => {
   const dictionary: Dictionary = dictionaries[id as keyof typeof dictionaries];
 
-  return useDictionary(
-    dictionary as DeclarationContent,
+  const result = processDictionary(
+    dictionary,
+    dictionary.id,
+    dictionary.filePath,
+    [],
     locale
-  ) as DataFromDictionaryId<T, L>;
+  ) as object;
+
+  return recursiveTransformContent(result) as DataFromDictionaryId<T, L>;
 };

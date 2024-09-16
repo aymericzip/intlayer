@@ -1,6 +1,6 @@
 import { t, type DeclarationContent } from 'intlayer';
 
-const signInContent: DeclarationContent = {
+const dashboardContent: DeclarationContent = {
   id: 'dashboard-page',
   title: t({
     en: 'Dashboard',
@@ -9,4 +9,4 @@ const signInContent: DeclarationContent = {
   }),
 };
 
-export default signInContent;
+export default dashboardContent;

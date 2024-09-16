@@ -19,7 +19,7 @@ export const FormElementWrapper: FC<FormElementWrapperProps> = (props) => {
 
   const form = useForm<z.infer<typeof objectFormSchema>>({
     resolver: zodResolver(objectFormSchema),
-    values: props.values ?? { test: '' },
+    values: props.values,
   });
 
   const { children, onSubmit, ...rest } = props;
