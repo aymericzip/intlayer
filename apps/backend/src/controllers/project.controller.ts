@@ -1,5 +1,6 @@
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
+import { setProjectAuth as setProjectAuthService } from '@services/auth.service';
 import {
   findProjects as findProjectsService,
   countProjects as countProjectsService,
@@ -21,7 +22,12 @@ import {
   formatResponse,
 } from '@utils/responseData';
 import type { Request, Response } from 'express';
-import type { Project, ProjectData } from '@/types/project.types';
+import type { ObjectId } from 'mongoose';
+import type {
+  Project,
+  ProjectCreationData,
+  ProjectData,
+} from '@/types/project.types';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFilters>;
 export type GetProjectsResult = PaginatedResponse<Project>;
@@ -67,7 +73,7 @@ export const getProjects = async (
   }
 };
 
-export type AddProjectBody = ProjectData;
+export type AddProjectBody = ProjectCreationData;
 export type AddProjectResult = ResponseData<Project>;
 
 /**
@@ -80,7 +86,7 @@ export const addProject = async (
   req: Request<any, any, AddProjectBody>,
   res: ResponseWithInformation<AddProjectResult>
 ): Promise<Response> => {
-  const { organization } = res.locals;
+  const { organization, user } = res.locals;
   const projectData = req.body;
 
   if (!projectData) {
@@ -98,8 +104,10 @@ export const addProject = async (
   }
 
   const project: ProjectData = {
-    ...projectData,
+    members: [user._id],
+    creatorId: user._id,
     organizationId: organization._id,
+    ...projectData,
   };
 
   try {
@@ -246,6 +254,60 @@ export const deleteProject = async (
     logger.info(`Project deleted: ${deletedProject._id}`);
 
     const responseData = formatResponse<Project>({ data: deletedProject });
+
+    return res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+};
+
+export type SelectProjectParam = { projectId: ObjectId | string };
+export type SelectProjectResult = ResponseData<Project>;
+
+/**
+ * Select a project.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response confirming the deletion.
+ */
+export const selectProject = async (
+  req: Request<SelectProjectParam>,
+  res: ResponseWithInformation<SelectProjectResult>
+) => {
+  const { projectId } = req.params;
+
+  if (!projectId) {
+    const errorMessage = 'Project id not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  try {
+    const project = await getProjectByIdService(projectId);
+
+    setProjectAuthService(res, project);
+
+    const responseData = formatResponse<Project>({
+      data: project,
+    });
 
     return res.json(responseData);
   } catch (error) {

@@ -7,6 +7,8 @@ import type {
   GetProjectsResult,
   UpdateProjectBody,
   UpdateProjectResult,
+  SelectProjectParam,
+  SelectProjectResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -86,11 +88,29 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
       }
     );
 
+  /**
+   * Select a project from the database by its ID.
+   * @param projectId - Organization ID.
+   */
+  const selectProject = async (
+    projectId: SelectProjectParam['projectId'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<SelectProjectResult>(
+      `${PROJECT_API_ROUTE}/${projectId}`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PUT',
+      }
+    );
+
   return {
     getProjects,
     addProject,
     updateProject,
     deleteProject,
+    selectProject,
   };
 };
 

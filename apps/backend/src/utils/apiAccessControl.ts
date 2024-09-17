@@ -118,7 +118,7 @@ export const apiAccessControl = (
  */
 export const apiAccessControlMiddleWare =
   (...accessRules: (AccessRule | AccessRule[])[]) =>
-  (_req: Request, res: Response, next: NextFunction) => {
+  (_req: Request<any>, res: Response, next: NextFunction) => {
     let hasAccess = false;
 
     // Iterate over each access rule group (either single AccessRule or an array of AccessRules)

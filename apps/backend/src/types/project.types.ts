@@ -2,6 +2,10 @@ import type { Model, ObjectId } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';
 
+export type ProjectCreationData = {
+  name: Project['name'];
+};
+
 export type ProjectData = {
   organizationId: Organization['_id'];
   name: string;

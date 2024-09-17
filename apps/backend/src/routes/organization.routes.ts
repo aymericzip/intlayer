@@ -1,6 +1,7 @@
 import {
   addOrganization,
   deleteOrganization,
+  selectOrganization,
   getOrganizations,
   updateOrganization,
 } from '@controllers/organization.controller';
@@ -32,10 +33,15 @@ organizationRouter.put(
   updateOrganization
 );
 organizationRouter.delete(
-  '/',
+  '/:organizationId',
   apiAccessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
   ]),
   deleteOrganization
+);
+organizationRouter.put(
+  '/:organizationId',
+  apiAccessControlMiddleWare([AccessRule.authenticated]),
+  selectOrganization
 );

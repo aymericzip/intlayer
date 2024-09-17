@@ -95,7 +95,7 @@ export const createOrganization = async (
  * @returns The updated organization.
  */
 export const updateOrganizationById = async (
-  organizationId: ObjectId,
+  organizationId: ObjectId | string,
   organization: Partial<Organization>
 ): Promise<Organization> => {
   const errors = validateOrganization(organization);
@@ -129,7 +129,7 @@ export const updateOrganizationById = async (
  * @returns The result of the deletion operation.
  */
 export const deleteOrganizationById = async (
-  organizationId: string
+  organizationId: ObjectId | string
 ): Promise<Organization> => {
   const organization =
     await OrganizationModel.findByIdAndDelete(organizationId);

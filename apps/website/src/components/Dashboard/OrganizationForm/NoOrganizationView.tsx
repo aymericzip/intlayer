@@ -5,7 +5,13 @@ import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { getOrganizationSchema } from './OrganizationFormSchema';
 
-export const NoOrganizationView: FC = () => {
+type NoOrganizationViewProps = {
+  onClickCreateOrganization: () => void;
+};
+
+export const NoOrganizationView: FC<NoOrganizationViewProps> = ({
+  onClickCreateOrganization,
+}) => {
   const SignInSchema = getOrganizationSchema();
   const { isSubmitting } = useForm(SignInSchema);
   const {
@@ -27,6 +33,7 @@ export const NoOrganizationView: FC = () => {
         label={createOrganizationButton.ariaLabel.value}
         isFullWidth={false}
         variant="outline"
+        onClick={onClickCreateOrganization}
       >
         {createOrganizationButton.text}
       </Button>

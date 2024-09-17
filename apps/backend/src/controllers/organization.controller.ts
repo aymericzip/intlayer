@@ -1,5 +1,6 @@
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
+import { setOrganizationAuth as setOrganizationAuthService } from '@services/auth.service';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
@@ -13,6 +14,7 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { Request } from 'express';
+import type { ObjectId } from 'mongoose';
 import {
   findOrganizations as findOrganizationsService,
   countOrganizations as countOrganizationsService,
@@ -24,7 +26,6 @@ import {
 import type {
   Organization,
   OrganizationCreationData,
-  OrganizationData,
 } from '@/types/organization.types';
 
 export type GetOrganizationsParams = FiltersAndPagination<OrganizationFilters>;
@@ -250,7 +251,7 @@ export const updateOrganization = async (
   }
 };
 
-export type DeleteOrganizationParam = { organizationId: string };
+export type DeleteOrganizationParam = { organizationId: ObjectId | string };
 export type DeleteOrganizationResult = ResponseData<Organization>;
 
 /**
@@ -287,6 +288,60 @@ export const deleteOrganization = async (
 
     const responseData = formatResponse<Organization>({
       data: deletedOrganization,
+    });
+
+    return res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+};
+
+export type SelectOrganizationParam = { organizationId: ObjectId | string };
+export type SelectOrganizationResult = ResponseData<Organization>;
+
+/**
+ * Select an organization.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response confirming the deletion.
+ */
+export const selectOrganization = async (
+  req: Request<SelectOrganizationParam>,
+  res: ResponseWithInformation<SelectOrganizationResult>
+) => {
+  const { organizationId } = req.params as Partial<SelectOrganizationParam>;
+
+  if (!organizationId) {
+    const errorMessage = 'Organization id not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  try {
+    const organization = await getOrganizationByIdService(organizationId);
+
+    setOrganizationAuthService(res, organization);
+
+    const responseData = formatResponse<Organization>({
+      data: organization,
     });
 
     return res.json(responseData);

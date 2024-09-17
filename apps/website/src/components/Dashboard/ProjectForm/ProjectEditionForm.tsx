@@ -7,35 +7,31 @@ import {
   Button,
   useToast,
 } from '@intlayer/design-system';
-import { useUpdateOrganization } from '@intlayer/design-system/hooks';
+import { useUpdateProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import {
-  getOrganizationSchema,
-  type OrganizationFormData,
-} from './OrganizationFormSchema';
+import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
 
-export const OrganizationEditionForm: FC = () => {
-  const SignInSchema = getOrganizationSchema();
-  const { updateOrganization } = useUpdateOrganization();
+export const ProjectEditionForm: FC = () => {
+  const SignInSchema = getProjectSchema();
+  const { updateProject } = useUpdateProject();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { nameInput, editButton, updateOrganizationToasts } =
-    useIntlayer('organization-form');
+  const { nameInput, editButton, updateProjectToasts } =
+    useIntlayer('project-form');
   const { toast } = useToast();
 
-  const onSubmitSuccess = async (data: OrganizationFormData) => {
-    await updateOrganization(data)
+  const onSubmitSuccess = async (data: ProjectFormData) => {
+    await updateProject(data)
       .then(() => {
         toast({
-          title: updateOrganizationToasts.organizationUpdated.title.value,
-          description:
-            updateOrganizationToasts.organizationUpdated.description.value,
+          title: updateProjectToasts.projectUpdated.title.value,
+          description: updateProjectToasts.projectUpdated.description.value,
           variant: 'success',
         });
       })
       .catch((error) => {
         toast({
-          title: updateOrganizationToasts.organizationUpdateFailed.title.value,
+          title: updateProjectToasts.projectUpdateFailed.title.value,
           description: error.message,
           variant: 'error',
         });

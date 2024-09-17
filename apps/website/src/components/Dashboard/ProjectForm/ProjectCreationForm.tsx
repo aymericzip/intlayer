@@ -8,45 +8,38 @@ import {
   useToast,
   useUser,
 } from '@intlayer/design-system';
-import {
-  useAddOrganization,
-  useSelectOrganization,
-} from '@intlayer/design-system/hooks';
+import { useAddProject, useSelectProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import {
-  getOrganizationSchema,
-  type OrganizationFormData,
-} from './OrganizationFormSchema';
+import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
 
-export const OrganizationCreationForm: FC = () => {
-  const SignInSchema = getOrganizationSchema();
+export const ProjectCreationForm: FC = () => {
+  const SignInSchema = getProjectSchema();
   const { checkSession } = useUser();
-  const { addOrganization } = useAddOrganization();
-  const { selectOrganization } = useSelectOrganization();
+  const { addProject } = useAddProject();
+  const { selectProject } = useSelectProject();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { nameInput, createOrganizationButton, createOrganizationToasts } =
-    useIntlayer('organization-form');
+  const { nameInput, createProjectButton, createProjectToasts } =
+    useIntlayer('project-form');
   const { toast } = useToast();
 
-  const onSubmitSuccess = async (data: OrganizationFormData) => {
-    await addOrganization(data)
+  const onSubmitSuccess = async (data: ProjectFormData) => {
+    await addProject(data)
       .then(async (result) => {
         toast({
-          title: createOrganizationToasts.organizationCreated.title.value,
-          description:
-            createOrganizationToasts.organizationCreated.description.value,
+          title: createProjectToasts.projectCreated.title.value,
+          description: createProjectToasts.projectCreated.description.value,
           variant: 'success',
         });
 
-        const organizationId = String(result.data?._id);
+        const projectId = String(result.data?._id);
 
-        await selectOrganization(organizationId)
+        await selectProject(projectId)
           .then(async () => {
             toast({
-              title: createOrganizationToasts.organizationSelected.title.value,
+              title: createProjectToasts.projectSelected.title.value,
               description:
-                createOrganizationToasts.organizationSelected.description.value,
+                createProjectToasts.projectSelected.description.value,
               variant: 'success',
             });
 
@@ -54,9 +47,7 @@ export const OrganizationCreationForm: FC = () => {
           })
           .catch((error) => {
             toast({
-              title:
-                createOrganizationToasts.organizationSelectionFailed.title
-                  .value,
+              title: createProjectToasts.projectSelectionFailed.title.value,
               description: error.message,
               variant: 'error',
             });
@@ -64,8 +55,7 @@ export const OrganizationCreationForm: FC = () => {
       })
       .catch((error) => {
         toast({
-          title:
-            createOrganizationToasts.organizationCreationFailed.title.value,
+          title: createProjectToasts.projectCreationFailed.title.value,
           description: error.message,
           variant: 'error',
         });
@@ -92,9 +82,9 @@ export const OrganizationCreationForm: FC = () => {
         type="submit"
         color="text"
         isLoading={isSubmitting}
-        label={createOrganizationButton.ariaLabel.value}
+        label={createProjectButton.ariaLabel.value}
       >
-        {createOrganizationButton.text}
+        {createProjectButton.text}
       </Button>
     </Form>
   );

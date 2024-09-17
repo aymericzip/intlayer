@@ -9,6 +9,8 @@ import type {
   GetOrganizationsResult,
   UpdateOrganizationBody,
   UpdateOrganizationResult,
+  SelectOrganizationParam,
+  SelectOrganizationResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -101,12 +103,30 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
       }
     );
 
+  /**
+   * Select an organization from the database by its ID.
+   * @param organizationId - Organization ID.
+   */
+  const selectOrganization = async (
+    organizationId: SelectOrganizationParam['organizationId'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<SelectOrganizationResult>(
+      `${ORGANIZATION_API_ROUTE}/${organizationId}`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PUT',
+      }
+    );
+
   return {
     getOrganizations,
     getOrganization,
     addOrganization,
     updateOrganization,
     deleteOrganization,
+    selectOrganization,
   };
 };
 

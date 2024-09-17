@@ -1,7 +1,7 @@
 import { t, type DeclarationContent } from 'intlayer';
 
-const organizationFormContent: DeclarationContent = {
-  id: 'organization-form',
+const projectFormContent: DeclarationContent = {
+  id: 'project-form',
 
   nameInput: {
     label: t({
@@ -16,89 +16,89 @@ const organizationFormContent: DeclarationContent = {
     }),
   },
 
-  createOrganizationTitle: t({
-    en: 'No organization',
+  createProjectTitle: t({
+    en: 'No project',
     fr: 'Aucune organisation',
     es: 'Sin organización',
   }),
 
-  createOrganizationDescription: t({
-    en: 'Create your first organization to start using Intlayer',
+  createProjectDescription: t({
+    en: 'Create your first project to start using Intlayer',
     fr: 'Créez votre première organisation pour commencer à utiliser Intlayer',
     es: 'Cree su primera organización para comenzar a usar Intlayer',
   }),
 
-  createOrganizationButton: {
+  createProjectButton: {
     text: t({
-      en: 'Create organization',
+      en: 'Create project',
       fr: 'Créer une organisation',
       es: 'Crear una organización',
     }),
     ariaLabel: t({
-      en: 'Click to create organization',
+      en: 'Click to create project',
       fr: 'Cliquez pour créer une organisation',
       es: 'Haga clic para crear una organización',
     }),
   },
 
-  createOrganizationToasts: {
-    organizationCreated: {
+  createProjectToasts: {
+    projectCreated: {
       title: t({
-        en: 'Organization created',
+        en: 'Project created',
         fr: 'Organisation créée',
         es: 'Organización creada',
       }),
       description: t({
-        en: 'Your organization has been created successfully',
+        en: 'Your project has been created successfully',
         fr: 'Votre organisation a été créée avec succès',
         es: 'Su organización se ha creado con éxito',
       }),
     },
-    organizationCreationFailed: {
+    projectCreationFailed: {
       title: t({
-        en: 'Organization creation failed',
+        en: 'Project creation failed',
         fr: "La création de l'organisation a échoué",
         es: 'La creación de la organización ha fallado',
       }),
     },
 
-    organizationSelected: {
+    projectSelected: {
       title: t({
-        en: 'Organization selected',
+        en: 'Project selected',
         fr: 'Organisation sélectionnée',
         es: 'Organización seleccionada',
       }),
       description: t({
-        en: 'Your organization has been joint',
+        en: 'Your project has been joint',
         fr: 'Votre organisation a été jointe',
         es: 'Su organización se ha unido',
       }),
     },
 
-    organizationSelectionFailed: {
+    projectSelectionFailed: {
       title: t({
-        en: 'Organization selection failed',
+        en: 'Project selection failed',
         fr: "La sélection de l'organisation a échoué",
         es: 'La selección de la organización ha fallado',
       }),
     },
   },
-  updateOrganizationToasts: {
-    organizationUpdated: {
+  updateProjectToasts: {
+    projectUpdated: {
       title: t({
-        en: 'Organization updated',
+        en: 'Project updated',
         fr: 'Organisation mise à jour',
         es: '',
       }),
       description: t({
-        en: 'Your organization has been updated successfully',
+        en: 'Your project has been updated successfully',
         fr: 'Votre organisation a été mise à jour avec succès',
         es: '',
       }),
     },
-    organizationUpdateFailed: {
+    projectUpdateFailed: {
       title: t({
-        en: 'Organization update failed',
+        en: 'Project update failed',
         fr: "La mise à jour de l'organisation a échoué",
         es: '',
       }),
@@ -119,4 +119,4 @@ const organizationFormContent: DeclarationContent = {
   },
 };
 
-export default organizationFormContent;
+export default projectFormContent;

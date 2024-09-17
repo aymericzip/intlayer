@@ -24,6 +24,7 @@ export const useUser = () => {
     isAuthenticated,
     isUnauthenticated,
     user,
+    checkSession,
     logout: logoutHandle,
   };
 };

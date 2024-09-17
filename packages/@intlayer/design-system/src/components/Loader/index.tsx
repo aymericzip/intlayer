@@ -32,7 +32,7 @@ export const Loader: FC<LoaderProps> = ({
 }) =>
   isLoading ? (
     <div
-      className="flex size-full max-h-screen max-w-[100vw] items-center justify-center"
+      className="flex size-full max-h-screen max-w-[100vw] flex-1 items-center justify-center"
       role="status"
       aria-label="Animated icon, meaning that the website is processing"
       {...props}

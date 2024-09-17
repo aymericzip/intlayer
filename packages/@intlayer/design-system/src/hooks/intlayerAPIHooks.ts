@@ -37,6 +37,11 @@ export const useDeleteOrganization = () =>
     'deleteOrganization',
     useIntlayerAPI().organization.deleteOrganization
   );
+export const useSelectOrganization = () =>
+  useAsync(
+    'selectOrganization',
+    useIntlayerAPI().organization.selectOrganization
+  );
 
 export const useGetProjects = () =>
   useAsync('getProjects', useIntlayerAPI().project.getProjects);
@@ -46,6 +51,8 @@ export const useUpdateProject = () =>
   useAsync('updateProject', useIntlayerAPI().project.updateProject);
 export const useDeleteProject = () =>
   useAsync('deleteProject', useIntlayerAPI().project.deleteProject);
+export const useSelectProject = () =>
+  useAsync('selectProject', useIntlayerAPI().project.selectProject);
 
 export const useGetDictionaries = () =>
   useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries);

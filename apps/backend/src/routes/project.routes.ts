@@ -3,6 +3,7 @@ import {
   deleteProject,
   getProjects,
   updateProject,
+  selectProject,
 } from '@controllers/project.controller';
 import {
   apiAccessControlMiddleWare,
@@ -39,10 +40,19 @@ projectRouter.put(
   updateProject
 );
 projectRouter.delete(
-  '/',
+  '/:projectId',
+  apiAccessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  deleteProject
+);
+projectRouter.put(
+  '/:projectId',
   apiAccessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
   ]),
-  deleteProject
+  selectProject
 );
