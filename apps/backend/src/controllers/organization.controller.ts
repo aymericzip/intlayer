@@ -21,7 +21,11 @@ import {
   deleteOrganizationById as deleteOrganizationByIdService,
   getOrganizationById as getOrganizationByIdService,
 } from '@/services/organization.service';
-import type { Organization } from '@/types/organization.types';
+import type {
+  Organization,
+  OrganizationCreationData,
+  OrganizationData,
+} from '@/types/organization.types';
 
 export type GetOrganizationsParams = FiltersAndPagination<OrganizationFilters>;
 export type GetOrganizationsResult = PaginatedResponse<Organization>;
@@ -121,7 +125,7 @@ export const getOrganization = async (
   }
 };
 
-export type AddOrganizationBody = Organization;
+export type AddOrganizationBody = OrganizationCreationData;
 export type AddOrganizationResult = ResponseData<Organization>;
 
 /**
@@ -134,7 +138,8 @@ export const addOrganization = async (
   req: Request<any, any, AddOrganizationBody>,
   res: ResponseWithInformation<AddOrganizationResult>
 ) => {
-  const organization: Organization | undefined = req.body;
+  const { user } = res.locals;
+  const organization = req.body;
 
   if (!organization) {
     const errorMessage = 'Organization not found';
@@ -151,7 +156,10 @@ export const addOrganization = async (
   }
 
   try {
-    const newOrganization = await createOrganizationService(organization);
+    const newOrganization = await createOrganizationService(
+      organization,
+      user._id
+    );
 
     const responseData = formatResponse<Organization>({
       data: newOrganization,

@@ -2,7 +2,6 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier';
 import { getServerSession } from '@components/Auth/getServerSession';
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
-import type { OrganizationData } from '@intlayer/backend';
 import { PageLayout } from '@layouts/PageLayout';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
@@ -16,18 +15,16 @@ const DashboardLayout: NextLayoutIntlayer = async ({
   const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
 
   const formattedNavbarLinks = navbarLinks
-    .filter(
-      (el) =>
-        el.url.value !== PagesRoutes.Dashboard_Projects ||
-        (el.url.value === PagesRoutes.Dashboard_Projects &&
-          typeof session?.organization !== 'undefined')
-    )
-    .filter(
-      (el) =>
-        el.url.value !== PagesRoutes.Dashboard_Content ||
-        (el.url.value === PagesRoutes.Dashboard_Content &&
-          typeof session?.organization !== 'undefined')
-    )
+    .filter((el) => {
+      const isDashboardProjects =
+        el.url.value === PagesRoutes.Dashboard_Projects;
+      const isDashboardContent = el.url.value === PagesRoutes.Dashboard_Content;
+      const isOrganizationDefined = session?.organization;
+
+      return (
+        (!isDashboardProjects && !isDashboardContent) || isOrganizationDefined
+      );
+    })
     .map((el) => ({
       ...el,
       url: el.url.value,
@@ -50,10 +47,7 @@ const DashboardLayout: NextLayoutIntlayer = async ({
         locale={locale}
         editorEnabled={false}
         navbar={
-          <DashboardNavbar
-            organization={{ name: 'Organization' } as OrganizationData}
-            links={formattedNavbarLinks}
-          />
+          <DashboardNavbar session={session} links={formattedNavbarLinks} />
         }
         footer={
           <DashboardFooter locale={locale} links={formattedFooterLinks} />

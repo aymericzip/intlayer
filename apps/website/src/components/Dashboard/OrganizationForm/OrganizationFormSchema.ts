@@ -3,17 +3,17 @@
 import { t } from 'react-intlayer';
 import { z } from 'zod';
 
-export const getSignInSchema = () => {
+export const getOrganizationSchema = () => {
   const requiredErrorName = t({
-    en: 'Please enter your name',
-    fr: 'Veuillez saisir votre nom d’utilisateur',
-    es: 'Por favor, ingrese su nombre de usuario',
+    en: 'Please enter a name for your organization',
+    fr: 'Veuillez saisir un nom pour votre organisation',
+    es: 'Por favor, ingrese un nombre para su organización',
   });
 
   const invalidTypeErrorName = t({
-    en: 'Please enter a valid username',
-    fr: 'Veuillez saisir un nom d’utilisateur valide',
-    es: 'Por favor, ingrese un nombre de usuario válido',
+    en: 'Please enter a valid name for your organization',
+    fr: 'Veuillez saisir un nom valide pour votre organisation',
+    es: 'Por favor, ingrese un nombre válido para su organización',
   });
 
   return z.object({
@@ -26,4 +26,7 @@ export const getSignInSchema = () => {
       .default(''),
   });
 };
-export type ProfileFormData = z.infer<ReturnType<typeof getSignInSchema>>;
+
+export type OrganizationFormData = z.infer<
+  ReturnType<typeof getOrganizationSchema>
+>;

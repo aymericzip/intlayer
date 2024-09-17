@@ -4,8 +4,12 @@ import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
-import type { OrganizationData } from '@intlayer/backend';
-import { Container, Logo, TabSelector } from '@intlayer/design-system';
+import {
+  Container,
+  Logo,
+  type Session,
+  TabSelector,
+} from '@intlayer/design-system';
 import { usePathname } from 'next/navigation';
 import React, { type FC, type ReactNode } from 'react';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';
@@ -16,11 +20,12 @@ export type NavbarProps = {
     label: string;
     title: ReactNode;
   }[];
-  organization: OrganizationData;
+  session: Session | undefined | null;
 };
 
-export const DashboardNavbar: FC<NavbarProps> = ({ links, organization }) => {
+export const DashboardNavbar: FC<NavbarProps> = ({ links, session }) => {
   const pathname = usePathname();
+  const { organization, project } = session ?? {};
 
   return (
     <Container className="z-50 flex flex-col gap-3 p-4" roundedSize="none">
@@ -29,8 +34,18 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links, organization }) => {
           <Link href={PagesRoutes.Home} label="Dashboard" color="text">
             <Logo type="logoOnly" className="size-6" />
           </Link>
-          <span>/</span>
-          <div className="">{organization.name}</div>
+          {organization && (
+            <>
+              <span>/</span>
+              <div>{organization.name}</div>
+            </>
+          )}
+          {project && (
+            <>
+              <span>/</span>
+              <div>{project.name}</div>
+            </>
+          )}
         </div>
         <div className="flex items-center gap-4">
           <LocaleSwitcher />

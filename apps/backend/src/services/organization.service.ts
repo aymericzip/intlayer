@@ -3,7 +3,10 @@ import { OrganizationModel } from '@models/organization.model';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import { validateOrganization } from '@utils/validation/validateOrganization';
 import type { ObjectId } from 'mongoose';
-import type { Organization } from '@/types/organization.types';
+import type {
+  Organization,
+  OrganizationCreationData,
+} from '@/types/organization.types';
 
 /**
  * Finds organizations based on filters and pagination options.
@@ -67,9 +70,10 @@ export const countOrganizations = async (
  * @returns The created organization.
  */
 export const createOrganization = async (
-  organization: Organization
+  organization: OrganizationCreationData,
+  userId: string | ObjectId
 ): Promise<Organization> => {
-  const errors = validateOrganization(organization);
+  const errors = validateOrganization(organization, ['name']);
 
   if (Object.keys(errors).length > 0) {
     const errorMessage = `Organization invalid fields - ${JSON.stringify(errors)}`;
@@ -77,7 +81,11 @@ export const createOrganization = async (
     throw new Error(errorMessage);
   }
 
-  return await OrganizationModel.create(organization);
+  return await OrganizationModel.create({
+    creatorId: userId,
+    members: [userId],
+    ...organization,
+  });
 };
 
 /**

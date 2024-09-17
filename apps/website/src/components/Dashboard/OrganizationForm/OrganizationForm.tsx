@@ -1,51 +1,17 @@
 'use client';
 
-import { useForm, Form, InputElement, Button } from '@intlayer/design-system';
-import { useIntlayer } from 'next-intlayer';
+import { useAuth } from '@intlayer/design-system';
 import type { FC } from 'react';
-import {
-  getSignInSchema,
-  type ProfileFormData,
-} from './OrganizationFormSchema';
+import { NoOrganizationView } from './NoOrganizationView';
+import { OrganizationEditionForm } from './OrganizationEditionForm';
 
 export const OrganizationForm: FC = () => {
-  const SignInSchema = getSignInSchema();
-  const { form, isSubmitting } = useForm(SignInSchema);
-  const { nameInput, editButton } = useIntlayer('organization-form');
+  const { session } = useAuth();
+  const { organization } = session ?? {};
 
-  const onSubmitSuccess = async (data: ProfileFormData) => {
-    await Promise.resolve();
-  };
+  if (!organization) {
+    return <NoOrganizationView />;
+  }
 
-  const onSubmitError = (error: Error) => {
-    console.error(error);
-  };
-
-  return (
-    <Form
-      schema={SignInSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      onSubmitError={onSubmitError}
-      className="w-full max-w-[400px]"
-      {...form}
-    >
-      <InputElement
-        name="name"
-        label={nameInput.label}
-        placeholder={nameInput.placeholder.value}
-        isRequired
-        autoComplete="name"
-      />
-
-      <Button
-        className="mt-12 w-full"
-        type="submit"
-        color="text"
-        isLoading={isSubmitting}
-        label={editButton.ariaLabel.value}
-      >
-        {editButton.text}
-      </Button>
-    </Form>
-  );
+  return <OrganizationEditionForm />;
 };
