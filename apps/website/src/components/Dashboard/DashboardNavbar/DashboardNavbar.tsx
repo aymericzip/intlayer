@@ -4,12 +4,7 @@ import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
-import {
-  Container,
-  Logo,
-  type Session,
-  TabSelector,
-} from '@intlayer/design-system';
+import { Container, Logo, TabSelector, useAuth } from '@intlayer/design-system';
 import { usePathname } from 'next/navigation';
 import React, { type FC, type ReactNode } from 'react';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';
@@ -20,12 +15,26 @@ export type NavbarProps = {
     label: string;
     title: ReactNode;
   }[];
-  session: Session | undefined | null;
 };
 
-export const DashboardNavbar: FC<NavbarProps> = ({ links, session }) => {
+export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const pathname = usePathname();
+  const { session } = useAuth();
   const { organization, project } = session ?? {};
+
+  const filteredLinks = links
+    .filter((el) => {
+      const isDashboardProjects = el.url === PagesRoutes.Dashboard_Projects;
+      const isOrganizationDefined = !!organization;
+
+      return !isDashboardProjects || isOrganizationDefined;
+    })
+    .filter((el) => {
+      const isDashboardContent = el.url === PagesRoutes.Dashboard_Content;
+      const isProjectDefined = !!project;
+
+      return !isDashboardContent || isProjectDefined;
+    });
 
   return (
     <Container className="z-50 flex flex-col gap-3 p-4" roundedSize="none">
@@ -56,7 +65,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links, session }) => {
       <div className="flex gap-8 px-5">
         <TabSelector
           selectedChoice={pathname}
-          tabs={links.map(({ url, label, title }) => (
+          tabs={filteredLinks.map(({ url, label, title }) => (
             <Link
               key={url}
               href={url}

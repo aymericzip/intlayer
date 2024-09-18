@@ -11,25 +11,14 @@ const DashboardLayout: NextLayoutIntlayer = async ({
   children,
   params: { locale },
 }) => {
-  const session = await getServerSession();
   const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
+  const session = await getServerSession();
 
-  const formattedNavbarLinks = navbarLinks
-    .filter((el) => {
-      const isDashboardProjects =
-        el.url.value === PagesRoutes.Dashboard_Projects;
-      const isDashboardContent = el.url.value === PagesRoutes.Dashboard_Content;
-      const isOrganizationDefined = session?.organization;
-
-      return (
-        (!isDashboardProjects && !isDashboardContent) || isOrganizationDefined
-      );
-    })
-    .map((el) => ({
-      ...el,
-      url: el.url.value,
-      label: el.label.value,
-    }));
+  const formattedNavbarLinks = navbarLinks.map((el) => ({
+    ...el,
+    url: el.url.value,
+    label: el.label.value,
+  }));
 
   const formattedFooterLinks = footerLinks.map((el) => ({
     ...el,
@@ -46,9 +35,7 @@ const DashboardLayout: NextLayoutIntlayer = async ({
       <PageLayout
         locale={locale}
         editorEnabled={false}
-        navbar={
-          <DashboardNavbar session={session} links={formattedNavbarLinks} />
-        }
+        navbar={<DashboardNavbar links={formattedNavbarLinks} />}
         footer={
           <DashboardFooter locale={locale} links={formattedFooterLinks} />
         }

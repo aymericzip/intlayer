@@ -1,15 +1,18 @@
 import type { Request } from 'express';
-import type { ObjectId } from 'mongoose';
+import type { RootFilterQuery } from 'mongoose';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
+import type { Project } from '@/types/project.types';
 
-export type ProjectFilters = {
+export type ProjectFiltersParams = {
   ids?: string | string[];
   name?: string;
   organizationId?: string;
+  members?: string[];
 };
+export type ProjectFilters = RootFilterQuery<Project>;
 
 /**
  * Extracts filters and pagination information from the request body.
@@ -17,15 +20,15 @@ export type ProjectFilters = {
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getProjectFiltersAndPagination = (
-  req: Request<FiltersAndPagination<ProjectFilters>>
+  req: Request<FiltersAndPagination<ProjectFiltersParams>>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<ProjectFilters>(req);
+    getFiltersAndPaginationFromBody<ProjectFiltersParams>(req);
 
-  let filters = {};
+  let filters: ProjectFilters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids, organizationId } = filtersRequest;
+    const { name, ids, organizationId, members } = filtersRequest;
 
     filters = {};
 
@@ -40,7 +43,7 @@ export const getProjectFiltersAndPagination = (
         idsArray = [ids];
       }
 
-      filters = { ...filters, id: { $in: idsArray } };
+      filters = { ...filters, _id: { $in: idsArray } };
     }
 
     if (name) {
@@ -49,6 +52,10 @@ export const getProjectFiltersAndPagination = (
 
     if (organizationId) {
       filters = { ...filters, organizationId };
+    }
+
+    if (members) {
+      filters = { ...filters, members: { $in: members } };
     }
   }
 

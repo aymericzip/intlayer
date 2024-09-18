@@ -19,8 +19,12 @@ export const ProjectCreationForm: FC = () => {
   const { addProject } = useAddProject();
   const { selectProject } = useSelectProject();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { nameInput, createProjectButton, createProjectToasts } =
-    useIntlayer('project-form');
+  const {
+    nameInput,
+    createProjectButton,
+    createProjectToasts,
+    selectProjectToasts,
+  } = useIntlayer('project-form');
   const { toast } = useToast();
 
   const onSubmitSuccess = async (data: ProjectFormData) => {
@@ -37,9 +41,9 @@ export const ProjectCreationForm: FC = () => {
         await selectProject(projectId)
           .then(async () => {
             toast({
-              title: createProjectToasts.projectSelected.title.value,
+              title: selectProjectToasts.projectSelected.title.value,
               description:
-                createProjectToasts.projectSelected.description.value,
+                selectProjectToasts.projectSelected.description.value,
               variant: 'success',
             });
 
@@ -47,7 +51,7 @@ export const ProjectCreationForm: FC = () => {
           })
           .catch((error) => {
             toast({
-              title: createProjectToasts.projectSelectionFailed.title.value,
+              title: selectProjectToasts.projectSelectionFailed.title.value,
               description: error.message,
               variant: 'error',
             });

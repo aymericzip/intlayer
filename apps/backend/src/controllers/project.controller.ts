@@ -13,6 +13,7 @@ import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFilter
 import {
   getProjectFiltersAndPagination,
   type ProjectFilters,
+  type ProjectFiltersParams,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import {
@@ -29,7 +30,7 @@ import type {
   ProjectData,
 } from '@/types/project.types';
 
-export type GetProjectsParams = FiltersAndPagination<ProjectFilters>;
+export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
 export type GetProjectsResult = PaginatedResponse<Project>;
 
 /**
@@ -42,11 +43,22 @@ export const getProjects = async (
   req: Request<GetProjectsParams>,
   res: ResponseWithInformation<GetProjectsResult>
 ): Promise<Response> => {
+  const { user, organization } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
 
+  const restrictedFilter: ProjectFilters = {
+    ...filters,
+    members: { $in: [...(filters.members ?? []), String(user._id)] },
+    organizationId: String(organization._id),
+  };
+
   try {
-    const projects = await findProjectsService(filters, skip, pageSize);
+    const projects = await findProjectsService(
+      restrictedFilter,
+      skip,
+      pageSize
+    );
     const totalItems = await countProjectsService(filters);
 
     const responseData = formatPaginatedResponse<Project>({

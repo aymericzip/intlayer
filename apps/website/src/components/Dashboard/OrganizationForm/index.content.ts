@@ -61,7 +61,8 @@ const organizationFormContent: DeclarationContent = {
         es: 'La creación de la organización ha fallado',
       }),
     },
-
+  },
+  selectOrganizationToasts: {
     organizationSelected: {
       title: t({
         en: 'Organization selected',

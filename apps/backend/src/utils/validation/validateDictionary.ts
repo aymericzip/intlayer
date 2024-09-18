@@ -28,7 +28,7 @@ export const validateDictionary = async (
   const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
 
   const projects = await findProjects({
-    ids: dictionary.projectIds as unknown as string[],
+    _id: dictionary.projectIds as unknown as string[],
   });
 
   // Validate each field

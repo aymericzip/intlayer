@@ -61,7 +61,8 @@ const projectFormContent: DeclarationContent = {
         es: 'La creación de la organización ha fallado',
       }),
     },
-
+  },
+  selectProjectToasts: {
     projectSelected: {
       title: t({
         en: 'Project selected',

@@ -1,5 +1,9 @@
 import type { Locales } from '@intlayer/config/client';
-import { RightDrawer, Button } from '@intlayer/design-system';
+import {
+  RightDrawer,
+  Button,
+  useEditedContentStore,
+} from '@intlayer/design-system';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
@@ -8,10 +12,7 @@ import { RightDrawer, Button } from '@intlayer/design-system';
 import dictionaries from '@intlayer/dictionaries-entry';
 import { ChevronRight } from 'lucide-react';
 import type { FC } from 'react';
-import {
-  useDictionaryEditionDrawerControl,
-  useEditedContentStore,
-} from '../DictionaryEditionDrawer/index';
+import { useDictionaryEditionDrawerControl } from '../DictionaryEditionDrawer/index';
 import {
   dictionaryListDrawerIdentifier,
   useDictionaryListDrawer,

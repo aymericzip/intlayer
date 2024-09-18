@@ -20,7 +20,7 @@ import {
   type ObjectExpressionNode,
   type TranslationOrEnumerationNode,
 } from '@intlayer/core';
-import type { EditedContent } from '../client/index';
+import type { EditedContent } from '@intlayer/design-system';
 import { format } from './formatPrettier';
 
 const requireFunction =

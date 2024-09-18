@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "declarationMap": true,
+    "declaration": true,
     "jsx": "react-jsx",
     "types": ["node"],
     "allowImportingTsExtensions": true,

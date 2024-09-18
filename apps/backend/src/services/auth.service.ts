@@ -112,7 +112,7 @@ export const setOrganizationAuth = (
   organization: Organization
 ) => {
   const organizationData = {
-    organizationId: organization._id,
+    _id: organization._id,
     name: organization.name,
   };
 
@@ -152,7 +152,7 @@ export const clearOrganizationAuth = (res: Response) => {
  */
 export const setProjectAuth = (res: Response, project: Project) => {
   const projectData = {
-    projectId: project._id,
+    _id: project._id,
     name: project.name,
   };
 
@@ -179,23 +179,6 @@ export const clearProjectAuth = (res: Response) => {
   res.locals.project = null;
 
   res.cookie(Cookies.JWT_PROJECT, '', getClearCookieOptions());
-};
-
-/**
- * Set XSRF token cookie
- * @param res - Express response object.
- * @param csrfToken - XSRF token
- */
-export const setCSRFToken = (res: Response, csrfToken: string) => {
-  res.cookie(Cookies.XSRF_TOKEN, csrfToken, getCookieOptions());
-};
-
-/**
- * Clear XSRF token cookie
- * @param res - Express response object.
- */
-export const clearCSRFToken = (res: Response) => {
-  res.cookie(Cookies.XSRF_TOKEN, '', getClearCookieOptions());
 };
 
 /**

@@ -4,6 +4,7 @@ import { setOrganizationAuth as setOrganizationAuthService } from '@services/aut
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
+  type OrganizationFiltersParams,
   type OrganizationFilters,
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
@@ -28,7 +29,8 @@ import type {
   OrganizationCreationData,
 } from '@/types/organization.types';
 
-export type GetOrganizationsParams = FiltersAndPagination<OrganizationFilters>;
+export type GetOrganizationsParams =
+  FiltersAndPagination<OrganizationFiltersParams>;
 export type GetOrganizationsResult = PaginatedResponse<Organization>;
 
 /**
@@ -41,12 +43,32 @@ export const getOrganizations = async (
   req: Request<GetOrganizationsParams>,
   res: ResponseWithInformation<GetOrganizationsResult>
 ) => {
+  const { user } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
+  if (!user) {
+    const errorMessage = 'User not logged in';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatPaginatedResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  const restrictedFilter: OrganizationFilters = {
+    ...filters,
+    members: { $in: [...(filters.members ?? []), String(user._id)] },
+  };
+
   try {
     const organizations = await findOrganizationsService(
-      filters,
+      restrictedFilter,
       skip,
       pageSize
     );

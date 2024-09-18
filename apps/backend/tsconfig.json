@@ -28,10 +28,5 @@
   },
   "tsc-alias": {
     "resolveFullPaths": true
-    // "verbose": false,
-    // "fileExtensions": {
-    //   "inputGlob": "{js,jsx,mjs}",
-    //   "outputCheck": ["js", "json", "jsx", "mjs"]
-    // }
   }
 }

@@ -9,8 +9,8 @@ import {
   deleteDictionaryById as deleteDictionaryByIdService,
 } from '@services/dictionary.service';
 import {
+  type DictionaryFiltersParams,
   getDictionaryFiltersAndPagination,
-  type DictionaryFilters,
 } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
@@ -23,7 +23,8 @@ import {
 import type { Request, Response } from 'express';
 import type { Dictionary, DictionaryData } from '@/types/dictionary.types';
 
-export type GetDictionariesParams = FiltersAndPagination<DictionaryFilters>;
+export type GetDictionariesParams =
+  FiltersAndPagination<DictionaryFiltersParams>;
 export type GetDictionariesResult = PaginatedResponse<Dictionary>;
 
 /**

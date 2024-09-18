@@ -8,7 +8,7 @@ export const dictionarySchema = new Schema<Dictionary>(
       ref: 'Project',
       required: true,
     },
-    id: {
+    key: {
       type: String,
       required: true,
     },

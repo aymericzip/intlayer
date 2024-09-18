@@ -1,11 +1,11 @@
 import type { KeyPath } from '@intlayer/core';
-import { useRightDrawerStore } from '@intlayer/design-system';
-import { useEditorServer } from '../useEditorServer';
-import { getDrawerIdentifier } from './DictionaryEditionDrawer';
 import {
+  useRightDrawerStore,
   type EditedContent,
   useEditedContentStore,
-} from './useEditedContentStore';
+} from '@intlayer/design-system';
+import { useEditorServer } from '../useEditorServer';
+import { getDrawerIdentifier } from './DictionaryEditionDrawer';
 import { useEditionPanelStore } from './useFocusContentStore';
 
 type DictionaryId = string;

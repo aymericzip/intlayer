@@ -7,6 +7,7 @@ type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
   isLoading: boolean;
   error: string | null;
   isSuccess: boolean;
+  result: ReturnType<T> | null;
   data: ReturnType<T> | null;
   retryCount: number;
   isDisabled: boolean;
@@ -47,19 +48,22 @@ export const useAsync = <
       } catch (err) {
         const errorMessage: string =
           (err as { message: string }).message ?? 'Something went wrong';
-        setError(errorMessage);
-        const newRetryCount = retryCount + 1;
-        setRetryCount(newRetryCount);
-        setIsLoading(false);
 
-        if (newRetryCount >= retryLimit) {
-          setIsDisabled(true); // Disable after reaching retry limit
-        }
+        setError(errorMessage);
+
+        setRetryCount((retryCount) => {
+          if (retryCount >= retryLimit) {
+            setIsDisabled(true); // Disable after reaching retry limit
+          }
+
+          return retryCount + 1;
+        });
+        setIsLoading(false);
 
         throw new Error(errorMessage);
       }
     }) as T,
-    [asyncFunction, error, functionName, isLoading, retryCount, retryLimit]
+    [asyncFunction, retryLimit]
   );
 
   return {

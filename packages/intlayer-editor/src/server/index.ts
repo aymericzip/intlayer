@@ -1,6 +1,6 @@
+import type { EditedContent } from '@intlayer/design-system';
 import bodyParser from 'body-parser';
 import express, { type Request, type Response } from 'express';
-import type { EditedContent } from '../client';
 import { processEdition } from './processEdition';
 
 const PORT = 4000;

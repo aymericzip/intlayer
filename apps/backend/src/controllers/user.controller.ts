@@ -1,7 +1,7 @@
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
-import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
+import type { UserFiltersParam } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import {
   formatPaginatedResponse,
@@ -82,7 +82,7 @@ export const createUser = async (
   }
 };
 
-export type GetUsersParams = FiltersAndPagination<UserFilters>;
+export type GetUsersParams = FiltersAndPagination<UserFiltersParam>;
 export type GetUsersResult = PaginatedResponse<UserAPI>;
 
 /**

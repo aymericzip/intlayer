@@ -1,5 +1,5 @@
 import { getConfiguration } from '@intlayer/config/client';
-import { useEditedContentStore } from './DictionaryEditionDrawer/useEditedContentStore';
+import { useEditedContentStore } from '@intlayer/design-system';
 
 export const useEditorServer = () => {
   const { editedContent, clearEditedContent } = useEditedContentStore((s) => ({

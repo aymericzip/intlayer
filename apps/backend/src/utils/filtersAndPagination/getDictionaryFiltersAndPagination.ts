@@ -1,14 +1,17 @@
 import type { Request } from 'express';
-import type { ObjectId } from 'mongoose';
+import type { RootFilterQuery } from 'mongoose';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
+import type { Dictionary } from '@/types/dictionary.types';
 
-export type DictionaryFilters = {
+export type DictionaryFiltersParams = {
   ids?: string | string[];
-  name?: string;
+  key?: string;
+  keys?: string[];
 };
+export type DictionaryFilters = RootFilterQuery<Dictionary>;
 
 /**
  * Extracts filters and pagination information from the request body.
@@ -16,15 +19,15 @@ export type DictionaryFilters = {
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getDictionaryFiltersAndPagination = (
-  req: Request<FiltersAndPagination<DictionaryFilters>>
+  req: Request<FiltersAndPagination<DictionaryFiltersParams>>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<DictionaryFilters>(req);
+    getFiltersAndPaginationFromBody<DictionaryFiltersParams>(req);
 
-  let filters = {};
+  let filters: DictionaryFilters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids } = filtersRequest;
+    const { key, keys, ids } = filtersRequest;
 
     filters = {};
 
@@ -39,11 +42,15 @@ export const getDictionaryFiltersAndPagination = (
         idsArray = [ids];
       }
 
-      filters = { ...filters, id: { $in: idsArray } };
+      filters = { ...filters, _id: { $in: idsArray } };
     }
 
-    if (name) {
-      filters = { ...filters, name: new RegExp(name, 'i') };
+    if (key) {
+      filters = { ...filters, key: new RegExp(key, 'i') };
+    }
+
+    if (keys) {
+      filters = { ...filters, key: { $in: keys } };
     }
   }
 

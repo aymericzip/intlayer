@@ -67,7 +67,7 @@ export const countProjects = async (
  * @returns The created project.
  */
 export const createProject = async (project: ProjectData): Promise<Project> => {
-  const errors = await validateProject(project);
+  const errors = await validateProject(project, ['name']);
 
   if (Object.keys(errors).length > 0) {
     const errorMessage = `Project invalid fields - ${JSON.stringify(errors)}`;

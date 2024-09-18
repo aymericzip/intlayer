@@ -10,7 +10,7 @@ const ContentDashboardPage: NextPageIntlayer = ({ params: { locale } }) => {
       <h1 className="border-neutral dark:border-neutral-dark border-b-[0.5px] p-10 text-3xl ">
         {title}
       </h1>
-      <div className="flex h-full flex-1 flex-col items-center justify-center p-10"></div>
+      <div className="flex size-full flex-1 flex-col items-center p-10"></div>
     </IntlayerServerProvider>
   );
 };

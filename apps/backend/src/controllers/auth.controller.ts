@@ -1,11 +1,9 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import {
-  clearCSRFToken as clearCSRFTokenService,
   clearOrganizationAuth as clearOrganizationAuthService,
   clearProjectAuth as clearProjectAuthService,
   clearUserAuth as clearUserAuthService,
-  setCSRFToken as setCSRFTokenService,
   setUserAuth as setUserAuthService,
   changeUserPassword as changeUserPasswordService,
   activateUser as activateUserService,
@@ -27,6 +25,7 @@ import {
 import { generateToken } from '@utils/CSRF';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import { formatResponse, type ResponseData } from '@utils/responseData';
+import type { Organization, Project } from 'export';
 import type { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
@@ -53,53 +52,6 @@ export const setCSRFToken = (
 
   res.locals.csrf_token = csrf_token;
   res.json(responseData);
-};
-
-type RequestWithCSRFToken<
-  P = any,
-  ResBody = any,
-  ReqBody = any,
-  ReqQuery = qs.ParsedQs,
-  Locals extends Record<string, any> = Record<string, any>,
-> = Request<P, ResBody, ReqBody, ReqQuery, Locals> & CSRFTokenData;
-
-type JWTData = { csrfToken: string; user: UserAPI | null };
-type ControlJWTResult = ResponseData<JWTData>;
-
-/**
- * Handles JWT generation and setting cookies.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing CSRF token and user information.
- */
-export const controlJWT = async (
-  req: Request,
-  res: ResponseWithInformation<ControlJWTResult>
-) => {
-  const csrfToken = (req as RequestWithCSRFToken).csrfToken();
-
-  if (!csrfToken) {
-    clearCSRFTokenService(res);
-  }
-
-  setCSRFTokenService(res, csrfToken);
-
-  const { user } = res.locals;
-
-  if (!user) {
-    return res.json(
-      formatResponse<JWTData>({ data: { csrfToken, user: null } })
-    );
-  }
-
-  await setUserAuthService(res, user);
-  const formattedUser = formatUserForAPIService(user);
-
-  const responseData = formatResponse<JWTData>({
-    data: { csrfToken, user: formattedUser },
-  });
-
-  return res.json(responseData);
 };
 
 export type RegisterBody = { email: string; password: string };
@@ -628,6 +580,8 @@ export type GetSessionInformationQuery = {
 };
 type SessionInformation = {
   user: UserAPI;
+  organization: Organization;
+  project: Project;
   session: Session;
 };
 export type GetSessionInformationResult = ResponseData<SessionInformation>;
@@ -645,6 +599,7 @@ export const getSessionInformation = async (
   const { session_token: sessionToken } = req.query;
 
   let { user } = res.locals;
+  const { organization, project } = res.locals;
 
   try {
     if (sessionToken) {
@@ -656,6 +611,8 @@ export const getSessionInformation = async (
         data: {
           session: null,
           user: null,
+          organization,
+          project,
         },
       });
 
@@ -669,6 +626,8 @@ export const getSessionInformation = async (
         data: {
           session: null,
           user: formatUserForAPIService(user),
+          organization,
+          project,
         },
       });
 
@@ -681,7 +640,7 @@ export const getSessionInformation = async (
     };
 
     const responseData = formatResponse<SessionInformation>({
-      data: { session, user: formattedUser },
+      data: { session, user: formattedUser, organization, project },
     });
 
     return res.json(responseData);

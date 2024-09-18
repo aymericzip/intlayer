@@ -1,11 +1,12 @@
 import type { Request } from 'express';
-import type { ObjectId } from 'mongoose';
+import type { RootFilterQuery } from 'mongoose';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
+import type { Organization } from '@/types/organization.types';
 
-export type OrganizationFilters = {
+export type OrganizationFiltersParams = {
   /**
    * Comma separated list of ids
    *
@@ -16,7 +17,9 @@ export type OrganizationFilters = {
    */
   ids?: string | string[];
   name?: string;
+  members?: string[];
 };
+export type OrganizationFilters = RootFilterQuery<Organization>;
 
 /**
  * Extracts filters and pagination information from the request body.
@@ -24,15 +27,15 @@ export type OrganizationFilters = {
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getOrganizationFiltersAndPagination = (
-  req: Request<FiltersAndPagination<OrganizationFilters>>
+  req: Request<FiltersAndPagination<OrganizationFiltersParams>>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<OrganizationFilters>(req);
+    getFiltersAndPaginationFromBody<OrganizationFiltersParams>(req);
 
-  let filters = {};
+  let filters: OrganizationFilters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids } = filtersRequest;
+    const { name, ids, members } = filtersRequest;
 
     filters = {};
 
@@ -47,11 +50,15 @@ export const getOrganizationFiltersAndPagination = (
         idsArray = [ids];
       }
 
-      filters = { ...filters, id: { $in: idsArray } };
+      filters = { ...filters, _id: { $in: idsArray } };
     }
 
     if (name) {
       filters = { ...filters, name: new RegExp(name, 'i') };
+    }
+
+    if (members) {
+      filters = { ...filters, members: { $in: members } };
     }
   }
 

@@ -21,8 +21,8 @@ export const useSession = (sessionProp?: Session | null) => {
 
       const session: Session = {
         user: data.user,
-        organization: null,
-        project: null,
+        organization: data.organization,
+        project: data.project,
       };
 
       setSession(session);

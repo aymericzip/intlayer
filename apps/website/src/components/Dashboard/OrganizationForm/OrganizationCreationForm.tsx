@@ -25,8 +25,12 @@ export const OrganizationCreationForm: FC = () => {
   const { addOrganization } = useAddOrganization();
   const { selectOrganization } = useSelectOrganization();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { nameInput, createOrganizationButton, createOrganizationToasts } =
-    useIntlayer('organization-form');
+  const {
+    nameInput,
+    createOrganizationButton,
+    createOrganizationToasts,
+    selectOrganizationToasts,
+  } = useIntlayer('organization-form');
   const { toast } = useToast();
 
   const onSubmitSuccess = async (data: OrganizationFormData) => {
@@ -44,9 +48,9 @@ export const OrganizationCreationForm: FC = () => {
         await selectOrganization(organizationId)
           .then(async () => {
             toast({
-              title: createOrganizationToasts.organizationSelected.title.value,
+              title: selectOrganizationToasts.organizationSelected.title.value,
               description:
-                createOrganizationToasts.organizationSelected.description.value,
+                selectOrganizationToasts.organizationSelected.description.value,
               variant: 'success',
             });
 
@@ -55,7 +59,7 @@ export const OrganizationCreationForm: FC = () => {
           .catch((error) => {
             toast({
               title:
-                createOrganizationToasts.organizationSelectionFailed.title
+                selectOrganizationToasts.organizationSelectionFailed.title
                   .value,
               description: error.message,
               variant: 'error',

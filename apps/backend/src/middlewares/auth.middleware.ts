@@ -12,15 +12,6 @@ import type { Organization } from '@/types/organization.types';
 import type { Project } from '@/types/project.types';
 import type { User } from '@/types/user.types';
 
-type JWTContent = {
-  tokenData: {
-    userId: string;
-    email: string;
-    organizationId?: string;
-    projectId?: string;
-  };
-};
-
 type UserInformation = {
   user: User | null;
   organization: Organization | null;
@@ -61,7 +52,8 @@ export const checkOrganization = async (
   res: Response,
   next: NextFunction
 ) => {
-  const jwtTokenOrganization = req.cookies.jwt_organization;
+  const jwtTokenOrganization = req.cookies[Cookies.JWT_ORGANIZATION];
+
   res.locals.organization = null;
 
   try {
@@ -70,21 +62,17 @@ export const checkOrganization = async (
       return next();
     }
 
-    const decodedTokenOrganization = jwt.verify(
+    const organizationData = jwt.verify(
       jwtTokenOrganization,
       process.env.JWT_TOKEN_SECRET!
-    );
-
-    const organizationData = (decodedTokenOrganization as JWTContent).tokenData;
+    ) as Organization;
 
     if (!organizationData) {
       clearOrganizationAuth(res);
       return next();
     }
 
-    const organization = await OrganizationModel.findById(
-      organizationData.organizationId
-    );
+    const organization = await OrganizationModel.findById(organizationData._id);
 
     if (!organization) {
       clearOrganizationAuth(res);
@@ -104,7 +92,7 @@ export const checkProject = async (
   res: Response,
   next: NextFunction
 ) => {
-  const jwtTokenProject = req.cookies.jwt_project;
+  const jwtTokenProject = req.cookies[Cookies.JWT_PROJECT];
   res.locals.project = null;
 
   try {
@@ -116,16 +104,14 @@ export const checkProject = async (
     const decodedTokenProject = jwt.verify(
       jwtTokenProject,
       process.env.JWT_TOKEN_SECRET!
-    );
+    ) as Project;
 
-    const projectData = (decodedTokenProject as JWTContent).tokenData;
-
-    if (!projectData) {
+    if (!decodedTokenProject) {
       clearProjectAuth(res);
       return next();
     }
 
-    const project = await ProjectModel.findById(projectData.projectId);
+    const project = await ProjectModel.findById(decodedTokenProject._id);
 
     if (!project) {
       clearProjectAuth(res);

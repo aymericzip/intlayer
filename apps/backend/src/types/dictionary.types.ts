@@ -4,7 +4,7 @@ import type { User } from './user.types';
 
 export type DictionaryData = {
   projectIds: Project['_id'][];
-  id: string;
+  key: string;
   content: JSON;
   creatorId: User['_id'];
 };

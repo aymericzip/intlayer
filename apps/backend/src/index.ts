@@ -1,5 +1,4 @@
 import {
-  controlJWT,
   getSessionInformation,
   setCSRFToken,
 } from '@controllers/auth.controller';
@@ -63,15 +62,15 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// debug
-if (isDev) {
-  app.use(logAPIRequestURL);
-}
-
 // middleware - jwt
 app.use('*', checkUser);
 app.use('*', checkOrganization);
 app.use('*', checkProject);
+
+// debug
+if (isDev) {
+  app.use(logAPIRequestURL);
+}
 
 // Sessions
 app.get('/session', getSessionInformation);
@@ -82,8 +81,6 @@ app.use(doubleCsrfProtection);
 
 // Liveness check
 app.get('/', (_req: Request, res: Response) => res.send('ok'));
-
-app.get('/api/token', controlJWT);
 
 // Routes
 app.use('/api/auth', authRouter);

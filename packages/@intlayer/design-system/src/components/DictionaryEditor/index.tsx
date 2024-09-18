@@ -6,6 +6,8 @@ import type { FC } from 'react';
 import { NodeWrapper } from './NodeWrapper';
 import { ValidDictionaryChangeButtons } from './ValidDictionaryChangeButtons';
 
+export * from './useEditedContentStore';
+
 export type FileContent = {
   keyPath: KeyPath[];
   newValue: string;

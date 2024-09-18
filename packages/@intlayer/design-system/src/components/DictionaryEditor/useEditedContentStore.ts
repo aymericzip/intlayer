@@ -1,7 +1,7 @@
 import { type KeyPath, isSameKeyPath } from '@intlayer/core';
-import type { FileContent } from '@intlayer/design-system';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import type { FileContent } from '.';
 
 type DictionaryId = string;
 type DictionaryPath = string | undefined;

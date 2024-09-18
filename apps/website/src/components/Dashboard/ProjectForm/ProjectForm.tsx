@@ -1,8 +1,9 @@
 'use client';
 
+import type { Project } from '@intlayer/backend';
 import { Loader, Modal, useAuth } from '@intlayer/design-system';
 import { useGetProjects } from '@intlayer/design-system/hooks';
-import { Suspense, use, useState, type FC } from 'react';
+import { Suspense, useEffect, useState, type FC } from 'react';
 import { NoProjectView } from './NoProjectView';
 import { ProjectCreationForm } from './ProjectCreationForm';
 import { ProjectEditionForm } from './ProjectEditionForm';
@@ -12,34 +13,46 @@ export const ProjectFormContent: FC = () => {
   const { session } = useAuth();
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { getProjects } = useGetProjects();
-  const projects = use(getProjects());
+  const { getProjects, isLoading, isSuccess } = useGetProjects();
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    getProjects().then((res) => {
+      if (res.data) {
+        setProjects(res.data);
+      }
+    });
+  }, []);
 
   if (project) {
     return <ProjectEditionForm />;
   }
 
-  if (projects.data?.length === 0) {
-    return <ProjectList projects={projects.data} />;
+  if (projects?.length > 0) {
+    return <ProjectList projects={projects} />;
   }
 
-  return (
-    <>
-      <Modal
-        isOpen={isCreationModalOpen}
-        onClose={() => setIsCreationModalOpen(false)}
-      >
-        <ProjectCreationForm />
-      </Modal>
+  if (isSuccess && !isLoading) {
+    return (
+      <>
+        <Modal
+          isOpen={isCreationModalOpen}
+          onClose={() => setIsCreationModalOpen(false)}
+        >
+          <ProjectCreationForm />
+        </Modal>
 
-      <NoProjectView
-        onClickCreateProject={() => setIsCreationModalOpen(true)}
-      />
-    </>
-  );
+        <NoProjectView
+          onClickCreateProject={() => setIsCreationModalOpen(true)}
+        />
+      </>
+    );
+  }
+
+  return <Loader />;
 };
 
-export const OrganizationForm: FC = () => {
+export const ProjectForm: FC = () => {
   return (
     <Suspense fallback={<Loader />}>
       <ProjectFormContent />
