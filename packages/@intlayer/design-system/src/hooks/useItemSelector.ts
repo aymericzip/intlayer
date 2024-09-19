@@ -20,6 +20,8 @@ export const useItemSelector = (
 
   const [hoveredItem, setHoveredItem] = useState<HTMLElement | null>(null);
 
+  const itemsLength = optionsRefs.current.length;
+
   useEffect(() => {
     const calculatePosition = () => {
       let targetElement: HTMLElement | null = null;
@@ -128,7 +130,7 @@ export const useItemSelector = (
         option?.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, [optionsRefs, selector, hoveredItem]);
+  }, [optionsRefs, selector, hoveredItem, itemsLength]);
 
   return { choiceIndicatorPosition };
 };
