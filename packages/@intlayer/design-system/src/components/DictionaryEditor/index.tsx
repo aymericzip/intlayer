@@ -7,6 +7,7 @@ import { NodeWrapper } from './NodeWrapper';
 import { ValidDictionaryChangeButtons } from './ValidDictionaryChangeButtons';
 
 export * from './useEditedContentStore';
+export * from './useEditionPanelStore';
 
 export type FileContent = {
   keyPath: KeyPath[];

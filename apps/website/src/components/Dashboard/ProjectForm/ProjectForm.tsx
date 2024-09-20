@@ -17,12 +17,10 @@ export const ProjectFormContent: FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
-    getProjects().then((res) => {
-      if (res.data) {
-        setProjects(res.data);
-      }
+    getProjects({}).then((response) => {
+      setProjects(response.data ?? []);
     });
-  }, []);
+  }, [getProjects]);
 
   if (project) {
     return <ProjectEditionForm />;
@@ -52,10 +50,8 @@ export const ProjectFormContent: FC = () => {
   return <Loader />;
 };
 
-export const ProjectForm: FC = () => {
-  return (
-    <Suspense fallback={<Loader />}>
-      <ProjectFormContent />
-    </Suspense>
-  );
-};
+export const ProjectForm: FC = () => (
+  <Suspense fallback={<Loader />}>
+    <ProjectFormContent />
+  </Suspense>
+);

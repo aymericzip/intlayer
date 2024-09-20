@@ -17,13 +17,10 @@ const OrganizationFormContent: FC = () => {
   const [organizations, setOrganizations] = useState<Organization[]>([]);
 
   useEffect(() => {
-    getOrganizations().then((res) => {
-      if (!res.data) {
-        return;
-      }
-      setOrganizations(res.data);
+    getOrganizations({}).then((response) => {
+      setOrganizations(response.data ?? []);
     });
-  }, []);
+  }, [getOrganizations]);
 
   if (organization) {
     return <OrganizationEditionForm />;
@@ -53,10 +50,8 @@ const OrganizationFormContent: FC = () => {
   return <Loader />;
 };
 
-export const OrganizationForm: FC = () => {
-  return (
-    <Suspense fallback={<Loader />}>
-      <OrganizationFormContent />
-    </Suspense>
-  );
-};
+export const OrganizationForm: FC = () => (
+  <Suspense fallback={<Loader />}>
+    <OrganizationFormContent />
+  </Suspense>
+);

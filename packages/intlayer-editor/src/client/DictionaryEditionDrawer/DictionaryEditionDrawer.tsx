@@ -17,12 +17,12 @@ import {
  */
 import dictionaries from '@intlayer/dictionaries-entry';
 import { useState, type FC } from 'react';
+import { useEditionPanelStore } from '../../../../@intlayer/design-system/src/components/DictionaryEditor/useEditionPanelStore';
 import { useDictionaryListDrawer } from '../DictionaryListDrawer/index';
 import {
   type FileContent as FileContentWithDictionaryPath,
   useDictionaryEditionDrawer,
 } from './useDictionaryEditionDrawer';
-import { useEditionPanelStore } from './useFocusContentStore';
 
 type DictionaryEditionDrawerContentProps = {
   focusedContent: FileContentWithDictionaryPath;

@@ -3,10 +3,10 @@ import {
   useRightDrawerStore,
   type EditedContent,
   useEditedContentStore,
+  useEditionPanelStore,
 } from '@intlayer/design-system';
 import { useEditorServer } from '../useEditorServer';
 import { getDrawerIdentifier } from './DictionaryEditionDrawer';
-import { useEditionPanelStore } from './useFocusContentStore';
 
 type DictionaryId = string;
 type DictionaryPath = string;
@@ -40,7 +40,7 @@ type DictionaryEditionDrawer = {
 
 type OpenDictionaryEditionDrawerProps = {
   dictionaryId: string;
-  dictionaryPath: string | undefined;
+  dictionaryPath?: string | undefined;
   keyPath?: KeyPath[];
 };
 

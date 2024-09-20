@@ -1,6 +1,7 @@
 'use client';
 
 import { useForm, Form, InputElement, Button } from '@intlayer/design-system';
+import { useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { getSignInSchema, type ProfileFormData } from './ProfileFormSchema';
@@ -9,9 +10,10 @@ export const ProfileForm: FC = () => {
   const SignInSchema = getSignInSchema();
   const { form, isSubmitting } = useForm(SignInSchema);
   const { nameInput, editButton } = useIntlayer('profile-form');
+  const { updateUser } = useUpdateUser();
 
   const onSubmitSuccess = async (data: ProfileFormData) => {
-    await Promise.resolve();
+    await updateUser(data);
   };
 
   const onSubmitError = (error: Error) => {

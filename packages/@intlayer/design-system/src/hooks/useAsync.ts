@@ -1,7 +1,7 @@
 'use client';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
 type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
   isLoading: boolean;
@@ -63,16 +63,20 @@ export const useAsync = <
         throw new Error(errorMessage);
       }
     }) as T,
-    [asyncFunction, retryLimit]
+    [asyncFunction, retryLimit] // Include asyncFunction in dependencies
   );
 
-  return {
-    isLoading,
-    error,
-    isSuccess,
-    data,
-    retryCount,
-    isDisabled,
-    [functionName]: execute, // Dynamically assign the execute function to the functionName
-  } as UseAsyncResultBase<T> & Record<U, T>;
+  return useMemo(
+    () =>
+      ({
+        isLoading,
+        error,
+        isSuccess,
+        data,
+        retryCount,
+        isDisabled,
+        [functionName]: execute, // Dynamically assign the execute function to the functionName
+      }) as UseAsyncResultBase<T> & Record<U, T>,
+    [isLoading, error, isSuccess, data, retryCount, isDisabled, execute]
+  );
 };
