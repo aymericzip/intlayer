@@ -9,6 +9,7 @@ import {
   type FileContent,
   Modal,
   DictionaryFieldEditor,
+  useEditionPanelStore,
 } from '@intlayer/design-system';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -17,7 +18,6 @@ import {
  */
 import dictionaries from '@intlayer/dictionaries-entry';
 import { useState, type FC } from 'react';
-import { useEditionPanelStore } from '../../../../@intlayer/design-system/src/components/DictionaryEditor/useEditionPanelStore';
 import { useDictionaryListDrawer } from '../DictionaryListDrawer/index';
 import {
   type FileContent as FileContentWithDictionaryPath,
