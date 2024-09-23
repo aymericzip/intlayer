@@ -1,10 +1,24 @@
 'use client';
 
-import { Button, Container, DropDown, useAuth } from '@intlayer/design-system';
-import { useUnselectProject } from '@intlayer/design-system/hooks';
+import type { Project } from '@intlayer/backend';
+import {
+  Button,
+  Container,
+  DropDown,
+  Modal,
+  useAuth,
+  useToast,
+} from '@intlayer/design-system';
+import {
+  useGetProjects,
+  useSelectProject,
+  useUnselectProject,
+} from '@intlayer/design-system/hooks';
 import { ChevronsUpDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { type FC, type ReactNode } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import React, { useEffect, useState, type FC, type ReactNode } from 'react';
+import { ProjectCreationForm } from '../ProjectForm/ProjectCreationForm';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';
 
 export type NavbarProps = {
@@ -17,42 +31,143 @@ export type NavbarProps = {
 
 export const ProjectDropdown: FC = () => {
   const { session, checkSession } = useAuth();
-  const { unselectProject, isLoading } = useUnselectProject();
+  const { getProjects } = useGetProjects();
+  const { selectProject, isLoading: isSelectProjectLoading } =
+    useSelectProject();
+  const { unselectProject, isLoading: isUnselectProjectLoading } =
+    useUnselectProject();
   const { project } = session ?? {};
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
+  const {
+    projectTrigger,
+    projectLogout,
+    selectProjectInstruction,
+    selectProjectAction,
+    noOtherProjects,
+    createNewProject,
+  } = useIntlayer('dashboard-navbar');
 
   const handleUnselectProject = async () => {
-    await unselectProject();
-    await checkSession();
-
-    router.push(PagesRoutes.Dashboard_Projects);
+    await unselectProject()
+      .then(async () => {
+        await checkSession();
+        toast({
+          title: projectLogout.toast.success.title.value,
+          description: projectLogout.toast.success.description,
+          variant: 'success',
+        });
+        router.push(PagesRoutes.Dashboard_Projects);
+      })
+      .catch((error) => {
+        toast({
+          title: projectLogout.toast.error.title.value,
+          description: error.message,
+          variant: 'error',
+        });
+      });
   };
 
-  return project ? (
-    <DropDown identifier="project-dropdown">
-      <Button
-        label="Dashboard"
-        variant="hoverable"
-        color="text"
-        IconRight={ChevronsUpDown}
-      >
-        {project.name}
-      </Button>
+  const handleSelectProject = async (projectId: string) => {
+    await selectProject(projectId)
+      .then(async () => {
+        await checkSession();
+        toast({
+          title: selectProjectAction.toast.success.title.value,
+          description: selectProjectAction.toast.success.description,
+          variant: 'success',
+        });
+        router.push(PagesRoutes.Dashboard_Content);
+      })
+      .catch((error) => {
+        toast({
+          title: selectProjectAction.toast.error.title.value,
+          description: error.message,
+          variant: 'error',
+        });
+      });
+  };
 
-      <DropDown.Panel identifier="project-dropdown" isFocusable>
-        <Container padding="md">
-          <Button
-            variant="outline"
-            color="text"
-            label="Log out from project"
-            onClick={handleUnselectProject}
-            isLoading={isLoading}
+  useEffect(() => {
+    getProjects({}).then((response) => {
+      setProjects(response.data ?? []);
+    });
+  }, [getProjects]);
+
+  const otherProjects = projects.filter(
+    (projectEl) => String(projectEl._id) !== String(project?._id)
+  );
+
+  return project ? (
+    <>
+      <Modal
+        isOpen={isCreationModalOpen}
+        onClose={() => setIsCreationModalOpen(false)}
+      >
+        <ProjectCreationForm />
+      </Modal>
+      <DropDown identifier="project-dropdown">
+        <Button
+          label={projectTrigger.label.value}
+          variant="hoverable"
+          color="text"
+          IconRight={ChevronsUpDown}
+        >
+          {project.name}
+        </Button>
+
+        <DropDown.Panel identifier="project-dropdown" isFocusable>
+          <Container
+            padding="lg"
+            transparency="none"
+            roundedSize="lg"
+            className="gap-2"
           >
-            Log out from project
-          </Button>
-        </Container>
-      </DropDown.Panel>
-    </DropDown>
+            <div className="flex flex-col gap-3">
+              <span className="font-bold">{selectProjectInstruction}</span>
+              {otherProjects.length ? (
+                otherProjects.map((project) => (
+                  <Button
+                    key={String(project._id)}
+                    variant="outline"
+                    color="text"
+                    label={project.name}
+                    onClick={() => handleSelectProject(String(project._id))}
+                    isLoading={isSelectProjectLoading}
+                  >
+                    {project.name}
+                  </Button>
+                ))
+              ) : (
+                <span className="text-neutral dark:text-neutral-dark text-center text-xs">
+                  {noOtherProjects}
+                </span>
+              )}
+            </div>
+            <Button
+              variant="outline"
+              color="text"
+              label={projectLogout.label.value}
+              onClick={handleUnselectProject}
+              isLoading={isUnselectProjectLoading}
+              className="mt-6"
+            >
+              {projectLogout.text}
+            </Button>
+            <Button
+              variant="outline"
+              color="text"
+              label={createNewProject.label.value}
+              onClick={() => setIsCreationModalOpen(true)}
+            >
+              {createNewProject.text}
+            </Button>
+          </Container>
+        </DropDown.Panel>
+      </DropDown>
+    </>
   ) : (
     <></>
   );

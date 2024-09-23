@@ -44,7 +44,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   };
 
   return (
-    <div className="w-full max-w-[350px]">
+    <div className="flex w-full max-w-[350px] gap-3">
       {organizations.map((organization) => (
         <div
           className="border-neutral dark:border-neutral-dark flex w-full flex-col gap-3 rounded-lg border p-6"

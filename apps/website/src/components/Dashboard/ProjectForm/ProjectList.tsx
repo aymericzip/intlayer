@@ -39,7 +39,7 @@ export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
   };
 
   return (
-    <div className="w-full max-w-[350px]">
+    <div className="flex w-full max-w-[350px] gap-3">
       {projects.map((project) => (
         <div
           className="border-neutral dark:border-neutral-dark flex w-full flex-col gap-3 rounded-lg border p-6"

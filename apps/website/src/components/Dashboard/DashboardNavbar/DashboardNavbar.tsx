@@ -47,7 +47,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
           </Link>
           {organization && (
             <>
-              <span className="max-md:hidden">/</span>
+              <span>/</span>
               <OrganizationDropdown />
             </>
           )}
