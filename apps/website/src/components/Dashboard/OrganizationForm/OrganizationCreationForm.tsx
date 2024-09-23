@@ -88,7 +88,6 @@ export const OrganizationCreationForm: FC = () => {
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}
         isRequired
-        autoComplete="name"
       />
 
       <Button

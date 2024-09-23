@@ -17,6 +17,7 @@ type FormProps<T extends ZodType> = HTMLAttributes<HTMLFormElement> &
     onSubmit?: (data: z.infer<T>) => void | Promise<void>;
     onSubmitSuccess?: (data: z.infer<T>) => void | Promise<void>;
     onSubmitError?: (error: Error) => void | Promise<void>;
+    autoComplete?: boolean;
   };
 
 const awaitFunction = async (fn: any) => {
@@ -36,6 +37,7 @@ export const Form = <T extends ZodType>({
   onSubmitError: onSubmitErrorProp,
   className,
   children,
+  autoComplete,
   ...props
 }: FormProps<T>) => {
   const onSubmit = async (values: T) => {
@@ -59,7 +61,11 @@ export const Form = <T extends ZodType>({
 
   return (
     <FormProvider {...props}>
-      <form className={className} onSubmit={props.handleSubmit(onSubmit)}>
+      <form
+        className={className}
+        onSubmit={props.handleSubmit(onSubmit)}
+        autoComplete={autoComplete ? 'on' : 'off'}
+      >
         {children}
       </form>
     </FormProvider>

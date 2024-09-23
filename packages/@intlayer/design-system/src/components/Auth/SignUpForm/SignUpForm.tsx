@@ -32,6 +32,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
       schema={SignUpSchema}
       onSubmitSuccess={onSubmitSuccess}
       onSubmitError={onSubmitError}
+      autoComplete
       {...form}
     >
       <div className="flex flex-col gap-y-6">

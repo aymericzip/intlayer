@@ -50,7 +50,6 @@ export const ProjectEditionForm: FC = () => {
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}
         isRequired
-        autoComplete="name"
       />
 
       <Button

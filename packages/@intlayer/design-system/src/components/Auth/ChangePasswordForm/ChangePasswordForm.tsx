@@ -35,6 +35,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       schema={ChangePasswordSchema}
       onSubmitSuccess={onSubmitSuccess}
       onSubmitError={onSubmitError}
+      autoComplete
       {...form}
     >
       <div className="flex flex-col gap-y-6">
