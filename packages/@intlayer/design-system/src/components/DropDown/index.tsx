@@ -18,6 +18,8 @@ import type { DropDownType, PanelProps, TriggerProps } from './types';
  *   </DropDown.Panel>
  * </DropDown>
  * ```
+ *
+ * > Note DropDown.Trigger can be replaced by a button. Don't add a button inside the trigger.
  */
 export const DropDown: DropDownType = ({
   children,
@@ -46,7 +48,7 @@ export const DropDown: DropDownType = ({
  * </DropDown.Trigger>
  * ```
  *
- * > Note: Don't add button inside the trigger, it will be automatically added by the component.
+ * > Note DropDown.Trigger can be replaced by a button. Don't add a button inside the trigger.
  */
 const Trigger: FC<TriggerProps> = ({
   children,
@@ -78,13 +80,16 @@ const Panel: FC<PanelProps> = ({
   isHidden = undefined,
   isOverable = false,
   isFocusable = false,
+  align = 'start',
   identifier,
   className,
   ...props
 }) => (
   <div
     className={cn(
-      'absolute right-0 top-[calc(100%+0.5rem)] z-[1000] min-w-full',
+      'absolute top-[calc(100%+0.5rem)] z-[1000] min-w-full',
+      align === 'start' && 'left-0',
+      align === 'end' && 'right-0',
       className
     )}
     aria-hidden={isHidden}

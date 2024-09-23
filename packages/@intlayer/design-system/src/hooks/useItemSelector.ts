@@ -8,7 +8,7 @@ type PositionState = {
 };
 
 const selectorDefault = (option: HTMLElement) =>
-  option.getAttribute('aria-selected') === 'true';
+  option?.getAttribute('aria-selected') === 'true' ?? false;
 
 export const useItemSelector = (
   optionsRefs: MutableRefObject<HTMLElement[]>,
@@ -53,24 +53,26 @@ export const useItemSelector = (
     const mutationObservers: MutationObserver[] = [];
 
     optionsRefs.current.forEach((option) => {
-      const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          if (
-            mutation.type === 'attributes' &&
-            mutation.attributeName === 'aria-selected'
-          ) {
-            calculatePosition();
-            break;
+      if (option) {
+        const observer = new MutationObserver((mutations) => {
+          for (const mutation of mutations) {
+            if (
+              mutation.type === 'attributes' &&
+              mutation.attributeName === 'aria-selected'
+            ) {
+              calculatePosition();
+              break;
+            }
           }
-        }
-      });
+        });
 
-      observer.observe(option, {
-        attributes: true,
-        attributeFilter: ['aria-selected'],
-      });
+        observer.observe(option, {
+          attributes: true,
+          attributeFilter: ['aria-selected'],
+        });
 
-      mutationObservers.push(observer);
+        mutationObservers.push(observer);
+      }
     });
 
     // ResizeObserver to watch for size changes

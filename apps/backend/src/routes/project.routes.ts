@@ -4,6 +4,7 @@ import {
   getProjects,
   updateProject,
   selectProject,
+  unselectProject,
 } from '@controllers/project.controller';
 import {
   apiAccessControlMiddleWare,
@@ -55,4 +56,14 @@ projectRouter.put(
     AccessRule.hasOrganization,
   ]),
   selectProject
+);
+
+projectRouter.post(
+  '/logout',
+  apiAccessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  unselectProject
 );

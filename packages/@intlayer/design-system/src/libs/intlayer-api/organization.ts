@@ -11,6 +11,7 @@ import type {
   UpdateOrganizationResult,
   SelectOrganizationParam,
   SelectOrganizationResult,
+  UnselectOrganizationResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -120,6 +121,20 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
       }
     );
 
+  /**
+   * Unselect an organization from the database by its ID.
+   * @param organizationId - Organization ID.
+   */
+  const unselectOrganization = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<UnselectOrganizationResult>(
+      `${ORGANIZATION_API_ROUTE}/logout`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+      }
+    );
+
   return {
     getOrganizations,
     getOrganization,
@@ -127,6 +142,7 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
     updateOrganization,
     deleteOrganization,
     selectOrganization,
+    unselectOrganization,
   };
 };
 

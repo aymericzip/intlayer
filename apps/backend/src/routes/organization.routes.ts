@@ -4,6 +4,7 @@ import {
   selectOrganization,
   getOrganizations,
   updateOrganization,
+  unselectOrganization,
 } from '@controllers/organization.controller';
 import {
   apiAccessControlMiddleWare,
@@ -44,4 +45,13 @@ organizationRouter.put(
   '/:organizationId',
   apiAccessControlMiddleWare([AccessRule.authenticated]),
   selectOrganization
+);
+
+organizationRouter.post(
+  '/logout',
+  apiAccessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+  ]),
+  unselectOrganization
 );

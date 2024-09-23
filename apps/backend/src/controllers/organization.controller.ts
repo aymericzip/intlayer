@@ -1,6 +1,10 @@
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
-import { setOrganizationAuth as setOrganizationAuthService } from '@services/auth.service';
+import {
+  clearOrganizationAuth as clearOrganizationAuthService,
+  clearProjectAuth as clearProjectAuthService,
+  setOrganizationAuth as setOrganizationAuthService,
+} from '@services/auth.service';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
@@ -374,6 +378,42 @@ export const selectOrganization = async (
 
     const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+};
+
+export type UnselectOrganizationResult = ResponseData<null>;
+
+/**
+ * Unselect an organization.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response confirming the deletion.
+ */
+export const unselectOrganization = (
+  _req: Request,
+  res: ResponseWithInformation<UnselectOrganizationResult>
+) => {
+  try {
+    clearOrganizationAuthService(res);
+    clearProjectAuthService(res);
+
+    const responseData = formatResponse<null>({
+      data: null,
+    });
+
+    return res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+    const responseData = formatResponse<null>({
       error: errorMessage,
       status: responseCode,
     });

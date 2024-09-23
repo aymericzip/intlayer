@@ -9,6 +9,7 @@ import type {
   UpdateProjectResult,
   SelectProjectParam,
   SelectProjectResult,
+  UnselectProjectResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -105,12 +106,27 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
       }
     );
 
+  /**
+   * Unselect a project from the database by its ID.
+   * @param projectId - Project ID.
+   */
+  const unselectProject = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<UnselectProjectResult>(
+      `${PROJECT_API_ROUTE}/logout`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+      }
+    );
+
   return {
     getProjects,
     addProject,
     updateProject,
     deleteProject,
     selectProject,
+    unselectProject,
   };
 };
 

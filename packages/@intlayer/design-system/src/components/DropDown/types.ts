@@ -18,4 +18,5 @@ export type PanelProps = HTMLAttributes<HTMLDivElement> & {
   isHidden?: boolean;
   isOverable?: boolean;
   identifier: string;
+  align?: 'start' | 'end';
 };

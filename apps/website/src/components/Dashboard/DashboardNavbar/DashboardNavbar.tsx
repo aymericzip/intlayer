@@ -7,6 +7,8 @@ import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThe
 import { Container, Logo, TabSelector, useAuth } from '@intlayer/design-system';
 import { usePathname } from 'next/navigation';
 import React, { type FC, type ReactNode } from 'react';
+import { OrganizationDropdown } from './OrganizationDropdown';
+import { ProjectDropdown } from './ProjectDropdown';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';
 
 export type NavbarProps = {
@@ -45,14 +47,14 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
           </Link>
           {organization && (
             <>
-              <span>/</span>
-              <div>{organization.name}</div>
+              <span className="max-md:hidden">/</span>
+              <OrganizationDropdown />
             </>
           )}
           {project && (
             <>
               <span>/</span>
-              <div>{project.name}</div>
+              <ProjectDropdown />
             </>
           )}
         </div>

@@ -1,8 +1,10 @@
 import type { Organization } from '@intlayer/backend';
 import { Button, useAuth, useToast } from '@intlayer/design-system';
 import { useSelectOrganization } from '@intlayer/design-system/hooks';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 type OrganizationListProps = {
   organizations: Organization[];
@@ -15,6 +17,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   const { toast } = useToast();
   const { checkSession } = useAuth();
   const { selectOrganizationToasts } = useIntlayer('organization-form');
+  const router = useRouter();
 
   const handleSelectOrganization = (organizationId: string) => {
     selectOrganization(organizationId)
@@ -27,6 +30,8 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         });
 
         await checkSession();
+
+        router.push(PagesRoutes.Dashboard_Projects);
       })
       .catch((error) => {
         toast({

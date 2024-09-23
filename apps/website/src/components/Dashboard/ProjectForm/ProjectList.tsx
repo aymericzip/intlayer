@@ -1,8 +1,10 @@
 import type { Project } from '@intlayer/backend';
 import { Button, toast, useAuth } from '@intlayer/design-system';
 import { useSelectProject } from '@intlayer/design-system/hooks';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 type ProjectListProps = {
   projects: Project[];
@@ -12,6 +14,7 @@ export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
   const { selectProject } = useSelectProject();
   const { checkSession } = useAuth();
   const { selectProjectToasts } = useIntlayer('project-form');
+  const router = useRouter();
 
   const handleSelectProject = (projectId: string) => {
     selectProject(projectId)
@@ -23,6 +26,8 @@ export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
         });
 
         await checkSession();
+
+        router.push(PagesRoutes.Dashboard_Content);
       })
       .catch((error) => {
         toast({

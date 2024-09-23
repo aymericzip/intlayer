@@ -15,7 +15,12 @@ export const ProfileDropDown: FC<ProfileDropDownProps> = ({
     <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
       <Avatar {...props} />
     </DropDown.Trigger>
-    <DropDown.Panel identifier={DROPDOWN_IDENTIFIER} isFocusable isOverable>
+    <DropDown.Panel
+      identifier={DROPDOWN_IDENTIFIER}
+      isFocusable
+      isOverable
+      align="end"
+    >
       <Container className="min-w-[100px] p-6">{children}</Container>
     </DropDown.Panel>
   </DropDown>

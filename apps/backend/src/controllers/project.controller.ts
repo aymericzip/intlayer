@@ -1,6 +1,9 @@
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
-import { setProjectAuth as setProjectAuthService } from '@services/auth.service';
+import {
+  clearProjectAuth as clearProjectAuthService,
+  setProjectAuth as setProjectAuthService,
+} from '@services/auth.service';
 import {
   findProjects as findProjectsService,
   countProjects as countProjectsService,
@@ -46,6 +49,20 @@ export const getProjects = async (
   const { user, organization } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
+
+  if (!organization) {
+    const errorMessage = 'Organization not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatPaginatedResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
 
   const restrictedFilter: ProjectFilters = {
     ...filters,
@@ -329,6 +346,41 @@ export const selectProject = async (
 
     const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+};
+
+export type UnselectProjectResult = ResponseData<null>;
+
+/**
+ * Unselect a project.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response confirming the deletion.
+ */
+export const unselectProject = (
+  _req: Request,
+  res: ResponseWithInformation<UnselectProjectResult>
+) => {
+  try {
+    clearProjectAuthService(res);
+
+    const responseData = formatResponse<null>({
+      data: null,
+    });
+
+    return res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+    const responseData = formatResponse<null>({
       error: errorMessage,
       status: responseCode,
     });
