@@ -7,6 +7,7 @@ import {
   DictionaryFieldEditor,
   type FileContent,
   Loader,
+  Modal,
   useAuth,
   useEditedContentStore,
   useEditionPanelStore,
@@ -15,9 +16,10 @@ import {
   useGetDictionaries,
   useUpdateDictionary,
 } from '@intlayer/design-system/hooks';
-import { ChevronRight } from 'lucide-react';
-import { useLocale } from 'next-intlayer';
+import { ChevronRight, Plus } from 'lucide-react';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import { Suspense, useEffect, useState, type FC } from 'react';
+import { DictionaryCreationForm } from './DictionaryCreationForm';
 
 export const ContentDashboardContent: FC = () => {
   const { session } = useAuth();
@@ -40,6 +42,9 @@ export const ContentDashboardContent: FC = () => {
     KeyPath[] | null
   >(null);
   const { locale } = useLocale();
+  const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
+  const { noDictionaryView, createDictionaryButton } =
+    useIntlayer('dictionary-form');
 
   useEffect(() => {
     getDictionaries({}).then((response) => {
@@ -53,7 +58,28 @@ export const ContentDashboardContent: FC = () => {
 
   if (!focusedContent) {
     if (dictionaries.length === 0) {
-      return <>No dictionary</>;
+      return (
+        <div className="flex flex-1 flex-col items-center justify-center gap-10">
+          <span className="text-neutral-dark dark:text-neutral-dark text-sm">
+            {noDictionaryView.title}
+          </span>
+          <Button
+            label={createDictionaryButton.ariaLabel.value}
+            IconRight={Plus}
+            variant="default"
+            color="text"
+            onClick={() => setIsCreationModalOpen(true)}
+          >
+            {createDictionaryButton.text}
+          </Button>
+          <Modal
+            isOpen={isCreationModalOpen}
+            onClose={() => setIsCreationModalOpen(false)}
+          >
+            <DictionaryCreationForm />
+          </Modal>
+        </div>
+      );
     }
 
     return (

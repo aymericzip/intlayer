@@ -20,11 +20,11 @@ import {
 } from './OrganizationFormSchema';
 
 export const OrganizationCreationForm: FC = () => {
-  const SignInSchema = getOrganizationSchema();
+  const organizationSchema = getOrganizationSchema();
   const { checkSession } = useUser();
   const { addOrganization } = useAddOrganization();
   const { selectOrganization } = useSelectOrganization();
-  const { form, isSubmitting } = useForm(SignInSchema);
+  const { form, isSubmitting } = useForm(organizationSchema);
   const {
     nameInput,
     createOrganizationButton,
@@ -78,7 +78,7 @@ export const OrganizationCreationForm: FC = () => {
 
   return (
     <Form
-      schema={SignInSchema}
+      schema={organizationSchema}
       onSubmitSuccess={onSubmitSuccess}
       className="w-full max-w-[400px]"
       {...form}

@@ -34,3 +34,6 @@ export * from './Auth';
 export * from './Toaster';
 export * from './Link';
 export * from './TabSelector';
+export * from './Badge';
+export * from './Select';
+export * from './Command';

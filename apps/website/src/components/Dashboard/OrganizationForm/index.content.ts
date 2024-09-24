@@ -10,9 +10,9 @@ const organizationFormContent: DeclarationContent = {
       es: 'Nombre',
     }),
     placeholder: t({
-      en: 'Enter your name',
-      fr: 'Entrez votre nom',
-      es: 'Ingrese su nombre',
+      en: 'Enter the name of your organization',
+      fr: 'Entrez le nom de votre organisation',
+      es: 'Ingrese el nombre de su organización',
     }),
   },
 

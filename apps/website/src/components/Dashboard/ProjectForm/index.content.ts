@@ -10,9 +10,9 @@ const projectFormContent: DeclarationContent = {
       es: 'Nombre',
     }),
     placeholder: t({
-      en: 'Enter your name',
-      fr: 'Entrez votre nom',
-      es: 'Ingrese su nombre',
+      en: 'Enter the name of your project',
+      fr: 'Entrez le nom de votre projet',
+      es: 'Ingrese el nombre de su proyecto',
     }),
   },
 

@@ -21,7 +21,11 @@ import {
   formatResponse,
 } from '@utils/responseData';
 import type { Request, Response } from 'express';
-import type { Dictionary, DictionaryData } from '@/types/dictionary.types';
+import type {
+  Dictionary,
+  DictionaryCreationData,
+  DictionaryData,
+} from '@/types/dictionary.types';
 
 export type GetDictionariesParams =
   FiltersAndPagination<DictionaryFiltersParams>;
@@ -68,7 +72,7 @@ export const getDictionaries = async (
   }
 };
 
-export type AddDictionaryBody = DictionaryData;
+export type AddDictionaryBody = DictionaryCreationData;
 export type AddDictionaryResult = ResponseData<Dictionary>;
 
 /**
@@ -81,7 +85,7 @@ export const addDictionary = async (
   req: Request<any, any, AddDictionaryBody>,
   res: ResponseWithInformation<AddDictionaryResult>
 ): Promise<Response> => {
-  const { project } = res.locals;
+  const { project, user } = res.locals;
   const dictionaryData = req.body;
 
   if (!dictionaryData) {
@@ -98,7 +102,7 @@ export const addDictionary = async (
     return res.status(responseCode).json(responseData);
   }
 
-  if (!dictionaryData.projectIds.includes(project._id)) {
+  if (!dictionaryData.projectIds.includes(String(project._id))) {
     const errorMessage = `You don't have access to this dictionary`;
     const responseCode = HttpStatusCodes.FORBIDDEN_403;
     const responseData = formatResponse<Dictionary>({
@@ -109,6 +113,8 @@ export const addDictionary = async (
   }
 
   const dictionary: DictionaryData = {
+    content: {},
+    creatorId: user._id,
     ...dictionaryData,
   };
 

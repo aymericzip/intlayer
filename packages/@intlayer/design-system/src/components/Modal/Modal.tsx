@@ -39,6 +39,14 @@ type Size = 'sm' | 'md' | 'lg' | 'xl' | 'unset';
 
 const MotionModal = motion.create(Container);
 
+/**
+ * Usage example:
+ * ```jsx
+ * <Modal isOpen={isOpen} onClose={onClose}>
+ *   Modal content
+ * </Modal>
+ * ```
+ */
 export const Modal: FC<ModalProps> = ({
   children,
   isOpen,
