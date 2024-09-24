@@ -4,13 +4,13 @@ import { validateArray } from './validateArray';
 import { validateString } from './validateString';
 import type { Project } from '@/types/project.types';
 
-type ProjectFields = (keyof Project)[];
+export type ProjectFields = (keyof Project)[];
 
-const defaultFieldsToCheck = [
+const defaultFieldsToCheck: ProjectFields = [
   'name',
   'members',
   'organizationId',
-] satisfies ProjectFields;
+];
 
 type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<

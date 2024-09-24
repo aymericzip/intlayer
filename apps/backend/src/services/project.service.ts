@@ -1,7 +1,10 @@
 import { logger } from '@logger/index';
 import { ProjectModel } from '@models/project.model';
 import type { ProjectFilters } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
-import { validateProject } from '@utils/validation/validateProject';
+import {
+  type ProjectFields,
+  validateProject,
+} from '@utils/validation/validateProject';
 import type { ObjectId } from 'mongoose';
 import type { Project, ProjectData } from '@/types/project.types';
 
@@ -88,7 +91,8 @@ export const updateProjectById = async (
   projectId: string | ObjectId,
   project: Partial<Project>
 ): Promise<Project> => {
-  const errors = validateProject(project);
+  const updatedKeys = Object.keys(project) as ProjectFields;
+  const errors = validateProject(project, updatedKeys);
   const projectIdString = String(projectId);
 
   if (Object.keys(errors).length > 0) {

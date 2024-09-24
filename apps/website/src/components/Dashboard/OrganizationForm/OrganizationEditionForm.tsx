@@ -6,6 +6,7 @@ import {
   InputElement,
   Button,
   useToast,
+  useAuth,
 } from '@intlayer/design-system';
 import { useUpdateOrganization } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
@@ -16,6 +17,8 @@ import {
 } from './OrganizationFormSchema';
 
 export const OrganizationEditionForm: FC = () => {
+  const { session } = useAuth();
+  const { organization } = session ?? {};
   const SignInSchema = getOrganizationSchema();
   const { updateOrganization } = useUpdateOrganization();
   const { form, isSubmitting } = useForm(SignInSchema);
@@ -24,7 +27,7 @@ export const OrganizationEditionForm: FC = () => {
   const { toast } = useToast();
 
   const onSubmitSuccess = async (data: OrganizationFormData) => {
-    await updateOrganization(data)
+    await updateOrganization({ _id: organization?._id, ...data })
       .then(() => {
         toast({
           title: updateOrganizationToasts.organizationUpdated.title.value,
@@ -54,6 +57,7 @@ export const OrganizationEditionForm: FC = () => {
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}
         isRequired
+        defaultValue={organization?.name}
       />
 
       <Button

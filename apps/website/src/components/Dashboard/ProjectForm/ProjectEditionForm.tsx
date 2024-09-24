@@ -6,6 +6,7 @@ import {
   InputElement,
   Button,
   useToast,
+  useAuth,
 } from '@intlayer/design-system';
 import { useUpdateProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
@@ -13,6 +14,8 @@ import type { FC } from 'react';
 import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
+  const { session } = useAuth();
+  const { project } = session ?? {};
   const SignInSchema = getProjectSchema();
   const { updateProject } = useUpdateProject();
   const { form, isSubmitting } = useForm(SignInSchema);
@@ -50,6 +53,7 @@ export const ProjectEditionForm: FC = () => {
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}
         isRequired
+        defaultValue={project?.name}
       />
 
       <Button

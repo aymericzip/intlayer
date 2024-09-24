@@ -4,9 +4,9 @@ import { findProjects } from '@services/project.service';
 import { validateArray } from './validateArray';
 import type { Dictionary } from '@/types/dictionary.types';
 
-type DictionaryFields = (keyof Dictionary)[];
+export type DictionaryFields = (keyof Dictionary)[];
 
-const defaultFieldsToCheck = ['projectIds'] satisfies DictionaryFields;
+const defaultFieldsToCheck: DictionaryFields = ['projectIds'];
 
 type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<

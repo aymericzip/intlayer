@@ -108,9 +108,9 @@ const organizationFormContent: DeclarationContent = {
 
   editButton: {
     text: t({
-      en: 'Edit',
-      fr: 'Modifier',
-      es: 'Editar',
+      en: 'Edit organization',
+      fr: "Modifier l'organisation",
+      es: 'Editar la organización',
     }),
     ariaLabel: t({
       en: 'Click to edit',

@@ -18,9 +18,9 @@ const profileFormContent: DeclarationContent = {
 
   editButton: {
     text: t({
-      en: 'Edit',
-      fr: 'Modifier',
-      es: 'Editar',
+      en: 'Edit profile',
+      fr: 'Modifier le profil',
+      es: 'Editar el perfil',
     }),
     ariaLabel: t({
       en: 'Click to edit',

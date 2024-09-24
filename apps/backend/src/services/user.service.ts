@@ -4,6 +4,7 @@ import { UserModel } from '@models/user.model';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import {
   type FieldsToCheck,
+  type UserFields,
   validateUser,
 } from '@utils/validation/validateUser';
 import type { ObjectId } from 'mongoose';
@@ -179,7 +180,7 @@ export const updateUserById = async (
   userId: string | ObjectId,
   updates: Partial<User>
 ): Promise<User> => {
-  const keyToValidate = Object.keys(updates) as (keyof User)[];
+  const keyToValidate = Object.keys(updates) as UserFields;
   const errors = validateUser(updates, keyToValidate);
 
   const userIdString = String(userId);

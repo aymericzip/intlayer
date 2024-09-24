@@ -1,7 +1,10 @@
 import { logger } from '@logger/index';
 import { DictionaryModel } from '@models/dictionary.model';
 import type { DictionaryFilters } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
-import { validateDictionary } from '@utils/validation/validateDictionary';
+import {
+  type DictionaryFields,
+  validateDictionary,
+} from '@utils/validation/validateDictionary';
 import type { ObjectId } from 'mongoose';
 import type { Dictionary, DictionaryData } from '@/types/dictionary.types';
 
@@ -90,7 +93,8 @@ export const updateDictionaryById = async (
   dictionaryId: string | ObjectId,
   dictionary: Partial<Dictionary>
 ): Promise<Dictionary> => {
-  const errors = validateDictionary(dictionary);
+  const updatedKeys = Object.keys(dictionary) as DictionaryFields;
+  const errors = validateDictionary(dictionary, updatedKeys);
   const dictionaryIdString = String(dictionaryId);
 
   if (Object.keys(errors).length > 0) {

@@ -2,7 +2,7 @@ import { validateArray } from './validateArray';
 import { validateString } from './validateString';
 import type { Organization } from '@/types/organization.types';
 
-type OrganizationFields = (keyof Organization)[];
+export type OrganizationFields = (keyof Organization)[];
 
 const defaultFieldsToCheck: OrganizationFields = ['name', 'members'];
 

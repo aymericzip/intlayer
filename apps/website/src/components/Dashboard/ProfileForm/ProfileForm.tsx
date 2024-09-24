@@ -1,12 +1,20 @@
 'use client';
 
-import { useForm, Form, InputElement, Button } from '@intlayer/design-system';
+import {
+  useForm,
+  Form,
+  InputElement,
+  Button,
+  useAuth,
+} from '@intlayer/design-system';
 import { useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { getSignInSchema, type ProfileFormData } from './ProfileFormSchema';
 
 export const ProfileForm: FC = () => {
+  const { session } = useAuth();
+  const { user } = session ?? {};
   const SignInSchema = getSignInSchema();
   const { form, isSubmitting } = useForm(SignInSchema);
   const { nameInput, editButton } = useIntlayer('profile-form');
@@ -33,6 +41,7 @@ export const ProfileForm: FC = () => {
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}
         isRequired
+        defaultValue={user?.name}
       />
 
       <Button

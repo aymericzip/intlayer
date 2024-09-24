@@ -1,7 +1,10 @@
 import { logger } from '@logger/index';
 import { OrganizationModel } from '@models/organization.model';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
-import { validateOrganization } from '@utils/validation/validateOrganization';
+import {
+  type OrganizationFields,
+  validateOrganization,
+} from '@utils/validation/validateOrganization';
 import type { ObjectId } from 'mongoose';
 import type {
   Organization,
@@ -98,7 +101,8 @@ export const updateOrganizationById = async (
   organizationId: ObjectId | string,
   organization: Partial<Organization>
 ): Promise<Organization> => {
-  const errors = validateOrganization(organization);
+  const updatedKeys = Object.keys(organization) as OrganizationFields;
+  const errors = validateOrganization(organization, updatedKeys);
   const organizationIdString = String(organizationId);
 
   if (Object.keys(errors).length > 0) {

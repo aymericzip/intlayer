@@ -4,7 +4,7 @@ import { validatePhone } from './validatePhone';
 import { validateString } from './validateString';
 import type { User } from '@/types/user.types';
 
-type UserFields = (keyof User)[];
+export type UserFields = (keyof User)[];
 
 const defaultFieldsToCheck: UserFields = ['name', 'phone', 'email', 'phone'];
 

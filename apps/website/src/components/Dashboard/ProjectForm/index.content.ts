@@ -108,9 +108,9 @@ const projectFormContent: DeclarationContent = {
 
   editButton: {
     text: t({
-      en: 'Edit',
-      fr: 'Modifier',
-      es: 'Editar',
+      en: 'Edit project',
+      fr: 'Modifier le projet',
+      es: 'Editar el proyecto',
     }),
     ariaLabel: t({
       en: 'Click to edit',
