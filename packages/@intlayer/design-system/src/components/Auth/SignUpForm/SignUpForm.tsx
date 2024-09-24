@@ -1,8 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import { Button } from '../../Button';
-import { Form, InputElement, InputPasswordElement, useForm } from '../../Form';
+import { Form, useForm } from '../../Form';
 import { getSignUpContent } from './index.content';
 import { getSignUpSchema, type SignUp } from './SignUpSchema';
 
@@ -36,7 +35,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
-        <InputElement
+        <Form.Input
           name="email"
           label={emailInput.label}
           placeholder={emailInput.placeholder}
@@ -46,7 +45,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           maxLength={50}
         />
 
-        <InputPasswordElement
+        <Form.InputPassword
           name="password"
           label={passwordInput.label}
           placeholder={passwordInput.placeholder}
@@ -54,7 +53,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           isRequired
         />
 
-        <InputPasswordElement
+        <Form.InputPassword
           name="passwordConfirmation"
           label={passwordConfirmationInput.label}
           placeholder={passwordConfirmationInput.placeholder}
@@ -63,18 +62,18 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         />
       </div>
 
-      <Button
+      <Form.Button
         className="mt-12 w-full"
         type="submit"
         isLoading={isSubmitting}
         label={signUpButton.ariaLabel}
       >
         {signUpButton.text}
-      </Button>
+      </Form.Button>
 
       <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full justify-center text-center align-middle text-xs">
         {loginLink.message}
-        <Button
+        <Form.Button
           variant="link"
           label={loginLink.ariaLabel}
           color="primary"
@@ -83,7 +82,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           type="button"
         >
           {loginLink.text}
-        </Button>
+        </Form.Button>
       </span>
     </Form>
   );

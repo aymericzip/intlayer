@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  useForm,
-  Form,
-  InputElement,
-  Button,
-  useToast,
-  useUser,
-} from '@intlayer/design-system';
+import { useForm, Form, useToast, useUser } from '@intlayer/design-system';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -73,14 +66,14 @@ export const ProjectCreationForm: FC = () => {
       className="w-full max-w-[400px]"
       {...form}
     >
-      <InputElement
+      <Form.Input
         name="name"
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}
         isRequired
       />
 
-      <Button
+      <Form.Button
         className="mt-12 w-full"
         type="submit"
         color="text"
@@ -88,7 +81,7 @@ export const ProjectCreationForm: FC = () => {
         label={createProjectButton.ariaLabel.value}
       >
         {createProjectButton.text}
-      </Button>
+      </Form.Button>
     </Form>
   );
 };

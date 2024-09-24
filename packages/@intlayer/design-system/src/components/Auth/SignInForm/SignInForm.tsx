@@ -1,8 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import { Button } from '../../Button';
-import { Form, InputElement, InputPasswordElement, useForm } from '../../Form';
+import { Form, useForm } from '../../Form';
 import { ExternalsLoginButtons } from '../ExternalsLoginButtons';
 import { getSignInContent } from './index.content';
 import { getSignInSchema, type SignIn } from './SignInSchema';
@@ -34,7 +33,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         {...form}
       >
         <div className="flex flex-col gap-y-6">
-          <InputElement
+          <Form.Input
             name="email"
             label={signInContent.emailInput.label}
             placeholder={signInContent.emailInput.placeholder}
@@ -42,7 +41,7 @@ export const SignInForm: FC<SignInFormProps> = ({
             autoComplete="email"
           />
 
-          <InputPasswordElement
+          <Form.InputPassword
             name="password"
             label={signInContent.passwordInput.label}
             placeholder={signInContent.passwordInput.placeholder}
@@ -51,7 +50,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           />
         </div>
 
-        <Button
+        <Form.Button
           className="ml-auto mt-2 block"
           variant="link"
           label={signInContent.forgotPasswordLink.ariaLabel}
@@ -60,20 +59,20 @@ export const SignInForm: FC<SignInFormProps> = ({
           onClick={onClickForgotPassword}
         >
           {signInContent.forgotPasswordLink.text}
-        </Button>
+        </Form.Button>
 
-        <Button
+        <Form.Button
           className="mt-12 w-full"
           type="submit"
           isLoading={isSubmitting}
           label={signInContent.loginButton.ariaLabel}
         >
           {signInContent.loginButton.text}
-        </Button>
+        </Form.Button>
 
         <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full justify-center text-xs">
           {signInContent.signUpLink.message}
-          <Button
+          <Form.Button
             variant="link"
             label={signInContent.signUpLink.ariaLabel}
             color="primary"
@@ -81,7 +80,7 @@ export const SignInForm: FC<SignInFormProps> = ({
             type="button"
           >
             {signInContent.signUpLink.text}
-          </Button>
+          </Form.Button>
         </span>
       </Form>
       <ExternalsLoginButtons />

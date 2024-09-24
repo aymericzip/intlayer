@@ -1,6 +1,5 @@
 import type { FC } from 'react';
-import { Button } from '../../Button';
-import { InputPasswordElement, useForm, Form } from '../../Form';
+import { Form, useForm } from '../../Form';
 import {
   getChangePasswordSchema,
   type ChangePassword,
@@ -39,21 +38,21 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
-        <InputPasswordElement
+        <Form.InputPassword
           name="currentPassword"
           label={currentPasswordInput.label}
           placeholder={currentPasswordInput.placeholder}
           autoComplete="current-password"
           isRequired
         />
-        <InputPasswordElement
+        <Form.InputPassword
           name="newPassword"
           label={newPasswordInput.label}
           placeholder={newPasswordInput.placeholder}
           autoComplete="new-password"
           isRequired
         />
-        <InputPasswordElement
+        <Form.InputPassword
           name="newPasswordConfirmation"
           label={confirmPasswordInput.label}
           placeholder={confirmPasswordInput.placeholder}
@@ -62,7 +61,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         />
       </div>
 
-      <Button
+      <Form.Button
         className="mt-12 w-full"
         type="submit"
         isLoading={isSubmitting}
@@ -71,16 +70,16 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         label={changePasswordButton.ariaLabel}
       >
         {changePasswordButton.text}
-      </Button>
+      </Form.Button>
       {isSubmitted && (
-        <Button
+        <Form.Button
           className="mt-4 w-full"
           type="button"
           label={backToHomeButton.ariaLabel}
           onClick={onClickBackToHome}
         >
           {backToHomeButton.text}
-        </Button>
+        </Form.Button>
       )}
     </Form>
   );

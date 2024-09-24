@@ -6,7 +6,7 @@ import {
   type ControllerRenderProps,
   type FieldValues,
 } from 'react-hook-form';
-import { FormField, useFormField } from '../FormField';
+import { Form, useFormField } from '../';
 import { FormItemLayout } from '../layout';
 
 export interface FormElementProps<T extends ElementType> {
@@ -61,7 +61,7 @@ export const FormElement = <T extends ElementType>(
   const { control } = useFormContext();
 
   return (
-    <FormField
+    <Form.Field
       control={control}
       name={props.name}
       render={({ field }) => <FormFieldElement {...props} field={field} />}

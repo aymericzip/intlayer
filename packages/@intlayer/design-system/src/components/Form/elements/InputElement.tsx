@@ -13,6 +13,5 @@ export const InputElement: FC<InputElementsProps> = (props) => (
     data-testid={props.name}
     Element={Input}
     {...props}
-    value={undefined}
   />
 );

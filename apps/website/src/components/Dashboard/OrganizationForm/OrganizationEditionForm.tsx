@@ -3,7 +3,6 @@
 import {
   useForm,
   Form,
-  InputElement,
   Button,
   useToast,
   useAuth,
@@ -52,7 +51,7 @@ export const OrganizationEditionForm: FC = () => {
       className="w-full max-w-[400px]"
       {...form}
     >
-      <InputElement
+      <Form.Input
         name="name"
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}

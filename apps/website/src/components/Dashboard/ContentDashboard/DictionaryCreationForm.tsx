@@ -1,14 +1,7 @@
 'use client';
 
 import type { Project } from '@intlayer/backend';
-import {
-  useForm,
-  Form,
-  InputElement,
-  Button,
-  useToast,
-  useAuth,
-} from '@intlayer/design-system';
+import { useForm, Form, useToast, useAuth } from '@intlayer/design-system';
 import {
   useAddDictionary,
   useGetProjects,
@@ -64,14 +57,14 @@ export const DictionaryCreationForm: FC = () => {
       className="w-full max-w-[400px]"
       {...form}
     >
-      <InputElement
+      <Form.Input
         name="key"
         label={keyInput.label}
         placeholder={keyInput.placeholder.value}
         isRequired
       />
 
-      <Button
+      <Form.Button
         className="mt-12 w-full"
         type="submit"
         color="text"
@@ -79,7 +72,7 @@ export const DictionaryCreationForm: FC = () => {
         label={createDictionaryButton.ariaLabel.value}
       >
         {createDictionaryButton.text}
-      </Button>
+      </Form.Button>
     </Form>
   );
 };

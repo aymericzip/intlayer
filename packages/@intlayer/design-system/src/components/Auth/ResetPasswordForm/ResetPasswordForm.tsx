@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, type FC, useEffect, type ReactNode } from 'react';
-import { Button } from '../../Button';
-import { InputElement, useForm, Form } from '../../Form';
+import { Form, useForm } from '../../Form';
 import { getResetPasswordContent } from './index.content';
 import {
   getResetPasswordSchema,
@@ -89,7 +88,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
-        <InputElement
+        <Form.Input
           name="email"
           label={emailInput.label}
           placeholder={emailInput.placeholder}
@@ -100,7 +99,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
         />
       </div>
 
-      <Button
+      <Form.Button
         className="mt-12 w-full"
         type="submit"
         isLoading={isSubmitting}
@@ -109,16 +108,16 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
         label={sendRecoveryEmailButton.ariaLabel}
       >
         {getSubmitButtonText()}
-      </Button>
+      </Form.Button>
       {isSubmitted && (
-        <Button
+        <Form.Button
           type="button"
           className="mt-4 w-full"
           label={backToLoginButton.text}
           onClick={onClickBackToLogin}
         >
           {backToLoginButton.text}
-        </Button>
+        </Form.Button>
       )}
     </Form>
   );

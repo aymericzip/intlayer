@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  useForm,
-  Form,
-  InputElement,
-  Button,
-  useAuth,
-} from '@intlayer/design-system';
+import { useForm, Form, useAuth } from '@intlayer/design-system';
 import { useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -36,7 +30,7 @@ export const ProfileForm: FC = () => {
       className="w-full max-w-[400px]"
       {...form}
     >
-      <InputElement
+      <Form.Input
         name="name"
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}
@@ -44,7 +38,7 @@ export const ProfileForm: FC = () => {
         defaultValue={user?.name}
       />
 
-      <Button
+      <Form.Button
         className="mt-12 w-full"
         type="submit"
         color="text"
@@ -52,7 +46,7 @@ export const ProfileForm: FC = () => {
         label={editButton.ariaLabel.value}
       >
         {editButton.text}
-      </Button>
+      </Form.Button>
     </Form>
   );
 };

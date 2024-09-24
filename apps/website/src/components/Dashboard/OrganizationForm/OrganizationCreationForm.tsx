@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  useForm,
-  Form,
-  InputElement,
-  Button,
-  useToast,
-  useUser,
-} from '@intlayer/design-system';
+import { useForm, Form, useToast, useUser } from '@intlayer/design-system';
 import {
   useAddOrganization,
   useSelectOrganization,
@@ -83,14 +76,14 @@ export const OrganizationCreationForm: FC = () => {
       className="w-full max-w-[400px]"
       {...form}
     >
-      <InputElement
+      <Form.Input
         name="name"
         label={nameInput.label}
         placeholder={nameInput.placeholder.value}
         isRequired
       />
 
-      <Button
+      <Form.Button
         className="mt-12 w-full"
         type="submit"
         color="text"
@@ -98,7 +91,7 @@ export const OrganizationCreationForm: FC = () => {
         label={createOrganizationButton.ariaLabel.value}
       >
         {createOrganizationButton.text}
-      </Button>
+      </Form.Button>
     </Form>
   );
 };

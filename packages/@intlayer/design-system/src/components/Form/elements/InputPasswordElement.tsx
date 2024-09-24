@@ -23,6 +23,5 @@ export const InputPasswordElement: FC<InputPasswordElementsProps> = ({
     minLength={6}
     maxLength={255}
     {...props}
-    value={undefined}
   />
 );

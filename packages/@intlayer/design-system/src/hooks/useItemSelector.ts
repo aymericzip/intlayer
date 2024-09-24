@@ -8,7 +8,7 @@ type PositionState = {
 };
 
 const selectorDefault = (option: HTMLElement) =>
-  option?.getAttribute('aria-selected') === 'true' ?? false;
+  option?.getAttribute('aria-selected') === 'true';
 
 export const useItemSelector = (
   optionsRefs: MutableRefObject<HTMLElement[]>,

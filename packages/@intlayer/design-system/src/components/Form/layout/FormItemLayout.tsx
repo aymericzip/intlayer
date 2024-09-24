@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import { FormControl, FormDescription, FormItem, FormMessage } from '../';
+import { Form } from '../';
 import { FormLabelLayout, type FormLabelLayoutProps } from './FormLabelLayout';
 
 type FormItemLayoutProps = FormLabelLayoutProps & {
@@ -18,7 +18,7 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
   showErrorMessage = true,
   htmlFor,
 }) => (
-  <FormItem className="w-full space-y-2">
+  <Form.Item className="w-full space-y-2">
     <div className="space-y-1 leading-none">
       <FormLabelLayout
         label={label}
@@ -26,10 +26,10 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
         info={info}
         htmlFor={htmlFor}
       />
-      {description && <FormDescription>{description}</FormDescription>}
+      {description && <Form.Description>{description}</Form.Description>}
     </div>
-    <FormControl>{children}</FormControl>
+    <Form.Control>{children}</Form.Control>
 
-    {showErrorMessage && <FormMessage data-testid="error-message" />}
-  </FormItem>
+    {showErrorMessage && <Form.Message data-testid="error-message" />}
+  </Form.Item>
 );
