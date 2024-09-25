@@ -5,6 +5,8 @@ import {
   InputPasswordElement,
   TextAreaElement,
 } from './elements';
+import { MultiSelectElement } from './elements/MultiselectElement';
+import { SelectElement } from './elements/SelectElement';
 import { Form as FormRoot } from './Form';
 import { FormControl } from './FormControl';
 import { FormDescription } from './FormDescription';
@@ -24,10 +26,12 @@ type FormType = typeof FormRoot & {
   Label: typeof FormLabel;
   Message: typeof FormMessage;
   Element: typeof FormElement;
+  Button: typeof Button;
   Input: typeof InputElement;
   InputPassword: typeof InputPasswordElement;
   TextArea: typeof TextAreaElement;
-  Button: typeof Button;
+  MultiSelect: typeof MultiSelectElement;
+  Select: typeof SelectElement;
 };
 
 /**
@@ -48,17 +52,17 @@ type FormType = typeof FormRoot & {
  * </Form>
  * ```
  */
-export const Form = {
-  ...FormRoot,
-  Description: FormDescription,
-  Control: FormControl,
-  Field: FormField,
-  Item: FormItem,
-  Label: FormLabel,
-  Message: FormMessage,
-  Element: FormElement,
-  Input: InputElement,
-  InputPassword: InputPasswordElement,
-  TextArea: TextAreaElement,
-  Button,
-} as FormType;
+export const Form = FormRoot as FormType;
+Form.Description = FormDescription;
+Form.Control = FormControl;
+Form.Field = FormField;
+Form.Item = FormItem;
+Form.Label = FormLabel;
+Form.Message = FormMessage;
+Form.Element = FormElement;
+Form.Input = InputElement;
+Form.InputPassword = InputPasswordElement;
+Form.TextArea = TextAreaElement;
+Form.Button = Button;
+Form.Select = SelectElement;
+Form.MultiSelect = MultiSelectElement;

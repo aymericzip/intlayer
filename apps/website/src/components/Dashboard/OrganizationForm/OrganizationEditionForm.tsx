@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  useForm,
-  Form,
-  Button,
-  useToast,
-  useAuth,
-} from '@intlayer/design-system';
+import { useForm, Form, useToast, useAuth } from '@intlayer/design-system';
 import { useUpdateOrganization } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -59,7 +53,7 @@ export const OrganizationEditionForm: FC = () => {
         defaultValue={organization?.name}
       />
 
-      <Button
+      <Form.Button
         className="mt-12 w-full"
         type="submit"
         color="text"
@@ -67,7 +61,7 @@ export const OrganizationEditionForm: FC = () => {
         label={editButton.ariaLabel.value}
       >
         {editButton.text}
-      </Button>
+      </Form.Button>
     </Form>
   );
 };

@@ -30,6 +30,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         onSubmitSuccess={onSubmitSuccess}
         onSubmitError={onSubmitError}
         autoComplete
+        className="gap-y-0"
         {...form}
       >
         <div className="flex flex-col gap-y-6">

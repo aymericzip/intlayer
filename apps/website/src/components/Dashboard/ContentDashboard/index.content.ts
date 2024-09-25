@@ -16,6 +16,19 @@ const dictionaryFormContent: DeclarationContent = {
     }),
   },
 
+  projectInput: {
+    label: t({
+      en: 'Project',
+      fr: 'Projet',
+      es: 'Proyecto',
+    }),
+    placeholder: t({
+      en: 'Select one or more projects to associate with your dictionary',
+      fr: 'Sélectionnez un ou plusieurs projets à associer à votre dictionnaire',
+      es: 'Seleccione uno o más proyectos para asociar con su diccionario',
+    }),
+  },
+
   noDictionaryView: {
     title: t({
       en: 'No dictionary',

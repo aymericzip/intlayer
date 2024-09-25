@@ -11,7 +11,7 @@ import { useFormField } from '.';
 export const FormControl = forwardRef<
   ElementRef<typeof Slot>,
   ComponentPropsWithoutRef<typeof Slot>
->(({ ...props }, ref) => {
+>((props, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 

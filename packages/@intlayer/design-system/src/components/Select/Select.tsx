@@ -14,25 +14,8 @@ import {
 } from 'react';
 import { cn } from '../../utils/cn';
 
-/**
- * Usage example:
- * ```jsx
- * <Select>
- *   <SelectTrigger>
- *     <SelectValue placeholder="Theme" />
- *   </SelectTrigger>
- *   <SelectContent>
- *     <SelectItem value="light">Light</SelectItem>
- *     <SelectItem value="dark">Dark</SelectItem>
- *     <SelectItem value="system">System</SelectItem>
- *   </SelectContent>
- * </Select>
- * ```
- */
 const SelectRoot = SelectPrimitive.Root;
-
 const SelectGroup = SelectPrimitive.Group;
-
 const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = forwardRef<
@@ -176,6 +159,18 @@ export const SelectSeparator = forwardRef<
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
+type SelectType = typeof SelectRoot & {
+  Group: typeof SelectGroup;
+  Value: typeof SelectValue;
+  Trigger: typeof SelectTrigger;
+  ScrollUpButton: typeof SelectScrollUpButton;
+  ScrollDownButton: typeof SelectScrollDownButton;
+  Content: typeof SelectContent;
+  Label: typeof SelectLabel;
+  Item: typeof SelectItem;
+  Separator: typeof SelectSeparator;
+};
+
 /**
  * Usage example:
  * ```jsx
@@ -191,15 +186,13 @@ SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
  * </Select>
  * ```
  */
-export const Select = {
-  ...SelectRoot,
-  Group: SelectGroup,
-  Value: SelectValue,
-  Trigger: SelectTrigger,
-  ScrollUpButton: SelectScrollUpButton,
-  ScrollDownButton: SelectScrollDownButton,
-  Content: SelectContent,
-  Label: SelectLabel,
-  Item: SelectItem,
-  Separator: SelectSeparator,
-};
+export const Select = SelectRoot as SelectType;
+Select.Group = SelectGroup;
+Select.Value = SelectValue;
+Select.Trigger = SelectTrigger;
+Select.ScrollUpButton = SelectScrollUpButton;
+Select.ScrollDownButton = SelectScrollDownButton;
+Select.Content = SelectContent;
+Select.Label = SelectLabel;
+Select.Item = SelectItem;
+Select.Separator = SelectSeparator;

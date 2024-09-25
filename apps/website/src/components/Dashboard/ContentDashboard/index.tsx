@@ -107,10 +107,18 @@ export const ContentDashboardContent: FC = () => {
   }
 
   const dictionaryId: string = focusedContent.dictionaryId;
-  const dictionary: Dictionary = dictionaries[
-    dictionaryId as keyof typeof dictionaries
-  ] as unknown as Dictionary;
-  const dictionaryPath: string | undefined = dictionary.filePath;
+  const dictionaryAPIObject: DictionaryAPI | undefined = dictionaries.find(
+    (dictionary) => String(dictionary._id) === dictionaryId
+  );
+  const dictionary: Dictionary | undefined = dictionaryAPIObject
+    ? {
+        ...dictionaryAPIObject.content,
+        filePath: undefined,
+        id: dictionaryAPIObject.key,
+      }
+    : undefined;
+
+  const dictionaryPath: string | undefined = dictionary?.filePath;
   const editedDictionaryContent: FileContent[] | undefined = dictionaryId
     ? editedContent[dictionaryId]
     : undefined;
@@ -118,6 +126,10 @@ export const ContentDashboardContent: FC = () => {
   const handleUpdateDictionary = () => {
     // updateDictionary();
   };
+
+  if (!dictionary) {
+    return <>Error loading dictionary</>;
+  }
 
   return (
     <DictionaryFieldEditor
@@ -133,7 +145,7 @@ export const ContentDashboardContent: FC = () => {
         addEditedContent(dictionaryId, dictionaryPath, keyPath, newValue)
       }
       onValidEdition={handleUpdateDictionary}
-      onCancelEdition={() => clearEditedDictionaryContent(dictionary?.id)}
+      onCancelEdition={() => clearEditedDictionaryContent(dictionaryId)}
     />
   );
 };

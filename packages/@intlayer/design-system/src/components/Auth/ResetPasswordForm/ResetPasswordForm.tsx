@@ -85,6 +85,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
       schema={ResetPasswordSchema}
       onSubmitSuccess={onSubmitSuccess}
       onSubmitError={onSubmitError}
+      className="gap-y-0"
       {...form}
     >
       <div className="flex flex-col gap-y-6">

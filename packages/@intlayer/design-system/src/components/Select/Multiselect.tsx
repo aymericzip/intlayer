@@ -24,12 +24,6 @@ import { cn } from '../../utils/cn';
 import { Badge } from '../Badge';
 import { Command, CommandRoot } from '../Command';
 
-type MultiSelectProps = ComponentPropsWithoutRef<typeof CommandRoot> & {
-  values: string[];
-  onValuesChange: (value: string[]) => void;
-  loop?: boolean;
-};
-
 type MultiSelectContextProps = {
   value: string[];
   onValueChange: (value: string) => void;
@@ -59,6 +53,12 @@ const useMultiSelect = () => {
 
 // TODO : expose the visibility of the popup
 
+type MultiSelectProps = ComponentPropsWithoutRef<typeof CommandRoot> & {
+  values?: string[];
+  onValueChange?: (value: string[]) => void;
+  loop?: boolean;
+};
+
 /**
  *
  * Usage example:
@@ -83,7 +83,7 @@ const useMultiSelect = () => {
  */
 const MultiSelectRoot: FC<MultiSelectProps> = ({
   values: defaultValues,
-  onValuesChange: onValueChange,
+  onValueChange: onValueChange,
   loop = false,
   className,
   children,
@@ -103,11 +103,11 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
       if (value.includes(val)) {
         const newValue = value.filter((item) => item !== val);
         setValue(newValue);
-        onValueChange(newValue);
+        onValueChange?.(newValue);
       } else {
         const newValue = [...value, val];
         setValue(newValue);
-        onValueChange(newValue);
+        onValueChange?.(newValue);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -248,64 +248,74 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
 const MultiSelectTrigger = forwardRef<
   HTMLDivElement,
   HTMLAttributes<HTMLDivElement> & {
+    getBadgeValue?: (value: string) => string;
     validationStyleEnabled?: boolean;
   }
->(({ className, validationStyleEnabled = false, children, ...props }, ref) => {
-  const { value, onValueChange, activeIndex } = useMultiSelect();
-
-  const mousePreventDefault: MouseEventHandler<HTMLButtonElement> = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+>(
+  (
+    {
+      className,
+      getBadgeValue = (value) => value,
+      validationStyleEnabled = false,
+      children,
+      ...props
     },
-    []
-  );
+    ref
+  ) => {
+    const { value, onValueChange, activeIndex } = useMultiSelect();
 
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        'flex w-full flex-col gap-3 rounded-lg p-1 py-2',
-        'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex w-full items-center justify-between whitespace-nowrap border px-3 py-2 text-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-        'bg-input-background dark:bg-input-background-dark text-input-text dark:text-input-text-dark w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
-        'border-input-border dark:border-input-border-dark hover:border-input-border-hover dark:hover:border-input-border-hover-dark focus:border-input-border-focus dark:focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-        'aria-[invalid=true]:border-error dark:aria-[invalid=true]:border-error-dark',
-        validationStyleEnabled &&
-          'valid:border-success dark:valid:border-success-dark invalid:border-error dark:invalid:border-error-dark',
-        className
-      )}
-      {...props}
-    >
-      {value.length > 0 && (
-        <div className="flex w-full flex-wrap gap-1">
-          {value.map((item, index) => (
-            <Badge
-              key={item}
-              className={cn(
-                'flex items-center gap-1 rounded-xl px-1',
-                activeIndex === index && 'ring-muted-foreground ring-2'
-              )}
-              color="text"
-            >
-              <span className="text-xs">{item}</span>
-              <button
-                aria-label={`Remove ${item} option`}
-                aria-roledescription="button to remove option"
-                type="button"
-                onMouseDown={mousePreventDefault}
-                onClick={() => onValueChange(item)}
+    const mousePreventDefault: MouseEventHandler<HTMLButtonElement> =
+      useCallback((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }, []);
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'flex w-full flex-col gap-3 rounded-lg p-1 py-2',
+          'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex w-full items-center justify-between whitespace-nowrap border px-3 py-2 text-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+          'bg-input-background dark:bg-input-background-dark text-input-text dark:text-input-text-dark w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
+          'border-input-border dark:border-input-border-dark hover:border-input-border-hover dark:hover:border-input-border-hover-dark focus:border-input-border-focus dark:focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
+          'aria-[invalid=true]:border-error dark:aria-[invalid=true]:border-error-dark',
+          validationStyleEnabled &&
+            'valid:border-success dark:valid:border-success-dark invalid:border-error dark:invalid:border-error-dark',
+          className
+        )}
+        {...props}
+      >
+        {value.length > 0 && (
+          <div className="flex w-full flex-wrap gap-1">
+            {value.map((item, index) => (
+              <Badge
+                key={item}
+                className={cn(
+                  'flex items-center gap-1 rounded-xl px-1',
+                  activeIndex === index && 'ring-muted-foreground ring-2'
+                )}
+                color="text"
               >
-                <span className="sr-only">Remove {item} option</span>
-                <RemoveIcon className="size-4 cursor-pointer" />
-              </button>
-            </Badge>
-          ))}
-        </div>
-      )}
-      {children}
-    </div>
-  );
-});
+                <span className="text-xs">{getBadgeValue(item)}</span>
+                <button
+                  aria-label={`Remove ${item} option`}
+                  aria-roledescription="button to remove option"
+                  type="button"
+                  onMouseDown={mousePreventDefault}
+                  onClick={() => onValueChange(item)}
+                >
+                  <span className="sr-only">Remove {item} option</span>
+                  <RemoveIcon className="size-4 cursor-pointer" />
+                </button>
+              </Badge>
+            ))}
+          </div>
+        )}
+        {children}
+      </div>
+    );
+  }
+);
 
 MultiSelectTrigger.displayName = 'MultiSelectTrigger';
 
@@ -419,6 +429,14 @@ const MultiSelectItem = forwardRef<
 
 MultiSelectItem.displayName = 'MultiSelectItem';
 
+type MultiSelectType = typeof MultiSelectRoot & {
+  Trigger: typeof MultiSelectTrigger;
+  Input: typeof MultiSelectInput;
+  Content: typeof MultiSelectContent;
+  List: typeof MultiSelectList;
+  Item: typeof MultiSelectItem;
+};
+
 /**
  *
  * Usage example:
@@ -441,11 +459,9 @@ MultiSelectItem.displayName = 'MultiSelectItem';
  * </MultiSelect>
  * ```
  */
-export const MultiSelect = {
-  ...MultiSelectRoot,
-  Trigger: MultiSelectTrigger,
-  Input: MultiSelectInput,
-  Content: MultiSelectContent,
-  List: MultiSelectList,
-  Item: MultiSelectItem,
-};
+export const MultiSelect = MultiSelectRoot as MultiSelectType;
+MultiSelect.Trigger = MultiSelectTrigger;
+MultiSelect.Input = MultiSelectInput;
+MultiSelect.Content = MultiSelectContent;
+MultiSelect.List = MultiSelectList;
+MultiSelect.Item = MultiSelectItem;

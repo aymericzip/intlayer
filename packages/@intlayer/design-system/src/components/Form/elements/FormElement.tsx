@@ -9,7 +9,7 @@ import {
 import { Form, useFormField } from '../';
 import { FormItemLayout } from '../layout';
 
-export interface FormElementProps<T extends ElementType> {
+export type FormElementProps<T extends ElementType> = {
   name: string;
   Element: T;
   label?: ReactNode;
@@ -17,7 +17,7 @@ export interface FormElementProps<T extends ElementType> {
   info?: string;
   showErrorMessage?: boolean;
   focus?: boolean;
-}
+};
 
 type FormFieldElementProps<T extends ElementType> = FormElementProps<T> &
   ComponentProps<T> & {
@@ -55,6 +55,13 @@ const FormFieldElement = <T extends ElementType>({
   );
 };
 
+/**
+ * FormElement is a component that allows you to create a form element with a label, description, error message, and validation.
+ *
+ * The Element prop is the type of the element that will be rendered.
+ * This element will interact with the FormContext and will be controlled by the FormControl component.
+ * The props used to control the element will be `value` and `onChange`.
+ */
 export const FormElement = <T extends ElementType>(
   props: FormElementProps<T> & ComponentProps<T>
 ) => {

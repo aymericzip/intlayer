@@ -10,6 +10,7 @@ import {
   type UseFormProps,
 } from 'react-hook-form';
 import type { ZodType, z } from 'zod';
+import { cn } from '../../utils/cn';
 
 type FormProps<T extends ZodType> = HTMLAttributes<HTMLFormElement> &
   FormProviderProps<z.infer<T>> & {
@@ -66,7 +67,7 @@ export const Form = forwardRef(
     return (
       <FormProvider {...props}>
         <form
-          className={className}
+          className={cn('flex flex-col gap-y-6', className)}
           onSubmit={props.handleSubmit(onSubmit)}
           autoComplete={autoComplete ? 'on' : 'off'}
           ref={ref}
