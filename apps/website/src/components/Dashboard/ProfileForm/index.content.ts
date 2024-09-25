@@ -28,6 +28,28 @@ const profileFormContent: DeclarationContent = {
       es: 'Haga clic para editar',
     }),
   },
+
+  updateProfileToasts: {
+    profileUpdated: {
+      title: t({
+        en: 'Profile updated',
+        fr: 'Profil mis à jour',
+        es: 'Perfil actualizado',
+      }),
+      description: t({
+        en: 'Your profile has been updated successfully',
+        fr: 'Votre profil a été mis à jour avec succès',
+        es: 'Su perfil se ha actualizado con éxito',
+      }),
+    },
+    profileUpdateFailed: {
+      title: t({
+        en: 'Profile update failed',
+        fr: 'La mise à jour du profil a échoué',
+        es: 'La actualización del perfil ha fallado',
+      }),
+    },
+  },
 };
 
 export default profileFormContent;

@@ -10,7 +10,7 @@ import {
 } from './OrganizationFormSchema';
 
 export const OrganizationEditionForm: FC = () => {
-  const { session } = useAuth();
+  const { session, checkSession } = useAuth();
   const { organization } = session ?? {};
   const SignInSchema = getOrganizationSchema();
   const { updateOrganization } = useUpdateOrganization();
@@ -21,13 +21,14 @@ export const OrganizationEditionForm: FC = () => {
 
   const onSubmitSuccess = async (data: OrganizationFormData) => {
     await updateOrganization({ _id: organization?._id, ...data })
-      .then(() => {
+      .then(async () => {
         toast({
           title: updateOrganizationToasts.organizationUpdated.title.value,
           description:
             updateOrganizationToasts.organizationUpdated.description.value,
           variant: 'success',
         });
+        await checkSession();
       })
       .catch((error) => {
         toast({

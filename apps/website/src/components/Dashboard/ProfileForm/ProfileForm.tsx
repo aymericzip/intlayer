@@ -1,21 +1,38 @@
 'use client';
 
-import { useForm, Form, useAuth } from '@intlayer/design-system';
+import { useForm, Form, useAuth, useToast } from '@intlayer/design-system';
 import { useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { getSignInSchema, type ProfileFormData } from './ProfileFormSchema';
 
 export const ProfileForm: FC = () => {
-  const { session } = useAuth();
+  const { session, checkSession } = useAuth();
   const { user } = session ?? {};
   const SignInSchema = getSignInSchema();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { nameInput, editButton } = useIntlayer('profile-form');
+  const { nameInput, editButton, updateProfileToasts } =
+    useIntlayer('profile-form');
   const { updateUser } = useUpdateUser();
+  const { toast } = useToast();
 
   const onSubmitSuccess = async (data: ProfileFormData) => {
-    await updateUser(data);
+    await updateUser(data)
+      .then(async () => {
+        toast({
+          title: updateProfileToasts.profileUpdated.title.value,
+          description: updateProfileToasts.profileUpdated.description.value,
+          variant: 'success',
+        });
+        await checkSession();
+      })
+      .catch((error) => {
+        toast({
+          title: updateProfileToasts.profileUpdateFailed.title.value,
+          description: error.message,
+          variant: 'error',
+        });
+      });
   };
 
   const onSubmitError = (error: Error) => {
