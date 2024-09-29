@@ -7,6 +7,7 @@ import {
   NodeType,
   type KeyPath,
   type DictionaryValue,
+  type Dictionary,
 } from '@intlayer/core';
 import {
   createElement,
@@ -14,7 +15,6 @@ import {
   type ReactNode,
   type FC,
 } from 'react';
-import type { FileContent } from '../';
 import { ArrayWrapper } from './ArrayWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
 import { NestedObjectWrapper } from './NestedObjectWrapper';
@@ -26,16 +26,16 @@ export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
 
-export interface NodeWrapperProps {
+export type NodeWrapperProps = {
   keyPath: KeyPath[];
   section: DictionaryValue;
   onContentChange: (content: { keyPath: KeyPath[]; newValue: string }) => void;
   locale: Locales;
-  editedContent?: FileContent[];
+  editedContent: Dictionary;
   focusedKeyPath: KeyPath[] | undefined;
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
   onClickEdit?: (keyPath: KeyPath[]) => void;
-}
+};
 
 const createReactElement = (element: ReactElement) => {
   if (typeof element === 'string') {

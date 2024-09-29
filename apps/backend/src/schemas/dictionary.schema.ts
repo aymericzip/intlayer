@@ -13,7 +13,7 @@ export const dictionarySchema = new Schema<Dictionary>(
       required: true,
     },
     content: {
-      type: JSON,
+      type: Schema.Types.Mixed,
       required: true,
     },
     creatorId: {

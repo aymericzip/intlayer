@@ -7,9 +7,9 @@ import {
 import type { FC } from 'react';
 import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
 
-interface EnumerationWrapperProps extends Omit<NodeWrapperProps, 'section'> {
+type EnumerationWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: EnumerationContent<DictionaryValue>;
-}
+};
 
 export const EnumerationWrapper: FC<EnumerationWrapperProps> = (props) => {
   const { keyPath, section } = props;

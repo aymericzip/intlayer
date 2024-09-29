@@ -1,5 +1,5 @@
 import { ChevronRightIcon } from 'lucide-react';
-import type { FC } from 'react';
+import { Fragment, type FC } from 'react';
 import { Button } from '../Button';
 
 type LinkProps = {
@@ -65,17 +65,17 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
 
       const text = (link as DetailedBreadcrumbLink).text ?? link;
 
-      let Section = <Span key={text}>{text}</Span>;
+      let Section = <Span>{text}</Span>;
 
       if (isLink) {
         Section = (
-          <Link key={text} href={link.href!}>
+          <Link key={index} href={link.href!}>
             {text}
           </Link>
         );
       } else if (isButton) {
         Section = (
-          <ButtonLink key={text} onClick={link.onClick!}>
+          <ButtonLink key={index} onClick={link.onClick!}>
             {text}
           </ButtonLink>
         );
@@ -86,10 +86,10 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
       }
 
       return (
-        <>
+        <Fragment key={index}>
           {Section}
-          <ChevronRightIcon key={index} size={10} />
-        </>
+          <ChevronRightIcon size={10} />
+        </Fragment>
       );
     })}
   </div>

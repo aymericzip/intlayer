@@ -1,10 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
-  "include": [
-    "**/*",
-    "../@intlayer/design-system/src/components/DictionaryEditor/useEditionPanelStore.ts"
-  ],
+  "include": ["**/*"],
   "compilerOptions": {
     "jsx": "react-jsx"
   }

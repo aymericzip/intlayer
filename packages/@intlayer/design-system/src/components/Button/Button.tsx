@@ -44,7 +44,7 @@ const buttonVariants = cva(
         'invisible-link':
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent',
         hoverable:
-          'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
+          'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 aria-[current=true]:bg-opacity-5 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
       },
       color: {
         primary:
@@ -58,6 +58,8 @@ const buttonVariants = cva(
         light: 'border-white bg-white text-white hover:bg-neutral-500',
         dark: 'border-neutral-800 bg-neutral-800 text-neutral-800 hover:bg-neutral-900 dark:hover:bg-neutral-700',
         text: 'border-text dark:border-text-dark bg-text dark:bg-text-dark text-text dark:text-text-dark hover:opacity-80',
+        'text-inverse':
+          'border-text-inverse dark:border-text-inverse-dark bg-text-inverse dark:bg-text-inverse-dark text-text-inverse dark:text-text-inverse-dark hover:opacity-80',
         custom: '',
       },
 

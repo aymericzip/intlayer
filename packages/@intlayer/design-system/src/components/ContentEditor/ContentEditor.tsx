@@ -1,8 +1,14 @@
 'use client';
 
 import { Check, X } from 'lucide-react';
-import { type HTMLAttributes, useState, type FC } from 'react';
+import {
+  type HTMLAttributes,
+  useState,
+  type FC,
+  type ChangeEventHandler,
+} from 'react';
 import { cn } from '../../utils/cn';
+import { AutoSizedTextArea } from '../TextArea';
 
 export type ContentEditorProps = {
   children: string;
@@ -28,25 +34,22 @@ export const ContentEditor: FC<ContentEditorProps> = ({
     onContentChange(newValue);
   };
 
-  const handleOnContentChange = (e: React.FormEvent<HTMLDivElement>) =>
-    setNewValue(e.currentTarget.textContent ?? '');
+  const handleOnContentChange: ChangeEventHandler<HTMLTextAreaElement> = (e) =>
+    setNewValue(e.target.value ?? '');
 
   return (
     <div className="flex flex-row items-center justify-between gap-2">
-      <div
+      <AutoSizedTextArea
         className={cn(
           'break-word m-3 inline w-full bg-transparent outline-none',
           isEditing ? 'cursor-text' : 'cursor-pointer'
         )}
-        role="textbox"
-        contentEditable={isEditing}
-        onInput={handleOnContentChange}
-        suppressContentEditableWarning={true} // To suppress the warning for controlled components
+        onChange={handleOnContentChange}
         key={resetIncrementor}
+        variant="invisible"
+        defaultValue={children}
         {...props}
-      >
-        {children}
-      </div>
+      />
       {isEdited && (
         <div className="flex flex-row items-center justify-between gap-2">
           <Check

@@ -1,21 +1,15 @@
 'use client';
 
 import type { Dictionary as DictionaryAPI } from '@intlayer/backend';
-import type { KeyPath, Dictionary } from '@intlayer/core';
 import {
   Button,
-  DictionaryFieldEditor,
-  type FileContent,
+  DictionariesSelector,
   Loader,
   Modal,
   useAuth,
-  useEditedContentStore,
   useEditionPanelStore,
 } from '@intlayer/design-system';
-import {
-  useGetDictionaries,
-  useUpdateDictionary,
-} from '@intlayer/design-system/hooks';
+import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { Suspense, useEffect, useState, type FC } from 'react';
@@ -25,22 +19,11 @@ export const ContentDashboardContent: FC = () => {
   const { session } = useAuth();
   const project = session?.project;
   const { getDictionaries } = useGetDictionaries();
-  const { updateDictionary } = useUpdateDictionary();
   const [dictionaries, setDictionaries] = useState<DictionaryAPI[]>([]);
-  const { editedContent, addEditedContent, clearEditedDictionaryContent } =
-    useEditedContentStore((s) => ({
-      editedContent: s.editedContent,
-      addEditedContent: s.addEditedContent,
-      getEditedContentValue: s.getEditedContentValue,
-      clearEditedDictionaryContent: s.clearEditedDictionaryContent,
-    }));
   const { focusedContent, setFocusedContent } = useEditionPanelStore((s) => ({
     focusedContent: s.focusedContent,
     setFocusedContent: s.setFocusedContent,
   }));
-  const [keyPathEditionModal, setKeyPathEditionModal] = useState<
-    KeyPath[] | null
-  >(null);
   const { locale } = useLocale();
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { noDictionaryView, createDictionaryButton } =
@@ -93,7 +76,7 @@ export const ContentDashboardContent: FC = () => {
             color="text"
             onClick={() =>
               setFocusedContent({
-                dictionaryId: String(dictionary._id),
+                dictionaryId: dictionary.key,
                 keyPath: [],
                 dictionaryPath: undefined,
               })
@@ -106,48 +89,7 @@ export const ContentDashboardContent: FC = () => {
     );
   }
 
-  const dictionaryId: string = focusedContent.dictionaryId;
-  const dictionaryAPIObject: DictionaryAPI | undefined = dictionaries.find(
-    (dictionary) => String(dictionary._id) === dictionaryId
-  );
-  const dictionary: Dictionary | undefined = dictionaryAPIObject
-    ? {
-        ...dictionaryAPIObject.content,
-        filePath: undefined,
-        id: dictionaryAPIObject.key,
-      }
-    : undefined;
-
-  const dictionaryPath: string | undefined = dictionary?.filePath;
-  const editedDictionaryContent: FileContent[] | undefined = dictionaryId
-    ? editedContent[dictionaryId]
-    : undefined;
-
-  const handleUpdateDictionary = () => {
-    // updateDictionary();
-  };
-
-  if (!dictionary) {
-    return <>Error loading dictionary</>;
-  }
-
-  return (
-    <DictionaryFieldEditor
-      dictionary={dictionary}
-      keyPath={keyPathEditionModal ?? []}
-      locale={locale}
-      editedContent={editedDictionaryContent}
-      onFocusKeyPath={(keyPath) => {
-        setFocusedContent({ ...focusedContent, keyPath });
-        setKeyPathEditionModal(keyPath);
-      }}
-      onContentChange={(keyPath, newValue) =>
-        addEditedContent(dictionaryId, dictionaryPath, keyPath, newValue)
-      }
-      onValidEdition={handleUpdateDictionary}
-      onCancelEdition={() => clearEditedDictionaryContent(dictionaryId)}
-    />
-  );
+  return <DictionariesSelector locale={locale} />;
 };
 
 export const ContentDashboard: FC = () => (

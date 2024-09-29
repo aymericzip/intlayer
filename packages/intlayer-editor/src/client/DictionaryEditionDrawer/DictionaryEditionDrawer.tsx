@@ -6,10 +6,9 @@ import {
   RightDrawer,
   DictionaryEditor,
   LocaleSwitcher,
-  type FileContent,
   Modal,
-  DictionaryFieldEditor,
   useEditionPanelStore,
+  DictionaryFieldEditor,
 } from '@intlayer/design-system';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -17,7 +16,7 @@ import {
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 import dictionaries from '@intlayer/dictionaries-entry';
-import { useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { useDictionaryListDrawer } from '../DictionaryListDrawer/index';
 import {
   type FileContent as FileContentWithDictionaryPath,
@@ -38,6 +37,7 @@ export const DictionaryEditionDrawerContent: FC<
   >(null);
   const {
     setFocusedContent,
+    setDictionariesRecord,
     editContentRequest,
     editedContent,
     addEditedContent,
@@ -46,10 +46,10 @@ export const DictionaryEditionDrawerContent: FC<
 
   const dictionaryId: string = focusedContent.dictionaryId;
   const dictionary: Dictionary = dictionaries[dictionaryId];
-  const dictionaryPath: string | undefined = dictionary.filePath;
-  const editedDictionaryContent: FileContent[] | undefined = dictionaryId
-    ? editedContent[dictionaryId]
-    : undefined;
+
+  useEffect(() => {
+    setDictionariesRecord(dictionaries);
+  }, [setDictionariesRecord]);
 
   return (
     <>
@@ -60,32 +60,20 @@ export const DictionaryEditionDrawerContent: FC<
         title="Edit field"
         size="lg"
       >
-        <DictionaryFieldEditor
-          dictionary={dictionary}
-          keyPath={keyPathEditionModal ?? []}
-          locale={locale}
-          editedContent={editedDictionaryContent}
-          onFocusKeyPath={(keyPath) => {
-            setFocusedContent({ ...focusedContent, keyPath });
-            setKeyPathEditionModal(keyPath);
-          }}
-          onContentChange={(keyPath, newValue) =>
-            addEditedContent(dictionaryId, dictionaryPath, keyPath, newValue)
-          }
-          onValidEdition={editContentRequest}
-          onCancelEdition={() => clearEditedDictionaryContent(dictionaryId)}
-        />
+        {dictionary && (
+          <DictionaryFieldEditor dictionary={dictionary} locale={locale} />
+        )}
       </Modal>
       <DictionaryEditor
         dictionary={dictionary}
         locale={locale}
         focusedKeyPath={focusedContent.keyPath}
-        editedContent={editedDictionaryContent}
+        editedContent={editedContent[dictionaryId]}
         onFocusKeyPath={(keyPath) =>
           setFocusedContent({ ...focusedContent, keyPath })
         }
         onContentChange={(keyPath, newValue) =>
-          addEditedContent(dictionaryId, dictionaryPath, keyPath, newValue)
+          addEditedContent(dictionaryId, newValue, keyPath)
         }
         onValidEdition={editContentRequest}
         onCancelEdition={() => clearEditedDictionaryContent(dictionaryId)}

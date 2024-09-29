@@ -1,19 +1,20 @@
 'use client';
 
+import type { Dictionary } from '@intlayer/core';
 import { Check, X } from 'lucide-react';
 import type { FC } from 'react';
-import type { FileContent } from '.';
 
 interface ValidDictionaryChangeButtonsProps {
   onValidEdition: () => void;
   onCancelEdition: () => void;
-  editedContent?: FileContent[];
+  editedContent?: Dictionary;
+  dictionaryId?: string;
 }
 
 export const ValidDictionaryChangeButtons: FC<
   ValidDictionaryChangeButtonsProps
-> = ({ onCancelEdition, onValidEdition, ...props }) => {
-  const isEditing = (props.editedContent ?? []).length > 0;
+> = ({ onCancelEdition, onValidEdition, dictionaryId, ...props }) => {
+  const isEditing = Object.keys(props.editedContent ?? {}).length > 0;
 
   return (
     <>

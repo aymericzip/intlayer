@@ -1,28 +1,26 @@
+import type { VariantProps } from 'class-variance-authority';
 import {
   forwardRef,
   type DetailedHTMLProps,
   type TextareaHTMLAttributes,
 } from 'react';
-import { cn } from '../../utils/cn';
+import { inputVariants } from '../Input';
 
-type TextAreaProps = DetailedHTMLProps<
+export type TextAreaProps = DetailedHTMLProps<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
 > & {
   validationStyleEnabled?: boolean;
-};
+} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, validationStyleEnabled = false, ...props }, ref) => (
+  ({ className, variant, validationStyleEnabled = false, ...props }, ref) => (
     <textarea
-      className={cn(
-        'bg-input-background dark:bg-input-background-dark text-input-text dark:text-input-text-dark w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
-        'border-input-border dark:border-input-border-dark hover:border-input-border-hover dark:hover:border-input-border-hover-dark focus:border-input-border-focus dark:focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-        'aria-[invalid=true]:border-error dark:aria-[invalid=true]:border-error-dark',
-        validationStyleEnabled &&
-          'valid:border-success dark:valid:border-success-dark invalid:border-error dark:invalid:border-error-dark',
-        className
-      )}
+      className={inputVariants({
+        variant,
+        validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
+        className,
+      })}
       ref={ref}
       rows={1}
       {...props}

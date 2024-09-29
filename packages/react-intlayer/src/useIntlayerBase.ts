@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Locales } from '@intlayer/config';
+import type { DeclarationContent, Dictionary, NodeType } from '@intlayer/core';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
-import type { DeclarationContent, Dictionary, NodeType } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { renderIntlayerEditor } from 'intlayer-editor/client';
+import { renderIntlayerEditor } from 'intlayer-editor';
 import { isValidElement, type ReactNode } from 'react';
 import { processDictionary } from './processDictionary/index';
 

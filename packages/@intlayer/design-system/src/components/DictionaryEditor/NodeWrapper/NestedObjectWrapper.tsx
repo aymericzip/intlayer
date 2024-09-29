@@ -5,12 +5,13 @@ import {
 } from '@intlayer/core';
 import { Edit } from 'lucide-react';
 import type { FC } from 'react';
+import { getDictionaryValueByKeyPath } from '../../../utils/dictionary';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
 
-interface NestedObjectWrapperProps extends Omit<NodeWrapperProps, 'section'> {
+type NestedObjectWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: Record<string, DictionaryValue>;
-}
+};
 
 export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
   const {
@@ -36,6 +37,7 @@ export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
           isSelected={isSameKeyPath(newKeyPath, focusedKeyPath)}
           onClick={(e) => {
             e.stopPropagation();
+
             onFocusKeyPath(newKeyPath);
           }}
           rightParam={

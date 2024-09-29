@@ -47,6 +47,7 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
       <AutoSizedTextArea
         onChange={handleOnContentChange}
         key={resetIncrementor}
+        variant="invisible"
         {...props}
       >
         {children}

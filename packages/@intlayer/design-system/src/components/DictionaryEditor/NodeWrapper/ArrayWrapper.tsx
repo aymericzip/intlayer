@@ -8,9 +8,9 @@ import type { FC } from 'react';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
-interface ArrayWrapperProps extends Omit<NodeWrapperProps, 'section'> {
+type ArrayWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: DictionaryValue[];
-}
+};
 
 export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
   const {

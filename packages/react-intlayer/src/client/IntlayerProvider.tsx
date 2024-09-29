@@ -1,7 +1,7 @@
 'use client';
 
 import { getConfiguration, type Locales } from '@intlayer/config/client';
-import { ContentEditionLayout } from 'intlayer-editor/client';
+import { ContentEditionLayout } from 'intlayer-editor';
 import {
   type PropsWithChildren,
   createContext,

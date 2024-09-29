@@ -3,22 +3,14 @@
 import {
   useRef,
   useState,
-  type ChangeEvent,
   type FC,
   useEffect,
-  type DetailedHTMLProps,
-  type TextareaHTMLAttributes,
+  type ChangeEventHandler,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { TextArea } from './TextArea';
+import { TextArea, type TextAreaProps } from './TextArea';
 
-type TextAreaProps = Omit<
-  DetailedHTMLProps<
-    TextareaHTMLAttributes<HTMLTextAreaElement>,
-    HTMLTextAreaElement
-  >,
-  'ref'
-> & {
+type AutoSizedTextAreaProps = TextAreaProps & {
   autoSize?: boolean;
   maxRows?: number;
 };
@@ -26,7 +18,7 @@ type TextAreaProps = Omit<
 const LINE_HEIGHT = 24; // px
 const LINE_PADDING = 12; // px
 
-export const AutoSizedTextArea: FC<TextAreaProps> = ({
+export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
   className,
   autoSize = true,
   onChange,
@@ -62,7 +54,7 @@ export const AutoSizedTextArea: FC<TextAreaProps> = ({
     }
   }, [textAreaRef, value, autoSize, maxRows]);
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const val = e.target?.value;
 
     setValue(val);

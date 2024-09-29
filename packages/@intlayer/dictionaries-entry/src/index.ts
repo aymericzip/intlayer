@@ -25,4 +25,4 @@ if (existsSync(dictionariesPath)) {
   dictionaries = requireFunction(dictionariesPath);
 }
 
-export default (dictionaries ?? {}) as Record<string, Dictionary>;
+export default (dictionaries ?? {}) as Record<Dictionary['id'], Dictionary>;

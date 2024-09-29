@@ -1,9 +1,9 @@
-import type { KeyPath } from '@intlayer/core';
+import type { Dictionary, DictionaryValue, KeyPath } from '@intlayer/core';
 import {
   useRightDrawerStore,
-  type EditedContent,
   useEditedContentStore,
   useEditionPanelStore,
+  type DictionaryContent,
 } from '@intlayer/design-system';
 import { useEditorServer } from '../useEditorServer';
 import { getDrawerIdentifier } from './DictionaryEditionDrawer';
@@ -12,7 +12,7 @@ type DictionaryId = string;
 type DictionaryPath = string;
 
 export type FileContent = {
-  dictionaryPath: DictionaryPath | undefined;
+  dictionaryPath?: DictionaryPath | undefined;
   dictionaryId: string;
   keyPath?: KeyPath[];
 };
@@ -24,17 +24,19 @@ type DictionaryEditionDrawer = {
   open: (content: FileContent) => void;
   close: () => void;
   editContentRequest: () => Promise<void>;
-  editedContent: EditedContent;
+  editedContent: DictionaryContent;
   addEditedContent: (
     dictionaryId: DictionaryId,
-    dictionaryPath: DictionaryPath | undefined,
-    keyPath: KeyPath[],
-    newValue: string
+    newValue: DictionaryValue,
+    keyPath: KeyPath[]
+  ) => void;
+  setDictionariesRecord: (
+    dictionariesRecord: Record<DictionaryId, Dictionary>
   ) => void;
   getEditedContentValue: (
-    dictionaryPath: DictionaryPath,
+    dictionaryId: DictionaryId,
     keyPath: KeyPath[]
-  ) => string | undefined;
+  ) => DictionaryValue | undefined;
   clearEditedDictionaryContent: (dictionaryPath: DictionaryPath) => void;
 };
 
@@ -51,11 +53,13 @@ export const useDictionaryEditionDrawer = (
   const { isOpen, open, close } = useRightDrawerStore(id)();
   const {
     editedContent,
+    setDictionariesRecord,
     getEditedContentValue,
     addEditedContent,
     clearEditedDictionaryContent,
   } = useEditedContentStore((s) => ({
     editedContent: s.editedContent,
+    setDictionariesRecord: s.setDictionariesRecord,
     addEditedContent: s.addEditedContent,
     getEditedContentValue: s.getEditedContentValue,
     clearEditedDictionaryContent: s.clearEditedDictionaryContent,
@@ -84,6 +88,7 @@ export const useDictionaryEditionDrawer = (
     isOpen,
     focusedContent,
     setFocusedContent,
+    setDictionariesRecord,
     open: openDictionaryEditionDrawer,
     close,
     getEditedContentValue,

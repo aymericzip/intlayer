@@ -6,31 +6,24 @@ import {
   type KeyPath,
   type DictionaryValue,
 } from '@intlayer/core';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Plus } from 'lucide-react';
 import {
   createElement,
   type ReactElement,
   type ReactNode,
   type FC,
 } from 'react';
-import type { FieldContent } from '..';
 import { Button } from '../../Button';
 import { ContentEditorTextArea } from '../../ContentEditor/ContentEditorTextArea';
-import { getEditedContentValue } from '../../DictionaryEditor/NodeWrapper/StringWrapper';
+import {
+  useEditedContentStore,
+  useEditionPanelStore,
+} from '../../DictionaryEditor';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
 const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
-
-export interface NodeWrapperProps {
-  keyPath: KeyPath[];
-  section: DictionaryValue;
-  onContentChange?: (content: { keyPath: KeyPath[]; newValue: string }) => void;
-  locale: Locales;
-  editedContent?: FieldContent[];
-  onFocusKeyPath: (keyPath: KeyPath[]) => void;
-}
 
 const createReactElement = (element: ReactElement) => {
   if (typeof element === 'string') {
@@ -68,9 +61,24 @@ const createReactElement = (element: ReactElement) => {
   return createElement(type ?? 'div', props, ...props.children);
 };
 
-export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
-  const { section, keyPath, onFocusKeyPath, onContentChange, editedContent } =
-    props;
+export type NodeWrapperProps = {
+  dictionaryId: string;
+  keyPath: KeyPath[];
+  section: DictionaryValue;
+  locale: Locales;
+  selectedKey?: KeyPath['key'];
+};
+
+export const NodeWrapper: FC<NodeWrapperProps> = ({
+  section,
+  keyPath,
+  dictionaryId,
+  selectedKey,
+}) => {
+  const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
+  const setFocusedContentKeyPath = useEditionPanelStore(
+    (s) => s.setFocusedContentKeyPath
+  );
 
   if (typeof section === 'object') {
     if (isReactNode(section as Record<string, unknown>)) {
@@ -98,10 +106,11 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
             <Button
               label={`Go to translation ${translationKey}`}
               key={translationKey}
+              isActive={selectedKey === translationKey}
               variant="hoverable"
               color="text"
               onClick={() =>
-                onFocusKeyPath([
+                setFocusedContentKeyPath([
                   ...keyPath,
                   { type: NodeType.Translation, key: translationKey },
                 ])
@@ -111,6 +120,24 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
               {translationKey}
             </Button>
           ))}
+
+          <Button
+            label="Click to add translation"
+            variant="hoverable"
+            color="neutral"
+            textAlign="left"
+            onClick={() => {
+              const newKeyPath: KeyPath[] = [
+                ...keyPath,
+                { type: 'ObjectExpression', key: 'newField' },
+              ];
+              addEditedContent(dictionaryId, {}, newKeyPath, false);
+              setFocusedContentKeyPath(newKeyPath);
+            }}
+            Icon={Plus}
+          >
+            Add new translation
+          </Button>
         </div>
       );
     }
@@ -129,10 +156,11 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
             <Button
               label={`Go to enum ${enumKey}`}
               key={enumKey}
+              isActive={selectedKey === enumKey}
               variant="hoverable"
               color="text"
               onClick={() =>
-                onFocusKeyPath([
+                setFocusedContentKeyPath([
                   ...keyPath,
                   { type: NodeType.Enumeration, key: enumKey },
                 ])
@@ -142,6 +170,23 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
               {enumKey}
             </Button>
           ))}
+          <Button
+            label="Click to add enumeration"
+            variant="hoverable"
+            color="neutral"
+            textAlign="left"
+            onClick={() => {
+              const newKeyPath: KeyPath[] = [
+                ...keyPath,
+                { type: 'ObjectExpression', key: 'newField' },
+              ];
+              addEditedContent(dictionaryId, {}, newKeyPath, false);
+              setFocusedContentKeyPath(newKeyPath);
+            }}
+            Icon={Plus}
+          >
+            Add new enumeration
+          </Button>
         </div>
       );
     }
@@ -153,11 +198,12 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
             <Button
               label={`Go to item ${index}`}
               key={index}
+              isActive={selectedKey === index}
               variant="hoverable"
               color="text"
               IconRight={ChevronRight}
               onClick={() =>
-                onFocusKeyPath([
+                setFocusedContentKeyPath([
                   ...keyPath,
                   { type: 'ArrayExpression', key: index },
                 ])
@@ -166,26 +212,67 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
               {index}
             </Button>
           ))}
+
+          <Button
+            label="Click to add element"
+            variant="hoverable"
+            color="neutral"
+            textAlign="left"
+            onClick={() => {
+              const newKeyPath: KeyPath[] = [
+                ...keyPath,
+                { type: 'ObjectExpression', key: 'newField' },
+              ];
+              addEditedContent(dictionaryId, {}, newKeyPath, false);
+              setFocusedContentKeyPath(newKeyPath);
+            }}
+            Icon={Plus}
+          >
+            Add new element
+          </Button>
         </div>
       );
     }
 
+    const sectionArray = Object.keys(section);
     return (
       <div className="flex flex-col justify-between gap-2">
-        {Object.keys(section).map((key) => (
+        {sectionArray.map((key) => (
           <Button
             label={`Go to ${key}`}
             key={key}
+            isActive={selectedKey === key}
             color="text"
             variant="hoverable"
             onClick={() =>
-              onFocusKeyPath([...keyPath, { type: 'ObjectExpression', key }])
+              setFocusedContentKeyPath([
+                ...keyPath,
+                { type: 'ObjectExpression', key },
+              ])
             }
             IconRight={ChevronRight}
           >
             {key}
           </Button>
         ))}
+
+        <Button
+          label="Click to add field"
+          variant="hoverable"
+          color="neutral"
+          textAlign="left"
+          onClick={() => {
+            const newKeyPath: KeyPath[] = [
+              ...keyPath,
+              { type: 'ObjectExpression', key: 'newField' },
+            ];
+            addEditedContent(dictionaryId, {}, newKeyPath, false);
+            setFocusedContentKeyPath(newKeyPath);
+          }}
+          Icon={Plus}
+        >
+          Add new field
+        </Button>
       </div>
     );
   }
@@ -194,10 +281,17 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
     return (
       <ContentEditorTextArea
         aria-label="Edit field"
-        onContentChange={(newValue) => onContentChange?.({ keyPath, newValue })}
+        onContentChange={(newValue) =>
+          addEditedContent(dictionaryId, newValue, [
+            ...keyPath,
+            { type: 'ObjectExpression', key: 'newField' },
+          ])
+        }
       >
-        {getEditedContentValue(editedContent, keyPath) ?? section}
+        {section}
       </ContentEditorTextArea>
     );
   }
+
+  return <>Error loading section</>;
 };
