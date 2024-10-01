@@ -1,4 +1,4 @@
-import { useAsync } from './useAsync';
+import { useAsync } from './useAsync/useAsync';
 import { useIntlayerAPI } from './useIntlayerAPI';
 
 export const useLogin = () => useAsync('login', useIntlayerAPI().auth.login);
