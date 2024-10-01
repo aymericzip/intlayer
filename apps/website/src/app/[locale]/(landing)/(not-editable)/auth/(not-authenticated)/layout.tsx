@@ -1,5 +1,6 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier';
 import { getServerSession } from '@components/Auth/getServerSession';
+import { BackgroundLayout } from '@components/BackgroundLayout';
 import { LanguageBackground } from '@components/LandingPage/LanguageSection';
 import { getQueryParams } from '@utils/queryMiddleware';
 import type { FC, PropsWithChildren } from 'react';
@@ -18,7 +19,9 @@ const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
       redirectionRoute={redirectURL}
       session={session}
     >
-      <LanguageBackground>{children}</LanguageBackground>
+      <BackgroundLayout>
+        <LanguageBackground>{children}</LanguageBackground>
+      </BackgroundLayout>
     </AuthenticationBarrier>
   );
 };

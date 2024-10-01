@@ -37,3 +37,4 @@ export * from './TabSelector';
 export * from './Badge';
 export * from './Select';
 export * from './Command';
+export * from './Pattern';

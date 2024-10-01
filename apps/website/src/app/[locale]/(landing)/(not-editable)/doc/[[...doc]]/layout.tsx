@@ -1,3 +1,4 @@
+import { BackgroundLayout } from '@components/BackgroundLayout';
 import { getDocPaths, getDoc } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import type { Metadata } from 'next';
@@ -46,7 +47,7 @@ const DocLayout: NextLayoutIntlayer<DocProps> = ({
   params: { doc, locale },
 }) => (
   <DocPageLayout activeSections={doc} locale={locale}>
-    {children}
+    <BackgroundLayout>{children}</BackgroundLayout>
   </DocPageLayout>
 );
 
