@@ -1,25 +1,19 @@
 'use client';
 
-import type { Dictionary as DictionaryAPI } from '@intlayer/backend';
 import {
   Button,
   DictionariesSelector,
   Loader,
   Modal,
-  useAuth,
   useEditionPanelStore,
 } from '@intlayer/design-system';
-import { useGetDictionaries } from '@intlayer/design-system/hooks';
+import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { Suspense, useEffect, useState, type FC } from 'react';
+import { Suspense, useState, type FC } from 'react';
 import { DictionaryCreationForm } from './DictionaryCreationForm';
 
 export const ContentDashboardContent: FC = () => {
-  const { session } = useAuth();
-  const project = session?.project;
-  const { getDictionaries } = useGetDictionaries();
-  const [dictionaries, setDictionaries] = useState<DictionaryAPI[]>([]);
   const { focusedContent, setFocusedContent } = useEditionPanelStore((s) => ({
     focusedContent: s.focusedContent,
     setFocusedContent: s.setFocusedContent,
@@ -28,16 +22,10 @@ export const ContentDashboardContent: FC = () => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { noDictionaryView, createDictionaryButton } =
     useIntlayer('dictionary-form');
+  const { online, isLoading } = useGetAllDictionaries();
+  const dictionaries = Object.values(online) ?? [];
 
-  useEffect(() => {
-    getDictionaries({}).then((response) => {
-      setDictionaries(response.data ?? []);
-    });
-  }, [getDictionaries]);
-
-  if (!project) {
-    return <>No project</>;
-  }
+  if (isLoading) return <Loader />;
 
   if (!focusedContent) {
     if (dictionaries.length === 0) {
@@ -66,8 +54,8 @@ export const ContentDashboardContent: FC = () => {
     }
 
     return (
-      <>
-        {dictionaries.map((dictionary: DictionaryAPI) => (
+      <div className="flex max-w-[40rem] flex-1 flex-col gap-2">
+        {dictionaries.map((dictionary) => (
           <Button
             key={String(dictionary._id)}
             label="Select dictionary"
@@ -76,16 +64,16 @@ export const ContentDashboardContent: FC = () => {
             color="text"
             onClick={() =>
               setFocusedContent({
-                dictionaryId: dictionary.key,
+                dictionaryId: dictionary.id,
                 keyPath: [],
                 dictionaryPath: undefined,
               })
             }
           >
-            {dictionary.key}
+            {dictionary.id}
           </Button>
         ))}
-      </>
+      </div>
     );
   }
 

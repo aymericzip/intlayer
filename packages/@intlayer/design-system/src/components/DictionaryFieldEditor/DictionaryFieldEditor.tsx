@@ -11,6 +11,10 @@ import {
 import { EditorView } from './EditorView';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NodeWrapper } from './NodeWrapper';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '../Button';
+import { useDictionary } from 'react-intlayer';
+import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
 
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
@@ -24,13 +28,16 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const { id } = dictionary;
   const containerRef = useRef<HTMLDivElement>(null);
   const editedContent = useEditedContentStore((s) => s.editedContent);
+  const { returnToDictionaryList } = useDictionary(
+    dictionaryFieldEditorContent
+  );
 
-  const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
-    (s) => ({
+  const { focusedContent, setFocusedContentKeyPath, setFocusedContent } =
+    useEditionPanelStore((s) => ({
       focusedContent: s.focusedContent,
       setFocusedContentKeyPath: s.setFocusedContentKeyPath,
-    })
-  );
+      setFocusedContent: s.setFocusedContent,
+    }));
 
   const keyPath = useMemo(
     () => focusedContent?.keyPath ?? [],
@@ -57,11 +64,22 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
 
   return (
     <div className="flex size-full flex-1 flex-col gap-10">
-      <KeyPathBreadcrumb
-        dictionaryId={id}
-        keyPath={keyPath}
-        onClickKeyPath={setFocusedContentKeyPath}
-      />
+      <div className="flex flex-row flex-wrap items-center gap-2 text-sm">
+        <Button
+          onClick={() => setFocusedContent(null)}
+          variant="hoverable"
+          size="icon"
+          color="text"
+          label={returnToDictionaryList.label.value}
+        >
+          <ArrowLeft className="size-4" />
+        </Button>
+        <KeyPathBreadcrumb
+          dictionaryId={id}
+          keyPath={keyPath}
+          onClickKeyPath={setFocusedContentKeyPath}
+        />
+      </div>
       <div className="border-text dark:border-text-dark flex h-full flex-1 flex-col overflow-hidden rounded-xl border-[1.5px]">
         <div
           className="flex flex-1 items-start gap-0.5 overflow-x-auto p-2"

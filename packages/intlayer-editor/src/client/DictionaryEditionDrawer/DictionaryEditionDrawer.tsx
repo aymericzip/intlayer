@@ -58,7 +58,7 @@ export const DictionaryEditionDrawerContent: FC<
         onClose={() => setKeyPathEditionModal(null)}
         hasCloseButton
         title="Edit field"
-        size="lg"
+        size="xl"
       >
         {dictionary && (
           <DictionaryFieldEditor dictionary={dictionary} locale={locale} />

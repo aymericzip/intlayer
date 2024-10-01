@@ -1,12 +1,13 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
 import type { FC } from 'react';
 import { useGetAllDictionaries } from '../../hooks';
 import { useEditionPanelStore } from '../DictionaryEditor';
 import { Loader } from '../Loader';
 import { DictionaryFieldEditor } from './DictionaryFieldEditor';
+import { useDictionary } from 'react-intlayer';
+import { dictionariesSelectorContent } from './dictionariesSelector.content';
 
 type DictionariesSelectorProps = {
   locale: Locales;
@@ -15,17 +16,21 @@ type DictionariesSelectorProps = {
 export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   locale,
 }) => {
-  const { all } = useGetAllDictionaries();
+  const { all, isLoading } = useGetAllDictionaries();
   const { focusedContent } = useEditionPanelStore((s) => ({
     focusedContent: s.focusedContent,
   }));
+  const { noDictionaryMessage, dictionaryNotFoundMessage } = useDictionary(
+    dictionariesSelectorContent
+  );
 
-  if (!focusedContent?.dictionaryId) return <>No dictionary focused</>;
+  if (isLoading) return <Loader />;
 
-  const dictionary: Dictionary | undefined =
-    all?.[focusedContent?.dictionaryId];
+  if (!focusedContent?.dictionaryId) return <>{noDictionaryMessage}</>;
 
-  if (!dictionary) return <Loader />;
+  const dictionary = all?.[focusedContent?.dictionaryId];
+
+  if (!dictionary) return <>{dictionaryNotFoundMessage}</>;
 
   return <DictionaryFieldEditor dictionary={dictionary} locale={locale} />;
 };

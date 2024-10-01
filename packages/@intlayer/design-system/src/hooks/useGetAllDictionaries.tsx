@@ -12,7 +12,7 @@ import type { DictionaryContent } from '../components/DictionaryEditor';
 import { useGetDictionaries } from '.';
 
 export const useGetAllDictionaries = () => {
-  const { getDictionaries } = useGetDictionaries();
+  const { getDictionaries, isLoading } = useGetDictionaries();
   const [onlineDictionaries, setOnlineDictionaries] =
     useState<DictionaryContent>({});
 
@@ -46,5 +46,6 @@ export const useGetAllDictionaries = () => {
     online: onlineDictionaries,
     locale: localeDictionaries,
     all: allDictionaries,
+    isLoading,
   };
 };
