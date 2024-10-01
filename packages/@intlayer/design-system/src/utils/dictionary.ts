@@ -11,7 +11,7 @@ import {
 import { isValidElement } from 'react';
 
 export const getDictionaryValueByKeyPath = (
-  dictionaryContent: Dictionary,
+  dictionaryContent: DictionaryValue,
   keyPath: KeyPath[]
 ): DictionaryValue => {
   let currentValue: any = dictionaryContent;

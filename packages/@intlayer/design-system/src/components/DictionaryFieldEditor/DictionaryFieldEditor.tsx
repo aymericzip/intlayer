@@ -25,7 +25,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   dictionary,
   locale,
 }) => {
-  const { id } = dictionary;
+  const { id, filePath, ...dictionaryContent } = dictionary;
   const containerRef = useRef<HTMLDivElement>(null);
   const editedContent = useEditedContentStore((s) => s.editedContent);
   const { returnToDictionaryList } = useDictionary(
@@ -88,7 +88,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           {prefixesKeyPath.map((keyPath, index) => {
             const section =
               getDictionaryValueByKeyPath(editedContent[id], keyPath) ??
-              getDictionaryValueByKeyPath(dictionary, keyPath);
+              getDictionaryValueByKeyPath(dictionaryContent, keyPath);
 
             const isEditableSection = typeof section === 'string';
             if (isEditableSection) return <></>;
