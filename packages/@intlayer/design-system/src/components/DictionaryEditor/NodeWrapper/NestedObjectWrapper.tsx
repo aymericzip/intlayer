@@ -2,10 +2,10 @@ import {
   type KeyPath,
   isSameKeyPath,
   type DictionaryValue,
+  NodeType,
 } from '@intlayer/core';
 import { Edit } from 'lucide-react';
 import type { FC } from 'react';
-import { getDictionaryValueByKeyPath } from '../../../utils/dictionary';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
 
@@ -25,7 +25,7 @@ export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
   return Object.keys(section)
     .filter((key) => !traceKeys.includes(key))
     .map((key) => {
-      const newKeyPathEl: KeyPath = { key, type: 'ObjectExpression' };
+      const newKeyPathEl: KeyPath = { key, type: NodeType.Object };
       const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
       return (

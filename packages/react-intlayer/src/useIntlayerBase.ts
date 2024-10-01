@@ -75,30 +75,34 @@ type ExcludeIntlayerUtilsKeys<T> = Omit<T, 'id' | 'filePath'>;
 /**
  * Go through the object. If a object has a keyPath, render the intlayer editor if editor enabled.
  */
-export const recursiveTransformContent = (value: any): object => {
+export const recursiveTransformContent = (
+  value: any,
+  isContentSelectable = false
+): object => {
   if (typeof value === 'function') {
-    return (props: any) => recursiveTransformContent(value(props));
-  } else if (
-    typeof value === 'object' &&
-    typeof value.keyPath !== 'undefined' &&
-    typeof value.dictionaryId !== 'undefined'
-  ) {
-    return renderIntlayerEditor(value);
-  } else if (typeof value === 'object' && Array.isArray(value)) {
-    return value.map(recursiveTransformContent);
-  } else if (typeof value === 'object' && isValidElement(value)) {
-    return value;
+    return (props: any) =>
+      recursiveTransformContent(value(props), isContentSelectable);
   } else if (typeof value === 'object') {
+    if (typeof value.dictionaryId !== 'undefined') {
+      return renderIntlayerEditor(value, isContentSelectable);
+    } else if (Array.isArray(value)) {
+      return value.map((el) =>
+        recursiveTransformContent(el, isContentSelectable)
+      );
+    } else if (isValidElement(value)) {
+      return value;
+    }
+
     return Object.entries(value).reduce(
       (acc, [key, value]) => ({
         ...acc,
-        [key]: recursiveTransformContent(value),
+        [key]: recursiveTransformContent(value, isContentSelectable),
       }),
       {} as object
     );
   }
 
-  return value?.value ?? value;
+  return value;
 };
 
 type DataFromDictionary<
@@ -119,7 +123,8 @@ export type UseDictionary = <T extends DeclarationContent, L extends Locales>(
  */
 export const useDictionary = <T extends DeclarationContent, L extends Locales>(
   dictionary: T,
-  locale?: L
+  locale?: L,
+  isContentSelectable = false
 ) => {
   const result = processDictionary(
     dictionary as Dictionary,
@@ -129,7 +134,10 @@ export const useDictionary = <T extends DeclarationContent, L extends Locales>(
     locale
   ) as object;
 
-  return recursiveTransformContent(result) as DataFromDictionary<T, L>;
+  return recursiveTransformContent(
+    result,
+    isContentSelectable
+  ) as DataFromDictionary<T, L>;
 };
 
 /**
@@ -174,5 +182,10 @@ export const useIntlayerBase: UseIntlayer = <
     locale
   ) as object;
 
-  return recursiveTransformContent(result) as DataFromDictionaryId<T, L>;
+  const isContentSelectable = true;
+
+  return recursiveTransformContent(
+    result,
+    isContentSelectable
+  ) as DataFromDictionaryId<T, L>;
 };

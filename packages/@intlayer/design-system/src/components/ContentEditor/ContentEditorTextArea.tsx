@@ -8,7 +8,7 @@ import {
   type ChangeEventHandler,
   useEffect,
 } from 'react';
-import { AutoSizedTextArea } from '../TextArea';
+import { TextArea } from '../TextArea';
 
 export type ContentEditorTextAreaProps = {
   children: string;
@@ -44,14 +44,14 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
       className="flex size-full flex-col items-center justify-between gap-2"
       key={children}
     >
-      <AutoSizedTextArea
+      <TextArea
         onChange={handleOnContentChange}
         key={resetIncrementor}
         variant="invisible"
+        className="size-full"
+        defaultValue={children}
         {...props}
-      >
-        {children}
-      </AutoSizedTextArea>
+      />
       {isEdited && (
         <div className="flex w-full items-center justify-end gap-2">
           <Check

@@ -211,7 +211,7 @@ export const processDictionary = (
       result = (content as DictionaryValue[]).map((field, key) => {
         const resultKeyPath: KeyPath[] = [
           ...keyPath,
-          { type: 'ArrayExpression', key },
+          { type: NodeType.Array, key },
         ];
 
         return processNode(
@@ -234,7 +234,7 @@ export const processDictionary = (
 
         const resultKeyPath: KeyPath[] = [
           ...keyPath,
-          { type: 'ObjectExpression', key },
+          { type: NodeType.Object, key },
         ];
 
         const nodeResult = processNode(

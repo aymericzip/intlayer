@@ -2,22 +2,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   NodeType,
+  type TranslationContent,
   type Dictionary,
   type DictionaryValue,
   type KeyPath,
+  type EnumerationContent,
 } from '@intlayer/core';
+import { isValidElement } from 'react';
 
 export const getDictionaryValueByKeyPath = (
   dictionaryContent: Dictionary,
   keyPath: KeyPath[]
-): Dictionary => {
+): DictionaryValue => {
   let currentValue: any = dictionaryContent;
 
   for (const keyObj of keyPath) {
-    if (
-      keyObj.type === 'ObjectExpression' ||
-      keyObj.type === 'ArrayExpression'
-    ) {
+    if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
       currentValue = currentValue?.[keyObj.key];
     } else if (keyObj.type === NodeType.Translation) {
       currentValue = currentValue?.[NodeType.Translation][keyObj.key];
@@ -26,7 +26,7 @@ export const getDictionaryValueByKeyPath = (
     }
   }
 
-  return currentValue as Dictionary;
+  return currentValue as DictionaryValue;
 };
 
 type LastKeyType = string | number;
@@ -43,14 +43,16 @@ export const editDictionaryByKeyPath = (
   for (const keyObj of keyPath) {
     parentValue = currentValue;
 
-    if (keyObj.type === 'ObjectExpression') {
+    if (keyObj.type === NodeType.Object) {
       lastKeys = [keyObj.key];
 
       if (!currentValue[keyObj.key]) {
-        currentValue[keyObj.key] = {};
+        currentValue = {
+          [keyObj.key]: {},
+        };
       }
       currentValue = currentValue[keyObj.key];
-    } else if (keyObj.type === 'ArrayExpression') {
+    } else if (keyObj.type === NodeType.Array) {
       lastKeys = [keyObj.key];
 
       if (!currentValue[keyObj.key]) {
@@ -100,10 +102,7 @@ export const removeDictionaryValueByKeyPath = (
   for (const keyObj of keyPath) {
     parentValue = currentValue;
 
-    if (
-      keyObj.type === 'ObjectExpression' ||
-      keyObj.type === 'ArrayExpression'
-    ) {
+    if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
       lastKey = keyObj.key;
       currentValue = currentValue[keyObj.key];
     } else if (keyObj.type === NodeType.Translation) {
@@ -117,11 +116,39 @@ export const removeDictionaryValueByKeyPath = (
 
   if (parentValue && lastKey !== null) {
     if (Array.isArray(parentValue)) {
-      parentValue.splice(lastKey as number, 1);
+      parentValue.splice(lastKey as unknown as number, 1);
     } else {
       delete parentValue[lastKey];
     }
   }
 
   return dictionaryContent;
+};
+
+export const getSectionType = (section: DictionaryValue): NodeType => {
+  if (typeof section === 'string') {
+    return NodeType.Text;
+  }
+
+  if (
+    (section as TranslationContent<unknown>)?.nodeType === NodeType.Translation
+  ) {
+    return NodeType.Translation;
+  }
+
+  if (
+    (section as EnumerationContent<unknown>)?.nodeType === NodeType.Enumeration
+  ) {
+    return NodeType.Enumeration;
+  }
+
+  if (Array.isArray(section)) {
+    return NodeType.Array;
+  }
+
+  if (isValidElement(section)) {
+    return NodeType.ReactNode;
+  }
+
+  return NodeType.Object;
 };

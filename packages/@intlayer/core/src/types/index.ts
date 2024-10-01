@@ -9,8 +9,9 @@ export type {
 export { NodeType } from './nodeType';
 export type {
   KeyPath,
-  ObjectExpressionNode,
-  ArrayExpressionNode,
-  TranslationOrEnumerationNode,
+  ObjectNode,
+  ArrayNode,
+  TranslationNode,
+  EnumerationNode,
 } from './keyPath';
 export type { DictionaryValue, Dictionary } from './dictionary';

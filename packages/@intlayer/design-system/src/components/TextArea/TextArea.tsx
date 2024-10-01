@@ -4,6 +4,7 @@ import {
   type DetailedHTMLProps,
   type TextareaHTMLAttributes,
 } from 'react';
+import { cn } from '../../utils/cn';
 import { inputVariants } from '../Input';
 
 export type TextAreaProps = DetailedHTMLProps<
@@ -16,11 +17,16 @@ export type TextAreaProps = DetailedHTMLProps<
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ className, variant, validationStyleEnabled = false, ...props }, ref) => (
     <textarea
-      className={inputVariants({
-        variant,
-        validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
-        className,
-      })}
+      className={cn(
+        'resize-none',
+        inputVariants({
+          variant,
+          validationStyleEnabled: validationStyleEnabled
+            ? 'enabled'
+            : 'disabled',
+          className,
+        })
+      )}
       ref={ref}
       rows={1}
       {...props}

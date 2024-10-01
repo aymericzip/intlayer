@@ -10,12 +10,7 @@ import {
   useEditionPanelStore,
   DictionaryFieldEditor,
 } from '@intlayer/design-system';
-/**
- * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
- * Using an external package allow to alias it in the bundle configuration (such as webpack).
- * The alias allow hot reload the app (such as nextjs) on any dictionary change.
- */
-import dictionaries from '@intlayer/dictionaries-entry';
+import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useEffect, useState, type FC } from 'react';
 import { useDictionaryListDrawer } from '../DictionaryListDrawer/index';
 import {
@@ -31,7 +26,7 @@ type DictionaryEditionDrawerContentProps = {
 
 export const DictionaryEditionDrawerContent: FC<
   DictionaryEditionDrawerContentProps
-> = ({ focusedContent, locale, identifier }) => {
+> = ({ locale, identifier }) => {
   const [keyPathEditionModal, setKeyPathEditionModal] = useState<
     KeyPath[] | null
   >(null);
@@ -40,16 +35,21 @@ export const DictionaryEditionDrawerContent: FC<
     setDictionariesRecord,
     editContentRequest,
     editedContent,
+    focusedContent,
     addEditedContent,
     clearEditedDictionaryContent,
   } = useDictionaryEditionDrawer(identifier);
-
-  const dictionaryId: string = focusedContent.dictionaryId;
-  const dictionary: Dictionary = dictionaries[dictionaryId];
+  const { all: dictionaries } = useGetAllDictionaries();
 
   useEffect(() => {
     setDictionariesRecord(dictionaries);
-  }, [setDictionariesRecord]);
+  }, [setDictionariesRecord, dictionaries]);
+
+  const dictionaryId = focusedContent?.dictionaryId;
+
+  if (!dictionaryId) return <>No dictionary focused</>;
+
+  const dictionary: Dictionary = dictionaries[dictionaryId];
 
   return (
     <>

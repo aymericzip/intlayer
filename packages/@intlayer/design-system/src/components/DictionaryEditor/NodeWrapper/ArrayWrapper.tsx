@@ -1,5 +1,6 @@
 import {
   isSameKeyPath,
+  NodeType,
   type DictionaryValue,
   type KeyPath,
 } from '@intlayer/core';
@@ -24,7 +25,7 @@ export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
   return section.map((subSection, key) => {
     const newKeyPathEl: KeyPath = {
       key,
-      type: 'ArrayExpression',
+      type: NodeType.Array,
     };
     const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 

@@ -66,6 +66,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^1.8.0",
     "@intlayer/backend": "workspace:^",
+    "@intlayer/dictionaries-entry": "workspace:^",
     "@storybook/addon-essentials": "^8.2.9",
     "@storybook/addon-interactions": "^8.2.9",
     "@storybook/addon-links": "^8.2.9",
@@ -103,6 +104,7 @@
   "peerDependencies": {
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
+    "@intlayer/dictionaries-entry": "workspace:^",
     "intlayer": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

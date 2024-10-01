@@ -1,21 +1,27 @@
 import type { NodeType } from './nodeType';
 
-export type ObjectExpressionNode = {
-  type: 'ObjectExpression';
+export type ObjectNode = {
+  type: NodeType.Object;
   key: string;
 };
 
-export type ArrayExpressionNode = {
-  type: 'ArrayExpression';
+export type ArrayNode = {
+  type: NodeType.Array;
   key: number;
 };
 
-export type TranslationOrEnumerationNode = {
-  type: NodeType;
+export type EnumerationNode = {
+  type: NodeType.Enumeration;
+  key: string;
+};
+
+export type TranslationNode = {
+  type: NodeType.Translation;
   key: string;
 };
 
 export type KeyPath =
-  | ObjectExpressionNode
-  | ArrayExpressionNode
-  | TranslationOrEnumerationNode;
+  | ObjectNode
+  | ArrayNode
+  | TranslationNode
+  | EnumerationNode;

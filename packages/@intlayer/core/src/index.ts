@@ -21,9 +21,10 @@ export type {
   TypedNode,
   DeclarationContent,
   KeyPath,
-  ObjectExpressionNode,
-  ArrayExpressionNode,
-  TranslationOrEnumerationNode,
+  ObjectNode,
+  ArrayNode,
+  TranslationNode,
+  EnumerationNode,
   DictionaryValue,
   Dictionary,
 } from './types/index';

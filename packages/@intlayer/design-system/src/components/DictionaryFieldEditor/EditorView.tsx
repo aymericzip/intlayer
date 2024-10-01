@@ -4,6 +4,7 @@ import type { Locales } from '@intlayer/config/client';
 import type { KeyPath, Dictionary } from '@intlayer/core';
 import { Check } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
+import { useDictionary } from 'react-intlayer';
 import { getDictionaryValueByKeyPath } from '../../utils/dictionary';
 import { Button } from '../Button';
 import {
@@ -11,6 +12,8 @@ import {
   useEditionPanelStore,
 } from '../DictionaryEditor';
 import { Input } from '../Input';
+import { editorViewContent } from './editorView.content';
+import { NodeTypeSelector } from './NodeTypeSelector';
 import { NodeWrapper } from './NodeWrapper';
 
 type EditorViewProps = {
@@ -29,6 +32,8 @@ export const EditorView: FC<EditorViewProps> = ({
   const initialKeyName = keyPath[keyPath.length - 1]?.key ?? '';
   const [keyName, setKeyName] = useState<string | number>(initialKeyName);
   const isKeyNameEdited = keyName !== initialKeyName;
+  const { titleInput, titleValidationButton } =
+    useDictionary(editorViewContent);
 
   const { editedContent, renameEditedContent } = useEditedContentStore((s) => ({
     editedContent: s.editedContent,
@@ -61,14 +66,14 @@ export const EditorView: FC<EditorViewProps> = ({
         </div>
       )}
 
-      <form className="bg-text dark:bg-text-dark text-text-dark dark:text-text flex w-full items-start gap-2 px-2 py-4">
-        {keyPath.length > 0 ? (
+      {keyPath.length > 0 ? (
+        <form className="bg-text dark:bg-text-dark text-text-dark dark:text-text flex w-full items-start justify-between gap-2 px-4 py-2">
           <div className="flex items-center gap-1" key={initialKeyName}>
             <Input
               name="key"
               aria-label="Key"
-              placeholder="Enter the key of your dictionary"
-              defaultValue={keyName}
+              placeholder={titleInput.placeholder.value}
+              defaultValue={initialKeyName}
               onChange={(e) => setKeyName(e.target.value)}
               className="h-8"
               variant="invisible"
@@ -79,7 +84,7 @@ export const EditorView: FC<EditorViewProps> = ({
                 color="text-inverse"
                 variant="hoverable"
                 isLoading={false}
-                label="Rename"
+                label={titleValidationButton.label.value}
                 onClick={() => {
                   renameEditedContent(dictionaryId, keyName, keyPath);
 
@@ -98,10 +103,15 @@ export const EditorView: FC<EditorViewProps> = ({
               </Button>
             )}
           </div>
-        ) : (
-          <span className="h-8"></span>
-        )}
-      </form>
+          <NodeTypeSelector
+            keyPath={keyPath}
+            dictionaryId={dictionaryId}
+            section={section}
+          />
+        </form>
+      ) : (
+        <span className="h-8"></span>
+      )}
     </>
   );
 };

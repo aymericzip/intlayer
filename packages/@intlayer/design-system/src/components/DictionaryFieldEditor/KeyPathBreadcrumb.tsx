@@ -19,9 +19,9 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
       onClick: () =>
         onClickKeyPath(
           keyPath
-            // With keyPath = [{type: 'ObjectExpression', key: '0'}, {type: 'ArrayExpression', key: '0'}, {type: 'ObjectExpression', key: '1'}]
-            // If index is 0 -> onFocusKeyPath([{type: 'ObjectExpression', key: '0'}])
-            // If index is 1 -> onFocusKeyPath([{type: 'ObjectExpression', key: '0'}, {type: 'ArrayExpression', key: '0'}])
+            // With keyPath = [{type: NodeType.Object, key: '0'}, {type: NodeType.Array, key: '0'}, {type: NodeType.Object, key: '1'}]
+            // If index is 0 -> onFocusKeyPath([{type: NodeType.Object, key: '0'}])
+            // If index is 1 -> onFocusKeyPath([{type: NodeType.Object, key: '0'}, {type: NodeType.Array, key: '0'}])
             .slice(0, index + 1)
         ),
       text: el.key.toString(),
