@@ -17,19 +17,13 @@ import {
 import { ChevronsUpDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import React, { useEffect, useState, type FC, type ReactNode } from 'react';
+import { type ComponentProps, useEffect, useState, type FC } from 'react';
 import { ProjectCreationForm } from '../ProjectForm/ProjectCreationForm';
-import { type ExternalLinks, PagesRoutes } from '@/Routes';
+import { PagesRoutes } from '@/Routes';
 
-export type NavbarProps = {
-  links: {
-    url: string | PagesRoutes | ExternalLinks;
-    label: string;
-    title: ReactNode;
-  }[];
-};
+type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>>;
 
-export const ProjectDropdown: FC = () => {
+export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   const { session, checkSession } = useAuth();
   const { getProjects } = useGetProjects();
   const { selectProject, isLoading: isSelectProjectLoading } =
@@ -118,7 +112,7 @@ export const ProjectDropdown: FC = () => {
           {project.name}
         </Button>
 
-        <DropDown.Panel identifier="project-dropdown" isFocusable>
+        <DropDown.Panel isFocusable {...props} identifier="project-dropdown">
           <Container
             padding="lg"
             transparency="none"

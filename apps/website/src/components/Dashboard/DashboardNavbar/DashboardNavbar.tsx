@@ -48,7 +48,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
             <Logo type="logoOnly" className="size-6" />
           </Link>
           {!isMobile && (
-            <div className="flex w-auto items-center gap-4 overflow-y-auto">
+            <div className="flex w-auto items-center gap-4">
               {organization && (
                 <>
                   <span>/</span>
@@ -71,18 +71,18 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
         </div>
       </div>
       {isMobile && (
-        <div className="flex w-full items-center gap-4 overflow-y-auto max-sm:py-4">
+        <div className="flex w-full items-center gap-4">
           {organization && <OrganizationDropdown />}
           {project && (
             <>
               <span>/</span>
-              <ProjectDropdown />
+              <ProjectDropdown align="end" />
             </>
           )}
         </div>
       )}
 
-      <div className="max-3 flex w-full items-center gap-8 overflow-y-auto max-sm:pb-4">
+      <div className="max-3 flex w-full items-center gap-8 overflow-x-auto max-sm:pb-4">
         <TabSelector
           selectedChoice={pathname}
           tabs={filteredLinks.map(({ url, label, title }) => (
