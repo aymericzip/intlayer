@@ -10,6 +10,7 @@ import React, { type FC, type ReactNode } from 'react';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';
+import { useDevice } from '@intlayer/design-system/hooks';
 
 export type NavbarProps = {
   links: {
@@ -23,6 +24,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const pathname = usePathname();
   const { session } = useAuth();
   const { organization, project } = session ?? {};
+  const { isMobile } = useDevice('sm');
 
   const filteredLinks = links
     .filter((el) => {
@@ -41,21 +43,25 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   return (
     <Container className="z-50 flex flex-col gap-3 p-4" roundedSize="none">
       <div className="flex justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex w-auto items-center gap-4">
           <Link href={PagesRoutes.Home} label="Dashboard" color="text">
             <Logo type="logoOnly" className="size-6" />
           </Link>
-          {organization && (
-            <>
-              <span>/</span>
-              <OrganizationDropdown />
-            </>
-          )}
-          {project && (
-            <>
-              <span>/</span>
-              <ProjectDropdown />
-            </>
+          {!isMobile && (
+            <div className="flex w-auto items-center gap-4 overflow-y-auto">
+              {organization && (
+                <>
+                  <span>/</span>
+                  <OrganizationDropdown />
+                </>
+              )}
+              {project && (
+                <>
+                  <span>/</span>
+                  <ProjectDropdown />
+                </>
+              )}
+            </div>
           )}
         </div>
         <div className="flex items-center gap-4">
@@ -64,7 +70,19 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
           <ProfileDropDown />
         </div>
       </div>
-      <div className="flex gap-8 px-5">
+      {isMobile && (
+        <div className="flex w-full items-center gap-4 overflow-y-auto max-sm:py-4">
+          {organization && <OrganizationDropdown />}
+          {project && (
+            <>
+              <span>/</span>
+              <ProjectDropdown />
+            </>
+          )}
+        </div>
+      )}
+
+      <div className="max-3 flex w-full items-center gap-8 overflow-y-auto max-sm:pb-4">
         <TabSelector
           selectedChoice={pathname}
           tabs={filteredLinks.map(({ url, label, title }) => (

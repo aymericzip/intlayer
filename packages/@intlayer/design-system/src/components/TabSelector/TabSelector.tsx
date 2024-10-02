@@ -8,6 +8,7 @@ import {
   cloneElement,
 } from 'react';
 import { useItemSelector } from '../../hooks';
+import { cn } from '../../utils/cn';
 
 const tabSelectorVariant = cva(
   'relative flex size-full flex-row items-center gap-2',
@@ -63,7 +64,8 @@ type TabSelectorProps<T extends TabProps> = {
   selectedChoice: T['key'];
   onTabClick?: (choice: T['key']) => void;
   hoverable?: boolean;
-} & VariantProps<typeof tabSelectorVariant>;
+} & HTMLAttributes<HTMLElement> &
+  VariantProps<typeof tabSelectorVariant>;
 
 /**
  *
@@ -88,6 +90,7 @@ export const TabSelector = <T extends TabProps>({
   onTabClick,
   color = 'primary',
   hoverable = false,
+  className,
 }: TabSelectorProps<T>) => {
   const optionsRefs = useRef<HTMLElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
@@ -99,9 +102,12 @@ export const TabSelector = <T extends TabProps>({
 
   return (
     <div
-      className={tabSelectorVariant({
-        color,
-      })}
+      className={cn(
+        tabSelectorVariant({
+          color,
+        }),
+        className
+      )}
       role="tablist"
     >
       {tabs.map((Tab, index) => {
