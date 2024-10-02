@@ -23,7 +23,10 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
         <DocNavList docData={docData} activeSections={activeSections} />
       </div>
       <div className="flex flex-1 flex-row">
-        <div className="mb-24 h-full w-auto flex-1 grow" id="doc-content">
+        <div
+          className="relative mb-24 h-full w-auto flex-1 grow"
+          id="doc-content"
+        >
           {children}
         </div>
         <div className="flex-none max-lg:hidden">
