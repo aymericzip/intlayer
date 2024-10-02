@@ -6,7 +6,6 @@ import { PageLayout } from '@layouts/PageLayout';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { PagesRoutes } from '@/Routes';
-import { BackgroundLayout } from '@components/BackgroundLayout';
 
 const DashboardLayout: NextLayoutIntlayer = async ({
   children,
@@ -41,7 +40,7 @@ const DashboardLayout: NextLayoutIntlayer = async ({
           <DashboardFooter locale={locale} links={formattedFooterLinks} />
         }
       >
-        <BackgroundLayout>{children}</BackgroundLayout>
+        {children}
       </PageLayout>
     </AuthenticationBarrier>
   );
