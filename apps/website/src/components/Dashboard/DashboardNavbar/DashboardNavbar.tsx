@@ -5,12 +5,12 @@ import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
 import { Container, Logo, TabSelector, useAuth } from '@intlayer/design-system';
+import { useDevice } from '@intlayer/design-system/hooks';
 import { usePathname } from 'next/navigation';
 import React, { type FC, type ReactNode } from 'react';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';
-import { useDevice } from '@intlayer/design-system/hooks';
 
 export type NavbarProps = {
   links: {
