@@ -100,7 +100,7 @@
     "intlayer-editor": "workspace:^",
     "js-cookie": "^3.0.5",
     "react-cookie": "^7.1.4",
-    "vite": "^5.3.1",
+    "vite": "^5.4.6",
     "webpack": "^5.92.1"
   },
   "devDependencies": {
