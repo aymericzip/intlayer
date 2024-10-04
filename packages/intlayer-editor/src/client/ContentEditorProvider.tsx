@@ -6,6 +6,7 @@ import {
   createContext,
   useContext,
   type FC,
+  useMemo,
 } from 'react';
 
 type IntlayerEditorValue = {
@@ -38,8 +39,17 @@ const {
 export const IntlayerEditorProvider: FC<IntlayerEditorProviderProps> = ({
   children,
   editorEnabled = enabled,
-}) => (
-  <IntlayerEditorContext.Provider value={{ editorEnabled }}>
-    {children}
-  </IntlayerEditorContext.Provider>
-);
+}) => {
+  const memoValue = useMemo(
+    () => ({
+      editorEnabled,
+    }),
+    [editorEnabled]
+  );
+
+  return (
+    <IntlayerEditorContext.Provider value={memoValue}>
+      {children}
+    </IntlayerEditorContext.Provider>
+  );
+};

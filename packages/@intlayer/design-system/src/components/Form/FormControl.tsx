@@ -6,7 +6,7 @@ import {
   type ElementRef,
   type ComponentPropsWithoutRef,
 } from 'react';
-import { useFormField } from '.';
+import { useFormField } from './FormField';
 
 export const FormControl = forwardRef<
   ElementRef<typeof Slot>,

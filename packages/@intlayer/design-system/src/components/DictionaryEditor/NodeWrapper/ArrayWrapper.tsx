@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import {
   isSameKeyPath,
   NodeType,
@@ -32,7 +33,7 @@ export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
     return (
       <ItemLayout
         level={keyPath.length}
-        key={key}
+        key={JSON.stringify(subSection)}
         title={`${key}`}
         description=""
         isSelected={isSameKeyPath(newKeyPath, focusedKeyPath)}
@@ -53,12 +54,7 @@ export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
           />
         }
       >
-        <NodeWrapper
-          {...props}
-          key={key}
-          keyPath={newKeyPath}
-          section={subSection}
-        />
+        <NodeWrapper {...props} keyPath={newKeyPath} section={subSection} />
       </ItemLayout>
     );
   });

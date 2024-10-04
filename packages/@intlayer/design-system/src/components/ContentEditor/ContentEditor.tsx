@@ -8,13 +8,13 @@ import {
   type ChangeEventHandler,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { AutoSizedTextArea } from '../TextArea';
+import { AutoSizedTextArea } from '../TextArea/AutoSizeTextArea';
 
 export type ContentEditorProps = {
   children: string;
   onContentChange: (content: string) => void;
   isEditing?: boolean;
-} & HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLTextAreaElement>;
 
 export const ContentEditor: FC<ContentEditorProps> = ({
   children,

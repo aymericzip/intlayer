@@ -4,14 +4,9 @@ import { FileTree } from './FileTree';
 
 export type FileListProps = {
   filePaths: string[];
-  isDarkMode?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
-export const FileList: FC<FileListProps> = ({
-  filePaths,
-  isDarkMode,
-  ...props
-}) => (
+export const FileList: FC<FileListProps> = ({ filePaths, ...props }) => (
   <Container
     className="flex size-full flex-col justify-start overflow-scroll shadow-lg"
     roundedSize="3xl"

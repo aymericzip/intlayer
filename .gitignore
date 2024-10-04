@@ -25,3 +25,10 @@ dictionaries
 .env.*
 !.env.template
 .vercel
+
+# eslint
+.eslintcache
+
+# service-worker
+sw.js
+workbox-*.js

@@ -40,5 +40,5 @@ export const Loader: FC<LoaderProps> = ({
       <Spinner className="size-10 max-h-full max-w-full" />
     </div>
   ) : (
-    children ?? <></>
+    (children ?? <></>)
   );

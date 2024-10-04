@@ -25,7 +25,7 @@ const IntlayerEditorElement: FC<IntlayerEditorElementProps> = ({
       <ContentSelectorWrapper {...props}>{content}</ContentSelectorWrapper>
     );
   }
-  return <>{content}</>;
+  return content;
 };
 
 export type RenderIntlayerEditorResult = ReactNode & { value: string };

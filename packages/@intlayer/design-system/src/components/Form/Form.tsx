@@ -1,105 +1,66 @@
-'use client';
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { zodResolver } from '@hookform/resolvers/zod';
-import { forwardRef, type Ref, type HTMLAttributes } from 'react';
+/* eslint-disable import/no-cycle */
+import { Button } from '../Button';
 import {
-  FormProvider,
-  type FormProviderProps,
-  useForm as useFormReactHookForm,
-  type UseFormProps,
-} from 'react-hook-form';
-import type { ZodType, z } from 'zod';
-import { cn } from '../../utils/cn';
+  FormElement,
+  InputElement,
+  InputPasswordElement,
+  TextAreaElement,
+} from './elements';
+import { MultiSelectElement } from './elements/MultiselectElement';
+import { SelectElement } from './elements/SelectElement';
+import { Form as FormRoot } from './FormBase';
+import { FormControl } from './FormControl';
+import { FormDescription } from './FormDescription';
+import { FormField } from './FormField';
+import { FormItem } from './FormItem';
+import { FormLabel } from './FormLabel';
+import { FormMessage } from './FormMessage';
 
-type FormProps<T extends ZodType> = HTMLAttributes<HTMLFormElement> &
-  FormProviderProps<z.infer<T>> & {
-    schema: T;
-    onSubmit?: (data: z.infer<T>) => void | Promise<void>;
-    onSubmitSuccess?: (data: z.infer<T>) => void | Promise<void>;
-    onSubmitError?: (error: Error) => void | Promise<void>;
-    autoComplete?: boolean;
-  };
-
-const awaitFunction = async (fn: any) => {
-  // Check if result is a Promise (Thenable)
-
-  if (fn && typeof fn.then === 'function') {
-    // It's a Promise, so wait for it to resolve
-    await fn;
-  }
-  // If not a Promise, it will just execute without awaiting
+type FormType = typeof FormRoot & {
+  Description: typeof FormDescription;
+  Control: typeof FormControl;
+  Field: typeof FormField;
+  Item: typeof FormItem;
+  Label: typeof FormLabel;
+  Message: typeof FormMessage;
+  Element: typeof FormElement;
+  Button: typeof Button;
+  Input: typeof InputElement;
+  InputPassword: typeof InputPasswordElement;
+  TextArea: typeof TextAreaElement;
+  MultiSelect: typeof MultiSelectElement;
+  Select: typeof SelectElement;
 };
 
-export const Form = forwardRef(
-  <T extends ZodType>(
-    {
-      schema,
-      onSubmit: onSubmitProp,
-      onSubmitSuccess: onSubmitSuccessProp,
-      onSubmitError: onSubmitErrorProp,
-      className,
-      children,
-      autoComplete,
-      ...props
-    }: FormProps<T>,
-    ref: Ref<HTMLFormElement>
-  ) => {
-    const onSubmit = async (values: T) => {
-      const parsedValues = schema.safeParse(values);
-
-      // onSubmitProp?.(values);
-      await awaitFunction(onSubmitProp?.(values));
-
-      if (parsedValues.success) {
-        await awaitFunction(onSubmitSuccessProp?.(parsedValues.data));
-      } else {
-        await awaitFunction(
-          onSubmitErrorProp?.(
-            new Error(
-              parsedValues.error.errors.map((error) => error.message).join(', ')
-            )
-          )
-        );
-      }
-    };
-
-    return (
-      <FormProvider {...props}>
-        <form
-          className={cn('flex flex-col gap-y-6', className)}
-          onSubmit={props.handleSubmit(onSubmit)}
-          autoComplete={autoComplete ? 'on' : 'off'}
-          ref={ref}
-        >
-          {children}
-        </form>
-      </FormProvider>
-    );
-  }
-);
-
-Form.displayName = 'Form';
-
-export const useForm = <T extends ZodType>(
-  schema: T,
-  props?: UseFormProps<z.infer<T>>
-) => {
-  const form = useFormReactHookForm<z.infer<T>>({
-    resolver: zodResolver(schema),
-    ...props,
-  });
-
-  const isSubmitting = form.formState.isSubmitting;
-  const isSubmitted = form.formState.isSubmitted;
-  const isLoading = form.formState.isLoading;
-  const isValid = form.formState.isValid;
-
-  return {
-    form,
-    isSubmitting,
-    isSubmitted,
-    isLoading,
-    isValid,
-  };
-};
+/**
+ * Form components
+ *
+ * Example of usage:
+ * ```jsx
+ * <Form
+ *  schema={ZodSchema}
+ *  onSubmitSuccess={onSubmitSuccess}
+ *  onSubmitError={onSubmitError}
+ *  autoComplete
+ * >
+ *   <Form.Input name="name" label="Name" />
+ *   <Form.Button type="submit" label="Click to submit">
+ *      Submit
+ *   </Form.Button>
+ * </Form>
+ * ```
+ */
+export const Form = FormRoot as FormType;
+Form.Description = FormDescription;
+Form.Control = FormControl;
+Form.Field = FormField;
+Form.Item = FormItem;
+Form.Label = FormLabel;
+Form.Message = FormMessage;
+Form.Element = FormElement;
+Form.Input = InputElement;
+Form.InputPassword = InputPasswordElement;
+Form.TextArea = TextAreaElement;
+Form.Button = Button;
+Form.Select = SelectElement;
+Form.MultiSelect = MultiSelectElement;

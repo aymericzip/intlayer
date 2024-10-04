@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 import {
   type FieldValues,
   type FieldPath,
@@ -26,11 +26,20 @@ export const FormField = <
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
-}: ControllerProps<TFieldValues, TName>) => (
-  <FormFieldContext.Provider value={{ name: props.name }}>
-    <Controller {...props} />
-  </FormFieldContext.Provider>
-);
+}: ControllerProps<TFieldValues, TName>) => {
+  const memoValue = useMemo(
+    () => ({
+      name: props.name,
+    }),
+    [props.name]
+  );
+
+  return (
+    <FormFieldContext.Provider value={memoValue}>
+      <Controller {...props} />
+    </FormFieldContext.Provider>
+  );
+};
 
 export const useFormField = () => {
   const fieldContext = useContext(FormFieldContext);

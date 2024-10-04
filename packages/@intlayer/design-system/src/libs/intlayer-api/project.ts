@@ -98,7 +98,7 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<SelectProjectResult>(
-      `${PROJECT_API_ROUTE}/${projectId}`,
+      `${PROJECT_API_ROUTE}/${String(projectId)}`,
       authAPIOptions,
       otherOptions,
       {

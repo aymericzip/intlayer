@@ -6,13 +6,14 @@ import {
   type DictionaryContent,
 } from '@intlayer/design-system';
 import { useEditorServer } from '../useEditorServer';
+/* eslint-disable import/no-cycle */
 import { getDrawerIdentifier } from './DictionaryEditionDrawer';
 
 type DictionaryId = string;
 type DictionaryPath = string;
 
 export type FileContent = {
-  dictionaryPath?: DictionaryPath | undefined;
+  dictionaryPath?: DictionaryPath;
   dictionaryId: string;
   keyPath?: KeyPath[];
 };
@@ -42,7 +43,7 @@ type DictionaryEditionDrawer = {
 
 type OpenDictionaryEditionDrawerProps = {
   dictionaryId: string;
-  dictionaryPath?: string | undefined;
+  dictionaryPath?: string;
   keyPath?: KeyPath[];
 };
 

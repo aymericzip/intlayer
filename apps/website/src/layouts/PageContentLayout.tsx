@@ -9,14 +9,12 @@ export type PageContentLayoutProps = DetailedHTMLProps<
 > & {
   footer?: ReactNode;
   navbar?: ReactNode;
-  overlay?: ReactNode;
 };
 
 export const PageContentLayout: FC<PageContentLayoutProps> = ({
   navbar,
   children,
   footer,
-  overlay,
   className,
   ...props
 }) => (

@@ -9,7 +9,7 @@ export type AuthenticationBarrierProps = AuthProviderProps & {
   accessRule?: 'public' | 'authenticated' | 'admin' | 'none-authenticated';
   redirectionRoute?: string;
   session?: AuthProviderProps['session'];
-  sessionToken?: string | undefined;
+  sessionToken?: string;
   /**
    * Function to replace for a nextjs redirection
    *

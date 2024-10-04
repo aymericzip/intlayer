@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import {
@@ -49,6 +50,20 @@ export const getProjects = async (
   const { user, organization } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
+
+  if (!user) {
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatPaginatedResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
 
   if (!organization) {
     const errorMessage = 'Organization not found';
@@ -117,6 +132,34 @@ export const addProject = async (
 ): Promise<Response> => {
   const { organization, user } = res.locals;
   const projectData = req.body;
+
+  if (!user) {
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  if (!organization) {
+    const errorMessage = 'Organization not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
 
   if (!projectData) {
     const errorMessage = 'Project not found';
@@ -190,6 +233,20 @@ export const updateProject = async (
     return res.status(responseCode).json(responseData);
   }
 
+  if (!organization) {
+    const errorMessage = 'Organization not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
   if (project.organizationId !== organization._id) {
     const errorMessage = `You don't have access to this project`;
     const responseCode = HttpStatusCodes.FORBIDDEN_403;
@@ -251,6 +308,20 @@ export const deleteProject = async (
   const { organization } = res.locals;
   const { projectId } = req.params as Partial<DeleteProjectParam>;
 
+  if (!organization) {
+    const errorMessage = 'Organization not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
   if (!projectId) {
     const errorMessage = 'Project id not found';
 
@@ -280,7 +351,21 @@ export const deleteProject = async (
 
     const deletedProject = await deleteProjectByIdService(projectId);
 
-    logger.info(`Project deleted: ${deletedProject._id}`);
+    if (!deletedProject) {
+      const errorMessage = 'Project not found';
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.NOT_FOUND_404;
+      const responseData = formatResponse<Project>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
+    }
+
+    logger.info(`Project deleted: ${String(deletedProject._id)}`);
 
     const responseData = formatResponse<Project>({ data: deletedProject });
 

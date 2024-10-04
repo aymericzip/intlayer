@@ -6,6 +6,8 @@
     "build": "react-intlayer build",
     "build:customCracoConfig": "craco build",
     "build:original": "react-scripts build",
+    "lint": "eslint . --debug --cache",
+    "lint:fix": "eslint . --debug --cache --fix",
     "start": "react-intlayer start",
     "start:customCracoConfig": "craco start",
     "start:original": "react-scripts start",
@@ -49,6 +51,8 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "eslint": "^9.11.1",
+    "prettier": "3.3.3",
     "tailwindcss": "^3.4.4"
   }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC, HTMLAttributes } from 'react';
-import { useFormField } from '.';
+import { useFormField } from './FormField';
 
 export const FormMessage: FC<HTMLAttributes<HTMLParagraphElement>> = ({
   children,

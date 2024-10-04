@@ -9,6 +9,10 @@ export const ProfilePanel: FC = () => {
   const { isUnauthenticated, user, logout } = useUser();
   const router = useRouter();
 
+  const handleLogOut = () => {
+    logout().catch((err) => console.error(err));
+  };
+
   if (isUnauthenticated) {
     return <></>;
   }
@@ -32,7 +36,7 @@ export const ProfilePanel: FC = () => {
       <Button
         variant="outline"
         color="text"
-        onClick={logout}
+        onClick={handleLogOut}
         label="Logout from app"
       >
         Logout

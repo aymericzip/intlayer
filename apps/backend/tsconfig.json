@@ -10,6 +10,7 @@
     "noEmit": false,
     "allowImportingTsExtensions": false,
     "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
     "moduleResolution": "node",
     "module": "commonjs",
     "outDir": "dist/build",

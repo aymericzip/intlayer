@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 'use client';
 
 import type { ComponentProps, ElementType, ReactNode } from 'react';
@@ -6,7 +7,8 @@ import {
   type ControllerRenderProps,
   type FieldValues,
 } from 'react-hook-form';
-import { Form, useFormField } from '../';
+import { Form } from '../Form';
+import { useFormField } from '../FormField';
 import { FormItemLayout } from '../layout';
 
 export type FormElementProps<T extends ElementType> = {
@@ -30,7 +32,6 @@ const FormFieldElement = <T extends ElementType>({
   label,
   Element,
   isRequired = false,
-  className,
   info,
   description,
   showErrorMessage = true,

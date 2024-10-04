@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-misused-promises */
 import {
   registerEmailPassword,
   loginEmailPassword,
@@ -6,7 +7,6 @@ import {
   validEmail,
   askResetPassword,
   resetPassword,
-  getSessionInformation,
   githubCallback,
   googleCallback,
   githubLoginQuery,

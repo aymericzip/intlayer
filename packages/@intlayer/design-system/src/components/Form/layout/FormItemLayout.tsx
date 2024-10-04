@@ -1,6 +1,6 @@
+/* eslint-disable import/no-cycle */
 import type { FC, ReactNode } from 'react';
-
-import { Form } from '../';
+import { Form } from '../Form';
 import { FormLabelLayout, type FormLabelLayoutProps } from './FormLabelLayout';
 
 type FormItemLayoutProps = FormLabelLayoutProps & {

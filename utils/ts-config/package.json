@@ -11,8 +11,10 @@
   },
   "scripts": {},
   "devDependencies": {
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.16.10",
     "esbuild": "^0.20.2",
+    "eslint": "^9.11.1",
+    "prettier": "3.3.3",
     "typescript": "^5.4.5"
   }
 }

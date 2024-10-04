@@ -1,4 +1,4 @@
-/* eslint-disable sonarjs/no-duplicate-string */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import {
   clearOrganizationAuth as clearOrganizationAuthService,
@@ -212,6 +212,20 @@ export const loginEmailPassword = async (
       return res.status(responseCode).json(responseData);
     }
 
+    if (!loggedInUser) {
+      const errorMessage = 'User not found';
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.NOT_FOUND_404;
+      const responseData = formatResponse<UserAPI>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
+    }
+
     await setUserAuthService(res, loggedInUser);
 
     const formattedUser = formatUserForAPIService(loggedInUser);
@@ -338,7 +352,7 @@ export const updatePassword = async (
     }
 
     logger.info(
-      `Password changed - User : Name : ${user.name}, id : ${user._id}`
+      `Password changed - User : Name : ${user.name}, id : ${String(user._id)}`
     );
 
     const formattedUser = formatUserForAPIService(user);
@@ -416,7 +430,9 @@ export const validEmail = async (
 
   await activateUserService(user._id, secret);
 
-  logger.info(`User activated - User: Name: ${user.name}, id: ${user._id}`);
+  logger.info(
+    `User activated - User: Name: ${user.name}, id: ${String(user._id)}`
+  );
 
   const formattedUser = formatUserForAPIService(user);
   const responseData = formatResponse<UserAPI>({ data: formattedUser });
@@ -472,7 +488,7 @@ export const askResetPassword = async (
     }
 
     logger.info(
-      `Ask changing password - User: Name: ${updatedUser.name}, id: ${updatedUser._id}`
+      `Ask changing password - User: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
     );
 
     const responseData = formatResponse<undefined>({ data: undefined });
@@ -547,7 +563,7 @@ export const resetPassword = async (
     );
 
     logger.info(
-      `Password changed - User: Name: ${updatedUser.name}, id: ${updatedUser._id}`
+      `Password changed - User: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
     );
 
     const formattedUser = formatUserForAPIService(updatedUser);
@@ -579,10 +595,10 @@ export type GetSessionInformationQuery = {
   session_token?: string;
 };
 type SessionInformation = {
-  user: UserAPI;
-  organization: Organization;
-  project: Project;
-  session: Session;
+  user: UserAPI | null;
+  organization: Organization | null;
+  project: Project | null;
+  session: Session | null;
 };
 export type GetSessionInformationResult = ResponseData<SessionInformation>;
 
@@ -801,7 +817,7 @@ export const githubCallback = async (
         );
 
         logger.info(
-          `GitHub login provider updated - User: Name: ${updatedUser.name}, id: ${updatedUser._id}`
+          `GitHub login provider updated - User: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
         );
 
         if (updatedUser) {
@@ -835,7 +851,9 @@ export const githubCallback = async (
 
     await setUserAuthService(res, user);
 
-    logger.info(`GitHub login - User: Name: ${user.name}, id: ${user._id}`);
+    logger.info(
+      `GitHub login - User: Name: ${user.name}, id: ${String(user._id)}`
+    );
 
     res.redirect(redirect_uri);
   } catch (err) {
@@ -996,7 +1014,7 @@ export const googleCallback = async (
         );
 
         logger.info(
-          `Google login provider updated - User: Name: ${updatedUser.name}, id: ${updatedUser._id}`
+          `Google login provider updated - User: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
         );
 
         if (updatedUser) {
@@ -1030,7 +1048,9 @@ export const googleCallback = async (
 
     await setUserAuthService(res, user);
 
-    logger.info(`Google login - User: Name: ${user.name}, id: ${user._id}`);
+    logger.info(
+      `Google login - User: Name: ${user.name}, id: ${String(user._id)}`
+    );
 
     // res.redirect(redirect_uri);
   } catch (err) {

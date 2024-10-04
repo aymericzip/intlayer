@@ -21,8 +21,8 @@ export const Footer: FC<FooterProps> = ({ links }) => (
       </span>
     </aside>
     <div className="m-auto flex w-full flex-row flex-wrap justify-around gap-x-3 gap-y-6 md:w-2/3">
-      {(links ?? []).map(({ title, links }, index) => (
-        <div className="flex flex-col gap-2" key={index}>
+      {(links ?? []).map(({ title, links }) => (
+        <div className="flex flex-col gap-2" key={links.join(',')}>
           <strong>{title}</strong>
           <div className="flex flex-col gap-3 text-sm">
             {links.map((link) => (

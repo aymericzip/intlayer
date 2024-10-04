@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-conditional */
 'use client';
 
 import { Moon, Sun, CircleDashed } from 'lucide-react';

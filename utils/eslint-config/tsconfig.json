@@ -1,10 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
     "strict": true,
     "skipLibCheck": true,
     "incremental": true,
     "allowJs": true,
+    "esModuleInterop": true,
     "checkJs": true
   },
   "exclude": ["node_modules", "dist", "build"],
@@ -13,6 +16,7 @@
     "./config/**/*.js",
     "**/*.cjs",
     "**/*.mjs",
-    "**/*.json"
+    "**/*.json",
+    "prettier.base.config.js"
   ]
 }

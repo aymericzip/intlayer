@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow-functions/prefer-arrow-functions */
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 
 export type ResponseData<T = null> = {
@@ -23,13 +22,13 @@ type ValidResponseStatus =
 type SuccessResponseArgs<T = undefined> = {
   data: T;
   status?: ValidResponseStatus;
-  error?: undefined;
+  error?: null;
 };
 
 type ErrorResponseArgs = {
   error: string | string[];
   status: HttpStatusCodes;
-  data?: undefined;
+  data?: null;
 };
 
 const isSuccessStatus = (
@@ -85,18 +84,18 @@ type SuccessPaginatedResponseArgs<T = undefined> = {
   totalPages: number;
   totalItems: number;
 
-  error?: undefined;
+  error?: null;
 };
 
 type ErrorPaginatedResponseArgs = {
   error: string | string[];
   status: HttpStatusCodes;
 
-  data?: undefined;
-  page?: undefined;
-  pageSize?: undefined;
-  totalPages?: undefined;
-  totalItems?: undefined;
+  data?: null;
+  page?: null;
+  pageSize?: null;
+  totalPages?: null;
+  totalItems?: null;
 };
 
 export function formatPaginatedResponse<T>({
@@ -127,7 +126,7 @@ export function formatPaginatedResponse<T>({
   return {
     success,
     data: data ?? null,
-    error,
+    error: error ?? undefined,
     status,
     page: page ?? null,
     page_size: pageSize ?? null,

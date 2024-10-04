@@ -17,7 +17,7 @@
     "intlayer": "workspace:^",
     "intlayer-cli": "workspace:^",
     "intlayer-editor": "workspace:^",
-    "next": "14.2.11",
+    "next": "14.2.14",
     "next-intlayer": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -29,9 +29,10 @@
     "@utils/eslint-config": "workspace:^",
     "autoprefixer": "^10.4.20",
     "concurrently": "^8.2.2",
-    "eslint": "^8.57.0",
+    "eslint": "^9.11.1",
     "eslint-config-next": "14.2.5",
     "postcss": "^8.4.41",
+    "prettier": "3.3.3",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.4"
   }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
@@ -297,7 +298,7 @@ export const updateUser = async (
     const updatedUser = await updateUserByIdService(user._id, userData);
 
     logger.info(
-      `User updated: Name: ${updatedUser.name}, id: ${updatedUser._id}`
+      `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
     );
 
     const formattedUser = formatUserForAPIService(updatedUser);

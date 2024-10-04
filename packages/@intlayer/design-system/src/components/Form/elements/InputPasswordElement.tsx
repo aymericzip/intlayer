@@ -1,6 +1,7 @@
+/* eslint-disable import/no-cycle */
 import type { ComponentProps, FC } from 'react';
 import { InputPassword } from '../../Input';
-import { FormElement, type FormElementProps } from '.';
+import { FormElementProps, FormElement } from './FormElement';
 
 type InputPasswordElementsProps = Omit<
   FormElementProps<typeof InputPassword>,

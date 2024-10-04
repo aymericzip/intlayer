@@ -106,7 +106,7 @@ const afterClick = (parentElem: Element, e: MouseEvent<HTMLHeadingElement>) => {
 const HeadingWrapper: HeadingType = ({ H, children, ...props }) => {
   const id = typeof children === 'string' ? getId(children) : undefined;
 
-  const onClick = async (e: MouseEvent<HTMLHeadingElement>) => {
+  const onClick = (e: MouseEvent<HTMLHeadingElement>) => {
     const { id } = e.currentTarget;
 
     const isAfterClicker = afterClick(e.currentTarget, e);
@@ -116,7 +116,7 @@ const HeadingWrapper: HeadingType = ({ H, children, ...props }) => {
       const url = `${urlWithoutHash}#${id}`;
 
       // copy the url to the clipboard
-      await navigator.clipboard.writeText(url);
+      navigator.clipboard.writeText(url);
 
       scrollToHash(id);
     }

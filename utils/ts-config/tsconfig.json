@@ -17,6 +17,13 @@
     "allowImportingTsExtensions": true,
     "noEmit": true
   },
-  "exclude": ["node_modules", "dist", "build"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    ".next",
+    ".intlayer",
+    "storybook-static"
+  ],
   "include": ["**/*"]
 }

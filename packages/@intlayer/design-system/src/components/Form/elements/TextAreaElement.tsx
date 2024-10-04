@@ -1,6 +1,7 @@
+/* eslint-disable import/no-cycle */
 import type { FC } from 'react';
 import { TextArea } from '../../TextArea/TextArea';
-import { FormElement, type FormElementProps } from '.';
+import { FormElement, type FormElementProps } from './FormElement';
 
 type TextAreaElementsProps = Omit<
   FormElementProps<typeof TextArea>,

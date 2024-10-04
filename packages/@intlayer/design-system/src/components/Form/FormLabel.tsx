@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { cn } from '../../utils/cn';
 import { Label } from '../Label';
-import { useFormField } from '.';
+import { useFormField } from './FormField';
 
 export const FormLabel = forwardRef<
   ElementRef<typeof Label>,

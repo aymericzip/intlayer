@@ -97,7 +97,7 @@ export const PressableSpan: FC<PressableDivProps> = ({
     <span
       className={cn(
         'inline cursor-pointer select-none rounded-md outline outline-2 outline-offset-4 outline-transparent transition-all delay-100 duration-200',
-        isSelectingProp ?? isSelectingState
+        (isSelectingProp ?? isSelectingState)
           ? 'outline-inherit'
           : 'hover:outline-inherit'
       )}

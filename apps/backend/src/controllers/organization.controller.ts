@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import {
@@ -182,6 +183,20 @@ export const addOrganization = async (
     return res.status(responseCode).json(responseData);
   }
 
+  if (!user) {
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
   try {
     const newOrganization = await createOrganizationService(
       organization,
@@ -310,7 +325,21 @@ export const deleteOrganization = async (
     const deletedOrganization =
       await deleteOrganizationByIdService(organizationId);
 
-    logger.info(`Organization deleted: ${deletedOrganization._id}`);
+    if (!deletedOrganization) {
+      const errorMessage = 'Organization not found';
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.NOT_FOUND_404;
+      const responseData = formatResponse<Organization>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
+    }
+
+    logger.info(`Organization deleted: ${String(deletedOrganization._id)}`);
 
     const responseData = formatResponse<Organization>({
       data: deletedOrganization,

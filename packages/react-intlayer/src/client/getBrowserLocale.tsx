@@ -155,7 +155,7 @@ const getFirstAvailableLocale = (
   const { internationalization } = getConfiguration();
 
   for (const detector of order) {
-    const localesArray = [locales[detector]].flat() as Locales[];
+    const localesArray = [locales[detector]].flat();
 
     for (const locale of localesArray) {
       if (

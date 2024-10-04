@@ -1,7 +1,9 @@
+/* eslint-disable import/no-cycle */
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Form, useFormField } from '../../Form';
 import { Select } from '../../Select/Select';
+import { Form } from '../Form';
+import { useFormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';
 import type { FormElementProps } from './FormElement';
 
@@ -21,7 +23,6 @@ export const SelectElement = ({
   isRequired,
   info,
   showErrorMessage,
-  className,
   children,
   ...props
 }: SelectElementsProps) => {
@@ -32,7 +33,7 @@ export const SelectElement = ({
       control={control}
       name={name}
       render={({ field }) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
+        // eslint-disable-next-line react-hooks/rules-of-hooks, sonarjs/rules-of-hooks
         const { error } = useFormField();
 
         return (

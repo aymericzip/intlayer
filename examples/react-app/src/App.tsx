@@ -1,9 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import { IntlayerProvider, useIntlayer } from 'react-intlayer';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
+import logo from './logo.svg';
 
-function AppContent() {
+const AppContent = () => {
   const content = useIntlayer('app');
 
   return (
@@ -21,20 +21,18 @@ function AppContent() {
       </a>
     </header>
   );
-}
+};
 
-function App() {
-  return (
-    <IntlayerProvider>
-      <div className="App">
-        {/* To use the useIntlayer hook properly, you should access your data in a children component */}
-        <AppContent />
-      </div>
-      <div className="absolute bottom-5 right-5 z-50">
-        <LocaleSwitcher />
-      </div>
-    </IntlayerProvider>
-  );
-}
+const App = () => (
+  <IntlayerProvider>
+    <div className="App">
+      {/* To use the useIntlayer hook properly, you should access your data in a children component */}
+      <AppContent />
+    </div>
+    <div className="absolute bottom-5 right-5 z-50">
+      <LocaleSwitcher />
+    </div>
+  </IntlayerProvider>
+);
 
 export default App;

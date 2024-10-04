@@ -2,19 +2,19 @@
 
 import type { Locales } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
+import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo, useRef, type FC } from 'react';
+import { useDictionary } from 'react-intlayer';
 import { getDictionaryValueByKeyPath } from '../../utils/dictionary';
+import { Button } from '../Button';
 import {
   useEditedContentStore,
   useEditionPanelStore,
 } from '../DictionaryEditor';
+import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
 import { EditorView } from './EditorView';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NodeWrapper } from './NodeWrapper';
-import { ArrowLeft } from 'lucide-react';
-import { Button } from '../Button';
-import { useDictionary } from 'react-intlayer';
-import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
 
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;

@@ -45,7 +45,7 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetOrganizationResult>(
-      `${ORGANIZATION_API_ROUTE}/${organizationId}`,
+      `${ORGANIZATION_API_ROUTE}/${String(organizationId)}`,
       authAPIOptions,
       otherOptions
     );
@@ -113,7 +113,7 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<SelectOrganizationResult>(
-      `${ORGANIZATION_API_ROUTE}/${organizationId}`,
+      `${ORGANIZATION_API_ROUTE}/${String(organizationId)}`,
       authAPIOptions,
       otherOptions,
       {

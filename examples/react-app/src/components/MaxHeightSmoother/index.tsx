@@ -6,7 +6,6 @@ interface MaxHeightSmootherProps extends HTMLAttributes<HTMLDivElement> {
 
 export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
   children,
-  className,
   ...props
 }) => (
   <div
