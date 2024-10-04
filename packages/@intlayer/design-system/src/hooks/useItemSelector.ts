@@ -104,7 +104,7 @@ export const useItemSelector = (
       setHoveredItem(event.currentTarget as HTMLElement);
     };
 
-    const handleMouseLeave = (event: Event) => {
+    const handleMouseLeave = () => {
       setHoveredItem(null);
     };
 

@@ -44,8 +44,8 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
     createNewProject,
   } = useIntlayer('dashboard-navbar');
 
-  const handleUnselectProject = async () => {
-    await unselectProject()
+  const handleUnselectProject = () => {
+    unselectProject()
       .then(async () => {
         await checkSession();
         toast({
@@ -64,8 +64,8 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
       });
   };
 
-  const handleSelectProject = async (projectId: string) => {
-    await selectProject(projectId)
+  const handleSelectProject = (projectId: string) => {
+    selectProject(projectId)
       .then(async () => {
         await checkSession();
         toast({

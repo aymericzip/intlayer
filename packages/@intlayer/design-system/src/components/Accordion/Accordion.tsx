@@ -32,10 +32,10 @@ export const Accordion: FC<AccordionProps> = ({
   isOpen: isOpenDefault = false,
 }) => {
   const [isOpen, setIsOpen] = useState(isOpenDefault);
-  const isHidden = isOpen === undefined ? undefined : !isOpen;
+  const isHidden = isOpen == undefined ? undefined : !isOpen;
 
   useEffect(() => {
-    if (isOpenDefault !== undefined) {
+    if (isOpenDefault != undefined) {
       setIsOpen(isOpenDefault);
     }
   }, [isOpenDefault]);

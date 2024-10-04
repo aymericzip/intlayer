@@ -3,7 +3,6 @@
 
 import { spawn } from 'child_process';
 import fs from 'fs';
-import { get } from 'http';
 import path from 'path';
 import Enquirer from 'enquirer';
 import { glob } from 'glob';

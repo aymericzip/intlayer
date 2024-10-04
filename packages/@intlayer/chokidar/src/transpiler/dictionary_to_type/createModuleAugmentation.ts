@@ -15,7 +15,7 @@ export const getTypeName = (id: string): string =>
  * This function generates the content of the module augmentation file
  */
 const generateTypeIndexContent = (typeFiles: string[]): string => {
-  let content = "/* eslint-disable */\nimport { Locales } from 'intlayer'\n";
+  let content = "/* eslint-disable */\nimport { Locales } from 'intlayer';\n";
 
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
     relativePath: relative(moduleAugmentationDir, dictionaryPath),

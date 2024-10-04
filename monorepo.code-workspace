@@ -107,6 +107,7 @@
       "./packages/@intlayer/cli",
       "./packages/@intlayer/config",
       "./packages/@intlayer/chokidar",
+      "./packages/@intlayer/design-system",
       "./utils/eslint-config",
     ],
     "prettier.configPath": ".prettierrc.mjs",

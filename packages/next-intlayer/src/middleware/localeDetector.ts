@@ -22,7 +22,8 @@ export const localeDetector = (request: NextRequest): Locales => {
   // https://stackoverflow.com/questions/76447732/nextjs-13-i18n-incorrect-locale-information-provided
   try {
     return match(languages, locales, defaultLocale) as Locales;
-  } catch (e) {
+  } catch (error) {
+    console.warn(error);
     console.warn(
       `No valid locales in accept-language header: ${languages.join(', ')}`
     );

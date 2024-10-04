@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-misused-promises */
 import {
   getUsers,
   updateUser,
@@ -15,7 +16,7 @@ import { Router } from 'express';
 export const userRouter: Router = Router();
 
 userRouter.get('/', apiAccessControlMiddleWare(AccessRule.admin), getUsers);
-userRouter.put('/', apiAccessControlMiddleWare(AccessRule.public), updateUser);
+userRouter.put('/', apiAccessControlMiddleWare(AccessRule.none), updateUser);
 userRouter.post('/', apiAccessControlMiddleWare(AccessRule.admin), createUser);
 userRouter.get(
   '/:userId',

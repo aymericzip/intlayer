@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/auth.middleware';
 import {
@@ -102,6 +103,34 @@ export const addDictionary = async (
     return res.status(responseCode).json(responseData);
   }
 
+  if (!project) {
+    const errorMessage = 'Project not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Dictionary>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  if (!user) {
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Dictionary>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
   if (!dictionaryData.projectIds.includes(String(project._id))) {
     const errorMessage = `You don't have access to this dictionary`;
     const responseCode = HttpStatusCodes.FORBIDDEN_403;
@@ -169,7 +198,21 @@ export const updateDictionary = async (
     return res.status(responseCode).json(responseData);
   }
 
-  if (!dictionaryData.projectIds.includes(project._id)) {
+  if (!project) {
+    const errorMessage = 'Project not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Dictionary>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  if (!dictionaryData.projectIds?.includes(String(project._id))) {
     const errorMessage = `You don't have access to this dictionary`;
     const responseCode = HttpStatusCodes.FORBIDDEN_403;
     const responseData = formatResponse<Dictionary>({
@@ -249,6 +292,20 @@ export const deleteDictionary = async (
     return res.status(responseCode).json(responseData);
   }
 
+  if (!project) {
+    const errorMessage = 'Project not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Dictionary>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
   try {
     const dictionaryToDelete = await getDictionaryByIdService(dictionaryId);
 
@@ -264,7 +321,21 @@ export const deleteDictionary = async (
 
     const deletedDictionary = await deleteDictionaryByIdService(dictionaryId);
 
-    logger.info(`Dictionary deleted: ${deletedDictionary._id}`);
+    if (!deletedDictionary) {
+      const errorMessage = 'Dictionary not found';
+
+      logger.error(errorMessage);
+
+      const responseCode = HttpStatusCodes.NOT_FOUND_404;
+      const responseData = formatResponse<Dictionary>({
+        error: errorMessage,
+        status: responseCode,
+      });
+
+      return res.status(responseCode).json(responseData);
+    }
+
+    logger.info(`Dictionary deleted: ${String(deletedDictionary._id)}`);
 
     const responseData = formatResponse<Dictionary>({
       data: deletedDictionary,

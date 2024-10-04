@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-misused-promises */
 import {
   getSessionInformation,
   setCSRFToken,
@@ -23,6 +24,7 @@ import express, { type Request, type Response } from 'express';
 import { logger } from './logger';
 
 const app = express();
+app.disable('x-powered-by');
 
 const env = app.get('env');
 

@@ -40,6 +40,10 @@ export const Navbar: FC = () => {
     })
   );
 
+  const handleLogOut = () => {
+    logout().catch((err) => console.error(err));
+  };
+
   return (
     <UINavBar
       logo={
@@ -72,7 +76,7 @@ export const Navbar: FC = () => {
               variant="outline"
               color="text"
               label={logoutContent.label.value}
-              onClick={logout}
+              onClick={handleLogOut}
               className="!rounded-full"
               size="lg"
             >

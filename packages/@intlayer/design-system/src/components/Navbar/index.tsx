@@ -39,24 +39,20 @@ export const Navbar: FC<NavbarProps> = ({
 
   if (!isMoUnted) return <></>;
 
-  return (
-    <>
-      {isMobile ? (
-        <MobileNavbar
-          topChildren={mobileTopChildren}
-          topSections={mobileTopSections}
-          bottomChildren={mobileBottomChildren}
-          bottomSections={mobileBottomSections}
-          logo={logo}
-          rightItems={rightItemsMobile}
-        />
-      ) : (
-        <DesktopNavbar
-          sections={desktopSections}
-          rightItems={rightItemsDesktop}
-          logo={logo}
-        />
-      )}
-    </>
+  return isMobile ? (
+    <MobileNavbar
+      topChildren={mobileTopChildren}
+      topSections={mobileTopSections}
+      bottomChildren={mobileBottomChildren}
+      bottomSections={mobileBottomSections}
+      logo={logo}
+      rightItems={rightItemsMobile}
+    />
+  ) : (
+    <DesktopNavbar
+      sections={desktopSections}
+      rightItems={rightItemsDesktop}
+      logo={logo}
+    />
   );
 };

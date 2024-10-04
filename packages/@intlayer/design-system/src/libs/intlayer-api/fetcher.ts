@@ -3,8 +3,7 @@ export type FetcherOptions = Omit<RequestInit, 'body'> & {
   params?:
     | Record<string, string | string[] | undefined>
     | string[]
-    | URLSearchParams
-    | undefined;
+    | URLSearchParams;
 };
 
 export const fetcherOptions: FetcherOptions = {

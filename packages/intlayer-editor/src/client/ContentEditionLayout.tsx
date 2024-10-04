@@ -20,21 +20,19 @@ export const ContentEditionLayout: FC<ContentEditionLayoutProps> = ({
   editorEnabled = true,
 }) => {
   return (
-    <>
-      <IntlayerEditorProvider editorEnabled={editorEnabled}>
-        {children}
+    <IntlayerEditorProvider editorEnabled={editorEnabled}>
+      {children}
 
-        {editorEnabled && (
-          <>
-            <DictionaryEditionDrawerController
-              locale={locale}
-              localeList={localeList}
-              setLocale={setLocale}
-            />
-            <DictionaryListDrawer />
-          </>
-        )}
-      </IntlayerEditorProvider>
-    </>
+      {editorEnabled && (
+        <>
+          <DictionaryEditionDrawerController
+            locale={locale}
+            localeList={localeList}
+            setLocale={setLocale}
+          />
+          <DictionaryListDrawer />
+        </>
+      )}
+    </IntlayerEditorProvider>
   );
 };

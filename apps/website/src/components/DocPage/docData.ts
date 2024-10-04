@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-
 import type { DocsKeys } from '@intlayer/docs';
 import { type IConfigLocales, getTranslationContent, Locales } from 'intlayer';
 import { PagesRoutes, GithubRoutes } from '@/Routes';

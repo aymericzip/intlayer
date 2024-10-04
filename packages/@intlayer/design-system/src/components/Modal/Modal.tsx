@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-conditional */
 'use client';
 
 import { cva } from 'class-variance-authority';

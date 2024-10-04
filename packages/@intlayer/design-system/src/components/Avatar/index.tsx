@@ -40,6 +40,7 @@ export const Avatar: FC<AvatarProps> = ({
 
   const isClickable = onClick !== undefined;
 
+  // eslint-disable-next-line sonarjs/no-unstable-nested-components
   const Container = (props: HTMLAttributes<HTMLElement>) =>
     isClickable ? <button {...props} /> : <div {...props} />;
 
@@ -47,13 +48,14 @@ export const Avatar: FC<AvatarProps> = ({
     <Container
       className={cn(
         `border-text dark:border-text-dark size-9 rounded-full border-[1.5px] p-[1.5px]`,
-        isClickable && `cursor-pointer`
+        isClickable && `cursor-pointer`,
+        className
       )}
       onClick={onClick}
       {...props}
     >
       <div className="relative flex size-full flex-row items-center justify-center">
-        <div className="bg-text dark:bg-text-dark text-text-dark dark:text-text absolute left-0 top-0 flex size-full flex-col items-center justify-center rounded-full">
+        <div className="bg-text text-text-dark dark:bg-text-dark dark:text-text absolute left-0 top-0 flex size-full flex-col items-center justify-center rounded-full">
           {displayLoader && <Loader className="w-3/4" />}
           {displayAvatar && (
             <img

@@ -113,7 +113,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
     isEnabled: !isUnrolled,
   });
 
-  const backDivHeight = !isHidden ? navRef.current?.clientHeight ?? 0 : 0;
+  const backDivHeight = !isHidden ? (navRef.current?.clientHeight ?? 0) : 0;
 
   const isBurgerShowed = topSections.length + bottomSections.length > 0;
 

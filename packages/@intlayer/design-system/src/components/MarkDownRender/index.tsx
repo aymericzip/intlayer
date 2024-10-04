@@ -1,3 +1,6 @@
+/* eslint-disable sonarjs/no-unstable-nested-components */
+/* eslint-disable sonarjs/anchor-has-content */
+/* eslint-disable sonarjs/alt-text */
 /* eslint-disable jsx-a11y/anchor-has-content */
 'use client';
 

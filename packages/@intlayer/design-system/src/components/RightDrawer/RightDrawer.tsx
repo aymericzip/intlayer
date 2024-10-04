@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/mouse-events-a11y */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 'use client';

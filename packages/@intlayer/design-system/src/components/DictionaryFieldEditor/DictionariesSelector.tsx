@@ -2,12 +2,12 @@
 
 import type { Locales } from '@intlayer/config/client';
 import type { FC } from 'react';
+import { useDictionary } from 'react-intlayer';
 import { useGetAllDictionaries } from '../../hooks';
 import { useEditionPanelStore } from '../DictionaryEditor';
 import { Loader } from '../Loader';
-import { DictionaryFieldEditor } from './DictionaryFieldEditor';
-import { useDictionary } from 'react-intlayer';
 import { dictionariesSelectorContent } from './dictionariesSelector.content';
+import { DictionaryFieldEditor } from './DictionaryFieldEditor';
 
 type DictionariesSelectorProps = {
   locale: Locales;
@@ -26,11 +26,11 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
 
   if (isLoading) return <Loader />;
 
-  if (!focusedContent?.dictionaryId) return <>{noDictionaryMessage}</>;
+  if (!focusedContent?.dictionaryId) return noDictionaryMessage;
 
   const dictionary = all?.[focusedContent?.dictionaryId];
 
-  if (!dictionary) return <>{dictionaryNotFoundMessage}</>;
+  if (!dictionary) return dictionaryNotFoundMessage;
 
   return <DictionaryFieldEditor dictionary={dictionary} locale={locale} />;
 };

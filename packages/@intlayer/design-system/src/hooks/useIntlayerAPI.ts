@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useAuth } from '../components';
+import { useAuth } from '../components/Auth/AuthProvider';
 import { getIntlayerAPI } from '../libs/intlayer-api';
 
 export const useIntlayerAPI = () => {

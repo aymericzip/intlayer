@@ -1,4 +1,4 @@
-import { FC, SVGProps } from 'react';
+import type { FC, SVGProps } from 'react';
 import { cn } from '../../utils/cn';
 
 type SpotlightProps = {
@@ -30,11 +30,7 @@ export const Spotlight: FC<SpotlightProps> = ({
     fill="none"
     {...props}
   >
-    <g
-      filter="url(#filter)"
-      transform="scale (-1, 1)"
-      transform-origin="center"
-    >
+    <g filter="url(#filter)" transform="scale (-1, 1)">
       <ellipse
         cx={cx}
         cy={cy}

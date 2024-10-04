@@ -1,6 +1,12 @@
 'use client';
 
-import { forwardRef, type HTMLAttributes, useId, createContext } from 'react';
+import {
+  forwardRef,
+  type HTMLAttributes,
+  useId,
+  createContext,
+  useMemo,
+} from 'react';
 
 export const FormItem = forwardRef<
   HTMLDivElement,
@@ -8,8 +14,15 @@ export const FormItem = forwardRef<
 >((props, ref) => {
   const id = useId();
 
+  const memoValue = useMemo(
+    () => ({
+      id,
+    }),
+    [id]
+  );
+
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <FormItemContext.Provider value={memoValue}>
       <div className="space-y-2" ref={ref} {...props} />
     </FormItemContext.Provider>
   );

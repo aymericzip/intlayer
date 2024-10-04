@@ -58,8 +58,9 @@
     "build": "tsup",
     "clean": "rimraf ./dist",
     "dev": "tsup --watch",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "lint": "eslint . --debug --cache",
+    "lint:fix": "eslint . --debug --cache --fix",
+    "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*"
   },
   "dependencies": {
@@ -82,7 +83,9 @@
     "@types/node": "^20.14.9",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
+    "eslint": "^9.11.1",
     "node-polyfill-webpack-plugin": "^3.0.0",
+    "prettier": "3.3.3",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
     "webpack-watch-files-plugin": "^1.2.1"

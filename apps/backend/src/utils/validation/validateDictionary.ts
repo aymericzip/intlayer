@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-unused-collection */
-/* eslint-disable sonarjs/cognitive-complexity */
+
 import { findProjects } from '@services/project.service';
 import { validateArray } from './validateArray';
 import type { Dictionary } from '@/types/dictionary.types';

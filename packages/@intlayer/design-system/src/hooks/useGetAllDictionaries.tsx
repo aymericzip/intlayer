@@ -9,7 +9,7 @@ import type { Dictionary } from '@intlayer/core';
 import localeDictionaries from '@intlayer/dictionaries-entry';
 import { useEffect, useMemo, useState } from 'react';
 import type { DictionaryContent } from '../components/DictionaryEditor';
-import { useGetDictionaries } from '.';
+import { useGetDictionaries } from './intlayerAPIHooks';
 
 export const useGetAllDictionaries = () => {
   const { getDictionaries, isLoading } = useGetDictionaries();

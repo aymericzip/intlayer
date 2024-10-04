@@ -5,7 +5,7 @@ import { logger } from '@/logger';
 type ApiAccessControlResult =
   | {
       success: true;
-      message?: undefined;
+      message?: null;
     }
   | {
       success: false;
@@ -13,7 +13,7 @@ type ApiAccessControlResult =
     };
 
 export enum AccessRule {
-  public = 'public',
+  none = 'none',
   authenticated = 'authenticated',
   admin = 'admin',
   noneAuthenticated = 'none-authenticated',
@@ -31,45 +31,45 @@ export const apiAccessControl = (
 
   const accessResults = accessRuleArray.map((rule) => {
     switch (rule) {
-      case AccessRule.public:
-        return true;
+      case AccessRule.none:
+        return { success: true, message: null };
       case AccessRule.authenticated:
         if (!user) {
-          return 'User is not authenticated';
+          return { success: false, message: 'User is not authenticated' };
         }
-        return !!user;
+        return { success: true, message: null };
       case AccessRule.admin:
         if (!user?.role.includes('admin')) {
-          return 'User is not an admin';
+          return { success: false, message: 'User is not an admin' };
         }
-        return true;
+        return { success: true, message: null };
       case AccessRule.noneAuthenticated:
         if (user) {
-          return 'User is authenticated';
+          return { success: false, message: 'User is authenticated' };
         }
-        return true;
+        return { success: true, message: null };
       case AccessRule.hasOrganization:
         if (!organization) {
-          return 'Organization is not set';
+          return { success: false, message: 'Organization is not set' };
         }
-        return true;
+        return { success: true, message: null };
       case AccessRule.hasProject:
         if (!project) {
-          return 'Project is not set';
+          return { success: false, message: 'Project is not set' };
         }
-        return true;
+        return { success: true, message: null };
       default:
-        return false;
+        return { success: false, message: null };
     }
   });
 
-  if (accessResults.every((result) => result)) {
+  if (accessResults.every((result) => result.success)) {
     return { success: true };
   }
 
   const errorMessage = accessResults
     .map((result, index) => {
-      if (result) {
+      if (result.success) {
         return '';
       }
 
@@ -118,7 +118,7 @@ export const apiAccessControl = (
  */
 export const apiAccessControlMiddleWare =
   (...accessRules: (AccessRule | AccessRule[])[]) =>
-  (_req: Request<any>, res: Response, next: NextFunction) => {
+  (_req: Request<unknown>, res: Response, next: NextFunction) => {
     let hasAccess = false;
 
     // Iterate over each access rule group (either single AccessRule or an array of AccessRules)

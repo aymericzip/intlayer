@@ -1,7 +1,7 @@
 'use client';
 
 import { forwardRef, type HTMLAttributes } from 'react';
-import { useFormField } from '.';
+import { useFormField } from './FormField';
 
 export const FormDescription = forwardRef<
   HTMLParagraphElement,

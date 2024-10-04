@@ -1,14 +1,10 @@
 import type { VariantProps } from 'class-variance-authority';
-import {
-  forwardRef,
-  type DetailedHTMLProps,
-  type TextareaHTMLAttributes,
-} from 'react';
+import { forwardRef, HTMLAttributes, type DetailedHTMLProps } from 'react';
 import { cn } from '../../utils/cn';
 import { inputVariants } from '../Input';
 
 export type TextAreaProps = DetailedHTMLProps<
-  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  HTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
 > & {
   validationStyleEnabled?: boolean;

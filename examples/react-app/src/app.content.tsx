@@ -1,5 +1,5 @@
 import { t, type DeclarationContent } from 'intlayer';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const appContent: DeclarationContent = {
   id: 'app',

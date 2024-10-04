@@ -43,8 +43,8 @@ export const OrganizationDropdown: FC = () => {
   const { organization } = session ?? {};
   const router = useRouter();
 
-  const handleUnselectOrganization = async () => {
-    await unselectOrganization()
+  const handleUnselectOrganization = () => {
+    unselectOrganization()
       .then(async () => {
         toast({
           title: organizationLogout.toast.success.title.value,
@@ -64,8 +64,8 @@ export const OrganizationDropdown: FC = () => {
       });
   };
 
-  const handleSelectOrganization = async (organizationId: string) => {
-    await selectOrganization(organizationId)
+  const handleSelectOrganization = (organizationId: string) => {
+    selectOrganization(organizationId)
       .then(async () => {
         await checkSession();
 

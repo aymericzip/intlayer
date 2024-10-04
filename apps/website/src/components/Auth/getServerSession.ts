@@ -24,6 +24,8 @@ export const getServerSession = async () => {
 
     return session;
   } catch (error) {
+    console.error(error);
+
     return null;
   }
 };

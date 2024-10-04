@@ -69,13 +69,13 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
 
       if (isLink) {
         Section = (
-          <Link key={index} href={link.href!}>
+          <Link key={text} href={link.href!}>
             {text}
           </Link>
         );
       } else if (isButton) {
         Section = (
-          <ButtonLink key={index} onClick={link.onClick!}>
+          <ButtonLink key={text} onClick={link.onClick!}>
             {text}
           </ButtonLink>
         );
@@ -86,7 +86,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
       }
 
       return (
-        <Fragment key={index}>
+        <Fragment key={text}>
           {Section}
           <ChevronRightIcon size={10} />
         </Fragment>

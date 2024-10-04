@@ -37,9 +37,9 @@ const createReactElement = (element: ReactElement) => {
       const { children } = element.props;
 
       // Create the children elements recursively, if any
-      Object.keys(children).forEach((key) => {
-        childrenResult.push(createReactElement(children[key]));
-      });
+      Object.keys(children).forEach((key) =>
+        childrenResult.push(createReactElement(children[key]))
+      );
 
       return {
         ...element,
@@ -200,10 +200,10 @@ export const NodeWrapper: FC<NodeWrapperProps> = ({
     if (nodeType === NodeType.Array) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {(section as DictionaryValue[]).map((_subSection, index) => (
+          {(section as DictionaryValue[]).map((subSection, index) => (
             <Button
               label={`${goToElement.label.value} ${index}`}
-              key={index}
+              key={JSON.stringify(subSection)}
               isActive={selectedKey === index}
               variant="hoverable"
               color="text"

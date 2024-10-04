@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-conditional */
 /* eslint-disable sonarjs/cognitive-complexity */
 'use client';
 
@@ -17,6 +18,7 @@ import {
   forwardRef,
   useCallback,
   useContext,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -50,8 +52,6 @@ const useMultiSelect = () => {
 /**
  * MultiSelect Docs: {@link: https://shadcn-extension.vercel.app/docs/multi-select}
  */
-
-// TODO : expose the visibility of the popup
 
 type MultiSelectProps = ComponentPropsWithoutRef<typeof CommandRoot> & {
   values?: string[];
@@ -164,10 +164,8 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
             if (value.length > 0 && (activeIndex !== -1 || loop)) {
               moveNext();
             }
-          } else {
-            if (value.length > 0 && target.selectionStart === 0) {
-              movePrev();
-            }
+          } else if (value.length > 0 && target.selectionStart === 0) {
+            movePrev();
           }
           break;
 
@@ -176,10 +174,8 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
             if (value.length > 0 && target.selectionStart === 0) {
               movePrev();
             }
-          } else {
-            if (value.length > 0 && (activeIndex !== -1 || loop)) {
-              moveNext();
-            }
+          } else if (value.length > 0 && (activeIndex !== -1 || loop)) {
+            moveNext();
           }
           break;
 
@@ -215,21 +211,35 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
     [value, inputValue, activeIndex, loop]
   );
 
+  const memoValue = useMemo(
+    () => ({
+      value,
+      onValueChange: onValueChangeHandler,
+      open,
+      setOpen,
+      inputValue,
+      setInputValue,
+      activeIndex,
+      setActiveIndex,
+      ref: inputRef,
+      handleSelect,
+    }),
+    [
+      value,
+      onValueChangeHandler,
+      open,
+      setOpen,
+      inputValue,
+      setInputValue,
+      activeIndex,
+      setActiveIndex,
+      inputRef,
+      handleSelect,
+    ]
+  );
+
   return (
-    <MultiSelectContext.Provider
-      value={{
-        value,
-        onValueChange: onValueChangeHandler,
-        open,
-        setOpen,
-        inputValue,
-        setInputValue,
-        activeIndex,
-        setActiveIndex,
-        ref: inputRef,
-        handleSelect,
-      }}
-    >
+    <MultiSelectContext.Provider value={memoValue}>
       <CommandRoot
         onKeyDown={handleKeyDown}
         className={cn(
@@ -322,7 +332,7 @@ MultiSelectTrigger.displayName = 'MultiSelectTrigger';
 const MultiSelectInput = forwardRef<
   ElementRef<typeof Command.Input>,
   ComponentPropsWithoutRef<typeof Command.Input>
->(({ className, ...props }, _ref) => {
+>(({ className, ...props }) => {
   const {
     setOpen,
     inputValue,

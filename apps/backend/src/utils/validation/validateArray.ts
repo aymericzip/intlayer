@@ -18,7 +18,7 @@ export const validateArray = <T = unknown>(
   minLength = 0,
   maxLength = undefined
 ): string[] => {
-  const errors = [];
+  const errors: string[] = [];
 
   if (!Array.isArray(value)) {
     errors.push(`${entityName} must be an array.`);

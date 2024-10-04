@@ -65,6 +65,7 @@ export const useScrollBlockageStore = create<ScrollBlockageStore>(
                   ? {
                       ...blocker,
                       blockers: blocker.blockers.filter(
+                        // eslint-disable-next-line sonarjs/no-nested-functions
                         (b) => b !== blockerName
                       ),
                     }

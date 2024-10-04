@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import type { LogoBaseProps } from '.';
 
-export const LogoTextOnly: FC<LogoBaseProps> = ({ bgColor, ...props }) => (
+export const LogoTextOnly: FC<LogoBaseProps> = ({ ...props }) => (
   <svg
     width="1866"
     height="478"

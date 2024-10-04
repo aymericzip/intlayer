@@ -3,7 +3,7 @@ import { type PropsWithChildren, forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
 
 const containerVariants = cva(
-  'text-text dark:text-text-dark flex flex-col p-10 backdrop-blur',
+  'flex flex-col p-10 text-text backdrop-blur dark:text-text-dark',
   {
     variants: {
       roundedSize: {
@@ -32,9 +32,9 @@ const containerVariants = cva(
       },
       separator: {
         without: '',
-        x: 'divide-text/20 dark:divide-text-dark/20 divide-x divide-dashed',
-        y: 'divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed',
-        both: 'divide-text/20 dark:divide-text-dark/20 divide-x divide-y divide-dashed',
+        x: 'divide-x divide-dashed divide-text/20 dark:divide-text-dark/20',
+        y: 'divide-y divide-dashed divide-text/20 dark:divide-text-dark/20',
+        both: 'divide-x divide-y divide-dashed divide-text/20 dark:divide-text-dark/20',
       },
       gap: {
         none: 'gap-0',

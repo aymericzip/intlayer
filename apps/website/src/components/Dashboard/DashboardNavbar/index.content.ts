@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { t, type DeclarationContent } from 'intlayer';
 
 const dashboardNavbarContent: DeclarationContent = {

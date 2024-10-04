@@ -13,7 +13,7 @@ import { TextArea } from '../TextArea';
 export type ContentEditorTextAreaProps = {
   children: string;
   onContentChange: (content: string) => void;
-} & HTMLAttributes<HTMLTextAreaElement>;
+} & Omit<HTMLAttributes<HTMLTextAreaElement>, 'children'>;
 
 export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   children,

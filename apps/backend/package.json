@@ -45,8 +45,10 @@
   "scripts": {
     "build": "tsup && tsc-alias",
     "dev": "node --watch -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "lint": "eslint . --debug --cache",
+    "lint:fix": "eslint . --debug --cache --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
     "start": "node --experimental-default-type=\"module\" dist/build/index.js"
   },
   "dependencies": {
@@ -82,7 +84,8 @@
     "@types/uuid": "^10.0.0",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
-    "eslint": "^8.57.0",
+    "eslint": "^9.11.1",
+    "prettier": "3.3.3",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",

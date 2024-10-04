@@ -6,6 +6,7 @@ import {
   type FC,
   createContext,
   useContext,
+  useMemo,
 } from 'react';
 import { useCSRF } from './useCSRF';
 import { useSession } from './useSession';
@@ -50,17 +51,27 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   const { csrfToken, setCsrfToken, csrfTokenFetched } = useCSRF();
   const { session, setSession, fetchSession } = useSession(sessionProp);
 
+  const memoValue = useMemo(
+    () => ({
+      session,
+      setSession,
+      checkSession: fetchSession,
+      csrfToken,
+      csrfTokenFetched,
+      setCsrfToken,
+    }),
+    [
+      session,
+      setSession,
+      fetchSession,
+      csrfToken,
+      csrfTokenFetched,
+      setCsrfToken,
+    ]
+  );
+
   return (
-    <SessionContext.Provider
-      value={{
-        session,
-        setSession,
-        checkSession: fetchSession,
-        csrfToken,
-        csrfTokenFetched,
-        setCsrfToken,
-      }}
-    >
+    <SessionContext.Provider value={memoValue}>
       {children}
     </SessionContext.Provider>
   );

@@ -15,6 +15,7 @@ export default defineConfig(() => ({
     react(),
     macrosPlugin(),
     dts({
+      entryRoot: 'src',
       exclude: ['**/*.stories.*', '**/*.test.*'],
       beforeWriteFile: (filePath, content) => ({
         filePath: filePath.replace('@intlayer/design-system/src/', ''),

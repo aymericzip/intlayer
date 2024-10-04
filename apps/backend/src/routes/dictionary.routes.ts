@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-misused-promises */
 import {
   addDictionary,
   deleteDictionary,

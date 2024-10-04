@@ -2,7 +2,7 @@
 
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useState, forwardRef, type MouseEventHandler } from 'react';
-import { Input, type InputProps } from '.';
+import { Input, type InputProps } from './Input';
 
 type InputPasswordProps = Omit<InputProps, 'type'>;
 

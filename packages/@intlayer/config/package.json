@@ -65,8 +65,9 @@
     "build": "tsup",
     "clean": "rimraf ./dist",
     "dev": "tsup --watch",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs --fix",
+    "lint": "eslint . --debug --cache",
+    "lint:fix": "eslint . --debug --cache --fix",
+    "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*",
     "test": "",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
@@ -82,6 +83,8 @@
   "devDependencies": {
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
+    "eslint": "^9.11.1",
+    "prettier": "3.3.3",
     "rimraf": "5.0.5",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2"

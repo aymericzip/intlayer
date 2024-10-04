@@ -1,5 +1,3 @@
-/* eslint-disable import/order */
-/* eslint-disable sonarjs/no-duplicate-string */
 import { Locales } from '@intlayer/config/client';
 import type { FC, ImgHTMLAttributes } from 'react';
 

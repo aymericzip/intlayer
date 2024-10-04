@@ -26,6 +26,8 @@ export const StringWrapper: FC<StringWrapperProps> = ({
 
   const level = keyPath.length;
 
+  const content = editedContentValue ?? section;
+
   return (
     <button
       className={cn(
@@ -42,7 +44,7 @@ export const StringWrapper: FC<StringWrapperProps> = ({
       <ContentEditorTextArea
         onContentChange={(newValue) => onContentChange({ keyPath, newValue })}
       >
-        {editedContentValue ?? section}
+        {`${content}`}
       </ContentEditorTextArea>
     </button>
   );

@@ -11,7 +11,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 }) => (
   <div className="relative w-full p-0.5">
     <button
-      className="hover:bg-text/10 dark:hover:bg-text-opposite/10 focus:bg-text-opposite/20 dark:focus:bg-text-opposite/20 aria-selected:bg-text/20 dark:aria-selected:bg-text-opposite/20 w-full cursor-pointer rounded-lg px-3 py-1 text-left focus:outline-none disabled:text-white/25 aria-selected:hover:cursor-default"
+      className="hover:bg-text/10 focus:bg-text-opposite/20 aria-selected:bg-text/20 dark:hover:bg-text-opposite/10 dark:focus:bg-text-opposite/20 dark:aria-selected:bg-text-opposite/20 w-full cursor-pointer rounded-lg px-3 py-1 text-left focus:outline-none disabled:text-white/25 aria-selected:hover:cursor-default"
       data-mode="system"
       {...props}
     >
@@ -45,7 +45,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
 
   return (
     <div
-      className="text-text dark:text-text-dark border-text dark:border-text-dark rounded-xl border transition-colors"
+      className="border-text text-text dark:border-text-dark dark:text-text-dark rounded-xl border transition-colors"
       aria-label="Language switcher"
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>

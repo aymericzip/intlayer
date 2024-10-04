@@ -6,7 +6,6 @@ import {
   Form,
   useToast,
   useAuth,
-  Select,
   MultiSelect,
 } from '@intlayer/design-system';
 import {

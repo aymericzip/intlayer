@@ -1,6 +1,11 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import path from 'path';
+import { fileURLToPath } from 'url';
+import tailwindAspectRatio from '@tailwindcss/aspect-ratio';
 import defaultTheme from 'tailwindcss/defaultTheme';
+import tailwindAnimations from 'tailwindcss/plugin';
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
 
 /** @type {() => import('tailwindcss').Config} */
 const getTailwindConfig = () => {
@@ -193,10 +198,7 @@ const getTailwindConfig = () => {
         },
       },
     },
-    plugins: [
-      require('tailwindcss-animate'),
-      require('@tailwindcss/aspect-ratio'),
-    ],
+    plugins: [tailwindAnimations, tailwindAspectRatio],
   };
 };
 

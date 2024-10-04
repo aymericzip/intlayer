@@ -49,6 +49,10 @@
     "build": "tsup",
     "clean": "rimraf ./dist",
     "dev": "tsup --watch",
+    "lint": "eslint . --debug --cache",
+    "lint:fix": "eslint . --debug --cache --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
     "test": ""
   },
   "dependencies": {
@@ -57,6 +61,8 @@
   "devDependencies": {
     "@types/node": "^20.14.9",
     "@utils/ts-config": "workspace:^",
+    "eslint": "^9.11.1",
+    "prettier": "3.3.3",
     "rimraf": "5.0.5",
     "tsup": "^8.1.0"
   },

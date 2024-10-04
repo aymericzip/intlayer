@@ -1,8 +1,8 @@
 'use client';
 
 import { getLocaleName } from 'intlayer';
-import { useIntlayer, useLocale } from 'react-intlayer';
 import type { ButtonHTMLAttributes, FC } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({

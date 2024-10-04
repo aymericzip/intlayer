@@ -1,7 +1,7 @@
-import type { Config } from 'tailwindcss';
 import defaultConfig, {
   intlayerTailwindContent,
 } from '@intlayer/design-system/tailwind-config';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   presets: [defaultConfig],

@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { logger } from '@logger/index';
 import { UserModel } from '@models/user.model';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -8,6 +7,7 @@ import {
   validateUser,
 } from '@utils/validation/validateUser';
 import type { ObjectId } from 'mongoose';
+// eslint-disable-next-line import/no-cycle
 import { hashUserPassword } from './auth.service';
 import type { SessionProviders } from '@/types/session.types';
 import type {

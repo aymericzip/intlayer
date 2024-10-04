@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+
 import { join, relative, resolve } from 'path';
 import { watch } from '@intlayer/chokidar';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';

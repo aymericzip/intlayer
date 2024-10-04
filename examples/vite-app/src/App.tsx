@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
+import { IntlayerProvider, useIntlayer } from 'react-intlayer';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
-import { IntlayerProvider, useIntlayer } from 'react-intlayer';
 
-function AppContent() {
+const AppContent: FC = () => {
   const [count, setCount] = useState(0);
   const content = useIntlayer('app');
 
@@ -37,7 +37,7 @@ function AppContent() {
       </div>
     </>
   );
-}
+};
 
 function App() {
   return (

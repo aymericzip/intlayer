@@ -67,7 +67,7 @@ export const EditorView: FC<EditorViewProps> = ({
       )}
 
       {keyPath.length > 0 ? (
-        <form className="bg-text dark:bg-text-dark text-text-dark dark:text-text flex w-full items-start justify-between gap-2 px-4 py-2">
+        <form className="bg-text text-text-dark dark:bg-text-dark dark:text-text flex w-full items-start justify-between gap-2 px-4 py-2">
           <div className="flex items-center gap-1" key={initialKeyName}>
             <Input
               name="key"

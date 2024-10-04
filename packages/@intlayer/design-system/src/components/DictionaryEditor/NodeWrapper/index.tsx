@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 'use client';
 
 import type { Locales } from '@intlayer/config/client';

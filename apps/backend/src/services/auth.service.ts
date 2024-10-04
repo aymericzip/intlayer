@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/pseudo-random */
 import { logger } from '@logger/index';
 import {
   Cookies,
@@ -10,6 +11,7 @@ import type { Response } from 'express';
 import jwt from 'jsonwebtoken';
 import type { Document, ObjectId } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
+// eslint-disable-next-line import/no-cycle
 import {
   formatUserForAPI as formatUserForAPIService,
   getUserByEmail,
@@ -46,7 +48,7 @@ export const addSession = async (user: User): Promise<User> => {
 };
 
 export const removeSession = async (user: User): Promise<User> => {
-  const session = null;
+  const session = undefined;
 
   const updatedUser: User = await updateUserById(user._id, { session });
 
@@ -82,7 +84,9 @@ export const setUserAuth = async (res: Response, user: User) => {
   res.cookie(Cookies.JWT_AUTH, userSessionToken, cookieOptions);
 
   res.locals.user = user;
-  logger.info(`User logged in - User: Name: ${user.name}, id: ${user._id}`);
+  logger.info(
+    `User logged in - User: Name: ${user.name}, id: ${String(user._id)}`
+  );
 };
 
 /**
@@ -384,7 +388,7 @@ export const updateUserProvider = async <
   });
 
   logger.info(
-    `User provider updated - User: Name: ${updatedUser.name}, id: ${updatedUser._id} - Provider: ${provider}`
+    `User provider updated - User: Name: ${updatedUser.name}, id: ${String(updatedUser._id)} - Provider: ${provider}`
   );
 
   return updatedUser;
@@ -414,7 +418,7 @@ export const addUserProvider = async (
   const existingProvider = await getUserProvider(userId, provider.provider);
 
   if (existingProvider) {
-    const errorMessage = `User provider already exists : ${user._id} - ${provider.provider}`;
+    const errorMessage = `User provider already exists : ${String(user._id)} - ${provider.provider}`;
 
     logger.error(errorMessage);
 
@@ -428,7 +432,7 @@ export const addUserProvider = async (
   });
 
   logger.info(
-    `User provider added - User: Name: ${updatedUser.name}, id: ${updatedUser._id} - Provider: ${provider}`
+    `User provider added - User: Name: ${updatedUser.name}, id: ${String(updatedUser._id)} - Provider: ${provider.provider}`
   );
 
   return updatedUser;
@@ -463,7 +467,7 @@ export const removeUserProvider = async (
   );
 
   if (!existingProvider) {
-    const errorMessage = `User provider not found : ${user._id} - ${provider}`;
+    const errorMessage = `User provider not found : ${String(user._id)} - ${provider}`;
 
     logger.error(errorMessage);
 
