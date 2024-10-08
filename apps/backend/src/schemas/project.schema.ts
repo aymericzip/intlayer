@@ -32,6 +32,25 @@ export const projectSchema = new Schema<Project>(
       ref: 'User',
       required: true,
     },
+    oAuth2Access: [
+      {
+        clientId: { type: String, required: true, unique: true },
+        clientSecret: { type: String, required: true },
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: 'User',
+          required: true,
+        },
+        name: { type: String, required: true },
+        expiresAt: {
+          type: Date,
+        },
+        accessToken: {
+          type: [String],
+          required: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

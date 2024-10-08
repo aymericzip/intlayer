@@ -13,11 +13,12 @@ const OrganizationDashboardPage: NextPageIntlayer = ({
       <h1 className="border-neutral dark:border-neutral-dark border-b-[0.5px] p-10 text-3xl ">
         {title}
       </h1>
-      <BackgroundLayout>
-        <div className="flex size-full flex-1 flex-col items-center p-10">
+      <div className="relative flex size-full flex-1 flex-col items-center">
+        <BackgroundLayout />
+        <div className="flex size-full flex-1 flex-col items-center justify-center p-10">
           <OrganizationForm />
         </div>
-      </BackgroundLayout>
+      </div>
     </IntlayerServerProvider>
   );
 };

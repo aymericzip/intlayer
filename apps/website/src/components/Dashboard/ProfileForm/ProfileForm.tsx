@@ -1,6 +1,12 @@
 'use client';
 
-import { useForm, Form, useAuth, useToast } from '@intlayer/design-system';
+import {
+  useForm,
+  Form,
+  useAuth,
+  useToast,
+  Container,
+} from '@intlayer/design-system';
 import { useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -40,30 +46,35 @@ export const ProfileForm: FC = () => {
   };
 
   return (
-    <Form
-      schema={SignInSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      onSubmitError={onSubmitError}
-      className="w-full max-w-[400px]"
-      {...form}
+    <Container
+      roundedSize="xl"
+      className="flex size-full max-w-[400px] justify-center p-6"
     >
-      <Form.Input
-        name="name"
-        label={nameInput.label}
-        placeholder={nameInput.placeholder.value}
-        isRequired
-        defaultValue={user?.name}
-      />
-
-      <Form.Button
-        className="mt-12 w-full"
-        type="submit"
-        color="text"
-        isLoading={isSubmitting}
-        label={editButton.ariaLabel.value}
+      <Form
+        schema={SignInSchema}
+        onSubmitSuccess={onSubmitSuccess}
+        onSubmitError={onSubmitError}
+        className="w-full max-w-[400px]"
+        {...form}
       >
-        {editButton.text}
-      </Form.Button>
-    </Form>
+        <Form.Input
+          name="name"
+          label={nameInput.label}
+          placeholder={nameInput.placeholder.value}
+          isRequired
+          defaultValue={user?.name}
+        />
+
+        <Form.Button
+          className="mt-12 w-full"
+          type="submit"
+          color="text"
+          isLoading={isSubmitting}
+          label={editButton.ariaLabel.value}
+        >
+          {editButton.text}
+        </Form.Button>
+      </Form>
+    </Container>
   );
 };

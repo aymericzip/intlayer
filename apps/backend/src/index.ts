@@ -10,6 +10,7 @@ import {
 } from '@middlewares/auth.middleware';
 import { logAPIRequestURL } from '@middlewares/request.middleware';
 import { authRouter } from '@routes/auth.routes';
+import { cliRouter } from '@routes/cli.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
@@ -64,6 +65,12 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Liveness check
+app.get('/', (_req: Request, res: Response) => res.send('ok'));
+
+// CLI - NPM package
+app.use('/cli', cliRouter);
+
 // middleware - jwt
 app.use('*', checkUser);
 app.use('*', checkOrganization);
@@ -80,9 +87,6 @@ app.get('/session', getSessionInformation);
 // CSRF
 app.get('/csrf-token', setCSRFToken);
 app.use(doubleCsrfProtection);
-
-// Liveness check
-app.get('/', (_req: Request, res: Response) => res.send('ok'));
 
 // Routes
 app.use('/api/auth', authRouter);

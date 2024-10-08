@@ -12,6 +12,7 @@ import {
   getProjectById as getProjectByIdService,
   updateProjectById as updateProjectByIdService,
   deleteProjectById as deleteProjectByIdService,
+  addNewAccessKey as addNewAccessKeyService,
 } from '@services/project.service';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
@@ -29,6 +30,8 @@ import {
 import type { Request, Response } from 'express';
 import type { ObjectId } from 'mongoose';
 import type {
+  AccessKeyData,
+  OAuth2Access,
   Project,
   ProjectCreationData,
   ProjectData,
@@ -466,6 +469,70 @@ export const unselectProject = (
 
     const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<null>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+};
+
+export type AddNewAccessKeyBody = AccessKeyData;
+export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;
+
+export const addNewAccessKey = async (
+  req: Request<AddNewAccessKeyBody>,
+  res: ResponseWithInformation<AddNewAccessKeyResponse>
+) => {
+  const { user, project } = res.locals;
+
+  if (!project) {
+    const errorMessage = 'Project id not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<OAuth2Access>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  if (!user) {
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<OAuth2Access>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  try {
+    const newAccessKey = await addNewAccessKeyService(
+      req.body,
+      project._id,
+      user
+    );
+
+    const responseData = formatResponse<OAuth2Access>({
+      data: newAccessKey,
+    });
+
+    return res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+    const responseData = formatResponse<OAuth2Access>({
       error: errorMessage,
       status: responseCode,
     });

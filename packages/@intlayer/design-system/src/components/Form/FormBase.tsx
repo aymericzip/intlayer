@@ -67,7 +67,7 @@ export const Form = forwardRef(
     return (
       <FormProvider {...props}>
         <form
-          className={cn('flex flex-col gap-y-6', className)}
+          className={cn('flex size-full flex-col gap-y-6', className)}
           // eslint-disable-next-line sonarjs/no-misused-promises
           onSubmit={props.handleSubmit(onSubmit)}
           autoComplete={autoComplete ? 'on' : 'off'}

@@ -40,7 +40,7 @@ export const ProjectEditionForm: FC = () => {
     <Form
       schema={SignInSchema}
       onSubmitSuccess={onSubmitSuccess}
-      className="w-full max-w-[400px]"
+      className="w-full"
       {...form}
     >
       <Form.Input

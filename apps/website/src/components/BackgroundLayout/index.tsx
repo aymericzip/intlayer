@@ -13,7 +13,7 @@ export const BackgroundLayout: FC<
   const showSpotlight = hasSpotlight && theme === 'dark';
 
   return (
-    <div className="relative size-full flex-1">
+    <>
       <div className="absolute z-[-1] size-full max-h-full max-w-full overflow-hidden">
         <div className="relative size-full">
           {showSpotlight && (
@@ -31,6 +31,6 @@ export const BackgroundLayout: FC<
         </div>
       </div>
       {children}
-    </div>
+    </>
   );
 };

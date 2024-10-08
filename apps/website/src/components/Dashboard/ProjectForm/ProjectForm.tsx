@@ -1,9 +1,10 @@
 'use client';
 
 import type { Project } from '@intlayer/backend';
-import { Loader, Modal, useAuth } from '@intlayer/design-system';
+import { Container, Loader, Modal, useAuth } from '@intlayer/design-system';
 import { useGetProjects } from '@intlayer/design-system/hooks';
 import { Suspense, useEffect, useState, type FC } from 'react';
+import { AccessKeyForm } from './AccessKey/AccessKeyForm';
 import { NoProjectView } from './NoProjectView';
 import { ProjectCreationForm } from './ProjectCreationForm';
 import { ProjectEditionForm } from './ProjectEditionForm';
@@ -23,7 +24,22 @@ export const ProjectFormContent: FC = () => {
   }, [getProjects]);
 
   if (project) {
-    return <ProjectEditionForm />;
+    return (
+      <div className="flex size-full max-w-[500px] flex-col items-center justify-center gap-4">
+        <Container
+          roundedSize="xl"
+          className="flex size-full justify-center p-6"
+        >
+          <ProjectEditionForm />
+        </Container>
+        <Container
+          roundedSize="xl"
+          className="flex size-full justify-center p-6"
+        >
+          <AccessKeyForm />
+        </Container>
+      </div>
+    );
   }
 
   if (projects?.length > 0) {

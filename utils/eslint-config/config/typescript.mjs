@@ -1,4 +1,3 @@
-import * as espree from 'espree';
 import globals from 'globals';
 import tsEslint from 'typescript-eslint';
 
@@ -8,7 +7,7 @@ const config = [
   ...tsEslint.configs.recommended,
   // @ts-expect-error: Type not compatible
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['**/*.ts', '**/*.tsx', '**/*.d.ts'],
     rules: {
       '@typescript-eslint/no-unused-vars': [
         'warn',
@@ -17,6 +16,7 @@ const config = [
           ignoreRestSiblings: true,
         },
       ],
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
 
@@ -126,17 +126,16 @@ const config = [
         ...globals.node,
       },
 
-      parser: espree,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
           globalReturn: false,
         },
-        ecmaVersion: 6,
+        ecmaVersion: 'latest',
         project: ['tsconfig.json'],
         sourceType: 'module',
       },
-      ecmaVersion: 6,
+      ecmaVersion: 'latest',
       sourceType: 'script',
     },
 

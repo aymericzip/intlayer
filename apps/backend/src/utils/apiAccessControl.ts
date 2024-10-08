@@ -19,6 +19,7 @@ export enum AccessRule {
   noneAuthenticated = 'none-authenticated',
   hasOrganization = 'has-organization',
   hasProject = 'has-project',
+  hasBearer = 'has-bearer',
 }
 
 export const apiAccessControl = (

@@ -5,6 +5,7 @@ import {
   getProjects,
   updateProject,
   selectProject,
+  addNewAccessKey,
   unselectProject,
 } from '@controllers/project.controller';
 import {
@@ -57,6 +58,16 @@ projectRouter.put(
     AccessRule.hasOrganization,
   ]),
   selectProject
+);
+
+projectRouter.post(
+  '/access_key',
+  apiAccessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  addNewAccessKey
 );
 
 projectRouter.post(

@@ -20,7 +20,9 @@ export const ProjectCreationForm: FC = () => {
   } = useIntlayer('project-form');
   const { toast } = useToast();
 
-  const onSubmitSuccess = async (data: ProjectFormData) => {
+  const onSubmitSuccess: (data: ProjectFormData) => Promise<void> = async (
+    data
+  ) => {
     await addProject(data)
       .then(async (result) => {
         toast({

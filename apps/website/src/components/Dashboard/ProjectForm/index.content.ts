@@ -5,9 +5,9 @@ const projectFormContent: DeclarationContent = {
 
   nameInput: {
     label: t({
-      en: 'Name',
-      fr: 'Nom',
-      es: 'Nombre',
+      en: 'Name of your project',
+      fr: 'Nom de votre projet',
+      es: 'Nombre de su proyecto',
     }),
     placeholder: t({
       en: 'Enter the name of your project',
@@ -117,6 +117,36 @@ const projectFormContent: DeclarationContent = {
       fr: 'Cliquez pour modifier',
       es: 'Haga clic para editar',
     }),
+  },
+
+  accessKeys: {
+    title: t({
+      en: 'Access keys',
+      fr: "Clés d'accès",
+      es: 'Claves de acceso',
+    }),
+    description: t({
+      en: 'Access keys are used to authenticate your project.',
+      fr: "Les clés d'accès sont utilisées pour authentifier votre projet.",
+      es: 'Las claves de acceso se utilizan para autenticar su proyecto',
+    }),
+    noAccessKeys: t({
+      en: 'No access keys',
+      fr: "Aucune clé d'accès",
+      es: 'Sin claves de acceso',
+    }),
+    createAccessKey: {
+      text: t({
+        en: 'Create access key',
+        fr: "Créer une clé d'accès",
+        es: 'Crear una clave de acceso',
+      }),
+      label: t({
+        en: 'Click to create access key',
+        fr: "Cliquez pour créer une clé d'accès",
+        es: 'Haga clic para crear una clave de acceso',
+      }),
+    },
   },
 };
 

@@ -10,6 +10,8 @@ import type {
   SelectProjectParam,
   SelectProjectResult,
   UnselectProjectResult,
+  AddNewAccessKeyBody,
+  AddNewAccessKeyResponse,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -120,6 +122,26 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
       }
     );
 
+  /**
+   * Add a new access key to a project.
+   * @param accessKey - Access key data.
+   * @param otherOptions - Fetcher options.
+   * @returns The new access key.
+   */
+  const addNewAccessKey = async (
+    accessKey: AddNewAccessKeyBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<AddNewAccessKeyResponse>(
+      `${PROJECT_API_ROUTE}/access_key`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: accessKey,
+      }
+    );
+
   return {
     getProjects,
     addProject,
@@ -127,6 +149,7 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
     deleteProject,
     selectProject,
     unselectProject,
+    addNewAccessKey,
   };
 };
 
