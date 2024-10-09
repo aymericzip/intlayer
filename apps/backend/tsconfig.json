@@ -2,10 +2,10 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
   "include": ["**/*"],
-  "exclude": ["node_modules", "dist"],
+  "exclude": ["node_modules", "dist", "export.ts"],
   "compilerOptions": {
     "strict": false,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "esModuleInterop": true,
     "noEmit": false,
     "allowImportingTsExtensions": false,
@@ -15,16 +15,16 @@
     "module": "commonjs",
     "outDir": "dist/build",
     "paths": {
-      "@controllers/*": ["./src/controllers/*"],
-      "@models/*": ["./src/models/*"],
-      "@services/*": ["./src/services/*"],
-      "@routes/*": ["./src/routes/*"],
-      "@middlewares/*": ["./src/middlewares/*"],
-      "@logger/*": ["./src/logger/*"],
-      "@schemas/*": ["./src/schemas/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@controllers/*": ["./controllers/*"],
+      "@models/*": ["./models/*"],
+      "@services/*": ["./services/*"],
+      "@routes/*": ["./routes/*"],
+      "@middlewares/*": ["./middlewares/*"],
+      "@logger/*": ["./logger/*"],
+      "@schemas/*": ["./schemas/*"],
+      "@utils/*": ["./utils/*"],
       "@utils/ts-config/tsup": ["../../utils/ts-config/tsup-config.mjs"],
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     }
   },
   "tsc-alias": {

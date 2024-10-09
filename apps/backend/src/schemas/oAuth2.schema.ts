@@ -1,4 +1,3 @@
-import { ACCESS_TOKEN_EXPIRES_AT } from '@utils/oAuth';
 import { Schema } from 'mongoose';
 import { Token as TokenType, Client, User } from 'oauth2-server';
 
@@ -15,7 +14,6 @@ export const accessTokenSchema = new Schema<Token>(
     },
     accessTokenExpiresAt: {
       type: Date,
-      default: ACCESS_TOKEN_EXPIRES_AT,
     },
     clientId: {
       type: String,

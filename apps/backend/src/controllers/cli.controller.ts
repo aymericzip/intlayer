@@ -1,5 +1,5 @@
 import { RequestWithOAuth2Information } from '@middlewares/oAuth2.middleware';
-import { HttpStatusCodes } from 'export';
+import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import { Response } from 'express';
 import {
   Request as OAuthRequest,

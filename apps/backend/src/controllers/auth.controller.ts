@@ -25,11 +25,12 @@ import {
 import { generateToken } from '@utils/CSRF';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { Organization, Project } from 'export';
 import type { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { logger } from '@/logger';
+import { Organization } from '@/types/organization.types';
+import { Project } from '@/types/project.types';
 import type {
   Session,
   GithubSessionProvider,

@@ -1,6 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore react-intlayer not build yet
-import { t } from 'react-intlayer';
+import { t } from 'next-intlayer';
 import { z } from 'zod';
 
 export const getOrganizationSchema = () => {

@@ -8,10 +8,33 @@ import {
   useAuth,
   Modal,
 } from '@intlayer/design-system';
+import { KeyRound } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type FC } from 'react';
 import { AccessKeyCreationForm } from './AccessKeyCreationForm';
 import { getAccessKeySchema } from './AccessKeyFormSchema';
+
+const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => (
+  <div
+    key={String(accessKey._id)}
+    className="border-text dark:border-text-dark flex gap-5 rounded-md border-2 p-3"
+  >
+    <div className="flex items-center justify-center">
+      <KeyRound className="size-5" size={16} />
+    </div>
+    <div className="flex flex-col gap-2">
+      <span className="text-sm font-bold">{accessKey.name}</span>
+      <span className="text-sm">
+        clientId:
+        <span className="break-all">{accessKey.clientId}</span>
+      </span>
+      <span className="text-wrap text-sm">
+        clientSecret:
+        <span className="break-all">{accessKey.clientSecret}</span>
+      </span>
+    </div>
+  </div>
+);
 
 export const AccessKeyForm: FC = () => {
   const { session } = useAuth();
@@ -64,23 +87,12 @@ export const AccessKeyForm: FC = () => {
           {description}
         </span>
         {project?.oAuth2Access.map((accessKey) => (
-          <div key={String(accessKey._id)} className="flex flex-col gap-2">
-            <span className="text-center text-sm">{accessKey.name}</span>
-            <span className="text-center text-sm">{accessKey.clientId}</span>
-            <span className="text-center text-sm">
-              {accessKey.clientSecret}
-            </span>
-          </div>
+          <AccessKeyItem key={String(accessKey._id)} value={accessKey} />
         ))}
         {createdAccessKey.map((accessKey) => (
-          <div key={String(accessKey._id)} className="flex flex-col gap-2">
-            <span className="text-center text-sm">{accessKey.name}</span>
-            <span className="text-center text-sm">{accessKey.clientId}</span>
-            <span className="text-center text-sm">
-              {accessKey.clientSecret}
-            </span>
-          </div>
+          <AccessKeyItem key={String(accessKey._id)} value={accessKey} />
         ))}
+
         {nbAccessKeys === 0 && (
           <span className="mt-6 text-center text-sm">{noAccessKeys}</span>
         )}

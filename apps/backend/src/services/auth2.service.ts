@@ -1,6 +1,7 @@
 import { randomBytes } from 'crypto';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
+import { getTokenExpireAt } from '@utils/oAuth';
 import { Client, User, Token as OAuth2Token, Callback } from 'oauth2-server';
 import { Token } from '../schemas/oAuth2.schema';
 import { getOrganizationById } from './organization.service';
@@ -140,7 +141,7 @@ export const formatDBToken = (
     clientId: clientId,
     userId: userId,
     accessToken: token.accessToken,
-    expiresIn: token.accessTokenExpiresAt,
+    expiresIn: token.accessTokenExpiresAt ?? getTokenExpireAt(),
   };
 
   return formattedToken;

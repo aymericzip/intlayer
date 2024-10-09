@@ -5,7 +5,6 @@ import {
   type ProjectFields,
   validateProject,
 } from '@utils/validation/validateProject';
-import { User } from 'export';
 import type { ObjectId } from 'mongoose';
 import { generateClientCredentials } from './auth2.service';
 import type {
@@ -15,6 +14,7 @@ import type {
   Project,
   ProjectData,
 } from '@/types/project.types';
+import { User } from '@/types/user.types';
 
 /**
  * Finds projects based on filters and pagination options.

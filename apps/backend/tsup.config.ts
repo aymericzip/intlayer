@@ -6,6 +6,7 @@ const option: Options[] = [
     ...commonOptions,
     entryPoints: ['export.ts'],
     bundle: true,
+    tsconfig: 'tsconfig.package.json',
     dts: false,
     outDir: 'dist/package',
     format: ['cjs'],
@@ -17,6 +18,7 @@ const option: Options[] = [
     ...commonOptions,
     entryPoints: ['export.ts'],
     bundle: true,
+    tsconfig: 'tsconfig.package.json',
     dts: true,
     outDir: 'dist/package',
     format: ['esm'],
@@ -31,6 +33,7 @@ const option: Options[] = [
     outExtension: () => ({
       js: '.js',
     }),
+    tsconfig: 'tsconfig.package.json',
     entryPoints: ['src/**/*'],
     sourcemap: false,
     bundle: false,
