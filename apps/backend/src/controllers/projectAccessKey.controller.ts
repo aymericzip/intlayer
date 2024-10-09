@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
-import type { ResponseWithInformation } from '@middlewares/auth.middleware';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   addNewAccessKey as addNewAccessKeyService,
   deleteAccessKey as deleteAccessKeyService,

@@ -1,19 +1,23 @@
 /* eslint-disable sonarjs/no-misused-promises */
+import { token } from '@controllers/oAuth2.controller';
 import {
   getSessionInformation,
   setCSRFToken,
-} from '@controllers/auth.controller';
+} from '@controllers/sessionAuth.controller';
+import {
+  attachOAuthInstance,
+  authenticateOAuth2,
+} from '@middlewares/oAuth2.middleware';
+import { logAPIRequestURL } from '@middlewares/request.middleware';
 import {
   checkUser,
   checkOrganization,
   checkProject,
-} from '@middlewares/auth.middleware';
-import { logAPIRequestURL } from '@middlewares/request.middleware';
-import { authRouter } from '@routes/auth.routes';
-import { cliRouter } from '@routes/cli.routes';
+} from '@middlewares/sessionAuth.middleware';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
+import { sessionAuthRouter } from '@routes/sessionAuth.routes';
 import { userRouter } from '@routes/user.routes';
 import { doubleCsrfProtection } from '@utils/CSRF';
 import { connectDB } from '@utils/mongoDB/connectDB';
@@ -21,10 +25,10 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
 import dotenv from 'dotenv';
-import express, { type Request, type Response } from 'express';
+import express, { type Express, type Request, type Response } from 'express';
 import { logger } from './logger';
 
-const app = express();
+const app: Express = express();
 app.disable('x-powered-by');
 
 const env = app.get('env');
@@ -68,9 +72,6 @@ app.use(express.urlencoded({ extended: true }));
 // Liveness check
 app.get('/', (_req: Request, res: Response) => res.send('ok'));
 
-// CLI - NPM package
-app.use('/cli', cliRouter);
-
 // middleware - jwt
 app.use('*', checkUser);
 app.use('*', checkOrganization);
@@ -84,16 +85,20 @@ if (isDev) {
 // Sessions
 app.get('/session', getSessionInformation);
 
+// oAuth2
+app.use('*', attachOAuthInstance);
+app.post('/oauth/token', token); // Route to get the token
+
 // CSRF
 app.get('/csrf-token', setCSRFToken);
 app.use(doubleCsrfProtection);
 
 // Routes
-app.use('/api/auth', authRouter);
+app.use('/api/auth', sessionAuthRouter);
 app.use('/api/user', userRouter);
 app.use('/api/organization', organizationRouter);
 app.use('/api/project', projectRouter);
-app.use('/api/dictionary', dictionaryRouter);
+app.use('/api/dictionary', authenticateOAuth2, dictionaryRouter);
 
 // Server
 app.listen(process.env.PORT, () => {

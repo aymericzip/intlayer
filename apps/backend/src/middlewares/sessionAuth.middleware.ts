@@ -4,7 +4,7 @@ import { ProjectModel } from '@models/project.model';
 import {
   clearOrganizationAuth,
   clearProjectAuth,
-} from '@services/auth.service';
+} from '@services/sessionAuth.service';
 import { getUserBySession as getUserBySessionService } from '@services/user.service';
 import { Cookies } from '@utils/cookies';
 import type { Request, Response, NextFunction } from 'express';

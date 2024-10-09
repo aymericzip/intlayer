@@ -11,75 +11,75 @@ import {
   googleCallback,
   githubLoginQuery,
   googleLoginQuery,
-} from '@controllers/auth.controller';
+} from '@controllers/sessionAuth.controller';
 import {
   apiAccessControlMiddleWare,
   AccessRule,
 } from '@utils/apiAccessControl';
 import { Router } from 'express';
 
-export const authRouter: Router = Router();
+export const sessionAuthRouter: Router = Router();
 
 // Authentication
-authRouter.post(
+sessionAuthRouter.post(
   '/register',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
   registerEmailPassword
 );
-authRouter.post(
+sessionAuthRouter.post(
   '/login',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
   loginEmailPassword
 );
-authRouter.post(
+sessionAuthRouter.post(
   '/logout',
   apiAccessControlMiddleWare(AccessRule.authenticated),
   logOut
 );
 
 // Password
-authRouter.put(
+sessionAuthRouter.put(
   '/password',
   apiAccessControlMiddleWare(AccessRule.authenticated),
   updatePassword
 );
-authRouter.post(
+sessionAuthRouter.post(
   '/password/reset',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
   askResetPassword
 );
-authRouter.put(
+sessionAuthRouter.put(
   '/:userId/password/reset/:secret',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
   resetPassword
 );
 
 // Email validation
-authRouter.put(
+sessionAuthRouter.put(
   '/:userId/active/:secret',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated, AccessRule.admin),
   validEmail
 );
 
 // Github auth
-authRouter.get(
+sessionAuthRouter.get(
   '/login/github',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
   githubLoginQuery
 );
-authRouter.get(
+sessionAuthRouter.get(
   '/callback/github',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
   githubCallback
 );
 
 // Google auth
-authRouter.get(
+sessionAuthRouter.get(
   '/login/google',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
   googleLoginQuery
 );
-authRouter.get(
+sessionAuthRouter.get(
   '/callback/google',
   apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
   googleCallback

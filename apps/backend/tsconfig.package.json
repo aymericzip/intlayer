@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
   "include": ["export.ts"],
-  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist/build",

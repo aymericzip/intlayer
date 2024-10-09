@@ -8,7 +8,7 @@ import {
 } from '@utils/validation/validateUser';
 import type { ObjectId } from 'mongoose';
 // eslint-disable-next-line import/no-cycle
-import { hashUserPassword } from './auth.service';
+import { hashUserPassword } from './sessionAuth.service';
 import type { SessionProviders } from '@/types/session.types';
 import type {
   User,

@@ -4,7 +4,7 @@ import {
   MEMBERS_MIN_LENGTH,
 } from '@utils/validation/validateProject';
 import { Schema } from 'mongoose';
-import type { Project } from '@/types/project.types';
+import { Project } from '@/types/project.types';
 
 // Define the oAuth2Access subdocument schema with timestamps
 const oAuth2AccessSchema = new Schema(

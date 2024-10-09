@@ -1,7 +1,8 @@
 import { logger } from '@logger/index';
 import { ProjectModel } from '@models/project.model';
 import type { ObjectId } from 'mongoose';
-import { generateClientCredentials } from './auth2.service';
+import { generateClientCredentials } from './oAuth2.service';
+import { getProjectById } from './project.service';
 import type {
   AccessKeyData,
   OAuth2Access,
@@ -9,7 +10,6 @@ import type {
   Project,
 } from '@/types/project.types';
 import { User } from '@/types/user.types';
-import { getProjectById } from './project.service';
 
 /**
  * Adds a new access key to a project.

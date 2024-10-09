@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ResponseWithInformation } from '@middlewares/auth.middleware';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { UserFiltersParam } from '@utils/filtersAndPagination/getUserFiltersAndPagination';

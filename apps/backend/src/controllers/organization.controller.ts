@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
-import type { ResponseWithInformation } from '@middlewares/auth.middleware';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   clearOrganizationAuth as clearOrganizationAuthService,
   clearProjectAuth as clearProjectAuthService,
   setOrganizationAuth as setOrganizationAuthService,
-} from '@services/auth.service';
+} from '@services/sessionAuth.service';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,

@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
-import type { ResponseWithInformation } from '@middlewares/auth.middleware';
-import {
-  clearProjectAuth as clearProjectAuthService,
-  setProjectAuth as setProjectAuthService,
-} from '@services/auth.service';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   findProjects as findProjectsService,
   countProjects as countProjectsService,
@@ -13,6 +9,10 @@ import {
   updateProjectById as updateProjectByIdService,
   deleteProjectById as deleteProjectByIdService,
 } from '@services/project.service';
+import {
+  clearProjectAuth as clearProjectAuthService,
+  setProjectAuth as setProjectAuthService,
+} from '@services/sessionAuth.service';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getProjectFiltersAndPagination,

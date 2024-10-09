@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
-import type { ResponseWithInformation } from '@middlewares/auth.middleware';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   findDictionaries as findDictionariesService,
   countDictionaries as countDictionariesService,

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ResponseWithInformation } from '@middlewares/auth.middleware';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   clearOrganizationAuth as clearOrganizationAuthService,
   clearProjectAuth as clearProjectAuthService,
@@ -13,7 +13,7 @@ import {
   getUserProvider as getUserProviderService,
   updateUserProvider as updateUserProviderService,
   testUserPassword,
-} from '@services/auth.service';
+} from '@services/sessionAuth.service';
 import {
   createUser as createUserService,
   formatUserForAPI as formatUserForAPIService,
