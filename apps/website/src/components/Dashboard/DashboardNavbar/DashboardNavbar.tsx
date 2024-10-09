@@ -6,7 +6,7 @@ import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
 import { Container, Logo, TabSelector, useAuth } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
-import { usePathname } from 'next/navigation';
+import { useLocale } from 'next-intlayer';
 import React, { type FC, type ReactNode } from 'react';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
@@ -21,7 +21,7 @@ export type NavbarProps = {
 };
 
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
-  const pathname = usePathname();
+  const { pathWithoutLocale } = useLocale();
   const { session } = useAuth();
   const { organization, project } = session ?? {};
   const { isMobile } = useDevice('sm');
@@ -84,7 +84,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
 
       <div className="max-3 flex w-full items-center gap-8 overflow-x-auto max-sm:pb-4">
         <TabSelector
-          selectedChoice={pathname}
+          selectedChoice={pathWithoutLocale}
           tabs={filteredLinks.map(({ url, label, title }) => (
             <Link
               key={url}

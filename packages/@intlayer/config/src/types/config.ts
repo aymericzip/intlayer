@@ -59,11 +59,16 @@ export type MiddlewareConfig = {
   cookieName: string;
 
   /**
-   * Whether to prefix the default locale in the URL
+   * Prefix default prefix the default locale to the path as other locales.
+   *
+   * Example with prefixDefault = true and defaultLocale = 'en':
+   * path = /en/dashboard or /fr/dashboard
+   *
+   * Example with prefixDefault = false and defaultLocale = 'en':
+   * path = /dashboard or /fr/dashboard
+   *
    *
    * Default: false
-   *
-   * When set to true, the default locale is prefixed in the URL for localization purposes.
    */
   prefixDefault: boolean;
 

@@ -11,6 +11,7 @@ const config = [
       'sonarjs/redundant-type-aliases': 'off',
       'sonarjs/no-nested-conditional': 'warn',
       'sonarjs/single-character-alternation': 'off',
+      'sonarjs/todo-tag': 'warn',
     },
   },
 ];

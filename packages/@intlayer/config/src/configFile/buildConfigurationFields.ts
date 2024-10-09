@@ -90,9 +90,16 @@ const buildMiddlewareFields = (
   cookieName: customConfiguration?.cookieName ?? COOKIE_NAME,
 
   /**
-   * Prefix the default locale in the URL
+   * Prefix default prefix the default locale to the path as other locales.
    *
-   * Default: true
+   * Example with prefixDefault = true and defaultLocale = 'en':
+   * path = /en/dashboard or /fr/dashboard
+   *
+   * Example with prefixDefault = false and defaultLocale = 'en':
+   * path = /dashboard or /fr/dashboard
+   *
+   *
+   * Default: false
    */
   prefixDefault: customConfiguration?.prefixDefault ?? PREFIX_DEFAULT,
 
