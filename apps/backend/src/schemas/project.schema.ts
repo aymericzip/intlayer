@@ -6,6 +6,21 @@ import {
 import { Schema } from 'mongoose';
 import type { Project } from '@/types/project.types';
 
+// Define the oAuth2Access subdocument schema with timestamps
+const oAuth2AccessSchema = new Schema(
+  {
+    clientId: { type: String, required: true, unique: true },
+    clientSecret: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    name: { type: String, required: true },
+    expiresAt: { type: Date },
+    accessToken: { type: [String], required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 export const projectSchema = new Schema<Project>(
   {
     organizationId: {
@@ -32,25 +47,7 @@ export const projectSchema = new Schema<Project>(
       ref: 'User',
       required: true,
     },
-    oAuth2Access: [
-      {
-        clientId: { type: String, required: true, unique: true },
-        clientSecret: { type: String, required: true },
-        userId: {
-          type: Schema.Types.ObjectId,
-          ref: 'User',
-          required: true,
-        },
-        name: { type: String, required: true },
-        expiresAt: {
-          type: Date,
-        },
-        accessToken: {
-          type: [String],
-          required: true,
-        },
-      },
-    ],
+    oAuth2Access: [oAuth2AccessSchema],
   },
   {
     timestamps: true,

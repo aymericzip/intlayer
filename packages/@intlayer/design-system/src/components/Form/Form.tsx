@@ -13,15 +13,15 @@ import { FormControl } from './FormControl';
 import { FormDescription } from './FormDescription';
 import { FormField } from './FormField';
 import { FormItem } from './FormItem';
-import { FormLabel } from './FormLabel';
 import { FormMessage } from './FormMessage';
+import { FormLabelLayout } from './layout';
 
 type FormType = typeof FormRoot & {
   Description: typeof FormDescription;
   Control: typeof FormControl;
   Field: typeof FormField;
   Item: typeof FormItem;
-  Label: typeof FormLabel;
+  Label: typeof FormLabelLayout;
   Message: typeof FormMessage;
   Element: typeof FormElement;
   Button: typeof Button;
@@ -55,7 +55,7 @@ Form.Description = FormDescription;
 Form.Control = FormControl;
 Form.Field = FormField;
 Form.Item = FormItem;
-Form.Label = FormLabel;
+Form.Label = FormLabelLayout;
 Form.Message = FormMessage;
 Form.Element = FormElement;
 Form.Input = InputElement;

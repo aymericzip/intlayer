@@ -62,6 +62,10 @@ export const useUnselectProject = () =>
   useAsync('unselectProject', useIntlayerAPI().project.unselectProject);
 export const useAddNewAccessKey = () =>
   useAsync('addNewAccessKey', useIntlayerAPI().project.addNewAccessKey);
+export const useDeleteAccessKey = () =>
+  useAsync('deleteAccessKey', useIntlayerAPI().project.deleteAccessKey);
+export const useRefreshAccessKey = () =>
+  useAsync('refreshAccessKey', useIntlayerAPI().project.refreshAccessKey);
 
 export const useGetDictionaries = () =>
   useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries);

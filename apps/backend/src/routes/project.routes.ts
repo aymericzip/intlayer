@@ -5,9 +5,13 @@ import {
   getProjects,
   updateProject,
   selectProject,
-  addNewAccessKey,
   unselectProject,
 } from '@controllers/project.controller';
+import {
+  addNewAccessKey,
+  deleteAccessKey,
+  refreshAccessKey,
+} from '@controllers/projectAccessKey.controller';
 import {
   apiAccessControlMiddleWare,
   AccessRule,
@@ -42,6 +46,47 @@ projectRouter.put(
   ]),
   updateProject
 );
+
+projectRouter.post(
+  '/access_key',
+  apiAccessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  addNewAccessKey
+);
+
+projectRouter.patch(
+  '/access_key',
+  apiAccessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  refreshAccessKey
+);
+
+projectRouter.delete(
+  '/access_key',
+  apiAccessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  deleteAccessKey
+);
+
+projectRouter.post(
+  '/logout',
+  apiAccessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  unselectProject
+);
+
 projectRouter.delete(
   '/:projectId',
   apiAccessControlMiddleWare([
@@ -58,24 +103,4 @@ projectRouter.put(
     AccessRule.hasOrganization,
   ]),
   selectProject
-);
-
-projectRouter.post(
-  '/access_key',
-  apiAccessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  addNewAccessKey
-);
-
-projectRouter.post(
-  '/logout',
-  apiAccessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  unselectProject
 );

@@ -1,28 +1,28 @@
 import { clsx } from 'clsx';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { InformationTag } from '../../InformationTag';
 import { FormLabel } from '../FormLabel';
 import { RequiredStar } from './RequiredStar';
 
 export type FormLabelLayoutProps = {
-  label?: React.ReactNode;
+  children?: ReactNode;
   isRequired?: boolean;
   info?: string;
-  htmlFor: string;
+  htmlFor?: string;
   className?: string;
 };
 
 export const FormLabelLayout: FC<FormLabelLayoutProps> = ({
-  label,
+  children,
   isRequired,
   info,
   htmlFor,
   className,
 }) => (
   <div className="ml-1 flex gap-1 align-middle text-base leading-none">
-    {label && (
+    {children && (
       <FormLabel htmlFor={htmlFor} className={clsx('font-bold', className)}>
-        {label}
+        {children}
         <RequiredStar isRequired={isRequired} />
       </FormLabel>
     )}

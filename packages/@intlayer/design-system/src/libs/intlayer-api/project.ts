@@ -12,6 +12,10 @@ import type {
   UnselectProjectResult,
   AddNewAccessKeyBody,
   AddNewAccessKeyResponse,
+  DeleteAccessKeyBody,
+  DeleteAccessKeyResponse,
+  RefreshAccessKeyBody,
+  RefreshAccessKeyResponse,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -142,6 +146,46 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
       }
     );
 
+  /**
+   * Delete a project access key.
+   * @param clientId - Access key client ID.
+   * @param otherOptions - Fetcher options.
+   * @returns The deleted project.
+   */
+  const deleteAccessKey = async (
+    clientId: DeleteAccessKeyBody['clientId'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<DeleteAccessKeyResponse>(
+      `${PROJECT_API_ROUTE}/access_key`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'DELETE',
+        body: { clientId },
+      }
+    );
+
+  /**
+   * Refreshes an access key from a project.
+   * @param clientId - The ID of the client to refresh.
+   * @param projectId - The ID of the project to refresh the access key from.
+   * @returns The new access key.
+   */
+  const refreshAccessKey = async (
+    clientId: RefreshAccessKeyBody['clientId'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<RefreshAccessKeyResponse>(
+      `${PROJECT_API_ROUTE}/access_key`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PATCH',
+        body: { clientId },
+      }
+    );
+
   return {
     getProjects,
     addProject,
@@ -150,6 +194,8 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
     selectProject,
     unselectProject,
     addNewAccessKey,
+    deleteAccessKey,
+    refreshAccessKey,
   };
 };
 

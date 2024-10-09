@@ -60,6 +60,10 @@ const buttonVariants = cva(
         text: 'border-text bg-text text-text hover:opacity-80 dark:border-text-dark dark:bg-text-dark dark:text-text-dark',
         'text-inverse':
           'border-text-inverse dark:border-text-inverse-dark bg-text-inverse dark:bg-text-inverse-dark text-text-inverse dark:text-text-inverse-dark hover:opacity-80',
+        error:
+          'border-error bg-error text-error hover:bg-error-500 dark:border-error-dark dark:bg-error-dark dark:text-error-dark hover:dark:bg-error-300',
+        success:
+          'border-success bg-success text-success hover:bg-success-500 dark:border-success-dark dark:bg-success-dark dark:text-success-dark hover:dark:bg-success-300',
         custom: '',
       },
 

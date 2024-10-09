@@ -1,6 +1,7 @@
 export type * from './src/controllers/auth.controller';
 export type * from './src/controllers/organization.controller';
 export type * from './src/controllers/project.controller';
+export type * from './src/controllers/projectAccessKey.controller';
 export type * from './src/controllers/user.controller';
 export type * from './src/controllers/dictionary.controller';
 export type * from './src/types/organization.types';

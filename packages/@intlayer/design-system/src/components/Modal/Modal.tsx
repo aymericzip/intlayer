@@ -9,6 +9,7 @@ import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
+import { H3 } from '../Headers';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -24,10 +25,10 @@ interface ModalProps {
 const modalVariants = cva('cursor-default overflow-auto p-3 shadow', {
   variants: {
     variant: {
-      sm: 'size-full max-h-[30vh] max-w-[30vw]',
-      md: 'size-full max-h-[50vh] max-w-[50vw]',
-      lg: 'size-full max-h-[70vh] max-w-[70vw]',
-      xl: 'size-full max-h-[95vh] max-w-[95vw]',
+      sm: 'w-full max-h-[30vh] max-w-[30vw]',
+      md: 'w-full max-h-[50vh] max-w-[50vw]',
+      lg: 'w-full max-h-[70vh] max-w-[70vw]',
+      xl: 'w-full max-h-[95vh] max-w-[95vw]',
       unset: 'max-h-[95vh] max-w-[95vw]',
     },
   },
@@ -108,9 +109,9 @@ export const Modal: FC<ModalProps> = ({
           )}
         >
           {hasTitle && (
-            <h2 className="flex items-center justify-center text-lg font-bold">
+            <H3 className="flex items-center justify-center text-lg font-bold">
               {title}
-            </h2>
+            </H3>
           )}
           {hasCloseButton && (
             <X
