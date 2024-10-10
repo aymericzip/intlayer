@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-misused-promises */
-import { token } from '@controllers/oAuth2.controller';
+import { getOAuth2Token } from '@controllers/oAuth2.controller';
 import {
   getSessionInformation,
   setCSRFToken,
@@ -87,7 +87,7 @@ app.get('/session', getSessionInformation);
 
 // oAuth2
 app.use('*', attachOAuthInstance);
-app.post('/oauth/token', token); // Route to get the token
+app.post('/oauth/token', getOAuth2Token); // Route to get the token
 
 // CSRF
 app.get('/csrf-token', setCSRFToken);

@@ -7,34 +7,34 @@ import type { Session } from './index';
 export const useSession = (sessionProp?: Session | null) => {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
 
-  const fetchSession = useCallback(async () => {
+  const fetchSession = useCallback(() => {
     if (sessionProp) {
       return;
     }
 
-    try {
-      const { data } = await getIntlayerAPI().auth.getSession();
+    getIntlayerAPI()
+      .auth.getSession()
+      .then((response) => {
+        if (!response.data) {
+          return setSession(null);
+        }
 
-      if (!data) {
-        return setSession(null);
-      }
+        const session: Session = {
+          user: response.data.user,
+          organization: response.data.organization,
+          project: response.data.project,
+        };
 
-      const session: Session = {
-        user: data.user,
-        organization: data.organization,
-        project: data.project,
-      };
-
-      setSession(session);
-    } catch (error) {
-      console.error('Error fetching session:', error);
-    }
+        setSession(session);
+      })
+      .catch((error) => {
+        console.error('Error fetching session:', error);
+        setSession(null);
+      });
   }, [sessionProp]);
 
   useEffect(() => {
-    fetchSession().catch((error) =>
-      console.error('Error fetching session:', error)
-    );
+    fetchSession();
   }, [fetchSession, sessionProp]);
 
   return {

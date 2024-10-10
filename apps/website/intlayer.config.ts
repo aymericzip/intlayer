@@ -18,6 +18,8 @@ const config: IntlayerConfig = {
   editor: {
     enabled: true,
     backendURL: getBackendURL(),
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 

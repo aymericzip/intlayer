@@ -121,17 +121,35 @@ Define configuraciones relacionadas con el editor integrado, incluido el puerto 
 
 #### Propiedades
 
-- **port**:
-  - _Tipo_: `number`
-  - _Predeterminado_: `4000`
-  - _Descripción_: El número de puerto donde se ejecuta el servidor del editor.
-  - _Ejemplo_: `4000`
+- **backendURL**:
+
+  - _Type_: `string`
+  - _Default_: `https://back.intlayer.org`
+  - _Description_:
+  - _Example_: `http://localhost:4000`
+
 - **enabled**:
+
   - _Tipo_: `boolean`
   - _Predeterminado_: `true`
   - _Descripción_: Indica si el editor está activo.
   - _Ejemplo_: `true`
   - _Nota_: Puede configurarse usando NODE_ENV, u otra variable de entorno dedicada.
+
+- **clientId**:
+
+  - _Tipo_: `string` | `undefined`
+  - _Predeterminado_: `undefined`
+  - _Descripción_: El clientId y el clientSecret permiten a los paquetes intlayer autenticarse con el backend utilizando oAuth2. Un acceso a un token se utiliza para autenticarse en el proyecto. Para obtener un acceso a un token, vaya a https://back.intlayer.org/dashboard/project y cree una cuenta.
+  - _Ejemplo_: `true`
+  - _Nota_: Importante: El clientId y el clientSecret deben mantenerse seguros y no compartirse públicamente. Asegúrese de mantenerlos en un entorno seguro, como un archivo de configuración.
+
+- **clientSecret**:
+  - _Tipo_: `string` | `undefined`
+  - _Predeterminado_: `undefined`
+  - _Descripción_: El clientId y el clientSecret permiten a los paquetes intlayer autenticarse con el backend utilizando oAuth2. Un acceso a un token se utiliza para autenticarse en el proyecto. Para obtener un acceso a un token, vaya a https://back.intlayer.org/dashboard/project y cree una cuenta.
+  - _Ejemplo_: `true`
+  - _Nota_: Importante: El clientId y el clientSecret deben mantenerse seguros y no compartirse públicamente. Asegúrese de mantenerlos en un entorno seguro, como un archivo de configuración.
 
 ### Configuración de Middleware
 

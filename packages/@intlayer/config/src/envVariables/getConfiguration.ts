@@ -97,6 +97,8 @@ export const getConfiguration = (): IntlayerConfig => {
   const intlayerEditorConfiguration = {
     backendURL: getEnvValue(env.editor.backendURL, 'string')!,
     enabled: getEnvValue(env.editor.enabled, 'boolean')!,
+    clientId: getEnvValue(env.editor.clientId, 'string')!,
+    clientSecret: getEnvValue(env.editor.clientSecret, 'string')!,
   };
 
   const intlayerConfiguration: IntlayerConfig = {

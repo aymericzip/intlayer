@@ -19,7 +19,12 @@ const oauth = new OAuth2Server({
   allowBearerTokensInQueryString: true,
 });
 
-export type RequestWithOAuth2Information<ReqBody = any> = Request<ReqBody> & {
+export type RequestWithOAuth2Information<
+  P = any,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = qs.ParsedQs,
+> = Request<P, ResBody, ReqBody, ReqQuery> & {
   oauth: OAuth2Server;
 };
 

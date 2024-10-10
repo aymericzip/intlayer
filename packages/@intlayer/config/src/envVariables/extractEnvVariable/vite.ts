@@ -62,6 +62,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
   const editor: ReplaceValue<EditorConfig> = {
     backendURL: import.meta.env.VITE_INTLAYER_BACKEND_URL,
     enabled: import.meta.env.VITE_INTLAYER_ENABLED,
+    clientId: import.meta.env.VITE_INTLAYER_CLIENT_ID,
+    clientSecret: import.meta.env.VITE_INTLAYER_CLIENT_SECRET,
   };
 
   return {

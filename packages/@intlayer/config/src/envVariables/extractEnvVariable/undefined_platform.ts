@@ -49,6 +49,8 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
   const editor: ReplaceValue<EditorConfig> = {
     backendURL: undefined,
     enabled: undefined,
+    clientId: undefined,
+    clientSecret: undefined,
   };
 
   return {

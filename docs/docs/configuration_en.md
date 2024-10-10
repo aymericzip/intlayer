@@ -129,11 +129,27 @@ Defines settings related to the integrated editor, including server port and act
   - _Example_: `http://localhost:4000`
 
 - **enabled**:
+
   - _Type_: `boolean`
   - _Default_: `true`
   - _Description_: Indicates if the editor is active.
   - _Example_: `true`
   - _Note_: Can be set using NODE_ENV, or other dedicated env variable
+
+- **clientId**:
+
+  - _Type_: `string` | `undefined`
+  - _Default_: `undefined`
+  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is use to authenticate the user related to the project. To get an access token, go to https://back.intlayer.org/dashboard/project and create an account.
+  - _Example_: `true`
+  - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
+
+- **clientSecret**:
+  - _Type_: `string` | `undefined`
+  - _Default_: `undefined`
+  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is use to authenticate the user related to the project. To get an access token, go to https://back.intlayer.org/dashboard/project and create an account.
+  - _Example_: `true`
+  - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
 ### Middleware Configuration
 

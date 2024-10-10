@@ -1,4 +1,5 @@
 export type * from './src/controllers/sessionAuth.controller';
+export type * from './src/controllers/oAuth2.controller';
 export type * from './src/controllers/organization.controller';
 export type * from './src/controllers/project.controller';
 export type * from './src/controllers/projectAccessKey.controller';

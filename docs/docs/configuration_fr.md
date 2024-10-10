@@ -121,19 +121,36 @@ Définit les paramètres liés à l'éditeur intégré, y compris le port du ser
 
 #### Propriétés
 
-- **port** :
+- **backendURL**:
 
-  - _Type_ : `number`
-  - _Défaut_ : `4000`
-  - _Description_ : Le numéro de port sur lequel le serveur de l'éditeur fonctionne.
-  - _Exemple_ : `4000`
+  - _Type_: `string`
+  - _Default_: `https://back.intlayer.org`
+  - _Description_: L'URL du serveur de backend.
+  - _Example_: `http://localhost:4000`
 
 - **enabled** :
+
   - _Type_ : `boolean`
   - _Défaut_ : `true`
   - _Description_ : Indique si l'éditeur est actif.
   - _Exemple_ : `true`
   - _Note_ : Peut être défini en utilisant NODE_ENV ou une autre variable d'environnement dédiée.
+
+- **clientId** :
+
+  - _Type_ : `string` | `undefined`
+  - _Default_ : `undefined`
+  - _Description_ : Le clientId et le clientSecret permettent aux packages intlayer de s'authentifier avec le backend en utilisant oAuth2. Un accès à un token est utilisé pour s'authentifier sur le projet. Pour obtenir un accès à un token, allez sur https://back.intlayer.org/dashboard/project et créez un compte.
+  - _Example_ : `true`
+  - _Note_ : Important : Le clientId et le clientSecret doivent être gardés en sécurité et non partagés publiquement. Assurez-vous de garder ces paramètres dans un environnement sécurisé, comme un fichier de configuration.
+
+- **clientSecret** :
+
+  - _Type_ : `string` | `undefined`
+  - _Default_ : `undefined`
+  - _Description_ : Le clientId et le clientSecret permettent aux packages intlayer de s'authentifier avec le backend en utilisant oAuth2. Un accès à un token est utilisé pour s'authentifier sur le projet. Pour obtenir un accès à un token, allez sur https://back.intlayer.org/dashboard/project et créez un compte.
+  - _Example_ : `true`
+  - _Note_ : Important : Le clientId et le clientSecret doivent être gardés en sécurité et non partagés publiquement. Assurez-vous de garder ces paramètres dans un environnement sécurisé, comme un fichier de configuration.
 
 ### Configuration du Middleware
 

@@ -46,8 +46,8 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm reset-packages && pnpm install -f && pnpm reset-examples",
-    "reset-examples": "pnpm clean-examples && pnpm build-examples",
-    "reset-packages": "pnpm clean-packages && pnpm build-packages",
+    "reset-examples": "pnpm clean:examples && pnpm build-examples",
+    "reset-packages": "pnpm clean:packages && pnpm build-packages",
     "test": "pnpm recursive test --parallel",
     "test-packages": "pnpm recursive test --parallel --filter './packages/**'",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"

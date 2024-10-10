@@ -499,6 +499,28 @@ const buildEditorFields = (
    * ```
    */
   enabled: customConfiguration?.enabled ?? IS_ENABLED,
+
+  /**
+   * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
+   * An access token is use to authenticate the user related to the project.
+   * To get an access token, go to https://back.intlayer.org/dashboard/project and create an account.
+   *
+   * Default: undefined
+   *
+   * > Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
+   */
+  clientId: customConfiguration?.clientId ?? undefined,
+
+  /**
+   * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
+   * An access token is use to authenticate the user related to the project.
+   * To get an access token, go to https://back.intlayer.org/dashboard/project and create an account.
+   *
+   * Default: undefined
+   *
+   * > Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
+   */
+  clientSecret: customConfiguration?.clientSecret ?? undefined,
 });
 
 /**

@@ -54,6 +54,8 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
   const editor: ReplaceValue<EditorConfig> = {
     backendURL: process.env.NEXT_PUBLIC_INTLAYER_BACKEND_URL,
     enabled: process.env.NEXT_PUBLIC_INTLAYER_ENABLED,
+    clientId: process.env.NEXT_PUBLIC_INTLAYER_CLIENT_ID,
+    clientSecret: process.env.NEXT_PUBLIC_INTLAYER_CLIENT_SECRET,
   };
 
   return {

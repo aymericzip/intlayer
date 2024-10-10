@@ -1,6 +1,11 @@
 'use client';
 
-import type { Organization, Project, UserAPI } from '@intlayer/backend';
+import type {
+  OAuth2Token,
+  Organization,
+  Project,
+  UserAPI,
+} from '@intlayer/backend';
 import {
   type PropsWithChildren,
   type FC,
@@ -9,6 +14,7 @@ import {
   useMemo,
 } from 'react';
 import { useCSRF } from './useCSRF';
+import { useOAuth2 } from './useOAuth2';
 import { useSession } from './useSession';
 
 export type Session = {
@@ -24,6 +30,8 @@ type SessionContextProps = {
   csrfToken: string | null | undefined;
   csrfTokenFetched: boolean;
   setCsrfToken: (csrfToken: string | null) => void;
+  oAuth2AccessToken: OAuth2Token | null | undefined;
+  setOAuth2AccessToken: (oAuth2AccessToken: OAuth2Token | null) => void;
 };
 
 export const SessionContext = createContext<SessionContextProps>({
@@ -33,6 +41,8 @@ export const SessionContext = createContext<SessionContextProps>({
   csrfToken: null,
   csrfTokenFetched: false,
   setCsrfToken: () => null,
+  oAuth2AccessToken: null,
+  setOAuth2AccessToken: () => null,
 });
 
 export const useAuth = () => useContext(SessionContext);
@@ -50,8 +60,10 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
 }) => {
   const { csrfToken, setCsrfToken, csrfTokenFetched } = useCSRF();
   const { session, setSession, fetchSession } = useSession(sessionProp);
+  const { oAuth2AccessToken, setOAuth2AccessToken, fetchAccessToken } =
+    useOAuth2(csrfToken);
 
-  const memoValue = useMemo(
+  const memoValue: SessionContextProps = useMemo(
     () => ({
       session,
       setSession,
@@ -59,6 +71,9 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
       csrfToken,
       csrfTokenFetched,
       setCsrfToken,
+      oAuth2AccessToken,
+      setOAuth2AccessToken,
+      fetchAccessToken,
     }),
     [
       session,
@@ -67,6 +82,9 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
       csrfToken,
       csrfTokenFetched,
       setCsrfToken,
+      oAuth2AccessToken,
+      setOAuth2AccessToken,
+      fetchAccessToken,
     ]
   );
 

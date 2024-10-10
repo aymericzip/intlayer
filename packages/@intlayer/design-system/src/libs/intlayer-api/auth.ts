@@ -18,11 +18,13 @@ import type {
   ValidEmailParams,
   ValidEmailResult,
   SetCSRFTokenResult,
+  GetOAuth2TokenBody,
+  GetOAuth2TokenResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
 
-const backendURL = getConfiguration().editor.backendURL;
+const { backendURL, clientId, clientSecret } = getConfiguration().editor;
 const AUTH_API_ROUTE = `${backendURL}/api/auth`;
 
 export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
@@ -214,6 +216,28 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
       otherOptions
     );
 
+  /**
+   * Gets an oAuth2 accessToken
+   * @return The token information
+   */
+  const getOAuth2AccessToken = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetOAuth2TokenResult>(
+      `${backendURL}/oauth2/token`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          grant_type: 'client_credentials',
+          client_id: clientId!,
+          client_secret: clientSecret!,
+        } satisfies GetOAuth2TokenBody,
+      }
+    );
+
   return {
     login,
     getLoginWithGitHubURL,
@@ -227,6 +251,7 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
     createSession,
     getSession,
     getCSRFToken,
+    getOAuth2AccessToken,
   };
 };
 
