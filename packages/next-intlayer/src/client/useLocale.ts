@@ -1,5 +1,6 @@
 import { type Locales, getConfiguration } from '@intlayer/config/client';
 import { usePathname, useRouter } from 'next/navigation.js';
+import { useCallback } from 'react';
 import { useLocaleCookie, useLocaleBase } from 'react-intlayer';
 
 export const useLocale = () => {
@@ -18,18 +19,19 @@ export const useLocale = () => {
   } = getConfiguration().middleware;
   const { setLocaleCookie } = useLocaleCookie();
   const reactLocaleHook = useLocaleBase();
-  const router = useRouter();
+  const { push, refresh } = useRouter();
   const pathname = usePathname();
 
   const {
     defaultLocale,
     availableLocales,
     locale: currentLocale,
+    setLocale: setLocaleState,
   } = reactLocaleHook;
 
   const getPathWithoutLocale = () => {
-    // If the locale is the default one and the prefixDefault is false, we don't need to add the locale to the path
     if (
+      // If the locale is the default one and the prefixDefault is false, we don't need to add the locale to the path
       !prefixDefault &&
       currentLocale.toString() === defaultLocale.toString()
     ) {
@@ -49,16 +51,34 @@ export const useLocale = () => {
 
   const pathWithoutLocale = getPathWithoutLocale();
 
-  const setLocale = (locale: Locales) => {
-    if (!availableLocales.includes(locale)) {
-      console.error(`Locale ${locale} is not available`);
-      return;
-    }
+  const setLocale = useCallback(
+    (locale: Locales) => {
+      if (!availableLocales.includes(locale)) {
+        console.error(`Locale ${locale} is not available`);
+        return;
+      }
 
-    setLocaleCookie(locale);
+      setLocaleCookie(locale);
+      setLocaleState(locale);
 
-    return router.push(pathWithoutLocale);
-  };
+      if (!prefixDefault && locale.toString() === defaultLocale.toString()) {
+        push(pathWithoutLocale);
+      } else {
+        push(`/${locale}${pathWithoutLocale}`);
+      }
+
+      return refresh();
+    },
+    [
+      currentLocale,
+      availableLocales,
+      setLocaleCookie,
+      setLocaleState,
+      prefixDefault,
+      defaultLocale,
+      pathWithoutLocale,
+    ]
+  );
 
   return {
     ...reactLocaleHook,
