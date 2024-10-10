@@ -5,8 +5,6 @@ import { getConfiguration } from '@intlayer/config/client';
 import { useEffect, useState, useCallback } from 'react';
 import { intlayerAPI } from '../../../libs/intlayer-api';
 
-const CSRF_HEADER_NAME = 'x-csrf-token';
-
 export const useOAuth2 = (csrfToken: string | null | undefined) => {
   const { clientId, clientSecret } = getConfiguration().editor;
 
@@ -14,10 +12,12 @@ export const useOAuth2 = (csrfToken: string | null | undefined) => {
     OAuth2Token | null | undefined
   >(undefined);
 
-  const fetchAccessToken = useCallback(() => {
-    intlayerAPI.auth
+  const fetchAccessToken = useCallback(async () => {
+    if (!csrfToken) return;
+
+    await intlayerAPI.auth
       .getOAuth2AccessToken({
-        headers: { [CSRF_HEADER_NAME]: csrfToken! },
+        body: { csrf_token: csrfToken },
       })
       .then((response) => {
         if (!response.data) {

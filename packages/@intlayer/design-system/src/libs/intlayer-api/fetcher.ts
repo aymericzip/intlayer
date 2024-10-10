@@ -1,5 +1,5 @@
 export type FetcherOptions = Omit<RequestInit, 'body'> & {
-  body?: object;
+  body?: Record<string, string>;
   params?:
     | Record<string, string | string[] | undefined>
     | string[]
@@ -51,7 +51,14 @@ export const fetcher = async <T>(
   const method = mergedOptions.method;
   if (method !== 'GET' && method !== 'HEAD') {
     const body = deepMerge(options.map((option) => option.body));
-    bodyString = JSON.stringify(body);
+    if (
+      mergedOptions.headers?.['Content-Type' as keyof HeadersInit] ===
+      'application/x-www-form-urlencoded'
+    ) {
+      bodyString = new URLSearchParams(body).toString();
+    } else {
+      bodyString = JSON.stringify(body);
+    }
   }
 
   if (Object.entries(params).length > 0) {

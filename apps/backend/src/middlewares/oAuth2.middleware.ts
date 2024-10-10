@@ -2,7 +2,7 @@
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import { UserModel } from '@models/user.model';
-import { getAuthModel } from '@utils/oAuth';
+import { getAuthModel } from '@utils/oAuth2';
 import { NextFunction, Request } from 'express';
 import OAuth2Server, {
   Request as OAuthRequest,

@@ -31,6 +31,7 @@ export const getOAuth2Token = async (
       oauthRequest,
       oauthResponse
     );
+
     const responseData = formatResponse<OAuth2Token>({
       data: token,
     });

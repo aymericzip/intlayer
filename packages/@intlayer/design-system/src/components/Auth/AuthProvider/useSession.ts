@@ -7,12 +7,12 @@ import type { Session } from './index';
 export const useSession = (sessionProp?: Session | null) => {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
 
-  const fetchSession = useCallback(() => {
+  const fetchSession = useCallback(async () => {
     if (sessionProp) {
       return;
     }
 
-    getIntlayerAPI()
+    await getIntlayerAPI()
       .auth.getSession()
       .then((response) => {
         if (!response.data) {

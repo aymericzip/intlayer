@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
-import { getTokenExpireAt } from '@utils/oAuth';
+import { getTokenExpireAt } from '@utils/oAuth2';
 import { Client, User, Token as OAuth2Token, Callback } from 'oauth2-server';
 import { Token } from '../schemas/oAuth2.schema';
 import { getOrganizationById } from './organization.service';

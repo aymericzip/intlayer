@@ -87,7 +87,7 @@ app.get('/session', getSessionInformation);
 
 // oAuth2
 app.use('*', attachOAuthInstance);
-app.post('/oauth/token', getOAuth2Token); // Route to get the token
+app.post('/oauth2/token', getOAuth2Token); // Route to get the token
 
 // CSRF
 app.get('/csrf-token', setCSRFToken);
