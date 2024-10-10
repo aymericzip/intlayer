@@ -329,10 +329,10 @@ const MultiSelectTrigger = forwardRef<
 
 MultiSelectTrigger.displayName = 'MultiSelectTrigger';
 
-const MultiSelectInput = forwardRef<
-  ElementRef<typeof Command.Input>,
-  ComponentPropsWithoutRef<typeof Command.Input>
->(({ className, ...props }) => {
+const MultiSelectInput: FC<ComponentPropsWithoutRef<typeof Command.Input>> = ({
+  className,
+  ...props
+}) => {
   const {
     setOpen,
     inputValue,
@@ -361,7 +361,7 @@ const MultiSelectInput = forwardRef<
       )}
     />
   );
-});
+};
 
 MultiSelectInput.displayName = 'MultiSelectInput';
 
