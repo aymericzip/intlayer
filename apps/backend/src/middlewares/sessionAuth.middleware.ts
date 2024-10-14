@@ -58,6 +58,7 @@ export const checkUser = async (
   const { [Cookies.JWT_AUTH]: sessionToken } = req.cookies;
 
   res.locals.user = null;
+  res.locals.authType = null;
 
   try {
     if (sessionToken) {

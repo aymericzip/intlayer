@@ -103,6 +103,7 @@ export const clearUserAuth = async (res: Response) => {
   res.cookie(Cookies.JWT_USER, '', cookiesOptions);
 
   res.locals.user = null;
+  res.locals.authType = null;
 };
 
 /**
