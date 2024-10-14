@@ -71,6 +71,8 @@ export const useGetDictionaries = () =>
   useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries);
 export const useAddDictionary = () =>
   useAsync('addDictionary', useIntlayerAPI().dictionary.addDictionary);
+export const usePushDictionaries = () =>
+  useAsync('pushDictionaries', useIntlayerAPI().dictionary.pushDictionaries);
 export const useUpdateDictionary = () =>
   useAsync('updateDictionary', useIntlayerAPI().dictionary.updateDictionary);
 export const useDeleteDictionary = () =>

@@ -136,14 +136,13 @@ Create and manage your content dictionaries:
 ```tsx
 // src/app.content.tsx
 import { t, type DeclarationContent } from "intlayer";
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const appContent: DeclarationContent = {
   id: "app",
 
   getStarted: t<ReactNode>({
     en: (
-      // Don't forget to import React if you use react node in your content
       <>
         Edit <code>src/App.tsx</code> and save to reload
       </>
@@ -171,8 +170,6 @@ const appContent: DeclarationContent = {
 
 export default appContent;
 ```
-
-> Note: If your content file includes TSX code, you should consider importing `import React from "react";` in your content file.
 
 [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md).
 

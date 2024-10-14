@@ -53,7 +53,10 @@ export default defineConfig(() => ({
       ),
       name: 'IntlayerDesignSystem',
       formats: ['es', 'cjs'],
-      fileName: (format, entry) => `${entry}.${format}.js`,
+      fileName: (format, entry) => {
+        const extention = format === 'es' ? 'mjs' : 'cjs';
+        return `${entry}.${extention}`;
+      },
     },
 
     rollupOptions: {

@@ -12,10 +12,7 @@ import {
   githubLoginQuery,
   googleLoginQuery,
 } from '@controllers/sessionAuth.controller';
-import {
-  apiAccessControlMiddleWare,
-  AccessRule,
-} from '@utils/apiAccessControl';
+import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 
 export const sessionAuthRouter: Router = Router();
@@ -23,64 +20,64 @@ export const sessionAuthRouter: Router = Router();
 // Authentication
 sessionAuthRouter.post(
   '/register',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
+  accessControlMiddleWare(AccessRule.noneAuthenticated),
   registerEmailPassword
 );
 sessionAuthRouter.post(
   '/login',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
+  accessControlMiddleWare(AccessRule.noneAuthenticated),
   loginEmailPassword
 );
 sessionAuthRouter.post(
   '/logout',
-  apiAccessControlMiddleWare(AccessRule.authenticated),
+  accessControlMiddleWare(AccessRule.authenticated),
   logOut
 );
 
 // Password
 sessionAuthRouter.put(
   '/password',
-  apiAccessControlMiddleWare(AccessRule.authenticated),
+  accessControlMiddleWare(AccessRule.authenticated),
   updatePassword
 );
 sessionAuthRouter.post(
   '/password/reset',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
+  accessControlMiddleWare(AccessRule.noneAuthenticated),
   askResetPassword
 );
 sessionAuthRouter.put(
   '/:userId/password/reset/:secret',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
+  accessControlMiddleWare(AccessRule.noneAuthenticated),
   resetPassword
 );
 
 // Email validation
 sessionAuthRouter.put(
   '/:userId/active/:secret',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated, AccessRule.admin),
+  accessControlMiddleWare(AccessRule.noneAuthenticated, AccessRule.admin),
   validEmail
 );
 
 // Github auth
 sessionAuthRouter.get(
   '/login/github',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
+  accessControlMiddleWare(AccessRule.noneAuthenticated),
   githubLoginQuery
 );
 sessionAuthRouter.get(
   '/callback/github',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
+  accessControlMiddleWare(AccessRule.noneAuthenticated),
   githubCallback
 );
 
 // Google auth
 sessionAuthRouter.get(
   '/login/google',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
+  accessControlMiddleWare(AccessRule.noneAuthenticated),
   googleLoginQuery
 );
 sessionAuthRouter.get(
   '/callback/google',
-  apiAccessControlMiddleWare(AccessRule.noneAuthenticated),
+  accessControlMiddleWare(AccessRule.noneAuthenticated),
   googleCallback
 );

@@ -1,5 +1,5 @@
 export type FetcherOptions = Omit<RequestInit, 'body'> & {
-  body?: Record<string, string>;
+  body?: Record<string, unknown>;
   params?:
     | Record<string, string | string[] | undefined>
     | string[]
@@ -42,9 +42,13 @@ export const fetcher = async <T>(
   let paramsString = '';
   let bodyString: string | undefined = undefined;
   const otherOptions = options.map(
-    ({ body, params, ...otherOptions }) => otherOptions
+    ({ body, params, headers, ...otherOptions }) => otherOptions
   );
   const mergedOptions = deepMerge([fetcherOptions, ...otherOptions]);
+  const mergedHeaders = deepMerge([
+    fetcherOptions.headers,
+    ...options.map((option) => option.headers),
+  ]);
 
   const params = deepMerge(options.map((option) => option.params));
 
@@ -52,10 +56,12 @@ export const fetcher = async <T>(
   if (method !== 'GET' && method !== 'HEAD') {
     const body = deepMerge(options.map((option) => option.body));
     if (
-      mergedOptions.headers?.['Content-Type' as keyof HeadersInit] ===
+      mergedHeaders?.['Content-Type' as keyof HeadersInit] ===
       'application/x-www-form-urlencoded'
     ) {
-      bodyString = new URLSearchParams(body).toString();
+      bodyString = new URLSearchParams(
+        body as Record<string, string>
+      ).toString();
     } else {
       bodyString = JSON.stringify(body);
     }
@@ -67,6 +73,7 @@ export const fetcher = async <T>(
 
   const formattedOptions: RequestInit = {
     ...mergedOptions,
+    headers: mergedHeaders,
     body: bodyString,
   };
 
@@ -74,8 +81,10 @@ export const fetcher = async <T>(
 
   const response = await fetch(urlResult, formattedOptions);
 
+  // Check if the response status is OK (between 200-299)
   if (!response.ok) {
-    throw new Error(`Failed to fetch data - ${urlResult}`);
+    const errorBody = await response.json(); // Parse error details from the response
+    throw new Error(errorBody.error);
   }
 
   return response.json();

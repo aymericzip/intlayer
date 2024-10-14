@@ -70,10 +70,7 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@intlayer/chokidar": "workspace:^",
     "@intlayer/cli": "workspace:^",
-    "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:^",
     "webpack": "^5.92.1"
   },
   "devDependencies": {

@@ -1,16 +1,7 @@
-import type { NextFunction, Request, Response } from 'express';
+import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { NextFunction, Request } from 'express';
 import { HttpStatusCodes } from './httpStatusCodes';
 import { logger } from '@/logger';
-
-type ApiAccessControlResult =
-  | {
-      success: true;
-      message?: null;
-    }
-  | {
-      success: false;
-      message: string;
-    };
 
 export enum AccessRule {
   none = 'none',
@@ -22,64 +13,84 @@ export enum AccessRule {
   hasBearer = 'has-bearer',
 }
 
-export const apiAccessControl = (
-  res: Response,
-  accessRule: AccessRule | AccessRule[]
-): ApiAccessControlResult => {
-  const accessRuleArray = Array.isArray(accessRule) ? accessRule : [accessRule];
+export const accessControl = <R extends AccessRule | AccessRule[]>(
+  res: ResponseWithInformation,
+  accessRule: R
+) => {
+  const accessRuleArray: AccessRule[] = Array.isArray(accessRule)
+    ? accessRule
+    : [accessRule];
 
-  const { user, organization, project } = res.locals;
+  const localsAuthInformation = res.locals;
+  const { user, organization, project, authType } = localsAuthInformation;
 
-  const accessResults = accessRuleArray.map((rule) => {
-    switch (rule) {
-      case AccessRule.none:
-        return { success: true, message: null };
-      case AccessRule.authenticated:
-        if (!user) {
-          return { success: false, message: 'User is not authenticated' };
-        }
-        return { success: true, message: null };
-      case AccessRule.admin:
-        if (!user?.role.includes('admin')) {
-          return { success: false, message: 'User is not an admin' };
-        }
-        return { success: true, message: null };
-      case AccessRule.noneAuthenticated:
-        if (user) {
-          return { success: false, message: 'User is authenticated' };
-        }
-        return { success: true, message: null };
-      case AccessRule.hasOrganization:
-        if (!organization) {
-          return { success: false, message: 'Organization is not set' };
-        }
-        return { success: true, message: null };
-      case AccessRule.hasProject:
-        if (!project) {
-          return { success: false, message: 'Project is not set' };
-        }
-        return { success: true, message: null };
-      default:
-        return { success: false, message: null };
-    }
-  });
-
-  if (accessResults.every((result) => result.success)) {
-    return { success: true };
+  // If 'none' access rule is present, immediately return success
+  if (accessRuleArray.includes(AccessRule.none)) {
+    return {
+      success: true,
+      message: null,
+      data: { user, organization, project, authType },
+    };
   }
 
-  const errorMessage = accessResults
-    .map((result, index) => {
-      if (result.success) {
-        return '';
-      }
+  let success = true;
+  const messages: string[] = [];
 
-      return accessRuleArray[index];
-    })
-    .filter((result) => result)
-    .join(', ');
+  // Check for 'authenticated' access rule
+  if (accessRuleArray.includes(AccessRule.authenticated)) {
+    if (!user) {
+      success = false;
+      messages.push('User is not authenticated');
+    }
+  }
 
-  return { success: false, message: errorMessage };
+  // Check for 'admin' access rule
+  // if (accessRuleArray.includes(AccessRule.admin)) {
+  //   if (!user?.role.includes('admin')) {
+  //     success = false;
+  //     messages.push('User is not an admin');
+  //   }
+  // }
+
+  // Check for 'none-authenticated' access rule
+  if (accessRuleArray.includes(AccessRule.noneAuthenticated)) {
+    if (user) {
+      success = false;
+      messages.push('User is authenticated');
+    }
+  }
+
+  // Check for 'has-organization' access rule
+  if (accessRuleArray.includes(AccessRule.hasOrganization)) {
+    if (!organization) {
+      success = false;
+      messages.push('Organization is not set');
+    }
+  }
+
+  // Check for 'has-project' access rule
+  if (accessRuleArray.includes(AccessRule.hasProject)) {
+    if (!project) {
+      success = false;
+      messages.push('Project is not set');
+    }
+  }
+
+  // Handle unknown access rules
+  const knownRules = Object.values(AccessRule);
+  const unknownRules = accessRuleArray.filter(
+    (rule) => !knownRules.includes(rule)
+  );
+  if (unknownRules.length > 0) {
+    success = false;
+    messages.push(`Unknown access rules: ${unknownRules.join(', ')}`);
+  }
+
+  return {
+    success,
+    message: messages.join(', '),
+    data: { user, organization, project, authType },
+  };
 };
 
 /**
@@ -117,9 +128,13 @@ export const apiAccessControl = (
  * // Example 2: Require both project and organization access, or admin privileges
  * app.use('/dashboard', apiAccessControlMiddleWare([AccessRule.hasProject, AccessRule.hasOrganization], AccessRule.admin));
  */
-export const apiAccessControlMiddleWare =
+export const accessControlMiddleWare =
   (...accessRules: (AccessRule | AccessRule[])[]) =>
-  (_req: Request<unknown>, res: Response, next: NextFunction) => {
+  (
+    _req: Request<unknown>,
+    res: ResponseWithInformation,
+    next: NextFunction
+  ) => {
     let hasAccess = false;
 
     // Iterate over each access rule group (either single AccessRule or an array of AccessRules)
@@ -127,12 +142,12 @@ export const apiAccessControlMiddleWare =
       if (Array.isArray(ruleGroup)) {
         // If ruleGroup is an array, check if all rules in the group are satisfied
         const accessResults = ruleGroup.map(
-          (rule) => apiAccessControl(res, rule).success
+          (rule) => accessControl(res, rule).success
         );
         hasAccess = accessResults.every((result) => result); // All rules must be satisfied in this case
       } else {
         // Single rule: just check this one
-        const accessResult = apiAccessControl(res, ruleGroup);
+        const accessResult = accessControl(res, ruleGroup);
         if (accessResult.success) {
           hasAccess = true;
         }

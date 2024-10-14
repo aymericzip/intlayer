@@ -44,7 +44,7 @@
   "module": "dist/build/index.js",
   "scripts": {
     "build": "tsup && tsc-alias",
-    "dev": "node --watch -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
+    "dev": "tsx watch ./src/index.ts",
     "lint": "eslint . --debug --cache",
     "lint:fix": "eslint . --debug --cache --fix",
     "prettier": "prettier . --check",
@@ -52,6 +52,7 @@
     "start": "node --experimental-default-type=\"module\" dist/build/index.js"
   },
   "dependencies": {
+    "@intlayer/core": "workspace:^",
     "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
@@ -70,7 +71,6 @@
     "winston": "^3.14.2"
   },
   "devDependencies": {
-    "@intlayer/core": "workspace:^",
     "@types/bcrypt": "^5.0.2",
     "@types/body-parser": "^1.19.5",
     "@types/compression": "^1.7.5",
@@ -92,6 +92,7 @@
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "tsup": "^8.2.4",
+    "tsx": "^4.19.1",
     "typescript": "^5.5.4"
   }
 }

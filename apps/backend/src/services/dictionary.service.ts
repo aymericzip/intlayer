@@ -45,6 +45,30 @@ export const getDictionaryById = async (
 };
 
 /**
+ * Finds a dictionary by its ID.
+ * @param dictionaryKey - The ID of the dictionary to find.
+ * @returns The dictionary matching the ID.
+ */
+export const getDictionaryByKey = async (
+  dictionaryKey: string,
+  projectId: string | ObjectId
+): Promise<Dictionary> => {
+  const dictionary = await DictionaryModel.findOne({
+    key: dictionaryKey,
+    projectIds: projectId,
+  });
+
+  if (!dictionary) {
+    const errorMessage = `Dictionary not found - ${dictionaryKey}`;
+
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  return dictionary;
+};
+
+/**
  * Counts the total number of dictionaries that match the filters.
  * @param filters - MongoDB filter query.
  * @returns Total number of dictionaries.
@@ -83,6 +107,46 @@ export const createDictionary = async (
   return await DictionaryModel.create(dictionary);
 };
 
+type GetExistingDictionaryResult = {
+  existingDictionariesKey: string[];
+  newDictionariesKey: string[];
+};
+
+/**
+ * Gets the existing dictionaries from the provided list of keys.
+ * @param dictionariesKeys - List of dictionary keys to check.
+ * @param projectId - The ID of the project to check the dictionaries against.
+ * @returns The existing dictionaries and the new dictionaries.
+ */
+export const getExistingDictionaryKey = async (
+  dictionariesKeys: string[],
+  projectId: string | ObjectId
+): Promise<GetExistingDictionaryResult> => {
+  // Fetch dictionaries from the database where the key is in the provided list
+  const existingDictionaries = await DictionaryModel.find({
+    key: { $in: dictionariesKeys },
+    projectIds: projectId,
+  });
+
+  // Map existing dictionaries to a LocalDictionary object
+  const existingDictionariesKey: string[] = [];
+  const newDictionariesKey: string[] = [];
+
+  for (const key of dictionariesKeys) {
+    const isDictionaryExist = existingDictionaries.some(
+      (dictionary) => dictionary.key === key
+    );
+
+    if (isDictionaryExist) {
+      existingDictionariesKey.push(key);
+    } else {
+      newDictionariesKey.push(key);
+    }
+  }
+
+  return { existingDictionariesKey, newDictionariesKey };
+};
+
 /**
  * Updates an existing dictionary in the database by its ID.
  * @param dictionaryId - The ID of the dictionary to update.
@@ -117,6 +181,42 @@ export const updateDictionaryById = async (
   }
 
   return await getDictionaryById(dictionaryId);
+};
+
+/**
+ * Updates an existing dictionary in the database by its key.
+ * @param dictionaryKey - The ID of the dictionary to update.
+ * @param dictionary - The updated dictionary data.
+ * @returns The updated dictionary.
+ */
+export const updateDictionaryByKey = async (
+  dictionaryKey: string,
+  dictionary: Partial<Dictionary>,
+  projectId: string | ObjectId
+): Promise<Dictionary> => {
+  const updatedKeys = Object.keys(dictionary) as DictionaryFields;
+  const errors = validateDictionary(dictionary, updatedKeys);
+
+  if (Object.keys(errors).length > 0) {
+    const errorMessage = `Dictionary invalid fields - ${dictionaryKey} - ${JSON.stringify(
+      errors
+    )}`;
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  const result = await DictionaryModel.updateOne(
+    { key: dictionaryKey, projectIds: projectId },
+    dictionary
+  );
+
+  if (result.matchedCount === 0) {
+    const errorMessage = `Dictionary update failed - ${dictionaryKey}`;
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  return await getDictionaryByKey(dictionaryKey, projectId);
 };
 
 /**

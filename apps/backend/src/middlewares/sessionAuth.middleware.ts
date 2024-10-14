@@ -13,15 +13,41 @@ import type { Organization } from '@/types/organization.types';
 import type { Project } from '@/types/project.types';
 import type { User } from '@/types/user.types';
 
-type UserInformation = {
-  user: User | null;
-  organization: Organization | null;
-  project: Project | null;
+export enum AuthInformationType {
+  IsNull,
+  IsDefined,
+}
+
+type AuthInformationResult<
+  T,
+  U extends AuthInformationType | undefined,
+> = U extends AuthInformationType.IsNull
+  ? null
+  : U extends AuthInformationType.IsDefined
+    ? T
+    : T | null;
+
+export type AuthInformation<
+  UserRule extends AuthInformationType | undefined = undefined,
+  OrganizationRule extends AuthInformationType | undefined = undefined,
+  ProjectRule extends AuthInformationType | undefined = undefined,
+  AuthTypeRule extends AuthInformationType | undefined = undefined,
+> = {
+  user: AuthInformationResult<User, UserRule>;
+  organization: AuthInformationResult<Organization, OrganizationRule>;
+  project: AuthInformationResult<Project, ProjectRule>;
+  authType: AuthInformationResult<'session' | 'oauth2', AuthTypeRule>;
 };
 
-export type ResponseWithInformation<ResBody = any> = Response<
+export type ResponseWithInformation<
+  ResBody = any,
+  UserRule extends AuthInformationType | undefined = undefined,
+  OrganizationRule extends AuthInformationType | undefined = undefined,
+  ProjectRule extends AuthInformationType | undefined = undefined,
+  AuthTypeRule extends AuthInformationType | undefined = undefined,
+> = Response<
   ResBody,
-  UserInformation
+  AuthInformation<UserRule, OrganizationRule, ProjectRule, AuthTypeRule>
 >;
 
 export const checkUser = async (
@@ -39,6 +65,7 @@ export const checkUser = async (
 
       if (user) {
         res.locals.user = user;
+        res.locals.authType = 'session';
       }
     }
   } catch (error) {

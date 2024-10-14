@@ -66,7 +66,7 @@ Create and manage your content dictionaries:
 ```tsx
 // src/app.content.tsx
 import { t, type DeclarationContent } from "intlayer";
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const appContent: DeclarationContent = {
   id: "app",

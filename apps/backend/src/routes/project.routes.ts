@@ -12,17 +12,14 @@ import {
   deleteAccessKey,
   refreshAccessKey,
 } from '@controllers/projectAccessKey.controller';
-import {
-  apiAccessControlMiddleWare,
-  AccessRule,
-} from '@utils/apiAccessControl';
+import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 
 export const projectRouter: Router = Router();
 
 projectRouter.get(
   '/',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
   ]),
@@ -31,7 +28,7 @@ projectRouter.get(
 
 projectRouter.post(
   '/',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
   ]),
@@ -39,7 +36,7 @@ projectRouter.post(
 );
 projectRouter.put(
   '/',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
     AccessRule.hasProject,
@@ -49,7 +46,7 @@ projectRouter.put(
 
 projectRouter.post(
   '/access_key',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
     AccessRule.hasProject,
@@ -59,7 +56,7 @@ projectRouter.post(
 
 projectRouter.patch(
   '/access_key',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
     AccessRule.hasProject,
@@ -69,7 +66,7 @@ projectRouter.patch(
 
 projectRouter.delete(
   '/access_key',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
     AccessRule.hasProject,
@@ -79,7 +76,7 @@ projectRouter.delete(
 
 projectRouter.post(
   '/logout',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
     AccessRule.hasProject,
@@ -89,7 +86,7 @@ projectRouter.post(
 
 projectRouter.delete(
   '/:projectId',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
     AccessRule.hasProject,
@@ -98,7 +95,7 @@ projectRouter.delete(
 );
 projectRouter.put(
   '/:projectId',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
   ]),

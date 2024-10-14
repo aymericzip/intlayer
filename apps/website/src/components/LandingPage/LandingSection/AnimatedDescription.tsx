@@ -1,7 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
-import React, { type HTMLAttributes, type FC } from 'react';
+import { type HTMLAttributes, type FC } from 'react';
 
 type AnimatedDescriptionProps = Pick<
   HTMLAttributes<HTMLParagraphElement>,

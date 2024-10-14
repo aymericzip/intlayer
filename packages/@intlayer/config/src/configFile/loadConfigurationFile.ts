@@ -3,6 +3,13 @@ import { createRequire } from 'module';
 import { type Context, runInNewContext } from 'vm';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import type { CustomIntlayerConfig } from '../types/config';
+import process from 'process';
+import React from 'react';
+import dotenv from 'dotenv';
+
+const env = process.env.NODE_ENV ?? 'development';
+
+dotenv.config({ path: ['.env', `.env.${env}`, `.env.${env}.local`] });
 
 const isESModule = typeof import.meta.url === 'string';
 
@@ -13,6 +20,8 @@ const sandboxContext: Context = {
   module: {
     exports: {},
   },
+  React,
+  process,
   console,
   require: isESModule ? createRequire(import.meta.url) : require,
 };

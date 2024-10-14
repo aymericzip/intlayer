@@ -65,7 +65,7 @@ Créez et gérez vos dictionnaires de contenu :
 ```tsx
 // src/app.content.tsx
 import { t, type DeclarationContent } from "intlayer";
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const appContent: DeclarationContent = {
   id: "app",
@@ -100,8 +100,6 @@ const appContent: DeclarationContent = {
 
 export default appContent;
 ```
-
-> Note : Si votre fichier de contenu inclut du code TSX, vous devrez penser à importer `import React from "react";` dans votre fichier de contenu.
 
 [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
 

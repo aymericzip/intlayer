@@ -1,21 +1,19 @@
 /* eslint-disable sonarjs/no-misused-promises */
 import {
+  pushDictionaries,
   addDictionary,
   deleteDictionary,
   getDictionaries,
   updateDictionary,
 } from '@controllers/dictionary.controller';
-import {
-  apiAccessControlMiddleWare,
-  AccessRule,
-} from '@utils/apiAccessControl';
+import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 
 export const dictionaryRouter: Router = Router();
 
 dictionaryRouter.get(
   '/',
-  apiAccessControlMiddleWare(
+  accessControlMiddleWare(
     [
       AccessRule.authenticated,
       AccessRule.hasOrganization,
@@ -28,7 +26,7 @@ dictionaryRouter.get(
 
 dictionaryRouter.post(
   '/',
-  apiAccessControlMiddleWare(
+  accessControlMiddleWare(
     [
       AccessRule.authenticated,
       AccessRule.hasOrganization,
@@ -38,9 +36,21 @@ dictionaryRouter.post(
   ),
   addDictionary
 );
+dictionaryRouter.patch(
+  '/',
+  accessControlMiddleWare(
+    [
+      AccessRule.authenticated,
+      AccessRule.hasOrganization,
+      AccessRule.hasProject,
+    ],
+    AccessRule.admin
+  ),
+  pushDictionaries
+);
 dictionaryRouter.put(
   '/',
-  apiAccessControlMiddleWare(
+  accessControlMiddleWare(
     [
       AccessRule.authenticated,
       AccessRule.hasOrganization,
@@ -52,7 +62,7 @@ dictionaryRouter.put(
 );
 dictionaryRouter.delete(
   '/',
-  apiAccessControlMiddleWare(
+  accessControlMiddleWare(
     [
       AccessRule.authenticated,
       AccessRule.hasOrganization,

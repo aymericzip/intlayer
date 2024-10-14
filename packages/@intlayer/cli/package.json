@@ -56,9 +56,15 @@
     "test": ""
   },
   "dependencies": {
+    "@intlayer/chokidar": "workspace:^",
+    "@intlayer/config": "workspace:^",
+    "@intlayer/design-system": "workspace:^",
+    "@intlayer/dictionaries-entry": "workspace:^",
     "commander": "^12.1.0"
   },
   "devDependencies": {
+    "@intlayer/backend": "workspace:^",
+    "@intlayer/core": "workspace:^",
     "@types/node": "^20.14.9",
     "@utils/ts-config": "workspace:^",
     "eslint": "^9.11.1",

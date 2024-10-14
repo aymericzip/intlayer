@@ -69,7 +69,6 @@
   },
   "dependencies": {
     "@intlayer/chokidar": "workspace:^",
-    "@intlayer/cli": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "chokidar": "^3.6.0",

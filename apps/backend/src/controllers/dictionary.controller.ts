@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Dictionary as LocalDictionary } from '@intlayer/core';
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
@@ -8,6 +9,8 @@ import {
   createDictionary as createDictionaryService,
   updateDictionaryById as updateDictionaryByIdService,
   deleteDictionaryById as deleteDictionaryByIdService,
+  getExistingDictionaryKey as getExistingDictionaryKeyService,
+  updateDictionaryByKey as updateDictionaryByKeyService,
 } from '@services/dictionary.service';
 import {
   type DictionaryFiltersParams,
@@ -160,6 +163,171 @@ export const addDictionary = async (
 
     const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
     const responseData = formatResponse<Dictionary>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+};
+
+export type PushDictionariesBody = { dictionaries: LocalDictionary[] };
+type PushDictionariesResultData = {
+  newDictionaries: string[];
+  updatedDictionaries: string[];
+  error: { dictionaryId: string; message: string }[];
+};
+export type PushDictionariesResult = ResponseData<PushDictionariesResultData>;
+
+/**
+ * Check each dictionaries, add the new ones and update the existing ones.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the created dictionary.
+ */
+export const pushDictionaries = async (
+  req: Request<any, any, PushDictionariesBody>,
+  res: ResponseWithInformation<PushDictionariesResult>
+): Promise<Response> => {
+  const { project, user } = res.locals;
+  const dictionaryData = req.body.dictionaries;
+  const dictionariesKeys = dictionaryData.map((dictionary) => dictionary.id);
+
+  if (
+    typeof dictionaryData === 'object' &&
+    Array.isArray(dictionaryData) &&
+    dictionaryData.length === 0
+  ) {
+    const errorMessage = 'No dictionaries provided';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<PushDictionariesResultData>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  } else if (!dictionaryData) {
+    const errorMessage = 'Dictionary not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<PushDictionariesResultData>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  if (!project) {
+    const errorMessage = 'Project not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<PushDictionariesResultData>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  if (!user) {
+    const errorMessage = 'User not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<PushDictionariesResultData>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    return res.status(responseCode).json(responseData);
+  }
+
+  try {
+    const { existingDictionariesKey, newDictionariesKey } =
+      await getExistingDictionaryKeyService(dictionariesKeys, project._id);
+
+    const existingDictionaries = dictionaryData.filter((dictionary) =>
+      existingDictionariesKey.includes(dictionary.id)
+    );
+    const newDictionaries = dictionaryData.filter((dictionary) =>
+      newDictionariesKey.includes(dictionary.id)
+    );
+
+    const result: PushDictionariesResultData = {
+      newDictionaries: [],
+      updatedDictionaries: [],
+      error: [],
+    };
+
+    for (const dictionaryDataEl of newDictionaries) {
+      const dictionary: DictionaryData = {
+        ...dictionaryDataEl,
+        content: dictionaryDataEl,
+        projectIds: [String(project._id)],
+        creatorId: user._id,
+        key: dictionaryDataEl.id,
+      };
+
+      try {
+        const newDictionary = await createDictionaryService(dictionary);
+        result.newDictionaries.push(newDictionary.key);
+      } catch (error) {
+        const errorMessage: string = (error as Error).message;
+        const dictionaryId = dictionaryDataEl.id;
+
+        logger.error(errorMessage);
+
+        result.error.push({ dictionaryId, message: errorMessage });
+      }
+    }
+
+    for (const dictionaryDataEl of existingDictionaries) {
+      const dictionary: DictionaryData = {
+        ...dictionaryDataEl,
+        content: dictionaryDataEl,
+        projectIds: [String(project._id)],
+        creatorId: user._id,
+        key: dictionaryDataEl.id,
+      };
+
+      try {
+        const newDictionary = await updateDictionaryByKeyService(
+          dictionaryDataEl.id,
+          dictionary,
+          project._id
+        );
+        result.updatedDictionaries.push(newDictionary.key);
+      } catch (error) {
+        const errorMessage: string = (error as Error).message;
+        const dictionaryId = dictionaryDataEl.id;
+
+        logger.error(errorMessage);
+
+        result.error.push({ dictionaryId, message: errorMessage });
+      }
+    }
+
+    const responseData = formatResponse<PushDictionariesResultData>({
+      data: result,
+    });
+
+    return res.json(responseData);
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+    const responseData = formatResponse<PushDictionariesResultData>({
       error: errorMessage,
       status: responseCode,
     });

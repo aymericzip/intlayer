@@ -11,8 +11,8 @@
     "allowImportingTsExtensions": false,
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": true,
-    "moduleResolution": "node",
-    "module": "commonjs",
+    "moduleResolution": "Bundler",
+    "module": "Preserve",
     "outDir": "dist/build",
     "paths": {
       "@controllers/*": ["./controllers/*"],

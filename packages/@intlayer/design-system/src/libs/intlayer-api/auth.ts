@@ -191,8 +191,9 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
 
   /**
    * Gets a session and user.
-   * @param params - User ID and secret key.
-   * @returns User object.
+   * @param sessionToken - Session token.
+   * @param otherOptions - Fetcher options.
+   * @returns Session and user information.
    */
   const getSession = async (
     sessionToken?: GetSessionInformationQuery['session_token'],
@@ -207,6 +208,7 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
 
   /**
    * Gets the CSRF token.
+   * @param otherOptions - Fetcher options.
    * @returns The CSRF token.
    */
   const getCSRFToken = async (otherOptions: FetcherOptions = {}) =>

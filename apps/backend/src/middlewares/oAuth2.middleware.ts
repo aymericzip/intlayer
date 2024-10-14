@@ -10,7 +10,6 @@ import OAuth2Server, {
   Token,
 } from 'oauth2-server';
 import { ResponseWithInformation } from './sessionAuth.middleware';
-import { HttpStatusCodes } from '@/utils/httpStatusCodes';
 
 // Configuration of the OAuth server
 const oauth = new OAuth2Server({
@@ -45,44 +44,38 @@ export const authenticateOAuth2 = async (
   res: ResponseWithInformation,
   next: NextFunction
 ): Promise<void> => {
-  const { user, project, organization } = res.locals;
-
   try {
-    if (user && project && organization) {
-      // User is authenticated using the session auth
-      next();
-    } else {
-      // Authenticate the request using OAuth2
-      const oauthRequest = new OAuthRequest(req);
-      const oauthResponse = new OAuthResponse(res);
-      const oAuthToken: Token = await req.oauth.authenticate(
-        oauthRequest,
-        oauthResponse
-      );
+    // Authenticate the request using OAuth2
+    const oauthRequest = new OAuthRequest(req);
+    const oauthResponse = new OAuthResponse(res);
+    const oAuthToken: Token = await req.oauth.authenticate(
+      oauthRequest,
+      oauthResponse
+    );
 
-      const user = await UserModel.findById(oAuthToken.user._id);
+    const user = await UserModel.findById(oAuthToken.user._id);
 
-      if (user) {
-        res.locals.user = user;
-      }
-
-      const organization = await OrganizationModel.findById(
-        oAuthToken.organization._id
-      );
-
-      if (organization) {
-        res.locals.organization = organization;
-      }
-
-      const project = await ProjectModel.findById(oAuthToken.project._id);
-
-      if (project) {
-        res.locals.project = project;
-      }
-
-      next();
+    if (user) {
+      res.locals.user = user;
+      res.locals.authType = 'oauth2';
     }
-  } catch (err) {
-    res.status(err.code ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500).json(err);
+
+    const organization = await OrganizationModel.findById(
+      oAuthToken.organization._id
+    );
+
+    if (organization) {
+      res.locals.organization = organization;
+    }
+
+    const project = await ProjectModel.findById(oAuthToken.project._id);
+
+    if (project) {
+      res.locals.project = project;
+    }
+
+    next();
+  } finally {
+    next();
   }
 };

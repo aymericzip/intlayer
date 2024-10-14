@@ -44,6 +44,7 @@ export const getConfiguration = (
       mergedOptions,
       customConfiguration
     );
+
     storedConfigurationFilePath = configurationFilePath;
     storedNumCustomConfiguration = numCustomConfiguration;
   }

@@ -7,28 +7,25 @@ import {
   updateOrganization,
   unselectOrganization,
 } from '@controllers/organization.controller';
-import {
-  apiAccessControlMiddleWare,
-  AccessRule,
-} from '@utils/apiAccessControl';
+import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 
 export const organizationRouter: Router = Router();
 
 organizationRouter.get(
   '/',
-  apiAccessControlMiddleWare(AccessRule.authenticated),
+  accessControlMiddleWare(AccessRule.authenticated),
   getOrganizations
 );
 
 organizationRouter.post(
   '/',
-  apiAccessControlMiddleWare(AccessRule.authenticated),
+  accessControlMiddleWare(AccessRule.authenticated),
   addOrganization
 );
 organizationRouter.put(
   '/',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
   ]),
@@ -36,7 +33,7 @@ organizationRouter.put(
 );
 organizationRouter.delete(
   '/:organizationId',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
   ]),
@@ -44,13 +41,13 @@ organizationRouter.delete(
 );
 organizationRouter.put(
   '/:organizationId',
-  apiAccessControlMiddleWare([AccessRule.authenticated]),
+  accessControlMiddleWare([AccessRule.authenticated]),
   selectOrganization
 );
 
 organizationRouter.post(
   '/logout',
-  apiAccessControlMiddleWare([
+  accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
   ]),

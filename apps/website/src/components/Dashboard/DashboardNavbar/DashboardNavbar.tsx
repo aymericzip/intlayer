@@ -7,7 +7,7 @@ import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThe
 import { Container, Logo, TabSelector, useAuth } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { useLocale } from 'next-intlayer';
-import React, { type FC, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';

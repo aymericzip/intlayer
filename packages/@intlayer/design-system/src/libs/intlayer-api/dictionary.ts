@@ -7,6 +7,8 @@ import type {
   GetDictionariesResult,
   UpdateDictionaryBody,
   UpdateDictionaryResult,
+  PushDictionariesBody,
+  PushDictionariesResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -50,6 +52,20 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
       }
     );
 
+  const pushDictionaries = async (
+    dictionaries: PushDictionariesBody['dictionaries'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<PushDictionariesResult>(
+      `${PROJECT_API_ROUTE}`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PATCH',
+        body: { dictionaries },
+      }
+    );
+
   /**
    * Updates an existing dictionary in the database.
    * @param dictionary - Updated dictionary data.
@@ -88,6 +104,7 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
 
   return {
     getDictionaries,
+    pushDictionaries,
     addDictionary,
     updateDictionary,
     deleteDictionary,

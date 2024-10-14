@@ -10,6 +10,11 @@ import type {
 import type { Locales } from '../types/locales';
 import { extractEnvVariable } from './extractEnvVariable/index';
 import { getEnvValue } from './utils';
+import dotenv from 'dotenv';
+
+const env = process.env.NODE_ENV ?? 'development';
+
+dotenv.config({ path: ['.env', `.env.${env}`, `.env.${env}.local`] });
 
 /**
  * Get all configuration values using environment variables

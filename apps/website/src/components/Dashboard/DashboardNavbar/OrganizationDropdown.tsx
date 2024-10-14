@@ -17,7 +17,7 @@ import {
 import { ChevronsUpDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import React, { useEffect, useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { OrganizationCreationForm } from '../OrganizationForm/OrganizationCreationForm';
 import { PagesRoutes } from '@/Routes';
 

@@ -7,25 +7,22 @@ import {
   createUser,
   getUserByAccount,
 } from '@controllers/user.controller';
-import {
-  apiAccessControlMiddleWare,
-  AccessRule,
-} from '@utils/apiAccessControl';
+import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 
 export const userRouter: Router = Router();
 
-userRouter.get('/', apiAccessControlMiddleWare(AccessRule.admin), getUsers);
-userRouter.put('/', apiAccessControlMiddleWare(AccessRule.none), updateUser);
-userRouter.post('/', apiAccessControlMiddleWare(AccessRule.admin), createUser);
+userRouter.get('/', accessControlMiddleWare(AccessRule.admin), getUsers);
+userRouter.put('/', accessControlMiddleWare(AccessRule.none), updateUser);
+userRouter.post('/', accessControlMiddleWare(AccessRule.admin), createUser);
 userRouter.get(
   '/:userId',
-  apiAccessControlMiddleWare(AccessRule.authenticated),
+  accessControlMiddleWare(AccessRule.authenticated),
   getUserById
 );
 userRouter.get(
   '/email/:email',
-  apiAccessControlMiddleWare(AccessRule.authenticated),
+  accessControlMiddleWare(AccessRule.authenticated),
   getUserByEmail
 );
 userRouter.get('/account/:provider/:providerAccountId', getUserByAccount);

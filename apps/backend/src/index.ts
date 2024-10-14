@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-misused-promises */
 import { getOAuth2Token } from '@controllers/oAuth2.controller';
 import {
   getSessionInformation,
@@ -72,7 +71,7 @@ app.use(express.urlencoded({ extended: true }));
 // Liveness check
 app.get('/', (_req: Request, res: Response) => res.send('ok'));
 
-// middleware - jwt
+// middleware - jwt & session auth
 app.use('*', checkUser);
 app.use('*', checkOrganization);
 app.use('*', checkProject);
@@ -85,20 +84,28 @@ if (isDev) {
 // Sessions
 app.get('/session', getSessionInformation);
 
+// CSRF
+app.get('/csrf-token', setCSRFToken);
+
 // oAuth2
 app.use('*', attachOAuthInstance);
 app.post('/oauth2/token', getOAuth2Token); // Route to get the token
+app.use('*', authenticateOAuth2);
 
-// CSRF
-app.get('/csrf-token', setCSRFToken);
-app.use(doubleCsrfProtection);
+// CSRF protection
+app.use((req, res, next) => {
+  // If the request is authenticated using the session auth check the CSRF token
+  if (res.locals.authType === 'session') {
+    return doubleCsrfProtection(req, res, next);
+  }
+});
 
 // Routes
 app.use('/api/auth', sessionAuthRouter);
 app.use('/api/user', userRouter);
 app.use('/api/organization', organizationRouter);
 app.use('/api/project', projectRouter);
-app.use('/api/dictionary', authenticateOAuth2, dictionaryRouter);
+app.use('/api/dictionary', dictionaryRouter);
 
 // Server
 app.listen(process.env.PORT, () => {

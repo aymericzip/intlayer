@@ -4,7 +4,7 @@ import {
   type AuthenticationBarrierProps as AuthenticationBarrierPropsUI,
 } from '@intlayer/design-system';
 import { redirect } from 'next/navigation';
-import React, { type FC } from 'react';
+import { type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type AuthenticationBarrierProps = Omit<

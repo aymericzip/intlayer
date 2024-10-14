@@ -36,6 +36,6 @@ export const getPrefix = (platform: Platform): string => {
     case 'react_app':
       return 'REACT_APP_INTLAYER_';
     default:
-      return '';
+      return 'INTLAYER_';
   }
 };

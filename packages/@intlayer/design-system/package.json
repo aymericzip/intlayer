@@ -5,18 +5,18 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/components/index.es.js",
-      "require": "./dist/components/index.cjs.js",
+      "import": "./dist/components/index.mjs",
+      "require": "./dist/components/index.cjs",
       "types": "./dist/components/index.d.ts"
     },
     "./hooks": {
-      "import": "./dist/hooks/index.es.js",
-      "require": "./dist/hooks/index.cjs.js",
+      "import": "./dist/hooks/index.mjs",
+      "require": "./dist/hooks/index.cjs",
       "types": "./dist/hooks/index.d.ts"
     },
     "./libs": {
-      "import": "./dist/libs/index.es.js",
-      "require": "./dist/libs/index.cjs.js",
+      "import": "./dist/libs/index.mjs",
+      "require": "./dist/libs/index.cjs",
       "types": "./dist/libs/index.d.ts"
     },
     "./tailwind-config": {
@@ -112,8 +112,8 @@
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
     "intlayer": "workspace:^",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-intlayer": "workspace:^",
     "zustand": "^4.5.2"
   },
