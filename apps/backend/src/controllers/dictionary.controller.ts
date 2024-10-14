@@ -145,7 +145,9 @@ export const addDictionary = async (
   }
 
   const dictionary: DictionaryData = {
-    content: {},
+    content: {
+      id: dictionaryData.key,
+    },
     creatorId: user._id,
     ...dictionaryData,
   };

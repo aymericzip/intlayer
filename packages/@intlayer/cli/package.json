@@ -60,11 +60,13 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/design-system": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
-    "commander": "^12.1.0"
+    "commander": "^12.1.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:^",
     "@intlayer/core": "workspace:^",
+    "@types/lodash": "^4.17.10",
     "@types/node": "^20.14.9",
     "@utils/ts-config": "workspace:^",
     "eslint": "^9.11.1",

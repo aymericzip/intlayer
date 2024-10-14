@@ -18,7 +18,9 @@ export const push = async (options: PushOptions): Promise<void> => {
     const { clientId, clientSecret, enabled } = getConfiguration().editor;
 
     if (!enabled) {
-      throw new Error('OAuth2 is not enabled');
+      throw new Error(
+        'Intlayer editor is not enabled. Please enable it. See https://intlayer.org/doc/concept/editor'
+      );
     }
 
     if (!clientId || !clientSecret) {
@@ -56,7 +58,7 @@ export const push = async (options: PushOptions): Promise<void> => {
 
     // Check if the dictionaries list is empty
     if (dictionaries.length === 0) {
-      console.error('No dictionaries found');
+      console.error('No local dictionaries found');
       return;
     }
 

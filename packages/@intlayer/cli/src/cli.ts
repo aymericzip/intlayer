@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import { build } from './build';
+import { pull } from './pull';
 import { push } from './push';
 
 /**
@@ -36,6 +37,12 @@ export const setAPI = (): Command => {
       'Keep the local dictionaries directory after pushing'
     )
     .action((options) => push(options));
+
+  program
+    .command('pull')
+    .option('-d, --dictionaries [ids...]', 'List of dictionary IDs to pull')
+    .option('--newDictionariesPath [path]', 'Path to save the new dictionaries')
+    .action((options) => pull(options));
 
   program.parse(process.argv);
 
