@@ -118,13 +118,13 @@ Intlayer can also export i18next dictionaries for projects that still rely on i1
 Intlayer comes with a CLI package that allows you to transpile your content declarations into dictionaries. You can run these commands to build your dictionaries:
 
 ```bash
-npx intlayer transpile
+npx intlayer build
 ```
 
 To run in watch mode:
 
 ```bash
-npx intlayer watch
+npx intlayer build --watch
 ```
 
 For more information on the CLI and its usage, [refer to the CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_cli_en.md).

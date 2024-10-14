@@ -12,7 +12,7 @@
     "start:customCracoConfig": "craco start",
     "start:original": "react-scripts start",
     "test": "react-scripts test --watchAll=false",
-    "transpile": "intlayer transpile"
+    "transpile": "intlayer build"
   },
   "browserslist": {
     "production": [

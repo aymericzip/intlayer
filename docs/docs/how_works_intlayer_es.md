@@ -61,7 +61,7 @@ El servidor, basado en Express, se utiliza para recibir las solicitudes del edit
 
 ### intlayer-cli
 
-El paquete `intlayer-cli` se puede utilizar para generar diccionarios utilizando el comando `npx intlayer transpile`.
+El paquete `intlayer-cli` se puede utilizar para generar diccionarios utilizando el comando `npx intlayer build`.
 
 ### @intlayer/core
 

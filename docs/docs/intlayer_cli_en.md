@@ -42,20 +42,20 @@ To see how to configure available locales, or other parameters, refer to the [co
 To build your dictionaries, you can run the commands:
 
 ```bash
-npx intlayer transpile
+npx intlayer build
 ```
 
 or in watch mode
 
 ```bash
-npx intlayer watch
+npx intlayer build --watch
 ```
 
 ## Use intlayer commands in your `package.json`:
 
 ```json
 "scripts": {
-  "transpile": "npx intlayer transpile",
-  "transpile:watch": "npx intlayer watch"
+  "transpile": "npx intlayer build",
+  "transpile:watch": "npx intlayer build --watch"
 }
 ```

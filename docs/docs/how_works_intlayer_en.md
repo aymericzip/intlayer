@@ -61,7 +61,7 @@ The server, based on Express, is used to receive the editor visual requests and 
 
 ### intlayer-cli
 
-The `intlayer-cli` package can be used to generate dictionaries using the `npx intlayer transpile` command.
+The `intlayer-cli` package can be used to generate dictionaries using the `npx intlayer build` command.
 
 ### @intlayer/core
 

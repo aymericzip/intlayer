@@ -1,31 +1,25 @@
 import { Command } from 'commander';
 import { build } from './build';
 import { push } from './push';
-import { watch } from './watch';
 
 /**
  * Set the API for the CLI
  *
  * Example of commands:
  *
- * npm run dev
- * npm run transpile
+ * npm run intlayer build --watch
+ * npm run intlayer push --dictionaries id1 id2 id3 --deleteLocaleDir
  */
 export const setAPI = (): Command => {
   const program = new Command();
 
   program.version('1.0.0').description('Intlayer CLI');
 
-  program.command('build').description('Build the dictionaries').action(build);
   program
-    .command('transpile')
+    .command('build')
     .description('Build the dictionaries')
-    .action(build);
-
-  program
-    .command('watch')
-    .description('Build the dictionaries and watch for changes')
-    .action(watch);
+    .option('-w, --watch', 'Watch for changes')
+    .action((options) => build(options));
 
   program
     .command('push')

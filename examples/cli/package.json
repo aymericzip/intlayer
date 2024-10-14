@@ -27,8 +27,8 @@
   "scripts": {
     "serve": "npx intlayer serve",
     "test": "",
-    "transpile": "npx intlayer transpile",
-    "watch": "npx intlayer watch"
+    "transpile": "npx intlayer build",
+    "watch": "npx intlayer build --watch"
   },
   "dependencies": {
     "intlayer": "workspace:^",

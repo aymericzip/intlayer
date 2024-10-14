@@ -52,7 +52,7 @@ Change your scripts to use react-intlayer
   "scripts": {
     "build": "react-intlayer build",
     "start": "react-intlayer start",
-    "transpile": "intlayer transpile"
+    "transpile": "intlayer build"
   },
 ```
 

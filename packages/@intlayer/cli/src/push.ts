@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import * as fsPromises from 'fs/promises';
 import { relative } from 'path';
 import * as readline from 'readline';

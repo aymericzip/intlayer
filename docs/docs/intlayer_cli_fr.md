@@ -42,20 +42,20 @@ Pour voir comment configurer les locales disponibles, ou d'autres paramètres, r
 Pour construire vos dictionnaires, vous pouvez exécuter les commandes :
 
 ```bash
-npx intlayer transpile
+npx intlayer build
 ```
 
 ou en mode surveillance
 
 ```bash
-npx intlayer watch
+npx intlayer build --watch
 ```
 
 ## Utiliser les commandes intlayer dans votre `package.json` :
 
 ```json
 "scripts": {
-  "transpile": "npx intlayer transpile",
-  "transpile:watch": "npx intlayer watch"
+  "transpile": "npx intlayer build",
+  "transpile:watch": "npx intlayer build --watch"
 }
 ```
