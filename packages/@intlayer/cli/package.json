@@ -41,6 +41,7 @@
   },
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
+  "man": "./man/intlayer.1",
   "files": [
     "./dist",
     "./package.json"
