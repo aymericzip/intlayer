@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-misused-promises */
 import { getOAuth2Token } from '@controllers/oAuth2.controller';
 import {
   getSessionInformation,
@@ -83,6 +84,7 @@ if (isDev) {
 
 // Sessions
 app.get('/session', getSessionInformation);
+app.use('/api/auth', sessionAuthRouter);
 
 // CSRF
 app.get('/csrf-token', setCSRFToken);
@@ -101,7 +103,6 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api/auth', sessionAuthRouter);
 app.use('/api/user', userRouter);
 app.use('/api/organization', organizationRouter);
 app.use('/api/project', projectRouter);
