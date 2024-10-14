@@ -38,7 +38,7 @@
     "clean:node_modules": "rimraf node_modules ./**/node_modules",
     "clean:packages": "pnpm --filter './packages/**' clean",
     "dev": "node ./scripts/dev-pick.mjs",
-    "lint": "eslint . --debug --cache",
+    "lint": "eslint . --cache",
     "lint-staged": "lint-staged --allow-empty",
     "lint:fix": "eslint . --cache --fix",
     "prepare": "husky",

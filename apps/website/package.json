@@ -38,7 +38,7 @@
     "dev": "next dev",
     "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_no_frame.svg ./public/assets/",
-    "lint": "eslint . --debug --cache",
+    "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
     "prettier": "prettier . --check",
