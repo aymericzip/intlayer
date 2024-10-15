@@ -1,8 +1,8 @@
 import type { FC, HTMLAttributes, MouseEvent } from 'react';
-
 import { cn } from '../../utils/cn';
 
-const styledHeading = `relative scroll-m-8 scroll-p-8 after:content-['#'] after:scale-75 after:px-6 after:text-neutral after:absolute after:top-0 after:h-full after:-left-12 after:hover:cursor-pointer dark:after:text-neutral-dark after:absolute after:to-neutral after:md:opacity-0 after:transition-opacity hover:after:opacity-80 after:duration-200 after:delay-100`;
+const styledHeading = `relative scroll-m-8 scroll-p-8`;
+const styledAfter = `after:content-['#'] after:scale-75 after:px-6 after:text-neutral after:absolute after:top-0 after:h-full after:-left-12 after:hover:cursor-pointer dark:after:text-neutral-dark after:absolute after:to-neutral after:md:opacity-0 after:transition-opacity hover:after:opacity-80 after:duration-200 after:delay-100`;
 
 const StyledH1: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
@@ -57,9 +57,12 @@ const StyledH5: FC<HTMLAttributes<HTMLHeadingElement>> = ({
 );
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
+  isClickable?: boolean;
+};
+type HeadingGlobalProps = HeadingProps & {
   H: FC<HTMLAttributes<HTMLHeadingElement>>;
 };
-type HeadingType = (props: HeadingProps) => JSX.Element;
+type HeadingType = (props: HeadingGlobalProps) => JSX.Element;
 
 const getId = (children: string) =>
   String(children)
@@ -103,7 +106,13 @@ const afterClick = (parentElem: Element, e: MouseEvent<HTMLHeadingElement>) => {
   return isAfterClicked;
 };
 
-const HeadingWrapper: HeadingType = ({ H, children, ...props }) => {
+const HeadingWrapper: HeadingType = ({
+  H,
+  children,
+  className,
+  isClickable,
+  ...props
+}) => {
   const id = typeof children === 'string' ? getId(children) : undefined;
 
   const onClick = (e: MouseEvent<HTMLHeadingElement>) => {
@@ -125,8 +134,13 @@ const HeadingWrapper: HeadingType = ({ H, children, ...props }) => {
   return (
     <H
       id={id}
-      onClick={onClick}
-      aria-label={`Click to scroll to section ${id} and copy the link to the clipboard`}
+      onClick={isClickable ? onClick : undefined}
+      aria-label={
+        isClickable
+          ? `Click to scroll to section ${id} and copy the link to the clipboard`
+          : undefined
+      }
+      className={cn(isClickable && styledAfter, className)}
       {...props}
     >
       {children}
@@ -136,15 +150,15 @@ const HeadingWrapper: HeadingType = ({ H, children, ...props }) => {
 
 export const H1 = StyledH1;
 
-export const H2 = (props: HTMLAttributes<HTMLHeadingElement>) => (
-  <HeadingWrapper H={StyledH2} {...props} />
+export const H2: FC<HeadingProps> = ({ isClickable = false, ...props }) => (
+  <HeadingWrapper H={StyledH2} isClickable={isClickable} {...props} />
 );
-export const H3 = (props: HTMLAttributes<HTMLHeadingElement>) => (
-  <HeadingWrapper H={StyledH3} {...props} />
+export const H3: FC<HeadingProps> = ({ isClickable = false, ...props }) => (
+  <HeadingWrapper H={StyledH3} isClickable={isClickable} {...props} />
 );
-export const H4 = (props: HTMLAttributes<HTMLHeadingElement>) => (
-  <HeadingWrapper H={StyledH4} {...props} />
+export const H4: FC<HeadingProps> = ({ isClickable = false, ...props }) => (
+  <HeadingWrapper H={StyledH4} isClickable={isClickable} {...props} />
 );
-export const H5 = (props: HTMLAttributes<HTMLHeadingElement>) => (
-  <HeadingWrapper H={StyledH5} {...props} />
+export const H5: FC<HeadingProps> = ({ isClickable = false, ...props }) => (
+  <HeadingWrapper H={StyledH5} isClickable={isClickable} {...props} />
 );

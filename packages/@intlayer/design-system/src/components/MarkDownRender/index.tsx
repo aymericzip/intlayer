@@ -25,13 +25,13 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
     options={{
       overrides: {
         h1: {
-          component: H1,
+          component: (props) => <H1 isClickable={true} {...props} />,
         },
         h2: {
-          component: H2,
+          component: (props) => <H2 isClickable={true} {...props} />,
         },
         h3: {
-          component: H3,
+          component: (props) => <H3 isClickable={true} {...props} />,
         },
         code: {
           component: (props) =>
