@@ -26,7 +26,7 @@ import {
   type PaginatedResponse,
   formatResponse,
 } from '@utils/responseData';
-import type { Request, Response } from 'express';
+import type { Request } from 'express';
 import type { ObjectId } from 'mongoose';
 import type {
   Project,
@@ -46,7 +46,7 @@ export type GetProjectsResult = PaginatedResponse<Project>;
 export const getProjects = async (
   req: Request<GetProjectsParams>,
   res: ResponseWithInformation<GetProjectsResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { user, organization } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
@@ -62,7 +62,8 @@ export const getProjects = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!organization) {
@@ -76,7 +77,8 @@ export const getProjects = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   const restrictedFilter: ProjectFilters = {
@@ -101,7 +103,8 @@ export const getProjects = async (
       totalItems,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -113,7 +116,8 @@ export const getProjects = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -129,7 +133,7 @@ export type AddProjectResult = ResponseData<Project>;
 export const addProject = async (
   req: Request<any, any, AddProjectBody>,
   res: ResponseWithInformation<AddProjectResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { organization, user } = res.locals;
   const projectData = req.body;
 
@@ -144,7 +148,8 @@ export const addProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!organization) {
@@ -158,7 +163,8 @@ export const addProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!projectData) {
@@ -172,7 +178,8 @@ export const addProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   const project: ProjectData = {
@@ -187,7 +194,8 @@ export const addProject = async (
 
     const responseData = formatResponse<Project>({ data: newProject });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -199,7 +207,8 @@ export const addProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -215,7 +224,7 @@ export type UpdateProjectResult = ResponseData<Project>;
 export const updateProject = async (
   req: Request<any, any, UpdateProjectBody>,
   res: ResponseWithInformation<UpdateProjectResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { organization } = res.locals;
   const project = req.body;
 
@@ -230,7 +239,8 @@ export const updateProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!organization) {
@@ -244,7 +254,8 @@ export const updateProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (project.organizationId !== organization._id) {
@@ -254,7 +265,8 @@ export const updateProject = async (
       error: errorMessage,
       status: responseCode,
     });
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (typeof project._id === 'undefined') {
@@ -268,7 +280,8 @@ export const updateProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -276,7 +289,8 @@ export const updateProject = async (
 
     const responseData = formatResponse<Project>({ data: updatedProject });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -288,7 +302,8 @@ export const updateProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -304,7 +319,7 @@ export type DeleteProjectResult = ResponseData<Project>;
 export const deleteProject = async (
   req: Request<DeleteProjectParam>,
   res: ResponseWithInformation<DeleteProjectResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { organization } = res.locals;
   const { projectId } = req.params as Partial<DeleteProjectParam>;
 
@@ -319,7 +334,8 @@ export const deleteProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!projectId) {
@@ -333,7 +349,8 @@ export const deleteProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -346,7 +363,8 @@ export const deleteProject = async (
         error: errorMessage,
         status: responseCode,
       });
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     const deletedProject = await deleteProjectByIdService(projectId);
@@ -362,14 +380,16 @@ export const deleteProject = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     logger.info(`Project deleted: ${String(deletedProject._id)}`);
 
     const responseData = formatResponse<Project>({ data: deletedProject });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -381,7 +401,8 @@ export const deleteProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -411,7 +432,8 @@ export const selectProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -423,7 +445,8 @@ export const selectProject = async (
       data: project,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -435,7 +458,8 @@ export const selectProject = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -458,7 +482,8 @@ export const unselectProject = (
       data: null,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -470,6 +495,7 @@ export const unselectProject = (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };

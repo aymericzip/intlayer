@@ -67,7 +67,7 @@ export type RegisterResult = ResponseData<UserAPI>;
 export const registerEmailPassword = async (
   req: Request<any, any, RegisterBody>,
   res: ResponseWithInformation<RegisterResult>
-) => {
+): Promise<void> => {
   const { user } = res.locals;
 
   if (user) {
@@ -81,7 +81,8 @@ export const registerEmailPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   const userData = req.body;
@@ -106,7 +107,8 @@ export const registerEmailPassword = async (
             status: responseCode,
           });
 
-          return res.status(responseCode).json(responseData);
+          res.status(responseCode).json(responseData);
+          return;
         } else {
           user = await updateUserProviderService(user._id, 'email', {
             secret: uuidv4(),
@@ -135,7 +137,8 @@ export const registerEmailPassword = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     await setUserAuthService(res, user);
@@ -143,7 +146,8 @@ export const registerEmailPassword = async (
     const formattedUser = formatUserForAPIService(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
     logger.error(errorMessage);
@@ -154,7 +158,8 @@ export const registerEmailPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -173,7 +178,7 @@ export type LoginResult = ResponseData<UserAPI>;
 export const loginEmailPassword = async (
   req: Request<any, any, LoginBody>,
   res: ResponseWithInformation<LoginResult>
-) => {
+): Promise<void> => {
   const { user } = res.locals;
 
   if (user) {
@@ -187,7 +192,8 @@ export const loginEmailPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   const { email, password } = req.body;
@@ -210,7 +216,8 @@ export const loginEmailPassword = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     if (!loggedInUser) {
@@ -224,7 +231,8 @@ export const loginEmailPassword = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     await setUserAuthService(res, loggedInUser);
@@ -234,7 +242,8 @@ export const loginEmailPassword = async (
 
     logger.info(`Login: ${loggedInUser.email}`);
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
 
@@ -246,7 +255,8 @@ export const loginEmailPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -261,7 +271,7 @@ export type LogoutResult = ResponseData<undefined>;
 export const logOut = async (
   _req: Request,
   res: ResponseWithInformation<LogoutResult>
-) => {
+): Promise<void> => {
   const { user } = res.locals;
 
   if (!user) {
@@ -275,7 +285,8 @@ export const logOut = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   await clearUserAuthService(res);
@@ -286,7 +297,7 @@ export const logOut = async (
 
   const responseData = formatResponse<undefined>({ data: undefined });
 
-  return res.json(responseData);
+  res.json(responseData);
 };
 
 export type UpdatePasswordBody = {
@@ -304,7 +315,7 @@ export type UpdatePasswordResult = ResponseData<UserAPI>;
 export const updatePassword = async (
   req: Request<undefined, any, UpdatePasswordBody>,
   res: ResponseWithInformation<UpdatePasswordResult>
-) => {
+): Promise<void> => {
   const { oldPassword, newPassword } = req.body;
   let { user } = res.locals;
 
@@ -319,7 +330,8 @@ export const updatePassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -333,7 +345,8 @@ export const updatePassword = async (
         error: errorMessage,
         status: responseCode,
       });
-      return res.json(responseData);
+      res.json(responseData);
+      return;
     }
 
     user = await changeUserPasswordService(user._id, oldPassword, newPassword);
@@ -349,7 +362,8 @@ export const updatePassword = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     logger.info(
@@ -360,7 +374,8 @@ export const updatePassword = async (
 
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
     logger.error(errorMessage);
@@ -371,7 +386,8 @@ export const updatePassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -387,7 +403,7 @@ export type ValidEmailResult = ResponseData<UserAPI>;
 export const validEmail = async (
   req: Request<ValidEmailParams, any, any>,
   res: ResponseWithInformation<ValidEmailResult>
-) => {
+): Promise<void> => {
   const { userId, secret } = req.params;
   const { organization } = res.locals;
 
@@ -399,7 +415,8 @@ export const validEmail = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!organization) {
@@ -410,7 +427,8 @@ export const validEmail = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   const user = await getUserByIdService(userId);
@@ -426,7 +444,8 @@ export const validEmail = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   await activateUserService(user._id, secret);
@@ -438,7 +457,7 @@ export const validEmail = async (
   const formattedUser = formatUserForAPIService(user);
   const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-  return res.json(responseData);
+  res.json(responseData);
 };
 
 export type AskResetPasswordBody = {
@@ -455,7 +474,7 @@ export type AskResetPasswordResult = ResponseData<undefined>;
 export const askResetPassword = async (
   req: Request<undefined, any, AskResetPasswordBody>,
   res: ResponseWithInformation<AskResetPasswordResult>
-) => {
+): Promise<void> => {
   const { email } = req.body as Partial<AskResetPasswordBody>;
 
   if (!email) {
@@ -468,7 +487,8 @@ export const askResetPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -485,7 +505,8 @@ export const askResetPassword = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     logger.info(
@@ -494,7 +515,8 @@ export const askResetPassword = async (
 
     const responseData = formatResponse<undefined>({ data: undefined });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
 
@@ -506,7 +528,8 @@ export const askResetPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -522,7 +545,7 @@ export type ResetPasswordResult = ResponseData<UserAPI>;
 export const resetPassword = async (
   req: Request<ResetPasswordParams, any, any>,
   res: Response<ResetPasswordResult>
-) => {
+): Promise<void> => {
   const { secret, userId } = req.params as Partial<ResetPasswordParams>;
   const password: string = req.body.password;
 
@@ -539,7 +562,8 @@ export const resetPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!secret) {
@@ -553,7 +577,8 @@ export const resetPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -570,7 +595,8 @@ export const resetPassword = async (
     const formattedUser = formatUserForAPIService(updatedUser);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
     logger.error(errorMessage);
@@ -581,7 +607,8 @@ export const resetPassword = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -612,7 +639,7 @@ export type GetSessionInformationResult = ResponseData<SessionInformation>;
 export const getSessionInformation = async (
   req: Request<undefined, undefined, undefined, GetSessionInformationQuery>,
   res: ResponseWithInformation<GetSessionInformationResult>
-) => {
+): Promise<void> => {
   const { session_token: sessionToken } = req.query;
 
   let { user } = res.locals;
@@ -633,7 +660,8 @@ export const getSessionInformation = async (
         },
       });
 
-      return res.json(responseData);
+      res.json(responseData);
+      return;
     }
 
     const session = user.session;
@@ -648,7 +676,8 @@ export const getSessionInformation = async (
         },
       });
 
-      return res.json(responseData);
+      res.json(responseData);
+      return;
     }
 
     const formattedUser: SessionInformation['user'] = {
@@ -660,7 +689,8 @@ export const getSessionInformation = async (
       data: { session, user: formattedUser, organization, project },
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
     logger.error(errorMessage);
@@ -671,7 +701,8 @@ export const getSessionInformation = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -683,7 +714,7 @@ export type GithubLoginQueryResult = ResponseData<undefined>;
 export const githubLoginQuery = (
   req: Request<undefined, undefined, undefined, GithubLoginQueryParams>,
   res: ResponseWithInformation<GithubLoginQueryResult>
-) => {
+): void => {
   const { origin } = req.query;
   const { user } = res.locals;
 
@@ -692,7 +723,8 @@ export const githubLoginQuery = (
 
     logger.error(errorMessage);
 
-    return res.redirect(origin);
+    res.redirect(origin);
+    return;
   }
 
   const encodedOrigin = encodeURIComponent(origin);
@@ -700,7 +732,7 @@ export const githubLoginQuery = (
   const redirectURI = `${process.env.BACKEND_URL}/api/auth/callback/github?redirect_uri=${encodedOrigin}`;
   const encodedRedirectURI = encodeURIComponent(redirectURI);
 
-  return res.redirect(
+  res.redirect(
     `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${encodedRedirectURI}`
   );
 };
@@ -721,7 +753,7 @@ export type GithubCallbackResult = ResponseData<UserAPI>;
 export const githubCallback = async (
   req: Request<undefined, undefined, undefined, GithubCallbackQuery>,
   res: ResponseWithInformation<GithubCallbackResult>
-) => {
+): Promise<void> => {
   const { code, redirect_uri } = req.query;
 
   if (!code) {
@@ -729,7 +761,8 @@ export const githubCallback = async (
 
     logger.error(errorMessage);
 
-    return res.redirect(redirect_uri);
+    res.redirect(redirect_uri);
+    return;
   }
 
   if (!redirect_uri) {
@@ -737,7 +770,8 @@ export const githubCallback = async (
 
     logger.error(errorMessage);
 
-    return res.redirect(redirect_uri);
+    res.redirect(redirect_uri);
+    return;
   }
 
   try {
@@ -797,7 +831,8 @@ export const githubCallback = async (
 
       const responseCode = HttpStatusCodes.NOT_FOUND_404;
 
-      return res.redirect(responseCode, redirect_uri);
+      res.redirect(responseCode, redirect_uri);
+      return;
     }
 
     let existingUser = await getUserByEmailService(primaryEmail);
@@ -832,7 +867,8 @@ export const githubCallback = async (
 
       await setUserAuthService(res, updatedUser);
 
-      return res.redirect(redirect_uri);
+      res.redirect(redirect_uri);
+      return;
     }
 
     const userInformation: UserData = {
@@ -861,7 +897,8 @@ export const githubCallback = async (
     const errorMessage: string = (err as { message: string }).message;
     logger.error(errorMessage);
 
-    return res.redirect(redirect_uri);
+    res.redirect(redirect_uri);
+    return;
   }
 };
 
@@ -874,7 +911,7 @@ export type GoogleLoginResult = ResponseData<undefined>;
 export const googleLoginQuery = (
   req: Request<undefined, undefined, undefined, GoogleLoginQueryParams>,
   res: ResponseWithInformation<GoogleLoginResult>
-) => {
+): void => {
   const { origin } = req.query;
   const { user } = res.locals;
 
@@ -883,7 +920,8 @@ export const googleLoginQuery = (
 
     logger.error(errorMessage);
 
-    return res.redirect(origin);
+    res.redirect(origin);
+    return;
   }
 
   const responseType = 'code';
@@ -898,7 +936,7 @@ export const googleLoginQuery = (
 
   const redirectURI = `${process.env.BACKEND_URL}/api/auth/callback/google`;
 
-  return res.redirect(
+  res.redirect(
     `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${redirectURI}&response_type=${responseType}&scope=${scope}&include_granted_scopes=${includeGrantedScopes}&state=${state}`
   );
 };
@@ -919,7 +957,7 @@ export type GoogleCallbackResult = ResponseData<UserAPI>;
 export const googleCallback = async (
   req: Request<undefined, undefined, undefined, GoogleCallbackQuery>,
   res: ResponseWithInformation<GoogleCallbackResult>
-) => {
+): Promise<void> => {
   const { code, state } = req.query;
 
   const decodedState = decodeURIComponent(state);
@@ -932,7 +970,8 @@ export const googleCallback = async (
 
     const responseCode = HttpStatusCodes.BAD_REQUEST_400;
 
-    return res.redirect(responseCode, redirect_uri);
+    res.redirect(responseCode, redirect_uri);
+    return;
   }
 
   if (!redirect_uri) {
@@ -942,7 +981,8 @@ export const googleCallback = async (
 
     const responseCode = HttpStatusCodes.BAD_REQUEST_400;
 
-    return res.redirect(responseCode, redirect_uri);
+    res.redirect(responseCode, redirect_uri);
+    return;
   }
 
   try {
@@ -972,7 +1012,8 @@ export const googleCallback = async (
 
       const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
 
-      return res.redirect(responseCode, redirect_uri);
+      res.redirect(responseCode, redirect_uri);
+      return;
     }
 
     const userResponse = await fetch(
@@ -994,7 +1035,8 @@ export const googleCallback = async (
 
       const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
 
-      return res.redirect(responseCode, redirect_uri);
+      res.redirect(responseCode, redirect_uri);
+      return;
     }
 
     let existingUser = await getUserByEmailService(userData.email);
@@ -1029,7 +1071,8 @@ export const googleCallback = async (
 
       await setUserAuthService(res, updatedUser);
 
-      return res.redirect(redirect_uri);
+      res.redirect(redirect_uri);
+      return;
     }
 
     const userInformation: UserData = {
@@ -1060,6 +1103,7 @@ export const googleCallback = async (
 
     const responseCode = HttpStatusCodes.BAD_REQUEST_400;
 
-    return res.redirect(responseCode, redirect_uri);
+    res.redirect(responseCode, redirect_uri);
+    return;
   }
 };

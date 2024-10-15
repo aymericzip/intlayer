@@ -43,7 +43,7 @@ export type CreateUserResult = ResponseData<UserAPI>;
 export const createUser = async (
   req: Request<any, any, UserWithPasswordNotHashed>,
   res: ResponseWithInformation<CreateUserResult>
-) => {
+): Promise<void> => {
   const user: UserWithPasswordNotHashed | undefined = req.body;
 
   if (!user) {
@@ -57,7 +57,8 @@ export const createUser = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -67,7 +68,8 @@ export const createUser = async (
 
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as { message: string }).message;
 
@@ -79,7 +81,8 @@ export const createUser = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -95,7 +98,7 @@ export type GetUsersResult = PaginatedResponse<UserAPI>;
 export const getUsers = async (
   req: Request<GetUsersParams>,
   res: ResponseWithInformation<GetUsersResult>
-) => {
+): Promise<void> => {
   const { user } = res.locals;
 
   if (!user) {
@@ -108,7 +111,8 @@ export const getUsers = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   const { filters, pageSize, skip, page, getNumberOfPages } =
@@ -128,7 +132,8 @@ export const getUsers = async (
       totalItems,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as { message: string }).message;
 
@@ -140,7 +145,8 @@ export const getUsers = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -150,7 +156,7 @@ export type GetUserByIdResult = ResponseData<UserAPI>;
 export const getUserById = async (
   req: Request<GetUserByIdParams>,
   res: ResponseWithInformation<GetUserByIdResult>
-) => {
+): Promise<void> => {
   const { userId } = req.params;
 
   try {
@@ -167,13 +173,15 @@ export const getUserById = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     const formattedUser = formatUserForAPIService(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as { message: string }).message;
 
@@ -187,7 +195,7 @@ export type GetUserByEmailResult = ResponseData<UserAPI>;
 export const getUserByEmail = async (
   req: Request<GetUserByEmailParams>,
   res: ResponseWithInformation<GetUserByEmailResult>
-) => {
+): Promise<void> => {
   const { email } = req.params;
 
   try {
@@ -204,7 +212,8 @@ export const getUserByEmail = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     const formattedUser = formatUserForAPIService(user);
@@ -233,7 +242,7 @@ export type GetUserByAccountResult = ResponseData<UserAPI>;
 export const getUserByAccount = async (
   req: Request<GetUserByAccountParams>,
   res: ResponseWithInformation<GetUserByAccountResult>
-) => {
+): Promise<void> => {
   const { providerAccountId, provider } = req.params;
 
   try {
@@ -262,7 +271,7 @@ export type UpdateUserResult = ResponseData<UserAPI>;
 export const updateUser = async (
   req: Request<any, any, UpdateUserBody | undefined>,
   res: ResponseWithInformation<UpdateUserResult>
-) => {
+): Promise<void> => {
   const userData = req.body;
   const { user } = res.locals;
 
@@ -277,7 +286,8 @@ export const updateUser = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (typeof userData !== 'object') {
@@ -291,7 +301,8 @@ export const updateUser = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -304,7 +315,8 @@ export const updateUser = async (
     const formattedUser = formatUserForAPIService(updatedUser);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as { message: string }).message;
 
@@ -316,7 +328,8 @@ export const updateUser = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -332,7 +345,7 @@ export type DeleteUserResult = ResponseData<UserAPI>;
 export const deleteUser = async (
   req: Request<any, any, DeleteUserParams>,
   res: ResponseWithInformation<DeleteUserResult>
-) => {
+): Promise<void> => {
   const { userId } = req.params;
 
   try {

@@ -134,7 +134,7 @@ export const accessControlMiddleWare =
     _req: Request<unknown>,
     res: ResponseWithInformation,
     next: NextFunction
-  ) => {
+  ): void => {
     let hasAccess = false;
 
     // Iterate over each access rule group (either single AccessRule or an array of AccessRules)
@@ -164,8 +164,9 @@ export const accessControlMiddleWare =
       logger.error('Access denied');
 
       const errorStatusCode = HttpStatusCodes.FORBIDDEN_403;
-      return res.sendStatus(errorStatusCode);
+      res.sendStatus(errorStatusCode);
+      return;
     }
 
-    return next();
+    next();
   };

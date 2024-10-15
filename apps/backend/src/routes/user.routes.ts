@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-misused-promises */
 import {
   getUsers,
   updateUser,

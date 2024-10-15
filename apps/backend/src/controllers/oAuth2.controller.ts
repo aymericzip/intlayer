@@ -22,7 +22,7 @@ export type GetOAuth2TokenResult = ResponseData<OAuth2Token>;
 export const getOAuth2Token = async (
   req: RequestWithOAuth2Information<undefined, undefined, GetOAuth2TokenBody>,
   res: Response
-) => {
+): Promise<void> => {
   const oauthRequest = new OAuthRequest(req);
   const oauthResponse = new OAuthResponse(res);
 
@@ -36,7 +36,8 @@ export const getOAuth2Token = async (
       data: token,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (err) {
     res.status(err.code ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500).json(err);
   }

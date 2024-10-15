@@ -24,7 +24,7 @@ import {
   type PaginatedResponse,
   formatResponse,
 } from '@utils/responseData';
-import type { Request, Response } from 'express';
+import type { Request } from 'express';
 import type {
   Dictionary,
   DictionaryCreationData,
@@ -44,7 +44,7 @@ export type GetDictionariesResult = PaginatedResponse<Dictionary>;
 export const getDictionaries = async (
   req: Request<GetDictionariesParams>,
   res: ResponseWithInformation<GetDictionariesResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(req);
 
@@ -60,7 +60,8 @@ export const getDictionaries = async (
       totalItems,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -72,7 +73,8 @@ export const getDictionaries = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -88,7 +90,7 @@ export type AddDictionaryResult = ResponseData<Dictionary>;
 export const addDictionary = async (
   req: Request<any, any, AddDictionaryBody>,
   res: ResponseWithInformation<AddDictionaryResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { project, user } = res.locals;
   const dictionaryData = req.body;
 
@@ -103,7 +105,8 @@ export const addDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!project) {
@@ -117,7 +120,8 @@ export const addDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!user) {
@@ -131,7 +135,8 @@ export const addDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!dictionaryData.projectIds.includes(String(project._id))) {
@@ -141,7 +146,9 @@ export const addDictionary = async (
       error: errorMessage,
       status: responseCode,
     });
-    return res.status(responseCode).json(responseData);
+
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   const dictionary: DictionaryData = {
@@ -157,7 +164,8 @@ export const addDictionary = async (
 
     const responseData = formatResponse<Dictionary>({ data: newDictionary });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -169,7 +177,8 @@ export const addDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -190,7 +199,7 @@ export type PushDictionariesResult = ResponseData<PushDictionariesResultData>;
 export const pushDictionaries = async (
   req: Request<any, any, PushDictionariesBody>,
   res: ResponseWithInformation<PushDictionariesResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { project, user } = res.locals;
   const dictionaryData = req.body.dictionaries;
   const dictionariesKeys = dictionaryData.map((dictionary) => dictionary.id);
@@ -210,7 +219,8 @@ export const pushDictionaries = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   } else if (!dictionaryData) {
     const errorMessage = 'Dictionary not found';
 
@@ -222,7 +232,8 @@ export const pushDictionaries = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!project) {
@@ -236,7 +247,8 @@ export const pushDictionaries = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!user) {
@@ -250,7 +262,8 @@ export const pushDictionaries = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -322,7 +335,8 @@ export const pushDictionaries = async (
       data: result,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -334,7 +348,8 @@ export const pushDictionaries = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -350,7 +365,7 @@ export type UpdateDictionaryResult = ResponseData<Dictionary>;
 export const updateDictionary = async (
   req: Request<any, any, UpdateDictionaryBody>,
   res: ResponseWithInformation<UpdateDictionaryResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { project } = res.locals;
   const dictionaryData = req.body;
 
@@ -365,7 +380,8 @@ export const updateDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!project) {
@@ -379,7 +395,8 @@ export const updateDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!dictionaryData.projectIds?.includes(String(project._id))) {
@@ -389,7 +406,8 @@ export const updateDictionary = async (
       error: errorMessage,
       status: responseCode,
     });
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (typeof dictionaryData._id === 'undefined') {
@@ -403,7 +421,8 @@ export const updateDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -416,7 +435,8 @@ export const updateDictionary = async (
       data: updatedDictionary,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -428,7 +448,8 @@ export const updateDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -444,7 +465,7 @@ export type DeleteDictionaryResult = ResponseData<Dictionary>;
 export const deleteDictionary = async (
   req: Request<DeleteDictionaryParam>,
   res: ResponseWithInformation<DeleteDictionaryResult>
-): Promise<Response> => {
+): Promise<void> => {
   const { project } = res.locals;
   const { dictionaryId } = req.params as Partial<DeleteDictionaryParam>;
 
@@ -459,7 +480,8 @@ export const deleteDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!project) {
@@ -473,7 +495,8 @@ export const deleteDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -486,7 +509,8 @@ export const deleteDictionary = async (
         error: errorMessage,
         status: responseCode,
       });
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     const deletedDictionary = await deleteDictionaryByIdService(dictionaryId);
@@ -502,7 +526,8 @@ export const deleteDictionary = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     logger.info(`Dictionary deleted: ${String(deletedDictionary._id)}`);
@@ -511,7 +536,8 @@ export const deleteDictionary = async (
       data: deletedDictionary,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -523,6 +549,7 @@ export const deleteDictionary = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };

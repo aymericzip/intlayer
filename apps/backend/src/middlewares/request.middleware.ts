@@ -6,7 +6,7 @@ export const logAPIRequestURL = (
   req: Request,
   res: ResponseWithInformation,
   next: NextFunction
-) => {
+): void => {
   const queryDetails = {
     params: req.params,
     query: req.query,

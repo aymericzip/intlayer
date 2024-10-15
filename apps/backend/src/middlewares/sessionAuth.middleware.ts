@@ -54,7 +54,7 @@ export const checkUser = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const { [Cookies.JWT_AUTH]: sessionToken } = req.cookies;
 
   res.locals.user = null;
@@ -80,7 +80,7 @@ export const checkOrganization = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const jwtTokenOrganization = req.cookies[Cookies.JWT_ORGANIZATION];
 
   res.locals.organization = null;
@@ -120,7 +120,7 @@ export const checkProject = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const jwtTokenProject = req.cookies[Cookies.JWT_PROJECT];
   res.locals.project = null;
 

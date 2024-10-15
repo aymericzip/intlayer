@@ -63,7 +63,8 @@ export const getOrganizations = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   const restrictedFilter: OrganizationFilters = {
@@ -87,7 +88,8 @@ export const getOrganizations = async (
       totalItems,
     });
 
-    return res.status(200).json(responseData);
+    res.status(200).json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -99,7 +101,8 @@ export const getOrganizations = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -115,7 +118,7 @@ export type GetOrganizationResult = ResponseData<Organization>;
 export const getOrganization = async (
   req: Request<GetOrganizationParam, any, any>,
   res: ResponseWithInformation<GetOrganizationResult>
-) => {
+): Promise<void> => {
   const { organizationId } = req.params as Partial<GetOrganizationParam>;
 
   if (!organizationId) {
@@ -129,7 +132,8 @@ export const getOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -137,7 +141,8 @@ export const getOrganization = async (
 
     const responseData = formatResponse<Organization>({ data: organization });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -149,7 +154,8 @@ export const getOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -165,7 +171,7 @@ export type AddOrganizationResult = ResponseData<Organization>;
 export const addOrganization = async (
   req: Request<any, any, AddOrganizationBody>,
   res: ResponseWithInformation<AddOrganizationResult>
-) => {
+): Promise<void> => {
   const { user } = res.locals;
   const organization = req.body;
 
@@ -180,7 +186,8 @@ export const addOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!user) {
@@ -194,7 +201,8 @@ export const addOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -207,7 +215,8 @@ export const addOrganization = async (
       data: newOrganization,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -219,7 +228,8 @@ export const addOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -235,7 +245,7 @@ export type UpdateOrganizationResult = ResponseData<Organization>;
 export const updateOrganization = async (
   req: Request<undefined, undefined, UpdateOrganizationBody>,
   res: ResponseWithInformation<UpdateOrganizationResult>
-) => {
+): Promise<void> => {
   const organization = req.body;
 
   if (!organization) {
@@ -249,7 +259,8 @@ export const updateOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (typeof organization._id === 'undefined') {
@@ -263,7 +274,8 @@ export const updateOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -276,7 +288,8 @@ export const updateOrganization = async (
       data: updatedOrganization,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -288,7 +301,8 @@ export const updateOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -304,7 +318,7 @@ export type DeleteOrganizationResult = ResponseData<Organization>;
 export const deleteOrganization = async (
   req: Request<DeleteOrganizationParam>,
   res: ResponseWithInformation
-) => {
+): Promise<void> => {
   const { organizationId } = req.params as Partial<DeleteOrganizationParam>;
 
   if (!organizationId) {
@@ -318,7 +332,8 @@ export const deleteOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -336,7 +351,8 @@ export const deleteOrganization = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     logger.info(`Organization deleted: ${String(deletedOrganization._id)}`);
@@ -345,7 +361,8 @@ export const deleteOrganization = async (
       data: deletedOrganization,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -357,7 +374,8 @@ export const deleteOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -373,7 +391,7 @@ export type SelectOrganizationResult = ResponseData<Organization>;
 export const selectOrganization = async (
   req: Request<SelectOrganizationParam>,
   res: ResponseWithInformation<SelectOrganizationResult>
-) => {
+): Promise<void> => {
   const { organizationId } = req.params as Partial<SelectOrganizationParam>;
 
   if (!organizationId) {
@@ -387,7 +405,8 @@ export const selectOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -399,7 +418,8 @@ export const selectOrganization = async (
       data: organization,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -411,7 +431,8 @@ export const selectOrganization = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -426,7 +447,7 @@ export type UnselectOrganizationResult = ResponseData<null>;
 export const unselectOrganization = (
   _req: Request,
   res: ResponseWithInformation<UnselectOrganizationResult>
-) => {
+): void => {
   try {
     clearOrganizationAuthService(res);
     clearProjectAuthService(res);
@@ -435,7 +456,8 @@ export const unselectOrganization = (
       data: null,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -447,6 +469,7 @@ export const unselectOrganization = (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };

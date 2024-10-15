@@ -69,7 +69,9 @@ app.use(cors(corsOptions));
 logger.info('url whitelist : ', whitelist.join(', '));
 
 // Liveness check
-app.get('/', (_req, res) => res.send('ok'));
+app.get('/', (_req, res) => {
+  res.send('ok');
+});
 
 // middleware - jwt & session auth
 app.use(/(.*)/, checkUser);
@@ -98,7 +100,8 @@ app.use(/(.*)/, (req, res, next) => {
   if (!res.locals.authType) {
     return authenticateOAuth2(
       req as RequestWithOAuth2Information,
-      res as ResponseWithInformation
+      res as ResponseWithInformation,
+      next
     );
   }
   next();

@@ -23,7 +23,7 @@ export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;
 export const addNewAccessKey = async (
   req: Request<AddNewAccessKeyBody>,
   res: ResponseWithInformation<AddNewAccessKeyResponse>
-) => {
+): Promise<void> => {
   const { user, project } = res.locals;
 
   if (!project) {
@@ -37,7 +37,8 @@ export const addNewAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!user) {
@@ -51,7 +52,8 @@ export const addNewAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -65,7 +67,8 @@ export const addNewAccessKey = async (
       data: newAccessKey,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -77,7 +80,8 @@ export const addNewAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -94,7 +98,7 @@ export type DeleteAccessKeyResponse = ResponseData<null>;
 export const deleteAccessKey = async (
   req: Request,
   res: ResponseWithInformation<AddNewAccessKeyResponse>
-) => {
+): Promise<void> => {
   const { user, project } = res.locals;
   const { clientId } = req.body;
 
@@ -109,7 +113,8 @@ export const deleteAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!user) {
@@ -123,7 +128,8 @@ export const deleteAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!clientId) {
@@ -137,7 +143,8 @@ export const deleteAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -154,14 +161,16 @@ export const deleteAccessKey = async (
         status: responseCode,
       });
 
-      return res.status(responseCode).json(responseData);
+      res.status(responseCode).json(responseData);
+      return;
     }
 
     const responseData = formatResponse<null>({
       data: null,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -173,7 +182,8 @@ export const deleteAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
 
@@ -190,7 +200,7 @@ export type RefreshAccessKeyResponse = ResponseData<OAuth2Access>;
 export const refreshAccessKey = async (
   req: Request<RefreshAccessKeyBody>,
   res: ResponseWithInformation<RefreshAccessKeyResponse>
-) => {
+): Promise<void> => {
   const { user, project } = res.locals;
   const { clientId } = req.body;
 
@@ -205,7 +215,8 @@ export const refreshAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!user) {
@@ -219,7 +230,8 @@ export const refreshAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   if (!clientId) {
@@ -233,7 +245,8 @@ export const refreshAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 
   try {
@@ -243,7 +256,8 @@ export const refreshAccessKey = async (
       data: newAccessKey,
     });
 
-    return res.json(responseData);
+    res.json(responseData);
+    return;
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
@@ -255,6 +269,7 @@ export const refreshAccessKey = async (
       status: responseCode,
     });
 
-    return res.status(responseCode).json(responseData);
+    res.status(responseCode).json(responseData);
+    return;
   }
 };
