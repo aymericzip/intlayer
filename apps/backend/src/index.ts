@@ -26,7 +26,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
 import dotenv from 'dotenv';
-import express, { type Express, type Request, type Response } from 'express';
+import express, { type Express } from 'express';
 import { logger } from './logger';
 
 const app: Express = express();
@@ -69,7 +69,7 @@ app.use(cors(corsOptions));
 logger.info('url whitelist : ', whitelist.join(', '));
 
 // Liveness check
-app.get('/', (_req: Request, res: Response) => res.send('ok'));
+app.get('/', (_req, res) => res.send('ok'));
 
 // middleware - jwt & session auth
 app.use(/(.*)/, checkUser);
@@ -93,20 +93,19 @@ app.use(/(.*)/, attachOAuthInstance);
 app.post('/oauth2/token', getOAuth2Token); // Route to get the token
 app.use(/(.*)/, authenticateOAuth2);
 
-app.use((req, res, next) => {
+app.use(/(.*)/, (req, res, next) => {
   // If the request is not already authenticated check the oAuth2 token
   if (!res.locals.authType) {
     return authenticateOAuth2(
       req as RequestWithOAuth2Information,
-      res as ResponseWithInformation,
-      next
+      res as ResponseWithInformation
     );
   }
   next();
 });
 
 // CSRF protection
-app.use((req, res, next) => {
+app.use(/(.*)/, (req, res, next) => {
   // If the request is authenticated using the session auth check the CSRF token
   if (res.locals.authType === 'session') {
     return doubleCsrfProtection(req, res, next);

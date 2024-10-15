@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { logger } from '@logger/index';
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import { UserModel } from '@models/user.model';
@@ -44,40 +45,47 @@ export const authenticateOAuth2 = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const hasToken = !!req.headers.authorization;
+
+    if (!hasToken) {
+      // If the request does not have a token, skip the oAuth2 authentication
+      // Necessary because the oAuth2 library will throw an error if the token is not present
+      return next();
+    }
+
     // Authenticate the request using OAuth2
     const oauthRequest = new OAuthRequest(req);
 
     const oauthResponse = new OAuthResponse(res);
 
-    await req.oauth
-      .authenticate(oauthRequest, oauthResponse, authenticateOptions)
-      .then(async (oAuthToken) => {
-        const user = await UserModel.findById(oAuthToken.user._id);
+    const oAuthToken = await req.oauth.authenticate(
+      oauthRequest,
+      oauthResponse,
+      authenticateOptions
+    );
 
-        if (user) {
-          res.locals.user = user;
-          res.locals.authType = 'oauth2';
-        }
+    const user = await UserModel.findById(oAuthToken.user._id);
 
-        const organization = await OrganizationModel.findById(
-          oAuthToken.organization._id
-        );
+    if (user) {
+      res.locals.user = user;
+      res.locals.authType = 'oauth2';
+    }
 
-        if (organization) {
-          res.locals.organization = organization;
-        }
+    const organization = await OrganizationModel.findById(
+      oAuthToken.organization._id
+    );
 
-        const project = await ProjectModel.findById(oAuthToken.project._id);
+    if (organization) {
+      res.locals.organization = organization;
+    }
 
-        if (project) {
-          res.locals.project = project;
-        }
-      })
-      .catch(() => {
-        // No token found or invalid token
-        next();
-      });
-  } finally {
-    next();
+    const project = await ProjectModel.findById(oAuthToken.project._id);
+
+    if (project) {
+      res.locals.project = project;
+    }
+  } catch (err) {
+    logger.info(err);
   }
+  next();
 };
