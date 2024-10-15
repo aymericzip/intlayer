@@ -34,7 +34,7 @@ type SessionContextProps = {
   setOAuth2AccessToken: (oAuth2AccessToken: OAuth2Token | null) => void;
 };
 
-export const SessionContext = createContext<SessionContextProps>({
+export const AuthContext = createContext<SessionContextProps>({
   session: undefined,
   setSession: () => null,
   checkSession: () => Promise.resolve(),
@@ -45,7 +45,7 @@ export const SessionContext = createContext<SessionContextProps>({
   setOAuth2AccessToken: () => null,
 });
 
-export const useAuth = () => useContext(SessionContext);
+export const useAuth = () => useContext(AuthContext);
 
 export type AuthProviderProps = PropsWithChildren<{
   /**
@@ -89,8 +89,6 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   );
 
   return (
-    <SessionContext.Provider value={memoValue}>
-      {children}
-    </SessionContext.Provider>
+    <AuthContext.Provider value={memoValue}>{children}</AuthContext.Provider>
   );
 };

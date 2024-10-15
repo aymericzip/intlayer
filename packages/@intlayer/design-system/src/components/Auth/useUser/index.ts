@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { useLogout } from '../../../hooks';
-import { SessionContext } from '../AuthProvider';
+import { AuthContext } from '../AuthProvider';
 
 export const useUser = () => {
-  const { session, checkSession, setSession } = useContext(SessionContext);
+  const { session, checkSession, setSession } = useContext(AuthContext);
   const { logout } = useLogout();
 
   const status = session?.user ? 'authenticated' : 'unauthenticated';

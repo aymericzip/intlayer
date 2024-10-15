@@ -1,7 +1,7 @@
 'use client';
 
-import { useContext, useEffect, type FC } from 'react';
-import { SessionContext } from '../AuthProvider';
+import { useEffect, type FC } from 'react';
+import { useAuth } from '../AuthProvider';
 import { accessValidation } from './accessValidation';
 import type { AuthenticationBarrierProps } from '.';
 
@@ -18,7 +18,7 @@ export const AuthenticationBarrierClient: FC<
   redirectionRoute = '/',
   session: sessionProp,
 }) => {
-  const { session: sessionClient, setSession } = useContext(SessionContext);
+  const { session: sessionClient, setSession } = useAuth();
 
   useEffect(() => {
     if (!sessionClient) {

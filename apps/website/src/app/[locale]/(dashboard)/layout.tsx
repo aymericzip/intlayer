@@ -27,22 +27,20 @@ const DashboardLayout: NextLayoutIntlayer = async ({
   }));
 
   return (
-    <AuthenticationBarrier
-      accessRule="authenticated"
-      redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${PagesRoutes.Dashboard}`}
-      session={session}
+    <PageLayout
+      locale={locale}
+      editorEnabled={false}
+      navbar={<DashboardNavbar links={formattedNavbarLinks} />}
+      footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
     >
-      <PageLayout
-        locale={locale}
-        editorEnabled={false}
-        navbar={<DashboardNavbar links={formattedNavbarLinks} />}
-        footer={
-          <DashboardFooter locale={locale} links={formattedFooterLinks} />
-        }
+      <AuthenticationBarrier
+        accessRule="authenticated"
+        redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${PagesRoutes.Dashboard}`}
+        session={session}
       >
         {children}
-      </PageLayout>
-    </AuthenticationBarrier>
+      </AuthenticationBarrier>
+    </PageLayout>
   );
 };
 
