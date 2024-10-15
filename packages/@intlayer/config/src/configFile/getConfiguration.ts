@@ -35,6 +35,7 @@ export const getConfiguration = (
 
     // Load the custom configuration
     let customConfiguration: CustomIntlayerConfig | undefined;
+
     if (configurationFilePath) {
       customConfiguration = loadConfigurationFile(configurationFilePath);
     }

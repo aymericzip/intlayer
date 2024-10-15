@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
@@ -6,23 +5,19 @@
  */
 
 import { existsSync } from 'fs';
-import { createRequire } from 'module';
 import { join } from 'path';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, ESMxCJSRequire } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 
-const isESModule = typeof import.meta.url === 'string';
 let dictionaries = undefined;
-
-const requireFunction = isESModule ? createRequire(import.meta.url) : require;
 
 const { content } = getConfiguration();
 const dictionariesPath = join(content.mainDir, 'dictionaries.cjs');
 
 // Test if the dictionaries file exists
 if (existsSync(dictionariesPath)) {
-  requireFunction(dictionariesPath);
-  dictionaries = requireFunction(dictionariesPath);
+  ESMxCJSRequire(dictionariesPath);
+  dictionaries = ESMxCJSRequire(dictionariesPath);
 }
 
 export default (dictionaries ?? {}) as Record<Dictionary['id'], Dictionary>;

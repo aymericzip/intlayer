@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import { createRequire } from 'module';
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { type Context, runInNewContext } from 'vm';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
-import type { CustomIntlayerConfig } from '../types/config';
-import process from 'process';
 import React from 'react';
-import dotenv from 'dotenv';
+import { getPlatform } from '../envVariables/detectPlatform';
+import { loadEnvFile } from '../envVariables/loadEnvFile';
+import type { CustomIntlayerConfig } from '../types/config';
+import { ESMxCJSRequire } from '../utils/ESMxCJSRequire';
 
-const env = process.env.NODE_ENV ?? 'development';
-
-dotenv.config({ path: ['.env', `.env.${env}`, `.env.${env}.local`] });
-
-const isESModule = typeof import.meta.url === 'string';
+// If platform defined, the env file is already loaded by Rollup Webpack or Turbopack.
+if (getPlatform() === 'unknown') {
+  loadEnvFile();
+}
 
 const sandboxContext: Context = {
   exports: {
@@ -23,7 +22,7 @@ const sandboxContext: Context = {
   React,
   process,
   console,
-  require: isESModule ? createRequire(import.meta.url) : require,
+  require: ESMxCJSRequire,
 };
 
 const define: Record<string, string> = {};

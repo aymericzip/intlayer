@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import { createRequire } from 'module';
 import { type Context, runInNewContext } from 'vm';
+import { ESMxCJSRequire } from '@intlayer/config';
 import type { DeclarationContent } from '@intlayer/core';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
-
-const isESModule = typeof import.meta.url === 'string';
 
 const sandboxContext: Context = {
   exports: {
@@ -14,7 +11,7 @@ const sandboxContext: Context = {
     exports: {},
   },
   console,
-  require: isESModule ? createRequire(import.meta.url) : require,
+  require: ESMxCJSRequire,
 };
 
 const transformationOption: BuildOptions = {
@@ -56,7 +53,7 @@ export const loadContentDeclaration = (
   try {
     if (fileExtension === 'json') {
       // Assume JSON
-      return require(contentDeclarationFilePath);
+      return ESMxCJSRequire(contentDeclarationFilePath);
     }
 
     // Rest is JS, MJS or TS

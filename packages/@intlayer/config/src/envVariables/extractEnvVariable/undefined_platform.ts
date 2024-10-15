@@ -5,7 +5,6 @@ import type {
   EditorConfig,
 } from '../../types/config';
 import type { ReplaceValue, IntlayerConfigEnvVariable } from './types';
-import process from 'process';
 
 export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
   const internationalization: ReplaceValue<InternationalizationConfig> = {

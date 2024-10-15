@@ -1,4 +1,3 @@
-// import process from 'process';
 import { Locales, type IntlayerConfig } from 'intlayer';
 
 export const locales = [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH];
