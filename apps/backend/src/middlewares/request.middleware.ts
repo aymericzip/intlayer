@@ -7,8 +7,15 @@ export const logAPIRequestURL = (
   res: ResponseWithInformation,
   next: NextFunction
 ) => {
+  const queryDetails = {
+    params: req.params,
+    query: req.query,
+    body: req.body,
+    locals: res.locals,
+  };
+
   logger.info(
-    `API Request - ${req.method} - ${req.originalUrl} - Params: ${JSON.stringify(req.params)} - Body: ${JSON.stringify(req.body)} - ${JSON.stringify(res.locals)}`
+    `API Request - ${req.method} - ${req.originalUrl} - ${JSON.stringify(queryDetails, null, 2)}`
   );
 
   next();

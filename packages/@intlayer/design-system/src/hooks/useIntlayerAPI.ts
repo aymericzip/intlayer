@@ -9,7 +9,7 @@ export const useIntlayerAPI = () => {
     () =>
       oAuth2AccessToken?.accessToken
         ? {
-            Bearer: `Bearer ${oAuth2AccessToken.accessToken}`,
+            Authorization: `Bearer ${oAuth2AccessToken.accessToken}`,
           }
         : undefined,
     [oAuth2AccessToken?.accessToken]

@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-misused-promises */
 import { getOAuth2Token } from '@controllers/oAuth2.controller';
 import {
   getSessionInformation,
@@ -7,12 +6,14 @@ import {
 import {
   attachOAuthInstance,
   authenticateOAuth2,
+  RequestWithOAuth2Information,
 } from '@middlewares/oAuth2.middleware';
 import { logAPIRequestURL } from '@middlewares/request.middleware';
 import {
   checkUser,
   checkOrganization,
   checkProject,
+  ResponseWithInformation,
 } from '@middlewares/sessionAuth.middleware';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { organizationRouter } from '@routes/organization.routes';
@@ -29,8 +30,10 @@ import express, { type Express, type Request, type Response } from 'express';
 import { logger } from './logger';
 
 const app: Express = express();
-app.disable('x-powered-by');
 
+app.disable('x-powered-by'); // Disabled to prevent attackers from knowing that the app is running Express
+
+// Environment variables
 const env = app.get('env');
 
 logger.info(`run as ${env}`);
@@ -44,38 +47,34 @@ connectDB();
 // Compress all HTTP responses
 app.use(compression());
 
+// Parse incoming requests with JSON payloads
+app.use(express.json());
+// Parse incoming requests with urlencoded payloads
+app.use(express.urlencoded({ extended: true }));
+
+// Parse incoming requests with cookies
+app.use(cookieParser());
+
+// CORS
 const whitelist: string[] = [process.env.CLIENT_URL!];
-
-logger.info('url whitelist : ', whitelist.join(', '));
-
 const corsOptions: CorsOptions = {
   origin: whitelist,
   credentials: true,
-  allowedHeaders: [
-    'sessionId',
-    'Content-Type',
-    'x-xsrf-token',
-    'x-csrf-token',
-    'credentials',
-  ],
-  exposedHeaders: ['sessionId', 'x-csrf-token'],
+  allowedHeaders: ['authorization', 'Content-Type', 'credentials'],
+  exposedHeaders: [''],
   preflightContinue: false,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
-
 app.use(cors(corsOptions));
-app.use(cookieParser());
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+logger.info('url whitelist : ', whitelist.join(', '));
 
 // Liveness check
 app.get('/', (_req: Request, res: Response) => res.send('ok'));
 
 // middleware - jwt & session auth
-app.use('*', checkUser);
-app.use('*', checkOrganization);
-app.use('*', checkProject);
+app.use(/(.*)/, checkUser);
+app.use(/(.*)/, checkOrganization);
+app.use(/(.*)/, checkProject);
 
 // debug
 if (isDev) {
@@ -90,9 +89,21 @@ app.use('/api/auth', sessionAuthRouter);
 app.get('/csrf-token', setCSRFToken);
 
 // oAuth2
-app.use('*', attachOAuthInstance);
+app.use(/(.*)/, attachOAuthInstance);
 app.post('/oauth2/token', getOAuth2Token); // Route to get the token
-app.use('*', authenticateOAuth2);
+app.use(/(.*)/, authenticateOAuth2);
+
+app.use((req, res, next) => {
+  // If the request is not already authenticated check the oAuth2 token
+  if (!res.locals.authType) {
+    return authenticateOAuth2(
+      req as RequestWithOAuth2Information,
+      res as ResponseWithInformation,
+      next
+    );
+  }
+  next();
+});
 
 // CSRF protection
 app.use((req, res, next) => {
@@ -100,6 +111,7 @@ app.use((req, res, next) => {
   if (res.locals.authType === 'session') {
     return doubleCsrfProtection(req, res, next);
   }
+  next();
 });
 
 // Routes

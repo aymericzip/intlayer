@@ -2,12 +2,11 @@
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import { UserModel } from '@models/user.model';
-import { getAuthModel } from '@utils/oAuth2';
+import { getAuthModel, authenticateOptions } from '@utils/oAuth2';
 import { NextFunction, Request } from 'express';
 import OAuth2Server, {
   Request as OAuthRequest,
   Response as OAuthResponse,
-  Token,
 } from 'oauth2-server';
 import { ResponseWithInformation } from './sessionAuth.middleware';
 
@@ -47,34 +46,37 @@ export const authenticateOAuth2 = async (
   try {
     // Authenticate the request using OAuth2
     const oauthRequest = new OAuthRequest(req);
+
     const oauthResponse = new OAuthResponse(res);
-    const oAuthToken: Token = await req.oauth.authenticate(
-      oauthRequest,
-      oauthResponse
-    );
 
-    const user = await UserModel.findById(oAuthToken.user._id);
+    await req.oauth
+      .authenticate(oauthRequest, oauthResponse, authenticateOptions)
+      .then(async (oAuthToken) => {
+        const user = await UserModel.findById(oAuthToken.user._id);
 
-    if (user) {
-      res.locals.user = user;
-      res.locals.authType = 'oauth2';
-    }
+        if (user) {
+          res.locals.user = user;
+          res.locals.authType = 'oauth2';
+        }
 
-    const organization = await OrganizationModel.findById(
-      oAuthToken.organization._id
-    );
+        const organization = await OrganizationModel.findById(
+          oAuthToken.organization._id
+        );
 
-    if (organization) {
-      res.locals.organization = organization;
-    }
+        if (organization) {
+          res.locals.organization = organization;
+        }
 
-    const project = await ProjectModel.findById(oAuthToken.project._id);
+        const project = await ProjectModel.findById(oAuthToken.project._id);
 
-    if (project) {
-      res.locals.project = project;
-    }
-
-    next();
+        if (project) {
+          res.locals.project = project;
+        }
+      })
+      .catch(() => {
+        // No token found or invalid token
+        next();
+      });
   } finally {
     next();
   }

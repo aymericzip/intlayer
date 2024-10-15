@@ -87,7 +87,7 @@ export const getOrganizations = async (
       totalItems,
     });
 
-    return res.json(responseData);
+    return res.status(200).json(responseData);
   } catch (error) {
     const errorMessage: string = (error as Error).message;
 
