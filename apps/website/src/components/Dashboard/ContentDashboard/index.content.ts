@@ -42,6 +42,14 @@ const dictionaryFormContent: DeclarationContent = {
     }),
   },
 
+  dictionaryList: {
+    title: t({
+      en: 'Dictionary list',
+      fr: 'Liste des dictionnaires',
+      es: 'Lista de diccionarios',
+    }),
+  },
+
   createDictionaryTitle: t({
     en: 'No dictionary',
     fr: 'Aucune dictionaire',

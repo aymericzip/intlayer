@@ -6,6 +6,8 @@ import {
   Loader,
   Modal,
   useEditionPanelStore,
+  Container,
+  H2,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight, Plus } from 'lucide-react';
@@ -20,7 +22,7 @@ export const ContentDashboardContent: FC = () => {
   }));
   const { locale } = useLocale();
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { noDictionaryView, createDictionaryButton } =
+  const { noDictionaryView, createDictionaryButton, dictionaryList } =
     useIntlayer('dictionary-form');
   const { online, isLoading } = useGetAllDictionaries();
   const dictionaries = Object.values(online) ?? [];
@@ -54,7 +56,11 @@ export const ContentDashboardContent: FC = () => {
     }
 
     return (
-      <div className="flex max-w-[40rem] flex-1 flex-col gap-2">
+      <Container
+        roundedSize="xl"
+        className="flex size-full max-w-[400px] flex-1 flex-col justify-center gap-2 p-6"
+      >
+        <H2 className="mb-6">{dictionaryList.title}</H2>
         {dictionaries.map((dictionary) => (
           <Button
             key={String(dictionary._id)}
@@ -73,7 +79,7 @@ export const ContentDashboardContent: FC = () => {
             {dictionary.id}
           </Button>
         ))}
-      </div>
+      </Container>
     );
   }
 
