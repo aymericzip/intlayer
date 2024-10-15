@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
-
+// useAsyncCacheStore.ts
 import { create } from 'zustand';
 
 type AsyncCacheEntry<T> = {
@@ -9,16 +7,22 @@ type AsyncCacheEntry<T> = {
   expireAt: number; // Time when data expires
 };
 
-type AsyncCacheStore = {
-  cache: Record<string, AsyncCacheEntry<any>>;
-  setCache: (key: string, value: AsyncCacheEntry<any>) => void;
-  getCache: (key: string) => AsyncCacheEntry<any> | undefined;
+type AsyncCacheStore<T> = {
+  cache: Record<string, AsyncCacheEntry<T>>;
+  pendingPromises: Record<string, Promise<T>>;
+  setCache: (key: string, value: AsyncCacheEntry<T>) => void;
+  getCache: (key: string) => AsyncCacheEntry<T> | undefined;
   removeCache: (key: string) => void;
   clearCache: () => void;
+  setPendingPromise: (key: string, promise: Promise<T>) => void;
+  getPendingPromise: (key: string) => Promise<T> | undefined;
+  removePendingPromise: (key: string) => void;
 };
 
-export const useAsyncCacheStore = create<AsyncCacheStore>((set, get) => ({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useAsyncCacheStore = create<AsyncCacheStore<any>>((set, get) => ({
   cache: {},
+  pendingPromises: {},
   setCache: (key, value) =>
     set((state) => ({
       cache: {
@@ -34,4 +38,18 @@ export const useAsyncCacheStore = create<AsyncCacheStore>((set, get) => ({
       return { cache: newCache };
     }),
   clearCache: () => set({ cache: {} }),
+  setPendingPromise: (key, promise) =>
+    set((state) => ({
+      pendingPromises: {
+        ...state.pendingPromises,
+        [key]: promise,
+      },
+    })),
+  getPendingPromise: (key) => get().pendingPromises[key],
+  removePendingPromise: (key) =>
+    set((state) => {
+      const newPendingPromises = { ...state.pendingPromises };
+      delete newPendingPromises[key];
+      return { pendingPromises: newPendingPromises };
+    }),
 }));

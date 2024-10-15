@@ -15,7 +15,9 @@ export const useVerifyEmail = () =>
   useAsync('verifyEmail', useIntlayerAPI().auth.verifyEmail);
 
 export const useGetUserByAccount = () =>
-  useAsync('getUserByAccount', useIntlayerAPI().user.getUserByAccount);
+  useAsync('getUserByAccount', useIntlayerAPI().user.getUserByAccount, {
+    cache: true,
+  });
 export const useCreateUser = () =>
   useAsync('createUser', useIntlayerAPI().user.createUser);
 export const useUpdateUser = () =>
@@ -24,7 +26,9 @@ export const useDeleteUser = () =>
   useAsync('deleteUser', useIntlayerAPI().user.deleteUser);
 
 export const useGetOrganizations = () =>
-  useAsync('getOrganizations', useIntlayerAPI().organization.getOrganizations);
+  useAsync('getOrganizations', useIntlayerAPI().organization.getOrganizations, {
+    cache: true,
+  });
 export const useAddOrganization = () =>
   useAsync('addOrganization', useIntlayerAPI().organization.addOrganization);
 export const useUpdateOrganization = () =>
@@ -49,7 +53,9 @@ export const useUnselectOrganization = () =>
   );
 
 export const useGetProjects = () =>
-  useAsync('getProjects', useIntlayerAPI().project.getProjects);
+  useAsync('getProjects', useIntlayerAPI().project.getProjects, {
+    cache: true,
+  });
 export const useAddProject = () =>
   useAsync('addProject', useIntlayerAPI().project.addProject);
 export const useUpdateProject = () =>
@@ -68,7 +74,9 @@ export const useRefreshAccessKey = () =>
   useAsync('refreshAccessKey', useIntlayerAPI().project.refreshAccessKey);
 
 export const useGetDictionaries = () =>
-  useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries);
+  useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries, {
+    cache: true,
+  });
 export const useAddDictionary = () =>
   useAsync('addDictionary', useIntlayerAPI().dictionary.addDictionary);
 export const usePushDictionaries = () =>
