@@ -44,7 +44,7 @@
   "module": "dist/build/index.js",
   "scripts": {
     "build": "tsup && tsc-alias",
-    "dev": "tsx watch ./src/index.ts",
+    "dev": "node --import=tsx --watch ./src/index.ts",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
@@ -90,7 +90,6 @@
     "prettier": "3.3.3",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
-    "tsconfig-paths": "^4.2.0",
     "tsup": "^8.2.4",
     "tsx": "^4.19.1",
     "typescript": "^5.5.4"
