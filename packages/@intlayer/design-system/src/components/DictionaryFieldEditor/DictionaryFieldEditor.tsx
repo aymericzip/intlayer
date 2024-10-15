@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { getDictionaryValueByKeyPath } from '../../utils/dictionary';
 import { Button } from '../Button';
+import { Container } from '../Container';
 import {
   useEditedContentStore,
   useEditionPanelStore,
@@ -80,7 +81,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           onClickKeyPath={setFocusedContentKeyPath}
         />
       </div>
-      <div className="border-text dark:border-text-dark flex h-full flex-1 flex-col overflow-hidden rounded-xl border-[1.5px]">
+      <Container className="border-text dark:border-text-dark flex h-full flex-1 flex-col overflow-hidden rounded-xl border-[1.5px]">
         <div
           className="flex flex-1 items-start gap-0.5 overflow-x-auto p-2"
           ref={containerRef}
@@ -114,7 +115,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           dictionaryId={id}
           locale={locale}
         />
-      </div>
+      </Container>
     </div>
   );
 };
