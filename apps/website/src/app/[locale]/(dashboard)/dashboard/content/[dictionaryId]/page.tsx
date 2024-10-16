@@ -1,10 +1,12 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { DictionaryListDashboard } from '@components/Dashboard/DictionaryListDashboard';
+import { ContentDashboard } from '@components/Dashboard/ContentDashboard';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
-const ContentDashboardPage: NextPageIntlayer = ({ params: { locale } }) => {
-  const { title } = useIntlayer('content-dashboard-page', locale);
+const DictionaryDashboardPage: NextPageIntlayer = ({
+  params: { locale, dictionaryId },
+}) => {
+  const { title } = useIntlayer('dictionary-dashboard-page', locale);
 
   return (
     <IntlayerServerProvider locale={locale}>
@@ -13,7 +15,7 @@ const ContentDashboardPage: NextPageIntlayer = ({ params: { locale } }) => {
       </h1>
       <div className="relative flex size-full flex-1 flex-col items-center">
         <div className="flex size-full flex-1 flex-col items-center p-10">
-          <DictionaryListDashboard />
+          <ContentDashboard dictionaryId={dictionaryId} />
         </div>
         <BackgroundLayout />
       </div>
@@ -21,4 +23,4 @@ const ContentDashboardPage: NextPageIntlayer = ({ params: { locale } }) => {
   );
 };
 
-export default ContentDashboardPage;
+export default DictionaryDashboardPage;

@@ -11,10 +11,12 @@ import { DictionaryFieldEditor } from './DictionaryFieldEditor';
 
 type DictionariesSelectorProps = {
   locale: Locales;
+  onClickDictionaryList: () => void;
 };
 
 export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   locale,
+  onClickDictionaryList,
 }) => {
   const { all, isLoading } = useGetAllDictionaries();
   const { focusedContent } = useEditionPanelStore((s) => ({
@@ -32,5 +34,11 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
 
   if (!dictionary) return dictionaryNotFoundMessage;
 
-  return <DictionaryFieldEditor dictionary={dictionary} locale={locale} />;
+  return (
+    <DictionaryFieldEditor
+      dictionary={dictionary}
+      locale={locale}
+      onClickDictionaryList={onClickDictionaryList}
+    />
+  );
 };

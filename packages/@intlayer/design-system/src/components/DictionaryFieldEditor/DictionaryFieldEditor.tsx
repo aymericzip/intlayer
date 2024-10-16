@@ -1,7 +1,7 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
+import { type Dictionary } from '@intlayer/core';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo, useRef, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
@@ -13,18 +13,20 @@ import {
   useEditionPanelStore,
 } from '../DictionaryEditor';
 import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
-import { EditorView } from './EditorView';
+import { EditorView, getIsEditableSection } from './EditorView';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NodeWrapper } from './NodeWrapper';
 
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   locale: Locales;
+  onClickDictionaryList?: () => void;
 };
 
 export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   dictionary,
   locale,
+  onClickDictionaryList,
 }) => {
   const { id, filePath, ...dictionaryContent } = dictionary;
   const containerRef = useRef<HTMLDivElement>(null);
@@ -67,7 +69,10 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     <div className="flex size-full flex-1 flex-col gap-10">
       <div className="flex flex-row flex-wrap items-center gap-2 text-sm">
         <Button
-          onClick={() => setFocusedContent(null)}
+          onClick={() => {
+            setFocusedContent(null);
+            onClickDictionaryList?.();
+          }}
           variant="hoverable"
           size="icon"
           color="text"
@@ -91,7 +96,8 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
               getDictionaryValueByKeyPath(editedContent[id], keyPath) ??
               getDictionaryValueByKeyPath(dictionaryContent, keyPath);
 
-            const isEditableSection = typeof section === 'string';
+            const isEditableSection = getIsEditableSection(section);
+
             if (isEditableSection) return <></>;
 
             const key = keyPath.map((key) => JSON.stringify(key)).join('.');
