@@ -32,25 +32,30 @@ export const ContentDashboardContent: FC = () => {
   if (!focusedContent) {
     if (dictionaries.length === 0) {
       return (
-        <div className="flex flex-1 flex-col items-center justify-center gap-10">
-          <span className="text-neutral-dark dark:text-neutral-dark text-sm">
-            {noDictionaryView.title}
-          </span>
-          <Button
-            label={createDictionaryButton.ariaLabel.value}
-            IconRight={Plus}
-            variant="default"
-            color="text"
-            onClick={() => setIsCreationModalOpen(true)}
+        <div className="flex flex-1 flex-col items-center justify-center">
+          <Container
+            roundedSize="xl"
+            className="flex size-full max-w-[400px] flex-col justify-center gap-10 p-6"
           >
-            {createDictionaryButton.text}
-          </Button>
-          <Modal
-            isOpen={isCreationModalOpen}
-            onClose={() => setIsCreationModalOpen(false)}
-          >
-            <DictionaryCreationForm />
-          </Modal>
+            <span className="text-neutral-dark dark:text-neutral-dark text-sm">
+              {noDictionaryView.title}
+            </span>
+            <Button
+              label={createDictionaryButton.ariaLabel.value}
+              IconRight={Plus}
+              variant="default"
+              color="text"
+              onClick={() => setIsCreationModalOpen(true)}
+            >
+              {createDictionaryButton.text}
+            </Button>
+            <Modal
+              isOpen={isCreationModalOpen}
+              onClose={() => setIsCreationModalOpen(false)}
+            >
+              <DictionaryCreationForm />
+            </Modal>
+          </Container>
         </div>
       );
     }
