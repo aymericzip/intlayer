@@ -66,6 +66,20 @@ export const navbarContent: DeclarationContent<SectionsContent> = {
       }),
     },
     {
+      id: 'dashboard',
+      title: t({
+        en: 'Dashboard',
+        fr: 'Tableau de bord',
+        es: 'Tablero',
+      }),
+      url: PagesRoutes.Dashboard,
+      label: t({
+        en: 'Go to the dashboard',
+        fr: 'Aller à la page de tableau de bord',
+        es: 'Ir a la página de tablero',
+      }),
+    },
+    {
       id: 'doc',
       title: 'Doc',
       url: PagesRoutes.Doc,
