@@ -12,13 +12,12 @@ import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { Suspense, useEffect, useState, type FC } from 'react';
+import { Suspense, useState, type FC } from 'react';
 import { DictionaryCreationForm } from './DictionaryCreationForm';
 import { PagesRoutes } from '@/Routes';
 
 export const DictionaryListDashboardContent: FC = () => {
-  const { focusedContent, setFocusedContent } = useEditionPanelStore((s) => ({
-    focusedContent: s.focusedContent,
+  const { setFocusedContent } = useEditionPanelStore((s) => ({
     setFocusedContent: s.setFocusedContent,
   }));
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -27,14 +26,6 @@ export const DictionaryListDashboardContent: FC = () => {
   const { online, isLoading } = useGetAllDictionaries();
   const dictionaries = Object.values(online) ?? [];
   const router = useRouter();
-
-  useEffect(() => {
-    if (focusedContent) {
-      router.push(
-        `${PagesRoutes.Dashboard_Content}/${focusedContent.dictionaryId}`
-      );
-    }
-  }, [focusedContent, router]);
 
   if (isLoading) return <Loader />;
 
