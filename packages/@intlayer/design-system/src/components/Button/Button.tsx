@@ -123,6 +123,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       label,
       className,
+      type = 'button',
       ...props
     },
     ref
@@ -137,6 +138,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         aria-label={label}
         aria-busy={isLoading}
         role={isLink ? 'link' : undefined}
+        type={type}
         className={buttonVariants({
           variant,
           size,

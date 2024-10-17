@@ -79,7 +79,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           color="primary"
           onClick={onClickBackToSignIn}
           aria-label={loginLink.ariaLabel}
-          type="button"
         >
           {loginLink.text}
         </Form.Button>

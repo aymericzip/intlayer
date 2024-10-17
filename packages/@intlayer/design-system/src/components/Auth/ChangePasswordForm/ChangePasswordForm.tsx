@@ -75,7 +75,6 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       {isSubmitted && (
         <Form.Button
           className="mt-4 w-full"
-          type="button"
           label={backToHomeButton.ariaLabel}
           onClick={onClickBackToHome}
         >

@@ -112,7 +112,6 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
       </Form.Button>
       {isSubmitted && (
         <Form.Button
-          type="button"
           className="mt-4 w-full"
           label={backToLoginButton.text}
           onClick={onClickBackToLogin}

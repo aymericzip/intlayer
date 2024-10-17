@@ -56,7 +56,6 @@ export const SignInForm: FC<SignInFormProps> = ({
           variant="link"
           label={signInContent.forgotPasswordLink.ariaLabel}
           color="primary"
-          type="button"
           onClick={onClickForgotPassword}
         >
           {signInContent.forgotPasswordLink.text}
@@ -78,7 +77,6 @@ export const SignInForm: FC<SignInFormProps> = ({
             label={signInContent.signUpLink.ariaLabel}
             color="primary"
             onClick={onClickSignUp}
-            type="button"
           >
             {signInContent.signUpLink.text}
           </Form.Button>

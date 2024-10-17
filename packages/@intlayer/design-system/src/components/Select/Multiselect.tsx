@@ -310,7 +310,6 @@ const MultiSelectTrigger = forwardRef<
                 <button
                   aria-label={`Remove ${item} option`}
                   aria-roledescription="button to remove option"
-                  type="button"
                   onMouseDown={mousePreventDefault}
                   onClick={() => onValueChange(item)}
                 >
