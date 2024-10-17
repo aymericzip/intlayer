@@ -52,7 +52,7 @@ export const push = async (options: PushOptions): Promise<void> => {
 
       // Filter the dictionaries from the provided list of IDs
       dictionaries = dictionaries.filter((dictionary) =>
-        options.dictionaries!.includes(dictionary.id)
+        options.dictionaries!.includes(dictionary.key)
       );
     }
 
@@ -63,7 +63,7 @@ export const push = async (options: PushOptions): Promise<void> => {
     }
 
     const dictionariesIds: string[] = dictionaries.map(
-      (dictionary) => dictionary.id
+      (dictionary) => dictionary.key
     );
 
     console.info('Pushing dictionaries', dictionariesIds);
@@ -94,7 +94,7 @@ export const push = async (options: PushOptions): Promise<void> => {
     ];
 
     const successfullyPushedDictionaries = dictionaries.filter((dictionary) =>
-      successfullyPushedDictionariesIds.includes(dictionary.id)
+      successfullyPushedDictionariesIds.includes(dictionary.key)
     );
 
     // Handle delete or keep options
@@ -151,7 +151,7 @@ const deleteLocalDictionaries = async (
     const { filePath } = dictionary;
 
     if (!filePath) {
-      console.error(`Dictionary ${dictionary.id} does not have a file path`);
+      console.error(`Dictionary ${dictionary.key} does not have a file path`);
       continue;
     }
 

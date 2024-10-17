@@ -7,33 +7,33 @@ import {
   removeDictionaryValueByKeyPath,
 } from '../../utils/dictionary';
 
-export type DictionaryContent = Record<Dictionary['id'], Dictionary>;
+export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
 
 type EditedContentStore = {
   dictionariesRecord: DictionaryContent;
   editedContent: DictionaryContent;
   setDictionariesRecord: (
-    dictionariesRecord: Record<Dictionary['id'], Dictionary>
+    dictionariesRecord: Record<Dictionary['key'], Dictionary>
   ) => void;
   addEditedContent: (
-    dictionaryId: Dictionary['id'],
+    dictionaryId: Dictionary['key'],
     newValue: DictionaryValue,
     keyPath?: KeyPath[],
     overwrite?: boolean
   ) => void;
   renameEditedContent: (
-    dictionaryId: Dictionary['id'],
+    dictionaryId: Dictionary['key'],
     newKey: KeyPath['key'],
     keyPath?: KeyPath[]
   ) => void;
   removeEditedContent: (
-    dictionaryId: Dictionary['id'],
+    dictionaryId: Dictionary['key'],
     keyPath: KeyPath[]
   ) => void;
-  clearEditedDictionaryContent: (dictionaryId: Dictionary['id']) => void;
+  clearEditedDictionaryContent: (dictionaryId: Dictionary['key']) => void;
   clearEditedContent: () => void;
   getEditedContentValue: (
-    dictionaryId: Dictionary['id'],
+    dictionaryId: Dictionary['key'],
     keyPath: KeyPath[]
   ) => DictionaryValue | undefined;
 };

@@ -6,7 +6,6 @@ import {
   type LanguageContent,
   findMatchingCondition,
   type KeyPath,
-  type Dictionary,
   type DictionaryValue,
   type TranslationContent,
   type EnumerationContent,
@@ -178,7 +177,7 @@ const traceKeys: string[] = ['filePath', 'nodeType'];
  * Function that process a dictionary and return the result to be used in the application.
  */
 export const processDictionary = (
-  content: Dictionary | DictionaryValue,
+  content: DictionaryValue,
   dictionaryId: string,
   dictionaryPath?: string,
   keyPath: KeyPath[] = [],

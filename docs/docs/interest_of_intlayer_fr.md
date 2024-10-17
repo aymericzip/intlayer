@@ -19,14 +19,16 @@
 
 import { DeclarationContent, t } from "intlayer";
 
-const component1Content: DeclarationContent = {
-  id: "component1",
-  myTranslatedContent: t({
-    en: "Hello World",
-    fr: "Bonjour le monde",
-    es: "Hola Mundo",
-  }),
-};
+const component1Content = {
+  key: "component1",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+} satisfies DeclarationContent;
 
 export default component1Content;
 ```

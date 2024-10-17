@@ -9,15 +9,17 @@ To declare nested IDs in your content file, you create a structure with inner no
 ```typescript
 import type { DeclarationContent } from "intlayer";
 
-const nestedContent: DeclarationContent = {
-  id: "parent_id",
-  text: "This is the parent node",
+const nestedContent = {
+  key: "parent_id",
+  content: {
+    text: "This is the parent node",
 
-  nestedContent: {
-    id: "child_id",
-    text: "This is the child node",
+    nestedContent: {
+      id: "child_id",
+      text: "This is the child node",
+    },
   },
-};
+} satisfies DeclarationContent;
 
 export default nestedContent;
 ```
@@ -67,20 +69,22 @@ To further optimize the performance of nested IDs, you can declare multiple nest
 ```typescript
 import type { DeclarationContent } from "intlayer";
 
-const deeplyNestedContent: DeclarationContent = {
-  id: "level_1",
-  text: "Level 1 content",
-
-  nestedContent: {
-    id: "level_2",
-    text: "Level 2 content",
+const deeplyNestedContent = {
+  key: "level_1",
+  content: {
+    text: "Level 1 content",
 
     nestedContent: {
-      id: "level_3",
-      text: "Level 3 content",
+      id: "level_2",
+      text: "Level 2 content",
+
+      nestedContent: {
+        id: "level_3",
+        text: "Level 3 content",
+      },
     },
   },
-};
+} satisfies DeclarationContent;
 
 export default deeplyNestedContent;
 ```

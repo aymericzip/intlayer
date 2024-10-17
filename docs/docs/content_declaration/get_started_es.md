@@ -34,28 +34,30 @@ Crea y gestiona tus diccionarios de contenido:
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent: DeclarationContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
+const pageContent = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
+    nestedContent: {
+      id: "enumeration",
+      numberOfCar: enu({
+        "<-1": "Menos de menos un coche",
+        "-1": "Menos un coche",
+        "0": "Sin coches",
+        "1": "Un coche",
+        ">5": "Algunos coches",
+        ">19": "Muchos coches",
+      }),
+    },
   },
-  nestedContent: {
-    id: "enumeration",
-    numberOfCar: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-  },
-};
+} satisfies DeclarationContent;
 
 // El contenido debe ser exportado por defecto
 export default pageContent;

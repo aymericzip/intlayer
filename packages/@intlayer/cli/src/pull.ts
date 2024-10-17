@@ -62,10 +62,7 @@ export const pull = async (options: PullOptions): Promise<void> => {
 
     // Write the new dictionaries to the intlayer-dictionaries directory
     for (const distantDictionary of distantDictionaries) {
-      const { filePath, ...distantDictionaryContent } = {
-        filePath: undefined, // If filePath is not present in distantDictionary.content, it will be declared as undefined to avoid crash
-        ...distantDictionary.content,
-      };
+      const { content: distantDictionaryContent } = distantDictionary;
 
       try {
         const isDictionaryExist = existingDictionariesKey.includes(

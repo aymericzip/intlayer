@@ -16,7 +16,7 @@ const requireUncached = (module: string) => {
   return ESMxCJSRequire(module);
 };
 
-const kebabCaseToCammelCase = (name: string): string =>
+const kebabCaseToCamelCase = (name: string): string =>
   name
     .split(/[\s\-_]+/) // Regular expression to match space, hyphen, or underscore
     .map((word, index) => {
@@ -82,9 +82,16 @@ export const createTypes = async (
 
   for (const dictionaryPath of dictionariesPaths) {
     const dictionary: Dictionary = requireUncached(dictionaryPath);
-    const dictionaryName: string = dictionary.id;
+
+    const dictionaryName: string = dictionary.key;
+
+    if (!dictionaryName) {
+      // Skip dictionary if it doesn't have a key, if not exported as default etc
+      continue;
+    }
+
     const dictionaryNameCamelCase: string =
-      kebabCaseToCammelCase(dictionaryName) + 'Content';
+      kebabCaseToCamelCase(dictionaryName) + 'Content';
 
     const dictionaryContentString: string = JSON.stringify(dictionary);
 

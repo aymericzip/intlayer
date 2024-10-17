@@ -1,12 +1,14 @@
 import type { DeclarationContent } from 'intlayer';
 
-const tsContentInSubPath: DeclarationContent = {
-  id: 'tsSubpath',
-  testInSubPath: {
-    en: 'Manage profile',
-    fr: 'Gérer le profil',
-    es: '  progress',
+const tsContentInSubPath = {
+  key: 'tsSubpath',
+  content: {
+    testInSubPath: {
+      en: 'Manage profile',
+      fr: 'Gérer le profil',
+      es: '  progress',
+    },
   },
-};
+} satisfies DeclarationContent;
 
 export default tsContentInSubPath;

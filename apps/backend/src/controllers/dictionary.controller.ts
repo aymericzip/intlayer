@@ -152,11 +152,13 @@ export const addDictionary = async (
   }
 
   const dictionary: DictionaryData = {
-    content: {
-      id: dictionaryData.key,
-    },
+    key: dictionaryData.key,
+    title: dictionaryData.title,
+    description: dictionaryData.description,
+    content: dictionaryData.content,
     creatorId: user._id,
-    ...dictionaryData,
+    filePath: dictionaryData.filePath,
+    projectIds: dictionaryData.projectIds ?? [String(project._id)],
   };
 
   try {
@@ -202,7 +204,7 @@ export const pushDictionaries = async (
 ): Promise<void> => {
   const { project, user } = res.locals;
   const dictionaryData = req.body.dictionaries;
-  const dictionariesKeys = dictionaryData.map((dictionary) => dictionary.id);
+  const dictionariesKeys = dictionaryData.map((dictionary) => dictionary.key);
 
   if (
     typeof dictionaryData === 'object' &&
@@ -271,10 +273,10 @@ export const pushDictionaries = async (
       await getExistingDictionaryKeyService(dictionariesKeys, project._id);
 
     const existingDictionaries = dictionaryData.filter((dictionary) =>
-      existingDictionariesKey.includes(dictionary.id)
+      existingDictionariesKey.includes(dictionary.key)
     );
     const newDictionaries = dictionaryData.filter((dictionary) =>
-      newDictionariesKey.includes(dictionary.id)
+      newDictionariesKey.includes(dictionary.key)
     );
 
     const result: PushDictionariesResultData = {
@@ -289,7 +291,7 @@ export const pushDictionaries = async (
         content: dictionaryDataEl,
         projectIds: [String(project._id)],
         creatorId: user._id,
-        key: dictionaryDataEl.id,
+        key: dictionaryDataEl.key,
       };
 
       try {
@@ -297,7 +299,7 @@ export const pushDictionaries = async (
         result.newDictionaries.push(newDictionary.key);
       } catch (error) {
         const errorMessage: string = (error as Error).message;
-        const dictionaryId = dictionaryDataEl.id;
+        const dictionaryId = dictionaryDataEl.key;
 
         logger.error(errorMessage);
 
@@ -311,19 +313,19 @@ export const pushDictionaries = async (
         content: dictionaryDataEl,
         projectIds: [String(project._id)],
         creatorId: user._id,
-        key: dictionaryDataEl.id,
+        key: dictionaryDataEl.key,
       };
 
       try {
         const newDictionary = await updateDictionaryByKeyService(
-          dictionaryDataEl.id,
+          dictionaryDataEl.key,
           dictionary,
           project._id
         );
         result.updatedDictionaries.push(newDictionary.key);
       } catch (error) {
         const errorMessage: string = (error as Error).message;
-        const dictionaryId = dictionaryDataEl.id;
+        const dictionaryId = dictionaryDataEl.key;
 
         logger.error(errorMessage);
 

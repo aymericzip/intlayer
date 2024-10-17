@@ -20,4 +20,4 @@ if (existsSync(dictionariesPath)) {
   dictionaries = ESMxCJSRequire(dictionariesPath);
 }
 
-export default (dictionaries ?? {}) as Record<Dictionary['id'], Dictionary>;
+export default (dictionaries ?? {}) as Record<Dictionary['key'], Dictionary>;

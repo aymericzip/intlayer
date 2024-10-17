@@ -34,28 +34,30 @@ Créez et gérez vos dictionnaires de contenu :
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent: DeclarationContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
+const pageContent = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
+    nestedContent: {
+      id: "enumeration",
+      numberOfCar: enu({
+        "<-1": "Moins d'une voiture",
+        "-1": "Une voiture en moins",
+        "0": "Pas de voitures",
+        "1": "Une voiture",
+        ">5": "Quelques voitures",
+        ">19": "Beaucoup de voitures",
+      }),
+    },
   },
-  nestedContent: {
-    id: "enumeration",
-    numberOfCar: enu({
-      "<-1": "Moins d'une voiture",
-      "-1": "Une voiture en moins",
-      "0": "Pas de voitures",
-      "1": "Une voiture",
-      ">5": "Quelques voitures",
-      ">19": "Beaucoup de voitures",
-    }),
-  },
-};
+} satisfies DeclarationContent;
 
 // Le contenu doit être exporté par défaut
 export default pageContent;

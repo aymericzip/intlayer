@@ -1,13 +1,15 @@
 import type { DeclarationContent } from 'intlayer';
 
-const nestedContent: DeclarationContent = {
-  id: 'nested_id_1',
-  text: 'here the fist id',
+const nestedContent = {
+  key: 'nested_key_1',
+  content: {
+    text: 'here the fist key',
 
-  nestedContent: {
-    id: 'nested_id_2',
-    text: 'here the second id',
+    nestedContent: {
+      key: 'nested_key_2',
+      text: 'here the second key',
+    },
   },
-};
+} satisfies DeclarationContent;
 
 export default nestedContent;

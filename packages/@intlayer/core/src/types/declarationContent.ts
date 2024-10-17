@@ -44,9 +44,13 @@ type ReplaceContentValueArray<T> = T extends (infer U)[]
   ? ReplaceContentValue<U>[]
   : ReplaceContentValue<T>;
 
-export type DeclarationContent<T = undefined> = (T extends undefined // Applying the generic to replace ContentValue with Replacement
-  ? Content
-  : ReplaceContentValue<T>) & {
-  id: string;
+export type DeclarationContent<T = undefined> = {
+  key: string;
+  title?: string;
+  description?: string;
+  version?: string;
   filePath?: string;
+  content: T extends undefined // Applying the generic to replace ContentValue with Replacement
+    ? Content
+    : ReplaceContentValue<T>;
 };

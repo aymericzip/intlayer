@@ -2,7 +2,6 @@ import { mkdir, writeFile } from 'fs/promises';
 import { resolve, relative } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import type { DeclarationContent } from '@intlayer/core';
-import { extractObjectsWithId } from './extractNestedJSON';
 import { processContentDeclaration } from './processContentDeclaration';
 
 const { content } = getConfiguration();
@@ -14,7 +13,7 @@ const writeDictionary = async (dictionaries: DeclarationContent[]) => {
   for await (const dictionaryContent of dictionaries) {
     const contentString = JSON.stringify(dictionaryContent);
 
-    const id = dictionaryContent.id;
+    const id = dictionaryContent.key;
     const outputFileName = `${id}.json`;
     const resultFilePath = resolve(dictionariesDir, outputFileName);
 
@@ -51,7 +50,7 @@ export const buildIntlayerDictionary = async (
       continue;
     }
 
-    const nestedContent: DeclarationContent[] = extractObjectsWithId(result);
+    const nestedContent: DeclarationContent[] = [result];
 
     const relativeFilePath = relative(baseDir, contentDeclarationPath);
 

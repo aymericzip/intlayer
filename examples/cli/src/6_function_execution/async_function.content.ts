@@ -8,9 +8,11 @@ const fakeFetch = async (): Promise<string> => {
   );
 };
 
-const asyncFunctionContent: DeclarationContent = {
-  id: 'async_function',
-  text: fakeFetch,
-};
+const asyncFunctionContent = {
+  key: 'async_function',
+  content: {
+    text: fakeFetch,
+  },
+} satisfies DeclarationContent;
 
 export default asyncFunctionContent;

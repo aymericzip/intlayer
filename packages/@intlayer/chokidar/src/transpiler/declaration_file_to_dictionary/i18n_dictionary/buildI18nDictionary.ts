@@ -2,10 +2,7 @@ import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import type { DeclarationContent } from '@intlayer/core';
-import {
-  processContentDeclaration,
-  extractObjectsWithId,
-} from '../intlayer_dictionary/index';
+import { processContentDeclaration } from '../intlayer_dictionary/index';
 import {
   type I18nDictionariesOutput,
   createI18nDictionaries,
@@ -68,17 +65,17 @@ export const buildI18nDictionary = async (
       continue;
     }
 
-    const nestedContent: DeclarationContent[] = extractObjectsWithId(result);
+    const nestedContent: DeclarationContent[] = [result];
 
     // Create dictionaries for each nested content and format them
     const dictionariesDeclaration: DictionariesDeclaration =
-      nestedContent.reduce((acc, content) => {
-        const id: string = content.id;
+      nestedContent.reduce((acc, dictionary) => {
+        const { key, content } = dictionary;
         const i18Content = createI18nDictionaries(content);
 
         return {
           ...acc,
-          [id]: i18Content,
+          [key]: i18Content,
         };
       }, {});
 

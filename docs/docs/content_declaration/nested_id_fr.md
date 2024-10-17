@@ -9,15 +9,17 @@ Pour déclarer des identifiants imbriqués dans votre fichier de contenu, vous c
 ```typescript
 import type { DeclarationContent } from "intlayer";
 
-const nestedContent: DeclarationContent = {
-  id: "parent_id",
-  text: "Ceci est le nœud parent",
+const nestedContent = {
+  key: "parent_id",
+  content: {
+    text: "Ceci est le nœud parent",
 
-  nestedContent: {
-    id: "child_id",
-    text: "Ceci est le nœud enfant",
+    nestedContent: {
+      id: "child_id",
+      text: "Ceci est le nœud enfant",
+    },
   },
-};
+} satisfies DeclarationContent;
 
 export default nestedContent;
 ```
@@ -67,20 +69,22 @@ Pour optimiser davantage la performance des identifiants imbriqués, vous pouvez
 ```typescript
 import type { DeclarationContent } from "intlayer";
 
-const deeplyNestedContent: DeclarationContent = {
-  id: "level_1",
-  text: "Contenu de niveau 1",
-
-  nestedContent: {
-    id: "level_2",
-    text: "Contenu de niveau 2",
+const deeplyNestedContent = {
+  key: "level_1",
+  content: {
+    text: "Contenu de niveau 1",
 
     nestedContent: {
-      id: "level_3",
-      text: "Contenu de niveau 3",
+      id: "level_2",
+      text: "Contenu de niveau 2",
+
+      nestedContent: {
+        id: "level_3",
+        text: "Contenu de niveau 3",
+      },
     },
   },
-};
+} satisfies DeclarationContent;
 
 export default deeplyNestedContent;
 ```

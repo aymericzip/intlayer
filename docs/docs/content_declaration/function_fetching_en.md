@@ -9,10 +9,12 @@ Here's an example of a simple synchronous function fetching content:
 ```typescript
 import type { DeclarationContent } from "intlayer";
 
-const functionContent: DeclarationContent = {
-  id: "function_content",
-  text: () => "This is the content rendered by a function",
-};
+const functionContent = {
+  key: "function_content",
+  content: {
+    text: () => "This is the content rendered by a function",
+  },
+} satisfies DeclarationContent;
 
 export default functionContent;
 ```
@@ -36,10 +38,10 @@ const fakeFetch = async (): Promise<string> => {
   );
 };
 
-const asyncFunctionContent: DeclarationContent = {
-  id: "async_function",
-  text: fakeFetch,
-};
+const asyncFunctionContent = {
+  key: "async_function",
+  content: { text: fakeFetch },
+} satisfies DeclarationContent;
 
 export default asyncFunctionContent;
 ```

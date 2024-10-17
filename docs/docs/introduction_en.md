@@ -27,14 +27,16 @@ Intlayer also provides an optional visual editor that allows you to easily edit 
 
 import { DeclarationContent, t } from "intlayer";
 
-const clientComponentContent: DeclarationContent = {
-  id: "client-component",
-  myTranslatedContent: t({
-    en: "Hello World",
-    fr: "Bonjour le monde",
-    es: "Hola Mundo",
-  }),
-};
+const clientComponentContent = {
+  key: "client-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+} satisfies DeclarationContent;
 
 export default clientComponentContent;
 ```

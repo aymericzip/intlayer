@@ -38,14 +38,16 @@
 
 import { DeclarationContent, t } from "intlayer";
 
-const clientComponentContent: DeclarationContent = {
-  id: "client-component",
-  myTranslatedContent: t({
-    en: "Hello World",
-    fr: "Bonjour le monde",
-    es: "Hola Mundo",
-  }),
-};
+const clientComponentContent = {
+  key: "client-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+} satisfies DeclarationContent;
 
 export default clientComponentContent;
 ```
@@ -106,28 +108,30 @@ Create and manage your content dictionaries:
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent: DeclarationContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
+const pageContent = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
+    nestedContent: {
+      id: "enumeration",
+      numberOfCar: enu({
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        "0": "No cars",
+        "1": "One car",
+        ">5": "Some cars",
+        ">19": "Many cars",
+      }),
+    },
   },
-  nestedContent: {
-    id: "enumeration",
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    }),
-  },
-};
+} satisfies DeclarationContent;
 
 // Content should be exported as default
 export default pageContent;

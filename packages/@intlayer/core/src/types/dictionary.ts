@@ -16,7 +16,7 @@ export type DictionaryValue =
   | EnumerationContent<RecursiveDictionaryValue>;
 
 export type Dictionary = {
-  id: string;
+  key: string;
   filePath?: string;
-  [key: string]: DictionaryValue;
+  content: DictionaryValue;
 };

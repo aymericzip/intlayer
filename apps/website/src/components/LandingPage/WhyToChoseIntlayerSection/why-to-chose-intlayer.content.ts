@@ -9,9 +9,9 @@ type WhyToChoseIntlayerContent = {
   }[];
 };
 
-const whyToChoseIntlayerContent: DeclarationContent<WhyToChoseIntlayerContent> =
-  {
-    id: 'why-to-chose-intlayer-section',
+const whyToChoseIntlayerContent = {
+  key: 'why-to-chose-intlayer-section',
+  content: {
     title: t({
       en: 'Why to chose Inlyayer?',
       fr: 'Pourquoi choisir Intlayer ?',
@@ -97,6 +97,7 @@ const whyToChoseIntlayerContent: DeclarationContent<WhyToChoseIntlayerContent> =
         iconKey: 'cms',
       },
     ],
-  };
+  },
+} satisfies DeclarationContent<WhyToChoseIntlayerContent>;
 
 export default whyToChoseIntlayerContent;

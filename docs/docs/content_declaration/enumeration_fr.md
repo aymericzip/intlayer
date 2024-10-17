@@ -11,17 +11,19 @@ Pour configurer l'énumération dans votre projet Intlayer, vous devez créer un
 ```typescript
 import { enu, type DeclarationContent } from "intlayer";
 
-const carEnumeration: DeclarationContent = {
-  id: "car_count",
-  numberOfCar: enu({
-    "<-1": "Moins d'une voiture",
-    "-1": "Moins une voiture",
-    "0": "Aucune voiture",
-    "1": "Une voiture",
-    ">5": "Quelques voitures",
-    ">19": "Beaucoup de voitures",
-  }),
-};
+const carEnumeration = {
+  key: "car_count",
+  content: {
+    numberOfCar: enu({
+      "<-1": "Moins d'une voiture",
+      "-1": "Moins une voiture",
+      "0": "Aucune voiture",
+      "1": "Une voiture",
+      ">5": "Quelques voitures",
+      ">19": "Beaucoup de voitures",
+    }),
+  },
+} satisfies DeclarationContent;
 
 export default carEnumeration;
 ```

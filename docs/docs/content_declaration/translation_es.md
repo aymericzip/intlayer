@@ -11,14 +11,16 @@ Aquí tienes un ejemplo de cómo declarar contenido con traducciones en un archi
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-const multiLangContent: DeclarationContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
-};
+const multiLangContent = {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
+} satisfies DeclarationContent;
 
 export default multiLangContent;
 ```
@@ -127,23 +129,25 @@ interface ICustomContent {
   content: string;
 }
 
-const customContent: DeclarationContent = {
-  id: "custom_content",
-  profileText: t<ICustomContent>({
-    en: {
-      title: "Page Title",
-      content: "Page Content",
-    },
-    fr: {
-      title: "Titre de la Page",
-      content: "Contenu de la Page",
-    },
-    es: {
-      title: "Título de la Página",
-      content: "Contenido de la Página",
-    },
-  }),
-};
+const customContent = {
+  key: "custom_content",
+  content: {
+    profileText: t<ICustomContent>({
+      en: {
+        title: "Page Title",
+        content: "Page Content",
+      },
+      fr: {
+        title: "Titre de la Page",
+        content: "Contenu de la Page",
+      },
+      es: {
+        title: "Título de la Página",
+        content: "Contenido de la Página",
+      },
+    }),
+  },
+} satisfies DeclarationContent;
 
 export default customContent;
 ```

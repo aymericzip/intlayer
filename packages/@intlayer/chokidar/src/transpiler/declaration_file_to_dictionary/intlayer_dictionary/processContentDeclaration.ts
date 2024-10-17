@@ -65,7 +65,14 @@ export const processContentDeclaration = async (file: string) => {
       return;
     }
 
-    return (await processFunctionResults(entry)) as DeclarationContent;
+    const content = (await processFunctionResults(
+      entry.content
+    )) as DeclarationContent['content'];
+
+    return {
+      ...entry,
+      content,
+    } as DeclarationContent;
   } catch (error) {
     console.error('Error processing module:', error);
   }

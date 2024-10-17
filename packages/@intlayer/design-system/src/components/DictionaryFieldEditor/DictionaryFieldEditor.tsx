@@ -29,7 +29,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   locale,
   onClickDictionaryList,
 }) => {
-  const { id, filePath, ...dictionaryContent } = dictionary;
+  const { content: dictionaryContent, key } = dictionary;
   const containerRef = useRef<HTMLDivElement>(null);
   const editedContent = useEditedContentStore((s) => s.editedContent);
   const { returnToDictionaryList } = useDictionary(
@@ -82,7 +82,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           <ArrowLeft className="size-4" />
         </Button>
         <KeyPathBreadcrumb
-          dictionaryId={id}
+          dictionaryId={key}
           keyPath={keyPath}
           onClickKeyPath={setFocusedContentKeyPath}
         />
@@ -94,23 +94,25 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         >
           {prefixesKeyPath.map((keyPath, index) => {
             const section =
-              getDictionaryValueByKeyPath(editedContent[id], keyPath) ??
+              getDictionaryValueByKeyPath(editedContent[key], keyPath) ??
               getDictionaryValueByKeyPath(dictionaryContent, keyPath);
 
             const isEditableSection = getIsEditableSection(section);
 
             if (isEditableSection) return <></>;
 
-            const key = keyPath.map((key) => JSON.stringify(key)).join('.');
+            const keyPathName = keyPath
+              .map((key) => JSON.stringify(key))
+              .join('.');
             const selectedKey = selectedKeys[index];
 
             return (
               <NavigationViewNode
-                key={key}
+                key={keyPathName}
                 keyPath={keyPath}
                 selectedKey={selectedKey}
                 section={section}
-                dictionaryId={id}
+                dictionaryId={key}
                 locale={locale}
               />
             );
@@ -119,7 +121,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         <EditorView
           dictionary={dictionary}
           keyPath={keyPath}
-          dictionaryId={id}
+          dictionaryId={key}
         />
       </Container>
     </div>

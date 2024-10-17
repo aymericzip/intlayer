@@ -6,21 +6,23 @@ interface ICustomContent {
 }
 
 const customContent: DeclarationContent = {
-  id: 'custom_content',
-  profileText: t<ICustomContent>({
-    en: {
-      title: 'Title of the page',
-      content: 'Content of the page',
-    },
-    fr: {
-      title: 'Titre de la page',
-      content: 'Contenu de la page',
-    },
-    es: {
-      title: 'Título de la página',
-      content: 'Contenido de la página',
-    },
-  }),
-};
+  key: 'custom_content',
+  content: {
+    profileText: t<ICustomContent>({
+      en: {
+        title: 'Title of the page',
+        content: 'Content of the page',
+      },
+      fr: {
+        title: 'Titre de la page',
+        content: 'Contenu de la page',
+      },
+      es: {
+        title: 'Título de la página',
+        content: 'Contenido de la página',
+      },
+    }),
+  },
+} satisfies DeclarationContent;
 
 export default customContent;

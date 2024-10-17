@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Locales } from '@intlayer/config';
-import type { DeclarationContent, Dictionary, NodeType } from '@intlayer/core';
+import type {
+  DeclarationContent,
+  Dictionary,
+  DictionaryValue,
+  NodeType,
+} from '@intlayer/core';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
@@ -67,12 +72,6 @@ type DeepTransformContent<T, L extends Locales> = T extends object // Check if t
     : IntlayerNode<T>;
 
 /**
- * Excludes the 'id' and 'filePath' keys from the dictionary content,
- * as they are not part of the IntlayerDictionaryTypesConnector type.
- */
-type ExcludeIntlayerUtilsKeys<T> = Omit<T, 'id' | 'filePath'>;
-
-/**
  * Go through the object. If a object has a keyPath, render the intlayer editor if editor enabled.
  */
 export const recursiveTransformContent = (
@@ -106,11 +105,14 @@ export const recursiveTransformContent = (
 };
 
 type DataFromDictionary<
-  T extends DeclarationContent,
+  T extends DeclarationContent['content'],
   K extends Locales,
-> = ExcludeIntlayerUtilsKeys<DeepTransformContent<T, K>>;
+> = DeepTransformContent<T, K>;
 
-export type UseDictionary = <T extends DeclarationContent, L extends Locales>(
+export type UseDictionary = <
+  T extends DeclarationContent['content'],
+  L extends Locales,
+>(
   dictionary: T,
   locale?: L
 ) => DataFromDictionary<T, L>;
@@ -127,17 +129,17 @@ export const useDictionary = <T extends DeclarationContent, L extends Locales>(
   isContentSelectable = false
 ) => {
   const result = processDictionary(
-    dictionary as Dictionary,
-    dictionary.id,
+    dictionary.content as DictionaryValue,
+    dictionary.key,
     dictionary.filePath,
     [],
     locale
-  ) as object;
+  );
 
   return recursiveTransformContent(
     result,
     isContentSelectable
-  ) as DataFromDictionary<T, L>;
+  ) as DataFromDictionary<T['content'], L>;
 };
 
 /**
@@ -147,9 +149,7 @@ export const useDictionary = <T extends DeclarationContent, L extends Locales>(
 type DataFromDictionaryId<
   T extends DictionaryKeys,
   K extends Locales,
-> = ExcludeIntlayerUtilsKeys<
-  DeepTransformContent<IntlayerDictionaryTypesConnector[T], K>
->;
+> = DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content'], K>;
 
 /**
  * Type definition for the useIntlayer hook, which takes a dictionary ID and an optional locale,
@@ -175,12 +175,12 @@ export const useIntlayerBase: UseIntlayer = <
   const dictionary: Dictionary = dictionaries[id as keyof typeof dictionaries];
 
   const result = processDictionary(
-    dictionary,
-    dictionary.id,
+    dictionary.content,
+    dictionary.key,
     dictionary.filePath,
     [],
     locale
-  ) as object;
+  );
 
   const isContentSelectable = true;
 

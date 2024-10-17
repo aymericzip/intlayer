@@ -9,10 +9,10 @@ Aquí hay un ejemplo de una función síncrona simple que obtiene contenido:
 ```typescript
 import type { DeclarationContent } from "intlayer";
 
-const functionContent: DeclarationContent = {
-  id: "function_content",
-  text: () => "Este es el contenido renderizado por una función",
-};
+const functionContent = {
+  key: "function_content",
+  content: { text: () => "Este es el contenido renderizado por una función" },
+} satisfies DeclarationContent;
 
 export default functionContent;
 ```
@@ -36,10 +36,10 @@ const fakeFetch = async (): Promise<string> => {
   );
 };
 
-const asyncFunctionContent: DeclarationContent = {
-  id: "async_function",
-  text: fakeFetch,
-};
+const asyncFunctionContent = {
+  key: "async_function",
+  content: { text: fakeFetch },
+} satisfies DeclarationContent;
 
 export default asyncFunctionContent;
 ```

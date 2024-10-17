@@ -9,15 +9,17 @@ Para declarar IDs anidados en tu archivo de contenido, debes crear una estructur
 ```typescript
 import type { DeclarationContent } from "intlayer";
 
-const nestedContent: DeclarationContent = {
-  id: "parent_id",
-  text: "Este es el nodo padre",
+const nestedContent = {
+  key: "parent_id",
+  content: {
+    text: "Este es el nodo padre",
 
-  nestedContent: {
-    id: "child_id",
-    text: "Este es el nodo hijo",
+    nestedContent: {
+      id: "child_id",
+      text: "Este es el nodo hijo",
+    },
   },
-};
+} satisfies DeclarationContent;
 
 export default nestedContent;
 ```
@@ -67,20 +69,22 @@ Para optimizar aún más el rendimiento de los IDs anidados, puedes declarar mú
 ```typescript
 import type { DeclarationContent } from "intlayer";
 
-const deeplyNestedContent: DeclarationContent = {
-  id: "level_1",
-  text: "Contenido del Nivel 1",
-
-  nestedContent: {
-    id: "level_2",
-    text: "Contenido del Nivel 2",
+const deeplyNestedContent = {
+  key: "level_1",
+  content: {
+    text: "Contenido del Nivel 1",
 
     nestedContent: {
-      id: "level_3",
-      text: "Contenido del Nivel 3",
+      id: "level_2",
+      text: "Contenido del Nivel 2",
+
+      nestedContent: {
+        id: "level_3",
+        text: "Contenido del Nivel 3",
+      },
     },
   },
-};
+} satisfies DeclarationContent;
 
 export default deeplyNestedContent;
 ```

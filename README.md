@@ -58,14 +58,16 @@ Intlayer allows you to declare your content in various formats, including TypeSc
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-const exampleContent: DeclarationContent = {
-  id: "example",
-  welcome: t({
-    en: "Welcome",
-    fr: "Bienvenue",
-    es: "Bienvenido",
-  }),
-};
+const exampleContent = {
+  key: "example",
+  content: {
+    welcome: t({
+      en: "Welcome",
+      fr: "Bienvenue",
+      es: "Bienvenido",
+    }),
+  },
+} satisfies DeclarationContent;
 
 export default exampleContent;
 ```
