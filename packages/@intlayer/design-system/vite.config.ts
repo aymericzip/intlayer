@@ -4,7 +4,6 @@ import react from '@vitejs/plugin-react';
 import { glob } from 'glob';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig, type Plugin } from 'vite';
-import macrosPlugin from 'vite-plugin-babel-macros';
 import dts from 'vite-plugin-dts';
 import * as packageJson from './package.json';
 
@@ -12,13 +11,12 @@ import * as packageJson from './package.json';
 
 export default defineConfig(() => ({
   plugins: [
-    react(),
-    macrosPlugin(),
+    react() as unknown as Plugin,
     dts({
       entryRoot: 'src',
       exclude: ['**/*.stories.*', '**/*.test.*'],
       beforeWriteFile: (filePath, content) => ({
-        filePath: filePath.replace('@intlayer/design-system/src/', ''),
+        filePath: filePath.replace(`${packageJson.name}/src/`, ''),
         content,
       }),
     }),
