@@ -113,7 +113,7 @@ For more information on configuring Intlayer, [check the configuration documenta
 
 ## Using Intlayer with i18next
 
-Intlayer can also export i18next dictionaries for projects that still rely on i18next for certain functionalities. This integration allows you to generate i18next dictionaries while still benefiting from Intlayer's flexible content declaration. [Learn how to configure Intlayer for i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18n_en.md).
+Intlayer can also export i18next dictionaries for projects that still rely on i18next for certain functionalities. This integration allows you to generate i18next dictionaries while still benefiting from Intlayer's flexible content declaration. [Learn how to configure Intlayer for i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md).
 
 ## CLI Commands
 

@@ -57,11 +57,11 @@ export const Component1 = () => {
 
 Intlayer propose une variété de fonctionnalités adaptées aux besoins du développement web moderne. Voici les principales fonctionnalités, avec des liens vers une documentation détaillée pour chacune :
 
-- **Support de l'Internationalisation** : Augmentez la portée mondiale de votre application avec un support intégré pour l'internationalisation. En savoir plus dans notre [Guide d'Internationalisation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18n_fr.md).
+- **Support de l'Internationalisation** : Augmentez la portée mondiale de votre application avec un support intégré pour l'internationalisation. En savoir plus dans notre [Guide d'Internationalisation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_fr.md).
 - **Éditeur Visuel** : Améliorez votre flux de travail de développement avec des plugins d'éditeur conçus pour Intlayer. Consultez le [Guide de l'Éditeur Visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_editor_fr.md).
 - **Flexibilité de Configuration** : Personnalisez votre configuration avec de nombreuses options détaillées dans le [Guide de Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
 - **Outils CLI Avancés** : Gérez vos projets efficacement en utilisant l'interface en ligne de commande d'Intlayer. Explorez les capacités dans la [Documentation des Outils CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_cli_fr.md).
-- **Compatibilité avec i18n** : Intlayer fonctionne de manière transparente avec d'autres bibliothèques d'internationalisation. Consultez le [Guide de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18n_fr.md) pour plus d'informations.
+- **Compatibilité avec i18n** : Intlayer fonctionne de manière transparente avec d'autres bibliothèques d'internationalisation. Consultez le [Guide de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_fr.md) pour plus d'informations.
 
 ### Plateformes Prises en Charge
 
