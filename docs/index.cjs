@@ -69,11 +69,6 @@ const docs = {
     fr: require('./docs/content_declaration/get_started_fr.md'),
     es: require('./docs/content_declaration/get_started_es.md'),
   },
-  content_declaration__nested_id: {
-    en: require('./docs/content_declaration/nested_id_en.md'),
-    fr: require('./docs/content_declaration/nested_id_fr.md'),
-    es: require('./docs/content_declaration/nested_id_es.md'),
-  },
   content_declaration__content_extention_customization: {
     en: require('./docs/content_declaration/content_extention_customization_en.md'),
     fr: require('./docs/content_declaration/content_extention_customization_fr.md'),

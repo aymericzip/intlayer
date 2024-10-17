@@ -15,7 +15,7 @@ export const watch = (options?: WatchOptions) => {
     verbose: true,
   });
 
-  const { watchedFilesPatternWithPath, baseDir } = content;
+  const { watchedFilesPatternWithPath, dictionariesDir, baseDir } = content;
 
   const files: string[] = sync(watchedFilesPatternWithPath);
 
@@ -38,7 +38,7 @@ export const watch = (options?: WatchOptions) => {
       console.info('[intlayer] Intlayer dictionary list built');
 
       const relativeDictionariesPath = dictionariesPaths.map((dictionary) =>
-        relative(baseDir, dictionary)
+        relative(dictionariesDir, dictionary).replace('.json', '')
       );
 
       console.info('[intlayer] Dictionaries:', relativeDictionariesPath);
