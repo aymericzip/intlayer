@@ -3,8 +3,10 @@
 import {
   DictionariesSelector,
   Loader,
+  useEditedContentStore,
   useEditionPanelStore,
 } from '@intlayer/design-system';
+import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intlayer';
 import { Suspense, useEffect, type FC } from 'react';
@@ -23,6 +25,14 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   }));
   const { locale } = useLocale();
   const router = useRouter();
+  const { online: dictionaries } = useGetAllDictionaries();
+  const { setDictionariesRecord } = useEditedContentStore((s) => ({
+    setDictionariesRecord: s.setDictionariesRecord,
+  }));
+
+  useEffect(() => {
+    setDictionariesRecord(dictionaries);
+  }, [setDictionariesRecord, dictionaries]);
 
   useEffect(() => {
     if (dictionaryId !== focusedContent?.dictionaryId) {
@@ -32,7 +42,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
         dictionaryPath: undefined,
       });
     }
-  }, [dictionaryId, setFocusedContent]);
+  }, [dictionaryId, setFocusedContent, focusedContent?.dictionaryId]);
 
   return (
     <Suspense fallback={<Loader />}>

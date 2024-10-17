@@ -13,9 +13,10 @@ import {
   useEditionPanelStore,
 } from '../DictionaryEditor';
 import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
-import { EditorView, getIsEditableSection } from './EditorView';
+import { EditorView } from './EditorView/EditorView';
+import { getIsEditableSection } from './getIsEditableSection';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
-import { NodeWrapper } from './NodeWrapper';
+import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
@@ -104,7 +105,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             const selectedKey = selectedKeys[index];
 
             return (
-              <NodeWrapper
+              <NavigationViewNode
                 key={key}
                 keyPath={keyPath}
                 selectedKey={selectedKey}
@@ -119,7 +120,6 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           dictionary={dictionary}
           keyPath={keyPath}
           dictionaryId={id}
-          locale={locale}
         />
       </Container>
     </div>

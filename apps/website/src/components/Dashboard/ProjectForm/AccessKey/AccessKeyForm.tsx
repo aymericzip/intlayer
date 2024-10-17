@@ -9,15 +9,15 @@ import {
   Modal,
   CopyToClipboard,
 } from '@intlayer/design-system';
+import {
+  useDeleteAccessKey,
+  useRefreshAccessKey,
+} from '@intlayer/design-system/hooks';
 import { KeyRound, RefreshCcw, Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type FC } from 'react';
 import { AccessKeyCreationForm } from './AccessKeyCreationForm';
 import { getAccessKeySchema } from './AccessKeyFormSchema';
-import {
-  useDeleteAccessKey,
-  useRefreshAccessKey,
-} from '@intlayer/design-system/hooks';
 
 const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
@@ -28,7 +28,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
 
   const isLoading = isDeleting || isRefreshing;
 
-  const handleDelete = () =>
+  const handleDelete = () => {
     deleteAccessKey(accessKey.clientId)
       .then(() => {
         toast({
@@ -46,8 +46,9 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
           variant: 'error',
         });
       });
+  };
 
-  const handleUpdate = () =>
+  const handleUpdate = () => {
     refreshAccessKey(accessKey.clientId)
       .then(() => {
         toast({
@@ -64,6 +65,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
           variant: 'error',
         });
       });
+  };
 
   return (
     <>
@@ -161,7 +163,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
             </div>
           </div>
 
-          <div className="flex justify-end gap-3">
+          <div className="flex justify-end gap-3 max-sm:flex-col">
             <Form.Button
               variant="outline"
               label="Refresh the access key secret key"

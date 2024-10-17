@@ -52,12 +52,11 @@ export const useEditedContentStore = create(
         overwrite = true
       ) =>
         set((state) => {
-          const dictionaryContent = {
-            ...state.dictionariesRecord[dictionaryId],
-            ...state.editedContent[dictionaryId],
-          };
+          const dictionaryContent =
+            state.editedContent[dictionaryId] ??
+            state.dictionariesRecord[dictionaryId];
 
-          const newKeyPath: KeyPath[] = keyPath;
+          let newKeyPath: KeyPath[] = keyPath;
 
           if (!overwrite) {
             // Check if the key already exists, and increment the key if it does
@@ -67,10 +66,6 @@ export const useEditedContentStore = create(
             const otherKeyPath: KeyPath[] = keyPath.slice(0, -1);
             const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
             let finalKey = lastKeyPath.key;
-            let newKeyPath: KeyPath[] = [
-              ...otherKeyPath,
-              { ...lastKeyPath, key: finalKey } as KeyPath,
-            ];
 
             while (!isKeyExist) {
               const content = getDictionaryValueByKeyPath(

@@ -1,7 +1,6 @@
-import type { Locales } from '@intlayer/config/client';
+import { getConfiguration, type Locales } from '@intlayer/config/client';
 import {
   type EnumerationContent,
-  type TranslationContent,
   NodeType,
   type KeyPath,
   type DictionaryValue,
@@ -16,12 +15,12 @@ import {
 import { useDictionary } from 'react-intlayer';
 import { getSectionType } from '../../../utils/dictionary';
 import { Button } from '../../Button';
-import { ContentEditorTextArea } from '../../ContentEditor/ContentEditorTextArea';
 import {
   useEditedContentStore,
   useEditionPanelStore,
 } from '../../DictionaryEditor';
-import { nodeWrapperContent } from './index.content';
+import { getIsEditableSection } from '../getIsEditableSection';
+import { navigationViewContent } from './navigationViewNode.content';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -69,12 +68,13 @@ export type NodeWrapperProps = {
   selectedKey?: KeyPath['key'];
 };
 
-export const NodeWrapper: FC<NodeWrapperProps> = ({
+export const NavigationViewNode: FC<NodeWrapperProps> = ({
   section,
   keyPath,
   dictionaryId,
   selectedKey,
 }) => {
+  const { locales } = getConfiguration().internationalization;
   const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
   const setFocusedContentKeyPath = useEditionPanelStore(
     (s) => s.setFocusedContentKeyPath
@@ -83,14 +83,15 @@ export const NodeWrapper: FC<NodeWrapperProps> = ({
     tsxNotEditable,
     addNewElement,
     addNewField,
-    addNewEnumeration,
-    addNewTranslation,
     goToElement,
     goToField,
     goToEnumeration,
     goToTranslation,
-  } = useDictionary(nodeWrapperContent);
+  } = useDictionary(navigationViewContent);
   const nodeType = getSectionType(section);
+  const isEditableSection = getIsEditableSection(section);
+
+  if (isEditableSection) return <></>;
 
   if (typeof section === 'object') {
     if (nodeType === NodeType.ReactNode) {
@@ -107,11 +108,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = ({
     if (nodeType === NodeType.Translation) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {Object.keys(
-            (section as TranslationContent<DictionaryValue>)[
-              NodeType.Translation
-            ]
-          ).map((translationKey) => (
+          {locales.map((translationKey) => (
             <Button
               label={`${goToTranslation.label.value} ${translationKey}`}
               key={translationKey}
@@ -129,24 +126,6 @@ export const NodeWrapper: FC<NodeWrapperProps> = ({
               {translationKey}
             </Button>
           ))}
-
-          <Button
-            label={addNewTranslation.label.value}
-            variant="hoverable"
-            color="neutral"
-            textAlign="left"
-            onClick={() => {
-              const newKeyPath: KeyPath[] = [
-                ...keyPath,
-                { type: NodeType.Object, key: 'newField' },
-              ];
-              addEditedContent(dictionaryId, {}, newKeyPath, false);
-              setFocusedContentKeyPath(newKeyPath);
-            }}
-            Icon={Plus}
-          >
-            {addNewTranslation.text}
-          </Button>
         </div>
       );
     }
@@ -176,23 +155,6 @@ export const NodeWrapper: FC<NodeWrapperProps> = ({
               {enumKey}
             </Button>
           ))}
-          <Button
-            label={addNewEnumeration.label.value}
-            variant="hoverable"
-            color="neutral"
-            textAlign="left"
-            onClick={() => {
-              const newKeyPath: KeyPath[] = [
-                ...keyPath,
-                { type: NodeType.Object, key: 'newField' },
-              ];
-              addEditedContent(dictionaryId, {}, newKeyPath, false);
-              setFocusedContentKeyPath(newKeyPath);
-            }}
-            Icon={Plus}
-          >
-            {addNewEnumeration.text}
-          </Button>
         </div>
       );
     }
@@ -280,19 +242,6 @@ export const NodeWrapper: FC<NodeWrapperProps> = ({
           {addNewField.text}
         </Button>
       </div>
-    );
-  }
-
-  if (nodeType === NodeType.Text) {
-    return (
-      <ContentEditorTextArea
-        aria-label="Edit field"
-        onContentChange={(newValue) =>
-          addEditedContent(dictionaryId, newValue, keyPath)
-        }
-      >
-        {section as string}
-      </ContentEditorTextArea>
     );
   }
 

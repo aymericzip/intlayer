@@ -64,7 +64,7 @@ export const editDictionaryByKeyPath = (
 
       if (!currentValue[NodeType.Translation]) {
         currentValue[NodeType.Translation] = {
-          [keyObj.key]: {},
+          [keyObj.key]: newValue,
         };
       }
       currentValue = currentValue[NodeType.Translation][keyObj.key];
@@ -73,7 +73,7 @@ export const editDictionaryByKeyPath = (
 
       if (!currentValue[NodeType.Enumeration]) {
         currentValue[NodeType.Enumeration] = {
-          [keyObj.key]: {},
+          [keyObj.key]: newValue,
         };
       }
       currentValue = currentValue[NodeType.Enumeration][keyObj.key];
@@ -85,7 +85,14 @@ export const editDictionaryByKeyPath = (
     for (const key of lastKeys.slice(0, -1)) {
       parentValue = parentValue[key];
     }
-    parentValue[lastKeys[lastKeys.length - 1]] = newValue;
+    if (
+      // Remove the field if the new value is undefined
+      typeof newValue === 'undefined'
+    ) {
+      delete parentValue[lastKeys[lastKeys.length - 1]];
+    } else {
+      parentValue[lastKeys[lastKeys.length - 1]] = newValue;
+    }
   }
 
   return dictionaryContent;

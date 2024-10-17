@@ -1,19 +1,13 @@
 'use client';
 
 import { Check, X } from 'lucide-react';
-import {
-  type HTMLAttributes,
-  useState,
-  type FC,
-  type ChangeEventHandler,
-  useEffect,
-} from 'react';
-import { TextArea } from '../TextArea';
+import { useState, type FC, type ChangeEventHandler, useEffect } from 'react';
+import { AutoSizedTextArea, AutoSizedTextAreaProps } from '../TextArea';
 
 export type ContentEditorTextAreaProps = {
   children: string;
   onContentChange: (content: string) => void;
-} & Omit<HTMLAttributes<HTMLTextAreaElement>, 'children'>;
+} & Omit<AutoSizedTextAreaProps, 'children'>;
 
 export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   children,
@@ -44,7 +38,7 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
       className="flex size-full flex-col items-center justify-between gap-2"
       key={children}
     >
-      <TextArea
+      <AutoSizedTextArea
         onChange={handleOnContentChange}
         key={resetIncrementor}
         variant="invisible"

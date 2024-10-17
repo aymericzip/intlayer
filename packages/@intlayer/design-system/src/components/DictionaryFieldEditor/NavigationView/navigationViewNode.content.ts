@@ -1,7 +1,7 @@
 import { t, type DeclarationContent } from 'intlayer';
 
-export const nodeWrapperContent = {
-  id: 'node-wrapper',
+export const navigationViewContent = {
+  id: 'navigation-view',
   tsxNotEditable: t({
     en: 'React node not editable',
     fr: 'Node React non éditable',
@@ -50,18 +50,6 @@ export const nodeWrapperContent = {
       en: 'Go to translation',
       fr: 'Aller à la traduction',
       es: 'Ir a la traducción',
-    }),
-  },
-  addNewTranslation: {
-    label: t({
-      en: 'Click to add translation',
-      fr: 'Cliquez pour ajouter une traduction',
-      es: 'Haga clic para agregar una traducción',
-    }),
-    text: t({
-      en: 'Add new translation',
-      fr: 'Ajouter une nouvelle traduction',
-      es: 'Agregar nueva traducción',
     }),
   },
   goToEnumeration: {

@@ -10,7 +10,7 @@ import {
 import { cn } from '../../utils/cn';
 import { TextArea, type TextAreaProps } from './TextArea';
 
-type AutoSizedTextAreaProps = TextAreaProps & {
+export type AutoSizedTextAreaProps = TextAreaProps & {
   autoSize?: boolean;
   maxRows?: number;
 };

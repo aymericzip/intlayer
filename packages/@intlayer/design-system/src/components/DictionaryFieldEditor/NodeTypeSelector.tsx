@@ -1,5 +1,6 @@
 'use client';
 
+import { getConfiguration } from '@intlayer/config/client';
 import {
   type DictionaryValue,
   type EnumerationContent,
@@ -32,6 +33,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
   const { addEditedContent } = useEditedContentStore((s) => ({
     addEditedContent: s.addEditedContent,
   }));
+  const { locales } = getConfiguration().internationalization;
 
   const onValueChange = (keyType: NodeType) => {
     setKeyType(keyType);
@@ -42,7 +44,12 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
           dictionaryId,
           {
             nodeType: NodeType.Translation,
-            [NodeType.Translation]: {},
+            [NodeType.Translation]: Object.assign(
+              {},
+              ...locales.map((locale) => ({
+                [locale]: '',
+              }))
+            ),
           } as TranslationContent<DictionaryValue>,
           keyPath
         );
@@ -52,7 +59,10 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
           dictionaryId,
           {
             nodeType: NodeType.Enumeration,
-            [NodeType.Enumeration]: {},
+            [NodeType.Enumeration]: {
+              '1': '',
+              '>1': '',
+            },
           } as EnumerationContent<DictionaryValue>,
           keyPath
         );
