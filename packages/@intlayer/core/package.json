@@ -37,14 +37,14 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -57,20 +57,20 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
-    "test": "",
+    "test": "vitest",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@intlayer/config": "workspace:^",
-    "chokidar": "^3.6.0"
+    "chokidar": "^4.0.1"
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:^",
@@ -82,8 +82,11 @@
     "prettier": "3.3.3",
     "react": "^18.3.1",
     "rimraf": "5.0.5",
-    "tsup": "^8.1.0",
-    "typescript": "^5.5.2"
+    "rollup-preserve-directives": "^1.1.2",
+    "typescript": "^5.5.2",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^2.1.2"
   },
   "peerDependencies": {
     "react": "^18.2.0"

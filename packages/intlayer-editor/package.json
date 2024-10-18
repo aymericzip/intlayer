@@ -34,14 +34,14 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -49,24 +49,22 @@
       ]
     }
   },
-  "bin": {
-    "intlayer-editor": "./bin/start-server.js"
-  },
   "files": [
     "./dist",
     "./bin",
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "serve": "webpack serve --config ./webpack.config.ts",
     "start:dev": "node --experimental-specifier-resolution=node --loader ts-node/esm --watch src/index.ts",
+    "test": "vitest",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsup--project ./tsconfig.json --noEmit",
     "watch": "webpack --config ./webpack.config.ts --watch"
@@ -104,9 +102,12 @@
     "eslint": "^9.11.1",
     "prettier": "3.3.3",
     "rimraf": "5.0.5",
+    "rollup-preserve-directives": "^1.1.2",
     "ts-node": "^10.9.2",
-    "tsup": "^8.1.0",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.2",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^2.1.2"
   },
   "engines": {
     "node": ">=14.18"

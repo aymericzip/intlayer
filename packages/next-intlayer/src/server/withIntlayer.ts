@@ -16,7 +16,6 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  * // next.config.js
  * export default withIntlayer(nextConfig)
  * ```
- *
  */
 export const withIntlayer = (
   nextConfig: Partial<NextConfig> = {}
@@ -68,6 +67,8 @@ export const withIntlayer = (
         esbuild: 'esbuild',
         module: 'module',
         fs: 'fs',
+        'fs/promises': 'fs/promises',
+        'next-intlayer/server': 'next-intlayer/server',
       });
       config.module.rules.push({
         test: /\.node$/,

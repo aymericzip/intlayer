@@ -37,19 +37,19 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./client": {
-      "types": "./dist/esm/client.d.mts",
-      "require": "./dist/cjs/client.cjs",
-      "import": "./dist/esm/client.mjs"
+      "types": "./dist/client.d.ts",
+      "require": "./dist/client.cjs",
+      "import": "./dist/client.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -62,14 +62,14 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*",
-    "test": "",
+    "test": "vitest",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -88,8 +88,11 @@
     "eslint": "^9.11.1",
     "prettier": "3.3.3",
     "rimraf": "5.0.5",
-    "tsup": "^8.1.0",
-    "typescript": "^5.5.2"
+    "rollup-preserve-directives": "^1.1.2",
+    "typescript": "^5.5.2",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^2.1.2"
   },
   "peerDependencies": {
     "react": "^18.3.1"

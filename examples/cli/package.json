@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "serve": "npx intlayer serve",
-    "test": "",
+    "test": "vitest",
     "transpile": "npx intlayer build",
     "watch": "npx intlayer build --watch"
   },

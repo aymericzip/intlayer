@@ -6,8 +6,9 @@ import { IntlayerServerProvider } from 'next-intlayer/server';
 const ThermOfServicePage: NextPageIntlayer = ({ params: { locale } }) => (
   <IntlayerServerProvider locale={locale}>
     <BackgroundLayout hasSpotlight>
-      <LandingPage />
+      <LandingPage key={locale} />
     </BackgroundLayout>
   </IntlayerServerProvider>
 );
+
 export default ThermOfServicePage;

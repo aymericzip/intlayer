@@ -36,34 +36,34 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./server": {
-      "types": "./dist/esm/server/index.d.mts",
-      "require": "./dist/cjs/server/index.cjs",
-      "import": "./dist/esm/server/index.mjs"
+      "types": "./dist/server/index.d.ts",
+      "require": "./dist/server/index.cjs",
+      "import": "./dist/server/index.mjs"
     },
     "./craco-plugin": {
-      "types": "./dist/esm/craco/intlayerCracoPlugin.d.mts",
-      "require": "./dist/cjs/craco/intlayerCracoPlugin.cjs",
-      "import": "./dist/esm/craco/intlayerCracoPlugin.mjs"
+      "types": "./dist/craco/intlayerCracoPlugin.d.ts",
+      "require": "./dist/craco/intlayerCracoPlugin.cjs",
+      "import": "./dist/craco/intlayerCracoPlugin.mjs"
     },
     "./craco-config": {
-      "types": "./dist/esm/craco/craco.config.d.mts",
-      "require": "./dist/cjs/craco/craco.config.cjs",
-      "import": "./dist/esm/craco/craco.config.mjs"
+      "types": "./dist/craco/craco.config.d.ts",
+      "require": "./dist/craco/craco.config.cjs",
+      "import": "./dist/craco/craco.config.mjs"
     },
     "./vite-plugin": {
-      "types": "./dist/esm/vite/intlayerPlugin.d.mts",
-      "require": "./dist/cjs/vite/intlayerPlugin.cjs",
-      "import": "./dist/esm/vite/intlayerPlugin.mjs"
+      "types": "./dist/vite/intlayerPlugin.d.ts",
+      "require": "./dist/vite/intlayerPlugin.cjs",
+      "import": "./dist/vite/intlayerPlugin.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -79,14 +79,14 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "test": "",
+    "test": "vitest",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -100,7 +100,6 @@
     "intlayer-editor": "workspace:^",
     "js-cookie": "^3.0.5",
     "react-cookie": "^7.1.4",
-    "vite": "^5.4.8",
     "webpack": "^5.92.1"
   },
   "devDependencies": {
@@ -111,13 +110,17 @@
     "@types/react": "^18.3.3",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
+    "@vitejs/plugin-react": "^4.3.2",
     "eslint": "^9.11.1",
     "prettier": "3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rimraf": "5.0.5",
-    "tsup": "^8.1.0",
-    "typescript": "^5.5.2"
+    "rollup-preserve-directives": "^1.1.2",
+    "typescript": "^5.5.2",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^2.1.2"
   },
   "peerDependencies": {
     "@intlayer/dictionaries-entry": "workspace:^",

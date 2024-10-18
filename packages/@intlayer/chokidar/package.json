@@ -35,14 +35,14 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -55,18 +55,19 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
-    "prettier:fix": "prettier --write src/**/*"
+    "prettier:fix": "prettier --write src/**/*",
+    "test": "vitest"
   },
   "dependencies": {
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
-    "chokidar": "^3.6.0",
+    "chokidar": "^4.0.1",
     "crypto-js": "^4.2.0",
     "esbuild": "^0.20.2",
     "esbuild-loader": "^4.2.0",
@@ -75,7 +76,10 @@
     "node-loader": "^2.0.0",
     "quicktype-core": "^23.0.170",
     "react": "^18.3.1",
-    "rimraf": "5.0.5"
+    "rimraf": "5.0.5",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^2.1.2"
   },
   "devDependencies": {
     "@changesets/cli": "2.27.1",
@@ -86,7 +90,7 @@
     "eslint": "^9.11.1",
     "node-polyfill-webpack-plugin": "^3.0.0",
     "prettier": "3.3.3",
-    "tsup": "^8.1.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
     "typescript": "^5.5.2",
     "webpack-watch-files-plugin": "^1.2.1"
   },

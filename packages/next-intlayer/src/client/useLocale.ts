@@ -1,5 +1,7 @@
+'use client';
+
 import { type Locales, getConfiguration } from '@intlayer/config/client';
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { useLocaleCookie, useLocaleBase } from 'react-intlayer';
 

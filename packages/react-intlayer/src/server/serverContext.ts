@@ -1,25 +1,27 @@
-/**
- * Creates a new datastore for a given server context.
- * Attempts to closely mimic the `createContext` API.
- *
- * @example
- * const IntlayerServer = createServerContext<string | null>(null);
- *
- * <IntlayerServer.Provider value={locale}>
- *      {children}
- * </IntlayerServer.Provider>
- */
-
-import react from 'react';
+import React, { type ReactNode } from 'react';
 
 type CacheType<T> = () => { value: T | undefined };
 
 const cacheFallback = () => () => ({ value: undefined });
 
+/**
+ * Creates a new datastore for a given server context.
+ * Attempts to closely mimic the `createContext` API.
+ *
+ * @example
+ *
+ * ```tsx
+ * const IntlayerServer = createServerContext<string | null>(null);
+ *
+ * <IntlayerServer.Provider value={locale}>
+ *      {children}
+ * </IntlayerServer.Provider>
+ * ```
+ */
 export const createServerContext = <T>(defaultValue?: T): ServerContext<T> => {
   throwInClient();
 
-  const cache = react.cache<CacheType<T>> ?? cacheFallback;
+  const cache = React.cache<CacheType<T>> ?? cacheFallback;
 
   const getCache = cache(() => ({
     value: undefined,
@@ -52,6 +54,7 @@ export const getServerContext = <T>({
 }: ServerContext<T>) => {
   // throwInClient();
   const store = _storage();
+  console.log('store', store);
   if (!store) return _defaultValue;
   return store.value;
 };
@@ -61,14 +64,14 @@ type ServerContext<T> = {
     children,
     value,
   }: {
-    children: React.ReactNode;
+    children: ReactNode;
     value: T;
-  }) => React.ReactNode;
+  }) => ReactNode;
   Consumer: ({
     children,
   }: {
-    children: (context: T | undefined) => React.ReactNode;
-  }) => React.ReactNode;
+    children: (context: T | undefined) => ReactNode;
+  }) => ReactNode;
   _storage: () => { value: T | undefined };
   _defaultValue: T | undefined;
 };

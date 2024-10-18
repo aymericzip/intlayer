@@ -35,14 +35,14 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -55,14 +55,15 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "serve": "webpack serve --config ./webpack.config.ts",
+    "test": "vitest",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsup--project ./tsconfig.json --noEmit",
     "watch": "webpack --config ./webpack.config.ts --watch"
@@ -71,7 +72,7 @@
     "@intlayer/chokidar": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
-    "chokidar": "^3.6.0",
+    "chokidar": "^4.0.1",
     "crypto-js": "^4.2.0",
     "esbuild": "^0.20.2",
     "esbuild-loader": "^4.2.0",
@@ -92,8 +93,11 @@
     "@utils/ts-config": "workspace:^",
     "eslint": "^9.11.1",
     "prettier": "3.3.3",
-    "tsup": "^8.1.0",
-    "typescript": "^5.5.2"
+    "rollup-preserve-directives": "^1.1.2",
+    "typescript": "^5.5.2",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^2.1.2"
   },
   "engines": {
     "node": ">=14.18"

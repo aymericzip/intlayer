@@ -52,7 +52,15 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
       ...config.build,
       rollupOptions: {
         ...config.build?.rollupOptions,
-        external: [...externals, 'module'],
+        external: [
+          ...externals,
+          'module',
+          'glob',
+          'fs/promises',
+          'chokidar',
+          '@intlayer/webpack',
+          '@intlayer/chokidar',
+        ],
       },
     };
 

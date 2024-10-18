@@ -1,11 +1,11 @@
-import { fileURLToPath } from 'node:url';
-import { extname, relative } from 'path';
-import react from '@vitejs/plugin-react';
-import { glob } from 'glob';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 import * as packageJson from './package.json';
+import { glob } from 'glob';
+import { relative, extname } from 'path';
+import { fileURLToPath } from 'url';
+import react from '@vitejs/plugin-react';
 
 /**
  * https://vitejs.dev/config/
@@ -15,7 +15,7 @@ export default defineConfig(() => ({
     react() as unknown as Plugin,
     dts({
       entryRoot: 'src',
-      exclude: ['**/*.stories.*', '**/*.test.*'],
+      exclude: ['**/*.test.*'],
       beforeWriteFile: (filePath, content) => ({
         filePath: filePath.replace(`${packageJson.name}/src/`, ''),
         content,
@@ -23,8 +23,9 @@ export default defineConfig(() => ({
     }),
     preserveDirectives() as Plugin,
   ],
-  define: {
-    'process.env': {},
+
+  optimizeDeps: {
+    include: [],
   },
 
   build: {
@@ -61,9 +62,14 @@ export default defineConfig(() => ({
     rollupOptions: {
       external: [
         ...Object.keys(packageJson.dependencies),
-        ...Object.keys(packageJson.peerDependencies),
         ...Object.keys(packageJson.devDependencies),
+        ...Object.keys(packageJson.peerDependencies),
         '@intlayer/config/client',
+        'fs/promises',
+        'fs',
+        'path',
+        'url',
+        'vm',
       ],
       output: {
         globals: {

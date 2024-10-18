@@ -1,6 +1,5 @@
-import { fileURLToPath } from 'node:url';
-import { extname, relative } from 'path';
-import react from '@vitejs/plugin-react';
+import { relative, extname } from 'path';
+import { fileURLToPath } from 'url';
 import { glob } from 'glob';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig, type Plugin } from 'vite';
@@ -12,10 +11,9 @@ import * as packageJson from './package.json';
  */
 export default defineConfig(() => ({
   plugins: [
-    react() as unknown as Plugin,
     dts({
       entryRoot: 'src',
-      exclude: ['**/*.stories.*', '**/*.test.*'],
+      exclude: ['**/*.test.*'],
       beforeWriteFile: (filePath, content) => ({
         filePath: filePath.replace(`${packageJson.name}/src/`, ''),
         content,
@@ -23,8 +21,9 @@ export default defineConfig(() => ({
     }),
     preserveDirectives() as Plugin,
   ],
-  define: {
-    'process.env': {},
+
+  optimizeDeps: {
+    include: [],
   },
 
   build: {
@@ -38,8 +37,8 @@ export default defineConfig(() => ({
     lib: {
       entry: Object.fromEntries(
         glob
-          .sync('src/**/*.{ts,tsx,js,jsx,mjs,cjs}', {
-            ignore: 'src/**/*.{stories,test,specs}.{ts,tsx,js,jsx,mjs,cjs}',
+          .sync('src/**/*.{ts,js,mjs,cjs}', {
+            ignore: 'src/**/*.{test,specs}.{ts,js,mjs,cjs}',
           })
           .map((file) => [
             // The name of the entry point
@@ -61,20 +60,18 @@ export default defineConfig(() => ({
     rollupOptions: {
       external: [
         ...Object.keys(packageJson.dependencies),
-        ...Object.keys(packageJson.peerDependencies),
         ...Object.keys(packageJson.devDependencies),
         '@intlayer/config/client',
+        'fs/promises',
+        'fs',
+        'path',
+        'url',
+        'vm',
       ],
-      output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-        },
-      },
     },
   },
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'node',
   },
 }));

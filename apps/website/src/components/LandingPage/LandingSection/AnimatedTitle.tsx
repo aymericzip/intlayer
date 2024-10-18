@@ -15,7 +15,7 @@ export const AnimatedTitle: FC<AnimatedCharactersProps> = ({
   ...props
 }) => (
   <h1 {...props}>
-    {text.split(' ').map((el, i) => (
+    {text?.split(' ').map((el, i) => (
       <m.span
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

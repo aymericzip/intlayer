@@ -35,29 +35,29 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./client": {
-      "types": "./dist/esm/client/index.d.mts",
-      "require": "./dist/cjs/client/index.cjs",
-      "import": "./dist/esm/client/index.mjs"
+      "types": "./dist/client/index.d.ts",
+      "require": "./dist/client/index.cjs",
+      "import": "./dist/client/index.mjs"
     },
     "./middleware": {
-      "types": "./dist/esm/middleware/index.d.mts",
-      "require": "./dist/cjs/middleware/index.cjs",
-      "import": "./dist/esm/middleware/index.mjs"
+      "types": "./dist/middleware/index.d.ts",
+      "require": "./dist/middleware/index.cjs",
+      "import": "./dist/middleware/index.mjs"
     },
     "./server": {
-      "types": "./dist/esm/server/index.d.mts",
-      "require": "./dist/cjs/server/index.cjs",
-      "import": "./dist/esm/server/index.mjs"
+      "types": "./dist/server/index.d.ts",
+      "require": "./dist/server/index.cjs",
+      "import": "./dist/server/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -70,14 +70,14 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "test": "",
+    "test": "vitest",
     "typecheck": "tsup--project ./tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -85,7 +85,7 @@
     "@intlayer/chokidar": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
-    "@intlayer/dictionaries-entry": "workspace:^",
+    "@intlayer/design-system": "workspace:^",
     "@intlayer/webpack": "workspace:^",
     "intlayer": "workspace:^",
     "negotiator": "^0.6.3",
@@ -99,12 +99,17 @@
     "@types/react": "^18.3.3",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
+    "@vitejs/plugin-react": "^4.3.2",
     "eslint": "^9.11.1",
     "prettier": "3.3.3",
     "react": "^18.3.1",
     "rimraf": "6.0.1",
+    "rollup-preserve-directives": "^1.1.2",
     "tsup": "^8.2.4",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^2.1.2"
   },
   "peerDependencies": {
     "react": "^18.2.0"

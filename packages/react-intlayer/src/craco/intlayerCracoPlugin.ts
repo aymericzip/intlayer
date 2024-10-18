@@ -28,8 +28,10 @@ export const overrideWebpackConfig = ({
       : {}),
     esbuild: 'esbuild',
     module: 'module',
-    fs: 'fs',
+    'fs/promises': 'fs/promises',
     vm: 'vm',
+    glob: 'glob',
+    chokidar: 'chokidar',
   };
 
   (webpackConfig.module?.rules ?? []).push({
