@@ -8,10 +8,13 @@ import {
   createTypes,
   createModuleAugmentation,
 } from '../transpiler/dictionary_to_type/index';
+import { loadDistantDictionaries } from '../loadDistantDictionaries';
+
+const LOG_PREFIX = '[intlayer] ';
 
 // Initialize chokidar watcher (non-persistent)
 export const watch = (options?: WatchOptions) => {
-  const { content } = getConfiguration({
+  const { content, editor } = getConfiguration({
     verbose: true,
   });
 
@@ -26,22 +29,36 @@ export const watch = (options?: WatchOptions) => {
       ...options,
     })
     .on('ready', async () => {
-      const dictionariesPaths = await buildDictionary(files);
+      // Build locale dictionaries
+      let dictionariesPaths = await buildDictionary(files);
+
+      if (editor.clientId && editor.clientSecret) {
+        // Fetch and build dictionaries from the server
+        const distantDictionariesPaths = await loadDistantDictionaries({
+          logPrefix: LOG_PREFIX,
+        });
+
+        dictionariesPaths = [...dictionariesPaths, ...distantDictionariesPaths];
+      }
 
       await createTypes(dictionariesPaths);
-      console.info('[intlayer] TypeScript types built');
+      console.info(`${LOG_PREFIX}TypeScript types built`);
 
       createModuleAugmentation();
-      console.info('[intlayer] Intlayer module augmentation built');
+      console.info(`${LOG_PREFIX}Intlayer module augmentation built`);
 
       createDictionaryList();
-      console.info('[intlayer] Intlayer dictionary list built');
+      console.info(`${LOG_PREFIX}Intlayer dictionary list built`);
 
-      const relativeDictionariesPath = dictionariesPaths.map((dictionary) =>
-        relative(dictionariesDir, dictionary).replace('.json', '')
-      );
+      const links = dictionariesPaths.map((dictionaryPath) => {
+        const dictName = relative(dictionariesDir, dictionaryPath).replace(
+          '.json',
+          ''
+        );
+        return dictName;
+      });
 
-      console.info('[intlayer] Dictionaries:', relativeDictionariesPath);
+      console.info(`${LOG_PREFIX}Dictionaries:`, links.join(', '));
     })
     .on('unlink', (filePath) => {
       // Process the file with the functionToRun
@@ -50,16 +67,16 @@ export const watch = (options?: WatchOptions) => {
     .on('add', async (filePath) => {
       // Process the file with the functionToRun
       console.info(
-        '[intlayer] Additional file detected: ',
+        `${LOG_PREFIX}Additional file detected: `,
         relative(baseDir, filePath)
       );
       const dictionaries = await buildDictionary(filePath);
 
       await createTypes(dictionaries);
-      console.info('[intlayer] TypeScript types built');
+      console.info(`${LOG_PREFIX}TypeScript types built`);
 
       createModuleAugmentation();
-      console.info('[intlayer] Intlayer module augmentation built');
+      console.info(`${LOG_PREFIX}Intlayer module augmentation built`);
 
       createDictionaryList();
     })
@@ -69,7 +86,7 @@ export const watch = (options?: WatchOptions) => {
       const dictionaries = await buildDictionary(filePath);
 
       await createTypes(dictionaries);
-      console.info('[intlayer] TypeScript types built');
+      console.info(`${LOG_PREFIX}TypeScript types built`);
     })
     .on('error', (error) => {
       console.error('Watcher error:', error);

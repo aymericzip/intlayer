@@ -10,7 +10,7 @@ export const buildDictionary = async (
   contentDeclarationsPaths: string | string[]
 ): Promise<string[]> => {
   if (dictionaryOutput.includes('i18next')) {
-    return await buildI18nDictionary(contentDeclarationsPaths);
+    await buildI18nDictionary(contentDeclarationsPaths);
   }
 
   if (dictionaryOutput.includes('intlayer')) {

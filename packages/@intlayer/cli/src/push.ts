@@ -13,15 +13,12 @@ type PushOptions = {
   dictionaries?: string[];
 };
 
-export const push = async (options: PushOptions): Promise<void> => {
+/**
+ * Get all locale dictionaries (default: .content.{json|ts|tsx|js|jsx|mjs|cjs}). And push them as distant dictionary.
+ */
+export const push = async (options?: PushOptions): Promise<void> => {
   try {
-    const { clientId, clientSecret, enabled } = getConfiguration().editor;
-
-    if (!enabled) {
-      throw new Error(
-        'Intlayer editor is not enabled. Please enable it. See https://intlayer.org/doc/concept/editor'
-      );
-    }
+    const { clientId, clientSecret } = getConfiguration().editor;
 
     if (!clientId || !clientSecret) {
       throw new Error(
@@ -36,7 +33,7 @@ export const push = async (options: PushOptions): Promise<void> => {
     let dictionaries: Dictionary[] = Object.values(dictionariesRecord);
     const existingDictionariesKeys: string[] = Object.keys(dictionariesRecord);
 
-    if (options.dictionaries) {
+    if (options?.dictionaries) {
       // Check if the provided dictionaries exist
       const noneExistingDictionariesOption = options.dictionaries.filter(
         (dictionaryId) => !existingDictionariesKeys.includes(dictionaryId)
@@ -98,8 +95,8 @@ export const push = async (options: PushOptions): Promise<void> => {
     );
 
     // Handle delete or keep options
-    const deleteOption = options.deleteLocaleDir;
-    const keepOption = options.keepLocaleDir;
+    const deleteOption = options?.deleteLocaleDir;
+    const keepOption = options?.keepLocaleDir;
 
     if (deleteOption && keepOption) {
       throw new Error(
