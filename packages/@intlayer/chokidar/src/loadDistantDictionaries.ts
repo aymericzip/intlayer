@@ -32,7 +32,7 @@ export const loadDistantDictionaries = async (
       try {
         const isDictionaryExist =
           typeof dictionariesRecord[distantDictionary.key] !== 'undefined';
-        const dictionaryPath = `${dictionariesDir}/${distantDictionary.key}.content.json`;
+        const dictionaryPath = `${dictionariesDir}/${distantDictionary.key}.json`;
 
         if (isDictionaryExist) {
           const existingDictionary = dictionariesRecord[distantDictionary.key];
