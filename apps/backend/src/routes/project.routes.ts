@@ -5,6 +5,7 @@ import {
   updateProject,
   selectProject,
   unselectProject,
+  updateProjectMembers,
 } from '@controllers/project.controller';
 import {
   addNewAccessKey,
@@ -41,6 +42,24 @@ projectRouter.put(
     AccessRule.hasProject,
   ]),
   updateProject
+);
+projectRouter.put(
+  '/members',
+  accessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  updateProjectMembers
+);
+projectRouter.delete(
+  '/',
+  accessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+    AccessRule.hasProject,
+  ]),
+  deleteProject
 );
 
 projectRouter.post(
@@ -83,15 +102,6 @@ projectRouter.post(
   unselectProject
 );
 
-projectRouter.delete(
-  '/:projectId',
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  deleteProject
-);
 projectRouter.put(
   '/:projectId',
   accessControlMiddleWare([

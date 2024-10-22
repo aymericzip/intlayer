@@ -120,7 +120,7 @@ export const updateProjectById = async (
  * @returns The result of the deletion operation.
  */
 export const deleteProjectById = async (
-  projectId: string
+  projectId: string | ObjectId
 ): Promise<Project> => {
   const project = await ProjectModel.findByIdAndDelete(projectId);
 

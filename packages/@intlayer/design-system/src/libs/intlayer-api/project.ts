@@ -1,7 +1,6 @@
 import type {
   AddProjectBody,
   AddProjectResult,
-  DeleteProjectParam,
   DeleteProjectResult,
   GetProjectsParams,
   GetProjectsResult,
@@ -16,6 +15,8 @@ import type {
   DeleteAccessKeyResponse,
   RefreshAccessKeyBody,
   RefreshAccessKeyResponse,
+  UpdateProjectMembersBody,
+  UpdateProjectMembersResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -78,20 +79,34 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
     );
 
   /**
+   * Updates project members in the database.
+   * @param project - Updated project data.
+   */
+  const updateProjectMembers = async (
+    body: UpdateProjectMembersBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<UpdateProjectMembersResult>(
+      `${PROJECT_API_ROUTE}/members`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PUT',
+        body,
+      }
+    );
+
+  /**
    * Deletes a project from the database by its ID.
    * @param id - Project ID.
    */
-  const deleteProject = async (
-    id: DeleteProjectParam['projectId'],
-    otherOptions: FetcherOptions = {}
-  ) =>
+  const deleteProject = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<DeleteProjectResult>(
       `${PROJECT_API_ROUTE}`,
       authAPIOptions,
       otherOptions,
       {
         method: 'DELETE',
-        body: { id },
       }
     );
 
@@ -190,6 +205,7 @@ export const getProjectAPI = (authAPIOptions: FetcherOptions = {}) => {
     getProjects,
     addProject,
     updateProject,
+    updateProjectMembers,
     deleteProject,
     selectProject,
     unselectProject,

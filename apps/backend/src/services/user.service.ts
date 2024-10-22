@@ -65,6 +65,17 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
 };
 
 /**
+ * Retrieves users list by email.
+ * @param emails - Users email.
+ * @returns User object or null if no user was found.
+ */
+export const getUsersByEmails = async (
+  emails: string[]
+): Promise<User[] | null> => {
+  return await UserModel.find({ email: { $in: emails } });
+};
+
+/**
  * Checks if a user exists by email.
  * @param email - User's email.
  * @returns True if the user exists, false otherwise.
@@ -83,6 +94,17 @@ export const getUserById = async (
   userId: string | ObjectId
 ): Promise<User | null> => {
   return await UserModel.findById(userId);
+};
+
+/**
+ * Retrieves a user by ID.
+ * @param userId - User's ID.
+ * @returns User object or null if no user was found.
+ */
+export const getUsersByIds = async (
+  userIds: (string | ObjectId)[]
+): Promise<User[] | null> => {
+  return await UserModel.find({ _id: { $in: userIds } });
 };
 
 /**

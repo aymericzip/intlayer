@@ -9,7 +9,8 @@ export type ProjectCreationData = {
 export type ProjectData = {
   organizationId: Organization['_id'];
   name: string;
-  members: User['_id'][];
+  membersIds: User['_id'][];
+  adminsIds: User['_id'][];
   creatorId: User['_id'];
 };
 

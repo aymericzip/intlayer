@@ -13,6 +13,7 @@ import {
   clearProjectAuth as clearProjectAuthService,
   setProjectAuth as setProjectAuthService,
 } from '@services/sessionAuth.service';
+import { getUsersByIds as getUsersByIdsService } from '@services/user.service';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getProjectFiltersAndPagination,
@@ -28,6 +29,7 @@ import {
 } from '@utils/responseData';
 import type { Request } from 'express';
 import type { ObjectId } from 'mongoose';
+import { User } from 'oauth2-server';
 import type {
   Project,
   ProjectCreationData,
@@ -183,7 +185,8 @@ export const addProject = async (
   }
 
   const project: ProjectData = {
-    members: [user._id],
+    membersIds: [user._id],
+    adminsIds: [user._id],
     creatorId: user._id,
     organizationId: organization._id,
     ...projectData,
@@ -307,21 +310,59 @@ export const updateProject = async (
   }
 };
 
-export type DeleteProjectParam = { projectId: string };
-export type DeleteProjectResult = ResponseData<Project>;
+type UserAndAdmin = { user: User; isAdmin: boolean };
+export type ProjectMemberByIdOption = {
+  userId: string | ObjectId;
+  isAdmin?: boolean;
+};
+
+export type UpdateProjectMembersBody = Partial<{
+  membersIds: ProjectMemberByIdOption[];
+}>;
+export type UpdateProjectMembersResult = ResponseData<Project>;
 
 /**
- * Deletes a project from the database by its ID.
+ * Update members to the dictionary in the database.
  * @param req - Express request object.
- * @param  res - Express response object.
- * @returns Response confirming the deletion.
+ * @param res - Express response object.
+ * @returns Response containing the updated dictionary.
  */
-export const deleteProject = async (
-  req: Request<DeleteProjectParam>,
-  res: ResponseWithInformation<DeleteProjectResult>
+export const updateProjectMembers = async (
+  req: Request<any, any, UpdateProjectMembersBody>,
+  res: ResponseWithInformation<UpdateProjectMembersResult>
 ): Promise<void> => {
-  const { organization } = res.locals;
-  const { projectId } = req.params as Partial<DeleteProjectParam>;
+  const { project, isProjectAdmin, organization } = res.locals;
+  const { membersIds } = req.body;
+
+  if (!project) {
+    const errorMessage = 'Project not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+
+  if (!isProjectAdmin) {
+    const errorMessage = 'User is not admin of the project';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
 
   if (!organization) {
     const errorMessage = 'Organization not found';
@@ -338,8 +379,8 @@ export const deleteProject = async (
     return;
   }
 
-  if (!projectId) {
-    const errorMessage = 'Project id not found';
+  if (membersIds?.length === 0) {
+    const errorMessage = 'No members to update';
 
     logger.error(errorMessage);
 
@@ -354,7 +395,112 @@ export const deleteProject = async (
   }
 
   try {
-    const projectToDelete = await getProjectByIdService(projectId);
+    const existingUsers: UserAndAdmin[] = [];
+
+    if (membersIds) {
+      const userIdList = membersIds
+        ?.filter(
+          (member) =>
+            // Remove members that are not in the organization
+            !organization?.membersIds.includes(member.userId as ObjectId)
+        )
+        .map((member) => member.userId);
+
+      const users = await getUsersByIdsService(userIdList);
+
+      if (users) {
+        const userMap: UserAndAdmin[] = users.map((user) => ({
+          user,
+          isAdmin:
+            membersIds.find((member) => member.userId === user._id)?.isAdmin ??
+            false,
+        }));
+
+        existingUsers.push(...userMap);
+      }
+    }
+
+    const formattedMembers: ObjectId[] = existingUsers
+      .filter((el) => !el.isAdmin)
+      .map((user) => user.user._id);
+    const formattedAdmin: ObjectId[] = existingUsers
+      .filter((el) => el.isAdmin)
+      .map((user) => user.user._id);
+
+    const updatedOrganization = await updateProjectByIdService(project._id, {
+      ...project,
+      membersIds: formattedMembers,
+      adminsIds: formattedAdmin,
+    });
+
+    const responseData = formatResponse<Project>({
+      data: updatedOrganization,
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+};
+
+export type DeleteProjectResult = ResponseData<Project>;
+
+/**
+ * Deletes a project from the database by its ID.
+ * @param req - Express request object.
+ * @param  res - Express response object.
+ * @returns Response confirming the deletion.
+ */
+export const deleteProject = async (
+  _req: Request,
+  res: ResponseWithInformation<DeleteProjectResult>
+): Promise<void> => {
+  const { organization, project } = res.locals;
+
+  if (!organization) {
+    const errorMessage = 'Organization not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+
+  if (!project) {
+    const errorMessage = 'Project not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+
+  try {
+    const projectToDelete = await getProjectByIdService(project._id);
 
     if (projectToDelete.organizationId !== organization._id) {
       const errorMessage = `You don't have access to this project`;
@@ -367,7 +513,7 @@ export const deleteProject = async (
       return;
     }
 
-    const deletedProject = await deleteProjectByIdService(projectId);
+    const deletedProject = await deleteProjectByIdService(project._id);
 
     if (!deletedProject) {
       const errorMessage = 'Project not found';

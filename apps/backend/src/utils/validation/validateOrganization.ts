@@ -4,7 +4,11 @@ import type { Organization } from '@/types/organization.types';
 
 export type OrganizationFields = (keyof Organization)[];
 
-const defaultFieldsToCheck: OrganizationFields = ['name', 'members'];
+const defaultFieldsToCheck: OrganizationFields = [
+  'name',
+  'membersIds',
+  'adminsIds',
+];
 
 type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<
@@ -51,7 +55,7 @@ export const validateOrganization = (
       }
     }
 
-    if (field === 'members') {
+    if (field === 'membersIds' || field === 'adminsIds') {
       const membersErrors = validateArray<string>(
         value as unknown as string[],
         'Members',

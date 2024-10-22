@@ -8,7 +8,8 @@ export type ProjectFields = (keyof Project)[];
 
 const defaultFieldsToCheck: ProjectFields = [
   'name',
-  'members',
+  'membersIds',
+  'adminsIds',
   'organizationId',
 ];
 
@@ -79,12 +80,13 @@ export const validateProject = async (
       }
     }
 
-    if (field === 'members') {
+    if (field === 'membersIds' || field === 'adminsIds') {
       const membersErrors = validateArray<string>(
         value as unknown as string[],
         'Members',
         'string',
-        (item) => (organization?.members as unknown as string[]).includes(item),
+        (item) =>
+          (organization?.membersIds as unknown as string[]).includes(item),
         MEMBERS_MIN_LENGTH
       );
 

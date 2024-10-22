@@ -35,7 +35,9 @@ export type AuthInformation<
 > = {
   user: AuthInformationResult<User, UserRule>;
   organization: AuthInformationResult<Organization, OrganizationRule>;
+  isOrganizationAdmin: boolean;
   project: AuthInformationResult<Project, ProjectRule>;
+  isProjectAdmin: boolean;
   authType: AuthInformationResult<'session' | 'oauth2', AuthTypeRule>;
 };
 

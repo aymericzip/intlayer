@@ -14,14 +14,18 @@ export const organizationSchema = new Schema<Organization>(
       minlength: NAME_MIN_LENGTH,
       maxlength: NAME_MAX_LENGTH,
     },
-    members: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-        minlength: MEMBERS_MIN_LENGTH,
-      },
-    ],
+    membersIds: {
+      type: [Schema.Types.ObjectId],
+      ref: 'User',
+      required: true,
+      minlength: MEMBERS_MIN_LENGTH,
+    },
+    adminsIds: {
+      type: [Schema.Types.ObjectId],
+      ref: 'User',
+      required: true,
+      minlength: MEMBERS_MIN_LENGTH,
+    },
     creatorId: {
       type: Schema.Types.ObjectId,
       ref: 'User',

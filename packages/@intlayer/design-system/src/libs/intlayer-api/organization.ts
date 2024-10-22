@@ -1,7 +1,6 @@
 import type {
   AddOrganizationBody,
   AddOrganizationResult,
-  DeleteOrganizationParam,
   DeleteOrganizationResult,
   GetOrganizationParam,
   GetOrganizationResult,
@@ -12,6 +11,8 @@ import type {
   SelectOrganizationParam,
   SelectOrganizationResult,
   UnselectOrganizationResult,
+  UpdateOrganizationMembersBody,
+  UpdateOrganizationMembersResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -87,20 +88,34 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
     );
 
   /**
+   * Update members to the organization in the database.
+   * @param body - Updated organization members data.
+   */
+  const updateOrganizationMembers = async (
+    body: UpdateOrganizationMembersBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    fetcher<UpdateOrganizationMembersResult>(
+      `${ORGANIZATION_API_ROUTE}/members`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PUT',
+        body,
+      }
+    );
+
+  /**
    * Deletes an organization from the database by its ID.
    * @param organizationId - Organization ID.
    */
-  const deleteOrganization = async (
-    organizationId: DeleteOrganizationParam['organizationId'],
-    otherOptions: FetcherOptions = {}
-  ) =>
+  const deleteOrganization = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<DeleteOrganizationResult>(
       ORGANIZATION_API_ROUTE,
       authAPIOptions,
       otherOptions,
       {
         method: 'DELETE',
-        body: { id: organizationId },
       }
     );
 
@@ -140,6 +155,7 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
     getOrganization,
     addOrganization,
     updateOrganization,
+    updateOrganizationMembers,
     deleteOrganization,
     selectOrganization,
     unselectOrganization,

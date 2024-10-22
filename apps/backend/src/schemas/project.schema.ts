@@ -34,20 +34,24 @@ export const projectSchema = new Schema<Project>(
       minlength: NAME_MIN_LENGTH,
       maxlength: NAME_MAX_LENGTH,
     },
-    members: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-        minlength: MEMBERS_MIN_LENGTH,
-      },
-    ],
+    oAuth2Access: [oAuth2AccessSchema],
+    membersIds: {
+      type: [Schema.Types.ObjectId],
+      ref: 'User',
+      required: true,
+      minlength: MEMBERS_MIN_LENGTH,
+    },
+    adminsIds: {
+      type: [Schema.Types.ObjectId],
+      ref: 'User',
+      required: true,
+      minlength: MEMBERS_MIN_LENGTH,
+    },
     creatorId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
-    oAuth2Access: [oAuth2AccessSchema],
   },
   {
     timestamps: true,

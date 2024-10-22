@@ -7,7 +7,8 @@ export type OrganizationCreationData = {
 
 export type OrganizationData = {
   name: string;
-  members: User['_id'][];
+  membersIds: User['_id'][];
+  adminsIds: User['_id'][];
 };
 
 export type Organization = OrganizationData & {

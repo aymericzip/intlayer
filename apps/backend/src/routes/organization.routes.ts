@@ -4,6 +4,7 @@ import {
   selectOrganization,
   getOrganizations,
   updateOrganization,
+  updateOrganizationMembers,
   unselectOrganization,
 } from '@controllers/organization.controller';
 import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
@@ -30,8 +31,16 @@ organizationRouter.put(
   ]),
   updateOrganization
 );
+organizationRouter.put(
+  '/members',
+  accessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+  ]),
+  updateOrganizationMembers
+);
 organizationRouter.delete(
-  '/:organizationId',
+  '/',
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
