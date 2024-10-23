@@ -11,7 +11,7 @@ export const FormDescription = forwardRef<
 
   return (
     <p
-      className="text-sm text-gray-500 dark:text-gray-400"
+      className="text-neutral dark:text-neutral-dark text-sm"
       ref={ref}
       id={formDescriptionId}
       {...props}

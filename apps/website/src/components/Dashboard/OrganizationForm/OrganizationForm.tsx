@@ -1,9 +1,10 @@
 'use client';
 
 import type { Organization } from '@intlayer/backend';
-import { Loader, Modal, useAuth } from '@intlayer/design-system';
+import { Container, Loader, Modal, useAuth } from '@intlayer/design-system';
 import { useGetOrganizations } from '@intlayer/design-system/hooks';
 import { Suspense, useEffect, useState, type FC } from 'react';
+import { MembersForm } from './Members/MembersKeyForm';
 import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
 import { OrganizationEditionForm } from './OrganizationEditionForm';
@@ -17,13 +18,28 @@ const OrganizationFormContent: FC = () => {
   const [organizations, setOrganizations] = useState<Organization[]>([]);
 
   useEffect(() => {
-    getOrganizations({}).then((response) => {
+    getOrganizations(undefined).then((response) => {
       setOrganizations(response.data ?? []);
     });
   }, [getOrganizations]);
 
   if (organization) {
-    return <OrganizationEditionForm />;
+    return (
+      <div className="flex size-full max-w-[500px] flex-col items-center justify-center gap-4">
+        <Container
+          roundedSize="xl"
+          className="flex size-full max-w-[400px] justify-center p-6"
+        >
+          <OrganizationEditionForm />
+        </Container>
+        <Container
+          roundedSize="xl"
+          className="flex size-full max-w-[400px] justify-center p-6"
+        >
+          <MembersForm />
+        </Container>
+      </div>
+    );
   }
 
   if (organizations?.length > 0) {

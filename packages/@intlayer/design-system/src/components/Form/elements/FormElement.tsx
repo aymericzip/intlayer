@@ -9,7 +9,7 @@ import {
 } from 'react-hook-form';
 import { Form } from '../Form';
 import { useFormField } from '../FormField';
-import { FormItemLayout } from '../layout';
+import { FormItemLayout, FormItemLayoutProps } from '../layout';
 
 export type FormElementProps<T extends ElementType> = {
   name: string;
@@ -19,7 +19,7 @@ export type FormElementProps<T extends ElementType> = {
   info?: string;
   showErrorMessage?: boolean;
   focus?: boolean;
-};
+} & Omit<FormItemLayoutProps, 'children'>;
 
 type FormFieldElementProps<T extends ElementType> = FormElementProps<T> &
   ComponentProps<T> & {

@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react';
 import { Form } from '../Form';
 import { FormLabelLayout, type FormLabelLayoutProps } from './FormLabelLayout';
 
-type FormItemLayoutProps = Omit<FormLabelLayoutProps, 'children'> & {
+export type FormItemLayoutProps = Omit<FormLabelLayoutProps, 'children'> & {
   label: ReactNode;
   description?: ReactNode;
   children: ReactNode;

@@ -3,6 +3,11 @@ import { t, type DeclarationContent } from 'intlayer';
 const accessKeyFormContent = {
   key: 'access-key-creation-form',
   content: {
+    title: t({
+      en: 'Access key',
+      fr: "Clé d'accès",
+      es: 'Clave de acceso',
+    }),
     nameInput: {
       label: t({
         en: 'Name of your access key',

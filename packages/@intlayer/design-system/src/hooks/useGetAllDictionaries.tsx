@@ -1,6 +1,5 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
@@ -22,10 +21,7 @@ export const useGetAllDictionaries = () => {
     getDictionaries()
       .then((response) => {
         const dictionariesRecord = response.data?.reduce((acc, dictionary) => {
-          acc[dictionary.key] = {
-            ...dictionary.content,
-            id: dictionary.key,
-          } as Dictionary;
+          acc[dictionary.key] = dictionary;
           return acc;
         }, {} as DictionaryContent);
 

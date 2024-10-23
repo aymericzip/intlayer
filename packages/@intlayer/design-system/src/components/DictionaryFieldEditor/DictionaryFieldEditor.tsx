@@ -1,7 +1,7 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import { type Dictionary } from '@intlayer/core';
+import { Dictionary } from '@intlayer/core';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo, useRef, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';

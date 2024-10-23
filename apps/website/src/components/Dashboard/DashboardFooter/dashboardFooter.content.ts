@@ -15,7 +15,7 @@ type DashboardFooterContent = {
   };
 };
 
-export const dashboardFooterContent = {
+const dashboardFooterContent = {
   key: 'dashboard-footer',
   content: {
     logo: {
@@ -51,3 +51,5 @@ export const dashboardFooterContent = {
     },
   },
 } satisfies DeclarationContent<DashboardFooterContent>;
+
+export default dashboardFooterContent;

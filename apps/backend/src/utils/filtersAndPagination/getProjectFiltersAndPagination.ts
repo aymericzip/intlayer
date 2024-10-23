@@ -10,7 +10,7 @@ export type ProjectFiltersParams = {
   ids?: string | string[];
   name?: string;
   organizationId?: string;
-  members?: string[];
+  membersIds?: string[];
 };
 export type ProjectFilters = RootFilterQuery<Project>;
 
@@ -28,7 +28,7 @@ export const getProjectFiltersAndPagination = (
   let filters: ProjectFilters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids, organizationId, members } = filtersRequest;
+    const { name, ids, organizationId, membersIds } = filtersRequest;
 
     filters = {};
 
@@ -54,8 +54,8 @@ export const getProjectFiltersAndPagination = (
       filters = { ...filters, organizationId };
     }
 
-    if (members) {
-      filters = { ...filters, members: { $in: members } };
+    if (membersIds) {
+      filters = { ...filters, membersIds: { $in: membersIds } };
     }
   }
 

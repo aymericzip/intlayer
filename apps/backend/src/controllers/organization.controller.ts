@@ -76,7 +76,8 @@ export const getOrganizations = async (
 
   const restrictedFilter: OrganizationFilters = {
     ...filters,
-    members: { $in: [...(filters.members ?? []), String(user._id)] },
+
+    membersIds: { $in: [...(filters.membersIds ?? []), String(user._id)] },
   };
 
   try {
@@ -426,12 +427,17 @@ export const updateOrganizationMembers = async (
       const users = await getUsersByIdsService(userIdList);
 
       if (users) {
-        const userMap: UserAndAdmin[] = users.map((user) => ({
-          user,
-          isAdmin:
-            membersIds.find((member) => member.userId === user._id)?.isAdmin ??
-            false,
-        }));
+        const userMap: UserAndAdmin[] = users.map((user) => {
+          const isAdmin =
+            membersIds.find(
+              (member) => String(member.userId) === String(user._id)
+            )?.isAdmin ?? false;
+
+          return {
+            user,
+            isAdmin,
+          };
+        });
 
         existingUsers.push(...userMap);
       }
@@ -441,12 +447,16 @@ export const updateOrganizationMembers = async (
       const users = await getUsersByEmailsService(userEmailList);
 
       if (users) {
-        const userMap: UserAndAdmin[] = users.map((user) => ({
-          user,
-          isAdmin:
+        const userMap: UserAndAdmin[] = users.map((user) => {
+          const isAdmin =
             membersEmails.find((member) => member.userEmail === user.email)
-              ?.isAdmin ?? false,
-        }));
+              ?.isAdmin ?? false;
+
+          return {
+            user,
+            isAdmin,
+          };
+        });
 
         existingUsers.push(...userMap);
       }
@@ -468,9 +478,9 @@ export const updateOrganizationMembers = async (
       }
     }
 
-    const formattedMembers: ObjectId[] = existingUsers
-      .filter((el) => !el.isAdmin)
-      .map((user) => user.user._id);
+    const formattedMembers: ObjectId[] = existingUsers.map(
+      (user) => user.user._id
+    );
     const formattedAdmin: ObjectId[] = existingUsers
       .filter((el) => el.isAdmin)
       .map((user) => user.user._id);

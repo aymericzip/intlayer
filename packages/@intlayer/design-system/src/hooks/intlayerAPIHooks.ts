@@ -18,6 +18,10 @@ export const useGetUserByAccount = () =>
   useAsync('getUserByAccount', useIntlayerAPI().user.getUserByAccount, {
     cache: true,
   });
+export const useGetUsers = () =>
+  useAsync('getUsers', useIntlayerAPI().user.getUsers, {
+    cache: true,
+  });
 export const useCreateUser = () =>
   useAsync('createUser', useIntlayerAPI().user.createUser);
 export const useUpdateUser = () =>
@@ -35,6 +39,11 @@ export const useUpdateOrganization = () =>
   useAsync(
     'updateOrganization',
     useIntlayerAPI().organization.updateOrganization
+  );
+export const useUpdateOrganizationMembers = () =>
+  useAsync(
+    'updateOrganizationMembers',
+    useIntlayerAPI().organization.updateOrganizationMembers
   );
 export const useDeleteOrganization = () =>
   useAsync(
@@ -60,6 +69,11 @@ export const useAddProject = () =>
   useAsync('addProject', useIntlayerAPI().project.addProject);
 export const useUpdateProject = () =>
   useAsync('updateProject', useIntlayerAPI().project.updateProject);
+export const useUpdateProjectMembers = () =>
+  useAsync(
+    'updateProjectMembers',
+    useIntlayerAPI().project.updateProjectMembers
+  );
 export const useDeleteProject = () =>
   useAsync('deleteProject', useIntlayerAPI().project.deleteProject);
 export const useSelectProject = () =>

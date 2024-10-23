@@ -3,6 +3,7 @@ import {
   getSessionInformation,
   setCSRFToken,
 } from '@controllers/sessionAuth.controller';
+import { checkAdmin } from '@middlewares/admin.middleware';
 import {
   attachOAuthInstance,
   authenticateOAuth2,
@@ -93,7 +94,6 @@ app.get('/csrf-token', setCSRFToken);
 // oAuth2
 app.use(/(.*)/, attachOAuthInstance);
 app.post('/oauth2/token', getOAuth2Token); // Route to get the token
-app.use(/(.*)/, authenticateOAuth2);
 
 app.use(/(.*)/, (req, res, next) => {
   // If the request is not already authenticated check the oAuth2 token
@@ -115,6 +115,9 @@ app.use(/(.*)/, (req, res, next) => {
   }
   next();
 });
+
+// Admin check for project and organization
+app.use(/(.*)/, checkAdmin);
 
 // Routes
 app.use('/api/user', userRouter);

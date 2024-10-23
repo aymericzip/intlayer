@@ -17,7 +17,7 @@ export interface User extends UserData {
 }
 
 export interface UserAPI
-  extends Omit<User, '_id' | 'provider' | 'session' | 'createdAt'> {
+  extends Omit<User, 'provider' | 'session' | 'createdAt'> {
   role: string;
 }
 

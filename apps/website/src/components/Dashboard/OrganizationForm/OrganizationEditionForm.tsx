@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  useForm,
-  Form,
-  useToast,
-  useAuth,
-  Container,
-} from '@intlayer/design-system';
+import { useForm, Form, useToast, useAuth, H3 } from '@intlayer/design-system';
 import { useUpdateOrganization } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -21,12 +15,12 @@ export const OrganizationEditionForm: FC = () => {
   const SignInSchema = getOrganizationSchema();
   const { updateOrganization } = useUpdateOrganization();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { nameInput, editButton, updateOrganizationToasts } =
+  const { title, nameInput, editButton, updateOrganizationToasts } =
     useIntlayer('organization-form');
   const { toast } = useToast();
 
   const onSubmitSuccess = async (data: OrganizationFormData) => {
-    await updateOrganization({ _id: organization?._id, ...data })
+    await updateOrganization(data)
       .then(async () => {
         toast({
           title: updateOrganizationToasts.organizationUpdated.title.value,
@@ -46,10 +40,8 @@ export const OrganizationEditionForm: FC = () => {
   };
 
   return (
-    <Container
-      roundedSize="xl"
-      className="flex size-full max-w-[400px] justify-center p-6"
-    >
+    <>
+      <H3 className="mb-8"> {title}</H3>
       <Form
         schema={SignInSchema}
         onSubmitSuccess={onSubmitSuccess}
@@ -74,6 +66,6 @@ export const OrganizationEditionForm: FC = () => {
           {editButton.text}
         </Form.Button>
       </Form>
-    </Container>
+    </>
   );
 };

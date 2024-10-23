@@ -1,5 +1,5 @@
 import type { Request } from 'express';
-import type { RootFilterQuery } from 'mongoose';
+import type { ObjectId, RootFilterQuery } from 'mongoose';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
@@ -31,7 +31,7 @@ export const getUserFiltersAndPagination = (
     filters = {};
 
     if (ids) {
-      let idsArray: string[];
+      let idsArray: string[] | ObjectId[];
 
       if (typeof ids === 'string') {
         idsArray = ids.split(',');

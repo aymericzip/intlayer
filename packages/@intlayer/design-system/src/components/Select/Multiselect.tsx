@@ -18,6 +18,7 @@ import {
   forwardRef,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -55,6 +56,7 @@ const useMultiSelect = () => {
 
 type MultiSelectProps = ComponentPropsWithoutRef<typeof CommandRoot> & {
   values?: string[];
+  defaultValues?: string[];
   onValueChange?: (value: string[]) => void;
   loop?: boolean;
 };
@@ -82,7 +84,8 @@ type MultiSelectProps = ComponentPropsWithoutRef<typeof CommandRoot> & {
  * ```
  */
 const MultiSelectRoot: FC<MultiSelectProps> = ({
-  values: defaultValues,
+  values: valuesProp,
+  defaultValues,
   onValueChange: onValueChange,
   loop = false,
   className,
@@ -97,6 +100,12 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isValueSelected, setIsValueSelected] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
+
+  useEffect(() => {
+    if (valuesProp) {
+      setValue(valuesProp);
+    }
+  }, [valuesProp]);
 
   const onValueChangeHandler = useCallback(
     (val: string) => {

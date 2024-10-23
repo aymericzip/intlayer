@@ -5,7 +5,7 @@ import { Link, Logo } from '@intlayer/design-system';
 import type { Locales } from 'intlayer';
 import { useDictionary } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
-import { dashboardFooterContent } from './dashboardFooter.content';
+import dashboardFooterContent from './dashboardFooter.content';
 
 export type DashboardFooterLink = {
   href: string;

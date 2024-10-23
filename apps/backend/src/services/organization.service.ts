@@ -86,7 +86,8 @@ export const createOrganization = async (
 
   return await OrganizationModel.create({
     creatorId: userId,
-    members: [userId],
+    membersIds: [userId],
+    adminsIds: [userId],
     ...organization,
   });
 };

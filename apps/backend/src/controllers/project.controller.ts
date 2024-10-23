@@ -85,7 +85,7 @@ export const getProjects = async (
 
   const restrictedFilter: ProjectFilters = {
     ...filters,
-    members: { $in: [...(filters.members ?? []), String(user._id)] },
+    membersIds: { $in: [...(filters.membersIds ?? []), String(user._id)] },
     organizationId: String(organization._id),
   };
 
@@ -136,7 +136,7 @@ export const addProject = async (
   req: Request<any, any, AddProjectBody>,
   res: ResponseWithInformation<AddProjectResult>
 ): Promise<void> => {
-  const { organization, user } = res.locals;
+  const { organization, user, isOrganizationAdmin } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -167,6 +167,20 @@ export const addProject = async (
 
     res.status(responseCode).json(responseData);
     return;
+  }
+
+  if (!isOrganizationAdmin) {
+    const errorMessage = 'User is not admin of the organization';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.FORBIDDEN_403;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
   }
 
   if (!projectData) {

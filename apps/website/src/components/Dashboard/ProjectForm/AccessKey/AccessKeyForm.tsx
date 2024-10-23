@@ -8,6 +8,7 @@ import {
   useAuth,
   Modal,
   CopyToClipboard,
+  H3,
 } from '@intlayer/design-system';
 import {
   useDeleteAccessKey,
@@ -236,6 +237,7 @@ export const AccessKeyForm: FC = () => {
           }}
         />
       </Modal>
+
       <Form
         className="w-full"
         schema={AccessKeyFormSchema}
@@ -243,17 +245,17 @@ export const AccessKeyForm: FC = () => {
         onSubmitError={() => Promise.resolve()}
         {...form}
       >
-        <Form.Label>{title}</Form.Label>
+        <H3 className="mb-8"> {title}</H3>
         <span className="text-neutral dark:text-neutral-dark text-sm">
           {description}
         </span>
+        <Form.Label>{title}</Form.Label>
         {project?.oAuth2Access.map((accessKey) => (
           <AccessKeyItem key={String(accessKey._id)} value={accessKey} />
         ))}
         {createdAccessKey.map((accessKey) => (
           <AccessKeyItem key={String(accessKey._id)} value={accessKey} />
         ))}
-
         {nbAccessKeys === 0 && (
           <span className="mt-6 text-center text-sm">{noAccessKeys}</span>
         )}

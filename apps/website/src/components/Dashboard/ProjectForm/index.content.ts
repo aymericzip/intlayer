@@ -3,16 +3,26 @@ import { t, type DeclarationContent } from 'intlayer';
 const projectFormContent = {
   key: 'project-form',
   content: {
+    title: t({
+      en: 'Project details',
+      fr: 'Détails du projet',
+      es: 'Detalles del proyecto',
+    }),
+    noAdminMessage: t({
+      en: 'You are not an admin of this project. Contact your administrator if you want to to edit the project.',
+      es: 'No eres un administrador de este proyecto. Contacta a tu administrador si deseas editar el proyecto.',
+      fr: "Vous n'êtes pas un administrateur de ce projet. Veuillez contacter votre administrateur si vous souhaitez modifier le projet.",
+    }),
     nameInput: {
       label: t({
-        en: 'Name of your project',
-        fr: 'Nom de votre projet',
-        es: 'Nombre de su proyecto',
+        en: 'Name of the project',
+        fr: 'Nom du projet',
+        es: 'Nombre del proyecto',
       }),
       placeholder: t({
-        en: 'Enter the name of your project',
-        fr: 'Entrez le nom de votre projet',
-        es: 'Ingrese el nombre de su proyecto',
+        en: 'Enter the name of the project',
+        fr: 'Entrez le nom du projet',
+        es: 'Ingrese el nombre del proyecto',
       }),
     },
 
@@ -88,20 +98,25 @@ const projectFormContent = {
       projectUpdated: {
         title: t({
           en: 'Project updated',
-          fr: 'Organisation mise à jour',
-          es: '',
+          fr: 'Projet mis à jour',
+          es: 'Proyecto actualizado',
         }),
         description: t({
           en: 'Your project has been updated successfully',
           fr: 'Votre organisation a été mise à jour avec succès',
-          es: '',
+          es: 'Tu proyecto ha sido actualizado con éxito',
         }),
       },
       projectUpdateFailed: {
         title: t({
           en: 'Project update failed',
-          fr: "La mise à jour de l'organisation a échoué",
-          es: '',
+          fr: 'La mise à jour du project a échoué',
+          es: 'Error al actualizar el proyecto',
+        }),
+        description: t({
+          en: 'Your project update has failed',
+          fr: 'La mise à jour de votre projet a échoué',
+          es: 'La actualización de tu proyecto ha fallado',
         }),
       },
     },

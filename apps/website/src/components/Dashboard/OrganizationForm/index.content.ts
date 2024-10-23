@@ -3,6 +3,11 @@ import { t, type DeclarationContent } from 'intlayer';
 const organizationFormContent = {
   key: 'organization-form',
   content: {
+    title: t({
+      en: 'Organization details',
+      fr: 'Détails de l’organisation',
+      es: 'Detalles de la organización',
+    }),
     nameInput: {
       label: t({
         en: 'Name',

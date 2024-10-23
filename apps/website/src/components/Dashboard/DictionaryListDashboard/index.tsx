@@ -67,21 +67,21 @@ export const DictionaryListDashboardContent: FC = () => {
       <H2 className="mb-6">{dictionaryList.title}</H2>
       {dictionaries.map((dictionary) => (
         <Button
-          key={String(dictionary._id)}
+          key={String(dictionary.key)}
           label="Select dictionary"
           IconRight={ChevronRight}
           variant="hoverable"
           color="text"
           onClick={() => {
             setFocusedContent({
-              dictionaryId: dictionary.id,
+              dictionaryId: dictionary.key,
               keyPath: [],
               dictionaryPath: undefined,
             });
-            router.push(`${PagesRoutes.Dashboard_Content}/${dictionary.id}`);
+            router.push(`${PagesRoutes.Dashboard_Content}/${dictionary.key}`);
           }}
         >
-          {dictionary.id}
+          {dictionary.key}
         </Button>
       ))}
     </Container>

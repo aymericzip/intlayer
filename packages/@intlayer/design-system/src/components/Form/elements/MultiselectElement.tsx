@@ -51,7 +51,7 @@ export const MultiSelectElement = ({
           >
             <MultiSelect
               onValueChange={field.onChange}
-              defaultValue={field.value}
+              values={field.value}
               {...props}
             >
               {children}

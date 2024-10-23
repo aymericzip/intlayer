@@ -17,6 +17,8 @@ export type DictionaryValue =
 
 export type Dictionary = {
   key: string;
-  filePath?: string;
   content: DictionaryValue;
+  title?: string;
+  description?: string;
+  filePath?: string;
 };

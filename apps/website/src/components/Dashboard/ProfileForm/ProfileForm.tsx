@@ -6,6 +6,7 @@ import {
   useAuth,
   useToast,
   Container,
+  H3,
 } from '@intlayer/design-system';
 import { useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
@@ -17,7 +18,7 @@ export const ProfileForm: FC = () => {
   const { user } = session ?? {};
   const SignInSchema = getSignInSchema();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { nameInput, editButton, updateProfileToasts } =
+  const { title, nameInput, emailInput, editButton, updateProfileToasts } =
     useIntlayer('profile-form');
   const { updateUser } = useUpdateUser();
   const { toast } = useToast();
@@ -50,6 +51,7 @@ export const ProfileForm: FC = () => {
       roundedSize="xl"
       className="flex size-full max-w-[400px] justify-center p-6"
     >
+      <H3 className="mb-8"> {title}</H3>
       <Form
         schema={SignInSchema}
         onSubmitSuccess={onSubmitSuccess}
@@ -63,6 +65,14 @@ export const ProfileForm: FC = () => {
           placeholder={nameInput.placeholder.value}
           isRequired
           defaultValue={user?.name}
+        />
+        <Form.Input
+          name="email"
+          type="email"
+          label={emailInput.label}
+          placeholder={emailInput.placeholder.value}
+          disabled
+          defaultValue={user?.email}
         />
 
         <Form.Button
