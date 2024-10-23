@@ -24,14 +24,17 @@ export const checkAdmin = async (
   if (user) {
     if (organization) {
       const isOrganizationAdmin: boolean =
-        organization.adminsIds.includes(user._id) ?? false;
+        organization.adminsIds
+          .map((id) => String(id))
+          .includes(String(user._id)) ?? false;
 
       res.locals.isOrganizationAdmin = isOrganizationAdmin;
     }
 
     if (project) {
       const isProjectAdmin: boolean =
-        project.adminsIds.includes(user._id) ?? false;
+        project.adminsIds.map((id) => String(id)).includes(String(user._id)) ??
+        false;
 
       res.locals.isProjectAdmin = isProjectAdmin;
     }

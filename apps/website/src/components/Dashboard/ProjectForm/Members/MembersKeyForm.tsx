@@ -35,8 +35,8 @@ export const MembersForm: FC = () => {
   const MembersFormSchema = getProjectMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
     defaultValues: {
-      membersIds: organization?.membersIds.map((el) => String(el)) ?? [],
-      adminsIds: organization?.adminsIds.map((el) => String(el)) ?? [],
+      membersIds: project?.membersIds.map((el) => String(el)) ?? [],
+      adminsIds: project?.adminsIds.map((el) => String(el)) ?? [],
     },
   });
   const {
@@ -80,7 +80,8 @@ export const MembersForm: FC = () => {
 
   useEffect(() => {
     if (organization?.membersIds) {
-      getUsers({ ids: organization.membersIds }).then((response) => {
+      const membersIds = organization.membersIds.map((el) => String(el));
+      getUsers({ ids: membersIds }).then((response) => {
         if (response.data) {
           setUsers(response.data);
         }
@@ -120,7 +121,7 @@ export const MembersForm: FC = () => {
                     key={String(memberId)}
                     value={String(memberId)}
                   >
-                    {users.find((user) => user._id === memberId)?.name}
+                    {getUserNames(users, memberId)}
                   </MultiSelect.Item>
                 ))}
               </MultiSelect.List>
@@ -139,7 +140,7 @@ export const MembersForm: FC = () => {
             </MultiSelect.Trigger>
             <MultiSelect.Content>
               <MultiSelect.List>
-                {project?.membersIds.map((memberId) => (
+                {form.getValues('membersIds').map((memberId) => (
                   <MultiSelect.Item
                     key={String(memberId)}
                     value={String(memberId)}

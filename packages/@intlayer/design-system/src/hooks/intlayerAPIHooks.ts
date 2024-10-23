@@ -45,6 +45,11 @@ export const useUpdateOrganizationMembers = () =>
     'updateOrganizationMembers',
     useIntlayerAPI().organization.updateOrganizationMembers
   );
+export const useAddOrganizationMember = () =>
+  useAsync(
+    'addOrganizationMember',
+    useIntlayerAPI().organization.addOrganizationMember
+  );
 export const useDeleteOrganization = () =>
   useAsync(
     'deleteOrganization',

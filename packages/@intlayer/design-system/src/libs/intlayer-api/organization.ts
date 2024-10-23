@@ -13,6 +13,8 @@ import type {
   UnselectOrganizationResult,
   UpdateOrganizationMembersBody,
   UpdateOrganizationMembersResult,
+  AddOrganizationMemberBody,
+  AddOrganizationMemberResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -106,6 +108,24 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
     );
 
   /**
+   * Add member to the organization in the database.
+   * @param body - Updated organization members data.
+   */
+  const addOrganizationMember = async (
+    body: AddOrganizationMemberBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    fetcher<AddOrganizationMemberResult>(
+      `${ORGANIZATION_API_ROUTE}/member`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body,
+      }
+    );
+
+  /**
    * Deletes an organization from the database by its ID.
    * @param organizationId - Organization ID.
    */
@@ -154,6 +174,7 @@ export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
     getOrganizations,
     getOrganization,
     addOrganization,
+    addOrganizationMember,
     updateOrganization,
     updateOrganizationMembers,
     deleteOrganization,

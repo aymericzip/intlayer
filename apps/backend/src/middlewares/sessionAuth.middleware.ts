@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import {
@@ -9,9 +10,12 @@ import { getUserBySession as getUserBySessionService } from '@services/user.serv
 import { Cookies } from '@utils/cookies';
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import type { Organization } from '@/types/organization.types';
-import type { Project } from '@/types/project.types';
-import type { User } from '@/types/user.types';
+import type {
+  Organization,
+  OrganizationDocument,
+} from '@/types/organization.types';
+import type { Project, ProjectDocument } from '@/types/project.types';
+import type { User, UserDocument } from '@/types/user.types';
 
 export enum AuthInformationType {
   IsNull,
@@ -64,10 +68,12 @@ export const checkUser = async (
 
   try {
     if (sessionToken) {
-      const user = await getUserBySessionService(sessionToken);
+      const user: UserDocument | null = (await getUserBySessionService(
+        sessionToken
+      )) as UserDocument | null;
 
       if (user) {
-        res.locals.user = user;
+        res.locals.user = user.toObject();
         res.locals.authType = 'session';
       }
     }
@@ -103,14 +109,15 @@ export const checkOrganization = async (
       return next();
     }
 
-    const organization = await OrganizationModel.findById(organizationData._id);
+    const organization: OrganizationDocument | null =
+      await OrganizationModel.findById(organizationData._id);
 
     if (!organization) {
       clearOrganizationAuth(res);
       return next();
     }
 
-    res.locals.organization = organization;
+    res.locals.organization = organization.toObject();
   } catch (error) {
     console.error('Error fetching organization:', error);
   }
@@ -142,14 +149,16 @@ export const checkProject = async (
       return next();
     }
 
-    const project = await ProjectModel.findById(decodedTokenProject._id);
+    const project: ProjectDocument | null = await ProjectModel.findById(
+      decodedTokenProject._id
+    );
 
     if (!project) {
       clearProjectAuth(res);
       return next();
     }
 
-    res.locals.project = project;
+    res.locals.project = project.toObject();
   } catch (error) {
     console.error('Error fetching project:', error);
   }

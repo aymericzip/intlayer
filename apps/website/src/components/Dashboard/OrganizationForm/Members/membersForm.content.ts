@@ -111,6 +111,28 @@ const organizationMembersFormContent = {
         }),
       },
     },
+
+    addOrganizationMemberToasts: {
+      updated: {
+        title: t({
+          en: 'Member added to the organization',
+          fr: 'Membre ajouté au organisation',
+          es: 'Miembro agregado al organización',
+        }),
+        description: t({
+          en: 'Your organization has been updated successfully',
+          fr: 'Votre organisation a été mis à jour avec succès',
+          es: 'Tu organización ha sido actualizado con éxito',
+        }),
+      },
+      failed: {
+        title: t({
+          en: 'Organization update failed',
+          fr: 'La mise à jour du organisation a échoué',
+          es: 'Error al actualizar el organización',
+        }),
+      },
+    },
   },
 } satisfies DeclarationContent;
 

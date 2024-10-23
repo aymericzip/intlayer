@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
@@ -9,8 +8,8 @@ import {
 } from '@services/sessionAuth.service';
 import {
   getUsersByIds as getUsersByIdsService,
-  getUsersByEmails as getUsersByEmailsService,
   createUser as createUserService,
+  getUserByEmail as getUserByEmailService,
 } from '@services/user.service';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
@@ -346,33 +345,29 @@ export const updateOrganization = async (
 };
 
 type UserAndAdmin = { user: User; isAdmin: boolean };
-export type OrganizationMemberByEmailOption = {
-  userEmail: string;
-  isAdmin?: boolean;
-};
+
 export type OrganizationMemberByIdOption = {
   userId: string | ObjectId;
   isAdmin?: boolean;
 };
 
-export type UpdateOrganizationMembersBody = Partial<{
-  membersEmails: OrganizationMemberByEmailOption[];
-  membersIds: OrganizationMemberByIdOption[];
-}>;
-export type UpdateOrganizationMembersResult = ResponseData<Organization>;
+export type AddOrganizationMemberBody = {
+  userEmail: string;
+};
+export type AddOrganizationMemberResult = ResponseData<Organization>;
 
 /**
- * Update members to the dictionary in the database.
+ * Add member to the organization in the database.
  * @param req - Express request object.
  * @param res - Express response object.
  * @returns Response containing the updated dictionary.
  */
-export const updateOrganizationMembers = async (
-  req: Request<any, any, UpdateOrganizationMembersBody>,
-  res: ResponseWithInformation<UpdateOrganizationMembersResult>
+export const addOrganizationMember = async (
+  req: Request<any, any, AddOrganizationMemberBody>,
+  res: ResponseWithInformation<AddOrganizationMemberResult>
 ): Promise<void> => {
   const { organization, isOrganizationAdmin } = res.locals;
-  const { membersEmails, membersIds } = req.body;
+  const { userEmail } = req.body;
 
   if (!organization) {
     const errorMessage = 'Organization not found';
@@ -404,7 +399,109 @@ export const updateOrganizationMembers = async (
     return;
   }
 
-  if (membersEmails?.length === 0 && membersIds?.length === 0) {
+  try {
+    let user = await getUserByEmailService(userEmail);
+
+    if (!user) {
+      // Create user if not found
+      const newUser = await createUserService({ email: userEmail });
+      if (!newUser) {
+        const errorMessage = 'Error creating the user';
+
+        logger.error(errorMessage);
+
+        const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+        const responseData = formatResponse<Organization>({
+          error: errorMessage,
+          status: responseCode,
+        });
+
+        res.status(responseCode).json(responseData);
+        return;
+      }
+
+      user = newUser;
+    }
+
+    const updatedOrganization = await updateOrganizationByIdService(
+      organization._id,
+      {
+        ...organization,
+        membersIds: [...organization.membersIds, user._id],
+      }
+    );
+
+    const responseData = formatResponse<Organization>({
+      data: updatedOrganization,
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    const errorMessage: string = (error as Error).message;
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+};
+
+export type UpdateOrganizationMembersBody = Partial<{
+  membersIds: OrganizationMemberByIdOption[];
+}>;
+export type UpdateOrganizationMembersResult = ResponseData<Organization>;
+
+/**
+ * Update members to the organization in the database.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @returns Response containing the updated dictionary.
+ */
+export const updateOrganizationMembers = async (
+  req: Request<any, any, UpdateOrganizationMembersBody>,
+  res: ResponseWithInformation<UpdateOrganizationMembersResult>
+): Promise<void> => {
+  const { organization, isOrganizationAdmin } = res.locals;
+  const { membersIds } = req.body;
+
+  if (!organization) {
+    const errorMessage = 'Organization not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+
+  if (!isOrganizationAdmin) {
+    const errorMessage = 'User is not admin of the organization';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+
+  if (membersIds?.length === 0) {
     const errorMessage = 'No members to update';
 
     logger.error(errorMessage);
@@ -420,7 +517,7 @@ export const updateOrganizationMembers = async (
   }
 
   try {
-    const existingUsers: UserAndAdmin[] = [];
+    let existingUsers: UserAndAdmin[] = [];
 
     if (membersIds) {
       const userIdList = membersIds?.map((member) => member.userId);
@@ -439,42 +536,7 @@ export const updateOrganizationMembers = async (
           };
         });
 
-        existingUsers.push(...userMap);
-      }
-    }
-    if (membersEmails) {
-      const userEmailList = membersEmails?.map((member) => member.userEmail);
-      const users = await getUsersByEmailsService(userEmailList);
-
-      if (users) {
-        const userMap: UserAndAdmin[] = users.map((user) => {
-          const isAdmin =
-            membersEmails.find((member) => member.userEmail === user.email)
-              ?.isAdmin ?? false;
-
-          return {
-            user,
-            isAdmin,
-          };
-        });
-
-        existingUsers.push(...userMap);
-      }
-
-      const noExistingUsers = membersEmails?.filter(
-        (member) =>
-          !existingUsers
-            .map((el) => el.user)
-            .includes((user) => user.email === member.userEmail)
-      );
-      if (noExistingUsers.length > 0) {
-        for (const el of noExistingUsers) {
-          const user = await createUserService({ email: el.userEmail });
-
-          if (user) {
-            existingUsers.push({ user, isAdmin: el.isAdmin ?? false });
-          }
-        }
+        existingUsers = userMap;
       }
     }
 

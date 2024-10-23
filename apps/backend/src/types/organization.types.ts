@@ -1,4 +1,4 @@
-import type { ObjectId } from 'mongoose';
+import type { ObjectId, Document } from 'mongoose';
 import type { User } from './user.types';
 
 export type OrganizationCreationData = {
@@ -17,3 +17,5 @@ export type Organization = OrganizationData & {
   createdAt: number;
   updatedAt: number;
 };
+
+export type OrganizationDocument = Document<Organization> & Organization;

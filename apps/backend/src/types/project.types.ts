@@ -1,4 +1,4 @@
-import type { Model, ObjectId } from 'mongoose';
+import type { Model, ObjectId, Document } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';
 
@@ -38,5 +38,7 @@ export type Project = ProjectData & {
   updatedAt: number;
   oAuth2Access: OAuth2Access[];
 };
+
+export type ProjectDocument = Document<Project> & Project;
 
 export type ProjectModelType = Model<Project>;

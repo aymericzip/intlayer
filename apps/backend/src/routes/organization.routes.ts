@@ -6,6 +6,7 @@ import {
   updateOrganization,
   updateOrganizationMembers,
   unselectOrganization,
+  addOrganizationMember,
 } from '@controllers/organization.controller';
 import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
@@ -38,6 +39,14 @@ organizationRouter.put(
     AccessRule.hasOrganization,
   ]),
   updateOrganizationMembers
+);
+organizationRouter.post(
+  '/member',
+  accessControlMiddleWare([
+    AccessRule.authenticated,
+    AccessRule.hasOrganization,
+  ]),
+  addOrganizationMember
 );
 organizationRouter.delete(
   '/',
