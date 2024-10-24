@@ -83,6 +83,10 @@ const nextConfig = {
       type: 'asset/source',
     });
 
+    config.externals.push({
+      '@intlayer/backend': '@intlayer/backend',
+    });
+
     return config;
   },
 
