@@ -21,6 +21,7 @@ export const packageBuildOptions = [
     outDir: 'dist/cjs',
     outExtension: () => ({
       js: '.cjs',
+      dts: '.d.ts',
     }),
   },
   {
@@ -29,6 +30,7 @@ export const packageBuildOptions = [
     outDir: 'dist/esm',
     outExtension: () => ({
       js: '.mjs',
+      dts: '.d.ts',
     }),
   },
 ];
