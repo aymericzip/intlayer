@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger/index';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
+import { sendEmail as sendEmailService } from '@services/email.service';
 import {
   clearOrganizationAuth as clearOrganizationAuthService,
   clearProjectAuth as clearProjectAuthService,
@@ -366,11 +368,26 @@ export const addOrganizationMember = async (
   req: Request<any, any, AddOrganizationMemberBody>,
   res: ResponseWithInformation<AddOrganizationMemberResult>
 ): Promise<void> => {
-  const { organization, isOrganizationAdmin } = res.locals;
+  const { organization, isOrganizationAdmin, user } = res.locals;
   const { userEmail } = req.body;
 
   if (!organization) {
     const errorMessage = 'Organization not found';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Organization>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+
+  if (!user) {
+    const errorMessage = 'User not found';
 
     logger.error(errorMessage);
 
@@ -400,9 +417,9 @@ export const addOrganizationMember = async (
   }
 
   try {
-    let user = await getUserByEmailService(userEmail);
+    let newMember = await getUserByEmailService(userEmail);
 
-    if (!user) {
+    if (!newMember) {
       // Create user if not found
       const newUser = await createUserService({ email: userEmail });
       if (!newUser) {
@@ -420,14 +437,26 @@ export const addOrganizationMember = async (
         return;
       }
 
-      user = newUser;
+      newMember = newUser;
     }
+
+    await sendEmailService({
+      type: 'invite',
+      to: userEmail,
+      username: newMember.email.slice(0, newMember.email.indexOf('@')),
+      invitedByUsername: user.name,
+      invitedByEmail: user.email,
+      organizationName: organization.name,
+      inviteLink: sessionAuthRoutes.loginEmailPassword.url,
+      inviteFromIp: req.ip ?? '',
+      inviteFromLocation: req.hostname,
+    });
 
     const updatedOrganization = await updateOrganizationByIdService(
       organization._id,
       {
         ...organization,
-        membersIds: [...organization.membersIds, user._id],
+        membersIds: [...organization.membersIds, newMember._id],
       }
     );
 

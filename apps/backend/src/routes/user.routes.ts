@@ -8,20 +8,72 @@ import {
 } from '@controllers/user.controller';
 import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
+import { Routes } from '@/types/Routes';
 
 export const userRouter: Router = Router();
 
-userRouter.get('/', accessControlMiddleWare(AccessRule.admin), getUsers);
-userRouter.put('/', accessControlMiddleWare(AccessRule.none), updateUser);
-userRouter.post('/', accessControlMiddleWare(AccessRule.admin), createUser);
+export const userRoutes = {
+  getUsers: {
+    urlModel: '/',
+    url: '/',
+    method: 'GET',
+  },
+  updateUser: {
+    urlModel: '/',
+    url: '/',
+    method: 'PUT',
+  },
+  createUser: {
+    urlModel: '/',
+    url: '/',
+    method: 'POST',
+  },
+  getUserById: {
+    urlModel: '/:userId',
+    url: ({ userId }: { userId: string }) => `/${userId}`,
+    method: 'GET',
+  },
+  getUserByEmail: {
+    urlModel: '/email/:email',
+    url: ({ email }: { email: string }) => `/email/${email}`,
+    method: 'GET',
+  },
+  getUserByAccount: {
+    urlModel: '/account/:provider/:providerAccountId',
+    url: ({
+      provider,
+      providerAccountId,
+    }: {
+      provider: string;
+      providerAccountId: string;
+    }) => `/account/${provider}/${providerAccountId}`,
+    method: 'GET',
+  },
+} satisfies Routes;
+
 userRouter.get(
-  '/:userId',
+  userRoutes.getUsers.urlModel,
+  accessControlMiddleWare(AccessRule.admin),
+  getUsers
+);
+userRouter.put(
+  userRoutes.updateUser.urlModel,
+  accessControlMiddleWare(AccessRule.none),
+  updateUser
+);
+userRouter.post(
+  userRoutes.createUser.urlModel,
+  accessControlMiddleWare(AccessRule.admin),
+  createUser
+);
+userRouter.get(
+  userRoutes.getUserById.urlModel,
   accessControlMiddleWare(AccessRule.authenticated),
   getUserById
 );
 userRouter.get(
-  '/email/:email',
+  userRoutes.getUserByEmail.urlModel,
   accessControlMiddleWare(AccessRule.authenticated),
   getUserByEmail
 );
-userRouter.get('/account/:provider/:providerAccountId', getUserByAccount);
+userRouter.get(userRoutes.getUserByAccount.urlModel, getUserByAccount);

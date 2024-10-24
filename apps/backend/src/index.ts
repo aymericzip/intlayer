@@ -1,8 +1,13 @@
-import { getOAuth2Token } from '@controllers/oAuth2.controller';
-import {
-  getSessionInformation,
-  setCSRFToken,
-} from '@controllers/sessionAuth.controller';
+/* eslint-disable import/order */
+
+// Libraries
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import cors, { type CorsOptions } from 'cors';
+import dotenv from 'dotenv';
+import express, { type Express } from 'express';
+
+// Middlewares
 import { checkAdmin } from '@middlewares/admin.middleware';
 import {
   attachOAuthInstance,
@@ -16,18 +21,26 @@ import {
   checkProject,
   ResponseWithInformation,
 } from '@middlewares/sessionAuth.middleware';
+
+// Routes
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
 import { sessionAuthRouter } from '@routes/sessionAuth.routes';
 import { userRouter } from '@routes/user.routes';
+
+// Controllers
+import { getOAuth2Token } from '@controllers/oAuth2.controller';
+import {
+  getSessionInformation,
+  setCSRFToken,
+} from '@controllers/sessionAuth.controller';
+
+// Utils
 import { doubleCsrfProtection } from '@utils/CSRF';
 import { connectDB } from '@utils/mongoDB/connectDB';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import cors, { type CorsOptions } from 'cors';
-import dotenv from 'dotenv';
-import express, { type Express } from 'express';
+
+// Logger
 import { logger } from './logger';
 
 const app: Express = express();
@@ -94,7 +107,6 @@ app.get('/csrf-token', setCSRFToken);
 // oAuth2
 app.use(/(.*)/, attachOAuthInstance);
 app.post('/oauth2/token', getOAuth2Token); // Route to get the token
-
 app.use(/(.*)/, (req, res, next) => {
   // If the request is not already authenticated check the oAuth2 token
   if (!res.locals.authType) {

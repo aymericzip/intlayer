@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
+import { sendEmail as sendEmailService } from '@services/email.service';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { UserFiltersParam } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -63,6 +65,13 @@ export const createUser = async (
 
   try {
     const newUser = await createUserService(user);
+
+    await sendEmailService({
+      type: 'welcome',
+      to: newUser.email,
+      username: newUser.name,
+      loginLink: sessionAuthRoutes.loginEmailPassword.url,
+    });
 
     const formattedUser = formatUserForAPIService(newUser);
 

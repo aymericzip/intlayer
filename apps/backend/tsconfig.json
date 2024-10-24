@@ -22,6 +22,7 @@
       "@middlewares/*": ["./middlewares/*"],
       "@logger/*": ["./logger/*"],
       "@schemas/*": ["./schemas/*"],
+      "@emails/*": ["./emails/*"],
       "@utils/*": ["./utils/*"],
       "@utils/ts-config/tsup": ["../../utils/ts-config/tsup-config.mjs"],
       "@/*": ["./*"]

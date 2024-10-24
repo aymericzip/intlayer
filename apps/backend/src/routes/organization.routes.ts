@@ -10,22 +10,67 @@ import {
 } from '@controllers/organization.controller';
 import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
+import { Routes } from '@/types/Routes';
 
 export const organizationRouter: Router = Router();
 
+export const organizationRoutes = {
+  getOrganizations: {
+    urlModel: '/',
+    url: '/',
+    method: 'GET',
+  },
+  addOrganization: {
+    urlModel: '/',
+    url: '/',
+    method: 'POST',
+  },
+  updateOrganization: {
+    urlModel: '/',
+    url: '/',
+    method: 'PUT',
+  },
+  updateOrganizationMembers: {
+    urlModel: '/members',
+    url: '/members',
+    method: 'PUT',
+  },
+  addOrganizationMember: {
+    urlModel: '/member',
+    url: '/member',
+    method: 'POST',
+  },
+  deleteOrganization: {
+    urlModel: '/',
+    url: '/',
+    method: 'DELETE',
+  },
+  selectOrganization: {
+    urlModel: '/:organizationId',
+    url: ({ organizationId }: { organizationId: string }) =>
+      `/${organizationId}`,
+    method: 'PUT',
+  },
+  unselectOrganization: {
+    urlModel: '/logout',
+    url: '/logout',
+    method: 'POST',
+  },
+} satisfies Routes;
+
 organizationRouter.get(
-  '/',
+  organizationRoutes.getOrganizations.urlModel,
   accessControlMiddleWare(AccessRule.authenticated),
   getOrganizations
 );
 
 organizationRouter.post(
-  '/',
+  organizationRoutes.addOrganization.urlModel,
   accessControlMiddleWare(AccessRule.authenticated),
   addOrganization
 );
 organizationRouter.put(
-  '/',
+  organizationRoutes.updateOrganization.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -33,7 +78,7 @@ organizationRouter.put(
   updateOrganization
 );
 organizationRouter.put(
-  '/members',
+  organizationRoutes.updateOrganizationMembers.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -41,7 +86,7 @@ organizationRouter.put(
   updateOrganizationMembers
 );
 organizationRouter.post(
-  '/member',
+  organizationRoutes.addOrganizationMember.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -49,7 +94,7 @@ organizationRouter.post(
   addOrganizationMember
 );
 organizationRouter.delete(
-  '/',
+  organizationRoutes.deleteOrganization.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -57,13 +102,13 @@ organizationRouter.delete(
   deleteOrganization
 );
 organizationRouter.put(
-  '/:organizationId',
+  organizationRoutes.selectOrganization.urlModel,
   accessControlMiddleWare([AccessRule.authenticated]),
   selectOrganization
 );
 
 organizationRouter.post(
-  '/logout',
+  organizationRoutes.unselectOrganization.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,

@@ -14,11 +14,65 @@ import {
 } from '@controllers/projectAccessKey.controller';
 import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
+import { Routes } from '@/types/Routes';
 
 export const projectRouter: Router = Router();
 
+export const projectRoutes = {
+  getProjects: {
+    urlModel: '/',
+    url: '/',
+    method: 'GET',
+  },
+  addProject: {
+    urlModel: '/',
+    url: '/',
+    method: 'POST',
+  },
+  updateProject: {
+    urlModel: '/',
+    url: '/',
+    method: 'PUT',
+  },
+  updateProjectMembers: {
+    urlModel: '/members',
+    url: '/members',
+    method: 'PUT',
+  },
+  deleteProject: {
+    urlModel: '/',
+    url: '/',
+    method: 'DELETE',
+  },
+  selectProject: {
+    urlModel: '/:projectId',
+    url: ({ projectId }: { projectId: string }) => `/${projectId}`,
+    method: 'PUT',
+  },
+  unselectProject: {
+    urlModel: '/logout',
+    url: '/logout',
+    method: 'POST',
+  },
+  addNewAccessKey: {
+    urlModel: '/access_key',
+    url: '/access_key',
+    method: 'POST',
+  },
+  refreshAccessKey: {
+    urlModel: '/access_key',
+    url: '/access_key',
+    method: 'PATCH',
+  },
+  deleteAccessKey: {
+    urlModel: '/access_key',
+    url: '/access_key',
+    method: 'DELETE',
+  },
+} satisfies Routes;
+
 projectRouter.get(
-  '/',
+  projectRoutes.getProjects.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -27,7 +81,7 @@ projectRouter.get(
 );
 
 projectRouter.post(
-  '/',
+  projectRoutes.addProject.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -35,7 +89,7 @@ projectRouter.post(
   addProject
 );
 projectRouter.put(
-  '/',
+  projectRoutes.updateProject.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -44,7 +98,7 @@ projectRouter.put(
   updateProject
 );
 projectRouter.put(
-  '/members',
+  projectRoutes.updateProjectMembers.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -53,7 +107,7 @@ projectRouter.put(
   updateProjectMembers
 );
 projectRouter.delete(
-  '/',
+  projectRoutes.deleteProject.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -63,7 +117,7 @@ projectRouter.delete(
 );
 
 projectRouter.post(
-  '/access_key',
+  projectRoutes.addNewAccessKey.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -73,7 +127,7 @@ projectRouter.post(
 );
 
 projectRouter.patch(
-  '/access_key',
+  projectRoutes.refreshAccessKey.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -83,7 +137,7 @@ projectRouter.patch(
 );
 
 projectRouter.delete(
-  '/access_key',
+  projectRoutes.deleteAccessKey.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -93,7 +147,7 @@ projectRouter.delete(
 );
 
 projectRouter.post(
-  '/logout',
+  projectRoutes.unselectProject.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,
@@ -103,7 +157,7 @@ projectRouter.post(
 );
 
 projectRouter.put(
-  '/:projectId',
+  projectRoutes.selectProject.urlModel,
   accessControlMiddleWare([
     AccessRule.authenticated,
     AccessRule.hasOrganization,

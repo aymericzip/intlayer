@@ -201,7 +201,7 @@ export const MembersForm: FC = () => {
                 {noMembers}
               </span>
             )}
-            <div className="border-text dark:border-text-dark flex max-h-32 flex-col gap-2 overflow-auto rounded-xl border-2 p-2">
+            <div className="border-text dark:border-text-dark flex max-h-48 flex-col gap-2 overflow-auto rounded-xl border-2 p-2">
               {organization?.membersIds.map((memberId) => (
                 <div
                   key={String(memberId)}

@@ -7,11 +7,40 @@ import {
 } from '@controllers/dictionary.controller';
 import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
+import { Routes } from '@/types/Routes';
 
 export const dictionaryRouter: Router = Router();
 
+export const dictionaryRoutes = {
+  getDictionaries: {
+    urlModel: '/',
+    url: '/',
+    method: 'GET',
+  },
+  addDictionary: {
+    urlModel: '/',
+    url: '/',
+    method: 'POST',
+  },
+  pushDictionaries: {
+    urlModel: '/',
+    url: '/',
+    method: 'PATCH',
+  },
+  updateDictionary: {
+    urlModel: '/',
+    url: '/',
+    method: 'PUT',
+  },
+  deleteDictionary: {
+    urlModel: '/',
+    url: '/',
+    method: 'DELETE',
+  },
+} satisfies Routes;
+
 dictionaryRouter.get(
-  '/',
+  dictionaryRoutes.getDictionaries.urlModel,
   accessControlMiddleWare(
     [
       AccessRule.authenticated,
@@ -24,7 +53,7 @@ dictionaryRouter.get(
 );
 
 dictionaryRouter.post(
-  '/',
+  dictionaryRoutes.addDictionary.urlModel,
   accessControlMiddleWare(
     [
       AccessRule.authenticated,
@@ -36,7 +65,7 @@ dictionaryRouter.post(
   addDictionary
 );
 dictionaryRouter.patch(
-  '/',
+  dictionaryRoutes.pushDictionaries.urlModel,
   accessControlMiddleWare(
     [
       AccessRule.authenticated,
@@ -48,7 +77,7 @@ dictionaryRouter.patch(
   pushDictionaries
 );
 dictionaryRouter.put(
-  '/',
+  dictionaryRoutes.updateDictionary.urlModel,
   accessControlMiddleWare(
     [
       AccessRule.authenticated,
@@ -60,7 +89,7 @@ dictionaryRouter.put(
   updateDictionary
 );
 dictionaryRouter.delete(
-  '/',
+  dictionaryRoutes.deleteDictionary.urlModel,
   accessControlMiddleWare(
     [
       AccessRule.authenticated,

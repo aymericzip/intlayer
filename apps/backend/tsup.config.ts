@@ -3,8 +3,9 @@ import { type Options, defineConfig } from 'tsup';
 
 const option: Options[] = [
   {
+    // Package build code
     ...commonOptions,
-    entryPoints: ['export.ts'],
+    entryPoints: ['src/**/*', 'export.ts'],
     bundle: true,
     tsconfig: 'tsconfig.package.json',
     dts: false,
@@ -15,9 +16,10 @@ const option: Options[] = [
     }),
   } as Options,
   {
+    // Package build code
     ...commonOptions,
-    entryPoints: ['export.ts'],
-    bundle: true,
+    entryPoints: ['src/**/*', 'export.ts'],
+    bundle: false,
     tsconfig: 'tsconfig.package.json',
     dts: true,
     outDir: 'dist/package',
@@ -28,6 +30,7 @@ const option: Options[] = [
     }),
   } as Options,
   {
+    // Backend build code
     ...commonOptions,
     format: ['esm'],
     outExtension: () => ({

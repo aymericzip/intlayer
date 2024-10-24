@@ -7,13 +7,13 @@ export type RecursiveDictionaryValue =
   | number
   | string
   | undefined
-  | { [paramKey: string]: RecursiveDictionaryValue }
-  | RecursiveDictionaryValue[];
+  | { [paramKey: string]: DictionaryValue };
 
 export type DictionaryValue =
   | RecursiveDictionaryValue
   | TranslationContent<RecursiveDictionaryValue>
-  | EnumerationContent<RecursiveDictionaryValue>;
+  | EnumerationContent<RecursiveDictionaryValue>
+  | RecursiveDictionaryValue[];
 
 export type Dictionary = {
   key: string;

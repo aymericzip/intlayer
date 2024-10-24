@@ -59,6 +59,7 @@ export default defineConfig(() => ({
 
     rollupOptions: {
       external: [
+        ...Object.keys(packageJson.dependencies),
         ...Object.keys(packageJson.peerDependencies),
         ...Object.keys(packageJson.devDependencies),
         '@intlayer/config/client',

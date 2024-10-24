@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
+import { sendEmail as sendEmailService } from '@services/email.service';
 import {
   clearOrganizationAuth as clearOrganizationAuthService,
   clearProjectAuth as clearProjectAuthService,
@@ -454,6 +456,13 @@ export const validEmail = async (
     `User activated - User: Name: ${user.name}, id: ${String(user._id)}`
   );
 
+  await sendEmailService({
+    type: 'welcome',
+    to: user.email,
+    username: user.name,
+    loginLink: sessionAuthRoutes.loginEmailPassword.url,
+  });
+
   const formattedUser = formatUserForAPIService(user);
   const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
@@ -512,6 +521,19 @@ export const askResetPassword = async (
     logger.info(
       `Ask changing password - User: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
     );
+
+    await sendEmailService({
+      type: 'resetPassword',
+      to: updatedUser.email,
+      username: updatedUser.name,
+      resetLink: sessionAuthRoutes.resetPassword.url({
+        userId: String(updatedUser._id),
+        secret:
+          updatedUser.provider?.find(
+            (provider) => provider.provider === 'email'
+          )?.secret ?? '',
+      }),
+    });
 
     const responseData = formatResponse<undefined>({ data: undefined });
 
@@ -591,6 +613,12 @@ export const resetPassword = async (
     logger.info(
       `Password changed - User: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
     );
+
+    await sendEmailService({
+      type: 'passwordChangeConfirmation',
+      to: updatedUser.email,
+      username: updatedUser.name,
+    });
 
     const formattedUser = formatUserForAPIService(updatedUser);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
@@ -892,6 +920,13 @@ export const githubCallback = async (
       `GitHub login - User: Name: ${user.name}, id: ${String(user._id)}`
     );
 
+    await sendEmailService({
+      type: 'welcome',
+      to: user.email,
+      username: user.name,
+      loginLink: sessionAuthRoutes.loginEmailPassword.url,
+    });
+
     res.redirect(redirect_uri);
   } catch (err) {
     const errorMessage: string = (err as { message: string }).message;
@@ -1095,6 +1130,13 @@ export const googleCallback = async (
     logger.info(
       `Google login - User: Name: ${user.name}, id: ${String(user._id)}`
     );
+
+    await sendEmailService({
+      type: 'welcome',
+      to: user.email,
+      username: user.name,
+      loginLink: sessionAuthRoutes.loginEmailPassword.url,
+    });
 
     // res.redirect(redirect_uri);
   } catch (err) {
