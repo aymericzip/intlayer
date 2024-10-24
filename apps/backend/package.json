@@ -34,28 +34,28 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/package/export.d.mjs",
-      "require": "./dist/package/export.cjs",
-      "import": "./dist/package/export.mjs"
+      "types": "./dist/esm/export.d.mjs",
+      "require": "./dist/cjs/export.cjs",
+      "import": "./dist/esm/export.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/build/index.cjs",
-  "module": "dist/build/index.mjs",
-  "types": "dist/package/index.d.ts",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/esm/index.d.ts",
   "files": [
-    "./dist/package",
+    "./dist",
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup && tsc-alias",
+    "build": "tsup",
     "dev": "node --import=tsx --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "start": "node --import=tsx dist/build/index.js"
+    "start": "node --import=tsx dist/esm/index.mjs"
   },
   "dependencies": {
     "@intlayer/core": "workspace:^",

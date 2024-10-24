@@ -13,7 +13,7 @@
     "strictNullChecks": true,
     "moduleResolution": "Bundler",
     "module": "Preserve",
-    "outDir": "dist/build",
+    "outDir": "dist",
     "paths": {
       "@controllers/*": ["./controllers/*"],
       "@models/*": ["./models/*"],
@@ -29,6 +29,7 @@
     }
   },
   "tsc-alias": {
-    "resolveFullPaths": true
+    "resolveFullPaths": true,
+    "verbose": true
   }
 }

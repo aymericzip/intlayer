@@ -1,15 +1,22 @@
-import { forceExtensionsPlugin } from './forceEsmExtensionsPlugin.mjs';
+import { fixAliasPlugin } from './fixAliasPlugin.mjs';
+import { fixExtensionsPlugin } from './fixExtensionsPlugin.mjs';
+import { fixFolderImportsPlugin } from './fixFolderImportsPlugin.mjs';
 
 /** @type {import('tsup').Options} */
 export const commonOptions = {
-  entryPoints: ['src/**/*'],
+  entry: ['src/**/*'],
   target: 'esnext',
   dts: true,
   external: ['fs', 'path'],
   clean: true,
   sourcemap: true,
   bundle: false,
-  esbuildPlugins: [forceExtensionsPlugin()],
+  tsConfig: './tsconfig.json',
+  esbuildPlugins: [
+    fixAliasPlugin(),
+    fixFolderImportsPlugin(),
+    fixExtensionsPlugin(),
+  ],
 };
 
 /** @type {import('tsup').Options[]} */

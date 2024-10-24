@@ -82,9 +82,6 @@ const nextConfig = {
       // This is the asset module.
       type: 'asset/source',
     });
-    config.externals.push({
-      '@intalyer/backend': '@intalyer/backend',
-    });
 
     return config;
   },
