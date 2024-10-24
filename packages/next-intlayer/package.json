@@ -89,7 +89,7 @@
     "@intlayer/webpack": "workspace:^",
     "intlayer": "workspace:^",
     "negotiator": "^0.6.3",
-    "next": "14.2.15",
+    "next": "14.2.16",
     "react-intlayer": "workspace:^",
     "webpack": "^5.93.0"
   },
