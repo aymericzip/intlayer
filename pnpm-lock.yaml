@@ -185,6 +185,9 @@ importers:
       '@utils/ts-config':
         specifier: workspace:^
         version: link:../../utils/ts-config
+      esbuild-fix-imports-plugin:
+        specifier: ^1.0.1
+        version: 1.0.1
       eslint:
         specifier: ^9.11.1
         version: 9.12.0
@@ -1546,6 +1549,9 @@ importers:
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
+      esbuild-fix-imports-plugin:
+        specifier: ^1.0.1
+        version: 1.0.1
       eslint:
         specifier: ^9.11.1
         version: 9.12.0
@@ -18756,6 +18762,13 @@ packages:
       is-callable: 1.2.7
       is-date-object: 1.0.5
       is-symbol: 1.0.4
+
+  /esbuild-fix-imports-plugin@1.0.1:
+    resolution:
+      {
+        integrity: sha512-+j/y/X9T443bvgT/WgWHtcTa3Oh7hLqixnatXEWp6sMqL/mbZaHnwlftAUEVo+6ogjCdqy6Wyx19r+bp54LGsQ==,
+      }
+    dev: true
 
   /esbuild-loader@4.2.2(webpack@5.95.0):
     resolution:

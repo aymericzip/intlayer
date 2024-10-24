@@ -1,6 +1,4 @@
-import { fixAliasPlugin } from './fixAliasPlugin.mjs';
-import { fixExtensionsPlugin } from './fixExtensionsPlugin.mjs';
-import { fixFolderImportsPlugin } from './fixFolderImportsPlugin.mjs';
+import { fixImportsPlugin } from 'esbuild-fix-imports-plugin';
 
 /** @type {import('tsup').Options} */
 export const commonOptions = {
@@ -12,11 +10,7 @@ export const commonOptions = {
   sourcemap: true,
   bundle: false,
   tsConfig: './tsconfig.json',
-  esbuildPlugins: [
-    fixAliasPlugin(),
-    fixFolderImportsPlugin(),
-    fixExtensionsPlugin(),
-  ],
+  esbuildPlugins: [fixImportsPlugin()],
 };
 
 /** @type {import('tsup').Options[]} */
