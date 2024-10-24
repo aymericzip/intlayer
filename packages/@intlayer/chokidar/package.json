@@ -91,7 +91,7 @@
     "eslint": "^9.11.1",
     "node-polyfill-webpack-plugin": "^3.0.0",
     "prettier": "3.3.3",
-    "tsup": "^8.1.0",
+    "tsup": "^8.3.0",
     "typescript": "^5.5.2",
     "webpack-watch-files-plugin": "^1.2.1"
   },

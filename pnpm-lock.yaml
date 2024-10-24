@@ -621,7 +621,7 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2
@@ -725,7 +725,7 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2
@@ -768,7 +768,7 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2
@@ -995,7 +995,7 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2
@@ -1071,7 +1071,7 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2
@@ -1117,7 +1117,7 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2
@@ -1157,7 +1157,7 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2
@@ -1260,7 +1260,7 @@ importers:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.16.11)(typescript@5.6.3)
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2
@@ -1415,7 +1415,7 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       tsup:
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(postcss@8.4.47)(typescript@5.6.3)
       typescript:
         specifier: ^5.5.2

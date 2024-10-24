@@ -92,7 +92,7 @@
     "@utils/ts-config": "workspace:^",
     "eslint": "^9.11.1",
     "prettier": "3.3.3",
-    "tsup": "^8.1.0",
+    "tsup": "^8.3.0",
     "typescript": "^5.5.2"
   },
   "engines": {
