@@ -1,8 +1,8 @@
 'use client';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useCallback, useMemo } from 'react';
-import { useAsyncCacheStore } from './useAsyncCacheStore';
+import { useCallback, useEffect, useRef } from 'react';
+import { useAsyncStateStore } from './useAsyncStateStore';
 
 type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
   isLoading: boolean;
@@ -16,186 +16,121 @@ type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
 type UseAsyncOptions = {
   retryLimit?: number;
   revalidateTime?: number; // Revalidation time in milliseconds
-  generateKey?: (...args: any[]) => string;
   cache?: boolean;
 };
 
 const DEFAULT_CACHE_ENABLED = false;
-const DEFAULT_RETRY_LIMIT = 3;
+const DEFAULT_RETRY_LIMIT = 1;
 const DEFAULT_REVALIDATE_TIME = 5 * 60 * 1000; // 5 minutes
 
 export const useAsync = <
   U extends string,
   T extends (...args: any[]) => Promise<any>,
 >(
-  functionName: U,
+  key: U,
   asyncFunction: T,
   options?: UseAsyncOptions
 ): UseAsyncResultBase<T> & Record<U, T> => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [isSuccess, setIsSuccess] = useState(false);
-  type DataType = Awaited<ReturnType<T>>;
-  const [data, setData] = useState<DataType | null>(null);
-  const [retryCount, setRetryCount] = useState(0);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const {
+    setIsLoading,
+    setError,
+    setIsSuccess,
+    setData,
+    incrementRetryCount,
+    resetRetryCount,
+    setIsDisabled,
+  } = useAsyncStateStore((state) => ({
+    setIsLoading: state.setIsLoading,
+    setError: state.setError,
+    setIsSuccess: state.setIsSuccess,
+    setData: state.setData,
+    incrementRetryCount: state.incrementRetryCount,
+    resetRetryCount: state.resetRetryCount,
+    setIsDisabled: state.setIsDisabled,
+  }));
+  const { isLoading, error, isSuccess, data, retryCount, isDisabled } =
+    useAsyncStateStore((state) => state.getStates(key));
 
   const retryLimit = options?.retryLimit ?? DEFAULT_RETRY_LIMIT;
   const revalidateTime = options?.revalidateTime ?? DEFAULT_REVALIDATE_TIME;
-  const generateKey = options?.generateKey;
   const cacheEnabled = options?.cache ?? DEFAULT_CACHE_ENABLED;
 
-  const cacheStore = useAsyncCacheStore();
+  // Ref to store the last arguments used
+  const storedArgsRef = useRef<any[]>([]);
 
   const execute: T = useCallback<T>(
-    // eslint-disable-next-line sonarjs/cognitive-complexity
     (async (...args) => {
-      setIsLoading(true);
-      setError(null);
-      setIsSuccess(false);
-      setIsDisabled(false);
+      storedArgsRef.current = args;
 
-      let cacheKey: string | undefined;
-      if (cacheEnabled) {
-        // Generate a cache key
-        if (generateKey) {
-          cacheKey = generateKey(...args);
-        } else {
-          try {
-            cacheKey = `${functionName}:${JSON.stringify(args)}`;
-          } catch {
-            console.error(
-              'Arguments cannot be serialized. Provide a custom generateKey function.'
-            );
-            cacheKey = functionName;
-          }
-        }
-      }
+      if (isDisabled) return;
 
-      const now = Date.now();
-      let cachedEntry;
-      if (cacheEnabled && cacheKey) {
-        cachedEntry = cacheStore.getCache(cacheKey);
-        if (cachedEntry && now < cachedEntry.expireAt) {
-          // Return cached data
-          setData(cachedEntry.data);
-          setIsSuccess(true);
-          setIsLoading(false);
-          return cachedEntry.data;
-        }
-      }
+      if (isSuccess && data) return data;
 
-      let pendingPromise;
-      if (cacheEnabled && cacheKey) {
-        // Check for pending promise
-        pendingPromise = cacheStore.getPendingPromise(cacheKey);
-      }
+      setIsLoading(key, true);
 
-      if (cacheEnabled && pendingPromise) {
-        // Wait for the pending promise
-        try {
-          const result = await pendingPromise;
-          setData(result ?? null);
-          setIsSuccess(true);
-          setRetryCount(0); // Reset retry count on success
-          setIsLoading(false);
+      let response = null;
+      await asyncFunction(...args)
+        .then((result) => {
+          response = result;
+          setData(key, result);
+          setIsSuccess(key, true);
+          incrementRetryCount(key);
+        })
+        .catch((error) => {
+          const errorMessage = error.message ?? 'An error occurred';
+          setError(key, errorMessage);
+          resetRetryCount(key);
+          setIsDisabled(key, true);
+        })
+        .finally(() => {
+          setIsLoading(key, false);
+        });
 
-          return result;
-        } catch (err) {
-          const errorMessage =
-            (err as { message: string }).message ?? 'Something went wrong';
-
-          setError(errorMessage);
-
-          setRetryCount((prev) => {
-            const newRetryCount = prev + 1;
-            if (newRetryCount >= retryLimit) {
-              setIsDisabled(true);
-            }
-            return newRetryCount;
-          });
-
-          setIsLoading(false);
-          throw new Error(errorMessage);
-        }
-      } else {
-        // No pending promise, execute the function
-        const promise = asyncFunction(...args);
-
-        if (cacheEnabled && cacheKey) {
-          // Store the pending promise
-          cacheStore.setPendingPromise(cacheKey, promise);
-        }
-
-        try {
-          const result = await promise;
-          setData(result ?? null);
-          setIsSuccess(true);
-          setRetryCount(0); // Reset retry count on success
-          setIsLoading(false);
-
-          if (cacheEnabled && cacheKey) {
-            // Cache the result
-            const expireAt =
-              revalidateTime > 0 ? now + revalidateTime : Infinity;
-            cacheStore.setCache(cacheKey, {
-              data: result,
-              timestamp: now,
-              expireAt,
-            });
-
-            // Remove the pending promise
-            cacheStore.removePendingPromise(cacheKey);
-          }
-
-          return result;
-        } catch (err) {
-          const errorMessage =
-            (err as { message: string }).message ?? 'Something went wrong';
-
-          setError(errorMessage);
-
-          setRetryCount((prev) => {
-            const newRetryCount = prev + 1;
-            if (newRetryCount >= retryLimit) {
-              setIsDisabled(true);
-            }
-            return newRetryCount;
-          });
-
-          setIsLoading(false);
-
-          if (cacheEnabled && cacheKey) {
-            // Remove the pending promise
-            cacheStore.removePendingPromise(cacheKey);
-          }
-
-          throw new Error(errorMessage);
-        }
-      }
+      return response;
     }) as T,
-    [
-      asyncFunction,
-      cacheStore,
-      functionName,
-      generateKey,
-      revalidateTime,
-      retryLimit,
-      cacheEnabled,
-    ]
+    [asyncFunction, key, isSuccess, data, isDisabled]
   );
 
-  return useMemo(
-    () =>
-      ({
-        isLoading,
-        error,
-        isSuccess,
-        data,
-        retryCount,
-        isDisabled,
-        [functionName]: execute,
-      }) as UseAsyncResultBase<T> & Record<U, T>,
-    [isLoading, error, isSuccess, data, retryCount, isDisabled, execute]
-  );
+  // Retry mechanism
+  useEffect(() => {
+    const isRetryEnabled = retryCount > 0 && retryLimit > 0;
+    const isRetryLimitReached = retryCount >= retryLimit;
+
+    if (!isRetryEnabled || isRetryLimitReached || isSuccess) return;
+
+    const interval = setInterval(() => {
+      if (isRetryEnabled && !isRetryLimitReached && !isSuccess) {
+        execute(...storedArgsRef.current);
+      }
+    }, revalidateTime);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [execute, retryCount, retryLimit, revalidateTime]);
+
+  // Periodic revalidation
+  useEffect(() => {
+    if (!cacheEnabled || revalidateTime <= 0 || !isSuccess) return;
+
+    const interval = setInterval(() => {
+      if (cacheEnabled && revalidateTime > 0 && isSuccess) {
+        execute(...storedArgsRef.current);
+      }
+    }, revalidateTime);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [cacheEnabled, revalidateTime, execute]);
+
+  return {
+    isLoading,
+    error,
+    isSuccess,
+    data,
+    retryCount,
+    isDisabled,
+    [key]: execute,
+  } as UseAsyncResultBase<T> & Record<U, T>;
 };

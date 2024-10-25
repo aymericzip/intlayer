@@ -17,10 +17,12 @@ export const useVerifyEmail = () =>
 export const useGetUserByAccount = () =>
   useAsync('getUserByAccount', useIntlayerAPI().user.getUserByAccount, {
     cache: true,
+    retryLimit: 3,
   });
 export const useGetUsers = () =>
   useAsync('getUsers', useIntlayerAPI().user.getUsers, {
     cache: true,
+    retryLimit: 3,
   });
 export const useCreateUser = () =>
   useAsync('createUser', useIntlayerAPI().user.createUser);
@@ -32,6 +34,7 @@ export const useDeleteUser = () =>
 export const useGetOrganizations = () =>
   useAsync('getOrganizations', useIntlayerAPI().organization.getOrganizations, {
     cache: true,
+    retryLimit: 3,
   });
 export const useAddOrganization = () =>
   useAsync('addOrganization', useIntlayerAPI().organization.addOrganization);
@@ -69,6 +72,8 @@ export const useUnselectOrganization = () =>
 export const useGetProjects = () =>
   useAsync('getProjects', useIntlayerAPI().project.getProjects, {
     cache: true,
+    retryLimit: 3,
+    revalidateTime: 5 * 1000,
   });
 export const useAddProject = () =>
   useAsync('addProject', useIntlayerAPI().project.addProject);

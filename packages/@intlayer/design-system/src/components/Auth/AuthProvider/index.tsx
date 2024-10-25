@@ -15,7 +15,7 @@ import {
   useState,
   useEffect,
 } from 'react';
-import { useAsyncCacheStore } from '../../../hooks/useAsync/useAsyncCacheStore';
+import { useAsyncStateStore } from '../../../hooks/useAsync/useAsyncStateStore';
 import { useCSRF } from './useCSRF';
 import { useOAuth2 } from './useOAuth2';
 import { useSession } from './useSession';
@@ -72,7 +72,7 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   const [isProjectAdmin, setIsProjectAdmin] = useState<boolean>(false);
   const [isOrganizationAdmin, setIsOrganizationAdmin] =
     useState<boolean>(false);
-  const clearCache = useAsyncCacheStore((state) => state.clearCache);
+  const clearCache = useAsyncStateStore((state) => state.resetState);
 
   useEffect(() => {
     if (session?.user && session.organization) {
