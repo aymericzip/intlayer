@@ -1,4 +1,4 @@
-import { logger } from '@logger/index';
+import { logger } from '@logger';
 import { OrganizationModel } from '@models/organization.model';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import {

@@ -1,6 +1,6 @@
+import { logger } from '@logger';
 import type { Request, NextFunction } from 'express';
 import type { ResponseWithInformation } from './sessionAuth.middleware';
-import { logger } from '@/logger';
 
 export const logAPIRequestURL = (
   req: Request,
