@@ -23,7 +23,7 @@ const DocNavTitles2: FC<DocNavTitles2Props> = ({
   return (
     <div className="border-neutral dark:border-neutral-dark sticky top-20 flex w-full min-w-52 flex-col gap-5 border-l-[0.5px] pl-3">
       {title2.map((h3) => {
-        const id = h3.id;
+        const { id } = h3;
 
         return (
           <a

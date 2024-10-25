@@ -148,7 +148,9 @@ const HeadingWrapper: HeadingType = ({
   );
 };
 
-export const H1 = StyledH1;
+export const H1: FC<HeadingProps> = ({ isClickable: _, ...props }) => (
+  <StyledH1 {...props} />
+);
 
 export const H2: FC<HeadingProps> = ({ isClickable = false, ...props }) => (
   <HeadingWrapper H={StyledH2} isClickable={isClickable} {...props} />
