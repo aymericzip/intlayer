@@ -14,46 +14,49 @@ import { Routes } from '@/types/Routes';
 
 export const organizationRouter: Router = Router();
 
+const baseURL = `${process.env.CLIENT_URL}/api/organization`;
+
 export const organizationRoutes = {
   getOrganizations: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'GET',
   },
   addOrganization: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'POST',
   },
   updateOrganization: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
+
     method: 'PUT',
   },
   updateOrganizationMembers: {
     urlModel: '/members',
-    url: '/members',
+    url: `${baseURL}/members`,
     method: 'PUT',
   },
   addOrganizationMember: {
     urlModel: '/member',
-    url: '/member',
+    url: `${baseURL}/member`,
     method: 'POST',
   },
   deleteOrganization: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'DELETE',
   },
   selectOrganization: {
     urlModel: '/:organizationId',
     url: ({ organizationId }: { organizationId: string }) =>
-      `/${organizationId}`,
+      `${baseURL}/${organizationId}`,
     method: 'PUT',
   },
   unselectOrganization: {
     urlModel: '/logout',
-    url: '/logout',
+    url: `${baseURL}/logout`,
     method: 'POST',
   },
 } satisfies Routes;

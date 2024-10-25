@@ -17,62 +17,64 @@ import { Routes } from '@/types/Routes';
 
 export const sessionAuthRouter: Router = Router();
 
+const baseURL = `${process.env.CLIENT_URL}/api/auth`;
+
 export const sessionAuthRoutes = {
   registerEmailPassword: {
     urlModel: '/register',
-    url: '/register',
+    url: `${baseURL}/register`,
     method: 'POST',
   },
   loginEmailPassword: {
     urlModel: '/login',
-    url: '/login',
+    url: `${baseURL}/login`,
     method: 'POST',
   },
   logOut: {
     urlModel: '/logout',
-    url: '/logout',
+    url: `${baseURL}/logout`,
     method: 'POST',
   },
   updatePassword: {
     urlModel: '/password',
-    url: '/password',
+    url: `${baseURL}/password`,
     method: 'PUT',
   },
   askResetPassword: {
     urlModel: '/password/reset',
-    url: '/password/reset',
+    url: `${baseURL}/password/reset`,
     method: 'POST',
   },
   resetPassword: {
     urlModel: '/:userId/password/reset/:secret',
     url: ({ userId, secret }: { userId: string; secret: string }) =>
-      `/${userId}/password/reset/${secret}`,
+      `${baseURL}/${userId}/password/reset/${secret}`,
     method: 'PUT',
   },
   validEmail: {
     urlModel: '/:userId/active/:secret',
     url: ({ userId, secret }: { userId: string; secret: string }) =>
-      `/${userId}/active/${secret}`,
+      `${baseURL}/${userId}/active/${secret}`,
     method: 'PUT',
   },
   githubLoginQuery: {
     urlModel: '/login/github',
-    url: '/login/github',
+    url: `${baseURL}/login/github`,
     method: 'GET',
   },
   githubCallback: {
     urlModel: '/callback/github',
-    url: '/callback/github',
+    url: `${baseURL}/callback/github`,
     method: 'GET',
   },
   googleLoginQuery: {
     urlModel: '/login/google',
-    url: '/login/google',
+    url: `${baseURL}/login/google`,
     method: 'GET',
   },
   googleCallback: {
     urlModel: '/callback/google',
-    url: '/callback/google',
+    url: `${baseURL}/callback/google`,
     method: 'GET',
   },
 } satisfies Routes;

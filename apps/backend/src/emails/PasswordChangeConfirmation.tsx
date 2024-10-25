@@ -26,7 +26,7 @@ export const PasswordChangeConfirmationEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="m-auto bg-black px-2 font-sans">
+        <Body className="m-auto px-2 font-sans">
           <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img

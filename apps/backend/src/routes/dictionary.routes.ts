@@ -11,30 +11,32 @@ import { Routes } from '@/types/Routes';
 
 export const dictionaryRouter: Router = Router();
 
+const baseURL = `${process.env.CLIENT_URL}/api/dictionary`;
+
 export const dictionaryRoutes = {
   getDictionaries: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'GET',
   },
   addDictionary: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'POST',
   },
   pushDictionaries: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'PATCH',
   },
   updateDictionary: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'PUT',
   },
   deleteDictionary: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'DELETE',
   },
 } satisfies Routes;

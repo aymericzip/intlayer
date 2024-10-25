@@ -12,30 +12,32 @@ import { Routes } from '@/types/Routes';
 
 export const userRouter: Router = Router();
 
+const baseURL = `${process.env.CLIENT_URL}/api/user`;
+
 export const userRoutes = {
   getUsers: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'GET',
   },
   updateUser: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'PUT',
   },
   createUser: {
     urlModel: '/',
-    url: '/',
+    url: baseURL,
     method: 'POST',
   },
   getUserById: {
     urlModel: '/:userId',
-    url: ({ userId }: { userId: string }) => `/${userId}`,
+    url: ({ userId }: { userId: string }) => `${baseURL}/${userId}`,
     method: 'GET',
   },
   getUserByEmail: {
     urlModel: '/email/:email',
-    url: ({ email }: { email: string }) => `/email/${email}`,
+    url: ({ email }: { email: string }) => `${baseURL}/email/${email}`,
     method: 'GET',
   },
   getUserByAccount: {
@@ -46,7 +48,7 @@ export const userRoutes = {
     }: {
       provider: string;
       providerAccountId: string;
-    }) => `/account/${provider}/${providerAccountId}`,
+    }) => `${baseURL}/account/${provider}/${providerAccountId}`,
     method: 'GET',
   },
 } satisfies Routes;
