@@ -114,7 +114,7 @@ const nextConfig = {
 };
 
 const nextConfigPWA = withPWA({
-  disable: !isProd,
+  disable: process.env.ENABLE_SERVICE_WORKER !== 'true',
   dest: 'public',
   register: true,
   skipWaiting: true,
