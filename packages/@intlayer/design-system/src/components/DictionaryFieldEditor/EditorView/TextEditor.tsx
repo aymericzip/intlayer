@@ -142,7 +142,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
               <Button
                 label="Remove"
                 variant="hoverable"
-                size="icon"
+                size="icon-md"
                 color="text"
                 Icon={X}
                 className="w-16"

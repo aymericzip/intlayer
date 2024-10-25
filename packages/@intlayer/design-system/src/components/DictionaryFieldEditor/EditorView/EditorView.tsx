@@ -70,10 +70,9 @@ export const EditorView: FC<EditorViewProps> = ({
               <Button
                 label="Remove key from section"
                 variant="hoverable"
-                size="icon"
+                size="icon-md"
                 color="text-inverse"
                 Icon={X}
-                className="w-16"
                 onClick={() => {
                   addEditedContent(dictionaryId, undefined, keyPath);
 

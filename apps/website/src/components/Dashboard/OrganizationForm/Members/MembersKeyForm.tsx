@@ -213,7 +213,7 @@ export const MembersForm: FC = () => {
                       color="text"
                       label={deleteMemberButton.label.value}
                       variant="hoverable"
-                      size="icon"
+                      size="icon-md"
                       onClick={() => handleRemoveMember(memberId)}
                     >
                       <X size={16} />

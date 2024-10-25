@@ -16,11 +16,14 @@ const buttonIconVariants = cva('size-4', {
       md: 'w-6',
       lg: 'w-7',
       xl: 'w-9',
-      icon: 'w-8 p-1',
+      'icon-sm': 'size-6 p-1',
+      'icon-md': 'size-7 p-1',
+      'icon-lg': 'size-9 p-1',
+      'icon-xl': 'size-10 p-1',
     },
   },
   defaultVariants: {
-    size: 'icon',
+    size: 'md',
   },
 });
 
@@ -33,7 +36,10 @@ const buttonVariants = cva(
         md: 'h-9 px-6 text-base',
         lg: 'h-10 px-8 text-lg',
         xl: 'h-11 px-10 text-xl',
-        icon: 'p-0',
+        'icon-sm': 'p-0',
+        'icon-md': 'p-0',
+        'icon-lg': 'p-0',
+        'icon-xl': 'p-0',
       },
       variant: {
         default: 'rounded-lg text-text-opposite dark:text-text-opposite-dark',
@@ -166,7 +172,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           isLoading={isLoading}
         />
 
-        <div className="flex-1">{children}</div>
+        {children && <div className="flex-1">{children}</div>}
 
         {IconRight && (
           <IconRight

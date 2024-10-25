@@ -75,12 +75,11 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             onClickDictionaryList?.();
           }}
           variant="hoverable"
-          size="icon"
+          size="icon-md"
           color="text"
+          Icon={ArrowLeft}
           label={returnToDictionaryList.label.value}
-        >
-          <ArrowLeft className="size-4" />
-        </Button>
+        />
         <KeyPathBreadcrumb
           dictionaryId={key}
           keyPath={keyPath}
