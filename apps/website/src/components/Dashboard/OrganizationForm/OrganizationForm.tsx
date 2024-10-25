@@ -28,13 +28,13 @@ const OrganizationFormContent: FC = () => {
       <div className="flex size-full max-w-[500px] flex-col items-center justify-center gap-4">
         <Container
           roundedSize="xl"
-          className="flex size-full max-w-[400px] justify-center p-6"
+          className="flex size-full justify-center p-6"
         >
           <OrganizationEditionForm />
         </Container>
         <Container
           roundedSize="xl"
-          className="flex size-full max-w-[400px] justify-center p-6"
+          className="flex size-full justify-center p-6"
         >
           <MembersForm />
         </Container>

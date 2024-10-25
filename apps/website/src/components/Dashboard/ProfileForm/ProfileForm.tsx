@@ -49,14 +49,14 @@ export const ProfileForm: FC = () => {
   return (
     <Container
       roundedSize="xl"
-      className="flex size-full max-w-[400px] justify-center p-6"
+      className="flex size-full max-w-[500px] justify-center p-6"
     >
       <H3 className="mb-8"> {title}</H3>
       <Form
         schema={SignInSchema}
         onSubmitSuccess={onSubmitSuccess}
         onSubmitError={onSubmitError}
-        className="w-full max-w-[400px]"
+        className="w-full"
         {...form}
       >
         <Form.Input
