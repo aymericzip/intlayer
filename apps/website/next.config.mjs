@@ -90,9 +90,9 @@ const nextConfig = {
     return config;
   },
 
-  compiler: {
-    removeConsole: isProd,
-  },
+  // compiler: {
+  //   removeConsole: isProd,
+  // },
 
   headers: async () => [
     {
