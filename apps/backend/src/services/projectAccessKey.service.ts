@@ -1,4 +1,4 @@
-import { logger } from '@logger/index';
+import { logger } from '@logger';
 import { ProjectModel } from '@models/project.model';
 import type { ObjectId } from 'mongoose';
 import { generateClientCredentials } from './oAuth2.service';

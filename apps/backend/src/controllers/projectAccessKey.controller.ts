@@ -1,4 +1,4 @@
-import { logger } from '@logger/index';
+import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   addNewAccessKey as addNewAccessKeyService,

@@ -1,7 +1,7 @@
+import { logger } from '@logger';
 import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import type { NextFunction, Request } from 'express';
 import { HttpStatusCodes } from './httpStatusCodes';
-import { logger } from '@/logger';
 
 export enum AccessRule {
   none = 'none',

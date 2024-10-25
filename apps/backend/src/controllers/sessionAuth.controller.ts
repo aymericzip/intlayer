@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail as sendEmailService } from '@services/email.service';
@@ -30,7 +31,6 @@ import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { logger } from '@/logger';
 import { Organization } from '@/types/organization.types';
 import { Project } from '@/types/project.types';
 import type {

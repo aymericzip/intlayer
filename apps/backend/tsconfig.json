@@ -20,7 +20,7 @@
       "@services/*": ["./services/*"],
       "@routes/*": ["./routes/*"],
       "@middlewares/*": ["./middlewares/*"],
-      "@logger/*": ["./logger/*"],
+      "@logger": ["./logger/index"],
       "@schemas/*": ["./schemas/*"],
       "@emails/*": ["./emails/*"],
       "@utils/*": ["./utils/*"],

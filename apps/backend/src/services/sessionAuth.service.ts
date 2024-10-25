@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/pseudo-random */
-import { logger } from '@logger/index';
+import { logger } from '@logger';
 import {
   Cookies,
   getClearCookieOptions,

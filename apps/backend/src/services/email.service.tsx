@@ -4,7 +4,7 @@ import PasswordChangeConfirmationEmail from '@emails/PasswordChangeConfirmation'
 import ResetPasswordEmail from '@emails/ResetUserPassword';
 import { ValidateUserEmail } from '@emails/ValidateUserEmail';
 import WelcomeEmail from '@emails/Welcome';
-import { logger } from '@logger/index';
+import { logger } from '@logger';
 import { ComponentProps } from 'react';
 import { Resend } from 'resend';
 

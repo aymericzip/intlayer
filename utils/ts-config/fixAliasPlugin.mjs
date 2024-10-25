@@ -136,8 +136,15 @@ const replaceAliasInPath = (importPath, relativePath, alias) => {
           return cleanedNewRelativePath;
         }
       } else if (importPath === aliasKey) {
-        // Exact alias match.
-        return aliasPattern;
+        // Construct the new relative path.
+        const newRelativePath = `${relativePath}/${aliasPattern}`;
+
+        // Clean up the new relative path.
+        let cleanedNewRelativePath = newRelativePath
+          .replace('/./', '/')
+          .replace('./../', '../');
+
+        return cleanedNewRelativePath;
       }
     }
   }

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail as sendEmailService } from '@services/email.service';
@@ -13,7 +14,6 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { Request } from 'express';
-import { logger } from '@/logger';
 import {
   findUsers as findUsersService,
   countUsers as countUsersService,

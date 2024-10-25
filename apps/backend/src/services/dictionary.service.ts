@@ -1,4 +1,4 @@
-import { logger } from '@logger/index';
+import { logger } from '@logger';
 import { DictionaryModel } from '@models/dictionary.model';
 import type { DictionaryFilters } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
 import {

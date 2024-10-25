@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Dictionary as LocalDictionary } from '@intlayer/core';
-import { logger } from '@logger/index';
+import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   findDictionaries as findDictionariesService,

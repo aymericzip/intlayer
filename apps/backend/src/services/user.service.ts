@@ -1,4 +1,4 @@
-import { logger } from '@logger/index';
+import { logger } from '@logger';
 import { UserModel } from '@models/user.model';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import {
