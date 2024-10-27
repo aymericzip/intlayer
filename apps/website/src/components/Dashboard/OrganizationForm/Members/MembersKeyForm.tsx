@@ -38,7 +38,7 @@ const getUserNames = (
 };
 
 export const MembersForm: FC = () => {
-  const { session, isOrganizationAdmin, checkSession } = useAuth();
+  const { session, isOrganizationAdmin, revalidateSession } = useAuth();
   const { organization } = session ?? {};
   const MembersFormSchema = getOrganizationMembersSchema();
   const NewMembersFormSchema = getOrganizationNewMembersSchema();
@@ -81,7 +81,7 @@ export const MembersForm: FC = () => {
           variant: 'success',
         });
 
-        await checkSession();
+        await revalidateSession();
       })
       .catch((error) => {
         toast({
@@ -132,7 +132,7 @@ export const MembersForm: FC = () => {
           variant: 'success',
         });
 
-        await checkSession();
+        await revalidateSession();
       })
       .catch((error) => {
         toast({

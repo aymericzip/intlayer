@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, type FC } from 'react';
-import { useAuth } from '../AuthProvider';
+import { Loader } from '../../Loader';
+import { useSession } from '../AuthProvider/useSession';
 import { accessValidation } from './accessValidation';
 import type { AuthenticationBarrierProps } from '.';
 
 export type AuthenticationBarrierClientProps = Omit<
   AuthenticationBarrierProps,
-  'sessionToken' | 'redirectionFunction'
+  'sessionToken'
 >;
 
 export const AuthenticationBarrierClient: FC<
@@ -17,11 +18,13 @@ export const AuthenticationBarrierClient: FC<
   accessRule = 'public',
   redirectionRoute = '/',
   session: sessionProp,
+  redirectionFunction,
 }) => {
-  const { session: sessionClient, setSession } = useAuth();
+  const { session: sessionClient, setSession } = useSession(sessionProp);
+  const isLoading = sessionClient === undefined && sessionProp === undefined;
 
   useEffect(() => {
-    if (!sessionClient) {
+    if (!sessionClient && sessionProp) {
       setSession(sessionProp ?? null);
     }
   }, [sessionClient, sessionProp, setSession]);
@@ -31,13 +34,11 @@ export const AuthenticationBarrierClient: FC<
       accessValidation(
         accessRule,
         sessionClient,
-        (redirectionRoute) => {
-          window.location.href = redirectionRoute;
-        },
+        redirectionFunction,
         redirectionRoute
       );
     }
-  }, [accessRule, redirectionRoute, sessionClient]);
+  }, [accessRule, redirectionRoute, redirectionFunction, sessionClient]);
 
-  return children;
+  return <Loader isLoading={isLoading}>{children}</Loader>;
 };

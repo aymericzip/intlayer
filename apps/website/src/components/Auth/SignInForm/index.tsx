@@ -16,7 +16,7 @@ type SignInFormProps = {
 };
 
 export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
-  const { checkSession } = useAuth();
+  const { revalidateSession } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login, error } = useLogin();
@@ -41,7 +41,7 @@ export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
     }
 
     if (response.data) {
-      await checkSession();
+      await revalidateSession();
 
       if (redirectURL) {
         router.push(redirectURL);

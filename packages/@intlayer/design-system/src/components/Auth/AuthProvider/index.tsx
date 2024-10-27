@@ -29,7 +29,8 @@ export type Session = {
 type SessionContextProps = {
   session: Session | null | undefined;
   setSession: (session: Session | null) => void;
-  checkSession: () => Promise<void>;
+  fetchSession: () => Promise<void>;
+  revalidateSession: () => Promise<void>;
   csrfToken: string | null | undefined;
   csrfTokenFetched: boolean;
   setCsrfToken: (csrfToken: string | null) => void;
@@ -42,7 +43,8 @@ type SessionContextProps = {
 export const AuthContext = createContext<SessionContextProps>({
   session: undefined,
   setSession: () => null,
-  checkSession: () => Promise.resolve(),
+  fetchSession: () => Promise.resolve(),
+  revalidateSession: () => Promise.resolve(),
   csrfToken: null,
   csrfTokenFetched: false,
   setCsrfToken: () => null,
@@ -66,7 +68,8 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   session: sessionProp,
 }) => {
   const { csrfToken, setCsrfToken, csrfTokenFetched } = useCSRF();
-  const { session, setSession, fetchSession } = useSession(sessionProp);
+  const { session, fetchSession, revalidateSession, setSession } =
+    useSession(sessionProp);
   const { oAuth2AccessToken, setOAuth2AccessToken, fetchAccessToken } =
     useOAuth2(csrfToken);
   const [isProjectAdmin, setIsProjectAdmin] = useState<boolean>(false);
@@ -89,7 +92,7 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
 
   useEffect(() => {
     // Clear cache of useAsync when session changes
-    clearCache();
+    clearCache(['getOrganization', 'getProject', 'getUser', 'getSession']);
   }, [
     session?.organization?._id,
     session?.project?._id,
@@ -100,8 +103,9 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   const memoValue: SessionContextProps = useMemo(
     () => ({
       session,
+      fetchSession,
       setSession,
-      checkSession: fetchSession,
+      revalidateSession,
       csrfToken,
       csrfTokenFetched,
       setCsrfToken,
@@ -115,6 +119,7 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
       session,
       setSession,
       fetchSession,
+      revalidateSession,
       csrfToken,
       csrfTokenFetched,
       setCsrfToken,

@@ -1,9 +1,10 @@
+'use client';
+
 import {
-  AuthenticationBarrierServer as AuthenticationBarrierServerUI,
   AuthenticationBarrierClient as AuthenticationBarrierClientUI,
   type AuthenticationBarrierProps as AuthenticationBarrierPropsUI,
 } from '@intlayer/design-system';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
@@ -14,21 +15,19 @@ type AuthenticationBarrierProps = Omit<
   redirectionRoute?: PagesRoutes | string;
 };
 
-export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
+export const AuthenticationBarrierClient: FC<AuthenticationBarrierProps> = ({
   children,
   redirectionRoute = PagesRoutes.Home,
   ...props
-}) => (
-  <AuthenticationBarrierServerUI
-    {...props}
-    redirectionRoute={redirectionRoute}
-    redirectionFunction={redirect}
-  >
+}) => {
+  const router = useRouter();
+  return (
     <AuthenticationBarrierClientUI
       {...props}
       redirectionRoute={redirectionRoute}
+      redirectionFunction={router.push}
     >
       {children}
     </AuthenticationBarrierClientUI>
-  </AuthenticationBarrierServerUI>
-);
+  );
+};

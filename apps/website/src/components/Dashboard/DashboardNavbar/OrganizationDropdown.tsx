@@ -22,7 +22,7 @@ import { OrganizationCreationForm } from '../OrganizationForm/OrganizationCreati
 import { PagesRoutes } from '@/Routes';
 
 export const OrganizationDropdown: FC = () => {
-  const { session, checkSession } = useAuth();
+  const { session, revalidateSession } = useAuth();
   const { getOrganizations } = useGetOrganizations();
   const [organizations, setOrganizations] = useState<Organization[]>([]);
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -51,7 +51,7 @@ export const OrganizationDropdown: FC = () => {
           description: organizationLogout.toast.success.description,
           variant: 'success',
         });
-        await checkSession();
+        await revalidateSession();
 
         router.push(PagesRoutes.Dashboard_Organization);
       })
@@ -67,7 +67,7 @@ export const OrganizationDropdown: FC = () => {
   const handleSelectOrganization = (organizationId: string) => {
     selectOrganization(organizationId)
       .then(async () => {
-        await checkSession();
+        await revalidateSession();
 
         router.push(PagesRoutes.Dashboard_Projects);
 

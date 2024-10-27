@@ -14,12 +14,17 @@ export const AuthenticationBarrierServer: FC<AuthenticationBarrierProps> = ({
   children,
   accessRule = 'public',
   redirectionRoute = '/',
-  session: sessionProp,
+  session,
   redirectionFunction,
 }) => {
-  const session = sessionProp ?? null;
-
-  accessValidation(accessRule, session, redirectionFunction, redirectionRoute);
+  if (typeof session !== 'undefined') {
+    accessValidation(
+      accessRule,
+      session,
+      redirectionFunction,
+      redirectionRoute
+    );
+  }
 
   return children;
 };

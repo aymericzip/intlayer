@@ -8,7 +8,7 @@ import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
 
 export const ProjectCreationForm: FC = () => {
   const SignInSchema = getProjectSchema();
-  const { checkSession } = useUser();
+  const { revalidateSession } = useUser();
   const { addProject } = useAddProject();
   const { selectProject } = useSelectProject();
   const { form, isSubmitting } = useForm(SignInSchema);
@@ -42,7 +42,7 @@ export const ProjectCreationForm: FC = () => {
               variant: 'success',
             });
 
-            await checkSession();
+            await revalidateSession();
           })
           .catch((error) => {
             toast({

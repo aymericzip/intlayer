@@ -18,7 +18,7 @@ type SignUpFormProps = {
 export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const router = useRouter();
 
-  const { checkSession } = useAuth();
+  const { revalidateSession } = useAuth();
   const { register } = useRegister();
   const { toast } = useToast();
 
@@ -38,7 +38,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
     }
 
     if (response.data) {
-      await checkSession();
+      await revalidateSession();
 
       if (callbackUrl) {
         router.push(callbackUrl);

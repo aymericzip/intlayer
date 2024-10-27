@@ -24,7 +24,7 @@ import { PagesRoutes } from '@/Routes';
 type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>>;
 
 export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
-  const { session, checkSession } = useAuth();
+  const { session, revalidateSession } = useAuth();
   const { getProjects } = useGetProjects();
   const { selectProject, isLoading: isSelectProjectLoading } =
     useSelectProject();
@@ -47,7 +47,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   const handleUnselectProject = () => {
     unselectProject()
       .then(async () => {
-        await checkSession();
+        await revalidateSession();
         toast({
           title: projectLogout.toast.success.title.value,
           description: projectLogout.toast.success.description,
@@ -67,7 +67,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   const handleSelectProject = (projectId: string) => {
     selectProject(projectId)
       .then(async () => {
-        await checkSession();
+        await revalidateSession();
         toast({
           title: selectProjectAction.toast.success.title.value,
           description: selectProjectAction.toast.success.description,

@@ -43,7 +43,7 @@ export const AuthModal: FC<AuthModalProps> = ({
   onChangePasswordSuccess,
 }) => {
   const [state, setState] = useState<AuthState>(initialState);
-  const { checkSession } = useAuth();
+  const { revalidateSession } = useAuth();
   const { login } = useLogin();
   const { register } = useRegister();
   const { askResetPassword } = useAskResetPassword();
@@ -66,7 +66,7 @@ export const AuthModal: FC<AuthModalProps> = ({
     }
 
     if (response.data) {
-      await checkSession();
+      await revalidateSession();
       await onSignInSuccess?.(response.data);
     }
   };
@@ -87,7 +87,7 @@ export const AuthModal: FC<AuthModalProps> = ({
     }
 
     if (response.data) {
-      await checkSession();
+      await revalidateSession();
       await onSignUpSuccess?.(response.data);
     }
   };
@@ -105,7 +105,7 @@ export const AuthModal: FC<AuthModalProps> = ({
     }
 
     if (response.data) {
-      await checkSession();
+      await revalidateSession();
       await onResetPasswordSuccess?.(response.data);
     }
   };
@@ -129,7 +129,7 @@ export const AuthModal: FC<AuthModalProps> = ({
     }
 
     if (response.data) {
-      await checkSession();
+      await revalidateSession();
       await onChangePasswordSuccess?.(response.data);
     }
   };

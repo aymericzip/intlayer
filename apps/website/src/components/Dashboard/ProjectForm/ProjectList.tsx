@@ -12,7 +12,7 @@ type ProjectListProps = {
 
 export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
   const { selectProject } = useSelectProject();
-  const { checkSession } = useAuth();
+  const { revalidateSession } = useAuth();
   const { selectProjectToasts } = useIntlayer('project-form');
   const router = useRouter();
 
@@ -25,7 +25,7 @@ export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
           variant: 'success',
         });
 
-        await checkSession();
+        await revalidateSession();
 
         router.push(PagesRoutes.Dashboard_Content);
       })

@@ -14,7 +14,7 @@ import {
 
 export const OrganizationCreationForm: FC = () => {
   const organizationSchema = getOrganizationSchema();
-  const { checkSession } = useUser();
+  const { revalidateSession } = useUser();
   const { addOrganization } = useAddOrganization();
   const { selectOrganization } = useSelectOrganization();
   const { form, isSubmitting } = useForm(organizationSchema);
@@ -47,7 +47,7 @@ export const OrganizationCreationForm: FC = () => {
               variant: 'success',
             });
 
-            await checkSession();
+            await revalidateSession();
           })
           .catch((error) => {
             toast({

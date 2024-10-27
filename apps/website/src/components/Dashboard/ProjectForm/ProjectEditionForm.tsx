@@ -7,7 +7,7 @@ import type { FC } from 'react';
 import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
-  const { session, checkSession, isProjectAdmin } = useAuth();
+  const { session, revalidateSession, isProjectAdmin } = useAuth();
   const { project } = session ?? {};
   const SignInSchema = getProjectSchema();
   const { updateProject } = useUpdateProject();
@@ -25,7 +25,7 @@ export const ProjectEditionForm: FC = () => {
           variant: 'success',
         });
 
-        await checkSession();
+        await revalidateSession();
       })
       .catch((error) => {
         toast({

@@ -3,7 +3,7 @@ import { useLogout } from '../../../hooks';
 import { AuthContext } from '../AuthProvider';
 
 export const useUser = () => {
-  const { session, checkSession, setSession } = useContext(AuthContext);
+  const { session, revalidateSession, setSession } = useContext(AuthContext);
   const { logout } = useLogout();
 
   const status = session?.user ? 'authenticated' : 'unauthenticated';
@@ -16,7 +16,7 @@ export const useUser = () => {
   const logoutHandle = async () => {
     setSession(null);
     await logout().then(async () => {
-      await checkSession();
+      await revalidateSession();
     });
   };
 
@@ -24,7 +24,7 @@ export const useUser = () => {
     isAuthenticated,
     isUnauthenticated,
     user,
-    checkSession,
+    revalidateSession,
     logout: logoutHandle,
   };
 };

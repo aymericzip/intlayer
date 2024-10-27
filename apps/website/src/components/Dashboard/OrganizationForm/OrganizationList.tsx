@@ -15,7 +15,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
 }) => {
   const { selectOrganization } = useSelectOrganization();
   const { toast } = useToast();
-  const { checkSession } = useAuth();
+  const { revalidateSession } = useAuth();
   const { selectOrganizationToasts } = useIntlayer('organization-form');
   const router = useRouter();
 
@@ -29,7 +29,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
           variant: 'success',
         });
 
-        await checkSession();
+        await revalidateSession();
 
         router.push(PagesRoutes.Dashboard_Projects);
       })

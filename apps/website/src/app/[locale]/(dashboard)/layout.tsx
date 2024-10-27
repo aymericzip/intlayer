@@ -1,5 +1,5 @@
-import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier';
-import { getServerSession } from '@components/Auth/getServerSession';
+import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
+// import { getServerSession } from '@components/Auth/getServerSession';
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import { PageLayout } from '@layouts/PageLayout';
@@ -7,12 +7,12 @@ import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { PagesRoutes } from '@/Routes';
 
-const DashboardLayout: NextLayoutIntlayer = async ({
+const DashboardLayout: NextLayoutIntlayer = ({
   children,
   params: { locale },
 }) => {
   const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
-  const session = await getServerSession();
+  const session = undefined; // await getServerSession();
 
   const formattedNavbarLinks = navbarLinks.map((el) => ({
     ...el,
