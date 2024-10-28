@@ -1,4 +1,4 @@
-import { fixImportsPlugin } from './fixImportPlugin.mjs';
+import { fixImportsPlugin } from 'esbuild-fix-imports-plugin';
 
 /** @type {import('tsup').Options} */
 export const commonOptions = {

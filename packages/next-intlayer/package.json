@@ -78,7 +78,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "test": "",
-    "typecheck": "tsup--project ./tsconfig.json --noEmit"
+    "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",

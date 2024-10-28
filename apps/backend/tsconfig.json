@@ -5,7 +5,7 @@
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "strict": false,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "noEmit": false,
     "allowImportingTsExtensions": false,
@@ -15,17 +15,16 @@
     "module": "Preserve",
     "outDir": "dist",
     "paths": {
-      "@controllers/*": ["./controllers/*"],
-      "@models/*": ["./models/*"],
-      "@services/*": ["./services/*"],
-      "@routes/*": ["./routes/*"],
-      "@middlewares/*": ["./middlewares/*"],
-      "@logger": ["./logger/index"],
-      "@schemas/*": ["./schemas/*"],
-      "@emails/*": ["./emails/*"],
-      "@utils/*": ["./utils/*"],
-      "@utils/ts-config/tsup": ["../../utils/ts-config/tsup-config.mjs"],
-      "@/*": ["./*"]
+      "@controllers/*": ["src/controllers/*"],
+      "@models/*": ["src/models/*"],
+      "@services/*": ["src/services/*"],
+      "@routes/*": ["src/routes/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@logger": ["src/logger/index"],
+      "@schemas/*": ["src/schemas/*"],
+      "@emails/*": ["src/emails/*"],
+      "@utils/*": ["src/utils/*"],
+      "@/*": ["src/*"]
     }
   },
   "tsc-alias": {

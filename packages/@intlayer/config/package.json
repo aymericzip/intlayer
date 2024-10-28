@@ -70,7 +70,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*",
     "test": "",
-    "typecheck": "tsup--project ./tsconfig.json --noEmit"
+    "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@swc-node/register": "^1.9.2",

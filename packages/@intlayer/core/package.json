@@ -66,7 +66,7 @@
     "prettier:fix": "prettier . --write",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "test": "",
-    "typecheck": "tsup--project ./tsconfig.json --noEmit"
+    "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@intlayer/config": "workspace:^",

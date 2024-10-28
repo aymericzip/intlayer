@@ -64,7 +64,7 @@
     "prettier:fix": "prettier . --write",
     "serve": "webpack serve --config ./webpack.config.ts",
     "transpile": "webpack --config ./webpack.config.ts",
-    "typecheck": "tsup--project ./tsconfig.json --noEmit",
+    "typecheck": "tsup --project ./tsconfig.json --noEmit",
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {

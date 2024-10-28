@@ -68,7 +68,7 @@
     "serve": "webpack serve --config ./webpack.config.ts",
     "start:dev": "node --experimental-specifier-resolution=node --loader ts-node/esm --watch src/index.ts",
     "transpile": "webpack --config ./webpack.config.ts",
-    "typecheck": "tsup--project ./tsconfig.json --noEmit",
+    "typecheck": "tsup --project ./tsconfig.json --noEmit",
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {

@@ -185,9 +185,15 @@ importers:
       '@utils/ts-config':
         specifier: workspace:^
         version: link:../../utils/ts-config
+      esbuild-fix-imports-plugin:
+        specifier: ^1.0.5
+        version: 1.0.5
       eslint:
         specifier: ^9.11.1
         version: 9.12.0
+      i:
+        specifier: ^0.3.7
+        version: 0.3.7
       prettier:
         specifier: 3.3.3
         version: 3.3.3
@@ -1546,6 +1552,9 @@ importers:
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
+      esbuild-fix-imports-plugin:
+        specifier: ^1.0.5
+        version: 1.0.5
       eslint:
         specifier: ^9.11.1
         version: 9.12.0
@@ -18757,6 +18766,13 @@ packages:
       is-date-object: 1.0.5
       is-symbol: 1.0.4
 
+  /esbuild-fix-imports-plugin@1.0.5:
+    resolution:
+      {
+        integrity: sha512-/YnYmwU9vpT6pxaVc33oN/DAKwRrrMgJzasWm4DqdfvIPC1CGF1S9jCtZhk/NETffivAw/AyjChgbzyNFGT8ww==,
+      }
+    dev: true
+
   /esbuild-loader@4.2.2(webpack@5.95.0):
     resolution:
       {
@@ -22069,6 +22085,14 @@ packages:
       }
     engines: { node: '>=10.18' }
     dev: false
+
+  /i@0.3.7:
+    resolution:
+      {
+        integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==,
+      }
+    engines: { node: '>=0.4' }
+    dev: true
 
   /iconv-lite@0.4.24:
     resolution:
