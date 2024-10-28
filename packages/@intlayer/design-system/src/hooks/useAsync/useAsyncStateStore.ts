@@ -44,12 +44,38 @@ const createDefaultStates = <T>(): States<T> => ({
   isDisabled: false,
 });
 
+/**
+ * If the value is not an array. Transform it en array
+ *
+ * @param value value to transform en array if not array
+ * @returns array
+ */
 const ensureArray = <T>(value?: T | T[]): T[] => {
   if (!value) {
     return [];
+  } else if (Array.isArray(value)) {
+    return value;
   }
 
-  return Array.isArray(value) ? value : [value];
+  return [value];
+};
+
+/**
+ * Return all keys that match
+ *
+ * @param {string[]} selectorsKeys - List of key to check - example: ['getProducts']
+ * @param {string[]} keysWithArgs - List of keys that can includes args - example: ["getProducts", "getProducts/{'ids':['id1','id2']}", "getUsers", "getUsers/{'ids':['id1','id2']}" ]
+ * @returns {string[]} - key that match the selectors - example: ["getProducts", "getProducts/{'ids':['id1','id2']}" ]
+ */
+const getMatchKeys = (
+  selectorsKeys: string[],
+  keysWithArgs: string[]
+): string[] => {
+  const matchedKeys: string[] = keysWithArgs.filter((key) =>
+    selectorsKeys.includes(key.split('/')[0])
+  );
+
+  return matchedKeys;
 };
 
 export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
@@ -167,8 +193,11 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
     set((state) => {
       const keys = ensureArray(key);
 
+      const allKeys = Object.keys(state.states);
+      const matchedKeys = getMatchKeys(keys, allKeys);
+
       const newStates = { ...state.states };
-      keys.forEach((k) => {
+      matchedKeys.forEach((k) => {
         newStates[k] = createDefaultStates<unknown>();
       });
       return {
@@ -180,8 +209,11 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
     set((state) => {
       const excludedKeys = ensureArray(excludedKey);
 
+      const allKeys = Object.keys(state.states);
+      const matchedKeys = getMatchKeys(excludedKeys, allKeys);
+
       const newStates = Object.keys(state.states).reduce((acc, key) => {
-        if (excludedKeys.includes(key)) {
+        if (matchedKeys.includes(key)) {
           acc[key] = state.states[key];
         } else {
           acc[key] = createDefaultStates<unknown>();

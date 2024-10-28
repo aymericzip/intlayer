@@ -122,6 +122,14 @@ export const useAsync = <
     setIsDisabled: state.setIsDisabled,
   }));
 
+  // Storing the last arguments used to call the async function
+  const storedArgsRef = useRef<any[]>([]);
+
+  // Apply different key for different requests
+  const keyWithArgs = storedArgsRef.current.length
+    ? `${key}/${JSON.stringify(storedArgsRef.current)}`
+    : key;
+
   // Retrieving the current state of async operations using the same custom hook
   const {
     isFetched,
@@ -132,7 +140,7 @@ export const useAsync = <
     data,
     retryCount,
     isDisabled,
-  } = useAsyncStateStore((state) => state.getStates(key));
+  } = useAsyncStateStore((state) => state.getStates(keyWithArgs));
 
   // Resolving optional parameters with default values
   const retryLimit = options?.retryLimit ?? DEFAULT_RETRY_LIMIT;
@@ -142,37 +150,34 @@ export const useAsync = <
   const onSuccess = options?.onSuccess ?? (() => {});
   const onError = options?.onError ?? (() => {});
 
-  // Storing the last arguments used to call the async function
-  const storedArgsRef = useRef<any[]>([]);
-
   // The core fetching function, designed to be called directly or automatically based on configuration
   const fetch: T = useCallback<T>(
     (async (...args) => {
       storedArgsRef.current = args;
-      setIsLoading(key, true);
+      setIsLoading(keyWithArgs, true);
       let response = null;
       await asyncFunction(...args)
         .then((result) => {
           response = result;
-          setData(key, result);
-          setIsSuccess(key, true);
-          incrementRetryCount(key);
+          setData(keyWithArgs, result);
+          setIsSuccess(keyWithArgs, true);
+          incrementRetryCount(keyWithArgs);
           onSuccess(result);
         })
         .catch((error) => {
           const errorMessage = error.message ?? 'An error occurred';
-          setError(key, errorMessage);
-          resetRetryCount(key);
-          setIsDisabled(key, true);
+          setError(keyWithArgs, errorMessage);
+          resetRetryCount(keyWithArgs);
+          setIsDisabled(keyWithArgs, true);
           onError(errorMessage);
         })
         .finally(() => {
-          setIsLoading(key, false);
-          setIsFetched(key, true);
+          setIsLoading(keyWithArgs, false);
+          setIsFetched(keyWithArgs, true);
         });
       return response;
     }) as T,
-    [asyncFunction, key]
+    [asyncFunction, keyWithArgs]
   );
 
   // Wrapped execution function to handle disabled state and check for success before re-fetching
@@ -233,7 +238,7 @@ export const useAsync = <
   // Memoization of the setData function to prevent unnecessary re-renders
   const setDataMemo = useCallback(
     (data: Awaited<ReturnType<T> | null>) => {
-      setData(key, data);
+      setData(keyWithArgs, data);
     },
     [setData]
   );
