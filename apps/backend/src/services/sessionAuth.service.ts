@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/pseudo-random */
 import { logger } from '@logger';
+import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   Cookies,
   getClearCookieOptions,
@@ -93,11 +94,13 @@ export const setUserAuth = async (res: Response, user: User) => {
  * Clears the JWT auth cookies and user locals object.
  * @param res - Express response object.
  */
-export const clearUserAuth = async (res: Response) => {
+export const clearUserAuth = async (res: ResponseWithInformation) => {
   const { user } = res.locals;
   const cookiesOptions = getClearCookieOptions();
 
-  await removeSession(user);
+  if (user) {
+    await removeSession(user);
+  }
 
   res.cookie(Cookies.JWT_AUTH, '', cookiesOptions);
   res.cookie(Cookies.JWT_USER, '', cookiesOptions);
@@ -113,7 +116,7 @@ export const clearUserAuth = async (res: Response) => {
  * @returns
  */
 export const setOrganizationAuth = (
-  res: Response,
+  res: ResponseWithInformation,
   organization: Organization
 ) => {
   const organizationData = {
@@ -144,7 +147,7 @@ export const setOrganizationAuth = (
  * Clears the JWT organization cookies and organization locals object.
  * @param res - Express response object.
  */
-export const clearOrganizationAuth = (res: Response) => {
+export const clearOrganizationAuth = (res: ResponseWithInformation) => {
   res.locals.organization = null;
 
   res.cookie(Cookies.JWT_ORGANIZATION, '', getClearCookieOptions());
@@ -155,7 +158,11 @@ export const clearOrganizationAuth = (res: Response) => {
  * @param res - Express response object.
  * @param project - Project object.
  */
-export const setProjectAuth = (res: Response, project: Project) => {
+export const setProjectAuth = (
+  res: ResponseWithInformation,
+  project: Project
+) => {
+  const { organization } = res.locals;
   const projectData = {
     _id: project._id,
     name: project.name,
@@ -172,6 +179,21 @@ export const setProjectAuth = (res: Response, project: Project) => {
   }
 
   res.cookie(Cookies.JWT_PROJECT, projectToken, getCookieOptions());
+
+  if (!organization) {
+    const errorMessage = `Organization not found for project ${project.name}`;
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  if (
+    // if the project is not in the organization's projects
+    String(organization._id) !== String(project._id)
+  ) {
+    const errorMessage = `Organization ${organization.name} does not have project ${project.name}`;
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
 
   res.locals.project = project;
 };

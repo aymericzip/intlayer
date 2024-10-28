@@ -28,6 +28,11 @@ const DEFAULT_CACHE_ENABLED = false;
 const DEFAULT_RETRY_LIMIT = 1;
 const DEFAULT_REVALIDATE_TIME = 5 * 60 * 1000; // 5 minutes
 
+export type UseAsyncResult<
+  U extends string,
+  T extends (...args: any[]) => Promise<any>,
+> = UseAsyncResultBase<T> & Record<U, T>;
+
 export const useAsync = <
   U extends string,
   T extends (...args: any[]) => Promise<any>,
@@ -35,7 +40,7 @@ export const useAsync = <
   key: U,
   asyncFunction: T,
   options?: UseAsyncOptions<T>
-): UseAsyncResultBase<T> & Record<U, T> => {
+): UseAsyncResult<U, T> => {
   const {
     setIsFetched,
     setIsLoading,

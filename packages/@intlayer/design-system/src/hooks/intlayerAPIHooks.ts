@@ -1,5 +1,24 @@
-import { useAsync } from './useAsync/useAsync';
+'use client';
+
+import { useEffect } from 'react';
+import { useAuth } from '../components/Auth/AuthProvider/index';
+import { useAsync, UseAsyncResult } from './useAsync/useAsync';
 import { useIntlayerAPI } from './useIntlayerAPI';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const useRevalidateWithSession = <T extends UseAsyncResult<string, any>>(
+  asyncHook: T
+): T => {
+  const { session } = useAuth();
+
+  useEffect(() => {
+    if (session) {
+      asyncHook.revalidate();
+    }
+  }, [session?.organization?._id, session?.project?._id, session?.user?._id]);
+
+  return asyncHook;
+};
 
 export const useLogin = () => useAsync('login', useIntlayerAPI().auth.login);
 export const useRegister = () =>
@@ -15,15 +34,15 @@ export const useVerifyEmail = () =>
   useAsync('verifyEmail', useIntlayerAPI().auth.verifyEmail);
 
 export const useGetUserByAccount = () =>
-  useAsync('getUserByAccount', useIntlayerAPI().user.getUserByAccount, {
-    cache: true,
-    retryLimit: 3,
-  });
+  useAsync('getUserByAccount', useIntlayerAPI().user.getUserByAccount);
+
 export const useGetUsers = () =>
-  useAsync('getUsers', useIntlayerAPI().user.getUsers, {
-    cache: true,
-    retryLimit: 3,
-  });
+  useRevalidateWithSession(
+    useAsync('getUsers', useIntlayerAPI().user.getUsers, {
+      cache: true,
+      retryLimit: 3,
+    })
+  );
 export const useCreateUser = () =>
   useAsync('createUser', useIntlayerAPI().user.createUser);
 export const useUpdateUser = () =>
@@ -32,10 +51,17 @@ export const useDeleteUser = () =>
   useAsync('deleteUser', useIntlayerAPI().user.deleteUser);
 
 export const useGetOrganizations = () =>
-  useAsync('getOrganizations', useIntlayerAPI().organization.getOrganizations, {
-    cache: true,
-    retryLimit: 3,
-  });
+  useRevalidateWithSession(
+    useAsync(
+      'getOrganizations',
+      useIntlayerAPI().organization.getOrganizations,
+      {
+        cache: true,
+        retryLimit: 3,
+      }
+    )
+  );
+
 export const useAddOrganization = () =>
   useAsync('addOrganization', useIntlayerAPI().organization.addOrganization);
 export const useUpdateOrganization = () =>
@@ -70,11 +96,13 @@ export const useUnselectOrganization = () =>
   );
 
 export const useGetProjects = () =>
-  useAsync('getProjects', useIntlayerAPI().project.getProjects, {
-    cache: true,
-    retryLimit: 3,
-    revalidateTime: 5 * 1000,
-  });
+  useRevalidateWithSession(
+    useAsync('getProjects', useIntlayerAPI().project.getProjects, {
+      cache: true,
+      retryLimit: 3,
+      revalidateTime: 5 * 1000,
+    })
+  );
 export const useAddProject = () =>
   useAsync('addProject', useIntlayerAPI().project.addProject);
 export const useUpdateProject = () =>
@@ -98,9 +126,11 @@ export const useRefreshAccessKey = () =>
   useAsync('refreshAccessKey', useIntlayerAPI().project.refreshAccessKey);
 
 export const useGetDictionaries = () =>
-  useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries, {
-    cache: true,
-  });
+  useRevalidateWithSession(
+    useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries, {
+      cache: true,
+    })
+  );
 export const useAddDictionary = () =>
   useAsync('addDictionary', useIntlayerAPI().dictionary.addDictionary);
 export const usePushDictionaries = () =>
