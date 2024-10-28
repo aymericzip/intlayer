@@ -394,7 +394,22 @@ export const updateProjectMembers = async (
   }
 
   if (membersIds?.length === 0) {
-    const errorMessage = 'No members to update';
+    const errorMessage = 'The project must have at least one member';
+
+    logger.error(errorMessage);
+
+    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
+    const responseData = formatResponse<Project>({
+      error: errorMessage,
+      status: responseCode,
+    });
+
+    res.status(responseCode).json(responseData);
+    return;
+  }
+
+  if (membersIds?.map((el) => el.isAdmin)?.length === 0) {
+    const errorMessage = 'The project must have at least one admin';
 
     logger.error(errorMessage);
 
@@ -426,17 +441,18 @@ export const updateProjectMembers = async (
         const userMap: UserAndAdmin[] = users.map((user) => ({
           user,
           isAdmin:
-            membersIds.find((member) => member.userId === user._id)?.isAdmin ??
-            false,
+            membersIds.find(
+              (member) => String(member.userId) === String(user._id)
+            )?.isAdmin ?? false,
         }));
 
         existingUsers.push(...userMap);
       }
     }
 
-    const formattedMembers: ObjectId[] = existingUsers
-      .filter((el) => !el.isAdmin)
-      .map((user) => user.user._id);
+    const formattedMembers: ObjectId[] = existingUsers.map(
+      (user) => user.user._id
+    );
     const formattedAdmin: ObjectId[] = existingUsers
       .filter((el) => el.isAdmin)
       .map((user) => user.user._id);
