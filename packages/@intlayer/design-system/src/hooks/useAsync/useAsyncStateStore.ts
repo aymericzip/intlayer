@@ -3,6 +3,7 @@ import { create } from 'zustand';
 type States<T> = {
   isLoading: boolean;
   isFetched: boolean;
+  fetchedDateTime: null | Date;
   error: string | null;
   isSuccess: boolean;
   data: T | null;
@@ -34,6 +35,7 @@ type AsyncState<T> = {
 
 const createDefaultStates = <T>(): States<T> => ({
   isFetched: false,
+  fetchedDateTime: null,
   isLoading: false,
   error: null,
   isSuccess: false,
@@ -64,6 +66,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
           ...((state.states[key] as States<unknown>) ||
             createDefaultStates<unknown>()),
           isFetched: value,
+          fetchedDateTime: new Date(),
         },
       },
     })),

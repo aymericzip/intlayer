@@ -41,6 +41,7 @@ export const useGetUsers = () =>
     useAsync('getUsers', useIntlayerAPI().user.getUsers, {
       cache: true,
       retryLimit: 3,
+      autoFetch: true,
     })
   );
 export const useCreateUser = () =>
@@ -58,6 +59,7 @@ export const useGetOrganizations = () =>
       {
         cache: true,
         retryLimit: 3,
+        autoFetch: true,
       }
     )
   );
@@ -100,7 +102,7 @@ export const useGetProjects = () =>
     useAsync('getProjects', useIntlayerAPI().project.getProjects, {
       cache: true,
       retryLimit: 3,
-      revalidateTime: 5 * 1000,
+      autoFetch: true,
     })
   );
 export const useAddProject = () =>
@@ -129,10 +131,13 @@ export const useGetDictionaries = () =>
   useRevalidateWithSession(
     useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries, {
       cache: true,
+      retryLimit: 3,
+      autoFetch: true,
     })
   );
 export const useAddDictionary = () =>
   useAsync('addDictionary', useIntlayerAPI().dictionary.addDictionary);
+
 export const usePushDictionaries = () =>
   useAsync('pushDictionaries', useIntlayerAPI().dictionary.pushDictionaries);
 export const useUpdateDictionary = () =>

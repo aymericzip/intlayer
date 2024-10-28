@@ -1,6 +1,5 @@
 'use client';
 
-import type { Project } from '@intlayer/backend';
 import {
   useForm,
   Form,
@@ -13,7 +12,7 @@ import {
   useGetProjects,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useState, type FC } from 'react';
+import { type FC } from 'react';
 import {
   getDictionarySchema,
   type DictionaryFormData,
@@ -23,9 +22,8 @@ export const DictionaryCreationForm: FC = () => {
   const { session } = useAuth();
   const { project } = session ?? {};
   const { addDictionary } = useAddDictionary();
-  const { getProjects } = useGetProjects();
+  const { data: projects } = useGetProjects();
   const DictionarySchema = getDictionarySchema(String(project?._id));
-  const [projects, setProjects] = useState<Project[]>([]);
   const { form, isSubmitting } = useForm(DictionarySchema);
   const {
     keyInput,
@@ -54,12 +52,6 @@ export const DictionaryCreationForm: FC = () => {
       });
   };
 
-  useEffect(() => {
-    getProjects({}).then((response) => {
-      setProjects(response.data ?? []);
-    });
-  }, [getProjects]);
-
   return (
     <Form
       schema={DictionarySchema}
@@ -77,15 +69,15 @@ export const DictionaryCreationForm: FC = () => {
       <Form.MultiSelect name="projectIds" label={projectInput.label.value}>
         <MultiSelect.Trigger
           getBadgeValue={(value) =>
-            projects.find((project) => String(project._id) === value)?.name ??
-            value
+            projects?.data?.find((project) => String(project._id) === value)
+              ?.name ?? value
           }
         >
           <MultiSelect.Input placeholder={projectInput.placeholder.value} />
         </MultiSelect.Trigger>
         <MultiSelect.Content>
           <MultiSelect.List>
-            {projects.map((project) => (
+            {projects?.data?.map((project) => (
               <MultiSelect.Item
                 key={String(project._id)}
                 value={String(project._id)}

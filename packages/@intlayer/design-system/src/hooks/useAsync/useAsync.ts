@@ -1,9 +1,12 @@
 'use client';
 
+// This is an ESLint directive to disable specific rules.
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useCallback, useEffect, useRef } from 'react';
 import { useAsyncStateStore } from './useAsyncStateStore';
 
+// Defines the base structure for the result of the custom hook.
 type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
   isFetched: boolean;
   isLoading: boolean;
@@ -16,23 +19,80 @@ type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
   setData: (data: Awaited<ReturnType<T> | null>) => void;
 };
 
+// Options type for the hook, allowing customization of behavior.
 type UseAsyncOptions<T extends (...args: any[]) => Promise<any>> = {
   retryLimit?: number;
-  revalidateTime?: number; // Revalidation time in milliseconds
+  revalidateTime?: number; // Time in milliseconds for revalidating the data
   cache?: boolean;
   onSuccess?: (data: Awaited<ReturnType<T>>) => void;
   onError?: (error: string) => void;
+  autoFetch?: boolean;
 };
 
+// Default values for the hook's options
 const DEFAULT_CACHE_ENABLED = false;
+const DEFAULT_AUTO_FETCH = false;
 const DEFAULT_RETRY_LIMIT = 1;
 const DEFAULT_REVALIDATE_TIME = 5 * 60 * 1000; // 5 minutes
 
+// The main hook type that includes the async function along with its additional properties.
 export type UseAsyncResult<
   U extends string,
   T extends (...args: any[]) => Promise<any>,
 > = UseAsyncResultBase<T> & Record<U, T>;
 
+/**
+ * A custom React hook that manages asynchronous operations, providing easy-to-use states and controls over fetching, caching, and retry mechanisms.
+ * This hook abstracts away the complexity of handling loading, error, and success states for any asynchronous function.
+ *
+ * @template U - A string type that extends the keys of the async function, used as a key to store and retrieve state.
+ * @template T - A function type that must return a Promise, representing the asynchronous operation to be managed.
+ *
+ * @param {U} key - A unique identifier for the async operation, used to handle state internally and avoid conflicts.
+ * @param {T} asyncFunction - The asynchronous function that will be managed by this hook. This function should return a Promise.
+ * @param {UseAsyncOptions<T>} [options] - Optional configuration options to customize the behavior of the hook.
+ * @returns {UseAsyncResult<U, T>} The states and controls related to the managed async function. Includes states like isLoading, isSuccess, and provides control methods like revalidate and setData.
+ *
+ * @typedef {Object} UseAsyncOptions
+ * @property {number} [retryLimit=1] - The number of times the hook should retry the asynchronous function on failure before giving up.
+ * @property {number} [revalidateTime=300000] - Time in milliseconds after which the cached data is considered stale and the async function is re-invoked, if caching is enabled.
+ * @property {boolean} [cache=false] - Whether to cache the result of the async function. When enabled, revalidation is controlled by `revalidateTime`.
+ * @property {(data: Awaited<ReturnType<T>>) => void} [onSuccess] - Callback function that is called when the asynchronous function resolves successfully.
+ * @property {(error: string) => void} [onError] - Callback function that is called when the asynchronous function rejects or encounters an error.
+ * @property {boolean} [autoFetch=false] - Whether the hook should automatically invoke the asynchronous function on mount.
+ *
+ * @example
+ * // Example of using useAsync to manage fetching user data from an API.
+ * const fetchUserData = async (userId) => {
+ *   const response = await fetch(`/api/users/${userId}`);
+ *   if (!response.ok) throw new Error('Failed to fetch');
+ *   return await response.json();
+ * };
+ *
+ * const UserDetails = ({ userId }) => {
+ *   const {
+ *     isLoading,
+ *     data,
+ *     error,
+ *     revalidate,
+ *   } = useAsync('userDetails', fetchUserData, {
+ *     cache: true,
+ *     revalidateTime: 60000, // 1 minute
+ *     autoFetch: true,
+ *     onSuccess: (data) => console.log('User data fetched successfully:', data),
+ *     onError: (error) => console.error('Error fetching user data:', error),
+ *   });
+ *
+ *   if (isLoading) return <div>Loading...</div>;
+ *   if (error) return <div>Error: {error}</div>;
+ *   return (
+ *     <div>
+ *       <h1>{data.name}</h1>
+ *       <button onClick={() => revalidate()}>Refresh</button>
+ *     </div>
+ *   );
+ * };
+ */
 export const useAsync = <
   U extends string,
   T extends (...args: any[]) => Promise<any>,
@@ -41,6 +101,7 @@ export const useAsync = <
   asyncFunction: T,
   options?: UseAsyncOptions<T>
 ): UseAsyncResult<U, T> => {
+  // Using a custom hook to manage state specific to asynchronous operations
   const {
     setIsFetched,
     setIsLoading,
@@ -60,8 +121,11 @@ export const useAsync = <
     resetRetryCount: state.resetRetryCount,
     setIsDisabled: state.setIsDisabled,
   }));
+
+  // Retrieving the current state of async operations using the same custom hook
   const {
     isFetched,
+    fetchedDateTime,
     isLoading,
     error,
     isSuccess,
@@ -70,26 +134,26 @@ export const useAsync = <
     isDisabled,
   } = useAsyncStateStore((state) => state.getStates(key));
 
+  // Resolving optional parameters with default values
   const retryLimit = options?.retryLimit ?? DEFAULT_RETRY_LIMIT;
+  const autoFetch = options?.autoFetch ?? DEFAULT_AUTO_FETCH;
   const revalidateTime = options?.revalidateTime ?? DEFAULT_REVALIDATE_TIME;
   const cacheEnabled = options?.cache ?? DEFAULT_CACHE_ENABLED;
   const onSuccess = options?.onSuccess ?? (() => {});
   const onError = options?.onError ?? (() => {});
 
-  // Ref to store the last arguments used
+  // Storing the last arguments used to call the async function
   const storedArgsRef = useRef<any[]>([]);
 
+  // The core fetching function, designed to be called directly or automatically based on configuration
   const fetch: T = useCallback<T>(
     (async (...args) => {
       storedArgsRef.current = args;
-
       setIsLoading(key, true);
-
       let response = null;
       await asyncFunction(...args)
         .then((result) => {
           response = result;
-
           setData(key, result);
           setIsSuccess(key, true);
           incrementRetryCount(key);
@@ -106,69 +170,67 @@ export const useAsync = <
           setIsLoading(key, false);
           setIsFetched(key, true);
         });
-
       return response;
     }) as T,
-    [asyncFunction, key, isSuccess, data, isDisabled]
+    [asyncFunction, key]
   );
 
+  // Wrapped execution function to handle disabled state and check for success before re-fetching
   const execute: T = useCallback<T>(
     (async (...args) => {
-      storedArgsRef.current = args;
-
       if (isDisabled) return;
-
       if (isSuccess && data) return data;
-
       return fetch(...args);
     }) as T,
-    [asyncFunction, key, isSuccess, data, isDisabled]
+    [fetch, isDisabled, isSuccess, data]
   );
 
+  // Function to revalidate the data when necessary
   const revalidate: T = useCallback<T>(
     (async (...args) => {
-      storedArgsRef.current = args;
-
       if (isDisabled) return;
-
       return fetch(...args);
     }) as T,
-    [asyncFunction, key, isSuccess, data, isDisabled]
+    [fetch, isDisabled]
   );
 
-  // Retry mechanism
+  // Handle retry based on conditions set in options
   useEffect(() => {
     const isRetryEnabled = retryCount > 0 && retryLimit > 0;
     const isRetryLimitReached = retryCount >= retryLimit;
-
     if (!isRetryEnabled || isRetryLimitReached || isSuccess) return;
-
     const interval = setInterval(() => {
       if (isRetryEnabled && !isRetryLimitReached && !isSuccess) {
         execute(...storedArgsRef.current);
       }
     }, revalidateTime);
+    return () => clearInterval(interval);
+  }, [execute, retryCount, retryLimit, revalidateTime, isSuccess]);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [execute, retryCount, retryLimit, revalidateTime]);
-
-  // Periodic revalidation
+  // Handle periodic revalidation if caching is enabled
   useEffect(() => {
-    if (!cacheEnabled || revalidateTime <= 0 || !isSuccess) return;
+    if (!cacheEnabled || revalidateTime <= 0 || !isSuccess || !fetchedDateTime)
+      return;
 
     const interval = setInterval(() => {
-      if (cacheEnabled && revalidateTime > 0 && isSuccess) {
+      const now = new Date().getTime();
+      const lastFetchedTime = new Date(fetchedDateTime).getTime();
+      const shouldRevalidate = now - lastFetchedTime >= revalidateTime;
+      if (shouldRevalidate) {
         execute(...storedArgsRef.current);
       }
     }, revalidateTime);
+    return () => clearInterval(interval);
+  }, [cacheEnabled, revalidateTime, execute, isSuccess, fetchedDateTime]);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [cacheEnabled, revalidateTime, execute]);
+  // Auto-fetch data on hook mount if autoFetch is true
+  useEffect(() => {
+    if (autoFetch && !isFetched) {
+      execute(...storedArgsRef.current);
+    }
+  }, [autoFetch, execute, isFetched]);
 
+  // Memoization of the setData function to prevent unnecessary re-renders
   const setDataMemo = useCallback(
     (data: Awaited<ReturnType<T> | null>) => {
       setData(key, data);
@@ -176,6 +238,7 @@ export const useAsync = <
     [setData]
   );
 
+  // Return the hook's result, including all state and control functions
   return {
     isFetched,
     isLoading,

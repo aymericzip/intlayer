@@ -1,6 +1,5 @@
 'use client';
 
-import type { Project } from '@intlayer/backend';
 import {
   Button,
   Container,
@@ -17,7 +16,7 @@ import {
 import { ChevronsUpDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { type ComponentProps, useEffect, useState, type FC } from 'react';
+import { type ComponentProps, useState, type FC } from 'react';
 import { ProjectCreationForm } from '../ProjectForm/ProjectCreationForm';
 import { PagesRoutes } from '@/Routes';
 
@@ -25,13 +24,12 @@ type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>>;
 
 export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   const { session, revalidateSession } = useAuth();
-  const { getProjects } = useGetProjects();
+  const { data: projects } = useGetProjects();
   const { selectProject, isLoading: isSelectProjectLoading } =
     useSelectProject();
   const { unselectProject, isLoading: isUnselectProjectLoading } =
     useUnselectProject();
   const { project } = session ?? {};
-  const [projects, setProjects] = useState<Project[]>([]);
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
@@ -84,13 +82,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
       });
   };
 
-  useEffect(() => {
-    getProjects({}).then((response) => {
-      setProjects(response.data ?? []);
-    });
-  }, [getProjects]);
-
-  const otherProjects = projects.filter(
+  const otherProjects = (projects?.data ?? []).filter(
     (projectEl) => String(projectEl._id) !== String(project?._id)
   );
 

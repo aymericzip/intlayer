@@ -1,9 +1,8 @@
 'use client';
 
-import type { Organization } from '@intlayer/backend';
 import { Container, Loader, Modal, useAuth } from '@intlayer/design-system';
 import { useGetOrganizations } from '@intlayer/design-system/hooks';
-import { Suspense, useEffect, useState, type FC } from 'react';
+import { Suspense, useState, type FC } from 'react';
 import { MembersForm } from './Members/MembersKeyForm';
 import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
@@ -14,14 +13,7 @@ const OrganizationFormContent: FC = () => {
   const { session } = useAuth();
   const { organization } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { getOrganizations, isLoading, isSuccess } = useGetOrganizations();
-  const [organizations, setOrganizations] = useState<Organization[]>([]);
-
-  useEffect(() => {
-    getOrganizations(undefined).then((response) => {
-      setOrganizations(response.data ?? []);
-    });
-  }, [getOrganizations]);
+  const { data: organizations, isLoading, isSuccess } = useGetOrganizations();
 
   if (organization) {
     return (
@@ -42,8 +34,8 @@ const OrganizationFormContent: FC = () => {
     );
   }
 
-  if (organizations?.length > 0) {
-    return <OrganizationList organizations={organizations} />;
+  if ((organizations?.data ?? []).length > 0) {
+    return <OrganizationList organizations={organizations?.data ?? []} />;
   }
 
   if (isSuccess && !isLoading) {

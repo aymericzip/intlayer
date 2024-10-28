@@ -6,32 +6,20 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 import localeDictionaries from '@intlayer/dictionaries-entry';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import type { DictionaryContent } from '../components/DictionaryEditor';
 import { useGetDictionaries } from './intlayerAPIHooks';
 
 export const useGetAllDictionaries = () => {
-  const { getDictionaries, isLoading } = useGetDictionaries();
-  const [onlineDictionaries, setOnlineDictionaries] =
-    useState<DictionaryContent>({});
+  const { data: onlineDictionariesAPI, isLoading } = useGetDictionaries();
 
-  useEffect(() => {
-    if (Object.keys(onlineDictionaries).length > 0) return;
-
-    getDictionaries()
-      .then((response) => {
-        const dictionariesRecord = response.data?.reduce((acc, dictionary) => {
-          acc[dictionary.key] = dictionary;
-          return acc;
-        }, {} as DictionaryContent);
-
-        if (!dictionariesRecord) return;
-
-        setOnlineDictionaries(dictionariesRecord);
-      })
-      .catch(() => console.error('Error loading dictionaries'));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onlineDictionaries]);
+  const onlineDictionaries = onlineDictionariesAPI?.data?.reduce(
+    (acc, dictionary) => {
+      acc[dictionary.key] = dictionary;
+      return acc;
+    },
+    {} as DictionaryContent
+  );
 
   const allDictionaries = useMemo(
     () => ({ ...localeDictionaries, ...onlineDictionaries }),

@@ -1,6 +1,5 @@
 'use client';
 
-import type { Organization } from '@intlayer/backend';
 import {
   Button,
   Container,
@@ -17,14 +16,13 @@ import {
 import { ChevronsUpDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import { OrganizationCreationForm } from '../OrganizationForm/OrganizationCreationForm';
 import { PagesRoutes } from '@/Routes';
 
 export const OrganizationDropdown: FC = () => {
   const { session, revalidateSession } = useAuth();
-  const { getOrganizations } = useGetOrganizations();
-  const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const { data: organizations } = useGetOrganizations();
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { selectOrganization, isLoading: isSelectOrganizationLoading } =
     useSelectOrganization();
@@ -86,13 +84,7 @@ export const OrganizationDropdown: FC = () => {
       });
   };
 
-  useEffect(() => {
-    getOrganizations({}).then((response) => {
-      setOrganizations(response.data ?? []);
-    });
-  }, [getOrganizations]);
-
-  const otherOrganizations = organizations.filter(
+  const otherOrganizations = (organizations?.data ?? []).filter(
     (organizationEl) => String(organizationEl._id) !== String(organization?._id)
   );
 
