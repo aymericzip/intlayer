@@ -107,6 +107,7 @@
     "@utils/tsup-config": "workspace:^",
     "esbuild-fix-imports-plugin": "^1.0.5",
     "eslint": "^9.11.1",
+    "intlayer": "workspace:^",
     "prettier": "3.3.3",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",

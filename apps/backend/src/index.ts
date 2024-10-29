@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express, { type Express } from 'express';
-import { intlayer } from 'express-intlayer';
+import { intlayer, t } from 'express-intlayer';
 
 // Middlewares
 import { checkAdmin } from '@middlewares/admin.middleware';
@@ -89,7 +89,13 @@ logger.info('url whitelist : ', whitelist.join(', '));
 
 // Liveness check
 app.get('/', (_req, res) => {
-  res.send('ok');
+  res.send(
+    t({
+      en: 'Ok - locale: en',
+      fr: 'Ok - locale: fr',
+      es: 'Ok - locale: es',
+    })
+  );
 });
 
 // middleware - jwt & session auth
