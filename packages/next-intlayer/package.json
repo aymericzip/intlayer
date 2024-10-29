@@ -90,7 +90,7 @@
     "@intlayer/dictionaries-entry": "workspace:^",
     "@intlayer/webpack": "workspace:^",
     "intlayer": "workspace:^",
-    "next": "14.2.16",
+    "next": "15.0.1",
     "react-intlayer": "workspace:^",
     "webpack": "^5.93.0"
   },
