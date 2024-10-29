@@ -50,6 +50,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "build:types": "tsc --project ./tsconfig.types.json",
     "dev": "node --import=tsx --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "lint": "eslint . --cache",
@@ -70,6 +71,7 @@
     "csrf-csrf": "^3.0.6",
     "dotenv": "^16.4.5",
     "express": "^5.0.1",
+    "express-intlayer": "workspace:^",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",

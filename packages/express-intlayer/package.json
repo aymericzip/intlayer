@@ -1,19 +1,18 @@
 {
-  "name": "@intlayer/core",
+  "name": "express-intlayer",
   "version": "2.0.13",
   "private": false,
-  "description": "IntLayer - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
+  "description": "Manage internationalization in a simple way for express application.",
   "keywords": [
     "intlayer",
-    "layer",
-    "abstraction",
-    "data",
-    "internationalization",
-    "i18n",
+    "express",
+    "backend",
+    "error",
+    "api",
+    "application",
     "typescript",
     "javascript",
-    "json",
-    "file"
+    "middleware"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
@@ -52,51 +51,47 @@
       ]
     }
   },
+  "bin": {
+    "intlayer": "./dist/cjs/index.cjs"
+  },
   "files": [
     "./dist",
     "./package.json"
   ],
   "scripts": {
     "build": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
     "dev": "tsup --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
-    "test": "",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "serve": "webpack serve --config ./webpack.config.ts",
+    "transpile": "webpack --config ./webpack.config.ts",
+    "typecheck": "tsup --project ./tsconfig.json --noEmit",
+    "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
     "@intlayer/config": "workspace:^",
-    "chokidar": "^3.6.0"
+    "@intlayer/core": "workspace:^",
+    "webpack": "^5.92.1"
   },
   "devDependencies": {
-    "@formatjs/intl-localematcher": "^0.5.4",
-    "@intlayer/backend": "workspace:^",
-    "@types/negotiator": "^0.6.3",
+    "@changesets/changelog-github": "0.5.0",
+    "@changesets/cli": "2.27.1",
+    "@types/express": "^5.0.0",
     "@types/node": "^20.14.9",
-    "@types/react": "^18.3.3",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
     "eslint": "^9.11.1",
-    "negotiator": "^0.6.3",
+    "express": "^5.0.1",
     "prettier": "3.3.3",
-    "react": "^18.3.1",
     "rimraf": "5.0.5",
     "tsup": "^8.3.0",
     "typescript": "^5.5.2"
   },
-  "peerDependencies": {
-    "react": "^18.2.0"
-  },
   "engines": {
     "node": ">=14.18"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"

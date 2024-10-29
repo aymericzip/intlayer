@@ -1,10 +1,6 @@
-import { match } from '@formatjs/intl-localematcher';
 import type { Locales } from '@intlayer/config';
-import { getConfiguration } from '@intlayer/config/client';
-import Negotiator from 'negotiator';
+import { localeDetector as localeDetectorCore } from '@intlayer/core';
 import type { NextRequest } from 'next/server.js';
-
-const { locales, defaultLocale } = getConfiguration().internationalization;
 
 /**
  * Detects the locale from the request headers
@@ -16,19 +12,7 @@ export const localeDetector = (request: NextRequest): Locales => {
 
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
+  const locale = localeDetectorCore(negotiatorHeaders);
 
-  // match can only use specifically formatted locales
-  // https://stackoverflow.com/questions/76447732/nextjs-13-i18n-incorrect-locale-information-provided
-  try {
-    return match(languages, locales, defaultLocale) as Locales;
-  } catch (error) {
-    console.warn(error);
-    console.warn(
-      `No valid locales in accept-language header: ${languages.join(', ')}`
-    );
-    console.warn(`Reverting to using defaultLocale: ${defaultLocale}`);
-
-    return defaultLocale;
-  }
+  return locale;
 };

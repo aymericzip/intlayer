@@ -81,20 +81,17 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.4",
     "@intlayer/chokidar": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
     "@intlayer/webpack": "workspace:^",
     "intlayer": "workspace:^",
-    "negotiator": "^0.6.3",
     "next": "14.2.16",
     "react-intlayer": "workspace:^",
     "webpack": "^5.93.0"
   },
   "devDependencies": {
-    "@types/negotiator": "^0.6.3",
     "@types/node": "^22.1.0",
     "@types/react": "^18.3.3",
     "@utils/eslint-config": "workspace:^",
