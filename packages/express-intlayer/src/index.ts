@@ -1,6 +1,7 @@
 import { createModuleAugmentation } from '@intlayer/chokidar';
 import { type Locales, getConfiguration } from '@intlayer/config';
 import { getTranslationContent, localeDetector } from '@intlayer/core';
+import { createNamespace } from 'cls-hooked';
 import type { NextFunction, RequestHandler, Request, Response } from 'express';
 import { type IConfigLocales } from 'intlayer';
 
@@ -8,6 +9,8 @@ const { middleware, internationalization } = getConfiguration({
   verbose: true,
 });
 const { headerName, cookieName } = middleware;
+
+const appNamespace = createNamespace('app');
 
 createModuleAugmentation();
 
@@ -53,15 +56,16 @@ export const intlayer = (): RequestHandler => (req, res, next) => {
   res.locals.locale_cookie = localeCookie;
   res.locals.locale_detected = localeDetected;
   res.locals.locale = localeCookie ?? localeHeader ?? localeDetected;
-  res.locals.t = translateFunction(req, res, next);
 
-  (
-    global as typeof globalThis & { t: ReturnType<typeof translateFunction> }
-  ).t = res.locals.t;
+  const t = translateFunction(req, res, next);
+  res.locals.t = t;
 
-  next();
+  appNamespace.run(() => {
+    appNamespace.set('t', t);
+
+    next();
+  });
 };
 
-export const t = (
-  global as typeof globalThis & { t: ReturnType<typeof translateFunction> }
-).t;
+export const t = (content: IConfigLocales<string>) =>
+  appNamespace.get('t')(content);

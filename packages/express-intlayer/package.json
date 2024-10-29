@@ -78,12 +78,14 @@
     "@intlayer/chokidar": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
+    "cls-hooked": "^4.2.2",
     "intlayer": "workspace:^",
     "webpack": "^5.92.1"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.0",
     "@changesets/cli": "2.27.1",
+    "@types/cls-hooked": "^4.3.9",
     "@types/express": "^5.0.0",
     "@types/node": "^20.14.9",
     "@utils/eslint-config": "workspace:^",

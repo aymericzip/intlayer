@@ -1,5 +1,7 @@
+// @ts-ignore: during build @intlayer/backend not build yes
 import { Dictionary } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
+// @ts-ignore: during build @intlayer/design-system not build yes
 import { intlayerAPI } from '@intlayer/design-system/libs';
 
 type FetchDictionariesOptions = {
