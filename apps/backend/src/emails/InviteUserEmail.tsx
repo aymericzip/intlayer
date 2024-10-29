@@ -33,7 +33,7 @@ export const InviteUserEmail = ({
   inviteFromIp,
   inviteFromLocation,
 }: InviteUserEmailProps) => {
-  const previewText = `Join ${invitedByUsername} on Vercel`;
+  const previewText = `Join ${invitedByUsername} on Intlayer`;
 
   return (
     <Html>
@@ -111,7 +111,7 @@ InviteUserEmail.PreviewProps = {
   invitedByUsername: 'Alan',
   invitedByEmail: 'alan.turing@example.com',
   organizationName: 'Enigma',
-  inviteLink: 'https://vercel.com/teams/invite/foo',
+  inviteLink: 'https://intlayer.org/teams/invite/foo',
   inviteFromIp: '204.13.x.x',
   inviteFromLocation: 'São Paulo, Brazil',
 } as InviteUserEmailProps;
