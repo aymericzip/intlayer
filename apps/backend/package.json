@@ -35,7 +35,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/esm/export.d.js",
+      "types": "./dist/types/export.d.ts",
       "require": "./dist/cjs/export.cjs",
       "import": "./dist/esm/export.mjs"
     },
@@ -43,14 +43,15 @@
   },
   "main": "dist/cjs/export.cjs",
   "module": "dist/esm/export.mjs",
-  "types": "dist/esm/export.d.ts",
+  "types": "dist/types/export.d.ts",
   "files": [
     "./dist",
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json",
+    "build": "pnpm build:package & pnpm build:types",
+    "build:package": "tsup",
+    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "dev": "node --import=tsx --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "lint": "eslint . --cache",
@@ -102,9 +103,10 @@
     "@types/validator": "^13.12.0",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
+    "@utils/ts-config-types": "workspace:^",
+    "@utils/tsup-config": "workspace:^",
     "esbuild-fix-imports-plugin": "^1.0.5",
     "eslint": "^9.11.1",
-    "i": "^0.3.7",
     "prettier": "3.3.3",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",

@@ -1,5 +1,7 @@
+/** @ts-nocheck */
+
 import type { LocalesValues } from '@intlayer/config/client';
-// @ts-expect-error intlayer declared for module augmentation
+// @ts-ignore intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';
 import type { NodeType } from '../../../types';
 

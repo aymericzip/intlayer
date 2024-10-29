@@ -34,7 +34,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
+      "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
@@ -42,6 +42,7 @@
   },
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -58,9 +59,13 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "pnpm build:package & pnpm build:types",
+    "build:package": "tsup",
+    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "concurrently \"pnpm run dev:package\" \"pnpm run dev:types\"",
+    "dev:package": "tsup --watch",
+    "dev:types": "build:types --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
@@ -101,10 +106,14 @@
     "@types/react-dom": "^18.3.0",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
+    "@utils/ts-config-types": "workspace:^",
+    "@utils/tsup-config": "workspace:^",
+    "concurrently": "^8.2.2",
     "eslint": "^9.11.1",
     "prettier": "3.3.3",
     "rimraf": "5.0.5",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
     "tsup": "^8.3.0",
     "typescript": "^5.5.2"
   },

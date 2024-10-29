@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express, { type Express } from 'express';
+import { intlayer } from 'express-intlayer';
 
 // Middlewares
 import { checkAdmin } from '@middlewares/admin.middleware';
@@ -63,11 +64,15 @@ app.use(compression());
 
 // Parse incoming requests with JSON payloads
 app.use(express.json());
+
 // Parse incoming requests with urlencoded payloads
 app.use(express.urlencoded({ extended: true }));
 
 // Parse incoming requests with cookies
 app.use(cookieParser());
+
+// Load internationalization request handler
+app.use(intlayer());
 
 // CORS
 const whitelist: string[] = [process.env.CLIENT_URL!];

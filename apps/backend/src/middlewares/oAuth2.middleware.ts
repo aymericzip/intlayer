@@ -4,7 +4,7 @@ import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import { UserModel } from '@models/user.model';
 import { getAuthModel, authenticateOptions } from '@utils/oAuth2';
-import { NextFunction, Request } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import OAuth2Server, {
   Request as OAuthRequest,
   Response as OAuthResponse,
@@ -28,8 +28,8 @@ export type RequestWithOAuth2Information<
 };
 
 export const attachOAuthInstance = async (
-  req: RequestWithOAuth2Information,
-  _res: ResponseWithInformation,
+  req: Request,
+  _res: Response,
   next: NextFunction
 ) => {
   // Attach the instance OAuth to the requests

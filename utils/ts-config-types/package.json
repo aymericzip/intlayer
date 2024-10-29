@@ -1,0 +1,16 @@
+{
+  "name": "@utils/ts-config-types",
+  "version": "1.0.4",
+  "private": true,
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "./tsconfig.json",
+  "module": "./tsconfig.json",
+  "scripts": {},
+  "devDependencies": {
+    "@utils/ts-config": "workspace:^",
+    "prettier": "3.3.3",
+    "typescript": "^5.4.5"
+  }
+}

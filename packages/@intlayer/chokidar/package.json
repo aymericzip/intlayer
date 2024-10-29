@@ -35,7 +35,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.mts",
+      "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
@@ -43,6 +43,7 @@
   },
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -55,9 +56,13 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "pnpm build:package & pnpm build:types",
+    "build:package": "tsup",
+    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
-    "dev": "tsup --watch",
+    "dev": "concurrently \"pnpm run dev:package\" \"pnpm run dev:types\"",
+    "dev:package": "tsup --watch",
+    "dev:types": "build:types --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
@@ -69,7 +74,7 @@
     "@intlayer/core": "workspace:^",
     "@intlayer/design-system": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
-    "chokidar": "^3.6.0",
+    "chokidar": "^4.0.1",
     "crypto-js": "^4.2.0",
     "esbuild": "^0.20.2",
     "esbuild-loader": "^4.2.0",
@@ -88,9 +93,13 @@
     "@types/node": "^20.14.9",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
+    "@utils/ts-config-types": "workspace:^",
+    "@utils/tsup-config": "workspace:^",
+    "concurrently": "^8.2.2",
     "eslint": "^9.11.1",
     "node-polyfill-webpack-plugin": "^3.0.0",
     "prettier": "3.3.3",
+    "tsc-alias": "^1.8.10",
     "tsup": "^8.3.0",
     "typescript": "^5.5.2",
     "webpack-watch-files-plugin": "^1.2.1"

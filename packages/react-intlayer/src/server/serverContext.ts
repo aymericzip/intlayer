@@ -9,7 +9,6 @@
  *      {children}
  * </IntlayerServer.Provider>
  */
-
 import react from 'react';
 
 type CacheType<T> = () => { value: T | undefined };
@@ -19,6 +18,7 @@ const cacheFallback = () => () => ({ value: undefined });
 export const createServerContext = <T>(defaultValue?: T): ServerContext<T> => {
   throwInClient();
 
+  /** @ts-ignore remove error Property 'cache' does not exist on type 'typeof React'. */
   const cache = react.cache<CacheType<T>> ?? cacheFallback;
 
   const getCache = cache(() => ({

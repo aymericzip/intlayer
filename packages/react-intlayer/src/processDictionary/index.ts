@@ -252,7 +252,7 @@ export const processDictionary = (
   }
 
   return {
-    content,
+    content: content as TransformedContentValue,
     keyPath,
     dictionaryId,
     dictionaryPath,

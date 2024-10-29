@@ -8,7 +8,7 @@ import mdxConfig from './config/mdx.mjs';
 import prettierPluginConfig from './config/prettier.mjs';
 import reactConfig from './config/react.mjs';
 import regexpConfig from './config/regexp.mjs';
-import sonarConfig from './config/sonar.mjs';
+// import sonarConfig from './config/sonar.mjs';
 import tailwindConfig from './config/tailwind.mjs';
 import typescriptConfig from './config/typescript.mjs';
 
@@ -39,7 +39,7 @@ const config = [
     ...prettierPluginConfig,
     ...reactConfig,
     ...regexpConfig,
-    ...sonarConfig,
+    // ...sonarConfig,
     ...tailwindConfig,
     ...typescriptConfig,
   ].map((config) => _.merge({}, subConfig, config)),

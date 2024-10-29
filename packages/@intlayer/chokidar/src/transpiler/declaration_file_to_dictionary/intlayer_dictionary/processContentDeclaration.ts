@@ -49,7 +49,7 @@ const processFunctionResults = async (entry: Content): Promise<FlatContent> => {
     return result;
   }
 
-  return entry;
+  return entry as FlatContent;
 };
 
 /**

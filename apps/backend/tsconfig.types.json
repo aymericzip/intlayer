@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@utils/ts-config-types",
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "outDir": "dist/types",
+    "baseUrl": "src",
+    "paths": {
+      "@controllers/*": ["./controllers/*"],
+      "@models/*": ["./models/*"],
+      "@services/*": ["./services/*"],
+      "@routes/*": ["./routes/*"],
+      "@middlewares/*": ["./middlewares/*"],
+      "@logger": ["./logger/index"],
+      "@schemas/*": ["./schemas/*"],
+      "@emails/*": ["./emails/*"],
+      "@utils/*": ["./utils/*"],
+      "@/*": ["./*"]
+    }
+  }
+}

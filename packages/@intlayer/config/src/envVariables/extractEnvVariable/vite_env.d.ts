@@ -1,9 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+import 'module';
+export {};
+
 /**
  * Module augmentation to add the `env` property to `import.meta`
  *
  * Simulate a vite environment
  */
-interface ImportMeta {
-  env: Record<string, string | undefined>;
+declare global {
+  interface ImportMeta {
+    env: Record<string, string | undefined>;
+  }
 }

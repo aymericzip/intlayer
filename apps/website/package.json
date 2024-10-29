@@ -81,6 +81,8 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@utils/ts-config": "workspace:^",
+    "@utils/ts-config-types": "workspace:^",
+    "@utils/tsup-config": "workspace:^",
     "concurrently": "^8.2.2",
     "eslint": "^9.11.1",
     "eslint-config-next": "14.2.5",

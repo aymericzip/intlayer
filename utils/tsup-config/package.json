@@ -1,0 +1,19 @@
+{
+  "name": "@utils/tsup-config",
+  "version": "1.0.4",
+  "private": true,
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "./tsup-config.mjs",
+  "module": "./tsup-config.mjs",
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^20.16.10",
+    "esbuild": "^0.20.2",
+    "esbuild-fix-imports-plugin": "^1.0.5",
+    "eslint": "^9.11.1",
+    "prettier": "3.3.3",
+    "typescript": "^5.4.5"
+  }
+}

@@ -4,7 +4,7 @@ import { fixImportsPlugin } from 'esbuild-fix-imports-plugin';
 export const commonOptions = {
   entry: ['src/**/*'],
   target: 'esnext',
-  dts: true,
+  dts: false,
   external: ['fs', 'path'],
   clean: true,
   sourcemap: true,

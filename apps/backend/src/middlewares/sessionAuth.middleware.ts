@@ -22,38 +22,16 @@ export enum AuthInformationType {
   IsDefined,
 }
 
-type AuthInformationResult<
-  T,
-  U extends AuthInformationType | undefined,
-> = U extends AuthInformationType.IsNull
-  ? null
-  : U extends AuthInformationType.IsDefined
-    ? T
-    : T | null;
-
-export type AuthInformation<
-  UserRule extends AuthInformationType | undefined = undefined,
-  OrganizationRule extends AuthInformationType | undefined = undefined,
-  ProjectRule extends AuthInformationType | undefined = undefined,
-  AuthTypeRule extends AuthInformationType | undefined = undefined,
-> = {
-  user: AuthInformationResult<User, UserRule>;
-  organization: AuthInformationResult<Organization, OrganizationRule>;
-  isOrganizationAdmin: boolean;
-  project: AuthInformationResult<Project, ProjectRule>;
-  isProjectAdmin: boolean;
-  authType: AuthInformationResult<'session' | 'oauth2', AuthTypeRule>;
-};
-
-export type ResponseWithInformation<
-  ResBody = any,
-  UserRule extends AuthInformationType | undefined = undefined,
-  OrganizationRule extends AuthInformationType | undefined = undefined,
-  ProjectRule extends AuthInformationType | undefined = undefined,
-  AuthTypeRule extends AuthInformationType | undefined = undefined,
-> = Response<
+export type ResponseWithInformation<ResBody = any> = Response<
   ResBody,
-  AuthInformation<UserRule, OrganizationRule, ProjectRule, AuthTypeRule>
+  {
+    user?: User | null;
+    organization?: Organization | null;
+    isOrganizationAdmin?: boolean | null;
+    project?: Project | null;
+    isProjectAdmin?: boolean | null;
+    authType?: 'session' | 'oauth2' | null;
+  }
 >;
 
 export const checkUser = async (
