@@ -1,0 +1,53 @@
+{
+  "name": "express-app-example",
+  "version": "1.1.12",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/export.d.ts",
+      "require": "./dist/cjs/export.cjs",
+      "import": "./dist/esm/export.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/cjs/export.cjs",
+  "module": "dist/esm/export.mjs",
+  "types": "dist/types/export.d.ts",
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "pnpm build:package & pnpm build:types",
+    "build:package": "tsup",
+    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "dev": "node --import=tsx --watch ./src/index.ts",
+    "email": "email dev --dir ./src/emails",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "start": "node --import=tsx dist/esm/index.mjs"
+  },
+  "dependencies": {
+    "express": "^5.0.1",
+    "express-intlayer": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.1.0",
+    "@utils/eslint-config": "workspace:^",
+    "@utils/ts-config": "workspace:^",
+    "@utils/ts-config-types": "workspace:^",
+    "@utils/tsup-config": "workspace:^",
+    "esbuild-fix-imports-plugin": "^1.0.5",
+    "eslint": "^9.11.1",
+    "intlayer": "workspace:^",
+    "prettier": "3.3.3",
+    "tsc-alias": "^1.8.10",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.5.4"
+  }
+}

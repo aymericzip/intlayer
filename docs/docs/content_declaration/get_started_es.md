@@ -17,11 +17,11 @@ npm install intlayer
 ```
 
 ```bash
-yarn install intlayer
+yarn add intlayer
 ```
 
 ```bash
-pnpm install intlayer
+pnpm add intlayer
 ```
 
 ## Gestiona tu Contenido

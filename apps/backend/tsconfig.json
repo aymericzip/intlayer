@@ -26,9 +26,5 @@
       "@utils/*": ["src/utils/*"],
       "@/*": ["src/*"]
     }
-  },
-  "tsc-alias": {
-    "resolveFullPaths": true,
-    "verbose": true
   }
 }

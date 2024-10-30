@@ -1,24 +1,3 @@
-<div align="center">
-  <a href="https://www.npmjs.com/package/express-intlayer">
-    <img src="docs/assets/logo.png" width="500" alt="intlayer" />
-  </a>
-</div>
-
-<div align="center">
-  <a href="https://www.npmjs.com/package/express-intlayer">
-    <img alt="npm" src="https://img.shields.io/npm/v/express-intlayer.svg?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/express-intlayer">
-    <img alt="downloads" src="https://badgen.net/npm/dm/express-intlayer?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/express-intlayer">
-    <img alt="types included" src="https://badgen.net/npm/types/express-intlayer?labelColor=49516F&color=8994BC" 
-  />
-  </a>
-</div>
-
-Here's a draft for the `README.md` file for your `express-intlayer` package:
-
 # express-intlayer
 
 `express-intlayer` is a powerful internationalization (i18n) middleware for Express applications, designed to make your backend services globally accessible by providing localized responses based on the client's preferences.
@@ -49,6 +28,14 @@ To begin using `express-intlayer`, install the package using npm:
 
 ```bash
 npm install intlayer express-intlayer
+```
+
+```bash
+pnpm add intlayer express-intlayer
+```
+
+```bash
+yarn add intlayer express-intlayer
 ```
 
 ### Setup

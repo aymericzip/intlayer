@@ -11,11 +11,11 @@ npm install intlayer react-intlayer
 ```
 
 ```bash
-yarn install intlayer react-intlayer
+yarn add intlayer react-intlayer
 ```
 
 ```bash
-pnpm install intlayer react-intlayer
+pnpm add intlayer react-intlayer
 ```
 
 ## Paso 2: Configuración de tu proyecto

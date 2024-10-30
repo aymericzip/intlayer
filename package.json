@@ -46,7 +46,7 @@
     "prepublishOnly": "npm run test",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "reset": "pnpm reset-packages && pnpm install -f && pnpm reset-examples",
+    "reset": "pnpm reset-packages && pnpm add -f && pnpm reset-examples",
     "reset-examples": "pnpm clean:examples && pnpm build-examples",
     "reset-packages": "pnpm clean:packages && pnpm build-packages",
     "test": "pnpm recursive test --parallel",

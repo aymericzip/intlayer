@@ -29,9 +29,9 @@ export const translateFunction =
  */
 export const intlayer = (): RequestHandler => (req, res, next) => {
   // Detect if locale is set by intlayer frontend lib in the cookies
-  const localeCookie = req.cookies[cookieName];
+  const localeCookie = req.cookies?.[cookieName];
   // Detect if locale is set by intlayer frontend lib in the headers
-  const localeHeader = req.headers[headerName];
+  const localeHeader = req.headers?.[headerName];
   // Interpret browser locale
 
   const negotiatorHeaders: Record<string, string> = {};

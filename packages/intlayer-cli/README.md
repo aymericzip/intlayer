@@ -39,11 +39,11 @@ npm install intlayer-cli
 ```
 
 ```bash
-yarn install intlayer-cli
+yarn add intlayer-cli
 ```
 
 ```bash
-pnpm install intlayer-cli
+pnpm add intlayer-cli
 ```
 
 ## intlayer-cli package

@@ -24,6 +24,7 @@ export enum PagesRoutes {
   Doc_Environment_NextJS = '/doc/environment/nextjs',
   Doc_Environment_CRA = '/doc/environment/create-react-app',
   Doc_Environment_ViteAndReact = '/doc/environment/vite-and-react',
+  Doc_Environment_Express = '/doc/environment/express',
   Doc_Intlayer_with_I18next = '/doc/blog/i18next',
 
   PrivacyPolicy = '/privacy_notice',
@@ -54,6 +55,7 @@ export enum GithubRoutes {
   IntlayerWithReactCRA = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md',
   IntlayerWithViteReact = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md',
   IntlayerWithI18next = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md',
+  IntlayerWithExpress = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_express_en.md',
   ContentDeclaration_GetStarted = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/get_started_en.md',
   ContentDeclaration_ContentExtentionCustomization = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/content_extention_customization_en.md',
   ContentDeclaration_Enumeration = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/enumeration_en.md',

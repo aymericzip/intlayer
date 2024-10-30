@@ -11,11 +11,11 @@ npm install intlayer next-intlayer
 ```
 
 ```bash
-yarn install intlayer next-intlayer
+yarn add intlayer next-intlayer
 ```
 
 ```bash
-pnpm install intlayer next-intlayer
+pnpm add intlayer next-intlayer
 ```
 
 ## Step 2: Configure Your Project

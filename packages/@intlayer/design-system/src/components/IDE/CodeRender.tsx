@@ -47,7 +47,12 @@ export const Code: FC<CodeCompProps> = ({
   }, [copied]);
 
   return (
-    <div className={cn('relative h-full w-full', showLineNumbers && 'ml-0')}>
+    <div
+      className={cn(
+        'relative h-full w-full text-sm',
+        showLineNumbers && 'ml-0'
+      )}
+    >
       <CopyToClipboard text={children} onCopy={() => setCopied(true)}>
         <button className="absolute right-3 top-3" aria-label="Copy code">
           {copied ? (

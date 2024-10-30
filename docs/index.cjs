@@ -44,6 +44,11 @@ const docs = {
     fr: require('./docs/intlayer_with_nextjs_fr.md'),
     es: require('./docs/intlayer_with_nextjs_es.md'),
   },
+  intlayer_with_express: {
+    en: require('./docs/intlayer_with_express_en.md'),
+    fr: require('./docs/intlayer_with_express_fr.md'),
+    es: require('./docs/intlayer_with_express_es.md'),
+  },
   intlayer_with_vite_react: {
     en: require('./docs/intlayer_with_vite+react_en.md'),
     fr: require('./docs/intlayer_with_vite+react_fr.md'),

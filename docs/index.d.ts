@@ -9,6 +9,7 @@ declare module '@intlayer/docs' {
     intlayer_with_create_react_app,
     intlayer_with_i18next,
     intlayer_with_nextjs,
+    intlayer_with_express,
     intlayer_with_vite_react,
     content_declaration__content_extention_customization,
     content_declaration__enumeration,

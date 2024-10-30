@@ -35,11 +35,11 @@ npm install intlayer-editor -D
 ```
 
 ```bash
-yarn install intlayer-editor -D
+yarn add intlayer-editor -D
 ```
 
 ```bash
-pnpm install intlayer-editor -D
+pnpm add intlayer-editor -D
 ```
 
 In your Intlayer configuration file, you can customize the editor settings:

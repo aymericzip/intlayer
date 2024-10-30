@@ -1,7 +1,7 @@
 {
   "name": "@intlayer/backend",
   "version": "2.0.13",
-  "private": true,
+  "private": false,
   "description": "IntLayer Backend is a an application that allow you to manage your IntLayer content and interact with the intlayer editor.",
   "keywords": [
     "intlayer",
@@ -61,7 +61,6 @@
     "start": "node --import=tsx dist/esm/index.mjs"
   },
   "dependencies": {
-    "@intlayer/core": "workspace:^",
     "@react-email/components": "^0.0.25",
     "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
@@ -73,11 +72,9 @@
     "dotenv": "^16.4.5",
     "express": "^5.0.1",
     "express-intlayer": "workspace:^",
-    "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.3",
-    "npm": "^10.9.0",
     "oauth2-server": "^3.1.1",
     "react": "^18.3.1",
     "react-email": "^3.0.1",
@@ -87,6 +84,7 @@
     "winston": "^3.14.2"
   },
   "devDependencies": {
+    "@intlayer/core": "workspace:^",
     "@types/bcrypt": "^5.0.2",
     "@types/body-parser": "^1.19.5",
     "@types/compression": "^1.7.5",
@@ -109,7 +107,6 @@
     "eslint": "^9.11.1",
     "intlayer": "workspace:^",
     "prettier": "3.3.3",
-    "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.0",
     "tsx": "^4.19.1",

@@ -17,7 +17,7 @@ git clone git@github.com:aymericzip/intlayer.git
 #### Installing Dependencies
 
 ```sh
-pnpm install
+pnpm add
 ```
 
 ### Preparing the project
