@@ -24,7 +24,7 @@ export const DictionaryListDashboardContent: FC = () => {
   const { noDictionaryView, createDictionaryButton, dictionaryList } =
     useIntlayer('dictionary-form');
   const { online, isLoading } = useGetAllDictionaries();
-  const dictionaries = Object.values(online) ?? [];
+  const dictionaries = Object.values(online ?? {}) ?? [];
   const router = useRouter();
 
   if (isLoading) return <Loader />;
