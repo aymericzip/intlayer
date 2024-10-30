@@ -17,8 +17,6 @@
   </a>
 </div>
 
-Here's a draft for the `README.md` file for your `express-intlayer` package:
-
 # express-intlayer
 
 `express-intlayer` is a powerful internationalization (i18n) middleware for Express applications, designed to make your backend services globally accessible by providing localized responses based on the client's preferences.
