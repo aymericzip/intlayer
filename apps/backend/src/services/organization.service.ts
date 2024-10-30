@@ -1,5 +1,5 @@
-import { logger } from '@logger';
 import { OrganizationModel } from '@models/organization.model';
+import { GenericError } from '@utils/errors';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import {
   type OrganizationFields,
@@ -37,11 +37,7 @@ export const getOrganizationById = async (
   const organization = await OrganizationModel.findById(organizationId);
 
   if (!organization) {
-    const organizationIdString = String(organizationId);
-    const errorMessage = `Organization not found - ${organizationIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
   }
 
   return organization;
@@ -58,10 +54,7 @@ export const countOrganizations = async (
   const result = await OrganizationModel.countDocuments(filters);
 
   if (typeof result === 'undefined') {
-    const errorMessage = 'Organization count failed';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ORGANIZATION_COUNT_FAILED', { filters });
   }
 
   return result;
@@ -79,9 +72,7 @@ export const createOrganization = async (
   const errors = validateOrganization(organization, ['name']);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Organization invalid fields - ${JSON.stringify(errors)}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ORGANIZATION_INVALID_FIELDS', { errors });
   }
 
   return await OrganizationModel.create({
@@ -104,14 +95,12 @@ export const updateOrganizationById = async (
 ): Promise<Organization> => {
   const updatedKeys = Object.keys(organization) as OrganizationFields;
   const errors = validateOrganization(organization, updatedKeys);
-  const organizationIdString = String(organizationId);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Organization invalid fields - ${organizationIdString} - ${JSON.stringify(
-      errors
-    )}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ORGANIZATION_INVALID_FIELDS', {
+      organizationId,
+      errors,
+    });
   }
 
   const result = await OrganizationModel.updateOne(
@@ -120,9 +109,7 @@ export const updateOrganizationById = async (
   );
 
   if (result.matchedCount === 0) {
-    const errorMessage = `Organization update failed - ${organizationIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ORGANIZATION_UPDATE_FAILED', { organizationId });
   }
 
   return await getOrganizationById(organizationId);
@@ -140,11 +127,7 @@ export const deleteOrganizationById = async (
     await OrganizationModel.findByIdAndDelete(organizationId);
 
   if (!organization) {
-    const organizationIdString = String(organizationId);
-    const errorMessage = `Organization not found - ${organizationIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
   }
 
   return organization;

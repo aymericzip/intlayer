@@ -25,12 +25,12 @@ export enum AuthInformationType {
 export type ResponseWithInformation<ResBody = any> = Response<
   ResBody,
   {
-    user?: User | null;
-    organization?: Organization | null;
-    isOrganizationAdmin?: boolean | null;
-    project?: Project | null;
-    isProjectAdmin?: boolean | null;
-    authType?: 'session' | 'oauth2' | null;
+    user: User | null;
+    organization: Organization | null;
+    isOrganizationAdmin: boolean | null;
+    project: Project | null;
+    isProjectAdmin: boolean | null;
+    authType: 'session' | 'oauth2' | null;
   }
 >;
 

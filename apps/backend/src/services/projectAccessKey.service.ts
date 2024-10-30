@@ -1,5 +1,5 @@
-import { logger } from '@logger';
 import { ProjectModel } from '@models/project.model';
+import { GenericError } from '@utils/errors';
 import type { ObjectId } from 'mongoose';
 import { generateClientCredentials } from './oAuth2.service';
 import { getProjectById } from './project.service';
@@ -41,11 +41,11 @@ export const addNewAccessKey = async (
   );
 
   if (result.modifiedCount === 0) {
-    const errorMessage =
-      'The project was not updated. Check that the project ID is correct.';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ACCESS_KEY_CREATION_FAILED', {
+      accessKeyData,
+      projectId,
+      userId: user._id,
+    });
   }
 
   const updatedProject = await getProjectById(projectId);
@@ -55,11 +55,11 @@ export const addNewAccessKey = async (
   );
 
   if (!newAccessKeyId) {
-    const errorMessage =
-      'An error occurred while adding the access key. Check that the project ID is correct.';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ACCESS_KEY_CREATION_FAILED', {
+      accessKeyData,
+      projectId,
+      userId: user._id,
+    });
   }
 
   return newAccessKeyId;
@@ -74,11 +74,10 @@ export const deleteAccessKey = async (
   );
 
   if (!projectAccess) {
-    const errorMessage =
-      'The access key was not found. Check that the client ID is correct.';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ACCESS_KEY_NOT_FOUND', {
+      clientId,
+      projectId: project._id,
+    });
   }
 
   const result = await ProjectModel.updateOne(
@@ -87,11 +86,10 @@ export const deleteAccessKey = async (
   );
 
   if (result.modifiedCount === 0) {
-    const errorMessage =
-      'The access key was not deleted. Check that the client ID is correct.';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ACCESS_KEY_DELETION_FAILED', {
+      clientId,
+      projectId: project._id,
+    });
   }
 
   return projectAccess;
@@ -107,11 +105,10 @@ export const refreshAccessKey = async (
   });
 
   if (!project) {
-    const errorMessage =
-      'The access key was not found. Check that the client ID and project ID are correct.';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('PROJECT_NOT_FOUND', {
+      clientId,
+      projectId,
+    });
   }
 
   const projectAccess = project.oAuth2Access.find(
@@ -119,11 +116,10 @@ export const refreshAccessKey = async (
   );
 
   if (!projectAccess) {
-    const errorMessage =
-      'The access key was not found. Check that the client ID is correct.';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ACCESS_KEY_NOT_FOUND', {
+      clientId,
+      projectId: project._id,
+    });
   }
 
   const { clientSecret } = generateClientCredentials();
@@ -139,11 +135,10 @@ export const refreshAccessKey = async (
   );
 
   if (result.modifiedCount === 0) {
-    const errorMessage =
-      'The access key was not updated. Check that the client ID is correct.';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ACCESS_KEy_UPDATE_FAILED', {
+      clientId,
+      projectId,
+    });
   }
 
   const updatedProject = await getProjectById(projectId);
@@ -153,11 +148,10 @@ export const refreshAccessKey = async (
   );
 
   if (!newAccessKeyId) {
-    const errorMessage =
-      'An error occurred while adding the access key. Check that the project ID is correct.';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ACCESS_KEY_CREATION_FAILED', {
+      accessKeyData: updatedProject.oAuth2Access,
+      projectId,
+    });
   }
 
   return newAccessKeyId;

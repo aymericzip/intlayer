@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/pseudo-random */
 import { logger } from '@logger';
 import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
@@ -7,8 +6,10 @@ import {
   getCookieOptions,
   MAX_AGE,
 } from '@utils/cookies';
+import { GenericError } from '@utils/errors';
 import { hash, genSalt, compare } from 'bcrypt';
 import type { Response } from 'express';
+import { t } from 'express-intlayer';
 import jwt from 'jsonwebtoken';
 import type { Document, ObjectId } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
@@ -69,9 +70,7 @@ export const setUserAuth = async (res: Response, user: User) => {
   });
 
   if (!userToken) {
-    const errorMessage = `JWT token creation failed for user ${user.name} - ${user.email}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('JWT_TOKEN_CREATION_FAILED_USER', { user });
   }
 
   const cookieOptions = getCookieOptions();
@@ -133,9 +132,9 @@ export const setOrganizationAuth = (
   );
 
   if (!organizationToken) {
-    const errorMessage = `JWT token creation failed for organization ${organization.name}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('JWT_TOKEN_CREATION_FAILED_ORGANIZATION', {
+      organization,
+    });
   }
 
   res.cookie(Cookies.JWT_ORGANIZATION, organizationToken, getCookieOptions());
@@ -173,26 +172,26 @@ export const setProjectAuth = (
   });
 
   if (!projectToken) {
-    const errorMessage = `JWT token creation failed for project ${project.name}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('JWT_TOKEN_CREATION_FAILED_PROJECT', {
+      project,
+    });
   }
 
   res.cookie(Cookies.JWT_PROJECT, projectToken, getCookieOptions());
 
   if (!organization) {
-    const errorMessage = `Organization not found for project ${project.name}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('ORGANIZATION_NOT_FOUND', {
+      project,
+    });
   }
 
   if (
     // if the project is not in the organization's projects
-    String(organization._id) !== String(project._id)
+    String(organization._id) !== String(project.organizationId)
   ) {
-    const errorMessage = `Organization ${organization.name} does not have project ${project.name}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('JWT_TOKEN_ORGANIZATION_MISMATCH_PROJECT', {
+      project,
+    });
   }
 
   res.locals.project = project;
@@ -247,10 +246,7 @@ export const requestPasswordReset = async (
   const user = await getUserByEmail(email);
 
   if (!user) {
-    const errorMessage = `User not found - ${email}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { email });
   }
 
   return updateUserProvider(user._id as unknown as string, 'email', {
@@ -271,18 +267,13 @@ export const resetUserPassword = async (
   newPassword: string
 ): Promise<User> => {
   const emailAndPasswordProvider = await getUserProvider(userId, 'email');
-  const userIdString = String(userId);
 
   if (!emailAndPasswordProvider) {
-    const errorMessage = `User provider not found - ${userIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_PROVIDER_NOT_FOUND', { userId });
   }
 
   if (emailAndPasswordProvider.secret !== secret) {
-    const errorMessage = `Secret not valid - ${userIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_PROVIDER_SECRET_NOT_VALID', { userId });
   }
 
   const updatedUser: User = await updateUserProvider(userId, 'email', {
@@ -314,13 +305,8 @@ export const getUserProvider = async <T extends SessionProviders['provider']>(
 ): Promise<UserProvider<T> | null> => {
   const user = await getUserById(userId);
 
-  const userIdString = String(userId);
-
   if (!user) {
-    const errorMessage = `User not found - ${userIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { userId });
   }
 
   const userProvider = user.provider?.find(
@@ -391,13 +377,8 @@ export const updateUserProvider = async <
 ): Promise<User> => {
   const user = await getUserById(userId);
 
-  const userIdString = String(userId);
-
   if (!user) {
-    const errorMessage = `User not found - ${userIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { userId });
   }
 
   const formattedProviderToUpdate = formatUserProviderUpdate(
@@ -429,23 +410,17 @@ export const addUserProvider = async (
 ): Promise<User> => {
   const user = await getUserById(userId);
 
-  const userIdString = String(userId);
-
   if (!user) {
-    const errorMessage = `User not found - ${userIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { userId });
   }
 
   const existingProvider = await getUserProvider(userId, provider.provider);
 
   if (existingProvider) {
-    const errorMessage = `User provider already exists : ${String(user._id)} - ${provider.provider}`;
-
-    logger.error(errorMessage);
-
-    throw new Error(errorMessage);
+    throw new GenericError('USER_PROVIDER_ALREADY_EXISTS', {
+      userId,
+      provider,
+    });
   }
 
   const updatedProvider = [...(user.provider ?? []), provider];
@@ -474,13 +449,8 @@ export const removeUserProvider = async (
 ) => {
   const user = await getUserById(userId);
 
-  const userIdString = String(userId);
-
   if (!user) {
-    const errorMessage = `User not found - ${userIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { userId });
   }
 
   const existingProvider = await getUserProvider(
@@ -490,11 +460,10 @@ export const removeUserProvider = async (
   );
 
   if (!existingProvider) {
-    const errorMessage = `User provider not found : ${String(user._id)} - ${provider}`;
-
-    logger.error(errorMessage);
-
-    throw new Error(errorMessage);
+    throw new GenericError('USER_PROVIDER_NOT_FOUND', {
+      userId,
+      provider,
+    });
   }
 
   const updatedProvider = user.provider?.filter(
@@ -525,9 +494,13 @@ export const testUserPassword = async (
   const user = await getUserByEmail(email);
 
   if (!user) {
-    const errorMessage = `User not found - ${email}`;
+    const errorMessages = {
+      en: `User not found - ${email}`,
+      fr: `Utilisateur non trouvé - ${email}`,
+      es: `Usuario no encontrado - ${email}`,
+    };
 
-    return { user: null, error: errorMessage };
+    return { user: null, error: t(errorMessages) };
   }
 
   const userEmailPasswordProvider = user.provider?.find(
@@ -535,9 +508,13 @@ export const testUserPassword = async (
   );
 
   if (!userEmailPasswordProvider?.passwordHash) {
-    const errorMessage = `User request to login but no password defined: ${user.email}`;
+    const errorMessages = {
+      en: `User request to login but no password defined: ${user.email}`,
+      fr: `Demande de connexion d'utilisateur mais pas de mot de passe défini : ${user.email}`,
+      es: `Solicitud de inicio de sesión de usuario pero no se define la contraseña : ${user.email}`,
+    };
 
-    return { user: null, error: errorMessage };
+    return { user: null, error: t(errorMessages) };
   }
 
   const isMatch = await compare(
@@ -546,15 +523,19 @@ export const testUserPassword = async (
   );
 
   if (!isMatch) {
-    const errorMessage = `Incorrect email or password: ${email}`;
+    const errorMessages = {
+      en: `Incorrect email or password: ${email}`,
+      fr: `Email ou mot de passe incorrect : ${email}`,
+      es: `Correo electrónico o contraseña incorrecta : ${email}`,
+    };
 
-    logger.error(errorMessage);
+    logger.error(errorMessages.en);
 
     // Await a random time to prevent brute force attacks
     const randomNumber = Math.floor(Math.random() * 1000) + 1000;
     await new Promise((resolve) => setTimeout(resolve, randomNumber));
 
-    return { user: null, error: errorMessage };
+    return { user: null, error: t(errorMessages) };
   }
 
   return { user };
@@ -571,10 +552,7 @@ export const hashUserPassword = async (
   const { password, ...user } = userWithPasswordNotHashed;
 
   if (!password) {
-    const errorMessage = `No password defined: ${userWithPasswordNotHashed.email}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_PASSWORD_NOT_DEFINED', { user });
   }
 
   const userProvider = formatUserProviderUpdate('email', user, {
@@ -600,11 +578,7 @@ export const changeUserPassword = async (
   const user = await getUserById(userId);
 
   if (!user) {
-    const userIdString = String(userId);
-    const errorMessage = `User not found - ${userIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { userId });
   }
 
   const { email } = user;
@@ -629,9 +603,7 @@ export const resetPassword = async (userId: string, password: string) => {
   const user = await getUserById(userId);
 
   if (!user) {
-    const errorMessage = `User not found - ${userId}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { userId });
   }
 
   const updatedUser: User = await updateUserProvider(userId, 'email', {

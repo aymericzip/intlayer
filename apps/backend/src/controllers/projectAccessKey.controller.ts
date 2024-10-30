@@ -1,13 +1,8 @@
-import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import {
-  addNewAccessKey as addNewAccessKeyService,
-  deleteAccessKey as deleteAccessKeyService,
-  refreshAccessKey as refreshAccessKeyService,
-} from '@services/projectAccessKey.service';
-import { HttpStatusCodes } from '@utils/httpStatusCodes';
+import * as projectAccessKeyService from '@services/projectAccessKey.service';
+import { AppError, ErrorHandler } from '@utils/errors';
 import { type ResponseData, formatResponse } from '@utils/responseData';
-import type { Request } from 'express';
+import type { NextFunction, Request } from 'express';
 import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 
 export type AddNewAccessKeyBody = AccessKeyData;
@@ -15,49 +10,26 @@ export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;
 
 /**
  * Adds a new access key to a project.
- *
- * @param req - The request object.
- * @param res - The response object.
- * @returns The new access key.
  */
 export const addNewAccessKey = async (
   req: Request<AddNewAccessKeyBody>,
-  res: ResponseWithInformation<AddNewAccessKeyResponse>
+  res: ResponseWithInformation<AddNewAccessKeyResponse>,
+  _next: NextFunction
 ): Promise<void> => {
   const { user, project } = res.locals;
 
   if (!project) {
-    const errorMessage = 'Project id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<OAuth2Access>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
     return;
   }
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<OAuth2Access>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
     return;
   }
 
   try {
-    const newAccessKey = await addNewAccessKeyService(
+    const newAccessKey = await projectAccessKeyService.addNewAccessKey(
       req.body,
       project._id,
       user
@@ -70,17 +42,7 @@ export const addNewAccessKey = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<OAuth2Access>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -90,78 +52,40 @@ export type DeleteAccessKeyResponse = ResponseData<null>;
 
 /**
  * Deletes an access key from a project.
- *
- * @param req - The request object.
- * @param res - The response object.
- * @returns Response confirming the deletion.
  */
 export const deleteAccessKey = async (
   req: Request,
-  res: ResponseWithInformation<AddNewAccessKeyResponse>
+  res: ResponseWithInformation<AddNewAccessKeyResponse>,
+  _next: NextFunction
 ): Promise<void> => {
   const { user, project } = res.locals;
   const { clientId } = req.body;
 
   if (!project) {
-    const errorMessage = 'Project id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<OAuth2Access>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
     return;
   }
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<null>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
     return;
   }
 
   if (!clientId) {
-    const errorMessage = 'Client id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<null>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'CLIENT_ID_NOT_FOUND');
     return;
   }
 
   try {
-    const deletedAccessKey = await deleteAccessKeyService(clientId, project);
+    const deletedAccessKey = await projectAccessKeyService.deleteAccessKey(
+      clientId,
+      project
+    );
 
     if (!deletedAccessKey) {
-      const errorMessage = 'Access key not found';
-
-      logger.error(errorMessage);
-
-      const responseCode = HttpStatusCodes.NOT_FOUND_404;
-      const responseData = formatResponse<null>({
-        error: errorMessage,
-        status: responseCode,
+      ErrorHandler.handleGenericErrorResponse(res, 'ACCESS_KEY_NOT_FOUND', {
+        clientId,
       });
-
-      res.status(responseCode).json(responseData);
       return;
     }
 
@@ -172,17 +96,7 @@ export const deleteAccessKey = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<null>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -192,65 +106,32 @@ export type RefreshAccessKeyResponse = ResponseData<OAuth2Access>;
 
 /**
  * Refreshes an access key from a project.
- *
- * @param req - The request object.
- * @param res - The response object.
- * @returns The new access key.
  */
 export const refreshAccessKey = async (
   req: Request<RefreshAccessKeyBody>,
-  res: ResponseWithInformation<RefreshAccessKeyResponse>
+  res: ResponseWithInformation<RefreshAccessKeyResponse>,
+  _next: NextFunction
 ): Promise<void> => {
   const { user, project } = res.locals;
   const { clientId } = req.body;
 
   if (!project) {
-    const errorMessage = 'Project id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<OAuth2Access>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
-    return;
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
   }
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<OAuth2Access>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
-    return;
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
   }
 
   if (!clientId) {
-    const errorMessage = 'Client id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<OAuth2Access>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
-    return;
+    ErrorHandler.handleGenericErrorResponse(res, 'CLIENT_ID_NOT_FOUND');
   }
 
   try {
-    const newAccessKey = await refreshAccessKeyService(clientId, project._id);
+    const newAccessKey = await projectAccessKeyService.refreshAccessKey(
+      clientId,
+      project!._id
+    );
 
     const responseData = formatResponse<OAuth2Access>({
       data: newAccessKey,
@@ -259,17 +140,7 @@ export const refreshAccessKey = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<OAuth2Access>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };

@@ -1,6 +1,7 @@
 import { randomBytes } from 'crypto';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
+import { GenericError } from '@utils/errors';
 import { getTokenExpireAt } from '@utils/oAuth2';
 import { Client, User, Token as OAuth2Token, Callback } from 'oauth2-server';
 import { Token } from '../schemas/oAuth2.schema';
@@ -108,7 +109,7 @@ export const formatOAuth2Token = (
   const { clientId, userId, ...restToken } = token;
 
   if (String(userId) !== String(user._id)) {
-    throw new Error('User id does not match');
+    throw new GenericError('USER_ID_MISMATCH');
   }
 
   const formattedToken: OAuth2Token = {

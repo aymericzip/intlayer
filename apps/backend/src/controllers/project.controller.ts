@@ -1,33 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import {
-  findProjects as findProjectsService,
-  countProjects as countProjectsService,
-  createProject as createProjectService,
-  getProjectById as getProjectByIdService,
-  updateProjectById as updateProjectByIdService,
-  deleteProjectById as deleteProjectByIdService,
-} from '@services/project.service';
-import {
-  clearProjectAuth as clearProjectAuthService,
-  setProjectAuth as setProjectAuthService,
-} from '@services/sessionAuth.service';
-import { getUsersByIds as getUsersByIdsService } from '@services/user.service';
+import * as projectService from '@services/project.service';
+import * as sessionAuthService from '@services/sessionAuth.service';
+import * as userService from '@services/user.service';
+import { AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getProjectFiltersAndPagination,
   type ProjectFilters,
   type ProjectFiltersParams,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
-import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import {
   formatPaginatedResponse,
   type ResponseData,
   type PaginatedResponse,
   formatResponse,
 } from '@utils/responseData';
-import type { Request } from 'express';
+import type { NextFunction, Request } from 'express';
 import type { ObjectId } from 'mongoose';
 import { User } from 'oauth2-server';
 import type {
@@ -41,45 +31,23 @@ export type GetProjectsResult = PaginatedResponse<Project>;
 
 /**
  * Retrieves a list of projects based on filters and pagination.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the list of projects and pagination details.
  */
 export const getProjects = async (
   req: Request<GetProjectsParams>,
-  res: ResponseWithInformation<GetProjectsResult>
+  res: ResponseWithInformation<GetProjectsResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { user, organization } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatPaginatedResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
     return;
   }
 
   if (!organization) {
-    const errorMessage = 'Organization not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatPaginatedResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
     return;
   }
 
@@ -90,12 +58,12 @@ export const getProjects = async (
   };
 
   try {
-    const projects = await findProjectsService(
+    const projects = await projectService.findProjects(
       restrictedFilter,
       skip,
       pageSize
     );
-    const totalItems = await countProjectsService(filters);
+    const totalItems = await projectService.countProjects(filters);
 
     const responseData = formatPaginatedResponse<Project>({
       data: projects,
@@ -108,17 +76,7 @@ export const getProjects = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatPaginatedResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -128,74 +86,34 @@ export type AddProjectResult = ResponseData<Project>;
 
 /**
  * Adds a new project to the database.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the created project.
  */
 export const addProject = async (
   req: Request<any, any, AddProjectBody>,
-  res: ResponseWithInformation<AddProjectResult>
+  res: ResponseWithInformation<AddProjectResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { organization, user, isOrganizationAdmin } = res.locals;
   const projectData = req.body;
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
     return;
   }
 
   if (!organization) {
-    const errorMessage = 'Organization not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
     return;
   }
 
   if (!isOrganizationAdmin) {
-    const errorMessage = 'User is not admin of the organization';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.FORBIDDEN_403;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
+    );
   }
 
   if (!projectData) {
-    const errorMessage = 'Project not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
-    return;
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
   }
 
   const project: ProjectData = {
@@ -207,24 +125,14 @@ export const addProject = async (
   };
 
   try {
-    const newProject = await createProjectService(project);
+    const newProject = await projectService.createProject(project);
 
     const responseData = formatResponse<Project>({ data: newProject });
 
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -234,92 +142,47 @@ export type UpdateProjectResult = ResponseData<Project>;
 
 /**
  * Updates an existing project in the database.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the updated project.
  */
 export const updateProject = async (
   req: Request<any, any, UpdateProjectBody>,
-  res: ResponseWithInformation<UpdateProjectResult>
+  res: ResponseWithInformation<UpdateProjectResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { organization } = res.locals;
   const project = req.body;
 
   if (!project) {
-    const errorMessage = 'Project not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
     return;
   }
 
   if (!organization) {
-    const errorMessage = 'Organization not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
     return;
   }
 
   if (project.organizationId !== organization._id) {
-    const errorMessage = `You don't have access to this project`;
-    const responseCode = HttpStatusCodes.FORBIDDEN_403;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
     return;
   }
 
   if (typeof project._id === 'undefined') {
-    const errorMessage = 'Project id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_NOT_FOUND');
     return;
   }
 
   try {
-    const updatedProject = await updateProjectByIdService(project._id, project);
+    const updatedProject = await projectService.updateProjectById(
+      project._id,
+      project
+    );
 
     const responseData = formatResponse<Project>({ data: updatedProject });
 
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -337,89 +200,40 @@ export type UpdateProjectMembersResult = ResponseData<Project>;
 
 /**
  * Update members to the dictionary in the database.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the updated dictionary.
  */
 export const updateProjectMembers = async (
   req: Request<any, any, UpdateProjectMembersBody>,
-  res: ResponseWithInformation<UpdateProjectMembersResult>
+  res: ResponseWithInformation<UpdateProjectMembersResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { project, isProjectAdmin, organization } = res.locals;
   const { membersIds } = req.body;
 
   if (!project) {
-    const errorMessage = 'Project not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
     return;
   }
 
   if (!isProjectAdmin) {
-    const errorMessage = 'User is not admin of the project';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'USER_IS_NOT_ADMIN_OF_PROJECT'
+    );
     return;
   }
 
   if (!organization) {
-    const errorMessage = 'Organization not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
     return;
   }
 
   if (membersIds?.length === 0) {
-    const errorMessage = 'The project must have at least one member';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_MUST_HAVE_MEMBER');
     return;
   }
 
   if (membersIds?.map((el) => el.isAdmin)?.length === 0) {
-    const errorMessage = 'The project must have at least one admin';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_MUST_HAVE_ADMIN');
     return;
   }
 
@@ -435,7 +249,7 @@ export const updateProjectMembers = async (
         )
         .map((member) => member.userId);
 
-      const users = await getUsersByIdsService(userIdList);
+      const users = await userService.getUsersByIds(userIdList);
 
       if (users) {
         const userMap: UserAndAdmin[] = users.map((user) => ({
@@ -457,11 +271,14 @@ export const updateProjectMembers = async (
       .filter((el) => el.isAdmin)
       .map((user) => user.user._id);
 
-    const updatedOrganization = await updateProjectByIdService(project._id, {
-      ...project,
-      membersIds: formattedMembers,
-      adminsIds: formattedAdmin,
-    });
+    const updatedOrganization = await projectService.updateProjectById(
+      project._id,
+      {
+        ...project,
+        membersIds: formattedMembers,
+        adminsIds: formattedAdmin,
+      }
+    );
 
     const responseData = formatResponse<Project>({
       data: updatedOrganization,
@@ -470,17 +287,7 @@ export const updateProjectMembers = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -494,69 +301,40 @@ export type DeleteProjectResult = ResponseData<Project>;
  * @returns Response confirming the deletion.
  */
 export const deleteProject = async (
-  _req: Request,
-  res: ResponseWithInformation<DeleteProjectResult>
+  req: Request,
+  res: ResponseWithInformation<DeleteProjectResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { organization, project } = res.locals;
 
   if (!organization) {
-    const errorMessage = 'Organization not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    const errorMessage = 'Project not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
     return;
   }
 
   try {
-    const projectToDelete = await getProjectByIdService(project._id);
+    const projectToDelete = await projectService.getProjectById(project._id);
 
     if (projectToDelete.organizationId !== organization._id) {
-      const errorMessage = `You don't have access to this project`;
-      const responseCode = HttpStatusCodes.FORBIDDEN_403;
-      const responseData = formatResponse<Project>({
-        error: errorMessage,
-        status: responseCode,
-      });
-      res.status(responseCode).json(responseData);
+      ErrorHandler.handleGenericErrorResponse(
+        res,
+        'PROJECT_NOT_IN_ORGANIZATION'
+      );
       return;
     }
 
-    const deletedProject = await deleteProjectByIdService(project._id);
+    const deletedProject = await projectService.deleteProjectById(project._id);
 
     if (!deletedProject) {
-      const errorMessage = 'Project not found';
-
-      logger.error(errorMessage);
-
-      const responseCode = HttpStatusCodes.NOT_FOUND_404;
-      const responseData = formatResponse<Project>({
-        error: errorMessage,
-        status: responseCode,
+      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND', {
+        projectId: project._id,
       });
 
-      res.status(responseCode).json(responseData);
       return;
     }
 
@@ -567,17 +345,7 @@ export const deleteProject = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -587,35 +355,23 @@ export type SelectProjectResult = ResponseData<Project>;
 
 /**
  * Select a project.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response confirming the deletion.
  */
 export const selectProject = async (
   req: Request<SelectProjectParam>,
-  res: ResponseWithInformation<SelectProjectResult>
+  res: ResponseWithInformation<SelectProjectResult>,
+  _next: NextFunction
 ) => {
   const { projectId } = req.params;
 
   if (!projectId) {
-    const errorMessage = 'Project id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_NOT_FOUND');
     return;
   }
 
   try {
-    const project = await getProjectByIdService(projectId);
+    const project = await projectService.getProjectById(projectId);
 
-    setProjectAuthService(res, project);
+    sessionAuthService.setProjectAuth(res, project);
 
     const responseData = formatResponse<Project>({
       data: project,
@@ -624,17 +380,7 @@ export const selectProject = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<Project>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -643,16 +389,14 @@ export type UnselectProjectResult = ResponseData<null>;
 
 /**
  * Unselect a project.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response confirming the deletion.
  */
 export const unselectProject = (
   _req: Request,
-  res: ResponseWithInformation<UnselectProjectResult>
+  res: ResponseWithInformation<UnselectProjectResult>,
+  _next: NextFunction
 ) => {
   try {
-    clearProjectAuthService(res);
+    sessionAuthService.clearProjectAuth(res);
 
     const responseData = formatResponse<null>({
       data: null,
@@ -661,17 +405,7 @@ export const unselectProject = (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<null>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };

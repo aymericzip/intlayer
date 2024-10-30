@@ -1,7 +1,7 @@
 import { RequestWithOAuth2Information } from '@middlewares/oAuth2.middleware';
-import { HttpStatusCodes } from '@utils/httpStatusCodes';
+import { AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, ResponseData } from '@utils/responseData';
-import { Response, Request } from 'express';
+import { Response, Request, NextFunction } from 'express';
 import {
   type Token as OAuth2ServerToken,
   Request as OAuthRequest,
@@ -21,7 +21,8 @@ export type GetOAuth2TokenResult = ResponseData<OAuth2Token>;
 // Method to get the token
 export const getOAuth2Token = async (
   req: Request,
-  res: Response
+  res: Response,
+  _next: NextFunction
 ): Promise<void> => {
   const oauthRequest = new OAuthRequest(req);
   const oauthResponse = new OAuthResponse(res);
@@ -41,10 +42,8 @@ export const getOAuth2Token = async (
 
     res.json(responseData);
     return;
-  } catch (err) {
-    const error = err as { code?: number; message: string };
-    res
-      .status(error.code ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500)
-      .json(err);
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
   }
 };

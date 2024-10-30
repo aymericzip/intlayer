@@ -1,10 +1,15 @@
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 
+type ErrorData = {
+  code: string;
+  message: string;
+} & object;
+
 export type ResponseData<T = null> = {
   success: boolean;
   status: HttpStatusCodes;
   data: T | null;
-  error?: string | string[];
+  error?: ErrorData | ErrorData[];
 };
 
 type ValidResponseStatus =
@@ -26,7 +31,7 @@ type SuccessResponseArgs<T = undefined> = {
 };
 
 type ErrorResponseArgs = {
-  error: string | string[];
+  error: ErrorData | ErrorData[];
   status: HttpStatusCodes;
   data?: null;
 };
@@ -88,7 +93,7 @@ type SuccessPaginatedResponseArgs<T = undefined> = {
 };
 
 type ErrorPaginatedResponseArgs = {
-  error: string | string[];
+  error: ErrorData | ErrorData[];
   status: HttpStatusCodes;
 
   data?: null;

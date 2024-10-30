@@ -2,30 +2,19 @@
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
-import { sendEmail as sendEmailService } from '@services/email.service';
+import { sendEmail } from '@services/email.service';
+import * as userService from '@services/user.service';
+import { AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { UserFiltersParam } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
-import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import {
   formatPaginatedResponse,
   formatResponse,
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { Request } from 'express';
-import {
-  findUsers as findUsersService,
-  countUsers as countUsersService,
-  updateUserById as updateUserByIdService,
-  getUserById as getUserByIdService,
-  getUserByAccount as getUserByAccountService,
-  createUser as createUserService,
-  formatUserForAPI as formatUserForAPIService,
-  formatUsersForAPI as formatUsersForAPIService,
-  getUserByEmail as getUserByEmailService,
-  deleteUser as deleteUserService,
-} from '@/services/user.service';
+import type { NextFunction, Request } from 'express';
 import type { SessionProviders } from '@/types/session.types';
 import type {
   User,
@@ -38,59 +27,37 @@ export type CreateUserResult = ResponseData<UserAPI>;
 
 /**
  * Creates a new user.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the created user or error message.
  */
 export const createUser = async (
   req: Request<any, any, UserWithPasswordNotHashed>,
-  res: ResponseWithInformation<CreateUserResult>
+  res: ResponseWithInformation<CreateUserResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const user: UserWithPasswordNotHashed | undefined = req.body;
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.NOT_FOUND_404;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
     return;
   }
 
   try {
-    const newUser = await createUserService(user);
+    const newUser = await userService.createUser(user);
 
-    await sendEmailService({
+    await sendEmail({
       type: 'welcome',
       to: newUser.email,
       username: newUser.name,
       loginLink: sessionAuthRoutes.loginEmailPassword.url,
     });
 
-    const formattedUser = formatUserForAPIService(newUser);
+    const formattedUser = userService.formatUserForAPI(newUser);
 
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as { message: string }).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -100,38 +67,29 @@ export type GetUsersResult = PaginatedResponse<UserAPI>;
 
 /**
  * Retrieves a list of users based on filters and pagination.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the list of users and pagination details.
  */
 export const getUsers = async (
   req: Request<GetUsersParams>,
-  res: ResponseWithInformation<GetUsersResult>
+  res: ResponseWithInformation<GetUsersResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { user } = res.locals;
 
   if (!user) {
-    const errorMessage = 'User not found';
-    const responseCode = HttpStatusCodes.UNAUTHORIZED_401;
-
-    logger.error(errorMessage);
-    const responseData = formatPaginatedResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
-    return;
+    if (!user) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
   }
 
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
   try {
-    const users = await findUsersService(filters, skip, pageSize);
-    const totalItems = await countUsersService(filters);
+    const users = await userService.findUsers(filters, skip, pageSize);
+    const totalItems = await userService.countUsers(filters);
 
-    const formattedUsers = formatUsersForAPIService(users);
+    const formattedUsers = userService.formatUsersForAPI(users);
 
     const responseData = formatPaginatedResponse<UserAPI>({
       data: formattedUsers,
@@ -144,17 +102,7 @@ export const getUsers = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as { message: string }).message;
-
-    logger.error(`errors: ${errorMessage}`);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatPaginatedResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -164,37 +112,29 @@ export type GetUserByIdResult = ResponseData<UserAPI>;
 
 export const getUserById = async (
   req: Request<GetUserByIdParams>,
-  res: ResponseWithInformation<GetUserByIdResult>
+  res: ResponseWithInformation<GetUserByIdResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
 
   try {
-    const user = await getUserByIdService(userId);
+    const user = await userService.getUserById(userId);
 
     if (!user) {
-      const errorMessage = `User not found - ${userId}`;
-
-      logger.error(errorMessage);
-
-      const responseCode = HttpStatusCodes.NOT_FOUND_404;
-      const responseData = formatResponse<UserAPI>({
-        error: errorMessage,
-        status: responseCode,
-      });
-
-      res.status(responseCode).json(responseData);
-      return;
+      if (!user) {
+        ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+        return;
+      }
     }
 
-    const formattedUser = formatUserForAPIService(user);
+    const formattedUser = userService.formatUserForAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as { message: string }).message;
-
-    logger.error(errorMessage);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
   }
 };
 
@@ -203,36 +143,27 @@ export type GetUserByEmailResult = ResponseData<UserAPI>;
 
 export const getUserByEmail = async (
   req: Request<GetUserByEmailParams>,
-  res: ResponseWithInformation<GetUserByEmailResult>
+  res: ResponseWithInformation<GetUserByEmailResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { email } = req.params;
 
   try {
-    const user = await getUserByEmailService(email);
+    const user = await userService.getUserByEmail(email);
 
     if (!user) {
-      const errorMessage = `User not found - ${email}`;
-
-      logger.error(errorMessage);
-
-      const responseCode = HttpStatusCodes.NOT_FOUND_404;
-      const responseData = formatResponse<UserAPI>({
-        error: errorMessage,
-        status: responseCode,
-      });
-
-      res.status(responseCode).json(responseData);
-      return;
+      if (!user) {
+        ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+        return;
+      }
     }
 
-    const formattedUser = formatUserForAPIService(user);
+    const formattedUser = userService.formatUserForAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
   } catch (error) {
-    const errorMessage: string = (error as { message: string }).message;
-
-    logger.error(errorMessage);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
   }
 };
 
@@ -244,27 +175,26 @@ export type GetUserByAccountResult = ResponseData<UserAPI>;
 
 /**
  * Retrieves a user by account.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the user or error message.
  */
 export const getUserByAccount = async (
   req: Request<GetUserByAccountParams>,
-  res: ResponseWithInformation<GetUserByAccountResult>
+  res: ResponseWithInformation<GetUserByAccountResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { providerAccountId, provider } = req.params;
 
   try {
-    const user = await getUserByAccountService(provider, providerAccountId);
+    const user = await userService.getUserByAccount(
+      provider,
+      providerAccountId
+    );
 
-    const formattedUser = formatUserForAPIService(user);
+    const formattedUser = userService.formatUserForAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
   } catch (error) {
-    const errorMessage: string = (error as { message: string }).message;
-
-    logger.error(errorMessage);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
   }
 };
 
@@ -273,71 +203,41 @@ export type UpdateUserResult = ResponseData<UserAPI>;
 
 /**
  * Updates user information (phone number, date of birth).
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the updated user or error message.
  */
 export const updateUser = async (
   req: Request<any, any, UpdateUserBody | undefined>,
-  res: ResponseWithInformation<UpdateUserResult>
+  res: ResponseWithInformation<UpdateUserResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const userData = req.body;
   const { user } = res.locals;
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.NOT_FOUND_404;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
-    return;
+    if (!user) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
   }
 
   if (typeof userData !== 'object') {
-    const errorMessage = 'User data not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
     return;
   }
 
   try {
-    const updatedUser = await updateUserByIdService(user._id, userData);
+    const updatedUser = await userService.updateUserById(user._id, userData);
 
     logger.info(
       `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
     );
 
-    const formattedUser = formatUserForAPIService(updatedUser);
+    const formattedUser = userService.formatUserForAPI(updatedUser);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as { message: string }).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<UserAPI>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -347,26 +247,23 @@ export type DeleteUserResult = ResponseData<UserAPI>;
 
 /**
  * Deletes a user based on the provided ID.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the deleted user or error message.
  */
 export const deleteUser = async (
   req: Request<any, any, DeleteUserParams>,
-  res: ResponseWithInformation<DeleteUserResult>
+  res: ResponseWithInformation<DeleteUserResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
 
   try {
-    const user = await deleteUserService(userId);
+    const user = await userService.deleteUser(userId);
 
-    const formattedUser = formatUserForAPIService(user);
+    const formattedUser = userService.formatUserForAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
   } catch (error) {
-    const errorMessage: string = (error as { message: string }).message;
-
-    logger.error(errorMessage);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
   }
 };

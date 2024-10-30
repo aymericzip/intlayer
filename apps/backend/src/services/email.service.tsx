@@ -59,7 +59,7 @@ export const sendEmail = async <T extends EmailType>({
       subject: subject ?? baseSubject,
       react,
     })
-    .catch((err) => console.log(err));
+    .catch((err) => logger.error(err));
 
   logger.info(`Email sent ${type} to ${to}`);
 };

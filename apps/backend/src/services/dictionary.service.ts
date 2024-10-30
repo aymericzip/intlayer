@@ -1,5 +1,5 @@
-import { logger } from '@logger';
 import { DictionaryModel } from '@models/dictionary.model';
+import { GenericError } from '@utils/errors';
 import type { DictionaryFilters } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
 import {
   type DictionaryFields,
@@ -19,9 +19,8 @@ export const findDictionaries = async (
   filters: DictionaryFilters,
   skip = 0,
   limit = 100
-): Promise<Dictionary[]> => {
-  return await DictionaryModel.find(filters).skip(skip).limit(limit);
-};
+): Promise<Dictionary[]> =>
+  await DictionaryModel.find(filters).skip(skip).limit(limit);
 
 /**
  * Finds a dictionary by its ID.
@@ -34,11 +33,7 @@ export const getDictionaryById = async (
   const dictionary = await DictionaryModel.findById(dictionaryId);
 
   if (!dictionary) {
-    const dictionaryIdString = String(dictionaryId);
-    const errorMessage = `Dictionary not found - ${dictionaryIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_NOT_FOUND', { dictionaryId });
   }
 
   return dictionary;
@@ -59,10 +54,10 @@ export const getDictionaryByKey = async (
   });
 
   if (!dictionary) {
-    const errorMessage = `Dictionary not found - ${dictionaryKey}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_NOT_FOUND', {
+      dictionaryKey,
+      projectId,
+    });
   }
 
   return dictionary;
@@ -79,10 +74,7 @@ export const countDictionaries = async (
   const result = await DictionaryModel.countDocuments(filters);
 
   if (typeof result === 'undefined') {
-    const errorMessage = 'Dictionary count failed';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_COUNT_FAILED', { filters });
   }
 
   return result;
@@ -99,9 +91,9 @@ export const createDictionary = async (
   const errors = await validateDictionary(dictionary);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Dictionary invalid fields - ${JSON.stringify(errors)}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_INVALID_FIELDS', {
+      errors,
+    });
   }
 
   return await DictionaryModel.create(dictionary);
@@ -159,14 +151,12 @@ export const updateDictionaryById = async (
 ): Promise<Dictionary> => {
   const updatedKeys = Object.keys(dictionary) as DictionaryFields;
   const errors = validateDictionary(dictionary, updatedKeys);
-  const dictionaryIdString = String(dictionaryId);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Dictionary invalid fields - ${dictionaryIdString} - ${JSON.stringify(
-      errors
-    )}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_INVALID_FIELDS', {
+      dictionaryId,
+      errors,
+    });
   }
 
   const result = await DictionaryModel.updateOne(
@@ -175,9 +165,7 @@ export const updateDictionaryById = async (
   );
 
   if (result.matchedCount === 0) {
-    const errorMessage = `Dictionary update failed - ${dictionaryIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_UPDATE_FAILED', { dictionaryId });
   }
 
   return await getDictionaryById(dictionaryId);
@@ -198,11 +186,11 @@ export const updateDictionaryByKey = async (
   const errors = validateDictionary(dictionary, updatedKeys);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Dictionary invalid fields - ${dictionaryKey} - ${JSON.stringify(
-      errors
-    )}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_INVALID_FIELDS', {
+      dictionaryKey,
+      projectId,
+      errors,
+    });
   }
 
   const result = await DictionaryModel.updateOne(
@@ -211,9 +199,7 @@ export const updateDictionaryByKey = async (
   );
 
   if (result.matchedCount === 0) {
-    const errorMessage = `Dictionary update failed - ${dictionaryKey}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_UPDATE_FAILED', { dictionaryKey });
   }
 
   return await getDictionaryByKey(dictionaryKey, projectId);
@@ -230,11 +216,7 @@ export const deleteDictionaryById = async (
   const dictionary = await DictionaryModel.findByIdAndDelete(dictionaryId);
 
   if (!dictionary) {
-    const dictionaryIdString = String(dictionaryId);
-    const errorMessage = `Dictionary not found - ${dictionaryIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('DICTIONARY_NOT_FOUND', { dictionaryId });
   }
 
   return dictionary;

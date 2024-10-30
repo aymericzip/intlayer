@@ -6,10 +6,6 @@ import { ResponseWithInformation } from './sessionAuth.middleware';
  * Sets the following properties in res.locals:
  * - isOrganizationAdmin: boolean
  * - isProjectAdmin: boolean
- *
- * @param _req - The request object
- * @param res - The response object
- * @param next - The next function
  */
 export const checkAdmin = async (
   _req: Request,

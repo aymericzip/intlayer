@@ -1,5 +1,5 @@
-import { logger } from '@logger';
 import { UserModel } from '@models/user.model';
+import { GenericError } from '@utils/errors';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import {
   type FieldsToCheck,
@@ -28,11 +28,10 @@ export const createUser = async (user: UserWithPasswordNotHashed) => {
   const errors = validateUser(user, fieldsToCheck);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `User invalid fields - ${user.email} - ${JSON.stringify(
-      errors
-    )}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_INVALID_FIELDS', {
+      userEmail: user.email,
+      errors,
+    });
   }
 
   let newUser: User;
@@ -46,10 +45,7 @@ export const createUser = async (user: UserWithPasswordNotHashed) => {
   }
 
   if (!newUser) {
-    const errorMessage = `User creation failed - ${user.email}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_CREATION_FAILED', { userEmail: user.email });
   }
 
   return newUser;
@@ -119,17 +115,14 @@ export const getUserBySession = async (sessionToken: string) => {
   });
 
   if (!user) {
-    const errorMessage = `User not found - Token: ${sessionToken}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { sessionToken });
   }
 
   if (user.session?.expires && user.session.expires < new Date()) {
-    const errorMessage = `User session expired - ${sessionToken} - ${user.id}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_SESSION_EXPIRED', {
+      sessionToken,
+      userId: user.id,
+    });
   }
 
   return user;
@@ -150,10 +143,10 @@ export const getUserByAccount = async (
   });
 
   if (!user) {
-    const errorMessage = `User not found - ${provider} - ${providerAccountId}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', {
+      provider,
+      providerAccountId,
+    });
   }
 
   return user;
@@ -183,10 +176,7 @@ export const countUsers = async (filters: UserFilters): Promise<number> => {
   const count = await UserModel.countDocuments(filters);
 
   if (typeof count === 'undefined') {
-    const errorMessage = 'User count failed';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_COUNT_FAILED');
   }
 
   return count;
@@ -205,30 +195,23 @@ export const updateUserById = async (
   const keyToValidate = Object.keys(updates) as UserFields;
   const errors = validateUser(updates, keyToValidate);
 
-  const userIdString = String(userId);
-
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `User invalid fields - ${userIdString} - ${JSON.stringify(
-      errors
-    )}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_INVALID_FIELDS', {
+      userId,
+      errors,
+    });
   }
 
   const result = await UserModel.updateOne({ _id: userId }, { $set: updates });
 
   if (result.matchedCount === 0) {
-    const errorMessage = `User update failed - ${userIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_UPDATE_FAILED', { userId });
   }
 
   const updatedUser = await UserModel.findById(userId);
 
   if (!updatedUser) {
-    const errorMessage = `Failed to find the updated user - ${userIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_UPDATED_USER_NOT_FOUND', { userId });
   }
 
   return updatedUser;
@@ -245,10 +228,7 @@ export const deleteUser = async (userId: string | ObjectId) => {
   const user = await UserModel.findByIdAndDelete(userId);
 
   if (!user) {
-    const userIdString = String(userId);
-    const errorMessage = `No user found for deletion - ${userIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('USER_NOT_FOUND', { userId });
   }
 
   return user;

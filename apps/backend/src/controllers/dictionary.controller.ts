@@ -1,30 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Dictionary as LocalDictionary } from '@intlayer/core';
+import { type Dictionary as LocalDictionary } from '@intlayer/core';
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import {
-  findDictionaries as findDictionariesService,
-  countDictionaries as countDictionariesService,
-  getDictionaryById as getDictionaryByIdService,
-  createDictionary as createDictionaryService,
-  updateDictionaryById as updateDictionaryByIdService,
-  deleteDictionaryById as deleteDictionaryByIdService,
-  getExistingDictionaryKey as getExistingDictionaryKeyService,
-  updateDictionaryByKey as updateDictionaryByKeyService,
-} from '@services/dictionary.service';
+import * as dictionaryService from '@services/dictionary.service';
+import { AppError, ErrorHandler } from '@utils/errors';
 import {
   type DictionaryFiltersParams,
   getDictionaryFiltersAndPagination,
 } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
-import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import {
   formatPaginatedResponse,
   type ResponseData,
   type PaginatedResponse,
   formatResponse,
 } from '@utils/responseData';
-import type { Request } from 'express';
+import type { NextFunction, Request } from 'express';
 import type {
   Dictionary,
   DictionaryCreationData,
@@ -37,20 +28,22 @@ export type GetDictionariesResult = PaginatedResponse<Dictionary>;
 
 /**
  * Retrieves a list of dictionaries based on filters and pagination.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the list of dictionaries and pagination details.
  */
 export const getDictionaries = async (
   req: Request<GetDictionariesParams>,
-  res: ResponseWithInformation<GetDictionariesResult>
+  res: ResponseWithInformation<GetDictionariesResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(req);
 
   try {
-    const dictionaries = await findDictionariesService(filters, skip, pageSize);
-    const totalItems = await countDictionariesService(filters);
+    const dictionaries = await dictionaryService.findDictionaries(
+      filters,
+      skip,
+      pageSize
+    );
+    const totalItems = await dictionaryService.countDictionaries(filters);
 
     const responseData = formatPaginatedResponse<Dictionary>({
       data: dictionaries,
@@ -63,17 +56,7 @@ export const getDictionaries = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatPaginatedResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -83,71 +66,32 @@ export type AddDictionaryResult = ResponseData<Dictionary>;
 
 /**
  * Adds a new dictionary to the database.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the created dictionary.
  */
 export const addDictionary = async (
   req: Request<any, any, AddDictionaryBody>,
-  res: ResponseWithInformation<AddDictionaryResult>
+  res: ResponseWithInformation<AddDictionaryResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { project, user } = res.locals;
   const dictionaryData = req.body;
 
   if (!dictionaryData) {
-    const errorMessage = 'Dictionary not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_DATA_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    const errorMessage = 'Project not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
     return;
   }
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
     return;
   }
 
   if (!dictionaryData.projectIds.includes(String(project._id))) {
-    const errorMessage = `You don't have access to this dictionary`;
-    const responseCode = HttpStatusCodes.FORBIDDEN_403;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
     return;
   }
 
@@ -162,24 +106,14 @@ export const addDictionary = async (
   };
 
   try {
-    const newDictionary = await createDictionaryService(dictionary);
+    const newDictionary = await dictionaryService.createDictionary(dictionary);
 
     const responseData = formatResponse<Dictionary>({ data: newDictionary });
 
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -200,7 +134,8 @@ export type PushDictionariesResult = ResponseData<PushDictionariesResultData>;
  */
 export const pushDictionaries = async (
   req: Request<any, any, PushDictionariesBody>,
-  res: ResponseWithInformation<PushDictionariesResult>
+  res: ResponseWithInformation<PushDictionariesResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { project, user } = res.locals;
   const dictionaryData = req.body.dictionaries;
@@ -211,66 +146,29 @@ export const pushDictionaries = async (
     Array.isArray(dictionaryData) &&
     dictionaryData.length === 0
   ) {
-    const errorMessage = 'No dictionaries provided';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<PushDictionariesResultData>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARIES_NOT_PROVIDED');
     return;
   } else if (!dictionaryData) {
-    const errorMessage = 'Dictionary not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<PushDictionariesResultData>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_DATA_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    const errorMessage = 'Project not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<PushDictionariesResultData>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
     return;
   }
 
   if (!user) {
-    const errorMessage = 'User not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<PushDictionariesResultData>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
     return;
   }
 
   try {
     const { existingDictionariesKey, newDictionariesKey } =
-      await getExistingDictionaryKeyService(dictionariesKeys, project._id);
+      await dictionaryService.getExistingDictionaryKey(
+        dictionariesKeys,
+        project._id
+      );
 
     const existingDictionaries = dictionaryData.filter((dictionary) =>
       existingDictionariesKey.includes(dictionary.key)
@@ -297,15 +195,11 @@ export const pushDictionaries = async (
       };
 
       try {
-        const newDictionary = await createDictionaryService(dictionary);
+        const newDictionary =
+          await dictionaryService.createDictionary(dictionary);
         result.newDictionaries.push(newDictionary.key);
       } catch (error) {
-        const errorMessage: string = (error as Error).message;
-        const dictionaryId = dictionaryDataEl.key;
-
-        logger.error(errorMessage);
-
-        result.error.push({ dictionaryId, message: errorMessage });
+        ErrorHandler.handleAppErrorResponse(res, error as AppError);
       }
     }
 
@@ -319,19 +213,14 @@ export const pushDictionaries = async (
       };
 
       try {
-        const newDictionary = await updateDictionaryByKeyService(
+        const newDictionary = await dictionaryService.updateDictionaryByKey(
           dictionaryDataEl.key,
           dictionary,
           project._id
         );
         result.updatedDictionaries.push(newDictionary.key);
       } catch (error) {
-        const errorMessage: string = (error as Error).message;
-        const dictionaryId = dictionaryDataEl.key;
-
-        logger.error(errorMessage);
-
-        result.error.push({ dictionaryId, message: errorMessage });
+        ErrorHandler.handleAppErrorResponse(res, error as AppError);
       }
     }
 
@@ -342,17 +231,7 @@ export const pushDictionaries = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<PushDictionariesResultData>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -362,75 +241,37 @@ export type UpdateDictionaryResult = ResponseData<Dictionary>;
 
 /**
  * Updates an existing dictionary in the database.
- * @param req - Express request object.
- * @param res - Express response object.
- * @returns Response containing the updated dictionary.
  */
 export const updateDictionary = async (
   req: Request<any, any, UpdateDictionaryBody>,
-  res: ResponseWithInformation<UpdateDictionaryResult>
+  res: ResponseWithInformation<UpdateDictionaryResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
   const dictionaryData = req.body;
 
   if (!dictionaryData) {
-    const errorMessage = 'Dictionary not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_DATA_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    const errorMessage = 'Project not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
     return;
   }
 
   if (!dictionaryData.projectIds?.includes(String(project._id))) {
-    const errorMessage = `You don't have access to this dictionary`;
-    const responseCode = HttpStatusCodes.FORBIDDEN_403;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
     return;
   }
 
   if (typeof dictionaryData._id === 'undefined') {
-    const errorMessage = 'Dictionary id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
     return;
   }
 
   try {
-    const updatedDictionary = await updateDictionaryByIdService(
+    const updatedDictionary = await dictionaryService.updateDictionaryById(
       dictionaryData._id,
       dictionaryData
     );
@@ -442,17 +283,7 @@ export const updateDictionary = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };
@@ -462,75 +293,44 @@ export type DeleteDictionaryResult = ResponseData<Dictionary>;
 
 /**
  * Deletes a dictionary from the database by its ID.
- * @param req - Express request object.
- * @param  res - Express response object.
- * @returns Response confirming the deletion.
  */
 export const deleteDictionary = async (
   req: Request<DeleteDictionaryParam>,
-  res: ResponseWithInformation<DeleteDictionaryResult>
+  res: ResponseWithInformation<DeleteDictionaryResult>,
+  _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
   const { dictionaryId } = req.params as Partial<DeleteDictionaryParam>;
 
   if (!dictionaryId) {
-    const errorMessage = 'Dictionary id not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
     return;
   }
 
   if (!project) {
-    const errorMessage = 'Project not found';
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.BAD_REQUEST_400;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
     return;
   }
 
   try {
-    const dictionaryToDelete = await getDictionaryByIdService(dictionaryId);
+    const dictionaryToDelete =
+      await dictionaryService.getDictionaryById(dictionaryId);
 
     if (!dictionaryToDelete.projectIds.includes(project._id)) {
-      const errorMessage = `You don't have access to this dictionary`;
-      const responseCode = HttpStatusCodes.FORBIDDEN_403;
-      const responseData = formatResponse<Dictionary>({
-        error: errorMessage,
-        status: responseCode,
-      });
-      res.status(responseCode).json(responseData);
+      ErrorHandler.handleGenericErrorResponse(
+        res,
+        'DICTIONARY_PROJECT_MISMATCH'
+      );
       return;
     }
 
-    const deletedDictionary = await deleteDictionaryByIdService(dictionaryId);
+    const deletedDictionary =
+      await dictionaryService.deleteDictionaryById(dictionaryId);
 
     if (!deletedDictionary) {
-      const errorMessage = 'Dictionary not found';
-
-      logger.error(errorMessage);
-
-      const responseCode = HttpStatusCodes.NOT_FOUND_404;
-      const responseData = formatResponse<Dictionary>({
-        error: errorMessage,
-        status: responseCode,
+      ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_NOT_FOUND', {
+        dictionaryId,
       });
-
-      res.status(responseCode).json(responseData);
       return;
     }
 
@@ -543,17 +343,7 @@ export const deleteDictionary = async (
     res.json(responseData);
     return;
   } catch (error) {
-    const errorMessage: string = (error as Error).message;
-
-    logger.error(errorMessage);
-
-    const responseCode = HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
-    const responseData = formatResponse<Dictionary>({
-      error: errorMessage,
-      status: responseCode,
-    });
-
-    res.status(responseCode).json(responseData);
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
 };

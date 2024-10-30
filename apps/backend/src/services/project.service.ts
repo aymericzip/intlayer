@@ -1,5 +1,5 @@
-import { logger } from '@logger';
 import { ProjectModel } from '@models/project.model';
+import { GenericError } from '@utils/errors';
 import type { ProjectFilters } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import {
   type ProjectFields,
@@ -34,11 +34,7 @@ export const getProjectById = async (
   const project = await ProjectModel.findById(projectId);
 
   if (!project) {
-    const projectIdString = String(projectId);
-    const errorMessage = `Project not found - ${projectIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('PROJECT_NOT_FOUND', { projectId });
   }
 
   return project;
@@ -55,10 +51,7 @@ export const countProjects = async (
   const result = await ProjectModel.countDocuments(filters);
 
   if (typeof result === 'undefined') {
-    const errorMessage = 'Project count failed';
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('PROJECT_COUNT_FAILED', { filters });
   }
 
   return result;
@@ -73,9 +66,7 @@ export const createProject = async (project: ProjectData): Promise<Project> => {
   const errors = await validateProject(project, ['name']);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Project invalid fields - ${JSON.stringify(errors)}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('PROJECT_INVALID_FIELDS', { errors });
   }
 
   return await ProjectModel.create(project);
@@ -93,22 +84,18 @@ export const updateProjectById = async (
 ): Promise<Project> => {
   const updatedKeys = Object.keys(project) as ProjectFields;
   const errors = validateProject(project, updatedKeys);
-  const projectIdString = String(projectId);
 
   if (Object.keys(errors).length > 0) {
-    const errorMessage = `Project invalid fields - ${projectIdString} - ${JSON.stringify(
-      errors
-    )}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('PROJECT_INVALID_FIELDS', {
+      projectId,
+      errors,
+    });
   }
 
   const result = await ProjectModel.updateOne({ _id: projectId }, project);
 
   if (result.matchedCount === 0) {
-    const errorMessage = `Project update failed - ${projectIdString}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('PROJECT_UPDATE_FAILED', { projectId });
   }
 
   return await getProjectById(projectId);
@@ -125,11 +112,7 @@ export const deleteProjectById = async (
   const project = await ProjectModel.findByIdAndDelete(projectId);
 
   if (!project) {
-    const projectIdString = String(projectId);
-    const errorMessage = `Project not found - ${projectIdString}`;
-
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    throw new GenericError('PROJECT_NOT_FOUND', { projectId });
   }
 
   return project;
