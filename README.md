@@ -88,6 +88,10 @@ For Create React App users, Intlayer also provides an easy way to integrate inte
 
 Intlayer is also compatible with vite and rollup environments. Check how to [set up Intlayer with Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md).
 
+### Integrating with Express
+
+If you're using Express, Intlayer provides a middleware that can be used to handle internationalization. Learn how to [set up Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_express_en.md).
+
 ### Configuration
 
 Intlayer's configuration is highly customizable. You can define internationalization settings, middleware behavior, and more. The configuration file supports various formats like TypeScript, JavaScript, and JSON.
