@@ -10,3 +10,6 @@
 # build 
 dist
 .vercel
+
+# intlayer
+intlayer.d.ts
