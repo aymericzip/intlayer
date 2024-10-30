@@ -67,9 +67,9 @@ export const intlayer = (): RequestHandler => (req, res, next) => {
   });
 };
 
-type LanguageContent<Content extends string> = IConfigLocales<Content>;
+type LanguageContent<Content = string> = IConfigLocales<Content>;
 
-export const t = <Content extends string>(content: LanguageContent<Content>) =>
+export const t = <Content = string>(content: LanguageContent<Content>) =>
   appNamespace.get('t')(content);
 
 export { LanguageContent };

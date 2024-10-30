@@ -24,7 +24,7 @@ export type InviteUserEmailProps = {
   inviteFromLocation: string;
 };
 
-export const InviteUserEmail = ({
+export const InviteUserEmailEN = ({
   username,
   invitedByUsername,
   invitedByEmail,
@@ -106,7 +106,171 @@ export const InviteUserEmail = ({
   );
 };
 
-InviteUserEmail.PreviewProps = {
+export const InviteUserEmailFR = ({
+  username,
+  invitedByUsername,
+  invitedByEmail,
+  organizationName,
+  inviteLink,
+  inviteFromIp,
+  inviteFromLocation,
+}: InviteUserEmailProps) => {
+  const previewText = `Rejoignez ${invitedByUsername} sur Intlayer`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src={`https://intlayer.org/assets/favicon-32x32.png`}
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+              Rejoignez <strong>{organizationName}</strong> sur{' '}
+              <strong>Intlayer</strong>
+            </Heading>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Bonjour {username},
+            </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              <strong>{invitedByUsername}</strong> (
+              <Link
+                href={`mailto:${invitedByEmail}`}
+                className="text-[#E879BA] no-underline"
+              >
+                {invitedByEmail}
+              </Link>
+              ) vous a invité à rejoindre l'équipe de{' '}
+              <strong>{organizationName}</strong> sur <strong>Intlayer</strong>.
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                href={inviteLink}
+              >
+                Rejoindre l'équipe
+              </Button>
+            </Section>
+            <Text className="text-[14px] leading-[24px] text-black">
+              ou copiez et collez cette URL dans votre navigateur :{' '}
+              <Link href={inviteLink} className="text-[#E879BA] no-underline">
+                {inviteLink}
+              </Link>
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-[12px] leading-[24px] text-[#666666]">
+              Cette invitation était destinée à{' '}
+              <span className="text-black">{username}</span>. Cette invitation a
+              été envoyée depuis{' '}
+              <span className="text-black">{inviteFromIp}</span>
+              {inviteFromLocation && (
+                <>
+                  {', située à '}
+                  <span className="text-black">{inviteFromLocation}</span>
+                </>
+              )}
+              . Si vous n'attendiez pas cette invitation, vous pouvez ignorer
+              cet email. Si vous êtes préoccupé par la sécurité de votre compte,
+              veuillez répondre à cet email pour nous contacter.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const InviteUserEmailES = ({
+  username,
+  invitedByUsername,
+  invitedByEmail,
+  organizationName,
+  inviteLink,
+  inviteFromIp,
+  inviteFromLocation,
+}: InviteUserEmailProps) => {
+  const previewText = `Únete a ${invitedByUsername} en Intlayer`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src={`https://intlayer.org/assets/favicon-32x32.png`}
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+              Únete a <strong>{organizationName}</strong> en{' '}
+              <strong>Intlayer</strong>
+            </Heading>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Hola {username},
+            </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              <strong>{invitedByUsername}</strong> (
+              <Link
+                href={`mailto:${invitedByEmail}`}
+                className="text-[#E879BA] no-underline"
+              >
+                {invitedByEmail}
+              </Link>
+              ) te ha invitado a unirte al equipo de{' '}
+              <strong>{organizationName}</strong> en <strong>Intlayer</strong>.
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                href={inviteLink}
+              >
+                Unirse al equipo
+              </Button>
+            </Section>
+            <Text className="text-[14px] leading-[24px] text-black">
+              o copia y pega esta URL en tu navegador:{' '}
+              <Link href={inviteLink} className="text-[#E879BA] no-underline">
+                {inviteLink}
+              </Link>
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-[12px] leading-[24px] text-[#666666]">
+              Esta invitación estaba destinada para{' '}
+              <span className="text-black">{username}</span>. Esta invitación
+              fue enviada desde{' '}
+              <span className="text-black">{inviteFromIp}</span>
+              {inviteFromLocation && (
+                <>
+                  {', ubicada en '}
+                  <span className="text-black">{inviteFromLocation}</span>
+                </>
+              )}
+              . Si no esperabas esta invitación, puedes ignorar este correo. Si
+              estás preocupado por la seguridad de tu cuenta, por favor responde
+              a este correo para contactarte con nosotros.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+const PreviewProps: InviteUserEmailProps = {
   username: 'alanturing',
   invitedByUsername: 'Alan',
   invitedByEmail: 'alan.turing@example.com',
@@ -114,6 +278,8 @@ InviteUserEmail.PreviewProps = {
   inviteLink: 'https://intlayer.org/teams/invite/foo',
   inviteFromIp: '204.13.x.x',
   inviteFromLocation: 'São Paulo, Brazil',
-} as InviteUserEmailProps;
+};
 
-export default InviteUserEmail;
+InviteUserEmailEN.PreviewProps = PreviewProps;
+InviteUserEmailFR.PreviewProps = PreviewProps;
+InviteUserEmailES.PreviewProps = PreviewProps;

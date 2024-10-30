@@ -1,40 +1,112 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { InviteUserEmail } from '@emails/InviteUserEmail';
-import PasswordChangeConfirmationEmail from '@emails/PasswordChangeConfirmation';
-import ResetPasswordEmail from '@emails/ResetUserPassword';
-import { ValidateUserEmail } from '@emails/ValidateUserEmail';
-import WelcomeEmail from '@emails/Welcome';
+import {
+  InviteUserEmailEN,
+  InviteUserEmailFR,
+  InviteUserEmailES,
+} from '@emails/InviteUserEmail';
+import {
+  PasswordChangeConfirmationEmailEN,
+  PasswordChangeConfirmationEmailFR,
+  PasswordChangeConfirmationEmailES,
+} from '@emails/PasswordChangeConfirmation';
+import {
+  ResetPasswordEmailEN,
+  ResetPasswordEmailFR,
+  ResetPasswordEmailES,
+} from '@emails/ResetUserPassword';
+import {
+  ValidateUserEmailEN,
+  ValidateUserEmailFR,
+  ValidateUserEmailES,
+} from '@emails/ValidateUserEmail';
+import {
+  WelcomeEmailEN,
+  WelcomeEmailFR,
+  WelcomeEmailES,
+} from '@emails/Welcome';
 import { logger } from '@logger';
+import { t } from 'express-intlayer';
 import { ComponentProps } from 'react';
 import { Resend } from 'resend';
 
-const emailComponents = {
+type EmailComponentsType = (...props: any) => JSX.Element;
+type EmailComponents = {
+  [key: string]: {
+    template: EmailComponentsType;
+    subject: string;
+  };
+};
+
+const getEmailComponents = (): EmailComponents => ({
   invite: {
-    template: InviteUserEmail,
-    subject: 'You have been invited to join Intlayer',
+    template: t<EmailComponentsType>({
+      en: InviteUserEmailEN,
+      fr: InviteUserEmailFR,
+      es: InviteUserEmailES,
+    }),
+    subject: t({
+      en: 'You have been invited to join Intlayer',
+      fr: 'Vous êtes invité à rejoindre Intlayer',
+      es: 'Has sido invitado a unirte a Intlayer',
+    }),
   },
   validate: {
-    template: ValidateUserEmail,
-    subject: 'Validate your email for Intlayer',
+    template: t<EmailComponentsType>({
+      en: ValidateUserEmailEN,
+      fr: ValidateUserEmailFR,
+      es: ValidateUserEmailES,
+    }),
+    subject: t({
+      en: 'Validate your email for Intlayer',
+      fr: 'Validez votre email pour Intlayer',
+      es: 'Valida tu correo electrónico para Intlayer',
+    }),
   },
   resetPassword: {
-    template: ResetPasswordEmail,
-    subject: 'Reset your password for Intlayer',
+    template: t<EmailComponentsType>({
+      en: ResetPasswordEmailEN,
+      fr: ResetPasswordEmailFR,
+      es: ResetPasswordEmailES,
+    }),
+    subject: t({
+      en: 'Reset your password for Intlayer',
+      fr: 'Réinitialisez votre mot de passe pour Intlayer',
+      es: 'Restablece tu contraseña para Intlayer',
+    }),
   },
-  welcome: { template: WelcomeEmail, subject: 'Welcome to Intlayer!' },
+  welcome: {
+    template: t<EmailComponentsType>({
+      en: WelcomeEmailEN,
+      fr: WelcomeEmailFR,
+      es: WelcomeEmailES,
+    }),
+    subject: t({
+      en: 'Welcome to Intlayer!',
+      fr: 'Bienvenue chez Intlayer!',
+      es: '¡Bienvenido a Intlayer!',
+    }),
+  },
   passwordChangeConfirmation: {
-    template: PasswordChangeConfirmationEmail,
-    subject: 'Your Intlayer password has been changed',
+    template: t<EmailComponentsType>({
+      en: PasswordChangeConfirmationEmailEN,
+      fr: PasswordChangeConfirmationEmailFR,
+      es: PasswordChangeConfirmationEmailES,
+    }),
+    subject: t({
+      en: 'Your Intlayer password has been changed',
+      fr: 'Votre mot de passe Intlayer a été modifié',
+      es: 'Tu contraseña de Intlayer ha sido cambiada',
+    }),
   },
-} as const;
+});
 
-type EmailType = keyof typeof emailComponents;
+type EmailType = keyof ReturnType<typeof getEmailComponents>;
 
 export type SendEmailProps<T extends EmailType> = {
   type: T;
   to: string;
   subject?: string;
-} & ComponentProps<(typeof emailComponents)[T]['template']>;
+} & ComponentProps<ReturnType<typeof getEmailComponents>[T]['template']>;
 
 export const sendEmail = async <T extends EmailType>({
   type,
@@ -43,6 +115,8 @@ export const sendEmail = async <T extends EmailType>({
   ...props
 }: SendEmailProps<T>) => {
   const resend = new Resend(process.env.RESEND_API_KEY);
+
+  const emailComponents = getEmailComponents();
 
   const { template, subject: baseSubject } = emailComponents[type];
 
