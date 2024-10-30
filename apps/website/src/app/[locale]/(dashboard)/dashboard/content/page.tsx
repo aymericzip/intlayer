@@ -12,7 +12,7 @@ const ContentDashboardPage: NextPageIntlayer = ({ params: { locale } }) => {
         {title}
       </h1>
       <div className="relative flex size-full flex-1 flex-col items-center">
-        <div className="flex size-full flex-1 flex-col items-center p-10">
+        <div className="flex size-full flex-1 flex-col items-center justify-center p-10">
           <DictionaryListDashboard />
         </div>
         <BackgroundLayout />

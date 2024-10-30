@@ -34,7 +34,7 @@ export const DictionaryListDashboardContent: FC = () => {
       <div className="flex flex-1 flex-col items-center justify-center">
         <Container
           roundedSize="xl"
-          className="flex size-full max-w-[400px] flex-col justify-center gap-10 p-6"
+          className="flex w-full max-w-[400px] flex-col justify-center gap-10 p-6"
         >
           <span className="text-neutral-dark dark:text-neutral-dark text-sm">
             {noDictionaryView.title}
@@ -62,7 +62,7 @@ export const DictionaryListDashboardContent: FC = () => {
   return (
     <Container
       roundedSize="xl"
-      className="flex size-full max-w-[400px] flex-1 flex-col justify-center gap-2 p-6"
+      className="flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
     >
       <H2 className="mb-6">{dictionaryList.title}</H2>
       {dictionaries.map((dictionary) => (
@@ -81,7 +81,17 @@ export const DictionaryListDashboardContent: FC = () => {
             router.push(`${PagesRoutes.Dashboard_Content}/${dictionary.key}`);
           }}
         >
-          {dictionary.key}
+          <div className="flex flex-col gap-2 p-2">
+            {dictionary.title && (
+              <strong className="text-sm">{dictionary.title}</strong>
+            )}
+            {dictionary.key && <span>{dictionary.key}</span>}
+            {dictionary.description && (
+              <span className="text-neutral dark:text-neutral-dark">
+                {dictionary.description}
+              </span>
+            )}
+          </div>
         </Button>
       ))}
     </Container>
