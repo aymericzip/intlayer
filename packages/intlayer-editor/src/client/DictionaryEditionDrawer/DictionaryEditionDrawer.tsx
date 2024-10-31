@@ -12,10 +12,11 @@ import {
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useEffect, useState, type FC } from 'react';
-import { useDictionaryListDrawer } from '../DictionaryListDrawer/index';
+import { useDictionaryListDrawer } from '../DictionaryListDrawer/useDictionaryListDrawer';
 import {
   type FileContent as FileContentWithDictionaryPath,
   useDictionaryEditionDrawer,
+  getDrawerIdentifier,
 } from './useDictionaryEditionDrawer';
 
 type DictionaryEditionDrawerContentProps = {
@@ -42,7 +43,9 @@ export const DictionaryEditionDrawerContent: FC<
   const { all: dictionaries } = useGetAllDictionaries();
 
   useEffect(() => {
-    setDictionariesRecord(dictionaries);
+    if (dictionaries) {
+      setDictionariesRecord(dictionaries);
+    }
   }, [setDictionariesRecord, dictionaries]);
 
   const dictionaryId = focusedContent?.dictionaryId;
@@ -60,9 +63,7 @@ export const DictionaryEditionDrawerContent: FC<
         title="Edit field"
         size="xl"
       >
-        {dictionary && (
-          <DictionaryFieldEditor dictionary={dictionary} locale={locale} />
-        )}
+        {dictionary && <DictionaryFieldEditor dictionary={dictionary} />}
       </Modal>
       <DictionaryEditor
         dictionary={dictionary}
@@ -86,9 +87,6 @@ export const DictionaryEditionDrawerContent: FC<
 type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
   dictionaryId: string;
 };
-
-export const getDrawerIdentifier = (dictionaryId: string) =>
-  `dictionary_edition_${dictionaryId}`;
 
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   locale,

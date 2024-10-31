@@ -12,6 +12,18 @@ export const dictionarySchema = new Schema<Dictionary>(
       type: String,
       required: true,
     },
+    title: {
+      type: String,
+      default: '',
+    },
+    description: {
+      type: String,
+      default: '',
+    },
+    version: {
+      type: Number,
+      default: 1,
+    },
     content: {
       type: Schema.Types.Mixed,
       required: true,

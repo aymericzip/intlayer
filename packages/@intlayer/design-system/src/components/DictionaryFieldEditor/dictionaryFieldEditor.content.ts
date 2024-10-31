@@ -9,6 +9,11 @@ export const dictionaryFieldEditorContent = {
         fr: 'Retourner à la liste des dictionnaires',
         es: 'Volver a la lista de diccionarios',
       }),
+      text: t({
+        en: 'Dictionary list',
+        fr: 'Liste des dictionnaires',
+        es: 'Lista de diccionarios',
+      }),
     },
   },
 } satisfies DeclarationContent;

@@ -1,9 +1,7 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   NodeType,
   type TranslationContent,
-  type Dictionary,
   type DictionaryValue,
   type KeyPath,
   type EnumerationContent,
@@ -32,10 +30,10 @@ export const getDictionaryValueByKeyPath = (
 type LastKeyType = string | number;
 
 export const editDictionaryByKeyPath = (
-  dictionaryContent: Dictionary,
+  dictionaryContent: DictionaryValue,
   keyPath: KeyPath[],
   newValue: DictionaryValue
-): Dictionary => {
+): DictionaryValue => {
   let currentValue: any = dictionaryContent;
   let parentValue: any = null;
   let lastKeys: LastKeyType[] = [];
@@ -99,9 +97,9 @@ export const editDictionaryByKeyPath = (
 };
 
 export const removeDictionaryValueByKeyPath = (
-  dictionaryContent: Dictionary,
+  dictionaryContent: DictionaryValue,
   keyPath: KeyPath[]
-): Dictionary => {
+): DictionaryValue => {
   let currentValue: any = dictionaryContent;
   let parentValue: any = null;
   let lastKey: string | number | null = null;

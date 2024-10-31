@@ -83,11 +83,11 @@ export const DictionaryListDashboardContent: FC = () => {
         >
           <div className="flex flex-col gap-2 p-2">
             {dictionary.title && (
-              <strong className="text-sm">{dictionary.title}</strong>
+              <strong className="text-wrap text-sm">{dictionary.title}</strong>
             )}
             {dictionary.key && <span>{dictionary.key}</span>}
             {dictionary.description && (
-              <span className="text-neutral dark:text-neutral-dark">
+              <span className="text-neutral dark:text-neutral-dark text-wrap">
                 {dictionary.description}
               </span>
             )}

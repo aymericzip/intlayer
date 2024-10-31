@@ -3,18 +3,18 @@ import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
 
 type KeyPathBreadcrumbProps = {
-  dictionaryId: string;
+  dictionaryKey: string;
   keyPath: KeyPath[];
   onClickKeyPath: (keyPath: KeyPath[]) => void;
 };
 
 export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
   keyPath,
-  dictionaryId,
+  dictionaryKey,
   onClickKeyPath,
 }) => {
   const formattedKeyPath: BreadcrumbLink[] = [
-    { text: dictionaryId, onClick: () => onClickKeyPath([]) },
+    { text: dictionaryKey, onClick: () => onClickKeyPath([]) },
     ...keyPath.map((el, index) => ({
       onClick: () =>
         onClickKeyPath(

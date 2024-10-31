@@ -1,8 +1,15 @@
 'use client';
 
 import { ChevronDown } from 'lucide-react';
-import { useEffect, useState, type FC, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useState,
+  type FC,
+  type ReactNode,
+} from 'react';
 import { cn } from '../../utils/cn';
+import { Button, ButtonProps } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 type AccordionProps = {
@@ -10,7 +17,7 @@ type AccordionProps = {
   header: ReactNode;
   children: ReactNode;
   isOpen?: boolean;
-};
+} & ButtonProps;
 
 /**
  * Accordion component that allows the user to expand and collapse content.
@@ -30,6 +37,8 @@ export const Accordion: FC<AccordionProps> = ({
   children,
   header,
   isOpen: isOpenDefault = false,
+  onClick,
+  ...props
 }) => {
   const [isOpen, setIsOpen] = useState(isOpenDefault);
   const isHidden = isOpen == undefined ? undefined : !isOpen;
@@ -40,21 +49,34 @@ export const Accordion: FC<AccordionProps> = ({
     }
   }, [isOpenDefault]);
 
+  const Icon = useCallback(
+    () => (
+      <ChevronDown
+        size={16}
+        className={cn(
+          'transform transition-transform duration-500 ease-in-out',
+          isOpen ? 'rotate-0' : 'rotate-180'
+        )}
+      />
+    ),
+    [isOpen]
+  );
+
   return (
     <>
-      <button
-        onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
-        className="flex w-full cursor-pointer items-center justify-between"
+      <Button
+        variant="hoverable"
+        color="text"
+        onClick={(e) => {
+          setIsOpen((prevIsOpen) => !prevIsOpen);
+          onClick?.(e);
+        }}
+        isFullWidth
+        IconRight={Icon}
+        {...props}
       >
         {header}
-        <ChevronDown
-          size={24}
-          className={cn(
-            'transform transition-transform duration-200 ease-in-out',
-            isOpen ? 'rotate-0' : 'rotate-180'
-          )}
-        />
-      </button>
+      </Button>
 
       <MaxHeightSmoother
         tabIndex={isHidden !== false ? undefined : -1}

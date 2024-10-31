@@ -6,6 +6,8 @@ import {
   InputPasswordElement,
   TextAreaElement,
 } from './elements';
+import { EditableFieldInputElement } from './elements/EditableFieldInputElement';
+import { EditableFieldTextAreaElement } from './elements/EditableFieldTextAreaElement';
 import { MultiSelectElement } from './elements/MultiselectElement';
 import { SelectElement } from './elements/SelectElement';
 import { Form as FormRoot } from './FormBase';
@@ -30,6 +32,8 @@ type FormType = typeof FormRoot & {
   TextArea: typeof TextAreaElement;
   MultiSelect: typeof MultiSelectElement;
   Select: typeof SelectElement;
+  EditableFieldInput: typeof EditableFieldInputElement;
+  EditableFieldTextArea: typeof EditableFieldTextAreaElement;
 };
 
 /**
@@ -64,3 +68,5 @@ Form.TextArea = TextAreaElement;
 Form.Button = Button;
 Form.Select = SelectElement;
 Form.MultiSelect = MultiSelectElement;
+Form.EditableFieldInput = EditableFieldInputElement;
+Form.EditableFieldTextArea = EditableFieldTextAreaElement;

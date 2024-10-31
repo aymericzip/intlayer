@@ -1,36 +1,31 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
 import { Dictionary } from '@intlayer/core';
 import { ArrowLeft } from 'lucide-react';
-import { useEffect, useMemo, useRef, type FC } from 'react';
+import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { getDictionaryValueByKeyPath } from '../../utils/dictionary';
 import { Button } from '../Button';
 import { Container } from '../Container';
 import {
   useEditedContentStore,
   useEditionPanelStore,
 } from '../DictionaryEditor';
+import { DictionaryDetailsForm } from './DictionaryDetailsForm';
 import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
 import { EditorView } from './EditorView/EditorView';
-import { getIsEditableSection } from './getIsEditableSection';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
-  locale: Locales;
   onClickDictionaryList?: () => void;
 };
 
 export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   dictionary,
-  locale,
   onClickDictionaryList,
 }) => {
   const { content: dictionaryContent, key } = dictionary;
-  const containerRef = useRef<HTMLDivElement>(null);
   const editedContent = useEditedContentStore((s) => s.editedContent);
   const { returnToDictionaryList } = useDictionary(
     dictionaryFieldEditorContent
@@ -43,32 +38,13 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
       setFocusedContent: s.setFocusedContent,
     }));
 
-  const keyPath = useMemo(
-    () => focusedContent?.keyPath ?? [],
-    [focusedContent]
-  );
+  const focusedKeyPath = focusedContent?.keyPath;
 
-  const prefixesKeyPath = useMemo(
-    () => [[], ...keyPath.map((_, i) => keyPath.slice(0, i + 1))],
-    [keyPath]
-  );
-  const selectedKeys = prefixesKeyPath
-    .slice(1)
-    .map((keyPath) => keyPath[keyPath.length - 1]?.key);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container && container.scrollWidth > container.clientWidth) {
-      container.scrollTo({
-        left: container.scrollWidth,
-        behavior: 'smooth',
-      });
-    }
-  }, [focusedContent]);
+  const section = editedContent[key]?.content ?? dictionaryContent;
 
   return (
     <div className="flex size-full flex-1 flex-col gap-10">
-      <div className="flex flex-row flex-wrap items-center gap-2 text-sm">
+      <div className="flex items-center gap-2">
         <Button
           onClick={() => {
             setFocusedContent(null);
@@ -77,52 +53,41 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           variant="hoverable"
           size="icon-md"
           color="text"
+          id="return-to-dictionary-list"
           Icon={ArrowLeft}
           label={returnToDictionaryList.label.value}
         />
-        <KeyPathBreadcrumb
-          dictionaryId={key}
-          keyPath={keyPath}
-          onClickKeyPath={setFocusedContentKeyPath}
-        />
-      </div>
-      <Container className="border-text dark:border-text-dark flex h-full flex-1 flex-col overflow-hidden rounded-xl border-[1.5px]">
-        <div
-          className="flex flex-1 items-start gap-0.5 overflow-x-auto p-2"
-          ref={containerRef}
+        <label
+          className="cursor-pointer text-xs hover:underline"
+          htmlFor="return-to-dictionary-list"
         >
-          {prefixesKeyPath.map((keyPath, index) => {
-            const section =
-              getDictionaryValueByKeyPath(editedContent[key], keyPath) ??
-              getDictionaryValueByKeyPath(dictionaryContent, keyPath);
+          {returnToDictionaryList.text}
+        </label>
+      </div>
 
-            const isEditableSection = getIsEditableSection(section);
+      <DictionaryDetailsForm dictionary={dictionary} />
 
-            if (isEditableSection) return <></>;
-
-            const keyPathName = keyPath
-              .map((key) => JSON.stringify(key))
-              .join('.');
-            const selectedKey = selectedKeys[index];
-
-            return (
-              <NavigationViewNode
-                key={keyPathName}
-                keyPath={keyPath}
-                selectedKey={selectedKey}
-                section={section}
-                dictionaryId={key}
-                locale={locale}
-              />
-            );
-          })}
-        </div>
-        <EditorView
-          dictionary={dictionary}
-          keyPath={keyPath}
-          dictionaryId={key}
-        />
-      </Container>
+      <KeyPathBreadcrumb
+        dictionaryKey={key}
+        keyPath={focusedKeyPath ?? []}
+        onClickKeyPath={setFocusedContentKeyPath}
+      />
+      <div className="flex gap-2 max-md:flex-col">
+        <Container className="border-text dark:border-text-dark flex h-full flex-col overflow-auto rounded-xl border-[1.5px] md:max-w-[50%]">
+          <div className="flex flex-1 items-start gap-0.5 overflow-x-auto p-2">
+            <NavigationViewNode
+              keyPath={[]}
+              section={section}
+              dictionaryKey={key}
+            />
+          </div>
+        </Container>
+        {focusedKeyPath && (
+          <Container className="border-text dark:border-text-dark sticky top-6 flex h-full flex-1 flex-col overflow-hidden rounded-xl border-[1.5px]">
+            <EditorView dictionary={dictionary} dictionaryKey={key} />
+          </Container>
+        )}
+      </div>
     </div>
   );
 };

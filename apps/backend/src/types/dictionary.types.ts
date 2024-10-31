@@ -9,6 +9,7 @@ export type DictionaryCreationData = {
   content?: DictionaryValue;
   title?: string;
   description?: string;
+  version?: number;
   filePath?: string;
 };
 
@@ -19,6 +20,7 @@ export type DictionaryData = {
   creatorId: User['_id'];
   title?: string;
   description?: string;
+  version?: number;
   filePath?: string;
 };
 

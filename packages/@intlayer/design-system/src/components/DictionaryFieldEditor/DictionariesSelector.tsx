@@ -1,6 +1,5 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
 import type { FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { useGetAllDictionaries } from '../../hooks';
@@ -10,12 +9,10 @@ import { dictionariesSelectorContent } from './dictionariesSelector.content';
 import { DictionaryFieldEditor } from './DictionaryFieldEditor';
 
 type DictionariesSelectorProps = {
-  locale: Locales;
   onClickDictionaryList: () => void;
 };
 
 export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
-  locale,
   onClickDictionaryList,
 }) => {
   const { all, isLoading } = useGetAllDictionaries();
@@ -37,7 +34,6 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   return (
     <DictionaryFieldEditor
       dictionary={dictionary}
-      locale={locale}
       onClickDictionaryList={onClickDictionaryList}
     />
   );

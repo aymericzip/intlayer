@@ -17,13 +17,13 @@ import { nodeTypeSelectorContent } from './nodeTypeSelector.content';
 
 type NodeTypeSelectorProps = {
   keyPath: KeyPath[];
-  dictionaryId: string;
+  dictionaryKey: string;
   section: DictionaryValue;
 };
 
 export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
   keyPath,
-  dictionaryId,
+  dictionaryKey,
   section,
 }) => {
   const { multilingualText, text, node, enumeration, triggerPlaceHolder } =
@@ -41,7 +41,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
     switch (keyType) {
       case NodeType.Translation:
         addEditedContent(
-          dictionaryId,
+          dictionaryKey,
           {
             nodeType: NodeType.Translation,
             [NodeType.Translation]: Object.assign(
@@ -56,7 +56,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         break;
       case NodeType.Enumeration:
         addEditedContent(
-          dictionaryId,
+          dictionaryKey,
           {
             nodeType: NodeType.Enumeration,
             [NodeType.Enumeration]: {
@@ -68,16 +68,16 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         );
         break;
       case NodeType.Object:
-        addEditedContent(dictionaryId, {}, keyPath);
+        addEditedContent(dictionaryKey, {}, keyPath);
         break;
       case NodeType.Array:
-        addEditedContent(dictionaryId, [], keyPath);
+        addEditedContent(dictionaryKey, [], keyPath);
         break;
       case NodeType.Text:
-        addEditedContent(dictionaryId, '', keyPath);
+        addEditedContent(dictionaryKey, '', keyPath);
         break;
       default:
-        addEditedContent(dictionaryId, {}, keyPath);
+        addEditedContent(dictionaryKey, {}, keyPath);
     }
   };
 

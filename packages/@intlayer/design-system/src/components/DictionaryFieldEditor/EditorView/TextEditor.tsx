@@ -69,7 +69,7 @@ const createReactElement = (element: ReactElement) => {
 };
 
 export type TextEditorProps = {
-  dictionaryId: string;
+  dictionaryKey: string;
   keyPath: KeyPath[];
   section: DictionaryValue;
 };
@@ -77,7 +77,7 @@ export type TextEditorProps = {
 const TranslationTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionaryId,
+  dictionaryKey,
 }: TextEditorProps) => {
   const { locales } = getConfiguration().internationalization;
   const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
@@ -98,7 +98,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
               variant="default"
               aria-label="Edit field"
               onContentChange={(newValue) =>
-                addEditedContent(dictionaryId, newValue, [
+                addEditedContent(dictionaryKey, newValue, [
                   ...keyPath,
                   {
                     type: NodeType.Translation,
@@ -123,7 +123,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
 const EnumerationTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionaryId,
+  dictionaryKey,
 }) => {
   const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
   const { addNewEnumeration } = useDictionary(navigationViewContent);
@@ -147,7 +147,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                 Icon={X}
                 className="w-16"
                 onClick={() =>
-                  addEditedContent(dictionaryId, undefined, [
+                  addEditedContent(dictionaryKey, undefined, [
                     ...keyPath,
                     {
                       type: NodeType.Enumeration,
@@ -172,7 +172,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                     [NodeType.Enumeration]: newValueContent,
                   };
 
-                  addEditedContent(dictionaryId, newValue, keyPath);
+                  addEditedContent(dictionaryKey, newValue, keyPath);
                 }}
               />
             </div>
@@ -182,7 +182,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
               variant="default"
               aria-label="Edit field"
               onContentChange={(newValue) =>
-                addEditedContent(dictionaryId, newValue, [
+                addEditedContent(dictionaryKey, newValue, [
                   ...keyPath,
                   {
                     type: NodeType.Enumeration,
@@ -207,7 +207,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
         textAlign="left"
         onClick={() =>
           addEditedContent(
-            dictionaryId,
+            dictionaryKey,
             '',
             [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }],
             false
@@ -225,7 +225,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 const ArrayTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionaryId,
+  dictionaryKey,
 }) => {
   const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
   const setFocusedContentKeyPath = useEditionPanelStore(
@@ -248,7 +248,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
               variant="default"
               aria-label="Edit field"
               onContentChange={(newValue) => {
-                addEditedContent(dictionaryId, newValue, [
+                addEditedContent(dictionaryKey, newValue, [
                   ...keyPath,
                   {
                     type: NodeType.Array,
@@ -273,7 +273,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
             ...keyPath,
             { type: NodeType.Object, key: 'newField' },
           ];
-          addEditedContent(dictionaryId, {}, newKeyPath, false);
+          addEditedContent(dictionaryKey, {}, newKeyPath, false);
           setFocusedContentKeyPath(newKeyPath);
         }}
         Icon={Plus}
@@ -287,7 +287,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
 export const TextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionaryId,
+  dictionaryKey,
 }) => {
   const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
   const { tsxNotEditable } = useDictionary(navigationViewContent);
@@ -311,7 +311,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.Translation) {
       return (
         <TranslationTextEditor
-          dictionaryId={dictionaryId}
+          dictionaryKey={dictionaryKey}
           keyPath={keyPath}
           section={section}
         />
@@ -321,7 +321,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.Enumeration) {
       return (
         <EnumerationTextEditor
-          dictionaryId={dictionaryId}
+          dictionaryKey={dictionaryKey}
           keyPath={keyPath}
           section={section}
         />
@@ -331,7 +331,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.Array) {
       return (
         <ArrayTextEditor
-          dictionaryId={dictionaryId}
+          dictionaryKey={dictionaryKey}
           keyPath={keyPath}
           section={section}
         />
@@ -346,7 +346,7 @@ export const TextEditor: FC<TextEditorProps> = ({
           variant="default"
           aria-label="Edit field"
           onContentChange={(newValue) =>
-            addEditedContent(dictionaryId, newValue, keyPath)
+            addEditedContent(dictionaryKey, newValue, keyPath)
           }
         >
           {section as string}

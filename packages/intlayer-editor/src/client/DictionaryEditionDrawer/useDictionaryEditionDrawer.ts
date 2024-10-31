@@ -6,8 +6,9 @@ import {
   type DictionaryContent,
 } from '@intlayer/design-system';
 import { useEditorServer } from '../useEditorServer';
-/* eslint-disable import/no-cycle */
-import { getDrawerIdentifier } from './DictionaryEditionDrawer';
+
+export const getDrawerIdentifier = (dictionaryId: string) =>
+  `dictionary_edition_${dictionaryId}`;
 
 type DictionaryId = string;
 type DictionaryPath = string;

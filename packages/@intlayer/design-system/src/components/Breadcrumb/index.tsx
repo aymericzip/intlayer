@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from 'lucide-react';
 import { Fragment, type FC } from 'react';
 import { Button } from '../Button';
+import { Link } from '../Link';
 
 type LinkProps = {
   href: string;
@@ -8,16 +9,17 @@ type LinkProps = {
   onClick?: () => void;
 };
 
-const Link: FC<LinkProps> = ({ href, children, onClick }) => (
-  <a
+const LinkLink: FC<LinkProps> = ({ href, children, onClick }) => (
+  <Link
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label={`Go to ${children}`}
+    label={`Go to ${children}`}
+    color="text"
     onClick={onClick}
   >
     {children}
-  </a>
+  </Link>
 );
 
 type ButtonProps = {
@@ -31,6 +33,7 @@ const ButtonLink: FC<ButtonProps> = ({ children: text, onClick }) => (
     label={`Go to ${text}`}
     variant="link"
     aria-label={`Go to ${text}`}
+    color="text"
   >
     {text}
   </Button>
@@ -69,9 +72,9 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
 
       if (isLink) {
         Section = (
-          <Link key={text} href={link.href!}>
+          <LinkLink key={text} href={link.href!}>
             {text}
-          </Link>
+          </LinkLink>
         );
       } else if (isButton) {
         Section = (

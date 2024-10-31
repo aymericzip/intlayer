@@ -13,12 +13,13 @@ import { useGetDictionaries } from './intlayerAPIHooks';
 export const useGetAllDictionaries = () => {
   const { data: onlineDictionariesAPI, isLoading } = useGetDictionaries();
 
-  const onlineDictionaries = onlineDictionariesAPI?.data?.reduce(
-    (acc, dictionary) => {
-      acc[dictionary.key] = dictionary;
-      return acc;
-    },
-    {} as DictionaryContent
+  const onlineDictionaries = useMemo(
+    () =>
+      onlineDictionariesAPI?.data?.reduce((acc, dictionary) => {
+        acc[dictionary.key] = dictionary;
+        return acc;
+      }, {} as DictionaryContent),
+    [onlineDictionariesAPI]
   );
 
   const allDictionaries = useMemo(

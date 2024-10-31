@@ -16,24 +16,24 @@ type EditedContentStore = {
     dictionariesRecord: Record<Dictionary['key'], Dictionary>
   ) => void;
   addEditedContent: (
-    dictionaryId: Dictionary['key'],
+    dictionaryKey: Dictionary['key'],
     newValue: DictionaryValue,
     keyPath?: KeyPath[],
     overwrite?: boolean
   ) => void;
   renameEditedContent: (
-    dictionaryId: Dictionary['key'],
+    dictionaryKey: Dictionary['key'],
     newKey: KeyPath['key'],
     keyPath?: KeyPath[]
   ) => void;
   removeEditedContent: (
-    dictionaryId: Dictionary['key'],
+    dictionaryKey: Dictionary['key'],
     keyPath: KeyPath[]
   ) => void;
-  clearEditedDictionaryContent: (dictionaryId: Dictionary['key']) => void;
+  clearEditedDictionaryContent: (dictionaryKey: Dictionary['key']) => void;
   clearEditedContent: () => void;
   getEditedContentValue: (
-    dictionaryId: Dictionary['key'],
+    dictionaryKey: Dictionary['key'],
     keyPath: KeyPath[]
   ) => DictionaryValue | undefined;
 };
@@ -46,15 +46,15 @@ export const useEditedContentStore = create(
       setDictionariesRecord: (dictionariesRecord) =>
         set(() => ({ dictionariesRecord })),
       addEditedContent: (
-        dictionaryId,
+        dictionaryKey,
         newValue,
         keyPath = [],
         overwrite = true
       ) =>
         set((state) => {
           const dictionaryContent =
-            state.editedContent[dictionaryId] ??
-            state.dictionariesRecord[dictionaryId];
+            state.editedContent[dictionaryKey]?.content ??
+            state.dictionariesRecord[dictionaryKey].content;
 
           let newKeyPath: KeyPath[] = keyPath;
 
@@ -99,16 +99,18 @@ export const useEditedContentStore = create(
           return {
             editedContent: {
               ...state.editedContent,
-              [dictionaryId]: editedContent,
+              [dictionaryKey]: {
+                ...state.editedContent[dictionaryKey],
+                content: editedContent,
+              },
             },
           };
         }),
-      renameEditedContent: (dictionaryId, newKey, keyPath = []) => {
+      renameEditedContent: (dictionaryKey, newKey, keyPath = []) => {
         set((state) => {
-          const dictionaryContent = {
-            ...state.dictionariesRecord[dictionaryId],
-            ...state.editedContent[dictionaryId],
-          };
+          const dictionaryContent =
+            state.editedContent[dictionaryKey]?.content ??
+            state.dictionariesRecord[dictionaryKey].content;
 
           const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
           const otherKeyPath: KeyPath[] = keyPath.slice(0, -1);
@@ -139,26 +141,29 @@ export const useEditedContentStore = create(
           return {
             editedContent: {
               ...state.editedContent,
-              [dictionaryId]: editedContent,
+              [dictionaryKey]: {
+                ...state.editedContent[dictionaryKey],
+                content: editedContent,
+              },
             },
           };
         });
       },
-      removeEditedContent: (dictionaryId, keyPath) => {
+      removeEditedContent: (dictionaryKey, keyPath) => {
         set((state) => {
-          const initialDictionary = state.dictionariesRecord[dictionaryId];
-          const editedDictionary = {
-            ...initialDictionary,
-            ...state.editedContent[dictionaryId],
-          };
+          const initialDictionaryContent =
+            state.dictionariesRecord[dictionaryKey].content;
+          const editedDictionaryContent =
+            state.editedContent[dictionaryKey]?.content ??
+            initialDictionaryContent;
 
           const initialContent = getDictionaryValueByKeyPath(
-            initialDictionary,
+            initialDictionaryContent,
             keyPath
           );
 
           const restoredContent = editDictionaryByKeyPath(
-            editedDictionary,
+            editedDictionaryContent,
             keyPath,
             initialContent
           );
@@ -166,18 +171,21 @@ export const useEditedContentStore = create(
           return {
             editedContent: {
               ...state.editedContent,
-              [dictionaryId]: restoredContent,
+              [dictionaryKey]: {
+                ...state.editedContent[dictionaryKey],
+                content: restoredContent,
+              },
             },
           };
         });
       },
 
-      clearEditedDictionaryContent: (dictionaryId) => {
+      clearEditedDictionaryContent: (dictionaryKey) => {
         set((state) => {
           const filteredEditedContent = Object.entries(
             state.editedContent
           ).reduce((acc, [path, content]) => {
-            if (path === dictionaryId) {
+            if (path === dictionaryKey) {
               return acc;
             }
 
@@ -197,8 +205,11 @@ export const useEditedContentStore = create(
         set({ editedContent: {} });
       },
 
-      getEditedContentValue: (dictionaryId, keyPath) =>
-        getDictionaryValueByKeyPath(get().editedContent[dictionaryId], keyPath),
+      getEditedContentValue: (dictionaryKey, keyPath) =>
+        getDictionaryValueByKeyPath(
+          get().editedContent[dictionaryKey],
+          keyPath
+        ),
     }),
     {
       name: 'edited-content-store',

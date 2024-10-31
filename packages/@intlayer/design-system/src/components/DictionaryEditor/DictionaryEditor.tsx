@@ -32,7 +32,7 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
         {...props}
         keyPath={[]}
         focusedKeyPath={focusedKeyPath}
-        section={dictionary as DictionaryValue}
+        section={dictionary.content}
         onContentChange={(content) =>
           onContentChange(content.keyPath, content.newValue)
         }

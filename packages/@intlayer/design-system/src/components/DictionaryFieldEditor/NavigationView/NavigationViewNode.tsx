@@ -1,4 +1,4 @@
-import { getConfiguration, type Locales } from '@intlayer/config/client';
+import { getConfiguration } from '@intlayer/config/client';
 import {
   type EnumerationContent,
   NodeType,
@@ -13,7 +13,11 @@ import {
   type FC,
 } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { getSectionType } from '../../../utils/dictionary';
+import {
+  getDictionaryValueByKeyPath,
+  getSectionType,
+} from '../../../utils/dictionary';
+import { Accordion } from '../../Accordion';
 import { Button } from '../../Button';
 import {
   useEditedContentStore,
@@ -61,20 +65,20 @@ const createReactElement = (element: ReactElement) => {
 };
 
 export type NodeWrapperProps = {
-  dictionaryId: string;
+  dictionaryKey: string;
   keyPath: KeyPath[];
   section: DictionaryValue;
-  locale: Locales;
   selectedKey?: KeyPath['key'];
 };
 
 export const NavigationViewNode: FC<NodeWrapperProps> = ({
-  section,
+  section: sectionProp,
   keyPath,
-  dictionaryId,
+  dictionaryKey,
   selectedKey,
 }) => {
   const { locales } = getConfiguration().internationalization;
+  const section = getDictionaryValueByKeyPath(sectionProp, keyPath);
   const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
   const setFocusedContentKeyPath = useEditionPanelStore(
     (s) => s.setFocusedContentKeyPath
@@ -91,7 +95,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   const nodeType = getSectionType(section);
   const isEditableSection = getIsEditableSection(section);
 
-  if (isEditableSection) return <></>;
+  if (isEditableSection) return <>Content</>;
 
   if (typeof section === 'object') {
     if (nodeType === NodeType.ReactNode) {
@@ -191,7 +195,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 ...keyPath,
                 { type: NodeType.Object, key: 'newField' },
               ];
-              addEditedContent(dictionaryId, {}, newKeyPath, false);
+              addEditedContent(dictionaryKey, {}, newKeyPath, false);
               setFocusedContentKeyPath(newKeyPath);
             }}
             Icon={Plus}
@@ -204,25 +208,56 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
     const sectionArray = Object.keys(section);
     return (
-      <div className="flex flex-col justify-between gap-2">
-        {sectionArray.map((key) => (
-          <Button
-            label={`${goToField.label.value} ${key}`}
-            key={key}
-            isActive={selectedKey === key}
-            color="text"
-            variant="hoverable"
-            onClick={() =>
-              setFocusedContentKeyPath([
-                ...keyPath,
-                { type: NodeType.Object, key },
-              ])
-            }
-            IconRight={ChevronRight}
-          >
-            {key}
-          </Button>
-        ))}
+      <div className="flex w-full max-w-full flex-col justify-between gap-2">
+        {sectionArray.map((key) => {
+          const childKeyPath: KeyPath[] = [
+            ...keyPath,
+            { type: NodeType.Object, key },
+          ];
+          const subSection = getDictionaryValueByKeyPath(
+            sectionProp,
+            childKeyPath
+          );
+          const isEditableSubSection = getIsEditableSection(subSection);
+
+          if (isEditableSubSection) {
+            return (
+              <Button
+                label={`${goToEnumeration.label.value} ${key}`}
+                key={key}
+                isActive={selectedKey === key}
+                variant="hoverable"
+                color="text"
+                className="w-full"
+                onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                IconRight={ChevronRight}
+              >
+                {key}
+              </Button>
+            );
+          }
+
+          return (
+            <Accordion
+              key={key}
+              identifier={key}
+              label={`${goToField.label.value} ${key}`}
+              isActive={selectedKey === key}
+              onClick={() => setFocusedContentKeyPath(childKeyPath)}
+              header={key}
+            >
+              <div className="flex w-full max-w-full">
+                <div className="flex-1 pl-10">
+                  <NavigationViewNode
+                    keyPath={childKeyPath}
+                    section={sectionProp}
+                    dictionaryKey={dictionaryKey}
+                  />
+                </div>
+              </div>
+            </Accordion>
+          );
+        })}
 
         <Button
           label={addNewField.label.value}
@@ -234,7 +269,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               ...keyPath,
               { type: NodeType.Object, key: 'newField' },
             ];
-            addEditedContent(dictionaryId, {}, newKeyPath, false);
+            addEditedContent(dictionaryKey, {}, newKeyPath, false);
             setFocusedContentKeyPath(newKeyPath);
           }}
           Icon={Plus}
@@ -245,5 +280,14 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     );
   }
 
-  return <>Error loading section</>;
+  return (
+    <>
+      Error loading section --
+      {nodeType}
+      --
+      {JSON.stringify(section)}
+      --
+      {JSON.stringify(keyPath)}
+    </>
+  );
 };

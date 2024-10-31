@@ -8,7 +8,6 @@ import {
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
-import { useLocale } from 'next-intlayer';
 import { Suspense, useEffect, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
@@ -23,7 +22,6 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
     focusedContent: s.focusedContent,
     setFocusedContent: s.setFocusedContent,
   }));
-  const { locale } = useLocale();
   const router = useRouter();
   const { online: dictionaries } = useGetAllDictionaries();
   const { setDictionariesRecord } = useEditedContentStore((s) => ({
@@ -31,6 +29,8 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   }));
 
   useEffect(() => {
+    if (!dictionaries) return;
+
     setDictionariesRecord(dictionaries);
   }, [setDictionariesRecord, dictionaries]);
 
@@ -47,7 +47,6 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   return (
     <Suspense fallback={<Loader />}>
       <DictionariesSelector
-        locale={locale}
         onClickDictionaryList={() => {
           router.push(PagesRoutes.Dashboard_Content);
         }}
