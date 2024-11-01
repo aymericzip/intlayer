@@ -1,16 +1,17 @@
 'use client';
 
 import { type KeyPath, type Dictionary } from '@intlayer/core';
-import { Check, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
+import { EditableFieldInput } from '../..//EditableField';
 import { getDictionaryValueByKeyPath } from '../../../utils/dictionary';
 import { Button } from '../../Button';
 import {
   useEditedContentStore,
   useEditionPanelStore,
 } from '../../DictionaryEditor';
-import { Input } from '../../Input';
+import { Label } from '../../Label';
 import { editorViewContent } from '../editorView.content';
 import { getIsEditableSection } from '../getIsEditableSection';
 import { NodeTypeSelector } from '../NodeTypeSelector';
@@ -33,9 +34,7 @@ export const EditorView: FC<EditorViewProps> = ({
   );
   const keyPath = focusedContent?.keyPath ?? [];
   const initialKeyName = keyPath[keyPath.length - 1]?.key ?? '';
-  const [keyName, setKeyName] = useState<string | number>(initialKeyName);
-  const isKeyNameEdited = keyName !== initialKeyName;
-  const { titleInput, titleValidationButton } =
+  const { titleInput, deleteButton, nodeTypeSelector } =
     useDictionary(editorViewContent);
 
   const { editedContent, renameEditedContent, addEditedContent } =
@@ -51,9 +50,19 @@ export const EditorView: FC<EditorViewProps> = ({
 
   const isEditableSection = getIsEditableSection(section);
 
-  useEffect(() => {
-    setKeyName(initialKeyName);
-  }, [initialKeyName]);
+  const handleRenameNodeKey = (keyName: string) => {
+    renameEditedContent(dictionaryKey, keyName, keyPath);
+
+    const prevKeyPath: KeyPath[] = keyPath.slice(0, -1);
+    const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
+
+    const newKeyPath: KeyPath[] = [
+      ...prevKeyPath,
+      { ...lastKeyPath, key: keyName } as KeyPath,
+    ];
+
+    setFocusedContentKeyPath(newKeyPath);
+  };
 
   return (
     <>
@@ -66,62 +75,53 @@ export const EditorView: FC<EditorViewProps> = ({
         />
       )}
       {keyPath.length > 0 ? (
-        <form className="bg-text text-text-dark dark:bg-text-dark dark:text-text flex w-full items-start justify-between gap-2 px-4 py-2">
-          <div className="flex items-center gap-1" key={initialKeyName}>
-            {keyPath.length > 0 && (
-              <Button
-                label="Remove key from section"
-                variant="hoverable"
-                size="icon-md"
-                color="text-inverse"
-                Icon={X}
-                onClick={() => {
-                  addEditedContent(dictionaryKey, undefined, keyPath);
+        <form
+          className="bg-text text-text-dark dark:bg-text-dark dark:text-text flex w-full flex-col items-start justify-between gap-6 px-4 py-2"
+          key={JSON.stringify(focusedContent?.keyPath)}
+        >
+          <div className="flex w-full items-start justify-between gap-2">
+            {typeof initialKeyName === 'string' && (
+              <div>
+                <Label>{titleInput.label}</Label>
+                <EditableFieldInput
+                  name="key"
+                  aria-label="Key"
+                  placeholder={titleInput.placeholder.value}
+                  defaultValue={initialKeyName}
+                  onChange={handleRenameNodeKey}
+                  className="h-8"
+                  variant="invisible"
+                />
+              </div>
+            )}
 
-                  const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
-                  setFocusedContentKeyPath(parentKeyPath);
-                }}
+            <div>
+              <Label>{nodeTypeSelector.label}</Label>
+
+              <NodeTypeSelector
+                keyPath={keyPath}
+                dictionaryKey={dictionaryKey}
+                section={section}
               />
-            )}
-            <Input
-              name="key"
-              aria-label="Key"
-              placeholder={titleInput.placeholder.value}
-              defaultValue={initialKeyName}
-              onChange={(e) => setKeyName(e.target.value)}
-              className="h-8"
-              variant="invisible"
-            />
-            {isKeyNameEdited && (
-              <Button
-                type="submit"
-                color="text-inverse"
-                variant="hoverable"
-                isLoading={false}
-                label={titleValidationButton.label.value}
-                onClick={() => {
-                  renameEditedContent(dictionaryKey, keyName, keyPath);
-
-                  const prevKeyPath: KeyPath[] = keyPath.slice(0, -1);
-                  const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
-
-                  const newKeyPath: KeyPath[] = [
-                    ...prevKeyPath,
-                    { ...lastKeyPath, key: keyName } as KeyPath,
-                  ];
-
-                  setFocusedContentKeyPath(newKeyPath);
-                }}
-              >
-                <Check className="size-4" />
-              </Button>
-            )}
+            </div>
           </div>
-          <NodeTypeSelector
-            keyPath={keyPath}
-            dictionaryKey={dictionaryKey}
-            section={section}
-          />
+          {keyPath.length > 0 && (
+            <Button
+              label={deleteButton.label.value}
+              variant="outline"
+              color="error"
+              className="ml-auto"
+              Icon={X}
+              onClick={() => {
+                addEditedContent(dictionaryKey, undefined, keyPath);
+
+                const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
+                setFocusedContentKeyPath(parentKeyPath);
+              }}
+            >
+              {deleteButton.text}
+            </Button>
+          )}
         </form>
       ) : (
         <span className="h-8"></span>

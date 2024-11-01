@@ -20,6 +20,26 @@ export type NavbarProps = {
   }[];
 };
 
+const getCleanTabSelector = (path: string): string => {
+  // Remove leading '/'
+  if (path.startsWith('/')) {
+    path = path.substring(1);
+  }
+
+  // Check if the path starts with 'dashboard'
+  if (path.startsWith('dashboard')) {
+    return 'dashboard';
+  }
+
+  // Check if the path starts with 'content'
+  if (path.startsWith('content')) {
+    return 'content';
+  }
+
+  // Default case
+  return '';
+};
+
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { pathWithoutLocale } = useLocale();
   const { session } = useAuth();
@@ -84,10 +104,10 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
 
       <div className="max-3 flex w-full items-center gap-8 overflow-x-auto max-sm:pb-4">
         <TabSelector
-          selectedChoice={pathWithoutLocale}
+          selectedChoice={getCleanTabSelector(pathWithoutLocale)}
           tabs={filteredLinks.map(({ url, label, title }) => (
             <Link
-              key={url}
+              key={getCleanTabSelector(url)}
               href={url}
               label={label}
               color="text"

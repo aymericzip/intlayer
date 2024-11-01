@@ -5,25 +5,25 @@ import { Input, type InputProps } from '../Input';
 import { EditableFieldLayout } from './EditableFieldLayout';
 
 type EditableFieldInputProps = Omit<InputProps, 'onChange' | 'disabled'> & {
-  value: string | null | undefined;
+  defaultValue?: string | null | undefined;
   onChange: (value: string) => void;
   isDisabled?: boolean;
 };
 
 export const EditableFieldInput: FC<EditableFieldInputProps> = ({
-  value = '',
+  defaultValue = '',
   onChange,
   isDisabled,
   ...props
 }) => {
-  const [editingValue, setEditingValue] = useState(value ?? '');
+  const [editingValue, setEditingValue] = useState(defaultValue ?? '');
 
   const handleSave = () => {
     onChange(editingValue);
   };
 
   const handleCancel = () => {
-    setEditingValue(value ?? '');
+    setEditingValue(defaultValue ?? '');
   };
 
   return (

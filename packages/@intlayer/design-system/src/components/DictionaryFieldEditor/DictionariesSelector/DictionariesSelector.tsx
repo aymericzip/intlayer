@@ -2,11 +2,11 @@
 
 import type { FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { useGetAllDictionaries } from '../../hooks';
-import { useEditionPanelStore } from '../DictionaryEditor';
-import { Loader } from '../Loader';
+import { useGetAllDictionaries } from '../../../hooks';
+import { useEditionPanelStore } from '../../DictionaryEditor';
+import { Loader } from '../../Loader';
+import { DictionaryFieldEditor } from '../DictionaryFieldEditor';
 import { dictionariesSelectorContent } from './dictionariesSelector.content';
-import { DictionaryFieldEditor } from './DictionaryFieldEditor';
 
 type DictionariesSelectorProps = {
   onClickDictionaryList: () => void;

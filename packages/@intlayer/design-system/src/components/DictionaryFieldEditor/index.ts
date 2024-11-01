@@ -1,2 +1,2 @@
-export * from './DictionariesSelector';
+export * from './DictionariesSelector/DictionariesSelector';
 export * from './DictionaryFieldEditor';

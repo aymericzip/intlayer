@@ -4,10 +4,10 @@ import { Dictionary } from '@intlayer/core';
 import { Save } from 'lucide-react';
 import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { useUpdateDictionary } from '../../hooks';
-import { cn } from '../../utils/cn';
-import { Form, useForm } from '../Form';
-import { useToast } from '../Toaster';
+import { useUpdateDictionary } from '../../../hooks';
+import { cn } from '../../../utils/cn';
+import { Form, useForm } from '../../Form';
+import { useToast } from '../../Toaster';
 import { dictionaryDetailsContent } from './dictionaryDetails.content';
 import {
   getDictionaryDetailsSchema,
@@ -97,7 +97,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       <Form.Button
         type="submit"
         label={submitButton.label.value}
-        isDisabled={isSubmitting || isFormEdited}
+        isDisabled={isSubmitting || !isFormEdited}
         className={cn(
           'ml-auto w-auto',
           isFormEdited ? 'opacity-100' : 'opacity-0'

@@ -30,6 +30,7 @@ type EditedContentStore = {
     dictionaryKey: Dictionary['key'],
     keyPath: KeyPath[]
   ) => void;
+  restoreEditedContent: (dictionaryKey: Dictionary['key']) => void;
   clearEditedDictionaryContent: (dictionaryKey: Dictionary['key']) => void;
   clearEditedContent: () => void;
   getEditedContentValue: (
@@ -174,6 +175,23 @@ export const useEditedContentStore = create(
               [dictionaryKey]: {
                 ...state.editedContent[dictionaryKey],
                 content: restoredContent,
+              },
+            },
+          };
+        });
+      },
+
+      restoreEditedContent: (dictionaryKey) => {
+        set((state) => {
+          const dictionaryContent =
+            state.dictionariesRecord[dictionaryKey].content;
+
+          return {
+            editedContent: {
+              ...state.editedContent,
+              [dictionaryKey]: {
+                ...state.editedContent[dictionaryKey],
+                content: dictionaryContent,
               },
             },
           };
