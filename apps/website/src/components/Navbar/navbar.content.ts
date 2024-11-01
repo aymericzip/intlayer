@@ -73,7 +73,7 @@ export const navbarContent = {
           fr: 'Tableau de bord',
           es: 'Tablero',
         }),
-        url: PagesRoutes.Dashboard_Profile,
+        url: PagesRoutes.Dashboard,
         label: t({
           en: 'Go to the dashboard',
           fr: 'Aller à la page de tableau de bord',
