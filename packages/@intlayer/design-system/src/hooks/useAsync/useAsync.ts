@@ -110,7 +110,6 @@ export const useAsync = <
     setData,
     incrementRetryCount,
     resetRetryCount,
-    setIsDisabled,
   } = useAsyncStateStore((state) => ({
     setIsFetched: state.setIsFetched,
     setIsLoading: state.setIsLoading,
@@ -119,7 +118,6 @@ export const useAsync = <
     setData: state.setData,
     incrementRetryCount: state.incrementRetryCount,
     resetRetryCount: state.resetRetryCount,
-    setIsDisabled: state.setIsDisabled,
   }));
 
   // Storing the last arguments used to call the async function
@@ -156,6 +154,7 @@ export const useAsync = <
       storedArgsRef.current = args;
       setIsLoading(keyWithArgs, true);
       let response = null;
+
       await asyncFunction(...args)
         .then((result) => {
           response = result;
@@ -166,9 +165,9 @@ export const useAsync = <
         })
         .catch((error) => {
           const errorMessage = error.message ?? 'An error occurred';
+
           setError(keyWithArgs, errorMessage);
           resetRetryCount(keyWithArgs);
-          setIsDisabled(keyWithArgs, true);
           onError(errorMessage);
         })
         .finally(() => {
@@ -194,6 +193,7 @@ export const useAsync = <
   const revalidate: T = useCallback<T>(
     (async (...args) => {
       if (isDisabled) return;
+
       return fetch(...args);
     }) as T,
     [fetch, isDisabled]

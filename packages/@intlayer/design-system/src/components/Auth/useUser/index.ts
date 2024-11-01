@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from 'react';
 import { useLogout } from '../../../hooks';
 import { AuthContext } from '../AuthProvider';

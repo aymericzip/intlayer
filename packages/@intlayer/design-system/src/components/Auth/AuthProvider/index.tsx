@@ -28,8 +28,8 @@ export type Session = {
 type SessionContextProps = {
   session: Session | null | undefined;
   setSession: (session: Session | null) => void;
-  fetchSession: () => Promise<void>;
-  revalidateSession: () => Promise<void>;
+  fetchSession: () => Promise<Session | null | undefined>;
+  revalidateSession: () => Promise<Session | null | undefined>;
   csrfToken: string | null | undefined;
   csrfTokenFetched: boolean;
   setCsrfToken: (csrfToken: string | null) => void;
@@ -42,8 +42,8 @@ type SessionContextProps = {
 export const AuthContext = createContext<SessionContextProps>({
   session: undefined,
   setSession: () => null,
-  fetchSession: () => Promise.resolve(),
-  revalidateSession: () => Promise.resolve(),
+  fetchSession: () => Promise.resolve(undefined),
+  revalidateSession: () => Promise.resolve(undefined),
   csrfToken: null,
   csrfTokenFetched: false,
   setCsrfToken: () => null,

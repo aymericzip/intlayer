@@ -42,12 +42,10 @@ export const useSession = (sessionProp?: Session | null) => {
       return;
     }
 
-    await getSession();
+    return await getSession();
   }, [sessionProp]);
 
-  const revalidateSession = async () => {
-    await revalidate();
-  };
+  const revalidateSession = revalidate;
 
   useEffect(() => {
     // Fetch session if sessionProp is not provided when the component is mounted

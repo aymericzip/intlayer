@@ -1,7 +1,7 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { Dictionary, DictionaryValue, KeyPath } from '@intlayer/core';
+import type { Dictionary, KeyPath } from '@intlayer/core';
 import type { FC } from 'react';
 import { NodeWrapper } from './NodeWrapper';
 import { ValidDictionaryChangeButtons } from './ValidDictionaryChangeButtons';
