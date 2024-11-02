@@ -4,9 +4,9 @@ const contentDashboardContent = {
   key: 'dictionary-dashboard-page',
   content: {
     title: t({
-      en: 'Content management - Edit dictionary',
-      fr: 'Gestion de contenu - Modifier le dictionnaire',
-      es: 'Gestión de contenido - Editar diccionario',
+      en: 'Edit dictionary',
+      fr: 'Modifier le dictionnaire',
+      es: 'Editar diccionario',
     }),
   },
 } satisfies DeclarationContent;
