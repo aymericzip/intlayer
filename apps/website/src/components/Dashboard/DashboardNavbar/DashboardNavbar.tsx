@@ -21,23 +21,26 @@ export type NavbarProps = {
 };
 
 const getCleanTabSelector = (path: string): string => {
-  // Remove leading '/'
+  // Remove leading "/" if present
   if (path.startsWith('/')) {
     path = path.substring(1);
   }
 
-  // Check if the path starts with 'dashboard'
-  if (path.startsWith('dashboard')) {
-    return 'dashboard';
+  // Split the path into components
+  const components = path.split('/');
+
+  // If more than two components, keep only the first two
+  if (components.length > 2) {
+    return components.slice(0, 2).join('/');
   }
 
-  // Check if the path starts with 'content'
-  if (path.startsWith('content')) {
-    return 'content';
+  // For single component "dashboard", you can choose to append "/"
+  if (components.length === 1 && components[0] === 'dashboard') {
+    return components[0]; // or return components[0] + "/";
   }
 
-  // Default case
-  return '';
+  // Return the path as is for other cases
+  return path;
 };
 
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
