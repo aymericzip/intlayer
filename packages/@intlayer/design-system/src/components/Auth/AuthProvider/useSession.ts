@@ -9,16 +9,20 @@ export const useGetSession = () =>
   useAsync(
     'getSession',
     async () => {
-      const result = await getIntlayerAPI().auth.getSession();
+      try {
+        const result = await getIntlayerAPI().auth.getSession();
 
-      if (result.data) {
-        const formattedSession: Session = {
-          user: result.data.user,
-          organization: result.data.organization,
-          project: result.data.project,
-        };
+        if (result.data) {
+          const formattedSession: Session = {
+            user: result.data.user,
+            organization: result.data.organization,
+            project: result.data.project,
+          };
 
-        return formattedSession;
+          return formattedSession;
+        }
+      } catch (_error) {
+        // Failed to fetch session
       }
 
       return null;

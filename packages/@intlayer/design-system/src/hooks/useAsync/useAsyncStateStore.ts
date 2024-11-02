@@ -3,6 +3,7 @@ import { create } from 'zustand';
 type States<T> = {
   isLoading: boolean;
   isFetched: boolean;
+  isInvalidated: boolean;
   fetchedDateTime: null | Date;
   error: string | null;
   isSuccess: boolean;
@@ -19,6 +20,7 @@ type Actions<T> = {
   getStates: (key: string) => States<T>;
   setIsFetched: (key: string, value: boolean) => void;
   setIsLoading: (key: string, value: boolean) => void;
+  setIsInvalidated: (key: string, value: boolean) => void;
   setError: (key: string, value: string | null) => void;
   setIsSuccess: (key: string, value: boolean) => void;
   setData: (key: string, value: T | null) => void;
@@ -37,6 +39,7 @@ const createDefaultStates = <T>(): States<T> => ({
   isFetched: false,
   fetchedDateTime: null,
   isLoading: false,
+  isInvalidated: false,
   error: null,
   isSuccess: false,
   data: null,
@@ -132,6 +135,39 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
         },
       },
     })),
+
+  setIsInvalidated: (key, value) =>
+    set((state) => {
+      if (value === true) {
+        const allKeys = Object.keys(state.states);
+        const matchedKeys = getMatchKeys([key], allKeys);
+
+        matchedKeys.forEach((key) => {
+          sessionStorage.removeItem(key);
+        });
+
+        return {
+          states: {
+            ...state.states,
+            [key]: {
+              ...createDefaultStates<unknown>(),
+              isInvalidated: true,
+            },
+          },
+        };
+      }
+
+      return {
+        states: {
+          ...state.states,
+          [key]: {
+            ...((state.states[key] as States<unknown>) ||
+              createDefaultStates<unknown>()),
+            isInvalidated: false,
+          },
+        },
+      };
+    }),
 
   setData: (key, value) =>
     set((state) => ({

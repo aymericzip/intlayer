@@ -17,9 +17,7 @@ export const useUser = () => {
 
   const logoutHandle = async () => {
     setSession(null);
-    await logout().then(async () => {
-      await revalidateSession();
-    });
+    await logout();
   };
 
   return {

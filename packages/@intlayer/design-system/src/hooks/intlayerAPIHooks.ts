@@ -20,10 +20,18 @@ const useRevalidateWithSession = <T extends UseAsyncResult<string, any>>(
   return asyncHook;
 };
 
-export const useLogin = () => useAsync('login', useIntlayerAPI().auth.login);
+export const useLogin = () =>
+  useAsync('login', useIntlayerAPI().auth.login, {
+    invalidateQueries: ['getSession'],
+  });
 export const useRegister = () =>
-  useAsync('register', useIntlayerAPI().auth.register);
-export const useLogout = () => useAsync('logout', useIntlayerAPI().auth.logout);
+  useAsync('register', useIntlayerAPI().auth.register, {
+    invalidateQueries: ['getSession'],
+  });
+export const useLogout = () =>
+  useAsync('logout', useIntlayerAPI().auth.logout, {
+    invalidateQueries: ['getSession'],
+  });
 export const useChangePassword = () =>
   useAsync('changePassword', useIntlayerAPI().auth.changePassword);
 export const useAskResetPassword = () =>
@@ -47,11 +55,17 @@ export const useGetUsers = () =>
     })
   );
 export const useCreateUser = () =>
-  useAsync('createUser', useIntlayerAPI().user.createUser);
+  useAsync('createUser', useIntlayerAPI().user.createUser, {
+    invalidateQueries: ['getUsers'],
+  });
 export const useUpdateUser = () =>
-  useAsync('updateUser', useIntlayerAPI().user.updateUser);
+  useAsync('updateUser', useIntlayerAPI().user.updateUser, {
+    invalidateQueries: ['getSession'],
+  });
 export const useDeleteUser = () =>
-  useAsync('deleteUser', useIntlayerAPI().user.deleteUser);
+  useAsync('deleteUser', useIntlayerAPI().user.deleteUser, {
+    invalidateQueries: ['getUsers'],
+  });
 
 export const useGetOrganizations = () =>
   useRevalidateWithSession(
@@ -70,26 +84,40 @@ export const useGetOrganizations = () =>
   );
 
 export const useAddOrganization = () =>
-  useAsync('addOrganization', useIntlayerAPI().organization.addOrganization);
+  useAsync('addOrganization', useIntlayerAPI().organization.addOrganization, {
+    invalidateQueries: ['getOrganizations'],
+  });
 export const useUpdateOrganization = () =>
   useAsync(
     'updateOrganization',
-    useIntlayerAPI().organization.updateOrganization
+    useIntlayerAPI().organization.updateOrganization,
+    {
+      invalidateQueries: ['getSession'],
+    }
   );
 export const useUpdateOrganizationMembers = () =>
   useAsync(
     'updateOrganizationMembers',
-    useIntlayerAPI().organization.updateOrganizationMembers
+    useIntlayerAPI().organization.updateOrganizationMembers,
+    {
+      invalidateQueries: ['getOrganizations'],
+    }
   );
 export const useAddOrganizationMember = () =>
   useAsync(
     'addOrganizationMember',
-    useIntlayerAPI().organization.addOrganizationMember
+    useIntlayerAPI().organization.addOrganizationMember,
+    {
+      invalidateQueries: ['getOrganizations'],
+    }
   );
 export const useDeleteOrganization = () =>
   useAsync(
     'deleteOrganization',
-    useIntlayerAPI().organization.deleteOrganization
+    useIntlayerAPI().organization.deleteOrganization,
+    {
+      invalidateQueries: ['getOrganizations'],
+    }
   );
 export const useSelectOrganization = () =>
   useAsync(
@@ -114,16 +142,25 @@ export const useGetProjects = () =>
     })
   );
 export const useAddProject = () =>
-  useAsync('addProject', useIntlayerAPI().project.addProject);
+  useAsync('addProject', useIntlayerAPI().project.addProject, {
+    invalidateQueries: ['getProjects'],
+  });
 export const useUpdateProject = () =>
-  useAsync('updateProject', useIntlayerAPI().project.updateProject);
+  useAsync('updateProject', useIntlayerAPI().project.updateProject, {
+    invalidateQueries: ['getSession'],
+  });
 export const useUpdateProjectMembers = () =>
   useAsync(
     'updateProjectMembers',
-    useIntlayerAPI().project.updateProjectMembers
+    useIntlayerAPI().project.updateProjectMembers,
+    {
+      invalidateQueries: ['getSession'],
+    }
   );
 export const useDeleteProject = () =>
-  useAsync('deleteProject', useIntlayerAPI().project.deleteProject);
+  useAsync('deleteProject', useIntlayerAPI().project.deleteProject, {
+    invalidateQueries: ['getProjects'],
+  });
 export const useSelectProject = () =>
   useAsync('selectProject', useIntlayerAPI().project.selectProject);
 export const useUnselectProject = () =>
@@ -147,11 +184,19 @@ export const useGetDictionaries = () =>
     })
   );
 export const useAddDictionary = () =>
-  useAsync('addDictionary', useIntlayerAPI().dictionary.addDictionary);
+  useAsync('addDictionary', useIntlayerAPI().dictionary.addDictionary, {
+    invalidateQueries: ['getDictionaries'],
+  });
 
 export const usePushDictionaries = () =>
-  useAsync('pushDictionaries', useIntlayerAPI().dictionary.pushDictionaries);
+  useAsync('pushDictionaries', useIntlayerAPI().dictionary.pushDictionaries, {
+    invalidateQueries: ['getDictionaries'],
+  });
 export const useUpdateDictionary = () =>
-  useAsync('updateDictionary', useIntlayerAPI().dictionary.updateDictionary);
+  useAsync('updateDictionary', useIntlayerAPI().dictionary.updateDictionary, {
+    invalidateQueries: ['getDictionaries'],
+  });
 export const useDeleteDictionary = () =>
-  useAsync('deleteDictionary', useIntlayerAPI().dictionary.deleteDictionary);
+  useAsync('deleteDictionary', useIntlayerAPI().dictionary.deleteDictionary, {
+    invalidateQueries: ['getDictionaries'],
+  });

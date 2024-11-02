@@ -10,7 +10,6 @@ import {
 } from '../../../hooks';
 import { Modal } from '../../Modal/Modal';
 import { useToast } from '../../Toaster';
-import { useAuth } from '../AuthProvider';
 import { type ChangePassword, ChangePasswordForm } from '../ChangePasswordForm';
 import { type ResetPassword, ResetPasswordForm } from '../ResetPasswordForm';
 import { type SignIn, SignInForm } from '../SignInForm';
@@ -43,7 +42,6 @@ export const AuthModal: FC<AuthModalProps> = ({
   onChangePasswordSuccess,
 }) => {
   const [state, setState] = useState<AuthState>(initialState);
-  const { revalidateSession } = useAuth();
   const { login } = useLogin();
   const { register } = useRegister();
   const { askResetPassword } = useAskResetPassword();
@@ -66,7 +64,6 @@ export const AuthModal: FC<AuthModalProps> = ({
     }
 
     if (response.data) {
-      await revalidateSession();
       await onSignInSuccess?.(response.data);
     }
   };
@@ -87,7 +84,6 @@ export const AuthModal: FC<AuthModalProps> = ({
     }
 
     if (response.data) {
-      await revalidateSession();
       await onSignUpSuccess?.(response.data);
     }
   };
@@ -105,7 +101,6 @@ export const AuthModal: FC<AuthModalProps> = ({
     }
 
     if (response.data) {
-      await revalidateSession();
       await onResetPasswordSuccess?.(response.data);
     }
   };
@@ -129,7 +124,6 @@ export const AuthModal: FC<AuthModalProps> = ({
     }
 
     if (response.data) {
-      await revalidateSession();
       await onChangePasswordSuccess?.(response.data);
     }
   };
