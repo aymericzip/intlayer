@@ -25,6 +25,7 @@ export const useGetSession = () =>
     },
     {
       cache: true,
+      store: true,
     }
   );
 

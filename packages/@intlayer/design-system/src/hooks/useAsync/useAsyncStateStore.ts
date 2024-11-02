@@ -1,5 +1,4 @@
-import { create, StateCreator } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand';
 
 type States<T> = {
   isLoading: boolean;
