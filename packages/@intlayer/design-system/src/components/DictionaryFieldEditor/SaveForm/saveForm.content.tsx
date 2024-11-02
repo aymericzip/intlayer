@@ -15,7 +15,7 @@ export const saveDictionaryContent = {
         es: 'Haga clic para restablecer los cambios',
       }),
     },
-    submitButton: {
+    saveButton: {
       text: t({
         en: 'Save changes',
         fr: 'Enregistrer les modifications',
@@ -25,6 +25,18 @@ export const saveDictionaryContent = {
         en: 'Click to save changes',
         fr: 'Cliquez pour enregistrer les modifications',
         es: 'Haga clic para guardar los cambios',
+      }),
+    },
+    publishButton: {
+      text: t({
+        en: 'Publish dictionary',
+        fr: 'Publier les dictionnaires',
+        es: 'Publicar diccionario',
+      }),
+      label: t({
+        en: 'Click to publish dictionary',
+        fr: 'Cliquez pour publier les dictionnaires',
+        es: 'Haga clic para publicar el diccionario',
       }),
     },
     updateOrganizationToasts: {

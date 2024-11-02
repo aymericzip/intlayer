@@ -1,22 +1,20 @@
 'use client';
 
-import {
-  useForm,
-  Form,
-  useToast,
-  useAuth,
-  MultiSelect,
-} from '@intlayer/design-system';
+import { type FC } from 'react';
+import { useDictionary } from 'react-intlayer';
 import {
   useAddDictionary,
   useGetProjects,
-} from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
-import { type FC } from 'react';
+} from '../../../hooks/intlayerAPIHooks';
+import { useAuth } from '../../Auth';
+import { Form, useForm } from '../../Form';
+import { MultiSelect } from '../../Select';
+import { useToast } from '../../Toaster';
+import { dictionaryFormContent } from './dictionaryCreationForm.content';
 import {
   getDictionarySchema,
   type DictionaryFormData,
-} from './DictionaryFormSchema';
+} from './dictionaryFormSchema';
 
 export const DictionaryCreationForm: FC = () => {
   const { session } = useAuth();
@@ -30,7 +28,7 @@ export const DictionaryCreationForm: FC = () => {
     createDictionaryButton,
     createDictionaryToasts,
     projectInput,
-  } = useIntlayer('dictionary-form');
+  } = useDictionary(dictionaryFormContent);
   const { toast } = useToast();
 
   const onSubmitSuccess = async (data: DictionaryFormData) => {
@@ -90,7 +88,7 @@ export const DictionaryCreationForm: FC = () => {
       </Form.MultiSelect>
 
       <Form.Button
-        className="mt-12 w-full"
+        className="ml-auto mt-12"
         type="submit"
         color="text"
         isLoading={isSubmitting}

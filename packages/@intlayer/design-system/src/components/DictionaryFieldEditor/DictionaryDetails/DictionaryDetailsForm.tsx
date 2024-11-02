@@ -1,10 +1,11 @@
 'use client';
 
+import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
-import { Save } from 'lucide-react';
+import { ArrowUpFromLine, Save } from 'lucide-react';
 import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { useUpdateDictionary } from '../../../hooks';
+import { usePushDictionaries } from '../../../hooks';
 import { cn } from '../../../utils/cn';
 import { Form, useForm } from '../../Form';
 import { useToast } from '../../Toaster';
@@ -21,42 +22,64 @@ type DictionaryDetailsProps = {
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
 }) => {
-  const { updateDictionary } = useUpdateDictionary();
+  const { pushDictionaries } = usePushDictionaries();
   const DictionaryDetailsSchema = getDictionaryDetailsSchema();
   const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
     defaultValues: dictionary,
   });
   const {
-    updateOrganizationToasts,
+    pushDictionariesToasts,
+    updateDictionaryToasts,
     titleInput,
     keyInput,
     descriptionInput,
-    submitButton,
+    publishButton,
+    saveButton,
   } = useDictionary(dictionaryDetailsContent);
   const { toast } = useToast();
 
+  const isFormEdited = form.formState.isDirty;
+  const isLocalDictionary =
+    typeof (dictionary as DistantDictionary)?._id === 'undefined';
+
   const onSubmitSuccess = async (data: DictionaryDetailsFormData) => {
-    await updateDictionary({
-      ...dictionary,
-      ...data,
-    })
+    await pushDictionaries([
+      {
+        ...dictionary,
+        ...data,
+      },
+    ])
       .then(() => {
-        toast({
-          title: updateOrganizationToasts.updated.title.value,
-          description: updateOrganizationToasts.updated.description.value,
-          variant: 'success',
-        });
+        if (isLocalDictionary) {
+          toast({
+            title: pushDictionariesToasts.updated.title.value,
+            description: pushDictionariesToasts.updated.description.value,
+            variant: 'success',
+          });
+        } else {
+          toast({
+            title: updateDictionaryToasts.updated.title.value,
+            description: updateDictionaryToasts.updated.description.value,
+            variant: 'success',
+          });
+        }
       })
       .catch((error) => {
-        toast({
-          title: updateOrganizationToasts.failed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
+        if (isLocalDictionary) {
+          toast({
+            title: pushDictionariesToasts.failed.title.value,
+            description: pushDictionariesToasts.failed.description.value,
+            variant: 'error',
+          });
+        } else {
+          toast({
+            title: updateDictionaryToasts.failed.title.value,
+            description: error.message,
+            variant: 'error',
+          });
+        }
       });
   };
-
-  const isFormEdited = form.formState.isDirty;
 
   return (
     <Form
@@ -94,20 +117,33 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         isDisabled={isSubmitting}
       />
 
-      <Form.Button
-        type="submit"
-        label={submitButton.label.value}
-        isDisabled={isSubmitting || !isFormEdited}
-        className={cn(
-          'ml-auto w-auto',
-          isFormEdited ? 'opacity-100' : 'opacity-0'
-        )}
-        Icon={Save}
-        color="text"
-        isLoading={isSubmitting}
-      >
-        {submitButton.text}
-      </Form.Button>
+      {isLocalDictionary ? (
+        <Form.Button
+          type="submit"
+          label={publishButton.label.value}
+          isDisabled={isSubmitting || !isFormEdited}
+          Icon={ArrowUpFromLine}
+          isFullWidth={false}
+          color="text"
+          isLoading={isSubmitting}
+          className="ml-auto"
+        >
+          {publishButton.text}
+        </Form.Button>
+      ) : (
+        <Form.Button
+          type="submit"
+          label={saveButton.label.value}
+          isDisabled={isSubmitting}
+          isFullWidth={false}
+          className={cn('ml-auto', isFormEdited ? '' : 'invisible')}
+          Icon={Save}
+          color="text"
+          isLoading={isSubmitting}
+        >
+          {saveButton.text}
+        </Form.Button>
+      )}
     </Form>
   );
 };

@@ -139,6 +139,7 @@ export const useGetDictionaries = () =>
   useRevalidateWithSession(
     useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries, {
       cache: true,
+      store: true,
       retryLimit: 3,
       autoFetch: true,
       revalidation: true,

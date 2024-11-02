@@ -36,6 +36,14 @@ const containerVariants = cva(
         y: 'divide-y divide-dashed divide-text/20 dark:divide-text-dark/20',
         both: 'divide-x divide-y divide-dashed divide-text/20 dark:divide-text-dark/20',
       },
+      border: {
+        none: '',
+        with: 'border-text dark:border-text-dark border-[1.5px]',
+      },
+      background: {
+        none: 'bg-none',
+        with: '',
+      },
       gap: {
         none: 'gap-0',
         sm: 'gap-1',
@@ -48,6 +56,7 @@ const containerVariants = cva(
 
     defaultVariants: {
       roundedSize: 'md',
+      border: 'none',
       transparency: 'md',
       padding: 'none',
       separator: 'without',
@@ -57,9 +66,12 @@ const containerVariants = cva(
 );
 
 type ContainerProps = PropsWithChildren<
-  VariantProps<typeof containerVariants>
+  Omit<VariantProps<typeof containerVariants>, 'border' | 'background'>
 > &
-  HTMLAttributes<HTMLDivElement>;
+  HTMLAttributes<HTMLDivElement> & {
+    border?: boolean;
+    background?: boolean;
+  };
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   (
@@ -70,6 +82,8 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       transparency,
       separator,
       className,
+      border,
+      background,
       ...props
     },
     ref
@@ -82,6 +96,18 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
           transparency,
           padding,
           separator,
+          border:
+            typeof border === 'boolean'
+              ? border
+                ? 'with'
+                : 'none'
+              : undefined,
+          background:
+            typeof background === 'boolean'
+              ? background
+                ? 'with'
+                : 'none'
+              : undefined,
           className,
         })
       )}

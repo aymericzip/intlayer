@@ -1,4 +1,4 @@
-import { t } from 'next-intlayer';
+import { t } from 'react-intlayer';
 import { z } from 'zod';
 
 export const getDictionarySchema = (projectId: string) => {

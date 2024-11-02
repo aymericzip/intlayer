@@ -1,6 +1,6 @@
 import { t, type DeclarationContent } from 'intlayer';
 
-const dictionaryFormContent = {
+export const dictionaryFormContent = {
   key: 'dictionary-form',
   content: {
     keyInput: {
@@ -50,6 +50,12 @@ const dictionaryFormContent = {
       }),
     },
 
+    createDictionaryTitle: t({
+      en: 'No dictionary',
+      fr: 'Aucune dictionaire',
+      es: 'Sin diccionario',
+    }),
+
     createDictionaryDescription: t({
       en: 'Create your first dictionary to start using Intlayer',
       fr: 'Créez votre première dictionaire pour commencer à utiliser Intlayer',
@@ -58,14 +64,14 @@ const dictionaryFormContent = {
 
     createDictionaryButton: {
       text: t({
-        en: 'Create new dictionary',
-        fr: 'Créer un nouveau dictionnaire',
-        es: 'Crear un nuevo diccionario',
+        en: 'Create dictionary',
+        fr: 'Créer un dictionair',
+        es: 'Crear un diccionario',
       }),
       ariaLabel: t({
-        en: 'Click to create a new dictionary',
-        fr: 'Cliquez pour créer un nouveau dictionnaire',
-        es: 'Haga clic para crear un nuevo diccionario',
+        en: 'Click to create dictionary',
+        fr: 'Cliquez pour créer un dictionair',
+        es: 'Haga clic para crear un diccionario',
       }),
     },
 
@@ -126,5 +132,3 @@ const dictionaryFormContent = {
     },
   },
 } satisfies DeclarationContent;
-
-export default dictionaryFormContent;

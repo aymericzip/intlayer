@@ -54,7 +54,7 @@ export const dictionaryDetailsContent = {
         es: 'La descripción de su diccionario le permite identificar fácilmente el usuario utilizando palabras clave. También se utiliza para buscar su diccionario y para ayudar a la IA a entender su diccionario.',
       }),
     },
-    submitButton: {
+    saveButton: {
       text: t({
         en: 'Save changes',
         fr: 'Enregistrer les modifications',
@@ -66,17 +66,29 @@ export const dictionaryDetailsContent = {
         es: 'Haga clic para guardar los cambios',
       }),
     },
-    updateOrganizationToasts: {
+    publishButton: {
+      text: t({
+        en: 'Publish dictionary',
+        fr: 'Publier les dictionnaires',
+        es: 'Publicar diccionario',
+      }),
+      label: t({
+        en: 'Click to publish dictionary',
+        fr: 'Cliquez pour publier les dictionnaires',
+        es: 'Haga clic para publicar el diccionario',
+      }),
+    },
+    updateDictionaryToasts: {
       updated: {
         title: t({
-          en: 'Organization updated',
-          fr: 'Organisation mise à jour',
-          es: 'Organización actualizada',
+          en: 'Dictionary updated',
+          fr: 'Dictionnaire mis à jour',
+          es: 'Diccionario actualizado',
         }),
         description: t({
-          en: 'Your organization has been updated successfully',
-          fr: 'Votre organisation a été mise à jour avec succès',
-          es: 'Su organización se ha actualizado con éxito',
+          en: 'Your dictionary has been updated successfully',
+          fr: 'Votre dictionnaire a été mis à jour avec succès',
+          es: 'Su diccionario se ha actualizado con éxito',
         }),
       },
       failed: {
@@ -84,6 +96,32 @@ export const dictionaryDetailsContent = {
           en: 'Organization update failed',
           fr: "La mise à jour de l'organisation a échoué",
           es: 'La actualización de la organización ha fallado',
+        }),
+      },
+    },
+    pushDictionariesToasts: {
+      updated: {
+        title: t({
+          en: 'Dictionary updated',
+          fr: 'Dictionnaire mis à jour',
+          es: 'Diccionario actualizado',
+        }),
+        description: t({
+          en: 'Your dictionary has been updated successfully',
+          fr: 'Votre dictionnaire a été mis à jour avec succès',
+          es: 'Su diccionario se ha actualizado con éxito',
+        }),
+      },
+      failed: {
+        title: t({
+          en: 'Dictionary update failed',
+          fr: "La mise à jour de l'dictionnaire a échoué",
+          es: 'La actualización del diccionario ha fallado',
+        }),
+        description: t({
+          en: 'An error occurred while updating your dictionary',
+          fr: "Une erreur s'est produite lors de la mise à jour de votre dictionnaire",
+          es: 'Se produjo un error al actualizar su diccionario',
         }),
       },
     },

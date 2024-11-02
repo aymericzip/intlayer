@@ -206,7 +206,7 @@ export const pushDictionaries = async (
     for (const dictionaryDataEl of existingDictionaries) {
       const dictionary: DictionaryData = {
         ...dictionaryDataEl,
-        content: dictionaryDataEl,
+        content: dictionaryDataEl.content,
         projectIds: [String(project._id)],
         creatorId: user._id,
         key: dictionaryDataEl.key,

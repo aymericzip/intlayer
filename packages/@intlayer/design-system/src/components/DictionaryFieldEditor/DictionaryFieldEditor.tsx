@@ -43,6 +43,8 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
 
   const section = editedContent[key]?.content ?? dictionaryContent;
 
+  console.log('dictionary', dictionary);
+
   return (
     <div className="flex size-full flex-1 flex-col gap-10">
       <div className="flex items-center gap-2">
@@ -78,7 +80,11 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         onClickKeyPath={setFocusedContentKeyPath}
       />
       <div className="flex gap-2 max-md:flex-col">
-        <Container className="border-text dark:border-text-dark top-6 flex h-full flex-col items-start gap-0.5 overflow-auto rounded-xl border-[1.5px] p-2 md:sticky md:max-w-[50%]">
+        <Container
+          border
+          className="top-6 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
+          roundedSize="xl"
+        >
           <NavigationViewNode
             keyPath={[]}
             section={section}
@@ -87,9 +93,13 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         </Container>
         <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
           {(focusedKeyPath?.length ?? 0) > 0 && (
-            <div className="border-text dark:border-text-dark h-full flex-1 overflow-hidden rounded-xl border-[1.5px]">
+            <Container
+              border
+              className="h-full flex-1 overflow-hidden"
+              roundedSize="xl"
+            >
               <EditorView dictionary={dictionary} dictionaryKey={key} />
-            </div>
+            </Container>
           )}
           {editedContent[key] && <SaveForm dictionary={dictionary} />}
         </div>

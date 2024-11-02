@@ -7,13 +7,13 @@ import {
   useEditionPanelStore,
   Container,
   H2,
+  DictionaryCreationForm,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { Suspense, useState, type FC } from 'react';
-import { DictionaryCreationForm } from './DictionaryCreationForm';
 import { PagesRoutes } from '@/Routes';
 
 export const DictionaryListDashboardContent: FC = () => {
@@ -29,42 +29,18 @@ export const DictionaryListDashboardContent: FC = () => {
 
   if (isLoading) return <Loader />;
 
-  if (dictionaries.length === 0) {
-    return (
-      <div className="flex flex-1 flex-col items-center justify-center">
-        <Container
-          roundedSize="xl"
-          className="flex w-full max-w-[400px] flex-col justify-center gap-10 p-6"
-        >
-          <span className="text-neutral-dark dark:text-neutral-dark text-sm">
-            {noDictionaryView.title}
-          </span>
-          <Button
-            label={createDictionaryButton.ariaLabel.value}
-            IconRight={Plus}
-            variant="default"
-            color="text"
-            onClick={() => setIsCreationModalOpen(true)}
-          >
-            {createDictionaryButton.text}
-          </Button>
-          <Modal
-            isOpen={isCreationModalOpen}
-            onClose={() => setIsCreationModalOpen(false)}
-          >
-            <DictionaryCreationForm />
-          </Modal>
-        </Container>
-      </div>
-    );
-  }
-
   return (
     <Container
       roundedSize="xl"
       className="flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
     >
       <H2 className="mb-6">{dictionaryList.title}</H2>
+
+      {dictionaries.length === 0 && (
+        <span className="text-neutral-dark dark:text-neutral-dark text-sm">
+          {noDictionaryView.title}
+        </span>
+      )}
       {dictionaries.map((dictionary) => (
         <Button
           key={String(dictionary.key)}
@@ -94,6 +70,22 @@ export const DictionaryListDashboardContent: FC = () => {
           </div>
         </Button>
       ))}
+      <Button
+        label={createDictionaryButton.ariaLabel.value}
+        IconRight={Plus}
+        variant="default"
+        className="ml-auto mt-12"
+        color="text"
+        onClick={() => setIsCreationModalOpen(true)}
+      >
+        {createDictionaryButton.text}
+      </Button>
+      <Modal
+        isOpen={isCreationModalOpen}
+        onClose={() => setIsCreationModalOpen(false)}
+      >
+        <DictionaryCreationForm />
+      </Modal>
     </Container>
   );
 };
