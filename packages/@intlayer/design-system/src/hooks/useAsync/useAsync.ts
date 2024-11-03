@@ -6,6 +6,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useAsyncStateStore } from './useAsyncStateStore';
 
+// Pending promises cache to prevent parallel requests when multiple components use the hook
+const pendingPromises = new Map();
+
 // Defines the base structure for the result of the custom hook.
 type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
   isFetched: boolean;
@@ -125,6 +128,7 @@ export const useAsync = <
     setIsLoading,
     setError,
     setIsSuccess,
+    setIsTriggered,
     setData,
     setIsInvalidated,
     incrementRetryCount,
@@ -134,6 +138,7 @@ export const useAsync = <
     setIsLoading: state.setIsLoading,
     setError: state.setError,
     setIsSuccess: state.setIsSuccess,
+    setIsTriggered: state.setIsTriggered,
     setIsInvalidated: state.setIsInvalidated,
     setData: state.setData,
     incrementRetryCount: state.incrementRetryCount,
@@ -156,6 +161,7 @@ export const useAsync = <
     error,
     isSuccess,
     isInvalidated,
+    isTriggered,
     data,
     retryCount: errorCount,
     isDisabled,
@@ -179,51 +185,63 @@ export const useAsync = <
   // The core fetching function, designed to be called directly or automatically based on configuration
   const fetch: T = useCallback<T>(
     (async (...args) => {
-      storedArgsRef.current = args;
-      setIsLoading(keyWithArgs, true);
-      let response = null;
+      if (pendingPromises.has(keyWithArgs)) {
+        // Return the existing pending promise
+        return pendingPromises.get(keyWithArgs);
+      }
 
-      await asyncFunction(...args)
-        .then((result) => {
-          response = result;
-          setData(keyWithArgs, result);
-          setIsSuccess(keyWithArgs, true);
-          onSuccess?.(result);
-          resetRetryCount(keyWithArgs);
+      const promise = (async () => {
+        setIsLoading(keyWithArgs, true);
+        let response = null;
 
-          // Store the result in session storage
-          if (storeEnabled) {
-            sessionStorage.setItem(keyWithArgs, JSON.stringify(result));
-          }
+        await asyncFunction(...args)
+          .then((result) => {
+            response = result;
+            setData(keyWithArgs, result);
+            setIsSuccess(keyWithArgs, true);
+            onSuccess?.(result);
+            resetRetryCount(keyWithArgs);
 
-          // Update other queries if necessary
-          if (updateQueries.length > 0) {
-            updateQueries.forEach((key) => {
-              setData(key, result);
-            });
-          }
+            // Store the result in session storage
+            if (storeEnabled) {
+              sessionStorage.setItem(keyWithArgs, JSON.stringify(result));
+            }
 
-          // Invalidate other queries if necessary
-          if (invalidateQueries.length > 0) {
-            invalidateQueries.forEach((key) => {
-              setIsInvalidated(key, true);
-            });
-          }
-        })
-        .catch((error) => {
-          const errorMessage = error.message ?? 'An error occurred';
+            // Update other queries if necessary
+            if (updateQueries.length > 0) {
+              updateQueries.forEach((key) => {
+                setData(key, result);
+              });
+            }
 
-          setData(keyWithArgs, null);
-          setError(keyWithArgs, errorMessage);
-          incrementRetryCount(keyWithArgs);
-          onError?.(errorMessage);
-        })
-        .finally(() => {
-          setIsLoading(keyWithArgs, false);
-          setIsFetched(keyWithArgs, true);
-          setIsInvalidated(keyWithArgs, false);
-        });
-      return response;
+            // Invalidate other queries if necessary
+            if (invalidateQueries.length > 0) {
+              invalidateQueries.forEach((key) => {
+                setIsInvalidated(key, true);
+              });
+            }
+          })
+          .catch((error) => {
+            const errorMessage = error.message ?? 'An error occurred';
+
+            setData(keyWithArgs, null);
+            setError(keyWithArgs, errorMessage);
+            incrementRetryCount(keyWithArgs);
+            onError?.(errorMessage);
+          })
+          .finally(() => {
+            setIsLoading(keyWithArgs, false);
+            setIsFetched(keyWithArgs, true);
+            setIsInvalidated(keyWithArgs, false);
+
+            // Remove the pending promise from the cache
+            pendingPromises.delete(keyWithArgs);
+          });
+        return response;
+      })();
+
+      // Store the pending promise in the cache
+      pendingPromises.set(keyWithArgs, promise);
     }) as T,
     [asyncFunction, keyWithArgs]
   );
@@ -235,9 +253,11 @@ export const useAsync = <
       if (isLoading) return;
       if (isSuccess && cacheEnabled && data) return data;
 
-      return await fetch(...args);
+      storedArgsRef.current = args;
+
+      await fetch(...args);
     }) as T,
-    [fetch, isDisabled, cacheEnabled, isSuccess, data]
+    [isDisabled, cacheEnabled, isSuccess, data, isLoading]
   );
 
   // Function to revalidate the data when necessary
@@ -245,17 +265,33 @@ export const useAsync = <
     (async (...args) => {
       if (isDisabled) return;
 
-      return fetch(...args);
+      if (args) {
+        storedArgsRef.current = args;
+      }
+
+      await fetch(...storedArgsRef.current);
     }) as T,
-    [fetch, isDisabled]
+    [isDisabled, storedArgsRef]
   );
+
+  // Fetching triggering system
+  useEffect(() => {
+    // Triggering system allows to fetch the data only once if the hook is mounted multiple times
+    if (!isTriggered) return;
+
+    setIsTriggered(keyWithArgs, false);
+
+    fetch(...storedArgsRef.current);
+  }, [isTriggered, storedArgsRef]);
 
   // Auto-fetch data on hook mount if autoFetch is true
   useEffect(() => {
-    if (!autoFetch || isFetched || isDisabled || isLoading) return;
+    if (!autoFetch) return;
+    if (isFetched || isDisabled || isLoading) return;
+    if (isTriggered) return;
 
-    execute(...storedArgsRef.current);
-  }, [autoFetch, execute, isFetched]);
+    setIsTriggered(keyWithArgs, true);
+  }, [autoFetch, isFetched, isTriggered, isDisabled, isLoading]);
 
   // Handle retry based on conditions set in options
   useEffect(() => {
@@ -297,7 +333,7 @@ export const useAsync = <
       const lastFetchedTime = new Date(fetchedDateTime).getTime();
       const shouldRevalidate = now - lastFetchedTime >= revalidateTime;
       if (shouldRevalidate) {
-        return fetch(...storedArgsRef.current);
+        setIsTriggered(keyWithArgs, true);
       }
     }, revalidateTime);
 
@@ -320,7 +356,7 @@ export const useAsync = <
     if (storedData) {
       setData(keyWithArgs, JSON.parse(storedData));
     }
-  }, [storeEnabled, setData, setIsFetched, keyWithArgs]);
+  }, [storeEnabled, keyWithArgs]);
 
   // Handle invalidation if props are changed
   useEffect(() => {
@@ -332,7 +368,7 @@ export const useAsync = <
     (data: Awaited<ReturnType<T> | null>) => {
       setData(keyWithArgs, data);
     },
-    [setData, keyWithArgs]
+    [keyWithArgs]
   );
 
   // Return the hook's result, including all state and control functions

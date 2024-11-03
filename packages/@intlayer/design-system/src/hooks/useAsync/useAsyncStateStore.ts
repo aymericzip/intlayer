@@ -4,6 +4,7 @@ type States<T> = {
   isLoading: boolean;
   isFetched: boolean;
   isInvalidated: boolean;
+  isTriggered: boolean;
   fetchedDateTime: null | Date;
   error: string | null;
   isSuccess: boolean;
@@ -20,6 +21,7 @@ type Actions<T> = {
   getStates: (key: string) => States<T>;
   setIsFetched: (key: string, value: boolean) => void;
   setIsLoading: (key: string, value: boolean) => void;
+  setIsTriggered: (key: string, value: boolean) => void;
   setIsInvalidated: (key: string, value: boolean) => void;
   setError: (key: string, value: string | null) => void;
   setIsSuccess: (key: string, value: boolean) => void;
@@ -37,6 +39,7 @@ type AsyncState<T> = {
 
 const createDefaultStates = <T>(): States<T> => ({
   isFetched: false,
+  isTriggered: false,
   fetchedDateTime: null,
   isLoading: false,
   isInvalidated: false,
@@ -85,17 +88,29 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
   states: {} as StateSlice<unknown>,
 
   getStates: (key) =>
-    (get().states[key] as States<unknown>) || createDefaultStates<unknown>(),
+    (get().states[key] as States<unknown>) ?? createDefaultStates<unknown>(),
 
   setIsFetched: (key, value) =>
     set((state) => ({
       states: {
         ...state.states,
         [key]: {
-          ...((state.states[key] as States<unknown>) ||
+          ...((state.states[key] as States<unknown>) ??
             createDefaultStates<unknown>()),
           isFetched: value,
           fetchedDateTime: new Date(),
+        },
+      },
+    })),
+
+  setIsTriggered: (key, value) =>
+    set((state) => ({
+      states: {
+        ...state.states,
+        [key]: {
+          ...((state.states[key] as States<unknown>) ??
+            createDefaultStates<unknown>()),
+          isTriggered: value,
         },
       },
     })),
@@ -105,7 +120,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
       states: {
         ...state.states,
         [key]: {
-          ...((state.states[key] as States<unknown>) ||
+          ...((state.states[key] as States<unknown>) ??
             createDefaultStates<unknown>()),
           isLoading: value,
         },
@@ -117,7 +132,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
       states: {
         ...state.states,
         [key]: {
-          ...((state.states[key] as States<unknown>) ||
+          ...((state.states[key] as States<unknown>) ??
             createDefaultStates<unknown>()),
           error: value,
         },
@@ -129,7 +144,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
       states: {
         ...state.states,
         [key]: {
-          ...((state.states[key] as States<unknown>) ||
+          ...((state.states[key] as States<unknown>) ??
             createDefaultStates<unknown>()),
           isSuccess: value,
         },
@@ -161,7 +176,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
         states: {
           ...state.states,
           [key]: {
-            ...((state.states[key] as States<unknown>) ||
+            ...((state.states[key] as States<unknown>) ??
               createDefaultStates<unknown>()),
             isInvalidated: false,
           },
@@ -174,7 +189,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
       states: {
         ...state.states,
         [key]: {
-          ...((state.states[key] as States<unknown>) ||
+          ...((state.states[key] as States<unknown>) ??
             createDefaultStates<unknown>()),
           data: value,
         },
@@ -184,7 +199,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
   incrementRetryCount: (key) =>
     set((state) => {
       const prevState =
-        (state.states[key] as States<unknown>) ||
+        (state.states[key] as States<unknown>) ??
         createDefaultStates<unknown>();
       return {
         states: {
@@ -200,7 +215,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
   resetRetryCount: (key) =>
     set((state) => {
       const prevState =
-        (state.states[key] as States<unknown>) ||
+        (state.states[key] as States<unknown>) ??
         createDefaultStates<unknown>();
       return {
         states: {
@@ -218,7 +233,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
       states: {
         ...state.states,
         [key]: {
-          ...((state.states[key] as States<unknown>) ||
+          ...((state.states[key] as States<unknown>) ??
             createDefaultStates<unknown>()),
           isDisabled: value,
         },
