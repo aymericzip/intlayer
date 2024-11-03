@@ -5,35 +5,37 @@ import { useAsync } from '../../../hooks/useAsync';
 import { getIntlayerAPI } from '../../../libs/intlayer-api';
 import type { Session } from './index';
 
-export const useGetSession = () =>
-  useAsync(
-    'getSession',
-    async () => {
-      try {
-        const result = await getIntlayerAPI().auth.getSession();
-
-        if (result.data) {
-          const formattedSession: Session = {
-            user: result.data.user,
-            organization: result.data.organization,
-            project: result.data.project,
-          };
-
-          return formattedSession;
-        }
-      } catch (_error) {
-        // Failed to fetch session
-      }
-
-      return null;
-    },
-    {
-      cache: true,
-      store: true,
-    }
-  );
-
 export const useSession = (sessionProp?: Session | null) => {
+  export const useGetSession = () =>
+    useAsync(
+      'getSession',
+      async () => {
+        try {
+          const result = await getIntlayerAPI().auth.getSession();
+
+          if (result.data) {
+            const formattedSession: Session = {
+              user: result.data.user,
+              organization: result.data.organization,
+              project: result.data.project,
+            };
+
+            return formattedSession;
+          }
+        } catch (_error) {
+          // Failed to fetch session
+        }
+
+        return null;
+      },
+      {
+        cache: true,
+        store: true,
+        autoFetch: true,
+        enable: !sessionProp,
+      }
+    );
+
   const {
     getSession,
     revalidate,
