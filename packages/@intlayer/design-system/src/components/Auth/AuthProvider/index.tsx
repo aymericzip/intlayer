@@ -32,9 +32,7 @@ type SessionContextProps = {
   revalidateSession: () => Promise<Session | null | undefined>;
   csrfToken: string | null | undefined;
   csrfTokenFetched: boolean;
-  setCsrfToken: (csrfToken: string | null) => void;
   oAuth2AccessToken: OAuth2Token | null | undefined;
-  setOAuth2AccessToken: (oAuth2AccessToken: OAuth2Token | null) => void;
   isProjectAdmin: boolean;
   isOrganizationAdmin: boolean;
 };
@@ -46,9 +44,7 @@ export const AuthContext = createContext<SessionContextProps>({
   revalidateSession: () => Promise.resolve(undefined),
   csrfToken: null,
   csrfTokenFetched: false,
-  setCsrfToken: () => null,
   oAuth2AccessToken: null,
-  setOAuth2AccessToken: () => null,
   isProjectAdmin: false,
   isOrganizationAdmin: false,
 });
@@ -66,11 +62,10 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   children,
   session: sessionProp,
 }) => {
-  const { csrfToken, setCsrfToken, csrfTokenFetched } = useCSRF();
+  const { csrfToken, csrfTokenFetched } = useCSRF();
   const { session, fetchSession, revalidateSession, setSession } =
     useSession(sessionProp);
-  const { oAuth2AccessToken, setOAuth2AccessToken, fetchAccessToken } =
-    useOAuth2(csrfToken);
+  const { oAuth2AccessToken } = useOAuth2(csrfToken);
   const [isProjectAdmin, setIsProjectAdmin] = useState<boolean>(false);
   const [isOrganizationAdmin, setIsOrganizationAdmin] =
     useState<boolean>(false);
@@ -96,10 +91,7 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
       revalidateSession,
       csrfToken,
       csrfTokenFetched,
-      setCsrfToken,
       oAuth2AccessToken,
-      setOAuth2AccessToken,
-      fetchAccessToken,
       isProjectAdmin,
       isOrganizationAdmin,
     }),
@@ -110,10 +102,7 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
       revalidateSession,
       csrfToken,
       csrfTokenFetched,
-      setCsrfToken,
       oAuth2AccessToken,
-      setOAuth2AccessToken,
-      fetchAccessToken,
       isProjectAdmin,
       isOrganizationAdmin,
     ]

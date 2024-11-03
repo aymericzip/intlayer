@@ -10,7 +10,7 @@ type States<T> = {
   isSuccess: boolean;
   data: T | null;
   retryCount: number;
-  isDisabled: boolean;
+  isEnabled: boolean;
 };
 
 type StateSlice<T> = {
@@ -28,7 +28,7 @@ type Actions<T> = {
   setData: (key: string, value: T | null) => void;
   incrementRetryCount: (key: string) => void;
   resetRetryCount: (key: string) => void;
-  setIsDisabled: (key: string, value: boolean) => void;
+  setIsEnabled: (key: string, value: boolean) => void;
   resetKeyState: (key: string[]) => void;
   resetState: (excludedKey: string[]) => void;
 };
@@ -47,7 +47,7 @@ const createDefaultStates = <T>(): States<T> => ({
   isSuccess: false,
   data: null,
   retryCount: 0,
-  isDisabled: false,
+  isEnabled: true,
 });
 
 /**
@@ -228,14 +228,14 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
       };
     }),
 
-  setIsDisabled: (key, value) =>
+  setIsEnabled: (key, value) =>
     set((state) => ({
       states: {
         ...state.states,
         [key]: {
           ...((state.states[key] as States<unknown>) ??
             createDefaultStates<unknown>()),
-          isDisabled: value,
+          isEnabled: value,
         },
       },
     })),
