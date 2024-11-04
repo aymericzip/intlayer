@@ -40,7 +40,7 @@ const OrganizationFormContent: FC = () => {
 
   if (isSuccess && !isLoading) {
     return (
-      <>
+      <Container roundedSize="xl" className="flex justify-center p-6">
         <Modal
           isOpen={isCreationModalOpen}
           onClose={() => setIsCreationModalOpen(false)}
@@ -51,7 +51,7 @@ const OrganizationFormContent: FC = () => {
         <NoOrganizationView
           onClickCreateOrganization={() => setIsCreationModalOpen(true)}
         />
-      </>
+      </Container>
     );
   }
 

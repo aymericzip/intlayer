@@ -60,7 +60,7 @@ export const ProjectFormContent: FC = () => {
 
   if (isSuccess && !isLoading) {
     return (
-      <>
+      <Container roundedSize="xl" className="flex justify-center p-6">
         <Modal
           isOpen={isCreationModalOpen}
           onClose={() => setIsCreationModalOpen(false)}
@@ -71,7 +71,7 @@ export const ProjectFormContent: FC = () => {
         <NoProjectView
           onClickCreateProject={() => setIsCreationModalOpen(true)}
         />
-      </>
+      </Container>
     );
   }
 
