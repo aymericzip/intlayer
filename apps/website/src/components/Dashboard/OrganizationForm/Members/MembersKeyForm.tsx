@@ -148,7 +148,7 @@ export const MembersForm: FC = () => {
       const membersIds = organization.membersIds.map((el) => String(el));
 
       getUsers({ ids: membersIds }).then((response) => {
-        if (response.data) {
+        if (response?.data) {
           setUsers(response.data);
         }
       });
