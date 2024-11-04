@@ -172,7 +172,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           isLoading={isLoading}
         />
 
-        {children && <div className="flex-1">{children}</div>}
+        {typeof children !== 'undefined' && (
+          <div className="flex-1">{children}</div>
+        )}
 
         {IconRight && (
           <IconRight
