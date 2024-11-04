@@ -102,6 +102,7 @@ export type ButtonProps = DetailedHTMLProps<
     /**
      * Optional icon to be displayed on the button
      */
+    label: string;
     Icon?: FC | LucideIcon;
     IconRight?: FC | LucideIcon;
     iconClassName?: string;
@@ -109,7 +110,6 @@ export type ButtonProps = DetailedHTMLProps<
     isActive?: boolean;
     isDisabled?: boolean;
     isFullWidth?: boolean;
-    label: string;
   };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(

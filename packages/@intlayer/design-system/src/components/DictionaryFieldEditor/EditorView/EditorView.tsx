@@ -2,7 +2,7 @@
 
 import { type KeyPath, type Dictionary } from '@intlayer/core';
 import { X } from 'lucide-react';
-import { useEffect, useState, type FC } from 'react';
+import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { EditableFieldInput } from '../..//EditableField';
 import { getDictionaryValueByKeyPath } from '../../../utils/dictionary';
