@@ -28,26 +28,26 @@ const projectFormContent = {
 
     createProjectTitle: t({
       en: 'No project',
-      fr: 'Aucune organisation',
-      es: 'Sin organización',
+      fr: 'Aucun projet',
+      es: 'Sin proyecto',
     }),
 
     createProjectDescription: t({
       en: 'Create your first project to start using Intlayer',
-      fr: 'Créez votre première organisation pour commencer à utiliser Intlayer',
-      es: 'Cree su primera organización para comenzar a usar Intlayer',
+      fr: 'Créez votre premier projet pour commencer à utiliser Intlayer',
+      es: 'Cree su primer proyecto para comenzar a usar Intlayer',
     }),
 
     createProjectButton: {
       text: t({
         en: 'Create project',
-        fr: 'Créer une organisation',
-        es: 'Crear una organización',
+        fr: 'Créer un projet',
+        es: 'Crear un proyecto',
       }),
       ariaLabel: t({
         en: 'Click to create project',
-        fr: 'Cliquez pour créer une organisation',
-        es: 'Haga clic para crear una organización',
+        fr: 'Cliquez pour créer un projet',
+        es: 'Haga clic para crear un proyecto',
       }),
     },
 
@@ -55,20 +55,20 @@ const projectFormContent = {
       projectCreated: {
         title: t({
           en: 'Project created',
-          fr: 'Organisation créée',
-          es: 'Organización creada',
+          fr: 'Projet créé',
+          es: 'Proyecto creado',
         }),
         description: t({
           en: 'Your project has been created successfully',
-          fr: 'Votre organisation a été créée avec succès',
-          es: 'Su organización se ha creado con éxito',
+          fr: 'Votre projet a été créé avec succès',
+          es: 'Su proyecto se ha creado con éxito',
         }),
       },
       projectCreationFailed: {
         title: t({
           en: 'Project creation failed',
-          fr: "La création de l'organisation a échoué",
-          es: 'La creación de la organización ha fallado',
+          fr: 'La création de votre projet a échoué',
+          es: 'La creación de su proyecto ha fallado',
         }),
       },
     },
@@ -76,21 +76,21 @@ const projectFormContent = {
       projectSelected: {
         title: t({
           en: 'Project selected',
-          fr: 'Organisation sélectionnée',
-          es: 'Organización seleccionada',
+          fr: 'Projet sélectionné',
+          es: 'Proyecto seleccionado',
         }),
         description: t({
           en: 'Your project has been joint',
-          fr: 'Votre organisation a été jointe',
-          es: 'Su organización se ha unido',
+          fr: 'Votre projet a été sélectionné',
+          es: 'Su proyecto se ha unido',
         }),
       },
 
       projectSelectionFailed: {
         title: t({
           en: 'Project selection failed',
-          fr: "La sélection de l'organisation a échoué",
-          es: 'La selección de la organización ha fallado',
+          fr: 'La sélection de votre projet a échoué',
+          es: 'La selección de su proyecto ha fallado',
         }),
       },
     },
@@ -103,7 +103,7 @@ const projectFormContent = {
         }),
         description: t({
           en: 'Your project has been updated successfully',
-          fr: 'Votre organisation a été mise à jour avec succès',
+          fr: 'Votre projet a été mis à jour avec succès',
           es: 'Tu proyecto ha sido actualizado con éxito',
         }),
       },
