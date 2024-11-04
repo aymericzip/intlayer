@@ -4,7 +4,7 @@ import { type ReactNode, useState, useEffect } from 'react';
 import type { ToastProps, ToastActionElement } from './Toast';
 
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000;
+const TOAST_REMOVE_DELAY = 15 * 60 * 1000; // 15 seconds
 
 type ToasterToast = ToastProps & {
   id: string;

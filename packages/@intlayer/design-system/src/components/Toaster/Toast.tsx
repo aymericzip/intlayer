@@ -36,7 +36,7 @@ const toastVariants = cva(
         error:
           'bg-error/40 text-text dark:bg-error-dark/40 dark:text-text-dark',
         success:
-          'bg-success/40 text-text dark:bg-success-dark/40 dark:text-text-dark',
+          'bg-success/30 text-text dark:bg-success-dark/30 dark:text-text-dark',
         default:
           'bg-card/80 text-text dark:bg-card-dark/80 dark:text-text-dark',
       },
