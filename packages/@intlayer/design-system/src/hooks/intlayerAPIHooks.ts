@@ -122,12 +122,18 @@ export const useDeleteOrganization = () =>
 export const useSelectOrganization = () =>
   useAsync(
     'selectOrganization',
-    useIntlayerAPI().organization.selectOrganization
+    useIntlayerAPI().organization.selectOrganization,
+    {
+      invalidateQueries: ['getSession'],
+    }
   );
 export const useUnselectOrganization = () =>
   useAsync(
     'unselectOrganization',
-    useIntlayerAPI().organization.unselectOrganization
+    useIntlayerAPI().organization.unselectOrganization,
+    {
+      invalidateQueries: ['getSession'],
+    }
   );
 
 export const useGetProjects = () =>
@@ -162,9 +168,13 @@ export const useDeleteProject = () =>
     invalidateQueries: ['getProjects'],
   });
 export const useSelectProject = () =>
-  useAsync('selectProject', useIntlayerAPI().project.selectProject);
+  useAsync('selectProject', useIntlayerAPI().project.selectProject, {
+    invalidateQueries: ['getSession'],
+  });
 export const useUnselectProject = () =>
-  useAsync('unselectProject', useIntlayerAPI().project.unselectProject);
+  useAsync('unselectProject', useIntlayerAPI().project.unselectProject, {
+    invalidateQueries: ['getSession'],
+  });
 export const useAddNewAccessKey = () =>
   useAsync('addNewAccessKey', useIntlayerAPI().project.addNewAccessKey);
 export const useDeleteAccessKey = () =>

@@ -6,7 +6,7 @@ import { getIntlayerAPI } from '../../../libs/intlayer-api';
 import type { Session } from './index';
 
 export const useSession = (sessionProp?: Session | null) => {
-  export const useGetSession = () =>
+  const useGetSession = () =>
     useAsync(
       'getSession',
       async () => {
