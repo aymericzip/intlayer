@@ -30,7 +30,7 @@ export const EditableFieldTextAreaElement = ({
   children,
   ...props
 }: EditableFieldTextAreaElementProps) => {
-  const { control } = useFormContext();
+  const { control, formState } = useFormContext();
 
   return (
     <Form.Field
@@ -51,8 +51,9 @@ export const EditableFieldTextAreaElement = ({
           >
             <EditableFieldTextArea
               onChange={field.onChange}
-              defaultValue={field.value}
+              defaultValue={formState.defaultValues?.[name]}
               {...props}
+              value={undefined}
             >
               {children}
             </EditableFieldTextArea>

@@ -45,14 +45,18 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
 
   const result = !value || value === '' ? '-' : value;
 
-  const handleClickOutside = useCallback((e: MouseEvent) => {
-    if (
-      editableFieldRef.current &&
-      !editableFieldRef.current.contains(e.target as Node)
-    ) {
-      setIsEditing(false);
-    }
-  }, []);
+  const handleClickOutside = useCallback(
+    (e: MouseEvent) => {
+      if (
+        editableFieldRef.current &&
+        !editableFieldRef.current.contains(e.target as Node)
+      ) {
+        setIsEditing(false);
+        onSave();
+      }
+    },
+    [onSave]
+  );
 
   useEffect(() => {
     if (isEditing) {

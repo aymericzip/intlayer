@@ -30,7 +30,7 @@ export const EditableFieldInputElement = ({
   children,
   ...props
 }: EditableFieldInputElementProps) => {
-  const { control } = useFormContext();
+  const { control, formState } = useFormContext();
 
   return (
     <Form.Field
@@ -51,8 +51,9 @@ export const EditableFieldInputElement = ({
           >
             <EditableFieldInput
               onChange={field.onChange}
-              defaultValue={field.value}
+              defaultValue={formState.defaultValues?.[name]}
               {...props}
+              value={undefined}
             >
               {children}
             </EditableFieldInput>
