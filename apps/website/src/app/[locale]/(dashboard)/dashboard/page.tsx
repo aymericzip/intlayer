@@ -1,15 +1,18 @@
 'use client';
 
-import { Loader, type Session } from '@intlayer/design-system';
+import { Loader, type Session, useAuth } from '@intlayer/design-system';
 import { useRouter } from 'next/navigation';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { useEffect } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 const DashboardPage: NextPageIntlayer<{ session?: Session }> = ({
-  params: { session },
+  params: { session: sessionServer },
 }) => {
   const router = useRouter();
+  const { session: sessionClient } = useAuth();
+
+  const session = sessionServer ?? sessionClient;
 
   useEffect(() => {
     if (session?.organization && session?.project) {
