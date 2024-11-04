@@ -34,7 +34,7 @@ export const editDictionaryByKeyPath = (
   keyPath: KeyPath[],
   newValue: DictionaryValue
 ): DictionaryValue => {
-  let currentValue: any = { ...(dictionaryContent as object) };
+  let currentValue: any = dictionaryContent;
   let parentValue: any = null;
   let lastKeys: LastKeyType[] = [];
 
@@ -46,6 +46,7 @@ export const editDictionaryByKeyPath = (
 
       if (!currentValue[keyObj.key]) {
         currentValue = {
+          ...currentValue,
           [keyObj.key]: {},
         };
       }
@@ -54,7 +55,7 @@ export const editDictionaryByKeyPath = (
       lastKeys = [keyObj.key];
 
       if (!currentValue[keyObj.key]) {
-        currentValue[keyObj.key] = [];
+        currentValue[keyObj.key] = {};
       }
       currentValue = currentValue[keyObj.key];
     } else if (keyObj.type === NodeType.Translation) {
@@ -62,6 +63,7 @@ export const editDictionaryByKeyPath = (
 
       if (!currentValue[NodeType.Translation]) {
         currentValue[NodeType.Translation] = {
+          ...currentValue[NodeType.Translation],
           [keyObj.key]: newValue,
         };
       }
@@ -71,6 +73,7 @@ export const editDictionaryByKeyPath = (
 
       if (!currentValue[NodeType.Enumeration]) {
         currentValue[NodeType.Enumeration] = {
+          ...currentValue[NodeType.Enumeration],
           [keyObj.key]: newValue,
         };
       }
@@ -100,7 +103,7 @@ export const removeDictionaryValueByKeyPath = (
   dictionaryContent: DictionaryValue,
   keyPath: KeyPath[]
 ): DictionaryValue => {
-  let currentValue: any = { ...(dictionaryContent as object) };
+  let currentValue: any = dictionaryContent;
   let parentValue: any = null;
   let lastKey: string | number | null = null;
 

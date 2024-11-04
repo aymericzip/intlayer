@@ -193,7 +193,10 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             onClick={() => {
               const newKeyPath: KeyPath[] = [
                 ...keyPath,
-                { type: NodeType.Object, key: 'newField' },
+                {
+                  type: NodeType.Array,
+                  key: (section as DictionaryValue[]).length,
+                },
               ];
               addEditedContent(dictionaryKey, {}, newKeyPath, false);
               setFocusedContentKeyPath(newKeyPath);
