@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC } from 'react';
+import { useMemo, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { useGetAllDictionaries } from '../../../hooks';
 import { useEditionPanelStore } from '../../DictionaryEditor';
@@ -22,12 +22,15 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   const { noDictionaryMessage, dictionaryNotFoundMessage } = useDictionary(
     dictionariesSelectorContent
   );
+  const dictionary = useMemo(
+    () =>
+      focusedContent?.dictionaryId ? all?.[focusedContent?.dictionaryId] : null,
+    [all, focusedContent?.dictionaryId]
+  );
 
   if (isLoading) return <Loader />;
 
   if (!focusedContent?.dictionaryId) return noDictionaryMessage;
-
-  const dictionary = all?.[focusedContent?.dictionaryId];
 
   if (!dictionary) return dictionaryNotFoundMessage;
 

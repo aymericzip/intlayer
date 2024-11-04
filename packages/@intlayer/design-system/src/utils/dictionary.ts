@@ -12,7 +12,7 @@ export const getDictionaryValueByKeyPath = (
   dictionaryContent: DictionaryValue,
   keyPath: KeyPath[]
 ): DictionaryValue => {
-  let currentValue: any = dictionaryContent;
+  let currentValue: any = { ...(dictionaryContent as object) };
 
   for (const keyObj of keyPath) {
     if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
@@ -34,7 +34,7 @@ export const editDictionaryByKeyPath = (
   keyPath: KeyPath[],
   newValue: DictionaryValue
 ): DictionaryValue => {
-  let currentValue: any = dictionaryContent;
+  let currentValue: any = { ...(dictionaryContent as object) };
   let parentValue: any = null;
   let lastKeys: LastKeyType[] = [];
 
@@ -100,7 +100,7 @@ export const removeDictionaryValueByKeyPath = (
   dictionaryContent: DictionaryValue,
   keyPath: KeyPath[]
 ): DictionaryValue => {
-  let currentValue: any = dictionaryContent;
+  let currentValue: any = { ...(dictionaryContent as object) };
   let parentValue: any = null;
   let lastKey: string | number | null = null;
 

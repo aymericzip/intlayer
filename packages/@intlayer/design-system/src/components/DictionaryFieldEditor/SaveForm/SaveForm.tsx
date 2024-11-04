@@ -3,9 +3,9 @@
 import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, RotateCcw, Save } from 'lucide-react';
-import { type FC } from 'react';
+import { useMemo, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { usePushDictionaries } from '../../../hooks';
+import { useGetAllDictionaries, usePushDictionaries } from '../../../hooks';
 import { useEditedContentStore } from '../../DictionaryEditor';
 import { Form, useForm } from '../../Form';
 import { useToast } from '../../Toaster';
@@ -19,6 +19,8 @@ type DictionaryDetailsProps = {
 export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
   const { pushDictionaries } = usePushDictionaries();
   const SaveFormSchema = getSaveFormSchema();
+  const { online } = useGetAllDictionaries();
+
   const { editedContent, restoreEditedContent } = useEditedContentStore(
     (s) => ({
       editedContent: s.editedContent,
@@ -32,10 +34,13 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
     useDictionary(saveDictionaryContent);
   const { toast } = useToast();
 
-  const isEdited =
-    editedContent[dictionary.key] &&
-    JSON.stringify(dictionary.content) !==
-      JSON.stringify(editedContent[dictionary.key]?.content);
+  const isEdited = useMemo(() => {
+    return (
+      editedContent[dictionary.key] &&
+      JSON.stringify(online?.[dictionary.key]?.content) !==
+        JSON.stringify(editedContent[dictionary.key]?.content)
+    );
+  }, [editedContent, online, dictionary.key]);
 
   const isLocalDictionary =
     typeof (dictionary as DistantDictionary)?._id === 'undefined';

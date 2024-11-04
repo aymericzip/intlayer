@@ -43,8 +43,6 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
 
   const section = editedContent[key]?.content ?? dictionaryContent;
 
-  console.log('dictionary', dictionary);
-
   return (
     <div className="flex size-full flex-1 flex-col gap-10">
       <div className="flex items-center gap-2">
@@ -101,7 +99,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
               <EditorView dictionary={dictionary} dictionaryKey={key} />
             </Container>
           )}
-          {editedContent[key] && <SaveForm dictionary={dictionary} />}
+          <SaveForm dictionary={dictionary} />
         </div>
       </div>
     </div>

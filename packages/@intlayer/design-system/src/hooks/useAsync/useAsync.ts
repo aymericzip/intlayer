@@ -272,6 +272,8 @@ export const useAsync = <
   const revalidate: T = useCallback<T>(
     (async (...args) => {
       if (isDisabled) return;
+      if (isSuccess) return;
+      if (isLoading) return;
 
       if (args) {
         storedArgsRef.current = args;
@@ -279,8 +281,30 @@ export const useAsync = <
 
       await fetch(...storedArgsRef.current);
     }) as T,
-    [isDisabled, storedArgsRef]
+    [isDisabled, storedArgsRef, isSuccess, isLoading]
   );
+
+  const autoRevalidate = useCallback(() => {
+    if (isDisabled) return;
+    if (isLoading || !(cacheEnabled || storeEnabled)) return;
+    if (!revalidationEnabled || revalidateTime <= 0 || !isSuccess) return;
+    if (!fetchedDateTime) return;
+
+    const now = new Date().getTime();
+    const lastFetchedTime = new Date(fetchedDateTime).getTime();
+    const shouldRevalidate = now - lastFetchedTime >= revalidateTime;
+    if (shouldRevalidate) {
+      setIsTriggered(keyWithArgs, true);
+    }
+  }, [
+    cacheEnabled,
+    revalidationEnabled,
+    revalidateTime,
+    isSuccess,
+    fetchedDateTime,
+    isLoading,
+    isDisabled,
+  ]);
 
   useEffect(() => {
     setIsEnabled(keyWithArgs, enabled);
@@ -300,7 +324,7 @@ export const useAsync = <
   useEffect(() => {
     if (!autoFetch) return;
     if (isDisabled) return;
-    if (isFetched || isDisabled || isLoading) return;
+    if (isFetched || isLoading) return;
     if (isTriggered) return;
 
     setIsTriggered(keyWithArgs, true);
@@ -327,29 +351,10 @@ export const useAsync = <
 
   // Handle periodic revalidation if caching is enabled
   useEffect(() => {
-    if (isDisabled) return;
-    if (isLoading || !(cacheEnabled || storeEnabled)) return;
-    if (!revalidationEnabled || revalidateTime <= 0 || !isSuccess) return;
-    if (!fetchedDateTime) return;
-
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const lastFetchedTime = new Date(fetchedDateTime).getTime();
-      const shouldRevalidate = now - lastFetchedTime >= revalidateTime;
-      if (shouldRevalidate) {
-        setIsTriggered(keyWithArgs, true);
-      }
-    }, revalidateTime);
+    const interval = setInterval(autoRevalidate, revalidateTime);
 
     return () => clearInterval(interval);
-  }, [
-    cacheEnabled,
-    revalidationEnabled,
-    revalidateTime,
-    execute,
-    isSuccess,
-    fetchedDateTime,
-  ]);
+  }, [autoRevalidate, revalidateTime]);
 
   // Load data from session storage if storeEnabled is true
   useEffect(() => {
@@ -357,17 +362,17 @@ export const useAsync = <
     if (!storeEnabled) return;
     if (isInvalidated) return;
     if (isFetched) return;
-    if (isDisabled) return;
 
     const storedData = sessionStorage.getItem(keyWithArgs);
 
     if (storedData) {
       setData(keyWithArgs, JSON.parse(storedData));
     }
-  }, [storeEnabled, keyWithArgs]);
+  }, [storeEnabled, keyWithArgs, isFetched, isInvalidated, isDisabled]);
 
   // Handle invalidation if props are changed
   useEffect(() => {
+    if (!isInvalidatedProps) return;
     setIsInvalidated(keyWithArgs, isInvalidatedProps);
   }, [isInvalidatedProps]);
 
