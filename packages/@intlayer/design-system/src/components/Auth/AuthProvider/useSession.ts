@@ -33,6 +33,12 @@ export const useSession = (sessionProp?: Session | null) => {
         store: true,
         autoFetch: true,
         enable: !sessionProp,
+        invalidateQueries: [
+          'getOrganizations',
+          'getProjects',
+          'getUsers',
+          'getDictionaries',
+        ],
       }
     );
 

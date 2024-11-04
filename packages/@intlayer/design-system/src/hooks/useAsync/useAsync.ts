@@ -24,7 +24,7 @@ type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
 };
 
 // Options type for the hook, allowing customization of behavior.
-type UseAsyncOptions<T extends (...args: any[]) => Promise<any>> = {
+export type UseAsyncOptions<T extends (...args: any[]) => Promise<any>> = {
   retryLimit?: number; // The number of times the hook should retry the function on failure before giving up
   retryTime?: number; // Time in milliseconds for retrying the data
   cache?: boolean; // Cache the result of the function using zustand
@@ -201,11 +201,17 @@ export const useAsync = <
       const promise = (async () => {
         setIsLoading(keyWithArgs, true);
         let response = null;
+        let errorResponse = null;
 
         await asyncFunction(...args)
           .then((result) => {
+            const isResultChanged =
+              JSON.stringify(result) !== JSON.stringify(data);
+
             response = result;
-            setData(keyWithArgs, result);
+            if (isResultChanged) {
+              setData(keyWithArgs, result);
+            }
             setIsSuccess(keyWithArgs, true);
             onSuccess?.(result);
             resetRetryCount(keyWithArgs);
@@ -216,14 +222,14 @@ export const useAsync = <
             }
 
             // Update other queries if necessary
-            if (updateQueries.length > 0) {
+            if (isResultChanged && updateQueries.length > 0) {
               updateQueries.forEach((key) => {
                 setData(key, result);
               });
             }
 
             // Invalidate other queries if necessary
-            if (invalidateQueries.length > 0) {
+            if (isResultChanged && invalidateQueries.length > 0) {
               invalidateQueries.forEach((key) => {
                 setIsInvalidated(key, true);
               });
@@ -236,6 +242,7 @@ export const useAsync = <
             setError(keyWithArgs, errorMessage);
             incrementRetryCount(keyWithArgs);
             onError?.(errorMessage);
+            errorResponse = error;
           })
           .finally(() => {
             setIsLoading(keyWithArgs, false);
@@ -245,6 +252,11 @@ export const useAsync = <
             // Remove the pending promise from the cache
             pendingPromises.delete(keyWithArgs);
           });
+
+        if (errorResponse) {
+          throw new Error(errorResponse);
+        }
+
         return response;
       })();
 

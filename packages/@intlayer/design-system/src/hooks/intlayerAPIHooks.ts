@@ -1,94 +1,95 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { useEffect } from 'react';
 import { useAuth } from '../components/Auth/AuthProvider/index';
-import { useAsync, UseAsyncResult } from './useAsync/useAsync';
+import { useAsync, UseAsyncOptions } from './useAsync/useAsync';
 import { useIntlayerAPI } from './useIntlayerAPI';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const useRevalidateWithSession = <T extends UseAsyncResult<string, any>>(
-  asyncHook: T
-): T => {
-  const { session } = useAuth();
-
-  useEffect(() => {
-    if (session) {
-      asyncHook.revalidate();
-    }
-  }, [session?.organization?._id, session?.project?._id, session?.user?._id]);
-
-  return asyncHook;
+export const useAsyncWithAuth = <
+  U extends string,
+  T extends (...args: any[]) => Promise<any>,
+>(
+  key: U,
+  asyncFunction: T,
+  options?: UseAsyncOptions<T>
+) => {
+  const { csrfToken, oAuth2AccessToken } = useAuth();
+  return useAsync(key, asyncFunction, {
+    ...options,
+    enable: Boolean(csrfToken || oAuth2AccessToken),
+  });
 };
 
 export const useLogin = () =>
-  useAsync('login', useIntlayerAPI().auth.login, {
+  useAsyncWithAuth('login', useIntlayerAPI().auth.login, {
     invalidateQueries: ['getSession'],
   });
+
 export const useRegister = () =>
-  useAsync('register', useIntlayerAPI().auth.register, {
+  useAsyncWithAuth('register', useIntlayerAPI().auth.register, {
     invalidateQueries: ['getSession'],
   });
 export const useLogout = () =>
-  useAsync('logout', useIntlayerAPI().auth.logout, {
+  useAsyncWithAuth('logout', useIntlayerAPI().auth.logout, {
     invalidateQueries: ['getSession'],
   });
 export const useChangePassword = () =>
-  useAsync('changePassword', useIntlayerAPI().auth.changePassword);
+  useAsyncWithAuth('changePassword', useIntlayerAPI().auth.changePassword);
 export const useAskResetPassword = () =>
-  useAsync('askResetPassword', useIntlayerAPI().auth.askResetPassword);
+  useAsyncWithAuth('askResetPassword', useIntlayerAPI().auth.askResetPassword);
 export const useResetPassword = () =>
-  useAsync('resetPassword', useIntlayerAPI().auth.resetPassword);
+  useAsyncWithAuth('resetPassword', useIntlayerAPI().auth.resetPassword);
 export const useVerifyEmail = () =>
-  useAsync('verifyEmail', useIntlayerAPI().auth.verifyEmail);
+  useAsyncWithAuth('verifyEmail', useIntlayerAPI().auth.verifyEmail);
 
 export const useGetUserByAccount = () =>
-  useAsync('getUserByAccount', useIntlayerAPI().user.getUserByAccount);
+  useAsyncWithAuth('getUserByAccount', useIntlayerAPI().user.getUserByAccount);
 
 export const useGetUsers = () =>
-  useRevalidateWithSession(
-    useAsync('getUsers', useIntlayerAPI().user.getUsers, {
-      cache: true,
-      store: true,
-      retryLimit: 3,
-      autoFetch: true,
-      revalidateTime: 5 * 60 * 1000, // 5 minutes
-    })
-  );
+  useAsyncWithAuth('getUsers', useIntlayerAPI().user.getUsers, {
+    cache: true,
+    store: true,
+    retryLimit: 3,
+    autoFetch: true,
+    revalidateTime: 5 * 60 * 1000, // 5 minutes
+  });
 export const useCreateUser = () =>
-  useAsync('createUser', useIntlayerAPI().user.createUser, {
+  useAsyncWithAuth('createUser', useIntlayerAPI().user.createUser, {
     invalidateQueries: ['getUsers'],
   });
 export const useUpdateUser = () =>
-  useAsync('updateUser', useIntlayerAPI().user.updateUser, {
+  useAsyncWithAuth('updateUser', useIntlayerAPI().user.updateUser, {
     invalidateQueries: ['getSession'],
   });
 export const useDeleteUser = () =>
-  useAsync('deleteUser', useIntlayerAPI().user.deleteUser, {
+  useAsyncWithAuth('deleteUser', useIntlayerAPI().user.deleteUser, {
     invalidateQueries: ['getUsers'],
   });
 
 export const useGetOrganizations = () =>
-  useRevalidateWithSession(
-    useAsync(
-      'getOrganizations',
-      useIntlayerAPI().organization.getOrganizations,
-      {
-        cache: true,
-        store: true,
-        retryLimit: 3,
-        autoFetch: true,
-        revalidation: true,
-        revalidateTime: 5 * 60 * 1000, // 5 minutes
-      }
-    )
+  useAsyncWithAuth(
+    'getOrganizations',
+    useIntlayerAPI().organization.getOrganizations,
+    {
+      cache: true,
+      store: true,
+      retryLimit: 3,
+      autoFetch: true,
+      revalidation: true,
+      revalidateTime: 5 * 60 * 1000, // 5 minutes
+    }
   );
 
 export const useAddOrganization = () =>
-  useAsync('addOrganization', useIntlayerAPI().organization.addOrganization, {
-    invalidateQueries: ['getOrganizations'],
-  });
+  useAsyncWithAuth(
+    'addOrganization',
+    useIntlayerAPI().organization.addOrganization,
+    {
+      invalidateQueries: ['getOrganizations'],
+    }
+  );
 export const useUpdateOrganization = () =>
-  useAsync(
+  useAsyncWithAuth(
     'updateOrganization',
     useIntlayerAPI().organization.updateOrganization,
     {
@@ -96,7 +97,7 @@ export const useUpdateOrganization = () =>
     }
   );
 export const useUpdateOrganizationMembers = () =>
-  useAsync(
+  useAsyncWithAuth(
     'updateOrganizationMembers',
     useIntlayerAPI().organization.updateOrganizationMembers,
     {
@@ -104,7 +105,7 @@ export const useUpdateOrganizationMembers = () =>
     }
   );
 export const useAddOrganizationMember = () =>
-  useAsync(
+  useAsyncWithAuth(
     'addOrganizationMember',
     useIntlayerAPI().organization.addOrganizationMember,
     {
@@ -112,7 +113,7 @@ export const useAddOrganizationMember = () =>
     }
   );
 export const useDeleteOrganization = () =>
-  useAsync(
+  useAsyncWithAuth(
     'deleteOrganization',
     useIntlayerAPI().organization.deleteOrganization,
     {
@@ -120,7 +121,7 @@ export const useDeleteOrganization = () =>
     }
   );
 export const useSelectOrganization = () =>
-  useAsync(
+  useAsyncWithAuth(
     'selectOrganization',
     useIntlayerAPI().organization.selectOrganization,
     {
@@ -128,7 +129,7 @@ export const useSelectOrganization = () =>
     }
   );
 export const useUnselectOrganization = () =>
-  useAsync(
+  useAsyncWithAuth(
     'unselectOrganization',
     useIntlayerAPI().organization.unselectOrganization,
     {
@@ -137,26 +138,24 @@ export const useUnselectOrganization = () =>
   );
 
 export const useGetProjects = () =>
-  useRevalidateWithSession(
-    useAsync('getProjects', useIntlayerAPI().project.getProjects, {
-      cache: true,
-      store: true,
-      retryLimit: 3,
-      autoFetch: true,
-      revalidation: true,
-      revalidateTime: 5 * 60 * 1000, // 5 minutes
-    })
-  );
+  useAsyncWithAuth('getProjects', useIntlayerAPI().project.getProjects, {
+    cache: true,
+    store: true,
+    retryLimit: 3,
+    autoFetch: true,
+    revalidation: true,
+    revalidateTime: 5 * 60 * 1000, // 5 minutes
+  });
 export const useAddProject = () =>
-  useAsync('addProject', useIntlayerAPI().project.addProject, {
+  useAsyncWithAuth('addProject', useIntlayerAPI().project.addProject, {
     invalidateQueries: ['getProjects'],
   });
 export const useUpdateProject = () =>
-  useAsync('updateProject', useIntlayerAPI().project.updateProject, {
+  useAsyncWithAuth('updateProject', useIntlayerAPI().project.updateProject, {
     invalidateQueries: ['getSession'],
   });
 export const useUpdateProjectMembers = () =>
-  useAsync(
+  useAsyncWithAuth(
     'updateProjectMembers',
     useIntlayerAPI().project.updateProjectMembers,
     {
@@ -164,49 +163,70 @@ export const useUpdateProjectMembers = () =>
     }
   );
 export const useDeleteProject = () =>
-  useAsync('deleteProject', useIntlayerAPI().project.deleteProject, {
+  useAsyncWithAuth('deleteProject', useIntlayerAPI().project.deleteProject, {
     invalidateQueries: ['getProjects'],
   });
 export const useSelectProject = () =>
-  useAsync('selectProject', useIntlayerAPI().project.selectProject, {
+  useAsyncWithAuth('selectProject', useIntlayerAPI().project.selectProject, {
     invalidateQueries: ['getSession'],
   });
 export const useUnselectProject = () =>
-  useAsync('unselectProject', useIntlayerAPI().project.unselectProject, {
-    invalidateQueries: ['getSession'],
-  });
+  useAsyncWithAuth(
+    'unselectProject',
+    useIntlayerAPI().project.unselectProject,
+    {
+      invalidateQueries: ['getSession'],
+    }
+  );
 export const useAddNewAccessKey = () =>
-  useAsync('addNewAccessKey', useIntlayerAPI().project.addNewAccessKey);
+  useAsyncWithAuth('addNewAccessKey', useIntlayerAPI().project.addNewAccessKey);
 export const useDeleteAccessKey = () =>
-  useAsync('deleteAccessKey', useIntlayerAPI().project.deleteAccessKey);
+  useAsyncWithAuth('deleteAccessKey', useIntlayerAPI().project.deleteAccessKey);
 export const useRefreshAccessKey = () =>
-  useAsync('refreshAccessKey', useIntlayerAPI().project.refreshAccessKey);
+  useAsyncWithAuth(
+    'refreshAccessKey',
+    useIntlayerAPI().project.refreshAccessKey
+  );
 
 export const useGetDictionaries = () =>
-  useRevalidateWithSession(
-    useAsync('getDictionaries', useIntlayerAPI().dictionary.getDictionaries, {
+  useAsyncWithAuth(
+    'getDictionaries',
+    useIntlayerAPI().dictionary.getDictionaries,
+    {
       cache: true,
       store: true,
       retryLimit: 3,
       autoFetch: true,
       revalidation: true,
       revalidateTime: 5 * 60 * 1000, // 5 minutes
-    })
+    }
   );
 export const useAddDictionary = () =>
-  useAsync('addDictionary', useIntlayerAPI().dictionary.addDictionary, {
+  useAsyncWithAuth('addDictionary', useIntlayerAPI().dictionary.addDictionary, {
     invalidateQueries: ['getDictionaries'],
   });
 
 export const usePushDictionaries = () =>
-  useAsync('pushDictionaries', useIntlayerAPI().dictionary.pushDictionaries, {
-    invalidateQueries: ['getDictionaries'],
-  });
+  useAsyncWithAuth(
+    'pushDictionaries',
+    useIntlayerAPI().dictionary.pushDictionaries,
+    {
+      invalidateQueries: ['getDictionaries'],
+    }
+  );
 export const useUpdateDictionary = () =>
-  useAsync('updateDictionary', useIntlayerAPI().dictionary.updateDictionary, {
-    invalidateQueries: ['getDictionaries'],
-  });
+  useAsyncWithAuth(
+    'updateDictionary',
+    useIntlayerAPI().dictionary.updateDictionary,
+    {
+      invalidateQueries: ['getDictionaries'],
+    }
+  );
 export const useDeleteDictionary = () =>
-  useAsync('deleteDictionary', useIntlayerAPI().dictionary.deleteDictionary, {
-    invalidateQueries: ['getDictionaries'],
-  });
+  useAsyncWithAuth(
+    'deleteDictionary',
+    useIntlayerAPI().dictionary.deleteDictionary,
+    {
+      invalidateQueries: ['getDictionaries'],
+    }
+  );
