@@ -5,6 +5,7 @@ import { getConfiguration } from '@intlayer/config/client';
 import {
   type EnumerationContent,
   type TranslationContent,
+  type RecursiveDictionaryValue,
   NodeType,
   type KeyPath,
   type DictionaryValue,
@@ -257,7 +258,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                 ]);
               }}
             >
-              {(section as string[])[index]}
+              {subSection as string}
             </ContentEditorTextArea>
           </td>
         </tr>
@@ -271,10 +272,12 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
         onClick={() => {
           const newKeyPath: KeyPath[] = [
             ...keyPath,
-            { type: NodeType.Object, key: 'newField' },
+            {
+              type: NodeType.Array,
+              key: (section as DictionaryValue[]).length,
+            },
           ];
-          addEditedContent(dictionaryKey, {}, newKeyPath, false);
-          setFocusedContentKeyPath(newKeyPath);
+          addEditedContent(dictionaryKey, '', newKeyPath, false);
         }}
         Icon={Plus}
       >

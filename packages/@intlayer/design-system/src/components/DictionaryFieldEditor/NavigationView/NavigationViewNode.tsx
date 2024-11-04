@@ -6,12 +6,7 @@ import {
   type DictionaryValue,
 } from '@intlayer/core';
 import { ChevronRight, Plus } from 'lucide-react';
-import {
-  createElement,
-  type ReactElement,
-  type ReactNode,
-  type FC,
-} from 'react';
+import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import {
   getDictionaryValueByKeyPath,
@@ -27,42 +22,6 @@ import { getIsEditableSection } from '../getIsEditableSection';
 import { navigationViewContent } from './navigationViewNode.content';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
-
-const createReactElement = (element: ReactElement) => {
-  if (typeof element === 'string') {
-    // If it's a string, simply return it (used for text content)
-    return element;
-  }
-
-  const convertChildrenAsArray = (element: ReactElement): ReactElement => {
-    if (element?.props && typeof element.props.children === 'object') {
-      const childrenResult: ReactNode[] = [];
-      const { children } = element.props;
-
-      // Create the children elements recursively, if any
-      Object.keys(children).forEach((key) =>
-        childrenResult.push(createReactElement(children[key]))
-      );
-
-      return {
-        ...element,
-        props: { ...element.props, children: childrenResult },
-      };
-    }
-
-    return {
-      ...element,
-      props: { ...element.props, children: element.props.children },
-    };
-  };
-
-  const fixedElement = convertChildrenAsArray(element);
-
-  const { type, props } = fixedElement;
-
-  // Create and return the React element
-  return createElement(type ?? 'div', props, ...props.children);
-};
 
 export type NodeWrapperProps = {
   dictionaryKey: string;
@@ -84,7 +43,6 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     (s) => s.setFocusedContentKeyPath
   );
   const {
-    tsxNotEditable,
     addNewElement,
     addNewField,
     goToElement,
@@ -95,41 +53,61 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   const nodeType = getSectionType(section);
   const isEditableSection = getIsEditableSection(section);
 
-  if (isEditableSection) return <>Content</>;
+  if (isEditableSection) return <>-</>;
 
   if (typeof section === 'object') {
-    if (nodeType === NodeType.ReactNode) {
-      return (
-        <>
-          {createReactElement(section as unknown as ReactElement)}
-          <span className="text-neutral dark:text-neutral-dark text-xs">
-            {tsxNotEditable}
-          </span>
-        </>
-      );
-    }
-
     if (nodeType === NodeType.Translation) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {locales.map((translationKey) => (
-            <Button
-              label={`${goToTranslation.label.value} ${translationKey}`}
-              key={translationKey}
-              isActive={selectedKey === translationKey}
-              variant="hoverable"
-              color="text"
-              onClick={() =>
-                setFocusedContentKeyPath([
-                  ...keyPath,
-                  { type: NodeType.Translation, key: translationKey },
-                ])
-              }
-              IconRight={ChevronRight}
-            >
-              {translationKey}
-            </Button>
-          ))}
+          {locales.map((translationKey) => {
+            const childKeyPath: KeyPath[] = [
+              ...keyPath,
+              { type: NodeType.Translation, key: translationKey },
+            ];
+            const subSection = getDictionaryValueByKeyPath(
+              sectionProp,
+              childKeyPath
+            );
+            const isEditableSubSection = getIsEditableSection(subSection);
+
+            if (isEditableSubSection) {
+              return (
+                <Button
+                  label={`${goToTranslation.label.value} ${translationKey}`}
+                  key={translationKey}
+                  isActive={selectedKey === translationKey}
+                  variant="hoverable"
+                  color="text"
+                  className="w-full"
+                  onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                  IconRight={ChevronRight}
+                >
+                  {translationKey}
+                </Button>
+              );
+            }
+
+            return (
+              <Accordion
+                key={translationKey}
+                identifier={translationKey}
+                label={`${goToTranslation.label.value} ${translationKey}`}
+                isActive={selectedKey === translationKey}
+                onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                header={translationKey}
+              >
+                <div className="flex w-full max-w-full">
+                  <div className="flex-1 pl-10">
+                    <NavigationViewNode
+                      keyPath={childKeyPath}
+                      section={sectionProp}
+                      dictionaryKey={dictionaryKey}
+                    />
+                  </div>
+                </div>
+              </Accordion>
+            );
+          })}
         </div>
       );
     }
@@ -141,24 +119,55 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             (section as EnumerationContent<DictionaryValue>)[
               NodeType.Enumeration
             ]
-          ).map((enumKey) => (
-            <Button
-              label={`${goToEnumeration.label.value} ${enumKey}`}
-              key={enumKey}
-              isActive={selectedKey === enumKey}
-              variant="hoverable"
-              color="text"
-              onClick={() =>
-                setFocusedContentKeyPath([
-                  ...keyPath,
-                  { type: NodeType.Enumeration, key: enumKey },
-                ])
-              }
-              IconRight={ChevronRight}
-            >
-              {enumKey}
-            </Button>
-          ))}
+          ).map((key) => {
+            const childKeyPath: KeyPath[] = [
+              ...keyPath,
+              { type: NodeType.Enumeration, key },
+            ];
+            const subSection = getDictionaryValueByKeyPath(
+              sectionProp,
+              childKeyPath
+            );
+            const isEditableSubSection = getIsEditableSection(subSection);
+
+            if (isEditableSubSection) {
+              return (
+                <Button
+                  label={`${goToEnumeration.label.value} ${key}`}
+                  key={key}
+                  isActive={selectedKey === key}
+                  variant="hoverable"
+                  color="text"
+                  className="w-full"
+                  onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                  IconRight={ChevronRight}
+                >
+                  {key}
+                </Button>
+              );
+            }
+
+            return (
+              <Accordion
+                key={key}
+                identifier={key}
+                label={`${goToEnumeration.label.value} ${key}`}
+                isActive={selectedKey === key}
+                onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                header={key}
+              >
+                <div className="flex w-full max-w-full">
+                  <div className="flex-1 pl-10">
+                    <NavigationViewNode
+                      keyPath={childKeyPath}
+                      section={sectionProp}
+                      dictionaryKey={dictionaryKey}
+                    />
+                  </div>
+                </div>
+              </Accordion>
+            );
+          })}
         </div>
       );
     }
@@ -166,24 +175,52 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     if (nodeType === NodeType.Array) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {(section as DictionaryValue[]).map((subSection, index) => (
-            <Button
-              label={`${goToElement.label.value} ${index}`}
-              key={JSON.stringify(subSection)}
-              isActive={selectedKey === index}
-              variant="hoverable"
-              color="text"
-              IconRight={ChevronRight}
-              onClick={() =>
-                setFocusedContentKeyPath([
-                  ...keyPath,
-                  { type: NodeType.Array, key: index },
-                ])
-              }
-            >
-              {index}
-            </Button>
-          ))}
+          {(section as DictionaryValue[]).map((subSection, index) => {
+            const childKeyPath: KeyPath[] = [
+              ...keyPath,
+              { type: NodeType.Array, key: index },
+            ];
+
+            const isEditableSubSection = getIsEditableSection(subSection);
+
+            if (isEditableSubSection) {
+              return (
+                <Button
+                  label={`${goToElement.label.value} ${index}`}
+                  key={JSON.stringify(subSection)}
+                  isActive={selectedKey === index}
+                  variant="hoverable"
+                  color="text"
+                  className="w-full"
+                  onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                  IconRight={ChevronRight}
+                >
+                  {index}
+                </Button>
+              );
+            }
+
+            return (
+              <Accordion
+                key={JSON.stringify(subSection)}
+                identifier={`${index}`}
+                label={`${goToElement.label.value} ${index}`}
+                isActive={selectedKey === index}
+                onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                header={index}
+              >
+                <div className="flex w-full max-w-full">
+                  <div className="flex-1 pl-10">
+                    <NavigationViewNode
+                      keyPath={childKeyPath}
+                      section={sectionProp}
+                      dictionaryKey={dictionaryKey}
+                    />
+                  </div>
+                </div>
+              </Accordion>
+            );
+          })}
 
           <Button
             label={addNewElement.label.value}
@@ -226,7 +263,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           if (isEditableSubSection) {
             return (
               <Button
-                label={`${goToEnumeration.label.value} ${key}`}
+                label={`${goToField.label.value} ${key}`}
                 key={key}
                 isActive={selectedKey === key}
                 variant="hoverable"

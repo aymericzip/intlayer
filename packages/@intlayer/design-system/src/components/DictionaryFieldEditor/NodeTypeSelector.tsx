@@ -26,8 +26,14 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
   dictionaryKey,
   section,
 }) => {
-  const { multilingualText, text, node, enumeration, triggerPlaceHolder } =
-    useDictionary(nodeTypeSelectorContent);
+  const {
+    multilingualText,
+    text,
+    node,
+    array,
+    enumeration,
+    triggerPlaceHolder,
+  } = useDictionary(nodeTypeSelectorContent);
   const nodeType = getSectionType(section);
   const [keyType, setKeyType] = useState<NodeType>(nodeType);
   const { addEditedContent } = useEditedContentStore((s) => ({
@@ -71,7 +77,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         addEditedContent(dictionaryKey, {}, keyPath);
         break;
       case NodeType.Array:
-        addEditedContent(dictionaryKey, [], keyPath);
+        addEditedContent(dictionaryKey, [''], keyPath);
         break;
       case NodeType.Text:
         addEditedContent(dictionaryKey, '', keyPath);
@@ -96,6 +102,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         </Select.Item>
         <Select.Item value={NodeType.Text}>{text}</Select.Item>
         <Select.Item value={NodeType.Object}>{node}</Select.Item>
+        <Select.Item value={NodeType.Array}>{array}</Select.Item>
         <Select.Item value={NodeType.Enumeration}>{enumeration}</Select.Item>
       </Select.Content>
     </Select>

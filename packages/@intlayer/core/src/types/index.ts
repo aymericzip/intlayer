@@ -14,4 +14,8 @@ export type {
   TranslationNode,
   EnumerationNode,
 } from './keyPath';
-export type { DictionaryValue, Dictionary } from './dictionary';
+export type {
+  DictionaryValue,
+  Dictionary,
+  RecursiveDictionaryValue,
+} from './dictionary';

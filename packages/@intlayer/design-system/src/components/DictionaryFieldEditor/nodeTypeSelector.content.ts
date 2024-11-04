@@ -23,6 +23,11 @@ export const nodeTypeSelectorContent = {
       fr: 'Nœud',
       es: 'Nodo',
     }),
+    array: t({
+      en: 'Array',
+      fr: 'Tableau',
+      es: 'Matriz',
+    }),
     enumeration: t({
       en: 'Enumeration',
       fr: 'Énumération',

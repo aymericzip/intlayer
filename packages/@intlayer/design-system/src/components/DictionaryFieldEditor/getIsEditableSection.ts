@@ -1,9 +1,15 @@
 import {
-  DictionaryValue,
-  TranslationContent,
+  type DictionaryValue,
+  type TranslationContent,
+  type EnumerationContent,
+  type RecursiveDictionaryValue,
   NodeType,
-  EnumerationContent,
 } from '@intlayer/core';
+import { isValidElement } from 'react';
+
+const getIsReactNodeContent = (section: DictionaryValue) =>
+  // Check if type of section is multilingual content
+  isValidElement(section);
 
 const getIsStringTranslationContent = (section: DictionaryValue) =>
   // Check if type of section is multilingual content
@@ -30,10 +36,13 @@ const getIsStringArrayContent = (section: DictionaryValue) =>
   // Check if the array has no content
   (section.length === 0 ||
     // Check if the content is a string
-    typeof section[0] === 'string');
+    (section as RecursiveDictionaryValue[]).every(
+      (el) => typeof el === 'string'
+    ));
 
 export const getIsEditableSection = (section: DictionaryValue) =>
   typeof section === 'string' || // String
+  getIsReactNodeContent(section) || // ReactNode
   getIsStringTranslationContent(section) || // Translation
   getIsStringEnumerationContent(section) || // Translation
   getIsStringArrayContent(section); // Array

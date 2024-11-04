@@ -23,6 +23,7 @@ export type {
   KeyPath,
   ObjectNode,
   ArrayNode,
+  RecursiveDictionaryValue,
   TranslationNode,
   EnumerationNode,
   DictionaryValue,
