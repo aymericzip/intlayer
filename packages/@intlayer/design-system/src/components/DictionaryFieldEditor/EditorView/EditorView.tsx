@@ -5,6 +5,10 @@ import { X } from 'lucide-react';
 import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { EditableFieldInput } from '../..//EditableField';
+import {
+  camelCaseToSentence,
+  sentenceToCamelCase,
+} from '../../../utils/camelCase';
 import { getDictionaryValueByKeyPath } from '../../../utils/dictionary';
 import { Button } from '../../Button';
 import {
@@ -51,14 +55,15 @@ export const EditorView: FC<EditorViewProps> = ({
   const isEditableSection = getIsEditableSection(section);
 
   const handleRenameNodeKey = (keyName: string) => {
-    renameEditedContent(dictionaryKey, keyName, keyPath);
+    const camelCaseSentence = sentenceToCamelCase(keyName);
+    renameEditedContent(dictionaryKey, camelCaseSentence, keyPath);
 
     const prevKeyPath: KeyPath[] = keyPath.slice(0, -1);
     const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
 
     const newKeyPath: KeyPath[] = [
       ...prevKeyPath,
-      { ...lastKeyPath, key: keyName } as KeyPath,
+      { ...lastKeyPath, key: camelCaseSentence } as KeyPath,
     ];
 
     setFocusedContentKeyPath(newKeyPath);
@@ -83,15 +88,20 @@ export const EditorView: FC<EditorViewProps> = ({
             {typeof initialKeyName === 'string' && (
               <div>
                 <Label>{titleInput.label}</Label>
-                <EditableFieldInput
-                  name="key"
-                  aria-label="Key"
-                  placeholder={titleInput.placeholder.value}
-                  defaultValue={initialKeyName}
-                  onChange={handleRenameNodeKey}
-                  className="h-8"
-                  variant="invisible"
-                />
+                <div className="flex items-center gap-2">
+                  <EditableFieldInput
+                    name="key"
+                    aria-label="Key"
+                    placeholder={titleInput.placeholder.value}
+                    defaultValue={camelCaseToSentence(initialKeyName)}
+                    onChange={handleRenameNodeKey}
+                    className="h-8"
+                    variant="invisible"
+                  />
+                  <span className="text-neutral dark:text-neutral-dark text-sm">
+                    ({initialKeyName})
+                  </span>
+                </div>
               </div>
             )}
 

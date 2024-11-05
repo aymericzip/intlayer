@@ -8,6 +8,7 @@ import {
 import { ChevronRight, Plus } from 'lucide-react';
 import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
+import { camelCaseToSentence } from '../../../utils/camelCase';
 import {
   getDictionaryValueByKeyPath,
   getSectionType,
@@ -272,7 +273,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 IconRight={ChevronRight}
               >
-                {key}
+                {camelCaseToSentence(key)}
               </Button>
             );
           }
@@ -284,7 +285,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               label={`${goToField.label.value} ${key}`}
               isActive={selectedKey === key}
               onClick={() => setFocusedContentKeyPath(childKeyPath)}
-              header={key}
+              header={camelCaseToSentence(key)}
             >
               <div className="flex w-full max-w-full">
                 <div className="flex-1 pl-10">
