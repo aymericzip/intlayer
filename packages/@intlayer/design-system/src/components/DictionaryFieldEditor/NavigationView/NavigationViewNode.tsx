@@ -4,9 +4,10 @@ import {
   NodeType,
   type KeyPath,
   type DictionaryValue,
+  isSameKeyPath,
 } from '@intlayer/core';
 import { ChevronRight, Plus } from 'lucide-react';
-import { type FC } from 'react';
+import { useCallback, useMemo, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { camelCaseToSentence } from '../../../utils/camelCase';
 import {
@@ -28,20 +29,21 @@ export type NodeWrapperProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   section: DictionaryValue;
-  selectedKey?: KeyPath['key'];
 };
 
 export const NavigationViewNode: FC<NodeWrapperProps> = ({
   section: sectionProp,
   keyPath,
   dictionaryKey,
-  selectedKey,
 }) => {
   const { locales } = getConfiguration().internationalization;
   const section = getDictionaryValueByKeyPath(sectionProp, keyPath);
   const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
-  const setFocusedContentKeyPath = useEditionPanelStore(
-    (s) => s.setFocusedContentKeyPath
+  const { setFocusedContentKeyPath, focusedContent } = useEditionPanelStore(
+    (s) => ({
+      setFocusedContentKeyPath: s.setFocusedContentKeyPath,
+      focusedContent: s.focusedContent,
+    })
   );
   const {
     addNewElement,
@@ -53,6 +55,12 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   } = useDictionary(navigationViewContent);
   const nodeType = getSectionType(section);
   const isEditableSection = getIsEditableSection(section);
+  const getIsSelected = useCallback(
+    (keyPath: KeyPath[]) =>
+      (focusedContent?.keyPath?.length ?? 0) > 0 &&
+      isSameKeyPath(keyPath, focusedContent?.keyPath ?? []),
+    [focusedContent?.keyPath]
+  );
 
   if (isEditableSection) return <>-</>;
 
@@ -76,7 +84,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 <Button
                   label={`${goToTranslation.label.value} ${translationKey}`}
                   key={translationKey}
-                  isActive={selectedKey === translationKey}
+                  isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
                   color="text"
                   className="w-full"
@@ -93,7 +101,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 key={translationKey}
                 identifier={translationKey}
                 label={`${goToTranslation.label.value} ${translationKey}`}
-                isActive={selectedKey === translationKey}
+                isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={translationKey}
               >
@@ -136,7 +144,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 <Button
                   label={`${goToEnumeration.label.value} ${key}`}
                   key={key}
-                  isActive={selectedKey === key}
+                  isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
                   color="text"
                   className="w-full"
@@ -153,7 +161,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 key={key}
                 identifier={key}
                 label={`${goToEnumeration.label.value} ${key}`}
-                isActive={selectedKey === key}
+                isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={key}
               >
@@ -189,7 +197,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 <Button
                   label={`${goToElement.label.value} ${index}`}
                   key={`${index}`}
-                  isActive={selectedKey === index}
+                  isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
                   color="text"
                   className="w-full"
@@ -206,7 +214,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 key={`${index}`}
                 identifier={`${index}`}
                 label={`${goToElement.label.value} ${index}`}
-                isActive={selectedKey === index}
+                isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={index}
               >
@@ -266,7 +274,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               <Button
                 label={`${goToField.label.value} ${key}`}
                 key={key}
-                isActive={selectedKey === key}
+                isActive={getIsSelected(childKeyPath)}
                 variant="hoverable"
                 color="text"
                 className="w-full"
@@ -283,7 +291,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               key={key}
               identifier={key}
               label={`${goToField.label.value} ${key}`}
-              isActive={selectedKey === key}
+              isActive={getIsSelected(childKeyPath)}
               onClick={() => setFocusedContentKeyPath(childKeyPath)}
               header={camelCaseToSentence(key)}
             >
