@@ -54,6 +54,20 @@ export const dictionaryDetailsContent = {
         es: 'La descripción de su diccionario le permite identificar fácilmente el usuario utilizando palabras clave. También se utiliza para buscar su diccionario y para ayudar a la IA a entender su diccionario.',
       }),
     },
+
+    projectInput: {
+      label: t({
+        en: 'Projects',
+        fr: 'Projets',
+        es: 'Proyectos',
+      }),
+      placeholder: t({
+        en: 'Select one or more projects to associate with your dictionary',
+        fr: 'Sélectionnez un ou plusieurs projets à associer à votre dictionnaire',
+        es: 'Seleccione uno o más proyectos para asociar con su diccionario',
+      }),
+    },
+
     saveButton: {
       text: t({
         en: 'Save changes',

@@ -1,7 +1,7 @@
 import { t } from 'react-intlayer';
 import { z } from 'zod';
 
-export const getDictionaryDetailsSchema = () => {
+export const getDictionaryDetailsSchema = (projectId: string) => {
   // Title Field Error Messages
   const titleRequiredError = t({
     en: 'Please enter a name for your organization.',
@@ -59,6 +59,18 @@ export const getDictionaryDetailsSchema = () => {
     es: 'La descripción debe ser una cadena válida.',
   });
 
+  const requiredErrorProjectId = t({
+    en: 'Please select a project',
+    fr: 'Veuillez sélectionner un projet',
+    es: 'Por favor, seleccione un proyecto',
+  });
+
+  const invalidTypeErrorProjectId = t({
+    en: 'Please select a valid project',
+    fr: 'Veuillez sélectionner un projet valide',
+    es: 'Por favor, seleccione un proyecto válido',
+  });
+
   return z.object({
     title: z
       .string({
@@ -93,6 +105,14 @@ export const getDictionaryDetailsSchema = () => {
         invalid_type_error: descriptionInvalidTypeError,
       })
       .optional(),
+    projectIds: z
+      .array(
+        z.string({
+          required_error: requiredErrorProjectId,
+          invalid_type_error: invalidTypeErrorProjectId,
+        })
+      )
+      .default([projectId]),
   });
 };
 

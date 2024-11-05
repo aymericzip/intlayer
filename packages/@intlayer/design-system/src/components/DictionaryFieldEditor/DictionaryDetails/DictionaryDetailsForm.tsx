@@ -5,7 +5,9 @@ import { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, Save } from 'lucide-react';
 import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { usePushDictionaries } from '../../../hooks';
+import { useAuth } from '../../../components/Auth';
+import { MultiSelect } from '../../../components/Select';
+import { useGetProjects, usePushDictionaries } from '../../../hooks';
 import { cn } from '../../../utils/cn';
 import { Form, useForm } from '../../Form';
 import { useToast } from '../../Toaster';
@@ -22,8 +24,14 @@ type DictionaryDetailsProps = {
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
 }) => {
+  const { session } = useAuth();
+  const { project } = session ?? {};
   const { pushDictionaries } = usePushDictionaries();
-  const DictionaryDetailsSchema = getDictionaryDetailsSchema();
+  const { data: projects } = useGetProjects();
+
+  const DictionaryDetailsSchema = getDictionaryDetailsSchema(
+    String(project?._id)
+  );
   const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
     defaultValues: dictionary,
   });
@@ -35,6 +43,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     descriptionInput,
     publishButton,
     saveButton,
+    projectInput,
   } = useDictionary(dictionaryDetailsContent);
   const { toast } = useToast();
 
@@ -116,6 +125,29 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         description={descriptionInput.description.value}
         isDisabled={isSubmitting}
       />
+
+      <Form.MultiSelect name="projectIds" label={projectInput.label.value}>
+        <MultiSelect.Trigger
+          getBadgeValue={(value) =>
+            projects?.data?.find((project) => String(project._id) === value)
+              ?.name ?? value
+          }
+        >
+          <MultiSelect.Input placeholder={projectInput.placeholder.value} />
+        </MultiSelect.Trigger>
+        <MultiSelect.Content>
+          <MultiSelect.List>
+            {projects?.data?.map((project) => (
+              <MultiSelect.Item
+                key={String(project._id)}
+                value={String(project._id)}
+              >
+                {project.name}
+              </MultiSelect.Item>
+            ))}
+          </MultiSelect.List>
+        </MultiSelect.Content>
+      </Form.MultiSelect>
 
       {isLocalDictionary ? (
         <Form.Button

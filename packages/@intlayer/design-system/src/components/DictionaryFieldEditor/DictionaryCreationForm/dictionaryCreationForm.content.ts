@@ -18,9 +18,9 @@ export const dictionaryFormContent = {
 
     projectInput: {
       label: t({
-        en: 'Project',
-        fr: 'Projet',
-        es: 'Proyecto',
+        en: 'Projects',
+        fr: 'Projets',
+        es: 'Proyectos',
       }),
       placeholder: t({
         en: 'Select one or more projects to associate with your dictionary',
