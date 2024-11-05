@@ -62,7 +62,7 @@ const Template: StoryObj<typeof Button> = {
     color: 'primary',
     isLoading: false,
     isActive: false,
-    isDisabled: false,
+    disabled: false,
     isFullWidth: false,
     label: 'Button',
   },

@@ -121,7 +121,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <Form.Button
           type="submit"
           label={publishButton.label.value}
-          isDisabled={isSubmitting || !isFormEdited}
+          disabled={isSubmitting || !isFormEdited}
           Icon={ArrowUpFromLine}
           isFullWidth={false}
           color="text"
@@ -134,7 +134,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <Form.Button
           type="submit"
           label={saveButton.label.value}
-          isDisabled={isSubmitting}
+          disabled={isSubmitting}
           isFullWidth={false}
           className={cn('ml-auto', isFormEdited ? '' : 'invisible')}
           Icon={Save}

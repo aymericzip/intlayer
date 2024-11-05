@@ -80,7 +80,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
       <Form.Button
         type="button"
         label={resetButton.label.value}
-        isDisabled={!isEdited || isSubmitting}
+        disabled={!isEdited || isSubmitting}
         className="ml-auto"
         Icon={RotateCcw}
         variant="outline"
@@ -94,7 +94,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
         <Form.Button
           type="submit"
           label={publishButton.label.value}
-          isDisabled={!isEdited || isSubmitting}
+          disabled={!isEdited || isSubmitting}
           Icon={ArrowUpFromLine}
           color="text"
           isLoading={isSubmitting}
@@ -105,7 +105,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
         <Form.Button
           type="submit"
           label={saveButton.label.value}
-          isDisabled={!isEdited || isSubmitting}
+          disabled={!isEdited || isSubmitting}
           Icon={Save}
           color="text"
           isLoading={isSubmitting}

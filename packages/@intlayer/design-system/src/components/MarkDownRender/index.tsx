@@ -1,6 +1,3 @@
-/* eslint-disable sonarjs/no-unstable-nested-components */
-/* eslint-disable sonarjs/anchor-has-content */
-/* eslint-disable sonarjs/alt-text */
 /* eslint-disable jsx-a11y/anchor-has-content */
 'use client';
 
@@ -10,7 +7,7 @@ import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { H1, H2, H3 } from '../Headers';
 import { SectionScroller } from '../Headers/SectionScroller';
-import { Code } from '../IDE';
+import { Code } from '../IDE/CodeRender';
 
 type MarkdownRendererProps = {
   isDarkMode?: boolean;
