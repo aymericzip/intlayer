@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useCallback, useEffect, useRef } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useAsyncStateStore } from './useAsyncStateStore';
 
 // Pending promises cache to prevent parallel requests when multiple components use the hook
@@ -130,24 +131,24 @@ export const useAsync = <
     setIsLoading,
     setError,
     setIsSuccess,
-    setIsTriggered,
     setData,
     setIsInvalidated,
     setIsEnabled,
     incrementRetryCount,
     resetRetryCount,
-  } = useAsyncStateStore((state) => ({
-    setIsFetched: state.setIsFetched,
-    setIsLoading: state.setIsLoading,
-    setError: state.setError,
-    setIsSuccess: state.setIsSuccess,
-    setIsTriggered: state.setIsTriggered,
-    setIsInvalidated: state.setIsInvalidated,
-    setIsEnabled: state.setIsEnabled,
-    setData: state.setData,
-    incrementRetryCount: state.incrementRetryCount,
-    resetRetryCount: state.resetRetryCount,
-  }));
+  } = useAsyncStateStore(
+    useShallow((state) => ({
+      setIsFetched: state.setIsFetched,
+      setIsLoading: state.setIsLoading,
+      setError: state.setError,
+      setIsSuccess: state.setIsSuccess,
+      setIsInvalidated: state.setIsInvalidated,
+      setIsEnabled: state.setIsEnabled,
+      setData: state.setData,
+      incrementRetryCount: state.incrementRetryCount,
+      resetRetryCount: state.resetRetryCount,
+    }))
+  );
 
   // Storing the last arguments used to call the async function
   const storedArgsRef = useRef<any[]>([]);
@@ -166,10 +167,9 @@ export const useAsync = <
     error,
     isSuccess,
     isInvalidated,
-    isTriggered,
     data,
     retryCount: errorCount,
-  } = useAsyncStateStore((state) => state.getStates(keyWithArgs));
+  } = useAsyncStateStore(useShallow((state) => state.getStates(keyWithArgs)));
 
   // Resolving optional parameters with default values
   const retryLimit = options?.retryLimit ?? DEFAULT_RETRY_LIMIT;
@@ -306,7 +306,7 @@ export const useAsync = <
     const lastFetchedTime = new Date(fetchedDateTime).getTime();
     const shouldRevalidate = now - lastFetchedTime >= revalidateTime;
     if (shouldRevalidate) {
-      setIsTriggered(keyWithArgs, true);
+      fetch(...storedArgsRef.current);
     }
   }, [
     cacheEnabled,
@@ -322,25 +322,14 @@ export const useAsync = <
     setIsEnabled(keyWithArgs, enabled);
   }, [enabled]);
 
-  // Fetching triggering system
-  useEffect(() => {
-    // Triggering system allows to fetch the data only once if the hook is mounted multiple times
-    if (!isTriggered) return;
-
-    setIsTriggered(keyWithArgs, false);
-
-    fetch(...storedArgsRef.current);
-  }, [isTriggered, storedArgsRef]);
-
   // Auto-fetch data on hook mount if autoFetch is true
   useEffect(() => {
     if (!autoFetch) return;
     if (isDisabled) return;
     if (isFetched || isLoading) return;
-    if (isTriggered) return;
 
-    setIsTriggered(keyWithArgs, true);
-  }, [autoFetch, isFetched, isTriggered, isDisabled, isLoading]);
+    fetch(...storedArgsRef.current);
+  }, [autoFetch, isFetched, isDisabled, isLoading]);
 
   // Handle retry based on conditions set in options
   useEffect(() => {

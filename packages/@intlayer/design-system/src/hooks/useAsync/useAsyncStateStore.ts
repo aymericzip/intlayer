@@ -4,7 +4,6 @@ type States<T> = {
   isLoading: boolean;
   isFetched: boolean;
   isInvalidated: boolean;
-  isTriggered: boolean;
   fetchedDateTime: null | Date;
   error: string | null;
   isSuccess: boolean;
@@ -21,7 +20,6 @@ type Actions<T> = {
   getStates: (key: string) => States<T>;
   setIsFetched: (key: string, value: boolean) => void;
   setIsLoading: (key: string, value: boolean) => void;
-  setIsTriggered: (key: string, value: boolean) => void;
   setIsInvalidated: (key: string, value: boolean) => void;
   setError: (key: string, value: string | null) => void;
   setIsSuccess: (key: string, value: boolean) => void;
@@ -39,7 +37,6 @@ type AsyncState<T> = {
 
 const createDefaultStates = <T>(): States<T> => ({
   isFetched: false,
-  isTriggered: false,
   fetchedDateTime: null,
   isLoading: false,
   isInvalidated: false,
@@ -99,18 +96,6 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
             createDefaultStates<unknown>()),
           isFetched: value,
           fetchedDateTime: new Date(),
-        },
-      },
-    })),
-
-  setIsTriggered: (key, value) =>
-    set((state) => ({
-      states: {
-        ...state.states,
-        [key]: {
-          ...((state.states[key] as States<unknown>) ??
-            createDefaultStates<unknown>()),
-          isTriggered: value,
         },
       },
     })),
