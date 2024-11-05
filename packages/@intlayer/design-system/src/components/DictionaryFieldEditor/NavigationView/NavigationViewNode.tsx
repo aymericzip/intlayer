@@ -188,7 +188,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               return (
                 <Button
                   label={`${goToElement.label.value} ${index}`}
-                  key={JSON.stringify(subSection)}
+                  key={`${index}`}
                   isActive={selectedKey === index}
                   variant="hoverable"
                   color="text"
@@ -203,7 +203,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
             return (
               <Accordion
-                key={JSON.stringify(subSection)}
+                key={`${index}`}
                 identifier={`${index}`}
                 label={`${goToElement.label.value} ${index}`}
                 isActive={selectedKey === index}
