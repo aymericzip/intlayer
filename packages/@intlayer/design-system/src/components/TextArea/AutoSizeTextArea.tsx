@@ -1,14 +1,13 @@
-'use client';
-
 import {
   useRef,
-  useState,
-  type FC,
   useEffect,
   type ChangeEventHandler,
+  forwardRef,
+  useImperativeHandle,
+  useCallback,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { TextArea, type TextAreaProps } from './TextArea';
+import { TextAreaProps, TextArea } from './TextArea';
 
 export type AutoSizedTextAreaProps = TextAreaProps & {
   autoSize?: boolean;
@@ -18,56 +17,63 @@ export type AutoSizedTextAreaProps = TextAreaProps & {
 const LINE_HEIGHT = 24; // px
 const LINE_PADDING = 12; // px
 
-export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
-  className,
-  autoSize = true,
-  onChange,
-  defaultValue,
-  maxRows = 999,
-  ...props
-}) => {
-  const [value, setValue] = useState<string>(defaultValue?.toString() ?? '');
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+export const AutoSizedTextArea = forwardRef<
+  HTMLTextAreaElement,
+  AutoSizedTextAreaProps
+>(({ className, autoSize = true, onChange, maxRows = 999, ...props }, ref) => {
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  useEffect(() => {
+  useImperativeHandle(ref, () => textAreaRef.current!);
+
+  const adjustHeight = useCallback(() => {
     const textAreaEl = textAreaRef.current;
 
     if (!textAreaEl || !autoSize) return;
 
     const textAreaStyle = textAreaEl.style;
 
-    // We need to reset the height momentarily to get the correct scrollHeight for the textarea
+    // Reset height to get accurate scrollHeight
     textAreaStyle.height = 'auto';
     const scrollHeight = textAreaEl.scrollHeight;
     const maxHeight = LINE_HEIGHT * maxRows + LINE_PADDING;
     const minHeight = LINE_HEIGHT + LINE_PADDING;
 
-    // We then set the height directly, outside of the render loop
-    // Trying to set this with state or a ref will product an incorrect value.
+    // Set the new height
     textAreaStyle.height =
       Math.max(Math.min(scrollHeight, maxHeight), minHeight) + 'px';
+  }, [autoSize, maxRows]);
 
-    if (scrollHeight > maxHeight) {
-      textAreaStyle.overflowY = 'scroll';
-    } else {
-      textAreaStyle.overflowY = 'hidden';
-    }
-  }, [textAreaRef, value, autoSize, maxRows]);
+  useEffect(() => {
+    adjustHeight();
+  }, [props.value, props.defaultValue, adjustHeight]);
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    const val = e.target?.value;
-
-    setValue(val);
     onChange?.(e);
+    adjustHeight();
   };
+
+  const setRef = useCallback(
+    (el: HTMLTextAreaElement | null) => {
+      textAreaRef.current = el;
+      if (el) {
+        adjustHeight();
+      }
+    },
+    [adjustHeight]
+  );
 
   return (
     <TextArea
+      ref={setRef}
       onChange={handleChange}
-      ref={textAreaRef}
-      className={cn(autoSize ? 'resize-none' : '', className)}
-      defaultValue={defaultValue}
+      className={cn(
+        'overflow-y-scroll',
+        autoSize ? 'resize-none' : '',
+        className
+      )}
       {...props}
     />
   );
-};
+});
+
+AutoSizedTextArea.displayName = 'AutoSizedTextArea';

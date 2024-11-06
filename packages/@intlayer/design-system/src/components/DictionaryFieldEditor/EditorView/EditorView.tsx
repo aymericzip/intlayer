@@ -57,15 +57,12 @@ export const EditorView: FC<EditorViewProps> = ({
   const handleRenameNodeKey = (keyName: string) => {
     const camelCaseSentence = sentenceToCamelCase(keyName);
     renameEditedContent(dictionaryKey, camelCaseSentence, keyPath);
-
     const prevKeyPath: KeyPath[] = keyPath.slice(0, -1);
     const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
-
     const newKeyPath: KeyPath[] = [
       ...prevKeyPath,
       { ...lastKeyPath, key: camelCaseSentence } as KeyPath,
     ];
-
     setFocusedContentKeyPath(newKeyPath);
   };
 
@@ -92,9 +89,10 @@ export const EditorView: FC<EditorViewProps> = ({
                   <EditableFieldInput
                     name="key"
                     aria-label="Key"
+                    key={initialKeyName}
                     placeholder={titleInput.placeholder.value}
                     defaultValue={camelCaseToSentence(initialKeyName)}
-                    onChange={handleRenameNodeKey}
+                    onSave={(value) => handleRenameNodeKey(value)}
                     className="h-8"
                     variant="invisible"
                   />

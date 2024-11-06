@@ -1,42 +1,37 @@
 'use client';
 
-import { type FC, useState } from 'react';
+import { type FC, useRef } from 'react';
 import { Input, type InputProps } from '../Input';
 import { EditableFieldLayout } from './EditableFieldLayout';
 
-type EditableFieldInputProps = Omit<InputProps, 'onChange' | 'disabled'> & {
-  defaultValue?: string | null | undefined;
-  onChange: (value: string) => void;
-  isDisabled?: boolean;
+type EditableFieldInputProps = InputProps & {
+  onSave?: (value: string) => void;
+  onCancel?: (value: string) => void;
 };
 
-export const EditableFieldInput: FC<EditableFieldInputProps> = ({
-  defaultValue = '',
-  onChange,
-  isDisabled,
-  ...props
-}) => {
-  const [editingValue, setEditingValue] = useState(defaultValue ?? '');
-
-  const handleSave = () => {
-    onChange(editingValue);
-  };
+export const EditableFieldInput: FC<EditableFieldInputProps> = (props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleCancel = () => {
-    setEditingValue(defaultValue ?? '');
+    if (inputRef.current) {
+      inputRef.current.value = inputRef.current.defaultValue ?? '';
+    }
+
+    props.onCancel?.(inputRef.current?.value ?? '');
   };
 
   return (
     <EditableFieldLayout
-      value={editingValue}
+      value={
+        inputRef.current?.value ??
+        inputRef.current?.defaultValue ??
+        (props.value as string) ??
+        props.defaultValue
+      }
       onCancel={handleCancel}
-      onSave={handleSave}
+      onSave={() => props.onSave?.(inputRef.current?.value ?? '')}
     >
-      <Input
-        defaultValue={editingValue}
-        onChange={(e) => setEditingValue(e.target.value)}
-        {...props}
-      />
+      <Input ref={inputRef} {...props} />
     </EditableFieldLayout>
   );
 };

@@ -1,47 +1,27 @@
 'use client';
 
-import { type FC, useState } from 'react';
+import { type FC, useRef } from 'react';
 import { AutoSizedTextArea, type AutoSizedTextAreaProps } from '../TextArea';
 import { EditableFieldLayout } from './EditableFieldLayout';
 
-type EditableFieldTextAreaProps = Omit<
-  AutoSizedTextAreaProps,
-  'onChange' | 'disabled'
-> & {
-  value: string | null | undefined;
-  onChange: (value: string) => void;
-  isDisabled?: boolean;
-};
+export const EditableFieldTextArea: FC<AutoSizedTextAreaProps> = (props) => {
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-export const EditableFieldTextArea: FC<EditableFieldTextAreaProps> = ({
-  value = '',
-  onChange,
-  isDisabled,
-  ...props
-}) => {
-  const [editingValue, setEditingValue] = useState(value ?? '');
-
-  const handleSave = () => {
-    onChange(editingValue);
-  };
+  const handleSave = () => {};
 
   const handleCancel = () => {
-    setEditingValue(value ?? '');
+    if (textAreaRef.current) {
+      textAreaRef.current.value = textAreaRef.current.defaultValue ?? '';
+    }
   };
 
   return (
     <EditableFieldLayout
-      value={editingValue}
+      value={textAreaRef.current?.value ?? textAreaRef.current?.defaultValue}
       onCancel={handleCancel}
       onSave={handleSave}
     >
-      <AutoSizedTextArea
-        defaultValue={editingValue}
-        onChange={(e) =>
-          setEditingValue((e.target as unknown as { value: string }).value)
-        }
-        {...props}
-      />
+      <AutoSizedTextArea className="leading-6" ref={textAreaRef} {...props} />
     </EditableFieldLayout>
   );
 };

@@ -11,6 +11,7 @@ import {
   useRef,
   useCallback,
 } from 'react';
+import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 
 type EditableFieldLayoutProps = {
@@ -76,48 +77,53 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
       onClick={() => setIsEditing(true)}
       ref={editableFieldRef}
     >
-      {isEditing ? (
-        <>
-          {children}
-          <Button
-            label="Save"
-            variant="hoverable"
-            size="icon-sm"
-            color="custom"
-            Icon={Check}
-            onClick={handleSave}
-            disabled={isDisabled}
-            className="!text-current"
-          />
-          <Button
-            label="Cancel"
-            color="custom"
-            variant="hoverable"
-            className="!text-current"
-            size="icon-sm"
-            Icon={X}
-            onClick={handleCancel}
-            disabled={isDisabled}
-          />
-        </>
-      ) : (
-        <>
-          <span className="ml-2 text-sm leading-8">{result}</span>
-          <Button
-            label="Edit"
-            Icon={Pencil}
-            color="custom"
-            variant="hoverable"
-            size="icon-sm"
-            className="invisible !text-current group-hover/editable-field:visible"
-            disabled={isDisabled}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsEditing(true);
-            }}
-          />
-        </>
-      )}
+      <div
+        className={cn('flex flex-1 gap-2', isEditing ? 'display' : 'hidden')}
+        key={String(isEditing)}
+      >
+        {children}
+        <Button
+          label="Save"
+          variant="hoverable"
+          size="icon-sm"
+          color="custom"
+          Icon={Check}
+          onClick={handleSave}
+          disabled={isDisabled}
+          className="!text-current"
+        />
+        <Button
+          label="Cancel"
+          color="custom"
+          variant="hoverable"
+          className="!text-current"
+          size="icon-sm"
+          Icon={X}
+          onClick={handleCancel}
+          disabled={isDisabled}
+        />
+      </div>
+
+      <div
+        className={cn('flex flex-1 gap-2', isEditing ? 'hidden' : 'display')}
+      >
+        <span className="ml-2 whitespace-pre-wrap p-1 text-sm leading-6">
+          {result}
+        </span>
+        <Button
+          label="Edit"
+          Icon={Pencil}
+          color="custom"
+          variant="hoverable"
+          size="icon-sm"
+          className="invisible !text-current group-hover/editable-field:visible"
+          disabled={isDisabled}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsEditing(true);
+          }}
+        />
+      </div>
     </span>
   );
 };

@@ -1,10 +1,17 @@
 import type { VariantProps } from 'class-variance-authority';
-import { forwardRef, HTMLAttributes, type DetailedHTMLProps } from 'react';
+import {
+  forwardRef,
+  type TextareaHTMLAttributes,
+  type DetailedHTMLProps,
+} from 'react';
 import { cn } from '../../utils/cn';
 import { inputVariants } from '../Input';
 
 export type TextAreaProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLTextAreaElement>,
+  DetailedHTMLProps<
+    TextareaHTMLAttributes<HTMLTextAreaElement>,
+    HTMLTextAreaElement
+  >,
   HTMLTextAreaElement
 > & {
   validationStyleEnabled?: boolean;
@@ -24,7 +31,6 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         })
       )}
       ref={ref}
-      rows={1}
       {...props}
     />
   )

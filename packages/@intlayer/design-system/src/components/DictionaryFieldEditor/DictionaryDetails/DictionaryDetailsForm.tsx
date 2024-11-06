@@ -3,7 +3,7 @@
 import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, Save } from 'lucide-react';
-import { type FC } from 'react';
+import { type FC, useEffect } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { useAuth } from '../../../components/Auth';
 import { MultiSelect } from '../../../components/Select';
@@ -46,6 +46,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     projectInput,
   } = useDictionary(dictionaryDetailsContent);
   const { toast } = useToast();
+
+  useEffect(() => {
+    form.reset(dictionary);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dictionary, form?.reset]);
 
   const isFormEdited = form.formState.isDirty;
   const isLocalDictionary =
@@ -100,30 +105,27 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       <div className="flex size-full flex-1 gap-8 max-md:flex-col">
         <Form.EditableFieldInput
           name="title"
-          value={dictionary.title}
           label={titleInput.label.value}
           placeholder={titleInput.placeholder.value}
           description={titleInput.description.value}
-          isDisabled={isSubmitting}
+          disabled={isSubmitting}
         />
         <Form.EditableFieldInput
           name="key"
-          value={dictionary.key}
           label={keyInput.label.value}
           placeholder={keyInput.label.value}
           description={keyInput.description.value}
-          isDisabled={isSubmitting}
+          disabled={isSubmitting}
           required
         />
       </div>
 
       <Form.EditableFieldTextArea
-        value={dictionary.description}
         name="description"
         label={descriptionInput.label.value}
         placeholder={descriptionInput.placeholder.value}
         description={descriptionInput.description.value}
-        isDisabled={isSubmitting}
+        disabled={isSubmitting}
       />
 
       <Form.MultiSelect name="projectIds" label={projectInput.label.value}>

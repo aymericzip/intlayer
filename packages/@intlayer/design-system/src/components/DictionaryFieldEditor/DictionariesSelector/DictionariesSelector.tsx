@@ -15,7 +15,7 @@ type DictionariesSelectorProps = {
 export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   onClickDictionaryList,
 }) => {
-  const { all, isLoading } = useGetAllDictionaries();
+  const { online, locale, isLoading } = useGetAllDictionaries();
   const { focusedContent } = useEditionPanelStore((s) => ({
     focusedContent: s.focusedContent,
   }));
@@ -24,8 +24,11 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   );
   const dictionary = useMemo(
     () =>
-      focusedContent?.dictionaryId ? all?.[focusedContent?.dictionaryId] : null,
-    [all, focusedContent?.dictionaryId]
+      focusedContent?.dictionaryId
+        ? (online?.[focusedContent?.dictionaryId] ??
+          locale?.[focusedContent?.dictionaryId])
+        : null,
+    [online, locale, focusedContent?.dictionaryId]
   );
 
   if (isLoading) return <Loader />;

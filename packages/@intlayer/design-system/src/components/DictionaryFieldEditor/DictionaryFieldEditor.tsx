@@ -66,42 +66,54 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         </label>
       </div>
 
-      <H2>{titleInformation}</H2>
+      <Container
+        className="flex size-full justify-center gap-10 p-6"
+        roundedSize="xl"
+      >
+        <H2>{titleInformation}</H2>
 
-      <DictionaryDetailsForm dictionary={dictionary} />
+        <DictionaryDetailsForm dictionary={dictionary} />
+      </Container>
 
-      <H2>{titleContent}</H2>
+      <Container
+        className="flex size-full justify-center gap-10 p-6"
+        roundedSize="xl"
+      >
+        <H2>{titleContent}</H2>
 
-      <KeyPathBreadcrumb
-        dictionaryKey={key}
-        keyPath={focusedKeyPath ?? []}
-        onClickKeyPath={setFocusedContentKeyPath}
-      />
-      <div className="flex gap-2 max-md:flex-col">
-        <Container
-          border
-          className="top-6 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
-          roundedSize="xl"
-        >
-          <NavigationViewNode
-            keyPath={[]}
-            section={section}
-            dictionaryKey={key}
-          />
-        </Container>
-        <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
-          {(focusedKeyPath?.length ?? 0) > 0 && (
-            <Container
-              border
-              className="h-full flex-1 overflow-hidden"
-              roundedSize="xl"
-            >
-              <EditorView dictionary={dictionary} dictionaryKey={key} />
-            </Container>
-          )}
-          <SaveForm dictionary={dictionary} />
+        <KeyPathBreadcrumb
+          dictionaryKey={key}
+          keyPath={focusedKeyPath ?? []}
+          onClickKeyPath={setFocusedContentKeyPath}
+        />
+        <div className="flex gap-2 max-md:flex-col">
+          <Container
+            border
+            background={false}
+            className="top-6 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
+            roundedSize="xl"
+          >
+            <NavigationViewNode
+              keyPath={[]}
+              section={section}
+              dictionaryKey={key}
+            />
+          </Container>
+          <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
+            {(focusedKeyPath?.length ?? 0) > 0 && (
+              <Container
+                border
+                background={false}
+                className="h-full flex-1 overflow-hidden"
+                roundedSize="xl"
+              >
+                <EditorView dictionary={dictionary} dictionaryKey={key} />
+              </Container>
+            )}
+            <SaveForm dictionary={dictionary} />
+          </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };
