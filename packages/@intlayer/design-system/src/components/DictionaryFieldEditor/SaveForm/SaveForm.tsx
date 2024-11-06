@@ -34,16 +34,27 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
     useDictionary(saveDictionaryContent);
   const { toast } = useToast();
 
-  const isEdited = useMemo(() => {
-    return (
-      editedContent[dictionary.key] &&
-      JSON.stringify(online?.[dictionary.key]?.content) !==
-        JSON.stringify(editedContent[dictionary.key]?.content)
-    );
-  }, [editedContent, online, dictionary.key]);
+  const editedDictionary = useMemo(
+    () => editedContent[dictionary.key],
+    [editedContent, dictionary.key]
+  );
 
-  const isLocalDictionary =
-    typeof (dictionary as DistantDictionary)?._id === 'undefined';
+  const onlineDictionary = useMemo(() => {
+    return online?.[dictionary.key];
+  }, [online, dictionary.key]);
+
+  const isEdited = useMemo(
+    () =>
+      editedDictionary &&
+      JSON.stringify(editedDictionary?.content) !==
+        JSON.stringify(onlineDictionary?.content),
+    [onlineDictionary, editedDictionary]
+  );
+
+  const isLocalDictionary = useMemo(
+    () => typeof (dictionary as DistantDictionary)?._id === 'undefined',
+    [dictionary]
+  );
 
   const onSubmitSuccess = async () => {
     await pushDictionaries([

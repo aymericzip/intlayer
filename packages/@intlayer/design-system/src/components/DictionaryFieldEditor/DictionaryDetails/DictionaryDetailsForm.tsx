@@ -4,7 +4,7 @@ import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, Save } from 'lucide-react';
 import { type FC, useEffect } from 'react';
-import { useDictionary, useLocale } from 'react-intlayer';
+import { useDictionary } from 'react-intlayer';
 import { useAuth } from '../../../components/Auth';
 import { MultiSelect } from '../../../components/Select';
 import { useGetProjects, usePushDictionaries } from '../../../hooks';
@@ -28,7 +28,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const { project } = session ?? {};
   const { pushDictionaries } = usePushDictionaries();
   const { data: projects } = useGetProjects();
-  const { locale } = useLocale();
 
   const DictionaryDetailsSchema = getDictionaryDetailsSchema(
     String(project?._id)
@@ -103,7 +102,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       schema={DictionaryDetailsSchema}
       onSubmitSuccess={onSubmitSuccess}
     >
-      {locale}
       <div className="flex size-full flex-1 gap-8 max-md:flex-col">
         <Form.EditableFieldInput
           name="title"

@@ -3,7 +3,7 @@
 import type { Locales } from '@intlayer/config/client';
 import type { DeclarationContent } from '@intlayer/core';
 import { useContext } from 'react';
-import { useDictionaryBase, type UseDictionary } from '../useIntlayerBase';
+import { useDictionaryBase, type UseDictionary } from '../useDictionaryBase';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**

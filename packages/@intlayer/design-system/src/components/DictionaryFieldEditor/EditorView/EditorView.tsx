@@ -81,11 +81,11 @@ export const EditorView: FC<EditorViewProps> = ({
           className="bg-text text-text-dark dark:bg-text-dark dark:text-text flex w-full flex-col items-start justify-between gap-6 px-4 py-2"
           key={JSON.stringify(focusedContent?.keyPath)}
         >
-          <div className="flex w-full items-start justify-between gap-2">
+          <div className="flex w-full flex-wrap items-start justify-between  gap-6">
             {typeof initialKeyName === 'string' && (
-              <div>
+              <div className="flex flex-col gap-3">
                 <Label>{titleInput.label}</Label>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-4">
                   <EditableFieldInput
                     name="key"
                     aria-label="Key"
