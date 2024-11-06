@@ -4,6 +4,7 @@ export {
   type IntlayerProviderProps,
   IntlayerClientContext,
   useIntlayer,
+  useDictionary,
   useLocale,
   useTraduction,
   useLocaleCookie,
@@ -13,4 +14,4 @@ export {
   useLocaleBase,
   t,
 } from './client/index';
-export { type IntlayerNode, useDictionary } from './useIntlayerBase';
+export { type IntlayerNode } from './useIntlayerBase';

@@ -105,14 +105,11 @@ export const recursiveTransformContent = (
 };
 
 type DataFromDictionary<
-  T extends DeclarationContent['content'],
+  T extends DeclarationContent,
   K extends Locales,
-> = DeepTransformContent<T, K>;
+> = DeepTransformContent<T['content'], K>;
 
-export type UseDictionary = <
-  T extends DeclarationContent['content'],
-  L extends Locales,
->(
+export type UseDictionary = <T extends DeclarationContent, L extends Locales>(
   dictionary: T,
   locale?: L
 ) => DataFromDictionary<T, L>;
@@ -123,7 +120,10 @@ export type UseDictionary = <
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionary = <T extends DeclarationContent, L extends Locales>(
+export const useDictionaryBase: UseDictionary = <
+  T extends DeclarationContent,
+  L extends Locales,
+>(
   dictionary: T,
   locale?: L,
   isContentSelectable = false
@@ -139,7 +139,7 @@ export const useDictionary = <T extends DeclarationContent, L extends Locales>(
   return recursiveTransformContent(
     result,
     isContentSelectable
-  ) as DataFromDictionary<T['content'], L>;
+  ) as DataFromDictionary<T, L>;
 };
 
 /**
