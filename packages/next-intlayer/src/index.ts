@@ -3,8 +3,8 @@ export {
   IntlayerClientContext,
   useIntlayer,
   useTraduction,
-  useLocaleCookie,
   useDictionary,
+  useLocaleCookie,
   type IntlayerNode,
   t,
 } from 'react-intlayer';
