@@ -8,16 +8,16 @@ import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 
 /**
- * On the server side, Hook that picking one dictionary by its id and return the content
+ * On the server side, Hook that picking one dictionary by its key and return the content
  *
  * If the locale is not provided, it will use the locale from the server context
  */
 export const useIntlayer: UseIntlayer = <T extends DictionaryKeys>(
-  id: T,
+  key: T,
   locale?: Locales
 ) => {
   const localeTarget =
     locale ?? getServerContext<Locales>(IntlayerServerContext);
 
-  return useIntlayerBase(id, localeTarget);
+  return useIntlayerBase(key, localeTarget);
 };

@@ -39,7 +39,7 @@ export type DictionaryKeys = StringFallback<
  * Represents the data type returned by the useIntlayer hook,
  * excluding the 'id' and 'filePath' keys from the dictionary content.
  */
-type DataFromDictionaryId<
+type DataFromDictionaryKey<
   T extends DictionaryKeys,
   K extends Locales,
 > = DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content'], K>;
@@ -50,9 +50,9 @@ type DataFromDictionaryId<
  *
  */
 export type UseIntlayer = <T extends DictionaryKeys, L extends Locales>(
-  id: T,
+  key: T,
   locale?: L
-) => DataFromDictionaryId<T, L>;
+) => DataFromDictionaryKey<T, L>;
 
 /**
  * Hook that picks one dictionary by its ID and returns the content,
@@ -62,10 +62,10 @@ export const useIntlayerBase: UseIntlayer = <
   T extends DictionaryKeys,
   L extends Locales,
 >(
-  id: T,
+  key: T,
   locale?: L
 ) => {
-  const dictionary: Dictionary = dictionaries[id as keyof typeof dictionaries];
+  const dictionary: Dictionary = dictionaries[key as keyof typeof dictionaries];
 
   const result = processDictionary(
     dictionary.content,
@@ -80,5 +80,5 @@ export const useIntlayerBase: UseIntlayer = <
   return recursiveTransformContent(
     result,
     isContentSelectable
-  ) as DataFromDictionaryId<T, L>;
+  ) as DataFromDictionaryKey<T, L>;
 };
