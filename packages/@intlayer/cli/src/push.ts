@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 import * as fsPromises from 'fs/promises';
 import { relative } from 'path';
 import * as readline from 'readline';
@@ -6,6 +5,7 @@ import { getConfiguration } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { intlayerAPI } from '@intlayer/design-system/libs';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
+import pLimit from 'p-limit';
 
 type PushOptions = {
   deleteLocaleDir?: boolean;
@@ -13,8 +13,26 @@ type PushOptions = {
   dictionaries?: string[];
 };
 
+type DictionariesStatus = {
+  dictionary: Dictionary;
+  status: 'pending' | 'pushing' | 'modified' | 'pushed' | 'unknown' | 'error';
+  icon: string;
+  index: number;
+  error?: Error;
+  errorMessage?: string;
+  spinnerFrameIndex?: number;
+};
+
+const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
+const RESET = '\x1b[0m';
+const GREEN = '\x1b[32m';
+const RED = '\x1b[31m';
+const BLUE = '\x1b[34m';
+const GREY = '\x1b[90m';
+
 /**
- * Get all locale dictionaries (default: .content.{json|ts|tsx|js|jsx|mjs|cjs}). And push them as distant dictionary.
+ * Get all locale dictionaries and push them simultaneously.
  */
 export const push = async (options?: PushOptions): Promise<void> => {
   try {
@@ -59,40 +77,84 @@ export const push = async (options?: PushOptions): Promise<void> => {
       return;
     }
 
-    const dictionariesIds: string[] = dictionaries.map(
-      (dictionary) => dictionary.key
+    console.info('Pushing dictionaries:');
+
+    // Prepare dictionaries statuses
+    const dictionariesStatuses: DictionariesStatus[] = dictionaries.map(
+      (dictionary, index) => ({
+        dictionary,
+        icon: getStatusIcon('pending'),
+        status: 'pending',
+        index,
+        spinnerFrameIndex: 0,
+      })
     );
 
-    console.info('Pushing dictionaries', dictionariesIds);
-
-    // Push dictionaries and get the result
-    const pushResult = await intlayerAPI.dictionary.pushDictionaries(
-      dictionaries,
-      {
-        headers: {
-          Authorization: `Bearer ${oAuth2AccessToken}`,
-        },
-      }
-    );
-
-    console.info('Dictionaries pushed');
-    console.info(pushResult.data);
-
-    if (!pushResult.data) {
-      throw new Error('No data returned from the server');
+    // Output initial statuses
+    for (const statusObj of dictionariesStatuses) {
+      process.stdout.write(getStatusLine(statusObj) + '\n');
     }
 
-    const { updatedDictionaries, newDictionaries } = pushResult.data;
+    const successfullyPushedDictionaries: Dictionary[] = [];
 
-    // Extract successfully pushed dictionaries
-    const successfullyPushedDictionariesIds = [
-      ...updatedDictionaries,
-      ...newDictionaries,
-    ];
+    // Start spinner timer
+    const spinnerTimer = setInterval(() => {
+      updateAllStatusLines(dictionariesStatuses);
+    }, 100); // Update every 100ms
 
-    const successfullyPushedDictionaries = dictionaries.filter((dictionary) =>
-      successfullyPushedDictionariesIds.includes(dictionary.key)
+    const processDictionary = async (
+      statusObj: DictionariesStatus
+    ): Promise<void> => {
+      statusObj.status = 'pushing';
+
+      try {
+        const pushResult = await intlayerAPI.dictionary.pushDictionaries(
+          [statusObj.dictionary],
+          {
+            headers: {
+              Authorization: `Bearer ${oAuth2AccessToken}`,
+            },
+          }
+        );
+
+        const updatedDictionaries = pushResult.data?.updatedDictionaries || [];
+        const newDictionaries = pushResult.data?.newDictionaries || [];
+
+        if (updatedDictionaries.includes(statusObj.dictionary.key)) {
+          statusObj.status = 'modified';
+          successfullyPushedDictionaries.push(statusObj.dictionary);
+        } else if (newDictionaries.includes(statusObj.dictionary.key)) {
+          statusObj.status = 'pushed';
+          successfullyPushedDictionaries.push(statusObj.dictionary);
+        } else {
+          statusObj.status = 'unknown';
+        }
+      } catch (error) {
+        statusObj.status = 'error';
+        statusObj.error = error as Error;
+        statusObj.errorMessage = `Error pushing dictionary ${statusObj.dictionary.key}: ${error}`;
+      }
+    };
+
+    // Process dictionaries in parallel with a concurrency limit
+    const limit = pLimit(5); // Adjust the limit as needed
+    const pushPromises = dictionariesStatuses.map((statusObj) =>
+      limit(() => processDictionary(statusObj))
     );
+    await Promise.all(pushPromises);
+
+    // Stop the spinner timer
+    clearInterval(spinnerTimer);
+
+    // Update statuses one last time
+    updateAllStatusLines(dictionariesStatuses);
+
+    // Output any error messages
+    for (const statusObj of dictionariesStatuses) {
+      if (statusObj.errorMessage) {
+        console.error(statusObj.errorMessage);
+      }
+    }
 
     // Handle delete or keep options
     const deleteOption = options?.deleteLocaleDir;
@@ -172,5 +234,58 @@ const deleteLocalDictionaries = async (
     } catch (err) {
       console.error(`Error deleting ${relativePath}:`, err);
     }
+  }
+};
+
+const getStatusIcon = (status: string): string => {
+  const statusIcons: Record<string, string> = {
+    pending: '⏲',
+    pushing: '', // Spinner handled separately
+    modified: '✔',
+    pushed: '✔',
+    error: '✖',
+  };
+  return statusIcons[status] || '';
+};
+
+const getStatusLine = (statusObj: DictionariesStatus): string => {
+  let icon = getStatusIcon(statusObj.status);
+  let colorStart = '';
+  let colorEnd = '';
+
+  if (statusObj.status === 'pushing') {
+    // Use spinner frame
+    icon = spinnerFrames[statusObj.spinnerFrameIndex! % spinnerFrames.length];
+    colorStart = BLUE;
+    colorEnd = RESET;
+  } else if (statusObj.status === 'error') {
+    colorStart = RED;
+    colorEnd = RESET;
+  } else if (statusObj.status === 'pushed' || statusObj.status === 'modified') {
+    colorStart = GREEN;
+    colorEnd = RESET;
+  } else {
+    colorStart = GREY;
+    colorEnd = RESET;
+  }
+
+  return `- ${statusObj.dictionary.key} [${colorStart}${icon} ${statusObj.status}${colorEnd}]`;
+};
+
+const updateAllStatusLines = (dictionariesStatuses: DictionariesStatus[]) => {
+  // Move cursor up to the first status line
+  readline.moveCursor(process.stdout, 0, -dictionariesStatuses.length);
+  for (const statusObj of dictionariesStatuses) {
+    // Clear the line
+    readline.clearLine(process.stdout, 0);
+
+    if (statusObj.status === 'pushing') {
+      // Update spinner frame
+      statusObj.spinnerFrameIndex =
+        (statusObj.spinnerFrameIndex! + 1) % spinnerFrames.length;
+    }
+
+    // Write the status line
+    process.stdout.write(getStatusLine(statusObj) + '\n');
   }
 };

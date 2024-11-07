@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { basename, dirname, extname, relative } from 'path';

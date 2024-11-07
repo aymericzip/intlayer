@@ -729,6 +729,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      p-limit:
+        specifier: ^3.1.0
+        version: 3.1.0
     devDependencies:
       '@intlayer/backend':
         specifier: workspace:^
@@ -13922,7 +13925,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.25.7(@babel/core@7.25.7)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.8(@types/node@22.7.5)
+      vite: 5.4.8(@types/node@20.16.11)
     transitivePeerDependencies:
       - supports-color
     dev: true
