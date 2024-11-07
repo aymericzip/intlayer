@@ -36,7 +36,7 @@ export const DemoSection: FC = () => {
       <div className="my-6 flex w-full max-w-[1000px] flex-col items-center gap-5 px-10 md:px-20">
         <SwitchSelector
           choices={demoSection}
-          selectedChoice={demoType}
+          defaultValue={demoType}
           onChange={setDemoType}
           color="text"
         />

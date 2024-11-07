@@ -5,11 +5,11 @@ import { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, Save } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { useAuth } from '../../../components/Auth';
-import { MultiSelect } from '../../../components/Select';
 import { useGetProjects, usePushDictionaries } from '../../../hooks';
 import { cn } from '../../../utils/cn';
+import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
+import { MultiSelect } from '../../Select';
 import { useToast } from '../../Toaster';
 import { dictionaryDetailsContent } from './dictionaryDetails.content';
 import {
@@ -128,7 +128,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         disabled={isSubmitting}
       />
 
-      <Form.MultiSelect name="projectIds" label={projectInput.label.value}>
+      <Form.MultiSelect
+        name="projectIds"
+        label={projectInput.label.value}
+        description={projectInput.description.value}
+      >
         <MultiSelect.Trigger
           getBadgeValue={(value) =>
             projects?.data?.find((project) => String(project._id) === value)

@@ -37,7 +37,7 @@ export const SwitchThemeSwitcher: FC = () => {
   return (
     <SwitchSelector
       choices={themeSwitcher}
-      selectedChoice={currentTheme}
+      defaultValue={currentTheme}
       onChange={setTheme}
       color="text"
       size="sm"

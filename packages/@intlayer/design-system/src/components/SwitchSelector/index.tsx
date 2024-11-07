@@ -1,25 +1,32 @@
 'use client';
 
 import { cva, type VariantProps } from 'class-variance-authority';
-import { useRef, type ReactNode, type HTMLAttributes } from 'react';
+import { useRef, type ReactNode, type HTMLAttributes, useState } from 'react';
 import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';
 
-export type SwitchSelectorChoice<T> = {
+export type SwitchSelectorChoice<T = boolean> = {
   content: ReactNode;
   value: T;
 } & HTMLAttributes<HTMLButtonElement>;
 export type SwitchSelectorChoices<T> = SwitchSelectorChoice<T>[];
 
-type SwitchSelectorProps<T = string> = {
-  choices: SwitchSelectorChoices<T>;
-  selectedChoice: T;
-  onChange: (choice: T) => void;
+const defaultChoices: SwitchSelectorChoices<boolean> = [
+  { content: 'Off', value: false },
+  { content: 'On', value: true },
+];
+
+type SwitchSelectorProps<T = boolean> = {
+  choices?: SwitchSelectorChoices<T>;
+  value?: T;
+  defaultValue?: T;
+  onChange?: (choice: T) => void;
+  className?: string;
 } & VariantProps<typeof switchSelectorVariant> &
   VariantProps<typeof choiceVariant>;
 
 const switchSelectorVariant = cva(
-  'flex flex-row gap-2 rounded-full border-[1.5px] p-[1.5px]',
+  'flex flex-row gap-2 rounded-full w-fit border-[1.5px] p-[1.5px]',
   {
     variants: {
       color: {
@@ -47,9 +54,9 @@ const choiceVariant = cva(
   {
     variants: {
       size: {
-        sm: 'p-1',
-        md: 'p-2',
-        lg: 'p-4',
+        sm: 'py-1 px-2 text-xs',
+        md: 'p-2 text-sm',
+        lg: 'p-4 text-base',
       },
     },
     defaultVariants: {
@@ -91,29 +98,38 @@ const indicatorVariant = cva(
  *     { content: 'Option 2', value: 'option2' },
  *     { content: 'Option 3', value: 'option3' },
  *   ]}
- *   selectedChoice="option1"
+ *   value="option1"
  *   onChange={(choice) => console.log(choice)}
  * />
  * ```
  */
 export const SwitchSelector = <T,>({
-  choices,
-  selectedChoice,
+  choices = defaultChoices as SwitchSelectorChoices<T>,
+  value,
+  defaultValue,
   onChange,
   color = 'primary',
   size = 'md',
+  className,
 }: SwitchSelectorProps<T>) => {
+  const [valueState, setValue] = useState<T>(
+    value ?? defaultValue ?? choices[0].value
+  );
   const optionsRefs = useRef<HTMLButtonElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const { choiceIndicatorPosition } = useItemSelector(optionsRefs);
 
+  const handleChange = (newValue: T) => {
+    setValue(newValue);
+    onChange?.(newValue);
+  };
+
   return (
     <div
-      className={cn(
-        switchSelectorVariant({
-          color,
-        })
-      )}
+      className={switchSelectorVariant({
+        color,
+        className,
+      })}
       role="tablist"
     >
       <div className="relative flex size-full flex-row items-center justify-center">
@@ -123,7 +139,7 @@ export const SwitchSelector = <T,>({
           const isKeyOfKey =
             typeof value === 'string' || typeof value === 'number';
 
-          const isSelected = selectedChoice === value;
+          const isSelected = value === valueState;
 
           return (
             <button
@@ -135,7 +151,7 @@ export const SwitchSelector = <T,>({
               )}
               key={isKeyOfKey ? value : index}
               role="tab"
-              onClick={() => onChange(value)}
+              onClick={() => handleChange(value)}
               aria-selected={isSelected}
               disabled={isSelected}
               ref={(el) => {

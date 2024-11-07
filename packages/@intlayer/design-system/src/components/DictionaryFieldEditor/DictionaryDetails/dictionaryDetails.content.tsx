@@ -61,6 +61,11 @@ export const dictionaryDetailsContent = {
         fr: 'Projets',
         es: 'Proyectos',
       }),
+      description: t({
+        en: 'A dictionary can be associated with one or more projects. This allows you load the dictionary on different applications, and share it across different teams.',
+        fr: 'Un dictionnaire peut être associé à un ou plusieurs projets. Cela permet de charger le dictionnaire sur différentes applications et de le partager entre différentes équipes.',
+        es: 'Un diccionario puede estar asociado con uno o más proyectos. Esto permite cargar el diccionario en diferentes aplicaciones y compartirlo entre diferentes equipos.',
+      }),
       placeholder: t({
         en: 'Select one or more projects to associate with your dictionary',
         fr: 'Sélectionnez un ou plusieurs projets à associer à votre dictionnaire',
