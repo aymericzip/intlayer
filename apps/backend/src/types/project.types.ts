@@ -39,6 +39,10 @@ export type Project = ProjectData & {
   oAuth2Access: OAuth2Access[];
 };
 
+export type ProjectAPI = Omit<ProjectData, 'adminsIds'> & {
+  adminsIds?: User['_id'][];
+};
+
 export type ProjectDocument = Document<Project> & Project;
 
 export type ProjectModelType = Model<Project>;

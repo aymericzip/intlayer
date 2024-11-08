@@ -8,6 +8,7 @@ import { AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { UserFiltersParam } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
+import { mapUsersToAPI, mapUserToAPI } from '@utils/mapper/user';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -50,7 +51,7 @@ export const createUser = async (
       loginLink: sessionAuthRoutes.loginEmailPassword.url,
     });
 
-    const formattedUser = userService.formatUserForAPI(newUser);
+    const formattedUser = mapUserToAPI(newUser);
 
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
@@ -89,7 +90,7 @@ export const getUsers = async (
     const users = await userService.findUsers(filters, skip, pageSize);
     const totalItems = await userService.countUsers(filters);
 
-    const formattedUsers = userService.formatUsersForAPI(users);
+    const formattedUsers = mapUsersToAPI(users);
 
     const responseData = formatPaginatedResponse<UserAPI>({
       data: formattedUsers,
@@ -127,7 +128,7 @@ export const getUserById = async (
       }
     }
 
-    const formattedUser = userService.formatUserForAPI(user);
+    const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
@@ -158,7 +159,7 @@ export const getUserByEmail = async (
       }
     }
 
-    const formattedUser = userService.formatUserForAPI(user);
+    const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
@@ -189,7 +190,7 @@ export const getUserByAccount = async (
       providerAccountId
     );
 
-    const formattedUser = userService.formatUserForAPI(user);
+    const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
@@ -231,7 +232,7 @@ export const updateUser = async (
       `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
     );
 
-    const formattedUser = userService.formatUserForAPI(updatedUser);
+    const formattedUser = mapUserToAPI(updatedUser);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
@@ -258,7 +259,7 @@ export const deleteUser = async (
   try {
     const user = await userService.deleteUser(userId);
 
-    const formattedUser = userService.formatUserForAPI(user);
+    const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);

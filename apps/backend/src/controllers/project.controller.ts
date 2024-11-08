@@ -22,12 +22,13 @@ import type { ObjectId } from 'mongoose';
 import { User } from 'oauth2-server';
 import type {
   Project,
+  ProjectAPI,
   ProjectCreationData,
   ProjectData,
 } from '@/types/project.types';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
-export type GetProjectsResult = PaginatedResponse<Project>;
+export type GetProjectsResult = PaginatedResponse<ProjectAPI>;
 
 /**
  * Retrieves a list of projects based on filters and pagination.
@@ -65,7 +66,7 @@ export const getProjects = async (
     );
     const totalItems = await projectService.countProjects(filters);
 
-    const responseData = formatPaginatedResponse<Project>({
+    const responseData = formatPaginatedResponse<ProjectAPI>({
       data: projects,
       page,
       pageSize,

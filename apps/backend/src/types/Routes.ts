@@ -1,6 +1,7 @@
 export type Route = {
   urlModel: string;
-  url: string | ((args: Record<string, string>) => string);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  url: string | ((args: any) => string);
   method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 };
 

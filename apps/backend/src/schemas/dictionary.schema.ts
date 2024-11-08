@@ -25,13 +25,16 @@ export const dictionarySchema = new Schema<Dictionary>(
       default: 1,
     },
     content: {
-      type: Schema.Types.Mixed,
+      type: [Schema.Types.Mixed],
       required: true,
     },
     creatorId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+    },
+    filePath: {
+      type: Schema.Types.Mixed,
     },
   },
   {

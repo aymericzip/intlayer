@@ -18,4 +18,8 @@ export type Organization = OrganizationData & {
   updatedAt: number;
 };
 
+export type OrganizationAPI = Omit<OrganizationData, 'adminsIds'> & {
+  adminsIds?: User['_id'][];
+};
+
 export type OrganizationDocument = Document<Organization> & Organization;

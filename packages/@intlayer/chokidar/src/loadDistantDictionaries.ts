@@ -3,7 +3,7 @@ import { mkdir, writeFile } from 'fs/promises';
 import { dirname } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
-import _ from 'lodash';
+import merge from 'deepmerge';
 import { fetchDistantDictionaries } from './fetchDistantDictionaries';
 
 type LoadDistantDictionariesOptions = {
@@ -39,21 +39,21 @@ export const loadDistantDictionaries = async (
 
           // Merge the existing dictionary with the distant dictionary
           // The locale dictionary have the priority from the distant one
-          const mergedDictionaryContent = _.merge(
+          const mergedDictionaryContent = merge(
             distantDictionary,
             existingDictionary
           );
 
           await writeFile(
             dictionaryPath,
-            JSON.stringify(mergedDictionaryContent, null, 2)
+            JSON.stringify(mergedDictionaryContent)
           );
 
           resultDictionaryPath.push(dictionaryPath);
         } else {
           await writeFileWithDirectories(
             dictionaryPath,
-            JSON.stringify(distantDictionary, null, 2)
+            JSON.stringify(distantDictionary)
           );
         }
         resultDictionaryPath.push(dictionaryPath);

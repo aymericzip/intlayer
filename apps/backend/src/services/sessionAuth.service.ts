@@ -7,6 +7,7 @@ import {
   MAX_AGE,
 } from '@utils/cookies';
 import { GenericError } from '@utils/errors';
+import { mapUserToAPI } from '@utils/mapper/user';
 import { hash, genSalt, compare } from 'bcrypt';
 import type { Response } from 'express';
 import { t } from 'express-intlayer';
@@ -14,12 +15,7 @@ import jwt from 'jsonwebtoken';
 import type { Document, ObjectId } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 // eslint-disable-next-line import/no-cycle
-import {
-  formatUserForAPI as formatUserForAPIService,
-  getUserByEmail,
-  getUserById,
-  updateUserById,
-} from './user.service';
+import { getUserByEmail, getUserById, updateUserById } from './user.service';
 import type { Organization } from '@/types/organization.types';
 import type { Project } from '@/types/project.types';
 import type {
@@ -63,7 +59,7 @@ export const removeSession = async (user: User): Promise<User> => {
  * @param user - User object.
  */
 export const setUserAuth = async (res: Response, user: User) => {
-  const formattedUser = formatUserForAPIService(user);
+  const formattedUser = mapUserToAPI(user);
 
   const userToken = jwt.sign(formattedUser, process.env.JWT_TOKEN_SECRET!, {
     expiresIn: MAX_AGE,

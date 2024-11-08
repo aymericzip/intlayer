@@ -9,6 +9,9 @@ import type {
   UpdateDictionaryResult,
   PushDictionariesBody,
   PushDictionariesResult,
+  GetDictionaryParams,
+  GetDictionaryQuery,
+  GetDictionaryResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -31,6 +34,25 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
       otherOptions,
       {
         params: filters,
+      }
+    );
+
+  /**
+   * Retrieves a dictionary by its ID and version.
+   * @param id - Dictionary ID.
+   * @param version - Dictionary version of content.
+   */
+  const getDictionary = async (
+    id: GetDictionaryParams['dictionaryId'],
+    version?: GetDictionaryQuery['version'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetDictionaryResult>(
+      `${PROJECT_API_ROUTE}/${id}`,
+      authAPIOptions,
+      otherOptions,
+      {
+        params: version ? { version: version.toString() } : undefined,
       }
     );
 
@@ -104,6 +126,7 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
 
   return {
     getDictionaries,
+    getDictionary,
     pushDictionaries,
     addDictionary,
     updateDictionary,

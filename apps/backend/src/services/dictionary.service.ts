@@ -63,6 +63,18 @@ export const getDictionaryByKey = async (
   return dictionary;
 };
 
+export const getDictionariesByKeys = async (
+  dictionaryKey: string[],
+  projectId: string | ObjectId
+): Promise<Dictionary[]> => {
+  const dictionaries = await DictionaryModel.find({
+    key: dictionaryKey,
+    projectIds: projectId,
+  });
+
+  return dictionaries;
+};
+
 /**
  * Counts the total number of dictionaries that match the filters.
  * @param filters - MongoDB filter query.
@@ -159,9 +171,11 @@ export const updateDictionaryById = async (
     });
   }
 
+  const existingDictionary = await getDictionaryById(dictionaryId);
+
   const result = await DictionaryModel.updateOne(
     { _id: dictionaryId },
-    dictionary
+    { ...dictionary, content: [existingDictionary.content, dictionary.content] }
   );
 
   if (result.matchedCount === 0) {
@@ -193,9 +207,11 @@ export const updateDictionaryByKey = async (
     });
   }
 
+  const existingDictionary = await getDictionaryByKey(dictionaryKey, projectId);
+
   const result = await DictionaryModel.updateOne(
     { key: dictionaryKey, projectIds: projectId },
-    dictionary
+    { ...dictionary, content: [existingDictionary.content, dictionary.content] }
   );
 
   if (result.matchedCount === 0) {

@@ -201,6 +201,8 @@ export const useGetDictionaries = () =>
       revalidateTime: 5 * 60 * 1000, // 5 minutes
     }
   );
+export const useGetDictionary = () =>
+  useAsyncWithAuth('getDictionary', useIntlayerAPI().dictionary.getDictionary);
 export const useAddDictionary = () =>
   useAsyncWithAuth('addDictionary', useIntlayerAPI().dictionary.addDictionary, {
     invalidateQueries: ['getDictionaries'],

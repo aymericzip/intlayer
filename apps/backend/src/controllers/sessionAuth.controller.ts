@@ -8,6 +8,7 @@ import * as userService from '@services/user.service';
 import { generateToken } from '@utils/CSRF';
 import { ErrorHandler, AppError, GenericError } from '@utils/errors';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
+import { mapUserToAPI } from '@utils/mapper/user';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { Types } from 'mongoose';
@@ -104,7 +105,7 @@ export const registerEmailPassword = async (
 
     await sessionAuthService.setUserAuth(res, user);
 
-    const formattedUser = userService.formatUserForAPI(user);
+    const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
@@ -156,7 +157,7 @@ export const loginEmailPassword = async (
 
     await sessionAuthService.setUserAuth(res, loggedInUser);
 
-    const formattedUser = userService.formatUserForAPI(loggedInUser);
+    const formattedUser = mapUserToAPI(loggedInUser);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     logger.info(`Login: ${loggedInUser.email}`);
@@ -245,7 +246,7 @@ export const updatePassword = async (
       `Password changed - User : Name : ${user.name}, id : ${String(user._id)}`
     );
 
-    const formattedUser = userService.formatUserForAPI(user);
+    const formattedUser = mapUserToAPI(user);
 
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
@@ -301,7 +302,7 @@ export const validEmail = async (
     loginLink: sessionAuthRoutes.loginEmailPassword.url,
   });
 
-  const formattedUser = userService.formatUserForAPI(user);
+  const formattedUser = mapUserToAPI(user);
   const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
   res.json(responseData);
@@ -405,7 +406,7 @@ export const resetPassword = async (
       username: updatedUser.name,
     });
 
-    const formattedUser = userService.formatUserForAPI(updatedUser);
+    const formattedUser = mapUserToAPI(updatedUser);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
 
     res.json(responseData);
@@ -465,7 +466,7 @@ export const getSessionInformation = async (
     }
 
     const formattedUser: SessionInformation['user'] = {
-      ...userService.formatUserForAPI(user),
+      ...mapUserToAPI(user),
       role: 'user',
     };
 

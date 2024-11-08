@@ -9,6 +9,7 @@ import {
   getDictionaryFiltersAndPagination,
 } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
+import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
 import {
   formatPaginatedResponse,
   type ResponseData,
@@ -18,13 +19,14 @@ import {
 import type { NextFunction, Request } from 'express';
 import type {
   Dictionary,
+  DictionaryAPI,
   DictionaryCreationData,
   DictionaryData,
 } from '@/types/dictionary.types';
 
 export type GetDictionariesParams =
   FiltersAndPagination<DictionaryFiltersParams>;
-export type GetDictionariesResult = PaginatedResponse<Dictionary>;
+export type GetDictionariesResult = PaginatedResponse<DictionaryAPI>;
 
 /**
  * Retrieves a list of dictionaries based on filters and pagination.
@@ -34,8 +36,18 @@ export const getDictionaries = async (
   res: ResponseWithInformation<GetDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
+  const { user, project } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(req);
+
+  if (!project) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    return;
+  }
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
 
   try {
     const dictionaries = await dictionaryService.findDictionaries(
@@ -45,8 +57,12 @@ export const getDictionaries = async (
     );
     const totalItems = await dictionaryService.countDictionaries(filters);
 
-    const responseData = formatPaginatedResponse<Dictionary>({
-      data: dictionaries,
+    const dictionariesAPI = dictionaries.map((el) =>
+      mapDictionaryToAPI(el, project._id)
+    );
+
+    const responseData = formatPaginatedResponse<DictionaryAPI>({
+      data: dictionariesAPI,
       page,
       pageSize,
       totalPages: getNumberOfPages(totalItems),
@@ -61,8 +77,59 @@ export const getDictionaries = async (
   }
 };
 
+export type GetDictionaryParams = { dictionaryId: string };
+export type GetDictionaryQuery = { version?: number };
+export type GetDictionaryResult = ResponseData<DictionaryAPI>;
+
+/**
+ * Retrieves a list of dictionaries based on filters and pagination.
+ */
+export const getDictionaryById = async (
+  req: Request<GetDictionaryParams>,
+  res: ResponseWithInformation<GetDictionaryResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { project, user } = res.locals;
+  const { dictionaryId } = req.params;
+  const { version } = req.query as GetDictionaryQuery;
+
+  if (!project) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    return;
+  }
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
+
+  try {
+    const dictionaries =
+      await dictionaryService.getDictionaryById(dictionaryId);
+
+    if (!dictionaries.projectIds.includes(String(project._id))) {
+      ErrorHandler.handleGenericErrorResponse(
+        res,
+        'DICTIONARY_PROJECT_MISMATCH'
+      );
+      return;
+    }
+
+    const apiResult = mapDictionaryToAPI(dictionaries, project._id, version);
+
+    const responseData = formatResponse<DictionaryAPI>({
+      data: apiResult,
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
 export type AddDictionaryBody = DictionaryCreationData;
-export type AddDictionaryResult = ResponseData<Dictionary>;
+export type AddDictionaryResult = ResponseData<DictionaryAPI>;
 
 /**
  * Adds a new dictionary to the database.
@@ -99,16 +166,20 @@ export const addDictionary = async (
     key: dictionaryData.key,
     title: dictionaryData.title,
     description: dictionaryData.description,
-    content: dictionaryData.content,
+    content: [dictionaryData.content],
     creatorId: user._id,
-    filePath: dictionaryData.filePath,
+    filePath: { [String(project._id)]: dictionaryData.filePath ?? '' },
     projectIds: dictionaryData.projectIds ?? [String(project._id)],
   };
 
   try {
     const newDictionary = await dictionaryService.createDictionary(dictionary);
 
-    const responseData = formatResponse<Dictionary>({ data: newDictionary });
+    const apiResult = mapDictionaryToAPI(newDictionary, project._id);
+
+    const responseData = formatResponse<DictionaryAPI>({
+      data: apiResult,
+    });
 
     res.json(responseData);
     return;
@@ -187,10 +258,10 @@ export const pushDictionaries = async (
       const dictionary: DictionaryData = {
         title: dictionaryDataEl.title,
         description: dictionaryDataEl.description,
-        content: dictionaryDataEl.content,
+        content: [dictionaryDataEl.content],
         projectIds: [String(project._id)],
         creatorId: user._id,
-        filePath: dictionaryDataEl.filePath,
+        filePath: { [String(project._id)]: dictionaryDataEl.filePath ?? '' },
         key: dictionaryDataEl.key,
       };
 
@@ -203,24 +274,41 @@ export const pushDictionaries = async (
       }
     }
 
-    for (const dictionaryDataEl of existingDictionaries) {
-      const dictionary: DictionaryData = {
-        ...dictionaryDataEl,
-        content: dictionaryDataEl.content,
-        projectIds: [String(project._id)],
-        creatorId: user._id,
-        key: dictionaryDataEl.key,
-      };
-
-      try {
-        const newDictionary = await dictionaryService.updateDictionaryByKey(
-          dictionaryDataEl.key,
-          dictionary,
+    if (existingDictionariesKey.length >= 0) {
+      const existingDictionariesDB =
+        await dictionaryService.getDictionariesByKeys(
+          existingDictionariesKey,
           project._id
         );
-        result.updatedDictionaries.push(newDictionary.key);
-      } catch (error) {
-        ErrorHandler.handleAppErrorResponse(res, error as AppError);
+
+      for (const dictionaryDataEl of existingDictionaries) {
+        const existingDictionaryDB = existingDictionariesDB.find(
+          (dictionaryDB) => dictionaryDB.key === dictionaryDataEl.key
+        )!;
+
+        const dictionary: DictionaryData = {
+          ...existingDictionaryDB,
+          ...dictionaryDataEl,
+          content: [
+            ...(existingDictionaryDB.content ?? []),
+            dictionaryDataEl.content,
+          ],
+          projectIds: [String(project._id)],
+          creatorId: user._id,
+          filePath: { [String(project._id)]: dictionaryDataEl.filePath ?? '' },
+          key: dictionaryDataEl.key,
+        };
+
+        try {
+          const newDictionary = await dictionaryService.updateDictionaryByKey(
+            dictionaryDataEl.key,
+            dictionary,
+            project._id
+          );
+          result.updatedDictionaries.push(newDictionary.key);
+        } catch (error) {
+          ErrorHandler.handleAppErrorResponse(res, error as AppError);
+        }
       }
     }
 
@@ -237,7 +325,7 @@ export const pushDictionaries = async (
 };
 
 export type UpdateDictionaryBody = Partial<Dictionary>;
-export type UpdateDictionaryResult = ResponseData<Dictionary>;
+export type UpdateDictionaryResult = ResponseData<DictionaryAPI>;
 
 /**
  * Updates an existing dictionary in the database.
@@ -276,8 +364,10 @@ export const updateDictionary = async (
       dictionaryData
     );
 
-    const responseData = formatResponse<Dictionary>({
-      data: updatedDictionary,
+    const apiResult = mapDictionaryToAPI(updatedDictionary, project._id);
+
+    const responseData = formatResponse<DictionaryAPI>({
+      data: apiResult,
     });
 
     res.json(responseData);
@@ -289,7 +379,7 @@ export const updateDictionary = async (
 };
 
 export type DeleteDictionaryParam = { dictionaryId: string };
-export type DeleteDictionaryResult = ResponseData<Dictionary>;
+export type DeleteDictionaryResult = ResponseData<DictionaryAPI>;
 
 /**
  * Deletes a dictionary from the database by its ID.
@@ -336,8 +426,10 @@ export const deleteDictionary = async (
 
     logger.info(`Dictionary deleted: ${String(deletedDictionary._id)}`);
 
-    const responseData = formatResponse<Dictionary>({
-      data: deletedDictionary,
+    const apiResult = mapDictionaryToAPI(deletedDictionary, project._id);
+
+    const responseData = formatResponse<DictionaryAPI>({
+      data: apiResult,
     });
 
     res.json(responseData);
