@@ -42,7 +42,7 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
    * Retrieves a list of dictionary keys related to the project.
    */
   const getDictionariesKeys = async (otherOptions: FetcherOptions = {}) =>
-    await fetcher<GetDictionaryResult>(
+    await fetcher<GetDictionariesKeysResult>(
       `${PROJECT_API_ROUTE}/keys`,
       authAPIOptions,
       otherOptions
@@ -58,7 +58,7 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
     version?: GetDictionaryQuery['version'],
     otherOptions: FetcherOptions = {}
   ) =>
-    await fetcher<GetDictionariesKeysResult>(
+    await fetcher<GetDictionaryResult>(
       `${PROJECT_API_ROUTE}/${dictionaryKey}`,
       authAPIOptions,
       otherOptions,
