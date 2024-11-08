@@ -77,6 +77,40 @@ export const getDictionaries = async (
   }
 };
 
+export type GetDictionariesKeysResult = ResponseData<string[]>;
+
+/**
+ * Retrieves a list of dictionaries keys based on filters and pagination.
+ */
+export const getDictionariesKeys = async (
+  req: Request,
+  res: ResponseWithInformation<GetDictionariesKeysResult>,
+  _next: NextFunction
+) => {
+  const { project } = res.locals;
+
+  if (!project) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    return;
+  }
+
+  try {
+    const dictionariesKeys = await dictionaryService.getDictionariesKeys(
+      project._id
+    );
+
+    const responseData = formatResponse<string[]>({
+      data: dictionariesKeys,
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
 export type GetDictionaryParams = { dictionaryKey: string };
 export type GetDictionaryQuery = { version?: number };
 export type GetDictionaryResult = ResponseData<DictionaryAPI>;

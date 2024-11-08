@@ -5,6 +5,7 @@ import {
   getDictionaries,
   updateDictionary,
   getDictionaryByKey,
+  getDictionariesKeys,
 } from '@controllers/dictionary.controller';
 import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
@@ -18,6 +19,11 @@ export const dictionaryRoutes = {
   getDictionaries: {
     urlModel: '/',
     url: baseURL,
+    method: 'GET',
+  },
+  getDictionariesKeys: {
+    urlModel: '/keys',
+    url: `${baseURL}/keys`,
     method: 'GET',
   },
   getDictionary: {
@@ -59,6 +65,19 @@ dictionaryRouter.get(
     AccessRule.admin
   ),
   getDictionaries
+);
+
+dictionaryRouter.get(
+  dictionaryRoutes.getDictionariesKeys.urlModel,
+  accessControlMiddleWare(
+    [
+      AccessRule.authenticated,
+      AccessRule.hasOrganization,
+      AccessRule.hasProject,
+    ],
+    AccessRule.admin
+  ),
+  getDictionariesKeys
 );
 
 dictionaryRouter.get(

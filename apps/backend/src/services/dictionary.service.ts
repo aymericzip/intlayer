@@ -75,6 +75,16 @@ export const getDictionariesByKeys = async (
   return dictionaries;
 };
 
+export const getDictionariesKeys = async (
+  projectId: string | ObjectId
+): Promise<string[]> => {
+  const dictionaries = await DictionaryModel.find({
+    projectIds: projectId,
+  }).select('key');
+
+  return dictionaries.map((dictionary) => dictionary.key);
+};
+
 /**
  * Counts the total number of dictionaries that match the filters.
  * @param filters - MongoDB filter query.

@@ -12,6 +12,7 @@ import type {
   GetDictionaryParams,
   GetDictionaryQuery,
   GetDictionaryResult,
+  GetDictionariesKeysResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -38,6 +39,16 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
     );
 
   /**
+   * Retrieves a list of dictionary keys related to the project.
+   */
+  const getDictionariesKeys = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetDictionaryResult>(
+      `${PROJECT_API_ROUTE}/keys`,
+      authAPIOptions,
+      otherOptions
+    );
+
+  /**
    * Retrieves a dictionary by its key and version.
    * @param dictionaryKey - Dictionary key.
    * @param version - Dictionary version of content.
@@ -47,7 +58,7 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
     version?: GetDictionaryQuery['version'],
     otherOptions: FetcherOptions = {}
   ) =>
-    await fetcher<GetDictionaryResult>(
+    await fetcher<GetDictionariesKeysResult>(
       `${PROJECT_API_ROUTE}/${dictionaryKey}`,
       authAPIOptions,
       otherOptions,
@@ -126,6 +137,7 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
 
   return {
     getDictionaries,
+    getDictionariesKeys,
     getDictionary,
     pushDictionaries,
     addDictionary,

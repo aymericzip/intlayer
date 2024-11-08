@@ -21,6 +21,10 @@ export const useAsyncWithAuth = <
   });
 };
 
+/**
+ * Auth
+ */
+
 export const useLogin = () =>
   useAsyncWithAuth('login', useIntlayerAPI().auth.login, {
     invalidateQueries: ['getSession'],
@@ -46,6 +50,10 @@ export const useVerifyEmail = () =>
 export const useGetUserByAccount = () =>
   useAsyncWithAuth('getUserByAccount', useIntlayerAPI().user.getUserByAccount);
 
+/**
+ * User
+ */
+
 export const useGetUsers = () =>
   useAsyncWithAuth('getUsers', useIntlayerAPI().user.getUsers, {
     cache: true,
@@ -66,6 +74,10 @@ export const useDeleteUser = () =>
   useAsyncWithAuth('deleteUser', useIntlayerAPI().user.deleteUser, {
     invalidateQueries: ['getUsers'],
   });
+
+/**
+ * Organization
+ */
 
 export const useGetOrganizations = () =>
   useAsyncWithAuth(
@@ -138,6 +150,10 @@ export const useUnselectOrganization = () =>
     }
   );
 
+/**
+ * Project
+ */
+
 export const useGetProjects = () =>
   useAsyncWithAuth('getProjects', useIntlayerAPI().project.getProjects, {
     cache: true,
@@ -189,6 +205,10 @@ export const useRefreshAccessKey = () =>
     useIntlayerAPI().project.refreshAccessKey
   );
 
+/**
+ * Dictionary
+ */
+
 export const useGetDictionaries = () =>
   useAsyncWithAuth(
     'getDictionaries',
@@ -202,6 +222,21 @@ export const useGetDictionaries = () =>
       revalidateTime: 5 * 60 * 1000, // 5 minutes
     }
   );
+
+export const useGetDictionariesKeys = () =>
+  useAsyncWithAuth(
+    'getDictionariesKeys',
+    useIntlayerAPI().dictionary.getDictionariesKeys,
+    {
+      cache: true,
+      store: true,
+      retryLimit: 3,
+      autoFetch: true,
+      revalidation: true,
+      revalidateTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
+
 export const useGetDictionary = () =>
   useAsyncWithAuth('getDictionary', useIntlayerAPI().dictionary.getDictionary, {
     cache: true,
@@ -212,7 +247,7 @@ export const useGetDictionary = () =>
   });
 export const useAddDictionary = () =>
   useAsyncWithAuth('addDictionary', useIntlayerAPI().dictionary.addDictionary, {
-    invalidateQueries: ['getDictionaries'],
+    invalidateQueries: ['getDictionaries', 'getDictionariesKeys'],
   });
 
 export const usePushDictionaries = () =>
@@ -220,7 +255,7 @@ export const usePushDictionaries = () =>
     'pushDictionaries',
     useIntlayerAPI().dictionary.pushDictionaries,
     {
-      invalidateQueries: ['getDictionaries'],
+      invalidateQueries: ['getDictionaries', 'getDictionariesKeys'],
     }
   );
 export const useUpdateDictionary = () =>
@@ -236,6 +271,6 @@ export const useDeleteDictionary = () =>
     'deleteDictionary',
     useIntlayerAPI().dictionary.deleteDictionary,
     {
-      invalidateQueries: ['getDictionaries'],
+      invalidateQueries: ['getDictionaries', 'getDictionariesKeys'],
     }
   );
