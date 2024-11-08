@@ -14,6 +14,7 @@ export const useAsyncWithAuth = <
   options?: UseAsyncOptions<T>
 ) => {
   const { csrfToken, oAuth2AccessToken } = useAuth();
+
   return useAsync(key, asyncFunction, {
     ...options,
     enable: Boolean(csrfToken || oAuth2AccessToken),
@@ -202,7 +203,13 @@ export const useGetDictionaries = () =>
     }
   );
 export const useGetDictionary = () =>
-  useAsyncWithAuth('getDictionary', useIntlayerAPI().dictionary.getDictionary);
+  useAsyncWithAuth('getDictionary', useIntlayerAPI().dictionary.getDictionary, {
+    cache: true,
+    store: true,
+    retryLimit: 3,
+    revalidation: true,
+    revalidateTime: 5 * 60 * 1000, // 5 minutes
+  });
 export const useAddDictionary = () =>
   useAsyncWithAuth('addDictionary', useIntlayerAPI().dictionary.addDictionary, {
     invalidateQueries: ['getDictionaries'],

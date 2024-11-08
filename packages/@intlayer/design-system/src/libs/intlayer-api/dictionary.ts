@@ -38,17 +38,17 @@ export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
     );
 
   /**
-   * Retrieves a dictionary by its ID and version.
-   * @param id - Dictionary ID.
+   * Retrieves a dictionary by its key and version.
+   * @param dictionaryKey - Dictionary key.
    * @param version - Dictionary version of content.
    */
   const getDictionary = async (
-    id: GetDictionaryParams['dictionaryId'],
+    dictionaryKey: GetDictionaryParams['dictionaryKey'],
     version?: GetDictionaryQuery['version'],
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetDictionaryResult>(
-      `${PROJECT_API_ROUTE}/${id}`,
+      `${PROJECT_API_ROUTE}/${dictionaryKey}`,
       authAPIOptions,
       otherOptions,
       {

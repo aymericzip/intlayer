@@ -4,7 +4,7 @@ import {
   deleteDictionary,
   getDictionaries,
   updateDictionary,
-  getDictionaryById,
+  getDictionaryByKey,
 } from '@controllers/dictionary.controller';
 import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
@@ -21,9 +21,9 @@ export const dictionaryRoutes = {
     method: 'GET',
   },
   getDictionary: {
-    urlModel: '/:dictionaryId',
-    url: ({ dictionaryId }: { dictionaryId: string }) =>
-      `${baseURL}/${dictionaryId}`,
+    urlModel: '/:dictionaryKey',
+    url: ({ dictionaryKey }: { dictionaryKey: string }) =>
+      `${baseURL}/${dictionaryKey}`,
     method: 'GET',
   },
   addDictionary: {
@@ -71,7 +71,7 @@ dictionaryRouter.get(
     ],
     AccessRule.admin
   ),
-  getDictionaryById
+  getDictionaryByKey
 );
 
 dictionaryRouter.post(

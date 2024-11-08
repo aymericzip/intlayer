@@ -4,7 +4,7 @@ import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
 const DictionaryDashboardPage: NextPageIntlayer = ({
-  params: { locale, dictionaryId },
+  params: { locale, dictionaryKey },
 }) => {
   const { title } = useIntlayer('dictionary-dashboard-page', locale);
 
@@ -15,7 +15,7 @@ const DictionaryDashboardPage: NextPageIntlayer = ({
       </h1>
       <div className="relative flex size-full flex-1 flex-col items-center">
         <div className="flex size-full flex-1 flex-col items-center p-10">
-          <ContentDashboard dictionaryId={dictionaryId} />
+          <ContentDashboard dictionaryKey={dictionaryKey} />
         </div>
         <BackgroundLayout />
       </div>

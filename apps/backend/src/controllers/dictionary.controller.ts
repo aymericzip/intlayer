@@ -77,20 +77,20 @@ export const getDictionaries = async (
   }
 };
 
-export type GetDictionaryParams = { dictionaryId: string };
+export type GetDictionaryParams = { dictionaryKey: string };
 export type GetDictionaryQuery = { version?: number };
 export type GetDictionaryResult = ResponseData<DictionaryAPI>;
 
 /**
  * Retrieves a list of dictionaries based on filters and pagination.
  */
-export const getDictionaryById = async (
+export const getDictionaryByKey = async (
   req: Request<GetDictionaryParams>,
   res: ResponseWithInformation<GetDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project, user } = res.locals;
-  const { dictionaryId } = req.params;
+  const { dictionaryKey } = req.params;
   const { version } = req.query as GetDictionaryQuery;
 
   if (!project) {
@@ -103,8 +103,10 @@ export const getDictionaryById = async (
   }
 
   try {
-    const dictionaries =
-      await dictionaryService.getDictionaryById(dictionaryId);
+    const dictionaries = await dictionaryService.getDictionaryByKey(
+      dictionaryKey,
+      project._id
+    );
 
     if (!dictionaries.projectIds.includes(String(project._id))) {
       ErrorHandler.handleGenericErrorResponse(

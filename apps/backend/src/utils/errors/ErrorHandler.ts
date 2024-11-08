@@ -49,11 +49,14 @@ export class ErrorHandler {
     errorDetails?: object,
     isPaginatedResponse: boolean = false
   ) {
+    const isMultilingual = error.isMultilingual ?? false;
     // Delegate to a more customizable error response handler.
     this.handleCustomErrorResponse(
       res,
       error.errorKey,
-      error.multilingualMessage,
+      isMultilingual
+        ? error.multilingualMessage
+        : JSON.stringify(error.message),
       errorDetails,
       error.httpStatusCode,
       isPaginatedResponse
@@ -71,12 +74,12 @@ export class ErrorHandler {
   static handleCustomErrorResponse<T>(
     res: Response,
     errorKey: ErrorCodes | string,
-    message: LanguageContent<string>,
+    message: LanguageContent<string> | string,
     errorDetails?: object,
     statusCode?: HttpStatusCodes,
     isPaginatedResponse: boolean = false
   ) {
-    logger.error((message as { en: string }).en); // Log the English version of the error message.
+    logger.error((message as { en: string })?.en ?? message); // Log the English version of the error message.
     const status = statusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500; // Default to 500 if no status code is provided.
 
     if (isPaginatedResponse) {
@@ -84,7 +87,7 @@ export class ErrorHandler {
       const responseData = formatPaginatedResponse<T>({
         error: {
           code: errorKey,
-          message: t(message),
+          message: typeof message === 'string' ? message : t(message),
         },
         status,
       });

@@ -1,56 +1,42 @@
 'use client';
 
-import {
-  DictionariesSelector,
-  Loader,
-  useEditedContentStore,
-  useEditionPanelStore,
-} from '@intlayer/design-system';
-import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
+import { DictionaryFieldEditor, Loader } from '@intlayer/design-system';
+import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { Suspense, useEffect, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type ContentDashboardContentProps = {
-  dictionaryId: string;
+  dictionaryKey: string;
 };
 
 export const ContentDashboard: FC<ContentDashboardContentProps> = ({
-  dictionaryId,
+  dictionaryKey,
 }) => {
-  const { setFocusedContent, focusedContent } = useEditionPanelStore((s) => ({
-    focusedContent: s.focusedContent,
-    setFocusedContent: s.setFocusedContent,
-  }));
+  const {
+    data: dictionaryResult,
+    isLoading,
+    getDictionary,
+  } = useGetDictionary();
   const router = useRouter();
-  const { online: dictionaries } = useGetAllDictionaries();
-  const { setDictionariesRecord } = useEditedContentStore((s) => ({
-    setDictionariesRecord: s.setDictionariesRecord,
-  }));
+  const dictionary = dictionaryResult?.data;
 
   useEffect(() => {
-    if (!dictionaries) return;
-
-    setDictionariesRecord(dictionaries);
-  }, [setDictionariesRecord, dictionaries]);
-
-  useEffect(() => {
-    if (dictionaryId !== focusedContent?.dictionaryId) {
-      setFocusedContent({
-        dictionaryId,
-        keyPath: [],
-        dictionaryPath: undefined,
-      });
-    }
-  }, [dictionaryId, setFocusedContent, focusedContent?.dictionaryId]);
+    getDictionary(dictionaryKey);
+  }, [getDictionary, dictionaryKey]);
 
   return (
     <Suspense fallback={<Loader />}>
-      <DictionariesSelector
-        onClickDictionaryList={() => {
-          router.push(PagesRoutes.Dashboard_Content);
-        }}
-      />
+      <Loader isLoading={!dictionary || isLoading}>
+        {dictionary && (
+          <DictionaryFieldEditor
+            dictionary={dictionary}
+            onClickDictionaryList={() =>
+              router.push(PagesRoutes.Dashboard_Content)
+            }
+          />
+        )}
+      </Loader>
     </Suspense>
   );
 };

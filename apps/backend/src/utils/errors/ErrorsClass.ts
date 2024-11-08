@@ -8,6 +8,7 @@ import { ErrorCodes, errorData } from './errorCodes';
  */
 export class AppError extends Error {
   public name: string;
+  public isMultilingual: boolean = true;
   public errorKey: string;
   public message: string;
   public multilingualMessage: LanguageContent<string>;

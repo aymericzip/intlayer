@@ -39,6 +39,7 @@ export type UseAsyncOptions<T extends (...args: any[]) => Promise<any>> = {
   updateQueries?: string[]; // Update other queries when the data is updated
   onSuccess?: (data: Awaited<ReturnType<T>>) => void; // Callback function that is called when the asynchronous function resolves successfully
   onError?: (error: string) => void; // Callback function that is called when the asynchronous function rejects or encounters an error
+  args?: Parameters<T>; // Arguments to pass to the asynchronous function
 };
 
 // Default values for the hook's options
@@ -56,6 +57,9 @@ export type UseAsyncResult<
   U extends string,
   T extends (...args: any[]) => Promise<any>,
 > = UseAsyncResultBase<T> & Record<U, T>;
+
+const getKeyWithArgs = (key: string, args: any[]) =>
+  args.length > 0 ? `${key}/${JSON.stringify(args)}` : key;
 
 /**
  * A custom React hook that manages asynchronous operations, providing easy-to-use states and controls over fetching, caching, and retry mechanisms.
@@ -83,6 +87,7 @@ export type UseAsyncResult<
  * @property {string[]} [invalidateQueries=[]] - Invalidate other queries when the data is updated.
  * @property {(data: Awaited<ReturnType<T>>) => void} [onSuccess] - Callback function that is called when the asynchronous function resolves successfully.
  * @property {(error: string) => void} [onError] - Callback function that is called when the asynchronous function rejects or encounters an error.
+ * @property {Parameters<T>} [args=[]] - Arguments to pass to the asynchronous function.
  *
  *
  * @example
@@ -125,6 +130,23 @@ export const useAsync = <
   asyncFunction: T,
   options?: UseAsyncOptions<T>
 ): UseAsyncResult<U, T> => {
+  // Resolving optional parameters with default values
+  const retryLimit = options?.retryLimit ?? DEFAULT_RETRY_LIMIT;
+  const autoFetch = options?.autoFetch ?? DEFAULT_AUTO_FETCH;
+  const retryTime = options?.retryTime ?? DEFAULT_RETRY_TIME;
+  const cacheEnabled = options?.cache ?? DEFAULT_CACHE_ENABLED;
+  const storeEnabled = options?.store ?? DEFAULT_STORE_ENABLED;
+  const enabled = options?.enable ?? DEFAULT_ENABLED;
+  const revalidationEnabled =
+    options?.revalidation ?? DEFAULT_REVALIDATION_ENABLED;
+  const revalidateTime = options?.revalidateTime ?? DEFAULT_REVALIDATE_TIME;
+  const isInvalidatedProps = options?.isInvalidated ?? false;
+  const updateQueries = options?.updateQueries ?? [];
+  const invalidateQueries = options?.invalidateQueries ?? [];
+  const onSuccess = options?.onSuccess;
+  const onError = options?.onError;
+  const args = options?.args ?? [];
+
   // Using a custom hook to manage state specific to asynchronous operations
   const {
     setIsFetched,
@@ -151,12 +173,10 @@ export const useAsync = <
   );
 
   // Storing the last arguments used to call the async function
-  const storedArgsRef = useRef<any[]>([]);
+  const storedArgsRef = useRef<any>(args ?? []);
 
   // Apply different key for different requests
-  const keyWithArgs = storedArgsRef.current.length
-    ? `${key}/${JSON.stringify(storedArgsRef.current)}`
-    : key;
+  const keyWithArgs = getKeyWithArgs(key, storedArgsRef.current);
 
   // Retrieving the current state of async operations using the same custom hook
   const {
@@ -169,23 +189,7 @@ export const useAsync = <
     isInvalidated,
     data,
     retryCount: errorCount,
-  } = useAsyncStateStore(useShallow((state) => state.getStates(keyWithArgs)));
-
-  // Resolving optional parameters with default values
-  const retryLimit = options?.retryLimit ?? DEFAULT_RETRY_LIMIT;
-  const autoFetch = options?.autoFetch ?? DEFAULT_AUTO_FETCH;
-  const retryTime = options?.retryTime ?? DEFAULT_RETRY_TIME;
-  const cacheEnabled = options?.cache ?? DEFAULT_CACHE_ENABLED;
-  const storeEnabled = options?.store ?? DEFAULT_STORE_ENABLED;
-  const enabled = options?.enable ?? DEFAULT_ENABLED;
-  const revalidationEnabled =
-    options?.revalidation ?? DEFAULT_REVALIDATION_ENABLED;
-  const revalidateTime = options?.revalidateTime ?? DEFAULT_REVALIDATE_TIME;
-  const isInvalidatedProps = options?.isInvalidated ?? false;
-  const updateQueries = options?.updateQueries ?? [];
-  const invalidateQueries = options?.invalidateQueries ?? [];
-  const onSuccess = options?.onSuccess;
-  const onError = options?.onError;
+  } = useAsyncStateStore((state) => state.getStates(keyWithArgs));
 
   const isEnabled = isEnabledState || enabled;
   const isDisabled = !isEnabled;
@@ -193,6 +197,8 @@ export const useAsync = <
   // The core fetching function, designed to be called directly or automatically based on configuration
   const fetch: T = useCallback<T>(
     (async (...args) => {
+      const keyWithArgs = getKeyWithArgs(key, args);
+
       if (pendingPromises.has(keyWithArgs)) {
         // Return the existing pending promise
         return pendingPromises.get(keyWithArgs);
@@ -273,7 +279,9 @@ export const useAsync = <
       if (isLoading) return;
       if (isSuccess && cacheEnabled && data) return data;
 
-      storedArgsRef.current = args;
+      if (args) {
+        storedArgsRef.current = args;
+      }
 
       await fetch(...args);
     }) as T,

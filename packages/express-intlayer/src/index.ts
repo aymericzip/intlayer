@@ -17,7 +17,24 @@ createModuleAugmentation();
 export const translateFunction =
   (_req: Request, res: Response, _next?: NextFunction) =>
   <T extends string>(content: IConfigLocales<T>): T => {
-    const locale: Locales = res.locals.locale;
+    const { locale, defaultLocale } = res.locals as {
+      locale: Locales;
+      defaultLocale: Locales;
+    };
+
+    if (
+      typeof content[locale as unknown as keyof IConfigLocales<T>] ===
+      'undefined'
+    ) {
+      if (
+        typeof content[defaultLocale as unknown as keyof IConfigLocales<T>] ===
+        'undefined'
+      ) {
+        return content as unknown as T;
+      } else {
+        return getTranslationContent(content, defaultLocale);
+      }
+    }
 
     return getTranslationContent(content, locale);
   };
@@ -56,6 +73,7 @@ export const intlayer = (): RequestHandler => (req, res, next) => {
   res.locals.locale_cookie = localeCookie;
   res.locals.locale_detected = localeDetected;
   res.locals.locale = localeCookie ?? localeHeader ?? localeDetected;
+  res.locals.defaultLocale = internationalization.defaultLocale;
 
   const t = translateFunction(req, res, next);
   res.locals.t = t;
