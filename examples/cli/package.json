@@ -31,8 +31,7 @@
     "watch": "npx intlayer build --watch"
   },
   "dependencies": {
-    "intlayer": "workspace:^",
-    "intlayer-cli": "workspace:^"
+    "intlayer": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",

@@ -59,7 +59,6 @@
     "esbuild": "^0.23.0",
     "framer-motion": "^11.11.4",
     "intlayer": "workspace:^",
-    "intlayer-cli": "workspace:^",
     "lucide-react": "^0.441.0",
     "markdown-to-jsx": "^7.4.7",
     "next": "14.2.16",

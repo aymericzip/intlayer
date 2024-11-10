@@ -29,12 +29,12 @@ export const setAPI = (): Command => {
     )
     .option('-d, --dictionaries [ids...]', 'List of dictionary IDs to push')
     .option(
-      '-r, --deleteLocaleDir',
-      'Delete the local dictionaries directory after pushing'
+      '-r, --deleteLocaleDictionary',
+      'Delete the local dictionaries after pushing'
     )
     .option(
-      '-k, --keepLocaleDir',
-      'Keep the local dictionaries directory after pushing'
+      '-k, --keepLocaleDictionary',
+      'Keep the local dictionaries after pushing'
     )
     .action((options) => push(options));
 

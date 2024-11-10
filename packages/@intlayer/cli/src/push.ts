@@ -8,8 +8,8 @@ import dictionariesRecord from '@intlayer/dictionaries-entry';
 import pLimit from 'p-limit';
 
 type PushOptions = {
-  deleteLocaleDir?: boolean;
-  keepLocaleDir?: boolean;
+  deleteLocaleDictionary?: boolean;
+  keepLocaleDictionary?: boolean;
   dictionaries?: string[];
 };
 
@@ -157,12 +157,12 @@ export const push = async (options?: PushOptions): Promise<void> => {
     }
 
     // Handle delete or keep options
-    const deleteOption = options?.deleteLocaleDir;
-    const keepOption = options?.keepLocaleDir;
+    const deleteOption = options?.deleteLocaleDictionary;
+    const keepOption = options?.keepLocaleDictionary;
 
     if (deleteOption && keepOption) {
       throw new Error(
-        'Cannot specify both --deleteLocaleDir and --keepLocaleDir options.'
+        'Cannot specify both --deleteLocaleDictionary and --keepLocaleDictionary options.'
       );
     }
 

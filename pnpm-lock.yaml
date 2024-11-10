@@ -248,9 +248,6 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../../packages/intlayer
-      intlayer-cli:
-        specifier: workspace:^
-        version: link:../../packages/intlayer-cli
       lucide-react:
         specifier: ^0.441.0
         version: 0.441.0(react@18.3.1)
@@ -354,9 +351,6 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../../packages/intlayer
-      intlayer-cli:
-        specifier: workspace:^
-        version: link:../../packages/intlayer-cli
     devDependencies:
       '@types/node':
         specifier: ^20.12.7
@@ -429,17 +423,11 @@ importers:
         specifier: ^5.5.4
         version: 5.6.3
 
-  examples/nextjs-app:
+  examples/nextjs-14-app:
     dependencies:
       intlayer:
         specifier: workspace:^
         version: link:../../packages/intlayer
-      intlayer-cli:
-        specifier: workspace:^
-        version: link:../../packages/intlayer-cli
-      intlayer-editor:
-        specifier: workspace:^
-        version: link:../../packages/intlayer-editor
       next:
         specifier: 14.2.16
         version: 14.2.16(@babel/core@7.25.7)(react-dom@18.3.1)(react@18.3.1)
@@ -468,9 +456,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
-      concurrently:
-        specifier: ^8.2.2
-        version: 8.2.2
       eslint:
         specifier: ^9.11.1
         version: 9.12.0
@@ -1321,15 +1306,15 @@ importers:
 
   packages/intlayer:
     dependencies:
+      '@intlayer/cli':
+        specifier: workspace:^
+        version: link:../@intlayer/cli
       '@intlayer/config':
         specifier: workspace:^
         version: link:../@intlayer/config
       '@intlayer/core':
         specifier: workspace:^
         version: link:../@intlayer/core
-      intlayer:
-        specifier: workspace:^
-        version: 'link:'
       webpack:
         specifier: ^5.92.1
         version: 5.95.0(esbuild@0.23.1)
@@ -24175,7 +24160,7 @@ packages:
       }
     engines: { node: '>= 10.13.0' }
     dependencies:
-      '@types/node': 22.7.5
+      '@types/node': 20.16.11
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
