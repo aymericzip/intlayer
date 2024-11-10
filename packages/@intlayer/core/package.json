@@ -72,11 +72,12 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.5.4",
     "@intlayer/config": "workspace:^",
-    "chokidar": "^4.0.1"
+    "chokidar": "^4.0.1",
+    "negotiator": "^0.6.3"
   },
   "devDependencies": {
-    "@formatjs/intl-localematcher": "^0.5.4",
     "@intlayer/backend": "workspace:^",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20.14.9",
@@ -87,7 +88,6 @@
     "@utils/tsup-config": "workspace:^",
     "concurrently": "^8.2.2",
     "eslint": "^9.11.1",
-    "negotiator": "^0.6.3",
     "prettier": "3.3.3",
     "react": "^18.3.1",
     "rimraf": "5.0.5",
