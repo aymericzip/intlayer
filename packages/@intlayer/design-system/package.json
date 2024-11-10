@@ -115,8 +115,8 @@
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
     "intlayer": "workspace:^",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": ">=16.0.0 <19.0.0",
+    "react-dom": ">=16.0.0 <19.0.0",
     "react-intlayer": "workspace:^",
     "zustand": "^4.5.2"
   }

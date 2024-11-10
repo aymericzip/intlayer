@@ -90,7 +90,6 @@
     "@intlayer/dictionaries-entry": "workspace:^",
     "@intlayer/webpack": "workspace:^",
     "intlayer": "workspace:^",
-    "next": "14.2.16",
     "react-intlayer": "workspace:^",
     "webpack": "^5.93.0"
   },
@@ -104,14 +103,14 @@
     "concurrently": "^8.2.2",
     "eslint": "^9.11.1",
     "prettier": "3.3.3",
-    "react": "^18.3.1",
     "rimraf": "6.0.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.0",
     "typescript": "^5.5.4"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "next": ">=14.0.0 <16.0.0",
+    "react": ">=16.0.0 <19.0.0"
   },
   "engines": {
     "node": ">=14.18"
