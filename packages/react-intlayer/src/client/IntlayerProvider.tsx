@@ -44,10 +44,10 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
   locale,
   children,
   setLocale: setLocaleProp,
-  editorEnabled,
+  editorEnabled = true,
 }) => {
-  const { defaultLocale, locales: availableLocales } =
-    getConfiguration().internationalization;
+  const { internationalization, editor } = getConfiguration();
+  const { defaultLocale, locales: availableLocales } = internationalization;
 
   const [currentLocale, setCurrentLocale] = useState(
     locale ?? localeCookie ?? defaultLocale
@@ -75,16 +75,24 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
     [currentLocale, setLocale]
   );
 
+  const isEditorEnabled = Boolean(
+    editor?.enabled && editor.clientId && editor.clientSecret && editorEnabled
+  );
+
   return (
     <IntlayerClientContext.Provider value={value}>
-      <ContentEditionLayout
-        locale={currentLocale}
-        setLocale={setLocale}
-        localeList={availableLocales}
-        editorEnabled={editorEnabled}
-      >
-        {children}
-      </ContentEditionLayout>
+      {isEditorEnabled ? (
+        <ContentEditionLayout
+          locale={currentLocale}
+          setLocale={setLocale}
+          localeList={availableLocales}
+          editorEnabled={isEditorEnabled}
+        >
+          {children}
+        </ContentEditionLayout>
+      ) : (
+        children
+      )}
     </IntlayerClientContext.Provider>
   );
 };
