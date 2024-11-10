@@ -11,6 +11,7 @@ import type {
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
 import { IntLayerPlugin as IntLayerWebpackPlugin } from '@intlayer/webpack';
 import webpack, { type Configuration as WebpackConfig } from 'webpack';
+import { removeUndefinedValueObject } from '../utils/removeUndefinedValueObject';
 
 // Get IntLayer configuration
 const intlayerConfig = getConfiguration();
@@ -52,13 +53,18 @@ export const overrideCracoConfig = ({
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
+  console.log('env', removeUndefinedValueObject(env));
+
   return {
     ...cracoConfig,
     webpack: {
       ...cracoConfig.webpack,
       plugins: {
         ...cracoConfig.webpack?.plugins,
-        add: [new webpack.EnvironmentPlugin(env), new IntLayerWebpackPlugin()],
+        add: [
+          new webpack.EnvironmentPlugin(removeUndefinedValueObject(env)),
+          new IntLayerWebpackPlugin(),
+        ],
       },
       alias: {
         ...cracoConfig.webpack?.alias,
