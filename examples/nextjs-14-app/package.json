@@ -1,11 +1,10 @@
 {
-  "name": "nextjs-app-example",
+  "name": "nextjs-app-14-example",
   "version": "1.1.12",
   "private": true,
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
     "lint": "next lint",
     "serve": "npx intlayer serve",
     "start": "next start",
@@ -15,8 +14,6 @@
   },
   "dependencies": {
     "intlayer": "workspace:^",
-    "intlayer-cli": "workspace:^",
-    "intlayer-editor": "workspace:^",
     "next": "14.2.16",
     "next-intlayer": "workspace:^",
     "react": "^18.3.1",
@@ -28,7 +25,6 @@
     "@types/react-dom": "^18.3.0",
     "@utils/eslint-config": "workspace:^",
     "autoprefixer": "^10.4.20",
-    "concurrently": "^8.2.2",
     "eslint": "^9.11.1",
     "eslint-config-next": "14.2.5",
     "postcss": "^8.4.47",
