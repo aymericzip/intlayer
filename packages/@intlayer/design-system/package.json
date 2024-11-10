@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/design-system",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "private": false,
   "type": "module",
   "exports": {
@@ -64,6 +64,7 @@
     "react-markdown": "^9.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "rollup-preserve-directives": "^1.1.1",
+    "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
   },
@@ -104,7 +105,6 @@
     "lucide-react": "^0.441.0",
     "prettier": "3.3.3",
     "storybook": "^8.2.9",
-    "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.2",
     "vite": "^5.4.8",

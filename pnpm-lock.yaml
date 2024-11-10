@@ -845,16 +845,19 @@ importers:
 
   packages/@intlayer/core:
     dependencies:
+      '@formatjs/intl-localematcher':
+        specifier: ^0.5.4
+        version: 0.5.4
       '@intlayer/config':
         specifier: workspace:^
         version: link:../config
       chokidar:
         specifier: ^4.0.1
         version: 4.0.1
+      negotiator:
+        specifier: ^0.6.3
+        version: 0.6.3
     devDependencies:
-      '@formatjs/intl-localematcher':
-        specifier: ^0.5.4
-        version: 0.5.4
       '@intlayer/backend':
         specifier: workspace:^
         version: link:../../../apps/backend
@@ -885,9 +888,6 @@ importers:
       eslint:
         specifier: ^9.11.1
         version: 9.12.0
-      negotiator:
-        specifier: ^0.6.3
-        version: 0.6.3
       prettier:
         specifier: 3.3.3
         version: 3.3.3
@@ -978,6 +978,9 @@ importers:
       rollup-preserve-directives:
         specifier: ^1.1.1
         version: 1.1.2(rollup@4.24.0)
+      tailwind-merge:
+        specifier: ^2.3.0
+        version: 2.5.3
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.13)
@@ -1096,9 +1099,6 @@ importers:
       storybook:
         specifier: ^8.2.9
         version: 8.3.5
-      tailwind-merge:
-        specifier: ^2.3.0
-        version: 2.5.3
       tailwindcss:
         specifier: ^3.4.4
         version: 3.4.13
@@ -7370,7 +7370,7 @@ packages:
       }
     dependencies:
       tslib: 2.7.0
-    dev: true
+    dev: false
 
   /@glideapps/ts-necessities@2.2.3:
     resolution:
@@ -32705,6 +32705,7 @@ packages:
       {
         integrity: sha512-d9ZolCAIzom1nf/5p4LdD5zvjmgSxY0BGgdSvmXIoMYAiPdAW/dSpP7joCDYFY7r/HkEa2qmPtkgsu0xjQeQtw==,
       }
+    dev: false
 
   /tailwindcss-animate@1.0.7(tailwindcss@3.4.13):
     resolution:
