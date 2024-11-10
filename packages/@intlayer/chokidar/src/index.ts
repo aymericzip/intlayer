@@ -6,4 +6,4 @@ export {
   loadDistantDictionaries,
   loadDictionaries,
   loadLocalDictionaries,
-} from './loadDictionaries';
+} from './loadDictionaries/index';

@@ -2,7 +2,7 @@ import { type Context, runInNewContext } from 'vm';
 import { ESMxCJSRequire } from '@intlayer/config';
 import type { DeclarationContent, Dictionary } from '@intlayer/core';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
-import { processContentDeclaration } from '../transpiler/declaration_file_to_dictionary/intlayer_dictionary';
+import { processContentDeclaration } from '../transpiler/declaration_file_to_dictionary/intlayer_dictionary/processContentDeclaration';
 
 const sandboxContext: Context = {
   exports: {
