@@ -1,6 +1,6 @@
 import { t, type DeclarationContent } from 'intlayer';
 
-const langSwitcherContent: DeclarationContent = {
+const langSwitcherContent = {
   key: 'lang-switcher',
   content: {
     title: t({
