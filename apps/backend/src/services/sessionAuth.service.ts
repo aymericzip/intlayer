@@ -10,6 +10,7 @@ import { GenericError } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { hash, genSalt, compare } from 'bcrypt';
 import type { Response } from 'express';
+// @ts-ignore express-intlayer not build yet
 import { t } from 'express-intlayer';
 import jwt from 'jsonwebtoken';
 import type { Document, ObjectId } from 'mongoose';

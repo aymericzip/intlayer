@@ -2,6 +2,7 @@
 import { logger } from '@logger';
 import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
 import type { Response } from 'express';
+// @ts-ignore express-intlayer not build yet
 import { t, LanguageContent } from 'express-intlayer';
 import { ErrorCodes, errorData } from './errorCodes';
 import { AppError } from './ErrorsClass';
