@@ -1,6 +1,6 @@
 {
   "name": "next-intlayer",
-  "version": "2.0.13",
+  "version": "3.0.0",
   "private": false,
   "description": "Internationalisation tool for Next.js applications. Declare your multilingual contant in the same lever than your component. Powered by TypeScript, declaration files.",
   "keywords": [
