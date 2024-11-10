@@ -56,6 +56,8 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     enabled: process.env.REACT_APP_INTLAYER_ENABLED,
     clientId: process.env.REACT_APP_INTLAYER_CLIENT_ID,
     clientSecret: process.env.REACT_APP_INTLAYER_CLIENT_SECRET,
+    dictionaryPriorityStrategy:
+      process.env.REACT_APP_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
   };
 
   return {

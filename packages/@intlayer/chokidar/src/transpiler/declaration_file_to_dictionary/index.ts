@@ -1,4 +1,5 @@
 import { getConfiguration } from '@intlayer/config';
+import { Dictionary } from '@intlayer/core';
 import { buildI18nDictionary } from './i18n_dictionary/index';
 import { buildIntlayerDictionary } from './intlayer_dictionary/index';
 
@@ -7,7 +8,7 @@ const {
 } = getConfiguration();
 
 export const buildDictionary = async (
-  contentDeclarationsPaths: string | string[]
+  contentDeclarationsPaths: Dictionary[]
 ): Promise<string[]> => {
   if (dictionaryOutput.includes('i18next')) {
     await buildI18nDictionary(contentDeclarationsPaths);

@@ -12,8 +12,8 @@ const config: IntlayerConfig = {
   editor: {
     enabled: true,
     backendURL: process.env.INTLAYER_BACKEND_URL,
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // clientId: process.env.INTLAYER_CLIENT_ID,
+    // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 

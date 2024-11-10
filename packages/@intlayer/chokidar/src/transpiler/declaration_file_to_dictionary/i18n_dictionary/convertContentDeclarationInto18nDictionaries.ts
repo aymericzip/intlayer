@@ -2,9 +2,9 @@ import { getConfiguration, type Locales } from '@intlayer/config';
 import {
   NodeType,
   type TranslationContent,
-  type Content,
   type TypedNode,
   type EnumerationContent,
+  DictionaryValue,
 } from '@intlayer/core';
 import { convertPluralsValues } from './convertPluralsValues';
 
@@ -21,7 +21,10 @@ const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.type !== 'undefined';
 
 // Build dictionary for a specific locale
-const buildDictionary = (content: Dictionary, locale: Locales): unknown => {
+const buildDictionary = (
+  content: DictionaryValue,
+  locale: Locales
+): unknown => {
   if (
     // Translation node
     content &&
@@ -31,7 +34,7 @@ const buildDictionary = (content: Dictionary, locale: Locales): unknown => {
       NodeType.Translation
     ][locale];
 
-    return buildDictionary(result as Dictionary, locale);
+    return buildDictionary(result as DictionaryValue, locale);
   } else if (
     // Translation node
     content &&
@@ -49,7 +52,7 @@ const buildDictionary = (content: Dictionary, locale: Locales): unknown => {
       ];
 
       plurals[`${letterNumber}_${letterNumber}`] = buildDictionary(
-        value as Dictionary,
+        value as DictionaryValue,
         locale
       );
     });
@@ -68,7 +71,7 @@ const buildDictionary = (content: Dictionary, locale: Locales): unknown => {
 
     Object.keys(content).forEach((dictionaryValue) => {
       result[dictionaryValue] = buildDictionary(
-        content[dictionaryValue] as Dictionary,
+        content[dictionaryValue as keyof typeof content] as DictionaryValue,
         locale
       );
     });
@@ -80,7 +83,7 @@ const buildDictionary = (content: Dictionary, locale: Locales): unknown => {
 };
 
 export const createI18nDictionaries = (
-  content: Content
+  content: DictionaryValue
 ): I18nDictionariesOutput => {
   // Map dictionaries for each locale
   const result: I18nDictionariesOutput = locales.reduce(

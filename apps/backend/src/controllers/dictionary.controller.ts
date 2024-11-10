@@ -83,7 +83,7 @@ export type GetDictionariesKeysResult = ResponseData<string[]>;
  * Retrieves a list of dictionaries keys based on filters and pagination.
  */
 export const getDictionariesKeys = async (
-  req: Request,
+  _req: Request,
   res: ResponseWithInformation<GetDictionariesKeysResult>,
   _next: NextFunction
 ) => {

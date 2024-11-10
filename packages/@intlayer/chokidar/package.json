@@ -80,6 +80,7 @@
     "glob": "^10.4.2",
     "intlayer": "workspace:^",
     "node-loader": "^2.0.0",
+    "p-limit": "^3.1.0",
     "quicktype-core": "^23.0.170",
     "react": "^18.3.1",
     "rimraf": "5.0.5"

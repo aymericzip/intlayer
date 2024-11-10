@@ -3,23 +3,24 @@ import { getConfiguration } from '@intlayer/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { sync } from 'glob';
+import { loadDictionaries } from '../loadDictionaries/loadDictionaries';
+import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
 import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
 import { createDictionaryList } from '../transpiler/dictionary_to_main/createDictionaryList';
 import {
   createTypes,
   createModuleAugmentation,
 } from '../transpiler/dictionary_to_type/index';
-import { loadDistantDictionaries } from '../loadDistantDictionaries';
 
 const LOG_PREFIX = '[intlayer] ';
 
 // Initialize chokidar watcher (non-persistent)
 export const watch = (options?: ChokidarOptions) => {
-  const { content, editor } = getConfiguration({
+  const { content } = getConfiguration({
     verbose: true,
   });
 
-  const { watchedFilesPatternWithPath, dictionariesDir, baseDir } = content;
+  const { watchedFilesPatternWithPath, baseDir } = content;
 
   const files: string[] = sync(watchedFilesPatternWithPath);
 
@@ -30,17 +31,10 @@ export const watch = (options?: ChokidarOptions) => {
     ...options,
   })
     .on('ready', async () => {
+      const dictionaries = await loadDictionaries(files);
+
       // Build locale dictionaries
-      let dictionariesPaths = await buildDictionary(files);
-
-      if (editor.clientId && editor.clientSecret) {
-        // Fetch and build dictionaries from the server
-        const distantDictionariesPaths = await loadDistantDictionaries({
-          logPrefix: LOG_PREFIX,
-        });
-
-        dictionariesPaths = [...dictionariesPaths, ...distantDictionariesPaths];
-      }
+      const dictionariesPaths = await buildDictionary(dictionaries);
 
       await createTypes(dictionariesPaths);
       console.info(`${LOG_PREFIX}TypeScript types built`);
@@ -50,16 +44,6 @@ export const watch = (options?: ChokidarOptions) => {
 
       createDictionaryList();
       console.info(`${LOG_PREFIX}Intlayer dictionary list built`);
-
-      const links = dictionariesPaths.map((dictionaryPath) => {
-        const dictName = relative(dictionariesDir, dictionaryPath).replace(
-          '.json',
-          ''
-        );
-        return dictName;
-      });
-
-      console.info(`${LOG_PREFIX}Dictionaries:`, links.join(', '));
     })
     .on('unlink', (filePath) => {
       // Process the file with the functionToRun
@@ -71,7 +55,9 @@ export const watch = (options?: ChokidarOptions) => {
         `${LOG_PREFIX}Additional file detected: `,
         relative(baseDir, filePath)
       );
-      const dictionaries = await buildDictionary(filePath);
+
+      const localeDictionaries = await loadLocalDictionaries(filePath);
+      const dictionaries = await buildDictionary(localeDictionaries);
 
       await createTypes(dictionaries);
       console.info(`${LOG_PREFIX}TypeScript types built`);
@@ -84,7 +70,9 @@ export const watch = (options?: ChokidarOptions) => {
     .on('change', async (filePath) => {
       // Process the file with the functionToRun
       console.info('Change detected: ', relative(baseDir, filePath));
-      const dictionaries = await buildDictionary(filePath);
+
+      const localeDictionaries = await loadLocalDictionaries(filePath);
+      const dictionaries = await buildDictionary(localeDictionaries);
 
       await createTypes(dictionaries);
       console.info(`${LOG_PREFIX}TypeScript types built`);

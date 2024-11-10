@@ -1,5 +1,9 @@
 import { join } from 'path';
-import { BACKEND_URL, IS_ENABLED } from '../defaultValues/editor';
+import {
+  BACKEND_URL,
+  DICTIONARY_PRIORITY_STRATEGY,
+  IS_ENABLED,
+} from '../defaultValues/editor';
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -521,6 +525,20 @@ const buildEditorFields = (
    * > Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
    */
   clientSecret: customConfiguration?.clientSecret ?? undefined,
+
+  /**
+   * Strategy for prioritizing dictionaries. If a dictionary is both present online and locally, the content will be merge.
+   * However, is a field is defined in both dictionary, this setting determines which fields takes the priority over the other.
+   *
+   * Default: 'locale_first'
+   *
+   * The strategy for prioritizing dictionaries. It can be either 'locale_first' or 'distant_first'.
+   * - 'locale_first': The first dictionary found in the locale is used.
+   * - 'distant_first': The first dictionary found in the distant locales is used.
+   */
+  dictionaryPriorityStrategy:
+    customConfiguration?.dictionaryPriorityStrategy ??
+    DICTIONARY_PRIORITY_STRATEGY,
 });
 
 /**

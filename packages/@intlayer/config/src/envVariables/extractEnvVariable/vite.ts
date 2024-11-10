@@ -64,6 +64,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     enabled: import.meta.env.VITE_INTLAYER_ENABLED,
     clientId: import.meta.env.VITE_INTLAYER_CLIENT_ID,
     clientSecret: import.meta.env.VITE_INTLAYER_CLIENT_SECRET,
+    dictionaryPriorityStrategy: import.meta.env
+      .VITE_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
   };
 
   return {

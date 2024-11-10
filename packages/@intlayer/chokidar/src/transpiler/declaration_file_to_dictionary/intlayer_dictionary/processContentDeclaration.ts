@@ -1,11 +1,10 @@
-import { resolve } from 'path';
 import type {
   Content,
   DeclarationContent,
+  Dictionary,
   FlatContent,
   FlatContentValue,
 } from '@intlayer/core';
-import { loadContentDeclaration } from './loadContentDeclaration';
 
 /**
  * Function to replace function and async function fields with their results in the object
@@ -55,24 +54,18 @@ const processFunctionResults = async (entry: Content): Promise<FlatContent> => {
 /**
  * Function to load, process the module and return the Intlayer DeclarationContent from the module file
  */
-export const processContentDeclaration = async (file: string) => {
+export const processContentDeclaration = async (
+  contentDeclaration: DeclarationContent
+): Promise<Dictionary | undefined> => {
   try {
-    const functionPath = resolve(file);
-    const entry = loadContentDeclaration(functionPath);
-
-    if (!entry) {
-      console.error('No entry found in module:', functionPath);
-      return;
-    }
-
     const content = (await processFunctionResults(
-      entry.content
+      contentDeclaration.content
     )) as DeclarationContent['content'];
 
     return {
-      ...entry,
+      ...contentDeclaration,
       content,
-    } as DeclarationContent;
+    } as Dictionary;
   } catch (error) {
     console.error('Error processing module:', error);
   }

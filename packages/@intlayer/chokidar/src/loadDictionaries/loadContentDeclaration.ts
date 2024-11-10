@@ -1,7 +1,8 @@
 import { type Context, runInNewContext } from 'vm';
 import { ESMxCJSRequire } from '@intlayer/config';
-import type { DeclarationContent } from '@intlayer/core';
+import type { DeclarationContent, Dictionary } from '@intlayer/core';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
+import { processContentDeclaration } from '../transpiler/declaration_file_to_dictionary/intlayer_dictionary';
 
 const sandboxContext: Context = {
   exports: {
@@ -35,7 +36,7 @@ const filterValidContentDeclaration = (
   contentDeclaration: DeclarationContent
 ): DeclarationContent => {
   // @TODO Implement filtering of valid content declaration
-  return contentDeclaration;
+  return contentDeclaration as unknown as DeclarationContent;
 };
 
 /**
@@ -43,7 +44,7 @@ const filterValidContentDeclaration = (
  *
  * Accepts JSON, JS, MJS and TS files as configuration
  */
-export const loadContentDeclaration = (
+const loadContentDeclaration = (
   contentDeclarationFilePath: string
 ): DeclarationContent | undefined => {
   let contentDeclaration: DeclarationContent | undefined = undefined;
@@ -108,4 +109,30 @@ export const loadContentDeclaration = (
   } catch (error) {
     console.error('Error:', error);
   }
+};
+
+export const loadContentDeclarations = async (
+  contentDeclarationFilePath: string[]
+): Promise<Dictionary[]> => {
+  const contentDeclarations = contentDeclarationFilePath.map(
+    loadContentDeclaration
+  );
+  const resultDictionariesPaths: Dictionary[] = [];
+
+  for await (const contentDeclaration of contentDeclarations) {
+    if (!contentDeclaration) {
+      continue;
+    }
+
+    const processedContentDeclaration =
+      await processContentDeclaration(contentDeclaration);
+
+    if (!processedContentDeclaration) {
+      continue;
+    }
+
+    resultDictionariesPaths.push(processedContentDeclaration);
+  }
+
+  return resultDictionariesPaths;
 };

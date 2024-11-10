@@ -56,6 +56,8 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     enabled: process.env.NEXT_PUBLIC_INTLAYER_ENABLED,
     clientId: process.env.NEXT_PUBLIC_INTLAYER_CLIENT_ID,
     clientSecret: process.env.NEXT_PUBLIC_INTLAYER_CLIENT_SECRET,
+    dictionaryPriorityStrategy:
+      process.env.NEXT_PUBLIC_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
   };
 
   return {

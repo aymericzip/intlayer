@@ -43,6 +43,7 @@ const RED = '\x1b[31m';
 const BLUE = '\x1b[34m';
 const GREY = '\x1b[90m';
 const YELLOW = '\x1b[33m';
+const GREY_DARK = '\x1b[90m';
 
 const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
 
@@ -220,7 +221,7 @@ const getStatusLine = (statusObj: DictionariesStatus): string => {
     colorEnd = RESET;
   }
 
-  return `- ${statusObj.dictionaryKey} [${colorStart}${icon} ${statusObj.status}${colorEnd}]`;
+  return `- ${statusObj.dictionaryKey} ${GREY_DARK}[${colorStart}${icon} ${statusObj.status}${colorEnd}]`;
 };
 
 const updateAllStatusLines = (dictionariesStatuses: DictionariesStatus[]) => {

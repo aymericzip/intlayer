@@ -99,6 +99,10 @@ export const getConfiguration = (): IntlayerConfig => {
     enabled: getEnvValue(env.editor.enabled, 'boolean')!,
     clientId: getEnvValue(env.editor.clientId, 'string')!,
     clientSecret: getEnvValue(env.editor.clientSecret, 'string')!,
+    dictionaryPriorityStrategy: getEnvValue(
+      env.editor.dictionaryPriorityStrategy,
+      'string'
+    )! as 'locale_first' | 'distant_first',
   };
 
   const intlayerConfiguration: IntlayerConfig = {

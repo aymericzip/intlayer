@@ -650,6 +650,9 @@ importers:
       node-loader:
         specifier: ^2.0.0
         version: 2.0.0(webpack@5.95.0)
+      p-limit:
+        specifier: ^3.1.0
+        version: 3.1.0
       quicktype-core:
         specifier: ^23.0.170
         version: 23.0.170

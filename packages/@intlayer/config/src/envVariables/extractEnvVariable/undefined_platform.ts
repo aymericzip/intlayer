@@ -54,6 +54,8 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     enabled: process.env.INTLAYER_ENABLED,
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    dictionaryPriorityStrategy:
+      process.env.INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
   };
 
   return {
