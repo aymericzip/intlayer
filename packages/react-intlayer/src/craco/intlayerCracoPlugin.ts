@@ -53,8 +53,6 @@ export const overrideCracoConfig = ({
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-  console.log('env', removeUndefinedValueObject(env));
-
   return {
     ...cracoConfig,
     webpack: {

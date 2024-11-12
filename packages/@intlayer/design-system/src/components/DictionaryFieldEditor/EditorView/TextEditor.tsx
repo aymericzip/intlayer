@@ -82,38 +82,40 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
 
   return (
     <table className="w-full gap-2">
-      {locales.map((translationKey) => (
-        <tr
-          key={translationKey}
-          className="border-text dark:border-text-dark w-full border-t-[1.5px]"
-          lang={translationKey}
-        >
-          <td className="border-text dark:border-text-dark border-r-[1.5px] p-2">
-            {getLocaleName(translationKey)}
-          </td>
-          <td className="w-full p-2">
-            <ContentEditorTextArea
-              variant="default"
-              aria-label="Edit field"
-              onContentChange={(newValue) =>
-                addEditedContent(dictionaryKey, newValue, [
-                  ...keyPath,
-                  {
-                    type: NodeType.Translation,
-                    key: translationKey,
-                  },
-                ])
-              }
-            >
-              {
-                (section as TranslationContent<string>)[NodeType.Translation][
-                  translationKey
-                ] as string
-              }
-            </ContentEditorTextArea>
-          </td>
-        </tr>
-      ))}
+      <tbody>
+        {locales.map((translationKey) => (
+          <tr
+            key={translationKey}
+            className="border-text dark:border-text-dark w-full border-t-[1.5px]"
+            lang={translationKey}
+          >
+            <td className="border-text dark:border-text-dark border-r-[1.5px] p-2">
+              {getLocaleName(translationKey)}
+            </td>
+            <td className="w-full p-2">
+              <ContentEditorTextArea
+                variant="default"
+                aria-label="Edit field"
+                onContentChange={(newValue) =>
+                  addEditedContent(dictionaryKey, newValue, [
+                    ...keyPath,
+                    {
+                      type: NodeType.Translation,
+                      key: translationKey,
+                    },
+                  ])
+                }
+              >
+                {
+                  (section as TranslationContent<string>)[NodeType.Translation][
+                    translationKey
+                  ] as string
+                }
+              </ContentEditorTextArea>
+            </td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 };
@@ -128,24 +130,60 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 
   return (
     <table className="w-full table-fixed gap-2">
-      {Object.keys(
-        (section as EnumerationContent<DictionaryValue>)[NodeType.Enumeration]
-      ).map((enumKey) => (
-        <tr
-          key={enumKey}
-          className="border-text dark:border-text-dark w-full border-y-[1.5px]"
-        >
-          <td className="border-text dark:border-text-dark w-44 border-r-[1.5px] p-2">
-            <div className="flex gap-1">
-              <Button
-                label="Remove"
-                variant="hoverable"
-                size="icon-md"
-                color="text"
-                Icon={X}
-                className="w-16"
-                onClick={() =>
-                  addEditedContent(dictionaryKey, undefined, [
+      <tbody>
+        {Object.keys(
+          (section as EnumerationContent<DictionaryValue>)[NodeType.Enumeration]
+        ).map((enumKey) => (
+          <tr
+            key={enumKey}
+            className="border-text dark:border-text-dark w-full border-y-[1.5px]"
+          >
+            <td className="border-text dark:border-text-dark w-44 border-r-[1.5px] p-2">
+              <div className="flex gap-1">
+                <Button
+                  label="Remove"
+                  variant="hoverable"
+                  size="icon-md"
+                  color="text"
+                  Icon={X}
+                  className="w-16"
+                  onClick={() =>
+                    addEditedContent(dictionaryKey, undefined, [
+                      ...keyPath,
+                      {
+                        type: NodeType.Enumeration,
+                        key: enumKey,
+                      },
+                    ])
+                  }
+                />
+                <EnumKeyInput
+                  value={enumKey}
+                  onChange={(value) => {
+                    const preValueContent = (
+                      section as EnumerationContent<string>
+                    )[NodeType.Enumeration];
+                    const newValueContent = renameKey(
+                      preValueContent,
+                      enumKey as keyof typeof preValueContent,
+                      value
+                    );
+                    const newValue = {
+                      ...(section as EnumerationContent<string>),
+                      [NodeType.Enumeration]: newValueContent,
+                    };
+
+                    addEditedContent(dictionaryKey, newValue, keyPath);
+                  }}
+                />
+              </div>
+            </td>
+            <td className="w-full p-2">
+              <ContentEditorTextArea
+                variant="default"
+                aria-label="Edit field"
+                onContentChange={(newValue) =>
+                  addEditedContent(dictionaryKey, newValue, [
                     ...keyPath,
                     {
                       type: NodeType.Enumeration,
@@ -153,69 +191,38 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                     },
                   ])
                 }
-              />
-              <EnumKeyInput
-                value={enumKey}
-                onChange={(value) => {
-                  const preValueContent = (
-                    section as EnumerationContent<string>
-                  )[NodeType.Enumeration];
-                  const newValueContent = renameKey(
-                    preValueContent,
-                    enumKey as keyof typeof preValueContent,
-                    value
-                  );
-                  const newValue = {
-                    ...(section as EnumerationContent<string>),
-                    [NodeType.Enumeration]: newValueContent,
-                  };
+              >
+                {
+                  (section as EnumerationContent<string>)[NodeType.Enumeration][
+                    enumKey as any
+                  ] as string
+                }
+              </ContentEditorTextArea>
+            </td>
+          </tr>
+        ))}
+      </tbody>
 
-                  addEditedContent(dictionaryKey, newValue, keyPath);
-                }}
-              />
-            </div>
-          </td>
-          <td className="w-full p-2">
-            <ContentEditorTextArea
-              variant="default"
-              aria-label="Edit field"
-              onContentChange={(newValue) =>
-                addEditedContent(dictionaryKey, newValue, [
-                  ...keyPath,
-                  {
-                    type: NodeType.Enumeration,
-                    key: enumKey,
-                  },
-                ])
-              }
-            >
-              {
-                (section as EnumerationContent<string>)[NodeType.Enumeration][
-                  enumKey as any
-                ] as string
-              }
-            </ContentEditorTextArea>
-          </td>
-        </tr>
-      ))}
-      <Button
-        label={addNewEnumeration.label.value}
-        variant="hoverable"
-        color="neutral"
-        textAlign="left"
-        onClick={() =>
-          addEditedContent(
-            dictionaryKey,
-            '',
-            [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }],
-            false
-          )
-        }
-        Icon={Plus}
-        className="m-2"
-      >
-        {addNewEnumeration.text}
-      </Button>
+      <tfoot>
+        <Button
+          label={addNewEnumeration.label.value}
+          variant="hoverable"
+          color="neutral"
+          textAlign="left"
+          onClick={() =>
+            addEditedContent(
+              dictionaryKey,
+              '',
+              [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }],
+              false
+            )
+          }
+          Icon={Plus}
+          className="m-2"
+        >
+          {addNewEnumeration.text}
+        </Button>
+      </tfoot>
     </table>
   );
 };
@@ -230,53 +237,56 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
 
   return (
     <table className="w-full gap-2">
-      {(section as DictionaryValue[]).map((subSection, index) => (
-        <tr
-          key={JSON.stringify(subSection)}
-          className="border-text dark:border-text-dark w-full border-t-[1.5px]"
+      <tbody>
+        {(section as DictionaryValue[]).map((subSection, index) => (
+          <tr
+            key={JSON.stringify(subSection)}
+            className="border-text dark:border-text-dark w-full border-t-[1.5px]"
+          >
+            <td className="border-text dark:border-text-dark border-r-[1.5px] p-2">
+              {index}
+            </td>
+            <td className="w-full p-2">
+              <ContentEditorTextArea
+                variant="default"
+                aria-label="Edit field"
+                onContentChange={(newValue) => {
+                  addEditedContent(dictionaryKey, newValue, [
+                    ...keyPath,
+                    {
+                      type: NodeType.Array,
+                      key: index,
+                    },
+                  ]);
+                }}
+              >
+                {subSection as string}
+              </ContentEditorTextArea>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+      <tfoot>
+        <Button
+          label={addNewElement.label.value}
+          variant="hoverable"
+          color="neutral"
+          textAlign="left"
+          onClick={() => {
+            const newKeyPath: KeyPath[] = [
+              ...keyPath,
+              {
+                type: NodeType.Array,
+                key: (section as DictionaryValue[]).length,
+              },
+            ];
+            addEditedContent(dictionaryKey, '', newKeyPath, false);
+          }}
+          Icon={Plus}
         >
-          <td className="border-text dark:border-text-dark border-r-[1.5px] p-2">
-            {index}
-          </td>
-          <td className="w-full p-2">
-            <ContentEditorTextArea
-              variant="default"
-              aria-label="Edit field"
-              onContentChange={(newValue) => {
-                addEditedContent(dictionaryKey, newValue, [
-                  ...keyPath,
-                  {
-                    type: NodeType.Array,
-                    key: index,
-                  },
-                ]);
-              }}
-            >
-              {subSection as string}
-            </ContentEditorTextArea>
-          </td>
-        </tr>
-      ))}
-
-      <Button
-        label={addNewElement.label.value}
-        variant="hoverable"
-        color="neutral"
-        textAlign="left"
-        onClick={() => {
-          const newKeyPath: KeyPath[] = [
-            ...keyPath,
-            {
-              type: NodeType.Array,
-              key: (section as DictionaryValue[]).length,
-            },
-          ];
-          addEditedContent(dictionaryKey, '', newKeyPath, false);
-        }}
-        Icon={Plus}
-      >
-        {addNewElement.text}
-      </Button>
+          {addNewElement.text}
+        </Button>
+      </tfoot>
     </table>
   );
 };

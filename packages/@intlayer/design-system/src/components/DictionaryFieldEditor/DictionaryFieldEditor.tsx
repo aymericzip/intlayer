@@ -2,7 +2,7 @@
 
 import { Dictionary } from '@intlayer/core';
 import { ArrowLeft } from 'lucide-react';
-import { type FC } from 'react';
+import { useEffect, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../Button';
@@ -29,7 +29,12 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   onClickDictionaryList,
 }) => {
   const { content: dictionaryContent, key } = dictionary;
-  const editedContent = useEditedContentStore((s) => s.editedContent);
+  const { editedContent, dictionaryRecord, setDictionariesRecord } =
+    useEditedContentStore((s) => ({
+      editedContent: s.editedContent,
+      dictionaryRecord: s.dictionariesRecord,
+      setDictionariesRecord: s.setDictionariesRecord,
+    }));
   const { returnToDictionaryList, titleContent, titleInformation } =
     useDictionary(dictionaryFieldEditorContent);
 
@@ -43,6 +48,14 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const focusedKeyPath = focusedContent?.keyPath;
 
   const section = editedContent[key]?.content ?? dictionaryContent;
+
+  useEffect(() => {
+    if (dictionaryRecord[key]) return;
+
+    setDictionariesRecord({
+      [key]: dictionary,
+    });
+  }, [dictionary, key, setDictionariesRecord]);
 
   return (
     <div className="flex size-full flex-1 flex-col gap-10">

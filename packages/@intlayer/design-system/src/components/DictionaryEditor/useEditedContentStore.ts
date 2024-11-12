@@ -5,6 +5,7 @@ import {
   editDictionaryByKeyPath,
   getDictionaryValueByKeyPath,
   removeDictionaryValueByKeyPath,
+  renameDictionaryValueByKeyPath,
 } from '../../utils/dictionary';
 
 export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
@@ -45,7 +46,12 @@ export const useEditedContentStore = create(
       dictionariesRecord: {},
       editedContent: {},
       setDictionariesRecord: (dictionariesRecord) =>
-        set(() => ({ dictionariesRecord })),
+        set((state) => ({
+          dictionariesRecord: {
+            ...state.dictionariesRecord,
+            ...dictionariesRecord,
+          },
+        })),
       addEditedContent: (
         dictionaryKey,
         newValue,
@@ -55,7 +61,9 @@ export const useEditedContentStore = create(
         set((state) => {
           const dictionaryContent =
             state.editedContent[dictionaryKey]?.content ??
-            state.dictionariesRecord[dictionaryKey].content;
+            JSON.parse(
+              JSON.stringify(state.dictionariesRecord[dictionaryKey].content)
+            );
 
           let newKeyPath: KeyPath[] = keyPath;
 
@@ -109,33 +117,18 @@ export const useEditedContentStore = create(
         }),
       renameEditedContent: (dictionaryKey, newKey, keyPath = []) => {
         set((state) => {
+          const initialDictionaryContent = JSON.parse(
+            JSON.stringify(state.dictionariesRecord[dictionaryKey].content)
+          );
+
           const dictionaryContent =
             state.editedContent[dictionaryKey]?.content ??
-            state.dictionariesRecord[dictionaryKey].content;
-
-          const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
-          const otherKeyPath: KeyPath[] = keyPath.slice(0, -1);
-          const newKeyPath: KeyPath[] = [
-            ...otherKeyPath,
-            { ...lastKeyPath, key: newKey } as KeyPath,
-          ];
-
-          // Get the original value
-          const contentValue = getDictionaryValueByKeyPath(
-            dictionaryContent,
-            keyPath
-          );
+            initialDictionaryContent;
 
           // Add the new field
-          const contentWithNewField = editDictionaryByKeyPath(
+          const contentWithNewField = renameDictionaryValueByKeyPath(
             dictionaryContent,
-            newKeyPath,
-            contentValue
-          );
-
-          // Remove the old field
-          const editedContent = removeDictionaryValueByKeyPath(
-            contentWithNewField,
+            newKey,
             keyPath
           );
 
@@ -144,7 +137,7 @@ export const useEditedContentStore = create(
               ...state.editedContent,
               [dictionaryKey]: {
                 ...state.editedContent[dictionaryKey],
-                content: editedContent,
+                content: contentWithNewField,
               },
             },
           };
@@ -152,8 +145,10 @@ export const useEditedContentStore = create(
       },
       removeEditedContent: (dictionaryKey, keyPath) => {
         set((state) => {
-          const initialDictionaryContent =
-            state.dictionariesRecord[dictionaryKey].content;
+          const initialDictionaryContent = JSON.parse(
+            JSON.stringify(state.dictionariesRecord[dictionaryKey].content)
+          );
+
           const editedDictionaryContent =
             state.editedContent[dictionaryKey]?.content ??
             initialDictionaryContent;

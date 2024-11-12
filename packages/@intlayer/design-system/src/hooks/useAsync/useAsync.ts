@@ -243,6 +243,7 @@ export const useAsync = <
           })
           .catch((error) => {
             const errorMessage = error.message ?? 'An error occurred';
+            console.error(JSON.stringify(error));
 
             setData(keyWithArgs, null);
             setError(keyWithArgs, errorMessage);
@@ -258,10 +259,6 @@ export const useAsync = <
             // Remove the pending promise from the cache
             pendingPromises.delete(keyWithArgs);
           });
-
-        if (errorResponse) {
-          throw new Error(errorResponse);
-        }
 
         return response;
       })();
