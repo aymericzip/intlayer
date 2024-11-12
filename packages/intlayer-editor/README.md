@@ -21,7 +21,7 @@
 
 The Intlayer Editor is a tool that transforms your application into a visual editor. With Intlayer Editor, your teams can manage your site's content in all configured languages.
 
-![Intlayer Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/enabledpletion.png)
+![Intlayer Editor Interface](https://github.com/intlayer-org/intlayer/blob/main/docs/assets/enabledpletion.png)
 
 The `intlayer-editor` package is based on Intlayer and is available for JavaScript applications, such as React (Create React App), Vite + React, and Next.js.
 
@@ -29,19 +29,19 @@ For more details on how to install the package, see the relevant section below:
 
 ### Integrating with Next.js
 
-For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
+For integration with Next.js, refer to the [setup guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
 
 ### Integrating with Create React App
 
-For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
+For integration with Create React App, refer to the [setup guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
 
 ### Integrating with Vite + React
 
-For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md).
+For integration with Vite + React, refer to the [setup guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md).
 
 ## How Intlayer Editor Works
 
-Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md), wherever these files are declared in your project.
+Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md), wherever these files are declared in your project.
 
 In this way, you don't have to worry about where the file is declared or about finding your key in your dictionary collection.
 
@@ -73,7 +73,7 @@ const config: IntlayerConfig = {
 };
 ```
 
-To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
+To see all available parameters, refer to the [configuration documentation](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/configuration_en.md).
 
 ### Start Editing
 
@@ -105,6 +105,6 @@ To start both the Next.js server and the Intlayer Editor simultaneously, you can
 
 When the editor is installed, enabled, and started, you can view each field indexed by Intlayer by hovering over your content with your cursor.
 
-![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+![Hovering over content](https://github.com/intlayer-org/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 If your content is outlined, you can long-press it to display the edit drawer.

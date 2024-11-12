@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## Paquet intlayer-cli
 
-Le paquet `intlayer-cli` a pour objectif de transcrire vos déclarations [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) en dictionnaires.
+Le paquet `intlayer-cli` a pour objectif de transcrire vos déclarations [intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/intlayer/readme.md) en dictionnaires.
 
-Ce paquet transcrira tous les fichiers intlayer, tels que `src/**/*.content.{ts|js|mjs|cjs|json}`. [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md).
+Ce paquet transcrira tous les fichiers intlayer, tels que `src/**/*.content.{ts|js|mjs|cjs|json}`. [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/intlayer/readme.md).
 
-Pour interpréter les dictionnaires intlayer, vous pouvez utiliser des interpréteurs, tels que [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.md) ou [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md).
+Pour interpréter les dictionnaires intlayer, vous pouvez utiliser des interpréteurs, tels que [react-intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/react-intlayer/readme.md) ou [next-intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/next-intlayer/readme.md).
 
 ## Support des Fichiers de Configuration
 
@@ -37,7 +37,7 @@ Intlayer accepte plusieurs formats de fichiers de configuration :
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-Pour savoir comment configurer les langues disponibles ou d'autres paramètres, consultez la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
+Pour savoir comment configurer les langues disponibles ou d'autres paramètres, consultez la [documentation de configuration ici](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/configuration_fr.md).
 
 ## Exécuter les Commandes Intlayer
 
@@ -63,7 +63,7 @@ Cette commande trouvera vos fichiers de contenu de déclaration par défaut dans
 npx intlayer push
 ```
 
-Si l'[éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor_fr.md) est installé, vous pouvez également envoyer des dictionnaires à l'éditeur. Cette commande rendra les dictionnaires disponibles dans l'éditeur à [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). De cette manière, vous pouvez partager vos dictionnaires avec votre équipe et éditer votre contenu sans modifier le code de votre application.
+Si l'[éditeur intlayer](https://github.com/intlayer-org/intlayer/blob/main/docs/intlayer_editor_fr.md) est installé, vous pouvez également envoyer des dictionnaires à l'éditeur. Cette commande rendra les dictionnaires disponibles dans l'éditeur à [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). De cette manière, vous pouvez partager vos dictionnaires avec votre équipe et éditer votre contenu sans modifier le code de votre application.
 
 ##### Arguments :
 
@@ -80,7 +80,7 @@ Si l'[éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/i
 npx intlayer pull
 ```
 
-Si l'[éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor_fr.md) est installé, vous pouvez également télécharger des dictionnaires depuis l'éditeur. De cette manière, vous pouvez écraser le contenu de vos dictionnaires selon les besoins de votre application.
+Si l'[éditeur intlayer](https://github.com/intlayer-org/intlayer/blob/main/docs/intlayer_editor_fr.md) est installé, vous pouvez également télécharger des dictionnaires depuis l'éditeur. De cette manière, vous pouvez écraser le contenu de vos dictionnaires selon les besoins de votre application.
 
 ##### Arguments :
 

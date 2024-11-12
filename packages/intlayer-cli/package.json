@@ -14,11 +14,11 @@
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
-    "url": "https://github.com/aymericzip/intlayer/issues"
+    "url": "https://github.com/intlayer-org/intlayer/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
+    "url": "git+https://github.com/intlayer-org/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -96,6 +96,6 @@
     "node": ">=14.18"
   },
   "bug": {
-    "url": "https://github.com/aymericzip/intlayer/issues"
+    "url": "https://github.com/intlayer-org/intlayer/issues"
   }
 }

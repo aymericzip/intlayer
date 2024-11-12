@@ -9,7 +9,7 @@ Pour cela intlayer procède à plusieurs étapes :
 1. Déclaration des fichiers de déclaration de contenu
 
    - Les fichiers de déclaration de contenu peuvent être définis dans différents formats, tels que TypeScript, ECMAScript, CommonJS, ou JSON.
-   - Les fichiers de déclaration de contenu peuvent être définis nimporte ou dans le projet, ce qui permet une meilleure gestion de la maintenance et de la scalabilité. Il est important de respecter la conventions d'extension pour les fichiers de déclaration de contenu. Cette extension est par default `*.content.{js|cjs|mjs|ts|tsx|json}`, mais elle peut être modifiée dans le [fichier de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
+   - Les fichiers de déclaration de contenu peuvent être définis nimporte ou dans le projet, ce qui permet une meilleure gestion de la maintenance et de la scalabilité. Il est important de respecter la conventions d'extension pour les fichiers de déclaration de contenu. Cette extension est par default `*.content.{js|cjs|mjs|ts|tsx|json}`, mais elle peut être modifiée dans le [fichier de configuration](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/configuration_fr.md).
 
 2. Génération des dictionnaires
 
@@ -36,7 +36,7 @@ Pour cela intlayer procède à plusieurs étapes :
 
 Intlayer est composé de plusieurs packages, chacun ayant un rôle spécifique dans le processus de traduction. Voici une représentation graphique de la structure de ce paquet :
 
-![paquets de intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/packages_dependency_graph.svg)
+![paquets de intlayer](https://github.com/intlayer-org/intlayer/blob/main/docs/assets/packages_dependency_graph.svg)
 
 ### intlayer
 

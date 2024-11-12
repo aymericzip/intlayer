@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## intlayer-cli package
 
-`intlayer-cli` package intend to transpile your [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) declarations into dictionaries.
+`intlayer-cli` package intend to transpile your [intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/intlayer/readme.md) declarations into dictionaries.
 
-This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md).
+This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/intlayer-org/intlayer/blob/main/packages/intlayer/readme.md).
 
-To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.md), or [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md)
+To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/react-intlayer/readme.md), or [next-intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/next-intlayer/readme.md)
 
 ## Configuration File Support
 
@@ -37,7 +37,7 @@ Intlayer accepts multiple configuration file formats:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
+To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/configuration_en.md).
 
 ## Run intlayer commands
 
@@ -63,7 +63,7 @@ This command will find your declaration content files as default as `./src/**/*.
 npx intlayer push
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor_en.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to the editor at [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
+If [intlayer editor](https://github.com/intlayer-org/intlayer/blob/main/docs/intlayer_editor_en.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to the editor at [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
 
 ##### Arguments:
 
@@ -80,7 +80,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/intla
 npx intlayer pull
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor_en.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
+If [intlayer editor](https://github.com/intlayer-org/intlayer/blob/main/docs/intlayer_editor_en.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
 
 ##### Arguments:
 

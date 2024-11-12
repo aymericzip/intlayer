@@ -5,11 +5,11 @@
   "description": "IntLayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "homepage": "https://intlayer.org",
   "bugs": {
-    "url": "https://github.com/aymericzip/intlayer/issues"
+    "url": "https://github.com/intlayer-org/intlayer/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
+    "url": "git+https://github.com/intlayer-org/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -84,6 +84,6 @@
     "yarn": "please-use-pnpm"
   },
   "bug": {
-    "url": "https://github.com/aymericzip/intlayer/issues"
+    "url": "https://github.com/intlayer-org/intlayer/issues"
   }
 }

@@ -1,4 +1,4 @@
-![Logo](https://github.com/aymericzip/intlayer/blob/main/packages/@intlayer/design-system/src/components/Logo/logo_with_text_no_frame.svg)
+![Logo](https://github.com/intlayer-org/intlayer/blob/main/packages/@intlayer/design-system/src/components/Logo/logo_with_text_no_frame.svg)
 
 **Internationalization made easy**
 

@@ -2,11 +2,11 @@
 
 ## Configurer Intlayer pour votre projet
 
-[Voir comment utiliser intlayer avec NextJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md)
+[Voir comment utiliser intlayer avec NextJS](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md)
 
-[Voir comment utiliser intlayer avec ReactJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md)
+[Voir comment utiliser intlayer avec ReactJS](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md)
 
-[Voir comment utiliser intlayer avec Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
+[Voir comment utiliser intlayer avec Vite+React](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
 
 ## Installer le package
 
@@ -164,4 +164,4 @@ module.exports = pageContent;
 }
 ```
 
-Attention, la déclaration de contenu JSON rend impossible la mise en œuvre de [récupération de fonction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/function_fetching.md).
+Attention, la déclaration de contenu JSON rend impossible la mise en œuvre de [récupération de fonction](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/content_declaration/function_fetching.md).

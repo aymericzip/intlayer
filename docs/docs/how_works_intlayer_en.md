@@ -9,7 +9,7 @@ For this, Intlayer goes through several steps:
 1. Declaration of content files
 
    - Content files can be defined in various formats, such as TypeScript, ECMAScript, CommonJS, or JSON.
-   - Content files can be defined everywhere in the project, which allows for better maintenance and scalability. It is important to respect the file extension conventions for content files. This extension is by default `*.content.{js|cjs|mjs|ts|tsx|json}`, but it can be modified in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
+   - Content files can be defined everywhere in the project, which allows for better maintenance and scalability. It is important to respect the file extension conventions for content files. This extension is by default `*.content.{js|cjs|mjs|ts|tsx|json}`, but it can be modified in the [configuration file](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/configuration_en.md).
 
 2. Generation of dictionaries
 
@@ -36,7 +36,7 @@ For this, Intlayer goes through several steps:
 
 Intlayer is composed of several packages, each with a specific role in the translation process. Here is a graphical representation of the structure of this package:
 
-![packages of intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/packages_dependency_graph.svg)
+![packages of intlayer](https://github.com/intlayer-org/intlayer/blob/main/docs/assets/packages_dependency_graph.svg)
 
 ### intlayer
 

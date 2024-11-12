@@ -2,7 +2,7 @@
 
 ## Understanding the project
 
-To understand the project, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/how_works_intlayer_en.md).
+To understand the project, you can read the [documentation named "How Intlayer Works"](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/how_works_intlayer_en.md).
 
 ## Development setup
 
@@ -11,7 +11,7 @@ IntLayer is developed as a mono-repo using pmpm.
 ### Cloning
 
 ```sh
-git clone git@github.com:aymericzip/intlayer.git
+git clone git@github.com:intlayer-org/intlayer.git
 ```
 
 #### Installing Dependencies

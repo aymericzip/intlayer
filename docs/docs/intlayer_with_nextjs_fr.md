@@ -42,7 +42,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
+Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/configuration_fr.md).
 
 ## Étape 3 : Intégrer Intlayer dans votre Configuration Next.js
 
@@ -143,7 +143,7 @@ export default pageContent;
 
 > Note : Si votre fichier de contenu inclut du code TSX, vous devrez penser à importer `import React from "react";` dans votre fichier de contenu.
 
-[Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
+[Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
 
 ## Étape 7 : Utiliser le Contenu dans votre Code
 
@@ -231,7 +231,7 @@ export const ServerComponentExample = () => {
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-Pour une utilisation plus détaillée d'intlayer dans un composant Client ou Server, consultez l'[exemple nextJS ici](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
+Pour une utilisation plus détaillée d'intlayer dans un composant Client ou Server, consultez l'[exemple nextJS ici](https://github.com/intlayer-org/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
 
 ## (Optionnel) Étape 8: Internationalisation de votre métadonnées
 
@@ -288,9 +288,9 @@ const MyComponent = () => {
 
 Intlayer utilise l'augmentation de module pour tirer parti de TypeScript et renforcer votre base de code.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![alt text](https://github.com/intlayer-org/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![alt text](https://github.com/intlayer-org/intlayer/blob/main/docs/assets/translation_error.png)
 
 Assurez-vous que votre configuration TypeScript inclut les types autogénérés.
 
