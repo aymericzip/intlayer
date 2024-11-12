@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import { type Context, runInNewContext } from 'vm';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import React from 'react';
@@ -72,7 +71,8 @@ export const loadConfigurationFile = (
   try {
     if (configFileExtension === 'json') {
       // Assume JSON
-      return require(configFilePath);
+
+      return ESMxCJSRequire(configFilePath);
     }
 
     // Rest is JS, MJS or TS

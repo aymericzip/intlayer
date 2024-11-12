@@ -35,13 +35,20 @@ export const withIntlayer = (
   return Object.assign({}, nextConfig, {
     env: { ...nextConfig.env, ...env },
 
+    serverExternalPackages: [
+      '@intlayer/dictionaries-entry',
+      '@intlayer/webpack',
+      'module',
+      'fs',
+    ],
+
     experimental: {
       ...(nextConfig.experimental ?? {}),
       // Using Intlayer with Turbopack is not supported as long external modules can't be resolved (such as esbuild or fs)
       turbo: {
         ...(nextConfig.experimental?.turbo ?? {}),
         resolveAlias: {
-          ...nextConfig.experimental?.turbo?.resolveAlias,
+          ...(nextConfig.experimental?.turbo?.resolveAlias ?? {}),
           '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
         },
 
@@ -68,6 +75,8 @@ export const withIntlayer = (
         esbuild: 'esbuild',
         module: 'module',
         fs: 'fs',
+        chokidar: 'chokidar',
+        fsevents: 'fsevents',
       });
       config.module.rules.push({
         test: /\.node$/,

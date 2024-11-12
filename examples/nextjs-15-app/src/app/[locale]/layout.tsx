@@ -4,8 +4,10 @@ import {
   getHTMLTextDir,
   type IConfigLocales,
   getTranslationContent,
+  Locales,
 } from 'intlayer';
 import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
+import { ReactNode } from 'react';
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
@@ -18,9 +20,11 @@ const geistMono = localFont({
   weight: '100 900',
 });
 
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
+export const generateMetadata = async ({
+  params,
+}: LocalParams): Promise<Metadata> => {
+  const { locale } = await params;
+
   const t = <T extends string>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
@@ -42,12 +46,24 @@ export const generateMetadata = ({
   };
 };
 
-const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
-  <html lang={locale} dir={getHTMLTextDir(locale)}>
-    <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      {children}
-    </body>
-  </html>
-);
+const LocaleLayout = async ({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: Promise<LocalParams['params']>;
+}) => {
+  const { locale } = await params;
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+};
 
 export default LocaleLayout;

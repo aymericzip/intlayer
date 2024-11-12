@@ -70,3 +70,6 @@ export type TranslationContent<Content> = {
   nodeType: NodeType.Translation;
   [NodeType.Translation]: LanguageContent<Content>;
 };
+
+// Allow to consider this file as a module and fix turbopack issue
+export const FIX_MODULE_TRANSFORMATION = undefined;

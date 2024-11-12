@@ -2,7 +2,6 @@
   "name": "@intlayer/design-system",
   "version": "3.0.3",
   "private": false,
-  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/components/index.mjs",
