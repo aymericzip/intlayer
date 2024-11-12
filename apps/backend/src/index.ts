@@ -9,7 +9,6 @@ import express, { type Express } from 'express';
 import { intlayer, t } from 'express-intlayer';
 
 // Middlewares
-import { checkAdmin } from '@middlewares/admin.middleware';
 import {
   attachOAuthInstance,
   authenticateOAuth2,
@@ -20,6 +19,7 @@ import {
   checkUser,
   checkOrganization,
   checkProject,
+  checkAdmin,
   ResponseWithInformation,
 } from '@middlewares/sessionAuth.middleware';
 
@@ -102,6 +102,7 @@ app.get('/', (_req, res) => {
 app.use(/(.*)/, checkUser);
 app.use(/(.*)/, checkOrganization);
 app.use(/(.*)/, checkProject);
+app.use(/(.*)/, checkAdmin);
 
 // debug
 if (isDev) {
@@ -138,9 +139,6 @@ app.use(/(.*)/, (req, res, next) => {
   }
   next();
 });
-
-// Admin check for project and organization
-app.use(/(.*)/, checkAdmin);
 
 // Routes
 app.use('/api/user', userRouter);

@@ -14,8 +14,21 @@ export type ProjectData = {
   creatorId: User['_id'];
 };
 
+export type Rights = {
+  read: boolean;
+  write: boolean;
+  admin: boolean;
+};
+
+export type TokenRights = {
+  dictionary: Rights;
+  project: Rights;
+  organization: Rights;
+};
+
 export type AccessKeyData = {
   name: string;
+  rights: TokenRights;
   expiresAt?: Date;
 };
 

@@ -11,6 +11,7 @@ import {
   type ProjectFilters,
   type ProjectFiltersParams,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
+import { mapProjectsToAPI, mapProjectToAPI } from '@utils/mapper/project';
 import {
   formatPaginatedResponse,
   type ResponseData,
@@ -38,7 +39,7 @@ export const getProjects = async (
   res: ResponseWithInformation<GetProjectsResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization } = res.locals;
+  const { user, organization, projectRights } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
 
@@ -49,6 +50,11 @@ export const getProjects = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    return;
+  }
+
+  if (!projectRights?.read) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_READ');
     return;
   }
 
@@ -66,8 +72,14 @@ export const getProjects = async (
     );
     const totalItems = await projectService.countProjects(filters);
 
+    const formattedProjects = mapProjectsToAPI(
+      projects,
+      user,
+      res.locals.isProjectAdmin
+    );
+
     const responseData = formatPaginatedResponse<ProjectAPI>({
-      data: projects,
+      data: formattedProjects,
       page,
       pageSize,
       totalPages: getNumberOfPages(totalItems),
@@ -83,7 +95,7 @@ export const getProjects = async (
 };
 
 export type AddProjectBody = ProjectCreationData;
-export type AddProjectResult = ResponseData<Project>;
+export type AddProjectResult = ResponseData<ProjectAPI>;
 
 /**
  * Adds a new project to the database.
@@ -93,7 +105,7 @@ export const addProject = async (
   res: ResponseWithInformation<AddProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user, isOrganizationAdmin } = res.locals;
+  const { organization, user, isOrganizationAdmin, projectRights } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -113,6 +125,11 @@ export const addProject = async (
     );
   }
 
+  if (!projectRights?.admin) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_WRITE');
+    return;
+  }
+
   if (!projectData) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
   }
@@ -128,7 +145,9 @@ export const addProject = async (
   try {
     const newProject = await projectService.createProject(project);
 
-    const responseData = formatResponse<Project>({ data: newProject });
+    const formattedProject = mapProjectToAPI(newProject, user, true);
+
+    const responseData = formatResponse<ProjectAPI>({ data: formattedProject });
 
     res.json(responseData);
     return;
@@ -138,8 +157,8 @@ export const addProject = async (
   }
 };
 
-export type UpdateProjectBody = Partial<Project>;
-export type UpdateProjectResult = ResponseData<Project>;
+export type UpdateProjectBody = Partial<ProjectData> & { _id: string };
+export type UpdateProjectResult = ResponseData<ProjectAPI>;
 
 /**
  * Updates an existing project in the database.
@@ -149,8 +168,14 @@ export const updateProject = async (
   res: ResponseWithInformation<UpdateProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization } = res.locals;
-  const project = req.body;
+  const { organization, projectRights, project, user, isProjectAdmin } =
+    res.locals;
+  const projectData = req.body;
+
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
@@ -162,13 +187,23 @@ export const updateProject = async (
     return;
   }
 
-  if (project.organizationId !== organization._id) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
+  if (!isProjectAdmin) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
     return;
   }
 
-  if (typeof project._id === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_NOT_FOUND');
+  if (!projectRights?.write) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_WRITE');
+    return;
+  }
+
+  if (typeof project._id !== projectData._id) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_MISMATCH');
+    return;
+  }
+
+  if (project.organizationId !== organization._id) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
     return;
   }
 
@@ -178,7 +213,13 @@ export const updateProject = async (
       project
     );
 
-    const responseData = formatResponse<Project>({ data: updatedProject });
+    const formattedProject = mapProjectToAPI(
+      updatedProject,
+      user,
+      isProjectAdmin
+    );
+
+    const responseData = formatResponse<ProjectAPI>({ data: formattedProject });
 
     res.json(responseData);
     return;
@@ -197,7 +238,7 @@ export type ProjectMemberByIdOption = {
 export type UpdateProjectMembersBody = Partial<{
   membersIds: ProjectMemberByIdOption[];
 }>;
-export type UpdateProjectMembersResult = ResponseData<Project>;
+export type UpdateProjectMembersResult = ResponseData<ProjectAPI>;
 
 /**
  * Update members to the dictionary in the database.
@@ -207,8 +248,14 @@ export const updateProjectMembers = async (
   res: ResponseWithInformation<UpdateProjectMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, isProjectAdmin, organization } = res.locals;
+  const { user, project, isProjectAdmin, organization, projectRights } =
+    res.locals;
   const { membersIds } = req.body;
+
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
@@ -220,6 +267,11 @@ export const updateProjectMembers = async (
       res,
       'USER_IS_NOT_ADMIN_OF_PROJECT'
     );
+    return;
+  }
+
+  if (!projectRights?.admin) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
     return;
   }
 
@@ -281,8 +333,14 @@ export const updateProjectMembers = async (
       }
     );
 
-    const responseData = formatResponse<Project>({
-      data: updatedOrganization,
+    const formattedProject = mapProjectToAPI(
+      updatedOrganization,
+      user,
+      isProjectAdmin
+    );
+
+    const responseData = formatResponse<ProjectAPI>({
+      data: formattedProject,
     });
 
     res.json(responseData);
@@ -293,7 +351,7 @@ export const updateProjectMembers = async (
   }
 };
 
-export type DeleteProjectResult = ResponseData<Project>;
+export type DeleteProjectResult = ResponseData<ProjectAPI>;
 
 /**
  * Deletes a project from the database by its ID.
@@ -302,11 +360,17 @@ export type DeleteProjectResult = ResponseData<Project>;
  * @returns Response confirming the deletion.
  */
 export const deleteProject = async (
-  req: Request,
+  _req: Request,
   res: ResponseWithInformation<DeleteProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, project } = res.locals;
+  const { user, organization, project, projectRights, isProjectAdmin } =
+    res.locals;
+
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
@@ -315,6 +379,11 @@ export const deleteProject = async (
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    return;
+  }
+
+  if (!projectRights?.admin) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
     return;
   }
 
@@ -341,7 +410,15 @@ export const deleteProject = async (
 
     logger.info(`Project deleted: ${String(deletedProject._id)}`);
 
-    const responseData = formatResponse<Project>({ data: deletedProject });
+    const formattedProject = mapProjectToAPI(
+      deletedProject,
+      user,
+      isProjectAdmin
+    );
+
+    const responseData = formatResponse<ProjectAPI>({
+      data: formattedProject,
+    });
 
     res.json(responseData);
     return;

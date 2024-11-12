@@ -140,12 +140,18 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
           </div>
           <div className="flex flex-col gap-1">
             <span className="text-wrap text-sm font-bold">clientSecret:</span>
-            <CopyToClipboard
-              text={accessKey.clientSecret}
-              className="break-all text-xs"
-            >
-              {accessKey.clientSecret}
-            </CopyToClipboard>
+            {accessKey.clientSecret.endsWith('*') ? (
+              <span className="text-wrap break-all text-sm">
+                {accessKey.clientSecret}
+              </span>
+            ) : (
+              <CopyToClipboard
+                text={accessKey.clientSecret}
+                className="break-all text-xs"
+              >
+                {accessKey.clientSecret}
+              </CopyToClipboard>
+            )}
           </div>
           <div className="flex-te flex gap-3">
             <div className="text-neutral dark:text-neutral-dark flex flex-1 flex-col gap-1">

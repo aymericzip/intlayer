@@ -63,6 +63,10 @@ export const countProjects = async (
  * @returns The created project.
  */
 export const createProject = async (project: ProjectData): Promise<Project> => {
+  if ((project as Partial<Project>).oAuth2Access) {
+    delete (project as Partial<Project>).oAuth2Access;
+  }
+
   const errors = await validateProject(project, ['name']);
 
   if (Object.keys(errors).length > 0) {
@@ -82,7 +86,12 @@ export const updateProjectById = async (
   projectId: string | ObjectId,
   project: Partial<Project>
 ): Promise<Project> => {
+  if (project.oAuth2Access) {
+    delete project.oAuth2Access;
+  }
+
   const updatedKeys = Object.keys(project) as ProjectFields;
+
   const errors = validateProject(project, updatedKeys);
 
   if (Object.keys(errors).length > 0) {

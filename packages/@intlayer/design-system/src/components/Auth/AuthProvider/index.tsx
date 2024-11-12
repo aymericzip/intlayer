@@ -12,7 +12,6 @@ import {
   createContext,
   useContext,
   useMemo,
-  useState,
   useEffect,
 } from 'react';
 import { useCSRF } from './useCSRF';
@@ -23,6 +22,8 @@ export type Session = {
   user: UserAPI | null;
   organization: Organization | null;
   project: Project | null;
+  isOrganizationAdmin: boolean;
+  isProjectAdmin: boolean;
 };
 
 type SessionContextProps = {
@@ -33,8 +34,8 @@ type SessionContextProps = {
   csrfToken: string | null | undefined;
   csrfTokenFetched: boolean;
   oAuth2AccessToken: OAuth2Token | null | undefined;
-  isProjectAdmin: boolean;
-  isOrganizationAdmin: boolean;
+  isProjectAdmin: boolean | null | undefined;
+  isOrganizationAdmin: boolean | null | undefined;
 };
 
 export const AuthContext = createContext<SessionContextProps>({
@@ -45,8 +46,8 @@ export const AuthContext = createContext<SessionContextProps>({
   csrfToken: null,
   csrfTokenFetched: false,
   oAuth2AccessToken: null,
-  isProjectAdmin: false,
-  isOrganizationAdmin: false,
+  isProjectAdmin: null,
+  isOrganizationAdmin: null,
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -66,22 +67,6 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   const { session, fetchSession, revalidateSession, setSession } =
     useSession(sessionProp);
   const { oAuth2AccessToken } = useOAuth2(csrfToken);
-  const [isProjectAdmin, setIsProjectAdmin] = useState<boolean>(false);
-  const [isOrganizationAdmin, setIsOrganizationAdmin] =
-    useState<boolean>(false);
-
-  useEffect(() => {
-    if (session?.user && session.organization) {
-      setIsOrganizationAdmin(
-        session.organization.adminsIds.includes(session.user._id)
-      );
-    }
-    if (session?.user && session.project) {
-      setIsProjectAdmin(
-        session.project?.adminsIds.includes(session.user._id) ?? false
-      );
-    }
-  }, [session]);
 
   const memoValue: SessionContextProps = useMemo(
     () => ({
@@ -92,8 +77,8 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
       csrfToken,
       csrfTokenFetched,
       oAuth2AccessToken,
-      isProjectAdmin,
-      isOrganizationAdmin,
+      isProjectAdmin: session?.isProjectAdmin,
+      isOrganizationAdmin: session?.isOrganizationAdmin,
     }),
     [
       session,
@@ -103,8 +88,6 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
       csrfToken,
       csrfTokenFetched,
       oAuth2AccessToken,
-      isProjectAdmin,
-      isOrganizationAdmin,
     ]
   );
 

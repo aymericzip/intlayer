@@ -14,23 +14,24 @@ import type {
   Organization,
   OrganizationDocument,
 } from '@/types/organization.types';
-import type { Project, ProjectDocument } from '@/types/project.types';
+import type { Project, ProjectDocument, Rights } from '@/types/project.types';
 import type { User, UserDocument } from '@/types/user.types';
-
-export enum AuthInformationType {
-  IsNull,
-  IsDefined,
-}
 
 export type ResponseWithInformation<ResBody = any> = Response<
   ResBody,
   {
     user: User | null;
+    // Auth Context
     organization: Organization | null;
-    isOrganizationAdmin: boolean | null;
     project: Project | null;
-    isProjectAdmin: boolean | null;
     authType: 'session' | 'oauth2' | null;
+    // Auth Rights - oAuth2 Auth
+    organizationRights: Rights | null;
+    projectRights: Rights | null;
+    dictionaryRights: Rights | null;
+    // Auth Rights - Session Auth
+    isOrganizationAdmin: boolean | null;
+    isProjectAdmin: boolean | null;
   }
 >;
 
@@ -143,6 +144,79 @@ export const checkProject = async (
     res.locals.project = project.toObject();
   } catch (error) {
     console.error('Error fetching project:', error);
+  }
+
+  return next();
+};
+
+/**
+ * Middleware to check if the user is an admin of the organization or project
+ * Sets the following properties in res.locals:
+ * - isOrganizationAdmin: boolean
+ * - isProjectAdmin: boolean
+ */
+export const checkAdmin = async (
+  _req: Request,
+  res: ResponseWithInformation,
+  next: NextFunction
+): Promise<void> => {
+  const { organization, project, user, authType } = res.locals;
+
+  if (authType !== 'session') {
+    return next();
+  }
+
+  res.locals.organizationRights = {
+    read: false,
+    write: false,
+    admin: false,
+  };
+  res.locals.projectRights = {
+    read: false,
+    write: false,
+    admin: false,
+  };
+  res.locals.projectRights = {
+    read: false,
+    write: false,
+    admin: false,
+  };
+
+  if (user) {
+    if (organization) {
+      const isOrganizationAdmin: boolean =
+        organization.adminsIds
+          .map((id) => String(id))
+          .includes(String(user._id)) ?? false;
+
+      res.locals.isOrganizationAdmin = isOrganizationAdmin;
+
+      res.locals.organizationRights = {
+        read: true,
+        write: isOrganizationAdmin,
+        admin: isOrganizationAdmin,
+      };
+    }
+
+    if (project) {
+      const isProjectAdmin: boolean =
+        project.adminsIds.map((id) => String(id)).includes(String(user._id)) ??
+        false;
+
+      res.locals.isProjectAdmin = isProjectAdmin;
+
+      res.locals.projectRights = {
+        read: true,
+        write: isProjectAdmin,
+        admin: isProjectAdmin,
+      };
+
+      res.locals.dictionaryRights = {
+        read: true,
+        write: true,
+        admin: true,
+      };
+    }
   }
 
   return next();

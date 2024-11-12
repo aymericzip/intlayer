@@ -5,7 +5,7 @@ import { User, UserAPI, UserDocument } from '@/types/user.types';
  * @param user - The user object to format.
  * @returns The formatted user object.
  */
-export const mapUserToAPI = (user: User | UserDocument): UserAPI => {
+export const mapUserToAPI = (user: User | UserAPI | UserDocument): UserAPI => {
   let userObject: User = user;
 
   // If the user is a mongoose document, convert it to an object

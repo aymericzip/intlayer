@@ -39,12 +39,20 @@ export const getOrganizations = async (
   res: ResponseWithInformation<GetOrganizationsResult>,
   _next: NextFunction
 ) => {
-  const { user } = res.locals;
+  const { user, organizationRights } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
+
+  if (!organizationRights?.read) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_RIGHTS_NOT_READ'
+    );
     return;
   }
 
@@ -89,7 +97,16 @@ export const getOrganization = async (
   res: ResponseWithInformation<GetOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
+  const { organizationRights } = res.locals;
   const { organizationId } = req.params as Partial<GetOrganizationParam>;
+
+  if (!organizationRights?.read) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_RIGHTS_NOT_READ'
+    );
+    return;
+  }
 
   if (!organizationId) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_ID_NOT_FOUND');
@@ -162,7 +179,7 @@ export const updateOrganization = async (
   res: ResponseWithInformation<UpdateOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { isOrganizationAdmin, organization } = res.locals;
+  const { isOrganizationAdmin, organization, organizationRights } = res.locals;
   const organizationFields = req.body;
 
   if (!organizationFields) {
@@ -172,6 +189,14 @@ export const updateOrganization = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    return;
+  }
+
+  if (!organizationRights?.write) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_RIGHTS_NOT_WRITE'
+    );
     return;
   }
 
@@ -222,7 +247,8 @@ export const addOrganizationMember = async (
   res: ResponseWithInformation<AddOrganizationMemberResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, isOrganizationAdmin, user } = res.locals;
+  const { organization, isOrganizationAdmin, user, organizationRights } =
+    res.locals;
   const { userEmail } = req.body;
 
   if (!organization) {
@@ -239,6 +265,14 @@ export const addOrganizationMember = async (
     ErrorHandler.handleGenericErrorResponse(
       res,
       'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
+    );
+    return;
+  }
+
+  if (!organizationRights?.admin) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_RIGHTS_NOT_ADMIN'
     );
     return;
   }
@@ -302,7 +336,7 @@ export const updateOrganizationMembers = async (
   res: ResponseWithInformation<UpdateOrganizationMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, isOrganizationAdmin } = res.locals;
+  const { organization, organizationRights, isOrganizationAdmin } = res.locals;
   const { membersIds } = req.body;
 
   if (!organization) {
@@ -314,6 +348,14 @@ export const updateOrganizationMembers = async (
     ErrorHandler.handleGenericErrorResponse(
       res,
       'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
+    );
+    return;
+  }
+
+  if (!organizationRights?.write) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_RIGHTS_NOT_WRITE'
     );
     return;
   }
@@ -394,7 +436,7 @@ export const deleteOrganization = async (
   res: ResponseWithInformation,
   _next: NextFunction
 ): Promise<void> => {
-  const { isOrganizationAdmin, organization } = res.locals;
+  const { isOrganizationAdmin, organization, organizationRights } = res.locals;
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
@@ -405,6 +447,14 @@ export const deleteOrganization = async (
     ErrorHandler.handleGenericErrorResponse(
       res,
       'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
+    );
+    return;
+  }
+
+  if (!organizationRights?.admin) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_RIGHTS_NOT_ADMIN'
     );
     return;
   }

@@ -45,7 +45,7 @@ export const MembersForm: FC = () => {
   const { form, isSubmitting } = useForm(MembersFormSchema, {
     defaultValues: {
       membersIds: organization?.membersIds.map((el) => String(el)) ?? [],
-      adminsIds: organization?.adminsIds.map((el) => String(el)) ?? [],
+      adminsIds: (organization?.adminsIds ?? []).map((el) => String(el)) ?? [],
     },
   });
 

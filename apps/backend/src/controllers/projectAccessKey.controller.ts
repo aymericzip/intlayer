@@ -16,7 +16,8 @@ export const addNewAccessKey = async (
   res: ResponseWithInformation<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, organizationRights, projectRights, dictionaryRights } =
+    res.locals;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
@@ -28,11 +29,32 @@ export const addNewAccessKey = async (
     return;
   }
 
+  if (!organizationRights) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_RIGHTS_NOT_READ'
+    );
+    return;
+  }
+
+  if (!projectRights) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_READ');
+    return;
+  }
+
+  if (!dictionaryRights) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
+    return;
+  }
+
   try {
     const newAccessKey = await projectAccessKeyService.addNewAccessKey(
       req.body,
       project._id,
-      user
+      user,
+      organizationRights,
+      projectRights,
+      dictionaryRights
     );
 
     const responseData = formatResponse<OAuth2Access>({
@@ -79,7 +101,8 @@ export const deleteAccessKey = async (
   try {
     const deletedAccessKey = await projectAccessKeyService.deleteAccessKey(
       clientId,
-      project
+      project,
+      user._id
     );
 
     if (!deletedAccessKey) {
@@ -130,7 +153,8 @@ export const refreshAccessKey = async (
   try {
     const newAccessKey = await projectAccessKeyService.refreshAccessKey(
       clientId,
-      project!._id
+      project!._id,
+      user!._id
     );
 
     const responseData = formatResponse<OAuth2Access>({

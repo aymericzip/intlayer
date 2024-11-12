@@ -14,12 +14,21 @@ export const useSession = (sessionProp?: Session | null) => {
           const result = await getIntlayerAPI().auth.getSession();
 
           if (result.data) {
+            const { user, organization, project } = result.data;
+
             const formattedSession: Session = {
-              user: result.data.user,
-              organization: result.data.organization,
-              project: result.data.project,
+              user,
+              organization,
+              isOrganizationAdmin:
+                (user && (organization?.adminsIds ?? []).includes(user._id!)) ??
+                false,
+              project,
+              isProjectAdmin:
+                (user && (project?.adminsIds ?? []).includes(user._id!)) ??
+                false,
             };
 
+            console.log('session', formattedSession);
             return formattedSession;
           }
         } catch (_error) {

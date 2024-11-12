@@ -516,6 +516,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
+  PROJECT_ID_MISMATCH: {
+    title: {
+      en: 'Project ID Mismatch',
+      fr: 'Identifiant de projet non correspondant',
+      es: 'Identificador de proyecto no coincidente',
+    },
+    message: {
+      en: 'The provided project ID does not match the expected value. Please verify and try again.',
+      fr: "L'identifiant de projet fourni ne correspond pas à la valeur attendue. Veuillez vérifier et réessayer.",
+      es: 'El identificador de proyecto proporcionado no coincide con el valor esperado. Verifique e intente nuevamente.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
   PROJECT_COUNT_FAILED: {
     title: {
       en: 'Project Count Failed',
@@ -812,6 +825,123 @@ export const errorData = {
       en: 'The project is not in the organization.',
       fr: "Le projet n'est pas dans l'organisation.",
       es: 'El proyecto no está en la organización.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  DICTIONARY_RIGHTS_NOT_READ: {
+    title: {
+      en: 'Dictionary Rights Not Read',
+      fr: 'Droits de dictionnaire non lus',
+      es: 'Derechos de diccionario no leídos',
+    },
+    message: {
+      en: 'You do not have read access to this dictionary.',
+      fr: "Vous n'avez pas accès en lecture à ce dictionnaire.",
+      es: 'No tienes acceso de lectura a este diccionario.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  DICTIONARY_RIGHTS_NOT_WRITE: {
+    title: {
+      en: 'Dictionary Rights Not Write',
+      fr: 'Droits de dictionnaire non écrits',
+      es: 'Derechos de diccionario no escritos',
+    },
+    message: {
+      en: 'You do not have write access to this dictionary.',
+      fr: "Vous n'avez pas accès en écriture à ce dictionnaire.",
+      es: 'No tienes acceso de escritura a este diccionario.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  DICTIONARY_RIGHTS_NOT_ADMIN: {
+    title: {
+      en: 'Dictionary Rights Not Admin',
+      fr: 'Droits de dictionnaire non admin',
+      es: 'Derechos de diccionario no admin',
+    },
+    message: {
+      en: 'You do not have admin access to this dictionary.',
+      fr: "Vous n'avez pas accès en admin à ce dictionnaire.",
+      es: 'No tienes acceso de admin a este diccionario.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  PROJECT_RIGHTS_NOT_READ: {
+    title: {
+      en: 'Project Rights Not Read',
+      fr: 'Droits de projet non lus',
+      es: 'Derechos de proyecto no leídos',
+    },
+    message: {
+      en: 'You do not have read access to this project.',
+      fr: "Vous n'avez pas accès en lecture à ce projet.",
+      es: 'No tienes acceso de lectura a este proyecto.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  PROJECT_RIGHTS_NOT_WRITE: {
+    title: {
+      en: 'Project Rights Not Write',
+      fr: 'Droits de projet non écrits',
+      es: 'Derechos de proyecto no escritos',
+    },
+    message: {
+      en: 'You do not have write access to this project.',
+      fr: "Vous n'avez pas accès en écriture à ce projet.",
+      es: 'No tienes acceso de escritura a este proyecto.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  PROJECT_RIGHTS_NOT_ADMIN: {
+    title: {
+      en: 'Project Rights Not Admin',
+      fr: 'Droits de projet non admin',
+      es: 'Derechos de proyecto no admin',
+    },
+    message: {
+      en: 'You do not have admin access to this project.',
+      fr: "Vous n'avez pas accès en admin à ce projet.",
+      es: 'No tienes acceso de admin a este proyecto.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  ORGANIZATION_RIGHTS_NOT_READ: {
+    title: {
+      en: 'Organization Rights Not Read',
+      fr: "Droits d'organisation non lus",
+      es: 'Derechos de organización no leídos',
+    },
+    message: {
+      en: 'You do not have read access to this organization.',
+      fr: "Vous n'avez pas accès en lecture à cette organisation.",
+      es: 'No tienes acceso de lectura a esta organización.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  ORGANIZATION_RIGHTS_NOT_WRITE: {
+    title: {
+      en: 'Organization Rights Not Write',
+      fr: "Droits d'organisation non écrits",
+      es: 'Derechos de organización no escritos',
+    },
+    message: {
+      en: 'You do not have write access to this organization.',
+      fr: "Vous n'avez pas accès en écriture à cette organisation.",
+      es: 'No tienes acceso de escritura a esta organización.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  ORGANIZATION_RIGHTS_NOT_ADMIN: {
+    title: {
+      en: 'Organization Rights Not Admin',
+      fr: "Droits d'organisation non admin",
+      es: 'Derechos de organización no admin',
+    },
+    message: {
+      en: 'You do not have admin access to this organization.',
+      fr: "Vous n'avez pas accès en admin à cette organisation.",
+      es: 'No tienes acceso de admin a esta organización.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },

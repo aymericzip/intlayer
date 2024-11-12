@@ -12,7 +12,7 @@ import {
  */
 export const mapOrganizationToAPI = (
   organization: Organization,
-  isOrganizationAdmin: boolean
+  isOrganizationAdmin: boolean | null
 ): OrganizationAPI => {
   let organizationObject: Organization = organization;
 

@@ -100,7 +100,7 @@ export class ErrorHandler {
     const responseData = formatResponse<UserAPI>({
       error: {
         code: errorKey,
-        message: t(message),
+        message: typeof message === 'string' ? message : t(message),
         ...errorDetails,
       },
       status,

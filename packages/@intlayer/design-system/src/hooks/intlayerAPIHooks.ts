@@ -202,7 +202,8 @@ export const useDeleteAccessKey = () =>
 export const useRefreshAccessKey = () =>
   useAsyncWithAuth(
     'refreshAccessKey',
-    useIntlayerAPI().project.refreshAccessKey
+    useIntlayerAPI().project.refreshAccessKey,
+    { invalidateQueries: ['getProjects', 'getSession'] }
   );
 
 /**

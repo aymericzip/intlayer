@@ -64,6 +64,18 @@ export const authenticateOAuth2 = async (
       authenticateOptions
     );
 
+    const {
+      organization: organizationRights,
+      project: projectRights,
+      dictionary: dictionaryRights,
+    } = oAuthToken.rights;
+
+    res.locals.organizationRights = organizationRights;
+    res.locals.isOrganizationAdmin = organizationRights?.admin ?? false;
+    res.locals.projectRights = projectRights;
+    res.locals.isProjectAdmin = projectRights?.admin ?? false;
+    res.locals.dictionaryRights = dictionaryRights;
+
     const user = await UserModel.findById(oAuthToken.user._id);
 
     if (user) {

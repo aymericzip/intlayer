@@ -36,7 +36,7 @@ export const getDictionaries = async (
   res: ResponseWithInformation<GetDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, dictionaryRights } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(req);
 
@@ -46,6 +46,10 @@ export const getDictionaries = async (
   }
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
+  if (!dictionaryRights?.read) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
     return;
   }
 
@@ -87,10 +91,14 @@ export const getDictionariesKeys = async (
   res: ResponseWithInformation<GetDictionariesKeysResult>,
   _next: NextFunction
 ) => {
-  const { project } = res.locals;
+  const { project, dictionaryRights } = res.locals;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    return;
+  }
+  if (!dictionaryRights?.read) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
     return;
   }
 
@@ -123,7 +131,7 @@ export const getDictionaryByKey = async (
   res: ResponseWithInformation<GetDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user } = res.locals;
+  const { project, user, dictionaryRights } = res.locals;
   const { dictionaryKey } = req.params;
   const { version } = req.query as GetDictionaryQuery;
 
@@ -133,6 +141,10 @@ export const getDictionaryByKey = async (
   }
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
+  if (!dictionaryRights?.read) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
     return;
   }
 
@@ -175,7 +187,7 @@ export const addDictionary = async (
   res: ResponseWithInformation<AddDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user } = res.locals;
+  const { project, user, dictionaryRights } = res.locals;
   const dictionaryData = req.body;
 
   if (!dictionaryData) {
@@ -195,6 +207,11 @@ export const addDictionary = async (
 
   if (!dictionaryData.projectIds.includes(String(project._id))) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
+    return;
+  }
+
+  if (!dictionaryRights?.admin) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_ADMIN');
     return;
   }
 
@@ -244,7 +261,7 @@ export const pushDictionaries = async (
   res: ResponseWithInformation<PushDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user } = res.locals;
+  const { project, user, dictionaryRights } = res.locals;
   const dictionaryData = req.body.dictionaries;
   const dictionariesKeys = dictionaryData.map((dictionary) => dictionary.key);
 
@@ -267,6 +284,16 @@ export const pushDictionaries = async (
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
+
+  if (!dictionaryRights?.write) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_WRITE');
+    return;
+  }
+
+  if (!dictionaryRights?.admin) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_ADMIN');
     return;
   }
 
@@ -371,7 +398,7 @@ export const updateDictionary = async (
   res: ResponseWithInformation<UpdateDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project } = res.locals;
+  const { project, dictionaryRights } = res.locals;
   const dictionaryData = req.body;
 
   if (!dictionaryData) {
@@ -391,6 +418,11 @@ export const updateDictionary = async (
 
   if (typeof dictionaryData._id === 'undefined') {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
+    return;
+  }
+
+  if (!dictionaryRights?.write) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_WRITE');
     return;
   }
 
@@ -425,7 +457,7 @@ export const deleteDictionary = async (
   res: ResponseWithInformation<DeleteDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project } = res.locals;
+  const { project, dictionaryRights } = res.locals;
   const { dictionaryId } = req.params as Partial<DeleteDictionaryParam>;
 
   if (!dictionaryId) {
@@ -435,6 +467,11 @@ export const deleteDictionary = async (
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    return;
+  }
+
+  if (!dictionaryRights?.admin) {
+    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_ADMIN');
     return;
   }
 

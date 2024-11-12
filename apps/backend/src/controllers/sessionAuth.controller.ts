@@ -8,13 +8,15 @@ import * as userService from '@services/user.service';
 import { generateToken } from '@utils/CSRF';
 import { ErrorHandler, AppError, GenericError } from '@utils/errors';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
+import { mapOrganizationToAPI } from '@utils/mapper/organization';
+import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { Organization } from '@/types/organization.types';
-import { Project } from '@/types/project.types';
+import { Organization, OrganizationAPI } from '@/types/organization.types';
+import { Project, ProjectAPI } from '@/types/project.types';
 import type {
   Session,
   GithubSessionProvider,
@@ -429,8 +431,8 @@ export type GetSessionInformationQuery = {
 };
 type SessionInformation = {
   user: UserAPI | null;
-  organization: Organization | null;
-  project: Project | null;
+  organization: OrganizationAPI | null;
+  project: ProjectAPI | null;
   session: Session | null;
 };
 export type GetSessionInformationResult = ResponseData<SessionInformation>;
@@ -446,7 +448,8 @@ export const getSessionInformation = async (
   const { session_token: sessionToken } = req.query;
 
   let { user } = res.locals;
-  const { organization, project } = res.locals;
+  const { organization, project, isOrganizationAdmin, isProjectAdmin } =
+    res.locals;
 
   try {
     if (sessionToken) {
@@ -471,7 +474,16 @@ export const getSessionInformation = async (
     };
 
     const responseData = formatResponse<SessionInformation>({
-      data: { session, user: formattedUser, organization, project },
+      data: {
+        session,
+        user: formattedUser,
+        organization: organization?._id
+          ? mapOrganizationToAPI(organization, isOrganizationAdmin)
+          : null,
+        project: project?._id
+          ? mapProjectToAPI(project, user, isProjectAdmin)
+          : null,
+      },
     });
 
     res.json(responseData);

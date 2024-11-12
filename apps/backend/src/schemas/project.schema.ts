@@ -4,7 +4,19 @@ import {
   MEMBERS_MIN_LENGTH,
 } from '@utils/validation/validateProject';
 import { Schema } from 'mongoose';
-import { Project } from '@/types/project.types';
+import { Project, Rights, TokenRights } from '@/types/project.types';
+
+const RightsSchema = new Schema<Rights>({
+  read: { type: Boolean, required: true },
+  write: { type: Boolean, required: true },
+  admin: { type: Boolean, required: true },
+});
+
+const TokenRightsSchema = new Schema<TokenRights>({
+  dictionary: { type: RightsSchema, required: true },
+  project: { type: RightsSchema, required: true },
+  organization: { type: RightsSchema, required: true },
+});
 
 // Define the oAuth2Access subdocument schema with timestamps
 const oAuth2AccessSchema = new Schema(
@@ -15,6 +27,7 @@ const oAuth2AccessSchema = new Schema(
     name: { type: String, required: true },
     expiresAt: { type: Date },
     accessToken: { type: [String], required: true },
+    rights: { type: TokenRightsSchema, required: true },
   },
   {
     timestamps: true,
