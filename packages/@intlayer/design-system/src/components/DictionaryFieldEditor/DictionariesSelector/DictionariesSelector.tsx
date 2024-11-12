@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, type FC } from 'react';
+// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { useGetAllDictionaries } from '../../../hooks';
 import { useEditionPanelStore } from '../../DictionaryEditor';

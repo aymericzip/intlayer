@@ -1,6 +1,7 @@
 'use client';
 
 import { type FC } from 'react';
+// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import {
   useAddDictionary,

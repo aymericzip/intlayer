@@ -5,7 +5,6 @@ import { getConfiguration } from '@intlayer/config/client';
 import {
   type EnumerationContent,
   type TranslationContent,
-  type RecursiveDictionaryValue,
   NodeType,
   type KeyPath,
   type DictionaryValue,
@@ -18,15 +17,13 @@ import {
   type ReactNode,
   type FC,
 } from 'react';
+// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { getSectionType } from '../../../utils/dictionary';
 import { renameKey } from '../../../utils/object';
 import { Button } from '../../Button';
 import { ContentEditorTextArea } from '../../ContentEditor/ContentEditorTextArea';
-import {
-  useEditedContentStore,
-  useEditionPanelStore,
-} from '../../DictionaryEditor';
+import { useEditedContentStore } from '../../DictionaryEditor';
 import { EnumKeyInput } from '../EnumKeyInput';
 import { getIsEditableSection } from '../getIsEditableSection';
 import { navigationViewContent } from '../NavigationView/navigationViewNode.content';
@@ -229,9 +226,6 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   dictionaryKey,
 }) => {
   const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
-  const setFocusedContentKeyPath = useEditionPanelStore(
-    (s) => s.setFocusedContentKeyPath
-  );
   const { addNewElement } = useDictionary(navigationViewContent);
 
   return (

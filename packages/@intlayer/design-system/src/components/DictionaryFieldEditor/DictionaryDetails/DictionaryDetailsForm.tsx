@@ -4,6 +4,7 @@ import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, Save } from 'lucide-react';
 import { type FC, useEffect } from 'react';
+// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { useGetProjects, usePushDictionaries } from '../../../hooks';
 import { cn } from '../../../utils/cn';

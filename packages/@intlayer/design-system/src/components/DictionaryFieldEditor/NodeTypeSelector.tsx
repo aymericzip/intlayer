@@ -9,6 +9,7 @@ import {
   type TranslationContent,
 } from '@intlayer/core';
 import { type FC, useEffect, useState } from 'react';
+// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { getSectionType } from '../../utils/dictionary';
 import { useEditedContentStore } from '../DictionaryEditor';

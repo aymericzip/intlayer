@@ -39,7 +39,7 @@ export type Project = ProjectData & {
   oAuth2Access: OAuth2Access[];
 };
 
-export type ProjectAPI = Omit<ProjectData, 'adminsIds'> & {
+export type ProjectAPI = Omit<Project, 'adminsIds'> & {
   adminsIds?: User['_id'][];
 };
 

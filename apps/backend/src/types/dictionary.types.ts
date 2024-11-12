@@ -30,7 +30,7 @@ export type Dictionary = DictionaryData & {
   updatedAt: number;
 };
 
-export type DictionaryAPI = Omit<DictionaryData, 'filePath' | 'content'> & {
+export type DictionaryAPI = Omit<Dictionary, 'filePath' | 'content'> & {
   content: DictionaryValue;
   filePath?: string;
 };

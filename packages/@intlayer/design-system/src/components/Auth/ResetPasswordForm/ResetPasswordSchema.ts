@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore react-intlayer not build yet
 // @ts-ignore react-intlayer not build yet
 import { t } from 'react-intlayer';
 import { z } from 'zod';

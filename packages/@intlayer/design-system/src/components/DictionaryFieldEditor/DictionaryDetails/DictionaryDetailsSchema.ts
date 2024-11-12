@@ -1,3 +1,4 @@
+// @ts-ignore react-intlayer not build yet
 import { t } from 'react-intlayer';
 import { z } from 'zod';
 
