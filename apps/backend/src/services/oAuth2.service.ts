@@ -30,12 +30,18 @@ export const generateClientCredentials = (): {
  *
  * @param clientId - The client id
  * @param clientSecret - The client secret
- * @returns The an object containing the client and the project or false if not found
+ * @returns The an object containing the client, the rights and the project or false if not found
  */
 export const getClientAndProjectByClientId = async (
   clientId: string
 ): Promise<
-  { client: Client; oAuth2Access: OAuth2Access; project: Project } | false
+  | {
+      client: Client;
+      oAuth2Access: OAuth2Access;
+      project: Project;
+      rights: Token['rights'];
+    }
+  | false
 > => {
   const project = await ProjectModel.findOne({
     'oAuth2Access.clientId': clientId,
@@ -60,7 +66,12 @@ export const getClientAndProjectByClientId = async (
     grants: ['client_credentials'],
   };
 
-  return { client: formattedClient, oAuth2Access, project };
+  return {
+    client: formattedClient,
+    oAuth2Access,
+    rights: oAuth2Access.rights,
+    project,
+  };
 };
 
 /**
@@ -104,7 +115,8 @@ export const formatOAuth2Token = (
   client: Client,
   user: User,
   project: Project,
-  organization: Organization
+  organization: Organization,
+  rights: Token['rights']
 ): OAuth2Token => {
   const { clientId, userId, ...restToken } = token;
 
@@ -120,6 +132,7 @@ export const formatOAuth2Token = (
     project,
     accessToken: token.accessToken,
     accessTokenExpiresAt: token.accessTokenExpiresAt ?? new Date('999-99-99'),
+    rights,
   };
 
   return formattedToken;
@@ -188,7 +201,8 @@ export const saveToken = async (
     client,
     user,
     project,
-    organization
+    organization,
+    token.rights
   );
   return formattedResult;
 };
@@ -224,7 +238,7 @@ export const getAccessToken = async (
     return false;
   }
 
-  const { client, project } = result;
+  const { client, project, rights } = result;
 
   const organization = await getOrganizationById(project.organizationId);
 
@@ -237,7 +251,8 @@ export const getAccessToken = async (
     client,
     user,
     project,
-    organization
+    organization,
+    rights
   );
 
   return formattedAccessToken;

@@ -64,24 +64,34 @@ export const authenticateOAuth2 = async (
       authenticateOptions
     );
 
+    console.log('--- 2', oAuthToken.rights);
     const {
       organization: organizationRights,
       project: projectRights,
       dictionary: dictionaryRights,
     } = oAuthToken.rights;
 
+    console.log('--- 3', oAuthToken.rights);
+
+    console.log('--- organizationRights', organizationRights);
     res.locals.organizationRights = organizationRights;
     res.locals.isOrganizationAdmin = organizationRights?.admin ?? false;
     res.locals.projectRights = projectRights;
     res.locals.isProjectAdmin = projectRights?.admin ?? false;
     res.locals.dictionaryRights = dictionaryRights;
 
+    console.log('--- oAuthToken.user._id', oAuthToken.user._id);
     const user = await UserModel.findById(oAuthToken.user._id);
 
     if (user) {
       res.locals.user = user;
       res.locals.authType = 'oauth2';
     }
+
+    console.log(
+      '--- oAuthToken.organization._id',
+      oAuthToken.organization && oAuthToken.organization._id
+    );
 
     const organization = await OrganizationModel.findById(
       oAuthToken.organization._id
@@ -91,7 +101,12 @@ export const authenticateOAuth2 = async (
       res.locals.organization = organization;
     }
 
+    console.log('--- oAuthToken.organization._id', oAuthToken.organization._id);
+
+    console.log('--- oAuthToken.project._id', oAuthToken.project._id);
     const project = await ProjectModel.findById(oAuthToken.project._id);
+
+    console.log('--- project', project);
 
     if (project) {
       res.locals.project = project;

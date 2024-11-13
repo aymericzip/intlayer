@@ -12,7 +12,7 @@ const RightsSchema = new Schema<Rights>({
   admin: { type: Boolean, required: true },
 });
 
-const TokenRightsSchema = new Schema<TokenRights>({
+export const TokenRightsSchema = new Schema<TokenRights>({
   dictionary: { type: RightsSchema, required: true },
   project: { type: RightsSchema, required: true },
   organization: { type: RightsSchema, required: true },
