@@ -3,20 +3,19 @@
 
 import GithubLogo from '@assets/github.svg';
 import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
+import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
 import {
   Navbar as UINavBar,
   Logo,
-  type NavSection,
   useUser,
   Button,
   Avatar,
 } from '@intlayer/design-system';
 import { StarIcon } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import NextLink from 'next/link';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
 export const Navbar: FC = () => {
@@ -27,18 +26,8 @@ export const Navbar: FC = () => {
     login,
     logout: logoutContent,
   } = useIntlayer('navbar');
-  const router = useRouter();
   const { isAuthenticated, logout, user } = useUser();
-
-  const sectionWithClick: NavSection[] = Object.values(sections).map(
-    (section) => ({
-      title: section.title,
-      id: section.id.value,
-      url: section.url.value,
-      label: section.label.value,
-      onClick: () => router.push(section.url.value),
-    })
-  );
+  const { pathWithoutLocale } = useLocale();
 
   const handleLogOut = () => {
     logout().catch((err) => console.error(err));
@@ -47,18 +36,47 @@ export const Navbar: FC = () => {
   return (
     <UINavBar
       logo={
-        <Link href={logo.url.value} aria-label={logo.label.value}>
+        <NextLink href={logo.url.value} aria-label={logo.label.value}>
           <Logo
             type="logoWithText"
             className="max-h-4 cursor-pointer sm:max-h-6"
           />
-        </Link>
+        </NextLink>
       }
-      desktopSections={sectionWithClick}
-      mobileTopSections={sectionWithClick}
+      selectedChoice={pathWithoutLocale}
+      desktopSections={Object.values(sections).map(
+        ({ id, url, label, title }) => (
+          <Link
+            id={id.value}
+            key={url.value}
+            href={url.value}
+            label={label.value}
+            color="text"
+            variant="invisible-link"
+            className="flex px-4 py-0.5 text-sm"
+          >
+            {title}
+          </Link>
+        )
+      )}
+      mobileTopSections={Object.values(sections).map(
+        ({ id, url, label, title }) => (
+          <Link
+            id={id.value}
+            key={url.value}
+            href={url.value}
+            label={label.value}
+            color="text"
+            variant="invisible-link"
+            className="hover:text-primary aria-selected:text-primary w-full cursor-pointer p-3 text-center leading-10 transition"
+          >
+            {title}
+          </Link>
+        )
+      )}
       mobileBottomChildren={
         <div className="flex w-full flex-col gap-4">
-          <Link
+          <NextLink
             aria-label={github.label.value}
             href={github.url.value}
             className="group/github border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 p-1 hover:bg-opacity-30 dark:bg-opacity-0"
@@ -69,7 +87,7 @@ export const Navbar: FC = () => {
               width={18}
               className="group-hover/github:fill-text dark:group-hover/github:fill-text-dark mr-1"
             />
-          </Link>
+          </NextLink>
 
           {isAuthenticated ? (
             <Button
@@ -83,13 +101,13 @@ export const Navbar: FC = () => {
               {logoutContent.title}
             </Button>
           ) : (
-            <Link
+            <NextLink
               aria-label={login.label.value}
               href={login.url.value}
               className="border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 p-1 hover:bg-opacity-30 dark:bg-opacity-0"
             >
               {login.title}
-            </Link>
+            </NextLink>
           )}
         </div>
       }
@@ -106,7 +124,7 @@ export const Navbar: FC = () => {
         <>
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
-          <Link
+          <NextLink
             aria-label={github.label.value}
             href={github.url.value}
             className="group/github bg-text text-text-dark dark:bg-text-dark dark:text-text flex cursor-pointer items-center gap-2 rounded-full p-1"
@@ -116,7 +134,7 @@ export const Navbar: FC = () => {
               width={18}
               className="group-hover/github:fill-text-dark dark:group-hover/github:fill-text mr-1"
             />
-          </Link>
+          </NextLink>
           <ProfileDropDown />
         </>
       }

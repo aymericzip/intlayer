@@ -1,30 +1,24 @@
 'use client';
 
-import type { FC, MouseEventHandler, ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { useDevice, useIsMounted } from '../../hooks';
+import { TabProps } from '../TabSelector';
 import { DesktopNavbar } from './DesktopNavbar';
 import { MobileNavbar } from './MobileNavbar';
 
-export interface NavSection {
-  title: ReactNode;
-  id: string;
-  onClick: MouseEventHandler;
-  url?: string;
-  label: string;
-}
-
-interface NavbarProps {
+type NavbarProps<T extends TabProps> = {
   logo: ReactNode;
-  desktopSections?: NavSection[];
+  selectedChoice: T['key'];
+  desktopSections?: ReactElement<T>[];
   mobileTopChildren?: ReactNode;
-  mobileTopSections?: NavSection[];
+  mobileTopSections?: ReactElement<T>[];
   mobileBottomChildren?: ReactNode;
-  mobileBottomSections?: NavSection[];
+  mobileBottomSections?: ReactElement<T>[];
   rightItemsDesktop?: ReactNode;
   rightItemsMobile?: ReactNode;
-}
+};
 
-export const Navbar: FC<NavbarProps> = ({
+export const Navbar = <T extends TabProps>({
   logo,
   mobileTopChildren,
   desktopSections = [],
@@ -33,7 +27,8 @@ export const Navbar: FC<NavbarProps> = ({
   mobileBottomSections = [],
   rightItemsDesktop,
   rightItemsMobile,
-}) => {
+  selectedChoice,
+}: NavbarProps<T>) => {
   const { isMobile } = useDevice();
   const isMoUnted = useIsMounted();
 
@@ -53,6 +48,7 @@ export const Navbar: FC<NavbarProps> = ({
       sections={desktopSections}
       rightItems={rightItemsDesktop}
       logo={logo}
+      selectedChoice={selectedChoice}
     />
   );
 };

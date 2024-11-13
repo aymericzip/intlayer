@@ -55,7 +55,7 @@ const indicatorVariant = cva(
   }
 );
 
-type TabProps = HTMLAttributes<HTMLElement> & {
+export type TabProps = HTMLAttributes<HTMLElement> & {
   key: string | number;
 };
 
@@ -108,6 +108,8 @@ export const TabSelector = <T extends TabProps>({
         }),
         className
       )}
+      aria-orientation="horizontal"
+      aria-multiselectable="false"
       role="tablist"
     >
       {tabs.map((Tab, index) => {

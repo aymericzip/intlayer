@@ -1,13 +1,13 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { LandingPage } from '@components/LandingPage';
+import { LandingPage as LandingPageContent } from '@components/LandingPage';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 
-const ThermOfServicePage: NextPageIntlayer = ({ params: { locale } }) => (
+const LandingPage: NextPageIntlayer = ({ params: { locale } }) => (
   <IntlayerServerProvider locale={locale}>
     <BackgroundLayout hasSpotlight>
-      <LandingPage />
+      <LandingPageContent />
     </BackgroundLayout>
   </IntlayerServerProvider>
 );
-export default ThermOfServicePage;
+export default LandingPage;

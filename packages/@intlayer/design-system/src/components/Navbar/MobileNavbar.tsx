@@ -1,44 +1,20 @@
 'use client';
 
 import { m, type Variants } from 'framer-motion';
-import { useRef, useState, type FC, type ReactNode } from 'react';
+import { useRef, useState, type ReactElement, type ReactNode } from 'react';
 import { useScrollBlockage, useScrollDetection } from '../../hooks';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
+import { TabProps } from '../TabSelector';
 import { Burger } from './Burger';
-import { useNavActions } from './useNavigation';
-import type { NavSection } from '.';
 
-type MobileNavbarProps = {
+type MobileNavbarProps<T extends TabProps> = {
   logo: ReactNode;
   topChildren?: ReactNode;
-  topSections?: NavSection[];
+  topSections?: ReactElement<T>[];
   bottomChildren?: ReactNode;
-  bottomSections?: NavSection[];
+  bottomSections?: ReactElement<T>[];
   rightItems?: ReactNode;
-};
-
-type SectionListProps = {
-  sections: NavSection[];
-  activeSection: string | null;
-  onClickSection: (id: string, url?: string) => void;
-};
-
-const sectionListItemVariants: Variants = {
-  open: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      y: { stiffness: 1000, velocity: -100 },
-    },
-  },
-  closed: {
-    y: 50,
-    opacity: 0,
-    transition: {
-      y: { stiffness: 1000 },
-    },
-  },
 };
 
 const navVariants: Variants = {
@@ -50,58 +26,22 @@ const navVariants: Variants = {
   },
 };
 
-const MotionSection = m.div;
-
-const SectionList: FC<SectionListProps> = ({
-  sections,
-  activeSection,
-  onClickSection,
-}) => (
-  <div role="tablist" aria-orientation="vertical" aria-multiselectable="false">
-    {sections?.map(({ id, label, url, title, onClick }) => (
-      <MotionSection
-        className="hover:text-primary aria-selected:text-primary w-full cursor-pointer p-3 text-center transition"
-        role="tab"
-        key={id}
-        id={id}
-        aria-label={label}
-        onClick={(e) => {
-          onClickSection(id, url);
-          onClick?.(e);
-        }}
-        variants={sectionListItemVariants}
-        aria-selected={activeSection === id}
-      >
-        {title}
-      </MotionSection>
-    ))}
-  </div>
-);
-
 const bgStyle =
   'bg-card/95 dark:bg-card-dark/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur';
-// css`
-//   -webkit-backdrop-filter: var(--tw-backdrop-blur)
-//     var(--tw-backdrop-brightness) var(--tw-backdrop-contrast)
-//     var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate)
-//     var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
-//     var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-// `,
 
-export const MobileNavbar: FC<MobileNavbarProps> = ({
+export const MobileNavbar = <T extends TabProps>({
   logo,
   topChildren,
   topSections = [],
   bottomChildren,
   bottomSections = [],
   rightItems,
-}) => {
+}: MobileNavbarProps<T>) => {
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isUnrolled, setIsUnrolled] = useState<boolean>(false);
 
   const navRef = useRef<HTMLDivElement>(null);
 
-  const { activeSection, onClickSection } = useNavActions();
   useScrollBlockage({
     disableScroll: isUnrolled,
     key: 'mobile_nav',
@@ -163,17 +103,9 @@ export const MobileNavbar: FC<MobileNavbarProps> = ({
             }}
           >
             {topChildren}
-            <div className="flex h-full flex-col justify-between">
-              <SectionList
-                sections={topSections}
-                activeSection={activeSection}
-                onClickSection={onClickSection}
-              />
-              <SectionList
-                sections={bottomSections}
-                activeSection={activeSection}
-                onClickSection={onClickSection}
-              />
+            <div className="flex h-full flex-col justify-center">
+              {topSections}
+              {bottomSections}
             </div>
 
             <div className="m-auto flex w-full max-w-[400px] items-center justify-center gap-1 px-5 py-3">

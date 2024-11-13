@@ -47,6 +47,7 @@ export type LinkProps = DetailedHTMLProps<
   VariantProps<typeof linkVariants> & {
     label: string;
     isExternalLink?: boolean;
+    isActive?: boolean;
   };
 
 const isExternal = (href = ''): boolean => /^https?:\/\//.test(href);
@@ -59,6 +60,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       children,
       label,
       className,
+      isActive,
       isExternalLink: isExternalLinkProp,
       ...props
     },
@@ -72,6 +74,8 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       <a
         ref={ref}
         aria-label={label}
+        aria-current={isActive}
+        aria-selected={isActive}
         className={linkVariants({
           variant,
           color,
