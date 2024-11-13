@@ -21,6 +21,40 @@ const accessKeyFormContent = {
       }),
     },
 
+    rights: {
+      label: t({
+        en: 'Rights',
+        fr: 'Droits',
+        es: 'Derechos',
+      }),
+      dictionary: t({
+        en: 'Dictionary',
+        fr: 'Dictionnaire',
+        es: 'Diccionario',
+      }),
+      project: t({
+        en: 'Project',
+        fr: 'Projet',
+        es: 'Proyecto',
+      }),
+      organization: t({
+        en: 'Organization',
+        fr: 'Organisation',
+        es: 'Organización',
+      }),
+      read: t({
+        en: 'Read ',
+        fr: 'Lecture ',
+        es: 'Lectura ',
+      }),
+      write: t({
+        en: 'Write ',
+        fr: 'Écriture ',
+        es: 'Escritura ',
+      }),
+      admin: 'Admin',
+    },
+
     expiresAtInput: {
       label: t({
         en: 'Expires at',

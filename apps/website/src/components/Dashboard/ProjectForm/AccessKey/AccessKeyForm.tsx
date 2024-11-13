@@ -1,6 +1,6 @@
 'use client';
 
-import { OAuth2Access } from '@intlayer/backend';
+import { type OAuth2Access } from '@intlayer/backend';
 import {
   useForm,
   Form,
@@ -25,6 +25,8 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const { deleteAccessKey, isLoading: isDeleting } = useDeleteAccessKey();
   const { refreshAccessKey, isLoading: isRefreshing } = useRefreshAccessKey();
+  const { rights, modal, labels, toastContent } =
+    useIntlayer('access-key-form');
   const { toast } = useToast();
 
   const isLoading = isDeleting || isRefreshing;
@@ -33,8 +35,8 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
     deleteAccessKey(accessKey.clientId)
       .then(() => {
         toast({
-          title: 'Access key deleted',
-          description: 'The access key has been successfully deleted',
+          title: toastContent.deleteSuccess.title.value,
+          description: toastContent.deleteSuccess.description,
         });
         setIsDeletionModalOpen(false);
       })
@@ -42,8 +44,8 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
         console.error(error);
 
         toast({
-          title: 'An error occurred',
-          description: 'An error occurred while deleting the access key',
+          title: toastContent.error.title.value,
+          description: toastContent.error.description,
           variant: 'error',
         });
       });
@@ -53,16 +55,16 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
     refreshAccessKey(accessKey.clientId)
       .then(() => {
         toast({
-          title: 'Access key updated',
-          description: 'The access key has been successfully updated',
+          title: toastContent.updateSuccess.title.value,
+          description: toastContent.updateSuccess.description,
         });
         setIsUpdateModalOpen(false);
       })
       .catch((error) => {
         console.error(error);
         toast({
-          title: 'An error occurred',
-          description: 'An error occurred while updating the access key',
+          title: toastContent.error.title.value,
+          description: toastContent.error.description,
           variant: 'error',
         });
       });
@@ -74,17 +76,15 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
         isOpen={isDeletionModalOpen}
         onClose={() => setIsDeletionModalOpen(false)}
         size="lg"
-        title="Are you sure you want to delete this access key?"
+        title={modal.deleteTitle.value}
         hasCloseButton
       >
         <p className="text-neutral dark:text-neutral text-sm">
-          This action CANNOT be undone. This will permanently delete the SSH key
-          and if you’d like to use it in the future, you will need to upload it
-          again.
+          {modal.deleteMessage}
         </p>
         <Form.Button
           variant="outline"
-          label="Delete the access key"
+          label={modal.deleteButtonLabel.value}
           color="error"
           isFullWidth={true}
           className="mt-10 w-auto"
@@ -92,7 +92,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
           isDisabled={isLoading}
           onClick={handleDelete}
         >
-          I understand, delete the access key
+          {modal.deleteConfirmText}
         </Form.Button>
       </Modal>
       <Modal
@@ -103,13 +103,11 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
         hasCloseButton
       >
         <p className="text-neutral dark:text-neutral text-sm">
-          This action CANNOT be undone. This will permanently delete the SSH key
-          and if you’d like to use it in the future, you will need to upload it
-          again.
+          {modal.updateMessage}
         </p>
         <Form.Button
           variant="outline"
-          label="Delete the access key"
+          label={modal.updateButtonLabel.value}
           color="text"
           isFullWidth={true}
           className="mt-10 w-auto"
@@ -117,7 +115,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
           isDisabled={isLoading}
           onClick={handleUpdate}
         >
-          I understand, update the access key
+          {modal.updateConfirmText}
         </Form.Button>
       </Modal>
       <div
@@ -130,7 +128,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
         <div className="flex flex-col gap-4">
           <span className="text-base font-bold">{accessKey.name}</span>
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold">clientId:</span>
+            <span className="text-sm font-bold">{labels.clientId}</span>
             <CopyToClipboard
               text={accessKey.clientId}
               className="break-all text-xs"
@@ -139,7 +137,9 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
             </CopyToClipboard>
           </div>
           <div className="flex flex-col gap-1">
-            <span className="text-wrap text-sm font-bold">clientSecret:</span>
+            <span className="text-wrap text-sm font-bold">
+              {labels.clientSecret}
+            </span>
             {accessKey.clientSecret.endsWith('*') ? (
               <span className="text-wrap break-all text-sm">
                 {accessKey.clientSecret}
@@ -153,15 +153,43 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
               </CopyToClipboard>
             )}
           </div>
-          <div className="flex-te flex gap-3">
+          <div>
+            <label className="text-wrap text-sm font-bold">
+              {rights.title}
+            </label>
+
+            <span className="text-neutral dark:text-neutral-dark block text-wrap break-all text-xs">
+              <span className="font-bold">{rights.organization}</span>
+              {accessKey?.rights?.organization.read ? rights.read : '- '}
+              {accessKey?.rights?.organization.write ? rights.write : '- '}
+              {accessKey?.rights?.organization.admin ? rights.admin : '-'}
+            </span>
+            <span className="text-neutral dark:text-neutral-dark block text-wrap break-all text-xs">
+              <span className="font-bold">{rights.project}</span>
+              {accessKey?.rights?.project.read ? rights.read : '- '}
+              {accessKey?.rights?.project.write ? rights.write : '- '}
+              {accessKey?.rights?.project.admin ? rights.admin : '-'}
+            </span>
+            <span className="text-neutral dark:text-neutral-dark block text-wrap break-all text-xs">
+              <span className="font-bold">{rights.dictionary}</span>
+              {accessKey?.rights?.dictionary.read ? rights.read : '- '}
+              {accessKey?.rights?.dictionary.write ? rights.write : '- '}
+              {accessKey?.rights?.dictionary.admin ? rights.admin : '-'}
+            </span>
+          </div>
+          <div className="flex gap-3">
             <div className="text-neutral dark:text-neutral-dark flex flex-1 flex-col gap-1">
-              <span className="text-wrap text-sm font-bold">Added on:</span>
+              <label className="text-wrap text-sm font-bold">
+                {labels.addedOn}
+              </label>
               <span className="break-all text-xs">
                 {new Date(accessKey.createdAt).toLocaleDateString()}
               </span>
             </div>
             <div className="text-neutral dark:text-neutral-dark flex flex-1 flex-col gap-1">
-              <span className="text-wrap text-sm font-bold">Expire on:</span>
+              <label className="text-wrap text-sm font-bold">
+                {labels.expireOn}
+              </label>
               <span className="break-all text-xs">
                 {accessKey.expiresAt
                   ? new Date(accessKey.expiresAt).toLocaleDateString()
@@ -173,7 +201,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
           <div className="flex justify-end gap-3 max-sm:flex-col">
             <Form.Button
               variant="outline"
-              label="Refresh the access key secret key"
+              label={labels.refreshButtonLabel.value}
               color="text"
               isFullWidth={false}
               className="w-auto"
@@ -182,11 +210,11 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
               isLoading={isRefreshing}
               isDisabled={isLoading}
             >
-              Refresh
+              {labels.refreshButtonText}
             </Form.Button>
             <Form.Button
               variant="outline"
-              label="Delete the access key"
+              label={labels.deleteButtonLabel.value}
               color="error"
               isFullWidth={false}
               className="w-auto"
@@ -195,7 +223,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
               isLoading={isDeleting}
               isDisabled={isLoading}
             >
-              Delete
+              {labels.deleteButtonText}
             </Form.Button>
           </div>
         </div>

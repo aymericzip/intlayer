@@ -6,7 +6,7 @@ import { User, UserAPI, UserDocument } from '@/types/user.types';
  * @returns The formatted user object.
  */
 export const mapUserToAPI = (user: User | UserAPI | UserDocument): UserAPI => {
-  let userObject: User = user;
+  let userObject: User = user as User;
 
   // If the user is a mongoose document, convert it to an object
   if (typeof (user as UserDocument).toObject === 'function') {

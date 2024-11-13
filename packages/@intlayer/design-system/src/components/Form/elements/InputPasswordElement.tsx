@@ -3,7 +3,7 @@ import type { ComponentProps, FC } from 'react';
 import { InputPassword } from '../../Input';
 import { FormElementProps, FormElement } from './FormElement';
 
-type InputPasswordElementsProps = Omit<
+type InputPasswordElementProps = Omit<
   FormElementProps<typeof InputPassword>,
   'Element'
 > &
@@ -12,7 +12,7 @@ type InputPasswordElementsProps = Omit<
     autoComplete: 'current-password' | 'new-password';
   };
 
-export const InputPasswordElement: FC<InputPasswordElementsProps> = ({
+export const InputPasswordElement: FC<InputPasswordElementProps> = ({
   autoComplete,
   ...props
 }) => (

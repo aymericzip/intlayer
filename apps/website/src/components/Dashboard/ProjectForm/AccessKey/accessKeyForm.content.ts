@@ -31,6 +31,156 @@ const accessKeyFormContent = {
         es: 'Haga clic para crear una clave de acceso',
       }),
     },
+    rights: {
+      read: t({
+        en: 'Read ',
+        fr: 'Lecture ',
+        es: 'Lectura ',
+      }),
+      write: t({
+        en: 'Write ',
+        fr: 'Écriture ',
+        es: 'Escritura ',
+      }),
+      admin: 'Admin',
+      organization: t({
+        en: 'Organization: ',
+        fr: 'Organisation : ',
+        es: 'Organización: ',
+      }),
+      project: t({
+        en: 'Project: ',
+        fr: 'Projet : ',
+        es: 'Proyecto: ',
+      }),
+      dictionary: t({
+        en: 'Dictionary: ',
+        fr: 'Dictionnaire : ',
+        es: 'Diccionario: ',
+      }),
+    },
+    labels: {
+      clientId: t({
+        en: 'clientId:',
+        fr: 'clientId :',
+        es: 'clientId:',
+      }),
+      clientSecret: t({
+        en: 'clientSecret:',
+        fr: 'clientSecret :',
+        es: 'clientSecret:',
+      }),
+      addedOn: t({
+        en: 'Added on:',
+        fr: 'Ajouté le :',
+        es: 'Añadido el:',
+      }),
+      expireOn: t({
+        en: 'Expire on:',
+        fr: 'Expire le :',
+        es: 'Expira el:',
+      }),
+      deleteButtonText: t({
+        en: 'Delete',
+        fr: 'Supprimer',
+        es: 'Eliminar',
+      }),
+      deleteButtonLabel: t({
+        en: 'Delete the access key',
+        fr: "Supprimer la clé d'accès",
+        es: 'Eliminar la clave de acceso',
+      }),
+      refreshButtonText: t({
+        en: 'Refresh',
+        fr: 'Actualiser',
+        es: 'Actualizar',
+      }),
+      refreshButtonLabel: t({
+        en: 'Refresh the access key secret key',
+        fr: "Actualiser la clé secrète de la clé d'accès",
+        es: 'Actualizar la clave secreta de la clave de acceso',
+      }),
+    },
+    modal: {
+      deleteTitle: t({
+        en: 'Are you sure you want to delete this access key?',
+        fr: "Êtes-vous sûr de vouloir supprimer cette clé d'accès ?",
+        es: '¿Está seguro de que desea eliminar esta clave de acceso?',
+      }),
+      updateTitle: t({
+        en: 'Are you sure you want to update this access key?',
+        fr: "Êtes-vous sûr de vouloir mettre à jour cette clé d'accès ?",
+        es: '¿Está seguro de que desea actualizar esta clave de acceso?',
+      }),
+      deleteMessage: t({
+        en: 'This action CANNOT be undone. This will permanently delete the access key and if you’d like to use it in the future, you will need to create it again.',
+        fr: "Cette action est IRRÉVERSIBLE. Cela supprimera définitivement la clé d'accès et si vous souhaitez l'utiliser à l'avenir, vous devrez la créer à nouveau.",
+        es: 'Esta acción NO SE PUEDE deshacer. Esto eliminará permanentemente la clave de acceso y si desea usarla en el futuro, deberá crearla nuevamente.',
+      }),
+      updateMessage: t({
+        en: 'This action will generate a new client secret. The old secret will no longer be valid. Please make sure to update your configurations accordingly.',
+        fr: "Cette action générera un nouveau secret client. L'ancien secret ne sera plus valide. Veuillez vous assurer de mettre à jour vos configurations en conséquence.",
+        es: 'Esta acción generará un nuevo secreto de cliente. El secreto anterior ya no será válido. Asegúrese de actualizar sus configuraciones en consecuencia.',
+      }),
+      deleteButtonLabel: t({
+        en: 'Delete the access key',
+        fr: "Supprimer la clé d'accès",
+        es: 'Eliminar la clave de acceso',
+      }),
+      updateButtonLabel: t({
+        en: 'Update the access key',
+        fr: "Mettre à jour la clé d'accès",
+        es: 'Actualizar la clave de acceso',
+      }),
+      deleteConfirmText: t({
+        en: 'I understand, delete the access key',
+        fr: "Je comprends, supprimez la clé d'accès",
+        es: 'Entiendo, eliminar la clave de acceso',
+      }),
+      updateConfirmText: t({
+        en: 'I understand, update the access key',
+        fr: "Je comprends, mettez à jour la clé d'accès",
+        es: 'Entiendo, actualizar la clave de acceso',
+      }),
+    },
+    toastContent: {
+      deleteSuccess: {
+        title: t({
+          en: 'Access key deleted',
+          fr: "Clé d'accès supprimée",
+          es: 'Clave de acceso eliminada',
+        }),
+        description: t({
+          en: 'The access key has been successfully deleted',
+          fr: "La clé d'accès a été supprimée avec succès",
+          es: 'La clave de acceso ha sido eliminada exitosamente',
+        }),
+      },
+      updateSuccess: {
+        title: t({
+          en: 'Access key updated',
+          fr: "Clé d'accès mise à jour",
+          es: 'Clave de acceso actualizada',
+        }),
+        description: t({
+          en: 'The access key has been successfully updated',
+          fr: "La clé d'accès a été mise à jour avec succès",
+          es: 'La clave de acceso ha sido actualizada exitosamente',
+        }),
+      },
+      error: {
+        title: t({
+          en: 'An error occurred',
+          fr: "Une erreur s'est produite",
+          es: 'Se produjo un error',
+        }),
+        description: t({
+          en: 'An error occurred while deleting the access key',
+          fr: "Une erreur s'est produite lors de la suppression de la clé d'accès",
+          es: 'Se produjo un error al eliminar la clave de acceso',
+        }),
+      },
+    },
     tuto: [
       t({
         en: '1 - Create an access key',
@@ -44,8 +194,8 @@ const accessKeyFormContent = {
       }),
     ],
     warningMessage: t({
-      en: 'Access keys are personal and should not be shared with others. Be careful to store these access keys securely, such as as environment variables.',
-      fr: "Les clés d'authentification sont personnelles et ne doivent pas être partagées avec d'autres personnes. Attention à stocker ces clés d'accès en sécurité, comme en tant que variables d'environnement.",
+      en: 'Access keys are personal and should not be shared with others. Be careful to store these access keys securely, such as environment variables.',
+      fr: "Les clés d'accès sont personnelles et ne doivent pas être partagées avec d'autres personnes. Attention à stocker ces clés d'accès en sécurité, comme en tant que variables d'environnement.",
       es: 'Las claves de acceso son personales y no deben compartirse con otras personas. Tenga cuidado para almacenar estas claves de acceso de forma segura, como variables de entorno.',
     }),
   },

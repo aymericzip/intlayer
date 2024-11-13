@@ -14,6 +14,12 @@ export const getAccessKeyCreationSchema = () => {
     es: 'Por favor, ingrese un nombre válido para su clave de acceso',
   });
 
+  const invalidDateErrorName = t({
+    en: 'Please enter a valid date for your access key expiration date',
+    fr: "Veuillez saisir une date valide pour la date d'expiration de votre clé d'accès",
+    es: 'Por favor, ingrese una fecha válida para la fecha de expiración de su clave de acceso',
+  });
+
   return z.object({
     name: z
       .string({
@@ -22,6 +28,35 @@ export const getAccessKeyCreationSchema = () => {
       })
       .min(1, { message: invalidTypeErrorName })
       .default(''),
+    expiresAt: z
+      .string()
+      .refine(
+        (value) =>
+          value
+            ? new Date(value).toISOString() > new Date().toISOString()
+            : true,
+        {
+          message: invalidDateErrorName,
+        }
+      )
+      .optional(),
+    rights: z.object({
+      organization: z.object({
+        read: z.boolean().default(true),
+        write: z.boolean().default(false),
+        admin: z.boolean().default(false),
+      }),
+      project: z.object({
+        read: z.boolean().default(true),
+        write: z.boolean().default(false),
+        admin: z.boolean().default(false),
+      }),
+      dictionary: z.object({
+        read: z.boolean().default(true),
+        write: z.boolean().default(false),
+        admin: z.boolean().default(false),
+      }),
+    }),
   });
 };
 

@@ -4,7 +4,7 @@ import { Form } from '../Form';
 import { FormLabelLayout, type FormLabelLayoutProps } from './FormLabelLayout';
 
 export type FormItemLayoutProps = Omit<FormLabelLayoutProps, 'children'> & {
-  label: ReactNode;
+  label?: ReactNode;
   description?: ReactNode;
   children: ReactNode;
   showErrorMessage?: boolean;

@@ -196,9 +196,21 @@ export const useUnselectProject = () =>
     }
   );
 export const useAddNewAccessKey = () =>
-  useAsyncWithAuth('addNewAccessKey', useIntlayerAPI().project.addNewAccessKey);
+  useAsyncWithAuth(
+    'addNewAccessKey',
+    useIntlayerAPI().project.addNewAccessKey,
+    {
+      invalidateQueries: ['getProjects', 'getSession'],
+    }
+  );
 export const useDeleteAccessKey = () =>
-  useAsyncWithAuth('deleteAccessKey', useIntlayerAPI().project.deleteAccessKey);
+  useAsyncWithAuth(
+    'deleteAccessKey',
+    useIntlayerAPI().project.deleteAccessKey,
+    {
+      invalidateQueries: ['getProjects', 'getSession'],
+    }
+  );
 export const useRefreshAccessKey = () =>
   useAsyncWithAuth(
     'refreshAccessKey',
