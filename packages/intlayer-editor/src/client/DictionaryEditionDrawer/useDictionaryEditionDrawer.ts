@@ -3,9 +3,7 @@ import {
   useRightDrawerStore,
   useEditedContentStore,
   useEditionPanelStore,
-  type DictionaryContent,
 } from '@intlayer/design-system';
-import { useEditorServer } from '../useEditorServer';
 
 export const getDrawerIdentifier = (dictionaryId: string) =>
   `dictionary_edition_${dictionaryId}`;
@@ -21,17 +19,9 @@ export type FileContent = {
 
 type DictionaryEditionDrawer = {
   focusedContent: FileContent | null;
-  setFocusedContent: (content: FileContent | null) => void;
   isOpen: boolean;
   open: (content: FileContent) => void;
   close: () => void;
-  editContentRequest: () => Promise<void>;
-  editedContent: DictionaryContent;
-  addEditedContent: (
-    dictionaryId: DictionaryId,
-    newValue: DictionaryValue,
-    keyPath: KeyPath[]
-  ) => void;
   setDictionariesRecord: (
     dictionariesRecord: Record<DictionaryId, Dictionary>
   ) => void;
@@ -39,7 +29,6 @@ type DictionaryEditionDrawer = {
     dictionaryId: DictionaryId,
     keyPath: KeyPath[]
   ) => DictionaryValue | undefined;
-  clearEditedDictionaryContent: (dictionaryPath: DictionaryPath) => void;
 };
 
 type OpenDictionaryEditionDrawerProps = {
@@ -53,24 +42,15 @@ export const useDictionaryEditionDrawer = (
 ): DictionaryEditionDrawer => {
   const id = getDrawerIdentifier(dictionaryId);
   const { isOpen, open, close } = useRightDrawerStore(id)();
-  const {
-    editedContent,
-    setDictionariesRecord,
-    getEditedContentValue,
-    addEditedContent,
-    clearEditedDictionaryContent,
-  } = useEditedContentStore((s) => ({
-    editedContent: s.editedContent,
-    setDictionariesRecord: s.setDictionariesRecord,
-    addEditedContent: s.addEditedContent,
-    getEditedContentValue: s.getEditedContentValue,
-    clearEditedDictionaryContent: s.clearEditedDictionaryContent,
-  }));
+  const { setDictionariesRecord, getEditedContentValue } =
+    useEditedContentStore((s) => ({
+      setDictionariesRecord: s.setDictionariesRecord,
+      getEditedContentValue: s.getEditedContentValue,
+    }));
   const { setFocusedContent, focusedContent } = useEditionPanelStore((s) => ({
     focusedContent: s.focusedContent,
     setFocusedContent: s.setFocusedContent,
   }));
-  const { editContentRequest } = useEditorServer();
 
   const openDictionaryEditionDrawer = ({
     dictionaryId,
@@ -89,15 +69,10 @@ export const useDictionaryEditionDrawer = (
   return {
     isOpen,
     focusedContent,
-    setFocusedContent,
     setDictionariesRecord,
+    getEditedContentValue,
     open: openDictionaryEditionDrawer,
     close,
-    getEditedContentValue,
-    editContentRequest,
-    editedContent,
-    addEditedContent,
-    clearEditedDictionaryContent,
   };
 };
 

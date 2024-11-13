@@ -38,12 +38,12 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const { returnToDictionaryList, titleContent, titleInformation } =
     useDictionary(dictionaryFieldEditorContent);
 
-  const { focusedContent, setFocusedContentKeyPath, setFocusedContent } =
-    useEditionPanelStore((s) => ({
+  const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
+    (s) => ({
       focusedContent: s.focusedContent,
       setFocusedContentKeyPath: s.setFocusedContentKeyPath,
-      setFocusedContent: s.setFocusedContent,
-    }));
+    })
+  );
 
   const focusedKeyPath = focusedContent?.keyPath;
 
@@ -55,16 +55,13 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     setDictionariesRecord({
       [key]: dictionary,
     });
-  }, [dictionary, key, setDictionariesRecord]);
+  }, [dictionary, key, setDictionariesRecord, dictionaryRecord]);
 
   return (
     <div className="flex size-full flex-1 flex-col gap-10">
       <div className="flex items-center gap-2">
         <Button
-          onClick={() => {
-            setFocusedContent(null);
-            onClickDictionaryList?.();
-          }}
+          onClick={() => onClickDictionaryList?.()}
           variant="hoverable"
           size="icon-md"
           color="text"

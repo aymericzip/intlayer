@@ -28,10 +28,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
       restoreEditedContent: s.restoreEditedContent,
     })
   );
-  const { form, isSubmitting } = useForm(SaveFormSchema, {
-    defaultValues: dictionary,
-  });
-  const { updateOrganizationToasts, resetButton, saveButton, publishButton } =
+  const { form, isSubmitting } = useForm(SaveFormSchema);
+  const { updateDictionaryToasts, resetButton, saveButton, publishButton } =
     useDictionary(saveDictionaryContent);
   const { toast } = useToast();
 
@@ -66,42 +64,42 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
     ])
       .then(() => {
         toast({
-          title: updateOrganizationToasts.updated.title.value,
-          description: updateOrganizationToasts.updated.description,
+          title: updateDictionaryToasts.updated.title.value,
+          description: updateDictionaryToasts.updated.description,
           variant: 'success',
         });
       })
       .catch((error) => {
         toast({
-          title: updateOrganizationToasts.failed.title.value,
+          title: updateDictionaryToasts.failed.title.value,
           description: error.message,
           variant: 'error',
         });
       });
   };
 
-  if (!isEdited) return <></>;
-
   return (
     <Form
-      className="flex size-full h-full flex-1 flex-row gap-3"
+      className="flex w-full flex-1 flex-row justify-end gap-3"
       {...form}
       schema={SaveFormSchema}
       onSubmitSuccess={onSubmitSuccess}
     >
-      <Form.Button
-        type="button"
-        label={resetButton.label.value}
-        disabled={!isEdited || isSubmitting}
-        className="ml-auto"
-        Icon={RotateCcw}
-        variant="outline"
-        color="text"
-        isLoading={isSubmitting}
-        onClick={() => restoreEditedContent(dictionary.key)}
-      >
-        {resetButton.text}
-      </Form.Button>
+      {isEdited && (
+        <Form.Button
+          type="button"
+          label={resetButton.label.value}
+          disabled={!isEdited || isSubmitting}
+          className="ml-auto"
+          Icon={RotateCcw}
+          variant="outline"
+          color="text"
+          isLoading={isSubmitting}
+          onClick={() => restoreEditedContent(dictionary.key)}
+        >
+          {resetButton.text}
+        </Form.Button>
+      )}
       {isLocalDictionary ? (
         <Form.Button
           type="submit"
@@ -111,19 +109,21 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
           color="text"
           isLoading={isSubmitting}
         >
-          {saveButton.text}
+          {publishButton.text}
         </Form.Button>
       ) : (
-        <Form.Button
-          type="submit"
-          label={saveButton.label.value}
-          disabled={!isEdited || isSubmitting}
-          Icon={Save}
-          color="text"
-          isLoading={isSubmitting}
-        >
-          {saveButton.text}
-        </Form.Button>
+        isEdited && (
+          <Form.Button
+            type="submit"
+            label={saveButton.label.value}
+            disabled={!isEdited || isSubmitting}
+            Icon={Save}
+            color="text"
+            isLoading={isSubmitting}
+          >
+            {saveButton.text}
+          </Form.Button>
+        )
       )}
     </Form>
   );

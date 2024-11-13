@@ -65,7 +65,7 @@ const containerVariants = cva(
   }
 );
 
-type ContainerProps = PropsWithChildren<
+export type ContainerProps = PropsWithChildren<
   Omit<VariantProps<typeof containerVariants>, 'border' | 'background'>
 > &
   HTMLAttributes<HTMLDivElement> & {

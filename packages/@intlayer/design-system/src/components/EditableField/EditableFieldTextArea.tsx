@@ -42,7 +42,12 @@ export const EditableFieldTextArea = forwardRef<
       onCancel={handleCancel}
       onSave={handleSave}
     >
-      <AutoSizedTextArea className="leading-6" ref={textAreaRef} {...props} />
+      <AutoSizedTextArea
+        key={value}
+        className="leading-6"
+        ref={textAreaRef}
+        {...props}
+      />
     </EditableFieldLayout>
   );
 });

@@ -1,7 +1,7 @@
 import { t, type DeclarationContent } from 'intlayer';
 
-export const saveDictionaryContent = {
-  key: 'save-dictionary-details',
+export const validDictionaryChangeButtonsContent = {
+  key: 'valid-dictionary-change-buttons',
   content: {
     resetButton: {
       text: t({
@@ -30,12 +30,12 @@ export const saveDictionaryContent = {
     publishButton: {
       text: t({
         en: 'Publish dictionary',
-        fr: 'Publier dictionnaire',
+        fr: 'Publier le dictionnaire',
         es: 'Publicar diccionario',
       }),
       label: t({
         en: 'Click to publish dictionary',
-        fr: 'Cliquez pour publier dictionnaire',
+        fr: 'Cliquez pour publier le dictionnaire',
         es: 'Haga clic para publicar el diccionario',
       }),
     },

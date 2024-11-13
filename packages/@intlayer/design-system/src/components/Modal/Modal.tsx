@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-nested-conditional */
 'use client';
 
 import { cva } from 'class-variance-authority';
@@ -8,10 +7,10 @@ import type { FC } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';
-import { Container } from '../Container';
+import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
 
-interface ModalProps {
+type ModalProps = {
   children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;
@@ -20,22 +19,25 @@ interface ModalProps {
   hasCloseButton?: boolean;
   title?: string;
   size?: Size;
-}
+} & Pick<ContainerProps, 'transparency'>;
 
-const modalVariants = cva('cursor-default overflow-auto p-3 shadow', {
-  variants: {
-    variant: {
-      sm: 'w-full max-h-[30vh] max-w-[30vw]',
-      md: 'w-full max-h-[50vh] max-w-[50vw]',
-      lg: 'w-full max-h-[70vh] max-w-[70vw]',
-      xl: 'w-full max-h-[95vh] max-w-[95vw]',
-      unset: 'max-h-[95vh] max-w-[95vw]',
+const modalVariants = cva(
+  'cursor-default overflow-auto p-3 shadow justify-center',
+  {
+    variants: {
+      variant: {
+        sm: 'w-full max-h-[30vh] max-w-[30vw]',
+        md: 'w-full max-h-[50vh] max-w-[50vw]',
+        lg: 'w-full max-h-[70vh] max-w-[70vw]',
+        xl: 'w-full max-h-[95vh] max-w-[95vw]',
+        unset: 'max-h-[95vh] max-w-[95vw]',
+      },
     },
-  },
-  defaultVariants: {
-    variant: 'unset',
-  },
-});
+    defaultVariants: {
+      variant: 'unset',
+    },
+  }
+);
 
 type Size = 'sm' | 'md' | 'lg' | 'xl' | 'unset';
 
@@ -53,11 +55,13 @@ export const Modal: FC<ModalProps> = ({
   children,
   isOpen,
   container,
+
   disableScroll = false,
   onClose,
   hasCloseButton = false,
   title,
   size = 'unset',
+  ...props
 }) => {
   const containerElement = useGetElementOrWindow(container);
 
@@ -95,7 +99,7 @@ export const Modal: FC<ModalProps> = ({
         role="dialog"
         aria-modal
         roundedSize="2xl"
-        transparency="sm"
+        {...props}
       >
         <div
           className={cn(
@@ -125,7 +129,7 @@ export const Modal: FC<ModalProps> = ({
             />
           )}
         </div>
-        <div className="mx-2 my-4 flex flex-1 flex-col items-center justify-center overflow-auto">
+        <div className="mx-2 my-4 flex flex-1 flex-col items-center overflow-auto">
           {children}
         </div>
       </MotionModal>

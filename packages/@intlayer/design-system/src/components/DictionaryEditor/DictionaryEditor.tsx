@@ -4,44 +4,49 @@ import type { Locales } from '@intlayer/config/client';
 import type { Dictionary, KeyPath } from '@intlayer/core';
 import type { FC } from 'react';
 import { NodeWrapper } from './NodeWrapper';
+import { useEditedContentStore } from './useEditedContentStore';
+import { useEditionPanelStore } from './useEditionPanelStore';
 import { ValidDictionaryChangeButtons } from './ValidDictionaryChangeButtons';
 
 type DictionaryEditorProps = {
   dictionary: Dictionary;
-  onContentChange: (keyPath: KeyPath[], newValue: string) => void;
-  onValidEdition: () => void;
-  onCancelEdition: () => void;
   locale: Locales;
-  editedContent: Dictionary;
-  focusedKeyPath?: KeyPath[];
-  onFocusKeyPath: (keyPath: KeyPath[]) => void;
   onClickEdit?: (keyPath: KeyPath[]) => void;
 };
 
 export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   dictionary,
-  onContentChange,
-  focusedKeyPath,
-  onCancelEdition,
-  onValidEdition,
   ...props
-}) => (
-  <div className="flex h-full flex-col justify-between gap-2">
-    <div>
-      <NodeWrapper
-        {...props}
-        keyPath={[]}
-        focusedKeyPath={focusedKeyPath}
-        section={dictionary.content}
-        onContentChange={(content) =>
-          onContentChange(content.keyPath, content.newValue)
-        }
-      />
+}) => {
+  const { addEditedContent, editedContent } = useEditedContentStore((s) => ({
+    addEditedContent: s.addEditedContent,
+    editedContent: s.editedContent,
+  }));
+  const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
+    (s) => ({
+      focusedContent: s.focusedContent,
+      setFocusedContentKeyPath: s.setFocusedContentKeyPath,
+    })
+  );
+
+  const focusedKeyPath = focusedContent?.keyPath;
+
+  return (
+    <div className="flex h-full flex-col justify-between gap-2">
+      <div>
+        <NodeWrapper
+          {...props}
+          keyPath={[]}
+          editedContent={editedContent.content}
+          focusedKeyPath={focusedKeyPath}
+          section={dictionary.content}
+          onContentChange={(content) =>
+            addEditedContent(dictionary.key, content.newValue, content.keyPath)
+          }
+          onFocusKeyPath={setFocusedContentKeyPath}
+        />
+      </div>
+      <ValidDictionaryChangeButtons dictionary={dictionary} />
     </div>
-    <ValidDictionaryChangeButtons
-      onCancelEdition={onCancelEdition}
-      onValidEdition={onValidEdition}
-      editedContent={props.editedContent}
-    />
-  </div>
-);
+  );
+};

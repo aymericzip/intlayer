@@ -11,7 +11,7 @@ import {
   DictionaryFieldEditor,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
-import { useEffect, useState, type FC } from 'react';
+import { useCallback, useEffect, useState, type FC } from 'react';
 import { useDictionaryListDrawer } from '../DictionaryListDrawer/useDictionaryListDrawer';
 import {
   type FileContent as FileContentWithDictionaryPath,
@@ -23,24 +23,23 @@ type DictionaryEditionDrawerContentProps = {
   focusedContent: FileContentWithDictionaryPath;
   locale: Locales;
   identifier: string;
+  handleOnBack: () => void;
 };
 
 export const DictionaryEditionDrawerContent: FC<
   DictionaryEditionDrawerContentProps
-> = ({ locale, identifier }) => {
+> = ({ locale, identifier, handleOnBack }) => {
   const [keyPathEditionModal, setKeyPathEditionModal] = useState<
     KeyPath[] | null
   >(null);
-  const {
-    setFocusedContent,
-    setDictionariesRecord,
-    editContentRequest,
-    editedContent,
-    focusedContent,
-    addEditedContent,
-    clearEditedDictionaryContent,
-  } = useDictionaryEditionDrawer(identifier);
+  const { setDictionariesRecord, focusedContent } =
+    useDictionaryEditionDrawer(identifier);
   const { all: dictionaries } = useGetAllDictionaries();
+
+  const onClickDictionaryList = useCallback(() => {
+    setKeyPathEditionModal(null);
+    handleOnBack();
+  }, [handleOnBack]);
 
   useEffect(() => {
     if (dictionaries) {
@@ -62,22 +61,18 @@ export const DictionaryEditionDrawerContent: FC<
         hasCloseButton
         title="Edit field"
         size="xl"
+        transparency="lg"
       >
-        {dictionary && <DictionaryFieldEditor dictionary={dictionary} />}
+        {dictionary && (
+          <DictionaryFieldEditor
+            dictionary={dictionary}
+            onClickDictionaryList={onClickDictionaryList}
+          />
+        )}
       </Modal>
       <DictionaryEditor
         dictionary={dictionary}
         locale={locale}
-        focusedKeyPath={focusedContent.keyPath}
-        editedContent={editedContent[dictionaryId]}
-        onFocusKeyPath={(keyPath) =>
-          setFocusedContent({ ...focusedContent, keyPath })
-        }
-        onContentChange={(keyPath, newValue) =>
-          addEditedContent(dictionaryId, newValue, keyPath)
-        }
-        onValidEdition={editContentRequest}
-        onCancelEdition={() => clearEditedDictionaryContent(dictionaryId)}
         onClickEdit={setKeyPathEditionModal}
       />
     </>
@@ -125,6 +120,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
           focusedContent={focusedContent}
           locale={locale}
           identifier={id}
+          handleOnBack={handleOnBack}
         />
       )}
     </RightDrawer>

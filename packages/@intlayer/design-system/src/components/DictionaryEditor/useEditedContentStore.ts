@@ -4,7 +4,6 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import {
   editDictionaryByKeyPath,
   getDictionaryValueByKeyPath,
-  removeDictionaryValueByKeyPath,
   renameDictionaryValueByKeyPath,
 } from '../../utils/dictionary';
 

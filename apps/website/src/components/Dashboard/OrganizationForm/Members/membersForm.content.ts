@@ -46,7 +46,7 @@ const organizationMembersFormContent = {
       label: t({
         en: 'Add member',
         es: 'Agregar miembro',
-        fr: 'Ajouter the membre',
+        fr: 'Ajouter le membre',
       }),
       text: t({
         en: 'Add',
@@ -54,9 +54,9 @@ const organizationMembersFormContent = {
         fr: 'Ajouter',
       }),
       placeholder: t({
-        en: 'Add a member',
+        en: 'Add member',
         es: 'Agregar miembro',
-        fr: 'Ajouter the membre',
+        fr: 'Ajouter le membre',
       }),
     },
 

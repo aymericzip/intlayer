@@ -1,7 +1,7 @@
 import type { FC } from 'react';
+import { EditableFieldTextArea } from '../..//EditableField';
 import { cn } from '../../../utils/cn';
 import { getDictionaryValueByKeyPath } from '../../../utils/dictionary';
-import { ContentEditorTextArea } from '../../ContentEditor/ContentEditorTextArea';
 import type { NodeWrapperProps } from './index';
 
 type StringWrapperProps = Omit<NodeWrapperProps, 'section'> & {
@@ -31,7 +31,7 @@ export const StringWrapper: FC<StringWrapperProps> = ({
   return (
     <button
       className={cn(
-        'w-full rounded-md p-2 transition',
+        'w-full rounded-md p-2 text-left transition',
         'hover:bg-card/30 dark:hover:bg-card-dark/30 [&:has(.section:hover)]:bg-transparent',
         level === 2 && 'hover:bg-card/30 dark:hover:bg-card-dark/30',
         level >= 3 && ''
@@ -41,11 +41,11 @@ export const StringWrapper: FC<StringWrapperProps> = ({
         onFocusKeyPath(keyPath);
       }}
     >
-      <ContentEditorTextArea
-        onContentChange={(newValue) => onContentChange({ keyPath, newValue })}
-      >
-        {`${content}`}
-      </ContentEditorTextArea>
+      <EditableFieldTextArea
+        defaultValue={content}
+        onSave={(newValue) => onContentChange({ keyPath, newValue })}
+        onCancel={() => null}
+      />
     </button>
   );
 };

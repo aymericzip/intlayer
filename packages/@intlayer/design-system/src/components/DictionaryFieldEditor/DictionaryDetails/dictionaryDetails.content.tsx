@@ -88,12 +88,12 @@ export const dictionaryDetailsContent = {
     publishButton: {
       text: t({
         en: 'Publish dictionary',
-        fr: 'Publier les dictionnaires',
+        fr: 'Publier le dictionnaire',
         es: 'Publicar diccionario',
       }),
       label: t({
         en: 'Click to publish dictionary',
-        fr: 'Cliquez pour publier les dictionnaires',
+        fr: 'Cliquez pour publier le dictionnaire',
         es: 'Haga clic para publicar el diccionario',
       }),
     },

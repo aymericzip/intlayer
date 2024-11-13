@@ -28,10 +28,10 @@ export const useSession = (sessionProp?: Session | null) => {
                 false,
             };
 
-            console.log('session', formattedSession);
             return formattedSession;
           }
         } catch (_error) {
+          console.error(_error);
           // Failed to fetch session
         }
 
