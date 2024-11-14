@@ -30,6 +30,8 @@ export enum PagesRoutes {
   PrivacyPolicy = '/privacy_notice',
   TermsOfService = '/terms_of_service',
 
+  Pricing = '/pricing',
+
   Auth_SignIn = '/auth/login',
   Auth_SignUp = '/auth/register',
   Auth_ResetPassword = '/auth/password/reset',

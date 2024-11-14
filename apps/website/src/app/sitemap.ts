@@ -43,6 +43,18 @@ const sitemap = (): MetadataRoute.Sitemap => [
     },
   },
   {
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+    alternates: {
+      languages: {
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Pricing}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Pricing}`,
+      },
+    },
+  },
+  {
     url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',

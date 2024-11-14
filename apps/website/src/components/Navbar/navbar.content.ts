@@ -1,9 +1,13 @@
-import type { NavSection } from '@intlayer/design-system';
 import { type DeclarationContent, t } from 'intlayer';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type SectionsContent = {
-  sections: Omit<NavSection, 'onClick'>[];
+  sections: {
+    id: string;
+    title: string;
+    url: string;
+    label: string;
+  }[];
   github: {
     id: string;
     url: string;
@@ -64,6 +68,20 @@ export const navbarContent = {
           en: 'Go to the demo page',
           fr: 'Aller à la page de démo',
           es: 'Ir a la página de demostración',
+        }),
+      },
+      {
+        id: 'pricing',
+        title: t({
+          en: 'Pricing',
+          fr: 'Tarification',
+          es: 'Precios',
+        }),
+        url: PagesRoutes.Pricing,
+        label: t({
+          en: 'Go to the pricing page',
+          fr: 'Aller à la page de tarification',
+          es: 'Ir a la página de precios',
         }),
       },
       {

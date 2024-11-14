@@ -17,6 +17,11 @@ const linkVariants = cva(
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline dark:bg-transparent hover:dark:bg-transparent',
         'invisible-link':
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent',
+
+        button:
+          'rounded-lg text-text-opposite dark:text-text-opposite-dark disabled:opacity-50 flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 leading-9',
+        hoverable:
+          'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 aria-[current=true]:bg-opacity-5 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
       },
       color: {
         primary:
@@ -68,7 +73,10 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ) => {
     const isChildrenString = typeof children === 'string';
     const isExternalLink =
-      isChildrenString ?? isExternalLinkProp ?? isExternal(props.href);
+      isExternalLinkProp === true ||
+      (typeof isExternalLinkProp === 'undefined' &&
+        isChildrenString &&
+        isExternal(props.href));
 
     return (
       <a
