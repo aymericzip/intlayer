@@ -39,12 +39,11 @@ export const PricingCarousel = ({
   // Handle switching plans on swipe/drag
   const handleSwitchPlan = (diff: number) => {
     const screenWidth = window.innerWidth;
-    const swipeStep = (100 * screenWidth) / 500;
+    const swipeStep = screenWidth / 5;
     const numSwipe = Math.round(diff / swipeStep);
 
-    if (selectedPlanIndex === null) return;
     if (Math.abs(numSwipe) >= 1) {
-      const newIndex = selectedPlanIndex - numSwipe;
+      const newIndex = (displayedPlanIndex ?? displayedPlanIndex) - numSwipe;
 
       if (newIndex >= 0 && newIndex < plans.length) {
         setSelectedPlanIndex(newIndex);
@@ -112,7 +111,7 @@ export const PricingCarousel = ({
           }
           return prev < selectedPlanIndex ? prev + 1 : prev - 1;
         });
-      }, 100);
+      }, 50);
     }
 
     return () => {
@@ -158,7 +157,7 @@ export const PricingCarousel = ({
   ) => {
     const diff = index - displayedIndex;
     const screenWidth = window.innerWidth;
-    const offset = (300 * screenWidth) / 1000;
+    const offset = (3 * screenWidth) / 10;
     return -columnWidth / 2 + diff * offset;
   };
 

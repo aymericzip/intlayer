@@ -35,35 +35,49 @@ export const PricingColumn = forwardRef<HTMLDivElement, PricingColumnProps>(
         className
       )}
       ref={ref}
+      itemScope
+      itemType="http://schema.org/Offer"
       {...props}
     >
-      <H2 className="mt-4 text-center">{title}</H2>
+      <H2 className="mt-4 text-center" itemProp="name">
+        {title}
+      </H2>
       <div className="flex flex-col justify-center">
         <span className="text-center text-6xl font-bold">
-          {price.toFixed(2).split('.')[0]}
-          <span className="text-4xl">.{price.toFixed(2).split('.')[1]}</span>
-          <span className="text-2xl">{unit}</span>
+          <span itemProp="price">{price.toFixed(2)}</span>
+          <span className="text-2xl" itemProp="priceCurrency">
+            {unit}
+          </span>
         </span>
-        <span className="text-neutral dark:text-neutral-dark text-center text-xl">
+        <span
+          className="text-neutral dark:text-neutral-dark text-center text-xl"
+          itemProp="priceValidUntil"
+        >
           {period}
         </span>
       </div>
       {callToAction}
-      <span className="text-neutral dark:text-neutral-dark justify-center text-sm">
+      <span
+        className="text-neutral dark:text-neutral-dark justify-center text-sm"
+        itemProp="description"
+      >
         {description}
       </span>
-      <div className="flex flex-col gap-4 p-4">
-        {checkPoint.map((el) => (
-          <div className="flex items-start gap-3" key={JSON.stringify(el)}>
+      <ul className="flex flex-col gap-4 p-4">
+        {checkPoint.map((el, index) => (
+          <li className="flex items-start gap-3" key={index}>
             <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
               <Check className="size-4" />
             </span>
-            <span className="text-neutral dark:text-neutral-dark text-sm">
+            <span
+              className="text-neutral dark:text-neutral-dark text-sm"
+              itemProp="feature"
+            >
               {el}
             </span>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </Container>
   )
 );
