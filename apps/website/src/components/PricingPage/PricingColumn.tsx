@@ -1,4 +1,9 @@
-import { H2, Container, type ContainerProps } from '@intlayer/design-system';
+import {
+  H2,
+  Container,
+  type ContainerProps,
+  Link,
+} from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { Check } from 'lucide-react';
 import { forwardRef, type ReactNode } from 'react';
@@ -9,8 +14,10 @@ type PricingColumnProps = {
   unit?: ReactNode;
   period: ReactNode;
   description: ReactNode;
-  callToAction: ReactNode;
   checkPoint: ReactNode[];
+  callToActionUrl: string;
+  callToActionLabel: string;
+  callToActionText: string;
 } & ContainerProps;
 
 export const PricingColumn = forwardRef<HTMLDivElement, PricingColumnProps>(
@@ -21,7 +28,9 @@ export const PricingColumn = forwardRef<HTMLDivElement, PricingColumnProps>(
       unit,
       period,
       description,
-      callToAction,
+      callToActionUrl,
+      callToActionLabel,
+      callToActionText,
       checkPoint,
       className,
       ...props
@@ -56,7 +65,15 @@ export const PricingColumn = forwardRef<HTMLDivElement, PricingColumnProps>(
           {period}
         </span>
       </div>
-      {callToAction}
+      <Link
+        label={callToActionLabel}
+        href={callToActionUrl}
+        variant="button"
+        color="text"
+        isExternalLink={false}
+      >
+        {callToActionText}
+      </Link>
       <span
         className="text-neutral dark:text-neutral-dark justify-center text-sm"
         itemProp="description"

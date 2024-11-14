@@ -1,6 +1,8 @@
+import process from 'process';
 import { t, DeclarationContent } from 'intlayer';
+import { PagesRoutes } from '@/Routes';
 
-export type Plans = 'free' | 'basic' | 'premium';
+export type Plans = 'free' | 'premium' | 'enterprise';
 export type Period = 'monthly' | 'yearly';
 
 export type PricingInfo = {
@@ -8,6 +10,11 @@ export type PricingInfo = {
   price: number;
   description: string;
   checkPoint: string[];
+  callToAction: {
+    label: string;
+    url: string;
+    text: string;
+  };
 };
 
 export const planDetails = {
@@ -45,9 +52,22 @@ export const planDetails = {
         '1 usuario de organización',
       ],
     }),
+    callToAction: {
+      label: t({
+        en: 'Try it for free',
+        fr: 'Essayez gratuitement',
+        es: 'Pruébalo gratuitamente',
+      }),
+      url: PagesRoutes.Dashboard,
+      text: t({
+        en: 'Try it for free',
+        fr: 'Essayez gratuitement',
+        es: 'Pruébalo gratuitamente',
+      }),
+    },
   },
-  basic: {
-    title: t({ en: 'Basic', fr: 'Basique', es: 'Básico' }),
+  premium: {
+    title: t({ en: 'Premium', fr: 'Premium', es: 'Premium' }),
     description: t({
       en: 'Designed for small to medium teams needing more flexibility. Includes AI content generation, up to 10 projects, and 20 organization users.',
       fr: 'Conçu pour les équipes petites à moyennes nécessitant plus de flexibilité. Comprend la génération de contenu IA, jusqu’à 10 projets et 20 utilisateurs d’organisation.',
@@ -86,8 +106,8 @@ export const planDetails = {
       ],
     }),
   },
-  premium: {
-    title: t({ en: 'Premium', fr: 'Premium', es: 'Premium' }),
+  enterprise: {
+    title: t({ en: 'Enterprise', fr: 'Entreprise', es: 'Empresa' }),
     description: t({
       en: 'Built for larger teams requiring advanced tools. Get unlimited projects, AI-powered SEO, and content generation with unlimited users.',
       fr: 'Conçu pour les grandes équipes nécessitant des outils avancés. Profitez de projets illimités, SEO IA, et génération de contenu avec utilisateurs illimités.',
@@ -134,24 +154,46 @@ export const planDetails = {
 const pricing = {
   monthly: {
     free: planDetails.free,
-    basic: {
-      ...planDetails.basic,
-
-      price: 9.99,
-    },
     premium: {
       ...planDetails.premium,
+      callToAction: {
+        label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
+        url: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_SUBSCRIPTION_MONTLY_LINK!,
+        text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
+      },
+      price: 9.99,
+    },
+    enterprise: {
+      ...planDetails.enterprise,
+      callToAction: {
+        url: process.env
+          .NEXT_PUBLIC_STRIPE_ENTERPRISE_SUBSCRIPTION_MONTLY_LINK!,
+        label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
+        text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
+      },
       price: 19.99,
     },
   },
   yearly: {
     free: planDetails.free,
-    basic: {
-      ...planDetails.basic,
-      price: 7.99,
-    },
+
     premium: {
       ...planDetails.premium,
+      callToAction: {
+        url: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_SUBSCRIPTION_YEARLY_LINK!,
+        label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
+        text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
+      },
+      price: 7.99,
+    },
+    enterprise: {
+      ...planDetails.enterprise,
+      callToAction: {
+        url: process.env
+          .NEXT_PUBLIC_STRIPE_ENTERPRISE_SUBSCRIPTION_YEARLY_LINK!,
+        label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
+        text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
+      },
       price: 16.99,
     },
   },
@@ -168,12 +210,6 @@ const pricingContent = {
       monthly: t({ en: 'Monthly', fr: 'Mensuel', es: 'Mensual' }),
 
       yearly: t({ en: 'Yearly', fr: 'Annuel', es: 'Anual' }),
-    },
-
-    callToAction: {
-      label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
-      url: '',
-      text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
     },
   },
 };

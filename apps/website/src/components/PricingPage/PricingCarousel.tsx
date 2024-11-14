@@ -1,4 +1,3 @@
-import { Link } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import React, {
   type MouseEventHandler,
@@ -16,14 +15,14 @@ type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
   setFocusedPeriod: (period: Period) => void;
 };
 
-const plans: Plans[] = ['free', 'basic', 'premium'];
+const plans: Plans[] = ['free', 'premium', 'enterprise'];
 
 export const PricingCarousel = ({
   focusedPeriod,
   setFocusedPeriod,
   ...props
 }: PricingCarouselProps) => {
-  const { pricing, period, callToAction } = useIntlayer('pricing');
+  const { pricing, period } = useIntlayer('pricing');
   const [selectedPlanIndex, setSelectedPlanIndex] = useState<number | null>(
     null
   ); // Index of 'basic' plan
@@ -230,21 +229,19 @@ export const PricingCarousel = ({
           <PricingColumn
             unit="$"
             period={period['monthly'].value}
-            callToAction={
-              <Link
-                label={callToAction.label.value}
-                href="#"
-                variant="button"
-                color="text"
-                isExternalLink={false}
-              >
-                {callToAction.text}
-              </Link>
-            }
             price={pricing[focusedPeriod][plan].price.value}
             checkPoint={pricing[focusedPeriod][plan].checkPoint.map(
               (el) => el.value
             )}
+            callToActionLabel={
+              pricing[focusedPeriod][plan].callToAction.label.value
+            }
+            callToActionText={
+              pricing[focusedPeriod][plan].callToAction.text.value
+            }
+            callToActionUrl={
+              pricing[focusedPeriod][plan].callToAction.url.value
+            }
             title={pricing[focusedPeriod][plan].title.value}
             description={pricing[focusedPeriod][plan].description.value}
           />
