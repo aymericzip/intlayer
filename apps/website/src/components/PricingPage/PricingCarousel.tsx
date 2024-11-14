@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useCallback,
 } from 'react';
 import { type Period, type Plans } from './data.content';
 import { PricingColumn } from './PricingColumn';
@@ -17,6 +18,13 @@ type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
 
 const plans: Plans[] = ['free', 'premium', 'enterprise'];
 
+/**
+ * PricingCarousel component
+ * @param props - React props
+ * @param focusedPeriod - Currently selected pricing period (e.g. 'monthly', 'yearly')
+ * @param setFocusedPeriod - Function to update the focused pricing period
+ * @returns - PricingCarousel component for the pricing plans
+ */
 export const PricingCarousel = ({
   focusedPeriod,
   setFocusedPeriod,
@@ -25,67 +33,120 @@ export const PricingCarousel = ({
   const { pricing, period } = useIntlayer('pricing');
   const [selectedPlanIndex, setSelectedPlanIndex] = useState<number | null>(
     null
-  ); // Index of 'basic' plan
+  ); // Index of selected plan, starting as null
   const [displayedPlanIndex, setDisplayedPlanIndex] = useState<number>(
     selectedPlanIndex ?? 0
+  ); // Index of the plan currently displayed
+
+  const [startX, setStartX] = useState(0); // Stores the start position of a swipe or drag event
+  const [isDragging, setIsDragging] = useState(false); // Indicates if a dragging action is happening
+  const [isClicked, setIsClicked] = useState(false); // Tracks if a plan has been clicked to prevent selection on hover
+  const [focusTimeout, setFocusTimeout] = useState<NodeJS.Timeout | null>(null); // Timeout for delayed plan selection on hover
+
+  const columnRef = useRef<HTMLDivElement>(null); // Reference to the pricing column div element
+
+  /**
+   * Handle switching plans based on swipe or drag distance
+   * @param diff - Difference in X coordinate from swipe/drag start
+   */
+  const handleSwitchPlan = useCallback(
+    (diff: number) => {
+      const screenWidth = window.innerWidth;
+      const swipeStep = screenWidth / 5; // Defines how much distance must be swiped to switch plans
+      const numSwipe = Math.round(diff / swipeStep);
+
+      if (Math.abs(numSwipe) >= 1) {
+        const newIndex = (displayedPlanIndex ?? displayedPlanIndex) - numSwipe;
+
+        // Update the selected plan index if within valid range
+        if (newIndex >= 0 && newIndex < plans.length) {
+          setSelectedPlanIndex(newIndex);
+          setStartX((prev) => prev + diff);
+        }
+      }
+    },
+    [displayedPlanIndex]
   );
 
-  const [startX, setStartX] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
+  /** Mouse event handlers for drag functionality */
+  const handleMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      setIsDragging(true);
+      setStartX(e.clientX); // Store the initial X position on mouse down
+    },
+    []
+  );
 
-  const columnRef = useRef<HTMLDivElement>(null);
-
-  // Handle switching plans on swipe/drag
-  const handleSwitchPlan = (diff: number) => {
-    const screenWidth = window.innerWidth;
-    const swipeStep = screenWidth / 5;
-    const numSwipe = Math.round(diff / swipeStep);
-
-    if (Math.abs(numSwipe) >= 1) {
-      const newIndex = (displayedPlanIndex ?? displayedPlanIndex) - numSwipe;
-
-      if (newIndex >= 0 && newIndex < plans.length) {
-        setSelectedPlanIndex(newIndex);
-        setStartX((prev) => prev + diff);
+  const handleMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (isDragging) {
+        const diff = e.clientX - startX; // Calculate the difference from the start position
+        handleSwitchPlan(diff);
       }
-    }
-  };
+    },
+    [isDragging, startX, handleSwitchPlan]
+  );
 
-  // Mouse event handlers
-  const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleMouseUp: MouseEventHandler<HTMLDivElement> = useCallback(() => {
+    setIsDragging(false); // Stop dragging
+  }, []);
+
+  /** Touch event handlers for swipe functionality */
+  const handleTouchStart: TouchEventHandler = useCallback((e) => {
     setIsDragging(true);
-    setStartX(e.clientX);
-  };
+    setStartX(e.touches[0].clientX ?? 0); // Store the initial X position on touch start
+  }, []);
 
-  const handleMouseMove: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (isDragging) {
-      const diff = e.clientX - startX;
-      handleSwitchPlan(diff);
-    }
-  };
+  const handleTouchMove: TouchEventHandler = useCallback(
+    (e) => {
+      if (isDragging) {
+        const diff = e.touches[0].clientX - startX; // Calculate the difference from the start position
+        handleSwitchPlan(diff);
+      }
+    },
+    [isDragging, startX, handleSwitchPlan]
+  );
 
-  const handleMouseUp: MouseEventHandler<HTMLDivElement> = () => {
-    setIsDragging(false);
-  };
+  const handleTouchEnd: TouchEventHandler = useCallback(() => {
+    setIsDragging(false); // Stop dragging
+  }, []);
 
-  // Touch event handlers
-  const handleTouchStart: TouchEventHandler = (e) => {
-    setIsDragging(true);
-    setStartX(e.touches[0].clientX ?? 0);
-  };
+  /**
+   * Set a delay before selecting a plan to prevent immediate selection on hover
+   * @param index - Index of the plan to be selected
+   */
+  const selectPlanAfterDelay = useCallback(
+    (index: number) => {
+      // Clear existing timeout if it exists
+      if (focusTimeout) {
+        clearTimeout(focusTimeout);
+      }
+      // Set new timeout to select plan after 0.5 seconds
+      const newTimeout = setTimeout(() => {
+        setSelectedPlanIndex(index);
+      }, 500);
+      setFocusTimeout(newTimeout);
+    },
+    [focusTimeout]
+  );
 
-  const handleTouchMove: TouchEventHandler = (e) => {
-    if (isDragging) {
-      const diff = e.touches[0].clientX - startX;
-      handleSwitchPlan(diff);
-    }
-  };
+  /**
+   * Handle mouse enter event to set delayed plan selection
+   * @param index - Index of the plan to be selected
+   * @returns Mouse event handler function
+   */
+  const handleMouseEnter = useCallback(
+    (index: number) => (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (isClicked) return; // Prevent hover selection if plan is clicked
+      selectPlanAfterDelay(index);
+    },
+    [isClicked, selectPlanAfterDelay]
+  );
 
-  const handleTouchEnd: TouchEventHandler = () => {
-    setIsDragging(false);
-  };
-
-  // Ensure selected plan index stays within bounds
+  /**
+   * Ensure selected plan index stays within bounds of available plans
+   */
   useEffect(() => {
     if (selectedPlanIndex === null) return;
 
@@ -96,7 +157,9 @@ export const PricingCarousel = ({
     }
   }, [selectedPlanIndex]);
 
-  // Smooth transition between plans
+  /**
+   * Smoothly transition between plans if the selected plan index changes
+   */
   useEffect(() => {
     if (selectedPlanIndex === null) return;
 
@@ -110,7 +173,7 @@ export const PricingCarousel = ({
           }
           return prev < selectedPlanIndex ? prev + 1 : prev - 1;
         });
-      }, 50);
+      }, 50); // Smoothly adjust index in steps
     }
 
     return () => {
@@ -120,51 +183,84 @@ export const PricingCarousel = ({
     };
   }, [selectedPlanIndex, displayedPlanIndex]);
 
-  // Styling functions
-  const setColumnStyle = (index: number, displayedIndex: number) => {
-    const diff = Math.abs(index - displayedIndex);
-    switch (diff) {
-      case 0:
-        return 'opacity-100 z-40';
-      case 1:
-        return 'opacity-75 z-30';
-      case 2:
-        return 'opacity-50 z-20';
-      default:
-        return 'opacity-0 z-10';
-    }
-  };
+  /**
+   * Set column styling based on its position relative to the displayed plan
+   * @param index - Index of the plan column
+   * @param displayedIndex - Index of the displayed plan column
+   * @returns - Tailwind CSS class for styling the column
+   */
+  const setColumnStyle = useCallback(
+    (index: number, displayedIndex: number) => {
+      const diff = Math.abs(index - displayedIndex);
+      switch (diff) {
+        case 0:
+          return 'opacity-100 z-40';
+        case 1:
+          return 'opacity-75 z-30';
+        case 2:
+          return 'opacity-50 z-20';
+        default:
+          return 'opacity-0 z-10';
+      }
+    },
+    []
+  );
 
-  const setColumnScale = (index: number, displayedIndex: number) => {
-    const diff = Math.abs(index - displayedIndex);
-    switch (diff) {
-      case 0:
-        return 1;
-      case 1:
-        return 0.9;
-      case 2:
-        return 0.8;
-      default:
-        return 0.7;
-    }
-  };
+  /**
+   * Set column scale based on its position relative to the displayed plan
+   * @param index - Index of the plan column
+   * @param displayedIndex - Index of the displayed plan column
+   * @returns - Scale value for the column
+   */
+  const setColumnScale = useCallback(
+    (index: number, displayedIndex: number) => {
+      const diff = Math.abs(index - displayedIndex);
+      switch (diff) {
+        case 0:
+          return 1;
+        case 1:
+          return 0.9;
+        case 2:
+          return 0.8;
+        default:
+          return 0.7;
+      }
+    },
+    []
+  );
 
-  const setColumnPositionX = (
-    index: number,
-    displayedIndex: number,
-    columnWidth: number
-  ) => {
-    const diff = index - displayedIndex;
-    const screenWidth = window.innerWidth;
-    const offset = (3 * screenWidth) / 10;
-    return -columnWidth / 2 + diff * offset;
-  };
+  /**
+   * Set column X position based on its index relative to the displayed plan
+   * @param index - Index of the plan column
+   * @param displayedIndex - Index of the displayed plan column
+   * @param columnWidth - Width of the column element
+   * @returns - Calculated X position for the column
+   */
+  const setColumnPositionX = useCallback(
+    (index: number, displayedIndex: number, columnWidth: number) => {
+      const diff = index - displayedIndex;
+      const screenWidth = window.innerWidth;
+      const offset = (3 * screenWidth) / 10;
+      return -columnWidth / 2 + diff * offset;
+    },
+    []
+  );
 
+  // Set initial displayed plan index if none is selected
   useEffect(() => {
     if (!selectedPlanIndex) {
       setDisplayedPlanIndex(1);
     }
   }, [selectedPlanIndex]);
+
+  // Clear the focus timeout on component unmount
+  useEffect(() => {
+    return () => {
+      if (focusTimeout) {
+        clearTimeout(focusTimeout);
+      }
+    };
+  }, [focusTimeout]);
 
   return (
     <div
@@ -224,7 +320,13 @@ export const PricingCarousel = ({
                 }
               : undefined
           }
-          onClick={() => setSelectedPlanIndex(index)}
+          onClick={(e) => {
+            e.stopPropagation();
+
+            setIsClicked(true);
+            setSelectedPlanIndex(index);
+          }}
+          onMouseEnter={handleMouseEnter(index)}
         >
           <PricingColumn
             unit="$"
