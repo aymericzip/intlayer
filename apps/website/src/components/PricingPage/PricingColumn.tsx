@@ -53,8 +53,14 @@ export const PricingColumn = forwardRef<HTMLDivElement, PricingColumnProps>(
       </H2>
       <div className="flex flex-col justify-center">
         <span className="text-center text-6xl font-bold">
-          <span itemProp="price">{price.toFixed(2)}</span>
-          <span className="text-2xl" itemProp="priceCurrency">
+          <span itemProp="price" className="hidden">
+            {price.toFixed(2)}
+          </span>
+          <span>{price.toFixed(2).split('.')[0]}</span>
+          <span className="text-3xl">
+            {'.' + price.toFixed(2).split('.')[1]}
+          </span>
+          <span className="text-xl" itemProp="priceCurrency">
             {unit}
           </span>
         </span>
