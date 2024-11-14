@@ -11,8 +11,11 @@ export type OrganizationData = {
   adminsIds: User['_id'][];
 };
 
+export type Plan = 'FREE' | 'PREMIUM' | 'ENTERPRISE';
+
 export type Organization = OrganizationData & {
   _id: ObjectId;
+  plan: Plan;
   creatorId: User['_id'];
   createdAt: number;
   updatedAt: number;
