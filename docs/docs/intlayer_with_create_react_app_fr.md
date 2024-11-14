@@ -42,7 +42,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/configuration_fr.md).
+Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
 
 ## Étape 3 : Intégrer Intlayer dans votre configuration CRA
 
@@ -56,7 +56,7 @@ Modifiez vos scripts pour utiliser react-intlayer
   },
 ```
 
-Note : les scripts react-intlayer sont basés sur craco. Vous pouvez également implémenter votre propre configuration basée sur le plugin intlayer craco. [Voir un exemple ici](https://github.com/intlayer-org/intlayer/blob/main/examples/react-app/craco.config.js).
+Note : les scripts react-intlayer sont basés sur craco. Vous pouvez également implémenter votre propre configuration basée sur le plugin intlayer craco. [Voir un exemple ici](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
 ## Étape 4 : Déclarer votre contenu
 
@@ -102,7 +102,7 @@ const appContent = {
 export default appContent;
 ```
 
-[Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
+[Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
 
 ## Étape 5 : Utiliser Intlayer dans votre code
 
@@ -180,9 +180,9 @@ const MyComponent = () => {
 
 Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et renforcer votre base de code.
 
-![texte alternatif](https://github.com/intlayer-org/intlayer/blob/main/docs/assets/autocompletion.png)
+![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![texte alternatif](https://github.com/intlayer-org/intlayer/blob/main/docs/assets/translation_error.png)
+![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
 Assurez-vous que votre configuration TypeScript inclut les types autogénérés.
 

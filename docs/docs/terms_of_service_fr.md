@@ -6,7 +6,7 @@ En utilisant Intlayer, vous acceptez d'être lié par ces conditions d'utilisati
 
 ## 2. Licence
 
-Intlayer est distribué sous licence **Apache 2.0** qui permet l'utilisation, la modification et la distribution du code pour des projets à la fois open-source et commerciaux. Les utilisateurs sont autorisés à modifier le code source et à soumettre des contributions via des pull requests conformément aux directives établies dans notre [guide de contribution](https://github.com/intlayer-org/intlayer/blob/main/CONTRIBUTING.md). Le vol du code pour une utilisation commerciale est strictement interdit.
+Intlayer est distribué sous licence **Apache 2.0** qui permet l'utilisation, la modification et la distribution du code pour des projets à la fois open-source et commerciaux. Les utilisateurs sont autorisés à modifier le code source et à soumettre des contributions via des pull requests conformément aux directives établies dans notre [guide de contribution](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md). Le vol du code pour une utilisation commerciale est strictement interdit.
 
 ## 3. Utilisation Commerciale
 
@@ -14,7 +14,7 @@ Vous êtes autorisé à utiliser Intlayer pour des projets commerciaux. Cependan
 
 ## 4. Responsabilité
 
-Les mainteneurs de Intlayer s'efforcent de corriger les bugs et les problèmes de sécurité dès qu'ils sont découverts. Cependant, ils déclinent toute responsabilité pour les dommages résultant de tels problèmes sur les infrastructures des utilisateurs. Nous encourageons les utilisateurs à signaler les problèmes via notre [système de suivi des problèmes](https://github.com/intlayer-org/intlayer/issues).
+Les mainteneurs de Intlayer s'efforcent de corriger les bugs et les problèmes de sécurité dès qu'ils sont découverts. Cependant, ils déclinent toute responsabilité pour les dommages résultant de tels problèmes sur les infrastructures des utilisateurs. Nous encourageons les utilisateurs à signaler les problèmes via notre [système de suivi des problèmes](https://github.com/aymericzip/intlayer/issues).
 
 ## 5. Confidentialité
 

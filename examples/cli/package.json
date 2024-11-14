@@ -6,11 +6,11 @@
   "keywords": [],
   "homepage": "https://intlayer.org",
   "bugs": {
-    "url": "https://github.com/intlayer-org/intlayer/issues"
+    "url": "https://github.com/aymericzip/intlayer/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/intlayer-org/intlayer.git"
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -42,6 +42,6 @@
     "typescript": "^5.4.5"
   },
   "bug": {
-    "url": "https://github.com/intlayer-org/intlayer/issues"
+    "url": "https://github.com/aymericzip/intlayer/issues"
   }
 }

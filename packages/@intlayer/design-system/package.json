@@ -2,6 +2,32 @@
   "name": "@intlayer/design-system",
   "version": "3.0.3",
   "private": false,
+  "keywords": [
+    "design-system",
+    "intlayer",
+    "react",
+    "ui"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
   "type": "module",
   "exports": {
     ".": {

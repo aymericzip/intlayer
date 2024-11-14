@@ -75,12 +75,12 @@ export const ClientComponent = () => {
 
 `intlayer` package intend to declare your content in a structured way, using JavaScript.
 
-To build dictionaries from this declaration, you can use [intlayer-cli](https://github.com/intlayer-org/intlayer/blob/main/packages/intlayer-cli/readme_en.md).
-And to interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/react-intlayer/readme_en.md), or [next-intlayer](https://github.com/intlayer-org/intlayer/blob/main/packages/next-intlayer/readme_en.md)
+To build dictionaries from this declaration, you can use [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer-cli/readme_en.md).
+And to interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme_en.md), or [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme_en.md)
 
 ## Getting Started with Intlayer
 
-[See how to use intlayer with NextJS](https://github.com/intlayer-org/intlayer/blob/main/readme_en.md)
+[See how to use intlayer with NextJS](https://github.com/aymericzip/intlayer/blob/main/readme_en.md)
 
 ### Install Package
 

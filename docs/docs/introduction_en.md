@@ -58,19 +58,19 @@ export const ClientComponent = () => {
 
 Intlayer offers a variety of features tailored to meet the needs of modern web development. Below are the key features, with links to detailed documentation for each:
 
-- **Internationalization Support**: Enhance your application's global reach with built-in support for internationalization. Learn more in our [Internationalization Guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md).
-- **Visual Editor**: Improve your development workflow with editor plugins designed for Intlayer. Check out the [Visual Editor Guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_editor_en.md).
-- **Configuration Flexibility**: Customize your setup with extensive configuration options detailed in the [Configuration Guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/configuration_en.md).
-- **Advanced CLI Tools**: Manage your projects efficiently using Intlayer's command line interface. Explore the capabilities in the [CLI Tools Documentation](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_cli_en.md).
-- **Compatibility with i18n**: Intlayer works seamlessly with other internationalization libraries. Check out the [i18n Guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md) for more information.
+- **Internationalization Support**: Enhance your application's global reach with built-in support for internationalization. Learn more in our [Internationalization Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md).
+- **Visual Editor**: Improve your development workflow with editor plugins designed for Intlayer. Check out the [Visual Editor Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_editor_en.md).
+- **Configuration Flexibility**: Customize your setup with extensive configuration options detailed in the [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
+- **Advanced CLI Tools**: Manage your projects efficiently using Intlayer's command line interface. Explore the capabilities in the [CLI Tools Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_cli_en.md).
+- **Compatibility with i18n**: Intlayer works seamlessly with other internationalization libraries. Check out the [i18n Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md) for more information.
 
 ### Platforms Supported
 
 Intlayer is designed to work seamlessly with Next.js and React applications. It also supports Vite and Create React App.
 
-- **Next.js Integration**: Utilize the power of Next.js within Intlayer for server-side rendering and static site generation. Details are available in our [Next.js Integration Guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
-- **Vite+React Integration**: Leverage Vite within Intlayer for server-side rendering and static site generation. Details are available in our [Vite+React Integration Guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md).
-- **Create React App Integration**: Utilize the power of Create React App within Intlayer for server-side rendering and static site generation. Details are available in our [Create React App Integration Guide](https://github.com/intlayer-org/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
+- **Next.js Integration**: Utilize the power of Next.js within Intlayer for server-side rendering and static site generation. Details are available in our [Next.js Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
+- **Vite+React Integration**: Leverage Vite within Intlayer for server-side rendering and static site generation. Details are available in our [Vite+React Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md).
+- **Create React App Integration**: Utilize the power of Create React App within Intlayer for server-side rendering and static site generation. Details are available in our [Create React App Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
 
 ### How to Use This Docs
 
