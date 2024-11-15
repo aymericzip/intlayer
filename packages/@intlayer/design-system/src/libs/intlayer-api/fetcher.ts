@@ -178,5 +178,15 @@ export const fetcher = async <T>(
   const urlResult = `${url}${paramsString}`;
 
   // Make the HTTP request using fetch
-  return (await fetch(urlResult, formattedOptions)).json();
+  const response = await fetch(urlResult, formattedOptions);
+
+  if (!response.ok) {
+    const result = await response.json();
+
+    console.error(result);
+
+    // You can customize the error message or include more details
+    throw new Error(JSON.stringify(result.error) ?? 'An error occurred');
+  }
+  return await response.json();
 };

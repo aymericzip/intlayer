@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import { useAuth } from '../components/Auth/AuthProvider';
 import { getIntlayerAPI } from '../libs/intlayer-api';
+import { FetcherOptions } from '../libs/intlayer-api/fetcher';
 
-export const useIntlayerAPI = () => {
+export const useIntlayerAuth = (options?: FetcherOptions) => {
   const { csrfToken, oAuth2AccessToken } = useAuth();
 
   const headers = useMemo(
@@ -25,6 +26,7 @@ export const useIntlayerAPI = () => {
       getIntlayerAPI({
         headers,
         body,
+        ...options,
       }),
     [body, headers]
   );
