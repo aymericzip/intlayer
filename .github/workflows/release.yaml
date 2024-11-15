@@ -36,7 +36,7 @@ jobs:
 
       - name: 🥡 Setup pnpm
         id: setup-pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: ${{ matrix.pnpm-version }}
           run_install: false
@@ -64,7 +64,7 @@ jobs:
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
-        run: pnpm add --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: 🏗️ Build
         id: build-the-mono-repo
