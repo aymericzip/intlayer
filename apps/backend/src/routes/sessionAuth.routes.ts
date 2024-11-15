@@ -11,7 +11,6 @@ import {
   githubLoginQuery,
   googleLoginQuery,
 } from '@controllers/sessionAuth.controller';
-import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 import { Routes } from '@/types/Routes';
 
@@ -82,64 +81,44 @@ export const sessionAuthRoutes = {
 // Authentication
 sessionAuthRouter.post(
   sessionAuthRoutes.registerEmailPassword.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated),
   registerEmailPassword
 );
 sessionAuthRouter.post(
   sessionAuthRoutes.loginEmailPassword.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated),
   loginEmailPassword
 );
-sessionAuthRouter.post(
-  sessionAuthRoutes.logOut.urlModel,
-  accessControlMiddleWare(AccessRule.authenticated),
-  logOut
-);
+sessionAuthRouter.post(sessionAuthRoutes.logOut.urlModel, logOut);
 
 // Password
 sessionAuthRouter.put(
   sessionAuthRoutes.updatePassword.urlModel,
-  accessControlMiddleWare(AccessRule.authenticated),
   updatePassword
 );
 sessionAuthRouter.post(
   sessionAuthRoutes.askResetPassword.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated),
   askResetPassword
 );
-sessionAuthRouter.put(
-  sessionAuthRoutes.resetPassword.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated),
-  resetPassword
-);
+sessionAuthRouter.put(sessionAuthRoutes.resetPassword.urlModel, resetPassword);
 
 // Email validation
-sessionAuthRouter.put(
-  sessionAuthRoutes.validEmail.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated, AccessRule.admin),
-  validEmail
-);
+sessionAuthRouter.put(sessionAuthRoutes.validEmail.urlModel, validEmail);
 
 // Github auth
 sessionAuthRouter.get(
   sessionAuthRoutes.githubLoginQuery.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated),
   githubLoginQuery
 );
 sessionAuthRouter.get(
   sessionAuthRoutes.githubCallback.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated),
   githubCallback
 );
 
 // Google auth
 sessionAuthRouter.get(
   sessionAuthRoutes.googleLoginQuery.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated),
   googleLoginQuery
 );
 sessionAuthRouter.get(
   sessionAuthRoutes.googleCallback.urlModel,
-  accessControlMiddleWare(AccessRule.noneAuthenticated),
   googleCallback
 );

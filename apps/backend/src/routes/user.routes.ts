@@ -6,7 +6,6 @@ import {
   createUser,
   getUserByAccount,
 } from '@controllers/user.controller';
-import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 import { Routes } from '@/types/Routes';
 
@@ -53,29 +52,9 @@ export const userRoutes = {
   },
 } satisfies Routes;
 
-userRouter.get(
-  userRoutes.getUsers.urlModel,
-  accessControlMiddleWare(AccessRule.admin),
-  getUsers
-);
-userRouter.put(
-  userRoutes.updateUser.urlModel,
-  accessControlMiddleWare(AccessRule.none),
-  updateUser
-);
-userRouter.post(
-  userRoutes.createUser.urlModel,
-  accessControlMiddleWare(AccessRule.admin),
-  createUser
-);
-userRouter.get(
-  userRoutes.getUserById.urlModel,
-  accessControlMiddleWare(AccessRule.authenticated),
-  getUserById
-);
-userRouter.get(
-  userRoutes.getUserByEmail.urlModel,
-  accessControlMiddleWare(AccessRule.authenticated),
-  getUserByEmail
-);
+userRouter.get(userRoutes.getUsers.urlModel, getUsers);
+userRouter.put(userRoutes.updateUser.urlModel, updateUser);
+userRouter.post(userRoutes.createUser.urlModel, createUser);
+userRouter.get(userRoutes.getUserById.urlModel, getUserById);
+userRouter.get(userRoutes.getUserByEmail.urlModel, getUserByEmail);
 userRouter.get(userRoutes.getUserByAccount.urlModel, getUserByAccount);

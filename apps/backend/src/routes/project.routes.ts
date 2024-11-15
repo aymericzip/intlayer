@@ -12,7 +12,6 @@ import {
   deleteAccessKey,
   refreshAccessKey,
 } from '@controllers/projectAccessKey.controller';
-import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 import { Routes } from '@/types/Routes';
 
@@ -73,96 +72,22 @@ export const projectRoutes = {
   },
 } satisfies Routes;
 
-projectRouter.get(
-  projectRoutes.getProjects.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-  ]),
-  getProjects
-);
+projectRouter.get(projectRoutes.getProjects.urlModel, getProjects);
 
-projectRouter.post(
-  projectRoutes.addProject.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-  ]),
-  addProject
-);
-projectRouter.put(
-  projectRoutes.updateProject.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  updateProject
-);
+projectRouter.post(projectRoutes.addProject.urlModel, addProject);
+projectRouter.put(projectRoutes.updateProject.urlModel, updateProject);
 projectRouter.put(
   projectRoutes.updateProjectMembers.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
   updateProjectMembers
 );
-projectRouter.delete(
-  projectRoutes.deleteProject.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  deleteProject
-);
+projectRouter.delete(projectRoutes.deleteProject.urlModel, deleteProject);
 
-projectRouter.post(
-  projectRoutes.addNewAccessKey.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  addNewAccessKey
-);
+projectRouter.post(projectRoutes.addNewAccessKey.urlModel, addNewAccessKey);
 
-projectRouter.patch(
-  projectRoutes.refreshAccessKey.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  refreshAccessKey
-);
+projectRouter.patch(projectRoutes.refreshAccessKey.urlModel, refreshAccessKey);
 
-projectRouter.delete(
-  projectRoutes.deleteAccessKey.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  deleteAccessKey
-);
+projectRouter.delete(projectRoutes.deleteAccessKey.urlModel, deleteAccessKey);
 
-projectRouter.post(
-  projectRoutes.unselectProject.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-    AccessRule.hasProject,
-  ]),
-  unselectProject
-);
+projectRouter.post(projectRoutes.unselectProject.urlModel, unselectProject);
 
-projectRouter.put(
-  projectRoutes.selectProject.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-  ]),
-  selectProject
-);
+projectRouter.put(projectRoutes.selectProject.urlModel, selectProject);

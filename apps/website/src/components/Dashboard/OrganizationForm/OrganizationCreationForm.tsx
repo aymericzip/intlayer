@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, Form, useToast, useUser } from '@intlayer/design-system';
+import { useForm, Form, useToast } from '@intlayer/design-system';
 import {
   useAddOrganization,
   useSelectOrganization,
@@ -14,7 +14,6 @@ import {
 
 export const OrganizationCreationForm: FC = () => {
   const organizationSchema = getOrganizationSchema();
-  const { revalidateSession } = useUser();
   const { addOrganization } = useAddOrganization();
   const { selectOrganization } = useSelectOrganization();
   const { form, isSubmitting } = useForm(organizationSchema);
@@ -46,8 +45,6 @@ export const OrganizationCreationForm: FC = () => {
                 selectOrganizationToasts.organizationSelected.description.value,
               variant: 'success',
             });
-
-            await revalidateSession();
           })
           .catch((error) => {
             toast({

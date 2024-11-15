@@ -2,7 +2,7 @@
 'use client';
 
 import { intlayerAPI } from 'src/libs';
-import { useAuth } from '../components/Auth/AuthProvider/index';
+import { useAuth } from '../components/Auth/useAuth/index';
 import { useToast } from '../components/Toaster';
 import { useAsync, UseAsyncOptions } from './useAsync/useAsync';
 import { useIntlayerAuth } from './useIntlayerAPI';
@@ -16,10 +16,20 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
   return {
     ...options,
     onError: (errorMessage) => {
-      const error = JSON.parse(errorMessage);
+      let error;
+
+      // If json is valid, parse it
+      try {
+        error = JSON.parse(errorMessage);
+      } catch (_e) {
+        // If json is not valid, set error to the original errorMessage
+
+        error = errorMessage;
+      }
+
       toast({
         title: error.code ?? 'Error',
-        description: error.message ?? 'An error occurred',
+        description: error.message ?? errorMessage ?? 'An error occurred',
         variant: 'error',
       });
       options.onError?.(errorMessage);
@@ -27,15 +37,48 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
   };
 };
 
+type AuthEnableOptions = {
+  requireUser?: boolean;
+  requireProject?: boolean;
+  requireOrganization?: boolean;
+};
+
 /**
  * Hook to enable authentication
  */
-const useAuthEnable = <T extends UseAsyncOptions<any>>(options: T): T => {
-  const { csrfToken, oAuth2AccessToken } = useAuth();
+const useAuthEnable = <T extends UseAsyncOptions<any>>(
+  options: T,
+  { requireUser, requireProject, requireOrganization }: AuthEnableOptions = {}
+): T => {
+  const { csrfToken, oAuth2AccessToken, session } = useAuth();
+
+  const user = session ? session.user : oAuth2AccessToken?.user;
+
+  const organization = session
+    ? session.organization
+    : oAuth2AccessToken?.organization;
+
+  const project = session ? session.project : oAuth2AccessToken?.project;
+
+  const isUserEnabled = requireUser ? Boolean(user) : true;
+
+  const isProjectEnabled = requireProject ? Boolean(project) : true;
+
+  const isOrganizationEnabled = requireOrganization
+    ? Boolean(organization)
+    : true;
+
+  const isCSRFEnabled =
+    Boolean(csrfToken) ||
+    // If auth using session, csrf token is not required
+    (!session && Boolean(oAuth2AccessToken));
+
+  const isEnabled =
+    isUserEnabled && isProjectEnabled && isOrganizationEnabled && isCSRFEnabled;
 
   return {
     ...options,
-    enable: Boolean(csrfToken || oAuth2AccessToken),
+    enable: isEnabled,
   };
 };
 
@@ -45,10 +88,12 @@ const useAppAsync = <
 >(
   key: U,
   asyncFunction: T,
-  options?: UseAsyncOptions<T>
+  options?: UseAsyncOptions<T>,
+  authOptions?: AuthEnableOptions
 ) => {
   // Enhance options using custom hooks
-  const optionsWithAuth = useAuthEnable(options ?? {});
+  const optionsWithAuth = useAuthEnable(options ?? {}, authOptions);
+
   const optionsWithErrorHandling = useErrorHandling(optionsWithAuth);
 
   // Call the main useAsync hook with enhanced options
@@ -61,12 +106,11 @@ const useAppAsync = <
 
 export const useLogin = (
   args?: UseAsyncOptions<typeof intlayerAPI.auth.login>
-) => {
-  return useAppAsync('login', useIntlayerAuth().auth.login, {
+) =>
+  useAppAsync('login', useIntlayerAuth().auth.login, {
     invalidateQueries: ['getSession'],
     ...args,
   });
-};
 export const useRegister = (
   args?: UseAsyncOptions<typeof intlayerAPI.auth.register>
 ) =>
@@ -115,14 +159,21 @@ export const useGetUserByAccount = (
 export const useGetUsers = (
   args?: UseAsyncOptions<typeof intlayerAPI.user.getUsers>
 ) =>
-  useAppAsync('getUsers', useIntlayerAuth().user.getUsers, {
-    cache: true,
-    store: true,
-    retryLimit: 3,
-    autoFetch: true,
-    revalidateTime: 5 * 60 * 1000, // 5 minutes
-    ...args,
-  });
+  useAppAsync(
+    'getUsers',
+    useIntlayerAuth().user.getUsers,
+    {
+      cache: true,
+      store: true,
+      retryLimit: 3,
+      autoFetch: true,
+      revalidateTime: 5 * 60 * 1000, // 5 minutes
+      ...args,
+    },
+    {
+      requireUser: true,
+    }
+  );
 export const useCreateUser = (
   args?: UseAsyncOptions<typeof intlayerAPI.user.createUser>
 ) =>
@@ -163,6 +214,9 @@ export const useGetOrganizations = (
       revalidation: true,
       revalidateTime: 5 * 60 * 1000, // 5 minutes
       ...args,
+    },
+    {
+      requireUser: true,
     }
   );
 
@@ -253,15 +307,23 @@ export const useUnselectOrganization = (
 export const useGetProjects = (
   args?: UseAsyncOptions<typeof intlayerAPI.project.getProjects>
 ) =>
-  useAppAsync('getProjects', useIntlayerAuth().project.getProjects, {
-    cache: true,
-    store: true,
-    retryLimit: 3,
-    autoFetch: true,
-    revalidation: true,
-    revalidateTime: 5 * 60 * 1000, // 5 minutes
-    ...args,
-  });
+  useAppAsync(
+    'getProjects',
+    useIntlayerAuth().project.getProjects,
+    {
+      cache: true,
+      store: true,
+      retryLimit: 3,
+      autoFetch: true,
+      revalidation: true,
+      revalidateTime: 5 * 60 * 1000, // 5 minutes
+      ...args,
+    },
+    {
+      requireUser: true,
+      requireOrganization: true,
+    }
+  );
 export const useAddProject = (
   args?: UseAsyncOptions<typeof intlayerAPI.project.addProject>
 ) =>
@@ -312,21 +374,21 @@ export const useAddNewAccessKey = (
   args?: UseAsyncOptions<typeof intlayerAPI.project.addNewAccessKey>
 ) =>
   useAppAsync('addNewAccessKey', useIntlayerAuth().project.addNewAccessKey, {
-    invalidateQueries: ['getProjects', 'getSession'],
+    invalidateQueries: ['getSession'],
     ...args,
   });
 export const useDeleteAccessKey = (
   args?: UseAsyncOptions<typeof intlayerAPI.project.deleteAccessKey>
 ) =>
   useAppAsync('deleteAccessKey', useIntlayerAuth().project.deleteAccessKey, {
-    invalidateQueries: ['getProjects', 'getSession'],
+    invalidateQueries: ['getSession'],
     ...args,
   });
 export const useRefreshAccessKey = (
   args?: UseAsyncOptions<typeof intlayerAPI.project.refreshAccessKey>
 ) =>
   useAppAsync('refreshAccessKey', useIntlayerAuth().project.refreshAccessKey, {
-    invalidateQueries: ['getProjects', 'getSession'],
+    invalidateQueries: ['getSession'],
     ...args,
   });
 
@@ -337,15 +399,24 @@ export const useRefreshAccessKey = (
 export const useGetDictionaries = (
   args?: UseAsyncOptions<typeof intlayerAPI.dictionary.getDictionaries>
 ) =>
-  useAppAsync('getDictionaries', useIntlayerAuth().dictionary.getDictionaries, {
-    cache: true,
-    store: true,
-    retryLimit: 3,
-    autoFetch: true,
-    revalidation: true,
-    revalidateTime: 5 * 60 * 1000, // 5 minutes
-    ...args,
-  });
+  useAppAsync(
+    'getDictionaries',
+    useIntlayerAuth().dictionary.getDictionaries,
+    {
+      cache: true,
+      store: true,
+      retryLimit: 3,
+      autoFetch: true,
+      revalidation: true,
+      revalidateTime: 5 * 60 * 1000, // 5 minutes
+      ...args,
+    },
+    {
+      requireUser: true,
+      requireOrganization: true,
+      requireProject: true,
+    }
+  );
 
 export const useGetDictionariesKeys = (
   args?: UseAsyncOptions<typeof intlayerAPI.dictionary.getDictionariesKeys>
@@ -361,20 +432,34 @@ export const useGetDictionariesKeys = (
       revalidation: true,
       revalidateTime: 5 * 60 * 1000, // 5 minutes
       ...args,
+    },
+    {
+      requireUser: true,
+      requireOrganization: true,
+      requireProject: true,
     }
   );
 
 export const useGetDictionary = (
   args?: UseAsyncOptions<typeof intlayerAPI.dictionary.getDictionary>
 ) =>
-  useAppAsync('getDictionary', useIntlayerAuth().dictionary.getDictionary, {
-    cache: true,
-    store: true,
-    retryLimit: 3,
-    revalidation: true,
-    revalidateTime: 5 * 60 * 1000, // 5 minutes
-    ...args,
-  });
+  useAppAsync(
+    'getDictionary',
+    useIntlayerAuth().dictionary.getDictionary,
+    {
+      cache: true,
+      store: true,
+      retryLimit: 3,
+      revalidation: true,
+      revalidateTime: 5 * 60 * 1000, // 5 minutes
+      ...args,
+    },
+    {
+      requireUser: true,
+      requireOrganization: true,
+      requireProject: true,
+    }
+  );
 export const useAddDictionary = (
   args?: UseAsyncOptions<typeof intlayerAPI.dictionary.addDictionary>
 ) =>

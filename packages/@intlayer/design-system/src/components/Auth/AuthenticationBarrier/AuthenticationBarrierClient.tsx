@@ -2,7 +2,7 @@
 
 import { useEffect, type FC } from 'react';
 import { Loader } from '../../Loader';
-import { useSession } from '../AuthProvider/useSession';
+import { useSession } from '../useAuth/useSession';
 import { accessValidation } from './accessValidation';
 import type { AuthenticationBarrierProps } from '.';
 

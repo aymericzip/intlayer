@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { AuthProviderProps } from '../AuthProvider';
+import type { AuthProviderProps } from '../useAuth';
 
 export { AuthenticationBarrierServer } from './AuthenticationBarrierServer';
 export { AuthenticationBarrierClient } from './AuthenticationBarrierClient';

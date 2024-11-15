@@ -1,5 +1,5 @@
 import type { Project } from '@intlayer/backend';
-import { Button, toast, useAuth } from '@intlayer/design-system';
+import { Button, toast } from '@intlayer/design-system';
 import { useSelectProject } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -12,7 +12,6 @@ type ProjectListProps = {
 
 export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
   const { selectProject } = useSelectProject();
-  const { revalidateSession } = useAuth();
   const { selectProjectToasts } = useIntlayer('project-form');
   const router = useRouter();
 
@@ -24,8 +23,6 @@ export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
           description: selectProjectToasts.projectSelected.description.value,
           variant: 'success',
         });
-
-        await revalidateSession();
 
         router.push(PagesRoutes.Dashboard_Content);
       })

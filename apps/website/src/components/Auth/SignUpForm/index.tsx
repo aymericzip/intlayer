@@ -2,7 +2,6 @@
 
 import {
   SignUpForm as SignUpFormUI,
-  useAuth,
   useToast,
   type SignUp,
 } from '@intlayer/design-system';
@@ -18,7 +17,6 @@ type SignUpFormProps = {
 export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const router = useRouter();
 
-  const { revalidateSession } = useAuth();
   const { register } = useRegister();
   const { toast } = useToast();
 
@@ -38,8 +36,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
     }
 
     if (response.data) {
-      await revalidateSession();
-
       if (callbackUrl) {
         router.push(callbackUrl);
       }

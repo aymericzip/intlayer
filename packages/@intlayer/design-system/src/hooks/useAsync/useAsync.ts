@@ -183,16 +183,13 @@ export const useAsync = <
     isFetched,
     fetchedDateTime,
     isLoading,
-    isEnabled: isEnabledState,
+    isEnabled,
     error,
     isSuccess,
     isInvalidated,
     data,
     retryCount: errorCount,
   } = useAsyncStateStore((state) => state.getStates(keyWithArgs));
-
-  const isEnabled = isEnabledState || enabled;
-  const isDisabled = !isEnabled;
 
   // The core fetching function, designed to be called directly or automatically based on configuration
   const fetch: T = useCallback<T>(
@@ -210,16 +207,29 @@ export const useAsync = <
 
         await asyncFunction(...args)
           .then((result) => {
+            response = result;
+
             const isResultChanged =
               JSON.stringify(result) !== JSON.stringify(data);
 
-            response = result;
-            if (isResultChanged) {
+            const invalidate =
+              invalidateQueries.length > 0 &&
+              // If data is not defined, always invalidate
+              // Otherwise, invalidate only if the result is different
+              (!data || isResultChanged);
+
+            // Invalidate other queries if necessary
+            if (invalidate) {
+              invalidateQueries.forEach((key) => setIsInvalidated(key, true));
+            }
+
+            if (isResultChanged && cacheEnabled) {
               setData(keyWithArgs, result);
             }
             setIsSuccess(keyWithArgs, true);
             onSuccess?.(result);
             resetRetryCount(keyWithArgs);
+            setError(keyWithArgs, null);
 
             // Store the result in session storage
             if (storeEnabled) {
@@ -230,13 +240,6 @@ export const useAsync = <
             if (isResultChanged && updateQueries.length > 0) {
               updateQueries.forEach((key) => {
                 setData(key, result);
-              });
-            }
-
-            // Invalidate other queries if necessary
-            if (isResultChanged && invalidateQueries.length > 0) {
-              invalidateQueries.forEach((key) => {
-                setIsInvalidated(key, true);
               });
             }
           })
@@ -260,30 +263,32 @@ export const useAsync = <
 
       // Store the pending promise in the cache
       pendingPromises.set(keyWithArgs, promise);
+
+      return await promise;
     }) as T,
-    [asyncFunction, keyWithArgs]
+    [asyncFunction, keyWithArgs, storeEnabled, cacheEnabled, onSuccess, onError]
   );
 
   // Wrapped execution function to handle disabled state and check for success before re-fetching
   const execute: T = useCallback<T>(
     (async (...args) => {
-      if (isDisabled) return;
+      if (!isEnabled) return;
       if (isLoading) return;
-      if (isSuccess && cacheEnabled && data) return data;
+      if (!isInvalidated && isSuccess && cacheEnabled && data) return data;
 
       if (args) {
         storedArgsRef.current = args;
       }
 
-      await fetch(...args);
+      return await fetch(...args);
     }) as T,
-    [isDisabled, cacheEnabled, isSuccess, data, isLoading]
+    [isEnabled, isInvalidated, cacheEnabled, isSuccess, data, isLoading, fetch]
   );
 
   // Function to revalidate the data when necessary
   const revalidate: T = useCallback<T>(
     (async (...args) => {
-      if (isDisabled) return;
+      if (!isEnabled) return;
       if (isSuccess) return;
       if (isLoading) return;
 
@@ -291,22 +296,24 @@ export const useAsync = <
         storedArgsRef.current = args;
       }
 
-      await fetch(...storedArgsRef.current);
+      return await fetch(...storedArgsRef.current);
     }) as T,
-    [isDisabled, storedArgsRef, isSuccess, isLoading]
+    [isEnabled, storedArgsRef, isSuccess, isLoading, fetch]
   );
 
-  const autoRevalidate = useCallback(() => {
-    if (isDisabled) return;
-    if (isLoading || !(cacheEnabled || storeEnabled)) return;
-    if (!revalidationEnabled || revalidateTime <= 0 || !isSuccess) return;
+  const autoRevalidate = useCallback(async () => {
+    if (!isEnabled) return;
+    if (isLoading) return;
+    if (!(cacheEnabled || storeEnabled)) return;
+    if (!isSuccess) return;
+    if (!revalidationEnabled || revalidateTime <= 0) return;
     if (!fetchedDateTime) return;
 
     const now = new Date().getTime();
     const lastFetchedTime = new Date(fetchedDateTime).getTime();
     const shouldRevalidate = now - lastFetchedTime >= revalidateTime;
     if (shouldRevalidate) {
-      fetch(...storedArgsRef.current);
+      return await fetch(...storedArgsRef.current);
     }
   }, [
     cacheEnabled,
@@ -315,27 +322,33 @@ export const useAsync = <
     isSuccess,
     fetchedDateTime,
     isLoading,
-    isDisabled,
+    isEnabled,
   ]);
+
+  // Handle invalidation if props are changed
+  useEffect(() => {
+    setIsInvalidated(keyWithArgs, isInvalidatedProps);
+  }, [isInvalidatedProps, keyWithArgs]);
 
   useEffect(() => {
     setIsEnabled(keyWithArgs, enabled);
-  }, [enabled]);
+  }, [enabled, keyWithArgs]);
 
   // Auto-fetch data on hook mount if autoFetch is true
   useEffect(() => {
     if (!autoFetch) return;
-    if (isDisabled) return;
-    if (isFetched || isLoading) return;
+    if (!isEnabled) return;
+    if (isFetched && !isInvalidated) return;
+    if (isLoading) return;
 
     fetch(...storedArgsRef.current);
-  }, [autoFetch, isFetched, isDisabled, isLoading]);
+  }, [autoFetch, isFetched, isInvalidated, isEnabled, isLoading, fetch]);
 
   // Handle retry based on conditions set in options
   useEffect(() => {
     const isRetryEnabled = errorCount > 0 && retryLimit > 0;
     const isRetryLimitReached = errorCount >= retryLimit;
-    if (isDisabled) return;
+    if (isEnabled) return;
     if (!(cacheEnabled || storeEnabled)) return;
     if (!isRetryEnabled || isRetryLimitReached) return;
     if (isSuccess) return;
@@ -348,7 +361,7 @@ export const useAsync = <
     }, retryTime);
 
     return () => clearTimeout(timeOut);
-  }, [execute, errorCount, retryLimit, retryTime, isSuccess]);
+  }, [execute, errorCount, retryLimit, retryTime, isSuccess, isEnabled]);
 
   // Handle periodic revalidation if caching is enabled
   useEffect(() => {
@@ -359,7 +372,7 @@ export const useAsync = <
 
   // Load data from session storage if storeEnabled is true
   useEffect(() => {
-    if (isDisabled) return;
+    if (isEnabled) return;
     if (!storeEnabled) return;
     if (isInvalidated) return;
     if (isFetched) return;
@@ -369,13 +382,7 @@ export const useAsync = <
     if (storedData) {
       setData(keyWithArgs, JSON.parse(storedData));
     }
-  }, [storeEnabled, keyWithArgs, isFetched, isInvalidated, isDisabled]);
-
-  // Handle invalidation if props are changed
-  useEffect(() => {
-    if (!isInvalidatedProps) return;
-    setIsInvalidated(keyWithArgs, isInvalidatedProps);
-  }, [isInvalidatedProps]);
+  }, [storeEnabled, keyWithArgs, isFetched, isInvalidated, isEnabled]);
 
   // Memoization of the setData function to prevent unnecessary re-renders
   const setDataMemo = useCallback(
@@ -394,7 +401,7 @@ export const useAsync = <
     isSuccess,
     data,
     retryCount: errorCount,
-    isDisabled,
+    isDisabled: !isEnabled,
     isEnabled,
     [key]: execute,
     revalidate,

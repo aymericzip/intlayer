@@ -2,25 +2,19 @@
 
 import type {
   OAuth2Token,
-  Organization,
-  Project,
+  OrganizationAPI,
+  ProjectAPI,
   UserAPI,
 } from '@intlayer/backend';
-import {
-  type PropsWithChildren,
-  type FC,
-  createContext,
-  useContext,
-  useMemo,
-} from 'react';
+import { useMemo } from 'react';
 import { useCSRF } from './useCSRF';
 import { useOAuth2 } from './useOAuth2';
 import { useSession } from './useSession';
 
 export type Session = {
   user: UserAPI | null;
-  organization: Organization | null;
-  project: Project | null;
+  organization: OrganizationAPI | null;
+  project: ProjectAPI | null;
   isOrganizationAdmin: boolean;
   isProjectAdmin: boolean;
 };
@@ -37,31 +31,11 @@ type SessionContextProps = {
   isOrganizationAdmin: boolean | null | undefined;
 };
 
-export const AuthContext = createContext<SessionContextProps>({
-  session: undefined,
-  setSession: () => null,
-  fetchSession: () => Promise.resolve(undefined),
-  revalidateSession: () => Promise.resolve(undefined),
-  csrfToken: null,
-  csrfTokenFetched: false,
-  oAuth2AccessToken: null,
-  isProjectAdmin: null,
-  isOrganizationAdmin: null,
-});
-
-export const useAuth = () => useContext(AuthContext);
-
-export type AuthProviderProps = PropsWithChildren<{
-  /**
-   * auth session
-   */
-  session?: Session | null;
-}>;
-
-export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
-  children,
+export const useAuth = ({
   session: sessionProp,
-}) => {
+}: {
+  session?: Session | null;
+} = {}) => {
   const { csrfToken, csrfTokenFetched } = useCSRF();
   const { session, fetchSession, revalidateSession, setSession } =
     useSession(sessionProp);
@@ -90,7 +64,5 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
     ]
   );
 
-  return (
-    <AuthContext.Provider value={memoValue}>{children}</AuthContext.Provider>
-  );
+  return memoValue;
 };

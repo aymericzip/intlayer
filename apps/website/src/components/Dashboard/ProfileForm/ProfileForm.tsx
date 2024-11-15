@@ -14,7 +14,7 @@ import type { FC } from 'react';
 import { getSignInSchema, type ProfileFormData } from './ProfileFormSchema';
 
 export const ProfileForm: FC = () => {
-  const { session, revalidateSession } = useAuth();
+  const { session } = useAuth();
   const { user } = session ?? {};
   const SignInSchema = getSignInSchema();
   const { form, isSubmitting } = useForm(SignInSchema);
@@ -25,13 +25,12 @@ export const ProfileForm: FC = () => {
 
   const onSubmitSuccess = async (data: ProfileFormData) => {
     await updateUser(data)
-      .then(async () => {
+      .then(() => {
         toast({
           title: updateProfileToasts.profileUpdated.title.value,
           description: updateProfileToasts.profileUpdated.description.value,
           variant: 'success',
         });
-        await revalidateSession();
       })
       .catch((error) => {
         toast({

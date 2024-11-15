@@ -23,7 +23,7 @@ import { PagesRoutes } from '@/Routes';
 type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>>;
 
 export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
-  const { session, revalidateSession } = useAuth();
+  const { session } = useAuth();
   const { data: projects } = useGetProjects();
   const { selectProject, isLoading: isSelectProjectLoading } =
     useSelectProject();
@@ -42,10 +42,9 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
     createNewProject,
   } = useIntlayer('dashboard-navbar');
 
-  const handleUnselectProject = () => {
-    unselectProject()
-      .then(async () => {
-        await revalidateSession();
+  const handleUnselectProject = async () => {
+    await unselectProject()
+      .then(() => {
         toast({
           title: projectLogout.toast.success.title.value,
           description: projectLogout.toast.success.description,
@@ -64,8 +63,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
 
   const handleSelectProject = (projectId: string) => {
     selectProject(projectId)
-      .then(async () => {
-        await revalidateSession();
+      .then(() => {
         toast({
           title: selectProjectAction.toast.success.title.value,
           description: selectProjectAction.toast.success.description,

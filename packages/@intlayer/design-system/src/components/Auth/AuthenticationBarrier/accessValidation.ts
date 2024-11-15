@@ -1,4 +1,4 @@
-import type { Session } from '../AuthProvider';
+import type { Session } from '../useAuth';
 import type { AuthenticationBarrierProps } from '.';
 
 export const accessValidation = (

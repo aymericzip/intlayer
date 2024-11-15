@@ -1,11 +1,10 @@
 'use client';
 
-import { useContext } from 'react';
 import { useLogout } from '../../../hooks';
-import { AuthContext } from '../AuthProvider';
+import { useAuth } from '../useAuth';
 
 export const useUser = () => {
-  const { session, revalidateSession, setSession } = useContext(AuthContext);
+  const { session, revalidateSession, setSession } = useAuth();
   const { logout } = useLogout();
 
   const status = session?.user ? 'authenticated' : 'unauthenticated';

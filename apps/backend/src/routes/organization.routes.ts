@@ -8,7 +8,6 @@ import {
   unselectOrganization,
   addOrganizationMember,
 } from '@controllers/organization.controller';
-import { accessControlMiddleWare, AccessRule } from '@utils/accessControl';
 import { Router } from 'express';
 import { Routes } from '@/types/Routes';
 
@@ -63,58 +62,35 @@ export const organizationRoutes = {
 
 organizationRouter.get(
   organizationRoutes.getOrganizations.urlModel,
-  accessControlMiddleWare(AccessRule.authenticated),
   getOrganizations
 );
 
 organizationRouter.post(
   organizationRoutes.addOrganization.urlModel,
-  accessControlMiddleWare(AccessRule.authenticated),
   addOrganization
 );
 organizationRouter.put(
   organizationRoutes.updateOrganization.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-  ]),
   updateOrganization
 );
 organizationRouter.put(
   organizationRoutes.updateOrganizationMembers.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-  ]),
   updateOrganizationMembers
 );
 organizationRouter.post(
   organizationRoutes.addOrganizationMember.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-  ]),
   addOrganizationMember
 );
 organizationRouter.delete(
   organizationRoutes.deleteOrganization.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-  ]),
   deleteOrganization
 );
 organizationRouter.put(
   organizationRoutes.selectOrganization.urlModel,
-  accessControlMiddleWare([AccessRule.authenticated]),
   selectOrganization
 );
 
 organizationRouter.post(
   organizationRoutes.unselectOrganization.urlModel,
-  accessControlMiddleWare([
-    AccessRule.authenticated,
-    AccessRule.hasOrganization,
-  ]),
   unselectOrganization
 );

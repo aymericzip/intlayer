@@ -7,7 +7,7 @@ import type { FC } from 'react';
 import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
-  const { session, revalidateSession, isProjectAdmin } = useAuth();
+  const { session, isProjectAdmin } = useAuth();
   const { project } = session ?? {};
   const SignInSchema = getProjectSchema();
   const { updateProject } = useUpdateProject();
@@ -17,15 +17,13 @@ export const ProjectEditionForm: FC = () => {
   const { toast } = useToast();
 
   const onSubmitSuccess = async (data: ProjectFormData) => {
-    await updateProject(data)
+    await updateProject({ ...data, _id: String(project?._id) })
       .then(async () => {
         toast({
           title: updateProjectToasts.projectUpdated.title.value,
           description: updateProjectToasts.projectUpdated.description.value,
           variant: 'success',
         });
-
-        await revalidateSession();
       })
       .catch((error) => {
         toast({

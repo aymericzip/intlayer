@@ -167,17 +167,17 @@ export const checkAdmin = async (
   }
 
   res.locals.organizationRights = {
-    read: false,
+    read: true,
     write: false,
     admin: false,
   };
   res.locals.projectRights = {
-    read: false,
+    read: true,
     write: false,
     admin: false,
   };
   res.locals.projectRights = {
-    read: false,
+    read: true,
     write: false,
     admin: false,
   };

@@ -38,7 +38,7 @@ const getUserNames = (
 };
 
 export const MembersForm: FC = () => {
-  const { session, isOrganizationAdmin, revalidateSession } = useAuth();
+  const { session, isOrganizationAdmin } = useAuth();
   const { organization } = session ?? {};
   const MembersFormSchema = getOrganizationMembersSchema();
   const NewMembersFormSchema = getOrganizationNewMembersSchema();
@@ -73,15 +73,13 @@ export const MembersForm: FC = () => {
 
   const handleUpdateMembers = async (data: UpdateOrganizationMembersBody) => {
     await updateOrganizationMembers(data)
-      .then(async () => {
+      .then(() => {
         toast({
           title: updateOrganizationMembersToasts.updated.title.value,
           description:
             updateOrganizationMembersToasts.updated.description.value,
           variant: 'success',
         });
-
-        await revalidateSession();
       })
       .catch((error) => {
         toast({
@@ -125,14 +123,12 @@ export const MembersForm: FC = () => {
     };
 
     addOrganizationMember(formattedData)
-      .then(async () => {
+      .then(() => {
         toast({
           title: addOrganizationMemberToasts.updated.title.value,
           description: addOrganizationMemberToasts.updated.description.value,
           variant: 'success',
         });
-
-        await revalidateSession();
       })
       .catch((error) => {
         toast({

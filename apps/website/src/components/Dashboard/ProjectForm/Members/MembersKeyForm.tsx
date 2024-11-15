@@ -30,7 +30,7 @@ const getUserNames = (
 };
 
 export const MembersForm: FC = () => {
-  const { session, isProjectAdmin, revalidateSession } = useAuth();
+  const { session, isProjectAdmin } = useAuth();
   const { organization, project } = session ?? {};
   const MembersFormSchema = getProjectMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
@@ -66,8 +66,6 @@ export const MembersForm: FC = () => {
           description: updateProjectMembersToasts.updated.description.value,
           variant: 'success',
         });
-
-        await revalidateSession();
       })
       .catch((error) => {
         toast({

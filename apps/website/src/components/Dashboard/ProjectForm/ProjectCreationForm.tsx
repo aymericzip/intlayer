@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, Form, useToast, useUser } from '@intlayer/design-system';
+import { useForm, Form, useToast } from '@intlayer/design-system';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -8,7 +8,6 @@ import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
 
 export const ProjectCreationForm: FC = () => {
   const SignInSchema = getProjectSchema();
-  const { revalidateSession } = useUser();
   const { addProject } = useAddProject();
   const { selectProject } = useSelectProject();
   const { form, isSubmitting } = useForm(SignInSchema);
@@ -34,15 +33,13 @@ export const ProjectCreationForm: FC = () => {
         const projectId = String(result.data?._id);
 
         await selectProject(projectId)
-          .then(async () => {
+          .then(() => {
             toast({
               title: selectProjectToasts.projectSelected.title.value,
               description:
                 selectProjectToasts.projectSelected.description.value,
               variant: 'success',
             });
-
-            await revalidateSession();
           })
           .catch((error) => {
             toast({

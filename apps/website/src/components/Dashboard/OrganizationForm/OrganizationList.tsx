@@ -1,5 +1,5 @@
 import type { Organization } from '@intlayer/backend';
-import { Button, useAuth, useToast } from '@intlayer/design-system';
+import { Button, useToast } from '@intlayer/design-system';
 import { useSelectOrganization } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -15,7 +15,6 @@ export const OrganizationList: FC<OrganizationListProps> = ({
 }) => {
   const { selectOrganization } = useSelectOrganization();
   const { toast } = useToast();
-  const { revalidateSession } = useAuth();
   const { selectOrganizationToasts } = useIntlayer('organization-form');
   const router = useRouter();
 
@@ -28,8 +27,6 @@ export const OrganizationList: FC<OrganizationListProps> = ({
             selectOrganizationToasts.organizationSelected.description.value,
           variant: 'success',
         });
-
-        await revalidateSession();
 
         router.push(PagesRoutes.Dashboard_Projects);
       })

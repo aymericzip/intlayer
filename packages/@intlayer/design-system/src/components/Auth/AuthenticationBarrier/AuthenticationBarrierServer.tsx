@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { AuthProviderProps } from '../AuthProvider';
+import type { AuthProviderProps } from '../useAuth';
 import { accessValidation } from './accessValidation';
 import type { AuthenticationBarrierProps } from '.';
 

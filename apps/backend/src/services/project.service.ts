@@ -23,9 +23,8 @@ export const findProjects = async (
   filters: ProjectFilters,
   skip = 0,
   limit = 100
-): Promise<ProjectDocument[]> => {
-  return await ProjectModel.find(filters).skip(skip).limit(limit);
-};
+): Promise<ProjectDocument[]> =>
+  await ProjectModel.find(filters).skip(skip).limit(limit);
 
 /**
  * Finds a project by its ID.

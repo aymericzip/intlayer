@@ -145,16 +145,6 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
         matchedKeys.forEach((key) => {
           sessionStorage.removeItem(key);
         });
-
-        return {
-          states: {
-            ...state.states,
-            [key]: {
-              ...createDefaultStates<unknown>(),
-              isInvalidated: true,
-            },
-          },
-        };
       }
 
       return {
@@ -163,7 +153,7 @@ export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
           [key]: {
             ...((state.states[key] as States<unknown>) ??
               createDefaultStates<unknown>()),
-            isInvalidated: false,
+            isInvalidated: value,
           },
         },
       };

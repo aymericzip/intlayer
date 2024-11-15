@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useAuth } from '../components/Auth/AuthProvider';
+import { useAuth } from '../components/Auth/useAuth';
 import { getIntlayerAPI } from '../libs/intlayer-api';
 import { FetcherOptions } from '../libs/intlayer-api/fetcher';
 
