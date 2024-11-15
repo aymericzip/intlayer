@@ -134,7 +134,7 @@ export const TabSelector = <T extends TabProps>({
           })}
           style={choiceIndicatorPosition}
           ref={indicatorRef}
-          key={selectedChoice}
+          key={`${selectedChoice}${JSON.stringify(tabs.map((tab) => tab.key))}`}
         />
       )}
     </div>
