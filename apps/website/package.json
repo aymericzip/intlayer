@@ -54,7 +54,7 @@
     "@intlayer/core": "workspace:^",
     "@intlayer/design-system": "workspace:^",
     "@intlayer/docs": "workspace:^",
-    "chokidar": "^4.0.1",
+    "chokidar": "^3.6.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.17",
     "intlayer": "workspace:^",

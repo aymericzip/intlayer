@@ -74,7 +74,7 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
     "@intlayer/config": "workspace:^",
-    "chokidar": "^4.0.1",
+    "chokidar": "^3.6.0",
     "negotiator": "^0.6.3"
   },
   "devDependencies": {

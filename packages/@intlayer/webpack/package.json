@@ -74,7 +74,7 @@
     "@intlayer/chokidar": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
-    "chokidar": "^4.0.1",
+    "chokidar": "^3.6.0",
     "crypto-js": "^4.2.0",
     "esbuild": "^0.24.0",
     "esbuild-loader": "^4.2.2",
