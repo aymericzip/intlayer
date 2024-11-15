@@ -13,8 +13,8 @@ env:
 jobs:
   build:
     # github.actor!= 'github-actions' -> Ignore the pull request which comes from user depbot.
-    # github.repository_owner == 'aypineau' -> Prevents the workflow from running on forks
-    if: ${{ github.repository_owner == 'aypineau' && github.actor != 'github-actions' }}
+    # github.repository_owner == 'aymericzip' -> Prevents the workflow from running on forks
+    if: ${{ github.repository_owner == 'aymericzip' && github.actor != 'github-actions' }}
 
     name: 🔨 Build & Test
     strategy:

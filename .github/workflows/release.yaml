@@ -17,7 +17,7 @@ env:
 jobs:
   release:
     # Prevents the workflow from running on forks
-    if: ${{ github.repository_owner == 'aypineau' }}
+    if: ${{ github.repository_owner == 'aymericzip' }}
 
     name: 🚀 Release
     strategy:
