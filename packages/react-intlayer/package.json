@@ -1,6 +1,6 @@
 {
   "name": "react-intlayer",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "private": false,
   "description": "Internationalization layer for React applications. Declare your multilingual contant in the same lever than your component. Powered by TypeScript, declaration files.",
   "keywords": [
