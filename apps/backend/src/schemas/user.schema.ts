@@ -68,6 +68,11 @@ export const userSchema = new Schema<User>(
       required: false,
     },
 
+    customerId: {
+      type: String,
+      required: false,
+    },
+
     provider: {
       type: [ProviderSchema],
       default: undefined,

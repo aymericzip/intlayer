@@ -26,14 +26,18 @@ import type {
   GithubSessionProvider,
   Session,
 } from '@/types/session.types';
-import type { User, UserWithPasswordNotHashed } from '@/types/user.types';
+import type {
+  User,
+  UserDocument,
+  UserWithPasswordNotHashed,
+} from '@/types/user.types';
 
 /**
  * Adds a session to a user or updates the existing one.
  * @param user - User object.
  * @returns Updated user object.
  */
-export const addSession = async (user: User): Promise<User> => {
+export const addSession = async (user: User): Promise<UserDocument> => {
   const userSessionToken = uuidv4();
 
   const session: Session = {
@@ -41,15 +45,15 @@ export const addSession = async (user: User): Promise<User> => {
     expires: new Date(Date.now() + MAX_AGE),
   };
 
-  const updatedUser: User = await updateUserById(user._id, { session });
+  const updatedUser: UserDocument = await updateUserById(user._id, { session });
 
   return updatedUser;
 };
 
-export const removeSession = async (user: User): Promise<User> => {
+export const removeSession = async (user: User): Promise<UserDocument> => {
   const session = undefined;
 
-  const updatedUser: User = await updateUserById(user._id, { session });
+  const updatedUser: UserDocument = await updateUserById(user._id, { session });
 
   return updatedUser;
 };
@@ -74,7 +78,7 @@ export const setUserAuth = async (res: Response, user: User) => {
 
   res.cookie(Cookies.JWT_USER, userToken, cookieOptions);
 
-  const userWithSession = await addSession(user);
+  const userWithSession: UserDocument = await addSession(user);
 
   const userSessionToken = userWithSession.session?.sessionToken;
 
@@ -212,7 +216,7 @@ export const clearProjectAuth = (res: Response) => {
 export const activateUser = async (
   userId: string | ObjectId,
   secret: string
-): Promise<User> => {
+): Promise<UserDocument> => {
   return await updateUserProvider(userId, 'email', {
     secret,
   });
@@ -371,7 +375,7 @@ export const updateUserProvider = async <
   userId: string | ObjectId,
   provider: T,
   providerUpdate: Partial<UserProvider<T>>
-): Promise<User> => {
+): Promise<UserDocument> => {
   const user = await getUserById(userId);
 
   if (!user) {
@@ -384,7 +388,7 @@ export const updateUserProvider = async <
     providerUpdate
   );
 
-  const updatedUser: User = await updateUserById(userId, {
+  const updatedUser: UserDocument = await updateUserById(userId, {
     provider: formattedProviderToUpdate,
   });
 
@@ -404,7 +408,7 @@ export const updateUserProvider = async <
 export const addUserProvider = async (
   userId: string | ObjectId,
   provider: SessionProviders
-): Promise<User> => {
+): Promise<UserDocument> => {
   const user = await getUserById(userId);
 
   if (!user) {
@@ -545,7 +549,7 @@ export const testUserPassword = async (
  */
 export const hashUserPassword = async (
   userWithPasswordNotHashed: UserWithPasswordNotHashed
-): Promise<Partial<User>> => {
+): Promise<Partial<UserDocument>> => {
   const { password, ...user } = userWithPasswordNotHashed;
 
   if (!password) {
@@ -603,7 +607,7 @@ export const resetPassword = async (userId: string, password: string) => {
     throw new GenericError('USER_NOT_FOUND', { userId });
   }
 
-  const updatedUser: User = await updateUserProvider(userId, 'email', {
+  const updatedUser: UserDocument = await updateUserProvider(userId, 'email', {
     passwordHash: await hash(password, await genSalt()),
   });
 

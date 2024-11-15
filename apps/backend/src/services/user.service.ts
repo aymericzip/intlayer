@@ -22,7 +22,9 @@ import type {
  * @param user - User object with password not hashed.
  * @returns Created user object.
  */
-export const createUser = async (user: UserWithPasswordNotHashed) => {
+export const createUser = async (
+  user: UserWithPasswordNotHashed
+): Promise<UserDocument> => {
   const fieldsToCheck: FieldsToCheck[] = ['email'];
 
   const errors = validateUser(user, fieldsToCheck);
@@ -34,7 +36,7 @@ export const createUser = async (user: UserWithPasswordNotHashed) => {
     });
   }
 
-  let newUser: User;
+  let newUser: UserDocument;
 
   if (user.password) {
     const userWithHashedPassword = await hashUserPassword(user);
@@ -56,7 +58,9 @@ export const createUser = async (user: UserWithPasswordNotHashed) => {
  * @param email - User's email.
  * @returns User object or null if no user was found.
  */
-export const getUserByEmail = async (email: string): Promise<User | null> => {
+export const getUserByEmail = async (
+  email: string
+): Promise<UserDocument | null> => {
   return await UserModel.findOne({ email });
 };
 
@@ -67,7 +71,7 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
  */
 export const getUsersByEmails = async (
   emails: string[]
-): Promise<User[] | null> => {
+): Promise<UserDocument[] | null> => {
   return await UserModel.find({ email: { $in: emails } });
 };
 
@@ -76,7 +80,7 @@ export const getUsersByEmails = async (
  * @param email - User's email.
  * @returns True if the user exists, false otherwise.
  */
-export const checkUserExists = async (email: string) => {
+export const checkUserExists = async (email: string): Promise<boolean> => {
   const user = await UserModel.exists({ email });
   return user !== null;
 };
@@ -88,7 +92,7 @@ export const checkUserExists = async (email: string) => {
  */
 export const getUserById = async (
   userId: string | ObjectId
-): Promise<User | null> => {
+): Promise<UserDocument | null> => {
   return await UserModel.findById(userId);
 };
 
@@ -99,7 +103,7 @@ export const getUserById = async (
  */
 export const getUsersByIds = async (
   userIds: (string | ObjectId)[]
-): Promise<User[] | null> => {
+): Promise<UserDocument[] | null> => {
   return await UserModel.find({ _id: { $in: userIds } });
 };
 
@@ -108,7 +112,9 @@ export const getUsersByIds = async (
  * @param sessionToken - The session token.
  * @returns User object or null if no user was found.
  */
-export const getUserBySession = async (sessionToken: string) => {
+export const getUserBySession = async (
+  sessionToken: string
+): Promise<UserDocument> => {
   // Get an user by session token and check if it expired
   const user = await UserModel.findOne({
     'session.sessionToken': sessionToken,
@@ -137,7 +143,7 @@ export const getUserBySession = async (sessionToken: string) => {
 export const getUserByAccount = async (
   provider: SessionProviders['provider'],
   providerAccountId: string
-): Promise<User> => {
+): Promise<UserDocument> => {
   const user = await UserModel.findOne({
     provider: [{ provider, providerAccountId }],
   });
@@ -163,7 +169,7 @@ export const findUsers = async (
   filters: UserFilters,
   skip: number,
   limit: number
-): Promise<User[]> => {
+): Promise<UserDocument[]> => {
   return await UserModel.find(filters).skip(skip).limit(limit);
 };
 
@@ -191,7 +197,7 @@ export const countUsers = async (filters: UserFilters): Promise<number> => {
 export const updateUserById = async (
   userId: string | ObjectId,
   updates: Partial<User>
-): Promise<User> => {
+): Promise<UserDocument> => {
   const keyToValidate = Object.keys(updates) as UserFields;
   const errors = validateUser(updates, keyToValidate);
 
@@ -222,7 +228,9 @@ export const updateUserById = async (
  * @param userId - The user object.
  * @returns
  */
-export const deleteUser = async (userId: string | ObjectId) => {
+export const deleteUser = async (
+  userId: string | ObjectId
+): Promise<UserDocument> => {
   await getUserById(userId);
 
   const user = await UserModel.findByIdAndDelete(userId);

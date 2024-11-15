@@ -127,6 +127,9 @@ importers:
       resend:
         specifier: ^4.0.0
         version: 4.0.0(react-dom@18.3.1)(react@18.3.1)
+      stripe:
+        specifier: ^17.3.1
+        version: 17.3.1
       uuid:
         specifier: ^10.0.0
         version: 10.0.0
@@ -33172,6 +33175,17 @@ packages:
         integrity: sha512-A21Xsm1XzUkK0qK1ZrytDUvqsQWict2Cykhvi0fBQntGG5JSprESasEyV1EZ/4CiR5WB5KjzLTrP/bO37B0wPg==,
       }
     engines: { node: ^12.20.0 || ^14.13.1 || >=16.0.0 }
+    dev: false
+
+  /stripe@17.3.1:
+    resolution:
+      {
+        integrity: sha512-E9/u+GFBPkYnTmfFCoKX3+gP4R3SkZoGunHe4cw9J+sqkj5uxpLFf1LscuI9BuEyIQ0PFAgPTHavgQwRtOvnag==,
+      }
+    engines: { node: '>=12.*' }
+    dependencies:
+      '@types/node': 20.16.11
+      qs: 6.13.0
     dev: false
 
   /strtok3@7.1.1:

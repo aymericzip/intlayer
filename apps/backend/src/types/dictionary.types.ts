@@ -35,5 +35,5 @@ export type DictionaryAPI = Omit<Dictionary, 'filePath' | 'content'> & {
   filePath?: string;
 };
 
-export type DictionaryDocument = Document<Dictionary> & Dictionary;
+export type DictionaryDocument = Document<unknown, {}, Dictionary> & Dictionary;
 export type DictionaryModelType = Model<Dictionary>;

@@ -20,12 +20,12 @@ export const addNewAccessKey = async (
     res.locals;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -84,12 +84,12 @@ export const deleteAccessKey = async (
   const { clientId } = req.body;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -139,11 +139,11 @@ export const refreshAccessKey = async (
   const { clientId } = req.body;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
   }
 
   if (!clientId) {
