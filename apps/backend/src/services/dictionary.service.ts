@@ -6,7 +6,11 @@ import {
   validateDictionary,
 } from '@utils/validation/validateDictionary';
 import type { ObjectId } from 'mongoose';
-import type { Dictionary, DictionaryData } from '@/types/dictionary.types';
+import type {
+  Dictionary,
+  DictionaryData,
+  DictionaryDocument,
+} from '@/types/dictionary.types';
 
 /**
  * Finds dictionaries based on filters and pagination options.
@@ -19,7 +23,7 @@ export const findDictionaries = async (
   filters: DictionaryFilters,
   skip = 0,
   limit = 100
-): Promise<Dictionary[]> =>
+): Promise<DictionaryDocument[]> =>
   await DictionaryModel.find(filters).skip(skip).limit(limit);
 
 /**
@@ -29,7 +33,7 @@ export const findDictionaries = async (
  */
 export const getDictionaryById = async (
   dictionaryId: string | ObjectId
-): Promise<Dictionary> => {
+): Promise<DictionaryDocument> => {
   const dictionary = await DictionaryModel.findById(dictionaryId);
 
   if (!dictionary) {
@@ -47,7 +51,7 @@ export const getDictionaryById = async (
 export const getDictionaryByKey = async (
   dictionaryKey: string,
   projectId: string | ObjectId
-): Promise<Dictionary> => {
+): Promise<DictionaryDocument> => {
   const dictionary = await DictionaryModel.findOne({
     key: dictionaryKey,
     projectIds: projectId,
@@ -66,7 +70,7 @@ export const getDictionaryByKey = async (
 export const getDictionariesByKeys = async (
   dictionaryKey: string[],
   projectId: string | ObjectId
-): Promise<Dictionary[]> => {
+): Promise<DictionaryDocument[]> => {
   const dictionaries = await DictionaryModel.find({
     key: dictionaryKey,
     projectIds: projectId,
@@ -109,7 +113,7 @@ export const countDictionaries = async (
  */
 export const createDictionary = async (
   dictionary: DictionaryData
-): Promise<Dictionary> => {
+): Promise<DictionaryDocument> => {
   const errors = await validateDictionary(dictionary);
 
   if (Object.keys(errors).length > 0) {
@@ -170,7 +174,7 @@ export const getExistingDictionaryKey = async (
 export const updateDictionaryById = async (
   dictionaryId: string | ObjectId,
   dictionary: Partial<Dictionary>
-): Promise<Dictionary> => {
+): Promise<DictionaryDocument> => {
   const updatedKeys = Object.keys(dictionary) as DictionaryFields;
   const errors = validateDictionary(dictionary, updatedKeys);
 
@@ -205,7 +209,7 @@ export const updateDictionaryByKey = async (
   dictionaryKey: string,
   dictionary: Partial<Dictionary>,
   projectId: string | ObjectId
-): Promise<Dictionary> => {
+): Promise<DictionaryDocument> => {
   const updatedKeys = Object.keys(dictionary) as DictionaryFields;
   const errors = validateDictionary(dictionary, updatedKeys);
 
@@ -238,7 +242,7 @@ export const updateDictionaryByKey = async (
  */
 export const deleteDictionaryById = async (
   dictionaryId: string
-): Promise<Dictionary> => {
+): Promise<DictionaryDocument> => {
   const dictionary = await DictionaryModel.findByIdAndDelete(dictionaryId);
 
   if (!dictionary) {

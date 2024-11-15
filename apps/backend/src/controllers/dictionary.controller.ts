@@ -41,11 +41,11 @@ export const getDictionaries = async (
     getDictionaryFiltersAndPagination(req);
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
   if (!dictionaryRights?.read) {
@@ -94,7 +94,7 @@ export const getDictionariesKeys = async (
   const { project, dictionaryRights } = res.locals;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
   if (!dictionaryRights?.read) {
@@ -136,11 +136,11 @@ export const getDictionaryByKey = async (
   const { version } = req.query as GetDictionaryQuery;
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
   if (!dictionaryRights?.read) {
@@ -196,12 +196,12 @@ export const addDictionary = async (
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -278,12 +278,12 @@ export const pushDictionaries = async (
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -407,7 +407,7 @@ export const updateDictionary = async (
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
@@ -466,7 +466,7 @@ export const deleteDictionary = async (
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 

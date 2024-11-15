@@ -19,6 +19,7 @@ export type * from '@/types/organization.types';
 export type * from '@/types/project.types';
 export type * from '@/types/user.types';
 export type * from '@/types/dictionary.types';
+export type * from '@/types/plan.types';
 
 // Utils
 export * from '@utils/cookies';

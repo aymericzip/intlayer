@@ -6,7 +6,11 @@ import {
   validateProject,
 } from '@utils/validation/validateProject';
 import type { ObjectId } from 'mongoose';
-import type { Project, ProjectData } from '@/types/project.types';
+import type {
+  Project,
+  ProjectData,
+  ProjectDocument,
+} from '@/types/project.types';
 
 /**
  * Finds projects based on filters and pagination options.
@@ -19,7 +23,7 @@ export const findProjects = async (
   filters: ProjectFilters,
   skip = 0,
   limit = 100
-): Promise<Project[]> => {
+): Promise<ProjectDocument[]> => {
   return await ProjectModel.find(filters).skip(skip).limit(limit);
 };
 
@@ -30,11 +34,11 @@ export const findProjects = async (
  */
 export const getProjectById = async (
   projectId: string | ObjectId
-): Promise<Project> => {
+): Promise<ProjectDocument> => {
   const project = await ProjectModel.findById(projectId);
 
   if (!project) {
-    throw new GenericError('PROJECT_NOT_FOUND', { projectId });
+    throw new GenericError('PROJECT_NOT_DEFINED', { projectId });
   }
 
   return project;
@@ -62,7 +66,9 @@ export const countProjects = async (
  * @param  project - The project data to create.
  * @returns The created project.
  */
-export const createProject = async (project: ProjectData): Promise<Project> => {
+export const createProject = async (
+  project: ProjectData
+): Promise<ProjectDocument> => {
   if ((project as Partial<Project>).oAuth2Access) {
     delete (project as Partial<Project>).oAuth2Access;
   }
@@ -85,7 +91,7 @@ export const createProject = async (project: ProjectData): Promise<Project> => {
 export const updateProjectById = async (
   projectId: string | ObjectId,
   project: Partial<Project>
-): Promise<Project> => {
+): Promise<ProjectDocument> => {
   if (project.oAuth2Access) {
     delete project.oAuth2Access;
   }
@@ -117,11 +123,11 @@ export const updateProjectById = async (
  */
 export const deleteProjectById = async (
   projectId: string | ObjectId
-): Promise<Project> => {
+): Promise<ProjectDocument> => {
   const project = await ProjectModel.findByIdAndDelete(projectId);
 
   if (!project) {
-    throw new GenericError('PROJECT_NOT_FOUND', { projectId });
+    throw new GenericError('PROJECT_NOT_DEFINED', { projectId });
   }
 
   return project;

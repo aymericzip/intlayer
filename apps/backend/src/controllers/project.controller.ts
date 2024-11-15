@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import { getPlan } from '@services/plans.service';
 import * as projectService from '@services/project.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
@@ -12,6 +13,7 @@ import {
   type ProjectFiltersParams,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import { mapProjectsToAPI, mapProjectToAPI } from '@utils/mapper/project';
+import { getPLanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
   type ResponseData,
@@ -44,12 +46,12 @@ export const getProjects = async (
     getProjectFiltersAndPagination(req);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -109,12 +111,12 @@ export const addProject = async (
   const projectData = req.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -132,6 +134,36 @@ export const addProject = async (
 
   if (!projectData) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+  }
+
+  const plan = await getPlan({ organizationId: organization._id });
+
+  if (!plan) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
+      organizationId: organization._id,
+    });
+    return;
+  }
+
+  const planType = getPLanDetails(plan.type);
+
+  if (planType.numberOfProjects) {
+    const projectCount = await projectService.countProjects({
+      organizationId: organization._id,
+    });
+
+    if (projectCount >= planType.numberOfProjects) {
+      ErrorHandler.handleGenericErrorResponse(
+        res,
+        'PLAN_PROJECT_LIMIT_REACHED',
+        {
+          organizationId: organization._id,
+        }
+      );
+      return;
+    }
+
+    return;
   }
 
   const project: ProjectData = {
@@ -173,7 +205,7 @@ export const updateProject = async (
   const projectData = req.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -183,7 +215,7 @@ export const updateProject = async (
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -253,12 +285,12 @@ export const updateProjectMembers = async (
   const { membersIds } = req.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
@@ -276,7 +308,7 @@ export const updateProjectMembers = async (
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -368,17 +400,17 @@ export const deleteProject = async (
     res.locals;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
@@ -401,7 +433,7 @@ export const deleteProject = async (
     const deletedProject = await projectService.deleteProjectById(project._id);
 
     if (!deletedProject) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_FOUND', {
+      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED', {
         projectId: project._id,
       });
 

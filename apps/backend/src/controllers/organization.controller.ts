@@ -3,6 +3,7 @@ import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
+import { getPlan } from '@services/plans.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
 import { AppError, ErrorHandler } from '@utils/errors';
@@ -12,6 +13,7 @@ import {
   type OrganizationFiltersParams,
   type OrganizationFilters,
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
+import { getPLanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -44,7 +46,7 @@ export const getOrganizations = async (
     getOrganizationFiltersAndPagination(req);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -146,7 +148,7 @@ export const addOrganization = async (
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -188,7 +190,7 @@ export const updateOrganization = async (
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -252,12 +254,12 @@ export const addOrganizationMember = async (
   const { userEmail } = req.body;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -274,6 +276,27 @@ export const addOrganizationMember = async (
       res,
       'ORGANIZATION_RIGHTS_NOT_ADMIN'
     );
+    return;
+  }
+
+  const plan = await getPlan({ organizationId: organization._id });
+
+  if (!plan) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
+      organizationId: organization._id,
+    });
+    return;
+  }
+
+  const planType = getPLanDetails(plan.type);
+
+  if (
+    planType.numberOfOrganizationUsers &&
+    organization.membersIds.length >= planType.numberOfOrganizationUsers
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PLAN_USER_LIMIT_REACHED', {
+      organizationId: organization._id,
+    });
     return;
   }
 
@@ -340,7 +363,7 @@ export const updateOrganizationMembers = async (
   const { membersIds } = req.body;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -439,7 +462,7 @@ export const deleteOrganization = async (
   const { isOrganizationAdmin, organization, organizationRights } = res.locals;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 

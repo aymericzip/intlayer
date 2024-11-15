@@ -185,7 +185,7 @@ export const logOut = async (
   const { user } = res.locals;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -218,7 +218,7 @@ export const updatePassword = async (
   let { user } = res.locals;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -280,14 +280,16 @@ export const validEmail = async (
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
   const user = await userService.getUserById(userId);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND', { userId });
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED', {
+      userId,
+    });
     return;
   }
 
@@ -457,7 +459,7 @@ export const getSessionInformation = async (
     }
 
     if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
       return;
     }
 

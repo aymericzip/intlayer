@@ -1,4 +1,7 @@
-import { useIntlayer } from 'next-intlayer';
+import { OrganizationAPI, UserAPI } from '@intlayer/backend';
+import { useAuth } from '@intlayer/design-system';
+import { Locales } from 'intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import React, {
   type MouseEventHandler,
   type TouchEventHandler,
@@ -18,6 +21,31 @@ type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
 
 const plans: Plans[] = ['free', 'premium', 'enterprise'];
 
+const insetMetadata = (
+  url: string,
+  user?: UserAPI | null,
+  organization?: OrganizationAPI | null,
+  locale?: Locales
+) => {
+  if (!url.startsWith('https')) return url;
+
+  const urlObject = new URL(url);
+
+  if (user?.email) {
+    urlObject.searchParams.set('prefilled_email', user.email);
+  }
+
+  if (organization) {
+    urlObject.searchParams.set('client_reference_id', String(organization._id));
+  }
+
+  if (locale) {
+    urlObject.searchParams.set('locale', locale);
+  }
+
+  return urlObject.toString();
+};
+
 /**
  * PricingCarousel component
  * @param props - React props
@@ -30,6 +58,8 @@ export const PricingCarousel = ({
   setFocusedPeriod,
   ...props
 }: PricingCarouselProps) => {
+  const { session } = useAuth();
+  const { locale } = useLocale();
   const { pricing, period } = useIntlayer('pricing');
   const [selectedPlanIndex, setSelectedPlanIndex] = useState<number | null>(
     null
@@ -341,9 +371,12 @@ export const PricingCarousel = ({
             callToActionText={
               pricing[focusedPeriod][plan].callToAction.text.value
             }
-            callToActionUrl={
-              pricing[focusedPeriod][plan].callToAction.url.value
-            }
+            callToActionUrl={insetMetadata(
+              pricing[focusedPeriod][plan].callToAction.url.value,
+              session?.user,
+              session?.organization,
+              locale
+            )}
             title={pricing[focusedPeriod][plan].title.value}
             description={pricing[focusedPeriod][plan].description.value}
           />

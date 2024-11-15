@@ -9,6 +9,19 @@ type ErrorCode = {
 };
 
 export const errorData = {
+  USER_NOT_DEFINED: {
+    title: {
+      en: 'User not defined',
+      fr: 'Utilisateur non défini',
+      es: 'Usuario no definido',
+    },
+    message: {
+      en: 'User is required, but not defined.',
+      fr: 'Utilisateur requis, mais non défini.',
+      es: 'Usuario es requerido, pero no está definido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
   USER_NOT_FOUND: {
     title: {
       en: 'User not found',
@@ -245,7 +258,7 @@ export const errorData = {
   },
   ORGANIZATION_NOT_FOUND: {
     title: {
-      en: 'Organization Not Found',
+      en: 'Organization not Found',
       fr: 'Organisation non trouvée',
       es: 'Organización no encontrada',
     },
@@ -253,6 +266,19 @@ export const errorData = {
       en: 'Organization not found for the project.',
       fr: 'Organisation non trouvée pour le projet.',
       es: 'Organización no encontrada para el proyecto.',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
+  ORGANIZATION_NOT_DEFINED: {
+    title: {
+      en: 'Organization not defined',
+      fr: 'Organisation non définie',
+      es: 'Organización no definida',
+    },
+    message: {
+      en: 'Organization is required, but not defined.',
+      fr: 'Organisation requise, mais non définie.',
+      es: 'Organización es requerida, pero no está definida.',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
@@ -487,6 +513,19 @@ export const errorData = {
       en: 'No dictionaries were provided for the operation.',
       fr: 'Aucun dictionnaire n’a été fourni pour l’opération.',
       es: 'No se proporcionaron diccionarios para la operación.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  PROJECT_NOT_DEFINED: {
+    title: {
+      en: 'Project not defined',
+      fr: 'Projet non défini',
+      es: 'Proyecto no definido',
+    },
+    message: {
+      en: 'Project is required, but not defined.',
+      fr: 'Projet requis, mais non défini.',
+      es: 'Proyecto es requerido, pero no está definido.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
@@ -944,6 +983,58 @@ export const errorData = {
       es: 'No tienes acceso de admin a esta organización.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  PLAN_NOT_FOUND: {
+    title: {
+      en: 'Plan Not Found',
+      fr: 'Plan non trouvé',
+      es: 'Plan no encontrado',
+    },
+    message: {
+      en: 'Plan not found',
+      fr: 'Plan non trouvé',
+      es: 'Plan no encontrado',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
+  MULTIPLE_PLANS_FOUND: {
+    title: {
+      en: 'Multiple Plans Found',
+      fr: 'Plusieurs plans trouvés',
+      es: 'Múltiples planes encontrados',
+    },
+    message: {
+      en: 'Multiple plans found for the provided information.',
+      fr: "Plusieurs plans trouvés pour l'information fournie.",
+      es: 'Múltiples planes encontrados para la información proporcionada.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  PLAN_USER_LIMIT_REACHED: {
+    title: {
+      en: 'Plan User Limit Reached',
+      fr: 'Limite de participants atteint',
+      es: 'Límite de participantes alcanzado',
+    },
+    message: {
+      en: 'The plan has reached its user limit. Please upgrade to add more users.',
+      fr: 'Le plan a atteint son limite de participants. Veuillez mettre à niveau pour ajouter plus de participants.',
+      es: 'El plan ha alcanzado su límite de participantes. Actualice para agregar más usuarios.',
+    },
+    statusCode: HttpStatusCodes.UNAUTHORIZED_401,
+  },
+  PLAN_PROJECT_LIMIT_REACHED: {
+    title: {
+      en: 'Plan Project Limit Reached',
+      fr: 'Limite de projets atteint',
+      es: 'Límite de proyectos alcanzado',
+    },
+    message: {
+      en: 'The plan has reached its project limit. Please upgrade to add more projects.',
+      fr: 'Le plan a atteint son limite de projets. Veuillez mettre à niveau pour ajouter plus de projets.',
+      es: 'El plan ha alcanzado su límite de proyectos. Actualice para agregar más proyectos.',
+    },
+    statusCode: HttpStatusCodes.UNAUTHORIZED_401,
   },
 } satisfies Record<string, ErrorCode>;
 

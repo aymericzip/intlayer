@@ -37,7 +37,7 @@ export const createUser = async (
   const user: UserWithPasswordNotHashed | undefined = req.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
 
@@ -77,10 +77,8 @@ export const getUsers = async (
   const { user } = res.locals;
 
   if (!user) {
-    if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-      return;
-    }
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
   }
 
   const { filters, pageSize, skip, page, getNumberOfPages } =
@@ -122,10 +120,8 @@ export const getUserById = async (
     const user = await userService.getUserById(userId);
 
     if (!user) {
-      if (!user) {
-        ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-        return;
-      }
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+      return;
     }
 
     const formattedUser = mapUserToAPI(user);
@@ -153,10 +149,8 @@ export const getUserByEmail = async (
     const user = await userService.getUserByEmail(email);
 
     if (!user) {
-      if (!user) {
-        ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-        return;
-      }
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+      return;
     }
 
     const formattedUser = mapUserToAPI(user);
@@ -214,10 +208,8 @@ export const updateUser = async (
   const { user } = res.locals;
 
   if (!user) {
-    if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-      return;
-    }
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
   }
 
   if (typeof userData !== 'object') {

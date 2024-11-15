@@ -19,6 +19,7 @@
       "@models/*": ["src/models/*"],
       "@services/*": ["src/services/*"],
       "@routes/*": ["src/routes/*"],
+      "@webhooks/*": ["src/webhooks/*"],
       "@middlewares/*": ["src/middlewares/*"],
       "@logger": ["src/logger/index"],
       "@schemas/*": ["src/schemas/*"],

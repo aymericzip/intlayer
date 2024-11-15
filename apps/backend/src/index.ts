@@ -5,7 +5,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
 import dotenv from 'dotenv';
-import express, { type Express } from 'express';
+import express, { raw, type Express } from 'express';
 import { intlayer, t } from 'express-intlayer';
 
 // Middlewares
@@ -29,6 +29,9 @@ import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
 import { sessionAuthRouter } from '@routes/sessionAuth.routes';
 import { userRouter } from '@routes/user.routes';
+
+// Webhooks
+import { stripeWebhook } from '@webhooks/stripe';
 
 // Controllers
 import { getOAuth2Token } from '@controllers/oAuth2.controller';
@@ -103,6 +106,9 @@ app.use(/(.*)/, checkUser);
 app.use(/(.*)/, checkOrganization);
 app.use(/(.*)/, checkProject);
 app.use(/(.*)/, checkAdmin);
+
+// Stripe webhook
+app.post('/webhook/stripe', raw({ type: 'application/json' }), stripeWebhook);
 
 // debug
 if (isDev) {

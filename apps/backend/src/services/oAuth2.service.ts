@@ -7,8 +7,9 @@ import { Client, User, Token as OAuth2Token, Callback } from 'oauth2-server';
 import { Token } from '../schemas/oAuth2.schema';
 import { getOrganizationById } from './organization.service';
 import { getUserById } from './user.service';
+import { UserDocument } from '@/export';
 import { Organization } from '@/types/organization.types';
-import { OAuth2Access, Project } from '@/types/project.types';
+import { OAuth2Access, Project, ProjectDocument } from '@/types/project.types';
 
 /**
  * Function to generate client credentials
@@ -38,7 +39,7 @@ export const getClientAndProjectByClientId = async (
   | {
       client: Client;
       oAuth2Access: OAuth2Access;
-      project: Project;
+      project: ProjectDocument;
       rights: Token['rights'];
     }
   | false
@@ -266,7 +267,7 @@ export const getAccessToken = async (
  */
 export const getUserFromClient = async (
   client: Client
-): Promise<User | false> => {
+): Promise<UserDocument | false> => {
   const response = await getClientAndProjectByClientId(client.id);
 
   if (!response) {
@@ -279,9 +280,9 @@ export const getUserFromClient = async (
     return false;
   }
 
-  const user: User = getUserById(userId);
+  const user = await getUserById(userId);
 
-  return user;
+  return user ?? false;
 };
 
 /**

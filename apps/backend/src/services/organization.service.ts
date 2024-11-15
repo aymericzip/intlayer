@@ -9,6 +9,7 @@ import type { ObjectId } from 'mongoose';
 import type {
   Organization,
   OrganizationCreationData,
+  OrganizationDocument,
 } from '@/types/organization.types';
 
 /**
@@ -22,7 +23,7 @@ export const findOrganizations = async (
   filters: OrganizationFilters,
   skip: number,
   limit: number
-): Promise<Organization[]> => {
+): Promise<OrganizationDocument[]> => {
   return await OrganizationModel.find(filters).skip(skip).limit(limit);
 };
 
@@ -33,12 +34,27 @@ export const findOrganizations = async (
  */
 export const getOrganizationById = async (
   organizationId: ObjectId | string
-): Promise<Organization> => {
+): Promise<OrganizationDocument> => {
   const organization = await OrganizationModel.findById(organizationId);
 
   if (!organization) {
     throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
   }
+
+  return organization;
+};
+
+/**
+ * Retrieves an organization by its owner.
+ * @param userId - The ID of the user to find the organization.
+ * @returns The organizations matching the user ID.
+ */
+export const getOrganizationsByOwner = async (
+  userId: string | ObjectId
+): Promise<OrganizationDocument[] | null> => {
+  const organization = await OrganizationModel.find({
+    creatorId: userId,
+  });
 
   return organization;
 };
@@ -68,7 +84,7 @@ export const countOrganizations = async (
 export const createOrganization = async (
   organization: OrganizationCreationData,
   userId: string | ObjectId
-): Promise<Organization> => {
+): Promise<OrganizationDocument> => {
   const errors = validateOrganization(organization, ['name']);
 
   if (Object.keys(errors).length > 0) {
@@ -92,7 +108,7 @@ export const createOrganization = async (
 export const updateOrganizationById = async (
   organizationId: ObjectId | string,
   organization: Partial<Organization>
-): Promise<Organization> => {
+): Promise<OrganizationDocument> => {
   const updatedKeys = Object.keys(organization) as OrganizationFields;
   const errors = validateOrganization(organization, updatedKeys);
 
@@ -122,7 +138,7 @@ export const updateOrganizationById = async (
  */
 export const deleteOrganizationById = async (
   organizationId: ObjectId | string
-): Promise<Organization> => {
+): Promise<OrganizationDocument> => {
   const organization =
     await OrganizationModel.findByIdAndDelete(organizationId);
 

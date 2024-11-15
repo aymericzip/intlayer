@@ -11,6 +11,7 @@ export interface UserData {
 export interface User extends UserData {
   _id: ObjectId;
   provider?: SessionProviders[];
+  customerId?: string;
   session?: Session;
   createdAt: number;
   updatedAt: number;
@@ -21,7 +22,7 @@ export interface UserAPI
   role: string;
 }
 
-export type UserDocument = Document<User> & User;
+export type UserDocument = Document<unknown, {}, User> & User;
 
 export type UserWithPasswordNotHashed = Partial<User> &
   Pick<User, 'email'> & {

@@ -56,6 +56,6 @@ export type ProjectAPI = Omit<Project, 'adminsIds'> & {
   adminsIds?: User['_id'][];
 };
 
-export type ProjectDocument = Document<Project> & Project;
+export type ProjectDocument = Document<unknown, {}, Project> & Project;
 
 export type ProjectModelType = Model<Project>;
