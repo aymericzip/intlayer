@@ -12,7 +12,6 @@ import {
   createContext,
   useContext,
   useMemo,
-  useEffect,
 } from 'react';
 import { useCSRF } from './useCSRF';
 import { useOAuth2 } from './useOAuth2';

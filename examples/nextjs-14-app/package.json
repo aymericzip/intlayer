@@ -14,22 +14,21 @@
   },
   "dependencies": {
     "intlayer": "workspace:^",
-    "next": "14.2.16",
+    "next": "14.2.18",
     "next-intlayer": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^22.1.0",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "@utils/eslint-config": "workspace:^",
     "autoprefixer": "^10.4.20",
-    "eslint": "^9.11.1",
-    "eslint-config-next": "14.2.5",
-    "postcss": "^8.4.47",
-    "prettier": "3.3.3",
-    "tailwindcss": "^3.4.7",
-    "typescript": "^5.5.4"
+    "eslint": "^9.14.0",
+    "eslint-config-next": "15.0.3",
+    "postcss": "^8.4.49",
+    "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
   }
 }

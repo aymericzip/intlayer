@@ -10,7 +10,7 @@
   "scripts": {},
   "devDependencies": {
     "@utils/ts-config": "workspace:^",
-    "prettier": "3.3.3",
-    "typescript": "^5.4.5"
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
   }
 }

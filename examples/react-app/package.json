@@ -38,21 +38,21 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.101",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "intlayer": "workspace:^",
     "intlayer-cli": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intlayer": "workspace:^",
     "react-scripts": "5.0.1",
-    "typescript": "^5.5.2",
+    "typescript": "^5.6.3",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "eslint": "^9.11.1",
-    "prettier": "3.3.3",
+    "eslint": "^9.14.0",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.4"
   }
 }

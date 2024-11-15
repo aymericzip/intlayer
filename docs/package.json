@@ -58,7 +58,7 @@
     "**/*"
   ],
   "devDependencies": {
-    "@types/node": "^20.12.7"
+    "@types/node": "^22.9.0"
   },
   "engines": {
     "node": ">=14.18"

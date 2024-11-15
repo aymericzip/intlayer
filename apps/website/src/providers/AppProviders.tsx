@@ -4,7 +4,6 @@ import type { IntlayerClientProviderProps } from 'next-intlayer/client';
 import type { FC } from 'react';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
 import { LocaleContextProvider } from './IntlayerProvider';
-import { ReactQueryClientProvider } from './ReactQueryClientProvider';
 import { ThemeProvider } from './ThemeProvider';
 
 export type AppProvidersProps = IntlayerClientProviderProps;
@@ -16,15 +15,13 @@ export const AppProviders: FC<AppProvidersProps> = ({
 }) => (
   <AuthProvider>
     <LocaleContextProvider locale={locale} editorEnabled={editorEnabled}>
-      <ReactQueryClientProvider>
-        <ThemeProvider>
-          <AnimatePresenceProvider>
-            <ServiceWorkerSubscriber />
-            <Toaster />
-            {children}
-          </AnimatePresenceProvider>
-        </ThemeProvider>
-      </ReactQueryClientProvider>
+      <ThemeProvider>
+        <AnimatePresenceProvider>
+          <ServiceWorkerSubscriber />
+          <Toaster />
+          {children}
+        </AnimatePresenceProvider>
+      </ThemeProvider>
     </LocaleContextProvider>
   </AuthProvider>
 );
