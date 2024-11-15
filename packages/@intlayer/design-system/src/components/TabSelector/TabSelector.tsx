@@ -134,6 +134,7 @@ export const TabSelector = <T extends TabProps>({
           })}
           style={choiceIndicatorPosition}
           ref={indicatorRef}
+          key={selectedChoice}
         />
       )}
     </div>
