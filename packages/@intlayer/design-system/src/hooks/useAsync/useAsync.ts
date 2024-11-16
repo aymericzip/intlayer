@@ -295,7 +295,6 @@ export const useAsync = <
       if (args) {
         storedArgsRef.current = args;
       }
-
       return await fetch(...storedArgsRef.current);
     }) as T,
     [isEnabled, storedArgsRef, isSuccess, isLoading, fetch]
@@ -355,13 +354,21 @@ export const useAsync = <
     if (isLoading) return;
 
     const timeOut = setTimeout(() => {
-      if (isRetryEnabled && !isRetryLimitReached && !isSuccess) {
-        execute(...storedArgsRef.current);
-      }
+      fetch(...storedArgsRef.current);
     }, retryTime);
 
     return () => clearTimeout(timeOut);
-  }, [execute, errorCount, retryLimit, retryTime, isSuccess, isEnabled]);
+  }, [
+    fetch,
+    errorCount,
+    retryLimit,
+    retryTime,
+    isSuccess,
+    isEnabled,
+    isLoading,
+    cacheEnabled,
+    storeEnabled,
+  ]);
 
   // Handle periodic revalidation if caching is enabled
   useEffect(() => {

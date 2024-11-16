@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useAsync } from '../../../hooks/useAsync';
 import { getIntlayerAPI } from '../../../libs/intlayer-api';
 import type { Session } from './index';
@@ -55,14 +55,9 @@ export const useSession = (sessionProp?: Session | null) => {
     }
   );
 
-  const revalidateSession = revalidate;
-
-  useEffect(() => {
-    // Fetch session if sessionProp is not provided when the component is mounted
-    if (sessionProp) return;
-
-    getSession();
-  }, [getSession, sessionProp]);
+  const revalidateSession = () => {
+    revalidate();
+  };
 
   const session = useMemo(
     () => data ?? (isFetched ? null : undefined),
