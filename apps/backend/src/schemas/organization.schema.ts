@@ -4,6 +4,7 @@ import {
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateOrganization';
 import { Schema } from 'mongoose';
+import { planSchema } from './plans.schema';
 import type { Organization } from '@/types/organization.types';
 
 export const organizationSchema = new Schema<Organization>(
@@ -29,6 +30,10 @@ export const organizationSchema = new Schema<Organization>(
     creatorId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
+    },
+    plan: {
+      type: planSchema,
       required: true,
     },
   },

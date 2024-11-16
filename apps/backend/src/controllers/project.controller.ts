@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { getPlan } from '@services/plans.service';
 import * as projectService from '@services/project.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
@@ -136,7 +135,7 @@ export const addProject = async (
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
   }
 
-  const plan = await getPlan({ organizationId: organization._id });
+  const { plan } = organization;
 
   if (!plan) {
     ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {

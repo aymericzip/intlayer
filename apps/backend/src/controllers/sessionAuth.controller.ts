@@ -592,6 +592,8 @@ export const githubCallback = async (
 
     const userData = await userResponse.json();
 
+    console.log(userData);
+
     const emailResponse = await fetch('https://api.github.com/user/emails', {
       method: 'GET',
       headers: {
@@ -599,6 +601,8 @@ export const githubCallback = async (
         Accept: 'application/vnd.github.v3+json',
       },
     });
+
+    console.log(emailResponse);
 
     if (!emailResponse.ok) {
       throw new GenericError('GIT_HUB_FETCH_USER_EMAIL_FAILED', {
@@ -608,6 +612,8 @@ export const githubCallback = async (
 
     const emails: { primary: boolean; email: string }[] =
       await emailResponse.json();
+
+    console.log(emails);
 
     const primaryEmail = emails.find((email) => email.primary)?.email;
 

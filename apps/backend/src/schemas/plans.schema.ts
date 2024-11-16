@@ -9,14 +9,9 @@ export const planSchema = new Schema<Plan>(
       enum: ['FREE', 'PREMIUM', 'ENTERPRISE'],
       default: 'FREE',
     },
-    userId: {
+    creatorId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
-    },
-    organizationId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Organization',
       required: true,
     },
     priceId: {

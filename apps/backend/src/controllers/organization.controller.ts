@@ -3,7 +3,6 @@ import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
-import { getPlan } from '@services/plans.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
 import { AppError, ErrorHandler } from '@utils/errors';
@@ -279,16 +278,14 @@ export const addOrganizationMember = async (
     return;
   }
 
-  const plan = await getPlan({ organizationId: organization._id });
-
-  if (!plan) {
+  if (!organization.plan) {
     ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
       organizationId: organization._id,
     });
     return;
   }
 
-  const planType = getPLanDetails(plan.type);
+  const planType = getPLanDetails(organization.plan.type);
 
   if (
     planType.numberOfOrganizationUsers &&

@@ -29,6 +29,7 @@ import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
 import { sessionAuthRouter } from '@routes/sessionAuth.routes';
 import { userRouter } from '@routes/user.routes';
+import { stripeRouter } from '@routes/stripe.routes';
 
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe';
@@ -107,8 +108,9 @@ app.use(/(.*)/, checkOrganization);
 app.use(/(.*)/, checkProject);
 app.use(/(.*)/, checkAdmin);
 
-// Stripe webhook
+// Stripe
 app.post('/webhook/stripe', raw({ type: 'application/json' }), stripeWebhook);
+app.use('/api/stripe', stripeRouter);
 
 // debug
 if (isDev) {

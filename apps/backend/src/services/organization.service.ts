@@ -6,6 +6,7 @@ import {
   validateOrganization,
 } from '@utils/validation/validateOrganization';
 import type { ObjectId } from 'mongoose';
+import { Plan, PlanDocument } from '@/export';
 import type {
   Organization,
   OrganizationCreationData,
@@ -95,6 +96,10 @@ export const createOrganization = async (
     creatorId: userId,
     membersIds: [userId],
     adminsIds: [userId],
+    plan: {
+      name: 'FREE',
+      creatorId: userId,
+    },
     ...organization,
   });
 };
@@ -147,4 +152,92 @@ export const deleteOrganizationById = async (
   }
 
   return organization;
+};
+
+export const getStripeCustomerId = async (
+  organizationId: string | ObjectId
+): Promise<string | null> => {
+  const organization = await OrganizationModel.findById(organizationId);
+
+  if (!organization?.plan.customerId) {
+    return null;
+  }
+
+  return organization.plan.customerId;
+};
+
+export const saveStripeCustomerId = async (
+  organizationId: string | ObjectId,
+  customerId: string
+) => {
+  const organization = await OrganizationModel.findById(organizationId);
+
+  if (!organization) {
+    return null;
+  }
+
+  await OrganizationModel.updateOne(
+    { _id: organizationId },
+    { $set: { plan: { customerId } } }
+  );
+};
+
+/**
+ * Updates an existing plan in the database by its ID.
+ * @param planId - The ID of the plan to update.
+ * @param plan - The updated plan data.
+ * @returns The updated plan.
+ */
+export const updatePlan = async (
+  organizationId: string | ObjectId,
+  plan: Partial<Plan>
+): Promise<OrganizationDocument | null> => {
+  const organization = await OrganizationModel.findById(organizationId);
+  if (!organization) {
+    throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
+  }
+
+  const updateOrganizationResult = await OrganizationModel.updateOne(
+    { _id: organizationId },
+    { $set: { plan: { ...organization.plan, ...plan } } },
+    { new: true }
+  );
+
+  if (updateOrganizationResult.matchedCount === 0) {
+    throw new GenericError('ORGANIZATION_UPDATE_FAILED', { organizationId });
+  }
+
+  const updatedOrganization = await getOrganizationById(organizationId);
+
+  return updatedOrganization;
+};
+
+/**
+ * Cancels a plan by its organization ID.
+ * @param organizationId - The ID of the organization to cancel the plan.
+ * @returns The cancelled plan.
+ */
+export const cancelPlan = async (
+  organizationId: string | ObjectId
+): Promise<OrganizationDocument | null> => {
+  const organization = await OrganizationModel.findById(organizationId);
+  if (!organization) {
+    throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
+  }
+
+  const updateOrganizationResult = await OrganizationModel.updateOne(
+    { _id: organizationId },
+    {
+      $set: { plan: { status: 'CANCELLED' } },
+    },
+    { new: true }
+  );
+
+  if (updateOrganizationResult.matchedCount === 0) {
+    throw new GenericError('ORGANIZATION_UPDATE_FAILED', { organizationId });
+  }
+
+  const updatedOrganization = await getOrganizationById(organizationId);
+
+  return updatedOrganization;
 };

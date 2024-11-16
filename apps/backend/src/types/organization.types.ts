@@ -1,4 +1,5 @@
 import type { ObjectId, Document } from 'mongoose';
+import { Plan } from './plan.types';
 import type { User } from './user.types';
 
 export type OrganizationCreationData = {
@@ -14,6 +15,7 @@ export type OrganizationData = {
 export type Organization = OrganizationData & {
   _id: ObjectId;
   creatorId: User['_id'];
+  plan: Plan;
   createdAt: number;
   updatedAt: number;
 };
