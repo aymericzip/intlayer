@@ -16,7 +16,6 @@ export const planSchema = new Schema<Plan>(
     },
     priceId: {
       type: String,
-      required: true,
     },
     status: {
       type: String,

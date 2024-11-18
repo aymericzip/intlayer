@@ -10,13 +10,14 @@ import {
   googleCallback,
   githubLoginQuery,
   googleLoginQuery,
+  verifyEmailStatusSSE,
 } from '@controllers/sessionAuth.controller';
 import { Router } from 'express';
 import { Routes } from '@/types/Routes';
 
 export const sessionAuthRouter: Router = Router();
 
-const baseURL = `${process.env.CLIENT_URL}/api/auth`;
+const baseURL = `${process.env.BACKEND_URL}/api/auth`;
 
 export const sessionAuthRoutes = {
   registerEmailPassword: {
@@ -52,9 +53,25 @@ export const sessionAuthRoutes = {
   },
   validEmail: {
     urlModel: '/:userId/active/:secret',
-    url: ({ userId, secret }: { userId: string; secret: string }) =>
-      `${baseURL}/${userId}/active/${secret}`,
-    method: 'PUT',
+    url: ({
+      userId,
+      secret,
+      callBack_url,
+    }: {
+      userId: string;
+      secret: string;
+      callBack_url?: string;
+    }) =>
+      `${baseURL}/${userId}/active/${secret}${
+        callBack_url ? `?callBack_url=${callBack_url}` : ''
+      }`,
+    method: 'GET',
+  },
+  verifyEmailStatusSSE: {
+    urlModel: '/verify-email-status/:userId',
+    url: ({ userId }: { userId: string }) =>
+      `${baseURL}/verify-email-status/${userId}`,
+    method: 'GET',
   },
   githubLoginQuery: {
     urlModel: '/login/github',
@@ -101,7 +118,13 @@ sessionAuthRouter.post(
 sessionAuthRouter.put(sessionAuthRoutes.resetPassword.urlModel, resetPassword);
 
 // Email validation
-sessionAuthRouter.put(sessionAuthRoutes.validEmail.urlModel, validEmail);
+sessionAuthRouter.get(sessionAuthRoutes.validEmail.urlModel, validEmail);
+
+// Verify email status
+sessionAuthRouter.get(
+  sessionAuthRoutes.verifyEmailStatusSSE.urlModel,
+  verifyEmailStatusSSE
+);
 
 // Github auth
 sessionAuthRouter.get(

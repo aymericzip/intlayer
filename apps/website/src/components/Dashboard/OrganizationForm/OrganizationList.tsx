@@ -1,4 +1,4 @@
-import type { Organization } from '@intlayer/backend';
+import type { OrganizationAPI } from '@intlayer/backend';
 import { Button, useToast } from '@intlayer/design-system';
 import { useSelectOrganization } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
@@ -7,18 +7,36 @@ import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type OrganizationListProps = {
-  organizations: Organization[];
+  organizations: OrganizationAPI[];
+  selectedOrganizationId?: OrganizationAPI['_id'] | string;
+  onSelectOrganization?: (organization: OrganizationAPI) => void;
 };
 
 export const OrganizationList: FC<OrganizationListProps> = ({
   organizations,
+  selectedOrganizationId,
+  onSelectOrganization,
 }) => {
   const { selectOrganization } = useSelectOrganization();
   const { toast } = useToast();
-  const { selectOrganizationToasts } = useIntlayer('organization-form');
+  const { selectOrganizationToasts, selectButton } =
+    useIntlayer('organization-form');
   const router = useRouter();
 
-  const handleSelectOrganization = (organizationId: string) => {
+  const handleSelectOrganization = (organizationId: OrganizationAPI['_id']) => {
+    if (onSelectOrganization) {
+      const organization = organizations.find(
+        (organization) => organization._id === organizationId
+      );
+
+      if (!organization) {
+        return;
+      }
+
+      onSelectOrganization(organization);
+      return;
+    }
+
     selectOrganization(organizationId)
       .then(async () => {
         toast({
@@ -49,11 +67,13 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         >
           <h2 className="font-bold">{organization.name}</h2>
           <Button
-            onClick={() => handleSelectOrganization(String(organization._id))}
-            label="Select"
+            onClick={() => handleSelectOrganization(organization._id)}
+            label={selectButton.ariaLabel.value}
             color="text"
           >
-            Select
+            {String(selectedOrganizationId) === String(organization._id)
+              ? selectButton.selected.value
+              : selectButton.unselected.value}
           </Button>
         </div>
       ))}

@@ -4,7 +4,7 @@ import { Routes } from '@/types/Routes';
 
 export const stripeRouter: Router = Router();
 
-const baseURL = `${process.env.CLIENT_URL}/api/stipe`;
+const baseURL = `${process.env.BACKEND_URL}/api/stipe`;
 
 export const stripeRoutes = {
   getCheckoutSession: {

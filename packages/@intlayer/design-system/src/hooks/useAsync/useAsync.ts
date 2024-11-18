@@ -3,7 +3,7 @@
 // This is an ESLint directive to disable specific rules.
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useAsyncStateStore } from './useAsyncStateStore';
 
@@ -189,7 +189,7 @@ export const useAsync = <
     isInvalidated,
     data,
     retryCount: errorCount,
-  } = useAsyncStateStore((state) => state.getStates(keyWithArgs));
+  } = useAsyncStateStore(useShallow((state) => state.getStates(keyWithArgs)));
 
   // The core fetching function, designed to be called directly or automatically based on configuration
   const fetch: T = useCallback<T>(
@@ -289,15 +289,16 @@ export const useAsync = <
   const revalidate: T = useCallback<T>(
     (async (...args) => {
       if (!isEnabled) return;
-      if (isSuccess) return;
-      if (isLoading) return;
 
       if (args) {
         storedArgsRef.current = args;
       }
-      return await fetch(...storedArgsRef.current);
+
+      const result = await fetch(...storedArgsRef.current);
+
+      return result;
     }) as T,
-    [isEnabled, storedArgsRef, isSuccess, isLoading, fetch]
+    [isEnabled, storedArgsRef, fetch]
   );
 
   const autoRevalidate = useCallback(async () => {
@@ -399,19 +400,37 @@ export const useAsync = <
     [keyWithArgs]
   );
 
+  const memoResult = useMemo(
+    () => ({
+      isFetched,
+      isLoading,
+      isInvalidated,
+      error,
+      isSuccess,
+      data,
+      retryCount: errorCount,
+      isDisabled: !isEnabled,
+      isEnabled,
+      [key]: execute,
+      revalidate,
+      setData: setDataMemo,
+    }),
+    [
+      isFetched,
+      isLoading,
+      isInvalidated,
+      error,
+      isSuccess,
+      data,
+      errorCount,
+      isEnabled,
+      key,
+      execute,
+      revalidate,
+      setDataMemo,
+    ]
+  );
+
   // Return the hook's result, including all state and control functions
-  return {
-    isFetched,
-    isLoading,
-    isInvalidated,
-    error,
-    isSuccess,
-    data,
-    retryCount: errorCount,
-    isDisabled: !isEnabled,
-    isEnabled,
-    [key]: execute,
-    revalidate,
-    setData: setDataMemo,
-  } as UseAsyncResultBase<T> & Record<U, T>;
+  return memoResult as UseAsyncResultBase<T> & Record<U, T>;
 };

@@ -11,7 +11,7 @@ import { Routes } from '@/types/Routes';
 
 export const userRouter: Router = Router();
 
-const baseURL = `${process.env.CLIENT_URL}/api/user`;
+const baseURL = `${process.env.BACKEND_URL}/api/user`;
 
 export const userRoutes = {
   getUsers: {

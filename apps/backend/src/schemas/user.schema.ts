@@ -35,7 +35,7 @@ const ProviderSchema = new Schema(
       minlength: 6,
     },
     emailValidated: {
-      type: Boolean,
+      type: String,
     },
     passwordHash: {
       type: String,

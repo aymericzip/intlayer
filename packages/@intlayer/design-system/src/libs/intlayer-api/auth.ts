@@ -10,6 +10,7 @@ import type {
   LoginBody,
   LoginResult,
   RegisterBody,
+  RegisterQuery,
   RegisterResult,
   ResetPasswordParams,
   ResetPasswordResult,
@@ -20,6 +21,7 @@ import type {
   SetCSRFTokenResult,
   GetOAuth2TokenBody,
   GetOAuth2TokenResult,
+  UserAPI,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -72,6 +74,7 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
    */
   const register = async (
     user: RegisterBody,
+    query: RegisterQuery = {},
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<RegisterResult>(
@@ -81,6 +84,7 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
       {
         method: 'POST',
         body: user,
+        params: query,
       }
     );
 
@@ -171,6 +175,14 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
     );
 
   /**
+   * Gets the verify email status URL to use in the SSE.
+   * @param userId - User ID.
+   * @returns The verify email status URL.
+   */
+  const getVerifyEmailStatusURL = (userId: string | UserAPI['_id']) =>
+    `${AUTH_API_ROUTE}/verify-email-status/${String(userId)}`;
+
+  /**
    * Creates a session for a user.
    * @param params - User ID and secret key.
    * @returns User object.
@@ -249,6 +261,7 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
     resetPassword,
     askResetPassword,
     verifyEmail,
+    getVerifyEmailStatusURL,
     changePassword,
     createSession,
     getSession,

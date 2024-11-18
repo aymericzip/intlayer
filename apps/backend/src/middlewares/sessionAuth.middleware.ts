@@ -15,7 +15,7 @@ import type {
   OrganizationDocument,
 } from '@/types/organization.types';
 import type { Project, ProjectDocument, Rights } from '@/types/project.types';
-import type { User, UserDocument } from '@/types/user.types';
+import type { User } from '@/types/user.types';
 
 export type ResponseWithInformation<ResBody = any> = Response<
   ResBody,
@@ -47,9 +47,7 @@ export const checkUser = async (
 
   try {
     if (sessionToken) {
-      const user: UserDocument | null = (await getUserBySessionService(
-        sessionToken
-      )) as UserDocument | null;
+      const user = await getUserBySessionService(sessionToken);
 
       if (user) {
         res.locals.user = user.toObject();

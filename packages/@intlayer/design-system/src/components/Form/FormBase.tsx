@@ -14,7 +14,7 @@ import { cn } from '../../utils/cn';
 
 type FormProps<T extends ZodType> = HTMLAttributes<HTMLFormElement> &
   FormProviderProps<z.infer<T>> & {
-    schema: T;
+    schema?: T;
     onSubmit?: (data: z.infer<T>) => void | Promise<void>;
     onSubmitSuccess?: (data: z.infer<T>) => void | Promise<void>;
     onSubmitError?: (error: Error) => void | Promise<void>;
@@ -46,7 +46,10 @@ export const Form = forwardRef(
     ref: Ref<HTMLFormElement>
   ) => {
     const onSubmit = async (values: T) => {
-      const parsedValues = schema.safeParse(values);
+      const parsedValues = schema?.safeParse(values) ?? {
+        success: true,
+        data: undefined,
+      };
 
       // onSubmitProp?.(values);
       await awaitFunction(onSubmitProp?.(values));
@@ -68,7 +71,6 @@ export const Form = forwardRef(
       <FormProvider {...props}>
         <form
           className={cn('flex size-full flex-col gap-y-6', className)}
-          // eslint-disable-next-line sonarjs/no-misused-promises
           onSubmit={props.handleSubmit(onSubmit)}
           autoComplete={autoComplete ? 'on' : 'off'}
           ref={ref}

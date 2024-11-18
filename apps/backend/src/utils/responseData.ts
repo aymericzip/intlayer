@@ -2,6 +2,7 @@ import { HttpStatusCodes } from '@utils/httpStatusCodes';
 
 type ErrorData = {
   code: string;
+  title: string;
   message: string;
 } & object;
 

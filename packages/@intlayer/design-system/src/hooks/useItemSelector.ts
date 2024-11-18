@@ -2,9 +2,10 @@
 
 import { useEffect, useState, type MutableRefObject } from 'react';
 
-type PositionState = {
+type StyleState = {
   left: number;
   width: number;
+  opacity: number;
 };
 
 const selectorDefault = (option: HTMLElement) =>
@@ -16,7 +17,7 @@ export const useItemSelector = (
   isHoverable = false
 ) => {
   const [choiceIndicatorPosition, setChoiceIndicatorPosition] =
-    useState<PositionState | null>(null);
+    useState<StyleState | null>(null);
 
   const [hoveredItem, setHoveredItem] = useState<HTMLElement | null>(null);
 
@@ -32,7 +33,15 @@ export const useItemSelector = (
         targetElement = optionsRefs.current.find(selector) ?? null;
       }
 
-      if (!targetElement) return;
+      if (!targetElement) {
+        setChoiceIndicatorPosition((prev) => ({
+          left: 0,
+          width: 0,
+          ...prev,
+          opacity: 0,
+        }));
+        return;
+      }
 
       const left = targetElement.offsetLeft;
       const width = targetElement.offsetWidth;
@@ -40,6 +49,7 @@ export const useItemSelector = (
       setChoiceIndicatorPosition({
         left,
         width,
+        opacity: 1,
       });
     };
 

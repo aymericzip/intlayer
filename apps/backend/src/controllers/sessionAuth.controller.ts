@@ -15,14 +15,14 @@ import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { Organization, OrganizationAPI } from '@/types/organization.types';
-import { Project, ProjectAPI } from '@/types/project.types';
+import { OrganizationAPI } from '@/types/organization.types';
+import { ProjectAPI } from '@/types/project.types';
 import type {
   Session,
   GithubSessionProvider,
   GoogleSessionProvider,
 } from '@/types/session.types';
-import type { UserAPI, UserData } from '@/types/user.types';
+import type { User, UserAPI, UserData } from '@/types/user.types';
 
 export type CSRFTokenData = { csrf_token: string };
 export type SetCSRFTokenResult = ResponseData<CSRFTokenData>;
@@ -42,18 +42,20 @@ export const setCSRFToken = (
   res.json(responseData);
 };
 
-export type RegisterBody = { email: string; password: string };
+export type RegisterBody = { email: string; password?: string };
+export type RegisterQuery = { callBack_url?: string };
 export type RegisterResult = ResponseData<UserAPI>;
 
 /**
  * Handles user registration.
  */
 export const registerEmailPassword = async (
-  req: Request<any, any, RegisterBody>,
+  req: Request<any, any, RegisterBody, RegisterQuery>,
   res: ResponseWithInformation<RegisterResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user } = res.locals;
+  const { callBack_url } = req.query;
 
   if (user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_ALREADY_LOGGED_IN');
@@ -70,22 +72,18 @@ export const registerEmailPassword = async (
         (provider) => provider.provider === 'email'
       );
 
-      if (emailProvider) {
-        if (emailProvider.emailValidated) {
-          ErrorHandler.handleGenericErrorResponse(
-            res,
-            'EMAIL_ALREADY_VALIDATED'
-          );
-          return;
-        } else {
-          user = await sessionAuthService.updateUserProvider(
-            user._id,
-            'email',
-            {
-              secret: uuidv4(),
-            }
-          );
-        }
+      if (emailProvider?.emailValidated) {
+        ErrorHandler.handleGenericErrorResponse(
+          res,
+          'EMAIL_ALREADY_REGISTERED'
+        );
+        return;
+      } else if (emailProvider) {
+        user = await sessionAuthService.updateUserProvider(user._id, 'email', {
+          provider: 'email',
+          emailValidated: undefined,
+          secret: uuidv4(),
+        });
       } else {
         user = await sessionAuthService.addUserProvider(user._id, {
           provider: 'email',
@@ -94,7 +92,17 @@ export const registerEmailPassword = async (
         });
       }
     } else {
-      user = await userService.createUser(userData);
+      user = await userService.createUser({
+        ...userData,
+        provider: [
+          {
+            provider: 'email',
+            emailValidated: undefined,
+            secret: uuidv4(),
+          },
+        ],
+      });
+
       logger.info(`New registration: ${user.name} - ${user.email}`);
     }
 
@@ -105,7 +113,18 @@ export const registerEmailPassword = async (
       return;
     }
 
-    await sessionAuthService.setUserAuth(res, user);
+    await sendEmail({
+      type: 'validate',
+      to: user.email,
+      username: user.name ?? user.email.split('@')[0],
+      validationLink: sessionAuthRoutes.validEmail.url({
+        userId: String(user._id),
+        secret:
+          user.provider?.find((provider) => provider.provider === 'email')
+            ?.secret ?? '',
+        callBack_url,
+      }),
+    });
 
     const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({ data: formattedUser });
@@ -201,7 +220,7 @@ export const logOut = async (
 };
 
 export type UpdatePasswordBody = {
-  oldPassword: string;
+  oldPassword?: string;
   newPassword: string;
 };
 export type UpdatePasswordResult = ResponseData<UserAPI>;
@@ -222,22 +241,39 @@ export const updatePassword = async (
     return;
   }
 
-  try {
-    const { error } = await sessionAuthService.testUserPassword(
-      user.email,
-      oldPassword
-    );
+  const userEmailProvider = user.provider?.find(
+    (provider) => provider.provider === 'email'
+  );
 
-    if (error) {
-      ErrorHandler.handleGenericErrorResponse(res, 'LOGIN_FAILED');
-      return;
+  if (!userEmailProvider) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_PROVIDER_NOT_FOUND', {
+      provider: 'email',
+    });
+    return;
+  }
+
+  if (userEmailProvider.passwordHash && !oldPassword) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'USER_PREVIOUS_PASSWORD_NOT_PROVIDED'
+    );
+    return;
+  }
+
+  try {
+    if (oldPassword) {
+      const { error } = await sessionAuthService.testUserPassword(
+        user.email,
+        oldPassword
+      );
+
+      if (error) {
+        ErrorHandler.handleGenericErrorResponse(res, 'LOGIN_FAILED');
+        return;
+      }
     }
 
-    user = await sessionAuthService.changeUserPassword(
-      user._id,
-      oldPassword,
-      newPassword
-    );
+    user = await sessionAuthService.changeUserPassword(user._id, newPassword);
 
     if (!user || typeof user !== 'object') {
       ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
@@ -260,27 +296,48 @@ export const updatePassword = async (
   }
 };
 
+let clients: Array<{ id: number; userId: string; res: Response }> = [];
+
+export const sendVerificationUpdate = (user: User) => {
+  const filteredClients = clients.filter(
+    (client) => String(client.userId) === String(user._id)
+  );
+
+  for (const client of filteredClients) {
+    const provider = user.provider?.find(
+      (provider) => provider.provider === 'email'
+    );
+
+    if (provider?.emailValidated) {
+      client.res.write(
+        `data: ${JSON.stringify({ userId: user._id, status: 'verified' })}\n\n`
+      );
+      continue;
+    }
+
+    client.res.write(
+      `data: ${JSON.stringify({ userId: user._id, status: 'waiting' })}\n\n`
+    );
+  }
+};
+
 export type ValidEmailParams = { secret: string; userId: string };
+export type ValidEmailQuery = { callBack_url?: string };
 export type ValidEmailResult = ResponseData<UserAPI>;
 
 /**
  * Validates a user's email based on the provided secret and user ID.
  */
 export const validEmail = async (
-  req: Request<ValidEmailParams, any, any>,
+  req: Request<ValidEmailParams, any, any, ValidEmailQuery>,
   res: ResponseWithInformation<ValidEmailResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId, secret } = req.params;
-  const { organization } = res.locals;
+  const callBack_url = `${req.query.callBack_url ?? `${process.env.CLIENT_URL}/auth/login`}?userId=${userId}`;
 
   if (!Types.ObjectId.isValid(userId.toString())) {
     ErrorHandler.handleGenericErrorResponse(res, 'INVALID_USER_ID');
-    return;
-  }
-
-  if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -293,23 +350,85 @@ export const validEmail = async (
     return;
   }
 
-  await sessionAuthService.activateUser(user._id, secret);
+  const provider = user.provider?.find(
+    (provider) => provider.provider === 'email'
+  );
+
+  if (provider?.emailValidated) {
+    res.redirect(callBack_url);
+  }
+
+  if (provider?.secret !== secret) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'USER_PROVIDER_SECRET_NOT_VALID'
+    );
+  }
+
+  await sessionAuthService.updateUserProvider(userId, 'email', {
+    secret: undefined,
+    emailValidated: new Date(),
+  });
 
   logger.info(
     `User activated - User: Name: ${user.name}, id: ${String(user._id)}`
   );
 
+  sendVerificationUpdate(user);
+
+  await sessionAuthService.setUserAuth(res, user);
+
   await sendEmail({
     type: 'welcome',
     to: user.email,
     username: user.name,
-    loginLink: sessionAuthRoutes.loginEmailPassword.url,
+    loginLink: callBack_url,
   });
 
-  const formattedUser = mapUserToAPI(user);
-  const responseData = formatResponse<UserAPI>({ data: formattedUser });
+  res.redirect(callBack_url);
+};
 
-  res.json(responseData);
+export type VerifyEmailStatusSSEParams = { userId: string };
+
+/**
+ * SSE to check the email verification status
+ */
+export const verifyEmailStatusSSE = async (
+  req: Request<VerifyEmailStatusSSEParams, any, any>,
+  res: ResponseWithInformation
+) => {
+  // Set headers for SSE
+  res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
+
+  // Send initial data to ensure the connection is open
+  res.write(':\n\n'); // Comment to keep connection alive
+  res.flushHeaders();
+
+  const { userId } = req.params; // Get user ID from query parameters
+  const clientId = Date.now();
+
+  const user = await userService.getUserById(userId);
+
+  if (!user) {
+    logger.error(`User not found - User ID: ${userId}`);
+    res.write(`data: ${JSON.stringify({ userId, status: 'error' })}\n\n`);
+    res.end();
+    return;
+  }
+
+  // Add client to the list
+  const newClient = { id: clientId, userId, res };
+  clients.push(newClient);
+
+  sendVerificationUpdate(user);
+
+  // Remove client on connection close
+  req.on('close', () => {
+    clients = clients.filter((client) => client.id !== clientId);
+  });
 };
 
 export type AskResetPasswordBody = {
@@ -458,17 +577,26 @@ export const getSessionInformation = async (
       user = await userService.getUserBySession(sessionToken);
     }
 
-    if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    if (!user || !user?.session) {
+      const responseData = formatResponse<SessionInformation>({
+        data: {
+          session: null,
+          user: null,
+          organization: organization?._id
+            ? mapOrganizationToAPI(organization, isOrganizationAdmin)
+            : null,
+          project: project?._id
+            ? mapProjectToAPI(project, user, isProjectAdmin)
+            : null,
+        },
+      });
+
+      res.json(responseData);
+
       return;
     }
 
     const session = user.session;
-
-    if (!session) {
-      ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_FOUND');
-      return;
-    }
 
     const formattedUser: SessionInformation['user'] = {
       ...mapUserToAPI(user),
@@ -689,7 +817,7 @@ export const githubCallback = async (
       type: 'welcome',
       to: user.email,
       username: user.name,
-      loginLink: sessionAuthRoutes.loginEmailPassword.url,
+      loginLink: `${process.env.CLIENT_URL}/auth/login`,
     });
 
     res.redirect(redirect_uri);
@@ -896,7 +1024,7 @@ export const googleCallback = async (
       type: 'welcome',
       to: user.email,
       username: user.name,
-      loginLink: sessionAuthRoutes.loginEmailPassword.url,
+      loginLink: `${process.env.CLIENT_URL}/auth/login`,
     });
 
     // res.redirect(redirect_uri);

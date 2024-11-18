@@ -108,7 +108,6 @@ export type ButtonProps = DetailedHTMLProps<
     iconClassName?: string;
     isLoading?: boolean;
     isActive?: boolean;
-    isDisabled?: boolean;
     isFullWidth?: boolean;
   };
 

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { AuthProviderProps } from '../useAuth';
+import type { Session } from '../useAuth';
 import { accessValidation } from './accessValidation';
 import type { AuthenticationBarrierProps } from '.';
 
@@ -7,7 +7,7 @@ export type AuthenticationBarrierClientProps = Omit<
   AuthenticationBarrierProps,
   'sessionToken'
 > & {
-  session: AuthProviderProps['session'];
+  session: Session;
 };
 
 export const AuthenticationBarrierServer: FC<AuthenticationBarrierProps> = ({

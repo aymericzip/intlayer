@@ -123,6 +123,29 @@ const organizationFormContent = {
         es: 'Haga clic para editar',
       }),
     },
+
+    selectButton: {
+      text: t({
+        en: 'Select',
+        fr: 'Sélectionner',
+        es: 'Seleccionar',
+      }),
+      ariaLabel: t({
+        en: 'Click to select',
+        fr: 'Cliquez pour sélectionner',
+        es: 'Haga clic para seleccionar',
+      }),
+      selected: t({
+        en: 'Selected',
+        fr: 'Sélectionné',
+        es: 'Seleccionado',
+      }),
+      unselected: t({
+        en: 'Select',
+        fr: 'Sélectionner',
+        es: 'Seleccionar',
+      }),
+    },
   },
 } satisfies DeclarationContent;
 

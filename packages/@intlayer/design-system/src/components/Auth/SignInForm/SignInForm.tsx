@@ -8,9 +8,9 @@ import { getSignInSchema, type SignIn } from './SignInSchema';
 
 type SignInFormProps = {
   onSubmitSuccess: (data: SignIn) => Promise<void>;
-  onSubmitError: (error: Error) => void;
   onClickForgotPassword: () => void;
   onClickSignUp: () => void;
+  onSubmitError?: (error: Error) => void;
 };
 
 export const SignInForm: FC<SignInFormProps> = ({
@@ -55,7 +55,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           className="ml-auto mt-2 block"
           variant="link"
           label={signInContent.forgotPasswordLink.ariaLabel}
-          color="primary"
+          color="text"
           onClick={onClickForgotPassword}
         >
           {signInContent.forgotPasswordLink.text}
@@ -70,12 +70,12 @@ export const SignInForm: FC<SignInFormProps> = ({
           {signInContent.loginButton.text}
         </Form.Button>
 
-        <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full justify-center text-xs">
+        <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full items-center justify-center text-xs">
           {signInContent.signUpLink.message}
           <Form.Button
             variant="link"
             label={signInContent.signUpLink.ariaLabel}
-            color="primary"
+            color="text"
             onClick={onClickSignUp}
           >
             {signInContent.signUpLink.text}

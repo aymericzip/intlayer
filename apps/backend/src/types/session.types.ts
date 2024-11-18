@@ -1,19 +1,19 @@
-export interface EmailPasswordSessionProvider {
+export type EmailPasswordSessionProvider = {
   provider: 'email';
   secret?: string;
   emailValidated?: Date;
   passwordHash?: string;
-}
+};
 
-export interface GoogleSessionProvider {
+export type GoogleSessionProvider = {
   provider: 'google';
   providerAccountId: string;
-}
+};
 
-export interface GithubSessionProvider {
+export type GithubSessionProvider = {
   provider: 'github';
   providerAccountId: string;
-}
+};
 
 export type SessionProviders =
   | EmailPasswordSessionProvider

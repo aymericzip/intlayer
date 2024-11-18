@@ -37,68 +37,69 @@ type EmailComponents = {
   };
 };
 
-const getEmailComponents = (): EmailComponents => ({
-  invite: {
-    template: t<EmailComponentsType>({
-      en: InviteUserEmailEN,
-      fr: InviteUserEmailFR,
-      es: InviteUserEmailES,
-    }),
-    subject: t({
-      en: 'You have been invited to join Intlayer',
-      fr: 'Vous êtes invité à rejoindre Intlayer',
-      es: 'Has sido invitado a unirte a Intlayer',
-    }),
-  },
-  validate: {
-    template: t<EmailComponentsType>({
-      en: ValidateUserEmailEN,
-      fr: ValidateUserEmailFR,
-      es: ValidateUserEmailES,
-    }),
-    subject: t({
-      en: 'Validate your email for Intlayer',
-      fr: 'Validez votre email pour Intlayer',
-      es: 'Valida tu correo electrónico para Intlayer',
-    }),
-  },
-  resetPassword: {
-    template: t<EmailComponentsType>({
-      en: ResetPasswordEmailEN,
-      fr: ResetPasswordEmailFR,
-      es: ResetPasswordEmailES,
-    }),
-    subject: t({
-      en: 'Reset your password for Intlayer',
-      fr: 'Réinitialisez votre mot de passe pour Intlayer',
-      es: 'Restablece tu contraseña para Intlayer',
-    }),
-  },
-  welcome: {
-    template: t<EmailComponentsType>({
-      en: WelcomeEmailEN,
-      fr: WelcomeEmailFR,
-      es: WelcomeEmailES,
-    }),
-    subject: t({
-      en: 'Welcome to Intlayer!',
-      fr: 'Bienvenue chez Intlayer!',
-      es: '¡Bienvenido a Intlayer!',
-    }),
-  },
-  passwordChangeConfirmation: {
-    template: t<EmailComponentsType>({
-      en: PasswordChangeConfirmationEmailEN,
-      fr: PasswordChangeConfirmationEmailFR,
-      es: PasswordChangeConfirmationEmailES,
-    }),
-    subject: t({
-      en: 'Your Intlayer password has been changed',
-      fr: 'Votre mot de passe Intlayer a été modifié',
-      es: 'Tu contraseña de Intlayer ha sido cambiada',
-    }),
-  },
-});
+const getEmailComponents = () =>
+  ({
+    invite: {
+      template: t({
+        en: InviteUserEmailEN,
+        fr: InviteUserEmailFR,
+        es: InviteUserEmailES,
+      }),
+      subject: t({
+        en: 'You have been invited to join Intlayer',
+        fr: 'Vous êtes invité à rejoindre Intlayer',
+        es: 'Has sido invitado a unirte a Intlayer',
+      }),
+    },
+    validate: {
+      template: t({
+        en: ValidateUserEmailEN,
+        fr: ValidateUserEmailFR,
+        es: ValidateUserEmailES,
+      }),
+      subject: t({
+        en: 'Validate your email for Intlayer',
+        fr: 'Validez votre email pour Intlayer',
+        es: 'Valida tu correo electrónico para Intlayer',
+      }),
+    },
+    resetPassword: {
+      template: t({
+        en: ResetPasswordEmailEN,
+        fr: ResetPasswordEmailFR,
+        es: ResetPasswordEmailES,
+      }),
+      subject: t({
+        en: 'Reset your password for Intlayer',
+        fr: 'Réinitialisez votre mot de passe pour Intlayer',
+        es: 'Restablece tu contraseña para Intlayer',
+      }),
+    },
+    welcome: {
+      template: t({
+        en: WelcomeEmailEN,
+        fr: WelcomeEmailFR,
+        es: WelcomeEmailES,
+      }),
+      subject: t({
+        en: 'Welcome to Intlayer!',
+        fr: 'Bienvenue chez Intlayer!',
+        es: '¡Bienvenido a Intlayer!',
+      }),
+    },
+    passwordChangeConfirmation: {
+      template: t({
+        en: PasswordChangeConfirmationEmailEN,
+        fr: PasswordChangeConfirmationEmailFR,
+        es: PasswordChangeConfirmationEmailES,
+      }),
+      subject: t({
+        en: 'Your Intlayer password has been changed',
+        fr: 'Votre mot de passe Intlayer a été modifié',
+        es: 'Tu contraseña de Intlayer ha sido cambiada',
+      }),
+    },
+  }) satisfies EmailComponents;
 
 type EmailType = keyof ReturnType<typeof getEmailComponents>;
 
@@ -128,7 +129,7 @@ export const sendEmail = async <T extends EmailType>({
 
   await resend.emails
     .send({
-      from: 'no-replay@intlayer.org',
+      from: 'Intlayer <no-replay@intlayer.org>',
       to,
       subject: subject ?? baseSubject,
       react,

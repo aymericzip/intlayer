@@ -17,7 +17,7 @@ import { Routes } from '@/types/Routes';
 
 export const projectRouter: Router = Router();
 
-const baseURL = `${process.env.CLIENT_URL}/api/project`;
+const baseURL = `${process.env.BACKEND_URL}/api/project`;
 
 export const projectRoutes = {
   getProjects: {

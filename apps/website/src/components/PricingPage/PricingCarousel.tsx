@@ -1,7 +1,4 @@
-import { OrganizationAPI, UserAPI } from '@intlayer/backend';
-import { useAuth } from '@intlayer/design-system';
-import { Locales } from 'intlayer';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { useIntlayer } from 'next-intlayer';
 import React, {
   type MouseEventHandler,
   type TouchEventHandler,
@@ -11,40 +8,17 @@ import React, {
   useState,
   useCallback,
 } from 'react';
-import { type Period, type Plans } from './data.content';
+import { Plans, type Period } from './data.content';
 import { PricingColumn } from './PricingColumn';
+import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
+import { PagesRoutes } from '@/Routes';
 
 type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
   focusedPeriod: Period;
   setFocusedPeriod: (period: Period) => void;
 };
 
-const plans: Plans[] = ['free', 'premium', 'enterprise'];
-
-const insetMetadata = (
-  url: string,
-  user?: UserAPI | null,
-  organization?: OrganizationAPI | null,
-  locale?: Locales
-) => {
-  if (!url.startsWith('https')) return url;
-
-  const urlObject = new URL(url);
-
-  if (user?.email) {
-    urlObject.searchParams.set('prefilled_email', user.email);
-  }
-
-  if (organization) {
-    urlObject.searchParams.set('client_reference_id', String(organization._id));
-  }
-
-  if (locale) {
-    urlObject.searchParams.set('locale', locale);
-  }
-
-  return urlObject.toString();
-};
+const plans: Plans[] = [Plans.Free, Plans.Premium, Plans.Enterprise];
 
 /**
  * PricingCarousel component
@@ -58,8 +32,6 @@ export const PricingCarousel = ({
   setFocusedPeriod,
   ...props
 }: PricingCarouselProps) => {
-  const { session } = useAuth();
-  const { locale } = useLocale();
   const { pricing, period } = useIntlayer('pricing');
   const [selectedPlanIndex, setSelectedPlanIndex] = useState<number | null>(
     null
@@ -371,11 +343,11 @@ export const PricingCarousel = ({
             callToActionText={
               pricing[focusedPeriod][plan].callToAction.text.value
             }
-            callToActionUrl={insetMetadata(
-              pricing[focusedPeriod][plan].callToAction.url.value,
-              session?.user,
-              session?.organization,
-              locale
+            callToActionUrl={formatOnboardUrl(
+              PagesRoutes.Onboarding_Registration,
+              plan,
+              focusedPeriod,
+              typeof window !== 'undefined' ? window.location.href : ''
             )}
             title={pricing[focusedPeriod][plan].title.value}
             description={pricing[focusedPeriod][plan].description.value}

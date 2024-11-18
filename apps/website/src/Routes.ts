@@ -32,6 +32,13 @@ export enum PagesRoutes {
 
   Pricing = '/pricing',
 
+  Onboarding = '/onboarding',
+  Onboarding_VerifyEmail = '/onboarding/verify_email',
+  Onboarding_Registration = '/onboarding/registration',
+  Onboarding_Password = '/onboarding/password',
+  Onboarding_SetupOrganization = '/onboarding/setup_organization',
+  Onboarding_Payment = '/onboarding/payment',
+
   Auth_SignIn = '/auth/login',
   Auth_SignUp = '/auth/register',
   Auth_ResetPassword = '/auth/password/reset',

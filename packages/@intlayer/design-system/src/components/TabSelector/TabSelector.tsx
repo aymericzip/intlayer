@@ -35,21 +35,21 @@ const tabSelectorVariant = cva(
 );
 
 const indicatorVariant = cva(
-  'absolute top-0 z-[-1] h-full w-auto rounded-lg opacity-10 transition-[left,width] duration-300 ease-in-out motion-reduce:transition-none',
+  'absolute top-0 z-[-1] h-full w-auto rounded-lg transition-[left,width] duration-300 ease-in-out motion-reduce:transition-none',
   {
     variants: {
       color: {
         primary:
-          'bg-primary aria-selected:text-text dark:bg-primary-dark dark:aria-selected:text-text-dark',
+          'bg-primary/10 aria-selected:text-text dark:bg-primary-dark/10 dark:aria-selected:text-text-dark',
         secondary:
-          'bg-secondary aria-selected:text-text dark:bg-secondary-dark dark:aria-selected:text-text-dark',
+          'bg-secondary/10 aria-selected:text-text dark:bg-secondary-dark/10 dark:aria-selected:text-text-dark',
         destructive:
-          'bg-destructive aria-selected:text-text dark:bg-destructive-dark dark:aria-selected:text-text-dark',
+          'bg-destructive/10 aria-selected:text-text dark:bg-destructive-dark/10 dark:aria-selected:text-text-dark',
         neutral:
-          'bg-neutral aria-selected:text-white dark:bg-neutral-dark dark:aria-selected:text-text',
-        light: 'bg-white aria-selected:text-black',
-        dark: 'bg-neutral-800 aria-selected:text-white',
-        text: 'bg-text aria-selected:text-text-dark dark:bg-text-dark dark:aria-selected:text-text',
+          'bg-neutral/10 aria-selected:text-white dark:bg-neutral-dark/10 dark:aria-selected:text-text',
+        light: 'bg-white/10 aria-selected:text-black',
+        dark: 'bg-neutral-800/10 aria-selected:text-white',
+        text: 'bg-text/10 aria-selected:text-text-dark dark:bg-text-dark/10 dark:aria-selected:text-text',
       },
     },
   }

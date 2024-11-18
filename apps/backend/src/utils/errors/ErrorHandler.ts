@@ -31,6 +31,7 @@ export class ErrorHandler {
     this.handleCustomErrorResponse(
       res,
       errorKey,
+      error.title,
       error.message,
       errorDetails,
       status,
@@ -42,12 +43,13 @@ export class ErrorHandler {
    * Handles application-specific error responses by formatting and sending a JSON response.
    * @param res - The response object provided by Express.js.
    * @param error - The error object.
-   * @param isPaginatedResponse - Flag to determine if the response should be paginated.
+   * @param messageDetails - (Optional) Additional message details to include in the response.
+   * @param isPaginatedResponse - (Optional) Flag to determine if the response should be paginated.
    */
   static handleAppErrorResponse(
     res: Response,
     error: AppError,
-    errorDetails?: object,
+    messageDetails?: object,
     isPaginatedResponse: boolean = false
   ) {
     const isMultilingual = error.isMultilingual ?? false;
@@ -55,10 +57,11 @@ export class ErrorHandler {
     this.handleCustomErrorResponse(
       res,
       error.errorKey,
+      isMultilingual ? error.multilingualTitle : JSON.stringify(error.title),
       isMultilingual
         ? error.multilingualMessage
-        : JSON.stringify(error.message),
-      errorDetails,
+        : JSON.stringify(error.messageDetails),
+      error.messageDetails ?? messageDetails,
       error.httpStatusCode,
       isPaginatedResponse
     );
@@ -69,18 +72,24 @@ export class ErrorHandler {
    * @param res - The response object.
    * @param errorKey - Error code key used to fetch the corresponding message and default status.
    * @param message - The localized error message object.
+   * @param messageDetails - (Optional) Additional message details to include in the response.
    * @param statusCode - (Optional) HTTP status code, defaults to 500 if not specified.
    * @param isPaginatedResponse - Determines if the error should be part of a paginated response.
    */
   static handleCustomErrorResponse<T>(
     res: Response,
     errorKey: ErrorCodes | string,
+    title: LanguageContent<string> | string,
     message: LanguageContent<string> | string,
-    errorDetails?: object,
+    messageDetails?: object,
     statusCode?: HttpStatusCodes,
     isPaginatedResponse: boolean = false
   ) {
-    logger.error((message as { en: string })?.en ?? message); // Log the English version of the error message.
+    const errorMessage =
+      typeof message === 'string'
+        ? message
+        : ((message as { en: string }).en ?? t(message));
+    logger.error(errorMessage, messageDetails); // Log the English version of the error message.
     const status = statusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500; // Default to 500 if no status code is provided.
 
     if (isPaginatedResponse) {
@@ -88,6 +97,7 @@ export class ErrorHandler {
       const responseData = formatPaginatedResponse<T>({
         error: {
           code: errorKey,
+          title: typeof title === 'string' ? title : t(title),
           message: typeof message === 'string' ? message : t(message),
         },
         status,
@@ -100,8 +110,9 @@ export class ErrorHandler {
     const responseData = formatResponse<UserAPI>({
       error: {
         code: errorKey,
+        title: typeof title === 'string' ? title : t(title),
         message: typeof message === 'string' ? message : t(message),
-        ...errorDetails,
+        ...messageDetails,
       },
       status,
     });

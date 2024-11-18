@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react';
-import type { AuthProviderProps } from '../useAuth';
+import type { Session } from '../useAuth';
 
 export { AuthenticationBarrierServer } from './AuthenticationBarrierServer';
 export { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
 
-export type AuthenticationBarrierProps = AuthProviderProps & {
+export type AuthenticationBarrierProps = {
   children?: ReactNode;
   accessRule?: 'public' | 'authenticated' | 'admin' | 'none-authenticated';
   redirectionRoute?: string;
-  session?: AuthProviderProps['session'];
+  session?: Session;
   sessionToken?: string;
   /**
    * Function to replace for a nextjs redirection

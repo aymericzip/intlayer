@@ -178,9 +178,35 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.CONFLICT_409,
   },
+  USER_PROVIDER_EMAIL_ALREADY_VALIDATED: {
+    title: {
+      en: 'User provider email already validated',
+      fr: "Email du fournisseur d'utilisateur déjà validé",
+      es: 'Correo electrónico del proveedor de usuario ya validado',
+    },
+    message: {
+      en: 'The user provider email is already validated.',
+      fr: "L'email du fournisseur d'utilisateur est déjà validé.",
+      es: 'El correo electrónico del proveedor de usuario ya está validado.',
+    },
+    statusCode: HttpStatusCodes.CONFLICT_409,
+  },
+  USER_PREVIOUS_PASSWORD_NOT_PROVIDED: {
+    title: {
+      en: 'User previous password not provided',
+      fr: "Mot de passe précédent de l'utilisateur non fourni",
+      es: 'Contraseña anterior de usuario no proporcionada',
+    },
+    message: {
+      en: 'The user previous password was not provided.',
+      fr: "Le mot de passe précédent de l'utilisateur n'a pas été fourni.",
+      es: 'La contraseña anterior de usuario no fue proporcionada.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
   USER_PASSWORD_NOT_DEFINED: {
     title: {
-      en: 'User Password Not Defined',
+      en: 'User password not defined',
       fr: "Mot de passe de l'utilisateur non défini",
       es: 'Contraseña de usuario no definida',
     },
@@ -294,6 +320,19 @@ export const errorData = {
       es: 'El identificador de la organización no se ha encontrado.',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
+  ORGANIZATION_CREATION_FAILED: {
+    title: {
+      en: 'Organization Creation Failed',
+      fr: "Échec de la création de l'organisation",
+      es: 'Error al crear la organización',
+    },
+    message: {
+      en: 'Failed to create the specified organization.',
+      fr: "La création de l'organisation a échoué.",
+      es: 'No se pudo crear la organización especificada.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
   ORGANIZATION_COUNT_FAILED: {
     title: {
@@ -763,16 +802,16 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
-  EMAIL_ALREADY_VALIDATED: {
+  EMAIL_ALREADY_REGISTERED: {
     title: {
-      en: 'Email Already Validated',
-      fr: 'Email déjà validé',
-      es: 'Email ya validado',
+      en: 'Email Already registered',
+      fr: 'Email déjà enregistré',
+      es: 'Email ya registrado',
     },
     message: {
-      en: 'The email has already been validated.',
-      fr: "L'email a déjà été validé.",
-      es: 'El correo electrónico ya ha sido validado.',
+      en: 'The email has already been registered.',
+      fr: "L'email a déjà été enregistré.",
+      es: 'El correo electrónico ya ha sido registrado.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },

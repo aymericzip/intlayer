@@ -13,7 +13,7 @@ import { Routes } from '@/types/Routes';
 
 export const organizationRouter: Router = Router();
 
-const baseURL = `${process.env.CLIENT_URL}/api/organization`;
+const baseURL = `${process.env.BACKEND_URL}/api/organization`;
 
 export const organizationRoutes = {
   getOrganizations: {

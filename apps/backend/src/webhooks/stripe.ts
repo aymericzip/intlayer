@@ -22,17 +22,14 @@ export const stripeWebhook = async (request: Request, response: Response) => {
   }
 
   // Handle the event
-  console.log(`Unhandled event type ${event.type}`);
-
-  // Handle the event
   switch (event.type) {
     case 'checkout.session.async_payment_failed': {
-      const checkoutSessionAsyncPaymentFailed = event.data.object;
+      // const checkoutSessionAsyncPaymentFailed = event.data.object;
       // Then define and call a function to handle the event checkout.session.async_payment_failed
       break;
     }
     case 'checkout.session.async_payment_succeeded': {
-      const checkoutSessionAsyncPaymentSucceeded = event.data.object;
+      // const checkoutSessionAsyncPaymentSucceeded = event.data.object;
       // Then define and call a function to handle the event checkout.session.async_payment_succeeded
       break;
     }
@@ -60,7 +57,7 @@ export const stripeWebhook = async (request: Request, response: Response) => {
 
       const userEmail = (customer as unknown as { email: string }).email;
 
-      await addSubscription(priceId!, customerId, userEmail);
+      await addSubscription('organizationId', priceId!, customerId, userEmail);
 
       break;
     }
@@ -95,7 +92,7 @@ export const stripeWebhook = async (request: Request, response: Response) => {
     }
     // ... handle other event types
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      logger.info(`Unhandled event type ${event.type}`);
   }
 
   // Return a 200 response to acknowledge receipt of the event

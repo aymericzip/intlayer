@@ -11,8 +11,8 @@ import {
 type ForgotPasswordFormProps = {
   email?: string;
   onSubmitSuccess: (data: ResetPassword) => Promise<void>;
-  onSubmitError: (error: Error) => void;
   onClickBackToLogin: () => void;
+  onSubmitError?: (error: Error) => void;
 };
 
 export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({

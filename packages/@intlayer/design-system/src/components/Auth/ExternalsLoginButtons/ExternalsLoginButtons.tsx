@@ -33,6 +33,8 @@ export const GoogleLoginButton: FC = () => {
   const externalsLoginButtonsContent = getExternalsLoginButtonsContent();
 
   const loginWithGoogle = () => {
+    const origin = window.location.href;
+
     const authURL = intlayerAPI.auth.getLoginWithGoogleURL({ origin });
 
     window.location.href = authURL;

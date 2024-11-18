@@ -55,10 +55,6 @@ export const useSession = (sessionProp?: Session | null) => {
     }
   );
 
-  const revalidateSession = () => {
-    revalidate();
-  };
-
   const session = useMemo(
     () => data ?? (isFetched ? null : undefined),
     [data, isFetched]
@@ -67,7 +63,7 @@ export const useSession = (sessionProp?: Session | null) => {
   return {
     session,
     fetchSession: getSession,
-    revalidateSession,
+    revalidateSession: revalidate,
     setSession,
   };
 };

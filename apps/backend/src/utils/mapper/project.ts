@@ -9,7 +9,7 @@ import { User } from '@/types/user.types';
  */
 export const mapProjectToAPI = (
   project: Project,
-  user: User,
+  user: User | null,
   isProjectAdmin: boolean | null
 ): ProjectAPI => {
   let projectObject: Project = project;
@@ -22,7 +22,7 @@ export const mapProjectToAPI = (
   projectObject = {
     ...projectObject,
     oAuth2Access: projectObject.oAuth2Access
-      .filter((token) => token.userId !== user._id)
+      .filter((token) => token.userId !== user?._id)
       .map((token) => {
         const isJustUpdated =
           new Date().getTime() - new Date(token.updatedAt).getTime() <

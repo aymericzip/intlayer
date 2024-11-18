@@ -11,6 +11,8 @@ export class AppError extends Error {
   public name: string;
   public isMultilingual: boolean = true;
   public errorKey: string;
+  public title: string;
+  public multilingualTitle: LanguageContent<string>;
   public message: string;
   public multilingualMessage: LanguageContent<string>;
   public httpStatusCode: HttpStatusCodes;
@@ -22,18 +24,22 @@ export class AppError extends Error {
    * @param httpStatusCode - Optional HTTP status code, defaults to 500 Internal Server Error.
    */
   constructor(
+    multilingualTitle: LanguageContent<string>,
     multilingualMessage: LanguageContent<string>,
     errorKey: string,
     httpStatusCode: HttpStatusCodes = HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
     messageDetails?: object
   ) {
+    const title = t(multilingualTitle); // Translate title based on current locale
     const message = t(multilingualMessage); // Translate message based on current locale.
 
     super(message); // Use translated message for the superclass constructor.
+    this.title = title;
+    this.multilingualTitle = multilingualTitle;
     this.message = message;
+    this.multilingualMessage = multilingualMessage; // Store original message format for potential use.
     this.name = 'AppError';
     this.errorKey = errorKey;
-    this.multilingualMessage = multilingualMessage; // Store original message format for potential use.
     this.httpStatusCode = httpStatusCode; // Set the HTTP status code.
     this.messageDetails = messageDetails; // Store any additional message details.
 
@@ -44,9 +50,16 @@ export class AppError extends Error {
 
 export class GenericError extends AppError {
   constructor(errorKey: ErrorCodes, messageDetails?: object) {
+    const multilingualTitle = errorData[errorKey].title;
     const multilingualMessage = errorData[errorKey].message;
     const httpStatusCode = errorData[errorKey].statusCode;
 
-    super(multilingualMessage, errorKey, httpStatusCode, messageDetails);
+    super(
+      multilingualTitle,
+      multilingualMessage,
+      errorKey,
+      httpStatusCode,
+      messageDetails
+    );
   }
 }

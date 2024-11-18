@@ -29,15 +29,6 @@ export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
       password,
     });
 
-    if (response.error) {
-      toast({
-        title: [response.error].flatMap((error) => error).join(', '),
-        variant: 'error',
-      });
-
-      return;
-    }
-
     if (response.data) {
       if (redirectURL) {
         router.push(redirectURL);

@@ -7,8 +7,8 @@ import { getSignUpSchema, type SignUp } from './SignUpSchema';
 
 type SignUpFormProps = {
   onSubmitSuccess: (data: SignUp) => Promise<void>;
-  onSubmitError: (error: Error) => void;
   onClickBackToSignIn: () => void;
+  onSubmitError?: (error: Error) => void;
 };
 
 export const SignUpForm: FC<SignUpFormProps> = ({
@@ -71,14 +71,13 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         {signUpButton.text}
       </Form.Button>
 
-      <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full justify-center text-center align-middle text-xs">
+      <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full items-center justify-center text-center align-middle text-xs">
         {loginLink.message}
         <Form.Button
           variant="link"
           label={loginLink.ariaLabel}
-          color="primary"
+          color="text"
           onClick={onClickBackToSignIn}
-          aria-label={loginLink.ariaLabel}
         >
           {loginLink.text}
         </Form.Button>

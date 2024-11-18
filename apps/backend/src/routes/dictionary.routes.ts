@@ -12,7 +12,7 @@ import { Routes } from '@/types/Routes';
 
 export const dictionaryRouter: Router = Router();
 
-const baseURL = `${process.env.CLIENT_URL}/api/dictionary`;
+const baseURL = `${process.env.BACKEND_URL}/api/dictionary`;
 
 export const dictionaryRoutes = {
   getDictionaries: {

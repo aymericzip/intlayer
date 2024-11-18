@@ -1,9 +1,15 @@
-import process from 'process';
 import { t, DeclarationContent } from 'intlayer';
-import { PagesRoutes } from '@/Routes';
 
-export type Plans = 'free' | 'premium' | 'enterprise';
-export type Period = 'monthly' | 'yearly';
+export enum Plans {
+  Free = 'free',
+  Premium = 'premium',
+  Enterprise = 'enterprise',
+}
+
+export enum Period {
+  Monthly = 'monthly',
+  Yearly = 'yearly',
+}
 
 export type PricingInfo = {
   title: string;
@@ -12,7 +18,6 @@ export type PricingInfo = {
   checkPoint: string[];
   callToAction: {
     label: string;
-    url: string;
     text: string;
   };
 };
@@ -58,7 +63,6 @@ export const planDetails = {
         fr: 'Essayez gratuitement',
         es: 'Pruébalo gratuitamente',
       }),
-      url: PagesRoutes.Dashboard,
       text: t({
         en: 'Try it for free',
         fr: 'Essayez gratuitement',
@@ -158,7 +162,7 @@ const pricing = {
       ...planDetails.premium,
       callToAction: {
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
-        url: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_SUBSCRIPTION_MONTLY_LINK!,
+        // url: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_SUBSCRIPTION_MONTLY_LINK!,
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
       price: 9.99,
@@ -166,8 +170,8 @@ const pricing = {
     enterprise: {
       ...planDetails.enterprise,
       callToAction: {
-        url: process.env
-          .NEXT_PUBLIC_STRIPE_ENTERPRISE_SUBSCRIPTION_MONTLY_LINK!,
+        // url: process.env
+        //   .NEXT_PUBLIC_STRIPE_ENTERPRISE_SUBSCRIPTION_MONTLY_LINK!,
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
@@ -180,7 +184,7 @@ const pricing = {
     premium: {
       ...planDetails.premium,
       callToAction: {
-        url: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_SUBSCRIPTION_YEARLY_LINK!,
+        // url: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_SUBSCRIPTION_YEARLY_LINK!,
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
@@ -189,8 +193,8 @@ const pricing = {
     enterprise: {
       ...planDetails.enterprise,
       callToAction: {
-        url: process.env
-          .NEXT_PUBLIC_STRIPE_ENTERPRISE_SUBSCRIPTION_YEARLY_LINK!,
+        // url: process.env
+        //   .NEXT_PUBLIC_STRIPE_ENTERPRISE_SUBSCRIPTION_YEARLY_LINK!,
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },

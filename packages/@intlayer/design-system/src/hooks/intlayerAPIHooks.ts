@@ -21,17 +21,27 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
       // If json is valid, parse it
       try {
         error = JSON.parse(errorMessage);
-      } catch (_e) {
+      } catch (e) {
+        console.error(e);
         // If json is not valid, set error to the original errorMessage
 
         error = errorMessage;
       }
 
-      toast({
-        title: error.code ?? 'Error',
-        description: error.message ?? errorMessage ?? 'An error occurred',
-        variant: 'error',
-      });
+      // render toast for each error if there is more than one
+      // otherwise render the toast with the error message
+      [error]
+        .flatMap((error) => error)
+        .forEach((error) =>
+          toast({
+            title:
+              (process.env.NODE_ENV === 'production'
+                ? error.title
+                : error.code) ?? 'Error',
+            description: error.message ?? errorMessage ?? 'An error occurred',
+            variant: 'error',
+          })
+        );
       options.onError?.(errorMessage);
     },
   };

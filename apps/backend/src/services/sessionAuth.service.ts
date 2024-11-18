@@ -209,20 +209,6 @@ export const clearProjectAuth = (res: Response) => {
 };
 
 /**
- * Activates a user by setting the emailValidated flag to true.
- * @param user - The user object.
- * @returns
- */
-export const activateUser = async (
-  userId: string | ObjectId,
-  secret: string
-): Promise<UserDocument> => {
-  return await updateUserProvider(userId, 'email', {
-    secret,
-  });
-};
-
-/**
  * Generates a random secret string of a specified length.
  * @param length - The length of the secret.
  * @returns The generated secret string.
@@ -567,13 +553,11 @@ export const hashUserPassword = async (
 /**
  * Changes a user's password.
  * @param userId - The ID of the user.
- * @param oldPassword - The user's old password.
  * @param newPassword - The user's new password.
  * @returns The updated user or null if the password change failed.
  */
 export const changeUserPassword = async (
   userId: string | ObjectId,
-  oldPassword: string,
   newPassword: string
 ) => {
   const user = await getUserById(userId);
@@ -581,10 +565,6 @@ export const changeUserPassword = async (
   if (!user) {
     throw new GenericError('USER_NOT_FOUND', { userId });
   }
-
-  const { email } = user;
-
-  await testUserPassword(email, oldPassword);
 
   const updatedUser: User = await updateUserProvider(userId, 'email', {
     passwordHash: await hash(newPassword, await genSalt()),

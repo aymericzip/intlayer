@@ -8,8 +8,8 @@ import { getChangePasswordContent } from './index.content';
 
 type ChangePasswordFormProps = {
   onSubmitSuccess: (data: ChangePassword) => Promise<void>;
-  onSubmitError: (error: Error) => void;
   onClickBackToHome: () => void;
+  onSubmitError?: (error: Error) => void;
 };
 
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({

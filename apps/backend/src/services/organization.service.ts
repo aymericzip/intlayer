@@ -6,7 +6,7 @@ import {
   validateOrganization,
 } from '@utils/validation/validateOrganization';
 import type { ObjectId } from 'mongoose';
-import { Plan, PlanDocument } from '@/export';
+import type { Plan } from '@/types/plan.types';
 import type {
   Organization,
   OrganizationCreationData,
@@ -92,16 +92,22 @@ export const createOrganization = async (
     throw new GenericError('ORGANIZATION_INVALID_FIELDS', { errors });
   }
 
-  return await OrganizationModel.create({
-    creatorId: userId,
-    membersIds: [userId],
-    adminsIds: [userId],
-    plan: {
-      name: 'FREE',
+  try {
+    const result = await OrganizationModel.create({
       creatorId: userId,
-    },
-    ...organization,
-  });
+      membersIds: [userId],
+      adminsIds: [userId],
+      plan: {
+        name: 'FREE',
+        creatorId: userId,
+      },
+      ...organization,
+    });
+
+    return result;
+  } catch (error) {
+    throw new GenericError('ORGANIZATION_CREATION_FAILED', { error });
+  }
 };
 
 /**

@@ -12,7 +12,6 @@ import { hashUserPassword } from './sessionAuth.service';
 import type { SessionProviders } from '@/types/session.types';
 import type {
   User,
-  UserAPI,
   UserDocument,
   UserWithPasswordNotHashed,
 } from '@/types/user.types';
@@ -92,9 +91,7 @@ export const checkUserExists = async (email: string): Promise<boolean> => {
  */
 export const getUserById = async (
   userId: string | ObjectId
-): Promise<UserDocument | null> => {
-  return await UserModel.findById(userId);
-};
+): Promise<UserDocument | null> => await UserModel.findById(userId);
 
 /**
  * Retrieves a user by ID.
