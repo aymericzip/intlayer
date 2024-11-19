@@ -7,6 +7,7 @@ import cors, { type CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express, { raw, type Express } from 'express';
 import { intlayer, t } from 'express-intlayer';
+import helmet from 'helmet';
 
 // Middlewares
 import {
@@ -51,6 +52,7 @@ import { logger } from './logger';
 const app: Express = express();
 
 app.disable('x-powered-by'); // Disabled to prevent attackers from knowing that the app is running Express
+app.use(helmet());
 
 // Environment variables
 const env = app.get('env');
