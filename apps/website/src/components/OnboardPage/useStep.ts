@@ -1,15 +1,15 @@
 'use client';
 
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { formatOnboardUrl } from './formatOnboardUrl';
+import { getPlanDetails } from './getPlanDetails';
 import {
   getSessionStorageDynamicsContent,
   OnboardingStepIds,
   onboardingSteps,
   setSessionStorageDynamicsContent,
 } from './steps';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { formatOnboardUrl } from './formatOnboardUrl';
-import { getPlanDetails } from './getPlanDetails';
 
 export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
   type Step = (typeof onboardingSteps)[T];

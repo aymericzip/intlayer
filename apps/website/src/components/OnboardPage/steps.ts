@@ -1,9 +1,9 @@
+import { Plans, Period } from '@components/PricingPage/data.content';
 import { OrganizationAPI, UserAPI } from '@intlayer/backend';
 import { DefinePassword } from './DefinePasswordStep/DefinePasswordSchema';
-import { VerifyEmail } from './VerifyEmailStep/VerifyEmailSchema';
 import { Register } from './RegisterStep/RegisterSchema';
 import { SetUpOrganization } from './SetUpOrganizationStep/SetUpOrganizationSchema';
-import { Plans, Period } from '@components/PricingPage/data.content';
+import { VerifyEmail } from './VerifyEmailStep/VerifyEmailSchema';
 
 export enum Steps {
   Registration = 'registration',

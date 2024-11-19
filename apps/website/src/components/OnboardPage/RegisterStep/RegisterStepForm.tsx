@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useMemo, type FC } from 'react';
-import { getRegisterSchema, type Register } from './RegisterSchema';
 import {
   useForm,
   Form,
@@ -11,14 +9,16 @@ import {
   useToast,
 } from '@intlayer/design-system';
 import { useRegister } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { useParams, useRouter } from 'next/navigation';
-import { PagesRoutes } from '@/Routes';
-import { StepLayout } from '../StepLayout';
-import { useStep } from '../useStep';
-import { Steps } from '../steps';
+import { useIntlayer } from 'next-intlayer';
+import { useEffect, useMemo, type FC } from 'react';
 import { formatOnboardUrl } from '../formatOnboardUrl';
 import { getPlanDetails } from '../getPlanDetails';
+import { StepLayout } from '../StepLayout';
+import { Steps } from '../steps';
+import { useStep } from '../useStep';
+import { getRegisterSchema, type Register } from './RegisterSchema';
+import { PagesRoutes } from '@/Routes';
 
 export const RegisterStepForm: FC = () => {
   const { user } = useUser();

@@ -6,15 +6,15 @@ import {
   useToast,
   useUser,
 } from '@intlayer/design-system';
-import { useEffect, useMemo, type FC } from 'react';
-import { StepLayout } from '../StepLayout';
-import { getVerifyEmailSchema, VerifyEmail } from './VerifyEmailSchema';
-import { useStep } from '../useStep';
-import { useIntlayer } from 'next-intlayer';
 import { intlayerAPI } from '@intlayer/design-system/libs';
 import { Check } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
+import { useEffect, useMemo, type FC } from 'react';
+import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
+import { useStep } from '../useStep';
+import { getVerifyEmailSchema, VerifyEmail } from './VerifyEmailSchema';
 
 export const VerifyEmailStepForm: FC = () => {
   const VerifyEmailSchema = getVerifyEmailSchema();
@@ -42,7 +42,7 @@ export const VerifyEmailStepForm: FC = () => {
     () =>
       String(user?._id) === String(targetedUserId) ||
       targetedUserEmail === user?.email,
-    [user?._id, targetedUserEmail, user?.email]
+    [user?._id, user?.email, targetedUserId, targetedUserEmail]
   );
 
   const onSubmitSuccess = async (data: VerifyEmail) => {
@@ -101,6 +101,10 @@ export const VerifyEmailStepForm: FC = () => {
     user?._id,
     revalidateSession,
     toast,
+    targetedUserId,
+    isTargetedUserAuthenticated,
+    successToast.title.value,
+    successToast.description.value,
   ]);
 
   return (

@@ -1,3 +1,4 @@
+import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
 import { useIntlayer } from 'next-intlayer';
 import React, {
   type MouseEventHandler,
@@ -10,7 +11,6 @@ import React, {
 } from 'react';
 import { Plans, type Period } from './data.content';
 import { PricingColumn } from './PricingColumn';
-import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
 
 type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
   focusedPeriod: Period;

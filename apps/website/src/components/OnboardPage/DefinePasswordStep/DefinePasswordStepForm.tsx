@@ -1,17 +1,17 @@
 import { Form, H2, toast, useForm } from '@intlayer/design-system';
-import { useEffect, type FC } from 'react';
-import { StepLayout } from '../StepLayout';
-import {
-  getDefinePasswordSchema,
-  DefinePassword,
-} from './DefinePasswordSchema';
-import { useStep } from '../useStep';
-import { useIntlayer } from 'next-intlayer';
 import {
   useChangePassword,
   useCheckIfUserHasPassword,
 } from '@intlayer/design-system/hooks';
+import { useIntlayer } from 'next-intlayer';
+import { useEffect, type FC } from 'react';
+import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
+import { useStep } from '../useStep';
+import {
+  getDefinePasswordSchema,
+  DefinePassword,
+} from './DefinePasswordSchema';
 
 export const DefinePasswordStepForm: FC = () => {
   const {

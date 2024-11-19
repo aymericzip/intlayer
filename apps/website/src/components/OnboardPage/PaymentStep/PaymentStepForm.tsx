@@ -1,8 +1,6 @@
+import { Period, Plans } from '@components/PricingPage/data.content';
 import { Container, H2, H3, Label, Loader } from '@intlayer/design-system';
-import { FormEvent, useState, type FC } from 'react';
-import { StepLayout } from '../StepLayout';
-import { useStep } from '../useStep';
-import { useIntlayer } from 'next-intlayer';
+import { useGetCheckoutSession } from '@intlayer/design-system/hooks';
 import {
   Elements,
   PaymentElement,
@@ -10,11 +8,13 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import { type Appearance, loadStripe } from '@stripe/stripe-js';
-import { useGetCheckoutSession } from '@intlayer/design-system/hooks';
+import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
-import { Period, Plans } from '@components/PricingPage/data.content';
-import { Steps } from '../steps';
+import { FormEvent, useState, type FC } from 'react';
 import { retrievePriceId } from '../retrievePriceId';
+import { StepLayout } from '../StepLayout';
+import { Steps } from '../steps';
+import { useStep } from '../useStep';
 
 type PaymentStepContentProps = {
   plan: Plans;
@@ -88,7 +88,7 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
 
     await stripe
       .confirmPayment({
-        //`Elements` instance that was used to create the Payment Element
+        // `Elements` instance that was used to create the Payment Element
         elements,
         confirmParams: {
           return_url: window.location.href,
@@ -235,17 +235,10 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 }) => {
   const { title } = useIntlayer('payment-step');
   const { theme } = useTheme();
-  const { goNextStep } = useStep(Steps.Payment);
-
   const priceId = retrievePriceId(plan, period);
 
-  if (!priceId) {
-    goNextStep();
-    return <></>;
-  }
-
   const { data, isFetched } = useGetCheckoutSession({
-    autoFetch: true,
+    autoFetch: priceId !== undefined,
     args: {
       priceId,
     },

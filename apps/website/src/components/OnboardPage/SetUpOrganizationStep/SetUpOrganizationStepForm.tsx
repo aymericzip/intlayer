@@ -1,5 +1,9 @@
 'use client';
 
+import { NoOrganizationView } from '@components/Dashboard/OrganizationForm/NoOrganizationView';
+import { OrganizationCreationForm } from '@components/Dashboard/OrganizationForm/OrganizationCreationForm';
+import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
+import { OrganizationAPI } from '@intlayer/backend';
 import {
   Form,
   useForm,
@@ -9,6 +13,11 @@ import {
   useToast,
 } from '@intlayer/design-system';
 import {
+  useGetOrganizations,
+  useSelectOrganization,
+} from '@intlayer/design-system/hooks';
+import { useIntlayer } from 'next-intlayer';
+import {
   forwardRef,
   HTMLAttributes,
   Suspense,
@@ -17,21 +26,12 @@ import {
   type FC,
 } from 'react';
 import { StepLayout } from '../StepLayout';
+import { Steps } from '../steps';
+import { useStep } from '../useStep';
 import {
   getSetUpOrganizationSchema,
   SetUpOrganization,
 } from './SetUpOrganizationSchema';
-import { useStep } from '../useStep';
-import { OrganizationAPI } from '@intlayer/backend';
-import {
-  useGetOrganizations,
-  useSelectOrganization,
-} from '@intlayer/design-system/hooks';
-import { NoOrganizationView } from '@components/Dashboard/OrganizationForm/NoOrganizationView';
-import { OrganizationCreationForm } from '@components/Dashboard/OrganizationForm/OrganizationCreationForm';
-import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
-import { useIntlayer } from 'next-intlayer';
-import { Steps } from '../steps';
 
 const OrganizationFormContent: FC<{
   selectedOrganizationId?: OrganizationAPI['_id'] | string;
@@ -113,30 +113,25 @@ export const SetupOrganizationStepForm: FC = () => {
         <Suspense fallback={<Loader />}>
           <Form.Element
             name="organizationId"
-            Element={forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-              (props, ref) => (
-                <div ref={ref} {...props}>
-                  <OrganizationFormContent
-                    onSelectOrganization={(organization) => {
-                      if (
-                        form.getValues().organizationId ===
-                        String(organization._id)
-                      ) {
-                        form.setValue(
-                          'organizationId',
-                          null as unknown as string
-                        );
-                      } else {
-                        form.setValue(
-                          'organizationId',
-                          String(organization._id)
-                        );
-                      }
-                    }}
-                    selectedOrganizationId={form.getValues().organizationId}
-                  />
-                </div>
-              )
+            Element={(props: HTMLAttributes<HTMLDivElement>) => (
+              <div {...props}>
+                <OrganizationFormContent
+                  onSelectOrganization={(organization) => {
+                    if (
+                      form.getValues().organizationId ===
+                      String(organization._id)
+                    ) {
+                      form.setValue(
+                        'organizationId',
+                        null as unknown as string
+                      );
+                    } else {
+                      form.setValue('organizationId', String(organization._id));
+                    }
+                  }}
+                  selectedOrganizationId={form.getValues().organizationId}
+                />
+              </div>
             )}
           />
         </Suspense>

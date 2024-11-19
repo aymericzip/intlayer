@@ -1,9 +1,9 @@
-import { PagesRoutes } from '@/Routes';
-import { Button, H3, Label, useAuth, Tag } from '@intlayer/design-system';
+import { Button, H3, useAuth, Tag } from '@intlayer/design-system';
 import { ChevronsUp } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { PagesRoutes } from '@/Routes';
 
 type PlanDetailsProps = {};
 

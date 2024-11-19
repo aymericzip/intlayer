@@ -1,15 +1,15 @@
 'use client';
 
-import { RegisterStepForm } from './RegisterStep';
-import { VerifyEmailStepForm } from './VerifyEmailStep';
+import type { Period, Plans } from '@components/PricingPage/data.content';
+import { FC } from 'react';
+import { ConfirmationsStep } from './ConfirmationsStep/ConfirmationsStep';
 import { DefinePasswordStepForm } from './DefinePasswordStep';
 import { PaymentStepForm } from './PaymentStep';
+import { RegisterStepForm } from './RegisterStep';
 import { SetupOrganizationStepForm } from './SetUpOrganizationStep';
-import { FC } from 'react';
-import { useStepOrchestration } from './useStepOrchestration';
 import { Steps } from './steps';
-import type { Period, Plans } from '@components/PricingPage/data.content';
-import { ConfirmationsStep } from './ConfirmationsStep/ConfirmationsStep';
+import { useStepOrchestration } from './useStepOrchestration';
+import { VerifyEmailStepForm } from './VerifyEmailStep';
 
 type SignUpFormProps = {
   step: Steps;

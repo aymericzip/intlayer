@@ -1,6 +1,6 @@
-import { PagesRoutes } from '@/Routes';
 import { Period, Plans } from '../PricingPage/data.content';
 import { Steps } from './steps';
+import { PagesRoutes } from '@/Routes';
 
 type Args = {
   plan?: Plans;

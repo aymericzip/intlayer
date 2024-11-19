@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { t } from 'next-intlayer';
+import { z } from 'zod';
 
 export const getSetUpOrganizationSchema = () => {
   const requiredErrorOrganizationId = t({
