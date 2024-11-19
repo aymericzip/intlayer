@@ -18,15 +18,9 @@ type StateSlice<T> = {
 
 type Actions<T> = {
   getStates: (key: string) => States<T>;
-  setIsFetched: (key: string, value: boolean) => void;
-  setIsLoading: (key: string, value: boolean) => void;
-  setIsInvalidated: (key: string, value: boolean) => void;
-  setError: (key: string, value: string | null) => void;
-  setIsSuccess: (key: string, value: boolean) => void;
-  setData: (key: string, value: T | null) => void;
-  incrementRetryCount: (key: string) => void;
-  resetRetryCount: (key: string) => void;
-  setIsEnabled: (key: string, value: boolean) => void;
+  setQueryState: (key: string, value: Partial<States<T>>) => void;
+  setQueriesState: (key: string[], value: Partial<States<T>>) => void;
+  makeQueryInError: (key: string, error: string) => void;
   resetKeyState: (key: string[]) => void;
   resetState: (excludedKey: string[]) => void;
 };
@@ -82,173 +76,95 @@ const getMatchKeys = (
 };
 
 export const useAsyncStateStore = create<AsyncState<unknown>>((set, get) => ({
-  states: {} as StateSlice<unknown>,
+  states: {},
 
-  getStates: (key) =>
-    (get().states[key] as States<unknown>) ?? createDefaultStates<unknown>(),
+  getStates: (key) => get().states[key] ?? createDefaultStates<unknown>(),
 
-  setIsFetched: (key, value) =>
+  setQueryState: (key, value) =>
     set((state) => ({
       states: {
         ...state.states,
         [key]: {
-          ...((state.states[key] as States<unknown>) ??
-            createDefaultStates<unknown>()),
-          isFetched: value,
-          fetchedDateTime: new Date(),
+          ...(state.states[key] ?? createDefaultStates<unknown>()),
+          ...value,
         },
       },
     })),
 
-  setIsLoading: (key, value) =>
+  makeQueryInError: (key, error) =>
     set((state) => ({
       states: {
         ...state.states,
         [key]: {
-          ...((state.states[key] as States<unknown>) ??
-            createDefaultStates<unknown>()),
-          isLoading: value,
+          ...(state.states[key] ?? createDefaultStates<unknown>()),
+          error: error,
+          isFetched: true,
+          isSuccess: false,
+          retryCount: (state.states[key]?.retryCount ?? 0) + 1,
+          isLoading: false,
+          isInvalidated: false,
         },
       },
     })),
 
-  setError: (key, value) =>
+  setQueriesState: (keys, value) => {
+    const keyArray = ensureArray(keys);
+    if (keyArray.length === 0) return;
+
     set((state) => ({
       states: {
         ...state.states,
-        [key]: {
-          ...((state.states[key] as States<unknown>) ??
-            createDefaultStates<unknown>()),
-          error: value,
-        },
+        ...keyArray.reduce((acc, key) => {
+          acc[key] = {
+            ...(state.states[key] ?? createDefaultStates<unknown>()),
+            ...value,
+          };
+          return acc;
+        }, {} as StateSlice<unknown>),
       },
-    })),
+    }));
+  },
 
-  setIsSuccess: (key, value) =>
-    set((state) => ({
-      states: {
-        ...state.states,
-        [key]: {
-          ...((state.states[key] as States<unknown>) ??
-            createDefaultStates<unknown>()),
-          isSuccess: value,
-        },
-      },
-    })),
+  resetKeyState: (keys) => {
+    const keyArray = ensureArray(keys);
+    if (keyArray.length === 0) return;
 
-  setIsInvalidated: (key, value) =>
     set((state) => {
-      if (value === true) {
-        const allKeys = Object.keys(state.states);
-        const matchedKeys = getMatchKeys([key], allKeys);
-
-        matchedKeys.forEach((key) => {
-          sessionStorage.removeItem(key);
-        });
-      }
-
-      return {
-        states: {
-          ...state.states,
-          [key]: {
-            ...((state.states[key] as States<unknown>) ??
-              createDefaultStates<unknown>()),
-            isInvalidated: value,
-          },
-        },
-      };
-    }),
-
-  setData: (key, value) =>
-    set((state) => ({
-      states: {
-        ...state.states,
-        [key]: {
-          ...((state.states[key] as States<unknown>) ??
-            createDefaultStates<unknown>()),
-          data: value,
-        },
-      },
-    })),
-
-  incrementRetryCount: (key) =>
-    set((state) => {
-      const prevState =
-        (state.states[key] as States<unknown>) ??
-        createDefaultStates<unknown>();
-      return {
-        states: {
-          ...state.states,
-          [key]: {
-            ...prevState,
-            retryCount: prevState.retryCount + 1,
-          },
-        },
-      };
-    }),
-
-  resetRetryCount: (key) =>
-    set((state) => {
-      const prevState =
-        (state.states[key] as States<unknown>) ??
-        createDefaultStates<unknown>();
-      return {
-        states: {
-          ...state.states,
-          [key]: {
-            ...prevState,
-            retryCount: 0,
-          },
-        },
-      };
-    }),
-
-  setIsEnabled: (key, value) =>
-    set((state) => ({
-      states: {
-        ...state.states,
-        [key]: {
-          ...((state.states[key] as States<unknown>) ??
-            createDefaultStates<unknown>()),
-          isEnabled: value,
-        },
-      },
-    })),
-
-  resetKeyState: (key: string | string[]) =>
-    set((state) => {
-      const keys = ensureArray(key);
-
       const allKeys = Object.keys(state.states);
-      const matchedKeys = getMatchKeys(keys, allKeys);
+      const matchedKeys = getMatchKeys(keyArray, allKeys);
 
-      const newStates = { ...state.states };
-      matchedKeys.forEach((k) => {
-        newStates[k] = createDefaultStates<unknown>();
-      });
+      if (matchedKeys.length === 0) return {};
+
+      const resetStates = matchedKeys.reduce((acc, key) => {
+        acc[key] = createDefaultStates<unknown>();
+        return acc;
+      }, {} as StateSlice<unknown>);
+
       return {
-        states: newStates,
+        states: {
+          ...state.states,
+          ...resetStates,
+        },
       };
-    }),
+    });
+  },
 
-  resetState: (excludedKey?: string | string[]) =>
+  resetState: (excludedKeys) => {
+    const excludeArray = ensureArray(excludedKeys);
+    const allKeys = Object.keys(get().states);
+    const matchedKeys = getMatchKeys(excludeArray, allKeys);
+
     set((state) => {
-      const excludedKeys = ensureArray(excludedKey);
-
-      const allKeys = Object.keys(state.states);
-      const matchedKeys = getMatchKeys(excludedKeys, allKeys);
-
-      const newStates = Object.keys(state.states).reduce((acc, key) => {
-        if (matchedKeys.includes(key)) {
-          acc[key] = state.states[key];
-        } else {
-          acc[key] = createDefaultStates<unknown>();
-        }
+      const newStates = allKeys.reduce((acc, key) => {
+        acc[key] = matchedKeys.includes(key)
+          ? state.states[key]
+          : createDefaultStates<unknown>();
         return acc;
       }, {} as StateSlice<unknown>);
 
       return {
         states: newStates,
       };
-    }),
+    });
+  },
 }));
