@@ -1756,6 +1756,9 @@ importers:
       '@types/eslint-config-prettier':
         specifier: ^6.11.3
         version: 6.11.3
+      '@types/eslint-plugin-security':
+        specifier: ^3.0.0
+        version: 3.0.0
       '@types/eslint-plugin-tailwindcss':
         specifier: ^3.17.0
         version: 3.17.0
@@ -1822,6 +1825,9 @@ importers:
       eslint-plugin-regexp:
         specifier: ^2.6.0
         version: 2.6.0(eslint@9.14.0)
+      eslint-plugin-security:
+        specifier: ^3.0.1
+        version: 3.0.1
       eslint-plugin-sonarjs:
         specifier: ^2.0.4
         version: 2.0.4(@typescript-eslint/parser@8.8.1)(eslint-import-resolver-typescript@3.6.3)(eslint@9.14.0)
@@ -12041,6 +12047,15 @@ packages:
       }
     dev: true
 
+  /@types/eslint-plugin-security@3.0.0:
+    resolution:
+      {
+        integrity: sha512-CpJ7dhqhfURdYHAlaQM4vfl75lDYnGl5+EZKoO/fW0hEREZa9+EBn1g10XLDM6n5yJSuTAPn5afkM4vNzhlyFQ==,
+      }
+    dependencies:
+      '@types/eslint': 9.6.1
+    dev: true
+
   /@types/eslint-plugin-tailwindcss@3.17.0:
     resolution:
       {
@@ -19798,6 +19813,16 @@ packages:
       refa: 0.12.1
       regexp-ast-analysis: 0.7.1
       scslre: 0.3.0
+    dev: true
+
+  /eslint-plugin-security@3.0.1:
+    resolution:
+      {
+        integrity: sha512-XjVGBhtDZJfyuhIxnQ/WMm385RbX3DBu7H1J7HNNhmB2tnGxMeqVSnYv79oAj992ayvIBZghsymwkYFS6cGH4Q==,
+      }
+    engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
+    dependencies:
+      safe-regex: 2.1.1
     dev: true
 
   /eslint-plugin-sonarjs@2.0.4(@typescript-eslint/parser@8.8.1)(eslint-import-resolver-typescript@3.6.3)(eslint@9.14.0):
@@ -30002,7 +30027,6 @@ packages:
         integrity: sha512-iETxpjK6YoRWJG5o6hXLwvjYAoW+FEZn9os0PD/b6AP6xQwsa/Y7lCVgIixBbUPMfhu+i2LtdeAqVTgGlQarfA==,
       }
     hasBin: true
-    dev: false
 
   /regexp.prototype.flags@1.5.3:
     resolution:
@@ -30515,6 +30539,15 @@ packages:
       call-bind: 1.0.7
       es-errors: 1.3.0
       is-regex: 1.1.4
+
+  /safe-regex@2.1.1:
+    resolution:
+      {
+        integrity: sha512-rx+x8AMzKb5Q5lQ95Zoi6ZbJqwCLkqi3XuJXp5P3rT8OEc6sZCJG5AE5dU3lsgRr/F4Bs31jSlVN+j5KrsGu9A==,
+      }
+    dependencies:
+      regexp-tree: 0.1.27
+    dev: true
 
   /safe-stable-stringify@2.5.0:
     resolution:
