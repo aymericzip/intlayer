@@ -10,7 +10,7 @@ import { intlayerAPI } from '@intlayer/design-system/libs';
 import { Check } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useMemo, type FC } from 'react';
+import { useEffect, useMemo, useState, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -24,25 +24,14 @@ export const VerifyEmailStepForm: FC = () => {
   const userId = useSearchParams().get('userId') as string | undefined;
   const { toast } = useToast();
   const { user } = useUser();
-  const { state: registrationState, formData: registrationFormData } = useStep(
-    Steps.Registration
-  );
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const { state: registrationState } = useStep(Steps.Registration);
   const { formData, goNextStep, goPreviousStep, setState, setFormData } =
     useStep(Steps.VerifyEmail);
 
   const targetedUserId = useMemo(
-    () => userId ?? registrationState?.user?._id,
-    [userId, registrationState?.user?._id]
-  );
-  const targetedUserEmail = useMemo(
-    () => registrationFormData?.email,
-    [registrationFormData?.email]
-  );
-  const isTargetedUserAuthenticated = useMemo(
-    () =>
-      String(user?._id) === String(targetedUserId) ||
-      targetedUserEmail === user?.email,
-    [user?._id, user?.email, targetedUserId, targetedUserEmail]
+    () => userId ?? registrationState?.user?._id ?? user?._id,
+    [userId, registrationState?.user?._id, user?._id]
   );
 
   const onSubmitSuccess = async (data: VerifyEmail) => {
@@ -59,15 +48,13 @@ export const VerifyEmailStepForm: FC = () => {
   }, [formData, form]);
 
   useEffect(() => {
-    if (!(targetedUserId || targetedUserEmail)) return;
-    if (isTargetedUserAuthenticated) return; // User is already verified
+    if (!targetedUserId) return;
+    if (isEmailVerified) return;
 
     // EventSource alow to receive server-sent events from the server
     // In this case, we are listening to the email verification status
     const eventSource = new EventSource(
-      intlayerAPI.auth.getVerifyEmailStatusURL(
-        (registrationState?.user?._id ?? userId ?? user?._id)!
-      )
+      intlayerAPI.auth.getVerifyEmailStatusURL(targetedUserId!)
     );
 
     eventSource.onmessage = async (event) => {
@@ -80,6 +67,8 @@ export const VerifyEmailStepForm: FC = () => {
           title: successToast.title.value,
           description: successToast.description.value,
         });
+
+        setIsEmailVerified(true);
 
         await revalidateSession();
 
@@ -96,15 +85,14 @@ export const VerifyEmailStepForm: FC = () => {
     return () => eventSource.close(); // Clean up on component unmount
   }, [
     registrationState?.user?._id,
-    targetedUserEmail,
-    userId,
-    user?._id,
     revalidateSession,
     toast,
     targetedUserId,
-    isTargetedUserAuthenticated,
     successToast.title.value,
     successToast.description.value,
+    userId,
+    user?._id,
+    isEmailVerified,
   ]);
 
   return (
@@ -117,13 +105,13 @@ export const VerifyEmailStepForm: FC = () => {
       <StepLayout
         onGoToPreviousStep={goPreviousStep}
         isLoading={isSubmitting}
-        disabled={!isTargetedUserAuthenticated}
+        disabled={!isEmailVerified}
       >
         <H2>{verifyEmail.title}</H2>
         <span className="text-neutral dark:text-neutral text-sm">
           {verifyEmail.description}
         </span>
-        <Loader isLoading={!isTargetedUserAuthenticated}>
+        <Loader isLoading={!isEmailVerified}>
           <div className="bg-success/30 dark:bg-success-dark/30 m-auto aspect-square rounded-full p-5">
             <Check className="text-success dark:text-success-dark" size={50} />
           </div>
