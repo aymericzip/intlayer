@@ -1,7 +1,8 @@
 'use client';
 
 import type { Period, Plans } from '@components/PricingPage/data.content';
-import { FC } from 'react';
+import { Loader } from '@intlayer/design-system';
+import { FC, Suspense } from 'react';
 import { ConfirmationsStep } from './ConfirmationsStep/ConfirmationsStep';
 import { DefinePasswordStepForm } from './DefinePasswordStep';
 import { PaymentStepForm } from './PaymentStep';
@@ -21,7 +22,7 @@ export const OnboardFlow: FC<SignUpFormProps> = ({ step, plan, period }) => {
   useStepOrchestration(step);
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       {step === Steps.Registration && <RegisterStepForm />}
       {step === Steps.VerifyEmail && <VerifyEmailStepForm />}
       {step === Steps.Password && <DefinePasswordStepForm />}
@@ -30,6 +31,6 @@ export const OnboardFlow: FC<SignUpFormProps> = ({ step, plan, period }) => {
         <PaymentStepForm plan={plan} period={period} />
       )}
       {step === Steps.Confirmation && <ConfirmationsStep />}
-    </>
+    </Suspense>
   );
 };
