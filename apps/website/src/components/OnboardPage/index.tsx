@@ -9,7 +9,6 @@ import { PaymentStepForm } from './PaymentStep';
 import { RegisterStepForm } from './RegisterStep';
 import { SetupOrganizationStepForm } from './SetUpOrganizationStep';
 import { Steps } from './steps';
-import { useStepOrchestration } from './useStepOrchestration';
 import { VerifyEmailStepForm } from './VerifyEmailStep';
 
 type SignUpFormProps = {
@@ -18,19 +17,13 @@ type SignUpFormProps = {
   period: Period;
 };
 
-export const OnboardFlow: FC<SignUpFormProps> = ({ step, plan, period }) => {
-  useStepOrchestration(step);
-
-  return (
-    <Suspense fallback={<Loader />}>
-      {step === Steps.Registration && <RegisterStepForm />}
-      {step === Steps.VerifyEmail && <VerifyEmailStepForm />}
-      {step === Steps.Password && <DefinePasswordStepForm />}
-      {step === Steps.SetupOrganization && <SetupOrganizationStepForm />}
-      {step === Steps.Payment && (
-        <PaymentStepForm plan={plan} period={period} />
-      )}
-      {step === Steps.Confirmation && <ConfirmationsStep />}
-    </Suspense>
-  );
-};
+export const OnboardFlow: FC<SignUpFormProps> = ({ step, plan, period }) => (
+  <Suspense fallback={<Loader />}>
+    {step === Steps.Registration && <RegisterStepForm />}
+    {step === Steps.VerifyEmail && <VerifyEmailStepForm />}
+    {step === Steps.Password && <DefinePasswordStepForm />}
+    {step === Steps.SetupOrganization && <SetupOrganizationStepForm />}
+    {step === Steps.Payment && <PaymentStepForm plan={plan} period={period} />}
+    {step === Steps.Confirmation && <ConfirmationsStep />}
+  </Suspense>
+);

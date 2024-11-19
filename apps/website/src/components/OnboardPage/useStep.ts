@@ -57,7 +57,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
           router.push(url);
         }
       : origin
-        ? router.push(origin)
+        ? () => router.push(origin)
         : undefined
   ) as GoPreviousStepType;
 
