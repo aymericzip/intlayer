@@ -161,7 +161,7 @@ export const useAsync = <
   const storedArgsRef = useRef<any[]>(args);
 
   // Apply different key for different requests
-  const keyWithArgs = getKeyWithArgs(key, args);
+  const keyWithArgs = getKeyWithArgs(key, storedArgsRef.current);
 
   // Retrieving the current state of async operations using the same custom hook
   const {
