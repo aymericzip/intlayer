@@ -11,6 +11,7 @@ import {
   githubLoginQuery,
   googleLoginQuery,
   verifyEmailStatusSSE,
+  checkIfUserHasPassword,
 } from '@controllers/sessionAuth.controller';
 import { Router } from 'express';
 import { Routes } from '@/types/Routes';
@@ -50,6 +51,11 @@ export const sessionAuthRoutes = {
     url: ({ userId, secret }: { userId: string; secret: string }) =>
       `${baseURL}/${userId}/password/reset/${secret}`,
     method: 'PUT',
+  },
+  checkIfUserHasPassword: {
+    urlModel: '/password/has',
+    url: `${baseURL}/password/has`,
+    method: 'GET',
   },
   validEmail: {
     urlModel: '/:userId/active/:secret',
@@ -116,6 +122,11 @@ sessionAuthRouter.post(
   askResetPassword
 );
 sessionAuthRouter.put(sessionAuthRoutes.resetPassword.urlModel, resetPassword);
+
+sessionAuthRouter.get(
+  sessionAuthRoutes.checkIfUserHasPassword.urlModel,
+  checkIfUserHasPassword
+);
 
 // Email validation
 sessionAuthRouter.get(sessionAuthRoutes.validEmail.urlModel, validEmail);

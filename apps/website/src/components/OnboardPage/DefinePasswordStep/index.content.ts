@@ -8,6 +8,18 @@ const definePasswordStepContent = {
       fr: 'Définissez un mot de passe',
       es: 'Defina una contraseña',
     }),
+    currentPasswordInput: {
+      label: t({
+        en: 'Current password',
+        fr: 'Mot de passe actuel',
+        es: 'Contraseña actual',
+      }),
+      placeholder: t({
+        en: 'Enter current password',
+        fr: 'Entrez votre mot de passe actuel',
+        es: 'Ingresa tu contraseña actual',
+      }),
+    },
     newPasswordInput: {
       label: t({
         en: 'Password',
@@ -30,6 +42,18 @@ const definePasswordStepContent = {
         en: 'Confirm password',
         fr: 'Confirmez votre mot de passe',
         es: 'Confirma tu contraseña',
+      }),
+    },
+    successToast: {
+      title: t({
+        en: 'Password defined successfully',
+        fr: 'Mot de passe défini avec succès',
+        es: 'Contraseña definida con éxito',
+      }),
+      description: t({
+        en: 'You can now sign using this password.',
+        fr: 'Vous pouvez maintenant vous connecter avec ce mot de passe.',
+        es: 'Ahora puedes iniciar sesión con esta contraseña.',
       }),
     },
   },

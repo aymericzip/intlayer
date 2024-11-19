@@ -7,37 +7,57 @@ import {
   onboardingSteps,
   setSessionStorageDynamicsContent,
 } from './steps';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { formatOnboardUrl } from './formatOnboardUrl';
+import { getPlanDetails } from './getPlanDetails';
 
 export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
   type Step = (typeof onboardingSteps)[T];
 
   const router = useRouter();
   const step = onboardingSteps[stepId] as Step;
+
+  const { details } = useParams<{ details: string[] }>();
+  const pageDetails = getPlanDetails(details);
   const origin = useSearchParams().get('origin') as string | undefined;
+
   const [dynamicsContent, setDynamicsContent] = useState<Pick<
     Step,
     'state' | 'formData'
   > | null>(null);
 
-  type GoNextStepType = Step['next'] extends undefined ? undefined : () => void;
-  type GoPreviousStepType = Step['prev'] extends undefined
+  type GoNextStepType = Step['getNextStep'] extends undefined
+    ? undefined
+    : () => void;
+  type GoPreviousStepType = Step['getPreviousStep'] extends undefined
     ? () => void | undefined
     : () => void;
 
-  const goNextStep: GoNextStepType =
-    (step.goNextStep as GoNextStepType) ??
-    ((step.next
+  const goNextStep: GoNextStepType = (
+    step.getNextStep
       ? () => {
-          router.push(step.next!);
+          const nextStep = step.getNextStep?.(pageDetails);
+          const url = formatOnboardUrl({
+            ...pageDetails,
+            step: nextStep,
+          });
+          router.push(url);
         }
-      : undefined) as GoNextStepType);
+      : undefined
+  ) as GoNextStepType;
 
   const goPreviousStep: GoPreviousStepType = (
-    ((step.goPreviousStep as GoPreviousStepType) ?? step.prev)
-      ? () => router.push(step.prev!)
+    step.getPreviousStep
+      ? () => {
+          const prevStep = step.getPreviousStep?.(pageDetails);
+          const url = formatOnboardUrl({
+            ...pageDetails,
+            step: prevStep,
+          });
+          router.push(url);
+        }
       : origin
-        ? () => router.push(origin)
+        ? router.push(origin)
         : undefined
   ) as GoPreviousStepType;
 

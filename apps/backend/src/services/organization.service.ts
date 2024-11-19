@@ -160,30 +160,16 @@ export const deleteOrganizationById = async (
   return organization;
 };
 
-export const getStripeCustomerId = async (
-  organizationId: string | ObjectId
-): Promise<string | null> => {
-  const organization = await OrganizationModel.findById(organizationId);
-
-  if (!organization?.plan.customerId) {
-    return null;
-  }
-
-  return organization.plan.customerId;
-};
-
 export const saveStripeCustomerId = async (
-  organizationId: string | ObjectId,
+  organization: Organization,
   customerId: string
 ) => {
-  const organization = await OrganizationModel.findById(organizationId);
-
   if (!organization) {
     return null;
   }
 
   await OrganizationModel.updateOne(
-    { _id: organizationId },
+    { _id: organization._id },
     { $set: { plan: { customerId } } }
   );
 };

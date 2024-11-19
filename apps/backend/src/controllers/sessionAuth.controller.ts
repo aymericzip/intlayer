@@ -321,6 +321,43 @@ export const sendVerificationUpdate = (user: User) => {
   }
 };
 
+type CheckIfUserHasPasswordResultData = {
+  hasPassword: boolean;
+};
+export type CheckIfUserHasPasswordResult =
+  ResponseData<CheckIfUserHasPasswordResultData>;
+
+export const checkIfUserHasPassword = async (
+  _req: Request,
+  res: ResponseWithInformation<CheckIfUserHasPasswordResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { user } = res.locals;
+
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  try {
+    const userProvider = user.provider?.find(
+      (provider) => provider.provider === 'email'
+    );
+
+    const responseData = formatResponse<CheckIfUserHasPasswordResultData>({
+      data: {
+        hasPassword: Boolean(userProvider?.passwordHash),
+      },
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
 export type ValidEmailParams = { secret: string; userId: string };
 export type ValidEmailQuery = { callBack_url?: string };
 export type ValidEmailResult = ResponseData<UserAPI>;

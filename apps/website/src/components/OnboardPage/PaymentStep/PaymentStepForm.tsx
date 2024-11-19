@@ -1,43 +1,281 @@
-import { Form, H2, useForm } from '@intlayer/design-system';
-import { useEffect, type FC } from 'react';
+import { Container, H2, H3, Label, Loader } from '@intlayer/design-system';
+import { FormEvent, useState, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
-import { getPaymentSchema, Payment } from './PaymentSchema';
 import { useStep } from '../useStep';
-import { PagesRoutes } from '@/Routes';
 import { useIntlayer } from 'next-intlayer';
+import {
+  Elements,
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import { type Appearance, loadStripe } from '@stripe/stripe-js';
+import { useGetCheckoutSession } from '@intlayer/design-system/hooks';
+import { useTheme } from 'next-themes';
+import { Period, Plans } from '@components/PricingPage/data.content';
+import { Steps } from '../steps';
+import { retrievePriceId } from '../retrievePriceId';
 
-export const PaymentStepForm: FC = () => {
-  const PaymentSchema = getPaymentSchema();
-  const { goNextStep, goPreviousStep, formData, setState, setFormData } =
-    useStep(PagesRoutes.Onboarding_Payment);
-  const { title } = useIntlayer('payment-step');
-  const { form, isSubmitting } = useForm(PaymentSchema, {
-    defaultValues: formData,
-  });
+type PaymentStepContentProps = {
+  plan: Plans;
+  period: Period;
+};
 
-  const onSubmitSuccess = async (data: Payment) => {
-    setFormData(data);
-    setState({
-      isPaymentSuccessful: true,
-    });
-    goNextStep();
-  };
-
-  useEffect(() => {
-    // Reset the form to the initial state once loaded from the session storage
-    form.reset(formData);
-  }, [formData, form]);
+const PaymentDetails: FC<PaymentStepContentProps> = ({ plan, period }) => {
+  const { pricing, period: periodContent } = useIntlayer('pricing');
+  const { title, price, description } = pricing[period][plan];
 
   return (
-    <Form
-      schema={PaymentSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      autoComplete
-      {...form}
-    >
-      <StepLayout onGoToPreviousStep={goPreviousStep} isLoading={isSubmitting}>
-        <H2>{title}</H2>
+    <>
+      <H3 className="mt-4 text-center" itemProp="name">
+        {title}
+      </H3>
+      <div className="mb-6 flex flex-col justify-center gap-3">
+        <span className="text-center text-4xl font-bold">
+          <span itemProp="price" className="hidden">
+            {price.value.toFixed(2)}
+          </span>
+          <span>{price.value.toFixed(2).split('.')[0]}</span>
+          <span className="text-2xl">
+            {'.' + price.value.toFixed(2).split('.')[1]}
+          </span>
+          <span className="text-lg" itemProp="priceCurrency">
+            $
+          </span>
+        </span>
+        <span
+          className="text-neutral dark:text-neutral-dark text-center text-lg"
+          itemProp="priceValidUntil"
+        >
+          {periodContent[period]}
+        </span>
+      </div>
+
+      <span
+        className="text-neutral dark:text-neutral-dark justify-center text-xs"
+        itemProp="description"
+      >
+        {description}
+      </span>
+    </>
+  );
+};
+
+export const PaymentStepContent: FC<PaymentStepContentProps> = ({
+  plan,
+  period,
+}) => {
+  const { goNextStep, goPreviousStep, setState } = useStep(Steps.Payment);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    if (!stripe || !elements) {
+      // Stripe.js hasn't yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    setIsLoading(true);
+
+    await stripe
+      .confirmPayment({
+        //`Elements` instance that was used to create the Payment Element
+        elements,
+        confirmParams: {
+          return_url: window.location.href,
+        },
+      })
+      .then((result) => {
+        if (result.error) {
+          console.error(result.error);
+        } else {
+          setState({
+            isPaymentSuccessful: true,
+          });
+          goNextStep();
+        }
+      });
+
+    setIsLoading(false);
+  };
+
+  return (
+    <form onSubmit={onSubmit} autoComplete="on" className="flex flex-col gap-6">
+      <StepLayout onGoToPreviousStep={goPreviousStep} isLoading={isLoading}>
+        <Label>Payment details</Label>
+        <Container
+          border={true}
+          padding="xl"
+          roundedSize="xl"
+          transparency="full"
+          gap="xl"
+        >
+          <PaymentDetails plan={plan} period={period} />
+        </Container>
+
+        <PaymentElement />
       </StepLayout>
-    </Form>
+    </form>
+  );
+};
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
+const appearanceLight: Appearance = {
+  theme: 'flat',
+  variables: {
+    fontFamily: 'Inter Variable, sans-serif',
+    fontSizeBase: '1rem',
+    borderRadius: '0.75rem',
+    colorBackground: 'rgba(255, 255, 255, 1)',
+    colorText: 'rgba(18, 18, 18, 1)',
+    colorDanger: 'rgba(181, 24, 13, 1)', // Invalid border color
+  },
+  rules: {
+    '.Input': {
+      border: '2px solid rgba(246, 246, 246, 1)',
+      backgroundColor: 'rgba(255, 255, 255, 1)',
+      color: 'rgba(18, 18, 18, 1)',
+      borderRadius: '0.75rem',
+      padding: '0.5rem 1rem',
+      fontSize: '1rem',
+      boxShadow: 'none',
+      outline: 'none',
+      marginTop: '0.5rem',
+      marginBottom: '0.5rem',
+    },
+    '.Input:hover': {
+      borderColor: 'rgba(231, 231, 231, 1)',
+    },
+    '.Input:focus': {
+      borderColor: 'rgba(209, 209, 209, 1)',
+      boxShadow: 'none',
+      outline: 'none',
+    },
+    '.Input:disabled': {
+      opacity: '0.5',
+      cursor: 'not-allowed',
+    },
+    '.Label': {
+      fontSize: '1rem', // text-sm
+      fontWeight: '700', // font-medium
+      lineHeight: '1', // leading-none
+      color: 'rgba(18, 18, 18, 1)', // Match input text color
+    },
+    '.Label--disabled': {
+      cursor: 'not-allowed',
+      opacity: '0.7',
+    },
+  },
+};
+
+const appearanceDark: Appearance = {
+  theme: 'flat',
+  variables: {
+    fontFamily: 'Inter Variable, sans-serif',
+    fontSizeBase: '1rem',
+    borderRadius: '0.75rem',
+    colorBackground: 'rgba(61, 61, 61, 1)',
+    colorText: 'rgba(246, 246, 246, 1)',
+    colorDanger: 'rgba(255, 88, 77, 1)', // Invalid border color
+  },
+  rules: {
+    '.Input': {
+      border: '2px solid rgba(79, 79, 79, 1)',
+      backgroundColor: 'rgba(61, 61, 61, 1)',
+      color: 'rgba(246, 246, 246, 1)',
+      borderRadius: '0.75rem',
+      padding: '0.5rem 1rem',
+      fontSize: '1rem',
+      boxShadow: 'none',
+      outline: 'none',
+      marginTop: '0.5rem',
+      marginBottom: '0.5rem',
+    },
+    '.Input:hover': {
+      borderColor: 'rgba(93, 93, 93, 1)',
+    },
+    '.Input:focus': {
+      borderColor: 'rgba(176, 176, 176, 1)',
+      boxShadow: 'none',
+      outline: 'none',
+    },
+
+    '.Input:disabled': {
+      opacity: '0.5',
+      cursor: 'not-allowed',
+    },
+    '.Label': {
+      fontSize: '1rem', // text-sm
+      fontWeight: '700', // font-medium
+      lineHeight: '1', // leading-none
+      color: 'rgba(255, 245, 237, 1)', // Match input text color
+    },
+    '.Label--disabled': {
+      cursor: 'not-allowed',
+      opacity: '0.7',
+    },
+  },
+};
+
+export const PaymentStepForm: FC<PaymentStepContentProps> = ({
+  plan,
+  period,
+}) => {
+  const { title } = useIntlayer('payment-step');
+  const { theme } = useTheme();
+  const { goNextStep } = useStep(Steps.Payment);
+
+  const priceId = retrievePriceId(plan, period);
+
+  if (!priceId) {
+    goNextStep();
+    return <></>;
+  }
+
+  const { data, isFetched } = useGetCheckoutSession({
+    autoFetch: true,
+    args: {
+      priceId,
+    },
+  });
+
+  const isDarkMode = theme === 'dark';
+
+  if (!isFetched) {
+    return <Loader />;
+  }
+
+  if (!data?.data?.clientSecret) {
+    return <>Error</>;
+  }
+
+  const appearance = isDarkMode ? appearanceDark : appearanceLight;
+
+  return (
+    <>
+      <H2>{title}</H2>
+
+      <Elements
+        stripe={stripePromise}
+        options={{
+          clientSecret: data.data.clientSecret,
+          appearance,
+        }}
+      >
+        <PaymentStepContent plan={plan} period={period} />
+      </Elements>
+    </>
   );
 };

@@ -2,7 +2,19 @@
 import { t } from 'next-intlayer';
 import { z } from 'zod';
 
-export const getDefinePasswordSchema = () => {
+export const getDefinePasswordSchema = (isPasswordDefined: boolean) => {
+  const requiredErrorPassword = t({
+    en: 'Please enter your current password',
+    fr: 'Veuillez saisir votre mot de passe actuel',
+    es: 'Por favor, ingrese su contraseña actual',
+  });
+
+  const invalidTypeErrorPassword = t({
+    en: 'Please enter a valid password',
+    fr: 'Veuillez saisir un mot de passe valide',
+    es: 'Por favor, ingrese una contraseña válida',
+  });
+
   const invalidPasswordLengthError = t({
     en: 'Your password must be at least 8 characters',
     fr: 'Votre mot de passe doit comporter au moins 8 caractères',
@@ -41,6 +53,14 @@ export const getDefinePasswordSchema = () => {
 
   return z
     .object({
+      currentPassword: isPasswordDefined
+        ? z
+            .string({
+              required_error: requiredErrorPassword,
+              invalid_type_error: invalidTypeErrorPassword,
+            })
+            .min(8, { message: invalidPasswordLengthError })
+        : z.undefined(),
       newPassword: z
         .string({
           required_error: requiredErrorNewPassword,

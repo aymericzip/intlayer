@@ -39,3 +39,4 @@ export * from './Command';
 export * from './Pattern';
 export * from './CopyToClipboard';
 export * from './EditableField';
+export * from './Tag';

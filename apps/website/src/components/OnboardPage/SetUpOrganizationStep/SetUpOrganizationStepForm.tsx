@@ -1,6 +1,13 @@
 'use client';
 
-import { Form, useForm, Loader, Modal, H2 } from '@intlayer/design-system';
+import {
+  Form,
+  useForm,
+  Loader,
+  Modal,
+  H2,
+  useToast,
+} from '@intlayer/design-system';
 import {
   forwardRef,
   HTMLAttributes,
@@ -15,7 +22,6 @@ import {
   SetUpOrganization,
 } from './SetUpOrganizationSchema';
 import { useStep } from '../useStep';
-import { PagesRoutes } from '@/Routes';
 import { OrganizationAPI } from '@intlayer/backend';
 import {
   useGetOrganizations,
@@ -25,6 +31,7 @@ import { NoOrganizationView } from '@components/Dashboard/OrganizationForm/NoOrg
 import { OrganizationCreationForm } from '@components/Dashboard/OrganizationForm/OrganizationCreationForm';
 import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
 import { useIntlayer } from 'next-intlayer';
+import { Steps } from '../steps';
 
 const OrganizationFormContent: FC<{
   selectedOrganizationId?: OrganizationAPI['_id'] | string;
@@ -66,19 +73,25 @@ const OrganizationFormContent: FC<{
 export const SetupOrganizationStepForm: FC = () => {
   const SetUpOrganizationSchema = getSetUpOrganizationSchema();
   const { selectOrganization } = useSelectOrganization();
+  const { toast } = useToast();
   const { formData, goNextStep, goPreviousStep, setFormData } = useStep(
-    PagesRoutes.Onboarding_SetupOrganization
+    Steps.SetupOrganization
   );
   const { form, isSubmitting } = useForm(SetUpOrganizationSchema, {
     defaultValues: formData,
   });
-  const { title } = useIntlayer('set-up-organization-step');
+  const { title, successToast } = useIntlayer('set-up-organization-step');
 
   const onSubmitSuccess = async (data: SetUpOrganization) => {
     setFormData(data);
 
     if (formData?.organizationId) {
       await selectOrganization(formData.organizationId).then(() => {
+        toast({
+          title: successToast.title.value,
+          description: successToast.description.value,
+          variant: 'success',
+        });
         goNextStep();
       });
     }

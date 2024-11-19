@@ -33,11 +33,7 @@ export enum PagesRoutes {
   Pricing = '/pricing',
 
   Onboarding = '/onboarding',
-  Onboarding_VerifyEmail = '/onboarding/verify_email',
-  Onboarding_Registration = '/onboarding/registration',
-  Onboarding_Password = '/onboarding/password',
-  Onboarding_SetupOrganization = '/onboarding/setup_organization',
-  Onboarding_Payment = '/onboarding/payment',
+  Onboarding_Flow = '/onboarding/{{step}}/{{plan}}/{{period}}',
 
   Auth_SignIn = '/auth/login',
   Auth_SignUp = '/auth/register',
@@ -66,7 +62,7 @@ export enum GithubRoutes {
   IntlayerWithI18next = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md',
   IntlayerWithExpress = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_express_en.md',
   ContentDeclaration_GetStarted = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/get_started_en.md',
-  ContentDeclaration_ContentExtentionCustomization = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/content_extention_customization_en.md',
+  ContentDeclaration_ContentExtensionCustomization = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/content_extention_customization_en.md',
   ContentDeclaration_Enumeration = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/enumeration_en.md',
   ContentDeclaration_FunctionFetching = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/function_fetching_en.md',
   ContentDeclaration_NestedId = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/nested_id_en.md',

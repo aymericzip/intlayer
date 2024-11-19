@@ -5,46 +5,70 @@ import { type FC, type ReactNode } from 'react';
 
 type StepLayoutProps = {
   children?: ReactNode;
+  isSkippable?: boolean;
   onGoToNextStep?: () => void;
   onGoToPreviousStep?: () => void;
+  onSkipStep?: () => void;
+  hideNextButton?: boolean;
 } & Pick<ButtonProps, 'disabled' | 'isLoading'>;
 
 export const StepLayout: FC<StepLayoutProps> = ({
   children,
   onGoToNextStep,
   onGoToPreviousStep,
+  isSkippable = false,
+  onSkipStep,
+  hideNextButton = false,
   ...props
 }) => {
-  const { nextStepButton, previousStepButton } = useIntlayer('step-layout');
+  const { nextStepButton, previousStepButton, skipButton } =
+    useIntlayer('step-layout');
 
   return (
     <>
       {children}
-      <div className="flex w-full flex-row gap-4 py-10">
-        {onGoToPreviousStep && (
+      <div className="flex w-full flex-col gap-2 pb-3 pt-10">
+        <div className="flex w-full gap-4">
+          {onGoToPreviousStep && (
+            <Form.Button
+              label={previousStepButton.label.value}
+              onClick={onGoToPreviousStep}
+              color="text"
+              variant="outline"
+              isFullWidth
+              Icon={ChevronLeft}
+            >
+              {previousStepButton.text}
+            </Form.Button>
+          )}
+          {!hideNextButton && (
+            <Form.Button
+              {...props}
+              label={nextStepButton.label.value}
+              onClick={onGoToNextStep}
+              type="submit"
+              color="text"
+              textAlign="center"
+              isFullWidth
+              IconRight={ChevronRight}
+            >
+              {nextStepButton.text}
+            </Form.Button>
+          )}
+        </div>
+        {isSkippable && onSkipStep && (
           <Form.Button
-            label={previousStepButton.label.value}
-            onClick={onGoToPreviousStep}
+            label={skipButton.label.value}
+            onClick={onSkipStep}
             color="text"
-            variant="outline"
-            isFullWidth
-            Icon={ChevronLeft}
+            textAlign="center"
+            className="ml-auto"
+            variant="link"
+            IconRight={ChevronRight}
           >
-            {previousStepButton.text}
+            {skipButton.text}
           </Form.Button>
         )}
-        <Form.Button
-          {...props}
-          label={nextStepButton.label.value}
-          onClick={onGoToNextStep}
-          type="submit"
-          color="text"
-          textAlign="center"
-          isFullWidth
-          IconRight={ChevronRight}
-        >
-          {nextStepButton.text}
-        </Form.Button>
       </div>
     </>
   );

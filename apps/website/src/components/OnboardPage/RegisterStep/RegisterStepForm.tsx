@@ -1,29 +1,51 @@
 'use client';
 
-import { useEffect, type FC } from 'react';
+import { useEffect, useMemo, type FC } from 'react';
 import { getRegisterSchema, type Register } from './RegisterSchema';
 import {
   useForm,
   Form,
   ExternalsLoginButtons,
   H2,
+  useUser,
+  useToast,
 } from '@intlayer/design-system';
 import { useRegister } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { PagesRoutes } from '@/Routes';
 import { StepLayout } from '../StepLayout';
 import { useStep } from '../useStep';
+import { Steps } from '../steps';
+import { formatOnboardUrl } from '../formatOnboardUrl';
+import { getPlanDetails } from '../getPlanDetails';
 
 export const RegisterStepForm: FC = () => {
-  const { emailInput, loginLink, title } = useIntlayer('register-step');
+  const { user } = useUser();
+  const { emailInput, loginLink, title, successToast } =
+    useIntlayer('register-step');
   const RegisterSchema = getRegisterSchema();
-  const { next, goNextStep, goPreviousStep, setState, setFormData, formData } =
-    useStep(PagesRoutes.Onboarding_Registration);
+  const {
+    getNextStep,
+    goNextStep,
+    goPreviousStep,
+    setState,
+    setFormData,
+    formData,
+  } = useStep(Steps.Registration);
+
+  const defaultValues = useMemo(
+    () => ({ ...formData, email: user?.email ?? formData?.email }),
+    [formData, user]
+  );
+
   const { form, isSubmitting } = useForm(RegisterSchema, {
-    defaultValues: formData,
+    defaultValues,
   });
   const router = useRouter();
+  const { details } = useParams<{ details: string[] }>();
+  const pageDetails = getPlanDetails(details);
+  const { toast } = useToast();
 
   const { register, isLoading } = useRegister();
 
@@ -35,12 +57,23 @@ export const RegisterStepForm: FC = () => {
   const onSubmitSuccess = async (data: Register) => {
     setFormData(data);
 
+    const nextStep = getNextStep?.(pageDetails);
+    const nextStepUrl = formatOnboardUrl({
+      ...pageDetails,
+      step: nextStep,
+    });
+
     await register(data, {
-      callBack_url: `${window.location.origin}${next}`,
+      callBack_url: `${window.location.origin}${nextStepUrl}`,
     }).then((response) => {
       if (response.data) {
         setState({
           user: response.data,
+        });
+        toast({
+          title: successToast.title.value,
+          description: successToast.description.value,
+          variant: 'success',
         });
         goNextStep();
       }
@@ -49,8 +82,8 @@ export const RegisterStepForm: FC = () => {
 
   useEffect(() => {
     // Reset the form to the initial state once loaded from the session storage
-    form.reset(formData);
-  }, [formData, form]);
+    form.reset(defaultValues);
+  }, [defaultValues, form]);
 
   return (
     <Form
@@ -62,6 +95,8 @@ export const RegisterStepForm: FC = () => {
       <StepLayout
         onGoToPreviousStep={goPreviousStep}
         isLoading={isLoading || isSubmitting}
+        isSkippable={Boolean(user?.email)}
+        onSkipStep={goNextStep}
       >
         <H2>{title}</H2>
         <div className="flex flex-col gap-y-6">

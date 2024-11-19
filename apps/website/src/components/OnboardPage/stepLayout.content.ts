@@ -11,6 +11,10 @@ const pricingContent = {
       label: t({ en: 'Previous', fr: 'Précédent', es: 'Anterior' }),
       text: t({ en: 'Previous', fr: 'Précédent', es: 'Anterior' }),
     },
+    skipButton: {
+      label: t({ en: 'Skip', fr: 'Passer', es: 'Saltar' }),
+      text: t({ en: 'Skip', fr: 'Passer', es: 'Saltar' }),
+    },
   },
 } satisfies DeclarationContent;
 

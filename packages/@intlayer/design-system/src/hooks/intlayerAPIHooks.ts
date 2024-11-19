@@ -149,6 +149,17 @@ export const useAskResetPassword = (
 export const useResetPassword = (
   args?: UseAsyncOptions<typeof intlayerAPI.auth.resetPassword>
 ) => useAppAsync('resetPassword', useIntlayerAuth().auth.resetPassword, args);
+export const useCheckIfUserHasPassword = (
+  args?: UseAsyncOptions<typeof intlayerAPI.auth.checkIfUserHasPassword>
+) =>
+  useAppAsync(
+    'checkIfUserHasPassword',
+    useIntlayerAuth().auth.checkIfUserHasPassword,
+    args,
+    {
+      requireUser: true,
+    }
+  );
 export const useVerifyEmail = (
   args?: UseAsyncOptions<typeof intlayerAPI.auth.verifyEmail>
 ) => useAppAsync('verifyEmail', useIntlayerAuth().auth.verifyEmail, args);
@@ -509,5 +520,22 @@ export const useDeleteDictionary = (
     {
       invalidateQueries: ['getDictionaries', 'getDictionariesKeys'],
       ...args,
+    }
+  );
+
+/**
+ * Stripe
+ */
+
+export const useGetCheckoutSession = (
+  args?: UseAsyncOptions<typeof intlayerAPI.stripe.getCheckoutSession>
+) =>
+  useAppAsync(
+    'getCheckoutSession',
+    useIntlayerAuth().stripe.getCheckoutSession,
+    { ...args, cache: true },
+    {
+      requireUser: true,
+      requireOrganization: true,
     }
   );

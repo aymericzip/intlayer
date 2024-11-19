@@ -1075,6 +1075,20 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.UNAUTHORIZED_401,
   },
+
+  SUBSCRIPTION_CREATION_FAILED: {
+    title: {
+      en: 'Subscription Creation Failed',
+      fr: 'Échec de la création de la souscription',
+      es: 'Error al crear la suscripción',
+    },
+    message: {
+      en: 'Failed to create the specified subscription.',
+      fr: 'La création de la souscription a échoué.',
+      es: 'No se pudo crear la suscripción especificada.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

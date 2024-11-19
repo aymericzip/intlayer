@@ -39,6 +39,19 @@ export const registerStepContent = {
         es: 'Haz clic para ir a la página de inicio de sesión',
       }),
     },
+
+    successToast: {
+      title: t({
+        en: 'Account created successfully',
+        fr: 'Compte créé avec succès',
+        es: 'Cuenta creada con éxito',
+      }),
+      description: t({
+        en: 'You can now sign in to your account.',
+        fr: 'Vous pouvez maintenant vous connecter à votre compte.',
+        es: 'Ahora puedes iniciar sesión en su cuenta.',
+      }),
+    },
   },
 } satisfies DeclarationContent;
 

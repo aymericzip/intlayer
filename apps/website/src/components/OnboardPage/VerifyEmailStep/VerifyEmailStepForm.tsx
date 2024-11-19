@@ -6,29 +6,44 @@ import {
   useToast,
   useUser,
 } from '@intlayer/design-system';
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useMemo, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { getVerifyEmailSchema, VerifyEmail } from './VerifyEmailSchema';
 import { useStep } from '../useStep';
-import { PagesRoutes } from '@/Routes';
 import { useIntlayer } from 'next-intlayer';
 import { intlayerAPI } from '@intlayer/design-system/libs';
 import { Check } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { Steps } from '../steps';
 
 export const VerifyEmailStepForm: FC = () => {
   const VerifyEmailSchema = getVerifyEmailSchema();
   const { form, isSubmitting } = useForm(VerifyEmailSchema);
-  const { state: registrationState } = useStep(
-    PagesRoutes.Onboarding_Registration
-  );
   const { revalidateSession } = useUser();
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const { verifyEmail } = useIntlayer('verify-email-step');
+  const { verifyEmail, successToast } = useIntlayer('verify-email-step');
   const userId = useSearchParams().get('userId') as string | undefined;
   const { toast } = useToast();
+  const { user } = useUser();
+  const { state: registrationState, formData: registrationFormData } = useStep(
+    Steps.Registration
+  );
   const { formData, goNextStep, goPreviousStep, setState, setFormData } =
-    useStep(PagesRoutes.Onboarding_VerifyEmail);
+    useStep(Steps.VerifyEmail);
+
+  const targetedUserId = useMemo(
+    () => userId ?? registrationState?.user?._id,
+    [userId, registrationState?.user?._id]
+  );
+  const targetedUserEmail = useMemo(
+    () => registrationFormData?.email,
+    [registrationFormData?.email]
+  );
+  const isTargetedUserAuthenticated = useMemo(
+    () =>
+      String(user?._id) === String(targetedUserId) ||
+      targetedUserEmail === user?.email,
+    [user?._id, targetedUserEmail, user?.email]
+  );
 
   const onSubmitSuccess = async (data: VerifyEmail) => {
     setState({
@@ -44,13 +59,14 @@ export const VerifyEmailStepForm: FC = () => {
   }, [formData, form]);
 
   useEffect(() => {
-    if (!(registrationState?.user?._id ?? userId)) return;
+    if (!(targetedUserId || targetedUserEmail)) return;
+    if (isTargetedUserAuthenticated) return; // User is already verified
 
     // EventSource alow to receive server-sent events from the server
     // In this case, we are listening to the email verification status
     const eventSource = new EventSource(
       intlayerAPI.auth.getVerifyEmailStatusURL(
-        (registrationState?.user?._id ?? userId)!
+        (registrationState?.user?._id ?? userId ?? user?._id)!
       )
     );
 
@@ -61,10 +77,12 @@ export const VerifyEmailStepForm: FC = () => {
         // Update your UI to reflect the verification
         toast({
           variant: 'success',
-          title: 'Email verified!',
+          title: successToast.title.value,
+          description: successToast.description.value,
         });
+
         await revalidateSession();
-        setIsEmailVerified(true);
+
         eventSource.close(); // Close the connection if no longer needed
       }
     };
@@ -76,7 +94,14 @@ export const VerifyEmailStepForm: FC = () => {
     };
 
     return () => eventSource.close(); // Clean up on component unmount
-  }, [registrationState?.user?._id, userId, revalidateSession, toast]);
+  }, [
+    registrationState?.user?._id,
+    targetedUserEmail,
+    userId,
+    user?._id,
+    revalidateSession,
+    toast,
+  ]);
 
   return (
     <Form
@@ -88,13 +113,13 @@ export const VerifyEmailStepForm: FC = () => {
       <StepLayout
         onGoToPreviousStep={goPreviousStep}
         isLoading={isSubmitting}
-        disabled={!isEmailVerified}
+        disabled={!isTargetedUserAuthenticated}
       >
         <H2>{verifyEmail.title}</H2>
         <span className="text-neutral dark:text-neutral text-sm">
           {verifyEmail.description}
         </span>
-        <Loader isLoading={!isEmailVerified}>
+        <Loader isLoading={!isTargetedUserAuthenticated}>
           <div className="bg-success/30 dark:bg-success-dark/30 m-auto aspect-square rounded-full p-5">
             <Check className="text-success dark:text-success-dark" size={50} />
           </div>

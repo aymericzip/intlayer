@@ -18,6 +18,7 @@ const containerVariants = cva(
       },
       transparency: {
         none: 'bg-card dark:bg-card-dark',
+        full: '',
         sm: 'bg-card/80 dark:bg-card-dark/80',
         md: 'bg-card/60 dark:bg-card-dark/60',
         lg: 'bg-card/40 dark:bg-card-dark/40',

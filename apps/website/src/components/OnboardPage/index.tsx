@@ -6,32 +6,30 @@ import { DefinePasswordStepForm } from './DefinePasswordStep';
 import { PaymentStepForm } from './PaymentStep';
 import { SetupOrganizationStepForm } from './SetUpOrganizationStep';
 import { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { useStepOrchestration } from './useStepOrchestration';
-import { OnboardingStepIds } from './steps';
+import { Steps } from './steps';
+import type { Period, Plans } from '@components/PricingPage/data.content';
+import { ConfirmationsStep } from './ConfirmationsStep/ConfirmationsStep';
 
 type SignUpFormProps = {
-  stepId: string;
+  step: Steps;
+  plan: Plans;
+  period: Period;
 };
 
-export const OnboardFlow: FC<SignUpFormProps> = ({ stepId }) => {
-  const stepUrl = `${PagesRoutes.Onboarding}/${stepId}` as OnboardingStepIds;
-
-  useStepOrchestration(stepUrl);
+export const OnboardFlow: FC<SignUpFormProps> = ({ step, plan, period }) => {
+  useStepOrchestration(step);
 
   return (
     <>
-      {stepUrl === PagesRoutes.Onboarding_Registration && <RegisterStepForm />}
-      {stepUrl === PagesRoutes.Onboarding_VerifyEmail && (
-        <VerifyEmailStepForm />
+      {step === Steps.Registration && <RegisterStepForm />}
+      {step === Steps.VerifyEmail && <VerifyEmailStepForm />}
+      {step === Steps.Password && <DefinePasswordStepForm />}
+      {step === Steps.SetupOrganization && <SetupOrganizationStepForm />}
+      {step === Steps.Payment && (
+        <PaymentStepForm plan={plan} period={period} />
       )}
-      {stepUrl === PagesRoutes.Onboarding_Password && (
-        <DefinePasswordStepForm />
-      )}
-      {stepUrl === PagesRoutes.Onboarding_SetupOrganization && (
-        <SetupOrganizationStepForm />
-      )}
-      {stepUrl === PagesRoutes.Onboarding_Payment && <PaymentStepForm />}
+      {step === Steps.Confirmation && <ConfirmationsStep />}
     </>
   );
 };

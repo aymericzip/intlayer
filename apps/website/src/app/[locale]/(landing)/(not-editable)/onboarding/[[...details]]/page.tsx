@@ -1,12 +1,14 @@
 import { OnboardFlow } from '@components/OnboardPage';
+import { getPlanDetails } from '@components/OnboardPage/getPlanDetails';
 import { Container } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
-const OnboardPage: NextPageIntlayer<{ step: string }> = ({
-  params: { locale, step },
+const OnboardPage: NextPageIntlayer<{ details: string[] }> = ({
+  params: { locale, details },
 }) => {
   const { title, description } = useIntlayer('onboard-page', locale);
+  const pageDetails = getPlanDetails(details);
 
   return (
     <IntlayerServerProvider locale={locale}>
@@ -16,12 +18,12 @@ const OnboardPage: NextPageIntlayer<{ step: string }> = ({
           {description}
         </span>
         <Container
-          className="w-full max-w-md justify-center gap-16 p-10 text-2xl"
+          className="w-full max-w-md justify-center p-10 text-2xl"
           padding="xl"
           roundedSize="xl"
           transparency="sm"
         >
-          <OnboardFlow stepId={step} />
+          <OnboardFlow {...pageDetails} />
         </Container>
       </div>
     </IntlayerServerProvider>

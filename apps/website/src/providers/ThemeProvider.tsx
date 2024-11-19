@@ -1,8 +1,10 @@
 'use client';
 
 import { useIsMounted } from '@intlayer/design-system/hooks';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import type { ThemeProviderProps } from 'next-themes/dist/types';
+import {
+  ThemeProvider as NextThemesProvider,
+  ThemeProviderProps,
+} from 'next-themes';
 import type { FC } from 'react';
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({

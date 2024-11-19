@@ -7,6 +7,7 @@ import { t, LanguageContent } from 'express-intlayer';
 import { ErrorCodes, errorData } from './errorCodes';
 import { AppError } from './ErrorsClass';
 import { HttpStatusCodes, UserAPI } from '@/export';
+import { Locales } from 'intlayer';
 
 // Define a class named 'ErrorHandler' to encapsulate error handling logic.
 export class ErrorHandler {
@@ -52,15 +53,25 @@ export class ErrorHandler {
     messageDetails?: object,
     isPaginatedResponse: boolean = false
   ) {
+    if (!error.isAppError) {
+      this.handleCustomErrorResponse(
+        res,
+        error.errorKey ?? 'UNKNOWN_ERROR',
+        'Error',
+        error.message ?? JSON.stringify(error),
+        undefined,
+        error.httpStatusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+        isPaginatedResponse
+      );
+    }
+
     const isMultilingual = error.isMultilingual ?? false;
     // Delegate to a more customizable error response handler.
     this.handleCustomErrorResponse(
       res,
       error.errorKey,
-      isMultilingual ? error.multilingualTitle : JSON.stringify(error.title),
-      isMultilingual
-        ? error.multilingualMessage
-        : JSON.stringify(error.messageDetails),
+      isMultilingual ? error.multilingualTitle : error.title,
+      isMultilingual ? error.multilingualMessage : error.multilingualMessage,
       error.messageDetails ?? messageDetails,
       error.httpStatusCode,
       isPaginatedResponse
@@ -85,10 +96,8 @@ export class ErrorHandler {
     statusCode?: HttpStatusCodes,
     isPaginatedResponse: boolean = false
   ) {
-    const errorMessage =
-      typeof message === 'string'
-        ? message
-        : ((message as { en: string }).en ?? t(message));
+    const errorTitle = t(title as LanguageContent<string>, Locales.ENGLISH);
+    const errorMessage = t(message as LanguageContent<string>, Locales.ENGLISH);
     logger.error(errorMessage, messageDetails); // Log the English version of the error message.
     const status = statusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500; // Default to 500 if no status code is provided.
 
@@ -97,8 +106,8 @@ export class ErrorHandler {
       const responseData = formatPaginatedResponse<T>({
         error: {
           code: errorKey,
-          title: typeof title === 'string' ? title : t(title),
-          message: typeof message === 'string' ? message : t(message),
+          title: errorTitle,
+          message: errorMessage,
         },
         status,
       });
@@ -110,8 +119,8 @@ export class ErrorHandler {
     const responseData = formatResponse<UserAPI>({
       error: {
         code: errorKey,
-        title: typeof title === 'string' ? title : t(title),
-        message: typeof message === 'string' ? message : t(message),
+        title: errorTitle,
+        message: errorMessage,
         ...messageDetails,
       },
       status,

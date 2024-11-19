@@ -55,6 +55,18 @@ const sitemap = (): MetadataRoute.Sitemap => [
     },
   },
   {
+    url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.5,
+    alternates: {
+      languages: {
+        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Onboarding}`,
+        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Onboarding}`,
+      },
+    },
+  },
+  {
     url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',

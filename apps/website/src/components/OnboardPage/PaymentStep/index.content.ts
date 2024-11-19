@@ -8,6 +8,13 @@ export const paymentStepContent = {
       fr: 'Paiement',
       es: 'Pago',
     }),
+    paymentDetails: {
+      title: t({
+        en: 'Payment Details',
+        fr: 'Détails du paiement',
+        es: 'Detalles del pago',
+      }),
+    },
   },
 } satisfies DeclarationContent;
 

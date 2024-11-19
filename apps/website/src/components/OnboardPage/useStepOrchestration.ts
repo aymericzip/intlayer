@@ -11,11 +11,11 @@ export const useStepOrchestration = <T extends OnboardingStepIds>(
     const path = getPathToStep(currentStepId);
 
     for (const stepId of path) {
-      const step = onboardingSteps[stepId];
+      const step = onboardingSteps?.[stepId];
 
-      if (!step.getIsValid()) {
-        if (stepId !== currentStepId) {
-          router.replace(step.url);
+      if (!step?.getIsValid()) {
+        if (stepId !== currentStepId && step.current) {
+          router.replace(step.current);
         }
         break;
       }
@@ -29,7 +29,7 @@ const getPathToStep = <T extends OnboardingStepIds>(stepId: T): T[] => {
 
   while (currentId) {
     path.unshift(currentId);
-    const prev = onboardingSteps[currentId].prev;
+    const prev = onboardingSteps[currentId]?.prev;
 
     if (prev) {
       currentId = prev as T;

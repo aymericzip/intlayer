@@ -8,6 +8,7 @@ import { ErrorCodes, errorData } from './errorCodes';
  * This class supports multilingual error messages and HTTP status codes.
  */
 export class AppError extends Error {
+  public isAppError: boolean = true; // Flag to identify AppError instances.
   public name: string;
   public isMultilingual: boolean = true;
   public errorKey: string;

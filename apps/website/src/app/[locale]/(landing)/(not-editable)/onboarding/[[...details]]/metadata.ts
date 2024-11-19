@@ -1,7 +1,7 @@
 import { type IConfigLocales, getTranslationContent } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
-import { locales } from '../../../../../../intlayer.config';
+import { locales } from '../../../../../../../intlayer.config';
 import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = ({

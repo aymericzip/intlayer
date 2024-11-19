@@ -8,8 +8,8 @@ const baseURL = `${process.env.BACKEND_URL}/api/stipe`;
 
 export const stripeRoutes = {
   getCheckoutSession: {
-    urlModel: '/',
-    url: `${baseURL}/`,
+    urlModel: '/create-checkout-session',
+    url: `${baseURL}/create-checkout-session`,
     method: 'POST',
   },
 } satisfies Routes;

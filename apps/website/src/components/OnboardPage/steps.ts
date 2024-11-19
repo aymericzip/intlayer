@@ -1,10 +1,18 @@
-import { PagesRoutes } from '@/Routes';
 import { OrganizationAPI, UserAPI } from '@intlayer/backend';
 import { DefinePassword } from './DefinePasswordStep/DefinePasswordSchema';
 import { VerifyEmail } from './VerifyEmailStep/VerifyEmailSchema';
 import { Register } from './RegisterStep/RegisterSchema';
 import { SetUpOrganization } from './SetUpOrganizationStep/SetUpOrganizationSchema';
-import { Payment } from './PaymentStep/PaymentSchema';
+import { Plans, Period } from '@components/PricingPage/data.content';
+
+export enum Steps {
+  Registration = 'registration',
+  VerifyEmail = 'verify-email',
+  Password = 'password',
+  SetupOrganization = 'setup-organization',
+  Payment = 'payment',
+  Confirmation = 'confirmation',
+}
 
 export const getSessionStorageDynamicsContent = <T extends OnboardingStepIds>(
   stepId: T
@@ -74,54 +82,50 @@ export const setSessionStorageDynamicsFormData = <T extends OnboardingStepIds>(
 };
 
 export const isRegistrationStepValid = (): boolean => {
-  const state = getSessionStorageDynamicsContent(
-    PagesRoutes.Onboarding_Registration
-  )?.state;
+  const state = getSessionStorageDynamicsContent(Steps.Registration)?.state;
 
   return Boolean(state?.user?._id);
 };
 
 export const isVerifyEmailStepValid = (): boolean => {
-  const state = getSessionStorageDynamicsContent(
-    PagesRoutes.Onboarding_VerifyEmail
-  )?.state;
+  const state = getSessionStorageDynamicsContent(Steps.VerifyEmail)?.state;
 
   return state?.isEmailVerified ?? false;
 };
 
 export const isPasswordStepValid = (): boolean => {
-  const state = getSessionStorageDynamicsContent(
-    PagesRoutes.Onboarding_Password
-  )?.state;
+  const state = getSessionStorageDynamicsContent(Steps.Password)?.state;
 
   return state?.isPasswordDefined ?? false;
 };
 
 export const isSetupOrganizationStepValid = (): boolean => {
   const state = getSessionStorageDynamicsContent(
-    PagesRoutes.Onboarding_SetupOrganization
+    Steps.SetupOrganization
   )?.state;
 
   return Boolean(state?.organization);
 };
 
 export const isPaymentStepValid = (): boolean => {
-  const state = getSessionStorageDynamicsContent(
-    PagesRoutes.Onboarding_Payment
-  )?.state;
+  const state = getSessionStorageDynamicsContent(Steps.Payment)?.state;
 
   return Boolean(state?.isPaymentSuccessful);
 };
 
 export type OnboardingStep = {
-  prev?: string;
-  url: string;
-  next?: string;
+  getPreviousStep?: (details: {
+    step?: Steps;
+    plan?: Plans;
+    period?: Period;
+  }) => Steps;
+  getNextStep?: (details: {
+    step?: Steps;
+    plan?: Plans;
+    period?: Period;
+  }) => Steps;
 
   getIsValid: () => boolean;
-  goNextStep?: () => void;
-  goPreviousStep?: () => void;
-  isUnlocked: boolean;
 
   state?: unknown;
   formData?: unknown;
@@ -153,41 +157,56 @@ export type PaymentStep = OnboardingStep & {
     customerId: string;
     isPaymentSuccessful: boolean;
   };
-  formData?: Payment;
+  formData?: undefined;
 };
 
 export const onboardingSteps = {
-  [PagesRoutes.Onboarding_Registration]: {
-    prev: undefined,
-    next: PagesRoutes.Onboarding_VerifyEmail,
+  [Steps.Registration]: {
+    getNextStep: () => Steps.VerifyEmail,
     getIsValid: isRegistrationStepValid,
     state: undefined,
     formData: undefined,
   } as RegisterStep,
-  [PagesRoutes.Onboarding_VerifyEmail]: {
-    prev: PagesRoutes.Onboarding_Registration,
-    next: PagesRoutes.Onboarding_Password,
+  [Steps.VerifyEmail]: {
+    getPreviousStep: () => Steps.Registration,
+    getNextStep: () => Steps.Password,
     getIsValid: isVerifyEmailStepValid,
     state: undefined,
     formData: undefined,
   } as VerifyEmailStep,
-  [PagesRoutes.Onboarding_Password]: {
-    prev: PagesRoutes.Onboarding_Registration,
-    next: PagesRoutes.Onboarding_SetupOrganization,
+  [Steps.Password]: {
+    getPreviousStep: () => Steps.VerifyEmail,
+    getNextStep: () => Steps.SetupOrganization,
     getIsValid: isPasswordStepValid,
     state: undefined,
     formData: undefined,
   } as DefinePasswordStep,
-  [PagesRoutes.Onboarding_SetupOrganization]: {
-    prev: PagesRoutes.Onboarding_Password,
-    next: PagesRoutes.Onboarding_Payment,
+  [Steps.SetupOrganization]: {
+    getPreviousStep: () => Steps.Password,
+    getNextStep: ({ plan }) => {
+      if (plan === Plans.Free) {
+        return Steps.Confirmation;
+      }
+      return Steps.Payment;
+    },
     getIsValid: isSetupOrganizationStepValid,
     state: undefined,
     formData: undefined,
   } as SetupOrganizationStep,
-  [PagesRoutes.Onboarding_Payment]: {
-    prev: PagesRoutes.Onboarding_SetupOrganization,
-    next: PagesRoutes.Dashboard,
+  [Steps.Payment]: {
+    getPreviousStep: () => Steps.SetupOrganization,
+    getNextStep: () => Steps.Confirmation,
+    getIsValid: isPaymentStepValid,
+    state: undefined,
+    formData: undefined,
+  } as PaymentStep,
+  [Steps.Confirmation]: {
+    getPreviousStep: ({ plan }) => {
+      if (plan === Plans.Free) {
+        return Steps.SetupOrganization;
+      }
+      return Steps.Payment;
+    },
     getIsValid: isPaymentStepValid,
     state: undefined,
     formData: undefined,

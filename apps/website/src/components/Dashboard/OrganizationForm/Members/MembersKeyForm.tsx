@@ -153,7 +153,7 @@ export const MembersForm: FC = () => {
 
   return (
     <>
-      <H3 className="mb-8"> {title}</H3>
+      <H3 className="mb-8">{title}</H3>
       {isLoadingUsers ? (
         <Loader />
       ) : (

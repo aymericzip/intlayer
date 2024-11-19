@@ -110,7 +110,6 @@ app.use(/(.*)/, checkAdmin);
 
 // Stripe
 app.post('/webhook/stripe', raw({ type: 'application/json' }), stripeWebhook);
-app.use('/api/stripe', stripeRouter);
 
 // debug
 if (isDev) {
@@ -153,6 +152,7 @@ app.use('/api/user', userRouter);
 app.use('/api/organization', organizationRouter);
 app.use('/api/project', projectRouter);
 app.use('/api/dictionary', dictionaryRouter);
+app.use('/api/stripe', stripeRouter);
 
 // Server
 app.listen(process.env.PORT, () => {

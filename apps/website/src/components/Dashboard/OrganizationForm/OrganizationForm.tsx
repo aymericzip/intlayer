@@ -8,6 +8,7 @@ import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
 import { OrganizationEditionForm } from './OrganizationEditionForm';
 import { OrganizationList } from './OrganizationList';
+import { PlanDetails } from './Plan/PlanDetails';
 
 const OrganizationFormContent: FC = () => {
   const { session } = useAuth();
@@ -24,11 +25,19 @@ const OrganizationFormContent: FC = () => {
         >
           <OrganizationEditionForm />
         </Container>
+
         <Container
           roundedSize="xl"
           className="flex size-full justify-center p-6"
         >
           <MembersForm />
+        </Container>
+
+        <Container
+          roundedSize="xl"
+          className="flex size-full justify-center p-6"
+        >
+          <PlanDetails />
         </Container>
       </div>
     );

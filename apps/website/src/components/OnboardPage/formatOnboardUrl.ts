@@ -1,22 +1,34 @@
 import { PagesRoutes } from '@/Routes';
 import { Period, Plans } from '../PricingPage/data.content';
+import { Steps } from './steps';
 
-export const formatOnboardUrl = (
-  page: PagesRoutes,
-  plan: Plans,
-  period?: Period,
-  origin?: string
-) => {
+type Args = {
+  plan?: Plans;
+  step?: Steps;
+  period?: Period;
+  origin?: string;
+};
+
+export const formatOnboardUrl = ({
+  plan = Plans.Free,
+  step = Steps.Registration,
+  period = Period.Monthly,
+  origin = typeof window !== 'undefined' ? window.location.href : '',
+}: Args = {}) => {
   // Start building the URL manually
-  let url = `${page}?plan=${encodeURIComponent(plan)}`;
+  let url = PagesRoutes.Onboarding_Flow.replace('{{step}}', step!).replace(
+    '{{plan}}',
+    plan!
+  );
 
-  // Append optional parameters if they exist
   if (period) {
-    url += `&period=${encodeURIComponent(period)}`;
+    url = url.replace('{{period}}', period!);
+  } else {
+    url = url.replace('{{period}}/', '');
   }
 
   if (origin) {
-    url += `&origin=${encodeURIComponent(origin)}`;
+    url += `?origin=${encodeURIComponent(origin)}`;
   }
 
   return url.toString();

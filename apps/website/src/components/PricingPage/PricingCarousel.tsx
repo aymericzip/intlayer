@@ -11,7 +11,6 @@ import React, {
 import { Plans, type Period } from './data.content';
 import { PricingColumn } from './PricingColumn';
 import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
-import { PagesRoutes } from '@/Routes';
 
 type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
   focusedPeriod: Period;
@@ -343,12 +342,10 @@ export const PricingCarousel = ({
             callToActionText={
               pricing[focusedPeriod][plan].callToAction.text.value
             }
-            callToActionUrl={formatOnboardUrl(
-              PagesRoutes.Onboarding_Registration,
+            callToActionUrl={formatOnboardUrl({
               plan,
-              focusedPeriod,
-              typeof window !== 'undefined' ? window.location.href : ''
-            )}
+              period: focusedPeriod,
+            })}
             title={pricing[focusedPeriod][plan].title.value}
             description={pricing[focusedPeriod][plan].description.value}
           />

@@ -22,6 +22,7 @@ import type {
   GetOAuth2TokenBody,
   GetOAuth2TokenResult,
   UserAPI,
+  CheckIfUserHasPasswordResult,
 } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -157,6 +158,21 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
     );
 
   /**
+   * Checks if a user has a password.
+   * @param params - User ID.
+   * @returns User object.
+   */
+  const checkIfUserHasPassword = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<CheckIfUserHasPasswordResult>(
+      `${AUTH_API_ROUTE}/password/has`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'GET',
+      }
+    );
+
+  /**
    * Verifies the email address of a user with the provided token.
    * @param params - User ID and secret key.
    * @returns User object.
@@ -260,6 +276,7 @@ export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
     logout,
     resetPassword,
     askResetPassword,
+    checkIfUserHasPassword,
     verifyEmail,
     getVerifyEmailStatusURL,
     changePassword,

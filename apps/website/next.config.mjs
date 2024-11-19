@@ -37,6 +37,7 @@ const secureHeaders = createSecureHeaders({
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
         '*.google-analytics.com',
         '*.googletagmanager.com',
+        '*.stripe.com',
       ],
       objectSrc: [
         "'self'",
@@ -48,6 +49,7 @@ const secureHeaders = createSecureHeaders({
         '*.codesandbox.io',
         'codesandbox.io',
         '*.youtube.com',
+        '*.stripe.com',
       ],
       frameAncestors: [
         "'self'",
