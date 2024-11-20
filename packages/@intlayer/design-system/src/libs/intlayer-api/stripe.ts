@@ -13,12 +13,12 @@ export const getStripeAPI = (authAPIOptions: FetcherOptions = {}) => {
    * Retrieves a checkout session.
    * @param body - Checkout session body.
    */
-  const getCheckoutSession = async (
+  const getSubscription = async (
     body?: GetCheckoutSessionBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<GetCheckoutSessionResult>(
-      `${STRIPE_API_ROUTE}/create-checkout-session`,
+      `${STRIPE_API_ROUTE}/create-subscription`,
       authAPIOptions,
       otherOptions,
       {
@@ -28,6 +28,6 @@ export const getStripeAPI = (authAPIOptions: FetcherOptions = {}) => {
     );
 
   return {
-    getCheckoutSession,
+    getSubscription,
   };
 };

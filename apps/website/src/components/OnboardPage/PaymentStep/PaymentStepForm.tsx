@@ -15,7 +15,6 @@ import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
-import { PagesRoutes } from '@/Routes';
 
 type PaymentStepContentProps = {
   plan: Plans;
@@ -240,7 +239,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   const { theme } = useTheme();
   const priceId = retrievePriceId(plan, period);
 
-  const { data, isFetched } = useGetCheckoutSession({
+  const { data, isFetched } = useGetSubscription({
     autoFetch: priceId !== undefined,
     args: {
       priceId,

@@ -527,12 +527,12 @@ export const useDeleteDictionary = (
  * Stripe
  */
 
-export const useGetCheckoutSession = (
-  args?: UseAsyncOptions<typeof intlayerAPI.stripe.getCheckoutSession>
+export const useGetSubscription = (
+  args?: UseAsyncOptions<typeof intlayerAPI.stripe.getSubscription>
 ) =>
   useAppAsync(
-    'getCheckoutSession',
-    useIntlayerAuth().stripe.getCheckoutSession,
+    'getSubscription',
+    useIntlayerAuth().stripe.getSubscription,
     { ...args, cache: true },
     {
       requireUser: true,
