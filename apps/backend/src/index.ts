@@ -89,7 +89,12 @@ const whitelist: string[] = [process.env.CLIENT_URL!];
 const corsOptions: CorsOptions = {
   origin: whitelist,
   credentials: true,
-  allowedHeaders: ['authorization', 'Content-Type', 'credentials'],
+  allowedHeaders: [
+    'authorization',
+    'Content-Type',
+    'credentials',
+    'cache-control',
+  ],
   exposedHeaders: [''],
   preflightContinue: false,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
