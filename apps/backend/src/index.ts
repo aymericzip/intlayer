@@ -33,7 +33,7 @@ import { userRouter } from '@routes/user.routes';
 import { stripeRouter } from '@routes/stripe.routes';
 
 // Webhooks
-import { stripeWebhook } from '@webhooks/stripe';
+import { stripeWebhook } from '@webhooks/stripe.webhook';
 
 // Controllers
 import { getOAuth2Token } from '@controllers/oAuth2.controller';
