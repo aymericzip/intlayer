@@ -4,7 +4,6 @@ import { UpdateProjectMembersBody, UserAPI } from '@intlayer/backend';
 import {
   useForm,
   Form,
-  useToast,
   useAuth,
   MultiSelect,
   H3,
@@ -39,15 +38,10 @@ export const MembersForm: FC = () => {
       adminsIds: project?.adminsIds?.map((el) => String(el)) ?? [],
     },
   });
-  const {
-    title,
-    addMembersButton,
-    membersSelect,
-    adminsSelect,
-    updateProjectMembersToasts,
-  } = useIntlayer('project-members-form');
+  const { title, addMembersButton, membersSelect, adminsSelect } = useIntlayer(
+    'project-members-form'
+  );
   const { updateProjectMembers } = useUpdateProjectMembers();
-  const { toast } = useToast();
   const { getUsers, isLoading: isLoadingUsers } = useGetUsers();
   const [users, setUsers] = useState<UserAPI[]>([]);
 
@@ -59,21 +53,7 @@ export const MembersForm: FC = () => {
       })),
     };
 
-    await updateProjectMembers(formattedData)
-      .then(async () => {
-        toast({
-          title: updateProjectMembersToasts.updated.title.value,
-          description: updateProjectMembersToasts.updated.description.value,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: updateProjectMembersToasts.failed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    await updateProjectMembers(formattedData);
   };
 
   useEffect(() => {

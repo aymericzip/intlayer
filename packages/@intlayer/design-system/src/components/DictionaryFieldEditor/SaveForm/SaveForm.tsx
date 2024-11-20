@@ -9,7 +9,6 @@ import { useDictionary } from 'react-intlayer';
 import { useGetAllDictionaries, usePushDictionaries } from '../../../hooks';
 import { useEditedContentStore } from '../../DictionaryEditor';
 import { Form, useForm } from '../../Form';
-import { useToast } from '../../Toaster';
 import { saveDictionaryContent } from './saveForm.content';
 import { getSaveFormSchema } from './SaveFormSchema';
 
@@ -29,9 +28,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
     })
   );
   const { form, isSubmitting } = useForm(SaveFormSchema);
-  const { updateDictionaryToasts, resetButton, saveButton, publishButton } =
-    useDictionary(saveDictionaryContent);
-  const { toast } = useToast();
+  const { resetButton, saveButton, publishButton } = useDictionary(
+    saveDictionaryContent
+  );
 
   const editedDictionary = useMemo(
     () => editedContent[dictionary.key],
@@ -61,21 +60,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
         ...dictionary,
         ...editedContent[dictionary.key],
       },
-    ])
-      .then(() => {
-        toast({
-          title: updateDictionaryToasts.updated.title.value,
-          description: updateDictionaryToasts.updated.description,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: updateDictionaryToasts.failed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    ]);
   };
 
   return (

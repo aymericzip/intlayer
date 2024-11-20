@@ -44,18 +44,6 @@ const definePasswordStepContent = {
         es: 'Confirma tu contraseña',
       }),
     },
-    successToast: {
-      title: t({
-        en: 'Password defined successfully',
-        fr: 'Mot de passe défini avec succès',
-        es: 'Contraseña definida con éxito',
-      }),
-      description: t({
-        en: 'You can now sign using this password.',
-        fr: 'Vous pouvez maintenant vous connecter avec ce mot de passe.',
-        es: 'Ahora puedes iniciar sesión con esta contraseña.',
-      }),
-    },
   },
 } satisfies DeclarationContent;
 

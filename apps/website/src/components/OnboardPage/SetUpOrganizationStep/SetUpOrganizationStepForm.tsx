@@ -10,7 +10,6 @@ import {
   Loader,
   Modal,
   H2,
-  useToast,
   useAuth,
 } from '@intlayer/design-system';
 import {
@@ -18,14 +17,7 @@ import {
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import {
-  HTMLAttributes,
-  Suspense,
-  useEffect,
-  useMemo,
-  useState,
-  type FC,
-} from 'react';
+import { HTMLAttributes, Suspense, useMemo, useState, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -75,7 +67,6 @@ export const SetupOrganizationStepForm: FC = () => {
   const SetUpOrganizationSchema = getSetUpOrganizationSchema();
   const { session } = useAuth();
   const { selectOrganization } = useSelectOrganization();
-  const { toast } = useToast();
   const { formData, goNextStep, goPreviousStep, setFormData } = useStep(
     Steps.SetupOrganization
   );
@@ -93,7 +84,7 @@ export const SetupOrganizationStepForm: FC = () => {
   const { form, isSubmitting } = useForm(SetUpOrganizationSchema, {
     defaultValues,
   });
-  const { title, successToast } = useIntlayer('set-up-organization-step');
+  const { title } = useIntlayer('set-up-organization-step');
 
   const onSubmitSuccess = async (data: SetUpOrganization) => {
     setFormData(data);
@@ -103,21 +94,11 @@ export const SetupOrganizationStepForm: FC = () => {
     }
 
     if (formData?.organizationId) {
-      await selectOrganization(formData.organizationId).then(() => {
-        toast({
-          title: successToast.title.value,
-          description: successToast.description.value,
-          variant: 'success',
-        });
-        goNextStep();
-      });
+      await selectOrganization(formData.organizationId).then(() =>
+        goNextStep()
+      );
     }
   };
-
-  useEffect(() => {
-    // Reset the form to the initial state once loaded from the session storage
-    form.reset(defaultValues);
-  }, [defaultValues, form]);
 
   return (
     <Form

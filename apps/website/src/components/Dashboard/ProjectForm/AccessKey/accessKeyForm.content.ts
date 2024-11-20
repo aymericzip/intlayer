@@ -32,6 +32,11 @@ const accessKeyFormContent = {
       }),
     },
     rights: {
+      title: t({
+        en: 'Rights',
+        fr: 'Droits',
+        es: 'Derechos',
+      }),
       read: t({
         en: 'Read ',
         fr: 'Lecture ',
@@ -143,44 +148,7 @@ const accessKeyFormContent = {
         es: 'Entiendo, actualizar la clave de acceso',
       }),
     },
-    toastContent: {
-      deleteSuccess: {
-        title: t({
-          en: 'Access key deleted',
-          fr: "Clé d'accès supprimée",
-          es: 'Clave de acceso eliminada',
-        }),
-        description: t({
-          en: 'The access key has been successfully deleted',
-          fr: "La clé d'accès a été supprimée avec succès",
-          es: 'La clave de acceso ha sido eliminada exitosamente',
-        }),
-      },
-      updateSuccess: {
-        title: t({
-          en: 'Access key updated',
-          fr: "Clé d'accès mise à jour",
-          es: 'Clave de acceso actualizada',
-        }),
-        description: t({
-          en: 'The access key has been successfully updated',
-          fr: "La clé d'accès a été mise à jour avec succès",
-          es: 'La clave de acceso ha sido actualizada exitosamente',
-        }),
-      },
-      error: {
-        title: t({
-          en: 'An error occurred',
-          fr: "Une erreur s'est produite",
-          es: 'Se produjo un error',
-        }),
-        description: t({
-          en: 'An error occurred while deleting the access key',
-          fr: "Une erreur s'est produite lors de la suppression de la clé d'accès",
-          es: 'Se produjo un error al eliminar la clave de acceso',
-        }),
-      },
-    },
+
     tuto: [
       t({
         en: '1 - Create an access key',

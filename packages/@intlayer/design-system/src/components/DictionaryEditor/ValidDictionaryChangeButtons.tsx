@@ -7,7 +7,6 @@ import { useMemo, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { usePushDictionaries } from '../../hooks';
 import { Form, useForm } from '../Form';
-import { useToast } from '../Toaster';
 import { useEditedContentStore } from './useEditedContentStore';
 import { validDictionaryChangeButtonsContent } from './validDictionaryChangeButtons.content';
 import { getValidDictionaryChangeButtonsSchemaSchema } from './validDictionaryChangeButtonsSchema';
@@ -22,8 +21,9 @@ export const ValidDictionaryChangeButtons: FC<
   const ValidDictionaryChangeButtonsSchemaSchema =
     getValidDictionaryChangeButtonsSchemaSchema();
 
-  const { resetButton, saveButton, publishButton, updateDictionaryToasts } =
-    useDictionary(validDictionaryChangeButtonsContent);
+  const { resetButton, saveButton, publishButton } = useDictionary(
+    validDictionaryChangeButtonsContent
+  );
 
   const { pushDictionaries } = usePushDictionaries();
 
@@ -36,7 +36,6 @@ export const ValidDictionaryChangeButtons: FC<
   const { form, isSubmitting } = useForm(
     ValidDictionaryChangeButtonsSchemaSchema
   );
-  const { toast } = useToast();
 
   const editedDictionary = useMemo(
     () => editedContent[dictionary.key],
@@ -62,21 +61,7 @@ export const ValidDictionaryChangeButtons: FC<
         ...dictionary,
         ...editedContent[dictionary.key],
       },
-    ])
-      .then(() => {
-        toast({
-          title: updateDictionaryToasts.updated.title.value,
-          description: updateDictionaryToasts.updated.description,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: updateDictionaryToasts.failed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    ]);
   };
 
   return (

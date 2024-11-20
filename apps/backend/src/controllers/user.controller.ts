@@ -16,6 +16,7 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
+import { t } from 'express-intlayer';
 import type { SessionProviders } from '@/types/session.types';
 import type {
   User,
@@ -53,7 +54,19 @@ export const createUser = async (
 
     const formattedUser = mapUserToAPI(newUser);
 
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+    const responseData = formatResponse<UserAPI>({
+      message: t({
+        en: 'User created',
+        fr: 'Utilisateur créé',
+        es: 'Usuario creado',
+      }),
+      description: t({
+        en: 'User created successfully',
+        fr: 'Utilisateur créé avec succès',
+        es: 'Usuario creado con éxito',
+      }),
+      data: formattedUser,
+    });
 
     res.json(responseData);
     return;
@@ -225,7 +238,19 @@ export const updateUser = async (
     );
 
     const formattedUser = mapUserToAPI(updatedUser);
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+    const responseData = formatResponse<UserAPI>({
+      message: t({
+        en: 'User updated',
+        fr: 'Utilisateur mis à jour',
+        es: 'Usuario actualizado',
+      }),
+      description: t({
+        en: 'User updated successfully',
+        fr: 'Utilisateur mis à jour avec succès',
+        es: 'Usuario actualizado con éxito',
+      }),
+      data: formattedUser,
+    });
 
     res.json(responseData);
     return;
@@ -252,7 +277,19 @@ export const deleteUser = async (
     const user = await userService.deleteUser(userId);
 
     const formattedUser = mapUserToAPI(user);
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+    const responseData = formatResponse<UserAPI>({
+      message: t({
+        en: 'User deleted',
+        fr: 'Utilisateur supprimé',
+        es: 'Usuario eliminado',
+      }),
+      description: t({
+        en: 'User deleted successfully',
+        fr: 'Utilisateur supprimé avec succès',
+        es: 'Usuario eliminado con éxito',
+      }),
+      data: formattedUser,
+    });
 
     res.json(responseData);
   } catch (error) {

@@ -20,6 +20,7 @@ import {
   formatResponse,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
+import { t } from 'express-intlayer';
 import type { ObjectId } from 'mongoose';
 import { User } from 'oauth2-server';
 import type {
@@ -178,7 +179,19 @@ export const addProject = async (
 
     const formattedProject = mapProjectToAPI(newProject, user, true);
 
-    const responseData = formatResponse<ProjectAPI>({ data: formattedProject });
+    const responseData = formatResponse<ProjectAPI>({
+      message: t({
+        en: 'Project created successfully',
+        fr: 'Projet créé avec succès',
+        es: 'Proyecto creado con éxito',
+      }),
+      description: t({
+        en: 'Your project has been created successfully',
+        fr: 'Votre projet a été créé avec succès',
+        es: 'Su proyecto ha sido creado con éxito',
+      }),
+      data: formattedProject,
+    });
 
     res.json(responseData);
     return;
@@ -228,12 +241,12 @@ export const updateProject = async (
     return;
   }
 
-  if (typeof project._id !== projectData._id) {
+  if (String(project._id) !== String(projectData._id)) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_MISMATCH');
     return;
   }
 
-  if (project.organizationId !== organization._id) {
+  if (String(project.organizationId) !== String(organization._id)) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
     return;
   }
@@ -250,7 +263,19 @@ export const updateProject = async (
       isProjectAdmin
     );
 
-    const responseData = formatResponse<ProjectAPI>({ data: formattedProject });
+    const responseData = formatResponse<ProjectAPI>({
+      message: t({
+        en: 'Project updated successfully',
+        fr: 'Projet mis à jour avec succès',
+        es: 'Proyecto actualizado con éxito',
+      }),
+      description: t({
+        en: 'Your project has been updated successfully',
+        fr: 'Votre projet a été mis à jour avec succès',
+        es: 'Su proyecto ha sido actualizado con éxito',
+      }),
+      data: formattedProject,
+    });
 
     res.json(responseData);
     return;
@@ -371,6 +396,16 @@ export const updateProjectMembers = async (
     );
 
     const responseData = formatResponse<ProjectAPI>({
+      message: t({
+        en: 'Project members updated successfully',
+        fr: 'Membres du projet mis à jour avec succès',
+        es: 'Miembros del proyecto actualizados con éxito',
+      }),
+      description: t({
+        en: 'Your project members have been updated successfully',
+        fr: 'Les membres de votre projet ont été mis à jour avec succès',
+        es: 'Los miembros de su proyecto han sido actualizados con éxito',
+      }),
       data: formattedProject,
     });
 
@@ -448,6 +483,16 @@ export const deleteProject = async (
     );
 
     const responseData = formatResponse<ProjectAPI>({
+      message: t({
+        en: 'Project deleted successfully',
+        fr: 'Projet supprimé avec succès',
+        es: 'Proyecto eliminado con éxito',
+      }),
+      description: t({
+        en: 'Your project has been deleted successfully',
+        fr: 'Votre projet a été supprimé avec succès',
+        es: 'Su proyecto ha sido eliminado con éxito',
+      }),
       data: formattedProject,
     });
 
@@ -483,6 +528,16 @@ export const selectProject = async (
     sessionAuthService.setProjectAuth(res, project);
 
     const responseData = formatResponse<Project>({
+      message: t({
+        en: 'Project selected successfully',
+        fr: 'Projet sélectionné avec succès',
+        es: 'Proyecto seleccionado con éxito',
+      }),
+      description: t({
+        en: 'Your project has been selected successfully',
+        fr: 'Votre projet a été sélectionné avec succès',
+        es: 'Su proyecto ha sido seleccionado con éxito',
+      }),
       data: project,
     });
 
@@ -508,6 +563,16 @@ export const unselectProject = (
     sessionAuthService.clearProjectAuth(res);
 
     const responseData = formatResponse<null>({
+      message: t({
+        en: 'Project unselected successfully',
+        fr: 'Projet désélectionné avec succès',
+        es: 'Proyecto deseleccionado con éxito',
+      }),
+      description: t({
+        en: 'Your project has been unselected successfully',
+        fr: 'Votre projet a été désélectionné avec succès',
+        es: 'Su proyecto ha sido deseleccionado con éxito',
+      }),
       data: null,
     });
 

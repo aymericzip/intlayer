@@ -69,49 +69,6 @@ const dictionaryFormContent = {
       }),
     },
 
-    createDictionaryToasts: {
-      dictionaryCreated: {
-        title: t({
-          en: 'Dictionary created',
-          fr: 'Organisation créée',
-          es: 'Organización creada',
-        }),
-        description: t({
-          en: 'Your dictionary has been created successfully',
-          fr: 'Votre dictionaire a été créée avec succès',
-          es: 'Su diccionario se ha creado con éxito',
-        }),
-      },
-      dictionaryCreationFailed: {
-        title: t({
-          en: 'Dictionary creation failed',
-          fr: "La création de l'dictionaire a échoué",
-          es: 'La creación de la diccionario ha fallado',
-        }),
-      },
-    },
-    updateDictionaryToasts: {
-      dictionaryUpdated: {
-        title: t({
-          en: 'Dictionary updated',
-          fr: 'Organisation mise à jour',
-          es: '',
-        }),
-        description: t({
-          en: 'Your dictionary has been updated successfully',
-          fr: 'Votre dictionaire a été mise à jour avec succès',
-          es: '',
-        }),
-      },
-      dictionaryUpdateFailed: {
-        title: t({
-          en: 'Dictionary update failed',
-          fr: "La mise à jour de l'dictionaire a échoué",
-          es: '',
-        }),
-      },
-    },
-
     editButton: {
       text: t({
         en: 'Edit dictionary',

@@ -11,7 +11,6 @@ import { cn } from '../../../utils/cn';
 import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
-import { useToast } from '../../Toaster';
 import { dictionaryDetailsContent } from './dictionaryDetails.content';
 import {
   getDictionaryDetailsSchema,
@@ -37,8 +36,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     defaultValues: dictionary,
   });
   const {
-    pushDictionariesToasts,
-    updateDictionaryToasts,
     titleInput,
     keyInput,
     descriptionInput,
@@ -46,7 +43,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     saveButton,
     projectInput,
   } = useDictionary(dictionaryDetailsContent);
-  const { toast } = useToast();
 
   useEffect(() => {
     form.reset(dictionary);
@@ -63,37 +59,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         ...dictionary,
         ...data,
       },
-    ])
-      .then(() => {
-        if (isLocalDictionary) {
-          toast({
-            title: pushDictionariesToasts.updated.title.value,
-            description: pushDictionariesToasts.updated.description.value,
-            variant: 'success',
-          });
-        } else {
-          toast({
-            title: updateDictionaryToasts.updated.title.value,
-            description: updateDictionaryToasts.updated.description.value,
-            variant: 'success',
-          });
-        }
-      })
-      .catch((error) => {
-        if (isLocalDictionary) {
-          toast({
-            title: pushDictionariesToasts.failed.title.value,
-            description: pushDictionariesToasts.failed.description.value,
-            variant: 'error',
-          });
-        } else {
-          toast({
-            title: updateDictionaryToasts.failed.title.value,
-            description: error.message,
-            variant: 'error',
-          });
-        }
-      });
+    ]);
   };
 
   return (

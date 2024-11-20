@@ -1,5 +1,5 @@
 import type { OrganizationAPI } from '@intlayer/backend';
-import { Button, useToast } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system';
 import { useSelectOrganization } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -18,9 +18,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   onSelectOrganization,
 }) => {
   const { selectOrganization } = useSelectOrganization();
-  const { toast } = useToast();
-  const { selectOrganizationToasts, selectButton } =
-    useIntlayer('organization-form');
+  const { selectButton } = useIntlayer('organization-form');
   const router = useRouter();
 
   const handleSelectOrganization = (organizationId: OrganizationAPI['_id']) => {
@@ -37,25 +35,9 @@ export const OrganizationList: FC<OrganizationListProps> = ({
       return;
     }
 
-    selectOrganization(organizationId)
-      .then(async () => {
-        toast({
-          title: selectOrganizationToasts.organizationSelected.title.value,
-          description:
-            selectOrganizationToasts.organizationSelected.description.value,
-          variant: 'success',
-        });
-
-        router.push(PagesRoutes.Dashboard_Projects);
-      })
-      .catch((error) => {
-        toast({
-          title:
-            selectOrganizationToasts.organizationSelectionFailed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    selectOrganization(organizationId).then(() =>
+      router.push(PagesRoutes.Dashboard_Projects)
+    );
   };
 
   return (

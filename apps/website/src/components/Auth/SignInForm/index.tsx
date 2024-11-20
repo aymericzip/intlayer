@@ -2,12 +2,11 @@
 
 import {
   SignInForm as SignInFormUI,
-  useToast,
   type SignIn,
 } from '@intlayer/design-system';
 import { useLogin } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, type FC } from 'react';
+import { type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type SignInFormProps = {
@@ -17,8 +16,7 @@ type SignInFormProps = {
 export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { login, error } = useLogin();
-  const { toast } = useToast();
+  const { login } = useLogin();
 
   const redirectURLQuery = searchParams.get('redirect_url');
   const redirectURL = callbackUrl ?? redirectURLQuery;
@@ -36,22 +34,6 @@ export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
     }
   };
 
-  const onSubmitError = (error: Error) => {
-    toast({
-      title: error.message,
-      variant: 'error',
-    });
-  };
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        title: error,
-        variant: 'error',
-      });
-    }
-  }, [error, toast]);
-
   const onClickForgotPassword = () =>
     router.push(PagesRoutes.Auth_ResetPassword);
 
@@ -60,7 +42,6 @@ export const SignInForm: FC<SignInFormProps> = ({ callbackUrl }) => {
   return (
     <SignInFormUI
       onSubmitSuccess={onSubmitSuccess}
-      onSubmitError={onSubmitError}
       onClickForgotPassword={onClickForgotPassword}
       onClickSignUp={onClickSignUp}
     />

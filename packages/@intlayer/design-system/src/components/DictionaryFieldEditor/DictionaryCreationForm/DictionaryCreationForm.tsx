@@ -10,7 +10,6 @@ import {
 import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
-import { useToast } from '../../Toaster';
 import { dictionaryFormContent } from './dictionaryCreationForm.content';
 import {
   getDictionarySchema,
@@ -24,31 +23,12 @@ export const DictionaryCreationForm: FC = () => {
   const { data: projects } = useGetProjects();
   const DictionarySchema = getDictionarySchema(String(project?._id));
   const { form, isSubmitting } = useForm(DictionarySchema);
-  const {
-    keyInput,
-    createDictionaryButton,
-    createDictionaryToasts,
-    projectInput,
-  } = useDictionary(dictionaryFormContent);
-  const { toast } = useToast();
+  const { keyInput, createDictionaryButton, projectInput } = useDictionary(
+    dictionaryFormContent
+  );
 
   const onSubmitSuccess = async (data: DictionaryFormData) => {
-    await addDictionary(data)
-      .then(() => {
-        toast({
-          title: createDictionaryToasts.dictionaryCreated.title.value,
-          description:
-            createDictionaryToasts.dictionaryCreated.description.value,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: createDictionaryToasts.dictionaryCreationFailed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    await addDictionary(data);
   };
 
   return (

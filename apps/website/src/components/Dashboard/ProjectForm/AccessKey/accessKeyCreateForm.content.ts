@@ -80,21 +80,6 @@ const accessKeyFormContent = {
         es: 'Haga clic para crear una clave de acceso',
       }),
     },
-
-    createAccessKeyToasts: {
-      accessKeyCreated: {
-        title: t({
-          en: 'Access key created',
-          fr: "Clé d'accès créée",
-          es: 'Clave de acceso creada',
-        }),
-        description: t({
-          en: 'Your access key has been created successfully',
-          fr: "Votre clé d'accès a été créée avec succès",
-          es: 'Su clave de acceso se ha creado con éxito',
-        }),
-      },
-    },
   },
 } satisfies DeclarationContent;
 

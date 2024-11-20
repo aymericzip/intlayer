@@ -7,6 +7,8 @@ type ErrorData = {
 } & object;
 
 export type ResponseData<T = null> = {
+  message?: string;
+  description?: string;
   success: boolean;
   status: HttpStatusCodes;
   data: T | null;
@@ -26,6 +28,8 @@ type ValidResponseStatus =
   | HttpStatusCodes.IM_USED_226;
 
 type SuccessResponseArgs<T = undefined> = {
+  message?: string;
+  description?: string;
   data: T;
   status?: ValidResponseStatus;
   error?: null;
@@ -35,6 +39,8 @@ type ErrorResponseArgs = {
   error: ErrorData | ErrorData[];
   status: HttpStatusCodes;
   data?: null;
+  message?: null;
+  description?: null;
 };
 
 const isSuccessStatus = (
@@ -52,6 +58,8 @@ const isSuccessStatus = (
   status === HttpStatusCodes.IM_USED_226;
 
 export function formatResponse<T>({
+  message,
+  description,
   data,
   status,
 }: SuccessResponseArgs<T>): ResponseData<T>;
@@ -60,6 +68,8 @@ export function formatResponse<T>({
   status,
 }: ErrorResponseArgs): ResponseData<T>;
 export function formatResponse<T>({
+  message,
+  description,
   data,
   error,
   status = HttpStatusCodes.OK_200,
@@ -68,6 +78,8 @@ export function formatResponse<T>({
 
   return {
     success,
+    message: message ?? undefined,
+    description: description ?? undefined,
     data: data ?? null,
     error: error ?? undefined,
     status,
@@ -83,6 +95,8 @@ export type PaginatedResponse<T = undefined> = Omit<ResponseData<T>, 'data'> & {
 };
 
 type SuccessPaginatedResponseArgs<T = undefined> = {
+  message?: string;
+  description?: string;
   data: T[];
   status?: ValidResponseStatus;
   page: number;
@@ -97,7 +111,10 @@ type ErrorPaginatedResponseArgs = {
   error: ErrorData | ErrorData[];
   status: HttpStatusCodes;
 
+  message?: null;
+  description?: null;
   data?: null;
+
   page?: null;
   pageSize?: null;
   totalPages?: null;
@@ -105,6 +122,8 @@ type ErrorPaginatedResponseArgs = {
 };
 
 export function formatPaginatedResponse<T>({
+  message,
+  description,
   data,
   status,
   page,
@@ -118,6 +137,8 @@ export function formatPaginatedResponse<T>({
 }: ErrorPaginatedResponseArgs): PaginatedResponse<T>;
 export function formatPaginatedResponse<T>({
   status = HttpStatusCodes.OK_200,
+  message,
+  description,
   data,
   error,
   page,
@@ -131,6 +152,8 @@ export function formatPaginatedResponse<T>({
 
   return {
     success,
+    message: message ?? undefined,
+    description: description ?? undefined,
     data: data ?? null,
     error: error ?? undefined,
     status,

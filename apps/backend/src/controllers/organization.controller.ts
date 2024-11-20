@@ -20,6 +20,7 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
+import { t } from 'express-intlayer';
 import type { ObjectId } from 'mongoose';
 import { User } from 'oauth2-server';
 import * as organizationService from '@/services/organization.service';
@@ -158,6 +159,16 @@ export const addOrganization = async (
     );
 
     const responseData = formatResponse<Organization>({
+      message: t({
+        en: 'Organization created successfully',
+        fr: 'Organisation créée avec succès',
+        es: 'Organización creada con éxito',
+      }),
+      description: t({
+        en: 'Your organization has been created successfully',
+        fr: 'Votre organisation a été créée avec succès',
+        es: 'Su organización ha sido creada con éxito',
+      }),
       data: newOrganization,
     });
 
@@ -217,6 +228,16 @@ export const updateOrganization = async (
       );
 
     const responseData = formatResponse<Organization>({
+      message: t({
+        en: 'Organization updated successfully',
+        fr: 'Organisation mise à jour avec succès',
+        es: 'Organización actualizada con éxito',
+      }),
+      description: t({
+        en: 'Your organization has been updated successfully',
+        fr: 'Votre organisation a été mise à jour avec succès',
+        es: 'Su organización ha sido actualizada con éxito',
+      }),
       data: updatedOrganization,
     });
 
@@ -332,6 +353,16 @@ export const addOrganizationMember = async (
       });
 
     const responseData = formatResponse<Organization>({
+      message: t({
+        en: 'Organization updated successfully',
+        fr: 'Organisation mise à jour avec succès',
+        es: 'Organización actualizada con éxito',
+      }),
+      description: t({
+        en: 'Your organization has been updated successfully',
+        fr: 'Votre organisation a été mise à jour avec succès',
+        es: 'Su organización ha sido actualizada con éxito',
+      }),
       data: updatedOrganization,
     });
 
@@ -435,6 +466,16 @@ export const updateOrganizationMembers = async (
       });
 
     const responseData = formatResponse<Organization>({
+      message: t({
+        en: 'Organization updated successfully',
+        fr: 'Organisation mise à jour avec succès',
+        es: 'Organización actualizada con éxito',
+      }),
+      description: t({
+        en: 'Your organization has been updated successfully',
+        fr: 'Votre organisation a été mise à jour avec succès',
+        es: 'Su organización ha sido actualizada con éxito',
+      }),
       data: updatedOrganization,
     });
 
@@ -493,6 +534,16 @@ export const deleteOrganization = async (
     logger.info(`Organization deleted: ${String(deletedOrganization._id)}`);
 
     const responseData = formatResponse<Organization>({
+      message: t({
+        en: 'Organization deleted successfully',
+        fr: 'Organisation supprimée avec succès',
+        es: 'Organización eliminada con éxito',
+      }),
+      description: t({
+        en: 'Your organization has been deleted successfully',
+        fr: 'Votre organisation a été supprimée avec succès',
+        es: 'Su organización ha sido eliminada con éxito',
+      }),
       data: deletedOrganization,
     });
 
@@ -529,6 +580,16 @@ export const selectOrganization = async (
     sessionAuthService.setOrganizationAuth(res, organization);
 
     const responseData = formatResponse<Organization>({
+      message: t({
+        en: 'Organization retrieved successfully',
+        fr: 'Organisation récupérée avec succès',
+        es: 'Organización recuperada con éxito',
+      }),
+      description: t({
+        en: 'Your organization has been retrieved successfully',
+        fr: 'Votre organisation a été récupérée avec succès',
+        es: 'Su organización ha sido recuperada con éxito',
+      }),
       data: organization,
     });
 
@@ -555,6 +616,16 @@ export const unselectOrganization = (
     sessionAuthService.clearProjectAuth(res);
 
     const responseData = formatResponse<null>({
+      message: t({
+        en: 'Organization unselected successfully',
+        fr: 'Organisation désélectionnée avec succès',
+        es: 'Organización deseleccionada con éxito',
+      }),
+      description: t({
+        en: 'Your organization has been unselected successfully',
+        fr: 'Votre organisation a été désélectionnée avec succès',
+        es: 'Su organización ha sido deseleccionada con éxito',
+      }),
       data: null,
     });
 

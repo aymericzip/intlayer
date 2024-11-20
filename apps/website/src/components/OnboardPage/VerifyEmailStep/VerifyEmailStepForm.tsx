@@ -1,11 +1,4 @@
-import {
-  Form,
-  H2,
-  Loader,
-  useForm,
-  useToast,
-  useUser,
-} from '@intlayer/design-system';
+import { Form, H2, Loader, useForm, useUser } from '@intlayer/design-system';
 import { intlayerAPI } from '@intlayer/design-system/libs';
 import { Check } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
@@ -18,16 +11,17 @@ import { getVerifyEmailSchema, VerifyEmail } from './VerifyEmailSchema';
 
 export const VerifyEmailStepForm: FC = () => {
   const VerifyEmailSchema = getVerifyEmailSchema();
-  const { form, isSubmitting } = useForm(VerifyEmailSchema);
   const { revalidateSession } = useUser();
-  const { verifyEmail, successToast } = useIntlayer('verify-email-step');
+  const { verifyEmail } = useIntlayer('verify-email-step');
   const userId = useSearchParams().get('userId') as string | undefined;
-  const { toast } = useToast();
   const { user } = useUser();
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const { state: registrationState } = useStep(Steps.Registration);
   const { formData, goNextStep, goPreviousStep, setState, setFormData } =
     useStep(Steps.VerifyEmail);
+  const { form, isSubmitting } = useForm(VerifyEmailSchema, {
+    defaultValues: formData,
+  });
 
   const targetedUserId = useMemo(
     () => userId ?? registrationState?.user?._id ?? user?._id,
@@ -41,11 +35,6 @@ export const VerifyEmailStepForm: FC = () => {
     setFormData(data);
     goNextStep();
   };
-
-  useEffect(() => {
-    // Reset the form to the initial state once loaded from the session storage
-    form.reset(formData);
-  }, [formData, form]);
 
   useEffect(() => {
     if (!targetedUserId) return;
@@ -62,11 +51,6 @@ export const VerifyEmailStepForm: FC = () => {
 
       if (data.status === 'verified') {
         // Update your UI to reflect the verification
-        toast({
-          variant: 'success',
-          title: successToast.title.value,
-          description: successToast.description.value,
-        });
 
         setIsEmailVerified(true);
 
@@ -86,10 +70,7 @@ export const VerifyEmailStepForm: FC = () => {
   }, [
     registrationState?.user?._id,
     revalidateSession,
-    toast,
     targetedUserId,
-    successToast.title.value,
-    successToast.description.value,
     userId,
     user?._id,
     isEmailVerified,

@@ -2,7 +2,6 @@
 
 import {
   SignUpForm as SignUpFormUI,
-  useToast,
   type SignUp,
 } from '@intlayer/design-system';
 import { useRegister } from '@intlayer/design-system/hooks';
@@ -18,7 +17,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const router = useRouter();
 
   const { register } = useRegister();
-  const { toast } = useToast();
 
   const onSubmitSuccess = async ({ email, password }: SignUp) => {
     const response = await register({
@@ -33,13 +31,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
     }
   };
 
-  const onSubmitError = (error: Error) => {
-    toast({
-      title: error.message,
-      variant: 'error',
-    });
-  };
-
   const onClickBackToSignIn = () => {
     router.push(PagesRoutes.Auth_SignIn);
   };
@@ -47,7 +38,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   return (
     <SignUpFormUI
       onSubmitSuccess={onSubmitSuccess}
-      onSubmitError={onSubmitError}
       onClickBackToSignIn={onClickBackToSignIn}
     />
   );

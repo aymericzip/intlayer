@@ -6,13 +6,11 @@ import {
   ExternalsLoginButtons,
   H2,
   useUser,
-  useToast,
 } from '@intlayer/design-system';
 import { useRegister } from '@intlayer/design-system/hooks';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useMemo, type FC } from 'react';
-import { getPlanDetails } from '../getPlanDetails';
+import { useMemo, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -21,11 +19,9 @@ import { PagesRoutes } from '@/Routes';
 
 export const RegisterStepForm: FC = () => {
   const { user } = useUser();
-  const { emailInput, loginLink, title, successToast } =
-    useIntlayer('register-step');
+  const { emailInput, loginLink, title } = useIntlayer('register-step');
   const RegisterSchema = getRegisterSchema();
   const {
-    getNextStep,
     goNextStep,
     goPreviousStep,
     setState,
@@ -43,9 +39,6 @@ export const RegisterStepForm: FC = () => {
     defaultValues,
   });
   const router = useRouter();
-  const { details } = useParams<{ details: string[] }>();
-  const pageDetails = getPlanDetails(details);
-  const { toast } = useToast();
 
   const { register, isLoading } = useRegister();
 
@@ -64,20 +57,11 @@ export const RegisterStepForm: FC = () => {
         setState({
           user: response.data,
         });
-        toast({
-          title: successToast.title.value,
-          description: successToast.description.value,
-          variant: 'success',
-        });
+
         goNextStep();
       }
     });
   };
-
-  useEffect(() => {
-    // Reset the form to the initial state once loaded from the session storage
-    form.reset(defaultValues);
-  }, [defaultValues, form]);
 
   return (
     <Form

@@ -15,34 +15,7 @@ const dashboardNavbarContent = {
       fr: 'Sélectionner une organisation',
       es: 'Seleccionar una organización',
     }),
-    selectOrganizationAction: {
-      toast: {
-        success: {
-          title: t({
-            en: 'You are now logged in to organization',
-            fr: "Vous êtes maintenant connecté à l'organisation",
-            es: 'Ahora estás conectado a la organización',
-          }),
-          description: t({
-            en: 'You can now log out from organization',
-            fr: "Vous pouvez maintenant vous déconnecter de l'organisation",
-            es: 'Ahora puedes cerrar sesión de la organización',
-          }),
-        },
-        error: {
-          title: t({
-            en: 'An error occurred while logging in to organization',
-            fr: "Une erreur s'est produite lors de la connexion à l'organisation",
-            es: 'Se produjo un error al iniciar sesión en la organización',
-          }),
-          description: t({
-            en: 'Please try again later',
-            fr: 'Veuillez réessayer plus tard',
-            es: 'Por favor, inténtalo de nuevo más tarde',
-          }),
-        },
-      },
-    },
+
     noOtherOrganizations: t({
       en: 'No other organizations',
       fr: 'Aucune autre organisation',
@@ -59,32 +32,6 @@ const dashboardNavbarContent = {
         fr: "Cliquez pour se déconnecter de l'organisation",
         es: 'Haga clic para cerrar sesión de la organización',
       }),
-      toast: {
-        success: {
-          title: t({
-            en: 'You are now logged out from organization',
-            fr: "Vous êtes maintenant déconnecté de l'organisation",
-            es: 'Ahora estás desconectado de la organización',
-          }),
-          description: t({
-            en: 'You can now log in to another organization',
-            fr: 'Vous pouvez maintenant vous connecter à une autre organisation',
-            es: 'Ahora puedes iniciar sesión en otra organización',
-          }),
-        },
-        error: {
-          title: t({
-            en: 'An error occurred while logging out from organization',
-            fr: "Une erreur s'est produite lors de la déconnexion de l'organisation",
-            es: 'Se produjo un error al cerrar sesión de la organización',
-          }),
-          description: t({
-            en: 'Please try again later',
-            fr: 'Veuillez réessayer plus tard',
-            es: 'Por favor, inténtalo de nuevo más tarde',
-          }),
-        },
-      },
     },
     createNewOrganization: {
       text: t({
@@ -97,32 +44,6 @@ const dashboardNavbarContent = {
         fr: 'Cliquez pour créer une nouvelle organisation',
         es: 'Haga clic para crear una nueva organización',
       }),
-      toast: {
-        success: {
-          title: t({
-            en: 'You are now logged out from organization',
-            fr: "Vous êtes maintenant déconnecté de l'organisation",
-            es: 'Ahora estás desconectado de la organización',
-          }),
-          description: t({
-            en: 'You can now log in to another organization',
-            fr: 'Vous pouvez maintenant vous connecter à une autre organisation',
-            es: 'Ahora puedes iniciar sesión en otra organización',
-          }),
-        },
-        error: {
-          title: t({
-            en: 'An error occurred while logging out from organization',
-            fr: "Une erreur s'est produite lors de la déconnexion de l'organisation",
-            es: 'Se produjo un error al cerrar sesión de la organización',
-          }),
-          description: t({
-            en: 'Please try again later',
-            fr: 'Veuillez réessayer plus tard',
-            es: 'Por favor, inténtalo de nuevo más tarde',
-          }),
-        },
-      },
     },
 
     projectTrigger: {
@@ -137,34 +58,7 @@ const dashboardNavbarContent = {
       fr: 'Sélectionner un projet',
       es: 'Seleccionar un proyecto',
     }),
-    selectProjectAction: {
-      toast: {
-        success: {
-          title: t({
-            en: 'You are now logged in to project',
-            fr: 'Vous êtes maintenant connecté au projet',
-            es: 'Ahora estás conectado al proyecto',
-          }),
-          description: t({
-            en: 'You can now log out from project',
-            fr: 'Vous pouvez maintenant vous déconnecter du projet',
-            es: 'Ahora puedes cerrar sesión del proyecto',
-          }),
-        },
-        error: {
-          title: t({
-            en: 'An error occurred while logging in to project',
-            fr: "Une erreur s'est produite lors de la connexion au projet",
-            es: 'Se produjo un error al iniciar sesión en el proyecto',
-          }),
-          description: t({
-            en: 'Please try again later',
-            fr: 'Veuillez réessayer plus tard',
-            es: 'Por favor, inténtalo de nuevo más tarde',
-          }),
-        },
-      },
-    },
+
     noOtherProjects: t({
       en: 'No other projects',
       fr: 'Aucun autre projet',
@@ -181,32 +75,6 @@ const dashboardNavbarContent = {
         fr: 'Cliquez pour se déconnecter du projet',
         es: 'Haga clic para cerrar sesión del proyecto',
       }),
-      toast: {
-        success: {
-          title: t({
-            en: 'You are now logged out from project',
-            fr: 'Vous êtes maintenant déconnecté du projet',
-            es: 'Ahora estás desconectado del proyecto',
-          }),
-          description: t({
-            en: 'You can now log in to another project',
-            fr: 'Vous pouvez maintenant vous connecter à un autre projet',
-            es: 'Ahora puedes iniciar sesión en otro proyecto',
-          }),
-        },
-        error: {
-          title: t({
-            en: 'An error occurred while logging out from project',
-            fr: "Une erreur s'est produite lors de la déconnexion du projet",
-            es: 'Se produjo un error al cerrar sesión del proyecto',
-          }),
-          description: t({
-            en: 'Please try again later',
-            fr: 'Veuillez réessayer plus tard',
-            es: 'Por favor, inténtalo de nuevo más tarde',
-          }),
-        },
-      },
     },
     createNewProject: {
       text: t({
@@ -219,32 +87,6 @@ const dashboardNavbarContent = {
         fr: 'Cliquez pour créer un nouveau projet',
         es: 'Haga clic para crear un nuevo proyecto',
       }),
-      toast: {
-        success: {
-          title: t({
-            en: 'You are now logged out from project',
-            fr: 'Vous êtes maintenant déconnecté du projet',
-            es: 'Ahora estás desconectado del proyecto',
-          }),
-          description: t({
-            en: 'You can now log in to another project',
-            fr: 'Vous pouvez maintenant vous connecter à un autre projet',
-            es: 'Ahora puedes iniciar sesión en otro proyecto',
-          }),
-        },
-        error: {
-          title: t({
-            en: 'An error occurred while logging out from project',
-            fr: "Une erreur s'est produite lors de la déconnexion du projet",
-            es: 'Se produjo un error al cerrar sesión del proyecto',
-          }),
-          description: t({
-            en: 'Please try again later',
-            fr: 'Veuillez réessayer plus tard',
-            es: 'Por favor, inténtalo de nuevo más tarde',
-          }),
-        },
-      },
     },
   },
 } satisfies DeclarationContent;

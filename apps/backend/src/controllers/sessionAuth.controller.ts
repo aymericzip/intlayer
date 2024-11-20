@@ -14,6 +14,7 @@ import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
+import { t } from 'express-intlayer';
 import { Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { OrganizationAPI } from '@/types/organization.types';
@@ -128,7 +129,19 @@ export const registerEmailPassword = async (
     });
 
     const formattedUser = mapUserToAPI(user);
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+    const responseData = formatResponse<UserAPI>({
+      message: t({
+        en: 'User registered successfully',
+        fr: 'Utilisateur enregistré avec succès',
+        es: 'Usuario registrado con éxito',
+      }),
+      description: t({
+        en: 'Your user has been registered successfully. Please check your email to validate your account.',
+        fr: 'Votre utilisateur a été enregistré avec succès. Veuillez vérifier votre e-mail pour valider votre compte.',
+        es: 'Su usuario ha sido registrado con éxito. Por favor, revise su correo electrónico para validar su cuenta.',
+      }),
+      data: formattedUser,
+    });
 
     res.json(responseData);
     return;
@@ -180,7 +193,19 @@ export const loginEmailPassword = async (
     await sessionAuthService.setUserAuth(res, loggedInUser);
 
     const formattedUser = mapUserToAPI(loggedInUser);
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+    const responseData = formatResponse<UserAPI>({
+      message: t({
+        en: 'User logged in successfully',
+        fr: 'Utilisateur connecté avec succès',
+        es: 'Usuario conectado con éxito',
+      }),
+      description: t({
+        en: 'Your user has been logged in successfully',
+        fr: 'Votre utilisateur a été connecté avec succès',
+        es: 'Su usuario ha sido conectado con éxito',
+      }),
+      data: formattedUser,
+    });
 
     logger.info(`Login: ${loggedInUser.email}`);
 
@@ -215,7 +240,19 @@ export const logOut = async (
 
   logger.info(`Logout: ${user.name} - ${user.email}`);
 
-  const responseData = formatResponse<undefined>({ data: undefined });
+  const responseData = formatResponse<undefined>({
+    message: t({
+      en: 'User logged out successfully',
+      fr: 'Utilisateur déconnecté avec succès',
+      es: 'Usuario desconectado con éxito',
+    }),
+    description: t({
+      en: 'Your user has been logged out successfully',
+      fr: 'Votre utilisateur a été déconnecté avec succès',
+      es: 'Su usuario ha sido desconectado con éxito',
+    }),
+    data: undefined,
+  });
 
   res.json(responseData);
 };
@@ -287,7 +324,19 @@ export const updatePassword = async (
 
     const formattedUser = mapUserToAPI(user);
 
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+    const responseData = formatResponse<UserAPI>({
+      message: t({
+        en: 'Password changed successfully',
+        fr: 'Mot de passe modifié avec succès',
+        es: 'Contraseña cambiada con éxito',
+      }),
+      description: t({
+        en: 'Your password has been changed successfully',
+        fr: 'Votre mot de passe a été modifié avec succès',
+        es: 'Su contraseña ha sido cambiada con éxito',
+      }),
+      data: formattedUser,
+    });
 
     res.json(responseData);
     return;
@@ -517,7 +566,19 @@ export const askResetPassword = async (
       }),
     });
 
-    const responseData = formatResponse<undefined>({ data: undefined });
+    const responseData = formatResponse<undefined>({
+      message: t({
+        en: 'Password reset request sent successfully',
+        fr: 'Demande de réinitialisation de mot de passe envoyée avec succès',
+        es: 'Solicitud de restablecimiento de contraseña enviada con éxito',
+      }),
+      description: t({
+        en: 'Your password reset request has been sent successfully. Please check your email to reset your password.',
+        fr: 'Votre demande de réinitialisation de mot de passe a été envoyée avec succès. Veuillez vérifier votre e-mail pour réinitialiser votre mot de passe.',
+        es: 'Su solicitud de restablecimiento de contraseña ha sido enviada con éxito. Por favor, revise su correo electrónico para restablecer su contraseña.',
+      }),
+      data: undefined,
+    });
 
     res.json(responseData);
     return;
@@ -571,7 +632,19 @@ export const resetPassword = async (
     });
 
     const formattedUser = mapUserToAPI(updatedUser);
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
+    const responseData = formatResponse<UserAPI>({
+      message: t({
+        en: 'Password reset successfully',
+        fr: 'Réinitialisation du mot de passe réussie',
+        es: 'Restablecimiento de contraseña exitoso',
+      }),
+      description: t({
+        en: 'Your password has been reset successfully. You can now log in with your new password',
+        fr: 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe',
+        es: 'Su contraseña ha sido restablecida con éxito. Ahora puede iniciar sesión con su nueva contraseña',
+      }),
+      data: formattedUser,
+    });
 
     res.json(responseData);
     return;

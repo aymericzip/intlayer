@@ -8,7 +8,6 @@ import {
 import {
   useForm,
   Form,
-  useToast,
   useAuth,
   MultiSelect,
   H3,
@@ -62,32 +61,14 @@ export const MembersForm: FC = () => {
     deleteMemberButton,
     newMemberSubmitButton,
     noMembers,
-    updateOrganizationMembersToasts,
-    addOrganizationMemberToasts,
   } = useIntlayer('organization-members-form');
   const { updateOrganizationMembers } = useUpdateOrganizationMembers();
   const { addOrganizationMember } = useAddOrganizationMember();
-  const { toast } = useToast();
   const { getUsers, isLoading: isLoadingUsers } = useGetUsers();
   const [users, setUsers] = useState<UserAPI[]>([]);
 
   const handleUpdateMembers = async (data: UpdateOrganizationMembersBody) => {
-    await updateOrganizationMembers(data)
-      .then(() => {
-        toast({
-          title: updateOrganizationMembersToasts.updated.title.value,
-          description:
-            updateOrganizationMembersToasts.updated.description.value,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: updateOrganizationMembersToasts.failed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    await updateOrganizationMembers(data);
   };
 
   const onSubmitSuccess = async (data: OrganizationMembersFormData) => {
@@ -98,10 +79,10 @@ export const MembersForm: FC = () => {
       })),
     };
 
-    handleUpdateMembers(formattedData);
+    await handleUpdateMembers(formattedData);
   };
 
-  const handleRemoveMember = (memberId: string | ObjectId) => {
+  const handleRemoveMember = async (memberId: string | ObjectId) => {
     if (!organization) return;
 
     const formattedData: UpdateOrganizationMembersBody = {
@@ -113,30 +94,16 @@ export const MembersForm: FC = () => {
         })),
     };
 
-    handleUpdateMembers(formattedData);
+    await handleUpdateMembers(formattedData);
   };
 
-  const onSubmitSuccessAddMember = () => {
+  const onSubmitSuccessAddMember = async () => {
     const userEmail = newUserForm.getValues('userEmail');
     const formattedData: AddOrganizationMemberBody = {
       userEmail,
     };
 
-    addOrganizationMember(formattedData)
-      .then(() => {
-        toast({
-          title: addOrganizationMemberToasts.updated.title.value,
-          description: addOrganizationMemberToasts.updated.description.value,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: addOrganizationMemberToasts.failed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    await addOrganizationMember(formattedData);
   };
 
   useEffect(() => {

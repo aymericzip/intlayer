@@ -39,26 +39,5 @@ export const validDictionaryChangeButtonsContent = {
         es: 'Haga clic para publicar el diccionario',
       }),
     },
-    updateDictionaryToasts: {
-      updated: {
-        title: t({
-          en: 'Dictionary updated',
-          fr: 'Dictionnaire mis à jour',
-          es: 'Diccionario actualizado',
-        }),
-        description: t({
-          en: 'Your dictionary has been updated successfully',
-          fr: 'Votre dictionnaire a été mis à jour avec succès',
-          es: 'Su diccionario se ha actualizado con éxito',
-        }),
-      },
-      failed: {
-        title: t({
-          en: 'Dictionary update failed',
-          fr: 'La mise à jour du dictionnaire a échoué',
-          es: 'La actualización del diccionario ha fallado',
-        }),
-      },
-    },
   },
 } satisfies DeclarationContent;

@@ -1,8 +1,7 @@
 import type { Project } from '@intlayer/backend';
-import { Button, toast } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system';
 import { useSelectProject } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
@@ -12,27 +11,12 @@ type ProjectListProps = {
 
 export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
   const { selectProject } = useSelectProject();
-  const { selectProjectToasts } = useIntlayer('project-form');
   const router = useRouter();
 
   const handleSelectProject = (projectId: string) => {
-    selectProject(projectId)
-      .then(async () => {
-        toast({
-          title: selectProjectToasts.projectSelected.title.value,
-          description: selectProjectToasts.projectSelected.description.value,
-          variant: 'success',
-        });
-
-        router.push(PagesRoutes.Dashboard_Content);
-      })
-      .catch((error) => {
-        toast({
-          title: selectProjectToasts.projectSelectionFailed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    selectProject(projectId).then(() =>
+      router.push(PagesRoutes.Dashboard_Content)
+    );
   };
 
   return (

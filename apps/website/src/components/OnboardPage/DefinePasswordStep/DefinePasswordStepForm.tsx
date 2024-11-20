@@ -1,10 +1,10 @@
-import { Form, H2, toast, useForm } from '@intlayer/design-system';
+import { Form, H2, useForm } from '@intlayer/design-system';
 import {
   useChangePassword,
   useCheckIfUserHasPassword,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, type FC } from 'react';
+import { type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -19,7 +19,6 @@ export const DefinePasswordStepForm: FC = () => {
     currentPasswordInput,
     newPasswordInput,
     confirmPasswordInput,
-    successToast,
   } = useIntlayer('define-password-step');
   const { formData, goNextStep, goPreviousStep, setState, setFormData } =
     useStep(Steps.Password);
@@ -32,17 +31,14 @@ export const DefinePasswordStepForm: FC = () => {
   const isPasswordDefined = Boolean(data?.data?.hasPassword);
 
   const DefinePasswordSchema = getDefinePasswordSchema(isPasswordDefined);
-  const { form, isSubmitting } = useForm(DefinePasswordSchema);
+  const { form, isSubmitting } = useForm(DefinePasswordSchema, {
+    defaultValues: formData,
+  });
 
   const onSubmitSuccess = async (data: DefinePassword) => {
     setFormData(data);
     await changePassword(data).then((response) => {
       if (response.data) {
-        toast({
-          title: successToast.title.value,
-          description: successToast.description.value,
-          variant: 'success',
-        });
         setState({
           isPasswordDefined: true,
         });
@@ -50,11 +46,6 @@ export const DefinePasswordStepForm: FC = () => {
     });
     goNextStep();
   };
-
-  useEffect(() => {
-    // Reset the form to the initial state once loaded from the session storage
-    form.reset(formData);
-  }, [formData, form]);
 
   return (
     <Form

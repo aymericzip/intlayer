@@ -61,6 +61,9 @@ logger.info(`run as ${env}`);
 
 dotenv.config({ path: ['.env', `.env.${env}`] });
 
+// Parse incoming requests with cookies
+app.use(cookieParser());
+
 // Load internationalization request handler
 app.use(intlayer());
 
@@ -80,9 +83,6 @@ app.use(express.json({ limit: '50mb' }));
 
 // Parse incoming requests with urlencoded payloads
 app.use(express.urlencoded({ extended: true }));
-
-// Parse incoming requests with cookies
-app.use(cookieParser());
 
 // CORS
 const whitelist: string[] = [process.env.CLIENT_URL!];

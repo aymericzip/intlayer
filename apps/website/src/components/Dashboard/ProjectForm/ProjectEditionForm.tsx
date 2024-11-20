@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, Form, useToast, useAuth, H3 } from '@intlayer/design-system';
+import { useForm, Form, useAuth, H3 } from '@intlayer/design-system';
 import { useUpdateProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -12,26 +12,10 @@ export const ProjectEditionForm: FC = () => {
   const SignInSchema = getProjectSchema();
   const { updateProject } = useUpdateProject();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { title, nameInput, editButton, updateProjectToasts } =
-    useIntlayer('project-form');
-  const { toast } = useToast();
+  const { title, nameInput, editButton } = useIntlayer('project-form');
 
   const onSubmitSuccess = async (data: ProjectFormData) => {
-    await updateProject({ ...data, _id: String(project?._id) })
-      .then(async () => {
-        toast({
-          title: updateProjectToasts.projectUpdated.title.value,
-          description: updateProjectToasts.projectUpdated.description.value,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: updateProjectToasts.projectUpdateFailed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    await updateProject({ ...data, _id: String(project?._id) });
   };
 
   return (

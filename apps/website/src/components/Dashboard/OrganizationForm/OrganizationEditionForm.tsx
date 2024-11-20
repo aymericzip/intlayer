@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, Form, useToast, useAuth, H3 } from '@intlayer/design-system';
+import { useForm, Form, useAuth, H3 } from '@intlayer/design-system';
 import { useUpdateOrganization } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -15,27 +15,10 @@ export const OrganizationEditionForm: FC = () => {
   const SignInSchema = getOrganizationSchema();
   const { updateOrganization } = useUpdateOrganization();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const { title, nameInput, editButton, updateOrganizationToasts } =
-    useIntlayer('organization-form');
-  const { toast } = useToast();
+  const { title, nameInput, editButton } = useIntlayer('organization-form');
 
   const onSubmitSuccess = async (data: OrganizationFormData) => {
-    await updateOrganization(data)
-      .then(async () => {
-        toast({
-          title: updateOrganizationToasts.organizationUpdated.title.value,
-          description:
-            updateOrganizationToasts.organizationUpdated.description.value,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: updateOrganizationToasts.organizationUpdateFailed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    await updateOrganization(data);
   };
 
   return (

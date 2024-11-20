@@ -1,7 +1,7 @@
 'use client';
 
 import { AddNewAccessKeyResponse } from '@intlayer/backend';
-import { Form, useAuth, useForm, useToast } from '@intlayer/design-system';
+import { Form, useAuth, useForm } from '@intlayer/design-system';
 import { useAddNewAccessKey } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -20,26 +20,16 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   const { isOrganizationAdmin, isProjectAdmin } = useAuth();
   const AccessKeyCreationSchema = getAccessKeyCreationSchema();
   const { addNewAccessKey } = useAddNewAccessKey();
-  const {
-    nameInput,
-    expiresAtInput,
-    rights,
-    createAccessKeyButton,
-    createAccessKeyToasts,
-  } = useIntlayer('access-key-creation-form');
+  const { nameInput, expiresAtInput, rights, createAccessKeyButton } =
+    useIntlayer('access-key-creation-form');
   const { form, isSubmitting } = useForm(AccessKeyCreationSchema);
-  const { toast } = useToast();
 
-  const onSubmitSuccess = (data: AccessKeyFormCreationData) => {
+  const onSubmitSuccess = async (data: AccessKeyFormCreationData) => {
     // Send a request to the backend to create the access key
-    addNewAccessKey(data).then((response) => {
-      toast({
-        title: createAccessKeyToasts.accessKeyCreated.title.value,
-        description: createAccessKeyToasts.accessKeyCreated.description.value,
-        variant: 'success',
-      });
-      onAccessKeyCreated(response);
-    });
+    await addNewAccessKey({
+      ...data,
+      expiresAt: data.expiresAt ? new Date(data.expiresAt) : undefined,
+    }).then(onAccessKeyCreated);
   };
 
   return (

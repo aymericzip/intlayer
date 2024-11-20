@@ -44,6 +44,15 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
         );
       options.onError?.(errorMessage);
     },
+    onSuccess: (data) => {
+      if (data.message)
+        toast({
+          title: data.message,
+          description: data.description,
+          variant: 'success',
+        });
+      options.onSuccess?.(data);
+    },
   };
 };
 

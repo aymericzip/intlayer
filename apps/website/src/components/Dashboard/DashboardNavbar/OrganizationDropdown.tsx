@@ -6,7 +6,6 @@ import {
   DropDown,
   Modal,
   useAuth,
-  useToast,
 } from '@intlayer/design-system';
 import {
   useGetOrganizations,
@@ -32,53 +31,23 @@ export const OrganizationDropdown: FC = () => {
     organizationTrigger,
     organizationLogout,
     selectOrganizationInstruction,
-    selectOrganizationAction,
     noOtherOrganizations,
     createNewOrganization,
   } = useIntlayer('dashboard-navbar');
-  const { toast } = useToast();
 
   const { organization } = session ?? {};
   const router = useRouter();
 
   const handleUnselectOrganization = async () => {
-    await unselectOrganization()
-      .then(() => {
-        toast({
-          title: organizationLogout.toast.success.title.value,
-          description: organizationLogout.toast.success.description,
-          variant: 'success',
-        });
-
-        router.push(PagesRoutes.Dashboard_Organization);
-      })
-      .catch((error) => {
-        toast({
-          title: organizationLogout.toast.error.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    await unselectOrganization().then(() => {
+      router.push(PagesRoutes.Dashboard_Organization);
+    });
   };
 
   const handleSelectOrganization = (organizationId: string) => {
-    selectOrganization(organizationId)
-      .then(async () => {
-        router.push(PagesRoutes.Dashboard_Projects);
-
-        toast({
-          title: selectOrganizationAction.toast.success.title.value,
-          description: selectOrganizationAction.toast.success.description,
-          variant: 'success',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: selectOrganizationAction.toast.error.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    selectOrganization(organizationId).then(async () => {
+      router.push(PagesRoutes.Dashboard_Projects);
+    });
   };
 
   const otherOrganizations = (organizations?.data ?? []).filter(

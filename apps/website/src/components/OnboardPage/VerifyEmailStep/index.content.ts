@@ -15,18 +15,6 @@ export const verifyEmailStepContent = {
         es: 'Te hemos enviado un correo electrónico para verificar tu dirección de correo electrónico. Por favor, revisa tu bandeja de entrada y haz clic en el enlace para verificar tu dirección de correo electrónico.',
       }),
     },
-    successToast: {
-      title: t({
-        en: 'Email verified successfully',
-        fr: 'E-mail vérifié avec succès',
-        es: 'Correo electrónico verificado con éxito',
-      }),
-      description: t({
-        en: 'You can now sign in to your account.',
-        fr: 'Vous pouvez maintenant vous connecter à votre compte.',
-        es: 'Ahora puedes iniciar sesión en su cuenta.',
-      }),
-    },
   },
 } satisfies DeclarationContent;
 

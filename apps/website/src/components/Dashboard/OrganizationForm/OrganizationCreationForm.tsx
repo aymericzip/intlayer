@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, Form, useToast } from '@intlayer/design-system';
+import { useForm, Form } from '@intlayer/design-system';
 import {
   useAddOrganization,
   useSelectOrganization,
@@ -17,53 +17,15 @@ export const OrganizationCreationForm: FC = () => {
   const { addOrganization } = useAddOrganization();
   const { selectOrganization } = useSelectOrganization();
   const { form, isSubmitting } = useForm(organizationSchema);
-  const {
-    nameInput,
-    createOrganizationButton,
-    createOrganizationToasts,
-    selectOrganizationToasts,
-  } = useIntlayer('organization-form');
-  const { toast } = useToast();
+  const { nameInput, createOrganizationButton } =
+    useIntlayer('organization-form');
 
   const onSubmitSuccess = async (data: OrganizationFormData) => {
-    await addOrganization(data)
-      .then(async (result) => {
-        toast({
-          title: createOrganizationToasts.organizationCreated.title.value,
-          description:
-            createOrganizationToasts.organizationCreated.description.value,
-          variant: 'success',
-        });
+    await addOrganization(data).then(async (result) => {
+      const organizationId = String(result.data?._id);
 
-        const organizationId = String(result.data?._id);
-
-        await selectOrganization(organizationId)
-          .then(async () => {
-            toast({
-              title: selectOrganizationToasts.organizationSelected.title.value,
-              description:
-                selectOrganizationToasts.organizationSelected.description.value,
-              variant: 'success',
-            });
-          })
-          .catch((error) => {
-            toast({
-              title:
-                selectOrganizationToasts.organizationSelectionFailed.title
-                  .value,
-              description: error.message,
-              variant: 'error',
-            });
-          });
-      })
-      .catch((error) => {
-        toast({
-          title:
-            createOrganizationToasts.organizationCreationFailed.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+      await selectOrganization(organizationId);
+    });
   };
 
   return (

@@ -3,6 +3,7 @@ import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { AppError, ErrorHandler } from '@utils/errors';
 import { type ResponseData, formatResponse } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
+import { t } from 'express-intlayer';
 import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 
 export type AddNewAccessKeyBody = AccessKeyData;
@@ -58,6 +59,16 @@ export const addNewAccessKey = async (
     );
 
     const responseData = formatResponse<OAuth2Access>({
+      message: t({
+        en: 'Access key created successfully',
+        es: 'Clave de acceso creada con éxito',
+        fr: "Clé d'accès créée avec succès",
+      }),
+      description: t({
+        en: 'The access key has been created successfully',
+        es: 'La clave de acceso ha sido creada con éxito',
+        fr: "La clé d'accès a été créée avec succès",
+      }),
       data: newAccessKey,
     });
 
@@ -113,6 +124,16 @@ export const deleteAccessKey = async (
     }
 
     const responseData = formatResponse<null>({
+      message: t({
+        en: 'Access key deleted successfully',
+        es: 'Clave de acceso eliminada con éxito',
+        fr: "Clé d'accès supprimée avec succès",
+      }),
+      description: t({
+        en: 'The access key has been deleted successfully',
+        es: 'La clave de acceso ha sido eliminada con éxito',
+        fr: "La clé d'accès a été supprimée avec succès",
+      }),
       data: null,
     });
 
@@ -158,6 +179,16 @@ export const refreshAccessKey = async (
     );
 
     const responseData = formatResponse<OAuth2Access>({
+      message: t({
+        en: 'Access key refreshed successfully',
+        es: 'Clave de acceso actualizada con éxito',
+        fr: "Clé d'accès actualisée avec succès",
+      }),
+      description: t({
+        en: 'The access key has been refreshed successfully',
+        es: 'La clave de acceso ha sido actualizada con éxito',
+        fr: "La clé d'accès a été actualisée avec succès",
+      }),
       data: newAccessKey,
     });
 

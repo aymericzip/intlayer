@@ -9,7 +9,6 @@ import {
   useRegister,
 } from '../../../hooks';
 import { Modal } from '../../Modal/Modal';
-import { useToast } from '../../Toaster';
 import { type ChangePassword, ChangePasswordForm } from '../ChangePasswordForm';
 import { type ResetPassword, ResetPasswordForm } from '../ResetPasswordForm';
 import { type SignIn, SignInForm } from '../SignInForm';
@@ -46,7 +45,6 @@ export const AuthModal: FC<AuthModalProps> = ({
   const { register } = useRegister();
   const { askResetPassword } = useAskResetPassword();
   const { changePassword } = useChangePassword();
-  const { toast } = useToast();
 
   const onSubmitSignInSuccess = async ({ email, password }: SignIn) =>
     await login({
@@ -84,11 +82,6 @@ export const AuthModal: FC<AuthModalProps> = ({
       newPassword,
     }).then(async (response) => {
       if (response.data) {
-        toast({
-          title: 'Password changed successfully',
-          description: 'You can now sign in with your new password.',
-          variant: 'success',
-        });
         await onChangePasswordSuccess?.(response.data);
       }
     });

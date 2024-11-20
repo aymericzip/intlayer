@@ -97,52 +97,5 @@ export const dictionaryDetailsContent = {
         es: 'Haga clic para publicar el diccionario',
       }),
     },
-    updateDictionaryToasts: {
-      updated: {
-        title: t({
-          en: 'Dictionary updated',
-          fr: 'Dictionnaire mis à jour',
-          es: 'Diccionario actualizado',
-        }),
-        description: t({
-          en: 'Your dictionary has been updated successfully',
-          fr: 'Votre dictionnaire a été mis à jour avec succès',
-          es: 'Su diccionario se ha actualizado con éxito',
-        }),
-      },
-      failed: {
-        title: t({
-          en: 'Organization update failed',
-          fr: "La mise à jour de l'organisation a échoué",
-          es: 'La actualización de la organización ha fallado',
-        }),
-      },
-    },
-    pushDictionariesToasts: {
-      updated: {
-        title: t({
-          en: 'Dictionary updated',
-          fr: 'Dictionnaire mis à jour',
-          es: 'Diccionario actualizado',
-        }),
-        description: t({
-          en: 'Your dictionary has been updated successfully',
-          fr: 'Votre dictionnaire a été mis à jour avec succès',
-          es: 'Su diccionario se ha actualizado con éxito',
-        }),
-      },
-      failed: {
-        title: t({
-          en: 'Dictionary update failed',
-          fr: "La mise à jour de l'dictionnaire a échoué",
-          es: 'La actualización del diccionario ha fallado',
-        }),
-        description: t({
-          en: 'An error occurred while updating your dictionary',
-          fr: "Une erreur s'est produite lors de la mise à jour de votre dictionnaire",
-          es: 'Se produjo un error al actualizar su diccionario',
-        }),
-      },
-    },
   },
 } satisfies DeclarationContent;

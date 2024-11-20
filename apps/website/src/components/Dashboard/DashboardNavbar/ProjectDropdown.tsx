@@ -6,7 +6,6 @@ import {
   DropDown,
   Modal,
   useAuth,
-  useToast,
 } from '@intlayer/design-system';
 import {
   useGetProjects,
@@ -32,52 +31,24 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const router = useRouter();
-  const { toast } = useToast();
   const {
     projectTrigger,
     projectLogout,
     selectProjectInstruction,
-    selectProjectAction,
     noOtherProjects,
     createNewProject,
   } = useIntlayer('dashboard-navbar');
 
   const handleUnselectProject = async () => {
-    await unselectProject()
-      .then(() => {
-        toast({
-          title: projectLogout.toast.success.title.value,
-          description: projectLogout.toast.success.description,
-          variant: 'success',
-        });
-        router.push(PagesRoutes.Dashboard_Projects);
-      })
-      .catch((error) => {
-        toast({
-          title: projectLogout.toast.error.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    await unselectProject().then(() =>
+      router.push(PagesRoutes.Dashboard_Projects)
+    );
   };
 
   const handleSelectProject = (projectId: string) => {
-    selectProject(projectId)
-      .then(() => {
-        toast({
-          title: selectProjectAction.toast.success.title.value,
-          description: selectProjectAction.toast.success.description,
-          variant: 'success',
-        });
-        router.push(PagesRoutes.Dashboard_Content);
-      })
-      .catch((error) => {
-        toast({
-          title: selectProjectAction.toast.error.title.value,
-          description: error.message,
-          variant: 'error',
-        });
-      });
+    selectProject(projectId).then(() =>
+      router.push(PagesRoutes.Dashboard_Content)
+    );
   };
 
   const otherProjects = (projects?.data ?? []).filter(

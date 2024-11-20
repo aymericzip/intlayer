@@ -17,6 +17,7 @@ import {
   formatResponse,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
+import { t } from 'express-intlayer';
 import type {
   Dictionary,
   DictionaryAPI,
@@ -231,6 +232,16 @@ export const addDictionary = async (
     const apiResult = mapDictionaryToAPI(newDictionary, project._id);
 
     const responseData = formatResponse<DictionaryAPI>({
+      message: t({
+        en: 'Dictionary created successfully',
+        fr: 'Dictionnaire créé avec succès',
+        es: 'Diccionario creado con éxito',
+      }),
+      description: t({
+        en: 'Your dictionary has been created successfully',
+        fr: 'Votre dictionnaire a été créé avec succès',
+        es: 'Su diccionario ha sido creado con éxito',
+      }),
       data: apiResult,
     });
 
@@ -376,6 +387,16 @@ export const pushDictionaries = async (
     }
 
     const responseData = formatResponse<PushDictionariesResultData>({
+      message: t({
+        en: 'Dictionaries updated successfully',
+        fr: 'Dictionnaires mis à jour avec succès',
+        es: 'Diccionarios actualizados con éxito',
+      }),
+      description: t({
+        en: 'Your dictionaries have been updated successfully',
+        fr: 'Vos dictionnaires ont été mis à jour avec succès',
+        es: 'Sus diccionarios han sido actualizados con éxito',
+      }),
       data: result,
     });
 
@@ -435,6 +456,16 @@ export const updateDictionary = async (
     const apiResult = mapDictionaryToAPI(updatedDictionary, project._id);
 
     const responseData = formatResponse<DictionaryAPI>({
+      message: t({
+        en: 'Dictionary updated successfully',
+        fr: 'Dictionnaire mis à jour avec succès',
+        es: 'Diccionario actualizado con éxito',
+      }),
+      description: t({
+        en: 'Your dictionary has been updated successfully',
+        fr: 'Votre dictionnaire a été mis à jour avec succès',
+        es: 'Su diccionario ha sido actualizado con éxito',
+      }),
       data: apiResult,
     });
 
@@ -502,6 +533,16 @@ export const deleteDictionary = async (
     const apiResult = mapDictionaryToAPI(deletedDictionary, project._id);
 
     const responseData = formatResponse<DictionaryAPI>({
+      message: t({
+        en: 'Dictionary deleted successfully',
+        fr: 'Dictionnaire supprimé avec succès',
+        es: 'Diccionario eliminado con éxito',
+      }),
+      description: t({
+        en: 'Your dictionary has been deleted successfully',
+        fr: 'Votre dictionnaire a été supprimé avec succès',
+        es: 'Su diccionario ha sido eliminado con éxito',
+      }),
       data: apiResult,
     });
 

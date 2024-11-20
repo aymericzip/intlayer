@@ -4,7 +4,6 @@ import { type OAuth2Access } from '@intlayer/backend';
 import {
   useForm,
   Form,
-  useToast,
   useAuth,
   Modal,
   CopyToClipboard,
@@ -25,49 +24,20 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const { deleteAccessKey, isLoading: isDeleting } = useDeleteAccessKey();
   const { refreshAccessKey, isLoading: isRefreshing } = useRefreshAccessKey();
-  const { rights, modal, labels, toastContent } =
-    useIntlayer('access-key-form');
-  const { toast } = useToast();
+  const { rights, modal, labels } = useIntlayer('access-key-form');
 
   const isLoading = isDeleting || isRefreshing;
 
   const handleDelete = () => {
-    deleteAccessKey(accessKey.clientId)
-      .then(() => {
-        toast({
-          title: toastContent.deleteSuccess.title.value,
-          description: toastContent.deleteSuccess.description,
-        });
-        setIsDeletionModalOpen(false);
-      })
-      .catch((error) => {
-        console.error(error);
-
-        toast({
-          title: toastContent.error.title.value,
-          description: toastContent.error.description,
-          variant: 'error',
-        });
-      });
+    deleteAccessKey(accessKey.clientId).then(() =>
+      setIsDeletionModalOpen(false)
+    );
   };
 
   const handleUpdate = () => {
-    refreshAccessKey(accessKey.clientId)
-      .then(() => {
-        toast({
-          title: toastContent.updateSuccess.title.value,
-          description: toastContent.updateSuccess.description,
-        });
-        setIsUpdateModalOpen(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        toast({
-          title: toastContent.error.title.value,
-          description: toastContent.error.description,
-          variant: 'error',
-        });
-      });
+    refreshAccessKey(accessKey.clientId).then(() =>
+      setIsUpdateModalOpen(false)
+    );
   };
 
   return (
@@ -89,7 +59,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
           isFullWidth={true}
           className="mt-10 w-auto"
           isLoading={isDeleting}
-          isDisabled={isLoading}
+          disabled={isLoading}
           onClick={handleDelete}
         >
           {modal.deleteConfirmText}
@@ -112,7 +82,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
           isFullWidth={true}
           className="mt-10 w-auto"
           isLoading={isRefreshing}
-          isDisabled={isLoading}
+          disabled={isLoading}
           onClick={handleUpdate}
         >
           {modal.updateConfirmText}
@@ -208,7 +178,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
               onClick={() => setIsUpdateModalOpen(true)}
               Icon={RefreshCcw}
               isLoading={isRefreshing}
-              isDisabled={isLoading}
+              disabled={isLoading}
             >
               {labels.refreshButtonText}
             </Form.Button>
@@ -221,7 +191,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
               onClick={() => setIsDeletionModalOpen(true)}
               Icon={Trash}
               isLoading={isDeleting}
-              isDisabled={isLoading}
+              disabled={isLoading}
             >
               {labels.deleteButtonText}
             </Form.Button>

@@ -63,28 +63,6 @@ const projectMembersFormContent = {
         fr: 'Mettre à jour des Membres',
       }),
     },
-
-    updateProjectMembersToasts: {
-      updated: {
-        title: t({
-          en: 'Project members updated',
-          fr: 'Membres du projet mis à jour',
-          es: 'Miembros del proyecto actualizados',
-        }),
-        description: t({
-          en: 'Your project has been updated successfully',
-          fr: 'Votre projet a été mis à jour avec succès',
-          es: 'Tu proyecto ha sido actualizado con éxito',
-        }),
-      },
-      failed: {
-        title: t({
-          en: 'Project update failed',
-          fr: 'La mise à jour du projet a échoué',
-          es: 'Error al actualizar el proyecto',
-        }),
-      },
-    },
   },
 } satisfies DeclarationContent;
 
