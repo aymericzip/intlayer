@@ -64,6 +64,11 @@ export const registerEmailPassword = async (
     return;
   }
 
+  if (callBack_url && !callBack_url.startsWith(process.env.CLIENT_URL ?? '')) {
+    ErrorHandler.handleGenericErrorResponse(res, 'CALLBACK_URL_NOT_VALID');
+    return;
+  }
+
   const userData = req.body;
 
   try {
@@ -437,6 +442,11 @@ export const validEmail = async (
     return;
   }
 
+  if (callBack_url && !callBack_url.startsWith(process.env.CLIENT_URL ?? '')) {
+    ErrorHandler.handleGenericErrorResponse(res, 'CALLBACK_URL_NOT_VALID');
+    return;
+  }
+
   const provider = user.provider?.find(
     (provider) => provider.provider === 'email'
   );
@@ -756,6 +766,11 @@ export const githubLoginQuery = (
     return;
   }
 
+  if (origin && !origin.startsWith(process.env.CLIENT_URL ?? '')) {
+    ErrorHandler.handleGenericErrorResponse(res, 'CALLBACK_URL_NOT_VALID');
+    return;
+  }
+
   const encodedOrigin = encodeURIComponent(origin);
 
   const redirectURI = `${process.env.BACKEND_URL}/api/auth/callback/github?redirect_uri=${encodedOrigin}`;
@@ -798,6 +813,11 @@ export const githubCallback = async (
     logger.error(errorMessage);
 
     res.redirect(redirect_uri);
+    return;
+  }
+
+  if (redirect_uri && !redirect_uri.startsWith(process.env.CLIENT_URL ?? '')) {
+    ErrorHandler.handleGenericErrorResponse(res, 'CALLBACK_URL_NOT_VALID');
     return;
   }
 
@@ -958,6 +978,11 @@ export const googleLoginQuery = (
     return;
   }
 
+  if (origin && !origin.startsWith(process.env.CLIENT_URL ?? '')) {
+    ErrorHandler.handleGenericErrorResponse(res, 'CALLBACK_URL_NOT_VALID');
+    return;
+  }
+
   const responseType = 'code';
   const scope = [
     'https%3A//www.googleapis.com/auth/userinfo.email',
@@ -1014,6 +1039,11 @@ export const googleCallback = async (
     const responseCode = HttpStatusCodes.BAD_REQUEST_400;
 
     res.redirect(responseCode, redirect_uri);
+    return;
+  }
+
+  if (redirect_uri && !redirect_uri.startsWith(process.env.CLIENT_URL ?? '')) {
+    ErrorHandler.handleGenericErrorResponse(res, 'CALLBACK_URL_NOT_VALID');
     return;
   }
 
@@ -1135,7 +1165,7 @@ export const googleCallback = async (
       loginLink: `${process.env.CLIENT_URL}/auth/login`,
     });
 
-    // res.redirect(redirect_uri);
+    res.redirect(redirect_uri);
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;

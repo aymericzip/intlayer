@@ -1115,6 +1115,20 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
+
+  CALLBACK_URL_NOT_VALID: {
+    title: {
+      en: 'Callback URL not valid',
+      fr: 'URL de rappel non valide',
+      es: 'URL de devolución no válida',
+    },
+    message: {
+      en: 'The callback URL is not valid.',
+      fr: 'L’URL de rappel n’est pas valide.',
+      es: 'La URL de devolución no es válida.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;
