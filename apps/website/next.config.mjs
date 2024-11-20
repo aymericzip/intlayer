@@ -24,6 +24,7 @@ const secureHeaders = createSecureHeaders({
         '*.google-analytics.com',
         '*.googletagmanager.com',
         'github.com',
+        'raw.githubusercontent.com',
         '*.openai.com',
         '*.stripe.com',
       ],
