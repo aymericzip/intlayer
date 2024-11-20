@@ -9,8 +9,8 @@ type CodeRenderProps = {
 };
 
 export const CodeRender: FC<CodeRenderProps> = ({ content }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === 'dark';
 
   return (
     <Container>

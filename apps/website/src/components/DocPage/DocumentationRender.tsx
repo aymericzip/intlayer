@@ -13,10 +13,10 @@ type DocumentationRenderProps = {
 export const DocumentationRender: FC<DocumentationRenderProps> = ({
   docName,
 }) => {
-  const theme = useTheme();
+  const { resolvedTheme } = useTheme();
   const { locale } = useLocale();
   const doc = getDoc(docName as unknown as DocsKeys, locale);
 
-  const isDarkMode = theme.theme === 'dark';
+  const isDarkMode = resolvedTheme === 'dark';
   return <MarkdownRenderer isDarkMode={isDarkMode}>{doc}</MarkdownRenderer>;
 };

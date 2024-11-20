@@ -6,11 +6,10 @@ import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
 export const DesktopThemeSwitcher: FC = () => {
-  const { theme, setTheme, systemTheme } = useTheme();
-
+  const { resolvedTheme, setTheme, systemTheme } = useTheme();
   return (
     <DesktopThemeSwitcherUI
-      theme={theme as Modes}
+      theme={resolvedTheme as Modes}
       setTheme={setTheme}
       systemTheme={systemTheme as Modes}
     />

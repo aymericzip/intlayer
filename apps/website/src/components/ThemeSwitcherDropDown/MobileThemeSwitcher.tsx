@@ -6,11 +6,11 @@ import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
 export const MobileThemeSwitcher: FC = () => {
-  const { theme, setTheme, systemTheme } = useTheme();
+  const { resolvedTheme, setTheme, systemTheme } = useTheme();
 
   return (
     <MobileThemeSwitcherUI
-      theme={theme as Modes}
+      theme={resolvedTheme as Modes}
       setTheme={setTheme}
       systemTheme={systemTheme as Modes}
     />

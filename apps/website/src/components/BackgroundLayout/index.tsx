@@ -8,9 +8,9 @@ import type { FC, PropsWithChildren } from 'react';
 export const BackgroundLayout: FC<
   PropsWithChildren<{ hasSpotlight?: boolean }>
 > = ({ children, hasSpotlight }) => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  const showSpotlight = hasSpotlight && theme === 'dark';
+  const showSpotlight = hasSpotlight && resolvedTheme === 'dark';
 
   return (
     <>

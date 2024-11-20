@@ -8,10 +8,10 @@ import DarkScreenshot from './assets/dark-screenshot.png';
 import LightScreenshot from './assets/light-screenshot.png';
 
 export const AsideImage: FC = () => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const { imageAlt } = useIntlayer('demo-page');
 
-  const src = theme === 'dark' ? LightScreenshot : DarkScreenshot;
+  const src = resolvedTheme === 'dark' ? LightScreenshot : DarkScreenshot;
 
   return <Image src={src} alt={imageAlt.value} className="rounded-md" />;
 };

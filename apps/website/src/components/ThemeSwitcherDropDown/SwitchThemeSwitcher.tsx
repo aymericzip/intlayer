@@ -10,7 +10,7 @@ import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
 export const SwitchThemeSwitcher: FC = () => {
-  const { theme, setTheme, systemTheme } = useTheme();
+  const { resolvedTheme, setTheme, systemTheme } = useTheme();
 
   const themeSwitcher = [
     {
@@ -32,7 +32,7 @@ export const SwitchThemeSwitcher: FC = () => {
   ] as SwitchSelectorChoices<Modes>;
 
   const currentTheme =
-    (theme as Modes) ?? (systemTheme as Modes) ?? Modes.light;
+    (resolvedTheme as Modes) ?? (systemTheme as Modes) ?? Modes.light;
 
   return (
     <SwitchSelector
