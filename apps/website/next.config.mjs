@@ -24,6 +24,7 @@ const secureHeaders = createSecureHeaders({
         '*.google-analytics.com',
         '*.googletagmanager.com',
         '*.openai.com',
+        '*.stripe.com',
       ],
       imgSrc: ["'self'", 'https:', 'data:'],
       workerSrc: [`${process.env.NEXT_PUBLIC_URL}`],
