@@ -32,6 +32,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
     step.getNextStep
       ? formatOnboardUrl({
           ...pageDetails,
+          origin,
           step: step.getNextStep(pageDetails),
         })
       : undefined
@@ -45,6 +46,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
     step.getPreviousStep
       ? formatOnboardUrl({
           ...pageDetails,
+          origin,
           step: step.getPreviousStep(pageDetails),
         })
       : undefined
