@@ -4,7 +4,7 @@ import { forwardRef, HTMLAttributes, PropsWithChildren } from 'react';
 type TagProps = PropsWithChildren<VariantProps<typeof containerVariants>> &
   HTMLAttributes<HTMLDivElement>;
 
-const containerVariants = cva('backdrop-blur border-2 w-fit', {
+const containerVariants = cva('backdrop-blur w-fit', {
   variants: {
     roundedSize: {
       none: 'rounded-none',
@@ -28,12 +28,11 @@ const containerVariants = cva('backdrop-blur border-2 w-fit', {
       info: 'bg-info/10 dark:bg-info-dark/10 border-info dark:border-info-dark text-info dark:text-info-dark',
       text: 'bg-text/10 dark:bg-text-dark/10 border-text dark:border-text-dark text-text dark:text-text-dark',
     },
-    padding: {
-      none: 'p-0 text-xs',
-      sm: 'py-0.5 px-1 text-sm',
-      md: 'py-1 px-2 text-base',
-      lg: 'py-2 px-3 text-lg',
-      xl: 'py-4 px-5 text-xl',
+    size: {
+      sm: 'py-0.5 px-2 text-sm border-[1.5px]',
+      md: 'py-1 px-2 text-base border-2',
+      lg: 'py-2 px-3 text-lg border-2',
+      xl: 'py-4 px-5 text-xl border-2',
     },
     border: {
       none: '',
@@ -49,7 +48,7 @@ const containerVariants = cva('backdrop-blur border-2 w-fit', {
     roundedSize: 'full',
     border: 'none',
     color: 'text',
-    padding: 'md',
+    size: 'md',
   },
 });
 
@@ -59,7 +58,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       children,
       color,
       roundedSize,
-      padding,
+      size,
       border,
       background,
       className,
@@ -73,7 +72,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
         className={containerVariants({
           color,
           roundedSize,
-          padding,
+          size,
           border,
           background,
           className,
@@ -85,3 +84,5 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
     );
   }
 );
+
+Tag.displayName = 'Tag';

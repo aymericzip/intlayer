@@ -15,6 +15,7 @@ import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
+import { PagesRoutes } from '@/Routes';
 
 type PaymentStepContentProps = {
   plan: Plans;
@@ -65,7 +66,9 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
   plan,
   period,
 }) => {
-  const { goNextStep, goPreviousStep, setState } = useStep(Steps.Payment);
+  const { goNextStep, goPreviousStep, setState, nextUrl } = useStep(
+    Steps.Payment
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const stripe = useStripe();
@@ -91,7 +94,7 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
         // `Elements` instance that was used to create the Payment Element
         elements,
         confirmParams: {
-          return_url: window.location.href,
+          return_url: `${window.location.origin}${nextUrl}`,
         },
       })
       .then((result) => {
@@ -258,7 +261,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 
   return (
     <>
-      <H2>{title}</H2>
+      <H2 className="mb-4">{title}</H2>
 
       <Elements
         stripe={stripePromise}

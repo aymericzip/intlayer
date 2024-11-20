@@ -61,9 +61,16 @@ logger.info(`run as ${env}`);
 
 dotenv.config({ path: ['.env', `.env.${env}`] });
 
+// Load internationalization request handler
+app.use(intlayer());
+
 const isDev = env === 'development';
 
+// Connect to MongoDB
 connectDB();
+
+// Stripe
+app.post('/webhook/stripe', raw({ type: 'application/json' }), stripeWebhook);
 
 // Compress all HTTP responses
 app.use(compression());
@@ -76,9 +83,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Parse incoming requests with cookies
 app.use(cookieParser());
-
-// Load internationalization request handler
-app.use(intlayer());
 
 // CORS
 const whitelist: string[] = [process.env.CLIENT_URL!];
@@ -109,9 +113,6 @@ app.use(/(.*)/, checkUser);
 app.use(/(.*)/, checkOrganization);
 app.use(/(.*)/, checkProject);
 app.use(/(.*)/, checkAdmin);
-
-// Stripe
-app.post('/webhook/stripe', raw({ type: 'application/json' }), stripeWebhook);
 
 // debug
 if (isDev) {

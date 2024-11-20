@@ -1,4 +1,4 @@
-import { getCheckoutSession } from '@controllers/stripe.controller';
+import { getSubscription } from '@controllers/stripe.controller';
 import { Router } from 'express';
 import { Routes } from '@/types/Routes';
 
@@ -8,11 +8,11 @@ const baseURL = `${process.env.BACKEND_URL}/api/stipe`;
 
 export const stripeRoutes = {
   getCheckoutSession: {
-    urlModel: '/create-checkout-session',
-    url: `${baseURL}/create-checkout-session`,
+    urlModel: '/create-subscription',
+    url: `${baseURL}/create-subscription`,
     method: 'POST',
   },
 } satisfies Routes;
 
 // Authentication
-stripeRouter.post(stripeRoutes.getCheckoutSession.urlModel, getCheckoutSession);
+stripeRouter.post(stripeRoutes.getCheckoutSession.urlModel, getSubscription);

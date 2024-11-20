@@ -144,7 +144,7 @@ export const addProject = async (
     return;
   }
 
-  const planType = getPLanDetails(plan.type);
+  const planType = getPLanDetails(plan);
 
   if (planType.numberOfProjects) {
     const projectCount = await projectService.countProjects({

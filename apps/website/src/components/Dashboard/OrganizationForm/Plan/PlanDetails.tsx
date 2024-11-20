@@ -17,12 +17,23 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
     <div className="relative flex flex-col gap-2">
       <H3 className="mb-5">{title}</H3>
 
-      <Tag
-        color={plan?.type === 'FREE' ? 'warning' : 'success'}
-        className="absolute right-0 top-0 flex flex-col gap-2"
-      >
-        {plan?.type}
-      </Tag>
+      <div className="absolute right-0 top-0 flex flex-row gap-2">
+        <Tag
+          color={plan?.type === 'FREE' ? 'warning' : 'success'}
+          size="sm"
+          border="none"
+        >
+          {plan?.type}
+        </Tag>
+
+        <Tag
+          color={plan?.status === 'ACTIVE' ? 'success' : 'error'}
+          size="sm"
+          border="none"
+        >
+          {plan?.status}
+        </Tag>
+      </div>
 
       <Button
         label={upgradeButton.label.value}

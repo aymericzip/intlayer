@@ -438,6 +438,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
+  ORGANIZATION_PLAN_NOT_FOUND: {
+    title: {
+      en: 'Organization Plan Not Found',
+      fr: "Plan d'organisation non trouvé",
+      es: 'Plan de organización no encontrado',
+    },
+    message: {
+      en: 'The specified organization does not have a plan.',
+      fr: "L'organisation spécifiée n'a pas de plan.",
+      es: 'La organización especificada no tiene un plan.',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
   DICTIONARY_NOT_FOUND: {
     title: {
       en: 'Dictionary Not Found',

@@ -285,7 +285,7 @@ export const addOrganizationMember = async (
     return;
   }
 
-  const planType = getPLanDetails(organization.plan.type);
+  const planType = getPLanDetails(organization.plan);
 
   if (
     planType.numberOfOrganizationUsers &&

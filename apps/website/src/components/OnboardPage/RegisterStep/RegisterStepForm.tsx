@@ -12,7 +12,6 @@ import { useRegister } from '@intlayer/design-system/hooks';
 import { useParams, useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useMemo, type FC } from 'react';
-import { formatOnboardUrl } from '../formatOnboardUrl';
 import { getPlanDetails } from '../getPlanDetails';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
@@ -32,6 +31,7 @@ export const RegisterStepForm: FC = () => {
     setState,
     setFormData,
     formData,
+    nextUrl,
   } = useStep(Steps.Registration);
 
   const defaultValues = useMemo(
@@ -57,14 +57,8 @@ export const RegisterStepForm: FC = () => {
   const onSubmitSuccess = async (data: Register) => {
     setFormData(data);
 
-    const nextStep = getNextStep?.(pageDetails);
-    const nextStepUrl = formatOnboardUrl({
-      ...pageDetails,
-      step: nextStep,
-    });
-
     await register(data, {
-      callBack_url: `${window.location.origin}${nextStepUrl}`,
+      callBack_url: `${window.location.origin}${nextUrl}`,
     }).then((response) => {
       if (response.data) {
         setState({

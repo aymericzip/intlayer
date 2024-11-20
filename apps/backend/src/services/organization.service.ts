@@ -99,6 +99,7 @@ export const createOrganization = async (
       adminsIds: [userId],
       plan: {
         name: 'FREE',
+        statue: 'ACTIVE',
         creatorId: userId,
       },
       ...organization,
@@ -181,55 +182,39 @@ export const saveStripeCustomerId = async (
  * @returns The updated plan.
  */
 export const updatePlan = async (
-  organizationId: string | ObjectId,
+  organization: Organization,
   plan: Partial<Plan>
 ): Promise<OrganizationDocument | null> => {
-  const organization = await OrganizationModel.findById(organizationId);
-  if (!organization) {
-    throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
-  }
-
   const updateOrganizationResult = await OrganizationModel.updateOne(
-    { _id: organizationId },
+    { _id: organization._id },
     { $set: { plan: { ...organization.plan, ...plan } } },
     { new: true }
   );
 
   if (updateOrganizationResult.matchedCount === 0) {
-    throw new GenericError('ORGANIZATION_UPDATE_FAILED', { organizationId });
+    throw new GenericError('ORGANIZATION_UPDATE_FAILED', {
+      organizationId: organization._id,
+    });
   }
 
-  const updatedOrganization = await getOrganizationById(organizationId);
+  const updatedOrganization = await getOrganizationById(organization._id);
 
   return updatedOrganization;
 };
 
 /**
- * Cancels a plan by its organization ID.
- * @param organizationId - The ID of the organization to cancel the plan.
- * @returns The cancelled plan.
+ * Retrieves an organization by its customer ID.
+ * @param customerId - The ID of the customer to find the organization.
+ * @returns The organizations matching the customer ID.
  */
-export const cancelPlan = async (
-  organizationId: string | ObjectId
+export const getOrganizationByCustomerId = async (
+  customerId: string
 ): Promise<OrganizationDocument | null> => {
-  const organization = await OrganizationModel.findById(organizationId);
-  if (!organization) {
-    throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
-  }
-
-  const updateOrganizationResult = await OrganizationModel.updateOne(
-    { _id: organizationId },
-    {
-      $set: { plan: { status: 'CANCELLED' } },
+  const organization = await OrganizationModel.findOne({
+    plan: {
+      customerId,
     },
-    { new: true }
-  );
+  });
 
-  if (updateOrganizationResult.matchedCount === 0) {
-    throw new GenericError('ORGANIZATION_UPDATE_FAILED', { organizationId });
-  }
-
-  const updatedOrganization = await getOrganizationById(organizationId);
-
-  return updatedOrganization;
+  return organization;
 };

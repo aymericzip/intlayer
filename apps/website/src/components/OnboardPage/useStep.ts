@@ -26,35 +26,54 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
     'state' | 'formData'
   > | null>(null);
 
+  type NextUrlType = Step['getNextStep'] extends undefined ? undefined : string;
+
+  const nextUrl: NextUrlType = (
+    step.getNextStep
+      ? formatOnboardUrl({
+          ...pageDetails,
+          step: step.getNextStep(pageDetails),
+        })
+      : undefined
+  ) as NextUrlType;
+
+  type PreviousUrlType = Step['getPreviousStep'] extends undefined
+    ? undefined
+    : string;
+
+  const previousUrl: PreviousUrlType = (
+    step.getPreviousStep
+      ? formatOnboardUrl({
+          ...pageDetails,
+          step: step.getPreviousStep(pageDetails),
+        })
+      : undefined
+  ) as PreviousUrlType;
+
   type GoNextStepType = Step['getNextStep'] extends undefined
     ? undefined
     : () => void;
-  type GoPreviousStepType = Step['getPreviousStep'] extends undefined
-    ? () => void | undefined
-    : () => void;
 
   const goNextStep: GoNextStepType = (
-    step.getNextStep
+    nextUrl
       ? () => {
-          const nextStep = step.getNextStep?.(pageDetails);
-          const url = formatOnboardUrl({
-            ...pageDetails,
-            step: nextStep,
-          });
-          router.push(url);
+          if (nextUrl) {
+            router.push(nextUrl);
+          }
         }
       : undefined
   ) as GoNextStepType;
 
+  type GoPreviousStepType = Step['getPreviousStep'] extends undefined
+    ? () => void | undefined
+    : () => void;
+
   const goPreviousStep: GoPreviousStepType = (
-    step.getPreviousStep
+    previousUrl
       ? () => {
-          const prevStep = step.getPreviousStep?.(pageDetails);
-          const url = formatOnboardUrl({
-            ...pageDetails,
-            step: prevStep,
-          });
-          router.push(url);
+          if (previousUrl) {
+            router.push(previousUrl);
+          }
         }
       : origin
         ? () => router.push(origin)
@@ -102,7 +121,8 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
   return {
     ...step,
     ...dynamicsContent,
-
+    nextUrl,
+    previousUrl,
     goNextStep,
     goPreviousStep,
     setState,

@@ -18,7 +18,7 @@ type CheckoutSessionData = {
 
 export type GetCheckoutSessionResult = ResponseData<CheckoutSessionData>;
 
-export const getCheckoutSession = async (
+export const getSubscription = async (
   req: Request<undefined, undefined, GetCheckoutSessionBody>,
   res: ResponseWithInformation<GetCheckoutSessionResult>
 ): Promise<void> => {

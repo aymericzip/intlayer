@@ -1,7 +1,11 @@
 // The library needs to be configured with your account's secret key.
 // Ensure the key is kept out of any version control system you might be using.
 import { logger } from '@logger';
-import { addSubscription } from '@services/subscription.service';
+import {
+  addSubscription,
+  cancelSubscription,
+  changeSubscriptionStatus,
+} from '@services/subscription.service';
 import { type Request, type Response } from 'express';
 import { Stripe } from 'stripe';
 
@@ -23,74 +27,130 @@ export const stripeWebhook = async (request: Request, response: Response) => {
 
   // Handle the event
   switch (event.type) {
-    case 'checkout.session.async_payment_failed': {
-      // const checkoutSessionAsyncPaymentFailed = event.data.object;
-      // Then define and call a function to handle the event checkout.session.async_payment_failed
-      break;
-    }
-    case 'checkout.session.async_payment_succeeded': {
-      // const checkoutSessionAsyncPaymentSucceeded = event.data.object;
-      // Then define and call a function to handle the event checkout.session.async_payment_succeeded
-      break;
-    }
-    case 'checkout.session.completed': {
-      const checkoutSessionCompleted = event.data.object;
-      // Then define and call a function to handle the event checkout.session.completed
+    case 'customer.subscription.created': {
+      // Subscription created event received. This event indicates that a new subscription was successfully created.',
+      const subscription = event.data.object as Stripe.Subscription;
 
-      const session = await stripe.checkout.sessions.retrieve(
-        checkoutSessionCompleted.id,
-        {
-          expand: ['line_items'],
-        }
-      );
+      logger.info({
+        hey: 'new event',
+        type: event.type,
+        subscriptionId: subscription.id,
+        customerId: subscription.customer,
+        status: subscription.status,
+        startDate: subscription.start_date,
+      });
 
-      const customerId = session.customer as string;
+      let userEmail = '';
 
-      if (!customerId) {
-        logger.error('No customer ID found', session);
-        return;
+      const priceId = subscription.items.data[0].price.id;
+      const customerId = (subscription.customer ?? '') as string;
+
+      if (subscription.customer) {
+        const customer = await stripe.customers.retrieve(customerId);
+
+        userEmail = (customer as unknown as { email: string }).email;
       }
 
-      const customer = await stripe.customers.retrieve(customerId);
-
-      const priceId = session.line_items?.data[0]?.price?.id;
-
-      const userEmail = (customer as unknown as { email: string }).email;
-
-      await addSubscription('organizationId', priceId!, customerId, userEmail);
+      await addSubscription(priceId!, customerId, userEmail);
 
       break;
     }
-    case 'checkout.session.expired': {
-      const checkoutSessionExpired = event.data.object;
-      // Then define and call a function to handle the event checkout.session.expired
 
-      console.log('checkoutSessionExpired', checkoutSessionExpired);
+    case 'customer.subscription.updated': {
+      // Subscription updated event received. This event indicates that the subscription was updated, which may include changes to its status, billing cycle, or other properties.
+      const subscription = event.data.object as Stripe.Subscription;
 
-      const session = await stripe.checkout.sessions.retrieve(
-        checkoutSessionExpired.id,
-        {
-          expand: ['line_items'],
-        }
-      );
-      console.log('session', session);
+      logger.info({
+        hey: 'new event',
+        type: event.type,
+        subscriptionId: subscription.id,
+        customerId: subscription.customer,
+        status: subscription.status,
+        startDate: subscription.start_date,
+      });
 
-      const customerId = session.customer as string;
+      let userEmail = '';
+      let userLocale = '';
 
-      if (!customerId) {
-        logger.error('No customer ID found', session);
-        return;
+      const priceId = subscription.items.data[0].price.id;
+      const customerId = (subscription.customer ?? '') as string;
+
+      if (subscription.customer) {
+        const customer = await stripe.customers.retrieve(customerId);
+
+        userEmail = (customer as unknown as { email: string }).email;
+        userLocale =
+          (customer as Stripe.Customer).metadata?.locale ?? 'default_locale';
       }
 
-      // const customer = await stripe.customers.retrieve(customerId);
-
-      // const userEmail = (customer as unknown as { email: string }).email;
-
-      // await cancelSubscription({});
+      await addSubscription(priceId!, customerId, userEmail);
 
       break;
     }
-    // ... handle other event types
+
+    case 'customer.subscription.deleted': {
+      // Subscription deleted event received. This event occurs when a subscription is canceled or deleted.
+      const subscription = event.data.object as Stripe.Subscription;
+
+      logger.info({
+        hey: 'new event',
+        type: event.type,
+
+        subscriptionId: subscription.id,
+        customerId: subscription.customer,
+        canceledAt: subscription.canceled_at,
+        status: subscription.status,
+      });
+      const customerId = (subscription.customer ?? '') as string;
+
+      cancelSubscription(customerId);
+
+      break;
+    }
+
+    case 'invoice.payment_succeeded': {
+      // Invoice payment succeeded event received. This event confirms that an invoice, including subscription payments, was successfully paid.
+      const invoice = event.data.object as Stripe.Invoice;
+
+      logger.info({
+        hey: 'new event',
+        type: event.type,
+
+        invoiceId: invoice.id,
+        customerId: invoice.customer,
+        amountPaid: invoice.amount_paid,
+        subscriptionId: invoice.subscription,
+      });
+
+      const customerId = (invoice.customer ?? '') as string;
+
+      changeSubscriptionStatus(customerId, 'ACTIVE');
+
+      break;
+    }
+
+    case 'invoice.payment_failed': {
+      // Invoice payment failed event received. This event occurs when Stripe is unable to process a payment for an invoice.
+      const invoice = event.data.object as Stripe.Invoice;
+
+      logger.warn({
+        hey: 'new event',
+        type: event.type,
+
+        invoiceId: invoice.id,
+        customerId: invoice.customer,
+        amountDue: invoice.amount_due,
+        subscriptionId: invoice.subscription,
+        attemptCount: invoice.attempt_count,
+      });
+
+      const customerId = (invoice.customer ?? '') as string;
+
+      changeSubscriptionStatus(customerId, 'ERROR');
+
+      break;
+    }
+
     default:
       logger.info(`Unhandled event type ${event.type}`);
   }
