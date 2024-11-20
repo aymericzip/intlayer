@@ -163,10 +163,12 @@ export const MembersForm: FC = () => {
               schema={NewMembersFormSchema}
               onSubmitSuccess={onSubmitSuccessAddMember}
               className="flex flex-row items-end gap-3 align-bottom"
+              autoComplete={false}
               {...newUserForm}
             >
               <Form.Input
                 name="userEmail"
+                type="email"
                 label={newMemberEmailInput.label.value}
                 placeholder={newMemberEmailInput.placeholder.value}
               />
