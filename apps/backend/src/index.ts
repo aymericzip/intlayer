@@ -94,6 +94,7 @@ const corsOptions: CorsOptions = {
     'Content-Type',
     'credentials',
     'cache-control',
+    'Access-Control-Allow-Origin',
   ],
   exposedHeaders: [''],
   preflightContinue: false,
