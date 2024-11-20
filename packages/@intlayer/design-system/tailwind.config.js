@@ -109,7 +109,7 @@ const getTailwindConfig = () => {
             dark: 'rgba(102, 255, 153, <alpha-value>)',
           },
           warning: {
-            DEFAULT: 'rgba(255, 230, 109, <alpha-value>)',
+            DEFAULT: 'rgba(214, 153, 66, <alpha-value>)',
             dark: 'rgba(255, 230, 109, <alpha-value>)',
           },
           error: {
