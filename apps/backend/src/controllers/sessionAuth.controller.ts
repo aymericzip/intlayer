@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import crypto from 'crypto';
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
@@ -395,11 +396,14 @@ export const validEmail = async (
     res.redirect(callBack_url);
   }
 
-  if (provider?.secret !== secret) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_PROVIDER_SECRET_NOT_VALID'
-    );
+  if (!provider?.secret) {
+    throw new GenericError('USER_PROVIDER_SECRET_NOT_DEFINED', { userId });
+  }
+
+  if (
+    !crypto.timingSafeEqual(Buffer.from(provider.secret), Buffer.from(secret))
+  ) {
+    throw new GenericError('USER_PROVIDER_SECRET_NOT_VALID', { userId });
   }
 
   await sessionAuthService.updateUserProvider(userId, 'email', {

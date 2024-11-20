@@ -6,12 +6,12 @@ import {
   validateOrganization,
 } from '@utils/validation/validateOrganization';
 import type { ObjectId } from 'mongoose';
-import type { Plan } from '@/types/plan.types';
 import type {
   Organization,
   OrganizationCreationData,
   OrganizationDocument,
 } from '@/types/organization.types';
+import type { Plan } from '@/types/plan.types';
 
 /**
  * Finds organizations based on filters and pagination options.

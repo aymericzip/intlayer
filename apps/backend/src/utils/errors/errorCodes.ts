@@ -217,6 +217,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
+  USER_PROVIDER_SECRET_NOT_DEFINED: {
+    title: {
+      en: 'User Provider Secret Not Defined',
+      fr: "Secret du fournisseur d'utilisateur non défini",
+      es: 'Secret del proveedor de usuario no definido',
+    },
+    message: {
+      en: 'The user provider secret was not defined.',
+      fr: "Le secret du fournisseur d'utilisateur n'a pas été défini.",
+      es: 'El secret del proveedor de usuario no se ha definido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
   USER_PROVIDER_SECRET_NOT_VALID: {
     title: {
       en: 'User Provider Secret Not Valid',

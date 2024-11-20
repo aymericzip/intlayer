@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { logger } from '@logger';
 import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
@@ -259,7 +260,16 @@ export const resetUserPassword = async (
     throw new GenericError('USER_PROVIDER_NOT_FOUND', { userId });
   }
 
-  if (emailAndPasswordProvider.secret !== secret) {
+  if (!emailAndPasswordProvider.secret) {
+    throw new GenericError('USER_PROVIDER_SECRET_NOT_DEFINED', { userId });
+  }
+
+  if (
+    !crypto.timingSafeEqual(
+      Buffer.from(emailAndPasswordProvider.secret),
+      Buffer.from(secret)
+    )
+  ) {
     throw new GenericError('USER_PROVIDER_SECRET_NOT_VALID', { userId });
   }
 
