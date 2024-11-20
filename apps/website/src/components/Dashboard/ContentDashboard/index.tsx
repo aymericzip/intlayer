@@ -3,7 +3,7 @@
 import { DictionaryFieldEditor, Loader } from '@intlayer/design-system';
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
-import { Suspense, useEffect, type FC } from 'react';
+import { Suspense, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type ContentDashboardContentProps = {
@@ -13,17 +13,12 @@ type ContentDashboardContentProps = {
 export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   dictionaryKey,
 }) => {
-  const {
-    data: dictionaryResult,
-    isLoading,
-    getDictionary,
-  } = useGetDictionary();
+  const { data: dictionaryResult, isLoading } = useGetDictionary({
+    autoFetch: true,
+    args: dictionaryKey,
+  });
   const router = useRouter();
   const dictionary = dictionaryResult?.data;
-
-  useEffect(() => {
-    getDictionary(dictionaryKey);
-  }, [getDictionary, dictionaryKey]);
 
   return (
     <Suspense fallback={<Loader />}>
