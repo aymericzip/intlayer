@@ -18,6 +18,7 @@ const secureHeaders = createSecureHeaders({
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
       connectSrc: [
         "'self'",
+        'data:',
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
         `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
         'fonts.googleapis.com',
