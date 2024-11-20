@@ -65,6 +65,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       <Form.Button
         className="mt-12 w-full"
         type="submit"
+        color="text"
         isLoading={isSubmitting}
         disabled={!isValid}
         variant={isSubmitted ? 'outline' : 'default'}

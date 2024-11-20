@@ -103,6 +103,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
       <Form.Button
         className="mt-12 w-full"
         type="submit"
+        color="text"
         isLoading={isSubmitting}
         disabled={!isValid || submissionState.isFrozen}
         variant={isSubmitted ? 'outline' : 'default'}

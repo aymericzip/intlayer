@@ -65,6 +65,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
       <Form.Button
         className="mt-12 w-full"
         type="submit"
+        color="text"
         isLoading={isSubmitting}
         label={signUpButton.ariaLabel}
       >
