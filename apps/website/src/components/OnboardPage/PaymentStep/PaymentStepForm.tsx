@@ -1,6 +1,6 @@
 import { Period, Plans } from '@components/PricingPage/data.content';
 import { Container, H2, H3, Label, Loader } from '@intlayer/design-system';
-import { useGetCheckoutSession } from '@intlayer/design-system/hooks';
+import { useGetSubscription } from '@intlayer/design-system/hooks';
 import {
   Elements,
   PaymentElement,
