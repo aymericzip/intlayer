@@ -23,6 +23,7 @@ const secureHeaders = createSecureHeaders({
         'fonts.googleapis.com',
         '*.google-analytics.com',
         '*.googletagmanager.com',
+        '*.github.com',
         '*.openai.com',
         '*.stripe.com',
       ],
