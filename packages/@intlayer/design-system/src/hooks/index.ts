@@ -7,3 +7,4 @@ export * from './useAsync';
 export * from './intlayerAPIHooks';
 export * from './useItemSelector';
 export * from './useGetAllDictionaries';
+export * from './usePersistedStore';

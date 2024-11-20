@@ -14,6 +14,8 @@ export enum Steps {
   Confirmation = 'confirmation',
 }
 
+export const sessionStorageIndex = 'onboarding-';
+
 export const getSessionStorageDynamicsContent = <T extends OnboardingStepIds>(
   stepId: T
 ): OnboardingSteps[T] | null => {
@@ -26,59 +28,6 @@ export const getSessionStorageDynamicsContent = <T extends OnboardingStepIds>(
   }
 
   return null;
-};
-
-export const setSessionStorageDynamicsContent = <T extends OnboardingStepIds>(
-  stepId: T,
-  state: Pick<OnboardingStep, 'state' | 'formData'>
-): Pick<OnboardingStep, 'state' | 'formData'> => {
-  sessionStorage.setItem(
-    `${sessionStorageIndex}${stepId}`,
-    JSON.stringify(state)
-  );
-
-  return state;
-};
-
-export const setSessionStorageDynamicsState = <T extends OnboardingStepIds>(
-  stepId: T,
-  state: Pick<OnboardingStep, 'state'>
-): OnboardingSteps[T]['state'] => {
-  const previousContent = getSessionStorageDynamicsContent(stepId);
-
-  const newContent = {
-    ...previousContent,
-    state: { ...previousContent?.state, ...state },
-  };
-
-  sessionStorage.setItem(
-    `${sessionStorageIndex}${stepId}`,
-    JSON.stringify(newContent)
-  );
-
-  return newContent.state as OnboardingSteps[T]['state'];
-};
-
-export const setSessionStorageDynamicsFormData = <T extends OnboardingStepIds>(
-  stepId: T,
-  formData: Pick<OnboardingStep, 'formData'>
-): OnboardingSteps[T]['formData'] => {
-  const previousContent = getSessionStorageDynamicsContent(stepId);
-
-  const newContent = {
-    ...previousContent,
-    formData: {
-      ...previousContent?.formData,
-      ...formData,
-    },
-  };
-
-  sessionStorage.setItem(
-    `${sessionStorageIndex}${stepId}`,
-    JSON.stringify(newContent)
-  );
-
-  return newContent.formData;
 };
 
 export const isRegistrationStepValid = (): boolean => {
@@ -215,5 +164,3 @@ export const onboardingSteps = {
 
 export type OnboardingSteps = typeof onboardingSteps;
 export type OnboardingStepIds = keyof OnboardingSteps;
-
-export const sessionStorageIndex = 'onboarding-';

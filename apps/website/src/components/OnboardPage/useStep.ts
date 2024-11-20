@@ -1,14 +1,13 @@
 'use client';
 
+import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { formatOnboardUrl } from './formatOnboardUrl';
 import { getPlanDetails } from './getPlanDetails';
 import {
-  getSessionStorageDynamicsContent,
   OnboardingStepIds,
   onboardingSteps,
-  setSessionStorageDynamicsContent,
+  sessionStorageIndex,
 } from './steps';
 
 export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
@@ -20,11 +19,13 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
   const { details } = useParams<{ details: string[] }>();
   const pageDetails = getPlanDetails(details);
   const origin = useSearchParams().get('origin') as string | undefined;
-
-  const [dynamicsContent, setDynamicsContent] = useState<Pick<
+  const [dynamicsContent, setDynamicsContent] = usePersistedStore<Pick<
     Step,
     'state' | 'formData'
-  > | null>(null);
+  > | null>(`${sessionStorageIndex}${stepId}`, {
+    state: step.state,
+    formData: step.formData,
+  });
 
   type NextUrlType = Step['getNextStep'] extends undefined ? undefined : string;
 
@@ -82,29 +83,9 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
         : undefined
   ) as GoPreviousStepType;
 
-  useEffect(() => {
-    const sessionStorageData = getSessionStorageDynamicsContent(stepId);
-
-    if (sessionStorageData) {
-      setDynamicsContent(sessionStorageData);
-    } else {
-      setDynamicsContent({
-        state: step.state,
-        formData: step.formData,
-      });
-    }
-  }, [stepId]);
-
-  useEffect(() => {
-    if (dynamicsContent) {
-      setSessionStorageDynamicsContent(stepId, dynamicsContent);
-    }
-  }, [dynamicsContent, stepId]);
-
   const setState = (data: Partial<Step['state']>) =>
     setDynamicsContent((prev) => ({
       ...prev,
-
       state: {
         ...(prev?.state as Step['state']),
         ...data,
