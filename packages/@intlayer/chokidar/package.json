@@ -71,7 +71,6 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/design-system": "workspace:^",
-    "@intlayer/dictionaries-entry": "workspace:^",
     "chokidar": "^3.6.0",
     "crypto-js": "^4.2.0",
     "deepmerge": "^4.3.1",
@@ -101,6 +100,13 @@
     "tsup": "^8.3.5",
     "typescript": "^5.6.3",
     "webpack-watch-files-plugin": "^1.2.1"
+  },
+  "peerDependencies": {
+    "@intlayer/backend": "workspace:^",
+    "@intlayer/config": "workspace:^",
+    "@intlayer/core": "workspace:^",
+    "@intlayer/design-system": "workspace:^",
+    "intlayer": "workspace:^"
   },
   "engines": {
     "node": ">=14.18"

@@ -50,9 +50,6 @@
       ]
     }
   },
-  "bin": {
-    "intlayer-editor": "./bin/start-server.js"
-  },
   "files": [
     "./dist",
     "./bin",
@@ -78,12 +75,10 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/design-system": "workspace:^",
-    "@intlayer/dictionaries-entry": "workspace:^",
     "@types/body-parser": "^1.19.5",
     "body-parser": "^1.20.3",
     "commander": "^12.1.0",
     "express": "^4.21.1",
-    "intlayer": "workspace:^",
     "lucide-react": "^0.456.0",
     "magic-regexp": "^0.8.0",
     "react": "^18.3.1",
@@ -114,6 +109,12 @@
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "@intlayer/config": "workspace:^",
+    "@intlayer/core": "workspace:^",
+    "@intlayer/design-system": "workspace:^",
+    "react-intlayer": "workspace:^"
   },
   "engines": {
     "node": ">=14.18"

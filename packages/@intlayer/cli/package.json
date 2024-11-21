@@ -69,7 +69,6 @@
     "p-limit": "^3.1.0"
   },
   "devDependencies": {
-    "@intlayer/backend": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.9.0",
@@ -83,6 +82,12 @@
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "@intlayer/chokidar": "workspace:^",
+    "@intlayer/config": "workspace:^",
+    "@intlayer/design-system": "workspace:^",
+    "@intlayer/dictionaries-entry": "workspace:^"
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"

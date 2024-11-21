@@ -8,12 +8,8 @@ import { ThemeProvider } from './ThemeProvider';
 
 export type AppProvidersProps = IntlayerClientProviderProps;
 
-export const AppProviders: FC<AppProvidersProps> = ({
-  children,
-  locale,
-  editorEnabled,
-}) => (
-  <LocaleContextProvider locale={locale} editorEnabled={editorEnabled}>
+export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
+  <LocaleContextProvider locale={locale}>
     <ThemeProvider>
       <AnimatePresenceProvider>
         <ServiceWorkerSubscriber />

@@ -1,29 +1,38 @@
 website: https://playground.diagram.codes/d/graph
+"to-delete" as e
+"@intlayer/backend" as a
+"@intlayer/chokidar" as b
+"@intlayer/cli" as c
+"@intlayer/config" as d
+"@intlayer/core" as h e
+"@intlayer/design-system" as f
+"@intlayer/dictionaries-entry" as g
+"@intlayer/webpack" as h
 
-"inltayer" as a
-"react-intlayer" as b
-"intlayer-cli" as c
-"next-intlayer" as d
-"intlayer-editor" as e
-"@intlayer/chokidar" as f
-"@intlayer/config" as g
-"@intlayer/core" as h
-"@intlayer/dictionaries-entry" as i
-"@intlayer/webpack" as j
-"@intlayer/cli" as k
-"nextjs website" as l
-"react website" as m
-"vite+react website" as n
+"express-intlayer" as i
+"inltayer" as j
+"intlayer-cli" as k
+"intlayer-editor" as l
+"next-intlayer" as m
+"react-intlayer" as n
+
+"nextjs website" as o
+"react website" as p
+"vite+react website" as q
+"express application" as r
 
 
-a->l,m,n,f
-b->d,m,n
-c->l,m,n
-d->l
-e->b,l,m,n
-f->b,c,d,e,j
-g->b,c,d,e,h,f
-h->b,c,d,e,a,f
-i->e,j
-j->d,b
-k->c
+a->b,f
+b->c,h,i,n
+c->j,k
+d->b,c,e,f,g,h,k,l,m,n
+e->b,c,f,g,i,j,l,m,n
+f->l
+g->c,f,h,n
+h->m,n
+i->r
+j->f,i,m,n,o,p,q,r
+n->f,m,p,q
+k->i,o,p,q
+l->o,p,q
+m->o

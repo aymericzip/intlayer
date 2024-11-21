@@ -29,7 +29,6 @@ const DashboardLayout: NextLayoutIntlayer = ({
   return (
     <PageLayout
       locale={locale}
-      editorEnabled={false}
       navbar={<DashboardNavbar links={formattedNavbarLinks} />}
       footer={<DashboardFooter locale={locale} links={formattedFooterLinks} />}
     >

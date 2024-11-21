@@ -1,4 +1,4 @@
-# Documentación del Editor Intlayer
+### Documentación del Editor Intlayer
 
 El Editor Intlayer es una herramienta que transforma tu aplicación en un editor visual. Con el Editor Intlayer, tus equipos pueden gestionar el contenido de tu sitio en todos los idiomas configurados.
 
@@ -10,75 +10,95 @@ Para más detalles sobre cómo instalar el paquete, consulta la sección corresp
 
 ### Integración con Next.js
 
-Para la integración con Next.js, consulta la [guía de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_es.md).
+Para la integración con Next.js, consulta la [guía de instalación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_es.md).
 
 ### Integración con Create React App
 
-Para la integración con Create React App, consulta la [guía de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_es.md).
+Para la integración con Create React App, consulta la [guía de instalación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_es.md).
 
 ### Integración con Vite + React
 
-Para la integración con Vite + React, consulta la [guía de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_es.md).
+Para la integración con Vite + React, consulta la [guía de instalación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_es.md).
 
-## Cómo Funciona el Editor Intlayer
+## Cómo funciona el Editor Intlayer
 
-Cada vez que realizas un cambio usando el Editor Intlayer, el servidor inserta automáticamente tus cambios en tus [archivos de declaración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md), dondequiera que estos archivos estén declarados en tu proyecto.
+Cada vez que realizas un cambio con el Editor Intlayer, el servidor inserta automáticamente tus cambios en tus [archivos de declaración Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md), dondequiera que estén declarados en tu proyecto.
 
-De esta manera, no tienes que preocuparte por dónde está declarado el archivo o por encontrar tu clave en tu colección de diccionarios.
+De esta forma, no tienes que preocuparte por la ubicación de los archivos o por encontrar tu clave en tu colección de diccionarios.
 
 ## Instalación
 
 Una vez que Intlayer esté configurado en tu proyecto, simplemente instala `intlayer-editor` como una dependencia de desarrollo:
 
 ```bash
-npm install intlayer-editor -D
+npm install intlayer-editor
 ```
 
 ```bash
-yarn add intlayer-editor -D
+yarn add intlayer-editor
 ```
 
 ```bash
-pnpm add intlayer-editor -D
+pnpm add intlayer-editor
 ```
+
+## Configuración
+
+### 1. Habilitar el Editor en tu archivo `intlayer.config.ts`
 
 En tu archivo de configuración de Intlayer, puedes personalizar los ajustes del editor:
 
 ```typescript
 const config: IntlayerConfig = {
-  // ... otros ajustes de configuración
+  // ... otras configuraciones
   editor: {
-    enabled: process.env.NODE_ENV === "development", // Si es falso, el editor está inactivo y no se puede acceder a él.
-    port: 3000, // Puerto del backend de intlayer-editor
+    enabled: process.env.INTLAYER_ENABLED === "true", // Si es false, el editor está inactivo y no se puede acceder.
+    // Se requiere un ID de cliente y un secreto de cliente para habilitar el editor.
+    // Permiten identificar al usuario que edita el contenido.
+    // Puedes obtenerlos creando un nuevo cliente en el Panel de Proyectos de Intlayer (https://intlayer.org/dashboard/projects).
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 ```
 
-Para ver todos los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_es.md).
+> Si no tienes un ID de cliente y un secreto de cliente, puedes obtenerlos creando un nuevo cliente en el [Panel de Proyectos de Intlayer](https://intlayer.org/dashboard/projects).
 
-### Comenzar a Editar
+> Para ver todos los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_es.md).
 
-Para comenzar a editar, lanza el servidor del editor usando `npx intlayer-editor start`.
+### 2. Insertar el Proveedor de Editor de Intlayer en tu aplicación
 
-También puedes crear un script personalizado en tu archivo `package.json`:
+Para habilitar el editor, inserta el Proveedor de Editor de Intlayer en tu aplicación.
 
-```json5
-{
-  scripts: {
-    "start:editor": "npx intlayer-editor start",
-  },
+Ejemplo para aplicaciones React JS o Vite + React:
+
+```tsx
+import { IntlayerProvider } from "react-intlayer";
+import { IntlayerEditorProvider } from "intlayer-editor";
+
+function App() {
+  return (
+    <IntlayerProvider>
+      <IntlayerEditorProvider>{/* Tu aplicación */}</IntlayerEditorProvider>
+    </IntlayerProvider>
+  );
 }
 ```
 
-Para iniciar tanto el servidor de Next.js como el Editor Intlayer simultáneamente, puedes usar la herramienta [concurrently](https://github.com/open-cli-tools/concurrently):
+Ejemplo para aplicaciones Next.js:
 
-```json5
-{
-  scripts: {
-    dev: "next dev",
-    "start:editor": "npx intlayer-editor start",
-    "dev:all": "concurrently \"npm run dev:nextjs\" \"npm run dev:intlayer-editor\"",
-  },
+```tsx
+import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerEditorProvider } from "intlayer-editor";
+
+function Page() {
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <IntlayerClientProvider locale={locale}>
+        <IntlayerEditorProvider>{/* Tu aplicación */}</IntlayerEditorProvider>
+      </IntlayerClientProvider>
+    </IntlayerServerProvider>
+  );
 }
 ```
 
@@ -86,6 +106,6 @@ Para iniciar tanto el servidor de Next.js como el Editor Intlayer simultáneamen
 
 Cuando el editor está instalado, habilitado e iniciado, puedes ver cada campo indexado por Intlayer al pasar el cursor sobre tu contenido.
 
-![Pasando el cursor sobre el contenido](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+![Resaltado del contenido](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-Si tu contenido está delineado, puedes hacer una pulsación larga para mostrar el cajón de edición.
+Si tu contenido está resaltado, puedes mantenerlo presionado para mostrar el panel de edición.

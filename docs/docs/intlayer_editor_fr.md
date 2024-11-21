@@ -1,91 +1,113 @@
-# Documentation de l'Éditeur Intlayer
+### Documentation de l'éditeur Intlayer
 
-L'Éditeur Intlayer est un outil qui transforme votre application en un éditeur visuel. Avec l'Éditeur Intlayer, vos équipes peuvent gérer le contenu de votre site dans toutes les langues configurées.
+L'éditeur Intlayer est un outil qui transforme votre application en éditeur visuel. Avec l'éditeur Intlayer, vos équipes peuvent gérer le contenu de votre site dans toutes les langues configurées.
 
-![Interface de l'Éditeur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
+![Interface de l'éditeur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
-Le package `intlayer-editor` est basé sur Intlayer et est disponible pour les applications JavaScript, telles que React (Create React App), Vite + React, et Next.js.
+Le package `intlayer-editor` est basé sur Intlayer et disponible pour les applications JavaScript, telles que React (Create React App), Vite + React et Next.js.
 
-Pour plus de détails sur l'installation du package, consultez la section correspondante ci-dessous :
+Pour plus de détails sur l'installation du package, consultez la section appropriée ci-dessous :
 
 ### Intégration avec Next.js
 
-Pour l'intégration avec Next.js, référez-vous au [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_fr.md).
+Pour l'intégration avec Next.js, consultez le [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_fr.md).
 
 ### Intégration avec Create React App
 
-Pour l'intégration avec Create React App, référez-vous au [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_fr.md).
+Pour l'intégration avec Create React App, consultez le [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_fr.md).
 
 ### Intégration avec Vite + React
 
-Pour l'intégration avec Vite + React, référez-vous au [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_fr.md).
+Pour l'intégration avec Vite + React, consultez le [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_fr.md).
 
-## Comment fonctionne l'Éditeur Intlayer
+## Comment fonctionne l'éditeur Intlayer
 
-Chaque fois que vous effectuez une modification à l'aide de l'Éditeur Intlayer, le serveur insère automatiquement vos modifications dans vos [fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md), où que ces fichiers soient déclarés dans votre projet.
+Chaque fois que vous effectuez une modification avec l'éditeur Intlayer, le serveur insère automatiquement vos changements dans vos [fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md), où qu'ils soient déclarés dans votre projet.
 
-De cette façon, vous n'avez pas à vous soucier de l'endroit où le fichier est déclaré ou de la recherche de votre clé dans votre collection de dictionnaires.
+De cette manière, vous n'avez pas à vous soucier de l'emplacement des fichiers ou de trouver votre clé dans votre collection de dictionnaires.
 
 ## Installation
 
-Une fois qu'Intlayer est configuré dans votre projet, installez simplement `intlayer-editor` en tant que dépendance de développement :
+Une fois Intlayer configuré dans votre projet, installez simplement `intlayer-editor` comme dépendance de développement :
 
 ```bash
-npm install intlayer-editor -D
+npm install intlayer-editor
 ```
 
 ```bash
-yarn add intlayer-editor -D
+yarn add intlayer-editor
 ```
 
 ```bash
-pnpm add intlayer-editor -D
+pnpm add intlayer-editor
 ```
 
-Dans votre fichier de configuration Intlayer, vous pouvez personnaliser les paramètres de l'éditeur :
+## Configuration
+
+### 1. Activer l'éditeur dans votre fichier `intlayer.config.ts`
+
+Dans votre fichier de configuration Intlayer, vous pouvez personnaliser les paramètres de l'éditeur :
 
 ```typescript
 const config: IntlayerConfig = {
   // ... autres paramètres de configuration
   editor: {
-    enabled: process.env.NODE_ENV === "development", // Si false, l'éditeur est inactif et ne peut pas être accessible.
-    port: 3000, // Port du backend intlayer-editor
+    enabled: process.env.INTLAYER_ENABLED === "true", // Si false, l'éditeur est inactif et inaccessible.
+    // Un identifiant client et un secret client sont requis pour activer l'éditeur.
+    // Ils permettent d'identifier l'utilisateur qui modifie le contenu.
+    // Ils peuvent être obtenus en créant un nouveau client dans le tableau de bord Intlayer - Projets (https://intlayer.org/dashboard/projects).
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 ```
 
-Pour voir tous les paramètres disponibles, référez-vous à la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
+> Si vous ne disposez pas d'un identifiant client et d'un secret client, vous pouvez les obtenir en créant un nouveau client dans le [tableau de bord Intlayer - Projets](https://intlayer.org/dashboard/projects).
 
-### Commencer à éditer
+> Pour voir tous les paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
 
-Pour commencer à éditer, lancez le serveur de l'éditeur en utilisant `npx intlayer-editor start`.
+### 2. Insérer le fournisseur Intlayer Editor dans votre application
 
-Vous pouvez également créer un script personnalisé dans votre fichier `package.json` :
+Pour activer l'éditeur, insérez le fournisseur Intlayer Editor dans votre application.
 
-```json5
-{
-  scripts: {
-    "start:editor": "npx intlayer-editor start",
-  },
+Exemple pour les applications React JS ou Vite + React :
+
+```tsx
+import { IntlayerProvider } from "react-intlayer";
+import { IntlayerEditorProvider } from "intlayer-editor";
+
+function App() {
+  return (
+    <IntlayerProvider>
+      <IntlayerEditorProvider>{/* Votre application */}</IntlayerEditorProvider>
+    </IntlayerProvider>
+  );
 }
 ```
 
-Pour démarrer simultanément le serveur Next.js et l'Éditeur Intlayer, vous pouvez utiliser l'outil [concurrently](https://github.com/open-cli-tools/concurrently) :
+Exemple pour les applications Next.js :
 
-```json5
-{
-  scripts: {
-    dev: "next dev",
-    "start:editor": "npx intlayer-editor start",
-    "dev:all": "concurrently \"npm run dev:nextjs\" \"npm run dev:intlayer-editor\"",
-  },
+```tsx
+import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerEditorProvider } from "intlayer-editor";
+
+function Page() {
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <IntlayerClientProvider locale={locale}>
+        <IntlayerEditorProvider>
+          {/* Votre application */}
+        </IntlayerEditorProvider>
+      </IntlayerClientProvider>
+    </IntlayerServerProvider>
+  );
 }
 ```
 
-## Utilisation de l'Éditeur
+## Utilisation de l'éditeur
 
-Lorsque l'éditeur est installé, activé et démarré, vous pouvez voir chaque champ indexé par Intlayer en survolant votre contenu avec votre curseur.
+Lorsque l'éditeur est installé, activé et démarré, vous pouvez afficher chaque champ indexé par Intlayer en survolant votre contenu avec votre curseur.
 
 ![Survol du contenu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-Si votre contenu est encadré, vous pouvez maintenir une pression prolongée pour afficher le tiroir de modification.
+Si votre contenu est encadré, vous pouvez effectuer un appui long pour afficher le tiroir d'édition.

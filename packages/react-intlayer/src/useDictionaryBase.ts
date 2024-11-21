@@ -5,9 +5,9 @@ import type {
   DictionaryValue,
   NodeType,
 } from '@intlayer/core';
-import { renderIntlayerEditor } from 'intlayer-editor';
 import { isValidElement, type ReactNode } from 'react';
 import { processDictionary } from './processDictionary/index';
+import { renderIntlayerEditor } from './editor/renderContentEditor';
 
 export type IntlayerNode<T = string> = ReactNode & {
   value: T;

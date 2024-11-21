@@ -74,6 +74,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@intlayer/config": "workspace:^",
+    "@intlayer/core": "workspace:^",
+    "@intlayer/dictionaries-entry": "workspace:^",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
@@ -93,12 +96,12 @@
     "rollup-preserve-directives": "^1.1.2",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
     "@intlayer/backend": "workspace:^",
-    "@intlayer/dictionaries-entry": "workspace:^",
     "@storybook/addon-essentials": "^8.4.4",
     "@storybook/addon-interactions": "^8.4.4",
     "@storybook/addon-links": "^8.4.4",
@@ -138,6 +141,7 @@
     "vite-plugin-dts": "^4.3.0"
   },
   "peerDependencies": {
+    "@intlayer/backend": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",

@@ -4,13 +4,12 @@ import { isSameKeyPath, type KeyPath } from '@intlayer/core';
 import { ContentSelector } from '@intlayer/design-system';
 import {
   useCallback,
-  useContext,
   useEffect,
   useState,
   type FC,
   type ReactNode,
 } from 'react';
-import { IntlayerEditorContext } from './ContentEditorProvider';
+import { useIntlayerEditorContext } from './IntlayerEditorProvider';
 import { useDictionaryEditionDrawer } from './DictionaryEditionDrawer/useDictionaryEditionDrawer';
 
 type ContentSelectorWrapperProps = {
@@ -29,7 +28,7 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   const { open, getEditedContentValue, focusedContent, isOpen } =
     useDictionaryEditionDrawer(dictionaryId);
   const editedValue = getEditedContentValue(dictionaryId, keyPath);
-  const { editorEnabled } = useContext(IntlayerEditorContext);
+  const { isEditorEnabled } = useIntlayerEditorContext();
   const [displayedChildren, setDisplayedChildren] =
     useState<ReactNode>(children);
 
@@ -51,12 +50,12 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
 
   useEffect(() => {
     // Use useEffect to avoid 'Text content does not match server-rendered HTML' error
-    if (editorEnabled && editedValue && typeof editedValue === 'string') {
+    if (isEditorEnabled && editedValue && typeof editedValue === 'string') {
       setDisplayedChildren(editedValue);
     }
-  }, [editedValue, editorEnabled]);
+  }, [editedValue, isEditorEnabled]);
 
-  if (!editorEnabled) {
+  if (!isEditorEnabled) {
     return children;
   }
 

@@ -1,7 +1,6 @@
 'use client';
 
 import { getConfiguration, type Locales } from '@intlayer/config/client';
-import { ContentEditionLayout } from 'intlayer-editor';
 import {
   type PropsWithChildren,
   createContext,
@@ -12,6 +11,7 @@ import {
   useCallback,
 } from 'react';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
+import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
 
 type IntlayerValue = {
   locale: Locales;
@@ -34,7 +34,6 @@ export const useIntlayerContext = () => useContext(IntlayerClientContext);
 export type IntlayerProviderProps = PropsWithChildren & {
   locale?: Locales;
   setLocale?: (locale: Locales) => void;
-  editorEnabled?: boolean;
 };
 
 /**
@@ -44,9 +43,8 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
   locale,
   children,
   setLocale: setLocaleProp,
-  editorEnabled = true,
 }) => {
-  const { internationalization, editor } = getConfiguration();
+  const { internationalization } = getConfiguration();
   const { defaultLocale, locales: availableLocales } = internationalization;
 
   const [currentLocale, setCurrentLocale] = useState(
@@ -75,24 +73,9 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
     [currentLocale, setLocale]
   );
 
-  const isEditorEnabled = Boolean(
-    editor?.enabled && editor.clientId && editor.clientSecret && editorEnabled
-  );
-
   return (
     <IntlayerClientContext.Provider value={value}>
-      {isEditorEnabled ? (
-        <ContentEditionLayout
-          locale={currentLocale}
-          setLocale={setLocale}
-          localeList={availableLocales}
-          editorEnabled={isEditorEnabled}
-        >
-          {children}
-        </ContentEditionLayout>
-      ) : (
-        children
-      )}
+      <IntlayerEditorProvider>{children}</IntlayerEditorProvider>
     </IntlayerClientContext.Provider>
   );
 };

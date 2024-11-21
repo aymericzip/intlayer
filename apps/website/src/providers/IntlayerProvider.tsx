@@ -8,7 +8,6 @@ import type { FC } from 'react';
 export const LocaleContextProvider: FC<IntlayerClientProviderProps> = ({
   children,
   locale,
-  editorEnabled,
 }) => (
   <>
     {/**
@@ -20,7 +19,7 @@ export const LocaleContextProvider: FC<IntlayerClientProviderProps> = ({
        *   IntlayerClientProvider is used to provide the locale to the client children
        *   IntlayerClientProvider can be set in any parent component, including the layout
        */}
-      <IntlayerClientProvider locale={locale} editorEnabled={editorEnabled}>
+      <IntlayerClientProvider locale={locale}>
         {children}
       </IntlayerClientProvider>
     </IntlayerServerProvider>

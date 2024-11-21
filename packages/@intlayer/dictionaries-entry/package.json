@@ -83,6 +83,10 @@
     "tsup": "^8.3.5",
     "typescript": "^5.6.3"
   },
+  "peerDependencies": {
+    "@intlayer/config": "workspace:^",
+    "@intlayer/core": "workspace:^"
+  },
   "engines": {
     "node": ">=14.18"
   },

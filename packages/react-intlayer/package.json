@@ -60,6 +60,11 @@
       "require": "./dist/cjs/vite/intlayerPlugin.cjs",
       "import": "./dist/esm/vite/intlayerPlugin.mjs"
     },
+    "./editor": {
+      "types": "./dist/types/editor/index.d.ts",
+      "require": "./dist/cjs/editor/index.cjs",
+      "import": "./dist/esm/editor/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -99,8 +104,6 @@
     "@intlayer/core": "workspace:^",
     "@intlayer/webpack": "workspace:^",
     "cross-spawn": "^7.0.5",
-    "intlayer": "workspace:^",
-    "intlayer-editor": "workspace:^",
     "js-cookie": "^3.0.5",
     "react-cookie": "^7.2.2",
     "vite": "^5.4.11",
@@ -127,7 +130,12 @@
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
+    "@intlayer/chokidar": "workspace:^",
+    "@intlayer/config": "workspace:^",
+    "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
+    "@intlayer/webpack": "workspace:^",
+    "intlayer": "workspace:^",
     "react": ">=16.0.0 <19.0.0",
     "react-dom": ">=16.0.0 <19.0.0"
   },

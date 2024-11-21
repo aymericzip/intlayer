@@ -1,7 +1,7 @@
 import { getConfiguration } from '@intlayer/config/client';
 import type { KeyPath } from '@intlayer/core';
 import type { FC, ReactNode } from 'react';
-import { ContentSelectorWrapper } from './ContentSelectorWrapper';
+import { ContentSelectorConnector } from './ContentSelectorConnector';
 
 const {
   editor: { enabled },
@@ -22,7 +22,7 @@ const IntlayerEditorElement: FC<IntlayerEditorElementProps> = ({
 }) => {
   if (enabled && isContentSelectable) {
     return (
-      <ContentSelectorWrapper {...props}>{content}</ContentSelectorWrapper>
+      <ContentSelectorConnector {...props}>{content}</ContentSelectorConnector>
     );
   }
   return content;

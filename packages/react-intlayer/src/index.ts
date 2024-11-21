@@ -8,6 +8,7 @@ export {
   useLocale,
   useTraduction,
   useLocaleCookie,
+  useIntlayerContext,
   localeCookie,
   setLocaleCookie,
   getBrowserLocale,

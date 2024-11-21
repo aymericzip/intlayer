@@ -89,7 +89,6 @@
     "@intlayer/core": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
     "@intlayer/webpack": "workspace:^",
-    "intlayer": "workspace:^",
     "react-intlayer": "workspace:^",
     "webpack": "^5.96.1"
   },
@@ -102,6 +101,7 @@
     "@utils/tsup-config": "workspace:^",
     "concurrently": "^9.1.0",
     "eslint": "^9.14.0",
+    "intlayer": "workspace:^",
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
@@ -109,8 +109,14 @@
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
+    "@intlayer/config": "workspace:^",
+    "@intlayer/core": "workspace:^",
+    "@intlayer/dictionaries-entry": "workspace:^",
+    "@intlayer/webpack": "workspace:^",
+    "intlayer": "workspace:^",
     "next": ">=14.0.0 <16.0.0",
-    "react": ">=16.0.0 <19.0.0"
+    "react": ">=16.0.0 <19.0.0",
+    "react-intlayer": "workspace:^"
   },
   "engines": {
     "node": ">=14.18"
