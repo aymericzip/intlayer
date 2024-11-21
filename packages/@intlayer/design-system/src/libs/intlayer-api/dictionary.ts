@@ -14,13 +14,16 @@ import type {
   GetDictionaryResult,
   GetDictionariesKeysResult,
 } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config/client';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
 
-const backendURL = getConfiguration().editor.backendURL;
-const PROJECT_API_ROUTE = `${backendURL}/api/dictionary`;
+export const getDictionaryAPI = (
+  authAPIOptions: FetcherOptions = {},
+  intlayerConfig?: IntlayerConfig
+) => {
+  const { backendURL } = (intlayerConfig ?? getConfiguration()).editor;
+  const PROJECT_API_ROUTE = `${backendURL}/api/dictionary`;
 
-export const getDictionaryAPI = (authAPIOptions: FetcherOptions = {}) => {
   /**
    * Retrieves a list of dictionaries based on filters and pagination.
    * @param filters - Filters and pagination options.

@@ -12,13 +12,16 @@ import type {
   UpdateUserBody,
   UpdateUserResult,
 } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config/client';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
 
-const backendURL = getConfiguration().editor.backendURL;
-const USER_API_ROUTE = `${backendURL}/api/user`;
+export const getUserAPI = (
+  authAPIOptions: FetcherOptions = {},
+  intlayerConfig?: IntlayerConfig
+) => {
+  const { backendURL } = (intlayerConfig ?? getConfiguration()).editor;
+  const USER_API_ROUTE = `${backendURL}/api/user`;
 
-export const getUserAPI = (authAPIOptions: FetcherOptions = {}) => {
   /**
    * Retrieves a list of users based on filters and pagination.
    * @param filters - Filters and pagination options.

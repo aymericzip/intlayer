@@ -1,17 +1,18 @@
 import { getConfiguration } from '@intlayer/config';
 // @ts-ignore @intlayer/design-system not build yet
-import { intlayerAPI } from '@intlayer/design-system/libs';
+import { getIntlayerAPI } from '@intlayer/design-system/libs';
 
 export const fetchDistantDictionaryKeys = async (): Promise<string[]> => {
-  const {
-    editor: { clientId, clientSecret },
-  } = getConfiguration();
+  const config = getConfiguration();
+  const { clientId, clientSecret } = config.editor;
 
   if (!clientId || !clientSecret) {
     throw new Error(
       'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
     );
   }
+
+  const intlayerAPI = getIntlayerAPI(undefined, config);
 
   const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
 

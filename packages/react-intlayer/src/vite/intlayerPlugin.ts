@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-
 import { join, relative, resolve } from 'path';
 import { watch } from '@intlayer/chokidar';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
@@ -26,13 +24,13 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
 
   config: (config, { mode }) => {
     const intlayerConfig = getConfiguration();
+    const { mainDir, baseDir } = intlayerConfig.content;
 
     // Set all configuration values as environment variables
     const env = formatEnvVariable('vite');
 
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()), ...env };
 
-    const { mainDir, baseDir } = intlayerConfig.content;
     const dictionariesPath = join(mainDir, 'dictionaries.mjs');
     const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 

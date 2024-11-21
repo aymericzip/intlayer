@@ -2,13 +2,16 @@ import type {
   GetCheckoutSessionBody,
   GetCheckoutSessionResult,
 } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config/client';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
 
 const backendURL = getConfiguration().editor.backendURL;
 const STRIPE_API_ROUTE = `${backendURL}/api/stripe`;
 
-export const getStripeAPI = (authAPIOptions: FetcherOptions = {}) => {
+export const getStripeAPI = (
+  authAPIOptions: FetcherOptions = {},
+  intlayerConfig?: IntlayerConfig
+) => {
   /**
    * Retrieves a checkout session.
    * @param body - Checkout session body.

@@ -24,13 +24,18 @@ import type {
   UserAPI,
   CheckIfUserHasPasswordResult,
 } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config/client';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
 
-const { backendURL, clientId, clientSecret } = getConfiguration().editor;
-const AUTH_API_ROUTE = `${backendURL}/api/auth`;
+export const getAuthAPI = (
+  authAPIOptions: FetcherOptions = {},
+  intlayerConfig?: IntlayerConfig
+) => {
+  const { backendURL, clientId, clientSecret } = (
+    intlayerConfig ?? getConfiguration()
+  ).editor;
+  const AUTH_API_ROUTE = `${backendURL}/api/auth`;
 
-export const getAuthAPI = (authAPIOptions: FetcherOptions = {}) => {
   /**
    * Logs in a user with the provided credentials.
    * @param user - User credentials.

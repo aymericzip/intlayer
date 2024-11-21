@@ -2,7 +2,7 @@
 import { type DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
 // @ts-ignore @intlayer/design-system not build yet
-import { intlayerAPI } from '@intlayer/design-system/libs';
+import { getIntlayerAPI } from '@intlayer/design-system/libs';
 import pLimit from 'p-limit';
 import { logger } from './log';
 
@@ -19,9 +19,9 @@ export const fetchDistantDictionaries = async (
   options: FetchDistantDictionariesOptions
 ): Promise<DictionaryAPI[]> => {
   try {
-    const {
-      editor: { clientId, clientSecret },
-    } = getConfiguration();
+    const config = getConfiguration();
+    const { clientId, clientSecret } = config.editor;
+    const intlayerAPI = getIntlayerAPI(undefined, config);
 
     if (!clientId || !clientSecret) {
       throw new Error(

@@ -16,12 +16,16 @@ import type {
   AddOrganizationMemberBody,
   AddOrganizationMemberResult,
 } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config/client';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
 
-const ORGANIZATION_API_ROUTE = `${getConfiguration().editor.backendURL}/api/organization`;
+export const getOrganizationAPI = (
+  authAPIOptions: FetcherOptions = {},
+  intlayerConfig?: IntlayerConfig
+) => {
+  const { backendURL } = (intlayerConfig ?? getConfiguration()).editor;
+  const ORGANIZATION_API_ROUTE = `${backendURL}/api/organization`;
 
-export const getOrganizationAPI = (authAPIOptions: FetcherOptions = {}) => {
   /**
    * Retrieves a list of organizations based on filters and pagination.
    * @param filters - Filters and pagination options.
