@@ -36,6 +36,7 @@ const secureHeaders = createSecureHeaders({
       fontSrc: ["'self'"],
       scriptSrcElem: [
         "'self'",
+        'data:',
         "'report-sample'",
         "'unsafe-inline'",
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
