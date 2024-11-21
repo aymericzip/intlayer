@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "intlayer": "workspace:^",
-    "next": "15.0.3",
+    "next": "15.0.0",
     "next-intlayer": "workspace:^",
     "react": "18.3.1",
     "react-dom": "18.3.1"
