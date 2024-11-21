@@ -35,8 +35,18 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./tailwind": {
+      "types": "./dist/types/styles/tailwind.d.ts",
+      "import": "./dist/esm/styles/tailwind.mjs",
+      "require": "./dist/cjs/styles/tailwind.cjs"
+    },
+    "./css": {
+      "types": "./dist/types/styles/css.d.ts",
+      "import": "./dist/esm/styles/css.mjs",
+      "require": "./dist/cjs/styles/css.cjs"
     },
     "./package.json": "./package.json"
   },

@@ -102,6 +102,32 @@ function Page() {
 }
 ```
 
+## 3. Agregar las hojas de estilo a tu aplicación
+
+Para mostrar las hojas de estilo del editor, necesitas agregar las hojas de estilo a tu aplicación.
+
+Si se utiliza tailwind, puedes agregar las hojas de estilo a tu archivo `tailwind.config.js`:
+
+```js
+// tailwind.config.js
+import { intlayerTailwindContent } from "intlayer-editor/tailwind";
+
+module.exports = {
+  content: [
+    ...intlayerTailwindContent,
+    // ... resto de tu contenido
+  ],
+  // ...
+};
+```
+
+De lo contrario, puedes agregar la hoja de estilo de importación en tu aplicación:
+
+```tsx
+// app.tsx
+import "@intlayer/editor/css";
+```
+
 ## Uso del Editor
 
 Cuando el editor está instalado, habilitado e iniciado, puedes ver cada campo indexado por Intlayer al pasar el cursor sobre tu contenido.

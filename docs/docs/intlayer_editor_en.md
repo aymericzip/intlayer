@@ -104,6 +104,32 @@ function Page() {
 }
 ```
 
+## 3. Add the stylesheets to your application
+
+To display the editor styles, you need to add the stylesheets to your application.
+
+If tailwind is used, you can add the stylesheets to your `tailwind.config.js` file:
+
+```js
+// tailwind.config.js
+import { intlayerTailwindContent } from "intlayer-editor/tailwind";
+
+module.exports = {
+  content: [
+    ...intlayerTailwindContent,
+    // ... rest of your content
+  ],
+  // ...
+};
+```
+
+Otherwise, you can add import the stylesheets in your application:
+
+```tsx
+// app.tsx
+import "@intlayer/editor/css";
+```
+
 ## Using the Editor
 
 When the editor is installed, enabled, and started, you can view each field indexed by Intlayer by hovering over your content with your cursor.

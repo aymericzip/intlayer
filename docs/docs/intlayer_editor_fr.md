@@ -104,6 +104,32 @@ function Page() {
 }
 ```
 
+## 3. Ajouter les feuilles de style à votre application
+
+Pour afficher les feuilles de style de l'éditeur, vous devez ajouter les feuilles de style à votre application.
+
+Si tailwind est utilisé, vous pouvez ajouter les feuilles de style à votre fichier `tailwind.config.js`:
+
+```js
+// tailwind.config.js
+import { intlayerTailwindContent } from "intlayer-editor/tailwind";
+
+module.exports = {
+  content: [
+    ...intlayerTailwindContent,
+    // ... reste de votre contenu
+  ],
+  // ...
+};
+```
+
+Sinon, vous pouvez ajouter l'importation des feuilles de style dans votre application :
+
+```tsx
+// app.tsx
+import "@intlayer/editor/css";
+```
+
 ## Utilisation de l'éditeur
 
 Lorsque l'éditeur est installé, activé et démarré, vous pouvez afficher chaque champ indexé par Intlayer en survolant votre contenu avec votre curseur.
