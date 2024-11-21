@@ -80,9 +80,7 @@
     "glob": "^11.0.0",
     "node-loader": "^2.1.0",
     "rimraf": "^6.0.1",
-    "util": "^0.12.5",
     "webpack": "^5.96.1",
-    "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
   },
   "devDependencies": {
@@ -102,7 +100,8 @@
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:^",
-    "@intlayer/config": "workspace:^"
+    "@intlayer/config": "workspace:^",
+    "webpack": "^5.96.1"
   },
   "engines": {
     "node": ">=14.18"
