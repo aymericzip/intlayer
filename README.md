@@ -21,6 +21,38 @@
 
 Intlayer is an innovative internationalization framework designed to replace i18next for Next.js and React applications. It streamlines the process of internationalization with flexible content declaration and robust configuration options.
 
+## Table of Contents
+
+Explore our comprehensive documentation to get started with Intlayer and learn how to integrate it into your projects.
+
+### Get Started
+
+- [Introduction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/introduction_en.md)
+
+### Concept
+
+- [How Intlayer Works](https://github.com/aymericzip/intlayer/blob/main/docs/docs/how_works_intlayer_en.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md)
+- [Interest of Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/interest_of_intlayer_en.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_cli_en.md)
+- [Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_editor_en.md)
+- **Content Declaration**
+  - [Declare Your Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/get_started_en.md)
+  - [Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/translation_en.md)
+  - [Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/enumeration_en.md)
+  - [Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/function_fetching_en.md)
+
+### Environment
+
+- [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md)
+- [Intlayer with React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md)
+- [Intlayer with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
+- [Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_express_en.md)
+
+### Blog
+
+- [Intlayer and i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md)
+
 ## Why Intlayer?
 
 Intlayer offers a more modern approach to internationalization compared to traditional frameworks like i18next. It is designed to fit seamlessly into Next.js and React projects, providing intuitive content declaration, robust configuration options, and a simpler setup process.
@@ -33,44 +65,7 @@ Intlayer offers a more modern approach to internationalization compared to tradi
 
 ## Getting Started
 
-To start using Intlayer, follow these steps:
-
-### Installation
-
-Install the necessary packages for your project:
-
-```bash
-npm install intlayer
-```
-
-```bash
-yarn add intlayer
-```
-
-```bash
-pnpm add intlayer
-```
-
-### Declaring Your Content
-
-Intlayer allows you to declare your content in various formats, including TypeScript, ECMAScript modules, CommonJS modules, and JSON. Here's an example of a content declaration using TypeScript:
-
-```typescript
-import { t, type DeclarationContent } from "intlayer";
-
-const exampleContent = {
-  key: "example",
-  content: {
-    welcome: t({
-      en: "Welcome",
-      fr: "Bienvenue",
-      es: "Bienvenido",
-    }),
-  },
-} satisfies DeclarationContent;
-
-export default exampleContent;
-```
+To start using Intlayer, follow these steps corresponding to your project type:
 
 For more examples and information on content declaration, [see the documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration_en.md).
 
