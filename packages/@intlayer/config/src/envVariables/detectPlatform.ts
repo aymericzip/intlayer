@@ -1,8 +1,9 @@
+import process from 'process';
+
 export type Platform = 'next' | 'vite' | 'react_app' | 'unknown';
 
 export const getPlatform = (): Platform => {
   if (
-    // eslint-disable-next-line
     typeof import.meta !== 'undefined' &&
     typeof import.meta.env !== 'undefined' &&
     typeof import.meta.env.VITE_INTLAYER_DEFAULT_LOCALE !== 'undefined'
