@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { extname, relative } from 'path';
 import react from '@vitejs/plugin-react';
-import { glob } from 'glob';
+import fg from 'fast-glob';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -36,7 +36,7 @@ export default defineConfig(() => ({
 
     lib: {
       entry: Object.fromEntries(
-        glob
+        fg
           .sync('src/**/*.{ts,tsx,js,jsx,mjs,cjs}', {
             ignore: 'src/**/*.{stories,test,specs}.{ts,tsx,js,jsx,mjs,cjs}',
           })

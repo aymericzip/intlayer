@@ -5,10 +5,10 @@ import { spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import Enquirer from 'enquirer';
-import { glob } from 'glob';
+import fg from 'fast-glob';
 
 const getPackages = (pattern, index) => {
-  return glob.sync(pattern, { ignore: '**/node_modules/**' }).map((pkgPath) => {
+  return fg.sync(pattern, { ignore: '**/node_modules/**' }).map((pkgPath) => {
     const packageJsonPath = `${pkgPath}`;
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
     const packageRelativePath = path.relative(

@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, join, relative } from 'path';
 import { Locales, getConfiguration } from '@intlayer/config';
-import { sync } from 'glob';
+import fg from 'fast-glob';
 import { getFileHash, transformToCamelCase } from '../../utils';
 
 const { content, internationalization } = getConfiguration();
@@ -94,7 +94,7 @@ export const createModuleAugmentation = () => {
     mkdirSync(moduleAugmentationDir, { recursive: true });
   }
 
-  const dictionaries: string[] = sync(`${typesDir}/**/*.d.ts`);
+  const dictionaries: string[] = fg.sync(`${typesDir}/**/*.d.ts`);
   // Create the dictionary list file
 
   const tsContent = generateTypeIndexContent(dictionaries);

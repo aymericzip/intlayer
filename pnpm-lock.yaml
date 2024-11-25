@@ -43,9 +43,9 @@ importers:
       eslint:
         specifier: ^9.14.0
         version: 9.14.0
-      glob:
-        specifier: ^11.0.0
-        version: 11.0.0
+      fast-glob:
+        specifier: ^3.3.2
+        version: 3.3.2
       husky:
         specifier: ^9.1.6
         version: 9.1.6
@@ -1106,9 +1106,9 @@ importers:
       eslint-plugin-react-refresh:
         specifier: ^0.4.14
         version: 0.4.14(eslint@9.14.0)
-      glob:
-        specifier: ^11.0.0
-        version: 11.0.0
+      fast-glob:
+        specifier: ^3.3.2
+        version: 3.3.2
       lucide-react:
         specifier: ^0.456.0
         version: 0.456.0(react@18.3.1)
@@ -1197,9 +1197,9 @@ importers:
       esbuild-loader:
         specifier: ^4.2.2
         version: 4.2.2(webpack@5.96.1)
-      glob:
-        specifier: ^11.0.0
-        version: 11.0.0
+      fast-glob:
+        specifier: ^3.3.2
+        version: 3.3.2
       node-loader:
         specifier: ^2.1.0
         version: 2.1.0(webpack@5.96.1)
