@@ -5,7 +5,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
 import dotenv from 'dotenv';
-import express, { raw, type Express } from 'express';
+import express, { type Express } from 'express';
 import { intlayer, t } from 'express-intlayer';
 import helmet from 'helmet';
 
@@ -73,7 +73,11 @@ const isDev = env === 'development';
 connectDB();
 
 // Stripe
-app.post('/webhook/stripe', raw({ type: 'application/json' }), stripeWebhook);
+app.post(
+  '/webhook/stripe',
+  express.raw({ type: 'application/json' }),
+  stripeWebhook
+);
 
 // Compress all HTTP responses
 app.use(compression());
@@ -95,7 +99,11 @@ const corsOptions: CorsOptions = {
     'credentials',
     'cache-control',
     'Access-Control-Allow-Origin',
+    'private-state-token-redemption',
+    'private-state-token-issuance',
+    'browsing-topics',
   ],
+
   exposedHeaders: [''],
   preflightContinue: false,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',

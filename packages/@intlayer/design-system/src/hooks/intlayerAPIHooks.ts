@@ -71,6 +71,7 @@ const useAuthEnable = <T extends UseAsyncOptions<any>>(
 ): T => {
   const { csrfToken, oAuth2AccessToken, session } = useAuth();
 
+  const isEnabledOption = options?.enable ?? true;
   const user = session ? session.user : oAuth2AccessToken?.user;
 
   const organization = session
@@ -93,7 +94,11 @@ const useAuthEnable = <T extends UseAsyncOptions<any>>(
     (!session && Boolean(oAuth2AccessToken));
 
   const isEnabled =
-    isUserEnabled && isProjectEnabled && isOrganizationEnabled && isCSRFEnabled;
+    isEnabledOption &&
+    isUserEnabled &&
+    isProjectEnabled &&
+    isOrganizationEnabled &&
+    isCSRFEnabled;
 
   return {
     ...options,
@@ -542,7 +547,20 @@ export const useGetSubscription = (
   useAppAsync(
     'getSubscription',
     useIntlayerAuth().stripe.getSubscription,
-    { ...args, cache: true },
+    { ...args },
+    {
+      requireUser: true,
+      requireOrganization: true,
+    }
+  );
+
+export const useCancelSubscription = (
+  args?: UseAsyncOptions<typeof intlayerAPI.stripe.cancelSubscription>
+) =>
+  useAppAsync(
+    'cancelSubscription',
+    useIntlayerAuth().stripe.cancelSubscription,
+    { ...args, invalidateQueries: ['getSession'] },
     {
       requireUser: true,
       requireOrganization: true,

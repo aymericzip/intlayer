@@ -1,160 +1,195 @@
-// The library needs to be configured with your account's secret key.
-// Ensure the key is kept out of any version control system you might be using.
 import { logger } from '@logger';
+import { getOrganizationById } from '@services/organization.service';
 import {
-  addSubscription,
+  addOrUpdateSubscription,
   cancelSubscription,
   changeSubscriptionStatus,
 } from '@services/subscription.service';
-import { type Request, type Response } from 'express';
+import { GenericError } from '@utils/errors';
+import type { Request, Response } from 'express';
+import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
+import type { Plan } from '@/types/plan.types';
 
-export const stripeWebhook = async (request: Request, response: Response) => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  // This is your Stripe CLI webhook secret for testing your endpoint locally.
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+// Initialize the Stripe client with the secret key
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const sig = request.headers['stripe-signature']!;
+type SubscriptionMetadata = {
+  locale: Locales; // Localization setting (e.g., 'en', 'fr', 'es')
+  userId: string; // ID of the user associated with the subscription
+  organizationId: string; // ID of the organization associated with the subscription
+};
 
-  let event;
+/**
+ * Stripe webhook handler for processing subscription and invoice events.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
+export const stripeWebhook = async (req: Request, res: Response) => {
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!; // Webhook secret for verifying event signatures
+  const sig = req.headers['stripe-signature']!; // Retrieve the signature from the webhook request headers
 
+  let event: Stripe.Event;
+
+  // Verify the webhook signature to ensure the request is authentic
   try {
-    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
   } catch (err) {
-    response.status(400).send(`Webhook Error: ${(err as Error).message}`);
+    // Respond with a 400 status code if the signature verification fails
+    res.status(400).send(`Webhook Error: ${(err as Error).message}`);
     return;
   }
 
-  // Handle the event
-  switch (event.type) {
-    case 'customer.subscription.created': {
-      // Subscription created event received. This event indicates that a new subscription was successfully created.',
-      const subscription = event.data.object as Stripe.Subscription;
+  // Utility function to extract metadata from a Stripe customer
+  const extractMetadata = async (customerId: string) => {
+    const customer = await stripe.customers.retrieve(customerId); // Retrieve customer details from Stripe
+    return (customer as Stripe.Customer).metadata as SubscriptionMetadata; // Return the metadata object
+  };
 
-      logger.info({
-        hey: 'new event',
-        type: event.type,
-        subscriptionId: subscription.id,
-        customerId: subscription.customer,
-        status: subscription.status,
-        startDate: subscription.start_date,
-      });
+  // Handles subscription-related events (creation, update, deletion)
+  const handleSubscriptionEvent = async (
+    subscription: Stripe.Subscription,
+    statusOverride?: Plan['status'] // Optionally override the subscription status
+  ) => {
+    const { id: subscriptionId, customer } = subscription;
+    const priceId = subscription.items.data[0]?.price?.id; // Extract the price ID from subscription items
 
-      let userEmail = '';
+    if (!customer) {
+      throw new GenericError('STRIPE_SUBSCRIPTION_NO_CUSTOMER');
+    }
 
-      const priceId = subscription.items.data[0].price.id;
-      const customerId = (subscription.customer ?? '') as string;
+    const customerId = customer as string;
+    const { locale, userId, organizationId } =
+      await extractMetadata(customerId); // Extract metadata from the customer
 
-      if (subscription.customer) {
-        const customer = await stripe.customers.retrieve(customerId);
+    // Set localization in response locals if available
+    if (locale) {
+      res.locals.locales = locale;
+    }
 
-        userEmail = (customer as unknown as { email: string }).email;
+    const organization = await getOrganizationById(organizationId); // Fetch organization details by ID
+
+    if (!organization) {
+      throw new GenericError('ORGANIZATION_NOT_FOUND');
+    }
+
+    const status = statusOverride ?? subscription.status; // Use the provided status override or the subscription's status
+
+    // Update or create a subscription record in the database
+    await addOrUpdateSubscription(
+      subscriptionId,
+      priceId!,
+      customerId,
+      userId,
+      organization,
+      status
+    );
+  };
+
+  // Handles invoice-related events (payment success or failure)
+  const handleInvoiceEvent = async (
+    invoice: Stripe.Invoice,
+    status: 'active' | 'incomplete'
+  ) => {
+    const subscriptionId = invoice.subscription as string; // Extract the subscription ID from the invoice
+    if (!subscriptionId) {
+      logger.warn('Subscription ID is undefined in invoice.');
+      return;
+    }
+
+    // Retrieve the subscription details from Stripe
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const organization = await getOrganizationById(
+      subscription.metadata.organizationId
+    );
+
+    // Prevent duplicate subscriptions by canceling conflicting subscriptions
+    if (
+      organization.plan.subscriptionId &&
+      organization.plan.subscriptionId !== subscriptionId
+    ) {
+      await stripe.subscriptions.cancel(subscriptionId);
+    }
+
+    const customerId = invoice.customer as string;
+    const { locale, userId, organizationId } =
+      await extractMetadata(customerId);
+
+    // Set localization in response locals if available
+    if (locale) {
+      res.locals.locales = locale;
+    }
+
+    // Update the subscription status in the database
+    await changeSubscriptionStatus(
+      subscriptionId,
+      status,
+      userId,
+      organizationId
+    );
+  };
+
+  try {
+    // Log the event type for debugging and monitoring
+    logger.info(`Triggered event type ${event.type}`);
+
+    // Handle specific event types
+    switch (event.type) {
+      case 'customer.subscription.created': {
+        logger.info(`Handled event type ${event.type}`);
+        // Process a new subscription creation event
+        await handleSubscriptionEvent(event.data.object as Stripe.Subscription);
+        break;
       }
-
-      await addSubscription(priceId!, customerId, userEmail);
-
-      break;
-    }
-
-    case 'customer.subscription.updated': {
-      // Subscription updated event received. This event indicates that the subscription was updated, which may include changes to its status, billing cycle, or other properties.
-      const subscription = event.data.object as Stripe.Subscription;
-
-      logger.info({
-        hey: 'new event',
-        type: event.type,
-        subscriptionId: subscription.id,
-        customerId: subscription.customer,
-        status: subscription.status,
-        startDate: subscription.start_date,
-      });
-
-      let userEmail = '';
-      let userLocale = '';
-
-      const priceId = subscription.items.data[0].price.id;
-      const customerId = (subscription.customer ?? '') as string;
-
-      if (subscription.customer) {
-        const customer = await stripe.customers.retrieve(customerId);
-
-        userEmail = (customer as unknown as { email: string }).email;
-        userLocale =
-          (customer as Stripe.Customer).metadata?.locale ?? 'default_locale';
+      case 'customer.subscription.updated': {
+        logger.info(`Handled event type ${event.type}`);
+        // Process a subscription update event
+        await handleSubscriptionEvent(event.data.object as Stripe.Subscription);
+        break;
       }
+      case 'customer.subscription.deleted': {
+        logger.info(`Handled event type ${event.type}`);
+        const subscription = event.data
+          .object as unknown as Stripe.Subscription;
+        const customerId = subscription.customer as string;
+        const { locale, organizationId } = await extractMetadata(customerId);
 
-      await addSubscription(priceId!, customerId, userEmail);
+        // Set localization in response locals if available
+        if (locale) {
+          res.locals.locales = locale;
+        }
 
-      break;
+        // Handle subscription deletion by canceling it in the database
+        await cancelSubscription(subscription.id, organizationId);
+        break;
+      }
+      case 'invoice.payment_succeeded': {
+        logger.info(`Handled event type ${event.type}`);
+        // Handle successful invoice payment
+        await handleInvoiceEvent(event.data.object as Stripe.Invoice, 'active');
+        break;
+      }
+      case 'invoice.payment_failed': {
+        logger.info(`Handled event type ${event.type}`);
+        // Handle failed invoice payment
+        await handleInvoiceEvent(
+          event.data.object as Stripe.Invoice,
+          'incomplete'
+        );
+        break;
+      }
+      default:
+        // Log unhandled event types for visibility
+        logger.info(`Unhandled event type ${event.type}`);
     }
 
-    case 'customer.subscription.deleted': {
-      // Subscription deleted event received. This event occurs when a subscription is canceled or deleted.
-      const subscription = event.data.object as Stripe.Subscription;
-
-      logger.info({
-        hey: 'new event',
-        type: event.type,
-
-        subscriptionId: subscription.id,
-        customerId: subscription.customer,
-        canceledAt: subscription.canceled_at,
-        status: subscription.status,
-      });
-      const customerId = (subscription.customer ?? '') as string;
-
-      cancelSubscription(customerId);
-
-      break;
-    }
-
-    case 'invoice.payment_succeeded': {
-      // Invoice payment succeeded event received. This event confirms that an invoice, including subscription payments, was successfully paid.
-      const invoice = event.data.object as Stripe.Invoice;
-
-      logger.info({
-        hey: 'new event',
-        type: event.type,
-
-        invoiceId: invoice.id,
-        customerId: invoice.customer,
-        amountPaid: invoice.amount_paid,
-        subscriptionId: invoice.subscription,
-      });
-
-      const customerId = (invoice.customer ?? '') as string;
-
-      changeSubscriptionStatus(customerId, 'ACTIVE');
-
-      break;
-    }
-
-    case 'invoice.payment_failed': {
-      // Invoice payment failed event received. This event occurs when Stripe is unable to process a payment for an invoice.
-      const invoice = event.data.object as Stripe.Invoice;
-
-      logger.warn({
-        hey: 'new event',
-        type: event.type,
-
-        invoiceId: invoice.id,
-        customerId: invoice.customer,
-        amountDue: invoice.amount_due,
-        subscriptionId: invoice.subscription,
-        attemptCount: invoice.attempt_count,
-      });
-
-      const customerId = (invoice.customer ?? '') as string;
-
-      changeSubscriptionStatus(customerId, 'ERROR');
-
-      break;
-    }
-
-    default:
-      logger.info(`Unhandled event type ${event.type}`);
+    // Respond to Stripe to confirm the event was processed successfully
+    res.send();
+  } catch (error) {
+    // Log errors for debugging and respond with a 500 status code
+    logger.error(
+      `Error handling event ${event.type}: ${(error as Error).message}`
+    );
+    res.status(500).send('Server Error');
   }
-
-  // Return a 200 response to acknowledge receipt of the event
-  response.send();
 };

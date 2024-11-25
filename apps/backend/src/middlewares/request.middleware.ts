@@ -14,9 +14,9 @@ export const logAPIRequestURL = (
     locals: res.locals,
   };
 
-  logger.info(
-    `API Request - ${req.method} - ${req.originalUrl} - ${JSON.stringify(queryDetails, null, 2)}`
-  );
+  // logger.info(
+  //   `API Request - ${req.method} - ${req.originalUrl} - ${JSON.stringify(queryDetails, null, 2)}`
+  // );
 
   next();
 };

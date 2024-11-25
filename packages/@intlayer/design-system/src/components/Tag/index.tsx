@@ -29,13 +29,14 @@ const containerVariants = cva('backdrop-blur w-fit', {
       text: 'bg-text/10 dark:bg-text-dark/10 border-text dark:border-text-dark text-text dark:text-text-dark',
     },
     size: {
+      xs: 'py-0.5 px-2 text-xs border-[1.2px]',
       sm: 'py-0.5 px-2 text-sm border-[1.5px]',
       md: 'py-1 px-2 text-base border-2',
       lg: 'py-2 px-3 text-lg border-2',
       xl: 'py-4 px-5 text-xl border-2',
     },
     border: {
-      none: '',
+      none: 'border-none',
       with: 'border-text dark:border-text-dark border-[1.5px]',
     },
     background: {

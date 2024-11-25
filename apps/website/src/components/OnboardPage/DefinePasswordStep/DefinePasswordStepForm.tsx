@@ -1,4 +1,4 @@
-import { Form, H2, useForm } from '@intlayer/design-system';
+import { Form, H2, useForm, useUser } from '@intlayer/design-system';
 import {
   useChangePassword,
   useCheckIfUserHasPassword,
@@ -20,8 +20,10 @@ export const DefinePasswordStepForm: FC = () => {
     newPasswordInput,
     confirmPasswordInput,
   } = useIntlayer('define-password-step');
+  const { user } = useUser();
   const { formData, goNextStep, goPreviousStep, setState, setFormData } =
     useStep(Steps.Password);
+  const { formData: registrationFormData } = useStep(Steps.Registration);
   const { changePassword, isLoading } = useChangePassword();
   const { data } = useCheckIfUserHasPassword({
     autoFetch: true,
@@ -47,6 +49,8 @@ export const DefinePasswordStepForm: FC = () => {
     goNextStep();
   };
 
+  const userEmail = user?.email ?? registrationFormData?.email ?? '';
+
   return (
     <Form
       schema={DefinePasswordSchema}
@@ -61,6 +65,15 @@ export const DefinePasswordStepForm: FC = () => {
         onSkipStep={goNextStep}
         isSkippable={isPasswordDefined}
       >
+        <Form.Input
+          type="text"
+          name="email"
+          value={userEmail}
+          autoComplete="username email"
+          disabled
+          hidden
+          className="hidden"
+        />
         {isPasswordDefined && (
           <Form.Input
             name="currentPassword"

@@ -1,4 +1,6 @@
 import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
+import { Steps } from '@components/OnboardPage/steps';
+import { useUser } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import React, {
   type MouseEventHandler,
@@ -19,6 +21,14 @@ type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
 
 const plans: Plans[] = [Plans.Free, Plans.Premium, Plans.Enterprise];
 
+const getPrice = (price: number, period: Period): number => {
+  if (period === 'yearly') {
+    return price / 12;
+  }
+
+  return price;
+};
+
 /**
  * PricingCarousel component
  * @param props - React props
@@ -31,6 +41,7 @@ export const PricingCarousel = ({
   setFocusedPeriod,
   ...props
 }: PricingCarouselProps) => {
+  const { user } = useUser();
   const { pricing, period } = useIntlayer('pricing');
   const [selectedPlanIndex, setSelectedPlanIndex] = useState<number | null>(
     null
@@ -125,7 +136,7 @@ export const PricingCarousel = ({
       // Set new timeout to select plan after 0.5 seconds
       const newTimeout = setTimeout(() => {
         setSelectedPlanIndex(index);
-      }, 500);
+      }, 1000);
       setFocusTimeout(newTimeout);
     },
     [focusTimeout]
@@ -332,7 +343,10 @@ export const PricingCarousel = ({
           <PricingColumn
             unit="$"
             period={period['monthly'].value}
-            price={pricing[focusedPeriod][plan].price.value}
+            price={getPrice(
+              pricing[focusedPeriod][plan].price.value,
+              focusedPeriod
+            )}
             checkPoint={pricing[focusedPeriod][plan].checkPoint.map(
               (el) => el.value
             )}
@@ -345,6 +359,7 @@ export const PricingCarousel = ({
             callToActionUrl={formatOnboardUrl({
               plan,
               period: focusedPeriod,
+              step: user ? Steps.SetupOrganization : Steps.Registration,
             })}
             title={pricing[focusedPeriod][plan].title.value}
             description={pricing[focusedPeriod][plan].description.value}

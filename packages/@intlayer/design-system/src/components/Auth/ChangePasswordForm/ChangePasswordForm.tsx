@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { Form, useForm } from '../../Form';
+import { useUser } from '../useUser';
 import {
   getChangePasswordSchema,
   type ChangePassword,
@@ -24,6 +25,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     changePasswordButton,
     backToHomeButton,
   } = getChangePasswordContent();
+  const { user } = useUser();
   const ChangePasswordSchema = getChangePasswordSchema();
 
   const { form, isSubmitting, isSubmitted, isValid } =
@@ -39,6 +41,15 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
+        <Form.Input
+          type="text"
+          name="email"
+          value={user?.email ?? ''}
+          autoComplete="username email"
+          disabled
+          hidden
+          className="hidden"
+        />
         <Form.InputPassword
           name="currentPassword"
           label={currentPasswordInput.label}

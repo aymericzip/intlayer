@@ -1,5 +1,13 @@
 import { Period, Plans } from '@components/PricingPage/data.content';
-import { Container, H2, H3, Label, Loader } from '@intlayer/design-system';
+import {
+  Button,
+  Container,
+  H2,
+  H3,
+  Label,
+  Loader,
+  useAuth,
+} from '@intlayer/design-system';
 import { useGetSubscription } from '@intlayer/design-system/hooks';
 import {
   Elements,
@@ -8,6 +16,8 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import { type Appearance, loadStripe } from '@stripe/stripe-js';
+import { Check, ShoppingCart } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import { FormEvent, useState, type FC } from 'react';
@@ -15,6 +25,7 @@ import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
+import { PagesRoutes } from '@/Routes';
 
 type PaymentStepContentProps = {
   plan: Plans;
@@ -68,13 +79,29 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
   const { goNextStep, goPreviousStep, setState, nextUrl } = useStep(
     Steps.Payment
   );
+  const { youReOrganizationIsAlreadySubscribed, pickANewProductButton } =
+    useIntlayer('payment-step');
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { session } = useAuth();
 
   const stripe = useStripe();
   const elements = useElements();
 
+  const planData = session?.organization?.plan;
+
+  const isPlanValid =
+    planData &&
+    planData?.type.toUpperCase() === plan.toUpperCase() &&
+    planData.status === 'active';
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (isPlanValid) {
+      goNextStep();
+      return;
+    }
 
     if (!stripe || !elements) {
       return;
@@ -124,7 +151,29 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
           <PaymentDetails plan={plan} period={period} />
         </Container>
 
-        <PaymentElement />
+        {isPlanValid ? (
+          <>
+            <div className="bg-success/30 dark:bg-success-dark/30 m-auto aspect-square rounded-full p-5">
+              <Check
+                className="text-success dark:text-success-dark"
+                size={50}
+              />
+            </div>
+            <span className="text-center text-base">
+              {youReOrganizationIsAlreadySubscribed.title}
+            </span>
+            <Button
+              label={pickANewProductButton.label.value}
+              color="text"
+              Icon={ShoppingCart}
+              onClick={() => router.push(PagesRoutes.Pricing)}
+            >
+              {pickANewProductButton.text}
+            </Button>
+          </>
+        ) : (
+          <PaymentElement />
+        )}
       </StepLayout>
     </form>
   );
@@ -235,12 +284,13 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   plan,
   period,
 }) => {
-  const { title } = useIntlayer('payment-step');
+  const { title, incorrectProductMessage } = useIntlayer('payment-step');
   const { theme } = useTheme();
   const priceId = retrievePriceId(plan, period);
 
-  const { data, isFetched } = useGetSubscription({
-    autoFetch: priceId !== undefined,
+  const { data, isLoading } = useGetSubscription({
+    autoFetch: true,
+    enable: true,
     args: {
       priceId,
     },
@@ -248,29 +298,26 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 
   const isDarkMode = theme === 'dark';
 
-  if (!isFetched) {
-    return <Loader />;
-  }
-
-  if (!data?.data?.clientSecret) {
-    return <>Error</>;
-  }
-
   const appearance = isDarkMode ? appearanceDark : appearanceLight;
 
   return (
     <>
       <H2 className="mb-4">{title}</H2>
+      {!priceId && <span>{incorrectProductMessage}</span>}
 
-      <Elements
-        stripe={stripePromise}
-        options={{
-          clientSecret: data.data.clientSecret,
-          appearance,
-        }}
-      >
-        <PaymentStepContent plan={plan} period={period} />
-      </Elements>
+      <Loader isLoading={isLoading}>
+        {data?.data?.clientSecret && (
+          <Elements
+            stripe={stripePromise}
+            options={{
+              clientSecret: data.data.clientSecret,
+              appearance,
+            }}
+          >
+            <PaymentStepContent plan={plan} period={period} />
+          </Elements>
+        )}
+      </Loader>
     </>
   );
 };

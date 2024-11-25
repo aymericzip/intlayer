@@ -6,9 +6,18 @@ export type PlanType = 'FREE' | 'PREMIUM' | 'ENTERPRISE';
 export type PlanData = {
   type: PlanType;
   creatorId?: User['_id'];
+  subscriptionId?: string;
   customerId?: string;
   priceId?: string;
-  status?: 'INACTIVE' | 'ACTIVE' | 'ERROR' | 'CANCELLED';
+  status?:
+    | 'active'
+    | 'canceled'
+    | 'past_due'
+    | 'unpaid'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'paused'
+    | 'trialing';
   period?: 'MONTHLY' | 'YEARLY';
 };
 

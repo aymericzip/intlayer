@@ -4,9 +4,9 @@ export const setUpOrganizationStepContent = {
   key: 'set-up-organization-step',
   content: {
     title: t({
-      en: 'Set up your organization',
-      fr: 'Configurez votre organisation',
-      es: 'Configura tu organización',
+      en: 'Select your organization',
+      fr: 'Sélectionnez votre organisation',
+      es: 'Selecciona tu organización',
     }),
   },
 } satisfies DeclarationContent;

@@ -5,13 +5,13 @@ import type {
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
 
-const backendURL = getConfiguration().editor.backendURL;
-const STRIPE_API_ROUTE = `${backendURL}/api/stripe`;
-
 export const getStripeAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
+  const backendURL = (intlayerConfig ?? getConfiguration()).editor.backendURL;
+  const STRIPE_API_ROUTE = `${backendURL}/api/stripe`;
+
   /**
    * Retrieves a checkout session.
    * @param body - Checkout session body.
@@ -30,7 +30,22 @@ export const getStripeAPI = (
       }
     );
 
+  /**
+   * Cancels a subscription.
+   * @param body - Checkout session body.
+   */
+  const cancelSubscription = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetCheckoutSessionResult>(
+      `${STRIPE_API_ROUTE}/cancel-subscription`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+      }
+    );
+
   return {
     getSubscription,
+    cancelSubscription,
   };
 };

@@ -317,7 +317,7 @@ export const useAsync = <
         isEnabled,
       });
     }
-  }, [enabled, keyWithArgs]);
+  }, [enabled, isEnabled, keyWithArgs]);
 
   // Auto-fetch data on hook mount if autoFetch is true
   useEffect(() => {

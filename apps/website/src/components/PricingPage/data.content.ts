@@ -184,7 +184,7 @@ const pricing = {
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
-      price: 7.99,
+      price: 7.99 * 12,
     },
     enterprise: {
       ...planDetails.enterprise,
@@ -192,7 +192,7 @@ const pricing = {
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
-      price: 16.99,
+      price: 16.99 * 12,
     },
   },
 } satisfies DeclarationContent<

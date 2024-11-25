@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 
 export const usePersistedStore = <T>(key: string, initialValue?: T) => {
   const [state, setState] = useState<T>(() => {
-    const persistedState = sessionStorage.getItem(key);
+    if (typeof window === 'undefined') return initialValue as T;
+
+    const persistedState = sessionStorage?.getItem(key);
 
     if (persistedState) {
       return JSON.parse(persistedState);
@@ -14,7 +16,7 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
   });
 
   useEffect(() => {
-    const persistedState = sessionStorage.getItem(key);
+    const persistedState = sessionStorage?.getItem(key);
 
     if (persistedState) {
       setState(JSON.parse(persistedState));

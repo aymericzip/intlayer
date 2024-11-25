@@ -243,6 +243,32 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
+  USER_NOT_ORGANIZATION_MEMBER: {
+    title: {
+      en: 'User Not Organization Member',
+      fr: "Utilisateur non membre de l'organisation",
+      es: 'Usuario no miembro de la organización',
+    },
+    message: {
+      en: 'The user is not a member of the organization.',
+      fr: "L'utilisateur n'est pas membre de l'organisation.",
+      es: 'El usuario no es miembro de la organización.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  USER_NOT_ORGANIZATION_ADMIN: {
+    title: {
+      en: 'User Not Organization Admin',
+      fr: "Utilisateur non administrateur de l'organisation",
+      es: 'Usuario no administrador de la organización',
+    },
+    message: {
+      en: 'The user is not an admin of the organization.',
+      fr: "L'utilisateur n'est pas administrateur de l'organisation.",
+      es: 'El usuario no es administrador de la organización.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
   JWT_TOKEN_CREATION_FAILED_USER: {
     title: {
       en: 'JWT Token Creation Failed',
@@ -302,9 +328,9 @@ export const errorData = {
       es: 'Organización no encontrada',
     },
     message: {
-      en: 'Organization not found for the project.',
-      fr: 'Organisation non trouvée pour le projet.',
-      es: 'Organización no encontrada para el proyecto.',
+      en: 'Organization not found.',
+      fr: 'Organisation non trouvée.',
+      es: 'Organización no encontrada.',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
@@ -1128,6 +1154,84 @@ export const errorData = {
       es: 'La URL de devolución no es válida.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  STRIPE_SUBSCRIPTION_NO_CUSTOMER: {
+    title: {
+      en: 'No customer found',
+      fr: 'Aucun client trouvé',
+      es: 'No se encontró el cliente',
+    },
+    message: {
+      en: 'No customer found for the provided subscription.',
+      fr: "Aucun client n'a été trouvé pour l'abonnement fourni.",
+      es: 'No se encontró ningún cliente para el suscripción proporcionada.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+  },
+  NO_SUBSCRIPTION_ID_PROVIDED: {
+    title: {
+      en: 'No subscription ID provided',
+      fr: "Aucun ID d'abonnement fourni",
+      es: 'No se proporcionó ningún ID de suscripción',
+    },
+    message: {
+      en: 'No subscription ID provided.',
+      fr: "Aucun ID d'abonnement n'a été fourni.",
+      es: 'No se proporcionó ningún ID de suscripción.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  CANNOT_CANCEL_SUBSCRIPTION: {
+    title: {
+      en: 'Cannot cancel subscription',
+      fr: "Impossible d'annuler l'abonnement",
+      es: 'No se puede cancelar la suscripción',
+    },
+    message: {
+      en: 'Cannot cancel subscription.',
+      fr: "Impossible d'annuler l'abonnement.",
+      es: 'No se puede cancelar la suscripción.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+  },
+  ALREADY_SUBSCRIBED: {
+    title: {
+      en: 'Already Subscribed',
+      fr: 'Déjà abonné',
+      es: 'Ya suscrito',
+    },
+    message: {
+      en: 'You are already subscribed to this plan.',
+      fr: 'Vous êtes déjà abonné à ce plan.',
+      es: 'Ya estás suscrito a este plan.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  SESSION_CREATION_FAILED: {
+    title: {
+      en: 'Session Creation Failed',
+      fr: 'Échec de la création de la session',
+      es: 'Error al crear la sesión',
+    },
+    message: {
+      en: 'Failed to create the specified session.',
+      fr: 'La création de la session a échoué.',
+      es: 'No se pudo crear la sesión especificada.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+  },
+  SETUP_INTENT_CREATION_FAILED: {
+    title: {
+      en: 'Setup Intent Creation Failed',
+      fr: "Échec de la création de l'intention de configuration",
+      es: 'Error al crear la intención de configuración',
+    },
+    message: {
+      en: 'Failed to create the setup intent.',
+      fr: "Échec de la création de l'intention de configuration.",
+      es: 'Error al crear la intención de configuración.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
 } satisfies Record<string, ErrorCode>;
 

@@ -11,7 +11,7 @@ import type {
   OrganizationCreationData,
   OrganizationDocument,
 } from '@/types/organization.types';
-import type { Plan } from '@/types/plan.types';
+import type { Plan, PlanDocument } from '@/types/plan.types';
 
 /**
  * Finds organizations based on filters and pagination options.
@@ -97,11 +97,6 @@ export const createOrganization = async (
       creatorId: userId,
       membersIds: [userId],
       adminsIds: [userId],
-      plan: {
-        name: 'FREE',
-        statue: 'ACTIVE',
-        creatorId: userId,
-      },
       ...organization,
     });
 
@@ -161,20 +156,6 @@ export const deleteOrganizationById = async (
   return organization;
 };
 
-export const saveStripeCustomerId = async (
-  organization: Organization,
-  customerId: string
-) => {
-  if (!organization) {
-    return null;
-  }
-
-  await OrganizationModel.updateOne(
-    { _id: organization._id },
-    { $set: { plan: { customerId } } }
-  );
-};
-
 /**
  * Updates an existing plan in the database by its ID.
  * @param planId - The ID of the plan to update.
@@ -182,12 +163,18 @@ export const saveStripeCustomerId = async (
  * @returns The updated plan.
  */
 export const updatePlan = async (
-  organization: Organization,
+  organization: Organization | OrganizationDocument,
   plan: Partial<Plan>
 ): Promise<OrganizationDocument | null> => {
+  let prevPlan = organization.plan ?? {};
+
+  if (typeof (prevPlan as PlanDocument)?.toObject === 'function') {
+    prevPlan = (prevPlan as PlanDocument).toObject();
+  }
+
   const updateOrganizationResult = await OrganizationModel.updateOne(
     { _id: organization._id },
-    { $set: { plan: { ...organization.plan, ...plan } } },
+    { $set: { plan: { ...prevPlan, ...plan } } },
     { new: true }
   );
 
@@ -200,21 +187,4 @@ export const updatePlan = async (
   const updatedOrganization = await getOrganizationById(organization._id);
 
   return updatedOrganization;
-};
-
-/**
- * Retrieves an organization by its customer ID.
- * @param customerId - The ID of the customer to find the organization.
- * @returns The organizations matching the customer ID.
- */
-export const getOrganizationByCustomerId = async (
-  customerId: string
-): Promise<OrganizationDocument | null> => {
-  const organization = await OrganizationModel.findOne({
-    plan: {
-      customerId,
-    },
-  });
-
-  return organization;
 };

@@ -52,6 +52,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
             onClick={() => handleSelectOrganization(organization._id)}
             label={selectButton.ariaLabel.value}
             color="text"
+            className="mt-auto"
           >
             {String(selectedOrganizationId) === String(organization._id)
               ? selectButton.selected.value

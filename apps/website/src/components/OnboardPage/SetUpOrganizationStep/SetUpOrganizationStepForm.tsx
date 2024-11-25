@@ -109,7 +109,7 @@ export const SetupOrganizationStepForm: FC = () => {
       <StepLayout
         onGoToPreviousStep={goPreviousStep}
         isLoading={isSubmitting}
-        isSkippable={Boolean(formData?.organizationId)}
+        isSkippable={Boolean(session?.organization?._id)}
         onSkipStep={goNextStep}
       >
         <H2>{title}</H2>
