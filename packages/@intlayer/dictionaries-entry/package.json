@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/dictionaries-entry",
-  "version": "3.2.2",
+  "version": "3.3.2",
   "private": false,
   "description": "IntLayer - Dictionaries Entry. This package only returns the dictionary entry path. For bundle configuration, this packages should be replaced by using an alias.",
   "keywords": [
