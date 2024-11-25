@@ -675,6 +675,9 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../../intlayer
+      log-update:
+        specifier: ^6.1.0
+        version: 6.1.0
       node-loader:
         specifier: ^2.1.0
         version: 2.1.0(webpack@5.96.1)
@@ -14308,7 +14311,6 @@ packages:
     engines: { node: '>=18' }
     dependencies:
       environment: 1.1.0
-    dev: true
 
   /ansi-html-community@0.0.8:
     resolution:
@@ -16233,7 +16235,6 @@ packages:
     engines: { node: '>=18' }
     dependencies:
       restore-cursor: 5.1.0
-    dev: true
 
   /cli-spinners@2.9.2:
     resolution:
@@ -18452,7 +18453,6 @@ packages:
       {
         integrity: sha512-EC+0oUMY1Rqm4O6LLrgjtYDvcVYTy7chDnM4Q7030tP4Kwj3u/pR6gP9ygnp2CJMK5Gq+9Q2oqmrFJAz01DXjw==,
       }
-    dev: true
 
   /emoji-regex@8.0.0:
     resolution:
@@ -18582,7 +18582,6 @@ packages:
         integrity: sha512-xUtoPkMggbz0MPyPiIWr1Kp4aeWJjDZ6SMvURhimjdZgsRuDplF5/s9hcgGhyXMhs+6vpnuoiZ2kFiu3FMnS8Q==,
       }
     engines: { node: '>=18' }
-    dev: true
 
   /err-code@2.0.3:
     resolution:
@@ -21352,7 +21351,6 @@ packages:
         integrity: sha512-2nk+7SIVb14QrgXFHcm84tD4bKQz0RxPuMT8Ag5KPOq7J5fEmAg0UbXdTOSHqNuHSU28k55qnceesxXRZGzKWA==,
       }
     engines: { node: '>=18' }
-    dev: true
 
   /get-intrinsic@1.2.4:
     resolution:
@@ -22788,7 +22786,6 @@ packages:
     engines: { node: '>=18' }
     dependencies:
       get-east-asian-width: 1.2.0
-    dev: true
 
   /is-generator-fn@2.1.0:
     resolution:
@@ -24832,7 +24829,6 @@ packages:
       slice-ansi: 7.1.0
       strip-ansi: 7.1.0
       wrap-ansi: 9.0.0
-    dev: true
 
   /logform@2.7.0:
     resolution:
@@ -25839,7 +25835,6 @@ packages:
         integrity: sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==,
       }
     engines: { node: '>=18' }
-    dev: true
 
   /mimic-response@1.0.1:
     resolution:
@@ -26962,7 +26957,6 @@ packages:
     engines: { node: '>=18' }
     dependencies:
       mimic-function: 5.0.1
-    dev: true
 
   /open@10.1.0:
     resolution:
@@ -30445,7 +30439,6 @@ packages:
     dependencies:
       onetime: 7.0.0
       signal-exit: 4.1.0
-    dev: true
 
   /retry@0.12.0:
     resolution:
@@ -31259,7 +31252,6 @@ packages:
     dependencies:
       ansi-styles: 6.2.1
       is-fullwidth-code-point: 5.0.0
-    dev: true
 
   /snake-case@3.0.4:
     resolution:
@@ -31812,7 +31804,6 @@ packages:
       emoji-regex: 10.4.0
       get-east-asian-width: 1.2.0
       strip-ansi: 7.1.0
-    dev: true
 
   /string.prototype.includes@2.0.0:
     resolution:
@@ -35322,7 +35313,6 @@ packages:
       ansi-styles: 6.2.1
       string-width: 7.2.0
       strip-ansi: 7.1.0
-    dev: true
 
   /wrappy@1.0.2:
     resolution:

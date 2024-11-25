@@ -51,7 +51,7 @@
     }
   },
   "bin": {
-    "intlayer": "./dist/cjs/cli.cjs"
+    "intlayer": "./dist/esm/cli.mjs"
   },
   "files": [
     "./dist",

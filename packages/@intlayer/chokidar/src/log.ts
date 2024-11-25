@@ -1,4 +1,5 @@
-import * as readline from 'readline';
+import logUpdate from 'log-update';
+import { sortAlphabetically } from './utils';
 
 export type State = {
   type: 'local' | 'distant';
@@ -45,7 +46,11 @@ class Logger {
     distantDictionariesKeys: string[]
   ) {
     const allKeys = Array.from(
-      new Set([...localDictionariesKeys, ...distantDictionariesKeys])
+      new Set(
+        [...localDictionariesKeys, ...distantDictionariesKeys].sort(
+          sortAlphabetically
+        )
+      )
     );
 
     this.maxDictionaryKeyLength = allKeys.reduce(
@@ -55,6 +60,7 @@ class Logger {
 
     this.dictionariesStatuses = allKeys.map((dictionaryKey) => {
       const states: State[] = [];
+
       if (localDictionariesKeys.includes(dictionaryKey)) {
         states.push({
           type: 'local',
@@ -69,19 +75,18 @@ class Logger {
           spinnerFrameIndex: 0,
         });
       }
+
       return {
         dictionaryKey,
         state: states,
       };
     });
 
-    // Output initial statuses
-    for (const statusObj of this.dictionariesStatuses) {
-      process.stdout.write(this.getStatusLine(statusObj) + '\n');
-    }
-
     // Start spinner timer
     this.startSpinner();
+
+    // Update all status lines (this will output the initial statuses)
+    this.updateAllStatusLines();
   }
 
   // New method to add dictionary keys after initialization
@@ -101,6 +106,7 @@ class Logger {
 
       if (!statusObj) {
         // If the dictionaryKey doesn't exist yet, create a new DictionariesStatus
+
         statusObj = {
           dictionaryKey,
           state: [],
@@ -113,40 +119,23 @@ class Logger {
           spinnerFrameIndex: 0,
         };
         statusObj.state.push(newState);
-
-        // Output the new status line
-        process.stdout.write(this.getStatusLine(statusObj) + '\n');
       } else {
         const existingState = statusObj.state.find((s) => s.type === type);
         if (!existingState) {
           // Add new state for the type
+
           const newState: State = {
             type,
             status: 'pending',
             spinnerFrameIndex: 0,
           };
           statusObj.state.push(newState);
-
-          // Update the existing line
-          const lineIndex = this.dictionariesStatuses.indexOf(statusObj);
-          // Move cursor up to the lineIndex from the bottom
-          readline.moveCursor(
-            process.stdout,
-            0,
-            -(this.dictionariesStatuses.length - lineIndex)
-          );
-          readline.clearLine(process.stdout, 0);
-          process.stdout.write(this.getStatusLine(statusObj) + '\n');
-          // Move cursor back to the bottom
-          readline.moveCursor(
-            process.stdout,
-            0,
-            this.dictionariesStatuses.length - lineIndex - 1
-          );
         }
       }
     }
-    // No need to redraw all status lines
+
+    // Call updateAllStatusLines() to refresh the output
+    this.updateAllStatusLines();
   }
 
   private startSpinner() {
@@ -166,8 +155,11 @@ class Logger {
 
   public stop() {
     this.stopSpinner();
-    // Update statuses one last time
-    this.updateAllStatusLines();
+    logUpdate.clear(); // Clear the logUpdate output
+    const lines = this.dictionariesStatuses.map((statusObj) =>
+      this.getStatusLine(statusObj)
+    );
+    console.log(lines.join('\n')); // Output final statuses
   }
 
   public updateStatus(
@@ -213,9 +205,10 @@ class Logger {
         state: [newState],
       });
     }
-  }
 
-  // Rest of the Logger class remains the same...
+    // Update the display after status change
+    this.updateAllStatusLines();
+  }
 
   private getStatusIcon(status: string): string {
     const statusIcons: Record<string, string> = {
@@ -231,7 +224,7 @@ class Logger {
   private getStatusLine(statusObj: DictionariesStatus): string {
     const keyPadding =
       this.maxDictionaryKeyLength - statusObj.dictionaryKey.length;
-    const paddedKey = statusObj.dictionaryKey + ' '.repeat(keyPadding);
+    const paddedKey = `${statusObj.dictionaryKey}${' '.repeat(keyPadding)}`;
 
     const states = statusObj.state.map((state) => {
       let colorStart = '';
@@ -266,17 +259,7 @@ class Logger {
   }
 
   private updateAllStatusLines() {
-    // Move cursor up to the first status line
-    readline.moveCursor(process.stdout, 0, -this.dictionariesStatuses.length);
-
-    for (const statusObj of this.dictionariesStatuses) {
-      // Clear the line
-      readline.clearLine(process.stdout, 0);
-
-      if (typeof statusObj?.state === 'undefined') {
-        return;
-      }
-
+    const lines = this.dictionariesStatuses.map((statusObj) => {
       statusObj.state.forEach((state) => {
         if (state.status === 'fetching') {
           // Update spinner frame
@@ -284,10 +267,10 @@ class Logger {
             (state.spinnerFrameIndex! + 1) % this.spinnerFrames.length;
         }
       });
+      return this.getStatusLine(statusObj);
+    });
 
-      // Write the status line
-      process.stdout.write(this.getStatusLine(statusObj) + '\n');
-    }
+    logUpdate(lines.join('\n'));
   }
 
   public getStatuses() {

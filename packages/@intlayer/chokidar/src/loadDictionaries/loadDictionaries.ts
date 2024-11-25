@@ -6,6 +6,7 @@ import merge from 'deepmerge';
 import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
 import { logger } from '../log';
 import { mergeByKey } from '../mergeDictionaries';
+import { sortAlphabetically } from '../utils';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadDistantDictionaries } from './loadDistantDictionaries';
 
@@ -15,9 +16,7 @@ export const loadDictionaries = async (
   contentDeclarationsPaths: string[] | string
 ): Promise<Dictionary[]> => {
   try {
-    const { editor } = getConfiguration({
-      verbose: true,
-    });
+    const { editor } = getConfiguration();
 
     console.info(`${LOG_PREFIX}Dictionaries:`);
 
@@ -45,12 +44,14 @@ export const loadDictionaries = async (
       // Fetch distant dictionary keys
       distantDictionaryKeys = await fetchDistantDictionaryKeys();
 
+      const orderedDistantDictionaryKeys =
+        distantDictionaryKeys.sort(sortAlphabetically);
       // Add distant dictionaries to the logger
-      logger.addDictionaryKeys('distant', distantDictionaryKeys);
+      logger.addDictionaryKeys('distant', orderedDistantDictionaryKeys);
 
       // Fetch distant dictionaries
       distantDictionaries = await loadDistantDictionaries({
-        dictionaryKeys: distantDictionaryKeys,
+        dictionaryKeys: orderedDistantDictionaryKeys,
       });
       if (editor.dictionaryPriorityStrategy === 'distant_first') {
         // Merge the dictionaries
@@ -70,9 +71,9 @@ export const loadDictionaries = async (
 
     return mergedDictionaries;
   } catch (error) {
-    console.error(error);
     // Ensure the logger is stopped
     logger.stop();
+
     throw error; // Re-throw the error after logging
   }
 };

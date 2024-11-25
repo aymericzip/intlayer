@@ -24,3 +24,5 @@ export const transformToCamelCase = (string: string): string => {
   // Join the words back together
   return camelCasedWords.join('');
 };
+
+export const sortAlphabetically = (a: string, b: string) => a.localeCompare(b);

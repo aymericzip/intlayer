@@ -1,9 +1,9 @@
-import { rmSync } from 'fs';
-import path, { relative } from 'path';
+import { relative } from 'path';
 import { getConfiguration } from '@intlayer/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import fg from 'fast-glob';
+import { cleanOutputDir } from '../cleanOutputDir';
 import { loadDictionaries } from '../loadDictionaries/loadDictionaries';
 import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
 import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
@@ -21,7 +21,9 @@ export const watch = (options?: ChokidarOptions) => {
     verbose: true,
   });
 
-  const { watchedFilesPatternWithPath, baseDir, resultDir } = content;
+  const { watchedFilesPatternWithPath, baseDir } = content;
+
+  cleanOutputDir();
 
   const files: string[] = fg.sync(watchedFilesPatternWithPath);
 
@@ -32,22 +34,16 @@ export const watch = (options?: ChokidarOptions) => {
     ...options,
   })
     .on('ready', async () => {
-      // Delete the dictionary directory dictionariesDir
-      rmSync(resultDir, { recursive: true });
-
       const dictionaries = await loadDictionaries(files);
 
       // Build locale dictionaries
       const dictionariesPaths = await buildDictionary(dictionaries);
 
       await createTypes(dictionariesPaths);
-      console.info(`${LOG_PREFIX}TypeScript types built`);
 
       createModuleAugmentation();
-      console.info(`${LOG_PREFIX}Intlayer module augmentation built`);
 
       createDictionaryList();
-      console.info(`${LOG_PREFIX}Intlayer dictionary list built`);
     })
     .on('add', async (filePath) => {
       // Process the file with the functionToRun
@@ -60,11 +56,9 @@ export const watch = (options?: ChokidarOptions) => {
 
       const dictionaries = await buildDictionary(localeDictionaries);
 
-      console.info(`${LOG_PREFIX}TypeScript types built`);
       await createTypes(dictionaries);
 
       createModuleAugmentation();
-      console.info(`${LOG_PREFIX}Intlayer module augmentation built`);
 
       createDictionaryList();
     })
