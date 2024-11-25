@@ -669,9 +669,9 @@ importers:
       esbuild-loader:
         specifier: ^4.2.2
         version: 4.2.2(webpack@5.96.1)
-      glob:
-        specifier: ^11.0.0
-        version: 11.0.0
+      fast-glob:
+        specifier: ^3.3.2
+        version: 3.3.2
       intlayer:
         specifier: workspace:^
         version: link:../../intlayer

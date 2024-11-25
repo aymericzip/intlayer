@@ -1,8 +1,9 @@
-import { relative } from 'path';
+import { rmSync } from 'fs';
+import path, { relative } from 'path';
 import { getConfiguration } from '@intlayer/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
-import { sync } from 'glob';
+import fg from 'fast-glob';
 import { loadDictionaries } from '../loadDictionaries/loadDictionaries';
 import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
 import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
@@ -20,9 +21,9 @@ export const watch = (options?: ChokidarOptions) => {
     verbose: true,
   });
 
-  const { watchedFilesPatternWithPath, baseDir } = content;
+  const { watchedFilesPatternWithPath, baseDir, resultDir } = content;
 
-  const files: string[] = sync(watchedFilesPatternWithPath);
+  const files: string[] = fg.sync(watchedFilesPatternWithPath);
 
   /** @ts-ignore remove error Expected 0-1 arguments, but got 2. */
   return chokidarWatch(watchedFilesPatternWithPath, {
@@ -31,6 +32,9 @@ export const watch = (options?: ChokidarOptions) => {
     ...options,
   })
     .on('ready', async () => {
+      // Delete the dictionary directory dictionariesDir
+      rmSync(resultDir, { recursive: true });
+
       const dictionaries = await loadDictionaries(files);
 
       // Build locale dictionaries
@@ -45,10 +49,6 @@ export const watch = (options?: ChokidarOptions) => {
       createDictionaryList();
       console.info(`${LOG_PREFIX}Intlayer dictionary list built`);
     })
-    .on('unlink', (filePath) => {
-      // Process the file with the functionToRun
-      console.info('Removed file detected: ', relative(baseDir, filePath));
-    })
     .on('add', async (filePath) => {
       // Process the file with the functionToRun
       console.info(
@@ -57,10 +57,11 @@ export const watch = (options?: ChokidarOptions) => {
       );
 
       const localeDictionaries = await loadLocalDictionaries(filePath);
+
       const dictionaries = await buildDictionary(localeDictionaries);
 
-      await createTypes(dictionaries);
       console.info(`${LOG_PREFIX}TypeScript types built`);
+      await createTypes(dictionaries);
 
       createModuleAugmentation();
       console.info(`${LOG_PREFIX}Intlayer module augmentation built`);

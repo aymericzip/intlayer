@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, extname, relative, resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import { sync } from 'glob';
+import fg from 'fast-glob';
 import { getFileHash } from '../../utils';
 
 const { content } = getConfiguration();
@@ -54,7 +54,7 @@ export const createDictionaryList = () => {
     mkdirSync(mainDir, { recursive: true });
   }
 
-  const dictionaries: string[] = sync(`${dictionariesDir}/**/*.json`);
+  const dictionaries: string[] = fg.sync(`${dictionariesDir}/**/*.json`);
 
   // Create the dictionary list file
   const cjsContent = generateDictionaryListContent(dictionaries, 'cjs');

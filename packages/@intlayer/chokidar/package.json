@@ -76,7 +76,7 @@
     "deepmerge": "^4.3.1",
     "esbuild": "^0.24.0",
     "esbuild-loader": "^4.2.2",
-    "glob": "^11.0.0",
+    "fast-glob": "^3.3.2",
     "intlayer": "workspace:^",
     "node-loader": "^2.1.0",
     "p-limit": "^3.1.0",
