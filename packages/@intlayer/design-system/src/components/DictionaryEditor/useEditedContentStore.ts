@@ -15,6 +15,10 @@ type EditedContentStore = {
   setDictionariesRecord: (
     dictionariesRecord: Record<Dictionary['key'], Dictionary>
   ) => void;
+  setEditedContent: (
+    dictionaryKey: Dictionary['key'],
+    newValue: string
+  ) => void;
   addEditedContent: (
     dictionaryKey: Dictionary['key'],
     newValue: DictionaryValue,
@@ -49,6 +53,17 @@ export const useEditedContentStore = create(
           dictionariesRecord: {
             ...state.dictionariesRecord,
             ...dictionariesRecord,
+          },
+        })),
+
+      setEditedContent: (dictionaryKey, newValue) =>
+        set((state) => ({
+          editedContent: {
+            ...state.editedContent,
+            [dictionaryKey]: {
+              ...state.editedContent[dictionaryKey],
+              content: newValue,
+            },
           },
         })),
       addEditedContent: (

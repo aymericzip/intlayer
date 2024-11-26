@@ -2,16 +2,21 @@
 
 import { Check, X } from 'lucide-react';
 import { useState, type FC, type ChangeEventHandler, useEffect } from 'react';
+import { Button } from '../Button';
 import { AutoSizedTextArea, AutoSizedTextAreaProps } from '../TextArea';
 
 export type ContentEditorTextAreaProps = {
   children: string;
   onContentChange: (content: string) => void;
+  disabled?: boolean;
+  validate?: (content: string) => boolean;
 } & Omit<AutoSizedTextAreaProps, 'children'>;
 
 export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   children,
   onContentChange,
+  disabled,
+  validate,
   ...props
 }) => {
   const [newValue, setNewValue] = useState<string>(children);
@@ -33,6 +38,8 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
     setNewValue(children);
   }, [children]);
 
+  const isValid = validate?.(newValue) ?? true;
+
   return (
     <div
       className="flex size-full flex-col items-center justify-between gap-2"
@@ -48,14 +55,23 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
       />
       {isEdited && (
         <div className="flex w-full items-center justify-end gap-2">
-          <Check
+          <Button
+            Icon={Check}
+            label="Validate"
+            variant="hoverable"
+            color="text"
+            size="icon-sm"
             className="cursor-pointer hover:scale-110"
-            size={20}
+            disabled={disabled || !isValid}
             onClick={handleValid}
           />
-          <X
+          <Button
+            Icon={X}
+            label="Cancel"
+            variant="hoverable"
+            size="icon-sm"
+            color="text"
             className="cursor-pointer hover:scale-110"
-            size={20}
             onClick={handleCancel}
           />
         </div>

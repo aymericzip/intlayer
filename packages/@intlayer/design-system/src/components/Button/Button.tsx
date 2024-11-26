@@ -138,7 +138,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        disabled={isLoading ?? disabled}
+        disabled={isLoading || disabled}
         aria-current={isActive}
         aria-selected={isActive}
         aria-label={label}
