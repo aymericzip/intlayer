@@ -177,18 +177,11 @@ export const useEditedContentStore = create(
 
       restoreEditedContent: (dictionaryKey) => {
         set((state) => {
-          const dictionaryContent =
-            state.dictionariesRecord[dictionaryKey].content;
-          const clonedContent = JSON.parse(JSON.stringify(dictionaryContent));
+          const updatedEditedContent = { ...state.editedContent };
+          delete updatedEditedContent[dictionaryKey];
 
           return {
-            editedContent: {
-              ...state.editedContent,
-              [dictionaryKey]: {
-                ...state.editedContent[dictionaryKey],
-                content: clonedContent,
-              },
-            },
+            editedContent: updatedEditedContent,
           };
         });
       },

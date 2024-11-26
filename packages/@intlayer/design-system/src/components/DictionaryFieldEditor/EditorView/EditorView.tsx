@@ -1,8 +1,8 @@
 'use client';
 
 import { type KeyPath, type Dictionary } from '@intlayer/core';
-import { X } from 'lucide-react';
-import { type FC } from 'react';
+import { RotateCcw, X } from 'lucide-react';
+import { useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { EditableFieldInput } from '../..//EditableField';
@@ -39,19 +39,38 @@ export const EditorView: FC<EditorViewProps> = ({
   );
   const keyPath = focusedContent?.keyPath ?? [];
   const initialKeyName = keyPath[keyPath.length - 1]?.key ?? '';
-  const { titleInput, deleteButton, nodeTypeSelector } =
+  const { titleInput, deleteButton, nodeTypeSelector, restoreButton } =
     useDictionary(editorViewContent);
 
-  const { editedContent, renameEditedContent, addEditedContent } =
-    useEditedContentStore((s) => ({
-      editedContent: s.editedContent,
-      renameEditedContent: s.renameEditedContent,
-      addEditedContent: s.addEditedContent,
-    }));
+  const {
+    editedContent,
+    renameEditedContent,
+    addEditedContent,
+    removeEditedContent,
+  } = useEditedContentStore((s) => ({
+    editedContent: s.editedContent,
+    renameEditedContent: s.renameEditedContent,
+    addEditedContent: s.addEditedContent,
+    removeEditedContent: s.removeEditedContent,
+  }));
 
-  const section = editedContent[dictionaryKey]?.content
+  const editedSection = editedContent[dictionaryKey]?.content
     ? getDictionaryValueByKeyPath(editedContent[dictionaryKey].content, keyPath)
-    : getDictionaryValueByKeyPath(dictionary.content, keyPath);
+    : undefined;
+
+  const dictionarySection = getDictionaryValueByKeyPath(
+    dictionary.content,
+    keyPath
+  );
+
+  const section = editedSection ?? dictionarySection;
+
+  const isEdited = useMemo(
+    () =>
+      editedSection &&
+      JSON.stringify(editedSection) !== JSON.stringify(dictionarySection),
+    [editedSection, dictionarySection]
+  );
 
   const isEditableSection = getIsEditableSection(section);
 
@@ -77,6 +96,7 @@ export const EditorView: FC<EditorViewProps> = ({
           dictionaryKey={dictionaryKey}
         />
       )}
+
       {keyPath.length > 0 ? (
         <form
           className="bg-text text-text-dark dark:bg-text-dark dark:text-text flex w-full flex-col items-start justify-between gap-6 px-4 py-2"
@@ -115,21 +135,33 @@ export const EditorView: FC<EditorViewProps> = ({
             </div>
           </div>
           {keyPath.length > 0 && (
-            <Button
-              label={deleteButton.label.value}
-              variant="outline"
-              color="error"
-              className="ml-auto"
-              Icon={X}
-              onClick={() => {
-                addEditedContent(dictionaryKey, undefined, keyPath);
+            <div className="ml-auto flex gap-2">
+              {isEdited && (
+                <Button
+                  label={restoreButton.label.value}
+                  variant="outline"
+                  color="text-inverse"
+                  Icon={RotateCcw}
+                  onClick={() => removeEditedContent(dictionaryKey, keyPath)}
+                >
+                  {restoreButton.text}
+                </Button>
+              )}
+              <Button
+                label={deleteButton.label.value}
+                variant="outline"
+                color="error"
+                Icon={X}
+                onClick={() => {
+                  addEditedContent(dictionaryKey, undefined, keyPath);
 
-                const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
-                setFocusedContentKeyPath(parentKeyPath);
-              }}
-            >
-              {deleteButton.text}
-            </Button>
+                  const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
+                  setFocusedContentKeyPath(parentKeyPath);
+                }}
+              >
+                {deleteButton.text}
+              </Button>
+            </div>
           )}
         </form>
       ) : (

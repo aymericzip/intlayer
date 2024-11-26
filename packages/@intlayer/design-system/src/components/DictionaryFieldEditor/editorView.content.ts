@@ -22,6 +22,18 @@ export const editorViewContent = {
         es: 'Tipo de nodo',
       }),
     },
+    restoreButton: {
+      text: t({
+        en: 'Restore node changes',
+        fr: 'Restaurer les modifications du nœud',
+        es: 'Restaurar los cambios del nodo',
+      }),
+      label: t({
+        en: 'Restore node changes',
+        fr: 'Restaurer les modifications du nœud',
+        es: 'Restaurar los cambios del nodo',
+      }),
+    },
     deleteButton: {
       text: t({
         en: 'Delete node',

@@ -44,8 +44,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
   const isEdited = useMemo(
     () =>
       editedDictionary &&
-      JSON.stringify(editedDictionary?.content) !==
-        JSON.stringify(onlineDictionary?.content),
+      onlineDictionary &&
+      JSON.stringify(editedDictionary.content) !==
+        JSON.stringify(onlineDictionary.content),
     [onlineDictionary, editedDictionary]
   );
 
@@ -80,7 +81,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
           variant="outline"
           color="text"
           isLoading={isSubmitting}
-          onClick={() => restoreEditedContent(dictionary.key)}
+          onClick={() => {
+            restoreEditedContent(dictionary.key);
+          }}
         >
           {resetButton.text}
         </Form.Button>

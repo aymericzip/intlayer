@@ -5,14 +5,14 @@ export const validDictionaryChangeButtonsContent = {
   content: {
     resetButton: {
       text: t({
-        en: 'Reset changes',
-        fr: 'Réinitialiser les modifications',
-        es: 'Restablecer cambios',
+        en: 'Reset all changes',
+        fr: 'Réinitialiser toutes les modifications',
+        es: 'Restablecer todas las modificaciones',
       }),
       label: t({
-        en: 'Click to reset changes',
-        fr: 'Cliquez pour réinitialiser les modifications',
-        es: 'Haga clic para restablecer los cambios',
+        en: 'Click to reset all the changes',
+        fr: 'Cliquez pour réinitialiser toutes les modifications',
+        es: 'Haga clic para restablecer todas las modificaciones',
       }),
     },
     saveButton: {
