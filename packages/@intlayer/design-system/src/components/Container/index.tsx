@@ -39,7 +39,13 @@ const containerVariants = cva(
       },
       border: {
         none: '',
-        with: 'border-text dark:border-text-dark border-[1.5px]',
+        with: 'border-[1.5px]',
+      },
+      borderColor: {
+        primary: 'border-primary dark:border-primary-dark',
+        secondary: 'border-secondary dark:border-secondary-dark',
+        neutral: 'border-neutral dark:border-neutral-dark',
+        text: 'border-text dark:border-text-dark',
       },
       background: {
         none: 'bg-none',
@@ -58,6 +64,7 @@ const containerVariants = cva(
     defaultVariants: {
       roundedSize: 'md',
       border: 'none',
+      borderColor: 'text',
       transparency: 'md',
       padding: 'none',
       separator: 'without',
@@ -84,6 +91,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       separator,
       className,
       border,
+      borderColor,
       background,
       ...props
     },
@@ -109,6 +117,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
                 ? 'with'
                 : 'none'
               : undefined,
+          borderColor,
           className,
         })
       )}
