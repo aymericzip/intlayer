@@ -8,7 +8,6 @@ import {
   NodeType,
   type KeyPath,
   type DictionaryValue,
-  type Dictionary,
 } from '@intlayer/core';
 import {
   createElement,
@@ -32,7 +31,7 @@ export type NodeWrapperProps = {
   section: DictionaryValue;
   onContentChange: (content: { keyPath: KeyPath[]; newValue: string }) => void;
   locale: Locales;
-  editedContent: Dictionary;
+  editedContent: DictionaryValue;
   focusedKeyPath: KeyPath[] | undefined;
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
   onClickEdit?: (keyPath: KeyPath[]) => void;

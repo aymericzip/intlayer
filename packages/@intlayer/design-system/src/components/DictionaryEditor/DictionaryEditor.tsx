@@ -37,12 +37,15 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
         <NodeWrapper
           {...props}
           keyPath={[]}
-          editedContent={editedContent.content}
+          key={JSON.stringify(
+            (editedContent[dictionary.key] ?? dictionary).content
+          )}
+          editedContent={editedContent[dictionary.key]?.content}
           focusedKeyPath={focusedKeyPath}
           section={dictionary.content}
-          onContentChange={(content) =>
-            addEditedContent(dictionary.key, content.newValue, content.keyPath)
-          }
+          onContentChange={(content) => {
+            addEditedContent(dictionary.key, content.newValue, content.keyPath);
+          }}
           onFocusKeyPath={setFocusedContentKeyPath}
         />
       </div>

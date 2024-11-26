@@ -10,24 +10,27 @@ import {
   useEffect,
   useRef,
   useCallback,
+  HTMLAttributes,
 } from 'react';
 import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 
 type EditableFieldLayoutProps = {
-  value: string | null | undefined;
+  value?: string | null | undefined;
   onCancel: () => void;
   onSave: () => void;
   children: ReactNode;
   isDisabled?: boolean;
-};
+} & HTMLAttributes<HTMLSpanElement>;
 
 export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
   value = '',
   onCancel,
   onSave,
+  onClick,
   children,
   isDisabled,
+  ...props
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const editableFieldRef = useRef<HTMLSpanElement>(null);
@@ -74,8 +77,12 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
       className="group/editable-field flex gap-2"
       role="button"
       tabIndex={0}
-      onClick={() => setIsEditing(true)}
+      onClick={(e) => {
+        setIsEditing(true);
+        onClick?.(e);
+      }}
       ref={editableFieldRef}
+      {...props}
     >
       <div
         className={cn('flex flex-1 gap-2', isEditing ? 'display' : 'hidden')}

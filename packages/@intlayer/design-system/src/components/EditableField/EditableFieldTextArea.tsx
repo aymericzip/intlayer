@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, useRef, useImperativeHandle } from 'react';
+import { forwardRef, useRef, useImperativeHandle, useMemo } from 'react';
 import { AutoSizedTextArea, type AutoSizedTextAreaProps } from '../TextArea';
 import { EditableFieldLayout } from './EditableFieldLayout';
 
@@ -15,6 +15,9 @@ export const EditableFieldTextArea = forwardRef<
 >(({ onSave, onCancel, ...props }, ref) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Expose the text area ref to parent components
+  useImperativeHandle(ref, () => textAreaRef.current!);
+
   const handleSave = () => {
     // Your save logic here
     onSave?.(textAreaRef.current?.value ?? '');
@@ -27,25 +30,40 @@ export const EditableFieldTextArea = forwardRef<
     onCancel?.();
   };
 
-  // Expose the text area ref to parent components
-  useImperativeHandle(ref, () => textAreaRef.current!);
-
-  const value =
-    textAreaRef.current?.value ??
-    textAreaRef.current?.defaultValue ??
-    (props.value as string) ??
-    (props.defaultValue as string);
+  const memoValue = useMemo(
+    () =>
+      textAreaRef.current?.value ??
+      textAreaRef.current?.defaultValue ??
+      (props.value as string) ??
+      (props.defaultValue as string) ??
+      '',
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      props.value,
+      props.defaultValue,
+      textAreaRef.current?.value,
+      textAreaRef.current?.defaultValue,
+    ]
+  );
 
   return (
     <EditableFieldLayout
-      value={value}
+      value={memoValue}
       onCancel={handleCancel}
       onSave={handleSave}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
     >
       <AutoSizedTextArea
-        key={value}
+        defaultValue={memoValue}
         className="leading-6"
         ref={textAreaRef}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         {...props}
       />
     </EditableFieldLayout>
