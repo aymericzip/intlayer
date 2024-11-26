@@ -40,3 +40,4 @@ export * from './Pattern';
 export * from './CopyToClipboard';
 export * from './EditableField';
 export * from './Tag';
+export * from './Accordion';

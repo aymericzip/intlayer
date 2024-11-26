@@ -1,7 +1,5 @@
-import { Container, MaxHeightSmoother } from '@intlayer/design-system';
+import { Container, Accordion, Link } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
-import { ChevronDown } from 'lucide-react';
-import Link from 'next/link';
 import { forwardRef, type ComponentProps, type FC } from 'react';
 import type { Section } from './docData';
 
@@ -9,7 +7,7 @@ type OptionalLinkProps = ComponentProps<typeof Link>;
 
 const OptionalLink: FC<OptionalLinkProps> = ({ href, ...props }) => {
   if (!href) return <span {...props} />;
-  return <Link {...props} href={href} />;
+  return <Link href={href} variant="hoverable" color="text" {...props} />;
 };
 
 type DocNavListProps = {
@@ -39,12 +37,13 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                   'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap text-left font-semibold transition-colors dark:text-neutral-200',
                   isActive && 'text-primary dark:text-primary-dark',
                 ])}
+                label={key1}
               >
                 {section1Data.title}
               </OptionalLink>
 
               {subSections && Object.keys(subSections).length > 0 && (
-                <div className="border-neutral dark:border-neutral-dark mt-4 flex flex-col gap-4 border-l-[0.5px] p-1">
+                <div className="border-neutral dark:border-neutral-dark mt-4 flex flex-col gap-4 border-l-[0.5px] p-1 text-base">
                   {Object.keys(subSections).map((key2) => {
                     const section2Data = subSections[key2];
                     const sectionDefault = section2Data.default;
@@ -56,49 +55,75 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
 
                     return (
                       <div key={key2}>
-                        <OptionalLink
-                          href={sectionDefault?.url ?? ''}
-                          className={cn([
-                            'text-neutral hover:text-text dark:hover:text-text-dark flex flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
-                            isActive && 'text-primary dark:text-primary-dark',
-                          ])}
-                        >
-                          {section2Data?.title}
-                          {hasSubsections && !isActive && (
-                            <ChevronDown className="ml-1 size-4" />
-                          )}
-                        </OptionalLink>
+                        {hasSubsections ? (
+                          <Accordion
+                            identifier={key2}
+                            header={
+                              <OptionalLink
+                                label={key2}
+                                href={
+                                  !isActive ? (sectionDefault?.url ?? '') : ''
+                                }
+                                className={cn([
+                                  'text-neutral hover:text-text dark:hover:text-text-dark flex flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
+                                  isActive &&
+                                    'text-primary dark:text-primary-dark',
+                                ])}
+                              >
+                                {section2Data?.title}
+                              </OptionalLink>
+                            }
+                            label={key2}
+                            isOpen={isActive}
+                          >
+                            <div className="pl-3">
+                              {subSections2 &&
+                                Object.keys(subSections2).length > 0 && (
+                                  <>
+                                    <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
+                                      {Object.keys(subSections2).map((key3) => {
+                                        const section3Data = subSections2[key3];
 
-                        {subSections2 &&
-                          Object.keys(subSections2).length > 0 && (
-                            <MaxHeightSmoother isHidden={!isActive}>
-                              <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
-                                {Object.keys(subSections2).map((key3) => {
-                                  const section3Data = subSections2[key3];
-                                  const sectionDefault = section3Data.default;
+                                        const isActive =
+                                          key1 === activeSections[0] &&
+                                          key2 === activeSections[1] &&
+                                          key3 === activeSections[2];
 
-                                  const isActive =
-                                    key1 === activeSections[0] &&
-                                    key2 === activeSections[1] &&
-                                    key3 === activeSections[2];
-
-                                  return (
-                                    <OptionalLink
-                                      key={key3}
-                                      href={sectionDefault?.url ?? ''}
-                                      className={cn([
-                                        'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200',
-                                        isActive &&
-                                          'text-primary dark:text-primary-dark',
-                                      ])}
-                                    >
-                                      {section3Data.title}
-                                    </OptionalLink>
-                                  );
-                                })}
-                              </div>
-                            </MaxHeightSmoother>
-                          )}
+                                        return (
+                                          <OptionalLink
+                                            key={key3}
+                                            label={key3}
+                                            href={
+                                              section3Data.default?.url ?? ''
+                                            }
+                                            className={cn([
+                                              'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200',
+                                              isActive &&
+                                                '!text-primary !dark:text-primary-dark',
+                                            ])}
+                                          >
+                                            {section3Data.title}
+                                          </OptionalLink>
+                                        );
+                                      })}
+                                    </div>
+                                  </>
+                                )}
+                            </div>
+                          </Accordion>
+                        ) : (
+                          <OptionalLink
+                            href={sectionDefault?.url ?? ''}
+                            className={cn([
+                              'text-neutral hover:text-text dark:hover:text-text-dark flex flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
+                              isActive &&
+                                '!text-primary !dark:text-primary-dark',
+                            ])}
+                            label={key2}
+                          >
+                            {section2Data?.title}
+                          </OptionalLink>
+                        )}
                       </div>
                     );
                   })}

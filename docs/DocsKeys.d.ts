@@ -13,4 +13,10 @@ export enum DocsKeys {
   content_declaration__get_started,
   content_declaration__nested_id,
   content_declaration__translation,
+  'useLocale_react-intlayer_hook',
+  'useDictionary_react-intlayer_hook',
+  'useIntlayer_react-intlayer_hook',
+  'useLocale_next-intlayer_hook',
+  'useDictionary_next-intlayer_hook',
+  'useIntlayer_next-intlayer_hook',
 }
