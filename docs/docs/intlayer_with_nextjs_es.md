@@ -150,10 +150,10 @@ Accede a tus diccionarios de contenido en toda tu aplicación:
 ```tsx
 // src/app/[locale]/page.ts
 
-import { ClientComponentExample } from "@component/components/ClientComponentExample";
-import { LocaleSwitcher } from "@component/components/LangSwitcherDropDown";
-import { NestedServerComponentExample } from "@component/components/NestedServerComponentExample";
-import { ServerComponentExample } from "@component/components/ServerComponentExample";
+import { ClientComponentExample } from "@component/ClientComponentExample";
+import { LocaleSwitcher } from "@component/LangSwitcherDropDown";
+import { NestedServerComponentExample } from "@component/NestedServerComponentExample";
+import { ServerComponentExample } from "@component/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 

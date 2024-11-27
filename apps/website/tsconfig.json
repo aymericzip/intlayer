@@ -23,6 +23,7 @@
     "paths": {
       "@layouts/*": ["./src/layouts/*"],
       "@components/*": ["./src/components/*"],
+      "@structuredData/*": ["./src/structuredData/*"],
       "@utils/*": ["./src/utils/*"],
       "@assets/*": ["./src/assets/*"],
       "@/*": ["./src/*"]

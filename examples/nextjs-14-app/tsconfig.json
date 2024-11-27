@@ -18,9 +18,10 @@
       }
     ],
     "paths": {
-      "@component/*": ["./src/*"],
-      "@assets/": ["./src/*"],
-      "@libs/*": ["./src/*"]
+      "@component/*": ["./src/components/*"],
+      "@app/*": ["./src/app/*"],
+      "@assets/": ["./src/assets/*"],
+      "@libs/*": ["./src/libs/*"]
     },
     "incremental": true
   },

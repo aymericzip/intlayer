@@ -17,6 +17,7 @@ const LinkLink: FC<LinkProps> = ({ href, children, onClick }) => (
     label={`Go to ${children}`}
     color="text"
     onClick={onClick}
+    itemProp="itemListElement"
   >
     {children}
   </Link>
@@ -34,6 +35,7 @@ const ButtonLink: FC<ButtonProps> = ({ children: text, onClick }) => (
     variant="link"
     aria-label={`Go to ${text}`}
     color="text"
+    itemProp="itemListElement"
   >
     {text}
   </Button>
@@ -44,7 +46,9 @@ type SpanProps = {
 };
 
 const Span: FC<SpanProps> = ({ children }) => (
-  <span aria-label={`Go to ${children}`}>{children}</span>
+  <span aria-label={`Go to ${children}`} itemProp="itemListElement">
+    {children}
+  </span>
 );
 
 type DetailedBreadcrumbLink = {
@@ -59,7 +63,11 @@ type BreadcrumbProps = {
 };
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
-  <div className="flex flex-row flex-wrap items-center gap-2 text-sm">
+  <div
+    className="flex flex-row flex-wrap items-center gap-2 text-sm"
+    itemScope
+    itemType="http://schema.org/BreadcrumbList"
+  >
     {links.map((link, index) => {
       const isLastLink = index === links.length - 1;
       const isLink = typeof link === 'object' && typeof link.href === 'string';

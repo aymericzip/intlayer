@@ -66,9 +66,9 @@ export const PricingColumn = forwardRef<HTMLDivElement, PricingColumnProps>(
         </span>
         <span
           className="text-neutral dark:text-neutral-dark text-center text-xl"
-          itemProp="priceValidUntil"
+          itemProp="billingPeriod"
         >
-          {period}
+          {period} {/* This can be 'monthly' or 'yearly' */}
         </span>
       </div>
       <Link
@@ -101,6 +101,7 @@ export const PricingColumn = forwardRef<HTMLDivElement, PricingColumnProps>(
           </li>
         ))}
       </ul>
+      <link itemProp="availability" href="http://schema.org/InStock" />
     </Container>
   )
 );
