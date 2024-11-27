@@ -8,12 +8,14 @@ type DocPageLayoutProps = {
   children?: ReactNode;
   activeSections?: string[];
   locale?: Locales;
+  displayDocNavTitles?: boolean;
 };
 
 export const DocPageLayout: FC<DocPageLayoutProps> = ({
   children,
   locale,
   activeSections = ['get-started'],
+  displayDocNavTitles = true,
 }) => {
   const docData = getDocData(locale);
 
@@ -30,7 +32,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
           {children}
         </div>
         <div className="flex-none max-lg:hidden">
-          <DocNavTitles />
+          {displayDocNavTitles && <DocNavTitles />}
         </div>
       </div>
     </div>

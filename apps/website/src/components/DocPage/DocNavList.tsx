@@ -1,3 +1,6 @@
+'use client';
+
+import { SearchTrigger } from '@components/Search/SearchTrigger';
 import { Container, Accordion, Link } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { forwardRef, type ComponentProps, type FC } from 'react';
@@ -22,6 +25,7 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
       roundedSize="none"
       transparency="sm"
     >
+      <SearchTrigger />
       <nav className="flex min-w-40 flex-col gap-5 px-32 pb-20 pt-10 md:max-w-80 md:px-6">
         {Object.keys(docData).map((key1) => {
           const section1Data = docData[key1];

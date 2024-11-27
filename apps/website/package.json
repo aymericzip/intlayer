@@ -60,6 +60,7 @@
     "chokidar": "^3.6.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.17",
+    "fuse.js": "^7.0.0",
     "intlayer": "workspace:^",
     "intlayer-editor": "workspace:^",
     "lucide-react": "^0.456.0",

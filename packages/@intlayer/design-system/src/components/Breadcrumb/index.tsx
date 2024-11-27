@@ -1,5 +1,6 @@
 import { ChevronRightIcon } from 'lucide-react';
-import { Fragment, type FC } from 'react';
+import { Fragment, HTMLAttributes, type FC } from 'react';
+import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { Link } from '../Link';
 
@@ -60,13 +61,21 @@ export type BreadcrumbLink = string | DetailedBreadcrumbLink;
 
 type BreadcrumbProps = {
   links: BreadcrumbLink[];
-};
+} & HTMLAttributes<HTMLDivElement>;
 
-export const Breadcrumb: FC<BreadcrumbProps> = ({ links }) => (
+export const Breadcrumb: FC<BreadcrumbProps> = ({
+  links,
+  className,
+  ...props
+}) => (
   <div
-    className="flex flex-row flex-wrap items-center gap-2 text-sm"
+    className={cn(
+      'flex flex-row flex-wrap items-center gap-2 text-sm',
+      className
+    )}
     itemScope
     itemType="http://schema.org/BreadcrumbList"
+    {...props}
   >
     {links.map((link, index) => {
       const isLastLink = index === links.length - 1;

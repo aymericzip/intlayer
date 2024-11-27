@@ -155,7 +155,7 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
       ref={navRef}
       {...props}
     >
-      <div className="px-5 pb-20 pt-10">
+      <div className="px-5 pb-20 pt-6">
         <h2 className="mb-4 font-bold">{title}</h2>
         <nav className="flex max-h-full flex-col gap-6 text-sm">
           {h2List.map((h2) => {

@@ -55,7 +55,6 @@ export const Modal: FC<ModalProps> = ({
   children,
   isOpen,
   container,
-
   disableScroll = false,
   onClose,
   hasCloseButton = false,

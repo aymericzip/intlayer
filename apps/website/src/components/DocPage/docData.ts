@@ -19,7 +19,7 @@ export type CategorizedDocData = {
   subSections?: Section;
 };
 
-export const getDocData = (locale = Locales.ENGLISH): Section => {
+export const getDocData = (locale = Locales.ENGLISH) => {
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
@@ -936,7 +936,11 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
                 docName: 'useIntlayer_next-intlayer_hook',
                 url: PagesRoutes['Doc_Hooks_next-intlayer_useIntlayer'],
                 githubUrl: GithubRoutes['Hooks_next-intlayer_useIntlayer'],
-                title: 'useIntlayer hook',
+                title: t({
+                  en: 'useIntlayer Hook Documentation',
+                  fr: 'Documentation du hook useIntlayer',
+                  es: 'Documentación del hook useIntlayer',
+                }),
                 description: t({
                   en: 'See how to use the useIntlayer hook',
                   fr: 'Découvrez comment utiliser le hook useIntlayer',
@@ -1213,11 +1217,12 @@ const getDocSectionPaths = (docData: Section, presetKeys: string[] = []) => {
   return { paths, docs };
 };
 
-export const getDocPaths = (locale?: Locales) => {
+export const getDocPaths = (locale?: Locales): string[][] => {
   const docData = getDocData(locale);
   return getDocSectionPaths(docData).paths;
 };
-export const getDocArray = (locale?: Locales) => {
+
+export const getDocArray = (locale?: Locales): DocData[] => {
   const docData = getDocData(locale);
   return getDocSectionPaths(docData).docs;
 };

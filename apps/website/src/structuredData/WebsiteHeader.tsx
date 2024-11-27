@@ -8,11 +8,11 @@ const website = {
     '@type': 'WebSite',
     url: 'https://intlayer.org',
     name: 'Intlayer',
-    //   potentialAction: {
-    //     '@type': 'SearchAction',
-    //     target: 'https://www.votresite.com/?q={search_term_string}',
-    //     'query-input': 'required name=search_term_string',
-    //   },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${process.env.NEXT_PUBLIC_URL}/doc/search?search={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
   },
 } satisfies DeclarationContent;
 
