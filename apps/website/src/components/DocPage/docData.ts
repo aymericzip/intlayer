@@ -931,11 +931,7 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
           title: 'next-intlayer',
           subSections: {
             useIntlayer: {
-              title: t({
-                en: 'useIntlayer Hook Documentation',
-                fr: 'Documentation du hook useIntlayer',
-                es: 'Documentación del hook useIntlayer',
-              }),
+              title: 'useIntlayer',
               default: {
                 docName: 'useIntlayer_next-intlayer_hook',
                 url: PagesRoutes['Doc_Hooks_next-intlayer_useIntlayer'],
