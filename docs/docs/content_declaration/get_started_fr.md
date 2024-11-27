@@ -6,7 +6,7 @@
 
 [Voir comment utiliser intlayer avec ReactJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md)
 
-[Voir comment utiliser intlayer avec Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
+[Voir comment utiliser intlayer avec Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
 
 ## Installer le package
 

@@ -46,7 +46,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 - [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md)
 - [Intlayer with React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md)
-- [Intlayer with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
+- [Intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
 - [Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_express_en.md)
 
 ### Blog

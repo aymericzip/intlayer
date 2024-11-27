@@ -103,14 +103,14 @@ const footerContent = {
           {
             href: ExternalLinks.ExampleIntlayerWithViteAndReact,
             text: t({
-              en: 'Intlayer with Vite+React',
-              es: 'Intlayer con Vite+React',
-              fr: 'Intlayer avec Vite+React',
+              en: 'Intlayer with Vite and React',
+              es: 'Intlayer con Vite and React',
+              fr: 'Intlayer avec Vite and React',
             }),
             label: t({
-              en: 'See how to set up Intlayer with Vite+React',
-              es: 'Ver cómo configurar Intlayer con Vite+React',
-              fr: 'Voir comment configuer Intlayer avec Vite+React',
+              en: 'See how to set up Intlayer with Vite and React',
+              es: 'Ver cómo configurar Intlayer con Vite and React',
+              fr: 'Voir comment configuer Intlayer avec Vite and React',
             }),
           },
         ],

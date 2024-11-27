@@ -651,23 +651,23 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         },
         'vite-and-react': {
           title: t({
-            en: 'Intlayer with Vite+React',
-            fr: 'Intlayer avec Vite+React',
-            es: 'Intlayer con Vite+React',
+            en: 'Intlayer with Vite and React',
+            fr: 'Intlayer avec Vite and React',
+            es: 'Intlayer con Vite and React',
           }),
           default: {
             docName: 'intlayer_with_vite_react',
             url: PagesRoutes.Doc_Environment_ViteAndReact,
             githubUrl: GithubRoutes.IntlayerWithViteReact,
             title: t({
-              en: 'Intlayer with Vite+React',
-              fr: 'Intlayer avec Vite+React',
-              es: 'Intlayer con Vite+React',
+              en: 'Intlayer with Vite and React',
+              fr: 'Intlayer avec Vite and React',
+              es: 'Intlayer con Vite and React',
             }),
             description: t({
-              en: 'Discover how to set up Intlayer with Vite+React to make your website multilingual. Follow the steps in this online documentation to set up your project in a few minutes.',
-              fr: 'Découvrez comment configurer Intlayer avec Vite+React pour rendre votre site web multilingue. Suivez les étapes de cette documentation en ligne pour mettre en place votre projet en quelques minutes.',
-              es: 'Descubra cómo configurar Intlayer con Vite+React para hacer que su sitio web sea multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.',
+              en: 'Discover how to set up Intlayer with Vite and React to make your website multilingual. Follow the steps in this online documentation to set up your project in a few minutes.',
+              fr: 'Découvrez comment configurer Intlayer avec Vite and React pour rendre votre site web multilingue. Suivez les étapes de cette documentation en ligne pour mettre en place votre projet en quelques minutes.',
+              es: 'Descubra cómo configurar Intlayer con Vite and React para hacer que su sitio web sea multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.',
             }),
             keywords: t({
               en: [
