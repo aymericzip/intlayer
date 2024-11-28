@@ -38,7 +38,7 @@ export default defineConfig(() => ({
       entry: Object.fromEntries(
         fg
           .sync('src/**/*.{ts,tsx,js,jsx,mjs,cjs}', {
-            ignore: 'src/**/*.{stories,test,specs}.{ts,tsx,js,jsx,mjs,cjs}',
+            ignore: ['src/**/*.{stories,test,specs}.{ts,tsx,js,jsx,mjs,cjs}'],
           })
           .map((file) => [
             // The name of the entry point

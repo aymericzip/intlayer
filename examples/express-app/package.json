@@ -43,10 +43,10 @@
     "esbuild-fix-imports-plugin": "^1.0.5",
     "eslint": "^9.14.0",
     "intlayer": "workspace:^",
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }

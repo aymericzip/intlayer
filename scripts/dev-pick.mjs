@@ -8,7 +8,7 @@ import Enquirer from 'enquirer';
 import fg from 'fast-glob';
 
 const getPackages = (pattern, index) => {
-  return fg.sync(pattern, { ignore: '**/node_modules/**' }).map((pkgPath) => {
+  return fg.sync(pattern, { ignore: ['**/node_modules/**'] }).map((pkgPath) => {
     const packageJsonPath = `${pkgPath}`;
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
     const packageRelativePath = path.relative(

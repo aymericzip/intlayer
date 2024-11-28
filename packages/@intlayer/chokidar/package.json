@@ -86,9 +86,9 @@
     "rimraf": "^6.0.1"
   },
   "devDependencies": {
-    "@changesets/cli": "2.27.9",
+    "@changesets/cli": "2.27.10",
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.10.1",
     "@utils/eslint-config": "workspace:^",
     "@utils/ts-config": "workspace:^",
     "@utils/ts-config-types": "workspace:^",
@@ -96,10 +96,10 @@
     "concurrently": "^9.1.0",
     "eslint": "^9.14.0",
     "node-polyfill-webpack-plugin": "^4.0.0",
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "webpack-watch-files-plugin": "^1.2.1"
   },
   "peerDependencies": {

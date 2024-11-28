@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "@react-email/components": "^0.0.28",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.10.1",
     "bcrypt": "^5.1.1",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
@@ -109,10 +109,10 @@
     "esbuild-fix-imports-plugin": "^1.0.6",
     "eslint": "^9.14.0",
     "intlayer": "workspace:^",
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }

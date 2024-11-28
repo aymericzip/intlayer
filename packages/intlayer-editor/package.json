@@ -101,10 +101,10 @@
     "@babel/parser": "7.26.2",
     "@babel/types": "7.26.0",
     "@changesets/changelog-github": "0.5.0",
-    "@changesets/cli": "2.27.9",
+    "@changesets/cli": "2.27.10",
     "@types/babel__generator": "^7.6.8",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@utils/eslint-config": "workspace:^",
@@ -113,12 +113,12 @@
     "@utils/tsup-config": "workspace:^",
     "concurrently": "^9.1.0",
     "eslint": "^9.14.0",
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:^",
