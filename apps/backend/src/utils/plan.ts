@@ -13,9 +13,9 @@ export const retrievePlanInformation = (
       return { period: 'YEARLY', type: 'PREMIUM' };
     case process.env.STRIPE_PREMIUM_MONTHLY_PRICE_ID!:
       return { period: 'MONTHLY', type: 'PREMIUM' };
-    case process.env.STRIPE_PREMIUM_ENTERPRISE_YEARLY_PRICE_ID!:
+    case process.env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID!:
       return { period: 'YEARLY', type: 'ENTERPRISE' };
-    case process.env.STRIPE_PREMIUM_ENTERPRISE_MONTHLY_PRICE_ID!:
+    case process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!:
       return { period: 'MONTHLY', type: 'ENTERPRISE' };
     default:
       return { period: undefined, type: 'FREE' };

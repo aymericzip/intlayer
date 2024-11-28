@@ -164,7 +164,7 @@ const pricing = {
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
-      price: 9.99,
+      price: 18.99,
     },
     enterprise: {
       ...planDetails.enterprise,
@@ -172,7 +172,7 @@ const pricing = {
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
-      price: 19.99,
+      price: 34.99,
     },
   },
   yearly: {
@@ -184,7 +184,7 @@ const pricing = {
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
-      price: 7.99 * 12,
+      price: 14.99 * 12,
     },
     enterprise: {
       ...planDetails.enterprise,
@@ -192,7 +192,7 @@ const pricing = {
         label: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
         text: t({ en: 'Get started', fr: 'Commencer', es: 'Comenzar' }),
       },
-      price: 16.99 * 12,
+      price: 29.99 * 12,
     },
   },
 } satisfies DeclarationContent<

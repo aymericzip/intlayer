@@ -42,7 +42,7 @@ const website = {
         '@type': 'Offer',
         url: 'https://intlayer.org/dashboard',
         priceCurrency: 'USD',
-        price: '9.99', // Monthly price for premium
+        price: '18.99', // Monthly price for premium
         // priceValidUntil: '2024-12-31',
         itemCondition: 'https://schema.org/NewCondition',
         availability: 'https://schema.org/InStock',
@@ -61,7 +61,7 @@ const website = {
         '@type': 'Offer',
         url: 'https://intlayer.org/dashboard',
         priceCurrency: 'USD',
-        price: '19.99', // Monthly price for enterprise
+        price: '34.99', // Monthly price for enterprise
         // priceValidUntil: '2024-12-31',
         itemCondition: 'https://schema.org/NewCondition',
         availability: 'https://schema.org/InStock',
@@ -81,7 +81,7 @@ const website = {
         '@type': 'Offer',
         url: 'https://intlayer.org/dashboard',
         priceCurrency: 'USD',
-        price: '95.88', // Yearly price for premium (7.99 * 12)
+        price: '178.88', // Yearly price for premium (7.99 * 12)
         // priceValidUntil: '2024-12-31',
         itemCondition: 'https://schema.org/NewCondition',
         availability: 'https://schema.org/InStock',
@@ -100,7 +100,7 @@ const website = {
         '@type': 'Offer',
         url: 'https://intlayer.org/dashboard',
         priceCurrency: 'USD',
-        price: '203.88', // Yearly price for enterprise (16.99 * 12)
+        price: '359.88', // Yearly price for enterprise (16.99 * 12)
         // priceValidUntil: '2024-12-31',
         itemCondition: 'https://schema.org/NewCondition',
         availability: 'https://schema.org/InStock',
