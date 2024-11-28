@@ -32,24 +32,24 @@
   "type": "commonjs",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.cjs",
-      "require": "./index.cjs",
-      "types": "./index.d.ts"
+      "require": "./index.cjs"
     },
     "./en": {
+      "types": "./index_en.d.ts",
       "import": "./index_en.cjs",
-      "require": "./index_en.cjs",
-      "types": "./index_en.d.ts"
+      "require": "./index_en.cjs"
     },
     "./fr": {
+      "types": "./index_fr.d.ts",
       "import": "./index_fr.cjs",
-      "require": "./index_fr.cjs",
-      "types": "./index_fr.d.ts"
+      "require": "./index_fr.cjs"
     },
     "./es": {
+      "types": "./index_es.d.ts",
       "import": "./index_es.cjs",
-      "require": "./index_es.cjs",
-      "types": "./index_es.d.ts"
+      "require": "./index_es.cjs"
     }
   },
   "main": "./index.cjs",
