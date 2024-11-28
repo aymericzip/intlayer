@@ -1,5 +1,5 @@
 import { type DeclarationContent } from 'intlayer';
-import { Head } from 'next/document';
+import Head from 'next/head';
 
 const website = {
   key: 'website-structured-data',

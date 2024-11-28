@@ -1,5 +1,5 @@
 import { DeclarationContent, t } from 'intlayer';
-import { Head } from 'next/document';
+import Head from 'next/head';
 import { useDictionary } from 'next-intlayer/server';
 import { type FC } from 'react';
 
