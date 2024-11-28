@@ -228,7 +228,7 @@ export const useEditedContentStore = create(
 
       getEditedContentValue: (dictionaryKey, keyPath) =>
         getDictionaryValueByKeyPath(
-          get().editedContent[dictionaryKey],
+          get().editedContent[dictionaryKey]?.content ?? {},
           keyPath
         ),
     }),
