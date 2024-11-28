@@ -6,7 +6,7 @@ const docs = getDocArray();
 
 const docSitemap: MetadataRoute.Sitemap = docs.map((doc) => ({
   url: `${process.env.NEXT_PUBLIC_URL}${doc.url}`,
-  lastModified: new Date(),
+  lastModified: doc.updatedAt,
   changeFrequency: 'monthly',
   priority: 0.7,
   alternates: {

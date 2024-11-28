@@ -1,11 +1,9 @@
-import { DeclarationContent, t } from 'intlayer';
 import Head from 'next/head';
-import { useDictionary } from 'next-intlayer/server';
+import { t } from 'next-intlayer/server';
 import { type FC } from 'react';
 
-const softwareApplication = {
-  key: 'software-application-structured-data',
-  content: {
+export const SoftwareApplicationHeader: FC = () => {
+  const softwareApplication = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Intlayer',
@@ -96,17 +94,14 @@ const softwareApplication = {
       }),
     },
     mainEntityOfPage: 'https://intlayer.org',
-  },
-} satisfies DeclarationContent;
+  };
 
-export const SoftwareApplicationHeader: FC = () => {
-  const data = useDictionary(softwareApplication);
   return (
     <Head>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(data),
+          __html: JSON.stringify(softwareApplication),
         }}
       />
     </Head>

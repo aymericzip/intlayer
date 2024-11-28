@@ -1,5 +1,7 @@
 import { getDoc } from '@components/DocPage/docData';
 import { Container, Link, Loader } from '@intlayer/design-system';
+import { getDoc as getDocContent } from '@intlayer/docs';
+import { DocHeader } from '@structuredData/DocHeader';
 import { Edit } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
@@ -28,8 +30,19 @@ const DocumentationPage: NextPageIntlayer<DocProps> = ({
     return redirect(PagesRoutes.Doc_GetStarted);
   }
 
+  const docContent = getDocContent(docData?.docName, locale);
+
   return (
     <IntlayerServerProvider locale={locale}>
+      <DocHeader
+        docName={docData.title}
+        docDescription={docData.description}
+        docContent={docContent}
+        keywords={docData.keywords.join(', ')}
+        dateModified={docData.updatedAt}
+        datePublished={docData.createdAt}
+        url={docData.url}
+      />
       <DynamicDocumentationRender docName={docData.docName} />
       <Container
         roundedSize="md"

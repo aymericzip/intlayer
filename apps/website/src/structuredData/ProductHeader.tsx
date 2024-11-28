@@ -1,9 +1,9 @@
-import { type DeclarationContent, t } from 'intlayer';
 import Head from 'next/head';
+import { t } from 'next-intlayer/server';
+import { FC } from 'react';
 
-const website = {
-  key: 'product-structured-data',
-  content: {
+export const ProductHeader: FC = () => {
+  const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     url: 'https://intlayer.org/dashboard',
@@ -104,10 +104,10 @@ const website = {
         // priceValidUntil: '2024-12-31',
         itemCondition: 'https://schema.org/NewCondition',
         availability: 'https://schema.org/InStock',
-        eligibleRegion: {
-          '@type': 'Place',
-          name: 'US',
-        },
+        // eligibleRegion: {
+        //   '@type': 'Place',
+        //   name: 'US',
+        // },
         seller: {
           '@type': 'Organization',
           name: 'Intlayer Inc.',
@@ -116,16 +116,16 @@ const website = {
         category: 'Enterprise Yearly Plan', // Indicating it's an Enterprise plan
       },
     ],
-  },
-} satisfies DeclarationContent;
+  };
 
-export const ProductHeader = () => (
-  <Head>
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(website),
-      }}
-    />
-  </Head>
-);
+  return (
+    <Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(product),
+        }}
+      />
+    </Head>
+  );
+};

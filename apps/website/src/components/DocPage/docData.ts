@@ -9,6 +9,8 @@ export type DocData = {
   title: string;
   description: string;
   keywords: string[];
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type Section = Record<string, CategorizedDocData>;
@@ -62,6 +64,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
           ],
           es: ['Introducción', 'Empezar', 'Intlayer', 'Aplicación', 'Paquetes'],
         }),
+        createdAt: new Date('2024-08-11'),
+        updatedAt: new Date('2024-08-11'),
       },
     },
     concept: {
@@ -126,6 +130,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
         configuration: {
@@ -177,6 +183,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
         interest: {
@@ -228,6 +236,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
         cli: {
@@ -282,6 +292,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
         editor: {
@@ -333,6 +345,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
         content: {
@@ -384,7 +398,10 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
+
           subSections: {
             translation: {
               title: t({
@@ -435,6 +452,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
             enumeration: {
@@ -486,6 +505,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
             'function-fetching': {
@@ -537,6 +558,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
           },
@@ -596,6 +619,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
         'create-react-app': {
@@ -647,6 +672,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
         'vite-and-react': {
@@ -695,6 +722,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'JavaScript',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
         express: {
@@ -743,6 +772,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'Backend',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
       },
@@ -811,6 +842,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
             useDictionary: {
@@ -867,6 +900,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
             useLocale: {
@@ -923,6 +958,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
           },
@@ -984,6 +1021,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
             useDictionary: {
@@ -1040,6 +1079,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
             useLocale: {
@@ -1096,6 +1137,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'React',
                   ],
                 }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
               },
             },
           },
@@ -1164,6 +1207,8 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'React',
               ],
             }),
+            createdAt: new Date('2024-08-11'),
+            updatedAt: new Date('2024-08-11'),
           },
         },
       },

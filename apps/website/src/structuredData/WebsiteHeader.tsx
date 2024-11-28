@@ -1,9 +1,7 @@
-import { type DeclarationContent } from 'intlayer';
 import Head from 'next/head';
 
-const website = {
-  key: 'website-structured-data',
-  content: {
+export const WebsiteHeader = () => {
+  const website = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     url: 'https://intlayer.org',
@@ -13,16 +11,16 @@ const website = {
       target: `${process.env.NEXT_PUBLIC_URL}/doc/search?search={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
-  },
-} satisfies DeclarationContent;
+  };
 
-export const WebsiteHeader = () => (
-  <Head>
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(website),
-      }}
-    />
-  </Head>
-);
+  return (
+    <Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(website),
+        }}
+      />
+    </Head>
+  );
+};
