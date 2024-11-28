@@ -943,6 +943,9 @@ importers:
       '@intlayer/core':
         specifier: workspace:^
         version: link:../core
+      '@intlayer/dictionaries-entry':
+        specifier: workspace:^
+        version: link:../dictionaries-entry
       '@radix-ui/react-dialog':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1022,9 +1025,6 @@ importers:
       '@intlayer/backend':
         specifier: workspace:^
         version: link:../../../apps/backend
-      '@intlayer/dictionaries-entry':
-        specifier: workspace:^
-        version: link:../dictionaries-entry
       '@storybook/addon-essentials':
         specifier: ^8.4.5
         version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@3.4.1))(webpack-sources@3.2.3)
