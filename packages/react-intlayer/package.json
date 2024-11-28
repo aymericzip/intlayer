@@ -103,7 +103,7 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/webpack": "workspace:^",
-    "cross-spawn": "^7.0.5",
+    "cross-spawn": "^7.0.6",
     "js-cookie": "^3.0.5",
     "react-cookie": "^7.2.2",
     "vite": "^5.4.11",
