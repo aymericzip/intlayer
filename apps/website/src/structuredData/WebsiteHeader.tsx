@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Script from 'next/script';
 
 export const WebsiteHeader = () => {
   const website = {
@@ -14,13 +14,11 @@ export const WebsiteHeader = () => {
   };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(website),
-        }}
-      />
-    </Head>
+    <Script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(website),
+      }}
+    />
   );
 };

@@ -1,5 +1,5 @@
 import { type DeclarationContent } from 'intlayer';
-import Head from 'next/head';
+import Script from 'next/script';
 import { t } from 'next-intlayer/server';
 
 type DocHeaderProps = {
@@ -66,13 +66,11 @@ export const DocHeader = ({
   } satisfies DeclarationContent;
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(creativeWork),
-        }}
-      />
-    </Head>
+    <Script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(creativeWork),
+      }}
+    />
   );
 };

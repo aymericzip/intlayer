@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Script from 'next/script';
 import { FC } from 'react';
 
 type BreadcrumbsListItem = {
@@ -13,21 +13,19 @@ type BreadcrumbsHeaderProps = {
 export const BreadcrumbsHeader: FC<BreadcrumbsHeaderProps> = ({
   breadcrumbs,
 }) => (
-  <Head>
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: breadcrumbs.map((item, index) => ({
-            '@type': 'ListItem',
-            position: index + 1,
-            name: item.name,
-            item: item.url,
-          })),
-        }),
-      }}
-    />
-  </Head>
+  <Script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((item, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: item.name,
+          item: item.url,
+        })),
+      }),
+    }}
+  />
 );

@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Script from 'next/script';
 import { t } from 'next-intlayer/server';
 import { type FC } from 'react';
 
@@ -97,13 +97,11 @@ export const SoftwareApplicationHeader: FC = () => {
   };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(softwareApplication),
-        }}
-      />
-    </Head>
+    <Script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(softwareApplication),
+      }}
+    />
   );
 };

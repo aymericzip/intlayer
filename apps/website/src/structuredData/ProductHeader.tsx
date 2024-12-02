@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Script from 'next/script';
 import { t } from 'next-intlayer/server';
 import { FC } from 'react';
 
@@ -119,13 +119,11 @@ export const ProductHeader: FC = () => {
   };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(product),
-        }}
-      />
-    </Head>
+    <Script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(product),
+      }}
+    />
   );
 };
