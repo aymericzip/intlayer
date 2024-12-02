@@ -778,22 +778,136 @@ export const getDocData = (locale = Locales.ENGLISH) => {
         },
       },
     },
-    hooks: {
-      title: t({
-        en: 'Hooks',
-        fr: 'Hooks',
-        es: 'Hooks',
-      }),
+    packages: {
+      title: 'Packages',
       subSections: {
+        'express-intlayer': {
+          title: 'express-intlayer',
+          subSections: {
+            t: {
+              title: 't',
+              default: {
+                docName: 't_express-intlayer',
+                url: PagesRoutes['Doc_Packages_express-intlayer_t'],
+                githubUrl:
+                  GithubRoutes['Packages_express-intlayer_useIntlayer'],
+                title: t({
+                  en: 't Function Documentation',
+                  fr: 'Documentation de la fonction t',
+                  es: 'Documentación de la función t',
+                }),
+                description: t({
+                  en: 'See how to use the t function',
+                  fr: 'Découvrez comment utiliser la fonction t',
+                  es: 'Descubre cómo usar la función t',
+                }),
+                keywords: t({
+                  en: [
+                    't',
+                    'translation',
+                    'Intlayer',
+                    'Internationalization',
+                    'Documentation',
+                    'Intlayer',
+                    'Express',
+                    'JavaScript',
+                    'React',
+                  ],
+                  fr: [
+                    't',
+                    'translation',
+                    'Intlayer',
+                    'Internationalisation',
+                    'Documentation',
+                    'Intlayer',
+                    'Express',
+                    'JavaScript',
+                    'React',
+                  ],
+                  es: [
+                    'useIntlayer',
+                    'diccionario',
+                    'clave',
+                    'Intlayer',
+                    'Internacionalización',
+                    'Documentación',
+                    'Intlayer',
+                    'Express',
+                    'JavaScript',
+                    'React',
+                  ],
+                }),
+                createdAt: new Date('2024-12-02'),
+                updatedAt: new Date('2024-12-02'),
+              },
+            },
+          },
+        },
         'react-intlayer': {
           title: 'react-intlayer',
           subSections: {
+            t: {
+              title: 't',
+              default: {
+                docName: 't_react-intlayer',
+                url: PagesRoutes['Doc_Packages_react-intlayer_t'],
+                githubUrl: GithubRoutes['Packages_react-intlayer_t'],
+                title: t({
+                  en: 't Function Documentation',
+                  fr: 'Documentation de la fonction t',
+                  es: 'Documentación de la función t',
+                }),
+
+                description: t({
+                  en: 'See how to use the t function',
+                  fr: 'Découvrez comment utiliser la fonction t',
+                  es: 'Descubre cómo usar la función t',
+                }),
+                keywords: t({
+                  en: [
+                    't',
+                    'translation',
+                    'Intlayer',
+                    'Internationalization',
+                    'Documentation',
+                    'Intlayer',
+                    'Next.js',
+                    'JavaScript',
+                    'React',
+                  ],
+                  fr: [
+                    't',
+                    'traduction',
+                    'Intlayer',
+                    'Internationalisation',
+                    'Documentation',
+                    'Intlayer',
+                    'Next.js',
+                    'JavaScript',
+                    'React',
+                  ],
+                  es: [
+                    't',
+                    'traducción',
+                    'Intlayer',
+                    'Internacionalización',
+                    'Documentación',
+                    'Intlayer',
+                    'Next.js',
+                    'JavaScript',
+                    'React',
+                  ],
+                }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
+              },
+            },
             useIntlayer: {
               title: 'useIntlayer',
               default: {
-                docName: 'useIntlayer_react-intlayer_hook',
-                url: PagesRoutes['Doc_Hooks_react-intlayer_useIntlayer'],
-                githubUrl: GithubRoutes['Hooks_react-intlayer_useIntlayer'],
+                docName: 'useIntlayer_react-intlayer',
+                url: PagesRoutes['Doc_Packages_react-intlayer_useIntlayer'],
+                githubUrl: GithubRoutes['Packages_react-intlayer_useIntlayer'],
                 title: t({
                   en: 'useIntlayer Hook Documentation',
                   fr: 'Documentation du hook useIntlayer',
@@ -849,9 +963,10 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             useDictionary: {
               title: 'useDictionary',
               default: {
-                docName: 'useDictionary_react-intlayer_hook',
-                url: PagesRoutes['Doc_Hooks_react-intlayer_useDictionary'],
-                githubUrl: GithubRoutes['Hooks_react-intlayer_useDictionary'],
+                docName: 'useDictionary_react-intlayer',
+                url: PagesRoutes['Doc_Packages_react-intlayer_useDictionary'],
+                githubUrl:
+                  GithubRoutes['Packages_react-intlayer_useDictionary'],
                 title: t({
                   en: 'useDictionary Hook Documentation',
                   fr: 'Documentation du hook useDictionary',
@@ -907,9 +1022,9 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             useLocale: {
               title: 'useLocale',
               default: {
-                docName: 'useLocale_react-intlayer_hook',
-                url: PagesRoutes['Doc_Hooks_react-intlayer_useLocale'],
-                githubUrl: GithubRoutes['Hooks_react-intlayer_useLocale'],
+                docName: 'useLocale_react-intlayer',
+                url: PagesRoutes['Doc_Packages_react-intlayer_useLocale'],
+                githubUrl: GithubRoutes['Packages_react-intlayer_useLocale'],
                 title: t({
                   en: 'useLocale Hook Documentation',
                   fr: 'Documentation du hook useLocale',
@@ -967,12 +1082,68 @@ export const getDocData = (locale = Locales.ENGLISH) => {
         'next-intlayer': {
           title: 'next-intlayer',
           subSections: {
+            t: {
+              title: 't',
+              default: {
+                docName: 't_next-intlayer',
+                url: PagesRoutes['Doc_Packages_next-intlayer_t'],
+                githubUrl: GithubRoutes['Packages_next-intlayer_t'],
+                title: t({
+                  en: 't Function Documentation',
+                  fr: 'Documentation de la fonction t',
+                  es: 'Documentación de la función t',
+                }),
+
+                description: t({
+                  en: 'See how to use the t function',
+                  fr: 'Découvrez comment utiliser la fonction t',
+                  es: 'Descubre cómo usar la función t',
+                }),
+                keywords: t({
+                  en: [
+                    't',
+                    'translation',
+                    'Intlayer',
+                    'Internationalization',
+                    'Documentation',
+                    'Intlayer',
+                    'Next.js',
+                    'JavaScript',
+                    'React',
+                  ],
+                  fr: [
+                    't',
+                    'traduction',
+                    'Intlayer',
+                    'Internationalisation',
+                    'Documentation',
+                    'Intlayer',
+                    'Next.js',
+                    'JavaScript',
+                    'React',
+                  ],
+                  es: [
+                    't',
+                    'traducción',
+                    'Intlayer',
+                    'Internacionalización',
+                    'Documentación',
+                    'Intlayer',
+                    'Next.js',
+                    'JavaScript',
+                    'React',
+                  ],
+                }),
+                createdAt: new Date('2024-08-11'),
+                updatedAt: new Date('2024-08-11'),
+              },
+            },
             useIntlayer: {
               title: 'useIntlayer',
               default: {
-                docName: 'useIntlayer_next-intlayer_hook',
-                url: PagesRoutes['Doc_Hooks_next-intlayer_useIntlayer'],
-                githubUrl: GithubRoutes['Hooks_next-intlayer_useIntlayer'],
+                docName: 'useIntlayer_next-intlayer',
+                url: PagesRoutes['Doc_Packages_next-intlayer_useIntlayer'],
+                githubUrl: GithubRoutes['Packages_next-intlayer_useIntlayer'],
                 title: t({
                   en: 'useIntlayer Hook Documentation',
                   fr: 'Documentation du hook useIntlayer',
@@ -1028,9 +1199,9 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             useDictionary: {
               title: 'useDictionary',
               default: {
-                docName: 'useDictionary_next-intlayer_hook',
-                url: PagesRoutes['Doc_Hooks_next-intlayer_useDictionary'],
-                githubUrl: GithubRoutes['Hooks_next-intlayer_useDictionary'],
+                docName: 'useDictionary_next-intlayer',
+                url: PagesRoutes['Doc_Packages_next-intlayer_useDictionary'],
+                githubUrl: GithubRoutes['Packages_next-intlayer_useDictionary'],
                 title: t({
                   en: 'useDictionary Hook Documentation',
                   fr: 'Documentation du hook useDictionary',
@@ -1086,9 +1257,9 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             useLocale: {
               title: 'useLocale',
               default: {
-                docName: 'useLocale_next-intlayer_hook',
-                url: PagesRoutes['Doc_Hooks_next-intlayer_useLocale'],
-                githubUrl: GithubRoutes['Hooks_next-intlayer_useLocale'],
+                docName: 'useLocale_next-intlayer',
+                url: PagesRoutes['Doc_Packages_next-intlayer_useLocale'],
+                githubUrl: GithubRoutes['Packages_next-intlayer_useLocale'],
                 title: t({
                   en: 'useLocale Hook Documentation',
                   fr: 'Documentation du hook useLocale',

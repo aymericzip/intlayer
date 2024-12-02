@@ -89,35 +89,51 @@ const docs = {
     fr: require('./docs/privacy_notice_fr.md'),
     es: require('./docs/privacy_notice_es.md'),
   },
-  'useIntlayer_react-intlayer_hook': {
-    en: require('./docs/hooks/react-intlayer/useIntlayer_en.md'),
-    fr: require('./docs/hooks/react-intlayer/useIntlayer_fr.md'),
-    es: require('./docs/hooks/react-intlayer/useIntlayer_es.md'),
+  't_express-intlayer': {
+    en: require('./docs/packages/express-intlayer/t_en.md'),
+    fr: require('./docs/packages/express-intlayer/t_fr.md'),
+    es: require('./docs/packages/express-intlayer/t_es.md'),
   },
-  'useDictionary_react-intlayer_hook': {
-    en: require('./docs/hooks/react-intlayer/useDictionary_en.md'),
-    fr: require('./docs/hooks/react-intlayer/useDictionary_fr.md'),
-    es: require('./docs/hooks/react-intlayer/useDictionary_es.md'),
+
+  't_react-intlayer': {
+    en: require('./docs/packages/react-intlayer/t_en.md'),
+    fr: require('./docs/packages/react-intlayer/t_fr.md'),
+    es: require('./docs/packages/react-intlayer/t_es.md'),
   },
-  'useLocale_react-intlayer_hook': {
-    en: require('./docs/hooks/react-intlayer/useLocale_en.md'),
-    fr: require('./docs/hooks/react-intlayer/useLocale_fr.md'),
-    es: require('./docs/hooks/react-intlayer/useLocale_es.md'),
+  'useIntlayer_react-intlayer': {
+    en: require('./docs/packages/react-intlayer/useIntlayer_en.md'),
+    fr: require('./docs/packages/react-intlayer/useIntlayer_fr.md'),
+    es: require('./docs/packages/react-intlayer/useIntlayer_es.md'),
   },
-  'useIntlayer_next-intlayer_hook': {
-    en: require('./docs/hooks/next-intlayer/useIntlayer_en.md'),
-    fr: require('./docs/hooks/next-intlayer/useIntlayer_fr.md'),
-    es: require('./docs/hooks/next-intlayer/useIntlayer_es.md'),
+  'useDictionary_react-intlayer': {
+    en: require('./docs/packages/react-intlayer/useDictionary_en.md'),
+    fr: require('./docs/packages/react-intlayer/useDictionary_fr.md'),
+    es: require('./docs/packages/react-intlayer/useDictionary_es.md'),
   },
-  'useDictionary_next-intlayer_hook': {
-    en: require('./docs/hooks/next-intlayer/useDictionary_en.md'),
-    fr: require('./docs/hooks/next-intlayer/useDictionary_fr.md'),
-    es: require('./docs/hooks/next-intlayer/useDictionary_es.md'),
+  'useLocale_react-intlayer': {
+    en: require('./docs/packages/react-intlayer/useLocale_en.md'),
+    fr: require('./docs/packages/react-intlayer/useLocale_fr.md'),
+    es: require('./docs/packages/react-intlayer/useLocale_es.md'),
   },
-  'useLocale_next-intlayer_hook': {
-    en: require('./docs/hooks/next-intlayer/useLocale_en.md'),
-    fr: require('./docs/hooks/next-intlayer/useLocale_fr.md'),
-    es: require('./docs/hooks/next-intlayer/useLocale_es.md'),
+  't_next-intlayer': {
+    en: require('./docs/packages/next-intlayer/t_en.md'),
+    fr: require('./docs/packages/next-intlayer/t_fr.md'),
+    es: require('./docs/packages/next-intlayer/t_es.md'),
+  },
+  'useIntlayer_next-intlayer': {
+    en: require('./docs/packages/next-intlayer/useIntlayer_en.md'),
+    fr: require('./docs/packages/next-intlayer/useIntlayer_fr.md'),
+    es: require('./docs/packages/next-intlayer/useIntlayer_es.md'),
+  },
+  'useDictionary_next-intlayer': {
+    en: require('./docs/packages/next-intlayer/useDictionary_en.md'),
+    fr: require('./docs/packages/next-intlayer/useDictionary_fr.md'),
+    es: require('./docs/packages/next-intlayer/useDictionary_es.md'),
+  },
+  'useLocale_next-intlayer': {
+    en: require('./docs/packages/next-intlayer/useLocale_en.md'),
+    fr: require('./docs/packages/next-intlayer/useLocale_fr.md'),
+    es: require('./docs/packages/next-intlayer/useLocale_es.md'),
   },
 };
 

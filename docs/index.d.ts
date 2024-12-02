@@ -18,12 +18,15 @@ declare module '@intlayer/docs' {
     content_declaration__translation,
     terms_of_service,
     privacy_notice,
-    'useLocale_react-intlayer_hook',
-    'useDictionary_react-intlayer_hook',
-    'useIntlayer_react-intlayer_hook',
-    'useLocale_next-intlayer_hook',
-    'useDictionary_next-intlayer_hook',
-    'useIntlayer_next-intlayer_hook',
+    't_express-intlayer',
+    't_react-intlayer',
+    'useLocale_react-intlayer',
+    'useDictionary_react-intlayer',
+    'useIntlayer_react-intlayer',
+    't_next-intlayer',
+    'useLocale_next-intlayer',
+    'useDictionary_next-intlayer',
+    'useIntlayer_next-intlayer',
   }
 
   export type DocsKeys = keyof typeof DocsKeysEnum;
