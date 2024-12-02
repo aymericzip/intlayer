@@ -129,6 +129,13 @@ De lo contrario, puedes agregar la hoja de estilo de importación en tu aplicaci
 import "intlayer-editor/css";
 ```
 
+O
+
+```css
+/* app.css */
+@import "intlayer-editor/css";
+```
+
 ## Uso del Editor
 
 Cuando el editor está instalado, habilitado e iniciado, puedes ver cada campo indexado por Intlayer al pasar el cursor sobre tu contenido.

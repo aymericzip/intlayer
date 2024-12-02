@@ -131,6 +131,13 @@ Otherwise, you can add import the stylesheets in your application:
 import "intlayer-editor/css";
 ```
 
+Or
+
+```css
+/* app.css */
+@import "intlayer-editor/css";
+```
+
 ## Using the Editor
 
 When the editor is installed, enabled, and started, you can view each field indexed by Intlayer by hovering over your content with your cursor.

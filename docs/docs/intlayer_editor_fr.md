@@ -130,6 +130,13 @@ Sinon, vous pouvez ajouter l'importation des feuilles de style dans votre applic
 import "intlayer-editor/css";
 ```
 
+Ou
+
+```css
+/* app.css */
+@import "intlayer-editor/css";
+```
+
 ## Utilisation de l'éditeur
 
 Lorsque l'éditeur est installé, activé et démarré, vous pouvez afficher chaque champ indexé par Intlayer en survolant votre contenu avec votre curseur.
