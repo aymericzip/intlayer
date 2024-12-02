@@ -10,9 +10,9 @@ export const generateMetadata = ({
     getTranslationContent(content, locale);
 
   const title = t<string>({
-    en: 'Intlayer | Internationalization made easy',
-    fr: 'Intlayer | Internationalisation simplifiée',
-    es: 'Intlayer | Internacionalización hecha fácil',
+    en: 'Intlayer | Internationalization (i18n) made easy',
+    fr: 'Intlayer | Internationalisation (i18n) simplifiée',
+    es: 'Intlayer | Internacionalización (i18n) hecha fácil',
   });
 
   const description = t({
