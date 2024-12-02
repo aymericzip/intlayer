@@ -1,3 +1,4 @@
+import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { Loader } from '@intlayer/design-system';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
@@ -44,5 +45,6 @@ export const LandingPage: FC = () => (
     <DynamicLanguageSection />
     <DynamicWhyToChoseIntlayerSection />
     <DynamicDemoSection />
+    <CommonQuestionsSection />
   </>
 );
