@@ -5,6 +5,7 @@ import {
   FC,
   PropsWithChildren,
   useContext,
+  useMemo,
   useState,
 } from 'react';
 import {
@@ -36,8 +37,10 @@ export const ContentSelectorProvider: FC<PropsWithChildren> = ({
     ContentSelectorWrapper,
   });
 
+  const valueMemo = useMemo(() => ({ state, setState }), []);
+
   return (
-    <ContentSelectorContext.Provider value={{ state, setState }}>
+    <ContentSelectorContext.Provider value={valueMemo}>
       {children}
     </ContentSelectorContext.Provider>
   );
