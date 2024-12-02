@@ -39,12 +39,12 @@ const DynamicDemoSection = dynamic(
 );
 
 export const LandingPage: FC = () => (
-  <>
+  <div className="flex flex-col gap-10">
     <LandingSection />
     <DynamicAvailableTechnoSection />
     <DynamicLanguageSection />
     <DynamicWhyToChoseIntlayerSection />
     <DynamicDemoSection />
     <CommonQuestionsSection />
-  </>
+  </div>
 );
