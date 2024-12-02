@@ -112,11 +112,12 @@ If tailwind is used, you can add the stylesheets to your `tailwind.config.js` fi
 
 ```js
 // tailwind.config.js
-import { intlayerTailwindContent } from "intlayer-editor/tailwind";
+import { tailwindConfig } from "intlayer-editor/tailwind";
 
 module.exports = {
+  presets: [tailwindConfig],
   content: [
-    ...intlayerTailwindContent,
+    ...tailwindConfig.content,
     // ... rest of your content
   ],
   // ...
@@ -127,7 +128,7 @@ Otherwise, you can add import the stylesheets in your application:
 
 ```tsx
 // app.tsx
-import "@intlayer/editor/css";
+import "intlayer-editor/css";
 ```
 
 ## Using the Editor

@@ -111,12 +111,12 @@ Pour afficher les feuilles de style de l'éditeur, vous devez ajouter les feuill
 Si tailwind est utilisé, vous pouvez ajouter les feuilles de style à votre fichier `tailwind.config.js`:
 
 ```js
-// tailwind.config.js
-import { intlayerTailwindContent } from "intlayer-editor/tailwind";
+import { tailwindConfig } from "intlayer-editor/tailwind";
 
 module.exports = {
+  presets: [tailwindConfig],
   content: [
-    ...intlayerTailwindContent,
+    ...tailwindConfig.content,
     // ... reste de votre contenu
   ],
   // ...
@@ -127,7 +127,7 @@ Sinon, vous pouvez ajouter l'importation des feuilles de style dans votre applic
 
 ```tsx
 // app.tsx
-import "@intlayer/editor/css";
+import "intlayer-editor/css";
 ```
 
 ## Utilisation de l'éditeur

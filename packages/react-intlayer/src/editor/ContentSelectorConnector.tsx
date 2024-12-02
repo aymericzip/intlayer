@@ -37,7 +37,7 @@ export const ContentSelectorProvider: FC<PropsWithChildren> = ({
     ContentSelectorWrapper,
   });
 
-  const valueMemo = useMemo(() => ({ state, setState }), []);
+  const valueMemo = useMemo(() => ({ state, setState }), [state, setState]);
 
   return (
     <ContentSelectorContext.Provider value={valueMemo}>

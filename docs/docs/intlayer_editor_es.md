@@ -110,11 +110,12 @@ Si se utiliza tailwind, puedes agregar las hojas de estilo a tu archivo `tailwin
 
 ```js
 // tailwind.config.js
-import { intlayerTailwindContent } from "intlayer-editor/tailwind";
+import { tailwindConfig } from "intlayer-editor/tailwind";
 
 module.exports = {
+  presets: [tailwindConfig],
   content: [
-    ...intlayerTailwindContent,
+    ...tailwindConfig.content,
     // ... resto de tu contenido
   ],
   // ...
@@ -125,7 +126,7 @@ De lo contrario, puedes agregar la hoja de estilo de importación en tu aplicaci
 
 ```tsx
 // app.tsx
-import "@intlayer/editor/css";
+import "intlayer-editor/css";
 ```
 
 ## Uso del Editor

@@ -44,9 +44,8 @@
       "require": "./dist/cjs/styles/tailwind.cjs"
     },
     "./css": {
-      "types": "./dist/types/styles/css.d.ts",
-      "import": "./dist/esm/styles/css.mjs",
-      "require": "./dist/cjs/styles/css.cjs"
+      "import": "./dist/esm/styles/style.css",
+      "require": "./dist/cjs/styles/style.css"
     },
     "./package.json": "./package.json"
   },
