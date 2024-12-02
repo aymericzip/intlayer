@@ -112,7 +112,7 @@
     "@utils/ts-config-types": "workspace:^",
     "@utils/tsup-config": "workspace:^",
     "concurrently": "^9.1.0",
-    "eslint": "^9.14.0",
+    "eslint": "^9.16.0",
     "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
