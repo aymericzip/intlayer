@@ -102,6 +102,7 @@
     "@intlayer/chokidar": "workspace:^",
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
+    "@intlayer/dictionaries-entry": "workspace:^",
     "@intlayer/webpack": "workspace:^",
     "cross-spawn": "^7.0.6",
     "js-cookie": "^3.0.5",

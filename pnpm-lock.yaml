@@ -813,8 +813,8 @@ importers:
         specifier: ^1.10.9
         version: 1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.7.2)
       '@swc/cli':
-        specifier: ^0.5.1
-        version: 0.5.1(@swc/core@1.7.26(@swc/helpers@0.5.13))(chokidar@3.6.0)
+        specifier: ^0.5.2
+        version: 0.5.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(chokidar@3.6.0)
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -7394,10 +7394,10 @@ packages:
         integrity: sha512-JxIvIo/Hrpv0JCHSyRpetAdQ6lB27oFYhv0PKCNf1g2gUXOjpeR1exrXccRxLMuAV5WAmGFBwRnNOJqN38+qtg==,
       }
 
-  '@swc/cli@0.5.1':
+  '@swc/cli@0.5.2':
     resolution:
       {
-        integrity: sha512-sxSXyjqFImYrqjhZSPymjmM/9V6auZG67UsDwbe7FZaBlyfW8ka3QG/zRjpJJ9+8Ahns/kKb8bXPKQq7V2MtBw==,
+        integrity: sha512-ul2qIqjM5bfe9zWLqFDmHZCf9HXXSZZAlZLe4czn+lH4PewO+OWZnQcYCscnJKlbx6MuWjzXVR7gkspjNEJwJA==,
       }
     engines: { node: '>= 16.14.0' }
     hasBin: true
@@ -27481,7 +27481,7 @@ snapshots:
       source-map-support: 0.5.21
       tslib: 2.7.0
 
-  '@swc/cli@0.5.1(@swc/core@1.7.26(@swc/helpers@0.5.13))(chokidar@3.6.0)':
+  '@swc/cli@0.5.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(chokidar@3.6.0)':
     dependencies:
       '@swc/core': 1.7.26(@swc/helpers@0.5.13)
       '@swc/counter': 0.1.3

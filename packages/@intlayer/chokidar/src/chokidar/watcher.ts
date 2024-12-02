@@ -41,6 +41,10 @@ export const watch = (options?: ChokidarOptions) => {
 
       await createTypes(dictionariesPaths);
 
+      console.info(
+        `${LOG_PREFIX}${dictionariesPaths.length} dictionaries built`
+      );
+
       createModuleAugmentation();
 
       createDictionaryList();
