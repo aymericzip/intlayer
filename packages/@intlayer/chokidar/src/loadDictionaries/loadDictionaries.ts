@@ -41,28 +41,32 @@ export const loadDictionaries = async (
     let mergedDictionaries = localDictionaries;
 
     if (editor.clientId && editor.clientSecret) {
-      // Fetch distant dictionary keys
-      distantDictionaryKeys = await fetchDistantDictionaryKeys();
+      try {
+        // Fetch distant dictionary keys
+        distantDictionaryKeys = await fetchDistantDictionaryKeys();
 
-      const orderedDistantDictionaryKeys =
-        distantDictionaryKeys.sort(sortAlphabetically);
-      // Add distant dictionaries to the logger
-      logger.addDictionaryKeys('distant', orderedDistantDictionaryKeys);
+        const orderedDistantDictionaryKeys =
+          distantDictionaryKeys.sort(sortAlphabetically);
+        // Add distant dictionaries to the logger
+        logger.addDictionaryKeys('distant', orderedDistantDictionaryKeys);
 
-      // Fetch distant dictionaries
-      distantDictionaries = await loadDistantDictionaries({
-        dictionaryKeys: orderedDistantDictionaryKeys,
-      });
-      if (editor.dictionaryPriorityStrategy === 'distant_first') {
-        // Merge the dictionaries
-        mergedDictionaries = merge(localDictionaries, distantDictionaries, {
-          arrayMerge: mergeByKey('key'),
+        // Fetch distant dictionaries
+        distantDictionaries = await loadDistantDictionaries({
+          dictionaryKeys: orderedDistantDictionaryKeys,
         });
-      } else {
-        // Merge the dictionaries
-        mergedDictionaries = merge(distantDictionaries, localDictionaries, {
-          arrayMerge: mergeByKey('key'),
-        });
+        if (editor.dictionaryPriorityStrategy === 'distant_first') {
+          // Merge the dictionaries
+          mergedDictionaries = merge(localDictionaries, distantDictionaries, {
+            arrayMerge: mergeByKey('key'),
+          });
+        } else {
+          // Merge the dictionaries
+          mergedDictionaries = merge(distantDictionaries, localDictionaries, {
+            arrayMerge: mergeByKey('key'),
+          });
+        }
+      } catch (error) {
+        console.error('Error during fetching distant dictionaries');
       }
     }
 

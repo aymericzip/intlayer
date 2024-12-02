@@ -23,17 +23,17 @@ export const watch = (options?: ChokidarOptions) => {
 
   const { watchedFilesPatternWithPath, baseDir } = content;
 
-  cleanOutputDir();
-
   const files: string[] = fg.sync(watchedFilesPatternWithPath);
 
   /** @ts-ignore remove error Expected 0-1 arguments, but got 2. */
   return chokidarWatch(watchedFilesPatternWithPath, {
-    persistent: true, // Make the watcher persistent
+    persistent: false, // Make the watcher persistent
     ignoreInitial: true, // Process existing files
     ...options,
   })
     .on('ready', async () => {
+      cleanOutputDir();
+
       const dictionaries = await loadDictionaries(files);
 
       // Build locale dictionaries
