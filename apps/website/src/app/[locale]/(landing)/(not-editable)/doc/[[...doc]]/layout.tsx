@@ -3,7 +3,7 @@ import { getDocPaths, getDoc } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import type { Metadata } from 'next';
 import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
-import { locales } from '../../../../../../../intlayer.config';
+import { defaultLocale, locales } from '../../../../../../../intlayer.config';
 
 export type DocProps = {
   doc: string[];
@@ -34,7 +34,10 @@ export const generateMetadata = ({
       languages: locales.reduce(
         (acc, locale) => ({
           ...acc,
-          [locale]: `/${locale}${docData.url}`,
+          [locale]:
+            locale.toString() === defaultLocale.toString()
+              ? docData.url
+              : `/${locale}/${docData.url}`,
         }),
         {}
       ),

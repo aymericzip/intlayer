@@ -1,7 +1,7 @@
 import { type IConfigLocales, getTranslationContent } from 'intlayer';
 import type { Metadata, Viewport } from 'next';
 import type { LocalParams } from 'next-intlayer';
-import { locales } from '../../../intlayer.config';
+import { locales, defaultLocale } from '../../../intlayer.config';
 
 export const generateMetadata = ({
   params: { locale },
@@ -87,10 +87,15 @@ export const generateMetadata = ({
     alternates: {
       canonical: '/',
       languages: locales.reduce(
-        (acc, locale) => ({ ...acc, [locale]: `/${locale}` }),
+        (acc, locale) => ({
+          ...acc,
+          [locale]:
+            locale.toString() === defaultLocale.toString() ? `` : `/${locale}`,
+        }),
         {}
       ),
     },
+
     icons: {
       icon: [
         {
