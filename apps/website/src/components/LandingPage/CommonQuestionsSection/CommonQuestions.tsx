@@ -21,7 +21,11 @@ export const CommonQuestionsSection: FC = () => {
             identifier={question.value}
             className="mt-2"
             header={
-              <div itemScope itemType="https://schema.org/Question">
+              <div
+                itemScope
+                itemType="https://schema.org/Question"
+                itemProp="mainEntity"
+              >
                 <h3
                   className="text-wrap p-2 text-base font-bold"
                   itemProp="name"
@@ -31,18 +35,15 @@ export const CommonQuestionsSection: FC = () => {
               </div>
             }
             label={accordionLabel.value}
-            itemProp="mainEntity"
           >
             <div
-              itemProp="acceptedAnswer"
               itemScope
               itemType="https://schema.org/Answer"
-              className="text-neutral dark-text-neutral-dark"
+              className="text-neutral dark:text-neutral-dark"
             >
-              <span itemProp="text">{answer}</span>
+              <div itemProp="text">{answer}</div>
               {callToAction && (
                 <Link
-                  itemProp="text"
                   href={callToAction.url.value}
                   label={callToAction.alt.value}
                   color="text"
