@@ -8,7 +8,10 @@ const config: IntlayerConfig = {
     strictMode: 'strict',
   },
   editor: {
-    enabled: process.env.NODE_ENV === 'development',
+    enabled: true,
+    backendURL: process.env.INTLAYER_BACKEND_URL,
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 
