@@ -1,4 +1,4 @@
-# express-intlayer
+# Démarrage avec Intlayer et express-intlayer
 
 `express-intlayer` est un middleware puissant d'internationalisation (i18n) pour les applications Express, conçu pour rendre vos services backend globalement accessibles en fournissant des réponses localisées basées sur les préférences du client.
 
