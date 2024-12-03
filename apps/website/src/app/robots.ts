@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { defaultLocale, locales } from '../../../intlayer.config';
+import { defaultLocale, locales } from '../../intlayer.config';
 import { PagesRoutes } from '@/Routes';
 
 const robots = (): MetadataRoute.Robots => ({
@@ -9,8 +9,8 @@ const robots = (): MetadataRoute.Robots => ({
       '/',
       ...locales.map((locale) =>
         locale.toString() === defaultLocale.toString()
-          ? PagesRoutes.Dashboard
-          : `/${locale}${PagesRoutes.Dashboard}`
+          ? `${PagesRoutes.Dashboard}$`
+          : `/${locale}${PagesRoutes.Dashboard}$`
       ),
     ],
     disallow: [
@@ -41,8 +41,8 @@ const robots = (): MetadataRoute.Robots => ({
       ),
       ...locales.map((locale) =>
         locale.toString() === defaultLocale.toString()
-          ? `${PagesRoutes.Dashboard}`
-          : `/${locale}${PagesRoutes.Dashboard}`
+          ? `${PagesRoutes.Dashboard}/`
+          : `/${locale}${PagesRoutes.Dashboard}/`
       ),
     ],
   },
