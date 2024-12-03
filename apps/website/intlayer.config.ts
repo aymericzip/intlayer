@@ -1,12 +1,13 @@
 import { Locales, type IntlayerConfig } from 'intlayer';
 
 export const locales = [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH];
+export const defaultLocale = Locales.ENGLISH;
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config: IntlayerConfig = {
   internationalization: {
     locales,
-    defaultLocale: Locales.ENGLISH,
+    defaultLocale,
     strictMode: 'strict',
   },
   editor: {
