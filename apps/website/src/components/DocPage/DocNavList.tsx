@@ -69,7 +69,7 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                                   !isActive ? (sectionDefault?.url ?? '') : ''
                                 }
                                 className={cn([
-                                  'text-neutral hover:text-text dark:hover:text-text-dark flex flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
+                                  'text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
                                   isActive &&
                                     'text-primary dark:text-primary-dark',
                                 ])}
@@ -79,6 +79,7 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                             }
                             label={key2}
                             isOpen={isActive}
+                            className="pl-0"
                           >
                             <div className="pl-3">
                               {subSections2 &&
@@ -101,7 +102,7 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                                               section3Data.default?.url ?? ''
                                             }
                                             className={cn([
-                                              'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200',
+                                              'text-neutral hover:text-text dark:hover:text-text-dark block w-full text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200',
                                               isActive &&
                                                 '!text-primary !dark:text-primary-dark',
                                             ])}
@@ -119,7 +120,7 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                           <OptionalLink
                             href={sectionDefault?.url ?? ''}
                             className={cn([
-                              'text-neutral hover:text-text dark:hover:text-text-dark flex flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
+                              'text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
                               isActive &&
                                 '!text-primary !dark:text-primary-dark',
                             ])}
