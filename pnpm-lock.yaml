@@ -437,6 +437,9 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../../packages/intlayer
+      intlayer-editor:
+        specifier: workspace:^
+        version: link:../../packages/intlayer-editor
       next:
         specifier: 14.2.18
         version: 14.2.18(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
