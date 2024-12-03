@@ -789,17 +789,16 @@ export const getDocData = (locale = Locales.ENGLISH) => {
               default: {
                 docName: 't_express-intlayer',
                 url: PagesRoutes['Doc_Packages_express-intlayer_t'],
-                githubUrl:
-                  GithubRoutes['Packages_express-intlayer_useIntlayer'],
+                githubUrl: GithubRoutes['Packages_express-intlayer_t'],
                 title: t({
-                  en: 't Function Documentation',
-                  fr: 'Documentation de la fonction t',
-                  es: 'Documentación de la función t',
+                  en: 't Function Documentation | express-intlayer',
+                  fr: 'Documentation de la fonction t | express-intlayer',
+                  es: 'Documentación de la función t | express-intlayer',
                 }),
                 description: t({
-                  en: 'See how to use the t function',
-                  fr: 'Découvrez comment utiliser la fonction t',
-                  es: 'Descubre cómo usar la función t',
+                  en: 'See how to use the t function for next-intlayer package',
+                  fr: 'Découvrez comment utiliser la fonction t pour le package next-intlayer',
+                  es: 'Descubre cómo usar la función t para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
@@ -859,9 +858,9 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 }),
 
                 description: t({
-                  en: 'See how to use the t function',
-                  fr: 'Découvrez comment utiliser la fonction t',
-                  es: 'Descubre cómo usar la función t',
+                  en: 'See how to use the t function for next-intlayer package',
+                  fr: 'Découvrez comment utiliser la fonction t pour le package next-intlayer',
+                  es: 'Descubre cómo usar la función t para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
@@ -909,14 +908,14 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 url: PagesRoutes['Doc_Packages_react-intlayer_useIntlayer'],
                 githubUrl: GithubRoutes['Packages_react-intlayer_useIntlayer'],
                 title: t({
-                  en: 'useIntlayer Hook Documentation',
-                  fr: 'Documentation du hook useIntlayer',
-                  es: 'Documentación del hook useIntlayer',
+                  en: 'useIntlayer Hook Documentation | react-intlayer',
+                  fr: 'Documentation du hook useIntlayer | react-intlayer',
+                  es: 'Documentación del hook useIntlayer | react-intlayer',
                 }),
                 description: t({
-                  en: 'See how to use the useIntlayer hook',
-                  fr: 'Découvrez comment utiliser le hook useIntlayer',
-                  es: 'Descubre cómo usar el hook useIntlayer',
+                  en: 'See how to use the useIntlayer hook for next-intlayer package',
+                  fr: 'Découvrez comment utiliser le hook useIntlayer pour le package next-intlayer',
+                  es: 'Descubre cómo usar el hook useIntlayer para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
@@ -968,14 +967,14 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 githubUrl:
                   GithubRoutes['Packages_react-intlayer_useDictionary'],
                 title: t({
-                  en: 'useDictionary Hook Documentation',
-                  fr: 'Documentation du hook useDictionary',
-                  es: 'Documentación del hook useDictionary',
+                  en: 'useDictionary Hook Documentation | react-intlayer',
+                  fr: 'Documentation du hook useDictionary | react-intlayer',
+                  es: 'Documentación del hook useDictionary | react-intlayer',
                 }),
                 description: t({
-                  en: 'See how to use the useDictionary hook',
-                  fr: 'Découvrez comment utiliser le hook useDictionary',
-                  es: 'Descubre cómo usar el hook useDictionary',
+                  en: 'See how to use the useDictionary hook for next-intlayer package',
+                  fr: 'Découvrez comment utiliser le hook useDictionary pour le package next-intlayer',
+                  es: 'Descubre cómo usar el hook useDictionary para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
@@ -1026,14 +1025,14 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 url: PagesRoutes['Doc_Packages_react-intlayer_useLocale'],
                 githubUrl: GithubRoutes['Packages_react-intlayer_useLocale'],
                 title: t({
-                  en: 'useLocale Hook Documentation',
-                  fr: 'Documentation du hook useLocale',
-                  es: 'Documentación del hook useLocale',
+                  en: 'useLocale Hook Documentation | react-intlayer',
+                  fr: 'Documentation du hook useLocale | react-intlayer',
+                  es: 'Documentación del hook useLocale | react-intlayer',
                 }),
                 description: t({
-                  en: 'See how to use the useLocale hook',
-                  fr: 'Découvrez comment utiliser le hook useLocale',
-                  es: 'Descubre cómo usar el hook useLocale',
+                  en: 'See how to use the useLocale hook for next-intlayer package',
+                  fr: 'Découvrez comment utiliser le hook useLocale pour le package next-intlayer',
+                  es: 'Descubre cómo usar el hook useLocale para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
@@ -1089,15 +1088,15 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 url: PagesRoutes['Doc_Packages_next-intlayer_t'],
                 githubUrl: GithubRoutes['Packages_next-intlayer_t'],
                 title: t({
-                  en: 't Function Documentation',
-                  fr: 'Documentation de la fonction t',
-                  es: 'Documentación de la función t',
+                  en: 't Function Documentation | next-intlayer',
+                  fr: 'Documentation de la fonction t | next-intlayer',
+                  es: 'Documentación de la función t | next-intlayer',
                 }),
 
                 description: t({
-                  en: 'See how to use the t function',
-                  fr: 'Découvrez comment utiliser la fonction t',
-                  es: 'Descubre cómo usar la función t',
+                  en: 'See how to use the t function for next-intlayer package',
+                  fr: 'Découvrez comment utiliser la fonction t pour le package next-intlayer',
+                  es: 'Descubre cómo usar la función t para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
@@ -1145,14 +1144,14 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 url: PagesRoutes['Doc_Packages_next-intlayer_useIntlayer'],
                 githubUrl: GithubRoutes['Packages_next-intlayer_useIntlayer'],
                 title: t({
-                  en: 'useIntlayer Hook Documentation',
-                  fr: 'Documentation du hook useIntlayer',
-                  es: 'Documentación del hook useIntlayer',
+                  en: 'useIntlayer Hook Documentation | next-intlayer',
+                  fr: 'Documentation du hook useIntlayer | next-intlayer',
+                  es: 'Documentación del hook useIntlayer | next-intlayer',
                 }),
                 description: t({
-                  en: 'See how to use the useIntlayer hook',
-                  fr: 'Découvrez comment utiliser le hook useIntlayer',
-                  es: 'Descubre cómo usar el hook useIntlayer',
+                  en: 'See how to use the useIntlayer hook for next-intlayer package',
+                  fr: 'Découvrez comment utiliser le hook useIntlayer pour le package next-intlayer',
+                  es: 'Descubre cómo usar el hook useIntlayer para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
@@ -1203,14 +1202,14 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 url: PagesRoutes['Doc_Packages_next-intlayer_useDictionary'],
                 githubUrl: GithubRoutes['Packages_next-intlayer_useDictionary'],
                 title: t({
-                  en: 'useDictionary Hook Documentation',
-                  fr: 'Documentation du hook useDictionary',
-                  es: 'Documentación del hook useDictionary',
+                  en: 'useDictionary Hook Documentation | next-intlayer',
+                  fr: 'Documentation du hook useDictionary | next-intlayer',
+                  es: 'Documentación del hook useDictionary | next-intlayer',
                 }),
                 description: t({
-                  en: 'See how to use the useDictionary hook',
-                  fr: 'Découvrez comment utiliser le hook useDictionary',
-                  es: 'Descubre cómo usar el hook useDictionary',
+                  en: 'See how to use the useDictionary hook for next-intlayer package',
+                  fr: 'Découvrez comment utiliser le hook useDictionary pour le package next-intlayer',
+                  es: 'Descubre cómo usar el hook useDictionary para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
@@ -1261,14 +1260,14 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 url: PagesRoutes['Doc_Packages_next-intlayer_useLocale'],
                 githubUrl: GithubRoutes['Packages_next-intlayer_useLocale'],
                 title: t({
-                  en: 'useLocale Hook Documentation',
-                  fr: 'Documentation du hook useLocale',
-                  es: 'Documentación del hook useLocale',
+                  en: 'useLocale Hook Documentation | next-intlayer',
+                  fr: 'Documentation du hook useLocale | next-intlayer',
+                  es: 'Documentación del hook useLocale | next-intlayer',
                 }),
                 description: t({
-                  en: 'See how to use the useLocale hook',
-                  fr: 'Découvrez comment utiliser le hook useLocale',
-                  es: 'Descubre cómo usar el hook useLocale',
+                  en: 'See how to use the useLocale hook for next-intlayer package',
+                  fr: 'Découvrez comment utiliser le hook useLocale pour le package next-intlayer',
+                  es: 'Descubre cómo usar el hook useLocale para el paquete next-intlayer',
                 }),
                 keywords: t({
                   en: [
