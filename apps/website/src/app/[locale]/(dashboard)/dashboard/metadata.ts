@@ -56,7 +56,7 @@ export const generateMetadata = ({
           [locale]:
             locale.toString() === defaultLocale.toString()
               ? PagesRoutes.Dashboard
-              : `/${locale}/${PagesRoutes.Dashboard}`,
+              : `/${locale}${PagesRoutes.Dashboard}`,
         }),
         {}
       ),

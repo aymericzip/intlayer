@@ -40,7 +40,7 @@ export const generateMetadata = ({
           [locale]:
             locale.toString() === defaultLocale.toString()
               ? PagesRoutes.Doc_Search
-              : `/${locale}/${PagesRoutes.Doc_Search}`,
+              : `/${locale}${PagesRoutes.Doc_Search}`,
         }),
         {}
       ),

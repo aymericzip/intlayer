@@ -29,7 +29,7 @@ export const generateMetadata = ({
           [locale]:
             locale.toString() === defaultLocale.toString()
               ? PagesRoutes.Pricing
-              : `/${locale}/${PagesRoutes.Pricing}`,
+              : `/${locale}${PagesRoutes.Pricing}`,
         }),
         {}
       ),

@@ -57,7 +57,7 @@ export const generateMetadata = ({
           [locale]:
             locale.toString() === defaultLocale.toString()
               ? PagesRoutes.Onboarding
-              : `/${locale}/${PagesRoutes.Onboarding}`,
+              : `/${locale}${PagesRoutes.Onboarding}`,
         }),
         {}
       ),

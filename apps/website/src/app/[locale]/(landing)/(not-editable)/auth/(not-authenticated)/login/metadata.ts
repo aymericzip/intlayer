@@ -60,7 +60,7 @@ export const generateMetadata = ({
           [locale]:
             locale.toString() === defaultLocale.toString()
               ? PagesRoutes.Auth_SignIn
-              : `/${locale}/${PagesRoutes.Auth_SignIn}`,
+              : `/${locale}${PagesRoutes.Auth_SignIn}`,
         }),
         {}
       ),

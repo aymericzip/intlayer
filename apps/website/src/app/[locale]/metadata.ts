@@ -90,7 +90,7 @@ export const generateMetadata = ({
         (acc, locale) => ({
           ...acc,
           [locale]:
-            locale.toString() === defaultLocale.toString() ? `` : `/${locale}`,
+            locale.toString() === defaultLocale.toString() ? `/` : `/${locale}`,
         }),
         {}
       ),

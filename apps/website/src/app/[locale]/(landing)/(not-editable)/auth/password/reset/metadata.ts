@@ -57,7 +57,7 @@ export const generateMetadata = ({
           [locale]:
             locale.toString() === defaultLocale.toString()
               ? PagesRoutes.Auth_ResetPassword
-              : `/${locale}/${PagesRoutes.Auth_ResetPassword}`,
+              : `/${locale}${PagesRoutes.Auth_ResetPassword}`,
         }),
         {}
       ),
