@@ -11,19 +11,19 @@ export const CommonQuestionsSection: FC = () => {
       <h2 className="text-neutral dark:text-neutral-dark">{title}</h2>
 
       <div
-        className="mt-10 flex flex-col gap-3 px-3"
+        className="mt-10 flex flex-col gap-2 px-3"
         itemScope
         itemType="https://schema.org/FAQPage"
       >
         {content.map(({ question, answer, callToAction }) => (
           <Accordion
             key={question.value}
-            // className="gap-2"
             identifier={question.value}
+            className="mt-2"
             header={
               <div itemScope itemType="https://schema.org/Question">
                 <h3
-                  className="text-wrap px-2 py-1 text-lg font-bold max-md:py-2"
+                  className="text-wrap p-2 text-base font-bold"
                   itemProp="name"
                 >
                   {question}
@@ -40,15 +40,17 @@ export const CommonQuestionsSection: FC = () => {
               className="text-neutral dark-text-neutral-dark"
             >
               <span itemProp="text">{answer}</span>
-              <Link
-                itemProp="text"
-                href={callToAction.url.value}
-                label={callToAction.alt.value}
-                color="text"
-                className="text-sm"
-              >
-                {callToAction.label}
-              </Link>
+              {callToAction && (
+                <Link
+                  itemProp="text"
+                  href={callToAction.url.value}
+                  label={callToAction.alt.value}
+                  color="text"
+                  className="text-sm"
+                >
+                  {callToAction.label}
+                </Link>
+              )}
             </div>
           </Accordion>
         ))}

@@ -16,6 +16,18 @@ const docNavTitlesContent = {
     content: [
       {
         question: t({
+          en: 'What is internationalization (i18n)?',
+          fr: 'Qu’est-ce que l’internationalisation (i18n) ?',
+          es: '¿Qué es la internacionalización (i18n)?',
+        }),
+        answer: t({
+          en: 'Internationalization (i18n) is the process of designing and developing applications like Next.js, React, or Express to support multiple languages easily. It enables you to create multilingual websites by simplifying the translation process. Tools like TypeScript make it easier to implement i18n, allowing for efficient and easy adaptation of your application to different languages and regions.',
+          fr: "L'internationalisation (i18n) est le processus de conception et de développement d'applications comme Next.js, React ou Express pour prendre en charge facilement plusieurs langues. Elle vous permet de créer des sites web multilingues en simplifiant le processus de traduction. Des outils comme TypeScript facilitent la mise en œuvre de l'i18n, permettant une adaptation efficace et facile de votre application à différentes langues et régions.",
+          es: 'La internacionalización (i18n) es el proceso de diseñar y desarrollar aplicaciones como Next.js, React o Express para admitir fácilmente múltiples idiomas. Te permite crear sitios web multilingües simplificando el proceso de traducción. Herramientas como TypeScript facilitan la implementación de i18n, permitiendo una adaptación eficiente y fácil de tu aplicación a diferentes idiomas y regiones.',
+        }),
+      },
+      {
+        question: t({
           en: 'What is Intlayer?',
           fr: 'Qu’est-ce que Intlayer ?',
           es: '¿Qué es Intlayer?',
