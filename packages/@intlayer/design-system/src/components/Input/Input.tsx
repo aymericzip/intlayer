@@ -19,8 +19,8 @@ export const inputVariants = cva('', {
       ],
     },
     size: {
-      md: 'px-2 py-1',
-      lg: 'px-4 py-2',
+      md: 'px-2 py-1 max-md:py-3',
+      lg: 'px-4 py-2 max-md:py-4',
     },
     validationStyleEnabled: {
       disabled: '',

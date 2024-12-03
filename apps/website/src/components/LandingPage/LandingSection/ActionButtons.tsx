@@ -26,7 +26,6 @@ export const ActionButtons: FC = () => {
         label={secondaryLabel.value}
         variant="outline"
         onClick={() => router.push(secondaryUrl.value)}
-        size="md"
         color="text"
         className="w-full md:w-auto"
       >
@@ -36,7 +35,6 @@ export const ActionButtons: FC = () => {
         label={primaryLabel.value}
         onClick={() => router.push(primaryUrl.value)}
         variant="default"
-        size="md"
         color="text"
         className="w-full md:w-auto"
       >

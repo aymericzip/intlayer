@@ -79,7 +79,7 @@ export const Navbar: FC = () => {
           <NextLink
             aria-label={github.label.value}
             href={github.url.value}
-            className="group/github border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 p-1 hover:bg-opacity-30 dark:bg-opacity-0"
+            className="group/github border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 hover:bg-opacity-30 dark:bg-opacity-0"
           >
             <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
             GitHub
