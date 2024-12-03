@@ -10,15 +10,15 @@ export const generateMetadata = ({
     getTranslationContent(content, locale);
 
   const title = t<string>({
-    en: 'Intlayer | Internationalization (i18n) made easy',
-    fr: 'Intlayer | Internationalisation (i18n) simplifiée',
-    es: 'Intlayer | Internacionalización (i18n) hecha fácil',
+    en: 'Intlayer | Internationalization (i18n) Next.js made easy',
+    fr: 'Intlayer | Internationalisation (i18n) Next.js simplifiée',
+    es: 'Intlayer | Internacionalización (i18n) Next.js hecha fácil',
   });
 
   const description = t({
-    en: 'Intlayer offers a flexible, modern approach to internationalization, integrating seamlessly with Next.js and React. It supports various content formats, making it a powerful choice.',
-    fr: "Intlayer propose une approche moderne et flexible de l'internationalisation. Son intégration parfaite avec Next.js et React et son support de divers formats de contenu en font un choix puissant.",
-    es: 'Intlayer propone un enfoque moderno y flexible para la internacionalización, integrándose perfectamente con Next.js y React. Admite varios formatos de contenido, siendo una opción potente.',
+    en: 'Modern i18n for Next.js, React & Express. Easily build multilingual sites with AI-powered translations, visual editor and TypeScript for strong internationalization.',
+    fr: 'i18n moderne pour Next.js, React et Express. Créez facilement des sites multilingues avec des traductions assistées par IA, un editeur visuel et TypeScript pour une internationalisation robuste.',
+    es: 'i18n moderno para Next.js, React y Express. Crea fácilmente sitios multilingües con traducciones impulsadas por IA, un editor visual y TypeScript para una internacionalización sólida.',
   });
 
   return {
