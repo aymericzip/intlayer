@@ -1,6 +1,9 @@
+import { tailwindConfig } from 'intlayer-editor/tailwind';
+
 /** @type {import('tailwindcss').Config} */
 const config = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  presets: [tailwindConfig],
+  content: [...tailwindConfig.content, './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {},
   },

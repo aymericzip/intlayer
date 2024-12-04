@@ -593,6 +593,9 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../../packages/intlayer
+      intlayer-editor:
+        specifier: workspace:^
+        version: link:../../packages/intlayer-editor
       react:
         specifier: ^18.3.1
         version: 18.3.1

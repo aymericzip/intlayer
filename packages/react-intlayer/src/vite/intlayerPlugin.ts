@@ -61,8 +61,7 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
   buildStart: () => {
     // Code to run when Vite build starts
     watch({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      persistent: (import.meta as any).env === 'development',
+      persistent: process.env.NODE_ENV === 'development',
     });
   },
   configureServer: () => {

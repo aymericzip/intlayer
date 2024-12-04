@@ -65,7 +65,13 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
   if (isEditableSection) return <>-</>;
 
+  if (!section) return <>-</>;
+
   if (typeof section === 'object') {
+    if (nodeType === NodeType.ReactNode) {
+      return <>React Node</>;
+    }
+
     if (nodeType === NodeType.Translation) {
       return (
         <div className="flex flex-col justify-between gap-2">

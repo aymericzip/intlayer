@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { IntlayerProvider, useIntlayer } from 'react-intlayer';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
+import { IntlayerEditorProvider } from 'intlayer-editor';
 import './App.css';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 
@@ -39,12 +40,12 @@ const AppContent: FC = () => {
   );
 };
 
-function App() {
-  return (
-    <IntlayerProvider>
+const App: FC = () => (
+  <IntlayerProvider>
+    <IntlayerEditorProvider>
       <AppContent />
-    </IntlayerProvider>
-  );
-}
+    </IntlayerEditorProvider>
+  </IntlayerProvider>
+);
 
 export default App;
