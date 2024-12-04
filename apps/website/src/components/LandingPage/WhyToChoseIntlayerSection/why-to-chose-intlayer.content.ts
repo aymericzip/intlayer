@@ -77,9 +77,9 @@ const whyToChoseIntlayerContent = {
           fr: 'Configuration Simplifiée',
         }),
         description: t({
-          en: 'Get up and running quickly with minimal configuration, especially optimized for Next.js projects.',
-          es: 'Ponte en marcha rápidamente con una configuración mínima, especialmente optimizado para proyectos Next.js.',
-          fr: 'Mettez-vous en route rapidement avec une configuration minimale, spécialement optimisée pour les projets Next.js.',
+          en: 'Get up and running quickly with minimal configuration, especially optimized for nextjs projects.',
+          es: 'Ponte en marcha rápidamente con una configuración mínima, especialmente optimizado para proyectos nextjs.',
+          fr: 'Mettez-vous en route rapidement avec une configuration minimale, spécialement optimisée pour les projets nextjs.',
         }),
         iconKey: 'timer',
       },

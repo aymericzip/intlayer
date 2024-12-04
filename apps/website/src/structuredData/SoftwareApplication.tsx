@@ -9,11 +9,11 @@ export const SoftwareApplicationHeader: FC = () => {
     name: 'Intlayer',
     url: 'https://www.votresite.com',
     description: t({
-      en: 'Intlayer offers a flexible, modern approach to internationalization, integrating seamlessly with Next.js and React. It supports various content formats, making it a powerful choice.',
-      fr: "Intlayer propose une approche moderne et flexible de l'internationalisation, intégrant parfaitement avec Next.js et React.",
-      es: 'Intlayer ofrece un enfoque moderno y flexible para la internacionalización, integrándose perfectamente con Next.js y React.',
+      en: 'i18n for nextjs & react. Easily build multilingual sites with AI-powered visual editor for your translations. TypeScript internationalization.',
+      fr: "i18n pour nextjs & react. Créez des sites multilingues grâce à un éditeur visuel boosté par l'IA pour vos traductions. Internationalisation basée sur TypeScript.",
+      es: 'i18n para nextjs & react. Crea sitios multilingües con un editor visual impulsado por IA para tus traducciones. Internacionalización con TypeScript.',
     }),
-    softwareVersion: '3.3.2',
+    softwareVersion: '3.3.4',
     license:
       'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
     author: {
@@ -37,7 +37,7 @@ export const SoftwareApplicationHeader: FC = () => {
         'Internationalization',
         'i18n',
         'Web Development',
-        'Next.js',
+        'nextjs',
         'JavaScript',
         'Vite',
         'React',
@@ -65,7 +65,7 @@ export const SoftwareApplicationHeader: FC = () => {
         'SEO',
         'Internacionalización',
         'i18n',
-        'Next.js',
+        'nextjs',
         'Desarrollo Web',
         'JavaScript',
         'Vite',
@@ -83,7 +83,7 @@ export const SoftwareApplicationHeader: FC = () => {
     applicationSubCategory: 'Developer Tools',
     image: 'https://intlayer.org/cover.png',
     operatingSystem: 'Web, iOS, Android',
-    platform: 'Web, React, Next.js, Vite',
+    platform: 'Web, React, nextjs, Vite',
     datePublished: '2024-08-26',
     audience: {
       '@type': 'Audience',

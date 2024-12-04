@@ -12,10 +12,10 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     { href, prefetch = true, ...props },
     ref: ForwardedRef<HTMLAnchorElement>
   ) => (
-    // For internal links, use Next.js's Link for client-side navigation
+    // For internal links, use nextjs's Link for client-side navigation
     <NextLink href={href} prefetch={prefetch} passHref legacyBehavior>
       {/* 
-        Using legacyBehavior to ensure that Next.js's Link wraps the child <a> tag correctly.
+        Using legacyBehavior to ensure that nextjs's Link wraps the child <a> tag correctly.
         This allows forwarding the ref to the underlying <a> tag in the design system's Link.
       */}
       <LinkUI ref={ref} {...props} />

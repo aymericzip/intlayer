@@ -37,27 +37,9 @@ export const generateMetadata = ({
     },
 
     keywords: t<string[]>({
-      en: [
-        'Internationalization',
-        'Intlayer',
-        'Next.js',
-        'JavaScript',
-        'React',
-      ],
-      fr: [
-        'Internationalisation',
-        'Intlayer',
-        'Next.js',
-        'JavaScript',
-        'React',
-      ],
-      es: [
-        'Internacionalización',
-        'Intlayer',
-        'Next.js',
-        'JavaScript',
-        'React',
-      ],
+      en: ['Internationalization', 'Intlayer', 'nextjs', 'JavaScript', 'React'],
+      fr: ['Internationalisation', 'Intlayer', 'nextjs', 'JavaScript', 'React'],
+      es: ['Internacionalización', 'Intlayer', 'nextjs', 'JavaScript', 'React'],
     }),
   };
 };

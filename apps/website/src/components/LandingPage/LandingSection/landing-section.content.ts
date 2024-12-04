@@ -4,9 +4,9 @@ const landingSectionContent = {
   key: 'landing-section',
   content: {
     title: t({
-      en: 'Internationalize (i18n) your website React and Next.js easily',
-      fr: 'Internationalisez (i18n) votre site web React et Next.js facilement',
-      es: 'Internacionalice (i18n) su sitio web React y Next.js fácilmente',
+      en: 'Internationalize (i18n) your website react and nextjs easily',
+      fr: 'Internationalisez (i18n) votre site web react et nextjs facilement',
+      es: 'Internacionalice (i18n) su sitio web react y nextjs fácilmente',
     }),
     description: t({
       en: 'Intlayer is an internationalization library designed specifically for JavaScript developers. It allows the declaration of your content throughout your code. It converts multilingual content declarations into structured dictionaries, making integration easy. Using TypeScript, Intlayer strengthens your development and enhances efficiency.',
