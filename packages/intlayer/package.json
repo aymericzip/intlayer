@@ -51,7 +51,7 @@
     }
   },
   "bin": {
-    "intlayer": "./dist/esm/cli.mjs"
+    "intlayer": "./dist/cjs/cli.cjs"
   },
   "files": [
     "./dist",
@@ -67,16 +67,12 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "serve": "webpack serve --config ./webpack.config.ts",
-    "transpile": "webpack --config ./webpack.config.ts",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit",
-    "watch": "webpack --config ./webpack.config.ts --watch"
+    "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@intlayer/cli": "workspace:^",
     "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:^",
-    "webpack": "^5.96.1"
+    "@intlayer/core": "workspace:^"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.0",

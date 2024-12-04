@@ -32,9 +32,13 @@ export const loadDictionaries = async (
     logger.init(localDictionaryKeys, []);
 
     // Update logger statuses for local dictionaries
-    for (const dict of localDictionaries) {
-      logger.updateStatus(dict.key, 'local', { status: 'built' });
-    }
+    logger.updateStatus(
+      localDictionaries.map((dict) => ({
+        dictionaryKey: dict.key,
+        type: 'local',
+        status: { status: 'built' },
+      }))
+    );
 
     let distantDictionaries: DictionaryAPI[] = [];
     let distantDictionaryKeys: string[] = [];
@@ -65,7 +69,7 @@ export const loadDictionaries = async (
             arrayMerge: mergeByKey('key'),
           });
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error during fetching distant dictionaries');
       }
     }

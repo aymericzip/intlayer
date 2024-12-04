@@ -1,4 +1,5 @@
 import { join, relative, resolve } from 'path';
+import process from 'process';
 import { watch } from '@intlayer/chokidar';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
 import { loadEnv, type Plugin } from 'vite';

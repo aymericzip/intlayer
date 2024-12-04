@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
+import process from 'process';
 import { intlayerAPI } from 'src/libs';
 import { useAuth } from '../components/Auth/useAuth/index';
 import { useToast } from '../components/Toaster';

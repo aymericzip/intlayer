@@ -531,7 +531,7 @@ importers:
     dependencies:
       '@craco/craco':
         specifier: ^7.1.0
-        version: 7.1.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(postcss@8.4.49)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2))(typescript@5.7.2)
+        version: 7.1.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(postcss@8.4.49)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2))(typescript@5.7.2)
       '@testing-library/jest-dom':
         specifier: ^5.17.0
         version: 5.17.0
@@ -570,7 +570,7 @@ importers:
         version: link:../../packages/react-intlayer
       react-scripts:
         specifier: 5.0.1
-        version: 5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2)
+        version: 5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2)
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -681,9 +681,6 @@ importers:
       intlayer:
         specifier: workspace:^
         version: link:../../intlayer
-      log-update:
-        specifier: ^6.1.0
-        version: 6.1.0
       node-loader:
         specifier: ^2.1.0
         version: 2.1.0(webpack@5.96.1(@swc/core@1.7.26(@swc/helpers@0.5.13))(esbuild@0.24.0))
@@ -767,8 +764,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       p-limit:
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^3.1.0
+        version: 3.1.0
     devDependencies:
       '@intlayer/core':
         specifier: workspace:^
@@ -1346,9 +1343,6 @@ importers:
       '@intlayer/core':
         specifier: workspace:^
         version: link:../@intlayer/core
-      webpack:
-        specifier: ^5.96.1
-        version: 5.96.1(@swc/core@1.7.26(@swc/helpers@0.5.13))
     devDependencies:
       '@changesets/changelog-github':
         specifier: 0.5.0
@@ -1483,9 +1477,6 @@ importers:
       react-intlayer:
         specifier: workspace:^
         version: link:../react-intlayer
-      webpack:
-        specifier: ^5.96.1
-        version: 5.96.1(@swc/core@1.7.26(@swc/helpers@0.5.13))
       zustand:
         specifier: ^5.0.1
         version: 5.0.1(@types/react@18.3.12)(immer@9.0.21)(react@18.3.1)(use-sync-external-store@1.2.2(react@18.3.1))
@@ -1634,7 +1625,7 @@ importers:
     dependencies:
       '@craco/craco':
         specifier: ^7.1.0
-        version: 7.1.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(postcss@8.4.49)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.26.0))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@9.16.0(jiti@1.21.6))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2))(typescript@5.7.2)
+        version: 7.1.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(postcss@8.4.49)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.26.0))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@9.16.0(jiti@1.21.6))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2))(typescript@5.7.2)
       '@intlayer/chokidar':
         specifier: workspace:^
         version: link:../@intlayer/chokidar
@@ -1684,6 +1675,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
+      '@types/webpack':
+        specifier: ^5.28.5
+        version: 5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13))
       '@utils/eslint-config':
         specifier: workspace:^
         version: link:../../utils/eslint-config
@@ -8329,6 +8323,12 @@ packages:
     resolution:
       {
         integrity: sha512-CiJJvcRtIgzadHCYXw7dqEnMNRjhGZlYK05Mj9OyktqV8uVT8fD2BFOB7S1uwBE3Kj2Z+4UyPmFw/Ixgw/LAlA==,
+      }
+
+  '@types/webpack@5.28.5':
+    resolution:
+      {
+        integrity: sha512-wR87cgvxj3p6D0Crt1r5avwqffqPXUkNlnQ1mjU93G7gCuFjufZR4I6j8cz5g1F1tTYpfOOFvly+cmIQwL9wvw==,
       }
 
   '@types/whatwg-url@11.0.5':
@@ -17576,13 +17576,6 @@ packages:
       }
     engines: { node: ^12.20.0 || ^14.13.1 || >=16.0.0 }
 
-  p-limit@6.1.0:
-    resolution:
-      {
-        integrity: sha512-H0jc0q1vOzlEk0TqAKXKZxdl7kX3OFUzCnNVUnq5Pc3DGo0kpeaMuPqxQn235HibwBEb0/pm9dgKTjXy66fBkg==,
-      }
-    engines: { node: '>=18' }
-
   p-locate@3.0.0:
     resolution:
       {
@@ -25136,14 +25129,14 @@ snapshots:
       '@types/conventional-commits-parser': 5.0.1
       chalk: 5.3.0
 
-  '@craco/craco@7.1.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(postcss@8.4.49)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2))(typescript@5.7.2)':
+  '@craco/craco@7.1.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(postcss@8.4.49)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2))(typescript@5.7.2)':
     dependencies:
       autoprefixer: 10.4.20(postcss@8.4.49)
       cosmiconfig: 7.1.0
       cosmiconfig-typescript-loader: 1.0.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(cosmiconfig@7.1.0)(typescript@5.7.2)
       cross-spawn: 7.0.3
       lodash: 4.17.21
-      react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2)
+      react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2)
       semver: 7.6.3
       webpack-merge: 5.10.0
     transitivePeerDependencies:
@@ -25153,14 +25146,14 @@ snapshots:
       - postcss
       - typescript
 
-  '@craco/craco@7.1.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(postcss@8.4.49)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.26.0))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@9.16.0(jiti@1.21.6))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2))(typescript@5.7.2)':
+  '@craco/craco@7.1.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(postcss@8.4.49)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.26.0))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@9.16.0(jiti@1.21.6))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2))(typescript@5.7.2)':
     dependencies:
       autoprefixer: 10.4.20(postcss@8.4.49)
       cosmiconfig: 7.1.0
       cosmiconfig-typescript-loader: 1.0.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(cosmiconfig@7.1.0)(typescript@5.7.2)
       cross-spawn: 7.0.3
       lodash: 4.17.21
-      react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.26.0))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@9.16.0(jiti@1.21.6))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2)
+      react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.26.0))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@9.16.0(jiti@1.21.6))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2)
       semver: 7.6.3
       webpack-merge: 5.10.0
     transitivePeerDependencies:
@@ -26419,7 +26412,7 @@ snapshots:
 
   '@pkgr/core@0.1.1': {}
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.15(react-refresh@0.11.0)(type-fest@4.26.1)(webpack-dev-server@4.15.2(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))))(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.15(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(react-refresh@0.11.0)(type-fest@4.26.1)(webpack-dev-server@4.15.2(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))))(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))':
     dependencies:
       ansi-html: 0.0.9
       core-js-pure: 3.38.1
@@ -26431,6 +26424,7 @@ snapshots:
       source-map: 0.7.4
       webpack: 5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))
     optionalDependencies:
+      '@types/webpack': 5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13))
       type-fest: 4.26.1
       webpack-dev-server: 4.15.2(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))
 
@@ -28053,6 +28047,17 @@ snapshots:
 
   '@types/webidl-conversions@7.0.3': {}
 
+  '@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13))':
+    dependencies:
+      '@types/node': 22.10.1
+      tapable: 2.2.1
+      webpack: 5.96.1(@swc/core@1.7.26(@swc/helpers@0.5.13))
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+      - webpack-cli
+
   '@types/whatwg-url@11.0.5':
     dependencies:
       '@types/webidl-conversions': 7.0.3
@@ -28922,10 +28927,6 @@ snapshots:
   acorn-import-attributes@1.9.5(acorn@8.14.0):
     dependencies:
       acorn: 8.14.0
-
-  acorn-jsx@5.3.2(acorn@8.12.1):
-    dependencies:
-      acorn: 8.12.1
 
   acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:
@@ -31315,8 +31316,8 @@ snapshots:
 
   eslint-mdx@3.1.5(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
-      acorn: 8.12.1
-      acorn-jsx: 5.3.2(acorn@8.12.1)
+      acorn: 8.14.0
+      acorn-jsx: 5.3.2(acorn@8.14.0)
       eslint: 9.15.0(jiti@1.21.6)
       espree: 9.6.1
       estree-util-visit: 2.0.0
@@ -34870,7 +34871,7 @@ snapshots:
 
   mlly@1.7.2:
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.14.0
       pathe: 1.1.2
       pkg-types: 1.2.1
       ufo: 1.5.4
@@ -35409,10 +35410,6 @@ snapshots:
       yocto-queue: 0.1.0
 
   p-limit@4.0.0:
-    dependencies:
-      yocto-queue: 1.1.1
-
-  p-limit@6.1.0:
     dependencies:
       yocto-queue: 1.1.1
 
@@ -36553,10 +36550,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.12
 
-  react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2):
+  react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2):
     dependencies:
       '@babel/core': 7.25.7
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(react-refresh@0.11.0)(type-fest@4.26.1)(webpack-dev-server@4.15.2(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))))(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(react-refresh@0.11.0)(type-fest@4.26.1)(webpack-dev-server@4.15.2(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))))(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))
       '@svgr/webpack': 5.5.0
       babel-jest: 27.5.1(@babel/core@7.25.7)
       babel-loader: 8.4.1(@babel/core@7.25.7)(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))
@@ -36640,10 +36637,10 @@ snapshots:
       - webpack-hot-middleware
       - webpack-plugin-serve
 
-  react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.26.0))(@swc/core@1.7.26(@swc/helpers@0.5.13))(eslint@9.16.0(jiti@1.21.6))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2):
+  react-scripts@5.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.26.0))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(eslint@9.16.0(jiti@1.21.6))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.10.1)(typescript@5.7.2))(type-fest@4.26.1)(typescript@5.7.2):
     dependencies:
       '@babel/core': 7.25.7
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(react-refresh@0.11.0)(type-fest@4.26.1)(webpack-dev-server@4.15.2(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))))(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(@types/webpack@5.28.5(@swc/core@1.7.26(@swc/helpers@0.5.13)))(react-refresh@0.11.0)(type-fest@4.26.1)(webpack-dev-server@4.15.2(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))))(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))
       '@svgr/webpack': 5.5.0
       babel-jest: 27.5.1(@babel/core@7.25.7)
       babel-loader: 8.4.1(@babel/core@7.25.7)(webpack@5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13)))
@@ -38598,7 +38595,7 @@ snapshots:
 
   unplugin@1.14.1(webpack-sources@3.2.3):
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.14.0
       webpack-virtual-modules: 0.6.2
     optionalDependencies:
       webpack-sources: 3.2.3

@@ -74,11 +74,7 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "serve": "webpack serve --config ./webpack.config.ts",
-    "start:dev": "node --experimental-specifier-resolution=node --loader ts-node/esm --watch src/index.ts",
-    "transpile": "webpack --config ./webpack.config.ts",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit",
-    "watch": "webpack --config ./webpack.config.ts --watch"
+    "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@intlayer/config": "workspace:^",
@@ -92,7 +88,6 @@
     "magic-regexp": "^0.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "webpack": "^5.96.1",
     "zustand": "^5.0.1"
   },
   "devDependencies": {

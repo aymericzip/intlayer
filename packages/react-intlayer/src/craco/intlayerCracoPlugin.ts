@@ -8,7 +8,11 @@ import type {
   CracoPlugin,
   WebpackConfigOverride,
 } from '@craco/types';
-import { getConfiguration, formatEnvVariable } from '@intlayer/config';
+import {
+  getConfiguration,
+  formatEnvVariable,
+  ESMxCJSRequire,
+} from '@intlayer/config';
 import { IntLayerPlugin as IntLayerWebpackPlugin } from '@intlayer/webpack';
 import webpack, { type Configuration as WebpackConfig } from 'webpack';
 import { removeUndefinedValueObject } from '../utils/removeUndefinedValueObject';
@@ -64,6 +68,17 @@ export const overrideCracoConfig = ({
           new IntLayerWebpackPlugin(),
         ],
       },
+      configure: {
+        ...(cracoConfig.webpack?.configure ?? {}),
+        resolve: {
+          ...(cracoConfig.webpack?.configure?.resolve ?? {}),
+          fallback: {
+            ...(cracoConfig.webpack?.configure?.resolve?.fallback ?? {}),
+            process: ESMxCJSRequire.resolve('process/browser'),
+          },
+        },
+      },
+
       alias: {
         ...cracoConfig.webpack?.alias,
         '@intlayer/dictionaries-entry': resolve('./', relativeDictionariesPath),

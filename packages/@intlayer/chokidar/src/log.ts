@@ -1,4 +1,4 @@
-import logUpdate from 'log-update';
+import readline from 'readline';
 import { sortAlphabetically } from './utils';
 
 export type State = {
@@ -15,19 +15,32 @@ export type DictionariesStatus = {
   state: State[];
 };
 
+const LINE_DETECTOR = '\u200B\u200B\u200B'; // Three zero-width spaces
+const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
+// ANSI color codes
+const RESET = '\x1b[0m';
+const GREEN = '\x1b[32m';
+const RED = '\x1b[31m';
+const BLUE = '\x1b[34m';
+const GREY = '\x1b[90m';
+const GREY_DARK = '\x1b[90m';
+
 class Logger {
   private dictionariesStatuses: DictionariesStatus[] = [];
-  private spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
   private spinnerTimer: NodeJS.Timeout | null = null;
   private maxDictionaryKeyLength: number = 0;
-
-  // ANSI color codes
-  private RESET = '\x1b[0m';
-  private GREEN = '\x1b[32m';
-  private RED = '\x1b[31m';
-  private BLUE = '\x1b[34m';
-  private GREY = '\x1b[90m';
-  private GREY_DARK = '\x1b[90m';
+  private previousLineCount: number = 0;
+  private lineDifCounter: number = 0;
+  private originalStdoutWrite:
+    | ((
+        chunk: string | Uint8Array, // `chunk` can be either a string or a Uint8Array
+        encoding?: BufferEncoding, // `encoding` is optional and should be a BufferEncoding
+        callback?: (err?: Error | null) => void // `callback` is optional and a function
+      ) => boolean)
+    | null = null;
+  private extraLines: number = 0;
+  private isUpdating: boolean = false;
 
   // Singleton instance
   private static instance: Logger;
@@ -153,57 +166,119 @@ class Logger {
     }
   }
 
+  // Method to update the terminal output
+  private updateOutput(content: string) {
+    // Monkey-patch process.stdout.write to keep track of extra lines
+    if (!this.originalStdoutWrite) {
+      this.originalStdoutWrite = process.stdout.write.bind(process.stdout);
+      this.extraLines = 0;
+
+      const write = (
+        chunk: string | Uint8Array, // `chunk` can be either a string or a Uint8Array
+        encoding?: BufferEncoding, // `encoding` is optional and should be a BufferEncoding
+        callback?: (err?: Error | null) => void // `callback` is optional and a function
+      ) => {
+        const str = typeof chunk === 'string' ? chunk : chunk.toString();
+        const newLines = (str.match(/\n/g) ?? []).length;
+
+        // If the write is not initiated by Logger's updateOutput method
+        if (!this.isUpdating) {
+          this.extraLines += newLines;
+        }
+
+        return this.originalStdoutWrite!(chunk, encoding, callback);
+      };
+
+      process.stdout.write = write as typeof process.stdout.write;
+    }
+
+    // Set a flag to indicate that updateOutput is running
+    this.isUpdating = true;
+
+    // Adjust lineDifCounter if LINE_DETECTOR is not the first line
+    const contentLines = content.split('\n');
+    const indexOfLineDetector = contentLines.indexOf(LINE_DETECTOR.trim());
+
+    if (indexOfLineDetector > 0) {
+      // LINE_DETECTOR is not at the first line
+      this.lineDifCounter = indexOfLineDetector;
+    } else {
+      this.lineDifCounter = 0;
+    }
+
+    // Calculate total lines to move up
+    const totalLinesToMoveUp =
+      this.previousLineCount + this.lineDifCounter + this.extraLines;
+
+    // Move cursor up by totalLinesToMoveUp
+    readline.moveCursor(process.stdout, 0, -totalLinesToMoveUp);
+
+    // Clear all lines downwards
+    readline.clearScreenDown(process.stdout);
+
+    // Write the updated content
+    contentLines.forEach((line) => {
+      process.stdout.write(`${line}\x1b[K\n`);
+    });
+
+    // Update previousLineCount
+    this.previousLineCount = contentLines.length;
+
+    // Reset extraLines counter and updating flag
+    this.extraLines = 0;
+    this.isUpdating = false;
+  }
+
   public stop() {
     this.stopSpinner();
-    logUpdate.clear(); // Clear the logUpdate output
-    const lines = this.dictionariesStatuses.map((statusObj) =>
-      this.getStatusLine(statusObj)
-    );
-    console.log(lines.join('\n')); // Output final statuses
   }
 
   public updateStatus(
-    dictionaryKey: string,
-    type: 'local' | 'distant',
-    status: Partial<State>
+    dictionaries: {
+      dictionaryKey: string;
+      type: 'local' | 'distant';
+      status: Partial<State>;
+    }[]
   ) {
-    const statusObj = this.dictionariesStatuses.find(
-      (ds) => ds.dictionaryKey === dictionaryKey
-    );
-    if (statusObj) {
-      const state = statusObj.state.find((s) => s.type === type);
-      if (state) {
-        // Update existing state
-        Object.assign(state, status);
-      } else {
-        // If the state for this type doesn't exist yet, add it
-        if (status.status === undefined) {
-          status.status = 'pending'; // Provide default status
+    for (const { dictionaryKey, type, status } of dictionaries) {
+      const statusObj = this.dictionariesStatuses.find(
+        (ds) => ds.dictionaryKey === dictionaryKey
+      );
+      if (statusObj) {
+        const state = statusObj.state.find((s) => s.type === type);
+        if (state) {
+          // Update existing state
+          Object.assign(state, status);
+        } else {
+          // If the state for this type doesn't exist yet, add it
+          if (status.status === undefined) {
+            status.status = 'pending'; // Provide default status
+          }
+          const newState: State = {
+            type,
+            status: status.status,
+            icon: status.icon ?? '',
+            error: status.error,
+            errorMessage: status.errorMessage,
+            spinnerFrameIndex: status.spinnerFrameIndex ?? 0,
+          };
+          statusObj.state.push(newState);
         }
+      } else {
+        // If the status object doesn't exist, create it
         const newState: State = {
           type,
-          status: status.status,
+          status: status.status ?? 'pending',
           icon: status.icon ?? '',
           error: status.error,
           errorMessage: status.errorMessage,
           spinnerFrameIndex: status.spinnerFrameIndex ?? 0,
         };
-        statusObj.state.push(newState);
+        this.dictionariesStatuses.push({
+          dictionaryKey,
+          state: [newState],
+        });
       }
-    } else {
-      // If the status object doesn't exist, create it
-      const newState: State = {
-        type,
-        status: status.status ?? 'pending',
-        icon: status.icon ?? '',
-        error: status.error,
-        errorMessage: status.errorMessage,
-        spinnerFrameIndex: status.spinnerFrameIndex ?? 0,
-      };
-      this.dictionariesStatuses.push({
-        dictionaryKey,
-        state: [newState],
-      });
     }
 
     // Update the display after status change
@@ -232,25 +307,22 @@ class Logger {
       let icon = this.getStatusIcon(state.status);
       if (state.status === 'fetching') {
         // Use spinner frame
-        icon =
-          this.spinnerFrames[
-            state.spinnerFrameIndex! % this.spinnerFrames.length
-          ];
-        colorStart = this.BLUE;
-        colorEnd = this.RESET;
+        icon = SPINNER_FRAMES[state.spinnerFrameIndex! % SPINNER_FRAMES.length];
+        colorStart = BLUE;
+        colorEnd = RESET;
       } else if (state.status === 'error') {
-        colorStart = this.RED;
-        colorEnd = this.RESET;
+        colorStart = RED;
+        colorEnd = RESET;
       } else if (state.status === 'imported' || state.status === 'built') {
-        colorStart = this.GREEN;
-        colorEnd = this.RESET;
+        colorStart = GREEN;
+        colorEnd = RESET;
       } else {
-        colorStart = this.GREY;
-        colorEnd = this.RESET;
+        colorStart = GREY;
+        colorEnd = RESET;
       }
 
       // Format the status block
-      const statusBlock = `${this.GREY_DARK}[${state.type}: ${colorStart}${icon} ${state.status}${this.GREY_DARK}]${colorEnd}`;
+      const statusBlock = `${GREY_DARK}[${state.type}: ${colorStart}${icon} ${state.status}${GREY_DARK}]${colorEnd}`;
 
       return `${colorStart}${statusBlock}${colorEnd}`;
     });
@@ -258,19 +330,33 @@ class Logger {
     return `- ${paddedKey} ${states.join(' ')}`;
   }
 
+  // Replace logUpdate calls with your custom methods
   private updateAllStatusLines() {
+    const terminalHeight = process.stdout.rows;
+    const maxVisibleLines = terminalHeight - 1;
+
     const lines = this.dictionariesStatuses.map((statusObj) => {
       statusObj.state.forEach((state) => {
         if (state.status === 'fetching') {
           // Update spinner frame
           state.spinnerFrameIndex =
-            (state.spinnerFrameIndex! + 1) % this.spinnerFrames.length;
+            (state.spinnerFrameIndex! + 1) % SPINNER_FRAMES.length;
         }
       });
       return this.getStatusLine(statusObj);
     });
 
-    logUpdate(lines.join('\n'));
+    let content;
+
+    if (lines.length > maxVisibleLines) {
+      const visibleLines = lines.slice(0, maxVisibleLines - 5);
+      const summary = `... and ${lines.length - visibleLines.length} more lines`;
+      content = LINE_DETECTOR + visibleLines.join('\n') + '\n' + summary;
+    } else {
+      content = lines.join('\n');
+    }
+
+    this.updateOutput(content);
   }
 
   public getStatuses() {

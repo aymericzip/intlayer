@@ -41,7 +41,13 @@ export const fetchDistantDictionaries = async (
     const processDictionary = async (
       dictionaryKey: string
     ): Promise<DictionaryAPI | undefined> => {
-      logger.updateStatus(dictionaryKey, 'distant', { status: 'fetching' });
+      logger.updateStatus([
+        {
+          dictionaryKey,
+          type: 'distant',
+          status: { status: 'fetching' },
+        },
+      ]);
 
       try {
         // Fetch the dictionary
@@ -59,21 +65,29 @@ export const fetchDistantDictionaries = async (
           throw new Error(`Dictionary ${dictionaryKey} not found on remote`);
         }
 
-        logger.updateStatus(dictionaryKey, 'distant', { status: 'imported' });
+        logger.updateStatus([
+          { dictionaryKey, type: 'distant', status: { status: 'imported' } },
+        ]);
 
         return distantDictionary;
       } catch (error) {
-        logger.updateStatus(dictionaryKey, 'distant', {
-          status: 'error',
-          error: error as Error,
-          errorMessage: `${options?.logPrefix ?? ''}Error fetching dictionary ${dictionaryKey}: ${error}`,
-        });
+        logger.updateStatus([
+          {
+            dictionaryKey,
+            type: 'distant',
+            status: {
+              status: 'error',
+              error: error as Error,
+              errorMessage: `${options?.logPrefix ?? ''}Error fetching dictionary ${dictionaryKey}: ${error}`,
+            },
+          },
+        ]);
         return undefined;
       }
     };
 
     const fetchPromises = distantDictionariesKeys.map((dictionaryKey) =>
-      limit(() => processDictionary(dictionaryKey))
+      limit(async () => await processDictionary(dictionaryKey))
     );
 
     const result = await Promise.all(fetchPromises);
