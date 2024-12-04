@@ -49,6 +49,25 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 - [Intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
 - [Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_express_en.md)
 
+### Packages
+
+#### express-intlayer
+
+- [t](https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/express-intlayer/t_en.md)
+
+#### react-intlayer
+
+- [t](https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/react-intlayer/t_en.md)
+- [useIntlayer] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/react-intlayer/useIntlayer_en.md)
+- [useDictionary] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/react-intlayer/useDictionary_en.md)
+- [useLocale] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/react-intlayer/useLocale_en.md)
+
+#### next-intlayer
+
+- [t](https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/next-intlayer/t_en.md)
+- [useIntlayer] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/next-intlayer/useIntlayer_en.md)
+- [useDictionary] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/next-intlayer/useDictionary_en.md)
+
 ### Blog
 
 - [Intlayer and i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md)
