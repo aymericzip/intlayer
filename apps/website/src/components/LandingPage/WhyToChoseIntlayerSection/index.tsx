@@ -36,7 +36,7 @@ export const WhyToChoseIntlayerSection: FC = () => {
                 {asset.title}
               </strong>
               <AnimatedDiv>
-                <p className="text-neutral dark:text-neutral-dark text-xs">
+                <p className="text-neutral dark:text-neutral-dark text-xs leading-5">
                   {asset.description}
                 </p>
               </AnimatedDiv>

@@ -39,9 +39,9 @@ export const CommonQuestionsSection: FC = () => {
                 itemProp="acceptedAnswer"
                 itemScope
                 itemType="https://schema.org/Answer"
-                className="text-neutral dark:text-neutral-dark"
+                className="text-neutral dark:text-neutral-dark py-2 leading-8"
               >
-                <div itemProp="text">{answer}</div>
+                <span itemProp="text">{answer}</span>
                 {callToAction && (
                   <Link
                     href={callToAction.url.value}

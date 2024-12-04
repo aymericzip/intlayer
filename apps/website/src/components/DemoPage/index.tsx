@@ -30,7 +30,7 @@ export const DemoPage: FC = () => {
             </span>
             <div>
               <h3 className="mb-2 text-lg font-semibold">{paragraph.title}</h3>
-              <p className="text-neutral dark:text-neutral-dark text-sm">
+              <p className="text-neutral dark:text-neutral-dark text-sm leading-7">
                 {paragraph.description}
               </p>
             </div>

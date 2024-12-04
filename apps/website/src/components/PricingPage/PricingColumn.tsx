@@ -81,7 +81,7 @@ export const PricingColumn = forwardRef<HTMLDivElement, PricingColumnProps>(
         {callToActionText}
       </Link>
       <span
-        className="text-neutral dark:text-neutral-dark justify-center text-sm"
+        className="text-neutral dark:text-neutral-dark justify-center text-sm leading-7"
         itemProp="description"
       >
         {description}
