@@ -4,6 +4,7 @@ import {
   useEditedContentStore,
   useEditionPanelStore,
 } from '@intlayer/design-system';
+import { useCallback } from 'react';
 
 export const getDrawerIdentifier = (dictionaryId: string) =>
   `dictionary_edition_${dictionaryId}`;
@@ -41,7 +42,11 @@ export const useDictionaryEditionDrawer = (
   dictionaryId: string
 ): DictionaryEditionDrawer => {
   const id = getDrawerIdentifier(dictionaryId);
-  const { isOpen, open, close } = useRightDrawerStore(id)();
+  const { isOpen, open, close } = useRightDrawerStore(id)((e) => ({
+    isOpen: e.isOpen,
+    open: e.open,
+    close: e.close,
+  }));
   const { setDictionariesRecord, getEditedContentValue } =
     useEditedContentStore((s) => ({
       setDictionariesRecord: s.setDictionariesRecord,
@@ -52,40 +57,8 @@ export const useDictionaryEditionDrawer = (
     setFocusedContent: s.setFocusedContent,
   }));
 
-  const openDictionaryEditionDrawer = ({
-    dictionaryId,
-    dictionaryPath,
-    keyPath = [],
-  }: OpenDictionaryEditionDrawerProps) => {
-    setFocusedContent({
-      dictionaryId,
-      dictionaryPath,
-      keyPath,
-    });
-
-    open();
-  };
-
-  return {
-    isOpen,
-    focusedContent,
-    setDictionariesRecord,
-    getEditedContentValue,
-    open: openDictionaryEditionDrawer,
-    close,
-  };
-};
-
-type DictionaryEditionDrawerControl = {
-  open: (content: FileContent) => void;
-  close: (dictionaryId: string) => void;
-};
-
-export const useDictionaryEditionDrawerControl =
-  (): DictionaryEditionDrawerControl => {
-    const setFocusedContent = useEditionPanelStore((s) => s.setFocusedContent);
-
-    const open = ({
+  const openDictionaryEditionDrawer = useCallback(
+    ({
       dictionaryId,
       dictionaryPath,
       keyPath = [],
@@ -96,19 +69,17 @@ export const useDictionaryEditionDrawerControl =
         keyPath,
       });
 
-      const id = getDrawerIdentifier(dictionaryId);
+      open();
+    },
+    [open, setFocusedContent]
+  );
 
-      useRightDrawerStore(id).getState().open();
-    };
-
-    const close = (dictionaryId: string) => {
-      const id = getDrawerIdentifier(dictionaryId);
-
-      useRightDrawerStore(id).getState().close();
-    };
-
-    return {
-      open,
-      close,
-    };
+  return {
+    isOpen,
+    focusedContent,
+    setDictionariesRecord,
+    getEditedContentValue,
+    open: openDictionaryEditionDrawer,
+    close,
   };
+};

@@ -1,13 +1,17 @@
+'use client';
+
 import type { Locales } from '@intlayer/config/client';
 import {
   RightDrawer,
   Button,
   useEditedContentStore,
+  useEditionPanelStore,
+  useRightDrawerStore,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight } from 'lucide-react';
-import type { FC } from 'react';
-import { useDictionaryEditionDrawerControl } from '../DictionaryEditionDrawer/index';
+import { useEffect, useState, type FC } from 'react';
+import { getDrawerIdentifier } from '../DictionaryEditionDrawer';
 import {
   dictionaryListDrawerIdentifier,
   useDictionaryListDrawer,
@@ -16,17 +20,34 @@ import {
 export const DictionaryListDrawer: FC = () => {
   const { all: dictionaries } = useGetAllDictionaries();
   const dictionaryKeyList = Object.keys(dictionaries) as Locales[];
-  const { open: openDictionaryEditionDrawer } =
-    useDictionaryEditionDrawerControl();
   const { close } = useDictionaryListDrawer();
   const editedContent = useEditedContentStore((s) => s.editedContent);
+  const setFocusedContent = useEditionPanelStore((s) => s.setFocusedContent);
+  const [clickedDictionaryId, setClickedDictionaryId] = useState<string>();
+  const { openRightDrawer } = useRightDrawerStore(
+    clickedDictionaryId ? getDrawerIdentifier(clickedDictionaryId) : ''
+  )((s) => ({
+    openRightDrawer: s.open,
+  }));
 
   const handleClickDictionary = (dictionaryId: string) => {
-    const { filePath } = dictionaries[dictionaryId];
-
     close();
-    openDictionaryEditionDrawer({ dictionaryId, dictionaryPath: filePath });
+
+    const { filePath } = dictionaries[dictionaryId];
+    setFocusedContent({
+      dictionaryId,
+      dictionaryPath: filePath,
+    });
+
+    setClickedDictionaryId(dictionaryId);
   };
+
+  useEffect(() => {
+    if (clickedDictionaryId) {
+      openRightDrawer();
+    }
+    setClickedDictionaryId(undefined);
+  }, [clickedDictionaryId]);
 
   const isDictionaryEdited = (dictionaryId: string) =>
     Object.keys(editedContent).includes(dictionaryId);
