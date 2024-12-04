@@ -16,9 +16,9 @@ export const generateMetadata = ({
   });
 
   const description = t({
-    en: 'Modern i18n for Next.js, React & Express. Easily build multilingual sites with AI-powered translations, visual editor and TypeScript for strong internationalization.',
-    fr: 'i18n moderne pour Next.js, React et Express. Créez facilement des sites multilingues avec des traductions assistées par IA, un editeur visuel et TypeScript pour une internationalisation robuste.',
-    es: 'i18n moderno para Next.js, React y Express. Crea fácilmente sitios multilingües con traducciones impulsadas por IA, un editor visual y TypeScript para una internacionalización sólida.',
+    en: 'i18n for Next.js & React. Easily build multilingual sites with AI-powered visual editor for your translations. TypeScript internationalization.',
+    fr: "i18n pour Next.js & React. Créez des sites multilingues grâce à un éditeur visuel boosté par l'IA pour vos traductions. Internationalisation basée sur TypeScript.",
+    es: 'i18n para Next.js & React. Crea sitios multilingües con un editor visual impulsado por IA para tus traducciones. Internacionalización con TypeScript.',
   });
 
   return {
