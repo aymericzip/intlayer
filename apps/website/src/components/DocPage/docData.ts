@@ -26,7 +26,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
     getTranslationContent(content, locale);
 
   const result: Record<string, CategorizedDocData> = {
-    'get-started': {
+    get_started: {
       title: t({
         en: 'Get Started',
         fr: 'Commencer',
@@ -1395,7 +1395,7 @@ export const getDoc = (
   let currentSection = getDocData(locale);
 
   if (docPath.length === 0) {
-    return currentSection['get-started'].default;
+    return currentSection['get_started'].default;
   }
 
   // Traverse the nested structure based on the docPath array
