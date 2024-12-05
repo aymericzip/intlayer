@@ -75,7 +75,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
         es: 'Concepto',
       }),
       subSections: {
-        'how-works-intlayer': {
+        how_works_intlayer: {
           title: t({
             en: 'How works Intlayer',
             fr: 'Comment Intlayer fonctionne',
@@ -509,7 +509,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 updatedAt: new Date('2024-08-11'),
               },
             },
-            'function-fetching': {
+            function_fetching: {
               title: t({
                 en: 'Function Fetching',
                 fr: 'Fonction Fetching',
@@ -623,7 +623,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             updatedAt: new Date('2024-08-11'),
           },
         },
-        'create-react-app': {
+        create_react_app: {
           title: t({
             en: 'Intlayer with React CRA',
             fr: 'Intlayer avec React CRA',
@@ -676,7 +676,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             updatedAt: new Date('2024-08-11'),
           },
         },
-        'vite-and-react': {
+        vite_and_react: {
           title: t({
             en: 'Intlayer with Vite and React',
             fr: 'Intlayer avec Vite and React',
