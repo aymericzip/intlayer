@@ -1,7 +1,6 @@
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { AnimatedDiv } from './AnimatedDiv';
-import { AnimatedTitle } from './AnimatedTitle';
 import { AsideImage } from './AsideImage';
 
 export const DemoPage: FC = () => {
@@ -14,9 +13,7 @@ export const DemoPage: FC = () => {
           <AsideImage />
         </div>
         <div>
-          <AnimatedTitle className="mb-3 mt-24 text-4xl font-bold">
-            {title}
-          </AnimatedTitle>
+          <h1 className="mb-3 mt-24 text-4xl font-bold">{title}</h1>
           <p className="text-md text-neutral dark:text-neutral-dark">
             {landingParagraph}
           </p>
@@ -37,8 +34,6 @@ export const DemoPage: FC = () => {
           </AnimatedDiv>
         ))}
       </div>
-
-      {/* <h2>{tryItByYourself.title}</h2> */}
     </div>
   );
 };
