@@ -14,9 +14,9 @@ export const generateStaticParams = () => {
       [step, Plans.Enterprise, Period.Monthly],
       [step, Plans.Enterprise, Period.Yearly],
     ]),
-  ].flatMap((details) => {
-    details;
-  });
+  ].flatMap((details) => ({
+    details,
+  }));
 
   return routes;
 };
