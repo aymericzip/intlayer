@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
+import { useShallow } from 'zustand/react/shallow';
 import { Button } from '../Button';
 import { Container } from '../Container';
 import { useEditedContentStore } from '../DictionaryEditor';
@@ -34,11 +35,11 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     EditorViewType.NodeEditor
   );
   const { dictionaryRecord, setDictionariesRecord } = useEditedContentStore(
-    (s) => ({
+    useShallow((s) => ({
       editedContent: s.editedContent,
       dictionaryRecord: s.dictionariesRecord,
       setDictionariesRecord: s.setDictionariesRecord,
-    })
+    }))
   );
   const { returnToDictionaryList, titleContent, titleInformation } =
     useDictionary(dictionaryFieldEditorContent);

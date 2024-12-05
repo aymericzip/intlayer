@@ -1,6 +1,6 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
+import { Locales } from '@intlayer/config';
 import {
   RightDrawer,
   Button,
@@ -10,28 +10,48 @@ import {
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight } from 'lucide-react';
-import { useEffect, useState, type FC } from 'react';
-import { getDrawerIdentifier } from '../DictionaryEditionDrawer';
-import {
-  dictionaryListDrawerIdentifier,
-  useDictionaryListDrawer,
-} from './useDictionaryListDrawer';
+import { useState, useEffect, useCallback, useMemo, FC } from 'react';
+import { useShallow } from 'zustand/shallow';
+import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
+import { useDictionaryListDrawer } from './useDictionaryListDrawer';
+
+type DictionaryDrawerConnectorProps = {
+  dictionaryId: string;
+};
+const DictionaryDrawerConnector: FC<DictionaryDrawerConnectorProps> = ({
+  dictionaryId,
+}) => {
+  const rightDrawerStore = useRightDrawerStore(dictionaryId)();
+
+  useEffect(() => {
+    rightDrawerStore.open();
+  }, [rightDrawerStore]);
+
+  return <></>;
+};
 
 export const DictionaryListDrawer: FC = () => {
   const { all: dictionaries } = useGetAllDictionaries();
-  const dictionaryKeyList = Object.keys(dictionaries) as Locales[];
-  const { close } = useDictionaryListDrawer();
-  const editedContent = useEditedContentStore((s) => s.editedContent);
-  const setFocusedContent = useEditionPanelStore((s) => s.setFocusedContent);
+  const dictionaryKeyList = useMemo(
+    () => Object.keys(dictionaries) as Locales[],
+    [dictionaries]
+  );
+  const { closeDictionaryListDrawer } = useDictionaryListDrawer(
+    useShallow((s) => ({
+      closeDictionaryListDrawer: s.close,
+    }))
+  );
+  const editedContent = useEditedContentStore(
+    useShallow((s) => s.editedContent)
+  );
+  const setFocusedContent = useEditionPanelStore(
+    useShallow((s) => s.setFocusedContent)
+  );
+
   const [clickedDictionaryId, setClickedDictionaryId] = useState<string>();
-  const { openRightDrawer } = useRightDrawerStore(
-    clickedDictionaryId ? getDrawerIdentifier(clickedDictionaryId) : ''
-  )((s) => ({
-    openRightDrawer: s.open,
-  }));
 
   const handleClickDictionary = (dictionaryId: string) => {
-    close();
+    closeDictionaryListDrawer();
 
     const { filePath } = dictionaries[dictionaryId];
     setFocusedContent({
@@ -39,41 +59,38 @@ export const DictionaryListDrawer: FC = () => {
       dictionaryPath: filePath,
     });
 
-    setClickedDictionaryId(dictionaryId);
+    setClickedDictionaryId(getDrawerIdentifier(dictionaryId));
   };
 
-  useEffect(() => {
-    if (clickedDictionaryId) {
-      openRightDrawer();
-    }
-    setClickedDictionaryId(undefined);
-  }, [clickedDictionaryId]);
-
-  const isDictionaryEdited = (dictionaryId: string) =>
-    Object.keys(editedContent).includes(dictionaryId);
+  const isDictionaryEdited = useCallback(
+    (dictionaryId: string) => Object.keys(editedContent).includes(dictionaryId),
+    [editedContent]
+  );
 
   return (
-    <RightDrawer
-      title="Dictionary list"
-      identifier={dictionaryListDrawerIdentifier}
-    >
-      {dictionaryKeyList.map((dictionaryId) => (
-        <div key={dictionaryId}>
-          <Button
-            label={`Open dictionary editor ${dictionaryId}`}
-            onClick={() => handleClickDictionary(dictionaryId)}
-            variant="hoverable"
-            color="text"
-            IconRight={ChevronRight}
-            size="md"
-            isFullWidth
-          >
-            {isDictionaryEdited(dictionaryId)
-              ? `✎ ${dictionaryId}`
-              : dictionaryId}
-          </Button>
-        </div>
-      ))}
-    </RightDrawer>
+    <>
+      {clickedDictionaryId && (
+        <DictionaryDrawerConnector dictionaryId={clickedDictionaryId} />
+      )}
+      <RightDrawer title="Dictionary list" identifier="dictionaryListDrawer">
+        {dictionaryKeyList.map((dictionaryId) => (
+          <div key={dictionaryId}>
+            <Button
+              label={`Open dictionary editor ${dictionaryId}`}
+              onClick={() => handleClickDictionary(dictionaryId)}
+              variant="hoverable"
+              color="text"
+              IconRight={ChevronRight}
+              size="md"
+              isFullWidth
+            >
+              {isDictionaryEdited(dictionaryId)
+                ? `✎ ${dictionaryId}`
+                : dictionaryId}
+            </Button>
+          </div>
+        ))}
+      </RightDrawer>
+    </>
   );
 };

@@ -5,6 +5,7 @@ import { RotateCcw, X } from 'lucide-react';
 import { useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
+import { useShallow } from 'zustand/react/shallow';
 import { EditableFieldInput } from '../..//EditableField';
 import {
   camelCaseToSentence,
@@ -32,10 +33,10 @@ export const EditorView: FC<EditorViewProps> = ({
   dictionary,
 }) => {
   const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
-    (s) => ({
+    useShallow((s) => ({
       setFocusedContentKeyPath: s.setFocusedContentKeyPath,
       focusedContent: s.focusedContent,
-    })
+    }))
   );
   const keyPath = focusedContent?.keyPath ?? [];
   const initialKeyName = keyPath[keyPath.length - 1]?.key ?? '';
@@ -47,12 +48,14 @@ export const EditorView: FC<EditorViewProps> = ({
     renameEditedContent,
     addEditedContent,
     removeEditedContent,
-  } = useEditedContentStore((s) => ({
-    editedContent: s.editedContent,
-    renameEditedContent: s.renameEditedContent,
-    addEditedContent: s.addEditedContent,
-    removeEditedContent: s.removeEditedContent,
-  }));
+  } = useEditedContentStore(
+    useShallow((s) => ({
+      editedContent: s.editedContent,
+      renameEditedContent: s.renameEditedContent,
+      addEditedContent: s.addEditedContent,
+      removeEditedContent: s.removeEditedContent,
+    }))
+  );
 
   const editedSection = editedContent[dictionaryKey]?.content
     ? getDictionaryValueByKeyPath(editedContent[dictionaryKey].content, keyPath)
@@ -102,7 +105,7 @@ export const EditorView: FC<EditorViewProps> = ({
           className="bg-text text-text-dark dark:bg-text-dark dark:text-text flex w-full flex-col items-start justify-between gap-6 px-4 py-2"
           key={JSON.stringify(focusedContent?.keyPath)}
         >
-          <div className="flex w-full flex-wrap items-start justify-between  gap-6">
+          <div className="flex w-full flex-wrap items-start justify-between gap-6">
             {typeof initialKeyName === 'string' && (
               <div className="flex flex-col gap-3">
                 <Label>{titleInput.label}</Label>

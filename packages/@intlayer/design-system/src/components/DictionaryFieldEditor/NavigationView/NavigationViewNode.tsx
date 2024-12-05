@@ -10,6 +10,7 @@ import { ChevronRight, Plus } from 'lucide-react';
 import { useCallback, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
+import { useShallow } from 'zustand/react/shallow';
 import { camelCaseToSentence } from '../../../utils/camelCase';
 import {
   getDictionaryValueByKeyPath,
@@ -39,12 +40,14 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 }) => {
   const { locales } = getConfiguration().internationalization;
   const section = getDictionaryValueByKeyPath(sectionProp, keyPath);
-  const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
+  const addEditedContent = useEditedContentStore(
+    useShallow((s) => s.addEditedContent)
+  );
   const { setFocusedContentKeyPath, focusedContent } = useEditionPanelStore(
-    (s) => ({
+    useShallow((s) => ({
       setFocusedContentKeyPath: s.setFocusedContentKeyPath,
       focusedContent: s.focusedContent,
-    })
+    }))
   );
   const {
     addNewElement,

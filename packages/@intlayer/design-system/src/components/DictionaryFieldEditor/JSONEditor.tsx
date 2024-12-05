@@ -1,5 +1,6 @@
 import { Dictionary } from '@intlayer/core';
 import type { FC } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { ContentEditorTextArea } from '../ContentEditor/ContentEditorTextArea';
 import { useEditedContentStore } from '../DictionaryEditor';
 import { SaveForm } from './SaveForm/SaveForm';
@@ -9,10 +10,12 @@ type JSONEditorProps = {
 };
 
 export const JSONEditor: FC<JSONEditorProps> = ({ dictionary }) => {
-  const { setEditedContent, editedContent } = useEditedContentStore((s) => ({
-    editedContent: s.editedContent,
-    setEditedContent: s.setEditedContent,
-  }));
+  const { setEditedContent, editedContent } = useEditedContentStore(
+    useShallow((s) => ({
+      editedContent: s.editedContent,
+      setEditedContent: s.setEditedContent,
+    }))
+  );
 
   const isValidJSON = (jsonString: string): boolean => {
     try {

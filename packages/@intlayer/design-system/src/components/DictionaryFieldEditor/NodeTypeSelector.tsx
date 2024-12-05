@@ -11,6 +11,7 @@ import {
 import { type FC, useEffect, useState } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
+import { useShallow } from 'zustand/react/shallow';
 import { getSectionType } from '../../utils/dictionary';
 import { useEditedContentStore } from '../DictionaryEditor';
 import { Select } from '../Select';
@@ -37,9 +38,11 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
   } = useDictionary(nodeTypeSelectorContent);
   const nodeType = getSectionType(section);
   const [keyType, setKeyType] = useState<NodeType>(nodeType);
-  const { addEditedContent } = useEditedContentStore((s) => ({
-    addEditedContent: s.addEditedContent,
-  }));
+  const { addEditedContent } = useEditedContentStore(
+    useShallow((s) => ({
+      addEditedContent: s.addEditedContent,
+    }))
+  );
   const { locales } = getConfiguration().internationalization;
 
   const onValueChange = (keyType: NodeType) => {

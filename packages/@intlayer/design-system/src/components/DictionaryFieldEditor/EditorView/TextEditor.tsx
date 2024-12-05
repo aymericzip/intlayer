@@ -19,6 +19,7 @@ import {
 } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
+import { useShallow } from 'zustand/react/shallow';
 import { getSectionType } from '../../../utils/dictionary';
 import { renameKey } from '../../../utils/object';
 import { Button } from '../../Button';
@@ -78,7 +79,9 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   dictionaryKey,
 }: TextEditorProps) => {
   const { locales } = getConfiguration().internationalization;
-  const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
+  const addEditedContent = useEditedContentStore(
+    useShallow((s) => s.addEditedContent)
+  );
 
   return (
     <table className="w-full gap-2">
@@ -125,7 +128,9 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionaryKey,
 }) => {
-  const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
+  const addEditedContent = useEditedContentStore(
+    useShallow((s) => s.addEditedContent)
+  );
   const { addNewEnumeration } = useDictionary(navigationViewContent);
 
   return (
@@ -232,7 +237,9 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionaryKey,
 }) => {
-  const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
+  const addEditedContent = useEditedContentStore(
+    useShallow((s) => s.addEditedContent)
+  );
   const { addNewElement } = useDictionary(navigationViewContent);
 
   return (
@@ -296,7 +303,9 @@ export const TextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionaryKey,
 }) => {
-  const addEditedContent = useEditedContentStore((s) => s.addEditedContent);
+  const addEditedContent = useEditedContentStore(
+    useShallow((s) => s.addEditedContent)
+  );
   const { tsxNotEditable } = useDictionary(navigationViewContent);
   const nodeType = getSectionType(section);
   const isEditableSection = getIsEditableSection(section);

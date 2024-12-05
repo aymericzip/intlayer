@@ -4,6 +4,7 @@ import { Dictionary } from '@intlayer/core';
 import { useEffect, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
+import { useShallow } from 'zustand/react/shallow';
 import { Container } from '../Container';
 import {
   useEditedContentStore,
@@ -21,17 +22,19 @@ type NodeEditorProps = {
 export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
   const { content: dictionaryContent, key } = dictionary;
   const { editedContent, dictionaryRecord, setDictionariesRecord } =
-    useEditedContentStore((s) => ({
-      editedContent: s.editedContent,
-      dictionaryRecord: s.dictionariesRecord,
-      setDictionariesRecord: s.setDictionariesRecord,
-    }));
+    useEditedContentStore(
+      useShallow((s) => ({
+        editedContent: s.editedContent,
+        dictionaryRecord: s.dictionariesRecord,
+        setDictionariesRecord: s.setDictionariesRecord,
+      }))
+    );
 
   const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
-    (s) => ({
+    useShallow((s) => ({
       focusedContent: s.focusedContent,
       setFocusedContentKeyPath: s.setFocusedContentKeyPath,
-    })
+    }))
   );
 
   const focusedKeyPath = focusedContent?.keyPath;

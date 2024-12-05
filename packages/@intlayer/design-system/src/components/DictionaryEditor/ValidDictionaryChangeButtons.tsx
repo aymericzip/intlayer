@@ -5,6 +5,7 @@ import type { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, RotateCcw, Save } from 'lucide-react';
 import { useMemo, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
+import { useShallow } from 'zustand/react/shallow';
 import { usePushDictionaries } from '../../hooks';
 import { Form, useForm } from '../Form';
 import { useEditedContentStore } from './useEditedContentStore';
@@ -28,10 +29,10 @@ export const ValidDictionaryChangeButtons: FC<
   const { pushDictionaries } = usePushDictionaries();
 
   const { editedContent, restoreEditedContent } = useEditedContentStore(
-    (s) => ({
+    useShallow((s) => ({
       editedContent: s.editedContent,
       restoreEditedContent: s.restoreEditedContent,
-    })
+    }))
   );
   const { form, isSubmitting } = useForm(
     ValidDictionaryChangeButtonsSchemaSchema

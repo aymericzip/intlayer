@@ -6,6 +6,7 @@ import { ArrowUpFromLine, RotateCcw, Save } from 'lucide-react';
 import { useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
+import { useShallow } from 'zustand/react/shallow';
 import { useGetAllDictionaries, usePushDictionaries } from '../../../hooks';
 import { useEditedContentStore } from '../../DictionaryEditor';
 import { Form, useForm } from '../../Form';
@@ -22,10 +23,10 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
   const { online } = useGetAllDictionaries();
 
   const { editedContent, restoreEditedContent } = useEditedContentStore(
-    (s) => ({
+    useShallow((s) => ({
       editedContent: s.editedContent,
       restoreEditedContent: s.restoreEditedContent,
-    })
+    }))
   );
   const { form, isSubmitting } = useForm(SaveFormSchema);
   const { resetButton, saveButton, publishButton } = useDictionary(

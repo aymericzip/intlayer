@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create, StoreApi, UseBoundStore } from 'zustand';
 
 type RightDrawerStore = {
   isOpen: boolean;
@@ -6,24 +6,21 @@ type RightDrawerStore = {
   close: () => void;
 };
 
-export const createRightDrawerStore = () =>
-  create<RightDrawerStore>((set) => ({
-    isOpen: false,
-    open: () => set({ isOpen: true }),
-    close: () => set({ isOpen: false }),
-  }));
-
-const drawerStores: Record<
+const drawerStores = new Map<
   string,
-  ReturnType<typeof createRightDrawerStore>
-> = {};
+  UseBoundStore<StoreApi<RightDrawerStore>>
+>();
 
 export const useRightDrawerStore = (key: string) => {
-  // If a store doesn't exist for this key, create it.
-  if (!drawerStores[key]) {
-    drawerStores[key] = createRightDrawerStore();
+  if (!drawerStores.has(key)) {
+    drawerStores.set(
+      key,
+      create<RightDrawerStore>((set) => ({
+        isOpen: false,
+        open: () => set({ isOpen: true }),
+        close: () => set({ isOpen: false }),
+      }))
+    );
   }
-
-  // Return the store for the given key.
-  return drawerStores[key];
+  return drawerStores.get(key)!;
 };

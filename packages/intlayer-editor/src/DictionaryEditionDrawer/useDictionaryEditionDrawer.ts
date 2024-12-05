@@ -5,6 +5,7 @@ import {
   useEditionPanelStore,
 } from '@intlayer/design-system';
 import { useCallback } from 'react';
+import { useShallow } from 'zustand/shallow';
 
 export const getDrawerIdentifier = (dictionaryId: string) =>
   `dictionary_edition_${dictionaryId}`;
@@ -42,20 +43,26 @@ export const useDictionaryEditionDrawer = (
   dictionaryId: string
 ): DictionaryEditionDrawer => {
   const id = getDrawerIdentifier(dictionaryId);
-  const { isOpen, open, close } = useRightDrawerStore(id)((e) => ({
-    isOpen: e.isOpen,
-    open: e.open,
-    close: e.close,
-  }));
+  const { isOpen, open, close } = useRightDrawerStore(id)(
+    useShallow((e) => ({
+      isOpen: e.isOpen,
+      open: e.open,
+      close: e.close,
+    }))
+  );
   const { setDictionariesRecord, getEditedContentValue } =
-    useEditedContentStore((s) => ({
-      setDictionariesRecord: s.setDictionariesRecord,
-      getEditedContentValue: s.getEditedContentValue,
-    }));
-  const { setFocusedContent, focusedContent } = useEditionPanelStore((s) => ({
-    focusedContent: s.focusedContent,
-    setFocusedContent: s.setFocusedContent,
-  }));
+    useEditedContentStore(
+      useShallow((s) => ({
+        setDictionariesRecord: s.setDictionariesRecord,
+        getEditedContentValue: s.getEditedContentValue,
+      }))
+    );
+  const { setFocusedContent, focusedContent } = useEditionPanelStore(
+    useShallow((s) => ({
+      focusedContent: s.focusedContent,
+      setFocusedContent: s.setFocusedContent,
+    }))
+  );
 
   const openDictionaryEditionDrawer = useCallback(
     ({

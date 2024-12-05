@@ -12,6 +12,7 @@ import {
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useCallback, useEffect, useState, type FC } from 'react';
+import { useShallow } from 'zustand/shallow';
 import { useDictionaryListDrawer } from '../DictionaryListDrawer/useDictionaryListDrawer';
 import {
   type FileContent as FileContentWithDictionaryPath,
@@ -136,7 +137,9 @@ type DictionaryEditionDrawerControllerProps = {
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
 > = ({ locale, localeList, setLocale }) => {
-  const focusedContent = useEditionPanelStore((s) => s.focusedContent);
+  const focusedContent = useEditionPanelStore(
+    useShallow((s) => s.focusedContent)
+  );
   const dictionaryId: string | undefined = focusedContent?.dictionaryId;
 
   if (!dictionaryId) {

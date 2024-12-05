@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/mouse-events-a11y */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 'use client';
@@ -30,6 +29,8 @@ type RightDrawerProps = {
   header?: ReactNode;
   closeOnOutsideClick?: boolean;
   backButton?: BackButtonProps;
+  isOpen?: boolean;
+  onClose?: () => void;
 };
 
 export const RightDrawer: FC<RightDrawerProps> = ({
@@ -39,15 +40,17 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   header,
   closeOnOutsideClick = true,
   backButton,
+  isOpen: isOpenProp,
+  onClose,
 }) => {
   const { isMobile } = useDevice('md');
   const panelRef = useRef<HTMLDivElement>(null);
   const childrenContainerRef = useRef<HTMLDivElement>(null);
-  const { isOpen, close } = useRightDrawerStore(identifier)();
+  const { isOpen, close, open } = useRightDrawerStore(identifier)();
 
   useScrollBlockage({
     disableScroll: isOpen,
-    key: identifier ? 'right_drawer' : 'right_drawer_${identifier}',
+    key: identifier ? 'right_drawer' : `right_drawer_${identifier}`,
   });
 
   useEffect(() => {
@@ -63,12 +66,24 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
       if (isClickAble && isClickOutside && isAtTopAndVisible) {
         close();
+        onClose?.();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen, close, closeOnOutsideClick]); // Make sure the effect runs only if isOpen or close changes
+  }, [isOpen, close, onClose, closeOnOutsideClick]); // Make sure the effect runs only if isOpen or close changes
+
+  useEffect(() => {
+    if (isOpenProp !== undefined) {
+      if (isOpenProp) {
+        open();
+      } else {
+        close();
+        onClose?.();
+      }
+    }
+  }, [close, open, onClose, isOpenProp]);
 
   const handleSpareSpaceClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Check if the click trigger the background
@@ -78,6 +93,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
     if (isMobile) {
       close();
+      onClose?.();
     }
   };
 
@@ -85,7 +101,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
     <div className="fixed right-0 top-0 z-50 flex h-full justify-end">
       <MaxWidthSmoother isHidden={!isOpen} align="right">
         <Container
-          className="text-text dark:text-text-dark relative  flex h-screen w-screen flex-col md:w-[400px]"
+          className="text-text dark:text-text-dark relative flex h-screen w-screen flex-col md:w-[400px]"
           ref={panelRef}
           roundedSize="none"
         >
