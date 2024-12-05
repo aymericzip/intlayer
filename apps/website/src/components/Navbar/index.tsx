@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/migration-from-tailwind-2 */
 'use client';
 
 import GithubLogo from '@assets/github.svg';
@@ -14,7 +13,6 @@ import {
   Avatar,
 } from '@intlayer/design-system';
 import { StarIcon } from 'lucide-react';
-import NextLink from 'next/link';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
@@ -36,12 +34,9 @@ export const Navbar: FC = () => {
   return (
     <UINavBar
       logo={
-        <NextLink href={logo.url.value} aria-label={logo.label.value}>
-          <Logo
-            type="logoWithText"
-            className="max-h-4 cursor-pointer sm:max-h-6"
-          />
-        </NextLink>
+        <Link href={logo.url.value} label={logo.label.value} color="text">
+          <Logo type="logoWithText" className="max-h-6 flex-auto sm:max-h-6" />
+        </Link>
       }
       selectedChoice={pathWithoutLocale}
       desktopSections={Object.values(sections).map(
@@ -68,7 +63,7 @@ export const Navbar: FC = () => {
             label={label.value}
             color="text"
             variant="invisible-link"
-            className="hover:text-primary aria-selected:text-primary w-full cursor-pointer p-3 text-center leading-10 transition"
+            className="w-full p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
           >
             {title}
           </Link>
@@ -76,10 +71,12 @@ export const Navbar: FC = () => {
       )}
       mobileBottomChildren={
         <div className="flex w-full flex-col gap-4">
-          <NextLink
-            aria-label={github.label.value}
+          <Link
+            label={github.label.value}
             href={github.url.value}
-            className="group/github border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 hover:bg-opacity-30 dark:bg-opacity-0"
+            variant="button-outlined"
+            color="text"
+            className="group/github !rounded-2xl leading-6"
           >
             <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
             GitHub
@@ -87,7 +84,7 @@ export const Navbar: FC = () => {
               width={18}
               className="group-hover/github:fill-text dark:group-hover/github:fill-text-dark mr-1"
             />
-          </NextLink>
+          </Link>
 
           {isAuthenticated ? (
             <Button
@@ -95,19 +92,21 @@ export const Navbar: FC = () => {
               color="text"
               label={logoutContent.label.value}
               onClick={handleLogOut}
-              className="!rounded-full"
-              size="lg"
+              className="!rounded-2xl leading-6"
+              size="md"
             >
               {logoutContent.title}
             </Button>
           ) : (
-            <NextLink
-              aria-label={login.label.value}
+            <Link
+              label={login.label.value}
               href={login.url.value}
-              className="border-text text-text dark:border-text-dark dark:text-text-dark bg-text dark:bg-text-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 bg-opacity-0 p-1 hover:bg-opacity-30 dark:bg-opacity-0"
+              variant="button"
+              color="text"
+              className="!rounded-2xl leading-6"
             >
               {login.title}
-            </NextLink>
+            </Link>
           )}
         </div>
       }
@@ -124,17 +123,18 @@ export const Navbar: FC = () => {
         <>
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
-          <NextLink
-            aria-label={github.label.value}
+          <Link
+            label={github.label.value}
             href={github.url.value}
-            className="group/github bg-text text-text-dark dark:bg-text-dark dark:text-text flex cursor-pointer items-center gap-2 rounded-full p-1"
+            color="custom"
+            className="group/github !bg-text !text-text-dark dark:!bg-text-dark dark:!text-text flex cursor-pointer items-center gap-2 rounded-full p-1"
           >
             <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
             <StarIcon
               width={18}
               className="group-hover/github:fill-text-dark dark:group-hover/github:fill-text mr-1"
             />
-          </NextLink>
+          </Link>
           <ProfileDropDown />
         </>
       }

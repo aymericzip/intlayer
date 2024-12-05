@@ -61,18 +61,18 @@ export const MobileNavbar = <T extends TabProps>({
     <nav
       className={cn(
         bgStyle,
-        'sticky top-0 z-50 flex w-screen flex-col  transition',
+        'sticky top-0 z-50 flex w-screen flex-col transition',
         isHidden ? '-translate-y-full' : 'translate-y-0'
       )}
       id="mobile-menu"
     >
       <div
-        className="flex w-full items-center justify-between gap-[10vw] px-4 py-3"
+        className="flex w-full items-center justify-between gap-1 px-4 py-3 md:gap-[10vw]"
         ref={navRef}
       >
         {logo}
 
-        <div className="flex w-full items-center justify-end gap-6">
+        <div className="flex w-full flex-1 items-center justify-end gap-6">
           <div className="flex w-full items-center justify-end gap-1">
             {rightItems}
           </div>

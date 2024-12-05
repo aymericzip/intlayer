@@ -54,7 +54,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           aria-label="Language selector"
         >
           <div className="flex w-full items-center justify-between">
-            <div className="px-2 py-1">{localeName}</div>
+            <div className="px-2">{localeName}</div>
             <MoveVertical className="w-5 self-center" />
           </div>
         </DropDown.Trigger>

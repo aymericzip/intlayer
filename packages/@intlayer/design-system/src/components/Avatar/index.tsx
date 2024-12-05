@@ -40,7 +40,6 @@ export const Avatar: FC<AvatarProps> = ({
 
   const isClickable = onClick !== undefined;
 
-  // eslint-disable-next-line sonarjs/no-unstable-nested-components
   const Container = (props: HTMLAttributes<HTMLElement>) =>
     isClickable ? <button {...props} /> : <div {...props} />;
 
@@ -69,7 +68,7 @@ export const Avatar: FC<AvatarProps> = ({
           )}
           {displayInitials && (
             <div
-              className="flex size-full items-center justify-center gap-[0.1rem] text-sm font-bold"
+              className="flex size-full items-center justify-center gap-[0.1rem] text-sm font-bold max-md:py-1"
               aria-label="Initials of user's name"
             >
               {capitals?.map((capital) => <span key={capital}>{capital}</span>)}
