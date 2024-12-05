@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
   useState,
+  useMemo,
   type FC,
   type ReactNode,
 } from 'react';
@@ -42,11 +43,14 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
     [dictionaryId, dictionaryPath, keyPath, open]
   );
 
-  const isSelected =
-    (isOpen &&
-      (focusedContent?.keyPath?.length ?? 0) > 0 &&
-      isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
-    false;
+  const isSelected = useMemo(
+    () =>
+      (isOpen &&
+        (focusedContent?.keyPath?.length ?? 0) > 0 &&
+        isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
+      false,
+    [focusedContent, isOpen, keyPath]
+  );
 
   useEffect(() => {
     // Use useEffect to avoid 'Text content does not match server-rendered HTML' error
