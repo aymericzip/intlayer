@@ -1,4 +1,4 @@
-import type { Project } from '@intlayer/backend';
+import type { ProjectAPI } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system';
 import { useSelectProject } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type ProjectListProps = {
-  projects: Project[];
+  projects: ProjectAPI[];
 };
 
 export const ProjectList: FC<ProjectListProps> = ({ projects }) => {

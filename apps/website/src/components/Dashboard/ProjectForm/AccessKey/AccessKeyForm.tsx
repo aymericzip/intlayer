@@ -263,11 +263,11 @@ export const AccessKeyForm: FC = () => {
         {nbAccessKeys === 0 && (
           <span className="mt-6 text-center text-sm">{noAccessKeys}</span>
         )}
-        <blockquote className="border-card dark:border-card-dark  text-neutral dark:text-neutral-dark mb-6 flex flex-col gap-3 border-l-4 pl-5">
+        <blockquote className="border-card dark:border-card-dark text-neutral dark:text-neutral-dark mb-6 flex flex-col gap-3 border-l-4 pl-5">
           <ul className="">
             {tuto.map((el) => (
               <li key={el.value}>
-                <span className="text-neutral dark:text-neutral-dark  text-center text-sm">
+                <span className="text-neutral dark:text-neutral-dark text-center text-sm">
                   {el}
                 </span>
               </li>

@@ -2,10 +2,12 @@ import { ClientComponentExample } from '@component/ClientComponentExample';
 import { LocaleSwitcher } from '@component/LangSwitcherDropDown';
 import { NestedServerComponentExample } from '@component/NestedServerComponentExample';
 import { ServerComponentExample } from '@component/ServerComponentExample';
-import { type NextPageIntlayer, IntlayerClientProvider } from 'next-intlayer';
+import { type Next14PageIntlayer, IntlayerClientProvider } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 
-const PageDemoUsageComponents: NextPageIntlayer = ({ params: { locale } }) => {
+const PageDemoUsageComponents: Next14PageIntlayer = ({
+  params: { locale },
+}) => {
   return (
     <>
       {/**
@@ -18,7 +20,7 @@ const PageDemoUsageComponents: NextPageIntlayer = ({ params: { locale } }) => {
          *   IntlayerClientProvider can be set in any parent component, including the layout
          */}
         <IntlayerClientProvider locale={locale}>
-          <main className="size-screen	 m-auto flex max-w-xl flex-col items-center justify-center gap-8 p-20">
+          <main className="size-screen m-auto flex max-w-xl flex-col items-center justify-center gap-8 p-20">
             <ClientComponentExample />
             <ServerComponentExample />
             <NestedServerComponentExample />

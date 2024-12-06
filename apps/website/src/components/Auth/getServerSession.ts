@@ -4,7 +4,7 @@ import { getIntlayerAPI } from '@intlayer/design-system/libs';
 import { cookies } from 'next/headers';
 
 export const getServerSession = async () => {
-  const cookiesStore = cookies();
+  const cookiesStore = await cookies();
   const session_token = cookiesStore.get(Cookies.JWT_AUTH);
 
   if (!session_token?.value) {
@@ -20,6 +20,8 @@ export const getServerSession = async () => {
       user: data?.user ?? null,
       organization: null,
       project: null,
+      isOrganizationAdmin: false,
+      isProjectAdmin: false,
     };
 
     return session;

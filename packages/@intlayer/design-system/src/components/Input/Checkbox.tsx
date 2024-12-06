@@ -46,9 +46,9 @@ export const checkboxVariants = cva('', {
   },
 });
 
-export type CheckboxProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
+export type CheckboxProps = Omit<
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  'size'
 > & {
   validationStyleEnabled?: boolean;
   label?: string;

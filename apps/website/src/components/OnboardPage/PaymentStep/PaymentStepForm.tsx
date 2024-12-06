@@ -1,4 +1,4 @@
-import { Period, Plans } from '@components/PricingPage/data.content';
+import type { Period, Plans } from '@components/PricingPage/data.content';
 import {
   Button,
   Container,
