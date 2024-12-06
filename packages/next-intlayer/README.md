@@ -74,7 +74,7 @@ export const ClientComponent = () => {
 - **Server Component Support**: Perfectly suited for Next.js server components, ensuring smooth server-side rendering.
 - **Enhanced Routing**: Full support for Next.js app routing, adapting seamlessly to complex application structures.
 
-# Getting Started with Intlayer and Next.js
+# Getting Started with Intlayer and Nextjs
 
 Setting up Intlayer in a Next.js application is straightforward:
 

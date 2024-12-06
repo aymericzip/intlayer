@@ -1,4 +1,4 @@
-# Getting Started with Intlayer and Next.js
+# Getting Started with Intlayer and Nextjs 14
 
 Setting up Intlayer in a Next.js application is straightforward:
 
