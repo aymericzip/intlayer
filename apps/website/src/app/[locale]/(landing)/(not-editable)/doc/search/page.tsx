@@ -1,11 +1,13 @@
 import { SearchView } from '@components/Search/SearchView';
 import { Container, Loader } from '@intlayer/design-system';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 import { Suspense } from 'react';
 
-const DocumentationSearchPage: NextPageIntlayer = ({ params: { locale } }) => (
+const DocumentationSearchPage: Next14PageIntlayer = ({
+  params: { locale },
+}) => (
   <>
     <WebsiteHeader />
     <IntlayerServerProvider locale={locale}>

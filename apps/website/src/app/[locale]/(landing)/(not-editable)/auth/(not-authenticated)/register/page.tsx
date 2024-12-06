@@ -1,10 +1,10 @@
 import { Container } from '@intlayer/design-system';
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { SignUpForm } from '@/components/Auth/SignUpForm';
 export { generateMetadata } from './metadata';
 
-const SignUpPage: NextPageIntlayer = ({ params: { locale } }) => {
+const SignUpPage: Next14PageIntlayer = ({ params: { locale } }) => {
   const { title, title2, description } = useIntlayer('sign-up-page', locale);
 
   return (

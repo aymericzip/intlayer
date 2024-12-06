@@ -2,11 +2,11 @@
 
 import { Loader, type Session, useAuth } from '@intlayer/design-system';
 import { useRouter } from 'next/navigation';
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { useEffect } from 'react';
 import { PagesRoutes } from '@/Routes';
 
-const DashboardPage: NextPageIntlayer<{ session?: Session }> = ({
+const DashboardPage: Next14PageIntlayer<{ session?: Session }> = ({
   params: { session: sessionServer },
 }) => {
   const router = useRouter();

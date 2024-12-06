@@ -2,7 +2,7 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { IConfigLocales, getTranslationContent } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
+import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
 import { defaultLocale, locales } from '../../../../../../../intlayer.config';
 import { PagesRoutes } from '@/Routes';
 
@@ -48,7 +48,7 @@ export const generateMetadata = ({
   };
 };
 
-const DocLayout: NextLayoutIntlayer<DocProps> = ({
+const DocLayout: Next14LayoutIntlayer<DocProps> = ({
   children,
   params: { locale },
 }) => (

@@ -3,10 +3,10 @@ import { LandingPage as LandingPageContent } from '@components/LandingPage';
 import { ProductHeader } from '@structuredData/ProductHeader';
 import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 
-const LandingPage: NextPageIntlayer = ({ params: { locale } }) => (
+const LandingPage: Next14PageIntlayer = ({ params: { locale } }) => (
   <>
     <WebsiteHeader />
     <SoftwareApplicationHeader />

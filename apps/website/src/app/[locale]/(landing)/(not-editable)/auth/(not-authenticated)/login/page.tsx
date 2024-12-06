@@ -1,10 +1,10 @@
 import { Container } from '@intlayer/design-system';
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { SignInForm } from '@/components/Auth/SignInForm';
 export { generateMetadata } from './metadata';
 
-const SignInPage: NextPageIntlayer = ({ params: { locale } }) => {
+const SignInPage: Next14PageIntlayer = ({ params: { locale } }) => {
   const { title, title2, description } = useIntlayer('sign-in-page', locale);
 
   return (

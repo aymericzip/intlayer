@@ -1,10 +1,10 @@
 import { OnboardFlow } from '@components/OnboardPage';
 import { getPlanDetails } from '@components/OnboardPage/getPlanDetails';
 import { Container } from '@intlayer/design-system';
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
-const OnboardPage: NextPageIntlayer<{ details: string[] }> = ({
+const OnboardPage: Next14PageIntlayer<{ details: string[] }> = ({
   params: { locale, details },
 }) => {
   const { title, description } = useIntlayer('onboard-page', locale);

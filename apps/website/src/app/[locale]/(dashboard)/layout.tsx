@@ -3,11 +3,11 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/Au
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import { PageLayout } from '@layouts/PageLayout';
-import type { NextLayoutIntlayer } from 'next-intlayer';
+import type { Next14LayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { PagesRoutes } from '@/Routes';
 
-const DashboardLayout: NextLayoutIntlayer = ({
+const DashboardLayout: Next14LayoutIntlayer = ({
   children,
   params: { locale },
 }) => {

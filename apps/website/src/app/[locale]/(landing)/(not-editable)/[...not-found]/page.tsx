@@ -1,8 +1,8 @@
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 export { generateMetadata } from './metadata';
 
-const NotFountPage: NextPageIntlayer = ({ params: { locale } }) => {
+const NotFountPage: Next14PageIntlayer = ({ params: { locale } }) => {
   const { title, content } = useIntlayer('not-found', locale);
 
   return (

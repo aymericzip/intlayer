@@ -5,7 +5,7 @@ import { DocHeader } from '@structuredData/DocHeader';
 import { Edit } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { DocProps } from './layout';
 import { PagesRoutes } from '@/Routes';
@@ -20,7 +20,7 @@ const DynamicDocumentationRender = dynamic(
   }
 );
 
-const DocumentationPage: NextPageIntlayer<DocProps> = ({
+const DocumentationPage: Next14PageIntlayer<DocProps> = ({
   params: { locale, doc },
 }) => {
   const docData = getDoc(doc, locale);

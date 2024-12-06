@@ -1,10 +1,10 @@
 import { Container } from '@intlayer/design-system';
-import type { NextPageIntlayer } from 'next-intlayer';
+import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { ResetPasswordForm } from '@/components/Auth/ResetPasswordForm';
 export { generateMetadata } from './metadata';
 
-const ResetPasswordPage: NextPageIntlayer = ({ params: { locale } }) => {
+const ResetPasswordPage: Next14PageIntlayer = ({ params: { locale } }) => {
   const { title, title2, description } = useIntlayer(
     'reset-password-page',
     locale
