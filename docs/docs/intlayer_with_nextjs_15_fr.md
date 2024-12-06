@@ -101,17 +101,21 @@ Puis ajoutez un nouveau layout dans votre `[locale]` repertoire :
 ```tsx
 // src/app/[locale]/layout.tsx
 
-import { NextLayoutIntlayer } from "next-intlayer";
+import { type NextLayoutIntlayer } from "next-intlayer";
 import { Inter } from "next/font/google";
-import { getHTMLTextDir, getHTMLLang } from "intlayer";
+import { getHTMLTextDir } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
-  <html lang={locale} dir={getHTMLTextDir(locale)}>
-    <body className={inter.className}>{children}</body>
-  </html>
-);
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>{children}</body>
+    </html>
+  );
+};
 
 export default LocaleLayout;
 ```
@@ -159,20 +163,29 @@ import { ServerComponentExample } from "@component/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
-const Page: NextPageIntlayer = ({ params: { locale } }) => {
+const PageContent = () => {
+  const { title, content } = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
   const content = useIntlayer("page", locale);
 
   return (
     <>
-      <p>
-        {content.getStarted.main}
-        <code>{content.getStarted.pageLink}</code>
-      </p>
       {/**
        *   IntlayerServerProvider est utilisé pour fournir la langue aux enfants côté serveur
        *   Ne fonctionne pas si défini dans le layout
        */}
       <IntlayerServerProvider locale={locale}>
+        <PageContent />
         <ServerComponentExample />
       </IntlayerServerProvider>
       {/**
@@ -188,6 +201,8 @@ const Page: NextPageIntlayer = ({ params: { locale } }) => {
 
 export default Page;
 ```
+
+> Note: Example of implementation of nextjs 15 page. P
 
 ```tsx
 // src/components/ClientComponentExample.tsx
@@ -242,11 +257,13 @@ Dans le cas où vous souhaitez internationaliser vos métadonnées, tels que le 
 
 import { type IConfigLocales, getTranslationContent } from "intlayer";
 import type { Metadata } from "next";
-import type { LocalParams } from "next-intlayer";
+import type { LocalPromiseParams } from "next-intlayer";
 
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
+export const generateMetadata = async ({
+  params,
+}: LocalPromiseParams): Promise<Metadata> => {
+  const { locale } = await params;
+
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 

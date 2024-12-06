@@ -101,13 +101,16 @@ Luego agrega un nuevo layout en tu directorio `[locale]`:
 ```tsx
 // src/app/[locale]/layout.tsx
 
-import { NextLayoutIntlayer } from "next-intlayer";
+import { type Next14LayoutIntlayer } from "next-intlayer";
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
+const LocaleLayout: Next14LayoutIntlayer = ({
+  children,
+  params: { locale },
+}) => (
   <html lang={locale} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>{children}</body>
   </html>
@@ -154,10 +157,10 @@ import { ClientComponentExample } from "@component/ClientComponentExample";
 import { LocaleSwitcher } from "@component/LangSwitcherDropDown";
 import { NestedServerComponentExample } from "@component/NestedServerComponentExample";
 import { ServerComponentExample } from "@component/ServerComponentExample";
-import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
+import { type Next14PageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
-const Page: NextPageIntlayer = ({ params: { locale } }) => {
+const Page: Next14PageIntlayer = ({ params: { locale } }) => {
   const content = useIntlayer("page", locale);
 
   return (

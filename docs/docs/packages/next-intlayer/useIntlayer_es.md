@@ -40,7 +40,9 @@ import { ClientComponentExample, ServerComponentExample } from "@components";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { useIntlayer, IntlayerServerProvider } from "next-intlayer/server";
 
-const HomePage: NextPageIntlayer = ({ params: { locale } }) => {
+const HomePage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+  return (
   const content = useIntlayer("homepage", locale);
 
   return (

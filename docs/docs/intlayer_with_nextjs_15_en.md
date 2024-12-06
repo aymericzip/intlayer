@@ -1,79 +1,3 @@
-<div align="center">
-  <a href="https://www.npmjs.com/package/next-intlayer">
-    <img src="docs/assets/logo.png" width="500" alt="intlayer" />
-  </a>
-</div>
-
-<div align="center">
-  <a href="https://www.npmjs.com/package/next-intlayer">
-    <img alt="npm" src="https://img.shields.io/npm/v/next-intlayer.svg?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/next-intlayer">
-    <img alt="downloads" src="https://badgen.net/npm/dm/next-intlayer?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/next-intlayer">
-    <img alt="types included" src="https://badgen.net/npm/types/next-intlayer?labelColor=49516F&color=8994BC" 
-  />
-  </a>
-</div>
-
-# Intlayer: Next-Level Content Management in JavaScript
-
-**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allow the declaration of your content everywhere in your code. It converts declaration of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** make your development stronger and more efficient.
-
-## Example of usage
-
-```bash
-.
-├── ClientComponent
-│   ├── index.content.ts
-│   └── index.tsx
-└── ServerComponent
-    ├── index.content.ts
-    └── index.tsx
-```
-
-```tsx
-// ./ClientComponent/index.content.ts
-
-import { DeclarationContent, t } from "intlayer";
-
-const clientComponentContent = {
-  key: "client-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola Mundo",
-    }),
-  },
-} satisfies DeclarationContent;
-
-export default clientComponentContent;
-```
-
-```tsx
-// ./ClientComponent/index.tsx
-"use client";
-
-import { useIntlayer } from "next-intlayer";
-
-export const ClientComponent = () => {
-  const { myTranslatedContent } = useIntlayer("client-component");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-## Why Choose Intlayer?
-
-- **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
-- **Simplified Setup**: Get up and running quickly with minimal configuration, especially optimized for Next.js projects.
-- **Server Component Support**: Perfectly suited for Next.js server components, ensuring smooth server-side rendering.
-- **Enhanced Routing**: Full support for Next.js app routing, adapting seamlessly to complex application structures.
-
 # Getting Started with Intlayer and Next.js
 
 Setting up Intlayer in a Next.js application is straightforward:
@@ -236,22 +160,28 @@ import { ServerComponentExample } from "@component/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
-const Page: NextPageIntlayer = async ({ params }) => {
-  const { locale } = await params;
-  return (
-  const content = useIntlayer("page", locale);
+const PageContent = () => {
+  const { title, content } = useIntlayer("page");
 
   return (
     <>
-      <p>
-        {content.getStarted.main}
-        <code>{content.getStarted.pageLink}</code>
-      </p>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <>
       {/**
        *   IntlayerServerProvider is used to provide the locale to the server children
        *   Don't work if set in the layout
        */}
       <IntlayerServerProvider locale={locale}>
+        <PageContent />
         <ServerComponentExample />
       </IntlayerServerProvider>
       {/**
@@ -317,11 +247,11 @@ For more detailed usage of intlayer into Client, or Server component, see the [n
 In the case you want to internationalize your metadata, such as the title of your page, you can use the `generateMetadata` function provided by NextJS. Inside the function use the `getTranslationContent` function to translate your metadata.
 
 ```typescript
-// src/app/[locale]/metadata.ts
+// src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx
 
 import { type IConfigLocales, getTranslationContent } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalParams } from 'next-intlayer';
+import type { LocalPromiseParams } from 'next-intlayer';
 
 export const generateMetadata = async ({
   params,
@@ -343,8 +273,9 @@ export const generateMetadata = async ({
       fr: 'Ma description',
       es: 'Mi descripción',
     }),
-
 };
+
+// ... Rest of the code
 ```
 
 ## (Optional) Step 9: Change the language of your content
@@ -384,4 +315,15 @@ Ensure your TypeScript configuration includes the autogenerated types.
     "types", // <- Include the auto generated types
   ],
 }
+```
+
+## Git Configuration
+
+It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+
+To do this, you can add the following instructions to your `.gitignore` file:
+
+```gitignore
+# Ignore the files generated by Intlayer
+.intlayer
 ```

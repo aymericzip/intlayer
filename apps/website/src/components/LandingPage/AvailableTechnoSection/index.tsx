@@ -21,7 +21,7 @@ export const AvailableTechnoSection: FC = () => {
           <React className="size-full max-h-full" />
         </Link>
         <Link
-          href={PagesRoutes.Doc_Environment_NextJS}
+          href={PagesRoutes.Doc_Environment_NextJS_15}
           className="grow-0"
           aria-label={nextjs.label.value}
         >

@@ -39,10 +39,15 @@ const docs = {
     fr: require('./docs/intlayer_with_i18next_fr.md'),
     es: require('./docs/intlayer_with_i18next_es.md'),
   },
-  intlayer_with_nextjs: {
-    en: require('./docs/intlayer_with_nextjs_en.md'),
-    fr: require('./docs/intlayer_with_nextjs_fr.md'),
-    es: require('./docs/intlayer_with_nextjs_es.md'),
+  intlayer_with_nextjs_14: {
+    en: require('./docs/intlayer_with_nextjs_14_en.md'),
+    fr: require('./docs/intlayer_with_nextjs_14_fr.md'),
+    es: require('./docs/intlayer_with_nextjs_14_es.md'),
+  },
+  intlayer_with_nextjs_15: {
+    en: require('./docs/intlayer_with_nextjs_15_en.md'),
+    fr: require('./docs/intlayer_with_nextjs_15_fr.md'),
+    es: require('./docs/intlayer_with_nextjs_15_es.md'),
   },
   intlayer_with_express: {
     en: require('./docs/intlayer_with_express_en.md'),
