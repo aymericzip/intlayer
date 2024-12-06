@@ -1,26 +1,27 @@
-import { create, StoreApi, UseBoundStore } from 'zustand';
+import { create } from 'zustand';
 
 type RightDrawerStore = {
-  isOpen: boolean;
-  open: () => void;
-  close: () => void;
+  drawers: Record<string, boolean>;
+  open: (key: string) => void;
+  close: (key: string) => void;
+  isOpen: (key: string) => boolean;
 };
 
-const drawerStores = new Map<
-  string,
-  UseBoundStore<StoreApi<RightDrawerStore>>
->();
-
-export const useRightDrawerStore = (key: string) => {
-  if (!drawerStores.has(key)) {
-    drawerStores.set(
-      key,
-      create<RightDrawerStore>((set) => ({
-        isOpen: false,
-        open: () => set({ isOpen: true }),
-        close: () => set({ isOpen: false }),
-      }))
-    );
-  }
-  return drawerStores.get(key)!;
-};
+export const useRightDrawerStore = create<RightDrawerStore>((set, get) => ({
+  drawers: {},
+  open: (key: string) =>
+    set((state) => ({
+      drawers: {
+        ...state.drawers,
+        [key]: true,
+      },
+    })),
+  close: (key: string) =>
+    set((state) => ({
+      drawers: {
+        ...state.drawers,
+        [key]: false,
+      },
+    })),
+  isOpen: (key: string) => get().drawers[key] ?? false,
+}));

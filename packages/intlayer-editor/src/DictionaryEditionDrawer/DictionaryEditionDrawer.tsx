@@ -9,11 +9,13 @@ import {
   Modal,
   useEditionPanelStore,
   DictionaryFieldEditor,
+  useRightDrawerStore,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useCallback, useEffect, useState, type FC } from 'react';
+import { t } from 'react-intlayer';
 import { useShallow } from 'zustand/shallow';
-import { useDictionaryListDrawer } from '../DictionaryListDrawer/useDictionaryListDrawer';
+import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
   type FileContent as FileContentWithDictionaryPath,
   useDictionaryEditionDrawer,
@@ -60,7 +62,11 @@ export const DictionaryEditionDrawerContent: FC<
         isOpen={keyPathEditionModal !== null}
         onClose={() => setKeyPathEditionModal(null)}
         hasCloseButton
-        title="Edit field"
+        title={t({
+          en: 'Edit field',
+          fr: 'Modifier le champ',
+          es: 'Editar campo',
+        })}
         size="xl"
         transparency="lg"
       >
@@ -93,7 +99,9 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   const id = getDrawerIdentifier(dictionaryId);
 
   const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryId);
-  const { open: openDictionaryListDrawer } = useDictionaryListDrawer();
+  const { openDictionaryListDrawer } = useRightDrawerStore((s) => ({
+    openDictionaryListDrawer: () => s.open(dictionaryListDrawerIdentifier),
+  }));
 
   const handleOnBack = () => {
     close();
@@ -113,7 +121,11 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
       }
       backButton={{
         onBack: handleOnBack,
-        text: 'Dictionary list',
+        text: t({
+          en: 'Dictionary list',
+          fr: 'Liste des dictionnaires',
+          es: 'Lista de diccionarios',
+        }),
       }}
     >
       {focusedContent && (

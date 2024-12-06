@@ -10,6 +10,7 @@ import {
   useRef,
   type MouseEventHandler,
 } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
 import { isElementAtTopAndNotCovered } from '../../utils/isElementAtTopAndNotCovered';
@@ -46,11 +47,17 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   const { isMobile } = useDevice('md');
   const panelRef = useRef<HTMLDivElement>(null);
   const childrenContainerRef = useRef<HTMLDivElement>(null);
-  const { isOpen, close, open } = useRightDrawerStore(identifier)();
+  const { close, open, isOpen } = useRightDrawerStore(
+    useShallow((s) => ({
+      close: () => s.close(identifier),
+      open: () => s.open(identifier),
+      isOpen: s.isOpen(identifier),
+    }))
+  );
 
   useScrollBlockage({
     disableScroll: isOpen,
-    key: identifier ? 'right_drawer' : `right_drawer_${identifier}`,
+    key: identifier ? `right_drawer_${identifier}` : 'right_drawer',
   });
 
   useEffect(() => {
@@ -72,7 +79,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen, close, onClose, closeOnOutsideClick]); // Make sure the effect runs only if isOpen or close changes
+  }, [isOpen, close, onClose, closeOnOutsideClick, identifier]); // Make sure the effect runs only if isOpen or close changes
 
   useEffect(() => {
     if (isOpenProp !== undefined) {
@@ -83,7 +90,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
         onClose?.();
       }
     }
-  }, [close, open, onClose, isOpenProp]);
+  }, [close, open, onClose, isOpenProp, identifier]);
 
   const handleSpareSpaceClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Check if the click trigger the background

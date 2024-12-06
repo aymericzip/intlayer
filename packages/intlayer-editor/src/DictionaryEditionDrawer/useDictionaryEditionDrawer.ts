@@ -43,11 +43,11 @@ export const useDictionaryEditionDrawer = (
   dictionaryId: string
 ): DictionaryEditionDrawer => {
   const id = getDrawerIdentifier(dictionaryId);
-  const { isOpen, open, close } = useRightDrawerStore(id)(
+  const { isOpenDrawer, openDrawer, closeDrawer } = useRightDrawerStore(
     useShallow((e) => ({
-      isOpen: e.isOpen,
-      open: e.open,
-      close: e.close,
+      isOpenDrawer: e.isOpen,
+      openDrawer: e.open,
+      closeDrawer: e.close,
     }))
   );
   const { setDictionariesRecord, getEditedContentValue } =
@@ -76,17 +76,17 @@ export const useDictionaryEditionDrawer = (
         keyPath,
       });
 
-      open();
+      openDrawer(id);
     },
-    [open, setFocusedContent]
+    [openDrawer, setFocusedContent]
   );
 
   return {
-    isOpen,
+    isOpen: isOpenDrawer(id),
     focusedContent,
     setDictionariesRecord,
     getEditedContentValue,
     open: openDictionaryEditionDrawer,
-    close,
+    close: () => closeDrawer(id),
   };
 };

@@ -10,25 +10,10 @@ import {
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight } from 'lucide-react';
-import { useState, useEffect, useCallback, useMemo, FC } from 'react';
+import { useCallback, useMemo, FC } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
-import { useDictionaryListDrawer } from './useDictionaryListDrawer';
-
-type DictionaryDrawerConnectorProps = {
-  dictionaryId: string;
-};
-const DictionaryDrawerConnector: FC<DictionaryDrawerConnectorProps> = ({
-  dictionaryId,
-}) => {
-  const rightDrawerStore = useRightDrawerStore(dictionaryId)();
-
-  useEffect(() => {
-    rightDrawerStore.open();
-  }, [rightDrawerStore]);
-
-  return <></>;
-};
+import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
 
 export const DictionaryListDrawer: FC = () => {
   const { all: dictionaries } = useGetAllDictionaries();
@@ -36,11 +21,14 @@ export const DictionaryListDrawer: FC = () => {
     () => Object.keys(dictionaries) as Locales[],
     [dictionaries]
   );
-  const { closeDictionaryListDrawer } = useDictionaryListDrawer(
+
+  const { closeDrawer, openDrawer } = useRightDrawerStore(
     useShallow((s) => ({
-      closeDictionaryListDrawer: s.close,
+      closeDrawer: s.close,
+      openDrawer: s.open,
     }))
   );
+
   const editedContent = useEditedContentStore(
     useShallow((s) => s.editedContent)
   );
@@ -48,10 +36,8 @@ export const DictionaryListDrawer: FC = () => {
     useShallow((s) => s.setFocusedContent)
   );
 
-  const [clickedDictionaryId, setClickedDictionaryId] = useState<string>();
-
   const handleClickDictionary = (dictionaryId: string) => {
-    closeDictionaryListDrawer();
+    closeDrawer(dictionaryListDrawerIdentifier);
 
     const { filePath } = dictionaries[dictionaryId];
     setFocusedContent({
@@ -59,7 +45,7 @@ export const DictionaryListDrawer: FC = () => {
       dictionaryPath: filePath,
     });
 
-    setClickedDictionaryId(getDrawerIdentifier(dictionaryId));
+    openDrawer(getDrawerIdentifier(dictionaryId));
   };
 
   const isDictionaryEdited = useCallback(
@@ -69,10 +55,10 @@ export const DictionaryListDrawer: FC = () => {
 
   return (
     <>
-      {clickedDictionaryId && (
-        <DictionaryDrawerConnector dictionaryId={clickedDictionaryId} />
-      )}
-      <RightDrawer title="Dictionary list" identifier="dictionaryListDrawer">
+      <RightDrawer
+        title="Dictionary list"
+        identifier={dictionaryListDrawerIdentifier}
+      >
         {dictionaryKeyList.map((dictionaryId) => (
           <div key={dictionaryId}>
             <Button
