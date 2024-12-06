@@ -24,7 +24,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
       password,
     });
 
-    if (response.data) {
+    if (response?.data) {
       if (callbackUrl) {
         router.push(callbackUrl);
       }

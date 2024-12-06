@@ -51,7 +51,7 @@ export const AuthModal: FC<AuthModalProps> = ({
       email,
       password,
     }).then(async (response) => {
-      if (response.data) {
+      if (response?.data) {
         await onSignInSuccess?.(response.data);
       }
     });
@@ -61,14 +61,14 @@ export const AuthModal: FC<AuthModalProps> = ({
       email,
       password,
     }).then(async (response) => {
-      if (response.data) {
+      if (response?.data) {
         await onSignUpSuccess?.(response.data);
       }
     });
 
   const onSubmitResetPasswordSuccess = async ({ email }: ResetPassword) =>
     await askResetPassword(email).then(async (response) => {
-      if (response.data) {
+      if (response?.data) {
         await onResetPasswordSuccess?.(response.data);
       }
     });
@@ -81,7 +81,7 @@ export const AuthModal: FC<AuthModalProps> = ({
       oldPassword: currentPassword,
       newPassword,
     }).then(async (response) => {
-      if (response.data) {
+      if (response?.data) {
         await onChangePasswordSuccess?.(response.data);
       }
     });

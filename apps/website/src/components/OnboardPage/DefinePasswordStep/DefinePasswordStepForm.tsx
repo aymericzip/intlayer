@@ -40,7 +40,7 @@ export const DefinePasswordStepForm: FC = () => {
   const onSubmitSuccess = async (data: DefinePassword) => {
     setFormData(data);
     await changePassword(data).then((response) => {
-      if (response.data) {
+      if (response?.data) {
         setState({
           isPasswordDefined: true,
         });

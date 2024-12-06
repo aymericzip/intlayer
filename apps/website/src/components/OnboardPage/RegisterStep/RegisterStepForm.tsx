@@ -53,7 +53,7 @@ export const RegisterStepForm: FC = () => {
     await register(data, {
       callBack_url: `${window.location.origin}${nextUrl}`,
     }).then((response) => {
-      if (response.data) {
+      if (response?.data) {
         setState({
           user: response.data,
         });
