@@ -11,8 +11,11 @@ export {
 export { generateStaticParams } from './generateStaticParams';
 export type {
   LocalParams,
+  Next14PageIntlayer,
+  Next15PageIntlayer,
   NextPageIntlayer,
   NextLayoutIntlayer,
+  LocalPromiseParams,
 } from './types/index';
 export {
   useLocale,

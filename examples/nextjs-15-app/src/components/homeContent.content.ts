@@ -8,50 +8,35 @@ const homeContent = {
       fr: 'Commencez par éditer',
       es: 'Comience por editar',
     }),
-    welcomeMessage: t({
-      en: 'Welcome to our application!',
-      fr: 'Bienvenue dans notre application!',
-      es: '¡Bienvenido a nuestra aplicación!',
+    saveAndSeeChanges: t({
+      en: 'Save and see your changes.',
+      fr: 'Enregistrez et voyez vos modifications.',
+      es: 'Guarde y vea sus cambios.',
     }),
-    introductionText: t({
-      en: 'This is the best place to learn and grow.',
-      fr: "C'est le meilleur endroit pour apprendre et grandir.",
-      es: 'Este es el mejor lugar para aprender y crecer.',
+    deployNow: t({
+      en: 'Deploy Now',
+      fr: 'Déployez maintenant',
+      es: 'Implemente ahora',
     }),
-    footerNote: t({
-      en: 'All rights reserved.',
-      fr: 'Tous droits réservés.',
-      es: 'Todos los derechos reservados.',
+    readOurDocs: t({
+      en: 'Read our Docs',
+      fr: 'Lisez notre documentation',
+      es: 'Lea nuestra documentación',
     }),
-    contactUs: t({
-      en: 'Contact Us',
-      fr: 'Contactez-nous',
-      es: 'Contáctenos',
+    learn: t({
+      en: 'Learn',
+      fr: 'Apprendre',
+      es: 'Aprender',
     }),
-    termsOfService: t({
-      en: 'Terms of Service',
-      fr: "Conditions d'utilisation",
-      es: 'Términos de servicio',
+    examples: t({
+      en: 'Examples',
+      fr: 'Exemples',
+      es: 'Ejemplos',
     }),
-    privacyPolicy: t({
-      en: 'Privacy Policy',
-      fr: 'Politique de confidentialité',
-      es: 'Política de privacidad',
-    }),
-    exploreFeatures: t({
-      en: 'Explore our features',
-      fr: 'Découvrez nos fonctionnalités',
-      es: 'Explora nuestras características',
-    }),
-    signUp: t({
-      en: 'Sign Up',
-      fr: "S'inscrire",
-      es: 'Regístrate',
-    }),
-    logIn: t({
-      en: 'Log In',
-      fr: 'Se connecter',
-      es: 'Iniciar sesión',
+    goToNextjs: t({
+      en: 'Go to Next.js',
+      fr: 'Aller à Next.js',
+      es: 'Ir a Next.js',
     }),
   },
 } satisfies DeclarationContent;
