@@ -52,7 +52,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             'Introduction',
             'Get started',
             'Intlayer',
-            'Application',
+            'Applifcation',
             'Packages',
           ],
           fr: [
@@ -573,61 +573,11 @@ export const getDocData = (locale = Locales.ENGLISH) => {
         es: 'Entornos',
       }),
       subSections: {
-        nextjs_14: {
+        nextjs: {
           title: t({
-            en: 'Intlayer with nextjs 14',
-            fr: 'Intlayer avec nextjs 14',
-            es: 'Intlayer con nextjs 14',
-          }),
-          default: {
-            docName: 'intlayer_with_nextjs_14',
-            url: PagesRoutes.Doc_Environment_NextJS_14,
-            githubUrl: GithubRoutes.intlayerWithNextJS14,
-            title: t({
-              en: 'Intlayer with nextjs 14',
-              fr: 'Intlayer avec nextjs 14',
-              es: 'Intlayer con nextjs 14',
-            }),
-            description: t({
-              en: 'Discover how to set up Intlayer with nextjs 14 to make your website multilingual. Follow the steps in this online documentation to set up your project in a few minutes.',
-              fr: 'Découvrez comment configurer Intlayer avec nextjs 14 pour rendre votre site web multilingue. Suivez les étapes de cette documentation en ligne pour mettre en place votre projet en quelques minutes.',
-              es: 'Descubra cómo configurar Intlayer con nextjs 14 para hacer que su sitio web sea multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.',
-            }),
-            keywords: t({
-              en: [
-                'Internationalization',
-                'Documentation',
-                'Intlayer',
-                'nextjs 14',
-                'JavaScript',
-                'React',
-              ],
-              fr: [
-                'Internationalisation',
-                'Documentation',
-                'Intlayer',
-                'nextjs 14',
-                'JavaScript',
-                'React',
-              ],
-              es: [
-                'Internacionalización',
-                'Documentación',
-                'Intlayer',
-                'nextjs 14',
-                'JavaScript',
-                'React',
-              ],
-            }),
-            createdAt: new Date('2024-12-06'),
-            updatedAt: new Date('2024-12-06'),
-          },
-        },
-        nextjs_15: {
-          title: t({
-            en: 'Intlayer with nextjs 15',
-            fr: 'Intlayer avec nextjs 15',
-            es: 'Intlayer con nextjs 15',
+            en: 'Intlayer with nextjs',
+            fr: 'Intlayer avec nextjs',
+            es: 'Intlayer con nextjs',
           }),
           default: {
             docName: 'intlayer_with_nextjs_15',
@@ -648,6 +598,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'Internationalization',
                 'Documentation',
                 'Intlayer',
+                'nextjs',
                 'nextjs 15',
                 'JavaScript',
                 'React',
@@ -656,6 +607,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'Internationalisation',
                 'Documentation',
                 'Intlayer',
+                'nextjs',
                 'nextjs 15',
                 'JavaScript',
                 'React',
@@ -664,6 +616,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 'Internacionalización',
                 'Documentación',
                 'Intlayer',
+                'nextjs',
                 'nextjs 15',
                 'JavaScript',
                 'React',
@@ -671,6 +624,58 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             }),
             createdAt: new Date('2024-12-06'),
             updatedAt: new Date('2024-12-06'),
+          },
+          subSections: {
+            14: {
+              title: t({
+                en: 'Intlayer with nextjs 14',
+                fr: 'Intlayer avec nextjs 14',
+                es: 'Intlayer con nextjs 14',
+              }),
+              default: {
+                docName: 'intlayer_with_nextjs_14',
+                url: PagesRoutes.Doc_Environment_NextJS_14,
+                githubUrl: GithubRoutes.intlayerWithNextJS14,
+                title: t({
+                  en: 'Intlayer with nextjs 14',
+                  fr: 'Intlayer avec nextjs 14',
+                  es: 'Intlayer con nextjs 14',
+                }),
+                description: t({
+                  en: 'Discover how to set up Intlayer with nextjs 14 to make your website multilingual. Follow the steps in this online documentation to set up your project in a few minutes.',
+                  fr: 'Découvrez comment configurer Intlayer avec nextjs 14 pour rendre votre site web multilingue. Suivez les étapes de cette documentation en ligne pour mettre en place votre projet en quelques minutes.',
+                  es: 'Descubra cómo configurar Intlayer con nextjs 14 para hacer que su sitio web sea multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.',
+                }),
+                keywords: t({
+                  en: [
+                    'Internationalization',
+                    'Documentation',
+                    'Intlayer',
+                    'nextjs 14',
+                    'JavaScript',
+                    'React',
+                  ],
+                  fr: [
+                    'Internationalisation',
+                    'Documentation',
+                    'Intlayer',
+                    'nextjs 14',
+                    'JavaScript',
+                    'React',
+                  ],
+                  es: [
+                    'Internacionalización',
+                    'Documentación',
+                    'Intlayer',
+                    'nextjs 14',
+                    'JavaScript',
+                    'React',
+                  ],
+                }),
+                createdAt: new Date('2024-12-06'),
+                updatedAt: new Date('2024-12-06'),
+              },
+            },
           },
         },
         create_react_app: {
