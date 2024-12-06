@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useGetElementOrWindow } from '../useGetElementOrWindow';
 
 import { useScrollBlockageStore } from './useScrollBlockageStore';
@@ -27,7 +28,13 @@ export const useScrollBlockage = (
   } = props ?? {};
 
   const { isElementScrollBlocked, addBlockage, removeBlockage } =
-    useScrollBlockageStore();
+    useScrollBlockageStore(
+      useShallow((s) => ({
+        isElementScrollBlocked: s.isElementScrollBlocked,
+        addBlockage: s.addBlockage,
+        removeBlockage: s.removeBlockage,
+      }))
+    );
 
   const containerElement = useGetElementOrWindow(element);
 
