@@ -1,8 +1,21 @@
-# Démarrer avec Intlayer vitejs + react
+# Bien démarrer l'internationalisation (i18n) avec Intlayer et Vite et React
 
-Configurer Intlayer dans une application Create React App est simple :
+## Qu'est-ce qu'Intlayer ?
 
-## Étape 1 : Installer les dépendances
+**Intlayer** est une bibliothèque innovante et open-source pour l'internationalisation (i18n), conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
+
+Avec Intlayer, vous pouvez :
+
+- **Gérer facilement les traductions** grâce à des dictionnaires déclaratifs au niveau des composants.
+- **Localiser dynamiquement**, les routes et le contenu.
+- **Bénéficier du support TypeScript** avec des types générés automatiquement, améliorant l'autocomplétion et la détection des erreurs.
+- **Profiter de fonctionnalités avancées**, telles que la détection et le changement dynamique de langue.
+
+---
+
+## Guide étape par étape pour configurer Intlayer dans une application Vite et React
+
+### Étape 1 : Installer les dépendances
 
 Installez les packages nécessaires en utilisant npm :
 
@@ -18,7 +31,7 @@ yarn add intlayer react-intlayer
 pnpm add intlayer react-intlayer
 ```
 
-## Étape 2 : Configuration de votre projet
+### Étape 2 : Configuration de votre projet
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 
@@ -44,7 +57,7 @@ export default config;
 
 Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
 
-## Étape 3 : Intégrer Intlayer dans votre configuration Vite
+### Étape 3 : Intégrer Intlayer dans votre configuration Vite
 
 Ajoutez le plugin intlayer dans votre configuration.
 
@@ -59,7 +72,7 @@ export default defineConfig({
 });
 ```
 
-## Étape 4 : Déclarez votre contenu
+### Étape 4 : Déclarez votre contenu
 
 Créez et gérez vos dictionnaires de contenu :
 
@@ -122,7 +135,7 @@ export default appContent;
 
 [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
 
-## Étape 5 : Utilisez Intlayer dans votre code
+### Étape 5 : Utilisez Intlayer dans votre code
 
 Accédez à vos dictionnaires de contenu dans toute votre application :
 
@@ -185,7 +198,7 @@ export default App;
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-## (Optionnel) Étape 6: Changer la langue de votre contenu
+### (Optionnel) Étape 6: Changer la langue de votre contenu
 
 Pour changer la langue de votre contenu, vous pouvez utiliser la fonction `setLocale` fournie par le `useLocale` hook. Cette fonction vous permet de définir la langue de l'application et de mettre à jour le contenu en conséquence.
 
@@ -204,7 +217,7 @@ const MyComponent = () => {
 };
 ```
 
-## Configurer TypeScript
+### Configurer TypeScript
 
 Intlayer utilise l'augmentation de module pour tirer parti de TypeScript et renforcer votre code.
 
@@ -226,7 +239,7 @@ Assurez-vous que votre configuration TypeScript inclut les types générés auto
 }
 ```
 
-## Configuration Git
+### Configuration Git
 
 Il est recommandé d'ignorer les fichiers générés automatiquement par Intlayer. Cela permet de ne pas les commiter dans le dépôt Git.
 

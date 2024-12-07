@@ -1,8 +1,24 @@
-# Empezando con Intlayer y Next.js
+# Introducción a la internacionalización (i18n) con Intlayer y el App Router de Next.js 15
 
-Configurar Intlayer en una aplicación Next.js es sencillo:
+## ¿Qué es Intlayer?
 
-## Paso 1: Instalar Dependencias
+**Intlayer** es una innovadora biblioteca de internacionalización (i18n) de código abierto diseñada para simplificar el soporte multilingüe en aplicaciones web modernas. Intlayer se integra perfectamente con el marco **Next.js 15**, incluido su poderoso **App Router**. Está optimizado para funcionar con **Componentes del Servidor** para un renderizado eficiente y es totalmente compatible con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
+
+Con Intlayer, puedes:
+
+- **Gestionar fácilmente traducciones** usando diccionarios declarativos a nivel de componente.
+- **Localizar dinámicamente metadatos**, rutas y contenido.
+- **Acceder a traducciones tanto en componentes del cliente como del servidor**.
+- **Garantizar soporte para TypeScript** con tipos autogenerados, mejorando la autocompletación y la detección de errores.
+- **Beneficiarte de funciones avanzadas**, como la detección y el cambio dinámico de idioma.
+
+> Nota: Intlayer es compatible con Next.js 12, 13, 14 y 15. Si estás usando el Page Router de Next.js, puedes consultar esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_page_router_en.md). Para Next.js 12, 13, 14 con App Router, consulta esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_12_13_14_en.md).
+
+---
+
+## Guía paso a paso para configurar Intlayer en una aplicación Next.js
+
+### Paso 1: Instalar dependencias
 
 Instala los paquetes necesarios usando npm:
 
@@ -18,9 +34,9 @@ yarn add intlayer next-intlayer
 pnpm add intlayer next-intlayer
 ```
 
-## Paso 2: Configuración de tu proyecto
+### Paso 2: Configurar tu proyecto
 
-Crea un archivo de configuración para configurar los idiomas de tu aplicación:
+Crea un archivo de configuración para definir los idiomas de tu aplicación:
 
 ```typescript
 // intlayer.config.ts
@@ -42,11 +58,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Para ver todos los parámetros disponibles, consulta la [documentación de configuración aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_es.md).
+Para ver todos los parámetros disponibles, consulta la [documentación de configuración aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
 
-## Paso 3: Integrar Intlayer en tu Configuración de Next.js
+### Paso 3: Integrar Intlayer en tu configuración de Next.js
 
-Configura tu setup de Next.js para usar Intlayer:
+Configura tu proyecto Next.js para usar Intlayer:
 
 ```typescript
 // next.config.mjs
@@ -58,9 +74,9 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-## Paso 4: Configurar Middleware para la Detección de Localidad
+### Paso 4: Configurar Middleware para detección de idioma
 
-Configura el middleware para detectar la localidad preferida del usuario:
+Configura un middleware para detectar el idioma preferido del usuario:
 
 ```typescript
 // src/middleware.ts
@@ -71,13 +87,13 @@ export const config = {
 };
 ```
 
-## Paso 5: Definir Rutas Dinámicas de Localidad
+### Paso 5: Definir rutas dinámicas por idioma
 
-Implementa el enrutamiento dinámico para contenido localizado:
+Implementa enrutamiento dinámico para contenido localizado:
 
-Cambia `src/app/page.ts` a `src/app/[locale]/page.ts`
+Cambia `src/app/page.ts` a `src/app/[locale]/page.ts`.
 
-Luego, implementa la función generateStaticParams en tu diseño de aplicación.
+Luego, implementa la función `generateStaticParams` en el diseño de tu aplicación.
 
 ```tsx
 // src/app/layout.tsx
@@ -85,7 +101,7 @@ Luego, implementa la función generateStaticParams en tu diseño de aplicación.
 import type { ReactNode } from "react";
 import "./globals.css";
 
-export { generateStaticParams } from "next-intlayer"; // Línea a insertar
+export { generateStaticParams } from "next-intlayer"; // Línea para insertar
 
 const RootLayout = ({
   children,
@@ -96,7 +112,7 @@ const RootLayout = ({
 export default RootLayout;
 ```
 
-Luego agrega un nuevo layout en tu directorio `[locale]`:
+Luego agrega un nuevo diseño en tu directorio `[locale]`:
 
 ```tsx
 // src/app/[locale]/layout.tsx
@@ -119,7 +135,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
-## Paso 6: Declarar tu Contenido
+### Paso 6: Declarar tu contenido
 
 Crea y gestiona tus diccionarios de contenido:
 
@@ -144,9 +160,9 @@ const pageContent = {
 export default pageContent;
 ```
 
-[Consulta cómo declarar tus archivos de declaración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md).
+[Consulta cómo declarar tus archivos de declaración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md).
 
-## Paso 7: Utilizar Contenido en tu Código
+### Paso 7: Utilizar el contenido en tu código
 
 Accede a tus diccionarios de contenido en toda tu aplicación:
 
@@ -177,16 +193,14 @@ const Page: NextPageIntlayer = async ({ params }) => {
   return (
     <>
       {/**
-       *   IntlayerServerProvider se usa para proporcionar la localidad a los hijos del servidor
-       *   No funciona si se coloca en el layout
+       * IntlayerServerProvider proporciona el idioma a los componentes hijos del servidor.
        */}
       <IntlayerServerProvider locale={locale}>
         <PageContent />
         <ServerComponentExample />
       </IntlayerServerProvider>
       {/**
-       *   IntlayerClientProvider se usa para proporcionar la localidad a los hijos del cliente
-       *   Se puede colocar en cualquier componente padre, incluido el layout
+       * IntlayerClientProvider proporciona el idioma a los componentes hijos del cliente.
        */}
       <IntlayerClientProvider locale={locale}>
         <ClientComponentExample />
@@ -206,7 +220,7 @@ export default Page;
 import { useIntlayer } from "next-intlayer";
 
 export const ClientComponentExample = () => {
-  const content = useIntlayer("client-component-example"); // Crear declaración de contenido relacionada
+  const content = useIntlayer("client-component-example"); // Crea la declaración de contenido relacionada.
 
   return (
     <div>
@@ -223,7 +237,7 @@ export const ClientComponentExample = () => {
 import { useIntlayer } from "next-intlayer/server";
 
 export const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // Crear declaración de contenido relacionada
+  const content = useIntlayer("server-component-example"); // Crea la declaración de contenido relacionada.
 
   return (
     <div>
@@ -234,17 +248,17 @@ export const ServerComponentExample = () => {
 };
 ```
 
-> Nota: Si deseas utilizar tu contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar al valor de la función, como:
+> Nota: Si quieres usar tu contenido en un atributo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar el valor de la función, como:
 >
 > ```tsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-Para un uso más detallado de intlayer en el Cliente o en el componente del Servidor, consulta el [ejemplo de nextJS aquí](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
+Para más información sobre el uso de Intlayer en componentes Cliente o Servidor, consulta el [ejemplo de NextJS aquí](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
 
-## (Opcional) Paso 8: Internacionalización de tus metadatos
+### (Opcional) Paso 8: Internacionalizar tus metadatos
 
-En el caso de que desees internacionalizar tus metadatos, como el título de tu página, puedes usar la función `generateMetadata` provista por NextJS. Dentro de la función, usa la función `getTranslationContent` para traducir tus metadatos.
+Si deseas internacionalizar tus metadatos, como el título de la página, usa la función `generateMetadata` que proporciona NextJS.
 
 ```typescript
 // src/app/[locale]/layout.tsx o src/app/[locale]/page.tsx
@@ -275,12 +289,12 @@ export const generateMetadata = async ({
   };
 };
 
-// ... resto del código
+// ... Resto del código
 ```
 
-## (Opcional) Paso 9: Cambiar el idioma de tu contenido
+### (Opcional) Paso 9: Cambiar el idioma de tu contenido
 
-Para cambiar el idioma de tu contenido, puedes utilizar la función `setLocale` proporcionada por el `useLocale` hook. Esta función te permite establecer el idioma de la aplicación y actualizar el contenido de acuerdo.
+Para cambiar el idioma de tu contenido, usa la función `setLocale` proporcionada por el hook `useLocale`.
 
 ```tsx
 import { Locales } from "intlayer";
@@ -290,18 +304,18 @@ const MyComponent = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.English)}>Change Language</button>
+    <button onClick={() => setLocale(Locales.English)}>Cambiar idioma</button>
   );
 };
 ```
 
-## Configurar TypeScript
+### Configurar TypeScript
 
-Intlayer utiliza la ampliación de módulos para aprovechar los beneficios de TypeScript y hacer que tu base de código sea más sólida.
+Intlayer usa la ampliación de módulos para aprovechar los beneficios de TypeScript y fortalecer tu base de código.
 
-![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
 Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
 
@@ -317,11 +331,11 @@ Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerado
 }
 ```
 
-## Configuración de Git
+### Configuración de Git
 
-Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar commitearlos en tu repositorio de Git.
+Se recomienda ignorar los archivos generados por Intlayer para evitar que se incluyan en tu repositorio Git.
 
-Para hacerlo, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
+Para hacerlo, agrega las siguientes líneas a tu archivo `.gitignore`:
 
 ```gitignore
 # Ignorar los archivos generados por Intlayer

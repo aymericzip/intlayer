@@ -8,6 +8,7 @@ declare module '@intlayer/docs' {
     intlayer_editor,
     intlayer_with_create_react_app,
     intlayer_with_i18next,
+    intlayer_with_nextjs_page_router,
     intlayer_with_nextjs_14,
     intlayer_with_nextjs_15,
     intlayer_with_express,

@@ -1,8 +1,21 @@
-# Bien démarrer avec Intlayer et React Create App
+# Bien démarrer l'internationalisation (i18n) avec Intlayer et React Create App
 
-Configurer Intlayer dans une application Create React App est simple :
+## Qu'est-ce qu'Intlayer ?
 
-## Étape 1 : Installer les dépendances
+**Intlayer** est une bibliothèque innovante et open-source pour l'internationalisation (i18n), conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
+
+Avec Intlayer, vous pouvez :
+
+- **Gérer facilement les traductions** grâce à des dictionnaires déclaratifs au niveau des composants.
+- **Localiser dynamiquement**, les routes et le contenu.
+- **Bénéficier du support TypeScript** avec des types générés automatiquement, améliorant l'autocomplétion et la détection des erreurs.
+- **Profiter de fonctionnalités avancées**, telles que la détection et le changement dynamique de langue.
+
+---
+
+## Guide étape par étape pour configurer Intlayer dans une application React
+
+### Étape 1 : Installer les dépendances
 
 Installez les packages nécessaires en utilisant npm :
 
@@ -18,7 +31,7 @@ yarn add intlayer react-intlayer
 pnpm add intlayer react-intlayer
 ```
 
-## Étape 2 : Configuration de votre projet
+### Étape 2 : Configuration de votre projet
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 
@@ -44,7 +57,7 @@ export default config;
 
 Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
 
-## Étape 3 : Intégrer Intlayer dans votre configuration CRA
+### Étape 3 : Intégrer Intlayer dans votre configuration CRA
 
 Modifiez vos scripts pour utiliser react-intlayer
 
@@ -58,7 +71,7 @@ Modifiez vos scripts pour utiliser react-intlayer
 
 Note : les scripts react-intlayer sont basés sur craco. Vous pouvez également implémenter votre propre configuration basée sur le plugin intlayer craco. [Voir un exemple ici](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-## Étape 4 : Déclarer votre contenu
+### Étape 4 : Déclarer votre contenu
 
 Créez et gérez vos dictionnaires de contenu :
 
@@ -104,7 +117,7 @@ export default appContent;
 
 [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
 
-## Étape 5 : Utiliser Intlayer dans votre code
+### Étape 5 : Utiliser Intlayer dans votre code
 
 Accédez à vos dictionnaires de contenu dans toute votre application :
 
@@ -157,7 +170,7 @@ export default App;
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-## (Optionnel) Étape 6: Changer la langue de votre contenu
+### (Optionnel) Étape 6: Changer la langue de votre contenu
 
 Pour changer la langue de votre contenu, vous pouvez utiliser la fonction `setLocale` fournie par le `useLocale` hook. Cette fonction vous permet de définir la langue de l'application et de mettre à jour le contenu en conséquence.
 
@@ -176,7 +189,7 @@ const MyComponent = () => {
 };
 ```
 
-## Configurer TypeScript
+### Configurer TypeScript
 
 Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et renforcer votre base de code.
 
@@ -198,7 +211,7 @@ Assurez-vous que votre configuration TypeScript inclut les types autogénérés.
 }
 ```
 
-## Configuration Git
+### Configuration Git
 
 Il est recommandé d'ignorer les fichiers générés automatiquement par Intlayer. Cela permet de ne pas les commiter dans le dépôt Git.
 
