@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/cli",
-  "version": "3.4.8",
+  "version": "3.4.9",
   "private": false,
   "description": "Command Line Interface for IntLayer - CLI process to start the applications server.",
   "keywords": [
