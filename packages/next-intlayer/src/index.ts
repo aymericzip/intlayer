@@ -19,6 +19,7 @@ export type {
 } from './types/index';
 export {
   useLocale,
+  useLocalePageRouter,
   IntlayerClientProvider,
   type IntlayerClientProviderProps,
 } from './client/index';
