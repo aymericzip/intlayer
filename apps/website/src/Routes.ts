@@ -78,7 +78,6 @@ export enum GithubRoutes {
   ContentDeclaration_ContentExtensionCustomization = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/content_extention_customization_en.md',
   ContentDeclaration_Enumeration = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/enumeration_en.md',
   ContentDeclaration_FunctionFetching = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/function_fetching_en.md',
-  ContentDeclaration_NestedId = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/nested_id_en.md',
   ContentDeclaration_Translation = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/content/translation_en.md',
   'Packages_express-intlayer_t' = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/express-intlayer/t_en.md',
   'Packages_react-intlayer_t' = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/packages/react-intlayer/t_en.md',
