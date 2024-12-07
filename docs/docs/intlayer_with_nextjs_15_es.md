@@ -12,7 +12,7 @@ Con Intlayer, puedes:
 - **Garantizar soporte para TypeScript** con tipos autogenerados, mejorando la autocompletación y la detección de errores.
 - **Beneficiarte de funciones avanzadas**, como la detección y el cambio dinámico de idioma.
 
-> Nota: Intlayer es compatible con Next.js 12, 13, 14 y 15. Si estás usando el Page Router de Next.js, puedes consultar esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_page_router_en.md). Para Next.js 12, 13, 14 con App Router, consulta esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_12_13_14_en.md).
+> Nota: Intlayer es compatible con Next.js 12, 13, 14 y 15. Si estás usando el Page Router de Next.js, puedes consultar esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_page_router_en.md). Para Next.js 12, 13, 14 con App Router, consulta esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_14_en.md).
 
 ---
 
