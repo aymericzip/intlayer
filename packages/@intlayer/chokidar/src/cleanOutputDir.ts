@@ -1,16 +1,23 @@
-import { existsSync, rmSync, mkdirSync } from 'fs';
+import { existsSync, rmSync } from 'fs';
 import { getConfiguration } from '@intlayer/config';
+import { createDictionaryList } from './transpiler/dictionary_to_main/createDictionaryList';
 
 export const cleanOutputDir = () => {
   const { content } = getConfiguration();
 
-  const { resultDir } = content;
+  const { resultDir, typesDir, dictionariesDir } = content;
 
-  // Delete the dictionary directory dictionariesDir
   if (existsSync(resultDir)) {
-    rmSync(resultDir, { recursive: true });
+    // Delete the dictionary directory
+    if (existsSync(dictionariesDir)) {
+      rmSync(dictionariesDir, { recursive: true });
+    }
+
+    // Delete the types directory
+    if (existsSync(typesDir)) {
+      rmSync(typesDir, { recursive: true });
+    }
   }
 
-  // Create the dictionary directory dictionariesDir
-  mkdirSync(resultDir);
+  createDictionaryList();
 };
