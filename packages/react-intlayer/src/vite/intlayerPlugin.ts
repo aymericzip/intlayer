@@ -9,6 +9,8 @@ type PluginOptions = {
   // Custom options for your plugin, if any
 };
 
+const isDev = process.env.NODE_ENV === 'development';
+
 /**
  *
  * A Vite plugin that integrates IntLayer configuration into the build process
@@ -44,6 +46,17 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
       },
     };
 
+    if (isDev) {
+      // Ajout de l'option optimizeDeps.exclude
+      config.optimizeDeps = {
+        ...config.optimizeDeps,
+        exclude: [
+          ...(config.optimizeDeps?.exclude || []),
+          '@intlayer/dictionaries-entry',
+        ],
+      };
+    }
+
     const externals: string[] = (config.build?.rollupOptions?.external ??
       []) as string[];
 
@@ -61,7 +74,7 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
   buildStart: () => {
     // Code to run when Vite build starts
     watch({
-      persistent: process.env.NODE_ENV === 'development',
+      persistent: isDev,
     });
   },
   configureServer: () => {
