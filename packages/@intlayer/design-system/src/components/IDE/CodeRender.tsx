@@ -8,12 +8,14 @@ import {
   lazy,
   Suspense,
   type ReactNode,
+  useMemo,
 } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import {
   okaidia,
   coldarkCold,
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useIsMounted } from '../../hooks/useIsMounted';
 import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
@@ -37,6 +39,7 @@ export const Code: FC<CodeCompProps> = ({
   showLineNumbers = true,
   ...props
 }) => {
+  useIsMounted();
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -45,6 +48,11 @@ export const Code: FC<CodeCompProps> = ({
     }, 1000);
     return () => clearTimeout(timer);
   }, [copied]);
+
+  const style = useMemo(
+    () => (isDarkMode ? okaidia : coldarkCold),
+    [isDarkMode]
+  );
 
   return (
     <div
@@ -76,7 +84,7 @@ export const Code: FC<CodeCompProps> = ({
             }}
             PreTag={(props: { children: ReactNode }) => props.children}
             language={language ?? 'javascript'}
-            style={isDarkMode ? okaidia : coldarkCold}
+            style={style}
             showLineNumbers={showLineNumbers}
             {...props}
           >
