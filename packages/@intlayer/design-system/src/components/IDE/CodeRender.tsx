@@ -49,11 +49,6 @@ export const Code: FC<CodeCompProps> = ({
     return () => clearTimeout(timer);
   }, [copied]);
 
-  const style = useMemo(
-    () => (isDarkMode ? okaidia : coldarkCold),
-    [isDarkMode]
-  );
-
   return (
     <div
       className={cn(
@@ -84,7 +79,7 @@ export const Code: FC<CodeCompProps> = ({
             }}
             PreTag={(props: { children: ReactNode }) => props.children}
             language={language ?? 'javascript'}
-            style={style}
+            style={isDarkMode ? okaidia : coldarkCold}
             showLineNumbers={showLineNumbers}
             {...props}
           >

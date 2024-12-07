@@ -26,7 +26,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
     getTranslationContent(content, locale);
 
   const result: Record<string, CategorizedDocData> = {
-    get_started: {
+    'get-started': {
       title: t({
         en: 'Get Started',
         fr: 'Commencer',
@@ -75,7 +75,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
         es: 'Concepto',
       }),
       subSections: {
-        how_works_intlayer: {
+        'how-works-intlayer': {
           title: t({
             en: 'How works Intlayer',
             fr: 'Comment Intlayer fonctionne',
@@ -509,7 +509,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 updatedAt: new Date('2024-08-11'),
               },
             },
-            function_fetching: {
+            'function-fetching': {
               title: t({
                 en: 'Function Fetching',
                 fr: 'Fonction Fetching',
@@ -678,7 +678,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             },
           },
         },
-        create_react_app: {
+        'create-react-app': {
           title: t({
             en: 'Intlayer with React CRA',
             fr: 'Intlayer avec React CRA',
@@ -731,7 +731,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             updatedAt: new Date('2024-08-11'),
           },
         },
-        vite_and_react: {
+        'vite-and-react': {
           title: t({
             en: 'Intlayer with Vite and React',
             fr: 'Intlayer avec Vite and React',
@@ -1450,7 +1450,7 @@ export const getDoc = (
   let currentSection = getDocData(locale);
 
   if (docPath.length === 0) {
-    return currentSection['get_started'].default;
+    return currentSection['get-started'].default;
   }
 
   // Traverse the nested structure based on the docPath array

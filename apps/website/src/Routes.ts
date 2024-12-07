@@ -11,8 +11,8 @@ export enum PagesRoutes {
 
   Doc = '/doc',
   Doc_Search = '/doc/search',
-  Doc_GetStarted = '/doc/get_started',
-  Doc_HowWorksIntlayer = '/doc/concept/how_works_intlayer',
+  Doc_GetStarted = '/doc/get-started',
+  Doc_HowWorksIntlayer = '/doc/concept/how-works-intlayer',
   Doc_Configuration = '/doc/concept/configuration',
   Doc_Interest = '/doc/concept/interest',
   Doc_IntlayerEditor = '/doc/concept/editor',
@@ -20,11 +20,11 @@ export enum PagesRoutes {
   Doc_ContentDeclaration = '/doc/concept/content',
   Doc_ContentDeclaration_Translation = '/doc/concept/content/translation',
   Doc_ContentDeclaration_Enumeration = '/doc/concept/content/enumeration',
-  Doc_ContentDeclaration_FunctionFetching = '/doc/concept/content/function_fetching',
+  Doc_ContentDeclaration_FunctionFetching = '/doc/concept/content/function-fetching',
   Doc_Environment_NextJS_15 = '/doc/environment/nextjs',
   Doc_Environment_NextJS_14 = '/doc/environment/nextjs/14',
-  Doc_Environment_CRA = '/doc/environment/create_react_app',
-  Doc_Environment_ViteAndReact = '/doc/environment/vite_and_react',
+  Doc_Environment_CRA = '/doc/environment/create-react-app',
+  Doc_Environment_ViteAndReact = '/doc/environment/vite-and-react',
   Doc_Environment_Express = '/doc/environment/express',
   Doc_Intlayer_with_I18next = '/doc/blog/i18next',
   'Doc_Packages_express-intlayer_t' = '/doc/packages/express-intlayer/t',
@@ -37,8 +37,8 @@ export enum PagesRoutes {
   'Doc_Packages_next-intlayer_useDictionary' = '/doc/packages/next-intlayer/useDictionary',
   'Doc_Packages_next-intlayer_useLocale' = '/doc/packages/next-intlayer/useLocale',
 
-  PrivacyPolicy = '/privacy_notice',
-  TermsOfService = '/terms_of_service',
+  PrivacyPolicy = '/privacy-notice',
+  TermsOfService = '/terms-of-service',
 
   Pricing = '/pricing',
 
