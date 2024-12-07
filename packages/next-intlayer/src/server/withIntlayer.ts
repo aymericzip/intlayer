@@ -35,6 +35,8 @@ export const withIntlayer = (
   return Object.assign({}, nextConfig, {
     env: { ...nextConfig.env, ...env },
 
+    serverExternalPackages: ['esbuild', 'module', 'fs', 'chokidar', 'fsevents'],
+
     experimental: {
       ...(nextConfig.experimental ?? {}),
       // Using Intlayer with Turbopack is not supported as long external modules can't be resolved (such as esbuild or fs)
