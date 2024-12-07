@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 'use client';
 
 import Markdown from 'markdown-to-jsx';
@@ -8,6 +7,7 @@ import { Container } from '../Container';
 import { H1, H2, H3 } from '../Headers';
 import { SectionScroller } from '../Headers/SectionScroller';
 import { Code } from '../IDE/CodeRender';
+import { Link } from '../Link';
 
 type MarkdownRendererProps = {
   isDarkMode?: boolean;
@@ -76,15 +76,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             src={`${props.src}?raw=true`}
           />
         ),
-        a: ({ className, ...props }) => (
-          <a
-            className={cn(
-              'text-neutral dark:text-neutral-dark underline',
-              className
-            )}
-            {...props}
-          />
-        ),
+        a: (props) => <Link color="neutral" {...props} />,
         pre: (props) => props.children,
       },
       wrapper: ({ className, ...props }) => (

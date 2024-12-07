@@ -69,6 +69,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       className,
       isActive,
       isExternalLink: isExternalLinkProp,
+      href,
       ...props
     },
     ref
@@ -76,16 +77,16 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     const isChildrenString = typeof children === 'string';
     const isExternalLink =
       isExternalLinkProp === true ||
-      (typeof isExternalLinkProp === 'undefined' &&
-        isChildrenString &&
-        isExternal(props.href));
+      (isChildrenString &&
+        typeof isExternalLinkProp === 'undefined' &&
+        isExternal(href));
 
     return (
       <a
+        href={href}
         ref={ref}
         aria-label={label}
         aria-current={isActive}
-        aria-selected={isActive}
         className={linkVariants({
           variant,
           color,
@@ -94,7 +95,9 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         {...props}
       >
         {children}
-        {isExternalLink && <ExternalLink className="size-4" />}
+        {isExternalLink && (
+          <ExternalLink className="ml-2 inline-block size-4" />
+        )}
       </a>
     );
   }
