@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/backend",
-  "version": "3.4.6",
+  "version": "3.4.7",
   "private": false,
   "description": "IntLayer Backend is a an application that allow you to manage your IntLayer content and interact with the intlayer editor.",
   "keywords": [
