@@ -39,9 +39,9 @@ const docNavTitlesContent = {
         }),
         callToAction: {
           label: t({
-            en: 'Read more',
-            fr: 'En savoir plus',
-            es: 'Leer más',
+            en: 'Read more about Intlayer',
+            fr: 'En savoir plus sur Intlayer',
+            es: 'Leer más sobre Intlayer',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur l'utilisation d'Intlayer",
@@ -64,9 +64,9 @@ const docNavTitlesContent = {
         }),
         callToAction: {
           label: t({
-            en: 'Read more',
-            fr: 'En savoir plus',
-            es: 'Leer más',
+            en: "Read more about Intlayer's features",
+            fr: "En savoir plus sur les fonctionnalités d'Intlayer",
+            es: 'Leer más sobre las características de Intlayer',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur les interets d'Intlayer",
@@ -89,9 +89,9 @@ const docNavTitlesContent = {
         }),
         callToAction: {
           label: t({
-            en: 'Read more',
-            fr: 'En savoir plus',
-            es: 'Leer más',
+            en: 'Read more about nextjs integration',
+            fr: 'En savoir plus sur l’intégration de nextjs',
+            es: 'Leer más sobre la integración de nextjs',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur l'intégration d'Intlayer avec nextjs",
@@ -114,9 +114,9 @@ const docNavTitlesContent = {
         }),
         callToAction: {
           label: t({
-            en: 'Read more',
-            fr: 'En savoir plus',
-            es: 'Leer más',
+            en: 'Read more about the visual editor',
+            fr: 'En savoir plus sur l’éditeur visuel',
+            es: 'Leer más sobre el editor visual',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur l'éditeur visuel d'Intlayer",
@@ -139,9 +139,9 @@ const docNavTitlesContent = {
         }),
         callToAction: {
           label: t({
-            en: 'Read more',
-            fr: 'En savoir plus',
-            es: 'Leer más',
+            en: 'Read more about how to contribute',
+            fr: 'En savoir plus sur la façon de contribuer',
+            es: 'Leer más sobre cómo contribuir',
           }),
           alt: t({
             fr: 'Cliquez ici pour en savoir plus sur la façon de contribuer à Intlayer',
@@ -164,9 +164,9 @@ const docNavTitlesContent = {
         }),
         callToAction: {
           label: t({
-            en: 'Read more',
-            fr: 'En savoir plus',
-            es: 'Leer más',
+            en: 'Read more about Intlayer plans',
+            fr: 'En savoir plus sur les plans d’Intlayer',
+            es: 'Leer más sobre los planes de Intlayer',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur les plans d'Intlayer",
@@ -189,9 +189,9 @@ const docNavTitlesContent = {
         }),
         callToAction: {
           label: t({
-            en: 'Read more',
-            fr: 'En savoir plus',
-            es: 'Leer más',
+            en: 'Read more about the platforms supported',
+            fr: 'En savoir plus sur les plateformes prises en charge',
+            es: 'Leer más sobre las plataformas compatibles',
           }),
           alt: t({
             fr: 'Cliquez ici pour en savoir plus sur les plateformes prises en charge par Intlayer',
