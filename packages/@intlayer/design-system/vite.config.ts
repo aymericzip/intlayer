@@ -63,6 +63,8 @@ export default defineConfig(() => ({
         ...Object.keys(packageJson.peerDependencies),
         ...Object.keys(packageJson.devDependencies),
         '@intlayer/config/client',
+        'path',
+        'url',
       ],
       output: {
         globals: {

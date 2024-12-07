@@ -46,9 +46,9 @@
       "require": "./dist/libs/index.cjs"
     },
     "./tailwind-config": {
-      "types": "./tailwind.config.d.ts",
-      "import": "./tailwind.config.js",
-      "require": "./tailwind.config.js"
+      "types": "./dist/tailwind.config.d.ts",
+      "import": "./dist/tailwind.config.mjs",
+      "require": "./dist/tailwind.config.cjs"
     },
     "./css": "./dist/tailwind.css"
   },
