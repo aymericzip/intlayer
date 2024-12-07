@@ -30,6 +30,7 @@ switch (script) {
       .concat(scriptPath)
       .concat([
         ...scriptArgs,
+        '--config',
         './node_modules/react-intlayer/dist/cjs/craco/craco.config.cjs',
       ]);
 
