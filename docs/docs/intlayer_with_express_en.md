@@ -1,4 +1,4 @@
-# Getting Started with Intlayer and express-intlayer
+# Getting Started internationalizing (i18n) with Intlayer and Express
 
 `express-intlayer` is a powerful internationalization (i18n) middleware for Express applications, designed to make your backend services globally accessible by providing localized responses based on the client's preferences.
 

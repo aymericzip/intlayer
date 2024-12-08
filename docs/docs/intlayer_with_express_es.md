@@ -1,4 +1,4 @@
-# Iniciando con Intlayer y express-intlayer
+# Introducción a la internacionalización (i18n) con Intlayer y Express
 
 `express-intlayer` es un poderoso middleware de internacionalización (i18n) para aplicaciones Express, diseñado para hacer que tus servicios de backend sean globalmente accesibles proporcionando respuestas localizadas basadas en las preferencias del cliente.
 
@@ -119,7 +119,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 const config: IntlayerConfig = {
   // Otras opciones de configuración
   middleware: {
-    headerName: "mi-cabecera-de-localidad",
+    headerName: "mi-header-de-localidad",
     cookieName: "mi-cookie-de-localidad",
   },
 };
