@@ -3,6 +3,7 @@ import {
   getPathWithoutLocale,
   localeDetector as localeDetector,
 } from '@intlayer/core';
+// @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type Plugin } from 'vite';
 
 const intlayerConfig = getConfiguration();

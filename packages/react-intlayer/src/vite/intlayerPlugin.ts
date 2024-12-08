@@ -2,6 +2,7 @@ import { join, relative, resolve } from 'path';
 import process from 'process';
 import { watch } from '@intlayer/chokidar';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
+// @ts-ignore - Fix error Module '"vite"' has no exported member
 import { loadEnv, type Plugin } from 'vite';
 
 // Plugin options type definition
@@ -30,7 +31,11 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
     // Set all configuration values as environment variables
     const env = formatEnvVariable('vite');
 
-    process.env = { ...process.env, ...loadEnv(mode, process.cwd()), ...env };
+    process.env = {
+      ...process.env,
+      ...loadEnv(mode, process.cwd()),
+      ...env,
+    };
 
     const dictionariesPath = join(mainDir, 'dictionaries.mjs');
     const relativeDictionariesPath = relative(baseDir, dictionariesPath);
