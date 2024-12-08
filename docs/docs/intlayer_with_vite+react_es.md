@@ -228,7 +228,7 @@ Ejemplo:
 
 > De forma predeterminada, las rutas no están prefijadas para el idioma predeterminado. Si desea prefijar el idioma predeterminado, puede establecer la opción `middleware.prefixDefault` en su configuración en `true`. Consulte la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_es.md) para obtener más información.
 
-Para agregar enrutamiento localizado a tu aplicación, puedes crear un componente `LocaleRouter` que envuelva las rutas de tu aplicación y maneje el enrutamiento basado en la configuración de idiomas. Aquí tienes un ejemplo usando React Router:
+Para agregar enrutamiento localizado a tu aplicación, puedes crear un componente `LocaleRouter` que envuelva las rutas de tu aplicación y maneje el enrutamiento basado en la configuración de idiomas. Aquí tienes un ejemplo usando [React Router](https://reactrouter.com/home):
 
 ```tsx
 // Importando las dependencias y funciones necesarias

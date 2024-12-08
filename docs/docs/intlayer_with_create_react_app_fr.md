@@ -202,7 +202,7 @@ Exemple :
 
 > Par défaut, les routes ne sont pas préfixées pour la langue par défaut. Si vous souhaitez préfixer la langue par défaut, vous pouvez définir l'option `middleware.prefixDefault` à `true` dans votre configuration. Consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md) pour plus d'informations.
 
-Pour ajouter un routage localisé à votre application, vous pouvez créer un composant `LocaleRouter` qui encapsule les routes de votre application et gère le routage basé sur les langues. Voici un exemple avec React Router :
+Pour ajouter un routage localisé à votre application, vous pouvez créer un composant `LocaleRouter` qui encapsule les routes de votre application et gère le routage basé sur les langues. Voici un exemple avec [React Router](https://reactrouter.com/home) :
 
 ```tsx
 // Importation des dépendances et fonctions nécessaires
