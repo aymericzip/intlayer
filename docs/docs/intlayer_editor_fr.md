@@ -111,10 +111,10 @@ Pour afficher les feuilles de style de l'éditeur, vous devez ajouter les feuill
 Si tailwind est utilisé, vous pouvez ajouter les feuilles de style à votre fichier `tailwind.config.js`:
 
 ```js
-import { tailwindConfig } from "intlayer-editor/tailwind";
+import tailwindConfig, { tailwindPresetConfig } from "intlayer-editor/tailwind";
 
 module.exports = {
-  presets: [tailwindConfig],
+  presets: [tailwindPresetConfig],
   content: [
     ...tailwindConfig.content,
     // ... reste de votre contenu

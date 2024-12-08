@@ -112,10 +112,10 @@ If tailwind is used, you can add the stylesheets to your `tailwind.config.js` fi
 
 ```js
 // tailwind.config.js
-import { tailwindConfig } from "intlayer-editor/tailwind";
+import tailwindConfig, { tailwindPresetConfig } from "intlayer-editor/tailwind";
 
 module.exports = {
-  presets: [tailwindConfig],
+  presets: [tailwindPresetConfig],
   content: [
     ...tailwindConfig.content,
     // ... rest of your content

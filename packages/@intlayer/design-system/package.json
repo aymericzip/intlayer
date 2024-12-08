@@ -53,9 +53,7 @@
     "./css": "./dist/tailwind.css"
   },
   "files": [
-    "dist",
-    "./tailwind.config.js",
-    "./tailwind.config.d.ts"
+    "dist"
   ],
   "scripts": {
     "build": "pnpm build:package && pnpm build:css && pnpm build:storybook",

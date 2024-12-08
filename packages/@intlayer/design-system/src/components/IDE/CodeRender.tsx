@@ -8,7 +8,6 @@ import {
   lazy,
   Suspense,
   type ReactNode,
-  useMemo,
 } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import {

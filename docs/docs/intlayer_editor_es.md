@@ -110,10 +110,10 @@ Si se utiliza tailwind, puedes agregar las hojas de estilo a tu archivo `tailwin
 
 ```js
 // tailwind.config.js
-import { tailwindConfig } from "intlayer-editor/tailwind";
+import tailwindConfig, { tailwindPresetConfig } from "intlayer-editor/tailwind";
 
 module.exports = {
-  presets: [tailwindConfig],
+  presets: [tailwindPresetConfig],
   content: [
     ...tailwindConfig.content,
     // ... resto de tu contenido

@@ -1,5 +1,6 @@
 import tailwindConfig, {
-  intlayerTailwindContent,
+  tailwindPresetConfig,
 } from '@intlayer/design-system/tailwind-config';
 
-export { intlayerTailwindContent, tailwindConfig };
+export { tailwindPresetConfig };
+export default tailwindConfig;
