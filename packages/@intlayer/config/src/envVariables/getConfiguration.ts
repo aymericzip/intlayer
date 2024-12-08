@@ -92,6 +92,7 @@ export const getConfiguration = (): IntlayerConfig => {
       env.content.outputFilesPatternWithPath,
       'string'
     )!,
+    watch: getEnvValue(env.content.watch, 'boolean')!,
   };
 
   const intlayerEditorConfiguration = {
