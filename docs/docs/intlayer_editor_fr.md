@@ -10,7 +10,7 @@ Pour plus de détails sur l'installation du package, consultez la section approp
 
 ### Intégration avec Next.js
 
-Pour l'intégration avec Next.js, consultez le [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_fr.md).
+Pour l'intégration avec Next.js, consultez le [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md).
 
 ### Intégration avec Create React App
 

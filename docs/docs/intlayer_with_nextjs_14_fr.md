@@ -2,7 +2,7 @@
 
 ## Qu'est-ce qu'Intlayer ?
 
-**Intlayer** est une bibliothèque open-source innovante conçue pour simplifier la prise en charge multilingue dans les applications web modernes. Intlayer s'intègre parfaitement au dernier framework **Next.js 14**, y compris son puissant **App Router**. Elle est optimisée pour fonctionner avec les **Server Components** pour un rendu efficace et est entièrement compatible avec [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
+**Intlayer** est une bibliothèque open-source innovante conçue pour simplifier la prise en charge multilingue dans les applications web modernes. Intlayer s'intègre parfaitement au dernier framework **Next.js 14**, y compris son puissant **App Router**. Elle est optimisée pour fonctionner avec les **Server Components** pour un rendu efficace et est entièrement compatible avec [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) (depuis Next.js >= 15).
 
 Avec Intlayer, vous pouvez :
 

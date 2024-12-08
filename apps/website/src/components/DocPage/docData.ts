@@ -1608,10 +1608,11 @@ const docUrlRenamerMultiLocale: Record<string, string> = locales.reduce(
   (acc, locale) =>
     Object.entries(docUrlRenamer).reduce((acc, [githubRoute, pagesRoute]) => {
       const githubUrl = getDocLocale(githubRoute, locale);
+
       if (locale === Locales.ENGLISH) {
         acc[githubUrl] = pagesRoute;
       } else {
-        acc[githubUrl] = `${locale}${pagesRoute}`;
+        acc[githubUrl] = `/${locale}${pagesRoute}`;
       }
       return acc;
     }, acc),
@@ -1638,9 +1639,7 @@ export const urlRenamer = (content: string): string => {
   let updatedContent = content;
 
   // Sort the entries by URL length in descending order to prevent partial replacements
-  const sortedEntries = Object.entries(docUrlRenamerMultiLocale).sort(
-    (a, b) => b[0].length - a[0].length
-  );
+  const sortedEntries = Object.entries(docUrlRenamerMultiLocale);
 
   sortedEntries.forEach(([githubUrl, pagesRoute]) => {
     const regex = new RegExp(escapeRegExp(githubUrl), 'g');

@@ -35,7 +35,14 @@ export const withIntlayer = (
   return Object.assign({}, nextConfig, {
     env: { ...nextConfig.env, ...env },
 
-    serverExternalPackages: ['esbuild', 'module', 'fs', 'chokidar', 'fsevents'],
+    serverExternalPackages: [
+      ...(nextConfig.serverExternalPackages ?? []),
+      'esbuild',
+      'module',
+      'fs',
+      'chokidar',
+      'fsevents',
+    ],
 
     experimental: {
       ...(nextConfig.experimental ?? {}),

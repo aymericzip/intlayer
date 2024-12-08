@@ -58,7 +58,7 @@ export const ClientComponent = () => {
 
 Intlayer offers a variety of features tailored to meet the needs of modern web development. Below are the key features, with links to detailed documentation for each:
 
-- **Internationalization Support**: Enhance your application's global reach with built-in support for internationalization. Learn more in our [Internationalization Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_i18next_en.md).
+- **Internationalization Support**: Enhance your application's global reach with built-in support for internationalization.
 - **Visual Editor**: Improve your development workflow with editor plugins designed for Intlayer. Check out the [Visual Editor Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_editor_en.md).
 - **Configuration Flexibility**: Customize your setup with extensive configuration options detailed in the [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
 - **Advanced CLI Tools**: Manage your projects efficiently using Intlayer's command line interface. Explore the capabilities in the [CLI Tools Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_cli_en.md).
