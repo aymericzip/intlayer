@@ -50,6 +50,7 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     outputFilesPatternWithPath:
       process.env.REACT_APP_INTLAYER_OUTPUT_FILES_PATTERN_WITH_PATH,
     dictionaryOutput: process.env.REACT_APP_INTLAYER_DICTIONARY_OUTPUT,
+    watch: process.env.REACT_APP_INTLAYER_WATCH,
   };
 
   const editor: ReplaceValue<EditorConfig> = {

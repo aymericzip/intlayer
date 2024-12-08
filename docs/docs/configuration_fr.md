@@ -204,6 +204,10 @@ Paramètres relatifs à la gestion du contenu au sein de l'application, y compri
 
 #### Propriétés
 
+- **watch** :
+  - _Type_ : `boolean`
+  - _Défaut_ : `process.env.NODE_ENV === 'development'`
+  - _Description_ : Indique si Intlayer doit surveiller les fichiers de déclaration de contenu dans l'application pour reconstruire les dictionnaires liés.
 - **fileExtensions** :
   - _Type_ : `string[]`
   - _Défaut_ : `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`

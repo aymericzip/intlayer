@@ -318,6 +318,13 @@ export type BaseContentConfig = {
    * Specifies the directory for storing main application files.
    */
   mainDirName: string;
+
+  /**
+   * Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
+   *
+   * Default: process.env.NODE_ENV === 'development'
+   */
+  watch: boolean;
 };
 
 export type DictionaryOutput = 'intlayer' | 'i18next';

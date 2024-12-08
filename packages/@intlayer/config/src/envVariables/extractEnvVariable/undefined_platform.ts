@@ -48,6 +48,7 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     outputFilesPatternWithPath:
       process.env.INTLAYER_OUTPUT_FILES_PATTERN_WITH_PATH,
     dictionaryOutput: process.env.INTLAYER_DICTIONARY_OUTPUT,
+    watch: process.env.INTLAYER_WATCH,
   };
 
   const editor: ReplaceValue<EditorConfig> = {

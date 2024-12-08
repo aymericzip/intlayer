@@ -203,6 +203,10 @@ Settings related to content handling within the application, including directory
 
 #### Properties
 
+- **watch**:
+  - _Type_: `boolean`
+  - _Default_: `process.env.NODE_ENV === 'development'`
+  - _Description_: Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
 - **fileExtensions**:
   - _Type_: `string[]`
   - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`

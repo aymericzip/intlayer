@@ -1,3 +1,4 @@
+import process from 'process';
 import type { DictionaryOutput } from '../types/config';
 
 export const FILE_EXTENSIONS = [
@@ -26,3 +27,5 @@ export const I18N_DICTIONARIES_DIR_NAME = 'i18n_dictionary';
 export const TYPES_DIR_NAME = 'types';
 
 export const MAIN_DIR_NAME = 'main';
+
+export const WATCH = process.env.NODE_ENV === 'development';

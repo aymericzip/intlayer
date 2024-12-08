@@ -57,6 +57,7 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     outputFilesPatternWithPath: import.meta.env
       .VITE_INTLAYER_OUTPUT_FILES_PATTERN_WITH_PATH,
     dictionaryOutput: import.meta.env.VITE_INTLAYER_DICTIONARY_OUTPUT,
+    watch: import.meta.env.VITE_INTLAYER_WATCH,
   };
 
   const editor: ReplaceValue<EditorConfig> = {

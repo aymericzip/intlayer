@@ -203,6 +203,10 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
 
 #### Propiedades
 
+- **watch**:
+  - _Tipo_: `boolean`
+  - _Predeterminado_: `process.env.NODE_ENV === 'development'`
+  - _Descripción_: Indica si Intlayer debe monitorear los archivos de declaración de contenido en la aplicación para reconstruir los diccionarios relacionados.
 - **fileExtensions**:
   - _Tipo_: `string[]`
   - _Predeterminado_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`

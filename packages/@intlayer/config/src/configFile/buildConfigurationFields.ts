@@ -1,5 +1,18 @@
 import { join } from 'path';
 import {
+  CONTENT_DIR_NAME,
+  DICTIONARIES_DIR_NAME,
+  FILE_EXTENSIONS,
+  RESULT_DIR_NAME,
+  EXCLUDED_PATHS,
+  TYPES_DIR_NAME,
+  MAIN_DIR_NAME,
+  MODULE_AUGMENTATION_DIR_NAME,
+  I18N_DICTIONARIES_DIR_NAME,
+  DICTIONARY_OUTPUT,
+  WATCH,
+} from '../defaultValues/content';
+import {
   BACKEND_URL,
   DICTIONARY_PRIORITY_STRATEGY,
   IS_ENABLED,
@@ -17,18 +30,6 @@ import {
   PREFIX_DEFAULT,
   SERVER_SET_COOKIE,
 } from '../defaultValues/middleware';
-import {
-  CONTENT_DIR_NAME,
-  DICTIONARIES_DIR_NAME,
-  FILE_EXTENSIONS,
-  RESULT_DIR_NAME,
-  EXCLUDED_PATHS,
-  TYPES_DIR_NAME,
-  MAIN_DIR_NAME,
-  MODULE_AUGMENTATION_DIR_NAME,
-  I18N_DICTIONARIES_DIR_NAME,
-  DICTIONARY_OUTPUT,
-} from '../defaultValues/server';
 import type {
   BaseDerivedConfig,
   ContentConfig,
@@ -292,6 +293,13 @@ const buildContentFields = (
      * @TODO Implement the exclusion or remove it
      */
     excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
+
+    /**
+     * Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
+     *
+     * Default: process.env.NODE_ENV === 'development'
+     */
+    watch: customConfiguration?.watch ?? WATCH,
   };
 
   const baseDirDerivedConfiguration: BaseDerivedConfig = {

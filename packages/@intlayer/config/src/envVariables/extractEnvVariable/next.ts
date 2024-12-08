@@ -50,6 +50,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     outputFilesPatternWithPath:
       process.env.NEXT_PUBLIC_INTLAYER_OUTPUT_FILES_PATTERN_WITH_PATH,
     dictionaryOutput: process.env.NEXT_PUBLIC_INTLAYER_DICTIONARY_OUTPUT,
+    watch: process.env.NEXT_PUBLIC_INTLAYER_WATCH,
   };
 
   const editor: ReplaceValue<EditorConfig> = {

@@ -9,8 +9,6 @@ type PluginOptions = {
   // Custom options for your plugin, if any
 };
 
-const isDev = process.env.NODE_ENV === 'development';
-
 /**
  *
  * A Vite plugin that integrates IntLayer configuration into the build process
@@ -27,7 +25,7 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
 
   config: (config, { mode }) => {
     const intlayerConfig = getConfiguration();
-    const { mainDir, baseDir } = intlayerConfig.content;
+    const { mainDir, baseDir, watch: isWatchMode } = intlayerConfig.content;
 
     // Set all configuration values as environment variables
     const env = formatEnvVariable('vite');
@@ -46,7 +44,7 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
       },
     };
 
-    if (isDev) {
+    if (isWatchMode) {
       // Ajout de l'option optimizeDeps.exclude
       config.optimizeDeps = {
         ...config.optimizeDeps,
@@ -73,9 +71,7 @@ export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
 
   buildStart: () => {
     // Code to run when Vite build starts
-    watch({
-      persistent: isDev,
-    });
+    watch();
   },
   configureServer: () => {
     // Custom server configuration, if needed

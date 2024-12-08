@@ -21,13 +21,13 @@ export const watch = (options?: ChokidarOptions) => {
     verbose: true,
   });
 
-  const { watchedFilesPatternWithPath, baseDir } = content;
+  const { watchedFilesPatternWithPath, baseDir, watch: isWatchMode } = content;
 
   const files: string[] = fg.sync(watchedFilesPatternWithPath);
 
   /** @ts-ignore remove error Expected 0-1 arguments, but got 2. */
   return chokidarWatch(watchedFilesPatternWithPath, {
-    persistent: false, // Make the watcher persistent
+    persistent: isWatchMode, // Make the watcher persistent
     ignoreInitial: true, // Process existing files
     ...options,
   })
