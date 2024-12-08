@@ -36,3 +36,4 @@ export { getHTMLLang } from './getHTMLLang';
 export { localeList } from './localeList';
 export { isSameKeyPath } from './utils/isSameKeyPath';
 export { localeDetector } from './localeDetector';
+export { getPathWithoutLocale } from './getPathWithoutLocale';

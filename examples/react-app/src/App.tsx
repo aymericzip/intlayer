@@ -2,6 +2,7 @@ import './App.css';
 import { IntlayerProvider, useIntlayer } from 'react-intlayer';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 import logo from './logo.svg';
+import { LocaleRouter } from './Router';
 
 const AppContent = () => {
   const content = useIntlayer('app');
@@ -24,7 +25,7 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <IntlayerProvider>
+  <LocaleRouter>
     <div className="App">
       {/* To use the useIntlayer hook properly, you should access your data in a children component */}
       <AppContent />
@@ -32,7 +33,7 @@ const App = () => (
     <div className="absolute bottom-5 right-5 z-50">
       <LocaleSwitcher />
     </div>
-  </IntlayerProvider>
+  </LocaleRouter>
 );
 
 export default App;

@@ -12,7 +12,7 @@ const { locales: envLocales, defaultLocale: defaultLocaleEnv } =
  * Headers are provided by the browser and can be used to determine the user's preferred language
  */
 export const localeDetector = (
-  headers: Record<string, string>,
+  headers: Record<string, string | undefined>,
   locales: Locales[] = envLocales,
   defaultLocale: Locales = defaultLocaleEnv
 ): Locales => {

@@ -1,10 +1,11 @@
 import { FC, useState } from 'react';
-import { IntlayerProvider, useIntlayer } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import { IntlayerEditorProvider } from 'intlayer-editor';
 import './App.css';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
+import { LocaleRouter } from './Router';
 
 const AppContent: FC = () => {
   const [count, setCount] = useState(0);
@@ -41,11 +42,11 @@ const AppContent: FC = () => {
 };
 
 const App: FC = () => (
-  <IntlayerProvider>
+  <LocaleRouter>
     <IntlayerEditorProvider>
       <AppContent />
     </IntlayerEditorProvider>
-  </IntlayerProvider>
+  </LocaleRouter>
 );
 
 export default App;

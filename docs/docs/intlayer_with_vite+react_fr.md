@@ -64,7 +64,7 @@ Ajoutez le plugin intlayer dans votre configuration.
 ```typescript
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intLayerPlugin } from "react-intlayer/vite-plugin";
+import { intLayerPlugin } from "react-intlayer/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -215,6 +215,141 @@ const MyComponent = () => {
     </button>
   );
 };
+```
+
+### (Optionnel) Étape 7 : Ajouter un routage localisé à votre application
+
+L'objectif de cette étape est de créer des routes uniques pour chaque langue. Cela est utile pour les moteurs de recherche et les URLs SEO-friendly.
+Exemple :
+
+```tsx
+// /dashboard
+// /es/dashboard
+// /fr/dashboard
+```
+
+> Par défaut, les routes ne sont pas préfixées pour la langue par défaut. Si vous souhaitez préfixer la langue par défaut, vous pouvez définir l'option `middleware.prefixDefault` à `true` dans votre configuration. Consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md) pour plus d'informations.
+
+Pour ajouter un routage localisé à votre application, vous pouvez créer un composant `LocaleRouter` qui encapsule les routes de votre application et gère le routage basé sur les langues. Voici un exemple avec React Router :
+
+```tsx
+// Importation des dépendances et fonctions nécessaires
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Fonctions et types utilitaires de 'intlayer'
+import { FC, PropsWithChildren } from "react"; // Types React pour les composants fonctionnels et les props
+import { IntlayerProvider } from "react-intlayer"; // Fournisseur pour le contexte d'internationalisation
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useParams,
+  Navigate,
+  useLocation,
+} from "react-router-dom"; // Composants de routage pour gérer la navigation
+
+// Destructuration de la configuration depuis Intlayer
+const { internationalization, middleware } = getConfiguration();
+const { locales, defaultLocale } = internationalization;
+
+/**
+ * Un composant qui gère la localisation et encapsule ses enfants avec le contexte de langue approprié.
+ * Il gère la détection et la validation de la langue à partir de l'URL.
+ */
+const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
+  const path = useLocation().pathname; // Récupérer le chemin actuel de l'URL
+  const { locale } = useParams<{ locale: Locales }>(); // Extraire le paramètre de langue depuis l'URL
+
+  // Déterminer la langue actuelle, en utilisant la langue par défaut si aucune n'est fournie
+  const currentLocale = locale ?? defaultLocale;
+
+  // Retirer le préfixe de langue du chemin pour construire un chemin de base
+  const pathWithoutLocale = getPathWithoutLocale(
+    path, // Chemin actuel de l'URL
+    middleware.prefixDefault, // Si la langue par défaut doit être préfixée dans les URLs
+    currentLocale, // Langue actuellement détectée
+    defaultLocale // Langue par défaut dans la configuration
+  );
+
+  /**
+   * Si middleware.prefixDefault est vrai, la langue par défaut doit toujours être préfixée.
+   */
+  if (middleware.prefixDefault) {
+    // Valider la langue
+    if (!locale || !locales.includes(locale)) {
+      // Rediriger vers la langue par défaut avec le chemin mis à jour
+      return (
+        <Navigate
+          to={`/${defaultLocale}/${pathWithoutLocale}`}
+          replace // Remplacer l'entrée actuelle dans l'historique par la nouvelle
+        />
+      );
+    }
+
+    // Encapsuler les enfants avec IntlayerProvider et définir la langue actuelle
+    return (
+      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
+    );
+  } else {
+    /**
+     * Lorsque middleware.prefixDefault est faux, la langue par défaut n'est pas préfixée.
+     * Assurez-vous que la langue actuelle est valide et n'est pas la langue par défaut.
+     */
+    if (
+      currentLocale.toString() !== defaultLocale.toString() &&
+      !locales
+        .filter(
+          (locale) => locale.toString() !== defaultLocale.toString() // Exclure la langue par défaut
+        )
+        .includes(currentLocale) // Vérifier si la langue actuelle est dans la liste des langues valides
+    ) {
+      // Rediriger vers le chemin sans le préfixe de langue
+      return <Navigate to={pathWithoutLocale} replace />;
+    }
+
+    // Encapsuler les enfants avec IntlayerProvider et définir la langue actuelle
+    return (
+      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
+    );
+  }
+};
+
+/**
+ * Un composant de routage qui configure des routes spécifiques à une langue.
+ * Il utilise React Router pour gérer la navigation et rendre des composants localisés.
+ */
+export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
+  <BrowserRouter>
+    <Routes>
+      <Route
+        // Modèle de route pour capturer la langue (par ex., /en/, /fr/) et correspondre à tous les chemins suivants
+        path="/:locale/*"
+        element={<AppLocalized>{children}</AppLocalized>} // Encapsule les enfants avec la gestion de langue
+      />
+
+      {
+        // Si le préfixe pour la langue par défaut est désactivé, rendre directement les enfants à la racine
+        !middleware.prefixDefault && (
+          <Route
+            path="*"
+            element={<AppLocalized>{children}</AppLocalized>} // Encapsule les enfants avec la gestion de langue
+          />
+        )
+      }
+    </Routes>
+  </BrowserRouter>
+);
+```
+
+En parallèle, vous pouvez également utiliser le plugin intLayerMiddlewarePlugin pour ajouter le routage du côté du serveur à votre application. Ce plugin détectera automatiquement la langue actuelle en fonction de l'URL et définira le cookie de langue approprié. Si aucune langue n'est spécifiée, le plugin déterminera la langue la plus appropriée en fonction des préférences de langue du navigateur de l'utilisateur. Si aucune langue n'est détectée, elle redirigera vers la langue par défaut.
+
+```ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intLayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react(), intLayerPlugin(), intLayerMiddlewarePlugin()],
+});
 ```
 
 ### Configurer TypeScript

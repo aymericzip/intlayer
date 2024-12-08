@@ -1,6 +1,6 @@
 export const HEADER_NAME = 'x-intlayer-locale';
 
-export const COOKIE_NAME = 'NEXT_LOCALE';
+export const COOKIE_NAME = 'INTLAYER_LOCALE';
 
 export const PREFIX_DEFAULT = false;
 

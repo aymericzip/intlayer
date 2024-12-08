@@ -52,7 +52,7 @@ export type MiddlewareConfig = {
   /**
    * Cookie name to store the locale information
    *
-   * Default: 'NEXT_LOCALE'
+   * Default: 'INTLAYER_LOCALE'
    *
    * The cookie key where the locale information is stored.
    */

@@ -14,7 +14,8 @@
     "intlayer-editor": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-intlayer": "workspace:^"
+    "react-intlayer": "workspace:^",
+    "react-router-dom": "^7.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

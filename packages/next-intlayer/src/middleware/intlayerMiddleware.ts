@@ -287,7 +287,7 @@ const handleDefaultLocaleRedirect = (
     !prefixDefault &&
     pathLocale === defaultLocale
   ) {
-    let pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
+    let pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) ?? '/';
 
     if (basePathTrailingSlash) {
       pathWithoutLocale = pathWithoutLocale.slice(1);

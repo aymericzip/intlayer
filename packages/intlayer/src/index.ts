@@ -7,7 +7,7 @@ import {
 } from '@intlayer/core';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-empty-interface */
+
 export interface IConfigLocales<Content> {
   // This interface should be augmented in the consuming app
 }
@@ -40,10 +40,12 @@ export {
   getEnumerationContent,
   getHTMLLang,
   getHTMLTextDir,
+  getPathWithoutLocale,
   localeList,
 } from '@intlayer/core';
-export type {
-  LocalesValues,
-  CustomIntlayerConfig as IntlayerConfig,
+export {
+  type CustomIntlayerConfig as IntlayerConfig,
+  type LocalesValues,
+  getConfiguration,
 } from '@intlayer/config/client';
 export { Locales } from '@intlayer/config/client';

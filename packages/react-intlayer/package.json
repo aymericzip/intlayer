@@ -55,10 +55,10 @@
       "require": "./dist/cjs/craco/craco.config.cjs",
       "import": "./dist/esm/craco/craco.config.mjs"
     },
-    "./vite-plugin": {
-      "types": "./dist/types/vite/intlayerPlugin.d.ts",
-      "require": "./dist/cjs/vite/intlayerPlugin.cjs",
-      "import": "./dist/esm/vite/intlayerPlugin.mjs"
+    "./vite": {
+      "types": "./dist/types/vite/index.d.ts",
+      "require": "./dist/cjs/vite/index.cjs",
+      "import": "./dist/esm/vite/index.mjs"
     },
     "./editor": {
       "types": "./dist/types/editor/index.d.ts",
@@ -139,7 +139,8 @@
     "@intlayer/webpack": "workspace:^",
     "intlayer": "workspace:^",
     "react": ">=16.0.0 <19.0.0",
-    "react-dom": ">=16.0.0 <19.0.0"
+    "react-dom": ">=16.0.0 <19.0.0",
+    "vite": ">=4.0.0"
   },
   "engines": {
     "node": ">=14.18"
