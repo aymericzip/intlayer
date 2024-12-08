@@ -14,7 +14,6 @@ import {
   okaidia,
   coldarkCold,
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useIsMounted } from '../../hooks/useIsMounted';
 import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
@@ -38,8 +37,15 @@ export const Code: FC<CodeCompProps> = ({
   showLineNumbers = true,
   ...props
 }) => {
-  useIsMounted();
+  const [isDarkModeState, setIsDarkModeState] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  useEffect(
+    () =>
+      // Necessary to fix first render bug
+      setIsDarkModeState(isDarkMode ?? false),
+    [isDarkMode]
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -78,7 +84,7 @@ export const Code: FC<CodeCompProps> = ({
             }}
             PreTag={(props: { children: ReactNode }) => props.children}
             language={language ?? 'javascript'}
-            style={isDarkMode ? okaidia : coldarkCold}
+            style={isDarkModeState ? okaidia : coldarkCold}
             showLineNumbers={showLineNumbers}
             {...props}
           >

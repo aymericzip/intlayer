@@ -350,7 +350,7 @@ class Logger {
 
     if (lines.length > maxVisibleLines) {
       const visibleLines = lines.slice(0, maxVisibleLines - 5);
-      const summary = `... and ${lines.length - visibleLines.length} more lines`;
+      const summary = `... and ${lines.length - visibleLines.length} more`;
       content = LINE_DETECTOR + visibleLines.join('\n') + '\n' + summary;
     } else {
       content = lines.join('\n');
