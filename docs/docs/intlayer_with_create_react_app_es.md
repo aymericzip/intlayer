@@ -321,6 +321,40 @@ export default defineConfig({
 });
 ```
 
+### (Opcional) Paso 8: Cambiar la URL cuando cambia el idioma
+
+Para cambiar la URL cuando el idioma cambia, puedes usar la propiedad `onLocaleChange` proporcionada por el hook `useLocale` . Además, puedes utilizar los hooks `useLocation` y `useNavigate` de `react-router-dom` para actualizar la ruta de la URL.
+
+```tsx
+import { Locales, getLocalizedUrl } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const LocaleSwitcher = () => {
+  const location = useLocation(); // Obtener la ruta de la URL actual. Ejemplo: /fr/about
+  const navigate = useNavigate();
+
+  const changeUrl = (locale: Locales) => {
+    // Construir la URL con el idioma actualizado
+    // Ejemplo: /es/about con el idioma establecido en Español
+    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+    // Actualizar la ruta de la URL
+    navigate(pathWithLocale);
+  };
+
+  const { setLocale } = useLocale({
+    onLocaleChange: changeUrl,
+  });
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Cambiar el idioma al Inglés
+    </button>
+  );
+};
+```
+
 ### Configurar TypeScript
 
 Intlayer usa la ampliación de módulos para aprovechar los beneficios de TypeScript y fortalecer tu base de código.

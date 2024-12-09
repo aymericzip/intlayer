@@ -308,6 +308,40 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 );
 ```
 
+### (Optionnel) Étape 8 : Changer l'URL lorsque la langue change
+
+Pour changer l'URL lorsque la langue change, vous pouvez utiliser la propriété `onLocaleChange` fournit par le hook `useLocale`. En parallèle, vous pouvez utiliser les hooks `useLocation` et `useNavigate` de `react-router-dom` pour mettre à jour le chemin de l'URL.
+
+```tsx
+import { Locales, getLocalizedUrl } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const LocaleSwitcher = () => {
+  const location = useLocation(); // Obtenir le chemin actuel de l'URL. Exemple : /fr/about
+  const navigate = useNavigate();
+
+  const changeUrl = (locale: Locales) => {
+    // Construire l'URL avec le nouvelle langue
+    // Exemple : /es/about avec la langue définie sur l'espagnol
+    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+    // Mettre à jour le chemin de l'URL
+    navigate(pathWithLocale);
+  };
+
+  const { setLocale } = useLocale({
+    onLocaleChange: changeUrl,
+  });
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Changer la langue en anglais
+    </button>
+  );
+};
+```
+
 ### Configurer TypeScript
 
 Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et renforcer votre base de code.
@@ -339,4 +373,8 @@ Pour cela, vous pouvez d'ajouter les instructions suivantes dans votre fichier `
 ```gitignore
 # Ignorer les fichiers générés par Intlayer
 .intlayer
+```
+
+```
+
 ```

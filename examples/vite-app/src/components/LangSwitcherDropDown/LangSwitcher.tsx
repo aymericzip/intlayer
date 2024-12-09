@@ -1,15 +1,16 @@
 'use client';
 
-import { getLocaleName } from 'intlayer';
+import { getLocaleName, getLocalizedUrl, Locales } from 'intlayer';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import type { ButtonHTMLAttributes, FC } from 'react';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
   ...props
 }) => (
-  <div className="w-full border-gray-50 p-0.5 ">
+  <div className="w-full border-gray-50 p-0.5">
     <button
       aria-label="language switcher"
       data-mode="system"
@@ -22,7 +23,22 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 );
 
 export const LocaleSwitcher: FC = () => {
-  const { localeList, availableLocales, setLocale } = useLocale();
+  const location = useLocation(); // Get the current URL path. Example: /fr/about
+  const navigate = useNavigate();
+
+  const changeUrl = (locale: Locales) => {
+    // Construct the URL with the updated locale
+    // Example: /es/about
+    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+    // Update the URL path
+    navigate(pathWithLocale);
+  };
+
+  const { availableLocales, setLocale } = useLocale({
+    onLocaleChange: changeUrl,
+  });
+
   const content = useIntlayer('lang-switcher');
 
   return (
@@ -34,7 +50,7 @@ export const LocaleSwitcher: FC = () => {
         <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">
           <h2 className={`mb-3 text-xl font-semibold`}>{content.title} </h2>
 
-          {localeList.map((lang) => (
+          {availableLocales.map((lang) => (
             <ButtonItem
               key={lang}
               onClick={() => setLocale(lang)}
