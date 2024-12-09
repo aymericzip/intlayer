@@ -356,7 +356,7 @@ export default defineConfig({
 
 Pour changer l'URL lorsque la langue change, vous pouvez utiliser la propriété `onLocaleChange` fournit par le hook `useLocale`. En parallèle, vous pouvez utiliser les hooks `useLocation` et `useNavigate` de `react-router-dom` pour mettre à jour le chemin de l'URL.
 
-````tsx
+```tsx
 import { Locales, getLocalizedUrl } from "intlayer";
 import { useLocale } from "react-intlayer";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -406,7 +406,7 @@ Assurez-vous que votre configuration TypeScript inclut les types générés auto
     "types", // <- Inclure les types générés automatiquement
   ],
 }
-````
+```
 
 ### Configuration Git
 
