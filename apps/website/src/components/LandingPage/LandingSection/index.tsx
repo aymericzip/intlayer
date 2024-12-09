@@ -21,7 +21,7 @@ export const LandingSection: FC = () => {
               </AnimatedDescription>
             </div>
             <div className="dark:from-background-dark/90 from-background/95 relative z-10 flex h-20 flex-col gap-10 bg-gradient-to-b from-0% to-100% md:hidden md:w-3/5"></div>
-            <ActionButtons className="px-8 max-md:hidden" />
+            <ActionButtons className="mt-12 px-8 max-md:hidden" />
           </div>
           <div className="relative z-0 flex size-full max-w-full flex-1 justify-end overflow-hidden max-md:absolute max-md:bottom-28">
             <div className="absolute bottom-0 left-0 w-[170%]">
