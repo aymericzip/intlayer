@@ -3,7 +3,7 @@ import { getDocPaths, getDoc } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalParams, type Next14LayoutIntlayer } from 'next-intlayer';
+import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
 
 export type DocProps = {
   doc: string[];
