@@ -38,3 +38,4 @@ export { isSameKeyPath } from './utils/isSameKeyPath';
 export { localeDetector } from './localeDetector';
 export { getPathWithoutLocale } from './getPathWithoutLocale';
 export { getMultilingualUrls } from './getMultilingualUrls';
+export { getLocalizedUrl } from './getLocalizedUrl';

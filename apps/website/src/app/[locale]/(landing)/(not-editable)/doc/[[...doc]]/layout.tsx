@@ -1,7 +1,7 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { getDocPaths, getDoc } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
-import { getMultilingualUrls } from 'intlayer';
+import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
 
@@ -26,12 +26,20 @@ export const generateMetadata = ({
   }
 
   return {
-    title: `Intlayer | ${docData.title}`,
+    title: `${docData.title} | Intlayer`,
     description: docData.description,
     keywords: docData.keywords,
     alternates: {
       canonical: docData.url,
       languages: getMultilingualUrls(docData.url),
+    },
+    openGraph: {
+      url: getLocalizedUrl(
+        `${process.env.NEXT_PUBLIC_URL}${docData.url}`,
+        locale
+      ),
+      title: `${docData.title} | Intlayer`,
+      description: docData.description,
     },
   };
 };

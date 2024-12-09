@@ -1,5 +1,6 @@
 import {
   type IConfigLocales,
+  getLocalizedUrl,
   getMultilingualUrls,
   getTranslationContent,
 } from 'intlayer';
@@ -13,17 +14,21 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const title = t<string>({
+    en: 'Terms of Service | Intlayer',
+    fr: "Conditions d'utilisation | Intlayer",
+    es: 'Términos de Servicio | Intlayer',
+  });
+
+  const description = t<string>({
+    en: "Review Intlayer's terms of use, including commercial use, code modifications, and contribution guidelines. For details, contact us at contact@intlayer.org.",
+    fr: "Consultez les termes d'utilisation d'Intlayer, y compris l'utilisation commerciale, les modifications de code, et les directives de contribution. Pour plus de détails, contactez-nous à contact@intlayer.org.",
+    es: 'Revise los términos de uso de Intlayer, incluido el uso comercial, las modificaciones de código y las directrices de contribución. Para más detalles, contáctenos en contact@intlayer.org.',
+  });
+
   return {
-    title: t<string>({
-      en: 'Intlayer | Terms of Service',
-      fr: "Intlayer | Conditions d'utilisation",
-      es: 'Intlayer | Términos de Servicio',
-    }),
-    description: t<string>({
-      en: "Review Intlayer's terms of use, including commercial use, code modifications, and contribution guidelines. For details, contact us at contact@intlayer.org.",
-      fr: "Consultez les termes d'utilisation d'Intlayer, y compris l'utilisation commerciale, les modifications de code, et les directives de contribution. Pour plus de détails, contactez-nous à contact@intlayer.org.",
-      es: 'Revise los términos de uso de Intlayer, incluido el uso comercial, las modificaciones de código y las directrices de contribución. Para más detalles, contáctenos en contact@intlayer.org.',
-    }),
+    title,
+    description,
 
     alternates: {
       canonical: PagesRoutes.TermsOfService,
@@ -62,5 +67,13 @@ export const generateMetadata = ({
         'React',
       ],
     }),
+    openGraph: {
+      url: getLocalizedUrl(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.TermsOfService}`,
+        locale
+      ),
+      title,
+      description,
+    },
   };
 };

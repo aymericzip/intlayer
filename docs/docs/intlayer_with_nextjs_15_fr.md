@@ -264,7 +264,7 @@ Pour une utilisation plus détaillée d’Intlayer dans des composants client ou
 
 Si vous souhaitez internationaliser vos métadonnées, comme le titre de votre page, utilisez la fonction `generateMetadata` fournie par Next.js. À l'intérieur de cette fonction, utilisez `getTranslationContent` pour traduire vos métadonnées.
 
-```typescript
+````typescript
 // src/app/[locale]/layout.tsx ou src/app/[locale]/page.tsx
 
 import {
@@ -281,6 +281,38 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const url = `/`;
+
+  /**
+   *  Génère un objet contenant toutes les URL pour chaque langue.
+   *
+   * Example:
+   * ```ts
+   *  getLocalizedUrl('/about');
+   *
+   *  // Returne
+   *  // {
+   *  //   en: '/about',
+   *  //   fr: '/fr/about',
+   *  //   es: '/es/about',
+   *  // }
+   * ```
+   */
+  const multilingualUrls = getMultilingualUrls(url);
+
+  /**
+   * Obtient l'URL localisée pour le locale actuel
+   *
+   * Example:
+   * ```ts
+   * const localizedUrl = getLocalizedUrl('/about', locale);
+   *
+   * Returne:
+   * '/fr/about' for the French locale
+   * ```
+   */
+  const localizedUrl = getLocalizedUrl(url, locale);
+
   return {
     title: t<string>({
       en: "My title",
@@ -296,9 +328,14 @@ export const generateMetadata = ({
       canonical: "/",
       languages: getMultilingualUrls("/"),
     },
+    openGraph: {
+      url: localizedUrl,
+    },
   };
 };
-```
+
+// ... Reste du code
+````
 
 > Consultez la documentation [sur l'optimisation des métadonnées](https://nextjs.org/docs/app/building-your-application/optimizing/metadata) pour en savoir plus.
 

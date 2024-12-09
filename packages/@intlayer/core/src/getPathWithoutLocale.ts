@@ -24,7 +24,6 @@ export const removeLocaleFromUrl = (
   inputUrl: string,
   locales: Locales[] = localesDefault
 ): string => {
-  console.log('inputUrl', inputUrl);
   // Parse the input URL
   const url = new URL(inputUrl);
 

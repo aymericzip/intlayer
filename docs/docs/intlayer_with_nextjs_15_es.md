@@ -260,7 +260,7 @@ Para más información sobre el uso de Intlayer en componentes Cliente o Servido
 
 Si deseas internacionalizar tus metadatos, como el título de la página, usa la función `generateMetadata` que proporciona NextJS.
 
-```typescript
+````typescript
 // src/app/[locale]/layout.tsx o src/app/[locale]/page.tsx
 
 import {
@@ -271,11 +271,41 @@ import {
 import type { Metadata } from "next";
 import type { LocalParams } from "next-intlayer";
 
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
+export const generateMetadata = ({ params: { locale } }): Metadata => {
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
+
+  const url = `/`;
+
+  /**
+   *  Generar un objeto que contiene todos los urls para cada idioma.
+   *
+   * Ejemplo:
+   * ```ts
+   *  getLocalizedUrl('/about');
+   *
+   *  // Devuelve
+   *  // {
+   *  //   en: '/about',
+   *  //   fr: '/fr/about',
+   *  //   es: '/es/about',
+   *  // }
+   * ```
+   */
+  const multilingualUrls = getMultilingualUrls(url);
+
+  /**
+   * Obtener la URL localizada para el idioma actual
+   *
+   * Ejemplo:
+   * ```ts
+   * const localizedUrl = getLocalizedUrl('/about', locale);
+   *
+   * Devuelve:
+   * '/fr/about' para el idioma francés
+   * ```
+   */
+  const localizedUrl = getLocalizedUrl(url, locale);
 
   return {
     title: t<string>({
@@ -289,14 +319,17 @@ export const generateMetadata = ({
       es: "Mi descripción",
     }),
     alternates: {
-      canonical: "/",
-      languages: getMultilingualUrls("/"),
+      canonical: url,
+      languages: multilingualUrls,
+    },
+    openGraph: {
+      url: localizedUrl,
     },
   };
 };
 
-// ... Resto del código
-```
+// ... Rest of the code
+````
 
 > Aprende más sobre la optimización de los metadatos [en la documentación oficial de Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 

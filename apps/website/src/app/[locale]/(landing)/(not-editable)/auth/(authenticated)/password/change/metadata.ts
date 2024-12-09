@@ -1,5 +1,6 @@
 import {
   type IConfigLocales,
+  getLocalizedUrl,
   getMultilingualUrls,
   getTranslationContent,
 } from 'intlayer';
@@ -13,17 +14,21 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const title = t<string>({
+    en: 'Change Password | Intlayer',
+    fr: 'Changer le mot de passe | Intlayer',
+    es: 'Cambiar la contraseña | Intlayer',
+  });
+
+  const description = t<string>({
+    en: 'Secure your account by changing your current password. Keep your Intlayer account safe with a new password.',
+    fr: 'Sécurisez votre compte en changeant votre mot de passe actuel. Gardez votre compte Intlayer en sécurité avec un nouveau mot de passe.',
+    es: 'Asegura tu cuenta cambiando tu contraseña actual. Mantén segura tu cuenta de Intlayer con una nueva contraseña.',
+  });
+
   return {
-    title: t<string>({
-      en: 'Intlayer | Change Password',
-      fr: 'Intlayer | Changer le mot de passe',
-      es: 'Intlayer | Cambiar la contraseña',
-    }),
-    description: t<string>({
-      en: 'Secure your account by changing your current password. Keep your Intlayer account safe with a new password.',
-      fr: 'Sécurisez votre compte en changeant votre mot de passe actuel. Gardez votre compte Intlayer en sécurité avec un nouveau mot de passe.',
-      es: 'Asegura tu cuenta cambiando tu contraseña actual. Mantén segura tu cuenta de Intlayer con una nueva contraseña.',
-    }),
+    title,
+    description,
 
     keywords: t<string[]>({
       en: [
@@ -52,6 +57,14 @@ export const generateMetadata = ({
     alternates: {
       canonical: PagesRoutes.Auth_ChangePassword,
       languages: getMultilingualUrls(PagesRoutes.Auth_ChangePassword),
+    },
+    openGraph: {
+      url: getLocalizedUrl(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`,
+        locale
+      ),
+      title,
+      description,
     },
   };
 };

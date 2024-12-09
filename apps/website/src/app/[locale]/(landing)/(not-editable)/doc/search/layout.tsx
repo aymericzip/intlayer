@@ -2,6 +2,7 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import {
   IConfigLocales,
+  getLocalizedUrl,
   getMultilingualUrls,
   getTranslationContent,
 } from 'intlayer';
@@ -19,17 +20,21 @@ export const generateMetadata = ({
   const t = <T,>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const title = t({
+    en: 'Search in documentation | Intlayer',
+    fr: 'Rechercher dans la documentation | Intlayer',
+    es: 'Buscar en la documentación | Intlayer',
+  });
+
+  const description = t({
+    en: 'Search documentation',
+    fr: 'Rechercher la documentation',
+    es: 'Buscar documentación',
+  });
+
   return {
-    title: t({
-      en: 'Intlayer | Search in documentation',
-      fr: 'Intlayer | Rechercher dans la documentation',
-      es: 'Intlayer | Buscar en la documentación',
-    }),
-    description: t({
-      en: 'Search documentation',
-      fr: 'Rechercher la documentation',
-      es: 'Buscar documentación',
-    }),
+    title,
+    description,
     keywords: t({
       en: ['search', 'documentation', 'intlayer'],
       fr: ['rechercher', 'documentation', 'intlayer'],
@@ -38,6 +43,14 @@ export const generateMetadata = ({
     alternates: {
       canonical: PagesRoutes.Doc_Search,
       languages: getMultilingualUrls(PagesRoutes.Doc_Search),
+    },
+    openGraph: {
+      url: getLocalizedUrl(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`,
+        locale
+      ),
+      title,
+      description,
     },
   };
 };

@@ -206,7 +206,7 @@ export default Page;
 
 Pour traduire des métadonnées comme le titre de vos pages, utilisez la fonction `generateMetadata` de Next.js :
 
-```typescript
+````typescript
 // src/app/[locale]/layout.tsx ou src/app/[locale]/page.tsx
 
 import {
@@ -223,6 +223,38 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const url = `/`;
+
+  /**
+   *  Génère un objet contenant toutes les URL pour chaque langue.
+   *
+   * Example:
+   * ```ts
+   *  getLocalizedUrl('/about');
+   *
+   *  // Returne
+   *  // {
+   *  //   en: '/about',
+   *  //   fr: '/fr/about',
+   *  //   es: '/es/about',
+   *  // }
+   * ```
+   */
+  const multilingualUrls = getMultilingualUrls(url);
+
+  /**
+   * Obtient l'URL localisée pour le locale actuel
+   *
+   * Example:
+   * ```ts
+   * const localizedUrl = getLocalizedUrl('/about', locale);
+   *
+   * Returne:
+   * '/fr/about' for the French locale
+   * ```
+   */
+  const localizedUrl = getLocalizedUrl(url, locale);
+
   return {
     title: t<string>({
       en: "My title",
@@ -238,11 +270,14 @@ export const generateMetadata = ({
       canonical: "/",
       languages: getMultilingualUrls("/"),
     },
+    openGraph: {
+      url: localizedUrl,
+    },
   };
 };
 
-// ... Rest of the code
-```
+// ... Reste du code
+````
 
 > Consultez la documentation [sur l'optimisation des métadonnées](https://nextjs.org/docs/app/building-your-application/optimizing/metadata) pour en savoir plus.
 

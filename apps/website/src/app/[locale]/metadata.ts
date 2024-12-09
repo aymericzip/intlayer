@@ -1,5 +1,6 @@
 import {
   type IConfigLocales,
+  getLocalizedUrl,
   getMultilingualUrls,
   getTranslationContent,
 } from 'intlayer';
@@ -13,22 +14,21 @@ export const generateMetadata = ({
     getTranslationContent(content, locale);
 
   const title = t<string>({
-    en: 'Intlayer | Internationalization (i18n) nextjs made easy',
-    fr: 'Intlayer | Internationalisation (i18n) nextjs simplifiée',
-    es: 'Intlayer | Internacionalización (i18n) nextjs hecha fácil',
+    en: 'Internationalization (i18n) Next.js made easy | Intlayer',
+    fr: 'Internationalisation (i18n) Next.js simplifiée | Intlayer',
+    es: 'Internacionalización (i18n) Next.js hecha fácil | Intlayer',
   });
 
   const description = t({
-    en: 'i18n for nextjs & react. Easily build multilingual sites with AI-powered visual editor for your translations. TypeScript internationalization.',
-    fr: "i18n pour nextjs & react. Créez des sites multilingues grâce à un éditeur visuel boosté par l'IA pour vos traductions. Internationalisation basée sur TypeScript.",
-    es: 'i18n para nextjs & react. Crea sitios multilingües con un editor visual impulsado por IA para tus traducciones. Internacionalización con TypeScript.',
+    en: 'i18n for Next.js & React. Easily build multilingual sites with AI-powered visual editor for your translations. TypeScript internationalization.',
+    fr: "i18n pour Next.js & React. Créez des sites multilingues grâce à un éditeur visuel boosté par l'IA pour vos traductions. Internationalisation basée sur TypeScript.",
+    es: 'i18n para Next.js & React. Crea sitios multilingües con un editor visual impulsado por IA para tus traducciones. Internacionalización con TypeScript.',
   });
 
   return {
     title,
     description,
-    applicationName:
-      'Intlayer | Internationalization made easy with nextjs and React',
+    applicationName: 'Internationalization (i18n) Next.js made easy | Intlayer',
     authors: [
       {
         name: 'Intlayer',
@@ -45,7 +45,7 @@ export const generateMetadata = ({
         'Internationalization',
         'i18n',
         'Web Development',
-        'nextjs',
+        'Next.js',
         'JavaScript',
         'Vite',
         'React',
@@ -60,7 +60,7 @@ export const generateMetadata = ({
         'Internationalisation',
         'i18n',
         'Développement Web',
-        'nextjs',
+        'Next.js',
         'JavaScript',
         'Vite',
         'React',
@@ -74,7 +74,7 @@ export const generateMetadata = ({
         'SEO',
         'Internacionalización',
         'i18n',
-        'nextjs',
+        'Next.js',
         'Desarrollo Web',
         'JavaScript',
         'Vite',
@@ -121,7 +121,7 @@ export const generateMetadata = ({
     },
     openGraph: {
       type: 'website',
-      url: new URL(process.env.NEXT_PUBLIC_URL!),
+      url: getLocalizedUrl(process.env.NEXT_PUBLIC_URL!, locale),
       title,
       description,
       siteName: 'Intlayer',

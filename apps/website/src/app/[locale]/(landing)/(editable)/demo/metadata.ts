@@ -1,5 +1,6 @@
 import {
   type IConfigLocales,
+  getLocalizedUrl,
   getMultilingualUrls,
   getTranslationContent,
 } from 'intlayer';
@@ -13,17 +14,21 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const title = t<string>({
+    en: 'Demo | Intlayer',
+    fr: 'Démo | Intlayer',
+    es: 'Demostración | Intlayer',
+  });
+
+  const description = t<string>({
+    en: 'Try the new Intlayer online editor. Empower your teams to take control of your content and transform your application into a CMS.',
+    es: 'Pruebe el nuevo editor en línea de Intlayer. Permita que sus equipos tomen el control de su contenido y transformen su aplicación en un CMS.',
+    fr: 'Essayez le nouveau Intlayer editeur online. Permettez à vos équipes de prendre la main sur votre contenu et transformez votre application en CMS.',
+  });
+
   return {
-    title: t<string>({
-      en: 'Intlayer | Demo',
-      fr: 'Intlayer | Démo',
-      es: 'Intlayer | Demostración',
-    }),
-    description: t<string>({
-      en: 'Try the new Intlayer online editor. Empower your teams to take control of your content and transform your application into a CMS.',
-      es: 'Pruebe el nuevo editor en línea de Intlayer. Permita que sus equipos tomen el control de su contenido y transformen su aplicación en un CMS.',
-      fr: 'Essayez le nouveau Intlayer editeur online. Permettez à vos équipes de prendre la main sur votre contenu et transformez votre application en CMS.',
-    }),
+    title,
+    description,
 
     alternates: {
       canonical: PagesRoutes.Demo,
@@ -31,9 +36,36 @@ export const generateMetadata = ({
     },
 
     keywords: t<string[]>({
-      en: ['Internationalization', 'Intlayer', 'nextjs', 'JavaScript', 'React'],
-      fr: ['Internationalisation', 'Intlayer', 'nextjs', 'JavaScript', 'React'],
-      es: ['Internacionalización', 'Intlayer', 'nextjs', 'JavaScript', 'React'],
+      en: [
+        'Internationalization',
+        'Intlayer',
+        'Next.js',
+        'JavaScript',
+        'React',
+      ],
+      fr: [
+        'Internationalisation',
+        'Intlayer',
+        'Next.js',
+        'JavaScript',
+        'React',
+      ],
+      es: [
+        'Internacionalización',
+        'Intlayer',
+        'Next.js',
+        'JavaScript',
+        'React',
+      ],
     }),
+
+    openGraph: {
+      url: getLocalizedUrl(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`,
+        locale
+      ),
+      title,
+      description,
+    },
   };
 };

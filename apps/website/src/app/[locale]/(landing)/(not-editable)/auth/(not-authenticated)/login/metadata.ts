@@ -1,5 +1,6 @@
 import {
   type IConfigLocales,
+  getLocalizedUrl,
   getMultilingualUrls,
   getTranslationContent,
 } from 'intlayer';
@@ -13,17 +14,21 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const title = t<string>({
+    en: 'Login | Intlayer',
+    fr: 'Connexion | Intlayer',
+    es: 'Iniciar sesión | Intlayer',
+  });
+
+  const description = t<string>({
+    en: 'Log in to your Intlayer account to access exclusive content and manage your preferences.',
+    fr: 'Connectez-vous à votre compte Intlayer pour accéder à du contenu exclusif et gérer vos préférences.',
+    es: 'Inicie sesión en su cuenta de Intlayer para acceder a contenido exclusivo y administrar sus preferencias.',
+  });
+
   return {
-    title: t<string>({
-      en: 'Intlayer | Login',
-      fr: 'Intlayer | Connexion',
-      es: 'Intlayer | Iniciar sesión',
-    }),
-    description: t<string>({
-      en: 'Log in to your Intlayer account to access exclusive content and manage your preferences.',
-      fr: 'Connectez-vous à votre compte Intlayer pour accéder à du contenu exclusif et gérer vos préférences.',
-      es: 'Inicie sesión en su cuenta de Intlayer para acceder a contenido exclusivo y administrar sus preferencias.',
-    }),
+    title,
+    description,
 
     keywords: t<string[]>({
       en: [
@@ -55,6 +60,15 @@ export const generateMetadata = ({
     alternates: {
       canonical: PagesRoutes.Auth_SignIn,
       languages: getMultilingualUrls(PagesRoutes.Auth_SignIn),
+    },
+
+    openGraph: {
+      url: getLocalizedUrl(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`,
+        locale
+      ),
+      title,
+      description,
     },
   };
 };

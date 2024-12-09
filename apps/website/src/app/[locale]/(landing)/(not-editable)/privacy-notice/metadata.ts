@@ -1,5 +1,6 @@
 import {
   type IConfigLocales,
+  getLocalizedUrl,
   getMultilingualUrls,
   getTranslationContent,
 } from 'intlayer';
@@ -13,17 +14,21 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
+  const title = t<string>({
+    en: 'Privacy Notice | Intlayer',
+    fr: 'Avis de confidentialité | Intlayer',
+    es: 'Aviso de privacidad | Intlayer',
+  });
+
+  const description = t<string>({
+    en: 'Learn about our Privacy Notice and how we use Google Analytics and handle your information. For privacy concerns, contact us at contact@intlayer.org.',
+    fr: 'Découvrez notre avis de confidentialité et comment nous utilisons Google Analytics. Pour des questions de confidentialité, contactez-nous à contact@intlayer.org.',
+    es: 'Conoce nuestro aviso de privacidad y cómo usamos Google Analytics. Para inquietudes de privacidad, contáctanos en contact@intlayer.org.',
+  });
+
   return {
-    title: t<string>({
-      en: 'Intlayer | Privacy Notice',
-      fr: 'Intlayer | Avis de confidentialité',
-      es: 'Intlayer | Aviso de privacidad',
-    }),
-    description: t<string>({
-      en: 'Explore our Privacy Notice to understand how we use Google Analytics and handle your information. For privacy concerns, contact us at contact@intlayer.org.',
-      fr: 'Découvrez notre avis de confidentialité et comment nous utilisons Google Analytics. Pour des questions de confidentialité, contactez-nous à contact@intlayer.org.',
-      es: 'Conoce nuestro aviso de privacidad y cómo usamos Google Analytics. Para inquietudes de privacidad, contáctanos en contact@intlayer.org.',
-    }),
+    title,
+    description,
 
     alternates: {
       canonical: PagesRoutes.PrivacyPolicy,
@@ -64,5 +69,13 @@ export const generateMetadata = ({
         'React',
       ],
     }),
+    openGraph: {
+      url: getLocalizedUrl(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.PrivacyPolicy}`,
+        locale
+      ),
+      title,
+      description,
+    },
   };
 };
