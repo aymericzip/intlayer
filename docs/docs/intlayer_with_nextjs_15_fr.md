@@ -214,8 +214,6 @@ const Page: NextPageIntlayer = async ({ params }) => {
 export default Page;
 ```
 
-... [**continuer la traduction complète**]
-
 ```tsx
 // src/components/ClientComponentExample.tsx
 
