@@ -11,12 +11,10 @@ const linkVariants = cva(
   {
     variants: {
       variant: {
-        outline:
-          'rounded-lg border-[1.5px] bg-opacity-0 hover:bg-opacity-30 dark:bg-opacity-0',
         default:
-          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline dark:bg-transparent hover:dark:bg-transparent',
+          'h-auto justify-start text-wrap border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline dark:bg-transparent hover:dark:bg-transparent',
         'invisible-link':
-          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent',
+          'h-auto justify-start text-wrap border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent',
 
         button:
           'rounded-lg text-text-opposite dark:text-text-opposite-dark min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
@@ -39,10 +37,17 @@ const linkVariants = cva(
         text: 'border-text bg-text text-text hover:opacity-80 dark:border-text-dark dark:bg-text-dark dark:text-text-dark',
         custom: '',
       },
+      underlined: {
+        default: '',
+        true: 'underline',
+        false: 'no-underline',
+      },
     },
+
     defaultVariants: {
       variant: 'default',
       color: 'primary',
+      underlined: 'default',
     },
   }
 );
@@ -68,6 +73,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       label,
       className,
       isActive,
+      underlined,
       isExternalLink: isExternalLinkProp,
       href,
       ...props
@@ -90,6 +96,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         className={linkVariants({
           variant,
           color,
+          underlined,
           className,
         })}
         {...props}

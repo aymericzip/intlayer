@@ -76,7 +76,14 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             src={`${props.src}?raw=true`}
           />
         ),
-        a: (props) => <Link color="neutral" {...props} />,
+        a: (props) => (
+          <Link
+            color="neutral"
+            isExternalLink={props.href?.startsWith('http')}
+            underlined={true}
+            {...props}
+          />
+        ),
         pre: (props) => props.children,
       },
       wrapper: ({ className, ...props }) => (
