@@ -93,7 +93,7 @@ export const IDE: FC<IDEProps> = ({
       <div className="relative flex size-full flex-1 flex-row justify-start">
         <div className="absolute left-0 top-0 size-full">
           <div className="flex size-full">
-            <WithResizer initialWidth={20}>
+            <WithResizer initialWidth={150}>
               <FileTree
                 filesPaths={filePaths}
                 activeFile={path}

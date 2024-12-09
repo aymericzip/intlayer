@@ -1,63 +1,35 @@
-import { IDE } from '@components/IDE';
+import { Globe } from '@components/Globe/Globe';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { ActionButtons } from './ActionButtons';
 import { AnimatedDescription } from './AnimatedDescription';
-import clientComponent from './content/client-component.md';
-import clientComponentContent from './content/client-content.md';
-import configFile from './content/config-file.md';
-import serverComponent from './content/server-component.md';
-import serverComponentContent from './content/server-content.md';
-
-export const ideTabs = [
-  {
-    path: 'src/components/client/component.content.ts',
-    content: clientComponent,
-    isOpen: true,
-  },
-  {
-    path: 'src/components/client/Component.tsx',
-    content: clientComponentContent,
-    isOpen: true,
-  },
-  {
-    path: 'src/components/server/component.content.ts',
-    content: serverComponent,
-    isOpen: false,
-  },
-  {
-    path: 'src/components/server/Component.tsx',
-    content: serverComponentContent,
-    isOpen: false,
-  },
-  {
-    path: 'intlayer.config.ts',
-    content: configFile,
-    isOpen: false,
-  },
-];
 
 export const LandingSection: FC = () => {
   const { title, description } = useIntlayer('landing-section');
 
   return (
-    <section className="flex w-full flex-col gap-16 p-8 sm:p-12 md:flex-row md:p-20">
-      <div className="flex h-[78vh] w-full flex-col items-center justify-between gap-20 md:h-[75vh] md:w-3/5 md:justify-center">
-        <div className="flex flex-col gap-6">
-          <h1 className="text-4xl font-bold max-md:mt-24">{title}</h1>
-          <AnimatedDescription className="text-neutral dark:text-neutral-dark">
-            {description}
-          </AnimatedDescription>
+    <section className="flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:p-10 md:pr-0">
+      <div className="relative flex w-full flex-1 flex-col items-center justify-between md:justify-center">
+        <div className="flex md:flex-auto md:items-center">
+          <div className="relative z-10 flex flex-col md:w-3/5">
+            <div className="dark:bg-background-dark/90 bg-background/95 relative z-10 flex w-full flex-col justify-evenly gap-12 md:!bg-transparent">
+              <h1 className="mt-20 px-8 text-4xl font-bold md:mt-10 md:w-[120%]">
+                {title}
+              </h1>
+              <AnimatedDescription className="text-neutral inset-x-0 w-full px-8">
+                {description}
+              </AnimatedDescription>
+            </div>
+            <div className="dark:from-background-dark/90 from-background/95 relative z-10 flex h-20 flex-col gap-10 bg-gradient-to-b from-0% to-100% md:hidden md:w-3/5"></div>
+            <ActionButtons className="px-8 max-md:hidden" />
+          </div>
+          <div className="relative z-0 flex size-full max-w-full flex-1 justify-end overflow-hidden max-md:absolute max-md:bottom-28">
+            <div className="absolute bottom-0 left-0 w-[170%]">
+              <Globe />
+            </div>
+          </div>
         </div>
-        <ActionButtons />
-      </div>
-      <div className="flex w-full flex-col items-center justify-center gap-3 md:w-2/5">
-        <div className="flex max-h-full w-full max-w-full">
-          <IDE
-            pages={ideTabs}
-            className="max-h-[370px] min-h-[370px] md:max-h-[450px] md:min-h-[450px]"
-          />
-        </div>
+        <ActionButtons className="z-10 mb-5 p-8 pt-0 md:hidden" />
       </div>
     </section>
   );

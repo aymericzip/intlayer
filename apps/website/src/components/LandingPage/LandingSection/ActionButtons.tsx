@@ -1,11 +1,15 @@
 'use client';
 
 import { Button } from '@intlayer/design-system';
+import { cn } from '@utils/cn';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
-export const ActionButtons: FC = () => {
+export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => {
   const {
     primaryBtn: {
       label: primaryLabel,
@@ -21,7 +25,10 @@ export const ActionButtons: FC = () => {
   const router = useRouter();
 
   return (
-    <div className="flex w-full flex-col gap-4 sm:flex-row">
+    <div
+      className={cn('flex w-full flex-col gap-4 sm:flex-row', className)}
+      {...props}
+    >
       <Button
         label={secondaryLabel.value}
         variant="outline"
