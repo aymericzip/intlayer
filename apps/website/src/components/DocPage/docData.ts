@@ -626,9 +626,9 @@ export const getDocData = (locale = Locales.ENGLISH) => {
           subSections: {
             14: {
               title: t({
-                en: 'Intlayer with Next.js 14 and App Router',
-                fr: 'Intlayer avec Next.js 14 et App Router',
-                es: 'Intlayer con Next.js 14 y App Router',
+                en: 'Next.js 14 and App Router',
+                fr: 'Next.js 14 et App Router',
+                es: 'Next.js 14 y App Router',
               }),
               default: {
                 docName: 'intlayer_with_nextjs_14',
@@ -677,9 +677,9 @@ export const getDocData = (locale = Locales.ENGLISH) => {
             },
             'next-with-Page-Router': {
               title: t({
-                en: 'Intlayer with Next.js using Page Router',
-                fr: 'Intlayer avec Next.js en utilisant le Page Router',
-                es: 'Intlayer con Next.js usando el Page Router',
+                en: 'Next.js and Page Router',
+                fr: 'Next.js et Page Router',
+                es: 'Next.js y Page Router',
               }),
               default: {
                 docName: 'intlayer_with_nextjs_page_router',
@@ -700,6 +700,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                     'Internationalization',
                     'Documentation',
                     'Intlayer',
+                    'Page Router',
                     'Next.js',
                     'page router',
                     'JavaScript',
@@ -708,6 +709,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                   fr: [
                     'Internationalisation',
                     'Documentation',
+                    'Page Router',
                     'Intlayer',
                     'Next.js',
                     'page router',
@@ -717,6 +719,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                   es: [
                     'Internacionalización',
                     'Documentación',
+                    'Page Router',
                     'Intlayer',
                     'Next.js',
                     'page router',
