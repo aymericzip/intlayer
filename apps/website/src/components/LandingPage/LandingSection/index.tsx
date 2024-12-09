@@ -13,10 +13,10 @@ export const LandingSection: FC = () => {
         <div className="flex md:flex-auto md:items-center">
           <div className="relative z-10 flex flex-col md:w-3/5">
             <div className="dark:bg-background-dark/90 bg-background/95 relative z-10 flex w-full flex-col justify-evenly gap-12 md:!bg-transparent">
-              <h1 className="mt-20 px-8 text-4xl font-bold md:mt-10 md:w-[120%]">
+              <h1 className="mt-10 px-8 text-2xl font-bold md:mt-10 md:w-[120%] md:text-4xl">
                 {title}
               </h1>
-              <AnimatedDescription className="text-neutral inset-x-0 w-full px-8">
+              <AnimatedDescription className="text-neutral inset-x-0 w-full px-8 leading-7">
                 {description}
               </AnimatedDescription>
             </div>
