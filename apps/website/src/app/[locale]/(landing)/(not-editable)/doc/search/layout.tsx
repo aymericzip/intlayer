@@ -1,9 +1,12 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
-import { IConfigLocales, getTranslationContent } from 'intlayer';
+import {
+  IConfigLocales,
+  getMultilingualUrls,
+  getTranslationContent,
+} from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
-import { defaultLocale, locales } from '../../../../../../../intlayer.config';
 import { PagesRoutes } from '@/Routes';
 
 export type DocProps = {
@@ -34,16 +37,7 @@ export const generateMetadata = ({
     }),
     alternates: {
       canonical: PagesRoutes.Doc_Search,
-      languages: locales.reduce(
-        (acc, locale) => ({
-          ...acc,
-          [locale]:
-            locale.toString() === defaultLocale.toString()
-              ? PagesRoutes.Doc_Search
-              : `/${locale}${PagesRoutes.Doc_Search}`,
-        }),
-        {}
-      ),
+      languages: getMultilingualUrls(PagesRoutes.Doc_Search),
     },
   };
 };

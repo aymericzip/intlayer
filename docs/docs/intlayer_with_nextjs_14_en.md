@@ -257,9 +257,13 @@ In the case you want to internationalize your metadata, such as the title of you
 ```typescript
 // src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx
 
-import { type IConfigLocales, getTranslationContent } from 'intlayer';
-import type { Metadata } from 'next';
-import type { LocalParams } from 'next-intlayer';
+import {
+  type IConfigLocales,
+  getTranslationContent,
+  getMultilingualUrls,
+} from "intlayer";
+import type { Metadata } from "next";
+import type { LocalParams } from "next-intlayer";
 
 export const generateMetadata = ({
   params: { locale },
@@ -269,21 +273,57 @@ export const generateMetadata = ({
 
   return {
     title: t<string>({
-      en: 'My title',
-      fr: 'Mon titre',
-      es: 'Mi título',
+      en: "My title",
+      fr: "Mon titre",
+      es: "Mi título",
     }),
     description: t({
-      en: 'My description',
-      fr: 'Ma description',
-      es: 'Mi descripción',
+      en: "My description",
+      fr: "Ma description",
+      es: "Mi descripción",
     }),
+    alternates: {
+      canonical: "/",
+      languages: getMultilingualUrls("/"),
+    },
+  };
 };
 
 // ... Rest of the code
 ```
 
-### (Optional) Step 9: Change the language of your content
+> Lean more about the metadata optimization [on the official Next.js documentation](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
+
+### (Optional) Step 9: Internationalization of your sitemap
+
+To internationalize your sitemap, you can use the `getMultilingualUrls` function provided by Intlayer. This function allows you to generate multilingual URLs for your sitemap.
+
+```tsx
+// src/app/sitemap.ts
+
+import { getMultilingualUrls } from "intlayer";
+import type { MetadataRoute } from "next";
+
+const url = `https://example.com`;
+
+const sitemap = (): MetadataRoute.Sitemap => [
+  {
+    url,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 1,
+    alternates: {
+      languages: getMultilingualUrls(url),
+    },
+  },
+];
+
+export default sitemap;
+```
+
+> Lean more about the sitemap optimization [on the official Next.js documentation](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap).
+
+### (Optional) Step 10: Change the language of your content
 
 To change the language of your content, you can use the `setLocale` function provided by the `useLocale` hook. This function allows you to set the locale of the application and update the content accordingly.
 

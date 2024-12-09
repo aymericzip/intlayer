@@ -1,4 +1,5 @@
 import { getDocArray } from '@components/DocPage/docData';
+import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
 import { PagesRoutes } from '@/Routes';
 
@@ -10,11 +11,7 @@ const docSitemap: MetadataRoute.Sitemap = docs.map((doc) => ({
   changeFrequency: 'monthly',
   priority: 0.7,
   alternates: {
-    languages: {
-      en: `${process.env.NEXT_PUBLIC_URL}${doc.url}`,
-      es: `${process.env.NEXT_PUBLIC_URL}/es${doc.url}`,
-      fr: `${process.env.NEXT_PUBLIC_URL}/fr${doc.url}`,
-    },
+    languages: getMultilingualUrls(`${process.env.NEXT_PUBLIC_URL}${doc.url}`),
   },
 }));
 
@@ -25,11 +22,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'monthly',
     priority: 1,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Home}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Home}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`
+      ),
     },
   },
   {
@@ -38,11 +33,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'monthly',
     priority: 0.8,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Demo}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Demo}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`
+      ),
     },
   },
   {
@@ -51,11 +44,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'monthly',
     priority: 0.8,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Pricing}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Pricing}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`
+      ),
     },
   },
   {
@@ -64,11 +55,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'monthly',
     priority: 0.5,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Onboarding}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Onboarding}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`
+      ),
     },
   },
   {
@@ -77,11 +66,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'monthly',
     priority: 0.8,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Dashboard}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Dashboard}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`
+      ),
     },
   },
   {
@@ -90,11 +77,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'monthly',
     priority: 0.8,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Doc}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Doc}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`
+      ),
     },
   },
   {
@@ -103,11 +88,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'never',
     priority: 0.1,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.NotFound}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.NotFound}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`
+      ),
     },
   },
   {
@@ -116,11 +99,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'never',
     priority: 0.1,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Auth_SignIn}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Auth_SignIn}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`
+      ),
     },
   },
   {
@@ -129,11 +110,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'never',
     priority: 0.1,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Auth_SignUp}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Auth_SignUp}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`
+      ),
     },
   },
   {
@@ -142,11 +121,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'never',
     priority: 0.1,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Auth_ResetPassword}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Auth_ResetPassword}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`
+      ),
     },
   },
   {
@@ -155,11 +132,9 @@ const sitemap = (): MetadataRoute.Sitemap => [
     changeFrequency: 'never',
     priority: 0.1,
     alternates: {
-      languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`,
-        es: `${process.env.NEXT_PUBLIC_URL}/es${PagesRoutes.Auth_ChangePassword}`,
-        fr: `${process.env.NEXT_PUBLIC_URL}/fr${PagesRoutes.Auth_ChangePassword}`,
-      },
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`
+      ),
     },
   },
   ...docSitemap,

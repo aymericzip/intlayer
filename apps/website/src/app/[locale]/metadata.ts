@@ -1,7 +1,10 @@
-import { type IConfigLocales, getTranslationContent } from 'intlayer';
+import {
+  type IConfigLocales,
+  getMultilingualUrls,
+  getTranslationContent,
+} from 'intlayer';
 import type { Metadata, Viewport } from 'next';
 import type { LocalParams } from 'next-intlayer';
-import { locales, defaultLocale } from '../../../intlayer.config';
 
 export const generateMetadata = ({
   params: { locale },
@@ -87,14 +90,7 @@ export const generateMetadata = ({
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     alternates: {
       canonical: '/',
-      languages: locales.reduce(
-        (acc, locale) => ({
-          ...acc,
-          [locale]:
-            locale.toString() === defaultLocale.toString() ? `/` : `/${locale}`,
-        }),
-        {}
-      ),
+      languages: getMultilingualUrls('/'),
     },
 
     icons: {

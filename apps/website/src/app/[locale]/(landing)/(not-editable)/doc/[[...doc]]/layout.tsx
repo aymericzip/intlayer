@@ -1,9 +1,9 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { getDocPaths, getDoc } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
+import { getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
-import { defaultLocale, locales } from '../../../../../../../intlayer.config';
+import type { LocalParams, type Next14LayoutIntlayer } from 'next-intlayer';
 
 export type DocProps = {
   doc: string[];
@@ -31,16 +31,7 @@ export const generateMetadata = ({
     keywords: docData.keywords,
     alternates: {
       canonical: docData.url,
-      languages: locales.reduce(
-        (acc, locale) => ({
-          ...acc,
-          [locale]:
-            locale.toString() === defaultLocale.toString()
-              ? docData.url
-              : `/${locale}/${docData.url}`,
-        }),
-        {}
-      ),
+      languages: getMultilingualUrls(docData.url),
     },
   };
 };

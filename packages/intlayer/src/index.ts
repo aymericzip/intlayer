@@ -41,6 +41,7 @@ export {
   getHTMLLang,
   getHTMLTextDir,
   getPathWithoutLocale,
+  getMultilingualUrls,
   localeList,
 } from '@intlayer/core';
 export {

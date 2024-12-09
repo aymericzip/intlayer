@@ -38,8 +38,6 @@ ou avec pnpm :
 pnpm add intlayer next-intlayer
 ```
 
----
-
 ### Étape 2 : Configurer votre projet
 
 Créez un fichier de configuration pour définir les langues de votre application :
@@ -66,8 +64,6 @@ export default config;
 
 Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_fr.md).
 
----
-
 ### Étape 3 : Intégrer Intlayer dans la configuration de Next.js
 
 Configurez votre setup Next.js pour utiliser Intlayer :
@@ -82,8 +78,6 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
----
-
 ### Étape 4 : Configurer le middleware pour la détection de langue
 
 Configurez un middleware pour détecter la langue préférée de l'utilisateur :
@@ -96,8 +90,6 @@ export const config = {
   matcher: "/((?!api|static|.*\\..*|_next).*)",
 };
 ```
-
----
 
 ### Étape 5 : Définir des routes dynamiques localisées
 
@@ -147,8 +139,6 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 export default LocaleLayout;
 ```
 
----
-
 ### Étape 6 : Déclarer votre contenu
 
 Créez et gérez vos dictionnaires de contenu :
@@ -175,8 +165,6 @@ export default pageContent;
 ```
 
 [Consultez comment déclarer vos fichiers de contenu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_fr.md).
-
----
 
 ### Étape 7 : Utiliser le contenu dans votre code
 
@@ -214,8 +202,6 @@ const Page: Next14PageIntlayer = ({ params: { locale } }) => {
 export default Page;
 ```
 
----
-
 ### Étape 8 (optionnelle) : Internationaliser vos métadonnées
 
 Pour traduire des métadonnées comme le titre de vos pages, utilisez la fonction `generateMetadata` de Next.js :
@@ -223,7 +209,11 @@ Pour traduire des métadonnées comme le titre de vos pages, utilisez la fonctio
 ```typescript
 // src/app/[locale]/layout.tsx ou src/app/[locale]/page.tsx
 
-import { type IConfigLocales, getTranslationContent } from "intlayer";
+import {
+  type IConfigLocales,
+  getTranslationContent,
+  getMultilingualUrls,
+} from "intlayer";
 import type { Metadata } from "next";
 import type { LocalParams } from "next-intlayer";
 
@@ -244,13 +234,48 @@ export const generateMetadata = ({
       fr: "Ma description",
       es: "Mi descripción",
     }),
+    alternates: {
+      canonical: "/",
+      languages: getMultilingualUrls("/"),
+    },
   };
 };
+
+// ... Rest of the code
 ```
 
----
+> Consultez la documentation [sur l'optimisation des métadonnées](https://nextjs.org/docs/app/building-your-application/optimizing/metadata) pour en savoir plus.
 
-### Étape 9 (optionnelle) : Changer la langue de votre contenu
+### Étape 9 (optionnelle) : Internationalisation de votre sitemap
+
+Pour internationaliser votre sitemap, vous pouvez utiliser la fonction `getMultilingualUrls` fournie par Intlayer. Cette fonction vous permet de générer des URLs multilingues pour votre sitemap.
+
+```tsx
+// src/app/sitemap.ts
+
+import { getMultilingualUrls } from "intlayer";
+import type { MetadataRoute } from "next";
+
+const url = `https://example.com`;
+
+const sitemap = (): MetadataRoute.Sitemap => [
+  {
+    url,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 1,
+    alternates: {
+      languages: getMultilingualUrls(url),
+    },
+  },
+];
+
+export default sitemap;
+```
+
+> Consultez la documentation [sur l'optimisation du sitemap](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap) pour en savoir plus.
+
+### Étape 10 (optionnelle) : Changer la langue de votre contenu
 
 Pour changer la langue de votre contenu, utilisez la fonction `setLocale` :
 
@@ -285,7 +310,9 @@ Assurez-vous que votre configuration TypeScript inclut les types générés auto
 
 ### Configuration Git
 
-Ignorez les fichiers générés par Intlayer dans votre dépôt Git :
+Il est recommandé d’ignorer les fichiers générés par Intlayer pour éviter de les inclure dans votre dépôt Git.
+
+Ajoutez les instructions suivantes à votre fichier `.gitignore` :
 
 ```gitignore
 # Ignorer les fichiers générés par Intlayer

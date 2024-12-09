@@ -265,10 +265,7 @@ const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
 
   // Remove the locale prefix from the path to construct a base path
   const pathWithoutLocale = getPathWithoutLocale(
-    path, // Current URL path
-    middleware.prefixDefault, // Whether to prefix the default locale in URLs
-    currentLocale, // Currently detected locale
-    defaultLocale // Default locale from configuration
+    path // Current URL path
   );
 
   /**

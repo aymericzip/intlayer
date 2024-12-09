@@ -1,7 +1,10 @@
-import { type IConfigLocales, getTranslationContent } from 'intlayer';
+import {
+  type IConfigLocales,
+  getMultilingualUrls,
+  getTranslationContent,
+} from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
-import { defaultLocale, locales } from '../../../../../../intlayer.config';
 import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = ({
@@ -24,16 +27,7 @@ export const generateMetadata = ({
 
     alternates: {
       canonical: PagesRoutes.TermsOfService,
-      languages: locales.reduce(
-        (acc, locale) => ({
-          ...acc,
-          [locale]:
-            locale.toString() === defaultLocale.toString()
-              ? PagesRoutes.TermsOfService
-              : `/${locale}${PagesRoutes.TermsOfService}`,
-        }),
-        {}
-      ),
+      languages: getMultilingualUrls(PagesRoutes.TermsOfService),
     },
 
     keywords: t<string[]>({

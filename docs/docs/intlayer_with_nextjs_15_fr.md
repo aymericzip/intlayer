@@ -34,8 +34,6 @@ yarn add intlayer next-intlayer
 pnpm add intlayer next-intlayer
 ```
 
----
-
 ### Étape 2 : Configurer votre Projet
 
 Créez un fichier de configuration pour définir les langues de votre application :
@@ -62,8 +60,6 @@ export default config;
 
 Pour voir tous les paramètres disponibles, consultez la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
 
----
-
 ### Étape 3 : Intégrer Intlayer à la Configuration de Next.js
 
 Ajoutez Intlayer à la configuration de Next.js :
@@ -78,8 +74,6 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
----
-
 ### Étape 4 : Configurer un Middleware pour la Détection de la Langue
 
 Ajoutez un middleware pour détecter la langue préférée de l'utilisateur :
@@ -92,8 +86,6 @@ export const config = {
   matcher: "/((?!api|static|.*\\..*|_next).*)",
 };
 ```
-
----
 
 ### Étape 5 : Définir des Routes Dynamiques par Langue
 
@@ -143,8 +135,6 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
----
-
 ### Étape 6 : Déclarer votre Contenu
 
 Créez et gérez vos dictionnaires de contenu :
@@ -171,8 +161,6 @@ export default pageContent;
 ```
 
 [Consultez comment déclarer vos fichiers de contenu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md).
-
----
 
 ### Étape 7 : Utiliser le Contenu dans votre Code
 
@@ -272,8 +260,6 @@ export const ServerComponentExample = () => {
 
 Pour une utilisation plus détaillée d’Intlayer dans des composants client ou serveur, consultez l’[exemple Next.js ici](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
 
----
-
 ### (Optionnel) Étape 8 : Internationaliser vos Métadonnées
 
 Si vous souhaitez internationaliser vos métadonnées, comme le titre de votre page, utilisez la fonction `generateMetadata` fournie par Next.js. À l'intérieur de cette fonction, utilisez `getTranslationContent` pour traduire vos métadonnées.
@@ -281,15 +267,17 @@ Si vous souhaitez internationaliser vos métadonnées, comme le titre de votre p
 ```typescript
 // src/app/[locale]/layout.tsx ou src/app/[locale]/page.tsx
 
-import { type IConfigLocales, getTranslationContent } from "intlayer";
+import {
+  type IConfigLocales,
+  getTranslationContent,
+  getMultilingualUrls,
+} from "intlayer";
 import type { Metadata } from "next";
-import type { LocalPromiseParams } from "next-intlayer";
+import type { LocalParams } from "next-intlayer";
 
-export const generateMetadata = async ({
-  params,
-}: LocalPromiseParams): Promise<Metadata> => {
-  const { locale } = await params;
-
+export const generateMetadata = ({
+  params: { locale },
+}: LocalParams): Metadata => {
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
@@ -304,13 +292,46 @@ export const generateMetadata = async ({
       fr: "Ma description",
       es: "Mi descripción",
     }),
+    alternates: {
+      canonical: "/",
+      languages: getMultilingualUrls("/"),
+    },
   };
 };
 ```
 
----
+> Consultez la documentation [sur l'optimisation des métadonnées](https://nextjs.org/docs/app/building-your-application/optimizing/metadata) pour en savoir plus.
 
-### (Optionnel) Étape 9 : Changer la Langue de votre Contenu
+### (Optionnel) Étape 9 : Internationaliser votre sitemap
+
+Pour internationaliser votre sitemap, vous pouvez utiliser la fonction `getMultilingualUrls` fournie par Intlayer. Cette fonction vous permet de générer des URLs multilingues pour votre sitemap.
+
+```tsx
+// src/app/sitemap.ts
+
+import { getMultilingualUrls } from "intlayer";
+import type { MetadataRoute } from "next";
+
+const url = `https://example.com`;
+
+const sitemap = (): MetadataRoute.Sitemap => [
+  {
+    url,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 1,
+    alternates: {
+      languages: getMultilingualUrls(url),
+    },
+  },
+];
+
+export default sitemap;
+```
+
+> Consultez la documentation [sur l'optimisation du sitemap](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap) pour en savoir plus.
+
+### (Optionnel) Étape 10 : Changer la Langue de votre Contenu
 
 Pour changer la langue de votre contenu, utilisez la fonction `setLocale` fournie par le hook `useLocale`. Cette fonction permet de définir la langue de l’application et de mettre à jour le contenu en conséquence.
 

@@ -1,10 +1,10 @@
-import { type IConfigLocales, getTranslationContent } from 'intlayer';
+import {
+  type IConfigLocales,
+  getMultilingualUrls,
+  getTranslationContent,
+} from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
-import {
-  defaultLocale,
-  locales,
-} from '../../../../../../../../../intlayer.config';
 import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = ({
@@ -51,16 +51,7 @@ export const generateMetadata = ({
 
     alternates: {
       canonical: PagesRoutes.Auth_ChangePassword,
-      languages: locales.reduce(
-        (acc, locale) => ({
-          ...acc,
-          [locale]:
-            locale.toString() === defaultLocale.toString()
-              ? PagesRoutes.Auth_ChangePassword
-              : `/${locale}${PagesRoutes.Auth_ChangePassword}`,
-        }),
-        {}
-      ),
+      languages: getMultilingualUrls(PagesRoutes.Auth_ChangePassword),
     },
   };
 };

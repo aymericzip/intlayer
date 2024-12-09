@@ -100,12 +100,7 @@ export const intLayerMiddlewarePlugin = (_pluginOptions = {}): Plugin => ({
         pathLocale.toString() === defaultLocale.toString() &&
         !prefixDefault
       ) {
-        req.url = getPathWithoutLocale(
-          originalUrl,
-          prefixDefault,
-          pathLocale as Locales,
-          defaultLocale
-        );
+        req.url = getPathWithoutLocale(originalUrl, supportedLocales);
 
         res.writeHead(301, { Location: req.url });
         return res.end();

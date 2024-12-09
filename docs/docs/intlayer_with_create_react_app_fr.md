@@ -235,10 +235,7 @@ const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
 
   // Retirer le préfixe de langue du chemin pour construire un chemin de base
   const pathWithoutLocale = getPathWithoutLocale(
-    path, // Chemin actuel de l'URL
-    middleware.prefixDefault, // Si la langue par défaut doit être préfixée dans les URLs
-    currentLocale, // Langue actuellement détectée
-    defaultLocale // Langue par défaut dans la configuration
+    path // Chemin actuel de l'URL
   );
 
   /**

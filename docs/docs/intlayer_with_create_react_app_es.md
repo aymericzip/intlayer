@@ -235,10 +235,7 @@ const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
 
   // Eliminar el prefijo del idioma del camino para construir una ruta base
   const pathWithoutLocale = getPathWithoutLocale(
-    path, // Ruta actual de la URL
-    middleware.prefixDefault, // Si el idioma predeterminado debe tener un prefijo en las URLs
-    currentLocale, // Idioma actualmente detectado
-    defaultLocale // Idioma predeterminado desde la configuración
+    path // Ruta actual de la URL
   );
 
   /**

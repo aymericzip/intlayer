@@ -1,6 +1,5 @@
 import { match } from '@formatjs/intl-localematcher';
-import type { Locales } from '@intlayer/config';
-import { getConfiguration } from '@intlayer/config/client';
+import { getConfiguration, type Locales } from '@intlayer/config/client';
 import Negotiator from 'negotiator';
 
 const { locales: envLocales, defaultLocale: defaultLocaleEnv } =

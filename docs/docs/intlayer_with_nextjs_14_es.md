@@ -34,8 +34,6 @@ yarn add intlayer next-intlayer
 pnpm add intlayer next-intlayer
 ```
 
----
-
 ### Paso 2: Configurar tu proyecto
 
 Crea un archivo de configuración para configurar los idiomas de tu aplicación:
@@ -62,8 +60,6 @@ export default config;
 
 Para ver todos los parámetros disponibles, consulta la [documentación de configuración aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_es.md).
 
----
-
 ### Paso 3: Integrar Intlayer en tu configuración de Next.js
 
 Configura Next.js para usar Intlayer:
@@ -78,8 +74,6 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
----
-
 ### Paso 4: Configurar Middleware para detección de idioma
 
 Configura el middleware para detectar el idioma preferido del usuario:
@@ -92,8 +86,6 @@ export const config = {
   matcher: "/((?!api|static|.*\\..*|_next).*)",
 };
 ```
-
----
 
 ### Paso 5: Definir rutas dinámicas de idiomas
 
@@ -143,8 +135,6 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 export default LocaleLayout;
 ```
 
----
-
 ### Paso 6: Declarar tu contenido
 
 Crea y gestiona tus diccionarios de contenido:
@@ -171,8 +161,6 @@ export default pageContent;
 ```
 
 [Consulta cómo declarar tus archivos de contenido de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_es.md).
-
----
 
 ### Paso 7: Usar contenido en tu código
 
@@ -210,14 +198,20 @@ const Page: Next14PageIntlayer = ({ params: { locale } }) => {
 export default Page;
 ```
 
----
-
 ### (Opcional) Paso 8: Internacionalizar tus metadatos
 
 Internacionaliza los metadatos de tu página usando la función `generateMetadata`.
 
 ```typescript
-import { type IConfigLocales, getTranslationContent } from "intlayer";
+// src/app/[locale]/layout.tsx o src/app/[locale]/page.tsx
+
+import {
+  type IConfigLocales,
+  getTranslationContent,
+  getMultilingualUrls,
+} from "intlayer";
+import type { Metadata } from "next";
+import type { LocalParams } from "next-intlayer";
 
 export const generateMetadata = ({ params: { locale } }): Metadata => {
   const t = <T>(content: IConfigLocales<T>) =>
@@ -234,13 +228,48 @@ export const generateMetadata = ({ params: { locale } }): Metadata => {
       fr: "Ma description",
       es: "Mi descripción",
     }),
+    alternates: {
+      canonical: "/",
+      languages: getMultilingualUrls("/"),
+    },
   };
 };
+
+// ... Rest of the code
 ```
 
----
+> Aprende más sobre la optimización de los metadatos [en la documentación oficial de Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (Opcional) Paso 9: Cambiar el idioma de tu contenido
+### (Opcional) Paso 9: Internacionalización de tu sitemap
+
+Para internacionalizar tu sitemap, puedes usar la función `getMultilingualUrls` proporcionada por Intlayer. Esta función te permite generar URLs multilingües para tu sitemap.
+
+```tsx
+// src/app/sitemap.ts
+
+import { getMultilingualUrls } from "intlayer";
+import type { MetadataRoute } from "next";
+
+const url = `https://example.com`;
+
+const sitemap = (): MetadataRoute.Sitemap => [
+  {
+    url,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 1,
+    alternates: {
+      languages: getMultilingualUrls(url),
+    },
+  },
+];
+
+export default sitemap;
+```
+
+> Aprende más sobre la optimización del sitemap [en la documentación oficial de Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap).
+
+### (Opcional) Paso 10: Cambiar el idioma de tu contenido
 
 Cambia el idioma de tu contenido con la función `setLocale`.
 
@@ -273,8 +302,11 @@ Incluye los tipos autogenerados en tu configuración de TypeScript.
 
 ### Configuración de Git
 
-Ignora los archivos generados por Intlayer en tu repositorio Git.
+Se recomienda ignorar los archivos generados por Intlayer para evitar que se incluyan en tu repositorio Git.
+
+Para hacerlo, agrega las siguientes líneas a tu archivo `.gitignore`:
 
 ```gitignore
+# Ignorar los archivos generados por Intlayer
 .intlayer
 ```
