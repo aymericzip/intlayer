@@ -29,14 +29,14 @@ const footerContent = {
           {
             href: PagesRoutes.Doc_Environment_NextJS_15,
             text: t({
-              en: 'Intlayer with nextjs',
-              es: 'Intlayer con nextjs',
-              fr: 'Intlayer avec nextjs',
+              en: 'Intlayer with Next.js',
+              es: 'Intlayer con Next.js',
+              fr: 'Intlayer avec Next.js',
             }),
             label: t({
-              en: 'See Intlayer with nextjs documentation',
-              es: 'Ver documentación de Intlayer con nextjs',
-              fr: 'Voir la documentation de Intlayer avec nextjs',
+              en: 'See Intlayer with Next.js documentation',
+              es: 'Ver documentación de Intlayer con Next.js',
+              fr: 'Voir la documentation de Intlayer avec Next.js',
             }),
           },
           {
@@ -77,14 +77,14 @@ const footerContent = {
           {
             href: ExternalLinks.ExampleIntlayerWithNextjs,
             text: t({
-              en: 'Intlayer with nextjs',
-              es: 'Intlayer con nextjs',
-              fr: 'Intlayer avec nextjs',
+              en: 'Intlayer with Next.js',
+              es: 'Intlayer con Next.js',
+              fr: 'Intlayer avec Next.js',
             }),
             label: t({
-              en: 'See how to set up Intlayer with nextjs',
-              es: 'Ver cómo configurar Intlayer con nextjs',
-              fr: 'Voir comment configuer Intlayer avec nextjs',
+              en: 'See how to set up Intlayer with Next.js',
+              es: 'Ver cómo configurar Intlayer con Next.js',
+              fr: 'Voir comment configuer Intlayer avec Next.js',
             }),
           },
           {

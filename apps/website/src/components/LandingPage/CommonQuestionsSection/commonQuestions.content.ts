@@ -21,9 +21,9 @@ const docNavTitlesContent = {
           es: '¿Qué es la internacionalización (i18n)?',
         }),
         answer: t({
-          en: 'Internationalization (i18n) is the process of designing and developing applications like nextjs, react, or express to support multiple languages easily. It enables you to create multilingual websites by simplifying the translation process. Tools like TypeScript make it easier to implement i18n, allowing for efficient and easy adaptation of your application to different languages and regions.',
-          fr: "L'internationalisation (i18n) est le processus de conception et de développement d'applications comme nextjs, react ou express pour prendre en charge facilement plusieurs langues. Elle vous permet de créer des sites web multilingues en simplifiant le processus de traduction. Des outils comme TypeScript facilitent la mise en œuvre de l'i18n, permettant une adaptation efficace et facile de votre application à différentes langues et régions.",
-          es: 'La internacionalización (i18n) es el proceso de diseñar y desarrollar aplicaciones como nextjs, react o express para admitir fácilmente múltiples idiomas. Te permite crear sitios web multilingües simplificando el proceso de traducción. Herramientas como TypeScript facilitan la implementación de i18n, permitiendo una adaptación eficiente y fácil de tu aplicación a diferentes idiomas y regiones.',
+          en: 'Internationalization (i18n) is the process of designing and developing applications like Next.js, react, or express to support multiple languages easily. It enables you to create multilingual websites by simplifying the translation process. Tools like TypeScript make it easier to implement i18n, allowing for efficient and easy adaptation of your application to different languages and regions.',
+          fr: "L'internationalisation (i18n) est le processus de conception et de développement d'applications comme Next.js, react ou express pour prendre en charge facilement plusieurs langues. Elle vous permet de créer des sites web multilingues en simplifiant le processus de traduction. Des outils comme TypeScript facilitent la mise en œuvre de l'i18n, permettant une adaptation efficace et facile de votre application à différentes langues et régions.",
+          es: 'La internacionalización (i18n) es el proceso de diseñar y desarrollar aplicaciones como Next.js, react o express para admitir fácilmente múltiples idiomas. Te permite crear sitios web multilingües simplificando el proceso de traducción. Herramientas como TypeScript facilitan la implementación de i18n, permitiendo una adaptación eficiente y fácil de tu aplicación a diferentes idiomas y regiones.',
         }),
       },
       {
@@ -78,25 +78,25 @@ const docNavTitlesContent = {
       },
       {
         question: t({
-          en: 'How does Intlayer integrate with nextjs?',
-          fr: 'Comment Intlayer s’intègre-t-il avec nextjs ?',
-          es: '¿Cómo se integra Intlayer con nextjs?',
+          en: 'How does Intlayer integrate with Next.js?',
+          fr: 'Comment Intlayer s’intègre-t-il avec Next.js ?',
+          es: '¿Cómo se integra Intlayer con Next.js?',
         }),
         answer: t({
-          en: 'Intlayer integrates with nextjs to enable server-side rendering and static site generation, making multilingual content delivery more efficient.',
-          fr: 'Intlayer s’intègre avec nextjs pour permettre le rendu côté serveur et la génération de sites statiques, rendant la diffusion de contenu multilingue plus efficace.',
-          es: 'Intlayer se integra con nextjs para habilitar el renderizado del lado del servidor y la generación de sitios estáticos, haciendo más eficiente la entrega de contenido multilingüe.',
+          en: 'Intlayer integrates with Next.js to enable server-side rendering and static site generation, making multilingual content delivery more efficient.',
+          fr: 'Intlayer s’intègre avec Next.js pour permettre le rendu côté serveur et la génération de sites statiques, rendant la diffusion de contenu multilingue plus efficace.',
+          es: 'Intlayer se integra con Next.js para habilitar el renderizado del lado del servidor y la generación de sitios estáticos, haciendo más eficiente la entrega de contenido multilingüe.',
         }),
         callToAction: {
           label: t({
-            en: 'Read more about nextjs integration',
-            fr: 'En savoir plus sur l’intégration de nextjs',
-            es: 'Leer más sobre la integración de nextjs',
+            en: 'Read more about Next.js integration',
+            fr: 'En savoir plus sur l’intégration de Next.js',
+            es: 'Leer más sobre la integración de Next.js',
           }),
           alt: t({
-            fr: "Cliquez ici pour en savoir plus sur l'intégration d'Intlayer avec nextjs",
-            en: 'Click here to read more about Intlayer integration with nextjs',
-            es: 'Haga clic aquí para leer más sobre la integración de Intlayer con nextjs',
+            fr: "Cliquez ici pour en savoir plus sur l'intégration d'Intlayer avec Next.js",
+            en: 'Click here to read more about Intlayer integration with Next.js',
+            es: 'Haga clic aquí para leer más sobre la integración de Intlayer con Next.js',
           }),
           url: 'https://intlayer.org/doc/environment/nextjs',
         },
@@ -183,9 +183,9 @@ const docNavTitlesContent = {
           es: '¿Qué plataformas son compatibles con Intlayer?',
         }),
         answer: t({
-          en: 'Intlayer is available for React (including Create React App), Vite with React, nextjs, and Express. This ensures a seamless integration with modern JavaScript frameworks and server-side environments.',
-          fr: 'Intlayer est disponible pour React (y compris Create React App), Vite avec React, nextjs et Express. Cela garantit une intégration fluide avec les frameworks JavaScript modernes et les environnements côté serveur.',
-          es: 'Intlayer está disponible para React (incluido Create React App), Vite con React, nextjs y Express. Esto garantiza una integración fluida con marcos de JavaScript modernos y entornos del lado del servidor.',
+          en: 'Intlayer is available for React (including Create React App), Vite with React, Next.js, and Express. This ensures a seamless integration with modern JavaScript frameworks and server-side environments.',
+          fr: 'Intlayer est disponible pour React (y compris Create React App), Vite avec React, Next.js et Express. Cela garantit une intégration fluide avec les frameworks JavaScript modernes et les environnements côté serveur.',
+          es: 'Intlayer está disponible para React (incluido Create React App), Vite con React, Next.js y Express. Esto garantiza una integración fluida con marcos de JavaScript modernos y entornos del lado del servidor.',
         }),
         callToAction: {
           label: t({

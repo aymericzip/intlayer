@@ -576,9 +576,9 @@ export const getDocData = (locale = Locales.ENGLISH) => {
       subSections: {
         nextjs: {
           title: t({
-            en: 'Intlayer with nextjs',
-            fr: 'Intlayer avec nextjs',
-            es: 'Intlayer con nextjs',
+            en: 'Intlayer with Next.js',
+            fr: 'Intlayer avec Next.js',
+            es: 'Intlayer con Next.js',
           }),
           default: {
             docName: 'intlayer_with_nextjs_15',

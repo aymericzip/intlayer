@@ -69,7 +69,7 @@ Le package `@intlayer/core` est le package maitre Intlayer. Il contient les fonc
 
 ### @intlayer/config
 
-Le package `@intlayer/config` est utilisé pour configurer les paramètres de Intlayer, tels que les langues disponibles, les paramètres du nextjs middleware ou les paramètres de l'éditeur intégré.
+Le package `@intlayer/config` est utilisé pour configurer les paramètres de Intlayer, tels que les langues disponibles, les paramètres du Next.js middleware ou les paramètres de l'éditeur intégré.
 
 ### @intlayer/webpack
 
