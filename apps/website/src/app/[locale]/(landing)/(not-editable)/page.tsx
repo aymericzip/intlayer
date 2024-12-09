@@ -12,7 +12,7 @@ const LandingPage: Next14PageIntlayer = ({ params: { locale } }) => (
     <SoftwareApplicationHeader />
     <ProductHeader />
     <IntlayerServerProvider locale={locale}>
-      <BackgroundLayout hasSpotlight>
+      <BackgroundLayout>
         <LandingPageContent />
       </BackgroundLayout>
     </IntlayerServerProvider>

@@ -2,10 +2,10 @@
 
 import createGlobe from 'cobe';
 import { useTheme } from 'next-themes';
-import { type FC, MutableRefObject, useEffect, useRef } from 'react';
+import { type FC, memo, MutableRefObject, useEffect, useRef } from 'react';
 import { useSpring } from 'react-spring';
 
-export const Globe: FC = () => {
+export const Globe: FC = memo(() => {
   const { resolvedTheme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointerInteracting: MutableRefObject<number | null> =
@@ -119,4 +119,6 @@ export const Globe: FC = () => {
       />
     </div>
   );
-};
+});
+
+Globe.displayName = 'Globe';

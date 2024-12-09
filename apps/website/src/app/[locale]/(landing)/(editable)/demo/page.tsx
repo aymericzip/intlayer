@@ -8,7 +8,7 @@ export { generateMetadata };
 
 const Page: Next14PageIntlayer = ({ params: { locale } }) => (
   <IntlayerServerProvider locale={locale}>
-    <BackgroundLayout hasSpotlight>
+    <BackgroundLayout>
       <DemoPage />
     </BackgroundLayout>
   </IntlayerServerProvider>
