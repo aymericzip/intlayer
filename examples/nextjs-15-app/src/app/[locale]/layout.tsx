@@ -4,9 +4,8 @@ import {
   getHTMLTextDir,
   type IConfigLocales,
   getTranslationContent,
-  Locales,
 } from 'intlayer';
-import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
+import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 import { ReactNode } from 'react';
 
 const geistSans = localFont({
@@ -22,7 +21,7 @@ const geistMono = localFont({
 
 export const generateMetadata = async ({
   params,
-}: LocalParams): Promise<Metadata> => {
+}: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
 
   const t = <T extends string>(content: IConfigLocales<T>) =>
@@ -46,13 +45,7 @@ export const generateMetadata = async ({
   };
 };
 
-const LocaleLayout = async ({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: Promise<LocalParams['params']>;
-}) => {
+const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
 
   return (

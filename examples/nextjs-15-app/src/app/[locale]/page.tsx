@@ -1,8 +1,8 @@
 import { IntlayerProvider } from '@providers/IntlayerProvider';
 import { HomeContent } from '@components/HomeContent';
-import { Next15PageIntlayer } from 'next-intlayer';
+import { NextPageIntlayer } from 'next-intlayer';
 
-const Page: Next15PageIntlayer = async ({ params }) => {
+const Page: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
 
   return (

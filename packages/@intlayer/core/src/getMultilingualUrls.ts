@@ -1,5 +1,5 @@
-// @ts-ignore intlayer declared for module augmentation
 import { getConfiguration, Locales } from '@intlayer/config/client';
+// @ts-ignore intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';
 import {
   checkIsAbsoluteUrl,
