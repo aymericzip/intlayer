@@ -44,7 +44,9 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 ### Environment
 
-- [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md)
+- [Intlayer with Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md)
+  - [Intlayer with Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_14_en.md)
+  - [Intlayer with Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_page_router_en.md)
 - [Intlayer with React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md)
 - [Intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md)
 - [Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_express_en.md)
@@ -79,7 +81,7 @@ Intlayer offers a more modern approach to internationalization compared to tradi
 
 - **Content Declaration**: Declare content dictionaries in the same directory as your components, enhancing maintainability and reducing complexity. [Learn more](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration_en.md).
 - **Customizable Configuration**: Intlayer allows you to customize various aspects of the framework, including internationalization, middleware, and content handling. [Learn how to configure](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
-- **Integration with Next.js and React**: Intlayer integrates smoothly with Next.js and React applications. It also supports server-side rendering and dynamic routing. [Explore Next.js integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md) | [Explore React integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
+- **Integration with Next.js and React**: Intlayer integrates smoothly with Next.js and React applications. It also supports server-side rendering and dynamic routing. [Explore Next.js integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md) | [Explore React integration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
 - **Scalability and Consistency**: With Intlayer, your content dictionaries are structured and consistent, reducing the chances of errors during development. This ensures a more reliable internationalization process.
 - **TypeScript Support**: Intlayer provides full support for TypeScript, allowing for more type-safe code. This enhances developer productivity and code quality.
 
@@ -93,7 +95,7 @@ For more examples and information on content declaration, [see the documentation
 
 If you're using Next.js, Intlayer is designed to work seamlessly with it. The integration process involves setting up middleware, defining locale routes, and utilizing content dictionaries in your components.
 
-Follow this guide to [set up Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
+Follow this guide to [set up Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md).
 
 ### Integrating with Create React App
 
@@ -154,7 +156,7 @@ For more information on the CLI and its usage, [refer to the CLI documentation](
 
 Intlayer offers a more flexible and modern approach to internationalization. Its seamless integration with Next.js and React, customizable configuration, and support for various content declaration formats make it a powerful choice for internationalization.
 
-For additional resources, guides, and examples, explore the [Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
+For additional resources, guides, and examples, explore the [Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md).
 
 ## Live tutorial on YouTube
 
