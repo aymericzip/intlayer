@@ -1,10 +1,12 @@
-### Documentation de l'éditeur Intlayer
+# Documentation de l'éditeur Intlayer
 
 L'éditeur Intlayer est un outil qui transforme votre application en éditeur visuel. Avec l'éditeur Intlayer, vos équipes peuvent gérer le contenu de votre site dans toutes les langues configurées.
 
 ![Interface de l'éditeur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
 Le package `intlayer-editor` est basé sur Intlayer et disponible pour les applications JavaScript, telles que React (Create React App), Vite + React et Next.js.
+
+## Intégration
 
 Pour plus de détails sur l'installation du package, consultez la section appropriée ci-dessous :
 

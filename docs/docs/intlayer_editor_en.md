@@ -6,6 +6,8 @@ The Intlayer Editor is a tool that transforms your application into a visual edi
 
 The `intlayer-editor` package is based on Intlayer and is available for JavaScript applications, such as React (Create React App), Vite + React, and Next.js.
 
+## Integrating
+
 For more details on how to install the package, see the relevant section below:
 
 ### Integrating with Next.js
