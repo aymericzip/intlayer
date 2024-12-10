@@ -11,7 +11,7 @@ export const useLocale = () => {
 
   const redirectionFunction = useCallback(
     (locale: Locales) => {
-      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+      const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale);
 
       push(pathWithLocale);
 
