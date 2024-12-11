@@ -1,8 +1,10 @@
 {
-  "id": "jsonFile",
-  "profileText": {
-    "en": "Manage profile",
-    "fr": "Gérer le profil",
-    "es": "Administrar perfil"
+  "key": "jsonFile",
+  "content": {
+    "profileText": {
+      "en": "Manage profile",
+      "fr": "Gérer le profil",
+      "es": "Administrar perfil"
+    }
   }
 }

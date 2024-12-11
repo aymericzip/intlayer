@@ -1,6 +1,10 @@
 {
-  "id": "identicFileName - JSON",
-  "en": "Manage profile",
-  "fr": "Gérer le profil",
-  "es": "this content will be updated"
+  "key": "identicFileName - JSON",
+  "content": {
+    "testInSubPath2": {
+      "en": "Manage profile",
+      "fr": "Gérer le profil",
+      "es": "this content will be updated"
+    }
+  }
 }

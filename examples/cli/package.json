@@ -25,9 +25,7 @@
     }
   ],
   "scripts": {
-    "serve": "npx intlayer serve",
-    "test": "",
-    "transpile": "npx intlayer build",
+    "build": "npx intlayer build",
     "watch": "npx intlayer build --watch"
   },
   "dependencies": {

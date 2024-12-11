@@ -1,8 +1,10 @@
 /* eslint-disable */
 
 const wrongExtensionContent = {
-  id: 'wrong_file_extention',
+  key: 'wrong_file_extention',
+  content:{
   text: 'This file has a wrong extention and should not be included in the final bundle.',
+  }
 };
 
 export default wrongExtensionContent;
