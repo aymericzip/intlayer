@@ -1,25 +1,25 @@
-import type { Locales } from 'intlayer';
+import type { Locales } from '@intlayer/config';
 import type { NextPage } from 'next';
 import type { PropsWithChildren, ReactNode } from 'react';
 
-export type LocalParams<T = undefined> = {
+export type LocalParams<T = {}> = {
   params: { locale: Locales } & T;
 };
 
-export type LocalPromiseParams<T = undefined> = {
+export type LocalPromiseParams<T = {}> = {
   params: Promise<{ locale: Locales } & T>;
 };
 
-export type Next14PageIntlayer<T = undefined> = NextPage<LocalParams<T>>;
-export type Next15PageIntlayer<T = undefined> = (
+export type Next14PageIntlayer<T = {}> = NextPage<LocalParams<T>>;
+export type Next15PageIntlayer<T = {}> = (
   props: LocalPromiseParams<T>
 ) => ReactNode | Promise<ReactNode>;
-export type NextPageIntlayer<T = undefined> = Next15PageIntlayer<T>;
+export type NextPageIntlayer<T = {}> = Next15PageIntlayer<T>;
 
-export type Next14LayoutIntlayer<T = undefined> = NextPage<
+export type Next14LayoutIntlayer<T = {}> = NextPage<
   PropsWithChildren<LocalParams<T>>
 >;
-export type Next15LayoutIntlayer<T = undefined> = (
+export type Next15LayoutIntlayer<T = {}> = (
   props: PropsWithChildren<LocalPromiseParams<T>>
 ) => ReactNode | Promise<ReactNode>;
-export type NextLayoutIntlayer<T = undefined> = Next15LayoutIntlayer<T>;
+export type NextLayoutIntlayer<T = {}> = Next15LayoutIntlayer<T>;

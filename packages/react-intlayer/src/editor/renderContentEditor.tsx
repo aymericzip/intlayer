@@ -28,12 +28,14 @@ const IntlayerEditorElement: FC<IntlayerEditorElementProps> = ({
   return content;
 };
 
-export type RenderIntlayerEditorResult = ReactNode & { value: string };
+export type IntlayerNode<T = string> = ReactNode & {
+  value: T;
+};
 
 export const renderIntlayerEditor = (
   data: IntlayerEditorElementProps,
-  isContentSelectable: boolean
-): RenderIntlayerEditorResult => {
+  isContentSelectable = true
+): IntlayerNode => {
   const Result = (
     <IntlayerEditorElement
       {...data}

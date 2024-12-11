@@ -7,11 +7,11 @@ import type { Dictionary } from '@intlayer/core';
  */
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { processDictionary } from './processDictionary/index';
 import {
   type DeepTransformContent,
   recursiveTransformContent,
-} from './useDictionaryBase';
+} from './getDictionary';
+import { processDictionary } from './processDictionary/index';
 
 /**
  * Provides a fallback to string type if the generic type T is never,
@@ -42,28 +42,42 @@ export type DictionaryKeys = StringFallback<
 type DataFromDictionaryKey<
   T extends DictionaryKeys,
   K extends Locales,
-> = DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content'], K>;
+  R extends boolean = false,
+> = DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content'], K, R>;
 
 /**
  * Type definition for the useIntlayer hook, which takes a dictionary ID and an optional locale,
  * and returns the deeply transformed dictionary content.
  *
  */
-export type UseIntlayer = <T extends DictionaryKeys, L extends Locales>(
-  key: T,
-  locale?: L
-) => DataFromDictionaryKey<T, L>;
-
-/**
- * Hook that picks one dictionary by its ID and returns the content,
- * deeply transformed according to the dictionary structure and metadata.
- */
-export const useIntlayerBase: UseIntlayer = <
+export type UseIntlayer = <
   T extends DictionaryKeys,
   L extends Locales,
+  R extends boolean = false,
 >(
   key: T,
-  locale?: L
+  locale?: L,
+  isRenderEditor?: R
+) => DataFromDictionaryKey<T, L, R>;
+
+export type UseIntlayerEditable = <
+  T extends DictionaryKeys,
+  L extends Locales,
+  R extends boolean = true,
+>(
+  key: T,
+  locale?: L,
+  isRenderEditor?: R
+) => DataFromDictionaryKey<T, L, R>;
+
+export const getIntlayer: UseIntlayer = <
+  T extends DictionaryKeys,
+  L extends Locales,
+  R extends boolean = false,
+>(
+  key: T,
+  locale?: L,
+  isRenderEditor: R = false as R
 ) => {
   const dictionary: Dictionary = dictionaries[key as keyof typeof dictionaries];
 
@@ -75,10 +89,8 @@ export const useIntlayerBase: UseIntlayer = <
     locale
   );
 
-  const isContentSelectable = true;
-
   return recursiveTransformContent(
     result,
-    isContentSelectable
-  ) as DataFromDictionaryKey<T, L>;
+    isRenderEditor
+  ) as DataFromDictionaryKey<T, L, R>;
 };

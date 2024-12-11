@@ -6,58 +6,66 @@ import type {
   NodeType,
 } from '@intlayer/core';
 import { isValidElement, type ReactNode } from 'react';
+import {
+  type IntlayerNode,
+  renderIntlayerEditor,
+} from './editor/renderContentEditor';
 import { processDictionary } from './processDictionary/index';
-import { renderIntlayerEditor } from './editor/renderContentEditor';
 
-export type IntlayerNode<T = string> = ReactNode & {
-  value: T;
-};
-
-type TransformNodeType<T, L extends Locales> = T extends {
+type TransformNodeType<T, L extends Locales, R extends boolean> = T extends {
   [NodeType.Enumeration]: { '1': any };
 }
-  ? (quantity: number) => DeepTransformContent<T[NodeType.Enumeration]['1'], L>
+  ? (
+      quantity: number
+    ) => DeepTransformContent<T[NodeType.Enumeration]['1'], L, R>
   : T extends {
         [NodeType.Translation]: object;
       }
     ? L extends keyof T[NodeType.Translation]
-      ? DeepTransformContent<T[NodeType.Translation][L], L>
+      ? DeepTransformContent<T[NodeType.Translation][L], L, R>
       : never
     : T;
 
-export type DeepTransformContent<T, L extends Locales> = T extends object // Check if the property is an object
+export type DeepTransformContent<
+  T,
+  L extends Locales,
+  R extends boolean,
+> = T extends object // Check if the property is an object
   ? T extends (infer U)[] // If it's an array, infer the type of array elements
-    ? DeepTransformContent<U, L>[] // Apply DeepTransformContent recursively to each element of the array
+    ? DeepTransformContent<U, L, R>[] // Apply DeepTransformContent recursively to each element of the array
     : T extends {
           nodeType: NodeType | string;
         }
-      ? TransformNodeType<T, L>
+      ? TransformNodeType<T, L, R>
       : T extends { _owner: any; key: any; props: any; ref: any }
         ? ReactNode
         : {
-            [K in keyof T]: DeepTransformContent<T[K], L>;
+            [K in keyof T]: DeepTransformContent<T[K], L, R>;
           }
   : T extends undefined
     ? never
-    : IntlayerNode<T>;
+    : R extends true
+      ? IntlayerNode<T>
+      : T;
 
 /**
  * Go through the object. If a object has a keyPath, render the intlayer editor if editor enabled.
  */
 export const recursiveTransformContent = (
   value: any,
-  isContentSelectable = false
+  isRenderEditor = false
 ): object => {
   if (typeof value === 'function') {
     return (props: any) =>
-      recursiveTransformContent(value(props), isContentSelectable);
+      recursiveTransformContent(value(props), isRenderEditor);
   } else if (typeof value === 'object') {
     if (typeof value.dictionaryId !== 'undefined') {
-      return renderIntlayerEditor(value, isContentSelectable);
+      if (isRenderEditor) {
+        return renderIntlayerEditor(value);
+      }
+      return value.content;
     } else if (Array.isArray(value)) {
-      return value.map((el) =>
-        recursiveTransformContent(el, isContentSelectable)
-      );
+      return value.map((el) => recursiveTransformContent(el, isRenderEditor));
     } else if (isValidElement(value)) {
       return value;
     }
@@ -65,7 +73,7 @@ export const recursiveTransformContent = (
     return Object.entries(value).reduce(
       (acc, [key, value]) => ({
         ...acc,
-        [key]: recursiveTransformContent(value, isContentSelectable),
+        [key]: recursiveTransformContent(value, isRenderEditor),
       }),
       {} as object
     );
@@ -77,26 +85,32 @@ export const recursiveTransformContent = (
 type DataFromDictionary<
   T extends DeclarationContent,
   K extends Locales,
-> = DeepTransformContent<T['content'], K>;
+  R extends boolean = false,
+> = DeepTransformContent<T['content'], K, R>;
 
-export type UseDictionary = <T extends DeclarationContent, L extends Locales>(
+export type UseDictionary = <
+  T extends DeclarationContent,
+  L extends Locales,
+  R extends boolean = false,
+>(
   dictionary: T,
-  locale?: L
-) => DataFromDictionary<T, L>;
+  locale?: L,
+  isRenderEditor?: R
+) => DataFromDictionary<T, L, R>;
 
-// Add description is JSDoc
 /**
  * Hook that picks one dictionary by its id and return the content
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionaryBase: UseDictionary = <
+export const getDictionary: UseDictionary = <
   T extends DeclarationContent,
   L extends Locales,
+  R extends boolean = false,
 >(
   dictionary: T,
   locale?: L,
-  isContentSelectable = false
+  isRenderEditor: R = false as R
 ) => {
   const result = processDictionary(
     dictionary.content as DictionaryValue,
@@ -108,6 +122,6 @@ export const useDictionaryBase: UseDictionary = <
 
   return recursiveTransformContent(
     result,
-    isContentSelectable
-  ) as DataFromDictionary<T, L>;
+    isRenderEditor
+  ) as DataFromDictionary<T, L, R>;
 };

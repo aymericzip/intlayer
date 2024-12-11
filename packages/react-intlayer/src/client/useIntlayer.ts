@@ -4,9 +4,9 @@ import type { Locales } from '@intlayer/config/client';
 import { useContext } from 'react';
 import {
   type DictionaryKeys,
-  useIntlayerBase,
-  type UseIntlayer,
-} from '../useIntlayerBase';
+  getIntlayer,
+  type UseIntlayerEditable,
+} from '../getIntlayer';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -14,12 +14,13 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useIntlayer: UseIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer: UseIntlayerEditable = <T extends DictionaryKeys>(
   key: T,
-  locale?: Locales
+  locale?: Locales,
+  isRenderEditor = true
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget = locale ?? currentLocale;
 
-  return useIntlayerBase(key, localeTarget);
+  return getIntlayer(key, localeTarget, isRenderEditor);
 };

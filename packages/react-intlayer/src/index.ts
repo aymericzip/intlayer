@@ -15,4 +15,6 @@ export {
   useLocaleBase,
   t,
 } from './client/index';
-export { type IntlayerNode } from './useDictionaryBase';
+export { getDictionary } from './getDictionary';
+export { getIntlayer } from './getIntlayer';
+export { type IntlayerNode } from './editor/renderContentEditor';

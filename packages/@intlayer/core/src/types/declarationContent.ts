@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
   EnumerationContent,
   TranslationContent,
 } from '../transpiler/index';
 
-export type TypedNode =
-  | TranslationContent<unknown>
-  | EnumerationContent<unknown>;
+export type TypedNode<T = unknown> =
+  | TranslationContent<T>
+  | EnumerationContent<T>;
 
 export type ContentValue =
   | string
@@ -31,13 +31,15 @@ export type FlatContentValue =
 
 export type FlatContent = Record<string, FlatContentValue | undefined>;
 
+type IsArray<T> = T extends any[] ? true : false;
+
 // Utility type that performs recursive replacement
 type ReplaceContentValue<T> = {
-  [P in keyof T]: T[P] extends string | number | boolean | null | ReactNode
-    ? ContentValue
+  [P in keyof T]: IsArray<T[P]> extends true
+    ? ReplaceContentValueArray<T[P]>
     : T[P] extends object
       ? ReplaceContentValue<T[P]>
-      : ReplaceContentValueArray<T[P]>;
+      : T[P] | TypedNode<T[P]>;
 };
 
 type ReplaceContentValueArray<T> = T extends (infer U)[]
