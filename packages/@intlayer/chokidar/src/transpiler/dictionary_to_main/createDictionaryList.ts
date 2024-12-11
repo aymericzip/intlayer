@@ -1,11 +1,11 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, extname, relative, resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import fg from 'fast-glob';
+import { getDictionariesPath } from '../../getDictionariesPath';
 import { getFileHash } from '../../utils';
 
 const { content } = getConfiguration();
-const { dictionariesDir, mainDir } = content;
+const { mainDir } = content;
 
 /**
  * This function generates the content of the dictionary list file
@@ -54,12 +54,12 @@ export const createDictionaryList = () => {
     mkdirSync(mainDir, { recursive: true });
   }
 
-  const dictionaries: string[] = fg.sync(`${dictionariesDir}/**/*.json`);
+  const dictionariesPath: string[] = getDictionariesPath();
 
   // Create the dictionary list file
-  const cjsContent = generateDictionaryListContent(dictionaries, 'cjs');
+  const cjsContent = generateDictionaryListContent(dictionariesPath, 'cjs');
   writeFileSync(resolve(mainDir, 'dictionaries.cjs'), cjsContent);
 
-  const esmContent = generateDictionaryListContent(dictionaries, 'esm');
+  const esmContent = generateDictionaryListContent(dictionariesPath, 'esm');
   writeFileSync(resolve(mainDir, 'dictionaries.mjs'), esmContent);
 };

@@ -8,7 +8,7 @@ const metadataContent = {
       en: 'Internationalization (i18n) Next.js made easy | Intlayer',
       fr: 'Internationalisation (i18n) Next.js simplifiée | Intlayer',
       es: 'Internacionalización (i18n) Next.js hecha fácil | Intlayer',
-    }), // Casting to string is required to avoid type error
+    }),
     description: t({
       en: 'i18n for Next.js & React. Easily build multilingual sites with AI-powered visual editor for your translations. TypeScript internationalization.',
       fr: "i18n pour Next.js & React. Créez des sites multilingues grâce à un éditeur visuel boosté par l'IA pour vos traducciones. Internationalisation basée sur TypeScript.",

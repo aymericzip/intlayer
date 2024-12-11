@@ -4,6 +4,7 @@ import { getConfiguration } from '@intlayer/config';
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import fg from 'fast-glob';
 import { cleanOutputDir } from '../cleanOutputDir';
+import { getDictionariesPath } from '../getDictionariesPath';
 import { loadDictionaries } from '../loadDictionaries/loadDictionaries';
 import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
 import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
@@ -45,9 +46,8 @@ export const watch = (options?: ChokidarOptions) => {
         `${LOG_PREFIX}${dictionariesPaths.length} dictionaries built`
       );
 
-      createModuleAugmentation();
-
       createDictionaryList();
+      createModuleAugmentation();
     })
     .on('add', async (filePath) => {
       // Process the file with the functionToRun
@@ -58,23 +58,33 @@ export const watch = (options?: ChokidarOptions) => {
 
       const localeDictionaries = await loadLocalDictionaries(filePath);
 
-      const dictionaries = await buildDictionary(localeDictionaries);
+      const dictionariesPaths = await buildDictionary(localeDictionaries);
 
-      await createTypes(dictionaries);
-
-      createModuleAugmentation();
+      await createTypes(dictionariesPaths);
 
       createDictionaryList();
+      createModuleAugmentation();
     })
     .on('change', async (filePath) => {
       // Process the file with the functionToRun
       console.info('Change detected: ', relative(baseDir, filePath));
 
       const localeDictionaries = await loadLocalDictionaries(filePath);
-      const dictionaries = await buildDictionary(localeDictionaries);
+      const updatedDictionariesPaths =
+        await buildDictionary(localeDictionaries);
+      const allDictionariesPaths: string[] = getDictionariesPath();
 
-      await createTypes(dictionaries);
+      await createTypes(updatedDictionariesPaths);
       console.info(`${LOG_PREFIX}TypeScript types built`);
+
+      if (
+        updatedDictionariesPaths.some((updatedDictionaryPath) =>
+          allDictionariesPaths.includes(updatedDictionaryPath)
+        )
+      ) {
+        createDictionaryList();
+        createModuleAugmentation();
+      }
     })
     .on('error', (error) => {
       console.error('Watcher error:', error);
