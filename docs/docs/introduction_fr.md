@@ -25,7 +25,7 @@ Intlayer offre également un éditeur visuel optionnel qui vous permet de modifi
 ```tsx
 // ./Component1/index.content.ts
 
-import { DeclarationContent, t } from "intlayer";
+import { type DeclarationContent, t } from "intlayer";
 
 const component1Content = {
   key: "component1",

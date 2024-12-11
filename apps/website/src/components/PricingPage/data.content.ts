@@ -1,4 +1,4 @@
-import { t, DeclarationContent } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
 export enum Plans {
   Free = 'free',

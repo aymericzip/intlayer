@@ -1,18 +1,20 @@
 import Script from 'next/script';
-import { t } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import { type FC } from 'react';
 
 export const SoftwareApplicationHeader: FC = () => {
+  const { description, keywords, audienceType } = useIntlayer(
+    'software-application-structured-data',
+    undefined,
+    false
+  );
+
   const softwareApplication = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Intlayer',
     url: 'https://www.votresite.com',
-    description: t({
-      en: 'i18n for Next.js & React. Easily build multilingual sites with AI-powered visual editor for your translations. TypeScript internationalization.',
-      fr: "i18n pour Next.js & React. Créez des sites multilingues grâce à un éditeur visuel boosté par l'IA pour vos traductions. Internationalisation basée sur TypeScript.",
-      es: 'i18n para Next.js & React. Crea sitios multilingües con un editor visual impulsado por IA para tus traducciones. Internacionalización con TypeScript.',
-    }),
+    description,
     softwareVersion: '3.3.4',
     license:
       'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
@@ -29,52 +31,7 @@ export const SoftwareApplicationHeader: FC = () => {
       url: 'https://www.votresite.com',
       logo: 'https://www.votresite.com/assets/logo.png',
     },
-    keywords: t({
-      en: [
-        'translation',
-        'localization',
-        'multilingual',
-        'Internationalization',
-        'i18n',
-        'Web Development',
-        'Next.js',
-        'JavaScript',
-        'Vite',
-        'React',
-        'CMS',
-        'Content Management System',
-      ],
-      fr: [
-        'Traduction',
-        'Localisation',
-        'Multilingue',
-        'SEO',
-        'Internationalisation',
-        'i18n',
-        'Développement Web',
-        'JavaScript',
-        'Next.js',
-        'Vite',
-        'React',
-        'CMS',
-        'Content Management System',
-      ],
-      es: [
-        'Traducción',
-        'Localización',
-        'Multilingüe',
-        'SEO',
-        'Internacionalización',
-        'i18n',
-        'Next.js',
-        'Desarrollo Web',
-        'JavaScript',
-        'Vite',
-        'React',
-        'CMS',
-        'Content Management System',
-      ],
-    }),
+    keywords,
     creator: {
       '@type': 'Person',
       name: 'Aymeric PINEAU',
@@ -88,11 +45,7 @@ export const SoftwareApplicationHeader: FC = () => {
     datePublished: '2024-08-26',
     audience: {
       '@type': 'Audience',
-      audienceType: t({
-        en: 'Developers, Content Managers',
-        fr: 'Développeurs, Responsables de contenu',
-        es: 'Desarrolladores, Gestores de Contenido',
-      }),
+      audienceType,
     },
     mainEntityOfPage: 'https://intlayer.org',
   };

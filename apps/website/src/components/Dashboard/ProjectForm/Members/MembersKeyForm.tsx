@@ -16,9 +16,9 @@ import {
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import {
-  getProjectMembersSchema,
+  useProjectMembersSchema,
   ProjectMembersFormData,
-} from './MembersFormSchema';
+} from './useMembersFormSchema';
 
 const getUserNames = (
   users: UserAPI[],
@@ -31,7 +31,7 @@ const getUserNames = (
 export const MembersForm: FC = () => {
   const { session, isProjectAdmin } = useAuth();
   const { organization, project } = session ?? {};
-  const MembersFormSchema = getProjectMembersSchema();
+  const MembersFormSchema = useProjectMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
     defaultValues: {
       membersIds: project?.membersIds.map((el) => String(el)) ?? [],

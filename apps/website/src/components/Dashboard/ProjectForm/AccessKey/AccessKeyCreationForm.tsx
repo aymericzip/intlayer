@@ -7,8 +7,8 @@ import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
   AccessKeyFormCreationData,
-  getAccessKeyCreationSchema,
-} from './AccessKeyCreationFormSchema';
+  useAccessKeyCreationSchema,
+} from './useAccessKeyCreationFormSchema';
 
 type AccessKeyCreationFormProps = {
   onAccessKeyCreated: (response: AddNewAccessKeyResponse) => void;
@@ -18,7 +18,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   onAccessKeyCreated,
 }) => {
   const { isOrganizationAdmin, isProjectAdmin } = useAuth();
-  const AccessKeyCreationSchema = getAccessKeyCreationSchema();
+  const AccessKeyCreationSchema = useAccessKeyCreationSchema();
   const { addNewAccessKey } = useAddNewAccessKey();
   const { nameInput, expiresAtInput, rights, createAccessKeyButton } =
     useIntlayer('access-key-creation-form');

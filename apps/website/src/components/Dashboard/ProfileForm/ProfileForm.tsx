@@ -4,13 +4,16 @@ import { useForm, Form, useAuth, Container, H3 } from '@intlayer/design-system';
 import { useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { getSignInSchema, type ProfileFormData } from './ProfileFormSchema';
+import {
+  useProfileFormSchema,
+  type ProfileFormData,
+} from './useProfileFormSchema';
 
 export const ProfileForm: FC = () => {
   const { session } = useAuth();
   const { user } = session ?? {};
-  const SignInSchema = getSignInSchema();
-  const { form, isSubmitting } = useForm(SignInSchema);
+  const ProfileFormSchema = useProfileFormSchema();
+  const { form, isSubmitting } = useForm(ProfileFormSchema);
   const { title, nameInput, emailInput, editButton } =
     useIntlayer('profile-form');
   const { updateUser } = useUpdateUser();
@@ -30,7 +33,7 @@ export const ProfileForm: FC = () => {
     >
       <H3 className="mb-8"> {title}</H3>
       <Form
-        schema={SignInSchema}
+        schema={ProfileFormSchema}
         onSubmitSuccess={onSubmitSuccess}
         onSubmitError={onSubmitError}
         className="w-full"

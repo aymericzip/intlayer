@@ -14,13 +14,13 @@ import { useMemo, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
-import { getRegisterSchema, type Register } from './RegisterSchema';
+import { useRegisterSchema, type Register } from './useRegisterSchema';
 import { PagesRoutes } from '@/Routes';
 
 export const RegisterStepForm: FC = () => {
   const { user } = useUser();
   const { emailInput, loginLink, title } = useIntlayer('register-step');
-  const RegisterSchema = getRegisterSchema();
+  const RegisterSchema = useRegisterSchema();
   const {
     goNextStep,
     goPreviousStep,

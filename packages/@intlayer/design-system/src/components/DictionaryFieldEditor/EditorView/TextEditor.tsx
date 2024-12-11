@@ -210,7 +210,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 
       <tfoot>
         <Button
-          label={addNewEnumeration.label.value}
+          label={addNewEnumeration.label}
           variant="hoverable"
           color="neutral"
           textAlign="left"
@@ -275,7 +275,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
       </tbody>
       <tfoot>
         <Button
-          label={addNewElement.label.value}
+          label={addNewElement.label}
           variant="hoverable"
           color="neutral"
           textAlign="left"

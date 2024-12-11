@@ -9,9 +9,9 @@ import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 import {
-  getDefinePasswordSchema,
+  useDefinePasswordSchema,
   DefinePassword,
-} from './DefinePasswordSchema';
+} from './useDefinePasswordSchema';
 
 export const DefinePasswordStepForm: FC = () => {
   const {
@@ -32,7 +32,7 @@ export const DefinePasswordStepForm: FC = () => {
 
   const isPasswordDefined = Boolean(data?.data?.hasPassword);
 
-  const DefinePasswordSchema = getDefinePasswordSchema(isPasswordDefined);
+  const DefinePasswordSchema = useDefinePasswordSchema(isPasswordDefined);
   const { form, isSubmitting } = useForm(DefinePasswordSchema, {
     defaultValues: formData,
   });

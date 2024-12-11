@@ -3,7 +3,7 @@
 import { useForm, Button, H3 } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { getOrganizationSchema } from './OrganizationFormSchema';
+import { useOrganizationSchema } from './useOrganizationFormSchema';
 
 type NoOrganizationViewProps = {
   onClickCreateOrganization: () => void;
@@ -12,8 +12,8 @@ type NoOrganizationViewProps = {
 export const NoOrganizationView: FC<NoOrganizationViewProps> = ({
   onClickCreateOrganization,
 }) => {
-  const SignInSchema = getOrganizationSchema();
-  const { isSubmitting } = useForm(SignInSchema);
+  const OrganizationSchema = useOrganizationSchema();
+  const { isSubmitting } = useForm(OrganizationSchema);
   const {
     createOrganizationButton,
     createOrganizationTitle,

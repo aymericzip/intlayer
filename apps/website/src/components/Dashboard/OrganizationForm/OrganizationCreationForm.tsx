@@ -8,12 +8,12 @@ import {
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
-  getOrganizationSchema,
+  useOrganizationSchema,
   type OrganizationFormData,
-} from './OrganizationFormSchema';
+} from './useOrganizationFormSchema';
 
 export const OrganizationCreationForm: FC = () => {
-  const organizationSchema = getOrganizationSchema();
+  const organizationSchema = useOrganizationSchema();
   const { addOrganization } = useAddOrganization();
   const { selectOrganization } = useSelectOrganization();
   const { form, isSubmitting } = useForm(organizationSchema);

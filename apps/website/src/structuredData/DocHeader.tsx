@@ -1,6 +1,6 @@
 import { type DeclarationContent } from 'intlayer';
 import Script from 'next/script';
-import { t } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 
 type DocHeaderProps = {
   docName: string;
@@ -36,6 +36,11 @@ export const DocHeader = ({
   datePublished,
   url,
 }: DocHeaderProps) => {
+  const { audienceType } = useIntlayer(
+    'creative-work-structured-data',
+    undefined,
+    false
+  );
   const creativeWork = {
     key: 'creative-work-structured-data',
     content: {
@@ -56,11 +61,7 @@ export const DocHeader = ({
         'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
       audience: {
         '@type': 'Audience',
-        audienceType: t({
-          en: 'Developers, Content Managers',
-          fr: 'Développeurs, Responsables de contenu',
-          es: 'Desarrolladores, Gestores de Contenido',
-        }),
+        audienceType,
       },
     },
   } satisfies DeclarationContent;

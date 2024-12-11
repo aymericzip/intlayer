@@ -1,2 +1,2 @@
 export * from './ProfileForm';
-export * from './ProfileFormSchema';
+export * from './useProfileFormSchema';

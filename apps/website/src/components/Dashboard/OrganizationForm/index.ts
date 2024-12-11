@@ -1,2 +1,2 @@
 export * from './OrganizationForm';
-export * from './OrganizationFormSchema';
+export * from './useOrganizationFormSchema';

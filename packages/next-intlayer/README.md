@@ -36,7 +36,7 @@
 ```tsx
 // ./ClientComponent/index.content.ts
 
-import { DeclarationContent, t } from "intlayer";
+import { type DeclarationContent, t } from "intlayer";
 
 const clientComponentContent = {
   key: "client-component",

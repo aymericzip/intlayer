@@ -1,24 +1,9 @@
-import { t } from 'next-intlayer';
+import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod';
 
-export const getAccessKeyCreationSchema = () => {
-  const requiredErrorName = t({
-    en: 'Please enter a name for your access key',
-    fr: "Veuillez saisir un nom pour votre clé d'accès",
-    es: 'Por favor, ingrese un nombre para su clave de acceso',
-  });
-
-  const invalidTypeErrorName = t({
-    en: 'Please enter a valid name for your access key',
-    fr: "Veuillez saisir un nom valide pour votre clé d'accès",
-    es: 'Por favor, ingrese un nombre válido para su clave de acceso',
-  });
-
-  const invalidDateErrorName = t({
-    en: 'Please enter a valid date for your access key expiration date',
-    fr: "Veuillez saisir une date valide pour la date d'expiration de votre clé d'accès",
-    es: 'Por favor, ingrese una fecha válida para la fecha de expiración de su clave de acceso',
-  });
+export const useAccessKeyCreationSchema = () => {
+  const { requiredErrorName, invalidTypeErrorName, invalidDateErrorName } =
+    useIntlayer('access-key-creation-form-schema', undefined, false);
 
   return z.object({
     name: z
@@ -61,5 +46,5 @@ export const getAccessKeyCreationSchema = () => {
 };
 
 export type AccessKeyFormCreationData = z.infer<
-  ReturnType<typeof getAccessKeyCreationSchema>
+  ReturnType<typeof useAccessKeyCreationSchema>
 >;

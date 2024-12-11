@@ -5,16 +5,16 @@ import { useUpdateOrganization } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
-  getOrganizationSchema,
+  useOrganizationSchema,
   type OrganizationFormData,
-} from './OrganizationFormSchema';
+} from './useOrganizationFormSchema';
 
 export const OrganizationEditionForm: FC = () => {
   const { session } = useAuth();
   const { organization } = session ?? {};
-  const SignInSchema = getOrganizationSchema();
+  const OrganizationSchema = useOrganizationSchema();
   const { updateOrganization } = useUpdateOrganization();
-  const { form, isSubmitting } = useForm(SignInSchema);
+  const { form, isSubmitting } = useForm(OrganizationSchema);
   const { title, nameInput, editButton } = useIntlayer('organization-form');
 
   const onSubmitSuccess = async (data: OrganizationFormData) => {
@@ -25,7 +25,7 @@ export const OrganizationEditionForm: FC = () => {
     <>
       <H3 className="mb-8"> {title}</H3>
       <Form
-        schema={SignInSchema}
+        schema={OrganizationSchema}
         onSubmitSuccess={onSubmitSuccess}
         className="size-full"
         {...form}

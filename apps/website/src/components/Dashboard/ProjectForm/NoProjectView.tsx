@@ -3,7 +3,7 @@
 import { useForm, Button } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { getProjectSchema } from './ProjectFormSchema';
+import { useProjectSchema } from './useProjectFormSchema';
 
 type NoProjectViewProps = {
   onClickCreateProject: () => void;
@@ -12,8 +12,8 @@ type NoProjectViewProps = {
 export const NoProjectView: FC<NoProjectViewProps> = ({
   onClickCreateProject,
 }) => {
-  const SignInSchema = getProjectSchema();
-  const { isSubmitting } = useForm(SignInSchema);
+  const ProjectSchema = useProjectSchema();
+  const { isSubmitting } = useForm(ProjectSchema);
   const { createProjectButton, createProjectTitle, createProjectDescription } =
     useIntlayer('project-form');
 

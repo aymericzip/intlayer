@@ -1,2 +1,2 @@
 export * from './ResetPasswordForm';
-export * from './ResetPasswordSchema';
+export * from './useResetPasswordSchema';

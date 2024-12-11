@@ -1,11 +1,13 @@
 import type { FC } from 'react';
+// @ts-ignore react-intlayer not build yet
+import { useDictionary } from 'react-intlayer';
 import { Form, useForm } from '../../Form';
 import { useUser } from '../useUser';
+import { changePasswordContent } from './changePasswordForm.content';
 import {
-  getChangePasswordSchema,
+  useChangePasswordSchema,
   type ChangePassword,
-} from './ChangePasswordSchema';
-import { getChangePasswordContent } from './index.content';
+} from './useChangePasswordSchema';
 
 type ChangePasswordFormProps = {
   onSubmitSuccess: (data: ChangePassword) => Promise<void>;
@@ -24,9 +26,9 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     confirmPasswordInput,
     changePasswordButton,
     backToHomeButton,
-  } = getChangePasswordContent();
+  } = useDictionary(changePasswordContent);
   const { user } = useUser();
-  const ChangePasswordSchema = getChangePasswordSchema();
+  const ChangePasswordSchema = useChangePasswordSchema();
 
   const { form, isSubmitting, isSubmitted, isValid } =
     useForm(ChangePasswordSchema);

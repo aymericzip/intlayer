@@ -1,2 +1,2 @@
 export * from './ProjectForm';
-export * from './ProjectFormSchema';
+export * from './useProjectFormSchema';

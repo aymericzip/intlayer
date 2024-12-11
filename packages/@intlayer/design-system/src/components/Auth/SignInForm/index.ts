@@ -1,2 +1,2 @@
 export * from './SignInForm';
-export * from './SignInSchema';
+export * from './useSignInSchema';

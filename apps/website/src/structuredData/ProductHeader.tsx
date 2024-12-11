@@ -1,18 +1,19 @@
 import Script from 'next/script';
-import { t } from 'next-intlayer/server';
+import { useIntlayer } from 'next-intlayer/server';
 import { FC } from 'react';
 
 export const ProductHeader: FC = () => {
+  const { description } = useIntlayer(
+    'product-header-structured-data',
+    undefined,
+    false
+  );
   const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     url: 'https://intlayer.org/dashboard',
     name: 'Intlayer CMS',
-    description: t({
-      en: 'Intlayer CMS is a flexible content management system for developers and content managers.',
-      fr: 'Intlayer CMS est un système de gestion de contenu flexible pour les développeurs et les responsables de contenu.',
-      es: 'Intlayer CMS es un sistema de gestión de contenido flexible para desarrolladores y gestores de contenido.',
-    }),
+    description,
     image:
       'https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png', // Example image URL for the product
     // sku: 'INTLAYER-CMS-001', // Example SKU (replace with actual)

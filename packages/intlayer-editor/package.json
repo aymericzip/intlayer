@@ -84,6 +84,7 @@
     "body-parser": "^1.20.3",
     "commander": "^12.1.0",
     "express": "^4.21.1",
+    "intlayer": "workspace:^",
     "lucide-react": "^0.468.0",
     "magic-regexp": "^0.8.0",
     "react": "^18.3.1",
@@ -118,6 +119,7 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/design-system": "workspace:^",
+    "intlayer": "workspace:^",
     "react-intlayer": "workspace:^"
   },
   "engines": {

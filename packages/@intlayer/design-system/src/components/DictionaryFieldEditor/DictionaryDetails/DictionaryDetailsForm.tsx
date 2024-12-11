@@ -13,9 +13,9 @@ import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
 import { dictionaryDetailsContent } from './dictionaryDetails.content';
 import {
-  getDictionaryDetailsSchema,
+  useDictionaryDetailsSchema,
   DictionaryDetailsFormData,
-} from './DictionaryDetailsSchema';
+} from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
@@ -29,7 +29,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const { pushDictionaries } = usePushDictionaries();
   const { data: projects } = useGetProjects();
 
-  const DictionaryDetailsSchema = getDictionaryDetailsSchema(
+  const DictionaryDetailsSchema = useDictionaryDetailsSchema(
     String(project?._id)
   );
   const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
@@ -72,16 +72,16 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       <div className="flex size-full flex-1 gap-8 max-md:flex-col">
         <Form.EditableFieldInput
           name="title"
-          label={titleInput.label.value}
-          placeholder={titleInput.placeholder.value}
-          description={titleInput.description.value}
+          label={titleInput.label}
+          placeholder={titleInput.placeholder}
+          description={titleInput.description}
           disabled={isSubmitting}
         />
         <Form.EditableFieldInput
           name="key"
-          label={keyInput.label.value}
-          placeholder={keyInput.label.value}
-          description={keyInput.description.value}
+          label={keyInput.label}
+          placeholder={keyInput.label}
+          description={keyInput.description}
           disabled={isSubmitting}
           required
         />
@@ -89,16 +89,16 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
       <Form.EditableFieldTextArea
         name="description"
-        label={descriptionInput.label.value}
-        placeholder={descriptionInput.placeholder.value}
-        description={descriptionInput.description.value}
+        label={descriptionInput.label}
+        placeholder={descriptionInput.placeholder}
+        description={descriptionInput.description}
         disabled={isSubmitting}
       />
 
       <Form.MultiSelect
         name="projectIds"
-        label={projectInput.label.value}
-        description={projectInput.description.value}
+        label={projectInput.label}
+        description={projectInput.description}
       >
         <MultiSelect.Trigger
           getBadgeValue={(value) =>
@@ -106,7 +106,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               ?.name ?? value
           }
         >
-          <MultiSelect.Input placeholder={projectInput.placeholder.value} />
+          <MultiSelect.Input placeholder={projectInput.placeholder} />
         </MultiSelect.Trigger>
         <MultiSelect.Content>
           <MultiSelect.List>
@@ -125,7 +125,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       {isLocalDictionary ? (
         <Form.Button
           type="submit"
-          label={publishButton.label.value}
+          label={publishButton.label}
           disabled={isSubmitting || !isFormEdited}
           Icon={ArrowUpFromLine}
           isFullWidth={false}
@@ -138,7 +138,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       ) : (
         <Form.Button
           type="submit"
-          label={saveButton.label.value}
+          label={saveButton.label}
           disabled={isSubmitting}
           isFullWidth={false}
           className={cn('ml-auto', isFormEdited ? '' : 'invisible')}

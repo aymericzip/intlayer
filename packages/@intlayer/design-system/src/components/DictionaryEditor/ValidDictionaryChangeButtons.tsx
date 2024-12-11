@@ -4,6 +4,7 @@ import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import type { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, RotateCcw, Save } from 'lucide-react';
 import { useMemo, type FC } from 'react';
+// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { useShallow } from 'zustand/react/shallow';
 import { usePushDictionaries } from '../../hooks';

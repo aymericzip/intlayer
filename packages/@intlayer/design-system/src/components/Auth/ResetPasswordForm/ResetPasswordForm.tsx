@@ -4,9 +4,9 @@ import { useState, type FC, useEffect, type ReactNode } from 'react';
 import { Form, useForm } from '../../Form';
 import { getResetPasswordContent } from './index.content';
 import {
-  getResetPasswordSchema,
+  useResetPasswordSchema,
   type ResetPassword,
-} from './ResetPasswordSchema';
+} from './useResetPasswordSchema';
 
 type ForgotPasswordFormProps = {
   email?: string;
@@ -21,7 +21,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
   onSubmitError,
   onClickBackToLogin,
 }) => {
-  const ResetPasswordSchema = getResetPasswordSchema();
+  const ResetPasswordSchema = useResetPasswordSchema();
   const {
     emailInput,
     sendRecoveryEmailButton,

@@ -2,8 +2,8 @@
 
 import type { FC } from 'react';
 import { Form, useForm } from '../../Form';
-import { getSignUpContent } from './index.content';
-import { getSignUpSchema, type SignUp } from './SignUpSchema';
+import { getSignUpContent } from './signUpForm.content';
+import { useSignUpSchema, type SignUp } from './useSignUpSchema';
 
 type SignUpFormProps = {
   onSubmitSuccess: (data: SignUp) => Promise<void>;
@@ -23,7 +23,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
     signUpButton,
     loginLink,
   } = getSignUpContent();
-  const SignUpSchema = getSignUpSchema();
+  const SignUpSchema = useSignUpSchema();
   const { form, isSubmitting } = useForm(SignUpSchema);
 
   return (

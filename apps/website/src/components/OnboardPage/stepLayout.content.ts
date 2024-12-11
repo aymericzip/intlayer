@@ -1,6 +1,6 @@
-import { t, DeclarationContent } from 'intlayer';
+import { t, type DeclarationContent } from 'intlayer';
 
-const pricingContent = {
+export default {
   key: 'step-layout',
   content: {
     nextStepButton: {
@@ -17,5 +17,3 @@ const pricingContent = {
     },
   },
 } satisfies DeclarationContent;
-
-export default pricingContent;

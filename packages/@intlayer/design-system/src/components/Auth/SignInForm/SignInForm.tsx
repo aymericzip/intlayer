@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { Form, useForm } from '../../Form';
 import { ExternalsLoginButtons } from '../ExternalsLoginButtons';
 import { getSignInContent } from './index.content';
-import { getSignInSchema, type SignIn } from './SignInSchema';
+import { useSignInSchema, type SignIn } from './useSignInSchema';
 
 type SignInFormProps = {
   onSubmitSuccess: (data: SignIn) => Promise<void>;
@@ -19,7 +19,7 @@ export const SignInForm: FC<SignInFormProps> = ({
   onClickForgotPassword,
   onClickSignUp,
 }) => {
-  const SignInSchema = getSignInSchema();
+  const SignInSchema = useSignInSchema();
   const { form, isSubmitting } = useForm(SignInSchema);
   const signInContent = getSignInContent();
 

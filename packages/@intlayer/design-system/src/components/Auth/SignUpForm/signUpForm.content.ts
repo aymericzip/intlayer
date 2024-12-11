@@ -1,5 +1,4 @@
 // @ts-ignore react-intlayer not build yet
-// @ts-ignore react-intlayer not build yet
 import { t } from 'react-intlayer';
 
 export const getSignUpContent = () => ({

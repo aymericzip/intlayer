@@ -1,2 +1,2 @@
 export * from './ChangePasswordForm';
-export * from './ChangePasswordSchema';
+export * from './useChangePasswordSchema';

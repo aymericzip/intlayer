@@ -17,7 +17,7 @@
 ```tsx
 // ./Component1/index.content.ts
 
-import { DeclarationContent, t } from "intlayer";
+import { type DeclarationContent, t } from "intlayer";
 
 const component1Content = {
   key: "component1",

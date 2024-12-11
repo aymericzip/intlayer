@@ -13,9 +13,10 @@ import {
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useCallback, useEffect, useState, type FC } from 'react';
-import { t } from 'react-intlayer';
+import { t, useDictionary } from 'react-intlayer';
 import { useShallow } from 'zustand/shallow';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
+import dictionaryEditionDrawerContent from './dictionaryEditionDrawer.content';
 import {
   type FileContent as FileContentWithDictionaryPath,
   useDictionaryEditionDrawer,
@@ -96,6 +97,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   setLocale,
   dictionaryId,
 }) => {
+  const { backButtonText } = useDictionary(dictionaryEditionDrawerContent);
   const id = getDrawerIdentifier(dictionaryId);
 
   const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryId);
@@ -121,11 +123,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
       }
       backButton={{
         onBack: handleOnBack,
-        text: t({
-          en: 'Dictionary list',
-          fr: 'Liste des dictionnaires',
-          es: 'Lista de diccionarios',
-        }),
+        text: backButtonText,
       }}
     >
       {focusedContent && (

@@ -22,9 +22,9 @@ import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 import {
-  getSetUpOrganizationSchema,
+  useSetUpOrganizationSchema,
   SetUpOrganization,
-} from './SetUpOrganizationSchema';
+} from './useSetUpOrganizationSchema';
 
 const OrganizationFormContent: FC<{
   selectedOrganizationId?: OrganizationAPI['_id'] | string;
@@ -64,7 +64,7 @@ const OrganizationFormContent: FC<{
 };
 
 export const SetupOrganizationStepForm: FC = () => {
-  const SetUpOrganizationSchema = getSetUpOrganizationSchema();
+  const SetUpOrganizationSchema = useSetUpOrganizationSchema();
   const { session } = useAuth();
   const { selectOrganization } = useSelectOrganization();
   const { formData, goNextStep, goPreviousStep, setFormData } = useStep(

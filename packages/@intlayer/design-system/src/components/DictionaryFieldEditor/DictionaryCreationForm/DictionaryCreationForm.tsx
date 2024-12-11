@@ -12,16 +12,16 @@ import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
 import { dictionaryFormContent } from './dictionaryCreationForm.content';
 import {
-  getDictionarySchema,
+  useDictionarySchema,
   type DictionaryFormData,
-} from './dictionaryFormSchema';
+} from './useDictionaryFormSchema';
 
 export const DictionaryCreationForm: FC = () => {
   const { session } = useAuth();
   const { project } = session ?? {};
   const { addDictionary } = useAddDictionary();
   const { data: projects } = useGetProjects();
-  const DictionarySchema = getDictionarySchema(String(project?._id));
+  const DictionarySchema = useDictionarySchema(String(project?._id));
   const { form, isSubmitting } = useForm(DictionarySchema);
   const { keyInput, createDictionaryButton, projectInput } = useDictionary(
     dictionaryFormContent
@@ -41,18 +41,18 @@ export const DictionaryCreationForm: FC = () => {
       <Form.Input
         name="key"
         label={keyInput.label}
-        placeholder={keyInput.placeholder.value}
+        placeholder={keyInput.placeholder}
         isRequired
       />
 
-      <Form.MultiSelect name="projectIds" label={projectInput.label.value}>
+      <Form.MultiSelect name="projectIds" label={projectInput.label}>
         <MultiSelect.Trigger
           getBadgeValue={(value) =>
             projects?.data?.find((project) => String(project._id) === value)
               ?.name ?? value
           }
         >
-          <MultiSelect.Input placeholder={projectInput.placeholder.value} />
+          <MultiSelect.Input placeholder={projectInput.placeholder} />
         </MultiSelect.Trigger>
         <MultiSelect.Content>
           <MultiSelect.List>
@@ -73,7 +73,7 @@ export const DictionaryCreationForm: FC = () => {
         type="submit"
         color="text"
         isLoading={isSubmitting}
-        label={createDictionaryButton.ariaLabel.value}
+        label={createDictionaryButton.ariaLabel}
       >
         {createDictionaryButton.text}
       </Form.Button>

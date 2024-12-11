@@ -23,10 +23,10 @@ import { ObjectId } from 'mongoose';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import {
-  getOrganizationMembersSchema,
+  useOrganizationMembersSchema,
   OrganizationMembersFormData,
-} from './MembersFormSchema';
-import { getOrganizationNewMembersSchema } from './NewMembersFormSchema';
+} from './useMembersFormSchema';
+import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
 
 const getUserNames = (
   users: UserAPI[],
@@ -39,8 +39,8 @@ const getUserNames = (
 export const MembersForm: FC = () => {
   const { session, isOrganizationAdmin } = useAuth();
   const { organization } = session ?? {};
-  const MembersFormSchema = getOrganizationMembersSchema();
-  const NewMembersFormSchema = getOrganizationNewMembersSchema();
+  const MembersFormSchema = useOrganizationMembersSchema();
+  const NewMembersFormSchema = useOrganizationNewMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
     defaultValues: {
       membersIds: organization?.membersIds.map((el) => String(el)) ?? [],

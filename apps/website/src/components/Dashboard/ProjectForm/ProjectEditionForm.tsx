@@ -4,12 +4,12 @@ import { useForm, Form, useAuth, H3 } from '@intlayer/design-system';
 import { useUpdateProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
+import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
   const { session, isProjectAdmin } = useAuth();
   const { project } = session ?? {};
-  const SignInSchema = getProjectSchema();
+  const SignInSchema = useProjectSchema();
   const { updateProject } = useUpdateProject();
   const { form, isSubmitting } = useForm(SignInSchema);
   const { title, nameInput, editButton } = useIntlayer('project-form');

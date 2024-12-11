@@ -4,10 +4,10 @@ import { useForm, Form } from '@intlayer/design-system';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { getProjectSchema, type ProjectFormData } from './ProjectFormSchema';
+import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
 
 export const ProjectCreationForm: FC = () => {
-  const SignInSchema = getProjectSchema();
+  const SignInSchema = useProjectSchema();
   const { addProject } = useAddProject();
   const { selectProject } = useSelectProject();
   const { form, isSubmitting } = useForm(SignInSchema);
