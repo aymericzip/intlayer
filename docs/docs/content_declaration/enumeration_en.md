@@ -74,6 +74,6 @@ For more detailed information on configuration and usage, refer to the following
 
 - [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_cli_en.md)
 - [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md)
-- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md)
+- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md)
 
 These resources provide further insights into the setup and usage of Intlayer in different environments and with various frameworks.

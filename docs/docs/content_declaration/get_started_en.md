@@ -2,7 +2,7 @@
 
 ## Configure Intlayer for your project
 
-[See how to use intlayer with NextJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md)
+[See how to use intlayer with NextJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md)
 
 [See how to use intlayer with ReactJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md)
 

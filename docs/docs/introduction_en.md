@@ -68,7 +68,7 @@ Intlayer offers a variety of features tailored to meet the needs of modern web d
 
 Intlayer is designed to work seamlessly with Next.js and React applications. It also supports Vite and Create React App.
 
-- **Next.js Integration**: Utilize the power of Next.js within Intlayer for server-side rendering and static site generation. Details are available in our [Next.js Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_en.md).
+- **Next.js Integration**: Utilize the power of Next.js within Intlayer for server-side rendering and static site generation. Details are available in our [Next.js Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md).
 - **Vite and React Integration**: Leverage Vite within Intlayer for server-side rendering and static site generation. Details are available in our [Vite and React Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md).
 - **Create React App Integration**: Utilize the power of Create React App within Intlayer for server-side rendering and static site generation. Details are available in our [Create React App Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
 
