@@ -1,4 +1,4 @@
-import { getDoc } from '@components/DocPage/docData';
+import { getDocDataByPath, urlRenamer } from '@components/DocPage/docData';
 import { Container, Link, Loader } from '@intlayer/design-system';
 import { getDoc as getDocContent } from '@intlayer/docs';
 import { DocHeader } from '@structuredData/DocHeader';
@@ -23,7 +23,7 @@ const DynamicDocumentationRender = dynamic(
 const DocumentationPage: Next14PageIntlayer<DocProps> = ({
   params: { locale, doc },
 }) => {
-  const docData = getDoc(doc, locale);
+  const docData = getDocDataByPath(doc, locale);
   const { contribution } = useIntlayer('doc-page', locale);
 
   if (!docData) {
@@ -31,6 +31,8 @@ const DocumentationPage: Next14PageIntlayer<DocProps> = ({
   }
 
   const docContent = getDocContent(docData?.docName, locale);
+
+  const docWithUrlRenamed = urlRenamer(docContent);
 
   return (
     <IntlayerServerProvider locale={locale}>
@@ -43,7 +45,9 @@ const DocumentationPage: Next14PageIntlayer<DocProps> = ({
         datePublished={docData.createdAt}
         url={docData.url}
       />
-      <DynamicDocumentationRender docName={docData.docName} />
+      <DynamicDocumentationRender>
+        {docWithUrlRenamed}
+      </DynamicDocumentationRender>
       <Container
         roundedSize="md"
         transparency="full"

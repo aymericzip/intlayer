@@ -29,19 +29,19 @@ For more details on how to install the package, see the relevant section below:
 
 ### Integrating with Next.js
 
-For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15_en.md).
+For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_nextjs_15.md).
 
 ### Integrating with Create React App
 
-For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app_en.md).
+For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_create_react_app.md
 
 ### Integrating with Vite + React
 
-For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react_en.md).
+For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/intlayer_with_vite+react.md
 
 ## How Intlayer Editor Works
 
-Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md), wherever these files are declared in your project.
+Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started.mdwherever these files are declared in your project.
 
 In this way, you don't have to worry about where the file is declared or about finding your key in your dictionary collection.
 
@@ -83,7 +83,7 @@ const config: IntlayerConfig = {
 
 > If you don't have a client ID and client secret, you can obtain them by creating a new client in the [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
 
-> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
+> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration.md
 
 ### 2. Insert the Intlayer Editor Provider in your application
 

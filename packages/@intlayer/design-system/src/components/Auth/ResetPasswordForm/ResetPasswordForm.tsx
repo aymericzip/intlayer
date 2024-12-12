@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type FC, useEffect, type ReactNode } from 'react';
+// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { Form, useForm } from '../../Form';
 import { resetPasswordContent } from './resetPasswordContent.content';

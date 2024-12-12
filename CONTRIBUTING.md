@@ -2,7 +2,7 @@
 
 ## Understanding the project
 
-To understand the project, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/how_works_intlayer_en.md).
+To understand the project, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/how_works_intlayer.md).
 
 ## Development setup
 

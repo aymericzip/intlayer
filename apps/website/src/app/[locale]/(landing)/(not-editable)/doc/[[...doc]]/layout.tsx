@@ -1,5 +1,5 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { getDocPaths, getDoc } from '@components/DocPage/docData';
+import { getDocPaths, getDocDataByPath } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
@@ -19,7 +19,7 @@ export const generateStaticParams = () =>
 export const generateMetadata = ({
   params: { locale, doc },
 }: DocPageProps): Metadata => {
-  const docData = getDoc(doc, locale);
+  const docData = getDocDataByPath(doc, locale);
 
   if (!docData) {
     throw new Error(`Doc not found ${JSON.stringify(doc)}`);

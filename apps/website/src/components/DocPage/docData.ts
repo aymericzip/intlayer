@@ -211,7 +211,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
   return result;
 };
 
-export const getDoc = (
+export const getDocDataByPath = (
   docPath: string[] = [],
   locale: Locales = Locales.ENGLISH
 ): DocData | undefined => {
@@ -266,7 +266,7 @@ export const getDocArray = (locale?: Locales): DocData[] => {
 };
 
 const getDocLocale = (url: string, locale: Locales): string =>
-  url.replace('en.md', `${locale}.md`);
+  url.replace('/en/', `/${locale}/`);
 
 const docUrlRenamer: Record<GithubRoutes, PagesRoutes> = {
   [GithubRoutes.Introduction]: PagesRoutes.Doc_GetStarted,
