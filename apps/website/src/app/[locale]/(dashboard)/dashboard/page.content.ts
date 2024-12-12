@@ -5,8 +5,18 @@ const dashboardContent = {
   content: {
     title: t({
       en: 'Dashboard',
-      fr: 'Se connecter',
-      es: 'Iniciar sesión',
+      'en-GB': 'Dashboard',
+      fr: 'Tableau de bord',
+      es: 'Tablero',
+      de: 'Armaturenbrett',
+      ja: 'ダッシュボード',
+      ko: '대시보드',
+      zh: '仪表板',
+      it: 'Cruscotto',
+      pt: 'Painel',
+      hi: 'डैशबोर्ड',
+      ar: 'لوحة التحكم',
+      ru: 'Панель управления',
     }),
   },
 } satisfies DeclarationContent;

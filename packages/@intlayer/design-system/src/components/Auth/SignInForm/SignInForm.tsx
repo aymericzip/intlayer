@@ -1,9 +1,10 @@
 'use client';
 
 import type { FC } from 'react';
+import { useDictionary } from 'react-intlayer';
 import { Form, useForm } from '../../Form';
 import { ExternalsLoginButtons } from '../ExternalsLoginButtons';
-import { getSignInContent } from './index.content';
+import { signInContent } from './signIn.content';
 import { useSignInSchema, type SignIn } from './useSignInSchema';
 
 type SignInFormProps = {
@@ -21,7 +22,13 @@ export const SignInForm: FC<SignInFormProps> = ({
 }) => {
   const SignInSchema = useSignInSchema();
   const { form, isSubmitting } = useForm(SignInSchema);
-  const signInContent = getSignInContent();
+  const {
+    emailInput,
+    passwordInput,
+    forgotPasswordLink,
+    loginButton,
+    signUpLink,
+  } = useDictionary(signInContent);
 
   return (
     <>
@@ -36,16 +43,16 @@ export const SignInForm: FC<SignInFormProps> = ({
         <div className="flex flex-col gap-y-6">
           <Form.Input
             name="email"
-            label={signInContent.emailInput.label}
-            placeholder={signInContent.emailInput.placeholder}
+            label={emailInput.label}
+            placeholder={emailInput.placeholder}
             isRequired
             autoComplete="email"
           />
 
           <Form.InputPassword
             name="password"
-            label={signInContent.passwordInput.label}
-            placeholder={signInContent.passwordInput.placeholder}
+            label={passwordInput.label}
+            placeholder={passwordInput.placeholder}
             isRequired
             autoComplete="current-password"
           />
@@ -54,12 +61,12 @@ export const SignInForm: FC<SignInFormProps> = ({
         <Form.Button
           className="ml-auto mt-2 block"
           variant="link"
-          label={signInContent.forgotPasswordLink.ariaLabel}
+          label={forgotPasswordLink.ariaLabel}
           color="text"
           size="sm"
           onClick={onClickForgotPassword}
         >
-          {signInContent.forgotPasswordLink.text}
+          {forgotPasswordLink.text}
         </Form.Button>
 
         <Form.Button
@@ -67,21 +74,21 @@ export const SignInForm: FC<SignInFormProps> = ({
           type="submit"
           color="text"
           isLoading={isSubmitting}
-          label={signInContent.loginButton.ariaLabel}
+          label={loginButton.ariaLabel}
         >
-          {signInContent.loginButton.text}
+          {loginButton.text}
         </Form.Button>
 
         <span className="text-neutral dark:text-neutral-dark m-auto mt-3 flex w-full items-center justify-center text-xs">
-          {signInContent.signUpLink.message}
+          {signUpLink.message}
           <Form.Button
             variant="link"
-            label={signInContent.signUpLink.ariaLabel}
+            label={signUpLink.ariaLabel}
             color="text"
             size="sm"
             onClick={onClickSignUp}
           >
-            {signInContent.signUpLink.text}
+            {signUpLink.text}
           </Form.Button>
         </span>
       </Form>

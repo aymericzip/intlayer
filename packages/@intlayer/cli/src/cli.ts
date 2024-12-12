@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { audit } from './audit/index';
 import { build } from './build';
+import { getConfig } from './config';
 import { listContentDeclaration } from './listContentDeclaration';
 import { pull } from './pull';
 import { push } from './push';
@@ -45,6 +46,11 @@ export const setAPI = (): Command => {
     .option('-d, --dictionaries [ids...]', 'List of dictionary IDs to pull')
     .option('--newDictionariesPath [path]', 'Path to save the new dictionaries')
     .action(pull);
+
+  program
+    .command('get config')
+    .description('Get the configuration')
+    .action(getConfig);
 
   program
     .command('content list')

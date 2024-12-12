@@ -6,6 +6,7 @@ import { useResetPasswordSchemaContent } from './useResetPasswordSchema.content'
 export const useResetPasswordSchema = () => {
   const { requiredErrorEmail, invalidTypeErrorEmail, invalidLengthErrorEmail } =
     useDictionary(useResetPasswordSchemaContent, undefined, false);
+
   return z.object({
     email: z
       .string({

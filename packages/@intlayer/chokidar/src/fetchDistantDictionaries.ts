@@ -36,7 +36,7 @@ export const fetchDistantDictionaries = async (
     const distantDictionariesKeys = options.dictionaryKeys;
 
     // Process dictionaries in parallel with a concurrency limit
-    const limit = pLimit(5); // Adjust the limit as needed
+    const limit = pLimit(5); // Limit the number of concurrent requests
 
     const processDictionary = async (
       dictionaryKey: string

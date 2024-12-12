@@ -172,9 +172,7 @@ export const audit = async (options: AuditOptions) => {
       exclude: options?.excludedGlobs,
     });
 
-    contentDeclarationFilesList = contentDeclarationFilesPath
-      .reverse()
-      .slice(48);
+    contentDeclarationFilesList = contentDeclarationFilesPath;
   }
 
   const limit = pLimit(options?.asyncLimit ? Number(options?.asyncLimit) : 5); // Limit the number of concurrent requests

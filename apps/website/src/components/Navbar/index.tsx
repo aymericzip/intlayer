@@ -78,7 +78,7 @@ export const Navbar: FC = () => {
             color="text"
             className="group/github !rounded-2xl leading-6"
           >
-            <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
+            <GithubLogo alt={github.gitHubLogoAlt?.value} width={25} />
             GitHub
             <StarIcon
               width={18}
@@ -129,7 +129,7 @@ export const Navbar: FC = () => {
             color="custom"
             className="group/github !bg-text !text-text-dark dark:!bg-text-dark dark:!text-text flex cursor-pointer items-center gap-2 rounded-full p-1"
           >
-            <GithubLogo alt={github.gitHubLogoAlt.value} width={25} />
+            <GithubLogo alt={github.gitHubLogoAlt?.value} width={25} />
             <StarIcon
               width={18}
               className="group-hover/github:fill-text-dark dark:group-hover/github:fill-text mr-1"
