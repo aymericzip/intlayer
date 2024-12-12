@@ -65,7 +65,9 @@
     "@intlayer/design-system": "workspace:^",
     "@intlayer/dictionaries-entry": "workspace:^",
     "commander": "^12.1.0",
+    "fast-glob": "^3.3.2",
     "lodash": "^4.17.21",
+    "openai": "^4.76.1",
     "p-limit": "^3.1.0"
   },
   "devDependencies": {

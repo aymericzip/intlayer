@@ -115,7 +115,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     }, 100); // Update every 100ms
 
     // Process dictionaries in parallel with a concurrency limit
-    const limit = pLimit(5); // Adjust the limit as needed
+    const limit = pLimit(5); // Limit the number of concurrent requests
 
     const successfullyFetchedDictionaries: Dictionary[] = [];
 
@@ -186,7 +186,7 @@ const getStatusIcon = (status: string): string => {
     fetched: '✔',
     error: '✖',
   };
-  return statusIcons[status] || '';
+  return statusIcons[status] ?? '';
 };
 
 const getStatusLine = (statusObj: DictionariesStatus): string => {

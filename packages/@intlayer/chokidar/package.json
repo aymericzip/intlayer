@@ -106,6 +106,7 @@
     "@intlayer/config": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/design-system": "workspace:^",
+    "fast-glob": "^3.3.2",
     "intlayer": "workspace:^"
   },
   "engines": {

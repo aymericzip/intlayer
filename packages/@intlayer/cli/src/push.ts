@@ -137,7 +137,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
     };
 
     // Process dictionaries in parallel with a concurrency limit
-    const limit = pLimit(5); // Adjust the limit as needed
+    const limit = pLimit(5); // Limit the number of concurrent requests
     const pushPromises = dictionariesStatuses.map((statusObj) =>
       limit(() => processDictionary(statusObj))
     );
