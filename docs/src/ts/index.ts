@@ -1,18 +1,20 @@
+import { Locales } from '@intlayer/config';
+import * as _docEntries from './docEntries';
 import { getAbsolutePath, getFileContent } from './fs';
-import { localesList, LocalesListType } from './localeList';
+import { localeObject, LocalesListTypeKeys } from './localeList';
 
 const getMultilingualDocsPath = (
   docPath: string
-): Record<LocalesListType, string> =>
-  Object.values(localesList).reduce(
+): Record<LocalesListTypeKeys, string> =>
+  Object.keys(localeObject).reduce(
     (acc, locale) => {
-      acc[locale] = getAbsolutePath(`../../${locale}/${docPath}.md`);
+      acc[locale as LocalesListTypeKeys] = `../../${locale}/${docPath}.md`;
       return acc;
     },
-    {} as Record<LocalesListType, string>
+    {} as Record<LocalesListTypeKeys, string>
   );
 
-const docs: Record<string, Record<LocalesListType, string>> = {
+const docs: Record<string, Record<LocalesListTypeKeys, string>> = {
   introduction: getMultilingualDocsPath(`introduction`),
   configuration: getMultilingualDocsPath(`configuration`),
   interest_of_intlayer: getMultilingualDocsPath(`interest_of_intlayer`),
@@ -72,13 +74,15 @@ const docs: Record<string, Record<LocalesListType, string>> = {
 
 export type DocsKeys = keyof typeof docs;
 
-export const getDocs = (lang: LocalesListType) =>
+export const getDocs = (lang: Locales) =>
   Object.fromEntries(
     Object.entries(docs).map(([key, value]) => [
       key,
-      getFileContent(value[lang as LocalesListType]),
+      getFileContent(getAbsolutePath(value[lang as LocalesListTypeKeys])),
     ])
   );
 
-export const getDoc = (docName: DocsKeys, lang: LocalesListType) =>
-  getFileContent(docs[docName]?.[lang]) ?? '';
+export const getDoc = (docName: DocsKeys, lang: Locales) =>
+  getFileContent(
+    getAbsolutePath(docs[docName]?.[lang as LocalesListTypeKeys])
+  ) ?? '';

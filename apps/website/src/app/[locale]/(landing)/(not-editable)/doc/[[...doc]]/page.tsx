@@ -1,3 +1,4 @@
+import { promises as fs } from 'fs';
 import { getDocDataByPath, urlRenamer } from '@components/DocPage/docData';
 import { Link } from '@components/Link/Link';
 import { Container, Loader } from '@intlayer/design-system';
@@ -6,8 +7,8 @@ import { DocHeader } from '@structuredData/DocHeader';
 import { Edit } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
-import { LocalParams, useIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
+import { type LocalParams } from 'next-intlayer';
+import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { FC } from 'react';
 import type { DocProps } from './layout';
 import { PagesRoutes } from '@/Routes';
@@ -55,11 +56,14 @@ const DocumentationPage = async ({
   params: { locale, doc },
 }: LocalParams<DocProps>) => {
   const docData = getDocDataByPath(doc, locale);
-  const docContent = urlRenamer(getDoc(docData?.docName ?? '', locale));
 
   if (!docData) {
     return redirect(PagesRoutes.Doc_GetStarted);
   }
+
+  const file = getDoc(docData?.docName ?? '', locale);
+
+  const docContent = urlRenamer(file);
 
   return (
     <IntlayerServerProvider locale={locale}>
