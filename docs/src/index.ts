@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { getAbsolutePath, getFileContent } from './fs';
 import { localesList, LocalesListType } from './localeList';
 
@@ -82,3 +83,21 @@ export const getDocs = (lang: LocalesListType) =>
 
 export const getDoc = (docName: DocsKeys, lang: LocalesListType) =>
   getFileContent(docs[docName]?.[lang]) ?? '';
+
+const touchFiles = () => {
+  const keysOfDocs = Object.keys(docs);
+  const filesList = [];
+
+  for (const key of keysOfDocs) {
+    const filePath = docs[key as DocsKeys]?.en;
+
+    if (filePath) {
+      resolve(filePath);
+      getFileContent(filePath);
+      filesList.push(filePath);
+    }
+  }
+};
+
+const fileList = touchFiles();
+console.log('fileList', fileList);
