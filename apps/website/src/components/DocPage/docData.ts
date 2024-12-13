@@ -2,6 +2,7 @@ import { Locales } from 'intlayer';
 import { getIntlayer } from 'next-intlayer';
 import { locales } from '../../../intlayer.config';
 import { getBlogIntlayerWithI18nextData } from './docDataContent/blog/i18next';
+import { getCliData } from './docDataContent/concept/cli';
 import { getConfigurationData } from './docDataContent/concept/configuration';
 import { getContentDeclarationEnumerationData } from './docDataContent/concept/contentDeclaration/enumeration';
 import { getContentDeclarationFunctionFetchingData } from './docDataContent/concept/contentDeclaration/functionFetching';
@@ -54,7 +55,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
         },
         cli: {
           title: content.concept.subSections.cli.title,
-          default: getConfigurationData(locale),
+          default: getCliData(locale),
         },
         editor: {
           title: content.concept.subSections.editor.title,
@@ -211,7 +212,7 @@ export const getDocData = (locale = Locales.ENGLISH) => {
   return result;
 };
 
-export const getDoc = (
+export const getDocDataByPath = (
   docPath: string[] = [],
   locale: Locales = Locales.ENGLISH
 ): DocData | undefined => {
@@ -255,7 +256,7 @@ const getDocSectionPaths = (docData: Section, presetKeys: string[] = []) => {
   return { paths, docs };
 };
 
-export const getDocPaths = (locale?: Locales): string[][] => {
+export const getDocPaths = (locale: Locales = Locales.ENGLISH): string[][] => {
   const docData = getDocData(locale);
   return getDocSectionPaths(docData).paths;
 };
@@ -266,7 +267,7 @@ export const getDocArray = (locale?: Locales): DocData[] => {
 };
 
 const getDocLocale = (url: string, locale: Locales): string =>
-  url.replace('en.md', `${locale}.md`);
+  url.replace('/en/', `/${locale}/`);
 
 const docUrlRenamer: Record<GithubRoutes, PagesRoutes> = {
   [GithubRoutes.Introduction]: PagesRoutes.Doc_GetStarted,

@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { withIntlayer } from 'next-intlayer/server';
 import withPWA from 'next-pwa';
 import { createSecureHeaders } from 'next-secure-headers';
@@ -99,6 +100,7 @@ const nextConfig = {
 
     config.externals.push({
       '@intlayer/backend': '@intlayer/backend',
+      '@intlayer/docs': '@intlayer/docs',
     });
 
     return config;
@@ -124,6 +126,12 @@ const nextConfig = {
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
     ignoreBuildErrors: true,
+  },
+
+  experimental: {
+    outputFileTracingIncludes: {
+      outputFileTracingRoot: join(__dirname, '../../'),
+    },
   },
 };
 

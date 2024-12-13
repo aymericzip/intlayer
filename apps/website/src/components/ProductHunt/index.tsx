@@ -1,10 +1,10 @@
 'use client';
 
+import { Link } from '@components/Link/Link';
 import { Container, MaxWidthSmoother } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { X } from 'lucide-react';
-import Link from 'next/link';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState } from 'react';
 import ProductHuntLogo from './product-hunt-logo.svg';
@@ -16,7 +16,7 @@ export const ProductHunt = () => {
   const { isMobile } = useDevice('sm');
   const [isVisible, setIsVisible] = useState(false);
   const [isMiniaturized, setIsMiniaturized] = useState(false);
-  const { title, content, details } = useIntlayer('product-hunt');
+  const { title, content, details, linkLabel } = useIntlayer('product-hunt');
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,8 +51,8 @@ export const ProductHunt = () => {
     >
       <Link
         href="https://www.producthunt.com/posts/intlayer?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-intlayer"
-        target="_blank"
-        rel="noreferrer"
+        label={linkLabel.value}
+        color="custom"
       >
         <div className="flex flex-row gap-6 rounded-lg p-3">
           <div className="flex flex-col items-center gap-2 rounded-lg">

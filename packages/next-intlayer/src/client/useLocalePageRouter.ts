@@ -1,12 +1,15 @@
 import { type Locales } from '@intlayer/config/client';
 import { getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
 import { useRouter } from 'next/router.js';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';
 
 export const useLocalePageRouter = () => {
   const { push, pathname, reload } = useRouter();
-  const pathWithoutLocale = getPathWithoutLocale(pathname);
+  const pathWithoutLocale = useMemo(
+    () => getPathWithoutLocale(pathname),
+    [pathname]
+  );
 
   const redirectionFunction = useCallback(
     (locale: Locales) => {
@@ -16,7 +19,7 @@ export const useLocalePageRouter = () => {
 
       return reload();
     },
-    [reload]
+    [reload, pathWithoutLocale]
   );
 
   const reactLocaleHook = useLocaleReact({

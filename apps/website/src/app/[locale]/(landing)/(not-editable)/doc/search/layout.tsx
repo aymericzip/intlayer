@@ -1,10 +1,6 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
-import {
-  getIntlayer,
-  type LocalParams,
-  type Next14LayoutIntlayer,
-} from 'next-intlayer';
+import { type Next14LayoutIntlayer } from 'next-intlayer';
 export { generateMetadata } from './metadata';
 
 export type DocProps = {

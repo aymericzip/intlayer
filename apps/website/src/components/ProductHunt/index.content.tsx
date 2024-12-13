@@ -101,6 +101,21 @@ const productHuntContent = {
       ar: 'قم بزيارتنا على Product Hunt وأظهر دعمك من خلال التصويت. ملاحظاتك لا تقدر بثمن!',
       ru: 'Посетите нас на Product Hunt и поддержите нас голосованием. Ваш отзыв бесценен!',
     }),
+    linkLabel: t({
+      en: 'Go to see it on Product Hunt',
+      fr: 'Aller voir sur Product Hunt',
+      es: 'Ir a verlo en Product Hunt',
+      'en-GB': 'Go to see it on Product Hunt',
+      de: 'Gehe zum Sehen auf Product Hunt',
+      ja: 'Product Huntで見る',
+      ko: 'Product Hunt에서 보기',
+      zh: '去看看Product Hunt',
+      it: 'Vai a vedere su Product Hunt',
+      pt: 'Vá para ver no Product Hunt',
+      hi: 'प्रोडक्शन हिंदु में जाएं',
+      ar: 'اذهب لرؤيةه على Product Hunt',
+      ru: 'Посетите на Product Hunt',
+    }),
   },
 } satisfies DeclarationContent;
 

@@ -3,7 +3,7 @@ import { getIntlayer } from 'next-intlayer';
 import { DocData } from '../../types';
 import { PagesRoutes, GithubRoutes } from '@/Routes';
 
-export const getConfigurationData = (locale: Locales): DocData => ({
+export const getCliData = (locale: Locales): DocData => ({
   docName: 'intlayer_cli',
   url: PagesRoutes.Doc_CLI,
   githubUrl: GithubRoutes.IntlayerCLI,

@@ -1,4 +1,5 @@
 import { type DeclarationContent, t } from 'intlayer';
+import { PagesRoutes } from '@/Routes';
 
 const docNavTitlesContent = {
   key: 'common-questions',
@@ -130,7 +131,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن استخدام Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о использовании Intlayer',
           }),
-          url: 'https://intlayer.org/doc/get-started',
+          url: PagesRoutes.Doc_GetStarted,
         },
       },
       {
@@ -196,7 +197,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن ميزات Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о функциях Intlayer',
           }),
-          url: 'https://intlayer.org/doc/concept/interest',
+          url: PagesRoutes.Doc_Interest,
         },
       },
       {
@@ -263,7 +264,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن تكامل Intlayer مع Next.js',
             ru: 'Нажмите здесь, чтобы узнать больше об интеграции с Next.js',
           }),
-          url: 'https://intlayer.org/doc/environment/nextjs',
+          url: PagesRoutes.Doc_Environment_NextJS_15,
         },
       },
       {
@@ -329,7 +330,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن محرر Intlayer المرئي',
             ru: 'Нажмите здесь, чтобы узнать больше о визуальном редакторе Intlayer',
           }),
-          url: 'https://intlayer.org/doc/concept/editor',
+          url: PagesRoutes.Doc_IntlayerEditor,
         },
       },
       {
@@ -462,7 +463,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن خطط Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о планах Intlayer',
           }),
-          url: 'https://intlayer.org/pricing',
+          url: PagesRoutes.Pricing,
         },
       },
       {
@@ -529,7 +530,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن المنصات المدعومة من Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о поддерживаемых платформах Intlayer',
           }),
-          url: 'https://intlayer.org/doc/get-started#platforms-supported',
+          url: `${PagesRoutes.Doc_GetStarted}#platforms-supported`,
         },
       },
     ],

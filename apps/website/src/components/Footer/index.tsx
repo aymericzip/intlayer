@@ -1,6 +1,7 @@
 'use client';
 
 import { Footer as UIFooter, type LinkGroup } from '@intlayer/design-system';
+import { getLocalizedUrl } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
@@ -10,12 +11,17 @@ export const Footer: FC = () => {
 
   const links: LinkGroup[] = content.map((section) => ({
     title: section.title,
-    links: section.links.map((link) => ({
-      text: link.text,
-      href: link.href.value,
-      label: link.label.value,
-    })),
+    links: section.links.map((link) => {
+      const isLocaleLink = link.href.value.startsWith('/');
+      return {
+        text: link.text,
+        href: isLocaleLink
+          ? getLocalizedUrl(link.href.value, locale)
+          : link.href.value,
+        label: link.label.value,
+      };
+    }),
   }));
 
-  return <UIFooter links={links} key={locale} />;
+  return <UIFooter links={links} />;
 };

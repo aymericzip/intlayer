@@ -1,24 +1,13 @@
 import type { Locales } from '@intlayer/config/client';
 import { getLocaleName } from '@intlayer/core';
 import { MoveVertical } from 'lucide-react';
-import type { ButtonHTMLAttributes, FC } from 'react';
+import type { FC } from 'react';
+// @ts-ignore react-intlayer not build yet
+import { useDictionary } from 'react-intlayer';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
-
-const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  children,
-  ...props
-}) => (
-  <div className="relative w-full p-0.5">
-    <button
-      className="hover:bg-text/10 focus:bg-text-opposite/20 aria-selected:bg-text/20 dark:hover:bg-text-opposite/10 dark:focus:bg-text-opposite/20 dark:aria-selected:bg-text-opposite/20 w-full cursor-pointer rounded-lg px-3 py-1 text-left focus:outline-none disabled:text-white/25 aria-selected:hover:cursor-default"
-      data-mode="system"
-      {...props}
-    >
-      {children}
-    </button>
-  </div>
-);
+import localeSwitcherContent from './localeSwitcher.content';
 
 export type LocaleSwitcherProps = {
   locale?: Locales;
@@ -38,6 +27,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   setLocale,
 }) => {
   let localeName = 'Select a locale';
+  const { switchTo } = useDictionary(localeSwitcherContent);
 
   if (locale) {
     localeName = fullLocaleName ? getLocaleName(locale) : locale.toUpperCase();
@@ -54,7 +44,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           aria-label="Language selector"
         >
           <div className="flex w-full items-center justify-between">
-            <div className="px-2">{localeName}</div>
+            <div className="text-nowrap px-2">{localeName}</div>
             <MoveVertical className="w-5 self-center" />
           </div>
         </DropDown.Trigger>
@@ -67,17 +57,23 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
             aria-label="Language list"
           >
             {localeList.map((lang) => (
-              <ButtonItem
-                key={lang}
-                onClick={() => setLocale(lang)}
-                aria-label={`Switch to ${lang}`}
-                disabled={!(availableLocales ?? localeList).includes(lang)}
-                role="option"
-                aria-selected={locale === lang}
-                lang={lang}
-              >
-                {getLocaleName(lang)}
-              </ButtonItem>
+              <div key={lang} className="p-0.5">
+                <Button
+                  onClick={() => setLocale(lang)}
+                  label={`${switchTo} ${lang}`}
+                  disabled={!(availableLocales ?? localeList).includes(lang)}
+                  role="option"
+                  isActive={locale === lang}
+                  className="text-nowrap"
+                  variant="hoverable"
+                  color="text"
+                  isFullWidth
+                  textAlign="left"
+                  lang={lang}
+                >
+                  {getLocaleName(lang)}
+                </Button>
+              </div>
             ))}
           </Container>
         </DropDown.Panel>

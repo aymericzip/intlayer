@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@components/Link/Link';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import Nextjs from './nextjs.svg';
@@ -16,21 +16,24 @@ export const AvailableTechnoSection: FC = () => {
         <Link
           href={PagesRoutes.Doc_Environment_CRA}
           className="grow-0"
-          aria-label={react.label.value}
+          color="custom"
+          label={react.label.value}
         >
           <React className="size-full max-h-full" />
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_NextJS_15}
           className="grow-0"
-          aria-label={nextjs.label.value}
+          color="custom"
+          label={nextjs.label.value}
         >
           <Nextjs className="size-full max-h-full" />
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndReact}
           className="grow-0"
-          aria-label={vite.label.value}
+          color="custom"
+          label={vite.label.value}
         >
           <Vite className="size-full max-h-full" />
         </Link>

@@ -1,11 +1,11 @@
 'use client';
 
 import GithubLogo from '@assets/github.svg';
-import { Link, Logo } from '@intlayer/design-system';
+import { Link } from '@components/Link/Link';
+import { Logo } from '@intlayer/design-system';
 import type { Locales } from 'intlayer';
-import { useDictionary } from 'next-intlayer';
+import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
-import dashboardFooterContent from './dashboardFooter.content';
 
 export type DashboardFooterLink = {
   href: string;
@@ -20,7 +20,7 @@ export type DashboardFooterProps = {
 };
 
 export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
-  const { github, logo } = useDictionary(dashboardFooterContent);
+  const { github, logo } = useIntlayer('dashboard-footer');
 
   return (
     <footer className="flex flex-auto flex-row flex-wrap items-center gap-4 overflow-auto p-6">

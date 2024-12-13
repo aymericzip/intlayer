@@ -1,10 +1,11 @@
 'use client';
 
+import { Link } from '@components/Link/Link';
 import { SearchTrigger } from '@components/Search/SearchTrigger';
-import { Container, Accordion, Link } from '@intlayer/design-system';
+import { Container, Accordion } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { forwardRef, type ComponentProps, type FC } from 'react';
-import type { Section } from './docData';
+import { Section } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;
 

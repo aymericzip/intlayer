@@ -32,33 +32,61 @@
   "type": "commonjs",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.cjs",
-      "require": "./index.cjs"
-    },
-    "./en": {
-      "types": "./index_en.d.ts",
-      "import": "./index_en.cjs",
-      "require": "./index_en.cjs"
-    },
-    "./fr": {
-      "types": "./index_fr.d.ts",
-      "import": "./index_fr.cjs",
-      "require": "./index_fr.cjs"
-    },
-    "./es": {
-      "types": "./index_es.d.ts",
-      "import": "./index_es.cjs",
-      "require": "./index_es.cjs"
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
     }
   },
   "main": "./index.cjs",
   "module": "./index.cjs",
   "files": [
-    "**/*"
+    "dist/*",
+    "ar/*",
+    "de/*",
+    "en/*",
+    "en-GB/*",
+    "es/*",
+    "fr/*",
+    "hi/*",
+    "it/*",
+    "ja/*",
+    "ko/*",
+    "pt/*",
+    "ru/*",
+    "zh/*"
   ],
+  "scripts": {
+    "build": "pnpm build:package & pnpm build:types",
+    "build:package": "tsup",
+    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "clean": "rimraf ./dist",
+    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "test": "",
+    "translate": "node ./dist/cjs/translate.cjs"
+  },
+  "dependencies": {
+    "@intlayer/config": "workspace:^"
+  },
   "devDependencies": {
-    "@types/node": "^22.9.0"
+    "@intlayer/core": "workspace:^",
+    "@types/node": "^22.9.0",
+    "@utils/ts-config": "workspace:^",
+    "@utils/ts-config-types": "workspace:^",
+    "@utils/tsup-config": "workspace:^",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.16.0",
+    "fast-glob": "^3.3.2",
+    "openai": "^4.76.1",
+    "p-limit": "^3.1.0",
+    "prettier": "^3.4.1",
+    "rimraf": "^6.0.1",
+    "tsc-alias": "^1.8.10",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
   },
   "engines": {
     "node": ">=14.18"

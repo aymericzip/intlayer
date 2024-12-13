@@ -1,9 +1,5 @@
-import {
-  H2,
-  Container,
-  type ContainerProps,
-  Link,
-} from '@intlayer/design-system';
+import { Link } from '@components/Link/Link';
+import { H2, Container, type ContainerProps } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { Check } from 'lucide-react';
 import { forwardRef, type ReactNode } from 'react';

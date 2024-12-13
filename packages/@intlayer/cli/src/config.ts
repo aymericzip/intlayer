@@ -5,5 +5,5 @@ type ConfigOptions = {};
 export const getConfig = (_options?: ConfigOptions) => {
   const config = getConfiguration();
 
-  console.log(config);
+  console.info(config);
 };

@@ -118,7 +118,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-To see all available parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration_en.md).
+To see all available parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration.md).
 
 ## Step 3: Integrate Intlayer in Your Next.js Configuration
 
@@ -220,7 +220,7 @@ const pageContent = {
 export default pageContent;
 ```
 
-[See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started_en.md).
+[See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started.md
 
 ## Step 7: Utilize Content in Your Code
 
