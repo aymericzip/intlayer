@@ -6,8 +6,8 @@ import { DocHeader } from '@structuredData/DocHeader';
 import { Edit } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
-import { LocalParams, useIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
+import { LocalParams, Next14PageIntlayer } from 'next-intlayer';
+import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { FC } from 'react';
 import type { DocProps } from './layout';
 import { PagesRoutes } from '@/Routes';
@@ -51,15 +51,16 @@ const Contribution: FC<{ githubUrl: string }> = ({ githubUrl }) => {
   );
 };
 
-const DocumentationPage = async ({
+const DocumentationPage: Next14PageIntlayer<DocProps> = ({
   params: { locale, doc },
-}: LocalParams<DocProps>) => {
+}) => {
   const docData = getDocDataByPath(doc, locale);
-  const docContent = urlRenamer(getDoc(docData?.docName ?? '', locale));
 
   if (!docData) {
     return redirect(PagesRoutes.Doc_GetStarted);
   }
+
+  const docContent = urlRenamer(getDoc(docData?.docName ?? '', locale));
 
   return (
     <IntlayerServerProvider locale={locale}>
