@@ -5,7 +5,7 @@ import fg from 'fast-glob';
 import { OpenAI } from 'openai';
 import pLimit from 'p-limit';
 import { getFileContent, getAbsolutePath, writeFileContent } from './fs';
-import { localesList } from './localeList';
+import { localeObject } from './localeList';
 
 const projectPath = process.cwd();
 
@@ -74,7 +74,7 @@ const excludedLocales = [
 export const audit = async () => {
   const limit = pLimit(1); // Limit the number of concurrent requests
 
-  const docList = fg.sync('en/**/*.md');
+  const docList: string[] = fg.sync('en/**/*.md');
 
   if (!OPEN_AI_API_KEY) {
     throw Error(
@@ -82,10 +82,12 @@ export const audit = async () => {
     );
   }
 
-  const pushPromises = localesList
+  const pushPromises = Object.keys(localeObject)
     .filter((locale) => !excludedLocales.includes(locale as Locales))
     .map((locale) =>
-      docList.map((docPath) => limit(() => auditFile(docPath, locale)))
+      docList.map((docPath) =>
+        limit(() => auditFile(docPath, locale as Locales))
+      )
     );
 
   await Promise.all(pushPromises);

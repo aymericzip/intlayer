@@ -100,7 +100,6 @@ const nextConfig = {
 
     config.externals.push({
       '@intlayer/backend': '@intlayer/backend',
-      '@intlayer/docs': '@intlayer/docs',
     });
 
     return config;
@@ -130,8 +129,10 @@ const nextConfig = {
 
   experimental: {
     outputFileTracingIncludes: {
-      outputFileTracingRoot: join(__dirname, '../../'),
+      '/\\[locale\\]/\\(landing\\)/\\(not-editable\\)/doc/\\[\\[\\.\\.\\.doc\\]\\]':
+        ['../../docs/**/*'],
     },
+    // outputFileTracingRoot: join(__dirname, '../../'),
   },
 };
 

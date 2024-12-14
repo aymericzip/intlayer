@@ -32,15 +32,16 @@
   "type": "commonjs",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+      "types": "./index.d.ts",
+      "require": "./index.cjs",
+      "import": "./index.cjs"
     }
   },
   "main": "./index.cjs",
   "module": "./index.cjs",
   "files": [
-    "dist/*",
+    "index.d.ts",
+    "index.cjs",
     "ar/*",
     "de/*",
     "en/*",
@@ -56,17 +57,15 @@
     "zh/*"
   ],
   "scripts": {
-    "build": "pnpm build:package & pnpm build:types",
-    "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./src/cjs ./src/esm",
     "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "test": "",
-    "translate": "node ./dist/cjs/translate.cjs"
+    "translate": "node ./src/cjs/translate.cjs"
   },
   "dependencies": {
     "@intlayer/config": "workspace:^"
@@ -86,6 +85,7 @@
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   },
   "engines": {

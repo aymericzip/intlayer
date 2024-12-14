@@ -3,7 +3,7 @@ import { dirname, join } from 'path';
 
 export const getFileContent = (filePath: string): string => {
   // Read the file content using Node.js fs module.
-  const fileContent = readFileSync(filePath, 'utf-8') as string;
+  const fileContent = readFileSync(filePath, 'utf-8');
   return fileContent;
 };
 

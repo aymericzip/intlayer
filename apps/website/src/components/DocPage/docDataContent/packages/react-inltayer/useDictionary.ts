@@ -6,7 +6,7 @@ import { PagesRoutes, GithubRoutes } from '@/Routes';
 export const getPackagesReactIntlayerUseDictionaryData = (
   locale: Locales
 ): DocData => ({
-  docName: 'useDictionary_react-intlayer',
+  docName: 'package__react-intlayer__useDictionary',
   url: PagesRoutes['Doc_Packages_react-intlayer_useDictionary'],
   githubUrl: GithubRoutes['Packages_next-intlayer_useDictionary'],
   createdAt: new Date('2024-08-11'),

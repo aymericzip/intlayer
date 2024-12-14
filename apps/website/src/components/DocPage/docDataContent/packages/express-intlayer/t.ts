@@ -4,7 +4,7 @@ import { getIntlayer } from 'next-intlayer';
 import { PagesRoutes, GithubRoutes } from '@/Routes';
 
 export const getPackagesExpressIntlayerTData = (locale: Locales): DocData => ({
-  docName: 't_express-intlayer',
+  docName: 'package__express-intlayer__t',
   url: PagesRoutes['Doc_Packages_express-intlayer_t'],
   githubUrl: GithubRoutes['Packages_express-intlayer_t'],
   createdAt: new Date('2024-12-02'),

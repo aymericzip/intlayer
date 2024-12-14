@@ -82,7 +82,7 @@ export const getIntlayer: UseIntlayer = <
   const dictionary: Dictionary = dictionaries[key as keyof typeof dictionaries];
 
   if (!dictionary) {
-    throw new Error(`Dictionary ${key} not found`);
+    throw new Error(`Dictionary ${key} not found`, dictionaries);
   }
 
   const result = processDictionary(
