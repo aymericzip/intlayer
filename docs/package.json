@@ -32,17 +32,16 @@
   "type": "commonjs",
   "exports": {
     ".": {
-      "types": "./src/types/index.d.ts",
-      "require": "./src/cjs/index.cjs",
-      "import": "./src/esm/index.mjs"
+      "types": "./index.d.ts",
+      "require": "./index.cjs",
+      "import": "./index.cjs"
     }
   },
-  "main": "./src/cjs/index.cjs",
-  "module": "./src/mjs/index.mjs",
+  "main": "./index.cjs",
+  "module": "./index.cjs",
   "files": [
-    "src/esm/*",
-    "src/cjs/*",
-    "src/types/*",
+    "index.d.ts",
+    "index.cjs",
     "ar/*",
     "de/*",
     "en/*",
@@ -58,9 +57,6 @@
     "zh/*"
   ],
   "scripts": {
-    "build": "pnpm build:docEntries & pnpm build:package & pnpm build:types",
-    "build:docEntries": "node --import=tsx ./src/ts/formatAllEntries.ts",
-    "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./src/cjs ./src/esm",
     "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",

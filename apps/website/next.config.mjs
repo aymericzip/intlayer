@@ -100,7 +100,6 @@ const nextConfig = {
 
     config.externals.push({
       '@intlayer/backend': '@intlayer/backend',
-      '@intlayer/docs': '@intlayer/docs',
     });
 
     return config;
