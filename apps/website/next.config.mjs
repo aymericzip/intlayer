@@ -130,10 +130,10 @@ const nextConfig = {
 
   experimental: {
     outputFileTracingIncludes: {
-      '/src/app/[locale]/(landing)/(not-editable)/doc/[[...doc]]': [
-        '../../docs/**/*',
-      ],
+      '/\\[locale\\]/\\(landing\\)/\\(not-editable\\)/doc/\\[\\[\\.\\.\\.doc\\]\\]':
+        ['../../docs/**/*'],
     },
+    // outputFileTracingRoot: join(__dirname, '../../'),
   },
 };
 

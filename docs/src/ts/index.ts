@@ -6,7 +6,7 @@ import { docs as _doc } from './docEntries';
 import { localeObject, LocalesListTypeKeys } from './localeList';
 
 const readModuleFile = (path: string) => {
-  const filename = require.resolve(resolve(__dirname, path));
+  const filename = require.resolve(resolve(process.cwd(), '../../', path));
   return readFileSync(filename, 'utf8');
 };
 
@@ -15,9 +15,9 @@ const getMultilingualDocsPath = (
 ): Record<LocalesListTypeKeys, string> =>
   Object.keys(localeObject).reduce(
     (acc, locale) => {
-      console.log('_doc', `../../${locale}/${docPath}.md`);
+      console.log('_doc', `docs/${locale}/${docPath}.md`); //
       acc[locale as LocalesListTypeKeys] = readModuleFile(
-        `../../${locale}/${docPath}.md`
+        `docs/${locale}/${docPath}.md`
       );
       return acc;
     },
