@@ -8,11 +8,11 @@ export const formatAllDocEntry = () => {
   });
 
   const content = docList
-    .map((key) => `"${key}": require("../../${key}")`)
-    .join(',\n');
+    .map((key) => `'${key}': require('../../${key}')`)
+    .join(',\n  ');
 
-  const fileResult = `export const docs: Record<string, string> = {${content}};
-    `;
+  const fileResult = `/* eslint-disable @typescript-eslint/no-require-imports */
+export const docs: Record<string, string> = {\n  ${content},\n};\n`;
 
   writeFileContent(join(__dirname, `./docEntries.ts`), fileResult);
 

@@ -1,14 +1,24 @@
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import { Locales } from '@intlayer/config';
-import * as _docEntries from './docEntries';
-import { getAbsolutePath, getFileContent } from './fs';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { docs as _doc } from './docEntries';
 import { localeObject, LocalesListTypeKeys } from './localeList';
+
+const readModuleFile = (path: string) => {
+  const filename = require.resolve(resolve(__dirname, path));
+  return readFileSync(filename, 'utf8');
+};
 
 const getMultilingualDocsPath = (
   docPath: string
 ): Record<LocalesListTypeKeys, string> =>
   Object.keys(localeObject).reduce(
     (acc, locale) => {
-      acc[locale as LocalesListTypeKeys] = `../../${locale}/${docPath}.md`;
+      console.log('_doc', `../../${locale}/${docPath}.md`);
+      acc[locale as LocalesListTypeKeys] = readModuleFile(
+        `../../${locale}/${docPath}.md`
+      );
       return acc;
     },
     {} as Record<LocalesListTypeKeys, string>
@@ -72,17 +82,15 @@ const docs: Record<string, Record<LocalesListTypeKeys, string>> = {
   ),
 };
 
-export type DocsKeys = keyof typeof docs;
+export type DocsKeys = keyof typeof docs; //
 
-export const getDocs = (lang: Locales) =>
+export const getDocs = (lang: Locales): Record<DocsKeys, string> =>
   Object.fromEntries(
     Object.entries(docs).map(([key, value]) => [
       key,
-      getFileContent(getAbsolutePath(value[lang as LocalesListTypeKeys])),
+      value[lang as LocalesListTypeKeys] ?? '',
     ])
   );
 
-export const getDoc = (docName: DocsKeys, lang: Locales) =>
-  getFileContent(
-    getAbsolutePath(docs[docName]?.[lang as LocalesListTypeKeys])
-  ) ?? '';
+export const getDoc = (docName: DocsKeys, lang: Locales): string =>
+  docs[docName]?.[lang as LocalesListTypeKeys] ?? '';
