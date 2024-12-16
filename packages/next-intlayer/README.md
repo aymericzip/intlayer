@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://www.npmjs.com/package/next-intlayer">
-    <img src="docs/assets/logo.png" width="500" alt="intlayer" />
+    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
   </a>
 </div>
 
@@ -118,7 +118,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-To see all available parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration.md).
+To see all available parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
 
 ## Step 3: Integrate Intlayer in Your Next.js Configuration
 
@@ -220,7 +220,7 @@ const pageContent = {
 export default pageContent;
 ```
 
-[See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/content_declaration/get_started.md
+[See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md)
 
 ## Step 7: Utilize Content in Your Code
 

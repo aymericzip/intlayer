@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## pacotes intlayer-cli
 
-O pacote `intlayer-cli` destina-se a transpilar suas declarações [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) em dicionários.
+O pacote `intlayer-cli` destina-se a transpilar suas declarações [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) em dicionários.
 
-Este pacote irá transpilar todos os arquivos intlayer, como `src/**/*.content.{ts|js|mjs|cjs|json}`. [Veja como declarar seus arquivos de declaração Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md).
+Este pacote irá transpilar todos os arquivos intlayer, como `src/**/*.content.{ts|js|mjs|cjs|json}`. [Veja como declarar seus arquivos de declaração Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-Para interpretar dicionários intlayer, você pode usar intérpretes, como [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.md) ou [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md)
+Para interpretar dicionários intlayer, você pode usar intérpretes, como [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md) ou [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md)
 
 ## Suporte a Arquivo de Configuração
 
@@ -63,7 +63,7 @@ Este comando encontrará seus arquivos de conteúdo de declaração como padrão
 npx intlayer push
 ```
 
-Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) estiver instalado, você também pode enviar dicionários para o editor. Este comando permitirá disponibilizar os dicionários para o editor em [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). Dessa forma, você pode compartilhar seus dicionários com sua equipe e editar seu conteúdo sem editar o código de sua aplicação.
+Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_editor.md) estiver instalado, você também pode enviar dicionários para o editor. Este comando permitirá disponibilizar os dicionários para o editor em [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). Dessa forma, você pode compartilhar seus dicionários com sua equipe e editar seu conteúdo sem editar o código de sua aplicação.
 
 ##### Argumentos:
 
@@ -80,7 +80,7 @@ Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/int
 npx intlayer pull
 ```
 
-Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) estiver instalado, você também pode puxar dicionários do editor. Dessa forma, você pode sobrescrever o conteúdo dos seus dicionários para a necessidade de sua aplicação.
+Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_editor.md) estiver instalado, você também pode puxar dicionários do editor. Dessa forma, você pode sobrescrever o conteúdo dos seus dicionários para a necessidade de sua aplicação.
 
 ##### Argumentos:
 

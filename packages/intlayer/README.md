@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://www.npmjs.com/package/intlayer">
-    <img src="docs/assets/logo.png" width="500" alt="intlayer" />
+    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
   </a>
 </div>
 
@@ -76,11 +76,11 @@ export const ClientComponent = () => {
 `intlayer` package intend to declare your content in a structured way, using JavaScript.
 
 To build dictionaries from this declaration, you can use [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer-cli/readme.md).
-And to interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.mdor [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md.md
+And to interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md) [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md)
 
 ## Getting Started with Intlayer
 
-[See how to use intlayer with NextJS](https://github.com/aymericzip/intlayer/blob/main/readme.md
+[See how to use intlayer with NextJS](https://github.com/aymericzip/intlayer/blob/main/README.md)
 
 ### Install Package
 

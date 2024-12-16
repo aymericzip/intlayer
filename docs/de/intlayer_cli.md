@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## intlayer-cli-Paket
 
-Das `intlayer-cli`-Paket beabsichtigt, Ihre [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) Deklarationen in Wörterbücher zu transpilieren.
+Das `intlayer-cli`-Paket beabsichtigt, Ihre [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) Deklarationen in Wörterbücher zu transpilieren.
 
-Dieses Paket wird alle intlayer-Dateien transpilen, wie `src/**/*.content.{ts|js|mjs|cjs|json}`. [Siehe, wie Sie Ihre Intlayer-Deklarationsdateien deklarieren](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md).
+Dieses Paket wird alle intlayer-Dateien transpilen, wie `src/**/*.content.{ts|js|mjs|cjs|json}`. [Siehe, wie Sie Ihre Intlayer-Deklarationsdateien deklarieren](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-Um intlayer-Wörterbücher zu interpretieren, können Sie Interpreter verwenden, wie [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.md) oder [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md).
+Um intlayer-Wörterbücher zu interpretieren, können Sie Interpreter verwenden, wie [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md) oder [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md).
 
 ## Unterstützung von Konfigurationsdateien
 
@@ -63,7 +63,7 @@ Dieser Befehl findet standardmäßig Ihre Deklarations-Inhaltsdateien als `./src
 npx intlayer push
 ```
 
-Wenn der [intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) installiert ist, können Sie auch Wörterbücher an den Editor pushen. Dieser Befehl ermöglicht es, die Wörterbücher im Editor unter [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content) verfügbar zu machen. Auf diese Weise können Sie Ihre Wörterbücher mit Ihrem Team teilen und Ihren Inhalt bearbeiten, ohne den Code Ihrer Anwendung zu ändern.
+Wenn der [intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md) installiert ist, können Sie auch Wörterbücher an den Editor pushen. Dieser Befehl ermöglicht es, die Wörterbücher im Editor unter [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content) verfügbar zu machen. Auf diese Weise können Sie Ihre Wörterbücher mit Ihrem Team teilen und Ihren Inhalt bearbeiten, ohne den Code Ihrer Anwendung zu ändern.
 
 ##### Argumente:
 
@@ -80,7 +80,7 @@ Wenn der [intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 npx intlayer pull
 ```
 
-Wenn der [intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) installiert ist, können Sie auch Wörterbücher vom Editor herunterladen. Auf diese Weise können Sie den Inhalt Ihrer Wörterbücher für die Bedürfnisse Ihrer Anwendung überschreiben.
+Wenn der [intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md) installiert ist, können Sie auch Wörterbücher vom Editor herunterladen. Auf diese Weise können Sie den Inhalt Ihrer Wörterbücher für die Bedürfnisse Ihrer Anwendung überschreiben.
 
 ##### Argumente:
 

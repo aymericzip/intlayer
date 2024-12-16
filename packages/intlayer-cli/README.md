@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://www.npmjs.com/package/intlayer">
-    <img src="docs/assets/logo.png" width="500" alt="intlayer" />
+    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
   </a>
 </div>
 
@@ -48,11 +48,11 @@ pnpm add intlayer-cli
 
 ## intlayer-cli package
 
-`intlayer-cli` package intend to transpile your [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) declarations into dictionaries.
+`intlayer-cli` package intend to transpile your [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) declarations into dictionaries.
 
-This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md
+This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)
 
-To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.mdor [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md.md
+To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md) [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md)
 
 ## Configuration File Support
 
@@ -65,7 +65,7 @@ Intlayer accepts multiple configuration file formats:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/configuration.md
+To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md)
 
 ### Run intlayer commands
 

@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## intlayer-cli पैकेज
 
-`intlayer-cli` पैकेज आपकी [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) घोषणाओं को शब्दकोशों में ट्रांसपाइल करने का इरादा रखता है।
+`intlayer-cli` पैकेज आपकी [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) घोषणाओं को शब्दकोशों में ट्रांसपाइल करने का इरादा रखता है।
 
-यह पैकेज सभी intlayer फ़ाइलों को ट्रांसपाइल करेगा, जैसे `src/**/*.content.{ts|js|mjs|cjs|json}`। [यहां अपने Intlayer घोषणा फ़ाइलों को घोषित करने का तरीका देखें](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md)।
+यह पैकेज सभी intlayer फ़ाइलों को ट्रांसपाइल करेगा, जैसे `src/**/*.content.{ts|js|mjs|cjs|json}`। [यहां अपने Intlayer घोषणा फ़ाइलों को घोषित करने का तरीका देखें](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)।
 
-intlayer शब्दकोशों को व्याख्यायित करने के लिए आप व्याख्याकों का उपयोग कर सकते हैं, जैसे [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.md), या [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md)
+intlayer शब्दकोशों को व्याख्यायित करने के लिए आप व्याख्याकों का उपयोग कर सकते हैं, जैसे [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md), या [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md)
 
 ## कॉन्फ़िगरेशन फ़ाइल समर्थन
 
@@ -63,7 +63,7 @@ npx intlayer build --watch
 npx intlayer push
 ```
 
-यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) स्थापित है, तो आप संपादक को भी शब्दकोश धकेल सकते हैं। यह कमांड संपादक में [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content) पर शब्दकोशों को उपलब्ध कराने की अनुमति देगा। इस तरह, आप अपने शब्दकोशों को अपनी टीम के साथ साझा कर सकते हैं और अपने सामग्री को बिना अपने अनुप्रयोग के कोड को संपादित किए संपादित कर सकते हैं।
+यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) स्थापित है, तो आप संपादक को भी शब्दकोश धकेल सकते हैं। यह कमांड संपादक में [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content) पर शब्दकोशों को उपलब्ध कराने की अनुमति देगा। इस तरह, आप अपने शब्दकोशों को अपनी टीम के साथ साझा कर सकते हैं और अपने सामग्री को बिना अपने अनुप्रयोग के कोड को संपादित किए संपादित कर सकते हैं।
 
 ##### तर्क:
 
@@ -80,7 +80,7 @@ npx intlayer push
 npx intlayer pull
 ```
 
-यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) स्थापित है, तो आप संपादक से भी शब्दकोश खींच सकते हैं। इस तरह, आप अपने अनुप्रयोग की आवश्यकता के लिए अपने शब्दकोशों की सामग्री को ओवरराइट कर सकते हैं।
+यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) स्थापित है, तो आप संपादक से भी शब्दकोश खींच सकते हैं। इस तरह, आप अपने अनुप्रयोग की आवश्यकता के लिए अपने शब्दकोशों की सामग्री को ओवरराइट कर सकते हैं।
 
 ##### तर्क:
 

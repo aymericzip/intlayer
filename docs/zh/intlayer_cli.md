@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## intlayer-cli 包
 
-`intlayer-cli` 包旨在将您的 [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) 声明转译为字典。
+`intlayer-cli` 包旨在将您的 [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) 声明转译为字典。
 
-此包将转译所有 intlayer 文件，例如 `src/**/*.content.{ts|js|mjs|cjs|json}`。[查看如何声明您的 Intlayer 声明文件](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md)。
+此包将转译所有 intlayer 文件，例如 `src/**/*.content.{ts|js|mjs|cjs|json}`。[查看如何声明您的 Intlayer 声明文件](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 
-要解释 intlayer 字典，您可以使用解释器，例如 [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.md) 或 [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md)
+要解释 intlayer 字典，您可以使用解释器，例如 [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md) 或 [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md)
 
 ## 配置文件支持
 
@@ -63,7 +63,7 @@ npx intlayer build --watch
 npx intlayer push
 ```
 
-如果已安装 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md)，您还可以将字典推送到编辑器。此命令将使字典可用于在 [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content) 的编辑器。通过这种方式，您可以与团队分享字典并编辑内容，而无需编辑应用程序代码。
+如果已安装 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_editor.md)，您还可以将字典推送到编辑器。此命令将使字典可用于在 [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content) 的编辑器。通过这种方式，您可以与团队分享字典并编辑内容，而无需编辑应用程序代码。
 
 ##### 参数：
 
@@ -80,7 +80,7 @@ npx intlayer push
 npx intlayer pull
 ```
 
-如果已安装 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md)，您还可以从编辑器拉取字典。通过这种方式，您可以覆盖字典的内容以满足应用程序的需求。
+如果已安装 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_editor.md)，您还可以从编辑器拉取字典。通过这种方式，您可以覆盖字典的内容以满足应用程序的需求。
 
 ##### 参数：
 

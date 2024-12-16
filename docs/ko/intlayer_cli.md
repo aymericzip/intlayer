@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## intlayer-cli 패키지
 
-`intlayer-cli` 패키지는 당신의 [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) 선언을 사전으로 변환하기 위해 의도되었습니다.
+`intlayer-cli` 패키지는 당신의 [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) 선언을 사전으로 변환하기 위해 의도되었습니다.
 
-이 패키지는 `src/**/*.content.{ts|js|mjs|cjs|json}`과 같은 모든 intlayer 파일을 변환합니다. [Intlayer 선언 파일을 선언하는 방법을 보려면](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) 여기를 확인하세요.
+이 패키지는 `src/**/*.content.{ts|js|mjs|cjs|json}`과 같은 모든 intlayer 파일을 변환합니다. [Intlayer 선언 파일을 선언하는 방법을 보려면](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) 여기를 확인하세요.
 
-intlayer 사전을 해석하기 위해 [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.md) 또는 [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md)와 같은 인터프리터를 사용할 수 있습니다.
+intlayer 사전을 해석하기 위해 [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md) 또는 [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md)와 같은 인터프리터를 사용할 수 있습니다.
 
 ## 구성 파일 지원
 
@@ -63,7 +63,7 @@ npx intlayer build --watch
 npx intlayer push
 ```
 
-[intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) 가 설치되어 있으면 사전을 편집기로 푸시할 수도 있습니다. 이 명령은 [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content)에서 편집기가 사전을 사용할 수 있도록 허용합니다. 이렇게 하면 팀과 사전을 공유하고 애플리케이션 코드 편집 없이 내용을 수정할 수 있습니다.
+[intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_editor.md) 가 설치되어 있으면 사전을 편집기로 푸시할 수도 있습니다. 이 명령은 [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content)에서 편집기가 사전을 사용할 수 있도록 허용합니다. 이렇게 하면 팀과 사전을 공유하고 애플리케이션 코드 편집 없이 내용을 수정할 수 있습니다.
 
 ##### 인수:
 
@@ -80,7 +80,7 @@ npx intlayer push
 npx intlayer pull
 ```
 
-[intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) 가 설치되어 있으면 편집기에서 사전을 가져올 수도 있습니다. 이렇게 하면 애플리케이션의 필요에 따라 사전의 내용을 덮어쓸 수 있습니다.
+[intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_editor.md) 가 설치되어 있으면 편집기에서 사전을 가져올 수도 있습니다. 이렇게 하면 애플리케이션의 필요에 따라 사전의 내용을 덮어쓸 수 있습니다.
 
 ##### 인수:
 

@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## حزمة intlayer-cli
 
-تهدف حزمة `intlayer-cli` إلى تحويل إعلانات [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md) الخاصة بك إلى قواميس.
+تهدف حزمة `intlayer-cli` إلى تحويل إعلانات [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) الخاصة بك إلى قواميس.
 
-ستقوم هذه الحزمة بتحويل جميع ملفات intlayer، مثل `src/**/*.content.{ts|js|mjs|cjs|json}`. [انظر كيف يمكنك إعلان ملفات إعلان Intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/readme.md).
+ستقوم هذه الحزمة بتحويل جميع ملفات intlayer، مثل `src/**/*.content.{ts|js|mjs|cjs|json}`. [انظر كيف يمكنك إعلان ملفات إعلان Intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-لتفسير قواميس intlayer يمكنك استخدام مفسرات، مثل [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/readme.md)، أو [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/readme.md)
+لتفسير قواميس intlayer يمكنك استخدام مفسرات، مثل [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md)، أو [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md)
 
 ## دعم ملف التكوين
 
@@ -63,7 +63,7 @@ npx intlayer build --watch
 npx intlayer push
 ```
 
-إذا كانت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) مثبتة، يمكنك أيضاً دفع القواميس إلى المحرر. ستتيح لك هذه الأوامر جعل القواميس متاحة للمحرر على [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). بهذه الطريقة، يمكنك مشاركة قواميسك مع فريقك وتحرير المحتوى الخاص بك دون تعديل كود تطبيقك.
+إذا كانت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md) مثبتة، يمكنك أيضاً دفع القواميس إلى المحرر. ستتيح لك هذه الأوامر جعل القواميس متاحة للمحرر على [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). بهذه الطريقة، يمكنك مشاركة قواميسك مع فريقك وتحرير المحتوى الخاص بك دون تعديل كود تطبيقك.
 
 ##### الوسائط:
 
@@ -80,7 +80,7 @@ npx intlayer push
 npx intlayer pull
 ```
 
-إذا كانت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/intlayer_editor.md) مثبتة، يمكنك أيضاً سحب القواميس من المحرر. بهذه الطريقة، يمكنك استبدال محتوى قواميسك بما تحتاجه تطبيقك.
+إذا كانت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md) مثبتة، يمكنك أيضاً سحب القواميس من المحرر. بهذه الطريقة، يمكنك استبدال محتوى قواميسك بما تحتاجه تطبيقك.
 
 ##### الوسائط:
 

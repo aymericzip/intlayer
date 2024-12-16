@@ -256,7 +256,7 @@ export const ServerComponentExample = () => {
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-For more detailed usage of intlayer into Client, or Server component, see the [nextJS example here](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
+For more detailed usage of intlayer into Client, or Server component, see the [nextJS example here](https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app).
 
 ### (Optional) Step 8: Internationalization of your metadata
 
