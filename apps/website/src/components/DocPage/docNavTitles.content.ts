@@ -1,3 +1,4 @@
+import { label } from 'framer-motion/client';
 import { type DeclarationContent, t } from 'intlayer';
 
 const docNavTitlesContent = {
@@ -17,6 +18,21 @@ const docNavTitlesContent = {
       hi: 'इस पृष्ठ में',
       ar: 'في هذه الصفحة',
       ru: 'На этой странице',
+    }),
+    linkLabel: t({
+      en: 'Go to section',
+      fr: 'Aller à la section',
+      es: 'Ir a la sección',
+      'en-GB': 'Go to section',
+      de: 'Gehe zur Sektion',
+      ja: 'セクションへ行く',
+      ko: '섹션으로 이동',
+      zh: '转到节',
+      it: 'Vai alla sezione',
+      pt: 'Ir para a seção',
+      hi: 'सेक्शन पर जाएं',
+      ar: 'اذهب إلى القسم',
+      ru: 'Перейти к разделу',
     }),
   },
 } satisfies DeclarationContent;

@@ -116,6 +116,11 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
               color="text"
               variant="invisible-link"
               className="flex px-4 py-0.5"
+              aria-current={
+                getCleanTabSelector(pathWithoutLocale) === url
+                  ? 'page'
+                  : undefined
+              }
             >
               {title}
             </Link>

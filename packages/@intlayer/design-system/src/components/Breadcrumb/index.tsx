@@ -85,7 +85,9 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
 
       const text = (link as DetailedBreadcrumbLink).text ?? link;
 
-      let Section = <Span>{text}</Span>;
+      let Section = (
+        <Span aria-current={isLastLink ? 'location' : undefined}>{text}</Span>
+      );
 
       if (isLink) {
         Section = (

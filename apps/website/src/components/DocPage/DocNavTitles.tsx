@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from '@intlayer/design-system';
+import { Container, Link } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { useIntlayer } from 'next-intlayer';
 import {
@@ -20,24 +20,28 @@ const DocNavTitles2: FC<DocNavTitles2Props> = ({
   title2,
   activeSectionsId,
 }) => {
+  const { linkLabel } = useIntlayer('doc-nav-titles');
   return (
-    <div className="border-neutral dark:border-neutral-dark sticky top-20 flex w-full min-w-52 flex-col gap-5 border-l-[0.5px] pl-3">
+    <div className="border-neutral dark:border-neutral-dark sticky top-20 flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
       {title2.map((h3) => {
         const { id } = h3;
+        const isActive = activeSectionsId === id;
 
         return (
-          <a
+          <Link
             key={id}
             href={`#${id}`}
+            label={`${linkLabel}: ${h3.innerText}`}
+            aria-current={isActive ? 'location' : undefined}
+            color="text"
+            variant="hoverable"
             className={cn([
-              'text-neutral transition-colors dark:text-neutral-200',
-              activeSectionsId === id
-                ? 'text-primary dark:text-primary-dark'
-                : 'hover:text-text dark:hover:text-text-dark',
+              'text-neutral p-2 transition-colors dark:text-neutral-200',
+              isActive && '!text-primary !dark:text-primary-dark',
             ])}
           >
             {h3.innerText}
-          </a>
+          </Link>
         );
       })}
     </div>
@@ -56,7 +60,7 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
   const [activeH2, setActiveH2] = useState<HTMLElement | null>(null);
   const [activeH3, setActiveH3] = useState<HTMLElement | null>(null);
 
-  const { title } = useIntlayer('doc-nav-titles');
+  const { title, linkLabel } = useIntlayer('doc-nav-titles');
 
   const updateTitles = () => {
     const h2Elements = document
@@ -157,26 +161,28 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
     >
       <div className="px-5 pb-20 pt-6">
         <h2 className="mb-4 font-bold">{title}</h2>
-        <nav className="flex max-h-full flex-col gap-6 text-sm">
+        <nav className="flex max-h-full flex-col gap-3 text-sm">
           {h2List.map((h2) => {
             const id = h2.id;
             const h2List = h2ToH3Map.get(h2);
             const hasH3List = h2List && h2List.length > 0;
+            const isActive = activeH2?.id === id;
 
             return (
               <>
-                <a
+                <Link
                   key={id}
+                  label={`${linkLabel}: ${h2.innerText}`}
                   href={`#${id}`}
+                  color="text"
+                  variant="hoverable"
                   className={cn([
-                    'text-neutral transition-colors dark:text-neutral-200',
-                    activeH2?.id === id
-                      ? 'text-primary dark:text-primary-dark'
-                      : 'hover:text-text dark:hover:text-text-dark',
+                    'text-neutral p-2 transition-colors dark:text-neutral-200',
+                    isActive && '!text-primary !dark:text-primary-dark',
                   ])}
                 >
                   {h2.innerText}
-                </a>
+                </Link>
                 {hasH3List && (
                   <DocNavTitles2
                     title2={h2List}

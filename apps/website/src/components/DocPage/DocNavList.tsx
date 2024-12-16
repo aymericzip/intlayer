@@ -43,6 +43,7 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                   isActive && 'text-primary dark:text-primary-dark',
                 ])}
                 label={key1}
+                aria-current={isActive ? 'page' : undefined}
               >
                 {section1Data.title}
               </OptionalLink>
@@ -74,6 +75,7 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                                   isActive &&
                                     'text-primary dark:text-primary-dark',
                                 ])}
+                                aria-current={isActive ? 'page' : undefined}
                               >
                                 {section2Data?.title}
                               </OptionalLink>
@@ -107,6 +109,9 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                                               isActive &&
                                                 '!text-primary !dark:text-primary-dark',
                                             ])}
+                                            aria-current={
+                                              isActive ? 'page' : undefined
+                                            }
                                           >
                                             {section3Data.title}
                                           </OptionalLink>

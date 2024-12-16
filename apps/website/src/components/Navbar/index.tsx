@@ -46,6 +46,7 @@ export const Navbar: FC = () => {
             key={url.value}
             href={url.value}
             label={label.value}
+            aria-current={pathWithoutLocale === url.value ? 'page' : undefined}
             color="text"
             variant="invisible-link"
             className="flex px-4 py-0.5 text-sm"
@@ -60,6 +61,7 @@ export const Navbar: FC = () => {
             id={id.value}
             key={url.value}
             href={url.value}
+            aria-current={pathWithoutLocale === url.value ? 'page' : undefined}
             label={label.value}
             color="text"
             variant="invisible-link"

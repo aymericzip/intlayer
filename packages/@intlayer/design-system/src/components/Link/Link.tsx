@@ -81,18 +81,25 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     ref
   ) => {
     const isChildrenString = typeof children === 'string';
+    const isValidHref = typeof href === 'string' && href.trim() !== '';
     const isExternalLink =
       isExternalLinkProp === true ||
       (isChildrenString &&
         typeof isExternalLinkProp === 'undefined' &&
+        isValidHref &&
         isExternal(href));
+
+    const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
+
+    const target = isExternalLink ? '_blank' : '_self';
 
     return (
       <a
         href={href}
         ref={ref}
         aria-label={label}
-        aria-current={isActive}
+        rel={rel}
+        target={target}
         className={linkVariants({
           variant,
           color,
