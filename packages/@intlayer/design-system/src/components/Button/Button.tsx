@@ -50,7 +50,7 @@ const buttonVariants = cva(
         'invisible-link':
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent',
         hoverable:
-          'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 aria-[current=true]:bg-opacity-5 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
+          'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 aria-selected:bg-opacity-5 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
         input: [
           'w-full select-text resize-none rounded-xl border-2 bg-input-background text-sm text-input-text shadow-none outline-0 transition-all dark:bg-input-background-dark dark:text-input-text-dark',
           'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none] dark:border-input-border-dark dark:hover:border-input-border-hover-dark dark:focus:border-input-border-focus',
