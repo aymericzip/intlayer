@@ -20,11 +20,12 @@ type DocNavListProps = {
 };
 
 export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
-  ({ docData, activeSections }) => (
+  ({ docData, activeSections }, ref) => (
     <Container
       className="sticky h-full overflow-scroll md:top-14 md:max-h-[calc(100vh-58px)] md:overflow-scroll"
       roundedSize="none"
       transparency="sm"
+      ref={ref}
     >
       <SearchTrigger />
       <nav className="flex min-w-40 flex-col gap-5 px-32 pb-20 pt-10 md:max-w-80 md:px-6">

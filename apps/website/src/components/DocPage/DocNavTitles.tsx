@@ -36,7 +36,7 @@ const DocNavTitles2: FC<DocNavTitles2Props> = ({
             color="text"
             variant="hoverable"
             className={cn([
-              'text-neutral p-2 transition-colors dark:text-neutral-200',
+              'text-neutral text-wrap p-2 transition-colors dark:text-neutral-200',
               isActive && '!text-primary !dark:text-primary-dark',
             ])}
           >
@@ -168,6 +168,8 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
             const hasH3List = h2List && h2List.length > 0;
             const isActive = activeH2?.id === id;
 
+            console.log('id', id);
+
             return (
               <>
                 <Link
@@ -177,7 +179,7 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
                   color="text"
                   variant="hoverable"
                   className={cn([
-                    'text-neutral p-2 transition-colors dark:text-neutral-200',
+                    'text-neutral text-wrap p-2 transition-colors dark:text-neutral-200',
                     isActive && '!text-primary !dark:text-primary-dark',
                   ])}
                 >
