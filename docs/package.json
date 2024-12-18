@@ -65,7 +65,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "test": "",
-    "translate": "node ./src/cjs/translate.cjs"
+    "translate": "node --import=tsx ./src/translate.ts"
   },
   "dependencies": {
     "@intlayer/config": "workspace:^"

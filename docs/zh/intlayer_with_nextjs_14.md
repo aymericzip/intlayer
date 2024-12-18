@@ -1,24 +1,24 @@
-# 开始使用 Intlayer 和 Next.js 14 的国际化 (i18n)
+# 开始使用 Intlayer 和 Next.js 14 进行国际化 (i18n)
 
 ## 什么是 Intlayer？
 
-**Intlayer** 是一个创新的开源国际化 (i18n) 库，旨在简化现代 веб 应用程序中的多语言支持。Intlayer 无缝集成最新的 **Next.js 14** 框架，包括其强大的 **App Router**。它经过优化以与 **Server Components** 一起高效渲染，并且与 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) （从 Next.js >= 15）完全兼容。
+**Intlayer** 是一个创新的开源国际化 (i18n) 库，旨在简化现代 Web 应用程序中的多语言支持。Intlayer 与最新的 **Next.js 14** 框架无缝集成，包括其强大的 **App Router**。它已优化以与 **Server Components** 一起高效渲染，并完全兼容 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack)（从 Next.js >= 15 开始）。
 
 使用 Intlayer，您可以：
 
-- **轻松管理翻译**，使用声明式字典在组件级别进行管理。
-- **动态本地化元数据、路由和内容**。
+- **轻松管理翻译**，通过组件级的声明性字典。
+- **动态本地化元数据**、路由和内容。
 - **在客户端和服务器端组件中访问翻译**。
-- **确保 TypeScript 支持**，通过自动生成类型，改善自动补全和错误检测。
-- **受益于高级功能**，如动态语言检测和切换。
+- **确保 TypeScript 支持**，通过自动生成类型，改善自动完成和错误检测。
+- **享受高级功能**，例如动态语言检测和切换。
 
-> 注意：Intlayer 兼容 Next.js 12、13、14 和 15。如果您使用 Next.js 页面路由，可以参考这个 [指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_page_router.md)。有关 Next.js 15 的信息（无论是否使用 turbopack），请参考这个 [指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)。
+> 注意：Intlayer 与 Next.js 12、13、14 和 15 兼容。如果您使用 Next.js 页面路由，您可以参考此 [指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_page_router.md)。有关带有或不带 turbopack 的 Next.js 15，请参考此 [指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)。
 
 ---
 
-## 在 Next.js 应用程序中设置 Intlayer 的逐步指南
+## 在 Next.js 应用程序中设置 Intlayer 的分步指南
 
-### 第 1 步：安装依赖
+### 步骤 1：安装依赖项
 
 使用 npm 安装必要的包：
 
@@ -34,9 +34,9 @@ yarn add intlayer next-intlayer
 pnpm add intlayer next-intlayer
 ```
 
-### 第 2 步：配置您的项目
+### 步骤 2：配置您的项目
 
-创建一个配置文件来配置您应用程序的语言：
+创建一个配置文件以配置您应用程序的语言：
 
 ```typescript
 // intlayer.config.ts
@@ -49,7 +49,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // 其他语言
+      // 您的其他语言
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -58,9 +58,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-要查看所有可用参数，请参考 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+要查看所有可用参数，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
 
-### 第 3 步：在您的 Next.js 配置中集成 Intlayer
+### 步骤 3：在您的 Next.js 配置中集成 Intlayer
 
 配置您的 Next.js 设置以使用 Intlayer：
 
@@ -74,7 +74,7 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-### 第 4 步：配置用于语言检测的中间件
+### 步骤 4：配置用于语言检测的中间件
 
 设置中间件以检测用户的首选语言：
 
@@ -87,7 +87,7 @@ export const config = {
 };
 ```
 
-### 第 5 步：定义动态语言路由
+### 步骤 5：定义动态语言路由
 
 实现本地化内容的动态路由：
 
@@ -135,9 +135,9 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 export default LocaleLayout;
 ```
 
-### 第 6 步：声明您的内容
+### 步骤 6：声明您的内容
 
-创建和管理您的内容字典：
+创建并管理您的内容字典：
 
 ```tsx
 // src/app/[locale]/page.content.ts
@@ -162,9 +162,9 @@ export default pageContent;
 
 [查看如何声明您的 Intlayer 声明文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)。
 
-### 第 7 步：在您的代码中使用内容
+### 步骤 7：在您的代码中利用内容
 
-在您的应用程序中访问内容字典：
+在整个应用程序中访问您的内容字典：
 
 ```tsx
 // src/app/[locale]/page.ts
@@ -187,7 +187,7 @@ const Page: Next14PageIntlayer = ({ params: { locale } }) => {
       </p>
       {/**
        *   IntlayerServerProvider 用于将语言提供给服务器子组件
-       *   如果在布局中设置则无效
+       *   如果在布局中设置则无法工作
        */}
       <IntlayerServerProvider locale={locale}>
         <ServerComponentExample />
@@ -242,17 +242,17 @@ export const ServerComponentExample = () => {
 };
 ```
 
-> 注意：如果您想在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须调用函数的值，如下所示：
+> 注意：如果您希望在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须调用该函数的值，例如：
 >
 > ```tsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-有关在客户端或服务器组件中使用 Intlayer 的更详细信息，请参见 [这里的 nextJS 示例](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx)。
+有关如何更详细地使用 intlayer 在客户端或服务器组件中，请参阅 [Next.js 示例](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx)。
 
-### （可选）第 8 步：国际化您的元数据
+### （可选）步骤 8：国际化您的元数据
 
-如果您想要国际化您的元数据，例如页面标题，可以使用 NextJS 提供的 `generateMetadata` 函数。在函数内部使用 `getTranslationContent` 函数来翻译您的元数据。
+如果您想国际化您的元数据，例如页面的标题，您可以使用 Next.js 提供的 `generateMetadata` 函数。在函数内部使用 `getTranslationContent` 函数来翻译您的元数据。
 
 ````typescript
 // src/app/[locale]/layout.tsx 或 src/app/[locale]/page.tsx
@@ -271,14 +271,12 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
-  const url = `/`;
-
   /**
-   * 生成一个包含每个语言的所有 url 的对象。
+   * 生成一个对象，包含所有语言的 url。
    *
    * 示例：
    * ```ts
-   *  getLocalizedUrl('/about');
+   *  getMultilingualUrls('/about');
    *
    *  // 返回
    *  // {
@@ -288,20 +286,7 @@ export const generateMetadata = ({
    *  // }
    * ```
    */
-  const multilingualUrls = getMultilingualUrls(url);
-
-  /**
-   * 获取当前语言的本地化 URL
-   *
-   * 示例：
-   * ```ts
-   * const localizedUrl = getLocalizedUrl('/about', locale);
-   *
-   * 返回：
-   * '/fr/about' 对于法语语言
-   * ```
-   */
-  const localizedUrl = getLocalizedUrl(url, locale);
+  const multilingualUrls = getMultilingualUrls("/");
 
   return {
     title: t<string>({
@@ -319,7 +304,7 @@ export const generateMetadata = ({
       languages: multilingualUrls,
     },
     openGraph: {
-      url: localizedUrl,
+      url: multilingualUrls[locale],
     },
   };
 };
@@ -327,11 +312,11 @@ export const generateMetadata = ({
 // ... 其余代码
 ````
 
-> 了解有关元数据优化的更多信息 [在官方 Next.js 文档中](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)。
+> 详细了解元数据优化的内容，请参见 [官方 Next.js 文档](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)。
 
-### （可选）第 9 步：国际化您的网站地图
+### （可选）步骤 9：国际化您的 sitemap.xml 和 robots.txt
 
-要国际化您的网站地图，您可以使用 Intlayer 提供的 `getMultilingualUrls` 函数。此函数允许您为您的网站地图生成多语言 URL。
+要国际化您的 `sitemap.xml` 和 `robots.txt`，您可以使用 Intlayer 提供的 `getMultilingualUrls` 函数。此函数允许您为您的站点地图生成多语言 URL。
 
 ```tsx
 // src/app/sitemap.ts
@@ -339,16 +324,23 @@ export const generateMetadata = ({
 import { getMultilingualUrls } from "intlayer";
 import type { MetadataRoute } from "next";
 
-const url = `https://example.com`;
-
 const sitemap = (): MetadataRoute.Sitemap => [
   {
-    url,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 1,
+    url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls(url),
+      languages: getMultilingualUrls("https://example.com"),
+    },
+  },
+  {
+    url: "https://example.com/login",
+    alternates: {
+      languages: getMultilingualUrls("https://example.com/login"),
+    },
+  },
+  {
+    url: "https://example.com/register",
+    alternates: {
+      languages: getMultilingualUrls("https://example.com/register"),
     },
   },
 ];
@@ -356,11 +348,32 @@ const sitemap = (): MetadataRoute.Sitemap => [
 export default sitemap;
 ```
 
-> 了解有关网站地图优化的更多信息 [在官方 Next.js 文档中](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)。
+```tsx
+// src/app/robots.ts
+import type { MetadataRoute } from "next";
+import { getMultilingualUrls } from "intlayer";
 
-### （可选）第 10 步：更改内容语言
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
 
-要更改内容语言，您可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许您设置应用程序的语言并相应地更新内容。
+const robots = (): MetadataRoute.Robots => ({
+  rules: {
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
+  },
+  host: "https://example.com",
+  sitemap: `https://example.com/sitemap.xml`,
+});
+
+export default robots;
+```
+
+> 详细了解站点地图优化的内容，请参见 [官方 Next.js 文档](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)。有关 robots.txt 优化的详细信息，请参见 [官方 Next.js 文档](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)。
+
+### （可选）步骤 10：更改内容的语言
+
+要更改内容的语言，您可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许您设置应用程序的语言并相应更新内容。
 
 ```tsx
 import { Locales } from "intlayer";
@@ -375,7 +388,7 @@ const MyComponent = () => {
 
 ### 配置 TypeScript
 
-Intlayer 使用模块增强功能以获得 TypeScript 的好处，使您的代码库更强大。
+Intlayer 使用模块扩展来获得 TypeScript 的优点并增强您的代码库。
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
@@ -390,18 +403,18 @@ Intlayer 使用模块增强功能以获得 TypeScript 的好处，使您的代�
   // 您的自定义配置
   include: [
     "src",
-    "types", // <- 包括自动生成的类型
+    "types", // <- 包含自动生成的类型
   ],
 }
 ```
 
 ### Git 配置
 
-建议忽略由 Intlayer 生成的文件。这使您能够避免将它们提交到 Git 仓库。
+建议忽略 Intlayer 生成的文件。这可以避免将它们提交到您的 Git 仓库。
 
 为此，您可以将以下指令添加到您的 `.gitignore` 文件中：
 
 ```gitignore
-# 忽略由 Intlayer 生成的文件
+# 忽略 Intlayer 生成的文件
 .intlayer
 ```

@@ -53,12 +53,7 @@ export const auditFile = async (filePath: string, locale: Locales) => {
   }
 };
 
-const excludedLocales = [
-  Locales.ENGLISH,
-  Locales.SPANISH,
-  Locales.FRENCH,
-  Locales.ENGLISH_UNITED_KINGDOM,
-];
+const excludedLocales = [Locales.ENGLISH];
 
 /**
  * Audits the content declaration files by constructing a prompt for ChatGPT.
@@ -74,6 +69,10 @@ const excludedLocales = [
 export const audit = async () => {
   const limit = pLimit(1); // Limit the number of concurrent requests
 
+  // const docList: string[] = [
+  //   '/Users/aymericpineau/Documents/intlayer/docs/en/intlayer_with_nextjs_14.md',
+  //   '/Users/aymericpineau/Documents/intlayer/docs/en/intlayer_with_nextjs_15.md',
+  // ];
   const docList: string[] = fg.sync('en/**/*.md');
 
   if (!OPEN_AI_API_KEY) {

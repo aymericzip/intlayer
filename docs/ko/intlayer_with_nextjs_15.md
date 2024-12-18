@@ -1,26 +1,26 @@
 # Getting Started internationalizing (i18n) with Intlayer and Next.js 15 App Router
 
-## What is Intlayer?
+## Intlayer란 무엇인가요?
 
-**Intlayer**는 현대 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적인 오픈 소스 국제화(i18n) 라이브러리입니다. Intlayer는 최신 **Next.js 15** 프레임워크와 매끄럽게 통합되며, 강력한 **App Router**도 포함되어 있습니다. 효율적인 렌더링을 위해 **서버 구성 요소**와 함께 작동하도록 최적화되어 있으며 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack)과 완전 호환됩니다.
+**Intlayer**는 현대 웹 애플리케이션에서 다국어 지원을 간소화하도록 설계된 혁신적인 오픈 소스 국제화 (i18n) 라이브러리입니다. Intlayer는 최신 **Next.js 15** 프레임워크와 원활하게 통합되며, 강력한 **App Router**를 포함합니다. 서버 구성 요소와 함께 효율적인 렌더링을 위해 최적화되었으며, [**Turbopack**](https://nextjs.org/docs/architecture/turbopack)과 완전히 호환됩니다.
 
-Intlayer를 사용하면 다음을 수행할 수 있습니다:
+Intlayer를 사용하면:
 
 - **선언적 사전을 사용하여 번역을 쉽게 관리**할 수 있습니다.
-- **메타데이터**, 경로 및 콘텐츠를 동적으로 지역화합니다.
+- **메타데이터, 경로 및 콘텐츠를 동적으로 지역화**할 수 있습니다.
 - **클라이언트 측 및 서버 측 구성 요소에서 번역에 접근**할 수 있습니다.
-- **자동 생성된 타입으로 TypeScript 지원을 보장**하여 자동 완성과 오류 감지를 개선합니다.
-- **동적 로케일 감지 및 전환**과 같은 고급 기능의 혜택을 누릴 수 있습니다.
+- **자동 생성된 타입으로 TypeScript 지원 보장**, 자동 완성과 오류 감지를 개선합니다.
+- **동적 지역 감지 및 전환**과 같은 고급 기능의 혜택을 누릴 수 있습니다.
 
-> 주: Intlayer는 Next.js 12, 13, 14 및 15와 호환됩니다. Next.js 페이지 라우터를 사용 중인 경우 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_page_router.md)를 참조할 수 있습니다. Next.js 12, 13, 14에서 App Router와 관련하여 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_14.md)를 참조하세요.
+> 참고: Intlayer는 Next.js 12, 13, 14 및 15와 호환됩니다. Next.js 페이지 라우터를 사용하는 경우, 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_page_router.md)를 참조할 수 있습니다. Next.js 12, 13, 14와 App Router의 경우, 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_14.md)를 참조하세요.
 
 ---
 
-## Step-by-Step Guide to Set Up Intlayer in a Next.js Application
+## Next.js 애플리케이션에서 Intlayer 설정을 위한 단계별 가이드
 
-### Step 1: Install Dependencies
+### 1단계: 종속성 설치
 
-npm을 사용하여 필요한 패키지를 설치합니다:
+필요한 패키지를 npm을 사용해 설치하세요:
 
 ```bash
 npm install intlayer next-intlayer
@@ -34,9 +34,9 @@ yarn add intlayer next-intlayer
 pnpm add intlayer next-intlayer
 ```
 
-### Step 2: Configure Your Project
+### 2단계: 프로젝트 구성
 
-애플리케이션 언어를 구성하기 위해 구성 파일을 만듭니다:
+애플리케이션의 언어를 구성하기 위해 설정 파일을 생성하세요:
 
 ```typescript
 // intlayer.config.ts
@@ -49,7 +49,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // 다른 로케일 추가
+      // 다른 지역 추가
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -58,11 +58,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-모든 사용 가능한 매개변수를 보려면 [여기에서 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
+사용 가능한 모든 매개변수를 보려면, [구성 문서 여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
 
-### Step 3: Integrate Intlayer in Your Next.js Configuration
+### 3단계: Next.js 설정에서 Intlayer 통합
 
-Intlayer를 사용하도록 Next.js 설정을 구성합니다:
+Next.js 설정을 Intlayer를 사용하도록 구성하세요:
 
 ```typescript
 // next.config.mjs
@@ -74,9 +74,9 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-### Step 4: Configure Middleware for Locale Detection
+### 4단계: 로케일 감지를 위한 미들웨어 구성
 
-사용자의 선호 로케일을 감지하기 위해 미들웨어를 설정합니다:
+사용자의 선호 로케일을 감지하기 위해 미들웨어를 설정하세요:
 
 ```typescript
 // src/middleware.ts
@@ -87,13 +87,13 @@ export const config = {
 };
 ```
 
-### Step 5: Define Dynamic Locale Routes
+### 5단계: 동적 로케일 경로 정의
 
-지역화된 콘텐츠를 위한 동적 라우팅을 구현합니다:
+지역화된 콘텐츠에 대한 동적 라우팅을 구현하세요:
 
-`src/app/page.ts`를 `src/app/[locale]/page.ts`로 변경합니다.
+`src/app/page.ts`를 `src/app/[locale]/page.ts`로 변경하세요.
 
-그런 다음 애플리케이션 레이아웃에서 generateStaticParams 함수를 구현합니다.
+그런 다음 애플리케이션 레이아웃에서 generateStaticParams 함수를 구현하세요.
 
 ```tsx
 // src/app/layout.tsx
@@ -101,7 +101,7 @@ export const config = {
 import type { ReactNode } from "react";
 import "./globals.css";
 
-export { generateStaticParams } from "next-intlayer"; // 삽입할 라인
+export { generateStaticParams } from "next-intlayer"; // 삽입할 줄
 
 const RootLayout = ({
   children,
@@ -112,7 +112,7 @@ const RootLayout = ({
 export default RootLayout;
 ```
 
-그런 다음 `[locale]` 디렉터리에서 새 레이아웃을 추가합니다:
+그런 다음 `[locale]` 디렉토리에 새로운 레이아웃을 추가하세요:
 
 ```tsx
 // src/app/[locale]/layout.tsx
@@ -135,9 +135,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
-### Step 6: Declare Your Content
+### 6단계: 콘텐츠 선언
 
-콘텐츠 사전을 생성하고 관리합니다:
+콘텐츠 사전을 생성하고 관리하세요:
 
 ```tsx
 // src/app/[locale]/page.content.ts
@@ -160,11 +160,11 @@ const pageContent = {
 export default pageContent;
 ```
 
-[Intlayer 선언 파일을 선언하는 방법은 여기서 확인하세요](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md).
+[Intlayer 선언 파일을 선언하는 방법을 보세요](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md).
 
-### Step 7: Utilize Content in Your Code
+### 7단계: 코드에서 콘텐츠 활용
 
-애플리케이션 전반에서 콘텐츠 사전을 접근합니다:
+애플리케이션 전반에 걸쳐 콘텐츠 사전에 접근하세요:
 
 ```tsx
 // src/app/[locale]/page.ts
@@ -193,16 +193,16 @@ const Page: NextPageIntlayer = async ({ params }) => {
   return (
     <>
       {/**
-       *   IntlayerServerProvider는 서버 자식에게 로케일을 제공하는 데 사용됩니다
-       *   레이아웃에서 설정하면 작동하지 않음
+       *   IntlayerServerProvider는 서버 자식에게 로케일을 제공하는 데 사용됩니다.
+       *   레이아웃에 설정하면 작동하지 않습니다.
        */}
       <IntlayerServerProvider locale={locale}>
         <PageContent />
         <ServerComponentExample />
       </IntlayerServerProvider>
       {/**
-       *   IntlayerClientProvider는 클라이언트 자식에게 로케일을 제공하는 데 사용됩니다
-       *   레이아웃을 포함하여 모든 부모 구성 요소에 설정할 수 있습니다
+       *   IntlayerClientProvider는 클라이언트 자식에게 로케일을 제공하는 데 사용됩니다.
+       *   레이아웃을 포함하여 모든 부모 구성 요소에 설정할 수 있습니다.
        */}
       <IntlayerClientProvider locale={locale}>
         <ClientComponentExample />
@@ -222,7 +222,7 @@ export default Page;
 import { useIntlayer } from "next-intlayer";
 
 export const ClientComponentExample = () => {
-  const content = useIntlayer("client-component-example"); // 관련 콘텐츠 선언 생성
+  const content = useIntlayer("client-component-example"); // 관련 콘텐츠 선언 만들기
 
   return (
     <div>
@@ -239,7 +239,7 @@ export const ClientComponentExample = () => {
 import { useIntlayer } from "next-intlayer/server";
 
 export const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // 관련 콘텐츠 선언 생성
+  const content = useIntlayer("server-component-example"); // 관련 콘텐츠 선언 만들기
 
   return (
     <div>
@@ -250,17 +250,17 @@ export const ServerComponentExample = () => {
 };
 ```
 
-> 주: `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면 값의 함수를 호출해야합니다. 예:
+> 참고: `alt`, `title`, `href`, `aria-label`와 같은 `string` 속성에서 콘텐츠를 사용하려면, 함수의 값으로 호출해야 합니다:
 >
 > ```tsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-클라이언트 또는 서버 구성 요소에서 intlayer를 사용하는 방법에 대한 자세한 내용은 [여기에서 nextJS 예제를 확인하세요](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
+클라이언트 또는 서버 구성 요소에서 intlayer를 사용하는 더 자세한 내용은 [Next.js 예제 여기](https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app)를 참조하세요.
 
-### (Optional) Step 8: Internationalization of your metadata
+### (선택 사항) 8단계: 메타데이터 국제화
 
-메타데이터를 국제화하려면, 예를 들어 페이지의 제목과 같은 경우, NextJS가 제공하는 `generateMetadata` 함수를 사용할 수 있습니다. 함수 내부에서 `getTranslationContent` 함수를 사용하여 메타데이터를 번역합니다.
+페이지의 제목과 같은 메타데이터를 국제화하려면, Next.js에서 제공하는 `generateMetadata` 함수를 사용할 수 있습니다. 함수 내에서 `getTranslationContent` 함수를 사용하여 메타데이터를 번역하세요.
 
 ````typescript
 // src/app/[locale]/layout.tsx 또는 src/app/[locale]/page.tsx
@@ -279,16 +279,14 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
-  const url = `/`;
-
   /**
-   * 각 로케일에 대한 모든 URL을 포함하는 객체를 생성합니다.
+   * 각 로케일에 대한 모든 URL을 포함하는 개체를 생성합니다.
    *
    * 예시:
    * ```ts
-   *  getLocalizedUrl('/about');
+   *  getMultilingualUrls('/about');
    *
-   *  // 반환
+   *  // 반환값
    *  // {
    *  //   en: '/about',
    *  //   fr: '/fr/about',
@@ -296,20 +294,7 @@ export const generateMetadata = ({
    *  // }
    * ```
    */
-  const multilingualUrls = getMultilingualUrls(url);
-
-  /**
-   * 현재 로케일에 대한 지역화된 URL을 가져옵니다
-   *
-   * 예시:
-   * ```ts
-   * const localizedUrl = getLocalizedUrl('/about', locale);
-   *
-   * 반환:
-   * '/fr/about'는 프랑스어 로케일에 대한 것입니다
-   * ```
-   */
-  const localizedUrl = getLocalizedUrl(url, locale);
+  const multilingualUrls = getMultilingualUrls("/");
 
   return {
     title: t<string>({
@@ -327,7 +312,7 @@ export const generateMetadata = ({
       languages: multilingualUrls,
     },
     openGraph: {
-      url: localizedUrl,
+      url: multilingualUrls[locale],
     },
   };
 };
@@ -335,11 +320,11 @@ export const generateMetadata = ({
 // ... 나머지 코드
 ````
 
-> 메타데이터 최적화에 대한 자세한 내용은 [공식 Next.js 문서](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)에서 확인하세요.
+> 메타데이터 최적화에 대한 더 많은 정보는 [공식 Next.js 문서](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)를 참조하세요.
 
-### (Optional) Step 9: Internationalization of your sitemap
+### (선택 사항) 9단계: sitemap.xml 및 robots.txt의 국제화
 
-사이트맵을 국제화하려면 Intlayer가 제공하는 `getMultilingualUrls` 함수를 사용할 수 있습니다. 이 함수는 사이트맵을 위한 다국어 URL을 생성할 수 있게 해줍니다.
+`sitemap.xml` 및 `robots.txt`를 국제화하려면, Intlayer에서 제공하는 `getMultilingualUrls` 함수를 사용할 수 있습니다. 이 함수는 sitemap을 위한 다국어 URLs를 생성할 수 있게 합니다.
 
 ```tsx
 // src/app/sitemap.ts
@@ -347,16 +332,23 @@ export const generateMetadata = ({
 import { getMultilingualUrls } from "intlayer";
 import type { MetadataRoute } from "next";
 
-const url = `https://example.com`;
-
 const sitemap = (): MetadataRoute.Sitemap => [
   {
-    url,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 1,
+    url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls(url),
+      languages: getMultilingualUrls("https://example.com"),
+    },
+  },
+  {
+    url: "https://example.com/login",
+    alternates: {
+      languages: getMultilingualUrls("https://example.com/login"),
+    },
+  },
+  {
+    url: "https://example.com/register",
+    alternates: {
+      languages: getMultilingualUrls("https://example.com/register"),
     },
   },
 ];
@@ -364,11 +356,32 @@ const sitemap = (): MetadataRoute.Sitemap => [
 export default sitemap;
 ```
 
-> 사이트맵 최적화에 대한 자세한 내용은 [공식 Next.js 문서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)에서 확인하세요.
+```tsx
+// src/app/robots.ts
+import type { MetadataRoute } from "next";
+import { getMultilingualUrls } from "intlayer";
 
-### (Optional) Step 10: Change the language of your content
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
 
-콘텐츠의 언어를 변경하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수를 사용하면 애플리케이션의 로케일을 설정하고 콘텐츠를 적절히 업데이트할 수 있습니다.
+const robots = (): MetadataRoute.Robots => ({
+  rules: {
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
+  },
+  host: "https://example.com",
+  sitemap: `https://example.com/sitemap.xml`,
+});
+
+export default robots;
+```
+
+> sitemap 최적화에 대한 더 많은 정보는 [공식 Next.js 문서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)를 참조하세요. robots.txt 최적화에 대한 더 많은 정보는 [공식 Next.js 문서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)를 참조하세요.
+
+### (선택 사항) 10단계: 콘텐츠 언어 변경
+
+콘텐츠 언어를 변경하려면, `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 콘텐츠를 적절히 업데이트할 수 있게 합니다.
 
 ```tsx
 import { Locales } from "intlayer";
@@ -381,9 +394,9 @@ const MyComponent = () => {
 };
 ```
 
-### Configure TypeScript
+### TypeScript 구성
 
-Intlayer는 모듈 증강을 사용하여 TypeScript의 이점을 얻고 코드베이스를 더욱 강력하게 만듭니다.
+Intlayer는 모듈 증강을 사용하여 TypeScript의 이점을 이용하고 코드베이스를 강화합니다.
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
@@ -395,7 +408,7 @@ TypeScript 구성에 자동 생성된 타입을 포함해야 합니다.
 // tsconfig.json
 
 {
-  // 맞춤형 구성
+  // 사용자 정의 구성
   include: [
     "src",
     "types", // <- 자동 생성된 타입 포함
@@ -403,11 +416,11 @@ TypeScript 구성에 자동 생성된 타입을 포함해야 합니다.
 }
 ```
 
-### Git Configuration
+### Git 구성
 
-Intlayer에 의해 생성된 파일은 무시하는 것이 좋습니다. 이렇게 하면 Git 리포지토리에 커밋하는 것을 피할 수 있습니다.
+Intlayer에 의해 생성된 파일을 무시하는 것이 좋습니다. 이렇게 하면 Git 리포지토리에 커밋하는 것에서 벗어날 수 있습니다.
 
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
+이를 위해 `.gitignore` 파일에 다음 지침을 추가하세요:
 
 ```gitignore
 # Intlayer에 의해 생성된 파일 무시

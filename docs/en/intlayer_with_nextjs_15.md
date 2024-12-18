@@ -194,7 +194,7 @@ const Page: NextPageIntlayer = async ({ params }) => {
     <>
       {/**
        *   IntlayerServerProvider is used to provide the locale to the server children
-       *   Don't work if set in the layout
+       *   Doesn't work if set in the layout
        */}
       <IntlayerServerProvider locale={locale}>
         <PageContent />
@@ -256,11 +256,11 @@ export const ServerComponentExample = () => {
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-For more detailed usage of intlayer into Client, or Server component, see the [nextJS example here](https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app).
+For more detailed usage of intlayer into Client, or Server component, see the [Next.js example here](https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app).
 
 ### (Optional) Step 8: Internationalization of your metadata
 
-In the case you want to internationalize your metadata, such as the title of your page, you can use the `generateMetadata` function provided by NextJS. Inside the function use the `getTranslationContent` function to translate your metadata.
+In the case you want to internationalize your metadata, such as the title of your page, you can use the `generateMetadata` function provided by Next.js. Inside the function use the `getTranslationContent` function to translate your metadata.
 
 ````typescript
 // src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx
@@ -279,14 +279,12 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
-  const url = `/`;
-
   /**
    * Generates an object containing all url for each locale.
    *
    * Example:
    * ```ts
-   *  getLocalizedUrl('/about');
+   *  getMultilingualUrls('/about');
    *
    *  // Returns
    *  // {
@@ -296,20 +294,7 @@ export const generateMetadata = ({
    *  // }
    * ```
    */
-  const multilingualUrls = getMultilingualUrls(url);
-
-  /**
-   * Get the localized URL for the current locale
-   *
-   * Example:
-   * ```ts
-   * const localizedUrl = getLocalizedUrl('/about', locale);
-   *
-   * Returns:
-   * '/fr/about' for the French locale
-   * ```
-   */
-  const localizedUrl = getLocalizedUrl(url, locale);
+  const multilingualUrls = getMultilingualUrls("/");
 
   return {
     title: t<string>({
@@ -327,7 +312,7 @@ export const generateMetadata = ({
       languages: multilingualUrls,
     },
     openGraph: {
-      url: localizedUrl,
+      url: multilingualUrls[locale],
     },
   };
 };
@@ -337,9 +322,9 @@ export const generateMetadata = ({
 
 > Learn more about the metadata optimization [on the official Next.js documentation](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (Optional) Step 9: Internationalization of your sitemap
+### (Optional) Step 9: Internationalization of your sitemap.xml and robots.txt
 
-To internationalize your sitemap, you can use the `getMultilingualUrls` function provided by Intlayer. This function allows you to generate multilingual URLs for your sitemap.
+To internationalize your `sitemap.xml` and `robots.txt`, you can use the `getMultilingualUrls` function provided by Intlayer. This function allows you to generate multilingual URLs for your sitemap.
 
 ```tsx
 // src/app/sitemap.ts
@@ -347,16 +332,23 @@ To internationalize your sitemap, you can use the `getMultilingualUrls` function
 import { getMultilingualUrls } from "intlayer";
 import type { MetadataRoute } from "next";
 
-const url = `https://example.com`;
-
 const sitemap = (): MetadataRoute.Sitemap => [
   {
-    url,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 1,
+    url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls(url),
+      languages: getMultilingualUrls("https://example.com"),
+    },
+  },
+  {
+    url: "https://example.com/login",
+    alternates: {
+      languages: getMultilingualUrls("https://example.com/login"),
+    },
+  },
+  {
+    url: "https://example.com/register",
+    alternates: {
+      languages: getMultilingualUrls("https://example.com/register"),
     },
   },
 ];
@@ -364,7 +356,28 @@ const sitemap = (): MetadataRoute.Sitemap => [
 export default sitemap;
 ```
 
-> Learn more about the sitemap optimization [on the official Next.js documentation](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap).
+```tsx
+// src/app/robots.ts
+import type { MetadataRoute } from "next";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const robots = (): MetadataRoute.Robots => ({
+  rules: {
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
+  },
+  host: "https://example.com",
+  sitemap: `https://example.com/sitemap.xml`,
+});
+
+export default robots;
+```
+
+> Learn more about the sitemap optimization [on the official Next.js documentation](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Learn more about the robots.txt optimization [on the official Next.js documentation](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 ### (Optional) Step 10: Change the language of your content
 

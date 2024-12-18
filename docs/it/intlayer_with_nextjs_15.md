@@ -1,24 +1,24 @@
 # Iniziare l'internazionalizzazione (i18n) con Intlayer e Next.js 15 App Router
 
-## Che cos'è Intlayer?
+## Cos'è Intlayer?
 
-**Intlayer** è una libreria innovativa e open-source di internazionalizzazione (i18n) progettata per semplificare il supporto multilingue nelle moderne applicazioni web. Intlayer si integra senza soluzione di continuità con l'ultimo framework **Next.js 15**, incluso il suo potente **App Router**. È ottimizzato per lavorare con **Server Components** per un rendering efficiente ed è completamente compatibile con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
+**Intlayer** è una libreria open-source innovativa di internazionalizzazione (i18n) progettata per semplificare il supporto multilingue nelle moderne applicazioni web. Intlayer si integra senza soluzione di continuità con il più recente framework **Next.js 15**, incluso il potente **App Router**. È ottimizzato per lavorare con i **Server Components** per un rendering efficiente ed è completamente compatibile con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
 
 Con Intlayer, puoi:
 
 - **Gestire facilmente le traduzioni** utilizzando dizionari dichiarativi a livello di componente.
 - **Localizzare dinamicamente i metadati**, le rotte e il contenuto.
-- **Accedere alle traduzioni sia nei componenti lato client che lato server**.
-- **Garantire il supporto TypeScript** con tipi generati automaticamente, migliorando l'autocompletamento e la rilevazione degli errori.
-- **Beneficiare di funzionalità avanzate**, come il rilevamento e il cambio dinamico della lingua.
+- **Accedere alle traduzioni sia nei componenti lato client sia in quelli lato server**.
+- **Assicurare il supporto TypeScript** con tipi generati automaticamente, migliorando l'autocompletamento e la rilevazione degli errori.
+- **Beneficiare di funzionalità avanzate**, come il rilevamento e il cambio della lingua dinamico.
 
 > Nota: Intlayer è compatibile con Next.js 12, 13, 14 e 15. Se stai utilizzando Next.js Page Router, puoi fare riferimento a questa [guida](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_nextjs_page_router.md). Per Next.js 12, 13, 14 con App Router, fai riferimento a questa [guida](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_nextjs_14.md).
 
 ---
 
-## Guida Passo-Passo per Configurare Intlayer in un'Applicazione Next.js
+## Guida passo passo per impostare Intlayer in un'applicazione Next.js
 
-### Passo 1: Installa le Dipendenze
+### Passo 1: Installa le dipendenze
 
 Installa i pacchetti necessari utilizzando npm:
 
@@ -34,7 +34,7 @@ yarn add intlayer next-intlayer
 pnpm add intlayer next-intlayer
 ```
 
-### Passo 2: Configura il Tuo Progetto
+### Passo 2: Configura il tuo progetto
 
 Crea un file di configurazione per configurare le lingue della tua applicazione:
 
@@ -46,23 +46,23 @@ import { Locales, type IntlayerConfig } from "intlayer";
 const config: IntlayerConfig = {
   internationalization: {
     locales: [
-      Locales.ITALIAN, // Modificato il nome della lingua per includere Italiano
+      Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Your other locales
+      // Le tue altre lingue
     ],
-    defaultLocale: Locales.ITALIAN, // Modificato il valore predefinito
+    defaultLocale: Locales.ENGLISH,
   },
 };
 
 export default config;
 ```
 
-Per visualizzare tutti i parametri disponibili, fare riferimento alla [documentazione di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+Per vedere tutti i parametri disponibili, fai riferimento alla [documentazione di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
 
-### Passo 3: Integra Intlayer nella Tua Configurazione Next.js
+### Passo 3: Integra Intlayer nella tua configurazione Next.js
 
-Configura il tuo setup Next.js per usare Intlayer:
+Configura il tuo setup Next.js per utilizzare Intlayer:
 
 ```typescript
 // next.config.mjs
@@ -74,9 +74,9 @@ const nextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-### Passo 4: Configura il Middleware per il Rilevamento della Lingua
+### Passo 4: Configura il Middleware per il rilevamento della lingua
 
-Imposta il middleware per rilevare la lingua preferita dall'utente:
+Imposta un middleware per rilevare la lingua preferita dell'utente:
 
 ```typescript
 // src/middleware.ts
@@ -87,9 +87,9 @@ export const config = {
 };
 ```
 
-### Passo 5: Definisci Rotte Localizzate Dinamiche
+### Passo 5: Definisci le route dinamiche per le lingue
 
-Implementa il routing dinamico per i contenuti localizzati:
+Implementa il routing dinamico per il contenuto localizzato:
 
 Cambia `src/app/page.ts` in `src/app/[locale]/page.ts`
 
@@ -101,7 +101,7 @@ Poi, implementa la funzione generateStaticParams nel layout della tua applicazio
 import type { ReactNode } from "react";
 import "./globals.css";
 
-export { generateStaticParams } from "next-intlayer"; // Linea da inserire
+export { generateStaticParams } from "next-intlayer"; // Riga da inserire
 
 const RootLayout = ({
   children,
@@ -135,7 +135,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
-### Passo 6: Dichiara il Tuo Contenuto
+### Passo 6: Dichiara il tuo contenuto
 
 Crea e gestisci i tuoi dizionari di contenuto:
 
@@ -148,7 +148,7 @@ const pageContent = {
   content: {
     getStarted: {
       main: t({
-        it: "Inizia modificando", // Tradotto in Italiano
+        en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
@@ -162,7 +162,7 @@ export default pageContent;
 
 [Guarda come dichiarare i tuoi file di dichiarazione Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md).
 
-### Passo 7: Utilizza il Contenuto nel Tuo Codice
+### Passo 7: Utilizza il contenuto nel tuo codice
 
 Accedi ai tuoi dizionari di contenuto in tutta l'applicazione:
 
@@ -193,7 +193,7 @@ const Page: NextPageIntlayer = async ({ params }) => {
   return (
     <>
       {/**
-       *   IntlayerServerProvider è usato per fornire la lingua ai figli del server
+       *   IntlayerServerProvider è utilizzato per fornire la lingua ai figli server
        *   Non funziona se impostato nel layout
        */}
       <IntlayerServerProvider locale={locale}>
@@ -201,8 +201,8 @@ const Page: NextPageIntlayer = async ({ params }) => {
         <ServerComponentExample />
       </IntlayerServerProvider>
       {/**
-       *   IntlayerClientProvider è usato per fornire la lingua ai figli del client
-       *   Può essere impostato in qualsiasi componente genitore, incluso il layout
+       *   IntlayerClientProvider è utilizzato per fornire la lingua ai figli client
+       *   Può essere impostato in qualsiasi componente padre, incluso il layout
        */}
       <IntlayerClientProvider locale={locale}>
         <ClientComponentExample />
@@ -250,17 +250,17 @@ export const ServerComponentExample = () => {
 };
 ```
 
-> Nota: Se desideri utilizzare il tuo contenuto in un attributo `string` come `alt`, `title`, `href`, `aria-label`, ecc., devi chiamare il valore della funzione, come:
+> Nota: Se vuoi usare il tuo contenuto in un attributo `string`, come `alt`, `title`, `href`, `aria-label`, ecc., devi chiamare il valore della funzione, come:
 >
 > ```tsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-Per un utilizzo più dettagliato di intlayer nei componenti Client o Server, vedi il [progetto NextJS qui](https://github.com/aymericzip/intlayer/blob/main/examples/nextjs-app/src/app/%5Blocale%5D/demo-usage-components/page.tsx).
+Per un utilizzo più dettagliato di intlayer nei componenti Client o Server, guarda l'[esempio di Next.js qui](https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app).
 
 ### (Opzionale) Passo 8: Internazionalizzazione dei tuoi metadati
 
-Nel caso in cui tu voglia internazionalizzare i tuoi metadati, come il titolo della tua pagina, puoi utilizzare la funzione `generateMetadata` fornita da NextJS. All'interno della funzione usa la funzione `getTranslationContent` per tradurre i tuoi metadati.
+Nel caso in cui tu voglia internazionalizzare i tuoi metadati, come il titolo della tua pagina, puoi utilizzare la funzione `generateMetadata` fornita da Next.js. All'interno della funzione utilizza la funzione `getTranslationContent` per tradurre i tuoi metadati.
 
 ````typescript
 // src/app/[locale]/layout.tsx o src/app/[locale]/page.tsx
@@ -279,46 +279,31 @@ export const generateMetadata = ({
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
-  const url = `/`;
-
   /**
-   * Genera un oggetto contenente tutti gli url per ciascuna lingua.
+   * Genera un oggetto contenente tutti gli url per ogni lingua.
    *
    * Esempio:
    * ```ts
-   *  getLocalizedUrl('/about');
+   *  getMultilingualUrls('/about');
    *
-   *  // Restituisce
+   *  // Ritorna
    *  // {
-   *  //   it: '/about',
+   *  //   en: '/about',
    *  //   fr: '/fr/about',
    *  //   es: '/es/about',
    *  // }
    * ```
    */
-  const multilingualUrls = getMultilingualUrls(url);
-
-  /**
-   * Ottieni l'URL localizzato per la lingua corrente
-   *
-   * Esempio:
-   * ```ts
-   * const localizedUrl = getLocalizedUrl('/about', locale);
-   *
-   * Restituisce:
-   * '/fr/about' per il locale francese
-   * ```
-   */
-  const localizedUrl = getLocalizedUrl(url, locale);
+  const multilingualUrls = getMultilingualUrls("/");
 
   return {
     title: t<string>({
-      it: "Il mio titolo",
+      en: "My title",
       fr: "Mon titre",
       es: "Mi título",
     }),
     description: t({
-      it: "La mia descrizione",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -327,19 +312,19 @@ export const generateMetadata = ({
       languages: multilingualUrls,
     },
     openGraph: {
-      url: localizedUrl,
+      url: multilingualUrls[locale],
     },
   };
 };
 
-// ... Resto del codice
+// ... Il resto del codice
 ````
 
 > Scopri di più sull'ottimizzazione dei metadati [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (Opzionale) Passo 9: Internazionalizzazione della tua sitemap
+### (Opzionale) Passo 9: Internazionalizzazione del tuo sitemap.xml e robots.txt
 
-Per internazionalizzare la tua sitemap, puoi utilizzare la funzione `getMultilingualUrls` fornita da Intlayer. Questa funzione ti consente di generare URL multilingue per la tua sitemap.
+Per internazionalizzare il tuo `sitemap.xml` e `robots.txt`, puoi utilizzare la funzione `getMultilingualUrls` fornita da Intlayer. Questa funzione consente di generare URL multilingue per il tuo sitemap.
 
 ```tsx
 // src/app/sitemap.ts
@@ -347,16 +332,23 @@ Per internazionalizzare la tua sitemap, puoi utilizzare la funzione `getMultilin
 import { getMultilingualUrls } from "intlayer";
 import type { MetadataRoute } from "next";
 
-const url = `https://example.com`;
-
 const sitemap = (): MetadataRoute.Sitemap => [
   {
-    url,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 1,
+    url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls(url),
+      languages: getMultilingualUrls("https://example.com"),
+    },
+  },
+  {
+    url: "https://example.com/login",
+    alternates: {
+      languages: getMultilingualUrls("https://example.com/login"),
+    },
+  },
+  {
+    url: "https://example.com/register",
+    alternates: {
+      languages: getMultilingualUrls("https://example.com/register"),
     },
   },
 ];
@@ -364,11 +356,32 @@ const sitemap = (): MetadataRoute.Sitemap => [
 export default sitemap;
 ```
 
-> Scopri di più sull'ottimizzazione della sitemap [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap).
+```tsx
+// src/app/robots.ts
+import type { MetadataRoute } from "next";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const robots = (): MetadataRoute.Robots => ({
+  rules: {
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
+  },
+  host: "https://example.com",
+  sitemap: `https://example.com/sitemap.xml`,
+});
+
+export default robots;
+```
+
+> Scopri di più sull'ottimizzazione del sitemap [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Scopri di più sull'ottimizzazione del robots.txt [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 ### (Opzionale) Passo 10: Cambia la lingua del tuo contenuto
 
-Per cambiare la lingua del tuo contenuto, puoi utilizzare la funzione `setLocale` fornita dal hook `useLocale`. Questa funzione ti consente di impostare la lingua dell'applicazione e aggiornare il contenuto di conseguenza.
+Per cambiare la lingua del tuo contenuto, puoi utilizzare la funzione `setLocale` fornita dall'hook `useLocale`. Questa funzione consente di impostare la lingua dell'applicazione e aggiornare il contenuto di conseguenza.
 
 ```tsx
 import { Locales } from "intlayer";
@@ -378,14 +391,14 @@ const MyComponent = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.ITALIAN)}>Cambia Lingua</button> // Modificato per Italiano
+    <button onClick={() => setLocale(Locales.English)}>Cambia lingua</button>
   );
 };
 ```
 
 ### Configura TypeScript
 
-Intlayer utilizza l'augmented module per ottenere i vantaggi di TypeScript e rendere il tuo codice più robusto.
+Intlayer utilizza l'augmentation del modulo per ottenere i benefici di TypeScript e rendere il tuo codice più robusto.
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
@@ -407,7 +420,7 @@ Assicurati che la tua configurazione TypeScript includa i tipi generati automati
 
 ### Configurazione Git
 
-Si consiglia di ignorare i file generati da Intlayer. Questo ti permette di evitare di commetterli nel tuo repository Git.
+È consigliato ignorare i file generati da Intlayer. Questo consente di evitare di commetterli nel tuo repository Git.
 
 Per farlo, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
 
