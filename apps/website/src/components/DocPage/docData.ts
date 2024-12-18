@@ -22,10 +22,12 @@ import { getPackagesExpressIntlayerTData } from './docDataContent/packages/expre
 import { getPackagesNextIntlayerTData } from './docDataContent/packages/next-intlayer/t';
 import { getPackagesNextIntlayerUseDictionaryData } from './docDataContent/packages/next-intlayer/useDictionary';
 import { getPackagesNextIntlayerUseIntlayerData } from './docDataContent/packages/next-intlayer/useIntlayer';
+import { getPackagesNextIntlayerUseIntlayerAsyncData } from './docDataContent/packages/next-intlayer/useIntlayerAsync';
 import { getPackagesNextIntlayerUseLocaleData } from './docDataContent/packages/next-intlayer/useLocale';
 import { getPackagesReactIntlayerTData } from './docDataContent/packages/react-inltayer/t';
 import { getPackagesReactIntlayerUseDictionaryData } from './docDataContent/packages/react-inltayer/useDictionary';
 import { getPackagesReactIntlayerUseIntlayerData } from './docDataContent/packages/react-inltayer/useIntlayer';
+import { getPackagesReactIntlayerUseIntlayerAsyncData } from './docDataContent/packages/react-inltayer/useIntlayerAsync';
 import { getPackagesReactIntlayerUseLocaleData } from './docDataContent/packages/react-inltayer/useLocale';
 import { CategorizedDocData, DocData, Section } from './types';
 import { PagesRoutes, GithubRoutes } from '@/Routes';
@@ -153,6 +155,12 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                   .useIntlayer.title,
               default: getPackagesReactIntlayerUseIntlayerData(locale),
             },
+            useIntlayerAsync: {
+              title:
+                content.packages.subSections['react-intlayer'].subSections
+                  .useIntlayerAsync.title,
+              default: getPackagesReactIntlayerUseIntlayerAsyncData(locale),
+            },
             useDictionary: {
               title:
                 content.packages.subSections['react-intlayer'].subSections
@@ -181,6 +189,12 @@ export const getDocData = (locale = Locales.ENGLISH) => {
                 content.packages.subSections['next-intlayer'].subSections
                   .useIntlayer.title,
               default: getPackagesNextIntlayerUseIntlayerData(locale),
+            },
+            useIntlayerAsync: {
+              title:
+                content.packages.subSections['next-intlayer'].subSections
+                  .useIntlayerAsync.title,
+              default: getPackagesNextIntlayerUseIntlayerAsyncData(locale),
             },
             useDictionary: {
               title:
@@ -304,6 +318,8 @@ const docUrlRenamer: Record<GithubRoutes, PagesRoutes> = {
     PagesRoutes['Doc_Packages_react-intlayer_t'],
   [GithubRoutes['Packages_react-intlayer_useIntlayer']]:
     PagesRoutes['Doc_Packages_react-intlayer_useIntlayer'],
+  [GithubRoutes['Packages_react-intlayer_useIntlayerAsync']]:
+    PagesRoutes['Doc_Packages_react-intlayer_useIntlayerAsync'],
   [GithubRoutes['Packages_react-intlayer_useDictionary']]:
     PagesRoutes['Doc_Packages_react-intlayer_useDictionary'],
   [GithubRoutes['Packages_react-intlayer_useLocale']]:
@@ -312,6 +328,8 @@ const docUrlRenamer: Record<GithubRoutes, PagesRoutes> = {
     PagesRoutes['Doc_Packages_next-intlayer_t'],
   [GithubRoutes['Packages_next-intlayer_useIntlayer']]:
     PagesRoutes['Doc_Packages_next-intlayer_useIntlayer'],
+  [GithubRoutes['Packages_next-intlayer_useIntlayerAsync']]:
+    PagesRoutes['Doc_Packages_next-intlayer_useIntlayerAsync'],
   [GithubRoutes['Packages_next-intlayer_useDictionary']]:
     PagesRoutes['Doc_Packages_next-intlayer_useDictionary'],
   [GithubRoutes['Packages_next-intlayer_useLocale']]:

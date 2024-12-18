@@ -2,6 +2,7 @@ export {
   getTranslation,
   IntlayerClientContext,
   useIntlayer,
+  useIntlayerAsync,
   useTraduction,
   useLocaleCookie,
 } from 'react-intlayer';

@@ -39,7 +39,7 @@ export type DictionaryKeys = StringFallback<
  * Represents the data type returned by the useIntlayer hook,
  * excluding the 'id' and 'filePath' keys from the dictionary content.
  */
-type DataFromDictionaryKey<
+export type DataFromDictionaryKey<
   T extends DictionaryKeys,
   K extends Locales,
   R extends boolean = false,

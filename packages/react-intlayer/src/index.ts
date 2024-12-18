@@ -4,6 +4,7 @@ export {
   type IntlayerProviderProps,
   IntlayerClientContext,
   useIntlayer,
+  useIntlayerAsync,
   useDictionary,
   useLocale,
   useTraduction,

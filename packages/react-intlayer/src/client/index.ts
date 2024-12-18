@@ -5,6 +5,7 @@ export {
   IntlayerProvider,
 } from './IntlayerProvider';
 export { useIntlayer } from './useIntlayer';
+export { useIntlayerAsync } from './useIntlayerAsync';
 export { useDictionary } from './useDictionary';
 export { useLocaleBase } from './useLocaleBase';
 export { useLocale } from './useLocale';

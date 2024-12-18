@@ -338,6 +338,9 @@ const docDataContent = {
             useIntlayer: {
               title: 'useIntlayer',
             },
+            useIntlayerAsync: {
+              title: 'useIntlayerAsync',
+            },
             useDictionary: {
               title: 'useDictionary',
             },
@@ -354,6 +357,9 @@ const docDataContent = {
             },
             useIntlayer: {
               title: 'useIntlayer',
+            },
+            useIntlayerAsync: {
+              title: 'useIntlayerAsync',
             },
             useDictionary: {
               title: 'useDictionary',

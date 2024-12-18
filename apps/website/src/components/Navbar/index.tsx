@@ -49,7 +49,7 @@ export const Navbar: FC = () => {
             aria-current={pathWithoutLocale === url.value ? 'page' : undefined}
             color="text"
             variant="invisible-link"
-            className="flex px-4 py-0.5 text-sm"
+            className="flex text-nowrap px-4 py-0.5 text-sm"
           >
             {title}
           </Link>
@@ -65,7 +65,7 @@ export const Navbar: FC = () => {
             label={label.value}
             color="text"
             variant="invisible-link"
-            className="w-full p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
+            className="w-full text-nowrap p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
           >
             {title}
           </Link>

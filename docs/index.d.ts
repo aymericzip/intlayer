@@ -23,10 +23,12 @@ declare module '@intlayer/docs' {
     'package__next-intlayer__t',
     'package__next-intlayer__useDictionary',
     'package__next-intlayer__useIntlayer',
+    'package__next-intlayer__useIntlayerAsync',
     'package__next-intlayer__useLocale',
     'package__react-intlayer__t',
     'package__react-intlayer__useDictionary',
     'package__react-intlayer__useIntlayer',
+    'package__react-intlayer__useIntlayerAsync',
     'package__react-intlayer__useLocale',
   }
 

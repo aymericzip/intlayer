@@ -3,6 +3,7 @@ export {
   IntlayerClientContext,
   getIntlayer,
   useIntlayer,
+  useIntlayerAsync,
   useTraduction,
   getDictionary,
   useDictionary,
