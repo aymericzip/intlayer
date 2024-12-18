@@ -19,6 +19,15 @@ import { getEnvironmentNextJSNextJS14Data } from './docDataContent/environment/n
 import { getEnvironmentNextJSPageRouterData } from './docDataContent/environment/pageRouter';
 import { getEnvironmentViteAndReactData } from './docDataContent/environment/viteAndReact';
 import { getPackagesExpressIntlayerTData } from './docDataContent/packages/express-intlayer/t';
+import { getPackagesIntlayerGetConfigurationData } from './docDataContent/packages/intlayer/getConfiguration';
+import { getPackagesIntlayerGetEnumerationContentData } from './docDataContent/packages/intlayer/getEnumerationContent';
+import { getPackagesIntlayerGetHTMLTextDirData } from './docDataContent/packages/intlayer/getHTMLTextDir';
+import { getPackagesIntlayerGetLocaleLangData } from './docDataContent/packages/intlayer/getLocaleLang';
+import { getPackagesIntlayerGetLocaleNameData } from './docDataContent/packages/intlayer/getLocaleName';
+import { getPackagesIntlayerGetLocalizedUrlData } from './docDataContent/packages/intlayer/getLocalizedUrl';
+import { getPackagesIntlayerGetMultilingualUrlsData } from './docDataContent/packages/intlayer/getMultilingualUrls';
+import { getPackagesIntlayerGetPathWithoutLocaleData } from './docDataContent/packages/intlayer/getPathWithoutLocale';
+import { getPackagesIntlayerGetTranslationContentData } from './docDataContent/packages/intlayer/getTranslationContent';
 import { getPackagesNextIntlayerTData } from './docDataContent/packages/next-intlayer/t';
 import { getPackagesNextIntlayerUseDictionaryData } from './docDataContent/packages/next-intlayer/useDictionary';
 import { getPackagesNextIntlayerUseIntlayerData } from './docDataContent/packages/next-intlayer/useIntlayer';
@@ -129,6 +138,65 @@ export const getDocData = (locale = Locales.ENGLISH) => {
     packages: {
       title: 'Packages',
       subSections: {
+        intlayer: {
+          title: content.packages.subSections['intlayer'].title,
+          subSections: {
+            getConfiguration: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getConfiguration.title,
+              default: getPackagesIntlayerGetConfigurationData(locale),
+            },
+            getLocaleLang: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getLocaleLang.title,
+              default: getPackagesIntlayerGetLocaleLangData(locale),
+            },
+            getLocaleName: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getLocaleName.title,
+              default: getPackagesIntlayerGetLocaleNameData(locale),
+            },
+            getLocalizedUrl: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getLocalizedUrl.title,
+              default: getPackagesIntlayerGetLocalizedUrlData(locale),
+            },
+            getMultilingualUrls: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getMultilingualUrls.title,
+              default: getPackagesIntlayerGetMultilingualUrlsData(locale),
+            },
+            getPathWithoutLocale: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getPathWithoutLocale.title,
+              default: getPackagesIntlayerGetPathWithoutLocaleData(locale),
+            },
+            getTranslationContent: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getTranslationContent.title,
+              default: getPackagesIntlayerGetTranslationContentData(locale),
+            },
+            getEnumerationContent: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getEnumerationContent.title,
+              default: getPackagesIntlayerGetEnumerationContentData(locale),
+            },
+            getHTMLTextDir: {
+              title:
+                content.packages.subSections['intlayer'].subSections
+                  .getHTMLTextDir.title,
+              default: getPackagesIntlayerGetHTMLTextDirData(locale),
+            },
+          },
+        },
         'express-intlayer': {
           title: content.packages.subSections['express-intlayer'].title,
           subSections: {
@@ -312,6 +380,26 @@ const docUrlRenamer: Record<GithubRoutes, PagesRoutes> = {
 
   [GithubRoutes.IntlayerWithI18next]: PagesRoutes.Doc_Intlayer_with_I18next,
 
+  [GithubRoutes['Packages_intlayer_getConfiguration']]:
+    PagesRoutes['Doc_Packages_intlayer_getConfiguration'],
+  [GithubRoutes['Packages_intlayer_getDictionary']]:
+    PagesRoutes['Doc_Packages_intlayer_getDictionary'],
+  [GithubRoutes['Packages_intlayer_getLocaleLang']]:
+    PagesRoutes['Doc_Packages_intlayer_getLocaleLang'],
+  [GithubRoutes['Packages_intlayer_getLocaleName']]:
+    PagesRoutes['Doc_Packages_intlayer_getLocaleName'],
+  [GithubRoutes['Packages_intlayer_getLocalizedUrl']]:
+    PagesRoutes['Doc_Packages_intlayer_getLocalizedUrl'],
+  [GithubRoutes['Packages_intlayer_getMultilingualUrls']]:
+    PagesRoutes['Doc_Packages_intlayer_getMultilingualUrls'],
+  [GithubRoutes['Packages_intlayer_getPathWithoutLocale']]:
+    PagesRoutes['Doc_Packages_intlayer_getPathWithoutLocale'],
+  [GithubRoutes['Packages_intlayer_getTranslationContent']]:
+    PagesRoutes['Doc_Packages_intlayer_getTranslationContent'],
+  [GithubRoutes['Packages_intlayer_getEnumerationContent']]:
+    PagesRoutes['Doc_Packages_intlayer_getEnumerationContent'],
+  [GithubRoutes['Packages_intlayer_removeLocaleFromUrl']]:
+    PagesRoutes['Doc_Packages_intlayer_removeLocaleFromUrl'],
   [GithubRoutes['Packages_express-intlayer_t']]:
     PagesRoutes['Doc_Packages_express-intlayer_t'],
   [GithubRoutes['Packages_react-intlayer_t']]:

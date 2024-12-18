@@ -38,7 +38,7 @@ export {
   getLocaleName,
   enu,
   getEnumerationContent,
-  getHTMLLang,
+  getLocaleLang,
   getHTMLTextDir,
   getPathWithoutLocale,
   getMultilingualUrls,
