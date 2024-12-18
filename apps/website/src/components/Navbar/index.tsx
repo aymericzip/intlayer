@@ -16,6 +16,19 @@ import { StarIcon } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
+const getCleanTabSelector = (path: string): string => {
+  // Split the path into components
+  const components = path.split('/');
+
+  // For single component "dashboard", you can choose to append "/"
+  if (components.length > 2) {
+    return components.slice(0, 2).join('/');
+  }
+
+  // Return the path as is for other cases
+  return path;
+};
+
 export const Navbar: FC = () => {
   const {
     logo,
@@ -38,7 +51,7 @@ export const Navbar: FC = () => {
           <Logo type="logoWithText" className="max-h-6 flex-auto sm:max-h-6" />
         </Link>
       }
-      selectedChoice={pathWithoutLocale}
+      selectedChoice={getCleanTabSelector(pathWithoutLocale)}
       desktopSections={Object.values(sections).map(
         ({ id, url, label, title }) => (
           <Link
