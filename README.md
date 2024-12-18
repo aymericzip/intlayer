@@ -53,6 +53,18 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 ### Packages
 
+#### intlayer
+
+- [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md)
+- [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getHTMLTextDir.md)
+- [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md)
+- [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleName.md)
+- [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md)
+- [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getMultilingualUrls.md)
+- [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getPathWithoutLocale.md)
+- [getTranslationContent](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getTranslationContent.md)
+- [getEnumerationContent](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getEnumerationContent.md)
+
 #### express-intlayer
 
 - [t](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md)

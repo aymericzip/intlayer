@@ -32,7 +32,7 @@ export type {
 export { NodeType } from './types/index';
 export { getLocaleName } from './getLocaleName';
 export { getHTMLTextDir } from './getHTMLTextDir';
-export { getHTMLLang } from './getHTMLLang';
+export { getLocaleLang } from './getLocaleLang';
 export { localeList } from './localeList';
 export { isSameKeyPath } from './utils/isSameKeyPath';
 export { localeDetector } from './localeDetector';

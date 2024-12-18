@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { getEnumerationContent, t, type DeclarationContent } from 'intlayer';
 
 const docDataContent = {
   key: 'doc-data',
@@ -321,6 +321,41 @@ const docDataContent = {
         ru: 'Пакеты',
       }),
       subSections: {
+        intlayer: {
+          title: 'intlayer',
+          subSections: {
+            getConfiguration: {
+              title: 'getConfiguration',
+            },
+            getEnumerationContent: {
+              title: 'getEnumerationContent',
+            },
+            getHTMLTextDir: {
+              title: 'getHTMLTextDir',
+            },
+            getLocaleLang: {
+              title: 'getLocaleLang',
+            },
+            getLocaleName: {
+              title: 'getLocaleName',
+            },
+            getLocalizedUrl: {
+              title: 'getLocalizedUrl',
+            },
+            getMultilingualUrls: {
+              title: 'getMultilingualUrls',
+            },
+            getPathWithoutLocale: {
+              title: 'getPathWithoutLocale',
+            },
+            getTranslationContent: {
+              title: 'getTranslationContent',
+            },
+            removeLocaleFromUrl: {
+              title: 'removeLocaleFromUrl',
+            },
+          },
+        },
         'express-intlayer': {
           title: 'express-intlayer',
           subSections: {

@@ -5,13 +5,13 @@ import type { Locales } from '@intlayer/config/client';
  *
  * Example:
  *
- * getHTMLLang('en-US') // 'en'
- * getHTMLLang('en') // 'en'
- * getHTMLLang('fr-CA') // 'fr'
- * getHTMLLang('fr') // 'fr'
+ * getLocaleLang('en-US') // 'en'
+ * getLocaleLang('en') // 'en'
+ * getLocaleLang('fr-CA') // 'fr'
+ * getLocaleLang('fr') // 'fr'
  *
  * @param locale The locale to get the language code for.
  * @returns The language code of the given locale.
  */
-export const getHTMLLang = (locale?: Locales): string =>
+export const getLocaleLang = (locale?: Locales): string =>
   locale?.split('-')[0] ?? '';
