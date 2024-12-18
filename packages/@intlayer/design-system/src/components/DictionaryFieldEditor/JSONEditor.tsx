@@ -1,15 +1,16 @@
 import { Dictionary } from '@intlayer/core';
-import type { FC } from 'react';
+import { useMemo, type FC } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { ContentEditorTextArea } from '../ContentEditor/ContentEditorTextArea';
 import { useEditedContentStore } from '../DictionaryEditor';
+import { MonacoCode } from '../IDE/MonacoCode';
 import { SaveForm } from './SaveForm/SaveForm';
 
 type JSONEditorProps = {
   dictionary: Dictionary;
+  isDarkMode?: boolean;
 };
 
-export const JSONEditor: FC<JSONEditorProps> = ({ dictionary }) => {
+export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
   const { setEditedContent, editedContent } = useEditedContentStore(
     useShallow((s) => ({
       editedContent: s.editedContent,
@@ -26,23 +27,26 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary }) => {
     }
   };
 
-  const displayedContent =
-    editedContent[dictionary.key]?.content ?? dictionary?.content ?? {};
+  const displayedContent = useMemo(
+    () => editedContent[dictionary.key]?.content ?? dictionary?.content ?? {},
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dictionary]
+  );
 
   return (
-    <>
-      <ContentEditorTextArea
-        key={JSON.stringify(displayedContent)}
-        onContentChange={(content) =>
-          setEditedContent(dictionary.key, JSON.parse(content))
-        }
-        validate={isValidJSON}
-        className="text-sm"
-        variant="default"
+    <div className="overflow-hidden rounded-md">
+      <MonacoCode
+        language="json"
+        onChange={(content) => {
+          if (isValidJSON(content ?? '{}')) {
+            setEditedContent(dictionary.key, JSON.parse(content ?? '{}'));
+          }
+        }}
+        isDarkMode={isDarkMode}
       >
         {JSON.stringify(displayedContent, null, 2)}
-      </ContentEditorTextArea>
+      </MonacoCode>
       <SaveForm dictionary={dictionary} />
-    </>
+    </div>
   );
 };

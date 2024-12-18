@@ -22,6 +22,7 @@ const secureHeaders = createSecureHeaders({
         "'report-sample'",
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
         'fonts.googleapis.com',
+        'cdn.jsdelivr.net',
       ],
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
       connectSrc: [
@@ -36,12 +37,16 @@ const secureHeaders = createSecureHeaders({
         'raw.githubusercontent.com',
         '*.openai.com',
         '*.stripe.com',
+        'cdn.jsdelivr.net',
       ],
       imgSrc: ["'self'", 'https:', 'data:'],
-      workerSrc: [`${process.env.NEXT_PUBLIC_URL}`],
+      workerSrc: [
+        `${process.env.NEXT_PUBLIC_URL}`,
+        `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
+      ],
       mediaSrc: ["'self'"],
       formAction: ["'self'"],
-      fontSrc: ["'self'"],
+      fontSrc: ["'self'", 'cdn.jsdelivr.net'],
       scriptSrcElem: [
         "'self'",
         'data:',
@@ -51,6 +56,7 @@ const secureHeaders = createSecureHeaders({
         '*.google-analytics.com',
         '*.googletagmanager.com',
         '*.stripe.com',
+        'cdn.jsdelivr.net',
       ],
       objectSrc: [
         "'self'",

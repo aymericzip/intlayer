@@ -38,11 +38,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               </strong>
             ) : (
               <Container>
-                <Code
-                  isDarkMode={isDarkMode}
-                  showLineNumbers={false}
-                  {...props}
-                />
+                <Code isDarkMode={isDarkMode} {...props} />
               </Container>
             ),
         },

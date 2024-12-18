@@ -12,10 +12,12 @@ import { dictionariesSelectorContent } from './dictionariesSelector.content';
 
 type DictionariesSelectorProps = {
   onClickDictionaryList: () => void;
+  isDarkMode?: boolean;
 };
 
 export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   onClickDictionaryList,
+  isDarkMode,
 }) => {
   const { online, locale, isLoading } = useGetAllDictionaries();
   const { focusedContent } = useEditionPanelStore(
@@ -45,6 +47,7 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
     <DictionaryFieldEditor
       dictionary={dictionary}
       onClickDictionaryList={onClickDictionaryList}
+      isDarkMode={isDarkMode}
     />
   );
 };

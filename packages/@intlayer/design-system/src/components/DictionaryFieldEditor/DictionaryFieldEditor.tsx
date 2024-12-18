@@ -19,6 +19,7 @@ import { NodeEditor } from './NodeEditor';
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   onClickDictionaryList?: () => void;
+  isDarkMode?: boolean;
 };
 
 enum EditorViewType {
@@ -29,6 +30,7 @@ enum EditorViewType {
 export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   dictionary,
   onClickDictionaryList,
+  isDarkMode,
 }) => {
   const { key } = dictionary;
   const [editorView, setEditorView] = useState<EditorViewType>(
@@ -62,7 +64,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           color="text"
           id="return-to-dictionary-list"
           Icon={ArrowLeft}
-          label={returnToDictionaryList.label.value}
+          label={returnToDictionaryList.label}
         />
         <label
           className="cursor-pointer text-xs hover:underline"
@@ -107,7 +109,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           <NodeEditor dictionary={dictionary} />
         )}
         {editorView === EditorViewType.JSONEditor && (
-          <JSONEditor dictionary={dictionary} />
+          <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
         )}
       </Container>
     </div>

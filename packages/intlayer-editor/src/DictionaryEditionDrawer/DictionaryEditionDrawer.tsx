@@ -28,11 +28,12 @@ type DictionaryEditionDrawerContentProps = {
   locale: Locales;
   identifier: string;
   handleOnBack: () => void;
+  isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawerContent: FC<
   DictionaryEditionDrawerContentProps
-> = ({ locale, identifier, handleOnBack }) => {
+> = ({ locale, identifier, handleOnBack, isDarkMode }) => {
   const [keyPathEditionModal, setKeyPathEditionModal] = useState<
     KeyPath[] | null
   >(null);
@@ -75,6 +76,7 @@ export const DictionaryEditionDrawerContent: FC<
           <DictionaryFieldEditor
             dictionary={dictionary}
             onClickDictionaryList={onClickDictionaryList}
+            isDarkMode={isDarkMode}
           />
         )}
       </Modal>
@@ -89,6 +91,7 @@ export const DictionaryEditionDrawerContent: FC<
 
 type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
   dictionaryId: string;
+  isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
@@ -96,6 +99,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   localeList,
   setLocale,
   dictionaryId,
+  isDarkMode,
 }) => {
   const { backButtonText } = useDictionary(dictionaryEditionDrawerContent);
   const id = getDrawerIdentifier(dictionaryId);
@@ -132,6 +136,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
           locale={locale}
           identifier={id}
           handleOnBack={handleOnBack}
+          isDarkMode={isDarkMode}
         />
       )}
     </RightDrawer>
