@@ -2,84 +2,94 @@
 
 ## Определение переводов
 
-Функция `t` в `intlayer` позволяет вам объявлять содержимое на нескольких языках. Эта функция обеспечивает типовую безопасность, вызывая ошибку, если какие-либо переводы отсутствуют, что особенно полезно в средах TypeScript.
+Функция `t` в `intlayer` позволяет вам объявлять контент на нескольких языках. Эта функция обеспечивает безопасность типов, вызывая ошибку, если какие-либо переводы отсутствуют, что особенно полезно в средах TypeScript.
 
 ### Использование TypeScript
 
-Вот пример того, как объявить содержимое с переводами в файле TypeScript:
+Вот пример того, как объявить контент с переводами в файле TypeScript:
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-const multiLangContent = {
+interface Content {
+  welcomeMessage: string;
+}
+
+export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      ru: "Добро пожаловать в наше приложение",
     }),
   },
-} satisfies DeclarationContent;
-
-export default multiLangContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### Использование ECMAScript модулей
+### Использование ECMAScript Модулей
 
-Если вы используете ECMAScript модули, объявление выглядит следующим образом:
+Если вы используете модули ECMAScript, декларация выглядит так:
 
 ```javascript
 import { t } from "intlayer";
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+export default {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+      ru: "Добро пожаловать в наше приложение",
+    }),
+  },
 };
-
-export default multiLangContent;
 ```
 
-### Использование CommonJS модулей
+### Использование CommonJS Модулей
 
 В настройке CommonJS вы можете объявить переводы следующим образом:
 
 ```javascript
 const { t } = require("intlayer");
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+module.exports = {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+      ru: "Добро пожаловать в наше приложение",
+    }),
+  },
 };
-
-module.exports = multiLangContent;
 ```
 
 ### Использование JSON
 
-Для объявлений на основе JSON вы можете определить переводы следующим образом:
+Для деклараций, основанных на JSON, вы можете определить переводы следующим образом:
 
 ```json
 {
-  "id": "multi_lang",
-  "welcomeMessage": {
-    "nodeType": "translation",
-    "en": "Welcome to our application",
-    "fr": "Bienvenue dans notre application",
-    "es": "Bienvenido a nuestra aplicación"
+  "key": "multi_lang",
+  "content": {
+    "welcomeMessage": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación",
+        "ru": "Добро пожаловать в наше приложение"
+      }
+    }
   }
 }
 ```
 
-## Конфигурация локалей
+## Конфигурация для локалей
 
 Чтобы обеспечить правильную обработку переводов, вы можете настроить принятые локали в `intlayer.config.ts`. Эта конфигурация позволяет вам определить языки, которые поддерживает ваше приложение:
 
@@ -88,7 +98,12 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      Locales.RUSSIAN,
+    ],
   },
 };
 
@@ -119,7 +134,7 @@ export default MyComponent;
 
 ## Пользовательские объекты контента
 
-`intlayer` поддерживает пользовательские объекты контента для перевода, позволяя вам определять более сложные структуры, обеспечивая при этом типовую безопасность. Вот пример с пользовательским объектом:
+`intlayer` поддерживает пользовательские объекты контента для перевода, что позволяет вам определять более сложные структуры, при этом обеспечивая безопасность типов. Вот пример с пользовательским объектом:
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
@@ -144,6 +159,10 @@ const customContent = {
       es: {
         title: "Título de la Página",
         content: "Contenido de la Página",
+      },
+      ru: {
+        title: "Название страницы",
+        content: "Содержимое страницы",
       },
     }),
   },

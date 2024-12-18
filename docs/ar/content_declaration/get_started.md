@@ -1,69 +1,63 @@
-# بدء العمل بإعلان المحتوى الخاص بك
+# البدء في إعلان المحتوى الخاص بك
 
-## قم بتكوين Intlayer لمشروعك
+## امتدادات الملفات
 
-[انظر كيف تستخدم intlayer مع NextJS](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md)
+بشكل افتراضي، يقوم Intlayer بمراقبة جميع الملفات ذات الامتدادات التالية لإعلانات المحتوى:
 
-[انظر كيف تستخدم intlayer مع ReactJS](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[انظر كيف تستخدم intlayer مع Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_vite+react.md)
+سيقوم التطبيق بالبحث عن الملفات التي تطابق نمط النمط `./src/**/*.content.{ts,tsx,js,mjs,cjs}` بشكل افتراضي.
 
-## تثبيت الحزمة
+تعتبر هذه الامتدادات الافتراضية مناسبة لمعظم التطبيقات. ومع ذلك، إذا كانت لديك متطلبات محددة، راجع دليل تخصيص امتدادات المحتوى للحصول على التعليمات حول كيفية إدارتها.
 
-قم بتثبيت الحزم اللازمة باستخدام npm:
+للحصول على قائمة كاملة بخيارات التكوين، قم بزيارة وثائق التكوين.
 
-```bash
-npm install intlayer
-```
+## أعلن عن محتواك
 
-```bash
-yarn add intlayer
-```
+إنشاء وإدارة قواميس المحتوى الخاصة بك:
 
-```bash
-pnpm add intlayer
-```
-
-## إدارة المحتوى الخاص بك
-
-قم بإنشاء وإدارة قواميس المحتوى الخاصة بك:
-
-### استخدام TypeScript
+### باستخدام TypeScript
 
 ```typescript
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
       main: t({
-        en: "ابدأ بالتعديل",
+        en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "أقل من سيارة واحدة",
-        "-1": "سيارة واحدة ناقص",
-        "0": "لا توجد سيارات",
-        "1": "سيارة واحدة",
-        ">5": "بعض السيارات",
-        ">19": "العديد من السيارات",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "أقل من سيارة واحدة ناقص",
+      "-1": "سيارة واحدة ناقص",
+      "0": "لا توجد سيارات",
+      "1": "سيارة واحدة",
+      ">5": "بعض السيارات",
+      ">19": "الكثير من السيارات",
+    }),
   },
-} satisfies DeclarationContent;
-
-// يجب تصدير المحتوى كافتراضي
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### استخدام وحدات ECMAScript
+### باستخدام وحدات ECMAScript
 
 ```javascript
 // src/app/[locale]/page.content.mjs
@@ -71,34 +65,30 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "ابدأ بالتعديل",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "أقل من سيارة واحدة",
+      "<-1": "أقل من سيارة واحدة ناقص",
       "-1": "سيارة واحدة ناقص",
       0: "لا توجد سيارات",
       1: "سيارة واحدة",
       ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
+      ">19": "الكثير من السيارات",
     }),
   },
 };
-
-// يجب تصدير المحتوى كافتراضي
-export default pageContent;
 ```
 
-### استخدام وحدات CommonJS
+### باستخدام وحدات CommonJS
 
 ```javascript
 // src/app/[locale]/page.content.cjs
@@ -106,59 +96,58 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "ابدأ بالتعديل",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "أقل من سيارة واحدة",
+      "<-1": "أقل من سيارة واحدة ناقص",
       "-1": "سيارة واحدة ناقص",
       0: "لا توجد سيارات",
       1: "سيارة واحدة",
       ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
+      ">19": "الكثير من السيارات",
     }),
   },
 };
-
-// يجب تصدير المحتوى كافتراضي
-module.exports = pageContent;
 ```
 
-### استخدام JSON
+### باستخدام JSON
 
 ```json5
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "ابدأ بالتعديل",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "ترجمة",
+        "translation": {
+          "en": "Get started by editing",
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "أقل من سيارة واحدة",
-      "-1": "سيارة واحدة ناقص",
-      "0": "لا توجد سيارات",
-      "1": "سيارة واحدة",
-      ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
+    "numberOfCar": {
+      "nodeType": "تعداد",
+      "enumeration": {
+        "<-1": "أقل من سيارة واحدة ناقص",
+        "-1": "سيارة واحدة ناقص",
+        "0": "لا توجد سيارات",
+        "1": "سيارة واحدة",
+        ">5": "بعض السيارات",
+        ">19": "الكثير من السيارات",
+      },
     },
   },
 }

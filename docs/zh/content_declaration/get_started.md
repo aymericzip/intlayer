@@ -1,30 +1,22 @@
-# 开始内容声明
+# 开始声明您的内容
 
-## 为您的项目配置 Intlayer
+## 文件扩展名
 
-[查看如何在 NextJS 中使用 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)
+默认情况下，Intlayer 监视所有具有以下扩展名的文件，以进行内容声明：
 
-[查看如何在 ReactJS 中使用 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[查看如何在 Vite 和 React 中使用 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)
+应用程序默认将搜索与 `./src/**/*.content.{ts,tsx,js,mjs,cjs}` 通配符模式匹配的文件。
 
-## 安装包
+这些默认扩展名适用于大多数应用程序。但是，如果您有特定要求，请参考内容扩展名自定义指南以获取管理说明。
 
-使用 npm 安装必要的包：
+有关配置选项的完整列表，请访问配置文档。
 
-```bash
-npm install intlayer
-```
-
-```bash
-yarn add intlayer
-```
-
-```bash
-pnpm add intlayer
-```
-
-## 管理您的内容
+## 声明您的内容
 
 创建和管理您的内容字典：
 
@@ -34,7 +26,15 @@ pnpm add intlayer
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
@@ -45,22 +45,16 @@ const pageContent = {
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "少于一辆车",
-        "-1": "减去一辆车",
-        "0": "没有车",
-        "1": "一辆车",
-        ">5": "一些车",
-        ">19": "许多车",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "少于一辆车",
+      "-1": "少于一辆车",
+      "0": "没有汽车",
+      "1": "一辆车",
+      ">5": "几辆车",
+      ">19": "许多辆车",
+    }),
   },
-} satisfies DeclarationContent;
-
-// 内容应作为默认导出
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
 ### 使用 ECMAScript 模块
@@ -71,31 +65,27 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
       "<-1": "少于一辆车",
-      "-1": "减去一辆车",
-      0: "没有车",
+      "-1": "少于一辆车",
+      0: "没有汽车",
       1: "一辆车",
-      ">5": "一些车",
-      ">19": "许多车",
+      ">5": "几辆车",
+      ">19": "许多辆车",
     }),
   },
 };
-
-// 内容应作为默认导出
-export default pageContent;
 ```
 
 ### 使用 CommonJS 模块
@@ -106,31 +96,27 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
       "<-1": "少于一辆车",
-      "-1": "减去一辆车",
-      0: "没有车",
+      "-1": "少于一辆车",
+      0: "没有汽车",
       1: "一辆车",
-      ">5": "一些车",
-      ">19": "许多车",
+      ">5": "几辆车",
+      ">19": "许多辆车",
     }),
   },
 };
-
-// 内容应作为默认导出
-module.exports = pageContent;
 ```
 
 ### 使用 JSON
@@ -139,29 +125,32 @@ module.exports = pageContent;
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Get started by editing",
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "少于一辆车",
-      "-1": "减去一辆车",
-      "0": "没有车",
-      "1": "一辆车",
-      ">5": "一些车",
-      ">19": "许多车",
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "少于一辆车",
+        "-1": "少于一辆车",
+        "0": "没有汽车",
+        "1": "一辆车",
+        ">5": "几辆车",
+        ">19": "许多辆车",
+      },
     },
   },
 }
 ```
 
-警告，JSON 内容声明使得实现 [功能获取](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/function_fetching.md) 成为不可能。
+警告，JSON 内容声明使得实现 [函数获取](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/function_fetching.md) 不可能。

@@ -1,17 +1,21 @@
-# 翻訳
+# Translation
 
-## 翻訳の定義
+## Defining Translations
 
-`intlayer` の `t` 関数を使用すると、複数の言語でコンテンツを宣言できます。この関数は型安全性を保証し、翻訳が欠けている場合にはエラーを発生させます。これは特に TypeScript 環境で有用です。
+`intlayer`の`t`関数を使用すると、複数の言語でコンテンツを宣言できます。この関数は型安全性を確保し、翻訳が不足している場合にエラーを発生させます。これは特にTypeScript環境で便利です。
 
-### TypeScript の使用
+### Using TypeScript
 
-TypeScript ファイルで翻訳を使用してコンテンツを宣言する方法の例は次のとおりです：
+TypeScriptファイルで翻訳付きのコンテンツを宣言する方法の例は次のとおりです：
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-const multiLangContent = {
+interface Content {
+  welcomeMessage: string;
+}
+
+export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
@@ -20,68 +24,70 @@ const multiLangContent = {
       es: "Bienvenido a nuestra aplicación",
     }),
   },
-} satisfies DeclarationContent;
-
-export default multiLangContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### ECMAScript モジュールの使用
+### Using ECMAScript Modules
 
-ECMAScript モジュールを使用している場合、宣言は次のようになります：
+ECMAScriptモジュールを使用している場合、宣言は次のようになります：
 
 ```javascript
 import { t } from "intlayer";
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+export default {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-export default multiLangContent;
 ```
 
-### CommonJS モジュールの使用
+### Using CommonJS Modules
 
-CommonJS セットアップでは、翻訳を次のように宣言できます：
+CommonJSセットアップでは、次のように翻訳を宣言できます：
 
 ```javascript
 const { t } = require("intlayer");
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+module.exports = {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-module.exports = multiLangContent;
 ```
 
-### JSON の使用
+### Using JSON
 
-JSON ベースの宣言では、翻訳を次のように定義できます：
+JSONベースの宣言では、次のように翻訳を定義できます：
 
 ```json
 {
-  "id": "multi_lang",
-  "welcomeMessage": {
-    "nodeType": "translation",
-    "en": "Welcome to our application",
-    "fr": "Bienvenue dans notre application",
-    "es": "Bienvenido a nuestra aplicación"
+  "key": "multi_lang",
+  "content": {
+    "welcomeMessage": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
+      }
+    }
   }
 }
 ```
 
-## ロケールの設定
+## Configuration for Locales
 
-適切な翻訳処理を確保するために、`intlayer.config.ts` で受け入れられるロケールを設定できます。この設定により、アプリケーションがサポートする言語を定義できます：
+正しい翻訳処理を確保するために、`intlayer.config.ts`で受け入れられるロケールを設定できます。この構成では、アプリケーションがサポートする言語を定義できます：
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -95,9 +101,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-## React コンポーネントでの翻訳の使用
+## Using Translations in React Components
 
-`react-intlayer` を使用すると、React コンポーネントで翻訳を使用できます。例は次のとおりです：
+`react-intlayer`を使用すると、Reactコンポーネントで翻訳を利用できます。以下はその例です：
 
 ```jsx
 import { useIntlayer } from "react-intlayer";
@@ -115,11 +121,11 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-このコンポーネントは、アプリケーションに設定されている現在のロケールに基づいて対応する翻訳を取得します。
+このコンポーネントは、アプリケーションで設定された現在のロケールに基づいて対応する翻訳を取得します。
 
-## カスタムコンテンツオブジェクト
+## Custom Content Objects
 
-`intlayer` は、翻訳のためのカスタムコンテンツオブジェクトをサポートしており、型安全性を確保しながら、より複雑な構造を定義できます。カスタムオブジェクトの例は次のとおりです：
+`intlayer`は、翻訳用のカスタムコンテンツオブジェクトをサポートしており、型安全性を保ちながらより複雑な構造を定義できます。以下はカスタムオブジェクトの例です：
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";

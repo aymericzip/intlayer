@@ -2,17 +2,20 @@
 
 ## تعريف الترجمات
 
-تسمح لك وظيفة `t` في `intlayer` بإعلان المحتوى بعدة لغات. تضمن هذه الوظيفة أمان النوع، مما يثير خطأ إذا كانت أي ترجمات مفقودة، وهو ما يكون مفيدًا بشكل خاص في بيئات TypeScript.
+دالة `t` في `intlayer` تتيح لك الإعلان عن المحتوى بلغات متعددة. تضمن هذه الدالة سلامة النوع، مما يؤدي إلى رفع خطأ إذا كانت أي ترجمات مفقودة، وهو أمر مفيد بشكل خاص في بيئات TypeScript.
 
 ### استخدام TypeScript
 
-إليك مثال على كيفية إعلان المحتوى مع الترجمات في ملف TypeScript:
+إليك مثالًا على كيفية إعلان المحتوى مع الترجمات في ملف TypeScript:
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-// تعريف محتوى متعدد اللغات
-const multiLangContent = {
+interface Content {
+  welcomeMessage: string;
+}
+
+export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
@@ -21,75 +24,74 @@ const multiLangContent = {
       es: "Bienvenido a nuestra aplicación",
     }),
   },
-} satisfies DeclarationContent;
-
-export default multiLangContent;
+} satisfies DeclarationContent<Content>;
 ```
 
 ### استخدام وحدات ECMAScript
 
-إذا كنت تستخدم وحدات ECMAScript، فإن الإعلان يبدو هكذا:
+إذا كنت تستخدم وحدات ECMAScript، فسيبدو الإعلان كالتالي:
 
 ```javascript
 import { t } from "intlayer";
 
-// محتوى متعدد اللغات
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+export default {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-export default multiLangContent;
 ```
 
 ### استخدام وحدات CommonJS
 
-في إعداد CommonJS، يمكنك إعلان الترجمات على النحو التالي:
+في إعداد CommonJS، يمكنك إعلان الترجمات بهذه الطريقة:
 
 ```javascript
 const { t } = require("intlayer");
 
-// محتوى متعدد اللغات
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+module.exports = {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-module.exports = multiLangContent;
 ```
 
 ### استخدام JSON
 
-لإعلانات القائمة على JSON، يمكنك تعريف الترجمات كما يلي:
+بالنسبة للإعلانات المعتمدة على JSON، يمكنك تعريف الترجمات كما يلي:
 
 ```json
 {
-  "id": "multi_lang",
-  "welcomeMessage": {
-    "nodeType": "translation",
-    "en": "Welcome to our application",
-    "fr": "Bienvenue dans notre application",
-    "es": "Bienvenido a nuestra aplicación"
+  "key": "multi_lang",
+  "content": {
+    "welcomeMessage": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
+      }
+    }
   }
 }
 ```
 
 ## التكوين للغات
 
-لضمان التعامل الصحيح مع الترجمات، يمكنك تكوين اللغات المقبولة في `intlayer.config.ts`. يسمح لك هذا التكوين بتحديد اللغات التي يدعمها تطبيقك:
+لضمان معالجة الترجمة بشكل صحيح، يمكنك تكوين اللغات المقبولة في `intlayer.config.ts`. يسمح لك هذا التكوين بتحديد اللغات التي تدعمها تطبيقك:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// تكوين اللغة
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -107,7 +109,6 @@ export default config;
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
-  // استرجاع المحتوى
   const content = useIntlayer("multi_lang");
 
   return (
@@ -120,11 +121,11 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-هذا المكون يسترجع الترجمة المناسبة بناءً على اللغة الحالية المحددة في تطبيقك.
+هذا المكون يسترجع الترجمة المقابلة بناءً على اللغة الحالية المحددة في تطبيقك.
 
 ## كائنات المحتوى المخصصة
 
-تدعم `intlayer` كائنات محتوى مخصصة للترجمة، مما يسمح لك بتعريف هياكل أكثر تعقيدًا مع ضمان أمان النوع. إليك مثال مع كائن مخصص:
+يدعم `intlayer` كائنات محتوى مخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان سلامة النوع. إليك مثال مع كائن مخصص:
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
@@ -134,7 +135,6 @@ interface ICustomContent {
   content: string;
 }
 
-// محتوى مخصص
 const customContent = {
   key: "custom_content",
   content: {

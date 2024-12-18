@@ -1,30 +1,22 @@
 # Getting Started the declaration of your content
 
-## Configure Intlayer for your project
+## Files extensions
 
-[See how to use intlayer with NextJS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md)
+By default, Intlayer watches all files with the following extensions for content declarations:
 
-[See how to use intlayer with ReactJS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[See how to use intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md)
+The application will search for files that match the `./src/*_/_.content.{ts,tsx,js,mjs,cjs}` glob pattern by default.
 
-## Install Package
+These default extensions are suitable for most applications. However, if you have specific requirements, refer to the content extension customisation guide for instructions on how to manage them.
 
-Install the necessary packages using npm:
+For a full list of configuration options, visit the configuration documentation.
 
-```bash
-npm install intlayer
-```
-
-```bash
-yarn add intlayer
-```
-
-```bash
-pnpm add intlayer
-```
-
-## Manage Your Content
+## Declare Your Content
 
 Create and manage your content dictionaries:
 
@@ -34,7 +26,15 @@ Create and manage your content dictionaries:
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
@@ -45,22 +45,16 @@ const pageContent = {
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
   },
-} satisfies DeclarationContent;
-
-// Content should be exported as default
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
 ### Using ECMAScript modules
@@ -71,18 +65,17 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
       "<-1": "Less than minus one car",
       "-1": "Minus one car",
@@ -93,9 +86,6 @@ const pageContent = {
     }),
   },
 };
-
-// Content should be exported as default
-export default pageContent;
 ```
 
 ### Using CommonJS modules
@@ -106,18 +96,17 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
       "<-1": "Less than minus one car",
       "-1": "Minus one car",
@@ -128,9 +117,6 @@ const pageContent = {
     }),
   },
 };
-
-// Content should be exported as default
-module.exports = pageContent;
 ```
 
 ### Using JSON
@@ -139,29 +125,32 @@ module.exports = pageContent;
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Get started by editing",
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        "0": "No cars",
+        "1": "One car",
+        ">5": "Some cars",
+        ">19": "Many cars",
+      },
     },
   },
 }
 ```
 
-Warning, JSON content declaration make impossible to implement [function fetching](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/function_fetching.md)
+Warning, JSON content declaration make impossible to implement [function fetching](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/function_fetching.md)

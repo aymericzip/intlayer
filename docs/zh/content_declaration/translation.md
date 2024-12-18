@@ -1,113 +1,119 @@
-# 翻译
+# Translation
 
-## 定义翻译
+## Defining Translations
 
-`intlayer`中的`t`函数允许您声明多种语言的内容。该函数确保类型安全，如果缺少任何翻译，会引发错误，这在TypeScript环境中特别有用。
+`t` 函数在 `intlayer` 中允许您声明多种语言的内容。该函数确保类型安全，如果任何翻译缺失，将引发错误，这在 TypeScript 环境中特别有用。
 
-### 使用 TypeScript
+### Using TypeScript
 
-以下是如何在TypeScript文件中声明带有翻译的内容的示例：
+这是如何在 TypeScript 文件中声明翻译内容的一个示例：
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-const multiLangContent = {
-  key: "multi_lang",
+interface Content {
+  welcomeMessage: string; // 欢迎信息
+}
+
+export default {
+  key: "multi_lang", // 多语言键
   content: {
     welcomeMessage: t({
-      en: "欢迎来到我们的应用程序",
-      fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nuestra aplicación",
+      en: "Welcome to our application", // 欢迎来到我们的应用程序
+      fr: "Bienvenue dans notre application", // 欢迎来到我们的应用程序
+      es: "Bienvenido a nuestra aplicación", // 欢迎来到我们的应用程序
     }),
   },
-} satisfies DeclarationContent;
-
-export default multiLangContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### 使用 ECMAScript 模块
+### Using ECMAScript Modules
 
-如果您正在使用ECMAScript模块，声明如下所示：
+如果您使用 ECMAScript 模块，声明看起来像这样：
 
 ```javascript
 import { t } from "intlayer";
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "欢迎来到我们的应用程序",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+export default {
+  key: "multi_lang", // 多语言键
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application", // 欢迎来到我们的应用程序
+      fr: "Bienvenue dans notre application", // 欢迎来到我们的应用程序
+      es: "Bienvenido a nuestra aplicación", // 欢迎来到我们的应用程序
+    }),
+  },
 };
-
-export default multiLangContent;
 ```
 
-### 使用 CommonJS 模块
+### Using CommonJS Modules
 
-在CommonJS设置中，您可以这样声明翻译：
+在 CommonJS 设置中，您可以像这样声明翻译：
 
 ```javascript
 const { t } = require("intlayer");
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "欢迎来到我们的应用程序",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+module.exports = {
+  key: "multi_lang", // 多语言键
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application", // 欢迎来到我们的应用程序
+      fr: "Bienvenue dans notre application", // 欢迎来到我们的应用程序
+      es: "Bienvenido a nuestra aplicación", // 欢迎来到我们的应用程序
+    }),
+  },
 };
-
-module.exports = multiLangContent;
 ```
 
-### 使用 JSON
+### Using JSON
 
-对于基于JSON的声明，您可以如下定义翻译：
+对于基于 JSON 的声明，您可以如下定义翻译：
 
 ```json
 {
-  "id": "multi_lang",
-  "welcomeMessage": {
-    "nodeType": "translation",
-    "en": "欢迎来到我们的应用程序",
-    "fr": "Bienvenue dans notre application",
-    "es": "Bienvenido a nuestra aplicación"
+  "key": "multi_lang", // 多语言键
+  "content": {
+    "welcomeMessage": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application", // 欢迎来到我们的应用程序
+        "fr": "Bienvenue dans notre application", // 欢迎来到我们的应用程序
+        "es": "Bienvenido a nuestra aplicación" // 欢迎来到我们的应用程序
+      }
+    }
   }
 }
 ```
 
-## 语言环境的配置
+## Configuration for Locales
 
-为了确保正确处理翻译，您可以在`intlayer.config.ts`中配置接受的语言环境。该配置允许您定义您的应用程序支持的语言：
+为了确保适当的翻译处理，您可以在 `intlayer.config.ts` 中配置接受的地区语言。这一配置允许您定义您的应用程序支持的语言：
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // 支持的语言
   },
 };
 
 export default config;
 ```
 
-## 在 React 组件中使用翻译
+## Using Translations in React Components
 
-使用`react-intlayer`，您可以在React组件中使用翻译。以下是一个示例：
+使用 `react-intlayer`，您可以在 React 组件中使用翻译。以下是一个示例：
 
 ```jsx
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
-  const content = useIntlayer("multi_lang");
+  const content = useIntlayer("multi_lang"); // 获取多语言内容
 
   return (
     <div>
-      <p>{content.welcomeMessage}</p>
+      <p>{content.welcomeMessage}</p> // 显示欢迎信息
     </div>
   );
 };
@@ -115,35 +121,35 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-该组件根据您在应用程序中设置的当前语言环境获取相应的翻译。
+该组件根据您应用程序中设置的当前语言获取相应的翻译。
 
-## 自定义内容对象
+## Custom Content Objects
 
-`intlayer`支持自定义内容对象进行翻译，允许您定义更复杂的结构，同时确保类型安全。以下是带有自定义对象的示例：
+`intlayer` 支持自定义内容对象进行翻译，允许您定义更复杂的结构，同时确保类型安全。以下是一个带有自定义对象的示例：
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
 interface ICustomContent {
-  title: string;
-  content: string;
+  title: string; // 标题
+  content: string; // 内容
 }
 
 const customContent = {
-  key: "custom_content",
+  key: "custom_content", // 自定义内容键
   content: {
     profileText: t<ICustomContent>({
       en: {
-        title: "页面标题",
-        content: "页面内容",
+        title: "Page Title", // 页面标题
+        content: "Page Content", // 页面内容
       },
       fr: {
-        title: "Titre de la Page",
-        content: "Contenu de la Page",
+        title: "Titre de la Page", // 页面标题
+        content: "Contenu de la Page", // 页面内容
       },
       es: {
-        title: "Título de la Página",
-        content: "Contenido de la Página",
+        title: "Título de la Página", // 页面标题
+        content: "Contenido de la Página", // 页面内容
       },
     }),
   },

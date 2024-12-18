@@ -1,69 +1,63 @@
-# Начало работы с вами контентом
+# Начало работы с декларацией вашего контента
 
-## Настройка Intlayer для вашего проекта
+## Расширения файлов
 
-[Смотрите, как использовать intlayer с NextJS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_15.md)
+По умолчанию, Intlayer следит за всеми файлами с следующими расширениями для деклараций контента:
 
-[Смотрите, как использовать intlayer с ReactJS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[Смотрите, как использовать intlayer с Vite и React](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_vite+react.md)
+Приложение будет искать файлы, соответствующие шаблону `./src/**/*.content.{ts,tsx,js,mjs,cjs}` по умолчанию.
 
-## Установка пакета
+Эти расширения по умолчанию подходят для большинства приложений. Однако, если у вас есть конкретные требования, обратитесь к руководству по настройке расширений контента для получения инструкций по их управлению.
 
-Установите необходимые пакеты с помощью npm:
+Для полного списка параметров конфигурации посетите документацию по конфигурации.
 
-```bash
-npm install intlayer
-```
+## Декларируйте ваш контент
 
-```bash
-yarn add intlayer
-```
+Создайте и управляйте своими словарями контента:
 
-```bash
-pnpm add intlayer
-```
-
-## Управление вашим контентом
-
-Создайте и управляйте своими контентными словарями:
-
-### Использование TypeScript
+### Используя TypeScript
 
 ```typescript
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
       main: t({
-        en: "Начните с редактирования",
+        en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "Меньше чем один автомобиль",
-        "-1": "Минус один автомобиль",
-        "0": "Нет автомобилей",
-        "1": "Один автомобиль",
-        ">5": "Некоторые автомобили",
-        ">19": "Много автомобилей",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "Меньше чем одна машина",
+      "-1": "Минус одна машина",
+      "0": "Нет машин",
+      "1": "Одна машина",
+      ">5": "Несколько машин",
+      ">19": "Много машин",
+    }),
   },
-} satisfies DeclarationContent;
-
-// Контент должен экспортироваться как default
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### Использование модулей ECMAScript
+### Используя ECMAScript модули
 
 ```javascript
 // src/app/[locale]/page.content.mjs
@@ -71,34 +65,30 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Начните с редактирования",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "Меньше чем один автомобиль",
-      "-1": "Минус один автомобиль",
-      0: "Нет автомобилей",
-      1: "Один автомобиль",
-      ">5": "Некоторые автомобили",
-      ">19": "Много автомобилей",
+      "<-1": "Меньше чем одна машина",
+      "-1": "Минус одна машина",
+      0: "Нет машин",
+      1: "Одна машина",
+      ">5": "Несколько машин",
+      ">19": "Много машин",
     }),
   },
 };
-
-// Контент должен экспортироваться как default
-export default pageContent;
 ```
 
-### Использование модулей CommonJS
+### Используя CommonJS модули
 
 ```javascript
 // src/app/[locale]/page.content.cjs
@@ -106,62 +96,61 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Начните с редактирования",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "Меньше чем один автомобиль",
-      "-1": "Минус один автомобиль",
-      0: "Нет автомобилей",
-      1: "Один автомобиль",
-      ">5": "Некоторые автомобили",
-      ">19": "Много автомобилей",
+      "<-1": "Меньше чем одна машина",
+      "-1": "Минус одна машина",
+      0: "Нет машин",
+      1: "Одна машина",
+      ">5": "Несколько машин",
+      ">19": "Много машин",
     }),
   },
 };
-
-// Контент должен экспортироваться как default
-module.exports = pageContent;
 ```
 
-### Использование JSON
+### Используя JSON
 
 ```json5
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "Начните с редактирования",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Get started by editing",
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "Меньше чем один автомобиль",
-      "-1": "Минус один автомобиль",
-      "0": "Нет автомобилей",
-      "1": "Один автомобиль",
-      ">5": "Некоторые автомобили",
-      ">19": "Много автомобилей",
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Меньше чем одна машина",
+        "-1": "Минус одна машина",
+        "0": "Нет машин",
+        "1": "Одна машина",
+        ">5": "Несколько машин",
+        ">19": "Много машин",
+      },
     },
   },
 }
 ```
 
-Предупреждение, декларация JSON контента делает невозможным реализацию [функции получения](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/function_fetching.md)
+Предупреждение, декларация контента JSON делает невозможным внедрение [функции получения](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/function_fetching.md)

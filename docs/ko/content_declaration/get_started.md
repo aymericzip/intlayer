@@ -1,69 +1,63 @@
-# 시작하기 콘텐츠 선언
+# Getting Started the declaration of your content
 
-## 프로젝트에 Intlayer 구성하기
+## Files extensions
 
-[NextJS와 함께 intlayer 사용하는 방법 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)
+By default, Intlayer watches all files with the following extensions for content declarations:
 
-[ReactJS와 함께 intlayer 사용하는 방법 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[Vite와 React와 함께 intlayer 사용하는 방법 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_vite+react.md)
+The application will search for files that match the `./src/**/*.content.{ts,tsx,js,mjs,cjs}` glob pattern by default.
 
-## 패키지 설치
+These default extensions are suitable for most applications. However, if you have specific requirements, refer to the content extension customization guide for instructions on how to manage them.
 
-필요한 패키지를 npm을 사용하여 설치합니다:
+For a full list of configuration options, visit the configuration documentation.
 
-```bash
-npm install intlayer
-```
+## Declare Your Content
 
-```bash
-yarn add intlayer
-```
+Create and manage your content dictionaries:
 
-```bash
-pnpm add intlayer
-```
-
-## 콘텐츠 관리
-
-콘텐츠 사전을 생성하고 관리합니다:
-
-### TypeScript 사용
+### Using typescript
 
 ```typescript
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
       main: t({
-        en: "Get started by editing",
+        en: "Get started by editing", // 편집을 시작하세요
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "Less than minus one car", // 1대 이하
+      "-1": "Minus one car", // 1대 감소
+      "0": "No cars", // 자동차 없음
+      "1": "One car", // 1대 자동차
+      ">5": "Some cars", // 몇 대의 자동차
+      ">19": "Many cars", // 많은 자동차
+    }),
   },
-} satisfies DeclarationContent;
-
-// 콘텐츠는 기본으로 내보내야 합니다
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### ECMAScript 모듈 사용
+### Using ECMAScript modules
 
 ```javascript
 // src/app/[locale]/page.content.mjs
@@ -71,34 +65,30 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing", // 편집을 시작하세요
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "Less than minus one car", // 1대 이하
+      "-1": "Minus one car", // 1대 감소
+      0: "No cars", // 자동차 없음
+      1: "One car", // 1대 자동차
+      ">5": "Some cars", // 몇 대의 자동차
+      ">19": "Many cars", // 많은 자동차
     }),
   },
 };
-
-// 콘텐츠는 기본으로 내보내야 합니다
-export default pageContent;
 ```
 
-### CommonJS 모듈 사용
+### Using CommonJS modules
 
 ```javascript
 // src/app/[locale]/page.content.cjs
@@ -106,62 +96,61 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing", // 편집을 시작하세요
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "Less than minus one car", // 1대 이하
+      "-1": "Minus one car", // 1대 감소
+      0: "No cars", // 자동차 없음
+      1: "One car", // 1대 자동차
+      ">5": "Some cars", // 몇 대의 자동차
+      ">19": "Many cars", // 많은 자동차
     }),
   },
 };
-
-// 콘텐츠는 기본으로 내보내야 합니다
-module.exports = pageContent;
 ```
 
-### JSON 사용
+### Using JSON
 
 ```json5
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Get started by editing", // 편집을 시작하세요
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Less than minus one car", // 1대 이하
+        "-1": "Minus one car", // 1대 감소
+        "0": "No cars", // 자동차 없음
+        "1": "One car", // 1대 자동차
+        ">5": "Some cars", // 몇 대의 자동차
+        ">19": "Many cars", // 많은 자동차
+      },
     },
   },
 }
 ```
 
-경고, JSON 콘텐츠 선언은 [기능 가져오기 구현을 불가능하게 합니다](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/function_fetching.md)
+Warning, JSON content declaration make impossible to implement [function fetching](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/function_fetching.md)

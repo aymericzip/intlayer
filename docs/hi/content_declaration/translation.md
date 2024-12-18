@@ -1,103 +1,109 @@
-# अनुवाद
+# Translation
 
-## अनुवादों को परिभाषित करना
+## Defining Translations
 
-`intlayer` में `t` फ़ंक्शन आपको कई भाषाओं में सामग्री घोषित करने की अनुमति देता है। यह फ़ंक्शन प्रकार सुरक्षा सुनिश्चित करता है, यदि कोई अनुवाद गायब है तो त्रुटि उठाता है, जो कि विशेष रूप से TypeScript वातावरण में उपयोगी है।
+`intlayer` में `t` फ़ंक्शन आपको कई भाषाओं में सामग्री घोषित करने की अनुमति देता है। यह फ़ंक्शन प्रकार सुरक्षा सुनिश्चित करता है, यदि कोई अनुवाद गायब है तो एक त्रुटि उठाता है, जो विशेष रूप से TypeScript वातावरण में उपयोगी है।
 
-### TypeScript का उपयोग करना
+### Using TypeScript
 
-TypeScript फ़ाइल में अनुवादों के साथ सामग्री कैसे घोषित की जाए, इसका एक उदाहरण:
+यहाँ एक उदाहरण है कि TypeScript फ़ाइल में अनुवाद के साथ सामग्री कैसे घोषित की जाए:
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-const multiLangContent = {
+interface Content {
+  welcomeMessage: string;
+}
+
+export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      hi: "हमारे एप्लिकेशन में आपका स्वागत है",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
   },
-} satisfies DeclarationContent;
-
-export default multiLangContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### ECMAScript मॉड्यूल का उपयोग करना
+### Using ECMAScript Modules
 
-यदि आप ECMAScript मॉड्यूल का उपयोग कर रहे हैं, तो घोषणा इस तरह दिखेगी:
+यदि आप ECMAScript मॉड्यूल का उपयोग कर रहे हैं, तो घोषणा इस प्रकार दिखेगी:
 
 ```javascript
 import { t } from "intlayer";
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    hi: "हमारे एप्लिकेशन में आपका स्वागत है",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+export default {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-export default multiLangContent;
 ```
 
-### CommonJS मॉड्यूल का उपयोग करना
+### Using CommonJS Modules
 
-एक CommonJS सेटअप में, आप अनुवाद इस तरह घोषित कर सकते हैं:
+एक CommonJS सेटअप में, आप अनुवाद इस प्रकार घोषित कर सकते हैं:
 
 ```javascript
 const { t } = require("intlayer");
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    hi: "हमारे एप्लिकेशन में आपका स्वागत है",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+module.exports = {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-module.exports = multiLangContent;
 ```
 
-### JSON का उपयोग करना
+### Using JSON
 
-JSON-आधारित घोषणाओं के लिए, आप अनुवाद इस प्रकार परिभाषित कर सकते हैं:
+JSON-आधारित घोषणाओं के लिए, आप अनुवाद को निम्नलिखित प्रकार से परिभाषित कर सकते हैं:
 
 ```json
 {
-  "id": "multi_lang",
-  "welcomeMessage": {
-    "nodeType": "translation",
-    "hi": "हमारे एप्लिकेशन में आपका स्वागत है",
-    "fr": "Bienvenue dans notre application",
-    "es": "Bienvenido a nuestra aplicación"
+  "key": "multi_lang",
+  "content": {
+    "welcomeMessage": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
+      }
+    }
   }
 }
 ```
 
-## लोकेल्स के लिए कॉन्फ़िगरेशन
+## Configuration for Locales
 
-सही अनुवाद संभालने के लिए, आप `intlayer.config.ts` में अनुमत्यांकित स्थानीय विकल्पों को कॉन्फ़िगर कर सकते हैं। यह कॉन्फ़िगरेशन आपको उन भाषाओं को परिभाषित करने की अनुमति देता है जिनका आपका एप्लिकेशन समर्थन करता है:
+सही अनुवाद प्रबंधन सुनिश्चित करने के लिए, आप `intlayer.config.ts` में स्वीकृत भाषाओं को कॉन्फ़िगर कर सकते हैं। यह कॉन्फ़िगरेशन आपको उन भाषाओं को परिभाषित करने की अनुमति देता है जिन्हें आपका आवेदन समर्थन करता है:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.HINDI, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
 export default config;
 ```
 
-## React घटकों में अनुवादों का उपयोग करना
+## Using Translations in React Components
 
-`react-intlayer` के साथ, आप React घटकों में अनुवादों का उपयोग कर सकते हैं। यहाँ एक उदाहरण है:
+`react-intlayer` के साथ, आप React घटकों में अनुवाद का उपयोग कर सकते हैं। यहाँ एक उदाहरण है:
 
 ```jsx
 import { useIntlayer } from "react-intlayer";
@@ -115,11 +121,11 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-यह घटक आपके एप्लिकेशन में सेट की गई वर्तमान स्थानीयता के आधार पर संबंधित अनुवाद लाता है।
+यह घटक आपके आवेदन में वर्तमान सेट की गई भाषा के आधार पर संबंधित अनुवाद प्राप्त करता है।
 
-## कस्टम सामग्री वस्तुएं
+## Custom Content Objects
 
-`intlayer` अनुवाद के लिए कस्टम सामग्री वस्तुओं का समर्थन करता है, जिससे आप अधिक जटिल संरचनाएँ परिभाषित कर सकते हैं जबकि प्रकार सुरक्षा सुनिश्चित कर सकते हैं। यहाँ एक कस्टम वस्तु के साथ एक उदाहरण है:
+`intlayer` अनुवाद के लिए कस्टम सामग्री वस्तुओं का समर्थन करता है, जिससे आपको प्रकार सुरक्षा सुनिश्चित करते हुए अधिक जटिल संरचनाएँ परिभाषित करने की अनुमति मिलती है। यहाँ एक कस्टम वस्तु के साथ एक उदाहरण है:
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
@@ -133,9 +139,9 @@ const customContent = {
   key: "custom_content",
   content: {
     profileText: t<ICustomContent>({
-      hi: {
-        title: "पृष्ठ शीर्षक",
-        content: "पृष्ठ सामग्री",
+      en: {
+        title: "Page Title",
+        content: "Page Content",
       },
       fr: {
         title: "Titre de la Page",

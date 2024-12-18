@@ -1,87 +1,93 @@
 # Übersetzung
 
-## Übersetzungen Definieren
+## Übersetzungen definieren
 
-Die `t`-Funktion in `intlayer` ermöglicht es Ihnen, Inhalte in mehreren Sprachen zu deklarieren. Diese Funktion stellt die Typensicherheit sicher und löst einen Fehler aus, wenn bestimmte Übersetzungen fehlen, was insbesondere in TypeScript-Umgebungen nützlich ist.
+Die `t`-Funktion in `intlayer` ermöglicht es Ihnen, Inhalte in mehreren Sprachen zu deklarieren. Diese Funktion gewährleistet die Typensicherheit und löst einen Fehler aus, wenn Übersetzungen fehlen, was in TypeScript-Umgebungen besonders nützlich ist.
 
-### Verwendung von TypeScript
+### TypeScript verwenden
 
-Hier ist ein Beispiel, wie man Inhalte mit Übersetzungen in einer TypeScript-Datei deklariert:
+Hier ist ein Beispiel, wie man Inhalte mit Übersetzungen in einer TypeScript-Datei erklärt:
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-const multiLangContent = {
+interface Content {
+  welcomeMessage: string;
+}
+
+export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Willkommen in unserer Anwendung",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
   },
-} satisfies DeclarationContent;
-
-export default multiLangContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### Verwendung von ECMAScript-Modulen
+### ECMAScript-Module verwenden
 
-Wenn Sie ECMAScript-Module verwenden, sieht die Deklaration folgendermaßen aus:
+Wenn Sie ECMAScript-Module verwenden, sieht die Deklaration so aus:
 
 ```javascript
 import { t } from "intlayer";
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Willkommen in unserer Anwendung",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+export default {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-export default multiLangContent;
 ```
 
-### Verwendung von CommonJS-Modulen
+### CommonJS-Module verwenden
 
 In einem CommonJS-Setup können Sie Übersetzungen wie folgt deklarieren:
 
 ```javascript
 const { t } = require("intlayer");
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Willkommen in unserer Anwendung",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+module.exports = {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-module.exports = multiLangContent;
 ```
 
-### Verwendung von JSON
+### JSON verwenden
 
 Für JSON-basierte Deklarationen können Sie Übersetzungen wie folgt definieren:
 
 ```json
 {
-  "id": "multi_lang",
-  "welcomeMessage": {
-    "nodeType": "translation",
-    "en": "Willkommen in unserer Anwendung",
-    "fr": "Bienvenue dans notre application",
-    "es": "Bienvenido a nuestra aplicación"
+  "key": "multi_lang",
+  "content": {
+    "welcomeMessage": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
+      }
+    }
   }
 }
 ```
 
-## Konfiguration für Lokalisierungen
+## Konfiguration für Sprachen
 
-Um eine ordnungsgemäße Übersetzungsbehandlung sicherzustellen, können Sie die akzeptierten Lokalisierungen in `intlayer.config.ts` konfigurieren. Diese Konfiguration ermöglicht es Ihnen, die Sprachen zu definieren, die Ihre Anwendung unterstützt:
+Um eine ordnungsgemäße Handhabung der Übersetzungen zu gewährleisten, können Sie die akzeptierten Sprachen in `intlayer.config.ts` konfigurieren. Diese Konfiguration ermöglicht es Ihnen, die Sprachen zu definieren, die Ihre Anwendung unterstützt:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -115,11 +121,11 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-Diese Komponente ruft die entsprechende Übersetzung basierend auf der aktuellen Sprache ab, die in Ihrer Anwendung eingestellt ist.
+Diese Komponente ruft die entsprechende Übersetzung basierend auf der aktuellen Sprache in Ihrer Anwendung ab.
 
 ## Benutzerdefinierte Inhaltsobjekte
 
-`intlayer` unterstützt benutzerdefinierte Inhaltsobjekte für Übersetzungen, sodass Sie komplexere Strukturen definieren können, während die Typensicherheit gewährleistet bleibt. Hier ist ein Beispiel mit einem benutzerdefinierten Objekt:
+`intlayer` unterstützt benutzerdefinierte Inhaltsobjekte für Übersetzungen, die es Ihnen ermöglichen, komplexere Strukturen zu definieren und dabei die Typensicherheit zu gewährleisten. Hier ist ein Beispiel mit einem benutzerdefinierten Objekt:
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
@@ -134,8 +140,8 @@ const customContent = {
   content: {
     profileText: t<ICustomContent>({
       en: {
-        title: "Seitenüberschrift",
-        content: "Seiteninhalt",
+        title: "Page Title",
+        content: "Page Content",
       },
       fr: {
         title: "Titre de la Page",

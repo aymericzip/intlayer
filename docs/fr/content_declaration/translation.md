@@ -2,16 +2,20 @@
 
 ## Définir les traductions
 
-La fonction `t` dans `intlayer` vous permet de déclarer du contenu dans plusieurs langues. Cette fonction garantit la sécurité des types, en soulevant une erreur si des traductions sont manquantes, ce qui est particulièrement utile dans les environnements TypeScript.
+La fonction `t` dans `intlayer` vous permet de déclarer du contenu en plusieurs langues. Cette fonction garantit la sécurité des types, générant une erreur si des traductions sont manquantes, ce qui est particulièrement utile dans les environnements TypeScript.
 
-### Utiliser TypeScript
+### Utilisation de TypeScript
 
-Voici un exemple de déclaration de contenu avec des traductions dans un fichier TypeScript :
+Voici un exemple de comment déclarer du contenu avec des traductions dans un fichier TypeScript :
 
 ```typescript
 import { t, type DeclarationContent } from "intlayer";
 
-const multiLangContent = {
+interface Content {
+  welcomeMessage: string;
+}
+
+export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
@@ -20,68 +24,70 @@ const multiLangContent = {
       es: "Bienvenido a nuestra aplicación",
     }),
   },
-} satisfies DeclarationContent;
-
-export default multiLangContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### Utiliser les modules ECMAScript
+### Utilisation des modules ECMAScript
 
-Si vous utilisez les modules ECMAScript, la déclaration ressemble à ceci :
+Si vous utilisez des modules ECMAScript, la déclaration ressemble à ceci :
 
 ```javascript
 import { t } from "intlayer";
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+export default {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-export default multiLangContent;
 ```
 
-### Utiliser les modules CommonJS
+### Utilisation des modules CommonJS
 
 Dans une configuration CommonJS, vous pouvez déclarer des traductions comme ceci :
 
 ```javascript
 const { t } = require("intlayer");
 
-const multiLangContent = {
-  id: "multi_lang",
-  welcomeMessage: t({
-    en: "Welcome to our application",
-    fr: "Bienvenue dans notre application",
-    es: "Bienvenido a nuestra aplicación",
-  }),
+module.exports = {
+  key: "multi_lang",
+  content: {
+    welcomeMessage: t({
+      en: "Welcome to our application",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
+    }),
+  },
 };
-
-module.exports = multiLangContent;
 ```
 
-### Utiliser JSON
+### Utilisation de JSON
 
 Pour les déclarations basées sur JSON, vous pouvez définir des traductions comme suit :
 
 ```json
 {
-  "id": "multi_lang",
-  "welcomeMessage": {
-    "nodeType": "translation",
-    "en": "Welcome to our application",
-    "fr": "Bienvenue dans notre application",
-    "es": "Bienvenido a nuestra aplicación"
+  "key": "multi_lang",
+  "content": {
+    "welcomeMessage": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
+      }
+    }
   }
 }
 ```
 
-## Configuration pour les Locales
+## Configuration des locales
 
-Pour garantir un traitement approprié des traductions, vous pouvez configurer les locales acceptées dans `intlayer.config.ts`. Cette configuration vous permet de définir les langues que votre application prend en charge :
+Pour garantir un traitement correct des traductions, vous pouvez configurer les locales acceptées dans `intlayer.config.ts`. Cette configuration vous permet de définir les langues que votre application prend en charge :
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -95,7 +101,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-## Utiliser les traductions dans les composants React
+## Utilisation des traductions dans les composants React
 
 Avec `react-intlayer`, vous pouvez utiliser des traductions dans les composants React. Voici un exemple :
 
@@ -129,6 +135,7 @@ interface ICustomContent {
   content: string;
 }
 
+// Déclaration de l'objet de contenu personnalisé
 const customContent = {
   key: "custom_content",
   content: {

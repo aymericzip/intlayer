@@ -1,40 +1,40 @@
 # Getting Started la déclaration de votre contenu
 
-## Configurez Intlayer pour votre projet
+## Extensions de fichiers
 
-[Voir comment utiliser intlayer avec NextJS](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_nextjs_15.md)
+Par défaut, Intlayer surveille tous les fichiers avec les extensions suivantes pour les déclarations de contenu :
 
-[Voir comment utiliser intlayer avec ReactJS](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[Voir comment utiliser intlayer avec Vite et React](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_vite+react.md)
+L'application recherchera les fichiers qui correspondent au motif glob `./src/**/*.content.{ts,tsx,js,mjs,cjs}` par défaut.
 
-## Installer le paquet
+Ces extensions par défaut conviennent à la plupart des applications. Cependant, si vous avez des exigences spécifiques, consultez le guide de personnalisation des extensions de contenu pour des instructions sur la façon de les gérer.
 
-Installez les paquets nécessaires en utilisant npm :
+Pour une liste complète des options de configuration, visitez la documentation de configuration.
 
-```bash
-npm install intlayer
-```
-
-```bash
-yarn add intlayer
-```
-
-```bash
-pnpm add intlayer
-```
-
-## Gérez votre contenu
+## Déclarez Votre Contenu
 
 Créez et gérez vos dictionnaires de contenu :
 
-### Utilisation de TypeScript
+### Utilisation de typescript
 
 ```typescript
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
@@ -45,22 +45,16 @@ const pageContent = {
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "Moins d'une voiture",
-        "-1": "Moins une voiture",
-        "0": "Pas de voitures",
-        "1": "Une voiture",
-        ">5": "Quelques voitures",
-        ">19": "Beaucoup de voitures",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "Moins d'une voiture",
+      "-1": "Moins une voiture",
+      "0": "Aucune voiture",
+      "1": "Une voiture",
+      ">5": "Quelques voitures",
+      ">19": "Beaucoup de voitures",
+    }),
   },
-} satisfies DeclarationContent;
-
-// Le contenu doit être exporté par défaut
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
 ### Utilisation des modules ECMAScript
@@ -71,31 +65,27 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
       "<-1": "Moins d'une voiture",
       "-1": "Moins une voiture",
-      0: "Pas de voitures",
+      0: "Aucune voiture",
       1: "Une voiture",
       ">5": "Quelques voitures",
       ">19": "Beaucoup de voitures",
     }),
   },
 };
-
-// Le contenu doit être exporté par défaut
-export default pageContent;
 ```
 
 ### Utilisation des modules CommonJS
@@ -106,31 +96,27 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
       "<-1": "Moins d'une voiture",
       "-1": "Moins une voiture",
-      0: "Pas de voitures",
+      0: "Aucune voiture",
       1: "Une voiture",
       ">5": "Quelques voitures",
       ">19": "Beaucoup de voitures",
     }),
   },
 };
-
-// Le contenu doit être exporté par défaut
-module.exports = pageContent;
 ```
 
 ### Utilisation de JSON
@@ -139,26 +125,29 @@ module.exports = pageContent;
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Get started by editing",
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "Moins d'une voiture",
-      "-1": "Moins une voiture",
-      "0": "Pas de voitures",
-      "1": "Une voiture",
-      ">5": "Quelques voitures",
-      ">19": "Beaucoup de voitures",
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Moins d'une voiture",
+        "-1": "Moins une voiture",
+        "0": "Aucune voiture",
+        "1": "Une voiture",
+        ">5": "Quelques voitures",
+        ">19": "Beaucoup de voitures",
+      },
     },
   },
 }

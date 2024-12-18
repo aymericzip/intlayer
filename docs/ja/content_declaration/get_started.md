@@ -1,69 +1,63 @@
-# コンテンツの宣言を始める
+# Getting Started the declaration of your content
 
-## プロジェクトのためのIntlayerの設定
+## Files extensions
 
-[NextJSでintlayerを使う方法](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)
+By default, Intlayer watches all files with the following extensions for content declarations:
 
-[ReactJSでintlayerを使う方法](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[ViteとReactでintlayerを使う方法](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)
+The application will search for files that match the `./src/**/*.content.{ts,tsx,js,mjs,cjs}` glob pattern by default.
 
-## パッケージのインストール
+These default extensions are suitable for most applications. However, if you have specific requirements, refer to the content extension customization guide for instructions on how to manage them.
 
-npmを使用して必要なパッケージをインストールします:
+For a full list of configuration options, visit the configuration documentation.
 
-```bash
-npm install intlayer
-```
+## Declare Your Content
 
-```bash
-yarn add intlayer
-```
+Create and manage your content dictionaries:
 
-```bash
-pnpm add intlayer
-```
-
-## コンテンツの管理
-
-コンテンツ辞書を作成して管理します:
-
-### TypeScriptを使用する
+### Using typescript
 
 ```typescript
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
       main: t({
-        en: "編集を開始する",
+        en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "マイナス1台未満",
-        "-1": "マイナス1台",
-        "0": "車がありません",
-        "1": "1台の車",
-        ">5": "いくつかの車",
-        ">19": "多くの車",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
   },
-} satisfies DeclarationContent;
-
-// コンテンツはデフォルトでエクスポートする必要があります
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### ECMAScriptモジュールを使用する
+### Using ECMAScript modules
 
 ```javascript
 // src/app/[locale]/page.content.mjs
@@ -71,34 +65,30 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "編集を開始する",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "マイナス1台未満",
-      "-1": "マイナス1台",
-      0: "車がありません",
-      1: "1台の車",
-      ">5": "いくつかの車",
-      ">19": "多くの車",
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      0: "No cars",
+      1: "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
     }),
   },
 };
-
-// コンテンツはデフォルトでエクスポートする必要があります
-export default pageContent;
 ```
 
-### CommonJSモジュールを使用する
+### Using CommonJS modules
 
 ```javascript
 // src/app/[locale]/page.content.cjs
@@ -106,62 +96,61 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "編集を開始する",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "マイナス1台未満",
-      "-1": "マイナス1台",
-      0: "車がありません",
-      1: "1台の車",
-      ">5": "いくつかの車",
-      ">19": "多くの車",
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      0: "No cars",
+      1: "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
     }),
   },
 };
-
-// コンテンツはデフォルトでエクスポートする必要があります
-module.exports = pageContent;
 ```
 
-### JSONを使用する
+### Using JSON
 
 ```json5
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "編集を開始する",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Get started by editing",
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "マイナス1台未満",
-      "-1": "マイナス1台",
-      "0": "車がありません",
-      "1": "1台の車",
-      ">5": "いくつかの車",
-      ">19": "多くの車",
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        "0": "No cars",
+        "1": "One car",
+        ">5": "Some cars",
+        ">19": "Many cars",
+      },
     },
   },
 }
 ```
 
-警告: JSONのコンテンツ宣言は、[関数フェッチングの実装を不可能にします](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/function_fetching.md)
+Warning, JSON content declaration make impossible to implement [function fetching](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/function_fetching.md)

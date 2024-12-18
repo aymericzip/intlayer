@@ -146,7 +146,7 @@ import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
 const pageContent = {
-  id: "page",
+  "key": "page",
   getStarted: {
     main: t({
       en: "Get started by editing",
@@ -181,7 +181,7 @@ const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
 const pageContent = {
-  id: "page",
+  "key": "page",
   getStarted: {
     main: t({
       en: "Get started by editing",
@@ -212,7 +212,7 @@ module.exports = pageContent;
 ```json5
 // src/app/[locale]/page.content.json
 {
-  id: "page",
+  "key": "page",
   getStarted: {
     main: {
       nodeType: "translation",

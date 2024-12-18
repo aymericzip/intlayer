@@ -1,30 +1,22 @@
 # Começando a declaração do seu conteúdo
 
-## Configure o Intlayer para seu projeto
+## Extensões de arquivos
 
-[Veja como usar o intlayer com NextJS](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_nextjs_15.md)
+Por padrão, o Intlayer observa todos os arquivos com as seguintes extensões para declarações de conteúdo:
 
-[Veja como usar o intlayer com ReactJS](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[Veja como usar o intlayer com Vite e React](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_vite+react.md)
+O aplicativo buscará arquivos que correspondam ao padrão global `./src/**/*.content.{ts,tsx,js,mjs,cjs}` por padrão.
 
-## Instalar Pacote
+Essas extensões padrão são adequadas para a maioria dos aplicativos. No entanto, se você tiver requisitos específicos, consulte o guia de personalização de extensões de conteúdo para obter instruções sobre como gerenciá-las.
 
-Instale os pacotes necessários usando npm:
+Para uma lista completa de opções de configuração, visite a documentação de configuração.
 
-```bash
-npm install intlayer
-```
-
-```bash
-yarn add intlayer
-```
-
-```bash
-pnpm add intlayer
-```
-
-## Gerenciar Seu Conteúdo
+## Declare Seu Conteúdo
 
 Crie e gerencie seus dicionários de conteúdo:
 
@@ -34,7 +26,15 @@ Crie e gerencie seus dicionários de conteúdo:
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
@@ -45,22 +45,16 @@ const pageContent = {
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "Menos de um carro",
-        "-1": "Menos um carro",
-        "0": "Nenhum carro",
-        "1": "Um carro",
-        ">5": "Alguns carros",
-        ">19": "Vários carros",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "Menos que menos um carro",
+      "-1": "Menos um carro",
+      "0": "Nenhum carro",
+      "1": "Um carro",
+      ">5": "Alguns carros",
+      ">19": "Muitos carros",
+    }),
   },
-} satisfies DeclarationContent;
-
-// O conteúdo deve ser exportado como padrão
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
 ### Usando módulos ECMAScript
@@ -71,31 +65,27 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "Menos de um carro",
+      "<-1": "Menos que menos um carro",
       "-1": "Menos um carro",
       0: "Nenhum carro",
       1: "Um carro",
       ">5": "Alguns carros",
-      ">19": "Vários carros",
+      ">19": "Muitos carros",
     }),
   },
 };
-
-// O conteúdo deve ser exportado como padrão
-export default pageContent;
 ```
 
 ### Usando módulos CommonJS
@@ -106,31 +96,27 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "Menos de um carro",
+      "<-1": "Menos que menos um carro",
       "-1": "Menos um carro",
       0: "Nenhum carro",
       1: "Um carro",
       ">5": "Alguns carros",
-      ">19": "Vários carros",
+      ">19": "Muitos carros",
     }),
   },
 };
-
-// O conteúdo deve ser exportado como padrão
-module.exports = pageContent;
 ```
 
 ### Usando JSON
@@ -139,29 +125,32 @@ module.exports = pageContent;
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Get started by editing",
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "Menos de um carro",
-      "-1": "Menos um carro",
-      "0": "Nenhum carro",
-      "1": "Um carro",
-      ">5": "Alguns carros",
-      ">19": "Vários carros",
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Menos que menos um carro",
+        "-1": "Menos um carro",
+        "0": "Nenhum carro",
+        "1": "Um carro",
+        ">5": "Alguns carros",
+        ">19": "Muitos carros",
+      },
     },
   },
 }
 ```
 
-Atenção, a declaração de conteúdo JSON impossibilita a implementação da [busca de função](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/function_fetching.md)
+Atenção, a declaração de conteúdo JSON impossibilita a implementação [fetching de função](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/function_fetching.md)

@@ -1,32 +1,24 @@
-# सामग्री की घोषणा के लिए प्रारंभ करना
+# सामग्री की घोषणा की शुरुआत करें
 
-## अपने प्रोजेक्ट के लिए Intlayer कॉन्फ़िगर करें
+## फ़ाइलों के एक्सटेंशन
 
-[NextJS के साथ intlayer का उपयोग कैसे करें देखें](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md)
+डिफ़ॉल्ट रूप से, Intlayer सभी फ़ाइलों को निम्नलिखित एक्सटेंशनों के लिए सामग्री घोषणाओं के लिए देखता है:
 
-[ReactJS के साथ intlayer का उपयोग कैसे करें देखें](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md)
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.mjs`
+- `.content.cjs`
 
-[Vite और React के साथ intlayer का उपयोग कैसे करें देखें](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_vite+react.md)
+ऐप्लिकेशन डिफ़ॉल्ट रूप से `./src/**/*.content.{ts,tsx,js,mjs,cjs}` ग्लोब पैटर्न से मेल खाने वाली फ़ाइलों को खोजेगा।
 
-## पैकेज स्थापित करें
+ये डिफ़ॉल्ट एक्सटेंशन अधिकांश ऐप्स के लिए उपयुक्त हैं। हालाँकि, यदि आपके पास विशिष्ट आवश्यकताएँ हैं, तो उन्हें प्रबंधित करने के लिए सामग्री एक्सटेंशन अनुकूलन गाइड देखें।
 
-npm का उपयोग करके आवश्यक पैकेज स्थापित करें:
+कॉन्फ़िगरेशन विकल्पों की पूरी सूची के लिए, कॉन्फ़िगरेशन दस्तावेज़ देखें।
 
-```bash
-npm install intlayer
-```
+## अपनी सामग्री की घोषणा करें
 
-```bash
-yarn add intlayer
-```
-
-```bash
-pnpm add intlayer
-```
-
-## अपनी सामग्री प्रबंधित करें
-
-अपनी सामग्री शब्दकोशों को बनाएं और प्रबंधित करें:
+अपनी सामग्री शब्दकोश बनाएँ और प्रबंधित करें:
 
 ### टाइपस्क्रिप्ट का उपयोग करना
 
@@ -34,36 +26,38 @@ pnpm add intlayer
 // src/app/[locale]/page.content.ts
 import { t, enu, type DeclarationContent } from "intlayer";
 
-const pageContent = {
+interface Content {
+  getStarted: {
+    main: string;
+    pageLink: string;
+  };
+  numberOfCar: string;
+}
+
+export default {
   key: "page",
   content: {
     getStarted: {
       main: t({
-        en: "Get started by editing",
+        en: "संपादित करके आरंभ करें",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
-    nestedContent: {
-      id: "enumeration",
-      numberOfCar: enu({
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars",
-      }),
-    },
+    numberOfCar: enu({
+      "<-1": "एक कार से कम",
+      "-1": "एक कार कम",
+      "0": "कोई कार नहीं",
+      "1": "एक कार",
+      ">5": "कुछ कारें",
+      ">19": "बहुत सी कारें",
+    }),
   },
-} satisfies DeclarationContent;
-
-// सामग्री को डिफ़ॉल्ट के रूप में निर्यात किया जाना चाहिए
-export default pageContent;
+} satisfies DeclarationContent<Content>;
 ```
 
-### ECMAScript मॉड्यूल का उपयोग करना
+### ECMAScript मॉड्यूल्स का उपयोग करना
 
 ```javascript
 // src/app/[locale]/page.content.mjs
@@ -71,34 +65,30 @@ export default pageContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+export default {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "संपादित करके आरंभ करें",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "एक कार से कम",
+      "-1": "एक कार कम",
+      0: "कोई कार नहीं",
+      1: "एक कार",
+      ">5": "कुछ कारें",
+      ">19": "बहुत सी कारें",
     }),
   },
 };
-
-// सामग्री को डिफ़ॉल्ट के रूप में निर्यात किया जाना चाहिए
-export default pageContent;
 ```
 
-### CommonJS मॉड्यूल का उपयोग करना
+### कॉमनजेएस मॉड्यूल्स का उपयोग करना
 
 ```javascript
 // src/app/[locale]/page.content.cjs
@@ -106,31 +96,27 @@ export default pageContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
-const pageContent = {
-  id: "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
+module.exports = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        en: "संपादित करके आरंभ करें",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "एक कार से कम",
+      "-1": "एक कार कम",
+      0: "कोई कार नहीं",
+      1: "एक कार",
+      ">5": "कुछ कारें",
+      ">19": "बहुत सी कारें",
     }),
   },
 };
-
-// सामग्री को डिफ़ॉल्ट के रूप में निर्यात किया जाना चाहिए
-module.exports = pageContent;
 ```
 
 ### JSON का उपयोग करना
@@ -139,29 +125,32 @@ module.exports = pageContent;
 // src/app/[locale]/page.content.json
 
 {
-  id: "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "संपादित करके आरंभ करें",
+          "fr": "Commencez par éditer",
+          "es": "Comience por editar",
+        },
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "एक कार से कम",
+        "-1": "एक कार कम",
+        "0": "कोई कार नहीं",
+        "1": "एक कार",
+        ">5": "कुछ कारें",
+        ">19": "बहुत सी कारें",
+      },
     },
   },
 }
 ```
 
-चेतावनी, JSON सामग्री घोषणा कार्य फ़ेचिंग को लागू करना असंभव बनाती है [function fetching](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/function_fetching.md)
+चेतावनी, JSON सामग्री की घोषणा कार्य फ़ेचिंग को लागू करना असंभव बनाती है [function fetching](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/function_fetching.md)
