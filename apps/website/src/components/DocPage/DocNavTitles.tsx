@@ -1,6 +1,7 @@
 'use client';
 
-import { Container, Link } from '@intlayer/design-system';
+import { Link } from '@components/Link/Link';
+import { Container } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { useIntlayer } from 'next-intlayer';
 import {
@@ -9,6 +10,7 @@ import {
   type FC,
   type HTMLAttributes,
   useRef,
+  Fragment,
 } from 'react';
 
 type DocNavTitles2Props = {
@@ -168,12 +170,9 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
             const hasH3List = h2List && h2List.length > 0;
             const isActive = activeH2?.id === id;
 
-            console.log('id', id);
-
             return (
-              <>
+              <Fragment key={id}>
                 <Link
-                  key={id}
                   label={`${linkLabel}: ${h2.innerText}`}
                   href={`#${id}`}
                   color="text"
@@ -191,7 +190,7 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
                     activeSectionsId={activeH3?.id ?? null}
                   />
                 )}
-              </>
+              </Fragment>
             );
           })}
         </nav>
