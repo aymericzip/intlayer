@@ -8,7 +8,7 @@ export const LandingSection: FC = () => {
   const { title, description } = useIntlayer('landing-section');
 
   return (
-    <section className="flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:p-10 md:pr-0">
+    <section className="flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:px-10 md:pr-0">
       <div className="relative flex w-full flex-1 flex-col items-center justify-between md:justify-center">
         <div className="flex md:flex-auto md:items-center">
           <div className="relative z-10 flex flex-col md:w-3/5">

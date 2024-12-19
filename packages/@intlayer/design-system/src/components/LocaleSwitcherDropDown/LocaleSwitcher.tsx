@@ -116,7 +116,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           className="-left-16"
         >
           <Container
-            className="max-h-[95vh] min-w-28 overflow-y-auto p-1"
+            className="max-h-[80vh] min-w-28 overflow-y-auto p-1"
             separator="y"
             role="listbox"
             transparency="sm"

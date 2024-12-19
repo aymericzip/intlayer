@@ -8,7 +8,7 @@ export const DemoPage: FC = () => {
 
   return (
     <div className="m-auto flex w-full flex-col p-8 sm:p-12 md:size-full md:p-20">
-      <div className="flex h-[70vh] w-full flex-col items-center gap-10">
+      <div className="flex min-h-[70vh] w-full flex-col items-center gap-10">
         <div className="max-w-[500px]">
           <AsideImage />
         </div>
