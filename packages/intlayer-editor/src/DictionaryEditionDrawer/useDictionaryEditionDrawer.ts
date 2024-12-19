@@ -7,15 +7,15 @@ import {
 import { useCallback } from 'react';
 import { useShallow } from 'zustand/shallow';
 
-export const getDrawerIdentifier = (dictionaryId: string) =>
-  `dictionary_edition_${dictionaryId}`;
+export const getDrawerIdentifier = (dictionaryKey: string) =>
+  `dictionary_edition_${dictionaryKey}`;
 
-type DictionaryId = string;
+type DictionaryKey = string;
 type DictionaryPath = string;
 
 export type FileContent = {
   dictionaryPath?: DictionaryPath;
-  dictionaryId: string;
+  dictionaryKey: DictionaryKey;
   keyPath?: KeyPath[];
 };
 
@@ -25,24 +25,24 @@ type DictionaryEditionDrawer = {
   open: (content: FileContent) => void;
   close: () => void;
   setDictionariesRecord: (
-    dictionariesRecord: Record<DictionaryId, Dictionary>
+    dictionariesRecord: Record<DictionaryKey, Dictionary>
   ) => void;
   getEditedContentValue: (
-    dictionaryId: DictionaryId,
+    dictionaryKey: DictionaryKey,
     keyPath: KeyPath[]
   ) => DictionaryValue | undefined;
 };
 
 type OpenDictionaryEditionDrawerProps = {
-  dictionaryId: string;
+  dictionaryKey: string;
   dictionaryPath?: string;
   keyPath?: KeyPath[];
 };
 
 export const useDictionaryEditionDrawer = (
-  dictionaryId: string
+  dictionaryKey: string
 ): DictionaryEditionDrawer => {
-  const id = getDrawerIdentifier(dictionaryId);
+  const id = getDrawerIdentifier(dictionaryKey);
   const { isOpenDrawer, openDrawer, closeDrawer } = useRightDrawerStore(
     useShallow((e) => ({
       isOpenDrawer: e.isOpen,
@@ -66,12 +66,12 @@ export const useDictionaryEditionDrawer = (
 
   const openDictionaryEditionDrawer = useCallback(
     ({
-      dictionaryId,
+      dictionaryKey,
       dictionaryPath,
       keyPath = [],
     }: OpenDictionaryEditionDrawerProps) => {
       setFocusedContent({
-        dictionaryId,
+        dictionaryKey,
         dictionaryPath,
         keyPath,
       });

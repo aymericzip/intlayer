@@ -5,7 +5,7 @@ import { type FC, type ReactNode } from 'react';
 
 export type ContentSelectorWrapperProps = {
   children: ReactNode;
-  dictionaryId: string;
+  dictionaryKey: string;
   dictionaryPath: string;
   keyPath: KeyPath[];
 };

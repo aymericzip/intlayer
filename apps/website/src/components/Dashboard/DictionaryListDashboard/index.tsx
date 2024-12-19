@@ -50,7 +50,7 @@ export const DictionaryListDashboardContent: FC = () => {
           color="text"
           onClick={() => {
             setFocusedContent({
-              dictionaryId: dictionary.key,
+              dictionaryKey: dictionary.key,
               keyPath: [],
               dictionaryPath: undefined,
             });

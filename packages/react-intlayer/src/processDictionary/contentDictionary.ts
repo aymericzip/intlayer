@@ -11,7 +11,7 @@ export type TransformedContentValue =
   | ((quantity: number) => TransformedContentValue);
 
 export type TransformedContentObject = {
-  dictionaryId: string;
+  dictionaryKey: string;
   dictionaryPath: string;
   keyPath: KeyPath[];
   locale: Locales;

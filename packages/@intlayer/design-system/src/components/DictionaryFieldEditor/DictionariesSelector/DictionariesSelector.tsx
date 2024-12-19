@@ -30,16 +30,16 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   );
   const dictionary = useMemo(
     () =>
-      focusedContent?.dictionaryId
-        ? (online?.[focusedContent?.dictionaryId] ??
-          locale?.[focusedContent?.dictionaryId])
+      focusedContent?.dictionaryKey
+        ? (online?.[focusedContent?.dictionaryKey] ??
+          locale?.[focusedContent?.dictionaryKey])
         : null,
-    [online, locale, focusedContent?.dictionaryId]
+    [online, locale, focusedContent?.dictionaryKey]
   );
 
   if (isLoading) return <Loader />;
 
-  if (!focusedContent?.dictionaryId) return noDictionaryMessage;
+  if (!focusedContent?.dictionaryKey) return noDictionaryMessage;
 
   if (!dictionary) return dictionaryNotFoundMessage;
 

@@ -52,11 +52,11 @@ export const DictionaryEditionDrawerContent: FC<
     }
   }, [setDictionariesRecord, dictionaries]);
 
-  const dictionaryId = focusedContent?.dictionaryId;
+  const dictionaryKey = focusedContent?.dictionaryKey;
 
-  if (!dictionaryId) return <>No dictionary focused</>;
+  if (!dictionaryKey) return <>No dictionary focused</>;
 
-  const dictionary: Dictionary = dictionaries[dictionaryId];
+  const dictionary: Dictionary = dictionaries[dictionaryKey];
 
   return (
     <>
@@ -90,7 +90,7 @@ export const DictionaryEditionDrawerContent: FC<
 };
 
 type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
-  dictionaryId: string;
+  dictionaryKey: string;
   isDarkMode?: boolean;
 };
 
@@ -98,13 +98,13 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   locale,
   localeList,
   setLocale,
-  dictionaryId,
+  dictionaryKey,
   isDarkMode,
 }) => {
   const { backButtonText } = useDictionary(dictionaryEditionDrawerContent);
-  const id = getDrawerIdentifier(dictionaryId);
+  const id = getDrawerIdentifier(dictionaryKey);
 
-  const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryId);
+  const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryKey);
   const { openDictionaryListDrawer } = useRightDrawerStore((s) => ({
     openDictionaryListDrawer: () => s.open(dictionaryListDrawerIdentifier),
   }));
@@ -116,7 +116,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
   return (
     <RightDrawer
-      title={dictionaryId}
+      title={dictionaryKey}
       identifier={id}
       header={
         <LocaleSwitcher
@@ -155,9 +155,9 @@ export const DictionaryEditionDrawerController: FC<
   const focusedContent = useEditionPanelStore(
     useShallow((s) => s.focusedContent)
   );
-  const dictionaryId: string | undefined = focusedContent?.dictionaryId;
+  const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
-  if (!dictionaryId) {
+  if (!dictionaryKey) {
     return <></>;
   }
 
@@ -166,7 +166,7 @@ export const DictionaryEditionDrawerController: FC<
       locale={locale}
       localeList={localeList}
       setLocale={setLocale}
-      dictionaryId={dictionaryId}
+      dictionaryKey={dictionaryKey}
     />
   );
 };

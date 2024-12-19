@@ -26,7 +26,7 @@ const {
 const processTranslation = (
   languageContent: LanguageContent<DictionaryValue>,
   locale: Locales,
-  dictionaryId: string,
+  dictionaryKey: string,
   dictionaryPath?: string,
   keyPath: KeyPath[] = []
 ): TransformedContent => {
@@ -42,7 +42,7 @@ const processTranslation = (
 
   return processDictionary(
     translationResult,
-    dictionaryId,
+    dictionaryKey,
     dictionaryPath,
     resultKeyPath,
     locale
@@ -53,7 +53,7 @@ const processEnumeration =
   (
     enumerationContent: QuantityContent<DictionaryValue>,
     locale: Locales,
-    dictionaryId: string,
+    dictionaryKey: string,
     dictionaryPath?: string,
     keyPath: KeyPath[] = []
   ): TransformedContentValue =>
@@ -75,7 +75,7 @@ const processEnumeration =
 
     return processDictionary(
       enumerationResult,
-      dictionaryId,
+      dictionaryKey,
       dictionaryPath,
       resultKeyPath,
       locale
@@ -88,7 +88,7 @@ const isReactNode = (node: Record<string, unknown>): boolean =>
 export const processNode = (
   field: DictionaryValue | undefined,
   locale: Locales,
-  dictionaryId: string,
+  dictionaryKey: string,
   dictionaryPath?: string,
   keyPath: KeyPath[] = []
 ): TransformedContentValue => {
@@ -102,7 +102,7 @@ export const processNode = (
           NodeType.Translation as keyof typeof field
         ] as LanguageContent<DictionaryValue>,
         locale,
-        dictionaryId,
+        dictionaryKey,
         dictionaryPath,
         keyPath
       ) as TransformedContentValue;
@@ -117,7 +117,7 @@ export const processNode = (
           NodeType.Enumeration as keyof typeof field
         ] as QuantityContent<DictionaryValue>,
         locale,
-        dictionaryId,
+        dictionaryKey,
         dictionaryPath,
         keyPath
       );
@@ -127,7 +127,7 @@ export const processNode = (
   return processDictionary(
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     field!,
-    dictionaryId,
+    dictionaryKey,
     dictionaryPath,
     keyPath,
     locale
@@ -178,11 +178,10 @@ const traceKeys: string[] = ['filePath', 'nodeType'];
  */
 export const processDictionary = (
   content: DictionaryValue,
-  dictionaryId: string,
+  dictionaryKey: string,
   dictionaryPath?: string,
   keyPath: KeyPath[] = [],
   locale: Locales = defaultLocale
-  // eslint-disable-next-line sonarjs/cognitive-complexity
 ): TransformedContent => {
   // If it's a React element, render it
   if (isReactNode(content as Record<string, unknown>)) {
@@ -200,7 +199,7 @@ export const processDictionary = (
       return processNode(
         content as DictionaryValue,
         locale,
-        dictionaryId,
+        dictionaryKey,
         dictionaryPath,
         keyPath
       ) as TransformedContent;
@@ -216,7 +215,7 @@ export const processDictionary = (
         return processNode(
           field,
           locale,
-          dictionaryId,
+          dictionaryKey,
           dictionaryPath,
           resultKeyPath
         );
@@ -239,7 +238,7 @@ export const processDictionary = (
         const nodeResult = processNode(
           field,
           locale,
-          dictionaryId,
+          dictionaryKey,
           dictionaryPath,
           resultKeyPath
         );
@@ -254,7 +253,7 @@ export const processDictionary = (
   return {
     content: content as TransformedContentValue,
     keyPath,
-    dictionaryId,
+    dictionaryKey,
     dictionaryPath,
   };
 };

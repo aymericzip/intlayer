@@ -59,7 +59,7 @@ export const recursiveTransformContent = (
     return (props: any) =>
       recursiveTransformContent(value(props), isRenderEditor);
   } else if (typeof value === 'object') {
-    if (typeof value.dictionaryId !== 'undefined') {
+    if (typeof value.dictionaryKey !== 'undefined') {
       if (isRenderEditor) {
         return renderIntlayerEditor(value);
       }

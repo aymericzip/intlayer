@@ -7,6 +7,12 @@ import {
   renameDictionaryValueByKeyPath,
 } from '../../utils/dictionary';
 
+export {
+  editDictionaryByKeyPath,
+  getDictionaryValueByKeyPath,
+  renameDictionaryValueByKeyPath,
+} from '../../utils/dictionary';
+
 export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
 
 type EditedContentStore = {

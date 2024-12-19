@@ -36,20 +36,21 @@ export const DictionaryListDrawer: FC = () => {
     useShallow((s) => s.setFocusedContent)
   );
 
-  const handleClickDictionary = (dictionaryId: string) => {
+  const handleClickDictionary = (dictionaryKey: string) => {
     closeDrawer(dictionaryListDrawerIdentifier);
 
-    const { filePath } = dictionaries[dictionaryId];
+    const { filePath } = dictionaries[dictionaryKey];
     setFocusedContent({
-      dictionaryId,
+      dictionaryKey,
       dictionaryPath: filePath,
     });
 
-    openDrawer(getDrawerIdentifier(dictionaryId));
+    openDrawer(getDrawerIdentifier(dictionaryKey));
   };
 
   const isDictionaryEdited = useCallback(
-    (dictionaryId: string) => Object.keys(editedContent).includes(dictionaryId),
+    (dictionaryKey: string) =>
+      Object.keys(editedContent).includes(dictionaryKey),
     [editedContent]
   );
 
@@ -59,20 +60,20 @@ export const DictionaryListDrawer: FC = () => {
         title="Dictionary list"
         identifier={dictionaryListDrawerIdentifier}
       >
-        {dictionaryKeyList.map((dictionaryId) => (
-          <div key={dictionaryId}>
+        {dictionaryKeyList.map((dictionaryKey) => (
+          <div key={dictionaryKey}>
             <Button
-              label={`Open dictionary editor ${dictionaryId}`}
-              onClick={() => handleClickDictionary(dictionaryId)}
+              label={`Open dictionary editor ${dictionaryKey}`}
+              onClick={() => handleClickDictionary(dictionaryKey)}
               variant="hoverable"
               color="text"
               IconRight={ChevronRight}
               size="md"
               isFullWidth
             >
-              {isDictionaryEdited(dictionaryId)
-                ? `✎ ${dictionaryId}`
-                : dictionaryId}
+              {isDictionaryEdited(dictionaryKey)
+                ? `✎ ${dictionaryKey}`
+                : dictionaryKey}
             </Button>
           </div>
         ))}

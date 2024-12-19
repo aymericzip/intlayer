@@ -9,7 +9,7 @@ const {
 
 export type IntlayerEditorElementProps = {
   content: string;
-  dictionaryId: string;
+  dictionaryKey: string;
   dictionaryPath: string;
   keyPath: KeyPath[];
   isContentSelectable: boolean;

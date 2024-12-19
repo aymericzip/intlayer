@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 type DictionaryPath = string;
 type FileContent = {
-  dictionaryId: string;
+  dictionaryKey: string;
   keyPath?: KeyPath[];
   dictionaryPath?: DictionaryPath;
 };
