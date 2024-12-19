@@ -127,7 +127,7 @@ const config: IntlayerConfig = {
 
 默认情况下，`express-intlayer` 将解释 `Accept-Language` 标头以确定客户端的首选语言。
 
-> 有关配置和高级主题的更多信息，请访问我们的 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/concept/configuration.md)。
+> 有关配置和高级主题的更多信息，请访问我们的 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
 
 ## 驱动程序 TypeScript
 

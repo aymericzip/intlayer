@@ -125,7 +125,7 @@ const config: IntlayerConfig = {
 };
 ```
 
-> Para más información sobre la configuración y temas avanzados, visita nuestra [documentación](https://intlayer.org/doc/concept/configuration).
+> Para más información sobre la configuración y temas avanzados, visita nuestra [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md).
 
 Por defecto, `express-intlayer` interpretará la cabecera `Accept-Language` para determinar el idioma preferido del cliente.
 

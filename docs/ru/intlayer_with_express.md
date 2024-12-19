@@ -127,7 +127,7 @@ const config: IntlayerConfig = {
 
 По умолчанию `express-intlayer` будет интерпретировать заголовок `Accept-Language`, чтобы определить предпочитаемый язык клиента.
 
-> Для получения дополнительной информации о конфигурации и продвинутых темах, посетите нашу [документацию](https://github.com/aymericzip/intlayer/blob/main/docs/ru/concept/configuration.md).
+> Для получения дополнительной информации о конфигурации и продвинутых темах, посетите нашу [документацию](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md).
 
 ## Работает на TypeScript
 

@@ -127,7 +127,7 @@ const config: IntlayerConfig = {
 
 기본적으로 `express-intlayer`는 클라이언트의 선호 언어를 결정하기 위해 `Accept-Language` 헤더를 해석합니다.
 
-> 구성 및 고급 주제에 대한 자세한 내용은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/concept/configuration.md)를 방문하십시오.
+> 구성 및 고급 주제에 대한 자세한 내용은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 방문하십시오.
 
 ## TypeScript로 구동
 
