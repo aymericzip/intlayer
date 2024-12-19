@@ -127,7 +127,7 @@ export const Navbar: FC = () => {
       }
       rightItemsMobile={
         <div className="flex gap-2">
-          <LocaleSwitcher />
+          <LocaleSwitcher panelProps={{ className: '-left-16' }} />
           <SwitchThemeSwitcher />
           {isAuthenticated && (
             <Avatar isLoggedIn={isAuthenticated} fullname={user?.name} />
@@ -136,7 +136,7 @@ export const Navbar: FC = () => {
       }
       rightItemsDesktop={
         <>
-          <LocaleSwitcher />
+          <LocaleSwitcher panelProps={{ className: '-left-16' }} />
           <SwitchThemeSwitcher />
           <Link
             label={github.label.value}

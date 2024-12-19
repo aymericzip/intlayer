@@ -88,7 +88,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
           )}
         </div>
         <div className="flex items-center gap-4">
-          <LocaleSwitcher />
+          <LocaleSwitcher panelProps={{ className: '-left-16' }} />
           <SwitchThemeSwitcher />
           <ProfileDropDown />
         </div>

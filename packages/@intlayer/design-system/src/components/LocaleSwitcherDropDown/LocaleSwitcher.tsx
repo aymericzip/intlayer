@@ -10,6 +10,7 @@ import { useDictionary } from 'react-intlayer';
 import { Button } from '../Button';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
+import { PanelProps } from '../DropDown/types';
 import { Input } from '../Input';
 import localeSwitcherContent from './localeSwitcher.content';
 
@@ -19,6 +20,7 @@ export type LocaleSwitcherProps = {
   availableLocales?: Locales[];
   fullLocaleName?: boolean;
   setLocale: (locale: Locales) => void;
+  panelProps?: Omit<PanelProps, 'identifier'>;
 };
 
 const DROPDOWN_IDENTIFIER = 'locale-switcher';
@@ -36,6 +38,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   availableLocales,
   fullLocaleName = true,
   setLocale,
+  panelProps,
 }) => {
   let localeName = 'Select a locale';
   const { switchTo, searchInput, localeSwitcherLabel, languageListLabel } =
@@ -113,7 +116,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
-          className="-left-16"
+          {...panelProps}
         >
           <Container
             className="max-h-[80vh] min-w-28 overflow-y-auto p-1"
