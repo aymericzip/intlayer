@@ -1,10 +1,10 @@
-import { getDocArray } from '@components/DocPage/docData';
+import { getDocDataArray } from '@components/DocPage/docData';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
 import { PagesRoutes } from '@/Routes';
 
 const sitemap = (): MetadataRoute.Sitemap => {
-  const docs = getDocArray();
+  const docs = getDocDataArray();
 
   const docSitemap: MetadataRoute.Sitemap = docs.map((doc) => ({
     url: `${process.env.NEXT_PUBLIC_URL}${doc.url}`,

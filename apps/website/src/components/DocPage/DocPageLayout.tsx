@@ -1,5 +1,7 @@
-import type { Locales } from 'intlayer';
-import type { ReactNode, FC } from 'react';
+import { BackgroundLayout } from '@components/BackgroundLayout';
+import { type Locales } from 'intlayer';
+import { type ReactNode, type FC } from 'react';
+import { DocBreadCrumb } from './DocBreadCrumb';
 import { getDocData } from './docData';
 import { DocNavList } from './DocNavList';
 import { DocNavTitles } from './DocNavTitles';
@@ -7,7 +9,7 @@ import { DocNavTitles } from './DocNavTitles';
 type DocPageLayoutProps = {
   children?: ReactNode;
   activeSections?: string[];
-  locale?: Locales;
+  locale: Locales;
   displayDocNavTitles?: boolean;
 };
 
@@ -25,12 +27,20 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
         <DocNavList docData={docData} activeSections={activeSections} />
       </div>
       <div className="flex flex-1 flex-row">
-        <div
-          className="relative mb-24 h-full w-auto flex-1 grow"
-          id="doc-content"
-        >
-          {children}
-        </div>
+        <BackgroundLayout>
+          <div
+            className="relative m-auto mb-24 h-full w-auto max-w-3xl flex-1 grow overflow-auto"
+            id="doc-content"
+          >
+            <DocBreadCrumb
+              className="ml-10 mt-12"
+              activeSections={activeSections}
+              docData={docData}
+              locale={locale}
+            />
+            {children}
+          </div>
+        </BackgroundLayout>
         <div className="flex-none max-lg:hidden">
           {displayDocNavTitles && <DocNavTitles />}
         </div>

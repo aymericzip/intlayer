@@ -316,9 +316,38 @@ export const getDocDataByPath = (
   }
 };
 
-const getDocSectionPaths = (docData: Section, presetKeys: string[] = []) => {
+export const getDocSubSection = (
+  docData: Record<string, CategorizedDocData>,
+  sectionKey: string[]
+): CategorizedDocData | undefined => {
+  let current = docData as unknown as CategorizedDocData; // Use the `docData` object to navigate through sections
+
+  for (const key of sectionKey) {
+    if (current[key as keyof typeof current]) {
+      current = current[key as keyof typeof current] as CategorizedDocData; // Navigate deeper
+    } else if (current.subSections && current.subSections[key]) {
+      current = current.subSections[key] as CategorizedDocData; // Navigate deeper
+    } else {
+      return undefined; // If key is not found, return an empty string
+    }
+  }
+
+  return current; // Return the title if it exists
+};
+
+type DocSectionPaths = {
+  paths: string[][];
+  docs: DocData[];
+  title: string[];
+};
+
+export const getDocSection = (
+  docData: Section,
+  presetKeys: string[] = []
+): DocSectionPaths => {
   const paths: string[][] = [];
   const docs: DocData[] = [];
+  const title: string[] = [];
 
   for (const key of Object.keys(docData)) {
     const docDataValue = docData[key];
@@ -326,32 +355,66 @@ const getDocSectionPaths = (docData: Section, presetKeys: string[] = []) => {
     if (typeof docDataValue.default !== 'undefined') {
       docs.push(docDataValue.default);
       paths.push([...presetKeys, key]);
-    } else if (typeof docDataValue.subSections !== 'undefined') {
-      const { paths: subSectionsPaths, docs: subSectionsDocs } =
-        getDocSectionPaths(docDataValue.subSections, [...presetKeys, key]);
+      title.push(docDataValue.title);
+    }
+    if (typeof docDataValue.subSections !== 'undefined') {
+      const {
+        paths: subSectionsPaths,
+        docs: subSectionsDocs,
+        title: subTitle,
+      } = getDocSection(docDataValue.subSections, [...presetKeys, key]);
 
       docs.push(...subSectionsDocs);
       paths.push(...subSectionsPaths);
+      title.push(...subTitle);
     }
   }
 
-  return { paths, docs };
+  return { paths, docs, title };
 };
 
-export const getDocPaths = (locale: Locales = Locales.ENGLISH): string[][] => {
+export const getDocPathsArray = (
+  locale: Locales = Locales.ENGLISH
+): string[][] => {
   const docData = getDocData(locale);
-  return getDocSectionPaths(docData).paths;
+  return getDocSection(docData).paths;
 };
 
-export const getDocArray = (locale?: Locales): DocData[] => {
+export const getDocDataArray = (locale?: Locales): DocData[] => {
   const docData = getDocData(locale);
-  return getDocSectionPaths(docData).docs;
+  return getDocSection(docData).docs;
+};
+
+export const getPreviousNextDocData = (
+  docElement: DocData,
+  locale: Locales
+) => {
+  const docData = getDocData(locale);
+  const { docs, paths, title } = getDocSection(docData);
+
+  const docIndex = docs.findIndex((doc) => doc.docName === docElement?.docName);
+  const nextDocIndex = docIndex + 1;
+  const prevDocIndex = docIndex - 1;
+
+  return {
+    prevDocData: {
+      docs: docs[prevDocIndex],
+      paths: paths[prevDocIndex],
+      title: title[prevDocIndex],
+    },
+    nextDocData: {
+      docs: docs[nextDocIndex],
+      paths: paths[nextDocIndex],
+      title: title[nextDocIndex],
+    },
+  };
 };
 
 const getDocLocale = (url: string, locale: Locales): string =>
   url.replace('/en/', `/${locale}/`);
 
-const docUrlRenamer: Record<GithubRoutes, PagesRoutes> = {
+const docUrlRenamer: Record<GithubRoutes | string, PagesRoutes> = {
+  [process.env.NEXT_PUBLIC_URL!]: PagesRoutes.Home,
   [GithubRoutes.Introduction]: PagesRoutes.Doc_GetStarted,
   [GithubRoutes.HowWorksIntlayer]: PagesRoutes.Doc_HowWorksIntlayer,
   [GithubRoutes.Configuration]: PagesRoutes.Doc_Configuration,
@@ -388,6 +451,8 @@ const docUrlRenamer: Record<GithubRoutes, PagesRoutes> = {
     PagesRoutes['Doc_Packages_intlayer_getLocaleLang'],
   [GithubRoutes['Packages_intlayer_getLocaleName']]:
     PagesRoutes['Doc_Packages_intlayer_getLocaleName'],
+  [GithubRoutes['Packages_intlayer_getHTMLTextDir']]:
+    PagesRoutes['Doc_Packages_intlayer_getHTMLTextDir'],
   [GithubRoutes['Packages_intlayer_getLocalizedUrl']]:
     PagesRoutes['Doc_Packages_intlayer_getLocalizedUrl'],
   [GithubRoutes['Packages_intlayer_getMultilingualUrls']]:

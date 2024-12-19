@@ -1,56 +1,79 @@
+'use client';
+
 import { ChevronRightIcon } from 'lucide-react';
 import { Fragment, HTMLAttributes, type FC } from 'react';
+import { useDictionary } from 'react-intlayer';
 import { cn } from '../../utils/cn';
-import { Button } from '../Button';
-import { Link } from '../Link';
+import { Button, type ButtonProps } from '../Button';
+import { Link, type LinkProps } from '../Link';
+import { breadCrumbContent } from './breadcrumb.content';
 
-type LinkProps = {
-  href: string;
+type LinkLinkProps = {
   children: string;
-  onClick?: () => void;
+} & Omit<LinkProps, 'children' | 'label'>;
+
+const LinkLink: FC<LinkLinkProps> = ({
+  href,
+  children,
+  onClick,
+  color,
+  ...props
+}) => {
+  const { linkLabel } = useDictionary(breadCrumbContent);
+
+  return (
+    <Link
+      href={href}
+      color={color}
+      onClick={onClick}
+      itemProp="itemListElement"
+      {...props}
+      label={`${linkLabel} ${children}`}
+    >
+      {children}
+    </Link>
+  );
 };
 
-const LinkLink: FC<LinkProps> = ({ href, children, onClick }) => (
-  <Link
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    label={`Go to ${children}`}
-    color="text"
-    onClick={onClick}
-    itemProp="itemListElement"
-  >
-    {children}
-  </Link>
-);
-
-type ButtonProps = {
+type ButtonButtonProps = {
   children: string;
-  onClick: () => void;
-};
+} & Omit<ButtonProps, 'children' | 'label'>;
 
-const ButtonLink: FC<ButtonProps> = ({ children: text, onClick }) => (
-  <Button
-    onClick={onClick}
-    label={`Go to ${text}`}
-    variant="link"
-    aria-label={`Go to ${text}`}
-    color="text"
-    itemProp="itemListElement"
-  >
-    {text}
-  </Button>
-);
+const ButtonLink: FC<ButtonButtonProps> = ({
+  children: text,
+  onClick,
+  color,
+  ...props
+}) => {
+  const { linkLabel } = useDictionary(breadCrumbContent);
+  return (
+    <Button
+      onClick={onClick}
+      variant="link"
+      aria-label={`${linkLabel} ${text}`}
+      color={color}
+      itemProp="itemListElement"
+      {...props}
+      label={`Go to ${text}`}
+    >
+      {text}
+    </Button>
+  );
+};
 
 type SpanProps = {
   children: string;
 };
 
-const Span: FC<SpanProps> = ({ children }) => (
-  <span aria-label={`Go to ${children}`} itemProp="itemListElement">
-    {children}
-  </span>
-);
+const Span: FC<SpanProps> = ({ children }) => {
+  const { linkLabel } = useDictionary(breadCrumbContent);
+
+  return (
+    <span aria-label={`${linkLabel} ${children}`} itemProp="itemListElement">
+      {children}
+    </span>
+  );
+};
 
 type DetailedBreadcrumbLink = {
   href?: string;
@@ -59,13 +82,22 @@ type DetailedBreadcrumbLink = {
 };
 export type BreadcrumbLink = string | DetailedBreadcrumbLink;
 
-type BreadcrumbProps = {
+export type BreadcrumbProps = {
   links: BreadcrumbLink[];
+  color?:
+    | 'primary'
+    | 'destructive'
+    | 'neutral'
+    | 'light'
+    | 'dark'
+    | 'text'
+    | 'custom';
 } & HTMLAttributes<HTMLDivElement>;
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   links,
   className,
+  color = 'text',
   ...props
 }) => (
   <div
@@ -86,18 +118,20 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
       const text = (link as DetailedBreadcrumbLink).text ?? link;
 
       let Section = (
-        <Span aria-current={isLastLink ? 'location' : undefined}>{text}</Span>
+        <Span aria-current={isLastLink ? 'location' : undefined} key={text}>
+          {text}
+        </Span>
       );
 
       if (isLink) {
         Section = (
-          <LinkLink key={text} href={link.href!}>
+          <LinkLink key={text} href={link.href!} color={color}>
             {text}
           </LinkLink>
         );
       } else if (isButton) {
         Section = (
-          <ButtonLink key={text} onClick={link.onClick!}>
+          <ButtonLink key={text} onClick={link.onClick!} color={color}>
             {text}
           </ButtonLink>
         );

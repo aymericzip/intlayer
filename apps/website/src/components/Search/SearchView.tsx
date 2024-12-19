@@ -1,6 +1,6 @@
 'use client';
 
-import { type DocData, getDocArray } from '@components/DocPage/docData';
+import { type DocData, getDocDataArray } from '@components/DocPage/docData';
 import {
   Breadcrumb,
   type BreadcrumbLink,
@@ -70,7 +70,7 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const { locale } = useLocale();
   const searchQuery = useSearchParams().get('search');
-  const documentationArray: DocData[] = getDocArray(locale);
+  const documentationArray: DocData[] = getDocDataArray(locale);
   const [results, setResults] = useState<DocData[]>([]);
 
   const { noContentText, searchInput } = useIntlayer('search-view');

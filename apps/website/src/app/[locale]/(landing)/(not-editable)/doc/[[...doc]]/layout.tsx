@@ -1,5 +1,7 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
-import { getDocPaths, getDocDataByPath } from '@components/DocPage/docData';
+import {
+  getDocPathsArray,
+  getDocDataByPath,
+} from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
@@ -12,7 +14,7 @@ export type DocProps = {
 export type DocPageProps = LocalParams<DocProps>;
 
 export const generateStaticParams = () =>
-  getDocPaths().map((path) => ({
+  getDocPathsArray().map((path) => ({
     doc: path,
   }));
 
@@ -49,7 +51,7 @@ const DocLayout: Next14LayoutIntlayer<DocProps> = ({
   params: { doc, locale },
 }) => (
   <DocPageLayout activeSections={doc} locale={locale}>
-    <BackgroundLayout>{children}</BackgroundLayout>
+    {children}
   </DocPageLayout>
 );
 

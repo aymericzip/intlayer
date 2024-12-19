@@ -1,10 +1,16 @@
-import { promises as fs } from 'fs';
-import { getDocDataByPath, urlRenamer } from '@components/DocPage/docData';
+import {
+  getDocDataArray,
+  getDocDataByPath,
+  getPreviousNextDocData,
+  urlRenamer,
+} from '@components/DocPage/docData';
+import { DocData } from '@components/DocPage/types';
 import { Link } from '@components/Link/Link';
 import { Container, Loader } from '@intlayer/design-system';
 import { getDoc } from '@intlayer/docs';
 import { DocHeader } from '@structuredData/DocHeader';
-import { Edit } from 'lucide-react';
+import { getLocalizedUrl } from 'intlayer';
+import { ChevronLeft, ChevronRight, Edit } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
 import { type LocalParams } from 'next-intlayer';
@@ -52,6 +58,51 @@ const Contribution: FC<{ githubUrl: string }> = ({ githubUrl }) => {
   );
 };
 
+type DocPageNavigationProps = {
+  nextDoc?: {
+    title: string;
+    url: string;
+  };
+  prevDoc?: {
+    title: string;
+    url: string;
+  };
+};
+
+const DocPageNavigation: FC<DocPageNavigationProps> = ({
+  nextDoc,
+  prevDoc,
+}) => {
+  const { goToNextSection, goToPreviousSection } = useIntlayer('doc-page');
+
+  return (
+    <div className="flex flex-row flex-wrap justify-between gap-10 p-10">
+      {prevDoc && (
+        <Link
+          href={prevDoc?.url}
+          label={goToPreviousSection.label}
+          color="text"
+          className="mr-auto flex flex-row items-center gap-2 text-nowrap"
+        >
+          <ChevronLeft className="size-5" />
+          {prevDoc?.title}
+        </Link>
+      )}
+      {nextDoc && (
+        <Link
+          href={nextDoc?.url}
+          label={goToNextSection.label}
+          color="text"
+          className="ml-auto flex flex-row items-center gap-2 text-nowrap"
+        >
+          {nextDoc?.title}
+          <ChevronRight className="size-5" />
+        </Link>
+      )}
+    </div>
+  );
+};
+
 const DocumentationPage = async ({
   params: { locale, doc },
 }: LocalParams<DocProps>) => {
@@ -61,9 +112,24 @@ const DocumentationPage = async ({
     return redirect(PagesRoutes.Doc_GetStarted);
   }
 
+  const { prevDocData, nextDocData } = getPreviousNextDocData(docData, locale);
+
   const file = getDoc(docData?.docName ?? '', locale);
 
   const docContent = urlRenamer(file);
+
+  const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
+    ? {
+        title: nextDocData.title,
+        url: getLocalizedUrl(nextDocData.docs.url, locale),
+      }
+    : undefined;
+  const prevDoc: DocPageNavigationProps['prevDoc'] = prevDocData?.docs
+    ? {
+        title: prevDocData.title,
+        url: getLocalizedUrl(prevDocData.docs.url, locale),
+      }
+    : undefined;
 
   return (
     <IntlayerServerProvider locale={locale}>
@@ -80,6 +146,7 @@ const DocumentationPage = async ({
       <Contribution
         githubUrl={docData.githubUrl.replace('/en/', `/${locale}/`)}
       />
+      <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
     </IntlayerServerProvider>
   );
 };
