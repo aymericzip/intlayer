@@ -226,21 +226,7 @@ export const navbarContent = {
     github: {
       id: 'github',
       url: ExternalLinks.Github,
-      title: t({
-        en: 'Github',
-        fr: 'Github',
-        es: 'Github',
-        'en-GB': 'Github',
-        de: 'Github',
-        ja: 'Github',
-        ko: 'Github',
-        zh: 'Github',
-        it: 'Github',
-        pt: 'Github',
-        hi: 'Github',
-        ar: 'Github',
-        ru: 'Github',
-      }),
+      title: 'Github',
       label: t({
         en: 'Go to the github repo',
         fr: 'Aller sur le dépôt github',
