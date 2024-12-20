@@ -1,7 +1,6 @@
 'use client';
 
 import { Locales } from '@intlayer/config/client';
-import { getLocalizedUrl } from 'intlayer';
 import { ChevronRightIcon } from 'lucide-react';
 import { Fragment, HTMLAttributes, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
@@ -80,11 +79,13 @@ const ButtonLink: FC<ButtonButtonProps> = ({
 type SpanProps = {
   children: string;
   position: number;
-};
+} & HTMLAttributes<HTMLSpanElement>;
 
-const Span: FC<SpanProps> = ({ children, position }) => (
+const Span: FC<SpanProps> = ({ children, position, ...props }) => (
   <>
-    <span itemProp="name">{children}</span>
+    <span itemProp="name" {...props}>
+      {children}
+    </span>
     <meta itemProp="position" content={position.toString()} />
   </>
 );
@@ -107,6 +108,7 @@ export type BreadcrumbProps = {
     | 'text'
     | 'custom';
   locale?: Locales;
+  elementType?: 'page' | 'location';
 } & HTMLAttributes<HTMLOListElement>;
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({
@@ -114,6 +116,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
   className,
   color = 'text',
   locale,
+  elementType = 'page',
   ...props
 }) => (
   <ol
@@ -130,15 +133,13 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
       const isLink = typeof link === 'object' && typeof link.href === 'string';
       const isButton =
         typeof link === 'object' && typeof link.onClick === 'function';
+      const isActive = index === links.length - 1;
+      const ariaCurrent = isActive ? elementType : undefined;
 
       const text = (link as DetailedBreadcrumbLink).text ?? link;
 
       let section = (
-        <Span
-          aria-current={isLastLink ? 'location' : undefined}
-          key={text}
-          position={index + 1}
-        >
+        <Span key={text} position={index + 1} aria-current={ariaCurrent}>
           {text}
         </Span>
       );
@@ -151,6 +152,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
             color={color}
             position={index + 1}
             locale={locale}
+            aria-current={ariaCurrent}
           >
             {text}
           </LinkLink>
@@ -162,6 +164,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
             onClick={link.onClick!}
             color={color}
             position={index + 1}
+            aria-current={ariaCurrent}
           >
             {text}
           </ButtonLink>

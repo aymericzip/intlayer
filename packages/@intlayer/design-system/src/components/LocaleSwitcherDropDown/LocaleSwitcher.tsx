@@ -132,10 +132,10 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 ref={inputRef}
               />
             </div>
-            <div className="divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed overflow-y-auto p-1">
+            <ol className="divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed overflow-y-auto p-1">
               {results.map(
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
-                  <div className="px-1.5 py-1" key={localeItem}>
+                  <li className="px-1.5 py-1" key={localeItem}>
                     <Button
                       onClick={() => setLocale(localeItem)}
                       label={`${switchTo} ${currentLocaleName}`}
@@ -169,10 +169,10 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                         </span>
                       </div>
                     </Button>
-                  </div>
+                  </li>
                 )
               )}
-            </div>
+            </ol>
           </Container>
         </DropDown.Panel>
       </DropDown>

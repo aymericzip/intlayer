@@ -29,16 +29,9 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
       },
       ...activeSections
         .map((_, index) => activeSections.slice(0, index + 1))
-        .map((el, index) => {
+        .map((el) => {
           const docSection = getDocSubSection(docData, el);
           const sectionUrl = docSection?.default?.url;
-          const isLastSection = index === activeSections.length - 1;
-
-          if (isLastSection) {
-            return {
-              text: docSection?.title ?? '',
-            };
-          }
 
           return {
             text: docSection?.title ?? '',

@@ -31,5 +31,11 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
     })),
   ];
 
-  return <Breadcrumb links={formattedKeyPath} locale={locale} />;
+  return (
+    <Breadcrumb
+      links={formattedKeyPath}
+      locale={locale}
+      elementType="location"
+    />
+  );
 };

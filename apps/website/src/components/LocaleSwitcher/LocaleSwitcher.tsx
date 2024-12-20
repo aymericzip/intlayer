@@ -131,10 +131,10 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 ref={inputRef}
               />
             </div>
-            <div className="divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed overflow-y-auto p-1">
+            <ol className="divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed overflow-y-auto p-1">
               {results.map(
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
-                  <div className="py-1 pr-1.5" key={localeItem}>
+                  <li className="py-1 pr-1.5" key={localeItem}>
                     <Link
                       label={`${switchTo.value} ${currentLocaleName}`}
                       role="option"
@@ -168,10 +168,10 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                         </span>
                       </div>
                     </Link>
-                  </div>
+                  </li>
                 )
               )}
-            </div>
+            </ol>
           </Container>
         </DropDown.Panel>
       </DropDown>
