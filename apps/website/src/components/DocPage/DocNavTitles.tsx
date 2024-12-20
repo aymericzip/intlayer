@@ -37,10 +37,7 @@ const DocNavTitles2: FC<DocNavTitles2Props> = ({
             aria-current={isActive ? 'location' : undefined}
             color="text"
             variant="hoverable"
-            className={cn([
-              'text-neutral text-wrap p-2 transition-colors dark:text-neutral-200',
-              isActive && '!text-primary !dark:text-primary-dark',
-            ])}
+            className="text-neutral text-wrap p-2 transition-colors dark:text-neutral-200"
           >
             {h3.innerText}
           </Link>
@@ -177,10 +174,8 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
                   href={`#${id}`}
                   color="text"
                   variant="hoverable"
-                  className={cn([
-                    'text-neutral text-wrap p-2 transition-colors dark:text-neutral-200',
-                    isActive && '!text-primary !dark:text-primary-dark',
-                  ])}
+                  isActive={isActive}
+                  className="text-neutral text-wrap p-2 transition-colors dark:text-neutral-200"
                 >
                   {h2.innerText}
                 </Link>

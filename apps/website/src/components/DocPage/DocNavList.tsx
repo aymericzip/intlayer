@@ -40,11 +40,10 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
               <OptionalLink
                 href={sectionDefault?.url ?? ''}
                 className={cn([
-                  'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap text-left font-semibold transition-colors dark:text-neutral-200',
-                  isActive && 'text-primary dark:text-primary-dark',
+                  'text-neutral hover:text-text dark:hover:text-text-dark text-nowrap pl-3 text-left font-semibold transition-colors dark:text-neutral-200',
                 ])}
                 label={key1}
-                aria-current={isActive ? 'page' : undefined}
+                isActive={isActive}
               >
                 {section1Data.title}
               </OptionalLink>
@@ -71,12 +70,8 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                                 href={
                                   !isActive ? (sectionDefault?.url ?? '') : ''
                                 }
-                                className={cn([
-                                  'text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
-                                  isActive &&
-                                    'text-primary dark:text-primary-dark',
-                                ])}
-                                aria-current={isActive ? 'page' : undefined}
+                                className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200"
+                                isActive={isActive}
                               >
                                 {section2Data?.title}
                               </OptionalLink>
@@ -88,50 +83,37 @@ export const DocNavList = forwardRef<HTMLDivElement, DocNavListProps>(
                             <div className="pl-3">
                               {subSections2 &&
                                 Object.keys(subSections2).length > 0 && (
-                                  <>
-                                    <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
-                                      {Object.keys(subSections2).map((key3) => {
-                                        const section3Data = subSections2[key3];
+                                  <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
+                                    {Object.keys(subSections2).map((key3) => {
+                                      const section3Data = subSections2[key3];
 
-                                        const isActive =
-                                          key1 === activeSections[0] &&
-                                          key2 === activeSections[1] &&
-                                          key3 === activeSections[2];
+                                      const isActive =
+                                        key1 === activeSections[0] &&
+                                        key2 === activeSections[1] &&
+                                        key3 === activeSections[2];
 
-                                        return (
-                                          <OptionalLink
-                                            key={key3}
-                                            label={key3}
-                                            href={
-                                              section3Data.default?.url ?? ''
-                                            }
-                                            className={cn([
-                                              'text-neutral hover:text-text dark:hover:text-text-dark block w-full text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200',
-                                              isActive &&
-                                                '!text-primary !dark:text-primary-dark',
-                                            ])}
-                                            aria-current={
-                                              isActive ? 'page' : undefined
-                                            }
-                                          >
-                                            {section3Data.title}
-                                          </OptionalLink>
-                                        );
-                                      })}
-                                    </div>
-                                  </>
+                                      return (
+                                        <OptionalLink
+                                          key={key3}
+                                          label={key3}
+                                          href={section3Data.default?.url ?? ''}
+                                          className="text-neutral hover:text-text dark:hover:text-text-dark block w-full text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200"
+                                          isActive={isActive}
+                                        >
+                                          {section3Data.title}
+                                        </OptionalLink>
+                                      );
+                                    })}
+                                  </div>
                                 )}
                             </div>
                           </Accordion>
                         ) : (
                           <OptionalLink
                             href={sectionDefault?.url ?? ''}
-                            className={cn([
-                              'text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200',
-                              isActive &&
-                                '!text-primary !dark:text-primary-dark',
-                            ])}
+                            className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200"
                             label={key2}
+                            isActive={isActive}
                           >
                             {section2Data?.title}
                           </OptionalLink>
