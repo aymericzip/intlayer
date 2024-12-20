@@ -73,7 +73,11 @@ export const getMultilingualUrls = (
       const shouldPrefix = prefixDefault || !isDefaultLocale;
 
       // Construct the new pathname with or without the locale prefix
-      const localizedPath = shouldPrefix ? `/${locale}${pathname}` : pathname;
+      let localizedPath = shouldPrefix ? `/${locale}${pathname}` : pathname;
+
+      if (localizedPath.length > 1 && localizedPath.endsWith('/')) {
+        localizedPath = localizedPath.slice(0, -1);
+      }
 
       // Combine with the base URL if the original URL was absolute
       const localizedUrl = isAbsoluteUrl
