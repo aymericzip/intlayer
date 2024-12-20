@@ -10,6 +10,7 @@ import { breadCrumbContent } from './breadcrumb.content';
 
 type LinkLinkProps = {
   children: string;
+  position: number;
 } & Omit<LinkProps, 'children' | 'label'>;
 
 const LinkLink: FC<LinkLinkProps> = ({
@@ -17,63 +18,70 @@ const LinkLink: FC<LinkLinkProps> = ({
   children,
   onClick,
   color,
+  position,
   ...props
 }) => {
   const { linkLabel } = useDictionary(breadCrumbContent);
 
   return (
-    <Link
-      href={href}
-      color={color}
-      onClick={onClick}
-      itemProp="itemListElement"
-      {...props}
-      label={`${linkLabel} ${children}`}
-    >
-      {children}
-    </Link>
+    <>
+      <Link
+        href={href}
+        color={color}
+        onClick={onClick}
+        itemProp="item"
+        {...props}
+        label={`${linkLabel} ${children}`}
+      >
+        <span itemProp="name">{children}</span>
+      </Link>
+      <meta itemProp="position" content={position.toString()} />
+    </>
   );
 };
 
 type ButtonButtonProps = {
   children: string;
+  position: number;
 } & Omit<ButtonProps, 'children' | 'label'>;
 
 const ButtonLink: FC<ButtonButtonProps> = ({
   children: text,
   onClick,
   color,
+  position,
   ...props
 }) => {
   const { linkLabel } = useDictionary(breadCrumbContent);
+
   return (
-    <Button
-      onClick={onClick}
-      variant="link"
-      aria-label={`${linkLabel} ${text}`}
-      color={color}
-      itemProp="itemListElement"
-      {...props}
-      label={`Go to ${text}`}
-    >
-      {text}
-    </Button>
+    <>
+      <Button
+        onClick={onClick}
+        variant="link"
+        label={`${linkLabel} ${text}`}
+        color={color}
+        itemProp="item"
+        {...props}
+      >
+        <span itemProp="name">{text}</span>
+      </Button>
+      <meta itemProp="position" content={position.toString()} />
+    </>
   );
 };
 
 type SpanProps = {
   children: string;
+  position: number;
 };
 
-const Span: FC<SpanProps> = ({ children }) => {
-  const { linkLabel } = useDictionary(breadCrumbContent);
-
-  return (
-    <span aria-label={`${linkLabel} ${children}`} itemProp="itemListElement">
-      {children}
-    </span>
-  );
-};
+const Span: FC<SpanProps> = ({ children, position }) => (
+  <>
+    <span itemProp="name">{children}</span>
+    <meta itemProp="position" content={position.toString()} />
+  </>
+);
 
 type DetailedBreadcrumbLink = {
   href?: string;
@@ -92,7 +100,7 @@ export type BreadcrumbProps = {
     | 'dark'
     | 'text'
     | 'custom';
-} & HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLOListElement>;
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   links,
@@ -100,7 +108,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
   color = 'text',
   ...props
 }) => (
-  <div
+  <ol
     className={cn(
       'flex flex-row flex-wrap items-center gap-2 text-sm',
       className
@@ -117,36 +125,61 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
 
       const text = (link as DetailedBreadcrumbLink).text ?? link;
 
-      let Section = (
-        <Span aria-current={isLastLink ? 'location' : undefined} key={text}>
+      let section = (
+        <Span
+          aria-current={isLastLink ? 'location' : undefined}
+          key={text}
+          position={index + 1}
+        >
           {text}
         </Span>
       );
 
       if (isLink) {
-        Section = (
-          <LinkLink key={text} href={link.href!} color={color}>
+        section = (
+          <LinkLink
+            key={text}
+            href={link.href!}
+            color={color}
+            position={index + 1}
+          >
             {text}
           </LinkLink>
         );
       } else if (isButton) {
-        Section = (
-          <ButtonLink key={text} onClick={link.onClick!} color={color}>
+        section = (
+          <ButtonLink
+            key={text}
+            onClick={link.onClick!}
+            color={color}
+            position={index + 1}
+          >
             {text}
           </ButtonLink>
         );
       }
 
+      const listElement = (
+        <li
+          itemProp="itemListElement"
+          itemScope
+          itemType="https://schema.org/ListItem"
+          key={text}
+        >
+          {section}
+        </li>
+      );
+
       if (isLastLink) {
-        return Section;
+        return listElement;
       }
 
       return (
         <Fragment key={text}>
-          {Section}
+          {listElement}
           <ChevronRightIcon size={10} />
         </Fragment>
       );
     })}
-  </div>
+  </ol>
 );
