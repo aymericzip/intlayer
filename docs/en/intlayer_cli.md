@@ -20,11 +20,11 @@ pnpm add intlayer-cli
 
 ## intlayer-cli package
 
-`intlayer-cli` package intend to transpile your [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) declarations into dictionaries.
+`intlayer-cli` package intend to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md) into dictionaries.
 
 This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md), or [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md)
+To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://www.npmjs.com/package/react-intlayer), or [next-intlayer](https://www.npmjs.com/package/next-intlayer)
 
 ## Configuration File Support
 
@@ -63,7 +63,7 @@ This command will find your declaration content files as default as `./src/**/*.
 npx intlayer push
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to the editor at [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
 
 ##### Arguments:
 

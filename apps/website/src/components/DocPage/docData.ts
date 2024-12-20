@@ -414,6 +414,7 @@ const getDocLocale = (url: string, locale: Locales): string =>
   url.replace('/en/', `/${locale}/`);
 
 const docUrlRenamer: Record<GithubRoutes | string, PagesRoutes> = {
+  [`${process.env.NEXT_PUBLIC_URL}/`]: PagesRoutes.Home,
   [process.env.NEXT_PUBLIC_URL!]: PagesRoutes.Home,
   [GithubRoutes.Introduction]: PagesRoutes.Doc_GetStarted,
   [GithubRoutes.HowWorksIntlayer]: PagesRoutes.Doc_HowWorksIntlayer,

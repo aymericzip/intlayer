@@ -1,10 +1,8 @@
 import {
-  getDocDataArray,
   getDocDataByPath,
   getPreviousNextDocData,
   urlRenamer,
 } from '@components/DocPage/docData';
-import { DocData } from '@components/DocPage/types';
 import { Link } from '@components/Link/Link';
 import { Container, Loader } from '@intlayer/design-system';
 import { getDoc } from '@intlayer/docs';

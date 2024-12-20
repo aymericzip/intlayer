@@ -22,7 +22,7 @@ pnpm add intlayer-cli
 
 Le paquet `intlayer-cli` a pour but de transpiler vos déclarations [intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md) en dictionnaires.
 
-Ce paquet va transpiler tous les fichiers intlayer, tels que `src/**/*.content.{ts|js|mjs|cjs|json}`. [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Ce paquet va transpiler tous les fichiers intlayer, tels que `src/**/*.content.{ts|js|mjs|cjs|json}`. [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_cli.md).
 
 Pour interpréter les dictionnaires intlayer, vous pouvez utiliser des interpréteurs, tels que [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/react-intlayer/README.md) ou [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/next-intlayer/README.md).
 
@@ -63,7 +63,7 @@ Cette commande va trouver vos fichiers de contenu de déclaration par défaut so
 npx intlayer push
 ```
 
-Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_editor.md) est installé, vous pouvez également pousser des dictionnaires vers l'éditeur. Cette commande permettra de rendre les dictionnaires disponibles sur l'éditeur à [https://intlayer.org/dashboard/content](https://intlayer.org/dashboard/content). De cette manière, vous pouvez partager vos dictionnaires avec votre équipe et modifier votre contenu sans éditer le code de votre application.
+Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_editor.md) est installé, vous pouvez également pousser des dictionnaires vers l'éditeur. Cette commande permettra de rendre les dictionnaires disponibles sur [l'éditeur](https://intlayer.org/dashboard/content). De cette manière, vous pouvez partager vos dictionnaires avec votre équipe et modifier votre contenu sans éditer le code de votre application.
 
 ##### Arguments :
 
