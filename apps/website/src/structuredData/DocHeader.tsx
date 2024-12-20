@@ -42,29 +42,26 @@ export const DocHeader = ({
     false
   );
   const creativeWork = {
-    key: 'creative-work-structured-data',
-    content: {
-      '@context': 'https://schema.org',
-      '@type': 'CreativeWork',
-      creator: {
-        '@type': 'Person',
-        name: 'Aymeric Pineau',
-      },
-      name: docName,
-      text: docContent,
-      about: docDescription,
-      url,
-      datePublished: datePublished ? formatDate(datePublished) : undefined,
-      dateModified: dateModified ? formatDate(dateModified) : undefined,
-      keywords: keywords,
-      license:
-        'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
-      audience: {
-        '@type': 'Audience',
-        audienceType,
-      },
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    creator: {
+      '@type': 'Person',
+      name: 'Aymeric Pineau',
     },
-  } satisfies DeclarationContent;
+    name: docName,
+    text: docContent,
+    about: docDescription,
+    url,
+    datePublished: datePublished ? formatDate(datePublished) : undefined,
+    dateModified: dateModified ? formatDate(dateModified) : undefined,
+    keywords: keywords,
+    license:
+      'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
+    audience: {
+      '@type': 'Audience',
+      audienceType,
+    },
+  };
 
   return (
     <Script
