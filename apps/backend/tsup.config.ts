@@ -1,4 +1,11 @@
 import { packageBuildOptions } from '@utils/tsup-config';
-import { defineConfig } from 'tsup';
+import { defineConfig, Options } from 'tsup';
 
-export default defineConfig(packageBuildOptions);
+const option: Options[] = (packageBuildOptions as Options[]).map((option) => ({
+  ...option,
+  loader: {
+    '.md': 'copy',
+  },
+}));
+
+export default defineConfig(option);

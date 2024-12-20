@@ -31,6 +31,7 @@ import { projectRouter } from '@routes/project.routes';
 import { sessionAuthRouter } from '@routes/sessionAuth.routes';
 import { userRouter } from '@routes/user.routes';
 import { stripeRouter } from '@routes/stripe.routes';
+import { aiRouter } from '@routes/ai.routes';
 
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe.webhook';
@@ -170,6 +171,7 @@ app.use('/api/organization', organizationRouter);
 app.use('/api/project', projectRouter);
 app.use('/api/dictionary', dictionaryRouter);
 app.use('/api/stripe', stripeRouter);
+app.use('/api/ai', aiRouter);
 
 // Server
 app.listen(process.env.PORT, () => {

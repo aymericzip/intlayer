@@ -1233,6 +1233,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
+  AUDIT_FAILED: {
+    title: {
+      en: 'Audit failed',
+      fr: 'Audit échoué',
+      es: 'Audito fallido',
+    },
+    message: {
+      en: 'Failed to audit the content declaration files.',
+      fr: "Échec de l'audit des fichiers de déclaration de contenu.",
+      es: 'Error al auditar los archivos de declaración de contenido.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

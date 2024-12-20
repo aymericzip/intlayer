@@ -4,10 +4,10 @@ import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
 import type { Response } from 'express';
 // @ts-ignore express-intlayer not build yet
 import { t, LanguageContent } from 'express-intlayer';
+import { Locales } from 'intlayer';
 import { ErrorCodes, errorData } from './errorCodes';
 import { AppError } from './ErrorsClass';
 import { HttpStatusCodes, UserAPI } from '@/export';
-import { Locales } from 'intlayer';
 
 // Define a class named 'ErrorHandler' to encapsulate error handling logic.
 export class ErrorHandler {

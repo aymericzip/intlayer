@@ -14,6 +14,7 @@ export type * from '@controllers/projectAccessKey.controller';
 export type * from '@controllers/user.controller';
 export type * from '@controllers/dictionary.controller';
 export type * from '@controllers/stripe.controller';
+export type * from '@controllers/ai.controller';
 
 // Objects types
 export type * from '@/types/organization.types';

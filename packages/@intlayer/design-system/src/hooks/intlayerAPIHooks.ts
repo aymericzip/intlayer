@@ -567,3 +567,21 @@ export const useCancelSubscription = (
       requireOrganization: true,
     }
   );
+
+/**
+ * AI
+ */
+
+export const useAuditFile = (
+  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditFile>
+) =>
+  useAppAsync(
+    'useAuditFile',
+    useIntlayerAuth().ai.auditFile,
+    { ...args },
+    {
+      requireUser: true,
+      requireOrganization: true,
+      requireProject: true,
+    }
+  );

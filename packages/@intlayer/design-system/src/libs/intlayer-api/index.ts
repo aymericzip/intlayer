@@ -1,4 +1,5 @@
 import { type IntlayerConfig } from '@intlayer/config/client';
+import { getAiAPI } from './ai';
 import { getAuthAPI } from './auth';
 import { getDictionaryAPI } from './dictionary';
 import type { FetcherOptions } from './fetcher';
@@ -17,6 +18,7 @@ export const getIntlayerAPI = (
   auth: getAuthAPI(authAPIOptions, intlayerConfig),
   dictionary: getDictionaryAPI(authAPIOptions, intlayerConfig),
   stripe: getStripeAPI(authAPIOptions, intlayerConfig),
+  ai: getAiAPI(authAPIOptions, intlayerConfig),
 });
 
 export const intlayerAPI = getIntlayerAPI();

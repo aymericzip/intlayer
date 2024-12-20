@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { audit } from './audit/index';
+import { audit } from './audit';
 import { build } from './build';
 import { getConfig } from './config';
 import { listContentDeclaration } from './listContentDeclaration';
