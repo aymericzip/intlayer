@@ -18,7 +18,10 @@ export const generateMetadata = ({
     keywords,
     alternates: {
       canonical: PagesRoutes.Auth_ChangePassword,
-      languages: getMultilingualUrls(PagesRoutes.Auth_ChangePassword),
+      languages: {
+        ...getMultilingualUrls(PagesRoutes.Auth_ChangePassword),
+        'x-default': PagesRoutes.Auth_ChangePassword,
+      },
     },
     openGraph: {
       url: getLocalizedUrl(

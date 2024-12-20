@@ -1,3 +1,4 @@
+import type { Locales } from '@intlayer/config/client';
 import type { KeyPath } from '@intlayer/core';
 import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
@@ -6,12 +7,14 @@ type KeyPathBreadcrumbProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   onClickKeyPath: (keyPath: KeyPath[]) => void;
+  locale?: Locales;
 };
 
 export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
   keyPath,
   dictionaryKey,
   onClickKeyPath,
+  locale,
 }) => {
   const formattedKeyPath: BreadcrumbLink[] = [
     { text: dictionaryKey, onClick: () => onClickKeyPath([]) },
@@ -28,5 +31,5 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
     })),
   ];
 
-  return <Breadcrumb links={formattedKeyPath} />;
+  return <Breadcrumb links={formattedKeyPath} locale={locale} />;
 };

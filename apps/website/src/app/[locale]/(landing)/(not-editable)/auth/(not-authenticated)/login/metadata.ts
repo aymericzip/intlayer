@@ -18,7 +18,10 @@ export const generateMetadata = ({
 
     alternates: {
       canonical: PagesRoutes.Auth_SignIn,
-      languages: getMultilingualUrls(PagesRoutes.Auth_SignIn),
+      languages: {
+        ...getMultilingualUrls(PagesRoutes.Auth_SignIn),
+        'x-default': PagesRoutes.Auth_SignIn,
+      },
     },
 
     openGraph: {

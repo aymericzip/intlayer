@@ -1,5 +1,7 @@
 'use client';
 
+import { Locales } from '@intlayer/config/client';
+import { getLocalizedUrl } from 'intlayer';
 import { ChevronRightIcon } from 'lucide-react';
 import { Fragment, HTMLAttributes, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
@@ -11,14 +13,17 @@ import { breadCrumbContent } from './breadcrumb.content';
 type LinkLinkProps = {
   children: string;
   position: number;
+  locale?: Locales;
 } & Omit<LinkProps, 'children' | 'label'>;
 
 const LinkLink: FC<LinkLinkProps> = ({
   href,
+  lang,
   children,
   onClick,
   color,
   position,
+  locale,
   ...props
 }) => {
   const { linkLabel } = useDictionary(breadCrumbContent);
@@ -27,6 +32,7 @@ const LinkLink: FC<LinkLinkProps> = ({
     <>
       <Link
         href={href}
+        locale={locale}
         color={color}
         onClick={onClick}
         itemProp="item"
@@ -100,12 +106,14 @@ export type BreadcrumbProps = {
     | 'dark'
     | 'text'
     | 'custom';
+  locale?: Locales;
 } & HTMLAttributes<HTMLOListElement>;
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   links,
   className,
   color = 'text',
+  locale,
   ...props
 }) => (
   <ol
@@ -142,6 +150,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
             href={link.href!}
             color={color}
             position={index + 1}
+            locale={locale}
           >
             {text}
           </LinkLink>

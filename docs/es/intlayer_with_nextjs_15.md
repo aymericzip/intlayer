@@ -309,7 +309,7 @@ export const generateMetadata = ({
     }),
     alternates: {
       canonical: url,
-      languages: multilingualUrls,
+      languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
       url: multilingualUrls[locale],

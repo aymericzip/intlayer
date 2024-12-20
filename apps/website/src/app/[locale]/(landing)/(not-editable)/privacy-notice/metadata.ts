@@ -18,7 +18,10 @@ export const generateMetadata = ({
 
     alternates: {
       canonical: PagesRoutes.PrivacyPolicy,
-      languages: getMultilingualUrls(PagesRoutes.PrivacyPolicy),
+      languages: {
+        ...getMultilingualUrls(PagesRoutes.PrivacyPolicy),
+        'x-default': PagesRoutes.PrivacyPolicy,
+      },
     },
 
     openGraph: {

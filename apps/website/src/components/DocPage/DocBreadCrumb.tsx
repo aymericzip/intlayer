@@ -37,16 +37,12 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
           if (isLastSection) {
             return {
               text: docSection?.title ?? '',
-              href:
-                sectionUrl && !isLastSection
-                  ? getLocalizedUrl(sectionUrl, locale)
-                  : undefined,
             };
           }
 
           return {
             text: docSection?.title ?? '',
-            href: sectionUrl ? getLocalizedUrl(sectionUrl, locale) : undefined,
+            href: sectionUrl,
           };
         }),
     ],
@@ -54,6 +50,11 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
   );
 
   return (
-    <Breadcrumb links={breadcrumbsLinks} className="ml-10 mt-12" {...props} />
+    <Breadcrumb
+      links={breadcrumbsLinks}
+      className="ml-10 mt-12"
+      locale={locale}
+      {...props}
+    />
   );
 };

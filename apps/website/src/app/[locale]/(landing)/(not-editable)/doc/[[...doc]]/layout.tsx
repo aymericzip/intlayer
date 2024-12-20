@@ -33,7 +33,10 @@ export const generateMetadata = ({
     keywords: docData.keywords,
     alternates: {
       canonical: docData.url,
-      languages: getMultilingualUrls(docData.url),
+      languages: {
+        ...getMultilingualUrls(docData.url),
+        'x-default': docData.url,
+      },
     },
     openGraph: {
       url: getLocalizedUrl(

@@ -17,7 +17,10 @@ export const generateMetadata = ({
     keywords,
     alternates: {
       canonical: PagesRoutes.NotFound,
-      languages: getMultilingualUrls(PagesRoutes.NotFound),
+      languages: {
+        ...getMultilingualUrls(PagesRoutes.NotFound),
+        'x-default': PagesRoutes.NotFound,
+      },
     },
     robots: 'noindex, follow', // Avoid indexing error pages
     openGraph: {

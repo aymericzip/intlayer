@@ -30,7 +30,7 @@ export const generateMetadata = ({
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     alternates: {
       canonical: '/',
-      languages: getMultilingualUrls('/'),
+      languages: { ...getMultilingualUrls('/'), 'x-default': '/' },
     },
 
     icons: {

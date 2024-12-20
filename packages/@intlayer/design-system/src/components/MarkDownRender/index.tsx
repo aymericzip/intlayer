@@ -1,5 +1,6 @@
 'use client';
 
+import { Locales } from '@intlayer/core';
 import Markdown from 'markdown-to-jsx';
 import type { FC } from 'react';
 import { cn } from '../../utils/cn';
@@ -10,13 +11,15 @@ import { Code } from '../IDE/CodeRender';
 import { Link } from '../Link';
 
 type MarkdownRendererProps = {
-  isDarkMode?: boolean;
   children: string;
+  isDarkMode?: boolean;
+  locale?: Locales;
 };
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
   isDarkMode,
+  locale,
 }) => (
   <Markdown
     options={{
@@ -77,6 +80,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             color="neutral"
             isExternalLink={props.href?.startsWith('http')}
             underlined={true}
+            locale={locale}
             {...props}
           />
         ),

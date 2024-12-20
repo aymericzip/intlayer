@@ -18,7 +18,10 @@ export const generateMetadata = ({
 
     alternates: {
       canonical: PagesRoutes.Pricing,
-      languages: getMultilingualUrls(PagesRoutes.Pricing),
+      languages: {
+        ...getMultilingualUrls(PagesRoutes.Pricing),
+        'x-default': PagesRoutes.Pricing,
+      },
     },
     openGraph: {
       url: getLocalizedUrl(

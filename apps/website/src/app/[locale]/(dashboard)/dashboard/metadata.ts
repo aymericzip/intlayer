@@ -17,7 +17,10 @@ export const generateMetadata = ({
     keywords,
     alternates: {
       canonical: PagesRoutes.Dashboard,
-      languages: getMultilingualUrls(PagesRoutes.Dashboard),
+      languages: {
+        ...getMultilingualUrls(PagesRoutes.Dashboard),
+        'x-default': PagesRoutes.Dashboard,
+      },
     },
     openGraph: {
       title,

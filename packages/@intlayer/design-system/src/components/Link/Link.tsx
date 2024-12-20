@@ -1,3 +1,5 @@
+import { getConfiguration, Locales } from '@intlayer/config/client';
+import { getLocalizedUrl } from '@intlayer/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink } from 'lucide-react';
 import {
@@ -60,6 +62,7 @@ export type LinkProps = DetailedHTMLProps<
     label: string;
     isExternalLink?: boolean;
     isActive?: boolean;
+    locale?: Locales;
   };
 
 const isExternal = (href = ''): boolean => /^https?:\/\//.test(href);
@@ -74,29 +77,43 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       className,
       isActive,
       underlined,
+      locale,
       isExternalLink: isExternalLinkProp,
-      href,
+      href: hrefProp,
       ...props
     },
     ref
   ) => {
+    const { internationalization } = getConfiguration();
     const isChildrenString = typeof children === 'string';
-    const isValidHref = typeof href === 'string' && href.trim() !== '';
+    const isValidHref = typeof hrefProp === 'string' && hrefProp.trim() !== '';
     const isExternalLink =
       isExternalLinkProp === true ||
       (isChildrenString &&
         typeof isExternalLinkProp === 'undefined' &&
         isValidHref &&
-        isExternal(href));
+        isExternal(hrefProp));
 
     const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
 
     const target = isExternalLink ? '_blank' : '_self';
 
+    const hrefLang = locale
+      ? locale === internationalization.defaultLocale
+        ? 'x-default'
+        : locale
+      : undefined;
+
+    const href =
+      locale && hrefProp && !isExternalLink
+        ? getLocalizedUrl(hrefProp, locale)
+        : hrefProp;
+
     return (
       <a
         href={href}
         ref={ref}
+        hrefLang={hrefLang}
         aria-label={label}
         rel={rel}
         target={target}
