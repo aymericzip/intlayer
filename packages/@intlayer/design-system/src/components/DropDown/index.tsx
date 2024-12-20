@@ -1,7 +1,15 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
-import type { DropDownType, PanelProps, TriggerProps } from './types';
+
+export type DropDownProps = HTMLAttributes<HTMLDivElement> & {
+  identifier: string;
+};
+
+export type DropDownType = FC<DropDownProps> & {
+  Trigger: FC<TriggerProps>;
+  Panel: FC<PanelProps>;
+};
 
 /**
  * Trigger allowing to open a dropdown menu.
@@ -38,6 +46,10 @@ export const DropDown: DropDownType = ({
   </div>
 );
 
+export type TriggerProps = HTMLAttributes<HTMLButtonElement> & {
+  identifier: string;
+};
+
 /**
  * Trigger allowing to open a dropdown menu.
  *
@@ -64,6 +76,14 @@ const Trigger: FC<TriggerProps> = ({
     {children}
   </button>
 );
+
+export type PanelProps = HTMLAttributes<HTMLDivElement> & {
+  isFocusable?: boolean;
+  isHidden?: boolean;
+  isOverable?: boolean;
+  identifier: string;
+  align?: 'start' | 'end';
+};
 
 /**
  * Component that opens a dropdown menu when the trigger is clicked.

@@ -16,23 +16,17 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     { href, prefetch = true, ...props },
     ref: ForwardedRef<HTMLAnchorElement>
   ) => {
-    const { locale, defaultLocale } = useLocale();
+    const { locale } = useLocale();
     const isLocaleLink = href.startsWith('/');
     const linkUrl = isLocaleLink ? getLocalizedUrl(href, locale) : href;
     return (
       // For internal links, use nextjs's Link for client-side navigation
-      <NextLink
-        href={linkUrl}
-        hrefLang={locale === defaultLocale ? 'x-default' : locale}
-        prefetch={prefetch}
-        passHref
-        legacyBehavior
-      >
+      <NextLink href={linkUrl} prefetch={prefetch} passHref legacyBehavior>
         {/* 
         Using legacyBehavior to ensure that nextjs's Link wraps the child <a> tag correctly.
         This allows forwarding the ref to the underlying <a> tag in the design system's Link.
       */}
-        <LinkUI ref={ref} {...props} />
+        <LinkUI locale={locale} ref={ref} {...props} />
       </NextLink>
     );
   }

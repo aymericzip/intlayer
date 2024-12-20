@@ -9,8 +9,7 @@ import { useCallback, useMemo, useRef, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../Button';
 import { Container } from '../Container';
-import { DropDown } from '../DropDown';
-import { PanelProps } from '../DropDown/types';
+import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
 import localeSwitcherContent from './localeSwitcher.content';
 
@@ -119,7 +118,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           {...panelProps}
         >
           <Container
-            className="max-h-[80vh] min-w-28 overflow-y-auto p-1"
+            className="max-h-[80vh] min-w-28"
             separator="y"
             role="listbox"
             transparency="sm"
@@ -133,45 +132,47 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 ref={inputRef}
               />
             </div>
-            {results.map(
-              ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
-                <div className="p-1" key={localeItem}>
-                  <Button
-                    onClick={() => setLocale(localeItem)}
-                    label={`${switchTo} ${currentLocaleName}`}
-                    disabled={
-                      !(availableLocales ?? localeList).includes(localeItem)
-                    }
-                    role="option"
-                    isActive={locale === localeItem}
-                    variant="hoverable"
-                    color="text"
-                    isFullWidth
-                    textAlign="left"
-                  >
-                    <div
-                      className="flex flex-row items-center justify-between gap-3"
-                      key={locale}
+            <div className="divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed overflow-y-auto p-1">
+              {results.map(
+                ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
+                  <div className="px-1.5 py-1" key={localeItem}>
+                    <Button
+                      onClick={() => setLocale(localeItem)}
+                      label={`${switchTo} ${currentLocaleName}`}
+                      disabled={
+                        !(availableLocales ?? localeList).includes(localeItem)
+                      }
+                      role="option"
+                      isActive={locale === localeItem}
+                      variant="hoverable"
+                      color="text"
+                      isFullWidth
+                      textAlign="left"
                     >
-                      <div className="mt-1 flex flex-col text-nowrap">
-                        <span
-                          dir={getHTMLTextDir(localeItem)}
-                          lang={localeItem}
-                        >
-                          {ownLocaleName}
-                        </span>
-                        <span className="text-neutral dark:text-neutral-dark text-xs">
-                          {currentLocaleName}
+                      <div
+                        className="flex flex-row items-center justify-between gap-3 px-2 py-1"
+                        key={locale}
+                      >
+                        <div className="flex flex-col text-nowrap">
+                          <span
+                            dir={getHTMLTextDir(localeItem)}
+                            lang={localeItem}
+                          >
+                            {ownLocaleName}
+                          </span>
+                          <span className="text-neutral dark:text-neutral-dark text-xs">
+                            {currentLocaleName}
+                          </span>
+                        </div>
+                        <span className="text-neutral dark:text-neutral-dark text-sm">
+                          {localeItem.toUpperCase()}
                         </span>
                       </div>
-                      <span className="text-neutral dark:text-neutral-dark text-sm">
-                        {localeItem.toUpperCase()}
-                      </span>
-                    </div>
-                  </Button>
-                </div>
-              )
-            )}
+                    </Button>
+                  </div>
+                )
+              )}
+            </div>
           </Container>
         </DropDown.Panel>
       </DropDown>

@@ -23,7 +23,7 @@ const linkVariants = cva(
         'button-outlined':
           'rounded-lg border-[1.5px] bg-opacity-0 hover:bg-opacity-30 dark:bg-opacity-0 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
         hoverable:
-          'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 aria-[current=true]:bg-opacity-5 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
+          'block rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 aria-selected:bg-opacity-5 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
       },
       color: {
         primary:
