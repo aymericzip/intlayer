@@ -17,8 +17,14 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
     options={{
       overrides: {
         code: {
-          // eslint-disable-next-line sonarjs/no-unstable-nested-components
-          component: (props) => <Code {...props} isDarkMode={isDarkMode} />,
+          component: (props) => (
+            <Code
+              {...props}
+              isDarkMode={isDarkMode}
+              language={props.className.replace('lang-', '')}
+              showHeader={false}
+            />
+          ),
         },
         pre: (props) => props.children,
       },

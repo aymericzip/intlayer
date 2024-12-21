@@ -29,7 +29,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
       <div className="flex flex-1 flex-row">
         <BackgroundLayout>
           <div
-            className="relative m-auto mb-24 h-full w-auto max-w-3xl flex-1 grow overflow-auto"
+            className="relative m-auto mb-24 h-full w-auto max-w-3xl flex-1 grow"
             id="doc-content"
           >
             <DocBreadCrumb

@@ -41,7 +41,11 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               </strong>
             ) : (
               <Container>
-                <Code isDarkMode={isDarkMode} {...props} />
+                <Code
+                  isDarkMode={isDarkMode}
+                  language={props.className.replace('lang-', '')}
+                  {...props}
+                />
               </Container>
             ),
         },
