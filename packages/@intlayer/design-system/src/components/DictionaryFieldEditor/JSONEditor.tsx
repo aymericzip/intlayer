@@ -3,7 +3,6 @@ import { useMemo, type FC } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useEditedContentStore } from '../DictionaryEditor';
 import { MonacoCode } from '../IDE/MonacoCode';
-import { SaveForm } from './SaveForm/SaveForm';
 
 type JSONEditorProps = {
   dictionary: Dictionary;
@@ -46,7 +45,6 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
       >
         {JSON.stringify(displayedContent, null, 2)}
       </MonacoCode>
-      <SaveForm dictionary={dictionary} />
     </div>
   );
 };

@@ -23,7 +23,7 @@ type EditedContentStore = {
   ) => void;
   setEditedContent: (
     dictionaryKey: Dictionary['key'],
-    newValue: string
+    newValue: DictionaryValue
   ) => void;
   addEditedContent: (
     dictionaryKey: Dictionary['key'],

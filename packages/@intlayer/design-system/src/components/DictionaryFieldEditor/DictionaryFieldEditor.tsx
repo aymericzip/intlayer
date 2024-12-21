@@ -15,6 +15,7 @@ import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm
 import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
 import { JSONEditor } from './JSONEditor';
 import { NodeEditor } from './NodeEditor';
+import { SaveForm } from './SaveForm/SaveForm';
 
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
@@ -111,6 +112,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         {editorView === EditorViewType.JSONEditor && (
           <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
         )}
+        <SaveForm dictionary={dictionary} />
       </Container>
     </div>
   );

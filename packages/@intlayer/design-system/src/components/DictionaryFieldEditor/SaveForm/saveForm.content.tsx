@@ -3,6 +3,38 @@ import { t, type DeclarationContent } from 'intlayer';
 export const saveDictionaryContent = {
   key: 'save-dictionary-details',
   content: {
+    auditButton: {
+      text: t({
+        en: 'Audit',
+        'en-GB': 'Audit',
+        fr: 'Auditer',
+        es: 'Auditar',
+        de: 'Prüfen',
+        ja: '監査',
+        ko: '감사',
+        zh: '审核',
+        it: 'Controllo',
+        pt: 'Auditar',
+        hi: 'ऑडिट',
+        ar: 'التدقيق',
+        ru: 'Отслеживание',
+      }),
+      label: t({
+        en: 'Audit',
+        'en-GB': 'Audit',
+        fr: 'Auditer',
+        es: 'Auditar',
+        de: 'Prüfen',
+        ja: '監査',
+        ko: '감사',
+        zh: '审核',
+        it: 'Controllo',
+        pt: 'Auditar',
+        hi: 'ऑडिट',
+        ar: 'التدقيق',
+        ru: 'Отслеживание',
+      }),
+    },
     resetButton: {
       text: t({
         en: 'Reset all changes',

@@ -1,3 +1,4 @@
+import { Locales } from 'intlayer';
 import type { Model, ObjectId, Document } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';
@@ -12,6 +13,8 @@ export type ProjectData = {
   membersIds: User['_id'][];
   adminsIds: User['_id'][];
   creatorId: User['_id'];
+  defaultLocale?: Locales;
+  locales?: Locales[];
 };
 
 export type Rights = {

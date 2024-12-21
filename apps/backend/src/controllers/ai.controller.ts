@@ -3,12 +3,13 @@ import * as audit from '@utils/audit';
 import { AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
+import { Locales } from 'intlayer';
 
-export type AuditFileParams = {
+export type AuditFileBody = {
   openAiApiKey?: string;
   customPrompt?: string;
-  locales: string[];
-  defaultLocale: string;
+  locales: Locales[];
+  defaultLocale: Locales;
   fileContent: string;
   filePath?: string;
   model?: string;
@@ -19,7 +20,7 @@ export type AuditFileResult = ResponseData<audit.AuditFileResultData>;
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditFile = async (
-  req: Request<AuditFileParams>,
+  req: Request<AuditFileBody>,
   res: ResponseWithInformation<AuditFileResult>,
   _next: NextFunction
 ): Promise<void> => {

@@ -548,7 +548,7 @@ export const useGetSubscription = (
   useAppAsync(
     'getSubscription',
     useIntlayerAuth().stripe.getSubscription,
-    { ...args },
+    args,
     {
       requireUser: true,
       requireOrganization: true,
@@ -561,7 +561,7 @@ export const useCancelSubscription = (
   useAppAsync(
     'cancelSubscription',
     useIntlayerAuth().stripe.cancelSubscription,
-    { ...args, invalidateQueries: ['getSession'] },
+    { invalidateQueries: ['getSession'], ...args },
     {
       requireUser: true,
       requireOrganization: true,
@@ -575,13 +575,8 @@ export const useCancelSubscription = (
 export const useAuditFile = (
   args?: UseAsyncOptions<typeof intlayerAPI.ai.auditFile>
 ) =>
-  useAppAsync(
-    'useAuditFile',
-    useIntlayerAuth().ai.auditFile,
-    { ...args },
-    {
-      requireUser: true,
-      requireOrganization: true,
-      requireProject: true,
-    }
-  );
+  useAppAsync('auditFile', useIntlayerAuth().ai.auditFile, args, {
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+  });

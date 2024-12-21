@@ -2,8 +2,6 @@
 
 import { Dictionary } from '@intlayer/core';
 import { useEffect, type FC } from 'react';
-// @ts-ignore react-intlayer not build yet
-import { useDictionary } from 'react-intlayer';
 import { useShallow } from 'zustand/react/shallow';
 import { Container } from '../Container';
 import {
@@ -13,7 +11,6 @@ import {
 import { EditorView } from './EditorView/EditorView';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
-import { SaveForm } from './SaveForm/SaveForm';
 
 type NodeEditorProps = {
   dictionary: Dictionary;
@@ -80,7 +77,6 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
               <EditorView dictionary={dictionary} dictionaryKey={key} />
             </Container>
           )}
-          <SaveForm dictionary={dictionary} />
         </div>
       </div>
     </>

@@ -1,4 +1,4 @@
-import type { AuditFileParams, AuditFileResult } from '@intlayer/backend';
+import type { AuditFileBody, AuditFileResult } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
 
@@ -11,11 +11,11 @@ export const getAiAPI = (
 
   /**
    * Audits a content declaration file
-   * @param params - Audit file parameters.
+   * @param body - Audit file parameters.
    * @returns Audited file content.
    */
   const auditFile = async (
-    params?: AuditFileParams,
+    body?: AuditFileBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AuditFileResult>(
@@ -24,7 +24,7 @@ export const getAiAPI = (
       otherOptions,
       {
         method: 'POST',
-        body: params,
+        body: body,
       }
     );
 
