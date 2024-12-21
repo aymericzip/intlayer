@@ -24,11 +24,11 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   return (
     <div className="max-w-screen flex flex-1 border-b-[0.5px] max-md:flex-col">
       <BackgroundLayout>
-        <div className="flex-none">
+        <aside className="flex-none">
           <DocNavList docData={docData} activeSections={activeSections} />
-        </div>
+        </aside>
         <div className="flex flex-1 flex-row">
-          <div
+          <article
             className="relative m-auto mb-24 h-full w-auto max-w-3xl flex-1 grow"
             id="doc-content"
           >
@@ -39,10 +39,10 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
               locale={locale}
             />
             {children}
-          </div>
-          <div className="flex-none max-lg:hidden">
+          </article>
+          <aside className="flex-none max-lg:hidden">
             {displayDocNavTitles && <DocNavTitles />}
-          </div>
+          </aside>
         </div>
       </BackgroundLayout>
     </div>

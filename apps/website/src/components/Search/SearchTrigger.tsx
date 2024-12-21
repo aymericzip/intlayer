@@ -6,23 +6,36 @@ import { useIntlayer } from 'next-intlayer';
 import { FC, useState } from 'react';
 import { SearchView } from './SearchView';
 
-type SearchTriggerProps = {};
+type SearchTriggerProps = {
+  isMini?: boolean;
+};
 
-export const SearchTrigger: FC<SearchTriggerProps> = () => {
+export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { searchButton } = useIntlayer('search-trigger');
 
   return (
-    <div className="m-auto px-5 py-2">
-      <Button
-        label={searchButton.label.value}
-        Icon={Search}
-        variant="input"
-        color="custom"
-        onClick={() => setIsModalOpen(true)}
-      >
-        {searchButton.text}
-      </Button>
+    <>
+      {isMini ? (
+        <Button
+          label={searchButton.label.value}
+          Icon={Search}
+          variant="hoverable"
+          size="icon-md"
+          color="text"
+          onClick={() => setIsModalOpen(true)}
+        />
+      ) : (
+        <Button
+          label={searchButton.label.value}
+          Icon={Search}
+          variant="input"
+          color="custom"
+          onClick={() => setIsModalOpen(true)}
+        >
+          {searchButton.text}
+        </Button>
+      )}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -31,6 +44,6 @@ export const SearchTrigger: FC<SearchTriggerProps> = () => {
       >
         <SearchView onClickLink={() => setIsModalOpen(false)} />
       </Modal>
-    </div>
+    </>
   );
 };

@@ -1,4 +1,3 @@
-import { label } from 'framer-motion/client';
 import { type DeclarationContent, t } from 'intlayer';
 
 const docNavTitlesContent = {
@@ -34,6 +33,23 @@ const docNavTitlesContent = {
       ar: 'اذهب إلى القسم',
       ru: 'Перейти к разделу',
     }),
+    collapseButton: {
+      label: t({
+        en: 'Collapse',
+        fr: 'Réduire',
+        es: 'Colapsar',
+        'en-GB': 'Collapse',
+        de: 'Zuklappen',
+        ja: '折りたたむ',
+        ko: '접기',
+        zh: '折叠',
+        it: 'Comprimi',
+        pt: 'Recolher',
+        hi: 'संकुचित करें',
+        ar: 'اطوي التوسيع',
+        ru: 'Свернуть',
+      }),
+    },
   },
 } satisfies DeclarationContent;
 
