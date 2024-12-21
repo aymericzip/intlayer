@@ -2,8 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
-import { useIntlayer } from 'next-intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import {
   useEffect,
   useState,
@@ -23,6 +22,7 @@ const DocNavTitles2: FC<DocNavTitles2Props> = ({
   activeSectionsId,
 }) => {
   const { linkLabel } = useIntlayer('doc-nav-titles');
+  const { pathWithoutLocale } = useLocale();
   return (
     <div className="border-neutral dark:border-neutral-dark sticky top-20 flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
       {title2.map((h3) => {
@@ -32,7 +32,7 @@ const DocNavTitles2: FC<DocNavTitles2Props> = ({
         return (
           <Link
             key={id}
-            href={`#${id}`}
+            href={`${pathWithoutLocale}#${id}`}
             label={`${linkLabel}: ${h3.innerText}`}
             aria-current={isActive ? 'location' : undefined}
             color="text"
@@ -51,6 +51,7 @@ type DocNavTitlesProps = HTMLAttributes<HTMLDivElement>;
 
 export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
   const navRef = useRef<HTMLDivElement>(null);
+  const { pathWithoutLocale } = useLocale();
   const [h2List, setH2List] = useState<HTMLElement[]>([]);
   const [h2ToH3Map, setH2ToH3Map] = useState<Map<HTMLElement, HTMLElement[]>>(
     new Map()
@@ -116,7 +117,7 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
 
   useEffect(() => {
     const getFirstVisibleTitle = () => {
-      const scrollY = window.scrollY + window.innerHeight / 2;
+      const scrollY = window.scrollY + window.innerHeight / 3;
 
       const newActiveH2 = h2List.findLast((h2) => h2.offsetTop < scrollY);
 
@@ -171,7 +172,7 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
               <Fragment key={id}>
                 <Link
                   label={`${linkLabel}: ${h2.innerText}`}
-                  href={`#${id}`}
+                  href={`${pathWithoutLocale}#${id}`}
                   color="text"
                   variant="hoverable"
                   isActive={isActive}
