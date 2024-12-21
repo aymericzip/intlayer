@@ -22,12 +22,12 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   const docData = getDocData(locale);
 
   return (
-    <div className="max-w-screen flex size-full flex-1 border-b-[0.5px] max-md:flex-col">
-      <div className="flex-none">
-        <DocNavList docData={docData} activeSections={activeSections} />
-      </div>
-      <div className="flex flex-1 flex-row">
-        <BackgroundLayout>
+    <div className="max-w-screen flex flex-1 border-b-[0.5px] max-md:flex-col">
+      <BackgroundLayout>
+        <div className="flex-none">
+          <DocNavList docData={docData} activeSections={activeSections} />
+        </div>
+        <div className="flex flex-1 flex-row">
           <div
             className="relative m-auto mb-24 h-full w-auto max-w-3xl flex-1 grow"
             id="doc-content"
@@ -40,11 +40,11 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
             />
             {children}
           </div>
-        </BackgroundLayout>
-        <div className="flex-none max-lg:hidden">
-          {displayDocNavTitles && <DocNavTitles />}
+          <div className="flex-none max-lg:hidden">
+            {displayDocNavTitles && <DocNavTitles />}
+          </div>
         </div>
-      </div>
+      </BackgroundLayout>
     </div>
   );
 };

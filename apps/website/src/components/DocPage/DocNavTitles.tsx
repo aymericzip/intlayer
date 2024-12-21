@@ -24,7 +24,7 @@ const DocNavTitles2: FC<DocNavTitles2Props> = ({
   const { linkLabel } = useIntlayer('doc-nav-titles');
   const { pathWithoutLocale } = useLocale();
   return (
-    <div className="border-neutral dark:border-neutral-dark sticky top-20 flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
+    <div className="border-neutral dark:border-neutral-dark flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
       {title2.map((h3) => {
         const { id } = h3;
         const isActive = activeSectionsId === id;
@@ -153,43 +153,48 @@ export const DocNavTitles: FC<DocNavTitlesProps> = ({ ...props }) => {
 
   return (
     <Container
-      className="sticky top-14 size-full max-h-[calc(100vh-58px)] min-w-52 max-w-80 overflow-auto"
+      className="sticky top-14 size-full max-h-[calc(100vh-3.5rem)] min-w-52 max-w-80"
       roundedSize="none"
       transparency="sm"
       ref={navRef}
       {...props}
     >
-      <div className="px-5 pb-20 pt-6">
-        <h2 className="mb-4 font-bold">{title}</h2>
-        <nav className="flex max-h-full flex-col gap-3 text-sm">
-          {h2List.map((h2) => {
-            const id = h2.id;
-            const h2List = h2ToH3Map.get(h2);
-            const hasH3List = h2List && h2List.length > 0;
-            const isActive = activeH2?.id === id;
+      <div className="sticky top-16 max-h-[calc(100vh-4rem)] pl-5 pt-6">
+        <h2 className="font-bold">{title}</h2>
 
-            return (
-              <Fragment key={id}>
-                <Link
-                  label={`${linkLabel}: ${h2.innerText}`}
-                  href={`${pathWithoutLocale}#${id}`}
-                  color="text"
-                  variant="hoverable"
-                  isActive={isActive}
-                  className="text-neutral text-wrap p-2 transition-colors dark:text-neutral-200"
-                >
-                  {h2.innerText}
-                </Link>
-                {hasH3List && (
-                  <DocNavTitles2
-                    title2={h2List}
-                    activeSectionsId={activeH3?.id ?? null}
-                  />
-                )}
-              </Fragment>
-            );
-          })}
-        </nav>
+        <div className="relative h-full">
+          <div className="from-card dark:from-card-dark absolute left-0 top-0 h-8 w-full bg-gradient-to-b" />
+
+          <nav className="flex max-h-[calc(100vh-8rem)] flex-1 flex-col gap-3 overflow-auto pb-20 pr-3 pt-8 text-sm">
+            {h2List.map((h2) => {
+              const id = h2.id;
+              const h2List = h2ToH3Map.get(h2);
+              const hasH3List = h2List && h2List.length > 0;
+              const isActive = activeH2?.id === id;
+
+              return (
+                <Fragment key={id}>
+                  <Link
+                    label={`${linkLabel}: ${h2.innerText}`}
+                    href={`${pathWithoutLocale}#${id}`}
+                    color="text"
+                    variant="hoverable"
+                    isActive={isActive}
+                    className="text-neutral text-wrap p-2 transition-colors dark:text-neutral-200"
+                  >
+                    {h2.innerText}
+                  </Link>
+                  {hasH3List && (
+                    <DocNavTitles2
+                      title2={h2List}
+                      activeSectionsId={activeH3?.id ?? null}
+                    />
+                  )}
+                </Fragment>
+              );
+            })}
+          </nav>
+        </div>
       </div>
     </Container>
   );
