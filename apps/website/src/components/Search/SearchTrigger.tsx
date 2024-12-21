@@ -39,7 +39,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Search Documentation"
+        title={searchButton.text.value}
         size="lg"
       >
         <SearchView onClickLink={() => setIsModalOpen(false)} />

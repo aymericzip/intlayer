@@ -26,11 +26,11 @@ const modalVariants = cva(
   {
     variants: {
       variant: {
-        sm: 'w-full max-h-[30vh] max-w-[30vw]',
-        md: 'w-full max-h-[50vh] max-w-[50vw]',
-        lg: 'w-full max-h-[70vh] max-w-[70vw]',
-        xl: 'w-full max-h-[95vh] max-w-[95vw]',
-        unset: 'max-h-[95vh] max-w-[95vw]',
+        sm: 'max-h-[30vh] w-[95vw] max-w-xl',
+        md: 'max-h-[50vh] w-[95vw] max-w-xl',
+        lg: 'max-h-[70vh] w-[95vw] max-w-2xl',
+        xl: 'max-h-[95vh] w-[95vw] max-w-3xl',
+        unset: 'max-h-[95vh] w-[95vw]',
       },
     },
     defaultVariants: {
@@ -90,11 +90,9 @@ export const Modal: FC<ModalProps> = ({
         initial={{ scale: isOpen ? 0.5 : 1 }}
         animate={{ scale: isOpen ? 1 : 0.5 }}
         transition={{ duration: 0.3 }}
-        className={cn(
-          modalVariants({
-            variant: size,
-          })
-        )}
+        className={modalVariants({
+          variant: size,
+        })}
         role="dialog"
         aria-modal
         roundedSize="2xl"
