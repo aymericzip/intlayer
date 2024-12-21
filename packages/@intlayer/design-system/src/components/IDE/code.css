@@ -1,0 +1,160 @@
+/* =========================
+   1) Global (Light Mode)
+   ========================= */
+
+:root {
+  /* Common text & background */
+  --hljs-color: #24292e; /* Default text color for .hljs in light mode */
+  --hljs-background: #ffffff; /* Default background for .hljs in light mode */
+
+  /* Colors for keywords, titles, constants, etc. */
+  --hljs-keyword-color: #d73a49; /* typical red hue from GitHub's light theme */
+  --hljs-entity-color: #6f42c1; /* purple for function/class titles */
+  --hljs-constant-color: #005cc5; /* blue for numbers, attrs, etc. */
+  --hljs-string-color: #032f62; /* dark-ish blue for strings */
+  --hljs-variable-color: #e36209; /* darker orange for built_in, symbols, etc. */
+  --hljs-comment-color: #6a737d; /* grayish color for comments */
+  --hljs-entitytag-color: #22863a; /* green for tags */
+  --hljs-subst-color: #24292e; /* fallback to main text color */
+  --hljs-section-color: #005cc5; /* often used for headings */
+  --hljs-bullet-color: #735c0f; /* brownish for bullet lists */
+  --hljs-addition-color: #22863a; /* green for inserted lines */
+  --hljs-addition-bg: #f0fff4; /* light green background for inserted lines */
+  --hljs-deletion-color: #b31d28; /* red for deleted lines */
+  --hljs-deletion-bg: #ffeef0; /* light red background for deleted lines */
+
+  /* Text emphasis & weight */
+  --hljs-emphasis-style: italic;
+  --hljs-strong-style: bold;
+}
+
+/* =========================
+   2) Dark Mode Overrides
+   ========================= */
+
+[data-theme='dark'] {
+  /* Common text & background */
+  --hljs-color: #c9d1d9;
+
+  /* Colors for keywords, titles, constants, etc. */
+  --hljs-keyword-color: #ff7b72;
+  --hljs-entity-color: #d2a8ff;
+  --hljs-constant-color: #79c0ff;
+  --hljs-string-color: #a5d6ff;
+  --hljs-variable-color: #ffa657;
+  --hljs-comment-color: #8b949e;
+  --hljs-entitytag-color: #7ee787;
+  --hljs-subst-color: #c9d1d9;
+  --hljs-section-color: #1f6feb;
+  --hljs-bullet-color: #f2cc60;
+  --hljs-addition-color: #aff5b4;
+  --hljs-addition-bg: #033a16;
+  --hljs-deletion-color: #ffdcd7;
+  --hljs-deletion-bg: #67060c;
+
+  /* Text emphasis & weight remain the same or can be changed as needed */
+  --hljs-emphasis-style: italic;
+  --hljs-strong-style: bold;
+}
+
+.hljs {
+  color: var(--hljs-color);
+  background: var(--hljs-background);
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  color: var(--hljs-keyword-color);
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  color: var(--hljs-entity-color);
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: var(--hljs-constant-color);
+}
+
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: var(--hljs-string-color);
+}
+
+.hljs-built_in,
+.hljs-symbol {
+  color: var(--hljs-variable-color);
+}
+
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  color: var(--hljs-comment-color);
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  color: var(--hljs-entitytag-color);
+}
+
+.hljs-subst {
+  color: var(--hljs-subst-color);
+}
+
+.hljs-section {
+  color: var(--hljs-section-color);
+  font-weight: var(--hljs-strong-style);
+}
+
+.hljs-bullet {
+  color: var(--hljs-bullet-color);
+}
+
+.hljs-emphasis {
+  color: var(--hljs-color);
+  font-style: var(--hljs-emphasis-style);
+}
+
+.hljs-strong {
+  color: var(--hljs-color);
+  font-weight: var(--hljs-strong-style);
+}
+
+.hljs-addition {
+  color: var(--hljs-addition-color);
+  background-color: var(--hljs-addition-bg);
+}
+
+.hljs-deletion {
+  color: var(--hljs-deletion-color);
+  background-color: var(--hljs-deletion-bg);
+}
+
+/* Ignored classes remain the same */
+.hljs-char.escape_,
+.hljs-link,
+.hljs-params,
+.hljs-property,
+.hljs-punctuation,
+.hljs-tag {
+  /* purposely left without color, or style as needed */
+}

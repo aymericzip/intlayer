@@ -1,12 +1,10 @@
 'use client';
 
 import { Editor, OnChange, OnMount } from '@monaco-editor/react';
-import { CopyCheckIcon, CopyIcon } from 'lucide-react';
-import { type FC, useEffect, useState, useRef, useMemo } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import { type FC, useState, useRef, useMemo } from 'react';
 import { cn } from '../../utils/cn';
-import { Button } from '../Button';
 import { Loader } from '../Loader';
+import { CopyButton } from './CopyButton';
 
 type CodeCompProps = {
   children: string;
@@ -27,20 +25,12 @@ export const MonacoCode: FC<CodeCompProps> = ({
   isReadOnly = false,
   onChange,
 }) => {
-  const [copied, setCopied] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const ideRef = useRef(null);
   const [editorSize, setEditorSize] = useState<{
     height: number;
     width: number;
   }>({ height: 0, width: 0 });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setCopied(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [copied]);
 
   const theme = useMemo(
     () => (isDarkMode ? 'vs-dark-transparent' : 'hc-light-theme'),
@@ -110,21 +100,7 @@ export const MonacoCode: FC<CodeCompProps> = ({
         showLineNumbers && 'ml-0'
       )}
     >
-      {showCopyButton && (
-        <CopyToClipboard text={children} onCopy={() => setCopied(true)}>
-          <Button
-            className={cn(
-              'absolute right-3 top-3 z-50',
-              copied && '!text-success/70 !dark:text-success-dark/70'
-            )}
-            label="Copy code"
-            variant="hoverable"
-            color="text"
-            size="icon-sm"
-            Icon={copied ? CopyCheckIcon : CopyIcon}
-          />
-        </CopyToClipboard>
-      )}
+      {showCopyButton && <CopyButton content={children} />}
       <div
         className="grid size-full grid-cols-[0px] overflow-auto"
         ref={containerRef}
