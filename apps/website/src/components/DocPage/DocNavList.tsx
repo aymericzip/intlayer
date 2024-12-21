@@ -16,9 +16,17 @@ import { Section } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;
 
-const OptionalLink: FC<OptionalLinkProps> = ({ href, ...props }) => {
+const OptionalLink: FC<OptionalLinkProps> = ({ href, isActive, ...props }) => {
   if (!href) return <span {...props} />;
-  return <Link href={href} variant="hoverable" color="text" {...props} />;
+  return (
+    <Link
+      href={href}
+      variant="hoverable"
+      color="text"
+      isActive={isActive}
+      {...props}
+    />
+  );
 };
 
 type DocNavListProps = {
