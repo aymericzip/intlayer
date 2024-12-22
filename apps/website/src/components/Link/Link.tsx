@@ -11,22 +11,28 @@ import { forwardRef, type ForwardedRef } from 'react';
 
 type LinkProps = LinkUIProps & NextLinkProps;
 
+const isExternal = (href = ''): boolean => /^https?:\/\//.test(href);
+
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   (
     { href, prefetch = true, ...props },
     ref: ForwardedRef<HTMLAnchorElement>
   ) => {
     const { locale } = useLocale();
-    const isLocaleLink = href.startsWith('/');
-    const linkUrl = isLocaleLink ? getLocalizedUrl(href, locale) : href;
     return (
       // For internal links, use nextjs's Link for client-side navigation
-      <NextLink href={linkUrl} prefetch={prefetch} passHref legacyBehavior>
+      <NextLink href={href} prefetch={prefetch} passHref legacyBehavior>
         {/* 
         Using legacyBehavior to ensure that nextjs's Link wraps the child <a> tag correctly.
         This allows forwarding the ref to the underlying <a> tag in the design system's Link.
       */}
-        <LinkUI locale={locale} ref={ref} {...props} />
+        <LinkUI
+          locale={locale}
+          href={href}
+          ref={ref}
+          isExternalLink={isExternal(href)}
+          {...props}
+        />
       </NextLink>
     );
   }

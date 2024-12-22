@@ -3,7 +3,7 @@
 import { Link } from '@components/Link/Link';
 import { Button, Container, MaxWidthSmoother } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
-import { ArrowRightFromLine } from 'lucide-react';
+import { ArrowRightToLine } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import {
   useEffect,
@@ -24,8 +24,9 @@ const DocNavTitles2: FC<DocNavTitles2Props> = ({
 }) => {
   const { linkLabel } = useIntlayer('doc-nav-titles');
   const { pathWithoutLocale } = useLocale();
+
   return (
-    <ul className="border-neutral dark:border-neutral-dark flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
+    <ul className="border-neutral dark:border-neutral-dark my-3 flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
       {title2.map((h3) => {
         const { id } = h3;
         const isActive = activeSectionsId === id;
@@ -206,11 +207,11 @@ export const DocNavTitles: FC<DocNavTitlesProps> = (props) => {
         >
           <div className="relative flex flex-row items-center pt-6">
             <Button
-              Icon={ArrowRightFromLine}
+              Icon={ArrowRightToLine}
               size="icon-md"
               variant="hoverable"
               color="text"
-              label={collapseButton}
+              label={collapseButton.label.value}
               className={cn([
                 'transition-transform max-md:hidden',
                 isHidden && 'rotate-180',

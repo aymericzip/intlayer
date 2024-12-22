@@ -101,7 +101,7 @@ export const IDE: FC<IDEProps> = ({
               />
             </WithResizer>
 
-            <div className="size-full flex-1 overflow-auto pt-2 text-xs md:text-sm">
+            <div className="size-full flex-1 overflow-auto pt-2 text-xs">
               <MarkdownRenderer isDarkMode={isDarkMode}>
                 {content}
               </MarkdownRenderer>

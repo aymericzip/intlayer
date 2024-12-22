@@ -7,7 +7,7 @@ const searchTriggerContent: DeclarationContent = {
       text: t({
         en: 'Search Documentation',
         'en-GB': 'Search Documentation',
-        fr: 'Rechercher la documentation',
+        fr: 'Rechercher une doc',
         es: 'Buscar documentación',
         de: 'Dokumentation durchsuchen',
         ja: 'ドキュメントを検索',

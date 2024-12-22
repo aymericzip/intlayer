@@ -178,7 +178,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         />
 
         {typeof children !== 'undefined' && (
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 truncate">{children}</div>
         )}
 
         {IconRight && (

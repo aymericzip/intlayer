@@ -32,6 +32,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
           variant="input"
           color="custom"
           onClick={() => setIsModalOpen(true)}
+          isFullWidth={false}
         >
           {searchButton.text}
         </Button>

@@ -16,9 +16,17 @@ import { Section } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;
 
-const OptionalLink: FC<OptionalLinkProps> = ({ href, ...props }) => {
+const OptionalLink: FC<OptionalLinkProps> = ({ href, isActive, ...props }) => {
   if (!href) return <span {...props} />;
-  return <Link href={href} variant="hoverable" color="text" {...props} />;
+  return (
+    <Link
+      href={href}
+      variant="hoverable"
+      color="text"
+      isActive={isActive}
+      {...props}
+    />
+  );
 };
 
 type DocNavListProps = {
@@ -30,7 +38,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
   docData,
   activeSections,
 }) => (
-  <nav className="flex min-w-40 flex-col gap-5 overflow-auto px-32 pb-20 pt-8 md:max-h-[calc(100vh-8.2rem)] md:max-w-80 md:pl-6 md:pr-0">
+  <nav className="flex min-w-40 flex-col gap-5 overflow-auto px-6 pb-20 pt-8 md:max-h-[calc(100vh-8.2rem)] md:px-32 md:pl-6 md:pr-0">
     {Object.keys(docData).map((key1) => {
       const section1Data = docData[key1];
       const sectionDefault = section1Data.default;
@@ -138,15 +146,16 @@ export const DocNavList: FC<DocNavListProps> = ({
 
   return (
     <Container className="h-full" roundedSize="none" transparency="sm">
-      <div className="relative h-full px-2">
+      <div className="relative h-full px-2 md:max-w-80">
         <Container
           transparency="sm"
           className="z-10 m-auto md:sticky md:top-[3.6rem] md:pt-4"
         >
           <div
             className={cn([
-              'relative m-auto flex flex-row items-center justify-center gap-2',
+              'relative m-auto flex w-full flex-row items-center justify-end gap-2',
               isHidden && 'flex-col-reverse',
+              !isHidden && 'md:pl-6',
             ])}
           >
             <SearchTrigger isMini={isHidden} />
@@ -155,7 +164,7 @@ export const DocNavList: FC<DocNavListProps> = ({
               size="icon-md"
               variant="hoverable"
               color="text"
-              label={collapseButton}
+              label={collapseButton.label.value}
               className={cn([
                 'transition-transform max-md:hidden',
                 isHidden && 'rotate-180',
