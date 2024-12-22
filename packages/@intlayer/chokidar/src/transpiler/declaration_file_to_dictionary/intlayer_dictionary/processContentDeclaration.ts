@@ -1,3 +1,4 @@
+import { logger } from '@intlayer/config/client';
 import type {
   Content,
   DeclarationContent,
@@ -67,6 +68,6 @@ export const processContentDeclaration = async (
       content,
     } as Dictionary;
   } catch (error) {
-    console.error('Error processing module:', error);
+    logger(`Error processing module: ${error}`, { level: 'error' });
   }
 };

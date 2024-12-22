@@ -7,7 +7,7 @@
  * The script is based on the original craco script from create-react-app.
  */
 
-import { ESMxCJSRequire } from '@intlayer/config';
+import { ESMxCJSRequire, appLogger } from '@intlayer/config';
 import spawn from 'cross-spawn';
 
 const args = process.argv.slice(2);
@@ -40,13 +40,13 @@ switch (script) {
 
     if (child.signal) {
       if (child.signal === 'SIGKILL') {
-        console.info(`
+        appLogger(`
                 The build failed because the process exited too early.
                 This probably means the system ran out of memory or someone called
                 \`kill -9\` on the process.
             `);
       } else if (child.signal === 'SIGTERM') {
-        console.info(`
+        appLogger(`
                 The build failed because the process exited too early.
                 Someone might have called  \`kill\` or \`killall\`, or the system could
                 be shutting down.
@@ -60,7 +60,7 @@ switch (script) {
     break;
   }
   default:
-    console.info(`Unknown script "${script}".`);
-    console.info('Perhaps you need to update craco?');
+    appLogger(`Unknown script "${script}".`);
+    appLogger('Perhaps you need to update craco?');
     break;
 }

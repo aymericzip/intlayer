@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, relative } from 'path';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, logger } from '@intlayer/config';
 import { intlayerAPI } from '@intlayer/design-system/libs';
 import pLimit from 'p-limit';
 import { getContentDeclaration } from './listContentDeclaration';
@@ -10,7 +10,6 @@ import { getContentDeclaration } from './listContentDeclaration';
 
 type AuditOptions = {
   files?: string[];
-  logPrefix?: string;
   model?: string;
   customPrompt?: string;
   asyncLimit?: number;
@@ -38,7 +37,7 @@ export const auditFile = async (filePath: string, options?: AuditOptions) => {
     const { defaultLocale, locales } = getConfiguration().internationalization;
 
     const relativePath = relative(projectPath, filePath);
-    console.info(`Auditing file: ${relativePath}`);
+    logger(`Auditing file: ${relativePath}`);
 
     // Read the file's content.
     const fileContent = readFileSync(filePath, 'utf-8');
@@ -65,13 +64,11 @@ export const auditFile = async (filePath: string, options?: AuditOptions) => {
 
     writeFileSync(filePath, auditFileResult.data.fileContent);
 
-    console.info(`${options?.logPrefix ?? ''}File ${relativePath} updated`);
+    logger(`File ${relativePath} updated`);
 
-    console.info(
-      `${options?.logPrefix ?? ''}${auditFileResult.data.tokenUsed} tokens used in the request`
-    );
+    logger(`${auditFileResult.data.tokenUsed} tokens used in the request`);
   } catch (error) {
-    console.error(error);
+    logger(error, { level: 'error' });
   }
 };
 

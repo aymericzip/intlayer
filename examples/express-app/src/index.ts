@@ -31,6 +31,4 @@ app.get('/error', (_req, res) => {
 });
 
 // Server
-app.listen(3000, () => {
-  console.info(`Listening on port ${3000}`);
-});
+app.listen(3000, () => console.log(`Listening on port ${3000}`));

@@ -1,5 +1,6 @@
 import readline from 'readline';
 import { sortAlphabetically } from './utils';
+import { getConfiguration, IntlayerConfig } from '@intlayer/config';
 
 export type State = {
   type: 'local' | 'distant';
@@ -41,11 +42,14 @@ class Logger {
     | null = null;
   private extraLines: number = 0;
   private isUpdating: boolean = false;
+  private config: IntlayerConfig;
 
   // Singleton instance
   private static instance: Logger;
 
-  private constructor() {}
+  private constructor() {
+    this.config = getConfiguration();
+  }
 
   public static getInstance(): Logger {
     if (!Logger.instance) {
@@ -168,6 +172,8 @@ class Logger {
 
   // Method to update the terminal output
   private updateOutput(content: string) {
+    if (this.config.log.mode !== 'verbose') return;
+
     // Monkey-patch process.stdout.write to keep track of extra lines
     if (!this.originalStdoutWrite) {
       this.originalStdoutWrite = process.stdout.write.bind(process.stdout);
@@ -327,7 +333,7 @@ class Logger {
       return `${colorStart}${statusBlock}${colorEnd}`;
     });
 
-    return `- ${paddedKey} ${states.join(' ')}`;
+    return `${this.config.log.prefix}- ${paddedKey} ${states.join(' ')}`;
   }
 
   // Replace logUpdate calls with your custom methods
@@ -350,7 +356,7 @@ class Logger {
 
     if (lines.length > maxVisibleLines) {
       const visibleLines = lines.slice(0, maxVisibleLines - 5);
-      const summary = `... and ${lines.length - visibleLines.length} more`;
+      const summary = `${this.config.log.prefix}... and ${lines.length - visibleLines.length} more`;
       content = LINE_DETECTOR + visibleLines.join('\n') + '\n' + summary;
     } else {
       content = lines.join('\n');

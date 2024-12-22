@@ -3,6 +3,7 @@ import type { CustomIntlayerConfig, IntlayerConfig } from '../types/config';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
+import { logger } from '../logger';
 
 let storedConfiguration: IntlayerConfig | undefined;
 let storedConfigurationFilePath: string | undefined;
@@ -65,17 +66,22 @@ const logConfigFileResult = (
   configurationFilePath?: string
 ) => {
   if (numCustomConfiguration === 0) {
-    console.info('Configuration file not found, using default configuration.');
+    logger('Configuration file not found, using default configuration.', {
+      isVerbose: true,
+    });
   } else {
     const relativeOutputPath = relative(BASE_DIR_PATH, configurationFilePath!);
 
     if (numCustomConfiguration === 1) {
-      console.info(
-        `[intlayer] Configuration file found: ${relativeOutputPath}.`
-      );
+      logger(`Configuration file found: ${relativeOutputPath}.`, {
+        isVerbose: true,
+      });
     } else {
-      console.warn(
-        `Multiple configuration files found, using ${relativeOutputPath}.`
+      logger(
+        `Multiple configuration files found, using ${relativeOutputPath}.`,
+        {
+          isVerbose: true,
+        }
       );
     }
   }

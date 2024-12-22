@@ -1,5 +1,5 @@
 import { relative } from 'path';
-import { Locales } from '@intlayer/config';
+import { Locales, logger } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import fg from 'fast-glob';
 import { OpenAI } from 'openai';
@@ -17,7 +17,7 @@ const CHAT_GPT_PROMPT = getFileContent(getAbsolutePath('./PROMPT.md'));
 export const auditFile = async (filePath: string, locale: Locales) => {
   try {
     const relativePath = relative(projectPath, filePath);
-    console.info(`Translating file: ${relativePath}`);
+    logger(`Translating file: ${relativePath}`);
 
     const fileContent = getFileContent(filePath);
 
@@ -42,12 +42,10 @@ export const auditFile = async (filePath: string, locale: Locales) => {
       const localeFilePath = filePath.replace('en/', `${locale}/`);
       writeFileContent(localeFilePath, newContent);
 
-      console.info(`File ${localeFilePath} created/updated`);
+      logger(`File ${localeFilePath} created/updated`);
     }
 
-    console.info(
-      `${chatCompletion.usage?.total_tokens} tokens used in the request`
-    );
+    logger(`${chatCompletion.usage?.total_tokens} tokens used in the request`);
   } catch (error) {
     console.error(error);
   }

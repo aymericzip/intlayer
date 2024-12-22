@@ -1,6 +1,6 @@
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
+import { appLogger, getConfiguration } from '@intlayer/config/client';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer/index';
 import { DictionaryListDrawer } from './DictionaryListDrawer/index';
 import { useIntlayerContext } from 'react-intlayer';
@@ -65,14 +65,20 @@ export const IntlayerEditorProvider: FC<IntlayerEditorProviderProps> = ({
   useEffect(() => {
     if (isEnabled && editor.enabled) {
       if (!editor.clientId) {
-        console.error(
-          'Editor is enabled but clientId is not set. Please set it in the editor configuration. See http://localhost:3000/doc/concept/editor.'
+        appLogger(
+          'Editor is enabled but clientId is not set. Please set it in the editor configuration. See http://localhost:3000/doc/concept/editor.',
+          {
+            level: 'error',
+          }
         );
       }
 
       if (!editor.clientSecret) {
-        console.error(
-          'Editor is enabled but clientSecret is not set. Please set it in the editor configuration. See http://localhost:3000/doc/concept/editor.'
+        appLogger(
+          'Editor is enabled but clientSecret is not set. Please set it in the editor configuration. See http://localhost:3000/doc/concept/editor.',
+          {
+            level: 'error',
+          }
         );
       }
     }

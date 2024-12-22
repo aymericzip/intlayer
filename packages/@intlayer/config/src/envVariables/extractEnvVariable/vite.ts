@@ -1,17 +1,19 @@
+import { logger } from '../../logger';
 import type {
   InternationalizationConfig,
   MiddlewareConfig,
   ContentConfig,
   EditorConfig,
+  LogConfig,
 } from '../../types/config';
 import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 import { extractEmptyEnvVariable } from './undefined_platform';
 
 export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
   if (!import.meta.env) {
-    console.error(
-      'Vite env variables cannot be loaded on a commonjs environment.'
-    );
+    logger('Vite env variables cannot be loaded on a commonjs environment.', {
+      level: 'error',
+    });
     return extractEmptyEnvVariable();
   }
 
@@ -69,10 +71,16 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
       .VITE_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
   };
 
+  const log: ReplaceValue<LogConfig> = {
+    mode: import.meta.env.VITE_INTLAYER_LOG_MODE,
+    prefix: import.meta.env.VITE_INTLAYER_LOG_PREFIX,
+  };
+
   return {
     internationalization,
     middleware,
     content,
     editor,
+    log,
   };
 };

@@ -30,6 +30,7 @@ import {
   PREFIX_DEFAULT,
   SERVER_SET_COOKIE,
 } from '../defaultValues/middleware';
+import { MODE, PREFIX } from '../defaultValues/log';
 import type {
   BaseDerivedConfig,
   ContentConfig,
@@ -41,6 +42,7 @@ import type {
   BaseContentConfig,
   ResultDirDerivedConfig,
   EditorConfig,
+  LogConfig,
 } from '../types/config';
 import type { GetConfigurationOptions } from './getConfiguration';
 
@@ -549,6 +551,30 @@ const buildEditorFields = (
     DICTIONARY_PRIORITY_STRATEGY,
 });
 
+const buildLogFields = (
+  customConfiguration?: Partial<LogConfig>
+): LogConfig => ({
+  /**
+   * Indicates if the logger is enabled
+   *
+   * Default: 'default'
+   *
+   * If 'default', the logger is enabled and can be used.
+   * If 'verbose', the logger will be enabled and can be used, but will log more information.
+   * If 'disabled', the logger is disabled and cannot be used.
+   */
+  mode: customConfiguration?.mode ?? MODE,
+
+  /**
+   * Prefix of the logger
+   *
+   * Default: '[intlayer]'
+   *
+   * The prefix of the logger.
+   */
+  prefix: customConfiguration?.prefix ?? PREFIX,
+});
+
 /**
  * Build the configuration fields by merging the default values with the custom configuration
  */
@@ -568,11 +594,14 @@ export const buildConfigurationFields = (
 
   const editorConfig = buildEditorFields(customConfiguration?.editor);
 
+  const logConfig = buildLogFields(customConfiguration?.log);
+
   storedConfiguration = {
     internationalization: internationalizationConfig,
     middleware: middlewareConfig,
     content: contentConfig,
     editor: editorConfig,
+    log: logConfig,
   };
 
   return storedConfiguration;

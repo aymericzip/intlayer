@@ -1,7 +1,7 @@
 import * as fsPromises from 'fs/promises';
 import { relative } from 'path';
 import * as readline from 'readline';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, logger } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { intlayerAPI } from '@intlayer/design-system/libs';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
@@ -30,6 +30,7 @@ const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
 const BLUE = '\x1b[34m';
 const GREY = '\x1b[90m';
+const GREY_DARK = '\x1b[90m';
 
 /**
  * Get all locale dictionaries and push them simultaneously.
@@ -58,10 +59,11 @@ export const push = async (options?: PushOptions): Promise<void> => {
       );
 
       if (noneExistingDictionariesOption.length > 0) {
-        console.error(
+        logger(
           `The following dictionaries do not exist: ${noneExistingDictionariesOption.join(
             ', '
-          )} and have been ignored.`
+          )} and have been ignored.`,
+          { level: 'error' }
         );
       }
 
@@ -73,11 +75,11 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     // Check if the dictionaries list is empty
     if (dictionaries.length === 0) {
-      console.error('No local dictionaries found');
+      logger('No local dictionaries found', { level: 'error' });
       return;
     }
 
-    console.info('Pushing dictionaries:');
+    logger('Pushing dictionaries:');
 
     // Prepare dictionaries statuses
     const dictionariesStatuses: DictionariesStatus[] = dictionaries.map(
@@ -152,7 +154,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
     // Output any error messages
     for (const statusObj of dictionariesStatuses) {
       if (statusObj.errorMessage) {
-        console.error(statusObj.errorMessage);
+        logger(statusObj.errorMessage, { level: 'error' });
       }
     }
 
@@ -181,7 +183,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
       }
     }
   } catch (error) {
-    console.error(error);
+    logger(error, { level: 'error' });
   }
 };
 
@@ -210,7 +212,9 @@ const deleteLocalDictionaries = async (
     const { filePath } = dictionary;
 
     if (!filePath) {
-      console.error(`Dictionary ${dictionary.key} does not have a file path`);
+      logger(`Dictionary ${dictionary.key} does not have a file path`, {
+        level: 'error',
+      });
       continue;
     }
 
@@ -225,14 +229,16 @@ const deleteLocalDictionaries = async (
 
       if (stats.isFile()) {
         await fsPromises.unlink(filePath);
-        console.info(`Deleted file ${relativePath}`);
+        logger(`Deleted file ${relativePath}`);
       } else if (stats.isDirectory()) {
-        console.warn(`Path is a directory ${relativePath}, skipping.`);
+        logger(`Path is a directory ${relativePath}, skipping.`);
       } else {
-        console.warn(`Unknown file type for ${relativePath}, skipping.`);
+        logger(`Unknown file type for ${relativePath}, skipping.`);
       }
     } catch (err) {
-      console.error(`Error deleting ${relativePath}:`, err);
+      logger(`Error deleting ${relativePath}: ${err}`, {
+        level: 'error',
+      });
     }
   }
 };
@@ -249,6 +255,10 @@ const getStatusIcon = (status: string): string => {
 };
 
 const getStatusLine = (statusObj: DictionariesStatus): string => {
+  const {
+    log: { prefix },
+  } = getConfiguration();
+
   let icon = getStatusIcon(statusObj.status);
   let colorStart = '';
   let colorEnd = '';
@@ -269,7 +279,7 @@ const getStatusLine = (statusObj: DictionariesStatus): string => {
     colorEnd = RESET;
   }
 
-  return `- ${statusObj.dictionary.key} [${colorStart}${icon} ${statusObj.status}${colorEnd}]`;
+  return `- ${statusObj.dictionary.key} ${GREY_DARK}[${colorStart}${icon}${statusObj.status}${GREY_DARK}]${colorEnd}`;
 };
 
 const updateAllStatusLines = (dictionariesStatuses: DictionariesStatus[]) => {

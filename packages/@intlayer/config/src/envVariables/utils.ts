@@ -1,3 +1,5 @@
+import { logger } from '../logger';
+
 function getEnvValue(
   value: unknown,
   type: 'boolean',
@@ -53,8 +55,9 @@ function getEnvValue(
   } catch (error) {
     // Log error and return undefined if any error occurs during parsing
     if (verbose) {
-      console.error(
-        `Error parsing environment variable, parsing : ${((value ?? '') as string).toString()}`
+      logger(
+        `Error parsing environment variable, parsing : ${((value ?? '') as string).toString()}`,
+        { level: 'error' }
       );
     }
     return undefined;

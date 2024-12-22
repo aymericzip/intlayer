@@ -99,9 +99,7 @@ app.get("/error", (_req, res) => {
 });
 
 // 서버 시작
-app.listen(3000, () => {
-  console.info(`포트 3000에서 수신 대기 중`);
-});
+app.listen(3000, () => console.log(`포트 3000에서 수신 대기 중`));
 ```
 
 ### 호환성

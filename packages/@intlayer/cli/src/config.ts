@@ -1,9 +1,9 @@
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, logger } from '@intlayer/config';
 
 type ConfigOptions = {};
 
 export const getConfig = (_options?: ConfigOptions) => {
   const config = getConfiguration();
 
-  console.info(config);
+  logger(config);
 };

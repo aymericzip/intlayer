@@ -4,6 +4,7 @@ import type {
   MiddlewareConfig,
   ContentConfig,
   EditorConfig,
+  LogConfig,
 } from '../../types/config';
 import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 
@@ -62,10 +63,16 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
       process.env.NEXT_PUBLIC_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
   };
 
+  const log: ReplaceValue<LogConfig> = {
+    mode: process.env.NEXT_PUBLIC_INTLAYER_LOG_MODE,
+    prefix: process.env.NEXT_PUBLIC_INTLAYER_LOG_PREFIX,
+  };
+
   return {
     internationalization,
     middleware,
     content,
     editor,
+    log,
   };
 };

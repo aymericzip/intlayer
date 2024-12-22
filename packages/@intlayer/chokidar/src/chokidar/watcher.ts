@@ -1,5 +1,5 @@
 import { relative } from 'path';
-import { getConfiguration } from '@intlayer/config';
+import { appLogger, getConfiguration } from '@intlayer/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import fg from 'fast-glob';
@@ -13,8 +13,6 @@ import {
   createTypes,
   createModuleAugmentation,
 } from '../transpiler/dictionary_to_type/index';
-
-const LOG_PREFIX = '[intlayer] ';
 
 // Initialize chokidar watcher (non-persistent)
 export const watch = (options?: ChokidarOptions) => {
@@ -35,6 +33,10 @@ export const watch = (options?: ChokidarOptions) => {
     .on('ready', async () => {
       cleanOutputDir();
 
+      appLogger('Output directory cleaned', {
+        isVerbose: true,
+      });
+
       const dictionaries = await loadDictionaries(files);
 
       // Build locale dictionaries
@@ -42,19 +44,21 @@ export const watch = (options?: ChokidarOptions) => {
 
       await createTypes(dictionariesPaths);
 
-      console.info(
-        `${LOG_PREFIX}${dictionariesPaths.length} dictionaries built`
-      );
-
       createDictionaryList();
+
+      appLogger('Dictionaries built');
+
       createModuleAugmentation();
+
+      appLogger('Module augmentation built', {
+        isVerbose: true,
+      });
     })
     .on('add', async (filePath) => {
       // Process the file with the functionToRun
-      console.info(
-        `${LOG_PREFIX}Additional file detected: `,
-        relative(baseDir, filePath)
-      );
+      appLogger(`Additional file detected: ${relative(baseDir, filePath)}`, {
+        isVerbose: true,
+      });
 
       const localeDictionaries = await loadLocalDictionaries(filePath);
 
@@ -63,11 +67,22 @@ export const watch = (options?: ChokidarOptions) => {
       await createTypes(dictionariesPaths);
 
       createDictionaryList();
+
+      appLogger('Dictionaries built', {
+        isVerbose: true,
+      });
+
       createModuleAugmentation();
+
+      appLogger('Module augmentation built', {
+        isVerbose: true,
+      });
     })
     .on('change', async (filePath) => {
       // Process the file with the functionToRun
-      console.info('Change detected: ', relative(baseDir, filePath));
+      appLogger(`Change detected: ${relative(baseDir, filePath)}`, {
+        isVerbose: true,
+      });
 
       const localeDictionaries = await loadLocalDictionaries(filePath);
       const updatedDictionariesPaths =
@@ -75,7 +90,9 @@ export const watch = (options?: ChokidarOptions) => {
       const allDictionariesPaths: string[] = getDictionariesPath();
 
       await createTypes(updatedDictionariesPaths);
-      console.info(`${LOG_PREFIX}TypeScript types built`);
+      appLogger('TypeScript types built', {
+        isVerbose: true,
+      });
 
       if (
         updatedDictionariesPaths.some((updatedDictionaryPath) =>
@@ -83,10 +100,21 @@ export const watch = (options?: ChokidarOptions) => {
         )
       ) {
         createDictionaryList();
+
+        appLogger('Dictionary list built', {
+          isVerbose: true,
+        });
+
         createModuleAugmentation();
+
+        appLogger('Module augmentation built', {
+          isVerbose: true,
+        });
       }
     })
-    .on('error', (error) => {
-      console.error('Watcher error:', error);
-    });
+    .on('error', (error) =>
+      appLogger('Watcher error: ' + error, {
+        level: 'error',
+      })
+    );
 };

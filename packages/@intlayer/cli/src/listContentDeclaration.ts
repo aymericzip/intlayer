@@ -1,4 +1,4 @@
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, logger } from '@intlayer/config';
 import fg from 'fast-glob';
 
 type GetContentDeclarationOptions = {
@@ -29,5 +29,5 @@ export const listContentDeclaration = (
 ) => {
   const contentDeclarationFilesPath = getContentDeclaration();
 
-  console.info('Content declaration files: ', contentDeclarationFilesPath);
+  logger(`Content declaration files: ${contentDeclarationFilesPath}`);
 };

@@ -10,6 +10,7 @@ export type {
   ResultDirDerivedConfig,
   PatternsContentConfig,
   ContentConfig,
+  LogConfig,
   StrictMode,
   IntlayerConfig,
 } from './types/config';
@@ -22,3 +23,5 @@ export {
   getPlatform,
 } from './envVariables/index';
 export { ESMxCJSRequire } from './utils/ESMxCJSRequire';
+export { logger } from './logger';
+export { appLogger } from './appLoggerServer';

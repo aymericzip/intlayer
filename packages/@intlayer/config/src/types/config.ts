@@ -192,6 +192,11 @@ export type CustomIntlayerConfig = {
    * Custom editor configuration
    */
   editor?: Partial<EditorConfig>;
+
+  /**
+   * Custom middleware configuration
+   */
+  log?: Partial<LogConfig>;
 };
 
 /**
@@ -217,6 +222,11 @@ export type IntlayerConfig = {
    * Intlayer editor configuration
    */
   editor: EditorConfig;
+
+  /**
+   * Logger configuration
+   */
+  log: LogConfig;
 };
 
 /**
@@ -460,3 +470,25 @@ export type ContentConfig = BaseContentConfig &
   BaseDerivedConfig &
   ResultDirDerivedConfig &
   PatternsContentConfig;
+
+export type LogConfig = {
+  /**
+   * Indicates if the logger is enabled
+   *
+   * Default: true
+   *
+   * If 'default', the logger is enabled and can be used.
+   * If 'verbose', the logger will be enabled and can be used, but will log more information.
+   * If 'disabled', the logger is disabled and cannot be used.
+   */
+  mode: 'default' | 'verbose' | 'disabled';
+
+  /**
+   * Prefix of the logger
+   *
+   * Default: '[intlayer]'
+   *
+   * The prefix of the logger.
+   */
+  prefix: string;
+};

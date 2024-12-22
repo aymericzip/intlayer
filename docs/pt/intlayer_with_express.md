@@ -99,9 +99,7 @@ app.get("/error", (_req, res) => {
 });
 
 // Iniciar servidor
-app.listen(3000, () => {
-  console.info(`Escutando na porta 3000`);
-});
+app.listen(3000, () => console.log(`Escutando na porta 3000`));
 ```
 
 ### Compatibilidade

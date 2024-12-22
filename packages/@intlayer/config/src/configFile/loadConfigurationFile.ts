@@ -5,6 +5,7 @@ import { getPlatform } from '../envVariables/detectPlatform';
 import { loadEnvFile } from '../envVariables/loadEnvFile';
 import type { CustomIntlayerConfig } from '../types/config';
 import { ESMxCJSRequire } from '../utils/ESMxCJSRequire';
+import { logger } from '../logger';
 
 // If platform defined, the env file is already loaded by Rollup Webpack or Turbopack.
 if (getPlatform() === 'unknown') {
@@ -86,7 +87,7 @@ export const loadConfigurationFile = (
     const moduleResultString = moduleResult.outputFiles?.[0].text;
 
     if (!moduleResultString) {
-      console.error('Configuration file could not be loaded.');
+      logger('Configuration file could not be loaded.', { level: 'error' });
       return undefined;
     }
 
@@ -119,12 +120,12 @@ export const loadConfigurationFile = (
     }
 
     if (typeof customConfiguration === 'undefined') {
-      console.error('Configuration file could not be loaded.');
+      logger('Configuration file could not be loaded.');
       return undefined;
     }
 
     return filterValidConfiguration(customConfiguration);
   } catch (error) {
-    console.error('Error:', error);
+    logger(`Error: ${error}`, { level: 'error' });
   }
 };

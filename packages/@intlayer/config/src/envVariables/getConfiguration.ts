@@ -4,6 +4,7 @@ import type {
   InternationalizationConfig,
   IntlayerConfig,
   MiddlewareConfig,
+  LogConfig,
   ServerSetCookieRule,
   StrictMode,
 } from '../types/config';
@@ -106,11 +107,17 @@ export const getConfiguration = (): IntlayerConfig => {
     )! as 'locale_first' | 'distant_first',
   };
 
+  const logConfiguration: LogConfig = {
+    mode: getEnvValue(env.log.mode, 'string')!,
+    prefix: getEnvValue(env.log.prefix, 'string')!,
+  };
+
   const intlayerConfiguration: IntlayerConfig = {
     internationalization: intlayerIntlConfiguration,
     middleware: intlayerMiddlewareConfiguration,
     content: intlayerContentConfiguration,
     editor: intlayerEditorConfiguration,
+    log: logConfiguration,
   };
 
   return intlayerConfiguration;

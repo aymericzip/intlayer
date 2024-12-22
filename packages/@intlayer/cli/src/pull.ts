@@ -2,7 +2,7 @@ import { existsSync } from 'fs';
 import * as fsPromises from 'fs/promises';
 import { basename, dirname, extname } from 'path';
 import * as readline from 'readline';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, logger } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { intlayerAPI } from '@intlayer/design-system/libs';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
@@ -88,11 +88,11 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
     // Check if dictionaries list is empty
     if (distantDictionariesKeys.length === 0) {
-      console.error('No dictionaries to fetch');
+      logger('No dictionaries to fetch', { level: 'error' });
       return;
     }
 
-    console.info('Fetching dictionaries:');
+    logger('Fetching dictionaries:');
 
     // Prepare dictionaries statuses
     const dictionariesStatuses: DictionariesStatus[] =
@@ -169,11 +169,11 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     // Output any error messages
     for (const statusObj of dictionariesStatuses) {
       if (statusObj.errorMessage) {
-        console.error(statusObj.errorMessage);
+        logger(statusObj.errorMessage, { level: 'error' });
       }
     }
   } catch (error) {
-    console.error(error);
+    logger(error, { level: 'error' });
   }
 };
 
@@ -190,6 +190,10 @@ const getStatusIcon = (status: string): string => {
 };
 
 const getStatusLine = (statusObj: DictionariesStatus): string => {
+  const {
+    log: { prefix },
+  } = getConfiguration();
+
   let icon = getStatusIcon(statusObj.status);
   let colorStart = '';
   let colorEnd = '';
@@ -221,7 +225,7 @@ const getStatusLine = (statusObj: DictionariesStatus): string => {
     colorEnd = RESET;
   }
 
-  return `- ${statusObj.dictionaryKey} ${GREY_DARK}[${colorStart}${icon} ${statusObj.status}${colorEnd}]`;
+  return `- ${statusObj.dictionaryKey} ${GREY_DARK}[${colorStart}${icon}${statusObj.status}${GREY_DARK}]${colorEnd}`;
 };
 
 const updateAllStatusLines = (dictionariesStatuses: DictionariesStatus[]) => {

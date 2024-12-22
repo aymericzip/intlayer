@@ -1,5 +1,6 @@
 import { existsSync } from 'fs';
 import { resolve } from 'path';
+import { logger } from '../logger';
 
 const EXTENSION = ['ts', 'js', 'json', 'cjs', 'mjs', ''];
 const CONFIGURATION_FILE_NAME_1 = 'intlayer.config';
@@ -49,7 +50,7 @@ export const searchConfigurationFile = (
       }
     } catch (error) {
       // Return "Cannot use import statement outside a module"
-      console.error(`${fileName}: ${error as string}`);
+      logger(`${fileName}: ${error as string}`, { level: 'error' });
 
       continue;
     }

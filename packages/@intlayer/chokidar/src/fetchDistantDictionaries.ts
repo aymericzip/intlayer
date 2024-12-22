@@ -1,6 +1,6 @@
 // @ts-ignore @intlayer/backend not build yet
 import { type DictionaryAPI } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config';
+import { appLogger, getConfiguration } from '@intlayer/config';
 // @ts-ignore @intlayer/design-system not build yet
 import { getIntlayerAPI } from '@intlayer/design-system/libs';
 import pLimit from 'p-limit';
@@ -97,7 +97,7 @@ export const fetchDistantDictionaries = async (
     for (const statusObj of statuses) {
       const currentState = statusObj.state.find((s) => s.type === 'distant');
       if (currentState && currentState.errorMessage) {
-        console.error(currentState.errorMessage);
+        appLogger(currentState.errorMessage, { level: 'error' });
       }
     }
 
@@ -108,7 +108,7 @@ export const fetchDistantDictionaries = async (
 
     return filteredResult;
   } catch (error) {
-    console.error(error);
+    appLogger(error, { level: 'error' });
     return [];
   }
 };

@@ -1,6 +1,6 @@
 // @ts-ignore @intlayer/backend not build yet
 import { type DictionaryAPI } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config';
+import { appLogger, getConfiguration } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import merge from 'deepmerge';
 import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
@@ -10,15 +10,13 @@ import { sortAlphabetically } from '../utils';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadDistantDictionaries } from './loadDistantDictionaries';
 
-const LOG_PREFIX = '[intlayer] ';
-
 export const loadDictionaries = async (
   contentDeclarationsPaths: string[] | string
 ): Promise<Dictionary[]> => {
   try {
     const { editor } = getConfiguration();
 
-    console.info(`${LOG_PREFIX}Dictionaries:`);
+    appLogger('Dictionaries:', { isVerbose: true });
 
     const files = Array.isArray(contentDeclarationsPaths)
       ? contentDeclarationsPaths
@@ -70,7 +68,9 @@ export const loadDictionaries = async (
           });
         }
       } catch (_error) {
-        console.error('Error during fetching distant dictionaries');
+        appLogger('Error during fetching distant dictionaries', {
+          level: 'error',
+        });
       }
     }
 
