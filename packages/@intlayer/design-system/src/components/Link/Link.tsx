@@ -65,74 +65,77 @@ export type LinkProps = DetailedHTMLProps<
     locale?: Locales;
   };
 
-const isExternal = (href = ''): boolean => /^https?:\/\//.test(href);
+export const checkIsExternalLink = ({
+  href,
+  children,
+  isExternalLink: isExternalLinkProp,
+}: LinkProps): boolean => {
+  const isChildrenString = typeof children === 'string';
+  const isValidHref = typeof href === 'string' && href.trim() !== '';
+  const isExternalLink =
+    isExternalLinkProp === true ||
+    (isChildrenString &&
+      typeof isExternalLinkProp === 'undefined' &&
+      isValidHref &&
+      /^https?:\/\//.test(href));
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  (
-    {
-      variant = 'default',
-      color = 'primary',
-      children,
-      label,
-      className,
-      isActive,
-      underlined,
-      locale,
-      isExternalLink: isExternalLinkProp,
-      href: hrefProp,
-      ...props
-    },
-    ref
-  ) => {
-    const { internationalization } = getConfiguration();
-    const isChildrenString = typeof children === 'string';
-    const isValidHref = typeof hrefProp === 'string' && hrefProp.trim() !== '';
-    const isExternalLink =
-      isExternalLinkProp === true ||
-      (isChildrenString &&
-        typeof isExternalLinkProp === 'undefined' &&
-        isValidHref &&
-        isExternal(hrefProp));
+  return isExternalLink;
+};
 
-    const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
+  const {
+    variant = 'default',
+    color = 'primary',
+    children,
+    label,
+    className,
+    isActive,
+    underlined,
+    locale,
+    isExternalLink: isExternalLinkProp,
+    href: hrefProp,
+    ...otherProps
+  } = props;
+  const { internationalization } = getConfiguration();
 
-    const target = isExternalLink ? '_blank' : '_self';
+  const isExternalLink = checkIsExternalLink(props);
 
-    const hrefLang = locale
-      ? locale === internationalization.defaultLocale
-        ? 'x-default'
-        : locale
-      : undefined;
+  const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
 
-    const href =
-      locale && hrefProp && !isExternalLink
-        ? getLocalizedUrl(hrefProp, locale)
-        : hrefProp;
+  const target = isExternalLink ? '_blank' : '_self';
 
-    return (
-      <a
-        href={href}
-        ref={ref}
-        hrefLang={hrefLang}
-        aria-label={label}
-        rel={rel}
-        target={target}
-        aria-current={isActive ? 'page' : undefined}
-        className={linkVariants({
-          variant,
-          color,
-          underlined,
-          className,
-        })}
-        {...props}
-      >
-        {children}
-        {isExternalLink && (
-          <ExternalLink className="ml-2 inline-block size-4" />
-        )}
-      </a>
-    );
-  }
-);
+  const hrefLang = locale
+    ? locale === internationalization.defaultLocale
+      ? 'x-default'
+      : locale
+    : undefined;
+
+  const href =
+    locale && hrefProp && !isExternalLink
+      ? getLocalizedUrl(hrefProp, locale)
+      : hrefProp;
+
+  return (
+    <a
+      href={href}
+      ref={ref}
+      hrefLang={hrefLang}
+      aria-label={label}
+      rel={rel}
+      target={target}
+      aria-current={isActive ? 'page' : undefined}
+      className={linkVariants({
+        variant,
+        color,
+        underlined,
+        className,
+      })}
+      {...otherProps}
+    >
+      {children}
+      {isExternalLink && <ExternalLink className="ml-2 inline-block size-4" />}
+    </a>
+  );
+});
 
 Link.displayName = 'Link';
