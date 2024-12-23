@@ -1,3 +1,11 @@
+import {
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+  transformerNotationErrorLevel,
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
+} from '@shikijs/transformers';
 import { type FC } from 'react';
 import { BundledLanguage, codeToHtml } from 'shiki';
 
@@ -15,7 +23,15 @@ export const CodeBlock = (async ({
   const out = await codeToHtml(children, {
     lang,
     theme: isDarkMode ? 'github-dark' : 'github-light',
+    transformers: [
+      transformerNotationDiff(),
+      transformerNotationHighlight(),
+      transformerNotationWordHighlight(),
+      transformerNotationErrorLevel(),
+      transformerMetaHighlight(),
+      transformerMetaWordHighlight(),
+    ],
   });
 
-  return <div dangerouslySetInnerHTML={{ __html: out }} />;
+  return <div className="flex" dangerouslySetInnerHTML={{ __html: out }} />;
 }) as unknown as FC<CodeBlockProps>;
