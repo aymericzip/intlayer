@@ -424,7 +424,7 @@ Assicurati che la tua configurazione TypeScript includa i tipi generati automati
 
 Per farlo, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
 
-```gitignore
+```plaintext
 # Ignora i file generati da Intlayer
 .intlayer
 ```

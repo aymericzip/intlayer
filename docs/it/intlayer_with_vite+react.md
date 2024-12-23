@@ -425,7 +425,7 @@ Si consiglia di ignorare i file generati da Intlayer. Questo ti permette di evit
 
 Per fare ciò, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
 
-```gitignore
+```plaintext
 # Ignora i file generati da Intlayer
 .intlayer
 ```

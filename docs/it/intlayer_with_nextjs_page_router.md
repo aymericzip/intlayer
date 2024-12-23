@@ -369,7 +369,7 @@ Per mantenere pulito il tuo repository e evitare di commettere file generati, è
 
    Aggiungi le seguenti righe al tuo file `.gitignore`:
 
-   ```gitignore
+   ```plaintext
    # Ignora i file generati da Intlayer
    .intlayer
    ```

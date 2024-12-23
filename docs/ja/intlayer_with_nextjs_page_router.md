@@ -369,7 +369,7 @@ Intlayerはモジュールの拡張を使用してTypeScriptの機能を強化�
 
    `.gitignore`ファイルに次の行を追加します：
 
-   ```gitignore
+   ```plaintext
    # Intlayerによって生成されたファイルを無視
    .intlayer
    ```

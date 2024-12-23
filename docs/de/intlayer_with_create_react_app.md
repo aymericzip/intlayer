@@ -370,7 +370,7 @@ Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. So vermei
 
 Fügen Sie dazu die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzu:
 
-```gitignore
+```plaintext
 # Ignorieren Sie die von Intlayer generierten Dateien
 .intlayer
 ```

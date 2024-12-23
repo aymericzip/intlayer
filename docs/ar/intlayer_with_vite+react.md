@@ -413,7 +413,7 @@ const LocaleSwitcher = () => {
 
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
-```gitignore
+```plaintext
 # تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```

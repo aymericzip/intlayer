@@ -369,7 +369,7 @@ Intlayer 使用模块增强来增强 TypeScript 的功能，提供更好的类�
 
    在您的 `.gitignore` 文件中添加以下行：
 
-   ```gitignore
+   ```plaintext
    # 忽略 Intlayer 生成的文件
    .intlayer
    ```

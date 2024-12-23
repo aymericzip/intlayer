@@ -413,7 +413,7 @@ Intlayer에 의해 생성된 파일을 무시하는 것이 좋습니다. 이렇�
 
 이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
 
-```gitignore
+```plaintext
 # Intlayer에 의해 생성된 파일 무시
 .intlayer
 ```

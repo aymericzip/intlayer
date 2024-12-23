@@ -369,7 +369,7 @@ Pour garder votre dépôt propre et éviter de commettre des fichiers générés
 
    Ajoutez les lignes suivantes à votre fichier `.gitignore` :
 
-   ```gitignore
+   ```plaintext
    # Ignorer les fichiers générés par Intlayer
    .intlayer
    ```

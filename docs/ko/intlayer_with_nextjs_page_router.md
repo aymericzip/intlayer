@@ -369,7 +369,7 @@ Intlayer는 모듈 확장을 사용하여 TypeScript의 기능을 향상시켜, 
 
    `.gitignore` 파일에 다음 행을 추가하세요:
 
-   ```gitignore
+   ```plaintext
    # Intlayer가 생성한 파일 무시
    .intlayer
    ```

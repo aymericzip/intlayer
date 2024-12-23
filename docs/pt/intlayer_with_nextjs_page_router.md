@@ -369,7 +369,7 @@ Para manter seu repositório limpo e evitar o commit de arquivos gerados, é rec
 
    Adicione as seguintes linhas ao seu arquivo `.gitignore`:
 
-   ```gitignore
+   ```plaintext
    # Ignorar os arquivos gerados pelo Intlayer
    .intlayer
    ```
