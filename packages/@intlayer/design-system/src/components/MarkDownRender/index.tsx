@@ -1,5 +1,3 @@
-'use client';
-
 import { Locales } from '@intlayer/core';
 import Markdown from 'markdown-to-jsx';
 import type { FC } from 'react';
@@ -7,7 +5,7 @@ import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { H1, H2, H3 } from '../Headers';
 import { SectionScroller } from '../Headers/SectionScroller';
-import { Code } from '../IDE/CodeRender';
+import { Code } from '../IDE/Code';
 import { Link } from '../Link';
 
 type MarkdownRendererProps = {

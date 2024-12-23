@@ -3,29 +3,19 @@ import {
   getPreviousNextDocData,
   urlRenamer,
 } from '@components/DocPage/docData';
+import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { Link } from '@components/Link/Link';
-import { Container, Loader } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system';
 import { getDoc } from '@intlayer/docs';
 import { DocHeader } from '@structuredData/DocHeader';
 import { getLocalizedUrl } from 'intlayer';
 import { ChevronLeft, ChevronRight, Edit } from 'lucide-react';
-import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
 import { type LocalParams } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { FC } from 'react';
 import type { DocProps } from './layout';
 import { PagesRoutes } from '@/Routes';
-
-const DynamicDocumentationRender = dynamic(
-  () =>
-    import('@components/DocPage/DocumentationRender').then(
-      (mod) => mod.DocumentationRender
-    ),
-  {
-    loading: () => <Loader />,
-  }
-);
 
 const Contribution: FC<{ githubUrl: string }> = ({ githubUrl }) => {
   const { contribution } = useIntlayer('doc-page');
@@ -78,7 +68,7 @@ const DocPageNavigation: FC<DocPageNavigationProps> = ({
       {prevDoc && (
         <Link
           href={prevDoc?.url}
-          label={goToPreviousSection.label}
+          label={goToPreviousSection.label.value}
           color="text"
           className="mr-auto flex flex-row items-center gap-2 text-nowrap"
         >
@@ -89,7 +79,7 @@ const DocPageNavigation: FC<DocPageNavigationProps> = ({
       {nextDoc && (
         <Link
           href={nextDoc?.url}
-          label={goToNextSection.label}
+          label={goToNextSection.label.value}
           color="text"
           className="ml-auto flex flex-row items-center gap-2 text-nowrap"
         >
@@ -140,7 +130,7 @@ const DocumentationPage = async ({
         datePublished={docData.createdAt}
         url={docData.url}
       />
-      <DynamicDocumentationRender>{docContent}</DynamicDocumentationRender>
+      <DocumentationRender>{docContent}</DocumentationRender>
       <Contribution
         githubUrl={docData.githubUrl.replace('/en/', `/${locale}/`)}
       />

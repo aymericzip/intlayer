@@ -1,8 +1,6 @@
-'use client';
-
 import Markdown from 'markdown-to-jsx';
 import type { FC } from 'react';
-import { Code } from './CodeRender';
+import { Code } from './Code';
 
 type MarkdownRendererProps = {
   isDarkMode?: boolean;
