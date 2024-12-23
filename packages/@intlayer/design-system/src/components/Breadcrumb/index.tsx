@@ -84,11 +84,9 @@ type SpanProps = {
 
 const Span: FC<SpanProps> = ({ children, position, ...props }) => (
   <>
-    <div itemProp="item">
-      <span itemProp="name" {...props}>
-        {children}
-      </span>
-    </div>
+    <span itemProp="name" {...props}>
+      {children}
+    </span>
     <meta itemProp="position" content={position.toString()} />
   </>
 );
