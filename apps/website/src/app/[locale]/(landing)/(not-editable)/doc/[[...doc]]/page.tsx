@@ -64,7 +64,7 @@ const DocPageNavigation: FC<DocPageNavigationProps> = ({
   const { goToNextSection, goToPreviousSection } = useIntlayer('doc-page');
 
   return (
-    <div className="flex flex-row flex-wrap justify-between gap-10 p-10">
+    <div className="flex flex-row flex-wrap justify-between gap-10 p-10 text-sm">
       {prevDoc && (
         <Link
           href={prevDoc?.url}
