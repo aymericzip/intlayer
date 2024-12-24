@@ -194,10 +194,10 @@ Lo scopo di questo passaggio è creare rotte uniche per ogni lingua. Questo è u
 
 Esempio:
 
-```tsx
-// /dashboard
-// /es/dashboard
-// /fr/dashboard
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
 ```
 
 > Per impostazione predefinita, le rotte non sono prefissate per la locale predefinita. Se desideri prefissare la locale predefinita, puoi impostare l'opzione `middleware.prefixDefault` su `true` nella tua configurazione. Vedi la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md) per ulteriori informazioni.
@@ -357,7 +357,7 @@ Assicurati che la tua configurazione TypeScript includa i tipi generati automati
 
 {
   // la tua configurazione personalizzata
-  include: [
+  "include": [
     "src",
     "types", // <- Include i tipi generati automaticamente
   ],

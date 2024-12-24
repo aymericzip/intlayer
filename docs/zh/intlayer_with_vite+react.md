@@ -224,10 +224,10 @@ const LocaleSwitcher = () => {
 此步骤的目的是为每种语言创建唯一的路由。这对于 SEO 和 SEO 友好的 URL 很有用。
 示例：
 
-```tsx
-// /dashboard
-// /es/dashboard
-// /fr/dashboard
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
 ```
 
 > 默认情况下，默认语言的路由没有前缀。如果您想要前缀默认语言，可以在配置中将 `middleware.prefixDefault` 选项设置为 `true`。有关更多信息，请参见 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
@@ -400,7 +400,7 @@ Intlayer 使用模块扩展来获得 TypeScript 的好处，并增强您的代�
 
 {
   // 你的自定义配置
-  include: [
+  "include": [
     "src",
     "types", // <- 包括自动生成的类型
   ],

@@ -412,7 +412,7 @@ Assicurati che la tua configurazione TypeScript includa i tipi autogenerati.
 
 {
   // la tua configurazione personalizzata
-  include: [
+  "include": [
     "src",
     "types", // <- Includi i tipi auto generati
   ],

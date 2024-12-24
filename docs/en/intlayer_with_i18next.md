@@ -38,9 +38,7 @@ Intlayer facilitates the sharing of content declaration files across multiple ap
 
 To export i18next dictionaries, you need to configure Intlayer appropriately. Below is an example of how to set up Intlayer to export both Intlayer and i18next dictionaries.
 
-```typescript
-// intlayer.config.ts
-
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -55,13 +53,45 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  content: {
+    // Indicate that Intlayer will export both Intlayer and i18next dictionaries
+    dictionaryOutput: ["intlayer", "i18next"],
+    // Relative path from the project root to the directory where i18n dictionaries will be exported
+    i18nDictionariesDir: "./i18n/dictionaries",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  content: {
+    // Indicate that Intlayer will export both Intlayer and i18next dictionaries
+    dictionaryOutput: ["intlayer", "i18next"],
+    // Relative path from the project root to the directory where i18n dictionaries will be exported
+    i18nDictionariesDir: "./i18n/dictionaries",
+  },
+};
+
+module.exports = config;
+```
+
 By including 'i18next' in the configuration, Intlayer generates dedicated i18next dictionaries in addition to the Intlayer dictionaries. Note that removing 'intlayer' from the configuration may break compatibility with React-Intlayer or Next-Intlayer.
 
 ### Importing Dictionaries into Your i18next Configuration
 
 To import the generated dictionaries into your i18next configuration, you can use 'i18next-resources-to-backend'. Here is an example of how to import your i18next dictionaries:
 
-```typescript
+```typescript fileName="i18n/client.ts" codeFormat="typescript"
 // i18n/client.ts
 
 import i18next from "i18next";
@@ -72,6 +102,38 @@ i18next
   .use(
     resourcesToBackend(
       (language: string, namespace: string) =>
+        import(`../i18n-dictionaries/${language}/${namespace}.json`)
+    )
+  );
+```
+
+```javascript fileName="i18n/client.mjs" codeFormat="esm"
+// i18n/client.mjs
+
+import i18next from "i18next";
+import resourcesToBackend from "i18next-resources-to-backend";
+
+i18next
+  // Your i18next configuration
+  .use(
+    resourcesToBackend(
+      (language, namespace) =>
+        import(`../i18n-dictionaries/${language}/${namespace}.json`)
+    )
+  );
+```
+
+```javascript fileName="i18n/client.cjs" codeFormat="commonjs"
+// i18n/client.cjs
+
+const i18next = require("i18next");
+const resourcesToBackend = require("i18next-resources-to-backend");
+
+i18next
+  // Your i18next configuration
+  .use(
+    resourcesToBackend(
+      (language, namespace) =>
         import(`../i18n-dictionaries/${language}/${namespace}.json`)
     )
   );

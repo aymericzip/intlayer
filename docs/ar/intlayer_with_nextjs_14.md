@@ -167,12 +167,12 @@ export default pageContent;
 قم بالوصول إلى قواميس المحتوى الخاصة بك طوال التطبيق الخاص بك:
 
 ```tsx
-// src/app/[locale]/page.ts
+// src/app/[locale]/page.tsx
 
-import { ClientComponentExample } from "@component/ClientComponentExample";
-import { LocaleSwitcher } from "@component/LangSwitcherDropDown";
-import { NestedServerComponentExample } from "@component/NestedServerComponentExample";
-import { ServerComponentExample } from "@component/ServerComponentExample";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { LocaleSwitcher } from "@components/LangSwitcherDropDown";
+import { NestedServerComponentExample } from "@components/NestedServerComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type Next14PageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
@@ -300,7 +300,7 @@ export const generateMetadata = ({
       es: "Mi descripción",
     }),
     alternates: {
-      canonical: url,
+      canonical: "/",
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -403,7 +403,7 @@ const MyComponent = () => {
 
 {
   // التكوين المخصص الخاص بك
-  include: [
+  "include": [
     "src",
     "types", // <- تضمين الأنواع التي تم إنشاؤها تلقائيًا
   ],

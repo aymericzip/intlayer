@@ -14,7 +14,33 @@ import { useLocale } from "next-intlayer"; // Used for managing locales and rout
 
 Here’s how to implement the `useLocale` hook within a Next.js component:
 
-```jsx
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+"use client";
+
+import type { FC } from "react";
+import { Locales } from "intlayer";
+import { useLocale } from "next-intlayer";
+
+const LocaleSwitcher: FC = () => {
+  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <h1>Current Locale: {locale}</h1>
+      <p>Default Locale: {defaultLocale}</p>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        {availableLocales.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
 "use client";
 
 import { Locales } from "intlayer";
@@ -37,8 +63,31 @@ const LocaleSwitcher = () => {
     </div>
   );
 };
+```
 
-export default LocaleSwitcher;
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+"use client";
+
+const { Locales } = require("intlayer");
+const { useLocale } = require("next-intlayer");
+
+const LocaleSwitcher = () => {
+  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <h1>Current Locale: {locale}</h1>
+      <p>Default Locale: {defaultLocale}</p>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        {availableLocales.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
 ```
 
 ## Parameters and Return Values

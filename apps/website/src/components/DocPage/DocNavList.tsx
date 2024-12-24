@@ -24,6 +24,7 @@ const OptionalLink: FC<OptionalLinkProps> = ({ href, isActive, ...props }) => {
       variant="hoverable"
       color="text"
       isActive={isActive}
+      onClick={(e) => e.stopPropagation()}
       {...props}
     />
   );
@@ -77,7 +78,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                         header={
                           <OptionalLink
                             label={key2}
-                            href={!isActive ? (sectionDefault?.url ?? '') : ''}
+                            href={sectionDefault?.url ?? ''}
                             className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200"
                             isActive={isActive}
                           >

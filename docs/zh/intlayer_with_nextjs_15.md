@@ -167,12 +167,12 @@ export default pageContent;
 在您的应用程序中访问内容字典：
 
 ```tsx
-// src/app/[locale]/page.ts
+// src/app/[locale]/page.tsx
 
-import { ClientComponentExample } from "@component/ClientComponentExample";
-import { LocaleSwitcher } from "@component/LangSwitcherDropDown";
-import { NestedServerComponentExample } from "@component/NestedServerComponentExample";
-import { ServerComponentExample } from "@component/ServerComponentExample";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { LocaleSwitcher } from "@components/LangSwitcherDropDown";
+import { NestedServerComponentExample } from "@components/NestedServerComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
@@ -308,7 +308,7 @@ export const generateMetadata = ({
       es: "Mi descripción",
     }),
     alternates: {
-      canonical: url,
+      canonical: "/",
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -409,7 +409,7 @@ Intlayer 使用模块增强来获得 TypeScript 的好处，并使您的代码�
 
 {
   // 您的自定义配置
-  include: [
+  "include": [
     "src",
     "types", // <- 包含自动生成的类型
   ],

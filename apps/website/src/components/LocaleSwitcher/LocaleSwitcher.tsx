@@ -137,7 +137,6 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   <li className="py-1 pr-1.5" key={localeItem}>
                     <Link
                       label={`${switchTo.value} ${currentLocaleName}`}
-                      role="option"
                       href={pathWithoutLocale}
                       locale={localeItem}
                       isActive={locale === localeItem}
@@ -148,10 +147,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                         setLocale(localeItem);
                       }}
                     >
-                      <div
-                        className="flex flex-row items-center justify-between gap-3 px-2 py-1"
-                        key={locale}
-                      >
+                      <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                         <div className="flex flex-col text-nowrap">
                           <span
                             dir={getHTMLTextDir(localeItem)}

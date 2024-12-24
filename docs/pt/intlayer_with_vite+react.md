@@ -400,7 +400,7 @@ Certifique-se de que sua configuração TypeScript inclua os tipos gerados autom
 
 {
   // sua configuração personalizada
-  include: [
+  "include": [
     "src",
     "types", // <- Inclua os tipos gerados automaticamente
   ],

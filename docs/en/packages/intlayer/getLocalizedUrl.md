@@ -46,8 +46,53 @@ The `getLocalizedUrl` function generates a localized URL by prefixing the given 
 
 ### Relative URLs:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Output: "/fr/about" for the French locale
+// Output: "/about" for the default (English) locale
+```
+
+```javascript codeFormat="esm"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Output: "/fr/about" for the French locale
+// Output: "/about" for the default (English) locale
+```
+
+```javascript codeFormat="esm"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Output: "/fr/about" for the French locale
+// Output: "/about" for the default (English) locale
+```
+
+```javascript codeFormat="commonjs"
+const { getLocalizedUrl, Locales } = require("intlayer");
 
 getLocalizedUrl(
   "/about",
@@ -121,7 +166,7 @@ getLocalizedUrl(
 
 In a multilingual application, configuring the internationalization settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getLocalizedUrl` can be used in an application setup:
 
-```tsx
+```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Configuration for supported locales and default locale
@@ -133,6 +178,34 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
+```
+
+```javascript codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
 ```
 
 The above configuration ensures that the application recognizes `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.

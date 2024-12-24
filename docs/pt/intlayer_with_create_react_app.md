@@ -193,10 +193,10 @@ const LocaleSwitcher = () => {
 O objetivo deste passo é criar rotas exclusivas para cada idioma. Isso é útil para SEO e URLs amigáveis para SEO.
 Exemplo:
 
-```tsx
-// /dashboard
-// /es/dashboard
-// /fr/dashboard
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
 ```
 
 > Por padrão, as rotas não são prefixadas para o idioma padrão. Se você quiser prefixar o idioma padrão, pode definir a opção `middleware.prefixDefault` como `true` na sua configuração. Consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md) para mais informações.
@@ -356,7 +356,7 @@ Certifique-se de que sua configuração do TypeScript inclua os tipos gerados au
 
 {
   // sua configuração personalizada
-  include: [
+  "include": [
     "src",
     "types", // <- Inclua os tipos gerados automaticamente
   ],

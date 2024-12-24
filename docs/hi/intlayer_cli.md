@@ -91,7 +91,7 @@ npx intlayer pull
 
 ## अपने `package.json` में intlayer कमांड का उपयोग करें:
 
-```json
+```json fileName="package.json"
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

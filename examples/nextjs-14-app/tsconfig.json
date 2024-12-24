@@ -18,7 +18,7 @@
       }
     ],
     "paths": {
-      "@component/*": ["./src/components/*"],
+      "@components/*": ["./src/components/*"],
       "@app/*": ["./src/app/*"],
       "@assets/": ["./src/assets/*"],
       "@libs/*": ["./src/libs/*"]

@@ -167,12 +167,12 @@ export default pageContent;
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
 ```tsx
-// src/app/[locale]/page.ts
+// src/app/[locale]/page.tsx
 
-import { ClientComponentExample } from "@component/ClientComponentExample";
-import { LocaleSwitcher } from "@component/LangSwitcherDropDown";
-import { NestedServerComponentExample } from "@component/NestedServerComponentExample";
-import { ServerComponentExample } from "@component/ServerComponentExample";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { LocaleSwitcher } from "@components/LangSwitcherDropDown";
+import { NestedServerComponentExample } from "@components/NestedServerComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type Next14PageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
@@ -300,7 +300,7 @@ export const generateMetadata = ({
       es: "Mi descripción",
     }),
     alternates: {
-      canonical: url,
+      canonical: "/",
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -401,7 +401,7 @@ TypeScript設定に自動生成された型を含めていることを確認し�
 
 {
   // カスタム設定
-  include: [
+  "include": [
     "src",
     "types", // <- 自動生成された型を含む
   ],

@@ -167,12 +167,12 @@ export default pageContent;
 Accédez à vos dictionnaires de contenu dans toute votre application :
 
 ```tsx
-// src/app/[locale]/page.ts
+// src/app/[locale]/page.tsx
 
-import { ClientComponentExample } from "@component/ClientComponentExample";
-import { LocaleSwitcher } from "@component/LangSwitcherDropDown";
-import { NestedServerComponentExample } from "@component/NestedServerComponentExample";
-import { ServerComponentExample } from "@component/ServerComponentExample";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { LocaleSwitcher } from "@components/LangSwitcherDropDown";
+import { NestedServerComponentExample } from "@components/NestedServerComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
@@ -308,7 +308,7 @@ export const generateMetadata = ({
       es: "Mi descripción",
     }),
     alternates: {
-      canonical: url,
+      canonical: "/",
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -411,7 +411,7 @@ Assurez-vous que votre configuration TypeScript inclut les types autogénérés.
 
 {
   // votre configuration personnalisée
-  include: [
+  "include": [
     "src",
     "types", // <- Incluez les types auto-générés
   ],

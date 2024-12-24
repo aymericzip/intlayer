@@ -31,7 +31,7 @@ code {
   counter-increment: step 0;
 }
 
-code .line::before {
+.with-line-number .line::before {
   content: counter(step);
   counter-increment: step;
   width: 1rem;

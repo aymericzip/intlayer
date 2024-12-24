@@ -224,10 +224,10 @@ const LocaleSwitcher = () => {
 이 단계의 목적은 각 언어에 대한 고유한 경로를 만드는 것입니다. 이는 SEO 및 SEO 친화적인 URL에 유용합니다.
 예시:
 
-```tsx
-// /dashboard
-// /es/dashboard
-// /fr/dashboard
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
 ```
 
 > 기본적으로 기본 로케일의 경로는 접두어가 붙지 않습니다. 기본 로케일의 접두어를 붙이고 싶다면, 구성에서 `middleware.prefixDefault` 옵션을 `true`로 설정하면 됩니다. 자세한 내용은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
@@ -400,7 +400,7 @@ TypeScript 구성에 자동 생성된 유형이 포함되었는지 확인하십�
 
 {
   // 사용자 정의 구성
-  include: [
+  "include": [
     "src",
     "types", // <- 자동 생성된 유형 포함
   ],

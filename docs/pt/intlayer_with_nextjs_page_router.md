@@ -202,7 +202,7 @@ Acesse seus dicionários de conteúdo em toda a sua aplicação para exibir cont
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useIntlayer } from "next-intlayer";
 import { Locales } from "intlayer";
-import { ComponentExample } from "@component/ComponentExample";
+import { ComponentExample } from "@components/ComponentExample";
 
 const HomePage = () => {
   const content = useIntlayer("home");

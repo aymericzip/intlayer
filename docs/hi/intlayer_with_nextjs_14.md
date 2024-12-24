@@ -167,12 +167,12 @@ export default pageContent;
 अपने अनुप्रयोग में अपने सामग्री शब्दकोशों का उपयोग करें:
 
 ```tsx
-// src/app/[locale]/page.ts
+// src/app/[locale]/page.tsx
 
-import { ClientComponentExample } from "@component/ClientComponentExample";
-import { LocaleSwitcher } from "@component/LangSwitcherDropDown";
-import { NestedServerComponentExample } from "@component/NestedServerComponentExample";
-import { ServerComponentExample } from "@component/ServerComponentExample";
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { LocaleSwitcher } from "@components/LangSwitcherDropDown";
+import { NestedServerComponentExample } from "@components/NestedServerComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type Next14PageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
@@ -300,7 +300,7 @@ export const generateMetadata = ({
       es: "Mi descripción",
     }),
     alternates: {
-      canonical: url,
+      canonical: "/",
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -403,7 +403,7 @@ Intlayer TypeScript के लाभ प्राप्त करने के �
 
 {
   // आपकी कस्टम कॉन्फ़िग
-  include: [
+  "include": [
     "src",
     "types", // <- स्वचालित रूप से उत्पन्न प्रकारों को शामिल करें
   ],

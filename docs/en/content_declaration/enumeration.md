@@ -8,7 +8,7 @@ In Intlayer, enumeration is achieved through the `enu` function, which maps spec
 
 To set up enumeration in your Intlayer project, you need to create a content module that includes enumeration definitions. Here's an example of a simple enumeration for the number of cars:
 
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type DeclarationContent } from "intlayer";
 
 const carEnumeration = {
@@ -28,13 +28,88 @@ const carEnumeration = {
 export default carEnumeration;
 ```
 
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+import { enu } from "intlayer";
+
+/** @type {import('intlayer').DeclarationContent} */
+const carEnumeration = {
+  key: "car_count",
+  content: {
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
+  },
+};
+
+export default carEnumeration;
+```
+
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+const { enu, type DeclarationContent } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+const carEnumeration = {
+  key: "car_count",
+  content: {
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
+  },
+};
+
+module.exports = carEnumeration;
+```
+
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "key": "car_count",
+  "content": {
+    "numberOfCar": {
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars"
+    }
+  }
+}
+```
+
 In this example, `enu` maps various conditions to specific content. When used in a React component, Intlayer can automatically choose the appropriate content based on the given variable.
 
 ## Using Enumeration with React Intlayer
 
 To use enumeration in a React component, you can leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified ID. Here's an example of how to use it:
 
-```javascript
+```typescript fileName="**/*.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const CarComponent: FC = () => {
+  const content = useIntlayer("car_count");
+
+  return (
+    <div>
+      <p>{content.numberOfCar(0)}</p> {/* Output: No cars */}
+      <p>{content.numberOfCar(6)}</p> {/* Output: Some cars */}
+      <p>{content.numberOfCar(20)}</p> {/* Output: Some cars */}
+    </div>
+  );
+};
+```
+
+```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent = () => {
@@ -50,6 +125,24 @@ const CarComponent = () => {
 };
 
 export default CarComponent;
+```
+
+```javascript fileName="**/*.cjs" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const CarComponent = () => {
+  const content = useIntlayer("car_count");
+
+  return (
+    <div>
+      <p>{content.numberOfCar(0)}</p> {/* Output: No cars */}
+      <p>{content.numberOfCar(6)}</p> {/* Output: Some cars */}
+      <p>{content.numberOfCar(20)}</p> {/* Output: Some cars */}
+    </div>
+  );
+};
+
+module.exports = CarComponent;
 ```
 
 In this example, the component dynamically adjusts its output based on the number of cars. The correct content is chosen automatically, depending on the specified range.

@@ -21,9 +21,7 @@ Intlayer accepts JSON, JS, MJS, and TS configuration file formats:
 
 ## Example config file
 
-```typescript
-// intlayer.config.ts
-
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -41,9 +39,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript
-// intlayer.config.cjs
-
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
@@ -62,9 +58,7 @@ const config = {
 module.exports = config;
 ```
 
-```json5
-// .intlayerrc
-
+```json5 fileName=".intlayerrc" codeFormat="json"
 {
   "internationalization": {
     "locales": ["en"],

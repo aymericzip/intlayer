@@ -224,10 +224,10 @@ const LocaleSwitcher = () => {
 このステップの目的は、各言語のユニークなルートを作成することです。これはSEOおよびSEOフレンドリーなURLに役立ちます。
 例：
 
-```tsx
-// /dashboard
-// /es/dashboard
-// /fr/dashboard
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
 ```
 
 > デフォルトのロケールには、ルートがプレフィックスされていません。デフォルトのロケールをプレフィックスしたい場合は、設定の`middleware.prefixDefault`オプションを`true`に設定できます。詳細については、[configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
@@ -400,7 +400,7 @@ TypeScriptの設定に自動生成された型を含めるようにしてくだ�
 
 {
   // あなたのカスタム設定
-  include: [
+  "include": [
     "src",
     "types", // <- 自動生成された型を含める
   ],

@@ -22,7 +22,7 @@ To customize the file extensions Intlayer uses to identify content declaration f
 
 Here is an example of how to define custom content extensions in your configuration:
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -32,6 +32,28 @@ const config: IntlayerConfig = {
 };
 
 export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  content: {
+    fileExtensions: [".my_content.cjs", ".my_content.cjx"], // Your custom extensions
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  content: {
+    fileExtensions: [".my_content.mjs", ".my_content.mjx"], // Your custom extensions
+  },
+};
+
+module.exports = config;
 ```
 
 In this example, the configuration specifies two custom extensions: `.my_content.ts` and `.my_content.tsx`. Intlayer will only watch files with these extensions to build dictionaries.

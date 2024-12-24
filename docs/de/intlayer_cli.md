@@ -91,7 +91,7 @@ Wenn der [intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 
 ## Verwenden Sie intlayer-Befehle in Ihrer `package.json`:
 
-```json
+```json fileName="package.json"
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

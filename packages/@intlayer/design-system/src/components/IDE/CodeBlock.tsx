@@ -7,7 +7,12 @@ import {
   transformerMetaWordHighlight,
 } from '@shikijs/transformers';
 import { type FC } from 'react';
-import { BundledLanguage, codeToHtml } from 'shiki';
+import {
+  BundledLanguage,
+  BundledTheme,
+  CodeToHastOptions,
+  codeToHtml,
+} from 'shiki';
 
 export type CodeBlockProps = {
   children: string;
@@ -20,7 +25,7 @@ export const CodeBlock = (async ({
   lang,
   isDarkMode,
 }: CodeBlockProps) => {
-  const out = await codeToHtml(children, {
+  const shikiOptions: CodeToHastOptions<BundledLanguage, BundledTheme> = {
     lang,
     theme: isDarkMode ? 'github-dark' : 'github-light',
     transformers: [
@@ -31,7 +36,9 @@ export const CodeBlock = (async ({
       transformerMetaHighlight(),
       transformerMetaWordHighlight(),
     ],
-  });
+  };
+
+  const out = await codeToHtml(children, shikiOptions);
 
   return <div className="flex" dangerouslySetInnerHTML={{ __html: out }} />;
 }) as unknown as FC<CodeBlockProps>;

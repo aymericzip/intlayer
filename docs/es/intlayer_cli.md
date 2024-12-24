@@ -91,7 +91,7 @@ Si tienes instalado el [editor intlayer](https://github.com/aymericzip/intlayer/
 
 ## Usar comandos de intlayer en tu `package.json`:
 
-```json
+```json fileName="package.json"
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

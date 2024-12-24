@@ -20,8 +20,26 @@ The `getLocaleLang` function extracts the language code from a locale string. It
 
 ### Extracting Language Codes:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
+
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+getLocaleLang(Locales.ENGLISH); // Output: "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
+getLocaleLang(Locales.FRENCH); // Output: "fr"
+```
+
+```javascript codeFormat="esm"
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+getLocaleLang(Locales.ENGLISH); // Output: "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
+getLocaleLang(Locales.FRENCH); // Output: "fr"
+```
+
+```javascript codeFormat="commonjs"
+const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"

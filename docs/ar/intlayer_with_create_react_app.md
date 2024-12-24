@@ -193,10 +193,10 @@ const LocaleSwitcher = () => {
 الغرض من هذه الخطوة هو إنشاء مسارات فريدة لكل لغة. هذا مفيد من الناحية SEO وURLs الصديقة لـSEO.
 مثال:
 
-```tsx
-// /dashboard
-// /es/dashboard
-// /fr/dashboard
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
 ```
 
 > بشكل افتراضي، لا يتم إضافة بادئة إلى المسارات للغة الافتراضية. إذا كنت ترغب في إضافة بادئة للغة الافتراضية، يمكنك تعيين خيار `middleware.prefixDefault` إلى `true` في تكوينك. انظر [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md) لمزيد من المعلومات.
@@ -356,7 +356,7 @@ const LocaleSwitcher = () => {
 
 {
   // تكوين مخصص خاص بك
-  include: [
+  "include": [
     "src",
     "types", // <- تضمين الأنواع المولدة تلقائيًا
   ],

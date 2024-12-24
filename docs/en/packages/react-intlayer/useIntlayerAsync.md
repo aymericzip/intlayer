@@ -19,16 +19,46 @@ To get started with Intlayer:
 2. **Add credentials to your configuration file:**  
    In your React project, configure the Intlayer client with your credentials:
 
-   ```typescript
-   import { type IntlayerConfig } from 'intlayer';
+   ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+   import type { IntlayerConfig } from "intlayer";
 
    export default {
-     ...
+     // ...
      editor: {
        clientId: process.env.INTLAYER_CLIENT_ID,
        clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      },
-   } satisfies  IntlayerConfig
+   } satisfies IntlayerConfig;
+   ```
+
+   ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+   import { type IntlayerConfig } from "intlayer";
+
+   /** @type {import('intlayer').IntlayerConfig} */
+   const config = {
+     // ...
+     editor: {
+       clientId: process.env.INTLAYER_CLIENT_ID,
+       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+     },
+   };
+
+   export default config;
+   ```
+
+   ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+   const { type IntlayerConfig } = require("intlayer");
+
+   /** @type {import('intlayer').IntlayerConfig} */
+   const config = {
+     // ...
+     editor: {
+       clientId: process.env.INTLAYER_CLIENT_ID,
+       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+     },
+   };
+
+   module.exports = config;
    ```
 
 3. **Push a new locale dictionary to Intlayer:**
@@ -43,8 +73,16 @@ To get started with Intlayer:
 
 In your React components, import `useIntlayerAsync`:
 
-```tsx
+```ts codeFormat="typescript"
 import { useIntlayerAsync } from "react-intlayer";
+```
+
+```js codeFormat="esm"
+import { useIntlayerAsync } from "react-intlayer";
+```
+
+```js codeFormat="commonjs"
+const { useIntlayerAsync } = require("react-intlayer");
 ```
 
 ## Parameters
@@ -67,11 +105,73 @@ The hook returns a dictionary object containing localized content keyed by `key`
 
 ## Example Usage in a React Component
 
-```tsx
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+import { useEffect, type FC } from "react";
+import { useIntlayerAsync } from "react-intlayer";
+
+export const ComponentExample: FC = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("Content is loading...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      {isLoading ? (
+        <div>
+          <h1>Loading…</h1>
+          <p>Please wait while content updates.</p>
+        </div>
+      ) : (
+        <div>
+          <h1>{title.value}</h1>
+          <p>{description.value}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
 import { useEffect } from "react";
 import { useIntlayerAsync } from "react-intlayer";
 
-export const AsyncClientComponentExample = () => {
+const ComponentExample = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("Content is loading...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      {isLoading ? (
+        <div>
+          <h1>Loading…</h1>
+          <p>Please wait while content updates.</p>
+        </div>
+      ) : (
+        <div>
+          <h1>{title.value}</h1>
+          <p>{description.value}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
+const { useEffect } = require("react");
+const { useIntlayerAsync } = require("react-intlayer");
+
+const ComponentExample = () => {
   const { title, description, isLoading } = useIntlayerAsync("async-component");
 
   useEffect(() => {
@@ -108,7 +208,7 @@ export const AsyncClientComponentExample = () => {
 
 You can also retrieve localized attribute values for various HTML properties (e.g., `alt`, `title`, `aria-label`):
 
-```tsx
+```jsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 

@@ -1,4 +1,4 @@
-import { LocaleSwitcher } from '@component/LangSwitcherDropDown';
+import { LocaleSwitcher } from '@components/LangSwitcherDropDown';
 import Image from 'next/image';
 import { type NextPageIntlayer, IntlayerClientProvider } from 'next-intlayer';
 import { useIntlayer, IntlayerServerProvider } from 'next-intlayer/server';

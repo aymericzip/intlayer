@@ -12,23 +12,35 @@ Intlayer also provides an optional visual editor that allows you to easily edit 
 
 ## Example of usage
 
-```bash
+```bash codeFormat="typescript"
 .
-├── ClientComponent
-│   ├── index.content.ts
-│   └── index.tsx
-└── ServerComponent
-    ├── index.content.ts
-    └── index.tsx
+└── Components
+    └── myComponent
+       ├── index.content.ts
+       └── index.tsx
 ```
 
-```tsx
-// ./ClientComponent/index.content.ts
+```bash codeFormat="commonjs"
+.
+└── Components
+    └── myComponent
+       ├── index.content.cjs
+       └── index.mjs
+```
 
+```bash codeFormat="esm"
+.
+└── Components
+    └── myComponent
+       ├── index.content.mjs
+       └── index.js
+```
+
+```tsx fileName="src/components/myComponent/myComponent.content.ts" contentDeclarationFormat="typescript"
 import { type DeclarationContent, t } from "intlayer";
 
-const clientComponentContent = {
-  key: "client-component",
+const componentContent = {
+  key: "component-key",
   content: {
     myTranslatedContent: t({
       en: "Hello World",
@@ -38,17 +50,87 @@ const clientComponentContent = {
   },
 } satisfies DeclarationContent;
 
-export default clientComponentContent;
+export default componentContent;
 ```
 
-```tsx
-// ./ClientComponent/index.tsx
-"use client";
+```javascript fileName="src/components/myComponent/myComponent.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
 
-import { useIntlayer } from "next-intlayer";
+/** @type {import('intlayer').DeclarationContent} */
+const componentContent = {
+  key: "component-key",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
 
-export const ClientComponent = () => {
-  const { myTranslatedContent } = useIntlayer("client-component");
+export default componentContent;
+```
+
+```javascript fileName="src/components/myComponent/myComponent.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+const componentContent = {
+  key: "component-key",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+module.exports = componentContent;
+```
+
+```json fileName="src/components/myComponent/myComponent.content.json" contentDeclarationFormat="json"
+{
+  "key": "component-key",
+  "content": {
+    "myTranslatedContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World",
+        "fr": "Bonjour le monde",
+        "es": "Hola Mundo"
+      }
+    }
+  }
+}
+```
+
+```tsx fileName="src/components/myComponent/MyComponent.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+export const MyComponent: FC = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+```jsx fileName="src/components/myComponent/MyComponent.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
+
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+```jsx fileName="src/components/myComponent/MyComponent.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
 
   return <span>{myTranslatedContent}</span>;
 };

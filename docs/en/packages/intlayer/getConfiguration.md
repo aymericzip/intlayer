@@ -28,8 +28,36 @@ See [Intlayer configuration documentation](https://github.com/aymericzip/intlaye
 
 ### Retrieving the Full Configuration:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
+
+const config = getConfiguration();
+console.log(config);
+// Output:
+// {
+//   internationalization: { ... },
+//   middleware: { ... },
+//   content: { ... },
+//   editor: { ... }
+// }
+```
+
+```javascript codeFormat="esm"
+import { getConfiguration } from "intlayer";
+
+const config = getConfiguration();
+console.log(config);
+// Output:
+// {
+//   internationalization: { ... },
+//   middleware: { ... },
+//   content: { ... },
+//   editor: { ... }
+// }
+```
+
+```javascript codeFormat="commonjs"
+const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -46,7 +74,33 @@ console.log(config);
 
 The `internationalization` section of the configuration provides locale-related settings such as `locales` (available locales) and `defaultLocale` (fallback language).
 
-```typescript
+```typescript codeFormat="typescript"
+import { getConfiguration } from "intlayer";
+
+const { internationalization, middleware } = getConfiguration();
+const { locales: availableLocales, defaultLocale } = internationalization;
+const { cookieName } = middleware;
+
+console.log(availableLocales); // Output example: ["en", "fr", "es"]
+console.log(defaultLocale); // Output example: "en"
+console.log(cookieName); // Output: "INTLAYER_LOCALE"
+```
+
+```javascript codeFormat="esm"
+import { getConfiguration } from "intlayer";
+
+const { internationalization, middleware } = getConfiguration();
+const { locales: availableLocales, defaultLocale } = internationalization;
+const { cookieName } = middleware;
+
+console.log(availableLocales); // Output example: ["en", "fr", "es"]
+console.log(defaultLocale); // Output example: "en"
+console.log(cookieName); // Output: "INTLAYER_LOCALE"
+```
+
+```javascript codeFormat="commonjs"
+const { getConfiguration } = require("intlayer");
+
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;

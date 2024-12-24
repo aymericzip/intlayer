@@ -4,19 +4,19 @@
 
 Install the necessary packages using npm:
 
-```bash
+```bash packageManager="npm"
 npm install intlayer-cli
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer-cli
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer-cli
 ```
 
-> Note: if `intlayer` package is already installed, the cli is automatically installed. You can skip this step.
+> If `intlayer` package is already installed, the cli is automatically installed. You can skip this step.
 
 ## intlayer-cli package
 
@@ -87,15 +87,57 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 - `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
   > Example: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
-  > Example: `npx intlayer pull --newDictionariesPath ./my-dictionaries`
+
+##### Example:
+
+```bash
+npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+### Audit dictionaries
+
+```bash
+npx intlayer audit
+```
+
+This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer audit** will propose or apply updates to keep your dictionaries consistent and complete.
+
+##### Arguments:
+
+- **`-f, --files [files...]`**  
+  A list of specific content declaration files to audit. If not provided, all discovered `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` files will be audited.
+
+- **`--exclude [excludedGlobs...]`**  
+  Globs pattern to exclude from the audit (e.g. `--exclude "src/test/**"`).
+
+- **`-m, --model [model]`**  
+  The ChatGPT model to use for the audit (e.g., `gpt-3.5-turbo`).
+
+- **`-p, --custom-prompt [prompt]`**  
+  Provide a custom prompt for your audit instructions.
+
+- **`-l, --async-limit [asyncLimit]`**  
+  Maximum number of files to process concurrently.
+
+- **`-k, --open-ai-api-key [openAiApiKey]`**  
+  Provide your own OpenAI API key to bypass OAuth2 authentication.
+
+##### Example:
+
+```bash
+npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
+```
+
+This command will ignore any files under `tests/**` and use the `gpt-3.5-turbo` model to audit the discovered content declaration files. If any issues are found—like missing translations—they will be corrected in-place, preserving the original file structure.
 
 ## Use intlayer commands in your `package.json`:
 
-```json
+```json fileName="package.json"
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull"
+  "intlayer:pull": "npx intlayer pull",
+  "intlayer:audit": "npx intlayer audit"
 }
 ```

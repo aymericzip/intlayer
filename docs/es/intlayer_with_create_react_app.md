@@ -194,10 +194,10 @@ const MyComponent = () => {
 El objetivo de esta etapa es crear rutas únicas para cada idioma. Esto es útil para motores de búsqueda y URLs SEO-friendly.
 Ejemplo:
 
-```tsx
-// /dashboard
-// /es/dashboard
-// /fr/dashboard
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
 ```
 
 > De forma predeterminada, las rutas no están prefijadas para el idioma predeterminado. Si desea prefijar el idioma predeterminado, puede establecer la opción `middleware.prefixDefault` en su configuración en `true`. Consulte la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md) para obtener más información.
@@ -370,7 +370,7 @@ Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerado
 
 {
   // tu configuración personalizada
-  include: [
+  "include": [
     "src",
     "types", // <- Incluir los tipos autogenerados
   ],

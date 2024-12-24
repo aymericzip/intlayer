@@ -194,10 +194,10 @@ const LocaleSwitcher = () => {
 Ziel dieses Schrittes ist es, einzigartige Routen für jede Sprache zu erstellen. Dies ist nützlich für SEO und SEO-freundliche URLs.
 Beispiel:
 
-```tsx
-// /dashboard
-// /es/dashboard
-// /fr/dashboard
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
 ```
 
 > Standardmäßig sind die Routen für die Standard-Sprache nicht vorangestellt. Wenn Sie die Standard-Sprache voranstellen möchten, können Sie die Option `middleware.prefixDefault` in Ihrer Konfiguration auf `true` setzen. Siehe die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md) für mehr Informationen.
@@ -357,7 +357,7 @@ Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generiert
 
 {
   // Ihre benutzerdefinierte Konfiguration
-  include: [
+  "include": [
     "src",
     "types", // <- Die automatisch generierten Typen einbeziehen
   ],

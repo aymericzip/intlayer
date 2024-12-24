@@ -26,8 +26,8 @@ The `getEnumerationContent` function retrieves content corresponding to a specif
 
 ### Basic Usage:
 
-```typescript
-import { getEnumerationContent } from "@intlayer/config/client";
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
 
 const content = getEnumerationContent(
   {
@@ -42,9 +42,69 @@ const content = getEnumerationContent(
 console.log(content); // Output: "You have two"
 ```
 
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<1": "You have less than one",
+    "2": "You have two",
+    ">=3": "You have three or more",
+  },
+  2
+);
+
+console.log(content); // Output: "You have two"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
+const content = getEnumerationContent(
+  {
+    "<1": "You have less than one",
+    "2": "You have two",
+    ">=3": "You have three or more",
+  },
+  2
+);
+
+console.log(content); // Output: "You have two"
+```
+
 ### Priority of Conditions:
 
-```typescript
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<4": "You have less than four",
+    "2": "You have two",
+  },
+  2
+);
+
+console.log(content); // Output: "You have less than four"
+```
+
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<4": "You have less than four",
+    "2": "You have two",
+  },
+  2
+);
+
+console.log(content); // Output: "You have less than four"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
 const content = getEnumerationContent(
   {
     "<4": "You have less than four",

@@ -142,17 +142,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                       disabled={
                         !(availableLocales ?? localeList).includes(localeItem)
                       }
-                      role="option"
                       isActive={locale === localeItem}
                       variant="hoverable"
                       color="text"
                       isFullWidth
                       textAlign="left"
                     >
-                      <div
-                        className="flex flex-row items-center justify-between gap-3 px-2 py-1"
-                        key={locale}
-                      >
+                      <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                         <div className="flex flex-col text-nowrap">
                           <span
                             dir={getHTMLTextDir(localeItem)}
