@@ -23,29 +23,23 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
     <Markdown
       options={{
         overrides: {
-          h1: {
-            component: (props) => <H1 isClickable={true} {...props} />,
-          },
-          h2: {
-            component: (props) => <H2 isClickable={true} {...props} />,
-          },
-          h3: {
-            component: (props) => <H3 isClickable={true} {...props} />,
-          },
-          code: {
-            component: (props) =>
-              typeof props.className === 'undefined' ? (
-                <strong className="bg-card/60 dark:bg-card-dark/60 rounded p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
-                  {props.children}
-                </strong>
-              ) : (
-                <Code
-                  isDarkMode={isDarkMode}
-                  language={props.className.replace('lang-', '')}
-                  {...props}
-                />
-              ),
-          },
+          h1: (props) => <H1 isClickable={true} {...props} />,
+          h2: (props) => <H2 isClickable={true} {...props} />,
+          h3: (props) => <H3 isClickable={true} {...props} />,
+
+          code: (props) =>
+            typeof props.className === 'undefined' ? (
+              <strong className="bg-card/60 dark:bg-card-dark/60 rounded p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+                {props.children}
+              </strong>
+            ) : (
+              <Code
+                isDarkMode={isDarkMode}
+                language={props.className.replace('lang-', '')}
+                {...props}
+              />
+            ),
+
           blockquote: ({ className, ...props }) => (
             <blockquote
               className={cn(
