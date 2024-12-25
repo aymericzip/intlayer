@@ -1,13 +1,13 @@
 import {
   getDocDataByPath,
   getPreviousNextDocData,
-  urlRenamer,
 } from '@components/DocPage/docData';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system';
 import { getDoc } from '@intlayer/docs';
-import { DocHeader } from '@structuredData/DocHeader';
+import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
+import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
 import { ChevronLeft, ChevronRight, Edit } from 'lucide-react';
 import { redirect } from 'next/navigation';
@@ -97,7 +97,7 @@ const DocumentationPage = async ({
   const docData = getDocDataByPath(doc, locale);
 
   if (!docData) {
-    return redirect(PagesRoutes.Doc_GetStarted);
+    return redirect(PagesRoutes.Doc);
   }
 
   const { prevDocData, nextDocData } = getPreviousNextDocData(docData, locale);
@@ -121,10 +121,10 @@ const DocumentationPage = async ({
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <DocHeader
-        docName={docData.title}
-        docDescription={docData.description}
-        docContent={docContent}
+      <CreativeWorkHeader
+        creativeWorkName={docData.title}
+        creativeWorkDescription={docData.description}
+        creativeWorkContent={docContent}
         keywords={docData.keywords.join(', ')}
         dateModified={docData.updatedAt}
         datePublished={docData.createdAt}

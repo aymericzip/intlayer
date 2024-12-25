@@ -1,4 +1,4 @@
-import { SearchView } from '@components/Search/SearchView';
+import { SearchView } from '@components/DocPage/Search/SearchView';
 import { Container, Loader } from '@intlayer/design-system';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { Next14PageIntlayer } from 'next-intlayer';

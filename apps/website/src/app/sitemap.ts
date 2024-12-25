@@ -1,3 +1,4 @@
+import { getBlogDataArray } from '@components/BlogPage/blogData';
 import { getDocDataArray } from '@components/DocPage/docData';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
@@ -5,6 +6,7 @@ import { PagesRoutes } from '@/Routes';
 
 const sitemap = (): MetadataRoute.Sitemap => {
   const docs = getDocDataArray();
+  const blob = getBlogDataArray();
 
   const docSitemap: MetadataRoute.Sitemap = docs.map((doc) => ({
     url: `${process.env.NEXT_PUBLIC_URL}${doc.url}`,
@@ -14,6 +16,18 @@ const sitemap = (): MetadataRoute.Sitemap => {
     alternates: {
       languages: getMultilingualUrls(
         `${process.env.NEXT_PUBLIC_URL}${doc.url}`
+      ),
+    },
+  }));
+
+  const blogSitemap: MetadataRoute.Sitemap = blob.map((blog) => ({
+    url: `${process.env.NEXT_PUBLIC_URL}${blog.url}`,
+    lastModified: blog.updatedAt,
+    changeFrequency: 'monthly',
+    priority: 0.5,
+    alternates: {
+      languages: getMultilingualUrls(
+        `${process.env.NEXT_PUBLIC_URL}${blog.url}`
       ),
     },
   }));
@@ -141,6 +155,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
       },
     },
     ...docSitemap,
+    ...blogSitemap,
   ];
 };
 

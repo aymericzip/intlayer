@@ -26,15 +26,15 @@ By internationalizing the backend, your application not only respects cultural d
 
 To begin using `express-intlayer`, install the package using npm:
 
-```bash
+```bash packageManager="npm"
 npm install intlayer express-intlayer
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer express-intlayer
 ```
 
@@ -42,8 +42,7 @@ yarn add intlayer express-intlayer
 
 Configure the internationalization settings by creating an `intlayer.config.ts` in your project root:
 
-```typescript
-// intlayer.config.ts
+```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -61,12 +60,49 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH_MEXICO,
+      Locales.SPANISH_SPAIN,
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH_MEXICO,
+      Locales.SPANISH_SPAIN,
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
 ### Express Application Setup
 
 Setup your Express application to use `express-intlayer`:
 
-```typescript
-// src/index.ts
+```typescript fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
 import { intlayer, t } from "express-intlayer";
 
@@ -87,13 +123,52 @@ app.get("/", (_req, res) => {
   );
 });
 
-app.get("/error", (_req, res) => {
-  res.status(500).send(
+// Start server
+app.listen(3000, () => console.log(`Listening on port 3000`));
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+import express from "express";
+import { intlayer, t } from "express-intlayer";
+
+const app = express();
+
+// Load internationalization request handler
+app.use(intlayer());
+
+// Routes
+app.get("/", (_req, res) => {
+  res.send(
     t({
-      en: "Example of returned error content in English",
-      fr: "Exemple de contenu d'erreur renvoyé en français",
-      "es-ES": "Ejemplo de contenido de error devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido de error devuelto en español (México)",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+    })
+  );
+});
+
+// Start server
+app.listen(3000, () => console.log(`Listening on port 3000`));
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+const express = require("express");
+const { intlayer, t } = require("express-intlayer");
+
+const app = express();
+
+// Load internationalization request handler
+app.use(intlayer());
+
+// Routes
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
     })
   );
 });
@@ -111,21 +186,53 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 It also works seamlessly with any internationalization solution across various environments, including browsers and API requests. You can customize the middleware to detect locale through headers or cookies:
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // Other configuration options
+  // ... Other configuration options
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
   },
 };
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Other configuration options
+  middleware: {
+    headerName: "my-locale-header",
+    cookieName: "my-locale-cookie",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Other configuration options
+  middleware: {
+    headerName: "my-locale-header",
+    cookieName: "my-locale-cookie",
+  },
+};
+
+module.exports = config;
 ```
 
 By default, `express-intlayer` will interpret the `Accept-Language` header to determine the client's preferred language.
 
-> For more information on configuration and advanced topics, visit our [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
+> For more information on configuration and advanced topics, visit our [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
 
 ## Powered by TypeScript
 

@@ -15,16 +15,46 @@ Intlayer provides a headless Content Source Management (CSM) system that empower
 
 To get started with Intlayer, you will first need to register and obtain an access token at [https://intlayer.org/dashboard](https://intlayer.org/dashboard). Once you have your credentials, add them to your configuration file as shown below:
 
-```typescript
-import { type IntlayerConfig } from 'intlayer';
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
 
 export default {
-  ...
+  // ...
   editor: {
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 } satisfies IntlayerConfig;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { type IntlayerConfig } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ...
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { type IntlayerConfig } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ...
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+module.exports = config;
 ```
 
 After configuring your credentials, you can push a new locale dictionary to Intlayer by running:
@@ -39,10 +69,22 @@ This command uploads your initial content dictionaries, making them available fo
 
 Since `useIntlayerAsync` is intended for **client-side** components, you’ll import it from the same client entry point as `useIntlayer`:
 
-```tsx
+```tsx codeFormat="typescript"
 "use client";
 
 import { useIntlayerAsync } from "next-intlayer";
+```
+
+```javascript codeFormat="esm"
+"use client";
+
+import { useIntlayerAsync } from "next-intlayer";
+```
+
+```javascript codeFormat="commonjs"
+"use client";
+
+const { useIntlayerAsync } = require("next-intlayer");
 ```
 
 Make sure that the importing file is annotated with `"use client"` at the top, if you’re using Next.js App Router with server and client components separated.
@@ -69,13 +111,61 @@ The hook returns a dictionary object containing localized content keyed by `key`
 
 ### Client-Side Component Example
 
-```tsx
+```tsx fileName="src/components/AsyncClientComponentExample.tsx" codeFormat="typescript"
+"use client";
+
+import { useEffect, type FC } from "react";
+import { useIntlayerAsync } from "next-intlayer";
+
+export const AsyncClientComponentExample: FC = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("Content is loading...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      <h1>{title.value}</h1>
+      <p>{description.value}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/AsyncClientComponentExample.mjx" codeFormat="esm"
 "use client";
 
 import { useEffect } from "react";
 import { useIntlayerAsync } from "next-intlayer";
 
-export const AsyncClientComponentExample = () => {
+const AsyncClientComponentExample = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("Content is loading...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      <h1>{title.value}</h1>
+      <p>{description.value}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/AsyncClientComponentExample.csx" codeFormat="commonjs"
+"use client";
+
+const { useEffect } = require("react");
+const { useIntlayerAsync } = require("next-intlayer");
+
+const AsyncClientComponentExample = () => {
   const { title, description, isLoading } = useIntlayerAsync("async-component");
 
   useEffect(() => {
@@ -111,12 +201,12 @@ As with `useIntlayer`, you can retrieve localized attribute values for various H
 
 All content keys must be defined in your content declaration files for type safety and to prevent runtime errors. These files enable TypeScript validation, ensuring you always reference existing keys and locales.
 
-Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md).
+Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md).
 
 ## Further Information
 
 - **Intlayer Visual Editor:**  
-  Integrate with the Intlayer visual editor for managing and editing content directly from the UI. More details [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md).
+  Integrate with the Intlayer visual editor for managing and editing content directly from the UI. More details [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md).
 
 ---
 

@@ -81,7 +81,7 @@ or in watch mode
 npx intlayer build --watch
 ```
 
-### Use intlayer commands in your `package.json`:
+### Use intlayer commands in your `package.json`
 
 ```json
 "scripts": {

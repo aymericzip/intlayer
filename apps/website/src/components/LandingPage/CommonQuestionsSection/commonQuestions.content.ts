@@ -131,7 +131,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن استخدام Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о использовании Intlayer',
           }),
-          url: PagesRoutes.Doc_GetStarted,
+          url: PagesRoutes.Doc,
         },
       },
       {
@@ -530,7 +530,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن المنصات المدعومة من Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о поддерживаемых платформах Intlayer',
           }),
-          url: `${PagesRoutes.Doc_GetStarted}#platforms-supported`,
+          url: `${PagesRoutes.Doc}#platforms-supported`,
         },
       },
     ],

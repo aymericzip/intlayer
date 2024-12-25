@@ -11,7 +11,6 @@ export enum PagesRoutes {
 
   Doc = '/doc',
   Doc_Search = '/doc/search',
-  Doc_GetStarted = '/doc/get-started',
   Doc_HowWorksIntlayer = '/doc/concept/how-works-intlayer',
   Doc_Configuration = '/doc/concept/configuration',
   Doc_Interest = '/doc/concept/interest',
@@ -27,7 +26,6 @@ export enum PagesRoutes {
   Doc_Environment_CRA = '/doc/environment/create-react-app',
   Doc_Environment_ViteAndReact = '/doc/environment/vite-and-react',
   Doc_Environment_Express = '/doc/environment/express',
-  Doc_Intlayer_with_I18next = '/doc/blog/i18next',
   'Doc_Packages_intlayer_getConfiguration' = '/doc/packages/intlayer/getConfiguration',
   'Doc_Packages_intlayer_getHTMLTextDir' = '/doc/packages/intlayer/getHTMLTextDir',
   'Doc_Packages_intlayer_getDictionary' = '/doc/packages/intlayer/getDictionary',
@@ -50,6 +48,11 @@ export enum PagesRoutes {
   'Doc_Packages_next-intlayer_useIntlayerAsync' = '/doc/packages/next-intlayer/useIntlayerAsync',
   'Doc_Packages_next-intlayer_useDictionary' = '/doc/packages/next-intlayer/useDictionary',
   'Doc_Packages_next-intlayer_useLocale' = '/doc/packages/next-intlayer/useLocale',
+
+  Blog = '/blog',
+  Blog_Search = '/blog/search',
+  Blog_SEO_and_i18n = '/blog/SEO-and-i18n',
+  Blog_Intlayer_with_I18next = '/blog/intlayer-with-i18next',
 
   PrivacyPolicy = '/privacy-notice',
   TermsOfService = '/terms-of-service',
@@ -85,7 +88,6 @@ export enum GithubRoutes {
   IntlayerWithNextJSUsingPageRouter = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_page_router.md',
   IntlayerWithReactCRA = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md',
   IntlayerWithViteReact = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md',
-  IntlayerWithI18next = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_i18next.md',
   IntlayerWithExpress = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md',
   ContentDeclaration_GetStarted = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md',
   ContentDeclaration_ContentExtensionCustomization = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/content_extention_customization.md',
@@ -114,6 +116,11 @@ export enum GithubRoutes {
   'Packages_next-intlayer_useIntlayerAsync' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md',
   'Packages_next-intlayer_useDictionary' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md',
   'Packages_next-intlayer_useLocale' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md',
+
+  BlogIndex = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md',
+  IntlayerWithI18next = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_i18next.md',
+  I18nAndSEO = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md',
+
   PrivacyPolicy = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/privacy_notice.md',
   TermsOfService = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/terms_of_service.md',
 }

@@ -28,6 +28,7 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
         href: getLocalizedUrl(PagesRoutes.Doc, locale),
       },
       ...activeSections
+        .filter((el) => el !== 'index')
         .map((_, index) => activeSections.slice(0, index + 1))
         .map((el) => {
           const docSection = getDocSubSection(docData, el);

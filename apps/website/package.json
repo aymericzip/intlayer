@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@intlayer/backend": "workspace:^",
+    "@intlayer/blog": "workspace:^",
     "@intlayer/core": "workspace:^",
     "@intlayer/design-system": "workspace:^",
     "@intlayer/docs": "workspace:^",

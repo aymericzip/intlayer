@@ -21,9 +21,7 @@ Intlayer accepts JSON, JS, MJS, and TS configuration file formats:
 
 ## Example config file
 
-```typescript
-// intlayer.config.ts
-
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -41,9 +39,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript
-// intlayer.config.cjs
-
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
@@ -62,9 +58,7 @@ const config = {
 module.exports = config;
 ```
 
-```json5
-// .intlayerrc
-
+```json5 fileName=".intlayerrc" codeFormat="json"
 {
   "internationalization": {
     "locales": ["en"],
@@ -316,3 +310,28 @@ Settings related to content handling within the application, including directory
   - _Default_: `['node_modules']`
   - _Description_: Directories excluded from content search.
   - _Note_: This setting is not yet used, but planned for future implementation.
+
+### Logger Configuration
+
+Settings that control the logger, including the level of logging and the prefix to use.
+
+#### Properties
+
+- **enabled**:
+  - _Type_: `boolean`
+  - _Default_: `true`
+  - _Description_: Indicates if the logger is enabled.
+  - _Example_: `true`
+  - _Note_: Can be set using NODE_ENV, or other dedicated env variable
+- **level**:
+  - _Type_: `'info' | 'warn' | 'debug' | 'log'`
+  - _Default_: `'log'`
+  - _Description_: The level of the logger.
+  - _Example_: `'info'`
+  - _Note_: The level of the logger. It can be either 'log', 'info', 'warn', 'error', or 'debug'.
+- **prefix**:
+  - _Type_: `string`
+  - _Default_: `'[intlayer] '`
+  - _Description_: The prefix of the logger.
+  - _Example_: `'[my custom prefix] '`
+  - _Note_: The prefix of the logger.

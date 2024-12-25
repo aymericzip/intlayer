@@ -130,7 +130,7 @@ npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 
 This command will ignore any files under `tests/**` and use the `gpt-3.5-turbo` model to audit the discovered content declaration files. If any issues are found—like missing translations—they will be corrected in-place, preserving the original file structure.
 
-## Use intlayer commands in your `package.json`:
+## Use intlayer commands in your `package.json`
 
 ```json fileName="package.json"
 "scripts": {

@@ -8,14 +8,30 @@ The `useIntlayer` hook can be integrated into React applications by importing it
 
 - **Client Component:**
 
-  ```javascript
+  ```typescript codeFormat="typescript"
   import { useIntlayer } from "react-intlayer"; // Used in client-side React components
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "react-intlayer"; // Used in client-side React components
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("react-intlayer"); // Used in client-side React components
   ```
 
 - **Server Component:**
 
-  ```javascript
+  ```typescript codeFormat="commonjs"
   import { useIntlayer } from "react-intlayer/server"; // Used in server-side React components
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "react-intlayer/server"; // Used in server-side React components
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("react-intlayer/server"); // Used in server-side React components
   ```
 
 ## Parameters
@@ -33,13 +49,11 @@ All dictionary keys must be declared within content declaration files to enhance
 
 Demonstrating the `useIntlayer` hook within a React component:
 
-```tsx
-// src/pages/[locale]/index.tsx
-
+```tsx fileName="src/app.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
 import { useIntlayer, IntlayerServerProvider } from "react-intlayer/server";
-import { type FC } from "react";
 import { Locales } from "intlayer";
 
 const App: FC<{ locale: Locales }> = ({ locale }) => {
@@ -59,13 +73,58 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```tsx
-// src/components/ClientComponentExample.tsx
+```jsx fileName="src/app.mjx" codeFormat="esm"
+import { ClientComponentExample, ServerComponentExample } from "@components";
+import { IntlayerProvider } from "react-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
 
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```jsx fileName="src/app.csx" codeFormat="commonjs"
+const { IntlayerProvider } = require("react-intlayer");
+const {
+  IntlayerServerProvider,
+  useIntlayer,
+} = require("react-intlayer/server");
+
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component");
+const ComponentExample: FC = () => {
+  const content = useIntlayer("component-example");
 
   return (
     <div>
@@ -76,10 +135,68 @@ const ClientComponentExample = () => {
 };
 ```
 
-```tsx
-// src/components/ServerComponentExample.tsx
+```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
 
+const ComponentExample = () => {
+  const content = useIntlayer("component-example");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const ComponentExample = () => {
+  const content = useIntlayer("component-example");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer/server";
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer/server";
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer/server");
 
 const ServerComponentExample = () => {
   const content = useIntlayer("server-component");
@@ -97,7 +214,7 @@ const ServerComponentExample = () => {
 
 When localizing attributes, access the content values appropriately:
 
-```tsx
+```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 

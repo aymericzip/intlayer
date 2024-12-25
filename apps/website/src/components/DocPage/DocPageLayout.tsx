@@ -1,10 +1,10 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { type Locales } from 'intlayer';
 import { type ReactNode, type FC } from 'react';
+import { NavTitles } from '../NavTitles/NavTitles';
 import { DocBreadCrumb } from './DocBreadCrumb';
 import { getDocData } from './docData';
 import { DocNavList } from './DocNavList';
-import { DocNavTitles } from './DocNavTitles';
 
 type DocPageLayoutProps = {
   children?: ReactNode;
@@ -30,7 +30,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
         <div className="flex flex-1 flex-row">
           <article
             className="relative m-auto mb-24 h-full w-auto max-w-3xl flex-1 grow"
-            id="doc-content"
+            id="content"
           >
             <DocBreadCrumb
               className="ml-10 mt-12"
@@ -41,7 +41,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
             {children}
           </article>
           <aside className="flex-none max-lg:hidden">
-            {displayDocNavTitles && <DocNavTitles />}
+            {displayDocNavTitles && <NavTitles />}
           </aside>
         </div>
       </BackgroundLayout>

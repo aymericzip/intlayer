@@ -1,0 +1,73 @@
+import { t, type DeclarationContent } from 'intlayer';
+
+const searchTriggerContent: DeclarationContent = {
+  key: 'blog-search-view',
+  content: {
+    noContentText: t({
+      en: 'No results found',
+      'en-GB': 'No results found',
+      fr: 'Aucun résultat trouvé',
+      es: 'No se encontraron resultados',
+      de: 'Keine Ergebnisse gefunden',
+      ja: '結果が見つかりませんでした',
+      ko: '결과를 찾을 수 없습니다',
+      zh: '未找到结果',
+      it: 'Nessun risultato trovato',
+      pt: 'Nenhum resultado encontrado',
+      hi: 'कोई परिणाम नहीं मिला',
+      ar: 'لم يتم العثور على نتائج',
+      ru: 'Результатов не найдено',
+    }),
+    searchInput: {
+      label: t({
+        en: 'Search blog',
+        'en-GB': 'Search blog',
+        fr: 'Rechercher la blog',
+        es: 'Buscar blogación',
+        de: 'Dokumentation suchen',
+        ja: 'ドキュメントを検索',
+        ko: '문서 검색',
+        zh: '搜索文档',
+        it: 'Cerca nella blogazione',
+        pt: 'Pesquisar blogação',
+        hi: 'डॉक्यूमेंटेशन खोजें',
+        ar: 'ابحث في الوثائق',
+        ru: 'Искать документацию',
+      }),
+      placeholder: t({
+        en: 'Search blog...',
+        'en-GB': 'Search blog...',
+        fr: 'Rechercher la blog...',
+        es: 'Buscar blogación...',
+        de: 'Dokumentation suchen...',
+        ja: 'ドキュメントを検索...',
+        ko: '문서 검색...',
+        zh: '搜索文档...',
+        it: 'Cerca nella blogazione...',
+        pt: 'Pesquisar blogação...',
+        hi: 'डॉक्यूमेंटेशन खोजें...',
+        ar: 'ابحث في الوثائق...',
+        ru: 'Поиск документации...',
+      }),
+    },
+    searchResultItemButton: {
+      label: t({
+        en: 'Click to view blog',
+        'en-GB': 'Click to view blog',
+        fr: 'Cliquez pour voir la blog',
+        es: 'Haga clic para ver la blogación',
+        de: 'Klicken Sie, um die Dokumentation anzuzeigen',
+        ja: 'ドキュメントを見るにはクリック',
+        ko: '문서를 보려면 클릭',
+        zh: '单击查看文档',
+        it: 'Clicca per visualizzare la blogazione',
+        pt: 'Clique para ver a blogação',
+        hi: 'डॉक्यूमेंटेशन देखने के लिए क्लिक करें',
+        ar: 'انقر لعرض الوثائق',
+        ru: 'Нажмите, чтобы просмотреть документацию',
+      }),
+    },
+  },
+};
+
+export default searchTriggerContent;

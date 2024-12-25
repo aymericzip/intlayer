@@ -91,8 +91,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
       setEditedContent(dictionary.key, editedDictionary.content);
     });
 
-  console.log('isLoading', isAuditing);
-
   return (
     <Form
       className="flex w-full flex-1 flex-row flex-wrap justify-end gap-3"

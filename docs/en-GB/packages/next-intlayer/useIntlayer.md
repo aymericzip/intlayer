@@ -8,14 +8,30 @@ Depending on whether you're working on client-side or server-side components in 
 
 - **Client Component:**
 
-  ```javascript
+  ```typescript codeFormat="typescript"
   import { useIntlayer } from "next-intlayer"; // Used in client-side components
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "next-intlayer"; // Used in client-side components
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("next-intlayer"); // Used in client-side components
   ```
 
 - **Server Component:**
 
-  ```tsx
+  ```tsx codeFormat="typescript"
   import { useIntlayer } from "next-intlayer/server"; // Used in server-side components
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "next-intlayer/server"; // Used in server-side components
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("next-intlayer/server"); // Used in server-side components
   ```
 
 ## Parameters
@@ -33,16 +49,15 @@ Instructions for setting up content declaration files are available [here](https
 
 Here's how you can implement the `useIntlayer` hook within a Next.js page to dynamically load localized content based on the application's current locale:
 
-```tsx
-// src/pages/[locale]/index.tsx
-
-import { ClientComponentExample, ServerComponentExample } from "@components";
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { useIntlayer, IntlayerServerProvider } from "next-intlayer/server";
 
 const HomePage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
-  return (
+
   const content = useIntlayer("homepage", locale);
 
   return (
@@ -59,15 +74,64 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
 };
 ```
 
-```tsx
-// src/components/ClientComponentExample.tsx
+```jsx fileName="src/pages/[locale]/index.csx" codeFormat="esm"
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
+const HomePage = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerClientProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerClientProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
+const {
+  ClientComponentExample,
+} = require("@components/ClientComponentExample");
+const {
+  ServerComponentExample,
+} = require("@components/ServerComponentExample");
+const { IntlayerClientProvider } = require("next-intlayer");
+const { useIntlayer } = require("next-intlayer/server");
+
+const HomePage = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerClientProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerClientProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use-client";
 
+import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component");
+const ClientComponentExample: FC = () => {
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -78,13 +142,76 @@ const ClientComponentExample = () => {
 };
 ```
 
-```tsx
-// src/components/ServerComponentExample.tsx
+```jsx fileName="src/components/ClientComponentExample.msx" codeFormat="esm"
+"use-client";
 
+import { useIntlayer } from "next-intlayer";
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("component-content");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
+"use-client";
+
+const { useIntlayer } = require("next-intlayer");
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("component-content");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer/server";
+
+const ServerComponentExample: FC = () => {
+  const content = useIntlayer("component-content");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component");
+  const content = useIntlayer("component-content");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("next-intlayer/server");
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("component-content");
 
   return (
     <div>

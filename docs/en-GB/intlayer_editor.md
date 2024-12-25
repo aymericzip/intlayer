@@ -32,15 +32,15 @@ In this way, you don't have to worry about where the file is declared or about f
 
 Once Intlayer is configured in your project, simply install `intlayer-editor` as a development dependency:
 
-```bash
+```bash packageManager="npm"
 npm install intlayer-editor
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer-editor
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer-editor
 ```
 
@@ -50,7 +50,9 @@ pnpm add intlayer-editor
 
 In your Intlayer configuration file, you can customize the editor settings:
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
+
 const config: IntlayerConfig = {
   // ... other configuration settings
   editor: {
@@ -62,6 +64,46 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { type IntlayerConfig } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... other configuration settings
+  editor: {
+    enabled: process.env.INTLAYER_ENABLED === "true", // If false, the editor is inactive and cannot be accessed.
+    // Client ID and client secret are required to enable the editor.
+    // They allow the identify the user who is editing the content.
+    // They can be obtained by creating a new client in the Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { type IntlayerConfig } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... other configuration settings
+  editor: {
+    enabled: process.env.INTLAYER_ENABLED === "true", // If false, the editor is inactive and cannot be accessed.
+    // Client ID and client secret are required to enable the editor.
+    // They allow the identify the user who is editing the content.
+    // They can be obtained by creating a new client in the Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+module.exports = config;
 ```
 
 > If you don't have a client ID and client secret, you can obtain them by creating a new client in the [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
@@ -74,36 +116,106 @@ To enable the editor, you need to insert the Intlayer Editor Provider in your ap
 
 Example for React JS or Vite + React applications:
 
-```tsx
+```tsx {3,6,8} fileName="App.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { IntlayerProvider } from "react-intlayer";
 import { IntlayerEditorProvider } from "intlayer-editor";
 
-function App() {
-  return (
-    <IntlayerProvider>
-      <IntlayerEditorProvider>{/* Your application */}</IntlayerEditorProvider>
-    </IntlayerProvider>
-  );
-}
+const App: FC = () => (
+  <IntlayerProvider>
+    <IntlayerEditorProvider>{/* Your application */}</IntlayerEditorProvider>
+  </IntlayerProvider>
+);
+```
+
+```jsx {2,5,7} fileName="App.mjx" codeFormat="esm"
+import { IntlayerProvider } from "react-intlayer";
+import { IntlayerEditorProvider } from "intlayer-editor";
+
+const App = () => (
+  <IntlayerProvider>
+    <IntlayerEditorProvider>{/* Your application */}</IntlayerEditorProvider>
+  </IntlayerProvider>
+);
+```
+
+```jsx {2,5,7} fileName="App.csx" codeFormat="commonjs"
+const { IntlayerProvider } = require("react-intlayer");
+const { IntlayerEditorProvider } = require("intlayer-editor");
+
+const App = () => (
+  <IntlayerProvider>
+    <IntlayerEditorProvider>{/* Your application */}</IntlayerEditorProvider>
+  </IntlayerProvider>
+);
 ```
 
 Example for Next.js applications:
 
-```tsx
-import { IntlayerClientProvider } from "next-intlayer";
+```tsx {3,11,13} fileName="src/app/page.tsx" codeFormat="typescript"
+import { IntlayerClientProvider, type NextPageIntlayer } from "next-intlayer";
+import { IntlayerServerProvider } from "next-intlayer/server";
 import { IntlayerEditorProvider } from "intlayer-editor";
 
-function Page() {
+const Page: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
   return (
-    <IntlayerServerProvider locale={locale}>
-      <IntlayerClientProvider locale={locale}>
+    <IntlayerClientProvider locale={locale}>
+      <IntlayerServerProvider locale={locale}>
         <IntlayerEditorProvider>
           {/* Your application */}
         </IntlayerEditorProvider>
-      </IntlayerClientProvider>
-    </IntlayerServerProvider>
+      </IntlayerServerProvider>
+    </IntlayerClientProvider>
   );
-}
+};
+
+export default Page;
+```
+
+```jsx {3,11,13} fileName="src/app/page.mjx" codeFormat="esm"
+import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerServerProvider } from "next-intlayer/server";
+import { IntlayerEditorProvider } from "intlayer-editor";
+
+const Page = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerClientProvider locale={locale}>
+      <IntlayerServerProvider locale={locale}>
+        <IntlayerEditorProvider>
+          {/* Your application */}
+        </IntlayerEditorProvider>
+      </IntlayerServerProvider>
+    </IntlayerClientProvider>
+  );
+};
+
+export default Page;
+```
+
+```jsx {3,11,13} fileName="src/app/page.csx" codeFormat="commonjs"
+const { IntlayerClientProvider } = require("next-intlayer");
+const { IntlayerServerProvider } = require("next-intlayer/server");
+const { IntlayerEditorProvider } = require("intlayer-editor");
+
+const Page = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerClientProvider locale={locale}>
+      <IntlayerServerProvider locale={locale}>
+        <IntlayerEditorProvider>
+          {/* Your application */}
+        </IntlayerEditorProvider>
+      </IntlayerServerProvider>
+    </IntlayerClientProvider>
+  );
+};
+
+module.exports = Page;
 ```
 
 ## 3. Add the stylesheets to your application
@@ -112,8 +224,7 @@ To display the editor styles, you need to add the stylesheets to your applicatio
 
 If tailwind is used, you can add the stylesheets to your `tailwind.config.js` file:
 
-```js
-// tailwind.config.js
+```js fileName="tailwind.config.js"
 import tailwindConfig, { tailwindPresetConfig } from "intlayer-editor/tailwind";
 
 module.exports = {
@@ -128,15 +239,13 @@ module.exports = {
 
 Otherwise, you can add import the stylesheets in your application:
 
-```tsx
-// app.tsx
+```tsx fileName="app.tsx"
 import "intlayer-editor/css";
 ```
 
 Or
 
-```css
-/* app.css */
+```css fileName="app.css"
 @import "intlayer-editor/css";
 ```
 

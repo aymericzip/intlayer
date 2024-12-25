@@ -10,9 +10,9 @@ By default, Intlayer watches all files with the following extensions for content
 - `.content.mjs`
 - `.content.cjs`
 
-The application will search for files that match the `./src/*_/_.content.{ts,tsx,js,mjs,cjs}` glob pattern by default.
+The application will search for files that match the `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` glob pattern by default.
 
-These default extensions are suitable for most applications. However, if you have specific requirements, refer to the content extension customisation guide for instructions on how to manage them.
+These default extensions are suitable for most applications. However, if you have specific requirements, refer to the [content extension customization guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md#content-configuration) for instructions on how to manage them.
 
 For a full list of configuration options, visit the configuration documentation.
 
@@ -20,10 +20,7 @@ For a full list of configuration options, visit the configuration documentation.
 
 Create and manage your content dictionaries:
 
-### Using typescript
-
-```typescript
-// src/app/[locale]/page.content.ts
+```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
 import { t, enu, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -57,11 +54,7 @@ export default {
 } satisfies DeclarationContent<Content>;
 ```
 
-### Using ECMAScript modules
-
-```javascript
-// src/app/[locale]/page.content.mjs
-
+```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -88,11 +81,7 @@ export default {
 };
 ```
 
-### Using CommonJS modules
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
+```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -119,11 +108,7 @@ module.exports = {
 };
 ```
 
-### Using JSON
-
-```json5
-// src/app/[locale]/page.content.json
-
+```json5 fileName="src/app/[locale]/page.content.json"  codeFormat="json"
 {
   "key": "page",
   "content": {
@@ -152,5 +137,3 @@ module.exports = {
   },
 }
 ```
-
-Warning, JSON content declaration make impossible to implement [function fetching](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/function_fetching.md)

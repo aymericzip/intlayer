@@ -6,8 +6,16 @@ This section provides comprehensive details on the `useLocale` hook from the `re
 
 To integrate the `useLocale` hook into your React application, import it from its respective package:
 
-```javascript
+```typescript codeFormat="typescript"
 import { useLocale } from "react-intlayer"; // Used in React components for locale management
+```
+
+```javascript codeFormat="esm"
+import { useLocale } from "react-intlayer"; // Used in React components for locale management
+```
+
+```javascript codeFormat="commonjs"
+const { useLocale } = require("react-intlayer"); // Used in React components for locale management
 ```
 
 ## Overview
@@ -18,9 +26,57 @@ The `useLocale` hook offers an easy way to access and manipulate the locale sett
 
 Here’s how you can use the `useLocale` hook within a React component:
 
-```jsx
-import React from "react";
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useLocale } from "react-intlayer";
+
+const LocaleSwitcher: FC = () => {
+  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <h1>Current Locale: {locale}</h1>
+      <p>Default Locale: {defaultLocale}</p>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        {availableLocales.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+export default LocaleSwitcher;
+```
+
+```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
+import { useLocale } from "react-intlayer";
+
+const LocaleSwitcher = () => {
+  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <h1>Current Locale: {locale}</h1>
+      <p>Default Locale: {defaultLocale}</p>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        {availableLocales.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+export default LocaleSwitcher;
+```
+
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
@@ -56,10 +112,11 @@ When you invoke the `useLocale` hook, it returns an object containing the follow
 
 This example shows a component that uses the `useLocale` hook to render a locale switcher, allowing users to dynamically change the locale of the application:
 
-```jsx
+```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
-function LocaleSelector() {
+const LocaleSelector: FC = () => {
   const { locale, setLocale, availableLocales } = useLocale();
 
   const handleLocaleChange = (newLocale) => {
@@ -75,9 +132,51 @@ function LocaleSelector() {
       ))}
     </select>
   );
-}
+};
+```
 
-export default LocaleSelector;
+```jsx fileName="src/components/LocaleSelector.mjx" codeFormat="esm"
+import { useLocale } from "react-intlayer";
+
+const LocaleSelector = () => {
+  const { locale, setLocale, availableLocales } = useLocale();
+
+  const handleLocaleChange = (newLocale) => {
+    setLocale(newLocale);
+  };
+
+  return (
+    <select value={locale} onChange={(e) => handleLocaleChange(e.target.value)}>
+      {availableLocales.map((locale) => (
+        <option key={locale} value={locale}>
+          {locale}
+        </option>
+      ))}
+    </select>
+  );
+};
+```
+
+```jsx fileName="src/components/LocaleSelector.csx" codeFormat="commonjs"
+const { useLocale } = require("react-intlayer");
+
+const LocaleSelector = () => {
+  const { locale, setLocale, availableLocales } = useLocale();
+
+  const handleLocaleChange = (newLocale) => {
+    setLocale(newLocale);
+  };
+
+  return (
+    <select value={locale} onChange={(e) => handleLocaleChange(e.target.value)}>
+      {availableLocales.map((locale) => (
+        <option key={locale} value={locale}>
+          {locale}
+        </option>
+      ))}
+    </select>
+  );
+};
 ```
 
 ## Conclusion

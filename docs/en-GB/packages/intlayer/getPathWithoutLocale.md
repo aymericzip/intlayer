@@ -22,11 +22,29 @@ Removes the locale segment from the given URL or pathname if present. It works w
 
 ## Example Usage:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="esm"
+import { getPathWithoutLocale } from "intlayer";
+
+console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="commonjs"
+const { getPathWithoutLocale } = require("intlayer");
+
+console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
 ```

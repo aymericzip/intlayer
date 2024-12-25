@@ -1,0 +1,94 @@
+{
+  "name": "@intlayer/blog",
+  "version": "3.5.5",
+  "private": true,
+  "description": "IntLayer blog",
+  "keywords": [
+    "intlayer",
+    "blog",
+    "application",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "homepage": "https://intlayer.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "require": "./index.cjs",
+      "import": "./index.cjs"
+    }
+  },
+  "main": "./index.cjs",
+  "module": "./index.cjs",
+  "files": [
+    "index.d.ts",
+    "index.cjs",
+    "ar/*",
+    "de/*",
+    "en/*",
+    "en-GB/*",
+    "es/*",
+    "fr/*",
+    "hi/*",
+    "it/*",
+    "ja/*",
+    "ko/*",
+    "pt/*",
+    "ru/*",
+    "zh/*"
+  ],
+  "scripts": {
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "test": "",
+    "translate": "node --import=tsx ./src/translate.ts"
+  },
+  "dependencies": {
+    "@intlayer/config": "workspace:^"
+  },
+  "devDependencies": {
+    "@intlayer/core": "workspace:^",
+    "@types/node": "^22.9.0",
+    "@utils/ts-config": "workspace:^",
+    "@utils/ts-config-types": "workspace:^",
+    "@utils/tsup-config": "workspace:^",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.16.0",
+    "fast-glob": "^3.3.2",
+    "openai": "^4.76.1",
+    "p-limit": "^3.1.0",
+    "prettier": "^3.4.1",
+    "rimraf": "^6.0.1",
+    "tsc-alias": "^1.8.10",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=14.18"
+  },
+  "bug": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  }
+}
