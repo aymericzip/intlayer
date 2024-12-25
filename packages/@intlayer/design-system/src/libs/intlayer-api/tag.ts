@@ -1,10 +1,12 @@
 import type {
   AddTagBody,
   AddTagResult,
+  DeleteTagParams,
   DeleteTagResult,
   GetTagsParams,
   GetTagsResult,
   UpdateTagBody,
+  UpdateTagParams,
   UpdateTagResult,
 } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
@@ -54,11 +56,12 @@ export const getTagAPI = (
    * @param tag - Updated tag data.
    */
   const updateTag = async (
+    tagId: UpdateTagParams['tagId'],
     tag: UpdateTagBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateTagResult>(
-      `${PROJECT_API_ROUTE}`,
+      `${PROJECT_API_ROUTE}/${tagId}`,
       authAPIOptions,
       otherOptions,
       {
@@ -69,11 +72,15 @@ export const getTagAPI = (
 
   /**
    * Deletes a tag from the database by its ID.
-   * @param id - Tag ID.
+   * @param tagId - Tag ID.
    */
-  const deleteTag = async (otherOptions: FetcherOptions = {}) =>
+  const deleteTag = async (
+    tagId: DeleteTagParams['tagId'],
+
+    otherOptions: FetcherOptions = {}
+  ) =>
     await fetcher<DeleteTagResult>(
-      `${PROJECT_API_ROUTE}`,
+      `${PROJECT_API_ROUTE}/${tagId}`,
       authAPIOptions,
       otherOptions,
       {

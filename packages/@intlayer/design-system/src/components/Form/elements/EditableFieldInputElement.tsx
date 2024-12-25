@@ -9,7 +9,7 @@ type EditableFieldInputElementProps = Omit<
 > &
   Omit<ComponentProps<typeof EditableFieldInput>, 'onChange'> & {
     name: string;
-    description?: string;
+    description?: ReactNode;
     placeholder?: string;
     className?: string;
     children?: ReactNode;

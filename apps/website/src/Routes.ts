@@ -6,6 +6,7 @@ export enum PagesRoutes {
   Dashboard = '/dashboard',
   Dashboard_Content = '/dashboard/content',
   Dashboard_Projects = '/dashboard/projects',
+  Dashboard_Tags = '/dashboard/tags',
   Dashboard_Organization = '/dashboard/organization',
   Dashboard_Profile = '/dashboard/profile',
 

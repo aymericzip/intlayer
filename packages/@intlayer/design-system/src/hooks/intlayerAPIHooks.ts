@@ -573,7 +573,7 @@ export const useUpdateTag = (
   args?: UseAsyncOptions<typeof intlayerAPI.tag.updateTag>
 ) =>
   useAppAsync('updateTag', useIntlayerAuth().tag.updateTag, {
-    invalidateQueries: ['getSession'],
+    invalidateQueries: ['getTags'],
     ...args,
   });
 export const useDeleteTag = (

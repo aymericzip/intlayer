@@ -1,16 +1,16 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { ContentDashboard } from '@components/Dashboard/ContentDashboard';
+import { TagDetails } from '@components/Dashboard/TagForm/TagDetails';
 import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
 type DictionaryDashboardPageProps = {
-  dictionaryKey: string;
+  tagKey: string;
 };
 
 const DictionaryDashboardPage: Next14PageIntlayer<
   DictionaryDashboardPageProps
-> = ({ params: { locale, dictionaryKey } }) => {
-  const { title } = useIntlayer('dictionary-dashboard-page', locale);
+> = ({ params: { locale, tagKey } }) => {
+  const { title } = useIntlayer('tag-dashboard-page', locale);
 
   return (
     <IntlayerServerProvider locale={locale}>
@@ -18,8 +18,8 @@ const DictionaryDashboardPage: Next14PageIntlayer<
         {title}
       </h1>
       <div className="relative flex size-full flex-1 flex-col items-center">
-        <div className="flex size-full flex-1 flex-col items-center p-10">
-          <ContentDashboard dictionaryKey={dictionaryKey} />
+        <div className="flex size-full flex-1 flex-col items-center justify-center p-10">
+          <TagDetails tagKey={tagKey} />
         </div>
         <BackgroundLayout />
       </div>

@@ -456,7 +456,7 @@ export const deleteProject = async (
   try {
     const projectToDelete = await projectService.getProjectById(project._id);
 
-    if (projectToDelete.organizationId !== organization._id) {
+    if (String(projectToDelete.organizationId) !== String(organization._id)) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'PROJECT_NOT_IN_ORGANIZATION'

@@ -9,9 +9,9 @@ import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
 export const ProjectEditionForm: FC = () => {
   const { session, isProjectAdmin } = useAuth();
   const { project } = session ?? {};
-  const SignInSchema = useProjectSchema();
+  const ProjectSchema = useProjectSchema();
   const { updateProject } = useUpdateProject();
-  const { form, isSubmitting } = useForm(SignInSchema);
+  const { form, isSubmitting } = useForm(ProjectSchema);
   const { title, nameInput, editButton } = useIntlayer('project-form');
 
   const onSubmitSuccess = async (data: ProjectFormData) => {
@@ -23,7 +23,7 @@ export const ProjectEditionForm: FC = () => {
       <H3 className="mb-8"> {title}</H3>
 
       <Form
-        schema={SignInSchema}
+        schema={ProjectSchema}
         onSubmitSuccess={onSubmitSuccess}
         className="w-full"
         {...form}

@@ -46,6 +46,39 @@ const dashboardNavbarContent = {
         }),
       },
       {
+        url: PagesRoutes.Dashboard_Tags,
+        label: t({
+          en: 'Go to tags dashboard',
+          'en-GB': 'Go to tags dashboard',
+          fr: 'Aller sur le tableau de bord des tags',
+          es: 'Ir al tablero de etiquetas',
+          de: 'Gehen Sie zum Tags-Dashboard',
+          ja: 'タグダッシュボードに行く',
+          ko: '태그 대시보드로 이동',
+          zh: '转到标签仪表板',
+          it: 'Vai alla dashboard dei tag',
+          pt: 'Ir para o painel de tags',
+          hi: 'टैग डैशबोर्ड पर जाएं',
+          ar: 'اذهب إلى لوحة معلومات الوسوم',
+          ru: 'Перейти к панели управления тегами',
+        }),
+        title: t({
+          en: 'Tags',
+          'en-GB': 'Tags',
+          fr: 'Tags',
+          es: 'Etiquetas',
+          de: 'Tags',
+          ja: 'タグ',
+          ko: '태그',
+          zh: '标签',
+          it: 'Tag',
+          pt: 'Tags',
+          hi: 'टैग',
+          ar: 'وسوم',
+          ru: 'Теги',
+        }),
+      },
+      {
         url: PagesRoutes.Dashboard_Projects,
         label: t({
           en: 'Go to projects dashboard',
@@ -78,6 +111,7 @@ const dashboardNavbarContent = {
           ru: 'Проекты',
         }),
       },
+
       {
         url: PagesRoutes.Dashboard_Organization,
         label: t({

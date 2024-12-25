@@ -1325,6 +1325,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
+  TAG_NOT_IN_ORGANIZATION: {
+    title: {
+      en: 'Tag Not In Organization',
+      fr: "Tag non dans l'organisation",
+      es: 'Etiqueta no en la organización',
+    },
+    message: {
+      en: 'The specified tag is not in the organization.',
+      fr: "Le tag spécifié n'est pas dans l'organisation.",
+      es: 'La etiqueta especificada no está en la organización.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

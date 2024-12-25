@@ -47,8 +47,9 @@ export const dictionaryRoutes = {
     method: 'PUT',
   },
   deleteDictionary: {
-    urlModel: '/',
-    url: baseURL,
+    urlModel: '/:dictionaryId',
+    url: ({ dictionaryId }: { dictionaryId: string }) =>
+      `${baseURL}/${dictionaryId}`,
     method: 'DELETE',
   },
 } satisfies Routes;

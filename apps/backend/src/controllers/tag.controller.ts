@@ -47,7 +47,6 @@ export const getTags = async (
 
   const restrictedFilter: TagFilters = {
     ...filters,
-    membersIds: { $in: [...(filters.membersIds ?? []), String(user._id)] },
     organizationId: String(organization._id),
   };
 
@@ -150,19 +149,20 @@ export const addTag = async (
   }
 };
 
-export type UpdateTagBody = Partial<TagData> & { _id: Tag['_id'] };
+export type UpdateTagParams = { tagId: string | Tag['_id'] };
+export type UpdateTagBody = Partial<TagData>;
 export type UpdateTagResult = ResponseData<TagAPI>;
 
 /**
  * Updates an existing tag in the database.
  */
 export const updateTag = async (
-  req: Request<any, any, UpdateTagBody>,
+  req: Request<UpdateTagParams, any, UpdateTagBody>,
   res: ResponseWithInformation<UpdateTagResult>,
   _next: NextFunction
 ): Promise<void> => {
+  const { tagId } = req.params;
   const { organization, user } = res.locals;
-  const tag = req.body;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -175,6 +175,21 @@ export const updateTag = async (
   }
 
   try {
+    const tag = {
+      _id: tagId as TagAPI['_id'],
+      name: req.body.name,
+      key: req.body.key,
+      description: req.body.description,
+      instructions: req.body.instructions,
+    };
+
+    const tagToDelete = await tagService.getTagById(tagId);
+
+    if (String(tagToDelete.organizationId) !== String(organization._id)) {
+      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
+      return;
+    }
+
     const updatedTag = await tagService.updateTagById(tag._id, tag);
 
     const formattedTag = mapTagToAPI(updatedTag);
@@ -201,6 +216,7 @@ export const updateTag = async (
   }
 };
 
+export type DeleteTagParams = { tagId: string | Tag['_id'] };
 export type DeleteTagResult = ResponseData<TagAPI>;
 
 /**
@@ -210,12 +226,12 @@ export type DeleteTagResult = ResponseData<TagAPI>;
  * @returns Response confirming the deletion.
  */
 export const deleteTag = async (
-  req: Request,
+  req: Request<DeleteTagParams>,
   res: ResponseWithInformation<DeleteTagResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization } = res.locals;
-  const { tag } = req.body;
+  const { tagId } = req.params;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -227,27 +243,24 @@ export const deleteTag = async (
     return;
   }
 
-  if (!tag) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+  if (!tagId) {
+    ErrorHandler.handleGenericErrorResponse(res, 'TAG_ID_NOT_FOUND');
     return;
   }
 
   try {
-    const tagToDelete = await tagService.getTagById(tag._id);
+    const tagToDelete = await tagService.getTagById(tagId);
 
-    if (tagToDelete.organizationId !== organization._id) {
-      ErrorHandler.handleGenericErrorResponse(
-        res,
-        'PROJECT_NOT_IN_ORGANIZATION'
-      );
+    if (String(tagToDelete.organizationId) !== String(organization._id)) {
+      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
       return;
     }
 
-    const deletedTag = await tagService.deleteTagById(tag._id);
+    const deletedTag = await tagService.deleteTagById(tagId);
 
     if (!deletedTag) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED', {
-        tagId: tag._id,
+      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_FOUND', {
+        tagId,
       });
 
       return;

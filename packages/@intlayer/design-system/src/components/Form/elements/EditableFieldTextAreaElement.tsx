@@ -10,7 +10,7 @@ type EditableFieldTextAreaElementProps = Omit<
 > &
   Omit<ComponentProps<typeof EditableFieldTextArea>, 'onChange'> & {
     name: string;
-    description?: string;
+    description?: ReactNode;
     placeholder?: string;
     className?: string;
     children?: ReactNode;

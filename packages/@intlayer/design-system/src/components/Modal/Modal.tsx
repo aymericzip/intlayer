@@ -13,7 +13,7 @@ import { H3 } from '../Headers';
 type ModalProps = {
   children: React.ReactNode;
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   container?: HTMLElement;
   disableScroll?: boolean;
   hasCloseButton?: boolean;
@@ -59,7 +59,7 @@ export const Modal: FC<ModalProps> = ({
   onClose,
   hasCloseButton = false,
   title,
-  size = 'unset',
+  size = 'md',
   ...props
 }) => {
   const containerElement = useGetElementOrWindow(container);

@@ -52,6 +52,7 @@ export type DeclarationContent<T = undefined> = {
   description?: string;
   version?: string;
   filePath?: string;
+  tags?: string[];
   content: T extends undefined // Applying the generic to replace ContentValue with Replacement
     ? Content
     : ReplaceContentValue<T>;

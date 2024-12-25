@@ -8,9 +8,9 @@ import type { Tag } from '@/types/tag.types';
 
 export type TagFiltersParams = {
   ids?: string | string[];
+  keys?: string | string[];
   name?: string;
   organizationId?: string;
-  membersIds?: string[];
 };
 export type TagFilters = RootFilterQuery<Tag>;
 
@@ -28,7 +28,7 @@ export const getTagFiltersAndPagination = (
   let filters: TagFilters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { name, ids, organizationId } = filtersRequest;
+    const { name, ids, keys, organizationId } = filtersRequest;
 
     filters = {};
 
@@ -44,6 +44,20 @@ export const getTagFiltersAndPagination = (
       }
 
       filters = { ...filters, _id: { $in: idsArray } };
+    }
+
+    if (keys) {
+      let keysArray: string[];
+
+      if (typeof keys === 'string') {
+        keysArray = keys.split(',');
+      } else if (Array.isArray(keys)) {
+        keysArray = keys;
+      } else {
+        keysArray = [keys];
+      }
+
+      filters = { ...filters, key: { $in: keysArray } };
     }
 
     if (name) {

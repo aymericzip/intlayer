@@ -7,10 +7,10 @@ import type { FC } from 'react';
 import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
 
 export const ProjectCreationForm: FC = () => {
-  const SignInSchema = useProjectSchema();
+  const ProjectSchema = useProjectSchema();
   const { addProject } = useAddProject();
   const { selectProject } = useSelectProject();
-  const { form, isSubmitting } = useForm(SignInSchema);
+  const { form, isSubmitting } = useForm(ProjectSchema);
   const { nameInput, createProjectButton } = useIntlayer('project-form');
 
   const onSubmitSuccess: (data: ProjectFormData) => Promise<void> = async (
@@ -25,7 +25,7 @@ export const ProjectCreationForm: FC = () => {
 
   return (
     <Form
-      schema={SignInSchema}
+      schema={ProjectSchema}
       onSubmitSuccess={onSubmitSuccess}
       className="w-full max-w-[400px]"
       {...form}

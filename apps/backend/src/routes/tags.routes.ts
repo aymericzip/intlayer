@@ -23,13 +23,13 @@ export const tagRoutes = {
     method: 'POST',
   },
   updateTag: {
-    urlModel: '/',
-    url: baseURL,
+    urlModel: '/:tagId',
+    url: ({ tagId }: { tagId: string }) => `${baseURL}/${tagId}`,
     method: 'PUT',
   },
   deleteTag: {
-    urlModel: '/',
-    url: baseURL,
+    urlModel: '/:tagId',
+    url: ({ tagId }: { tagId: string }) => `${baseURL}/${tagId}`,
     method: 'DELETE',
   },
 } satisfies Routes;

@@ -57,7 +57,7 @@ export const countTags = async (filters: TagFilters): Promise<number> => {
  * @returns The created tag.
  */
 export const createTag = async (tag: TagData): Promise<TagDocument> => {
-  const errors = await validateTag(tag, ['name']);
+  const errors = await validateTag(tag, ['key']);
 
   if (Object.keys(errors).length > 0) {
     throw new GenericError('TAG_INVALID_FIELDS', { errors });

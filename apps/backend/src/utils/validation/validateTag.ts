@@ -1,5 +1,4 @@
 import { getOrganizationById } from '@services/organization.service';
-import { validateArray } from './validateArray';
 import { validateString } from './validateString';
 import type { Tag } from '@/types/tag.types';
 
@@ -12,10 +11,11 @@ type ValidationErrors = Partial<
   Record<(typeof defaultFieldsToCheck)[number], string[]>
 >;
 
+export const KEY_MIN_LENGTH = 4;
+export const KEY_MAX_LENGTH = 20;
+
 export const NAME_MIN_LENGTH = 4;
 export const NAME_MAX_LENGTH = 50;
-
-export const MEMBERS_MIN_LENGTH = 1;
 
 /**
  * Validates an tag object.
@@ -39,6 +39,20 @@ export const validateTag = async (
 
     // Initialize error array for the field
     errors[field] = [];
+
+    // Check for name validity
+    if (field === 'key') {
+      const nameErrors = validateString(
+        value,
+        'Key',
+        KEY_MIN_LENGTH,
+        KEY_MAX_LENGTH
+      );
+
+      if (nameErrors.length > 0) {
+        errors[field] = nameErrors;
+      }
+    }
 
     // Check for name validity
     if (field === 'name') {
