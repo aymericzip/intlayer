@@ -9,17 +9,19 @@ export type DictionaryCreationData = {
   content?: DictionaryValue;
   title?: string;
   description?: string;
+  tags?: string[];
   version?: number;
   filePath?: string;
 };
 
 export type DictionaryData = {
-  projectIds: (Project['_id'] | string)[];
   key: string;
   content: DictionaryValue[];
+  projectIds: (Project['_id'] | string)[];
   creatorId: User['_id'];
   title?: string;
   description?: string;
+  tags?: string[];
   version?: number;
   filePath?: Record<string, string>;
 };

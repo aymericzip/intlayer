@@ -28,6 +28,7 @@ import {
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
+import { tagRouter } from '@routes/tags.routes';
 import { sessionAuthRouter } from '@routes/sessionAuth.routes';
 import { userRouter } from '@routes/user.routes';
 import { stripeRouter } from '@routes/stripe.routes';
@@ -169,6 +170,7 @@ app.use(/(.*)/, (req, res, next) => {
 app.use('/api/user', userRouter);
 app.use('/api/organization', organizationRouter);
 app.use('/api/project', projectRouter);
+app.use('/api/tag', tagRouter);
 app.use('/api/dictionary', dictionaryRouter);
 app.use('/api/stripe', stripeRouter);
 app.use('/api/ai', aiRouter);

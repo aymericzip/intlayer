@@ -1246,6 +1246,85 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
+
+  TAG_NOT_FOUND: {
+    title: {
+      en: 'Tag Not Found',
+      fr: 'Tag non trouvé',
+      es: 'Tag no encontrado',
+    },
+    message: {
+      en: 'The specified tag could not be found.',
+      fr: 'Le tag spécifié est introuvable.',
+      es: 'El tag especificado no se pudo encontrar.',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
+  TAG_ID_NOT_FOUND: {
+    title: {
+      en: 'Tag ID Not Found',
+      fr: 'Identifiant de tag non trouvé',
+      es: 'Identificador de tag no encontrado',
+    },
+    message: {
+      en: 'The tag ID was not found.',
+      fr: "L'identifiant de tag n'a pas été trouvé.",
+      es: 'El identificador de tag no se ha encontrado.',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
+  TAG_ID_MISMATCH: {
+    title: {
+      en: 'Tag ID Mismatch',
+      fr: 'Identifiant de tag non correspondant',
+      es: 'Identificador de tag no coincidente',
+    },
+    message: {
+      en: 'The provided tag ID does not match the expected value. Please verify and try again.',
+      fr: "L'identifiant de tag fourni ne correspond pas à la valeur attendue. Veuillez vérifier et réessayer.",
+      es: 'El identificador de tag proporcionado no coincide con el valor esperado. Verifique e intente nuevamente.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  TAG_COUNT_FAILED: {
+    title: {
+      en: 'Tag Count Failed',
+      fr: 'Échec du comptage du tag',
+      es: 'Error al contar el tag',
+    },
+    message: {
+      en: 'Failed to count tags.',
+      fr: 'Le comptage des tags a échoué.',
+      es: 'No se pudo contar los tags.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+  },
+  TAG_INVALID_FIELDS: {
+    title: {
+      en: 'Tag Invalid Fields',
+      fr: 'Champs du tag invalides',
+      es: 'Campos del tag no válidos',
+    },
+    message: {
+      en: 'The provided tag fields are invalid.',
+      fr: 'Les champs fournis pour le tag sont invalides.',
+      es: 'Los campos proporcionados para el tag no son válidos.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  TAG_UPDATE_FAILED: {
+    title: {
+      en: 'Tag Update Failed',
+      fr: 'Échec de la mise à jour du tag',
+      es: 'Error al actualizar el tag',
+    },
+    message: {
+      en: 'Failed to update the specified tag.',
+      fr: 'La mise à jour du tag a échoué.',
+      es: 'No se pudo actualizar el tag especificado.',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

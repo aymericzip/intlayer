@@ -21,7 +21,6 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import { Locales } from 'intlayer';
 import type { ObjectId } from 'mongoose';
 import { User } from 'oauth2-server';
 import type {
