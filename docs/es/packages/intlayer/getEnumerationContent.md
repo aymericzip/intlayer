@@ -1,4 +1,4 @@
-# Documentación: Función `getEnumerationContent` en `intlayer`
+# Documentación: `getEnumerationContent` Función en `intlayer`
 
 ## Descripción:
 
@@ -17,17 +17,17 @@ La función `getEnumerationContent` recupera contenido correspondiente a una can
   - **Descripción**: El valor numérico utilizado para coincidir con las condiciones en `enumerationContent`.
   - **Tipo**: `number`
 
-## Devuelve:
+## Retornos:
 
 - **Tipo**: `Content`
-- **Descripción**: El contenido correspondiente a la primera condición coincidente en `enumerationContent`. Si no se encuentra coincidencia, se configura para manejarse de acuerdo con la implementación (por ejemplo, error o contenido de reserva).
+- **Descripción**: El contenido correspondiente a la primera condición coincidente en `enumerationContent`. Si no se encuentra coincidencia, se maneja de acuerdo con la implementación (por ejemplo, error o contenido de respaldo).
 
 ## Ejemplo de Uso:
 
 ### Uso Básico:
 
-```typescript
-import { getEnumerationContent } from "@intlayer/config/client";
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
 
 const content = getEnumerationContent(
   {
@@ -42,9 +42,69 @@ const content = getEnumerationContent(
 console.log(content); // Salida: "Tienes dos"
 ```
 
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<1": "Tienes menos de uno",
+    "2": "Tienes dos",
+    ">=3": "Tienes tres o más",
+  },
+  2
+);
+
+console.log(content); // Salida: "Tienes dos"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
+const content = getEnumerationContent(
+  {
+    "<1": "Tienes menos de uno",
+    "2": "Tienes dos",
+    ">=3": "Tienes tres o más",
+  },
+  2
+);
+
+console.log(content); // Salida: "Tienes dos"
+```
+
 ### Prioridad de Condiciones:
 
-```typescript
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<4": "Tienes menos de cuatro",
+    "2": "Tienes dos",
+  },
+  2
+);
+
+console.log(content); // Salida: "Tienes menos de cuatro"
+```
+
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<4": "Tienes menos de cuatro",
+    "2": "Tienes dos",
+  },
+  2
+);
+
+console.log(content); // Salida: "Tienes menos de cuatro"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
 const content = getEnumerationContent(
   {
     "<4": "Tienes menos de cuatro",
@@ -60,17 +120,17 @@ console.log(content); // Salida: "Tienes menos de cuatro"
 
 - **Sin Condición Coincidente:**
 
-  - Si ninguna condición coincide con la cantidad proporcionada, la función retornará `undefined` o manejará explícitamente el escenario por defecto/de reserva.
+  - Si ninguna condición coincide con la cantidad proporcionada, la función retornará `undefined` o manejará el escenario predeterminado/de respaldo explícitamente.
 
 - **Condiciones Ambiguas:**
 
-  - Si las condiciones se superponen, la primera condición coincidente (basada en el orden del objeto) tiene prioridad.
+  - Si las condiciones se superponen, la primera condición coincidente (basada en el orden del objeto) tendrá prioridad.
 
 - **Claves Inválidas:**
 
-  - La función asume que todas las claves en `enumerationContent` son válidas y pueden ser analizadas como condiciones. Claves inválidas o mal formateadas pueden llevar a un comportamiento inesperado.
+  - La función asume que todas las claves en `enumerationContent` son válidas y pueden analizarse como condiciones. Claves inválidas o mal formateadas pueden llevar a un comportamiento inesperado.
 
-- **Cumplimiento de TypeScript:**
+- **Aplicación de TypeScript:**
   - La función asegura que el tipo `Content` sea consistente en todas las claves, permitiendo la seguridad de tipos en el contenido recuperado.
 
 ## Notas:

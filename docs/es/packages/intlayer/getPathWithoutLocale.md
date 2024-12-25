@@ -2,7 +2,7 @@
 
 ## Descripción:
 
-Remueve el segmento de la localidad de la URL o ruta dada si está presente. Funciona tanto con URLs absolutas como con rutas relativas.
+Elimina el segmento de localización de la URL o ruta dada si está presente. Funciona con URLs absolutas y rutas relativas.
 
 ## Parámetros:
 
@@ -12,21 +12,39 @@ Remueve el segmento de la localidad de la URL o ruta dada si está presente. Fun
   - **Tipo**: `string`
 
 - `locales: Locales[]`
-  - **Descripción**: Array opcional de localidades soportadas. Por defecto, se utiliza las localidades configuradas en el proyecto.
+  - **Descripción**: Array opcional de locales soportados. Por defecto, utiliza los locales configurados en el proyecto.
   - **Tipo**: `Locales[]`
 
 ## Retorna:
 
 - **Tipo**: `string`
-- **Descripción**: La cadena de URL o ruta sin el segmento de localidad.
+- **Descripción**: La cadena de URL o ruta sin el segmento de localización.
 
 ## Ejemplo de Uso:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Salida: "/dashboard"
-console.log(getPathWithoutLocale("/es/dashboard")); // Salida: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Salida: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Salida: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/es/dashboard")); // Salida: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Salida: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="esm"
+import { getPathWithoutLocale } from "intlayer";
+
+console.log(getPathWithoutLocale("/dashboard")); // Salida: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Salida: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Salida: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Salida: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="commonjs"
+const { getPathWithoutLocale } = require("intlayer");
+
+console.log(getPathWithoutLocale("/dashboard")); // Salida: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Salida: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Salida: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Salida: "https://example.com/dashboard"
 ```

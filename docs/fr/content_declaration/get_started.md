@@ -1,6 +1,6 @@
 # Getting Started la déclaration de votre contenu
 
-## Extensions de fichiers
+## Fichiers extensions
 
 Par défaut, Intlayer surveille tous les fichiers avec les extensions suivantes pour les déclarations de contenu :
 
@@ -10,9 +10,9 @@ Par défaut, Intlayer surveille tous les fichiers avec les extensions suivantes 
 - `.content.mjs`
 - `.content.cjs`
 
-L'application recherchera les fichiers qui correspondent au motif glob `./src/**/*.content.{ts,tsx,js,mjs,cjs}` par défaut.
+L'application recherchera des fichiers qui correspondent au motif glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` par défaut.
 
-Ces extensions par défaut conviennent à la plupart des applications. Cependant, si vous avez des exigences spécifiques, consultez le guide de personnalisation des extensions de contenu pour des instructions sur la façon de les gérer.
+Ces extensions par défaut conviennent à la plupart des applications. Cependant, si vous avez des exigences spécifiques, consultez le [guide de personnalisation des extensions de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md#content-configuration) pour des instructions sur la façon de les gérer.
 
 Pour une liste complète des options de configuration, visitez la documentation de configuration.
 
@@ -20,10 +20,7 @@ Pour une liste complète des options de configuration, visitez la documentation 
 
 Créez et gérez vos dictionnaires de contenu :
 
-### Utilisation de typescript
-
-```typescript
-// src/app/[locale]/page.content.ts
+```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
 import { t, enu, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -48,7 +45,7 @@ export default {
     numberOfCar: enu({
       "<-1": "Moins d'une voiture",
       "-1": "Moins une voiture",
-      "0": "Aucune voiture",
+      "0": "Pas de voitures",
       "1": "Une voiture",
       ">5": "Quelques voitures",
       ">19": "Beaucoup de voitures",
@@ -57,11 +54,7 @@ export default {
 } satisfies DeclarationContent<Content>;
 ```
 
-### Utilisation des modules ECMAScript
-
-```javascript
-// src/app/[locale]/page.content.mjs
-
+```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -79,7 +72,7 @@ export default {
     numberOfCar: enu({
       "<-1": "Moins d'une voiture",
       "-1": "Moins une voiture",
-      0: "Aucune voiture",
+      0: "Pas de voitures",
       1: "Une voiture",
       ">5": "Quelques voitures",
       ">19": "Beaucoup de voitures",
@@ -88,11 +81,7 @@ export default {
 };
 ```
 
-### Utilisation des modules CommonJS
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
+```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -110,7 +99,7 @@ module.exports = {
     numberOfCar: enu({
       "<-1": "Moins d'une voiture",
       "-1": "Moins une voiture",
-      0: "Aucune voiture",
+      0: "Pas de voitures",
       1: "Une voiture",
       ">5": "Quelques voitures",
       ">19": "Beaucoup de voitures",
@@ -119,11 +108,7 @@ module.exports = {
 };
 ```
 
-### Utilisation de JSON
-
-```json5
-// src/app/[locale]/page.content.json
-
+```json5 fileName="src/app/[locale]/page.content.json"  codeFormat="json"
 {
   "key": "page",
   "content": {
@@ -143,7 +128,7 @@ module.exports = {
       "enumeration": {
         "<-1": "Moins d'une voiture",
         "-1": "Moins une voiture",
-        "0": "Aucune voiture",
+        "0": "Pas de voitures",
         "1": "Une voiture",
         ">5": "Quelques voitures",
         ">19": "Beaucoup de voitures",
@@ -152,5 +137,3 @@ module.exports = {
   },
 }
 ```
-
-Avertissement, la déclaration de contenu JSON rend impossible la mise en œuvre [de la fonction de récupération](https://github.com/aymericzip/intlayer/blob/main/docs/fr/content_declaration/function_fetching.md)

@@ -1,14 +1,14 @@
-# Translation
+# 翻訳
 
-## Defining Translations
+## 翻訳の定義
 
-`intlayer`の`t`関数を使用すると、複数の言語でコンテンツを宣言できます。この関数は型安全性を確保し、翻訳が不足している場合にエラーを発生させます。これは特にTypeScript環境で便利です。
+`intlayer` の `t` 関数は、複数の言語でコンテンツを宣言することを可能にします。この関数は型安全性を確保し、欠落している翻訳がある場合にはエラーを発生させます。この機能は特に TypeScript 環境で便利です。
 
-### Using TypeScript
+### TypeScript の使用
 
-TypeScriptファイルで翻訳付きのコンテンツを宣言する方法の例は次のとおりです：
+以下は、翻訳付きのコンテンツを宣言する方法の例です。
 
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -22,16 +22,13 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      ja: "私たちのアプリケーションへようこそ",
     }),
   },
 } satisfies DeclarationContent<Content>;
 ```
 
-### Using ECMAScript Modules
-
-ECMAScriptモジュールを使用している場合、宣言は次のようになります：
-
-```javascript
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 export default {
@@ -41,16 +38,13 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      ja: "私たちのアプリケーションへようこそ",
     }),
   },
 };
 ```
 
-### Using CommonJS Modules
-
-CommonJSセットアップでは、次のように翻訳を宣言できます：
-
-```javascript
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 module.exports = {
@@ -60,16 +54,13 @@ module.exports = {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      ja: "私たちのアプリケーションへようこそ",
     }),
   },
 };
 ```
 
-### Using JSON
-
-JSONベースの宣言では、次のように翻訳を定義できます：
-
-```json
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
   "key": "multi_lang",
   "content": {
@@ -78,34 +69,93 @@ JSONベースの宣言では、次のように翻訳を定義できます：
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nuestra aplicación"
+        "es": "Bienvenido a nuestra aplicación",
+        "ja": "私たちのアプリケーションへようこそ"
       }
     }
   }
 }
 ```
 
-## Configuration for Locales
+## ロケールの設定
 
-正しい翻訳処理を確保するために、`intlayer.config.ts`で受け入れられるロケールを設定できます。この構成では、アプリケーションがサポートする言語を定義できます：
+適切な翻訳処理を確保するために、`intlayer.config.ts`で受け入れられるロケールを設定できます。この設定により、アプリケーションがサポートする言語を定義できます。
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      Locales.JAPANESE,
+    ],
   },
 };
 
 export default config;
 ```
 
-## Using Translations in React Components
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
 
-`react-intlayer`を使用すると、Reactコンポーネントで翻訳を利用できます。以下はその例です：
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      Locales.JAPANESE,
+    ],
+  },
+};
 
-```jsx
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      Locales.JAPANESE,
+    ],
+  },
+};
+
+module.exports = config;
+```
+
+## React コンポーネントでの翻訳の使用
+
+`react-intlayer`を使用すると、React コンポーネントで翻訳を使用できます。以下はその例です。
+
+```jsx fileName="**/*.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const MyComponent: FC = () => {
+  const content = useIntlayer("multi_lang");
+
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
@@ -121,13 +171,29 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-このコンポーネントは、アプリケーションで設定された現在のロケールに基づいて対応する翻訳を取得します。
+```javascript fileName="**/*.cjs" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
 
-## Custom Content Objects
+const MyComponent = () => {
+  const content = useIntlayer("multi_lang");
 
-`intlayer`は、翻訳用のカスタムコンテンツオブジェクトをサポートしており、型安全性を保ちながらより複雑な構造を定義できます。以下はカスタムオブジェクトの例です：
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
 
-```typescript
+module.exports = MyComponent;
+```
+
+このコンポーネントは、アプリケーション内の現在のロケールに基づいた対応する翻訳を取得します。
+
+## カスタムコンテンツオブジェクト
+
+`intlayer`は翻訳のためにカスタムコンテンツオブジェクトをサポートしており、型安全性を確保しながらより複雑な構造を定義できます。以下はカスタムオブジェクトを使用した例です。
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface ICustomContent {
@@ -151,9 +217,104 @@ const customContent = {
         title: "Título de la Página",
         content: "Contenido de la Página",
       },
+      ja: {
+        title: "ページタイトル",
+        content: "ページ内容",
+      },
     }),
   },
 } satisfies DeclarationContent;
 
 export default customContent;
+```
+
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+export default {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "Page Title",
+          content: "Page Content",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+        ja: {
+          title: "ページタイトル",
+          content: "ページ内容",
+        },
+      },
+  },
+};
+```
+
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+module.exports = {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "Page Title",
+          content: "Page Content",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+        ja: {
+          title: "ページタイトル",
+          content: "ページ内容",
+        },
+      },
+  },
+};
+```
+
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "key": "custom_content",
+  "content": {
+    "profileText": {
+      "nodeType": "translation",
+      "translation": {
+        "en": {
+          "title": "Page Title",
+          "content": "Page Content"
+        },
+        "fr": {
+          "title": "Titre de la Page",
+          "content": "Contenu de la Page"
+        },
+        "es": {
+          "title": "Título de la Página",
+          "content": "Contenido de la Página"
+        },
+        "ja": {
+          "title": "ページタイトル",
+          "content": "ページ内容"
+        }
+      }
+    }
+  }
+}
 ```

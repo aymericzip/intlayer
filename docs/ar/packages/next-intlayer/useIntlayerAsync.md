@@ -1,25 +1,25 @@
 # Next.js Integration: `useIntlayerAsync` Hook Documentation
 
-يعمل Hook `useIntlayerAsync` على توسيع وظائف `useIntlayer` من خلال إرجاع القواميس المسبقة العرض ليس فقط، ولكن أيضًا جلب التحديثات بشكل غير متزامن، مما يجعله مثاليًا للتطبيقات التي تقوم بتحديث محتواها المحلي بشكل متكرر بعد العرض الأولي.
+The `useIntlayerAsync` hook يمدد وظيفة `useIntlayer` من خلال ليس فقط إرجاع القواميس المعالجة مسبقًا، ولكن أيضًا جلب التحديثات بشكل غير متزامن، مما يجعله مثاليًا للتطبيقات التي تقوم بتحديث محتواها المحلي بشكل متكرر بعد العرض الأولي.
 
-## نظرة عامة
+## Overview
 
-- **تحميل القاموس بطريقة غير متزامنة:**  
-  على جانب العميل، يقوم `useIntlayerAsync` أولاً بإرجاع قاموس اللغة المسبق (تمامًا مثل `useIntlayer`) ثم يقوم بجلب ودمج أي قواميس بعيدة جديدة متاحة بشكل غير متزامن.
+- **تحميل القاموس بشكل غير متزامن:**  
+  على جانب العميل، `useIntlayerAsync` أولاً يُرجع القاموس المحلي المعالج مسبقًا (تمامًا مثل `useIntlayer`) ثم يجلب بشكل غير متزامن ويجمع أي قواميس بعيدة جديدة متاحة.
 - **إدارة حالة التقدم:**  
-  يوفر الـ Hook أيضًا حالة `isLoading`، والتي تشير إلى متى يتم جلب قاموس بعيد. وهذا يسمح للمطورين بعرض مؤشرات التحميل أو حالات الهيكل العظمي لتجربة مستخدم أكثر سلاسة.
+  يوفر الخطاف أيضًا حالة `isLoading`، مما يشير إلى متى يتم جلب قاموس بعيد. هذا يسمح للمطورين بعرض مؤشرات تحميل أو حالات هيكلية لتجربة مستخدم أكثر سلاسة.
 
-## إعداد البيئة
+## Environment Setup
 
-تقدم Intlayer نظام إدارة محتوى بدون رأس (CSM) يمكّن غير المطورين من إدارة وتحديث محتوى التطبيق بسلاسة. من خلال استخدام لوحة التحكم البديهية في Intlayer، يمكن لفريقك تعديل النصوص المحلية والصور والموارد الأخرى دون تعديل الكود مباشرة. هذا يبسط عملية إدارة المحتوى، ويعزز التعاون، ويضمن أنه يمكن إجراء التحديثات بسرعة وسهولة.
+Intlayer يوفر نظام إدارة محتوى بلا رأس (CSM) يمكّن غير المطورين من إدارة وتحديث محتوى التطبيقات بسلاسة. من خلال استخدام لوحة المعلومات السهلة الاستخدام لـ Intlayer، يمكن لفريقك تحرير النصوص المحلية والصور وموارد أخرى دون تعديل الكود مباشرة. هذا يبسط عملية إدارة المحتوى، ويعزز التعاون، ويضمن إمكانية إجراء التحديثات بسرعة وسهولة.
 
-لبدء استخدام Intlayer، ستحتاج أولاً إلى التسجيل والحصول على رمز وصول على [https://intlayer.org/dashboard](https://intlayer.org/dashboard). بمجرد حصولك على بيانات الاعتماد الخاصة بك، أضفها إلى ملف التكوين الخاص بك كما هو موضح أدناه:
+للشروع في استخدام Intlayer، ستحتاج أولاً إلى التسجيل والحصول على رمز وصول على [https://intlayer.org/dashboard](https://intlayer.org/dashboard). بمجرد أن تحصل على بيانات الاعتماد الخاصة بك، أضفها إلى ملف التكوين الخاص بك كما هو موضح أدناه:
 
-```typescript
-import { type IntlayerConfig } from 'intlayer';
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
 
 export default {
-  ...
+  // ...
   editor: {
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
@@ -27,60 +27,102 @@ export default {
 } satisfies IntlayerConfig;
 ```
 
-بعد تكوين بيانات الاعتماد الخاصة بك، يمكنك دفع قاموس لغة جديد إلى Intlayer عن طريق تشغيل:
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { type IntlayerConfig } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ...
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { type IntlayerConfig } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ...
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
+
+module.exports = config;
+```
+
+بعد تكوين بيانات الاعتماد الخاصة بك، يمكنك دفع قاموس محلي جديد إلى Intlayer عن طريق تشغيل:
 
 ```bash
 npm intlayer push -d my-first-dictionary-key
 ```
 
-هذا الأمر يرفع قواميس المحتوى الأولية الخاصة بك، مما يجعلها متاحة لجلب غير متزامن وتحرير من خلال منصة Intlayer.
+هذا الأمر يرفع قواميس المحتوى الأولية الخاصة بك، مما يجعلها متاحة للاستخراج والتعديل غير المتزامن من خلال منصة Intlayer.
 
-## استيراد `useIntlayerAsync` في Next.js
+## Importing `useIntlayerAsync` in Next.js
 
-نظرًا لأن `useIntlayerAsync` مخصص للمكونات **على جانب العميل**، ستقوم باستيراده من نفس نقطة دخول العميل مثل `useIntlayer`:
+نظرًا لأن `useIntlayerAsync` مخصص لمكونات **جانب العميل**، ستقوم باستيراده من نفس نقطة الدخول الخاصة بالعميل مثل `useIntlayer`:
 
-```tsx
+```tsx codeFormat="typescript"
 "use client";
 
 import { useIntlayerAsync } from "next-intlayer";
 ```
 
-تأكد من أن الملف المستورد موضح بعبارة `"use client"` في الأعلى، إذا كنت تستخدم موجه تطبيق Next.js مع فصائل الخادم والعميل مفصولة.
-
-## المعلمات
-
-1. **`key`**:  
-   **النوع**: `DictionaryKeys`  
-   مفتاح القاموس المستخدم لتحديد كتلة المحتوى المحلي. يجب تعريف هذا المفتاح في ملفات إعلان المحتوى الخاصة بك.
-
-2. **`locale`** (اختياري):  
-   **النوع**: `Locales`  
-   اللغة المحددة التي تريد استهدافها. إذا تم حذفها، يستخدم الـ Hook اللغة من سياق العميل.
-
-3. **`isRenderEditor`** (اختياري، افتراضيًا `true`):  
-   **النوع**: `boolean`  
-   يحدد ما إذا كان يجب أن يكون المحتوى جاهزًا للعرض مع تراكب محرر Intlayer. إذا تم تعيينه على `false`، ستستبعد بيانات القاموس التي تم إرجاعها ميزات خاصة بالمحرر.
-
-## قيمة الإرجاع
-
-يُرجع الـ Hook كائن قاموس يحتوي على محتوى محلي مقترن بـ `key` و `locale`. كما يتضمن قيمة منطقية `isLoading` تشير إلى ما إذا كان يتم حاليًا جلب قاموس بعيد.
-
-## مثال على الاستخدام في Next.js
-
-### مثال على مكون جانب العميل
-
-```tsx
+```javascript codeFormat="esm"
 "use client";
 
-import { useEffect } from "react";
+import { useIntlayerAsync } from "next-intlayer";
+```
+
+```javascript codeFormat="commonjs"
+"use client";
+
+const { useIntlayerAsync } = require("next-intlayer");
+```
+
+تأكد من أن الملف المستورد مُعَلّم بــ `"use client"` في الأعلى، إذا كنت تستخدم موجه تطبيقات Next.js مع مكونات خادم وعميل مفصولة.
+
+## Parameters
+
+1. **`key`**:  
+   **Type**: `DictionaryKeys`  
+   مفتاح القاموس المستخدم لتحديد كتلة المحتوى المحلي. ينبغي تعريف هذا المفتاح في ملفات إعلان المحتوى الخاصة بك.
+
+2. **`locale`** (اختياري):  
+   **Type**: `Locales`  
+   اللغة المحددة التي تريد استهدافها. إذا تم حذفها، يستخدم الخطاف اللغة من سياق العميل.
+
+3. **`isRenderEditor`** (اختياري، الافتراضي هو `true`):  
+   **Type**: `boolean`  
+   يحدد ما إذا كان ينبغي أن يكون المحتوى جاهزًا للرسم باستخدام طبقة تحرير Intlayer. إذا تم تعيينه على `false`، ستستثني بيانات القاموس المعادة الميزات الخاصة بالتحرير.
+
+## Return Value
+
+يرجع الخطاف كائن قاموس يحتوي على محتوى محلي مرتّب حسب `key` و `locale`. يتضمن أيضًا قيمة منطقية `isLoading` تشير إلى ما إذا كان يتم جلب قاموس بعيد حاليًا.
+
+## Example Usage in Next.js
+
+### Client-Side Component Example
+
+```tsx fileName="src/components/AsyncClientComponentExample.tsx" codeFormat="typescript"
+"use client";
+
+import { useEffect, type FC } from "react";
 import { useIntlayerAsync } from "next-intlayer";
 
-export const AsyncClientComponentExample = () => {
+export const AsyncClientComponentExample: FC = () => {
   const { title, description, isLoading } = useIntlayerAsync("async-component");
 
   useEffect(() => {
     if (isLoading) {
-      console.log("المحتوى قيد التحميل...");
+      console.log("المحتوى يتم تحميله...");
     }
   }, [isLoading]);
 
@@ -93,31 +135,79 @@ export const AsyncClientComponentExample = () => {
 };
 ```
 
-**النقاط الرئيسية:**
+```jsx fileName="src/components/AsyncClientComponentExample.mjx" codeFormat="esm"
+"use client";
 
-- عند العرض الأولي، يأتي `title` و `description` من قاموس اللغة المسبق.
+import { useEffect } from "react";
+import { useIntlayerAsync } from "next-intlayer";
+
+const AsyncClientComponentExample = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("المحتوى يتم تحميله...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      <h1>{title.value}</h1>
+      <p>{description.value}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/AsyncClientComponentExample.csx" codeFormat="commonjs"
+"use client";
+
+const { useEffect } = require("react");
+const { useIntlayerAsync } = require("next-intlayer");
+
+const AsyncClientComponentExample = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("المحتوى يتم تحميله...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      <h1>{title.value}</h1>
+      <p>{description.value}</p>
+    </div>
+  );
+};
+```
+
+**Key Points:**
+
+- عند العرض الأول، تأتي `title` و `description` من القاموس المحلي المعالج مسبقًا.
 - بينما تكون `isLoading` `true`، يتم إجراء طلب بعيد في الخلفية لجلب قاموس محدث.
-- بمجرد اكتمال الجلب، يتم تحديث `title` و `description` بأحدث المحتوى، وتعود `isLoading` إلى `false`.
+- بمجرد اكتمال الجلب، يتم تحديث `title` و `description` بأحدث المحتويات، وتعود `isLoading` إلى `false`.
 
-## التعامل مع محلية الخصائص
+## Handling Attribute Localization
 
-كما هو الحال مع `useIntlayer`، يمكنك استرداد قيم الخصائص المحلية لقيم مختلفة من خصائص HTML (مثل `alt`، `title`، `aria-label`):
+كما هو الحال مع `useIntlayer`، يمكنك استرداد قيم سمات محلية لخصائص HTML المختلفة (مثل `alt`, `title`, `aria-label`):
 
 ```tsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## ملفات إعلان المحتوى
+## Content Declaration Files
 
-يجب تعريف جميع مفاتيح المحتوى في ملفات إعلان المحتوى الخاصة بك من أجل الأمان من النوع ولتجنب الأخطاء في وقت التشغيل. تتيح لك هذه الملفات التحقق من صحة TypeScript، مما يضمن أنك دائما تشير إلى المفاتيح والأماكن الموجودة.
+يجب تحديد جميع مفاتيح المحتوى في ملفات إعلان المحتوى الخاصة بك من أجل سلامة النوع ومنع الأخطاء في وقت التشغيل. تتيح هذه الملفات التحقق من صحة TypeScript، مما يضمن دائمًا الإشارة إلى المفاتيح واللغات الموجودة.
 
-إرشادات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+إرشادات لإعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
 
-## مزيد من المعلومات
+## Further Information
 
-- **محرر Visual Intlayer:**  
-  دمج مع محرر Intlayer المرئي لإدارة وتحرير المحتوى مباشرة من الواجهة. مزيد من التفاصيل [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md).
+- **Intlayer Visual Editor:**  
+  دمج مع محرر Intlayer المرئي لإدارة وتحرير المحتوى مباشرة من واجهة المستخدم. مزيد من التفاصيل [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md).
 
 ---
 
-**باختصار**، يعد `useIntlayerAsync` إطارًا قويًا مصممًا لتعزيز تجربة المستخدم والحفاظ على تحديث المحتوى من خلال دمج القواميس المسبقة مع تحديثات القاموس غير المتزامنة. من خلال الاستفادة من `isLoading` وإعلانات المحتوى المستندة إلى TypeScript، يمكنك دمج المحتوى الديناميكي والمحلي في تطبيقات Next.js الخاصة بك.
+**In summary**, `useIntlayerAsync` هو خطاف قوي من جهة العميل مصمم لتحسين تجربة المستخدم والحفاظ على تحديث المحتوى من خلال مزج القواميس المعالجة مسبقًا مع التحديثات غير المتزامنة للقواميس. من خلال الاستفادة من `isLoading` وإعلانات المحتوى المستندة إلى TypeScript، يمكنك دمج المحتوى الديناميكي والمحلي بسلاسة في تطبيقات Next.js الخاصة بك.

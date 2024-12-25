@@ -128,7 +128,7 @@ console.log(content); // Output: "You have less than four"
 
 - **Invalid Keys:**
 
-  - The function assumes that all keys in `enumerationContent` are valid and parsable as conditions. Invalid or improperly formatted keys may lead to unexpected behavior.
+  - The function assumes that all keys in `enumerationContent` are valid and parsable as conditions. Invalid or improperly formatted keys may lead to unexpected behaviour.
 
 - **TypeScript Enforcement:**
   - The function ensures that the `Content` type is consistent across all keys, allowing for type safety in the retrieved content.

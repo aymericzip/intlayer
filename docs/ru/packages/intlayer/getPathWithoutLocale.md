@@ -12,7 +12,7 @@
   - **Тип**: `string`
 
 - `locales: Locales[]`
-  - **Описание**: Необязательный массив поддерживаемых локалей. По умолчанию - сконфигурированные локали в проекте.
+  - **Описание**: Необязательный массив поддерживаемых локалей. По умолчанию используется настроенные локали в проекте.
   - **Тип**: `Locales[]`
 
 ## Возвращает:
@@ -22,11 +22,29 @@
 
 ## Пример использования:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Вывод: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Вывод: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="esm"
+import { getPathWithoutLocale } from "intlayer";
+
+console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="commonjs"
+const { getPathWithoutLocale } = require("intlayer");
+
+console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
 ```

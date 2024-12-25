@@ -1,21 +1,21 @@
-# Documentation: `t` Function in `express-intlayer`
+# Documentation: `t` 関数 in `express-intlayer`
 
-`express-intlayer` パッケージの `t` 関数は、Express アプリケーションでローカライズされた応答を提供するための主要なユーティリティです。これにより、ユーザーの希望する言語に基づいてコンテンツを動的に選択することで、国際化 (i18n) が簡素化されます。
+`express-intlayer` パッケージの `t` 関数は、Express アプリケーションでローカライズされたレスポンスを提供するためのコアユーティリティです。ユーザーの好ましい言語に基づいてコンテンツを動的に選択することで国際化 (i18n) を簡素化します。
 
 ---
 
 ## 概要
 
-`t` 関数は、特定の言語セットの翻訳を定義し取得するために使用されます。これは、クライアントのリクエスト設定（`Accept-Language` ヘッダーなど）に基づいて返すべき適切な言語を自動的に決定します。希望する言語が利用できない場合、設定で指定されたデフォルトのロケールに優雅にフォールバックします。
+`t` 関数は、特定の言語セットの翻訳を定義し、取得するために使用されます。これは、クライアントのリクエスト設定（例：`Accept-Language` ヘッダー）に基づいて、返すべき適切な言語を自動的に判断します。好ましい言語が利用できない場合は、設定で指定されたデフォルトロケールに優雅にフォールバックします。
 
 ---
 
-## 主な特徴
+## 主な機能
 
 - **動的ローカリゼーション**: クライアントに最も適切な翻訳を自動的に選択します。
-- **デフォルトロケールへのフォールバック**: クライアントの希望する言語が利用できない場合、デフォルトのロケールにフォールバックし、ユーザーエクスペリエンスの継続性を確保します。
-- **軽量で高速**: 高パフォーマンスのアプリケーション向けに設計されており、オーバーヘッドが最小限です。
-- **厳格モードサポート**: 宣言されたロケールへの厳格な準拠を強制し、信頼できる動作を保証します。
+- **デフォルトロケールへのフォールバック**: クライアントの好ましい言語が利用できない場合にデフォルトロケールにフォールバックし、ユーザー体験の継続性を確保します。
+- **軽量で高速**: 高パフォーマンスアプリケーション向けに設計され、最小限のオーバーヘッドを確保します。
+- **厳密モードサポート**: 信頼性の高い動作のために宣言されたロケールへの厳密な遵守を強制します。
 
 ---
 
@@ -25,40 +25,32 @@
 t(translations: Record<string, string>): string;
 ```
 
-### パラメータ
+### パラメーター
 
-- `translations`: キーがロケールコード（例: `en`, `fr`, `es-MX`）で、値が対応する翻訳された文字列のオブジェクト。
+- `translations`: キーがロケールコード（例：`en`, `fr`, `es-MX`）で、値がそれに対応する翻訳済み文字列のオブジェクトです。
 
 ### 戻り値
 
-- クライアントの希望する言語で表現されたコンテンツを表す文字列。
+- クライアントの好ましい言語で表現されたコンテンツを表す文字列を返します。
 
 ---
 
-## 国際化リクエストハンドラのロード
+## 国際化リクエストハンドラの読み込み
 
-`express-intlayer` によって提供される国際化機能が正しく動作するように、Express アプリケーションの最初に国際化ミドルウェアをロードする必要があります。これにより、`t` 関数が有効になり、ロケール検出と翻訳の適切な処理が保証されます。
+`express-intlayer`によって提供される国際化機能が正しく動作するようにするために、Express アプリケーションの冒頭で国際化ミドルウェアを **必ず** 読み込む必要があります。これにより `t` 関数が有効になり、ロケール検出と翻訳の適切な処理が确保されます。
 
-### 必要なミドルウェアの設定
+アプリケーションのすべてのルートが国際化の恩恵を受けるように、`app.use(intlayer())` ミドルウェアを **すべてのルートの前** に配置してください：
 
-```typescript
+```typescript {7} fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
 import { intlayer } from "express-intlayer";
 
 const app: Express = express();
 
-// 国際化リクエストハンドラをロード
-app.use(intlayer());
-```
-
-### アプリケーション内での配置
-
-全てのルートが国際化の恩恵を受けられるように、`app.use(intlayer())` ミドルウェアをアプリケーションのルートの **前に** 配置します：
-
-```typescript
+// 国際化リクエストハンドラを読み込む
 app.use(intlayer());
 
-// ミドルウェアをロードした後にルートを定義
+// ミドルウェアを読み込んだ後にルートを定義する
 app.get("/", (_req, res) => {
   res.send(
     t({
@@ -70,11 +62,53 @@ app.get("/", (_req, res) => {
 });
 ```
 
-### 必要な理由
+```javascript {7} fileName="src/index.mjs" codeFormat="esm"
+import express from "express";
+import { intlayer } from "express-intlayer";
 
-- **ロケール検出**: `intlayer` ミドルウェアは、ヘッダー、クッキー、または他の設定された方法に基づいて、ユーザーの希望するロケールを検出するために受信リクエストを処理します。
+const app = express();
+
+// 国際化リクエストハンドラを読み込む
+app.use(intlayer());
+
+// ミドルウェアを読み込んだ後にルートを定義する
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Hello, World!",
+      fr: "Bonjour le monde!",
+      es: "¡Hola, Mundo!",
+    })
+  );
+});
+```
+
+```javascript {7} fileName="src/index.cjs" codeFormat="commonjs"
+const express = require("express");
+const { intlayer } = require("express-intlayer");
+
+const app = express();
+
+// 国際化リクエストハンドラを読み込む
+app.use(intlayer());
+
+// ミドルウェアを読み込んだ後にルートを定義する
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Hello, World!",
+      fr: "Bonjour le monde!",
+      es: "¡Hola, Mundo!",
+    })
+  );
+});
+```
+
+### なぜこれが必要か
+
+- **ロケール検出**: `intlayer` ミドルウェアは、ヘッダー、クッキー、または他の構成された方法に基づいてユーザーの好ましいロケールを検出するために受信リクエストを処理します。
 - **翻訳コンテキスト**: `t` 関数が正しく動作するために必要なコンテキストを設定し、翻訳が正しい言語で返されるようにします。
-- **エラー防止**: このミドルウェアがない場合、`t` 関数を使用すると必要なロケール情報が利用できないため、ランタイムエラーが発生します。
+- **エラー防止**: このミドルウェアがないと、`t` 関数を使用することはランタイムエラーを引き起こします。なぜなら必要なロケール情報が利用できないからです。
 
 ---
 
@@ -84,7 +118,31 @@ app.get("/", (_req, res) => {
 
 異なる言語でローカライズされたコンテンツを提供します：
 
-```typescript
+```typescript fileName="src/index.ts" codeFormat="typescript"
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Welcome!",
+      fr: "Bienvenue!",
+      es: "¡Bienvenido!",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Welcome!",
+      fr: "Bienvenue!",
+      es: "¡Bienvenido!",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
 app.get("/", (_req, res) => {
   res.send(
     t({
@@ -98,15 +156,39 @@ app.get("/", (_req, res) => {
 
 **クライアントリクエスト:**
 
-- `Accept-Language: fr` のクライアントは `Bienvenue!` を受け取ります。
-- `Accept-Language: es` のクライアントは `¡Bienvenido!` を受け取ります。
-- `Accept-Language: de` のクライアントは `Welcome!` を受け取ります（デフォルトロケール）。
+- `Accept-Language: fr` を持つクライアントは `Bienvenue!` を受け取ります。
+- `Accept-Language: es` を持つクライアントは `¡Bienvenido!` を受け取ります。
+- `Accept-Language: de` を持つクライアントは `Welcome!` を受け取ります（デフォルトロケール）。
 
-### エラーハンドリング
+### エラーの取り扱い
 
 複数の言語でエラーメッセージを提供します：
 
-```typescript
+```typescript fileName="src/index.ts" codeFormat="typescript"
+app.get("/error", (_req, res) => {
+  res.status(500).send(
+    t({
+      en: "An unexpected error occurred.",
+      fr: "Une erreur inattendue s'est produite.",
+      es: "Ocurrió un error inesperado.",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+app.get("/error", (_req, res) => {
+  res.status(500).send(
+    t({
+      en: "An unexpected error occurred.",
+      fr: "Une erreur inattendue s'est produite.",
+      es: "Ocurrió un error inesperado.",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
@@ -124,7 +206,35 @@ app.get("/error", (_req, res) => {
 
 ロケール特有のバリアントの翻訳を指定します：
 
-```typescript
+```typescript fileName="src/index.ts" codeFormat="typescript"
+app.get("/greet", (_req, res) => {
+  res.send(
+    t({
+      en: "Hello!",
+      "en-GB": "Hello, mate!",
+      fr: "Bonjour!",
+      "es-MX": "¡Hola, amigo!",
+      "es-ES": "¡Hola!",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+app.get("/greet", (_req, res) => {
+  res.send(
+    t({
+      en: "Hello!",
+      "en-GB": "Hello, mate!",
+      fr: "Bonjour!",
+      "es-MX": "¡Hola, amigo!",
+      "es-ES": "¡Hola!",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
 app.get("/greet", (_req, res) => {
   res.send(
     t({
@@ -144,54 +254,151 @@ app.get("/greet", (_req, res) => {
 
 ### フォールバックメカニズム
 
-優先ロケールが利用できない場合、`t` 関数は設定で定義されたデフォルトロケールにフォールバックします：
+好ましいロケールが利用できない場合、`t` 関数は設定で定義されたデフォルトロケールにフォールバックします：
 
-```typescript
+```typescript {5-6} fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+} satisfies IntlayerConfig;
+
+export default config;
+```
+
+```javascript {5-6} fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
 };
+
+export default config;
 ```
 
-例：
+```javascript {5-6} fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
 
-- `defaultLocale` が `Locales.CHINESE` で、クライアントが `Locales.DUTCH` を要求した場合、返される翻訳は `Locales.CHINESE` の値にフォールバックします。
-- `defaultLocale` が定義されていない場合、`t` 関数は `Locales.ENGLISH` の値にフォールバックします。
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
+例えば：
+
+- `defaultLocale` が `Locales.CHINESE` で、クライアントが `Locales.DUTCH` を要求すると、返される翻訳はデフォルトで `Locales.CHINESE` の値になります。
+- `defaultLocale` が定義されていない場合、`t` 関数はデフォルトで `Locales.ENGLISH` の値にフォールバックします。
 
 ---
 
-### 厳格モードの実施
+### 厳密モードの強制
 
-`t` 関数を設定して、宣言されたロケールへの厳格な遵守を強制します：
+`t` 関数が宣言されたロケールに厳密に従うように構成します：
 
-| モード          | 振る舞い                                                                                           |
-| --------------- | -------------------------------------------------------------------------------------------------- |
-| `strict`        | 宣言された全てのロケールに翻訳を提供する必要があります。欠けているロケールはエラーをスローします。 |
-| `required_only` | 宣言されたロケールに翻訳が必要です。欠けているロケールは警告をトリガーしますが受け入れられます。   |
-| `loose`         | 宣言されていなくても存在する任意のロケールが受け入れられます。                                     |
+| モード          | 動作                                                                                                       |
+| --------------- | ---------------------------------------------------------------------------------------------------------- |
+| `strict`        | すべての宣言ロケールに翻訳を提供する必要があります。欠落したロケールはエラーを引き起こします。             |
+| `required_only` | 宣言たロケールは翻訳を持っている必要があります。欠落したロケールは警告を引き起こしますが受け入れられます。 |
+| `loose`         | 宣言されていないロケールも受け入れられます。                                                               |
 
-設定例：
+構成例：
 
-```typescript
+```typescript {7} fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
 const config = {
+  // ... 既存の構成
   internationalization: {
-    strictMode: "strict", // 厳格モードを強制
+    // ... 既存の国際化の構成
+    strictMode: "strict", // 厳密モードを強制する
+  },
+} satisfies IntlayerConfig;
+
+export default config;
+```
+
+```javascript {7} fileName="intlayer.config.mjs" codeFormat="esm"
+import { type IntlayerConfig } from "intlayer";
+
+const config = {
+  // ... 既存の構成
+  internationalization: {
+    // ... 既存の国際化の構成
+    strictMode: "strict", // 厳密モードを強制する
   },
 };
+
+export default config;
+```
+
+```javascript {7} fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { type IntlayerConfig } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... 既存の構成
+  internationalization: {
+    // ... 既存の国際化の構成
+    strictMode: "strict", // 厳密モードを強制する
+  },
+};
+
+module.exports = config;
 ```
 
 ---
 
 ### TypeScript 統合
 
-`t` 関数は、TypeScript と一緒に使用する場合に型安全です。型安全な翻訳オブジェクトを定義します：
+`t` 関数は TypeScript を使用するときに型安全です。型安全な翻訳オブジェクトを定義します：
 
-```typescript
+```typescript fileName="src/index.ts" codeFormat="typescript"
 import { type LanguageContent } from "express-intlayer";
 
 const translations: LanguageContent<string> = {
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+import { type LanguageContent } from "express-intlayer";
+
+/** @type {import('express-intlayer').LanguageContent<string>} */
+const translations = {
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+const { type LanguageContent } = require("express-intlayer");
+
+/** @type {import('express-intlayer').LanguageContent<string>} */
+const translations = {
   en: "Good morning!",
   fr: "Bonjour!",
   es: "¡Buenos días!",
@@ -206,22 +413,22 @@ app.get("/morning", (_req, res) => {
 
 ### 一般的なエラーとトラブルシューティング
 
-| 問題                     | 原因                                       | 解決策                                                 |
-| ------------------------ | ------------------------------------------ | ------------------------------------------------------ |
-| `t` 関数が動作しない     | ミドルウェアがロードされていない           | `app.use(intlayer())` をルートの前に追加してください。 |
-| 翻訳が見つからないエラー | 全てのロケールが無い状態で厳格モードが有効 | 必要な翻訳を全て提供してください。                     |
+| 問題                     | 原因                                         | 解決策                                                                     |
+| ------------------------ | -------------------------------------------- | -------------------------------------------------------------------------- |
+| `t` 関数が動作しない     | ミドルウェアが読み込まれていない             | `app.use(intlayer())` がルートの前に追加されていることを確認してください。 |
+| 翻訳が欠落しているエラー | すべてのロケールがない状態で厳密モードが有効 | 必要なすべての翻訳を提供します。                                           |
 
 ---
 
 ## 効果的な使用のためのヒント
 
-1. **翻訳の中央集約**: メンテナビリティを向上させるために、翻訳管理のために中央モジュールまたは JSON ファイルを使用します。
-2. **翻訳の検証**: 各言語バリアントに対応する翻訳があることを確認して、不必要にフォールバックしないようにします。
-3. **フロントエンドの i18n と組み合わせる**: アプリ全体のシームレスなユーザーエクスペリエンスのためにフロントエンド国際化と同期します。
-4. **パフォーマンスのベンチマーク**: 翻訳を追加する際にアプリの応答時間をテストして、最小限の影響を確保します。
+1. **翻訳を集中化する**: メンテナンスを改善するために翻訳管理用の集中モジュールや JSON ファイルを使用します。
+2. **翻訳を検証する**: 不必要にフォールバックしないように、すべての言語バリアントに対応する翻訳があることを確認します。
+3. **フロントエンドの i18n と統合する**: アプリ全体でシームレスなユーザー体験のためにフロントエンドの国際化と同期させます。
+4. **パフォーマンスをベンチマークする**: 翻訳追加時のアプリの応答時間をテストして、最小限の影響を確保します。
 
 ---
 
 ## 結論
 
-`t` 関数はバックエンド国際化の強力なツールです。これを効果的に使用することで、グローバルなオーディエンスに対してより包括的でユーザーフレンドリーなアプリケーションを作成できます。高度な使用法や詳細な設定オプションについては、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md) を参照してください。
+`t` 関数はバックエンド国際化の強力なツールです。これを効果的に使用することで、世界中の聴衆向けにより包括的でユーザーフレンドリーなアプリケーションを作成できます。高度な使用法や詳細な構成オプションについては、[documentation](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md) を参照してください。

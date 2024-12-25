@@ -1,34 +1,46 @@
-# Intlayer ドキュメント
+# Intlayer Documentation
 
-Intlayer ドキュメントへようこそ。このガイドは、Intlayer の概要、主な機能、およびこれらの文書を効果的に活用して開発体験を向上させる方法を提供します。
+Intlayerドキュメントへようこそ。このガイドは、Intlayerの概要、主な機能、およびこれらの文書を効果的に活用して開発体験を向上させる方法を提供します。
 
-## はじめに
+## Introduction
 
-### Intlayer とは？
+### What is Intlayer?
 
-**Intlayer** は、JavaScript 開発者向けに特別に設計された国際化ライブラリです。コード全体でコンテンツの宣言を可能にします。マルチリンガルコンテンツの宣言を構造化された辞書に変換し、コードに簡単に統合できるようにします。TypeScript を使用して、**Intlayer** は開発をより強力で効率的にします。
+**Intlayer**は、JavaScript開発者のために特別に設計された国際化ライブラリです。コード内のどこにでもコンテンツを宣言することを可能にします。マルチリンガルコンテンツの宣言を構造化された辞書に変換し、コードに簡単に組み込めるようにします。TypeScriptを使用することで、**Intlayer**は開発をより強化し、効率化します。
 
-Intlayer は、コンテンツを簡単に編集および管理するためのオプションのビジュアルエディタも提供します。このエディタは、コードを心配することなくコンテンツを生成するチームや、ビジュアルインターフェースを好む開発者に特に便利です。
+Intlayerは、コンテンツを簡単に編集および管理できるオプションのビジュアルエディタも提供します。このエディタは、コンテンツ管理のためのビジュアルインターフェースを好む開発者や、コードを気にせずにコンテンツを生成するチームに特に便利です。
 
-## 使用例
+## Example of usage
 
-```bash
+```bash codeFormat="typescript"
 .
-├── ClientComponent
-│   ├── index.content.ts
-│   └── index.tsx
-└── ServerComponent
-    ├── index.content.ts
-    └── index.tsx
+└── Components
+    └── myComponent
+       ├── index.content.ts
+       └── index.tsx
 ```
 
-```tsx
-// ./ClientComponent/index.content.ts
+```bash codeFormat="commonjs"
+.
+└── Components
+    └── myComponent
+       ├── index.content.cjs
+       └── index.mjs
+```
 
+```bash codeFormat="esm"
+.
+└── Components
+    └── myComponent
+       ├── index.content.mjs
+       └── index.js
+```
+
+```tsx fileName="src/components/myComponent/myComponent.content.ts" contentDeclarationFormat="typescript"
 import { type DeclarationContent, t } from "intlayer";
 
-const clientComponentContent = {
-  key: "client-component",
+const componentContent = {
+  key: "component-key",
   content: {
     myTranslatedContent: t({
       en: "Hello World",
@@ -38,44 +50,105 @@ const clientComponentContent = {
   },
 } satisfies DeclarationContent;
 
-export default clientComponentContent;
+export default componentContent;
 ```
 
-```tsx
-// ./ClientComponent/index.tsx
-"use client";
+```javascript fileName="src/components/myComponent/myComponent.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
 
-import { useIntlayer } from "next-intlayer";
+/** @type {import('intlayer').DeclarationContent} */
+const componentContent = {
+  key: "component-key",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
 
-export const ClientComponent = () => {
-  const { myTranslatedContent } = useIntlayer("client-component");
+export default componentContent;
+```
+
+```javascript fileName="src/components/myComponent/myComponent.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+const componentContent = {
+  key: "component-key",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+module.exports = componentContent;
+```
+
+```json fileName="src/components/myComponent/myComponent.content.json" contentDeclarationFormat="json"
+{
+  "key": "component-key",
+  "content": {
+    "myTranslatedContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World",
+        "fr": "Bonjour le monde",
+        "es": "Hola Mundo"
+      }
+    }
+  }
+}
+```
+
+```tsx fileName="src/components/myComponent/MyComponent.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+export const MyComponent: FC = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
 
   return <span>{myTranslatedContent}</span>;
 };
 ```
 
-### 主な機能
+```jsx fileName="src/components/myComponent/MyComponent.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
 
-Intlayer は、現代のウェブ開発のニーズに合わせたさまざまな機能を提供します。以下は、各機能の詳細なドキュメントへのリンク付きの主な機能です。
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
 
-- **国際化サポート**: 組み込みの国際化サポートでアプリケーションのグローバルリーチを拡大します。
-- **ビジュアルエディタ**: Intlayer用に設計されたエディタプラグインで開発ワークフローを改善します。[ビジュアルエディタガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_editor.md)をご覧ください。
-- **設定の柔軟性**: [設定ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で詳述された広範な設定オプションを使用してセットアップをカスタマイズします。
-- **高度な CLI ツール**: Intlayer のコマンドラインインターフェースを使用してプロジェクトを効率的に管理します。[CLI ツールドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)でその機能を探ります。
-- **i18n との互換性**: Intlayer は他の国際化ライブラリとシームレスに動作します。[i18n ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_i18next.md)で詳細をご覧ください。
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
-### 対応プラットフォーム
+```jsx fileName="src/components/myComponent/MyComponent.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
 
-Intlayer は Next.js および React アプリケーションとシームレスに動作するように設計されています。また、Vite および Create React App もサポートしています。
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
 
-- **Next.js 統合**: サーバーサイドレンダリングおよび静的サイト生成のために、Intlayer 内で Next.js の力を活用します。詳細は[Next.js 統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)でご覧ください。
-- **Vite と React 統合**: サーバーサイドレンダリングおよび静的サイト生成のために、Intlayer 内で Vite を活用します。詳細は [Vite と React 統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)でご覧ください。
-- **Create React App 統合**: サーバーサイドレンダリングおよび静的サイト生成のために、Intlayer 内で Create React App の力を活用します。詳細は [Create React App 統合ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)でご覧ください。
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
-### このドキュメントの使い方
+### Main Features
 
-このドキュメントを最大限に活用するために：
+Intlayerは、現代のウェブ開発のニーズに応えるために特化したさまざまな機能を提供します。以下は、各機能の詳細なドキュメントへのリンクとともに、主な機能です。
 
-1. **関連セクションに移動**: 上記のリンクを使用して、ニーズに応じたセクションに直接移動します。
-2. **インタラクティブな例**: 利用可能な場合は、インタラクティブな例を使用して機能がリアルタイムでどのように動作するかを確認します。
-3. **フィードバックと貢献**: あなたのフィードバックは貴重です。提案や修正がある場合は、ドキュメントへの貢献を検討してください。
+- **Internationalization Support**: 国際化をサポートするビルトイン機能でアプリケーションのグローバルなリーチを向上させます。
+- **Visual Editor**: Intlayer向けのエディタプラグインで開発ワークフローを改善します。[Visual Editor Guide](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_editor.md)をご覧ください。
+- **Configuration Flexibility**: [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)に詳細に記載された広範な設定オプションでセットアップをカスタマイズします。
+- **Advanced CLI Tools**: Intlayerのコマンドラインインターフェースを使用してプロジェクトを効率的に管理します。[CLI Tools Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)で機能を探ってください。
+- **Compatibility with i18n**: Intlayerは他の国際化ライブラリとシームレスに動作します。[i18n Guide](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_i18next.md)で詳細をご覧ください。
+
+### Platforms Supported
+
+Intlayerは、Next.jsおよびReactアプリケーションとシームレスに動作するように設計されています。また、ViteおよびCreate React Appもサポートしています。
+
+- **Next.js Integration**: サーバーサイドレンダリングおよび静的サイト生成のために、Intlayer内でNext.jsのパワーを利用します。詳細は、[Next.js Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)をご覧ください。
+- **Vite and React Integration**: サーバーサイドレンダリングおよび静的サイト生成のために、Intlayer内でViteを活用します

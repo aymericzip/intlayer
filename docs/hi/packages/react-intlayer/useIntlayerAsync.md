@@ -1,77 +1,115 @@
 # React Integration: `useIntlayerAsync` Hook Documentation
 
-`useIntlayerAsync` हुक `useIntlayer` की कार्यक्षमता को बढ़ाता है और न केवल प्री-रेंडर्ड शब्दकोष लौटाता है बल्कि असynchronously अपडेट भी लाता है, जिससे यह उन अनुप्रयोगों के लिए आदर्श है जो प्रारंभिक रेंडर के बाद अपने स्थानीयकृत सामग्री को अक्सर अपडेट करते हैं।
+`useIntlayerAsync` हुक `useIntlayer` की कार्यक्षमता को बढ़ाता है, न केवल पूर्व-रैण्डर्ड शब्दकोश को लौटाकर बल्कि असिंक्रोनस रूप से अपडेट को भी लाकर, जिससे यह उन अनुप्रयोगों के लिए आदर्श बनता है जो प्रारंभिक रेंडर के बाद अक्सर अपने स्थानीयकृत सामग्री को अपडेट करते हैं।
 
-## Overview
+## ओवरव्यू
 
-- **असिंक्रोनस शब्दकोष लोडिंग:**  
-  प्रारंभिक माउंट पर, `useIntlayerAsync` पहले किसी प्री-फेच्ड या स्थैतिक बंडल किए गए स्थानीयकृत शब्दकोष को लौटाता है (जैसे कि `useIntlayer` करेगा) और फिर असynchronously नई उपलब्ध दूरस्थ शब्दकोष को लाने और मर्ज करने का कार्य करता है।
+- **असिंक्रोनस शब्दकोश लोडिंग:**  
+  प्रारंभिक माउंट पर, `useIntlayerAsync` पहले कोई पूर्व-फेच या स्थिर रूप से बंडल किए गए लोकल शब्दकोश (जैसे `useIntlayer` करेगा) लौटाता है और फिर असिंक्रोनस रूप से नए उपलब्ध दूरस्थ शब्दकोशों को लाने और मर्ज करने के लिए।
 - **प्रगति स्थिति प्रबंधन:**  
-  हुक एक `isLoading` स्थिति भी प्रदान करता है, जो यह इंगीत करता है कि दूरस्थ शब्दकोष लाया जा रहा है। इससे डेवलपर्स को लोडिंग संकेतक या कंकाली स्थितियों को प्रदर्शित करने की अनुमति मिलती है, जिससे उपयोगकर्ता अनुभव में सुधार होता है।
+  हुक एक `isLoading` स्थिति भी प्रदान करता है, जो यह संकेत करता है कि एक दूरस्थ शब्दकोश लाया जा रहा है। यह डेवलपर्स को लोडिंग संकेतक या कंकाल राज्यों को प्रदर्शित करने की अनुमति देता है जिससे उपयोगकर्ता अनुभव बेहतर होता है।
 
-## Environment Setup
+## वातावरण सेटअप
 
-Intlayer एक हेडलेस कंटेंट सोर्स मैनेजमेंट (CSM) प्रणाली प्रदान करता है जो गैर-डेवलपर्स को अनुप्रयोग सामग्री को सहजता से प्रबंधित और अपडेट करने में सक्षम बनाता है। Intlayer की सहज डैशबोर्ड का उपयोग करके, आपकी टीम बिना सीधे कोड को संशोधित किए अपने स्थानीयकृत पाठ, छवियों और अन्य संसाधनों को संपादित कर सकती है। यह सामग्री प्रबंधन प्रक्रिया को सरल बनाता है, सहयोग को बढ़ावा देता है, और सुनिश्चित करता है कि अपडेट तेजी से और आसानी से किए जा सकें।
+Intlayer एक हेडलेस सामग्री स्रोत प्रबंधन (CSM) प्रणाली प्रदान करता है जो गैर-डेवलपर्स को अनुप्रयोग सामग्री को सुचारू रूप से प्रबंधित और अपडेट करने में सक्षम बनाता है। Intlayer के सहज डैशबोर्ड का उपयोग करके, आपकी टीम स्थानीयकृत टेक्स्ट, छवियों और अन्य संसाधनों को सीधे कोड में परिवर्तन किए बिना संपादित कर सकती है। यह सामग्री प्रबंधन प्रक्रिया को सरल बनाता है, सहयोग को बढ़ावा देता है और यह सुनिश्चित करता है कि अपडेट जल्दी और आसानी से किए जा सकें।
 
 Intlayer के साथ शुरू करने के लिए:
 
-1. **एक्सेस टोकन प्राप्त करें** [https://intlayer.org/dashboard](https://intlayer.org/dashboard) पर।
-2. **अपने कॉन्फ़िगरेशन फ़ाइल में क्रेडेंशियल जोड़ें:**  
-   अपने React प्रोजेक्ट में, अपने क्रेडेंशियल के साथ Intlayer क्लाइंट को कॉन्फ़िगर करें:
+1. **एक्सेस टोकन के लिए पंजीकरण करें और प्राप्त करें** [https://intlayer.org/dashboard](https://intlayer.org/dashboard)।
+2. **अपने कॉन्फ़िगरेशन फ़ाइल में क्रेडेंशियल्स जोड़ें:**  
+   अपने React प्रोजेक्ट में, अपने क्रेडेंशियल्स के साथ Intlayer क्लाइंट को कॉन्फ़िगर करें:
 
-   ```typescript
-   import { type IntlayerConfig } from 'intlayer';
+   ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+   import type { IntlayerConfig } from "intlayer";
 
    export default {
-     ...
+     // ...
      editor: {
        clientId: process.env.INTLAYER_CLIENT_ID,
        clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      },
-   } satisfies  IntlayerConfig
+   } satisfies IntlayerConfig;
    ```
 
-3. **Intlayer पर एक नया स्थानीयकृत शब्दकोष पुश करें:**
+   ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+   import { type IntlayerConfig } from "intlayer";
+
+   /** @type {import('intlayer').IntlayerConfig} */
+   const config = {
+     // ...
+     editor: {
+       clientId: process.env.INTLAYER_CLIENT_ID,
+       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+     },
+   };
+
+   export default config;
+   ```
+
+   ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+   const { type IntlayerConfig } = require("intlayer");
+
+   /** @type {import('intlayer').IntlayerConfig} */
+   const config = {
+     // ...
+     editor: {
+       clientId: process.env.INTLAYER_CLIENT_ID,
+       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+     },
+   };
+
+   module.exports = config;
+   ```
+
+3. **Intlayer पर एक नया स्थानीयकृत शब्दकोश पुश करें:**
 
    ```bash
    npm intlayer push -d my-first-dictionary-key
    ```
 
-   यह कमांड आपके प्रारंभिक सामग्री शब्दकोष को अपलोड करता है, जिससे यह Intlayer प्लेटफ़ॉर्म के माध्यम से असynchronously लाने और संपादित करने के लिए उपलब्ध हो जाता है।
+   यह कमांड आपकी प्रारंभिक सामग्री शब्दकोशों को अपलोड करता है, जिससे वे Intlayer प्लेटफ़ॉर्म के माध्यम से असिंक्रोनस रूप से लाने और संपादित करने के लिए उपलब्ध होते हैं।
 
-## Importing `useIntlayerAsync` in React
+## React में `useIntlayerAsync` आयात करना
 
-अपने React घटकों में, `useIntlayerAsync` आयात करें:
+अपने React घटकों में, `useIntlayerAsync` को आयात करें:
 
-```tsx
+```ts codeFormat="typescript"
 import { useIntlayerAsync } from "react-intlayer";
 ```
 
-## Parameters
+```js codeFormat="esm"
+import { useIntlayerAsync } from "react-intlayer";
+```
+
+```js codeFormat="commonjs"
+const { useIntlayerAsync } = require("react-intlayer");
+```
+
+## पैरामीटर
 
 1. **`key`**:  
-   **Type**: `DictionaryKeys`  
-   शब्दकोष कुंजी जो स्थानीयकृत सामग्री ब्लॉक की पहचान के लिए उपयोग की जाती है। यह कुंजी आपके सामग्री घोषणा फ़ाइलों में परिभाषित की जानी चाहिए।
+   **प्रकार**: `DictionaryKeys`  
+   स्थानीयकृत सामग्री ब्लॉक की पहचान के लिए उपयोग किया जाने वाला शब्दकोश कुंजी। यह कुंजी आपके सामग्री घोषणा फ़ाइलों में परिभाषित होनी चाहिए।
 
 2. **`locale`** (वैकल्पिक):  
-   **Type**: `Locales`  
-   वह विशिष्ट स्थानीयकृत जिसे आप लक्षित करना चाहते हैं। यदि omit किया गया है, तो हुक वर्तमान Intlayer संदर्भ से स्थानीयकृत का उपयोग करता है।
+   **प्रकार**: `Locales`  
+   विशिष्ट स्थानीयकरण जिसे आप लक्षित करना चाहते हैं। यदि छोड़ा गया, तो हुक वर्तमान Intlayer संदर्भ से स्थानीयकरण का उपयोग करता है।
 
-3. **`isRenderEditor`** (वैकल्पिक, डिफ़ॉल्ट `true` पर):  
-   **Type**: `boolean`  
-   यह निर्धारित करता है कि सामग्री Intlayer संपादक ओवरले के साथ रेंडर करने के लिए तैयार होनी चाहिए या नहीं। यदि `false` पर सेट किया गया है, तो लौटाए गए शब्दकोष डेटा में संपादक-विशिष्ट विशेषताएँ शामिल नहीं होंगी।
+3. **`isRenderEditor`** (वैकल्पिक, डिफ़ॉल्ट `true`):  
+   **प्रकार**: `boolean`  
+   निर्धारित करता है कि सामग्री को Intlayer संपादक ओवरले के साथ रेंडरिंग के लिए तैयार होना चाहिए या नहीं। यदि `false` पर सेट किया गया है, तो लौटाया गया शब्दकोश डेटा संपादक-विशिष्ट कार्यों को बाहर करेगा।
 
-## Return Value
+## परिणाम मूल्य
 
-यह हुक एक शब्दकोष वस्तु लौटाता है जिसमें `key` और `locale` द्वारा कुंजीबद्ध स्थानीयकृत सामग्री होती है। इसमें एक `isLoading` बूलियन भी शामिल है जो इंगीत करता है कि वर्तमान में दूरस्थ शब्दकोष लाया जा रहा है या नहीं।
+हुक एक शब्दकोश वस्तु लौटाता है जिसमें स्थानीयकृत सामग्री होती है जो `key` और `locale` द्वारा कुंजीबद्ध होती है। इसमें एक `isLoading` बूलियन भी शामिल है जो यह संकेत करता है कि क्या कोई दूरस्थ शब्दकोश वर्तमान में लाया जा रहा है।
 
-## Example Usage in a React Component
+## React घटक में उदाहरण उपयोग
 
-```tsx
-import { useEffect } from "react";
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+import { useEffect, type FC } from "react";
 import { useIntlayerAsync } from "react-intlayer";
 
-export const AsyncClientComponentExample = () => {
+export const ComponentExample: FC = () => {
   const { title, description, isLoading } = useIntlayerAsync("async-component");
 
   useEffect(() => {
@@ -85,7 +123,7 @@ export const AsyncClientComponentExample = () => {
       {isLoading ? (
         <div>
           <h1>लोड हो रहा है…</h1>
-          <p>कृपया प्रतीक्षा करें जब तक सामग्री अपडेट होती है।</p>
+          <p>कृपया रुकें जबकि सामग्री अपडेट हो रही है।</p>
         </div>
       ) : (
         <div>
@@ -98,31 +136,93 @@ export const AsyncClientComponentExample = () => {
 };
 ```
 
-**Key Points:**
+```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+import { useEffect } from "react";
+import { useIntlayerAsync } from "react-intlayer";
 
-- प्रारंभिक रेंडर पर, `title` और `description` प्री-फेच्ड या स्थैतिक रूप से एम्बेडेड स्थानीयकृत शब्दकोष से आते हैं।
-- जब `isLoading` `true` है, तो एक बैकग्राउंड अनुरोध एक अपडेटेड शब्दकोष लाता है।
-- जब लाने की प्रक्रिया पूरी होती है, तो `title` और `description` को नवीनतम सामग्री के साथ अपडेट किया जाता है, और `isLoading` `false` पर वापस लौटता है।
+const ComponentExample = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
 
-## Handling Attribute Localization
+  useEffect(() => {
+    if (isLoading) {
+      console.log("सामग्री लोड हो रही है...");
+    }
+  }, [isLoading]);
 
-आप विभिन्न HTML गुणों (जैसे, `alt`, `title`, `aria-label`) के लिए स्थानीयकृत एट्रिब्यूट वैल्यूज भी प्राप्त कर सकते हैं:
+  return (
+    <div>
+      {isLoading ? (
+        <div>
+          <h1>लोड हो रहा है…</h1>
+          <p>कृपया रुकें जबकि सामग्री अपडेट हो रही है।</p>
+        </div>
+      ) : (
+        <div>
+          <h1>{title.value}</h1>
+          <p>{description.value}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+```
 
-```tsx
+```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
+const { useEffect } = require("react");
+const { useIntlayerAsync } = require("react-intlayer");
+
+const ComponentExample = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("सामग्री लोड हो रही है...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      {isLoading ? (
+        <div>
+          <h1>लोड हो रहा है…</h1>
+          <p>कृपया रुकें जबकि सामग्री अपडेट हो रही है।</p>
+        </div>
+      ) : (
+        <div>
+          <h1>{title.value}</h1>
+          <p>{description.value}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+**मुख्य बिंदु:**
+
+- प्रारंभिक रेंडर पर, `title` और `description` पूर्व-फेच या स्थिर रूप से एम्बेडेड लोकल शब्दकोश से आते हैं।
+- जब तक `isLoading` `true` है, एक बैकग्राउंड अनुरोध एक अपडेट किया गया शब्दकोश लाता है।
+- जैसे ही फेच पूरा होता है, `title` और `description` नवीनतम सामग्री के साथ अपडेट होते हैं, और `isLoading` `false` पर लौटता है।
+
+## विशेषता स्थानीयकरण प्रबंधन
+
+आप विभिन्न HTML गुणों (जैसे `alt`, `title`, `aria-label`) के लिए स्थानीयकृत विशेषता मान भी प्राप्त कर सकते हैं:
+
+```jsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## Content Declaration Files
+## सामग्री घोषणा फ़ाइलें
 
-सभी सामग्री कुंजी को आपके सामग्री घोषणा फ़ाइलों में परिभाषित किया जाना चाहिए ताकि प्रकार सुरक्षा सुनिश्चित हो सके और रन टाइम त्रुटियों से बचा जा सके। ये फ़ाइलें TypeScript मान्यता सक्षम करती हैं, यह सुनिश्चित करते हुए कि आप हमेशा मौजूदा कुंजी और स्थानीयकृत को संदर्भित करते हैं।
+सभी सामग्री कुंजियों को आपके सामग्री घोषणा फ़ाइलों में परिभाषित किया जाना चाहिए जिससे टाइप सुरक्षा सुनिश्चित होती है और रनटाइम त्रुटियों को रोका जा सके। ये फ़ाइलें TypeScript प्रमाणीकरण सक्षम करती हैं, यह सुनिश्चित करते हुए कि आप हमेशा मौजूदा कुंजियों और स्थानीयकरणों का संदर्भ लेते हैं।
 
-सामग्री घोषणा फ़ाइलों को सेटअप करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) उपलब्ध हैं।
+सामग्री घोषणा फ़ाइलें सेट करने के लिए निर्देश उपलब्ध हैं [यहां](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md)。
 
-## Further Information
+## आगे की जानकारी
 
-- **Intlayer दृश्य संपাদক:**  
-  UI से सीधे सामग्री को प्रबंधित और संपादित करने के लिए Intlayer दृश्य संपादक के साथ एकीकृत करें। अधिक विवरण [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md)।
+- **Intlayer विजुअल संपादक:**  
+  UI से सीधे सामग्री को प्रबंधित और संपादित करने के लिए Intlayer विजुअल संपादक के साथ एकीकृत करें। अधिक जानकारी [यहां](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md)।
 
 ---
 
-**संक्षेप में**, `useIntlayerAsync` एक शक्तिशाली React हुक है जिसे उपयोगकर्ता अनुभव को बढ़ाने और प्री-रेंडर्ड या प्री-फेच्ड शब्दकोषों के साथ असंकलित शब्दकोष अपडेट को मर्ज करके सामग्री की ताजगी बनाए रखने के लिए डिज़ाइन किया गया है। `isLoading` और TypeScript-आधारित सामग्री की घोषणाओं का उपयोग करके, आप अपने React अनुप्रयोगों में गतिशील, स्थानीयकृत सामग्री को सहजता से एकीकृत कर सकते हैं।
+**संक्षेप में**, `useIntlayerAsync` एक शक्तिशाली React हुक है जिसे उपयोगकर्ता अनुभव को बढ़ाने और सामाग्री ताजगी बनाए रखने के लिए डिज़ाइन किया गया है, जो पूर्व-रैण्डर्ड या पूर्व-फेच किए गए शब्दकोशों को असिंक्रोनस शब्दकोश अपडेट के साथ मर्ज करता है। `isLoading` और TypeScript आधारित सामग्री घोषणाओं का लाभ उठाते हुए, आप अपने React अनुप्रयोगों में गतिशील, स्थानीयकृत सामग्री का सहजता से समावेश कर सकते हैं।

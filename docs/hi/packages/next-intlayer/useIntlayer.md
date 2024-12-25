@@ -1,48 +1,63 @@
 # Next.js Integration: `useIntlayer` Hook Documentation
 
-`useIntlayer` हुक Next.js अनुप्रयोगों के लिए स्थानीयकृत सामग्री को कुशलतापूर्वक प्राप्त और प्रबंधित करने के लिए तैयार किया गया है। यह दस्तावेज़ Next.js परियोजनाओं में हुक का उपयोग कैसे करना है, इस पर ध्यान केंद्रित करेगा, उचित स्थानीयकरण प्रथाओं को सुनिश्चित करेगा।
+The `useIntlayer` hook को Next.js एप्लिकेशन के लिए स्थानीयकृत सामग्री को प्रभावी ढंग से लाने और प्रबंधित करने के लिए तैयार किया गया है। यह दस्तावेज़ दिखाएगा कि Next.js परियोजनाओं के भीतर इस हुक का उपयोग कैसे करें, सुनिश्चित करते हुए कि उचित स्थानीयकरण प्रथाओं का पालन किया जाए।
 
-## Next.js में `useIntlayer` को आयात करना
+## Importing `useIntlayer` in Next.js
 
-आप Next.js अनुप्रयोग में क्लाइंट-साइड या सर्वर-साइड घटकों पर काम कर रहे हैं, इस पर निर्भर करते हुए, आप निम्नलिखित के रूप में `useIntlayer` हुक को आयात कर सकते हैं:
+चाहे आप Next.js एप्लिकेशन में क्लाइंट-साइड या सर्वर-साइड घटकों पर काम कर रहे हों, आप `useIntlayer` हुक को निम्न तरीके से आयात कर सकते हैं:
 
-- **क्लाइंट घटक:**
+- **क्लाइंट कंपोनेंट:**
 
-  ```javascript
-  import { useIntlayer } from "next-intlayer"; // 클라이언트 측 구성 요소 में 사용됨
+  ```typescript codeFormat="typescript"
+  import { useIntlayer } from "next-intlayer"; // क्लाइंट-साइड घटकों में उपयोग किया गया
   ```
 
-- **सर्वर घटक:**
-
-  ```tsx
-  import { useIntlayer } from "next-intlayer/server"; // 서버 측 घटकों में उपयोग किया जाता है
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "next-intlayer"; // क्लाइंट-साइड घटकों में उपयोग किया गया
   ```
 
-## पैरामीटर
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("next-intlayer"); // क्लाइंट-साइड घटकों में उपयोग किया गया
+  ```
 
-1. **`key`**: एक स्ट्रिंग पहचानकर्ता जिसे आप सामग्री प्राप्त करने के लिए शब्दकोश कुंजी से संबंधित करना चाहते हैं।
-2. **`locale`** (वैकल्पिक): उपयोग करने के लिए एक विशिष्ट भाषा। यदि छोड़ा गया, तो हुक क्लाइंट या सर्वर संदर्भ में सेट की गई स्थानीयकरण को डिफ़ॉल्ट के रूप में उपयोग करता है।
+- **सर्वर कंपोनेंट:**
+
+  ```tsx codeFormat="typescript"
+  import { useIntlayer } from "next-intlayer/server"; // सर्वर-साइड घटकों में उपयोग किया गया
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "next-intlayer/server"; // सर्वर-साइड घटकों में उपयोग किया गया
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("next-intlayer/server"); // सर्वर-साइड घटकों में उपयोग किया गया
+  ```
+
+## Parameters
+
+1. **`key`**: एक स्ट्रिंग पहचानकर्ता जो शब्दकोश की कुंजी के लिए है जिससे आप सामग्री को प्राप्त करना चाहते हैं।
+2. **`locale`** (वैकल्पिक): उपयोग के लिए एक विशिष्ट स्थानीयकरण। यदि छोड़ा गया, तो हुक उस स्थानीयकरण का डिफॉल्ट सेट कर देता है जो क्लाइंट या सर्वर संदर्भ में सेट है।
 
 ## सामग्री घोषणा फ़ाइलें
 
-यह महत्वपूर्ण है कि सभी सामग्री कुंजियों को सामग्री घोषणा फ़ाइलों के भीतर परिभाषित किया जाए ताकि रनटाइम त्रुटियों को रोका जा सके और प्रकार की सुरक्षा सुनिश्चित हो सके। यह दृष्टिकोण टाइपस्क्रिप्ट एकीकरण के लिए संकलन समय सत्यापन की सुविधा भी प्रदान करता है।
+यह सुनिश्चित करना महत्वपूर्ण है कि सभी सामग्री कुंजियाँ सामग्री घोषणा फ़ाइलों के भीतर परिभाषित हैं ताकि रUNTIME त्रुटियों से बचा जा सके और प्रकार की सुरक्षा सुनिश्चित की जा सके। यह दृष्टिकोण संकलन समय की_validation के लिए TypeScript एकीकरण की भी सुविधा देता है।
 
-सामग्री घोषणा फ़ाइलें स्थापित करने के लिए निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) उपलब्ध हैं।
+सामग्री घोषणा फ़ाइलों को सेट करने के लिए निर्देश [यहां](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) उपलब्ध हैं।
 
 ## Next.js में उदाहरण उपयोग
 
-यहाँ एक Next.js पृष्ठ के भीतर `useIntlayer` हुक को कैसे लागू किया जा सकता है, यह स्थानीयकरण को स्वचालित रूप से लोड करने के लिए एप्लिकेशन की वर्तमान स्थानीयकरण के आधार पर है:
+यहां बताया गया है कि आप Next.js पृष्ठ के भीतर `useIntlayer` हुक को कैसे लागू कर सकते हैं ताकि एप्लिकेशन के वर्तमान स्थानीयकरण के आधार पर स्थानीयकृत सामग्री को गतिशील रूप से लोड किया जा सके:
 
-```tsx
-// src/pages/[locale]/index.tsx
-
-import { ClientComponentExample, ServerComponentExample } from "@components";
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { useIntlayer, IntlayerServerProvider } from "next-intlayer/server";
 
 const HomePage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
-  return (
+
   const content = useIntlayer("homepage", locale);
 
   return (
@@ -59,15 +74,81 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
 };
 ```
 
-```tsx
-// src/components/ClientComponentExample.tsx
+```jsx fileName="src/pages/[locale]/index.csx" codeFormat="esm"
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
+const HomePage = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerClientProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerClientProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
+const {
+  ClientComponentExample,
+} = require("@components/ClientComponentExample");
+const {
+  ServerComponentExample,
+} = require("@components/ServerComponentExample");
+const { IntlayerClientProvider } = require("next-intlayer");
+const { useIntlayer } = require("next-intlayer/server");
+
+const HomePage = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerClientProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerClientProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
+"use-client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const ClientComponentExample: FC = () => {
+  const content = useIntlayer("component-content");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ClientComponentExample.msx" codeFormat="esm"
 "use-client";
 
 import { useIntlayer } from "next-intlayer";
 
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component");
+const ServerComponentExample = () => {
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -78,13 +159,44 @@ const ClientComponentExample = () => {
 };
 ```
 
-```tsx
-// src/components/ServerComponentExample.tsx
+```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
+"use-client";
 
+const { useIntlayer } = require("next-intlayer");
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("component-content");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer/server";
+
+const ServerComponentExample: FC = () => {
+  const content = useIntlayer("component-content");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component");
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -95,16 +207,31 @@ const ServerComponentExample = () => {
 };
 ```
 
-## विशेषता स्थानीयकरण को संभालना
+```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("next-intlayer/server");
 
-ऐसे विशेषताओं को स्थानीय बनाने के लिए जैसे `alt`, `title`, `href`, `aria-label`, आदि, सुनिश्चित करें कि आप सामग्री को सही तरीके से संदर्भित कर रहे हैं:
+const ServerComponentExample = () => {
+  const content = useIntlayer("component-content");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+## Handling Attribute Localization
+
+ऐसे गुणों को स्थानीयकृत करने के लिए जैसे `alt`, `title`, `href`, `aria-label` आदि, सुनिश्चित करें कि आप सामग्री का सही संदर्भ लें:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
 ```
 
-## आगे की जानकारी
+## Further Information
 
-- **Intlayer दृश्य संपादक**: सामग्री प्रबंधन के लिए दृश्य संपादक का उपयोग कैसे करें [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) सीखें।
+- **Intlayer Visual Editor**: विज़ुअल संपादक का उपयोग कैसे करें इसके लिए आसान सामग्री प्रबंधन [यहां](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) जानें।
 
-यह दस्तावेज़ विशेष रूप से Next.js वातावरण में `useIntlayer` हुक के उपयोग को रेखांकित करता है, आपके Next.js अनुप्रयोगों में स्थानीयकरण को प्रबंधित करने के लिए एक मजबूत समाधान प्रदान करता है।
+यह दस्तावेज़ विशेष रूप से Next.js वातावरण के भीतर `useIntlayer` हुक के उपयोग का वर्णन करता है, जो आपके Next.js एप्लिकेशनों में स्थानीयकरण प्रबंधन के लिए एक मजबूत समाधान प्रदान करता है।

@@ -1,6 +1,6 @@
-# Getting Started die Deklaration Ihres Inhalts
+# Getting Started die Erklärung Ihres Inhalts
 
-## Dateienerweiterungen
+## Dateien Erweiterungen
 
 Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen auf Inhaltsdeklarationen:
 
@@ -10,9 +10,9 @@ Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen
 - `.content.mjs`
 - `.content.cjs`
 
-Die Anwendung sucht standardmäßig nach Dateien, die dem Muster `./src/**/*.content.{ts,tsx,js,mjs,cjs}` entsprechen.
+Die Anwendung sucht standardmäßig nach Dateien, die dem Glob-Muster `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` entsprechen.
 
-Diese Standarderweiterungen sind für die meisten Anwendungen geeignet. Wenn Sie jedoch spezifische Anforderungen haben, beziehen Sie sich auf den Leitfaden zur Anpassung der Dateierweiterung für Anweisungen, wie Sie diese verwalten können.
+Diese Standarderweiterungen sind für die meisten Anwendungen geeignet. Wenn Sie jedoch spezifische Anforderungen haben, konsultieren Sie den [Inhaltserweiterungsanpassungsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md#content-configuration) für Anweisungen zur Verwaltung dieser.
 
 Für eine vollständige Liste der Konfigurationsoptionen besuchen Sie die Konfigurationsdokumentation.
 
@@ -20,10 +20,7 @@ Für eine vollständige Liste der Konfigurationsoptionen besuchen Sie die Konfig
 
 Erstellen und verwalten Sie Ihre Inhaltswörterbücher:
 
-### Mit TypeScript
-
-```typescript
-// src/app/[locale]/page.content.ts
+```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
 import { t, enu, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -57,11 +54,7 @@ export default {
 } satisfies DeclarationContent<Content>;
 ```
 
-### Mit ECMAScript-Modulen
-
-```javascript
-// src/app/[locale]/page.content.mjs
-
+```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -88,11 +81,7 @@ export default {
 };
 ```
 
-### Mit CommonJS-Modulen
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
+```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -119,11 +108,7 @@ module.exports = {
 };
 ```
 
-### Mit JSON
-
-```json5
-// src/app/[locale]/page.content.json
-
+```json5 fileName="src/app/[locale]/page.content.json"  codeFormat="json"
 {
   "key": "page",
   "content": {
@@ -152,5 +137,3 @@ module.exports = {
   },
 }
 ```
-
-Warnung, die JSON-Inhaltsdeklaration macht es unmöglich, [Funktionsabruf](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/function_fetching.md) zu implementieren.

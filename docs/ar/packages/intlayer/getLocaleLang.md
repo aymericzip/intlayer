@@ -1,39 +1,69 @@
-# Documentation: `getLocaleLang` Function in `intlayer`
+# الوثائق: دالة `getLocaleLang` في `intlayer`
 
-## Description:
+## الوصف:
 
-تقوم دالة `getLocaleLang` باستخراج رمز اللغة من سلسلة اللغة المحلية. تدعم اللغات المحلية مع أو بدون رموز البلاد. إذا لم يتم توفير لغة محلية، فإنها تعود افتراضيًا إلى إرجاع سلسلة فارغة.
+تقوم دالة `getLocaleLang` باستخراج رمز اللغة من سلسلة المنطقة. تدعم المناطق التي تحتوي على أو بدون رموز الدول. إذا لم يتم توفير منطقة، فإنها تعود بشكل افتراضي بإرجاع سلسلة فارغة.
 
-## Parameters:
+## المعلمات:
 
 - `locale?: Locales`
 
-  - **Description**: سلسلة اللغة المحلية (مثل `Locales.ENGLISH_UNITED_STATES`، `Locales.FRENCH_CANADA`) التي يتم استخراج رمز اللغة منها.
-  - **Type**: `Locales` (اختياري)
+  - **الوصف**: سلسلة المنطقة (مثل `Locales.ENGLISH_UNITED_STATES`، `Locales.FRENCH_CANADA`) التي يتم استخراج رمز اللغة منها.
+  - **النوع**: `Locales` (اختياري)
 
-## Returns:
+## العائدات:
 
-- **Type**: `string`
-- **Description**: رمز اللغة المستخرج من اللغة المحلية. إذا لم يتم توفير اللغة المحلية، فإنها تعود بسلسلة فارغة (`''`).
+- **النوع**: `string`
+- **الوصف**: رمز اللغة المستخرج من المنطقة. إذا لم يتم توفير المنطقة، فإنها تعود بسلسلة فارغة (`''`).
 
-## Example Usage:
+## مثال على الاستخدام:
 
-### Extracting Language Codes:
+### استخراج رموز اللغة:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // الناتج: "en"
-getLocaleLang(Locales.ENGLISH); // الناتج: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // الناتج: "fr"
-getLocaleLang(Locales.FRENCH); // الناتج: "fr"
+// إرجاع رمز اللغة من منطقة اللغة الإنجليزية - الولايات المتحدة
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+// إرجاع رمز اللغة من منطقة اللغة الإنجليزية
+getLocaleLang(Locales.ENGLISH); // Output: "en"
+// إرجاع رمز اللغة من منطقة اللغة الفرنسية - كندا
+getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
+// إرجاع رمز اللغة من منطقة اللغة الفرنسية
+getLocaleLang(Locales.FRENCH); // Output: "fr"
 ```
 
-## Edge Cases:
+```javascript codeFormat="esm"
+import { getLocaleLang } from "intlayer";
 
-- **No Locale Provided:**
+// إرجاع رمز اللغة من منطقة اللغة الإنجليزية - الولايات المتحدة
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+// إرجاع رمز اللغة من منطقة اللغة الإنجليزية
+getLocaleLang(Locales.ENGLISH); // Output: "en"
+// إرجاع رمز اللغة من منطقة اللغة الفرنسية - كندا
+getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
+// إرجاع رمز اللغة من منطقة اللغة الفرنسية
+getLocaleLang(Locales.FRENCH); // Output: "fr"
+```
 
-  - تقوم الدالة بإرجاع سلسلة فارغة عندما تكون `locale` غير معرف.
+```javascript codeFormat="commonjs"
+const { getLocaleLang } = require("intlayer");
 
-- **Malformed Locale Strings:**
-  - إذا كانت `locale` لا تتبع تنسيق `language-country` (مثل `Locales.ENGLISH-US`)، فإن الدالة تعود بأمان بالجزء الذي يأتي قبل `'-'` أو بالسلسلة الكاملة إذا لم يكن هناك `'-'`.
+// إرجاع رمز اللغة من منطقة اللغة الإنجليزية - الولايات المتحدة
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+// إرجاع رمز اللغة من منطقة اللغة الإنجليزية
+getLocaleLang(Locales.ENGLISH); // Output: "en"
+// إرجاع رمز اللغة من منطقة اللغة الفرنسية - كندا
+getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
+// إرجاع رمز اللغة من منطقة اللغة الفرنسية
+getLocaleLang(Locales.FRENCH); // Output: "fr"
+```
+
+## الحالات الحديّة:
+
+- **لا توجد منطقة مقدمة:**
+
+  - تعود الدالة بسلسلة فارغة عندما يكون `locale` غير معرّف.
+
+- **سلاسل المناطق غير الصحيحة:**
+  - إذا كانت `locale` لا تتبع تنسيق `language-country` (مثل `Locales.ENGLISH-US`)، فإن الدالة تعود بشكل آمن بالجزء قبل `'-'` أو بالسلسلة بالكامل إذا لم يكن هناك `'-'`.

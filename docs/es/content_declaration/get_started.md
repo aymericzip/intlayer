@@ -1,8 +1,8 @@
-# Comenzando la declaración de su contenido
+# Getting Started la declaración de su contenido
 
-## Extensiones de archivos
+## Archivos de extensiones
 
-Por defecto, Intlayer observa todos los archivos con las siguientes extensiones para declaraciones de contenido:
+Por defecto, Intlayer supervisa todos los archivos con las siguientes extensiones para declaraciones de contenido:
 
 - `.content.ts`
 - `.content.tsx`
@@ -10,9 +10,9 @@ Por defecto, Intlayer observa todos los archivos con las siguientes extensiones 
 - `.content.mjs`
 - `.content.cjs`
 
-La aplicación buscará archivos que coincidan con el patrón glob `./src/**/*.content.{ts,tsx,js,mjs,cjs}` de forma predeterminada.
+La aplicación buscará archivos que coincidan con el patrón glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` de forma predeterminada.
 
-Estas extensiones predeterminadas son adecuadas para la mayoría de las aplicaciones. Sin embargo, si tiene requisitos específicos, consulte la guía de personalización de extensiones de contenido para obtener instrucciones sobre cómo administrarlas.
+Estas extensiones predeterminadas son adecuadas para la mayoría de las aplicaciones. Sin embargo, si tiene requisitos específicos, consulte la [guía de personalización de extensiones de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md#content-configuration) para obtener instrucciones sobre cómo administrarlas.
 
 Para obtener una lista completa de opciones de configuración, visite la documentación de configuración.
 
@@ -20,10 +20,7 @@ Para obtener una lista completa de opciones de configuración, visite la documen
 
 Cree y gestione sus diccionarios de contenido:
 
-### Usando TypeScript
-
-```typescript
-// src/app/[locale]/page.content.ts
+```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
 import { t, enu, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -46,22 +43,18 @@ export default {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Menos de un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
     }),
   },
 } satisfies DeclarationContent<Content>;
 ```
 
-### Usando módulos ECMAScript
-
-```javascript
-// src/app/[locale]/page.content.mjs
-
+```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -77,22 +70,18 @@ export default {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Menos de un coche",
-      "-1": "Menos un coche",
-      0: "Sin coches",
-      1: "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      0: "No cars",
+      1: "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
     }),
   },
 };
 ```
 
-### Usando módulos CommonJS
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
+```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -108,22 +97,18 @@ module.exports = {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Menos de un coche",
-      "-1": "Menos un coche",
-      0: "Sin coches",
-      1: "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      0: "No cars",
+      1: "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
     }),
   },
 };
 ```
 
-### Usando JSON
-
-```json5
-// src/app/[locale]/page.content.json
-
+```json5 fileName="src/app/[locale]/page.content.json"  codeFormat="json"
 {
   "key": "page",
   "content": {
@@ -141,16 +126,14 @@ module.exports = {
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Menos de un coche",
-        "-1": "Menos un coche",
-        "0": "Sin coches",
-        "1": "Un coche",
-        ">5": "Algunos coches",
-        ">19": "Muchos coches",
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        "0": "No cars",
+        "1": "One car",
+        ">5": "Some cars",
+        ">19": "Many cars",
       },
     },
   },
 }
 ```
-
-Advertencia, la declaración de contenido JSON hace imposible implementar [función de recuperación](https://github.com/aymericzip/intlayer/blob/main/docs/es/content_declaration/function_fetching.md)

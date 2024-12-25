@@ -1,32 +1,33 @@
-# Documentación de la integración Next.js: Hook `useLocale` para `next-intlayer`
+# Integración de Next.js: Documentación del Hook `useLocale` para `next-intlayer`
 
-Esta sección ofrece documentación detallada sobre el hook `useLocale`, diseñado para aplicaciones Next.js dentro de la biblioteca `next-intlayer`. Está pensado para manejar cambios de idioma y enrutamiento de forma eficiente.
+Esta sección ofrece documentación detallada sobre el hook `useLocale` adaptado para aplicaciones Next.js dentro de la biblioteca `next-intlayer`. Está diseñado para manejar cambios de locales y enrutamiento de manera eficiente.
 
-## Importación de `useLocale` en Next.js
+## Importando `useLocale` en Next.js
 
-Para utilizar el hook `useLocale` en tu aplicación Next.js, impórtalo de la siguiente manera:
+Para utilizar el hook `useLocale` en tu aplicación Next.js, impórtalo como se muestra a continuación:
 
 ```javascript
-import { useLocale } from "next-intlayer"; // Usado para gestionar idiomas y enrutamiento en Next.js
+import { useLocale } from "next-intlayer"; // Usado para gestionar locales y enrutamiento en Next.js
 ```
 
 ## Uso
 
-Aquí tienes un ejemplo de cómo implementar el hook `useLocale` en un componente Next.js:
+Aquí te mostramos cómo implementar el hook `useLocale` dentro de un componente de Next.js:
 
-```jsx
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
 
+import type { FC } from "react";
 import { Locales } from "intlayer";
 import { useLocale } from "next-intlayer";
 
-const LocaleSwitcher = () => {
+const LocaleSwitcher: FC = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
     <div>
-      <h1>Idioma actual: {locale}</h1>
-      <p>Idioma predeterminado: {defaultLocale}</p>
+      <h1>Locale Actual: {locale}</h1>
+      <p>Locale Predeterminado: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -37,20 +38,68 @@ const LocaleSwitcher = () => {
     </div>
   );
 };
-
-export default LocaleSwitcher;
 ```
 
-## Parámetros y valores devueltos
+```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
+"use client";
 
-Al invocar el hook `useLocale`, devuelve un objeto con las siguientes propiedades:
+import { Locales } from "intlayer";
+import { useLocale } from "next-intlayer";
 
-- **`locale`**: El idioma actual definido en el contexto de React.
-- **`defaultLocale`**: El idioma principal definido en la configuración.
-- **`availableLocales`**: Una lista de todos los idiomas disponibles definidos en la configuración.
-- **`setLocale`**: Una función para cambiar el idioma de la aplicación y actualizar la URL en consecuencia. Se encarga de las reglas de prefijos, ya sea agregando o no el idioma en la ruta según la configuración. Utiliza `useRouter` de `next/navigation` para funciones de navegación como `push` y `refresh`.
-- **`pathWithoutLocale`**: Una propiedad calculada que devuelve la ruta sin el idioma. Es útil para comparar URLs. Por ejemplo, si el idioma actual es `es` y la URL es `es/mi_ruta`, la ruta sin idioma será `/mi_ruta`. Utiliza `usePathname` de `next/navigation` para obtener la ruta actual.
+const LocaleSwitcher = () => {
+  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <h1>Locale Actual: {locale}</h1>
+      <p>Locale Predeterminado: {defaultLocale}</p>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        {availableLocales.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+"use client";
+
+const { Locales } = require("intlayer");
+const { useLocale } = require("next-intlayer");
+
+const LocaleSwitcher = () => {
+  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <h1>Locale Actual: {locale}</h1>
+      <p>Locale Predeterminado: {defaultLocale}</p>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        {availableLocales.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+```
+
+## Parámetros y Valores de Retorno
+
+Cuando invocas el hook `useLocale`, devuelve un objeto que contiene las siguientes propiedades:
+
+- **`locale`**: El locale actual configurado en el contexto de React.
+- **`defaultLocale`**: El locale principal definido en la configuración.
+- **`availableLocales`**: Una lista de todos los locales disponibles según lo definido en la configuración.
+- **`setLocale`**: Una función para cambiar el locale de la aplicación y actualizar la URL en consecuencia. Se encarga de las reglas de prefijo, ya sea agregar el locale a la ruta o no, según la configuración. Utiliza `useRouter` de `next/navigation` para funciones de navegación como `push` y `refresh`.
+- **`pathWithoutLocale`**: Una propiedad calculada que devuelve la ruta sin el locale. Es útil para comparar URLs. Por ejemplo, si el locale actual es `fr`, y la url `fr/my_path`, la ruta sin locale es `/my_path`. Utiliza `usePathname` de `next/navigation` para obtener la ruta actual.
 
 ## Conclusión
 
-El hook `useLocale` de `next-intlayer` es una herramienta esencial para gestionar idiomas en aplicaciones Next.js. Ofrece un enfoque integrado para adaptar tu aplicación a múltiples idiomas, manejando el almacenamiento del idioma, la gestión de estados y las modificaciones de URL de manera transparente.
+El hook `useLocale` de `next-intlayer` es una herramienta crucial para gestionar locales en aplicaciones Next.js. Ofrece un enfoque integrado para adaptar tu aplicación a múltiples locales manejando el almacenamiento de locales, la gestión del estado y las modificaciones de URL de manera fluida.

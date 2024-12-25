@@ -15,7 +15,7 @@ The `t` function is used to define and retrieve translations for a given set of 
 - **Dynamic Localization**: Automatically selects the most appropriate translation for the client.
 - **Fallback to Default Locale**: Falls back to a default locale if the client's preferred language isn't available, ensuring continuity in user experience.
 - **Lightweight and Fast**: Designed for high-performance applications, ensuring minimal overhead.
-- **Strict Mode Support**: Enforce strict adherence to declared locales for reliable behavior.
+- **Strict Mode Support**: Enforce strict adherence to declared locales for reliable behaviour.
 
 ---
 
@@ -308,7 +308,7 @@ For example:
 
 Configure the `t` function to enforce strict adherence to declared locales:
 
-| Mode            | Behavior                                                                                    |
+| Mode            | Behaviour                                                                                   |
 | --------------- | ------------------------------------------------------------------------------------------- |
 | `strict`        | All declared locales must have translations provided. Missing locales will throw errors.    |
 | `required_only` | Declared locales must have translations. Missing locales trigger warnings but are accepted. |
@@ -422,13 +422,13 @@ app.get("/morning", (_req, res) => {
 
 ## Tips for Effective Usage
 
-1. **Centralize Translations**: Use a centralized module or JSON files for managing translations to improve maintainability.
+1. **Centralise Translations**: Use a centralized module or JSON files for managing translations to improve maintainability.
 2. **Validate Translations**: Ensure every language variant has a corresponding translation to prevent falling back unnecessarily.
-3. **Combine with Frontend i18n**: Synchronize with frontend internationalization for a seamless user experience across the app.
+3. **Combine with Frontend i18n**: Synchronise with frontend internationalization for a seamless user experience across the app.
 4. **Benchmark Performance**: Test your app's response times when adding translations to ensure minimal impact.
 
 ---
 
 ## Conclusion
 
-The `t` function is a powerful tool for backend internationalization. By using it effectively, you can create a more inclusive and user-friendly application for a global audience. For advanced usage and detailed configuration options, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+The `t` function is a powerful tool for backend internationalization. By using it effectively, you can create a more inclusive and user-friendly application for a global audience. For advanced usage and detailed configuration options, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).

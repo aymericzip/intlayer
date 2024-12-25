@@ -1,35 +1,63 @@
 # Documentation: `getConfiguration` Function in `intlayer`
 
-## Description:
+## 説明:
 
-`getConfiguration`関数は、環境変数を抽出することによって、`intlayer`アプリケーションの全体の設定を取得します。この関数は、クライアントとサーバーの両方で同じ設定を使用する柔軟性を提供し、アプリケーション全体での一貫性を確保します。
+`getConfiguration` 関数は、環境変数を抽出することで `intlayer` アプリケーションの全設定を取得します。この関数は、クライアント側とサーバー側の両方で同じ設定を使用できる柔軟性を提供し、アプリケーション全体での一貫性を確保します。
 
 ---
 
-## Parameters:
+## パラメータ:
 
-この関数は、パラメータを受け取りません。代わりに、設定のために環境変数を使用します。
+この関数はパラメータを取らず、代わりに環境変数を設定に使用します。
 
-### Returns:
+### 戻り値:
 
-- **Type**: `IntlayerConfig`
-- **Description**: `intlayer`の完全な設定を含むオブジェクト。設定には以下のセクションが含まれます：
+- **タイプ**: `IntlayerConfig`
+- **説明**: `intlayer` の完全な設定を含むオブジェクト。設定には以下のセクションが含まれます:
 
-  - `internationalization`: ロケールおよび厳格モードに関連する設定。
-  - `middleware`: URLおよびクッキー管理に関連する設定。
+  - `internationalization`: ロケールと厳密モードに関連する設定。
+  - `middleware`: URL とクッキー管理に関連する設定。
   - `content`: コンテンツファイル、ディレクトリ、およびパターンに関連する設定。
-  - `editor`: エディター特有の設定。
+  - `editor`: エディタ固有の設定。
 
-詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)をご覧ください。
+詳細については [Intlayer 設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md) を参照してください。
 
 ---
 
-## Example Usage:
+## 使用例:
 
-### Full Configurationの取得:
+### 完全な設定の取得:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
+
+const config = getConfiguration();
+console.log(config);
+// 出力:
+// {
+//   internationalization: { ... },
+//   middleware: { ... },
+//   content: { ... },
+//   editor: { ... }
+// }
+```
+
+```javascript codeFormat="esm"
+import { getConfiguration } from "intlayer";
+
+const config = getConfiguration();
+console.log(config);
+// 出力:
+// {
+//   internationalization: { ... },
+//   middleware: { ... },
+//   content: { ... },
+//   editor: { ... }
+// }
+```
+
+```javascript codeFormat="commonjs"
+const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -44,23 +72,49 @@ console.log(config);
 
 ### `availableLocales` と `defaultLocale` の抽出:
 
-設定の`internationalization`セクションは、`locales`（利用可能なロケール）や`defaultLocale`（フォールバック言語）などのロケール関連の設定を提供します。
+設定の `internationalization` セクションは、利用可能なロケールとしての `locales` とフォールバック言語としての `defaultLocale` など、ロケール関連の設定を提供します。
 
-```typescript
+```typescript codeFormat="typescript"
+import { getConfiguration } from "intlayer";
+
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
-console.log(availableLocales); // 出力例: ["en", "fr", "es"]
-console.log(defaultLocale); // 出力例: "en"
+console.log(availableLocales); // 出力の例: ["en", "fr", "es"]
+console.log(defaultLocale); // 出力の例: "en"
 console.log(cookieName); // 出力: "INTLAYER_LOCALE"
 ```
 
-## Notes:
+```javascript codeFormat="esm"
+import { getConfiguration } from "intlayer";
 
-- この関数を呼び出す前に、必要な全ての環境変数が正しく設定されていることを確認してください。変数が不足していると、初期化中にエラーが発生します。
-- この関数はクライアントおよびサーバー側の両方で使用できるため、統一された方法で設定を管理するのに便利なツールです。
+const { internationalization, middleware } = getConfiguration();
+const { locales: availableLocales, defaultLocale } = internationalization;
+const { cookieName } = middleware;
 
-## Applicationsでの使用:
+console.log(availableLocales); // 出力の例: ["en", "fr", "es"]
+console.log(defaultLocale); // 出力の例: "en"
+console.log(cookieName); // 出力: "INTLAYER_LOCALE"
+```
 
-`getConfiguration`関数は、`intlayer`アプリケーションの設定を初期化し、管理するための基盤ユーティリティです。ロケール、ミドルウェア、コンテンツディレクトリなどの設定へのアクセスを提供することで、多言語およびコンテンツ駆動アプリケーション全体での一貫性とスケーラビリティを確保します。
+```javascript codeFormat="commonjs"
+const { getConfiguration } = require("intlayer");
+
+const { internationalization, middleware } = getConfiguration();
+const { locales: availableLocales, defaultLocale } = internationalization;
+const { cookieName } = middleware;
+
+console.log(availableLocales); // 出力の例: ["en", "fr", "es"]
+console.log(defaultLocale); // 出力の例: "en"
+console.log(cookieName); // 出力: "INTLAYER_LOCALE"
+```
+
+## 注意事項:
+
+- この関数を呼び出す前に、必要な環境変数がすべて正しく設定されていることを確認してください。欠落している変数は初期化中にエラーを引き起こします。
+- この関数はクライアント側とサーバー側の両方で使用でき、設定を統一的に管理するための versatile なツールです。
+
+## アプリケーションでの使用:
+
+`getConfiguration` 関数は、`intlayer` アプリケーションの設定を初期化および管理するための重要なユーティリティです。ロケール、ミドルウェア、コンテンツディレクトリの設定へのアクセスを提供することにより、マルチリンガルやコンテンツ駆動型アプリケーション全体での一貫性とスケーラビリティを保証します。

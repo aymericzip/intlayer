@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## intlayer-cli package
 
-`intlayer-cli` package intend to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md) into dictionaries.
+`intlayer-cli` package intends to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md) into dictionaries.
 
 This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
@@ -37,7 +37,7 @@ Intlayer accepts multiple configuration file formats:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
 
 ## Run intlayer commands
 
@@ -63,15 +63,15 @@ This command will find your declaration content files as default as `./src/**/*.
 npx intlayer push
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
 
 ##### Arguments:
 
 - `-d`, `--dictionaries`: ids of the dictionaries to pull. If not specified, all dictionaries will be pushed.
   > Example: `npx intlayer push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+- `-r`, `--deleteLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, if the dictionary is defined locally, it will overwrite remote dictionaries content.
   > Example: `npx intlayer push -r`
-- `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+- `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, if the dictionary is defined locally, it will overwrite remote dictionaries content.
   > Example: `npx intlayer push -k`
 
 ### Pull distant dictionaries
@@ -80,13 +80,13 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 npx intlayer pull
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
 
 ##### Arguments:
 
 - `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
   > Example: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
+- `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the new dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` field is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
 
 ##### Example:
 
@@ -100,7 +100,7 @@ npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
 npx intlayer audit
 ```
 
-This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer audit** will propose or apply updates to keep your dictionaries consistent and complete.
+This command analyses your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer audit** will propose or apply updates to keep your dictionaries consistent and complete.
 
 ##### Arguments:
 

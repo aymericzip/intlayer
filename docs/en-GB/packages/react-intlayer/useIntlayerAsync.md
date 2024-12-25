@@ -216,12 +216,12 @@ You can also retrieve localized attribute values for various HTML properties (e.
 
 All content keys must be defined in your content declaration files for type safety and to prevent runtime errors. These files enable TypeScript validation, ensuring you always reference existing keys and locales.
 
-Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md).
+Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md).
 
 ## Further Information
 
 - **Intlayer Visual Editor:**  
-  Integrate with the Intlayer visual editor for managing and editing content directly from the UI. More details [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md).
+  Integrate with the Intlayer visual editor for managing and editing content directly from the UI. More details [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md).
 
 ---
 

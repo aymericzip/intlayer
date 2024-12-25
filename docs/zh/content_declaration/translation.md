@@ -1,119 +1,134 @@
-# Translation
+# 翻译
 
-## Defining Translations
+## 定义翻译
 
-`t` 函数在 `intlayer` 中允许您声明多种语言的内容。该函数确保类型安全，如果任何翻译缺失，将引发错误，这在 TypeScript 环境中特别有用。
+`intlayer`中的`t`函数允许您声明多种语言的内容。该函数确保类型安全，如果缺少任何翻译，则会引发错误，这在TypeScript环境中特别有用。
 
-### Using TypeScript
+### 使用TypeScript
 
-这是如何在 TypeScript 文件中声明翻译内容的一个示例：
+以下是如何声明具有翻译的内容的示例。
 
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface Content {
-  welcomeMessage: string; // 欢迎信息
+  welcomeMessage: string;
 }
 
 export default {
-  key: "multi_lang", // 多语言键
+  key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application", // 欢迎来到我们的应用程序
-      fr: "Bienvenue dans notre application", // 欢迎来到我们的应用程序
-      es: "Bienvenido a nuestra aplicación", // 欢迎来到我们的应用程序
+      en: "欢迎使用我们的应用程序",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
     }),
   },
 } satisfies DeclarationContent<Content>;
 ```
 
-### Using ECMAScript Modules
-
-如果您使用 ECMAScript 模块，声明看起来像这样：
-
-```javascript
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 export default {
-  key: "multi_lang", // 多语言键
+  key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application", // 欢迎来到我们的应用程序
-      fr: "Bienvenue dans notre application", // 欢迎来到我们的应用程序
-      es: "Bienvenido a nuestra aplicación", // 欢迎来到我们的应用程序
+      en: "欢迎使用我们的应用程序",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
     }),
   },
 };
 ```
 
-### Using CommonJS Modules
-
-在 CommonJS 设置中，您可以像这样声明翻译：
-
-```javascript
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 module.exports = {
-  key: "multi_lang", // 多语言键
+  key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application", // 欢迎来到我们的应用程序
-      fr: "Bienvenue dans notre application", // 欢迎来到我们的应用程序
-      es: "Bienvenido a nuestra aplicación", // 欢迎来到我们的应用程序
+      en: "欢迎使用我们的应用程序",
+      fr: "Bienvenue dans notre application",
+      es: "Bienvenido a nuestra aplicación",
     }),
   },
 };
 ```
 
-### Using JSON
-
-对于基于 JSON 的声明，您可以如下定义翻译：
-
-```json
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
-  "key": "multi_lang", // 多语言键
+  "key": "multi_lang",
   "content": {
     "welcomeMessage": {
       "nodeType": "translation",
       "translation": {
-        "en": "Welcome to our application", // 欢迎来到我们的应用程序
-        "fr": "Bienvenue dans notre application", // 欢迎来到我们的应用程序
-        "es": "Bienvenido a nuestra aplicación" // 欢迎来到我们的应用程序
+        "en": "欢迎使用我们的应用程序",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
       }
     }
   }
 }
 ```
 
-## Configuration for Locales
+## 本地化配置
 
-为了确保适当的翻译处理，您可以在 `intlayer.config.ts` 中配置接受的地区语言。这一配置允许您定义您的应用程序支持的语言：
+为了确保正确的翻译处理，您可以在`intlayer.config.ts`中配置接受的语言环境。此配置允许您定义应用程序支持的语言：
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // 支持的语言
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
 export default config;
 ```
 
-## Using Translations in React Components
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
 
-使用 `react-intlayer`，您可以在 React 组件中使用翻译。以下是一个示例：
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
 
-```jsx
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+module.exports = config;
+```
+
+## 在React组件中使用翻译
+
+使用`react-intlayer`，您可以在React组件中使用翻译。以下是一个示例：
+
+```jsx fileName="**/*.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
-const MyComponent = () => {
-  const content = useIntlayer("multi_lang"); // 获取多语言内容
+const MyComponent: FC = () => {
+  const content = useIntlayer("multi_lang");
 
   return (
     <div>
-      <p>{content.welcomeMessage}</p> // 显示欢迎信息
+      <p>{content.welcomeMessage}</p>
     </div>
   );
 };
@@ -121,39 +136,150 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-该组件根据您应用程序中设置的当前语言获取相应的翻译。
+```javascript fileName="**/*.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
 
-## Custom Content Objects
+const MyComponent = () => {
+  const content = useIntlayer("multi_lang");
 
-`intlayer` 支持自定义内容对象进行翻译，允许您定义更复杂的结构，同时确保类型安全。以下是一个带有自定义对象的示例：
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
 
-```typescript
+export default MyComponent;
+```
+
+```javascript fileName="**/*.cjs" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const MyComponent = () => {
+  const content = useIntlayer("multi_lang");
+
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
+
+module.exports = MyComponent;
+```
+
+此组件根据您应用程序中设置的当前语言环境获取相应的翻译。
+
+## 自定义内容对象
+
+`intlayer`支持用于翻译的自定义内容对象，使您能够定义更复杂的结构，同时确保类型安全。以下是一个带有自定义对象的示例：
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface ICustomContent {
-  title: string; // 标题
-  content: string; // 内容
+  title: string;
+  content: string;
 }
 
 const customContent = {
-  key: "custom_content", // 自定义内容键
+  key: "custom_content",
   content: {
     profileText: t<ICustomContent>({
       en: {
-        title: "Page Title", // 页面标题
-        content: "Page Content", // 页面内容
+        title: "页面标题",
+        content: "页面内容",
       },
       fr: {
-        title: "Titre de la Page", // 页面标题
-        content: "Contenu de la Page", // 页面内容
+        title: "Titre de la Page",
+        content: "Contenu de la Page",
       },
       es: {
-        title: "Título de la Página", // 页面标题
-        content: "Contenido de la Página", // 页面内容
+        title: "Título de la Página",
+        content: "Contenido de la Página",
       },
     }),
   },
 } satisfies DeclarationContent;
 
 export default customContent;
+```
+
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+export default {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "页面标题",
+          content: "页面内容",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+      },
+  },
+};
+```
+
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+module.exports = {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "页面标题",
+          content: "页面内容",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+      },
+  },
+};
+```
+
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "key": "custom_content",
+  "content": {
+    "profileText": {
+      "nodeType": "translation",
+      "translation": {
+        "en": {
+          "title": "页面标题",
+          "content": "页面内容"
+        },
+        "fr": {
+          "title": "Titre de la Page",
+          "content": "Contenu de la Page"
+        },
+        "es": {
+          "title": "Título de la Página",
+          "content": "Contenido de la Página"
+        }
+      }
+    }
+  }
+}
 ```

@@ -1,10 +1,10 @@
-# Come Funziona Intlayer
+# Come funziona Intlayer
 
 ## Panoramica
 
-Il ruolo di Intlayer è interpretare i file di dichiarazione del contenuto JavaScript in dizionari.
+Il ruolo di Intlayer è interpretare i file di dichiarazione dei contenuti JavaScript in dizionari.
 
-Per questo, Intlayer segue diversi passaggi:
+Per questo, Intlayer passa attraverso diversi passaggi:
 
 1. Dichiarazione dei file di contenuto
 
@@ -13,17 +13,17 @@ Per questo, Intlayer segue diversi passaggi:
 
 2. Generazione di dizionari
 
-   - I dizionari sono generati dai file di contenuto. Per impostazione predefinita, i dizionari intlayer sono generati nella directory `.intlayer/dictionary` del progetto.
-   - Possono essere generati due tipi di dizionari: dizionari intlayer e dizionari i18n (beta).
+   - I dizionari sono generati dai file di contenuto. Per impostazione predefinita, i dizionari di intlayer vengono generati nella directory `.intlayer/dictionary` del progetto.
+   - Possono essere generati due tipi di dizionari: dizionari di intlayer e dizionari i18n (beta).
 
-3. Generazione dei tipi di dizionario
+3. Generazione dei tipi di dizionari
 
-   - I tipi di dizionario sono generati dai dizionari intlayer. Per impostazione predefinita, i tipi di dizionario intlayer sono generati nella directory `.intlayer/types` del progetto.
+   - I tipi di dizionari sono generati dai dizionari di intlayer. Per impostazione predefinita, i tipi di dizionario di intlayer vengono generati nella directory `.intlayer/types` del progetto.
 
-4. Generazione dell'augmented module di Intlayer
+4. Generazione dell'augmentazione del modulo Intlayer
 
-   - L'[augmented module di Intlayer](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) è una caratteristica di TypeScript che consente di definire tipi aggiuntivi per Intlayer. Questo rende l'esperienza di sviluppo più semplice suggerendo argomenti disponibili o argomenti richiesti.
-     Tra i tipi generati, i tipi di dizionario intlayer o anche i tipi di configurazione della lingua vengono aggiunti al file `types/intlayer.d.ts`, e utilizzati da altri pacchetti. Per fare questo, è necessario che il file `tsconfig.json` sia configurato per includere la directory `.intlayer/types` del progetto.
+   - L'[augmentazione del modulo Intlayer](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) è una funzionalità di TypeScript che consente di definire tipi aggiuntivi per Intlayer. Questo rende l'esperienza di sviluppo più semplice suggerendo argomenti disponibili o richiesti.
+     Tra i tipi generati, i tipi di dizionario intlayer o anche i tipi di configurazione della lingua sono aggiunti al file `types/intlayer.d.ts` e utilizzati da altri pacchetti. Per fare questo, è necessario che il file `tsconfig.json` sia configurato per includere la directory `.intlayer/types` del progetto.
 
 5. Monitoraggio dei file di contenuto
 
@@ -44,11 +44,11 @@ Il pacchetto `intlayer` è utilizzato nelle applicazioni per dichiarare contenut
 
 ### react-intlayer
 
-Il pacchetto `react-intlayer` è utilizzato per interpretare i dizionari intlayer e renderli utilizzabili nelle applicazioni React.
+Il pacchetto `react-intlayer` è utilizzato per interpretare i dizionari di intlayer e renderli utilizzabili nelle applicazioni React.
 
 ### next-intlayer
 
-Il pacchetto `next-intlayer` è utilizzato come strato sopra `react-intlayer` per rendere i dizionari intlayer utilizzabili nelle applicazioni Next.js. Integra funzionalità essenziali per far funzionare Intlayer in un ambiente Next.js, come middleware per la traduzione, routing o la configurazione del file `next.config.js`.
+Il pacchetto `next-intlayer` è utilizzato come strato sopra `react-intlayer` per rendere i dizionari di intlayer utilizzabili nelle applicazioni Next.js. Integra funzionalità essenziali per rendere Intlayer funzionante in un ambiente Next.js, come middleware di traduzione, routing o configurazione del file `next.config.js`.
 
 ### intlayer-editor
 
@@ -61,15 +61,15 @@ Il server, basato su Express, è utilizzato per ricevere le richieste visive del
 
 ### intlayer-cli
 
-Il pacchetto `intlayer-cli` può essere utilizzato per generare dizionari utilizzando il comando `npx intlayer build`. Se `intlayer` è già installato, il cli è installato automaticamente e questo pacchetto non è necessario.
+Il pacchetto `intlayer-cli` può essere utilizzato per generare dizionari utilizzando il comando `npx intlayer build`. Se `intlayer` è già installato, il cli viene installato automaticamente e questo pacchetto non è necessario.
 
 ### @intlayer/core
 
-Il pacchetto `@intlayer/core` è il pacchetto principale di Intlayer. Contiene funzioni di gestione della traduzione e dei dizionari. `@intlayer/core` è multipiattaforma e viene utilizzato da altri pacchetti per eseguire l'interpretazione dei dizionari.
+Il pacchetto `@intlayer/core` è il pacchetto master di Intlayer. Contiene funzioni di gestione della traduzione e del dizionario. `@intlayer/core` è multiplatform e viene utilizzato da altri pacchetti per eseguire l'interpretazione dei dizionari.
 
 ### @intlayer/config
 
-Il pacchetto `@intlayer/config` è utilizzato per configurare le impostazioni di Intlayer, come le lingue disponibili, i parametri del middleware di Next.js o le impostazioni dell'editor integrato.
+Il pacchetto `@intlayer/config` è utilizzato per configurare le impostazioni di Intlayer, come le lingue disponibili, i parametri middleware di Next.js o le impostazioni dell'editor integrato.
 
 ### @intlayer/webpack
 
@@ -77,12 +77,12 @@ Il pacchetto `@intlayer/webpack` è utilizzato per aggiungere plugin di compilaz
 
 ### @intlayer/cli
 
-Il pacchetto `@intlayer/cli` è utilizzato per garantire l'uniformità di tutti i comandi CLI di intlayer.
+Il pacchetto `@intlayer/cli` è utilizzato per garantire l'uniformità di tutti i comandi del CLI di intlayer.
 
 ### @intlayer/dictionaries-entry
 
-Il pacchetto `@intlayer/dictionaries-entry` è un pacchetto che restituisce solo il percorso di ingresso dei dizionari intlayer. Poiché la ricerca nel filesystem è impossibile dal browser, utilizzare bundlers come Webpack o Rollup per recuperare il percorso di ingresso dei dizionari non è possibile. Questo pacchetto mira a essere aliasato.
+Il pacchetto `@intlayer/dictionaries-entry` è un pacchetto che restituisce solo il percorso di ingresso dei dizionari di intlayer. Poiché la ricerca nel file system è impossibile dal browser, utilizzare bundler come Webpack o Rollup per recuperare il percorso di ingresso dei dizionari non è possibile. Questo pacchetto mira ad essere aliasato.
 
 ### @intlayer/chokidar
 
-Il pacchetto `@intlayer/chokidar` è utilizzato per monitorare i file di contenuto e rigenerare il dizionario modificato ad ogni modifica.
+Il pacchetto `@intlayer/chokidar` è utilizzato per monitorare i file di contenuti e rigenerare il dizionario modificato ad ogni modifica.

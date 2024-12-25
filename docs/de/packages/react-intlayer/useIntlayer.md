@@ -1,45 +1,59 @@
-# React-Integration: `useIntlayer` Hook-Dokumentation
+# React Integration: `useIntlayer` Hook Dokumentation
 
-Dieser Abschnitt bietet detaillierte Anleitungen zur Verwendung des `useIntlayer` Hooks in React-Anwendungen, um eine effiziente Inhaltslokalisierung zu ermöglichen.
+Dieser Abschnitt bietet detaillierte Anleitungen zur Verwendung des `useIntlayer` Hooks innerhalb von React-Anwendungen, um eine effiziente Inhaltslokalisierung zu ermöglichen.
 
 ## Importieren von `useIntlayer` in React
 
-Der `useIntlayer` Hook kann in React-Anwendungen integriert werden, indem er entsprechend dem Kontext importiert wird:
+Der `useIntlayer` Hook kann in React-Anwendungen integriert werden, indem er basierend auf dem Kontext importiert wird:
 
 - **Client-Komponente:**
 
-  ```javascript
-  import { useIntlayer } from "react-intlayer"; // Wird in klientseitigen React-Komponenten verwendet
+  ```typescript codeFormat="typescript"
+  import { useIntlayer } from "react-intlayer"; // Wird in clientseitigen React-Komponenten verwendet
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "react-intlayer"; // Wird in clientseitigen React-Komponenten verwendet
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("react-intlayer"); // Wird in clientseitigen React-Komponenten verwendet
   ```
 
 - **Server-Komponente:**
 
-  ```javascript
+  ```typescript codeFormat="commonjs"
   import { useIntlayer } from "react-intlayer/server"; // Wird in serverseitigen React-Komponenten verwendet
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "react-intlayer/server"; // Wird in serverseitigen React-Komponenten verwendet
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("react-intlayer/server"); // Wird in serverseitigen React-Komponenten verwendet
   ```
 
 ## Parameter
 
 Der Hook akzeptiert zwei Parameter:
 
-1. **`key`**: Der Wörterbuchschlüssel zum Abrufen lokalisierter Inhalte.
-2. **`locale`** (optional): Die gewünschte Locale. Standardmäßig wird die Locale des Kontexts verwendet, wenn sie nicht angegeben ist.
+1. **`key`**: Der Wörterbuchschlüssel zum Abrufen lokalisierten Inhalts.
+2. **`locale`** (optional): Die gewünschte Lokalisierung. Standardmäßig wird die Lokalisierung des Kontexts verwendet, wenn sie nicht angegeben ist.
 
 ## Inhaltsdeklaration
 
-Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien deklariert werden, um die Typensicherheit zu verbessern und Fehler zu vermeiden. Sie finden die Einrichtungshinweise [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md).
+Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien erklärt werden, um die Typsicherheit zu verbessern und Fehler zu vermeiden. Sie finden die Anleitung zur Einrichtung [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md).
 
-## Beispielverwendung in React
+## Beispielanwendung in React
 
 Demonstration des `useIntlayer` Hooks innerhalb einer React-Komponente:
 
-```tsx
-// src/pages/[locale]/index.tsx
-
+```tsx fileName="src/app.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
 import { useIntlayer, IntlayerServerProvider } from "react-intlayer/server";
-import { type FC } from "react";
 import { Locales } from "intlayer";
 
 const App: FC<{ locale: Locales }> = ({ locale }) => {
@@ -59,13 +73,58 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```tsx
-// src/components/ClientComponentExample.tsx
+```jsx fileName="src/app.mjx" codeFormat="esm"
+import { ClientComponentExample, ServerComponentExample } from "@components";
+import { IntlayerProvider } from "react-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
 
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```jsx fileName="src/app.csx" codeFormat="commonjs"
+const { IntlayerProvider } = require("react-intlayer");
+const {
+  IntlayerServerProvider,
+  useIntlayer,
+} = require("react-intlayer/server");
+
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component");
+const ComponentExample: FC = () => {
+  const content = useIntlayer("component-example");
 
   return (
     <div>
@@ -76,9 +135,37 @@ const ClientComponentExample = () => {
 };
 ```
 
-```tsx
-// src/components/ServerComponentExample.tsx
+```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
 
+const ComponentExample = () => {
+  const content = useIntlayer("component-example");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const ComponentExample = () => {
+  const content = useIntlayer("component-example");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer/server";
 
 const ServerComponentExample = () => {
@@ -93,16 +180,46 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Attribute behandeln
+```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer/server";
 
-Bei der Lokalisierung von Attributen greifen Sie entsprechend auf die Inhaltswerte zu:
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
 
-```tsx
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer/server");
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+## Handhabung von Attributen
+
+Bei der Lokalisierung von Attributen greifen Sie auf die Inhaltswerte entsprechend zu:
+
+```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Zusätzliche Ressourcen
 
-- **Intlayer Visual Editor**: Für eine intuitivere Erfahrung im Umgang mit Inhalten, verweisen Sie auf die Dokumentation des visuellen Editors [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md).
+- **Intlayer Visual Editor**: Für eine intuitivere Inhaltsverwaltung, lesen Sie die Dokumentation des visuellen Editors [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md).
 
-Dieser Abschnitt richtet sich speziell an die Integration des `useIntlayer` Hooks in React-Anwendungen, vereinfacht den Lokalisierungsprozess und stellt die Konsistenz des Inhalts über verschiedene Lokalisierungen hinweg sicher.
+Dieser Abschnitt richtet sich speziell an die Integration des `useIntlayer` Hooks in React-Anwendungen, vereinfacht den Lokalisierungsprozess und gewährleistet Konsistenz der Inhalte über verschiedene Lokalisierungen hinweg.

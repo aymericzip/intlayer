@@ -2,28 +2,46 @@
 
 ## Descrizione:
 
-Rimuove il segmento della locale dall'URL o dal pathname fornito se presente. Funziona sia con URL assoluti che con pathnames relativi.
+Rimuove il segmento locale dall'URL o dal percorso fornito se presente. Funziona sia con URL assoluti che con percorsi relativi.
 
 ## Parametri:
 
 - `inputUrl: string`
 
-  - **Descrizione**: La stringa URL completa o il pathname da elaborare.
+  - **Descrizione**: La stringa dell'URL completo o del percorso da elaborare.
   - **Tipo**: `string`
 
 - `locales: Locales[]`
-  - **Descrizione**: Array opzionale di locali supportati. Per impostazione predefinita si basa sulle locali configurate nel progetto.
+  - **Descrizione**: Array opzionale di locali supportati. Predefinito ai locali configurati nel progetto.
   - **Tipo**: `Locales[]`
 
-## Restituisci:
+## Restituisce:
 
 - **Tipo**: `string`
-- **Descrizione**: La stringa URL o il pathname senza il segmento della locale.
+- **Descrizione**: La stringa dell'URL o del percorso senza il segmento locale.
 
 ## Esempio di utilizzo:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";
+
+console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="esm"
+import { getPathWithoutLocale } from "intlayer";
+
+console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="commonjs"
+const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"

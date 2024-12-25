@@ -1,14 +1,14 @@
-# Documentation: `getHTMLTextDir` Função em `intlayer`
+# Documentação: `getHTMLTextDir` Função em `intlayer`
 
 ## Descrição:
 
-A função `getHTMLTextDir` determina a direção do texto (`ltr`, `rtl` ou `auto`) com base no local fornecido. Ela foi projetada para ajudar os desenvolvedores a definir o atributo `dir` em HTML para renderização adequada do texto.
+A função `getHTMLTextDir` determina a direção do texto (`ltr`, `rtl` ou `auto`) com base na localidade fornecida. Ela é projetada para ajudar desenvolvedores a definir o atributo `dir` em HTML para renderização adequada do texto.
 
 ## Parâmetros:
 
 - `locale?: Locales`
 
-  - **Descrição**: A string de localidade (por exemplo, `Locales.ENGLISH`, `Locales.ARABIC`) usada para determinar a direção do texto.
+  - **Descrição**: A string da localidade (por exemplo, `Locales.ENGLISH`, `Locales.ARABIC`) usada para determinar a direção do texto.
   - **Tipo**: `Locales` (opcional)
 
 ## Retornos:
@@ -23,7 +23,7 @@ A função `getHTMLTextDir` determina a direção do texto (`ltr`, `rtl` ou `aut
 
 ### Determinando a Direção do Texto:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
 
 getHTMLTextDir(Locales.ENGLISH); // Saída: "ltr"
@@ -31,7 +31,23 @@ getHTMLTextDir(Locales.FRENCH); // Saída: "ltr"
 getHTMLTextDir(Locales.ARABIC); // Saída: "rtl"
 ```
 
-## Casos Limite:
+```javascript codeFormat="esm"
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir(Locales.ENGLISH); // Saída: "ltr"
+getHTMLTextDir(Locales.FRENCH); // Saída: "ltr"
+getHTMLTextDir(Locales.ARABIC); // Saída: "rtl"
+```
+
+```javascript codeFormat="commonjs"
+const { getHTMLTextDir } = require("intlayer");
+
+getHTMLTextDir(Locales.ENGLISH); // Saída: "ltr"
+getHTMLTextDir(Locales.FRENCH); // Saída: "ltr"
+getHTMLTextDir(Locales.ARABIC); // Saída: "rtl"
+```
+
+## Casos de Extremidade:
 
 - **Nenhuma Localidade Fornecida:**
 
@@ -44,10 +60,34 @@ getHTMLTextDir(Locales.ARABIC); // Saída: "rtl"
 
 A função `getHTMLTextDir` pode ser usada para definir dinamicamente o atributo `dir` em um documento HTML para renderização adequada do texto com base na localidade.
 
-```tsx
+```tsx codeFormat="typescript"
+import type { FC } from "react";
+import { getHTMLTextDir, type Locales } from "intlayer";
+
+export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
+  children,
+  locale,
+}) => (
+  <html dir={getHTMLTextDir(locale)} locale={locale}>
+    <body>{children}</body>
+  </html>
+);
+```
+
+```jsx codeFormat="esm"
 import { getHTMLTextDir } from "intlayer";
 
-export const HTMLLayout = ({ children, locale }) => (
+const HTMLLayout = ({ children, locale }) => (
+  <html dir={getHTMLTextDir(locale)} locale={locale}>
+    <body>{children}</body>
+  </html>
+);
+```
+
+```jsx codeFormat="commonjs"
+const { getHTMLTextDir } = require("intlayer");
+
+const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

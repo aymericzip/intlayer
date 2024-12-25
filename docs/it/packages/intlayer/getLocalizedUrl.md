@@ -2,7 +2,7 @@
 
 ## Descrizione:
 
-La funzione `getLocalizedUrl` genera un URL localizzato prefissando l'URL fornito con la locale specificata. Gestisce sia URL assoluti che relativi, assicurandosi che il prefisso della locale corretto sia applicato in base alla configurazione.
+La funzione `getLocalizedUrl` genera un URL localizzato anteponendo l'URL fornito con la locale specificata. Gestisce sia URL assoluti che relativi, assicurando che il corretto prefisso locale venga applicato in base alla configurazione.
 
 ---
 
@@ -10,32 +10,32 @@ La funzione `getLocalizedUrl` genera un URL localizzato prefissando l'URL fornit
 
 - `url: string`
 
-  - **Descrizione**: La stringa URL originale da prefissare con una locale.
+  - **Descrizione**: La stringa URL originale da anteporre con una locale.
   - **Tipo**: `string`
 
 - `currentLocale: Locales`
 
-  - **Descrizione**: La locale attuale per la quale l'URL è localizzato.
+  - **Descrizione**: La locale corrente per la quale l'URL viene localizzato.
   - **Tipo**: `Locales`
 
 - `locales: Locales[]`
 
-  - **Descrizione**: Array opzionale di locali supportate. Per defetto, le locali configurate nel progetto sono fornite.
+  - **Descrizione**: Array opzionale di locali supportati. Per impostazione predefinita, vengono forniti le locali configurate nel progetto.
   - **Tipo**: `Locales[]`
   - **Default**: [`Configurazione del Progetto`](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
-  - **Descrizione**: La locale predefinita per l'applicazione. Per defetto, la locale predefinita configurata nel progetto è fornita.
+  - **Descrizione**: La locale predefinita per l'applicazione. Per impostazione predefinita, viene fornita la locale predefinita configurata nel progetto.
   - **Tipo**: `Locales`
   - **Default**: [`Configurazione del Progetto`](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md#middleware)
 
 - `prefixDefault: boolean`
-  - **Descrizione**: Se applicare il prefisso all'URL per la locale predefinita. Per defetto, il valore configurato nel progetto è fornito.
+  - **Descrizione**: Se anteporre l'URL per la locale predefinita. Per impostazione predefinita, viene fornito il valore configurato nel progetto.
   - **Tipo**: `boolean`
   - **Default**: [`Configurazione del Progetto`](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md#middleware)
 
-### Restituisce:
+### Ritorna:
 
 - **Tipo**: `string`
 - **Descrizione**: L'URL localizzato per la locale specificata.
@@ -44,9 +44,9 @@ La funzione `getLocalizedUrl` genera un URL localizzato prefissando l'URL fornit
 
 ## Esempio di Utilizzo:
 
-### URL Relativi:
+### URL relativi:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -61,41 +61,86 @@ getLocalizedUrl(
 // Output: "/about" per la locale predefinita (inglese)
 ```
 
-### URL Assoluti:
+```javascript codeFormat="esm"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Output: "/fr/about" per la locale francese
+// Output: "/about" per la locale predefinita (inglese)
+```
+
+```javascript codeFormat="esm"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Output: "/fr/about" per la locale francese
+// Output: "/about" per la locale predefinita (inglese)
+```
+
+```javascript codeFormat="commonjs"
+const { getLocalizedUrl, Locales } = require("intlayer");
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Output: "/fr/about" per la locale francese
+// Output: "/about" per la locale predefinita (inglese)
+```
+
+### URL assoluti:
 
 ```typescript
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.FRENCH, // Locale Attuale
-  [Locales.ENGLISH, Locales.FRENCH], // Locali Supportate
+  Locales.FRENCH, // Locale Corrente
+  [Locales.ENGLISH, Locales.FRENCH], // Locali Supportati
   Locales.ENGLISH, // Locale Predefinita
-  false // Prefissa la Locale Predefinita
-); // Output: "https://example.com/fr/about" per il francese
+  false // Prefisso Locale Predefinito
+); // Output: "https://example.com/fr/about" per la francese
 
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.ENGLISH, // Locale Attuale
-  [Locales.ENGLISH, Locales.FRENCH], // Locali Supportate
+  Locales.ENGLISH, // Locale Corrente
+  [Locales.ENGLISH, Locales.FRENCH], // Locali Supportati
   Locales.ENGLISH, // Locale Predefinita
-  false // Prefissa la Locale Predefinita
+  false // Prefisso Locale Predefinito
 ); // Output: "https://example.com/about" per l'inglese
 
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.ENGLISH, // Locale Attuale
-  [Locales.ENGLISH, Locales.FRENCH], // Locali Supportate
+  Locales.ENGLISH, // Locale Corrente
+  [Locales.ENGLISH, Locales.FRENCH], // Locali Supportati
   Locales.ENGLISH, // Locale Predefinita
-  true // Prefissa la Locale Predefinita
+  true // Prefisso Locale Predefinito
 ); // Output: "https://example.com/en/about" per l'inglese
 ```
 
-### Locale Non Supportata:
+### Locale non supportata:
 
 ```typescript
 getLocalizedUrl(
   "/about",
-  Locales.ITALIAN, // Locale Attuale
-  [Locales.ENGLISH, Locales.FRENCH], // Locali Supportate
+  Locales.ITALIAN, // Locale Corrente
+  [Locales.ENGLISH, Locales.FRENCH], // Locali Supportati
   Locales.ENGLISH // Locale Predefinita
 ); // Output: "/about" (nessun prefisso applicato per locale non supportata)
 ```
@@ -106,11 +151,11 @@ getLocalizedUrl(
 
 - **Nessun Segmento Locale:**
 
-  - Se l'URL non contiene alcun segmento locale, la funzione applica in modo sicuro il prefisso locale appropriato.
+  - Se l'URL non contiene alcun segmento locale, la funzione antepone in sicurezza la locale appropriata.
 
 - **Locale Predefinita:**
 
-  - Quando `prefixDefault` è `false`, la funzione non prefissa l'URL per la locale predefinita.
+  - Quando `prefixDefault` è `false`, la funzione non antepone l'URL per la locale predefinita.
 
 - **Locali Non Supportate:**
   - Per le locali non elencate in `locales`, la funzione non applica alcun prefisso.
@@ -119,12 +164,12 @@ getLocalizedUrl(
 
 ## Utilizzo nelle Applicazioni:
 
-In un'applicazione multilingue, configurare le impostazioni di internazionalizzazione con `locales` e `defaultLocale` è fondamentale per garantire che la lingua corretta venga visualizzata. Di seguito è riportato un esempio di come `getLocalizedUrl` può essere utilizzato in una configurazione dell'applicazione:
+In un'applicazione multilingue, configurare le impostazioni di internazionalizzazione con `locales` e `defaultLocale` è fondamentale per garantire che la lingua corretta venga visualizzata. Di seguito è riportato un esempio di come `getLocalizedUrl` può essere utilizzato in una configurazione dell'app:
 
-```tsx
+```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// Configurazione per locali supportati e locale predefinita
+// Configurazione per le locali supportate e la locale predefinita
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -133,6 +178,34 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
+```
+
+```javascript codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
 ```
 
 La configurazione sopra garantisce che l'applicazione riconosca `ENGLISH`, `FRENCH` e `SPANISH` come lingue supportate e utilizzi `ENGLISH` come lingua di riserva.
@@ -145,4 +218,4 @@ getLocalizedUrl("/about", Locales.SPANISH); // Output: "/es/about"
 getLocalizedUrl("/about", Locales.ENGLISH); // Output: "/about"
 ```
 
-Integrando `getLocalizedUrl`, gli sviluppatori possono mantenere strutture URL coerenti attraverso più lingue, migliorando sia l'esperienza utente sia il SEO.
+Integrando `getLocalizedUrl`, gli sviluppatori possono mantenere strutture di URL coerenti attraverso più lingue, migliorando sia l'esperienza utente che la SEO.

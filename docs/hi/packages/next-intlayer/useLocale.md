@@ -1,32 +1,33 @@
 # Next.js Integration: `useLocale` Hook Documentation for `next-intlayer`
 
-इस सेक्शन में `next-intlayer` पुस्तकालय के भीतर Next.js अनुप्रयोगों के लिए `useLocale` हुक पर विस्तृत प्रलेखन प्रस्तुत किया गया है। इसे स्थानीयकरण परिवर्तनों और रूटिंग को कुशलतापूर्वक प्रबंधित करने के लिए डिज़ाइन किया गया है।
+इस अनुभाग में `next-intlayer` पुस्तकालय के भीतर Next.js अनुप्रयोगों के लिए `useLocale` हुक के बारे में विस्तृत दस्तावेज़ प्रदान किया गया है। यह स्थानीय परिवर्तनों और रूटिंग को सुरक्षित रूप से संभालने के लिए डिज़ाइन किया गया है।
 
-## Next.js में `useLocale` आयात करना
+## Next.js में `useLocale` का आयात करना
 
 अपने Next.js अनुप्रयोग में `useLocale` हुक का उपयोग करने के लिए, इसे नीचे दिखाए अनुसार आयात करें:
 
 ```javascript
-import { useLocale } from "next-intlayer"; // Next.js में स्थानीयकरण और रूटिंग प्रबंधित करने के लिए इस्तेमाल किया गया
+import { useLocale } from "next-intlayer"; // Next.js में स्थानीय और रूटिंग प्रबंधन के लिए उपयोग किया जाता है
 ```
 
 ## उपयोग
 
-यहां Next.js घटक के भीतर `useLocale` हुक को लागू करने का तरीका दिया गया है:
+यहां दिखाया गया है कि आप एक Next.js घटक के भीतर `useLocale` हुक को कैसे लागू कर सकते हैं:
 
-```jsx
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
 
+import type { FC } from "react";
 import { Locales } from "intlayer";
 import { useLocale } from "next-intlayer";
 
-const LocaleSwitcher = () => {
+const LocaleSwitcher: FC = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
     <div>
-      <h1>वर्तमान स्थानीयकरण: {locale}</h1>
-      <p>डिफॉल्ट स्थानीयकरण: {defaultLocale}</p>
+      <h1>वर्तमान स्थानीयता: {locale}</h1>
+      <p>डिफ़ॉल्ट स्थानीयता: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -37,20 +38,68 @@ const LocaleSwitcher = () => {
     </div>
   );
 };
-
-export default LocaleSwitcher;
 ```
 
-## पैरामीटर और रिटर्न मान
+```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
+"use client";
 
-जब आप `useLocale` हुक को कॉल करते हैं, तो यह निम्नलिखित गुणों के साथ एक ऑब्जेक्ट लौटाता है:
+import { Locales } from "intlayer";
+import { useLocale } from "next-intlayer";
 
-- **`locale`**: React संदर्भ में सेट किया गया वर्तमान स्थानीयकरण।
-- **`defaultLocale`**: कॉन्फ़िगरेशन में परिभाषित प्राथमिक स्थानीयकरण।
-- **`availableLocales`**: कॉन्फ़िगरेशन में परिभाषित सभी उपलब्ध स्थानीयकरणों की सूची।
-- **`setLocale`**: अनुप्रयोग के स्थानीयकरण को बदलने और URL को उसके अनुसार अपडेट करने के लिए एक फ़ंक्शन। यह कॉन्फ़िगरेशन के आधार पर पथ में स्थानीयकरण जोड़ने या न जोड़ने के नियमों का ध्यान रखता है। `push` और `refresh` जैसे नेविगेशन फ़ंक्शंस के लिए `next/navigation` से `useRouter` का उपयोग करता है।
-- **`pathWithoutLocale`**: एक गणितीय संपत्ति जो स्थानीयकरण के बिना पथ लौटाती है। यह URL की तुलना के लिए उपयोगी है। उदाहरण के लिए, यदि वर्तमान स्थानीयकरण `fr` है, और URL `fr/my_path` है, तो स्थानीयकरण के बिना पथ `/my_path` है। वर्तमान पथ प्राप्त करने के लिए `next/navigation` से `usePathname` का उपयोग करता है।
+const LocaleSwitcher = () => {
+  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <h1>वर्तमान स्थानीयता: {locale}</h1>
+      <p>डिफ़ॉल्ट स्थानीयता: {defaultLocale}</p>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        {availableLocales.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+"use client";
+
+const { Locales } = require("intlayer");
+const { useLocale } = require("next-intlayer");
+
+const LocaleSwitcher = () => {
+  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <h1>वर्तमान स्थानीयता: {locale}</h1>
+      <p>डिफ़ॉल्ट स्थानीयता: {defaultLocale}</p>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        {availableLocales.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+```
+
+## पैरामीटर और लौटाए गए मान
+
+जब आप `useLocale` हुक को कॉल करते हैं, तो यह निम्नलिखित गुणों के साथ एक объект लौटाता है:
+
+- **`locale`**: React संदर्भ में सेट की गई वर्तमान स्थानीयता।
+- **`defaultLocale`**: कॉन्फ़िगरेशन में परिभाषित प्राथमिक स्थानीयता।
+- **`availableLocales`**: कॉन्फ़िगरेशन में परिभाषित सभी उपलब्ध स्थानीयताओं की सूची।
+- **`setLocale`**: अनुप्रयोग की स्थानीयता बदलने और संबंधित URL को अपडेट करने के लिए एक फ़ंक्शन। यह कॉन्फ़िगरेशन के आधार पर पथ में स्थानीयता जोड़ने के नियमों का ध्यान रखता है। `next/navigation` से `useRouter` का उपयोग करके पुश और रिफ्रेश जैसी नेविगेशन फ़ंक्शंस का उपयोग करता है।
+- **`pathWithoutLocale`**: एक व्युत्पन्न संपत्ति जो बिना स्थानीयता के पथ लौटाती है। यह URLs की तुलना के लिए उपयोगी है। उदाहरण के लिए, यदि वर्तमान स्थानीयता `fr` है, और URL `fr/my_path` है, तो बिना स्थानीयता वाला पथ `/my_path` है। वर्तमान पथ प्राप्त करने के लिए `next/navigation` से `usePathname` का उपयोग करता है।
 
 ## निष्कर्ष
 
-`next-intlayer` से `useLocale` हुक Next.js अनुप्रयोगों में स्थानीयकरण प्रबंधित करने के लिए एक महत्वपूर्ण उपकरण है। यह स्थानीयकरण भंडारण, स्थिति प्रबंधन और URL संशोधनों को निर्बाध रूप से संभालने के लिए आपके अनुप्रयोग को कई स्थानीयकरणों के लिए अनुकूलित करने के लिए एक एकीकृत दृष्टिकोण प्रदान करता है।
+`next-intlayer` से `useLocale` हुक Next.js अनुप्रयोगों में स्थानीयताओं के प्रबंधन के लिए एक महत्वपूर्ण उपकरण है। यह स्थानीयता भंडारण, स्थिति प्रबंधन, और URL संशोधन को सहजता से संभालने के लिए आपके अनुप्रयोग को कई स्थानीयताओं के अनुकूलित करने के लिए एक समेकित दृष्टिकोण प्रदान करता है।

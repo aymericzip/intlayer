@@ -2,7 +2,7 @@
 
 ## Descripción:
 
-La función `getMultilingualUrls` genera un mapeo de URLs multilingües al agregar el prefijo de cada locale soportado a la URL dada. Puede manejar tanto URLs absolutas como relativas, aplicando el prefijo de locale apropiado según la configuración proporcionada o por defecto.
+La función `getMultilingualUrls` genera un mapeo de URL multilingües al prefijar la URL dada con cada idioma admitido. Puede manejar tanto URLs absolutas como relativas, aplicando el prefijo de idioma apropiado según la configuración proporcionada o los valores predeterminados.
 
 ---
 
@@ -10,30 +10,30 @@ La función `getMultilingualUrls` genera un mapeo de URLs multilingües al agreg
 
 - `url: string`
 
-  - **Descripción**: La cadena de URL original que se le añadirá el prefijo de locales.
+  - **Descripción**: La cadena de URL original que se debe prefijar con locales.
   - **Tipo**: `string`
 
 - `locales: Locales[]`
 
-  - **Descripción**: Array opcional de locales soportados. Por defecto se utilizan los locales configurados en el proyecto.
+  - **Descripción**: Array opcional de idiomas admitidos. Se utiliza como predeterminado los idiomas configurados en el proyecto.
   - **Tipo**: `Locales[]`
-  - **Por Defecto**: `localesDefault`
+  - **Predeterminado**: `localesDefault`
 
 - `defaultLocale: Locales`
 
-  - **Descripción**: El locale por defecto para la aplicación. Por defecto se utiliza el locale configurado como por defecto en el proyecto.
+  - **Descripción**: El idioma predeterminado para la aplicación. Se utiliza el idioma predeterminado configurado en el proyecto.
   - **Tipo**: `Locales`
-  - **Por Defecto**: `defaultLocaleDefault`
+  - **Predeterminado**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **Descripción**: Si se debe agregar el prefijo del locale por defecto. Por defecto se utiliza el valor configurado en el proyecto.
+  - **Descripción**: Si se debe prefijar el idioma predeterminado. Se utiliza el valor configurado en el proyecto.
   - **Tipo**: `boolean`
-  - **Por Defecto**: `prefixDefaultDefault`
+  - **Predeterminado**: `prefixDefaultDefault`
 
 ### Retorna:
 
 - **Tipo**: `IConfigLocales<string>`
-- **Descripción**: Un objeto que mapea cada locale a su correspondiente URL multilingüe.
+- **Descripción**: Un objeto que mapea cada idioma a su correspondiente URL multilingüe.
 
 ---
 
@@ -41,8 +41,38 @@ La función `getMultilingualUrls` genera un mapeo de URLs multilingües al agreg
 
 ### URLs Relativas:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
+
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// Salida: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
+```javascript codeFormat="esm"
+import { getMultilingualUrls, Locales } from "intlayer";
+
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// Salida: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
+```javascript codeFormat="commonjs"
+const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -75,27 +105,27 @@ getMultilingualUrls(
 
 ## Casos Límite:
 
-- **Sin Segmento de Locale:**
+- **No Segmento de Idioma:**
 
-  - La función elimina cualquier segmento de locale existente de la URL antes de generar los mapeos multilingües.
+  - La función elimina cualquier segmento de idioma existente de la URL antes de generar los mapeos multilingües.
 
-- **Locale por Defecto:**
+- **Idioma Predeterminado:**
 
-  - Cuando `prefixDefault` es `false`, la función no agrega el prefijo en la URL para el locale por defecto.
+  - Cuando `prefixDefault` es `false`, la función no prefija la URL para el idioma predeterminado.
 
-- **Locales No Soportados:**
-  - Solo se consideran los locales proporcionados en el array `locales` para generar las URLs.
+- **Idiomas No Admitidos:**
+  - Solo se consideran los idiomas proporcionados en el array `locales` para generar las URLs.
 
 ---
 
 ## Uso en Aplicaciones:
 
-En una aplicación multilingüe, configurar los ajustes de internacionalización con `locales` y `defaultLocale` es fundamental para garantizar que se muestre el idioma correcto. A continuación, se muestra un ejemplo de cómo se puede usar `getMultilingualUrls` en la configuración de una aplicación:
+En una aplicación multilingüe, configurar los ajustes de internacionalización con `locales` y `defaultLocale` es crítico para asegurar que el idioma correcto se muestre. A continuación se muestra un ejemplo de cómo `getMultilingualUrls` puede ser utilizado en una configuración de aplicación:
 
-```tsx
+```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// Configuración para locales soportados y locale por defecto
+// Configuración para idiomas admitidos y idioma predeterminado
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -106,9 +136,37 @@ export default {
 export default config;
 ```
 
-La configuración anterior asegura que la aplicación reconozca `ENGLISH`, `FRENCH` y `SPANISH` como idiomas soportados y use `ENGLISH` como el idioma por defecto.
+```javascript codeFormat="esm"
+import { Locales } from "intlayer";
 
-Utilizando esta configuración, la función `getMultilingualUrls` puede generar dinámicamente mapeos de URLs multilingües basados en los locales soportados de la aplicación:
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
+La configuración anterior asegura que la aplicación reconozca `ENGLISH`, `FRENCH` y `SPANISH` como idiomas admitidos y use `ENGLISH` como el idioma de reserva.
+
+Utilizando esta configuración, la función `getMultilingualUrls` puede generar dinámicamente mapeos de URL multilingües en función de los idiomas admitidos de la aplicación:
 
 ```typescript
 getMultilingualUrls(

@@ -2,26 +2,44 @@
 
 ## Beschreibung:
 
-Die `getLocaleLang` Funktion extrahiert den Sprachcode aus einem Gebietsschema-String. Sie unterstützt Gebietsschemata mit oder ohne Ländercodes. Wenn kein Gebietsschema bereitgestellt wird, gibt es standardmäßig einen leeren String zurück.
+Die `getLocaleLang` Funktion extrahiert den Sprachcode aus einer Locale-Zeichenfolge. Sie unterstützt Locales mit oder ohne Ländercodes. Wenn keine Locale angegeben wird, gibt sie standardmäßig eine leere Zeichenfolge zurück.
 
 ## Parameter:
 
 - `locale?: Locales`
 
-  - **Beschreibung**: Der Gebietsschema-String (z.B. `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`), aus dem der Sprachcode extrahiert wird.
+  - **Beschreibung**: Die Locale-Zeichenfolge (z.B. `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`), aus der der Sprachcode extrahiert wird.
   - **Typ**: `Locales` (optional)
 
 ## Rückgaben:
 
 - **Typ**: `string`
-- **Beschreibung**: Der Sprachcode, der aus dem Gebietsschema extrahiert wurde. Wenn das Gebietsschema nicht bereitgestellt wird, wird ein leerer String (`''`) zurückgegeben.
+- **Beschreibung**: Der aus der Locale extrahierte Sprachcode. Wenn die Locale nicht angegeben wird, gibt sie eine leere Zeichenfolge zurück (`''`).
 
-## Beispiel Verwendung:
+## Beispielverwendung:
 
-### Extrahieren von Sprachcodes:
+### Extraktion von Sprachcodes:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
+
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Ausgabe: "en"
+getLocaleLang(Locales.ENGLISH); // Ausgabe: "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Ausgabe: "fr"
+getLocaleLang(Locales.FRENCH); // Ausgabe: "fr"
+```
+
+```javascript codeFormat="esm"
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Ausgabe: "en"
+getLocaleLang(Locales.ENGLISH); // Ausgabe: "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Ausgabe: "fr"
+getLocaleLang(Locales.FRENCH); // Ausgabe: "fr"
+```
+
+```javascript codeFormat="commonjs"
+const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Ausgabe: "en"
 getLocaleLang(Locales.ENGLISH); // Ausgabe: "en"
@@ -31,9 +49,9 @@ getLocaleLang(Locales.FRENCH); // Ausgabe: "fr"
 
 ## Randfälle:
 
-- **Kein Gebietsschema bereitgestellt:**
+- **Keine Locale angegeben:**
 
-  - Die Funktion gibt einen leeren String zurück, wenn `locale` `undefined` ist.
+  - Die Funktion gibt eine leere Zeichenfolge zurück, wenn `locale` `undefined` ist.
 
-- **Fehlerhafte Gebietsschema-Strings:**
-  - Wenn das `locale` nicht dem `sprache-land` Format entspricht (z.B. `Locales.ENGLISH-US`), gibt die Funktion sicher den Teil vor `'-'` oder den gesamten String zurück, wenn kein `'-'` vorhanden ist.
+- **Fehlerhaft formatierte Locale-Zeichenfolgen:**
+  - Wenn die `locale` nicht dem Format `sprache-land` folgt (z.B. `Locales.ENGLISH-US`), gibt die Funktion sicher den Teil vor `'-'` oder die gesamte Zeichenfolge zurück, wenn kein `'-'` vorhanden ist.

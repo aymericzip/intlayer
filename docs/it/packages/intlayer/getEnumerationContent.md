@@ -2,32 +2,32 @@
 
 ## Descrizione:
 
-La funzione `getEnumerationContent` recupera il contenuto corrispondente a una quantità specifica basata su condizioni predefinite in un oggetto enumerativo. Le condizioni sono definite come chiavi, e la loro priorità è determinata dal loro ordine nell'oggetto.
+La funzione `getEnumerationContent` recupera contenuto corrispondente a una specifica quantità in base a condizioni predefinite in un oggetto di enumerazione. Le condizioni sono definite come chiavi e la loro priorità è determinata dal loro ordine nell'oggetto.
 
 ## Parametri:
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **Descrizione**: Un oggetto in cui le chiavi rappresentano le condizioni (ad es., `<=`, `<`, `>=`, `=`) e i valori rappresentano il contenuto corrispondente. L'ordine delle chiavi definisce la loro priorità di corrispondenza.
+  - **Descrizione**: Un oggetto dove le chiavi rappresentano condizioni (ad es., `<=`, `<`, `>=`, `=`) e i valori rappresentano il contenuto corrispondente. L'ordine delle chiavi definisce la loro priorità di corrispondenza.
   - **Tipo**: `QuantityContent<Content>`
     - `Content` può essere di qualsiasi tipo.
 
 - `quantity: number`
 
-  - **Descrizione**: Il valore numerico utilizzato per corrispondere alle condizioni in `enumerationContent`.
+  - **Descrizione**: Il valore numerico utilizzato per confrontare le condizioni in `enumerationContent`.
   - **Tipo**: `number`
 
 ## Restituisce:
 
 - **Tipo**: `Content`
-- **Descrizione**: Il contenuto corrispondente alla prima condizione corrispondente in `enumerationContent`. Se non viene trovata alcuna corrispondenza, si comporta sulla base dell'implementazione (ad es., errore o contenuto di riserva).
+- **Descrizione**: Il contenuto corrispondente alla prima condizione corrispondente in `enumerationContent`. Se non viene trovata alcuna corrispondenza, si applicano le modalità di gestione predefinite (ad es., errore o contenuto di fallback).
 
 ## Esempio di Utilizzo:
 
 ### Utilizzo di Base:
 
-```typescript
-import { getEnumerationContent } from "@intlayer/config/client";
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
 
 const content = getEnumerationContent(
   {
@@ -42,9 +42,41 @@ const content = getEnumerationContent(
 console.log(content); // Output: "Hai due"
 ```
 
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<1": "Hai meno di uno",
+    "2": "Hai due",
+    ">=3": "Hai tre o più",
+  },
+  2
+);
+
+console.log(content); // Output: "Hai due"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
+const content = getEnumerationContent(
+  {
+    "<1": "Hai meno di uno",
+    "2": "Hai due",
+    ">=3": "Hai tre o più",
+  },
+  2
+);
+
+console.log(content); // Output: "Hai due"
+```
+
 ### Priorità delle Condizioni:
 
-```typescript
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
+
 const content = getEnumerationContent(
   {
     "<4": "Hai meno di quattro",
@@ -56,23 +88,51 @@ const content = getEnumerationContent(
 console.log(content); // Output: "Hai meno di quattro"
 ```
 
-## Casi Limite:
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<4": "Hai meno di quattro",
+    "2": "Hai due",
+  },
+  2
+);
+
+console.log(content); // Output: "Hai meno di quattro"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
+const content = getEnumerationContent(
+  {
+    "<4": "Hai meno di quattro",
+    "2": "Hai due",
+  },
+  2
+);
+
+console.log(content); // Output: "Hai meno di quattro"
+```
+
+## Casi Marginali:
 
 - **Nessuna Condizione Corrispondente:**
 
-  - Se nessuna condizione corrisponde alla quantità fornita, la funzione restituirà `undefined` o gestirà esplicitamente lo scenario di default/fallimento.
+  - Se nessuna condizione corrisponde alla quantità fornita, la funzione restituirà `undefined` o gestirà esplicitamente lo scenario predefinito/fallback.
 
 - **Condizioni Ambigue:**
 
-  - Se le condizioni si sovrappongono, la prima condizione corrispondente (basata sull'ordine dell'oggetto) ha la precedenza.
+  - Se le condizioni si sovrappongono, la prima condizione corrispondente (in base all'ordine dell'oggetto) ha la precedenza.
 
 - **Chiavi Non Valide:**
 
-  - La funzione presume che tutte le chiavi in `enumerationContent` siano valide e poter essere interpretate come condizioni. Chiavi non valide o malformattate potrebbero comportare comportamenti inaspettati.
+  - La funzione presume che tutte le chiavi in `enumerationContent` siano valide e formattabili come condizioni. Chiavi non valide o formattate in modo errato possono portare a comportamenti imprevisti.
 
-- **Attuazione di TypeScript:**
-  - La funzione garantisce che il tipo `Content` sia coerente in tutte le chiavi, consentendo la sicurezza del tipo nel contenuto recuperato.
+- **Forzatura di TypeScript:**
+  - La funzione garantisce che il tipo `Content` sia coerente tra tutte le chiavi, consentendo la sicurezza dei tipi nel contenuto recuperato.
 
 ## Note:
 
-- L'utilità `findMatchingCondition` viene utilizzata per determinare la condizione appropriata in base alla quantità fornita.
+- L'utility `findMatchingCondition` è utilizzata per determinare la condizione appropriata in base alla quantità fornita.

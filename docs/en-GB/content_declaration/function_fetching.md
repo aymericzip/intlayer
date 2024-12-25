@@ -8,7 +8,7 @@ Intlayer allows you to declare content functions in your content modules, which 
 
 Here's an example of a simple synchronous function fetching content:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="/**/*" contentDeclarationFormat="typescript"
 import type { DeclarationContent } from "intlayer";
 
 const functionContent = {
@@ -21,7 +21,7 @@ const functionContent = {
 export default functionContent;
 ```
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="/**/*" contentDeclarationFormat="esm"
 /** @type {import('intlayer').DeclarationContent} */
 const functionContent = {
   key: "function_content",
@@ -33,7 +33,7 @@ const functionContent = {
 export default functionContent;
 ```
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="/**/*" contentDeclarationFormat="commonjs"
 /** @type {import('intlayer').DeclarationContent} */
 const functionContent = {
   key: "function_content",
@@ -45,7 +45,7 @@ const functionContent = {
 module.exports = functionContent;
 ```
 
-```json fileName="**/*.content.json" contentDeclarationFormat="json"
+```json fileName="/**/*" contentDeclarationFormat="json"
 {
   "key": "function_content",
   "content": {
@@ -62,7 +62,7 @@ In addition to synchronous functions, Intlayer supports asynchronous functions, 
 
 Below is an example of an asynchronous function that simulates a server fetch:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="/**/*" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
 import type { DeclarationContent } from "intlayer";
 
@@ -81,7 +81,7 @@ const asyncFunctionContent = {
 export default asyncFunctionContent;
 ```
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="/**/*" contentDeclarationFormat="esm"
 import { setTimeout } from "node:timers/promises";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -99,7 +99,7 @@ const asyncFunctionContent = {
 export default asyncFunctionContent;
 ```
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="/**/*" contentDeclarationFormat="commonjs"
 const { setTimeout } = require("node:timers/promises");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -117,7 +117,7 @@ const asyncFunctionContent = {
 module.exports = asyncFunctionContent;
 ```
 
-```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+```plaintext fileName="/**/*" contentDeclarationFormat="json"
 No way to fetch content from a JSON file, use a .ts or .js file instead
 ```
 
@@ -127,7 +127,7 @@ In this case, the `fakeFetch` function mimics a delay to simulate server respons
 
 To use function-based content in a React component, you need to import `useIntlayer` from `react-intlayer` and call it with the content ID to retrieve the content. Here's an example:
 
-```typescript fileName="**/*.jsx" codeFormat="typescript"
+```typescript fileName="/**/*" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -148,7 +148,7 @@ const MyComponent: FC = () => {
 export default MyComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
+```javascript fileName="/**/*" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
@@ -168,7 +168,7 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
+```javascript fileName="/**/*" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
 const MyComponent = () => {

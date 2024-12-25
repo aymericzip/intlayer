@@ -1,29 +1,47 @@
-# Documentation: `getPathWithoutLocale` Functions in `intlayer`
+# 文档: `getPathWithoutLocale` 函数在 `intlayer`
 
-## Description:
+## 描述:
 
-从给定的 URL 或路径中删除语言环境部分（如果存在）。它适用于绝对 URL 和相对路径。
+如果存在，从给定的 URL 或路径名称中删除 locale 段。它适用于绝对 URL 和相对路径名称。
 
-## Parameters:
+## 参数:
 
 - `inputUrl: string`
 
-  - **Description**: 要处理的完整 URL 字符串或路径。
-  - **Type**: `string`
+  - **描述**: 要处理的完整 URL 字符串或路径名称。
+  - **类型**: `string`
 
 - `locales: Locales[]`
-  - **Description**: 可选的支持语言环境数组。默认为项目中配置的语言环境。
-  - **Type**: `Locales[]`
+  - **描述**: 可选的支持 locale 数组。默认为项目中配置的 locale。
+  - **类型**: `Locales[]`
 
-## Returns:
+## 返回:
 
-- **Type**: `string`
-- **Description**: 不带语言环境部分的 URL 字符串或路径。
+- **类型**: `string`
+- **描述**: 不带 locale 段的 URL 字符串或路径名称。
 
-## Example Usage:
+## 示例用法:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";
+
+console.log(getPathWithoutLocale("/dashboard")); // 输出: "/dashboard"
+console.log(getPathWithoutLocale("/zh/dashboard")); // 输出: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // 输出: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/zh/dashboard")); // 输出: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="esm"
+import { getPathWithoutLocale } from "intlayer";
+
+console.log(getPathWithoutLocale("/dashboard")); // 输出: "/dashboard"
+console.log(getPathWithoutLocale("/zh/dashboard")); // 输出: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // 输出: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/zh/dashboard")); // 输出: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="commonjs"
+const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // 输出: "/dashboard"
 console.log(getPathWithoutLocale("/zh/dashboard")); // 输出: "/dashboard"

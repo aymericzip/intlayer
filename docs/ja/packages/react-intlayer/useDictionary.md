@@ -1,41 +1,55 @@
-# React Integration: `useDictionary` フックのドキュメント
+# React Integration: `useDictionary` Hook Documentation
 
-このセクションでは、Reactアプリケーション内での`useDictionary`フックの使用に関する詳細なガイダンスを提供します。これにより、視覚的エディターなしでローカライズされたコンテンツを効率的に扱うことが可能になります。
+このセクションでは、Reactアプリケーション内で`useDictionary`フックを使用するための詳細なガイダンスを提供し、視覚的なエディターなしでローカライズされたコンテンツを効率的に扱えるようにします。
 
-## Reactでの`useDictionary`のインポート
+## Importing `useDictionary` in React
 
-`useDictionary`フックは、コンテキストに基づいてReactアプリケーションに統合できます。
+`useDictionary`フックは、コンテキストに基づいてReactアプリケーションに統合できます：
 
 - **クライアントコンポーネント:**
 
-  ```javascript
-  import { useDictionary } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用されます
+  ```typescript codeFormat="typescript"
+  import { useDictionary } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用します
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useDictionary } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用します
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useDictionary } = require("react-intlayer"); // クライアントサイドのReactコンポーネントで使用します
   ```
 
 - **サーバーコンポーネント:**
 
-  ```javascript
-  import { useDictionary } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用されます
+  ```typescript codeFormat="typescript"
+  import { useDictionary } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用します
   ```
 
-## パラメータ
+  ```javascript codeFormat="esm"
+  import { useDictionary } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用します
+  ```
 
-フックは2つのパラメータを受け取ります。
+  ```javascript codeFormat="commonjs"
+  const { useDictionary } = require("react-intlayer/server"); // サーバーサイドのReactコンポーネントで使用します
+  ```
 
-1. **`dictionary`**: 特定のキーに対するローカライズされたコンテンツを含む宣言された辞書オブジェクト。
-2. **`locale`**（オプション）: 希望するロケール。指定しない場合は、現在のコンテキストのロケールがデフォルトとなります。
+## Parameters
 
-## コンテンツの宣言
+このフックは2つのパラメーターを受け入れます：
 
-すべての辞書オブジェクトは、型安全性を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルで宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)で確認できます。以下は、コンテンツ宣言の例です。
+1. **`dictionary`**: 特定のキーのローカライズされたコンテンツを含む宣言された辞書オブジェクト。
+2. **`locale`**（オプション）：希望するロケール。指定されていない場合は、現在のコンテキストのロケールがデフォルトになります。
 
-```typescript
-// ./component.content.ts
+## Content Declaration
 
+すべての辞書オブジェクトは、型安全を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルに宣言する必要があります。セットアップ手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)を参照してください。以下は、コンテンツ宣言の例です：
+
+```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
-const clientComponentExampleContent = {
-  key: "client-component-example",
+const componentContent = {
+  key: "component-example",
   content: {
     title: t({
       en: "Client Component Example",
@@ -50,21 +64,92 @@ const clientComponentExampleContent = {
   },
 } satisfies DeclarationContent;
 
-export default clientComponentExampleContent;
+export default componentContent;
 ```
 
-## Reactでの使用例
+```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
 
-以下は、Reactコンポーネント内で`useDictionary`フックを使用する方法の例です。
+/** @type {import('intlayer').DeclarationContent} */
+// コンテンツの宣言
+const componentContent = {
+  key: "component-example",
+  content: {
+    title: t({
+      en: "Client Component Example",
+      fr: "Exemple de composant client",
+      es: "Ejemplo de componente cliente",
+    }),
+    content: t({
+      en: "This is the content of a client component example",
+      fr: "Ceci est le contenu d'un exemple de composant client",
+      es: "Este es el contenido de un ejemplo de componente cliente",
+    }),
+  },
+};
 
-```tsx
-// ./ClientComponentExample.tsx
+export default componentContent;
+```
 
+```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+// コンテンツの宣言
+const componentContent = {
+  key: "component-example",
+  content: {
+    title: t({
+      en: "Client Component Example",
+      fr: "Exemple de composant client",
+      es: "Ejemplo de componente cliente",
+    }),
+    content: t({
+      en: "This is the content of a client component example",
+      fr: "Ceci est le contenu d'un exemple de composant client",
+      es: "Este es el contenido de un ejemplo de componente cliente",
+    }),
+  },
+};
+
+module.exports = componentContent;
+```
+
+```json fileName="./component.content.json" contentDeclarationFormat="json"
+{
+  "key": "component-example",
+  "content": {
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Client Component Example",
+        "fr": "Exemple de composant client",
+        "es": "Ejemplo de componente cliente"
+      }
+    },
+    "content": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "This is the content of a client component example",
+        "fr": "Ceci est le contenu d'un exemple de composant client",
+        "es": "Este es el contenido de un ejemplo de componente cliente"
+      }
+    }
+  }
+}
+```
+
+## Example Usage in React
+
+以下は、Reactコンポーネント内で`useDictionary`フックを使用する方法の例です：
+
+```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useDictionary } from "react-intlayer";
-import clientComponentExampleContent from "./component.content";
+import componentContent from "./component.content";
 
-const ClientComponentExample = () => {
-  const { title, content } = useDictionary(clientComponentExampleContent);
+const ComponentExample: FC = () => {
+  const { title, content } = useDictionary(componentContent);
 
   return (
     <div>
@@ -73,19 +158,50 @@ const ClientComponentExample = () => {
     </div>
   );
 };
-
-export default ClientComponentExample;
 ```
 
-## サーバー統合
+```jsx fileName="./ComponentExample.mjx" codeFormat="esm"
+import { useDictionary } from "react-intlayer";
+import componentContent from "./component.content";
 
-`IntlayerProvider`の外で`useDictionary`フックを使用する場合、コンポーネントをレンダリングする際にはロケールを明示的にパラメータとして提供する必要があります。
+const ComponentExample = () => {
+  const { title, content } = useDictionary(componentContent);
 
-```tsx
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{content}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="./ComponentExample.csx" codeFormat="commonjs"
+const { useDictionary } = require("react-intlayer");
+const componentContent = require("./component.content");
+
+const ComponentExample = () => {
+  const { title, content } = useDictionary(componentContent);
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{content}</p>
+    </div>
+  );
+};
+```
+
+## Server Integration
+
+`IntlayerProvider`の外で`useDictionary`フックを使用している場合、コンポーネントをレンダリングするときにロケールを明示的にパラメーターとして提供する必要があります：
+
+```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useDictionary } from "react-intlayer/server";
 import clientComponentExampleContent from "./component.content";
 
-const ServerComponentExample = ({ locale }: { locale: string }) => {
+const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
   const { content } = useDictionary(clientComponentExampleContent, locale);
 
   return (
@@ -95,21 +211,51 @@ const ServerComponentExample = ({ locale }: { locale: string }) => {
     </div>
   );
 };
-
-export default ServerComponentExample;
 ```
 
-## 属性に関する注意点
+```jsx fileName="./ServerComponentExample.mjx" codeFormat="esm"
+import { useDictionary } from "react-intlayer/server";
+import componentContent from "./component.content";
 
-視覚的エディターを使用した統合とは異なり、`buttonTitle.value`のような属性はここでは適用されません。代わりに、コンテンツで宣言されたローカライズされた文字列に直接アクセスします。
+const ServerComponentExample = ({ locale }) => {
+  const { content } = useDictionary(componentContent, locale);
 
-```tsx
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="./ServerComponentExample.csx" codeFormat="commonjs"
+const { useDictionary } = require("react-intlayer/server");
+const componentContent = require("./component.content");
+
+const ServerComponentExample = ({ locale }) => {
+  const { content } = useDictionary(componentContent, locale);
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+## Notes on Attributes
+
+視覚的なエディタを使用した統合とは異なり、`buttonTitle.value`のような属性はここでは適用されません。代わりに、コンテンツに宣言されたローカライズされた文字列に直接アクセスします。
+
+```jsx
 <button title={content.title}>{content.content}</button>
 ```
 
-## 追加のヒント
+## Additional Tips
 
-- **型安全性**: 辞書を定義する際は常に`DeclarationContent`を使用して型安全性を確保してください。
-- **ローカリゼーションの更新**: コンテンツを更新する際は、すべてのロケールが一貫していることを確認し、翻訳の欠落を避けてください。
+- **型安全**: 常に`DeclarationContent`を使用して辞書を定義し、型安全を確保してください。
+- **ローカライズの更新**: コンテンツを更新するときは、すべてのロケールが一貫していることを確認し、翻訳が不足しないようにしてください。
 
-このドキュメントでは、`useDictionary`フックの統合に焦点を当てており、視覚的エディター機能に依存せず、ローカライズされたコンテンツを管理するための合理的なアプローチを提供します。
+このドキュメントは、`useDictionary`フックの統合に焦点を当て、視覚的なエディタ機能に依存せずにローカライズされたコンテンツを管理するための合理化されたアプローチを提供します。

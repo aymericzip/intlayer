@@ -10,7 +10,7 @@ If you have any questions or concerns about privacy, please contact us at the fo
 
 ## Use of Cookies and Tracking Technologies
 
-We use Google Analytics to analyze the use of our website. Google Analytics generates statistics and other information about the website using cookies stored on users' computers. For more information on how Google uses your data, please visit [Google's privacy policy](https://policies.google.com/privacy).
+We use Google Analytics to analyse the use of our website. Google Analytics generates statistics and other information about the website using cookies stored on users' computers. For more information on how Google uses your data, please visit [Google's privacy policy](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/policies/google-privacy.md).
 
 We do not use authentication systems and do not collect personal data via our website.
 

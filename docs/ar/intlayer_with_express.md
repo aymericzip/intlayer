@@ -1,49 +1,48 @@
-# البدء في تقديم الدعم متعدد اللغات (i18n) مع Intlayer و Express
+# البدء بتدويل (i18n) باستخدام Intlayer و Express
 
-`express-intlayer` هو وسيلة قوية لتقديم الدعم متعدد اللغات (i18n) لتطبيقات Express، مصممة لجعل خدماتك الخلفية متاحة عالميًا من خلال تقديم استجابات محلية مبنية على تفضيلات العميل.
+`express-intlayer` هو وسيط قوي لتدويل (i18n) لتطبيقات Express، مصمم لجعل خدماتك الخلفية متاحة عالمياً من خلال تقديم استجابات محلية بناءً على تفضيلات العميل.
 
-## لماذا يجب تقديم الدعم متعدد اللغات للخلفية؟
+## لماذا يجب تدويل خلفيتك؟
 
-يعد تقديم الدعم متعدد اللغات في الخلفية أمرًا أساسيًا لخدمة جمهور عالمي بشكل فعال. إنه يسمح لتطبيقك بتقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك من خلال جعله أكثر قابلية للوصول وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+تدويل خلفيتك أمر أساسي لخدمة جمهور عالمي بشكل فعال. يتيح لتطبيقك تقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك من خلال جعله أكثر وصولاً وملاءمة للأشخاص من خلفيات لغوية مختلفة.
 
 ### حالات الاستخدام العملية
 
-- **عرض أخطاء الخلفية بلغة المستخدم**: عندما يحدث خطأ، فإن عرض الرسائل باللغة الأم للمستخدم يحسن من الفهم ويقلل من الإحباط. هذا مفيد بشكل خاص للرسائل الديناميكية التي قد تظهر في مكونات الواجهة الأمامية مثل التنبيهات أو النوافذ المنبثقة.
+- **عرض أخطاء الخلفية بلغة المستخدم**: عندما يحدث خطأ، فإن عرض الرسائل بلغة المستخدم الأصلية يحسن الفهم ويقلل من الإحباط. هذا مفيد بشكل خاص لرسائل الخطأ الديناميكية التي قد تظهر في مكونات الواجهة الأمامية مثل الإشعارات أو النوافذ المنبثقة.
 
-- **استرجاع المحتوى متعدد اللغات**: لتطبيقات سحب المحتوى من قاعدة بيانات، يضمن تقديم الدعم متعدد اللغات أنه يمكنك تقديم هذا المحتوى بعدة لغات. يعد هذا أمرًا بالغ الأهمية للمنصات مثل مواقع التجارة الإلكترونية أو أنظمة إدارة المحتوى التي تحتاج إلى عرض أوصاف المنتجات والمقالات وغير ذلك من المحتوى باللغة المفضلة للمستخدم.
+- **استرجاع محتوى متعدد اللغات**: بالنسبة للتطبيقات التي تسحب المحتوى من قاعدة بيانات، يضمن التدويل أنه يمكنك تقديم هذا المحتوى بعدة لغات. هذه نقطة حاسمة بالنسبة للمنصات مثل مواقع التجارة الإلكترونية أو نظم إدارة المحتوى التي تحتاج إلى عرض أوصاف المنتجات والمقالات ومحتويات أخرى بلغة المستخدم المفضلة.
 
-- **إرسال رسائل بريد إلكتروني متعددة اللغات**: سواء كانت رسائل بريد إلكتروني تجارية، حملات تسويقية، أو إشعارات، فإن إرسال رسائل البريد الإلكتروني بلغة المستلم يمكن أن يزيد بشكل كبير من المشاركة والفعالية.
+- **إرسال رسائل بريد إلكتروني متعددة اللغات**: سواء كانت رسائل بريد إلكتروني معاملات، حملات تسويقية، أو إشعارات، فإن إرسال الرسائل الإلكترونية بلغة المستلم يمكن أن يزيد بشكل كبير من التفاعل والفعالية.
 
-- **إشعارات دفع متعددة اللغات**: بالنسبة للتطبيقات المحمولة، فإن إرسال إشعارات دفع بلغة المفضل للمستخدم يمكن أن يعزز من التفاعل والاحتفاظ. يمكن أن تجعل هذه اللمسة الشخصية الإشعارات تبدو أكثر صلة وقابلة للتنفيذ.
+- **إشعارات دفع متعددة اللغات**: بالنسبة لتطبيقات الهاتف المحمول، فإن إرسال إشعارات دفع بلغة المستخدم المفضلة يمكن أن يعزز التفاعل والاحتفاظ. يمكن أن تجعل هذه اللمسة الشخصية الإشعارات تبدو أكثر صلة وقابلة للتنفيذ.
 
-- **اتصالات أخرى**: أي شكل من أشكال الاتصال من الخلفية، مثل رسائل SMS، تنبيهات النظام، أو تحديثات واجهة المستخدم، تستفيد من كونها بلغة المستخدم، مما يضمن الوضوح ويعزز تجربة المستخدم العامة.
+- **الاتصالات الأخرى**: أي شكل من أشكال الاتصال من الخلفية، مثل رسائل SMS، التنبيهات النظامية، أو تحديثات واجهة المستخدم، تستفيد من كونها بلغة المستخدم، مما يضمن الوضوح ويعزز تجربة المستخدم بشكل عام.
 
-من خلال تقديم الدعم متعدد اللغات في الخلفية، يحترم تطبيقك الاختلافات الثقافية ولكنه أيضًا يتماشى بشكل أفضل مع احتياجات السوق العالمية، مما يجعله خطوة أساسية في توسيع خدماتك عالميًا.
+من خلال تدويل الخلفية، يضمن تطبيقك احترام الاختلافات الثقافية، لكنه أيضاً يتماشى بشكل أفضل مع احتياجات السوق العالمية، مما يجعله خطوة رئيسية في توسيع خدماتك على مستوى العالم.
 
 ## البدء
 
 ### التثبيت
 
-للبدء في استخدام `express-intlayer`، قم بتثبيت الحزمة باستخدام npm:
+للبدء باستخدام `express-intlayer`، قم بتثبيت الحزمة باستخدام npm:
 
-```bash
+```bash packageManager="npm"
 npm install intlayer express-intlayer
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer express-intlayer
 ```
 
 ### الإعداد
 
-قم بتكوين إعدادات الدعم متعدد اللغات عن طريق إنشاء ملف `intlayer.config.ts` في جذر مشروعك:
+قم بتكوين إعدادات التدويل من خلال إنشاء ملف `intlayer.config.ts` في جذر مشروعك:
 
-```typescript
-// intlayer.config.ts
+```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -61,25 +60,62 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH_MEXICO,
+      Locales.SPANISH_SPAIN,
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH_MEXICO,
+      Locales.SPANISH_SPAIN,
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
 ### إعداد تطبيق Express
 
-قم بإعداد تطبيق Express الخاص بك لاستخدام `express-intlayer`:
+إعداد تطبيق Express الخاص بك لاستخدام `express-intlayer`:
 
-```typescript
-// src/index.ts
+```typescript fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
 import { intlayer, t } from "express-intlayer";
 
 const app: Express = express();
 
-// تحميل معالج الطلبات الدولية
+// تحميل معالج طلب التدويل
 app.use(intlayer());
 
 // المسارات
 app.get("/", (_req, res) => {
   res.send(
     t({
-      en: "مثال على المحتوى المرتجع باللغة الإنجليزية",
+      en: "مثال على المحتوى المعاد في الإنجليزية",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
       "es-MX": "Ejemplo de contenido devuelto en español (México)",
@@ -87,50 +123,119 @@ app.get("/", (_req, res) => {
   );
 });
 
-app.get("/error", (_req, res) => {
-  res.status(500).send(
+// بدء الخادم
+app.listen(3000, () => console.log(`Listening on port 3000`));
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+import express from "express";
+import { intlayer, t } from "express-intlayer";
+
+const app = express();
+
+// تحميل معالج طلب التدويل
+app.use(intlayer());
+
+// المسارات
+app.get("/", (_req, res) => {
+  res.send(
     t({
-      en: "مثال على محتوى الخطأ المرتجع باللغة الإنجليزية",
-      fr: "Exemple de contenu d'erreur renvoyé en français",
-      "es-ES": "Ejemplo de contenido de error devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido de error devuelto en español (México)",
+      en: "مثال على المحتوى المعاد في الإنجليزية",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
     })
   );
 });
 
 // بدء الخادم
-app.listen(3000, () => {
-  console.log(`الاستماع على المنفذ 3000`);
+app.listen(3000, () => console.log(`Listening on port 3000`));
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+const express = require("express");
+const { intlayer, t } = require("express-intlayer");
+
+const app = express();
+
+// تحميل معالج طلب التدويل
+app.use(intlayer());
+
+// المسارات
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "مثال على المحتوى المعاد في الإنجليزية",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+    })
+  );
 });
+
+// بدء الخادم
+app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
 ### التوافق
 
-`express-intlayer` متوافق تمامًا مع:
+`express-intlayer` متوافق تماماً مع:
 
 - `react-intlayer` لتطبيقات React
 - `next-intlayer` لتطبيقات Next.js
 
-كما أنه يعمل بسلاسة مع أي حل دعم متعدد اللغات عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الوسيط لاكتشاف اللغة من خلال الرؤوس أو الكوكيز:
+كما أنه يعمل بسلاسة مع أي حل دولي عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الوسيط للكشف عن اللغة من خلال رؤوس أو ملفات تعريف الارتباط:
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // خيارات التكوين الأخرى
+  // ... خيارات التكوين الأخرى
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
   },
 };
+
+export default config;
 ```
 
-بشكل افتراضي، سيفسر `express-intlayer` رأس `Accept-Language` لتحديد اللغة المفضلة للعميل.
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
 
-> لمزيد من المعلومات حول التكوين والمواضيع المتقدمة، تفضل بزيارة [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... خيارات التكوين الأخرى
+  middleware: {
+    headerName: "my-locale-header",
+    cookieName: "my-locale-cookie",
+  },
+};
 
-## مدعوم من TypeScript
+export default config;
+```
 
-يستفيد `express-intlayer` من الإمكانيات القوية ل TypeScript لتعزيز عملية الدعم متعدد اللغات. يضمن التحديد الثابت لـ TypeScript أن يتم حساب كل مفتاح ترجمة، مما يقلل من خطر فقدان الترجمات ويحسن من قابلية الصيانة.
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
 
-> تأكد من تضمين الأنواع الناتجة (افتراضيًا في ./types/intlayer.d.ts) في ملف tsconfig.json الخاص بك.
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... خيارات التكوين الأخرى
+  middleware: {
+    headerName: "my-locale-header",
+    cookieName: "my-locale-cookie",
+  },
+};
+
+module.exports = config;
+```
+
+بشكل افتراضي، سيقوم `express-intlayer` بتفسير رأس `Accept-Language` لتحديد اللغة المفضلة للعميل.
+
+> لمزيد من المعلومات حول تكوين المواضيع المتقدمة، قم بزيارة [التوثيق الخاص بنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+
+## مدعوم بواسطة TypeScript
+
+يستفيد `express-intlayer` من القدرات القوية لـ TypeScript لتحسين عملية التدويل. يضمن التدويل الثابت لـ TypeScript أن كل مفتاح ترجمة يتم احتسابه، مما يقلل من خطر فقدان الترجمات ويحسن قابلية الصيانة.
+
+> تأكد من تضمين الأنواع المولدة (بشكل افتراضي في ./types/intlayer.d.ts) في ملف tsconfig.json الخاص بك.

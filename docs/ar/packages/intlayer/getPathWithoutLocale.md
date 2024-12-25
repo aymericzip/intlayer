@@ -1,32 +1,50 @@
-# الوثائق: `getPathWithoutLocale` الدوال في `intlayer`
+# Documentation: `getPathWithoutLocale` Functions in `intlayer`
 
-## الوصف:
+## Description:
 
-يتم إزالة جزء اللغة من عنوان URL أو المسار المقدم إذا كان موجودًا. يعمل مع كل من عناوين URL المطلقة والمسارات النسبية.
+يستخدم لإزالة الجزء الخاص بالموضع من عنوان URL أو مسار معين إذا كان موجودًا. يعمل مع كل من URLs المطلقة والمسارات النسبية.
 
-## المعلمات:
+## Parameters:
 
 - `inputUrl: string`
 
-  - **الوصف**: سلسلة عنوان URL الكاملة أو المسار المراد معالجته.
-  - **النوع**: `string`
+  - **Description**: سلسلة URL الكاملة أو مسار معين لمعالجته.
+  - **Type**: `string`
 
 - `locales: Locales[]`
-  - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. الافتراضي هو اللغات المكونة في المشروع.
-  - **النوع**: `Locales[]`
+  - **Description**: مصفوفة اختيارية من المواقع المدعومة. بشكل افتراضي، يتم استخدام المواقع المكونة في المشروع.
+  - **Type**: `Locales[]`
 
-## الإرجاع:
+## Returns:
 
-- **النوع**: `string`
-- **الوصف**: سلسلة عنوان URL أو المسار بدون جزء اللغة.
+- **Type**: `string`
+- **Description**: سلسلة URL أو مسار معين بدون الجزء الخاص بالموضع.
 
-## مثال على الاستخدام:
+## Example Usage:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";
 
-console.log(getPathWithoutLocale("/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // الناتج: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="esm"
+import { getPathWithoutLocale } from "intlayer";
+
+console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
+```
+
+```javascript codeFormat="commonjs"
+const { getPathWithoutLocale } = require("intlayer");
+
+console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
 ```

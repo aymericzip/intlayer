@@ -1,26 +1,38 @@
 # Intlayer: Un modo più vicino per tradurre la tua applicazione
 
-**Intlayer** è una libreria di internazionalizzazione progettata specificamente per gli sviluppatori JavaScript. Consente la dichiarazione dei tuoi contenuti ovunque nel tuo codice. Converte la dichiarazione di contenuti multilingue in dizionari strutturati da integrare facilmente nel tuo codice. Utilizzando TypeScript, **Intlayer** rende il tuo sviluppo più solido ed efficiente.
+**Intlayer** è una libreria di internazionalizzazione progettata specificamente per sviluppatori JavaScript. Permette la dichiarazione dei tuoi contenuti ovunque nel tuo codice. Converte la dichiarazione di contenuti multilingue in dizionari strutturati per integrarsi facilmente nel tuo codice. Utilizzando TypeScript, **Intlayer** rende il tuo sviluppo più forte ed efficiente.
 
 ## Esempio di utilizzo
 
-```bash
+```bash codeFormat="typescript"
 .
-├── Component1
-│   ├── index.content.ts
-│   └── index.tsx
-└── Component2
-    ├── index.content.ts
-    └── index.tsx
+└── Components
+    └── myComponent
+       ├── index.content.ts
+       └── index.tsx
 ```
 
-```tsx
-// ./Component1/index.content.ts
+```bash codeFormat="commonjs"
+.
+└── Components
+    └── myComponent
+       ├── index.content.cjs
+       └── index.mjs
+```
 
+```bash codeFormat="esm"
+.
+└── Components
+    └── myComponent
+       ├── index.content.mjs
+       └── index.js
+```
+
+```tsx fileName="./Components/MyComponent/index.content.ts" codeFormat="typescript"
 import { type DeclarationContent, t } from "intlayer";
 
-const component1Content = {
-  key: "component1",
+const componentExampleContent = {
+  key: "component-example",
   content: {
     myTranslatedContent: t({
       en: "Hello World",
@@ -30,16 +42,74 @@ const component1Content = {
   },
 } satisfies DeclarationContent;
 
-export default component1Content;
+export default componentExampleContent;
 ```
 
-```tsx
-// ./Component1/index.tsx
+```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+import { t } from "intlayer";
 
+/** @type {import('intlayer').DeclarationContent} */
+// Il contenuto di esempio del componente
+const componentExampleContent = {
+  key: "component-example",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+export default componentExampleContent;
+```
+
+```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+// Il contenuto di esempio del componente
+const componentExampleContent = {
+  key: "component-example",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+module.exports = componentExampleContent;
+```
+
+```tsx fileName="./Components/MyComponent/index.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer";
 
-export const Component1 = () => {
-  const { myTranslatedContent } = useIntlayer("component1");
+export const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
+
+// Esempio di componente
+const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+// Esempio di componente
+const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
 
   return <span>{myTranslatedContent}</span>;
 };
@@ -47,10 +117,10 @@ export const Component1 = () => {
 
 ## Perché scegliere Intlayer?
 
-- **Gestione dei contenuti potenziata da JavaScript**: Sfrutta la flessibilità di JavaScript per definire e gestire i tuoi contenuti in modo efficiente.
-- **Ambiente sicuro per i tipi**: Sfrutta TypeScript per garantire che tutte le tue definizioni di contenuto siano precise e prive di errori.
-- **File di contenuto integrati**: Tieni le tue traduzioni vicine ai loro rispettivi componenti, migliorando la manutenibilità e la chiarezza.
-- **Impostazione semplificata**: Inizia e funzionare rapidamente con una configurazione minima, particolarmente ottimizzata per i progetti Next.js.
-- **Supporto per componenti server**: Perfettamente adatto per i componenti server di Next.js, garantendo un rendering fluido lato server.
-- **Routing avanzato**: Supporto completo per il routing delle app Next.js, adattandosi senza problemi a strutture di applicazioni complesse.
-- **Interoperabilità**: Consente l'interoperabilità di i18next. (beta)
+- **Gestione dei contenuti alimentata da JavaScript**: Approfitta della flessibilità di JavaScript per definire e gestire i tuoi contenuti in modo efficiente.
+- **Ambiente a prova di tipo**: Sfrutta TypeScript per garantire che tutte le tue definizioni di contenuto siano precise e prive di errori.
+- **File di contenuto integrati**: Mantieni le tue traduzioni vicine ai rispettivi componenti, migliorando la manutenibilità e la chiarezza.
+- **Impostazione semplificata**: Inizia rapidamente con una configurazione minima, ottimizzata soprattutto per i progetti Next.js.
+- **Supporto per i componenti del server**: Perfettamente adatto per i componenti del server di Next.js, garantendo un rendering senza problemi sul lato server.
+- **Routing migliorato**: Supporto completo per il routing dell'app Next.js, adattandosi perfettamente a strutture di applicazioni complesse.
+- **Interoperabilità**: Consente l'interoperabilità con i18next. (beta)

@@ -1,33 +1,33 @@
-# Documentation: `getEnumerationContent` Function in `intlayer`
+# الوثيقة: دالة `getEnumerationContent` في `intlayer`
 
-## Description:
+## الوصف:
 
-تقوم دالة `getEnumerationContent` باسترجاع المحتوى المتطابق مع كمية محددة بناءً على شروط محددة مسبقًا في كائن العد. يتم تعريف الشروط كمفاتيح، ويتم تحديد أولويتها وفقًا لترتيبها في الكائن.
+تسترجع دالة `getEnumerationContent` المحتوى المقابل لعدد محدد بناءً على شروط محددة مسبقًا في كائن التعداد. يتم تعريف الشروط كمفاتيح، وتحدد أولويتها من خلال ترتيبها في الكائن.
 
-## Parameters:
+## المعاملات:
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **Description**: كائن يمثل فيه المفاتيح الشروط (مثل `<=`, `<`, `>=`, `=`) والقيم تمثل المحتوى المقابل. يحدد ترتيب المفاتيح أولويتها في المطابقة.
-  - **Type**: `QuantityContent<Content>`
+  - **الوصف**: كائن حيث تمثل المفاتيح الشروط (مثل `<=`, `<`, `>=`, `=`) والقيم تمثل المحتوى المقابل. يحدد ترتيب المفاتيح أولويات المطابقة.
+  - **النوع**: `QuantityContent<Content>`
     - `Content` يمكن أن يكون من أي نوع.
 
 - `quantity: number`
 
-  - **Description**: القيمة الرقمية المستخدمة للمطابقة مع الشروط في `enumerationContent`.
-  - **Type**: `number`
+  - **الوصف**: القيمة الرقمية المستخدمة لمطابقتها مع الشروط في `enumerationContent`.
+  - **النوع**: `number`
 
-## Returns:
+## الإرجاع:
 
-- **Type**: `Content`
-- **Description**: المحتوى المتطابق مع أول شرط متطابق في `enumerationContent`. إذا لم يتم العثور على تطابق، فإنه يعود إلى معالجة بناءً على التنفيذ (مثل، خطأ أو محتوى احتياطي).
+- **النوع**: `Content`
+- **الوصف**: المحتوى المقابل لأولى شروط المطابقة في `enumerationContent`. إذا لم يتم العثور على مطابقة، فإنه يتطابق مع ما يعتمد على التنفيذ (مثل، خطأ أو محتوى احتياطي).
 
-## Example Usage:
+## مثال على الاستخدام:
 
-### Basic Usage:
+### الاستخدام الأساسي:
 
-```typescript
-import { getEnumerationContent } from "@intlayer/config/client";
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
 
 const content = getEnumerationContent(
   {
@@ -39,12 +39,44 @@ const content = getEnumerationContent(
   2
 );
 
-console.log(content); // Output: "لديك اثنان"
+console.log(content); // الإخراج: "لديك اثنان"
 ```
 
-### Priority of Conditions:
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
 
-```typescript
+const content = getEnumerationContent(
+  {
+    "<1": "لديك أقل من واحد",
+    "2": "لديك اثنان",
+    ">=3": "لديك ثلاثة أو أكثر",
+  },
+  2
+);
+
+console.log(content); // الإخراج: "لديك اثنان"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
+const content = getEnumerationContent(
+  {
+    "<1": "لديك أقل من واحد",
+    "2": "لديك اثنان",
+    ">=3": "لديك ثلاثة أو أكثر",
+  },
+  2
+);
+
+console.log(content); // الإخراج: "لديك اثنان"
+```
+
+### أولوية الشروط:
+
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
+
 const content = getEnumerationContent(
   {
     "<4": "لديك أقل من أربعة",
@@ -53,26 +85,54 @@ const content = getEnumerationContent(
   2
 );
 
-console.log(content); // Output: "لديك أقل من أربعة"
+console.log(content); // الإخراج: "لديك أقل من أربعة"
 ```
 
-## Edge Cases:
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
 
-- **No Matching Condition:**
+const content = getEnumerationContent(
+  {
+    "<4": "لديك أقل من أربعة",
+    "2": "لديك اثنان",
+  },
+  2
+);
 
-  - إذا لم يتطابق أي شرط مع الكمية المقدمة، ستقوم الدالة إما بإرجاع `undefined` أو التعامل مع السيناريو الافتراضي/الاحتياطي بشكل صريح.
+console.log(content); // الإخراج: "لديك أقل من أربعة"
+```
 
-- **Ambiguous Conditions:**
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
 
-  - إذا تداخلت الشروط، فإن أول شرط متطابق (بناءً على ترتيب الكائن) يأخذ الأولوية.
+const content = getEnumerationContent(
+  {
+    "<4": "لديك أقل من أربعة",
+    "2": "لديك اثنان",
+  },
+  2
+);
 
-- **Invalid Keys:**
+console.log(content); // الإخراج: "لديك أقل من أربعة"
+```
 
-  - تفترض الدالة أن جميع المفاتيح في `enumerationContent` صالحة وقابلة للتحليل كشروط. قد تؤدي المفاتيح غير الصالحة أو التي تمت صياغتها بشكل غير صحيح إلى سلوك غير متوقع.
+## الحالات الحادة:
 
-- **TypeScript Enforcement:**
-  - تضمن الدالة أن نوع `Content` متسق عبر جميع المفاتيح، مما يسمح بسلامة النوع في المحتوى المسترجع.
+- **لا توجد شروط مطابقة:**
 
-## Notes:
+  - إذا لم تتطابق أي شرط مع العدد المقدم، ستقوم الدالة إما بإرجاع `undefined` أو التعامل مع السيناريو الافتراضي/الاحتياطي بشكل صريح.
 
-- يتم استخدام أداة `findMatchingCondition` لتحديد الشرط المناسب بناءً على الكمية المعطاة.
+- **شروط غامضة:**
+
+  - إذا تداخلت الشروط، فإن أول شرط مطابق (استنادًا إلى ترتيب الكائن) يأخذ الأولوية.
+
+- **مفاتيح غير صالحة:**
+
+  - تفترض الدالة أن جميع المفاتيح في `enumerationContent` صالحة وقابلة للتحليل كشرط. قد تؤدي المفاتيح غير الصالحة أو المهيكلة بشكل غير صحيح إلى سلوك غير متوقع.
+
+- **تنفيذ TypeScript:**
+  - تضمن الدالة أن يكون نوع `Content` متسقًا عبر جميع المفاتيح، مما يسمح بالأمان من النوع في المحتوى المسترجع.
+
+## ملاحظات:
+
+- تُستخدم وحدة `findMatchingCondition` لتحديد الشرط المناسب بناءً على العدد المعطى.

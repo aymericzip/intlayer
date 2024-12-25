@@ -52,7 +52,7 @@ export const ClientComponentExample: FC = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido d un ejemplo de componente cliente",
+      es: "Este es el contenido de un ejemplo de componente cliente",
     })}
   </p>
 );
@@ -66,7 +66,7 @@ const ClientComponentExample = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido d un ejemplo de componente cliente",
+      es: "Este es el contenido de un ejemplo de componente cliente",
     })}
   </p>
 );
@@ -80,7 +80,7 @@ const ClientComponentExample = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es le contenido d un ejemplo de componente cliente",
+      es: "Este es el contenido de un ejemplo de componente cliente",
     })}
   </p>
 );
@@ -133,8 +133,7 @@ const ServerComponentExample = () => (
 
 ### Inline Translations in Attributes
 
-The `t` function is particularly useful for inline translations in JSX attributes.
-When localizing attributes like `alt`, `title`, `href`, or `aria-label`, you can use `t` directly within the attribute.
+The `t` function is particularly useful for inline translations in JSX attributes. When localizing attributes like `alt`, `title`, `href`, or `aria-label`, you can use `t` directly within the attribute.
 
 ```jsx
 <button
@@ -314,7 +313,7 @@ const text = t(translations);
 
 The `t` function in `next-intlayer` is a powerful and convenient tool for managing inline translations in your Next.js applications. By integrating it effectively, you enhance the internationalization capabilities of your app, providing a better experience for users worldwide.
 
-For more detailed usage and advanced features, refer to the [next-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md).
+For more detailed usage and advanced features, refer to the [next-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md).
 
 ---
 

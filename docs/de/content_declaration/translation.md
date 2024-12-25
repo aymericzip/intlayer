@@ -2,13 +2,13 @@
 
 ## Übersetzungen definieren
 
-Die `t`-Funktion in `intlayer` ermöglicht es Ihnen, Inhalte in mehreren Sprachen zu deklarieren. Diese Funktion gewährleistet die Typensicherheit und löst einen Fehler aus, wenn Übersetzungen fehlen, was in TypeScript-Umgebungen besonders nützlich ist.
+Die `t` Funktion in `intlayer` ermöglicht es Ihnen, Inhalte in mehreren Sprachen zu deklarieren. Diese Funktion gewährleistet die Typensicherheit und gibt einen Fehler aus, wenn Übersetzungen fehlen, was besonders nützlich in TypeScript-Umgebungen ist.
 
 ### TypeScript verwenden
 
-Hier ist ein Beispiel, wie man Inhalte mit Übersetzungen in einer TypeScript-Datei erklärt:
+Hier ist ein Beispiel, wie Sie Inhalte mit Übersetzungen deklarieren.
 
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -19,7 +19,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application",
+      en: "Willkommen in unserer Anwendung",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -27,18 +27,14 @@ export default {
 } satisfies DeclarationContent<Content>;
 ```
 
-### ECMAScript-Module verwenden
-
-Wenn Sie ECMAScript-Module verwenden, sieht die Deklaration so aus:
-
-```javascript
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application",
+      en: "Willkommen in unserer Anwendung",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -46,18 +42,14 @@ export default {
 };
 ```
 
-### CommonJS-Module verwenden
-
-In einem CommonJS-Setup können Sie Übersetzungen wie folgt deklarieren:
-
-```javascript
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 module.exports = {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application",
+      en: "Willkommen in unserer Anwendung",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -65,18 +57,14 @@ module.exports = {
 };
 ```
 
-### JSON verwenden
-
-Für JSON-basierte Deklarationen können Sie Übersetzungen wie folgt definieren:
-
-```json
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
   "key": "multi_lang",
   "content": {
     "welcomeMessage": {
       "nodeType": "translation",
       "translation": {
-        "en": "Welcome to our application",
+        "en": "Willkommen in unserer Anwendung",
         "fr": "Bienvenue dans notre application",
         "es": "Bienvenido a nuestra aplicación"
       }
@@ -85,11 +73,11 @@ Für JSON-basierte Deklarationen können Sie Übersetzungen wie folgt definieren
 }
 ```
 
-## Konfiguration für Sprachen
+## Konfiguration der lokalen Einstellungen
 
-Um eine ordnungsgemäße Handhabung der Übersetzungen zu gewährleisten, können Sie die akzeptierten Sprachen in `intlayer.config.ts` konfigurieren. Diese Konfiguration ermöglicht es Ihnen, die Sprachen zu definieren, die Ihre Anwendung unterstützt:
+Um eine ordnungsgemäße Handhabung von Übersetzungen sicherzustellen, können Sie die akzeptierten Sprachen in `intlayer.config.ts` konfigurieren. Diese Konfiguration ermöglicht es Ihnen, die Sprachen zu definieren, die Ihre Anwendung unterstützt:
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -101,11 +89,54 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+module.exports = config;
+```
+
 ## Verwendung von Übersetzungen in React-Komponenten
 
 Mit `react-intlayer` können Sie Übersetzungen in React-Komponenten verwenden. Hier ist ein Beispiel:
 
-```jsx
+```jsx fileName="**/*.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const MyComponent: FC = () => {
+  const content = useIntlayer("multi_lang");
+
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
@@ -121,13 +152,29 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-Diese Komponente ruft die entsprechende Übersetzung basierend auf der aktuellen Sprache in Ihrer Anwendung ab.
+```javascript fileName="**/*.cjs" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const MyComponent = () => {
+  const content = useIntlayer("multi_lang");
+
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
+
+module.exports = MyComponent;
+```
+
+Diese Komponente ruft die entsprechende Übersetzung basierend auf der aktuellen Sprache ab, die in Ihrer Anwendung gesetzt ist.
 
 ## Benutzerdefinierte Inhaltsobjekte
 
-`intlayer` unterstützt benutzerdefinierte Inhaltsobjekte für Übersetzungen, die es Ihnen ermöglichen, komplexere Strukturen zu definieren und dabei die Typensicherheit zu gewährleisten. Hier ist ein Beispiel mit einem benutzerdefinierten Objekt:
+`intlayer` unterstützt benutzerdefinierte Inhaltsobjekte für Übersetzungen, sodass Sie komplexere Strukturen definieren können, während die Typensicherheit gewährleistet bleibt. Hier ist ein Beispiel mit einem benutzerdefinierten Objekt:
 
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface ICustomContent {
@@ -140,8 +187,8 @@ const customContent = {
   content: {
     profileText: t<ICustomContent>({
       en: {
-        title: "Page Title",
-        content: "Page Content",
+        title: "Seitenüberschrift",
+        content: "Seiteninhalt",
       },
       fr: {
         title: "Titre de la Page",
@@ -156,4 +203,83 @@ const customContent = {
 } satisfies DeclarationContent;
 
 export default customContent;
+```
+
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+export default {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "Seitenüberschrift",
+          content: "Seiteninhalt",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+      },
+  },
+};
+```
+
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+module.exports = {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "Seitenüberschrift",
+          content: "Seiteninhalt",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+      },
+  },
+};
+```
+
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "key": "custom_content",
+  "content": {
+    "profileText": {
+      "nodeType": "translation",
+      "translation": {
+        "en": {
+          "title": "Seitenüberschrift",
+          "content": "Seiteninhalt"
+        },
+        "fr": {
+          "title": "Titre de la Page",
+          "content": "Contenu de la Page"
+        },
+        "es": {
+          "title": "Título de la Página",
+          "content": "Contenido de la Página"
+        }
+      }
+    }
+  }
+}
 ```

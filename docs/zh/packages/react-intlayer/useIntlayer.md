@@ -1,45 +1,59 @@
-# React 集成: `useIntlayer` 钩子文档
+# React 集成：`useIntlayer` Hook 文档
 
-本节提供了在 React 应用程序中使用 `useIntlayer` 钩子的详细指导，以实现高效的内容本地化。
+本节提供了在 React 应用程序中使用 `useIntlayer` hook 的详细指导，以实现高效的内容本地化。
 
 ## 在 React 中导入 `useIntlayer`
 
-可以通过根据上下文导入 `useIntlayer` 钩子来集成到 React 应用程序中：
+可以通过根据上下文导入 `useIntlayer` hook 将其集成到 React 应用程序中：
 
 - **客户端组件：**
 
-  ```javascript
+  ```typescript codeFormat="typescript"
   import { useIntlayer } from "react-intlayer"; // 用于客户端 React 组件
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "react-intlayer"; // 用于客户端 React 组件
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("react-intlayer"); // 用于客户端 React 组件
   ```
 
 - **服务器组件：**
 
-  ```javascript
+  ```typescript codeFormat="commonjs"
   import { useIntlayer } from "react-intlayer/server"; // 用于服务器端 React 组件
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "react-intlayer/server"; // 用于服务器端 React 组件
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("react-intlayer/server"); // 用于服务器端 React 组件
   ```
 
 ## 参数
 
-该钩子接受两个参数：
+该 hook 接受两个参数：
 
-1. **`key`**: 用于检索本地化内容的字典键。
-2. **`locale`** (可选): 所需的语言环境。如果未指定，则默认为上下文的语言环境。
+1. **`key`**：用于检索本地化内容的字典键。
+2. **`locale`**（可选）：所需的语言环境。如果未指定，默认为上下文的语言环境。
 
 ## 内容声明
 
 所有字典键必须在内容声明文件中声明，以增强类型安全性并避免错误。您可以在 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md) 找到设置说明。
 
-## React 中的示例用法
+## 在 React 中的示例用法
 
-在 React 组件中演示 `useIntlayer` 钩子：
+在 React 组件中演示 `useIntlayer` hook：
 
-```tsx
-// src/pages/[locale]/index.tsx
-
+```tsx fileName="src/app.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
 import { useIntlayer, IntlayerServerProvider } from "react-intlayer/server";
-import { type FC } from "react";
 import { Locales } from "intlayer";
 
 const App: FC<{ locale: Locales }> = ({ locale }) => {
@@ -59,13 +73,58 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```tsx
-// src/components/ClientComponentExample.tsx
+```jsx fileName="src/app.mjx" codeFormat="esm"
+import { ClientComponentExample, ServerComponentExample } from "@components";
+import { IntlayerProvider } from "react-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
 
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```jsx fileName="src/app.csx" codeFormat="commonjs"
+const { IntlayerProvider } = require("react-intlayer");
+const {
+  IntlayerServerProvider,
+  useIntlayer,
+} = require("react-intlayer/server");
+
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component");
+const ComponentExample: FC = () => {
+  const content = useIntlayer("component-example");
 
   return (
     <div>
@@ -76,10 +135,68 @@ const ClientComponentExample = () => {
 };
 ```
 
-```tsx
-// src/components/ServerComponentExample.tsx
+```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
 
+const ComponentExample = () => {
+  const content = useIntlayer("component-example");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const ComponentExample = () => {
+  const content = useIntlayer("component-example");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer/server";
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer/server";
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer/server");
 
 const ServerComponentExample = () => {
   const content = useIntlayer("server-component");
@@ -95,14 +212,14 @@ const ServerComponentExample = () => {
 
 ## 处理属性
 
-本地化属性时，适当地访问内容值：
+在本地化属性时，以适当地访问内容值：
 
-```tsx
+```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## 其他资源
 
-- **Intlayer 可视化编辑器**: 要获得更直观的内容管理体验，请参阅可视化编辑器文档 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_editor.md)。
+- **Intlayer 可视化编辑器**：有关更直观的内容管理体验，请参阅可视化编辑器文档 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_editor.md)。
 
-本节专门针对在 React 应用程序中集成 `useIntlayer` 钩子，简化本地化过程并确保不同语言环境下内容的一致性。
+本节专门针对 `useIntlayer` hook 在 React 应用程序中的集成，简化了本地化过程，并确保不同语言环境之间内容的一致性。

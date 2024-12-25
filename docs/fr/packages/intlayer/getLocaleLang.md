@@ -2,7 +2,7 @@
 
 ## Description:
 
-La fonction `getLocaleLang` extrait le code de langue d'une chaîne de locale. Elle prend en charge les locales avec ou sans codes de pays. Si aucune locale n'est fournie, elle renvoie par défaut une chaîne vide.
+La fonction `getLocaleLang` extrait le code de langue à partir d'une chaîne de locale. Elle prend en charge les locales avec ou sans codes de pays. Si aucune locale n'est fournie, elle retourne par défaut une chaîne vide.
 
 ## Parameters:
 
@@ -14,14 +14,32 @@ La fonction `getLocaleLang` extrait le code de langue d'une chaîne de locale. E
 ## Returns:
 
 - **Type**: `string`
-- **Description**: Le code de langue extrait de la locale. Si la locale n'est pas fournie, elle renvoie une chaîne vide (`''`).
+- **Description**: Le code de langue extrait de la locale. Si la locale n'est pas fournie, elle retourne une chaîne vide (`''`).
 
 ## Example Usage:
 
-### Extracting Language Codes:
+### Extraction des Codes de Langue:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
+
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Sortie : "en"
+getLocaleLang(Locales.ENGLISH); // Sortie : "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Sortie : "fr"
+getLocaleLang(Locales.FRENCH); // Sortie : "fr"
+```
+
+```javascript codeFormat="esm"
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Sortie : "en"
+getLocaleLang(Locales.ENGLISH); // Sortie : "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Sortie : "fr"
+getLocaleLang(Locales.FRENCH); // Sortie : "fr"
+```
+
+```javascript codeFormat="commonjs"
+const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Sortie : "en"
 getLocaleLang(Locales.ENGLISH); // Sortie : "en"
@@ -31,9 +49,9 @@ getLocaleLang(Locales.FRENCH); // Sortie : "fr"
 
 ## Edge Cases:
 
-- **No Locale Provided:**
+- **Aucune Locale Fournie:**
 
-  - La fonction renvoie une chaîne vide lorsque `locale` est `undefined`.
+  - La fonction retourne une chaîne vide lorsque `locale` est `undefined`.
 
-- **Malformed Locale Strings:**
-  - Si la `locale` ne suit pas le format `language-country` (par exemple, `Locales.ENGLISH-US`), la fonction renvoie en toute sécurité la partie avant `'-'` ou la chaîne entière si aucun `'-'` n'est présent.
+- **Chaînes de Locale Malformées:**
+  - Si la `locale` ne suit pas le format `langue-pays` (par exemple, `Locales.ENGLISH-US`), la fonction retourne en toute sécurité la partie avant `'-'` ou la chaîne entière si aucun `'-'` n'est présent.

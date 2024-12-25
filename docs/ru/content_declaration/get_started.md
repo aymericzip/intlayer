@@ -2,7 +2,7 @@
 
 ## Расширения файлов
 
-По умолчанию, Intlayer следит за всеми файлами с следующими расширениями для деклараций контента:
+По умолчанию Intlayer отслеживает все файлы с следующими расширениями для деклараций контента:
 
 - `.content.ts`
 - `.content.tsx`
@@ -10,20 +10,17 @@
 - `.content.mjs`
 - `.content.cjs`
 
-Приложение будет искать файлы, соответствующие шаблону `./src/**/*.content.{ts,tsx,js,mjs,cjs}` по умолчанию.
+Приложение по умолчанию будет искать файлы, соответствующие шаблону `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
-Эти расширения по умолчанию подходят для большинства приложений. Однако, если у вас есть конкретные требования, обратитесь к руководству по настройке расширений контента для получения инструкций по их управлению.
+Эти стандартные расширения подходят для большинства приложений. Однако, если у вас есть специфические требования, ознакомьтесь с [руководством по настройке расширений контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#content-configuration) для инструкций по их управлению.
 
 Для полного списка параметров конфигурации посетите документацию по конфигурации.
 
-## Декларируйте ваш контент
+## Объявите ваш контент
 
 Создайте и управляйте своими словарями контента:
 
-### Используя TypeScript
-
-```typescript
-// src/app/[locale]/page.content.ts
+```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
 import { t, enu, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -46,22 +43,18 @@ export default {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Меньше чем одна машина",
+      "<-1": "Менее чем одна машина",
       "-1": "Минус одна машина",
       "0": "Нет машин",
       "1": "Одна машина",
-      ">5": "Несколько машин",
+      ">5": "Некоторые машины",
       ">19": "Много машин",
     }),
   },
 } satisfies DeclarationContent<Content>;
 ```
 
-### Используя ECMAScript модули
-
-```javascript
-// src/app/[locale]/page.content.mjs
-
+```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -77,22 +70,18 @@ export default {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Меньше чем одна машина",
+      "<-1": "Менее чем одна машина",
       "-1": "Минус одна машина",
       0: "Нет машин",
       1: "Одна машина",
-      ">5": "Несколько машин",
+      ">5": "Некоторые машины",
       ">19": "Много машин",
     }),
   },
 };
 ```
 
-### Используя CommonJS модули
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
+```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -108,22 +97,18 @@ module.exports = {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Меньше чем одна машина",
+      "<-1": "Менее чем одна машина",
       "-1": "Минус одна машина",
       0: "Нет машин",
       1: "Одна машина",
-      ">5": "Несколько машин",
+      ">5": "Некоторые машины",
       ">19": "Много машин",
     }),
   },
 };
 ```
 
-### Используя JSON
-
-```json5
-// src/app/[locale]/page.content.json
-
+```json5 fileName="src/app/[locale]/page.content.json"  codeFormat="json"
 {
   "key": "page",
   "content": {
@@ -141,16 +126,14 @@ module.exports = {
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Меньше чем одна машина",
+        "<-1": "Менее чем одна машина",
         "-1": "Минус одна машина",
         "0": "Нет машин",
         "1": "Одна машина",
-        ">5": "Несколько машин",
+        ">5": "Некоторые машины",
         ">19": "Много машин",
       },
     },
   },
 }
 ```
-
-Предупреждение, декларация контента JSON делает невозможным внедрение [функции получения](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/function_fetching.md)

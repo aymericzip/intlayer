@@ -12,19 +12,19 @@ For more details on how to install the package, see the relevant section below:
 
 ### Integrating with Next.js
 
-For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md).
+For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_nextjs_15.md).
 
 ### Integrating with Create React App
 
-For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md).
+For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_create_react_app.md).
 
 ### Integrating with Vite + React
 
-For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md).
+For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_vite+react.md).
 
 ## How Intlayer Editor Works
 
-Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md), wherever these files are declared in your project.
+Each time you make a change using Intlayer Editor, the server automatically inserts your changes into your [Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md), wherever these files are declared in your project.
 
 In this way, you don't have to worry about where the file is declared or about finding your key in your dictionary collection.
 
@@ -48,7 +48,7 @@ pnpm add intlayer-editor
 
 ### 1. Enable the Editor in your intlayer.config.ts file
 
-In your Intlayer configuration file, you can customize the editor settings:
+In your Intlayer configuration file, you can customise the editor settings:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -108,7 +108,7 @@ module.exports = config;
 
 > If you don't have a client ID and client secret, you can obtain them by creating a new client in the [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
 
-> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
 
 ### 2. Insert the Intlayer Editor Provider in your application
 
@@ -119,7 +119,7 @@ Example for React JS or Vite + React applications:
 ```tsx {3,6,8} fileName="App.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { IntlayerProvider } from "react-intlayer";
-import { IntlayerEditorProvider } from "intlayer-editor";
+import { IntlayerEditorProvider } from "intlayer-editor"; // [!code highlight]
 
 const App: FC = () => (
   <IntlayerProvider>

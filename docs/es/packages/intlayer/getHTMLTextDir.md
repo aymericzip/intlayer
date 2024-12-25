@@ -2,28 +2,28 @@
 
 ## Descripción:
 
-La función `getHTMLTextDir` determina la dirección del texto (`ltr`, `rtl` o `auto`) según el `locale` proporcionado. Está diseñada para ayudar a los desarrolladores a establecer el atributo `dir` en HTML para un renderizado de texto adecuado.
+La función `getHTMLTextDir` determina la dirección del texto (`ltr`, `rtl`, o `auto`) en función de la localidad proporcionada. Está diseñada para ayudar a los desarrolladores a establecer el atributo `dir` en HTML para un renderizado adecuado del texto.
 
 ## Parámetros:
 
 - `locale?: Locales`
 
-  - **Descripción**: La cadena del locale (por ejemplo, `Locales.ENGLISH`, `Locales.ARABIC`) utilizada para determinar la dirección del texto.
+  - **Descripción**: La cadena de localidad (por ejemplo, `Locales.ENGLISH`, `Locales.ARABIC`) utilizada para determinar la dirección del texto.
   - **Tipo**: `Locales` (opcional)
 
-## Retorna:
+## Retornos:
 
 - **Tipo**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
-- **Descripción**: La dirección del texto correspondiente al locale:
+- **Descripción**: La dirección del texto correspondiente a la localidad:
   - `'ltr'` para idiomas de izquierda a derecha.
   - `'rtl'` para idiomas de derecha a izquierda.
-  - `'auto'` si el locale no es reconocido.
+  - `'auto'` si la localidad no es reconocida.
 
 ## Ejemplo de Uso:
 
-### Determinación de la Dirección del Texto:
+### Determinando la Dirección del Texto:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
 
 getHTMLTextDir(Locales.ENGLISH); // Salida: "ltr"
@@ -31,27 +31,67 @@ getHTMLTextDir(Locales.FRENCH); // Salida: "ltr"
 getHTMLTextDir(Locales.ARABIC); // Salida: "rtl"
 ```
 
-## Casos Límite:
+```javascript codeFormat="esm"
+import { getHTMLTextDir } from "intlayer";
 
-- **Ningún Locale Proporcionado:**
+getHTMLTextDir(Locales.ENGLISH); // Salida: "ltr"
+getHTMLTextDir(Locales.FRENCH); // Salida: "ltr"
+getHTMLTextDir(Locales.ARABIC); // Salida: "rtl"
+```
 
-  - La función retorna `'auto'` cuando `locale` es `undefined`.
+```javascript codeFormat="commonjs"
+const { getHTMLTextDir } = require("intlayer");
 
-- **Locale No Reconocido:**
-  - Para locales no reconocidos, la función por defecto a `'auto'`.
+getHTMLTextDir(Locales.ENGLISH); // Salida: "ltr"
+getHTMLTextDir(Locales.FRENCH); // Salida: "ltr"
+getHTMLTextDir(Locales.ARABIC); // Salida: "rtl"
+```
+
+## Casos Especiales:
+
+- **No se Proporcionó Localidad:**
+
+  - La función devuelve `'auto'` cuando `locale` es `undefined`.
+
+- **Localidad No Reconocida:**
+  - Para localidades no reconocidas, la función por defecto utiliza `'auto'`.
 
 ## Uso en Componentes:
 
-La función `getHTMLTextDir` puede ser utilizada para establecer dinámicamente el atributo `dir` en un documento HTML para un renderizado de texto adecuado basado en el locale.
+La función `getHTMLTextDir` puede usarse para establecer dinámicamente el atributo `dir` en un documento HTML para un renderizado adecuado del texto basado en la localidad.
 
-```tsx
-import { getHTMLTextDir } from "intlayer";
+```tsx codeFormat="typescript"
+import type { FC } from "react";
+import { getHTMLTextDir, type Locales } from "intlayer";
 
-export const HTMLLayout = ({ children, locale }) => (
+export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
+  children,
+  locale,
+}) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>
 );
 ```
 
-En el ejemplo anterior, el atributo `dir` se establece dinámicamente según el locale.
+```jsx codeFormat="esm"
+import { getHTMLTextDir } from "intlayer";
+
+const HTMLLayout = ({ children, locale }) => (
+  <html dir={getHTMLTextDir(locale)} locale={locale}>
+    <body>{children}</body>
+  </html>
+);
+```
+
+```jsx codeFormat="commonjs"
+const { getHTMLTextDir } = require("intlayer");
+
+const HTMLLayout = ({ children, locale }) => (
+  <html dir={getHTMLTextDir(locale)} locale={locale}>
+    <body>{children}</body>
+  </html>
+);
+```
+
+En el ejemplo anterior, el atributo `dir` se establece dinámicamente en función de la localidad.

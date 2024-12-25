@@ -1,57 +1,97 @@
-# Documentation: `getHTMLTextDir` Function in `intlayer`
+# Documentation: `getHTMLTextDir` फ़ंक्शन in `intlayer`
 
-## Description:
+## विवरण:
 
-`getHTMLTextDir` फ़ंक्शन टेक्स्ट दिशा (`ltr`, `rtl`, या `auto`) का निर्धारण करता है जो दिए गए स्थानीय भाषा के आधार पर होता है। यह डेवलपर्स को HTML में उचित टेक्स्ट रेंडरिंग के लिए `dir` एट्रिब्यूट सेट करने में मदद करने के लिए डिज़ाइन किया गया है।
+`getHTMLTextDir` फ़ंक्शन प्रदान किए गए स्थानीयकृत के आधार पर पाठ दिशा (`ltr`, `rtl`, या `auto`) निर्धारित करता है। इसे डेवलपर्स को HTML में उचित पाठ रेंडरिंग के लिए `dir` विशेषता सेट करने में मदद करने के लिए डिज़ाइन किया गया है।
 
-## Parameters:
+## पैरामीटर:
 
 - `locale?: Locales`
 
-  - **Description**: स्थानीय भाषा स्ट्रिंग (जैसे, `Locales.ENGLISH`, `Locales.ARABIC`) जिसका उपयोग टेक्स्ट दिशा निर्धारित करने के लिए किया जाता है।
-  - **Type**: `Locales` (वैकल्पिक)
+  - **विवरण**: स्थानीयकृत स्ट्रिंग (जैसे, `Locales.ENGLISH`, `Locales.ARABIC`) जो पाठ दिशा निर्धारित करने के लिए उपयोग की जाती है।
+  - **प्रकार**: `Locales` (वैकल्पिक)
 
-## Returns:
+## लौटाता है:
 
-- **Type**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
-- **Description**: स्थानीय भाषा के अनुसार टेक्स्ट दिशा:
-  - `'ltr'` बाएं से दाएं भाषाओं के लिए।
-  - `'rtl'` दाएं से बाएं भाषाओं के लिए।
-  - `'auto'` यदि स्थानीय भाषा पहचानी नहीं गई।
+- **प्रकार**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
+- **विवरण**: स्थानीयकृत के अनुरूप पाठ दिशा:
+  - `'ltr'` बाईं से दाईं ओर भाषाओं के लिए।
+  - `'rtl'` दाईं से बाईं ओर भाषाओं के लिए।
+  - `'auto'` यदि स्थानीयकृत मान्यता प्राप्त नहीं है।
 
-## Example Usage:
+## उदाहरण उपयोग:
 
-### Determining Text Direction:
+### पाठ दिशा निर्धारित करना:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
 
-getHTMLTextDir(Locales.ENGLISH); // Output: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Output: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
+getHTMLTextDir(Locales.ENGLISH); // आउटपुट: "ltr"
+getHTMLTextDir(Locales.FRENCH); // आउटपुट: "ltr"
+getHTMLTextDir(Locales.ARABIC); // आउटपुट: "rtl"
 ```
 
-## Edge Cases:
-
-- **No Locale Provided:**
-
-  - यदि `locale` `undefined` है, तो फ़ंक्शन `'auto'` लौटाता है।
-
-- **Unrecognized Locale:**
-  - पहचाने न जाने वाले स्थानीय भाषाओं के लिए, फ़ंक्शन `'auto'` पर डिफ़ॉल्ट कर देता है।
-
-## Usage in Components:
-
-`getHTMLTextDir` फ़ंक्शन का उपयोग HTML दस्तावेज़ में `dir` एट्रिब्यूट को गतिशील रूप से सेट करने के लिए किया जा सकता है ताकि स्थानीय भाषा के आधार पर उचित टेक्स्ट रेंडरिंग हो सके।
-
-```tsx
+```javascript codeFormat="esm"
 import { getHTMLTextDir } from "intlayer";
 
-export const HTMLLayout = ({ children, locale }) => (
+getHTMLTextDir(Locales.ENGLISH); // आउटपुट: "ltr"
+getHTMLTextDir(Locales.FRENCH); // आउटपुट: "ltr"
+getHTMLTextDir(Locales.ARABIC); // आउटपुट: "rtl"
+```
+
+```javascript codeFormat="commonjs"
+const { getHTMLTextDir } = require("intlayer");
+
+getHTMLTextDir(Locales.ENGLISH); // आउटपुट: "ltr"
+getHTMLTextDir(Locales.FRENCH); // आउटपुट: "ltr"
+getHTMLTextDir(Locales.ARABIC); // आउटपुट: "rtl"
+```
+
+## बेजोड़ मामले:
+
+- **कोई स्थानीयकृत प्रदान नहीं किया गया:**
+
+  - जब `locale` `undefined` होता है, तो फ़ंक्शन `'auto'` लौटाता है।
+
+- **अन्यथा स्थानीयकृत:**
+  - अनपेक्षित स्थानीयकृत के लिए, फ़ंक्शन `'auto'` पर डिफ़ॉल्ट करता है।
+
+## घटकों में उपयोग:
+
+`getHTMLTextDir` फ़ंक्शन को स्थानीयकृत के आधार पर HTML दस्तावेज़ में उचित पाठ रेंडरिंग के लिए `dir` विशेषता को गतिशील रूप से सेट करने के लिए उपयोग किया जा सकता है।
+
+```tsx codeFormat="typescript"
+import type { FC } from "react";
+import { getHTMLTextDir, type Locales } from "intlayer";
+
+export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
+  children,
+  locale,
+}) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>
 );
 ```
 
-उपरोक्त उदाहरण में, `dir` एट्रिब्यूट को स्थानीय भाषा के आधार पर गतिशील रूप से सेट किया गया है।
+```jsx codeFormat="esm"
+import { getHTMLTextDir } from "intlayer";
+
+const HTMLLayout = ({ children, locale }) => (
+  <html dir={getHTMLTextDir(locale)} locale={locale}>
+    <body>{children}</body>
+  </html>
+);
+```
+
+```jsx codeFormat="commonjs"
+const { getHTMLTextDir } = require("intlayer");
+
+const HTMLLayout = ({ children, locale }) => (
+  <html dir={getHTMLTextDir(locale)} locale={locale}>
+    <body>{children}</body>
+  </html>
+);
+```
+
+उदाहरण में, `dir` विशेषता स्थानीयकृत के आधार पर गतिशील रूप से सेट की गई है।

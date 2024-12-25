@@ -1,8 +1,8 @@
 # البدء في إعلان المحتوى الخاص بك
 
-## امتدادات الملفات
+## ملحقات الملفات
 
-بشكل افتراضي، يقوم Intlayer بمراقبة جميع الملفات ذات الامتدادات التالية لإعلانات المحتوى:
+بشكل افتراضي، يقوم Intlayer بمراقبة جميع الملفات ذات الملحقات التالية لإعلانات المحتوى:
 
 - `.content.ts`
 - `.content.tsx`
@@ -10,20 +10,17 @@
 - `.content.mjs`
 - `.content.cjs`
 
-سيقوم التطبيق بالبحث عن الملفات التي تطابق نمط النمط `./src/**/*.content.{ts,tsx,js,mjs,cjs}` بشكل افتراضي.
+ستبحث التطبيقات عن الملفات التي تتطابق مع نمط الغلوب `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` بشكل افتراضي.
 
-تعتبر هذه الامتدادات الافتراضية مناسبة لمعظم التطبيقات. ومع ذلك، إذا كانت لديك متطلبات محددة، راجع دليل تخصيص امتدادات المحتوى للحصول على التعليمات حول كيفية إدارتها.
+تعتبر هذه الملحقات الافتراضية مناسبة لمعظم التطبيقات. ومع ذلك، إذا كان لديك متطلبات محددة، يرجى الرجوع إلى [دليل تخصيص ملحق المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md#content-configuration) للحصول على تعليمات حول كيفية إدارتها.
 
-للحصول على قائمة كاملة بخيارات التكوين، قم بزيارة وثائق التكوين.
+للحصول على قائمة كاملة من خيارات التكوين، قم بزيارة وثائق التكوين.
 
-## أعلن عن محتواك
+## إعلان المحتوى الخاص بك
 
-إنشاء وإدارة قواميس المحتوى الخاصة بك:
+قم بإنشاء وإدارة قواميس المحتوى الخاصة بك:
 
-### باستخدام TypeScript
-
-```typescript
-// src/app/[locale]/page.content.ts
+```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
 import { t, enu, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -46,7 +43,7 @@ export default {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "أقل من سيارة واحدة ناقص",
+      "<-1": "أقل من سيارة واحدة",
       "-1": "سيارة واحدة ناقص",
       "0": "لا توجد سيارات",
       "1": "سيارة واحدة",
@@ -57,11 +54,7 @@ export default {
 } satisfies DeclarationContent<Content>;
 ```
 
-### باستخدام وحدات ECMAScript
-
-```javascript
-// src/app/[locale]/page.content.mjs
-
+```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -77,7 +70,7 @@ export default {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "أقل من سيارة واحدة ناقص",
+      "<-1": "أقل من سيارة واحدة",
       "-1": "سيارة واحدة ناقص",
       0: "لا توجد سيارات",
       1: "سيارة واحدة",
@@ -88,11 +81,7 @@ export default {
 };
 ```
 
-### باستخدام وحدات CommonJS
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
+```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -108,7 +97,7 @@ module.exports = {
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "أقل من سيارة واحدة ناقص",
+      "<-1": "أقل من سيارة واحدة",
       "-1": "سيارة واحدة ناقص",
       0: "لا توجد سيارات",
       1: "سيارة واحدة",
@@ -119,17 +108,13 @@ module.exports = {
 };
 ```
 
-### باستخدام JSON
-
-```json5
-// src/app/[locale]/page.content.json
-
+```json5 fileName="src/app/[locale]/page.content.json"  codeFormat="json"
 {
   "key": "page",
   "content": {
     "getStarted": {
       "main": {
-        "nodeType": "ترجمة",
+        "nodeType": "translation",
         "translation": {
           "en": "Get started by editing",
           "fr": "Commencez par éditer",
@@ -139,9 +124,9 @@ module.exports = {
       "pageLink": "src/app/page.tsx",
     },
     "numberOfCar": {
-      "nodeType": "تعداد",
+      "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "أقل من سيارة واحدة ناقص",
+        "<-1": "أقل من سيارة واحدة",
         "-1": "سيارة واحدة ناقص",
         "0": "لا توجد سيارات",
         "1": "سيارة واحدة",
@@ -152,5 +137,3 @@ module.exports = {
   },
 }
 ```
-
-تحذير، إعلان محتوى JSON يجعل من المستحيل تنفيذ [جلب الوظائف](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/function_fetching.md)

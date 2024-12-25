@@ -1,25 +1,25 @@
-# Documentación: Función `t` en `express-intlayer`
+# Documentación: `t` Función en `express-intlayer`
 
-La función `t` del paquete `express-intlayer` es la herramienta principal para proporcionar respuestas localizadas en tu aplicación Express. Simplifica la internacionalización (i18n) seleccionando dinámicamente el contenido en función del idioma preferido del usuario.
+La función `t` en el paquete `express-intlayer` es la utilidad central para proporcionar respuestas localizadas en su aplicación Express. Simplifica la internacionalización (i18n) al seleccionar dinámicamente contenido según el idioma preferido del usuario.
 
 ---
 
 ## Resumen
 
-La función `t` se utiliza para definir y recuperar traducciones para un conjunto de idiomas. Determina automáticamente el idioma apropiado para devolver basándose en los ajustes de la solicitud del cliente, como el encabezado `Accept-Language`. Si el idioma preferido no está disponible, recurre automáticamente al idioma predeterminado especificado en tu configuración.
+La función `t` se utiliza para definir y recuperar traducciones para un conjunto dado de idiomas. Determina automáticamente el idioma apropiado para devolver según la configuración de solicitud del cliente, como el encabezado `Accept-Language`. Si el idioma preferido no está disponible, regresa suavemente a la configuración predeterminada especificada en su configuración.
 
 ---
 
-## Características principales
+## Características Clave
 
-- **Localización dinámica**: Selecciona automáticamente la traducción más adecuada para el cliente.
-- **Recurso al idioma predeterminado**: Utiliza un idioma predeterminado si el idioma preferido del cliente no está disponible, asegurando una experiencia continua.
-- **Ligero y rápido**: Diseñado para aplicaciones de alto rendimiento con un impacto mínimo.
-- **Soporte para modo estricto**: Garantiza la adherencia estricta a los idiomas declarados para un comportamiento confiable.
+- **Localización Dinámica**: Selecciona automáticamente la traducción más apropiada para el cliente.
+- **Retroceso a la Configuración Predeterminada**: Regresa a una configuración predeterminada si el idioma preferido del cliente no está disponible, asegurando continuidad en la experiencia del usuario.
+- **Ligero y Rápido**: Diseñado para aplicaciones de alto rendimiento, asegurando una sobrecarga mínima.
+- **Soporte para Modo Estricto**: Faz cumplir la adherencia estricta a los idiomas declarados para un comportamiento confiable.
 
 ---
 
-## Firma de la función
+## Firma de la Función
 
 ```typescript
 t(translations: Record<string, string>): string;
@@ -29,36 +29,28 @@ t(translations: Record<string, string>): string;
 
 - `translations`: Un objeto donde las claves son códigos de idioma (por ejemplo, `en`, `fr`, `es-MX`) y los valores son las cadenas traducidas correspondientes.
 
-### Retorna
+### Retornos
 
 - Una cadena que representa el contenido en el idioma preferido del cliente.
 
 ---
 
-## Carga del controlador de solicitudes de internacionalización
+## Cargando el Manejador de Solicitudes de Internacionalización
 
-Para que las funcionalidades de internacionalización proporcionadas por `express-intlayer` funcionen correctamente, **debes** cargar el middleware de internacionalización al inicio de tu aplicación Express. Esto habilita la función `t` y asegura una correcta detección del idioma y la gestión de las traducciones.
+Para asegurar que la funcionalidad de internacionalización proporcionada por `express-intlayer` funcione correctamente, **debe** cargar el middleware de internacionalización al principio de su aplicación Express. Esto habilita la función `t` y asegura el manejo adecuado de la detección de locales y traducción.
 
-### Configuración requerida del middleware
+Coloque el middleware `app.use(intlayer())` **antes de cualquier ruta** en su aplicación para garantizar que todas las rutas se beneficien de la internacionalización:
 
-```typescript
+```typescript {7} fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
 import { intlayer } from "express-intlayer";
 
 const app: Express = express();
 
-// Cargar el controlador de solicitudes de internacionalización
-app.use(intlayer());
-```
-
-### Ubicación en la aplicación
-
-Coloca el middleware `app.use(intlayer())` **antes de cualquier ruta** en tu aplicación para que todas las rutas se beneficien de la internacionalización:
-
-```typescript
+// Cargar el manejador de solicitudes de internacionalización
 app.use(intlayer());
 
-// Define tus rutas después de cargar el middleware
+// Defina sus rutas después de cargar el middleware
 app.get("/", (_req, res) => {
   res.send(
     t({
@@ -70,21 +62,63 @@ app.get("/", (_req, res) => {
 });
 ```
 
-### ¿Por qué es necesario?
+```javascript {7} fileName="src/index.mjs" codeFormat="esm"
+import express from "express";
+import { intlayer } from "express-intlayer";
 
-- **Detección del idioma**: El middleware `intlayer` procesa las solicitudes entrantes para detectar el idioma preferido del usuario a partir de encabezados, cookies u otros métodos configurados.
-- **Contexto de traducción**: Configura el contexto necesario para que la función `t` funcione correctamente, garantizando que las traducciones se devuelvan en el idioma apropiado.
-- **Prevención de errores**: Sin este middleware, el uso de la función `t` resultará en errores en tiempo de ejecución porque la información del idioma no estará disponible.
+const app = express();
+
+// Cargar el manejador de solicitudes de internacionalización
+app.use(intlayer());
+
+// Defina sus rutas después de cargar el middleware
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Hello, World!",
+      fr: "Bonjour le monde!",
+      es: "¡Hola, Mundo!",
+    })
+  );
+});
+```
+
+```javascript {7} fileName="src/index.cjs" codeFormat="commonjs"
+const express = require("express");
+const { intlayer } = require("express-intlayer");
+
+const app = express();
+
+// Cargar el manejador de solicitudes de internacionalización
+app.use(intlayer());
+
+// Defina sus rutas después de cargar el middleware
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Hello, World!",
+      fr: "Bonjour le monde!",
+      es: "¡Hola, Mundo!",
+    })
+  );
+});
+```
+
+### Por Qué Esto es Requerido
+
+- **Detección de Locales**: El middleware `intlayer` procesa las solicitudes entrantes para detectar el idioma preferido del usuario basado en encabezados, cookies u otros métodos configurados.
+- **Contexto de Traducción**: Configura el contexto necesario para que la función `t` opere correctamente, asegurando que las traducciones se devuelvan en el idioma correcto.
+- **Prevención de Errores**: Sin este middleware, el uso de la función `t` resultará en errores de tiempo de ejecución porque la información necesaria del idioma no estará disponible.
 
 ---
 
-## Ejemplos de uso
+## Ejemplos de Uso
 
-### Ejemplo básico
+### Ejemplo Básico
 
-Ofrecer contenido localizado en diferentes idiomas:
+Sirva contenido localizado en diferentes idiomas:
 
-```typescript
+```typescript fileName="src/index.ts" codeFormat="typescript"
 app.get("/", (_req, res) => {
   res.send(
     t({
@@ -96,17 +130,65 @@ app.get("/", (_req, res) => {
 });
 ```
 
-**Solicitudes del cliente:**
+```javascript fileName="src/index.mjs" codeFormat="esm"
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Welcome!",
+      fr: "Bienvenue!",
+      es: "¡Bienvenido!",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Welcome!",
+      fr: "Bienvenue!",
+      es: "¡Bienvenido!",
+    })
+  );
+});
+```
+
+**Solicitudes de Clientes:**
 
 - Un cliente con `Accept-Language: fr` recibirá `Bienvenue!`.
 - Un cliente con `Accept-Language: es` recibirá `¡Bienvenido!`.
-- Un cliente con `Accept-Language: de` recibirá `Welcome!` (idioma predeterminado).
+- Un cliente con `Accept-Language: de` recibirá `Welcome!` (configuración predeterminada).
 
-### Manejo de errores
+### Manejo de Errores
 
-Proporcionar mensajes de error en varios idiomas:
+Proporcionar mensajes de error en múltiples idiomas:
 
-```typescript
+```typescript fileName="src/index.ts" codeFormat="typescript"
+app.get("/error", (_req, res) => {
+  res.status(500).send(
+    t({
+      en: "An unexpected error occurred.",
+      fr: "Une erreur inattendue s'est produite.",
+      es: "Ocurrió un error inesperado.",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+app.get("/error", (_req, res) => {
+  res.status(500).send(
+    t({
+      en: "An unexpected error occurred.",
+      fr: "Une erreur inattendue s'est produite.",
+      es: "Ocurrió un error inesperado.",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
@@ -120,11 +202,39 @@ app.get("/error", (_req, res) => {
 
 ---
 
-### Uso de variantes de idioma
+### Uso de Variantes de Locales
 
-Especificar traducciones para variantes específicas de idioma:
+Especificar traducciones para variantes específicas de locales:
 
-```typescript
+```typescript fileName="src/index.ts" codeFormat="typescript"
+app.get("/greet", (_req, res) => {
+  res.send(
+    t({
+      en: "Hello!",
+      "en-GB": "Hello, mate!",
+      fr: "Bonjour!",
+      "es-MX": "¡Hola, amigo!",
+      "es-ES": "¡Hola!",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+app.get("/greet", (_req, res) => {
+  res.send(
+    t({
+      en: "Hello!",
+      "en-GB": "Hello, mate!",
+      fr: "Bonjour!",
+      "es-MX": "¡Hola, amigo!",
+      "es-ES": "¡Hola!",
+    })
+  );
+});
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
 app.get("/greet", (_req, res) => {
   res.send(
     t({
@@ -140,55 +250,122 @@ app.get("/greet", (_req, res) => {
 
 ---
 
-## Temas avanzados
+## Temas Avanzados
 
-### Mecanismo de recurso
+### Mecanismo de Retroceso
 
-Si un idioma preferido no está disponible, la función `t` recurrirá al idioma predeterminado definido en la configuración:
+Si un idioma preferido no está disponible, la función `t` regresará a la configuración predeterminada definida en la configuración:
 
-```typescript
+```typescript {5-6} fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+} satisfies IntlayerConfig;
+
+export default config;
+```
+
+```javascript {5-6} fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
 };
+
+export default config;
+```
+
+```javascript {5-6} fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
 ```
 
 Por ejemplo:
 
-- Si `defaultLocale` es `Locales.CHINESE` y un cliente solicita `Locales.DUTCH`, la traducción devuelta será la de `Locales.CHINESE`.
-- Si `defaultLocale` no está definido, la función `t` recurrirá al valor de `Locales.ENGLISH`.
+- Si `defaultLocale` es `Locales.CHINESE` y un cliente solicita `Locales.DUTCH`, la traducción devuelta se ajustará al valor de `Locales.CHINESE`.
+- Si `defaultLocale` no está definido, la función `t` regresará al valor de `Locales.ENGLISH`.
 
 ---
 
-### Aplicación del modo estricto
+### Faz de Cumplimiento del Modo Estricto
 
-Configura la función `t` para aplicar un cumplimiento estricto a los idiomas declarados:
+Configure la función `t` para hacer cumplir la adherencia estricta a los locales declarados:
 
-| Modo            | Comportamiento                                                                                               |
-| --------------- | ------------------------------------------------------------------------------------------------------------ |
-| `strict`        | Todos los idiomas declarados deben tener traducciones proporcionadas. Los idiomas faltantes generan errores. |
-| `required_only` | Los idiomas declarados deben tener traducciones. Los idiomas faltantes generan advertencias pero se aceptan. |
-| `loose`         | Cualquier idioma existente se acepta, incluso si no está declarado.                                          |
+| Modo            | Comportamiento                                                                                                 |
+| --------------- | -------------------------------------------------------------------------------------------------------------- |
+| `strict`        | Todos los locales declarados deben tener traducciones proporcionadas. Los locales faltantes generarán errores. |
+| `required_only` | Los locales declarados deben tener traducciones. Los faltantes generarán advertencias pero serán aceptados.    |
+| `loose`         | Cualquier locale existente es aceptado, incluso si no está declarado.                                          |
 
 Ejemplo de configuración:
 
-```typescript
+```typescript {7} fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
 const config = {
+  // ... Su configuración existente
   internationalization: {
-    strictMode: "strict", // Aplica el modo estricto
+    // ... Su configuración de internacionalización existente
+    strictMode: "strict", // Hacer cumplir el modo estricto
+  },
+} satisfies IntlayerConfig;
+
+export default config;
+```
+
+```javascript {7} fileName="intlayer.config.mjs" codeFormat="esm"
+import { type IntlayerConfig } from "intlayer";
+
+const config = {
+  // ... Su configuración existente
+  internationalization: {
+    // ... Su configuración de internacionalización existente
+    strictMode: "strict", // Hacer cumplir el modo estricto
   },
 };
+
+export default config;
+```
+
+```javascript {7} fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { type IntlayerConfig } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Su configuración existente
+  internationalization: {
+    // ... Su configuración de internacionalización existente
+    strictMode: "strict", // Hacer cumplir el modo estricto
+  },
+};
+
+module.exports = config;
 ```
 
 ---
 
-### Integración con TypeScript
+### Integración de TypeScript
 
-La función `t` es segura en cuanto a tipos cuando se usa con TypeScript. Define un objeto de traducciones con seguridad de tipos:
+La función `t` es segura para tipos cuando se usa con TypeScript. Defina un objeto de traducciones seguro para tipos:
 
-```typescript
+```typescript fileName="src/index.ts" codeFormat="typescript"
 import { type LanguageContent } from "express-intlayer";
 
 const translations: LanguageContent<string> = {
@@ -202,26 +379,56 @@ app.get("/morning", (_req, res) => {
 });
 ```
 
+```javascript fileName="src/index.mjs" codeFormat="esm"
+import { type LanguageContent } from "express-intlayer";
+
+/** @type {import('express-intlayer').LanguageContent<string>} */
+const translations = {
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+const { type LanguageContent } = require("express-intlayer");
+
+/** @type {import('express-intlayer').LanguageContent<string>} */
+const translations = {
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
 ---
 
-### Errores comunes y solución de problemas
+### Errores Comunes y Solución de Problemas
 
-| Problema                        | Causa                                        | Solución                                                                 |
-| ------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------ |
-| La función `t` no funciona      | Middleware no cargado                        | Asegúrate de que `app.use(intlayer())` esté agregado antes de las rutas. |
-| Error de traducciones faltantes | Modo estricto activado sin todos los idiomas | Proporciona todas las traducciones necesarias.                           |
+| Problema                        | Causa                                          | Solución                                                                 |
+| ------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------ |
+| `t` función no funciona         | Middleware no cargado                          | Asegúrese de que `app.use(intlayer())` esté agregado antes de las rutas. |
+| Error de traducciones faltantes | Modo estricto habilitado sin todos los locales | Proporcione todas las traducciones requeridas.                           |
 
 ---
 
-## Consejos para un uso efectivo
+## Consejos para un Uso Efectivo
 
-1. **Centraliza las traducciones**: Usa un módulo centralizado o archivos JSON para gestionar las traducciones y mejorar su mantenibilidad.
-2. **Valida las traducciones**: Asegúrate de que cada variante de idioma tenga una traducción correspondiente para evitar recurrir al idioma predeterminado innecesariamente.
-3. **Combínalo con i18n frontend**: Sincroniza con la internacionalización del frontend para ofrecer una experiencia fluida al usuario.
-4. **Evalúa el rendimiento**: Prueba los tiempos de respuesta de tu aplicación al agregar traducciones para limitar su impacto.
+1. **Centralizar Traducciones**: Utilice un módulo centralizado o archivos JSON para gestionar traducciones y mejorar el mantenimiento.
+2. **Validar Traducciones**: Asegúrese de que cada variante de idioma tenga una traducción correspondiente para evitar caer innecesariamente.
+3. **Combinar con i18n del Frontend**: Sincronice con la internacionalización del frontend para una experiencia de usuario fluida en toda la aplicación.
+4. **Medir Rendimiento**: Pruebe los tiempos de respuesta de su aplicación al agregar traducciones para asegurar un impacto mínimo.
 
 ---
 
 ## Conclusión
 
-La función `t` es una herramienta poderosa para la internacionalización en el backend. Usándola de manera efectiva, puedes crear una aplicación más inclusiva y amigable para un público global. Para un uso avanzado y opciones de configuración detalladas, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md).
+La función `t` es una herramienta poderosa para la internacionalización del backend. Al usarla de manera efectiva, puede crear una aplicación más inclusiva y amigable para un público global. Para un uso avanzado y opciones de configuración detalladas, consulte la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md).

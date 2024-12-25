@@ -1,45 +1,111 @@
-# Intlayer: 更靠近地翻译您的应用程序
+# Intlayer: 更接近翻译您的应用程序
 
-**Intlayer** 是一个专为 JavaScript 开发者设计的国际化库。它允许您在代码的任何地方声明您的内容。它将多语言内容的声明转换为结构化字典，以便轻松集成到您的代码中。使用 TypeScript，**Intlayer** 让您的开发更加稳健和高效。
+**Intlayer** 是一个专为 JavaScript 开发人员设计的国际化库。它允许您在代码的各个地方声明内容。它将多语言内容的声明转换为结构化的字典，以便更容易地集成到您的代码中。使用 TypeScript，**Intlayer** 使您的开发更强大且更高效。
 
-## 用法示例
+## 使用示例
 
-```bash
+```bash codeFormat="typescript"
 .
-├── Component1
-│   ├── index.content.ts
-│   └── index.tsx
-└── Component2
-    ├── index.content.ts
-    └── index.tsx
+└── Components
+    └── myComponent
+       ├── index.content.ts
+       └── index.tsx
 ```
 
-```tsx
-// ./Component1/index.content.ts
+```bash codeFormat="commonjs"
+.
+└── Components
+    └── myComponent
+       ├── index.content.cjs
+       └── index.mjs
+```
 
+```bash codeFormat="esm"
+.
+└── Components
+    └── myComponent
+       ├── index.content.mjs
+       └── index.js
+```
+
+```tsx fileName="./Components/MyComponent/index.content.ts" codeFormat="typescript"
 import { type DeclarationContent, t } from "intlayer";
 
-const component1Content = {
-  key: "component1",
+const componentExampleContent = {
+  key: "component-example",
   content: {
     myTranslatedContent: t({
-      en: "Hello World", // 英文
-      fr: "Bonjour le monde", // 法文
-      es: "Hola Mundo", // 西班牙文
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
     }),
   },
 } satisfies DeclarationContent;
 
-export default component1Content;
+export default componentExampleContent;
 ```
 
-```tsx
-// ./Component1/index.tsx
+```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+import { t } from "intlayer";
 
+/** @type {import('intlayer').DeclarationContent} */
+const componentExampleContent = {
+  key: "component-example",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+export default componentExampleContent;
+```
+
+```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+const componentExampleContent = {
+  key: "component-example",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+module.exports = componentExampleContent;
+```
+
+```tsx fileName="./Components/MyComponent/index.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer";
 
-export const Component1 = () => {
-  const { myTranslatedContent } = useIntlayer("component1");
+export const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
+
+const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
 
   return <span>{myTranslatedContent}</span>;
 };
@@ -47,10 +113,10 @@ export const Component1 = () => {
 
 ## 为什么选择 Intlayer？
 
-- **JavaScript 驱动的内容管理**：利用 JavaScript 的灵活性高效定义和管理您的内容。
-- **类型安全环境**：利用 TypeScript 确保您的所有内容定义都是精确且无误的。
-- **集成内容文件**：将您的翻译与其相应的组件紧密结合，提高可维护性和清晰性。
-- **简化设置**：快速启动，配置极简，特别优化为适用于 Next.js 项目。
-- **服务器组件支持**：完美适用于 Next.js 服务器组件，确保顺畅的服务器端渲染。
-- **增强路由**：完全支持 Next.js 应用路由，动态适应复杂的应用结构。
-- **互操作性**：允许 i18next 互操作性。(beta)
+- **JavaScript 驱动的内容管理**: 利用 JavaScript 的灵活性高效地定义和管理您的内容。
+- **类型安全环境**: 利用 TypeScript 确保您的内容定义精确且无错误。
+- **集成内容文件**: 将翻译文本与其各自的组件紧密结合，增强可维护性和清晰性。
+- **简化设置**: 通过最小的配置快速启动，特别为 Next.js 项目优化。
+- **服务器组件支持**: 完美适合 Next.js 服务器组件，确保流畅的服务器端渲染。
+- **增强路由**: 完全支持 Next.js 应用路由，能够无缝适应复杂的应用结构。
+- **互操作性**: 允许与 i18next 的互操作性。（beta）

@@ -2,7 +2,7 @@
 
 ## Описание:
 
-Функция `getLocalizedUrl` генерирует локализованный URL, добавляя префикс с указанной локалью к заданному URL. Она обрабатывает как абсолютные, так и относительные URL, обеспечивая применение правильного префикса локали в зависимости от конфигурации.
+Функция `getLocalizedUrl` генерирует локализованный URL, добавляя указанный язык в начало данного URL. Она обрабатывает как абсолютные, так и относительные URL, гарантируя, что правильный префикс языка применяется в зависимости от конфигурации.
 
 ---
 
@@ -10,35 +10,35 @@
 
 - `url: string`
 
-  - **Описание**: Исходная строка URL, к которой будет добавлен префикс с локалью.
+  - **Описание**: Исходная строка URL, к которой будет добавлен язык.
   - **Тип**: `string`
 
 - `currentLocale: Locales`
 
-  - **Описание**: Текущая локаль, для которой локализуется URL.
+  - **Описание**: Текущий язык, для которого происходит локализация URL.
   - **Тип**: `Locales`
 
 - `locales: Locales[]`
 
-  - **Описание**: Необязательный массив поддерживаемых локалей. По умолчанию предоставляются сконфигурированные локали в проекте.
+  - **Описание**: Необязательный массив поддерживаемых языков. По умолчанию предоставляются сконфигурированные языки в проекте.
   - **Тип**: `Locales[]`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
+  - **По умолчанию**: [`Настройки проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
-  - **Описание**: Локаль по умолчанию для приложения. По умолчанию предоставляется сконфигурированная локаль по умолчанию в проекте.
+  - **Описание**: Язык по умолчанию для приложения. По умолчанию предоставляются сконфигурированный язык по умолчанию в проекте.
   - **Тип**: `Locales`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
+  - **По умолчанию**: [`Настройки проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
 
 - `prefixDefault: boolean`
-  - **Описание**: Нужно ли добавлять префикс к URL для локали по умолчанию. По умолчанию предоставляется сконфигурированное значение в проекте.
+  - **Описание**: Нужно ли добавлять префикс языка для языка по умолчанию. По умолчанию предоставляется сконфигурированное значение в проекте.
   - **Тип**: `boolean`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
+  - **По умолчанию**: [`Настройки проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
 
 ### Возвращает:
 
 - **Тип**: `string`
-- **Описание**: Локализованный URL для указанной локали.
+- **Описание**: Локализованный URL для указанного языка.
 
 ---
 
@@ -46,7 +46,7 @@
 
 ### Относительные URL:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -57,8 +57,53 @@ getLocalizedUrl(
   false
 );
 
-// Выход: "/fr/about" для французской локали
-// Выход: "/about" для локали по умолчанию (английской)
+// Вывод: "/fr/about" для французского языка
+// Вывод: "/about" для языка по умолчанию (английский)
+```
+
+```javascript codeFormat="esm"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Вывод: "/fr/about" для французского языка
+// Вывод: "/about" для языка по умолчанию (английский)
+```
+
+```javascript codeFormat="esm"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Вывод: "/fr/about" для французского языка
+// Вывод: "/about" для языка по умолчанию (английский)
+```
+
+```javascript codeFormat="commonjs"
+const { getLocalizedUrl, Locales } = require("intlayer");
+
+getLocalizedUrl(
+  "/about",
+  Locales.FRENCH,
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+
+// Вывод: "/fr/about" для французского языка
+// Вывод: "/about" для языка по умолчанию (английский)
 ```
 
 ### Абсолютные URL:
@@ -66,65 +111,65 @@ getLocalizedUrl(
 ```typescript
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.FRENCH, // Текущая локаль
-  [Locales.ENGLISH, Locales.FRENCH], // Поддерживаемые локали
-  Locales.ENGLISH, // Локаль по умолчанию
-  false // Префикс локали по умолчанию
-); // Выход: "https://example.com/fr/about" для французской
+  Locales.FRENCH, // Текущий язык
+  [Locales.ENGLISH, Locales.FRENCH], // Поддерживаемые языки
+  Locales.ENGLISH, // Язык по умолчанию
+  false // Префикс языка по умолчанию
+); // Вывод: "https://example.com/fr/about" для французского языка
 
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.ENGLISH, // Текущая локаль
-  [Locales.ENGLISH, Locales.FRENCH], // Поддерживаемые локали
-  Locales.ENGLISH, // Локаль по умолчанию
-  false // Префикс локали по умолчанию
-); // Выход: "https://example.com/about" для английской
+  Locales.ENGLISH, // Текущий язык
+  [Locales.ENGLISH, Locales.FRENCH], // Поддерживаемые языки
+  Locales.ENGLISH, // Язык по умолчанию
+  false // Префикс языка по умолчанию
+); // Вывод: "https://example.com/about" для английского языка
 
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.ENGLISH, // Текущая локаль
-  [Locales.ENGLISH, Locales.FRENCH], // Поддерживаемые локали
-  Locales.ENGLISH, // Локаль по умолчанию
-  true // Префикс локали по умолчанию
-); // Выход: "https://example.com/en/about" для английской
+  Locales.ENGLISH, // Текущий язык
+  [Locales.ENGLISH, Locales.FRENCH], // Поддерживаемые языки
+  Locales.ENGLISH, // Язык по умолчанию
+  true // Префикс языка по умолчанию
+); // Вывод: "https://example.com/en/about" для английского языка
 ```
 
-### Неподдерживаемая локаль:
+### Неподдерживаемый язык:
 
 ```typescript
 getLocalizedUrl(
   "/about",
-  Locales.ITALIAN, // Текущая локаль
-  [Locales.ENGLISH, Locales.FRENCH], // Поддерживаемые локали
-  Locales.ENGLISH // Локаль по умолчанию
-); // Выход: "/about" (префикс не применен для неподдерживаемой локали)
+  Locales.ITALIAN, // Текущий язык
+  [Locales.ENGLISH, Locales.FRENCH], // Поддерживаемые языки
+  Locales.ENGLISH // Язык по умолчанию
+); // Вывод: "/about" (префикс не добавлен для неподдерживаемого языка)
 ```
 
 ---
 
 ## Граничные случаи:
 
-- **Нет сегмента локали:**
+- **Отсутствие сегмента языка:**
 
-  - Если URL не содержит сегмента локали, функция безопасно добавляет соответствующий префикс локали.
+  - Если URL не содержит сегмента языка, функция безопасно добавляет соответствующий язык.
 
-- **Локаль по умолчанию:**
+- **Язык по умолчанию:**
 
-  - Когда `prefixDefault` равен `false`, функция не добавляет префикс к URL для локали по умолчанию.
+  - Когда `prefixDefault` равно `false`, функция не добавляет префикс к URL для языка по умолчанию.
 
-- **Неподдерживаемые локали:**
-  - Для локалей, не перечисленных в `locales`, функция не добавляет никаких префиксов.
+- **Неподдерживаемые языки:**
+  - Для языков, не указанных в `locales`, функция не добавляет никакого префикса.
 
 ---
 
 ## Использование в приложениях:
 
-В многоязычном приложении настройка международных параметров с `locales` и `defaultLocale` имеет критическое значение для обеспечения корректного отображения языка. Ниже приведен пример того, как `getLocalizedUrl` может быть использован в настройке приложения:
+В многоязычном приложении важно настроить параметры интернационализации с помощью `locales` и `defaultLocale` для обеспечения отображения правильного языка. Ниже приведен пример того, как `getLocalizedUrl` можно использовать в настройках приложения:
 
-```tsx
+```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// Конфигурация поддерживаемых локалей и локали по умолчанию
+// Конфигурация для поддерживаемых языков и языка по умолчанию
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -135,14 +180,42 @@ export default {
 export default config;
 ```
 
-Вышеуказанная конфигурация обеспечивает признание приложением `ENGLISH`, `FRENCH` и `SPANISH` в качестве поддерживаемых языков и использует `ENGLISH` в качестве языка по умолчанию.
+```javascript codeFormat="esm"
+import { Locales } from "intlayer";
 
-Используя эту конфигурацию, функция `getLocalizedUrl` может динамически генерировать локализованные URL в зависимости от языковых предпочтений пользователя:
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
 
-```typescript
-getLocalizedUrl("/about", Locales.FRENCH); // Выход: "/fr/about"
-getLocalizedUrl("/about", Locales.SPANISH); // Выход: "/es/about"
-getLocalizedUrl("/about", Locales.ENGLISH); // Выход: "/about"
+export default config;
 ```
 
-Интегрировав `getLocalizedUrl`, разработчики могут поддерживать консистентную структуру URL для нескольких языков, улучшая как пользовательский опыт, так и SEO.
+```javascript codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
+Вышеуказанная конфигурация гарантирует, что приложение распознает `ENGLISH`, `FRENCH` и `SPANISH` как поддерживаемые языки и использует `ENGLISH` как запасной язык.
+
+Используя эту конфигурацию, функция `getLocalizedUrl` может динамически генерировать локализованные URL на основе предпочтений языка пользователя:
+
+```typescript
+getLocalizedUrl("/about", Locales.FRENCH); // Вывод: "/fr/about"
+getLocalizedUrl("/about", Locales.SPANISH); // Вывод: "/es/about"
+getLocalizedUrl("/about", Locales.ENGLISH); // Вывод: "/about"
+```
+
+Интегрируя `getLocalizedUrl`, разработчики могут поддерживать согласованную структуру URL на нескольких языках, улучшая как пользовательский опыт, так и SEO.

@@ -1,12 +1,14 @@
-# 関数の取得
+# 関数のフェッチ
+
+Intlayerでは、コンテンツモジュール内でコンテンツ関数を宣言することができ、これらは同期的または非同期的である可能性があります。アプリケーションがビルドされると、Intlayerはこれらの関数を実行してその結果を取得します。返される値はJSONオブジェクトまたは文字列や数値のような単純な値でなければなりません。
+
+> 警告: 現在、JSONコンテンツ宣言および遠隔コンテンツ宣言ファイルでは関数のフェッチが利用できません。
 
 ## 関数の宣言
 
-Intlayerを使用すると、コンテンツモジュール内でコンテンツ関数を宣言できます。これらの関数は同期または非同期である可能性があります。アプリケーションがビルドされると、Intlayerはこれらの関数を実行して関数の結果を取得します。戻り値はJSONオブジェクトまたは文字列や数値のような単純な値である必要があります。
+以下は、コンテンツをフェッチするためのシンプルな同期的関数の例です：
 
-以下は、コンテンツを取得するシンプルな同期関数の例です：
-
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import type { DeclarationContent } from "intlayer";
 
 const functionContent = {
@@ -19,20 +21,53 @@ const functionContent = {
 export default functionContent;
 ```
 
-この例では、`text`キーには文字列を返す関数が含まれています。このコンテンツは、Intlayerのインタープリタパッケージである`react-intlayer`を使用して、Reactコンポーネント内でレンダリングできます。
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+/** @type {import('intlayer').DeclarationContent} */
+const functionContent = {
+  key: "function_content",
+  content: {
+    text: () => "このコンテンツは関数によってレンダリングされます",
+  },
+};
 
-## 非同期関数の取得
+export default functionContent;
+```
 
-同期関数に加えて、Intlayerは非同期関数をサポートしており、外部ソースからデータを取得したり、モックデータを使ってデータ取得をシミュレートしたりすることができます。
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+/** @type {import('intlayer').DeclarationContent} */
+const functionContent = {
+  key: "function_content",
+  content: {
+    text: () => "このコンテンツは関数によってレンダリングされます",
+  },
+};
 
-以下は、サーバー取得をシミュレートする非同期関数の例です：
+module.exports = functionContent;
+```
 
-```typescript
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "key": "function_content",
+  "content": {
+    "text": "このコンテンツは関数によってレンダリングされます"
+  }
+}
+```
+
+この例では、`text`キーには文字列を返す関数が含まれています。このコンテンツは、`react-intlayer`のようなIntlayerのインタープリターパッケージを使用してReactコンポーネント内でレンダリングできます。
+
+## 非同期関数のフェッチ
+
+同期関数に加えて、Intlayerは非同期関数もサポートしており、外部ソースからデータを取得したり、モックデータを使用してデータ取得をシミュレートすることができます。
+
+以下は、サーバーからのフェッチをシミュレートする非同期関数の例です：
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
 import type { DeclarationContent } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
-  // サーバーからの取得をシミュレートするために200ms待つ
+  // サーバーからのフェッチをシミュレートするために200ms待つ
   return await setTimeout(200).then(() => "サーバーから取得したコンテンツです");
 };
 
@@ -44,13 +79,74 @@ const asyncFunctionContent = {
 export default asyncFunctionContent;
 ```
 
-この場合、`fakeFetch`関数はサーバーの応答時間をシミュレートするために遅延を模倣します。Intlayerは非同期関数を実行し、結果を`text`キーのコンテンツとして使用します。
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+import { setTimeout } from "node:timers/promises";
 
-## Reactコンポーネントでの関数ベースのコンテンツの使用
+/** @type {import('intlayer').DeclarationContent} */
+const fakeFetch = async () => {
+  // サーバーからのフェッチをシミュレートするために200ms待つ
+  await setTimeout(200);
+  return "サーバーから取得したコンテンツです";
+};
 
-Reactコンポーネントで関数ベースのコンテンツを使用するには、`react-intlayer`から`useIntlayer`をインポートし、コンテンツIDを指定して呼び出す必要があります。以下はその例です：
+const asyncFunctionContent = {
+  key: "async_function",
+  content: { text: fakeFetch },
+};
 
-```javascript
+export default asyncFunctionContent;
+```
+
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+const { setTimeout } = require("node:timers/promises");
+
+/** @type {import('intlayer').DeclarationContent} */
+const fakeFetch = async () => {
+  // サーバーからのフェッチをシミュレートするために200ms待つ
+  await setTimeout(200);
+  return "サーバーから取得したコンテンツです";
+};
+
+const asyncFunctionContent = {
+  key: "async_function",
+  content: { text: fakeFetch },
+};
+
+module.exports = asyncFunctionContent;
+```
+
+```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
+JSONファイルからコンテンツを取得する方法はありません。代わりに.tsまたは.jsファイルを使用してください。
+```
+
+この場合、`fakeFetch`関数はサーバーの応答時間をシミュレートするために遅延を模倣します。Intlayerは非同期関数を実行し、その結果を`text`キーのコンテンツとして使用します。
+
+## Reactコンポーネント内での関数ベースのコンテンツの使用
+
+Reactコンポーネント内で関数ベースのコンテンツを使用するには、`react-intlayer`から`useIntlayer`をインポートし、コンテンツIDを指定して呼び出してコンテンツを取得する必要があります。以下はその例です：
+
+```typescript fileName="**/*.jsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const MyComponent: FC = () => {
+  const functionContent = useIntlayer("function_content");
+  const asyncFunctionContent = useIntlayer("async_function_content");
+
+  return (
+    <div>
+      <p>{functionContent.text}</p>
+      {/* 出力: このコンテンツは関数によってレンダリングされます */}
+      <p>{asyncFunctionContent.text}</p>
+      {/* 出力: サーバーから取得したコンテンツです */}
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
@@ -68,4 +164,24 @@ const MyComponent = () => {
 };
 
 export default MyComponent;
+```
+
+```javascript fileName="**/*.cjs" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const MyComponent = () => {
+  const functionContent = useIntlayer("function_content");
+  const asyncFunctionContent = useIntlayer("async_function_content");
+
+  return (
+    <div>
+      <p>{functionContent.text}</p>
+      {/* 出力: このコンテンツは関数によってレンダリングされます */}
+      <p>{asyncFunctionContent.text}</p>
+      {/* 出力: サーバーから取得したコンテンツです */}
+    </div>
+  );
+};
+
+module.exports = MyComponent;
 ```

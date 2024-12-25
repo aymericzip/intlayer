@@ -1,26 +1,26 @@
-# Документация: `getLocaleLang` Функция в `intlayer`
+# Документация: Функция `getLocaleLang` в `intlayer`
 
 ## Описание:
 
-Функция `getLocaleLang` извлекает код языка из строки локали. Она поддерживает локали с кодами стран или без них. Если локаль не предоставлена, по умолчанию возвращается пустая строка.
+Функция `getLocaleLang` извлекает код языка из строки локали. Она поддерживает локали с или без кодов стран. Если локаль не задана, по умолчанию возвращается пустая строка.
 
 ## Параметры:
 
 - `locale?: Locales`
 
   - **Описание**: Строка локали (например, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`), из которой извлекается код языка.
-  - **Тип**: `Locales` (необязательно)
+  - **Тип**: `Locales` (необязательный)
 
 ## Возвращает:
 
 - **Тип**: `string`
-- **Описание**: Код языка, извлеченный из локали. Если локаль не предоставлена, возвращает пустую строку (`''`).
+- **Описание**: Код языка, извлеченный из локали. Если локаль не предоставлена, возвращается пустая строка (`''`).
 
-## Пример Использования:
+## Пример использования:
 
-### Извлечение Кодами Языков:
+### Извлечение кодов языков:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Вывод: "en"
@@ -29,11 +29,29 @@ getLocaleLang(Locales.FRENCH_CANADA); // Вывод: "fr"
 getLocaleLang(Locales.FRENCH); // Вывод: "fr"
 ```
 
-## Граничные Случаи:
+```javascript codeFormat="esm"
+import { getLocaleLang } from "intlayer";
 
-- **Локаль Не Предоставлена:**
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Вывод: "en"
+getLocaleLang(Locales.ENGLISH); // Вывод: "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Вывод: "fr"
+getLocaleLang(Locales.FRENCH); // Вывод: "fr"
+```
 
-  - Функция возвращает пустую строку, когда `locale` равно `undefined`.
+```javascript codeFormat="commonjs"
+const { getLocaleLang } = require("intlayer");
 
-- **Неправильные Строки Локали:**
-  - Если `locale` не соответствует формату `язык-страна` (например, `Locales.ENGLISH-US`), функция безопасно возвращает часть перед `'-'` или всю строку, если `'-'` отсутствует.
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Вывод: "en"
+getLocaleLang(Locales.ENGLISH); // Вывод: "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Вывод: "fr"
+getLocaleLang(Locales.FRENCH); // Вывод: "fr"
+```
+
+## Граничные случаи:
+
+- **Не указана локаль:**
+
+  - Функция возвращает пустую строку, когда `locale` равен `undefined`.
+
+- **Неверные строки локалей:**
+  - Если `locale` не соответствует формату `language-country` (например, `Locales.ENGLISH-US`), функция безопасно возвращает часть до `'-'` или всю строку, если `'-'` отсутствует.

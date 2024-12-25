@@ -1,34 +1,46 @@
 # Intlayer Documentation
 
-Bem-vindo à Documentação do Intlayer. Este guia fornece uma visão geral do Intlayer, suas principais funcionalidades e como utilizar efetivamente estes documentos para aprimorar sua experiência de desenvolvimento.
+Bem-vindo à documentação do Intlayer. Este guia fornece uma visão geral do Intlayer, suas principais características e como utilizar efetivamente esses documentos para aprimorar sua experiência de desenvolvimento.
 
-## Introdução
+## Introduction
 
-### O que é Intlayer?
+### What is Intlayer?
 
-**Intlayer** é uma biblioteca de internacionalização projetada especificamente para desenvolvedores JavaScript. Permite a declaração do seu conteúdo em qualquer lugar do seu código. Converte a declaração de conteúdo multilíngue em dicionários estruturados para integrar facilmente no seu código. Usando TypeScript, **Intlayer** torna seu desenvolvimento mais sólido e eficiente.
+**Intlayer** é uma biblioteca de internacionalização projetada especificamente para desenvolvedores JavaScript. Ela permite a declaração do seu conteúdo em todo o seu código. Converte a declaração de conteúdo multilíngue em dicionários estruturados para integrar facilmente em seu código. Utilizando TypeScript, **Intlayer** torna seu desenvolvimento mais forte e eficiente.
 
-Intlayer também fornece um editor visual opcional que permite editar e gerenciar seu conteúdo com facilidade. Este editor é particularmente útil para desenvolvedores que preferem uma interface visual para gerenciamento de conteúdo ou para equipes que geram conteúdo sem precisar se preocupar com o código.
+Intlayer também oferece um editor visual opcional que permite editar e gerenciar seu conteúdo facilmente. Este editor é particularmente útil para desenvolvedores que preferem uma interface visual para gerenciamento de conteúdo ou para equipes que geram conteúdo sem precisar se preocupar com código.
 
-## Exemplo de uso
+## Example of usage
 
-```bash
+```bash codeFormat="typescript"
 .
-├── ClientComponent
-│   ├── index.content.ts
-│   └── index.tsx
-└── ServerComponent
-    ├── index.content.ts
-    └── index.tsx
+└── Components
+    └── myComponent
+       ├── index.content.ts
+       └── index.tsx
 ```
 
-```tsx
-// ./ClientComponent/index.content.ts
+```bash codeFormat="commonjs"
+.
+└── Components
+    └── myComponent
+       ├── index.content.cjs
+       └── index.mjs
+```
 
+```bash codeFormat="esm"
+.
+└── Components
+    └── myComponent
+       ├── index.content.mjs
+       └── index.js
+```
+
+```tsx fileName="src/components/myComponent/myComponent.content.ts" contentDeclarationFormat="typescript"
 import { type DeclarationContent, t } from "intlayer";
 
-const clientComponentContent = {
-  key: "client-component",
+const componentContent = {
+  key: "component-key",
   content: {
     myTranslatedContent: t({
       en: "Hello World",
@@ -38,44 +50,114 @@ const clientComponentContent = {
   },
 } satisfies DeclarationContent;
 
-export default clientComponentContent;
+export default componentContent;
 ```
 
-```tsx
-// ./ClientComponent/index.tsx
-"use client";
+```javascript fileName="src/components/myComponent/myComponent.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
 
-import { useIntlayer } from "next-intlayer";
+/** @type {import('intlayer').DeclarationContent} */ // Tipo da declaração de conteúdo
+const componentContent = {
+  key: "component-key",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
 
-export const ClientComponent = () => {
-  const { myTranslatedContent } = useIntlayer("client-component");
+export default componentContent;
+```
+
+```javascript fileName="src/components/myComponent/myComponent.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */ // Tipo da declaração de conteúdo
+const componentContent = {
+  key: "component-key",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+module.exports = componentContent;
+```
+
+```json fileName="src/components/myComponent/myComponent.content.json" contentDeclarationFormat="json"
+{
+  "key": "component-key",
+  "content": {
+    "myTranslatedContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World",
+        "fr": "Bonjour le monde",
+        "es": "Hola Mundo"
+      }
+    }
+  }
+}
+```
+
+```tsx fileName="src/components/myComponent/MyComponent.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+export const MyComponent: FC = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
 
   return <span>{myTranslatedContent}</span>;
 };
 ```
 
-### Principais Funcionalidades
+```jsx fileName="src/components/myComponent/MyComponent.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
 
-Intlayer oferece uma variedade de funcionalidades adaptadas para atender às necessidades do desenvolvimento web moderno. Abaixo estão as principais características, com links para documentação detalhada para cada uma:
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
 
-- **Suporte à Internacionalização**: Amplie o alcance global de sua aplicação com suporte embutido para internacionalização.
-- **Editor Visual**: Melhore seu fluxo de trabalho de desenvolvimento com plugins de editor projetados para o Intlayer. Confira o [Guia do Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_editor.md).
-- **Flexibilidade de Configuração**: Personalize sua configuração com opções extensas detalhadas no [Guia de Configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
-- **Ferramentas CLI Avançadas**: Gerencie seus projetos de forma eficiente usando a interface de linha de comando do Intlayer. Explore as capacidades na [Documentação das Ferramentas CLI](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_cli.md).
-- **Compatibilidade com i18n**: O Intlayer funciona perfeitamente com outras bibliotecas de internacionalização. Confira o [Guia do i18n](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_i18next.md) para mais informações.
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
-### Plataformas Suportadas
+```jsx fileName="src/components/myComponent/MyComponent.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
 
-O Intlayer foi projetado para funcionar perfeitamente com aplicações Next.js e React. Também há suporte para Vite e Create React App.
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("component-key");
 
-- **Integração com Next.js**: Aproveite o poder do Next.js dentro do Intlayer para renderização do lado do servidor e geração de sites estáticos. Detalhes estão disponíveis em nosso [Guia de Integração com Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_nextjs_15.md).
-- **Integração com Vite e React**: Aproveite o Vite dentro do Intlayer para renderização do lado do servidor e geração de sites estáticos. Detalhes estão disponíveis em nosso [Guia de Integração com Vite e React](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_vite+react.md).
-- **Integração com Create React App**: Aproveite o poder do Create React App dentro do Intlayer para renderização do lado do servidor e geração de sites estáticos. Detalhes estão disponíveis em nosso [Guia de Integração com Create React App](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_create_react_app.md).
+  return <span>{myTranslatedContent}</span>;
+};
+```
 
-### Como Usar Esta Documentação
+### Main Features
+
+Intlayer oferece uma variedade de recursos adaptados para atender às necessidades do desenvolvimento web moderno. Abaixo estão os principais recursos, com links para documentação detalhada para cada um:
+
+- **Internationalization Support**: Amplie o alcance global de sua aplicação com suporte embutido para internacionalização.
+- **Visual Editor**: Melhore seu fluxo de trabalho de desenvolvimento com plugins de editor projetados para o Intlayer. Confira o [Visual Editor Guide](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_editor.md).
+- **Configuration Flexibility**: Personalize sua configuração com extensas opções de configuração detalhadas no [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
+- **Advanced CLI Tools**: Gerencie seus projetos de forma eficiente usando a interface de linha de comando do Intlayer. Explore as capacidades na [CLI Tools Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_cli.md).
+- **Compatibility with i18n**: O Intlayer funciona perfeitamente com outras bibliotecas de internacionalização. Confira o [i18n Guide](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_i18next.md) para mais informações.
+
+### Platforms Supported
+
+Intlayer foi projetado para funcionar perfeitamente com aplicações Next.js e React. Ele também suporta Vite e Create React App.
+
+- **Next.js Integration**: Utilize o poder do Next.js dentro do Intlayer para renderização do lado do servidor e geração de sites estáticos. Detalhes estão disponíveis em nosso [Next.js Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_nextjs_15.md).
+- **Vite and React Integration**: Aproveite o Vite dentro do Intlayer para renderização do lado do servidor e geração de sites estáticos. Detalhes estão disponíveis em nosso [Vite and React Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_vite+react.md).
+- **Create React App Integration**: Utilize o poder do Create React App dentro do Intlayer para renderização do lado do servidor e geração de sites estáticos. Detalhes estão disponíveis em nosso [Create React App Integration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_create_react_app.md).
+
+### How to Use This Docs
 
 Para aproveitar ao máximo esta documentação:
 
-1. **Navegue para Seções Relevantes**: Utilize os links fornecidos acima para ir diretamente para as seções que atendem às suas necessidades.
-2. **Exemplos Interativos**: Onde disponíveis, utilize exemplos interativos para ver como as funcionalidades funcionam em tempo real.
-3. **Feedback e Contribuições**: Seu feedback é valioso. Se você tiver sugestões ou correções, considere contribuir com a documentação.
+1. **Navigate to Relevant Sections**: Utilize os links fornecidos acima para ir diretamente para as seções que atendem às suas necessidades.
+2. **Interactive Examples**: Onde disponível, utilize exemplos interativos para ver como os recursos funcionam em tempo real.
+3. **Feedback and Contributions**: Seu feedback é valioso. Se você tiver sugestões ou correções, considere contribuir para a documentação.

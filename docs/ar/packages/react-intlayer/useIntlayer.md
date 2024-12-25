@@ -1,45 +1,59 @@
-# React Integration: `useIntlayer` Hook Documentation
+# دمج React: توثيق Hook `useIntlayer`
 
-هذا القسم يقدم إرشادات تفصيلية حول استخدام hook `useIntlayer` داخل تطبيقات React، مما يسمح بتعزيز توطين المحتوى بشكل فعال.
+هذا القسم يوفر إرشادات مفصلة حول استخدام Hook `useIntlayer` داخل تطبيقات React، مما يسمح بفعالية بتوطين المحتوى.
 
 ## استيراد `useIntlayer` في React
 
-يمكن دمج hook `useIntlayer` في تطبيقات React عن طريق استيراده بناءً على السياق:
+يمكن دمج Hook `useIntlayer` في تطبيقات React عن طريق استيراده بناءً على السياق:
 
 - **مكون العميل:**
 
-  ```javascript
-  import { useIntlayer } from "react-intlayer"; // مستخدم في مكونات React على جانب العميل
+  ```typescript codeFormat="typescript"
+  import { useIntlayer } from "react-intlayer"; // المستخدم في مكونات React من جانب العميل
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "react-intlayer"; // المستخدم في مكونات React من جانب العميل
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("react-intlayer"); // المستخدم في مكونات React من جانب العميل
   ```
 
 - **مكون الخادم:**
 
-  ```javascript
-  import { useIntlayer } from "react-intlayer/server"; // مستخدم في مكونات React على جانب الخادم
+  ```typescript codeFormat="commonjs"
+  import { useIntlayer } from "react-intlayer/server"; // المستخدم في مكونات React من جانب الخادم
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useIntlayer } from "react-intlayer/server"; // المستخدم في مكونات React من جانب الخادم
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useIntlayer } = require("react-intlayer/server"); // المستخدم في مكونات React من جانب الخادم
   ```
 
 ## المعلمات
 
-الـ hook يقبل معلمين:
+يقبل hook معلمين:
 
-1. **`key`**: مفتاح القاموس لاسترجاع المحتوى المترجم.
+1. **`key`**: المفتاح القاموسي لاسترجاع المحتوى المترجم.
 2. **`locale`** (اختياري): اللغة المطلوبة. الافتراضي هو لغة السياق إذا لم يتم تحديدها.
 
 ## إعلان المحتوى
 
-يجب أن تُعلن جميع مفاتيح القاموس ضمن ملفات إعلان المحتوى لتعزيز أمان النوع وتجنب الأخطاء. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+يجب أن يتم الإعلان عن جميع مفاتيح القواميس ضمن ملفات إعلان المحتوى لتعزيز سلامة الأنواع وتجنب الأخطاء. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
 
 ## مثال على الاستخدام في React
 
-إظهار hook `useIntlayer` داخل مكون React:
+توضيح Hook `useIntlayer` داخل مكون React:
 
-```tsx
-// src/pages/[locale]/index.tsx
-
+```tsx fileName="src/app.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
 import { useIntlayer, IntlayerServerProvider } from "react-intlayer/server";
-import { type FC } from "react";
 import { Locales } from "intlayer";
 
 const App: FC<{ locale: Locales }> = ({ locale }) => {
@@ -59,13 +73,58 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```tsx
-// src/components/ClientComponentExample.tsx
+```jsx fileName="src/app.mjx" codeFormat="esm"
+import { ClientComponentExample, ServerComponentExample } from "@components";
+import { IntlayerProvider } from "react-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
 
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```jsx fileName="src/app.csx" codeFormat="commonjs"
+const { IntlayerProvider } = require("react-intlayer");
+const {
+  IntlayerServerProvider,
+  useIntlayer,
+} = require("react-intlayer/server");
+
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+```
+
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component");
+const ComponentExample: FC = () => {
+  const content = useIntlayer("component-example");
 
   return (
     <div>
@@ -76,9 +135,37 @@ const ClientComponentExample = () => {
 };
 ```
 
-```tsx
-// src/components/ServerComponentExample.tsx
+```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
 
+const ComponentExample = () => {
+  const content = useIntlayer("component-example");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const ComponentExample = () => {
+  const content = useIntlayer("component-example");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer/server";
 
 const ServerComponentExample = () => {
@@ -93,16 +180,46 @@ const ServerComponentExample = () => {
 };
 ```
 
-## التعامل مع الخصائص
+```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer/server";
 
-عند توطين الخصائص، يجب الوصول إلى قيم المحتوى بشكل مناسب:
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
 
-```tsx
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer/server");
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
+```
+
+## التعامل مع السمات
+
+عند توطين السمات، الوصول إلى قيم المحتوى بشكل مناسب:
+
+```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## موارد إضافية
 
-- **محرر Intlayer المرئي**: للحصول على تجربة إدارة محتوى أكثر سهولة، يمكنك الرجوع إلى وثائق محرر المرئي [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md).
+- ** محرر Intlayer المرئي**: للحصول على تجربة إدارة محتوى أكثر بديهية، راجع توثيق المحرر المرئي [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md).
 
-هذا القسم يستهدف بشكل خاص دمج hook `useIntlayer` في تطبيقات React، مما يبسط عملية التوطين ويضمن اتساق المحتوى عبر لغات مختلفة.
+هذا القسم يركز بشكل خاص على دمج Hook `useIntlayer` في تطبيقات React، مما يبسط عملية التوطين ويضمن تناسق المحتوى عبر لغات مختلفة.

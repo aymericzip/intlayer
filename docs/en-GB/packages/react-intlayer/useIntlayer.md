@@ -43,7 +43,7 @@ The hook accepts two parameters:
 
 ## Content Declaration
 
-All dictionary keys must be declared within content declaration files to enhance type safety and avoid errors. You can find the setup instructions [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md).
+All dictionary keys must be declared within content declaration files to enhance type safety and avoid errors. You can find the setup instructions [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md).
 
 ## Example Usage in React
 
@@ -220,6 +220,6 @@ When localizing attributes, access the content values appropriately:
 
 ## Additional Resources
 
-- **Intlayer Visual Editor**: For a more intuitive content management experience, refer to the visual editor documentation [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md).
+- **Intlayer Visual Editor**: For a more intuitive content management experience, refer to the visual editor documentation [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md).
 
 This section specifically targets the integration of the `useIntlayer` hook in React applications, simplifying the localization process and ensuring content consistency across different locales.

@@ -2,7 +2,7 @@
 
 ## Beschreibung:
 
-Die `getTranslationContent` Funktion ruft den Inhalt ab, der einem bestimmten Locale aus einer Menge an anpassbarem Sprachinhalt entspricht. Wenn das angegebene Locale nicht gefunden wird, wird standardmäßig der Inhalt für das im Projekt konfigurierte Standardsprache zurückgegeben.
+Die `getTranslationContent` Funktion ruft den Inhalt ab, der einem bestimmten Locale aus einer Reihe von anpassbaren Sprachinhalten entspricht. Wenn das angegebene Locale nicht gefunden wird, gibt es standardmäßig den Inhalt für das im Projekt konfigurierte Standardlocale zurück.
 
 ## Parameter:
 
@@ -10,7 +10,7 @@ Die `getTranslationContent` Funktion ruft den Inhalt ab, der einem bestimmten Lo
 
   - **Beschreibung**: Ein Objekt, das Übersetzungen für verschiedene Locales enthält. Jeder Schlüssel repräsentiert ein Locale, und sein Wert ist der entsprechende Inhalt.
   - **Typ**: `CustomizableLanguageContent<Content>`
-    - `Content` kann beliebigen Typs sein, standardmäßig auf `string`.
+    - `Content` kann jeden Typ haben, standardmäßig auf `string` festgelegt.
 
 - `locale: Locales`
 
@@ -20,14 +20,42 @@ Die `getTranslationContent` Funktion ruft den Inhalt ab, der einem bestimmten Lo
 ## Rückgaben:
 
 - **Typ**: `Content`
-- **Beschreibung**: Der Inhalt, der dem angegebenen Locale entspricht. Wenn das Locale nicht gefunden wird, wird der Inhalt des Standardsprache zurückgegeben.
+- **Beschreibung**: Der Inhalt, der dem angegebenen Locale entspricht. Wenn das Locale nicht gefunden wird, wird der Inhalt des Standardlocales zurückgegeben.
 
 ## Beispielverwendung:
 
 ### Grundlegende Verwendung:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
+
+const content = getTranslationContent(
+  {
+    de: "Hallo",
+    fr: "Bonjour",
+  },
+  Locales.GERMAN
+);
+
+console.log(content); // Ausgabe: "Bonjour"
+```
+
+```javascript codeFormat="esm"
+import { getTranslationContent, Locales } from "intlayer";
+
+const content = getTranslationContent(
+  {
+    de: "Hallo",
+    fr: "Bonjour",
+  },
+  Locales.GERMAN
+);
+
+console.log(content); // Ausgabe: "Bonjour"
+```
+
+```javascript codeFormat="commonjs"
+const { getTranslationContent, Locales } = require("intlayer");
 
 const content = getTranslationContent(
   {
@@ -42,7 +70,7 @@ console.log(content); // Ausgabe: "Bonjour"
 
 ### Fehlendes Locale:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
 
 const content = getTranslationContent(
@@ -50,15 +78,43 @@ const content = getTranslationContent(
     de: "Hallo",
     fr: "Bonjour",
   },
-  Locales.SPANISH
+  Locales.SPANISCH
 );
 
-console.log(content); // Ausgabe: "Hello" (Inhalt der Standardsprache)
+console.log(content); // Ausgabe: "Hallo" (Inhalt des Standardlocales)
 ```
 
-### Verwendung von benutzerdefinierten Inhaltstypen:
+```javascript codeFormat="esm"
+import { getTranslationContent, Locales } from "intlayer";
 
-```typescript
+const content = getTranslationContent(
+  {
+    de: "Hallo",
+    fr: "Bonjour",
+  },
+  Locales.SPANISCH
+);
+
+console.log(content); // Ausgabe: "Hallo" (Inhalt des Standardlocales)
+```
+
+```javascript codeFormat="commonjs"
+const { getTranslationContent, Locales } = require("intlayer");
+
+const content = getTranslationContent(
+  {
+    de: "Hallo",
+    fr: "Bonjour",
+  },
+  Locales.SPANISCH
+);
+
+console.log(content); // Ausgabe: "Hallo" (Inhalt des Standardlocales)
+```
+
+### Verwendung benutzerdefinierter Inhaltstypen:
+
+```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
 
 const customContent = getTranslationContent<Record<string, string>>(
@@ -66,7 +122,35 @@ const customContent = getTranslationContent<Record<string, string>>(
     de: { greeting: "Hallo" },
     fr: { greeting: "Bonjour" },
   },
-  Locales.FRENCH
+  Locales.FRANZÖSISCH
+);
+
+console.log(customContent.greeting); // Ausgabe: "Bonjour"
+```
+
+```javascript codeFormat="esm"
+import { getTranslationContent, Locales } from "intlayer";
+
+const customContent = getTranslationContent<Record<string, string>>(
+  {
+    de: { greeting: "Hallo" },
+    fr: { greeting: "Bonjour" },
+  },
+  Locales.FRANZÖSISCH
+);
+
+console.log(customContent.greeting); // Ausgabe: "Bonjour"
+```
+
+```javascript codeFormat="commonjs"
+const { getTranslationContent, Locales } = require("intlayer");
+
+const customContent = getTranslationContent<Record<string, string>>(
+  {
+    de: { greeting: "Hallo" },
+    fr: { greeting: "Bonjour" },
+  },
+  Locales.FRANZÖSISCH
 );
 
 console.log(customContent.greeting); // Ausgabe: "Bonjour"
@@ -75,10 +159,10 @@ console.log(customContent.greeting); // Ausgabe: "Bonjour"
 ## Randfälle:
 
 - **Locale nicht gefunden:**
-  - Wenn das `locale` im `languageContent` nicht gefunden wird, gibt die Funktion den Inhalt für die Standardsprache zurück.
+  - Wenn das `locale` nicht im `languageContent` gefunden wird, gibt die Funktion den Inhalt des Standardlocales zurück.
 - **Unvollständiger Sprachinhalt:**
 
-  - Wenn ein Locale teilweise definiert ist, merges die Funktion keine Inhalte. Sie ruft strikt den Wert des angegebenen Locales ab oder fällt auf den Standard zurück.
+  - Wenn ein Locale teilweise definiert ist, wird der Inhalt nicht zusammengeführt. Es wird streng der Wert des angegebenen Locales abgerufen oder auf das Standardlocale zurückgegriffen.
 
 - **TypeScript-Durchsetzung:**
-  - Wenn die Locales im `languageContent` nicht mit der Projektkonfiguration übereinstimmen, wird TypeScript alle erforderlichen Locales durchsetzen, damit sichergestellt ist, dass der Inhalt vollständig und typensicher ist.
+  - Wenn die Locales im `languageContent` nicht mit der Projektkonfiguration übereinstimmen, wird TypeScript die Definition aller erforderlichen Locales erzwingen, um sicherzustellen, dass der Inhalt vollständig und Typsicher ist.

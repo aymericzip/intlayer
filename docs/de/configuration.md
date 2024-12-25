@@ -2,13 +2,13 @@
 
 ## Übersicht
 
-Intlayer-Konfigurationsdateien ermöglichen die Anpassung verschiedener Aspekte des Plugins, wie Internationalisierung, Middleware und Inhaltsverwaltung. Dieses Dokument bietet eine detaillierte Beschreibung jeder Eigenschaft in der Konfiguration.
+Die Intlayer-Konfigurationsdateien ermöglichen die Anpassung verschiedener Aspekte des Plugins, wie Internationalisierung, Middleware und Inhaltsverarbeitung. Dieses Dokument bietet eine detaillierte Beschreibung jedes Attributs in der Konfiguration.
 
 ---
 
 ## Unterstützung von Konfigurationsdateien
 
-Intlayer akzeptiert die Konfigurationsdateiformate JSON, JS, MJS und TS:
+Intlayer akzeptiert die folgenden Formate für Konfigurationsdateien: JSON, JS, MJS und TS:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -21,14 +21,12 @@ Intlayer akzeptiert die Konfigurationsdateiformate JSON, JS, MJS und TS:
 
 ## Beispielkonfigurationsdatei
 
-```typescript
-// intlayer.config.ts
-
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.GERMAN],
+    locales: [Locales.ENGLISH],
   },
   content: {
     typesDir: "content/types",
@@ -41,15 +39,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript
-// intlayer.config.cjs
-
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.GERMAN],
+    locales: [Locales.ENGLISH],
   },
   content: {
     typesDir: "content/types",
@@ -62,12 +58,10 @@ const config = {
 module.exports = config;
 ```
 
-```json5
-// .intlayerrc
-
+```json5 fileName=".intlayerrc" codeFormat="json"
 {
   "internationalization": {
-    "locales": ["de"],
+    "locales": ["en"],
   },
   "content": {
     "typesDir": "content/types",
@@ -82,36 +76,36 @@ module.exports = config;
 
 ## Konfigurationsreferenz
 
-Die folgenden Abschnitte beschreiben die verschiedenen Konfigurationseinstellungen, die für Intlayer verfügbar sind.
+Die folgenden Abschnitte beschreiben die verschiedenen verfügbaren Konfigurationseinstellungen für Intlayer.
 
 ---
 
-### Internationalisierungskonfiguration
+### Internationalisierungs-Konfiguration
 
-Definiert Einstellungen, die mit der Internationalisierung zusammenhängen, einschließlich verfügbarer Sprachen und der Standardsprache für die Anwendung.
+Definiert Einstellungen, die mit der Internationalisierung zusammenhängen, einschließlich verfügbarer Lokalisierungen und der Standardlokalisierung für die Anwendung.
 
 #### Eigenschaften
 
 - **locales**:
   - _Typ_: `string[]`
-  - _Standard_: `['de']`
-  - _Beschreibung_: Die Liste der unterstützten Sprachen in der Anwendung.
-  - _Beispiel_: `['de', 'fr', 'es']`
+  - _Standard_: `['en']`
+  - _Beschreibung_: Die Liste der unterstützten Lokalisierungen in der Anwendung.
+  - _Beispiel_: `['en', 'fr', 'es']`
 - **strictMode**:
 
   - _Typ_: `string`
   - _Standard_: `required_only`
-  - _Beschreibung_: Sicherstellen, dass stark implementierte, internationalisierte Inhalte mit TypeScript einhergehen.
-  - _Hinweis_: Wenn auf "strict" gesetzt, muss die Übersetzungsfunktion `t` für jede deklarierte Sprache definiert werden. Wenn eine Sprache fehlt oder nicht in Ihrer Konfiguration deklariert ist, wird ein Fehler ausgelöst.
-  - _Hinweis_: Wenn auf "required_only" gesetzt, erfordert die Übersetzungsfunktion `t`, dass jede deklarierte Sprache definiert ist. Wenn eine Sprache fehlt, wird eine Warnung ausgelöst. Es wird jedoch akzeptiert, wenn eine Sprache nicht in Ihrer Konfiguration deklariert ist, aber bereits existiert.
-  - _Hinweis_: Wenn auf "loose" gesetzt, akzeptiert die Übersetzungsfunktion `t` jede vorhandene Sprache.
+  - _Beschreibung_: Stellt sicher, dass die Durchsetzung internationalisierter Inhalte mithilfe von TypeScript stark ist.
+  - _Hinweis_: Wenn auf "strict" gesetzt, erfordert die Übersetzungsfunktion `t`, dass jede deklarierte Lokalisierung definiert ist. Wenn eine Lokalisierung fehlt oder in Ihrer Konfiguration nicht deklariert ist, wird ein Fehler ausgegeben.
+  - _Hinweis_: Wenn auf "required_only" gesetzt, erfordert die Übersetzungsfunktion `t`, dass jede deklarierte Lokalisierung definiert ist. Wenn eine Lokalisierung fehlt, wird eine Warnung ausgegeben. Aber akzeptiert, wenn eine Lokalisierung nicht in Ihrer Konfiguration deklariert ist, aber existiert.
+  - _Hinweis_: Wenn auf "loose" gesetzt, akzeptiert die Übersetzungsfunktion `t` jede vorhandene Lokalisierung.
 
 - **defaultLocale**:
   - _Typ_: `string`
-  - _Standard_: `'de'`
-  - _Beschreibung_: Die Standardsprache, die als Fallback verwendet wird, wenn die angeforderte Sprache nicht gefunden wird.
-  - _Beispiel_: `'de'`
-  - _Hinweis_: Dies wird verwendet, um die Sprache zu bestimmen, wenn keine in der URL, dem Cookie oder dem Header angegeben ist.
+  - _Standard_: `'en'`
+  - _Beschreibung_: Die Standardlokalisierung, die als Fallback verwendet wird, wenn die angeforderte Lokalisierung nicht gefunden wird.
+  - _Beispiel_: `'en'`
+  - _Hinweis_: Dies wird verwendet, um die Lokalisierung zu bestimmen, wenn in der URL, im Cookie oder im Header keine angegeben ist.
 
 ---
 
@@ -134,90 +128,90 @@ Definiert Einstellungen, die mit dem integrierten Editor zusammenhängen, einsch
   - _Standard_: `true`
   - _Beschreibung_: Gibt an, ob der Editor aktiv ist.
   - _Beispiel_: `true`
-  - _Hinweis_: Kann über NODE_ENV oder eine andere dedizierte Umgebungsvariable festgelegt werden.
+  - _Hinweis_: Kann mit NODE_ENV oder einer anderen dedizierten Umgebungsvariable gesetzt werden
 
 - **clientId**:
 
   - _Typ_: `string` | `undefined`
   - _Standard_: `undefined`
-  - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich über die oAuth2-Authentifizierung beim Backend zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer zu authentifizieren, der mit dem Projekt verbunden ist. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://back.intlayer.org/dashboard/project und erstellen Sie ein Konto.
+  - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich mit dem Backend über OAuth2-Authentifizierung zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer in Bezug auf das Projekt zu authentifizieren. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://back.intlayer.org/dashboard/project und erstellen Sie ein Konto.
   - _Beispiel_: `true`
-  - _Hinweis_: Wichtig: Die clientId und clientSecret sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte stellen Sie sicher, dass Sie sie an einem sicheren Ort aufbewahren, z. B. in Umgebungsvariablen.
+  - _Hinweis_: Wichtig: clientId und clientSecret sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte stellen Sie sicher, dass Sie sie an einem sicheren Ort, wie z. B. Umgebungsvariablen, aufbewahren.
 
 - **clientSecret**:
   - _Typ_: `string` | `undefined`
   - _Standard_: `undefined`
-  - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich über die oAuth2-Authentifizierung beim Backend zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer zu authentifizieren, der mit dem Projekt verbunden ist. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://back.intlayer.org/dashboard/project und erstellen Sie ein Konto.
+  - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich mit dem Backend über OAuth2-Authentifizierung zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer in Bezug auf das Projekt zu authentifizieren. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://back.intlayer.org/dashboard/project und erstellen Sie ein Konto.
   - _Beispiel_: `true`
-  - _Hinweis_: Wichtig: Die clientId und clientSecret sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte stellen Sie sicher, dass Sie sie an einem sicheren Ort aufbewahren, z. B. in Umgebungsvariablen.
+  - _Hinweis_: Wichtig: clientId und clientSecret sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte stellen Sie sicher, dass Sie sie an einem sicheren Ort, wie z. B. Umgebungsvariablen, aufbewahren.
 
 ### Middleware-Konfiguration
 
-Einstellungen, die das Verhalten der Middleware steuern, einschließlich wie die Anwendung mit Cookies, Headern und URL-Präfixen für die Sprachverwaltung umgeht.
+Einstellungen, die das Verhalten der Middleware steuern, einschließlich, wie die Anwendung Cookies, Header und URL-Präfixe für die Lokalisierungsverwaltung behandelt.
 
 #### Eigenschaften
 
 - **headerName**:
   - _Typ_: `string`
   - _Standard_: `'x-intlayer-locale'`
-  - _Beschreibung_: Der Name des HTTP-Headers, der verwendet wird, um die Sprache zu bestimmen.
+  - _Beschreibung_: Der Name des HTTP-Headers, der zur Bestimmung der Lokalisierung verwendet wird.
   - _Beispiel_: `'x-custom-locale'`
-  - _Hinweis_: Dies ist nützlich für die API-basierte Sprachbestimmung.
+  - _Hinweis_: Dies ist nützlich für die API-basierte Lokalisierungsbestimmung.
 - **cookieName**:
   - _Typ_: `string`
   - _Standard_: `'intlayer-locale'`
-  - _Beschreibung_: Der Name des Cookies, der verwendet wird, um die Sprache zu speichern.
+  - _Beschreibung_: Der Name des Cookies, der verwendet wird, um die Lokalisierung zu speichern.
   - _Beispiel_: `'custom-locale'`
-  - _Hinweis_: Wird verwendet, um die Sprache über Sitzungen hinweg aufrechtzuerhalten.
+  - _Hinweis_: Wird verwendet, um die Lokalisierung über Sitzungen hinweg beizubehalten.
 - **prefixDefault**:
   - _Typ_: `boolean`
   - _Standard_: `true`
-  - _Beschreibung_: Ob die Standardsprache in der URL enthalten sein soll.
+  - _Beschreibung_: Ob die Standardlokalisierung in der URL enthalten sein soll.
   - _Beispiel_: `false`
-  - _Hinweis_: Wenn `false`, haben URLs für die Standardsprache kein Sprachpräfix.
+  - _Hinweis_: Wenn `false`, haben URLs für die Standardlokalisierung kein Lokalisierungspräfix.
 - **basePath**:
   - _Typ_: `string`
   - _Standard_: `''`
-  - _Beschreibung_: Der Basispfad für die Anwendungs-URLs.
-  - _Beispiel_: `'/meine-app'`
-  - _Hinweis_: Dies beeinflusst, wie URLs für die Anwendung konstruiert werden.
+  - _Beschreibung_: Der Basis-Pfad für die Anwendungs-URLs.
+  - _Beispiel_: `'/my-app'`
+  - _Hinweis_: Dies beeinflusst, wie URLs für die Anwendung aufgebaut werden.
 - **serverSetCookie**:
   - _Typ_: `string`
   - _Standard_: `'always'`
-  - _Beschreibung_: Regel zum Setzen des Sprachcookies auf dem Server.
+  - _Beschreibung_: Regel zum Setzen des Lokalisierungs-Cookies auf dem Server.
   - _Optionen_: `'always'`, `'never'`
   - _Beispiel_: `'never'`
-  - _Hinweis_: Steuert, ob das Sprachcookie bei jeder Anfrage oder niemals gesetzt wird.
+  - _Hinweis_: Steuert, ob das Lokalisierungs-Cookie bei jeder Anfrage gesetzt wird oder niemals.
 - **noPrefix**:
   - _Typ_: `boolean`
   - _Standard_: `false`
-  - _Beschreibung_: Ob das Sprachpräfix aus den URLs weggelassen werden soll.
+  - _Beschreibung_: Ob das Lokalisierungspräfix aus den URLs weggelassen werden soll.
   - _Beispiel_: `true`
-  - _Hinweis_: Wenn `true`, enthalten URLs keine Sprachinformationen.
+  - _Hinweis_: Wenn `true`, enthalten URLs keine Lokalisierungsinformationen.
 
 ---
 
 ### Inhaltskonfiguration
 
-Einstellungen zur Inhaltsverwaltung innerhalb der Anwendung, einschließlich Verzeichnisnamen, Dateiendungen und derived Konfigurationen.
+Einstellungen, die sich auf die Inhaltsverarbeitung innerhalb der Anwendung beziehen, einschließlich Verzeichnisnamen, Dateiendungen und abgeleitete Konfigurationen.
 
 #### Eigenschaften
 
 - **watch**:
   - _Typ_: `boolean`
   - _Standard_: `process.env.NODE_ENV === 'development'`
-  - _Beschreibung_: Gibt an, ob Intlayer Änderungen in den Inhaltsdeklarationsdateien der App überwachen soll, um die zugehörigen Wörterbücher neu zu erstellen.
+  - _Beschreibung_: Gibt an, ob Intlayer Änderungen in den Inhaltdokumenten der App beobachten soll, um die entsprechenden Wörterbücher neu zu erstellen.
 - **fileExtensions**:
   - _Typ_: `string[]`
   - _Standard_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _Beschreibung_: Dateiendungen, nach denen beim Erstellen von Wörterbüchern gesucht wird.
   - _Beispiel_: `['.data.ts', '.data.js', '.data.json']`
-  - _Hinweis_: Die Anpassung von Dateiendungen kann helfen, Konflikte zu vermeiden.
+  - _Hinweis_: Die Anpassung der Dateiendungen kann helfen, Konflikte zu vermeiden.
 - **baseDir**:
   - _Typ_: `string`
   - _Standard_: `process.cwd()`
   - _Beschreibung_: Das Basisverzeichnis für das Projekt.
-  - _Beispiel_: `'/pfad/zum/projekt'`
+  - _Beispiel_: `'/path/to/project'`
   - _Hinweis_: Dies wird verwendet, um alle Intlayer-bezogenen Verzeichnisse aufzulösen.
 - **dictionaryOutput**:
   - _Typ_: `string[]`
@@ -226,64 +220,64 @@ Einstellungen zur Inhaltsverwaltung innerhalb der Anwendung, einschließlich Ver
 - **contentDirName**:
   - _Typ_: `string`
   - _Standard_: `'src'`
-  - _Beschreibung_: Der Name des Verzeichnisses, in dem die Inhalte gespeichert sind.
-  - _Beispiel_: `'daten'`, `'inhalt'`, `'lokalisierungen'`
-  - _Hinweis_: Wenn nicht auf der Basisverzeichnisebene, aktualisieren Sie `contentDir`.
+  - _Beschreibung_: Der Name des Verzeichnisses, in dem der Inhalt gespeichert ist.
+  - _Beispiel_: `'data'`, `'content'`, `'locales'`
+  - _Hinweis_: Wenn nicht auf der Basisverzeichnisebene, aktualisieren Sie das `contentDir`.
 - **contentDir**:
 
   - _Typ_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'contentDirName'`
+  - _AbgeleitetVon_: `'baseDir'` / `'contentDirName'`
   - _Beschreibung_: Der Verzeichnispfad, in dem der Inhalt gespeichert ist.
 
 - **resultDirName**:
   - _Typ_: `string`
   - _Standard_: `'.intlayer'`
-  - _Beschreibung_: Der Name des Verzeichnisses, in dem die Ergebnisse gespeichert sind.
-  - _Beispiel_: `'ergebnisVonIntlayer'`
+  - _Beschreibung_: Der Name des Verzeichnisses, in dem die Ergebnisse gespeichert werden.
+  - _Beispiel_: `'outputOFIntlayer'`
   - _Hinweis_: Wenn dieses Verzeichnis nicht auf der Basisebene ist, aktualisieren Sie `resultDir`.
 - **resultDir**:
 
   - _Typ_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'resultDirName'`
-  - _Beschreibung_: Der Verzeichnispfad zum Speichern von Zwischen- oder Ausgabenergebnissen.
+  - _AbgeleitetVon_: `'baseDir'` / `'resultDirName'`
+  - _Beschreibung_: Der Verzeichnispfad für die Speicherung von Zwischen- oder Ausgabewerten.
 
 - **moduleAugmentationDirName**:
 
   - _Typ_: `string`
   - _Standard_: `'types'`
-  - _Beschreibung_: Verzeichnis für die Modulergänzung, das bessere IDE-Vorschläge und Typprüfungen ermöglicht.
+  - _Beschreibung_: Verzeichnis für Modulvergrößerungen, das bessere IDE-Vorschläge und Typprüfungen ermöglicht.
   - _Beispiel_: `'intlayer-types'`
-  - _Hinweis_: Stellen Sie sicher, dass Sie dies in `tsconfig.json` einfügen.
+  - _Hinweis_: Stellen Sie sicher, dass dies in `tsconfig.json` enthalten ist.
 
 - **moduleAugmentationDir**:
 
   - _Typ_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'moduleAugmentationDirName'`
-  - _Beschreibung_: Der Pfad zur Modulergänzung und zusätzlichen Typdefinitionen.
+  - _AbgeleitetVon_: `'baseDir'` / `'moduleAugmentationDirName'`
+  - _Beschreibung_: Der Pfad für Modulvergrößerungen und zusätzliche Typdefinitionen.
 
 - **dictionariesDirName**:
   - _Typ_: `string`
   - _Standard_: `'dictionary'`
   - _Beschreibung_: Verzeichnis zum Speichern von Wörterbüchern.
-  - _Beispiel_: `'übersetzungen'`
+  - _Beispiel_: `'translations'`
   - _Hinweis_: Wenn nicht auf der Ergebnisverzeichnisebene, aktualisieren Sie `dictionariesDir`.
 - **dictionariesDir**:
 
   - _Typ_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
+  - _AbgeleitetVon_: `'resultDir'` / `'dictionariesDirName'`
   - _Beschreibung_: Das Verzeichnis zum Speichern von Lokalisierungswörterbüchern.
 
 - **i18nDictionariesDirName**:
   - _Typ_: `string`
   - _Standard_: `'i18n_dictionary'`
   - _Beschreibung_: Verzeichnis zum Speichern von i18n-Wörterbüchern.
-  - _Beispiel_: `'übersetzungen'`
+  - _Beispiel_: `'translations'`
   - _Hinweis_: Wenn nicht auf der Ergebnisverzeichnisebene, aktualisieren Sie `i18nDictionariesDir`.
-  - _Hinweis_: Stellen Sie sicher, dass die Ausgabe der i18n-Wörterbücher i18next enthält, um die Wörterbücher für i18next zu erstellen.
+  - _Hinweis_: Stellen Sie sicher, dass die Ausgabe der i18n-Wörterbücher i18next umfasst, um die Wörterbücher für i18next zu erstellen.
 - **i18nDictionariesDir**:
 
   - _Typ_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _AbgeleitetVon_: `'resultDir'` / `'i18nDictionariesDirName'`
   - _Beschreibung_: Das Verzeichnis zum Speichern von i18n-Wörterbüchern.
   - _Hinweis_: Stellen Sie sicher, dass dieses Verzeichnis für den i18next-Ausgabetyp konfiguriert ist.
 
@@ -298,7 +292,7 @@ Einstellungen zur Inhaltsverwaltung innerhalb der Anwendung, einschließlich Ver
 - **typesDir**:
 
   - _Typ_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'typeDirName'`
+  - _AbgeleitetVon_: `'resultDir'` / `'typeDirName'`
   - _Beschreibung_: Das Verzeichnis zum Speichern von Wörterbuchtypen.
 
 - **mainDirName**:
@@ -309,10 +303,35 @@ Einstellungen zur Inhaltsverwaltung innerhalb der Anwendung, einschließlich Ver
   - _Hinweis_: Wenn nicht auf der Ergebnisverzeichnisebene, aktualisieren Sie `mainDir`.
 - **mainDir**:
   - _Typ_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'mainDirName'`
+  - _AbgeleitetVon_: `'resultDir'` / `'mainDirName'`
   - _Beschreibung_: Das Verzeichnis, in dem die Hauptanwendungsdateien gespeichert sind.
 - **excludedPath**:
   - _Typ_: `string[]`
   - _Standard_: `['node_modules']`
   - _Beschreibung_: Verzeichnisse, die von der Inhaltssuche ausgeschlossen sind.
-  - _Hinweis_: Diese Einstellung wird noch nicht verwendet, ist jedoch für die zukünftige Implementierung geplant.
+  - _Hinweis_: Diese Einstellung wird noch nicht verwendet, ist jedoch für eine zukünftige Implementierung geplant.
+
+### Logger-Konfiguration
+
+Einstellungen zur Steuerung des Loggers, einschließlich des Loglevels und des verwendeten Präfixes.
+
+#### Eigenschaften
+
+- **enabled**:
+  - _Typ_: `boolean`
+  - _Standard_: `true`
+  - _Beschreibung_: Gibt an, ob der Logger aktiviert ist.
+  - _Beispiel_: `true`
+  - _Hinweis_: Kann mit NODE_ENV oder einer anderen dedizierten Umgebungsvariable gesetzt werden.
+- **level**:
+  - _Typ_: `'info' | 'warn' | 'debug' | 'log'`
+  - _Standard_: `'log'`
+  - _Beschreibung_: Das Level des Loggers.
+  - _Beispiel_: `'info'`
+  - _Hinweis_: Das Level des Loggers. Es kann entweder 'log', 'info', 'warn', 'error' oder 'debug' sein.
+- **prefix**:
+  - _Typ_: `string`
+  - _Standard_: `'[intlayer] '`
+  - _Beschreibung_: Das Präfix des Loggers.
+  - _Beispiel_: `'[mein benutzerdefiniertes Präfix] '`
+  - _Hinweis_: Das Präfix des Loggers.

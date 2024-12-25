@@ -1,6 +1,6 @@
 # Intlayer: A closer way to translate your application
 
-**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allow the declaration of your content everywhere in your code. It converts declaration of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** make your development stronger and more efficient.
+**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allows the declaration of your content everywhere in your code. It converts the declaration of multilingual content into structured dictionaries to integrate easily into your code. Using TypeScript, **Intlayer** makes your development stronger and more efficient.
 
 ## Example of usage
 
@@ -116,7 +116,7 @@ const ComponentExample = () => {
 - **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
 - **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
 - **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
-- **Simplified Setup**: Get up and running quickly with minimal configuration, especially optimized for Next.js projects.
+- **Simplified Setup**: Get up and running quickly with minimal configuration, especially optimised for Next.js projects.
 - **Server Component Support**: Perfectly suited for Next.js server components, ensuring smooth server-side rendering.
 - **Enhanced Routing**: Full support for Next.js app routing, adapting seamlessly to complex application structures.
 - **Interoperability**: Allow i18next interoperability. (beta)

@@ -1,14 +1,14 @@
-# الترجمة
+# ترجمة
 
-## تعريف الترجمات
+## تعريف الترجمة
 
-دالة `t` في `intlayer` تتيح لك الإعلان عن المحتوى بلغات متعددة. تضمن هذه الدالة سلامة النوع، مما يؤدي إلى رفع خطأ إذا كانت أي ترجمات مفقودة، وهو أمر مفيد بشكل خاص في بيئات TypeScript.
+تتيح لك وظيفة `t` في `intlayer` الإشارة إلى المحتوى بعدة لغات. تضمن هذه الوظيفة أمان النوع، مما يؤدي إلى رفع خطأ إذا كانت أي ترجمات مفقودة، وهو أمر مفيد بشكل خاص في بيئات TypeScript.
 
 ### استخدام TypeScript
 
-إليك مثالًا على كيفية إعلان المحتوى مع الترجمات في ملف TypeScript:
+إليك مثال على كيفية إعلانات المحتوى مع الترجمة.
 
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -22,16 +22,13 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      ar: "مرحبًا بكم في تطبيقنا",
     }),
   },
 } satisfies DeclarationContent<Content>;
 ```
 
-### استخدام وحدات ECMAScript
-
-إذا كنت تستخدم وحدات ECMAScript، فسيبدو الإعلان كالتالي:
-
-```javascript
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 export default {
@@ -41,16 +38,13 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      ar: "مرحبًا بكم في تطبيقنا",
     }),
   },
 };
 ```
 
-### استخدام وحدات CommonJS
-
-في إعداد CommonJS، يمكنك إعلان الترجمات بهذه الطريقة:
-
-```javascript
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 module.exports = {
@@ -60,16 +54,13 @@ module.exports = {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      ar: "مرحبًا بكم في تطبيقنا",
     }),
   },
 };
 ```
 
-### استخدام JSON
-
-بالنسبة للإعلانات المعتمدة على JSON، يمكنك تعريف الترجمات كما يلي:
-
-```json
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
   "key": "multi_lang",
   "content": {
@@ -78,34 +69,78 @@ module.exports = {
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nuestra aplicación"
+        "es": "Bienvenido a nuestra aplicación",
+        "ar": "مرحبًا بكم في تطبيقنا"
       }
     }
   }
 }
 ```
 
-## التكوين للغات
+## إعداد اللغات
 
-لضمان معالجة الترجمة بشكل صحيح، يمكنك تكوين اللغات المقبولة في `intlayer.config.ts`. يسمح لك هذا التكوين بتحديد اللغات التي تدعمها تطبيقك:
+لضمان التعامل الصحيح مع الترجمات، يمكنك ضبط اللغات المقبولة في `intlayer.config.ts`. يتيح لك هذا التكوين تحديد اللغات التي تدعمها تطبيقك:
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
   },
 };
 
 export default config;
 ```
 
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
+  },
+};
+
+module.exports = config;
+```
+
 ## استخدام الترجمات في مكونات React
 
 مع `react-intlayer`، يمكنك استخدام الترجمات في مكونات React. إليك مثال:
 
-```jsx
+```jsx fileName="**/*.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const MyComponent: FC = () => {
+  const content = useIntlayer("multi_lang");
+
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
@@ -121,13 +156,29 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-هذا المكون يسترجع الترجمة المقابلة بناءً على اللغة الحالية المحددة في تطبيقك.
+```javascript fileName="**/*.cjs" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const MyComponent = () => {
+  const content = useIntlayer("multi_lang");
+
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
+
+module.exports = MyComponent;
+```
+
+تقوم هذه المكونة بجلب الترجمة المناسبة بناءً على اللغة الحالية المحددة في التطبيق الخاص بك.
 
 ## كائنات المحتوى المخصصة
 
-يدعم `intlayer` كائنات محتوى مخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان سلامة النوع. إليك مثال مع كائن مخصص:
+يدعم `intlayer` كائنات المحتوى المخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان أمان النوع. إليك مثال على كائن مخصص:
 
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface ICustomContent {
@@ -151,9 +202,104 @@ const customContent = {
         title: "Título de la Página",
         content: "Contenido de la Página",
       },
+      ar: {
+        title: "عنوان الصفحة",
+        content: "محتوى الصفحة",
+      },
     }),
   },
 } satisfies DeclarationContent;
 
 export default customContent;
+```
+
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+export default {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "Page Title",
+          content: "Page Content",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+        ar: {
+          title: "عنوان الصفحة",
+          content: "محتوى الصفحة",
+        },
+      },
+  },
+};
+```
+
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+module.exports = {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "Page Title",
+          content: "Page Content",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+        ar: {
+          title: "عنوان الصفحة",
+          content: "محتوى الصفحة",
+        },
+      },
+  },
+};
+```
+
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "key": "custom_content",
+  "content": {
+    "profileText": {
+      "nodeType": "translation",
+      "translation": {
+        "en": {
+          "title": "Page Title",
+          "content": "Page Content"
+        },
+        "fr": {
+          "title": "Titre de la Page",
+          "content": "Contenu de la Page"
+        },
+        "es": {
+          "title": "Título de la Página",
+          "content": "Contenido de la Página"
+        },
+        "ar": {
+          "title": "عنوان الصفحة",
+          "content": "محتوى الصفحة"
+        }
+      }
+    }
+  }
+}
 ```

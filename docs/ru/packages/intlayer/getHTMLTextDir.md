@@ -9,7 +9,7 @@
 - `locale?: Locales`
 
   - **Описание**: Строка локали (например, `Locales.ENGLISH`, `Locales.ARABIC`), используемая для определения направления текста.
-  - **Тип**: `Locales` (опционально)
+  - **Тип**: `Locales` (необязательный)
 
 ## Возвращает:
 
@@ -17,13 +17,13 @@
 - **Описание**: Направление текста, соответствующее локали:
   - `'ltr'` для языков слева направо.
   - `'rtl'` для языков справа налево.
-  - `'auto'`, если локаль не распознана.
+  - `'auto'` если локаль не распознана.
 
 ## Пример Использования:
 
 ### Определение Направления Текста:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
 
 getHTMLTextDir(Locales.ENGLISH); // Вывод: "ltr"
@@ -31,27 +31,67 @@ getHTMLTextDir(Locales.FRENCH); // Вывод: "ltr"
 getHTMLTextDir(Locales.ARABIC); // Вывод: "rtl"
 ```
 
-## Крайние Случаи:
+```javascript codeFormat="esm"
+import { getHTMLTextDir } from "intlayer";
 
-- **Локаль Не Указана:**
+getHTMLTextDir(Locales.ENGLISH); // Вывод: "ltr"
+getHTMLTextDir(Locales.FRENCH); // Вывод: "ltr"
+getHTMLTextDir(Locales.ARABIC); // Вывод: "rtl"
+```
 
-  - Функция возвращает `'auto'`, когда `locale` равен `undefined`.
+```javascript codeFormat="commonjs"
+const { getHTMLTextDir } = require("intlayer");
 
-- **Неопознанная Локаль:**
-  - Для неопознанных локалей функция по умолчанию возвращает `'auto'`.
+getHTMLTextDir(Locales.ENGLISH); // Вывод: "ltr"
+getHTMLTextDir(Locales.FRENCH); // Вывод: "ltr"
+getHTMLTextDir(Locales.ARABIC); // Вывод: "rtl"
+```
+
+## Граничные Случаи:
+
+- **Локаль Не Предоставлена:**
+
+  - Функция возвращает `'auto'`, когда `locale` равно `undefined`.
+
+- **Нераспознанная Локаль:**
+  - Для нераспознанных локалей функция по умолчанию возвращает `'auto'`.
 
 ## Использование в Компонентах:
 
-Функция `getHTMLTextDir` может использоваться для динамической установки атрибута `dir` в HTML-документе для правильного отображения текста на основе локали.
+Функция `getHTMLTextDir` может быть использована для динамической установки атрибута `dir` в HTML-документе для правильного отображения текста на основе локали.
 
-```tsx
-import { getHTMLTextDir } from "intlayer";
+```tsx codeFormat="typescript"
+import type { FC } from "react";
+import { getHTMLTextDir, type Locales } from "intlayer";
 
-export const HTMLLayout = ({ children, locale }) => (
+export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
+  children,
+  locale,
+}) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>
 );
 ```
 
-В приведенном выше примере атрибут `dir` динамически устанавливается на основе локали.
+```jsx codeFormat="esm"
+import { getHTMLTextDir } from "intlayer";
+
+const HTMLLayout = ({ children, locale }) => (
+  <html dir={getHTMLTextDir(locale)} locale={locale}>
+    <body>{children}</body>
+  </html>
+);
+```
+
+```jsx codeFormat="commonjs"
+const { getHTMLTextDir } = require("intlayer");
+
+const HTMLLayout = ({ children, locale }) => (
+  <html dir={getHTMLTextDir(locale)} locale={locale}>
+    <body>{children}</body>
+  </html>
+);
+```
+
+В указанном примере атрибут `dir` динамически устанавливается в зависимости от локали.

@@ -2,87 +2,87 @@
 
 ## 概要
 
-Intlayerの役割は、JavaScriptコンテンツ宣言ファイルを辞書に解釈することです。
+Intlayerの役割は、JavaScriptコンテンツ宣言ファイルを辞書に変換することです。
 
-これには、Intlayerはいくつかのステップを経て行います：
+これを行うために、Intlayerはいくつかのステップを経ます。
 
 1. コンテンツファイルの宣言
 
-   - コンテンツファイルは、TypeScript、ECMAScript、CommonJS、またはJSONなど、さまざまな形式で定義できます。
-   - コンテンツファイルはプロジェクトのどこにでも定義できるため、より良いメンテナンスとスケーラビリティが可能です。コンテンツファイルのファイル拡張子の規則を尊重することが重要です。この拡張子はデフォルトで `*.content.{js|cjs|mjs|ts|tsx|json}` ですが、[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で変更することができます。
+   - コンテンツファイルはTypeScript、ECMAScript、CommonJS、またはJSONなどのさまざまな形式で定義できます。
+   - コンテンツファイルはプロジェクトのどこにでも定義できるため、メンテナンス性とスケーラビリティが向上します。コンテンツファイルのファイル拡張子の規約を守ることが重要です。この拡張子はデフォルトで `*.content.{js|cjs|mjs|ts|tsx|json}` ですが、[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で変更できます。
 
 2. 辞書の生成
 
-   - 辞書はコンテンツファイルから生成されます。デフォルトでは、intlayer辞書はプロジェクトの `.intlayer/dictionary` ディレクトリに生成されます。
-   - 生成できる辞書のタイプは2つあります：intlayer辞書とi18n辞書（ベータ版）です。
+   - 辞書はコンテンツファイルから生成されます。デフォルトでは、intlayerの辞書はプロジェクトの `.intlayer/dictionary` ディレクトリに生成されます。
+   - 生成できる辞書には、intlayer辞書とi18n辞書（ベータ版）の2種類があります。
 
 3. 辞書タイプの生成
 
    - 辞書タイプはintlayer辞書から生成されます。デフォルトでは、intlayer辞書タイプはプロジェクトの `.intlayer/types` ディレクトリに生成されます。
 
-4. Intlayerモジュールの拡張生成
+4. Intlayerモジュール拡張の生成
 
-   - Intlayerの[モジュール拡張](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)は、Intlayerの追加タイプを定義できるTypeScriptの機能です。これにより、利用可能な引数や必須引数を提案することで、開発体験が向上します。
-     生成されたタイプの中には、intlayer辞書タイプや言語構成タイプが `types/intlayer.d.ts` ファイルに追加され、他のパッケージによって使用されます。これを行うには、`tsconfig.json` ファイルがプロジェクトの `.intlayer/types` ディレクトリを含むように設定されている必要があります。
+   - Intlayerの[モジュール拡張](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)はTypeScriptの機能で、Intlayerのために追加の型を定義することができます。これにより、利用可能な引数や必須引数を提案することで、開発体験が向上します。
+     生成された型の中には、intlayer辞書タイプや言語設定タイプが `types/intlayer.d.ts` ファイルに追加され、他のパッケージで使用されます。これを行うためには、 `tsconfig.json` ファイルを設定して、プロジェクトの `.intlayer/types` ディレクトリを含める必要があります。
 
 5. コンテンツファイルの監視
 
    - コンテンツファイルは、変更されるたびに再生成されるように監視されます。
 
 6. 辞書の解釈
-   - 最終的に辞書は解釈され、アプリケーションで使用されます。
+   - 辞書は最終的に解釈され、アプリケーションで使用されます。
 
 ## パッケージ
 
-Intlayerは、翻訳プロセスで特定の役割を持ついくつかのパッケージで構成されています。以下に、このパッケージの構造のグラフィカルな表現を示します：
+Intlayerは、翻訳プロセスに特定の役割を持ついくつかのパッケージで構成されています。このパッケージの構造のグラフィカルな表現は次のとおりです：
 
 ![intlayerのパッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/packages_dependency_graph.svg)
 
 ### intlayer
 
-`intlayer` パッケージは、アプリケーションでコンテンツファイルにコンテンツを宣言するために使用されます。
+`intlayer`パッケージは、アプリケーションでコンテンツファイルにコンテンツを宣言するために使用されます。
 
 ### react-intlayer
 
-`react-intlayer` パッケージは、intlayer辞書を解釈し、Reactアプリケーションで使用可能にするために使用されます。
+`react-intlayer`パッケージは、intlayer辞書を解釈し、Reactアプリケーションで使用できるようにするために使用されます。
 
 ### next-intlayer
 
-`next-intlayer` パッケージは、`react-intlayer` の上にレイヤーとして使用され、Next.jsアプリケーションでintlayer辞書を使用可能にします。翻訳ミドルウェア、ルーティング、または `next.config.js` ファイルの設定など、Next.js環境でIntlayerが機能するために必要な機能を統合します。
+`next-intlayer`パッケージは、`react-intlayer`の上にレイヤーとして使用され、Next.jsアプリケーションでintlayer辞書を使用できるようにします。翻訳ミドルウェア、ルーティング、または `next.config.js`ファイルの設定など、Next.js環境でIntlayerが機能するために必要な機能を統合しています。
 
 ### intlayer-editor
 
-`intlayer-editor` パッケージは、ビジュアルエディタの使用を可能にします。このパッケージはオプショナルで、アプリケーションにインストール可能で、`react-intlayer` パッケージによって使用されます。
-サーバーとクライアントの2つの部分から構成されています。
+`intlayer-editor`パッケージは、ビジュアルエディタを使用するために使用されます。このパッケージはオプションで、アプリケーションにインストールでき、`react-intlayer`パッケージによって使用されます。
+サーバーとクライアントの2つの部分で構成されています。
 
-クライアントには、`react-intlayer` によって使用されるUI要素が含まれています。
+クライアントは `react-intlayer` によって使用されるUI要素を含みます。
 
-サーバーはExpressに基づいており、エディタのビジュアルリクエストを受信し、コンテンツファイルを管理または変更します。
+サーバーはExpressに基づいており、エディタの視覚リクエストを受信し、コンテンツファイルを管理または変更するために使用されます。
 
 ### intlayer-cli
 
-`intlayer-cli` パッケージは、`npx intlayer build` コマンドを使用して辞書を生成するために使用されます。 `intlayer` がすでにインストールされている場合、cliは自動的にインストールされ、このパッケージは必要ありません。
+`intlayer-cli`パッケージは、 `npx intlayer build`コマンドを使用して辞書を生成するために使用できます。 `intlayer`がすでにインストールされている場合、CLIは自動的にインストールされ、このパッケージは必要ありません。
 
 ### @intlayer/core
 
-`@intlayer/core` パッケージは、マスターIntlayerパッケージです。翻訳および辞書管理機能を含みます。`@intlayer/core`はマルチプラットフォームであり、辞書の解釈を行うために他のパッケージによって使用されます。
+`@intlayer/core`パッケージは、マスタIntlayerパッケージです。翻訳や辞書管理機能を含みます。 `@intlayer/core`はマルチプラットフォームであり、他のパッケージによって辞書の解釈を行うために使用されます。
 
 ### @intlayer/config
 
-`@intlayer/config` パッケージは、利用可能な言語、Next.jsミドルウェアパラメータ、または統合編集者設定など、Intlayer設定を構成するために使用されます。
+`@intlayer/config`パッケージは、利用可能な言語、Next.jsミドルウェアパラメータ、または統合エディタ設定など、Intlayerの設定を構成するために使用されます。
 
 ### @intlayer/webpack
 
-`@intlayer/webpack` パッケージは、Next.jsおよびReactにコンパイルプラグインを追加するために使用されます。
+`@intlayer/webpack`パッケージは、Next.jsおよびReactにコンパイルプラグインを追加するために使用されます。
 
 ### @intlayer/cli
 
-`@intlayer/cli` パッケージは、すべてのintlayer CLIコマンドの一貫性を確保するために使用されます。
+`@intlayer/cli`パッケージは、すべてのintlayer CLIコマンドの一貫性を確保するために使用されます。
 
 ### @intlayer/dictionaries-entry
 
-`@intlayer/dictionaries-entry` パッケージは、intlayer辞書のエントリーパスのみを返すパッケージです。ブラウザからのファイルシステム検索は不可能なため、WebpackやRollupなどのバンドラーを使用して辞書のエントリーパスを取得することはできません。このパッケージはエイリアスされることを目的としています。
+`@intlayer/dictionaries-entry`パッケージは、intlayer辞書のエントリパスのみを返すパッケージです。ブラウザからファイルシステム検索が不可能なため、WebpackやRollupのようなバンドラーを使用して辞書のエントリパスを取得することは不可能です。このパッケージはエイリアスとして使用されることを目的としています。
 
 ### @intlayer/chokidar
 
-`@intlayer/chokidar` パッケージは、コンテンツファイルを監視し、各変更時に修正された辞書を再生成するために使用されます。
+`@intlayer/chokidar`パッケージは、コンテンツファイルを監視し、各変更時に修正された辞書を再生成するために使用されます。

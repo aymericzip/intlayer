@@ -1,43 +1,69 @@
-# Documentation: `getLocaleLang` Function in `intlayer`
+# 文档：`getLocaleLang` 函数在 `intlayer`
 
-## Description:
+## 描述：
 
-`getLocaleLang` 函数从区域字符串中提取语言代码。它支持有或没有国家代码的区域。如果没有提供区域，它默认为返回一个空字符串。
+`getLocaleLang` 函数从区域字符串中提取语言代码。它支持带有或不带有国家代码的区域。如果未提供区域，它默认返回空字符串。
 
-## Parameters:
+## 参数：
 
 - `locale?: Locales`
 
-  - **Description**: 区域字符串（例如，`Locales.ENGLISH_UNITED_STATES`，`Locales.FRENCH_CANADA`），从中提取语言代码。
-  - **Type**: `Locales`（可选）
+  - **描述**：要从中提取语言代码的区域字符串（例如，`Locales.ENGLISH_UNITED_STATES`，`Locales.FRENCH_CANADA`）。
+  - **类型**：`Locales`（可选）
 
-## Returns:
+## 返回值：
 
-- **Type**: `string`
-- **Description**: 从区域中提取的语言代码。如果没有提供区域，它返回一个空字符串（`''`）。
+- **类型**：`string`
+- **描述**：从区域中提取的语言代码。如果未提供区域，则返回空字符串 (`''`)。
 
-## Example Usage:
+## 示例用法：
 
-### Extracting Language Codes:
+### 提取语言代码：
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
 
-// 输出: "en"
-getLocaleLang(Locales.ENGLISH_UNITED_STATES);
-// 输出: "en"
-getLocaleLang(Locales.ENGLISH);
-// 输出: "fr"
-getLocaleLang(Locales.FRENCH_CANADA);
-// 输出: "fr"
-getLocaleLang(Locales.FRENCH);
+// 获取英语（美国）的语言代码
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 输出: "en"
+// 获取英语的语言代码
+getLocaleLang(Locales.ENGLISH); // 输出: "en"
+// 获取法语（加拿大）的语言代码
+getLocaleLang(Locales.FRENCH_CANADA); // 输出: "fr"
+// 获取法语的语言代码
+getLocaleLang(Locales.FRENCH); // 输出: "fr"
 ```
 
-## Edge Cases:
+```javascript codeFormat="esm"
+import { getLocaleLang } from "intlayer";
 
-- **No Locale Provided:**
+// 获取英语（美国）的语言代码
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 输出: "en"
+// 获取英语的语言代码
+getLocaleLang(Locales.ENGLISH); // 输出: "en"
+// 获取法语（加拿大）的语言代码
+getLocaleLang(Locales.FRENCH_CANADA); // 输出: "fr"
+// 获取法语的语言代码
+getLocaleLang(Locales.FRENCH); // 输出: "fr"
+```
 
-  - 当 `locale` 为 `undefined` 时，函数返回一个空字符串。
+```javascript codeFormat="commonjs"
+const { getLocaleLang } = require("intlayer");
 
-- **Malformed Locale Strings:**
-  - 如果 `locale` 不遵循 `language-country` 格式（例如，`Locales.ENGLISH-US`），函数安全地返回 `'-'` 前面的部分，或者如果没有 `'-'`，则返回整个字符串。
+// 获取英语（美国）的语言代码
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 输出: "en"
+// 获取英语的语言代码
+getLocaleLang(Locales.ENGLISH); // 输出: "en"
+// 获取法语（加拿大）的语言代码
+getLocaleLang(Locales.FRENCH_CANADA); // 输出: "fr"
+// 获取法语的语言代码
+getLocaleLang(Locales.FRENCH); // 输出: "fr"
+```
+
+## 边缘案例：
+
+- **未提供区域**：
+
+  - 当 `locale` 为 `undefined` 时，函数返回空字符串。
+
+- **格式不正确的区域字符串**：
+  - 如果 `locale` 不遵循 `language-country` 格式（例如，`Locales.ENGLISH-US`），则函数安全地返回 `'-'` 前的部分，或者如果没有 `'-'` 则返回整个字符串。

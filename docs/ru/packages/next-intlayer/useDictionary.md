@@ -1,41 +1,55 @@
-# Интеграция React: Документация хука `useDictionary`
+# Интеграция React: Документация по хуку `useDictionary`
 
-Этот раздел предоставляет подробные инструкции по использованию хука `useDictionary` в приложениях React, позволяя эффективно управлять локализованным контентом без визуального редактора.
+Этот раздел предоставляет подробное руководство по использованию хука `useDictionary` в приложениях React, позволяя эффективно обрабатывать локализованный контент без визуального редактора.
 
-## Импортирование `useDictionary` в React
+## Импорт `useDictionary` в React
 
-Хук `useDictionary` можно интегрировать в приложения React, импортировав его в зависимости от контекста:
+Хук `useDictionary`可以通过根据上下文导入到 React 应用程序中：
 
 - **Клиентский компонент:**
 
-  ```javascript
-  import { useDictionary } from "next-intlayer"; // Используется в клиентских компонентах React
+  ```typescript codeFormat="typescript"
+  import { useDictionary } from "next-intlayer"; // Используется в компонентах React на стороне клиента
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useDictionary } from "next-intlayer"; // Используется в компонентах React на стороне клиента
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useDictionary } = require("next-intlayer"); // Используется в компонентах React на стороне клиента
   ```
 
 - **Серверный компонент:**
 
-  ```javascript
-  import { useDictionary } from "next-intlayer/server"; // Используется в серверных компонентах React
+  ```typescript codeFormat="typescript"
+  import { useDictionary } from "next-intlayer/server"; // Используется в компонентах React на стороне сервера
+  ```
+
+  ```javascript codeFormat="esm"
+  import { useDictionary } from "next-intlayer/server"; // Используется в компонентах React на стороне сервера
+  ```
+
+  ```javascript codeFormat="commonjs"
+  const { useDictionary } = require("next-intlayer/server"); // Используется в компонентах React на стороне сервера
   ```
 
 ## Параметры
 
 Хук принимает два параметра:
 
-1. **`dictionary`**: Объект словаря, содержащий локализованный контент для конкретных ключей.
-2. **`locale`** (по желанию): Желаемая локаль. По умолчанию используется локаль текущего контекста, если не указана.
+1. **`dictionary`**: Объявленный объект словаря, содержащий локализованный контент для конкретных ключей.
+2. **`locale`** (опционально): Желаемая локаль. По умолчанию используется локаль текущего контекста, если не указано.
 
 ## Объявление контента
 
-Все объекты словаря должны быть объявлены в структурированных файлах контента для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Вы можете найти инструкции по настройке [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md). Вот пример объявления контента:
+Все объекты словаря должны быть объявлены в структурированных контентных файлах для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Вы можете найти инструкции по настройке [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md). Вот пример объявления контента:
 
-```typescript
-// ./component.content.ts
-
+```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
-const clientComponentExampleContent = {
-  key: "client-component-example",
+const exampleContent = {
+  key: "component-example",
   content: {
     title: t({
       en: "Client Component Example",
@@ -50,20 +64,67 @@ const clientComponentExampleContent = {
   },
 } satisfies DeclarationContent;
 
-export default clientComponentExampleContent;
+export default exampleContent;
 ```
 
-## Пример использования в React
+```javascript fileName="component.content.mjs" codeFormat="esm"
+import { t } from "intlayer";
+
+/** @type {import('intlayer').DeclarationContent} */
+const exampleContent = {
+  key: "component-example",
+  content: {
+    title: t({
+      en: "Client Component Example",
+      fr: "Exemple de composant client",
+      es: "Ejemplo de componente cliente",
+    }),
+    content: t({
+      en: "This is the content of a client component example",
+      fr: "Ceci est le contenu d'un exemple de composant client",
+      es: "Este es el contenido de un ejemplo de componente cliente",
+    }),
+  },
+};
+
+export default exampleContent;
+```
+
+```javascript fileName="component.content.cjs" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+const exampleContent = {
+  key: "component-example",
+  content: {
+    title: t({
+      en: "Client Component Example",
+      fr: "Exemple de composant client",
+      es: "Ejemplo de componente cliente",
+    }),
+    content: t({
+      en: "This is the content of a client component example",
+      fr: "Ceci est le contenu d'un exemple de composant client",
+      es: "Este es el contenido de un ejemplo de componente cliente",
+    }),
+  },
+};
+
+module.exports = exampleContent;
+```
+
+## Пример использования в клиентском компоненте React
 
 Ниже приведен пример того, как использовать хук `useDictionary` в компоненте React:
 
-```tsx
-// ./ClientComponentExample.tsx
+```tsx fileName="ClientComponentExample.tsx" codeFormat="typescript"
+"use client";
 
+import type { FC } from "react";
 import { useDictionary } from "next-intlayer";
 import clientComponentExampleContent from "./component.content";
 
-const ClientComponentExample = () => {
+const ClientComponentExample: FC = () => {
   const { title, content } = useDictionary(clientComponentExampleContent);
 
   return (
@@ -73,20 +134,56 @@ const ClientComponentExample = () => {
     </div>
   );
 };
-
-export default ClientComponentExample;
 ```
 
-## Интеграция на сервере
+```javascript fileName="ClientComponentExample.mjs" codeFormat="esm"
+"use client";
 
-Если вы используете хук `useDictionary` вне `IntlayerServerProvider`, локаль должна быть явно указана в качестве параметра при рендеринге компонента:
+import type { FC } from "react";
+import { useDictionary } from "next-intlayer";
+import exampleContent from "./component.content";
 
-```tsx
+const ClientComponentExample: FC = () => {
+  const { title, content } = useDictionary(exampleContent);
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{content}</p>
+    </div>
+  );
+};
+```
+
+```javascript fileName="ClientComponentExample.cjs" codeFormat="commonjs"
+"use client";
+
+const { useDictionary } = require("next-intlayer");
+const exampleContent = require("./component.content");
+
+const ClientComponentExample = () => {
+  const { title, content } = useDictionary(exampleContent);
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{content}</p>
+    </div>
+  );
+};
+```
+
+## Пример использования в серверном компоненте React
+
+Если вы используете хук `useDictionary` вне `IntlayerServerProvider`, локаль должна быть явно предоставлена в качестве параметра при рендеринге компонента:
+
+```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
 import { useDictionary } from "next-intlayer/server";
 import clientComponentExampleContent from "./component.content";
 
-const ServerComponentExample = ({ locale }: { locale: string }) => {
-  const { content } = useDictionary(clientComponentExampleContent, locale);
+const ServerComponentExample: FC = () => {
+  const { content } = useDictionary(clientComponentExampleContent);
 
   return (
     <div>
@@ -95,21 +192,51 @@ const ServerComponentExample = ({ locale }: { locale: string }) => {
     </div>
   );
 };
+```
 
-export default ServerComponentExample;
+```javascript fileName="ServerComponentExample.mjs" codeFormat="esm"
+import { useDictionary } from "next-intlayer/server";
+import clientComponentExampleContent from "./component.content";
+
+const ServerComponentExample = () => {
+  const { content } = useDictionary(clientComponentExampleContent);
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+```javascript fileName="ServerComponentExample.cjs" codeFormat="commonjs"
+import { useDictionary } from "next-intlayer/server";
+import clientComponentExampleContent from "./component.content";
+
+const ServerComponentExample = () => {
+  const { content } = useDictionary(clientComponentExampleContent);
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.content}</p>
+    </div>
+  );
+};
 ```
 
 ## Примечания по атрибутам
 
-В отличие от интеграций с использованием визуальных редакторов, такие атрибуты, как `buttonTitle.value`, здесь не применяются. Вместо этого обращайтесь к локализованным строкам напрямую, как объявлено в вашем контенте.
+В отличие от интеграций с использованием визуальных редакторов, атрибуты, такие как `buttonTitle.value`, здесь не применяются. Вместо этого прямо обращайтесь к локализованным строкам, как объявлено в вашем контенте.
 
-```tsx
+```jsx
 <button title={content.title}>{content.content}</button>
 ```
 
 ## Дополнительные советы
 
-- **Безопасность типов**: Всегда используйте `DeclarationContent` для определения ваших словарей, чтобы обеспечить безопасность типов.
-- **Обновления локализации**: При обновлении контента убедитесь, что все локали согласованы, чтобы избежать отсутствующих переводов.
+- **Безопасность типов**: Всегда используйте `DeclarationContent`, чтобы определить свои словари, чтобы обеспечить безопасность типов.
+- **Обновления локализации**: При обновлении контента убедитесь, что все локали согласованы, чтобы избежать отсутствия переводов.
 
-Эта документация сосредоточена на интеграции хука `useDictionary`, предоставляя оптимизированный подход к управлению локализованным контентом без reliance on визуальными функциональными редакторами.
+Этот документ фокусируется на интеграции хука `useDictionary`, предоставляя упрощенный подход к управлению локализованным контентом без зависимости от функциональности визуального редактора.

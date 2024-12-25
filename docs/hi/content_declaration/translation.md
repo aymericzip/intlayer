@@ -1,14 +1,14 @@
-# Translation
+# अनुवाद
 
-## Defining Translations
+## अनुवादों को परिभाषित करना
 
-`intlayer` में `t` फ़ंक्शन आपको कई भाषाओं में सामग्री घोषित करने की अनुमति देता है। यह फ़ंक्शन प्रकार सुरक्षा सुनिश्चित करता है, यदि कोई अनुवाद गायब है तो एक त्रुटि उठाता है, जो विशेष रूप से TypeScript वातावरण में उपयोगी है।
+`intlayer` में `t` फ़ंक्शन आपको कई भाषाओं में सामग्री घोषित करने की अनुमति देता है। यह फ़ंक्शन प्रकार की सुरक्षा सुनिश्चित करता है, यदि कोई अनुवाद गायब है तो एक त्रुटि उत्पन्न करता है, जो कि TypeScript वातावरण में विशेष रूप से उपयोगी है।
 
-### Using TypeScript
+### TypeScript का उपयोग करना
 
-यहाँ एक उदाहरण है कि TypeScript फ़ाइल में अनुवाद के साथ सामग्री कैसे घोषित की जाए:
+यहाँ अनुवादों के साथ सामग्री घोषित करने का एक उदाहरण है।
 
-```typescript
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -22,16 +22,13 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      hi: "हमारे एप्लिकेशन में आपका स्वागत है",
     }),
   },
 } satisfies DeclarationContent<Content>;
 ```
 
-### Using ECMAScript Modules
-
-यदि आप ECMAScript मॉड्यूल का उपयोग कर रहे हैं, तो घोषणा इस प्रकार दिखेगी:
-
-```javascript
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 export default {
@@ -41,16 +38,13 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      hi: "हमारे एप्लिकेशन में आपका स्वागत है",
     }),
   },
 };
 ```
 
-### Using CommonJS Modules
-
-एक CommonJS सेटअप में, आप अनुवाद इस प्रकार घोषित कर सकते हैं:
-
-```javascript
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 module.exports = {
@@ -60,16 +54,13 @@ module.exports = {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
+      hi: "हमारे एप्लिकेशन में आपका स्वागत है",
     }),
   },
 };
 ```
 
-### Using JSON
-
-JSON-आधारित घोषणाओं के लिए, आप अनुवाद को निम्नलिखित प्रकार से परिभाषित कर सकते हैं:
-
-```json
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
   "key": "multi_lang",
   "content": {
@@ -78,34 +69,78 @@ JSON-आधारित घोषणाओं के लिए, आप अनु
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nuestra aplicación"
+        "es": "Bienvenido a nuestra aplicación",
+        "hi": "हमारे एप्लिकेशन में आपका स्वागत है"
       }
     }
   }
 }
 ```
 
-## Configuration for Locales
+## स्थानीयकरण के लिए कॉन्फ़िगरेशन
 
-सही अनुवाद प्रबंधन सुनिश्चित करने के लिए, आप `intlayer.config.ts` में स्वीकृत भाषाओं को कॉन्फ़िगर कर सकते हैं। यह कॉन्फ़िगरेशन आपको उन भाषाओं को परिभाषित करने की अनुमति देता है जिन्हें आपका आवेदन समर्थन करता है:
+सही अनुवाद प्रबंधन सुनिश्चित करने के लिए, आप `intlayer.config.ts` में स्वीकार्य स्थानीयकरण को कॉन्फ़िगर कर सकते हैं। यह कॉन्फ़िगरेशन आपको उन भाषाओं को परिभाषित करने की अनुमति देता है जो आपका एप्लिकेशन समर्थन करता है:
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.HINDI],
   },
 };
 
 export default config;
 ```
 
-## Using Translations in React Components
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
 
-`react-intlayer` के साथ, आप React घटकों में अनुवाद का उपयोग कर सकते हैं। यहाँ एक उदाहरण है:
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.HINDI],
+  },
+};
 
-```jsx
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.HINDI],
+  },
+};
+
+module.exports = config;
+```
+
+## React घटकों में अनुवादों का उपयोग करना
+
+`react-intlayer` के साथ, आप React घटकों में अनुवादों का उपयोग कर सकते हैं। यहाँ एक उदाहरण है:
+
+```jsx fileName="**/*.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const MyComponent: FC = () => {
+  const content = useIntlayer("multi_lang");
+
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
@@ -121,13 +156,29 @@ const MyComponent = () => {
 export default MyComponent;
 ```
 
-यह घटक आपके आवेदन में वर्तमान सेट की गई भाषा के आधार पर संबंधित अनुवाद प्राप्त करता है।
+```javascript fileName="**/*.cjs" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
 
-## Custom Content Objects
+const MyComponent = () => {
+  const content = useIntlayer("multi_lang");
 
-`intlayer` अनुवाद के लिए कस्टम सामग्री वस्तुओं का समर्थन करता है, जिससे आपको प्रकार सुरक्षा सुनिश्चित करते हुए अधिक जटिल संरचनाएँ परिभाषित करने की अनुमति मिलती है। यहाँ एक कस्टम वस्तु के साथ एक उदाहरण है:
+  return (
+    <div>
+      <p>{content.welcomeMessage}</p>
+    </div>
+  );
+};
 
-```typescript
+module.exports = MyComponent;
+```
+
+यह घटक आपके एप्लिकेशन में सेट की गई वर्तमान लोकेल के आधार पर संबंधित अनुवादों को लाता है।
+
+## कस्टम सामग्री वस्तुएं
+
+`intlayer` अनुवाद के लिए कस्टम सामग्री वस्तुओं का समर्थन करता है, जिससे आपको प्रकार की सुरक्षा सुनिश्चित करते हुए अधिक जटिल संरचनाओं को परिभाषित करने की अनुमति मिलती है। यहाँ एक कस्टम वस्तु के साथ उदाहरण है:
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";
 
 interface ICustomContent {
@@ -151,9 +202,104 @@ const customContent = {
         title: "Título de la Página",
         content: "Contenido de la Página",
       },
+      hi: {
+        title: "पृष्ठ शीर्षक",
+        content: "पृष्ठ सामग्री",
+      },
     }),
   },
 } satisfies DeclarationContent;
 
 export default customContent;
+```
+
+```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+export default {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "Page Title",
+          content: "Page Content",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+        hi: {
+          title: "पृष्ठ शीर्षक",
+          content: "पृष्ठ सामग्री",
+        },
+      },
+  },
+};
+```
+
+```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+module.exports = {
+  key: "custom_content",
+  content: {
+    profileText:
+      t <
+      ICustomContent >
+      {
+        en: {
+          title: "Page Title",
+          content: "Page Content",
+        },
+        fr: {
+          title: "Titre de la Page",
+          content: "Contenu de la Page",
+        },
+        es: {
+          title: "Título de la Página",
+          content: "Contenido de la Página",
+        },
+        hi: {
+          title: "पृष्ठ शीर्षक",
+          content: "पृष्ठ सामग्री",
+        },
+      },
+  },
+};
+```
+
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "key": "custom_content",
+  "content": {
+    "profileText": {
+      "nodeType": "translation",
+      "translation": {
+        "en": {
+          "title": "Page Title",
+          "content": "Page Content"
+        },
+        "fr": {
+          "title": "Titre de la Page",
+          "content": "Contenu de la Page"
+        },
+        "es": {
+          "title": "Título de la Página",
+          "content": "Contenido de la Página"
+        },
+        "hi": {
+          "title": "पृष्ठ शीर्षक",
+          "content": "पृष्ठ सामग्री"
+        }
+      }
+    }
+  }
+}
 ```

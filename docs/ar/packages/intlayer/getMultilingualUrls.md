@@ -1,47 +1,47 @@
-# Documentation: `getMultilingualUrls` Function in `intlayer`
+# الوثائق: دالة `getMultilingualUrls` في `intlayer`
 
-## Description:
+## الوصف:
 
-The `getMultilingualUrls` function generates a mapping of multilingual URLs by prefixing the given URL with each supported locale. It can handle both absolute and relative URLs, applying the appropriate locale prefix based on the provided configuration or defaults.
+تقوم دالة `getMultilingualUrls` بإنشاء خريطة من عناوين URL متعددة اللغات عن طريق إضافة بادئة عناوين URL المعطاة بكل لغة مدعومة. يمكنها التعامل مع كل من عناوين URL المطلقة والنسبية، وتطبيق بادئة اللغة المناسبة بناءً على التكوين المقدم أو القيم الافتراضية.
 
 ---
 
-## Parameters:
+## المعاملات:
 
 - `url: string`
 
-  - **الوصف**: السلسلة الأصلية لعنوان URL التي سيتم إرفاقها باللغات المحلية.
+  - **الوصف**: سلسلة عنوان URL الأصلية المراد إضافة بادئات اللغات إليها.
   - **النوع**: `string`
 
 - `locales: Locales[]`
 
-  - **الوصف**: مصفوفة اختيارية من اللغات المحلية المدعومة. الافتراضي هو اللغات المحلية المكونة في المشروع.
+  - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. يتم تعيينها على القيم الافتراضية للغات المعرفة في المشروع.
   - **النوع**: `Locales[]`
   - **الافتراضي**: `localesDefault`
 
 - `defaultLocale: Locales`
 
-  - **الوصف**: اللغة المحلية الافتراضية للتطبيق. الافتراضي هو اللغة المحلية الافتراضية المكونة في المشروع.
+  - **الوصف**: اللغة الافتراضية للتطبيق. يتم تعيينها على اللغة الافتراضية المعرفة في المشروع.
   - **النوع**: `Locales`
   - **الافتراضي**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **الوصف**: ما إذا كان يجب إدخال البادئة للغة المحلية الافتراضية. الافتراضي هو القيمة المكونة في المشروع.
+  - **الوصف**: ما إذا كان يجب إضافة بادئة اللغة الافتراضية. يتم تعيينها على القيمة المعينة في المشروع.
   - **النوع**: `boolean`
   - **الافتراضي**: `prefixDefaultDefault`
 
-### Returns:
+### النتيجة:
 
 - **النوع**: `IConfigLocales<string>`
-- **الوصف**: كائن يطابق كل لغة محلية مع عنوان URL متعدد اللغات الخاص بها.
+- **الوصف**: كائن يربط كل لغة بالرابط متعدد اللغات المقابل.
 
 ---
 
-## Example Usage:
+## مثال على الاستخدام:
 
-### Relative URLs:
+### عناوين URL النسبية:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
 
 getMultilingualUrls(
@@ -50,13 +50,43 @@ getMultilingualUrls(
   Locales.ENGLISH,
   false
 );
-// Output: {
+// النتيجة: {
 //   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
 
-### Absolute URLs:
+```javascript codeFormat="esm"
+import { getMultilingualUrls, Locales } from "intlayer";
+
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// النتيجة: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
+```javascript codeFormat="commonjs"
+const { getMultilingualUrls, Locales } = require("intlayer");
+
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// النتيجة: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
+### عناوين URL المطلقة:
 
 ```typescript
 getMultilingualUrls(
@@ -65,7 +95,7 @@ getMultilingualUrls(
   Locales.ENGLISH,
   true
 );
-// Output: {
+// النتيجة: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
 // }
@@ -73,29 +103,29 @@ getMultilingualUrls(
 
 ---
 
-## Edge Cases:
+## حالات الشذوذ:
 
-- **لا يوجد قسم لغة محلية:**
+- **عدم وجود جزء اللغة:**
 
-  - تقوم الدالة بإزالة أي قسم لغة محلية موجود من عنوان URL قبل إنشاء الخرائط متعددة اللغات.
+  - تقوم الدالة بإزالة أي جزء لغة موجود من عنوان URL قبل إنشاء الخرائط متعددة اللغات.
 
-- **اللغة المحلية الافتراضية:**
+- **اللغة الافتراضية:**
 
-  - عندما تكون `prefixDefault` هي `false`، فإن الدالة لا تضع بادئة لعنوان URL للغة المحلية الافتراضية.
+  - عندما تكون `prefixDefault` تساوي `false`، لا تضيف الدالة بادئة للغة الافتراضية.
 
-- **لغات محلية غير مدعومة:**
-  - فقط اللغات المحلية المقدمة في مصفوفة `locales` يتم اعتبارها لإنشاء عناوين URL.
+- **اللغات غير المدعومة:**
+  - يتم اعتبار اللغات المقدمة فقط في مصفوفة `locales` لتوليد عناوين URL.
 
 ---
 
-## Usage in Applications:
+## الاستخدام في التطبيقات:
 
-في تطبيق متعدد اللغات، فإن تكوين إعدادات التدويل باستخدام `locales` و `defaultLocale` أمر بالغ الأهمية لضمان عرض اللغة الصحيحة. فيما يلي مثال على كيفية استخدام `getMultilingualUrls` في إعداد التطبيق:
+في تطبيق متعدد اللغات، يعد تكوين إعدادات التدويل باستخدام `locales` و `defaultLocale` أمرًا حاسمًا لضمان عرض اللغة الصحيحة. أدناه مثال على كيفية استخدام `getMultilingualUrls` في إعداد التطبيق:
 
-```tsx
+```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// تكوين اللغات المدعومة واللغة المحلية الافتراضية
+// التكوين للغات المدعومة واللغة الافتراضية
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -106,9 +136,37 @@ export default {
 export default config;
 ```
 
-التهيئة أعلاه تضمن أن التطبيق recognizes اللغة `ENGLISH` و `FRENCH` و `SPANISH` كلغات مدعومة وتستخدم `ENGLISH` كبديل.
+```javascript codeFormat="esm"
+import { Locales } from "intlayer";
 
-باستخدام هذا التكوين، يمكن لدالة `getMultilingualUrls` توليد خرائط عناوين URL متعددة اللغات استنادًا إلى اللغات المحلية المدعومة في التطبيق:
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
+يضمن التكوين أعلاه أن التطبيق يتعرف على `ENGLISH` و `FRENCH` و `SPANISH` كلغات مدعومة ويستخدم `ENGLISH` كلغة احتياطية.
+
+باستخدام هذا التكوين، يمكن لدالة `getMultilingualUrls` توليد خريطة عناوين URL متعددة اللغات ديناميكيًا بناءً على اللغات المدعومة في التطبيق:
 
 ```typescript
 getMultilingualUrls(
@@ -116,7 +174,7 @@ getMultilingualUrls(
   [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   Locales.ENGLISH
 );
-// Output:
+// النتيجة:
 // {
 //   en: "/dashboard",
 //   fr: "/fr/dashboard",
@@ -129,7 +187,7 @@ getMultilingualUrls(
   Locales.ENGLISH,
   true
 );
-// Output:
+// النتيجة:
 // {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard",
@@ -137,4 +195,4 @@ getMultilingualUrls(
 // }
 ```
 
-من خلال دمج `getMultilingualUrls`، يمكن للمطورين الحفاظ على هياكل URL متسقة عبر عدة لغات، مما يعزز تجربة المستخدم وSEO.
+من خلال دمج `getMultilingualUrls`، يمكن للمطورين الحفاظ على هياكل عناوين URL متسقة عبر عدة لغات، مما يعزز كل من تجربة المستخدم وSEO.

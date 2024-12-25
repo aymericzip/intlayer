@@ -2,7 +2,7 @@
 
 ## Описание:
 
-Функция `getMultilingualUrls` создает отображение многоязычных URL, добавляя к данному URL каждый поддерживаемый язык. Она может обрабатывать как абсолютные, так и относительные URL, применяя соответствующий префикс языка на основе предоставленной конфигурации или значений по умолчанию.
+Функция `getMultilingualUrls` генерирует сопоставление многоязычных URL, добавляя префикс с данным языком к каждому поддерживаемому языку. Она может обрабатывать как абсолютные, так и относительные URL, применяя соответствующий префикс языка в зависимости от заданной конфигурации или значений по умолчанию.
 
 ---
 
@@ -10,12 +10,12 @@
 
 - `url: string`
 
-  - **Описание**: Оригинальная строка URL, к которой будет добавлен префикс языков.
+  - **Описание**: Исходная строка URL, к которой будут добавлены языковые префиксы.
   - **Тип**: `string`
 
 - `locales: Locales[]`
 
-  - **Описание**: Необязательный массив поддерживаемых языков. По умолчанию используется настроенный языковой массив в проекте.
+  - **Описание**: Необязательный массив поддерживаемых языков. По умолчанию используются настроенные языки в проекте.
   - **Тип**: `Locales[]`
   - **По умолчанию**: `localesDefault`
 
@@ -26,14 +26,14 @@
   - **По умолчанию**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **Описание**: Нужно ли добавлять префикс для языка по умолчанию. По умолчанию используется настроенное значение в проекте.
+  - **Описание**: Нужно ли добавлять префикс языка по умолчанию. По умолчанию используется настроенное значение в проекте.
   - **Тип**: `boolean`
   - **По умолчанию**: `prefixDefaultDefault`
 
 ### Возвращает:
 
 - **Тип**: `IConfigLocales<string>`
-- **Описание**: Объект, отображающий каждый язык на соответствующий многоязычный URL.
+- **Описание**: Объект, сопоставляющий каждый язык с его соответствующим многоязычным URL.
 
 ---
 
@@ -41,8 +41,38 @@
 
 ### Относительные URL:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
+
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// Вывод: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
+```javascript codeFormat="esm"
+import { getMultilingualUrls, Locales } from "intlayer";
+
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// Вывод: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
+```javascript codeFormat="commonjs"
+const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -73,29 +103,29 @@ getMultilingualUrls(
 
 ---
 
-## Граничные случаи:
+## Краевые случаи:
 
 - **Нет сегмента языка:**
 
-  - Функция удаляет любые существующие сегменты языка из URL перед созданием многоязычных отображений.
+  - Функция удаляет любой существующий сегмент языка из URL перед тем, как сгенерировать многоязычные сопоставления.
 
 - **Язык по умолчанию:**
 
   - Когда `prefixDefault` равно `false`, функция не добавляет префикс URL для языка по умолчанию.
 
-- **Неподдерживаемые языки:**
-  - Учитываются только языки, предоставленные в массиве `locales`, для генерации URL.
+- **Не поддерживаемые языки:**
+  - Только языки, указанные в массиве `locales`, учитываются при генерации URL.
 
 ---
 
 ## Использование в приложениях:
 
-В многоязычном приложении настройка параметров интернационализации с помощью `locales` и `defaultLocale` критически важна для обеспечения отображения правильного языка. Ниже приведен пример того, как `getMultilingualUrls` может быть использован в настройке приложения:
+В многоязычном приложении настройка параметров интернационализации с `locales` и `defaultLocale` критически важна для обеспечения корректного отображения языка. Ниже приведен пример того, как `getMultilingualUrls` может быть использован в конфигурации приложения:
 
-```tsx
+```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// Конфигурация поддерживаемых языков и языка по умолчанию
+// Конфигурация для поддерживаемых языков и языка по умолчанию
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -106,9 +136,37 @@ export default {
 export default config;
 ```
 
-Вышеуказанная конфигурация гарантирует, что приложение распознает `ENGLISH`, `FRENCH` и `SPANISH` как поддерживаемые языки и использует `ENGLISH` в качестве языка по умолчанию.
+```javascript codeFormat="esm"
+import { Locales } from "intlayer";
 
-Используя эту конфигурацию, функция `getMultilingualUrls` может динамически создавать многоязычные отображения URL на основе поддерживаемых языков приложения:
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
+Указанная выше конфигурация обеспечивает распознавание приложения языков `ENGLISH`, `FRENCH` и `SPANISH` как поддерживаемых и использование `ENGLISH` в качестве языка по умолчанию.
+
+Используя эту конфигурацию, функция `getMultilingualUrls` может динамически генерировать сопоставления многоязычных URL на основе поддерживаемых языков приложения:
 
 ```typescript
 getMultilingualUrls(
@@ -137,4 +195,4 @@ getMultilingualUrls(
 // }
 ```
 
-Интегрируя `getMultilingualUrls`, разработчики могут поддерживать единообразные структуры URL по нескольким языкам, улучшая как пользовательский опыт, так и SEO.
+Интегрируя `getMultilingualUrls`, разработчики могут поддерживать согласованную структуру URL на нескольких языках, улучшая как пользовательский опыт, так и SEO.

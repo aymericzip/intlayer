@@ -1,26 +1,38 @@
-# Intlayer: आपके अनुप्रयोग का अनुवाद करने का एक करीबी तरीका
+# Intlayer: आपके अनुप्रयोग का अनुवाद करने का एक करीब तरीका
 
-**Intlayer** एक अंतरराष्ट्रीयकरण लाइब्रेरी है जो विशेष रूप से JavaScript डेवलपर्स के लिए डिज़ाइन की गई है। यह आपके कोड में कहीं भी आपके सामग्री की घोषणा करने की अनुमति देता है। यह बहुभाषी सामग्री की घोषणा को संरचित शब्दकोशों में परिवर्तित करता है ताकि इसे आपके कोड में आसानी से एकीकृत किया जा सके। TypeScript का उपयोग करते हुए, **Intlayer** आपके विकास को और मजबूत और अधिक प्रभावी बनाता है।
+**Intlayer** एक अंतर्राष्ट्रीयकरण पुस्तकालय है जिसे विशेष रूप से जावास्क्रिप्ट डेवलपर्स के लिए डिज़ाइन किया गया है। यह आपके कोड में हर जगह आपके सामग्री की घोषणा करने की अनुमति देता है। यह बहुभाषी सामग्री की घोषणा को संरचित शब्दकोशों में परिवर्तित करता है ताकि इसे अपने कोड में आसानी से एकीकृत किया जा सके। TypeScript का उपयोग करते हुए, **Intlayer** आपके विकास को मजबूत और अधिक प्रभावी बनाता है।
 
 ## उपयोग का उदाहरण
 
-```bash
+```bash codeFormat="typescript"
 .
-├── Component1
-│   ├── index.content.ts
-│   └── index.tsx
-└── Component2
-    ├── index.content.ts
-    └── index.tsx
+└── Components
+    └── myComponent
+       ├── index.content.ts
+       └── index.tsx
 ```
 
-```tsx
-// ./Component1/index.content.ts
+```bash codeFormat="commonjs"
+.
+└── Components
+    └── myComponent
+       ├── index.content.cjs
+       └── index.mjs
+```
 
+```bash codeFormat="esm"
+.
+└── Components
+    └── myComponent
+       ├── index.content.mjs
+       └── index.js
+```
+
+```tsx fileName="./Components/MyComponent/index.content.ts" codeFormat="typescript"
 import { type DeclarationContent, t } from "intlayer";
 
-const component1Content = {
-  key: "component1",
+const componentExampleContent = {
+  key: "component-example",
   content: {
     myTranslatedContent: t({
       en: "Hello World",
@@ -30,16 +42,70 @@ const component1Content = {
   },
 } satisfies DeclarationContent;
 
-export default component1Content;
+export default componentExampleContent;
 ```
 
-```tsx
-// ./Component1/index.tsx
+```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+import { t } from "intlayer";
 
+/** @type {import('intlayer').DeclarationContent} */
+const componentExampleContent = {
+  key: "component-example",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+export default componentExampleContent;
+```
+
+```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+const componentExampleContent = {
+  key: "component-example",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+  },
+};
+
+module.exports = componentExampleContent;
+```
+
+```tsx fileName="./Components/MyComponent/index.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer";
 
-export const Component1 = () => {
-  const { myTranslatedContent } = useIntlayer("component1");
+export const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+import { useIntlayer } from "react-intlayer";
+
+const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
+const { useIntlayer } = require("react-intlayer");
+
+const ComponentExample = () => {
+  const { myTranslatedContent } = useIntlayer("component-example");
 
   return <span>{myTranslatedContent}</span>;
 };
@@ -47,10 +113,10 @@ export const Component1 = () => {
 
 ## Intlayer क्यों चुनें?
 
-- **JavaScript-प्रेरित सामग्री प्रबंधन**: आपके सामग्री को प्रभावी ढंग से परिभाषित और प्रबंधित करने के लिए JavaScript की लचीलापन का लाभ उठाएं।
-- **टाइप-सेफ वातावरण**: सभी आपकी सामग्री परिभाषाओं की सटीकता और त्रुटि-मुक्तता सुनिश्चित करने के लिए TypeScript का लाभ उठाएं।
-- **एकीकृत सामग्री फ़ाइलें**: आपके अनुवादों को उनके संबंधित घटकों के करीब रखें, जिससे रखरखाव और स्पष्टता में सुधार होता है।
-- **सरल सेटअप**: न्यूनतम कॉन्फ़िगरेशन के साथ जल्दी पनपें, विशेष रूप से Next.js परियोजनाओं के लिए अनुकूलित।
-- **सर्वर कंपोनेंट समर्थन**: Next.js सर्वर कंपोनेंट के लिए पूरी तरह से उपयुक्त, जो चिकनी सर्वर-साइड रेंडरिंग सुनिश्चित करता है।
-- **सुधारित रूटिंग**: Next.js ऐप रूटिंग के लिए पूर्ण समर्थन, जटिल अनुप्रयोग संरचनाओं के अनुकूलता में समायोजित।
-- **इंटरऑपरेबिलिटी**: i18next इंटरऑपरेबिलिटी की अनुमति दें। (बीटा)
+- **जावास्क्रिप्ट-शक्ति प्राप्त सामग्री प्रबंधन**: अपनी सामग्री को कुशलता से परिभाषित और प्रबंधित करने के लिए जावास्क्रिप्ट की लचीलापन का लाभ उठाएं।
+- **प्रकार-सुरक्षित वातावरण**: यह सुनिश्चित करने के लिए TypeScript का लाभ उठाएं कि आपकी सभी सामग्री परिभाषाएँ सटीक और त्रुटि-रहित हैं।
+- **एकीकृत सामग्री फ़ाइलें**: अपनी अनुवादों को उनके संबंधित घटकों के करीब रखें, जिससे बनाए रखने और स्पष्टता में सुधार होता है।
+- **सरल सेटअप**: न्यूनतम कॉन्फ़िगरेशन के साथ जल्दी से शुरू हो जाएं, विशेष रूप से Next.js परियोजनाओं के लिए अनुकूलित।
+- **सर्वर घटक समर्थन**: Next.js सर्वर घटकों के लिए पूरी तरह से उपयुक्त, यह सर्वर साइड रेंडरिंग सुनिश्चित करता है।
+- **सुधारी गई राउटिंग**: Next.js ऐप राउटिंग के लिए पूर्ण समर्थन, जटिल अनुप्रयोग संरचनाओं के अनुरूप ढलना।
+- **अंतर-सामंजस्य**: i18next अंतर-सामंजस्य की अनुमति दें। (बीटा)

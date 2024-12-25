@@ -1,37 +1,67 @@
-# React Integration: `useIntlayerAsync` Hook Документация
+# Интеграция React: Документация по хуку `useIntlayerAsync`
 
-Хук `useIntlayerAsync` расширяет функциональность `useIntlayer`, возвращая не только заранее отрендеренные словари, но и асинхронно загружая обновления, что делает его идеальным для приложений, которые часто обновляют свой локализованный контент после начального рендера.
+Хук `useIntlayerAsync` расширяет функциональность `useIntlayer`, возвращая не только заранее отрендеренные словари, но и асинхронно загружая обновления, что делает его идеальным для приложений, которые часто обновляют свой локализованный контент после первичного рендеринга.
 
 ## Обзор
 
 - **Асинхронная загрузка словарей:**  
-  При первоначальном монтировании `useIntlayerAsync` сначала возвращает любой предварительно загруженный или статически объединенный локальный словарь (так же, как это делал бы `useIntlayer`), а затем асинхронно загружает и объединяет любые новые доступные удаленные словари.
+  При первом монтировании `useIntlayerAsync` сначала возвращает любой предварительно загруженный или статически упакованный словарь локали (так же, как это делает `useIntlayer`), а затем асинхронно загружает и объединяет любые доступные удаленные словари.
 - **Управление состоянием загрузки:**  
-  Хук также предоставляет состояние `isLoading`, указывающее, когда загружается удаленный словарь. Это позволяет разработчикам отображать индикаторы загрузки или скелетные состояния для более гладкого пользовательского опыта.
+  Хук также предоставляет состояние `isLoading`, указывающее, когда удаленный словарь загружается. Это позволяет разработчикам отображать индикаторы загрузки или скелетные состояния для более плавного пользовательского опыта.
 
 ## Настройка окружения
 
-Intlayer предоставляет система управления контентом (CSM) без головы, которая позволяет недевелоперам управлять и обновлять контент приложения без проблем. Используя интуитивно понятную панель Intlayer, ваша команда может редактировать локализованный текст, изображения и другие ресурсы, не изменяя код напрямую. Это оптимизирует процесс управления контентом, способствует сотрудничеству и обеспечивает возможность быстрого и легкого внесения обновлений.
+Intlayer предоставляет управляемую систему управления контентом (CSM), позволяющую неразработчикам управлять и обновлять контент приложений без каких-либо затруднений. Используя интуитивную панель управления Intlayer, ваша команда может редактировать локализованный текст, изображения и другие ресурсы без необходимости прямого изменения кода. Это упрощает процесс управления контентом, способствует совместной работе и гарантирует, что обновления могут быть сделаны быстро и легко.
 
 Чтобы начать работу с Intlayer:
 
 1. **Зарегистрируйтесь и получите токен доступа** на [https://intlayer.org/dashboard](https://intlayer.org/dashboard).
-2. **Добавьте учетные данные в файл конфигурации:**  
+2. **Добавьте учетные данные в ваш конфигурационный файл:**  
    В вашем проекте React настройте клиент Intlayer с вашими учетными данными:
 
-   ```typescript
-   import { type IntlayerConfig } from 'intlayer';
+   ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+   import type { IntlayerConfig } from "intlayer";
 
    export default {
-     ...
+     // ...
      editor: {
        clientId: process.env.INTLAYER_CLIENT_ID,
        clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      },
-   } satisfies IntlayerConfig
+   } satisfies IntlayerConfig;
    ```
 
-3. **Отправьте новый локальный словарь в Intlayer:**
+   ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+   import { type IntlayerConfig } from "intlayer";
+
+   /** @type {import('intlayer').IntlayerConfig} */
+   const config = {
+     // ...
+     editor: {
+       clientId: process.env.INTLAYER_CLIENT_ID,
+       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+     },
+   };
+
+   export default config;
+   ```
+
+   ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+   const { type IntlayerConfig } = require("intlayer");
+
+   /** @type {import('intlayer').IntlayerConfig} */
+   const config = {
+     // ...
+     editor: {
+       clientId: process.env.INTLAYER_CLIENT_ID,
+       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+     },
+   };
+
+   module.exports = config;
+   ```
+
+3. **Отправьте новый словарь локали в Intlayer:**
 
    ```bash
    npm intlayer push -d my-first-dictionary-key
@@ -43,8 +73,16 @@ Intlayer предоставляет система управления конт
 
 В ваших компонентах React импортируйте `useIntlayerAsync`:
 
-```tsx
+```ts codeFormat="typescript"
 import { useIntlayerAsync } from "react-intlayer";
+```
+
+```js codeFormat="esm"
+import { useIntlayerAsync } from "react-intlayer";
+```
+
+```js codeFormat="commonjs"
+const { useIntlayerAsync } = require("react-intlayer");
 ```
 
 ## Параметры
@@ -55,23 +93,85 @@ import { useIntlayerAsync } from "react-intlayer";
 
 2. **`locale`** (необязательный):  
    **Тип**: `Locales`  
-   Конкретный локаль, который вы хотите использовать. Если опущено, хук использует локаль из текущего контекста Intlayer.
+   Конкретная локаль, которую вы хотите выбрать. Если пропущено, хук использует локаль из текущего контекста Intlayer.
 
 3. **`isRenderEditor`** (необязательный, по умолчанию `true`):  
    **Тип**: `boolean`  
-   Определяет, должен ли контент быть готовым для рендеринга с наложением редактора Intlayer. Если установлено в `false`, возвращенные данные словаря исключат функции, специфичные для редактора.
+   Определяет, должен ли контент быть готов к рендерингу с наложением редактора Intlayer. Если установлено значение `false`, возвращаемые данные словаря будут исключать функции, специфичные для редактора.
 
 ## Возвращаемое значение
 
-Хук возвращает объект словаря, содержащий локализованный контент, ключи которого — `key` и `locale`. Он также включает в себя булевый флаг `isLoading`, указывающий, загружается ли в данный момент удаленный словарь.
+Хук возвращает объект словаря, содержащий локализованный контент, организованный по ключу `key` и `locale`. Он также включает булевое значение `isLoading`, указывающее, загружается ли в данное время удаленный словарь.
 
 ## Пример использования в компоненте React
 
-```tsx
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+import { useEffect, type FC } from "react";
+import { useIntlayerAsync } from "react-intlayer";
+
+export const ComponentExample: FC = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("Контент загружается...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      {isLoading ? (
+        <div>
+          <h1>Загрузка…</h1>
+          <p>Пожалуйста, подождите, пока контент обновляется.</p>
+        </div>
+      ) : (
+        <div>
+          <h1>{title.value}</h1>
+          <p>{description.value}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
 import { useEffect } from "react";
 import { useIntlayerAsync } from "react-intlayer";
 
-export const AsyncClientComponentExample = () => {
+const ComponentExample = () => {
+  const { title, description, isLoading } = useIntlayerAsync("async-component");
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("Контент загружается...");
+    }
+  }, [isLoading]);
+
+  return (
+    <div>
+      {isLoading ? (
+        <div>
+          <h1>Загрузка…</h1>
+          <p>Пожалуйста, подождите, пока контент обновляется.</p>
+        </div>
+      ) : (
+        <div>
+          <h1>{title.value}</h1>
+          <p>{description.value}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
+const { useEffect } = require("react");
+const { useIntlayerAsync } = require("react-intlayer");
+
+const ComponentExample = () => {
   const { title, description, isLoading } = useIntlayerAsync("async-component");
 
   useEffect(() => {
@@ -100,29 +200,29 @@ export const AsyncClientComponentExample = () => {
 
 **Ключевые моменты:**
 
-- При первоначальном рендере `title` и `description` берутся из предварительно загруженного или статически встроенного локального словаря.
-- Пока `isLoading` равно `true`, происходит фоновой запрос на загрузку обновленного словаря.
-- Как только загрузка завершена, `title` и `description` обновляются с новейшим контентом, и `isLoading` возвращается в `false`.
+- При первоначальном рендере `title` и `description` берутся из предварительно загруженного или статически встроенного словаря локали.
+- Когда `isLoading` равно `true`, фоновый запрос загружает обновленный словарь.
+- После завершения загрузки `title` и `description` обновляются с новейшим контентом, и `isLoading` возвращается к `false`.
 
 ## Обработка локализации атрибутов
 
-Вы также можете получать локализованные значения атрибутов для различных HTML свойств (например, `alt`, `title`, `aria-label`):
+Вы также можете получить локализованные значения атрибутов для различных свойств HTML (например, `alt`, `title`, `aria-label`):
 
-```tsx
+```jsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
 ## Файлы декларации контента
 
-Все ключи контента должны быть определены в ваших файлах декларации контента для обеспечения безопасного типа и предотвращения ошибок во время выполнения. Эти файлы позволяют TypeScript выполнять валидацию, гарантируя, что вы всегда ссылаетесь на существующие ключи и локали.
+Все ключи контента должны быть определены в ваших файлах декларации контента для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Эти файлы позволяют выполнять валидацию TypeScript, обеспечивая, что вы всегда ссылаетесь на существующие ключи и локали.
 
 Инструкции по настройке файлов декларации контента доступны [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md).
 
 ## Дополнительная информация
 
 - **Визуальный редактор Intlayer:**  
-  Интегрируйтесь с визуальным редактором Intlayer для управления и редактирования контента непосредственно из пользовательского интерфейса. Более подробная информация [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_editor.md).
+  Интегрируйтесь с визуальным редактором Intlayer для управления и редактирования контента непосредственно из интерфейса. Более подробная информация [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_editor.md).
 
 ---
 
-**В заключение**, `useIntlayerAsync` — это мощный React-хук, созданный для улучшения пользовательского опыта и поддержания свежести контента путем объединения предварительно отрендеренных или предварительно загруженных словарей с асинхронными обновлениями словарей. Используя `isLoading` и декларации контента на основе TypeScript, вы можете без усилий интегрировать динамический, локализованный контент в ваши приложения React.
+**В заключение**, `useIntlayerAsync` — мощный хук React, созданный для улучшения пользовательского опыта и поддержания актуальности контента, объединяя заранее отрендеренные или предварительно загруженные словари с асинхронными обновлениями словарей. Используя `isLoading` и декларации контента на основе TypeScript, вы можете бесшовно интегрировать динамический, локализованный контент в ваши приложения React.

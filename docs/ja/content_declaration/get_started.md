@@ -1,8 +1,8 @@
-# Getting Started the declaration of your content
+# コンテンツの宣言を始める
 
-## Files extensions
+## ファイル拡張子
 
-By default, Intlayer watches all files with the following extensions for content declarations:
+デフォルトでは、Intlayer は以下の拡張子を持つすべてのファイルをコンテンツ宣言のために監視します：
 
 - `.content.ts`
 - `.content.tsx`
@@ -10,20 +10,17 @@ By default, Intlayer watches all files with the following extensions for content
 - `.content.mjs`
 - `.content.cjs`
 
-The application will search for files that match the `./src/**/*.content.{ts,tsx,js,mjs,cjs}` glob pattern by default.
+アプリケーションはデフォルトで `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` グロブパターンに一致するファイルを検索します。
 
-These default extensions are suitable for most applications. However, if you have specific requirements, refer to the content extension customization guide for instructions on how to manage them.
+これらのデフォルトの拡張子はほとんどのアプリケーションに適しています。ただし、特定の要件がある場合は、[コンテンツ拡張子カスタマイズガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#content-configuration) を参照して、管理方法を確認してください。
 
-For a full list of configuration options, visit the configuration documentation.
+設定オプションの完全なリストについては、設定ドキュメントを訪れてください。
 
-## Declare Your Content
+## コンテンツを宣言する
 
-Create and manage your content dictionaries:
+コンテンツ辞書を作成し、管理します：
 
-### Using typescript
-
-```typescript
-// src/app/[locale]/page.content.ts
+```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
 import { t, enu, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -39,29 +36,25 @@ export default {
   content: {
     getStarted: {
       main: t({
-        en: "Get started by editing",
+        en: "始めるには編集してください",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "1台未満の車",
+      "-1": "1台の車",
+      "0": "車はない",
+      "1": "1台の車",
+      ">5": "いくつかの車",
+      ">19": "多くの車",
     }),
   },
 } satisfies DeclarationContent<Content>;
 ```
 
-### Using ECMAScript modules
-
-```javascript
-// src/app/[locale]/page.content.mjs
-
+```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -70,29 +63,25 @@ export default {
   content: {
     getStarted: {
       main: t({
-        en: "Get started by editing",
+        en: "始めるには編集してください",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "1台未満の車",
+      "-1": "1台の車",
+      0: "車はない",
+      1: "1台の車",
+      ">5": "いくつかの車",
+      ">19": "多くの車",
     }),
   },
 };
 ```
 
-### Using CommonJS modules
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
+```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -101,29 +90,25 @@ module.exports = {
   content: {
     getStarted: {
       main: t({
-        en: "Get started by editing",
+        en: "始めるには編集してください",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "1台未満の車",
+      "-1": "1台の車",
+      0: "車はない",
+      1: "1台の車",
+      ">5": "いくつかの車",
+      ">19": "多くの車",
     }),
   },
 };
 ```
 
-### Using JSON
-
-```json5
-// src/app/[locale]/page.content.json
-
+```json5 fileName="src/app/[locale]/page.content.json"  codeFormat="json"
 {
   "key": "page",
   "content": {
@@ -131,7 +116,7 @@ module.exports = {
       "main": {
         "nodeType": "translation",
         "translation": {
-          "en": "Get started by editing",
+          "en": "始めるには編集してください",
           "fr": "Commencez par éditer",
           "es": "Comience por editar",
         },
@@ -141,16 +126,14 @@ module.exports = {
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars",
+        "<-1": "1台未満の車",
+        "-1": "1台の車",
+        "0": "車はない",
+        "1": "1台の車",
+        ">5": "いくつかの車",
+        ">19": "多くの車",
       },
     },
   },
 }
 ```
-
-Warning, JSON content declaration make impossible to implement [function fetching](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/function_fetching.md)

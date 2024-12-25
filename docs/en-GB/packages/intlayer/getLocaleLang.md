@@ -8,7 +8,7 @@ The `getLocaleLang` function extracts the language code from a locale string. It
 
 - `locale?: Locales`
 
-  - **Description**: The locale string (e.g., `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) from which the language code is extracted.
+  - **Description**: The locale string (e.g., `Locales.ENGLISH_UNITED_KINGDOM`, `Locales.FRENCH_CANADA`) from which the language code is extracted.
   - **Type**: `Locales` (optional)
 
 ## Returns:
@@ -23,7 +23,7 @@ The `getLocaleLang` function extracts the language code from a locale string. It
 ```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+getLocaleLang(Locales.ENGLISH_UNITED_KINGDOM); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
 getLocaleLang(Locales.FRENCH); // Output: "fr"
@@ -32,7 +32,7 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 ```javascript codeFormat="esm"
 import { getLocaleLang } from "intlayer";
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+getLocaleLang(Locales.ENGLISH_UNITED_KINGDOM); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
 getLocaleLang(Locales.FRENCH); // Output: "fr"
@@ -41,7 +41,7 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 ```javascript codeFormat="commonjs"
 const { getLocaleLang } = require("intlayer");
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+getLocaleLang(Locales.ENGLISH_UNITED_KINGDOM); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
 getLocaleLang(Locales.FRENCH); // Output: "fr"
@@ -54,4 +54,4 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
   - The function returns an empty string when `locale` is `undefined`.
 
 - **Malformed Locale Strings:**
-  - If the `locale` does not follow the `language-country` format (e.g., `Locales.ENGLISH-US`), the function safely returns the part before `'-'` or the entire string if no `'-'` is present.
+  - If the `locale` does not follow the `language-country` format (e.g., `Locales.ENGLISH-GB`), the function safely returns the part before `'-'` or the entire string if no `'-'` is present.

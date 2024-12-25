@@ -1,32 +1,32 @@
-# Documentation: `getTranslationContent` Function in `intlayer`
+# الوثائق: دالة `getTranslationContent` في `intlayer`
 
-## Description:
+## الوصف:
 
-وظيفة `getTranslationContent` تقوم باسترجاع المحتوى المقابل لبيئة معينة من مجموعة محتوى اللغات القابلة للتخصيص. إذا لم يتم العثور على البيئة المحددة، فإنها تعود إلى استرجاع المحتوى الخاص بالبيئة الافتراضية المكونة في المشروع.
+تسترد دالة `getTranslationContent` المحتوى المقابل لبيئة معينة من مجموعة محتوى لغوي قابلة للتخصيص. إذا لم يتم العثور على البيئة المحددة، فإنها ترجع بشكل افتراضي المحتوى لبيئة اللغة الافتراضية المكونة في المشروع.
 
-## Parameters:
+## المعلمات:
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Description**: كائن يحتوي على الترجمات لمختلف البيئات. كل مفتاح يمثل بيئة، وقيمته هي المحتوى المقابل.
-  - **Type**: `CustomizableLanguageContent<Content>`
-    - `Content` يمكن أن يكون أي نوع، يتم افتراضه كـ `string`.
+  - **الوصف**: كائن يحتوي على الترجمات لبيئات مختلفة. يمثل كل مفتاح بيئة، وقيمته هي المحتوى المقابل.
+  - **النوع**: `CustomizableLanguageContent<Content>`
+    - يمكن أن يكون `Content` من أي نوع، ويكون بشكل افتراضي `string`.
 
 - `locale: Locales`
 
-  - **Description**: البيئة التي يجب استرجاع المحتوى لها.
-  - **Type**: `Locales`
+  - **الوصف**: البيئة التي يجب استرداد المحتوى من أجلها.
+  - **النوع**: `Locales`
 
-## Returns:
+## القيم المعادة:
 
-- **Type**: `Content`
-- **Description**: المحتوى المقابل للبيئة المحددة. إذا لم يتم العثور على البيئة، يتم إرجاع محتوى البيئة الافتراضية.
+- **النوع**: `Content`
+- **الوصف**: المحتوى المقابل للبيئة المحددة. إذا لم يتم العثور على البيئة، يتم إرجاع محتوى البيئة الافتراضية.
 
-## Example Usage:
+## مثال على الاستخدام:
 
-### Basic Usage:
+### الاستخدام الأساسي:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
 
 const content = getTranslationContent(
@@ -37,12 +37,40 @@ const content = getTranslationContent(
   Locales.ENGLISH
 );
 
-console.log(content); // Output: "Bonjour"
+console.log(content); // الإخراج: "Bonjour"
 ```
 
-### Missing Locale:
+```javascript codeFormat="esm"
+import { getTranslationContent, Locales } from "intlayer";
 
-```typescript
+const content = getTranslationContent(
+  {
+    en: "Hello",
+    fr: "Bonjour",
+  },
+  Locales.ENGLISH
+);
+
+console.log(content); // الإخراج: "Bonjour"
+```
+
+```javascript codeFormat="commonjs"
+const { getTranslationContent, Locales } = require("intlayer");
+
+const content = getTranslationContent(
+  {
+    en: "Hello",
+    fr: "Bonjour",
+  },
+  Locales.ENGLISH
+);
+
+console.log(content); // الإخراج: "Bonjour"
+```
+
+### بيئة مفقودة:
+
+```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
 
 const content = getTranslationContent(
@@ -53,12 +81,40 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (default locale content)
+console.log(content); // الإخراج: "Hello" (محتوى البيئة الافتراضية)
 ```
 
-### Using Custom Content Types:
+```javascript codeFormat="esm"
+import { getTranslationContent, Locales } from "intlayer";
 
-```typescript
+const content = getTranslationContent(
+  {
+    en: "Hello",
+    fr: "Bonjour",
+  },
+  Locales.SPANISH
+);
+
+console.log(content); // الإخراج: "Hello" (محتوى البيئة الافتراضية)
+```
+
+```javascript codeFormat="commonjs"
+const { getTranslationContent, Locales } = require("intlayer");
+
+const content = getTranslationContent(
+  {
+    en: "Hello",
+    fr: "Bonjour",
+  },
+  Locales.SPANISH
+);
+
+console.log(content); // الإخراج: "Hello" (محتوى البيئة الافتراضية)
+```
+
+### استخدام أنواع المحتوى المخصصة:
+
+```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
 
 const customContent = getTranslationContent<Record<string, string>>(
@@ -69,16 +125,44 @@ const customContent = getTranslationContent<Record<string, string>>(
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Output: "Bonjour"
+console.log(customContent.greeting); // الإخراج: "Bonjour"
 ```
 
-## Edge Cases:
+```javascript codeFormat="esm"
+import { getTranslationContent, Locales } from "intlayer";
 
-- **Locale Not Found:**
-  - عندما لا يتم العثور على `locale` في `languageContent`، فإن الوظيفة تعيد المحتوى الخاص بالبيئة الافتراضية.
-- **Incomplete Language Content:**
+const customContent = getTranslationContent<Record<string, string>>(
+  {
+    en: { greeting: "Hello" },
+    fr: { greeting: "Bonjour" },
+  },
+  Locales.FRENCH
+);
 
-  - إذا كانت البيئة مُعرفّة جزئيًا، فإن الوظيفة لا تقوم بدمج المحتويات. إنها تسترجع بدقة قيمة البيئة المحددة أو تعود إلى الافتراضي.
+console.log(customContent.greeting); // الإخراج: "Bonjour"
+```
 
-- **TypeScript Enforcement:**
-  - إذا كانت البيئات في `languageContent` لا تتطابق مع إعدادات المشروع، فسوف تفرض TypeScript ضرورة تعريف جميع البيئات المطلوبة، مما يضمن أن المحتوى مكتمل وآمن نوعيًا.
+```javascript codeFormat="commonjs"
+const { getTranslationContent, Locales } = require("intlayer");
+
+const customContent = getTranslationContent<Record<string, string>>(
+  {
+    en: { greeting: "Hello" },
+    fr: { greeting: "Bonjour" },
+  },
+  Locales.FRENCH
+);
+
+console.log(customContent.greeting); // الإخراج: "Bonjour"
+```
+
+## حالات الحافة:
+
+- **لم يتم العثور على البيئة:**
+  - عندما لا يتم العثور على `locale` في `languageContent`، ترجع الدالة المحتوى للبيئة الافتراضية.
+- **محتوى اللغة غير مكتمل:**
+
+  - إذا كانت البيئة مُعرفة جزئيًا، فإن الدالة لا تدمج المحتويات. بل تسترد القيمة للبيئة المحددة أو تعود إلى الافتراضي.
+
+- **فرضية TypeScript:**
+  - إذا كانت البيئات في `languageContent` لا تتطابق مع تكوين المشروع، ستجبر TypeScript على تعريف جميع البيئات المطلوبة، مما يضمن أن المحتوى مكتمل وآمن من حيث النوع.

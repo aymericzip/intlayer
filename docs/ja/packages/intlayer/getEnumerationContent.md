@@ -1,66 +1,126 @@
-# Documentation: `getEnumerationContent` Function in `intlayer`
+# Documentation: `getEnumerationContent` 関数 in `intlayer`
 
 ## 説明:
 
-`getEnumerationContent` 関数は、列挙オブジェクト内の事前定義された条件に基づいて特定の数量に対応するコンテンツを取得します。条件はキーとして定義され、その優先順位はオブジェクト内の順序によって決まります。
+`getEnumerationContent` 関数は、列挙オブジェクト内の事前定義された条件に基づいて特定の数量に対応するコンテンツを取得します。条件はキーとして定義されており、その優先順位はオブジェクト内の順序によって決定されます。
 
 ## パラメーター:
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **説明**: キーが条件を示し（例: `<=`, `<`, `>=`, `=`）、値が対応するコンテンツを示すオブジェクト。キーの順序が一致の優先順位を定義します。
+  - **説明**: キーが条件（例: `<=`, `<`, `>=`, `=`）を表し、値が対応するコンテンツを表すオブジェクト。キーの順序が一致する優先順位を定義します。
   - **タイプ**: `QuantityContent<Content>`
-    - `Content` は任意の型が可能です。
+    - `Content` は任意のタイプです。
 
 - `quantity: number`
 
-  - **説明**: `enumerationContent` の条件に照合するために使用される数値です。
+  - **説明**: `enumerationContent` の条件に対して一致させるために使用される数値です。
   - **タイプ**: `number`
 
 ## 戻り値:
 
 - **タイプ**: `Content`
-- **説明**: `enumerationContent` 内の最初の一致する条件に対応するコンテンツ。一致が見つからない場合は、実装に基づいてデフォルトの処理（例: エラーまたはフォールバックコンテンツ）を行います。
+- **説明**: `enumerationContent` 内の最初の一致した条件に対応するコンテンツです。一致するものが見つからない場合は、実装に基づいて処理がデフォルト（例: エラーまたはフォールバックコンテンツ）されます。
 
 ## 使用例:
 
 ### 基本的な使用法:
 
-```typescript
-import { getEnumerationContent } from "@intlayer/config/client";
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
 
 const content = getEnumerationContent(
   {
-    "<=-2.3": "あなたは -2.3 より少ない",
-    "<1": "あなたは1未満です",
-    "2": "あなたは二つあります",
-    ">=3": "あなたは三つ以上あります",
+    "<=-2.3": "あなたは -2.3 未満です",
+    "<1": "あなたは一未満です",
+    "2": "あなたは二です",
+    ">=3": "あなたは三以上です",
   },
   2
 );
 
-console.log(content); // 出力: "あなたは二つあります"
+console.log(content); // 出力: "あなたは二です"
+```
+
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<1": "あなたは一未満です",
+    "2": "あなたは二です",
+    ">=3": "あなたは三以上です",
+  },
+  2
+);
+
+console.log(content); // 出力: "あなたは二です"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
+const content = getEnumerationContent(
+  {
+    "<1": "あなたは一未満です",
+    "2": "あなたは二です",
+    ">=3": "あなたは三以上です",
+  },
+  2
+);
+
+console.log(content); // 出力: "あなたは二です"
 ```
 
 ### 条件の優先順位:
 
-```typescript
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
+
 const content = getEnumerationContent(
   {
-    "<4": "あなたは四つ未満です",
-    "2": "あなたは二つあります",
+    "<4": "あなたは四未満です",
+    "2": "あなたは二です",
   },
   2
 );
 
-console.log(content); // 出力: "あなたは四つ未満です"
+console.log(content); // 出力: "あなたは四未満です"
+```
+
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
+
+const content = getEnumerationContent(
+  {
+    "<4": "あなたは四未満です",
+    "2": "あなたは二です",
+  },
+  2
+);
+
+console.log(content); // 出力: "あなたは四未満です"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
+const content = getEnumerationContent(
+  {
+    "<4": "あなたは四未満です",
+    "2": "あなたは二です",
+  },
+  2
+);
+
+console.log(content); // 出力: "あなたは四未満です"
 ```
 
 ## エッジケース:
 
-- **一致する条件がない:**
+- **一致する条件がない場合:**
 
-  - もし提供された数量に一致する条件がない場合、関数は `undefined` を返すか、デフォルト/フォールバックシナリオを明示的に処理します。
+  - 提供された数量に一致する条件がない場合、関数は `undefined` を返すか、デフォルト/フォールバックシナリオを明示的に処理します。
 
 - **曖昧な条件:**
 
@@ -68,11 +128,11 @@ console.log(content); // 出力: "あなたは四つ未満です"
 
 - **無効なキー:**
 
-  - 関数は、`enumerationContent` 内のすべてのキーが有効で条件として解析可能であると仮定します。無効または不適切にフォーマットされたキーは予期しない動作を引き起こす可能性があります。
+  - 関数は、`enumerationContent` 内のすべてのキーが有効で解析可能な条件であると仮定しています。無効または不適切にフォーマットされたキーは、予期しない動作を引き起こす可能性があります。
 
-- **TypeScript の強制:**
-  - 関数は、`Content` 型がすべてのキーで一貫していることを確実にし、取得されたコンテンツの型安全性を保証します。
+- **TypeScript 強制:**
+  - 関数は、取得されるコンテンツにおける `Content` タイプがすべてのキーで一貫していることを保証し、型安全性を提供します。
 
-## 注意事項:
+## ノート:
 
-- `findMatchingCondition` ユーティリティは、指定された数量に基づいて適切な条件を決定するために使用されます。
+- `findMatchingCondition` ユーティリティは、与えられた数量に基づいて適切な条件を判断するために使用されます。

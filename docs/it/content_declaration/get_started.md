@@ -2,7 +2,7 @@
 
 ## Estensioni dei file
 
-Per impostazione predefinita, Intlayer osserva tutti i file con le seguenti estensioni per le dichiarazioni di contenuto:
+Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti estensioni per le dichiarazioni di contenuto:
 
 - `.content.ts`
 - `.content.tsx`
@@ -10,20 +10,17 @@ Per impostazione predefinita, Intlayer osserva tutti i file con le seguenti este
 - `.content.mjs`
 - `.content.cjs`
 
-L'applicazione cercherà i file che corrispondono al pattern glob `./src/**/*.content.{ts,tsx,js,mjs,cjs}` per impostazione predefinita.
+L'applicazione cercherà file che corrispondono al modello glob `./src/**/*{{locale}}.content.{ts,tsx,js,jsx,mjs,cjs}` per impostazione predefinita.
 
-Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, fai riferimento alla guida alla personalizzazione delle estensioni di contenuto per istruzioni su come gestirle.
+Queste estensioni predefinite sono adatte alla maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, fai riferimento alla [guida alla personalizzazione delle estensioni di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md#content-configuration) per istruzioni su come gestirle.
 
-Per un elenco completo delle opzioni di configurazione, visita la documentazione sulla configurazione.
+Per un elenco completo delle opzioni di configurazione, visita la documentazione di configurazione.
 
-## Dichiarare il tuo contenuto
+## Dichiara il tuo contenuto
 
 Crea e gestisci i tuoi dizionari di contenuto:
 
-### Usando typescript
-
-```typescript
-// src/app/[locale]/page.content.ts
+```typescript fileName="src/app/{{locale}}/page.content.ts" codeFormat="typescript"
 import { t, enu, type DeclarationContent } from "intlayer";
 
 interface Content {
@@ -50,18 +47,14 @@ export default {
       "-1": "Meno di una macchina",
       "0": "Nessuna macchina",
       "1": "Una macchina",
-      ">5": "Alcune auto",
-      ">19": "Molte auto",
+      ">5": "Alcune macchine",
+      ">19": "Molte macchine",
     }),
   },
 } satisfies DeclarationContent<Content>;
 ```
 
-### Usando i moduli ECMAScript
-
-```javascript
-// src/app/[locale]/page.content.mjs
-
+```javascript fileName="src/app/{{locale}}/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -81,18 +74,14 @@ export default {
       "-1": "Meno di una macchina",
       0: "Nessuna macchina",
       1: "Una macchina",
-      ">5": "Alcune auto",
-      ">19": "Molte auto",
+      ">5": "Alcune macchine",
+      ">19": "Molte macchine",
     }),
   },
 };
 ```
 
-### Usando i moduli CommonJS
-
-```javascript
-// src/app/[locale]/page.content.cjs
-
+```javascript fileName="src/app/{{locale}}/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -112,18 +101,14 @@ module.exports = {
       "-1": "Meno di una macchina",
       0: "Nessuna macchina",
       1: "Una macchina",
-      ">5": "Alcune auto",
-      ">19": "Molte auto",
+      ">5": "Alcune macchine",
+      ">19": "Molte macchine",
     }),
   },
 };
 ```
 
-### Usando JSON
-
-```json5
-// src/app/[locale]/page.content.json
-
+```json5 fileName="src/app/{{locale}}/page.content.json"  codeFormat="json"
 {
   "key": "page",
   "content": {
@@ -145,12 +130,10 @@ module.exports = {
         "-1": "Meno di una macchina",
         "0": "Nessuna macchina",
         "1": "Una macchina",
-        ">5": "Alcune auto",
-        ">19": "Molte auto",
+        ">5": "Alcune macchine",
+        ">19": "Molte macchine",
       },
     },
   },
 }
 ```
-
-Attenzione, la dichiarazione del contenuto JSON rende impossibile implementare [il recupero della funzione](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/function_fetching.md)

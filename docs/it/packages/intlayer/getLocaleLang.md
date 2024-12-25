@@ -2,25 +2,25 @@
 
 ## Descrizione:
 
-La funzione `getLocaleLang` estrae il codice della lingua da una stringa locale. Supporta le lingue con o senza codici di paese. Se non viene fornita alcuna lingua, restituisce per impostazione predefinita una stringa vuota.
+La funzione `getLocaleLang` estrae il codice della lingua da una stringa di locale. Supporta le località con o senza codici di paese. Se non viene fornita alcuna località, restituisce di default una stringa vuota.
 
 ## Parametri:
 
 - `locale?: Locales`
 
-  - **Descrizione**: La stringa locale (ad esempio, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) da cui viene estratto il codice della lingua.
+  - **Descrizione**: La stringa di locale (ad esempio, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) da cui viene estratto il codice della lingua.
   - **Tipo**: `Locales` (opzionale)
 
-## Restituisce:
+## Ritorna:
 
 - **Tipo**: `string`
-- **Descrizione**: Il codice della lingua estratto dalla locale. Se la locale non viene fornita, restituisce una stringa vuota (`''`).
+- **Descrizione**: Il codice della lingua estratto dalla località. Se la località non è fornita, restituisce una stringa vuota (`''`).
 
-## Esempio di utilizzo:
+## Esempio di Utilizzo:
 
-### Estrazione dei codici di lingua:
+### Estrazione dei Codici Lingua:
 
-```typescript
+```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
@@ -29,11 +29,29 @@ getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
 getLocaleLang(Locales.FRENCH); // Output: "fr"
 ```
 
-## Casi limite:
+```javascript codeFormat="esm"
+import { getLocaleLang } from "intlayer";
 
-- **Nessuna locale fornita:**
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+getLocaleLang(Locales.ENGLISH); // Output: "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
+getLocaleLang(Locales.FRENCH); // Output: "fr"
+```
+
+```javascript codeFormat="commonjs"
+const { getLocaleLang } = require("intlayer");
+
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+getLocaleLang(Locales.ENGLISH); // Output: "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
+getLocaleLang(Locales.FRENCH); // Output: "fr"
+```
+
+## Casi Limite:
+
+- **Nessuna Locale Fornita:**
 
   - La funzione restituisce una stringa vuota quando `locale` è `undefined`.
 
-- **Stringhe locali malformate:**
-  - Se la `locale` non segue il formato `lingua-paese` (ad esempio, `Locales.ENGLISH-US`), la funzione restituisce in modo sicuro la parte prima di `'-'` o l'intera stringa se non è presente alcun `'-'`.
+- **Stringhe di Locale Malformate:**
+  - Se la `locale` non segue il formato `lingua-paese` (ad esempio, `Locales.ENGLISH-US`), la funzione restituisce in sicurezza la parte prima di `'-'` o l'intera stringa se non è presente alcun `'-'`.

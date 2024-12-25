@@ -8,9 +8,9 @@ La fonction `getEnumerationContent` récupère le contenu correspondant à une q
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **Description**: Un objet où les clés représentent les conditions (par exemple, `<=`, `<`, `>=`, `=`) et les valeurs représentent le contenu correspondant. L'ordre des clés définit leur priorité de correspondance.
+  - **Description**: Un objet où les clés représentent des conditions (par exemple, `<=`, `<`, `>=`, `=`) et les valeurs représentent le contenu correspondant. L'ordre des clés définit leur priorité de correspondance.
   - **Type**: `QuantityContent<Content>`
-    - `Content` peut être de tout type.
+    - `Content` peut être de n'importe quel type.
 
 - `quantity: number`
 
@@ -20,14 +20,14 @@ La fonction `getEnumerationContent` récupère le contenu correspondant à une q
 ## Retourne:
 
 - **Type**: `Content`
-- **Description**: Le contenu correspondant à la première condition correspondante dans le `enumerationContent`. Si aucune correspondance n'est trouvée, cela revient à gérer selon l'implémentation (par exemple, erreur ou contenu de secours).
+- **Description**: Le contenu correspondant à la première condition correspondante dans `enumerationContent`. Si aucune correspondance n'est trouvée, cela retourne par défaut en fonction de l'implémentation (par exemple, erreur ou contenu de sauvegarde).
 
-## Exemple d'Utilisation:
+## Exemple d'utilisation:
 
-### Utilisation de Base:
+### Utilisation de base:
 
-```typescript
-import { getEnumerationContent } from "@intlayer/config/client";
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
 
 const content = getEnumerationContent(
   {
@@ -39,12 +39,44 @@ const content = getEnumerationContent(
   2
 );
 
-console.log(content); // Sortie: "Vous avez deux"
+console.log(content); // Output: "Vous avez deux"
 ```
 
-### Priorité des Conditions:
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
 
-```typescript
+const content = getEnumerationContent(
+  {
+    "<1": "Vous avez moins d'un",
+    "2": "Vous avez deux",
+    ">=3": "Vous avez trois ou plus",
+  },
+  2
+);
+
+console.log(content); // Output: "Vous avez deux"
+```
+
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
+
+const content = getEnumerationContent(
+  {
+    "<1": "Vous avez moins d'un",
+    "2": "Vous avez deux",
+    ">=3": "Vous avez trois ou plus",
+  },
+  2
+);
+
+console.log(content); // Output: "Vous avez deux"
+```
+
+### Priorité des conditions:
+
+```typescript codeFormat="typescript"
+import { getEnumerationContent } from "intlayer";
+
 const content = getEnumerationContent(
   {
     "<4": "Vous avez moins de quatre",
@@ -53,24 +85,52 @@ const content = getEnumerationContent(
   2
 );
 
-console.log(content); // Sortie: "Vous avez moins de quatre"
+console.log(content); // Output: "Vous avez moins de quatre"
 ```
 
-## Cas Particuliers:
+```javascript codeFormat="esm"
+import { getEnumerationContent } from "intlayer";
 
-- **Aucune Condition Correspondante:**
+const content = getEnumerationContent(
+  {
+    "<4": "Vous avez moins de quatre",
+    "2": "Vous avez deux",
+  },
+  2
+);
 
-  - Si aucune condition ne correspond à la quantité fournie, la fonction renverra soit `undefined` soit gérera explicitement le scénario par défaut/au secours.
+console.log(content); // Output: "Vous avez moins de quatre"
+```
 
-- **Conditions Ambiguës:**
+```javascript codeFormat="commonjs"
+const { getEnumerationContent } = require("intlayer");
 
-  - Si les conditions se chevauchent, la première condition correspondante (en fonction de l'ordre de l'objet) a la priorité.
+const content = getEnumerationContent(
+  {
+    "<4": "Vous avez moins de quatre",
+    "2": "Vous avez deux",
+  },
+  2
+);
 
-- **Clés Invalides:**
+console.log(content); // Output: "Vous avez moins de quatre"
+```
 
-  - La fonction suppose que toutes les clés dans `enumerationContent` sont valides et analysables en tant que conditions. Des clés invalides ou mal formatées peuvent entraîner un comportement inattendu.
+## Cas limites:
 
-- **Application TypeScript:**
+- **Aucune condition correspondante:**
+
+  - Si aucune condition ne correspond à la quantité fournie, la fonction retournera soit `undefined` soit gérera explicitement le scénario par défaut/de sauvegarde.
+
+- **Conditions ambiguës:**
+
+  - Si les conditions se chevauchent, la première condition correspondante (selon l'ordre de l'objet) prend la priorité.
+
+- **Clés invalides:**
+
+  - La fonction suppose que toutes les clés dans `enumerationContent` sont valides et peuvent être analysées comme des conditions. Des clés invalides ou mal formatées peuvent entraîner des comportements inattendus.
+
+- **Application de TypeScript:**
   - La fonction garantit que le type `Content` est cohérent à travers toutes les clés, permettant une sécurité de type dans le contenu récupéré.
 
 ## Notes:
