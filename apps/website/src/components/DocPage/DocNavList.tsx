@@ -167,6 +167,7 @@ export const DocNavList: FC<DocNavListProps> = ({
         <Container
           transparency="sm"
           className="z-10 m-auto md:sticky md:top-[3.6rem] md:pt-4"
+          roundedSize="none"
         >
           <div
             className={cn([
@@ -188,7 +189,7 @@ export const DocNavList: FC<DocNavListProps> = ({
               ])}
               onClick={() => setIsHidden((isHidden) => !isHidden)}
             />
-            <div className="from-card/90 dark:from-card-dark/90 absolute bottom-0 left-0 h-8 w-full -translate-x-[9px] translate-y-full bg-gradient-to-b backdrop-blur" />
+            <div className="from-card/90 dark:from-card-dark/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
           </div>
         </Container>
 
