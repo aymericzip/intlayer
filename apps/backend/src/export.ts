@@ -15,6 +15,7 @@ export type * from '@controllers/user.controller';
 export type * from '@controllers/dictionary.controller';
 export type * from '@controllers/stripe.controller';
 export type * from '@controllers/ai.controller';
+export type * from '@controllers/tag.controller';
 
 // Objects types
 export type * from '@/types/organization.types';
@@ -22,6 +23,7 @@ export type * from '@/types/project.types';
 export type * from '@/types/user.types';
 export type * from '@/types/dictionary.types';
 export type * from '@/types/plan.types';
+export type * from '@/types/tag.types';
 
 // Utils
 export * from '@utils/cookies';

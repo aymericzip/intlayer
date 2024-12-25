@@ -1,0 +1,92 @@
+import type {
+  AddTagBody,
+  AddTagResult,
+  DeleteTagResult,
+  GetTagsParams,
+  GetTagsResult,
+  UpdateTagBody,
+  UpdateTagResult,
+} from '@intlayer/backend';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import { fetcher, type FetcherOptions } from './fetcher';
+
+export const getTagAPI = (
+  authAPIOptions: FetcherOptions = {},
+  intlayerConfig?: IntlayerConfig
+) => {
+  const { backendURL } = (intlayerConfig ?? getConfiguration()).editor;
+  const PROJECT_API_ROUTE = `${backendURL}/api/tag`;
+
+  /**
+   * Retrieves a list of tags based on filters and pagination.
+   * @param filters - Filters and pagination options.
+   */
+  const getTags = async (
+    filters?: GetTagsParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetTagsResult>(
+      PROJECT_API_ROUTE,
+      authAPIOptions,
+      otherOptions,
+      {
+        params: filters,
+      }
+    );
+
+  /**
+   * Adds a new tag to the database.
+   * @param tag - Tag data.
+   */
+  const addTag = async (tag: AddTagBody, otherOptions: FetcherOptions = {}) =>
+    await fetcher<AddTagResult>(
+      `${PROJECT_API_ROUTE}`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: tag,
+      }
+    );
+
+  /**
+   * Updates an existing tag in the database.
+   * @param tag - Updated tag data.
+   */
+  const updateTag = async (
+    tag: UpdateTagBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<UpdateTagResult>(
+      `${PROJECT_API_ROUTE}`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PUT',
+        body: tag,
+      }
+    );
+
+  /**
+   * Deletes a tag from the database by its ID.
+   * @param id - Tag ID.
+   */
+  const deleteTag = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<DeleteTagResult>(
+      `${PROJECT_API_ROUTE}`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'DELETE',
+      }
+    );
+
+  return {
+    getTags,
+    addTag,
+    updateTag,
+    deleteTag,
+  };
+};
+
+export const tagAPI = getTagAPI();

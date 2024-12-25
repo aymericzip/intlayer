@@ -6,6 +6,7 @@ import type { FetcherOptions } from './fetcher';
 import { getOrganizationAPI } from './organization';
 import { getProjectAPI } from './project';
 import { getStripeAPI } from './stripe';
+import { getTagAPI } from './tag';
 import { getUserAPI } from './user';
 
 export const getIntlayerAPI = (
@@ -19,6 +20,7 @@ export const getIntlayerAPI = (
   dictionary: getDictionaryAPI(authAPIOptions, intlayerConfig),
   stripe: getStripeAPI(authAPIOptions, intlayerConfig),
   ai: getAiAPI(authAPIOptions, intlayerConfig),
+  tag: getTagAPI(authAPIOptions, intlayerConfig),
 });
 
 export const intlayerAPI = getIntlayerAPI();

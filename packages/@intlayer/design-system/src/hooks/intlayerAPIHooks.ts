@@ -539,6 +539,52 @@ export const useDeleteDictionary = (
   );
 
 /**
+ * Tag
+ */
+
+export const useGetTags = (
+  args?: UseAsyncOptions<typeof intlayerAPI.tag.getTags>
+) =>
+  useAppAsync(
+    'getTags',
+    useIntlayerAuth().tag.getTags,
+    {
+      cache: true,
+      store: true,
+      retryLimit: 3,
+      autoFetch: true,
+      revalidation: true,
+      revalidateTime: 5 * 60 * 1000, // 5 minutes
+      ...args,
+    },
+    {
+      requireUser: true,
+      requireOrganization: true,
+    }
+  );
+export const useAddTag = (
+  args?: UseAsyncOptions<typeof intlayerAPI.tag.addTag>
+) =>
+  useAppAsync('addTag', useIntlayerAuth().tag.addTag, {
+    invalidateQueries: ['getTags'],
+    ...args,
+  });
+export const useUpdateTag = (
+  args?: UseAsyncOptions<typeof intlayerAPI.tag.updateTag>
+) =>
+  useAppAsync('updateTag', useIntlayerAuth().tag.updateTag, {
+    invalidateQueries: ['getSession'],
+    ...args,
+  });
+export const useDeleteTag = (
+  args?: UseAsyncOptions<typeof intlayerAPI.tag.deleteTag>
+) =>
+  useAppAsync('deleteTag', useIntlayerAuth().tag.deleteTag, {
+    invalidateQueries: ['getTags'],
+    ...args,
+  });
+
+/**
  * Stripe
  */
 
