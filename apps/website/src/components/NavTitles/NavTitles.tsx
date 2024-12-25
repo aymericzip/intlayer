@@ -218,7 +218,7 @@ export const NavTitles: FC<NavTitlesProps> = (props) => {
             <MaxWidthSmoother isHidden={isHidden}>
               <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
             </MaxWidthSmoother>
-            <div className="from-card/90 dark:from-card-dark/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
+            <div className="from-card/90 dark:from-card-dark/90 absolute bottom-0 left-0 h-8 w-full -translate-x-[9px] translate-y-full bg-gradient-to-b backdrop-blur" />
           </div>
         </Container>
         <div className="flex flex-1 md:sticky md:top-28 md:pt-0">
