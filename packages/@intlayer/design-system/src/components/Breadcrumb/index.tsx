@@ -36,8 +36,11 @@ const LinkLink: FC<LinkLinkProps> = ({
         color={color}
         onClick={onClick}
         itemProp="item"
+        itemScope
+        itemType="https://schema.org/WebPage"
         {...props}
         label={`${linkLabel} ${children}`}
+        itemID={href}
       >
         <span itemProp="name">{children}</span>
       </Link>
@@ -83,12 +86,12 @@ type SpanProps = {
 } & HTMLAttributes<HTMLSpanElement>;
 
 const Span: FC<SpanProps> = ({ children, position, ...props }) => (
-  <>
+  <span itemProp="item">
     <span itemProp="name" {...props}>
       {children}
     </span>
     <meta itemProp="position" content={position.toString()} />
-  </>
+  </span>
 );
 
 type DetailedBreadcrumbLink = {
