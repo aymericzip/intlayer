@@ -34,7 +34,7 @@ export const ProjectFormContent: FC = () => {
 
         <Container
           roundedSize="xl"
-          className="flex size-full justify-center p-6"
+          className="z-20 flex size-full justify-center p-6"
         >
           <ProjectEditionForm />
         </Container>

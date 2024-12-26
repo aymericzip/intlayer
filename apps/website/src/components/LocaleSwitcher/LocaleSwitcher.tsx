@@ -8,11 +8,11 @@ import {
   type PanelProps,
   Container,
 } from '@intlayer/design-system';
-import Fuse, { IFuseOptions } from 'fuse.js';
 import { Locales } from 'intlayer';
 import { MoveVertical } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { useCallback, useMemo, useRef, useState, type FC } from 'react';
+import { useRef, type FC } from 'react';
+import { useLocaleSearch } from './useLocaleSearch';
 
 export type LocaleSwitcherProps = {
   locale?: Locales;
@@ -25,13 +25,6 @@ export type LocaleSwitcherProps = {
 
 const DROPDOWN_IDENTIFIER = 'locale-switcher';
 
-type MultilingualAvailableLocales = {
-  locale: Locales;
-  englishName: string;
-  currentLocaleName: string;
-  ownLocaleName: string;
-};
-
 export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   fullLocaleName = false,
   panelProps,
@@ -42,55 +35,9 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();
-
-  const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(
-    () =>
-      availableLocales.map((localeEl) => {
-        const englishName = getLocaleName(localeEl, Locales.ENGLISH);
-        const currentLocaleName = getLocaleName(localeEl, locale);
-        const ownLocaleName = getLocaleName(localeEl);
-        return {
-          locale: localeEl,
-          englishName,
-          currentLocaleName,
-          ownLocaleName,
-        };
-      }),
-    [locale, availableLocales]
-  );
-
-  const [results, setResults] = useState<MultilingualAvailableLocales[]>(
-    multilingualAvailableLocales
-  );
-
-  // Create a new Fuse instance with the options and documentation data
-  const fuse = useMemo(() => {
-    const fuseOptions: IFuseOptions<MultilingualAvailableLocales> = {
-      keys: [
-        { name: 'ownLocaleName', weight: 0.4 },
-        { name: 'englishName', weight: 0.2 },
-        { name: 'currentLocaleName', weight: 0.2 },
-        { name: 'locale', weight: 0.2 },
-      ],
-      threshold: 0.02, // Defines how fuzzy the matching should be (lower is more strict)
-    };
-
-    return new Fuse(multilingualAvailableLocales, fuseOptions);
-  }, [multilingualAvailableLocales]);
-
-  const handleSearch = useCallback(
-    (searchQuery: string) => {
-      if (searchQuery) {
-        // Perform search on every input change
-        const searchResults = fuse
-          .search(searchQuery)
-          .map((result) => result.item);
-        setResults(searchResults);
-      } else {
-        setResults(multilingualAvailableLocales);
-      }
-    },
-    [fuse, multilingualAvailableLocales]
+  const { searchResults, handleSearch } = useLocaleSearch(
+    availableLocales,
+    locale
   );
 
   if (locale) {
@@ -100,7 +47,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   return (
     <div
       className="border-text text-text dark:border-text-dark dark:text-text-dark rounded-xl border transition-colors"
-      aria-label={localeSwitcherLabel}
+      aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
@@ -132,7 +79,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
               />
             </div>
             <ol className="divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed overflow-y-auto p-1">
-              {results.map(
+              {searchResults.map(
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                   <li className="py-1 pr-1.5" key={localeItem}>
                     <Link

@@ -36,8 +36,6 @@ export const validateProject = async (
   // Define the fields to validate
   const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
 
-  const organization = await getOrganizationById(project.organizationId ?? '');
-
   // Validate each field
   for (const field of fieldsToValidate) {
     const value = project[field];
@@ -60,6 +58,7 @@ export const validateProject = async (
     }
 
     if (field === 'organizationId') {
+      const organization = await getOrganizationById(field);
       const organizationErrors: string[] = [];
 
       if (typeof value !== 'string') {
@@ -80,17 +79,24 @@ export const validateProject = async (
     }
 
     if (field === 'membersIds' || field === 'adminsIds') {
-      const membersErrors = validateArray<string>(
-        value as unknown as string[],
-        'Members',
-        'string',
-        (item) =>
-          (organization?.membersIds as unknown as string[]).includes(item),
-        MEMBERS_MIN_LENGTH
-      );
+      if (!project.organizationId) {
+        errors[field] = [
+          'Organization id is required to validate project members',
+        ];
+      } else {
+        const organization = await getOrganizationById(project.organizationId);
+        const membersErrors = validateArray<string>(
+          value as unknown as string[],
+          'Members',
+          'string',
+          (item) =>
+            (organization?.membersIds as unknown as string[]).includes(item),
+          MEMBERS_MIN_LENGTH
+        );
 
-      if (membersErrors.length > 0) {
-        errors[field] = membersErrors;
+        if (membersErrors.length > 0) {
+          errors[field] = membersErrors;
+        }
       }
     }
 

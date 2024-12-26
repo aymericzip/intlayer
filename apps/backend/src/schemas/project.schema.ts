@@ -3,6 +3,7 @@ import {
   NAME_MAX_LENGTH,
   MEMBERS_MIN_LENGTH,
 } from '@utils/validation/validateProject';
+import { Locales } from 'intlayer';
 import { Schema } from 'mongoose';
 import { Project, Rights, TokenRights } from '@/types/project.types';
 
@@ -46,6 +47,10 @@ export const projectSchema = new Schema<Project>(
       required: true,
       minlength: NAME_MIN_LENGTH,
       maxlength: NAME_MAX_LENGTH,
+    },
+    locales: {
+      type: [String],
+      enum: Object.values(Locales),
     },
     oAuth2Access: [oAuth2AccessSchema],
     membersIds: {

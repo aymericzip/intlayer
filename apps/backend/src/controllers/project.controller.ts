@@ -201,7 +201,7 @@ export const addProject = async (
   }
 };
 
-export type UpdateProjectBody = Partial<ProjectData> & { _id: string };
+export type UpdateProjectBody = Partial<ProjectData>;
 export type UpdateProjectResult = ResponseData<ProjectAPI>;
 
 /**
@@ -241,11 +241,6 @@ export const updateProject = async (
     return;
   }
 
-  if (String(project._id) !== String(projectData._id)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_MISMATCH');
-    return;
-  }
-
   if (String(project.organizationId) !== String(organization._id)) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
     return;
@@ -254,7 +249,7 @@ export const updateProject = async (
   try {
     const updatedProject = await projectService.updateProjectById(
       project._id,
-      project
+      projectData
     );
 
     const formattedProject = mapProjectToAPI(

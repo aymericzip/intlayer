@@ -1,6 +1,8 @@
 import { ProjectModel } from '@models/project.model';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import type { ProjectFilters } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
+import { removeObjectKeys } from '@utils/removeObjectKeys';
 import {
   type ProjectFields,
   validateProject,
@@ -91,11 +93,14 @@ export const updateProjectById = async (
   projectId: string | ObjectId,
   project: Partial<Project>
 ): Promise<ProjectDocument> => {
-  if (project.oAuth2Access) {
-    delete project.oAuth2Access;
-  }
+  const projectObject = ensureMongoDocumentToObject(project);
+  const projectToUpdate = removeObjectKeys(projectObject, [
+    '_id',
+    'oAuth2Access',
+    'organizationId',
+  ]);
 
-  const updatedKeys = Object.keys(project) as ProjectFields;
+  const updatedKeys = Object.keys(projectToUpdate) as ProjectFields;
 
   const errors = validateProject(project, updatedKeys);
 
@@ -106,7 +111,12 @@ export const updateProjectById = async (
     });
   }
 
-  const result = await ProjectModel.updateOne({ _id: projectId }, project);
+  console.log('projectToUpdate', projectToUpdate);
+
+  const result = await ProjectModel.updateOne(
+    { _id: projectId },
+    projectToUpdate
+  );
 
   if (result.matchedCount === 0) {
     throw new GenericError('PROJECT_UPDATE_FAILED', { projectId });
