@@ -1,3 +1,4 @@
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { User, UserAPI, UserDocument } from '@/types/user.types';
 
 /**
@@ -5,15 +6,11 @@ import { User, UserAPI, UserDocument } from '@/types/user.types';
  * @param user - The user object to format.
  * @returns The formatted user object.
  */
-export const mapUserToAPI = (user: User | UserAPI | UserDocument): UserAPI => {
-  let userObject: User = user as User;
+export const mapUserToAPI = (user: User | UserAPI): UserAPI => {
+  const userObject = ensureMongoDocumentToObject(user);
 
-  // If the user is a mongoose document, convert it to an object
-  if (typeof (user as UserDocument).toObject === 'function') {
-    userObject = (user as UserDocument).toObject();
-  }
-
-  const { provider, session, createdAt, ...userAPI } = userObject;
+  const { provider, session, createdAt, ...userAPI } =
+    userObject as UserDocument;
 
   return { ...userAPI, role: 'user' };
 };

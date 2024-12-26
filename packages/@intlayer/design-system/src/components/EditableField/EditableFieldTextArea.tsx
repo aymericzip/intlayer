@@ -57,7 +57,6 @@ export const EditableFieldTextArea = forwardRef<
       }}
     >
       <AutoSizedTextArea
-        defaultValue={memoValue}
         className="leading-6"
         ref={textAreaRef}
         onClick={(e) => {

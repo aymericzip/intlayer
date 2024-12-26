@@ -6,10 +6,15 @@ import { ArrowUpFromLine, Save } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { useGetProjects, usePushDictionaries } from '../../../hooks';
+import {
+  useGetProjects,
+  useGetTags,
+  usePushDictionaries,
+} from '../../../hooks';
 import { cn } from '../../../utils/cn';
 import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
+import { Loader } from '../../Loader';
 import { MultiSelect } from '../../Select';
 import { dictionaryDetailsContent } from './dictionaryDetails.content';
 import {
@@ -27,7 +32,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const { session } = useAuth();
   const { project } = session ?? {};
   const { pushDictionaries } = usePushDictionaries();
-  const { data: projects } = useGetProjects();
+  const { data: projects, isLoading: isLoadingProjects } = useGetProjects();
+  const { data: tags, isLoading: isLoadingTags } = useGetTags();
 
   const DictionaryDetailsSchema = useDictionaryDetailsSchema(
     String(project?._id)
@@ -42,6 +48,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     publishButton,
     saveButton,
     projectInput,
+    tagsSelect,
   } = useDictionary(dictionaryDetailsContent);
 
   useEffect(() => {
@@ -62,6 +69,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     ]);
   };
 
+  const isLoading = isSubmitting || isLoadingTags;
+
   return (
     <Form
       className="flex size-full flex-1 flex-col gap-8"
@@ -71,19 +80,19 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     >
       <div className="flex size-full flex-1 gap-8 max-md:flex-col">
         <Form.EditableFieldInput
-          name="title"
-          label={titleInput.label}
-          placeholder={titleInput.placeholder}
-          description={titleInput.description}
-          disabled={isSubmitting}
-        />
-        <Form.EditableFieldInput
           name="key"
           label={keyInput.label}
           placeholder={keyInput.label}
           description={keyInput.description}
           disabled={isSubmitting}
-          required
+          isRequired
+        />
+        <Form.EditableFieldInput
+          name="title"
+          label={titleInput.label}
+          placeholder={titleInput.placeholder}
+          description={titleInput.description}
+          disabled={isSubmitting}
         />
       </div>
 
@@ -95,38 +104,71 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         disabled={isSubmitting}
       />
 
-      <Form.MultiSelect
-        name="projectIds"
-        label={projectInput.label}
-        description={projectInput.description}
-      >
-        <MultiSelect.Trigger
-          getBadgeValue={(value) =>
-            projects?.data?.find((project) => String(project._id) === value)
-              ?.name ?? value
-          }
+      <div className="flex size-full flex-1 gap-8 max-md:flex-col">
+        <Form.MultiSelect
+          name="projectIds"
+          label={projectInput.label}
+          description={projectInput.description}
         >
-          <MultiSelect.Input placeholder={projectInput.placeholder} />
-        </MultiSelect.Trigger>
-        <MultiSelect.Content>
-          <MultiSelect.List>
-            {projects?.data?.map((project) => (
-              <MultiSelect.Item
-                key={String(project._id)}
-                value={String(project._id)}
-              >
-                {project.name}
-              </MultiSelect.Item>
-            ))}
-          </MultiSelect.List>
-        </MultiSelect.Content>
-      </Form.MultiSelect>
+          <MultiSelect.Trigger
+            getBadgeValue={(value) =>
+              projects?.data?.find((project) => String(project._id) === value)
+                ?.name ?? value
+            }
+          >
+            <MultiSelect.Input placeholder={projectInput.placeholder} />
+          </MultiSelect.Trigger>
+          <MultiSelect.Content>
+            <Loader isLoading={isLoadingProjects}>
+              <MultiSelect.List>
+                {projects?.data?.map((project) => (
+                  <MultiSelect.Item
+                    key={String(project._id)}
+                    value={String(project._id)}
+                  >
+                    {project.name}
+                  </MultiSelect.Item>
+                ))}
+              </MultiSelect.List>
+            </Loader>
+          </MultiSelect.Content>
+        </Form.MultiSelect>
+
+        <Form.MultiSelect
+          name="tags"
+          label={tagsSelect.label}
+          description={tagsSelect.description}
+        >
+          <MultiSelect.Trigger
+            getBadgeValue={(value) =>
+              projects?.data?.find((project) => String(project._id) === value)
+                ?.name ?? value
+            }
+          >
+            <MultiSelect.Input placeholder={tagsSelect.placeholder} />
+          </MultiSelect.Trigger>
+          <MultiSelect.Content>
+            <Loader isLoading={isLoadingProjects}>
+              <MultiSelect.List>
+                {tags?.data?.map((tag) => (
+                  <MultiSelect.Item
+                    key={String(tag.key)}
+                    value={String(tag.key)}
+                  >
+                    {tag.name ?? tag.key}
+                  </MultiSelect.Item>
+                ))}
+              </MultiSelect.List>
+            </Loader>
+          </MultiSelect.Content>
+        </Form.MultiSelect>
+      </div>
 
       {isLocalDictionary ? (
         <Form.Button
           type="submit"
           label={publishButton.label}
-          disabled={isSubmitting || !isFormEdited}
+          disabled={isSubmitting || !isFormEdited || isLoading}
           Icon={ArrowUpFromLine}
           isFullWidth={false}
           color="text"
@@ -139,7 +181,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <Form.Button
           type="submit"
           label={saveButton.label}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isFormEdited || isLoading}
           isFullWidth={false}
           className={cn('ml-auto', isFormEdited ? '' : 'invisible')}
           Icon={Save}

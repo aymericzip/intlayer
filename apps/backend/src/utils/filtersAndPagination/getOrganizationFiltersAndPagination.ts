@@ -1,3 +1,4 @@
+import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { ObjectId, RootFilterQuery } from 'mongoose';
 import {
@@ -40,17 +41,7 @@ export const getOrganizationFiltersAndPagination = (
     filters = {};
 
     if (ids) {
-      let idsArray: string[] | ObjectId[];
-
-      if (typeof ids === 'string') {
-        idsArray = ids.split(',');
-      } else if (Array.isArray(ids)) {
-        idsArray = ids;
-      } else {
-        idsArray = [ids];
-      }
-
-      filters = { ...filters, _id: { $in: idsArray } };
+      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
     }
 
     if (name) {
@@ -58,7 +49,10 @@ export const getOrganizationFiltersAndPagination = (
     }
 
     if (membersIds) {
-      filters = { ...filters, membersIds: { $in: membersIds } };
+      filters = {
+        ...filters,
+        membersIds: { $in: ensureArrayQueryFilter(membersIds) },
+      };
     }
   }
 

@@ -42,8 +42,9 @@ export const dictionaryRoutes = {
     method: 'PATCH',
   },
   updateDictionary: {
-    urlModel: '/',
-    url: baseURL,
+    urlModel: '/:dictionaryId',
+    url: ({ dictionaryId }: { dictionaryId: string }) =>
+      `${baseURL}/${dictionaryId}`,
     method: 'PUT',
   },
   deleteDictionary: {

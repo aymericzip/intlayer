@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { FC } from 'react';
 import { TagEditionForm } from './TagEditionForm';
+import { TagsDictionariesList } from './TagsDictionariesList';
 import { PagesRoutes } from '@/Routes';
 
 type TagDetailsProps = {
@@ -14,7 +15,7 @@ type TagDetailsProps = {
 };
 
 export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
-  const { titleContent } = useIntlayer('tag-details');
+  const { detailsTitle, dictionariesListTitle } = useIntlayer('tag-details');
   const { data: tagResponse, isLoading } = useGetTags({
     args: tagKey,
   });
@@ -23,13 +24,22 @@ export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
   if (isLoading) return <Loader />;
 
   return (
-    <Container
-      className="flex size-full justify-center gap-10 p-6"
-      roundedSize="xl"
-    >
-      <H2>{titleContent}</H2>
-      {tag && <TagEditionForm tag={tag} />}
-    </Container>
+    <>
+      <Container
+        className="flex size-full justify-center gap-10 p-6"
+        roundedSize="xl"
+      >
+        <H2>{detailsTitle}</H2>
+        {tag && <TagEditionForm tag={tag} />}
+      </Container>
+      <Container
+        className="flex size-full justify-center gap-10 p-6"
+        roundedSize="xl"
+      >
+        <H2>{dictionariesListTitle}</H2>
+        {tag && <TagsDictionariesList tagKey={tag.key} />}
+      </Container>
+    </>
   );
 };
 

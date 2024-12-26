@@ -345,6 +345,7 @@ export const pushDictionaries = async (
         result.newDictionaries.push(newDictionary.key);
       } catch (error) {
         ErrorHandler.handleAppErrorResponse(res, error as AppError);
+        return;
       }
     }
 
@@ -361,7 +362,7 @@ export const pushDictionaries = async (
         )!;
 
         const dictionary: DictionaryData = {
-          ...existingDictionaryDB,
+          ...existingDictionaryDB.toObject(),
           ...dictionaryDataEl,
           content: [
             ...(existingDictionaryDB.content ?? []),
@@ -382,6 +383,7 @@ export const pushDictionaries = async (
           result.updatedDictionaries.push(newDictionary.key);
         } catch (error) {
           ErrorHandler.handleAppErrorResponse(res, error as AppError);
+          return;
         }
       }
     }
@@ -408,6 +410,7 @@ export const pushDictionaries = async (
   }
 };
 
+export type UpdateDictionaryParam = { dictionaryId: string };
 export type UpdateDictionaryBody = Partial<Dictionary>;
 export type UpdateDictionaryResult = ResponseData<DictionaryAPI>;
 
@@ -415,10 +418,11 @@ export type UpdateDictionaryResult = ResponseData<DictionaryAPI>;
  * Updates an existing dictionary in the database.
  */
 export const updateDictionary = async (
-  req: Request<any, any, UpdateDictionaryBody>,
+  req: Request<UpdateDictionaryParam, any, UpdateDictionaryBody>,
   res: ResponseWithInformation<UpdateDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
+  const { dictionaryId } = req.params;
   const { project, dictionaryRights } = res.locals;
   const dictionaryData = req.body;
 
@@ -437,7 +441,7 @@ export const updateDictionary = async (
     return;
   }
 
-  if (typeof dictionaryData._id === 'undefined') {
+  if (typeof dictionaryId === 'undefined') {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
     return;
   }
@@ -449,7 +453,7 @@ export const updateDictionary = async (
 
   try {
     const updatedDictionary = await dictionaryService.updateDictionaryById(
-      dictionaryData._id,
+      dictionaryId,
       dictionaryData
     );
 

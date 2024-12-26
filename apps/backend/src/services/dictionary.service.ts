@@ -1,6 +1,8 @@
 import { DictionaryModel } from '@models/dictionary.model';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import type { DictionaryFilters } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
+import { removeObjectKeys } from '@utils/removeObjectKeys';
 import {
   type DictionaryFields,
   validateDictionary,
@@ -175,8 +177,11 @@ export const updateDictionaryById = async (
   dictionaryId: string | ObjectId,
   dictionary: Partial<Dictionary>
 ): Promise<DictionaryDocument> => {
-  const updatedKeys = Object.keys(dictionary) as DictionaryFields;
-  const errors = validateDictionary(dictionary, updatedKeys);
+  const dictionaryObject = ensureMongoDocumentToObject(dictionary);
+  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, ['_id']);
+
+  const updatedKeys = Object.keys(dictionaryToUpdate) as DictionaryFields;
+  const errors = await validateDictionary(dictionaryToUpdate, updatedKeys);
 
   if (Object.keys(errors).length > 0) {
     throw new GenericError('DICTIONARY_INVALID_FIELDS', {
@@ -185,18 +190,18 @@ export const updateDictionaryById = async (
     });
   }
 
-  const existingDictionary = await getDictionaryById(dictionaryId);
-
   const result = await DictionaryModel.updateOne(
     { _id: dictionaryId },
-    { ...dictionary, content: [existingDictionary.content, dictionary.content] }
+    dictionaryToUpdate
   );
 
   if (result.matchedCount === 0) {
     throw new GenericError('DICTIONARY_UPDATE_FAILED', { dictionaryId });
   }
 
-  return await getDictionaryById(dictionaryId);
+  const updatedDictionary = await getDictionaryById(dictionaryId);
+
+  return updatedDictionary;
 };
 
 /**
@@ -210,8 +215,12 @@ export const updateDictionaryByKey = async (
   dictionary: Partial<Dictionary>,
   projectId: string | ObjectId
 ): Promise<DictionaryDocument> => {
-  const updatedKeys = Object.keys(dictionary) as DictionaryFields;
-  const errors = validateDictionary(dictionary, updatedKeys);
+  const dictionaryObject = ensureMongoDocumentToObject(dictionary);
+
+  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, ['_id']);
+
+  const updatedKeys = Object.keys(dictionaryToUpdate) as DictionaryFields;
+  const errors = await validateDictionary(dictionaryToUpdate, updatedKeys);
 
   if (Object.keys(errors).length > 0) {
     throw new GenericError('DICTIONARY_INVALID_FIELDS', {
@@ -221,18 +230,18 @@ export const updateDictionaryByKey = async (
     });
   }
 
-  const existingDictionary = await getDictionaryByKey(dictionaryKey, projectId);
-
   const result = await DictionaryModel.updateOne(
     { key: dictionaryKey, projectIds: projectId },
-    { ...dictionary, content: [existingDictionary.content, dictionary.content] }
+    dictionaryToUpdate
   );
 
   if (result.matchedCount === 0) {
     throw new GenericError('DICTIONARY_UPDATE_FAILED', { dictionaryKey });
   }
 
-  return await getDictionaryByKey(dictionaryKey, projectId);
+  const updatedDictionary = await getDictionaryByKey(dictionaryKey, projectId);
+
+  return updatedDictionary;
 };
 
 /**

@@ -1,8 +1,5 @@
-import {
-  Dictionary,
-  DictionaryAPI,
-  DictionaryDocument,
-} from '@/types/dictionary.types';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
+import { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
 import { Project } from '@/types/project.types';
 
 /**
@@ -18,12 +15,7 @@ export const mapDictionaryToAPI = (
   projectId: string | Project['_id'],
   version?: number
 ): DictionaryAPI => {
-  let dictionaryObject: Dictionary = dictionary;
-
-  // If the dictionary is a mongoose document, convert it to an object
-  if (typeof (dictionary as DictionaryDocument).toObject === 'function') {
-    dictionaryObject = (dictionary as DictionaryDocument).toObject();
-  }
+  const dictionaryObject = ensureMongoDocumentToObject<Dictionary>(dictionary);
 
   const content = dictionaryObject.content[version ?? 0];
 

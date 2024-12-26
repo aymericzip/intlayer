@@ -172,6 +172,7 @@ export const getUserByEmail = async (
     res.json(responseData);
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
   }
 };
 

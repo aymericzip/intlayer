@@ -36,7 +36,7 @@ const tagFormContent = {
       }),
     },
 
-    titleContent: t({
+    detailsTitle: t({
       en: 'Tag details',
       'en-GB': 'Tag details',
       fr: 'Détails du tag',
@@ -50,6 +50,22 @@ const tagFormContent = {
       hi: 'टैग विवरण',
       ar: 'تفاصيل الوسم',
       ru: 'Детали тега',
+    }),
+
+    dictionariesListTitle: t({
+      en: 'Dictionaries associated with this tag',
+      fr: 'Dictionnaires associés à ce tag',
+      es: 'Diccionarios asociados con este tag',
+      'en-GB': 'Dictionaries associated with this tag',
+      de: 'Wörterbücher, die mit diesem Tag verbunden sind',
+      ja: 'このタグに関連付けられた辞書',
+      ko: '이 태그와 관련된 사전',
+      zh: '与此标签相关的字典',
+      it: 'Dizionari associati a questo tag',
+      pt: 'Dicionários associados a este tag',
+      hi: 'इस टैग के साथ संबंधित डिक्शन्स',
+      ar: 'قاموس مرتبطة بهذا الوسم',
+      ru: 'Словари, связанные с этим тегом',
     }),
   },
 } satisfies DeclarationContent;

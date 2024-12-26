@@ -1,4 +1,5 @@
-import { Project, ProjectAPI, ProjectDocument } from '@/types/project.types';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
+import { Project, ProjectAPI } from '@/types/project.types';
 import { User } from '@/types/user.types';
 
 /**
@@ -12,12 +13,7 @@ export const mapProjectToAPI = (
   user: User | null,
   isProjectAdmin: boolean | null
 ): ProjectAPI => {
-  let projectObject: Project = project;
-
-  // If the project is a mongoose document, convert it to an object
-  if (typeof (project as ProjectDocument).toObject === 'function') {
-    projectObject = (project as ProjectDocument).toObject();
-  }
+  let projectObject = ensureMongoDocumentToObject<Project>(project);
 
   projectObject = {
     ...projectObject,

@@ -16,6 +16,7 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
     descriptionInvalidTypeError,
     requiredErrorProjectId,
     invalidTypeErrorProjectId,
+    invalidTypeErrorTags,
   } = useDictionary(useDictionaryDetailsSchemaContent);
 
   return z.object({
@@ -60,6 +61,13 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
         })
       )
       .default([projectId]),
+    tags: z
+      .array(
+        z.string({
+          invalid_type_error: invalidTypeErrorTags,
+        })
+      )
+      .default([]),
   });
 };
 

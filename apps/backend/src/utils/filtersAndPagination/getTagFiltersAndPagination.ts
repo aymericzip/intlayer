@@ -1,3 +1,4 @@
+import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
 import {
@@ -33,31 +34,11 @@ export const getTagFiltersAndPagination = (
     filters = {};
 
     if (ids) {
-      let idsArray: string[];
-
-      if (typeof ids === 'string') {
-        idsArray = ids.split(',');
-      } else if (Array.isArray(ids)) {
-        idsArray = ids;
-      } else {
-        idsArray = [ids];
-      }
-
-      filters = { ...filters, _id: { $in: idsArray } };
+      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
     }
 
     if (keys) {
-      let keysArray: string[];
-
-      if (typeof keys === 'string') {
-        keysArray = keys.split(',');
-      } else if (Array.isArray(keys)) {
-        keysArray = keys;
-      } else {
-        keysArray = [keys];
-      }
-
-      filters = { ...filters, key: { $in: keysArray } };
+      filters = { ...filters, key: { $in: ensureArrayQueryFilter(keys) } };
     }
 
     if (name) {

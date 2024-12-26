@@ -1,5 +1,6 @@
+import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
-import type { ObjectId, RootFilterQuery } from 'mongoose';
+import type { RootFilterQuery } from 'mongoose';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
@@ -31,17 +32,7 @@ export const getUserFiltersAndPagination = (
     filters = {};
 
     if (ids) {
-      let idsArray: string[] | ObjectId[];
-
-      if (typeof ids === 'string') {
-        idsArray = ids.split(',');
-      } else if (Array.isArray(ids)) {
-        idsArray = ids;
-      } else {
-        idsArray = [ids];
-      }
-
-      filters = { ...filters, id: { $in: idsArray } };
+      filters = { ...filters, id: { $in: ensureArrayQueryFilter(ids) } };
     }
 
     if (firstName) {

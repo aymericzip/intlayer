@@ -1,8 +1,5 @@
-import {
-  Organization,
-  OrganizationAPI,
-  OrganizationDocument,
-} from '@/types/organization.types';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
+import { Organization, OrganizationAPI } from '@/types/organization.types';
 
 /**
  * Maps an organization to an API response.
@@ -14,12 +11,8 @@ export const mapOrganizationToAPI = (
   organization: Organization,
   isOrganizationAdmin: boolean | null
 ): OrganizationAPI => {
-  let organizationObject: Organization = organization;
-
-  // If the organization is a mongoose document, convert it to an object
-  if (typeof (organization as OrganizationDocument).toObject === 'function') {
-    organizationObject = (organization as OrganizationDocument).toObject();
-  }
+  const organizationObject =
+    ensureMongoDocumentToObject<Organization>(organization);
 
   if (isOrganizationAdmin) {
     return organizationObject;

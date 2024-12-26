@@ -1,3 +1,4 @@
+import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
 import {
@@ -10,6 +11,7 @@ export type DictionaryFiltersParams = {
   ids?: string | string[];
   key?: string;
   keys?: string[];
+  tags?: string[] | string[];
 };
 export type DictionaryFilters = RootFilterQuery<Dictionary>;
 
@@ -27,22 +29,12 @@ export const getDictionaryFiltersAndPagination = (
   let filters: DictionaryFilters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { key, keys, ids } = filtersRequest;
+    const { key, keys, tags, ids } = filtersRequest;
 
     filters = {};
 
     if (ids) {
-      let idsArray: string[];
-
-      if (typeof ids === 'string') {
-        idsArray = ids.split(',');
-      } else if (Array.isArray(ids)) {
-        idsArray = ids;
-      } else {
-        idsArray = [ids];
-      }
-
-      filters = { ...filters, _id: { $in: idsArray } };
+      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
     }
 
     if (key) {
@@ -50,7 +42,11 @@ export const getDictionaryFiltersAndPagination = (
     }
 
     if (keys) {
-      filters = { ...filters, key: { $in: keys } };
+      filters = { ...filters, key: { $in: ensureArrayQueryFilter(keys) } };
+    }
+
+    if (tags) {
+      filters = { ...filters, tags: { $in: ensureArrayQueryFilter(tags) } };
     }
   }
 

@@ -179,5 +179,21 @@ export const useDictionaryDetailsSchemaContent = {
       ar: 'يرجى اختيار مشروع صالح',
       ru: 'Пожалуйста, выберите действительный проект',
     }),
+
+    invalidTypeErrorTags: t({
+      en: 'Please enter a valid tag',
+      'en-GB': 'Please enter a valid tag',
+      fr: 'Veuillez saisir un tag valide',
+      es: 'Por favor, ingrese un tag válido',
+      de: 'Bitte geben Sie einen gültigen Tag ein',
+      ja: '有効なタグを入力してください',
+      ko: '유효한 태그를 입력하세요',
+      zh: '请输入有效的标签',
+      it: 'Si prega di inserire un tag valido',
+      pt: 'Por favor, insira um tag válido',
+      hi: 'कृपया एक वैध टैग दर्ज करें',
+      ar: 'يرجى إدخال وسم صالح',
+      ru: 'Пожалуйста, введите действительный тег',
+    }),
   },
 } satisfies DeclarationContent;

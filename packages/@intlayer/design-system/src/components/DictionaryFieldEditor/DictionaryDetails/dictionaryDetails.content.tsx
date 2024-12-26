@@ -198,6 +198,52 @@ export const dictionaryDetailsContent = {
       }),
     },
 
+    tagsSelect: {
+      label: t({
+        en: 'Tags',
+        'en-GB': 'Tags',
+        fr: 'Tags',
+        es: 'Etiquetas',
+        de: 'Tags',
+        ja: 'タグ',
+        ko: '태그',
+        zh: '标签',
+        it: 'Tag',
+        pt: 'Tags',
+        hi: 'टैग',
+        ar: 'الوسوم',
+        ru: 'Теги',
+      }),
+      description: t({
+        en: 'A dictionary can be associated with one or more tags. This allows you to load the dictionary on different applications, and share it across different teams.',
+        'en-GB':
+          'A dictionary can be associated with one or more tags. This allows you to load the dictionary on different applications, and share it across different teams.',
+        fr: 'Un dictionnaire peut être associé à un ou plusieurs tags. Cela permet de charger le dictionnaire dans différentes applications et de le partager entre différentes équipes.',
+        es: 'Un diccionario puede estar asociado con uno o más tags. Esto permite cargar el diccionario en diferentes aplicaciones y compartirlo entre diferentes equipos.',
+        de: 'Ein Wörterbuch kann mit einem oder mehreren Tags verknüpft werden. Dies ermöglicht es Ihnen, das Wörterbuch in verschiedenen Anwendungen zu laden und es in verschiedenen Teams zu teilen.',
+        ja: '辞書は1つ以上のタグに関連付けることができます。これにより、辞書を異なるアプリケーションにロードし、異なるチーム間で共有できます。',
+        ko: '사전은 태그를 하나 이상의 태그로 연결할 수 있습니다. 이를 통해 사전을 다양한 애플리케이션에 로드하고 다양한 팀 간에 공유할 수 있습니다.',
+        zh: '字典可以与一个或多个标签关联。这使您能够在不同的应用程序中加载字典，并在不同的团队之间共享。',
+        it: 'Un dizionario può essere associato a uno o più tag. Questo ti consente di caricare il dizionario in diverse applicazioni e condividerlo tra diversi team.',
+        pt: 'Um dicionário pode ser associado a um ou mais tags. Isso permite que você carregue o dicionário em diferentes aplicativos e o compartilhe entre diferentes equipes.',
+      }),
+      placeholder: t({
+        en: 'Select the tags to associate with your dictionary',
+        'en-GB': 'Select the tags to associate with your dictionary',
+        fr: 'Sélectionnez les tags à associer à votre dictionnaire',
+        es: 'Seleccione los tags para asociar con su diccionario',
+        de: 'Wählen Sie die Tags, die mit Ihrem Wörterbuch verknüpft werden sollen',
+        ja: '辞書に関連付けるタグを選択してください',
+        ko: '사전과 연결할 태그를 선택하세요',
+        zh: '选择与您的字典相关的标签',
+        it: 'Seleziona i tag da associare al tuo dizionario',
+        pt: 'Selecione os tags para associar ao seu dicionário',
+        hi: 'अपने शब्दकोश से जोड़ने के लिए टैग का चयन करें',
+        ar: 'حدد الوسوم التي تريد ربطها بقاموسك',
+        ru: 'Выберите теги, которые нужно связать с словарем',
+      }),
+    },
+
     saveButton: {
       text: t({
         en: 'Save changes',

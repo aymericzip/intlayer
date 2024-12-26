@@ -5,6 +5,7 @@ import type {
   DeleteDictionaryResult,
   GetDictionariesParams,
   GetDictionariesResult,
+  UpdateDictionaryParam,
   UpdateDictionaryBody,
   UpdateDictionaryResult,
   PushDictionariesBody,
@@ -107,11 +108,12 @@ export const getDictionaryAPI = (
    * @param dictionary - Updated dictionary data.
    */
   const updateDictionary = async (
+    dictionaryId: UpdateDictionaryParam['dictionaryId'],
     dictionary: UpdateDictionaryBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateDictionaryResult>(
-      `${PROJECT_API_ROUTE}`,
+      `${PROJECT_API_ROUTE}/${dictionaryId}`,
       authAPIOptions,
       otherOptions,
       {

@@ -1,4 +1,5 @@
-import { Tag, TagAPI, TagDocument } from '@/types/tag.types';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
+import { Tag, TagAPI } from '@/types/tag.types';
 
 /**
  * Maps a tag to an API response.
@@ -6,12 +7,7 @@ import { Tag, TagAPI, TagDocument } from '@/types/tag.types';
  * @returns The tag mapped to an API response.
  */
 export const mapTagToAPI = (tag: Tag): TagAPI => {
-  let tagObject: Tag = tag;
-
-  // If the tag is a mongoose document, convert it to an object
-  if (typeof (tag as TagDocument).toObject === 'function') {
-    tagObject = (tag as TagDocument).toObject();
-  }
+  const tagObject = ensureMongoDocumentToObject(tag);
 
   const { ...tagAPI } = tagObject;
   return tagAPI;

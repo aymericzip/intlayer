@@ -24,6 +24,10 @@ export const dictionarySchema = new Schema<Dictionary>(
       type: Number,
       default: 1,
     },
+    tags: {
+      type: [String],
+      default: [],
+    },
     content: {
       type: [Schema.Types.Mixed],
       required: true,
