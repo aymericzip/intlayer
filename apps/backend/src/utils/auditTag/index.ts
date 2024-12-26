@@ -1,18 +1,16 @@
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { getLocaleName } from '@intlayer/core';
 import { logger } from '@logger';
-import { Locales } from 'intlayer';
 import { OpenAI } from 'openai';
+import { Dictionary } from '@/types/dictionary.types';
+import { Tag } from '@/types/tag.types';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export type AuditOptions = {
-  locales: Locales[];
-  defaultLocale: Locales;
-  fileContent: string;
-  filePath?: string;
+  tag: Tag;
+  dictionaries: Dictionary[];
   model?: string;
   openAiApiKey: string;
   customPrompt?: string;
@@ -32,33 +30,8 @@ const getFileContent = (relativeFilePath: string): string => {
   return fileContent;
 };
 
-const FILE_TEMPLATE: Record<string, string> = {
-  ts: getFileContent('./TS_FORMAT.md'),
-  tsx: getFileContent('./TSX_FORMAT.md'),
-  js: getFileContent('./MJS_FORMAT.md'),
-  mjs: getFileContent('./MJS_FORMAT.md'),
-  cjs: getFileContent('./CJS_FORMAT.md'),
-  jsx: getFileContent('./JSX_FORMAT.md'),
-  json: getFileContent('./JSON_FORMAT.md'),
-};
-
 // The prompt template to send to ChatGPT, requesting an audit of content declaration files.
 const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
-
-/**
- * Formats a locale with its full name and returns a string representation.
- *
- * @function
- * @param locale - A locale from the project's configuration (e.g., 'en-US', 'fr-FR').
- * @returns A formatted string combining the locale's name and code. Example: "English (US): en-US".
- */
-const formatLocaleWithName = (locale: Locales): string => {
-  // getLocaleName returns a human-readable name for the locale.
-  const localeName = getLocaleName(locale);
-
-  // Concatenate both the readable name and the locale code.
-  return `${locale}: ${localeName}`;
-};
 
 /**
  * Audits a content declaration file by constructing a prompt for ChatGPT.
@@ -72,14 +45,12 @@ const formatLocaleWithName = (locale: Locales): string => {
  * @param options - Optional configuration for the audit process.
  * @returns This function returns a Promise that resolves once the audit is complete.
  */
-export const auditFile = async ({
-  fileContent,
-  filePath,
+export const auditTag = async ({
   model,
   openAiApiKey,
   customPrompt,
-  locales,
-  defaultLocale,
+  tag,
+  dictionaries,
 }: AuditOptions): Promise<AuditFileResultData | undefined> => {
   try {
     // Optionally, you could initialize and configure the OpenAI client here, if you intend to make API calls.
@@ -89,27 +60,17 @@ export const auditFile = async ({
       apiKey: openAiApiKey,
     });
 
-    // Read the file's content.
-    const splitted = (filePath ?? '.json').split('.');
-    const fileExtension = splitted[splitted.length - 1];
-
     // Prepare the prompt for ChatGPT by replacing placeholders with actual values.
     const prompt =
       customPrompt ??
-      CHAT_GPT_PROMPT.replace('{{filePath}}', filePath ?? 'Not provided')
-        .replace(
-          '{{defaultLocale}}',
-          `{${formatLocaleWithName(defaultLocale)}}`
-        )
-        .replace(
-          '{{otherLocales}}',
-          `{${locales.map(formatLocaleWithName).join(', ')}}`
-        )
-        .replace(
-          '{{declarationsContentTemplate}}',
-          FILE_TEMPLATE[fileExtension]
-        )
-        .replace('{{fileContent}}', fileContent);
+      CHAT_GPT_PROMPT.replace('{{tag}}', `${JSON.stringify(tag)}`).replace(
+        '{{contentDeclarations}}',
+        dictionaries
+          .map((dictionary) => `- ${JSON.stringify(dictionary)}`)
+          .join('\n\n')
+      );
+
+    console.log('prompt', prompt);
 
     // Example of how you might request a completion from ChatGPT:
     const chatCompletion = await openai.chat.completions.create({
@@ -118,6 +79,8 @@ export const auditFile = async ({
     });
 
     const newContent = chatCompletion.choices[0].message?.content;
+
+    console.log('newContent', newContent);
 
     logger.info(
       `${chatCompletion.usage?.total_tokens} tokens used in the request`

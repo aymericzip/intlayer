@@ -31,8 +31,6 @@ export const validateTag = async (
   // Define the fields to validate
   const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
 
-  const organization = await getOrganizationById(tag.organizationId ?? '');
-
   // Validate each field
   for (const field of fieldsToValidate) {
     const value = tag[field];
@@ -79,6 +77,7 @@ export const validateTag = async (
         organizationErrors.push('Organization id is required');
       }
 
+      const organization = await getOrganizationById(field);
       if (!organization) {
         organizationErrors.push('Organization not found');
       }

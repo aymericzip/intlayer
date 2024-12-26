@@ -3,6 +3,7 @@ import { GenericError } from '@utils/errors';
 import type { TagFilters } from '@utils/filtersAndPagination/getTagFiltersAndPagination';
 import { type TagFields, validateTag } from '@utils/validation/validateTag';
 import type { ObjectId } from 'mongoose';
+import { Organization } from '@/export';
 import type { Tag, TagData, TagDocument } from '@/types/tag.types';
 
 /**
@@ -34,6 +35,15 @@ export const getTagById = async (
   }
 
   return tag;
+};
+
+export const getTagsByKeys = async (
+  keys: string[],
+  organizationId: string | Organization['_id']
+): Promise<TagDocument[]> => {
+  const tags = await TagModel.find({ key: { $in: keys }, organizationId });
+
+  return tags;
 };
 
 /**

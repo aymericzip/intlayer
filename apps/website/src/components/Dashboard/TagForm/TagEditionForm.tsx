@@ -2,10 +2,10 @@
 
 import { TagAPI } from '@intlayer/backend';
 import { useForm, Form } from '@intlayer/design-system';
-import { useUpdateTag } from '@intlayer/design-system/hooks';
-import { Save, XCircle } from 'lucide-react';
+import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';
+import { Save, WandSparkles, XCircle } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type FC } from 'react';
+import { useMemo, useState, type FC } from 'react';
 import { DeleteTagModal } from './DeleteTagModal';
 import { useTagSchema, type TagFormData } from './useTagFormSchema';
 
@@ -16,7 +16,8 @@ type TagEditionFormProps = {
 export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
   const TagSchema = useTagSchema();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const { updateTag, isLoading } = useUpdateTag();
+  const { auditTag, isLoading: isAuditing } = useAuditTag();
+  const { updateTag, isLoading: isUpdating } = useUpdateTag();
   const { form, isSubmitting } = useForm(TagSchema, {
     defaultValues: tag,
   });
@@ -26,12 +27,34 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     descriptionInput,
     instructionsInput,
     editButton,
+    auditButton,
     deleteButton,
   } = useIntlayer('tag-form');
 
   const onSubmitSuccess = async (data: TagFormData) => {
     await updateTag(tag._id, data);
   };
+
+  const handleOnAuditFile = async () => {
+    const tagToAudit = form.getValues();
+    await auditTag({ tag: { ...tag, ...tagToAudit } }).then((response) => {
+      if (!response.data) return;
+
+      try {
+        const editedTag = JSON.parse(response.data.fileContent) as TagAPI;
+
+        form.reset(editedTag);
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
+
+  const isEdited = useMemo(
+    () => tag && JSON.stringify(tag) !== JSON.stringify(form.getValues()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tag, form.getValues()]
+  );
 
   return (
     <>
@@ -80,22 +103,37 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
         <div className="mt-4 flex justify-end gap-2 max-md:flex-col">
           <Form.Button
             type="button"
+            label={auditButton.label.value}
+            Icon={WandSparkles}
+            variant="outline"
+            color="text"
+            className="ml-auto max-md:w-full"
+            onClick={handleOnAuditFile}
+            disabled={isSubmitting || isAuditing}
+            isLoading={isAuditing}
+          >
+            {auditButton.text}
+          </Form.Button>
+
+          <Form.Button
+            type="button"
             variant="outline"
             color="error"
-            isLoading={isLoading}
+            isLoading={isUpdating}
             label={deleteButton.ariaLabel.value}
-            disabled={isSubmitting || isLoading}
+            disabled={isSubmitting || isUpdating}
             Icon={XCircle}
             onClick={() => setIsDeleteModalOpen(true)}
           >
             {deleteButton.text}
           </Form.Button>
-          {form.formState.isDirty && (
+          {isEdited && (
             <Form.Button
               type="submit"
               color="text"
               label={editButton.ariaLabel.value}
-              disabled={isSubmitting || isLoading}
+              disabled={isSubmitting || isUpdating}
+              isLoading={isUpdating}
               Icon={Save}
             >
               {editButton.text}

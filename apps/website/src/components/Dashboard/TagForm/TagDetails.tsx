@@ -26,14 +26,14 @@ export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
   return (
     <>
       <Container
-        className="flex size-full justify-center gap-10 p-6"
+        className="m-auto flex size-full max-w-3xl justify-center gap-10 p-6"
         roundedSize="xl"
       >
         <H2>{detailsTitle}</H2>
         {tag && <TagEditionForm tag={tag} />}
       </Container>
       <Container
-        className="flex size-full justify-center gap-10 p-6"
+        className="m-auto flex size-full max-w-3xl justify-center gap-10 p-6"
         roundedSize="xl"
       >
         <H2>{dictionariesListTitle}</H2>

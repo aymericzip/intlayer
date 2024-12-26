@@ -10,7 +10,7 @@ import { useDictionary } from 'react-intlayer';
 import { useShallow } from 'zustand/react/shallow';
 import { useAuth } from '../../../components/Auth';
 import {
-  useAuditFile,
+  useAuditContentDeclaration,
   useGetAllDictionaries,
   usePushDictionaries,
 } from '../../../hooks';
@@ -29,7 +29,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
   const { pushDictionaries } = usePushDictionaries();
   const SaveFormSchema = getSaveFormSchema();
   const { online } = useGetAllDictionaries();
-  const { isLoading: isAuditing, auditFile } = useAuditFile();
+  const { isLoading: isAuditing, auditContentDeclaration } =
+    useAuditContentDeclaration();
 
   const { editedContent, restoreEditedContent, setEditedContent } =
     useEditedContentStore(
@@ -77,7 +78,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
   }, [dictionary, editedContent, pushDictionaries]);
 
   const handleOnAuditFile = async () =>
-    await auditFile({
+    await auditContentDeclaration({
       defaultLocale: project?.defaultLocale ?? Locales.ENGLISH,
       locales: project?.locales ?? [Locales.ENGLISH],
       fileContent: JSON.stringify(editedDictionary ?? dictionary),

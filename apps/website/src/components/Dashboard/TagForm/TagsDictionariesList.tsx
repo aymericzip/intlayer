@@ -1,8 +1,9 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
-import { Loader } from '@intlayer/design-system';
+import { Button, Loader, useEditionPanelStore } from '@intlayer/design-system';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
+import { ChevronRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -27,6 +28,10 @@ const NoDictionaryView: FC = () => {
 export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
   tagKey,
 }) => {
+  const router = useRouter();
+  const { setFocusedContent } = useEditionPanelStore((s) => ({
+    setFocusedContent: s.setFocusedContent,
+  }));
   const { dictionaryLinkLabel } = useIntlayer('tags-dictionaries-list');
   const { data, isLoading } = useGetDictionaries({
     args: {
@@ -38,14 +43,35 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
     <div className="flex flex-col gap-2">
       <Loader isLoading={isLoading}>
         {data?.data?.map((dictionary) => (
-          <Link
-            href={`${PagesRoutes.Dashboard_Content}/${dictionary._id}`}
-            key={String(dictionary._id)}
-            variant="hoverable"
+          <Button
+            key={String(dictionary.key)}
             label={dictionaryLinkLabel.value}
+            variant="hoverable"
+            color="text"
+            IconRight={ChevronRight}
+            onClick={() => {
+              setFocusedContent({
+                dictionaryKey: dictionary.key,
+                keyPath: [],
+                dictionaryPath: dictionary.filePath,
+              });
+              router.push(`${PagesRoutes.Dashboard_Content}/${dictionary.key}`);
+            }}
           >
-            {dictionary.title ?? dictionary.key}
-          </Link>
+            <div className="flex flex-col gap-2 p-2">
+              {dictionary.title && (
+                <strong className="text-wrap text-sm">
+                  {dictionary.title}
+                </strong>
+              )}
+              {dictionary.key && <span>{dictionary.key}</span>}
+              {dictionary.description && (
+                <span className="text-neutral dark:text-neutral-dark text-wrap">
+                  {dictionary.description}
+                </span>
+              )}
+            </div>
+          </Button>
         ))}
 
         {data?.data?.length === 0 && <NoDictionaryView />}

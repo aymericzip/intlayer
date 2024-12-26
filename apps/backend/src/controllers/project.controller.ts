@@ -201,7 +201,7 @@ export const addProject = async (
   }
 };
 
-export type UpdateProjectBody = Partial<ProjectData>;
+export type UpdateProjectBody = Partial<Project>;
 export type UpdateProjectResult = ResponseData<ProjectAPI>;
 
 /**

@@ -26,12 +26,12 @@ export const ProjectEditionForm: FC = () => {
     useIntlayer('project-form');
 
   const onSubmitSuccess = async (data: ProjectFormData) => {
-    await updateProject({ ...data, _id: String(project?._id) });
+    await updateProject({ ...data, _id: project?._id });
   };
 
   useEffect(() => {
-    if (project && typeof form.formState.defaultValues === 'undefined') {
-      form.reset();
+    if (project) {
+      form.reset(project);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.reset, project]);

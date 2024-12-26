@@ -20,6 +20,7 @@ export const DictionaryListDashboardContent: FC = () => {
   const { setFocusedContent } = useEditionPanelStore((s) => ({
     setFocusedContent: s.setFocusedContent,
   }));
+  const { selectDictionaryButton } = useIntlayer('dictionary-form');
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { noDictionaryView, createDictionaryButton, dictionaryList } =
     useIntlayer('dictionary-form');
@@ -44,15 +45,15 @@ export const DictionaryListDashboardContent: FC = () => {
       {dictionaries.map((dictionary) => (
         <Button
           key={String(dictionary.key)}
-          label="Select dictionary"
-          IconRight={ChevronRight}
+          label={selectDictionaryButton.label.value}
           variant="hoverable"
           color="text"
+          IconRight={ChevronRight}
           onClick={() => {
             setFocusedContent({
               dictionaryKey: dictionary.key,
               keyPath: [],
-              dictionaryPath: undefined,
+              dictionaryPath: dictionary.filePath,
             });
             router.push(`${PagesRoutes.Dashboard_Content}/${dictionary.key}`);
           }}

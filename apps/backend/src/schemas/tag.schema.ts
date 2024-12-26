@@ -25,6 +25,12 @@ export const tagSchema = new Schema<Tag>(
       minlength: NAME_MIN_LENGTH,
       maxlength: NAME_MAX_LENGTH,
     },
+    description: {
+      type: String,
+    },
+    instructions: {
+      type: String,
+    },
     creatorId: {
       type: Schema.Types.ObjectId,
       ref: 'User',

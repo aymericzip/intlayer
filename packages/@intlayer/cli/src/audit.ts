@@ -43,7 +43,7 @@ export const auditFile = async (filePath: string, options?: AuditOptions) => {
     const fileContent = readFileSync(filePath, 'utf-8');
 
     // Example of how you might request a completion from ChatGPT:
-    const auditFileResult = await intlayerAPI.ai.auditFile(
+    const auditFileResult = await intlayerAPI.ai.auditContentDeclaration(
       {
         fileContent,
         filePath,

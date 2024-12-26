@@ -13,6 +13,7 @@ import type {
   DictionaryData,
   DictionaryDocument,
 } from '@/types/dictionary.types';
+import type { Project } from '@/types/project.types';
 
 /**
  * Finds dictionaries based on filters and pagination options.
@@ -89,6 +90,18 @@ export const getDictionariesKeys = async (
   }).select('key');
 
   return dictionaries.map((dictionary) => dictionary.key);
+};
+
+export const getDictionariesByTags = async (
+  tags: string[],
+  projectId: string | Project['_id']
+): Promise<DictionaryDocument[]> => {
+  const dictionaries = await DictionaryModel.find({
+    tags: { $in: tags },
+    projectIds: projectId,
+  });
+
+  return dictionaries;
 };
 
 /**

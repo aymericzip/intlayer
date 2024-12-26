@@ -37,7 +37,6 @@ export const useTagSchema = () => {
         invalid_type_error: invalidTypeErrorDescription,
       })
       .min(1, { message: invalidTypeErrorDescription })
-      .max(500, { message: invalidTypeErrorDescription })
       .optional(),
 
     instructions: z
@@ -46,7 +45,6 @@ export const useTagSchema = () => {
         invalid_type_error: invalidTypeErrorInstructions,
       })
       .min(1, { message: invalidTypeErrorInstructions })
-      .max(500, { message: invalidTypeErrorInstructions })
       .optional(),
   });
 };

@@ -618,10 +618,24 @@ export const useCancelSubscription = (
  * AI
  */
 
-export const useAuditFile = (
-  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditFile>
+export const useAuditContentDeclaration = (
+  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditContentDeclaration>
 ) =>
-  useAppAsync('auditFile', useIntlayerAuth().ai.auditFile, args, {
+  useAppAsync(
+    'auditContentDeclaration',
+    useIntlayerAuth().ai.auditContentDeclaration,
+    args,
+    {
+      requireUser: true,
+      requireOrganization: true,
+      requireProject: true,
+    }
+  );
+
+export const useAuditTag = (
+  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditTag>
+) =>
+  useAppAsync('auditTag', useIntlayerAuth().ai.auditTag, args, {
     requireUser: true,
     requireOrganization: true,
     requireProject: true,

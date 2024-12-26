@@ -202,6 +202,24 @@ const dictionaryFormContent = {
         ru: 'Нажмите, чтобы отредактировать',
       }),
     },
+
+    selectDictionaryButton: {
+      label: t({
+        en: 'Click to select a dictionary',
+        fr: 'Cliquez pour sélectionner un dictionnaire',
+        es: 'Haga clic para seleccionar un diccionario',
+        'en-GB': 'Click to select a dictionary',
+        de: 'Klicken Sie, um ein Wörterbuch auszuwählen',
+        ja: '辞書を選択するにはクリックしてください',
+        ko: '사전을 선택하려면 클릭하세요',
+        zh: '单击以选择字典',
+        it: 'Clicca per selezionare un dizionario',
+        pt: 'Clique para selecionar um dicionário',
+        hi: 'शब्दकोश का चयन करने के लिए क्लिक करें',
+        ar: 'اضغط لتحديد قاموس',
+        ru: 'Нажмите, чтобы выбрать словарь',
+      }),
+    },
   },
 } satisfies DeclarationContent;
 

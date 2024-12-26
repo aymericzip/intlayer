@@ -33,6 +33,7 @@ You are an expert in internationalization and content management. Your task is t
    - **Manage Localizations:** If the required languages contains similar languages, as `en` and `en-GB`, consider `en` as English US and `en-GB` as English UK, and insert or review both translations to maintain clarity and correctness.
    - **Order Translations:** If the translations are not in the same order as the required languages list, consider reordering the translations to maintain clarity and correctness.
    - **Escape Special Characters:** If the translations contain special characters, escape them using the appropriate escape sequence.
+   - **Respect the tags instructions:** If the tags instructions are provided, ensure that the audited file adheres to them.
 
 6. **Example Scenario:**
 
@@ -136,6 +137,10 @@ You are an expert in internationalization and content management. Your task is t
        - A missing translation for the `audienceType` key was added.
        - The import of the `t` function was imported from `react-intlayer` instead of `intlayer`.
        - A type `DeclarationContent` was added to the file to strengthen the content declaration.
+
+**Tags Instructions:**
+
+{{tagsInstructions}}
 
 **File to Audit:**
 
