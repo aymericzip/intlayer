@@ -2,6 +2,7 @@
 
 import { Button } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
+import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, HTMLAttributes } from 'react';
@@ -44,6 +45,7 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
         variant="default"
         color="text"
         className="w-full md:w-auto"
+        IconRight={ArrowRight}
       >
         {primaryContent}
       </Button>
