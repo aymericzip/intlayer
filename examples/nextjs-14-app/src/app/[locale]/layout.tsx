@@ -5,7 +5,7 @@ import {
 } from 'intlayer';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
+import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,7 +35,10 @@ export const generateMetadata = ({
   };
 };
 
-const LocaleLayout: NextLayoutIntlayer = ({ children, params: { locale } }) => (
+const LocaleLayout: Next14LayoutIntlayer = ({
+  children,
+  params: { locale },
+}) => (
   <html lang={locale} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>{children}</body>
   </html>

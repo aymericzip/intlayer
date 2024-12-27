@@ -1,12 +1,12 @@
 import { LocaleSwitcher } from '@components/LangSwitcherDropDown';
 import Image from 'next/image';
-import { type NextPageIntlayer, IntlayerClientProvider } from 'next-intlayer';
+import { IntlayerClientProvider, type Next14PageIntlayer } from 'next-intlayer';
 import { useIntlayer, IntlayerServerProvider } from 'next-intlayer/server';
 import { generateMetadata } from './metadata';
 import { IntlayerEditorProvider } from 'intlayer-editor';
 export { generateMetadata };
 
-const Page: NextPageIntlayer = ({ params: { locale } }) => {
+const Page: Next14PageIntlayer = ({ params: { locale } }) => {
   // Because the page is not wrapped in the IntlayerServerProvider, we need to use add the locale to the useIntlayer hook
   const content = useIntlayer('page', locale);
 
