@@ -81,7 +81,7 @@ export const Modal: FC<ModalProps> = ({
       transition={{ duration: 0.1 }}
       onClick={(e) => {
         e.stopPropagation();
-        onClose();
+        onClose?.();
       }}
       aria-hidden={!isOpen}
     >
@@ -121,7 +121,7 @@ export const Modal: FC<ModalProps> = ({
               className="right-2 top-2 ml-auto cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
-                onClose();
+                onClose?.();
               }}
             />
           )}

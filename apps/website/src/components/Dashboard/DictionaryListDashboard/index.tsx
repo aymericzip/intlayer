@@ -64,7 +64,7 @@ export const DictionaryListDashboardContent: FC = () => {
             )}
             {dictionary.key && <span>{dictionary.key}</span>}
             {dictionary.description && (
-              <span className="text-neutral dark:text-neutral-dark text-wrap">
+              <span className="text-neutral dark:text-neutral-dark line-clamp-2 text-wrap">
                 {dictionary.description}
               </span>
             )}

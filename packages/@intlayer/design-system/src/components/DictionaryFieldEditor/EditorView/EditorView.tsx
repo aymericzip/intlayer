@@ -114,7 +114,7 @@ export const EditorView: FC<EditorViewProps> = ({
                     name="key"
                     aria-label="Key"
                     key={initialKeyName}
-                    placeholder={titleInput.placeholder.value}
+                    placeholder={titleInput.placeholder}
                     defaultValue={camelCaseToSentence(initialKeyName)}
                     onSave={(value) => handleRenameNodeKey(value)}
                     className="h-8"
@@ -141,7 +141,7 @@ export const EditorView: FC<EditorViewProps> = ({
             <div className="ml-auto flex gap-2">
               {isEdited && (
                 <Button
-                  label={restoreButton.label.value}
+                  label={restoreButton.label}
                   variant="outline"
                   color="text-inverse"
                   Icon={RotateCcw}
@@ -151,7 +151,7 @@ export const EditorView: FC<EditorViewProps> = ({
                 </Button>
               )}
               <Button
-                label={deleteButton.label.value}
+                label={deleteButton.label}
                 variant="outline"
                 color="error"
                 Icon={X}

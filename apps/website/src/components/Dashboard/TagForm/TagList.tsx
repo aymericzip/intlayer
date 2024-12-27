@@ -48,7 +48,7 @@ export const TagList: FC = () => {
             )}
             {tag.key && <span>{tag.key}</span>}
             {tag.description && (
-              <span className="text-neutral dark:text-neutral-dark text-wrap">
+              <span className="text-neutral dark:text-neutral-dark line-clamp-2 text-wrap">
                 {tag.description}
               </span>
             )}

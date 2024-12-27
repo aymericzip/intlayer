@@ -1,5 +1,6 @@
 'use client';
 
+import { Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { useEffect, type FC } from 'react';
 import { useShallow } from 'zustand/react/shallow';
@@ -8,6 +9,7 @@ import {
   useEditedContentStore,
   useEditionPanelStore,
 } from '../DictionaryEditor';
+import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
 import { EditorView } from './EditorView/EditorView';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
@@ -48,17 +50,22 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
 
   return (
     <>
-      <KeyPathBreadcrumb
-        dictionaryKey={key}
-        keyPath={focusedKeyPath ?? []}
-        onClickKeyPath={setFocusedContentKeyPath}
-      />
+      <div className="flex items-center justify-between gap-2">
+        <KeyPathBreadcrumb
+          dictionaryKey={key}
+          keyPath={focusedKeyPath ?? []}
+          onClickKeyPath={setFocusedContentKeyPath}
+        />
+        <LocaleSwitcherContent />
+      </div>
+
       <div className="flex gap-2 max-md:flex-col">
         <Container
           border
           background={false}
           className="top-6 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
           roundedSize="xl"
+          transparency="sm"
         >
           <NavigationViewNode
             keyPath={[]}

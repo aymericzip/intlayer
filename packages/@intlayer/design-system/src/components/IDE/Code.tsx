@@ -2,7 +2,7 @@ import { forwardRef, type HTMLAttributes } from 'react';
 import { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
-import { CodeBlockLoader } from './CodeBlockLoader';
+import { CodeBlock } from './CodeBlock';
 import { CodeConditionalRender } from './CodeConditionalRenderer';
 import type {
   PackageManager,
@@ -94,9 +94,9 @@ export const Code = forwardRef<HTMLDivElement, CodeCompProps>(
             </>
           )}
           <div className="grid size-full grid-cols-[0px] overflow-auto p-3">
-            <CodeBlockLoader lang={language} isDarkMode={isDarkMode}>
+            <CodeBlock lang={language} isDarkMode={isDarkMode}>
               {code}
-            </CodeBlockLoader>
+            </CodeBlock>
           </div>
         </Container>
       </CodeConditionalRender>

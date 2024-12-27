@@ -1,6 +1,10 @@
 'use client';
 
-import { DictionaryFieldEditor, Loader } from '@intlayer/design-system';
+import {
+  DictionaryFieldEditor,
+  Loader,
+  useAuth,
+} from '@intlayer/design-system';
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
@@ -14,6 +18,8 @@ type ContentDashboardContentProps = {
 export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   dictionaryKey,
 }) => {
+  const { session } = useAuth();
+  const project = session?.project;
   const { resolvedTheme } = useTheme();
   const { data: dictionaryResult, isLoading } = useGetDictionary({
     autoFetch: true,
@@ -32,6 +38,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
               router.push(PagesRoutes.Dashboard_Content)
             }
             isDarkMode={resolvedTheme === 'dark'}
+            availableLocales={project?.locales ?? []}
           />
         )}
       </Loader>

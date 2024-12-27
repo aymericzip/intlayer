@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
+import { Locales } from '@intlayer/config';
 import {
   type EnumerationContent,
   type TranslationContent,
@@ -25,6 +25,7 @@ import { renameKey } from '../../../utils/object';
 import { Button } from '../../Button';
 import { ContentEditorTextArea } from '../../ContentEditor/ContentEditorTextArea';
 import { useEditedContentStore } from '../../DictionaryEditor';
+import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
 import { EnumKeyInput } from '../EnumKeyInput';
 import { getIsEditableSection } from '../getIsEditableSection';
 import { navigationViewContent } from '../NavigationView/navigationViewNode.content';
@@ -78,23 +79,38 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionaryKey,
 }: TextEditorProps) => {
-  const { locales } = getConfiguration().internationalization;
+  const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
   const addEditedContent = useEditedContentStore(
     useShallow((s) => s.addEditedContent)
   );
 
+  const sectionContent = (section as TranslationContent<string>)[
+    NodeType.Translation
+  ] as Record<Locales, string>;
+
+  const sectionContentKeys = Object.keys(sectionContent) as Locales[];
+
+  const isFiltered = availableLocales.length > selectedLocales.length;
+
+  const localesList = isFiltered
+    ? selectedLocales
+    : // If the translation include content in other locales, we display all of them
+      [...new Set([...availableLocales, ...sectionContentKeys])];
+
   return (
     <table className="w-full gap-2">
       <tbody>
-        {locales.map((translationKey) => (
+        {localesList.map((translationKey) => (
           <tr
             key={translationKey}
             className="border-text dark:border-text-dark w-full border-t-[1.5px]"
             lang={translationKey}
           >
-            <td className="border-text dark:border-text-dark border-r-[1.5px] p-2">
-              {getLocaleName(translationKey)}
-            </td>
+            {selectedLocales.length > 1 && (
+              <td className="border-text dark:border-text-dark border-r-[1.5px] p-2">
+                {getLocaleName(translationKey)}
+              </td>
+            )}
             <td className="w-full p-2">
               <ContentEditorTextArea
                 variant="default"

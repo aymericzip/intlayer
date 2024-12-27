@@ -92,7 +92,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             if (isEditableSubSection) {
               return (
                 <Button
-                  label={`${goToTranslation.label.value} ${translationKey}`}
+                  label={`${goToTranslation.label} ${translationKey}`}
                   key={translationKey}
                   isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
@@ -110,7 +110,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               <Accordion
                 key={translationKey}
                 identifier={translationKey}
-                label={`${goToTranslation.label.value} ${translationKey}`}
+                label={`${goToTranslation.label} ${translationKey}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={translationKey}
@@ -152,7 +152,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             if (isEditableSubSection) {
               return (
                 <Button
-                  label={`${goToEnumeration.label.value} ${key}`}
+                  label={`${goToEnumeration.label} ${key}`}
                   key={key}
                   isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
@@ -170,7 +170,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               <Accordion
                 key={key}
                 identifier={key}
-                label={`${goToEnumeration.label.value} ${key}`}
+                label={`${goToEnumeration.label} ${key}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={key}
@@ -205,7 +205,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             if (isEditableSubSection) {
               return (
                 <Button
-                  label={`${goToElement.label.value} ${index}`}
+                  label={`${goToElement.label} ${index}`}
                   key={`${index}`}
                   isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
@@ -223,7 +223,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               <Accordion
                 key={`${index}`}
                 identifier={`${index}`}
-                label={`${goToElement.label.value} ${index}`}
+                label={`${goToElement.label} ${index}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={index}
@@ -242,7 +242,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           })}
 
           <Button
-            label={addNewElement.label.value}
+            label={addNewElement.label}
             variant="hoverable"
             color="neutral"
             textAlign="left"
@@ -282,7 +282,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           if (isEditableSubSection) {
             return (
               <Button
-                label={`${goToField.label.value} ${key}`}
+                label={`${goToField.label} ${key}`}
                 key={key}
                 isActive={getIsSelected(childKeyPath)}
                 variant="hoverable"
@@ -300,7 +300,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             <Accordion
               key={key}
               identifier={key}
-              label={`${goToField.label.value} ${key}`}
+              label={`${goToField.label} ${key}`}
               isActive={getIsSelected(childKeyPath)}
               onClick={() => setFocusedContentKeyPath(childKeyPath)}
               header={camelCaseToSentence(key)}
@@ -319,7 +319,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
         })}
 
         <Button
-          label={addNewField.label.value}
+          label={addNewField.label}
           variant="hoverable"
           color="neutral"
           textAlign="left"

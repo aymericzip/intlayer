@@ -96,11 +96,8 @@ const ensureArray = <T,>(value?: T | T[]): T[] => {
 const getMatchKeys = (
   selectorsKeys: string[],
   keysWithArgs: string[]
-): string[] => {
-  return keysWithArgs.filter((key) =>
-    selectorsKeys.includes(key.split('/')[0])
-  );
-};
+): string[] =>
+  keysWithArgs.filter((key) => selectorsKeys.includes(key.split('/')[0]));
 
 /**
  * The reducer function handling all state transitions. It takes the current state and an action,

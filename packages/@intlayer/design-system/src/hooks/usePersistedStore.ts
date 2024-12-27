@@ -21,7 +21,7 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
     if (persistedState) {
       setState(JSON.parse(persistedState));
     }
-  }, [key, initialValue]);
+  }, [key]);
 
   useEffect(() => {
     localStorage?.setItem(key, JSON.stringify(state));

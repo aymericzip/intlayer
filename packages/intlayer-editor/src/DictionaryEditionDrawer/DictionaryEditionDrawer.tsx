@@ -26,6 +26,7 @@ import {
 type DictionaryEditionDrawerContentProps = {
   focusedContent: FileContentWithDictionaryPath;
   locale: Locales;
+  localeList: Locales[];
   identifier: string;
   handleOnBack: () => void;
   isDarkMode?: boolean;
@@ -33,7 +34,8 @@ type DictionaryEditionDrawerContentProps = {
 
 export const DictionaryEditionDrawerContent: FC<
   DictionaryEditionDrawerContentProps
-> = ({ locale, identifier, handleOnBack, isDarkMode }) => {
+> = ({ locale, localeList, identifier, handleOnBack, isDarkMode }) => {
+  const { modalTitle } = useDictionary(dictionaryEditionDrawerContent);
   const [keyPathEditionModal, setKeyPathEditionModal] = useState<
     KeyPath[] | null
   >(null);
@@ -64,11 +66,7 @@ export const DictionaryEditionDrawerContent: FC<
         isOpen={keyPathEditionModal !== null}
         onClose={() => setKeyPathEditionModal(null)}
         hasCloseButton
-        title={t({
-          en: 'Edit field',
-          fr: 'Modifier le champ',
-          es: 'Editar campo',
-        })}
+        title={modalTitle}
         size="xl"
         transparency="lg"
       >
@@ -77,6 +75,7 @@ export const DictionaryEditionDrawerContent: FC<
             dictionary={dictionary}
             onClickDictionaryList={onClickDictionaryList}
             isDarkMode={isDarkMode}
+            availableLocales={localeList}
           />
         )}
       </Modal>
@@ -137,6 +136,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
           identifier={id}
           handleOnBack={handleOnBack}
           isDarkMode={isDarkMode}
+          localeList={localeList}
         />
       )}
     </RightDrawer>

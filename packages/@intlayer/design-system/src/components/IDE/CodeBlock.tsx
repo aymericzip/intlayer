@@ -6,24 +6,21 @@ import {
   transformerMetaHighlight,
   transformerMetaWordHighlight,
 } from '@shikijs/transformers';
-import { type FC } from 'react';
+import { forwardRef, HTMLAttributes, Suspense, type FC } from 'react';
 import {
   BundledLanguage,
   BundledTheme,
   CodeToHastOptions,
   codeToHtml,
 } from 'shiki';
+import { cn } from '../../utils/cn';
 
-export type CodeBlockProps = {
-  children: string;
-  lang: BundledLanguage;
-  isDarkMode?: boolean;
-};
-
-export const CodeBlock = (async ({
+export const CodeBlockShiki = (async ({
   children,
   lang,
   isDarkMode,
+  onChange,
+  ...props
 }: CodeBlockProps) => {
   const shikiOptions: CodeToHastOptions<BundledLanguage, BundledTheme> = {
     lang,
@@ -40,5 +37,46 @@ export const CodeBlock = (async ({
 
   const out = await codeToHtml(children, shikiOptions);
 
-  return <div className="flex" dangerouslySetInnerHTML={{ __html: out }} />;
+  return <div dangerouslySetInnerHTML={{ __html: out }} {...props} />;
 }) as unknown as FC<CodeBlockProps>;
+
+const CodeDefault = forwardRef<HTMLDivElement, CodeBlockProps>(
+  ({ children, isEditable, onChange, ...props }) => (
+    <div contentEditable={isEditable} {...props}>
+      <pre>
+        <code>
+          {children.split('\n').map((line, index) => (
+            <span className="line block w-full" key={index}>
+              {line}
+            </span>
+          ))}
+        </code>
+      </pre>
+    </div>
+  )
+);
+CodeDefault.displayName = 'CodeDefault';
+
+export type CodeBlockProps = {
+  children: string;
+  lang: BundledLanguage;
+  isDarkMode?: boolean;
+  isEditable?: boolean;
+  onChange?: (content: string) => void;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
+
+export const CodeBlock: FC<CodeBlockProps> = (
+  { className, onChange, isEditable, ...props },
+  ref
+) => (
+  <Suspense fallback={<CodeDefault ref={ref} {...props} />}>
+    <CodeBlockShiki
+      className={cn('flex w-full', className)}
+      contentEditable={isEditable}
+      onInput={(e) => onChange?.(e.currentTarget.textContent ?? '')}
+      {...props}
+    />
+  </Suspense>
+);
+
+CodeBlock.displayName = 'CodeBlock';

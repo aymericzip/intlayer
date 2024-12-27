@@ -1,5 +1,6 @@
 'use client';
 
+import { Locales } from '@intlayer/config';
 import { useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
@@ -13,11 +14,13 @@ import { dictionariesSelectorContent } from './dictionariesSelector.content';
 type DictionariesSelectorProps = {
   onClickDictionaryList: () => void;
   isDarkMode?: boolean;
+  availableLocales: Locales[];
 };
 
 export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   onClickDictionaryList,
   isDarkMode,
+  availableLocales,
 }) => {
   const { online, locale, isLoading } = useGetAllDictionaries();
   const { focusedContent } = useEditionPanelStore(
@@ -48,6 +51,7 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
       dictionary={dictionary}
       onClickDictionaryList={onClickDictionaryList}
       isDarkMode={isDarkMode}
+      availableLocales={availableLocales}
     />
   );
 };

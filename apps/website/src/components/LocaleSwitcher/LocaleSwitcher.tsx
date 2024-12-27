@@ -29,9 +29,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   fullLocaleName = false,
   panelProps,
 }) => {
-  let localeName = 'Select a locale';
-  const { switchTo, searchInput, localeSwitcherLabel, languageListLabel } =
-    useIntlayer('locale-switcher');
+  const {
+    switchTo,
+    searchInput,
+    localeSwitcherLabel,
+    languageListLabel,
+    defaultLocaleName,
+  } = useIntlayer('locale-switcher');
+  let localeName = defaultLocaleName.value;
   const inputRef = useRef<HTMLInputElement>(null);
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();
