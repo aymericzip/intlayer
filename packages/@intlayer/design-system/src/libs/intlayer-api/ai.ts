@@ -1,5 +1,7 @@
 import type {
   AuditContentDeclarationBody,
+  AuditContentDeclarationMetadataBody,
+  AuditContentDeclarationMetadataResult,
   AuditContentDeclarationResult,
   AuditTagBody,
   AuditTagResult,
@@ -34,6 +36,25 @@ export const getAiAPI = (
     );
 
   /**
+   * Audits a content declaration file to retrieve title, description and tags
+   * @param body - Audit file parameters.
+   * @returns Audited file content.
+   */
+  const auditContentDeclarationMetadata = async (
+    body?: AuditContentDeclarationMetadataBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<AuditContentDeclarationMetadataResult>(
+      `${AI_API_ROUTE}/audit/content-declaration/metadata`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: body,
+      }
+    );
+
+  /**
    * Audits a tag
    * @param body - Audit tag parameters.
    * @returns Audited tag content.
@@ -54,6 +75,7 @@ export const getAiAPI = (
 
   return {
     auditContentDeclaration,
+    auditContentDeclarationMetadata,
     auditTag,
   };
 };

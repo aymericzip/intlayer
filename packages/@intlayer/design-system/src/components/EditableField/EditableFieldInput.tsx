@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { Input, type InputProps } from '../Input';
 import { EditableFieldLayout } from './EditableFieldLayout';
 
@@ -30,11 +30,14 @@ export const EditableFieldInput = forwardRef<
   // Expose the input ref to parent components
   useImperativeHandle(ref, () => inputRef.current!);
 
-  const value =
-    inputRef.current?.value ??
-    inputRef.current?.defaultValue ??
-    (props.value as string) ??
-    (props.defaultValue as string);
+  const value = useMemo(
+    () =>
+      (props.value as string) ??
+      inputRef.current?.value ??
+      (props.defaultValue as string),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.value, props.defaultValue, inputRef.current?.value]
+  );
 
   return (
     <EditableFieldLayout

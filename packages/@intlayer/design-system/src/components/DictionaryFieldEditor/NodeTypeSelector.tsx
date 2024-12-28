@@ -98,7 +98,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
   return (
     <Select value={keyType} onValueChange={onValueChange}>
       <Select.Trigger className="w-40">
-        <Select.Value placeholder={triggerPlaceHolder.value} />
+        <Select.Value placeholder={triggerPlaceHolder} />
       </Select.Trigger>
       <Select.Content>
         <Select.Item value={NodeType.Translation}>

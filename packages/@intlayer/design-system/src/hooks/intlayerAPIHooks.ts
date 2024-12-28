@@ -632,6 +632,20 @@ export const useAuditContentDeclaration = (
     }
   );
 
+export const useAuditContentDeclarationMetadata = (
+  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditContentDeclarationMetadata>
+) =>
+  useAppAsync(
+    'auditContentDeclaration',
+    useIntlayerAuth().ai.auditContentDeclarationMetadata,
+    args,
+    {
+      requireUser: true,
+      requireOrganization: true,
+      requireProject: true,
+    }
+  );
+
 export const useAuditTag = (
   args?: UseAsyncOptions<typeof intlayerAPI.ai.auditTag>
 ) =>

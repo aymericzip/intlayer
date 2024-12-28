@@ -1,7 +1,9 @@
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import { getTagsByKeys } from '@services/tag.service';
+import * as tagService from '@services/tag.service';
 import * as auditContentDeclarationUtil from '@utils/auditDictionary';
+import * as auditContentDeclarationMetadataUtil from '@utils/auditDictionaryMetadata';
 import * as auditTagUtil from '@utils/auditTag';
 import { AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
@@ -71,6 +73,77 @@ export const auditContentDeclaration = async (
       defaultLocale,
       tags,
     });
+
+    if (!auditResponse) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
+      return;
+    }
+
+    const responseData =
+      formatResponse<auditContentDeclarationUtil.AuditFileResultData>({
+        data: auditResponse,
+      });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
+export type AuditContentDeclarationMetadataBody = {
+  openAiApiKey?: string;
+  customPrompt?: string;
+  fileContent: string;
+  model?: string;
+};
+export type AuditContentDeclarationMetadataResult =
+  ResponseData<auditContentDeclarationUtil.AuditFileResultData>;
+
+/**
+ * Retrieves a list of dictionaries based on filters and pagination.
+ */
+export const auditContentDeclarationMetadata = async (
+  req: Request<AuditContentDeclarationMetadataBody>,
+  res: ResponseWithInformation<AuditContentDeclarationMetadataResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { user, organization, project } = res.locals;
+  const { fileContent, openAiApiKey, customPrompt, model } = req.body;
+
+  if (!openAiApiKey) {
+    if (!user) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+      return;
+    }
+    if (!organization) {
+      ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+      return;
+    }
+    if (!project) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+      return;
+    }
+  }
+
+  try {
+    const tags: Tag[] = await tagService.findTags(
+      {
+        organizationId: organization?._id,
+      },
+      0,
+      1000
+    );
+
+    const auditResponse =
+      await auditContentDeclarationMetadataUtil.auditDictionaryMetadata({
+        fileContent,
+        model,
+        openAiApiKey: openAiApiKey ?? process.env.OPENAI_API_KEY,
+        customPrompt,
+        tags,
+      });
 
     if (!auditResponse) {
       ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');

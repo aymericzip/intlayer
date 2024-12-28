@@ -2,16 +2,16 @@
 
 import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
-import { ArrowUpFromLine, Save } from 'lucide-react';
+import { ArrowUpFromLine, Save, WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import {
+  useAuditContentDeclarationMetadata,
   useGetProjects,
   useGetTags,
   usePushDictionaries,
 } from '../../../hooks';
-import { cn } from '../../../utils/cn';
 import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
 import { Loader } from '../../Loader';
@@ -49,7 +49,10 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     saveButton,
     projectInput,
     tagsSelect,
+    auditButton,
   } = useDictionary(dictionaryDetailsContent);
+  const { auditContentDeclaration, isLoading: isAuditing } =
+    useAuditContentDeclarationMetadata();
 
   useEffect(() => {
     form.reset(dictionary);
@@ -67,6 +70,27 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         ...data,
       },
     ]);
+  };
+
+  const handleOnAuditFile = async () => {
+    const updatedDictionary = form.getValues();
+    await auditContentDeclaration({
+      fileContent: JSON.stringify({ ...dictionary, ...updatedDictionary }),
+    }).then((response) => {
+      if (!response.data) return;
+
+      try {
+        const editedDictionary = JSON.parse(response.data.fileContent) as
+          | Partial<Dictionary>
+          | undefined;
+
+        console.log('editedDictionary', editedDictionary);
+
+        form.reset({ ...updatedDictionary, ...editedDictionary });
+      } catch (error) {
+        console.error(error);
+      }
+    });
   };
 
   const isLoading = isSubmitting || isLoadingTags;
@@ -95,7 +119,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           disabled={isSubmitting}
         />
       </div>
-
       <Form.EditableFieldTextArea
         name="description"
         label={descriptionInput.label}
@@ -103,7 +126,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         description={descriptionInput.description}
         disabled={isSubmitting}
       />
-
       <div className="flex size-full flex-1 gap-8 max-md:flex-col">
         <Form.MultiSelect
           name="projectIds"
@@ -164,33 +186,45 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         </Form.MultiSelect>
       </div>
 
-      {isLocalDictionary ? (
+      <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
         <Form.Button
-          type="submit"
-          label={publishButton.label}
-          disabled={isSubmitting || !isFormEdited || isLoading}
-          Icon={ArrowUpFromLine}
-          isFullWidth={false}
+          type="button"
+          label={auditButton.label}
+          Icon={WandSparkles}
+          variant="outline"
           color="text"
-          isLoading={isSubmitting}
-          className="ml-auto"
+          onClick={handleOnAuditFile}
+          disabled={isSubmitting || isAuditing}
+          isLoading={isAuditing}
         >
-          {publishButton.text}
+          {auditButton.text}
         </Form.Button>
-      ) : (
-        <Form.Button
-          type="submit"
-          label={saveButton.label}
-          disabled={isSubmitting || !isFormEdited || isLoading}
-          isFullWidth={false}
-          className={cn('ml-auto', isFormEdited ? '' : 'invisible')}
-          Icon={Save}
-          color="text"
-          isLoading={isSubmitting}
-        >
-          {saveButton.text}
-        </Form.Button>
-      )}
+        {isLocalDictionary ? (
+          <Form.Button
+            type="submit"
+            label={publishButton.label}
+            disabled={isSubmitting || !isFormEdited || isLoading}
+            Icon={ArrowUpFromLine}
+            isFullWidth={false}
+            color="text"
+            isLoading={isSubmitting}
+          >
+            {publishButton.text}
+          </Form.Button>
+        ) : (
+          <Form.Button
+            type="submit"
+            label={saveButton.label}
+            disabled={isSubmitting || !isFormEdited || isLoading}
+            isFullWidth={false}
+            Icon={Save}
+            color="text"
+            isLoading={isSubmitting}
+          >
+            {saveButton.text}
+          </Form.Button>
+        )}
+      </div>
     </Form>
   );
 };

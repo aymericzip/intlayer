@@ -32,18 +32,12 @@ export const EditableFieldTextArea = forwardRef<
 
   const memoValue = useMemo(
     () =>
-      textAreaRef.current?.value ??
-      textAreaRef.current?.defaultValue ??
       (props.value as string) ??
+      textAreaRef.current?.value ??
       (props.defaultValue as string) ??
       '',
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      props.value,
-      props.defaultValue,
-      textAreaRef.current?.value,
-      textAreaRef.current?.defaultValue,
-    ]
+    [props.value, props.defaultValue, textAreaRef.current?.value]
   );
 
   return (
