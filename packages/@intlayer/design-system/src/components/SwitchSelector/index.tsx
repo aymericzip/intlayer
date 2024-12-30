@@ -1,7 +1,13 @@
 'use client';
 
 import { cva, type VariantProps } from 'class-variance-authority';
-import { useRef, type ReactNode, type HTMLAttributes, useState } from 'react';
+import {
+  useRef,
+  type ReactNode,
+  type HTMLAttributes,
+  useState,
+  useEffect,
+} from 'react';
 import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';
 
@@ -123,6 +129,11 @@ export const SwitchSelector = <T,>({
     setValue(newValue);
     onChange?.(newValue);
   };
+
+  useEffect(() => {
+    if (value === undefined) return;
+    setValue(value);
+  }, [value]);
 
   return (
     <div
