@@ -1,7 +1,13 @@
 'use client';
 
 import { Check, X } from 'lucide-react';
-import { useState, type FC, type ChangeEventHandler, useEffect } from 'react';
+import {
+  useState,
+  type FC,
+  type ChangeEventHandler,
+  useEffect,
+  ReactNode,
+} from 'react';
 import { Button } from '../Button';
 import { AutoSizedTextArea, AutoSizedTextAreaProps } from '../TextArea';
 
@@ -10,6 +16,7 @@ export type ContentEditorTextAreaProps = {
   onContentChange: (content: string) => void;
   disabled?: boolean;
   validate?: (content: string) => boolean;
+  additionalButtons?: ReactNode;
 } & Omit<AutoSizedTextAreaProps, 'children'>;
 
 export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
@@ -17,6 +24,7 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   onContentChange,
   disabled,
   validate,
+  additionalButtons,
   ...props
 }) => {
   const [newValue, setNewValue] = useState<string>(children);
@@ -53,27 +61,32 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
         defaultValue={children}
         {...props}
       />
-      {isEdited && (
+      {(isEdited || additionalButtons) && (
         <div className="flex w-full items-center justify-end gap-2">
-          <Button
-            Icon={Check}
-            label="Validate"
-            variant="hoverable"
-            color="text"
-            size="icon-sm"
-            className="cursor-pointer hover:scale-110"
-            disabled={disabled || !isValid}
-            onClick={handleValid}
-          />
-          <Button
-            Icon={X}
-            label="Cancel"
-            variant="hoverable"
-            size="icon-sm"
-            color="text"
-            className="cursor-pointer hover:scale-110"
-            onClick={handleCancel}
-          />
+          {isEdited && (
+            <>
+              <Button
+                Icon={Check}
+                label="Validate"
+                variant="hoverable"
+                color="text"
+                size="icon-sm"
+                className="cursor-pointer hover:scale-110"
+                disabled={disabled || !isValid}
+                onClick={handleValid}
+              />
+              <Button
+                Icon={X}
+                label="Cancel"
+                variant="hoverable"
+                size="icon-sm"
+                color="text"
+                className="cursor-pointer hover:scale-110"
+                onClick={handleCancel}
+              />
+            </>
+          )}
+          {additionalButtons}
         </div>
       )}
     </div>

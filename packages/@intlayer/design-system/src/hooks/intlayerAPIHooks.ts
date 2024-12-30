@@ -511,7 +511,11 @@ export const usePushDictionaries = (
     'pushDictionaries',
     useIntlayerAuth().dictionary.pushDictionaries,
     {
-      invalidateQueries: ['getDictionaries', 'getDictionariesKeys'],
+      invalidateQueries: [
+        'getDictionaries',
+        'getDictionary',
+        'getDictionariesKeys',
+      ],
       ...args,
     }
   );
@@ -522,7 +526,7 @@ export const useUpdateDictionary = (
     'updateDictionary',
     useIntlayerAuth().dictionary.updateDictionary,
     {
-      invalidateQueries: ['getDictionaries'],
+      invalidateQueries: ['getDictionaries', 'getDictionary'],
       ...args,
     }
   );
@@ -533,7 +537,11 @@ export const useDeleteDictionary = (
     'deleteDictionary',
     useIntlayerAuth().dictionary.deleteDictionary,
     {
-      invalidateQueries: ['getDictionaries', 'getDictionariesKeys'],
+      invalidateQueries: [
+        'getDictionaries',
+        'getDictionary',
+        'getDictionariesKeys',
+      ],
       ...args,
     }
   );
@@ -638,6 +646,20 @@ export const useAuditContentDeclarationMetadata = (
   useAppAsync(
     'auditContentDeclaration',
     useIntlayerAuth().ai.auditContentDeclarationMetadata,
+    args,
+    {
+      requireUser: true,
+      requireOrganization: true,
+      requireProject: true,
+    }
+  );
+
+export const useAuditContentDeclarationField = (
+  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditContentDeclarationField>
+) =>
+  useAppAsync(
+    'auditContentDeclarationField',
+    useIntlayerAuth().ai.auditContentDeclarationField,
     args,
     {
       requireUser: true,

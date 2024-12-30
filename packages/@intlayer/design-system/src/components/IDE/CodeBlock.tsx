@@ -41,8 +41,8 @@ export const CodeBlockShiki = (async ({
 }) as unknown as FC<CodeBlockProps>;
 
 const CodeDefault = forwardRef<HTMLDivElement, CodeBlockProps>(
-  ({ children, isEditable, onChange, ...props }) => (
-    <div contentEditable={isEditable} {...props}>
+  ({ children, isEditable, onChange, ...props }, ref) => (
+    <div contentEditable={isEditable} {...props} ref={ref}>
       <pre>
         <code>
           {children.split('\n').map((line, index) => (

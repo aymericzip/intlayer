@@ -1,8 +1,10 @@
+import { type KeyPath } from '@intlayer/core';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import { getTagsByKeys } from '@services/tag.service';
 import * as tagService from '@services/tag.service';
 import * as auditContentDeclarationUtil from '@utils/auditDictionary';
+import * as auditContentDeclarationFieldUtil from '@utils/auditDictionaryField';
 import * as auditContentDeclarationMetadataUtil from '@utils/auditDictionaryMetadata';
 import * as auditTagUtil from '@utils/auditTag';
 import { AppError, ErrorHandler } from '@utils/errors';
@@ -73,6 +75,85 @@ export const auditContentDeclaration = async (
       defaultLocale,
       tags,
     });
+
+    if (!auditResponse) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
+      return;
+    }
+
+    const responseData =
+      formatResponse<auditContentDeclarationUtil.AuditFileResultData>({
+        data: auditResponse,
+      });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
+export type AuditContentDeclarationFieldBody = {
+  openAiApiKey?: string;
+  customPrompt?: string;
+  locales: Locales[];
+  fileContent: string;
+  filePath?: string;
+  model?: string;
+  tagsKeys?: string[];
+  keyPath: KeyPath[];
+};
+export type AuditContentDeclarationFieldResult =
+  ResponseData<auditContentDeclarationUtil.AuditFileResultData>;
+
+/**
+ * Retrieves a list of dictionaries based on filters and pagination.
+ */
+export const auditContentDeclarationField = async (
+  req: Request<AuditContentDeclarationFieldBody>,
+  res: ResponseWithInformation<AuditContentDeclarationFieldResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { user, project } = res.locals;
+  const {
+    fileContent,
+    openAiApiKey,
+    customPrompt,
+    model,
+    locales,
+    tagsKeys,
+    keyPath,
+  } = req.body;
+
+  if (!openAiApiKey) {
+    if (!user) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+      return;
+    }
+    if (!project) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+      return;
+    }
+  }
+
+  try {
+    let tags: Tag[] = [];
+
+    if (project?.organizationId) {
+      tags = await getTagsByKeys(tagsKeys, project.organizationId);
+    }
+
+    const auditResponse =
+      await auditContentDeclarationFieldUtil.auditDictionaryField({
+        fileContent,
+        model,
+        openAiApiKey: openAiApiKey ?? process.env.OPENAI_API_KEY,
+        customPrompt,
+        locales,
+        tags,
+        keyPath,
+      });
 
     if (!auditResponse) {
       ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');

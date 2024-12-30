@@ -1,5 +1,7 @@
 import type {
   AuditContentDeclarationBody,
+  AuditContentDeclarationFieldBody,
+  AuditContentDeclarationFieldResult,
   AuditContentDeclarationMetadataBody,
   AuditContentDeclarationMetadataResult,
   AuditContentDeclarationResult,
@@ -27,6 +29,25 @@ export const getAiAPI = (
   ) =>
     await fetcher<AuditContentDeclarationResult>(
       `${AI_API_ROUTE}/audit/content-declaration`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: body,
+      }
+    );
+
+  /**
+   * Audits a content declaration field
+   * @param body - Audit file parameters.
+   * @returns Audited file content.
+   */
+  const auditContentDeclarationField = async (
+    body?: AuditContentDeclarationFieldBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<AuditContentDeclarationFieldResult>(
+      `${AI_API_ROUTE}/audit/content-declaration/field`,
       authAPIOptions,
       otherOptions,
       {
@@ -75,6 +96,7 @@ export const getAiAPI = (
 
   return {
     auditContentDeclaration,
+    auditContentDeclarationField,
     auditContentDeclarationMetadata,
     auditTag,
   };

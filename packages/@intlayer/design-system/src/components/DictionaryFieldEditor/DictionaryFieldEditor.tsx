@@ -112,7 +112,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             ]}
           />
           {editorView === EditorViewType.NodeEditor && (
-            <NodeEditor dictionary={dictionary} />
+            <NodeEditor dictionary={dictionary} locales={availableLocales} />
           )}
           {editorView === EditorViewType.JSONEditor && (
             <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />

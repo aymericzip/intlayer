@@ -1,5 +1,6 @@
 import {
   auditContentDeclaration,
+  auditContentDeclarationField,
   auditContentDeclarationMetadata,
   auditTag,
 } from '@controllers/ai.controller';
@@ -14,6 +15,11 @@ export const aiRoutes = {
   auditContentDeclaration: {
     urlModel: '/audit/content-declaration',
     url: `${baseURL}/audit/content-declaration`,
+    method: 'POST',
+  },
+  auditContentDeclarationField: {
+    urlModel: '/audit/content-declaration/field',
+    url: `${baseURL}/audit/content-declaration/field`,
     method: 'POST',
   },
   auditContentDeclarationMetadata: {
@@ -33,7 +39,12 @@ aiRouter.post(
   auditContentDeclaration
 );
 aiRouter.post(
+  aiRoutes.auditContentDeclarationField.urlModel,
+  auditContentDeclarationField
+);
+aiRouter.post(
   aiRoutes.auditContentDeclarationMetadata.urlModel,
   auditContentDeclarationMetadata
 );
+
 aiRouter.post(aiRoutes.auditTag.urlModel, auditTag);

@@ -1,5 +1,6 @@
 'use client';
 
+import { type Locales } from '@intlayer/config';
 import { type KeyPath, type Dictionary } from '@intlayer/core';
 import { RotateCcw, X } from 'lucide-react';
 import { useMemo, type FC } from 'react';
@@ -26,11 +27,13 @@ import { TextEditor } from './TextEditor';
 type EditorViewProps = {
   dictionaryKey: string;
   dictionary: Dictionary;
+  locales: Locales[];
 };
 
 export const EditorView: FC<EditorViewProps> = ({
   dictionaryKey,
   dictionary,
+  locales,
 }) => {
   const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
     useShallow((s) => ({
@@ -96,7 +99,8 @@ export const EditorView: FC<EditorViewProps> = ({
           key={keyPath.join('.')}
           keyPath={keyPath}
           section={section}
-          dictionaryKey={dictionaryKey}
+          dictionary={dictionary}
+          locales={locales}
         />
       )}
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { Locales } from '@intlayer/config';
+import { type Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { useEffect, type FC } from 'react';
 import { useShallow } from 'zustand/react/shallow';
@@ -16,9 +16,10 @@ import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
 type NodeEditorProps = {
   dictionary: Dictionary;
+  locales: Locales[];
 };
 
-export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
+export const NodeEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
   const { content: dictionaryContent, key } = dictionary;
   const { editedContent, dictionaryRecord, setDictionariesRecord } =
     useEditedContentStore(
@@ -81,7 +82,11 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
               className="h-full flex-1 overflow-hidden"
               roundedSize="xl"
             >
-              <EditorView dictionary={dictionary} dictionaryKey={key} />
+              <EditorView
+                dictionary={dictionary}
+                dictionaryKey={key}
+                locales={locales}
+              />
             </Container>
           )}
         </div>

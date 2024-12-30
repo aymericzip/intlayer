@@ -121,7 +121,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
           variant="outline"
           color="text"
           className="max-md:w-full"
-          isLoading={isSubmitting}
           onClick={() => restoreEditedContent(dictionary.key)}
         >
           {resetButton.text}

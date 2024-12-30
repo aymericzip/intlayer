@@ -9,8 +9,9 @@ import {
   type KeyPath,
   type DictionaryValue,
   getLocaleName,
+  Dictionary,
 } from '@intlayer/core';
-import { Plus, X } from 'lucide-react';
+import { Plus, WandSparkles, X } from 'lucide-react';
 import {
   createElement,
   type ReactElement,
@@ -20,10 +21,14 @@ import {
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { useShallow } from 'zustand/react/shallow';
+import { useAuditContentDeclarationField } from '../../../hooks';
 import { getSectionType } from '../../../utils/dictionary';
 import { renameKey } from '../../../utils/object';
 import { Button } from '../../Button';
-import { ContentEditorTextArea } from '../../ContentEditor/ContentEditorTextArea';
+import {
+  ContentEditorTextArea as ContentEditorTextAreaBase,
+  ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
+} from '../../ContentEditor/ContentEditorTextArea';
 import { useEditedContentStore } from '../../DictionaryEditor';
 import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
 import { EnumKeyInput } from '../EnumKeyInput';
@@ -31,6 +36,66 @@ import { getIsEditableSection } from '../getIsEditableSection';
 import { navigationViewContent } from '../NavigationView/navigationViewNode.content';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
+
+type ContentEditorTextAreaProps = Omit<
+  ContentEditorTextAreaPropsBase,
+  'onContentChange'
+> & {
+  keyPath: KeyPath[];
+  dictionary: Dictionary;
+  locales: Locales[];
+};
+
+const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
+  keyPath,
+  dictionary,
+  locales,
+  ...props
+}) => {
+  const addEditedContent = useEditedContentStore(
+    useShallow((s) => s.addEditedContent)
+  );
+  const { auditContentDeclarationField, isLoading: isAuditing } =
+    useAuditContentDeclarationField();
+
+  return (
+    <ContentEditorTextAreaBase
+      variant="default"
+      onContentChange={(newValue) =>
+        addEditedContent(dictionary.key, newValue, keyPath)
+      }
+      additionalButtons={
+        <Button
+          Icon={WandSparkles}
+          label="Audit"
+          variant="hoverable"
+          size="icon-sm"
+          color="text"
+          className="cursor-pointer hover:scale-110"
+          isLoading={isAuditing}
+          onClick={() => {
+            auditContentDeclarationField({
+              fileContent: JSON.stringify(dictionary),
+              keyPath,
+              locales,
+            }).then((response) => {
+              if (!response.data) return;
+
+              try {
+                const editedContent = response.data.fileContent as string;
+
+                addEditedContent(dictionary.key, editedContent, keyPath);
+              } catch (error) {
+                console.error(error);
+              }
+            });
+          }}
+        />
+      }
+      {...props}
+    />
+  );
+};
 
 const createReactElement = (element: ReactElement) => {
   if (typeof element === 'string') {
@@ -69,20 +134,19 @@ const createReactElement = (element: ReactElement) => {
 };
 
 export type TextEditorProps = {
-  dictionaryKey: string;
+  dictionary: Dictionary;
   keyPath: KeyPath[];
   section: DictionaryValue;
+  locales: Locales[];
 };
 
 const TranslationTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionaryKey,
+  dictionary,
+  locales,
 }: TextEditorProps) => {
   const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
-  const addEditedContent = useEditedContentStore(
-    useShallow((s) => s.addEditedContent)
-  );
 
   const sectionContent = (section as TranslationContent<string>)[
     NodeType.Translation
@@ -115,15 +179,12 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
               <ContentEditorTextArea
                 variant="default"
                 aria-label="Edit field"
-                onContentChange={(newValue) =>
-                  addEditedContent(dictionaryKey, newValue, [
-                    ...keyPath,
-                    {
-                      type: NodeType.Translation,
-                      key: translationKey,
-                    },
-                  ])
-                }
+                keyPath={[
+                  ...keyPath,
+                  { type: NodeType.Translation, key: translationKey },
+                ]}
+                dictionary={dictionary}
+                locales={locales}
               >
                 {
                   (section as TranslationContent<string>)[NodeType.Translation][
@@ -142,7 +203,8 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
 const EnumerationTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionaryKey,
+  dictionary,
+  locales,
 }) => {
   const addEditedContent = useEditedContentStore(
     useShallow((s) => s.addEditedContent)
@@ -169,7 +231,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                   Icon={X}
                   className="w-16"
                   onClick={() =>
-                    addEditedContent(dictionaryKey, undefined, [
+                    addEditedContent(dictionary.key, undefined, [
                       ...keyPath,
                       {
                         type: NodeType.Enumeration,
@@ -194,7 +256,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                       [NodeType.Enumeration]: newValueContent,
                     };
 
-                    addEditedContent(dictionaryKey, newValue, keyPath);
+                    addEditedContent(dictionary.key, newValue, keyPath);
                   }}
                 />
               </div>
@@ -203,15 +265,12 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
               <ContentEditorTextArea
                 variant="default"
                 aria-label="Edit field"
-                onContentChange={(newValue) =>
-                  addEditedContent(dictionaryKey, newValue, [
-                    ...keyPath,
-                    {
-                      type: NodeType.Enumeration,
-                      key: enumKey,
-                    },
-                  ])
-                }
+                keyPath={[
+                  ...keyPath,
+                  { type: NodeType.Enumeration, key: enumKey },
+                ]}
+                dictionary={dictionary}
+                locales={locales}
               >
                 {
                   (section as EnumerationContent<string>)[NodeType.Enumeration][
@@ -232,7 +291,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
           textAlign="left"
           onClick={() =>
             addEditedContent(
-              dictionaryKey,
+              dictionary.key,
               '',
               [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }],
               false
@@ -251,7 +310,8 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 const ArrayTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionaryKey,
+  dictionary,
+  locales,
 }) => {
   const addEditedContent = useEditedContentStore(
     useShallow((s) => s.addEditedContent)
@@ -273,15 +333,15 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
               <ContentEditorTextArea
                 variant="default"
                 aria-label="Edit field"
-                onContentChange={(newValue) => {
-                  addEditedContent(dictionaryKey, newValue, [
-                    ...keyPath,
-                    {
-                      type: NodeType.Array,
-                      key: index,
-                    },
-                  ]);
-                }}
+                keyPath={[
+                  ...keyPath,
+                  {
+                    type: NodeType.Array,
+                    key: index,
+                  },
+                ]}
+                dictionary={dictionary}
+                locales={locales}
               >
                 {subSection as string}
               </ContentEditorTextArea>
@@ -303,7 +363,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                 key: (section as DictionaryValue[]).length,
               },
             ];
-            addEditedContent(dictionaryKey, '', newKeyPath, false);
+            addEditedContent(dictionary.key, '', newKeyPath, false);
           }}
           Icon={Plus}
         >
@@ -317,11 +377,9 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
 export const TextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionaryKey,
+  dictionary,
+  locales,
 }) => {
-  const addEditedContent = useEditedContentStore(
-    useShallow((s) => s.addEditedContent)
-  );
   const { tsxNotEditable } = useDictionary(navigationViewContent);
   const nodeType = getSectionType(section);
   const isEditableSection = getIsEditableSection(section);
@@ -343,9 +401,10 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.Translation) {
       return (
         <TranslationTextEditor
-          dictionaryKey={dictionaryKey}
+          dictionary={dictionary}
           keyPath={keyPath}
           section={section}
+          locales={locales}
         />
       );
     }
@@ -353,9 +412,10 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.Enumeration) {
       return (
         <EnumerationTextEditor
-          dictionaryKey={dictionaryKey}
+          dictionary={dictionary}
           keyPath={keyPath}
           section={section}
+          locales={locales}
         />
       );
     }
@@ -363,9 +423,10 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.Array) {
       return (
         <ArrayTextEditor
-          dictionaryKey={dictionaryKey}
+          dictionary={dictionary}
           keyPath={keyPath}
           section={section}
+          locales={locales}
         />
       );
     }
@@ -377,9 +438,9 @@ export const TextEditor: FC<TextEditorProps> = ({
         <ContentEditorTextArea
           variant="default"
           aria-label="Edit field"
-          onContentChange={(newValue) =>
-            addEditedContent(dictionaryKey, newValue, keyPath)
-          }
+          keyPath={keyPath}
+          dictionary={dictionary}
+          locales={locales}
         >
           {section as string}
         </ContentEditorTextArea>
