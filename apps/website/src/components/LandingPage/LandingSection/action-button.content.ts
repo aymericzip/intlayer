@@ -56,7 +56,7 @@ const actionButtonContent = {
       content: t({
         en: 'Why Intlayer?',
         'en-GB': 'Why Intlayer?',
-        fr: 'Pourquoi Intlayer?',
+        fr: 'Pourquoi Intlayer ?',
         es: '¿Por qué Intlayer?',
         de: 'Warum Intlayer?',
         ja: 'なぜIntlayerか？',
