@@ -1,5 +1,5 @@
 import { Locales } from '@intlayer/core';
-import Markdown from 'markdown-to-jsx';
+import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 import type { FC } from 'react';
 import { cn } from '../../utils/cn';
 import { H1, H2, H3 } from '../Headers';
@@ -12,12 +12,14 @@ type MarkdownRendererProps = {
   children: string;
   isDarkMode?: boolean;
   locale?: Locales;
+  overrides?: MarkdownToJSX.Overrides;
 };
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
   isDarkMode,
   locale,
+  overrides,
 }) => (
   <CodeProvider>
     <Markdown
@@ -83,6 +85,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             />
           ),
           pre: (props) => props.children,
+          ...overrides,
         },
         wrapper: ({ className, ...props }) => (
           <>

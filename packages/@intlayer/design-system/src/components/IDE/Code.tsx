@@ -2,7 +2,7 @@ import { forwardRef, type HTMLAttributes } from 'react';
 import { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
-import { CodeBlock } from './CodeBlock';
+import { CodeBlock } from './CodeBlockClient';
 import { CodeConditionalRender } from './CodeConditionalRenderer';
 import type {
   PackageManager,
@@ -71,7 +71,7 @@ export const Code = forwardRef<HTMLDivElement, CodeCompProps>(
         >
           {showHeader && (
             <>
-              <div className="bg-card/50 dark:bg-card-dark/50 text-neutral dark:text-neutral-dark grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl py-1.5 pl-4 pr-12 text-sm">
+              <div className="bg-card/50 dark:bg-card-dark/50 text-neutral dark:text-neutral-dark grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl py-1.5 pl-4 pr-12 text-xs">
                 <span className="truncate">{fileName ?? language}</span>
                 <div className="flex items-center gap-2">
                   {packageManager && <PackageManagerSelector />}

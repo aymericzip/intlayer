@@ -6,7 +6,7 @@ import {
   transformerMetaHighlight,
   transformerMetaWordHighlight,
 } from '@shikijs/transformers';
-import { forwardRef, HTMLAttributes, Suspense, type FC } from 'react';
+import { type HTMLAttributes, Suspense, type FC } from 'react';
 import {
   BundledLanguage,
   BundledTheme,
@@ -40,22 +40,25 @@ export const CodeBlockShiki = (async ({
   return <div dangerouslySetInnerHTML={{ __html: out }} {...props} />;
 }) as unknown as FC<CodeBlockProps>;
 
-const CodeDefault = forwardRef<HTMLDivElement, CodeBlockProps>(
-  ({ children, isEditable, isDarkMode, onChange, ...props }, ref) => (
-    <div contentEditable={isEditable} {...props} ref={ref}>
-      <pre>
-        <code>
-          {children.split('\n').map((line, index) => (
-            <span className="line block w-full" key={index}>
-              {line}
-            </span>
-          ))}
-        </code>
-      </pre>
-    </div>
-  )
+const CodeDefault: FC<CodeBlockProps> = ({
+  children,
+  isEditable,
+  isDarkMode,
+  onChange,
+  ...props
+}) => (
+  <div contentEditable={isEditable} {...props}>
+    <pre>
+      <code>
+        {children.split('\n').map((line, index) => (
+          <span className="line block w-full" key={index}>
+            {line}
+          </span>
+        ))}
+      </code>
+    </pre>
+  </div>
 );
-CodeDefault.displayName = 'CodeDefault';
 
 export type CodeBlockProps = {
   children: string;
@@ -65,11 +68,13 @@ export type CodeBlockProps = {
   onChange?: (content: string) => void;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
-export const CodeBlock: FC<CodeBlockProps> = (
-  { className, onChange, isEditable, ...props },
-  ref
-) => (
-  <Suspense fallback={<CodeDefault ref={ref} {...props} />}>
+export const CodeBlock: FC<CodeBlockProps> = ({
+  className,
+  onChange,
+  isEditable,
+  ...props
+}) => (
+  <Suspense fallback={<CodeDefault {...props} />}>
     <CodeBlockShiki
       className={cn('flex w-full', className)}
       contentEditable={isEditable}
@@ -78,5 +83,3 @@ export const CodeBlock: FC<CodeBlockProps> = (
     />
   </Suspense>
 );
-
-CodeBlock.displayName = 'CodeBlock';
