@@ -22,6 +22,7 @@ import {
   LOCALES,
   STRICT_MODE,
 } from '../defaultValues/internationalization';
+import { MODE, PREFIX } from '../defaultValues/log';
 import {
   BASE_PATH,
   COOKIE_NAME,
@@ -30,7 +31,6 @@ import {
   PREFIX_DEFAULT,
   SERVER_SET_COOKIE,
 } from '../defaultValues/middleware';
-import { MODE, PREFIX } from '../defaultValues/log';
 import type {
   BaseDerivedConfig,
   ContentConfig,
@@ -517,7 +517,7 @@ const buildEditorFields = (
   /**
    * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
    * An access token is use to authenticate the user related to the project.
-   * To get an access token, go to https://back.intlayer.org/dashboard/project and create an account.
+   * To get an access token, go to https://intlayer.org/dashboard/project and create an account.
    *
    * Default: undefined
    *
@@ -528,7 +528,7 @@ const buildEditorFields = (
   /**
    * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
    * An access token is use to authenticate the user related to the project.
-   * To get an access token, go to https://back.intlayer.org/dashboard/project and create an account.
+   * To get an access token, go to https://intlayer.org/dashboard/project and create an account.
    *
    * Default: undefined
    *

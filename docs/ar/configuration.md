@@ -135,14 +135,14 @@ module.exports = config;
 
   - _النوع_: `string` | `undefined`
   - _القيمة الافتراضية_: `undefined`
-  - _الوصف_: يسمح clientId وclientSecret لحزم intlayer بالمصادقة مع الخلفية باستخدام مصادقة oAuth2. يتم استخدام رمز الوصول للمصادقة مع المستخدم المرتبط بالمشروع. للحصول على رمز وصول، انتقل إلى https://back.intlayer.org/dashboard/project وأنشئ حسابًا.
+  - _الوصف_: يسمح clientId وclientSecret لحزم intlayer بالمصادقة مع الخلفية باستخدام مصادقة oAuth2. يتم استخدام رمز الوصول للمصادقة مع المستخدم المرتبط بالمشروع. للحصول على رمز وصول، انتقل إلى https://intlayer.org/dashboard/project وأنشئ حسابًا.
   - _مثال_: `true`
   - _ملاحظة_: مهم: يجب أن تظل clientId وclientSecret سريتين ولا تتشاركان علنًا. يرجى التأكد من الاحتفاظ بهما في موقع آمن، مثل المتغيرات البيئية.
 
 - **clientSecret**:
   - _النوع_: `string` | `undefined`
   - _القيمة الافتراضية_: `undefined`
-  - _الوصف_: يسمح clientId وclientSecret لحزم intlayer بالمصادقة مع الخلفية باستخدام مصادقة oAuth2. يتم استخدام رمز الوصول للمصادقة مع المستخدم المرتبط بالمشروع. للحصول على رمز وصول، انتقل إلى https://back.intlayer.org/dashboard/project وأنشئ حسابًا.
+  - _الوصف_: يسمح clientId وclientSecret لحزم intlayer بالمصادقة مع الخلفية باستخدام مصادقة oAuth2. يتم استخدام رمز الوصول للمصادقة مع المستخدم المرتبط بالمشروع. للحصول على رمز وصول، انتقل إلى https://intlayer.org/dashboard/project وأنشئ حسابًا.
   - _مثال_: `true`
   - _ملاحظة_: مهم: يجب أن تظل clientId وclientSecret سريتين ولا تتشاركان علنًا. يرجى التأكد من الاحتفاظ بهما في موقع آمن، مثل المتغيرات البيئية.
 

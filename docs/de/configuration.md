@@ -134,14 +134,14 @@ Definiert Einstellungen, die mit dem integrierten Editor zusammenhängen, einsch
 
   - _Typ_: `string` | `undefined`
   - _Standard_: `undefined`
-  - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich mit dem Backend über OAuth2-Authentifizierung zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer in Bezug auf das Projekt zu authentifizieren. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://back.intlayer.org/dashboard/project und erstellen Sie ein Konto.
+  - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich mit dem Backend über OAuth2-Authentifizierung zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer in Bezug auf das Projekt zu authentifizieren. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://intlayer.org/dashboard/project und erstellen Sie ein Konto.
   - _Beispiel_: `true`
   - _Hinweis_: Wichtig: clientId und clientSecret sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte stellen Sie sicher, dass Sie sie an einem sicheren Ort, wie z. B. Umgebungsvariablen, aufbewahren.
 
 - **clientSecret**:
   - _Typ_: `string` | `undefined`
   - _Standard_: `undefined`
-  - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich mit dem Backend über OAuth2-Authentifizierung zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer in Bezug auf das Projekt zu authentifizieren. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://back.intlayer.org/dashboard/project und erstellen Sie ein Konto.
+  - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich mit dem Backend über OAuth2-Authentifizierung zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer in Bezug auf das Projekt zu authentifizieren. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://intlayer.org/dashboard/project und erstellen Sie ein Konto.
   - _Beispiel_: `true`
   - _Hinweis_: Wichtig: clientId und clientSecret sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte stellen Sie sicher, dass Sie sie an einem sicheren Ort, wie z. B. Umgebungsvariablen, aufbewahren.
 

@@ -134,14 +134,14 @@ Define as configurações relacionadas ao editor integrado, incluindo porta do s
 
   - _Tipo_: `string` | `undefined`
   - _Padrão_: `undefined`
-  - _Descrição_: clientId e clientSecret permitem que os pacotes do Intlayer se autentiquem com o backend usando a autenticação oAuth2. Um token de acesso é usado para autenticar o usuário relacionado ao projeto. Para obter um token de acesso, vá para https://back.intlayer.org/dashboard/project e crie uma conta.
+  - _Descrição_: clientId e clientSecret permitem que os pacotes do Intlayer se autentiquem com o backend usando a autenticação oAuth2. Um token de acesso é usado para autenticar o usuário relacionado ao projeto. Para obter um token de acesso, vá para https://intlayer.org/dashboard/project e crie uma conta.
   - _Exemplo_: `true`
   - _Nota_: Importante: O clientId e o clientSecret devem ser mantidos em segredo e não compartilhados publicamente. Certifique-se de mantê-los em um local seguro, como variáveis de ambiente.
 
 - **clientSecret**:
   - _Tipo_: `string` | `undefined`
   - _Padrão_: `undefined`
-  - _Descrição_: clientId e clientSecret permitem que os pacotes do Intlayer se autentiquem com o backend usando a autenticação oAuth2. Um token de acesso é usado para autenticar o usuário relacionado ao projeto. Para obter um token de acesso, vá para https://back.intlayer.org/dashboard/project e crie uma conta.
+  - _Descrição_: clientId e clientSecret permitem que os pacotes do Intlayer se autentiquem com o backend usando a autenticação oAuth2. Um token de acesso é usado para autenticar o usuário relacionado ao projeto. Para obter um token de acesso, vá para https://intlayer.org/dashboard/project e crie uma conta.
   - _Exemplo_: `true`
   - _Nota_: Importante: O clientId e o clientSecret devem ser mantidos em segredo e não compartilhados publicamente. Certifique-se de mantê-los em um local seguro, como variáveis de ambiente.
 

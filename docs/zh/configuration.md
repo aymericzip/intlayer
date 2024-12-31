@@ -134,14 +134,14 @@ module.exports = config;
 
   - _类型_: `string` | `undefined`
   - _默认_: `undefined`
-  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 身份验证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://back.intlayer.org/dashboard/project 并创建一个账户。
+  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 身份验证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
   - _示例_: `true`
   - _注意_: 重要：clientId 和 clientSecret 应保持机密，不应公开共享。请确保将其保存在安全的位置，例如环境变量。
 
 - **clientSecret**:
   - _类型_: `string` | `undefined`
   - _默认_: `undefined`
-  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 身份验证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://back.intlayer.org/dashboard/project 并创建一个账户。
+  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 身份验证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
   - _示例_: `true`
   - _注意_: 重要：clientId 和 clientSecret 应保持机密，不应公开共享。请确保将其保存在安全的位置，例如环境变量。
 

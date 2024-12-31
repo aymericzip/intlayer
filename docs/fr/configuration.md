@@ -135,14 +135,14 @@ Définit les paramètres liés à l'éditeur intégré, y compris le port du ser
 
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Description_: clientId et clientSecret permettent aux paquets intlayer de s'authentifier avec le backend en utilisant l'authentification oAuth2. Un token d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un token d'accès, allez sur https://back.intlayer.org/dashboard/project et créez un compte.
+  - _Description_: clientId et clientSecret permettent aux paquets intlayer de s'authentifier avec le backend en utilisant l'authentification oAuth2. Un token d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un token d'accès, allez sur https://intlayer.org/dashboard/project et créez un compte.
   - _Example_: `true`
   - _Note_: Important : Le clientId et le clientSecret doivent être gardés secrets et ne pas être partagés publiquement. Veuillez vous assurer de les conserver dans un endroit sûr, comme des variables d'environnement.
 
 - **clientSecret**:
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Description_: clientId et clientSecret permettent aux paquets intlayer de s'authentifier avec le backend en utilisant l'authentification oAuth2. Un token d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un token d'accès, allez sur https://back.intlayer.org/dashboard/project et créez un compte.
+  - _Description_: clientId et clientSecret permettent aux paquets intlayer de s'authentifier avec le backend en utilisant l'authentification oAuth2. Un token d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un token d'accès, allez sur https://intlayer.org/dashboard/project et créez un compte.
   - _Example_: `true`
   - _Note_: Important : Le clientId et le clientSecret doivent être gardés secrets et ne pas être partagés publiquement. Veuillez vous assurer de les conserver dans un endroit sûr, comme des variables d'environnement.
 

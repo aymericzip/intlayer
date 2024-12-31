@@ -134,14 +134,14 @@ module.exports = config;
 
   - _タイプ_: `string` | `undefined`
   - _デフォルト_: `undefined`
-  - _説明_: clientId および clientSecret により、intlayer パッケージは oAuth2 認証を使用してバックエンドと認証できます。アクセス トークンはプロジェクトに関連するユーザーを認証するために使用されます。アクセス トークンを取得するには、https://back.intlayer.org/dashboard/project に移動してアカウントを作成します。
+  - _説明_: clientId および clientSecret により、intlayer パッケージは oAuth2 認証を使用してバックエンドと認証できます。アクセス トークンはプロジェクトに関連するユーザーを認証するために使用されます。アクセス トークンを取得するには、https://intlayer.org/dashboard/project に移動してアカウントを作成します。
   - _例_: `true`
   - _注意_: 重要: clientId および clientSecret は秘密にして公開しないようにする必要があります。環境変数など、安全な場所に保管することをお勧めします。
 
 - **clientSecret**:
   - _タイプ_: `string` | `undefined`
   - _デフォルト_: `undefined`
-  - _説明_: clientId および clientSecret により、intlayer パッケージは oAuth2 認証を使用してバックエンドと認証できます。アクセス トークンはプロジェクトに関連するユーザーを認証するために使用されます。アクセス トークンを取得するには、https://back.intlayer.org/dashboard/project に移動してアカウントを作成します。
+  - _説明_: clientId および clientSecret により、intlayer パッケージは oAuth2 認証を使用してバックエンドと認証できます。アクセス トークンはプロジェクトに関連するユーザーを認証するために使用されます。アクセス トークンを取得するには、https://intlayer.org/dashboard/project に移動してアカウントを作成します。
   - _例_: `true`
   - _注意_: 重要: clientId および clientSecret は秘密にして公開しないようにする必要があります。環境変数など、安全な場所に保管することをお勧めします。
 

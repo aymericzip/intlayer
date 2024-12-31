@@ -134,14 +134,14 @@ module.exports = config;
 
   - _형식_: `string` | `undefined`
   - _기본값_: `undefined`
-  - _설명_: clientId와 clientSecret은 intlayer 패키지가 oAuth2 인증을 사용하여 백엔드와 인증하는 데 필요합니다. 접근 토큰은 프로젝트와 관련된 사용자를 인증하는 데 사용됩니다. 접근 토큰을 얻으려면 https://back.intlayer.org/dashboard/project 로 가서 계정을 만드세요.
+  - _설명_: clientId와 clientSecret은 intlayer 패키지가 oAuth2 인증을 사용하여 백엔드와 인증하는 데 필요합니다. 접근 토큰은 프로젝트와 관련된 사용자를 인증하는 데 사용됩니다. 접근 토큰을 얻으려면 https://intlayer.org/dashboard/project 로 가서 계정을 만드세요.
   - _예시_: `true`
   - _참고_: 중요: clientId와 clientSecret은 비공식적으로 공개되어서는 안 되며, 안전한 위치(예: 환경 변수)에 보관해야 합니다.
 
 - **clientSecret**:
   - _형식_: `string` | `undefined`
   - _기본값_: `undefined`
-  - _설명_: clientId와 clientSecret은 intlayer 패키지가 oAuth2 인증을 사용하여 백엔드와 인증하는 데 필요합니다. 접근 토큰은 프로젝트와 관련된 사용자를 인증하는 데 사용됩니다. 접근 토큰을 얻으려면 https://back.intlayer.org/dashboard/project 로 가서 계정을 만드세요.
+  - _설명_: clientId와 clientSecret은 intlayer 패키지가 oAuth2 인증을 사용하여 백엔드와 인증하는 데 필요합니다. 접근 토큰은 프로젝트와 관련된 사용자를 인증하는 데 사용됩니다. 접근 토큰을 얻으려면 https://intlayer.org/dashboard/project 로 가서 계정을 만드세요.
   - _예시_: `true`
   - _참고_: 중요: clientId와 clientSecret은 비공식적으로 공개되어서는 안 되며, 안전한 위치(예: 환경 변수)에 보관해야 합니다.
 
