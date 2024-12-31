@@ -7,7 +7,9 @@ import {
   Accordion,
   Button,
   MaxWidthSmoother,
+  ClickOutsideDiv,
 } from '@intlayer/design-system';
+import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { ArrowLeftToLine } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -42,7 +44,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
 }) => {
   const { blogButton } = useIntlayer('doc-nav-list');
   return (
-    <nav className="m-auto flex min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pb-20 pt-8 md:max-h-[calc(100vh-8.2rem)] md:pl-3">
+    <nav className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pb-20 pt-8">
       {Object.keys(docData).map((key1) => {
         const section1Data = docData[key1];
         const sectionDefault = section1Data.default;
@@ -158,53 +160,63 @@ export const DocNavList: FC<DocNavListProps> = ({
   docData,
   activeSections,
 }) => {
-  const [isHidden, setIsHidden] = useState(false);
+  const { isMobile } = useDevice();
+  const [isHidden, setIsHidden] = useState(isMobile);
   const { collapseButton } = useIntlayer('doc-nav-list');
 
   return (
-    <Container className="h-full" roundedSize="none" transparency="sm">
-      <div className="relative h-full md:max-w-80">
-        <Container
-          transparency="sm"
-          className="z-10 m-auto md:sticky md:top-[3.6rem] md:pt-4"
-          roundedSize="none"
-        >
-          <div
-            className={cn([
-              'relative m-auto flex w-full flex-row items-center justify-end gap-2 px-2',
-              isHidden && 'flex-col-reverse',
-              !isHidden && 'md:pl-6',
-            ])}
+    <ClickOutsideDiv
+      className="left-0 top-0 z-10 flex h-full justify-end max-md:fixed"
+      onClickOutSide={() => {
+        if (isMobile) {
+          setIsHidden(true);
+        }
+      }}
+    >
+      <Container className="h-full" roundedSize="none" transparency="sm">
+        <div className="relative h-full max-w-80">
+          <Container
+            transparency="sm"
+            className="sticky top-[3.6rem] z-10 m-auto pt-4"
+            roundedSize="none"
           >
-            <SearchTrigger isMini={isHidden} />
-            <Button
-              Icon={ArrowLeftToLine}
-              size="icon-md"
-              variant="hoverable"
-              color="text"
-              label={collapseButton.label.value}
-              className={cn([
-                'transition-transform max-md:hidden',
-                isHidden && 'rotate-180',
-              ])}
-              onClick={() => setIsHidden((isHidden) => !isHidden)}
-            />
-            <div className="from-card/90 dark:from-card-dark/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
-          </div>
-        </Container>
-
-        <div className="md:sticky md:top-28 md:pt-0">
-          <MaxWidthSmoother isHidden={isHidden}>
-            <div className="relative overflow-hidden">
-              <DocNavListContent
-                docData={docData}
-                activeSections={activeSections}
+            <div
+              className={cn(
+                'relative m-auto flex w-full flex-row items-center justify-end gap-2 px-2',
+                isHidden && 'flex-col-reverse',
+                !isHidden && 'pl-6'
+              )}
+            >
+              <SearchTrigger isMini={isHidden} />
+              <Button
+                Icon={ArrowLeftToLine}
+                size="icon-md"
+                variant="hoverable"
+                color="text"
+                label={collapseButton.label.value}
+                className={cn([
+                  'transition-transform',
+                  isHidden && 'rotate-180',
+                ])}
+                onClick={() => setIsHidden((isHidden) => !isHidden)}
               />
+              <div className="from-card/90 dark:from-card-dark/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
             </div>
-          </MaxWidthSmoother>
+          </Container>
+
+          <div className="sticky top-28 pt-0">
+            <MaxWidthSmoother isHidden={isHidden}>
+              <div className="relative overflow-hidden">
+                <DocNavListContent
+                  docData={docData}
+                  activeSections={activeSections}
+                />
+              </div>
+            </MaxWidthSmoother>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </ClickOutsideDiv>
   );
 };
 

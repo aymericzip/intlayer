@@ -84,8 +84,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           | Partial<Dictionary>
           | undefined;
 
-        console.log('editedDictionary', editedDictionary);
-
         form.reset({ ...updatedDictionary, ...editedDictionary });
       } catch (error) {
         console.error(error);

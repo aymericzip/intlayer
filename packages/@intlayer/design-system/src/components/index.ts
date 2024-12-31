@@ -42,3 +42,4 @@ export * from './Tag';
 export * from './Accordion';
 export * from './LocaleSwitcherDropDown';
 export * from './LocaleSwitcherContentDropDown';
+export * from './ClickOutsideDiv';
