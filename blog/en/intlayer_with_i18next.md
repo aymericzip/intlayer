@@ -102,7 +102,7 @@ i18next
   .use(
     resourcesToBackend(
       (language: string, namespace: string) =>
-        import(`../i18n-dictionaries/${language}/${namespace}.json`)
+        import(`../i18n/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
@@ -118,7 +118,7 @@ i18next
   .use(
     resourcesToBackend(
       (language, namespace) =>
-        import(`../i18n-dictionaries/${language}/${namespace}.json`)
+        import(`../i18n/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
@@ -134,7 +134,7 @@ i18next
   .use(
     resourcesToBackend(
       (language, namespace) =>
-        import(`../i18n-dictionaries/${language}/${namespace}.json`)
+        import(`../i18n/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
