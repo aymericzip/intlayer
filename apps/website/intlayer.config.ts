@@ -24,6 +24,9 @@ const config: IntlayerConfig = {
     defaultLocale,
     strictMode: 'strict',
   },
+  content: {
+    dictionaryOutput: ['intlayer', 'i18next'],
+  },
   editor: {
     enabled: true,
     backendURL: process.env.INTLAYER_BACKEND_URL,

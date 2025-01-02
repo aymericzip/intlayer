@@ -267,17 +267,17 @@ module.exports = config;
   - _派生元_: `'resultDir'` / `'dictionariesDirName'`
   - _説明_: ローカライズ辞書を保存するためのディレクトリ。
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _タイプ_: `string`
-  - _デフォルト_: `'i18n_dictionary'`
+  - _デフォルト_: `'i18next_dictionary'`
   - _説明_: i18n 辞書を保存するためのディレクトリ。
   - _例_: `'translations'`
-  - _注意_: 結果ディレクトリレベルにない場合は、`i18nDictionariesDir` を更新してください。
+  - _注意_: 結果ディレクトリレベルにない場合は、`i18nextResourcesDir` を更新してください。
   - _注意_: i18n 辞書の出力には i18next を含める必要があります。
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _タイプ_: `string`
-  - _派生元_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _派生元_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _説明_: i18n 辞書を保存するためのディレクトリ。
   - _注意_: このディレクトリは i18next 出力タイプ用に構成されている必要があります。
 

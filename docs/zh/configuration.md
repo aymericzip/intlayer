@@ -267,17 +267,17 @@ module.exports = config;
   - _派生自_: `'resultDir'` / `'dictionariesDirName'`
   - _描述_: 存放本地化字典的目录。
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _类型_: `string`
-  - _默认_: `'i18n_dictionary'`
+  - _默认_: `'i18next_dictionary'`
   - _描述_: 存放 i18n 字典的目录。
   - _示例_: `'translations'`
-  - _注意_: 如果不在结果目录级别，请更新 `i18nDictionariesDir`。
+  - _注意_: 如果不在结果目录级别，请更新 `i18nextResourcesDir`。
   - _注意_: 确保 i18n 字典输出包括 i18next 以构建 i18next 的字典。
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _类型_: `string`
-  - _派生自_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _派生自_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _描述_: 存放 i18n 字典的目录。
   - _注意_: 确保此目录为 i18next 输出类型配置。
 

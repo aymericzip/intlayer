@@ -302,14 +302,26 @@ export type BaseContentConfig = {
   /**
    * Name of the directory where dictionaries are stored
    *
-   * Default: 'i18n_dictionary'
+   * Default: 'i18next_dictionary'
    *
    * The directory for storing localization dictionaries.
    *
    * Note:
    * - Ensure the dictionaries output includes 'i18next' to build the dictionaries for i18next
    */
-  i18nDictionariesDirName: string;
+  i18nextResourcesDirName: string;
+
+  /**
+   * Name of the directory where dictionaries are stored
+   *
+   * Default: 'react-intl_dictionary'
+   *
+   * The directory for storing localization dictionaries.
+   *
+   * Note:
+   * - Ensure the dictionaries output includes 'react-intl' to build the dictionaries for react-intl
+   */
+  reactIntlMessagesDirName: string;
 
   /**
    * Name of the directory where dictionary types are stored
@@ -337,7 +349,7 @@ export type BaseContentConfig = {
   watch: boolean;
 };
 
-export type DictionaryOutput = 'intlayer' | 'i18next';
+export type DictionaryOutput = 'intlayer' | 'i18next' | 'react-intl';
 
 /**
  * Configuration derived based on the base content configuration
@@ -399,17 +411,28 @@ export type ResultDirDerivedConfig = {
   dictionariesDir: string;
 
   /**
-   *
    * Directory where dictionaries are stored, relative to the result directory
    *
-   * Default: {{resultDir}} / {{i18nDictionariesDirName}}
+   * Default: {{resultDir}} / {{i18nextResourcesDirName}}
    *
    * Specifies the derived path for dictionaries relative to the result directory.
    *
    * Note:
    * - Ensure the i18n dictionaries output includes i18next to build the dictionaries for i18next
    */
-  i18nDictionariesDir: string;
+  i18nextResourcesDir: string;
+
+  /**
+   * Directory where dictionaries are stored, relative to the result directory
+   *
+   * Default: {{resultDir}} / {{reactIntlMessagesDirName}}
+   *
+   * Specifies the derived path for dictionaries relative to the result directory.
+   *
+   * Note:
+   * - Ensure the dictionaries output includes 'react-intl' to build the dictionaries for react-intl
+   */
+  reactIntlMessagesDir: string;
 
   /**
    * Directory where dictionary types are stored, relative to the result directory

@@ -18,12 +18,12 @@ Para isso, o Intlayer passa por várias etapas:
 
 3. Geração de tipos de dicionário
 
-   - Tipos de dicionário são gerados a partir de dicionários intlayer. Por padrão, os tipos de dicionário intlayer são gerados no diretório `.intlayer/types` do projeto.
+   - Tipos de dicionário são gerados a partir de dicionários intlayer. Por padrão, os tipos de dicionário intlayer são gerados no diretório `types` do projeto.
 
 4. Geração de aumento de módulo do Intlayer
 
    - O [aumento de módulo do Intlayer](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) é um recurso do TypeScript que permite definir tipos adicionais para o Intlayer. Isso facilita a experiência de desenvolvimento, sugerindo argumentos disponíveis ou argumentos necessários.
-     Entre os tipos gerados, tipos de dicionário intlayer ou até mesmo tipos de configuração de idioma são adicionados ao arquivo `types/intlayer.d.ts` e utilizados por outros pacotes. Para isso, é necessário que o arquivo `tsconfig.json` esteja configurado para incluir o diretório `.intlayer/types` do projeto.
+     Entre os tipos gerados, tipos de dicionário intlayer ou até mesmo tipos de configuração de idioma são adicionados ao arquivo `types/intlayer.d.ts` e utilizados por outros pacotes. Para isso, é necessário que o arquivo `tsconfig.json` esteja configurado para incluir o diretório `types` do projeto.
 
 5. Monitoramento de arquivos de conteúdo
 

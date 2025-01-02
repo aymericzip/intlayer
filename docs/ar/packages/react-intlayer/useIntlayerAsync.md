@@ -64,7 +64,7 @@ The `useIntlayerAsync` hook يوسع من وظيفة `useIntlayer` من خلال
 3. **ادفع قاموس locale جديد إلى Intlayer:**
 
    ```bash
-   npm intlayer push -d my-first-dictionary-key
+   npx intlayer push -d my-first-dictionary-key
    ```
 
    يقوم هذا الأمر بتحميل قواميس المحتوى الأولية الخاصة بك، مما يجعلها متاحة للتحميل والتحرير غير المتزامن من خلال منصة Intlayer.

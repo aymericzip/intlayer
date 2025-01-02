@@ -60,7 +60,7 @@ module.exports = config;
 Nachdem Sie Ihre Anmeldeinformationen konfiguriert haben, können Sie ein neues lokales Wörterbuch zu Intlayer hinzufügen, indem Sie Folgendes ausführen:
 
 ```bash
-npm intlayer push -d my-first-dictionary-key
+npx intlayer push -d my-first-dictionary-key
 ```
 
 Dieser Befehl lädt Ihre anfänglichen Inhaltswörterbücher hoch und macht sie für asynchrones Abrufen und Bearbeiten über die Intlayer-Plattform verfügbar.

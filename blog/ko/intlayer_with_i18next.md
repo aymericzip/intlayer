@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
     // Intlayer가 Intlayer와 i18next 사전을 모두 내보낸다는 것을 나타냅니다.
     dictionaryOutput: ["intlayer", "i18next"],
     // i18n 사전이 내보낼 디렉토리까지의 프로젝트 루트에서의 상대 경로
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -62,7 +62,7 @@ const config = {
     // Intlayer가 Intlayer와 i18next 사전을 모두 내보낸다는 것을 나타냅니다.
     dictionaryOutput: ["intlayer", "i18next"],
     // i18n 사전이 내보낼 디렉토리까지의 프로젝트 루트에서의 상대 경로
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -78,7 +78,7 @@ const config = {
     // Intlayer가 Intlayer와 i18next 사전을 모두 내보낸다는 것을 나타냅니다.
     dictionaryOutput: ["intlayer", "i18next"],
     // i18n 사전이 내보낼 디렉토리까지의 프로젝트 루트에서의 상대 경로
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -102,7 +102,7 @@ i18next
   .use(
     resourcesToBackend(
       (language: string, namespace: string) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
@@ -118,7 +118,7 @@ i18next
   .use(
     resourcesToBackend(
       (language, namespace) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
@@ -134,7 +134,7 @@ i18next
   .use(
     resourcesToBackend(
       (language, namespace) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```

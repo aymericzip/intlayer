@@ -18,12 +18,12 @@ For this, Intlayer goes through several steps:
 
 3. Generation of dictionary types
 
-   - Dictionary types are generated from intlayer dictionaries. By default, intlayer dictionary types are generated in the `.intlayer/types` directory of the project.
+   - Dictionary types are generated from intlayer dictionaries. By default, intlayer dictionary types are generated in the `types` directory of the project.
 
 4. Generation of Intlayer module augmentation
 
    - Intlayer [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) is a TypeScript feature that allows you to define additional types for Intlayer. This makes development experience easier by suggesting available arguments or required arguments.
-     Among the types generated, intlayer dictionary types or even language configuration types are added to the `types/intlayer.d.ts` file, and used by other packages. To do this, it is necessary that the `tsconfig.json` file is configured to include the `.intlayer/types` directory of the project.
+     Among the types generated, intlayer dictionary types or even language configuration types are added to the `types/intlayer.d.ts` file, and used by other packages. To do this, it is necessary that the `tsconfig.json` file is configured to include the `types` directory of the project.
 
 5. Content file monitoring
 

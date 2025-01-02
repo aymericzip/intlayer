@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
     // Indicate that Intlayer will export both Intlayer and i18next dictionaries
     dictionaryOutput: ["intlayer", "i18next"],
     // Relative path from the project root to the directory where i18n dictionaries will be exported
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -62,7 +62,7 @@ const config = {
     // Indicate that Intlayer will export both Intlayer and i18next dictionaries
     dictionaryOutput: ["intlayer", "i18next"],
     // Relative path from the project root to the directory where i18n dictionaries will be exported
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -78,7 +78,7 @@ const config = {
     // Indicate that Intlayer will export both Intlayer and i18next dictionaries
     dictionaryOutput: ["intlayer", "i18next"],
     // Relative path from the project root to the directory where i18n dictionaries will be exported
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -102,7 +102,7 @@ i18next
   .use(
     resourcesToBackend(
       (language: string, namespace: string) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
@@ -118,7 +118,7 @@ i18next
   .use(
     resourcesToBackend(
       (language, namespace) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
@@ -134,7 +134,7 @@ i18next
   .use(
     resourcesToBackend(
       (language, namespace) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```

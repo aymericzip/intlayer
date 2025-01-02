@@ -60,7 +60,7 @@ module.exports = config;
 Después de configurar sus credenciales, puede enviar un nuevo diccionario de locale a Intlayer ejecutando:
 
 ```bash
-npm intlayer push -d my-first-dictionary-key
+npx intlayer push -d my-first-dictionary-key
 ```
 
 Este comando sube sus diccionarios de contenido iniciales, haciéndolos disponibles para la carga y edición asíncronas a través de la plataforma Intlayer.
