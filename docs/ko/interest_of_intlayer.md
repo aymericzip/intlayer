@@ -7,7 +7,7 @@
 ```bash codeFormat="typescript"
 .
 └── Components
-    └── myComponent
+    └── MyComponent
        ├── index.content.ts
        └── index.tsx
 ```
@@ -15,7 +15,7 @@
 ```bash codeFormat="commonjs"
 .
 └── Components
-    └── myComponent
+    └── MyComponent
        ├── index.content.cjs
        └── index.mjs
 ```
@@ -23,7 +23,7 @@
 ```bash codeFormat="esm"
 .
 └── Components
-    └── myComponent
+    └── MyComponent
        ├── index.content.mjs
        └── index.js
 ```

@@ -15,7 +15,7 @@ Intlayer также предоставляет необязательный ви
 ```bash codeFormat="typescript"
 .
 └── Components
-    └── myComponent
+    └── MyComponent
        ├── index.content.ts
        └── index.tsx
 ```
@@ -23,7 +23,7 @@ Intlayer также предоставляет необязательный ви
 ```bash codeFormat="commonjs"
 .
 └── Components
-    └── myComponent
+    └── MyComponent
        ├── index.content.cjs
        └── index.mjs
 ```
@@ -31,12 +31,12 @@ Intlayer также предоставляет необязательный ви
 ```bash codeFormat="esm"
 .
 └── Components
-    └── myComponent
+    └── MyComponent
        ├── index.content.mjs
        └── index.js
 ```
 
-```tsx fileName="src/components/myComponent/myComponent.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"
 import { type DeclarationContent, t } from "intlayer";
 
 const componentContent = {
@@ -53,7 +53,7 @@ const componentContent = {
 export default componentContent;
 ```
 
-```javascript fileName="src/components/myComponent/myComponent.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/components/MyComponent/index.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -72,7 +72,7 @@ const componentContent = {
 export default componentContent;
 ```
 
-```javascript fileName="src/components/myComponent/myComponent.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/components/MyComponent/index.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').DeclarationContent} */
@@ -91,7 +91,7 @@ const componentContent = {
 module.exports = componentContent;
 ```
 
-```json fileName="src/components/myComponent/myComponent.content.json" contentDeclarationFormat="json"
+```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"
 {
   "key": "component-key",
   "content": {
@@ -107,7 +107,7 @@ module.exports = componentContent;
 }
 ```
 
-```tsx fileName="src/components/myComponent/MyComponent.tsx" codeFormat="typescript"
+```tsx fileName="src/components/MyComponent/index.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -118,7 +118,7 @@ export const MyComponent: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/myComponent/MyComponent.mjx" codeFormat="esm"
+```jsx fileName="src/components/MyComponent/index.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
@@ -128,7 +128,7 @@ const MyComponent = () => {
 };
 ```
 
-```jsx fileName="src/components/myComponent/MyComponent.csx" codeFormat="commonjs"
+```jsx fileName="src/components/MyComponent/index.csx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
 const MyComponent = () => {
