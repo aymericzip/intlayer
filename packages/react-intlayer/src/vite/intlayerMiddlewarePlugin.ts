@@ -1,135 +1,377 @@
-import { getConfiguration, Locales } from '@intlayer/config';
-import {
-  getPathWithoutLocale,
-  localeDetector as localeDetector,
-} from '@intlayer/core';
-// @ts-ignore - Fix error Module '"vite"' has no exported member
-import { type Plugin } from 'vite';
+import { IncomingMessage, ServerResponse } from 'http';
+import { parse } from 'url';
+import { getConfiguration, type Locales } from '@intlayer/config';
+import { localeDetector } from '@intlayer/core';
+import { type Connect, type Plugin } from 'vite';
 
+// Grab all the config you need.
+// Make sure your config includes the following fields if you want to replicate Next.js logic:
+//   - internationalization.locales
+//   - internationalization.defaultLocale
+//   - middleware.cookieName
+//   - middleware.headerName
+//   - middleware.prefixDefault
+//   - middleware.noPrefix
+//   - middleware.serverSetCookie
+//   - middleware.basePath
+//   - etc.
 const intlayerConfig = getConfiguration();
 const { internationalization, middleware } = intlayerConfig;
-
 const { locales: supportedLocales, defaultLocale } = internationalization;
-const { cookieName, headerName, prefixDefault } = middleware;
+
+const {
+  cookieName,
+  headerName,
+  prefixDefault,
+  noPrefix,
+  serverSetCookie,
+  basePath = '',
+} = middleware;
 
 /**
- * A Vite plugin that integrates IntLayer middleware into the build process
- *
- * ```ts
- * // Example usage of the plugin in a Vite configuration
- * export default defineConfig({
- *   plugins: [ intLayerMiddlewarePlugin() ],
- * });
- * ```
+ * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
  */
-export const intLayerMiddlewarePlugin = (_pluginOptions = {}): Plugin => ({
-  name: 'vite-intlayer-middleware-plugin',
-
-  configureServer: (server) => {
-    // server.middlewares is a Connect instance; you can add middleware here
-    server.middlewares.use((req, res, next) => {
-      // Skip if request looks like a static asset or internal Vite request
-      if (
-        req.url?.startsWith('/node_modules') ||
-        req.url?.startsWith('/@') ||
-        req.url?.split('?')[0].match(/\.[a-z]+$/i) // checks if URL has a file extension
-      ) {
-        return next();
-      }
-
-      const originalUrl = req.url ?? '/';
-
-      const cookies = parseCookies(req.headers.cookie ?? '');
-      const cookieLocale = cookies[cookieName];
-
-      const headers = req.headers;
-      const headerLocale = headers[headerName];
-
-      const pathParts = originalUrl.split('?')[0].split('/').filter(Boolean);
-
-      const firstPart = pathParts[0] as unknown as Locales;
-
-      const pathLocale =
-        pathParts[0] && supportedLocales.includes(firstPart)
-          ? pathParts[0]
-          : undefined;
-
-      if (!pathLocale) {
-        let locale;
-
-        // Try to get the locale from the request cookies
+export const intLayerMiddlewarePlugin = (): Plugin => {
+  return {
+    name: 'vite-intlayer-middleware-plugin',
+    configureServer: (server) => {
+      server.middlewares.use((req, res, next) => {
+        // 1. Bypass assets and special Vite endpoints
         if (
-          !locale &&
-          cookieLocale &&
-          supportedLocales.includes(cookieLocale as Locales)
+          req.url?.startsWith('/node_modules') ||
+          req.url?.startsWith('/@') ||
+          req.url?.split('?')[0].match(/\.[a-z]+$/i) // checks for file extensions
         ) {
-          locale = cookieLocale as Locales;
-        }
-
-        // Try to get the locale from the request headers
-        if (
-          !locale &&
-          headerLocale &&
-          supportedLocales.includes(headerLocale as Locales)
-        ) {
-          locale = headerLocale as Locales;
-        }
-
-        // Get the locale from the negotiator
-        if (!locale) {
-          const detectedLocale = localeDetector(
-            headers as Record<string, string>,
-            supportedLocales,
-            defaultLocale
-          );
-          locale = detectedLocale;
-        }
-
-        // Instead of redirecting, try rewriting internally:
-        req.url = formatUrlWithLocale(originalUrl, locale);
-
-        if (req.url === originalUrl) {
           return next();
         }
 
-        res.writeHead(301, { Location: req.url });
-        return res.end();
-      }
+        // 2. Parse original URL for path and query
+        const parsedUrl = parse(req.url ?? '/', true);
+        const originalPath = parsedUrl.pathname ?? '/';
 
-      if (
-        pathLocale.toString() === defaultLocale.toString() &&
-        !prefixDefault
-      ) {
-        req.url = getPathWithoutLocale(originalUrl, supportedLocales);
+        // 3. Attempt to read the cookie locale
+        const cookies = parseCookies(req.headers.cookie ?? '');
+        const cookieLocale = getValidLocaleFromCookie(cookies[cookieName]);
 
-        res.writeHead(301, { Location: req.url });
-        return res.end();
-      }
+        // 4. Check if there's a locale prefix in the path
+        const pathLocale = getPathLocale(originalPath);
 
-      return next();
-    });
-  },
-});
+        // 5. If noPrefix is true, we skip prefix logic altogether
+        if (noPrefix) {
+          handleNoPrefix({
+            req,
+            res,
+            next,
+            originalPath,
+            cookieLocale,
+          });
+          return;
+        }
 
-// Simple cookie parser:
-const parseCookies = (cookieHeader: string) =>
-  cookieHeader.split(';').reduce(
+        // 6. Otherwise, handle prefix logic
+        handlePrefix({
+          req,
+          res,
+          next,
+          originalPath,
+          pathLocale,
+          cookieLocale,
+        });
+      });
+    },
+  };
+};
+
+/* --------------------------------------------------------------------
+ *                     Helper & Utility Functions
+ * --------------------------------------------------------------------
+ */
+
+/**
+ * Parses cookies from the Cookie header string into an object.
+ */
+const parseCookies = (cookieHeader: string) => {
+  return cookieHeader.split(';').reduce(
     (acc, cookie) => {
       const [key, val] = cookie.trim().split('=');
-      acc[key as keyof typeof acc] = val;
+      acc[key] = val;
       return acc;
     },
     {} as Record<string, string>
   );
+};
 
-const formatUrlWithLocale = (url: string, locale: Locales) => {
-  if (locale.toString() === defaultLocale.toString()) {
-    if (prefixDefault) {
-      return `/${locale}${url}`;
-    }
+/**
+ * Checks if the cookie locale is valid and is included in the supported locales.
+ */
+const getValidLocaleFromCookie = (
+  locale: string | undefined
+): Locales | undefined => {
+  if (locale && supportedLocales.includes(locale as Locales)) {
+    return locale as Locales;
+  }
+  return undefined;
+};
 
-    return url;
+/**
+ * Extracts the locale from the URL pathname if present as the first segment.
+ */
+const getPathLocale = (pathname: string): Locales | undefined => {
+  // e.g. if pathname is /en/some/page or /en
+  // we check if "en" is in your supportedLocales
+  const segments = pathname.split('/').filter(Boolean);
+  const firstSegment = segments[0];
+  if (firstSegment && supportedLocales.includes(firstSegment as Locales)) {
+    return firstSegment as Locales;
+  }
+  return undefined;
+};
+
+/**
+ * Writes a 301 redirect response with the given new URL.
+ */
+const redirectUrl = (res: ServerResponse<IncomingMessage>, newUrl: string) => {
+  res.writeHead(301, { Location: newUrl });
+  return res.end();
+};
+
+/**
+ * "Rewrite" the request internally by adjusting req.url;
+ * we also set the locale in the response header if needed.
+ */
+const rewriteUrl = (
+  req: Connect.IncomingMessage,
+  res: ServerResponse<IncomingMessage>,
+  newUrl: string,
+  locale?: Locales
+) => {
+  req.url = newUrl;
+  // If you want to mimic Next.js's behavior of setting a header for the locale:
+  if (locale && headerName) {
+    res.setHeader(headerName, locale);
+  }
+};
+
+/**
+ * Constructs a new path string, optionally including a locale prefix and basePath.
+ * - basePath:   (e.g., '/myapp')
+ * - locale:     (e.g., 'en')
+ * - currentPath:(e.g., '/products/shoes')
+ */
+const constructPath = (locale: Locales, currentPath: string) => {
+  // Ensure basePath always starts with '/', and remove trailing slash if needed
+  const cleanBasePath = basePath.startsWith('/') ? basePath : `/${basePath}`;
+  // If basePath is '/', no trailing slash is needed
+  const normalizedBasePath = cleanBasePath === '/' ? '' : cleanBasePath;
+
+  // Combine basePath + locale + the rest of the path
+  // Example: basePath = '/myapp', locale = 'en', currentPath = '/products' => '/myapp/en/products'
+  let newPath = `${normalizedBasePath}/${locale}${currentPath}`;
+
+  // Special case: if prefixDefault is false and locale is defaultLocale, remove the locale prefix
+  if (!prefixDefault && locale === defaultLocale) {
+    newPath = `${normalizedBasePath}${currentPath}`;
   }
 
-  return `/${locale}${url}`;
+  return newPath;
+};
+
+/* --------------------------------------------------------------------
+ *               Handlers that mirror Next.js style logic
+ * --------------------------------------------------------------------
+ */
+
+/**
+ * If `noPrefix` is true, we never prefix the locale in the URL.
+ * We simply rewrite the request to the same path, but with the best-chosen locale
+ * in a header or cookie if desired.
+ */
+const handleNoPrefix = ({
+  req,
+  res,
+  next,
+  originalPath,
+  cookieLocale,
+}: {
+  req: Connect.IncomingMessage;
+  res: ServerResponse<IncomingMessage>;
+  next: Connect.NextFunction;
+  originalPath: string;
+  cookieLocale?: Locales;
+}) => {
+  // Determine the best locale
+  let locale = cookieLocale ?? defaultLocale;
+
+  // Use fallback to localeDetector if no cookie
+  if (!cookieLocale) {
+    const detectedLocale = localeDetector(
+      req.headers as Record<string, string>,
+      supportedLocales,
+      defaultLocale
+    );
+    locale = detectedLocale;
+  }
+
+  // Just rewrite the URL in-place (no prefix). We do NOT redirect because we do not want to alter the URL.
+  rewriteUrl(req, res, originalPath, locale);
+  return next();
+};
+
+/**
+ * The main prefix logic:
+ * - If there's no pathLocale in the URL, we might want to detect & redirect or rewrite
+ * - If there is a pathLocale, handle cookie mismatch or default locale special cases
+ */
+const handlePrefix = ({
+  req,
+  res,
+  next,
+  originalPath,
+  pathLocale,
+  cookieLocale,
+}: {
+  req: Connect.IncomingMessage;
+  res: ServerResponse<IncomingMessage>;
+  next: Connect.NextFunction;
+  originalPath: string;
+  pathLocale?: Locales;
+  cookieLocale?: Locales;
+}) => {
+  // 1. If pathLocale is missing, handle
+  if (!pathLocale) {
+    handleMissingPathLocale({
+      req,
+      res,
+      next,
+      originalPath,
+      cookieLocale,
+    });
+    return;
+  }
+
+  // 2. If pathLocale exists, handle possible mismatch with cookie
+  handleExistingPathLocale({
+    req,
+    res,
+    next,
+    originalPath,
+    pathLocale,
+    cookieLocale,
+  });
+};
+
+/**
+ * Handles requests where the locale is missing from the URL pathname.
+ * We detect a locale from cookie / headers / default, then either redirect or rewrite.
+ */
+const handleMissingPathLocale = ({
+  req,
+  res,
+  next,
+  originalPath,
+  cookieLocale,
+}: {
+  req: Connect.IncomingMessage;
+  res: ServerResponse<IncomingMessage>;
+  next: Connect.NextFunction;
+  originalPath: string;
+  cookieLocale?: Locales;
+}) => {
+  // 1. Choose the best locale
+  let locale =
+    cookieLocale ??
+    localeDetector(
+      req.headers as Record<string, string>,
+      supportedLocales,
+      defaultLocale
+    );
+
+  // 2. If still invalid, fallback
+  if (!supportedLocales.includes(locale)) {
+    locale = defaultLocale;
+  }
+
+  // 3. Construct new path
+  const newPath = constructPath(locale, originalPath);
+
+  // If we always prefix default or if this is not the default locale, do a 301 redirect
+  // so that the user sees the locale in the URL.
+  if (prefixDefault || locale !== defaultLocale) {
+    return redirectUrl(res, newPath);
+  }
+
+  // If we do NOT prefix the default locale, just rewrite in place
+  rewriteUrl(req, res, newPath, locale);
+  return next();
+};
+
+/**
+ * Handles requests where the locale prefix is present in the pathname.
+ * We verify if the cookie locale differs from the path locale; if so, handle.
+ */
+const handleExistingPathLocale = ({
+  req,
+  res,
+  next,
+  originalPath,
+  pathLocale,
+  cookieLocale,
+}: {
+  req: Connect.IncomingMessage;
+  res: ServerResponse<IncomingMessage>;
+  next: Connect.NextFunction;
+  originalPath: string;
+  pathLocale: Locales;
+  cookieLocale?: Locales;
+}) => {
+  // 1. If the cookie locale is set and differs from the path locale,
+  //    and we're not forcing the cookie to always override
+  if (
+    cookieLocale &&
+    cookieLocale !== pathLocale &&
+    serverSetCookie !== 'always'
+  ) {
+    // We want to swap out the pathLocale with the cookieLocale
+    const newPath = originalPath.replace(`/${pathLocale}`, `/${cookieLocale}`);
+    const finalPath = constructPath(cookieLocale, newPath.replace(/^\/+/, '/'));
+    return redirectUrl(res, finalPath);
+  }
+
+  // 2. Otherwise, handle default-locale prefix if needed
+  handleDefaultLocaleRedirect({
+    req,
+    res,
+    next,
+    originalPath,
+    pathLocale,
+  });
+};
+
+/**
+ * If the path locale is the default locale but we don't want to prefix the default, remove it.
+ */
+const handleDefaultLocaleRedirect = ({
+  req,
+  res,
+  next,
+  originalPath,
+  pathLocale,
+}: {
+  req: Connect.IncomingMessage;
+  res: ServerResponse<IncomingMessage>;
+  next: Connect.NextFunction;
+  originalPath: string;
+  pathLocale: Locales;
+}) => {
+  // If we don't prefix default AND the path locale is the default locale -> remove it
+  if (!prefixDefault && pathLocale === defaultLocale) {
+    // Remove the default locale part from the path
+    const newPath = originalPath.replace(`/${defaultLocale}`, '') ?? '/';
+    rewriteUrl(req, res, newPath, pathLocale);
+    return next();
+  }
+
+  // If we do prefix default or pathLocale != default, keep as is, but rewrite headers
+  rewriteUrl(req, res, originalPath, pathLocale);
+  return next();
 };
