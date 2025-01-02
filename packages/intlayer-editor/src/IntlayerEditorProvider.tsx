@@ -14,6 +14,7 @@ import {
   useEffect,
   useMemo,
 } from 'react';
+import { AsyncStateProvider } from '@intlayer/design-system/hooks';
 
 type IntlayerEditorValue = {
   isEditorEnabled: boolean;
@@ -89,14 +90,14 @@ export const IntlayerEditorProvider: FC<IntlayerEditorProviderProps> = ({
       {children}
 
       {isEditorEnabled && (
-        <>
+        <AsyncStateProvider>
           <DictionaryEditionDrawerController
             locale={locale}
             localeList={internationalization.locales}
             setLocale={setLocale}
           />
           <DictionaryListDrawer />
-        </>
+        </AsyncStateProvider>
       )}
     </IntlayerEditorContext.Provider>
   );
