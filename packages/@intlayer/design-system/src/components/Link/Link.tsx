@@ -67,15 +67,12 @@ export type LinkProps = DetailedHTMLProps<
 
 export const checkIsExternalLink = ({
   href,
-  children,
   isExternalLink: isExternalLinkProp,
 }: LinkProps): boolean => {
-  const isChildrenString = typeof children === 'string';
   const isValidHref = typeof href === 'string' && href.trim() !== '';
   const isExternalLink =
     isExternalLinkProp === true ||
-    (isChildrenString &&
-      typeof isExternalLinkProp === 'undefined' &&
+    (typeof isExternalLinkProp === 'undefined' &&
       isValidHref &&
       /^https?:\/\//.test(href));
 
@@ -99,6 +96,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   const { internationalization } = getConfiguration();
 
   const isExternalLink = checkIsExternalLink(props);
+  const isChildrenString = typeof children === 'string';
 
   const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
 
@@ -133,7 +131,9 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
       {...otherProps}
     >
       {children}
-      {isExternalLink && <ExternalLink className="ml-2 inline-block size-4" />}
+      {isExternalLink && isChildrenString && (
+        <ExternalLink className="ml-2 inline-block size-4" />
+      )}
     </a>
   );
 });
