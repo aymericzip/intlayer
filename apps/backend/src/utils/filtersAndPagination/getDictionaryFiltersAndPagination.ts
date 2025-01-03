@@ -11,7 +11,8 @@ export type DictionaryFiltersParams = {
   ids?: string | string[];
   key?: string;
   keys?: string[];
-  tags?: string[] | string[];
+  tags?: string | string[];
+  version?: string;
 };
 export type DictionaryFilters = RootFilterQuery<Dictionary>;
 
@@ -29,7 +30,7 @@ export const getDictionaryFiltersAndPagination = (
   let filters: DictionaryFilters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { key, keys, tags, ids } = filtersRequest;
+    const { key, keys, tags, ids, version } = filtersRequest;
 
     filters = {};
 
@@ -47,6 +48,10 @@ export const getDictionaryFiltersAndPagination = (
 
     if (tags) {
       filters = { ...filters, tags: { $in: ensureArrayQueryFilter(tags) } };
+    }
+
+    if (version) {
+      filters = { ...filters, content: { [version]: `$content.${version}` } };
     }
   }
 

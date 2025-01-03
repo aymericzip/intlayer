@@ -1,6 +1,9 @@
 'use client';
 
-import { Dictionary as DistantDictionary } from '@intlayer/backend';
+import {
+  DictionaryAPI,
+  Dictionary as DistantDictionary,
+} from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
 import { ArrowUpFromLine, Save, WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
@@ -15,7 +18,7 @@ import {
 import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
 import { Loader } from '../../Loader';
-import { MultiSelect } from '../../Select';
+import { MultiSelect, Select } from '../../Select';
 import { dictionaryDetailsContent } from './dictionaryDetails.content';
 import {
   useDictionaryDetailsSchema,
@@ -34,17 +37,22 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const { pushDictionaries } = usePushDictionaries();
   const { data: projects, isLoading: isLoadingProjects } = useGetProjects();
   const { data: tags, isLoading: isLoadingTags } = useGetTags();
+  const dictionaryValue = {
+    ...dictionary,
+    publishedVersion: dictionary.publishedVersion ?? '-1',
+  };
 
   const DictionaryDetailsSchema = useDictionaryDetailsSchema(
     String(project?._id)
   );
   const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
-    defaultValues: dictionary,
+    defaultValues: dictionaryValue,
   });
   const {
     titleInput,
     keyInput,
     descriptionInput,
+    publishedVersionSelect,
     publishButton,
     saveButton,
     projectInput,
@@ -55,7 +63,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     useAuditContentDeclarationMetadata();
 
   useEffect(() => {
-    form.reset(dictionary);
+    form.reset(dictionaryValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dictionary, form?.reset]);
 
@@ -84,7 +92,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           | Partial<Dictionary>
           | undefined;
 
-        form.reset({ ...updatedDictionary, ...editedDictionary });
+        form.reset({
+          ...updatedDictionary,
+          ...editedDictionary,
+          publishedVersion: updatedDictionary.publishedVersion ?? '-1',
+        });
       } catch (error) {
         console.error(error);
       }
@@ -183,6 +195,30 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           </MultiSelect.Content>
         </Form.MultiSelect>
       </div>
+      {((dictionary as DictionaryAPI).availableVersions?.length ?? 0) > 1 && (
+        <div className="flex size-full flex-1 gap-8 max-md:flex-col">
+          <Form.Select
+            name="publishedVersion"
+            description={publishedVersionSelect.description}
+            label={publishedVersionSelect.label}
+          >
+            <Select.Trigger>
+              <Select.Value placeholder={publishedVersionSelect.placeholder} />
+            </Select.Trigger>
+            <Select.Content>
+              <Select.Item value="-1">LTS</Select.Item>
+              {(dictionary as DictionaryAPI).availableVersions?.map(
+                (version) => (
+                  <Select.Item value={version} key={version}>
+                    {version}
+                  </Select.Item>
+                )
+              )}
+            </Select.Content>
+          </Form.Select>
+          <div className="w-full" />
+        </div>
+      )}
 
       <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
         <Form.Button
@@ -191,6 +227,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           Icon={WandSparkles}
           variant="outline"
           color="text"
+          className="max-md:w-full"
           onClick={handleOnAuditFile}
           disabled={isSubmitting || isAuditing}
           isLoading={isAuditing}
@@ -205,6 +242,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             Icon={ArrowUpFromLine}
             isFullWidth={false}
             color="text"
+            className="max-md:w-full"
             isLoading={isSubmitting}
           >
             {publishButton.text}
@@ -217,6 +255,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             isFullWidth={false}
             Icon={Save}
             color="text"
+            className="max-md:w-full"
             isLoading={isSubmitting}
           >
             {saveButton.text}

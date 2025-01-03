@@ -57,7 +57,9 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
           keyPath={focusedKeyPath ?? []}
           onClickKeyPath={setFocusedContentKeyPath}
         />
-        <LocaleSwitcherContent />
+        <div className="flex items-center gap-2">
+          <LocaleSwitcherContent />
+        </div>
       </div>
 
       <div className="flex gap-2 max-md:flex-col">

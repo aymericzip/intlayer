@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable import/no-cycle */
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -33,7 +34,6 @@ export const SelectElement = ({
       control={control}
       name={name}
       render={({ field }) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks, sonarjs/rules-of-hooks
         const { error } = useFormField();
 
         return (

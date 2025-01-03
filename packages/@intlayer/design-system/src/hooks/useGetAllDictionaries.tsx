@@ -11,8 +11,12 @@ import merge from 'deepmerge';
 import { useMemo } from 'react';
 import { useGetDictionaries } from './intlayerAPIHooks';
 
-export const useGetAllDictionaries = () => {
-  const { data: onlineDictionariesAPI, isLoading } = useGetDictionaries();
+type Args = Parameters<typeof useGetDictionaries>;
+
+export const useGetAllDictionaries = (...props: Args) => {
+  const { data: onlineDictionariesAPI, isLoading } = useGetDictionaries(
+    ...props
+  );
 
   const onlineDictionaries: Record<string, Dictionary> = useMemo(
     () =>

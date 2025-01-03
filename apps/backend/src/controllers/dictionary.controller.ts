@@ -23,6 +23,7 @@ import type {
   DictionaryAPI,
   DictionaryCreationData,
   DictionaryData,
+  VersionedContent,
 } from '@/types/dictionary.types';
 
 export type GetDictionariesParams =
@@ -63,7 +64,7 @@ export const getDictionaries = async (
     const totalItems = await dictionaryService.countDictionaries(filters);
 
     const dictionariesAPI = dictionaries.map((el) =>
-      mapDictionaryToAPI(el, project._id)
+      mapDictionaryToAPI(el, project._id, el.publishedVersion ?? undefined)
     );
 
     const responseData = formatPaginatedResponse<DictionaryAPI>({
@@ -121,20 +122,20 @@ export const getDictionariesKeys = async (
 };
 
 export type GetDictionaryParams = { dictionaryKey: string };
-export type GetDictionaryQuery = { version?: number };
+export type GetDictionaryQuery = { version?: string };
 export type GetDictionaryResult = ResponseData<DictionaryAPI>;
 
 /**
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const getDictionaryByKey = async (
-  req: Request<GetDictionaryParams>,
+  req: Request<GetDictionaryParams, any, any, GetDictionaryQuery>,
   res: ResponseWithInformation<GetDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project, user, dictionaryRights } = res.locals;
   const { dictionaryKey } = req.params;
-  const { version } = req.query as GetDictionaryQuery;
+  const version = req.query.version;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
@@ -150,12 +151,12 @@ export const getDictionaryByKey = async (
   }
 
   try {
-    const dictionaries = await dictionaryService.getDictionaryByKey(
+    const dictionary = await dictionaryService.getDictionaryByKey(
       dictionaryKey,
       project._id
     );
 
-    if (!dictionaries.projectIds.includes(String(project._id))) {
+    if (!dictionary.projectIds.map(String).includes(String(project._id))) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'DICTIONARY_PROJECT_MISMATCH'
@@ -163,7 +164,7 @@ export const getDictionaryByKey = async (
       return;
     }
 
-    const apiResult = mapDictionaryToAPI(dictionaries, project._id, version);
+    const apiResult = mapDictionaryToAPI(dictionary, project._id, version);
 
     const responseData = formatResponse<DictionaryAPI>({
       data: apiResult,
@@ -220,9 +221,15 @@ export const addDictionary = async (
     key: dictionaryData.key,
     title: dictionaryData.title,
     description: dictionaryData.description,
-    content: [dictionaryData.content],
+    content: {
+      v1: {
+        content: dictionaryData.content,
+      },
+    },
     creatorId: user._id,
-    filePath: { [String(project._id)]: dictionaryData.filePath ?? '' },
+    filePath: {
+      [String(project._id)]: dictionaryData.filePath ?? '',
+    },
     projectIds: dictionaryData.projectIds ?? [String(project._id)],
   };
 
@@ -253,7 +260,9 @@ export const addDictionary = async (
   }
 };
 
-export type PushDictionariesBody = { dictionaries: LocalDictionary[] };
+export type PushDictionariesBody = {
+  dictionaries: LocalDictionary[];
+};
 type PushDictionariesResultData = {
   newDictionaries: string[];
   updatedDictionaries: string[];
@@ -329,14 +338,27 @@ export const pushDictionaries = async (
     };
 
     for (const dictionaryDataEl of newDictionaries) {
+      const publishedVersion = dictionaryDataEl.publishedVersion
+        ? dictionaryDataEl.publishedVersion === '-1'
+          ? null
+          : dictionaryDataEl.publishedVersion
+        : null;
+
       const dictionary: DictionaryData = {
         title: dictionaryDataEl.title,
         description: dictionaryDataEl.description,
-        content: [dictionaryDataEl.content],
         projectIds: [String(project._id)],
         creatorId: user._id,
-        filePath: { [String(project._id)]: dictionaryDataEl.filePath ?? '' },
+        content: {
+          v1: {
+            content: dictionaryDataEl.content,
+          },
+        },
+        filePath: {
+          [String(project._id)]: dictionaryDataEl.filePath ?? '',
+        },
         key: dictionaryDataEl.key,
+        publishedVersion,
       };
 
       try {
@@ -361,16 +383,47 @@ export const pushDictionaries = async (
           (dictionaryDB) => dictionaryDB.key === dictionaryDataEl.key
         )!;
 
+        const existingContentArray = Object.values(
+          existingDictionaryDB.content
+        );
+
+        const lastContent =
+          existingContentArray[existingContentArray.length - 1].content;
+
+        const isSameContent =
+          JSON.stringify(lastContent) ===
+          JSON.stringify(dictionaryDataEl.content);
+
+        let newContent: VersionedContent = existingDictionaryDB.content;
+
+        if (!isSameContent) {
+          const newContentVersion =
+            dictionaryService.incrementVersion(existingDictionaryDB);
+
+          newContent = {
+            ...newContent,
+            [newContentVersion]: {
+              content: dictionaryDataEl.content,
+            },
+          };
+        }
+
+        const publishedVersion = dictionaryDataEl.publishedVersion
+          ? dictionaryDataEl.publishedVersion === '-1'
+            ? null
+            : dictionaryDataEl.publishedVersion
+          : null;
+
         const dictionary: DictionaryData = {
-          ...existingDictionaryDB.toObject(),
+          ...existingDictionaryDB,
           ...dictionaryDataEl,
-          content: [
-            ...(existingDictionaryDB.content ?? []),
-            dictionaryDataEl.content,
-          ],
+          content: newContent,
           projectIds: [String(project._id)],
           creatorId: user._id,
-          filePath: { [String(project._id)]: dictionaryDataEl.filePath ?? '' },
+          filePath: {
+            [String(project._id)]: dictionaryDataEl.filePath ?? '',
+          },
+          publishedVersion,
           key: dictionaryDataEl.key,
         };
 

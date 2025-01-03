@@ -9,7 +9,11 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
     const persistedState = localStorage?.getItem(key);
 
     if (persistedState) {
-      return JSON.parse(persistedState);
+      try {
+        setState(JSON.parse(persistedState));
+      } catch (e) {
+        console.error(e);
+      }
     }
 
     return initialValue as T;
@@ -19,11 +23,17 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
     const persistedState = localStorage?.getItem(key);
 
     if (persistedState) {
-      setState(JSON.parse(persistedState));
+      try {
+        setState(JSON.parse(persistedState));
+      } catch (e) {
+        console.error(e);
+      }
     }
   }, [key]);
 
   useEffect(() => {
+    if (state === undefined) return;
+
     localStorage?.setItem(key, JSON.stringify(state));
   }, [key, state]);
 

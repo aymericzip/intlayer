@@ -244,6 +244,56 @@ export const dictionaryDetailsContent = {
       }),
     },
 
+    publishedVersionSelect: {
+      label: t({
+        en: 'Published version',
+        'en-GB': 'Published version',
+        fr: 'Version publiée',
+        es: 'Versión publicada',
+        de: 'Veröffentlichte Version',
+        ja: '公開されたバージョン',
+        ko: '공개된 버전',
+        zh: '已发布版本',
+        it: 'Versione pubblicata',
+        pt: 'Versão publicada',
+        hi: 'प्रकाशित संस्करण',
+        ar: 'الإصدار المنشور',
+        ru: 'Опубликованная версия',
+      }),
+
+      description: t({
+        en: 'The version of your dictionary that is currently published',
+        'en-GB': 'The version of your dictionary that is currently published',
+        fr: 'La version de votre dictionnaire qui est actuellement publiée',
+        es: 'La versión de su diccionario que se encuentra actualmente publicada',
+        de: 'Die Version Ihres Wörterbuchs, die derzeit veröffentlicht ist',
+        ja: '現在公開されている辞書のバージョン',
+        ko: '현재 공개된 사전의 버전',
+        zh: '当前已发布的字典版本',
+        it: 'La versione del tuo dizionario che è attualmente pubblicata',
+        pt: 'A versão do seu dicionário que está atualmente publicada',
+        hi: 'वर्तमान प्रकाशित करने वाले शब्दकोश की संस्करण',
+        ar: 'إصدار القاموس الخاص بك الذي يتم نشره حاليا',
+        ru: 'Версия словаря, которая в настоящее время опубликована',
+      }),
+
+      placeholder: t({
+        en: 'Select the version to publish',
+        'en-GB': 'Select the version to publish',
+        fr: 'Sélectionnez la version à publier',
+        es: 'Seleccione la versión para publicar',
+        de: 'Wählen Sie die Version zum Veröffentlichen aus',
+        ja: '公開するバージョンを選択してください',
+        ko: '공개할 버전을 선택하세요',
+        zh: '选择要发布的版本',
+        it: 'Seleziona la versione da pubblicare',
+        pt: 'Selecione a versão para publicar',
+        hi: 'प्रकाशित करने के लिए संस्करण चुनें',
+        ar: 'اختر الإصدار للنشر',
+        ru: 'Выберите версию для публикации',
+      }),
+    },
+
     saveButton: {
       text: t({
         en: 'Save changes',

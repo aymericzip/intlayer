@@ -1,5 +1,23 @@
 import { Schema } from 'mongoose';
-import type { Dictionary } from '@/types/dictionary.types';
+import type { Dictionary, VersionedContentEl } from '@/types/dictionary.types';
+
+const versionedContentElSchema = new Schema<VersionedContentEl>(
+  {
+    name: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    content: {
+      type: Schema.Types.Mixed,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export const dictionarySchema = new Schema<Dictionary>(
   {
@@ -20,17 +38,15 @@ export const dictionarySchema = new Schema<Dictionary>(
       type: String,
       default: '',
     },
-    version: {
-      type: Number,
-      default: 1,
-    },
     tags: {
       type: [String],
       default: [],
     },
     content: {
-      type: [Schema.Types.Mixed],
+      type: Map,
+      of: versionedContentElSchema,
       required: true,
+      default: null,
     },
     creatorId: {
       type: Schema.Types.ObjectId,
@@ -38,7 +54,13 @@ export const dictionarySchema = new Schema<Dictionary>(
       required: true,
     },
     filePath: {
-      type: Schema.Types.Mixed,
+      type: Map,
+      of: String,
+      default: null,
+    },
+    publishedVersion: {
+      type: String,
+      default: null,
     },
   },
   {

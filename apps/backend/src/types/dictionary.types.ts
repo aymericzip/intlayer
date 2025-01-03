@@ -10,31 +10,41 @@ export type DictionaryCreationData = {
   title?: string;
   description?: string;
   tags?: string[];
-  version?: number;
   filePath?: string;
 };
 
+export type VersionedContentEl = {
+  name?: string;
+  description?: string;
+  content: DictionaryValue;
+};
+
+export type ContentVersion = string;
+export type VersionedContent = Record<string, VersionedContentEl>;
+
 export type DictionaryData = {
   key: string;
-  content: DictionaryValue[];
+  content: VersionedContent;
   projectIds: (Project['_id'] | string)[];
   creatorId: User['_id'];
   title?: string;
   description?: string;
   tags?: string[];
-  version?: number;
   filePath?: Record<string, string>;
+  publishedVersion?: string | null;
 };
 
 export type Dictionary = DictionaryData & {
   _id: ObjectId;
   createdAt: number;
   updatedAt: number;
+  availableVersions?: string[];
 };
 
 export type DictionaryAPI = Omit<Dictionary, 'filePath' | 'content'> & {
   content: DictionaryValue;
   filePath?: string;
+  availableVersions?: string[];
 };
 
 export type DictionaryDocument = Document<unknown, {}, Dictionary> & Dictionary;

@@ -7,7 +7,7 @@ import {
   type DictionaryFields,
   validateDictionary,
 } from '@utils/validation/validateDictionary';
-import type { ObjectId } from 'mongoose';
+import { ObjectId } from 'mongoose';
 import type {
   Dictionary,
   DictionaryData,
@@ -26,24 +26,83 @@ export const findDictionaries = async (
   filters: DictionaryFilters,
   skip = 0,
   limit = 100
-): Promise<DictionaryDocument[]> =>
-  await DictionaryModel.find(filters).skip(skip).limit(limit);
+): Promise<DictionaryDocument[]> => {
+  try {
+    const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
+      // Stage 1: Match the filters
+      { $match: filters },
+
+      // Stage 2: Skip for pagination
+      { $skip: skip },
+
+      // Stage 3: Limit the number of documents
+      { $limit: limit },
+
+      // Stage 4: Add the 'availableVersions' field
+      {
+        $addFields: {
+          availableVersions: {
+            $map: {
+              input: { $objectToArray: '$content' },
+              as: 'version',
+              in: '$$version.k',
+            },
+          },
+        },
+      },
+
+      // (Optional) Stage 5: Project the fields you want to include/exclude
+      // For example, to exclude the entire 'content' field and keep only 'availableVersions'
+      // {
+      //   $project: {
+      //     content: 0 // Exclude the 'content' field
+      //   }
+      // }
+    ]);
+
+    return dictionaries;
+  } catch (error) {
+    console.error('Error fetching dictionaries:', error);
+    throw error;
+  }
+};
 
 /**
  * Finds a dictionary by its ID.
  * @param dictionaryId - The ID of the dictionary to find.
  * @returns The dictionary matching the ID.
  */
+/**
+ * Finds a dictionary by its ID and includes the 'availableVersions' field.
+ * @param dictionaryId - The ID of the dictionary to find.
+ * @returns The dictionary matching the ID with available versions.
+ */
 export const getDictionaryById = async (
   dictionaryId: string | ObjectId
 ): Promise<DictionaryDocument> => {
-  const dictionary = await DictionaryModel.findById(dictionaryId);
+  const dictionary = await DictionaryModel.aggregate<DictionaryDocument>([
+    // Stage 1: Match the document by ID
+    { $match: { _id: dictionaryId } },
 
-  if (!dictionary) {
+    // Stage 2: Add the 'availableVersions' field
+    {
+      $addFields: {
+        availableVersions: {
+          $map: {
+            input: { $objectToArray: '$content' },
+            as: 'version',
+            in: '$$version.k',
+          },
+        },
+      },
+    },
+  ]);
+
+  if (!dictionary.length) {
     throw new GenericError('DICTIONARY_NOT_FOUND', { dictionaryId });
   }
 
-  return dictionary;
+  return dictionary[0];
 };
 
 /**
@@ -55,29 +114,41 @@ export const getDictionaryByKey = async (
   dictionaryKey: string,
   projectId: string | ObjectId
 ): Promise<DictionaryDocument> => {
-  const dictionary = await DictionaryModel.findOne({
-    key: dictionaryKey,
-    projectIds: projectId,
-  });
+  const dictionaries = await getDictionariesByKeys([dictionaryKey], projectId);
 
-  if (!dictionary) {
-    throw new GenericError('DICTIONARY_NOT_FOUND', {
-      dictionaryKey,
-      projectId,
-    });
-  }
+  console.log('dictionaries', dictionaries);
 
-  return dictionary;
+  return dictionaries[0];
 };
 
 export const getDictionariesByKeys = async (
-  dictionaryKey: string[],
+  dictionaryKeys: string[],
   projectId: string | ObjectId
 ): Promise<DictionaryDocument[]> => {
-  const dictionaries = await DictionaryModel.find({
-    key: dictionaryKey,
-    projectIds: projectId,
-  });
+  const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
+    // Stage 1: Match the document by key
+    { $match: { key: { $in: dictionaryKeys }, projectIds: projectId } },
+
+    // Stage 2: Add the 'availableVersions' field
+    {
+      $addFields: {
+        availableVersions: {
+          $map: {
+            input: { $objectToArray: '$content' },
+            as: 'version',
+            in: '$$version.k',
+          },
+        },
+      },
+    },
+  ]);
+
+  if (!dictionaries) {
+    throw new GenericError('DICTIONARY_NOT_FOUND', {
+      dictionaryKeys,
+      projectId,
+    });
+  }
 
   return dictionaries;
 };
@@ -96,10 +167,28 @@ export const getDictionariesByTags = async (
   tags: string[],
   projectId: string | Project['_id']
 ): Promise<DictionaryDocument[]> => {
-  const dictionaries = await DictionaryModel.find({
-    tags: { $in: tags },
-    projectIds: projectId,
-  });
+  const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
+    // Stage 1: Match the document by tags
+    {
+      $match: {
+        tags: { $in: tags },
+        projectIds: projectId,
+      },
+    },
+
+    // Stage 2: Add the 'availableVersions' field
+    {
+      $addFields: {
+        availableVersions: {
+          $map: {
+            input: { $objectToArray: '$content' },
+            as: 'version',
+            in: '$$version.k',
+          },
+        },
+      },
+    },
+  ]);
 
   return dictionaries;
 };
@@ -272,4 +361,36 @@ export const deleteDictionaryById = async (
   }
 
   return dictionary;
+};
+
+export const incrementVersion = (dictionary: Dictionary): string => {
+  const VERSION_PREFIX = 'v';
+  const availableVersions = dictionary.availableVersions ?? [];
+
+  // Get the current version from the version list, default to 'v1' if not present
+  const currentVersion =
+    availableVersions.length > 0
+      ? availableVersions[availableVersions.length - 1]
+      : 'v1';
+
+  // Function to extract the numeric part of the version
+  const getVersionNumber = (version: string): number => {
+    const match = version.match(/^v(\d+)$/);
+    if (!match) {
+      throw new Error(`Invalid version format: ${version}`);
+    }
+    return parseInt(match[1], 10);
+  };
+
+  // Start with the next version number
+  let newNumber = getVersionNumber(currentVersion) + 1;
+  let newVersion = `${VERSION_PREFIX}${newNumber}`;
+
+  // Loop until a unique version is found
+  while (availableVersions.includes(newVersion)) {
+    newNumber += 1;
+    newVersion = `${VERSION_PREFIX}${newNumber}`;
+  }
+
+  return newVersion;
 };

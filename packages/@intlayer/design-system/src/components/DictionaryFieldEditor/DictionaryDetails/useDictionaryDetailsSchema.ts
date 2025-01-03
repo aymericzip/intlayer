@@ -68,6 +68,7 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
         })
       )
       .default([]),
+    publishedVersion: z.string().default('-1'),
   });
 };
 

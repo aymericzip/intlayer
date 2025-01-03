@@ -21,4 +21,5 @@ export type Dictionary = {
   title?: string;
   description?: string;
   filePath?: string;
+  publishedVersion?: string | null;
 };

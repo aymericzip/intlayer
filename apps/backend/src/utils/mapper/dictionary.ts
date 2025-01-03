@@ -13,12 +13,19 @@ import { Project } from '@/types/project.types';
 export const mapDictionaryToAPI = (
   dictionary: Dictionary,
   projectId: string | Project['_id'],
-  version?: number
+  version?: string
 ): DictionaryAPI => {
   const dictionaryObject = ensureMongoDocumentToObject<Dictionary>(dictionary);
 
-  const lastVersion = dictionaryObject.content.length - 1;
-  const content = dictionaryObject.content[version ?? lastVersion];
+  let returnedVersion = version;
+
+  if (!returnedVersion) {
+    const versionList = dictionaryObject.availableVersions ?? [];
+    const lastVersion = versionList[versionList.length - 1];
+    returnedVersion = lastVersion;
+  }
+
+  const content = dictionaryObject.content[returnedVersion]?.content;
 
   return {
     ...dictionaryObject,
