@@ -264,3 +264,11 @@ Each solution—**next-intl**, **next-i18next**, and **Intlayer**—has proven e
 - Providing a **simplified, single configuration** approach with advanced routing & middleware
 
 If you want **modern** i18n features tailored to Next.js App Router and are looking for a **fully typed** experience without manually rigging fallback logic, route rewrites, or complex build steps, **Intlayer** is a compelling choice. It not only shortens your setup time but also ensures a more maintainable, scalable approach to translations for your team.
+
+### Further Reading
+
+- [Intlayer + Next.js 15 Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md)
+- [next-intl Documentation](https://formatjs.io/docs/react-intl/)
+- [next-i18next Documentation](https://next.i18next.com/)
+
+Feel free to mix and match approaches to suit your requirements—there is no “one-size-fits-all” solution, and each library continues to evolve to address new use cases in the React ecosystem.

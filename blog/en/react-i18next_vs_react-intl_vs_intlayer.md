@@ -167,9 +167,9 @@ Your choice largely depends on project requirements, desired developer experienc
 
 ### Further Reading
 
-- [React-Intl Documentation](https://formatjs.io/docs/react-intl/)
-- [React-i18next Documentation](https://react.i18next.com/)
-- [Intlayer + CRA Getting Started Guide](#) (from your doc)
-- [Intlayer + Vite & React Getting Started Guide](#) (from your doc)
+- [react-intl Documentation](https://formatjs.io/docs/react-intl/)
+- [react-i18next Documentation](https://react.i18next.com/)
+- [Intlayer + CRA Getting Started Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md)
+- [Intlayer + Vite & React Getting Started Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite%2Breact.md)
 
 Feel free to mix and match approaches to suit your requirements—there is no “one-size-fits-all” solution, and each library continues to evolve to address new use cases in the React ecosystem.
