@@ -85,6 +85,41 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             />
           ),
           pre: (props) => props.children,
+          table: ({ className, ...props }) => (
+            <div className="grid w-full max-w-full overflow-scroll rounded">
+              <table
+                className={cn(
+                  'max-w-full table-auto overflow-hidden text-left',
+                  className
+                )}
+                {...props}
+              />
+            </div>
+          ),
+          th: ({ className, ...props }) => (
+            <th
+              className={cn(
+                'border-neutral bg-neutral/10 border-b p-4',
+                className
+              )}
+              {...props}
+            />
+          ),
+          tr: ({ className, ...props }) => (
+            <tr
+              className={cn(
+                'hover:bg-neutral/10 hover:dark:bg-neutral-dark/10',
+                className
+              )}
+              {...props}
+            />
+          ),
+          td: ({ className, ...props }) => (
+            <td
+              className={cn('border-b border-neutral-500/50 p-4', className)}
+              {...props}
+            />
+          ),
           ...overrides,
         },
         wrapper: ({ className, ...props }) => (
