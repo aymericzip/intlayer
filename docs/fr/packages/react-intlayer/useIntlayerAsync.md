@@ -64,7 +64,7 @@ Pour commencer avec Intlayer :
 3. **Poussez un nouveau dictionnaire de locale à Intlayer :**
 
    ```bash
-   npm intlayer push -d my-first-dictionary-key
+   npx intlayer push -d my-first-dictionary-key
    ```
 
    Cette commande téléverse vos dictionnaires de contenu initiaux, les rendant disponibles pour une récupération asynchrone et une modification via la plateforme Intlayer.

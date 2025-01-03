@@ -69,12 +69,20 @@ export const getConfiguration = (): IntlayerConfig => {
       'string'
     )!,
     dictionariesDir: getEnvValue(env.content.dictionariesDir, 'string')!,
-    i18nDictionariesDirName: getEnvValue(
-      env.content.i18nDictionariesDirName,
+    i18nextResourcesDirName: getEnvValue(
+      env.content.i18nextResourcesDirName,
       'string'
     )!,
-    i18nDictionariesDir: getEnvValue(
-      env.content.i18nDictionariesDir,
+    i18nextResourcesDir: getEnvValue(
+      env.content.i18nextResourcesDir,
+      'string'
+    )!,
+    reactIntlMessagesDirName: getEnvValue(
+      env.content.reactIntlMessagesDirName,
+      'string'
+    )!,
+    reactIntlMessagesDir: getEnvValue(
+      env.content.reactIntlMessagesDir,
       'string'
     )!,
     typeDirName: getEnvValue(env.content.typeDirName, 'string')!,

@@ -268,17 +268,17 @@ Paramètres liés à la gestion du contenu au sein de l'application, y compris l
   - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
   - _Description_: Le répertoire pour stocker les dictionnaires de localisation.
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _Type_: `string`
-  - _Default_: `'i18n_dictionary'`
+  - _Default_: `'i18next_dictionary'`
   - _Description_: Répertoire pour stocker les dictionnaires i18n.
   - _Example_: `'translations'`
-  - _Note_: Si ce n'est pas au niveau du répertoire de résultat, mettez à jour `i18nDictionariesDir`.
+  - _Note_: Si ce n'est pas au niveau du répertoire de résultat, mettez à jour `i18nextResourcesDir`.
   - _Note_: Assurez-vous que la sortie des dictionnaires i18n inclut i18next pour construire les dictionnaires pour i18next.
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _DerivedFrom_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _Description_: Le répertoire pour stocker les dictionnaires i18n.
   - _Note_: Assurez-vous que ce répertoire est configuré pour le type de sortie i18next.
 

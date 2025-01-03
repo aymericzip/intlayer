@@ -1,8 +1,13 @@
 declare module '@intlayer/blog' {
   enum BlogKeysEnum {
     index,
-    intlayer_with_i18next,
     internationalization_and_SEO,
+    'intlayer_with_next-i18next',
+    'intlayer_with_next-intl',
+    'intlayer_with_react-i18next',
+    'intlayer_with_react-intl',
+    'next-i18next_vs_next-intl_vs_intlayer',
+    'react-i18next_vs_react-intl_vs_intlayer',
   }
 
   export type DocsKeys = keyof typeof BlogKeysEnum;

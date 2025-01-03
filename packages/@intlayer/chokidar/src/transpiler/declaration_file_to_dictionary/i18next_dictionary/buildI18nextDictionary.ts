@@ -1,5 +1,5 @@
 import type { Dictionary } from '@intlayer/core';
-import { createI18nDictionaries } from './convertContentDeclarationInto18nDictionaries';
+import { createI18nextDictionaries } from './convertContentDeclarationInto18nDictionaries';
 import {
   writeDictionary,
   type DictionariesDeclaration,
@@ -15,7 +15,7 @@ export const buildI18nDictionary = async (
   const dictionariesDeclaration: DictionariesDeclaration =
     contentDeclarations.reduce((acc, dictionary) => {
       const { key, content } = dictionary;
-      const i18Content = createI18nDictionaries(content);
+      const i18Content = createI18nextDictionaries(content);
 
       return {
         ...acc,

@@ -42,15 +42,19 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     moduleAugmentationDirName: import.meta.env
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
     dictionariesDirName: import.meta.env.VITE_INTLAYER_DICTIONARIES_DIR_NAME,
-    i18nDictionariesDirName: import.meta.env
-      .VITE_INTLAYER_I18N_DICTIONARIES_DIR_NAME,
+    i18nextResourcesDirName: import.meta.env
+      .VITE_INTLAYER_I18N_RESOURCES_DIR_NAME,
+    reactIntlMessagesDirName: import.meta.env
+      .VITE_INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
     typeDirName: import.meta.env.VITE_INTLAYER_TYPE_DIR_NAME,
     mainDirName: import.meta.env.VITE_INTLAYER_MAIN_DIR_NAME,
     resultDir: import.meta.env.VITE_INTLAYER_RESULT_DIR,
     moduleAugmentationDir: import.meta.env
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR,
     dictionariesDir: import.meta.env.VITE_INTLAYER_DICTIONARIES_DIR,
-    i18nDictionariesDir: import.meta.env.VITE_INTLAYER_I18N_DICTIONARIES_DIR,
+    i18nextResourcesDir: import.meta.env.VITE_INTLAYER_I18N_DICTIONARIES_DIR,
+    reactIntlMessagesDir: import.meta.env
+      .VITE_INTLAYER_REACT_INTL_DICTIONARIES_DIR,
     typesDir: import.meta.env.VITE_INTLAYER_TYPE_DIR,
     mainDir: import.meta.env.VITE_INTLAYER_MAIN_DIR,
     watchedFilesPattern: import.meta.env.VITE_INTLAYER_WATCHED_FILES_PATTERN,

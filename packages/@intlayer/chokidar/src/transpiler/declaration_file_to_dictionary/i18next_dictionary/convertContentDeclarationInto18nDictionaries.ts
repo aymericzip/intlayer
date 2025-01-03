@@ -9,7 +9,7 @@ import {
 import { convertPluralsValues } from './convertPluralsValues';
 
 type Dictionary = Record<string, unknown>;
-export type I18nDictionariesOutput = Partial<Record<Locales, Dictionary>>;
+export type I18nextDictionariesOutput = Partial<Record<Locales, Dictionary>>;
 
 const {
   internationalization: { locales },
@@ -65,6 +65,23 @@ const buildDictionary = (
     return JSON.stringify(content);
   } else if (
     // Nested object
+    typeof content === 'object' &&
+    Array.isArray(content)
+  ) {
+    const result: unknown[] = [];
+
+    Object.keys(content).forEach((dictionaryValue) => {
+      result.push(
+        buildDictionary(
+          content[dictionaryValue as keyof typeof content] as DictionaryValue,
+          locale
+        )
+      );
+    });
+
+    return result;
+  } else if (
+    // Nested object
     typeof content === 'object'
   ) {
     const result: Record<string, unknown> = {};
@@ -82,11 +99,11 @@ const buildDictionary = (
   return content;
 };
 
-export const createI18nDictionaries = (
+export const createI18nextDictionaries = (
   content: DictionaryValue
-): I18nDictionariesOutput => {
+): I18nextDictionariesOutput => {
   // Map dictionaries for each locale
-  const result: I18nDictionariesOutput = locales.reduce(
+  const result: I18nextDictionariesOutput = locales.reduce(
     (acc, locale) => ({
       ...acc,
       [locale]: buildDictionary(content, locale),

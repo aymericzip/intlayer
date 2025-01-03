@@ -18,12 +18,12 @@ Dazu durchläuft Intlayer mehrere Schritte:
 
 3. Generierung von Wörterbuchtypen
 
-   - Wörterbuchtypen werden aus Intlayer-Wörterbüchern generiert. Standardmäßig werden die Intlayer-Wörterbuchtypen im Verzeichnis `.intlayer/types` des Projekts generiert.
+   - Wörterbuchtypen werden aus Intlayer-Wörterbüchern generiert. Standardmäßig werden die Intlayer-Wörterbuchtypen im Verzeichnis `types` des Projekts generiert.
 
 4. Generierung der Intlayer-Modulerweiterung
 
    - Die Intlayer [Modulerweiterung](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) ist ein TypeScript-Feature, das es Ihnen ermöglicht, zusätzliche Typen für Intlayer zu definieren. Dies erleichtert die Entwicklungserfahrung, indem verfügbare Argumente oder erforderliche Argumente vorgeschlagen werden.
-     Unter den generierten Typen werden die Intlayer-Wörterbuchtypen oder sogar die Spracheinstellungstypen in die Datei `types/intlayer.d.ts` eingefügt und von anderen Paketen verwendet. Dazu ist es notwendig, dass die `tsconfig.json`-Datei so konfiguriert ist, dass sie das Verzeichnis `.intlayer/types` des Projekts einbezieht.
+     Unter den generierten Typen werden die Intlayer-Wörterbuchtypen oder sogar die Spracheinstellungstypen in die Datei `types/intlayer.d.ts` eingefügt und von anderen Paketen verwendet. Dazu ist es notwendig, dass die `tsconfig.json`-Datei so konfiguriert ist, dass sie das Verzeichnis `types` des Projekts einbezieht.
 
 5. Überwachung von Inhaltsdateien
 

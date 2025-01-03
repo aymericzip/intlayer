@@ -2,7 +2,8 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { parse } from 'url';
 import { getConfiguration, type Locales } from '@intlayer/config';
 import { localeDetector } from '@intlayer/core';
-import { type Connect, type Plugin } from 'vite';
+/* @ts-ignore - Vite types error */
+import type { Connect, Plugin } from 'vite';
 
 // Grab all the config you need.
 // Make sure your config includes the following fields if you want to replicate Next.js logic:

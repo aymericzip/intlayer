@@ -267,17 +267,17 @@ module.exports = config;
   - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
   - _Description_: स्थानीयकरण शब्दकोशों को संग्रहीत करने के लिए निर्देशिका।
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _Type_: `string`
-  - _Default_: `'i18n_dictionary'`
+  - _Default_: `'i18next_dictionary'`
   - _Description_: i18n शब्दकोशों को संग्रहीत करने के लिए निर्देशिका।
   - _Example_: `'translations'`
-  - _Note_: यदि यह परिणाम निर्देशिका स्तर पर नहीं है, तो `i18nDictionariesDir` को अपडेट करें।
+  - _Note_: यदि यह परिणाम निर्देशिका स्तर पर नहीं है, तो `i18nextResourcesDir` को अपडेट करें।
   - _Note_: सुनिश्चित करें कि i18n शब्दकोशों का आउटपुट i18next को शामिल करता है ताकि i18next के लिए शब्दकोश बनाए जा सकें।
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _DerivedFrom_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _Description_: i18n शब्दकोशों को संग्रहीत करने के लिए निर्देशिका।
   - _Note_: सुनिश्चित करें कि यह निर्देशिका i18next आउटपुट प्रकार के लिए कॉन्फ़िगर की गई है।
 

@@ -18,12 +18,12 @@ Intlayer的角色是将JavaScript内容声明文件解释为字典。
 
 3. 字典类型的生成
 
-   - 字典类型是从intlayer字典生成的。默认情况下，intlayer字典类型生成在项目的`.intlayer/types`目录中。
+   - 字典类型是从intlayer字典生成的。默认情况下，intlayer字典类型生成在项目的`types`目录中。
 
 4. Intlayer模块扩展的生成
 
    - Intlayer [模块扩展](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)是一个TypeScript特性，可以让您为Intlayer定义额外的类型。这使得开发体验更简单，因为可以建议可用的参数或必需的参数。
-     生成的类型中，intlayer字典类型甚至语言配置类型被添加到`types/intlayer.d.ts`文件中，并被其他包使用。为此，需要配置`tsconfig.json`文件以包含项目的`.intlayer/types`目录。
+     生成的类型中，intlayer字典类型甚至语言配置类型被添加到`types/intlayer.d.ts`文件中，并被其他包使用。为此，需要配置`tsconfig.json`文件以包含项目的`types`目录。
 
 5. 内容文件监控
 

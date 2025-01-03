@@ -64,7 +64,7 @@ Um mit Intlayer zu beginnen:
 3. **Ein neues lokales Wörterbuch nach Intlayer hochladen:**
 
    ```bash
-   npm intlayer push -d my-first-dictionary-key
+   npx intlayer push -d my-first-dictionary-key
    ```
 
    Dieser Befehl lädt Ihre initialen Inhaltswörterbücher hoch, sodass sie für asynchrones Abrufen und Bearbeiten über die Intlayer-Plattform verfügbar sind.
