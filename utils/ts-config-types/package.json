@@ -9,7 +9,7 @@
   "module": "./tsconfig.json",
   "scripts": {},
   "devDependencies": {
-    "@utils/ts-config": "workspace:^",
+    "@utils/ts-config": "workspace:*",
     "prettier": "^3.4.1",
     "typescript": "^5.7.2"
   }

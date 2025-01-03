@@ -9,9 +9,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "intlayer": "workspace:^",
+    "intlayer": "workspace:*",
     "next": "15.0.4",
-    "next-intlayer": "workspace:^",
+    "next-intlayer": "workspace:*",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },

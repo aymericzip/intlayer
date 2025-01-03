@@ -60,22 +60,22 @@
     "test": ""
   },
   "dependencies": {
-    "@intlayer/chokidar": "workspace:^",
-    "@intlayer/config": "workspace:^",
-    "@intlayer/design-system": "workspace:^",
-    "@intlayer/dictionaries-entry": "workspace:^",
+    "@intlayer/chokidar": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "@intlayer/design-system": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
     "commander": "^12.1.0",
     "fast-glob": "^3.3.2",
     "lodash": "^4.17.21",
     "p-limit": "^3.1.0"
   },
   "devDependencies": {
-    "@intlayer/core": "workspace:^",
+    "@intlayer/core": "workspace:*",
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.10.1",
-    "@utils/ts-config": "workspace:^",
-    "@utils/ts-config-types": "workspace:^",
-    "@utils/tsup-config": "workspace:^",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.0",
     "eslint": "^9.16.0",
     "prettier": "^3.4.1",
@@ -85,9 +85,9 @@
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "@intlayer/chokidar": "workspace:^",
-    "@intlayer/config": "workspace:^",
-    "@intlayer/design-system": "workspace:^",
+    "@intlayer/chokidar": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "@intlayer/design-system": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:^"
   },
   "bug": {

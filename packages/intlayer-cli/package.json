@@ -73,17 +73,17 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@intlayer/cli": "workspace:^",
+    "@intlayer/cli": "workspace:*",
     "webpack": "^5.96.1"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.0",
     "@changesets/cli": "2.27.10",
     "@types/node": "^22.10.1",
-    "@utils/eslint-config": "workspace:^",
-    "@utils/ts-config": "workspace:^",
-    "@utils/ts-config-types": "workspace:^",
-    "@utils/tsup-config": "workspace:^",
+    "@utils/eslint-config": "workspace:*",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.0",
     "eslint": "^9.16.0",
     "prettier": "^3.4.1",

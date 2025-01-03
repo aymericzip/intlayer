@@ -69,12 +69,12 @@
     "@intlayer/config": "workspace:^"
   },
   "devDependencies": {
-    "@intlayer/core": "workspace:^",
+    "@intlayer/core": "workspace:*",
     "@types/node": "^22.10.1",
-    "@utils/eslint-config": "workspace:^",
-    "@utils/ts-config": "workspace:^",
-    "@utils/ts-config-types": "workspace:^",
-    "@utils/tsup-config": "workspace:^",
+    "@utils/eslint-config": "workspace:*",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.0",
     "eslint": "^9.16.0",
     "prettier": "^3.4.1",
@@ -84,7 +84,7 @@
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "@intlayer/config": "workspace:^",
+    "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:^"
   },
   "engines": {

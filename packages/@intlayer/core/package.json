@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
-    "@intlayer/config": "workspace:^",
+    "@intlayer/config": "workspace:*",
     "chokidar": "^3.6.0",
     "negotiator": "^0.6.3"
   },
@@ -81,10 +81,10 @@
     "@types/negotiator": "^0.6.3",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
-    "@utils/eslint-config": "workspace:^",
-    "@utils/ts-config": "workspace:^",
-    "@utils/ts-config-types": "workspace:^",
-    "@utils/tsup-config": "workspace:^",
+    "@utils/eslint-config": "workspace:*",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.0",
     "eslint": "^9.16.0",
     "prettier": "^3.4.1",
@@ -94,7 +94,7 @@
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "@intlayer/config": "workspace:^",
+    "@intlayer/config": "workspace:*",
     "react": ">=16.0.0 <19.0.0"
   },
   "engines": {

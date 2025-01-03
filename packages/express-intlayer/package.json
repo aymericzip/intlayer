@@ -75,11 +75,11 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@intlayer/chokidar": "workspace:^",
-    "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:^",
+    "@intlayer/chokidar": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
     "cls-hooked": "^4.2.2",
-    "intlayer": "workspace:^",
+    "intlayer": "workspace:*",
     "webpack": "^5.96.1"
   },
   "devDependencies": {
@@ -88,10 +88,10 @@
     "@types/cls-hooked": "^4.3.9",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
-    "@utils/eslint-config": "workspace:^",
-    "@utils/ts-config": "workspace:^",
-    "@utils/ts-config-types": "workspace:^",
-    "@utils/tsup-config": "workspace:^",
+    "@utils/eslint-config": "workspace:*",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.0",
     "eslint": "^9.16.0",
     "express": "^5.0.1",
@@ -102,9 +102,9 @@
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "@intlayer/chokidar": "workspace:^",
-    "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:^",
+    "@intlayer/chokidar": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
     "intlayer": "workspace:^"
   },
   "engines": {

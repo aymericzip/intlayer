@@ -80,16 +80,16 @@
     "@swc/cli": "^0.5.2",
     "dotenv": "^16.4.5",
     "esbuild": "^0.24.0",
-    "intlayer": "workspace:^",
+    "intlayer": "workspace:*",
     "swc-loader": "^0.2.6"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
-    "@utils/eslint-config": "workspace:^",
-    "@utils/ts-config": "workspace:^",
-    "@utils/ts-config-types": "workspace:^",
-    "@utils/tsup-config": "workspace:^",
+    "@utils/eslint-config": "workspace:*",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.0",
     "eslint": "^9.16.0",
     "prettier": "^3.4.1",
@@ -99,7 +99,7 @@
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "intlayer": "workspace:^",
+    "intlayer": "workspace:*",
     "react": ">=16.0.0 <19.0.0"
   },
   "engines": {
