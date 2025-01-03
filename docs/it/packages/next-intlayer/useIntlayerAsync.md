@@ -60,7 +60,7 @@ module.exports = config;
 Dopo aver configurato le tue credenziali, puoi caricare un nuovo dizionario locale su Intlayer eseguendo:
 
 ```bash
-npm intlayer push -d my-first-dictionary-key
+npx intlayer push -d my-first-dictionary-key
 ```
 
 Questo comando carica i tuoi dizionari di contenuto iniziali, rendendoli disponibili per il recupero asincrono e la modifica tramite la piattaforma Intlayer.

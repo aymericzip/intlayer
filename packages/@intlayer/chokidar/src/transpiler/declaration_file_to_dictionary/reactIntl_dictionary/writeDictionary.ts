@@ -1,12 +1,12 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import { I18nDictionariesOutput } from './convertContentDeclarationInto18nDictionaries';
+import { I18nextDictionariesOutput } from '../i18next_dictionary/convertContentDeclarationInto18nDictionaries';
 
 const { content } = getConfiguration();
-const { i18nDictionariesDir } = content;
+const { reactIntlMessagesDir } = content;
 
-export type DictionariesDeclaration = Record<string, I18nDictionariesOutput>;
+export type DictionariesDeclaration = Record<string, I18nextDictionariesOutput>;
 
 /**
  * This function writes the dictionaries to the file system
@@ -23,7 +23,7 @@ export const writeDictionary = async (
       const contentString = JSON.stringify(content);
 
       const outputFileName = `${nameSpace}.json`;
-      const resultDirPath = resolve(i18nDictionariesDir, locale);
+      const resultDirPath = resolve(reactIntlMessagesDir, locale);
       const resultFilePath = resolve(resultDirPath, outputFileName);
 
       // Create the dictionaries folder if it doesn't exist

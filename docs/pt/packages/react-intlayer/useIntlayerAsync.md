@@ -64,7 +64,7 @@ Para começar a usar o Intlayer:
 3. **Envie um novo dicionário de localidade para o Intlayer:**
 
    ```bash
-   npm intlayer push -d my-first-dictionary-key
+   npx intlayer push -d my-first-dictionary-key
    ```
 
    Este comando faz o upload de seus dicionários de conteúdo iniciais, tornando-os disponíveis para busca assíncrona e edição através da plataforma Intlayer.

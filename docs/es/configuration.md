@@ -267,17 +267,17 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
   - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
   - _Descripción_: El directorio para almacenar diccionarios de localización.
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _Tipo_: `string`
-  - _Predeterminado_: `'i18n_dictionary'`
+  - _Predeterminado_: `'i18next_dictionary'`
   - _Descripción_: Directorio para almacenar diccionarios i18n.
   - _Ejemplo_: `'translations'`
-  - _Nota_: Si no está en el nivel del directorio de resultados, actualiza `i18nDictionariesDir`.
+  - _Nota_: Si no está en el nivel del directorio de resultados, actualiza `i18nextResourcesDir`.
   - _Nota_: Asegúrate de que la salida de los diccionarios i18n incluya i18next para construir los diccionarios para i18next.
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _Tipo_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _DerivedFrom_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _Descripción_: El directorio para almacenar diccionarios i18n.
   - _Nota_: Asegúrate de que este directorio esté configurado para el tipo de salida de i18next.
 

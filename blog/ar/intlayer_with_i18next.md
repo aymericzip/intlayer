@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
     // الإشارة إلى أن Intlayer سيصدر كل من قواميس Intlayer و i18next
     dictionaryOutput: ["intlayer", "i18next"],
     // المسار النسبي من جذر المشروع إلى الدليل الذي ستصدر فيه قواميس i18n
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -62,7 +62,7 @@ const config = {
     // الإشارة إلى أن Intlayer سيصدر كل من قواميس Intlayer و i18next
     dictionaryOutput: ["intlayer", "i18next"],
     // المسار النسبي من جذر المشروع إلى الدليل الذي ستصدر فيه قواميس i18n
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -78,7 +78,7 @@ const config = {
     // الإشارة إلى أن Intlayer سيصدر كل من قواميس Intlayer و i18next
     dictionaryOutput: ["intlayer", "i18next"],
     // المسار النسبي من جذر المشروع إلى الدليل الذي ستصدر فيه قواميس i18n
-    i18nDictionariesDir: "./i18n/dictionaries",
+    i18nextResourcesDir: "./i18next/dictionaries",
   },
 };
 
@@ -102,7 +102,7 @@ i18next
   .use(
     resourcesToBackend(
       (language: string, namespace: string) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
@@ -118,7 +118,7 @@ i18next
   .use(
     resourcesToBackend(
       (language, namespace) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```
@@ -134,7 +134,7 @@ i18next
   .use(
     resourcesToBackend(
       (language, namespace) =>
-        import(`../i18n/dictionaries/${language}/${namespace}.json`)
+        import(`../i18next/dictionaries/${language}/${namespace}.json`)
     )
   );
 ```

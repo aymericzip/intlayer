@@ -267,17 +267,17 @@ module.exports = config;
   - _파생_: `'resultDir'` / `'dictionariesDirName'`
   - _설명_: 로케일 사전을 저장하는 디렉토리입니다.
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _형식_: `string`
-  - _기본값_: `'i18n_dictionary'`
+  - _기본값_: `'i18next_dictionary'`
   - _설명_: i18n 사전을 저장하는 디렉토리입니다.
   - _예시_: `'translations'`
-  - _참고_: 결과 디렉토리 수준에 없으면 `i18nDictionariesDir`를 업데이트해야 합니다.
+  - _참고_: 결과 디렉토리 수준에 없으면 `i18nextResourcesDir`를 업데이트해야 합니다.
   - _참고_: i18n 사전 출력에 i18next를 포함하여 i18next를 위한 사전을 구축해야 합니다.
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _형식_: `string`
-  - _파생_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _파생_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _설명_: i18n 사전을 저장하는 디렉토리입니다.
   - _참고_: 이 디렉토리는 i18next 출력 형식에 대해 구성되어야 합니다.
 

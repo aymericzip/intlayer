@@ -18,12 +18,12 @@ Intlayer의 역할은 JavaScript 콘텐츠 선언 파일을 사전으로 해석�
 
 3. 사전 유형 생성
 
-   - 사전 유형은 intlayer 사전에서 생성됩니다. 기본적으로 intlayer 사전 유형은 프로젝트의 `.intlayer/types` 디렉토리에 생성됩니다.
+   - 사전 유형은 intlayer 사전에서 생성됩니다. 기본적으로 intlayer 사전 유형은 프로젝트의 `types` 디렉토리에 생성됩니다.
 
 4. Intlayer 모듈 증강 생성
 
    - Intlayer [모듈 증강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)은 Intlayer에 추가 유형을 정의할 수 있는 TypeScript 기능입니다. 이렇게 하면 사용 가능한 인수 또는 필수 인수를 제안하여 개발 경험을 쉽게 만듭니다.
-     생성된 유형 중에서 intlayer 사전 유형이나 심지어 언어 구성 유형이 `types/intlayer.d.ts` 파일에 추가되고 다른 패키지에서 사용됩니다. 이렇게 하려면 `tsconfig.json` 파일이 프로젝트의 `.intlayer/types` 디렉토리를 포함하도록 구성되어 있어야 합니다.
+     생성된 유형 중에서 intlayer 사전 유형이나 심지어 언어 구성 유형이 `types/intlayer.d.ts` 파일에 추가되고 다른 패키지에서 사용됩니다. 이렇게 하려면 `tsconfig.json` 파일이 프로젝트의 `types` 디렉토리를 포함하도록 구성되어 있어야 합니다.
 
 5. 콘텐츠 파일 모니터링
 

@@ -1,7 +1,12 @@
 import { Locales } from 'intlayer';
 import { getIntlayer } from 'next-intlayer';
 import { getBlogIndexData } from './blogDataContent';
-import { getBlogIntlayerWithI18nextData } from './blogDataContent/i18next';
+import { getBlogIntlayerWithNextI18nextData } from './blogDataContent/nextI18next';
+import { getBlogNextI18nVSNextIntlVSIntlayerData } from './blogDataContent/nextI18nextVSnextIntlVSIntlayer';
+import { getBlogIntlayerWithNextIntlData } from './blogDataContent/nextIntl';
+import { getBlogIntlayerWithReactI18nextData } from './blogDataContent/reactI18next';
+import { getBlogReactI18nVSReactIntlVSIntlayerData } from './blogDataContent/reactI18nextVSreactIntlVSIntlayer';
+import { getBlogIntlayerWithReactIntlData } from './blogDataContent/reactIntl';
 import { getBlogSEOData } from './blogDataContent/SEO';
 import { CategorizedBlogData, BlogData, Section } from './types';
 
@@ -15,13 +20,39 @@ export const getBlogData = (
       title: content.default.title,
       default: getBlogIndexData(locale),
       subSections: {
-        'intlayer-with-i18next': {
-          title: content.default.subSections.i18next.title,
-          default: getBlogIntlayerWithI18nextData(locale),
-        },
         'SEO-and-i18n': {
           title: content.default.subSections.SEO.title,
           default: getBlogSEOData(locale),
+        },
+        'intlayer-with-next-i18next': {
+          title:
+            content.default.subSections['intlayer-with-next-i18next'].title,
+          default: getBlogIntlayerWithNextI18nextData(locale),
+        },
+        'intlayer-with-react-i18next': {
+          title:
+            content.default.subSections['intlayer-with-react-i18next'].title,
+          default: getBlogIntlayerWithReactI18nextData(locale),
+        },
+        'intlayer-with-next-intl': {
+          title: content.default.subSections['intlayer-with-next-intl'].title,
+          default: getBlogIntlayerWithNextIntlData(locale),
+        },
+        'intlayer-with-react-intl': {
+          title: content.default.subSections['intlayer-with-react-intl'].title,
+          default: getBlogIntlayerWithReactIntlData(locale),
+        },
+        'next-i18next-vs-next-intl-vs-intlayer': {
+          title:
+            content.default.subSections['next-i18next_vs_next-intl_vs_intlayer']
+              .title,
+          default: getBlogNextI18nVSNextIntlVSIntlayerData(locale),
+        },
+        'react-i18next-vs-react-intl-vs-intlayer': {
+          title:
+            content.default.subSections['react-i18n-vs-react-intl-vs-intlayer']
+              .title,
+          default: getBlogReactI18nVSReactIntlVSIntlayerData(locale),
         },
       },
     },

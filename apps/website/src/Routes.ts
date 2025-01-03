@@ -53,7 +53,12 @@ export enum PagesRoutes {
   Blog = '/blog',
   Blog_Search = '/blog/search',
   Blog_SEO_and_i18n = '/blog/SEO-and-i18n',
-  Blog_Intlayer_with_I18next = '/blog/intlayer-with-i18next',
+  'Blog_Intlayer_with_Next-i18next' = '/blog/intlayer-with-next-i18next',
+  'Blog_Intlayer_with_React-i18next' = '/blog/intlayer-with-react-i18next',
+  'Blog_Intlayer_with_Next-intl' = '/blog/intlayer-with-next-intl',
+  'Blog_Intlayer_with_React-intl' = '/blog/intlayer-with-react-intl',
+  'Blog_Next-i18next_vs_Next-intl_vs_Intlayer' = '/blog/next-i18next-vs-next-intl-vs-intlayer',
+  'Blog_React-i18next_vs_React-intl_vs_Intlayer' = '/blog/react-i18next-vs-react-intl-vs-intlayer',
 
   PrivacyPolicy = '/privacy-notice',
   TermsOfService = '/terms-of-service',
@@ -119,7 +124,12 @@ export enum GithubRoutes {
   'Packages_next-intlayer_useLocale' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md',
 
   BlogIndex = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md',
-  IntlayerWithI18next = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_i18next.md',
+  IntlayerWithNextI18next = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md',
+  IntlayerWithReactI18next = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_react-i18next.md',
+  IntlayerWithNextIntl = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md',
+  IntlayerWithReactIntl = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_react-intl.md',
+  'Next-i18next_vs_Next-intl_vs_Intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/next-i18next_vs_next-intl_vs_intlayer.md',
+  'React-i18next_vs_React-intl_vs_Intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/react-i18next_vs_react-intl_vs_intlayer.md',
   I18nAndSEO = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md',
 
   PrivacyPolicy = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/privacy_notice.md',

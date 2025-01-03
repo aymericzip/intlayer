@@ -18,12 +18,12 @@ Intlayerの役割は、JavaScriptコンテンツ宣言ファイルを辞書に�
 
 3. 辞書タイプの生成
 
-   - 辞書タイプはintlayer辞書から生成されます。デフォルトでは、intlayer辞書タイプはプロジェクトの `.intlayer/types` ディレクトリに生成されます。
+   - 辞書タイプはintlayer辞書から生成されます。デフォルトでは、intlayer辞書タイプはプロジェクトの `types` ディレクトリに生成されます。
 
 4. Intlayerモジュール拡張の生成
 
    - Intlayerの[モジュール拡張](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)はTypeScriptの機能で、Intlayerのために追加の型を定義することができます。これにより、利用可能な引数や必須引数を提案することで、開発体験が向上します。
-     生成された型の中には、intlayer辞書タイプや言語設定タイプが `types/intlayer.d.ts` ファイルに追加され、他のパッケージで使用されます。これを行うためには、 `tsconfig.json` ファイルを設定して、プロジェクトの `.intlayer/types` ディレクトリを含める必要があります。
+     生成された型の中には、intlayer辞書タイプや言語設定タイプが `types/intlayer.d.ts` ファイルに追加され、他のパッケージで使用されます。これを行うためには、 `tsconfig.json` ファイルを設定して、プロジェクトの `types` ディレクトリを含める必要があります。
 
 5. コンテンツファイルの監視
 

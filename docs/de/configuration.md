@@ -267,17 +267,17 @@ Einstellungen, die sich auf die Inhaltsverarbeitung innerhalb der Anwendung bezi
   - _AbgeleitetVon_: `'resultDir'` / `'dictionariesDirName'`
   - _Beschreibung_: Das Verzeichnis zum Speichern von Lokalisierungswörterbüchern.
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _Typ_: `string`
-  - _Standard_: `'i18n_dictionary'`
+  - _Standard_: `'i18next_dictionary'`
   - _Beschreibung_: Verzeichnis zum Speichern von i18n-Wörterbüchern.
   - _Beispiel_: `'translations'`
-  - _Hinweis_: Wenn nicht auf der Ergebnisverzeichnisebene, aktualisieren Sie `i18nDictionariesDir`.
+  - _Hinweis_: Wenn nicht auf der Ergebnisverzeichnisebene, aktualisieren Sie `i18nextResourcesDir`.
   - _Hinweis_: Stellen Sie sicher, dass die Ausgabe der i18n-Wörterbücher i18next umfasst, um die Wörterbücher für i18next zu erstellen.
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _Typ_: `string`
-  - _AbgeleitetVon_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _AbgeleitetVon_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _Beschreibung_: Das Verzeichnis zum Speichern von i18n-Wörterbüchern.
   - _Hinweis_: Stellen Sie sicher, dass dieses Verzeichnis für den i18next-Ausgabetyp konfiguriert ist.
 

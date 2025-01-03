@@ -267,17 +267,17 @@ module.exports = config;
   - _ПроизводнаяОт_: `'resultDir'` / `'dictionariesDirName'`
   - _Описание_: Директория для хранения локализационных словарей.
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _Тип_: `string`
-  - _По умолчанию_: `'i18n_dictionary'`
+  - _По умолчанию_: `'i18next_dictionary'`
   - _Описание_: Директория для хранения i18n словарей.
   - _Пример_: `'translations'`
-  - _Примечание_: Если не на уровне директории результатов, обновите `i18nDictionariesDir`.
+  - _Примечание_: Если не на уровне директории результатов, обновите `i18nextResourcesDir`.
   - _Примечание_: Убедитесь, что выходные данные i18n словарей включают i18next для построения словарей для i18next.
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _Тип_: `string`
-  - _ПроизводнаяОт_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _ПроизводнаяОт_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _Описание_: Директория для хранения i18n словарей.
   - _Примечание_: Убедитесь, что эта директория настроена для типа выходных данных i18next.
 

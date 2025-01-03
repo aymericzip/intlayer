@@ -267,17 +267,17 @@ Settings related to content handling within the application, including directory
   - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
   - _Description_: The directory for storing localization dictionaries.
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _Type_: `string`
-  - _Default_: `'i18n_dictionary'`
+  - _Default_: `'i18next_dictionary'`
   - _Description_: Directory for storing i18n dictionaries.
   - _Example_: `'translations'`
-  - _Note_: If not at the result directory level, update `i18nDictionariesDir`.
+  - _Note_: If not at the result directory level, update `i18nextResourcesDir`.
   - _Note_: Ensure the i18n dictionaries output includes i18next to build the dictionaries for i18next
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _DerivedFrom_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _Description_: The directory for storing i18n dictionaries.
   - _Note_: Ensure this directory is configured for the i18next output type.
 

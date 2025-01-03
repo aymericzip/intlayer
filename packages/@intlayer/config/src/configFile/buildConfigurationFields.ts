@@ -8,9 +8,10 @@ import {
   TYPES_DIR_NAME,
   MAIN_DIR_NAME,
   MODULE_AUGMENTATION_DIR_NAME,
-  I18N_DICTIONARIES_DIR_NAME,
+  I18NEXT_DICTIONARIES_DIR_NAME,
   DICTIONARY_OUTPUT,
   WATCH,
+  REACT_INTL_MESSAGES_DIR_NAME,
 } from '../defaultValues/content';
 import {
   BACKEND_URL,
@@ -253,9 +254,26 @@ const buildContentFields = (
      * - If this directory is not at the result directory level, update the dictionariesDir field instead
      *
      */
-    i18nDictionariesDirName:
-      customConfiguration?.i18nDictionariesDirName ??
-      I18N_DICTIONARIES_DIR_NAME,
+    i18nextResourcesDirName:
+      customConfiguration?.i18nextResourcesDirName ??
+      I18NEXT_DICTIONARIES_DIR_NAME,
+
+    /**
+     *  Related to the intlayer result directory
+     *
+     * Directory name where the dictionaries will be stored
+     *
+     * Default: 'react-intl_dictionary'
+     *
+     * Example: 'translations'
+     *
+     * Note:
+     * - If this directory is not at the result directory level, update the dictionariesDir field instead
+     *
+     */
+    reactIntlMessagesDirName:
+      customConfiguration?.reactIntlMessagesDirName ??
+      REACT_INTL_MESSAGES_DIR_NAME,
 
     /**
      *  Related to the intlayer result directory
@@ -401,16 +419,33 @@ const buildContentFields = (
      *
      * Relative to the result directory
      *
-     * Default: {{resultDir}} / {{i18nDictionariesDirName}}
+     * Default: {{resultDir}} / {{i18nextResourcesDirName}}
      *
      * Example: '/path/to/project/.intlayer/dictionary/i18n'
      *
      * Note:
-     * - If the types are not at the result directory level, update the i18nDictionariesDirName field instead
+     * - If the types are not at the result directory level, update the i18nextResourcesDirName field instead
      */
-    i18nDictionariesDir: join(
+    i18nextResourcesDir: join(
       baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.i18nDictionariesDirName
+      notDerivedContentConfig.i18nextResourcesDirName
+    ),
+
+    /**
+     * Directory where the dictionaries will be stored
+     *
+     * Relative to the result directory
+     *
+     * Default: {{resultDir}} / {{reactIntlMessagesDirName}}
+     *
+     * Example: '/path/to/project/.intlayer/react-intl_dictionary'
+     *
+     * Note:
+     * - If the types are not at the result directory level, update the dictionariesDirName field instead
+     */
+    reactIntlMessagesDir: join(
+      baseDirDerivedConfiguration.resultDir,
+      notDerivedContentConfig.reactIntlMessagesDirName
     ),
 
     /**
@@ -420,7 +455,7 @@ const buildContentFields = (
      *
      * Default: {{resultDir}} / {{typeDirName}}
      *
-     * Example: '/path/to/project/.intlayer/types'
+     * Example: '/path/to/project/types'
      *
      * Note:
      * - If the types are not at the result directory level, update the typesDirName field instead

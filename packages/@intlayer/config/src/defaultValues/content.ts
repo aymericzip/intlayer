@@ -22,7 +22,9 @@ export const DICTIONARY_OUTPUT: DictionaryOutput[] = ['intlayer'];
 
 export const DICTIONARIES_DIR_NAME = 'dictionary';
 
-export const I18N_DICTIONARIES_DIR_NAME = 'i18n_dictionary';
+export const I18NEXT_DICTIONARIES_DIR_NAME = 'i18next_resources';
+
+export const REACT_INTL_MESSAGES_DIR_NAME = 'intl_messages';
 
 export const TYPES_DIR_NAME = 'types';
 

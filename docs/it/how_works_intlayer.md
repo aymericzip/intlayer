@@ -18,12 +18,12 @@ Per questo, Intlayer passa attraverso diversi passaggi:
 
 3. Generazione dei tipi di dizionari
 
-   - I tipi di dizionari sono generati dai dizionari di intlayer. Per impostazione predefinita, i tipi di dizionario di intlayer vengono generati nella directory `.intlayer/types` del progetto.
+   - I tipi di dizionari sono generati dai dizionari di intlayer. Per impostazione predefinita, i tipi di dizionario di intlayer vengono generati nella directory `types` del progetto.
 
 4. Generazione dell'augmentazione del modulo Intlayer
 
    - L'[augmentazione del modulo Intlayer](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) è una funzionalità di TypeScript che consente di definire tipi aggiuntivi per Intlayer. Questo rende l'esperienza di sviluppo più semplice suggerendo argomenti disponibili o richiesti.
-     Tra i tipi generati, i tipi di dizionario intlayer o anche i tipi di configurazione della lingua sono aggiunti al file `types/intlayer.d.ts` e utilizzati da altri pacchetti. Per fare questo, è necessario che il file `tsconfig.json` sia configurato per includere la directory `.intlayer/types` del progetto.
+     Tra i tipi generati, i tipi di dizionario intlayer o anche i tipi di configurazione della lingua sono aggiunti al file `types/intlayer.d.ts` e utilizzati da altri pacchetti. Per fare questo, è necessario che il file `tsconfig.json` sia configurato per includere la directory `types` del progetto.
 
 5. Monitoraggio dei file di contenuto
 

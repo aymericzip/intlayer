@@ -64,7 +64,7 @@ Intlayer を使用開始するには:
 3. **新しいロケール辞書を Intlayer にプッシュします:**
 
    ```bash
-   npm intlayer push -d my-first-dictionary-key
+   npx intlayer push -d my-first-dictionary-key
    ```
 
    このコマンドは、初期コンテンツ辞書をアップロードし、Intlayer プラットフォームを介して非同期的に取得および編集できるようにします。

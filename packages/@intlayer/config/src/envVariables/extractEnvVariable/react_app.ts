@@ -34,15 +34,19 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     moduleAugmentationDirName:
       process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
     dictionariesDirName: process.env.REACT_APP_INTLAYER_DICTIONARIES_DIR_NAME,
-    i18nDictionariesDirName:
-      process.env.REACT_APP_INTLAYER_I18N_DICTIONARIES_DIR_NAME,
+    i18nextResourcesDirName:
+      process.env.REACT_APP_INTLAYER_I18N_RESOURCES_DIR_NAME,
+    reactIntlMessagesDirName:
+      process.env.REACT_APP_INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
     typeDirName: process.env.REACT_APP_INTLAYER_TYPE_DIR_NAME,
     mainDirName: process.env.REACT_APP_INTLAYER_MAIN_DIR_NAME,
     resultDir: process.env.REACT_APP_INTLAYER_RESULT_DIR,
     moduleAugmentationDir:
       process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR,
     dictionariesDir: process.env.REACT_APP_INTLAYER_DICTIONARIES_DIR,
-    i18nDictionariesDir: process.env.REACT_APP_INTLAYER_I18N_DICTIONARIES_DIR,
+    i18nextResourcesDir: process.env.REACT_APP_INTLAYER_I18N_DICTIONARIES_DIR,
+    reactIntlMessagesDir:
+      process.env.REACT_APP_INTLAYER_REACT_INTL_DICTIONARIES_DIR,
     typesDir: process.env.REACT_APP_INTLAYER_TYPE_DIR,
     mainDir: process.env.REACT_APP_INTLAYER_MAIN_DIR,
     watchedFilesPattern: process.env.REACT_APP_INTLAYER_WATCHED_FILES_PATTERN,

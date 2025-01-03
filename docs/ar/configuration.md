@@ -268,17 +268,17 @@ module.exports = config;
   - _المشتقة من_: `'resultDir'` / `'dictionariesDirName'`
   - _الوصف_: الدليل لتخزين قواميس التوطين.
 
-- **i18nDictionariesDirName**:
+- **i18nextResourcesDirName**:
   - _النوع_: `string`
-  - _القيمة الافتراضية_: `'i18n_dictionary'`
+  - _القيمة الافتراضية_: `'i18next_dictionary'`
   - _الوصف_: الدليل لتخزين قواميس i18n.
   - _مثال_: `'translations'`
-  - _ملاحظة_: إذا لم يكن عند مستوى الدليل الناتج، قم بتحديث `i18nDictionariesDir`.
+  - _ملاحظة_: إذا لم يكن عند مستوى الدليل الناتج، قم بتحديث `i18nextResourcesDir`.
   - _ملاحظة_: تأكد من أن مخرجات القواميس i18n تشمل i18next لبناء القواميس لـ i18next
-- **i18nDictionariesDir**:
+- **i18nextResourcesDir**:
 
   - _النوع_: `string`
-  - _المشتقة من_: `'resultDir'` / `'i18nDictionariesDirName'`
+  - _المشتقة من_: `'resultDir'` / `'i18nextResourcesDirName'`
   - _الوصف_: الدليل لتخزين قواميس i18n.
   - _ملاحظة_: تأكد من تكوين هذا الدليل لنوع الإخراج الخاص بـ i18next.
 
