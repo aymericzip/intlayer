@@ -146,9 +146,15 @@ importers:
         specifier: ^3.17.0
         version: 3.17.0
     devDependencies:
+      '@intlayer/blog':
+        specifier: workspace:*
+        version: link:../../blog
       '@intlayer/core':
         specifier: workspace:*
         version: link:../../packages/@intlayer/core
+      '@intlayer/docs':
+        specifier: workspace:*
+        version: link:../../docs
       '@types/bcrypt':
         specifier: ^5.0.2
         version: 5.0.2

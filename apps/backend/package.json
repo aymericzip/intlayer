@@ -88,7 +88,9 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
+    "@intlayer/blog": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/docs": "workspace:*",
     "@types/bcrypt": "^5.0.2",
     "@types/body-parser": "^1.19.5",
     "@types/compression": "^1.7.5",

@@ -1,4 +1,5 @@
 import {
+  askDocQuestion,
   auditContentDeclaration,
   auditContentDeclarationField,
   auditContentDeclarationMetadata,
@@ -32,6 +33,11 @@ export const aiRoutes = {
     url: `${baseURL}/audit/tag`,
     method: 'POST',
   },
+  ask: {
+    urlModel: '/ask',
+    url: `${baseURL}/ask`,
+    method: 'POST',
+  },
 } satisfies Routes;
 
 aiRouter.post(
@@ -46,5 +52,6 @@ aiRouter.post(
   aiRoutes.auditContentDeclarationMetadata.urlModel,
   auditContentDeclarationMetadata
 );
+aiRouter.post(aiRoutes.ask.urlModel, askDocQuestion);
 
 aiRouter.post(aiRoutes.auditTag.urlModel, auditTag);

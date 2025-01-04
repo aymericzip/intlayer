@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
+const { Locales } = require('@intlayer/config');
+
 const blogs = {
   index: {
     en: require('./en/index.md'),
@@ -122,11 +124,11 @@ const blogs = {
   },
 };
 
-const getBlogs = (lang) =>
+const getBlogs = (lang = Locales.ENGLISH) =>
   Object.fromEntries(
     Object.entries(blogs).map(([key, value]) => [key, value[lang]])
   );
 
-const getBlog = (docName, lang) => blogs[docName]?.[lang];
+const getBlog = (docName, lang = Locales.ENGLISH) => blogs[docName]?.[lang];
 
 module.exports = { getBlog, getBlogs };

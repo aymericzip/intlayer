@@ -1,4 +1,11 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
+const { Locales } = require('@intlayer/config');
+
+require.extensions['.md'] = (module, filename) => {
+  // eslint-disable-next-line security/detect-non-literal-fs-filename
+  module.exports = require('fs').readFileSync(filename, 'utf8');
+};
+
 const docs = {
   introduction: {
     en: require('./en/introduction.md'),
@@ -587,11 +594,11 @@ const docs = {
   },
 };
 
-const getDocs = (lang) =>
+const getDocs = (lang = Locales.ENGLISH) =>
   Object.fromEntries(
     Object.entries(docs).map(([key, value]) => [key, value[lang]])
   );
 
-const getDoc = (docName, lang) => docs[docName]?.[lang];
+const getDoc = (docName, lang = Locales.ENGLISH) => docs[docName]?.[lang];
 
 module.exports = { getDoc, getDocs };

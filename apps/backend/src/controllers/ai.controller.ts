@@ -3,6 +3,7 @@ import type { ResponseWithInformation } from '@middlewares/sessionAuth.middlewar
 import { getDictionariesByTags } from '@services/dictionary.service';
 import { getTagsByKeys } from '@services/tag.service';
 import * as tagService from '@services/tag.service';
+import * as askDocQuestionUtil from '@utils/AI/askDocQuestion';
 import * as auditContentDeclarationUtil from '@utils/auditDictionary';
 import * as auditContentDeclarationFieldUtil from '@utils/auditDictionaryField';
 import * as auditContentDeclarationMetadataUtil from '@utils/auditDictionaryMetadata';
@@ -302,6 +303,31 @@ export const auditTag = async (
 
     res.json(responseData);
     return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
+export type AskDocQuestionBody = {
+  openAiApiKey?: string;
+  customPrompt?: string;
+  filePath?: string;
+  model?: string;
+  tag: Tag;
+};
+export type AskDocQuestionResult = ResponseData<string>;
+
+export const askDocQuestion = async (
+  req: Request,
+  res: ResponseWithInformation
+) => {
+  try {
+    const response = await askDocQuestionUtil.askDocQuestion(
+      'How to declare a dictionary in JSON?'
+    );
+
+    res.json({ answer: response });
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
