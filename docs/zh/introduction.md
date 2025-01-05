@@ -16,24 +16,24 @@ Intlayer 还提供了一个可选的可视化编辑器，允许您轻松编辑�
 .
 └── Components
     └── MyComponent
-       ├── index.content.ts
-       └── index.tsx
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 ```bash codeFormat="commonjs"
 .
 └── Components
     └── MyComponent
-       ├── index.content.cjs
-       └── index.mjs
+        ├── index.content.cjs
+        └── index.mjs
 ```
 
 ```bash codeFormat="esm"
 .
 └── Components
     └── MyComponent
-       ├── index.content.mjs
-       └── index.js
+        ├── index.content.mjs
+        └── index.js
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"

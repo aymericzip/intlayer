@@ -16,24 +16,24 @@ Intlayer는 또한 콘텐츠를 쉽게 편집하고 관리할 수 있는 선택�
 .
 └── Components
     └── MyComponent
-       ├── index.content.ts
-       └── index.tsx
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 ```bash codeFormat="commonjs"
 .
 └── Components
     └── MyComponent
-       ├── index.content.cjs
-       └── index.mjs
+        ├── index.content.cjs
+        └── index.mjs
 ```
 
 ```bash codeFormat="esm"
 .
 └── Components
     └── MyComponent
-       ├── index.content.mjs
-       └── index.js
+        ├── index.content.mjs
+        └── index.js
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"

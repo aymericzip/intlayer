@@ -16,24 +16,24 @@ Intlayer bietet auch einen optionalen visuellen Editor, der es Ihnen ermöglicht
 .
 └── Komponenten
     └── meinKomponente
-       ├── index.content.ts
-       └── index.tsx
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 ```bash codeFormat="commonjs"
 .
 └── Komponenten
     └── meinKomponente
-       ├── index.content.cjs
-       └── index.mjs
+        ├── index.content.cjs
+        └── index.mjs
 ```
 
 ```bash codeFormat="esm"
 .
 └── Komponenten
     └── meinKomponente
-       ├── index.content.mjs
-       └── index.js
+        ├── index.content.mjs
+        └── index.js
 ```
 
 ```tsx fileName="src/components/meinKomponente/meinKomponente.content.ts" contentDeclarationFormat="typescript"

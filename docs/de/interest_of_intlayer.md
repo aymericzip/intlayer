@@ -8,24 +8,24 @@
 .
 └── Komponenten
     └── meineKomponente
-       ├── index.content.ts
-       └── index.tsx
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 ```bash codeFormat="commonjs"
 .
 └── Komponenten
     └── meineKomponente
-       ├── index.content.cjs
-       └── index.mjs
+        ├── index.content.cjs
+        └── index.mjs
 ```
 
 ```bash codeFormat="esm"
 .
 └── Komponenten
     └── meineKomponente
-       ├── index.content.mjs
-       └── index.js
+        ├── index.content.mjs
+        └── index.js
 ```
 
 ```tsx fileName="./Komponenten/MeineKomponente/index.content.ts" codeFormat="typescript"
