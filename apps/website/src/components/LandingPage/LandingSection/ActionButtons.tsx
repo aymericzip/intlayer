@@ -45,6 +45,7 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
         variant="default"
         color="text"
         className="w-full md:w-auto"
+        textAlign="center"
         IconRight={ArrowRight}
       >
         {primaryContent}
