@@ -9,13 +9,13 @@ import {
 import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
-const buttonIconVariants = cva('size-4', {
+const buttonIconVariants = cva('', {
   variants: {
     size: {
-      sm: 'w-4',
-      md: 'w-6',
-      lg: 'w-7',
-      xl: 'w-9',
+      sm: 'size-3',
+      md: 'size-4',
+      lg: 'size-5',
+      xl: 'size-6',
       'icon-sm': 'size-6 p-1',
       'icon-md': 'size-7 p-1',
       'icon-lg': 'size-9 p-1',
