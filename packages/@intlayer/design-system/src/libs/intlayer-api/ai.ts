@@ -7,6 +7,8 @@ import type {
   AuditContentDeclarationResult,
   AuditTagBody,
   AuditTagResult,
+  AskDocQuestionBody,
+  AskDocQuestionResult,
 } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';
@@ -94,11 +96,29 @@ export const getAiAPI = (
       }
     );
 
+  /**
+   * Asks a question to the AI related to the documentation
+   */
+  const askDocQuestion = async (
+    body?: AskDocQuestionBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<AskDocQuestionResult>(
+      `${AI_API_ROUTE}/ask`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: body,
+      }
+    );
+
   return {
     auditContentDeclaration,
     auditContentDeclarationField,
     auditContentDeclarationMetadata,
     auditTag,
+    askDocQuestion,
   };
 };
 

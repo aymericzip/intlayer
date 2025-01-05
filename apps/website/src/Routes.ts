@@ -12,6 +12,7 @@ export enum PagesRoutes {
 
   Doc = '/doc',
   Doc_Search = '/doc/search',
+  Doc_Chat = '/doc/chat',
   Doc_HowWorksIntlayer = '/doc/concept/how-works-intlayer',
   Doc_Configuration = '/doc/concept/configuration',
   Doc_Interest = '/doc/concept/interest',

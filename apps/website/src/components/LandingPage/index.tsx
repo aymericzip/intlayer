@@ -45,6 +45,13 @@ const DynamicIDESection = dynamic(
   }
 );
 
+const DynamicChatBotSection = dynamic(
+  () => import('./ChatBotSection').then((mod) => mod.ChatBotSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 export const LandingPage: FC = () => (
   <div className="flex flex-col gap-10">
     <LandingSection />
@@ -53,6 +60,7 @@ export const LandingPage: FC = () => (
     <DynamicIDESection />
     <DynamicLanguageSection />
     <DynamicDemoSection />
+    <DynamicChatBotSection />
     <CommonQuestionsSection />
   </div>
 );

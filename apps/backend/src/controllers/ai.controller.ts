@@ -310,24 +310,23 @@ export const auditTag = async (
 };
 
 export type AskDocQuestionBody = {
-  openAiApiKey?: string;
-  customPrompt?: string;
-  filePath?: string;
-  model?: string;
-  tag: Tag;
+  messages: askDocQuestionUtil.ChatCompletionRequestMessage[];
 };
 export type AskDocQuestionResult = ResponseData<string>;
 
 export const askDocQuestion = async (
-  req: Request,
-  res: ResponseWithInformation
+  req: Request<undefined, undefined, AskDocQuestionBody>,
+  res: ResponseWithInformation<AskDocQuestionResult>
 ) => {
+  const { messages } = req.body;
   try {
-    const response = await askDocQuestionUtil.askDocQuestion(
-      'How to declare a dictionary in JSON?'
-    );
+    const response = await askDocQuestionUtil.askDocQuestion(messages);
 
-    res.json({ answer: response });
+    const responseData = formatResponse<string>({
+      data: response,
+    });
+
+    res.json(responseData);
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;

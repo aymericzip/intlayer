@@ -111,8 +111,6 @@ export const updateProjectById = async (
     });
   }
 
-  console.log('projectToUpdate', projectToUpdate);
-
   const result = await ProjectModel.updateOne(
     { _id: projectId },
     projectToUpdate

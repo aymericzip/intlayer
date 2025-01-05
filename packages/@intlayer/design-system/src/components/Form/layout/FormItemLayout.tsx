@@ -20,12 +20,20 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
   htmlFor,
 }) => (
   <Form.Item className="w-full space-y-2">
-    <div className="space-y-1 leading-none">
-      <FormLabelLayout isRequired={isRequired} info={info} htmlFor={htmlFor}>
-        {label}
-      </FormLabelLayout>
-      {description && <Form.Description>{description}</Form.Description>}
-    </div>
+    {(description || label) && (
+      <div className="space-y-1 leading-none">
+        {label && (
+          <FormLabelLayout
+            isRequired={isRequired}
+            info={info}
+            htmlFor={htmlFor}
+          >
+            {label}
+          </FormLabelLayout>
+        )}
+        {description && <Form.Description>{description}</Form.Description>}
+      </div>
+    )}
     <Form.Control>{children}</Form.Control>
 
     {showErrorMessage && <Form.Message data-testid="error-message" />}

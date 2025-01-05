@@ -48,7 +48,7 @@ const containerVariants = cva(
         text: 'border-text dark:border-text-dark',
       },
       background: {
-        none: 'bg-none',
+        none: 'bg-inherit	',
         with: '',
       },
       gap: {

@@ -116,8 +116,6 @@ export const getDictionaryByKey = async (
 ): Promise<DictionaryDocument> => {
   const dictionaries = await getDictionariesByKeys([dictionaryKey], projectId);
 
-  console.log('dictionaries', dictionaries);
-
   return dictionaries[0];
 };
 

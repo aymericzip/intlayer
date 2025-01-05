@@ -676,3 +676,7 @@ export const useAuditTag = (
     requireOrganization: true,
     requireProject: true,
   });
+
+export const useAskDocQuestion = (
+  args?: UseAsyncOptions<typeof intlayerAPI.ai.askDocQuestion>
+) => useAppAsync('askDocQuestion', useIntlayerAuth().ai.askDocQuestion, args);

@@ -6,6 +6,7 @@ import {
   InputPasswordElement,
   TextAreaElement,
 } from './elements';
+import { AutoSizedTextAreaElement } from './elements/AutoSizeTextAreaElement';
 import { CheckboxElement } from './elements/CheckboxElement';
 import { EditableFieldInputElement } from './elements/EditableFieldInputElement';
 import { EditableFieldTextAreaElement } from './elements/EditableFieldTextAreaElement';
@@ -33,6 +34,7 @@ type FormType = typeof FormRoot & {
   InputPassword: typeof InputPasswordElement;
   Checkbox: typeof CheckboxElement;
   TextArea: typeof TextAreaElement;
+  AutoSizedTextArea: typeof AutoSizedTextAreaElement;
   MultiSelect: typeof MultiSelectElement;
   Select: typeof SelectElement;
   EditableFieldInput: typeof EditableFieldInputElement;
@@ -70,6 +72,7 @@ Form.Input = InputElement;
 Form.InputPassword = InputPasswordElement;
 Form.Checkbox = CheckboxElement;
 Form.TextArea = TextAreaElement;
+Form.AutoSizedTextArea = AutoSizedTextAreaElement;
 Form.Button = Button;
 Form.Select = SelectElement;
 Form.MultiSelect = MultiSelectElement;

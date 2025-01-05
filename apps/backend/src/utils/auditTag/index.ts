@@ -70,8 +70,6 @@ export const auditTag = async ({
           .join('\n\n')
       );
 
-    console.log('prompt', prompt);
-
     // Example of how you might request a completion from ChatGPT:
     const chatCompletion = await openai.chat.completions.create({
       model: model ?? 'gpt-4o-mini',
@@ -79,8 +77,6 @@ export const auditTag = async ({
     });
 
     const newContent = chatCompletion.choices[0].message?.content;
-
-    console.log('newContent', newContent);
 
     logger.info(
       `${chatCompletion.usage?.total_tokens} tokens used in the request`

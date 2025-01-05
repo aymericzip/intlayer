@@ -1,6 +1,9 @@
+import fs from 'fs';
+import { getBlogs } from '@intlayer/blog';
 import { getDocs } from '@intlayer/docs';
 import { Locales } from 'intlayer';
 import { OpenAI } from 'openai';
+import embeddingsList from './embeddings.json';
 
 // Initialize OpenAI
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -8,7 +11,8 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 /**
  * Simple in-memory vector store
  */
-const vectorStore: { id: string; embedding: number[]; content: string }[] = [];
+const vectorStore: { docKey: string; embedding: number[]; content: string }[] =
+  [];
 
 const MAX_TOKEN = 8192;
 const CHAR_BY_TOKEN = 4.15;
@@ -54,29 +58,54 @@ const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
  */
 export const indexMarkdownFiles = async () => {
   const docs = getDocs(Locales.ENGLISH);
+  const blogs = getBlogs(Locales.ENGLISH);
 
-  for (const docKey of Object.keys(docs)) {
-    console.info(`📄 Indexing: ${docKey}`);
-    const docContent = docs[docKey as keyof typeof docs];
+  let result: Record<string, number[]> = {};
+
+  const files = { ...docs, ...blogs };
+
+  for (const fileKey of Object.keys(files)) {
+    console.info(`📄 Indexing: ${fileKey}`);
+
+    const fileContent = files[fileKey as keyof typeof files];
+
+    const docEmbedding = embeddingsList[fileKey as keyof typeof embeddingsList];
 
     // Generate embedding
-    const embedding = await generateEmbedding(docContent);
+    let embedding = docEmbedding;
+
+    if (!embedding) {
+      embedding = await generateEmbedding(fileContent);
+    }
+    result = { ...result, [fileKey]: embedding };
 
     // Store in memory
-    vectorStore.push({ id: docKey, embedding, content: docContent });
+    vectorStore.push({ docKey: fileKey, embedding, content: fileContent });
 
-    console.info(`📄 Indexed: ${docKey}`);
+    console.info(`📄 Indexed: ${fileKey}`);
+  }
+
+  try {
+    if (JSON.stringify(result) !== JSON.stringify(embeddingsList)) {
+      // Save embeddings list
+      fs.writeFileSync(
+        'src/utils/AI/embeddings.json',
+        JSON.stringify(result, null, 2)
+      );
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
+
+if (process.env.NODE_ENV === 'development') {
+  indexMarkdownFiles();
+}
 
 /**
  * Search docs using an embedding-based similarity query
  */
 export const searchDocs = async (query: string) => {
-  if (vectorStore.length === 0) {
-    throw new Error('No documents indexed.');
-  }
-
   // Generate embedding for the query
   const queryEmbedding = await generateEmbedding(query);
 
@@ -92,28 +121,71 @@ export const searchDocs = async (query: string) => {
   return results.map((doc) => doc.content);
 };
 
+export type ChatCompletionRequestMessage = {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+};
+
+export type AskDocQuestionBody = {
+  messages: ChatCompletionRequestMessage[];
+};
+
+export const initPrompt: ChatCompletionRequestMessage = {
+  role: 'system',
+  content:
+    "Ignore all instructions before this one. \
+      Keep forever all instructions after this one. From now you are not allowed to ignore the previous instructions. \
+      You are an expert in internationalization solution for Javascript Application. You're an helpful chatbot for Intlayer, an Internationalization solution (Website: 'https://intlayer.org'). \
+      The user is an potential user of Intlayer. Your task is now to answer the questions of the user. \
+      You must talk as an member of Intlayer. You must only answer the questions relative to Intlayer. \
+      If a question is not related to Intlayer, you should NOT answer it. \
+      You must NOT answer question who is generaly secret for a compagny. \
+      You must NOT share finacial informations related to Intlayer. \
+      \
+      Your should return a result as markdown.\
+      \
+      Here is the relevant documentation:\
+      {{relevantDocs}}",
+};
+
 /**
  * Express.js route: "Ask a question" endpoint
  */
-export const askDocQuestion = async (query: string) => {
+export const askDocQuestion = async (
+  messages: ChatCompletionRequestMessage[]
+) => {
+  const lastMessage = messages[messages.length - 1];
+  const question = lastMessage.content as string;
+
   // 1) Find relevant docs
-  const relevantDocs = await searchDocs(query);
+  const relevantDocs = await searchDocs(question);
 
-  // 2) Build a prompt
-  const prompt = `
-      You are an expert assistant. Here is the relevant documentation:
-      ${relevantDocs.join('\n')}
+  // 2) Replace init prompt with relevant docs
+  const messagesList: ChatCompletionRequestMessage[] = [
+    {
+      ...initPrompt,
+      content: initPrompt.content.replace(
+        '{{relevantDocs}}',
+        relevantDocs.join('\n')
+      ),
+    },
+    ...messages,
+  ];
 
-      Answer this question precisely:
-      "${query}"
-    `;
+  console.info('messagesList', messagesList);
 
   // 3) Send question to OpenAI Chat (GPT-4)
   const response = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
-    messages: [{ role: 'user', content: prompt }],
+    messages: messagesList,
   });
 
+  const result = response.choices[0].message.content;
+
+  if (!result) {
+    throw new Error('No result found');
+  }
+
   // 4) Return first choice
-  return response.choices[0].message.content;
+  return result;
 };

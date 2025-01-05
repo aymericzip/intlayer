@@ -11,7 +11,7 @@ import {
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
-import { ArrowLeftToLine } from 'lucide-react';
+import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type ComponentProps, type FC } from 'react';
 import { Section } from './types';
@@ -42,7 +42,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
   docData,
   activeSections,
 }) => {
-  const { blogButton } = useIntlayer('doc-nav-list');
+  const { blogButton, chatBotButton } = useIntlayer('doc-nav-list');
   return (
     <nav className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pb-20 pt-8">
       {Object.keys(docData).map((key1) => {
@@ -144,12 +144,23 @@ export const DocNavListContent: FC<DocNavListProps> = ({
       <div>
         <OptionalLink
           href={PagesRoutes.Blog}
-          className={cn([
-            'text-neutral hover:text-text dark:hover:text-text-dark h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors dark:text-neutral-200',
-          ])}
+          className={cn(
+            'text-neutral hover:text-text dark:hover:text-text-dark h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors dark:text-neutral-200'
+          )}
           label={blogButton.label.value}
         >
           {blogButton?.text}
+        </OptionalLink>
+      </div>
+      <div>
+        <OptionalLink
+          href={PagesRoutes.Doc_Chat}
+          className={cn(
+            'text-neutral hover:text-text dark:hover:text-text-dark flex h-full max-h-full items-center text-nowrap pl-3 text-left font-semibold transition-colors dark:text-neutral-200'
+          )}
+          label={chatBotButton.label.value}
+        >
+          <Bot /> {chatBotButton?.text}
         </OptionalLink>
       </div>
     </nav>
@@ -205,7 +216,7 @@ export const DocNavList: FC<DocNavListProps> = ({
           </Container>
 
           <div className="sticky top-28 pt-0">
-            <MaxWidthSmoother isHidden={isHidden}>
+            <MaxWidthSmoother isHidden={Boolean(isHidden)}>
               <div className="relative overflow-hidden">
                 <DocNavListContent
                   docData={docData}

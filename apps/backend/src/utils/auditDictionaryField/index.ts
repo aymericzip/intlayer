@@ -112,8 +112,6 @@ export const auditDictionaryField = async ({
       `${chatCompletion.usage?.total_tokens} tokens used in the request`
     );
 
-    console.log('newContent', newContent);
-
     return {
       fileContent: newContent ?? '',
       tokenUsed: chatCompletion.usage?.total_tokens ?? 0,

@@ -11,6 +11,7 @@ type DocPageLayoutProps = {
   activeSections?: string[];
   locale: Locales;
   displayDocNavTitles?: boolean;
+  displayBreadCrumb?: boolean;
 };
 
 export const DocPageLayout: FC<DocPageLayoutProps> = ({
@@ -18,6 +19,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   locale,
   activeSections = ['get-started'],
   displayDocNavTitles = true,
+  displayBreadCrumb = true,
 }) => {
   const docData = getDocData(locale);
 
@@ -32,12 +34,14 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
             className="relative m-auto mb-24 h-full w-auto max-w-3xl flex-1 grow max-md:pl-12"
             id="content"
           >
-            <DocBreadCrumb
-              className="ml-10 mt-12"
-              activeSections={activeSections}
-              docData={docData}
-              locale={locale}
-            />
+            {displayBreadCrumb && (
+              <DocBreadCrumb
+                className="ml-10 mt-12"
+                activeSections={activeSections}
+                docData={docData}
+                locale={locale}
+              />
+            )}
             {children}
           </article>
           <aside className="flex-none max-lg:hidden">

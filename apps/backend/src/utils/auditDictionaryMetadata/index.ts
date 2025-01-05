@@ -68,8 +68,6 @@ export const auditDictionaryMetadata = async ({
         )}`
       ).replace('{{contentDeclaration}}', fileContent);
 
-    console.log('prompt', prompt);
-
     // Example of how you might request a completion from ChatGPT:
     const chatCompletion = await openai.chat.completions.create({
       model: model ?? 'gpt-4o-mini',
@@ -77,8 +75,6 @@ export const auditDictionaryMetadata = async ({
     });
 
     const newContent = chatCompletion.choices[0].message?.content;
-
-    console.log('newContent', newContent);
 
     logger.info(
       `${chatCompletion.usage?.total_tokens} tokens used in the request`
