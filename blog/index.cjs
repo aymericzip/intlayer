@@ -1,6 +1,16 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { Locales } = require('@intlayer/config');
 
+/**
+ * This condition is a hack to import markdown files either in node or in the browser
+ */
+if (require.extensions) {
+  require.extensions['.md'] = (module, filename) => {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
+    module.exports = require('fs').readFileSync(filename, 'utf8');
+  };
+}
+
 const blogs = {
   index: {
     en: require('./en/index.md'),

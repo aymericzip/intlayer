@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { Locales } = require('@intlayer/config');
 
-require.extensions['.md'] = (module, filename) => {
-  // eslint-disable-next-line security/detect-non-literal-fs-filename
-  module.exports = require('fs').readFileSync(filename, 'utf8');
-};
+/**
+ * This condition is a hack to import markdown files either in node or in the browser
+ */
+if (require.extensions) {
+  require.extensions['.md'] = (module, filename) => {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
+    module.exports = require('fs').readFileSync(filename, 'utf8');
+  };
+}
 
 const docs = {
   introduction: {
