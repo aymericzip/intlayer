@@ -19,7 +19,7 @@ import {
   type FC,
 } from 'react';
 // @ts-ignore react-intlayer not build yet
-import { useDictionary } from 'react-intlayer';
+import { useDictionary, useLocale } from 'react-intlayer';
 import { useShallow } from 'zustand/react/shallow';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { getSectionType } from '../../../utils/dictionary';
@@ -146,6 +146,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   dictionary,
   locales,
 }: TextEditorProps) => {
+  const { locale } = useLocale();
   const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
 
   const sectionContent = (section as TranslationContent<string>)[
@@ -163,19 +164,19 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
 
   return (
     <table className="w-full gap-2">
-      <tbody>
+      <tbody className="divide-y-[1.5px]">
         {localesList.map((translationKey) => (
           <tr
             key={translationKey}
-            className="border-text dark:border-text-dark w-full border-t-[1.5px]"
+            className="border-text dark:border-text-dark w-full"
             lang={translationKey}
           >
-            {selectedLocales.length > 1 && (
-              <td className="border-text dark:border-text-dark border-r-[1.5px] p-2">
-                {getLocaleName(translationKey)}
-              </td>
-            )}
-            <td className="w-full p-2">
+            <td className="flex w-full flex-col p-2">
+              {selectedLocales.length > 1 && (
+                <span className="w-full p-2 text-xs">
+                  {getLocaleName(translationKey, locale)}
+                </span>
+              )}
               <ContentEditorTextArea
                 variant="default"
                 aria-label="Edit field"
@@ -213,13 +214,13 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 
   return (
     <table className="w-full table-fixed gap-2">
-      <tbody>
+      <tbody className="divide-y-[1.5px]">
         {Object.keys(
           (section as EnumerationContent<DictionaryValue>)[NodeType.Enumeration]
         ).map((enumKey) => (
           <tr
             key={enumKey}
-            className="border-text dark:border-text-dark w-full border-y-[1.5px]"
+            className="border-text dark:border-text-dark w-full"
           >
             <td className="border-text dark:border-text-dark w-44 border-r-[1.5px] p-2">
               <div className="flex gap-1">
@@ -320,15 +321,13 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
 
   return (
     <table className="w-full gap-2">
-      <tbody>
+      <tbody className="divide-y-[1.5px]">
         {(section as DictionaryValue[]).map((subSection, index) => (
           <tr
             key={JSON.stringify(subSection)}
-            className="border-text dark:border-text-dark w-full border-t-[1.5px]"
+            className="border-text dark:border-text-dark w-full"
           >
-            <td className="border-text dark:border-text-dark border-r-[1.5px] p-2">
-              {index}
-            </td>
+            <td className="p-2">{index}</td>
             <td className="w-full p-2">
               <ContentEditorTextArea
                 variant="default"
