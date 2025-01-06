@@ -33,7 +33,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
     setFocusedContent: s.setFocusedContent,
   }));
   const { dictionaryLinkLabel } = useIntlayer('tags-dictionaries-list');
-  const { data, isLoading } = useGetDictionaries({
+  const { data, isWaitingData } = useGetDictionaries({
     args: {
       tags: [tagKey],
     },
@@ -41,7 +41,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <Loader isLoading={isLoading}>
+      <Loader isLoading={isWaitingData}>
         {data?.data?.map((dictionary) => (
           <Button
             key={String(dictionary.key)}

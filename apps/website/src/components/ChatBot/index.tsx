@@ -16,7 +16,7 @@ export type StoredValue = {
 };
 
 export const ChatBot: FC = () => {
-  const { isLoading, askDocQuestion } = useAskDocQuestion();
+  const { isWaitingData, askDocQuestion } = useAskDocQuestion();
   const { firstMessageContent } = useIntlayer('chat');
 
   const firstMessage: ChatCompletionRequestMessage = {
@@ -35,7 +35,7 @@ export const ChatBot: FC = () => {
         { role: 'user', content: newQuestion },
       ]);
 
-      const newMessages = [
+      const newMessages: ChatCompletionRequestMessage[] = [
         ...storedPrompt.slice(0, -1),
         { role: 'user', content: newQuestion },
       ];
@@ -43,10 +43,13 @@ export const ChatBot: FC = () => {
       askDocQuestion({ messages: newMessages }).then((response) => {
         const content = response.data;
 
-        setStoredPrompt((storedPrompt) => [
-          ...storedPrompt,
-          { role: 'assistant', content },
-        ]);
+        setStoredPrompt(
+          (storedPrompt) =>
+            [
+              ...storedPrompt,
+              { role: 'assistant', content },
+            ] as ChatCompletionRequestMessage[]
+        );
       });
     },
     [askDocQuestion, storedPrompt]
@@ -59,7 +62,7 @@ export const ChatBot: FC = () => {
   return (
     <div className="flex size-full flex-col items-center justify-between gap-5 overflow-auto px-4 py-3">
       <MessagesList storedPrompt={storedPrompt} />
-      {isLoading && <Loader />}
+      {isWaitingData && <Loader />}
 
       <FormSection
         askNewQuestion={handleAskNewQuestion}

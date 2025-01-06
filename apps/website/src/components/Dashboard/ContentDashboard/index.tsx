@@ -21,7 +21,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   const { session } = useAuth();
   const project = session?.project;
   const { resolvedTheme } = useTheme();
-  const { data: dictionaryResult, isLoading } = useGetDictionary({
+  const { data: dictionaryResult, isWaitingData } = useGetDictionary({
     autoFetch: true,
     args: dictionaryKey,
   });
@@ -30,7 +30,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 
   return (
     <Suspense fallback={<Loader />}>
-      <Loader isLoading={!dictionary || isLoading}>
+      <Loader isLoading={!dictionary || isWaitingData}>
         {dictionary && (
           <DictionaryFieldEditor
             dictionary={dictionary}

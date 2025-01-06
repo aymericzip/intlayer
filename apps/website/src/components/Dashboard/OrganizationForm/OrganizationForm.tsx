@@ -14,7 +14,11 @@ const OrganizationFormContent: FC = () => {
   const { session } = useAuth();
   const { organization } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { data: organizations, isLoading, isSuccess } = useGetOrganizations();
+  const {
+    data: organizations,
+    isWaitingData,
+    isSuccess,
+  } = useGetOrganizations();
 
   if (organization) {
     return (
@@ -47,7 +51,7 @@ const OrganizationFormContent: FC = () => {
     return <OrganizationList organizations={organizations?.data ?? []} />;
   }
 
-  if (isSuccess && !isLoading) {
+  if (isSuccess && !isWaitingData) {
     return (
       <Container roundedSize="xl" className="flex justify-center p-6">
         <Modal

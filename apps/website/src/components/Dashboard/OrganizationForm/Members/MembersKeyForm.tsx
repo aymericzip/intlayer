@@ -64,7 +64,7 @@ export const MembersForm: FC = () => {
   } = useIntlayer('organization-members-form');
   const { updateOrganizationMembers } = useUpdateOrganizationMembers();
   const { addOrganizationMember } = useAddOrganizationMember();
-  const { getUsers, isLoading: isLoadingUsers } = useGetUsers();
+  const { getUsers, isWaitingData: isLoadingUsers } = useGetUsers();
   const [users, setUsers] = useState<UserAPI[]>([]);
 
   const handleUpdateMembers = async (data: UpdateOrganizationMembersBody) => {

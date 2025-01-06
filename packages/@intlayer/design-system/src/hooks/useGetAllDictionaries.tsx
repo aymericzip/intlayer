@@ -14,7 +14,7 @@ import { useGetDictionaries } from './intlayerAPIHooks';
 type Args = Parameters<typeof useGetDictionaries>;
 
 export const useGetAllDictionaries = (...props: Args) => {
-  const { data: onlineDictionariesAPI, isLoading } = useGetDictionaries(
+  const { data: onlineDictionariesAPI, isWaitingData } = useGetDictionaries(
     ...props
   );
 
@@ -39,6 +39,6 @@ export const useGetAllDictionaries = (...props: Args) => {
     online: onlineDictionaries,
     locale: localeDictionaries,
     all: allDictionaries,
-    isLoading,
+    isLoading: isWaitingData,
   };
 };

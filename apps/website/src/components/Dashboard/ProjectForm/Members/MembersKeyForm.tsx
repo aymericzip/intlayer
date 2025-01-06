@@ -42,7 +42,7 @@ export const MembersForm: FC = () => {
     'project-members-form'
   );
   const { updateProjectMembers } = useUpdateProjectMembers();
-  const { getUsers, isLoading: isLoadingUsers } = useGetUsers();
+  const { getUsers, isWaitingData: isLoadingUsers } = useGetUsers();
   const [users, setUsers] = useState<UserAPI[]>([]);
 
   const onSubmitSuccess = async (data: ProjectMembersFormData) => {

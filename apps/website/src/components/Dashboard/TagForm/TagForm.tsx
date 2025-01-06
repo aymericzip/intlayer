@@ -13,32 +13,35 @@ type TagFormContentProps = {
 
 export const TagForm: FC<TagFormContentProps> = ({ tagKey }) => {
   const { noAdminMessage } = useIntlayer('tag-form');
-  const { data: tagResponse, isLoading } = useGetTags({
+  const { data: tagResponse, isWaitingData } = useGetTags({
     args: { key: tagKey },
   });
 
   const isTagAdmin = true;
 
-  if (isLoading) return <Loader />;
-
   const tag = tagResponse?.data?.[0];
 
   return (
-    <div className="flex size-full max-w-[500px] flex-col items-center justify-center gap-4">
-      {!isTagAdmin && (
+    <Loader isLoading={isWaitingData}>
+      <div className="flex size-full max-w-[500px] flex-col items-center justify-center gap-4">
+        {!isTagAdmin && (
+          <Container
+            roundedSize="xl"
+            className="flex size-full justify-center p-6"
+          >
+            <p className="text-neutral dark:text-neutral-dark text-sm">
+              {noAdminMessage}
+            </p>
+          </Container>
+        )}
+
         <Container
           roundedSize="xl"
           className="flex size-full justify-center p-6"
         >
-          <p className="text-neutral dark:text-neutral-dark text-sm">
-            {noAdminMessage}
-          </p>
+          {tag && <TagEditionForm tag={tag} />}
         </Container>
-      )}
-
-      <Container roundedSize="xl" className="flex size-full justify-center p-6">
-        {tag && <TagEditionForm tag={tag} />}
-      </Container>
-    </div>
+      </div>
+    </Loader>
   );
 };

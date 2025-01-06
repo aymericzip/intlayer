@@ -31,7 +31,11 @@ const OrganizationFormContent: FC<{
   onSelectOrganization: (organization: OrganizationAPI) => void;
 }> = ({ onSelectOrganization, selectedOrganizationId }) => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { data: organizations, isLoading, isSuccess } = useGetOrganizations();
+  const {
+    data: organizations,
+    isWaitingData,
+    isSuccess,
+  } = useGetOrganizations();
 
   if ((organizations?.data ?? []).length > 0) {
     return (
@@ -43,7 +47,7 @@ const OrganizationFormContent: FC<{
     );
   }
 
-  if (isSuccess && !isLoading) {
+  if (isSuccess && !isWaitingData) {
     return (
       <>
         <Modal

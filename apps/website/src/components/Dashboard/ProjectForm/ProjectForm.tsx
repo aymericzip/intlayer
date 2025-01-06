@@ -15,7 +15,7 @@ export const ProjectFormContent: FC = () => {
   const { session, isProjectAdmin } = useAuth();
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { data: projects, isLoading, isSuccess } = useGetProjects();
+  const { data: projects, isWaitingData, isSuccess } = useGetProjects();
   const { noAdminMessage } = useIntlayer('project-form');
 
   if (project) {
@@ -58,7 +58,7 @@ export const ProjectFormContent: FC = () => {
     return <ProjectList projects={projects?.data ?? []} />;
   }
 
-  if (isSuccess && !isLoading) {
+  if (isSuccess && !isWaitingData) {
     return (
       <Container roundedSize="xl" className="flex justify-center p-6">
         <Modal
