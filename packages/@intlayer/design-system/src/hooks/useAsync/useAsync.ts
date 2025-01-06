@@ -361,10 +361,12 @@ export const useAsync = <
 
   // Handle periodic revalidation if caching is enabled
   useEffect(() => {
+    if (!revalidationEnabled) return;
+
     const interval = setInterval(autoRevalidate, revalidateTime);
 
     return () => clearInterval(interval);
-  }, [autoRevalidate, revalidateTime]);
+  }, [autoRevalidate, revalidateTime, revalidationEnabled]);
 
   // Load data from session storage if storeEnabled is true
   useEffect(() => {
