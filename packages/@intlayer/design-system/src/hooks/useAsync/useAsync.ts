@@ -336,7 +336,7 @@ export const useAsync = <
   useEffect(() => {
     if (!autoFetch) return; // Auto-fetch is disabled
     if (!isEnabled || !enabled) return; // Hook is disabled
-    if (isFetched && isInvalidated) return; // Hook have already fetched or invalidated
+    if (isFetched && !isInvalidated) return; // Hook have already fetched or invalidated
     if (isLoading) return; // Fetch is already in progress
 
     fetch(...storedArgsRef.current);
