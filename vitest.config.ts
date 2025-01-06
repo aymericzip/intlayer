@@ -2,7 +2,7 @@ import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
-const testFiles = ['./src/**/*.test.{js,jsx,ts,tsx}'];
+const testFiles = ['./**/*.test.{js,jsx,ts,tsx}'];
 
 export default defineConfig({
   plugins: [
@@ -13,8 +13,7 @@ export default defineConfig({
   ],
   test: {
     globals: true,
-    environment: 'happy-dom',
-    setupFiles: './config/test/setupVitest.ts',
+    environment: 'jsdom',
     passWithNoTests: true,
     /*
     deps: {
@@ -22,9 +21,6 @@ export default defineConfig({
         enabled: true,
       },
     }, */
-    cache: {
-      dir: '../../.cache/vitest/core-lib',
-    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'clover'],

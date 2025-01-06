@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, PropsWithChildren, useState } from 'react';
 import { CopyCheck, CopyIcon } from 'lucide-react';
+import { FC, PropsWithChildren, useState } from 'react';
 import { cn } from '../../utils/cn';
 
 export type CopyToClipboardProps = PropsWithChildren<{
