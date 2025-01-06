@@ -297,9 +297,9 @@ export const useAsync = <
   }, [enabled, isEnabled, keyWithArgs]);
 
   /**
-   * HANDLE SESSION STORAGE LOADING
+   * HANDLE LOCAL STORAGE LOADING
    *
-   * If store is enabled, load data from session storage
+   * If store is enabled, load data from local storage
    */
   useEffect(() => {
     if (!isEnabled || !enabled) return; // Hook is disabled
