@@ -6,7 +6,7 @@ import {
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { FormSection } from './FormSection';
 import { ChatCompletionRequestMessage, MessagesList } from './MessagesList';
 
@@ -19,10 +19,13 @@ export const ChatBot: FC = () => {
   const { isWaitingData, askDocQuestion } = useAskDocQuestion();
   const { firstMessageContent } = useIntlayer('chat');
 
-  const firstMessage: ChatCompletionRequestMessage = {
-    role: 'system',
-    content: firstMessageContent.content.value,
-  };
+  const firstMessage: ChatCompletionRequestMessage = useMemo(
+    () => ({
+      role: 'system',
+      content: firstMessageContent.content.value,
+    }),
+    [firstMessageContent.content.value]
+  );
 
   const [storedPrompt, setStoredPrompt] = usePersistedStore<
     ChatCompletionRequestMessage[]
@@ -52,12 +55,12 @@ export const ChatBot: FC = () => {
         );
       });
     },
-    [askDocQuestion, storedPrompt]
+    [askDocQuestion, setStoredPrompt, storedPrompt]
   );
 
   const handleClear = useCallback(() => {
     setStoredPrompt([firstMessage]);
-  }, [setStoredPrompt]);
+  }, [firstMessage, setStoredPrompt]);
 
   return (
     <div className="flex size-full flex-col items-center justify-between gap-5 overflow-auto px-4 py-3">
