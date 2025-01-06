@@ -41,7 +41,7 @@ export type UseAsyncOptions<T extends (...args: any[]) => Promise<any>> = {
 };
 
 // Default values for the hook's options
-const DEFAULT_CACHE_ENABLED = false;
+const DEFAULT_CACHE_ENABLED = true;
 const DEFAULT_STORE_ENABLED = false;
 const DEFAULT_ENABLED = true;
 const DEFAULT_AUTO_FETCH = false;
@@ -192,6 +192,7 @@ export const useAsync = <
               retryCount: 0,
               isLoading: false,
               isFetched: true,
+              fetchedDateTime: new Date(),
               isSuccess: true,
               isInvalidated: false,
               error: null,
@@ -332,7 +333,7 @@ export const useAsync = <
 
   // Handle retry based on conditions set in options
   useEffect(() => {
-    const isRetryEnabled = errorCount > 0 && retryLimit > 0;
+    const isRetryEnabled = errorCount >= 0 && retryLimit > 0;
     const isRetryLimitReached = errorCount >= retryLimit;
     if (!isEnabled || !enabled) return;
     if (!(cacheEnabled || storeEnabled)) return;

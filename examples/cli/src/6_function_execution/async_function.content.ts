@@ -1,11 +1,12 @@
-import { setTimeout } from 'node:timers/promises';
 import type { DeclarationContent } from 'intlayer';
 
 const fakeFetch = async (): Promise<string> => {
-  // Wait for 200ms to simulate a fetch from the server
-  return await setTimeout(200).then(
-    () => 'This is the content fetched from the server'
-  );
+  // Create a Promise that resolves after 200ms
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('This is the content fetched from the server');
+    }, 200);
+  });
 };
 
 const asyncFunctionContent = {
