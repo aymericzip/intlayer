@@ -1,6 +1,5 @@
 'use client';
 
-import { DictionaryAPI } from '@intlayer/backend';
 import { Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { ArrowLeft } from 'lucide-react';
@@ -19,7 +18,6 @@ import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
 import { JSONEditor } from './JSONEditor';
 import { NodeEditor } from './NodeEditor';
 import { SaveForm } from './SaveForm/SaveForm';
-import { VersionSwitcherProvider } from './VersionSwitcherDropDown';
 
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
