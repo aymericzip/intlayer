@@ -14,7 +14,13 @@ const DocumentationSearchPage: Next14PageIntlayer = ({
       <IntlayerServerProvider locale={locale}>
         <div className="flex size-full flex-1 flex-col gap-20 p-10">
           <H1>{title}</H1>
-          <Container roundedSize="2xl" border background={false}>
+          <Container
+            roundedSize="2xl"
+            border
+            background={false}
+            padding="none"
+            className="relative m-auto h-[calc(100vh-100px)] w-full max-w-2xl overflow-hidden"
+          >
             <ChatBot />
           </Container>
         </div>

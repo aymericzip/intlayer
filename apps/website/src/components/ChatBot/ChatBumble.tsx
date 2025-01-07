@@ -25,7 +25,7 @@ export const ChatBumble: FC<ChatBumbleProps> = ({
       className={cn(
         'rounded-xl p-4',
         type === ChatBumbleType.QUESTION &&
-          'bg-text dark:bg-text-dark text-text-dark dark:text-text ml-auto w-[90%] max-w-xl rounded-tr-none',
+          'bg-text dark:bg-text-dark text-text-dark dark:text-text ml-auto mr-4 w-[90%] max-w-xl rounded-tr-none',
         type === ChatBumbleType.ANSWER && 'w-full'
       )}
       {...props}

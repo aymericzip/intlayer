@@ -7,6 +7,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { FC, useCallback, useMemo } from 'react';
+import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import { ChatCompletionRequestMessage, MessagesList } from './MessagesList';
 
@@ -16,7 +17,7 @@ export type StoredValue = {
 };
 
 export const ChatBot: FC = () => {
-  const { isWaitingData, askDocQuestion } = useAskDocQuestion();
+  const { isLoading, askDocQuestion } = useAskDocQuestion();
   const { firstMessageContent } = useIntlayer('chat');
 
   const firstMessage: ChatCompletionRequestMessage = useMemo(
@@ -30,6 +31,10 @@ export const ChatBot: FC = () => {
   const [storedPrompt, setStoredPrompt] = usePersistedStore<
     ChatCompletionRequestMessage[]
   >('chat-bot-messages', [firstMessage]);
+  const [relatedFiles, setRelatedFiles] = usePersistedStore<string[]>(
+    'chat-bot-related-files-keys',
+    []
+  );
 
   const handleAskNewQuestion = useCallback(
     (newQuestion: string) => {
@@ -44,7 +49,7 @@ export const ChatBot: FC = () => {
       ];
 
       askDocQuestion({ messages: newMessages }).then((response) => {
-        const content = response.data;
+        const content = response.data?.response;
 
         setStoredPrompt(
           (storedPrompt) =>
@@ -53,25 +58,37 @@ export const ChatBot: FC = () => {
               { role: 'assistant', content },
             ] as ChatCompletionRequestMessage[]
         );
+
+        setRelatedFiles((prev) => [
+          ...new Set([...prev, ...(response.data?.relatedFiles ?? [])]),
+        ]);
       });
     },
-    [askDocQuestion, setStoredPrompt, storedPrompt]
+    [askDocQuestion, setStoredPrompt, setRelatedFiles, storedPrompt]
   );
 
   const handleClear = useCallback(() => {
     setStoredPrompt([firstMessage]);
-  }, [firstMessage, setStoredPrompt]);
+    setRelatedFiles([]);
+  }, [firstMessage, setStoredPrompt, setRelatedFiles]);
 
   return (
-    <div className="flex size-full flex-col items-center justify-between gap-5 overflow-auto px-4 py-3">
-      <MessagesList storedPrompt={storedPrompt} />
-      {isWaitingData && <Loader />}
+    <div className="flex size-full flex-col items-center justify-between overflow-auto">
+      <div className="relative flex size-full flex-auto">
+        <div className="absolute inset-0 size-full">
+          <MessagesList storedPrompt={storedPrompt} />
+          <Loader isLoading={isLoading} className="h-10" />
+        </div>
+      </div>
+      <div className="w-full flex-1">
+        <FileReference relatedFiles={relatedFiles} />
 
-      <FormSection
-        askNewQuestion={handleAskNewQuestion}
-        clear={handleClear}
-        nbMessages={(storedPrompt ?? []).length}
-      />
+        <FormSection
+          askNewQuestion={handleAskNewQuestion}
+          clear={handleClear}
+          nbMessages={storedPrompt.length}
+        />
+      </div>
     </div>
   );
 };

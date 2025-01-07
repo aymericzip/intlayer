@@ -39,5 +39,5 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
     localStorage?.setItem(key, JSON.stringify(state));
   }, [key, state]);
 
-  return [state ?? initialValue, setState] as const;
+  return [(state ?? initialValue) as T, setState] as const;
 };

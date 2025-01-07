@@ -27,7 +27,7 @@ export const MessagesList: FC<MessagesListProps> = ({ storedPrompt }) => {
 
   return (
     <div
-      className="relative flex w-full flex-col gap-4 overflow-auto pb-5"
+      className="relative flex max-h-full flex-col gap-4 overflow-auto pb-5"
       ref={chatContainerRef}
     >
       {storedPrompt.map((promt, index) => (
