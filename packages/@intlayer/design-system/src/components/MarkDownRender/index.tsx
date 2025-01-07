@@ -126,10 +126,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
           <>
             <SectionScroller />
             <div
-              className={cn(
-                'text-text dark:text-text-dark flex flex-col gap-6 p-10',
-                className
-              )}
+              className={cn('flex flex-col gap-6 p-10', className)}
               {...props}
             />
           </>
