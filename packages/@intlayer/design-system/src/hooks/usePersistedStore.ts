@@ -16,20 +16,22 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
       }
     }
 
-    return initialValue as T;
+    return undefined as T;
   });
 
   useEffect(() => {
     const persistedState = localStorage?.getItem(key);
 
-    if (persistedState) {
+    if (persistedState && state === undefined) {
       try {
         setState(JSON.parse(persistedState));
       } catch (e) {
         console.error(e);
       }
+    } else if (initialValue !== undefined && state === undefined) {
+      setState(initialValue);
     }
-  }, [key]);
+  }, [key, state]);
 
   useEffect(() => {
     if (state === undefined) return;
@@ -37,5 +39,5 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
     localStorage?.setItem(key, JSON.stringify(state));
   }, [key, state]);
 
-  return [state, setState] as const;
+  return [state ?? initialValue, setState] as const;
 };
