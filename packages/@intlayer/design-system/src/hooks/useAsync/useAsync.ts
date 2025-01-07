@@ -42,7 +42,7 @@ export type UseAsyncOptions<T extends (...args: any[]) => Promise<any>> = {
 };
 
 // Default values for the hook's options
-const DEFAULT_CACHE_ENABLED = true;
+const DEFAULT_CACHE_ENABLED = false;
 const DEFAULT_STORE_ENABLED = false;
 const DEFAULT_ENABLED = true;
 const DEFAULT_AUTO_FETCH = false;
