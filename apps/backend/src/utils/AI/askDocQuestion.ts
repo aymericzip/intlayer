@@ -30,7 +30,8 @@ const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
 const CHAR_BY_TOKEN = 4.15; // Approximate pessimistic number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
 const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
-const MAX_RELEVANT_SECTION_NB = 20; // Maximum number of relevant sections to display
+const MAX_RELEVANT_SECTION_NB = 15; // Maximum number of relevant sections to display
+const MIN_SIMILARITY = 0.77; // Minimum similarity required for a section to be considered relevant
 
 /**
  * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
@@ -133,10 +134,6 @@ export const indexMarkdownFiles = async () => {
         chunkIndex as keyof typeof fileChunks
       ] as string;
 
-      console.info(
-        `📄 Indexing: section ${chunkNumber}/${Object.keys(fileChunks).length}`
-      );
-
       const embeddingKeyName = `${fileKey}/chunk_${chunkNumber}`; // Unique key for the section
 
       // Retrieve precomputed embedding if available
@@ -161,7 +158,7 @@ export const indexMarkdownFiles = async () => {
         content: fileSection,
       });
 
-      console.info(`📄 Indexed: section ${fileKey}/${chunksNumber}`);
+      console.info(`- Indexed: chunk ${fileKey}/${chunksNumber}`);
     }
   }
 
@@ -191,7 +188,7 @@ if (process.env.NODE_ENV === 'development') {
  * @param query - The search query provided by the user
  * @returns An array of the top matching document sections' content
  */
-export const searchDocs = async (query: string) => {
+export const searchFileReference = async (query: string) => {
   // Generate an embedding for the user's query
   const queryEmbedding = await generateEmbedding(query);
 
@@ -201,9 +198,14 @@ export const searchDocs = async (query: string) => {
       ...doc,
       similarity: cosineSimilarity(queryEmbedding, doc.embedding), // Add similarity score to each doc
     }))
-    // .filter((doc) => doc.similarity > MIN_SIMILARITY) // Filter out documents with low similarity scores
+
+    .filter((doc) => doc.similarity > MIN_SIMILARITY) // Filter out documents with low similarity scores
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
-    .slice(0, MAX_RELEVANT_SECTION_NB); // Select the top 6 most similar documents
+    .slice(0, MAX_RELEVANT_SECTION_NB) // Select the top 6 most similar documents
+    .map((el) => {
+      console.log('el', { content: el.content, similarity: el.similarity });
+      return el;
+    });
 
   // Return the content of the top matching documents
   return results;
@@ -213,11 +215,6 @@ export const searchDocs = async (query: string) => {
 export type ChatCompletionRequestMessage = {
   role: 'system' | 'user' | 'assistant'; // The role of the message sender
   content: string; // The text content of the message
-};
-
-// Define the structure for the request body when asking a question
-export type AskDocQuestionBody = {
-  messages: ChatCompletionRequestMessage[]; // Array of chat messages
 };
 
 // Initial prompt configuration for the chatbot
@@ -238,7 +235,12 @@ export const initPrompt: ChatCompletionRequestMessage = {
       Code element format should not include metadata (E.g. codeFormat="typescript", or packageManager="npm". \
       \
       Here is the relevant documentation:\
-      {{relevantDocs}}', // Placeholder for relevant documentation to be inserted later
+      {{relevantFilesReferences}}', // Placeholder for relevant documentation to be inserted later
+};
+
+export type AskDocQuestionResult = {
+  response: string;
+  relatedFiles: string[];
 };
 
 /**
@@ -250,7 +252,7 @@ export const initPrompt: ChatCompletionRequestMessage = {
  */
 export const askDocQuestion = async (
   messages: ChatCompletionRequestMessage[]
-) => {
+): Promise<AskDocQuestionResult> => {
   const userMessages = messages.filter((message) => message.role === 'user');
 
   const query = userMessages
@@ -258,15 +260,15 @@ export const askDocQuestion = async (
     .join('\n');
 
   // 1) Find relevant documents based on the user's question
-  const relevantDocs = await searchDocs(query);
+  const relevantFilesReferences = await searchFileReference(query);
 
   // 2) Integrate the relevant documents into the initial system prompt
   const messagesList: ChatCompletionRequestMessage[] = [
     {
       ...initPrompt,
       content: initPrompt.content.replace(
-        '{{relevantDocs}}',
-        relevantDocs
+        '{{relevantFilesReferences}}',
+        relevantFilesReferences
           .map(
             (doc, idx) =>
               `[Chunk ${idx}] docKey = "${doc.fileKey}":\n${doc.content}`
@@ -285,6 +287,14 @@ export const askDocQuestion = async (
 
   const result = response.choices[0].message.content; // Extract the assistant's reply
 
+  // 5) Extract unique related files
+  const relatedFiles = [
+    ...new Set(relevantFilesReferences.map((doc) => doc.fileKey)),
+  ];
+
   // 4) Return the assistant's response to the user
-  return result ?? 'Error: No result found';
+  return {
+    response: result ?? 'Error: No result found',
+    relatedFiles,
+  };
 };

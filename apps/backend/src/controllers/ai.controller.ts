@@ -312,7 +312,8 @@ export const auditTag = async (
 export type AskDocQuestionBody = {
   messages: askDocQuestionUtil.ChatCompletionRequestMessage[];
 };
-export type AskDocQuestionResult = ResponseData<string>;
+export type AskDocQuestionResult =
+  ResponseData<askDocQuestionUtil.AskDocQuestionResult>;
 
 export const askDocQuestion = async (
   req: Request<undefined, undefined, AskDocQuestionBody>,
@@ -322,9 +323,10 @@ export const askDocQuestion = async (
   try {
     const response = await askDocQuestionUtil.askDocQuestion(messages);
 
-    const responseData = formatResponse<string>({
-      data: response,
-    });
+    const responseData =
+      formatResponse<askDocQuestionUtil.AskDocQuestionResult>({
+        data: response,
+      });
 
     res.json(responseData);
   } catch (error) {
