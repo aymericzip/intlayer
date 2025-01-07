@@ -201,11 +201,7 @@ export const searchFileReference = async (query: string) => {
 
     .filter((doc) => doc.similarity > MIN_SIMILARITY) // Filter out documents with low similarity scores
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
-    .slice(0, MAX_RELEVANT_SECTION_NB) // Select the top 6 most similar documents
-    .map((el) => {
-      console.log('el', { content: el.content, similarity: el.similarity });
-      return el;
-    });
+    .slice(0, MAX_RELEVANT_SECTION_NB); // Select the top 6 most similar documents
 
   // Return the content of the top matching documents
   return results;
