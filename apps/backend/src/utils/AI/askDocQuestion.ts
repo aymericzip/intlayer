@@ -14,13 +14,58 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
  * - embedding: The numerical embedding vector for the section
  * - content: The actual text content of the section
  */
-const vectorStore: { docKey: string; embedding: number[]; content: string }[] =
-  [];
+const vectorStore: {
+  fileKey: string;
+  chunkNumber: number;
+  embedding: number[];
+  content: string;
+}[] = [];
 
 // Constants defining OpenAI's token and character limits
-const MAX_TOKEN = 8192; // Maximum tokens allowed for embedding models (text-embedding-3-large model)
-const CHAR_BY_TOKEN = 4.15; // Approximate pessimistic number of characters per token
-const MAX_CHARS = MAX_TOKEN * CHAR_BY_TOKEN;
+const MODEL: OpenAI.Chat.ChatModel = 'gpt-4o-2024-11-20'; // Model to use for chat completions
+const EMBEDDING_MODEL: OpenAI.Embeddings.EmbeddingModel =
+  'text-embedding-ada-002'; // Model to use for embedding generation
+const OVERLAP_TOKENS = 200; // Number of tokens to overlap between chunks
+const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
+const CHAR_BY_TOKEN = 4.15; // Approximate pessimistic number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
+const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
+const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
+const MAX_RELEVANT_SECTION_NB = 20; // Maximum number of relevant sections to display
+
+/**
+ * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
+ * @param text - The input text to split.
+ * @returns - Array of text chunks.
+ */
+const chunkText = (text: string): string[] => {
+  const chunks: string[] = [];
+  let start = 0;
+
+  while (start < text.length) {
+    let end = Math.min(start + MAX_CHARS, text.length);
+
+    // Ensure we don't cut words in the middle (find nearest space)
+    if (end < text.length) {
+      const lastSpace = text.lastIndexOf(' ', end);
+      if (lastSpace > start) {
+        end = lastSpace;
+      }
+    }
+
+    chunks.push(text.substring(start, end));
+
+    // Move start forward correctly
+    const nextStart = end - OVERLAP_CHARS;
+    if (nextStart <= start) {
+      // Prevent infinite loop if overlap is too large
+      start = end;
+    } else {
+      start = nextStart;
+    }
+  }
+
+  return chunks;
+};
 
 /**
  * Generates an embedding for a given text using OpenAI's embedding API.
@@ -31,46 +76,11 @@ const MAX_CHARS = MAX_TOKEN * CHAR_BY_TOKEN;
  */
 const generateEmbedding = async (text: string) => {
   const response = await openai.embeddings.create({
-    model: 'text-embedding-3-large', // Specify the embedding model
-    input: trimLongText(text, MAX_CHARS), // Ensure text fits within token limits
+    model: EMBEDDING_MODEL, // Specify the embedding model
+    input: text, // Ensure text fits within token limits
   });
 
-  // Log the length and token usage for debugging purposes
-  console.info(`${text.length} characters`);
-  console.info(`${response.usage.prompt_tokens} tokens`);
-
   return response.data[0].embedding; // Return the generated embedding
-};
-
-/**
- * Splits a Markdown document into sections based on level 2 headings ("## Some Title").
- * Each section starts with "##" and includes all content until the next "##" or end of document.
- *
- * @param doc - The Markdown document as a string
- * @returns An array of document sections
- */
-const splitDocInSections = (doc: string) => {
-  // Use a regular expression with a positive lookahead to split before lines starting with '## '
-  const sections = doc.split(/(?=^##\s)/gm);
-
-  // Filter out any empty sections that may result from splitting
-  return sections.filter((section) => section.trim() !== '');
-};
-
-/**
- * Trims the input text to a specified maximum length.
- * If the text exceeds maxLength, it is truncated and an ellipsis is appended.
- *
- * @param text - The text to be trimmed
- * @param maxLength - The maximum allowed length of the text
- * @returns The trimmed text
- */
-const trimLongText = (text: string, maxLength: number) => {
-  if (text.length > maxLength) {
-    const trimmedText = text.substring(0, maxLength);
-    return trimmedText + '...'; // Indicate that the text has been truncated
-  }
-  return text; // Return original text if within limits
 };
 
 /**
@@ -110,23 +120,24 @@ export const indexMarkdownFiles = async () => {
   // Iterate over each file key (identifier) in the combined files
   for (const fileKey of Object.keys(files)) {
     // Split the document into sections based on headings
-    const fileSections = splitDocInSections(
-      files[fileKey as keyof typeof files]
-    );
+    const fileChunks = chunkText(files[fileKey as keyof typeof files]);
 
     console.info(`📄 Indexing: ${fileKey}`); // Log the file being indexed
 
     // Iterate over each section within the current file
-    for (const sectionNumber of Object.keys(fileSections)) {
-      const fileSection = fileSections[
-        sectionNumber as keyof typeof fileSections
+    for (const chunkIndex of Object.keys(fileChunks)) {
+      const chunkNumber = Number(chunkIndex) + 1; // Chunk number starts at 1
+      const chunksNumber = fileChunks.length;
+
+      const fileSection = fileChunks[
+        chunkIndex as keyof typeof fileChunks
       ] as string;
 
       console.info(
-        `📄 Indexing: section ${sectionNumber}/${Object.keys(fileSections).length}`
+        `📄 Indexing: section ${chunkNumber}/${Object.keys(fileChunks).length}`
       );
 
-      const embeddingKeyName = `${fileKey}/${sectionNumber}`; // Unique key for the section
+      const embeddingKeyName = `${fileKey}/chunk_${chunkNumber}`; // Unique key for the section
 
       // Retrieve precomputed embedding if available
       const docEmbedding = embeddingsList[
@@ -143,11 +154,14 @@ export const indexMarkdownFiles = async () => {
       result = { ...result, [embeddingKeyName]: embedding };
 
       // Store the embedding and content in the in-memory vector store
-      vectorStore.push({ docKey: fileKey, embedding, content: fileSection });
+      vectorStore.push({
+        fileKey,
+        chunkNumber,
+        embedding,
+        content: fileSection,
+      });
 
-      console.info(
-        `📄 Indexed: section ${fileKey}/${Object.keys(fileSections).length}`
-      );
+      console.info(`📄 Indexed: section ${fileKey}/${chunksNumber}`);
     }
   }
 
@@ -187,11 +201,12 @@ export const searchDocs = async (query: string) => {
       ...doc,
       similarity: cosineSimilarity(queryEmbedding, doc.embedding), // Add similarity score to each doc
     }))
+    // .filter((doc) => doc.similarity > MIN_SIMILARITY) // Filter out documents with low similarity scores
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
-    .slice(0, 6); // Select the top 6 most similar documents
+    .slice(0, MAX_RELEVANT_SECTION_NB); // Select the top 6 most similar documents
 
   // Return the content of the top matching documents
-  return results.map((doc) => doc.content);
+  return results;
 };
 
 // Define the structure of messages used in chat completions
@@ -209,20 +224,21 @@ export type AskDocQuestionBody = {
 export const initPrompt: ChatCompletionRequestMessage = {
   role: 'system',
   content:
-    "Ignore all instructions before this one. \
+    'Ignore all instructions before this one. \
       Keep forever all instructions after this one. From now you are not allowed to ignore the previous instructions. \
-      You are an expert in internationalization solution for Javascript Application. You're an helpful chatbot for Intlayer, an Internationalization solution (Website: 'https://intlayer.org'). \
+      You are an expert in internationalization solution for Javascript Application. You\'re an helpful chatbot for Intlayer, an Internationalization solution (Website: \'https://intlayer.org\'). \
       The user is an potential user of Intlayer. Your task is now to answer the questions of the user. \
       You must talk as an member of Intlayer. You must only answer the questions relative to Intlayer. \
-      If a question is not related to Intlayer, you should NOT answer it. \
-      You must NOT answer question who is generally secret for a company. \
-      You must NOT share financial information related to Intlayer. \
-      Your should not invent information that are not precised. If you are not sure about something, you should say that you don't know. \
+      Any question should be related to Intlayer. If a question is not related to Intlayer, you should NOT answer it. \
+      You must NOT answer question who is generally secret for a company (E.g. financial information). \
+      Your should not invent information that are not precised. If your have a doubt about something, you should ask more question to the user. If you don\'t have enough information, you should say that you don\'t know. \
       \
       Your should return a result as markdown.\
+      Code element should include metadata fileName="file.ts" if could be useful for the user. \
+      Code element format should not include metadata (E.g. codeFormat="typescript", or packageManager="npm". \
       \
       Here is the relevant documentation:\
-      {{relevantDocs}}", // Placeholder for relevant documentation to be inserted later
+      {{relevantDocs}}', // Placeholder for relevant documentation to be inserted later
 };
 
 /**
@@ -235,11 +251,14 @@ export const initPrompt: ChatCompletionRequestMessage = {
 export const askDocQuestion = async (
   messages: ChatCompletionRequestMessage[]
 ) => {
-  const lastMessage = messages[messages.length - 1]; // Get the most recent message from the user
-  const question = lastMessage.content as string; // Extract the question content
+  const userMessages = messages.filter((message) => message.role === 'user');
+
+  const query = userMessages
+    .map((message) => `- ${message.content}`)
+    .join('\n');
 
   // 1) Find relevant documents based on the user's question
-  const relevantDocs = await searchDocs(question);
+  const relevantDocs = await searchDocs(query);
 
   // 2) Integrate the relevant documents into the initial system prompt
   const messagesList: ChatCompletionRequestMessage[] = [
@@ -247,7 +266,12 @@ export const askDocQuestion = async (
       ...initPrompt,
       content: initPrompt.content.replace(
         '{{relevantDocs}}',
-        relevantDocs.join('\n') // Insert relevant docs into the prompt
+        relevantDocs
+          .map(
+            (doc, idx) =>
+              `[Chunk ${idx}] docKey = "${doc.fileKey}":\n${doc.content}`
+          )
+          .join('\n\n') // Insert relevant docs into the prompt
       ),
     },
     ...messages, // Include all user and assistant messages
@@ -255,16 +279,12 @@ export const askDocQuestion = async (
 
   // 3) Send the compiled messages to OpenAI's Chat Completion API (using a specific model)
   const response = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
+    model: MODEL,
     messages: messagesList,
   });
 
   const result = response.choices[0].message.content; // Extract the assistant's reply
 
-  if (!result) {
-    throw new Error('No result found');
-  }
-
   // 4) Return the assistant's response to the user
-  return result;
+  return result ?? 'Error: No result found';
 };

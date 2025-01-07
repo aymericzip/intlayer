@@ -70,7 +70,7 @@ export const ChatBot: FC = () => {
       <FormSection
         askNewQuestion={handleAskNewQuestion}
         clear={handleClear}
-        nbMessages={storedPrompt.length}
+        nbMessages={(storedPrompt ?? []).length}
       />
     </div>
   );
