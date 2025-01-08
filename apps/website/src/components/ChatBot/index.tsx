@@ -1,6 +1,5 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
 import {
   useAskDocQuestion,
   usePersistedStore,
@@ -76,8 +75,7 @@ export const ChatBot: FC = () => {
     <div className="flex size-full flex-col items-center justify-between overflow-auto">
       <div className="relative flex size-full flex-auto">
         <div className="absolute inset-0 size-full">
-          <MessagesList storedPrompt={storedPrompt} />
-          <Loader isLoading={isLoading} className="h-10" />
+          <MessagesList storedPrompt={storedPrompt} isLoading={isLoading} />
         </div>
       </div>
       <div className="w-full flex-1">

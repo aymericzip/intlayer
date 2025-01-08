@@ -1,3 +1,4 @@
+import { Loader } from '@intlayer/design-system';
 import { FC, useEffect, useRef } from 'react';
 import { ChatBumble, ChatBumbleType } from './ChatBumble';
 
@@ -8,9 +9,13 @@ export type ChatCompletionRequestMessage = {
 
 export type MessagesListProps = {
   storedPrompt: ChatCompletionRequestMessage[];
+  isLoading: boolean;
 };
 
-export const MessagesList: FC<MessagesListProps> = ({ storedPrompt }) => {
+export const MessagesList: FC<MessagesListProps> = ({
+  storedPrompt,
+  isLoading,
+}) => {
   const lastPrompt = storedPrompt[storedPrompt.length - 1];
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -27,7 +32,7 @@ export const MessagesList: FC<MessagesListProps> = ({ storedPrompt }) => {
 
   return (
     <div
-      className="relative flex max-h-full flex-col gap-4 overflow-auto py-5"
+      className="relative flex max-h-full flex-1 flex-col gap-4 overflow-auto pt-5"
       ref={chatContainerRef}
     >
       {storedPrompt.map((promt, index) => (
@@ -42,6 +47,10 @@ export const MessagesList: FC<MessagesListProps> = ({ storedPrompt }) => {
           {promt.content}
         </ChatBumble>
       ))}
+      <Loader
+        isLoading={isLoading}
+        className="bg-card/50 dark:bg-card-dark/50 sticky bottom-0 left-0 m-auto h-14 w-auto rounded-full p-2 backdrop-blur"
+      />
     </div>
   );
 };

@@ -118,6 +118,7 @@ export const Modal: FC<ModalProps> = ({
       >
         <div
           className={cn(
+            'cursor-default',
             hasCloseButton && hasTitle
               ? `flex items-center justify-center`
               : hasCloseButton
