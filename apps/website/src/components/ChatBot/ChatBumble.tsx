@@ -30,9 +30,13 @@ export const ChatBumble: FC<ChatBumbleProps> = ({
       )}
       {...props}
     >
-      <MarkdownRenderer isDarkMode={resolvedTheme === 'dark'}>
-        {children}
-      </MarkdownRenderer>
+      {type === ChatBumbleType.ANSWER ? (
+        <MarkdownRenderer isDarkMode={resolvedTheme === 'dark'}>
+          {children}
+        </MarkdownRenderer>
+      ) : (
+        children
+      )}
     </div>
   );
 };
