@@ -1,8 +1,5 @@
 import type { FC, HTMLAttributes } from 'react';
-// @ts-ignore react-intlayer not build yet
-import { useDictionary } from 'react-intlayer';
 import { cn } from '../../utils/cn';
-import loaderContent from './index.content';
 import { Spinner } from './spinner';
 
 export type LoaderProps = HTMLAttributes<HTMLDivElement> & {
@@ -34,17 +31,15 @@ export const Loader: FC<LoaderProps> = ({
   isLoading = true,
   className,
   ...props
-}) => {
-  const { label } = useDictionary(loaderContent);
-
-  return isLoading ? (
+}) =>
+  isLoading ? (
     <div
       className={cn(
         'flex size-full max-h-screen max-w-[100vw] flex-1 items-center justify-center',
         className
       )}
       role="status"
-      aria-label={label}
+      aria-label="Animated icon, meaning that the website is processing"
       {...props}
     >
       <Spinner className="size-10 max-h-full max-w-full" />
@@ -52,4 +47,3 @@ export const Loader: FC<LoaderProps> = ({
   ) : (
     (children ?? <></>)
   );
-};

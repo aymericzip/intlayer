@@ -1,6 +1,6 @@
 import { t, type DeclarationContent } from 'intlayer';
 
-const loaderContent = {
+export const loaderContent = {
   key: 'loader',
   content: {
     label: t({
