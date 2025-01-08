@@ -1,7 +1,7 @@
 'use client';
 
 import { cva } from 'class-variance-authority';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { X } from 'lucide-react';
 import type { FC } from 'react';
 import { createPortal } from 'react-dom';
@@ -52,7 +52,7 @@ const modalVariants = cva(
 
 type Size = 'sm' | 'md' | 'lg' | 'xl' | 'unset';
 
-const MotionModal = motion.create(Container);
+const MotionModal = m.create(Container);
 
 /**
  * Usage example:
@@ -82,7 +82,7 @@ export const Modal: FC<ModalProps> = ({
   const hasTitle = typeof title === 'string';
 
   return createPortal(
-    <motion.div
+    <m.div
       className="bg-background/40 dark:bg-background-dark/40 fixed left-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto backdrop-blur"
       animate={isOpen ? 'visible' : 'invisible'}
       variants={{
@@ -148,7 +148,7 @@ export const Modal: FC<ModalProps> = ({
           {children}
         </div>
       </MotionModal>
-    </motion.div>,
+    </m.div>,
     containerElement
   );
 };
