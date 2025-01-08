@@ -1,7 +1,7 @@
 'use client';
 
 import { ChatBot } from '@components/ChatBot';
-import { Button, Container, Modal } from '@intlayer/design-system';
+import { Button, Modal } from '@intlayer/design-system';
 import { Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type FC } from 'react';
@@ -26,7 +26,7 @@ export const ChatBotModal: FC = () => {
       <Button
         Icon={Bot}
         className="fixed bottom-5 right-5 !rounded-full hover:scale-110"
-        color="neutral"
+        color="text"
         size="icon-xl"
         label={button.label.value}
         onClick={() => setIsModalOpen(true)}
