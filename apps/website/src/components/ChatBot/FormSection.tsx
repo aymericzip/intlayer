@@ -47,7 +47,8 @@ export const FormSection: FC<FormSectionProps> = ({
     >
       <Form.AutoSizedTextArea
         name="question"
-        rows={5}
+        rows={2}
+        maxRows={10}
         placeholder={textArea.placeholder.value}
         aria-label={textArea.label.value}
         className="scrollbar-hide h-10 w-full rounded-3xl border-none px-4 py-2"

@@ -45,22 +45,25 @@ const DynamicIDESection = dynamic(
   }
 );
 
-// const DynamicChatBotSection = dynamic(
-//   () => import('./ChatBotSection').then((mod) => mod.ChatBotSection),
-//   {
-//     loading: () => <Loader />,
-//   }
-// );
+const DynamicChatBotModal = dynamic(
+  () => import('./ChatBotModal').then((mod) => mod.ChatBotModal),
+  {
+    loading: () => <Loader />,
+  }
+);
 
 export const LandingPage: FC = () => (
-  <div className="flex flex-col gap-10">
-    <LandingSection />
-    <DynamicWhyToChoseIntlayerSection />
-    <DynamicAvailableTechnoSection />
-    <DynamicIDESection />
-    <DynamicLanguageSection />
-    <DynamicDemoSection />
-    {/* <DynamicChatBotSection /> */}
-    <CommonQuestionsSection />
-  </div>
+  <>
+    <div className="flex flex-col gap-10">
+      <LandingSection />
+      <DynamicWhyToChoseIntlayerSection />
+      <DynamicAvailableTechnoSection />
+      <DynamicIDESection />
+      <DynamicLanguageSection />
+      <DynamicDemoSection />
+      <CommonQuestionsSection />
+    </div>
+
+    <DynamicChatBotModal />
+  </>
 );

@@ -19,7 +19,18 @@ type ModalProps = {
   hasCloseButton?: boolean;
   title?: string;
   size?: Size;
-} & Pick<ContainerProps, 'transparency'>;
+} & Pick<
+  ContainerProps,
+  | 'className'
+  | 'transparency'
+  | 'border'
+  | 'background'
+  | 'roundedSize'
+  | 'borderColor'
+  | 'padding'
+  | 'separator'
+  | 'gap'
+>;
 
 const modalVariants = cva(
   'cursor-default overflow-auto p-3 shadow justify-center',
@@ -126,7 +137,7 @@ export const Modal: FC<ModalProps> = ({
             />
           )}
         </div>
-        <div className="mx-2 my-4 flex flex-1 flex-col items-center overflow-auto">
+        <div className="flex flex-1 flex-col items-center overflow-auto">
           {children}
         </div>
       </MotionModal>
