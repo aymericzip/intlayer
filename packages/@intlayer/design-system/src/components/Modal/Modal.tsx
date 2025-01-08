@@ -83,13 +83,20 @@ export const Modal: FC<ModalProps> = ({
 
   return createPortal(
     <motion.div
-      className={cn(
-        'bg-background/40 dark:bg-background-dark/40 fixed left-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto backdrop-blur',
-        isOpen ? 'visible' : 'hidden'
-      )}
-      initial={{ opacity: isOpen ? 0 : 1 }}
-      animate={{ opacity: isOpen ? 1 : 0 }}
-      transition={{ duration: 0.1 }}
+      className="bg-background/40 dark:bg-background-dark/40 fixed left-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto backdrop-blur"
+      animate={isOpen ? 'visible' : 'invisible'}
+      variants={{
+        visible: {
+          opacity: 1,
+          visibility: 'visible',
+          transition: { duration: 0.1, when: 'beforeChildren' },
+        },
+        invisible: {
+          opacity: 0,
+          visibility: 'hidden',
+          transition: { duration: 0.1, when: 'afterChildren' },
+        },
+      }}
       onClick={(e) => {
         e.stopPropagation();
         onClose?.();
