@@ -7,31 +7,34 @@ import embeddingsList from './embeddings.json';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+type VectorStoreEl = {
+  fileKey: string;
+  chunkNumber: number;
+  content: string;
+  embedding: number[];
+};
+
 /**
  * Simple in-memory vector store to hold document embeddings and their content.
  * Each entry contains:
- * - docKey: A unique key identifying the document section
- * - embedding: The numerical embedding vector for the section
- * - content: The actual text content of the section
+ * - fileKey: A unique key identifying the file
+ * - chunkNumber: The number of the chunk within the document
+ * - content: The chunk content
+ * - embedding: The numerical embedding vector for the chunk
  */
-const vectorStore: {
-  fileKey: string;
-  chunkNumber: number;
-  embedding: number[];
-  content: string;
-}[] = [];
+const vectorStore: VectorStoreEl[] = [];
 
 // Constants defining OpenAI's token and character limits
 const MODEL: OpenAI.Chat.ChatModel = 'gpt-4o-2024-11-20'; // Model to use for chat completions
 const EMBEDDING_MODEL: OpenAI.Embeddings.EmbeddingModel =
-  'text-embedding-ada-002'; // Model to use for embedding generation
+  'text-embedding-3-large'; // Model to use for embedding generation
 const OVERLAP_TOKENS = 200; // Number of tokens to overlap between chunks
 const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
-const CHAR_BY_TOKEN = 4.15; // Approximate pessimistic number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
+const CHAR_BY_TOKEN = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
 const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
-const MAX_RELEVANT_SECTION_NB = 15; // Maximum number of relevant sections to display
-const MIN_SIMILARITY = 0.77; // Minimum similarity required for a section to be considered relevant
+const MAX_RELEVANT_CHUNKS_NB = 15; // Maximum number of relevant chunks to attach to chatGPT context
+const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.77; // Minimum similarity required for a chunk to be considered relevant
 
 /**
  * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
@@ -75,10 +78,10 @@ const chunkText = (text: string): string[] => {
  * @param text - The input text to generate an embedding for
  * @returns The embedding vector as a number array
  */
-const generateEmbedding = async (text: string) => {
+const generateEmbedding = async (text: string): Promise<number[]> => {
   const response = await openai.embeddings.create({
     model: EMBEDDING_MODEL, // Specify the embedding model
-    input: text, // Ensure text fits within token limits
+    input: text,
   });
 
   return response.data[0].embedding; // Return the generated embedding
@@ -87,7 +90,7 @@ const generateEmbedding = async (text: string) => {
 /**
  * Calculates the cosine similarity between two vectors.
  * Cosine similarity measures the cosine of the angle between two vectors in an inner product space.
- * Used to determine the similarity between sections of text.
+ * Used to determine the similarity between chunks of text.
  *
  * @param vecA - The first vector
  * @param vecB - The second vector
@@ -106,10 +109,10 @@ const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
 };
 
 /**
- * Indexes all Markdown documents by generating embeddings for each section and storing them in memory.
+ * Indexes all Markdown documents by generating embeddings for each chunk and storing them in memory.
  * Also updates the embeddings.json file if new embeddings are generated.
  */
-export const indexMarkdownFiles = async () => {
+export const indexMarkdownFiles = async (): Promise<void> => {
   // Retrieve documentation and blog posts in English locale
   const docs = getDocs(Locales.ENGLISH);
   const blogs = getBlogs(Locales.ENGLISH);
@@ -120,21 +123,19 @@ export const indexMarkdownFiles = async () => {
 
   // Iterate over each file key (identifier) in the combined files
   for (const fileKey of Object.keys(files)) {
-    // Split the document into sections based on headings
+    // Split the document into chunks based on headings
     const fileChunks = chunkText(files[fileKey as keyof typeof files]);
 
-    console.info(`📄 Indexing: ${fileKey}`); // Log the file being indexed
-
-    // Iterate over each section within the current file
+    // Iterate over each chunk within the current file
     for (const chunkIndex of Object.keys(fileChunks)) {
       const chunkNumber = Number(chunkIndex) + 1; // Chunk number starts at 1
       const chunksNumber = fileChunks.length;
 
-      const fileSection = fileChunks[
+      const fileChunk = fileChunks[
         chunkIndex as keyof typeof fileChunks
       ] as string;
 
-      const embeddingKeyName = `${fileKey}/chunk_${chunkNumber}`; // Unique key for the section
+      const embeddingKeyName = `${fileKey}/chunk_${chunkNumber}`; // Unique key for the chunk
 
       // Retrieve precomputed embedding if available
       const docEmbedding = embeddingsList[
@@ -144,7 +145,7 @@ export const indexMarkdownFiles = async () => {
       let embedding = docEmbedding; // Use existing embedding if available
 
       if (!embedding) {
-        embedding = await generateEmbedding(fileSection); // Generate embedding if not present
+        embedding = await generateEmbedding(fileChunk); // Generate embedding if not present
       }
 
       // Update the result object with the new embedding
@@ -155,10 +156,10 @@ export const indexMarkdownFiles = async () => {
         fileKey,
         chunkNumber,
         embedding,
-        content: fileSection,
+        content: fileChunk,
       });
 
-      console.info(`- Indexed: chunk ${fileKey}/${chunksNumber}`);
+      console.info(`- Indexed: ${embeddingKeyName}/${chunksNumber}`);
     }
   }
 
@@ -182,13 +183,15 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 /**
- * Searches the indexed documents for the most relevant sections based on a query.
+ * Searches the indexed documents for the most relevant chunks based on a query.
  * Utilizes cosine similarity to find the closest matching embeddings.
  *
  * @param query - The search query provided by the user
- * @returns An array of the top matching document sections' content
+ * @returns An array of the top matching document chunks' content
  */
-export const searchFileReference = async (query: string) => {
+export const searchChunkReference = async (
+  query: string
+): Promise<VectorStoreEl[]> => {
   // Generate an embedding for the user's query
   const queryEmbedding = await generateEmbedding(query);
 
@@ -199,9 +202,9 @@ export const searchFileReference = async (query: string) => {
       similarity: cosineSimilarity(queryEmbedding, doc.embedding), // Add similarity score to each doc
     }))
 
-    .filter((doc) => doc.similarity > MIN_SIMILARITY) // Filter out documents with low similarity scores
+    .filter((doc) => doc.similarity > MIN_RELEVANT_CHUNKS_SIMILARITY) // Filter out documents with low similarity scores
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
-    .slice(0, MAX_RELEVANT_SECTION_NB); // Select the top 6 most similar documents
+    .slice(0, MAX_RELEVANT_CHUNKS_NB); // Select the top 6 most similar documents
 
   // Return the content of the top matching documents
   return results;
@@ -256,14 +259,17 @@ export type AskDocQuestionResult = {
 export const askDocQuestion = async (
   messages: ChatCompletionRequestMessage[]
 ): Promise<AskDocQuestionResult> => {
+  // Assistant's response are filtered out otherwise the chatbot will be stuck in a self-referential loop
+  // Note that the embedding precision will be lowered if the user change of context in the chat
   const userMessages = messages.filter((message) => message.role === 'user');
 
+  // Format the user's question to keep only the relevant keywords
   const query = userMessages
     .map((message) => `- ${message.content}`)
     .join('\n');
 
   // 1) Find relevant documents based on the user's question
-  const relevantFilesReferences = await searchFileReference(query);
+  const relevantFilesReferences = await searchChunkReference(query);
 
   // 2) Integrate the relevant documents into the initial system prompt
   const messagesList: ChatCompletionRequestMessage[] = [
@@ -290,12 +296,12 @@ export const askDocQuestion = async (
 
   const result = response.choices[0].message.content; // Extract the assistant's reply
 
-  // 5) Extract unique related files
+  // 4) Extract unique related files
   const relatedFiles = [
     ...new Set(relevantFilesReferences.map((doc) => doc.fileKey)),
   ];
 
-  // 4) Return the assistant's response to the user
+  // 5) Return the assistant's response to the user
   return {
     response: result ?? 'Error: No result found',
     relatedFiles,
