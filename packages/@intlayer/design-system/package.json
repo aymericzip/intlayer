@@ -56,7 +56,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm build:package && pnpm build:css && pnpm build:storybook",
+    "build": "pnpm build:package && pnpm build:css",
     "build:css": "tailwindcss --minify -i ./src/tailwind.css -o ./dist/tailwind.css",
     "build:package": "vite build",
     "build:storybook": "storybook build",
