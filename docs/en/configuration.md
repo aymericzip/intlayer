@@ -313,22 +313,17 @@ Settings related to content handling within the application, including directory
 
 ### Logger Configuration
 
-Settings that control the logger, including the level of logging and the prefix to use.
+Settings that control the logger, including the prefix to use.
 
 #### Properties
 
-- **enabled**:
-  - _Type_: `boolean`
-  - _Default_: `true`
-  - _Description_: Indicates if the logger is enabled.
-  - _Example_: `true`
-  - _Note_: Can be set using NODE_ENV, or other dedicated env variable
-- **level**:
-  - _Type_: `'info' | 'warn' | 'debug' | 'log'`
-  - _Default_: `'log'`
-  - _Description_: The level of the logger.
-  - _Example_: `'info'`
-  - _Note_: The level of the logger. It can be either 'log', 'info', 'warn', 'error', or 'debug'.
+- **mode**:
+  - _Type_: `string`
+  - _Default_: `default`
+  - _Description_: Indicates the mode of the logger.
+  - _Options_: `default`, `verbose`, `disabled`
+  - _Example_: `default`
+  - _Note_: The mode of the logger. Verbose mode will log more information, but can be used for debugging purposes. Disabled mode will disable the logger.
 - **prefix**:
   - _Type_: `string`
   - _Default_: `'[intlayer] '`
