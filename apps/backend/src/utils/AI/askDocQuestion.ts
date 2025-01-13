@@ -164,24 +164,24 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     }
   }
 
-  try {
-    // Compare the newly generated embeddings with existing ones
-    if (JSON.stringify(result) !== JSON.stringify(embeddingsList)) {
-      // If there are new embeddings, save them to embeddings.json
-      fs.writeFileSync(
-        'src/utils/AI/embeddings.json',
-        JSON.stringify(result, null, 2)
-      );
+  if (process.env.NODE_ENV === 'development') {
+    try {
+      // Compare the newly generated embeddings with existing ones
+      if (JSON.stringify(result) !== JSON.stringify(embeddingsList)) {
+        // If there are new embeddings, save them to embeddings.json
+        fs.writeFileSync(
+          'src/utils/AI/embeddings.json',
+          JSON.stringify(result, null, 2)
+        );
+      }
+    } catch (error) {
+      console.error(error); // Log any errors during the file write process
     }
-  } catch (error) {
-    console.error(error); // Log any errors during the file write process
   }
 };
 
-// Automatically index Markdown files when in development mode
-if (process.env.NODE_ENV === 'development') {
-  indexMarkdownFiles();
-}
+// Automatically index Markdown files
+indexMarkdownFiles();
 
 /**
  * Searches the indexed documents for the most relevant chunks based on a query.
