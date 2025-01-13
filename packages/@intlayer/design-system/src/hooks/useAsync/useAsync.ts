@@ -241,7 +241,7 @@ export const useAsync = <
         // Revalidation arguments can be different from the initial fetch arguments
         // If arguments are provided, store/update them for future periodic revalidation
 
-        storedArgsRef.current = getArgs(...args);
+        storedArgsRef.current = getArgs(args);
       }
 
       return await fetch(...storedArgsRef.current);
