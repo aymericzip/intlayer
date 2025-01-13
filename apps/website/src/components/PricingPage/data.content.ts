@@ -714,6 +714,22 @@ const pricingContent = {
       ar: 'التسعير',
       ru: 'Цены',
     }),
+    description: t({
+      fr: "Intlayer est avant tout une suite d'outil gratuit et open source. Le pricing associée s'applique uniquement à l'utilisation du CMS, de l'éditeur visuel et des outils d'IA associés. (Note: Il est aussi possible de self hoster le CMS en clonant le dépôt GitHub.)",
+      en: 'Intlayer is primarily a free and open-source suite of tools. The associated pricing applies only to the use of the CMS, the visual editor, and the associated AI tools. (Note: It is also possible to self-host the CMS by cloning the GitHub repository.)',
+      es: 'Intlayer es ante todo un conjunto de herramientas gratuitas y de código abierto. Los precios asociados se aplican únicamente al uso del CMS, el editor visual y las herramientas de IA asociadas. (Nota: También es posible alojar el CMS por cuenta propia clonando el repositorio de GitHub.)',
+      'en-GB':
+        'Intlayer is primarily a free and open-source suite of tools. The associated pricing applies only to the use of the CMS, the visual editor, and the associated AI tools. (Note: It is also possible to self-host the CMS by cloning the GitHub repository.)',
+      de: 'Intlayer ist in erster Linie eine kostenlose und Open-Source-Tool-Suite. Die zugehörige Preisgestaltung gilt nur für die Nutzung des CMS, des visuellen Editors und der damit verbundenen KI-Tools. (Hinweis: Es ist auch möglich, das CMS selbst zu hosten, indem das GitHub-Repository geklont wird.)',
+      ja: 'Intlayerは主に無料でオープンソースのツールスイートです。関連する料金はCMS、ビジュアルエディタ、および関連するAIツールの使用にのみ適用されます。（注：GitHubリポジトリをクローンしてCMSを自己ホストすることも可能です。）',
+      ko: 'Intlayer는 주로 무료 오픈 소스 도구 모음입니다. 관련된 가격은 CMS, 비주얼 편집기 및 관련 AI 도구 사용에만 적용됩니다. (참고: GitHub 리포지토리를 클론하여 CMS를 자체 호스팅하는 것도 가능합니다.)',
+      zh: 'Intlayer 主要是一套免费且开源的工具套件。相关定价仅适用于CMS、可视化编辑器以及相关的AI工具的使用。（注意：也可以通过克隆GitHub存储库来自行托管CMS。）',
+      it: "Intlayer è principalmente una suite di strumenti gratuita e open source. La tariffazione associata si applica solo all'uso del CMS, dell'editor visuale e degli strumenti IA associati. (Nota: è anche possibile auto-ospitare il CMS clonando il repository GitHub.)",
+      pt: 'O Intlayer é principalmente um conjunto de ferramentas gratuito e de código aberto. A precificação associada aplica-se apenas ao uso do CMS, do editor visual e das ferramentas de IA associadas. (Nota: também é possível auto-hospedar o CMS clonando o repositório do GitHub.)',
+      hi: 'Intlayer मुख्य रूप से एक मुफ्त और ओपन-सोर्स टूल सूट है। संबंधित मूल्य निर्धारण केवल CMS, दृश्य संपादक और संबंधित AI उपकरणों के उपयोग पर लागू होता है। (नोट: GitHub रिपॉजिटरी को क्लोन करके CMS को स्वयं होस्ट करना भी संभव है।)',
+      ar: 'إن Intlayer هو في المقام الأول مجموعة أدوات مجانية ومفتوحة المصدر. يتم تطبيق التسعير المرتبط فقط لاستخدام CMS، والمحرر المرئي، وأدوات الذكاء الاصطناعي المرتبطة. (ملاحظة: من الممكن أيضًا استضافة CMS بنفسك عن طريق استنساخ مستودع GitHub.)',
+      ru: 'Intlayer — это, прежде всего, набор бесплатных и открытых инструментов. Сопутствующая цена применяется только к использованию CMS, визуального редактора и связанных инструментов ИИ. (Примечание: также возможно саморазмещение CMS с помощью клонирования репозитория на GitHub.)',
+    }),
     pricing,
     period: {
       monthly: t({

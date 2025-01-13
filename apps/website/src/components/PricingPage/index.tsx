@@ -8,11 +8,16 @@ import { PricingCarousel } from './PricingCarousel';
 
 export const PricingPage: FC = () => {
   const [focusedPeriod, setFocusedPeriod] = useState<Period>(Period.Yearly);
-  const { title, period } = useIntlayer('pricing');
+  const { title, period, description } = useIntlayer('pricing');
 
   return (
     <div className="m-auto w-full max-w-full">
-      <H1 className="my-10 ml-4 text-4xl">{title}</H1>
+      <div className="m-auto max-w-5xl px-10 py-4">
+        <H1 className="my-10 ml-4 text-4xl">{title}</H1>
+        <p className="text-neutral dark:text-neutral-dark py-4 text-sm">
+          {description}
+        </p>
+      </div>
 
       <SwitchSelector
         className="m-auto mb-5"
