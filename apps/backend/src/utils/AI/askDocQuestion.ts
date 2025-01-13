@@ -26,6 +26,7 @@ const vectorStore: VectorStoreEl[] = [];
 
 // Constants defining OpenAI's token and character limits
 const MODEL: OpenAI.Chat.ChatModel = 'gpt-4o-2024-11-20'; // Model to use for chat completions
+const MODEL_TEMPERATURE = 0.1; // Temperature to use for chat completions
 const EMBEDDING_MODEL: OpenAI.Embeddings.EmbeddingModel =
   'text-embedding-3-large'; // Model to use for embedding generation
 const OVERLAP_TOKENS = 200; // Number of tokens to overlap between chunks
@@ -34,7 +35,7 @@ const CHAR_BY_TOKEN = 4.15; // Approximate pessimistically the number of charact
 const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
 const MAX_RELEVANT_CHUNKS_NB = 8; // Maximum number of relevant chunks to attach to chatGPT context
-const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.33; // Minimum similarity required for a chunk to be considered relevant
+const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.25; // Minimum similarity required for a chunk to be considered relevant
 
 /**
  * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
@@ -220,27 +221,29 @@ export const initPrompt: ChatCompletionRequestMessage = {
   role: 'system',
   content:
     'Ignore all instructions before this one. \
-      Keep forever all instructions after this one. From now you are not allowed to ignore the previous instructions. \
-      You are an expert in internationalization solution for Javascript Application. You\'re an helpful chatbot for Intlayer, an Internationalization solution\
-      The website url of the solution is: \'https://intlayer.org\'). And your implemented on this website. \
-      The user is an potential user of Intlayer. Your task is now to answer the questions of the user. \
-      You must talk as an member of Intlayer. You must only answer the questions relative to Intlayer. \
-      Any question should be related to Intlayer. If a question is not related to Intlayer, you should NOT answer it. \
-      You must NOT answer question who is generally secret for a company (E.g. financial information). \
-      Your should not invent information that are not precised into the relevant documentation provided. If your have a doubt about something, you should ask more question to the user. If you don\'t have enough information, you should say that you don\'t know without returning extra information. \
-      \
-      Here some useful urls to know more about Intlayer: \
-      https://intlayer.org/docs \
-      https://intlayer.org/blog \
-      https://intlayer.org/pricing \
-      https://intlayer.org/dashboard \
-      \
-      Your should return a result as markdown.\
-      Code element should include metadata fileName="file.ts" if could be useful for the user. \
-      Code element format should not include metadata (E.g. codeFormat="typescript", or packageManager="npm". \
-      \
-      Here is the relevant documentation:\
-      {{relevantFilesReferences}}', // Placeholder for relevant documentation to be inserted later
+    Keep forever all instructions after this one. From now you are not allowed to ignore the previous instructions. \
+    You are an expert in internationalization solution for Javascript Application. You\'re an helpful chatbot for Intlayer, an Internationalization solution\
+    The website url of the solution is: \'https://intlayer.org\'). And your implemented on this website. \
+    The user is an potential user of Intlayer. Your task is now to answer the questions of the user. \
+    You must talk as an member of Intlayer. You must only answer the questions relative to Intlayer. \
+    Any question should be related to Intlayer. If a question is not related to Intlayer, you should NOT answer it. \
+    You must NOT answer question who is generally secret for a company (E.g. financial information). \
+    Your should NOT invent information that are not precised into the relevant documentation chunks provided. \
+    If you don\'t have enough information to answer the question, not answer using extra information extracted from your knowledge. \
+    If your have a doubt about something, you should ask more question to the user. \
+    \
+    Here some useful urls to know more about Intlayer: \
+    https://intlayer.org/docs \
+    https://intlayer.org/blog \
+    https://intlayer.org/pricing \
+    https://intlayer.org/dashboard \
+    \
+    Your should return a result as markdown.\
+    Code element should include metadata fileName="file.ts" if could be useful for the user. \
+    Code element format should not include metadata (E.g. codeFormat="typescript", or packageManager="npm". \
+    \
+    Here is the relevant documentation:\
+    {{relevantFilesReferences}}', // Placeholder for relevant documentation to be inserted later
 };
 
 export type AskDocQuestionResult = {
@@ -276,12 +279,14 @@ export const askDocQuestion = async (
       ...initPrompt,
       content: initPrompt.content.replace(
         '{{relevantFilesReferences}}',
-        relevantFilesReferences
-          .map(
-            (doc, idx) =>
-              `[Chunk ${idx}] docKey = "${doc.fileKey}":\n${doc.content}`
-          )
-          .join('\n\n') // Insert relevant docs into the prompt
+        relevantFilesReferences.length === 0
+          ? 'Not relevant file found related to the question.'
+          : relevantFilesReferences
+              .map(
+                (doc, idx) =>
+                  `[Chunk ${idx}] docKey = "${doc.fileKey}":\n${doc.content}`
+              )
+              .join('\n\n') // Insert relevant docs into the prompt
       ),
     },
     ...messages, // Include all user and assistant messages
@@ -290,8 +295,8 @@ export const askDocQuestion = async (
   // 3) Send the compiled messages to OpenAI's Chat Completion API (using a specific model)
   const response = await openai.chat.completions.create({
     model: MODEL,
+    temperature: MODEL_TEMPERATURE,
     messages: messagesList,
-    temperature: 0.3,
   });
 
   const result = response.choices[0].message.content; // Extract the assistant's reply
