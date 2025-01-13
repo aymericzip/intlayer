@@ -173,7 +173,7 @@ export const NavTitles1: FC = () => {
               {hasH3List && (
                 <NavTitles2
                   title2={h2List}
-                  activeSectionsId={activeH3?.id ?? null}
+                  activeSectionsId={(isActive ? activeH3?.id : null) ?? null}
                 />
               )}
             </li>
