@@ -84,7 +84,7 @@ export const Code = forwardRef<HTMLDivElement, CodeCompProps>(
               <div className="sticky top-28">
                 <div
                   className={cn([
-                    'absolute bottom-0 right-2 flex h-8 items-center',
+                    'absolute bottom-0 right-2 flex h-7 items-center',
                     hadSelectInHeader && 'h-11',
                   ])}
                 >
