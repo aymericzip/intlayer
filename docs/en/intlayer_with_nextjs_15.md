@@ -898,9 +898,9 @@ export const LocaleSwitcher: FC = () => {
     useLocale();
 
   return (
-    <ol>
+    <select>
       {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+        <option value={localeItem} key={localeItem}>
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
@@ -927,9 +927,9 @@ export const LocaleSwitcher: FC = () => {
               {localeItem}
             </span>
           </Link>
-        </li>
+        </option>
       ))}
-    </ol>
+    </select>
   );
 };
 ```
@@ -951,9 +951,9 @@ export const LocaleSwitcher = () => {
     useLocale();
 
   return (
-    <ol>
+    <select>
       {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+        <option value={localeItem} key={localeItem}>
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
@@ -980,9 +980,9 @@ export const LocaleSwitcher = () => {
               {localeItem}
             </span>
           </Link>
-        </li>
+        </option>
       ))}
-    </ol>
+    </select>
   );
 };
 ```
@@ -1004,9 +1004,9 @@ export const LocaleSwitcher = () => {
     useLocale();
 
   return (
-    <ol>
+    <select>
       {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+        <option value={localeItem} key={localeItem}>
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
@@ -1033,9 +1033,9 @@ export const LocaleSwitcher = () => {
               {localeItem}
             </span>
           </Link>
-        </li>
+        </option>
       ))}
-    </ol>
+    </select>
   );
 };
 ```

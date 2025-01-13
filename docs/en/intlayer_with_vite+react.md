@@ -978,9 +978,9 @@ const LocaleSwitcher: FC = () => {
   });
 
   return (
-    <ol>
+    <select>
       {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+        <option value={localeItem} key={localeItem}>
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -1007,9 +1007,9 @@ const LocaleSwitcher: FC = () => {
               {localeItem}
             </span>
           </a>
-        </li>
+        </option>
       ))}
-    </ol>
+    </select>
   );
 };
 ```
@@ -1042,9 +1042,9 @@ const LocaleSwitcher = () => {
   });
 
   return (
-    <ol>
+    <select>
       {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+        <option value={localeItem} key={localeItem}>
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -1071,9 +1071,9 @@ const LocaleSwitcher = () => {
               {localeItem}
             </span>
           </a>
-        </li>
+        </option>
       ))}
-    </ol>
+    </select>
   );
 };
 ```
@@ -1106,9 +1106,9 @@ const LocaleSwitcher = () => {
   });
 
   return (
-    <ol>
+    <select>
       {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+        <option value={localeItem} key={localeItem}>
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -1135,9 +1135,9 @@ const LocaleSwitcher = () => {
               {localeItem}
             </span>
           </a>
-        </li>
+        </option>
       ))}
-    </ol>
+    </select>
   );
 };
 ```
