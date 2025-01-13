@@ -11,7 +11,7 @@ export const CommonQuestionsSection: FC = () => {
       <h2 className="text-neutral dark:text-neutral-dark">{title}</h2>
 
       <div
-        className="mt-10 flex flex-col gap-2 px-3"
+        className="mt-10 flex flex-col gap-2 px-10"
         itemScope
         itemType="https://schema.org/FAQPage"
       >
@@ -21,13 +21,12 @@ export const CommonQuestionsSection: FC = () => {
             itemScope
             itemType="https://schema.org/Question"
             key={question.value}
+            className="flex flex-col gap-2"
           >
             <Accordion
-              identifier={question.value}
-              className="mt-2"
               header={
                 <h3
-                  className="text-wrap p-2 text-base font-bold"
+                  className="text-wrap py-2 text-base font-bold"
                   itemProp="name"
                 >
                   {question}
@@ -39,7 +38,7 @@ export const CommonQuestionsSection: FC = () => {
                 itemProp="acceptedAnswer"
                 itemScope
                 itemType="https://schema.org/Answer"
-                className="text-neutral dark:text-neutral-dark py-2 leading-8"
+                className="text-neutral dark:text-neutral-dark p-2 leading-8"
               >
                 <span itemProp="text">{answer}</span>
                 {callToAction && (

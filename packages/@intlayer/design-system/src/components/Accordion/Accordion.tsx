@@ -1,19 +1,12 @@
 'use client';
 
 import { ChevronDown } from 'lucide-react';
-import {
-  useCallback,
-  useEffect,
-  useState,
-  type FC,
-  type ReactNode,
-} from 'react';
+import { useEffect, useState, type FC, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import { Button, ButtonProps } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 type AccordionProps = {
-  identifier: string;
   header: ReactNode;
   children: ReactNode;
   isOpen?: boolean;
@@ -49,21 +42,8 @@ export const Accordion: FC<AccordionProps> = ({
     }
   }, [isOpenDefault]);
 
-  const Icon = useCallback(
-    () => (
-      <ChevronDown
-        size={16}
-        className={cn(
-          'transform transition-transform duration-500 ease-in-out',
-          isOpen ? 'rotate-0' : 'rotate-180'
-        )}
-      />
-    ),
-    [isOpen]
-  );
-
   return (
-    <>
+    <div>
       <Button
         variant="hoverable"
         color="text"
@@ -72,7 +52,12 @@ export const Accordion: FC<AccordionProps> = ({
           onClick?.(e);
         }}
         isFullWidth
-        IconRight={Icon}
+        className="flex items-center justify-between gap-2 bg-red-300"
+        IconRight={ChevronDown}
+        iconClassName={cn(
+          'transform transition-transform duration-500 ease-in-out',
+          isOpen ? 'rotate-0' : '-rotate-180'
+        )}
         {...props}
       >
         {header}
@@ -84,6 +69,6 @@ export const Accordion: FC<AccordionProps> = ({
       >
         {children}
       </MaxHeightSmoother>
-    </>
+    </div>
   );
 };

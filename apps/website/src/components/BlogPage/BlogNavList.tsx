@@ -80,7 +80,6 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                     <li key={key2}>
                       {hasSubsections ? (
                         <Accordion
-                          identifier={key2}
                           header={
                             <OptionalLink
                               label={key2}
@@ -93,7 +92,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           }
                           label={key2}
                           isOpen={isActive}
-                          className="pl-0"
+                          className="!pl-0"
                         >
                           <div className="pl-3">
                             {subSections2 &&
@@ -205,7 +204,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
           </Container>
 
           <div className="sticky top-28 pt-0">
-            <MaxWidthSmoother isHidden={isHidden}>
+            <MaxWidthSmoother isHidden={isHidden ?? false}>
               <div className="relative overflow-hidden">
                 <BlogNavListContent
                   blogData={blogData}

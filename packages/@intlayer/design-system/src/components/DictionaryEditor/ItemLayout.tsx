@@ -33,7 +33,6 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
     <Accordion
       isOpen={isSelected}
       label={title}
-      identifier={`accordion_${title}`}
       header={
         <div className="flex w-full">
           <div className="flex w-full items-center justify-between">

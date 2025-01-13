@@ -25,7 +25,7 @@ export const ChatBotModal: FC = () => {
       </Modal>
       <Button
         Icon={Bot}
-        className="fixed bottom-5 right-5 !rounded-full opacity-70 hover:scale-110"
+        className="!fixed bottom-5 right-5 !rounded-full opacity-70 hover:scale-110"
         color="text"
         size="icon-xl"
         label={button.label.value}

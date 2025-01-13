@@ -109,13 +109,12 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             return (
               <Accordion
                 key={translationKey}
-                identifier={translationKey}
                 label={`${goToTranslation.label} ${translationKey}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={translationKey}
               >
-                <div className="flex w-full max-w-full">
+                <div className="mt-2 flex w-full max-w-full">
                   <div className="flex-1 pl-10">
                     <NavigationViewNode
                       keyPath={childKeyPath}
@@ -169,13 +168,12 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             return (
               <Accordion
                 key={key}
-                identifier={key}
                 label={`${goToEnumeration.label} ${key}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={key}
               >
-                <div className="flex w-full max-w-full">
+                <div className="mt-2 flex w-full max-w-full">
                   <div className="flex-1 pl-10">
                     <NavigationViewNode
                       keyPath={childKeyPath}
@@ -222,13 +220,12 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             return (
               <Accordion
                 key={`${index}`}
-                identifier={`${index}`}
                 label={`${goToElement.label} ${index}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={index}
               >
-                <div className="flex w-full max-w-full">
+                <div className="mt-2 flex w-full max-w-full">
                   <div className="flex-1 pl-10">
                     <NavigationViewNode
                       keyPath={childKeyPath}
@@ -299,13 +296,12 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           return (
             <Accordion
               key={key}
-              identifier={key}
               label={`${goToField.label} ${key}`}
               isActive={getIsSelected(childKeyPath)}
               onClick={() => setFocusedContentKeyPath(childKeyPath)}
               header={camelCaseToSentence(key)}
             >
-              <div className="flex w-full max-w-full">
+              <div className="mt-2 flex w-full max-w-full">
                 <div className="flex-1 pl-10">
                   <NavigationViewNode
                     keyPath={childKeyPath}

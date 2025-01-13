@@ -79,7 +79,6 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                     <li key={key2}>
                       {hasSubsections ? (
                         <Accordion
-                          identifier={key2}
                           header={
                             <OptionalLink
                               label={key2}
@@ -92,7 +91,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                           }
                           label={key2}
                           isOpen={isActive}
-                          className="pl-0"
+                          className="!pl-0"
                         >
                           <div className="pl-3">
                             {subSections2 &&

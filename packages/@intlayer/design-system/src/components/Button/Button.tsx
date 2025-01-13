@@ -6,20 +6,23 @@ import {
   type DetailedHTMLProps,
   type FC,
 } from 'react';
-import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
 
 const buttonIconVariants = cva('', {
   variants: {
     size: {
-      sm: 'size-3',
-      md: 'size-4',
-      lg: 'size-5',
-      xl: 'size-6',
+      sm: 'size-3 absolute top-1/2 -translate-y-1/2',
+      md: 'size-4 absolute top-1/2 -translate-y-1/2',
+      lg: 'size-5 absolute top-1/2 -translate-y-1/2',
+      xl: 'size-6 absolute top-1/2 -translate-y-1/2',
       'icon-sm': 'size-6 p-1',
       'icon-md': 'size-7 p-1',
       'icon-lg': 'size-9 p-1',
       'icon-xl': 'size-10 p-1',
+    },
+    position: {
+      left: 'left-3',
+      right: 'right-3',
     },
   },
   defaultVariants: {
@@ -28,7 +31,7 @@ const buttonIconVariants = cva('', {
 });
 
 const buttonVariants = cva(
-  'flex items-center gap-3 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'relative truncate whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -89,6 +92,15 @@ const buttonVariants = cva(
         true: 'w-full',
         false: '',
       },
+
+      hasIconLeft: {
+        true: 'pl-12',
+        false: '',
+      },
+      hasIconRight: {
+        true: 'pr-12',
+        false: '',
+      },
     },
     defaultVariants: {
       variant: 'default',
@@ -96,6 +108,8 @@ const buttonVariants = cva(
       color: 'primary',
       textAlign: 'center',
       isFullWidth: false,
+      hasIconRight: false,
+      hasIconLeft: false,
     },
   }
 );
@@ -127,10 +141,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       Icon,
       IconRight,
       iconClassName,
-      isLoading = false,
+      isLoading,
       isActive,
       isFullWidth = false,
-      textAlign = IconRight ? 'left' : 'center',
+      textAlign,
       disabled,
       label,
       className,
@@ -155,38 +169,46 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           size,
           color,
           isFullWidth,
-          textAlign,
+          textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
+          hasIconLeft: Boolean(
+            typeof children !== 'undefined' &&
+              (typeof Icon !== 'undefined' || typeof isLoading !== 'undefined')
+          ),
+          hasIconRight: Boolean(
+            typeof children !== 'undefined' && typeof IconRight !== 'undefined'
+          ),
           className,
         })}
         {...props}
       >
         {Icon && !isLoading && (
           <Icon
-            className={cn(
-              buttonIconVariants({ size, className: iconClassName }),
-              'float-start'
-            )}
+            className={buttonIconVariants({
+              size,
+              className: iconClassName,
+              position: 'left',
+            })}
           />
         )}
 
         <Loader
-          className={cn(
-            buttonIconVariants({ size, className: iconClassName }),
-            'float-start'
-          )}
-          isLoading={isLoading}
+          className={buttonIconVariants({
+            size,
+            className: iconClassName,
+            position: 'left',
+          })}
+          isLoading={isLoading ?? false}
         />
 
-        {typeof children !== 'undefined' && (
-          <div className="flex-1 truncate">{children}</div>
-        )}
+        {children}
 
         {IconRight && (
           <IconRight
-            className={cn(
-              buttonIconVariants({ size, className: iconClassName }),
-              ''
-            )}
+            className={buttonIconVariants({
+              size,
+              className: iconClassName,
+              position: 'right',
+            })}
           />
         )}
       </button>
