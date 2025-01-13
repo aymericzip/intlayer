@@ -8,18 +8,13 @@ import {
   type PanelProps,
   Container,
 } from '@intlayer/design-system';
-import { Locales } from 'intlayer';
 import { MoveVertical } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { useRef, type FC } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
 export type LocaleSwitcherProps = {
-  locale?: Locales;
-  localeList: Locales[];
-  availableLocales?: Locales[];
   fullLocaleName?: boolean;
-  setLocale: (locale: Locales) => void;
   panelProps?: Omit<PanelProps, 'identifier'>;
 };
 

@@ -43,6 +43,13 @@ const getCleanTabSelector = (path: string): string => {
   return path;
 };
 
+const shouldHaveOrganizationRoutes = [
+  PagesRoutes.Dashboard_Projects,
+  PagesRoutes.Dashboard_Tags,
+] as string[];
+
+const shouldHaveProjectRoutes = [PagesRoutes.Dashboard_Content] as string[];
+
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { pathWithoutLocale } = useLocale();
   const { session } = useAuth();
@@ -50,18 +57,10 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { isMobile } = useDevice('sm');
 
   const filteredLinks = links
-    .filter((el) => {
-      const isDashboardProjects = el.url === PagesRoutes.Dashboard_Projects;
-      const isOrganizationDefined = !!organization;
-
-      return !isDashboardProjects || isOrganizationDefined;
-    })
-    .filter((el) => {
-      const isDashboardContent = el.url === PagesRoutes.Dashboard_Content;
-      const isProjectDefined = !!project;
-
-      return !isDashboardContent || isProjectDefined;
-    });
+    .filter(
+      (el) => !shouldHaveOrganizationRoutes.includes(el.url) || !!organization
+    )
+    .filter((el) => !shouldHaveProjectRoutes.includes(el.url) || !!project);
 
   return (
     <Container className="z-50 flex flex-col gap-3 p-4" roundedSize="none">
