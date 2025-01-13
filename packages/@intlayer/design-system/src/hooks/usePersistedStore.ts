@@ -10,7 +10,7 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
 
     if (persistedState) {
       try {
-        setState(JSON.parse(persistedState));
+        return JSON.parse(persistedState);
       } catch (e) {
         console.error(e);
       }
