@@ -33,8 +33,8 @@ const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
 const CHAR_BY_TOKEN = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
 const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
-const MAX_RELEVANT_CHUNKS_NB = 15; // Maximum number of relevant chunks to attach to chatGPT context
-const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.77; // Minimum similarity required for a chunk to be considered relevant
+const MAX_RELEVANT_CHUNKS_NB = 8; // Maximum number of relevant chunks to attach to chatGPT context
+const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.33; // Minimum similarity required for a chunk to be considered relevant
 
 /**
  * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
@@ -197,12 +197,11 @@ export const searchChunkReference = async (
 
   // Calculate similarity scores between the query embedding and each document's embedding
   const results = vectorStore
-    .map((doc) => ({
-      ...doc,
-      similarity: cosineSimilarity(queryEmbedding, doc.embedding), // Add similarity score to each doc
+    .map((chunk) => ({
+      ...chunk,
+      similarity: cosineSimilarity(queryEmbedding, chunk.embedding), // Add similarity score to each doc
     }))
-
-    .filter((doc) => doc.similarity > MIN_RELEVANT_CHUNKS_SIMILARITY) // Filter out documents with low similarity scores
+    .filter((chunk) => chunk.similarity > MIN_RELEVANT_CHUNKS_SIMILARITY) // Filter out documents with low similarity scores
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
     .slice(0, MAX_RELEVANT_CHUNKS_NB); // Select the top 6 most similar documents
 
@@ -228,7 +227,7 @@ export const initPrompt: ChatCompletionRequestMessage = {
       You must talk as an member of Intlayer. You must only answer the questions relative to Intlayer. \
       Any question should be related to Intlayer. If a question is not related to Intlayer, you should NOT answer it. \
       You must NOT answer question who is generally secret for a company (E.g. financial information). \
-      Your should not invent information that are not precised. If your have a doubt about something, you should ask more question to the user. If you don\'t have enough information, you should say that you don\'t know. \
+      Your should not invent information that are not precised into the relevant documentation provided. If your have a doubt about something, you should ask more question to the user. If you don\'t have enough information, you should say that you don\'t know without returning extra information. \
       \
       Here some useful urls to know more about Intlayer: \
       https://intlayer.org/docs \
@@ -292,6 +291,7 @@ export const askDocQuestion = async (
   const response = await openai.chat.completions.create({
     model: MODEL,
     messages: messagesList,
+    temperature: 0.3,
   });
 
   const result = response.choices[0].message.content; // Extract the assistant's reply
