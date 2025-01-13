@@ -906,6 +906,173 @@ const LocaleSwitcher = () => {
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
+### (Optional) Step 9: Switch the HTML Language and Direction Attributes
+
+When your application supports multiple languages, it's crucial to update the `<html>` tag's `lang` and `dir` attributes to match the current locale. Doing so ensures:
+
+- **Accessibility**: Screen readers and assistive technologies rely on the correct `lang` attribute to pronounce and interpret content accurately.
+- **Text Rendering**: The `dir` (direction) attribute ensures that text is rendered in the proper order (e.g., left-to-right for English, right-to-left for Arabic or Hebrew), which is essential for readability.
+- **SEO**: Search engines use the `lang` attribute to determine the language of your page, helping to serve the right localized content in search results.
+
+By updating these attributes dynamically when the locale changes, you guarantee a consistent and accessible experience for users across all supported languages.
+
+#### Implementing the Hook
+
+Create a custom hook to manage the HTML attributes. The hook listens for locale changes and updates the attributes accordingly:
+
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
+import { useEffect } from "react";
+import { useLocale } from "react-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+/**
+ * Updates the HTML <html> element's `lang` and `dir` attributes based on the current locale.
+ * - `lang`: Informs browsers and search engines of the page's language.
+ * - `dir`: Ensures the correct reading order (e.g., 'ltr' for English, 'rtl' for Arabic).
+ *
+ * This dynamic update is essential for proper text rendering, accessibility, and SEO.
+ */
+export const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // Update the language attribute to the current locale.
+    document.documentElement.lang = locale;
+
+    // Set the text direction based on the current locale.
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+```
+
+```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
+import { useEffect } from "react";
+import { useLocale } from "react-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+/**
+ * Updates the HTML <html> element's `lang` and `dir` attributes based on the current locale.
+ * - `lang`: Informs browsers and search engines of the page's language.
+ * - `dir`: Ensures the correct reading order (e.g., 'ltr' for English, 'rtl' for Arabic).
+ *
+ * This dynamic update is essential for proper text rendering, accessibility, and SEO.
+ */
+export const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // Update the language attribute to the current locale.
+    document.documentElement.lang = locale;
+
+    // Set the text direction based on the current locale.
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+```
+
+```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
+const { useEffect } = require("react");
+const { useLocale } = require("react-intlayer");
+const { getHTMLTextDir } = require("intlayer");
+
+/**
+ * Updates the HTML <html> element's `lang` and `dir` attributes based on the current locale.
+ * - `lang`: Informs browsers and search engines of the page's language.
+ * - `dir`: Ensures the correct reading order (e.g., 'ltr' for English, 'rtl' for Arabic).
+ *
+ * This dynamic update is essential for proper text rendering, accessibility, and SEO.
+ */
+const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // Update the language attribute to the current locale.
+    document.documentElement.lang = locale;
+
+    // Set the text direction based on the current locale.
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+
+module.exports = { useI18nHTMLAttributes };
+```
+
+#### Using the Hook in Your Application
+
+Integrate the hook into your main component so that the HTML attributes update whenever the locale changes:
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { FC } from "react";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
+import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
+import "./App.css";
+
+const AppContent: FC = () => {
+  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
+  useI18nHTMLAttributes();
+
+  // ... Rest of your component
+};
+
+const App: FC = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+```jsx fileName="src/App.msx" codeFormat="esm"
+import { FC } from "react";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
+import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
+import "./App.css";
+
+const AppContent = () => {
+  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
+  useI18nHTMLAttributes();
+
+  // ... Rest of your component
+};
+
+const App = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+```jsx fileName="src/App.csx" codeFormat="commonjs"
+const { FC } = require("react");
+const { IntlayerProvider, useIntlayer } = require("react-intlayer");
+const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
+require("./App.css");
+
+const AppContent = () => {
+  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
+  useI18nHTMLAttributes();
+
+  // ... Rest of your component
+};
+
+const App = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+module.exports = App;
+```
+
+By applying these changes, your application will:
+
+- Ensure the **language** (`lang`) attribute correctly reflects the current locale, which is important for SEO and browser behavior.
+- Adjust the **text direction** (`dir`) according to the locale, enhancing readability and usability for languages with different reading orders.
+- Provide a more **accessible** experience, as assistive technologies depend on these attributes to function optimally.
+
 ### Configure TypeScript
 
 Intlayer use module augmentation to get benefits of TypeScript and make your codebase stronger.

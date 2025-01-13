@@ -1153,6 +1153,325 @@ const LocaleSwitcher = () => {
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
+Below is the updated **Step 9** with added explanations and refined code examples:
+
+---
+
+### (Optional) Step 9: Switch the HTML Language and Direction Attributes
+
+When your application supports multiple languages, it's crucial to update the `<html>` tag's `lang` and `dir` attributes to match the current locale. Doing so ensures:
+
+- **Accessibility**: Screen readers and assistive technologies rely on the correct `lang` attribute to pronounce and interpret content accurately.
+- **Text Rendering**: The `dir` (direction) attribute ensures that text is rendered in the proper order (e.g., left-to-right for English, right-to-left for Arabic or Hebrew), which is essential for readability.
+- **SEO**: Search engines use the `lang` attribute to determine the language of your page, helping to serve the right localized content in search results.
+
+By updating these attributes dynamically when the locale changes, you guarantee a consistent and accessible experience for users across all supported languages.
+
+#### Implementing the Hook
+
+Create a custom hook to manage the HTML attributes. The hook listens for locale changes and updates the attributes accordingly:
+
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
+import { useEffect } from "react";
+import { useLocale } from "react-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+/**
+ * Updates the HTML <html> element's `lang` and `dir` attributes based on the current locale.
+ * - `lang`: Informs browsers and search engines of the page's language.
+ * - `dir`: Ensures the correct reading order (e.g., 'ltr' for English, 'rtl' for Arabic).
+ *
+ * This dynamic update is essential for proper text rendering, accessibility, and SEO.
+ */
+export const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // Update the language attribute to the current locale.
+    document.documentElement.lang = locale;
+
+    // Set the text direction based on the current locale.
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+```
+
+```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
+import { useEffect } from "react";
+import { useLocale } from "react-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+/**
+ * Updates the HTML <html> element's `lang` and `dir` attributes based on the current locale.
+ * - `lang`: Informs browsers and search engines of the page's language.
+ * - `dir`: Ensures the correct reading order (e.g., 'ltr' for English, 'rtl' for Arabic).
+ *
+ * This dynamic update is essential for proper text rendering, accessibility, and SEO.
+ */
+export const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // Update the language attribute to the current locale.
+    document.documentElement.lang = locale;
+
+    // Set the text direction based on the current locale.
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+```
+
+```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
+const { useEffect } = require("react");
+const { useLocale } = require("react-intlayer");
+const { getHTMLTextDir } = require("intlayer");
+
+/**
+ * Updates the HTML <html> element's `lang` and `dir` attributes based on the current locale.
+ * - `lang`: Informs browsers and search engines of the page's language.
+ * - `dir`: Ensures the correct reading order (e.g., 'ltr' for English, 'rtl' for Arabic).
+ *
+ * This dynamic update is essential for proper text rendering, accessibility, and SEO.
+ */
+const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // Update the language attribute to the current locale.
+    document.documentElement.lang = locale;
+
+    // Set the text direction based on the current locale.
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+
+module.exports = { useI18nHTMLAttributes };
+```
+
+#### Using the Hook in Your Application
+
+Integrate the hook into your main component so that the HTML attributes update whenever the locale changes:
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { FC } from "react";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
+import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
+import "./App.css";
+
+const AppContent: FC = () => {
+  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
+  useI18nHTMLAttributes();
+
+  // ... Rest of your component
+};
+
+const App: FC = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+```jsx fileName="src/App.msx" codeFormat="esm"
+import { FC } from "react";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
+import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
+import "./App.css";
+
+const AppContent = () => {
+  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
+  useI18nHTMLAttributes();
+
+  // ... Rest of your component
+};
+
+const App = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+```jsx fileName="src/App.csx" codeFormat="commonjs"
+const { FC } = require("react");
+const { IntlayerProvider, useIntlayer } = require("react-intlayer");
+const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
+require("./App.css");
+
+const AppContent = () => {
+  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
+  useI18nHTMLAttributes();
+
+  // ... Rest of your component
+};
+
+const App = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+module.exports = App;
+```
+
+By applying these changes, your application will:
+
+- Ensure the **language** (`lang`) attribute correctly reflects the current locale, which is important for SEO and browser behavior.
+- Adjust the **text direction** (`dir`) according to the locale, enhancing readability and usability for languages with different reading orders.
+- Provide a more **accessible** experience, as assistive technologies depend on these attributes to function optimally.
+
+### (Optional) Step 10: Creating a Localized Link Component
+
+To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
+
+This behavior is useful for several reasons:
+
+- **SEO and User Experience**: Localized URLs help search engines index language-specific pages correctly and provide users with content in their preferred language.
+- **Consistency**: By using a localized link throughout your application, you guarantee that navigation stays within the current locale, preventing unexpected language switches.
+- **Maintainability**: Centralizing the localization logic in a single component simplifies the management of URLs, making your codebase easier to maintain and extend as your application grows.
+
+Below is the implementation of a localized `Link` component in TypeScript:
+
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+import { getLocalizedUrl } from "intlayer";
+import {
+  forwardRef,
+  type DetailedHTMLProps,
+  type AnchorHTMLAttributes,
+} from "react";
+import { useLocale } from "react-intlayer";
+
+export interface LinkProps
+  extends DetailedHTMLProps<
+    AnchorHTMLAttributes<HTMLAnchorElement>,
+    HTMLAnchorElement
+  > {}
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * A custom Link component that adapts the href attribute based on the current locale.
+ * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
+ * This ensures that navigation stays within the same locale context.
+ */
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, children, ...props }, ref) => {
+    const { locale } = useLocale();
+    const isExternalLink = checkIsExternalLink(href);
+
+    // If the link is internal and a valid href is provided, get the localized URL.
+    const hrefI18n =
+      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+
+    return (
+      <a href={hrefI18n} ref={ref} {...props}>
+        {children}
+      </a>
+    );
+  }
+);
+
+Link.displayName = "Link";
+```
+
+```jsx fileName="src/components/Link.mjx" codeFormat="esm"
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { forwardRef } from "react";
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * A custom Link component that adapts the href attribute based on the current locale.
+ * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
+ * This ensures that navigation stays within the same locale context.
+ */
+export const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href);
+
+  // If the link is internal and a valid href is provided, get the localized URL.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+
+  return (
+    <a href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </a>
+  );
+});
+
+Link.displayName = "Link";
+```
+
+```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
+const { getLocalizedUrl } = require("intlayer");
+const { useLocale } = require("react-intlayer");
+const { forwardRef } = require("react");
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
+
+/**
+ * A custom Link component that adapts the href attribute based on the current locale.
+ * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
+ * This ensures that navigation stays within the same locale context.
+ */
+const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href);
+
+  // If the link is internal and a valid href is provided, get the localized URL.
+  const localizedHref = isExternalLink ? href : getLocalizedUrl(href, locale);
+
+  return (
+    <a
+      href={localizedHref}
+      ref={ref}
+      {...props}
+      aria-current={isExternalLink ? "external" : undefined}
+    >
+      {children}
+    </a>
+  );
+});
+
+Link.displayName = "Link";
+```
+
+#### How It Works
+
+- **Detecting External Links**:  
+  The helper function `checkIsExternalLink` determines whether a URL is external. External links are left unchanged because they do not need localization.
+
+- **Retrieving the Current Locale**:  
+  The `useLocale` hook provides the current locale (e.g., `fr` for French).
+
+- **Localizing the URL**:  
+  For internal links (i.e., non-external), `getLocalizedUrl` is used to automatically prefix the URL with the current locale. This means that if your user is in French, passing `/about` as the `href` will transform it to `/fr/about`.
+
+- **Returning the Link**:  
+  The component returns an `<a>` element with the localized URL, ensuring that navigation is consistent with the locale.
+
+By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience while also benefitting from improved SEO and usability.
+
 ### Configure TypeScript
 
 Intlayer use module augmentation to get benefits of TypeScript and make your codebase stronger.

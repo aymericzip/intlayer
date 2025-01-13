@@ -868,11 +868,166 @@ const LocaleSwitcher = () => {
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-2. **Example of TypeScript Benefits:**
+### (Optional) Step 11: Creating a Localized Link Component
 
-   ![Autocompletion Example](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
 
-   ![Translation Error Example](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+This behavior is useful for several reasons:
+
+- **SEO and User Experience**: Localized URLs help search engines index language-specific pages correctly and provide users with content in their preferred language.
+- **Consistency**: By using a localized link throughout your application, you guarantee that navigation stays within the current locale, preventing unexpected language switches.
+- **Maintainability**: Centralizing the localization logic in a single component simplifies the management of URLs, making your codebase easier to maintain and extend as your application grows.
+
+Below is the implementation of a localized `Link` component in TypeScript:
+
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+"use client";
+
+import { getLocalizedUrl } from "intlayer";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { useLocale } from "next-intlayer";
+import { forwardRef, PropsWithChildren, type ForwardedRef } from "react";
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * A custom Link component that adapts the href attribute based on the current locale.
+ * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
+ * This ensures that navigation stays within the same locale context.
+ */
+export const Link = forwardRef<
+  HTMLAnchorElement,
+  PropsWithChildren<NextLinkProps>
+>(({ href, children, ...props }, ref: ForwardedRef<HTMLAnchorElement>) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // If the link is internal and a valid href is provided, get the localized URL.
+  const hrefI18n: NextLinkProps["href"] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </NextLink>
+  );
+});
+
+Link.displayName = "Link";
+```
+
+```jsx fileName="src/components/Link.mjx" codeFormat="esm"
+'use client';
+
+import { getLocalizedUrl } from 'intlayer';
+import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
+import { useLocale } from 'next-intlayer';
+import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+export const checkIsExternalLink = (href) =>
+  /^https?:\/\//.test(href ?? '');
+
+/**
+ * A custom Link component that adapts the href attribute based on the current locale.
+ * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
+ * This ensures that navigation stays within the same locale context.
+ */
+export const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // If the link is internal and a valid href is provided, get the localized URL.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </NextLink>
+  );
+});
+
+Link.displayName = 'Link';
+```
+
+```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
+'use client';
+
+const { getLocalizedUrl } = require("intlayer");
+const NextLink = require("next/link");
+const { useLocale } = require("next-intlayer");
+const { forwardRef } = require("react");
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+const checkIsExternalLink = (href) =>
+  /^https?:\/\//.test(href ?? '');
+
+
+const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // If the link is internal and a valid href is provided, get the localized URL.
+  const hrefI18n: NextLinkProps['href'] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </NextLink>
+  );
+});
+
+Link.displayName = 'Link';
+```
+
+#### How It Works
+
+- **Detecting External Links**:  
+  The helper function `checkIsExternalLink` determines whether a URL is external. External links are left unchanged because they do not need localization.
+
+- **Retrieving the Current Locale**:  
+  The `useLocale` hook provides the current locale (e.g., `fr` for French).
+
+- **Localizing the URL**:  
+  For internal links (i.e., non-external), `getLocalizedUrl` is used to automatically prefix the URL with the current locale. This means that if your user is in French, passing `/about` as the `href` will transform it to `/fr/about`.
+
+- **Returning the Link**:  
+  The component returns an `<a>` element with the localized URL, ensuring that navigation is consistent with the locale.
+
+By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience while also benefitting from improved SEO and usability.
+
+### Configure TypeScript
+
+Intlayer use module augmentation to get benefits of TypeScript and make your codebase stronger.
+
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+
+Ensure your TypeScript configuration includes the autogenerated types.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Your existing TypeScript configurations
+  "include": [
+    // ... Your existing TypeScript configurations
+    "types", // Include the auto-generated types
+  ],
+}
+```
 
 ### Git Configuration
 

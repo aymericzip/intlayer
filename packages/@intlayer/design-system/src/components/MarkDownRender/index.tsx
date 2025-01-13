@@ -2,7 +2,7 @@ import { Locales } from '@intlayer/core';
 import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 import type { FC } from 'react';
 import { cn } from '../../utils/cn';
-import { H1, H2, H3 } from '../Headers';
+import { H1, H2, H3, H4 } from '../Headers';
 import { SectionScroller } from '../Headers/SectionScroller';
 import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
@@ -28,6 +28,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
           h1: (props) => <H1 isClickable={true} {...props} />,
           h2: (props) => <H2 isClickable={true} {...props} />,
           h3: (props) => <H3 isClickable={true} {...props} />,
+          h4: (props) => <H4 isClickable={true} {...props} />,
 
           code: (props) =>
             typeof props.className === 'undefined' ? (
