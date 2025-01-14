@@ -714,18 +714,21 @@ import {
 } from "intlayer";
 import { useLocalePageRouter } from "next-intlayer";
 import { type FC } from "react";
+import Link from "next/link";
 
 const LocaleSwitcher: FC = () => {
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocalePageRouter();
 
   return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <a
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
+          <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -748,10 +751,10 @@ const LocaleSwitcher: FC = () => {
               {/* Language in its own Locale - e.g. FR */}
               {localeItem}
             </span>
-          </a>
-        </option>
-      ))}
-    </select>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -770,12 +773,14 @@ const LocaleSwitcher = () => {
     useLocalePageRouter();
 
   return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <a
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
+          <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -798,10 +803,10 @@ const LocaleSwitcher = () => {
               {/* Language in its own Locale - e.g. FR */}
               {localeItem}
             </span>
-          </a>
-        </option>
-      ))}
-    </select>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -868,7 +873,7 @@ const LocaleSwitcher = () => {
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Optional) Step 11: Creating a Localized Link Component
+### (Optional) Step 10: Creating a Localized Link Component
 
 To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
 

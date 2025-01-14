@@ -886,18 +886,21 @@ import {
 } from "intlayer";
 import { useLocale } from "next-intlayer";
 import { type FC } from "react";
+import Link from "next/link";
 
 const LocaleSwitcher: FC = () => {
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();
 
   return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <a
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
+          <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -920,10 +923,10 @@ const LocaleSwitcher: FC = () => {
               {/* Language in its own Locale - e.g. FR */}
               {localeItem}
             </span>
-          </a>
-        </option>
-      ))}
-    </select>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -938,18 +941,21 @@ import {
   getLocalizedUrl,
 } from "intlayer";
 import { useLocale } from "next-intlayer";
+import Link from "next/link";
 
 const LocaleSwitcher = () => {
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();
 
   return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <a
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
+          <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -972,10 +978,10 @@ const LocaleSwitcher = () => {
               {/* Language in its own Locale - e.g. FR */}
               {localeItem}
             </span>
-          </a>
-        </option>
-      ))}
-    </select>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -990,18 +996,21 @@ const {
   getLocalizedUrl,
 } = require("intlayer");
 const { useLocale } = require("next-intlayer");
+const Link = require("next/link");
 
 const LocaleSwitcher = () => {
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();
 
   return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <a
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
+          <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -1024,10 +1033,10 @@ const LocaleSwitcher = () => {
               {/* Language in its own Locale - e.g. FR */}
               {localeItem}
             </span>
-          </a>
-        </option>
-      ))}
-    </select>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 };
 ```

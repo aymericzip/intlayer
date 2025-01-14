@@ -731,9 +731,10 @@ const LocaleSwitcher: FC = () => {
   });
 
   return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -742,6 +743,7 @@ const LocaleSwitcher: FC = () => {
               e.preventDefault();
               setLocale(localeItem);
             }}
+            key={localeItem}
           >
             <span>
               {/* Language in its own Locale - e.g. Français */}
@@ -760,9 +762,9 @@ const LocaleSwitcher: FC = () => {
               {localeItem}
             </span>
           </a>
-        </li>
-      ))}
-    </ol>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -795,9 +797,10 @@ const LocaleSwitcher = () => {
   });
 
   return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -806,6 +809,7 @@ const LocaleSwitcher = () => {
               e.preventDefault();
               setLocale(localeItem);
             }}
+            key={localeItem}
           >
             <span>
               {/* Language in its own Locale - e.g. Français */}
@@ -824,9 +828,9 @@ const LocaleSwitcher = () => {
               {localeItem}
             </span>
           </a>
-        </li>
-      ))}
-    </ol>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -859,9 +863,10 @@ const LocaleSwitcher = () => {
   });
 
   return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -870,6 +875,7 @@ const LocaleSwitcher = () => {
               e.preventDefault();
               setLocale(localeItem);
             }}
+            key={localeItem}
           >
             <span>
               {/* Language in its own Locale - e.g. Français */}
@@ -888,9 +894,9 @@ const LocaleSwitcher = () => {
               {localeItem}
             </span>
           </a>
-        </li>
-      ))}
-    </ol>
+        ))}
+      </div>
+    </div>
   );
 };
 ```

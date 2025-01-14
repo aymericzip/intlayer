@@ -978,9 +978,10 @@ const LocaleSwitcher: FC = () => {
   });
 
   return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -989,6 +990,7 @@ const LocaleSwitcher: FC = () => {
               e.preventDefault();
               setLocale(localeItem);
             }}
+            key={localeItem}
           >
             <span>
               {/* Language in its own Locale - e.g. Français */}
@@ -1007,9 +1009,9 @@ const LocaleSwitcher: FC = () => {
               {localeItem}
             </span>
           </a>
-        </option>
-      ))}
-    </select>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -1042,9 +1044,10 @@ const LocaleSwitcher = () => {
   });
 
   return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -1053,6 +1056,7 @@ const LocaleSwitcher = () => {
               e.preventDefault();
               setLocale(localeItem);
             }}
+            key={localeItem}
           >
             <span>
               {/* Language in its own Locale - e.g. Français */}
@@ -1071,9 +1075,9 @@ const LocaleSwitcher = () => {
               {localeItem}
             </span>
           </a>
-        </option>
-      ))}
-    </select>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -1106,9 +1110,10 @@ const LocaleSwitcher = () => {
   });
 
   return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover>
+        {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}
             hrefLang={localeItem}
@@ -1117,6 +1122,7 @@ const LocaleSwitcher = () => {
               e.preventDefault();
               setLocale(localeItem);
             }}
+            key={localeItem}
           >
             <span>
               {/* Language in its own Locale - e.g. Français */}
@@ -1135,9 +1141,9 @@ const LocaleSwitcher = () => {
               {localeItem}
             </span>
           </a>
-        </option>
-      ))}
-    </select>
+        ))}
+      </div>
+    </div>
   );
 };
 ```

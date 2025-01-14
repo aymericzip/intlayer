@@ -1,4 +1,3 @@
-````markdown
 # Bien Démarrer avec l'Internationalisation (i18n) avec Intlayer et Next.js en utilisant le Routeur de Page
 
 ## Qu'est-ce qu'Intlayer ?
@@ -25,7 +24,6 @@ Installez les packages nécessaires en utilisant votre gestionnaire de packages 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
 ```
-````
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
@@ -890,7 +888,3 @@ Ajoutez les lignes suivantes à votre fichier `.gitignore` :
 - **Documentation de Configuration :** [Guide de Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md)
 
 En suivant ce guide, vous pouvez intégrer efficacement Intlayer dans votre application Next.js utilisant le Routeur de Page, permettant un support de l'internationalisation robuste et évolutif pour vos projets web.
-
-```
-
-```
