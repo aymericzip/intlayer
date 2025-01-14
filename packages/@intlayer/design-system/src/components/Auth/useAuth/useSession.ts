@@ -1,8 +1,8 @@
 'use client';
 
 import { useMemo } from 'react';
+import { getIntlayerAPI } from '../../../../../api/src';
 import { useAsync } from '../../../hooks/useAsync';
-import { getIntlayerAPI } from '../../../libs/intlayer-api';
 import type { Session } from './index';
 
 export const useSession = (sessionProp?: Session | null) => {

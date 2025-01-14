@@ -1,6 +1,6 @@
+import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration } from '@intlayer/config';
 // @ts-ignore @intlayer/design-system not build yet
-import { getIntlayerAPI } from '@intlayer/design-system/libs';
 
 export const fetchDistantDictionaryKeys = async (): Promise<string[]> => {
   const config = getConfiguration();

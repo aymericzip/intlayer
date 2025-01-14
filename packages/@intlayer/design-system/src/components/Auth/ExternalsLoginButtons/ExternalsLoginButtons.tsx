@@ -3,7 +3,7 @@
 import type { FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { intlayerAPI } from '../../../libs/intlayer-api';
+import { intlayerAPI } from '../../../../../api/src';
 import { Button } from '../../Button';
 import { GithubLogo } from './assets/GithubLogo';
 import { GoogleLogo } from './assets/GoogleLogo';

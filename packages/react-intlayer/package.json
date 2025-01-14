@@ -99,10 +99,10 @@
   },
   "dependencies": {
     "@craco/craco": "^7.1.0",
+    "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "@intlayer/design-system": "^3.5.4",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "cross-spawn": "^7.0.6",

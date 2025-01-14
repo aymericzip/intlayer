@@ -1,17 +1,15 @@
 {
-  "name": "@intlayer/chokidar",
+  "name": "@intlayer/api",
   "version": "3.5.7",
   "private": false,
-  "description": "Chokidar application for IntLayer - Transpile IntLayer declaration files into dictionaries.",
+  "description": "API",
   "keywords": [
     "intlayer",
-    "chokidar",
     "application",
-    "transpile",
-    "typescript",
-    "javascript",
-    "json",
-    "file"
+    "api",
+    "backend",
+    "i18n",
+    "internationalization"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
@@ -51,6 +49,9 @@
       ]
     }
   },
+  "bin": {
+    "intlayer": "./dist/cjs/cli.cjs"
+  },
   "files": [
     "./dist",
     "./package.json"
@@ -64,29 +65,15 @@
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
-    "prettier:fix": "prettier --write src/**/*"
+    "prettier:fix": "prettier . --write",
+    "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/api": "workspace:*",
-    "@intlayer/backend": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "chokidar": "^3.6.0",
-    "crypto-js": "^4.2.0",
-    "deepmerge": "^4.3.1",
-    "esbuild": "^0.24.0",
-    "esbuild-loader": "^4.2.2",
-    "fast-glob": "^3.3.2",
-    "intlayer": "workspace:*",
-    "node-loader": "^2.1.0",
-    "p-limit": "^3.1.0",
-    "quicktype-core": "^23.0.170",
-    "react": "^18.3.1",
-    "rimraf": "^6.0.1"
+    "@intlayer/config": "workspace:*"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "0.5.0",
     "@changesets/cli": "2.27.10",
-    "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.10.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
@@ -94,20 +81,14 @@
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.0",
     "eslint": "^9.16.0",
-    "node-polyfill-webpack-plugin": "^4.0.0",
     "prettier": "^3.4.1",
+    "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.2",
-    "webpack-watch-files-plugin": "^1.2.1"
+    "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "@intlayer/api": "workspace:*",
-    "@intlayer/backend": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "fast-glob": "^3.3.2",
-    "intlayer": "workspace:^"
+    "@intlayer/config": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

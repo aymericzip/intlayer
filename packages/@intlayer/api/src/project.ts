@@ -17,6 +17,7 @@ import type {
   RefreshAccessKeyResponse,
   UpdateProjectMembersBody,
   UpdateProjectMembersResult,
+  // @ts-ignore @intlayer/backend not build yet
 } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';

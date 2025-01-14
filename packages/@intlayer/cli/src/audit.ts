@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, relative } from 'path';
+import { intlayerAPI } from '@intlayer/api';
 import { getConfiguration, logger } from '@intlayer/config';
-import { intlayerAPI } from '@intlayer/design-system/libs';
 import pLimit from 'p-limit';
 import { getContentDeclaration } from './listContentDeclaration';
 

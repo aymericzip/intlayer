@@ -1,8 +1,8 @@
 'use client';
 
 import { getConfiguration } from '@intlayer/config/client';
+import { intlayerAPI } from '../../../../../api/src';
 import { useAsync } from '../../../hooks/useAsync/useAsync';
-import { intlayerAPI } from '../../../libs/intlayer-api';
 
 export const useOAuth2 = (csrfToken: string | null | undefined) => {
   const { clientId, clientSecret } = getConfiguration().editor;

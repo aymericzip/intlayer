@@ -24,6 +24,6 @@
     "noFallthroughCasesInSwitch": true
   },
 
-  "include": ["**/*"],
+  "include": ["**/*", "../api/src"],
   "exclude": ["node_modules", "dist", "storybook-static"]
 }

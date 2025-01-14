@@ -50,6 +50,7 @@
     "watch": "npx intlayer build --watch"
   },
   "dependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/backend": "workspace:*",
     "@intlayer/blog": "workspace:*",
     "@intlayer/core": "workspace:*",

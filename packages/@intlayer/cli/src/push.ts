@@ -1,9 +1,9 @@
 import * as fsPromises from 'fs/promises';
 import { relative } from 'path';
 import * as readline from 'readline';
+import { intlayerAPI } from '@intlayer/api';
 import { getConfiguration, logger } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
-import { intlayerAPI } from '@intlayer/design-system/libs';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import pLimit from 'p-limit';
 

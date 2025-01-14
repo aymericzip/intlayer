@@ -74,6 +74,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
@@ -141,6 +142,7 @@
     "vite-plugin-dts": "^4.3.0"
   },
   "peerDependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/backend": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",

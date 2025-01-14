@@ -1,7 +1,7 @@
 'use client';
 
+import { intlayerAPI } from '../../../../../api/src';
 import { useAsync } from '../../../hooks/useAsync/useAsync';
-import { intlayerAPI } from '../../../libs/intlayer-api';
 
 export const useCSRF = () => {
   const { data, isFetched: csrfTokenFetched } = useAsync(

@@ -60,9 +60,9 @@
     "test": ""
   },
   "dependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/design-system": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "commander": "^12.1.0",
     "fast-glob": "^3.3.2",
@@ -85,9 +85,9 @@
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/design-system": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:^"
   },
   "bug": {

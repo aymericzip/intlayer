@@ -2,7 +2,7 @@
 'use client';
 
 import process from 'process';
-import { intlayerAPI } from 'src/libs';
+import { intlayerAPI } from '@intlayer/api';
 import { useAuth } from '../components/Auth/useAuth/index';
 import { useToast } from '../components/Toaster';
 import { useAsync, UseAsyncOptions } from './useAsync/useAsync';

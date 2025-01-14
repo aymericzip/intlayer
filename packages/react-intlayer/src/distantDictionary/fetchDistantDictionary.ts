@@ -1,8 +1,8 @@
 // @ts-ignore @intlayer/backend not build yet
+import { getIntlayerAPI } from '@intlayer/api';
 import { type DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 // @ts-ignore @intlayer/design-system not build yet
-import { getIntlayerAPI } from '@intlayer/design-system/libs';
 
 /**
  * Fetch distant dictionary

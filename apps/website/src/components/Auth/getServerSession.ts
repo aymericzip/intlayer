@@ -1,6 +1,6 @@
+import { getIntlayerAPI } from '@intlayer/api';
 import { Cookies } from '@intlayer/backend';
 import type { Session } from '@intlayer/design-system';
-import { getIntlayerAPI } from '@intlayer/design-system/libs';
 import { cookies } from 'next/headers';
 
 export const getServerSession = async () => {

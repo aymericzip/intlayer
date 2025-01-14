@@ -1,5 +1,5 @@
+import { intlayerAPI } from '@intlayer/api';
 import { Form, H2, Loader, useForm, useUser } from '@intlayer/design-system';
-import { intlayerAPI } from '@intlayer/design-system/libs';
 import { Check } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
