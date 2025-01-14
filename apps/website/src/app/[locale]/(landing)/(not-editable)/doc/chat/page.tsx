@@ -17,7 +17,6 @@ const DocumentationSearchPage: Next14PageIntlayer = ({
           <Container
             roundedSize="2xl"
             border
-            background={false}
             padding="none"
             className="relative m-auto h-[calc(100vh-100px)] w-full max-w-2xl overflow-hidden"
           >
