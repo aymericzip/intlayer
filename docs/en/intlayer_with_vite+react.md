@@ -979,8 +979,8 @@ const LocaleSwitcher: FC = () => {
 
   return (
     <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}
@@ -1045,8 +1045,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}
@@ -1111,8 +1111,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
             href={getLocalizedUrl(location, localeItem)}

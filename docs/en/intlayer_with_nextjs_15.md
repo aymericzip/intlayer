@@ -587,9 +587,10 @@ import {
 import type { Metadata } from "next";
 import type { LocalParams } from "next-intlayer";
 
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
+export const generateMetadata = async ({
+  params,
+}: LocalParams): Promise<Metadata> => {
+  const { locale } = await params;
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
@@ -637,7 +638,8 @@ export const generateMetadata = ({
 ````javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
 import { getTranslationContent, getMultilingualUrls } from "intlayer";
 
-export const generateMetadata = ({ params: { locale } }) => {
+export const generateMetadata = async ({ params }) => {
+  const { locale } = await params;
   const t = (content) => getTranslationContent(content, locale);
 
   /**
@@ -684,7 +686,9 @@ export const generateMetadata = ({ params: { locale } }) => {
 ````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
 const { getTranslationContent, getMultilingualUrls } = require("intlayer");
 
-module.exports.generateMetadata = ({ params: { locale } }) => {
+const generateMetadata = async ({ params }) => {
+  const { locale } = await params;
+
   const t = (content) => getTranslationContent(content, locale);
 
   /**
@@ -725,6 +729,8 @@ module.exports.generateMetadata = ({ params: { locale } }) => {
   };
 };
 
+module.exports = { generateMetadata };
+
 // ... Rest of the code
 ````
 
@@ -742,19 +748,19 @@ const sitemap = (): MetadataRoute.Sitemap => [
   {
     url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls("https://example.com"),
+      languages: { ...getMultilingualUrls("https://example.com") },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/login"),
+      languages: { ...getMultilingualUrls("https://example.com/login") },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/register"),
+      languages: { ...getMultilingualUrls("https://example.com/register") },
     },
   },
 ];
@@ -769,19 +775,19 @@ const sitemap = () => [
   {
     url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls("https://example.com"),
+      languages: { ...getMultilingualUrls("https://example.com") },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/login"),
+      languages: { ...getMultilingualUrls("https://example.com/login") },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/register"),
+      languages: { ...getMultilingualUrls("https://example.com/register") },
     },
   },
 ];
@@ -796,19 +802,19 @@ const sitemap = () => [
   {
     url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls("https://example.com"),
+      languages: { ...getMultilingualUrls("https://example.com") },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/login"),
+      languages: { ...getMultilingualUrls("https://example.com/login") },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/register"),
+      languages: { ...getMultilingualUrls("https://example.com/register") },
     },
   },
 ];
@@ -899,8 +905,8 @@ export const LocaleSwitcher: FC = () => {
 
   return (
     <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
@@ -954,8 +960,8 @@ export const LocaleSwitcher = () => {
 
   return (
     <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
@@ -1009,8 +1015,8 @@ export const LocaleSwitcher = () => {
 
   return (
     <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
