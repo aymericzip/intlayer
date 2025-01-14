@@ -956,7 +956,7 @@ importers:
         specifier: workspace:*
         version: link:../../intlayer
       react:
-        specifier: '>=16.0.0 <19.0.0'
+        specifier: '>=16.0.0'
         version: 18.3.1
       swc-loader:
         specifier: ^0.2.6
@@ -1017,7 +1017,7 @@ importers:
         specifier: ^0.6.3
         version: 0.6.4
       react:
-        specifier: '>=16.0.0 <19.0.0'
+        specifier: '>=16.0.0'
         version: 18.3.1
     devDependencies:
       '@types/negotiator':
@@ -1700,10 +1700,10 @@ importers:
         specifier: workspace:*
         version: link:../@intlayer/webpack
       next:
-        specifier: '>=14.0.0 <16.0.0'
+        specifier: '>=14.0.0'
         version: 15.0.4(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: '>=16.0.0 <19.0.0'
+        specifier: '>=16.0.0'
         version: 18.3.1
       react-intlayer:
         specifier: workspace:*
@@ -19959,8 +19959,8 @@ packages:
       '@intlayer/dictionaries-entry': ^3.5.5
       '@intlayer/webpack': ^3.5.5
       intlayer: ^3.5.6
-      react: '>=16.0.0 <19.0.0'
-      react-dom: '>=16.0.0 <19.0.0'
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
       vite: '>=4.0.0'
 
   react-is@16.13.1:
