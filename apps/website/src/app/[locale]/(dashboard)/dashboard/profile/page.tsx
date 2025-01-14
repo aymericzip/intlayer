@@ -3,6 +3,8 @@ import { ProfileForm } from '@components/Dashboard/ProfileForm';
 import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
+export { generateMetadata } from './metadata';
+
 const ProfileDashboardPage: Next14PageIntlayer = ({ params: { locale } }) => {
   const { title } = useIntlayer('profile-dashboard-page', locale);
 

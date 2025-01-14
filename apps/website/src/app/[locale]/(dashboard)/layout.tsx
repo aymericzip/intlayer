@@ -7,6 +7,8 @@ import type { Next14LayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { PagesRoutes } from '@/Routes';
 
+export { generateMetadata } from './metadata';
+
 const DashboardLayout: Next14LayoutIntlayer = ({
   children,
   params: { locale },

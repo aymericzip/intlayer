@@ -3,6 +3,8 @@ import { DictionaryListDashboard } from '@components/Dashboard/DictionaryListDas
 import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
+export { generateMetadata } from './metadata';
+
 const ContentDashboardPage: Next14PageIntlayer = ({ params: { locale } }) => {
   const { title } = useIntlayer('content-dashboard-page', locale);
 

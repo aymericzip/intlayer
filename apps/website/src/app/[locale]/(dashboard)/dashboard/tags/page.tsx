@@ -3,6 +3,8 @@ import { TagList } from '@components/Dashboard/TagForm/TagList';
 import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
+export { generateMetadata } from './metadata';
+
 const TagsDashboardPage: Next14PageIntlayer = ({ params: { locale } }) => {
   const { title } = useIntlayer('tags-dashboard-page', locale);
 

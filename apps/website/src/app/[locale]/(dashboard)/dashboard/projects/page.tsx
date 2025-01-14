@@ -3,6 +3,8 @@ import { ProjectForm } from '@components/Dashboard/ProjectForm';
 import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
+export { generateMetadata } from './metadata';
+
 const ProjectsDashboardPage: Next14PageIntlayer = ({ params: { locale } }) => {
   const { title } = useIntlayer('projects-dashboard-page', locale);
 

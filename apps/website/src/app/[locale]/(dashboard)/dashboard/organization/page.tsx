@@ -3,6 +3,8 @@ import { OrganizationForm } from '@components/Dashboard/OrganizationForm';
 import type { Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 
+export { generateMetadata } from './metadata';
+
 const OrganizationDashboardPage: Next14PageIntlayer = ({
   params: { locale },
 }) => {

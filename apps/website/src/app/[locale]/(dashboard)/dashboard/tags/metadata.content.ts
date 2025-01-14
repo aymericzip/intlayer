@@ -1,0 +1,112 @@
+import { t, type DeclarationContent } from 'intlayer';
+import { Metadata } from 'next';
+
+const metadataContent = {
+  key: 'tags-dashboard-metadata',
+  content: {
+    title: t({
+      en: 'Tags | Dashboard | Intlayer',
+      'en-GB': 'Tags | Dashboard | Intlayer',
+      fr: 'Étiquettes | Tableau de bord | Intlayer',
+      es: 'Etiquetas | Panel de control | Intlayer',
+      de: 'Tags | Dashboard | Intlayer',
+      ja: 'タグ | ダッシュボード | Intlayer',
+      ko: '태그 | 대시보드 | Intlayer',
+      zh: '标签 | 仪表板 | Intlayer',
+      it: 'Tag | Cruscotto | Intlayer',
+      pt: 'Tags | Painel | Intlayer',
+      hi: 'टैग | डैशबोर्ड | Intlayer',
+      ar: 'العلامات | لوحة التحكم | Intlayer',
+      ru: 'Теги | Приборная панель | Intlayer',
+    }),
+    description: t({
+      en: 'Manage and organize your tags in the Intlayer dashboard. Create, edit, and delete tags to better categorize your content.',
+      'en-GB':
+        'Manage and organize your tags in the Intlayer dashboard. Create, edit, and delete tags to better categorize your content.',
+      fr: 'Gérez et organisez vos étiquettes dans le tableau de bord Intlayer. Créez, modifiez et supprimez des étiquettes pour mieux catégoriser votre contenu.',
+      es: 'Administra y organiza tus etiquetas en el panel de control de Intlayer. Crea, edita y elimina etiquetas para categorizar mejor tu contenido.',
+      de: 'Verwalten und organisieren Sie Ihre Tags im Intlayer-Dashboard. Erstellen, bearbeiten und löschen Sie Tags, um Ihre Inhalte besser zu kategorisieren.',
+      ja: 'Intlayerダッシュボードでタグを管理および整理します。コンテンツをより適切に分類するために、タグを作成、編集、削除します。',
+      ko: 'Intlayer 대시보드에서 태그를 관리하고 정리하세요. 콘텐츠를 더 잘 분류하기 위해 태그를 생성, 편집 및 삭제합니다.',
+      zh: '在Intlayer仪表板中管理和组织您的标签。创建、编辑和删除标签，以更好地对您的内容进行分类。',
+      it: 'Gestisci e organizza i tuoi tag nel dashboard di Intlayer. Crea, modifica ed elimina tag per categorizzare meglio i tuoi contenuti.',
+      pt: 'Gerencie e organize suas tags no painel do Intlayer. Crie, edite e exclua tags para categorizar melhor seu conteúdo.',
+      hi: 'Intlayer डैशबोर्ड में अपने टैग्स को प्रबंधित और व्यवस्थित करें। अपने कंटेंट को बेहतर तरीके से वर्गीकृत करने के लिए टैग्स बनाएं, संपादित करें और हटाएं।',
+      ar: 'قم بإدارة وتنظيم العلامات الخاصة بك في لوحة تحكم Intlayer. أنشئ وعدل واحذف العلامات لتحسين تصنيف المحتوى الخاص بك.',
+      ru: 'Управляйте и организуйте свои теги в панели инструментов Intlayer. Создавайте, редактируйте и удаляйте теги для лучшей категоризации вашего контента.',
+    }),
+    keywords: t<string[]>({
+      en: [
+        'Tags',
+        'Labels',
+        'Categorization',
+        'Management',
+        'Content Organization',
+        'Metadata',
+      ],
+      'en-GB': [
+        'Tags',
+        'Labels',
+        'Categorization',
+        'Management',
+        'Content Organization',
+        'Metadata',
+      ],
+      fr: [
+        'Étiquettes',
+        'Catégorisation',
+        'Gestion',
+        'Organisation du contenu',
+        'Métadonnées',
+      ],
+      es: [
+        'Etiquetas',
+        'Categorización',
+        'Gestión',
+        'Organización de contenido',
+        'Metadatos',
+      ],
+      de: [
+        'Tags',
+        'Kategorisierung',
+        'Verwaltung',
+        'Inhaltsorganisation',
+        'Metadaten',
+      ],
+      ja: ['タグ', '分類', '管理', 'コンテンツ整理', 'メタデータ'],
+      ko: ['태그', '분류', '관리', '콘텐츠 구성', '메타데이터'],
+      zh: ['标签', '分类', '管理', '内容组织', '元数据'],
+      it: [
+        'Tag',
+        'Categorizzazione',
+        'Gestione',
+        'Organizzazione dei contenuti',
+        'Metadati',
+      ],
+      pt: [
+        'Tags',
+        'Categorização',
+        'Gestão',
+        'Organização de conteúdo',
+        'Metadados',
+      ],
+      hi: ['टैग', 'वर्गीकरण', 'प्रबंधन', 'सामग्री संगठन', 'मेटाडेटा'],
+      ar: [
+        'العلامات',
+        'التصنيف',
+        'الإدارة',
+        'تنظيم المحتوى',
+        'البيانات الوصفية',
+      ],
+      ru: [
+        'Теги',
+        'Категоризация',
+        'Управление',
+        'Организация контента',
+        'Метаданные',
+      ],
+    }),
+  },
+} satisfies DeclarationContent<Metadata>;
+
+export default metadataContent;
