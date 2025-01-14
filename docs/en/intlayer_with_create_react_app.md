@@ -736,7 +736,7 @@ const LocaleSwitcher: FC = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location, localeItem)}
+            href={getLocalizedUrl(location.pathname, localeItem)}
             hrefLang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
@@ -802,7 +802,7 @@ const LocaleSwitcher = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location, localeItem)}
+            href={getLocalizedUrl(location.pathname, localeItem)}
             hrefLang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
@@ -868,7 +868,7 @@ const LocaleSwitcher = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location, localeItem)}
+            href={getLocalizedUrl(location.pathname, localeItem)}
             hrefLang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {

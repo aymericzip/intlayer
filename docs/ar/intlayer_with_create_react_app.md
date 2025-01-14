@@ -736,7 +736,7 @@ const LocaleSwitcher: FC = () => {
       {availableLocales.map((localeItem) => (
         <li key={localeItem}>
           <a
-            href={getLocalizedUrl(location, localeItem)}
+            href={getLocalizedUrl(location.pathname, localeItem)}
             hrefLang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
@@ -800,7 +800,7 @@ const LocaleSwitcher = () => {
       {availableLocales.map((localeItem) => (
         <li key={localeItem}>
           <a
-            href={getLocalizedUrl(location, localeItem)}
+            href={getLocalizedUrl(location.pathname, localeItem)}
             hrefLang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
@@ -864,7 +864,7 @@ const LocaleSwitcher = () => {
       {availableLocales.map((localeItem) => (
         <li key={localeItem}>
           <a
-            href={getLocalizedUrl(location, localeItem)}
+            href={getLocalizedUrl(location.pathname, localeItem)}
             hrefLang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
