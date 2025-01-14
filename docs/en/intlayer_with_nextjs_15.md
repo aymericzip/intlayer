@@ -119,42 +119,7 @@ export default withIntlayer(nextConfig);
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimize performance and ensures compatibility with server components.
 
-### Step 4: Configure Middleware for Locale Detection
-
-Set up middleware to detect the user's preferred locale:
-
-```typescript fileName="src/middleware.ts" codeFormat="typescript"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerMiddleware } = require("next-intlayer/middleware");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
-module.exports = { middleware: intlayerMiddleware, config };
-```
-
-> The `intlayerMiddleware` is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md). Additionally, it enables saving the user's preferred locale in a cookie.
-
-### Step 5: Define Dynamic Locale Routes
+### Step 4: Define Dynamic Locale Routes
 
 Remove everything from `RootLayout` and replace it with the following code:
 
@@ -280,7 +245,7 @@ module.exports = { default: LocaleLayout, generateStaticParams };
 
 > `generateStaticParams` ensures that your application pre-builds the necessary pages for all locales, reducing runtime computation and improving the user experience. For more details, refer to the [Next.js documentation on generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
 
-### Step 6: Declare Your Content
+### Step 5: Declare Your Content
 
 Create and manage your content declarations to store translations:
 
@@ -373,7 +338,7 @@ module.exports = pageContent;
 > Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md).
 
-### Step 7: Utilize Content in Your Code
+### Step 6: Utilize Content in Your Code
 
 Access your content dictionaries throughout your application:
 
@@ -573,6 +538,41 @@ const ServerComponentExample = () => {
 > ```
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md).
+
+### (Optional) Step 7: Configure Middleware for Locale Detection
+
+Set up middleware to detect the user's preferred locale:
+
+```typescript fileName="src/middleware.ts" codeFormat="typescript"
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+
+export const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+```
+
+```javascript fileName="src/middleware.mjs" codeFormat="esm"
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+
+export const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+```
+
+```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
+const { intlayerMiddleware } = require("next-intlayer/middleware");
+
+const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+
+module.exports = { middleware: intlayerMiddleware, config };
+```
+
+> The `intlayerMiddleware` is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md). Additionally, it enables saving the user's preferred locale in a cookie.
 
 ### (Optional) Step 8: Internationalization of your metadata
 
