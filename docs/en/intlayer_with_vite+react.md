@@ -107,37 +107,37 @@ Add the intlayer plugin into your configuration.
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intLayerPlugin } from "react-intlayer/vite";
+import { intlayerPlugin } from "react-intlayer/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intLayerPlugin()],
+  plugins: [react(), intlayerPlugin()],
 });
 ```
 
 ```javascript fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intLayerPlugin } from "react-intlayer/vite";
+import { intlayerPlugin } from "react-intlayer/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intLayerPlugin()],
+  plugins: [react(), intlayerPlugin()],
 });
 ```
 
 ```javascript fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
-const { intLayerPlugin } = require("react-intlayer/vite");
+const { intlayerPlugin } = require("react-intlayer/vite");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intLayerPlugin()],
+  plugins: [react(), intlayerPlugin()],
 });
 ```
 
-> The `intLayerPlugin()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimize performance.
+> The `intlayerPlugin()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimize performance.
 
 ### Step 4: Declare Your Content
 
@@ -912,22 +912,22 @@ In parallel, you can also use the `intLayerMiddlewarePlugin` to add server-side 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intLayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
+import { intlayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intLayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [react(), intlayerPlugin(), intLayerMiddlewarePlugin()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intLayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
+import { intlayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intLayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [react(), intlayerPlugin(), intLayerMiddlewarePlugin()],
 });
 ```
 
@@ -935,13 +935,13 @@ export default defineConfig({
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
 const {
-  intLayerPlugin,
+  intlayerPlugin,
   intLayerMiddlewarePlugin,
 } = require("react-intlayer/vite");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intLayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [react(), intlayerPlugin(), intLayerMiddlewarePlugin()],
 });
 ```
 

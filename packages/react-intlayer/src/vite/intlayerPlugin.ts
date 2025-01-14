@@ -17,11 +17,11 @@ type PluginOptions = {
  * ```ts
  * // Example usage of the plugin in a Vite configuration
  * export default defineConfig({
- *   plugins: [ intLayerPlugin() ],
+ *   plugins: [ intlayerPlugin() ],
  * });
  * ```
  *  */
-export const intLayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
+export const intlayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
   name: 'vite-intlayer-plugin',
 
   config: (config, { mode }) => {
