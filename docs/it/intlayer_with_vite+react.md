@@ -599,7 +599,7 @@ Per aggiungere routing localizzato alla tua applicazione, puoi creare un compone
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importando le dipendenze e le funzioni necessarie
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Funzioni e tipi utili da 'intlayer'
+import { Locales, getConfiguration } from "intlayer"; // Funzioni e tipi utili da 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // Tipi React per i componenti funzionali e le props
 import { IntlayerProvider } from "react-intlayer"; // Fornitore per il contesto di internazionalizzazione
 import {
@@ -703,7 +703,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Importando le dipendenze e le funzioni necessarie
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Funzioni e tipi utili da 'intlayer'
+import { Locales, getConfiguration } from "intlayer"; // Funzioni e tipi utili da 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // Fornitore per il contesto di internazionalizzazione
 import {
   BrowserRouter,

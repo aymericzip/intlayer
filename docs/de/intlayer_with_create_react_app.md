@@ -393,7 +393,7 @@ Um lokalisierte Routen zu Ihrer Anwendung hinzuzufügen, können Sie eine `Local
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Notwendige Abhängigkeiten und Funktionen importieren
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Utility-Funktionen und Typen von 'intlayer'
+import { Locales, getConfiguration } from "intlayer"; // Utility-Funktionen und Typen von 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // React-Typen für funktionale Komponenten und Props
 import { IntlayerProvider } from "react-intlayer"; // Provider für den Internationalisierungskontext
 import {
@@ -497,7 +497,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Notwendige Abhängigkeiten und Funktionen importieren
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Utility-Funktionen und Typen von 'intlayer'
+import { Locales, getConfiguration } from "intlayer"; // Utility-Funktionen und Typen von 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // Provider für den Internationalisierungskontext
 import {
   BrowserRouter,

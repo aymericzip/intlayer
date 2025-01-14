@@ -599,7 +599,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // استيراد التبعيات والدوال الضرورية
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // دوال وأنواع المرافق من 'intlayer'
+import { Locales, getConfiguration } from "intlayer"; // دوال وأنواع المرافق من 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // أنواع React للمكونات الوظيفية
 import { IntlayerProvider } from "react-intlayer"; // موفر للسياق الدولي
 import {
@@ -703,7 +703,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // استيراد التبعيات والدوال الضرورية
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // دوال وأنواع المرافق من 'intlayer'
+import { Locales, getConfiguration } from "intlayer"; // دوال وأنواع المرافق من 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // موفر للسياق الدولي
 import {
   BrowserRouter,
