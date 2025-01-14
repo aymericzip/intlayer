@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/config",
-  "version": "3.5.6",
+  "version": "3.5.7",
   "private": false,
   "description": "Shared configuration package for IntLayer - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "keywords": [
