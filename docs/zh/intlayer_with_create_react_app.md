@@ -386,7 +386,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 导入必要的依赖和函数
-import { Locales, getConfiguration } from "intlayer"; // 从 'intlayer' 导入工具函数和类型
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 从 'intlayer' 导入工具函数和类型
 import type { FC, PropsWithChildren } from "react"; // React 的函数组件和属性的类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供程序
 import {
@@ -490,7 +490,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // 导入必要的依赖和函数
-import { Locales, getConfiguration } from "intlayer"; // 从 'intlayer' 导入工具函数和类型
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 从 'intlayer' 导入工具函数和类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供程序
 import {
   BrowserRouter,
@@ -593,7 +593,11 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // 导入必要的依赖和函数
-const { Locales, getConfiguration, getPathWithoutLocale } = require("intlayer"); // 从 'intlayer' 导入工具函数和类型
+const {
+  getConfiguration,
+  getPathWithoutLocale,
+  removeLocaleFromUrl,
+} = require("intlayer"); // 从 'intlayer' 导入工具函数和类型
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国际化上下文的提供程序
 const {
   BrowserRouter,

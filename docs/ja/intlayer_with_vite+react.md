@@ -599,7 +599,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 必要な依存関係と関数をインポート
-import { Locales, getConfiguration } from "intlayer"; // 'intlayer'のユーティリティ関数と型
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 'intlayer'のユーティリティ関数と型
 import type { FC, PropsWithChildren } from "react"; // 関数コンポーネントとプロパティのためのReact型
 import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキスト用のプロバイダー
 import {
@@ -703,7 +703,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // 必要な依存関係と関数をインポート
-import { Locales, getConfiguration } from "intlayer"; // 'intlayer'のユーティリティ関数と型
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 'intlayer'のユーティリティ関数と型
 import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキスト用のプロバイダー
 import {
   BrowserRouter,
@@ -806,7 +806,11 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // 必要な依存関係と関数をインポート
-const { Locales, getConfiguration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'のユーティリティ関数と型
+const {
+  getConfiguration,
+  getPathWithoutLocale,
+  removeLocaleFromUrl,
+} = require("intlayer"); // 'intlayer'のユーティリティ関数と型
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国際化コンテキスト用のプロバイダー
 const {
   BrowserRouter,

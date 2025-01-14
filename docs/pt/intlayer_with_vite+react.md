@@ -599,7 +599,7 @@ Para adicionar roteamento localizado à sua aplicação, você pode criar um com
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importando dependências e funções necessárias
-import { Locales, getConfiguration } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // Tipos React para componentes funcionais e props
 import { IntlayerProvider } from "react-intlayer"; // Provedor para o contexto de internacionalização
 import {
@@ -703,7 +703,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Importando dependências e funções necessárias
-import { Locales, getConfiguration } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // Provedor para o contexto de internacionalização
 import {
   BrowserRouter,
@@ -806,7 +806,11 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // Importando dependências e funções necessárias
-const { Locales, getConfiguration, getPathWithoutLocale } = require("intlayer"); // Funções utilitárias e tipos do 'intlayer'
+const {
+  getConfiguration,
+  getPathWithoutLocale,
+  removeLocaleFromUrl,
+} = require("intlayer"); // Funções utilitárias e tipos do 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // Provedor para o contexto de internacionalização
 const {
   BrowserRouter,

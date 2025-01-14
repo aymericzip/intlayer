@@ -43,6 +43,7 @@ export {
   getPathWithoutLocale,
   getMultilingualUrls,
   getLocalizedUrl,
+  removeLocaleFromUrl,
   localeList,
 } from '@intlayer/core';
 export {

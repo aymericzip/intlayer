@@ -391,7 +391,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // استيراد التبعيات والدوال اللازمة
-import { Locales, getConfiguration } from "intlayer"; // دوال وأنواع مساعد من 'intlayer'
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // دوال وأنواع مساعد من 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // أنواع React للمكونات الوظيفية والخصائص
 import { IntlayerProvider } from "react-intlayer"; // مزود لسياق التوطين
 import {
@@ -495,7 +495,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // استيراد التبعيات والدوال اللازمة
-import { Locales, getConfiguration } from "intlayer"; // دوال وأنواع مساعد من 'intlayer'
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // دوال وأنواع مساعد من 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // مزود لسياق التوطين
 import {
   BrowserRouter,
@@ -598,7 +598,11 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // استيراد التبعيات والدوال اللازمة
-const { Locales, getConfiguration, getPathWithoutLocale } = require("intlayer"); // دوال وأنواع مساعد من 'intlayer'
+const {
+  getConfiguration,
+  getPathWithoutLocale,
+  removeLocaleFromUrl,
+} = require("intlayer"); // دوال وأنواع مساعد من 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // مزود لسياق التوطين
 const {
   BrowserRouter,

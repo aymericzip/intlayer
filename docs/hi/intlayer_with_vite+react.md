@@ -598,7 +598,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // आवश्यक निर्भरता और कार्यों को आयात कर रहे हैं
-import { Locales, getConfiguration } from "intlayer"; // 'intlayer' से उपयोगिता कार्य और प्रकार
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 'intlayer' से उपयोगिता कार्य और प्रकार
 import type { FC, PropsWithChildren } from "react"; // कार्यात्मक घटकों और प्रॉप्स के लिए React प्रकार
 import { IntlayerProvider } from "react-intlayer"; // अंतरराष्ट्रीयकरण संदर्भ के लिए प्रदाता
 import {
@@ -702,7 +702,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // आवश्यक निर्भरता और कार्यों को आयात कर रहे हैं
-import { Locales, getConfiguration } from "intlayer"; // 'intlayer' से उपयोगिता कार्य और प्रकार
+import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 'intlayer' से उपयोगिता कार्य और प्रकार
 import { IntlayerProvider } from "react-intlayer"; // अंतरराष्ट्रीयकरण संदर्भ के लिए प्रदाता
 import {
   BrowserRouter,
@@ -805,7 +805,11 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // आवश्यक निर्भरता और कार्यों को आयात कर रहे हैं
-const { Locales, getConfiguration, getPathWithoutLocale } = require("intlayer"); // 'intlayer' से उपयोगिता कार्य और प्रकार
+const {
+  getConfiguration,
+  getPathWithoutLocale,
+  removeLocaleFromUrl,
+} = require("intlayer"); // 'intlayer' से उपयोगिता कार्य और प्रकार
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // अंतरराष्ट्रीयकरण संदर्भ के लिए प्रदाता
 const {
   BrowserRouter,
