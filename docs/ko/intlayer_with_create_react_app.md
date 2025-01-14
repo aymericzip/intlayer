@@ -392,7 +392,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 필요한 종속성과 함수 가져오기
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 유형 가져오기
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 유형 가져오기
 import type { FC, PropsWithChildren } from "react"; // 함수형 컴포넌트와 props에 대한 React 유형 가져오기
 import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 제공자
 import {
@@ -420,7 +420,7 @@ const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // 경로에서 로케일 접두사를 제거하여 기본 경로를 구성
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // 현재 URL 경로
   );
 
@@ -496,7 +496,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // 필요한 종속성과 함수 가져오기
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 유형 가져오기
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 유형 가져오기
 import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 제공자
 import {
   BrowserRouter,
@@ -523,7 +523,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // 경로에서 로케일 접두사를 제거하여 기본 경로를 구성
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // 현재 URL 경로
   );
 
@@ -599,11 +599,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // 필요한 종속성과 함수 가져오기
-const {
-  getConfiguration,
-  getPathWithoutLocale,
-  removeLocaleFromUrl,
-} = require("intlayer"); // 'intlayer'에서 유틸리티 함수 및 유형 가져오기
+const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'에서 유틸리티 함수 및 유형 가져오기
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // 국제화 컨텍스트를 위한 제공자
 const {
   BrowserRouter,
@@ -630,7 +626,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // 경로에서 로케일 접두사를 제거하여 기본 경로를 구성
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // 현재 URL 경로
   );
 

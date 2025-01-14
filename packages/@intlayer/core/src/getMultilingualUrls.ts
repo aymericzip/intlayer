@@ -1,10 +1,8 @@
 import { getConfiguration, Locales } from '@intlayer/config/client';
 // @ts-ignore intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';
-import {
-  checkIsAbsoluteUrl,
-  getPathWithoutLocale,
-} from './getPathWithoutLocale';
+import { checkIsURLAbsolute } from './checkIsURLAbsolute';
+import { getPathWithoutLocale } from './getPathWithoutLocale';
 
 // Destructure necessary configurations
 const { internationalization, middleware } = getConfiguration();
@@ -43,12 +41,13 @@ export const getMultilingualUrls = (
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
 
   // Determine if the original URL is absolute (includes protocol)
-  const isAbsoluteUrl = checkIsAbsoluteUrl(urlWithoutLocale);
+  const isAbsoluteUrl = checkIsURLAbsolute(urlWithoutLocale);
 
   // Initialize a URL object if the URL is absolute
   // For relative URLs, use a dummy base to leverage the URL API
-  const base = isAbsoluteUrl ? undefined : 'http://example.com';
-  const parsedUrl = new URL(urlWithoutLocale, base);
+  const parsedUrl = isAbsoluteUrl
+    ? new URL(urlWithoutLocale)
+    : new URL(urlWithoutLocale, 'http://example.com');
 
   // Extract the pathname from the parsed URL
   let pathname = parsedUrl.pathname;

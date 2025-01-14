@@ -386,7 +386,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 导入必要的依赖和函数
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 从 'intlayer' 导入工具函数和类型
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 从 'intlayer' 导入工具函数和类型
 import type { FC, PropsWithChildren } from "react"; // React 的函数组件和属性的类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供程序
 import {
@@ -414,7 +414,7 @@ const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // 从路径中移除语言环境前缀以构造基础路径
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // 当前 URL 路径
   );
 
@@ -490,7 +490,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // 导入必要的依赖和函数
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // 从 'intlayer' 导入工具函数和类型
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 从 'intlayer' 导入工具函数和类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供程序
 import {
   BrowserRouter,
@@ -517,7 +517,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // 从路径中移除语言环境前缀以构造基础路径
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // 当前 URL 路径
   );
 
@@ -593,11 +593,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // 导入必要的依赖和函数
-const {
-  getConfiguration,
-  getPathWithoutLocale,
-  removeLocaleFromUrl,
-} = require("intlayer"); // 从 'intlayer' 导入工具函数和类型
+const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // 从 'intlayer' 导入工具函数和类型
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国际化上下文的提供程序
 const {
   BrowserRouter,
@@ -624,7 +620,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // 从路径中移除语言环境前缀以构造基础路径
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // 当前 URL 路径
   );
 

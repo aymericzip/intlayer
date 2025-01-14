@@ -1,5 +1,5 @@
 import { getConfiguration, type Locales } from '@intlayer/config/client';
-import { removeLocaleFromUrl } from './removeLocaleFromUrl';
+import { checkIsURLAbsolute } from './checkIsURLAbsolute';
 
 const { internationalization } = getConfiguration();
 const { locales: localesDefault } = internationalization;
@@ -29,25 +29,42 @@ export const getPathWithoutLocale = (
   inputUrl: string,
   locales: Locales[] = localesDefault
 ): string => {
-  // Determine if the input is an absolute URL
-  const isAbsoluteUrl = checkIsAbsoluteUrl(inputUrl);
+  // Determine if the original URL is absolute (includes protocol)
+  const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);
 
-  // If it's an absolute URL, parse it using the URL constructor
-  // Otherwise, handle it as a relative pathname
+  // Initialize a URL object if the URL is absolute
+  // For relative URLs, use a dummy base to leverage the URL API
   const url = isAbsoluteUrl
     ? new URL(inputUrl)
     : new URL(inputUrl, 'http://example.com');
 
-  const urlWithoutLocale = removeLocaleFromUrl(url.toString(), locales);
+  const pathname = url.pathname;
 
-  if (isAbsoluteUrl) {
-    // If the input was an absolute URL, return the modified URL as a string
-    return urlWithoutLocale;
+  // Ensure the pathname starts with '/'
+  if (!pathname.startsWith('/')) {
+    // If not, return the URL as is
+    url.pathname = `/${pathname}`;
   }
 
-  // If the input was a relative pathname, return the modified pathname
-  return urlWithoutLocale.replace('http://example.com', '');
-};
+  // Split the pathname to extract the first segment
+  const pathSegments = pathname.split('/');
+  const firstSegment = pathSegments[1]; // The segment after the first '/'
 
-export const checkIsAbsoluteUrl = (url: string): boolean =>
-  /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(url);
+  // Check if the first segment is a supported locale
+  if (locales.includes(firstSegment as Locales)) {
+    // Remove the locale segment from the pathname
+    pathSegments.splice(1, 1); // Remove the first segment
+
+    // Reconstruct the pathname
+    const newPathname = pathSegments.join('/') ?? '/';
+    url.pathname = newPathname;
+  }
+
+  if (isAbsoluteUrl) {
+    // Return the modified URL as a string
+    return url.toString();
+  }
+
+  // Return the modified URL as a string
+  return url.toString().replace('http://example.com', '');
+};

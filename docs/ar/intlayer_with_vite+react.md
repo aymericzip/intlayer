@@ -599,7 +599,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // استيراد التبعيات والدوال الضرورية
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // دوال وأنواع المرافق من 'intlayer'
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // دوال وأنواع المرافق من 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // أنواع React للمكونات الوظيفية
 import { IntlayerProvider } from "react-intlayer"; // موفر للسياق الدولي
 import {
@@ -627,7 +627,7 @@ const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // إزالة بادئة اللغة من المسار لبناء مسار أساسي
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // مسار URL الحالي
   );
 
@@ -703,7 +703,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // استيراد التبعيات والدوال الضرورية
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // دوال وأنواع المرافق من 'intlayer'
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // دوال وأنواع المرافق من 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // موفر للسياق الدولي
 import {
   BrowserRouter,
@@ -730,7 +730,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // إزالة بادئة اللغة من المسار لبناء مسار أساسي
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // مسار URL الحالي
   );
 
@@ -806,11 +806,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // استيراد التبعيات والدوال الضرورية
-const {
-  getConfiguration,
-  getPathWithoutLocale,
-  removeLocaleFromUrl,
-} = require("intlayer"); // دوال وأنواع المرافق من 'intlayer'
+const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // دوال وأنواع المرافق من 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // موفر للسياق الدولي
 const {
   BrowserRouter,
@@ -837,7 +833,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // إزالة بادئة اللغة من المسار لبناء مسار أساسي
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // مسار URL الحالي
   );
 

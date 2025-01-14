@@ -602,7 +602,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Импорт необходимых зависимостей и функций
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // Утилиты и типы из 'intlayer'
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Утилиты и типы из 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // Типы React для функциональных компонентов и свойств
 import { IntlayerProvider } from "react-intlayer"; // Провайдер для контекста интернационализации
 import {
@@ -630,7 +630,7 @@ const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // Удалите префикс языка из пути, чтобы составить базовый путь
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // Текущий URL-адрес
   );
 
@@ -706,7 +706,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Импорт необходимых зависимостей и функций
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // Утилиты и типы из 'intlayer'
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Утилиты и типы из 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // Провайдер для контекста интернационализации
 import {
   BrowserRouter,
@@ -733,7 +733,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // Удалите префикс языка из пути, чтобы составить базовый путь
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // Текущий URL-адрес
   );
 
@@ -809,11 +809,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // Импорт необходимых зависимостей и функций
-const {
-  getConfiguration,
-  getPathWithoutLocale,
-  removeLocaleFromUrl,
-} = require("intlayer"); // Утилиты и типы из 'intlayer'
+const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // Утилиты и типы из 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // Провайдер для контекста интернационализации
 const {
   BrowserRouter,
@@ -840,7 +836,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // Удалите префикс языка из пути, чтобы составить базовый путь
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // Текущий URL-адрес
   );
 

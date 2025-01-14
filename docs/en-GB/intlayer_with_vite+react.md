@@ -599,7 +599,7 @@ To add localized routing to your application, you can create a `LocaleRouter` co
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importing necessary dependencies and functions
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // Utility functions and types from 'intlayer'
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Utility functions and types from 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // React types for functional components and props
 import { IntlayerProvider } from "react-intlayer"; // Provider for internationalization context
 import {
@@ -627,7 +627,7 @@ const AppLocalized: FC<PropsWithChildren> = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // Remove the locale prefix from the path to construct a base path
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // Current URL path
   );
 
@@ -703,7 +703,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Importing necessary dependencies and functions
-import { Locales, getConfiguration, removeLocaleFromUrl } from "intlayer"; // Utility functions and types from 'intlayer'
+import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Utility functions and types from 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // Provider for internationalization context
 import {
   BrowserRouter,
@@ -730,7 +730,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // Remove the locale prefix from the path to construct a base path
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // Current URL path
   );
 
@@ -806,11 +806,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // Importing necessary dependencies and functions
-const {
-  getConfiguration,
-  getPathWithoutLocale,
-  removeLocaleFromUrl,
-} = require("intlayer"); // Utility functions and types from 'intlayer'
+const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // Utility functions and types from 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // Provider for internationalization context
 const {
   BrowserRouter,
@@ -837,7 +833,7 @@ const AppLocalized = ({ children }) => {
   const currentLocale = locale ?? defaultLocale;
 
   // Remove the locale prefix from the path to construct a base path
-  const pathWithoutLocale = removeLocaleFromUrl(
+  const pathWithoutLocale = getPathWithoutLocale(
     path // Current URL path
   );
 
