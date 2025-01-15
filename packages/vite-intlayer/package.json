@@ -40,31 +40,6 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
-    "./server": {
-      "types": "./dist/types/server/index.d.ts",
-      "require": "./dist/cjs/server/index.cjs",
-      "import": "./dist/esm/server/index.mjs"
-    },
-    "./craco-plugin": {
-      "types": "./dist/types/craco/intlayerCracoPlugin.d.ts",
-      "require": "./dist/cjs/craco/intlayerCracoPlugin.cjs",
-      "import": "./dist/esm/craco/intlayerCracoPlugin.mjs"
-    },
-    "./craco-config": {
-      "types": "./dist/types/craco/craco.config.d.ts",
-      "require": "./dist/cjs/craco/craco.config.cjs",
-      "import": "./dist/esm/craco/craco.config.mjs"
-    },
-    "./vite": {
-      "types": "./dist/types/vite/index.d.ts",
-      "require": "./dist/cjs/vite/index.cjs",
-      "import": "./dist/esm/vite/index.mjs"
-    },
-    "./editor": {
-      "types": "./dist/types/editor/index.d.ts",
-      "require": "./dist/cjs/editor/index.cjs",
-      "import": "./dist/esm/editor/index.mjs"
-    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",

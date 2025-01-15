@@ -40,16 +40,6 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
-    "./server": {
-      "types": "./dist/types/server/index.d.ts",
-      "require": "./dist/cjs/server/index.cjs",
-      "import": "./dist/esm/server/index.mjs"
-    },
-    "./editor": {
-      "types": "./dist/types/editor/index.d.ts",
-      "require": "./dist/cjs/editor/index.cjs",
-      "import": "./dist/esm/editor/index.mjs"
-    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -84,11 +74,7 @@
   },
   "dependencies": {
     "@craco/craco": "^7.1.0",
-    "@intlayer/api": "workspace:*",
-    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "node-loader": "^2.1.0",
     "webpack": "^5.97.1"
@@ -115,15 +101,10 @@
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "intlayer": "workspace:*",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
-    "vite": ">=4.0.0",
     "webpack": ">=5.0.0"
   },
   "engines": {
