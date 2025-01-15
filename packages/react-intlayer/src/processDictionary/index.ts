@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type Locales, getConfiguration } from '@intlayer/config/client';
 import {
   NodeType,
@@ -11,7 +10,7 @@ import {
   type EnumerationContent,
   type TypedNode,
 } from '@intlayer/core';
-import { type ReactElement, createElement, type ReactNode } from 'react';
+import { type ReactElement, createElement, type ReactNode, JSX } from 'react';
 import { getEnumeration } from '../getEnumeration';
 import { getTranslation } from '../getTranslation';
 import type {
@@ -125,7 +124,6 @@ export const processNode = (
   }
 
   return processDictionary(
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     field!,
     dictionaryKey,
     dictionaryPath,
@@ -141,14 +139,18 @@ const createReactElement = (element: ReactElement) => {
     return element;
   }
 
-  const convertChildrenAsArray = (element: ReactElement): ReactElement => {
+  const convertChildrenAsArray = (
+    element: ReactElement<{ children?: ReactNode }>
+  ): ReactElement<{ children?: ReactNode }> => {
     if (element?.props && typeof element.props.children === 'object') {
       const childrenResult: ReactNode[] = [];
       const { children } = element.props;
 
       // Create the children elements recursively, if any
-      Object.keys(children).forEach((key) => {
-        childrenResult.push(createReactElement(children[key]));
+      Object.keys(children ?? {}).forEach((key) => {
+        childrenResult.push(
+          createReactElement((children ?? {})[key as keyof typeof children])
+        );
       });
 
       return {
@@ -163,12 +165,18 @@ const createReactElement = (element: ReactElement) => {
     };
   };
 
-  const fixedElement = convertChildrenAsArray(element);
+  const fixedElement = convertChildrenAsArray(
+    element as ReactElement<{ children?: ReactNode }>
+  );
 
   const { type, props } = fixedElement;
 
   // Create and return the React element
-  return createElement(type ?? 'div', props, ...props.children);
+  return createElement(
+    type ?? 'div',
+    props,
+    ...(props.children as ReactNode[])
+  );
 };
 
 const traceKeys: string[] = ['filePath', 'nodeType'];
@@ -205,7 +213,7 @@ export const processDictionary = (
       ) as TransformedContent;
     } else if (isArray) {
       // Eslint fix because promises are awaited during build stage
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+
       result = (content as DictionaryValue[]).map((field, key) => {
         const resultKeyPath: KeyPath[] = [
           ...keyPath,

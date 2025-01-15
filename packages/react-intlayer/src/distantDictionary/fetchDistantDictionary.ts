@@ -1,5 +1,5 @@
 import { getIntlayerAPI } from '@intlayer/api';
-// @ts-ignore @intlayer/backend not build yet
+// @ts-ignore @intlayer/backend is not build yet
 import { type DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/client';
 // @ts-ignore @intlayer/design-system not build yet

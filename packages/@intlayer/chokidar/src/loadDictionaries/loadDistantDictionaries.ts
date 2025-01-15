@@ -1,4 +1,4 @@
-// @ts-ignore @intlayer/backend not build yet
+// @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 

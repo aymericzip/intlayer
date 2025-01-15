@@ -32,12 +32,12 @@
     "intlayer": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^22.10.1",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "eslint": "^9.16.0",
-    "prettier": "^3.4.1",
-    "typescript": "^5.7.2"
+    "@types/node": "^22.10.6",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"

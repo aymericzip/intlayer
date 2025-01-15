@@ -14,7 +14,10 @@ import {
   ESMxCJSRequire,
 } from '@intlayer/config';
 import { IntLayerPlugin as IntLayerWebpackPlugin } from '@intlayer/webpack';
-import webpack, { type Configuration as WebpackConfig } from 'webpack';
+import {
+  type Configuration as WebpackConfig,
+  EnvironmentPlugin,
+} from 'webpack';
 import { removeUndefinedValueObject } from '../utils/removeUndefinedValueObject';
 
 // Get IntLayer configuration
@@ -64,7 +67,7 @@ export const overrideCracoConfig = ({
       plugins: {
         ...cracoConfig.webpack?.plugins,
         add: [
-          new webpack.EnvironmentPlugin(removeUndefinedValueObject(env)),
+          new EnvironmentPlugin(removeUndefinedValueObject(env)),
           new IntLayerWebpackPlugin(),
         ],
       },

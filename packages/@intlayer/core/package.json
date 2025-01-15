@@ -72,26 +72,26 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.4",
+    "@formatjs/intl-localematcher": "^0.5.10",
     "@intlayer/config": "workspace:*",
-    "chokidar": "^3.6.0",
-    "negotiator": "^0.6.3"
+    "negotiator": "^1.0.0"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^22.10.1",
-    "@types/react": "^18.3.12",
+    "@types/node": "^22.10.6",
+    "@types/react": "^19.0.7",
+    "@typescript-eslint/parser": "^8.20.0",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.1.0",
-    "eslint": "^9.16.0",
-    "prettier": "^3.4.1",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:*",

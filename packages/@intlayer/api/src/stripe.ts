@@ -1,7 +1,9 @@
 import type {
+  // @ts-ignore: @intlayer/backend is not built yet
   GetCheckoutSessionBody,
+  // @ts-ignore: @intlayer/backend is not built yet
   GetCheckoutSessionResult,
-  // @ts-ignore @intlayer/backend not build yet
+  // @ts-ignore @intlayer/backend is not build yet
 } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';

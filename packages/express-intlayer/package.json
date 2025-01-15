@@ -69,37 +69,34 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "serve": "webpack serve --config ./webpack.config.ts",
-    "transpile": "webpack --config ./webpack.config.ts",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit",
-    "watch": "webpack --config ./webpack.config.ts --watch"
+    "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "cls-hooked": "^4.2.2",
-    "intlayer": "workspace:*",
-    "webpack": "^5.96.1"
+    "intlayer": "workspace:*"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.0",
-    "@changesets/cli": "2.27.10",
+    "@changesets/cli": "2.27.11",
     "@types/cls-hooked": "^4.3.9",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.6",
+    "@typescript-eslint/parser": "^8.20.0",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.1.0",
-    "eslint": "^9.16.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.18.0",
     "express": "^5.0.1",
-    "prettier": "^3.4.1",
+    "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",

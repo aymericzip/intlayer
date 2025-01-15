@@ -69,21 +69,21 @@
   },
   "devDependencies": {
     "@intlayer/core": "workspace:*",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.10.6",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.1.0",
-    "eslint": "^9.16.0",
-    "fast-glob": "^3.3.2",
-    "openai": "^4.76.1",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.18.0",
+    "fast-glob": "^3.3.3",
+    "openai": "^4.78.1",
     "p-limit": "^3.1.0",
-    "prettier": "^3.4.1",
+    "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "engines": {
     "node": ">=14.18"

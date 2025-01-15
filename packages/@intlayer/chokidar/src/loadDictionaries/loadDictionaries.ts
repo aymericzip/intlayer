@@ -1,4 +1,4 @@
-// @ts-ignore @intlayer/backend not build yet
+// @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { appLogger, getConfiguration } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';

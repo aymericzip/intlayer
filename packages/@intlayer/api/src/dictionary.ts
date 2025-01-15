@@ -1,20 +1,35 @@
 import type {
+  // @ts-ignore: @intlayer/backend is not built yet
   AddDictionaryBody,
+  // @ts-ignore: @intlayer/backend is not built yet
   AddDictionaryResult,
+  // @ts-ignore: @intlayer/backend is not built yet
   DeleteDictionaryParam,
+  // @ts-ignore: @intlayer/backend is not built yet
   DeleteDictionaryResult,
+  // @ts-ignore: @intlayer/backend is not built yet
   GetDictionariesParams,
+  // @ts-ignore: @intlayer/backend is not built yet
   GetDictionariesResult,
+  // @ts-ignore: @intlayer/backend is not built yet
   UpdateDictionaryParam,
+  // @ts-ignore: @intlayer/backend is not built yet
   UpdateDictionaryBody,
+  // @ts-ignore: @intlayer/backend is not built yet
   UpdateDictionaryResult,
+  // @ts-ignore: @intlayer/backend is not built yet
   PushDictionariesBody,
+  // @ts-ignore: @intlayer/backend is not built yet
   PushDictionariesResult,
+  // @ts-ignore: @intlayer/backend is not built yet
   GetDictionaryParams,
+  // @ts-ignore: @intlayer/backend is not built yet
   GetDictionaryQuery,
+  // @ts-ignore: @intlayer/backend is not built yet
   GetDictionaryResult,
+  // @ts-ignore: @intlayer/backend is not built yet
   GetDictionariesKeysResult,
-  // @ts-ignore @intlayer/backend not build yet
+  // @ts-ignore @intlayer/backend is not build yet
 } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from './fetcher';

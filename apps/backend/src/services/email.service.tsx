@@ -44,7 +44,7 @@ import {
 import { logger } from '@logger';
 import { t } from 'express-intlayer';
 import { Locales } from 'intlayer';
-import { ComponentProps } from 'react';
+import { ComponentProps, JSX } from 'react';
 import { Resend } from 'resend';
 
 type EmailComponentsType = (...props: any) => JSX.Element;
