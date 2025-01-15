@@ -108,13 +108,37 @@ module.exports = config;
 
 Configure your Next.js setup to use Intlayer:
 
-```typescript fileName="next.config.mjs"
+```typescript filename="next.config.ts" codeFormat="typescript"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="next.config.mjs" codeFormat="esm"
 import { withIntlayer } from "next-intlayer/server";
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  /* config options here */
+};
 
 export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="next.config.cjs" codeFormat="commonjs"
+const { withIntlayer } = require("next-intlayer/server");
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  /* config options here */
+};
+
+module.exports = withIntlayer(nextConfig);
 ```
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimize performance and ensures compatibility with server components.
