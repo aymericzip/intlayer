@@ -1,5 +1,5 @@
 // @ts-ignore @intlayer/backend not build yet
-import { type DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI } from '@intlayer/backend';
 import { appLogger, getConfiguration } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import merge from 'deepmerge';

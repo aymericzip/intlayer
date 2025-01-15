@@ -1,5 +1,5 @@
 // @ts-ignore @intlayer/backend not build yet
-import { type DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI } from '@intlayer/backend';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 
 type LoadDistantDictionariesOptions = {
