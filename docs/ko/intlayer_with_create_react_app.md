@@ -20,15 +20,15 @@ Intlayer를 사용하면:
 필요한 패키지를 npm을 사용해 설치합니다:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
+npm install intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
+pnpm add intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
+yarn add intlayer react-intlayer react-scripts-intlayer
 ```
 
 - **intlayer**
@@ -107,13 +107,13 @@ react-intlayer를 사용하도록 스크립트를 변경합니다.
 
 ```json fileName="package.json"
   "scripts": {
-    "build": "react-intlayer build",
-    "start": "react-intlayer start",
+    "build": "react-scripts-intlayer build",
+    "start": "react-scripts-intlayer start",
     "transpile": "intlayer build"
   },
 ```
 
-> `react-intlayer` 스크립트는 [craco](https://craco.js.org/)를 기반으로 합니다. 또한, intlayer의 craco 플러그인을 기반으로 한 자체 설정을 구현할 수 있습니다. [여기서 예를 확인하십시오](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
+> `react-scripts-intlayer` 스크립트는 [craco](https://craco.js.org/)를 기반으로 합니다. 또한, intlayer의 craco 플러그인을 기반으로 한 자체 설정을 구현할 수 있습니다. [여기서 예를 확인하십시오](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
 ### Step 4: Declare Your Content
 

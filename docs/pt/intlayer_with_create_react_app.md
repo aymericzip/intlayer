@@ -20,15 +20,15 @@ Com o Intlayer, você pode:
 Instale os pacotes necessários usando npm:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
+npm install intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
+pnpm add intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
+yarn add intlayer react-intlayer react-scripts-intlayer
 ```
 
 - **intlayer**
@@ -107,13 +107,13 @@ Altere seus scripts para usar o react-intlayer
 
 ```json fileName="package.json"
   "scripts": {
-    "build": "react-intlayer build",
-    "start": "react-intlayer start",
+    "build": "react-scripts-intlayer build",
+    "start": "react-scripts-intlayer start",
     "transpile": "intlayer build"
   },
 ```
 
-> Os scripts `react-intlayer` são baseados no [craco](https://craco.js.org/). Você também pode implementar sua própria configuração com base no plugin craco do intlayer. [Veja um exemplo aqui](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
+> Os scripts `react-scripts-intlayer` são baseados no [craco](https://craco.js.org/). Você também pode implementar sua própria configuração com base no plugin craco do intlayer. [Veja um exemplo aqui](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
 ### Passo 4: Declarar Seu Conteúdo
 

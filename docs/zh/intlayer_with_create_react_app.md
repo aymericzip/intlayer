@@ -20,15 +20,15 @@
 使用 npm 安装必要的包：
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
+npm install intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
+pnpm add intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
+yarn add intlayer react-intlayer react-scripts-intlayer
 ```
 
 - **intlayer**
@@ -107,13 +107,13 @@ module.exports = config;
 
 ```json fileName="package.json"
   "scripts": {
-    "build": "react-intlayer build",
-    "start": "react-intlayer start",
+    "build": "react-scripts-intlayer build",
+    "start": "react-scripts-intlayer start",
     "transpile": "intlayer build"
   },
 ```
 
-> `react-intlayer` 脚本基于 [craco](https://craco.js.org/)。您还可以根据 intlayer craco 插件实现自己的设置。[请看这里的示例](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)。
+> `react-scripts-intlayer` 脚本基于 [craco](https://craco.js.org/)。您还可以根据 intlayer craco 插件实现自己的设置。[请看这里的示例](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)。
 
 ### 第 4 步：声明您的内容
 

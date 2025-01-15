@@ -20,15 +20,15 @@ Intlayer के साथ, आप:
 npm का उपयोग करके आवश्यक पैकेजों को स्थापित करें:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
+npm install intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
+pnpm add intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
+yarn add intlayer react-intlayer react-scripts-intlayer
 ```
 
 - **intlayer**
@@ -107,13 +107,13 @@ module.exports = config;
 
 ```json fileName="package.json"
   "scripts": {
-    "build": "react-intlayer build",
-    "start": "react-intlayer start",
+    "build": "react-scripts-intlayer build",
+    "start": "react-scripts-intlayer start",
     "transpile": "intlayer build"
   },
 ```
 
-> `react-intlayer` स्क्रिप्ट्स [craco](https://craco.js.org/) पर आधारित हैं। आप intlayer craco प्लगइन के आधार पर अपनी स्वयं की सेटअप भी कार्यान्वित कर सकते हैं। [यहां उदाहरण देखें](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)。
+> `react-scripts-intlayer` स्क्रिप्ट्स [craco](https://craco.js.org/) पर आधारित हैं। आप intlayer craco प्लगइन के आधार पर अपनी स्वयं की सेटअप भी कार्यान्वित कर सकते हैं। [यहां उदाहरण देखें](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)。
 
 ### चरण 4: अपनी सामग्री की घोषणा करें
 

@@ -18,15 +18,15 @@ With Intlayer, you can:
 Install the necessary packages using npm:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
+npm install intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
+pnpm add intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
+yarn add intlayer react-intlayer react-scripts-intlayer
 ```
 
 - **intlayer**
@@ -35,7 +35,11 @@ yarn add intlayer react-intlayer
 
 - **react-intlayer**
 
-  The package that integrates Intlayer with React application. It provides context providers and hooks for React internationalization. Additionally, it includes the plugin for integrating Intlayer with the Create React App based application.
+  The package that integrates Intlayer with React application. It provides context providers and hooks for React internationalization.
+
+- **react-scripts-intlayer**
+
+  Includes the scripts and plugins for integrating Intlayer with the Create React App based application. These plugins are based on [craco](https://craco.js.org/) and includes additional configuration for the [Webpack](https://webpack.js.org/) bundler.
 
 ### Step 2: Configuration of your project
 
@@ -105,13 +109,13 @@ Change your scripts to use react-intlayer
 
 ```json fileName="package.json"
   "scripts": {
-    "build": "react-intlayer build",
-    "start": "react-intlayer start",
+    "build": "react-scripts-intlayer build",
+    "start": "react-scripts-intlayer start",
     "transpile": "intlayer build"
   },
 ```
 
-> `react-intlayer` scripts are based on [CRACO](https://craco.js.org/). You can also implement your own setup based on the intlayer craco plugin. [See example here](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
+> `react-scripts-intlayer` scripts are based on [CRACO](https://craco.js.org/). You can also implement your own setup based on the intlayer craco plugin. [See example here](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
 ### Step 4: Declare Your Content
 

@@ -1,8 +1,8 @@
 {
-  "name": "react-intlayer",
+  "name": "react-scripts-intlayer",
   "version": "3.5.11",
   "private": false,
-  "description": "Internationalization layer for React applications. Declare your multilingual contant in the same lever than your component. Powered by TypeScript, declaration files.",
+  "description": "Script for create react app application with intlayer",
   "keywords": [
     "intlayer",
     "data",
@@ -63,7 +63,7 @@
     }
   },
   "bin": {
-    "react-intlayer": "./dist/cjs/cli/react-intlayer.cjs"
+    "react-scripts-intlayer": "./dist/cjs/cli/react-scripts-intlayer.cjs"
   },
   "files": [
     "./dist",
@@ -83,23 +83,21 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "cross-spawn": "^7.0.6",
-    "js-cookie": "^3.0.5",
-    "vite": "^6.0.7",
+    "node-loader": "^2.1.0",
     "webpack": "^5.97.1"
   },
   "devDependencies": {
     "@craco/types": "^7.1.0",
     "@intlayer/backend": "workspace:*",
-    "@types/js-cookie": "^3.0.6",
+    "@types/cross-spawn": "^6.0.6",
     "@types/node": "^22.10.6",
-    "@types/react": "^18.3.1",
     "@types/webpack": "^5.28.5",
     "@typescript-eslint/parser": "^8.20.0",
     "@utils/eslint-config": "workspace:*",

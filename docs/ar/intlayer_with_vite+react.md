@@ -20,15 +20,15 @@
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
+npm install intlayer react-intlayer vite-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
+pnpm add intlayer react-intlayer vite-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
+yarn add intlayer react-intlayer vite-intlayer
 ```
 
 - **intlayer**
@@ -107,7 +107,7 @@ module.exports = config;
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin } from "react-intlayer/vite";
+import { intlayerPlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -118,7 +118,7 @@ export default defineConfig({
 ```javascript fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin } from "react-intlayer/vite";
+import { intlayerPlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -129,7 +129,7 @@ export default defineConfig({
 ```javascript fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
-const { intlayerPlugin } = require("react-intlayer/vite");
+const { intlayerPlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
@@ -912,7 +912,7 @@ export const LocaleRouter = ({ children }) => (
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
+import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -923,7 +923,7 @@ export default defineConfig({
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
+import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -934,10 +934,7 @@ export default defineConfig({
 ```javascript {5,10} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
-const {
-  intlayerPlugin,
-  intLayerMiddlewarePlugin,
-} = require("react-intlayer/vite");
+const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({

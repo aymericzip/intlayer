@@ -18,7 +18,7 @@ import {
   type Configuration as WebpackConfig,
   EnvironmentPlugin,
 } from 'webpack';
-import { removeUndefinedValueObject } from '../utils/removeUndefinedValueObject';
+import { removeUndefinedValueObject } from './removeUndefinedValueObject';
 
 // Get IntLayer configuration
 const intlayerConfig = getConfiguration();

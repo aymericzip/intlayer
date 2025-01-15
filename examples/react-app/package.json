@@ -3,12 +3,12 @@
   "version": "0.2.12",
   "private": true,
   "scripts": {
-    "build": "react-intlayer build",
+    "build": "react-scripts-intlayer build",
     "build:customCracoConfig": "craco build",
     "build:original": "react-scripts build",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
-    "start": "react-intlayer start",
+    "start": "react-scripts-intlayer start",
     "start:customCracoConfig": "craco start",
     "start:original": "react-scripts start",
     "test": "react-scripts test --watchAll=false",
@@ -48,6 +48,7 @@
     "react-intlayer": "workspace:*",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
+    "react-scripts-intlayer": "workspace:*",
     "typescript": "^5.7.3",
     "web-vitals": "^2.1.4"
   },

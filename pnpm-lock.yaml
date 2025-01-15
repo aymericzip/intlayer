@@ -696,6 +696,9 @@ importers:
       react-scripts:
         specifier: 5.0.1
         version: 5.0.1(@babel/plugin-syntax-flow@7.26.0(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.9(@babel/core@7.26.0))(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/webpack@5.28.5(@swc/core@1.10.7(@swc/helpers@0.5.15)))(eslint@8.57.1)(react@18.3.1)(ts-node@10.9.2(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/node@22.10.6)(typescript@5.7.3))(type-fest@3.13.1)(typescript@5.7.3)
+      react-scripts-intlayer:
+        specifier: workspace:*
+        version: link:../../packages/react-scripts-intlayer
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -733,6 +736,9 @@ importers:
       react-router-dom:
         specifier: ^7.1.1
         version: 7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      vite-intlayer:
+        specifier: workspace:*
+        version: link:../../packages/vite-intlayer
     devDependencies:
       '@types/react':
         specifier: ^18.3.1
@@ -1767,9 +1773,6 @@ importers:
 
   packages/react-intlayer:
     dependencies:
-      '@craco/craco':
-        specifier: ^7.1.0
-        version: 7.1.0(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/node@22.10.6)(postcss@8.5.1)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.26.0(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.9(@babel/core@7.26.0))(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/webpack@5.28.5(@swc/core@1.10.7(@swc/helpers@0.5.15)))(eslint@9.18.0(jiti@2.4.2))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/node@22.10.6)(typescript@5.7.3))(type-fest@3.13.1)(typescript@5.7.3))(typescript@5.7.3)
       '@intlayer/api':
         specifier: workspace:*
         version: link:../@intlayer/api
@@ -1797,9 +1800,6 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
-      node-loader:
-        specifier: ^2.1.0
-        version: 2.1.0(webpack@5.97.1(@swc/core@1.10.7(@swc/helpers@0.5.15)))
       vite:
         specifier: ^6.0.7
         version: 6.0.7(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
@@ -1813,9 +1813,6 @@ importers:
       '@intlayer/backend':
         specifier: workspace:*
         version: link:../../apps/backend
-      '@types/cross-spawn':
-        specifier: ^6.0.6
-        version: 6.0.6
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -1858,6 +1855,155 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.10
+      tsup:
+        specifier: ^8.3.5
+        version: 8.3.5(@microsoft/api-extractor@7.49.1(@types/node@22.10.6))(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+
+  packages/react-scripts-intlayer:
+    dependencies:
+      '@craco/craco':
+        specifier: ^7.1.0
+        version: 7.1.0(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/node@22.10.6)(postcss@8.5.1)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.26.0(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.9(@babel/core@7.26.0))(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/webpack@5.28.5(@swc/core@1.10.7(@swc/helpers@0.5.15)))(eslint@9.18.0(jiti@2.4.2))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/node@22.10.6)(typescript@5.7.3))(type-fest@3.13.1)(typescript@5.7.3))(typescript@5.7.3)
+      '@intlayer/api':
+        specifier: workspace:*
+        version: link:../@intlayer/api
+      '@intlayer/chokidar':
+        specifier: workspace:*
+        version: link:../@intlayer/chokidar
+      '@intlayer/config':
+        specifier: workspace:*
+        version: link:../@intlayer/config
+      '@intlayer/core':
+        specifier: workspace:*
+        version: link:../@intlayer/core
+      '@intlayer/dictionaries-entry':
+        specifier: workspace:*
+        version: link:../@intlayer/dictionaries-entry
+      '@intlayer/webpack':
+        specifier: workspace:*
+        version: link:../@intlayer/webpack
+      intlayer:
+        specifier: workspace:*
+        version: link:../intlayer
+      node-loader:
+        specifier: ^2.1.0
+        version: 2.1.0(webpack@5.97.1(@swc/core@1.10.7(@swc/helpers@0.5.15)))
+      vite:
+        specifier: '>=4.0.0'
+        version: 6.0.7(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
+      webpack:
+        specifier: ^5.97.1
+        version: 5.97.1(@swc/core@1.10.7(@swc/helpers@0.5.15))
+    devDependencies:
+      '@craco/types':
+        specifier: ^7.1.0
+        version: 7.1.0(@swc/core@1.10.7(@swc/helpers@0.5.15))(eslint@9.18.0(jiti@2.4.2))(postcss@8.5.1)
+      '@intlayer/backend':
+        specifier: workspace:*
+        version: link:../../apps/backend
+      '@types/cross-spawn':
+        specifier: ^6.0.6
+        version: 6.0.6
+      '@types/node':
+        specifier: ^22.10.6
+        version: 22.10.6
+      '@types/webpack':
+        specifier: ^5.28.5
+        version: 5.28.5(@swc/core@1.10.7(@swc/helpers@0.5.15))
+      '@typescript-eslint/parser':
+        specifier: ^8.20.0
+        version: 8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
+      '@utils/eslint-config':
+        specifier: workspace:*
+        version: link:../../utils/eslint-config
+      '@utils/ts-config':
+        specifier: workspace:*
+        version: link:../../utils/ts-config
+      '@utils/ts-config-types':
+        specifier: workspace:*
+        version: link:../../utils/ts-config-types
+      '@utils/tsup-config':
+        specifier: workspace:*
+        version: link:../../utils/tsup-config
+      concurrently:
+        specifier: ^9.1.2
+        version: 9.1.2
+      eslint:
+        specifier: ^9.18.0
+        version: 9.18.0(jiti@2.4.2)
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.10
+      tsup:
+        specifier: ^8.3.5
+        version: 8.3.5(@microsoft/api-extractor@7.49.1(@types/node@22.10.6))(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+
+  packages/vite-intlayer:
+    dependencies:
+      '@intlayer/chokidar':
+        specifier: workspace:*
+        version: link:../@intlayer/chokidar
+      '@intlayer/config':
+        specifier: workspace:*
+        version: link:../@intlayer/config
+      '@intlayer/core':
+        specifier: workspace:*
+        version: link:../@intlayer/core
+      vite:
+        specifier: ^6.0.7
+        version: 6.0.7(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.6
+        version: 22.10.6
+      '@typescript-eslint/parser':
+        specifier: ^8.20.0
+        version: 8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
+      '@utils/eslint-config':
+        specifier: workspace:*
+        version: link:../../utils/eslint-config
+      '@utils/ts-config':
+        specifier: workspace:*
+        version: link:../../utils/ts-config
+      '@utils/ts-config-types':
+        specifier: workspace:*
+        version: link:../../utils/ts-config-types
+      '@utils/tsup-config':
+        specifier: workspace:*
+        version: link:../../utils/tsup-config
+      concurrently:
+        specifier: ^9.1.2
+        version: 9.1.2
+      eslint:
+        specifier: ^9.18.0
+        version: 9.18.0(jiti@2.4.2)
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -30180,7 +30326,7 @@ snapshots:
       eslint: 9.18.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2))
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0)(eslint@9.18.0(jiti@2.4.2))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.18.0(jiti@2.4.2))
       eslint-plugin-react: 7.37.4(eslint@9.18.0(jiti@2.4.2))
       eslint-plugin-react-hooks: 5.1.0(eslint@9.18.0(jiti@2.4.2))
@@ -30200,7 +30346,7 @@ snapshots:
       eslint: 9.18.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2))
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0)(eslint@9.18.0(jiti@2.4.2))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.18.0(jiti@2.4.2))
       eslint-plugin-react: 7.37.4(eslint@9.18.0(jiti@2.4.2))
       eslint-plugin-react-hooks: 5.1.0(eslint@9.18.0(jiti@2.4.2))
@@ -30289,7 +30435,7 @@ snapshots:
       is-glob: 4.0.3
       stable-hash: 0.0.4
     optionalDependencies:
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0)(eslint@9.18.0(jiti@2.4.2))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2))
     transitivePeerDependencies:
       - supports-color
 
@@ -30503,7 +30649,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0)(eslint@9.18.0(jiti@2.4.2)):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2)))(eslint@9.18.0(jiti@2.4.2)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8

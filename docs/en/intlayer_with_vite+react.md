@@ -20,15 +20,15 @@ With Intlayer, you can:
 Install the necessary packages using npm:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
+npm install intlayer react-intlayer vite-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
+pnpm add intlayer react-intlayer vite-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
+yarn add intlayer react-intlayer vite-intlayer
 ```
 
 - **intlayer**
@@ -36,7 +36,10 @@ yarn add intlayer react-intlayer
   The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md).
 
 - **react-intlayer**
-  The package that integrates Intlayer with React application. It provides context providers and hooks for React internationalization. Additionally, it includes the Vite plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
+  The package that integrates Intlayer with React application. It provides context providers and hooks for React internationalization.
+
+- **vite-intlayer**
+  Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
 
 ### Step 2: Configuration of your project
 
@@ -107,7 +110,7 @@ Add the intlayer plugin into your configuration.
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin } from "react-intlayer/vite";
+import { intlayerPlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -118,7 +121,7 @@ export default defineConfig({
 ```javascript fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin } from "react-intlayer/vite";
+import { intlayerPlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -129,7 +132,7 @@ export default defineConfig({
 ```javascript fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
-const { intlayerPlugin } = require("react-intlayer/vite");
+const { intlayerPlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
@@ -912,7 +915,7 @@ In parallel, you can also use the `intLayerMiddlewarePlugin` to add server-side 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
+import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -923,7 +926,7 @@ export default defineConfig({
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "react-intlayer/vite";
+import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -934,10 +937,7 @@ export default defineConfig({
 ```javascript {5,10} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
-const {
-  intlayerPlugin,
-  intLayerMiddlewarePlugin,
-} = require("react-intlayer/vite");
+const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({

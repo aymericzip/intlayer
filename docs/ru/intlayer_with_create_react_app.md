@@ -21,16 +21,16 @@
 Установите необходимые пакеты с помощью npm:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
+npm install intlayer react-intlayer react-scripts-intlayer
 ```
 ````
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
+pnpm add intlayer react-intlayer react-scripts-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
+yarn add intlayer react-intlayer react-scripts-intlayer
 ```
 
 - **intlayer**
@@ -109,13 +109,13 @@ module.exports = config;
 
 ```json fileName="package.json"
   "scripts": {
-    "build": "react-intlayer build",
-    "start": "react-intlayer start",
+    "build": "react-scripts-intlayer build",
+    "start": "react-scripts-intlayer start",
     "transpile": "intlayer build"
   },
 ```
 
-> Скрипты `react-intlayer` основаны на [craco](https://craco.js.org/). Вы также можете реализовать свою собственную настройку на основе плагина intlayer craco. [Смотрите пример здесь](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
+> Скрипты `react-scripts-intlayer` основаны на [craco](https://craco.js.org/). Вы также можете реализовать свою собственную настройку на основе плагина intlayer craco. [Смотрите пример здесь](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
 ### Шаг 4: Объявите ваше содержимое
 

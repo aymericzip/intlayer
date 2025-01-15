@@ -31,7 +31,7 @@ switch (script) {
       .concat([
         ...scriptArgs,
         '--config',
-        './node_modules/react-intlayer/dist/cjs/craco/craco.config.cjs',
+        './node_modules/react-scripts-intlayer/dist/cjs/craco.config.cjs',
       ]);
 
     const child = spawn.sync('node', processArgs, {
