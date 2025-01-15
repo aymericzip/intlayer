@@ -12,14 +12,14 @@
   "dependencies": {
     "intlayer": "workspace:*",
     "intlayer-editor": "workspace:*",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-intlayer": "workspace:*",
     "react-router-dom": "^7.1.1"
   },
   "devDependencies": {
-    "@types/react": "^19.0.7",
-    "@types/react-dom": "^19.0.3",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
     "@vitejs/plugin-react-swc": "^3.7.2",

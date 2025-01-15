@@ -78,7 +78,7 @@
     "intlayer": "workspace:*",
     "p-limit": "^3.1.0",
     "quicktype-core": "^23.0.170",
-    "react": "^19.0.0"
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "@changesets/cli": "2.27.11",

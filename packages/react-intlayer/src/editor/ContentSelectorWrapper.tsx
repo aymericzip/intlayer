@@ -1,14 +1,11 @@
-'use client';
-
 import { type KeyPath } from '@intlayer/core';
-import { type FC, type ReactNode } from 'react';
+import { type PropsWithChildren, type FC } from 'react';
 
-export type ContentSelectorWrapperProps = {
-  children: ReactNode;
+export type ContentSelectorWrapperProps = PropsWithChildren<{
   dictionaryKey: string;
   dictionaryPath: string;
   keyPath: KeyPath[];
-};
+}>;
 
 export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   children,
