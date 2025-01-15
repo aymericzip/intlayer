@@ -39,7 +39,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **react-scripts-intlayer**
 
-  Includes the scripts and plugins for integrating Intlayer with the Create React App based application. These plugins are based on [craco](https://craco.js.org/) and includes additional configuration for the [Webpack](https://webpack.js.org/) bundler.
+  Includes the `react-scripts-intlayer` commands and plugins for integrating Intlayer with the Create React App based application. These plugins are based on [craco](https://craco.js.org/) and includes additional configuration for the [Webpack](https://webpack.js.org/) bundler.
 
 ### Step 2: Configuration of your project
 

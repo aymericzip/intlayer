@@ -50,6 +50,14 @@ The `react-intlayer` package is used to interpret intlayer dictionaries and make
 
 The `next-intlayer` package is used as a layer on top of `react-intlayer` to make intlayer dictionaries usable in Next.js applications. It integrates essential features to make Intlayer work in a Next.js environment, such as translation middleware, routing, or the `next.config.js` file configuration.
 
+### vite-intlayer
+
+Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
+
+### react-scripts-intlayer
+
+Includes the `react-scripts-intlayer` commands and plugins for integrating Intlayer with the Create React App based application. These plugins are based on [craco](https://craco.js.org/) and includes additional configuration for the [Webpack](https://webpack.js.org/) bundler.
+
 ### intlayer-editor
 
 The `intlayer-editor` package is used to allow the use of the visual editor. This package, optional can be installed in applications and will be used by the `react-intlayer` package.
