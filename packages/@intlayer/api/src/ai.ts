@@ -19,7 +19,7 @@ import type {
   AskDocQuestionBody,
   // @ts-ignore: @intlayer/backend is not built yet
   AskDocQuestionResult,
-  // @ts-nocheck: @intlayer/backend is not built yet
+  // @ts-ignore: @intlayer/backend is not built yet
 } from '@intlayer/backend';
 
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
