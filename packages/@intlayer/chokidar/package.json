@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/chokidar",
-  "version": "3.5.10",
+  "version": "3.5.11",
   "private": false,
   "description": "Chokidar application for IntLayer - Transpile IntLayer declaration files into dictionaries.",
   "keywords": [
@@ -100,7 +100,6 @@
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
-    "@intlayer/backend": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "fast-glob": "^3.3.3",

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/design-system",
-  "version": "3.5.10",
+  "version": "3.5.11",
   "private": false,
   "keywords": [
     "design-system",
@@ -138,7 +138,6 @@
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
-    "@intlayer/backend": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
