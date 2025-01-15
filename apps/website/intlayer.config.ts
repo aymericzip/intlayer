@@ -34,7 +34,7 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   log: {
-    mode: 'verbose',
+    mode: 'disabled',
   },
 };
 
