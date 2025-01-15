@@ -15,7 +15,7 @@
   "dependencies": {
     "intlayer": "workspace:*",
     "intlayer-editor": "workspace:*",
-    "next": "14.2.22",
+    "next": "14.2.23",
     "next-intlayer": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -27,7 +27,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^9.16.0",
     "eslint-config-next": "15.0.3",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.0",
     "prettier": "^3.4.1",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.7.2"

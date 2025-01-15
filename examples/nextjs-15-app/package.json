@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "next": "15.0.4",
+    "next": "15.1.2",
     "next-intlayer": "workspace:*",
     "react": "18.3.1",
     "react-dom": "18.3.1"
@@ -21,7 +21,7 @@
     "@types/react-dom": "^18.3.1",
     "eslint": "^9.16.0",
     "eslint-config-next": "15.0.4",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.0",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.7.2"
   }
