@@ -1776,9 +1776,6 @@ importers:
       '@intlayer/api':
         specifier: workspace:*
         version: link:../@intlayer/api
-      '@intlayer/chokidar':
-        specifier: workspace:*
-        version: link:../@intlayer/chokidar
       '@intlayer/config':
         specifier: workspace:*
         version: link:../@intlayer/config
@@ -1788,12 +1785,6 @@ importers:
       '@intlayer/dictionaries-entry':
         specifier: workspace:*
         version: link:../@intlayer/dictionaries-entry
-      '@intlayer/webpack':
-        specifier: workspace:*
-        version: link:../@intlayer/webpack
-      cross-spawn:
-        specifier: ^7.0.6
-        version: 7.0.6
       intlayer:
         specifier: workspace:*
         version: link:../intlayer
@@ -1801,11 +1792,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
       vite:
-        specifier: ^6.0.7
+        specifier: '>=4.0.0'
         version: 6.0.7(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
-      webpack:
-        specifier: ^5.97.1
-        version: 5.97.1(@swc/core@1.10.7(@swc/helpers@0.5.15))
     devDependencies:
       '@craco/types':
         specifier: ^7.1.0
@@ -1822,9 +1810,6 @@ importers:
       '@types/react':
         specifier: ^18.3.1
         version: 18.3.18
-      '@types/webpack':
-        specifier: ^5.28.5
-        version: 5.28.5(@swc/core@1.10.7(@swc/helpers@0.5.15))
       '@typescript-eslint/parser':
         specifier: ^8.20.0
         version: 8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
@@ -1873,33 +1858,15 @@ importers:
       '@craco/craco':
         specifier: ^7.1.0
         version: 7.1.0(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/node@22.10.6)(postcss@8.5.1)(react-scripts@5.0.1(@babel/plugin-syntax-flow@7.26.0(@babel/core@7.26.0))(@babel/plugin-transform-react-jsx@7.25.9(@babel/core@7.26.0))(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/webpack@5.28.5(@swc/core@1.10.7(@swc/helpers@0.5.15)))(eslint@9.18.0(jiti@2.4.2))(react@18.3.1)(ts-node@10.9.2(@swc/core@1.10.7(@swc/helpers@0.5.15))(@types/node@22.10.6)(typescript@5.7.3))(type-fest@3.13.1)(typescript@5.7.3))(typescript@5.7.3)
-      '@intlayer/api':
-        specifier: workspace:*
-        version: link:../@intlayer/api
-      '@intlayer/chokidar':
-        specifier: workspace:*
-        version: link:../@intlayer/chokidar
       '@intlayer/config':
         specifier: workspace:*
         version: link:../@intlayer/config
-      '@intlayer/core':
-        specifier: workspace:*
-        version: link:../@intlayer/core
-      '@intlayer/dictionaries-entry':
-        specifier: workspace:*
-        version: link:../@intlayer/dictionaries-entry
       '@intlayer/webpack':
         specifier: workspace:*
         version: link:../@intlayer/webpack
-      intlayer:
-        specifier: workspace:*
-        version: link:../intlayer
       node-loader:
         specifier: ^2.1.0
         version: 2.1.0(webpack@5.97.1(@swc/core@1.10.7(@swc/helpers@0.5.15)))
-      vite:
-        specifier: '>=4.0.0'
-        version: 6.0.7(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
       webpack:
         specifier: ^5.97.1
         version: 5.97.1(@swc/core@1.10.7(@swc/helpers@0.5.15))
