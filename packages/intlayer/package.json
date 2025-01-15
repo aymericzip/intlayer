@@ -1,6 +1,6 @@
 {
   "name": "intlayer",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "private": false,
   "description": "Manage internationalization in a simple way, through TypeScript, declaration file, declare your multilingual every where in your code.",
   "keywords": [

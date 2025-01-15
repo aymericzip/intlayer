@@ -1,6 +1,6 @@
 {
   "name": "express-intlayer",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "private": false,
   "description": "Manage internationalization in a simple way for express application.",
   "keywords": [
