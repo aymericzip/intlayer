@@ -1,22 +1,3 @@
-<div align="center">
-  <a href="https://www.npmjs.com/package/intlayer">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
-  </a>
-</div>
-
-<div align="center">
-  <a href="https://www.npmjs.com/package/intlayer">
-    <img alt="npm" src="https://img.shields.io/npm/v/intlayer.svg?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/intlayer">
-    <img alt="downloads" src="https://badgen.net/npm/dm/intlayer?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/intlayer">
-    <img alt="types included" src="https://badgen.net/npm/types/intlayer?labelColor=49516F&color=8994BC" 
-  />
-  </a>
-</div>
-
 # intlayer: NPM Package to Manage Multilingual Content Declaration (i18n)
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
@@ -62,6 +43,34 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
 > For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
 
 ## Example of usage
@@ -82,6 +91,30 @@ By default, Intlayer scans for files with the extension `.content.{ts,tsx,js,jsx
     └── ServerComponent
         ├── index.content.ts
         └── index.tsx
+```
+
+```bash codeFormat="esm"
+.
+├── intlayer.config.mjs
+└── src
+    ├── ClientComponent
+    │   ├── index.content.mjs
+    │   └── index.mjx
+    └── ServerComponent
+        ├── index.content.mjs
+        └── index.mjx
+```
+
+```bash codeFormat="commonjs"
+.
+├── intlayer.config.cjs
+└── src
+    ├── ClientComponent
+    │   ├── index.content.cjs
+    │   └── index.cjx
+    └── ServerComponent
+        ├── index.content.cjs
+        └── index.cjx
 ```
 
 ### Declare your content
@@ -111,6 +144,85 @@ const clientComponentContent = {
 } satisfies DeclarationContent;
 
 export default clientComponentContent;
+```
+
+```jsx filePath="src/ClientComponent/index.content.mjs" codeFormat="esm"
+import { t } from "intlayer";
+
+/** @type {import('intlayer').DeclarationContent} */
+const clientComponentContent = {
+  key: "client-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
+  },
+};
+
+export default clientComponentContent;
+```
+
+```jsx filePath="src/ClientComponent/index.content.cjs" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+const clientComponentContent = {
+  key: "client-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
+  },
+};
+
+module.exports = clientComponentContent;
+```
+
+```json filePath="src/ClientComponent/index.content.json" codeFormat="json"
+{
+  "key": "client-component",
+  "content": {
+    "myTranslatedContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World",
+        "fr": "Bonjour le monde",
+        "es": "Hola Mundo"
+      }
+    },
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        "0": "No cars",
+        "1": "One car",
+        ">5": "Some cars",
+        ">19": "Many cars"
+      }
+    }
+  }
+}
 ```
 
 ### Build your dictionaries
@@ -363,11 +475,3 @@ The `intlayer` package also provides some functions to help you to international
 - [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getMultilingualUrls.md)
 - [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md)
 - [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getPathWithoutLocale.md)
-
-## Read about Intlayer
-
-- [Intlayer Website](https://intlayer.org)
-- [Intlayer Documentation](https://intlayer.org/docs)
-- [Intlayer GitHub](https://github.com/aymericzip/intlayer)
-
-- [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)

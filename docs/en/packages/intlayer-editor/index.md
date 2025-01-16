@@ -1,22 +1,3 @@
-<div align="center">
-  <a href="https://www.npmjs.com/package/express-intlayer">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
-  </a>
-</div>
-
-<div align="center">
-  <a href="https://www.npmjs.com/package/express-intlayer">
-    <img alt="npm" src="https://img.shields.io/npm/v/intlayer.svg?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/express-intlayer">
-    <img alt="downloads" src="https://badgen.net/npm/dm/express-intlayer?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/express-intlayer">
-    <img alt="types included" src="https://badgen.net/npm/types/express-intlayer?labelColor=49516F&color=8994BC" 
-  />
-  </a>
-</div>
-
 # intlayer-editor: NPM Package to use the Intlayer visual editor
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
@@ -130,11 +111,3 @@ When the editor is installed, enabled, and started, you can view each field inde
 ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 If your content is outlined, you can long-press it to display the edit drawer.
-
-## Read about Intlayer
-
-- [Intlayer Website](https://intlayer.org)
-- [Intlayer Documentation](https://intlayer.org/docs)
-- [Intlayer GitHub](https://github.com/aymericzip/intlayer)
-
-- [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)

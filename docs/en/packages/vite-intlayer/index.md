@@ -1,22 +1,3 @@
-<div align="center">
-  <a href="https://www.npmjs.com/package/vite-intlayer">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
-  </a>
-</div>
-
-<div align="center">
-  <a href="https://www.npmjs.com/package/vite-intlayer">
-    <img alt="npm" src="https://img.shields.io/npm/v/vite-intlayer.svg?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/vite-intlayer">
-    <img alt="downloads" src="https://badgen.net/npm/dm/vite-intlayer?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/vite-intlayer">
-    <img alt="types included" src="https://badgen.net/npm/types/vite-intlayer?labelColor=49516F&color=8994BC" 
-  />
-  </a>
-</div>
-
 # vite-intlayer: NPM Package to internationalize (i18n) an Vite application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
@@ -29,7 +10,7 @@ Internationalizing your Vite application is essential for serving a global audie
 
 ## Configuration
 
-The `vite-intlayer` package works seamlessly with the [`vite-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
+The `vite-intlayer` package works seamlessly with the [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
 
 ## Installation
 
@@ -70,11 +51,3 @@ export default defineConfig({
 Intlayer provides a lot of features to help you internationalize your Vite application.
 
 **To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application.**
-
-## Read about Intlayer
-
-- [Intlayer Website](https://intlayer.org)
-- [Intlayer Documentation](https://intlayer.org/docs)
-- [Intlayer GitHub](https://github.com/aymericzip/intlayer)
-
-- [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)

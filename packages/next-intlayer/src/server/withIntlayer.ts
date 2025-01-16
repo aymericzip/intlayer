@@ -25,7 +25,7 @@ export const withIntlayer = (
 
   const intlayerConfig = getConfiguration();
 
-  // Set all configuration values as environment variables
+  // Format all configuration values as environment variables
   const env = formatEnvVariable('next');
 
   const { mainDir, baseDir } = intlayerConfig.content;

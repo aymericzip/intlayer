@@ -17,26 +17,40 @@
   </a>
 </div>
 
-# @intlayer/design-system: NPM Package containing the UI library of Intlayer
+# @intlayer/webpack: NPM Package to use the Intlayer Webpack Plugin into your application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-The **`@intlayer/design-system`** package is a NPM package including the design system of Intlayer. This package is notably used by the [Intlayer editor](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer-editor/index.md), in the [Website](https://intlayer.org) and the [Visual Editor / CMS](https://intlayer.org/dashboard).
+The **`@intlayer/webpack`** package is used to provide a Webpack configuration to make working a Webpack based application with Intlayer. The package also provides a plugin to add into an existing Webpack application.
+
+## Usage
+
+```ts
+import { IntLayerPlugin } from "@intlayer/webpack";
+
+export default {
+  plugins: [
+    new IntLayerPlugin({
+      // Options
+    }),
+  ],
+};
+```
 
 ## Installation
 
 Install the necessary package using your preferred package manager:
 
 ```bash packageManager="npm"
-npm install @intlayer/design-system
+npm install @intlayer/webpack
 ```
 
 ```bash packageManager="pnpm"
-pnpm add @intlayer/design-system
+pnpm add @intlayer/webpack
 ```
 
 ```bash packageManager="yarn"
-yarn add @intlayer/design-system
+yarn add @intlayer/webpack
 ```
 
 ## Read about Intlayer

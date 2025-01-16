@@ -1,6 +1,8 @@
-# Getting Started internationalizing (i18n) with Intlayer and Express
+# express-intlayer: JavaScript Package to internationalize (i18n) an Express.js application
 
-`express-intlayer` is a powerful internationalization (i18n) middleware for Express applications, designed to make your backend services globally accessible by providing localized responses based on the client's preferences.
+**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
+
+**The `express-intlayer` package** allows you to internationalize your Express.js application. It provides a middleware to detect the user's preferred locale, and returns the appropriate dictionary for the user.
 
 ## Why Internationalize Your Backend?
 
@@ -20,39 +22,36 @@ Internationalizing your backend is essential for serving a global audience effec
 
 By internationalizing the backend, your application not only respects cultural differences but also aligns better with global market needs, making it a key step in scaling your services worldwide.
 
-## Getting Started
+## Why to integrate Intlayer?
 
-### Installation
+- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
 
-To begin using `express-intlayer`, install the package using npm:
+## Installation
 
-```bash packageManager="npm"
-npm install intlayer express-intlayer
+Install the necessary package using your preferred package manager:
+
+```bash
+npm install express-intlayer
 ```
 
-```bash packageManager="pnpm"
-pnpm add intlayer express-intlayer
+```bash
+yarn add express-intlayer
 ```
 
-```bash packageManager="yarn"
-yarn add intlayer express-intlayer
+```bash
+pnpm add express-intlayer
 ```
 
-### Setup
+### Configure Intlayer
 
-Configure the internationalization settings by creating an `intlayer.config.ts` in your project root:
+Intlayer provides a configuration file to set up your project. Place this file in the root of your project.
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -66,12 +65,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -85,12 +79,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -98,7 +87,9 @@ const config = {
 module.exports = config;
 ```
 
-### Express Application Setup
+> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+
+## Example of usage
 
 Setup your Express application to use `express-intlayer`:
 
@@ -233,10 +224,8 @@ module.exports = config;
 
 By default, `express-intlayer` will interpret the `Accept-Language` header to determine the client's preferred language.
 
-> For more information on configuration and advanced topics, visit our [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+## Functions provided by `express-intlayer` package
 
-## Powered by TypeScript
-
-`express-intlayer` leverages the robust capabilities of TypeScript to enhance the internationalization process. TypeScript's static typing ensures that every translation key is accounted for, reducing the risk of missing translations and improving maintainability.
-
-> Ensure the generated types (by default at ./types/intlayer.d.ts) are included in your tsconfig.json file.
+- (`t()`)[
+  https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+  ]

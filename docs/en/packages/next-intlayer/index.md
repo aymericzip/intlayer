@@ -1,22 +1,3 @@
-<div align="center">
-  <a href="https://www.npmjs.com/package/next-intlayer">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
-  </a>
-</div>
-
-<div align="center">
-  <a href="https://www.npmjs.com/package/next-intlayer">
-    <img alt="npm" src="https://img.shields.io/npm/v/next-intlayer.svg?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/next-intlayer">
-    <img alt="downloads" src="https://badgen.net/npm/dm/next-intlayer?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/next-intlayer">
-    <img alt="types included" src="https://badgen.net/npm/types/next-intlayer?labelColor=49516F&color=8994BC" 
-  />
-  </a>
-</div>
-
 # next-intlayer: NPM Package to internationalize (i18n) an Next.js application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
@@ -70,6 +51,32 @@ By default, Intlayer scans for files with the extension `.content.{ts,tsx,js,jsx
             └── index.tsx
 ```
 
+```bash codeFormat="esm"
+.
+├── intlayer.config.mjs
+└── src
+    └── components
+        ├── ClientComponent
+        │   ├── index.content.mjs
+        │   └── index.mjx
+        └── ServerComponent
+            ├── index.content.mjs
+            └── index.mjx
+```
+
+```bash codeFormat="commonjs"
+.
+├── intlayer.config.cjs
+└── src
+    └── components
+        ├── ClientComponent
+        │   ├── index.content.cjs
+        │   └── index.cjx
+        └── ServerComponent
+            ├── index.content.cjs
+            └── index.cjx
+```
+
 ### Declare your content
 
 `next-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
@@ -99,6 +106,85 @@ const clientComponentContent = {
 } satisfies DeclarationContent;
 
 export default clientComponentContent;
+```
+
+```jsx filePath="src/ClientComponent/index.content.mjs" codeFormat="esm"
+import { t } from "intlayer";
+
+/** @type {import('intlayer').DeclarationContent} */
+const clientComponentContent = {
+  key: "client-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
+  },
+};
+
+export default clientComponentContent;
+```
+
+```jsx filePath="src/ClientComponent/index.content.cjs" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').DeclarationContent} */
+const clientComponentContent = {
+  key: "client-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
+  },
+};
+
+module.exports = clientComponentContent;
+```
+
+```json filePath="src/ClientComponent/index.content.json" codeFormat="json"
+{
+  "key": "client-component",
+  "content": {
+    "myTranslatedContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Hello World",
+        "fr": "Bonjour le monde",
+        "es": "Hola Mundo"
+      }
+    },
+    "numberOfCar": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        "0": "No cars",
+        "1": "One car",
+        ">5": "Some cars",
+        ">19": "Many cars"
+      }
+    }
+  }
+}
 ```
 
 ### Utilize Content in Your Code
@@ -175,11 +261,3 @@ The `next-intlayer` package also provides some functions to help you to internat
 - [`useDictionary()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md)
 - [`useLocale()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md)
 - [`useIntlayerAsync()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md)
-
-## Read about Intlayer
-
-- [Intlayer Website](https://intlayer.org)
-- [Intlayer Documentation](https://intlayer.org/docs)
-- [Intlayer GitHub](https://github.com/aymericzip/intlayer)
-
-- [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)

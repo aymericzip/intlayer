@@ -17,9 +17,11 @@
   </a>
 </div>
 
-# express-intlayer
+# express-intlayer: JavaScript Package to internationalize (i18n) an Express.js application
 
-`express-intlayer` is a powerful internationalization (i18n) middleware for Express applications, designed to make your backend services globally accessible by providing localized responses based on the client's preferences.
+**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
+
+**The `express-intlayer` package** allows you to internationalize your Express.js application. It provides a middleware to detect the user's preferred locale, and returns the appropriate dictionary for the user.
 
 ## Why Internationalize Your Backend?
 
@@ -39,32 +41,36 @@ Internationalizing your backend is essential for serving a global audience effec
 
 By internationalizing the backend, your application not only respects cultural differences but also aligns better with global market needs, making it a key step in scaling your services worldwide.
 
-## Getting Started
+## Why to integrate Intlayer?
 
-### Installation
+- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
 
-To begin using `express-intlayer`, install the package using npm:
+## Installation
+
+Install the necessary package using your preferred package manager:
 
 ```bash
-npm install intlayer express-intlayer
+npm install express-intlayer
 ```
 
-### Setup
+```bash
+yarn add express-intlayer
+```
 
-Configure the internationalization settings by creating an `intlayer.config.ts` in your project root:
+```bash
+pnpm add express-intlayer
+```
 
-```typescript
-// intlayer.config.ts
+### Configure Intlayer
+
+Intlayer provides a configuration file to set up your project. Place this file in the root of your project.
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -72,12 +78,41 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Express Application Setup
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
+> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+
+## Example of usage
 
 Setup your Express application to use `express-intlayer`:
 
-```typescript
-// src/index.ts
+```typescript fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
 import { intlayer, t } from "express-intlayer";
 
@@ -98,50 +133,126 @@ app.get("/", (_req, res) => {
   );
 });
 
-app.get("/error", (_req, res) => {
-  res.status(500).send(
+// Start server
+app.listen(3000, () => console.log(`Listening on port 3000`));
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+import express from "express";
+import { intlayer, t } from "express-intlayer";
+
+const app = express();
+
+// Load internationalization request handler
+app.use(intlayer());
+
+// Routes
+app.get("/", (_req, res) => {
+  res.send(
     t({
-      en: "Example of returned error content in English",
-      fr: "Exemple de contenu d'erreur renvoyé en français",
-      "es-ES": "Ejemplo de contenido de error devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido de error devuelto en español (México)",
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
     })
   );
 });
 
 // Start server
-app.listen(3000, () => {
-  console.info(`Listening on port 3000`);
+app.listen(3000, () => console.log(`Listening on port 3000`));
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+const express = require("express");
+const { intlayer, t } = require("express-intlayer");
+
+const app = express();
+
+// Load internationalization request handler
+app.use(intlayer());
+
+// Routes
+app.get("/", (_req, res) => {
+  res.send(
+    t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+    })
+  );
 });
+
+// Start server
+app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
 ### Compatibility
 
 `express-intlayer` is fully compatible with:
 
-- `react-intlayer` for React applications
-- `next-intlayer` for Next.js applications
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md) for React applications
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md) for Next.js applications
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md) for Vite applications
 
 It also works seamlessly with any internationalization solution across various environments, including browsers and API requests. You can customize the middleware to detect locale through headers or cookies:
 
-```typescript
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // Other configuration options
+  // ... Other configuration options
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
   },
 };
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Other configuration options
+  middleware: {
+    headerName: "my-locale-header",
+    cookieName: "my-locale-cookie",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Other configuration options
+  middleware: {
+    headerName: "my-locale-header",
+    cookieName: "my-locale-cookie",
+  },
+};
+
+module.exports = config;
 ```
 
 By default, `express-intlayer` will interpret the `Accept-Language` header to determine the client's preferred language.
 
-> For more information on configuration and advanced topics, visit our [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+## Functions provided by `express-intlayer` package
 
-## Powered by TypeScript
+- (`t()`)[
+  https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+  ]
 
-`express-intlayer` leverages the robust capabilities of TypeScript to enhance the internationalization process. TypeScript's static typing ensures that every translation key is accounted for, reducing the risk of missing translations and improving maintainability.
+## Read about Intlayer
 
-> Ensure the generated types (by default at ./types/intlayer.d.ts) are included in your tsconfig.json file.
+- [Intlayer Website](https://intlayer.org)
+- [Intlayer Documentation](https://intlayer.org/docs)
+- [Intlayer GitHub](https://github.com/aymericzip/intlayer)
+
+- [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)

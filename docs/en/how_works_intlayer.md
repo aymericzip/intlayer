@@ -81,11 +81,11 @@ The `@intlayer/config` package is used to configure Intlayer settings, such as a
 
 ### @intlayer/webpack
 
-The `@intlayer/webpack` package is used to add compilation plugins to Next.js and React.
+The `@intlayer/webpack` package is used to provide a Webpack configuration to make working a Webpack based application with Intlayer. The package also provides a plugin to add into an existing Webpack application.
 
 ### @intlayer/cli
 
-The `@intlayer/cli` package is used to ensure uniformity of all intlayer CLI commands.
+The `@intlayer/cli` package is a NPM package that is used to declare the script related to the intlayer commands line interfaces. It ensure the uniformity of all intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer/index.md) packages.
 
 ### @intlayer/dictionaries-entry
 
@@ -94,3 +94,7 @@ The `@intlayer/dictionaries-entry` package is a package that only returns the en
 ### @intlayer/chokidar
 
 The `@intlayer/chokidar` package is used to monitor content files and regenerate the modified dictionary at each modification.
+
+## Chat with our smart documentation
+
+- [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)
