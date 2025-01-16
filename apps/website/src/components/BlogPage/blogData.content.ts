@@ -20,6 +20,23 @@ const blogDataContent = {
         ru: 'Блог',
       }),
       subSections: {
+        'what-is-internationalization': {
+          title: t({
+            en: 'What is Internationalization (i18n)?',
+            'en-GB': 'What is Internationalization (i18n)?',
+            fr: "Qu'est-ce que l'internationalisation (i18n) ?",
+            es: '¿Qué es la internacionalización (i18n)?',
+            de: 'Was ist Internationalisierung (i18n)?',
+            ja: '国際化とは？',
+            ko: '국제화란?',
+            zh: '什么是国际化？',
+            it: "Cos'è l'internazionalizzazione (i18n)?",
+            pt: 'O que é internacionalização (i18n)?',
+            hi: 'अंतर्राष्ट्रीयकरण (i18n) क्या है?',
+            ar: 'ما هو التدويل (i18n)?',
+            ru: 'Что такое интернационализация (i18n)?',
+          }),
+        },
         SEO: {
           title: t({
             en: 'SEO and i18n',
@@ -110,6 +127,60 @@ const blogDataContent = {
         },
         'react-i18n-vs-react-intl-vs-intlayer': {
           title: 'react-i18n vs react-intl vs Intlayer',
+        },
+        'i18n-technologies': {
+          title: t({
+            en: 'Internationalization Technologies',
+            'en-GB': 'Internationalization Technologies',
+            fr: "Technologies d'internationalisation",
+            es: 'Tecnologías de internacionalización',
+            de: 'Internationalisierungstechnologien',
+            ja: '国際化テクノロジー',
+            ko: '국제화 기술',
+            zh: '国际化技术',
+            it: 'Tecnologie di internazionalizzazione',
+            pt: 'Tecnologias de internacionalização',
+            hi: 'अंतर्राष्ट्रीयकरण तकनीके',
+            ar: 'تقنيات التدويل',
+            ru: 'Интернационализационные технологии',
+          }),
+          subSections: {
+            frameworks: {
+              title: t({
+                en: 'Frameworks',
+                'en-GB': 'Frameworks',
+                fr: 'Frameworks',
+                es: 'Frameworks',
+                de: 'Frameworks',
+                ja: 'フレームワーク',
+                ko: '프레임워크',
+                zh: '框架',
+                it: 'Frameworks',
+                pt: 'Frameworks',
+                hi: 'फ्रेमवर्क',
+                ar: 'الإطارات',
+                ru: 'Фреймворки',
+              }),
+              subSections: {
+                angular: {
+                  title: 'Angular',
+                },
+                react: { title: 'React' },
+                vue: { title: 'Vue' },
+                svelte: { title: 'Svelte' },
+                flutter: { title: 'Flutter' },
+                'react-native': { title: 'React Native' },
+              },
+            },
+            CMS: {
+              title: 'CMS',
+              subSections: {
+                wordpress: { title: 'Wordpress' },
+                drupal: { title: 'Drupal' },
+                wix: { title: 'Wix' },
+              },
+            },
+          },
         },
       },
     },
