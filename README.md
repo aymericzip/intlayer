@@ -94,6 +94,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 #### intlayer
 
+- [Package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md)
 - [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md)
 - [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getHTMLTextDir.md)
 - [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md)
@@ -106,10 +107,12 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 #### express-intlayer
 
+- [Package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md)
 - [t](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md)
 
 #### react-intlayer
 
+- [Package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md)
 - [t](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md)
 - [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md)
 - [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useDictionary.md)
@@ -117,10 +120,19 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 #### next-intlayer
 
+- [Package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md)
 - [t](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md)
 - [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md)
 - [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md)
 - [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md)
+
+#### vite-intlayer
+
+- [Package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md)
+
+#### react-scripts-intlayer
+
+- [Package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md)
 
 ### Blog
 
