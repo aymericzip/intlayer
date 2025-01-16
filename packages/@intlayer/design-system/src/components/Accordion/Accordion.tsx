@@ -43,7 +43,7 @@ export const Accordion: FC<AccordionProps> = ({
   }, [isOpenDefault]);
 
   return (
-    <div>
+    <div className="w-full">
       <Button
         variant="hoverable"
         color="text"

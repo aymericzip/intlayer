@@ -91,7 +91,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                           }
                           label={key2}
                           isOpen={isActive}
-                          className="!pl-0"
+                          className="!py-0 !pl-0"
                         >
                           <div className="pl-3">
                             {subSections2 &&

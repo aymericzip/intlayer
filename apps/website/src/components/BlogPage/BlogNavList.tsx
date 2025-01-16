@@ -84,7 +84,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                             <OptionalLink
                               label={key2}
                               href={sectionDefault?.url ?? ''}
-                              className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200"
+                              className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap pl-2 text-left text-sm transition-colors dark:text-neutral-200"
                               isActive={isActive}
                             >
                               {section2Data?.title}
@@ -92,7 +92,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           }
                           label={key2}
                           isOpen={isActive}
-                          className="!pl-0"
+                          className="!py-0 !pl-0"
                         >
                           <div className="pl-3">
                             {subSections2 &&
@@ -100,13 +100,75 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                 <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
+                                    const sectionDefault = section3Data.default;
+                                    const subSections3 =
+                                      section3Data.subSections;
+                                    const hasSubsections =
+                                      subSections2 &&
+                                      Object.keys(subSections2).length > 0;
 
                                     const isActive =
                                       key1 === activeSections[0] &&
                                       key2 === activeSections[1] &&
                                       key3 === activeSections[2];
 
-                                    return (
+                                    return hasSubsections ? (
+                                      <Accordion
+                                        header={
+                                          <OptionalLink
+                                            label={key3}
+                                            href={sectionDefault?.url ?? ''}
+                                            className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap pl-2 text-left text-xs transition-colors dark:text-neutral-200"
+                                            isActive={isActive}
+                                          >
+                                            {section3Data?.title}
+                                          </OptionalLink>
+                                        }
+                                        label={key3}
+                                        isOpen={isActive}
+                                        className="!py-0 !pl-0"
+                                      >
+                                        <div className="pl-3">
+                                          {subSections3 &&
+                                            Object.keys(subSections3).length >
+                                              0 && (
+                                              <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
+                                                {Object.keys(subSections3).map(
+                                                  (key4) => {
+                                                    const section4Data =
+                                                      subSections3[key4];
+
+                                                    const isActive =
+                                                      key1 ===
+                                                        activeSections[0] &&
+                                                      key2 ===
+                                                        activeSections[1] &&
+                                                      key3 ===
+                                                        activeSections[2] &&
+                                                      key4 ===
+                                                        activeSections[3];
+
+                                                    return (
+                                                      <OptionalLink
+                                                        key={key4}
+                                                        label={key4}
+                                                        href={
+                                                          section4Data.default
+                                                            ?.url ?? ''
+                                                        }
+                                                        className="text-neutral hover:text-text dark:hover:text-text-dark block w-full text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200"
+                                                        isActive={isActive}
+                                                      >
+                                                        {section4Data.title}
+                                                      </OptionalLink>
+                                                    );
+                                                  }
+                                                )}
+                                              </div>
+                                            )}
+                                        </div>
+                                      </Accordion>
+                                    ) : (
                                       <OptionalLink
                                         key={key3}
                                         label={key3}
