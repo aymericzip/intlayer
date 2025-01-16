@@ -168,42 +168,6 @@ const config: IntlayerConfig = {
 };
 ```
 
-```typescript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  /* ... */
-  content: {
-    // Tells Intlayer to generate message files for i18next
-    dictionaryOutput: ["i18next"],
-
-    // The directory where Intlayer will write your message JSON files
-    i18nextResourcesDir: "./i18next/resources",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  /* ... */
-  content: {
-    // Tells Intlayer to generate message files for i18next
-    dictionaryOutput: ["i18next"],
-
-    // The directory where Intlayer will write your message JSON files
-    i18nextResourcesDir: "./i18next/resources",
-  },
-};
-
-module.exports = config;
-```
-
 > For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
 
 Output:
@@ -252,42 +216,6 @@ const config: IntlayerConfig = {
     nextIntlMessagesDir: "./i18next/messages",
   },
 };
-```
-
-```typescript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  /* ... */
-  content: {
-    // Tells Intlayer to generate message files for i18next
-    dictionaryOutput: ["next-intl"],
-
-    // The directory where Intlayer will write your message JSON files
-    nextIntlMessagesDir: "./i18next/messages",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  /* ... */
-  content: {
-    // Tells Intlayer to generate message files for i18next
-    dictionaryOutput: ["next-intl"],
-
-    // The directory where Intlayer will write your message JSON files
-    nextIntlMessagesDir: "./intl/messages",
-  },
-};
-
-module.exports = config;
 ```
 
 > For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
