@@ -128,16 +128,16 @@
 
 ### 内容管理系统 (CMS)
 
-- WordPress: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/wordpress.md)
-- Drupal: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/drupal.md)
+- WordPress: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/CMS/drupal.md)
 
 ### JavaScript 应用程序 (前端)
 
-- React: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/react.md)
-- Angular: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/angular.md)
-- Vue: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/vue.md)
-- Svelte: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/svelte.md)
-- React Native: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/react-native.md)
+- React: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/react.md)
+- Angular: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/angular.md)
+- Vue: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/svelte.md)
+- React Native: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

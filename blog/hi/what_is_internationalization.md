@@ -128,16 +128,16 @@ i18n का एक और महत्वपूर्ण लाभ उपयो�
 
 ### सामग्री प्रबंधन प्रणालियों (CMS) के लिए
 
-- वर्डप्रेस: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/wordpress.md)
-- ड्रुपल: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/drupal.md)
+- वर्डप्रेस: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/CMS/wordpress.md)
+- ड्रुपल: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/CMS/drupal.md)
 
 ### जावास्क्रिप्ट अनुप्रयोगों (फ्रंटेंड) के लिए
 
-- रिएक्ट: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/react.md)
-- एंगुलर: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/angular.md)
-- व्यू: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/vue.md)
-- स्वेल्ट: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/svelte.md)
-- रिएक्ट नेटिव: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/react-native.md)
+- रिएक्ट: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/react.md)
+- एंगुलर: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/angular.md)
+- व्यू: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/vue.md)
+- स्वेल्ट: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/svelte.md)
+- रिएक्ट नेटिव: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

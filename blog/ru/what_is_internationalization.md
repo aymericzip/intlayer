@@ -128,16 +128,16 @@
 
 ### Для Систем Управления Контентом (CMS)
 
-- WordPress: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/wordpress.md)
-- Drupal: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/drupal.md)
+- WordPress: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/CMS/drupal.md)
 
 ### Для JavaScript Приложений (Frontend)
 
-- React: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/react.md)
-- Angular: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/angular.md)
-- Vue: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/vue.md)
-- Svelte: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/svelte.md)
-- React Native: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/react-native.md)
+- React: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/react.md)
+- Angular: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/angular.md)
+- Vue: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/svelte.md)
+- React Native: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

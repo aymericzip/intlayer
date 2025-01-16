@@ -128,16 +128,16 @@
 
 ### لأنظمة إدارة المحتوى (CMS)
 
-- WordPress: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/wordpress.md)
-- Drupal: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/drupal.md)
+- WordPress: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/CMS/drupal.md)
 
 ### لتطبيقات JavaScript (الواجهة الأمامية)
 
-- React: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/react.md)
-- Angular: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/angular.md)
-- Vue: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/vue.md)
-- Svelte: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/svelte.md)
-- React Native: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/react-native.md)
+- React: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/react.md)
+- Angular: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/angular.md)
+- Vue: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/svelte.md)
+- React Native: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

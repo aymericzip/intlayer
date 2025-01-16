@@ -128,16 +128,16 @@ i18n의 또 다른 중요한 이점은 사용자 경험의 향상입니다. 사�
 
 ### 콘텐츠 관리 시스템(CMS)용
 
-- WordPress: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/wordpress.md)
-- Drupal: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/drupal.md)
+- WordPress: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/CMS/drupal.md)
 
 ### JavaScript 애플리케이션(프론트 엔드)용
 
-- React: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/react.md)
-- Angular: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/angular.md)
-- Vue: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/vue.md)
-- Svelte: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/svelte.md)
-- React Native : [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/react-native.md)
+- React: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/react.md)
+- Angular: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/angular.md)
+- Vue: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/svelte.md)
+- React Native : [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

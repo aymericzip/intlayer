@@ -128,16 +128,16 @@ i18nのもう一つの重要な利点は、ユーザーエクスペリエンス�
 
 ### コンテンツ管理システム（CMS）向け
 
-- WordPress: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/wordpress.md)
-- Drupal: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/drupal.md)
+- WordPress: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/CMS/drupal.md)
 
 ### JavaScriptアプリケーション（フロントエンド）向け
 
-- React: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/react.md)
-- Angular: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/angular.md)
-- Vue: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/vue.md)
-- Svelte: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/svelte.md)
-- React Native : [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/react-native.md)
+- React: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/frameworks/react.md)
+- Angular: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/frameworks/angular.md)
+- Vue: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/frameworks/svelte.md)
+- React Native : [i18nライブラリとツールのリストを見る](https://github.com/aymericzip/intlayer/blob/main/blog/ja/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

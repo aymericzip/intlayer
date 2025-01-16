@@ -128,16 +128,16 @@ Si vous recherchez une liste de bibliothèques et d'outils d'i18n par technologi
 
 ### Pour les systèmes de gestion de contenu (CMS)
 
-- WordPress : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/wordpress.md)
-- Drupal : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/drupal.md)
+- WordPress : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/CMS/wordpress.md)
+- Drupal : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/CMS/drupal.md)
 
 ### Pour les applications JavaScript (Frontend)
 
-- React : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/react.md)
-- Angular : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/angular.md)
-- Vue : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/vue.md)
-- Svelte : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/svelte.md)
-- React Native : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/react-native.md)
+- React : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/frameworks/react.md)
+- Angular : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/frameworks/angular.md)
+- Vue : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/frameworks/vue.md)
+- Svelte : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/frameworks/svelte.md)
+- React Native : [Voir la liste des bibliothèques et outils d'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/fr/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 
