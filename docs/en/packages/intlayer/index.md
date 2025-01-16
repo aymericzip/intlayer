@@ -79,7 +79,7 @@ With Intlayer, you can declare your content in a structured way anywhere in your
 
 By default, Intlayer scans for files with the extension `.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
-> YYou can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+> can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
 
 ```bash codeFormat="typescript"
 .
