@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# vite-intlayer: NPM Package to internationalize (i18n) an Vite application
+# vite-intlayer: Internationalize (i18n) an Vite application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

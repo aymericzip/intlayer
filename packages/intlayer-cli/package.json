@@ -2,7 +2,7 @@
   "name": "intlayer-cli",
   "version": "4.0.2",
   "private": false,
-  "description": "IntLayer is a layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
+  "description": "Lightweight CLI tool for Intlayer, enabling content audits, dictionary management, and CMS sync. Ideal for JavaScript developers using React or Express.",
   "keywords": [
     "intlayer",
     "application",

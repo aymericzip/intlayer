@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# next-intlayer: NPM Package to internationalize (i18n) an Next.js application
+# next-intlayer: Internationalize (i18n) an Next.js application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
 

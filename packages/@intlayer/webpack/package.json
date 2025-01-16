@@ -2,7 +2,7 @@
   "name": "@intlayer/webpack",
   "version": "4.0.2",
   "private": false,
-  "description": "Webpack application for IntLayer - Transpile Intlayer declaration files into dictionaries using webpack.",
+  "description": "Webpack plugin for seamless integration with Intlayer, enhancing JavaScript apps built with React, Next.js and more.",
   "keywords": [
     "intlayer",
     "webpack",

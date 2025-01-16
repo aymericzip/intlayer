@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# @intlayer/cli: NPM Package to use the scripts provided by the intlayer CLI
+# @intlayer/cli: Use the scripts provided by the intlayer CLI
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

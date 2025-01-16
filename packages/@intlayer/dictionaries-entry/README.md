@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# @intlayer/dictionary-entry: NPM Package to retrieve Intlayer dictionaries
+# @intlayer/dictionary-entry: Retrieve Intlayer dictionaries
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

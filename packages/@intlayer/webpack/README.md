@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# @intlayer/webpack: NPM Package to use the Intlayer Webpack Plugin into your application
+# @intlayer/webpack: Use the Intlayer Webpack Plugin into your application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

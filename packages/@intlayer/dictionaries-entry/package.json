@@ -2,7 +2,7 @@
   "name": "@intlayer/dictionaries-entry",
   "version": "4.0.2",
   "private": false,
-  "description": "IntLayer - Dictionaries Entry. This package only returns the dictionary entry path. For bundle configuration, this packages should be replaced by using an alias.",
+  "description": "Provides the entry path for Intlayer dictionaries, solving filesystem retrieval issues for bundlers like Webpack and Rollup.",
   "keywords": [
     "intlayer",
     "alias",

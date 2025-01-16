@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# @intlayer/api: NPM Package to interact with Intlayer API
+# @intlayer/api: interact with Intlayer API
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

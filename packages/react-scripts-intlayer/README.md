@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# react-scripts-intlayer: NPM Package to use Intlayer in a React Create App application
+# react-scripts-intlayer: Use Intlayer in a React Create App application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

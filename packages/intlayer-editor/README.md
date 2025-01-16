@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# intlayer-editor: NPM Package to use the Intlayer visual editor
+# intlayer-editor: Use the Intlayer visual editor
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

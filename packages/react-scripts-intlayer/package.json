@@ -2,7 +2,7 @@
   "name": "react-scripts-intlayer",
   "version": "4.0.2",
   "private": false,
-  "description": "Script for create react app application with intlayer",
+  "description": "Integrate Intlayer with Create React App using custom React scripts for internationalization i18n and advanced Webpack configurations",
   "keywords": [
     "intlayer",
     "data",

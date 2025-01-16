@@ -2,7 +2,7 @@
   "name": "vite-intlayer",
   "version": "4.0.2",
   "private": false,
-  "description": "Intlayer for vite application",
+  "description": "A Vite plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
   "keywords": [
     "intlayer",
     "data",

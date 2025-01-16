@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# intlayer: NPM Package to Manage Multilingual Content Declaration (i18n)
+# intlayer: Manage Multilingual Content Declaration (i18n)
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
 

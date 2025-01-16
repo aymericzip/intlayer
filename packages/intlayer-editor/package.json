@@ -2,7 +2,7 @@
   "name": "intlayer-editor",
   "version": "4.0.2",
   "private": false,
-  "description": "IntLayer Editor is a tool that allow you to edit your IntLayer declaration files using a graphical interface.",
+  "description": "Integrate the Intlayer visual editor into React projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
     "intlayer",
     "application",

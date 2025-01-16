@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# @intlayer/core: NPM Package containing Intlayer core functions
+# @intlayer/core: Containing Intlayer core functions
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

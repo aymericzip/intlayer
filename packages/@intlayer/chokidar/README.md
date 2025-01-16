@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# @intlayer/chokidar: NPM Package to Scan and build Intlayer declaration files into dictionaries
+# @intlayer/chokidar: Scan and build Intlayer declaration files into dictionaries
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

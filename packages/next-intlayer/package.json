@@ -2,7 +2,7 @@
   "name": "next-intlayer",
   "version": "4.0.2",
   "private": false,
-  "description": "Internationalisation tool for Next.js applications. Declare your multilingual contant in the same lever than your component. Powered by TypeScript, declaration files.",
+  "description": "Simplify internationalization i18n in Next.js with context providers, hooks, locale detection, and multilingual content integration.",
   "keywords": [
     "intlayer",
     "multilingual",

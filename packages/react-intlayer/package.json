@@ -2,7 +2,7 @@
   "name": "react-intlayer",
   "version": "4.0.2",
   "private": false,
-  "description": "Internationalization layer for React applications. Declare your multilingual contant in the same lever than your component. Powered by TypeScript, declaration files.",
+  "description": "Easily internationalize i18n your React applications with type-safe multilingual content management.",
   "keywords": [
     "intlayer",
     "data",

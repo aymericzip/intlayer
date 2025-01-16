@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# @intlayer/config: NPM Package to retrieve Intlayer configuration
+# @intlayer/config: Retrieve Intlayer configuration
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 

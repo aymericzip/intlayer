@@ -17,7 +17,7 @@
   </a>
 </div>
 
-# @intlayer/design-system: NPM Package containing the UI library of Intlayer
+# @intlayer/design-system: Containing the UI library of Intlayer
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
