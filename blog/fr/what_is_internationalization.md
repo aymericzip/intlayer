@@ -56,8 +56,6 @@ Cet aperçu concis couvre les principaux éléments qui doivent être internatio
 
 ![illustration des douleurs de l'i18n](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
 
-## Défis communs de l'i18n
-
 - **maintenabilité**  
   Chaque mise à jour du site Web doit être répliquée dans chaque langue, exigeant des flux de travail efficaces et une coordination minutieuse pour garantir la cohérence à travers toutes les versions.
 

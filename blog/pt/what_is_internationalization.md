@@ -56,8 +56,6 @@ Este resumo conciso cobre os principais elementos que devem ser internacionaliza
 
 ![ilustração de dor da i18n](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
 
-## Desafios Comuns da i18n
-
 - **manutenibilidade**  
   Cada atualização de site deve ser espelhada em todos os idiomas, exigindo fluxos de trabalho eficientes e cuidadosa coordenação para garantir consistência em todas as versões.
 

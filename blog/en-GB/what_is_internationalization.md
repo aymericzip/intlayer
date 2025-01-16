@@ -56,8 +56,6 @@ This concise overview covers the main elements that should be internationalized,
 
 ![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
 
-## Common i18n Challenges
-
 - **maintainability**  
   Each website update must be mirrored in every language, demanding efficient workflows and careful coordination to ensure consistency across all versions.
 

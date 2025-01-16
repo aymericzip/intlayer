@@ -56,8 +56,6 @@ Questa panoramica concisa copre gli elementi principali che dovrebbero essere in
 
 ![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
 
-## Sfide comuni nell'i18n
-
 - **manutenibilità**  
   Ogni aggiornamento del sito web deve essere replicato in ogni lingua, richiedendo flussi di lavoro efficienti e attenta coordinazione per garantire coerenza tra tutte le versioni.
 

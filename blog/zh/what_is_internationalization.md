@@ -56,8 +56,6 @@
 
 ![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
 
-## 常见的国际化挑战
-
 - **可维护性**  
   每个网站更新都必须在每种语言中反映，要求高效的工作流程和仔细的协调，以确保所有版本的一致性。
 

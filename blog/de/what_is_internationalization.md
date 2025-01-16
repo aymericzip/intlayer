@@ -56,8 +56,6 @@ Diese kurze Übersicht deckt die wichtigsten Elemente ab, die internationalisier
 
 ![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
 
-## Häufige i18n-Herausforderungen
-
 - **Wartbarkeit**  
   Jedes Update der Website muss in jeder Sprache widergespiegelt werden, was effiziente Arbeitsabläufe und sorgfältige Koordination erfordert, um Konsistenz über alle Versionen hinweg zu gewährleisten.
 

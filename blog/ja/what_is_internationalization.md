@@ -56,8 +56,6 @@ i18nのもう一つの重要な利点は、ユーザーエクスペリエンス�
 
 ![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
 
-## 一般的なi18nの課題
-
 - **メンテナンス性**  
   各ウェブサイトの更新はすべての言語で反映される必要があり、効率的なワークフローと注意深い調整が求められ、一貫性を確保する必要があります。
 

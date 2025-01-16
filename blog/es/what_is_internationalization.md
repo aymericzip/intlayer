@@ -56,8 +56,6 @@ Este resumen conciso cubre los elementos principales que deberían ser internaci
 
 ![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
 
-## Desafíos Comunes de la i18n
-
 - **mantenibilidad**  
   Cada actualización del sitio web debe ser reflejada en cada idioma, exigiendo flujos de trabajo eficientes y coordinación cuidadosa para asegurar consistencia en todas las versiones.
 
