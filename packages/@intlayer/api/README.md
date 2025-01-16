@@ -147,24 +147,26 @@ import { t } from "intlayer";
 /** @type {import('intlayer').DeclarationContent} */
 const pageContent = {
   "key": "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    }),
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
+    nestedContent: {
+      id: "enumeration",
+      numberOfCar: enu({
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        0: "No cars",
+        1: "One car",
+        ">5": "Some cars",
+        ">19": "Many cars",
+      }),
+    },
   },
 };
 
@@ -182,24 +184,26 @@ const { t } = require("intlayer");
 /** @type {import('intlayer').DeclarationContent} */
 const pageContent = {
   "key": "page",
-  getStarted: {
-    main: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    }),
+  content: {
+    getStarted: {
+      main: t({
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
+    nestedContent: {
+      id: "enumeration",
+      numberOfCar: enu({
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        0: "No cars",
+        1: "One car",
+        ">5": "Some cars",
+        ">19": "Many cars",
+      }),
+    },
   },
 };
 
@@ -213,25 +217,27 @@ module.exports = pageContent;
 // src/app/[locale]/page.content.json
 {
   "key": "page",
-  getStarted: {
-    main: {
-      nodeType: "translation",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
+  "content": {
+    "getStarted": {
+      "main": {
+        "nodeType": "translation",
+        "en": "Get started by editing",
+        "fr": "Commencez par éditer",
+        "es": "Comience por editar",
+      },
+      "pageLink": "src/app/page.tsx",
     },
-    pageLink: "src/app/page.tsx",
-  },
-  nestedContent: {
-    id: "enumeration",
-    nodeType: "enumeration",
-    numberOfCar: {
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+    "nestedContent": {
+      "id": "enumeration",
+      "nodeType": "enumeration",
+      "numberOfCar": {
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        "0": "No cars",
+        "1": "One car",
+        ">5": "Some cars",
+        ">19": "Many cars",
+      },
     },
   },
 }

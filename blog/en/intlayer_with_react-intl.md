@@ -149,12 +149,10 @@ Each file is a JSON object whose **top-level keys** correspond to each **`conten
 
 For example, the **en.json** might look like:
 
-```json
+```json filePath="react-intl/messages/en/my-component.json"
 {
-  "my-component": {
-    "helloWorld": "Hello World",
-    "description": "This is a description"
-  }
+  "helloWorld": "Hello World",
+  "description": "This is a description"
 }
 ```
 
@@ -183,20 +181,40 @@ import en from "../react-intl/messages/en.json";
 import fr from "../react-intl/messages/fr.json";
 import es from "../react-intl/messages/es.json";
 
+
+
+// Dynamically import all JSON files using Vite's import.meta.glob
+const messages = import.meta.glob("../react-intl/messages/**/*.json", {
+  eager: true,
+});
+
+// Collate messages into a structured record
+const messagesRecord: Record<string, Record<string, any>> = {};
+
+Object.entries(messages).forEach(([path, module]) => {
+  // Extract locale and namespace from the file path
+  const [, locale, namespace] = path.match(/messages\/(\w+)\/(.+?)\.json$/) ?? [];
+  if (locale && namespace) {
+    messagesRecord[locale] = messagesRecord[locale] ?? {};
+    messagesRecord[locale][namespace] = module.default; // Assign JSON content
+  }
+});
+
+// Merge namespaces for each locale
+const mergeMessages = (locale: string) =>
+  Object.values(messagesRecord[locale] ?? {}).reduce(
+    (acc, namespaceMessages) => ({ ...acc, ...namespaceMessages }),
+    {}
+  );
+
 // If you have a mechanism to detect the user's language, set it here.
 // For simplicity, let's pick English.
 const locale = "en";
 
-// Collate messages in an object (or pick them dynamically)
-const messagesRecord: Record<string, Record<string, any>> = {
-  en,
-  fr,
-  es,
-};
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <IntlProvider locale={locale} messages={messagesRecord[locale]}>
+    <IntlProvider locale={locale} messages={mergeMessages(locale)}>
       <App />
     </IntlProvider>
   </React.StrictMode>
