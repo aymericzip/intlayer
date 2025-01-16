@@ -256,8 +256,8 @@ Intlayer provides a lot of features to help you internationalize your Next.js ap
 
 The `next-intlayer` package also provides some functions to help you to internationalize your application.
 
-- [`t()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md)
-- [`useIntlayer()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md)
-- [`useDictionary()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md)
-- [`useLocale()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md)
-- [`useIntlayerAsync()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md)

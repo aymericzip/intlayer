@@ -1,24 +1,24 @@
 # Começando a internacionalizar (i18n) com Intlayer e Express
 
-`express-intlayer` é um middleware poderoso de internacionalização (i18n) para aplicações Express, projetado para tornar seus serviços de backend globalmente acessíveis, fornecendo respostas localizadas com base nas preferências do cliente.
+`express-intlayer` é um poderoso middleware de internacionalização (i18n) para aplicações Express, projetado para tornar seus serviços de backend globalmente acessíveis, fornecendo respostas localizadas com base nas preferências do cliente.
 
 ## Por que Internacionalizar Seu Backend?
 
-Internacionalizar seu backend é essencial para atender efetivamente a um público global. Isso permite que sua aplicação entregue conteúdo e mensagens no idioma preferido de cada usuário. Essa capacidade melhora a experiência do usuário e amplia o alcance da sua aplicação, tornando-a mais acessível e relevante para pessoas de diferentes origens linguísticas.
+Internacionalizar seu backend é essencial para atender efetivamente a uma audiência global. Isso permite que sua aplicação entregue conteúdo e mensagens no idioma preferido de cada usuário. Essa capacidade melhora a experiência do usuário e amplia o alcance de sua aplicação tornando-a mais acessível e relevante para pessoas de diferentes origens linguísticas.
 
 ### Casos de Uso Práticos
 
-- **Exibindo Erros de Backend na Linguagem do Usuário**: Quando ocorre um erro, exibir mensagens no idioma nativo do usuário melhora a compreensão e reduz a frustração. Isso é especialmente útil para mensagens de erro dinâmicas que podem ser mostradas em componentes front-end como toasts ou modais.
+- **Exibindo Erros de Backend na Língua do Usuário**: Quando um erro ocorre, exibir mensagens na língua nativa do usuário melhora a compreensão e reduz a frustração. Isso é especialmente útil para mensagens de erro dinâmicas que podem ser mostradas em componentes de front-end como toasts ou modais.
 
-- **Recuperando Conteúdo Multilíngue**: Para aplicações que extraem conteúdo de um banco de dados, a internacionalização garante que você possa servir esse conteúdo em vários idiomas. Isso é crucial para plataformas como sites de comércio eletrônico ou sistemas de gerenciamento de conteúdo que precisam exibir descrições de produtos, artigos e outros conteúdos no idioma preferido pelo usuário.
+- **Recuperando Conteúdo Multilíngue**: Para aplicações que puxam conteúdo de um banco de dados, a internacionalização assegura que você possa oferecer esse conteúdo em várias línguas. Isso é crucial para plataformas como sites de e-commerce ou sistemas de gerenciamento de conteúdo que precisam exibir descrições de produtos, artigos e outros conteúdos na língua preferida do usuário.
 
-- **Enviando E-mails Multilíngues**: Seja para e-mails transacionais, campanhas de marketing ou notificações, enviar e-mails no idioma do destinatário pode aumentar significativamente o engajamento e a eficácia.
+- **Enviando E-mails Multilíngues**: Seja para e-mails transacionais, campanhas de marketing ou notificações, enviar e-mails na língua do destinatário pode aumentar significativamente o engajamento e a eficácia.
 
-- **Notificações Push Multilíngues**: Para aplicações móveis, enviar notificações push na linguagem preferida do usuário pode melhorar a interação e a retenção. Esse toque pessoal pode fazer as notificações parecerem mais relevantes e acionáveis.
+- **Notificações Push Multilíngues**: Para aplicações móveis, enviar notificações push na língua preferida do usuário pode melhorar a interação e a retenção. Esse toque pessoal pode fazer com que as notificações pareçam mais relevantes e acionáveis.
 
-- **Outras Comunicações**: Qualquer forma de comunicação do backend, como mensagens SMS, alertas do sistema ou atualizações de interface do usuário, se beneficia de estar na linguagem do usuário, garantindo clareza e melhorando a experiência geral do usuário.
+- **Outras Comunicações**: Qualquer forma de comunicação do backend, como mensagens SMS, alertas do sistema ou atualizações da interface do usuário, se beneficia de estar na língua do usuário, garantindo clareza e melhorando a experiência geral do usuário.
 
-Ao internacionalizar o backend, sua aplicação não apenas respeita as diferenças culturais, mas também se alinha melhor às necessidades do mercado global, tornando-se um passo fundamental na escalabilidade dos seus serviços em todo o mundo.
+Ao internacionalizar o backend, sua aplicação não apenas respeita as diferenças culturais, mas também se alinha melhor às necessidades do mercado global, tornando-se um passo fundamental para escalar seus serviços em todo o mundo.
 
 ## Começando
 
@@ -108,7 +108,7 @@ import { intlayer, t } from "express-intlayer";
 
 const app: Express = express();
 
-// Carregar manipulador de solicitações de internacionalização
+// Carregar o manipulador de requisições de internacionalização
 app.use(intlayer());
 
 // Rotas
@@ -124,7 +124,7 @@ app.get("/", (_req, res) => {
 });
 
 // Iniciar servidor
-app.listen(3000, () => console.log(`Ouvindo na porta 3000`));
+app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
 ```javascript fileName="src/index.mjs" codeFormat="esm"
@@ -133,7 +133,7 @@ import { intlayer, t } from "express-intlayer";
 
 const app = express();
 
-// Carregar manipulador de solicitações de internacionalização
+// Carregar o manipulador de requisições de internacionalização
 app.use(intlayer());
 
 // Rotas
@@ -149,7 +149,7 @@ app.get("/", (_req, res) => {
 });
 
 // Iniciar servidor
-app.listen(3000, () => console.log(`Ouvindo na porta 3000`));
+app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
 ```javascript fileName="src/index.cjs" codeFormat="commonjs"
@@ -158,7 +158,7 @@ const { intlayer, t } = require("express-intlayer");
 
 const app = express();
 
-// Carregar manipulador de solicitações de internacionalização
+// Carregar o manipulador de requisições de internacionalização
 app.use(intlayer());
 
 // Rotas
@@ -167,24 +167,25 @@ app.get("/", (_req, res) => {
     t({
       en: "Exemplo de conteúdo retornado em inglês",
       fr: "Exemple de contenu renvoyé en français",
-      "es-MX": "Ejemplo de conteúdo devuelto en español (México)",
-      "es-ES": "Ejemplo de conteúdo devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
     })
   );
 });
 
 // Iniciar servidor
-app.listen(3000, () => console.log(`Ouvindo na porta 3000`));
+app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
 ### Compatibilidade
 
 `express-intlayer` é totalmente compatível com:
 
-- `react-intlayer` para aplicações React
-- `next-intlayer` para aplicações Next.js
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/react-intlayer/index.md) para aplicações React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/next-intlayer/index.md) para aplicações Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/vite-intlayer/index.md) para aplicações Vite
 
-Ele também funciona perfeitamente com qualquer solução de internacionalização em vários ambientes, incluindo navegadores e solicitações de API. Você pode personalizar o middleware para detectar o locale através de cabeçalhos ou cookies:
+Ele também funciona perfeitamente com qualquer solução de internacionalização em diversos ambientes, incluindo navegadores e requisições de API. Você pode personalizar o middleware para detectar o idioma através de cabeçalhos ou cookies:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -201,7 +202,7 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer");
+import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
@@ -230,12 +231,12 @@ const config = {
 module.exports = config;
 ```
 
-Por padrão, `express-intlayer` interpretará o cabeçalho `Accept-Language` para determinar o idioma preferido do cliente.
+Por padrão, `express-intlayer` interpretará o cabeçalho `Accept-Language` para determinar a língua preferida do cliente.
 
 > Para mais informações sobre configuração e tópicos avançados, visite nossa [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
 
-## Potenciado por TypeScript
+## Desenvolvido com TypeScript
 
-`express-intlayer` aproveita as robustas capacidades do TypeScript para aprimorar o processo de internacionalização. A tipagem estática do TypeScript garante que cada chave de tradução esteja contabilizada, reduzindo o risco de traduções perdidas e melhorando a manutenibilidade.
+`express-intlayer` aproveita as robustas capacidades do TypeScript para aprimorar o processo de internacionalização. A tipagem estática do TypeScript garante que cada chave de tradução esteja contabilizada, reduzindo o risco de traduções faltantes e melhorando a manutenibilidade.
 
-> Certifique-se de que os tipos gerados (por padrão em ./types/intlayer.d.ts) estão incluídos no seu arquivo tsconfig.json.
+> Certifique-se de que os tipos gerados (por padrão em ./types/intlayer.d.ts) estejam incluídos no seu arquivo tsconfig.json.

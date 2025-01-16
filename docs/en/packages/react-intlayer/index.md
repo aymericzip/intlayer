@@ -250,8 +250,8 @@ Intlayer provides a lot of features to help you internationalize your React appl
 
 The `react-intlayer` package also provides some functions to help you to internationalize your application.
 
-- [`t()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md)
-- [`useIntlayer()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md)
-- [`useDictionary()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useDictionary.md)
-- [`useLocale()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md)
-- [`useIntlayerAsync()](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md)

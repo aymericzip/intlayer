@@ -1,30 +1,30 @@
 # Getting Started internationalizing (i18n) with Intlayer and Express
 
-`express-intlayer`は、Expressアプリケーションのための強力な国際化（i18n）ミドルウェアであり、クライアントの好みに基づいたローカライズされたレスポンスを提供することで、バックエンドサービスを世界的にアクセス可能にするように設計されています。
+`express-intlayer`は、Expressアプリケーション用の強力な国際化（i18n）ミドルウェアであり、クライアントの好みに基づいたローカライズされたレスポンスを提供することで、バックエンドサービスをグローバルにアクセス可能にするよう設計されています。
 
-## なぜバックエンドを国際化するのか？
+## なぜバックエンドを国際化する必要があるのか？
 
-バックエンドを国際化することは、グローバルなオーディエンスに効果的にサービスを提供するために不可欠です。これにより、アプリケーションは各ユーザーの好みの言語でコンテンツやメッセージを届けることができます。この機能はユーザー体験を向上させ、異なる言語背景を持つ人々にとって、アプリケーションがよりアクセシブルで関連性のあるものにすることで、リーチを広げます。
+バックエンドを国際化することは、グローバルなオーディエンスに効果的にサービスを提供するために不可欠です。これにより、アプリケーションは各ユーザーの好みの言語でコンテンツやメッセージを配信できます。この機能はユーザーエクスペリエンスを向上させ、異なる言語的背景を持つ人々にとってよりアクセスしやすく、関連性のあるアプリケーションにすることができます。
 
-### 実践的なユースケース
+### 実用的なユースケース
 
-- **ユーザーの言語でバックエンドエラーを表示**: エラーが発生した場合、ユーザーの母国語でメッセージを表示することで理解を改善し、フラストレーションを軽減します。これは、トーストやモーダルなどのフロントエンドコンポーネントで表示される動的エラーメッセージに特に役立ちます。
+- **ユーザーの言語でバックエンドエラーを表示**: エラーが発生した際に、ユーザーの母国語でメッセージを表示することで、理解が向上し、フラストレーションを軽減できます。これは、トーストやモーダルのようなフロントエンドコンポーネントに表示される動的エラーメッセージに特に役立ちます。
 
-- **多言語コンテンツの取得**: データベースからコンテンツを取得するアプリケーションでは、国際化により、このコンテンツを複数の言語で提供できます。これは、商品説明、記事、他のコンテンツをユーザーが好む言語で表示する必要があるeコマースサイトやコンテンツ管理システムにとって重要です。
+- **多言語コンテンツの取得**: データベースからコンテンツを取得するアプリケーションでは、国際化により、複数の言語でこのコンテンツを提供できることが保証されます。これは、製品説明、記事、その他のコンテンツをユーザーの好む言語で表示する必要があるeコマースサイトやコンテンツ管理システムにとって重要です。
 
-- **多言語メールの送信**: トランザクションメール、マーケティングキャンペーン、通知など、受取人の言語でメールを送信することで、エンゲージメントと効果を大幅に向上させることができます。
+- **多言語のメール送信**: トランザクションメール、マーケティングキャンペーン、通知にかかわらず、受取人の言語でメールを送信することで、エンゲージメントと効果が大幅に向上する可能性があります。
 
-- **多言語プッシュ通知**: モバイルアプリケーションにおいて、ユーザーの好みの言語でプッシュ通知を送信することで、インタラクションと維持率が向上します。この個人的なアプローチにより、通知がより関連性を持ち、行動を促すものに感じられます。
+- **多言語のプッシュ通知**: モバイルアプリケーションでは、ユーザーの好みの言語でプッシュ通知を送信することで、インタラクションとリテンションを高めることができます。このパーソナルな配慮は、通知をより関連性が高く、実行可能に感じさせることができます。
 
-- **その他のコミュニケーション**: SMSメッセージ、システムアラート、ユーザーインターフェースの更新など、バックエンドからのあらゆる形式のコミュニケーションは、ユーザーの言語で行うことで明確さが保証され、全体的なユーザー体験が向上します。
+- **その他のコミュニケーション**: SMSメッセージ、システムアラート、ユーザーインターフェースの更新など、バックエンドからのすべての形態のコミュニケーションは、ユーザーの言語であることが明確さを保証し、全体的なユーザーエクスペリエンスを向上させます。
 
-バックエンドを国際化することで、アプリケーションは文化的な違いを尊重するだけでなく、グローバル市場のニーズともより良く整合し、サービスを世界中に拡大するための重要なステップとなります。
+バックエンドの国際化により、アプリケーションは文化的な違いを尊重するだけでなく、グローバルな市場ニーズにより適合し、サービスを世界中にスケールアップするための重要なステップとなります。
 
 ## はじめに
 
 ### インストール
 
-`express-intlayer`を使用するには、npmを使用してパッケージをインストールします：
+`express-intlayer`の使用を開始するには、npmを使用してパッケージをインストールします：
 
 ```bash packageManager="npm"
 npm install intlayer express-intlayer
@@ -64,6 +64,7 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
+// 設定を定義します
 const config = {
   internationalization: {
     locales: [
@@ -83,6 +84,7 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
+// 設定を定義します
 const config = {
   internationalization: {
     locales: [
@@ -100,7 +102,7 @@ module.exports = config;
 
 ### Expressアプリケーションのセットアップ
 
-あなたのExpressアプリケーションを`express-intlayer`を使用するようにセットアップします：
+Expressアプリケーションを`express-intlayer`を使用するように設定します：
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
@@ -108,7 +110,7 @@ import { intlayer, t } from "express-intlayer";
 
 const app: Express = express();
 
-// 国際化リクエストハンドラをロード
+// 国際化リクエストハンドラーをロードします
 app.use(intlayer());
 
 // ルート
@@ -133,7 +135,7 @@ import { intlayer, t } from "express-intlayer";
 
 const app = express();
 
-// 国際化リクエストハンドラをロード
+// 国際化リクエストハンドラーをロードします
 app.use(intlayer());
 
 // ルート
@@ -158,7 +160,7 @@ const { intlayer, t } = require("express-intlayer");
 
 const app = express();
 
-// 国際化リクエストハンドラをロード
+// 国際化リクエストハンドラーをロードします
 app.use(intlayer());
 
 // ルート
@@ -179,12 +181,13 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 ### 互換性
 
-`express-intlayer`は以下と完全に互換性があります：
+`express-intlayer`は完全に互換性があります：
 
-- `react-intlayer` for Reactアプリケーション
-- `next-intlayer` for Next.jsアプリケーション
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/index.md) Reactアプリケーション用
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/index.md) Next.jsアプリケーション用
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/vite-intlayer/index.md) Viteアプリケーション用
 
-また、さまざまな環境での国際化ソリューションともシームレスに動作します。ミドルウェアをカスタマイズして、ヘッダーやクッキーを通じてロケールを検出することができます：
+また、ブラウザやAPIリクエストを含むさまざまな環境で、あらゆる国際化ソリューションとシームレスに動作します。ミドルウェアをカスタマイズして、ヘッダーやクッキーを介してロケールを検出することもできます：
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -204,6 +207,7 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
+// 設定を定義します
 const config = {
   // ... その他の設定オプション
   middleware: {
@@ -219,6 +223,7 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
+// 設定を定義します
 const config = {
   // ... その他の設定オプション
   middleware: {
@@ -230,12 +235,12 @@ const config = {
 module.exports = config;
 ```
 
-デフォルトでは、`express-intlayer`は`Accept-Language`ヘッダーを解釈してクライアントの好みの言語を判断します。
+デフォルトでは、`express-intlayer`は`Accept-Language`ヘッダーを解釈して、クライアントの好みの言語を判断します。
 
-> 設定や高度なトピックの詳細については、私たちの[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を訪れてください。
+> 設定や高度なトピックに関する詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を訪れてください。
 
-## TypeScriptによるPowered by
+## TypeScriptによって駆動されています
 
-`express-intlayer`は、国際化プロセスを強化するためにTypeScriptの強力な機能を活用しています。TypeScriptの静的型付けは、翻訳キーがすべて考慮されることを保証し、翻訳の欠落リスクを減らし、メンテナンス性を向上させます。
+`express-intlayer`は、国際化プロセスを向上させるためにTypeScriptの強力な機能を活用します。TypeScriptの静的型付けは、すべての翻訳キーが考慮されることを保証し、翻訳の欠落を減少させ、保守性を向上させます。
 
-> 生成された型（デフォルトでは./types/intlayer.d.ts）がtsconfig.jsonファイルに含まれていることを確認してください。
+> 生成された型（デフォルトで./types/intlayer.d.ts）は、tsconfig.jsonファイルに含めるようにしてください。

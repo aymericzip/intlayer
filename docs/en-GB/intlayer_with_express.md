@@ -181,8 +181,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` is fully compatible with:
 
-- `react-intlayer` for React applications
-- `next-intlayer` for Next.js applications
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/index.md) for React applications
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/next-intlayer/index.md) for Next.js applications
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/vite-intlayer/index.md) for Vite applications
 
 It also works seamlessly with any internationalization solution across various environments, including browsers and API requests. You can customize the middleware to detect locale through headers or cookies:
 
@@ -201,7 +202,7 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
+import { Locales } from "intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {

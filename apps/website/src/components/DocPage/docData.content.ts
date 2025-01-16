@@ -404,6 +404,12 @@ const docDataContent = {
             },
           },
         },
+        'vite-intlayer': {
+          title: 'vite-intlayer',
+        },
+        'react-scripts-intlayer': {
+          title: 'react-scripts-intlayer',
+        },
       },
     },
     blog: {
