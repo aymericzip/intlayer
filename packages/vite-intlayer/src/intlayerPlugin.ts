@@ -12,7 +12,7 @@ type PluginOptions = {
 
 /**
  *
- * A Vite plugin that integrates IntLayer configuration into the build process
+ * A Vite plugin that integrates Intlayer configuration into the build process
  *
  * ```ts
  * // Example usage of the plugin in a Vite configuration

@@ -4,7 +4,7 @@ import type { Configuration as WebPackConfiguration } from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { getEntries } from './getEntries';
 import { defineDirname } from './utils';
-import { IntLayerPlugin } from './webpack-plugin';
+import { IntlayerPlugin } from './webpack-plugin';
 
 const { content } = getConfiguration({
   verbose: false,
@@ -145,7 +145,7 @@ export const webpackConfig: WebPackConfiguration = {
   devServer: devServerConfig,
 
   plugins: [
-    new IntLayerPlugin(),
+    new IntlayerPlugin(),
     // new HotModuleReplacementPlugin()
   ],
 };

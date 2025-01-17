@@ -1,6 +1,6 @@
 import { resolve, relative, join } from 'path';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
-import { IntLayerPlugin } from '@intlayer/webpack';
+import { IntlayerPlugin } from '@intlayer/webpack';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 
@@ -87,9 +87,9 @@ export const withIntlayer = (
 
       const { isServer, nextRuntime } = options;
 
-      // Apply IntLayerPlugin only on the server-side
+      // Apply IntlayerPlugin only on the server-side
       if (isServer && nextRuntime === 'nodejs') {
-        config.plugins.push(new IntLayerPlugin());
+        config.plugins.push(new IntlayerPlugin());
       }
 
       return config;

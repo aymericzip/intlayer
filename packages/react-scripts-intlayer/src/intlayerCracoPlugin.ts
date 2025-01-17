@@ -13,14 +13,14 @@ import {
   formatEnvVariable,
   ESMxCJSRequire,
 } from '@intlayer/config';
-import { IntLayerPlugin as IntLayerWebpackPlugin } from '@intlayer/webpack';
+import { IntlayerPlugin as IntlayerWebpackPlugin } from '@intlayer/webpack';
 import {
   type Configuration as WebpackConfig,
   EnvironmentPlugin,
 } from 'webpack';
 import { removeUndefinedValueObject } from './removeUndefinedValueObject';
 
-// Get IntLayer configuration
+// Get Intlayer configuration
 const intlayerConfig = getConfiguration();
 
 // Format environment variables
@@ -68,7 +68,7 @@ export const overrideCracoConfig = ({
         ...cracoConfig.webpack?.plugins,
         add: [
           new EnvironmentPlugin(removeUndefinedValueObject(env)),
-          new IntLayerWebpackPlugin(),
+          new IntlayerWebpackPlugin(),
         ],
       },
       configure: {
@@ -91,7 +91,7 @@ export const overrideCracoConfig = ({
 };
 
 /**
- * A CRACO plugin that adds the IntLayer configuration to the webpack configuration and sets the environment variables.
+ * A CRACO plugin that adds the Intlayer configuration to the webpack configuration and sets the environment variables.
  *
  * Usage:
  *

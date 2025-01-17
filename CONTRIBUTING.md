@@ -1,4 +1,4 @@
-# Contributing to IntLayer
+# Contributing to Intlayer
 
 ## Understanding the project
 
@@ -6,7 +6,7 @@ To understand the project, you can read the [documentation named "How Intlayer W
 
 ## Development setup
 
-IntLayer is developed as a mono-repo using pmpm.
+Intlayer is developed as a mono-repo using pmpm.
 
 ### Cloning
 

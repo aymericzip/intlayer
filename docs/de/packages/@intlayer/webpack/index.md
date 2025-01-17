@@ -7,11 +7,11 @@ Das **`@intlayer/webpack`** Paket wird verwendet, um eine Webpack-Konfiguration 
 ## Verwendung
 
 ```ts
-import { IntLayerPlugin } from "@intlayer/webpack";
+import { IntlayerPlugin } from "@intlayer/webpack";
 
 export default {
   plugins: [
-    new IntLayerPlugin({
+    new IntlayerPlugin({
       // Optionen
     }),
   ],
