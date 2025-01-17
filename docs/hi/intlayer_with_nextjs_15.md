@@ -587,11 +587,11 @@ import {
   getMultilingualUrls,
 } from "intlayer";
 import type { Metadata } from "next";
-import type { LocalParams } from "next-intlayer";
+import type { LocalPromiseParams } from "next-intlayer";
 
 export const generateMetadata = ({
   params: { locale },
-}: LocalParams): Metadata => {
+}: LocalPromiseParams): Metadata => {
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
