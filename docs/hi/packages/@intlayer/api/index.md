@@ -9,7 +9,7 @@
 ```ts
 import { intlayerAPI } from "@intlayer/api";
 
-intlayerAPI.user.getUserAPI({
+intlayerAPI.user.getUser({
   ids: ["user-id-1", "user-id-2"], // उपयोगकर्ता आईडी की सूची
 });
 ```

@@ -10,7 +10,7 @@
 import { intlayerAPI } from "@intlayer/api";
 
 // ユーザー情報を取得するAPIを呼び出す
-intlayerAPI.user.getUserAPI({
+intlayerAPI.user.getUser({
   ids: ["user-id-1", "user-id-2"],
 });
 ```

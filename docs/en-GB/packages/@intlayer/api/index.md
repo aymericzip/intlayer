@@ -9,7 +9,7 @@ The **`@intlayer/api`** package is a SDK (Software Development Kit) to interact 
 ```ts
 import { intlayerAPI } from "@intlayer/api";
 
-intlayerAPI.user.getUserAPI({
+intlayerAPI.user.getUser({
   ids: ["user-id-1", "user-id-2"],
 });
 ```

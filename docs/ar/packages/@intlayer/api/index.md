@@ -10,7 +10,7 @@
 import { intlayerAPI } from "@intlayer/api";
 
 // الحصول على واجهة برمجة التطبيقات للمستخدم
-intlayerAPI.user.getUserAPI({
+intlayerAPI.user.getUser({
   ids: ["user-id-1", "user-id-2"],
 });
 ```

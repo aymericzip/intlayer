@@ -10,7 +10,7 @@ O **`@intlayer/api`** pacote é um SDK (Kit de Desenvolvimento de Software) para
 import { intlayerAPI } from "@intlayer/api";
 
 // Função para obter a API do usuário
-intlayerAPI.user.getUserAPI({
+intlayerAPI.user.getUser({
   ids: ["user-id-1", "user-id-2"],
 });
 ```
