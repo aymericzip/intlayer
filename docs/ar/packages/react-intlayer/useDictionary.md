@@ -1,4 +1,3 @@
-````markdown
 # تكامل React: توثيق `useDictionary` Hook
 
 هذا القسم يقدم إرشادات مفصلة حول استخدام `useDictionary` hook ضمن تطبيقات React، مما يمكّن من التعامل بفعالية مع المحتوى المحلي دون محرر مرئي.
@@ -12,7 +11,6 @@
   ```typescript codeFormat="typescript"
   import { useDictionary } from "react-intlayer"; // مستخدم في مكونات React على جانب العميل
   ```
-````
 
 ```javascript codeFormat="esm"
 import { useDictionary } from "react-intlayer"; // مستخدم في مكونات React على جانب العميل
@@ -259,7 +257,3 @@ const ServerComponentExample = ({ locale }) => {
 - **تحديثات التوطين**: عند تحديث المحتوى، تأكد من أن جميع اللغات متسقة لتجنب الترجمات المفقودة.
 
 تركز هذه الوثيقة على تكامل `useDictionary` hook، مقدمةً نهجاً سلساً لإدارة المحتوى المحلي دون الاعتماد على وظائف محرر المرئي.
-
-```
-
-```

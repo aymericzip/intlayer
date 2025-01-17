@@ -1,4 +1,3 @@
-````markdown
 # Documentation: `getLocaleName` Function in `intlayer`
 
 ## Description:
@@ -43,7 +42,6 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
 
 getLocaleName("unknown-locale"); // Output: "Unknown locale"
 ```
-````
 
 ```javascript codeFormat="esm"
 import { Locales, getLocaleName } from "intlayer";
@@ -93,7 +91,3 @@ getLocaleName("unknown-locale"); // Output: "Unknown locale"
   - تقوم الدالة بشكل افتراضي بإعادة اسم `displayLocale` الخاص بها.
 - **ترجمات مفقودة:**
   - إذا لم تحتوي `localeNameTranslations` على إدخال لـ `targetLocale` أو `displayLocale` المحدد، تتراجع الدالة إلى `ownLocalesName` أو تعيد `"Unknown locale"`.
-
-```
-
-```

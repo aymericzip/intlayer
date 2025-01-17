@@ -1,4 +1,3 @@
-````markdown
 # Intlayer와 Next.js 14로 국제화(i18n) 시작하기
 
 ## Intlayer란 무엇인가요?
@@ -26,7 +25,6 @@ npm을 통해 필요한 패키지를 설치하세요:
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
 ```
-````
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer

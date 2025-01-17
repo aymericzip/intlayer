@@ -1,4 +1,3 @@
-````markdown
 # Начало работы с интернационализацией (i18n) с Intlayer и React Create App
 
 ## Что такое Intlayer?
@@ -23,7 +22,6 @@
 ```bash packageManager="npm"
 npm install intlayer react-intlayer react-scripts-intlayer
 ```
-````
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer react-scripts-intlayer

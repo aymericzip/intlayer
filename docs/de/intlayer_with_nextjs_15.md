@@ -587,9 +587,11 @@ import {
 import type { Metadata } from "next";
 import type { LocalPromiseParams } from "next-intlayer";
 
-export const generateMetadata = ({
+export const generateMetadata = async ({
   params: { locale },
 }: LocalPromiseParams): Metadata => {
+  const { locale } = await params;
+
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
 
@@ -637,7 +639,8 @@ export const generateMetadata = ({
 ````javascript fileName="src/app/[locale]/layout.mjs oder src/app/[locale]/page.mjs" codeFormat="esm"
 import { getTranslationContent, getMultilingualUrls } from "intlayer";
 
-export const generateMetadata = ({ params: { locale } }) => {
+export const generateMetadata = async ({ params }) => {
+  const { locale } = await params;
   const t = (content) => getTranslationContent(content, locale);
 
   /**
@@ -684,7 +687,8 @@ export const generateMetadata = ({ params: { locale } }) => {
 ````javascript fileName="src/app/[locale]/layout.cjs oder src/app/[locale]/page.cjs" codeFormat="commonjs"
 const { getTranslationContent, getMultilingualUrls } = require("intlayer");
 
-module.exports.generateMetadata = ({ params: { locale } }) => {
+module.exports.generateMetadata = async ({ params }) => {
+  const { locale } = await params;
   const t = (content) => getTranslationContent(content, locale);
 
   /**

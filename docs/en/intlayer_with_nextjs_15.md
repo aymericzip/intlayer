@@ -613,7 +613,7 @@ import type { LocalPromiseParams } from "next-intlayer";
 
 export const generateMetadata = async ({
   params,
-}: LocalParams): Promise<Metadata> => {
+}: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
   const t = <T>(content: IConfigLocales<T>) =>
     getTranslationContent(content, locale);
