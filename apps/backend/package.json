@@ -58,7 +58,7 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "start": "node --import=tsx dist/esm/index.mjs"
+    "start": "node --import=tsx dist/esm/index.mjs  --max-old-space-size=512"
   },
   "dependencies": {
     "@react-email/components": "^0.0.32",
