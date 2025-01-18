@@ -2,19 +2,18 @@
 
 import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
+import { useEditedContent } from '@intlayer/editor-react';
 import { Locales } from 'intlayer';
 import { ArrowUpFromLine, RotateCcw, Save, WandSparkles } from 'lucide-react';
 import { useCallback, useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { useShallow } from 'zustand/react/shallow';
 import { useAuth } from '../../../components/Auth';
 import {
   useAuditContentDeclaration,
   useGetAllDictionaries,
   usePushDictionaries,
 } from '../../../hooks';
-import { useEditedContentStore } from '../../DictionaryEditor';
 import { Form, useForm } from '../../Form';
 import { saveDictionaryContent } from './saveForm.content';
 import { getSaveFormSchema } from './SaveFormSchema';
@@ -33,13 +32,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
     useAuditContentDeclaration();
 
   const { editedContent, restoreEditedContent, setEditedContent } =
-    useEditedContentStore(
-      useShallow((s) => ({
-        editedContent: s.editedContent,
-        restoreEditedContent: s.restoreEditedContent,
-        setEditedContent: s.setEditedContent,
-      }))
-    );
+    useEditedContent();
   const { form, isSubmitting } = useForm(SaveFormSchema);
   const { auditButton, resetButton, saveButton, publishButton } = useDictionary(
     saveDictionaryContent

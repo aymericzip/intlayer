@@ -2,15 +2,14 @@
   "name": "intlayer-editor",
   "version": "4.0.2",
   "private": false,
-  "description": "Integrate the Intlayer visual editor into React projects, enabling CMS-like content management with multilingual support.",
+  "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
     "intlayer",
     "application",
     "editor",
+    "CMS",
     "typescript",
-    "javascript",
-    "json",
-    "file"
+    "javascript"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
@@ -32,26 +31,18 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs"
-    },
-    "./tailwind": {
-      "types": "./dist/types/styles/tailwind.d.ts",
-      "import": "./dist/esm/styles/tailwind.mjs",
-      "require": "./dist/cjs/styles/tailwind.cjs"
-    },
-    "./css": {
-      "import": "./dist/esm/styles/style.css",
-      "require": "./dist/cjs/styles/style.css"
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "require": "./index.cjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
+  "main": "./index.cjs",
+  "module": "./.next/standalone/esm/index.mjs",
+  "types": "./.next/standalone/types/index.d.ts",
   "typesVersions": {
     "*": {
       "package.json": [
@@ -59,61 +50,59 @@
       ]
     }
   },
+  "bin": {
+    "intlayer-editor": ".next/standalone/server.js"
+  },
   "files": [
     "./dist",
     "./bin",
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm build:package & pnpm build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
-    "clean": "rimraf ./dist",
-    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
-    "lint": "eslint . --cache",
-    "lint:fix": "eslint . --cache --fix",
-    "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --write",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "build": "vite build",
+    "dev": "vite",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
-    "intlayer": "workspace:*",
+    "@intlayer/editor-react": "workspace:*",
     "lucide-react": "^0.471.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "zustand": "^5.0.1"
+    "react-intlayer": "workspace:^",
+    "react-router-dom": "^7.1.1",
+    "vite-intlayer": "workspace:^"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "0.5.0",
-    "@changesets/cli": "2.27.11",
-    "@types/node": "^22.10.6",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/parser": "^8.20.0",
-    "@utils/eslint-config": "workspace:*",
-    "@utils/ts-config": "workspace:*",
-    "@utils/ts-config-types": "workspace:*",
-    "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.1.2",
-    "eslint": "^9.18.0",
-    "prettier": "^3.4.2",
-    "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.10",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.3"
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.18.2",
+    "vite": "^6.0.5"
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
+    "@intlayer/editor-react": "workspace:*",
     "intlayer": "workspace:*",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "react-intlayer": "workspace:^",
-    "zustand": ">=4.0.0"
+    "react-router-dom": ">=6.0.0",
+    "vite-intlayer": "workspace:^"
   },
   "engines": {
     "node": ">=14.18"

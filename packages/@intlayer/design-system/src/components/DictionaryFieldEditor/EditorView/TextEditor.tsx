@@ -10,7 +10,9 @@ import {
   type DictionaryValue,
   getLocaleName,
   Dictionary,
+  getSectionType,
 } from '@intlayer/core';
+import { useEditedContent } from '@intlayer/editor-react';
 import { Plus, WandSparkles, X } from 'lucide-react';
 import {
   createElement,
@@ -20,16 +22,13 @@ import {
 } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary, useLocale } from 'react-intlayer';
-import { useShallow } from 'zustand/react/shallow';
 import { useAuditContentDeclarationField } from '../../../hooks';
-import { getSectionType } from '../../../utils/dictionary';
 import { renameKey } from '../../../utils/object';
 import { Button } from '../../Button';
 import {
   ContentEditorTextArea as ContentEditorTextAreaBase,
   ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
 } from '../../ContentEditor/ContentEditorTextArea';
-import { useEditedContentStore } from '../../DictionaryEditor';
 import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
 import { EnumKeyInput } from '../EnumKeyInput';
 import { getIsEditableSection } from '../getIsEditableSection';
@@ -52,9 +51,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   locales,
   ...props
 }) => {
-  const addEditedContent = useEditedContentStore(
-    useShallow((s) => s.addEditedContent)
-  );
+  const { addEditedContent } = useEditedContent();
   const { auditContentDeclarationField, isLoading: isAuditing } =
     useAuditContentDeclarationField();
 
@@ -207,9 +204,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   dictionary,
   locales,
 }) => {
-  const addEditedContent = useEditedContentStore(
-    useShallow((s) => s.addEditedContent)
-  );
+  const { addEditedContent } = useEditedContent();
   const { addNewEnumeration } = useDictionary(navigationViewContent);
 
   return (
@@ -314,9 +309,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   dictionary,
   locales,
 }) => {
-  const addEditedContent = useEditedContentStore(
-    useShallow((s) => s.addEditedContent)
-  );
+  const { addEditedContent } = useEditedContent();
   const { addNewElement } = useDictionary(navigationViewContent);
 
   return (

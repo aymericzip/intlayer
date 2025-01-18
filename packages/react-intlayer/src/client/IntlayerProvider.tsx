@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
+import { PoweredByMeta } from './PoweredByMeta';
 
 type IntlayerValue = {
   locale: Locales;
@@ -75,6 +76,7 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
 
   return (
     <IntlayerClientContext.Provider value={value}>
+      <PoweredByMeta />
       <IntlayerEditorProvider>{children}</IntlayerEditorProvider>
     </IntlayerClientContext.Provider>
   );

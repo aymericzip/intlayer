@@ -4,7 +4,7 @@ import {
   Button,
   Loader,
   Modal,
-  useEditionPanelStore,
+  useFocusDictionary,
   Container,
   H2,
   DictionaryCreationForm,
@@ -17,7 +17,7 @@ import { Suspense, useState, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 export const DictionaryListDashboardContent: FC = () => {
-  const { setFocusedContent } = useEditionPanelStore((s) => ({
+  const { setFocusedContent } = useFocusDictionary((s) => ({
     setFocusedContent: s.setFocusedContent,
   }));
   const { selectDictionaryButton } = useIntlayer('dictionary-form');

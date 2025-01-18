@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { withIntlayer } from 'next-intlayer/server';
 import withPWA from 'next-pwa';
 import { createSecureHeaders } from 'next-secure-headers';
@@ -75,6 +74,8 @@ const secureHeaders = createSecureHeaders({
         '*.codesandbox.io',
         'codesandbox.io',
         '*.youtube.com',
+        '*.intlayer.org',
+        'localhost:*',
       ],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],

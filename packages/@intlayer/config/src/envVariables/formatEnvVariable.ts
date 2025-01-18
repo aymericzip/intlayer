@@ -1,5 +1,6 @@
 import { getConfiguration } from '../configFile/getConfiguration';
 import { getPrefix, type Platform } from './detectPlatform';
+import { removeUndefinedValueObject } from './removeUndefinedValueObject';
 
 /**
  * Format a key to corresponding environment variable name
@@ -35,5 +36,5 @@ export const formatEnvVariable = (
     }
   }
 
-  return env;
+  return removeUndefinedValueObject(env);
 };

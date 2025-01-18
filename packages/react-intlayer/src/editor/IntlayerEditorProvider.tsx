@@ -1,10 +1,15 @@
 import { FC, PropsWithChildren } from 'react';
-import { PoweredByMeta } from '../utils/PoweredByMeta/index';
-import { ContentSelectorProvider } from './ContentSelectorConnector';
+import { getConfiguration } from '@intlayer/config/client';
+import { EditorProvider } from '@intlayer/editor-react';
 
-export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => (
-  <ContentSelectorProvider>
-    <PoweredByMeta />
-    {children}
-  </ContentSelectorProvider>
-);
+const {
+  editor: { enabled },
+} = getConfiguration();
+
+export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
+  if (enabled) {
+    return <EditorProvider targetWindow={window}>{children}</EditorProvider>;
+  }
+
+  return children;
+};

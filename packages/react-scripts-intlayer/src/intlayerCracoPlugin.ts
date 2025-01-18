@@ -18,7 +18,6 @@ import {
   type Configuration as WebpackConfig,
   EnvironmentPlugin,
 } from 'webpack';
-import { removeUndefinedValueObject } from './removeUndefinedValueObject';
 
 // Get Intlayer configuration
 const intlayerConfig = getConfiguration();
@@ -66,10 +65,7 @@ export const overrideCracoConfig = ({
       ...cracoConfig.webpack,
       plugins: {
         ...cracoConfig.webpack?.plugins,
-        add: [
-          new EnvironmentPlugin(removeUndefinedValueObject(env)),
-          new IntlayerWebpackPlugin(),
-        ],
+        add: [new EnvironmentPlugin(env), new IntlayerWebpackPlugin()],
       },
       configure: {
         ...(cracoConfig.webpack?.configure ?? {}),

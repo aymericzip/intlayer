@@ -2,14 +2,13 @@
 
 import { Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
+import { useDictionariesRecord } from '@intlayer/editor-react';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { useShallow } from 'zustand/react/shallow';
 import { Button } from '../Button';
 import { Container } from '../Container';
-import { useEditedContentStore } from '../DictionaryEditor';
 import { H2 } from '../Headers';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
 import { SwitchSelector } from '../SwitchSelector';
@@ -41,23 +40,17 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const [editorView, setEditorView] = useState<EditorViewType>(
     EditorViewType.NodeEditor
   );
-  const { dictionaryRecord, setDictionariesRecord } = useEditedContentStore(
-    useShallow((s) => ({
-      editedContent: s.editedContent,
-      dictionaryRecord: s.dictionariesRecord,
-      setDictionariesRecord: s.setDictionariesRecord,
-    }))
-  );
+  const { dictionariesRecord, setDictionariesRecord } = useDictionariesRecord();
   const { returnToDictionaryList, titleContent, titleInformation } =
     useDictionary(dictionaryFieldEditorContent);
 
   useEffect(() => {
-    if (dictionaryRecord[key]) return;
+    if (dictionariesRecord[key]) return;
 
     setDictionariesRecord({
       [key]: dictionary,
     });
-  }, [dictionary, key, setDictionariesRecord, dictionaryRecord]);
+  }, [dictionary, key, setDictionariesRecord, dictionariesRecord]);
 
   return (
     <LocaleSwitcherContentProvider availableLocales={availableLocales}>

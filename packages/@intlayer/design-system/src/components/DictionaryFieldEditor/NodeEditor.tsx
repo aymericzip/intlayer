@@ -2,13 +2,13 @@
 
 import { type Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
-import { useEffect, type FC } from 'react';
-import { useShallow } from 'zustand/react/shallow';
-import { Container } from '../Container';
 import {
-  useEditedContentStore,
-  useEditionPanelStore,
-} from '../DictionaryEditor';
+  useDictionariesRecord,
+  useEditedContent,
+  useFocusDictionary,
+} from '@intlayer/editor-react';
+import { useEffect, type FC } from 'react';
+import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
 import { EditorView } from './EditorView/EditorView';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
@@ -21,33 +21,21 @@ type NodeEditorProps = {
 
 export const NodeEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
   const { content: dictionaryContent, key } = dictionary;
-  const { editedContent, dictionaryRecord, setDictionariesRecord } =
-    useEditedContentStore(
-      useShallow((s) => ({
-        editedContent: s.editedContent,
-        dictionaryRecord: s.dictionariesRecord,
-        setDictionariesRecord: s.setDictionariesRecord,
-      }))
-    );
-
-  const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
-    useShallow((s) => ({
-      focusedContent: s.focusedContent,
-      setFocusedContentKeyPath: s.setFocusedContentKeyPath,
-    }))
-  );
+  const { dictionariesRecord, setDictionariesRecord } = useDictionariesRecord();
+  const { editedContent } = useEditedContent();
+  const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
 
   const section = editedContent[key]?.content ?? dictionaryContent;
 
   useEffect(() => {
-    if (dictionaryRecord[key]) return;
+    if (dictionariesRecord[key]) return;
 
     setDictionariesRecord({
       [key]: dictionary,
     });
-  }, [dictionary, key, setDictionariesRecord, dictionaryRecord]);
+  }, [dictionary, key, setDictionariesRecord, dictionariesRecord]);
 
   return (
     <>

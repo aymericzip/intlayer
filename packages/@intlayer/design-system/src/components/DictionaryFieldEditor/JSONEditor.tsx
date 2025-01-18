@@ -1,7 +1,6 @@
 import { Dictionary } from '@intlayer/core';
+import { useEditedContent } from '@intlayer/editor-react';
 import { useMemo, type FC } from 'react';
-import { useShallow } from 'zustand/react/shallow';
-import { useEditedContentStore } from '../DictionaryEditor';
 import { MonacoCode } from '../IDE/MonacoCode';
 
 type JSONEditorProps = {
@@ -10,12 +9,7 @@ type JSONEditorProps = {
 };
 
 export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
-  const { setEditedContent, editedContent } = useEditedContentStore(
-    useShallow((s) => ({
-      editedContent: s.editedContent,
-      setEditedContent: s.setEditedContent,
-    }))
-  );
+  const { setEditedContent, editedContent } = useEditedContent();
 
   const isValidJSON = (jsonString: string): boolean => {
     try {

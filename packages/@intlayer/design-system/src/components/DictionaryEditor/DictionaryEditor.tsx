@@ -2,11 +2,9 @@
 
 import type { Locales } from '@intlayer/config/client';
 import type { Dictionary, KeyPath } from '@intlayer/core';
+import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import type { FC } from 'react';
-import { useShallow } from 'zustand/react/shallow';
 import { NodeWrapper } from './NodeWrapper';
-import { useEditedContentStore } from './useEditedContentStore';
-import { useEditionPanelStore } from './useEditionPanelStore';
 import { ValidDictionaryChangeButtons } from './ValidDictionaryChangeButtons';
 
 type DictionaryEditorProps = {
@@ -19,18 +17,8 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   dictionary,
   ...props
 }) => {
-  const { addEditedContent, editedContent } = useEditedContentStore(
-    useShallow((s) => ({
-      addEditedContent: s.addEditedContent,
-      editedContent: s.editedContent,
-    }))
-  );
-  const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
-    useShallow((s) => ({
-      focusedContent: s.focusedContent,
-      setFocusedContentKeyPath: s.setFocusedContentKeyPath,
-    }))
-  );
+  const { editedContent, addEditedContent } = useEditedContent();
+  const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
 

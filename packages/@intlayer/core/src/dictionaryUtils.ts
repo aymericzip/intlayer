@@ -1,0 +1,203 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { isValidElement } from 'react';
+import { type TranslationContent, type EnumerationContent } from './transpiler';
+import { type DictionaryValue, type KeyPath, NodeType } from './types/index';
+
+export const getDictionaryValueByKeyPath = (
+  dictionaryContent: DictionaryValue,
+  keyPath: KeyPath[]
+): DictionaryValue => {
+  let currentValue: any = JSON.parse(JSON.stringify(dictionaryContent ?? {}));
+
+  for (const keyObj of keyPath) {
+    if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
+      currentValue = currentValue?.[keyObj.key];
+    } else if (keyObj.type === NodeType.Translation) {
+      currentValue = currentValue?.[NodeType.Translation][keyObj.key];
+    } else if (keyObj.type === NodeType.Enumeration) {
+      currentValue = currentValue?.[NodeType.Enumeration][keyObj.key];
+    }
+  }
+
+  return currentValue as DictionaryValue;
+};
+
+type LastKeyType = string | number;
+
+export const editDictionaryByKeyPath = (
+  dictionaryContent: DictionaryValue,
+  keyPath: KeyPath[],
+  newValue: DictionaryValue
+): DictionaryValue => {
+  let currentValue: any = dictionaryContent;
+  let parentValue: any = null;
+  let lastKeys: LastKeyType[] = [];
+
+  for (const keyObj of keyPath) {
+    parentValue = currentValue;
+
+    if (keyObj.type === NodeType.Object) {
+      lastKeys = [keyObj.key];
+
+      if (!currentValue[keyObj.key]) {
+        currentValue = {
+          ...currentValue,
+          [keyObj.key]: {},
+        };
+      }
+      currentValue = currentValue[keyObj.key];
+    } else if (keyObj.type === NodeType.Array) {
+      lastKeys = [keyObj.key];
+
+      if (!currentValue[keyObj.key]) {
+        currentValue[keyObj.key] = {};
+      }
+      currentValue = currentValue[keyObj.key];
+    } else if (keyObj.type === NodeType.Translation) {
+      lastKeys = [NodeType.Translation, keyObj.key];
+
+      if (!currentValue[NodeType.Translation]) {
+        currentValue[NodeType.Translation] = {
+          ...currentValue[NodeType.Translation],
+          [keyObj.key]: newValue,
+        };
+      }
+      currentValue = currentValue[NodeType.Translation][keyObj.key];
+    } else if (keyObj.type === NodeType.Enumeration) {
+      lastKeys = [NodeType.Enumeration, keyObj.key];
+
+      if (!currentValue[NodeType.Enumeration]) {
+        currentValue[NodeType.Enumeration] = {
+          ...currentValue[NodeType.Enumeration],
+          [keyObj.key]: newValue,
+        };
+      }
+      currentValue = currentValue[NodeType.Enumeration][keyObj.key];
+    }
+  }
+
+  // Assign the new value to the last key of the parent
+  if (parentValue && lastKeys.length > 0) {
+    for (const key of lastKeys.slice(0, -1)) {
+      parentValue = parentValue[key];
+    }
+    if (
+      // Remove the field if the new value is undefined
+      typeof newValue === 'undefined'
+    ) {
+      delete parentValue[lastKeys[lastKeys.length - 1]];
+    } else {
+      parentValue[lastKeys[lastKeys.length - 1]] = newValue;
+    }
+  }
+
+  return dictionaryContent;
+};
+
+export const removeDictionaryValueByKeyPath = (
+  dictionaryContent: DictionaryValue,
+  keyPath: KeyPath[]
+): DictionaryValue => {
+  let currentValue: any = dictionaryContent;
+  let parentValue: any = null;
+  let lastKey: string | number | null = null;
+
+  for (const keyObj of keyPath) {
+    parentValue = currentValue;
+
+    if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
+      lastKey = keyObj.key;
+      currentValue = currentValue[keyObj.key];
+    } else if (keyObj.type === NodeType.Translation) {
+      lastKey = NodeType.Translation;
+      currentValue = currentValue[NodeType.Translation][keyObj.key];
+    } else if (keyObj.type === NodeType.Enumeration) {
+      lastKey = NodeType.Enumeration;
+      currentValue = currentValue[NodeType.Enumeration][keyObj.key];
+    }
+  }
+
+  if (parentValue && lastKey !== null) {
+    if (Array.isArray(parentValue)) {
+      parentValue.splice(lastKey as unknown as number, 1);
+    } else {
+      delete parentValue[lastKey];
+    }
+  }
+
+  return dictionaryContent;
+};
+
+export const renameDictionaryValueByKeyPath = (
+  dictionaryContent: DictionaryValue,
+  newKey: string | number,
+  keyPath: KeyPath[]
+): DictionaryValue => {
+  let currentValue: any = dictionaryContent;
+  let parentValue: any = null;
+  let lastKey: string | number | null = null;
+
+  for (const keyObj of keyPath) {
+    parentValue = currentValue;
+
+    if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
+      lastKey = keyObj.key;
+      currentValue = currentValue[keyObj.key];
+    } else if (keyObj.type === NodeType.Translation) {
+      lastKey = NodeType.Translation;
+      currentValue = currentValue[NodeType.Translation][keyObj.key];
+    } else if (keyObj.type === NodeType.Enumeration) {
+      lastKey = NodeType.Enumeration;
+      currentValue = currentValue[NodeType.Enumeration][keyObj.key];
+    }
+  }
+
+  // Assign the new value to the last key of the parent while preserving the order
+  if (parentValue && lastKey !== null) {
+    if (Array.isArray(parentValue)) {
+      parentValue[lastKey as number] = currentValue;
+    } else {
+      const newParentValue: any = {};
+      for (const key of Object.keys(parentValue)) {
+        if (key === lastKey) {
+          newParentValue[newKey] = currentValue;
+        } else {
+          newParentValue[key] = parentValue[key];
+        }
+      }
+      // Replace the contents of parentValue with newParentValue
+      Object.keys(parentValue).forEach((key) => delete parentValue[key]);
+      Object.assign(parentValue, newParentValue);
+    }
+  }
+
+  return dictionaryContent;
+};
+
+export const getSectionType = (section: DictionaryValue): NodeType => {
+  if (typeof section === 'string') {
+    return NodeType.Text;
+  }
+
+  if (
+    (section as TranslationContent<unknown>)?.nodeType === NodeType.Translation
+  ) {
+    return NodeType.Translation;
+  }
+
+  if (
+    (section as EnumerationContent<unknown>)?.nodeType === NodeType.Enumeration
+  ) {
+    return NodeType.Enumeration;
+  }
+
+  if (Array.isArray(section)) {
+    return NodeType.Array;
+  }
+
+  if (isValidElement(section)) {
+    return NodeType.ReactNode;
+  }
+
+  return NodeType.Object;
+};

@@ -5,23 +5,20 @@ import {
   type KeyPath,
   type DictionaryValue,
   isSameKeyPath,
+  getDictionaryValueByKeyPath,
+  getSectionType,
 } from '@intlayer/core';
+import {
+  useEditedContentActions,
+  useFocusDictionary,
+} from '@intlayer/editor-react';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useCallback, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { useShallow } from 'zustand/react/shallow';
 import { camelCaseToSentence } from '../../../utils/camelCase';
-import {
-  getDictionaryValueByKeyPath,
-  getSectionType,
-} from '../../../utils/dictionary';
 import { Accordion } from '../../Accordion';
 import { Button } from '../../Button';
-import {
-  useEditedContentStore,
-  useEditionPanelStore,
-} from '../../DictionaryEditor';
 import { getIsEditableSection } from '../getIsEditableSection';
 import { navigationViewContent } from './navigationViewNode.content';
 
@@ -40,15 +37,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 }) => {
   const { locales } = getConfiguration().internationalization;
   const section = getDictionaryValueByKeyPath(sectionProp, keyPath);
-  const addEditedContent = useEditedContentStore(
-    useShallow((s) => s.addEditedContent)
-  );
-  const { setFocusedContentKeyPath, focusedContent } = useEditionPanelStore(
-    useShallow((s) => ({
-      setFocusedContentKeyPath: s.setFocusedContentKeyPath,
-      focusedContent: s.focusedContent,
-    }))
-  );
+  const { addEditedContent } = useEditedContentActions();
+  const { setFocusedContentKeyPath, focusedContent } = useFocusDictionary();
   const {
     addNewElement,
     addNewField,

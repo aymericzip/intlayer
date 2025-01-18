@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Loader, useEditionPanelStore } from '@intlayer/design-system';
+import { Button, Loader, useFocusDictionary } from '@intlayer/design-system';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -29,7 +29,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
   tagKey,
 }) => {
   const router = useRouter();
-  const { setFocusedContent } = useEditionPanelStore((s) => ({
+  const { setFocusedContent } = useFocusDictionary((s) => ({
     setFocusedContent: s.setFocusedContent,
   }));
   const { dictionaryLinkLabel } = useIntlayer('tags-dictionaries-list');

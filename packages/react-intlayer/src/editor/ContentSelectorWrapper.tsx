@@ -1,12 +1,78 @@
-import { type KeyPath } from '@intlayer/core';
-import { type PropsWithChildren, type FC } from 'react';
+'use client';
 
-export type ContentSelectorWrapperProps = PropsWithChildren<{
+import { isSameKeyPath, type KeyPath } from '@intlayer/core';
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+  type FC,
+  type ReactNode,
+  HTMLAttributes,
+} from 'react';
+import {
+  useFocusDictionary,
+  useEditedContentActions,
+} from '@intlayer/editor-react';
+import { ContentSelector } from '../UI/ContentSelector';
+
+type ContentData = {
   dictionaryKey: string;
   dictionaryPath: string;
   keyPath: KeyPath[];
-}>;
+};
+
+export type ContentSelectorWrapperProps = ContentData &
+  HTMLAttributes<HTMLDivElement>;
 
 export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   children,
-}) => <>{children}</>;
+  dictionaryKey,
+  dictionaryPath,
+  keyPath,
+  ...props
+}) => {
+  const { focusedContent, setFocusedContent } = useFocusDictionary();
+  const { getEditedContentValue } = useEditedContentActions();
+
+  const editedValue = useMemo(
+    () => getEditedContentValue(dictionaryKey, keyPath),
+    [dictionaryKey, keyPath, getEditedContentValue]
+  );
+
+  const [displayedChildren, setDisplayedChildren] =
+    useState<ReactNode>(children);
+
+  const handleSelect = useCallback(
+    () =>
+      setFocusedContent({
+        dictionaryKey,
+        dictionaryPath,
+        keyPath,
+      }),
+    [dictionaryKey, dictionaryPath, keyPath, setFocusedContent]
+  );
+
+  const isSelected = useMemo(
+    () =>
+      ((focusedContent?.keyPath?.length ?? 0) > 0 &&
+        isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
+      false,
+    [focusedContent, keyPath]
+  );
+
+  useEffect(() => {
+    // Use useEffect to avoid 'Text content does not match server-rendered HTML' error
+    if (editedValue && typeof editedValue === 'string') {
+      setDisplayedChildren(editedValue);
+    } else {
+      setDisplayedChildren(children);
+    }
+  }, [editedValue, focusedContent, children]);
+
+  return (
+    <ContentSelector onPress={handleSelect} isSelecting={isSelected} {...props}>
+      {displayedChildren}
+    </ContentSelector>
+  );
+};

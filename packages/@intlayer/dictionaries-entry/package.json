@@ -66,10 +66,10 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/config": "workspace:^"
+    "@intlayer/config": "workspace:^",
+    "@intlayer/core": "workspace:*"
   },
   "devDependencies": {
-    "@intlayer/core": "workspace:*",
     "@types/node": "^22.10.6",
     "@typescript-eslint/parser": "^8.20.0",
     "@utils/eslint-config": "workspace:*",

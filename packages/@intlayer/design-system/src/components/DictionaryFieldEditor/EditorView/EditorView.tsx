@@ -1,23 +1,22 @@
 'use client';
 
 import { type Locales } from '@intlayer/config';
-import { type KeyPath, type Dictionary } from '@intlayer/core';
+import {
+  type KeyPath,
+  type Dictionary,
+  getDictionaryValueByKeyPath,
+} from '@intlayer/core';
+import { useFocusDictionary, useEditedContent } from '@intlayer/editor-react';
 import { RotateCcw, X } from 'lucide-react';
 import { useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { useShallow } from 'zustand/react/shallow';
 import { EditableFieldInput } from '../..//EditableField';
 import {
   camelCaseToSentence,
   sentenceToCamelCase,
 } from '../../../utils/camelCase';
-import { getDictionaryValueByKeyPath } from '../../../utils/dictionary';
 import { Button } from '../../Button';
-import {
-  useEditedContentStore,
-  useEditionPanelStore,
-} from '../../DictionaryEditor';
 import { Label } from '../../Label';
 import { editorViewContent } from '../editorView.content';
 import { getIsEditableSection } from '../getIsEditableSection';
@@ -35,30 +34,17 @@ export const EditorView: FC<EditorViewProps> = ({
   dictionary,
   locales,
 }) => {
-  const { focusedContent, setFocusedContentKeyPath } = useEditionPanelStore(
-    useShallow((s) => ({
-      setFocusedContentKeyPath: s.setFocusedContentKeyPath,
-      focusedContent: s.focusedContent,
-    }))
-  );
+  const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
   const keyPath = focusedContent?.keyPath ?? [];
   const initialKeyName = keyPath[keyPath.length - 1]?.key ?? '';
   const { titleInput, deleteButton, nodeTypeSelector, restoreButton } =
     useDictionary(editorViewContent);
-
   const {
     editedContent,
     renameEditedContent,
     addEditedContent,
     removeEditedContent,
-  } = useEditedContentStore(
-    useShallow((s) => ({
-      editedContent: s.editedContent,
-      renameEditedContent: s.renameEditedContent,
-      addEditedContent: s.addEditedContent,
-      removeEditedContent: s.removeEditedContent,
-    }))
-  );
+  } = useEditedContent();
 
   const editedSection = editedContent[dictionaryKey]?.content
     ? getDictionaryValueByKeyPath(editedContent[dictionaryKey].content, keyPath)

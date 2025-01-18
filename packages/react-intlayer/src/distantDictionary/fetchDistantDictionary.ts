@@ -9,7 +9,7 @@ import { getConfiguration } from '@intlayer/config/client';
  */
 export const fetchDistantDictionary = async (
   dictionaryKey: string
-): Promise<DictionaryAPI> => {
+): Promise<DictionaryAPI | undefined> => {
   try {
     const config = getConfiguration();
     const { clientId, clientSecret } = config.editor;

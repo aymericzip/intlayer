@@ -1,12 +1,11 @@
 'use client';
 
 import { Locales } from '@intlayer/config';
+import { useFocusDictionary } from '@intlayer/editor-react';
 import { useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { useShallow } from 'zustand/react/shallow';
 import { useGetAllDictionaries } from '../../../hooks';
-import { useEditionPanelStore } from '../../DictionaryEditor';
 import { Loader } from '../../Loader';
 import { DictionaryFieldEditor } from '../DictionaryFieldEditor';
 import { dictionariesSelectorContent } from './dictionariesSelector.content';
@@ -23,11 +22,7 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   availableLocales,
 }) => {
   const { online, locale, isLoading } = useGetAllDictionaries();
-  const { focusedContent } = useEditionPanelStore(
-    useShallow((s) => ({
-      focusedContent: s.focusedContent,
-    }))
-  );
+  const { focusedContent } = useFocusDictionary();
   const { noDictionaryMessage, dictionaryNotFoundMessage } = useDictionary(
     dictionariesSelectorContent
   );
