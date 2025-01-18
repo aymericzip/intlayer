@@ -1,17 +1,17 @@
 # Documentation: `getHTMLTextDir` Function in `intlayer`
 
-## Description:
+## Description
 
 La fonction `getHTMLTextDir` détermine la direction du texte (`ltr`, `rtl` ou `auto`) en fonction du locale fourni. Elle est conçue pour aider les développeurs à définir l'attribut `dir` dans HTML pour un rendu correct du texte.
 
-## Parameters:
+## Parameters
 
 - `locale?: Locales`
 
   - **Description**: La chaîne de locale (par exemple, `Locales.ENGLISH`, `Locales.ARABIC`) utilisée pour déterminer la direction du texte.
   - **Type**: `Locales` (optionnel)
 
-## Returns:
+## Returns
 
 - **Type**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
 - **Description**: La direction du texte correspondant au locale :
@@ -19,7 +19,7 @@ La fonction `getHTMLTextDir` détermine la direction du texte (`ltr`, `rtl` ou `
   - `'rtl'` pour les langues de droite à gauche.
   - `'auto'` si le locale n'est pas reconnu.
 
-## Example Usage:
+## Example Usage
 
 ### Détermination de la direction du texte :
 
@@ -47,7 +47,7 @@ getHTMLTextDir(Locales.FRENCH); // Sortie : "ltr"
 getHTMLTextDir(Locales.ARABIC); // Sortie : "rtl"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **Aucun locale fourni :**
 

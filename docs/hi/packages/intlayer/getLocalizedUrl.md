@@ -1,12 +1,12 @@
 # Documentation: `getLocalizedUrl` Function in `intlayer`
 
-## Description:
+## Description
 
 `getLocalizedUrl` फ़ंक्शन दिए गए URL के साथ निर्दिष्ट लोकल को प्रीफिक्स करके एक स्थानीय URL उत्पन्न करता है। यह पूर्ण और सापेक्ष URLs दोनों को संभालता है, यह सुनिश्चित करते हुए कि कॉन्फ़िगरेशन के आधार पर सही लोकल प्रीफ़िक्स लागू किया गया है।
 
 ---
 
-## Parameters:
+## Parameters
 
 - `url: string`
 
@@ -35,16 +35,16 @@
   - **Type**: `boolean`
   - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md#middleware)
 
-### Returns:
+### Returns
 
 - **Type**: `string`
 - **Description**: निर्दिष्ट लोकल के लिए स्थानीयकृत URL।
 
 ---
 
-## Example Usage:
+## Example Usage
 
-### Relative URLs:
+### Relative URLs
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
@@ -106,7 +106,7 @@ getLocalizedUrl(
 // Output: "/about" for the default (English) locale
 ```
 
-### Absolute URLs:
+### Absolute URLs
 
 ```typescript
 getLocalizedUrl(
@@ -134,7 +134,7 @@ getLocalizedUrl(
 ); // Output: "https://example.com/en/about" for the English
 ```
 
-### Unsupported Locale:
+### Unsupported Locale
 
 ```typescript
 getLocalizedUrl(
@@ -147,7 +147,7 @@ getLocalizedUrl(
 
 ---
 
-## Edge Cases:
+## Edge Cases
 
 - **कोई लोकल खंड नहीं:**
 
@@ -162,7 +162,7 @@ getLocalizedUrl(
 
 ---
 
-## Usage in Applications:
+## Usage in Applications
 
 एक बहुभाषी एप्लिकेशन में, `locales` और `defaultLocale` के साथ अंतर्राष्ट्रीयकरण सेटिंग्स को कॉन्फ़िगर करना सही भाषा प्रदर्शित करने के लिए महत्वपूर्ण है। नीचे एक उदाहरण है कि कैसे `getLocalizedUrl` को एप्लिकेशन सेटअप में उपयोग किया जा सकता है:
 

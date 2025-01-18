@@ -1,10 +1,10 @@
 # Documentation: `getTranslationContent` Function in `intlayer`
 
-## Description:
+## Description
 
 `getTranslationContent` फ़ंक्शन एक सेट के अनुकूलनशील भाषा सामग्री से एक विशिष्ट स्थानीय भाषा के लिए सामग्री को लाता है। यदि निर्दिष्ट लोकल नहीं मिलती है, तो यह परियोजना में कॉन्फ़िगर की गई डिफ़ॉल्ट लोकल की सामग्री लौटाने के लिए डिफ़ॉल्ट करती है।
 
-## Parameters:
+## Parameters
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
@@ -17,14 +17,14 @@
   - **Description**: वह लोकल जिसके लिए सामग्री प्राप्त की जानी है।
   - **Type**: `Locales`
 
-## Returns:
+## Returns
 
 - **Type**: `Content`
 - **Description**: निर्दिष्ट लोकल के लिए संबंधित सामग्री। यदि लोकल नहीं मिलती है, तो डिफ़ॉल्ट लोकल की सामग्री लौटाई जाती है।
 
-## Example Usage:
+## Example Usage
 
-### Basic Usage:
+### Basic Usage
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -156,7 +156,7 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **Locale Not Found:**
   - जब `locale` `languageContent` में नहीं मिलती है, तो फ़ंक्शन डिफ़ॉल्ट लोकल की सामग्री लौटाता है।

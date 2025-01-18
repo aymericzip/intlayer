@@ -1,6 +1,6 @@
 # Documentation: `getConfiguration` Fonction dans `intlayer`
 
-## Description:
+## Description
 
 La fonction `getConfiguration` récupère la configuration complète pour l'application `intlayer` en extrayant les variables d'environnement. Cette fonction offre la flexibilité d'utiliser la même configuration à la fois côté client et serveur, garantissant ainsi la cohérence de l'application.
 

@@ -1,10 +1,10 @@
 # Documentation: `getTranslationContent` 関数 in `intlayer`
 
-## Description:
+## Description
 
 `getTranslationContent` 関数は、カスタマイズ可能な言語コンテンツのセットから特定のロケールに対応するコンテンツを取得します。指定されたロケールが見つからない場合、プロジェクトで設定されたデフォルトロケールのコンテンツが返されます。
 
-## Parameters:
+## Parameters
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
@@ -17,14 +17,14 @@
   - **Description**: コンテンツを取得するためのロケールです。
   - **Type**: `Locales`
 
-## Returns:
+## Returns
 
 - **Type**: `Content`
 - **Description**: 指定されたロケールに対応するコンテンツです。ロケールが見つからない場合は、デフォルトロケールのコンテンツが返されます。
 
-## Example Usage:
+## Example Usage
 
-### Basic Usage:
+### Basic Usage
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -156,7 +156,7 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // 出力: "Bonjour"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **Locale Not Found:**
   - `languageContent` に `locale` が見つからない場合、関数はデフォルトロケールのコンテンツを返します。

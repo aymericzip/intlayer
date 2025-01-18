@@ -1,10 +1,10 @@
 # Documentation: `getPathWithoutLocale` Functions in `intlayer`
 
-## Description:
+## Description
 
 Removes the locale segment from the given URL or pathname if present. It works with both absolute URLs and relative pathnames.
 
-## Parameters:
+## Parameters
 
 - `inputUrl: string`
 
@@ -15,12 +15,12 @@ Removes the locale segment from the given URL or pathname if present. It works w
   - **Description**: Optional array of supported locales. Defaults to the configured locales in the project.
   - **Type**: `Locales[]`
 
-## Returns:
+## Returns
 
 - **Type**: `string`
 - **Description**: The URL string or pathname without the locale segment.
 
-## Example Usage:
+## Example Usage
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

@@ -1,10 +1,10 @@
 # Documentation: `getPathWithoutLocale` Functions in `intlayer`
 
-## Description:
+## Description
 
 يستخدم لإزالة الجزء الخاص بالموضع من عنوان URL أو مسار معين إذا كان موجودًا. يعمل مع كل من URLs المطلقة والمسارات النسبية.
 
-## Parameters:
+## Parameters
 
 - `inputUrl: string`
 
@@ -15,12 +15,12 @@
   - **Description**: مصفوفة اختيارية من المواقع المدعومة. بشكل افتراضي، يتم استخدام المواقع المكونة في المشروع.
   - **Type**: `Locales[]`
 
-## Returns:
+## Returns
 
 - **Type**: `string`
 - **Description**: سلسلة URL أو مسار معين بدون الجزء الخاص بالموضع.
 
-## Example Usage:
+## Example Usage
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

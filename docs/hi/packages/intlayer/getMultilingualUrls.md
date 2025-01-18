@@ -1,12 +1,12 @@
 # Documentation: `getMultilingualUrls` Function in `intlayer`
 
-## Description:
+## Description
 
 `getMultilingualUrls` फ़ंक्शन बहुभाषी URL का मैप तैयार करता है, जो दिए गए URL को प्रत्येक समर्थित लोकल के साथ प्रीफिक्स करता है। यह पूर्ण और सापेक्ष दोनों URLs को संभाल सकता है, प्रदान की गई कॉन्फ़िगरेशन या डिफ़ॉल्ट के आधार पर उपयुक्त लोकल प्रीफिक्स लागू करता है।
 
 ---
 
-## Parameters:
+## Parameters
 
 - `url: string`
 
@@ -30,16 +30,16 @@
   - **Type**: `boolean`
   - **Default**: `prefixDefaultDefault`
 
-### Returns:
+### Returns
 
 - **Type**: `IConfigLocales<string>`
 - **Description**: प्रत्येक लोकल को उसके संबंधित बहुभाषी URL से मैप करने वाला एक ऑब्जेक्ट।
 
 ---
 
-## Example Usage:
+## Example Usage
 
-### Relative URLs:
+### Relative URLs
 
 ```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
@@ -86,7 +86,7 @@ getMultilingualUrls(
 // }
 ```
 
-### Absolute URLs:
+### Absolute URLs
 
 ```typescript
 getMultilingualUrls(
@@ -103,7 +103,7 @@ getMultilingualUrls(
 
 ---
 
-## Edge Cases:
+## Edge Cases
 
 - **No Locale Segment:**
 
@@ -118,7 +118,7 @@ getMultilingualUrls(
 
 ---
 
-## Usage in Applications:
+## Usage in Applications
 
 एक बहुभाषी एप्लिकेशन में, `locales` और `defaultLocale` के साथ अंतर्राष्ट्रीयकरण सेटिंग्स को कॉन्फ़िगर करना सही भाषा प्रदर्शित करने के लिए महत्वपूर्ण है। नीचे एक उदाहरण है कि कैसे `getMultilingualUrls` को एक एप्लिकेशन सेटअप में उपयोग किया जा सकता है:
 

@@ -1,12 +1,12 @@
 # Documentation: `getMultilingualUrls` Function in `intlayer`
 
-## Description:
+## Description
 
 The `getMultilingualUrls` function generates a mapping of multilingual URLs by prefixing the given URL with each supported locale. It can handle both absolute and relative URLs, applying the appropriate locale prefix based on the provided configuration or defaults.
 
 ---
 
-## Parameters:
+## Parameters
 
 - `url: string`
 
@@ -30,16 +30,16 @@ The `getMultilingualUrls` function generates a mapping of multilingual URLs by p
   - **Type**: `boolean`
   - **Default**: `prefixDefaultDefault`
 
-### Returns:
+### Returns
 
 - **Type**: `IConfigLocales<string>`
 - **Description**: An object mapping each locale to its corresponding multilingual URL.
 
 ---
 
-## Example Usage:
+## Example Usage
 
-### Relative URLs:
+### Relative URLs
 
 ```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
@@ -86,7 +86,7 @@ getMultilingualUrls(
 // }
 ```
 
-### Absolute URLs:
+### Absolute URLs
 
 ```typescript
 getMultilingualUrls(
@@ -103,7 +103,7 @@ getMultilingualUrls(
 
 ---
 
-## Edge Cases:
+## Edge Cases
 
 - **No Locale Segment:**
 
@@ -118,7 +118,7 @@ getMultilingualUrls(
 
 ---
 
-## Usage in Applications:
+## Usage in Applications
 
 In a multilingual application, configuring the internationalization settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getMultilingualUrls` can be used in an application setup:
 

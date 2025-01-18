@@ -1,6 +1,6 @@
 # Documentation: `getMultilingualUrls` Fonction dans `intlayer`
 
-## Description:
+## Description
 
 La fonction `getMultilingualUrls` génère une carte d'URLs multilingues en préfixant l'URL donnée avec chaque locale supportée. Elle peut gérer à la fois les URLs absolues et relatives, appliquant le préfixe de locale approprié basé sur la configuration fournie ou les valeurs par défaut.
 

@@ -39,7 +39,7 @@ Die `getMultilingualUrls` Funktion erstellt eine Zuordnung von mehrsprachigen UR
 
 ## Beispiel Verwendung:
 
-### Relative URLs:
+### Relative URLs
 
 ```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
@@ -86,7 +86,7 @@ getMultilingualUrls(
 // }
 ```
 
-### Absolute URLs:
+### Absolute URLs
 
 ```typescript
 getMultilingualUrls(

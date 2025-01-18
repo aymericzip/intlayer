@@ -1,10 +1,10 @@
 # Documentation: `getPathWithoutLocale` Functions in `intlayer`
 
-## Description:
+## Description
 
 Supprime le segment de locale de l'URL ou du chemin donné s'il est présent. Il fonctionne avec des URLs absolues et des chemins relatifs.
 
-## Parameters:
+## Parameters
 
 - `inputUrl: string`
 
@@ -15,12 +15,12 @@ Supprime le segment de locale de l'URL ou du chemin donné s'il est présent. Il
   - **Description**: Tableau optionnel des locales prises en charge. Par défaut, il utilise les locales configurées dans le projet.
   - **Type**: `Locales[]`
 
-## Returns:
+## Returns
 
 - **Type**: `string`
 - **Description**: La chaîne URL ou le chemin sans le segment de locale.
 
-## Example Usage:
+## Example Usage
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

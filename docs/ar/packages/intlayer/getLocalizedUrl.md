@@ -1,12 +1,12 @@
 # Documentation: `getLocalizedUrl` Function in `intlayer`
 
-## Description:
+## Description
 
 تقوم دالة `getLocalizedUrl` بإنشاء عنوان URL محلي عن طريق إضافة بادئة اللغة المحددة. فهي تعالج كل من عناوين URL المطلقة والنسبية، مع ضمان تطبيق بادئة اللغة الصحيحة بناءً على التكوين.
 
 ---
 
-## Parameters:
+## Parameters
 
 - `url: string`
 
@@ -35,16 +35,16 @@
   - **Type**: `boolean`
   - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md#middleware)
 
-### Returns:
+### Returns
 
 - **Type**: `string`
 - **Description**: عنوان URL المحلي للغة المحددة.
 
 ---
 
-## Example Usage:
+## Example Usage
 
-### Relative URLs:
+### Relative URLs
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
@@ -106,7 +106,7 @@ getLocalizedUrl(
 // Output: "/about" للغة الافتراضية (الإنجليزية)
 ```
 
-### Absolute URLs:
+### Absolute URLs
 
 ```typescript
 getLocalizedUrl(
@@ -134,7 +134,7 @@ getLocalizedUrl(
 ); // Output: "https://example.com/en/about" للغة الإنجليزية
 ```
 
-### Unsupported Locale:
+### Unsupported Locale
 
 ```typescript
 getLocalizedUrl(
@@ -147,7 +147,7 @@ getLocalizedUrl(
 
 ---
 
-## Edge Cases:
+## Edge Cases
 
 - **No Locale Segment:**
 
@@ -162,7 +162,7 @@ getLocalizedUrl(
 
 ---
 
-## Usage in Applications:
+## Usage in Applications
 
 في تطبيق متعدد اللغات، يعتبر تكوين إعدادات التدويل باستخدام `locales` و `defaultLocale` أمرًا حاسمًا لضمان عرض اللغة الصحيحة. أدناه مثال على كيفية استخدام `getLocalizedUrl` في إعداد التطبيق:
 

@@ -1,10 +1,10 @@
 # Documentation: `getLocaleName` Function in `intlayer`
 
-## Description:
+## Description
 
 The `getLocaleName` function returns the localized name of a given locale (`targetLocale`) in the display locale (`displayLocale`). If no `targetLocale` is provided, it returns the name of the `displayLocale` in its own language.
 
-## Parameters:
+## Parameters
 
 - `displayLocale: Locales`
 
@@ -15,12 +15,12 @@ The `getLocaleName` function returns the localized name of a given locale (`targ
   - **Description**: The locale whose name is to be localized.
   - **Type**: Optional. Enum or string representing valid locales.
 
-## Returns:
+## Returns
 
 - **Type**: `string`
 - **Description**: The localized name of the `targetLocale` in the `displayLocale`, or the `displayLocale`'s own name if `targetLocale` is not provided. If no translation is found, it returns `"Unknown locale"`.
 
-## Example Usage:
+## Example Usage
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -85,7 +85,7 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
 getLocaleName("unknown-locale"); // Output: "Unknown locale"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **No `targetLocale` provided:**
   - The function defaults to returning the `displayLocale`'s own name.

@@ -1,10 +1,10 @@
 # Documentation: `getPathWithoutLocale` Functions in `intlayer`
 
-## Description:
+## Description
 
 दिए गए URL या पथ नाम से स्थानीय खंड को हटा देता है यदि उपस्थित हो। यह पूर्ण URLs और सापेक्ष पथ नामों दोनों के साथ काम करता है।
 
-## Parameters:
+## Parameters
 
 - `inputUrl: string`
 
@@ -15,12 +15,12 @@
   - **Description**: समर्थित स्थानीयताओं का वैकल्पिक ऐरे। परियोजना में कॉन्फ़िगर की गई स्थानीयताओं को डिफ़ॉल्ट के रूप में सेट किया गया है।
   - **Type**: `Locales[]`
 
-## Returns:
+## Returns
 
 - **Type**: `string`
 - **Description**: बिना स्थानीय खंड के URL स्ट्रिंग या पथ नाम।
 
-## Example Usage:
+## Example Usage
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

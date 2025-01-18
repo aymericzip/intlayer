@@ -1,12 +1,12 @@
 # Documentation: `getLocalizedUrl` Function in `intlayer`
 
-## Description:
+## Description
 
 The `getLocalizedUrl` function generates a localized URL by prefixing the given URL with the specified locale. It handles both absolute and relative URLs, ensuring that the correct locale prefix is applied based on the configuration.
 
 ---
 
-## Parameters:
+## Parameters
 
 - `url: string`
 
@@ -35,16 +35,16 @@ The `getLocalizedUrl` function generates a localized URL by prefixing the given 
   - **Type**: `boolean`
   - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md#middleware)
 
-### Returns:
+### Returns
 
 - **Type**: `string`
 - **Description**: The localized URL for the specified locale.
 
 ---
 
-## Example Usage:
+## Example Usage
 
-### Relative URLs:
+### Relative URLs
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
@@ -106,7 +106,7 @@ getLocalizedUrl(
 // Output: "/about" for the default (English) locale
 ```
 
-### Absolute URLs:
+### Absolute URLs
 
 ```typescript
 getLocalizedUrl(
@@ -134,7 +134,7 @@ getLocalizedUrl(
 ); // Output: "https://example.com/en/about" for the English
 ```
 
-### Unsupported Locale:
+### Unsupported Locale
 
 ```typescript
 getLocalizedUrl(
@@ -147,7 +147,7 @@ getLocalizedUrl(
 
 ---
 
-## Edge Cases:
+## Edge Cases
 
 - **No Locale Segment:**
 
@@ -162,7 +162,7 @@ getLocalizedUrl(
 
 ---
 
-## Usage in Applications:
+## Usage in Applications
 
 In a multilingual application, configuring the internationalization settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getLocalizedUrl` can be used in an application setup:
 

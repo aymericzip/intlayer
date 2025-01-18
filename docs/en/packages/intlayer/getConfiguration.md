@@ -1,16 +1,16 @@
 # Documentation: `getConfiguration` Function in `intlayer`
 
-## Description:
+## Description
 
 The `getConfiguration` function retrieves the entire configuration for the `intlayer` application by extracting environment variables. This function provides the flexibility to use the same configuration on both the client and server sides, ensuring consistency across the application.
 
 ---
 
-## Parameters:
+## Parameters
 
 The function does not take any parameters. Instead, it uses environment variables for configuration.
 
-### Returns:
+### Returns
 
 - **Type**: `IntlayerConfig`
 - **Description**: An object containing the complete configuration for `intlayer`. The configuration includes the following sections:
@@ -24,9 +24,9 @@ See [Intlayer configuration documentation](https://github.com/aymericzip/intlaye
 
 ---
 
-## Example Usage:
+## Example Usage
 
-### Retrieving the Full Configuration:
+### Retrieving the Full Configuration
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -70,7 +70,7 @@ console.log(config);
 // }
 ```
 
-### Extracting `availableLocales` and `defaultLocale`:
+### Extracting `availableLocales` and `defaultLocale`
 
 The `internationalization` section of the configuration provides locale-related settings such as `locales` (available locales) and `defaultLocale` (fallback language).
 
@@ -110,11 +110,11 @@ console.log(defaultLocale); // Output example: "en"
 console.log(cookieName); // Output: "INTLAYER_LOCALE"
 ```
 
-## Notes:
+## Notes
 
 - Ensure that all required environment variables are correctly set before calling this function. Missing variables will cause errors during initialization.
 - This function can be used on both client and server sides, making it a versatile tool for managing configurations in a unified manner.
 
-## Usage in Applications:
+## Usage in Applications
 
 The `getConfiguration` function is a cornerstone utility for initializing and managing the configuration of an `intlayer` application. By providing access to settings like locales, middleware, and content directories, it ensures consistency and scalability across multilingual and content-driven applications.

@@ -1,10 +1,10 @@
 # Documentation: `getEnumerationContent` Function in `intlayer`
 
-## Description:
+## Description
 
 The `getEnumerationContent` function retrieves content corresponding to a specific quantity based on predefined conditions in an enumeration object. The conditions are defined as keys, and their priority is determined by their order in the object.
 
-## Parameters:
+## Parameters
 
 - `enumerationContent: QuantityContent<Content>`
 
@@ -17,14 +17,14 @@ The `getEnumerationContent` function retrieves content corresponding to a specif
   - **Description**: The numeric value used to match against the conditions in `enumerationContent`.
   - **Type**: `number`
 
-## Returns:
+## Returns
 
 - **Type**: `Content`
 - **Description**: The content corresponding to the first matching condition in the `enumerationContent`. If no match is found, it defaults to handling based on the implementation (e.g., error or fallback content).
 
-## Example Usage:
+## Example Usage
 
-### Basic Usage:
+### Basic Usage
 
 ```typescript codeFormat="typescript"
 import { getEnumerationContent } from "intlayer";
@@ -72,7 +72,7 @@ const content = getEnumerationContent(
 console.log(content); // Output: "You have two"
 ```
 
-### Priority of Conditions:
+### Priority of Conditions
 
 ```typescript codeFormat="typescript"
 import { getEnumerationContent } from "intlayer";
@@ -116,7 +116,7 @@ const content = getEnumerationContent(
 console.log(content); // Output: "You have less than four"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **No Matching Condition:**
 
@@ -133,6 +133,6 @@ console.log(content); // Output: "You have less than four"
 - **TypeScript Enforcement:**
   - The function ensures that the `Content` type is consistent across all keys, allowing for type safety in the retrieved content.
 
-## Notes:
+## Notes
 
 - The `findMatchingCondition` utility is used to determine the appropriate condition based on the given quantity.

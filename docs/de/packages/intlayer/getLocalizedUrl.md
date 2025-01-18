@@ -44,7 +44,7 @@ Die `getLocalizedUrl` Funktion generiert eine lokalisierte URL, indem sie die ge
 
 ## Beispielverwendung:
 
-### Relative URLs:
+### Relative URLs
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
@@ -106,7 +106,7 @@ getLocalizedUrl(
 // Ausgabe: "/about" für die Standard (englische) Locale
 ```
 
-### Absolute URLs:
+### Absolute URLs
 
 ```typescript
 getLocalizedUrl(

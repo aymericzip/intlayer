@@ -1,22 +1,22 @@
 # Documentation: `getLocaleLang` Function in `intlayer`
 
-## Description:
+## Description
 
 The `getLocaleLang` function extracts the language code from a locale string. It supports locales with or without country codes. If no locale is provided, it defaults to returning an empty string.
 
-## Parameters:
+## Parameters
 
 - `locale?: Locales`
 
   - **Description**: The locale string (e.g., `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) from which the language code is extracted.
   - **Type**: `Locales` (optional)
 
-## Returns:
+## Returns
 
 - **Type**: `string`
 - **Description**: The language code extracted from the locale. If the locale is not provided, it returns an empty string (`''`).
 
-## Example Usage:
+## Example Usage
 
 ### Extracting Language Codes:
 
@@ -47,7 +47,7 @@ getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
 getLocaleLang(Locales.FRENCH); // Output: "fr"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **No Locale Provided:**
 

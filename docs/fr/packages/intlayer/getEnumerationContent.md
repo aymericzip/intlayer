@@ -1,6 +1,6 @@
 # Documentation: `getEnumerationContent` Fonction dans `intlayer`
 
-## Description:
+## Description
 
 La fonction `getEnumerationContent` récupère le contenu correspondant à une quantité spécifique basée sur des conditions prédéfinies dans un objet d'énumération. Les conditions sont définies comme des clés, et leur priorité est déterminée par leur ordre dans l'objet.
 
@@ -133,6 +133,6 @@ console.log(content); // Output: "Vous avez moins de quatre"
 - **Application de TypeScript:**
   - La fonction garantit que le type `Content` est cohérent à travers toutes les clés, permettant une sécurité de type dans le contenu récupéré.
 
-## Notes:
+## Notes
 
 - L'utilitaire `findMatchingCondition` est utilisé pour déterminer la condition appropriée basée sur la quantité donnée.

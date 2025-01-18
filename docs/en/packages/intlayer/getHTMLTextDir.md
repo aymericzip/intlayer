@@ -1,17 +1,17 @@
 # Documentation: `getHTMLTextDir` Function in `intlayer`
 
-## Description:
+## Description
 
 The `getHTMLTextDir` function determines the text direction (`ltr`, `rtl`, or `auto`) based on the provided locale. It is designed to help developers set the `dir` attribute in HTML for proper text rendering.
 
-## Parameters:
+## Parameters
 
 - `locale?: Locales`
 
   - **Description**: The locale string (e.g., `Locales.ENGLISH`, `Locales.ARABIC`) used to determine the text direction.
   - **Type**: `Locales` (optional)
 
-## Returns:
+## Returns
 
 - **Type**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
 - **Description**: The text direction corresponding to the locale:
@@ -19,9 +19,9 @@ The `getHTMLTextDir` function determines the text direction (`ltr`, `rtl`, or `a
   - `'rtl'` for right-to-left languages.
   - `'auto'` if the locale is not recognized.
 
-## Example Usage:
+## Example Usage
 
-### Determining Text Direction:
+### Determining Text Direction
 
 ```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
@@ -47,7 +47,7 @@ getHTMLTextDir(Locales.FRENCH); // Output: "ltr"
 getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **No Locale Provided:**
 

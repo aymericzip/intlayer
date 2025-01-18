@@ -1,10 +1,10 @@
 # Documentation: `getLocaleName` Function in `intlayer`
 
-## Description:
+## Description
 
 تُعيد دالة `getLocaleName` اسم اللغة المحلية لـ `targetLocale` المحدد باللغة المعروضة `displayLocale`. إذا لم يتم توفير `targetLocale`، تُعيد اسم `displayLocale` بلغتها الخاصة.
 
-## Parameters:
+## Parameters
 
 - `displayLocale: Locales`
 
@@ -15,12 +15,12 @@
   - **وصف**: اللغة التي يتم تعريب اسمها.
   - **النوع**: اختياري. تعداد أو سلسلة تمثل اللغات الصحيحة.
 
-## Returns:
+## Returns
 
 - **النوع**: `string`
 - **وصف**: الاسم المعرب لـ `targetLocale` في `displayLocale`، أو اسم `displayLocale` الخاص إذا لم يتم توفير `targetLocale`. إذا لم يتم العثور على ترجمة، فإنها تعيد `"Unknown locale"`.
 
-## Example Usage:
+## Example Usage
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -85,7 +85,7 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
 getLocaleName("unknown-locale"); // Output: "Unknown locale"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **لم يتم توفير `targetLocale`:**
   - تقوم الدالة بشكل افتراضي بإعادة اسم `displayLocale` الخاص بها.

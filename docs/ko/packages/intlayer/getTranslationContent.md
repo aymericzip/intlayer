@@ -1,10 +1,10 @@
 # Documentation: `getTranslationContent` Function in `intlayer`
 
-## Description:
+## Description
 
 `getTranslationContent` 함수는 사용자 정의 언어 콘텐츠 집합에서 특정 로케일에 해당하는 콘텐츠를 검색합니다. 지정된 로케일이 발견되지 않으면 프로젝트에 구성된 기본 로케일의 콘텐츠를 반환하도록 기본값이 설정됩니다.
 
-## Parameters:
+## Parameters
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
@@ -17,14 +17,14 @@
   - **Description**: 콘텐츠를 검색할 로케일입니다.
   - **Type**: `Locales`
 
-## Returns:
+## Returns
 
 - **Type**: `Content`
 - **Description**: 지정된 로케일에 해당하는 콘텐츠입니다. 로케일이 발견되지 않으면 기본 로케일의 콘텐츠가 반환됩니다.
 
-## Example Usage:
+## Example Usage
 
-### Basic Usage:
+### Basic Usage
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -156,7 +156,7 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **Locale Not Found:**
   - `locale`가 `languageContent`에서 발견되지 않을 때, 함수는 기본 로케일의 콘텐츠를 반환합니다.

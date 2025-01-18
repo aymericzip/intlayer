@@ -1,10 +1,10 @@
 # Documentation: `getLocaleName` Function in `intlayer`
 
-## Description:
+## Description
 
 La fonction `getLocaleName` retourne le nom localisé d'une locale donnée (`targetLocale`) dans la locale d'affichage (`displayLocale`). Si aucune `targetLocale` n'est fournie, elle retourne le nom de la `displayLocale` dans sa propre langue.
 
-## Parameters:
+## Parameters
 
 - `displayLocale: Locales`
 
@@ -15,12 +15,12 @@ La fonction `getLocaleName` retourne le nom localisé d'une locale donnée (`tar
   - **Description**: La locale dont le nom doit être localisé.
   - **Type**: Optionnel. Enum ou chaîne représentant des locales valides.
 
-## Returns:
+## Returns
 
 - **Type**: `string`
 - **Description**: Le nom localisé de la `targetLocale` dans la `displayLocale`, ou le propre nom de la `displayLocale` si `targetLocale` n'est pas fourni. Si aucune traduction n'est trouvée, elle retourne `"Unknown locale"`.
 
-## Example Usage:
+## Example Usage
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -85,7 +85,7 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Sortie : "Chinese"
 getLocaleName("unknown-locale"); // Sortie : "Unknown locale"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **Pas de `targetLocale` fournie :**
   - La fonction retourne par défaut le propre nom de la `displayLocale`.

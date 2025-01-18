@@ -1,10 +1,10 @@
 # Documentation: `getTranslationContent` Function in `intlayer`
 
-## Description:
+## Description
 
 La fonction `getTranslationContent` récupère le contenu correspondant à un locale spécifique d'un ensemble de contenu linguistique personnalisable. Si le locale spécifié n'est pas trouvé, il retourne par défaut le contenu pour le locale par défaut configuré dans le projet.
 
-## Parameters:
+## Parameters
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
@@ -17,14 +17,14 @@ La fonction `getTranslationContent` récupère le contenu correspondant à un lo
   - **Description**: Le locale pour lequel le contenu doit être récupéré.
   - **Type**: `Locales`
 
-## Returns:
+## Returns
 
 - **Type**: `Content`
 - **Description**: Le contenu correspondant au locale spécifié. Si le locale n'est pas trouvé, le contenu du locale par défaut est retourné.
 
-## Example Usage:
+## Example Usage
 
-### Basic Usage:
+### Basic Usage
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -156,7 +156,7 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // Sortie: "Bonjour"
 ```
 
-## Edge Cases:
+## Edge Cases
 
 - **Locale Not Found:**
   - Lorsque le `locale` n'est pas trouvé dans le `languageContent`, la fonction retourne le contenu pour le locale par défaut.
