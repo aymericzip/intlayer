@@ -347,7 +347,7 @@ For example, the **en/client-component.json** might look like:
 }
 ```
 
-### Build i18next or next-intl dictionaries
+### Build next-intl dictionaries
 
 Intlayer can be configured to build dictionaries for [i18next](https://www.i18next.com/) or [next-intl](https://github.com/formatjs/react-intl/tree/main/packages/next-intl). For that you need to add the following configuration to your `intlayer.config.ts` file:
 
