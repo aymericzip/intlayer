@@ -28,7 +28,7 @@ const config: IntlayerConfig = {
     dictionaryOutput: ['intlayer'],
   },
   editor: {
-    enabled: true,
+    enabled: false,
     backendURL: process.env.INTLAYER_BACKEND_URL,
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
