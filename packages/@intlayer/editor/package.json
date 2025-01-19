@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/editor",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "private": false,
   "description": "Provides the API to interface the application with the Intlayer editor",
   "keywords": [
