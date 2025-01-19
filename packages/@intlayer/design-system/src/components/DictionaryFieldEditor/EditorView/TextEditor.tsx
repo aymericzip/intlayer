@@ -10,8 +10,8 @@ import {
   type DictionaryValue,
   getLocaleName,
   Dictionary,
-  getSectionType,
 } from '@intlayer/core';
+import { getSectionType } from '@intlayer/editor';
 import { useEditedContent } from '@intlayer/editor-react';
 import { Plus, WandSparkles, X } from 'lucide-react';
 import {

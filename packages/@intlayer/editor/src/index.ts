@@ -1,2 +1,2 @@
 export * from './CrossFrameCommunicator';
-export * from './dictionaryManipulator';
+export * from './dictionaryManipulator/index';
