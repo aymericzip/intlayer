@@ -62,7 +62,8 @@
     "build": "vite build",
     "dev": "vite",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "serve -s dist -l 8080"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
@@ -75,6 +76,7 @@
     "react-dom": "^18.3.1",
     "react-intlayer": "workspace:^",
     "react-router-dom": "^7.1.1",
+    "serve": "^14.2.4",
     "vite-intlayer": "workspace:^"
   },
   "devDependencies": {
