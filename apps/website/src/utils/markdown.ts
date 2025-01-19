@@ -34,8 +34,6 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
   [GithubRoutes.ContentDeclaration_Translation]:
     PagesRoutes.Doc_ContentDeclaration_Translation,
 
-  [GithubRoutes.IntlayerWithI18next]: PagesRoutes.Doc_Intlayer_with_I18next,
-
   [GithubRoutes['Packages_intlayer_getConfiguration']]:
     PagesRoutes['Doc_Packages_intlayer_getConfiguration'],
   [GithubRoutes['Packages_intlayer_getDictionary']]:
@@ -80,6 +78,38 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
     PagesRoutes['Doc_Packages_next-intlayer_useDictionary'],
   [GithubRoutes['Packages_next-intlayer_useLocale']]:
     PagesRoutes['Doc_Packages_next-intlayer_useLocale'],
+
+  [GithubRoutes.BlogIndex]: PagesRoutes['Blog'],
+  [GithubRoutes.IntlayerWithNextI18next]:
+    PagesRoutes['Blog_Intlayer_with_Next-i18next'],
+  [GithubRoutes.IntlayerWithReactI18next]:
+    PagesRoutes['Blog_Intlayer_with_React-i18next'],
+  [GithubRoutes.IntlayerWithNextIntl]:
+    PagesRoutes['Blog_Intlayer_with_Next-intl'],
+  [GithubRoutes.IntlayerWithReactIntl]:
+    PagesRoutes['Blog_Intlayer_with_React-intl'],
+
+  [GithubRoutes['Next-i18next_vs_Next-intl_vs_Intlayer']]:
+    PagesRoutes['Blog_Next-i18next_vs_Next-intl_vs_Intlayer'],
+  [GithubRoutes['React-i18next_vs_React-intl_vs_Intlayer']]:
+    PagesRoutes['Blog_React-i18next_vs_React-intl_vs_Intlayer'],
+  [GithubRoutes['I18nAndSEO']]: PagesRoutes.Blog_SEO_and_i18n,
+  [GithubRoutes['i18n-technologies__frameworks__angular']]:
+    PagesRoutes['Blog_i18n-technologies__frameworks__angular'],
+  [GithubRoutes['i18n-technologies__frameworks__vue']]:
+    PagesRoutes['Blog_i18n-technologies__frameworks__vue'],
+  [GithubRoutes['i18n-technologies__frameworks__svelte']]:
+    PagesRoutes['Blog_i18n-technologies__frameworks__svelte'],
+  [GithubRoutes['i18n-technologies__frameworks__flutter']]:
+    PagesRoutes['Blog_i18n-technologies__frameworks__flutter'],
+  [GithubRoutes['i18n-technologies__frameworks__react-native']]:
+    PagesRoutes['Blog_i18n-technologies__frameworks__react-native'],
+  [GithubRoutes['i18n-technologies__CMS__wordpress']]:
+    PagesRoutes['Blog_i18n-technologies__CMS__wordpress'],
+  [GithubRoutes['i18n-technologies__CMS__drupal']]:
+    PagesRoutes['Blog_i18n-technologies__CMS__drupal'],
+  [GithubRoutes['i18n-technologies__CMS__wix']]:
+    PagesRoutes['Blog_i18n-technologies__CMS__wix'],
 
   [GithubRoutes.PrivacyPolicy]: PagesRoutes.PrivacyPolicy,
   [GithubRoutes.TermsOfService]: PagesRoutes.TermsOfService,
