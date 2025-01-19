@@ -5,9 +5,8 @@ import {
   type KeyPath,
   type DictionaryValue,
   isSameKeyPath,
-  getDictionaryValueByKeyPath,
-  getSectionType,
 } from '@intlayer/core';
+import { getDictionaryValueByKeyPath, getSectionType } from '@intlayer/editor';
 import {
   useEditedContentActions,
   useFocusDictionary,

@@ -2,10 +2,12 @@ import {
   type Dictionary,
   type DictionaryValue,
   type KeyPath,
+} from '@intlayer/core';
+import {
   editDictionaryByKeyPath,
   getDictionaryValueByKeyPath,
   renameDictionaryValueByKeyPath,
-} from '@intlayer/core';
+} from '@intlayer/editor';
 import { createContext, useContext, FC, PropsWithChildren } from 'react';
 import {
   DictionaryContent,

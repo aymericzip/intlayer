@@ -1,4 +1,9 @@
-import { createContext, useContext, FC, PropsWithChildren } from 'react';
+import {
+  createContext,
+  useContext,
+  type FC,
+  type PropsWithChildren,
+} from 'react';
 
 export type UseCrossPlatformStateProps = {
   targetWindow?: Window;

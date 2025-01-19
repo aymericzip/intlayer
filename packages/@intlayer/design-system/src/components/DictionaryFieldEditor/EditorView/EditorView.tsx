@@ -1,22 +1,19 @@
 'use client';
 
 import { type Locales } from '@intlayer/config';
-import {
-  type KeyPath,
-  type Dictionary,
-  getDictionaryValueByKeyPath,
-} from '@intlayer/core';
+import { type KeyPath, type Dictionary } from '@intlayer/core';
+import { getDictionaryValueByKeyPath } from '@intlayer/editor';
 import { useFocusDictionary, useEditedContent } from '@intlayer/editor-react';
 import { RotateCcw, X } from 'lucide-react';
 import { useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { EditableFieldInput } from '../..//EditableField';
 import {
   camelCaseToSentence,
   sentenceToCamelCase,
 } from '../../../utils/camelCase';
 import { Button } from '../../Button';
+import { EditableFieldInput } from '../../EditableField';
 import { Label } from '../../Label';
 import { editorViewContent } from '../editorView.content';
 import { getIsEditableSection } from '../getIsEditableSection';

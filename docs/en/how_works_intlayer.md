@@ -95,6 +95,14 @@ The `@intlayer/dictionaries-entry` package is a package that only returns the en
 
 The `@intlayer/chokidar` package is used to monitor content files and regenerate the modified dictionary at each modification.
 
+### @intlayer/editor
+
+The `@intlayer/editor` package provides the utilities related to the dictionary editor. It notably includes the API to interface a application with the Intlayer editor, and utilities to manipulate dictionaries. This package is cross-platform.
+
+### @intlayer/editor-react
+
+The `@intlayer/editor-react` package provides states, contexts, hooks and components to interface a React application with the Intlayer editor.
+
 ## Chat with our smart documentation
 
 - [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)

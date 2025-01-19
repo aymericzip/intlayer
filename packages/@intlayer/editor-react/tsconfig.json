@@ -1,7 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
-  "include": ["**/*"],
+  "include": [
+    "**/*",
+    "../design-system/src/components/DictionaryEditor",
+    "../design-system/src/components/DictionaryFieldEditor"
+  ],
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,

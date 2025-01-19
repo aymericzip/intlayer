@@ -39,10 +39,3 @@ export { localeDetector } from './localeDetector';
 export { getPathWithoutLocale } from './getPathWithoutLocale';
 export { getMultilingualUrls } from './getMultilingualUrls';
 export { getLocalizedUrl } from './getLocalizedUrl';
-export {
-  getDictionaryValueByKeyPath,
-  editDictionaryByKeyPath,
-  removeDictionaryValueByKeyPath,
-  renameDictionaryValueByKeyPath,
-  getSectionType,
-} from './dictionaryUtils';

@@ -4,11 +4,11 @@ import { getConfiguration } from '@intlayer/config/client';
 import {
   type DictionaryValue,
   type EnumerationContent,
-  getSectionType,
   type KeyPath,
   NodeType,
   type TranslationContent,
 } from '@intlayer/core';
+import { getSectionType } from '@intlayer/editor';
 import { useEditedContentActions } from '@intlayer/editor-react';
 import { type FC, useEffect, useState } from 'react';
 // @ts-ignore react-intlayer not build yet

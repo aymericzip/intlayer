@@ -2,7 +2,7 @@
   "name": "@intlayer/editor-react",
   "version": "4.0.3",
   "private": false,
-  "description": "Provides the states and context to interact with the Intlayer editor",
+  "description": "Provides the states, contexts, hooks and components to interact with the Intlayer editor for a React application",
   "keywords": [
     "intlayer",
     "editor",

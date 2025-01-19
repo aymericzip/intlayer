@@ -1,7 +1,7 @@
-import { getDictionaryValueByKeyPath } from '@intlayer/core';
+import { getDictionaryValueByKeyPath } from '@intlayer/editor';
 import type { FC } from 'react';
-import { EditableFieldTextArea } from '../..//EditableField';
 import { cn } from '../../../utils/cn';
+import { EditableFieldTextArea } from '../../EditableField';
 import type { NodeWrapperProps } from './index';
 
 type StringWrapperProps = Omit<NodeWrapperProps, 'section'> & {

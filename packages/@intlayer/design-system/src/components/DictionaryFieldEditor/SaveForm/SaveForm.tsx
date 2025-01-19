@@ -8,12 +8,12 @@ import { ArrowUpFromLine, RotateCcw, Save, WandSparkles } from 'lucide-react';
 import { useCallback, useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { useAuth } from '../../../components/Auth';
 import {
-  useAuditContentDeclaration,
-  useGetAllDictionaries,
   usePushDictionaries,
+  useGetAllDictionaries,
+  useAuditContentDeclaration,
 } from '../../../hooks';
+import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
 import { saveDictionaryContent } from './saveForm.content';
 import { getSaveFormSchema } from './SaveFormSchema';
