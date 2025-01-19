@@ -55,6 +55,8 @@ declare module '@intlayer/docs' {
     'package__@intlayer_design-system',
     'package__@intlayer_dictionary-entry',
     'package__@intlayer_webpack',
+    'package__@intlayer_editor',
+    'package__@intlayer_editor-react',
   }
 
   export type DocsKeys = keyof typeof DocsKeysEnum;
