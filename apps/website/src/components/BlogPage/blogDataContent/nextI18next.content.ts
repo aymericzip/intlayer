@@ -1,5 +1,5 @@
 import { t, type DeclarationContent } from 'intlayer';
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 const blogContent = {
   key: 'blog-intlayer-with-next-i18next-metadata',

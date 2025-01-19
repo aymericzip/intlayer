@@ -1,5 +1,5 @@
 import { t, type DeclarationContent } from 'intlayer';
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 const blogContent = {
   key: 'blog-i18n_technologies_CMS_wordpress-metadata',

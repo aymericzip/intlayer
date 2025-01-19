@@ -1,12 +1,16 @@
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
-import { getIntlayer, type LocalParams } from 'next-intlayer';
+import { getDictionary, type LocalParams } from 'next-intlayer';
+import metadataContent from './metadata.content';
 import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
-  const { title, description, keywords } = getIntlayer('demo-metadata', locale);
+  const { title, description, keywords } = getDictionary(
+    metadataContent,
+    locale
+  );
 
   return {
     title,

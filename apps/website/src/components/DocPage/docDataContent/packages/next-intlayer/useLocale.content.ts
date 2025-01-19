@@ -1,5 +1,5 @@
 import { t, type DeclarationContent } from 'intlayer';
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 const docContent = {
   key: 'doc-useLocale-next-intlayer-metadata',
