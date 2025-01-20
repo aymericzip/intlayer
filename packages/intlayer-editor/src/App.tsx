@@ -1,10 +1,10 @@
-import { useRef } from 'react';
+import { type FC, useRef } from 'react';
 import { AppLayout } from './components/AppLayout';
 import { AppProvider } from './components/AppProvider';
 import { AppRouter } from './components/AppRouter';
 import { IframeController } from './components/IframeController';
 
-const App = () => {
+const App: FC = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   return (

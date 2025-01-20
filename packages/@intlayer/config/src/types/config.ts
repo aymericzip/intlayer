@@ -114,19 +114,21 @@ export type EditorConfig = {
   backendURL: string;
 
   /**
-   * Indicates if the editor is active
+   * Indicates if the application interact with the visual editor
    *
    * Default: true;
    *
-   * If true, the editor is active and can be accessed.
-   * If false, the editor is inactive and cannot be accessed.
+   * If true, the editor will be able to interact with the application.
+   * If false, the editor will not be able to interact with the application.
+   * In any case, the editor can only be enabled by the visual editor.
+   * Disabling the editor for specific environments is a way to enforce the security.
    *
    * Usage:
    * ```js
    * {
    *  // Other configurations
    *  editor: {
-   *   enabled: process.env.NODE_ENV === 'development',
+   *   enabled: process.env.NODE_ENV !== 'production',
    *  }
    * };
    * ```

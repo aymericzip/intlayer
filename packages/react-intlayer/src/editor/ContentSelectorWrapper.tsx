@@ -2,6 +2,11 @@
 
 import { isSameKeyPath, type KeyPath } from '@intlayer/core';
 import {
+  useFocusDictionary,
+  useEditedContentActions,
+  useEditorEnabled,
+} from '@intlayer/editor-react';
+import {
   useCallback,
   useEffect,
   useState,
@@ -10,10 +15,6 @@ import {
   type ReactNode,
   HTMLAttributes,
 } from 'react';
-import {
-  useFocusDictionary,
-  useEditedContentActions,
-} from '@intlayer/editor-react';
 import { ContentSelector } from '../UI/ContentSelector';
 
 type ContentData = {
@@ -32,6 +33,7 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   keyPath,
   ...props
 }) => {
+  const { enabled } = useEditorEnabled();
   const { focusedContent, setFocusedContent } = useFocusDictionary();
   const { getEditedContentValue } = useEditedContentActions();
 
@@ -70,9 +72,17 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
     }
   }, [editedValue, focusedContent, children]);
 
-  return (
-    <ContentSelector onPress={handleSelect} isSelecting={isSelected} {...props}>
-      {displayedChildren}
-    </ContentSelector>
-  );
+  if (enabled) {
+    return (
+      <ContentSelector
+        onPress={handleSelect}
+        isSelecting={isSelected}
+        {...props}
+      >
+        {displayedChildren}
+      </ContentSelector>
+    );
+  }
+
+  return <>{children}</>;
 };

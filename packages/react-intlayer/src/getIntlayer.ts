@@ -7,11 +7,11 @@ import type { Dictionary } from '@intlayer/core';
  */
 import dictionaries from '@intlayer/dictionaries-entry';
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
+import { processDictionary } from './processDictionary/index';
 import {
   type DeepTransformContent,
   recursiveTransformContent,
-} from './getDictionary';
-import { processDictionary } from './processDictionary/index';
+} from './recursiveTransformContent';
 
 /**
  * Provides a fallback to string type if the generic type T is never,
@@ -57,7 +57,8 @@ export type UseIntlayer = <
 >(
   key: T,
   locale?: L,
-  isRenderEditor?: R
+  isRenderEditor?: R,
+  isContentSelectable?: boolean
 ) => DataFromDictionaryKey<T, L, R>;
 
 export type UseIntlayerEditable = <
@@ -67,7 +68,8 @@ export type UseIntlayerEditable = <
 >(
   key: T,
   locale?: L,
-  isRenderEditor?: R
+  isRenderEditor?: R,
+  isContentSelectable?: boolean
 ) => DataFromDictionaryKey<T, L, R>;
 
 export const getIntlayer: UseIntlayer = <

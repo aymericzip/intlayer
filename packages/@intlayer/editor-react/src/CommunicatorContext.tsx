@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useContext,
@@ -6,8 +8,7 @@ import {
 } from 'react';
 
 export type UseCrossPlatformStateProps = {
-  targetWindow?: Window;
-  targetOrigin?: string;
+  postMessage: typeof window.postMessage;
   allowedOrigins?: string[];
 };
 

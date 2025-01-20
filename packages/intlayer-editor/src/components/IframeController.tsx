@@ -1,53 +1,57 @@
-import { FC, ReactEventHandler, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { EditorProvider } from '@intlayer/editor-react';
+'use client';
+
+import { getConfiguration } from '@intlayer/config/client';
+import {
+  useCrossURLPathState,
+  useEditorEnabledState,
+} from '@intlayer/editor-react';
+import { type FC, RefObject, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+const I_FRAME_URL = 'http://localhost:3000';
 
 export const IframeController: FC<{
-  iframeRef: React.RefObject<HTMLIFrameElement>;
+  iframeRef: RefObject<HTMLIFrameElement>;
 }> = ({ iframeRef }) => {
-  const navigate = useNavigate(); // Hook for navigation
-  const location = useLocation(); // Hook to get the current URL
-  const [iframeUrl, setIframeUrl] = useState('http://localhost:3000');
+  /**
+   * We need to enable the editor to receive messages from the iframe
+   */
+  const [_isEnabled, setIsEnabled] = useEditorEnabledState({
+    emit: true,
+    receive: false,
+  });
 
-  // Update iframe URL when the application URL changes
+  const location = useLocation();
+  const [iframePath] = useCrossURLPathState(undefined, {
+    receive: true,
+    emit: false,
+  });
+
   useEffect(() => {
-    const appPath = location.pathname + location.search;
-    const iframePath = new URL(iframeUrl).pathname + new URL(iframeUrl).search;
+    if (typeof iframePath !== 'string') return;
 
-    if (appPath !== iframePath) {
-      const newUrl = new URL(iframeUrl);
-      newUrl.pathname = location.pathname;
-      newUrl.search = location.search;
-      setIframeUrl(newUrl.toString());
-    }
-  }, [location, iframeUrl]);
-
-  // Handle iframe load and sync its URL with the application URL
-  const handleIframeLoad: ReactEventHandler<HTMLIFrameElement> = (event) => {
-    const iframeWindow = (event.target as HTMLIFrameElement).contentWindow;
-
-    if (iframeWindow) {
-      const newIframeUrl = iframeWindow.location.href;
-      const appPath = location.pathname + location.search;
-      const iframePath =
-        new URL(newIframeUrl).pathname + new URL(newIframeUrl).search;
-
-      if (iframePath !== appPath) {
-        navigate(iframePath);
-      }
-    }
-  };
+    /**
+     * replace the current history entry with the new URL but will not trigger React Router to navigate to a new route,
+     * nor will it unmount/remount components
+     */
+    window.history.replaceState({}, '', iframePath);
+  }, [iframePath]);
 
   return (
-    <EditorProvider targetWindow={iframeRef.current?.contentWindow!}>
-      <div className="size-full p-2">
-        <iframe
-          src={iframeUrl}
-          title="Intlayer Application"
-          className="size-full rounded-lg"
-          onLoad={handleIframeLoad}
-        />
-      </div>
-    </EditorProvider>
+    <div className="size-full p-2">
+      <iframe
+        src={`${I_FRAME_URL}/${location.pathname}`}
+        title="Intlayer Application"
+        className="size-full rounded-lg"
+        ref={iframeRef}
+        onLoad={() => {
+          const { editor } = getConfiguration();
+
+          if (editor.enabled) {
+            setIsEnabled(true);
+          }
+        }}
+      />
+    </div>
   );
 };

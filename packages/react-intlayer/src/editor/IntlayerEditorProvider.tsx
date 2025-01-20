@@ -1,15 +1,23 @@
-import { FC, PropsWithChildren } from 'react';
-import { getConfiguration } from '@intlayer/config/client';
-import { EditorProvider } from '@intlayer/editor-react';
+'use client';
 
-const {
-  editor: { enabled },
-} = getConfiguration();
+import { EditorProvider, useCrossURLPathState } from '@intlayer/editor-react';
+import { type FC, type PropsWithChildren } from 'react';
 
-export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
-  if (enabled) {
-    return <EditorProvider targetWindow={window}>{children}</EditorProvider>;
-  }
+const IntlayerEditorProviderEnabled: FC = () => {
+  useCrossURLPathState(undefined, {
+    receive: false,
+    emit: true,
+  });
 
-  return children;
+  return <></>;
 };
+
+export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => (
+  <EditorProvider
+    postMessage={(data) => window.parent?.postMessage(data, '*')}
+    allowedOrigins={['*']}
+  >
+    <IntlayerEditorProviderEnabled />
+    {children}
+  </EditorProvider>
+);

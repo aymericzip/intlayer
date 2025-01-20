@@ -1,8 +1,14 @@
+'use client';
+
 import { appLogger, getConfiguration } from '@intlayer/config/client';
-import { type FC, type PropsWithChildren, RefObject, useEffect } from 'react';
 import { AsyncStateProvider } from '@intlayer/design-system/hooks';
 import { EditorProvider } from '@intlayer/editor-react';
-import { IntlayerProvider } from 'react-intlayer';
+import {
+  type FC,
+  type PropsWithChildren,
+  type RefObject,
+  useEffect,
+} from 'react';
 
 /**
  * Provider that store the current locale on the client side
@@ -37,10 +43,13 @@ export const AppProvider: FC<
   }, [editor.enabled, editor.clientId, editor.clientSecret]);
 
   return (
-    <IntlayerProvider>
-      <EditorProvider targetWindow={iframeRef.current?.contentWindow!}>
-        <AsyncStateProvider>{children}</AsyncStateProvider>
-      </EditorProvider>
-    </IntlayerProvider>
+    <EditorProvider
+      postMessage={(data) =>
+        iframeRef.current?.contentWindow?.postMessage(data, '*')
+      }
+      allowedOrigins={['*']}
+    >
+      <AsyncStateProvider>{children}</AsyncStateProvider>
+    </EditorProvider>
   );
 };

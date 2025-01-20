@@ -1,3 +1,5 @@
+'use client';
+
 import {
   type Dictionary,
   type DictionaryValue,
@@ -59,7 +61,10 @@ const EditedContentActionsContext = createContext<
 export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const { dictionariesRecord } = useDictionariesRecord();
   const [editedContent, setEditedContentState] =
-    useCrossFrameState<DictionaryContent>('EDITED_CONTENT_CHANGED', {});
+    useCrossFrameState<DictionaryContent>(
+      'INTLAYER_EDITED_CONTENT_CHANGED',
+      {}
+    );
 
   const setEditedContent = (
     dictionaryKey: Dictionary['key'],

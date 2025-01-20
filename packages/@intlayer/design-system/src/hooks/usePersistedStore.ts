@@ -1,22 +1,42 @@
 'use client';
 
-import { useState, useEffect, type SetStateAction } from 'react';
+import {
+  useState,
+  useEffect,
+  useCallback,
+  type SetStateAction,
+  type Dispatch,
+  useMemo,
+} from 'react';
 
-export const usePersistedStore = <T>(key: string, initialValue?: T) => {
-  const [state, setState] = useState<T>(() => {
-    if (typeof window === 'undefined') return initialValue as T;
+export const usePersistedStore = <S>(
+  key: string,
+  initialState?: S | (() => S)
+): [S, Dispatch<SetStateAction<S>>] => {
+  const [state, setState] = useState<S>(() => {
+    // If you have an initial value on the client, send a message out immediately
+    if (initialState !== undefined) {
+      const result: S =
+        typeof initialState === 'function'
+          ? (initialState as () => S)()
+          : initialState;
 
-    const persistedState = localStorage?.getItem(key);
+      if (typeof window === 'undefined') return result;
 
-    if (persistedState) {
-      try {
-        return JSON.parse(persistedState);
-      } catch (e) {
-        console.error(e);
+      const persistedState = localStorage?.getItem(key);
+
+      if (persistedState) {
+        try {
+          return JSON.parse(persistedState);
+        } catch (e) {
+          console.error(e);
+        }
       }
+
+      return result;
     }
 
-    return undefined as T;
+    return undefined as S;
   });
 
   useEffect(() => {
@@ -28,8 +48,8 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
       } catch (e) {
         console.error(e);
       }
-    } else if (initialValue !== undefined && state === undefined) {
-      setState(initialValue);
+    } else if (initialState !== undefined && state === undefined) {
+      setState(initialState);
     }
   }, [key, state]);
 
@@ -37,18 +57,21 @@ export const usePersistedStore = <T>(key: string, initialValue?: T) => {
    * Allows setting state either directly or via a functional update.
    * If passed a function, we merge/update based on the previous state.
    */
-  const setStateResult = (valueOrUpdater: SetStateAction<T>) => {
-    setState((prev) => {
-      const newValue: T =
-        typeof valueOrUpdater === 'function'
-          ? (valueOrUpdater as (prevVal: T) => T)(prev)
-          : valueOrUpdater;
+  const setStateWrapper: typeof setState = useCallback(
+    (valueOrUpdater: SetStateAction<S>) => {
+      setState((prev) => {
+        const newValue: S =
+          typeof valueOrUpdater === 'function'
+            ? (valueOrUpdater as (prevVal: S) => S)(prev)
+            : valueOrUpdater;
 
-      localStorage?.setItem(key, JSON.stringify(state));
+        localStorage?.setItem(key, JSON.stringify(newValue));
 
-      return newValue;
-    });
-  };
+        return newValue;
+      });
+    },
+    [key, setState]
+  );
 
-  return [(state ?? initialValue) as T, setStateResult] as const;
+  return useMemo(() => [state, setStateWrapper], [state, setStateWrapper]);
 };

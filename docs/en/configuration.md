@@ -126,9 +126,9 @@ Defines settings related to the integrated editor, including server port and act
 
   - _Type_: `boolean`
   - _Default_: `true`
-  - _Description_: Indicates if the editor is active.
-  - _Example_: `true`
-  - _Note_: Can be set using NODE_ENV, or other dedicated env variable
+  - _Description_: Indicates if the application interact with the visual editor.
+  - _Example_: `process.env.NODE_ENV !== 'production'`
+  - _Note_: If true, the editor will be able to interact with the application. If false, the editor will not be able to interact with the application. In any case, the editor can only be enabled by the visual editor. Disabling the editor for specific environments is a way to enforce the security.
 
 - **clientId**:
 

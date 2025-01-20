@@ -133,14 +133,6 @@ const nextConfig = {
     // your project has type errors.
     ignoreBuildErrors: true,
   },
-
-  experimental: {
-    outputFileTracingIncludes: {
-      '/\\[locale\\]/\\(landing\\)/\\(not-editable\\)/doc/\\[\\[\\.\\.\\.doc\\]\\]':
-        ['../../docs/**/*'],
-    },
-    // outputFileTracingRoot: join(__dirname, '../../'),
-  },
 };
 
 const nextConfigPWA = withPWA({

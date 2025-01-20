@@ -1,3 +1,5 @@
+'use client';
+
 import type { KeyPath } from '@intlayer/core';
 import { createContext, useContext, FC, PropsWithChildren } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
@@ -10,14 +12,14 @@ export type FileContent = {
   dictionaryPath?: DictionaryPath;
 };
 
-interface FocusDictionaryState {
+type FocusDictionaryState = {
   focusedContent: FileContent | null;
-}
+};
 
-interface FocusDictionaryActions {
+type FocusDictionaryActions = {
   setFocusedContent: (content: FileContent | null) => void;
   setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
-}
+};
 
 const FocusDictionaryStateContext = createContext<
   FocusDictionaryState | undefined
@@ -30,7 +32,10 @@ export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
   const [focusedContent, setFocusedContentState] =
-    useCrossFrameState<FileContent | null>('FOCUSED_CONTENT_CHANGED', null);
+    useCrossFrameState<FileContent | null>(
+      'INTLAYER_FOCUSED_CONTENT_CHANGED',
+      null
+    );
 
   const setFocusedContent = (content: FileContent | null) => {
     setFocusedContentState(content);

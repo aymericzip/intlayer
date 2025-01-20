@@ -1,3 +1,5 @@
+'use client';
+
 import { type Dictionary } from '@intlayer/core';
 import { createContext, useContext, FC, PropsWithChildren } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
@@ -20,7 +22,10 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
   const [dictionariesRecord, setDictionariesRecordState] =
-    useCrossFrameState<DictionaryContent>('DICTIONARIES_RECORD_CHANGED', {});
+    useCrossFrameState<DictionaryContent>(
+      'INTLAYER_DICTIONARIES_RECORD_CHANGED',
+      {}
+    );
 
   const setDictionariesRecord = (newRecord: DictionaryContent) => {
     // Here we merge the new record with the existing one:
