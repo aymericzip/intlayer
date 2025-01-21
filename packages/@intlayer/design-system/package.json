@@ -148,6 +148,7 @@
     "@intlayer/editor-react": "workspace:*",
     "@monaco-editor/react": "^4.6.0",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.18.0",
     "fuse.js": "^7.0.0",
     "intlayer": "workspace:*",
     "react": ">=18.3.1",
