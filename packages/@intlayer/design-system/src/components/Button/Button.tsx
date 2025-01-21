@@ -92,6 +92,15 @@ const buttonVariants = cva(
         true: 'w-full',
         false: '',
       },
+
+      hasIconLeft: {
+        true: 'pl-12',
+        false: '',
+      },
+      hasIconRight: {
+        true: 'pr-12',
+        false: '',
+      },
     },
     defaultVariants: {
       variant: 'default',
@@ -99,6 +108,8 @@ const buttonVariants = cva(
       color: 'primary',
       textAlign: 'center',
       isFullWidth: false,
+      hasIconRight: false,
+      hasIconLeft: false,
     },
   }
 );
@@ -159,6 +170,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           color,
           isFullWidth,
           textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
+          hasIconLeft: Boolean(
+            typeof children !== 'undefined' &&
+              (typeof Icon !== 'undefined' || typeof isLoading !== 'undefined')
+          ),
+          hasIconRight: Boolean(
+            typeof children !== 'undefined' && typeof IconRight !== 'undefined'
+          ),
           className,
         })}
         {...props}

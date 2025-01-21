@@ -101,7 +101,7 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
           label="Save"
           variant="hoverable"
           size="icon-sm"
-          color="custom"
+          color="text"
           Icon={Check}
           onClick={handleSave}
           disabled={isDisabled}
@@ -109,7 +109,7 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
         />
         <Button
           label="Cancel"
-          color="custom"
+          color="text"
           variant="hoverable"
           className="!text-current"
           size="icon-sm"
@@ -128,7 +128,7 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
         <Button
           label="Edit"
           Icon={Pencil}
-          color="custom"
+          color="text"
           variant="hoverable"
           size="icon-sm"
           className="invisible !text-current group-hover/editable-field:visible"

@@ -132,10 +132,8 @@ export const RightDrawer: FC<RightDrawerProps> = ({
                     variant="hoverable"
                     color="text"
                     label={backButton.text ?? 'Go back'}
-                    className="flex cursor-pointer flex-row items-center gap-1 text-left"
                     onClick={backButton.onBack}
                     Icon={ChevronLeft}
-                    size="icon-md"
                   >
                     {backButton?.text}
                   </Button>

@@ -7,6 +7,7 @@ import type { FC } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';
+import { Button } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
 
@@ -134,14 +135,17 @@ export const Modal: FC<ModalProps> = ({
             </H3>
           )}
           {hasCloseButton && (
-            <X
-              role="button"
-              aria-label="Close modal"
-              className="right-2 top-2 ml-auto cursor-pointer"
+            <Button
+              variant="hoverable"
+              color="text"
+              label="Close modal"
+              className="ml-auto"
               onClick={(e) => {
                 e.stopPropagation();
                 onClose?.();
               }}
+              Icon={X}
+              size="icon-md"
             />
           )}
         </div>
