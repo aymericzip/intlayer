@@ -51,7 +51,7 @@
     }
   },
   "bin": {
-    "intlayer-editor": "serve -s dist -l 8080"
+    "intlayer-editor": "./bin/intlayer-editor.mjs"
   },
   "files": [
     "./dist",
