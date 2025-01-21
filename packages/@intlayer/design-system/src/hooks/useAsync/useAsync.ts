@@ -132,6 +132,8 @@ export const useAsync = <
   // Storing the last arguments used to call the async function
   const storedArgsRef = useRef<any[]>(args);
 
+  const controllerRef = useRef<AbortController | null>(null);
+
   // Apply different key for different requests
   const keyWithArgs = getKeyWithArgs(key, storedArgsRef.current);
 
@@ -159,6 +161,27 @@ export const useAsync = <
     (async (...args) => {
       const keyWithArgs = getKeyWithArgs(key, args);
 
+      /**
+       * ABORT CONTROLLER
+       *
+       * cancel an unnecessary request.
+       * For example, if a user navigates away from a page or triggers a new request that makes the previous one obsolete, you can abort the previous fetch
+       */
+      if (controllerRef.current) {
+        // Abort the previous request
+        controllerRef.current.abort();
+      }
+
+      // Create a new AbortController
+      const controller = new AbortController();
+      controllerRef.current = controller;
+
+      /**
+       * PENDING PROMISES
+       *
+       * This logic ensures that if two parts of your application trigger the same request simultaneously,
+       * only one network call is made, and both receive the same result.
+       */
       if (pendingPromises.has(keyWithArgs)) {
         // Return the existing pending promise
         return pendingPromises.get(keyWithArgs);
@@ -456,6 +479,16 @@ export const useAsync = <
       revalidate,
       setDataMemo,
     ]
+  );
+
+  useEffect(
+    () => () => {
+      // Clean up the controller on unmount
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+    },
+    []
   );
 
   // Return the hook's result, including all state and control functions

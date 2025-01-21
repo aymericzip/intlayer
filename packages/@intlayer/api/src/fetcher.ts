@@ -119,6 +119,8 @@ export const fetcher = async <T>(
   url: string,
   ...options: FetcherOptions[]
 ): Promise<T> => {
+  const { signal } = new AbortController();
+
   // Initialize query parameters string and request body string
   let paramsString = '';
   let bodyString: string | undefined = undefined;
@@ -172,6 +174,7 @@ export const fetcher = async <T>(
     ...mergedOptions,
     headers: mergedHeaders,
     body: bodyString,
+    signal,
   };
 
   // Construct the full URL with query parameters
