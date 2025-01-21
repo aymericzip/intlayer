@@ -2,7 +2,7 @@ import { existsSync } from 'fs';
 import * as fsPromises from 'fs/promises';
 import { basename, dirname, extname } from 'path';
 import * as readline from 'readline';
-import { intlayerAPI } from '@intlayer/api';
+import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration, logger } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
@@ -53,15 +53,16 @@ const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
  */
 export const pull = async (options?: PullOptions): Promise<void> => {
   try {
-    const {
-      editor: { clientId, clientSecret },
-    } = getConfiguration();
+    const config = getConfiguration();
+    const { clientId, clientSecret } = config.editor;
 
     if (!clientId || !clientSecret) {
       throw new Error(
         'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
       );
     }
+
+    const intlayerAPI = getIntlayerAPI(undefined, config);
 
     const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
 

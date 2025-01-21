@@ -1,7 +1,7 @@
 import * as fsPromises from 'fs/promises';
 import { relative } from 'path';
 import * as readline from 'readline';
-import { intlayerAPI } from '@intlayer/api';
+import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration, logger } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
@@ -37,7 +37,8 @@ const GREY_DARK = '\x1b[90m';
  */
 export const push = async (options?: PushOptions): Promise<void> => {
   try {
-    const { clientId, clientSecret } = getConfiguration().editor;
+    const config = getConfiguration();
+    const { clientId, clientSecret } = config.editor;
 
     if (!clientId || !clientSecret) {
       throw new Error(
@@ -45,6 +46,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
       );
     }
 
+    const intlayerAPI = getIntlayerAPI(undefined, config);
     const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
 
     const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
