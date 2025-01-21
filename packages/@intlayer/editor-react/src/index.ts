@@ -1,3 +1,4 @@
+export * from './ConfigurationContext';
 export * from './DictionariesRecordContext';
 export * from './EditedContentContext';
 export * from './FocusDictionaryContext';

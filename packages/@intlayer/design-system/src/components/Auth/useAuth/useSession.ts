@@ -1,11 +1,18 @@
 'use client';
 
+import { getIntlayerAPI } from '@intlayer/api';
+import { getConfiguration, IntlayerConfig } from '@intlayer/config/client';
 import { useMemo } from 'react';
-import { getIntlayerAPI } from '../../../../../api/src';
 import { useAsync } from '../../../hooks/useAsync';
 import type { Session } from './index';
 
-export const useSession = (sessionProp?: Session | null) => {
+export const useSession = (
+  sessionProp?: Session | null,
+  intlayerConfiguration?: IntlayerConfig
+) => {
+  const config = intlayerConfiguration ?? getConfiguration();
+  const intlayerAPI = getIntlayerAPI(undefined, config);
+
   const {
     getSession,
     revalidate,
@@ -16,7 +23,7 @@ export const useSession = (sessionProp?: Session | null) => {
     'getSession',
     async () => {
       try {
-        const result = await getIntlayerAPI().auth.getSession();
+        const result = await intlayerAPI.auth.getSession();
 
         if (result.data) {
           const { user, organization, project } = result.data;

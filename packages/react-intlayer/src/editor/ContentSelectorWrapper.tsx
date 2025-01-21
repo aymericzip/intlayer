@@ -57,7 +57,8 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
 
   const isSelected = useMemo(
     () =>
-      ((focusedContent?.keyPath?.length ?? 0) > 0 &&
+      (focusedContent?.dictionaryKey === dictionaryKey &&
+        (focusedContent?.keyPath?.length ?? 0) > 0 &&
         isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
       false,
     [focusedContent, keyPath]

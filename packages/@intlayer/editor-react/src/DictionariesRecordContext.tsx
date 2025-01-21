@@ -4,53 +4,78 @@ import { type Dictionary } from '@intlayer/core';
 import { createContext, useContext, FC, PropsWithChildren } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
-// Types for our state
 export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
 
-type DictionariesRecordContextType = {
-  dictionariesRecord: DictionaryContent;
-  setDictionariesRecord: (
+type DictionariesRecordStatesContextType = {
+  localeDictionaries: DictionaryContent;
+  distantDictionaries: DictionaryContent;
+};
+type DictionariesRecordActionsContextType = {
+  setDistantDictionaries: (
+    dictionariesRecord: Record<Dictionary['key'], Dictionary>
+  ) => void;
+  setLocaleDictionaries: (
     dictionariesRecord: Record<Dictionary['key'], Dictionary>
   ) => void;
 };
 
-const DictionariesRecordContext = createContext<
-  DictionariesRecordContextType | undefined
+const DictionariesRecordStatesContext = createContext<
+  DictionariesRecordStatesContextType | undefined
+>(undefined);
+const DictionariesRecordActionsContext = createContext<
+  DictionariesRecordActionsContextType | undefined
 >(undefined);
 
 export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [dictionariesRecord, setDictionariesRecordState] =
+  const [localeDictionaries, setLocaleDictionaries] =
     useCrossFrameState<DictionaryContent>(
-      'INTLAYER_DICTIONARIES_RECORD_CHANGED',
+      'INTLAYER_LOCALE_DICTIONARIES_CHANGED',
+      {}
+    );
+  const [distantDictionaries, setDistantDictionaries] =
+    useCrossFrameState<DictionaryContent>(
+      'INTLAYER_DISTANT_DICTIONARIES_CHANGED',
       {}
     );
 
-  const setDictionariesRecord = (newRecord: DictionaryContent) => {
-    // Here we merge the new record with the existing one:
-    setDictionariesRecordState((prev) => ({
-      ...prev,
-      ...newRecord,
-    }));
-  };
-
   return (
-    <DictionariesRecordContext.Provider
-      value={{ dictionariesRecord, setDictionariesRecord }}
+    <DictionariesRecordStatesContext.Provider
+      value={{ localeDictionaries, distantDictionaries }}
     >
-      {children}
-    </DictionariesRecordContext.Provider>
+      <DictionariesRecordActionsContext.Provider
+        value={{
+          setLocaleDictionaries,
+          setDistantDictionaries,
+        }}
+      >
+        {children}
+      </DictionariesRecordActionsContext.Provider>
+    </DictionariesRecordStatesContext.Provider>
   );
 };
 
-export const useDictionariesRecord = () => {
-  const context = useContext(DictionariesRecordContext);
+export const useDictionariesRecordActions = () => {
+  const context = useContext(DictionariesRecordActionsContext);
 
   if (!context) {
     throw new Error(
-      'useDictionariesRecord must be used within a DictionariesRecordProvider'
+      'useDictionariesRecordActions must be used within a DictionariesRecordActionsProvider'
     );
   }
   return context;
+};
+
+export const useDictionariesRecord = () => {
+  const actionsContext = useDictionariesRecordActions();
+  const statesContext = useContext(DictionariesRecordStatesContext);
+
+  if (!statesContext) {
+    throw new Error(
+      'useDictionariesRecordStates must be used within a DictionariesRecordStatesProvider'
+    );
+  }
+
+  return { ...statesContext, ...actionsContext };
 };

@@ -6,6 +6,7 @@ import type {
   ProjectAPI,
   UserAPI,
 } from '@intlayer/backend';
+import { type IntlayerConfig } from '@intlayer/config/client';
 import { useMemo } from 'react';
 import { useCSRF } from './useCSRF';
 import { useOAuth2 } from './useOAuth2';
@@ -33,13 +34,17 @@ type SessionContextProps = {
 
 export const useAuth = ({
   session: sessionProp,
+  intlayerConfiguration,
 }: {
   session?: Session | null;
+  intlayerConfiguration?: IntlayerConfig;
 } = {}) => {
-  const { csrfToken, csrfTokenFetched } = useCSRF();
-  const { session, fetchSession, revalidateSession, setSession } =
-    useSession(sessionProp);
-  const { oAuth2AccessToken } = useOAuth2(csrfToken);
+  const { csrfToken, csrfTokenFetched } = useCSRF(intlayerConfiguration);
+  const { session, fetchSession, revalidateSession, setSession } = useSession(
+    sessionProp,
+    intlayerConfiguration
+  );
+  const { oAuth2AccessToken } = useOAuth2(csrfToken, intlayerConfiguration);
 
   const memoValue: SessionContextProps = useMemo(
     () => ({

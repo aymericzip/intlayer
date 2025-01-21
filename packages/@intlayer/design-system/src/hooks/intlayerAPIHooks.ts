@@ -3,6 +3,7 @@
 
 import process from 'process';
 import { intlayerAPI } from '@intlayer/api';
+import { useConfiguration } from '@intlayer/editor-react';
 import { useAuth } from '../components/Auth/useAuth/index';
 import { useToast } from '../components/Toaster';
 import { useAsync, UseAsyncOptions } from './useAsync/useAsync';
@@ -70,7 +71,10 @@ const useAuthEnable = <T extends UseAsyncOptions<any>>(
   options: T,
   { requireUser, requireProject, requireOrganization }: AuthEnableOptions = {}
 ): T => {
-  const { csrfToken, oAuth2AccessToken, session } = useAuth();
+  const { configuration } = useConfiguration();
+  const { csrfToken, oAuth2AccessToken, session } = useAuth({
+    intlayerConfiguration: configuration,
+  });
 
   const isEnabledOption = options?.enable ?? true;
   const user = session ? session.user : oAuth2AccessToken?.user;

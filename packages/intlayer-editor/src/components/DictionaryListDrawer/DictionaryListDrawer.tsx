@@ -7,11 +7,11 @@ import {
   useRightDrawerStore,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
+import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
 import { useCallback, useMemo, FC } from 'react';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
-import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 
 export const DictionaryListDrawer: FC = () => {
   const { all: dictionaries } = useGetAllDictionaries();

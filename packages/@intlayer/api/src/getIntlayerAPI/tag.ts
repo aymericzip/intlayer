@@ -20,7 +20,7 @@ import type {
   // @ts-ignore @intlayer/backend is not build yet
 } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
-import { fetcher, type FetcherOptions } from './fetcher';
+import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getTagAPI = (
   authAPIOptions: FetcherOptions = {},

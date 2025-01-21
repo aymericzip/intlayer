@@ -23,7 +23,7 @@ import type {
 } from '@intlayer/backend';
 
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
-import { fetcher, type FetcherOptions } from './fetcher';
+import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getAiAPI = (
   authAPIOptions: FetcherOptions = {},

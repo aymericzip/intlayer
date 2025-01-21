@@ -2,12 +2,8 @@
 
 import { type Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
-import {
-  useDictionariesRecord,
-  useEditedContent,
-  useFocusDictionary,
-} from '@intlayer/editor-react';
-import { useEffect, type FC } from 'react';
+import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
+import { type FC } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
 import { EditorView } from './EditorView/EditorView';
@@ -21,21 +17,12 @@ type NodeEditorProps = {
 
 export const NodeEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
   const { content: dictionaryContent, key } = dictionary;
-  const { dictionariesRecord, setDictionariesRecord } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
 
   const section = editedContent[key]?.content ?? dictionaryContent;
-
-  useEffect(() => {
-    if (dictionariesRecord[key]) return;
-
-    setDictionariesRecord({
-      [key]: dictionary,
-    });
-  }, [dictionary, key, setDictionariesRecord, dictionariesRecord]);
 
   return (
     <>

@@ -1,25 +1,26 @@
-import { getIntlayerAPI } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import { type DictionaryAPI } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config/client';
-// @ts-ignore @intlayer/design-system not build yet
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import { getIntlayerAPI } from '../getIntlayerAPI/index';
 
 /**
  * Fetch distant dictionary
  */
 export const fetchDistantDictionary = async (
-  dictionaryKey: string
+  dictionaryKey: string,
+  intlayerConfig?: IntlayerConfig
 ): Promise<DictionaryAPI | undefined> => {
   try {
-    const config = getConfiguration();
+    const config = intlayerConfig ?? getConfiguration();
     const { clientId, clientSecret } = config.editor;
-    const intlayerAPI = getIntlayerAPI(undefined, config);
 
     if (!clientId || !clientSecret) {
       throw new Error(
         'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
       );
     }
+
+    const intlayerAPI = getIntlayerAPI(undefined, config);
 
     const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
 

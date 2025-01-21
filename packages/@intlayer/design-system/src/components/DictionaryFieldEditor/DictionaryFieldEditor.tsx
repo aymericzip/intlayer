@@ -2,11 +2,11 @@
 
 import { Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
-import { useDictionariesRecord } from '@intlayer/editor-react';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
+import { useGetAllDictionaries } from '../../hooks';
 import { Button } from '../Button';
 import { Container } from '../Container';
 import { H2 } from '../Headers';
@@ -36,21 +36,11 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   isDarkMode,
   availableLocales,
 }) => {
-  const { key } = dictionary;
   const [editorView, setEditorView] = useState<EditorViewType>(
     EditorViewType.NodeEditor
   );
-  const { dictionariesRecord, setDictionariesRecord } = useDictionariesRecord();
   const { returnToDictionaryList, titleContent, titleInformation } =
     useDictionary(dictionaryFieldEditorContent);
-
-  useEffect(() => {
-    if (dictionariesRecord[key]) return;
-
-    setDictionariesRecord({
-      [key]: dictionary,
-    });
-  }, [dictionary, key, setDictionariesRecord, dictionariesRecord]);
 
   return (
     <LocaleSwitcherContentProvider availableLocales={availableLocales}>

@@ -6,7 +6,7 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 import { Dictionary } from '@intlayer/core';
-import localeDictionaries from '@intlayer/dictionaries-entry';
+import { useDictionariesRecord } from '@intlayer/editor-react';
 import merge from 'deepmerge';
 import { useMemo } from 'react';
 import { useGetDictionaries } from './intlayerAPIHooks';
@@ -14,6 +14,7 @@ import { useGetDictionaries } from './intlayerAPIHooks';
 type Args = Parameters<typeof useGetDictionaries>;
 
 export const useGetAllDictionaries = (...props: Args) => {
+  const { localeDictionaries } = useDictionariesRecord();
   const { data: onlineDictionariesAPI, isWaitingData } = useGetDictionaries(
     ...props
   );
@@ -32,7 +33,7 @@ export const useGetAllDictionaries = (...props: Args) => {
 
   const allDictionaries: Record<string, Dictionary> = useMemo(
     () => merge(onlineDictionaries ?? {}, localeDictionaries),
-    [onlineDictionaries]
+    [onlineDictionaries, localeDictionaries]
   );
 
   return {

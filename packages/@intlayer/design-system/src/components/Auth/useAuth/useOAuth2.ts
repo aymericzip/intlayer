@@ -1,11 +1,15 @@
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
-import { intlayerAPI } from '../../../../../api/src';
+import { getIntlayerAPI } from '@intlayer/api';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { useAsync } from '../../../hooks/useAsync/useAsync';
 
-export const useOAuth2 = (csrfToken: string | null | undefined) => {
-  const { clientId, clientSecret } = getConfiguration().editor;
+export const useOAuth2 = (
+  csrfToken: string | null | undefined,
+  intlayerConfiguration?: IntlayerConfig
+) => {
+  const config = intlayerConfiguration ?? getConfiguration();
+  const intlayerAPI = getIntlayerAPI(undefined, config);
 
   const { data } = useAsync(
     'getOAuth2AccessToken',
@@ -16,7 +20,11 @@ export const useOAuth2 = (csrfToken: string | null | undefined) => {
     {
       cache: true,
       autoFetch: true,
-      enable: !!(clientId && clientSecret && csrfToken),
+      enable: !!(
+        config.editor.clientId &&
+        config.editor.clientSecret &&
+        csrfToken
+      ),
     }
   );
 

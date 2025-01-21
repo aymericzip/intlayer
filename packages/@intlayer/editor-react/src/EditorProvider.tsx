@@ -3,6 +3,7 @@ import {
   CommunicatorProvider,
   UseCrossPlatformStateProps,
 } from './CommunicatorContext';
+import { ConfigurationProvider } from './ConfigurationContext';
 import { DictionariesRecordProvider } from './DictionariesRecordContext';
 import { EditedContentProvider } from './EditedContentContext';
 import { EditorEnabledProvider } from './EditorEnabledContext';
@@ -13,11 +14,13 @@ export const EditorProvider: FC<
 > = ({ children, ...props }) => (
   <CommunicatorProvider {...props}>
     <EditorEnabledProvider>
-      <DictionariesRecordProvider>
-        <EditedContentProvider>
-          <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
-        </EditedContentProvider>
-      </DictionariesRecordProvider>
+      <ConfigurationProvider>
+        <DictionariesRecordProvider>
+          <EditedContentProvider>
+            <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
+          </EditedContentProvider>
+        </DictionariesRecordProvider>
+      </ConfigurationProvider>
     </EditorEnabledProvider>
   </CommunicatorProvider>
 );

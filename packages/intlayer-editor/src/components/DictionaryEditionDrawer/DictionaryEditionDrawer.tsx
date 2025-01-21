@@ -11,7 +11,8 @@ import {
   useRightDrawerStore,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
-import { useCallback, useEffect, useState, type FC } from 'react';
+import { useFocusDictionary } from '@intlayer/editor-react';
+import { useCallback, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import dictionaryEditionDrawerContent from './dictionaryEditionDrawer.content';
@@ -20,7 +21,6 @@ import {
   useDictionaryEditionDrawer,
   getDrawerIdentifier,
 } from './useDictionaryEditionDrawer';
-import { useFocusDictionary } from '@intlayer/editor-react';
 
 type DictionaryEditionDrawerContentProps = {
   focusedContent: FileContentWithDictionaryPath;
@@ -38,20 +38,13 @@ export const DictionaryEditionDrawerContent: FC<
   const [keyPathEditionModal, setKeyPathEditionModal] = useState<
     KeyPath[] | null
   >(null);
-  const { setDictionariesRecord, focusedContent } =
-    useDictionaryEditionDrawer(identifier);
   const { all: dictionaries } = useGetAllDictionaries();
+  const { focusedContent } = useDictionaryEditionDrawer(identifier);
 
   const onClickDictionaryList = useCallback(() => {
     setKeyPathEditionModal(null);
     handleOnBack();
   }, [handleOnBack]);
-
-  useEffect(() => {
-    if (dictionaries) {
-      setDictionariesRecord(dictionaries);
-    }
-  }, [setDictionariesRecord, dictionaries]);
 
   const dictionaryKey = focusedContent?.dictionaryKey;
 
@@ -127,6 +120,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
         onBack: handleOnBack,
         text: backButtonText,
       }}
+      onClose={close}
     >
       {focusedContent && (
         <DictionaryEditionDrawerContent

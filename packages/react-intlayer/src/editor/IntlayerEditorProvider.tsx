@@ -1,13 +1,35 @@
 'use client';
 
-import { EditorProvider, useCrossURLPathState } from '@intlayer/editor-react';
-import { type FC, type PropsWithChildren } from 'react';
+import { getConfiguration } from '@intlayer/config/client';
+import dictionaries from '@intlayer/dictionaries-entry';
+import {
+  EditorProvider,
+  useCrossURLPathState,
+  useDictionariesRecordActions,
+  useConfigurationActions,
+} from '@intlayer/editor-react';
+import { useEffect, type FC, type PropsWithChildren } from 'react';
+/**
+ * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
+ * Using an external package allow to alias it in the bundle configuration (such as webpack).
+ * The alias allow hot reload the app (such as nextjs) on any dictionary change.
+ */
 
 const IntlayerEditorProviderEnabled: FC = () => {
   useCrossURLPathState(undefined, {
     receive: false,
     emit: true,
   });
+
+  const { setConfiguration } = useConfigurationActions();
+  const { setLocaleDictionaries } = useDictionariesRecordActions();
+
+  useEffect(() => {
+    setLocaleDictionaries(dictionaries);
+
+    const config = getConfiguration();
+    setConfiguration(config);
+  }, [setLocaleDictionaries]);
 
   return <></>;
 };

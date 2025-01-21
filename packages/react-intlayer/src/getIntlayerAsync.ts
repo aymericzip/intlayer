@@ -1,8 +1,8 @@
 'use client';
 
+import { fetchDistantDictionary } from '@intlayer/api';
 import type { Locales } from '@intlayer/config/client';
 import { DeclarationContent } from 'intlayer';
-import { fetchDistantDictionary } from './distantDictionary/fetchDistantDictionary';
 import { getDictionary } from './getDictionary';
 import { DictionaryKeys, DataFromDictionaryKey } from './getIntlayer';
 

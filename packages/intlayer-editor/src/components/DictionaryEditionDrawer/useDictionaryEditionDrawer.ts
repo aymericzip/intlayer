@@ -1,11 +1,10 @@
 import type { Dictionary, DictionaryValue, KeyPath } from '@intlayer/core';
 import { useRightDrawerStore } from '@intlayer/design-system';
 import {
-  useDictionariesRecord,
   useEditedContentActions,
   useFocusDictionary,
 } from '@intlayer/editor-react';
-import { useCallback } from 'react';
+import { useEffect } from 'react';
 
 export const getDrawerIdentifier = (dictionaryKey: string) =>
   `dictionary_edition_${dictionaryKey}`;
@@ -22,21 +21,11 @@ export type FileContent = {
 type DictionaryEditionDrawer = {
   focusedContent: FileContent | null;
   isOpen: boolean;
-  open: (content: FileContent) => void;
   close: () => void;
-  setDictionariesRecord: (
-    dictionariesRecord: Record<DictionaryKey, Dictionary>
-  ) => void;
   getEditedContentValue: (
     dictionaryKey: DictionaryKey,
     keyPath: KeyPath[]
   ) => DictionaryValue | undefined;
-};
-
-type OpenDictionaryEditionDrawerProps = {
-  dictionaryKey: string;
-  dictionaryPath?: string;
-  keyPath?: KeyPath[];
 };
 
 export const useDictionaryEditionDrawer = (
@@ -48,33 +37,19 @@ export const useDictionaryEditionDrawer = (
     open: openDrawer,
     close: closeDrawer,
   } = useRightDrawerStore();
-  const { setDictionariesRecord } = useDictionariesRecord();
   const { getEditedContentValue } = useEditedContentActions();
-  const { setFocusedContent, focusedContent } = useFocusDictionary();
+  const { focusedContent } = useFocusDictionary();
 
-  const openDictionaryEditionDrawer = useCallback(
-    ({
-      dictionaryKey,
-      dictionaryPath,
-      keyPath = [],
-    }: OpenDictionaryEditionDrawerProps) => {
-      setFocusedContent({
-        dictionaryKey,
-        dictionaryPath,
-        keyPath,
-      });
-
+  useEffect(() => {
+    if (focusedContent) {
       openDrawer(id);
-    },
-    [openDrawer, setFocusedContent]
-  );
+    }
+  }, [focusedContent, openDrawer, id]);
 
   return {
     isOpen: isOpenDrawer(id),
     focusedContent,
-    setDictionariesRecord,
     getEditedContentValue,
-    open: openDictionaryEditionDrawer,
     close: () => closeDrawer(id),
   };
 };
