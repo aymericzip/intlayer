@@ -51,7 +51,7 @@
     }
   },
   "bin": {
-    "intlayer-editor": ".next/standalone/server.js"
+    "intlayer-editor": "serve -s dist -l 8080"
   },
   "files": [
     "./dist",
