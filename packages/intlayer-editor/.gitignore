@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# Intlayer
+.intlayer
+intlayer.d.ts
