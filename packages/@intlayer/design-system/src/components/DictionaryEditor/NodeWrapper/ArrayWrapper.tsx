@@ -7,6 +7,7 @@ import {
 } from '@intlayer/core';
 import { Edit } from 'lucide-react';
 import type { FC } from 'react';
+import { Button } from '../../Button';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
@@ -42,10 +43,12 @@ export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
           onFocusKeyPath(newKeyPath);
         }}
         rightParam={
-          <Edit
-            size={16}
-            role="button"
-            aria-label="Open the editor"
+          <Button
+            Icon={Edit}
+            size="icon-sm"
+            variant="hoverable"
+            color="text"
+            label="Open the editor"
             onClick={(e) => {
               e.stopPropagation();
 
