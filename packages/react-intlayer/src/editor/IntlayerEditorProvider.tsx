@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 'use client';
 
 import { getConfiguration } from '@intlayer/config/client';
@@ -46,12 +48,15 @@ const IntlayerEditorProviderEnabled: FC = () => {
   return <></>;
 };
 
-export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => (
-  <EditorProvider
-    postMessage={(data) => window.parent?.postMessage(data, '*')}
-    allowedOrigins={['*']}
-  >
-    <IntlayerEditorProviderEnabled />
-    {children}
-  </EditorProvider>
-);
+export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
+  const postMessage = (data: any) => {
+    window.parent?.postMessage(data, '*');
+  };
+
+  return (
+    <EditorProvider postMessage={postMessage} allowedOrigins={['*']}>
+      <IntlayerEditorProviderEnabled />
+      {children}
+    </EditorProvider>
+  );
+};

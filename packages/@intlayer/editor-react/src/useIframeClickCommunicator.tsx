@@ -5,11 +5,9 @@ export const useIframeClickInterceptor = () => {
   const postMessage = useCrossFrameMessageListener<undefined>(
     'INTLAYER_IFRAME_CLICKED'
   );
-  console.log(' useIframeClickInterceptor loaded');
 
   useEffect(() => {
     const handlePostMessageEvent: EventListener = () => {
-      console.log('message useIframeClickInterceptor');
       postMessage(undefined);
     };
 
