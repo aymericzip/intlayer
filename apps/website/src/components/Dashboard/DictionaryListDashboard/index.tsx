@@ -4,12 +4,12 @@ import {
   Button,
   Loader,
   Modal,
-  useFocusDictionary,
   Container,
   H2,
   DictionaryCreationForm,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
+import { useFocusDictionaryActions } from '@intlayer/editor-react';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -17,9 +17,7 @@ import { Suspense, useState, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 export const DictionaryListDashboardContent: FC = () => {
-  const { setFocusedContent } = useFocusDictionary((s) => ({
-    setFocusedContent: s.setFocusedContent,
-  }));
+  const { setFocusedContent } = useFocusDictionaryActions();
   const { selectDictionaryButton } = useIntlayer('dictionary-form');
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { noDictionaryView, createDictionaryButton, dictionaryList } =

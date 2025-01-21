@@ -57,6 +57,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/docs": "workspace:*",
+    "@intlayer/editor-react": "workspace:*",
     "@monaco-editor/react": "^4.6.0",
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.5.0",
