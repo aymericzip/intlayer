@@ -15,7 +15,7 @@ export const SoftwareApplicationHeader: FC = () => {
     name: 'Intlayer',
     url: 'https://www.votresite.com',
     description,
-    softwareVersion: '4.0.3',
+    softwareVersion: '4.0.4',
     license:
       'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
     author: {
