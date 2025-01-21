@@ -3,6 +3,7 @@
 import { AsyncStateProvider } from '@intlayer/design-system/hooks';
 import { EditorProvider } from '@intlayer/editor-react';
 import { type FC, type PropsWithChildren, type RefObject } from 'react';
+import { AnimatePresenceProvider } from './AnimatePresenceProvider';
 
 /**
  * Provider that store the current locale on the client side
@@ -18,6 +19,8 @@ export const AppProvider: FC<
     }
     allowedOrigins={['*']}
   >
-    <AsyncStateProvider>{children}</AsyncStateProvider>
+    <AnimatePresenceProvider>
+      <AsyncStateProvider>{children}</AsyncStateProvider>
+    </AnimatePresenceProvider>
   </EditorProvider>
 );
