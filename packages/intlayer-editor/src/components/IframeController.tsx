@@ -5,8 +5,9 @@ import { Loader } from '@intlayer/design-system';
 import {
   useCrossURLPathState,
   useEditorEnabledState,
+  useIframeClickMerger,
 } from '@intlayer/editor-react';
-import { type FC, RefObject, useEffect, useState } from 'react';
+import { type FC, type RefObject, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { cn } from '../utils/cn';
 
@@ -15,6 +16,8 @@ const I_FRAME_URL = 'http://localhost:3000';
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement>;
 }> = ({ iframeRef }) => {
+  useIframeClickMerger();
+
   const [loading, setLoading] = useState(true);
 
   /**

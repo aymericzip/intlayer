@@ -1,3 +1,3 @@
-export * from './getIntlayerAPI';
-export * from './distantDictionary';
+export * from './getIntlayerAPI/index';
+export * from './distantDictionary/index';
 export * from './fetcher';

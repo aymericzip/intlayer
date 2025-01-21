@@ -2,7 +2,6 @@
 
 import {
   useCallback,
-  useEffect,
   useMemo,
   useState,
   type Dispatch,
@@ -10,6 +9,7 @@ import {
 } from 'react';
 import { useCommunicator } from './CommunicatorContext';
 import { type MessageKey } from './messageKey';
+import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
 export type CrossFrameStateOptions = {
   emit?: boolean;
@@ -43,7 +43,7 @@ export const useCrossFrameState = <S,>(
   initialState?: S | (() => S),
   options?: CrossFrameStateOptions
 ): [S, Dispatch<SetStateAction<S>>] => {
-  const { allowedOrigins, postMessage } = useCommunicator();
+  const { postMessage } = useCommunicator();
 
   const [state, setState] = useState<S>(() => {
     // Initialize state from the provided initial value, if defined
@@ -65,32 +65,14 @@ export const useCrossFrameState = <S,>(
     return undefined as S;
   });
 
-  useEffect(() => {
-    if (options?.receive ?? true) {
-      const handleMessage = (
-        event: MessageEvent<{ type: string; data: S }>
-      ) => {
-        // Ignore messages that do not match the current key
-        if (event.data.type !== key) return;
-
-        // Check if the message origin is allowed
-        if (
-          typeof allowedOrigins !== 'undefined' &&
-          !allowedOrigins.includes(event.origin) &&
-          !allowedOrigins.includes('*')
-        )
-          return;
-
-        // Update the local state with the received data
-        setState(event.data.data);
-      };
-
-      window.addEventListener('message', handleMessage);
-
-      // Clean up the event listener on unmount
-      return () => window.removeEventListener('message', handleMessage);
-    }
-  }, [key, options, allowedOrigins]);
+  /**
+   * Listen for messages with the specified key and update the state accordingly.
+   */
+  useCrossFrameMessageListener(
+    key,
+    // Only activate the state listener if the `receive` option is true
+    (options?.receive ?? true) ? setState : undefined
+  );
 
   /**
    * A wrapper function around the `setState` function to handle messaging efficiently.

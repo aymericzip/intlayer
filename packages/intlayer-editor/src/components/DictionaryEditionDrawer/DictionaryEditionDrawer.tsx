@@ -5,7 +5,6 @@ import type { Dictionary, KeyPath } from '@intlayer/core';
 import {
   RightDrawer,
   DictionaryEditor,
-  LocaleSwitcher,
   Modal,
   DictionaryFieldEditor,
   useRightDrawerStore,
@@ -88,7 +87,6 @@ type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   locale,
   localeList,
-  setLocale,
   dictionaryKey,
   isDarkMode,
 }) => {
@@ -109,13 +107,6 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
     <RightDrawer
       title={dictionaryKey}
       identifier={id}
-      header={
-        <LocaleSwitcher
-          setLocale={setLocale}
-          locale={locale}
-          localeList={localeList}
-        />
-      }
       backButton={{
         onBack: handleOnBack,
         text: backButtonText,
@@ -139,12 +130,11 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 type DictionaryEditionDrawerControllerProps = {
   locale: Locales;
   localeList: Locales[];
-  setLocale: (locale: Locales) => void;
 };
 
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
-> = ({ locale, localeList, setLocale }) => {
+> = ({ locale, localeList }) => {
   const { focusedContent } = useFocusDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
@@ -156,7 +146,6 @@ export const DictionaryEditionDrawerController: FC<
     <DictionaryEditionDrawer
       locale={locale}
       localeList={localeList}
-      setLocale={setLocale}
       dictionaryKey={dictionaryKey}
     />
   );

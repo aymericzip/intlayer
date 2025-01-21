@@ -62,23 +62,34 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (!panelRef.current) return;
+      try {
+        if (!panelRef.current) return;
 
-      // Check if drawer is open and click outside is enabled
-      const isClickAble = isOpen && closeOnOutsideClick;
-      // Check if click is outside the drawer panel
-      const isClickOutside = !panelRef.current.contains(event.target as Node);
-      // Check if event propagation has been stopped
-      const isAtTopAndVisible = isElementAtTopAndNotCovered(panelRef.current);
+        // Check if drawer is open and click outside is enabled
+        const isClickAble = isOpen && closeOnOutsideClick;
 
-      if (isClickAble && isClickOutside && isAtTopAndVisible) {
+        // Check if click is outside the drawer panel
+        const isClickOutside =
+          event.target && !panelRef.current.contains(event.target as Node);
+
+        // Check if event propagation has been stopped
+        const isAtTopAndVisible = isElementAtTopAndNotCovered(panelRef.current);
+
+        if (
+          (isClickAble && isClickOutside && isAtTopAndVisible) ||
+          !event.target
+        ) {
+          close();
+          onClose?.();
+        }
+      } catch (_e) {
         close();
         onClose?.();
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    window.addEventListener('mousedown', handleClickOutside);
+    return () => window.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, close, onClose, closeOnOutsideClick, identifier]); // Make sure the effect runs only if isOpen or close changes
 
   useEffect(() => {
