@@ -51,6 +51,14 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
 
   const handleClickOutside = useCallback(
     (e: MouseEvent) => {
+      // Check if there's any text selected
+      const selection = window.getSelection();
+      if (selection && selection.toString().trim() !== '') {
+        // If there is a selection, do not trigger the save and exit early.
+        return;
+      }
+
+      // Proceed if the click is truly outside the component.
       if (
         editableFieldRef.current &&
         !editableFieldRef.current.contains(e.target as Node)
