@@ -1,18 +1,22 @@
 'use client';
 
 import { getConfiguration } from '@intlayer/config/client';
+import { Loader } from '@intlayer/design-system';
 import {
   useCrossURLPathState,
   useEditorEnabledState,
 } from '@intlayer/editor-react';
-import { type FC, RefObject, useEffect } from 'react';
+import { type FC, RefObject, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { cn } from '../utils/cn';
 
 const I_FRAME_URL = 'http://localhost:3000';
 
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement>;
 }> = ({ iframeRef }) => {
+  const [loading, setLoading] = useState(true);
+
   /**
    * We need to enable the editor to receive messages from the iframe
    */
@@ -38,13 +42,15 @@ export const IframeController: FC<{
   }, [iframePath]);
 
   return (
-    <div className="size-full p-2">
+    <div className="size-full overflow-hidden rounded-lg bg-white">
+      <Loader isLoading={loading} />
       <iframe
         src={`${I_FRAME_URL}/${location.pathname}`}
         title="Intlayer Application"
-        className="size-full rounded-lg"
+        className={cn('size-full', loading && 'hidden')}
         ref={iframeRef}
         onLoad={() => {
+          setLoading(false);
           const { editor } = getConfiguration();
 
           if (editor.enabled) {

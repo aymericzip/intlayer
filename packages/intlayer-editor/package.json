@@ -99,11 +99,13 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
+    "clsx": "^2.1.1",
     "intlayer": "workspace:*",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "react-intlayer": "workspace:^",
     "react-router-dom": ">=6.0.0",
+    "tailwind-merge": "^2.6.0",
     "vite-intlayer": "workspace:^"
   },
   "engines": {

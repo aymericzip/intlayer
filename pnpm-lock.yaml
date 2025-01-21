@@ -1746,6 +1746,9 @@ importers:
       '@intlayer/editor-react':
         specifier: workspace:*
         version: link:../@intlayer/editor-react
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       intlayer:
         specifier: workspace:*
         version: link:../intlayer
@@ -1767,6 +1770,9 @@ importers:
       serve:
         specifier: ^14.2.4
         version: 14.2.4
+      tailwind-merge:
+        specifier: ^2.6.0
+        version: 2.6.0
       vite-intlayer:
         specifier: workspace:^
         version: link:../vite-intlayer
