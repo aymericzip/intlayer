@@ -14,6 +14,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
 import { isElementAtTopAndNotCovered } from '../../utils/isElementAtTopAndNotCovered';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { useRightDrawerStore } from './useRightDrawerStore';
@@ -127,16 +128,28 @@ export const RightDrawer: FC<RightDrawerProps> = ({
             <div className="flex justify-between gap-3">
               <div>
                 {backButton && (
-                  <button
+                  <Button
+                    variant="hoverable"
+                    color="text"
+                    label={backButton.text ?? 'Go back'}
                     className="flex cursor-pointer flex-row items-center gap-1 text-left"
                     onClick={backButton.onBack}
+                    Icon={ChevronLeft}
+                    size="icon-md"
                   >
-                    <ChevronLeft />
                     {backButton?.text}
-                  </button>
+                  </Button>
                 )}
               </div>
-              <X className="ml-auto cursor-pointer" onClick={close} />
+              <Button
+                variant="hoverable"
+                color="text"
+                label="Close"
+                className="ml-auto"
+                onClick={close}
+                Icon={X}
+                size="icon-md"
+              />
             </div>
             <h2 className="flex items-center justify-center text-lg font-bold">
               {title}
