@@ -50,6 +50,8 @@ const IntlayerEditorProviderEnabled: FC = () => {
 
 export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
   const postMessage = (data: any) => {
+    if (typeof window === 'undefined') return;
+
     window.parent?.postMessage(data, '*');
   };
 
