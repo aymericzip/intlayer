@@ -18,7 +18,7 @@ import {
 import { useCrossFrameState } from './useCrossFrameState';
 
 type EditedContentStateContextType = {
-  editedContent: DictionaryContent;
+  editedContent: Record<Dictionary['key'], Dictionary>;
 };
 
 const EditedContentStateContext = createContext<
@@ -26,6 +26,9 @@ const EditedContentStateContext = createContext<
 >(undefined);
 
 type EditedContentActionsContextType = {
+  setEditedContentState: (
+    editedContent: Record<Dictionary['key'], Dictionary>
+  ) => void;
   setEditedContent: (
     dictionaryKey: Dictionary['key'],
     newValue: DictionaryValue
@@ -60,10 +63,11 @@ const EditedContentActionsContext = createContext<
 
 export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const { localeDictionaries } = useDictionariesRecord();
+
   const [editedContent, setEditedContentState] =
     useCrossFrameState<DictionaryContent>(
       'INTLAYER_EDITED_CONTENT_CHANGED',
-      {}
+      undefined
     );
 
   const setEditedContent = (
@@ -221,7 +225,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     dictionaryKey: Dictionary['key'],
     keyPath: KeyPath[]
   ): DictionaryValue | undefined => {
-    const currentContent = editedContent[dictionaryKey]?.content || {};
+    const currentContent = editedContent?.[dictionaryKey]?.content ?? {};
     return getDictionaryValueByKeyPath(currentContent, keyPath);
   };
 
@@ -233,6 +237,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     >
       <EditedContentActionsContext.Provider
         value={{
+          setEditedContentState,
           setEditedContent,
           addEditedContent,
           renameEditedContent,

@@ -3,10 +3,12 @@
 import { getConfiguration, type Locales } from '@intlayer/config/client';
 import { useCrossFrameState } from '@intlayer/editor-react';
 import { FC, PropsWithChildren } from 'react';
+import { useEditedContentPersistence } from '../hooks/useEditedContentPersistence';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
 
 export const AppLayout: FC<PropsWithChildren> = ({ children }) => {
+  useEditedContentPersistence();
   const { internationalization } = getConfiguration();
   const [currentLocale] = useCrossFrameState<Locales>(
     'INTLAYER_CURRENT_LOCALE',
