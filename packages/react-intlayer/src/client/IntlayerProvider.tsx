@@ -1,6 +1,7 @@
 'use client';
 
 import { getConfiguration, type Locales } from '@intlayer/config/client';
+import { useCrossFrameState } from '@intlayer/editor-react';
 import {
   type PropsWithChildren,
   createContext,
@@ -40,7 +41,7 @@ export type IntlayerProviderProps = PropsWithChildren & {
 /**
  * Provider that store the current locale on the client side
  */
-export const IntlayerProvider: FC<IntlayerProviderProps> = ({
+const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   locale,
   children,
   setLocale: setLocaleProp,
@@ -48,7 +49,8 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
   const { internationalization } = getConfiguration();
   const { defaultLocale, locales: availableLocales } = internationalization;
 
-  const [currentLocale, setCurrentLocale] = useState(
+  const [currentLocale, setCurrentLocale] = useCrossFrameState(
+    'INTLAYER_CURRENT_LOCALE',
     locale ?? localeCookie ?? defaultLocale
   );
 
@@ -75,11 +77,15 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
   );
 
   return (
-    <IntlayerEditorProvider>
-      <IntlayerClientContext.Provider value={value}>
-        <PoweredByMeta />
-        {children}
-      </IntlayerClientContext.Provider>
-    </IntlayerEditorProvider>
+    <IntlayerClientContext.Provider value={value}>
+      <PoweredByMeta />
+      {children}
+    </IntlayerClientContext.Provider>
   );
 };
+
+export const IntlayerProvider: FC<IntlayerProviderProps> = (props) => (
+  <IntlayerEditorProvider>
+    <IntlayerProviderContent {...props} />
+  </IntlayerEditorProvider>
+);
