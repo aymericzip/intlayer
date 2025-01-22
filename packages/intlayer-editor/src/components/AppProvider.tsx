@@ -18,6 +18,7 @@ export const AppProvider: FC<
       iframeRef.current?.contentWindow?.postMessage(data, '*')
     }
     allowedOrigins={['*']}
+    mode="editor"
   >
     <AnimatePresenceProvider>
       <AsyncStateProvider>{children}</AsyncStateProvider>

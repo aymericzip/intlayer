@@ -3,6 +3,11 @@
 'use client';
 
 import { getConfiguration } from '@intlayer/config/client';
+/**
+ * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
+ * Using an external package allow to alias it in the bundle configuration (such as webpack).
+ * The alias allow hot reload the app (such as nextjs) on any dictionary change.
+ */
 import dictionaries from '@intlayer/dictionaries-entry';
 import {
   EditorProvider,
@@ -10,15 +15,11 @@ import {
   useDictionariesRecordActions,
   useConfigurationActions,
   useIframeClickInterceptor,
+  useEditorEnabled,
 } from '@intlayer/editor-react';
 import { useEffect, type FC, type PropsWithChildren } from 'react';
 
-/**
- * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
- * Using an external package allow to alias it in the bundle configuration (such as webpack).
- * The alias allow hot reload the app (such as nextjs) on any dictionary change.
- */
-const IntlayerEditorProviderEnabled: FC = () => {
+const IntlayerEditorHooksEnabled: FC = () => {
   /**
    * URL Messages
    */
@@ -48,6 +49,12 @@ const IntlayerEditorProviderEnabled: FC = () => {
   return <></>;
 };
 
+const IntlayerEditorHook: FC = () => {
+  const { enabled } = useEditorEnabled();
+
+  return enabled ? <IntlayerEditorHooksEnabled /> : <></>;
+};
+
 export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
   const postMessage = (data: any) => {
     if (typeof window === 'undefined') return;
@@ -56,8 +63,12 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <EditorProvider postMessage={postMessage} allowedOrigins={['*']}>
-      <IntlayerEditorProviderEnabled />
+    <EditorProvider
+      postMessage={postMessage}
+      allowedOrigins={['*']}
+      mode="client"
+    >
+      <IntlayerEditorHook />
       {children}
     </EditorProvider>
   );

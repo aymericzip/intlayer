@@ -26,14 +26,13 @@ type ContentData = {
 export type ContentSelectorWrapperProps = ContentData &
   HTMLAttributes<HTMLDivElement>;
 
-export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
+const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
   children,
   dictionaryKey,
   dictionaryPath,
   keyPath,
   ...props
 }) => {
-  const { enabled } = useEditorEnabled();
   const { focusedContent, setFocusedContent } = useFocusDictionary();
   const { getEditedContentValue } = useEditedContentActions();
 
@@ -73,15 +72,24 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
     }
   }, [editedValue, focusedContent, children]);
 
+  return (
+    <ContentSelector onPress={handleSelect} isSelecting={isSelected} {...props}>
+      {displayedChildren}
+    </ContentSelector>
+  );
+};
+
+export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
+  children,
+  ...props
+}) => {
+  const { enabled } = useEditorEnabled();
+
   if (enabled) {
     return (
-      <ContentSelector
-        onPress={handleSelect}
-        isSelecting={isSelected}
-        {...props}
-      >
-        {displayedChildren}
-      </ContentSelector>
+      <ContentSelectorWrapperContent {...props}>
+        {children}
+      </ContentSelectorWrapperContent>
     );
   }
 

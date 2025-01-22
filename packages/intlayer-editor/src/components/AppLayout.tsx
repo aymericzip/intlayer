@@ -8,7 +8,7 @@ import { DictionaryListDrawer } from './DictionaryListDrawer';
 
 export const AppLayout: FC<PropsWithChildren> = ({ children }) => {
   const { internationalization } = getConfiguration();
-  const { locale, setLocale } = useIntlayerContext();
+  const { locale } = useIntlayerContext();
 
   return (
     <div className="bg-card-dark dark:bg-card relative size-full p-3">
@@ -16,7 +16,6 @@ export const AppLayout: FC<PropsWithChildren> = ({ children }) => {
       <DictionaryEditionDrawerController
         locale={locale}
         localeList={internationalization.locales}
-        setLocale={setLocale}
       />
       <DictionaryListDrawer />
     </div>
