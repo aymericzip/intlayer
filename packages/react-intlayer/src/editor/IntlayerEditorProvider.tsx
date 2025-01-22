@@ -32,13 +32,19 @@ const IntlayerEditorHooksEnabled: FC = () => {
    * Configuration Messages
    */
   const { setConfiguration } = useConfigurationActions();
+
+  useEffect(() => {
+    const config = getConfiguration();
+    setConfiguration(config);
+  }, [setConfiguration]);
+
+  /**
+   * Locale Dictionaries Messages
+   */
   const { setLocaleDictionaries } = useDictionariesRecordActions();
 
   useEffect(() => {
     setLocaleDictionaries(dictionaries);
-
-    const config = getConfiguration();
-    setConfiguration(config);
   }, [setLocaleDictionaries]);
 
   /**
