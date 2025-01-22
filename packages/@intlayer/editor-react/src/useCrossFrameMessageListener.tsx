@@ -12,7 +12,7 @@ import { type MessageKey } from './messageKey';
  * state or events across different windows, iframes, or contexts.
  *
  * @template S - The type of the data payload in the message.
- * @param {`${MessageKey}`} key - A unique identifier for the message type to listen for.
+ * @param {`${MessageKey}` | `${MessageKey}/post` | `${MessageKey}/get`} key - A unique identifier for the message type to listen for.
  * @param {(data: S) => void} [onEventTriggered] - A callback function triggered when a message
  * with the specified key is received. The callback receives the message data as its argument.
  *
@@ -20,7 +20,7 @@ import { type MessageKey } from './messageKey';
  * that allows broadcasting messages with the specified key and data.
  */
 export const useCrossFrameMessageListener = <S,>(
-  key: `${MessageKey}`,
+  key: `${MessageKey}` | `${MessageKey}/post` | `${MessageKey}/get`,
   onEventTriggered?: (data: S) => void
 ) => {
   const { allowedOrigins, postMessage } = useCommunicator();

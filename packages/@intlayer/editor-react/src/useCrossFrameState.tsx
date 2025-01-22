@@ -2,6 +2,7 @@
 
 import {
   useCallback,
+  useEffect,
   useMemo,
   useState,
   type Dispatch,
@@ -44,34 +45,61 @@ export const useCrossFrameState = <S,>(
   options?: CrossFrameStateOptions
 ): [S, Dispatch<SetStateAction<S>>] => {
   const { postMessage } = useCommunicator();
+  const emit = useMemo(() => options?.emit ?? true, [options?.emit]);
+  const receive = useMemo(() => options?.receive ?? true, [options?.receive]);
 
-  const [state, setState] = useState<S>(() => {
-    // Initialize state from the provided initial value, if defined
-    if (initialState !== undefined) {
-      const resolvedState: S =
-        typeof initialState === 'function'
-          ? (initialState as () => S)()
-          : initialState;
+  const handleStateChange = useCallback(
+    (state?: SetStateAction<S>, prevState?: S) => {
+      // Initialize state from the provided initial value, if defined
+      if (state !== undefined) {
+        const resolvedState: S =
+          typeof state === 'function'
+            ? (state as (prevState?: S) => S)(prevState)
+            : state;
 
-      // Emit the initial state if `emit` is enabled
-      if (typeof postMessage === 'function' && (options?.emit ?? true)) {
-        postMessage({ type: key, data: resolvedState });
+        // Emit the initial state if `emit` is enabled and initial state is defined
+        if (
+          emit &&
+          typeof postMessage === 'function' &&
+          typeof resolvedState !== 'undefined'
+        ) {
+          postMessage({ type: `${key}/post`, data: resolvedState });
+        }
+        // Listen for messages request to get the state content and send it back.
+        else if (
+          receive &&
+          typeof postMessage === 'function' &&
+          typeof resolvedState === 'undefined'
+        ) {
+          postMessage({ type: `${key}/get` });
+        }
+
+        return resolvedState;
       }
 
-      return resolvedState;
-    }
+      return undefined as S;
+    },
+    [postMessage, emit, receive]
+  );
 
-    // Default state is undefined if no initial state is provided
-    return undefined as S;
-  });
+  const [state, setState] = useState<S>(() => handleStateChange(initialState));
 
   /**
    * Listen for messages with the specified key and update the state accordingly.
    */
   useCrossFrameMessageListener(
-    key,
+    `${key}/post`,
     // Only activate the state listener if the `receive` option is true
-    (options?.receive ?? true) ? setState : undefined
+    receive ? setState : undefined
+  );
+
+  /**
+   * Listen for messages request to get the state content and send it back.
+   */
+  useCrossFrameMessageListener(
+    `${key}/get`,
+    // Only activate the state listener if the `emit` option is true
+    emit ? () => postMessage({ type: `${key}/post`, data: state }) : undefined
   );
 
   /**
@@ -92,22 +120,18 @@ export const useCrossFrameState = <S,>(
    */
   const setStateWrapper: Dispatch<SetStateAction<S>> = useCallback(
     (valueOrUpdater) => {
-      setState((prevState) => {
-        const newState: S =
-          typeof valueOrUpdater === 'function'
-            ? (valueOrUpdater as (prevVal: S) => S)(prevState)
-            : valueOrUpdater;
-
-        // Emit the new state if `emit` is enabled
-        if (options?.emit ?? true) {
-          postMessage({ type: key, data: newState });
-        }
-
-        return newState;
-      });
+      setState((prevState) => handleStateChange(valueOrUpdater, prevState));
     },
     [key, options, postMessage]
   );
+
+  useEffect(() => {
+    // If the component is mounted and the hook in receive mode,
+    // Request the state from the other instance
+    if (receive && typeof postMessage === 'function') {
+      postMessage({ type: `${key}/get` });
+    }
+  }, [postMessage, receive]);
 
   // Return the useState state and setter
   return useMemo(() => [state, setStateWrapper], [state, setStateWrapper]);
