@@ -132,9 +132,9 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
         <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
           <div className="flex w-full items-center justify-between">
             <div className="px-2 py-1">
-              <Globe />
+              <Globe size={18} />
             </div>
-            <MoveVertical className="w-5 self-center" />
+            <MoveVertical className="self-center" size={18} />
           </div>
         </DropDown.Trigger>
 
