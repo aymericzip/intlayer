@@ -105,6 +105,24 @@ export type MiddlewareConfig = {
  */
 export type EditorConfig = {
   /**
+   * URL of the application. Used to restrict the origin of the editor for security reasons.
+   *
+   * > '*' means that the editor is accessible from any origin
+   *
+   * Default: '*'
+   */
+  applicationURL: string;
+
+  /**
+   * URL of the editor server. Used to restrict the origin of the editor for security reasons.
+   *
+   * > '*' means that the editor is accessible from any origin
+   *
+   * Default: '*'
+   */
+  editorURL: string;
+
+  /**
    * URL of the backend
    *
    * Default: 'https://back.intlayer.org'

@@ -51,6 +51,8 @@ export const DictionaryEditionDrawerContent: FC<
 
   const dictionary: Dictionary = dictionaries[dictionaryKey];
 
+  if (!dictionary) return <>No dictionary focused</>;
+
   return (
     <>
       <Modal
@@ -61,15 +63,14 @@ export const DictionaryEditionDrawerContent: FC<
         size="xl"
         transparency="lg"
       >
-        {dictionary && (
-          <DictionaryFieldEditor
-            dictionary={dictionary}
-            onClickDictionaryList={onClickDictionaryList}
-            isDarkMode={isDarkMode}
-            availableLocales={localeList}
-          />
-        )}
+        <DictionaryFieldEditor
+          dictionary={dictionary}
+          onClickDictionaryList={onClickDictionaryList}
+          isDarkMode={isDarkMode}
+          availableLocales={localeList}
+        />
       </Modal>
+
       <DictionaryEditor
         dictionary={dictionary}
         locale={locale}

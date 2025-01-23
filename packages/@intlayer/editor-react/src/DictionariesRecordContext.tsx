@@ -28,11 +28,13 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
   const [localeDictionaries, setLocaleDictionaries] =
     useCrossFrameState<DictionaryContent>(
       'INTLAYER_LOCALE_DICTIONARIES_CHANGED',
-      {}
+      undefined
     );
 
   return (
-    <DictionariesRecordStatesContext.Provider value={{ localeDictionaries }}>
+    <DictionariesRecordStatesContext.Provider
+      value={{ localeDictionaries: localeDictionaries ?? {} }}
+    >
       <DictionariesRecordActionsContext.Provider
         value={{
           setLocaleDictionaries,

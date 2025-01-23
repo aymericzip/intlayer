@@ -115,6 +115,29 @@ Defines settings related to the integrated editor, including server port and act
 
 #### Properties
 
+- **applicationURL**:
+
+  - _Type_: `string`
+  - _Default_: `'*'`
+  - _Description_: The URL of the application. Used to restrict the origin of the editor for security reasons.
+  - _Example_:
+    - `'*'`
+    - `'http://localhost:3000'`
+    - `'https://example.com'`
+    - `process.env.INTLAYER_EDITOR_URL`
+  - _Note_: The URL of the application. Used to restrict the origin of the editor for security reasons. If set to `'*'`, the editor is accessible from any origin.
+
+- **editorURL**:
+
+  - _Type_: `string`
+  - _Default_: `'*'`
+  - _Description_: The URL of the editor server. Used to restrict the origin of the editor for security reasons.
+    - `'*'`
+    - `'http://localhost:3000'`
+    - `'https://example.com'`
+    - `process.env.INTLAYER_EDITOR_URL`
+  - _Note_: The URL of the editor server. Used to restrict the origin of the editor for security reasons. If set to `'*'`, the editor is accessible from any origin.
+
 - **backendURL**:
 
   - _Type_: `string`

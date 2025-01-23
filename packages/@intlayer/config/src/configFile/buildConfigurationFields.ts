@@ -14,6 +14,8 @@ import {
   REACT_INTL_MESSAGES_DIR_NAME,
 } from '../defaultValues/content';
 import {
+  APPLICATION_URL,
+  EDITOR_URL,
   BACKEND_URL,
   DICTIONARY_PRIORITY_STRATEGY,
   IS_ENABLED,
@@ -523,7 +525,25 @@ const buildEditorFields = (
   customConfiguration?: Partial<EditorConfig>
 ): EditorConfig => ({
   /**
-   * Port of the editor server
+   * URL of the application. Used to restrict the origin of the editor for security reasons.
+   *
+   * > '*' means that the editor is accessible from any origin
+   *
+   * Default: '*'
+   */
+  applicationURL: customConfiguration?.applicationURL ?? APPLICATION_URL,
+
+  /**
+   * URL of the editor server. Used to restrict the origin of the editor for security reasons.
+   *
+   * > '*' means that the editor is accessible from any origin
+   *
+   * Default: '*'
+   */
+  editorURL: customConfiguration?.editorURL ?? EDITOR_URL,
+
+  /**
+   * URL of the editor server
    *
    * Default: 'https://back.intlayer.org'
    */

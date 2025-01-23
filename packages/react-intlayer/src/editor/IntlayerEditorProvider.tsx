@@ -17,7 +17,7 @@ import {
   useIframeClickInterceptor,
   useEditorEnabled,
 } from '@intlayer/editor-react';
-import { useEffect, type FC, type PropsWithChildren } from 'react';
+import { useCallback, useEffect, type FC, type PropsWithChildren } from 'react';
 
 const IntlayerEditorHooksEnabled: FC = () => {
   /**
@@ -61,20 +61,32 @@ const IntlayerEditorHook: FC = () => {
   return enabled ? <IntlayerEditorHooksEnabled /> : <></>;
 };
 
-const postMessage = (data: any) => {
-  if (typeof window === 'undefined') return;
+export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
+  const { editor } = getConfiguration();
 
-  window?.postMessage(data, '*');
-  window.parent?.postMessage(data, '*');
+  return (
+    <EditorProvider
+      postMessage={(data: any) => {
+        if (typeof window === 'undefined') return;
+
+        window?.postMessage(
+          data,
+          // Use to restrict the origin of the editor for security reasons.
+          // Correspond to the current application URL to synchronize the locales states.
+          editor.applicationURL
+        );
+        window.parent?.postMessage(
+          data,
+          // Use to restrict the origin of the editor for security reasons.
+          // Correspond to the current editor URL.
+          editor.editorURL
+        );
+      }}
+      allowedOrigins={[editor.editorURL, editor.applicationURL]}
+      mode="client"
+    >
+      <IntlayerEditorHook />
+      {children}
+    </EditorProvider>
+  );
 };
-
-export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => (
-  <EditorProvider
-    postMessage={postMessage}
-    allowedOrigins={['*']}
-    mode="client"
-  >
-    <IntlayerEditorHook />
-    {children}
-  </EditorProvider>
-);
