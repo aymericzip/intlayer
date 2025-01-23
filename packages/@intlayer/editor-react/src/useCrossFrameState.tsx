@@ -51,35 +51,19 @@ export const useCrossFrameState = <S,>(
   const handleStateChange = useCallback(
     (state?: SetStateAction<S>, prevState?: S) => {
       // Initialize state from the provided initial value, if defined
-      if (state !== undefined) {
-        const resolvedState: S =
-          typeof state === 'function'
-            ? (state as (prevState?: S) => S)(prevState)
-            : state;
+      const resolvedState: S =
+        typeof state === 'function'
+          ? (state as (prevState?: S) => S)(prevState)
+          : (state as S);
 
-        // Emit the initial state if `emit` is enabled and initial state is defined
-        if (
-          emit &&
-          typeof postMessage === 'function' &&
-          typeof resolvedState !== 'undefined'
-        ) {
-          postMessage({ type: `${key}/post`, data: resolvedState });
-        }
-        // Listen for messages request to get the state content and send it back.
-        else if (
-          receive &&
-          typeof postMessage === 'function' &&
-          typeof resolvedState === 'undefined'
-        ) {
-          postMessage({ type: `${key}/get` });
-        }
-
-        return resolvedState;
+      // Emit the initial state if `emit` is enabled and initial state is defined
+      if (emit && typeof postMessage === 'function') {
+        postMessage({ type: `${key}/post`, data: resolvedState });
       }
 
-      return undefined as S;
+      return resolvedState;
     },
-    [postMessage, emit, receive]
+    [postMessage, emit, key]
   );
 
   const [state, setState] = useState<S>(() => handleStateChange(initialState));
@@ -119,10 +103,9 @@ export const useCrossFrameState = <S,>(
    * @returns {void}
    */
   const setStateWrapper: Dispatch<SetStateAction<S>> = useCallback(
-    (valueOrUpdater) => {
-      setState((prevState) => handleStateChange(valueOrUpdater, prevState));
-    },
-    [key, options, postMessage]
+    (valueOrUpdater) =>
+      setState((prevState) => handleStateChange(valueOrUpdater, prevState)),
+    [handleStateChange]
   );
 
   useEffect(() => {
@@ -131,7 +114,7 @@ export const useCrossFrameState = <S,>(
     if (receive && typeof postMessage === 'function') {
       postMessage({ type: `${key}/get` });
     }
-  }, [postMessage, receive]);
+  }, [postMessage, receive, key]);
 
   // Return the useState state and setter
   return useMemo(() => [state, setStateWrapper], [state, setStateWrapper]);

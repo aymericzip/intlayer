@@ -1,5 +1,4 @@
-import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { DictionaryContent, useEditedContent } from '@intlayer/editor-react';
+import { useEditedContent } from '@intlayer/editor-react';
 import { useEffect } from 'react';
 
 /**
@@ -7,17 +6,28 @@ import { useEffect } from 'react';
  * It is used to restore the edited content when the user reload the page.
  */
 export const useEditedContentPersistence = () => {
-  const [persistedEditedContent, setPersistedEditedContentState] =
-    usePersistedStore<DictionaryContent>('INTLAYER_EDITED_CONTENT_CHANGED', {});
   const { editedContent, setEditedContentState } = useEditedContent();
 
   useEffect(() => {
-    if (persistedEditedContent) {
-      setEditedContentState(persistedEditedContent);
+    const persistedState = localStorage?.getItem(
+      'INTLAYER_EDITED_CONTENT_CHANGED'
+    );
+
+    if (persistedState) {
+      try {
+        setEditedContentState(JSON.parse(persistedState));
+      } catch (e) {
+        console.error(e);
+      }
     }
-  }, [persistedEditedContent, setEditedContentState]);
+  }, [setEditedContentState]);
 
   useEffect(() => {
-    setPersistedEditedContentState(editedContent);
-  }, [editedContent, setPersistedEditedContentState]);
+    if (Object.keys(editedContent).length === 0) return;
+
+    localStorage?.setItem(
+      'INTLAYER_EDITED_CONTENT_CHANGED',
+      JSON.stringify(editedContent)
+    );
+  }, [editedContent]);
 };

@@ -69,10 +69,13 @@ const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
     [availableLocales, currentLocale, locale]
   );
 
-  const setLocale = setLocaleProp ?? setLocaleBase;
+  const setLocale = useMemo(
+    () => setLocaleProp ?? setLocaleBase,
+    [setLocaleProp, setLocaleBase]
+  );
 
   const value: IntlayerValue = useMemo<IntlayerValue>(
-    () => ({ locale: currentLocale, setLocale: setLocale }),
+    () => ({ locale: currentLocale, setLocale }),
     [currentLocale, setLocale]
   );
 
