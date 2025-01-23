@@ -18,7 +18,7 @@ import {
 import { useCrossFrameState } from './useCrossFrameState';
 
 type EditedContentStateContextType = {
-  editedContent: Record<Dictionary['key'], Dictionary>;
+  editedContent: Record<Dictionary['key'], Dictionary> | undefined;
 };
 
 const EditedContentStateContext = createContext<
@@ -240,7 +240,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <EditedContentStateContext.Provider
       value={{
-        editedContent: editedContent ?? {},
+        editedContent,
       }}
     >
       <EditedContentActionsContext.Provider
