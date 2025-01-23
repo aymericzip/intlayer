@@ -139,15 +139,17 @@ export const RightDrawer: FC<RightDrawerProps> = ({
                   </Button>
                 )}
               </div>
-              <Button
-                variant="hoverable"
-                color="text"
-                label="Close"
-                className="ml-auto"
-                onClick={close}
-                Icon={X}
-                size="icon-md"
-              />
+              <div>
+                <Button
+                  variant="hoverable"
+                  color="text"
+                  label="Close"
+                  className="ml-auto"
+                  onClick={close}
+                  Icon={X}
+                  size="icon-md"
+                />
+              </div>
             </div>
             <h2 className="flex items-center justify-center text-lg font-bold">
               {title}
