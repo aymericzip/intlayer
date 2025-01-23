@@ -9,6 +9,7 @@ import {
 } from '@intlayer/editor-react';
 import { type FC, type RefObject, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useEditedContentPersistence } from '../hooks/useEditedContentPersistence';
 import { cn } from '../utils/cn';
 
 const I_FRAME_URL = 'http://localhost:3000';
@@ -17,13 +18,14 @@ export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement>;
 }> = ({ iframeRef }) => {
   useIframeClickMerger();
+  useEditedContentPersistence();
 
   const [loading, setLoading] = useState(true);
 
   /**
    * We need to enable the editor to receive messages from the iframe
    */
-  const [_isEnabled, setIsEnabled] = useEditorEnabledState({
+  const [, setIsEnabled] = useEditorEnabledState({
     emit: true,
     receive: false,
   });

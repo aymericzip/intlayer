@@ -38,10 +38,10 @@ export const useDictionaryEditionDrawer = (
     close: closeDrawer,
   } = useRightDrawerStore();
   const { getEditedContentValue } = useEditedContentActions();
-  const { focusedContent } = useFocusDictionary();
+  const { focusedContent, setFocusedContent } = useFocusDictionary();
 
   useEffect(() => {
-    if (focusedContent) {
+    if (focusedContent && (focusedContent.keyPath?.length ?? 0) > 0) {
       openDrawer(id);
     }
   }, [focusedContent, openDrawer, id]);
@@ -50,6 +50,18 @@ export const useDictionaryEditionDrawer = (
     isOpen: isOpenDrawer(id),
     focusedContent,
     getEditedContentValue,
-    close: () => closeDrawer(id),
+    close: () => {
+      closeDrawer(id);
+
+      setFocusedContent((prev) => {
+        if (prev?.dictionaryKey) {
+          return {
+            ...(prev as FileContent),
+            keyPath: [],
+          };
+        }
+        return prev;
+      });
+    },
   };
 };

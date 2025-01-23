@@ -1,33 +1,43 @@
-import { useEditedContent } from '@intlayer/editor-react';
-import { useEffect } from 'react';
+import {
+  useEditedContent,
+  useEditedContentState,
+} from '@intlayer/editor-react';
+import { useCallback, useEffect } from 'react';
 
 /**
  * This hook is used to persist the edited content in the browser storage.
  * It is used to restore the edited content when the user reload the page.
  */
 export const useEditedContentPersistence = () => {
-  const { editedContent, setEditedContentState } = useEditedContent();
+  const [, setEditedContent] = useEditedContentState();
+  const { editedContent } = useEditedContent();
 
-  useEffect(() => {
+  const loadPersistedState = useCallback(() => {
     const persistedState = localStorage?.getItem(
       'INTLAYER_EDITED_CONTENT_CHANGED'
     );
 
     if (persistedState) {
       try {
-        setEditedContentState(JSON.parse(persistedState));
+        setEditedContent(JSON.parse(persistedState));
       } catch (e) {
         console.error(e);
       }
     }
-  }, [setEditedContentState]);
+  }, [setEditedContent]);
 
   useEffect(() => {
-    if (Object.keys(editedContent).length === 0) return;
+    loadPersistedState();
+  }, [loadPersistedState]);
+
+  useEffect(() => {
+    if (typeof editedContent === 'undefined') return;
 
     localStorage?.setItem(
       'INTLAYER_EDITED_CONTENT_CHANGED',
       JSON.stringify(editedContent)
     );
   }, [editedContent]);
+
+  return loadPersistedState;
 };

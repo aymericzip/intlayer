@@ -14,9 +14,10 @@ export const AppProvider: FC<
   }>
 > = ({ children, iframeRef }) => (
   <EditorProvider
-    postMessage={(data) =>
-      iframeRef.current?.contentWindow?.postMessage(data, '*')
-    }
+    postMessage={(data) => {
+      window?.postMessage(data, '*');
+      iframeRef.current?.contentWindow?.postMessage(data, '*');
+    }}
     allowedOrigins={['*']}
     mode="editor"
   >

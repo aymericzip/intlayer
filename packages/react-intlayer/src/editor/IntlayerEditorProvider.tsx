@@ -61,21 +61,20 @@ const IntlayerEditorHook: FC = () => {
   return enabled ? <IntlayerEditorHooksEnabled /> : <></>;
 };
 
-export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
-  const postMessage = (data: any) => {
-    if (typeof window === 'undefined') return;
+const postMessage = (data: any) => {
+  if (typeof window === 'undefined') return;
 
-    window.parent?.postMessage(data, '*');
-  };
-
-  return (
-    <EditorProvider
-      postMessage={postMessage}
-      allowedOrigins={['*']}
-      mode="client"
-    >
-      <IntlayerEditorHook />
-      {children}
-    </EditorProvider>
-  );
+  window?.postMessage(data, '*');
+  window.parent?.postMessage(data, '*');
 };
+
+export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => (
+  <EditorProvider
+    postMessage={postMessage}
+    allowedOrigins={['*']}
+    mode="client"
+  >
+    <IntlayerEditorHook />
+    {children}
+  </EditorProvider>
+);

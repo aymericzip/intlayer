@@ -17,6 +17,11 @@ export type CrossFrameStateOptions = {
   receive?: boolean;
 };
 
+const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
+  typeof state === 'function'
+    ? (state as (prevState?: S) => S)(prevState)
+    : (state as S);
+
 /**
  * Configuration options for `useCrossFrameState`.
  * @typedef {Object} CrossFrameStateOptions
@@ -45,19 +50,21 @@ export const useCrossFrameState = <S,>(
   options?: CrossFrameStateOptions
 ): [S, Dispatch<SetStateAction<S>>] => {
   const { postMessage } = useCommunicator();
+
   const emit = useMemo(() => options?.emit ?? true, [options?.emit]);
   const receive = useMemo(() => options?.receive ?? true, [options?.receive]);
 
   const handleStateChange = useCallback(
     (state?: SetStateAction<S>, prevState?: S) => {
       // Initialize state from the provided initial value, if defined
-      const resolvedState: S =
-        typeof state === 'function'
-          ? (state as (prevState?: S) => S)(prevState)
-          : (state as S);
+      const resolvedState: S = resolveState(state, prevState);
 
       // Emit the initial state if `emit` is enabled and initial state is defined
-      if (emit && typeof postMessage === 'function') {
+      if (
+        emit &&
+        typeof postMessage === 'function' &&
+        typeof resolvedState !== 'undefined'
+      ) {
         postMessage({ type: `${key}/post`, data: resolvedState });
       }
 
@@ -67,24 +74,6 @@ export const useCrossFrameState = <S,>(
   );
 
   const [state, setState] = useState<S>(() => handleStateChange(initialState));
-
-  /**
-   * Listen for messages with the specified key and update the state accordingly.
-   */
-  useCrossFrameMessageListener(
-    `${key}/post`,
-    // Only activate the state listener if the `receive` option is true
-    receive ? setState : undefined
-  );
-
-  /**
-   * Listen for messages request to get the state content and send it back.
-   */
-  useCrossFrameMessageListener(
-    `${key}/get`,
-    // Only activate the state listener if the `emit` option is true
-    emit ? () => postMessage({ type: `${key}/post`, data: state }) : undefined
-  );
 
   /**
    * A wrapper function around the `setState` function to handle messaging efficiently.
@@ -106,6 +95,30 @@ export const useCrossFrameState = <S,>(
     (valueOrUpdater) =>
       setState((prevState) => handleStateChange(valueOrUpdater, prevState)),
     [handleStateChange]
+  );
+
+  /**
+   * Listen for messages with the specified key and update the state accordingly.
+   */
+  useCrossFrameMessageListener<S>(
+    `${key}/post`,
+    // Only activate the state listener if the `receive` option is true
+    receive ? setState : undefined
+  );
+
+  /**
+   * Listen for messages request to get the state content and send it back.
+   */
+  useCrossFrameMessageListener<S>(
+    `${key}/get`,
+    // Only activate the state listener if the `emit` option is true
+    emit
+      ? () => {
+          if (typeof state === 'undefined') return;
+
+          postMessage({ type: `${key}/post`, data: state });
+        }
+      : undefined
   );
 
   useEffect(() => {

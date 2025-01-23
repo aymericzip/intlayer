@@ -61,13 +61,21 @@ const EditedContentActionsContext = createContext<
   EditedContentActionsContextType | undefined
 >(undefined);
 
+export const useEditedContentState = () =>
+  useCrossFrameState<DictionaryContent>(
+    'INTLAYER_EDITED_CONTENT_CHANGED',
+    undefined,
+    { emit: true, receive: false }
+  );
+
 export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const { localeDictionaries } = useDictionariesRecord();
 
   const [editedContent, setEditedContentState] =
     useCrossFrameState<DictionaryContent>(
       'INTLAYER_EDITED_CONTENT_CHANGED',
-      {}
+      undefined,
+      { emit: true, receive: true }
     );
 
   const setEditedContent = (
@@ -77,7 +85,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     setEditedContentState((prev) => ({
       ...prev,
       [dictionaryKey]: {
-        ...prev[dictionaryKey],
+        ...prev?.[dictionaryKey],
         content: newValue,
       },
     }));
@@ -93,7 +101,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       // Get the starting content: edited version if available, otherwise a deep copy of the original
       const originalContent = localeDictionaries[dictionaryKey]?.content;
       const currentContent =
-        prev[dictionaryKey]?.content ||
+        prev?.[dictionaryKey]?.content ||
         JSON.parse(JSON.stringify(originalContent));
 
       let newKeyPath = keyPath;
@@ -128,7 +136,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       return {
         ...prev,
         [dictionaryKey]: {
-          ...prev[dictionaryKey],
+          ...prev?.[dictionaryKey],
           content: updatedContent,
         },
       };
@@ -144,7 +152,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       // Retrieve the base content: use edited version if available, otherwise deep copy of original
       const originalContent = localeDictionaries[dictionaryKey]?.content;
       const currentContent =
-        prev[dictionaryKey]?.content ||
+        prev?.[dictionaryKey]?.content ||
         JSON.parse(JSON.stringify(originalContent));
 
       const contentWithNewField = renameDictionaryValueByKeyPath(
@@ -156,7 +164,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       return {
         ...prev,
         [dictionaryKey]: {
-          ...prev[dictionaryKey],
+          ...prev?.[dictionaryKey],
           content: contentWithNewField,
         },
       };
@@ -171,7 +179,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       // Retrieve the original content as reference
       const originalContent = localeDictionaries[dictionaryKey]?.content;
       const currentContent =
-        prev[dictionaryKey]?.content ||
+        prev?.[dictionaryKey]?.content ||
         JSON.parse(JSON.stringify(originalContent));
 
       // Get the initial value from the original dictionary content
@@ -190,7 +198,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       return {
         ...prev,
         [dictionaryKey]: {
-          ...prev[dictionaryKey],
+          ...prev?.[dictionaryKey],
           content: restoredContent,
         },
       };
@@ -232,7 +240,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <EditedContentStateContext.Provider
       value={{
-        editedContent,
+        editedContent: editedContent ?? {},
       }}
     >
       <EditedContentActionsContext.Provider

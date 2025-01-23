@@ -1,7 +1,14 @@
 'use client';
 
 import type { KeyPath } from '@intlayer/core';
-import { createContext, useContext, FC, PropsWithChildren } from 'react';
+import {
+  createContext,
+  useContext,
+  type FC,
+  type PropsWithChildren,
+  type Dispatch,
+  type SetStateAction,
+} from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
 type DictionaryPath = string;
@@ -17,7 +24,7 @@ type FocusDictionaryState = {
 };
 
 type FocusDictionaryActions = {
-  setFocusedContent: (content: FileContent | null) => void;
+  setFocusedContent: Dispatch<SetStateAction<FileContent | null>>;
   setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
 };
 
@@ -31,18 +38,14 @@ const FocusDictionaryActionsContext = createContext<
 export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [focusedContent, setFocusedContentState] =
+  const [focusedContent, setFocusedContent] =
     useCrossFrameState<FileContent | null>(
       'INTLAYER_FOCUSED_CONTENT_CHANGED',
       null
     );
 
-  const setFocusedContent = (content: FileContent | null) => {
-    setFocusedContentState(content);
-  };
-
   const setFocusedContentKeyPath = (keyPath: KeyPath[]) => {
-    setFocusedContentState((prev) => {
+    setFocusedContent((prev) => {
       if (!prev) {
         return prev; // nothing to update if there's no focused content
       }

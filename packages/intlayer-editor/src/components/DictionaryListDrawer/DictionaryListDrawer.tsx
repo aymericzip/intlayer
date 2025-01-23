@@ -44,29 +44,27 @@ export const DictionaryListDrawer: FC = () => {
   );
 
   return (
-    <>
-      <RightDrawer
-        title="Dictionary list"
-        identifier={dictionaryListDrawerIdentifier}
-      >
-        {dictionaryKeyList.map((dictionaryKey) => (
-          <div key={dictionaryKey}>
-            <Button
-              label={`Open dictionary editor ${dictionaryKey}`}
-              onClick={() => handleClickDictionary(dictionaryKey)}
-              variant="hoverable"
-              color="text"
-              IconRight={ChevronRight}
-              size="md"
-              isFullWidth
-            >
-              {isDictionaryEdited(dictionaryKey)
-                ? `✎ ${dictionaryKey}`
-                : dictionaryKey}
-            </Button>
-          </div>
-        ))}
-      </RightDrawer>
-    </>
+    <RightDrawer
+      title="Dictionary list"
+      identifier={dictionaryListDrawerIdentifier}
+    >
+      {dictionaryKeyList.map((dictionaryKey) => (
+        <div key={dictionaryKey}>
+          <Button
+            label={`Open dictionary editor ${dictionaryKey}`}
+            onClick={() => handleClickDictionary(dictionaryKey)}
+            variant="hoverable"
+            color="text"
+            IconRight={ChevronRight}
+            size="md"
+            isFullWidth
+          >
+            {isDictionaryEdited(dictionaryKey)
+              ? `✎ ${dictionaryKey}`
+              : dictionaryKey}
+          </Button>
+        </div>
+      ))}
+    </RightDrawer>
   );
 };
