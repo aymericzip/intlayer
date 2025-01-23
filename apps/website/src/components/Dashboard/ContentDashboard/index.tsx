@@ -5,7 +5,10 @@ import {
   Loader,
   useAuth,
 } from '@intlayer/design-system';
-import { useGetDictionary } from '@intlayer/design-system/hooks';
+import {
+  useGetAllDictionaries,
+  useGetDictionary,
+} from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { Suspense, type FC } from 'react';
@@ -21,16 +24,17 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   const { session } = useAuth();
   const project = session?.project;
   const { resolvedTheme } = useTheme();
+  const { online, isLoading } = useGetAllDictionaries();
   const { data: dictionaryResult, isWaitingData } = useGetDictionary({
     autoFetch: true,
-    args: dictionaryKey,
+    args: [dictionaryKey],
   });
   const router = useRouter();
   const dictionary = dictionaryResult?.data;
 
   return (
     <Suspense fallback={<Loader />}>
-      <Loader isLoading={!dictionary || isWaitingData}>
+      <Loader isLoading={!dictionary || isWaitingData || isLoading}>
         {dictionary && (
           <DictionaryFieldEditor
             dictionary={dictionary}

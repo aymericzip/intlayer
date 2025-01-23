@@ -13,7 +13,7 @@ import { useFocusDictionaryActions } from '@intlayer/editor-react';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { Suspense, useState, type FC } from 'react';
+import { Suspense, useEffect, useState, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 export const DictionaryListDashboardContent: FC = () => {

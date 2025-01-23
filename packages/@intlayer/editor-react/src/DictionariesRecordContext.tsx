@@ -8,12 +8,8 @@ export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
 
 type DictionariesRecordStatesContextType = {
   localeDictionaries: DictionaryContent;
-  distantDictionaries: DictionaryContent;
 };
 type DictionariesRecordActionsContextType = {
-  setDistantDictionaries: (
-    dictionariesRecord: Record<Dictionary['key'], Dictionary>
-  ) => void;
   setLocaleDictionaries: (
     dictionariesRecord: Record<Dictionary['key'], Dictionary>
   ) => void;
@@ -34,20 +30,12 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
       'INTLAYER_LOCALE_DICTIONARIES_CHANGED',
       {}
     );
-  const [distantDictionaries, setDistantDictionaries] =
-    useCrossFrameState<DictionaryContent>(
-      'INTLAYER_DISTANT_DICTIONARIES_CHANGED',
-      {}
-    );
 
   return (
-    <DictionariesRecordStatesContext.Provider
-      value={{ localeDictionaries, distantDictionaries }}
-    >
+    <DictionariesRecordStatesContext.Provider value={{ localeDictionaries }}>
       <DictionariesRecordActionsContext.Provider
         value={{
           setLocaleDictionaries,
-          setDistantDictionaries,
         }}
       >
         {children}
@@ -61,7 +49,7 @@ export const useDictionariesRecordActions = () => {
 
   if (!context) {
     throw new Error(
-      'useDictionariesRecordActions must be used within a DictionariesRecordActionsProvider'
+      'useDictionariesRecordActions must be used within a DictionariesRecordProvider'
     );
   }
   return context;
@@ -73,7 +61,7 @@ export const useDictionariesRecord = () => {
 
   if (!statesContext) {
     throw new Error(
-      'useDictionariesRecordStates must be used within a DictionariesRecordStatesProvider'
+      'useDictionariesRecordStates must be used within a DictionariesRecordProvider'
     );
   }
 

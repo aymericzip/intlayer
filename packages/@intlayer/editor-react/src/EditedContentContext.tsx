@@ -67,7 +67,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const [editedContent, setEditedContentState] =
     useCrossFrameState<DictionaryContent>(
       'INTLAYER_EDITED_CONTENT_CHANGED',
-      undefined
+      {}
     );
 
   const setEditedContent = (
@@ -259,7 +259,7 @@ export const useEditedContentActions = () => {
 
   if (!context) {
     throw new Error(
-      'useEditedContent must be used within an EditedContentActionsProvider'
+      'useEditedContent must be used within an EditedContentProvider'
     );
   }
 
@@ -272,7 +272,7 @@ export const useEditedContent = () => {
 
   if (!stateContext) {
     throw new Error(
-      'useEditedContent must be used within an EditedContentStateProvider'
+      'useEditedContent must be used within an EditedContentProvider'
     );
   }
 
