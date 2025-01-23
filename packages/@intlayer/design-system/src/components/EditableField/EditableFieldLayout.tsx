@@ -122,7 +122,7 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
       <div
         className={cn('flex flex-1 gap-2', isEditing ? 'hidden' : 'display')}
       >
-        <span className="ml-2 whitespace-pre-wrap p-1 text-sm leading-6">
+        <span className="ml-2 flex w-full whitespace-pre-wrap p-1 text-sm leading-6">
           {result}
         </span>
         <Button
