@@ -10,7 +10,7 @@ import {
   type HTMLAttributes,
 } from 'react';
 
-const DEFAULT_PRESS_DETECT_DURATION = 400;
+const DEFAULT_PRESS_DETECT_DURATION = 250;
 
 type ContentSelectorProps = {
   onPress: () => void;
@@ -112,7 +112,7 @@ export const ContentSelector: FC<ContentSelectorProps> = ({
           isSelectingProp || isSelectingState || isHovered
             ? 'inherit'
             : 'transparent',
-        transition: 'all 200ms 100ms ease-in-out',
+        transition: 'all 100ms 50ms ease-in-out',
       }}
       role="button"
       tabIndex={0}
