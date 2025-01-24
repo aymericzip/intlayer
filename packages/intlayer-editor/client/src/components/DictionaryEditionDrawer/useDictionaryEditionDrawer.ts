@@ -1,4 +1,4 @@
-import type { Dictionary, DictionaryValue, KeyPath } from '@intlayer/core';
+import type { DictionaryValue, KeyPath } from '@intlayer/core';
 import { useRightDrawerStore } from '@intlayer/design-system';
 import {
   useEditedContentActions,

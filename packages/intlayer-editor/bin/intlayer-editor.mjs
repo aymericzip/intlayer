@@ -10,14 +10,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Construct the path to the 'dist' directory
-const distPath = join(__dirname, '..', 'dist');
+const distPath = join(__dirname, '../server/dist/index.mjs');
 
 // Get arguments passed to the command (ignoring "node" and the script name)
 const args = process.argv.slice(2);
 
 if (args[0] === 'start') {
   // Start the server pointing to the package's 'dist' directory
-  const command = `serve -s "${distPath}" -l 8080`;
+  const command = `NODE_ENV=production node ${distPath}`;
   const child = exec(command);
 
   // Pipe child's stdout and stderr to the parent process

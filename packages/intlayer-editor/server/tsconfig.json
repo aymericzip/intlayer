@@ -1,0 +1,4 @@
+{
+  "extends": "@utils/ts-config",
+  "include": ["**/*"]
+}

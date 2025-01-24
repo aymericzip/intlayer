@@ -54,16 +54,20 @@
     "intlayer-editor": "./bin/intlayer-editor.mjs"
   },
   "files": [
-    "./dist",
+    "./client/dist",
+    "./server/dist",
     "./bin",
     "./package.json"
   ],
   "scripts": {
-    "build": "vite build",
-    "dev": "vite",
+    "build": "pnpm build:client && pnpm build:server",
+    "build:client": "vite build --config ./client/vite.config.ts",
+    "build:server": "tsup 'server/src/**/*.ts' --out-dir server/dist --config ./server/tsup.config.ts --tsconfig ./server/tsconfig.json",
+    "dev:client": "vite dev --config ./client/vite.config.ts",
+    "dev:server": "node --import=tsx --watch ./server/src/index.ts",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "start": "serve -s dist -l 8080"
+    "preview": "vite preview --config ./client/vite.config.ts",
+    "start": "NODE_ENV=production node --import=tsx server/dist/index.mjs"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
@@ -71,16 +75,23 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
+    "compression": "^1.7.5",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.0.1",
     "framer-motion": "^11.18.0",
+    "helmet": "^8.0.0",
     "lucide-react": "^0.471.1",
+    "mime": "^4.0.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intlayer": "workspace:^",
     "react-router-dom": "^7.1.1",
-    "serve": "^14.2.4",
     "vite-intlayer": "workspace:^"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
@@ -91,15 +102,19 @@
     "globals": "^15.14.0",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
+    "tsup": "^8.3.5",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
-    "vite": "^6.0.5"
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.8",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.0",
     "intlayer": "workspace:*",
