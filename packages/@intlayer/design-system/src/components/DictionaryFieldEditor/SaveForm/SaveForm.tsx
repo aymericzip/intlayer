@@ -4,7 +4,13 @@ import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
 import { Locales } from 'intlayer';
-import { ArrowUpFromLine, RotateCcw, Save, WandSparkles } from 'lucide-react';
+import {
+  ArrowUpFromLine,
+  Download,
+  RotateCcw,
+  Save,
+  WandSparkles,
+} from 'lucide-react';
 import { useCallback, useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
@@ -12,6 +18,7 @@ import {
   usePushDictionaries,
   useGetAllDictionaries,
   useAuditContentDeclaration,
+  useWriteDictionary,
 } from '../../../hooks';
 import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
@@ -20,23 +27,29 @@ import { getSaveFormSchema } from './SaveFormSchema';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
+  mode: 'local' | 'remote';
 };
 
-export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
+export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
   const { session } = useAuth();
   const project = session?.project;
   const { pushDictionaries } = usePushDictionaries();
+  const { writeDictionary } = useWriteDictionary();
   const SaveFormSchema = getSaveFormSchema();
-  const { online } = useGetAllDictionaries();
+  const { online, locale } = useGetAllDictionaries();
   const { isLoading: isAuditing, auditContentDeclaration } =
     useAuditContentDeclaration();
 
   const { editedContent, restoreEditedContent, setEditedContent } =
     useEditedContent();
   const { form, isSubmitting } = useForm(SaveFormSchema);
-  const { auditButton, resetButton, saveButton, publishButton } = useDictionary(
-    saveDictionaryContent
-  );
+  const {
+    auditButton,
+    resetButton,
+    saveButton,
+    publishButton,
+    downloadButton,
+  } = useDictionary(saveDictionaryContent);
 
   const editedDictionary = useMemo(
     () => editedContent?.[dictionary.key],
@@ -47,14 +60,22 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
     return online?.[dictionary.key];
   }, [online, dictionary.key]);
 
-  const isEdited = useMemo(
-    () =>
-      editedDictionary &&
-      onlineDictionary &&
-      JSON.stringify(editedDictionary.content) !==
-        JSON.stringify(onlineDictionary.content),
-    [onlineDictionary, editedDictionary]
-  );
+  const isEdited = useMemo(() => {
+    if (mode === 'remote') {
+      return (
+        editedDictionary &&
+        onlineDictionary &&
+        JSON.stringify(editedDictionary.content) !==
+          JSON.stringify(onlineDictionary.content)
+      );
+    } else if (mode === 'local') {
+      return (
+        editedDictionary &&
+        JSON.stringify(editedDictionary.content) !==
+          JSON.stringify(dictionary.content)
+      );
+    }
+  }, [onlineDictionary, editedDictionary, dictionary, mode]);
 
   const isLocalDictionary = useMemo(
     () => typeof (dictionary as DistantDictionary)?._id === 'undefined',
@@ -62,13 +83,20 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
   );
 
   const onSubmitSuccess = useCallback(async () => {
-    await pushDictionaries([
-      {
+    if (mode === 'remote') {
+      await pushDictionaries([
+        {
+          ...dictionary,
+          ...editedContent?.[dictionary.key],
+        },
+      ]);
+    } else {
+      await writeDictionary({
         ...dictionary,
         ...editedContent?.[dictionary.key],
-      },
-    ]);
-  }, [dictionary, editedContent, pushDictionaries]);
+      });
+    }
+  }, [dictionary, editedContent, pushDictionaries, writeDictionary, mode]);
 
   const handleOnAuditFile = async () =>
     await auditContentDeclaration({
@@ -119,32 +147,46 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
           {resetButton.text}
         </Form.Button>
       )}
-      {isLocalDictionary ? (
-        <Form.Button
-          type="submit"
-          label={publishButton.label}
-          disabled={!isEdited || isSubmitting}
-          Icon={ArrowUpFromLine}
-          color="text"
-          className="max-md:w-full"
-          isLoading={isSubmitting}
-        >
-          {publishButton.text}
-        </Form.Button>
-      ) : (
-        isEdited && (
+      {mode === 'remote' ? (
+        isLocalDictionary ? (
           <Form.Button
             type="submit"
-            label={saveButton.label}
+            label={publishButton.label}
             disabled={!isEdited || isSubmitting}
-            Icon={Save}
+            Icon={ArrowUpFromLine}
             color="text"
             className="max-md:w-full"
             isLoading={isSubmitting}
           >
-            {saveButton.text}
+            {publishButton.text}
           </Form.Button>
+        ) : (
+          isEdited && (
+            <Form.Button
+              type="submit"
+              label={saveButton.label}
+              disabled={!isEdited || isSubmitting}
+              Icon={Save}
+              color="text"
+              className="max-md:w-full"
+              isLoading={isSubmitting}
+            >
+              {saveButton.text}
+            </Form.Button>
+          )
         )
+      ) : (
+        <Form.Button
+          type="submit"
+          label={downloadButton.label}
+          disabled={!isEdited || isSubmitting}
+          Icon={Download}
+          color="text"
+          className="max-md:w-full"
+          isLoading={isSubmitting}
+        >
+          {downloadButton.text}
+        </Form.Button>
       )}
     </Form>
   );

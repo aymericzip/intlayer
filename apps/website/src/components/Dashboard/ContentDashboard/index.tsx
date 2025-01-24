@@ -24,7 +24,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   const { session } = useAuth();
   const project = session?.project;
   const { resolvedTheme } = useTheme();
-  const { online, isLoading } = useGetAllDictionaries();
+  const { isLoading } = useGetAllDictionaries();
   const { data: dictionaryResult, isWaitingData } = useGetDictionary({
     autoFetch: true,
     args: [dictionaryKey],
@@ -43,6 +43,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
             }
             isDarkMode={resolvedTheme === 'dark'}
             availableLocales={project?.locales ?? []}
+            mode="remote"
           />
         )}
       </Loader>

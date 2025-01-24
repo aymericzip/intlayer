@@ -2,7 +2,6 @@
   "extends": "@utils/ts-config",
   "include": ["**/*"],
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2022",
     "lib": ["DOM"],
     "module": "ESNext",

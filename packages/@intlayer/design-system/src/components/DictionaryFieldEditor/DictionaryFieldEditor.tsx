@@ -22,6 +22,7 @@ type DictionaryFieldEditorProps = {
   onClickDictionaryList?: () => void;
   isDarkMode?: boolean;
   availableLocales: Locales[];
+  mode: 'local' | 'remote';
 };
 
 enum EditorViewType {
@@ -34,6 +35,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   onClickDictionaryList,
   isDarkMode,
   availableLocales,
+  mode,
 }) => {
   const [editorView, setEditorView] = useState<EditorViewType>(
     EditorViewType.NodeEditor
@@ -62,14 +64,16 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </label>
         </div>
 
-        <Container
-          className="flex size-full justify-center gap-10 p-6"
-          roundedSize="xl"
-        >
-          <H2>{titleInformation}</H2>
+        {mode === 'remote' && (
+          <Container
+            className="flex size-full justify-center gap-10 p-6"
+            roundedSize="xl"
+          >
+            <H2>{titleInformation}</H2>
 
-          <DictionaryDetailsForm dictionary={dictionary} />
-        </Container>
+            <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
+          </Container>
+        )}
 
         <Container
           className="flex size-full justify-center gap-10 p-6"
@@ -99,7 +103,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           {editorView === EditorViewType.JSONEditor && (
             <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
           )}
-          <SaveForm dictionary={dictionary} />
+          <SaveForm dictionary={dictionary} mode={mode} />
         </Container>
       </div>
     </LocaleSwitcherContentProvider>

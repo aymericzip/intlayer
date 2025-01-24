@@ -5,8 +5,9 @@ import {
   Dictionary as DistantDictionary,
 } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
-import { ArrowUpFromLine, Save, WandSparkles } from 'lucide-react';
-import { type FC, useEffect } from 'react';
+import { useEditedContent } from '@intlayer/editor-react';
+import { ArrowUpFromLine, Download, Save, WandSparkles } from 'lucide-react';
+import { type FC, useEffect, useMemo } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import {
@@ -14,6 +15,7 @@ import {
   useGetProjects,
   useGetTags,
   usePushDictionaries,
+  useWriteDictionary,
 } from '../../../hooks';
 import { useAuth } from '../../Auth';
 import { Form, useForm } from '../../Form';
@@ -27,10 +29,12 @@ import {
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
+  mode: 'local' | 'remote';
 };
 
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
+  mode,
 }) => {
   const { session } = useAuth();
   const { project } = session ?? {};
@@ -58,9 +62,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     projectInput,
     tagsSelect,
     auditButton,
+    downloadButton,
   } = useDictionary(dictionaryDetailsContent);
   const { auditContentDeclaration, isLoading: isAuditing } =
     useAuditContentDeclarationMetadata();
+  const { writeDictionary } = useWriteDictionary();
 
   useEffect(() => {
     form.reset(dictionaryValue);
@@ -72,12 +78,19 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     typeof (dictionary as DistantDictionary)?._id === 'undefined';
 
   const onSubmitSuccess = async (data: DictionaryDetailsFormData) => {
-    await pushDictionaries([
-      {
+    if (mode === 'remote') {
+      await pushDictionaries([
+        {
+          ...dictionary,
+          ...data,
+        },
+      ]);
+    } else {
+      await writeDictionary({
         ...dictionary,
         ...data,
-      },
-    ]);
+      });
+    }
   };
 
   const handleOnAuditFile = async () => {
@@ -104,6 +117,20 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   };
 
   const isLoading = isSubmitting || isLoadingTags;
+
+  const { editedContent } = useEditedContent();
+  const editedDictionary = useMemo(
+    () => editedContent?.[dictionary.key],
+    [editedContent, dictionary.key]
+  );
+  const isEdited = useMemo(
+    () =>
+      editedDictionary &&
+      dictionary &&
+      JSON.stringify(editedDictionary.content) !==
+        JSON.stringify(dictionary.content),
+    [dictionary, editedDictionary]
+  );
 
   return (
     <Form
@@ -234,31 +261,46 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         >
           {auditButton.text}
         </Form.Button>
-        {isLocalDictionary ? (
-          <Form.Button
-            type="submit"
-            label={publishButton.label}
-            disabled={isSubmitting || !isFormEdited || isLoading}
-            Icon={ArrowUpFromLine}
-            isFullWidth={false}
-            color="text"
-            className="max-md:w-full"
-            isLoading={isSubmitting}
-          >
-            {publishButton.text}
-          </Form.Button>
+
+        {mode === 'remote' ? (
+          isLocalDictionary ? (
+            <Form.Button
+              type="submit"
+              label={publishButton.label}
+              disabled={isSubmitting || !isFormEdited || isLoading}
+              Icon={ArrowUpFromLine}
+              color="text"
+              className="max-md:w-full"
+              isLoading={isSubmitting}
+            >
+              {publishButton.text}
+            </Form.Button>
+          ) : (
+            isEdited && (
+              <Form.Button
+                type="submit"
+                label={saveButton.label}
+                disabled={isSubmitting || !isFormEdited || isLoading}
+                Icon={Save}
+                color="text"
+                className="max-md:w-full"
+                isLoading={isSubmitting}
+              >
+                {saveButton.text}
+              </Form.Button>
+            )
+          )
         ) : (
           <Form.Button
             type="submit"
-            label={saveButton.label}
+            label={downloadButton.label}
             disabled={isSubmitting || !isFormEdited || isLoading}
-            isFullWidth={false}
-            Icon={Save}
+            Icon={Download}
             color="text"
             className="max-md:w-full"
             isLoading={isSubmitting}
           >
-            {saveButton.text}
+            {downloadButton.text}
           </Form.Button>
         )}
       </div>

@@ -34,6 +34,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./server": {
+      "types": "./dist/types/server/index.d.ts",
+      "require": "./dist/cjs/server/index.cjs",
+      "import": "./dist/esm/server/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -65,9 +70,13 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/core": "workspace:*"
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "deep-equal": "^2.2.3"
   },
   "devDependencies": {
+    "@types/deep-equal": "^1.0.4",
     "@types/node": "^22.10.6",
     "@typescript-eslint/parser": "^8.20.0",
     "@utils/eslint-config": "workspace:*",
@@ -83,7 +92,9 @@
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "@intlayer/core": "workspace:*"
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

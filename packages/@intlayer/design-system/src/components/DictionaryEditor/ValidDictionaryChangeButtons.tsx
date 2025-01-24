@@ -3,29 +3,30 @@
 import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import type { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
-import { ArrowUpFromLine, RotateCcw, Save } from 'lucide-react';
+import { ArrowUpFromLine, Download, RotateCcw, Save } from 'lucide-react';
 import { useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
-import { usePushDictionaries } from '../../hooks';
+import { usePushDictionaries, useWriteDictionary } from '../../hooks';
 import { Form, useForm } from '../Form';
 import { validDictionaryChangeButtonsContent } from './validDictionaryChangeButtons.content';
 import { getValidDictionaryChangeButtonsSchemaSchema } from './validDictionaryChangeButtonsSchema';
 
 type ValidDictionaryChangeButtonsProps = {
   dictionary: Dictionary;
+  mode: 'local' | 'remote';
 };
 
 export const ValidDictionaryChangeButtons: FC<
   ValidDictionaryChangeButtonsProps
-> = ({ dictionary }) => {
+> = ({ dictionary, mode }) => {
   const ValidDictionaryChangeButtonsSchemaSchema =
     getValidDictionaryChangeButtonsSchemaSchema();
 
-  const { resetButton, saveButton, publishButton } = useDictionary(
-    validDictionaryChangeButtonsContent
-  );
+  const { resetButton, saveButton, publishButton, downloadButton } =
+    useDictionary(validDictionaryChangeButtonsContent);
 
+  const { writeDictionary } = useWriteDictionary();
   const { pushDictionaries } = usePushDictionaries();
 
   const { editedContent, restoreEditedContent } = useEditedContent();
@@ -52,12 +53,19 @@ export const ValidDictionaryChangeButtons: FC<
   );
 
   const onSubmitSuccess = async () => {
-    await pushDictionaries([
-      {
+    if (mode === 'remote') {
+      await pushDictionaries([
+        {
+          ...dictionary,
+          ...editedContent?.[dictionary.key],
+        },
+      ]);
+    } else {
+      await writeDictionary({
         ...dictionary,
         ...editedContent?.[dictionary.key],
-      },
-    ]);
+      });
+    }
   };
 
   return (
@@ -84,32 +92,46 @@ export const ValidDictionaryChangeButtons: FC<
             {resetButton.text}
           </Form.Button>
         )}
-        {isLocalDictionary ? (
-          <Form.Button
-            type="submit"
-            label={publishButton.label}
-            disabled={!isEdited || isSubmitting}
-            Icon={ArrowUpFromLine}
-            color="text"
-            isFullWidth
-            isLoading={isSubmitting}
-          >
-            {publishButton.text}
-          </Form.Button>
-        ) : (
-          isEdited && (
+        {mode === 'remote' ? (
+          isLocalDictionary ? (
             <Form.Button
               type="submit"
-              label={saveButton.label}
+              label={publishButton.label}
               disabled={!isEdited || isSubmitting}
-              Icon={Save}
+              Icon={ArrowUpFromLine}
               color="text"
               isFullWidth
               isLoading={isSubmitting}
             >
-              {saveButton.text}
+              {publishButton.text}
             </Form.Button>
+          ) : (
+            isEdited && (
+              <Form.Button
+                type="submit"
+                label={saveButton.label}
+                disabled={!isEdited || isSubmitting}
+                Icon={Save}
+                color="text"
+                isFullWidth
+                isLoading={isSubmitting}
+              >
+                {saveButton.text}
+              </Form.Button>
+            )
           )
+        ) : (
+          <Form.Button
+            type="submit"
+            label={downloadButton.label}
+            disabled={!isEdited || isSubmitting}
+            Icon={Download}
+            color="text"
+            isFullWidth
+            isLoading={isSubmitting}
+          >
+            {downloadButton.text}
+          </Form.Button>
         )}
       </Form>
     </div>

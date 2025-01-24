@@ -28,3 +28,4 @@ export type * from '@/types/tag.types';
 // Utils
 export * from '@utils/cookies';
 export * from '@utils/httpStatusCodes';
+export * from '@utils/responseData';

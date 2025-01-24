@@ -64,14 +64,13 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/editor": "workspace:*",
     "commander": "^13.0.0",
     "fast-glob": "^3.3.3",
-    "lodash": "^4.17.21",
     "p-limit": "^3.1.0"
   },
   "devDependencies": {
     "@intlayer/core": "workspace:*",
-    "@types/lodash": "^4.17.14",
     "@types/node": "^22.10.6",
     "@typescript-eslint/parser": "^8.20.0",
     "@utils/eslint-config": "workspace:*",
@@ -90,7 +89,8 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:^"
+    "@intlayer/dictionaries-entry": "workspace:^",
+    "@intlayer/editor": "workspace:*"
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"

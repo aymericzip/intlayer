@@ -1,12 +1,8 @@
-import { existsSync } from 'fs';
-import * as fsPromises from 'fs/promises';
-import { basename, dirname, extname } from 'path';
 import * as readline from 'readline';
 import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration, logger } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
-import dictionariesRecord from '@intlayer/dictionaries-entry';
-import _ from 'lodash';
+import { writeContentDeclaration } from '@intlayer/editor/server';
 import pLimit from 'p-limit';
 
 type PullOptions = {
@@ -44,8 +40,6 @@ const BLUE = '\x1b[34m';
 const GREY = '\x1b[90m';
 const YELLOW = '\x1b[33m';
 const GREY_DARK = '\x1b[90m';
-
-const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
 
 /**
  * Fetch distant dictionaries and write them locally,
@@ -143,9 +137,13 @@ export const pull = async (options?: PullOptions): Promise<void> => {
         }
 
         // Now, write the dictionary to local file
-        const writeStatus = await writeDictionary(distantDictionary, options);
+        const { status } = await writeContentDeclaration(
+          distantDictionary,
+          config,
+          options?.newDictionariesPath
+        );
 
-        statusObj.status = writeStatus;
+        statusObj.status = status;
 
         successfullyFetchedDictionaries.push(distantDictionary);
       } catch (error) {
@@ -191,10 +189,6 @@ const getStatusIcon = (status: string): string => {
 };
 
 const getStatusLine = (statusObj: DictionariesStatus): string => {
-  const {
-    log: { prefix },
-  } = getConfiguration();
-
   let icon = getStatusIcon(statusObj.status);
   let colorStart = '';
   let colorEnd = '';
@@ -244,96 +238,5 @@ const updateAllStatusLines = (dictionariesStatuses: DictionariesStatus[]) => {
 
     // Write the status line
     process.stdout.write(getStatusLine(statusObj) + '\n');
-  }
-};
-
-const writeDictionary = async (
-  distantDictionary: Dictionary,
-  options?: PullOptions
-): Promise<DictionariesStatus['status']> => {
-  const {
-    content: { baseDir },
-  } = getConfiguration();
-
-  const newDictionaryRelativeLocationPath =
-    options?.newDictionariesPath ?? DEFAULT_NEW_DICTIONARY_PATH;
-  const newDictionaryLocationPath = `${baseDir}/${newDictionaryRelativeLocationPath}`;
-
-  const existingDictionary = dictionariesRecord[distantDictionary.key];
-
-  if (existingDictionary) {
-    const { filePath } = existingDictionary;
-
-    // Compare existing dictionary with distant dictionary
-    if (_.isEqual(existingDictionary, distantDictionary)) {
-      // Up to date, nothing to do
-      return 'up-to-date';
-    } else {
-      if (filePath) {
-        const isDictionaryJSON = filePath.endsWith('.json');
-
-        if (isDictionaryJSON) {
-          // Write the dictionary to the same location of the existing dictionary file
-          await fsPromises.writeFile(
-            `${baseDir}/${filePath}`,
-            JSON.stringify(distantDictionary, null, 2)
-          );
-          return 'updated';
-        } else {
-          // Write the dictionary to the intlayer-dictionaries directory
-          const dictionariesDirPath = dirname(filePath);
-          const dictionariesFileName = basename(filePath, extname(filePath));
-
-          const newFilePath = `${dictionariesDirPath}/${dictionariesFileName}.json`;
-
-          await writeFileWithDirectories(
-            newFilePath,
-            JSON.stringify(distantDictionary, null, 2)
-          );
-          return 'reimported in JSON';
-        }
-      } else {
-        // Write the dictionary to the intlayer-dictionaries directory
-        const dictionaryPath = `${newDictionaryLocationPath}/${distantDictionary.key}.content.json`;
-        await writeFileWithDirectories(
-          dictionaryPath,
-          JSON.stringify(distantDictionary, null, 2)
-        );
-        return 'reimported in new location';
-      }
-    }
-  } else {
-    // No existing dictionary, write to new location
-    const dictionaryPath = `${newDictionaryLocationPath}/${distantDictionary.key}.content.json`;
-
-    await writeFileWithDirectories(
-      dictionaryPath,
-      JSON.stringify(distantDictionary, null, 2)
-    );
-
-    return 'imported';
-  }
-};
-
-const writeFileWithDirectories = async (
-  filePath: string,
-  data: string | Buffer
-): Promise<void> => {
-  try {
-    // Extract the directory from the file path
-    const dir = dirname(filePath);
-
-    // Check if the directory exists
-    const directoryExists = existsSync(dir);
-
-    if (!directoryExists) {
-      // Create the directory recursively
-      await fsPromises.mkdir(dir, { recursive: true });
-    }
-
-    // Write the file
-    await fsPromises.writeFile(filePath, data);
-  } catch (error) {
-    throw new Error(`Error writing file to ${filePath}: ${error}`);
   }
 };

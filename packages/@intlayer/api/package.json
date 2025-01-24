@@ -83,6 +83,7 @@
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
     "eslint": "^9.18.0",
+    "intlayer-editor": "workspace:*",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",

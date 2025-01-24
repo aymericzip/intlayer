@@ -34,9 +34,9 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./index.cjs"
+      "types": "./server/dist/export.d.ts",
+      "import": "./server/dist/export.mjs",
+      "require": "./server/dist/export.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -74,6 +74,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
+    "@intlayer/editor": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
@@ -113,6 +114,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
+    "@intlayer/editor": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.8",

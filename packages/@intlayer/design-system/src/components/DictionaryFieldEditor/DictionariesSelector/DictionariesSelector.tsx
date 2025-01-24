@@ -14,12 +14,14 @@ type DictionariesSelectorProps = {
   onClickDictionaryList: () => void;
   isDarkMode?: boolean;
   availableLocales: Locales[];
+  mode: 'local' | 'remote';
 };
 
 export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
   onClickDictionaryList,
   isDarkMode,
   availableLocales,
+  mode,
 }) => {
   const { online, locale, isLoading } = useGetAllDictionaries();
   const { focusedContent } = useFocusDictionary();
@@ -47,6 +49,7 @@ export const DictionariesSelector: FC<DictionariesSelectorProps> = ({
       onClickDictionaryList={onClickDictionaryList}
       isDarkMode={isDarkMode}
       availableLocales={availableLocales}
+      mode={mode}
     />
   );
 };

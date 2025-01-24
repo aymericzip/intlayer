@@ -129,6 +129,20 @@ const useAppAsync = <
   return useAsync(key, asyncFunction, optionsWithErrorHandling);
 };
 
+const useEditorAsync = <
+  U extends string,
+  T extends (...args: any[]) => Promise<any>,
+>(
+  key: U,
+  asyncFunction: T,
+  options?: UseAsyncOptions<T>
+) => {
+  const optionsWithErrorHandling = useErrorHandling(options ?? {});
+
+  // Call the main useAsync hook with enhanced options
+  return useAsync(key, asyncFunction, optionsWithErrorHandling);
+};
+
 /**
  * Auth
  */
@@ -684,3 +698,16 @@ export const useAuditTag = (
 export const useAskDocQuestion = (
   args?: UseAsyncOptions<typeof intlayerAPI.ai.askDocQuestion>
 ) => useAppAsync('askDocQuestion', useIntlayerAuth().ai.askDocQuestion, args);
+
+/**
+ * Editor
+ */
+
+export const useWriteDictionary = (
+  args?: UseAsyncOptions<typeof intlayerAPI.editor.writeDictionary>
+) =>
+  useEditorAsync(
+    'writeDictionary',
+    useIntlayerAuth().editor.writeDictionary,
+    args
+  );

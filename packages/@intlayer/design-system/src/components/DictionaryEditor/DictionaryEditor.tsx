@@ -10,11 +10,13 @@ import { ValidDictionaryChangeButtons } from './ValidDictionaryChangeButtons';
 type DictionaryEditorProps = {
   dictionary: Dictionary;
   locale: Locales;
+  mode: 'local' | 'remote';
   onClickEdit?: (keyPath: KeyPath[]) => void;
 };
 
 export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   dictionary,
+  mode,
   ...props
 }) => {
   const { editedContent, addEditedContent } = useEditedContent();
@@ -40,7 +42,7 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
           onFocusKeyPath={setFocusedContentKeyPath}
         />
       </div>
-      <ValidDictionaryChangeButtons dictionary={dictionary} />
+      <ValidDictionaryChangeButtons dictionary={dictionary} mode={mode} />
     </div>
   );
 };

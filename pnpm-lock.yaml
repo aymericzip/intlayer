@@ -822,6 +822,9 @@ importers:
       eslint:
         specifier: ^9.18.0
         version: 9.18.0(jiti@2.4.2)
+      intlayer-editor:
+        specifier: workspace:*
+        version: link:../../intlayer-editor
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
@@ -940,15 +943,15 @@ importers:
       '@intlayer/dictionaries-entry':
         specifier: workspace:*
         version: link:../dictionaries-entry
+      '@intlayer/editor':
+        specifier: workspace:*
+        version: link:../editor
       commander:
         specifier: ^13.0.0
         version: 13.1.0
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
       p-limit:
         specifier: ^3.1.0
         version: 3.1.0
@@ -956,9 +959,6 @@ importers:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../core
-      '@types/lodash':
-        specifier: ^4.17.14
-        version: 4.17.14
       '@types/node':
         specifier: ^22.10.6
         version: 22.10.10
@@ -1368,10 +1368,22 @@ importers:
 
   packages/@intlayer/editor:
     dependencies:
+      '@intlayer/config':
+        specifier: workspace:*
+        version: link:../config
       '@intlayer/core':
         specifier: workspace:*
         version: link:../core
+      '@intlayer/dictionaries-entry':
+        specifier: workspace:*
+        version: link:../dictionaries-entry
+      deep-equal:
+        specifier: ^2.2.3
+        version: 2.2.3
     devDependencies:
+      '@types/deep-equal':
+        specifier: ^1.0.4
+        version: 1.0.4
       '@types/node':
         specifier: ^22.10.6
         version: 22.10.10
@@ -1743,6 +1755,9 @@ importers:
       '@intlayer/design-system':
         specifier: workspace:*
         version: link:../@intlayer/design-system
+      '@intlayer/editor':
+        specifier: workspace:*
+        version: link:../@intlayer/editor
       '@intlayer/editor-react':
         specifier: workspace:*
         version: link:../@intlayer/editor-react
@@ -8071,6 +8086,12 @@ packages:
     resolution:
       {
         integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==,
+      }
+
+  '@types/deep-equal@1.0.4':
+    resolution:
+      {
+        integrity: sha512-tqdiS4otQP4KmY0PR3u6KbZ5EWvhNdUoS/jc93UuK23C220lOZ/9TvjfxdPcKvqwwDVtmtSCrnr0p/2dirAxkA==,
       }
 
   '@types/doctrine@0.0.9':
@@ -27398,6 +27419,8 @@ snapshots:
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 2.1.0
+
+  '@types/deep-equal@1.0.4': {}
 
   '@types/doctrine@0.0.9': {}
 

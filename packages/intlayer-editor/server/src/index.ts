@@ -1,6 +1,7 @@
 import { existsSync, lstatSync } from 'node:fs';
 import path, { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { dictionaryRouter } from '@routes/dictionary.routes';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
@@ -40,11 +41,7 @@ const startServer = async (app: Express) => {
   // Parse incoming requests with urlencoded payloads
   app.use(express.urlencoded({ extended: true }));
 
-  app.post('/api/action', (req, res) => {
-    const data = req.body;
-    console.log('Received data:', data);
-    res.json({ message: 'Action performed', data });
-  });
+  app.use('/api/dictionary', dictionaryRouter);
 
   app.use(express.static(clientDistPath));
 

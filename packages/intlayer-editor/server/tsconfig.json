@@ -1,4 +1,17 @@
 {
   "extends": "@utils/ts-config",
-  "include": ["**/*"]
+  "include": ["**/*"],
+  "compilerOptions": {
+    "outDir": "dist/types",
+    "baseUrl": "src",
+    "paths": {
+      "@controllers/*": ["./controllers/*"],
+      "@services/*": ["./services/*"],
+      "@routes/*": ["./routes/*"],
+      "@middlewares/*": ["./middlewares/*"],
+      "@schemas/*": ["./schemas/*"],
+      "@utils/*": ["./utils/*"],
+      "@/*": ["./*"]
+    }
+  }
 }

@@ -13,11 +13,11 @@ import {
   EditorProvider,
   useCrossURLPathState,
   useDictionariesRecordActions,
-  useConfigurationActions,
+  useConfigurationState,
   useIframeClickInterceptor,
   useEditorEnabled,
 } from '@intlayer/editor-react';
-import { useCallback, useEffect, type FC, type PropsWithChildren } from 'react';
+import { useEffect, type FC, type PropsWithChildren } from 'react';
 
 const IntlayerEditorHooksEnabled: FC = () => {
   /**
@@ -31,7 +31,7 @@ const IntlayerEditorHooksEnabled: FC = () => {
   /**
    * Configuration Messages
    */
-  const { setConfiguration } = useConfigurationActions();
+  const [, setConfiguration] = useConfigurationState();
 
   useEffect(() => {
     const config = getConfiguration();
