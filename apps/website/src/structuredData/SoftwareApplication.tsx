@@ -1,6 +1,7 @@
 import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 import { type FC } from 'react';
+import packageJson from '../../../../package.json' assert { type: 'json' };
 
 export const SoftwareApplicationHeader: FC = () => {
   const { description, keywords, audienceType } = useIntlayer(
@@ -15,7 +16,7 @@ export const SoftwareApplicationHeader: FC = () => {
     name: 'Intlayer',
     url: 'https://www.votresite.com',
     description,
-    softwareVersion: '4.0.4',
+    softwareVersion: packageJson.version,
     license:
       'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
     author: {
