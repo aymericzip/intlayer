@@ -21,7 +21,7 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
   };
 
   const displayedContent = useMemo(
-    () => editedContent[dictionary.key]?.content ?? dictionary?.content ?? {},
+    () => editedContent?.[dictionary.key]?.content ?? dictionary?.content ?? {},
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [dictionary]
   );

@@ -22,7 +22,7 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
 
   const focusedKeyPath = focusedContent?.keyPath;
 
-  const section = editedContent[key]?.content ?? dictionaryContent;
+  const section = editedContent?.[key]?.content ?? dictionaryContent;
 
   return (
     <>

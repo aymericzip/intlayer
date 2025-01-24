@@ -39,7 +39,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
   );
 
   const editedDictionary = useMemo(
-    () => editedContent[dictionary.key],
+    () => editedContent?.[dictionary.key],
     [editedContent, dictionary.key]
   );
 
@@ -65,7 +65,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary }) => {
     await pushDictionaries([
       {
         ...dictionary,
-        ...editedContent[dictionary.key],
+        ...editedContent?.[dictionary.key],
       },
     ]);
   }, [dictionary, editedContent, pushDictionaries]);

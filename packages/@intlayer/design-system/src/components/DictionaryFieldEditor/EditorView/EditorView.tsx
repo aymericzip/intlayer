@@ -43,8 +43,11 @@ export const EditorView: FC<EditorViewProps> = ({
     removeEditedContent,
   } = useEditedContent();
 
-  const editedSection = editedContent[dictionaryKey]?.content
-    ? getDictionaryValueByKeyPath(editedContent[dictionaryKey].content, keyPath)
+  const editedSection = editedContent?.[dictionaryKey]?.content
+    ? getDictionaryValueByKeyPath(
+        editedContent?.[dictionaryKey].content,
+        keyPath
+      )
     : undefined;
 
   const dictionarySection = getDictionaryValueByKeyPath(

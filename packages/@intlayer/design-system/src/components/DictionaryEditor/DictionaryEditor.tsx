@@ -29,9 +29,9 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
           {...props}
           keyPath={[]}
           key={JSON.stringify(
-            (editedContent[dictionary.key] ?? dictionary).content
+            (editedContent?.[dictionary.key] ?? dictionary).content
           )}
-          editedContent={editedContent[dictionary.key]?.content}
+          editedContent={editedContent?.[dictionary.key]?.content}
           focusedKeyPath={focusedKeyPath}
           section={dictionary.content}
           onContentChange={(content) => {

@@ -34,7 +34,7 @@ export const ValidDictionaryChangeButtons: FC<
   );
 
   const editedDictionary = useMemo(
-    () => editedContent[dictionary.key],
+    () => editedContent?.[dictionary.key],
     [editedContent, dictionary.key]
   );
 
@@ -55,7 +55,7 @@ export const ValidDictionaryChangeButtons: FC<
     await pushDictionaries([
       {
         ...dictionary,
-        ...editedContent[dictionary.key],
+        ...editedContent?.[dictionary.key],
       },
     ]);
   };
