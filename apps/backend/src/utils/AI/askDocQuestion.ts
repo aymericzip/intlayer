@@ -3,7 +3,7 @@ import { getBlogs } from '@intlayer/blog';
 import { getDocs } from '@intlayer/docs';
 import { Locales } from 'intlayer';
 import { OpenAI } from 'openai';
-import embeddingsList from './embeddings.json';
+import embeddingsList from './embeddings.json' with { type: 'json' };
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
