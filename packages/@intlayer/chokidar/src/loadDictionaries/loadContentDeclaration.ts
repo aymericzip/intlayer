@@ -114,9 +114,10 @@ const loadContentDeclaration = (
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[]
 ): Promise<Dictionary[]> => {
-  const contentDeclarations = contentDeclarationFilePath.map(
-    loadContentDeclaration
-  );
+  const contentDeclarations = contentDeclarationFilePath.map((path) => ({
+    ...loadContentDeclaration(path),
+    filePath: path,
+  }));
   const resultDictionariesPaths: Dictionary[] = [];
 
   for await (const contentDeclaration of contentDeclarations) {
