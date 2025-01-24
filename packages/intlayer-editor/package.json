@@ -90,6 +90,7 @@
     "vite-intlayer": "workspace:^"
   },
   "devDependencies": {
+    "@intlayer/backend": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/react": "^18.3.18",
