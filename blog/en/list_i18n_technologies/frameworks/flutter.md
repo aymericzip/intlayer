@@ -1,6 +1,6 @@
 # Exploring i18n Solutions to Translate Your Flutter App
 
-In an increasingly connected world, offering your Flutter application in multiple languages can expand its reach and improve usability for non-English speakers. Implementing internationalization (i18n) in Flutter ensures text, dates, and other culturally sensitive information are localized properly. In this article, we’ll explore different approaches to i18n in Flutter—from official frameworks to community-driven libraries—so you can select the best fit for your project.
+In an increasingly connected world, offering your Flutter application in multiple languages can expand its reach and improve usability for non-English speakers. Implementing internationalization (i18n) in Flutter ensures text, dates, and other culturally sensitive information are localized properly. In this article, we’ll explore different approaches to i18n in Flutter from official frameworks to community-driven libraries so you can select the best fit for your project.
 
 ---
 
@@ -37,7 +37,7 @@ Flutter ships with official support for localization through the [`intl`](https:
 
 **Key Features**
 
-- **Official & Integrated**: No need for external libraries—`MaterialApp` and `CupertinoApp` can directly reference your localizations.
+- **Official & Integrated**: No need for external libraries `MaterialApp` and `CupertinoApp` can directly reference your localizations.
 - **intl Package**: Offers date/number formatting, plurals, gender handling, and other ICU-backed features.
 - **Compile-Time Checks**: Generating code from ARB files helps catch missing translations during compilation.
 - **Strong Community Support**: Backed by Google, with a wealth of documentation and examples.
@@ -99,7 +99,7 @@ Repository: [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages/flu
 Website: [https://intlayer.org/](https://intlayer.org/)
 
 **Overview**  
-**Intlayer** is an open-source i18n solution aiming to simplify multilingual support across multiple frameworks, including **Flutter**. It emphasizes a declarative approach, strong typing, and SSR support in other ecosystems—though SSR is not typical in standard Flutter, you might find synergy if your project uses Flutter web or advanced frameworks.
+**Intlayer** is an open-source i18n solution aiming to simplify multilingual support across multiple frameworks, including **Flutter**. It emphasizes a declarative approach, strong typing, and SSR support in other ecosystems though SSR is not typical in standard Flutter, you might find synergy if your project uses Flutter web or advanced frameworks.
 
 **Key Features**
 

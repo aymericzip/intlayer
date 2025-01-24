@@ -45,7 +45,7 @@ We believe in community-driven knowledge sharing. If you have a great idea for a
 
 [**Submit your post here**](https://github.com/aymericzip/intlayer/blob/main/blog)
 
-Your contributions help us enrich this platform and empower developers worldwide. Let’s build a community of global-first applications—together.
+Your contributions help us enrich this platform and empower developers worldwide.
 
 ---
 

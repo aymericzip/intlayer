@@ -66,7 +66,7 @@ This concise overview covers the main elements that should be internationalized,
   Different languages have varying plural rules, sometimes with multiple forms. Employing libraries like ICU MessageFormat can simplify handling these pluralization complexities.
 
 - **UI and text length**  
-  Some languages—German, for example—tend to have longer text than English. This can disrupt layouts if the design isn’t flexible, so responsive design is key.
+  Some languages German, for example tend to have longer text than English. This can disrupt layouts if the design isn’t flexible, so responsive design is key.
 
 - **Characters encoding**  
   Using proper character encoding (like UTF-8) is crucial to correctly display diverse alphabets and symbols, preventing misinterpreted or garbled text.
@@ -142,6 +142,6 @@ If you’re looking for a list of i18n libraries and tools per technology, check
 
 ## Conclusion
 
-Internationalization (i18n) is more than just a technical chore; it’s a **strategic investment** that enables your software to speak the language of your users—literally. By abstracting away locale-specific elements, accommodating linguistic and cultural variations, and planning for future expansion, you empower your product to thrive in a global marketplace.
+Internationalization (i18n) is more than just a technical chore; it’s a **strategic investment** that enables your software to speak the language of your users literally. By abstracting away locale-specific elements, accommodating linguistic and cultural variations, and planning for future expansion, you empower your product to thrive in a global marketplace.
 
 Whether you’re building a mobile app, a SaaS platform, or an enterprise tool, **i18n ensures that your product can adapt and appeal to users from all around the world**, without the need for constant code rewrites. By leveraging best practices, robust frameworks, and continuous localization strategies, developers and product teams can deliver **truly global** software experiences.

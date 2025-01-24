@@ -11,7 +11,7 @@ They share three principal notions:
 
 2. **Utilities**: Tools to build and interpret content declarations in the application, such as `useIntlayer()` or `useLocale()` for Intlayer, and `useTranslations()` for next-intl.
 
-3. **Plugins and Middlewares**: Features for managing URL redirection, bundling optimization, and more—e.g., `intlayerMiddleware` for Intlayer or [`createMiddleware`](https://github.com/amannn/next-intl) for next-intl.
+3. **Plugins and Middlewares**: Features for managing URL redirection, bundling optimization, and more e.g., `intlayerMiddleware` for Intlayer or [`createMiddleware`](https://github.com/amannn/next-intl) for next-intl.
 
 ## Intlayer vs. next-intl: Key Differences
 

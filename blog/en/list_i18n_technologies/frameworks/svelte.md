@@ -1,6 +1,6 @@
 # Exploring i18n Solutions to Translate Your Svelte Website
 
-As the web continues to connect people across the globe, providing content in multiple languages is increasingly important. For developers working with **Svelte**, implementing i18n is essential to efficiently manage translations, maintain clean code, and uphold good SEO practices. In this article, we dive into various i18n solutions and workflows for Svelte—helping you choose the one that best suits your project’s needs.
+As the web continues to connect people across the globe, providing content in multiple languages is increasingly important. For developers working with **Svelte**, implementing i18n is essential to efficiently manage translations, maintain clean code, and uphold good SEO practices. In this article, we dive into various i18n solutions and workflows for Svelte helping you choose the one that best suits your project’s needs.
 
 ---
 
@@ -48,7 +48,7 @@ Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaise
 
 - **Project Organization**: You’ll need to structure your translation files logically as the project grows.
 - **SSR Setup**: Configuring SSR for SEO might require additional steps to ensure correct locale detection on the server side.
-- **Performance**: While flexible at runtime, a large number of translations loaded at once can impact initial load times—consider lazy loading or caching strategies.
+- **Performance**: While flexible at runtime, a large number of translations loaded at once can impact initial load times consider lazy loading or caching strategies.
 
 ---
 
@@ -106,4 +106,4 @@ When selecting an i18n strategy for your Svelte app:
 4. **TypeScript Integration**: If you rely heavily on TypeScript, solutions like **Intlayer** or libraries with typed keys can significantly reduce runtime errors and improve the developer experience.
 5. **Maintainability & Scalability**: Plan how you’ll organize, update, and version your translation files. Automated extraction, naming conventions, and a consistent folder structure will save time in the long run.
 
-Ultimately, each library offers unique strengths. Your choice depends on **performance**, **developer experience**, **SEO needs**, and **long-term maintainability**. By selecting a solution that aligns with your project’s goals, you can create a truly global application in Svelte—one that delights users around the world.
+Ultimately, each library offers unique strengths. Your choice depends on **performance**, **developer experience**, **SEO needs**, and **long-term maintainability**. By selecting a solution that aligns with your project’s goals, you can create a truly global application in Svelte one that delights users around the world.

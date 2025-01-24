@@ -111,7 +111,7 @@ Below, you’ll find an overview of each solution, followed by a feature compari
 ### Cons
 
 - Still **relatively new** compared to React-Intl or React-i18next.
-- Heavier focus on a “component-level content declaration” approach—may be a shift from typical .json catalogs.
+- Heavier focus on a “component-level content declaration” approach may be a shift from typical .json catalogs.
 - Smaller ecosystem and community compared to the more established libraries.
 
 ---
@@ -172,4 +172,4 @@ Your choice largely depends on project requirements, desired developer experienc
 - [Intlayer + CRA Getting Started Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md)
 - [Intlayer + Vite & React Getting Started Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite%2Breact.md)
 
-Feel free to mix and match approaches to suit your requirements—there is no “one-size-fits-all” solution, and each library continues to evolve to address new use cases in the React ecosystem.
+Feel free to mix and match approaches to suit your requirements there is no “one-size-fits-all” solution, and each library continues to evolve to address new use cases in the React ecosystem.
