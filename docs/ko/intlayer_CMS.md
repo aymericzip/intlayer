@@ -95,8 +95,6 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { type IntlayerConfig } = require("intlayer");
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... 기타 구성 설정

@@ -47,8 +47,6 @@ Um mit Intlayer zu beginnen:
    ```
 
    ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-   const { type IntlayerConfig } = require("intlayer");
-
    /** @type {import('intlayer').IntlayerConfig} */
    const config = {
      // ...

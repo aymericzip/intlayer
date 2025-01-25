@@ -134,13 +134,11 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { type IntlayerConfig } = require("intlayer");
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... 다른 구성 설정
   editor: {
-   /**
+    /**
      * 필수
      * 애플리케이션의 URL입니다.
      * 이것은 비주얼 에디터가 목표로 하는 URL입니다.

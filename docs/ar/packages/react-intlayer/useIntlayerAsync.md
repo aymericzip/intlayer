@@ -47,8 +47,6 @@ The `useIntlayerAsync` hook يوسع من وظيفة `useIntlayer` من خلال
    ```
 
    ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-   const { type IntlayerConfig } = require("intlayer");
-
    /** @type {import('intlayer').IntlayerConfig} */
    const config = {
      // ...

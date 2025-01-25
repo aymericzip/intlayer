@@ -47,8 +47,6 @@ Intlayer 提供了一个无头内容源管理 (CSM) 系统，使非开发人员�
    ```
 
    ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-   const { type IntlayerConfig } = require("intlayer");
-
    /** @type {import('intlayer').IntlayerConfig} */
    const config = {
      // ...

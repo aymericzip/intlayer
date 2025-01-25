@@ -70,8 +70,15 @@ const config: IntlayerConfig = {
      * Required
      * The URL of the application.
      * This is the URL targeted by the visual editor.
+     * Example: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
+    /**
+     * Optional
+     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
+     * Can be used to disable the editor for specific environments for security reason, such as production.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
     /**
      * Optional
      * Default as `8000`.
@@ -84,12 +91,6 @@ const config: IntlayerConfig = {
      * The URL of the editor server.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -97,18 +98,23 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... other configuration settings
   editor: {
-   /**
+    /**
      * Required
      * The URL of the application.
      * This is the URL targeted by the visual editor.
+     * Example: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
+    /**
+     * Optional
+     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
+     * Can be used to disable the editor for specific environments for security reason, such as production.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
     /**
      * Optional
      * Default as `8000`.
@@ -121,12 +127,6 @@ const config = {
      * The URL of the editor server.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -134,13 +134,11 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { type IntlayerConfig } = require("intlayer");
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... other configuration settings
   editor: {
-   /**
+    /**
      * Required
      * The URL of the application.
      * This is the URL targeted by the visual editor.

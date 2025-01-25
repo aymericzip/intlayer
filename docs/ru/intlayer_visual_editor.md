@@ -134,13 +134,11 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { type IntlayerConfig } = require("intlayer");
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... другие настройки конфигурации
   editor: {
-   /**
+    /**
      * Обязательно
      * URL приложения.
      * Это URL, на который нацелен визуальный редактор.

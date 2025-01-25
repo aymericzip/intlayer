@@ -134,13 +134,11 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { type IntlayerConfig } = require("intlayer");
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... 其他配置设置
   editor: {
-   /**
+    /**
      * 必需
      * 应用程序的 URL。
      * 这是可视化编辑器针对的 URL。

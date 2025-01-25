@@ -134,13 +134,11 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { type IntlayerConfig } = require("intlayer");
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... outras configurações
   editor: {
-   /**
+    /**
      * Obrigatório
      * A URL da aplicação.
      * Esta é a URL direcionada pelo editor visual.

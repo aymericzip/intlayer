@@ -47,8 +47,6 @@ Intlayer предоставляет управляемую систему упр
    ```
 
    ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-   const { type IntlayerConfig } = require("intlayer");
-
    /** @type {import('intlayer').IntlayerConfig} */
    const config = {
      // ...

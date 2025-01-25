@@ -44,8 +44,6 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { type IntlayerConfig } = require("intlayer");
-
 /** @type {import('intlayer').IntlayerConfig} */
 // यह कॉन्फ़िगरेशन सेटिंग हैं
 const config = {

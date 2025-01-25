@@ -134,13 +134,11 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { type IntlayerConfig } = require("intlayer");
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... إعدادات التكوين الأخرى
   editor: {
-   /**
+    /**
      * مطلوب
      * عنوان URL للتطبيق.
      * هذا هو عنوان URL المستهدف من قبل المحرر المرئي.
