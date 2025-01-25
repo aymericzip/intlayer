@@ -12,15 +12,15 @@ import { useLocation } from 'react-router-dom';
 import { useEditedContentPersistence } from '../hooks/useEditedContentPersistence';
 import { cn } from '../utils/cn';
 
-const I_FRAME_URL = 'http://localhost:3000';
-
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement>;
 }> = ({ iframeRef }) => {
+  const { editor } = getConfiguration();
+  console.log('getConfiguration', getConfiguration());
   useIframeClickMerger();
   useEditedContentPersistence();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   /**
    * We need to enable the editor to receive messages from the iframe
@@ -47,22 +47,24 @@ export const IframeController: FC<{
   }, [iframePath]);
 
   return (
-    <div className="size-full overflow-hidden rounded-lg bg-white">
+    <div className="size-full overflow-hidden rounded-lg">
       <Loader isLoading={loading} />
-      <iframe
-        src={`${I_FRAME_URL}/${location.pathname}`}
+      ####
+      {editor.applicationURL ?? 'ss'}
+      ####
+      {/* <iframe
+        src={`${editor.applicationURL}/${location.pathname}`}
         title="Intlayer Application"
         className={cn('size-full', loading && 'hidden')}
         ref={iframeRef}
         onLoad={() => {
           setLoading(false);
           const { editor } = getConfiguration();
-
           if (editor.enabled) {
             setIsEnabled(true);
           }
         }}
-      />
+      /> */}
     </div>
   );
 };

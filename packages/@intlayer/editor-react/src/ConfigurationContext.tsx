@@ -1,6 +1,6 @@
 'use client';
 
-import { type IntlayerConfig } from '@intlayer/config/client';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { createContext, useContext, FC, PropsWithChildren } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
@@ -19,6 +19,7 @@ export const useConfigurationState = () =>
   });
 
 export const ConfigurationProvider: FC<PropsWithChildren> = ({ children }) => {
+  const fallbackConfiguration = getConfiguration();
   const [configuration] = useCrossFrameState<IntlayerConfig>(
     'INTLAYER_CONFIGURATION',
     undefined,
@@ -29,7 +30,9 @@ export const ConfigurationProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   return (
-    <ConfigurationStatesContext.Provider value={{ configuration }}>
+    <ConfigurationStatesContext.Provider
+      value={{ configuration: configuration ?? fallbackConfiguration }}
+    >
       {children}
     </ConfigurationStatesContext.Provider>
   );

@@ -1,9 +1,9 @@
 import { relative } from 'path';
+import { logger } from '../logger';
 import type { CustomIntlayerConfig, IntlayerConfig } from '../types/config';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
-import { logger } from '../logger';
 
 let storedConfiguration: IntlayerConfig | undefined;
 let storedConfigurationFilePath: string | undefined;
@@ -14,7 +14,7 @@ export type GetConfigurationOptions = {
   verbose: boolean;
 };
 
-const BASE_DIR_PATH = process.env.INTLAYER_BASE_DIR_PATH ?? process.cwd();
+const BASE_DIR_PATH = process.cwd();
 const defaultOptions: GetConfigurationOptions = {
   baseDir: BASE_DIR_PATH,
   verbose: false,

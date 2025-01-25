@@ -12,7 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   root: __dirname,
   server: {
-    port: 5000,
+    port: 8000,
   },
   css: {
     postcss: {

@@ -1,15 +1,16 @@
 import { Locales } from 'intlayer';
 import { getIntlayer } from 'next-intlayer';
 import { getCliData } from './docDataContent/concept/cli';
+import { getCMSData } from './docDataContent/concept/cms';
 import { getConfigurationData } from './docDataContent/concept/configuration';
 import { getContentDeclarationEnumerationData } from './docDataContent/concept/contentDeclaration/enumeration';
 import { getContentDeclarationFunctionFetchingData } from './docDataContent/concept/contentDeclaration/functionFetching';
 import { getContentDeclarationGetStatedData } from './docDataContent/concept/contentDeclaration/getStarted';
 import { getContentDeclarationTranslationData } from './docDataContent/concept/contentDeclaration/translation';
-import { getEditorData } from './docDataContent/concept/editor';
 import { getHowWorksIntlayerData } from './docDataContent/concept/howWorksIntlayer';
 import { getInterestOfIntlayerData } from './docDataContent/concept/interestOfIntlayer';
 import { getIntroductionData } from './docDataContent/concept/introduction';
+import { getVisualEditorData } from './docDataContent/concept/visual_editor';
 import { getEnvironmentCreateReactAppData } from './docDataContent/environment/createReactApp';
 import { getEnvironmentExpressData } from './docDataContent/environment/express';
 import { getEnvironmentNextJSNextJS15Data } from './docDataContent/environment/nextjs';
@@ -73,7 +74,11 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         },
         editor: {
           title: content.concept.subSections.editor.title,
-          default: getEditorData(locale),
+          default: getVisualEditorData(locale),
+        },
+        cms: {
+          title: content.concept.subSections.cms.title,
+          default: getCMSData(locale),
         },
         content: {
           title: content.concept.subSections.content.title,

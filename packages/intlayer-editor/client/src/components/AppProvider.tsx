@@ -10,6 +10,7 @@ import {
   type PropsWithChildren,
   type RefObject,
   type MutableRefObject,
+  useMemo,
 } from 'react';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
 
@@ -36,6 +37,22 @@ export const AppProvider: FC<
 > = ({ children, iframeRef }) => {
   const configRef = useRef<IntlayerConfig>();
 
+  const applicationURL = useMemo(
+    () =>
+      configRef.current?.editor.applicationURL.length
+        ? configRef.current.editor.applicationURL
+        : '*',
+    [configRef.current?.editor.applicationURL]
+  );
+
+  const editorURL = useMemo(
+    () =>
+      configRef.current?.editor.editorURL.length
+        ? configRef.current.editor.editorURL
+        : '*',
+    [configRef.current?.editor.editorURL]
+  );
+
   return (
     <EditorProvider
       postMessage={(data) => {
@@ -43,19 +60,16 @@ export const AppProvider: FC<
           data,
           // Use to restrict the origin of the editor for security reasons.
           // Correspond to the current application URL to synchronize the locales states.
-          configRef.current?.editor.editorURL ?? '*'
+          editorURL
         );
         iframeRef.current?.contentWindow?.postMessage(
           data,
           // Use to restrict the origin of the editor for security reasons.
           // Correspond to the current editor URL.
-          configRef.current?.editor.applicationURL ?? '*'
+          applicationURL
         );
       }}
-      allowedOrigins={[
-        configRef.current?.editor.applicationURL ?? '*',
-        configRef.current?.editor.editorURL ?? '*',
-      ]}
+      allowedOrigins={[applicationURL, editorURL]}
       mode="editor"
     >
       <ConfigurationLoader configRef={configRef} />

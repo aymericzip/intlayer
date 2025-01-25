@@ -62,6 +62,7 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     applicationURL: process.env.REACT_APP_INTLAYER_APPLICATION_URL,
     editorURL: process.env.REACT_APP_INTLAYER_EDITOR_URL,
     backendURL: process.env.REACT_APP_INTLAYER_BACKEND_URL,
+    port: process.env.REACT_APP_INTLAYER_PORT,
     enabled: process.env.REACT_APP_INTLAYER_ENABLED,
     clientId: process.env.REACT_APP_INTLAYER_CLIENT_ID,
     clientSecret: process.env.REACT_APP_INTLAYER_CLIENT_SECRET,

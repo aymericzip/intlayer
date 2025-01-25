@@ -13,7 +13,7 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
   [GithubRoutes.Configuration]: PagesRoutes.Doc_Configuration,
   [GithubRoutes.InterestOfIntlayer]: PagesRoutes.Doc_Interest,
   [GithubRoutes.IntlayerCLI]: PagesRoutes.Doc_CLI,
-  [GithubRoutes.IntlayerEditor]: PagesRoutes.Doc_IntlayerEditor,
+  [GithubRoutes.IntlayerVisualEditor]: PagesRoutes.Doc_IntlayerVisualEditor,
   [GithubRoutes.IntlayerWithNextJS15]: PagesRoutes.Doc_Environment_NextJS_15,
   [GithubRoutes.IntlayerWithNextJS14]: PagesRoutes.Doc_Environment_NextJS_14,
   [GithubRoutes.IntlayerWithNextJSUsingPageRouter]:

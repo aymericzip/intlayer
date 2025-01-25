@@ -1,6 +1,7 @@
 import { existsSync, lstatSync } from 'node:fs';
 import path, { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { getConfiguration } from '@intlayer/config';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -11,7 +12,9 @@ import mime from 'mime';
 
 const app: Express = express();
 
-const PORT = 8000;
+const FALLBACK_PORT = 8000;
+const config = getConfiguration();
+const port = config.editor.port ?? FALLBACK_PORT;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const clientDistPath = resolve(__dirname, '../../client/dist');
@@ -52,7 +55,7 @@ const startServer = async (app: Express) => {
     if (existsSync(requestedPath) && lstatSync(requestedPath).isFile()) {
       // If the requested file exists, determine its MIME type and serve it
       const mimeType =
-        mime.getType(requestedPath) || 'application/octet-stream';
+        mime.getType(requestedPath) ?? 'application/octet-stream';
       res.setHeader('Content-Type', mimeType);
       res.sendFile(requestedPath);
     } else {
@@ -61,8 +64,8 @@ const startServer = async (app: Express) => {
     }
   });
 
-  app.listen(PORT, () => {
-    console.log(`Intlayer editor running at http://localhost:${PORT}`);
+  app.listen(port, () => {
+    console.log(`Intlayer editor running at http://localhost:${port}`);
   });
 };
 

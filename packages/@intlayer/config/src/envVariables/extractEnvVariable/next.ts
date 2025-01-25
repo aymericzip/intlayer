@@ -63,6 +63,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     editorURL: process.env.NEXT_PUBLIC_INTLAYER_EDITOR_URL,
     backendURL: process.env.NEXT_PUBLIC_INTLAYER_BACKEND_URL,
     enabled: process.env.NEXT_PUBLIC_INTLAYER_ENABLED,
+    port: process.env.NEXT_PUBLIC_INTLAYER_PORT,
     clientId: process.env.NEXT_PUBLIC_INTLAYER_CLIENT_ID,
     clientSecret: process.env.NEXT_PUBLIC_INTLAYER_CLIENT_SECRET,
     dictionaryPriorityStrategy:

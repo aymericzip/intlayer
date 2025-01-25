@@ -108,6 +108,7 @@ export const getConfiguration = (): IntlayerConfig => {
     applicationURL: getEnvValue(env.editor.applicationURL, 'string')!,
     editorURL: getEnvValue(env.editor.editorURL, 'string')!,
     backendURL: getEnvValue(env.editor.backendURL, 'string')!,
+    port: getEnvValue(env.editor.port, 'number')!,
     enabled: getEnvValue(env.editor.enabled, 'boolean')!,
     clientId: getEnvValue(env.editor.clientId, 'string')!,
     clientSecret: getEnvValue(env.editor.clientSecret, 'string')!,

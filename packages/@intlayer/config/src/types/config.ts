@@ -154,6 +154,12 @@ export type EditorConfig = {
    */
   enabled: boolean;
 
+  /** Port of the editor server
+   *
+   * Default: 8000
+   */
+  port: number;
+
   /**
    * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
    * An access token is use to authenticate the user related to the project.

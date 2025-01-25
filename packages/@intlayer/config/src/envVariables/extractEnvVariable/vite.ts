@@ -70,6 +70,7 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     applicationURL: import.meta.env.VITE_INTLAYER_APPLICATION_URL,
     editorURL: import.meta.env.VITE_INTLAYER_EDITOR_URL,
     backendURL: import.meta.env.VITE_INTLAYER_BACKEND_URL,
+    port: import.meta.env.VITE_INTLAYER_PORT,
     enabled: import.meta.env.VITE_INTLAYER_ENABLED,
     clientId: import.meta.env.VITE_INTLAYER_CLIENT_ID,
     clientSecret: import.meta.env.VITE_INTLAYER_CLIENT_SECRET,

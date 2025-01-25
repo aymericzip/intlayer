@@ -19,6 +19,7 @@ import {
   BACKEND_URL,
   DICTIONARY_PRIORITY_STRATEGY,
   IS_ENABLED,
+  PORT,
 } from '../defaultValues/editor';
 import {
   DEFAULT_LOCALE,
@@ -548,6 +549,12 @@ const buildEditorFields = (
    * Default: 'https://back.intlayer.org'
    */
   backendURL: customConfiguration?.backendURL ?? BACKEND_URL,
+
+  /** Port of the editor server
+   *
+   * Default: 8000
+   */
+  port: customConfiguration?.port ?? PORT,
 
   /**
    * Indicates if the application interact with the visual editor

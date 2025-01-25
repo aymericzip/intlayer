@@ -363,7 +363,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن محرر Intlayer المرئي',
             ru: 'Нажмите здесь, чтобы узнать больше о визуальном редакторе Intlayer',
           }),
-          url: PagesRoutes.Doc_IntlayerEditor,
+          url: PagesRoutes.Doc_IntlayerVisualEditor,
         },
       },
       {
