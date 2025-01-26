@@ -36,7 +36,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
   const { pushDictionaries } = usePushDictionaries();
   const { writeDictionary } = useWriteDictionary();
   const SaveFormSchema = getSaveFormSchema();
-  const { online, locale } = useGetAllDictionaries();
+  const { online } = useGetAllDictionaries();
   const { isLoading: isAuditing, auditContentDeclaration } =
     useAuditContentDeclaration();
 
