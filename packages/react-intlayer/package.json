@@ -101,8 +101,6 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.18.0",
     "prettier": "^3.4.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",

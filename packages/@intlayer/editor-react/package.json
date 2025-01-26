@@ -90,8 +90,8 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:^",
     "@intlayer/editor": "workspace:*",
-    "react": ">=18.3.1",
-    "react-dom": ">=18.3.1"
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
   },
   "engines": {
     "node": ">=14.18"

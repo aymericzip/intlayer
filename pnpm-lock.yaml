@@ -877,7 +877,7 @@ importers:
         specifier: ^23.0.170
         version: 23.0.171
       react:
-        specifier: ^18.3.1
+        specifier: '>=16.0.0'
         version: 18.3.1
     devDependencies:
       '@changesets/cli':
@@ -1184,10 +1184,10 @@ importers:
         specifier: ^7.7.3
         version: 7.7.3(react@18.3.1)
       react:
-        specifier: '>=18.3.1'
+        specifier: '>=16.0.0'
         version: 18.3.1
       react-dom:
-        specifier: '>=18.3.1'
+        specifier: '>=16.0.0'
         version: 18.3.1(react@18.3.1)
       react-hook-form:
         specifier: ^7.54.2
@@ -1436,10 +1436,10 @@ importers:
         specifier: workspace:*
         version: link:../editor
       react:
-        specifier: '>=18.3.1'
+        specifier: '>=16.0.0'
         version: 18.3.1
       react-dom:
-        specifier: '>=18.3.1'
+        specifier: '>=16.0.0'
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@types/node':
@@ -1970,9 +1970,12 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
-      vite:
-        specifier: '>=4.0.0'
-        version: 6.0.11(@types/node@22.10.10)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
+      react:
+        specifier: '>=16.0.0'
+        version: 18.3.1
+      react-dom:
+        specifier: '>=16.0.0'
+        version: 18.3.1(react@18.3.1)
     devDependencies:
       '@craco/types':
         specifier: ^7.1.0
@@ -2013,12 +2016,6 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -2089,12 +2086,6 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -2120,7 +2111,7 @@ importers:
         specifier: workspace:*
         version: link:../@intlayer/core
       vite:
-        specifier: ^6.0.11
+        specifier: '>=4.0.0'
         version: 6.0.11(@types/node@22.10.10)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
     devDependencies:
       '@types/node':

@@ -72,8 +72,7 @@
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "vite": "^6.0.11"
+    "@intlayer/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.10.6",
