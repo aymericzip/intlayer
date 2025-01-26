@@ -73,7 +73,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "vite": "^6.0.7"
+    "vite": "^6.0.11"
   },
   "devDependencies": {
     "@types/node": "^22.10.6",
