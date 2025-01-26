@@ -56,8 +56,6 @@ pnpm add intlayer-editor -D
 
 ## Configuration
 
-### 1. Enable the Editor in your intlayer.config.ts file
-
 In your Intlayer configuration file, you can customize the editor settings:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"

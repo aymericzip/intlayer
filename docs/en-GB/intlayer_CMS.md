@@ -36,8 +36,6 @@ For integration with Vite + React, refer to the [setup guide](https://github.com
 
 ## Configuration
 
-### 1. Enable the Editor in your intlayer.config.ts file
-
 In your Intlayer configuration file, you can customise the editor settings:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
