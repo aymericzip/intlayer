@@ -5,7 +5,10 @@ import {
   Dictionary as DistantDictionary,
 } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
-import { useEditedContent } from '@intlayer/editor-react';
+import {
+  useDictionariesRecordActions,
+  useEditedContent,
+} from '@intlayer/editor-react';
 import { ArrowUpFromLine, Download, Save, WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo } from 'react';
 // @ts-ignore react-intlayer not build yet
@@ -38,6 +41,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 }) => {
   const { session } = useAuth();
   const { project } = session ?? {};
+  const { setLocaleDictionary } = useDictionariesRecordActions();
   const { pushDictionaries } = usePushDictionaries();
   const { data: projects, isLoading: isLoadingProjects } = useGetProjects();
   const { data: tags, isLoading: isLoadingTags } = useGetTags();
@@ -78,19 +82,18 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     typeof (dictionary as DistantDictionary)?._id === 'undefined';
 
   const onSubmitSuccess = async (data: DictionaryDetailsFormData) => {
+    const updatedDictionary = {
+      ...dictionary,
+      ...data,
+    };
+
     if (mode === 'remote') {
-      await pushDictionaries([
-        {
-          ...dictionary,
-          ...data,
-        },
-      ]);
+      await pushDictionaries([updatedDictionary]);
     } else {
-      await writeDictionary({
-        ...dictionary,
-        ...data,
-      });
+      await writeDictionary(updatedDictionary);
     }
+
+    setLocaleDictionary(updatedDictionary);
   };
 
   const handleOnAuditFile = async () => {

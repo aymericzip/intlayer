@@ -13,6 +13,7 @@ type DictionariesRecordActionsContextType = {
   setLocaleDictionaries: (
     dictionariesRecord: Record<Dictionary['key'], Dictionary>
   ) => void;
+  setLocaleDictionary: (dictionary: Dictionary) => void;
 };
 
 const DictionariesRecordStatesContext = createContext<
@@ -38,6 +39,12 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
       <DictionariesRecordActionsContext.Provider
         value={{
           setLocaleDictionaries,
+          setLocaleDictionary: (dictionary: Dictionary) => {
+            setLocaleDictionaries((dictionaries) => ({
+              ...dictionaries,
+              [dictionary.key]: dictionary,
+            }));
+          },
         }}
       >
         {children}

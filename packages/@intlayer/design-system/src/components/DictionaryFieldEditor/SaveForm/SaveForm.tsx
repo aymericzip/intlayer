@@ -2,7 +2,10 @@
 
 import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import { Dictionary } from '@intlayer/core';
-import { useEditedContent } from '@intlayer/editor-react';
+import {
+  useDictionariesRecordActions,
+  useEditedContent,
+} from '@intlayer/editor-react';
 import { Locales } from 'intlayer';
 import {
   ArrowUpFromLine,
@@ -33,6 +36,7 @@ type DictionaryDetailsProps = {
 export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
   const { session } = useAuth();
   const project = session?.project;
+  const { setLocaleDictionary } = useDictionariesRecordActions();
   const { pushDictionaries } = usePushDictionaries();
   const { writeDictionary } = useWriteDictionary();
   const SaveFormSchema = getSaveFormSchema();
@@ -83,20 +87,24 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
   );
 
   const onSubmitSuccess = useCallback(async () => {
+    if (!editedContent?.[dictionary.key]) return;
+
     if (mode === 'remote') {
-      await pushDictionaries([
-        {
-          ...dictionary,
-          ...editedContent?.[dictionary.key],
-        },
-      ]);
+      await pushDictionaries([editedContent?.[dictionary.key]]);
     } else {
-      await writeDictionary({
-        ...dictionary,
-        ...editedContent?.[dictionary.key],
-      });
+      await writeDictionary(editedContent?.[dictionary.key]);
     }
-  }, [dictionary, editedContent, pushDictionaries, writeDictionary, mode]);
+    setLocaleDictionary(editedContent?.[dictionary.key]);
+    restoreEditedContent(dictionary.key);
+  }, [
+    dictionary,
+    editedContent,
+    pushDictionaries,
+    setLocaleDictionary,
+    writeDictionary,
+    restoreEditedContent,
+    mode,
+  ]);
 
   const handleOnAuditFile = async () =>
     await auditContentDeclaration({

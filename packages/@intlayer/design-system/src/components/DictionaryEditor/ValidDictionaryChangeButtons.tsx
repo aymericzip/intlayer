@@ -2,9 +2,12 @@
 
 import { Dictionary as DistantDictionary } from '@intlayer/backend';
 import type { Dictionary } from '@intlayer/core';
-import { useEditedContent } from '@intlayer/editor-react';
+import {
+  useDictionariesRecordActions,
+  useEditedContent,
+} from '@intlayer/editor-react';
 import { ArrowUpFromLine, Download, RotateCcw, Save } from 'lucide-react';
-import { useMemo, type FC } from 'react';
+import { useCallback, useMemo, type FC } from 'react';
 // @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { usePushDictionaries, useWriteDictionary } from '../../hooks';
@@ -26,6 +29,7 @@ export const ValidDictionaryChangeButtons: FC<
   const { resetButton, saveButton, publishButton, downloadButton } =
     useDictionary(validDictionaryChangeButtonsContent);
 
+  const { setLocaleDictionary } = useDictionariesRecordActions();
   const { writeDictionary } = useWriteDictionary();
   const { pushDictionaries } = usePushDictionaries();
 
@@ -52,21 +56,25 @@ export const ValidDictionaryChangeButtons: FC<
     [dictionary]
   );
 
-  const onSubmitSuccess = async () => {
+  const onSubmitSuccess = useCallback(async () => {
+    if (!editedContent?.[dictionary.key]) return;
+
     if (mode === 'remote') {
-      await pushDictionaries([
-        {
-          ...dictionary,
-          ...editedContent?.[dictionary.key],
-        },
-      ]);
+      await pushDictionaries([editedContent?.[dictionary.key]]);
     } else {
-      await writeDictionary({
-        ...dictionary,
-        ...editedContent?.[dictionary.key],
-      });
+      await writeDictionary(editedContent?.[dictionary.key]);
     }
-  };
+    setLocaleDictionary(editedContent?.[dictionary.key]);
+    restoreEditedContent(dictionary.key);
+  }, [
+    dictionary,
+    editedContent,
+    pushDictionaries,
+    setLocaleDictionary,
+    writeDictionary,
+    restoreEditedContent,
+    mode,
+  ]);
 
   return (
     <div className="mb-4">
