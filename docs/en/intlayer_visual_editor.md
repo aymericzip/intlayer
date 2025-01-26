@@ -184,6 +184,8 @@ module.exports = config;
    pnpm intlayer-editor start
    ```
 
+   > **Note that you should run your application in parallel.** The application URL should match the one you set in the editor configuration (`applicationURL`).
+
 2. Then, open the URL provided. By default `http://localhost:8000`.
 
    You can view each field indexed by Intlayer by hovering over your content with your cursor.
