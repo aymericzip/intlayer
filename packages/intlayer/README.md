@@ -61,7 +61,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> For a complete list of available parameters, refer to the [configuration documentation](https://intlayer.org//doc/concept/configuration).
+> For a complete list of available parameters, refer to the [configuration documentation](https://intlayer.org/doc/concept/configuration).
 
 ## Example of usage
 
@@ -69,7 +69,7 @@ With Intlayer, you can declare your content in a structured way anywhere in your
 
 By default, Intlayer scans for files with the extension `.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
-> can modify the default extension by setting the `contentDir` property in the [configuration file](https://intlayer.org//doc/concept/configuration).
+> can modify the default extension by setting the `contentDir` property in the [configuration file](https://intlayer.org/doc/concept/configuration).
 
 ```bash codeFormat="typescript"
 .
@@ -167,7 +167,7 @@ const config: IntlayerConfig = {
 };
 ```
 
-> For a complete list of available parameters, refer to the [configuration documentation](https://intlayer.org//doc/concept/configuration).
+> For a complete list of available parameters, refer to the [configuration documentation](https://intlayer.org/doc/concept/configuration).
 
 Output:
 
@@ -217,7 +217,7 @@ const config: IntlayerConfig = {
 };
 ```
 
-> For a complete list of available parameters, refer to the [configuration documentation](https://intlayer.org//doc/concept/configuration).
+> For a complete list of available parameters, refer to the [configuration documentation](https://intlayer.org/doc/concept/configuration).
 
 Output:
 
@@ -256,7 +256,7 @@ Intlayer provides a CLI tool to:
 - build dictionaries from your content declarations
 - push and pull distant dictionaries from your CMS to your locale project
 
-Consult [intlayer-cli](https://intlayer.org//doc/concept/cli) for more information.
+Consult [intlayer-cli](https://intlayer.org/doc/concept/cli) for more information.
 
 ## Use Intlayer into your application
 
@@ -280,16 +280,16 @@ To use Intlayer in your Express application, you can use [express-intlayer](http
 
 The `intlayer` package also provides some functions to help you to internationalize your application.
 
-- [`getConfiguration()`](https://intlayer.org//doc/packages/intlayer/getConfiguration)
-- [`getTranslationContent()`](https://intlayer.org//doc/packages/intlayer/getTranslationContent)
-- [`getEnumerationContent()`](https://intlayer.org//doc/packages/intlayer/getEnumerationContent)
-- [`getLocaleName()`](https://intlayer.org//doc/packages/intlayer/getLocaleName)
-- [`getLocaleLang()`](https://intlayer.org//doc/packages/intlayer/getLocaleLang)
-- [`getHTMLTextDir()`](https://intlayer.org//doc/packages/intlayer/getHTMLTextDir)
-- [`getPathWithoutLocale()`](https://intlayer.org//doc/packages/intlayer/getPathWithoutLocale)
-- [`getMultilingualUrls()`](https://intlayer.org//doc/packages/intlayer/getMultilingualUrls)
-- [`getLocalizedUrl()`](https://intlayer.org//doc/packages/intlayer/getLocalizedUrl)
-- [`getPathWithoutLocale()`](https://intlayer.org//doc/packages/intlayer/getPathWithoutLocale)
+- [`getConfiguration()`](https://intlayer.org/doc/packages/intlayer/getConfiguration)
+- [`getTranslationContent()`](https://intlayer.org/doc/packages/intlayer/getTranslationContent)
+- [`getEnumerationContent()`](https://intlayer.org/doc/packages/intlayer/getEnumerationContent)
+- [`getLocaleName()`](https://intlayer.org/doc/packages/intlayer/getLocaleName)
+- [`getLocaleLang()`](https://intlayer.org/doc/packages/intlayer/getLocaleLang)
+- [`getHTMLTextDir()`](https://intlayer.org/doc/packages/intlayer/getHTMLTextDir)
+- [`getPathWithoutLocale()`](https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale)
+- [`getMultilingualUrls()`](https://intlayer.org/doc/packages/intlayer/getMultilingualUrls)
+- [`getLocalizedUrl()`](https://intlayer.org/doc/packages/intlayer/getLocalizedUrl)
+- [`getPathWithoutLocale()`](https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale)
 
 ## Read about Intlayer
 

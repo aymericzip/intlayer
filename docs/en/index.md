@@ -20,7 +20,7 @@ Intlayer offers a flexible, modern approach to translating your application. Our
 - **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md)**  
   Manage content and translations using our command-line tool. Discover how to push and pull content, automate translations, and more.
 
-- **[Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md)**  
+- **[Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md)**  
   Simplify collaboration with non-developers and power your translations with AI—directly in our free, intuitive CMS.
 
 ---

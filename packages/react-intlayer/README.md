@@ -54,7 +54,7 @@ With Intlayer, you can declare your content in a structured way anywhere in your
 
 By default, Intlayer scans for files with the extension `.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
-> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://intlayer.org//doc/concept/configuration).
+> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://intlayer.org/doc/concept/configuration).
 
 ```bash codeFormat="typescript"
 .
@@ -157,17 +157,17 @@ const Component1Example = () => {
 
 Intlayer provides a lot of features to help you internationalize your React application.
 
-**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application, or the [React Internationalization (i18n) with Intlayer and React (CRA)](https://intlayer.org//doc/environment/create-react-app) guide for React Create App.**
+**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application, or the [React Internationalization (i18n) with Intlayer and React (CRA)](https://intlayer.org/doc/environment/create-react-app) guide for React Create App.**
 
 ## Functions provided by `react-intlayer` package
 
 The `react-intlayer` package also provides some functions to help you to internationalize your application.
 
-- [`t()`](https://intlayer.org//doc/packages/react-intlayer/t)
-- [`useIntlayer()`](https://intlayer.org//doc/packages/react-intlayer/useIntlayer)
-- [`useDictionary()`](https://intlayer.org//doc/packages/react-intlayer/useDictionary)
-- [`useLocale()`](https://intlayer.org//doc/packages/react-intlayer/useLocale)
-- [`useIntlayerAsync()`](https://intlayer.org//doc/packages/react-intlayer/useIntlayerAsync)
+- [`t()`](https://intlayer.org/doc/packages/react-intlayer/t)
+- [`useIntlayer()`](https://intlayer.org/doc/packages/react-intlayer/useIntlayer)
+- [`useDictionary()`](https://intlayer.org/doc/packages/react-intlayer/useDictionary)
+- [`useLocale()`](https://intlayer.org/doc/packages/react-intlayer/useLocale)
+- [`useIntlayerAsync()`](https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync)
 
 ## Read about Intlayer
 

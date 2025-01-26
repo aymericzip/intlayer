@@ -232,6 +232,6 @@ To localize attributes such as `alt`, `title`, `href`, `aria-label`, etc., ensur
 
 ## Further Information
 
-- **Intlayer Visual Editor**: Learn how to use the visual editor for easier content management [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md).
+- **Intlayer Visual Editor**: Learn how to use the visual editor for easier content management [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md).
 
 This documentation outlines the use of the `useIntlayer` hook specifically within Next.js environments, providing a robust solution for managing localization across your Next.js applications.

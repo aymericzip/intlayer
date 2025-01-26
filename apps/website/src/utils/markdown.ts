@@ -35,6 +35,7 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
   [GithubRoutes.ContentDeclaration_Translation]:
     PagesRoutes.Doc_ContentDeclaration_Translation,
 
+  [GithubRoutes['Packages_intlayer']]: PagesRoutes['Doc_Packages_intlayer'],
   [GithubRoutes['Packages_intlayer_getConfiguration']]:
     PagesRoutes['Doc_Packages_intlayer_getConfiguration'],
   [GithubRoutes['Packages_intlayer_getDictionary']]:
@@ -57,8 +58,13 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
     PagesRoutes['Doc_Packages_intlayer_getEnumerationContent'],
   [GithubRoutes['Packages_intlayer_removeLocaleFromUrl']]:
     PagesRoutes['Doc_Packages_intlayer_removeLocaleFromUrl'],
+
+  [GithubRoutes['Packages_express-intlayer']]:
+    PagesRoutes['Doc_Packages_express-intlayer'],
   [GithubRoutes['Packages_express-intlayer_t']]:
     PagesRoutes['Doc_Packages_express-intlayer_t'],
+  [GithubRoutes['Packages_react-intlayer']]:
+    PagesRoutes['Doc_Packages_react-intlayer'],
   [GithubRoutes['Packages_react-intlayer_t']]:
     PagesRoutes['Doc_Packages_react-intlayer_t'],
   [GithubRoutes['Packages_react-intlayer_useIntlayer']]:
@@ -69,6 +75,8 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
     PagesRoutes['Doc_Packages_react-intlayer_useDictionary'],
   [GithubRoutes['Packages_react-intlayer_useLocale']]:
     PagesRoutes['Doc_Packages_react-intlayer_useLocale'],
+  [GithubRoutes['Packages_next-intlayer']]:
+    PagesRoutes['Doc_Packages_next-intlayer'],
   [GithubRoutes['Packages_next-intlayer_t']]:
     PagesRoutes['Doc_Packages_next-intlayer_t'],
   [GithubRoutes['Packages_next-intlayer_useIntlayer']]:

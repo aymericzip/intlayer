@@ -42,4 +42,4 @@ pnpm add intlayer-editor -D
 
 # Intlayer Visual Editor Documentation
 
-See the [Intlayer Visual Editor documentation](https://intlayer.org//doc/concept/editor) for more information.
+See the [Intlayer Visual Editor documentation](https://intlayer.org/doc/concept/editor) for more information.

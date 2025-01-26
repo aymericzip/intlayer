@@ -204,7 +204,7 @@ Instructions for setting up content declaration files are available [here](https
 ## Further Information
 
 - **Intlayer Visual Editor:**  
-  Integrate with the Intlayer visual editor for managing and editing content directly from the UI. More details [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md).
+  Integrate with the Intlayer visual editor for managing and editing content directly from the UI. More details [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md).
 
 ---
 

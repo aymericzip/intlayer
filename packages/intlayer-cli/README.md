@@ -56,7 +56,7 @@ Intlayer provides a CLI tool to:
 - build dictionaries from your content declarations
 - push and pull distant dictionaries from your CMS to your locale project
 
-Consult [intlayer-cli](https://intlayer.org//doc/concept/cli) for more information.
+Consult [intlayer-cli](https://intlayer.org/doc/concept/cli) for more information.
 
 ## Read about Intlayer
 

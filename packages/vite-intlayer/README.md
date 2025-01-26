@@ -20,7 +20,7 @@
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-**The `vite-intlayer` package** allows you to internationalize your Vite application. It includes the Vite plugin to set the configuration through environment variables into the [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). It also provides middleware to detect the user's preferred locale, and redirect the user to the appropriate URL as specified in the [configuration](https://intlayer.org//doc/concept/configuration).
+**The `vite-intlayer` package** allows you to internationalize your Vite application. It includes the Vite plugin to set the configuration through environment variables into the [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). It also provides middleware to detect the user's preferred locale, and redirect the user to the appropriate URL as specified in the [configuration](https://intlayer.org/doc/concept/configuration).
 
 ## Why Internationalize Your Vite Application?
 

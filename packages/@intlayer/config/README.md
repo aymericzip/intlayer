@@ -109,7 +109,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> See [Intlayer configuration documentation](https://intlayer.org//doc/concept/configuration) for more details.
+> See [Intlayer configuration documentation](https://intlayer.org/doc/concept/configuration) for more details.
 
 2. Define the environment variables.
 

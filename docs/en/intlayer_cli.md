@@ -63,7 +63,7 @@ This command will find your declaration content files as default as `./src/**/*.
 npx intlayer push
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
 
 ##### Arguments:
 
@@ -80,7 +80,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 npx intlayer pull
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
 
 ##### Arguments:
 
