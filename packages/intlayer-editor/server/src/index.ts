@@ -2,6 +2,7 @@ import { existsSync, lstatSync } from 'node:fs';
 import path, { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getConfiguration } from '@intlayer/config';
+import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -45,6 +46,8 @@ const startServer = async (app: Express) => {
   app.use(express.urlencoded({ extended: true }));
 
   app.use('/api/dictionary', dictionaryRouter);
+
+  app.use('/api/config', configurationRouter);
 
   app.use(express.static(clientDistPath));
 

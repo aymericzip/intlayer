@@ -29,16 +29,6 @@ const IntlayerEditorHooksEnabled: FC = () => {
   });
 
   /**
-   * Configuration Messages
-   */
-  const [, setConfiguration] = useConfigurationState();
-
-  useEffect(() => {
-    const config = getConfiguration();
-    setConfiguration(config);
-  }, [setConfiguration]);
-
-  /**
    * Locale Dictionaries Messages
    */
   const { setLocaleDictionaries } = useDictionariesRecordActions();
@@ -62,7 +52,9 @@ const IntlayerEditorHook: FC = () => {
 };
 
 export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { editor } = getConfiguration();
+  const configuration = getConfiguration();
+
+  const { editor } = configuration;
 
   return (
     <EditorProvider
@@ -84,6 +76,7 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
       }}
       allowedOrigins={[editor.editorURL, editor.applicationURL]}
       mode="client"
+      configuration={configuration}
     >
       <IntlayerEditorHook />
       {children}

@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getConfiguration } from '@intlayer/config';
 import { type Dictionary } from '@intlayer/core';
-import {
-  type DictionaryStatus,
-  writeContentDeclaration as writeContentDeclarationEditor,
-} from '@intlayer/editor/server';
+import { DictionaryStatus } from '@intlayer/editor';
+import { writeContentDeclaration as writeContentDeclarationEditor } from '@intlayer/editor/server';
 import { formatResponse, ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 

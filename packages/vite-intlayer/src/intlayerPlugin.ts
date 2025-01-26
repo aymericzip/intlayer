@@ -26,7 +26,6 @@ export const intlayerPlugin = (_pluginOptions: PluginOptions = {}): Plugin => ({
 
   config: (config, { mode }) => {
     const intlayerConfig = getConfiguration();
-    console.log('intlayerConfig', intlayerConfig);
     const { mainDir, baseDir, watch: isWatchMode } = intlayerConfig.content;
 
     // Set all configuration values as environment variables

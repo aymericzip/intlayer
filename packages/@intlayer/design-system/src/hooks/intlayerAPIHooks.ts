@@ -71,7 +71,7 @@ const useAuthEnable = <T extends UseAsyncOptions<any>>(
   options: T,
   { requireUser, requireProject, requireOrganization }: AuthEnableOptions = {}
 ): T => {
-  const { configuration } = useConfiguration();
+  const configuration = useConfiguration();
   const { csrfToken, oAuth2AccessToken, session } = useAuth({
     intlayerConfiguration: configuration,
   });

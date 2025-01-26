@@ -13,7 +13,7 @@ export const dictionaryRoutes = {
   writeContentDeclaration: {
     urlModel: '/',
     url: baseURL,
-    method: 'PATCH',
+    method: 'POST',
   },
 } satisfies Routes;
 

@@ -5,7 +5,10 @@ import {
   CommunicatorProvider,
   UseCrossPlatformStateProps,
 } from './CommunicatorContext';
-import { ConfigurationProvider } from './ConfigurationContext';
+import {
+  ConfigurationProvider,
+  ConfigurationProviderProps,
+} from './ConfigurationContext';
 import { DictionariesRecordProvider } from './DictionariesRecordContext';
 import { EditedContentProvider } from './EditedContentContext';
 import {
@@ -35,16 +38,18 @@ const EditorProviderEnabled: FC<
 };
 
 type EditorProviderProps = UseCrossPlatformStateProps &
-  EditorProviderEnabledProps;
+  EditorProviderEnabledProps &
+  ConfigurationProviderProps;
 
 export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   children,
   mode,
+  configuration,
   ...props
 }) => (
   <CommunicatorProvider {...props}>
     <EditorEnabledProvider>
-      <ConfigurationProvider>
+      <ConfigurationProvider configuration={configuration}>
         <EditorProviderEnabled mode={mode}>{children}</EditorProviderEnabled>
       </ConfigurationProvider>
     </EditorEnabledProvider>

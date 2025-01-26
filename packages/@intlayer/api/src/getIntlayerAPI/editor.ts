@@ -1,5 +1,10 @@
-import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import {
+  getConfiguration as getLocaleConfiguration,
+  type IntlayerConfig,
+} from '@intlayer/config/client';
 import type {
+  // @ts-ignore: intlayer-editor is not built yet
+  GetConfigurationResult,
   // @ts-ignore: intlayer-editor is not built yet
   WriteContentDeclarationBody,
   // @ts-ignore: intlayer-editor is not built yet
@@ -12,8 +17,23 @@ export const getEditorAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const { editorURL } = (intlayerConfig ?? getConfiguration()).editor;
+  const { editorURL } = (intlayerConfig ?? getLocaleConfiguration()).editor;
   const EDITOR_API_ROUTE = `${editorURL}/api`;
+
+  /**
+   * Get the Intlayer configuration
+   */
+  const getConfiguration = async (
+    otherOptions: FetcherOptions = {}
+  ): Promise<GetConfigurationResult> => {
+    const response = await fetcher<GetConfigurationResult>(
+      `${EDITOR_API_ROUTE}/config`,
+      authAPIOptions,
+      otherOptions
+    );
+
+    return response.data;
+  };
 
   /**
    * Adds a new dictionary to the database.
@@ -35,6 +55,7 @@ export const getEditorAPI = (
   };
 
   return {
+    getConfiguration,
     writeDictionary,
   };
 };

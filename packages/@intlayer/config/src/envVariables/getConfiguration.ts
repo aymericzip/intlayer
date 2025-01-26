@@ -9,7 +9,10 @@ import type {
   StrictMode,
 } from '../types/config';
 import type { Locales } from '../types/locales';
-import { extractEnvVariable } from './extractEnvVariable/index';
+import {
+  extractEnvVariable,
+  type ExtractEnvVariableOptions,
+} from './extractEnvVariable/index';
 import { getEnvValue } from './utils';
 
 /**
@@ -17,8 +20,10 @@ import { getEnvValue } from './utils';
  * Can be used in the client side as the server side
  * To use it, be sure to have the environment variables set
  */
-export const getConfiguration = (): IntlayerConfig => {
-  const env = extractEnvVariable();
+export const getConfiguration = (
+  options?: ExtractEnvVariableOptions
+): IntlayerConfig => {
+  const env = extractEnvVariable(options);
 
   const intlayerIntlConfiguration: InternationalizationConfig = {
     locales: getEnvValue<Locales>(env.internationalization.locales, 'array')!,

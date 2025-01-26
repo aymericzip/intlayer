@@ -24,17 +24,8 @@ const config: IntlayerConfig = {
     defaultLocale,
     strictMode: 'strict',
   },
-  content: {
-    dictionaryOutput: ['intlayer'],
-  },
   editor: {
-    enabled: true,
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-  },
-  log: {
-    mode: 'disabled',
+    applicationURL: 'http://localhost:3000',
   },
 };
 

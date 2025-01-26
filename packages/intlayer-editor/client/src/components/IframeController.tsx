@@ -3,6 +3,7 @@
 import { getConfiguration } from '@intlayer/config/client';
 import { Loader } from '@intlayer/design-system';
 import {
+  useConfiguration,
   useCrossURLPathState,
   useEditorEnabledState,
   useIframeClickMerger,
@@ -15,8 +16,8 @@ import { cn } from '../utils/cn';
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement>;
 }> = ({ iframeRef }) => {
-  const { editor } = getConfiguration();
-  console.log('getConfiguration', getConfiguration());
+  const { editor } = useConfiguration();
+
   useIframeClickMerger();
   useEditedContentPersistence();
 
@@ -49,10 +50,7 @@ export const IframeController: FC<{
   return (
     <div className="size-full overflow-hidden rounded-lg">
       <Loader isLoading={loading} />
-      ####
-      {editor.applicationURL ?? 'ss'}
-      ####
-      {/* <iframe
+      <iframe
         src={`${editor.applicationURL}/${location.pathname}`}
         title="Intlayer Application"
         className={cn('size-full', loading && 'hidden')}
@@ -64,7 +62,7 @@ export const IframeController: FC<{
             setIsEnabled(true);
           }
         }}
-      /> */}
+      />
     </div>
   );
 };

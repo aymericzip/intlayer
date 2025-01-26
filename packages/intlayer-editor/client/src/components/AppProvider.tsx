@@ -1,31 +1,11 @@
 'use client';
 
-import { IntlayerConfig } from '@intlayer/config/client';
+import { Loader } from '@intlayer/design-system';
 import { AsyncStateProvider } from '@intlayer/design-system/hooks';
-import { EditorProvider, useConfiguration } from '@intlayer/editor-react';
-import {
-  useEffect,
-  useRef,
-  type FC,
-  type PropsWithChildren,
-  type RefObject,
-  type MutableRefObject,
-  useMemo,
-} from 'react';
+import { EditorProvider } from '@intlayer/editor-react';
+import { type FC, type PropsWithChildren, type RefObject } from 'react';
+import { useIntlayerConfig } from '../utils/intlayerConfig';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
-
-const ConfigurationLoader: FC<{
-  configRef: MutableRefObject<IntlayerConfig | undefined>;
-}> = ({ configRef }) => {
-  const { configuration } = useConfiguration();
-
-  useEffect(() => {
-    configRef.current = configuration;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [configuration, configRef.current]);
-
-  return <></>;
-};
 
 /**
  * Provider that store the current locale on the client side
@@ -35,23 +15,11 @@ export const AppProvider: FC<
     iframeRef: RefObject<HTMLIFrameElement>;
   }>
 > = ({ children, iframeRef }) => {
-  const configRef = useRef<IntlayerConfig>();
+  const intlayerConfig = useIntlayerConfig();
+  const applicationURL = intlayerConfig?.editor.applicationURL ?? '*';
+  const editorURL = intlayerConfig?.editor.editorURL ?? '*';
 
-  const applicationURL = useMemo(
-    () =>
-      configRef.current?.editor.applicationURL.length
-        ? configRef.current.editor.applicationURL
-        : '*',
-    [configRef.current?.editor.applicationURL]
-  );
-
-  const editorURL = useMemo(
-    () =>
-      configRef.current?.editor.editorURL.length
-        ? configRef.current.editor.editorURL
-        : '*',
-    [configRef.current?.editor.editorURL]
-  );
+  if (!intlayerConfig) return <Loader />;
 
   return (
     <EditorProvider
@@ -71,8 +39,8 @@ export const AppProvider: FC<
       }}
       allowedOrigins={[applicationURL, editorURL]}
       mode="editor"
+      configuration={intlayerConfig}
     >
-      <ConfigurationLoader configRef={configRef} />
       <AnimatePresenceProvider>
         <AsyncStateProvider>{children}</AsyncStateProvider>
       </AnimatePresenceProvider>
