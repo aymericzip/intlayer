@@ -14,5 +14,5 @@ export const middleware = multipleMiddlewares([
 // applies this middleware only to files in the app directory
 export const config = {
   matcher:
-    '/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)',
+    '/((?!api|static|assets|robots|sitemap|schema|sw|service-worker|manifest|.*\\..*|_next).*)',
 };
