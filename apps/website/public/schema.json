@@ -5,6 +5,9 @@
   "description": "JSON Schema for DeclarationContent<T = undefined>. Because JSON cannot represent functions or promises, we handle them (and TypedNode) via placeholders or string descriptions.",
   "type": "object",
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "key": {
       "type": "string"
     },
