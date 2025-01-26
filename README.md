@@ -135,7 +135,12 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 ### Blog
 
-- [Intlayer and i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_i18next.md)
+- [What is i18n](https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md)
+- [i18n and SEO](https://intlayer.org//blog/SEO-and-i18n)
+- [Intlayer and i18next](https://intlayer.org//blog/intlayer-with-next-i18next)
+- [Intlayer and react-intl](https://intlayer.org//blog/intlayer-with-react-i18next)
+- [Intlayer and next-intl](https://intlayer.org//blog/intlayer-with-next-intl)
+- [Intlayer and react-intl](https://intlayer.org//blog/intlayer-with-react-intl)
 
 ---
 
