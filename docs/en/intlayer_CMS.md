@@ -4,6 +4,8 @@ The Intlayer CMS is am Application that allows you to externalize your content o
 
 For that, Intlayer introduce the concept of 'distant dictionaries'.
 
+![Intlayer CMS Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+
 ## Understanding distant dictionaries
 
 Intlayer make a difference between 'local' and 'distant' dictionaries.
@@ -53,12 +55,6 @@ const config: IntlayerConfig = {
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -81,11 +77,7 @@ const config = {
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
+
   },
 };
 
@@ -106,12 +98,6 @@ const config = {
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -124,8 +110,16 @@ module.exports = config;
 
 ## Using the CMS
 
-When the editor is installed, you can view each field indexed by Intlayer by hovering over your content with your cursor.
+### Push a dictionary
 
-![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+To transform your locale dictionaries in a distant dictionary, you can use the [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/en/intlayer_cli.md) commands.
 
-If your content is outlined, you can long-press it to display the edit drawer.
+```bash
+npx intlayer push -d my-first-dictionary-key
+```
+
+This command uploads your initial content dictionaries, making them available for asynchronous fetching and editing through the Intlayer platform.
+
+### Edit the dictionary
+
+Then you will be able to see and manage your dictionary in the [Intlayer CMS](https://intlayer.org/dashboard/content).
