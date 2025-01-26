@@ -25,7 +25,7 @@ const generateDictionaryListContent = (
   // Import all dictionaries
   dictionariesRef.forEach((dictionary) => {
     if (format === 'esm')
-      content += `import ${dictionary.hash} from '${dictionary.relativePath}' with { type: 'json' };\n`;
+      content += `import ${dictionary.hash} from '${dictionary.relativePath}';\n`;
     if (format === 'cjs')
       content += `const ${dictionary.hash} = require('${dictionary.relativePath}');\n`;
   });
