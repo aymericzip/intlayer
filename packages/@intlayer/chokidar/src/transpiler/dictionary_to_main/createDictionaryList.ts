@@ -25,7 +25,7 @@ const generateDictionaryListContent = (
   // Import all dictionaries
   dictionariesRef.forEach((dictionary) => {
     if (format === 'esm')
-      content += `import ${dictionary.hash} from '${dictionary.relativePath}';\n`;
+      content += `import ${dictionary.hash} from '${dictionary.relativePath}' with { type: 'json' };\n`;
     if (format === 'cjs')
       content += `const ${dictionary.hash} = require('${dictionary.relativePath}');\n`;
   });
@@ -34,7 +34,7 @@ const generateDictionaryListContent = (
 
   // Format Dictionary Map
   const formattedDictionaryMap: string = dictionariesRef
-    .map((dictionary) => `"${dictionary.id}": ${dictionary.hash}`)
+    .map((dictionary) => `  "${dictionary.id}": ${dictionary.hash}`)
     .join(',\n');
 
   if (format === 'esm')
