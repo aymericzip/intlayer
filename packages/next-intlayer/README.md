@@ -55,7 +55,7 @@ With Intlayer, you can declare your content in a structured way anywhere in your
 
 By default, Intlayer scans for files with the extension `.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
-> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://intlayer.org//doc/concept/configuration).
 
 ```bash codeFormat="typescript"
 .
@@ -159,22 +159,22 @@ const ClientComponentExample = () => {
 Intlayer provides a lot of features to help you internationalize your Next.js application. Here are some of the key features:
 
 - **Internationalization of server components**: Intlayer allows you to internationalize your server components in the same way as your client components. This means that you can use the same content declarations for both client and server components.
-- **Middleware for Locale Detection**: Intlayer provides middleware to detect the user's preferred locale. This middleware is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+- **Middleware for Locale Detection**: Intlayer provides middleware to detect the user's preferred locale. This middleware is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://intlayer.org//doc/concept/configuration).
 - **Internationalization of metadata**: Intlayer provides a way to internationalize your metadata, such as the title of your page, using the `generateMetadata` function provided by Next.js. You can use the `getTranslationContent` function to translate your metadata.
 - **Internationalization of sitemap.xml and robots.txt**: Intlayer allows you to internationalize your sitemap.xml and robots.txt files. You can use the `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
 - **Internationalization of URLs**: Intlayer allows you to internationalize your URLs by using the `getMultilingualUrls` function. This function generates multilingual URLs for your sitemap.
 
-**To learn more about these features, refer to the [Next.js Internationalization (i18n) with Intlayer and Next.js 15 App Router](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md) guide.**
+**To learn more about these features, refer to the [Next.js Internationalization (i18n) with Intlayer and Next.js 15 App Router](https://intlayer.org//doc/environment/nextjs) guide.**
 
 ## Functions provided by `next-intlayer` package
 
 The `next-intlayer` package also provides some functions to help you to internationalize your application.
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md)
+- [`t()`](https://intlayer.org//doc/packages/next-intlayer/t)
+- [`useIntlayer()`](https://intlayer.org//doc/packages/next-intlayer/useIntlayer)
+- [`useDictionary()`](https://intlayer.org//doc/packages/next-intlayer/useDictionary)
+- [`useLocale()`](https://intlayer.org//doc/packages/next-intlayer/useLocale)
+- [`useIntlayerAsync()`](https://intlayer.org//doc/packages/next-intlayer/useIntlayerAsync)
 
 ## Read about Intlayer
 

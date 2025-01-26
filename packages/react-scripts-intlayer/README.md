@@ -73,7 +73,7 @@ If you need to customize the Webpack configuration, you can also implement your 
 ## Read the full Intlayer guide for React Create App
 
 Intlayer provides a lot of features to help you internationalize your React application.
-[See how to use intlayer with React Create App](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md).
+[See how to use intlayer with React Create App](https://intlayer.org//doc/environment/create-react-app).
 
 ## Read about Intlayer
 

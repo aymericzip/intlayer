@@ -43,4 +43,4 @@ pnpm add intlayer-editor -D
 
 # Intlayer Visual Editor Documentation
 
-See the [Intlayer Visual Editor documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) for more information.
+See the [Intlayer Visual Editor documentation](https://intlayer.org//doc/concept/editor) for more information.

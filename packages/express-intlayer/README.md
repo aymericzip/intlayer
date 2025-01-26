@@ -106,7 +106,7 @@ const config = {
 module.exports = config;
 ```
 
-> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+> For a complete list of available parameters, refer to the [configuration documentation](https://intlayer.org//doc/concept/configuration).
 
 ## Example of usage
 
@@ -245,7 +245,7 @@ By default, `express-intlayer` will interpret the `Accept-Language` header to de
 
 ## Functions provided by `express-intlayer` package
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md)
+- [`t()`](https://intlayer.org//doc/packages/express-intlayer/t)
 
 ## Read about Intlayer
 
