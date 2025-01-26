@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://www.npmjs.com/package/next-intlayer">
+  <a href="https://intlayer.org">
     <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
   </a>
 </div>
@@ -14,7 +14,6 @@
   <a href="https://npmjs.org/package/next-intlayer">
     <img alt="types included" src="https://badgen.net/npm/types/next-intlayer?labelColor=49516F&color=8994BC" 
   />
-  </a>
 </div>
 
 # next-intlayer: Internationalize (i18n) an Next.js application
