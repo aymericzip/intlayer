@@ -10,7 +10,7 @@ import { DictionaryStatus } from '../dictionaryStatus';
 const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
 
 export const writeContentDeclaration = async (
-  distantDictionary: Dictionary,
+  dictionary: Dictionary,
   config?: IntlayerConfig,
   newDictionariesPath?: string
 ): Promise<{ status: DictionaryStatus; path: string }> => {
@@ -22,13 +22,13 @@ export const writeContentDeclaration = async (
     newDictionariesPath ?? DEFAULT_NEW_DICTIONARY_PATH;
   const newDictionaryLocationPath = `${baseDir}/${newDictionaryRelativeLocationPath}`;
 
-  const existingDictionary = dictionariesRecord[distantDictionary.key];
+  const existingDictionary = dictionariesRecord[dictionary.key];
 
   if (existingDictionary) {
-    const { filePath } = existingDictionary;
+    const { filePath, ...dictionaryWithoutPath } = dictionary;
 
     // Compare existing dictionary with distant dictionary
-    if (deepEqual(existingDictionary, distantDictionary)) {
+    if (deepEqual(existingDictionary, dictionary)) {
       // Up to date, nothing to do
       return {
         status: 'up-to-date',
@@ -43,7 +43,7 @@ export const writeContentDeclaration = async (
           // Write the dictionary to the same location of the existing dictionary file
           await fsPromises.writeFile(
             contentDeclarationPath,
-            JSON.stringify(distantDictionary, null, 2)
+            JSON.stringify(dictionaryWithoutPath, null, 2)
           );
           return { status: 'updated', path: contentDeclarationPath };
         } else {
@@ -55,7 +55,7 @@ export const writeContentDeclaration = async (
 
           await writeFileWithDirectories(
             newFilePath,
-            JSON.stringify(distantDictionary, null, 2)
+            JSON.stringify(dictionaryWithoutPath, null, 2)
           );
 
           return {
@@ -65,10 +65,10 @@ export const writeContentDeclaration = async (
         }
       } else {
         // Write the dictionary to the intlayer-dictionaries directory
-        const contentDeclarationPath = `${newDictionaryLocationPath}/${distantDictionary.key}.content.json`;
+        const contentDeclarationPath = `${newDictionaryLocationPath}/${dictionary.key}.content.json`;
         await writeFileWithDirectories(
           contentDeclarationPath,
-          JSON.stringify(distantDictionary, null, 2)
+          JSON.stringify(dictionaryWithoutPath, null, 2)
         );
         return {
           status: 'reimported in new location',
@@ -78,11 +78,11 @@ export const writeContentDeclaration = async (
     }
   } else {
     // No existing dictionary, write to new location
-    const contentDeclarationPath = `${newDictionaryLocationPath}/${distantDictionary.key}.content.json`;
+    const contentDeclarationPath = `${newDictionaryLocationPath}/${dictionary.key}.content.json`;
 
     await writeFileWithDirectories(
       contentDeclarationPath,
-      JSON.stringify(distantDictionary, null, 2)
+      JSON.stringify(dictionary, null, 2)
     );
 
     return {
