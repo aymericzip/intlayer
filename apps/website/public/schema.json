@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "DeclarationContent.schema.json",
+  "title": "DeclarationContent",
+  "description": "JSON Schema for DeclarationContent<T = undefined>. Because JSON cannot represent functions or promises, we handle them (and TypedNode) via placeholders or string descriptions.",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "filePath": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "content": {
+      "type": "object",
+      "description": "Represents Record<string, ContentValue | ContentValue[]>",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string",
+            "description": "Represents a simple string or a placeholder for a function/promise if used that way."
+          },
+          {
+            "type": "array",
+            "description": "Array variant for either string[] or number[] or array of placeholders.",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "description": "String array item."
+                },
+                {
+                  "type": "number",
+                  "description": "Number array item."
+                },
+                {
+                  "type": "object",
+                  "description": "Nested object or typed node within an array.",
+                  "additionalProperties": {
+                    "$ref": "#/definitions/contentValue"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "number",
+            "description": "Represents a simple numeric value."
+          },
+          {
+            "type": "object",
+            "description": "Represents { [key: string]: ContentValue }, or a nested structure, or a typed node. This is where recursion happens.",
+            "additionalProperties": {
+              "$ref": "#/definitions/contentValue"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": ["key", "content"],
+  "additionalProperties": false,
+
+  "definitions": {
+    "contentValue": {
+      "anyOf": [
+        {
+          "type": "string",
+          "description": "Represents a string or a placeholder for function/promise/TypedNode."
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/definitions/contentValue"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "description": "Nested object or typed node structure. Could also be a placeholder for a deeper typed node.",
+          "additionalProperties": {
+            "$ref": "#/definitions/contentValue"
+          }
+        }
+      ]
+    }
+  }
+}

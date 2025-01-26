@@ -196,6 +196,7 @@ module.exports = {
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "my-component",
   "content": {
     "helloWorld": {
@@ -290,3 +291,4 @@ Cada arquivo inclui mensagens compiladas de todas as declarações de conteúdo 
      return (
        <html lang={params.locale}>
          <body>
+   ```

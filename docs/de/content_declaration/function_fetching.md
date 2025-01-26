@@ -47,6 +47,7 @@ module.exports = functionContent;
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "function_content",
   "content": {
     "text": "Dies ist der Inhalt, der von einer Funktion gerendert wird"

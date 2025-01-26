@@ -336,6 +336,7 @@ module.exports = pageContent;
 
 ```json fileName="src/app/[locale]/page.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "page",
   "content": {
     "getStarted": {

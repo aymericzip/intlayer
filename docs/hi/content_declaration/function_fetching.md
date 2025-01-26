@@ -47,6 +47,7 @@ module.exports = functionContent;
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "function_content",
   "content": {
     "text": "यह फ़ंक्शन द्वारा प्रस्तुत सामग्री है"

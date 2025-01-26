@@ -319,6 +319,7 @@ module.exports = appContent;
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "app",
   "content": {
     "viteLogo": {

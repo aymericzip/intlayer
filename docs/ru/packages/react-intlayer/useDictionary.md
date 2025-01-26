@@ -116,6 +116,7 @@ module.exports = componentContent;
 
 ```json fileName="./component.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "component-example",
   "content": {
     "title": {

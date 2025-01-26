@@ -9,7 +9,10 @@ export const writeDictionary = async (dictionaries: Dictionary[]) => {
   const resultDictionariesPaths: string[] = [];
 
   for await (const dictionaryContent of dictionaries) {
-    const contentString = JSON.stringify(dictionaryContent);
+    const contentString = JSON.stringify({
+      $schema: 'https://intlayer.org/schema.json',
+      ...dictionaryContent,
+    });
 
     const id = dictionaryContent.key;
     const outputFileName = `${id}.json`;

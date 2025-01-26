@@ -43,7 +43,14 @@ export const writeContentDeclaration = async (
           // Write the dictionary to the same location of the existing dictionary file
           await fsPromises.writeFile(
             contentDeclarationPath,
-            JSON.stringify(dictionaryWithoutPath, null, 2)
+            JSON.stringify(
+              {
+                $schema: 'https://intlayer.org/schema.json',
+                ...dictionaryWithoutPath,
+              },
+              null,
+              2
+            )
           );
           return { status: 'updated', path: contentDeclarationPath };
         } else {

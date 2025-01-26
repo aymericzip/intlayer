@@ -62,6 +62,7 @@ module.exports = {
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "multi_lang",
   "content": {
     "welcomeMessage": {
@@ -292,6 +293,7 @@ module.exports = {
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "custom_content",
   "content": {
     "profileText": {

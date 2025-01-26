@@ -196,6 +196,7 @@ module.exports = {
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "my-component",
   "content": {
     "helloWorld": {
@@ -272,3 +273,4 @@ pnpm intlayer build
    import React, { ReactNode } from 'react';
 
    export const
+   ```

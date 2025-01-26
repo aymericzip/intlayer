@@ -72,6 +72,7 @@ module.exports = carEnumeration;
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "car_count",
   "content": {
     "numberOfCar": {
