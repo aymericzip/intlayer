@@ -13,7 +13,6 @@ import {
   EditorProvider,
   useCrossURLPathState,
   useDictionariesRecordActions,
-  useConfigurationState,
   useIframeClickInterceptor,
   useEditorEnabled,
 } from '@intlayer/editor-react';
@@ -61,18 +60,23 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
       postMessage={(data: any) => {
         if (typeof window === 'undefined') return;
 
-        window?.postMessage(
-          data,
-          // Use to restrict the origin of the editor for security reasons.
-          // Correspond to the current application URL to synchronize the locales states.
-          editor.applicationURL
-        );
-        window.parent?.postMessage(
-          data,
-          // Use to restrict the origin of the editor for security reasons.
-          // Correspond to the current editor URL.
-          editor.editorURL
-        );
+        if (editor.applicationURL.length > 0) {
+          window?.postMessage(
+            data,
+            // Use to restrict the origin of the editor for security reasons.
+            // Correspond to the current application URL to synchronize the locales states.
+            editor.applicationURL
+          );
+        }
+
+        if (editor.editorURL.length > 0) {
+          window.parent?.postMessage(
+            data,
+            // Use to restrict the origin of the editor for security reasons.
+            // Correspond to the current editor URL.
+            editor.editorURL
+          );
+        }
       }}
       allowedOrigins={[editor.editorURL, editor.applicationURL]}
       mode="client"
