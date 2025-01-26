@@ -14,6 +14,7 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
   [GithubRoutes.InterestOfIntlayer]: PagesRoutes.Doc_Interest,
   [GithubRoutes.IntlayerCLI]: PagesRoutes.Doc_CLI,
   [GithubRoutes.IntlayerVisualEditor]: PagesRoutes.Doc_IntlayerVisualEditor,
+  [GithubRoutes.IntlayerCMS]: PagesRoutes.Doc_IntlayerCMS,
   [GithubRoutes.IntlayerWithNextJS15]: PagesRoutes.Doc_Environment_NextJS_15,
   [GithubRoutes.IntlayerWithNextJS14]: PagesRoutes.Doc_Environment_NextJS_14,
   [GithubRoutes.IntlayerWithNextJSUsingPageRouter]:
