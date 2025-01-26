@@ -1,8 +1,12 @@
-import { watch } from '@intlayer/chokidar';
+import { buildAndWatchIntlayer } from '@intlayer/chokidar';
 
 // Watch mode or on time build
 export class IntlayerPlugin {
-  apply(): void {
-    watch();
+  async apply(): Promise<void> {
+    try {
+      await buildAndWatchIntlayer();
+    } catch (error) {
+      console.error('Error in IntlayerPlugin:', error);
+    }
   }
 }

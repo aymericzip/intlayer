@@ -1,6 +1,6 @@
 import { join, relative, resolve } from 'path';
 import process from 'process';
-import { watch } from '@intlayer/chokidar';
+import { buildAndWatchIntlayer } from '@intlayer/chokidar';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { loadEnv, type PluginOption } from 'vite';
@@ -9,6 +9,8 @@ import { loadEnv, type PluginOption } from 'vite';
 type PluginOptions = {
   // Custom options for your plugin, if any
 };
+
+let mode: string; // Shared variable to store the mode
 
 /**
  *
@@ -26,9 +28,9 @@ export const intlayerPlugin = (
 ): PluginOption => ({
   name: 'vite-intlayer-plugin',
 
-  config: (config, { mode }) => {
-    const intlayerConfig = getConfiguration();
-    const { mainDir, baseDir, watch: isWatchMode } = intlayerConfig.content;
+  config: (config, envObject) => {
+    // Store the mode
+    mode = envObject.mode;
 
     // Set all configuration values as environment variables
     const env = formatEnvVariable('vite');
@@ -38,6 +40,9 @@ export const intlayerPlugin = (
       ...loadEnv(mode, process.cwd()),
       ...env,
     };
+
+    const intlayerConfig = getConfiguration();
+    const { mainDir, baseDir, watch: isWatchMode } = intlayerConfig.content;
 
     const dictionariesPath = join(mainDir, 'dictionaries.mjs');
     const relativeDictionariesPath = relative(baseDir, dictionariesPath);
@@ -76,11 +81,12 @@ export const intlayerPlugin = (
     return config;
   },
 
-  buildStart: () => {
+  buildStart: async () => {
     // Code to run when Vite build starts
-    watch();
-  },
-  configureServer: () => {
-    // Custom server configuration, if needed
+    try {
+      await buildAndWatchIntlayer();
+    } catch (error) {
+      console.error('Error starting the watch process:', error);
+    }
   },
 });

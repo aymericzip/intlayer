@@ -7,13 +7,11 @@ The **`@intlayer/chokidar`** package is used to scan and build Intlayer declarat
 ## Usage
 
 ```ts
-import { watch } from "@intlayer/chokidar";
+import { watch, prepareIntlayer } from "@intlayer/chokidar";
 
-watch(); // Build Intlayer dictionaries
+await prepareIntlayer(); // Build Intlayer dictionaries
 
-// Or
-
-watch({ persistent: true }); // Watch mode
+watch({ persistent: true }); // Watch changes in the configuration files
 ```
 
 ## Installation

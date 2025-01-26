@@ -1,4 +1,10 @@
-export { watch } from './chokidar/watcher';
+export {
+  watch,
+  prepareIntlayer,
+  handleAdditionalContentDeclarationFile,
+  handleContentDeclarationFileChange,
+  buildAndWatchIntlayer,
+} from './chokidar/watcher';
 export { buildDictionary } from './transpiler/declaration_file_to_dictionary/index';
 export { createDictionaryList } from './transpiler/dictionary_to_main/createDictionaryList';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
