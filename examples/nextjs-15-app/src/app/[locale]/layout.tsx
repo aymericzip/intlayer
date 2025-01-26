@@ -6,7 +6,6 @@ import {
   getTranslationContent,
 } from 'intlayer';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
-import { ReactNode } from 'react';
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',

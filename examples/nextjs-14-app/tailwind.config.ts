@@ -1,10 +1,8 @@
 import type { Config } from 'tailwindcss';
-import { tailwindConfig } from 'intlayer-editor/tailwind';
 
 const config: Config = {
-  presets: [tailwindConfig],
+  presets: [],
   content: [
-    ...(tailwindConfig.content as string[]),
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
