@@ -5,9 +5,7 @@ import { GithubRoutes, PagesRoutes } from '@/Routes';
 const getDocLocale = (url: string, locale: Locales): string =>
   url.replace('/en/', `/${locale}/`);
 
-const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
-  [`${process.env.NEXT_PUBLIC_URL}/`]: PagesRoutes.Home,
-  [process.env.NEXT_PUBLIC_URL!]: PagesRoutes.Home,
+const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
   [GithubRoutes.Introduction]: PagesRoutes.Doc,
   [GithubRoutes.HowWorksIntlayer]: PagesRoutes.Doc_HowWorksIntlayer,
   [GithubRoutes.Configuration]: PagesRoutes.Doc_Configuration,
@@ -23,7 +21,6 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
   [GithubRoutes.IntlayerWithViteReact]:
     PagesRoutes.Doc_Environment_ViteAndReact,
   [GithubRoutes.IntlayerWithExpress]: PagesRoutes.Doc_Environment_Express,
-
   [GithubRoutes.ContentDeclaration_GetStarted]:
     PagesRoutes.Doc_ContentDeclaration,
   [GithubRoutes.ContentDeclaration_ContentExtensionCustomization]:
@@ -34,7 +31,6 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
     PagesRoutes.Doc_ContentDeclaration_FunctionFetching,
   [GithubRoutes.ContentDeclaration_Translation]:
     PagesRoutes.Doc_ContentDeclaration_Translation,
-
   [GithubRoutes['Packages_intlayer']]: PagesRoutes['Doc_Packages_intlayer'],
   [GithubRoutes['Packages_intlayer_getConfiguration']]:
     PagesRoutes['Doc_Packages_intlayer_getConfiguration'],
@@ -58,7 +54,6 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
     PagesRoutes['Doc_Packages_intlayer_getEnumerationContent'],
   [GithubRoutes['Packages_intlayer_removeLocaleFromUrl']]:
     PagesRoutes['Doc_Packages_intlayer_removeLocaleFromUrl'],
-
   [GithubRoutes['Packages_express-intlayer']]:
     PagesRoutes['Doc_Packages_express-intlayer'],
   [GithubRoutes['Packages_express-intlayer_t']]:
@@ -87,7 +82,6 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
     PagesRoutes['Doc_Packages_next-intlayer_useDictionary'],
   [GithubRoutes['Packages_next-intlayer_useLocale']]:
     PagesRoutes['Doc_Packages_next-intlayer_useLocale'],
-
   [GithubRoutes.BlogIndex]: PagesRoutes['Blog'],
   [GithubRoutes.IntlayerWithNextI18next]:
     PagesRoutes['Blog_Intlayer_with_Next-i18next'],
@@ -97,7 +91,6 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
     PagesRoutes['Blog_Intlayer_with_Next-intl'],
   [GithubRoutes.IntlayerWithReactIntl]:
     PagesRoutes['Blog_Intlayer_with_React-intl'],
-
   [GithubRoutes['Next-i18next_vs_Next-intl_vs_Intlayer']]:
     PagesRoutes['Blog_Next-i18next_vs_Next-intl_vs_Intlayer'],
   [GithubRoutes['React-i18next_vs_React-intl_vs_Intlayer']]:
@@ -119,7 +112,6 @@ const urlRecord: Record<GithubRoutes | string, PagesRoutes> = {
     PagesRoutes['Blog_i18n-technologies__CMS__drupal'],
   [GithubRoutes['i18n-technologies__CMS__wix']]:
     PagesRoutes['Blog_i18n-technologies__CMS__wix'],
-
   [GithubRoutes.PrivacyPolicy]: PagesRoutes.PrivacyPolicy,
   [GithubRoutes.TermsOfService]: PagesRoutes.TermsOfService,
 };
@@ -150,6 +142,40 @@ const escapeRegExp = (string: string): string => {
 };
 
 /**
+ * Replaces URLs in the input text that match the application's domain
+ * and do not have a file extension with their path only.
+ *
+ * @param text - The input text containing URLs to be processed.
+ * @returns - The processed text with applicable URLs renamed.
+ */
+const removeURLDomain = (text: string): string => {
+  // Retrieve the application domain from environment variables
+
+  // Escape special regex characters in the domain to prevent regex injection
+  const escapedDomain = process.env.NEXT_PUBLIC_DOMAIN!.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    '\\$&'
+  );
+
+  // Regular expression to match URLs:
+  // - Starts with https:// followed by the escaped domain
+  // - Followed by a path that does not end with a file extension
+  const urlRegex = new RegExp(
+    `https?://${escapedDomain}(\\/[^\\s./?#]+(?:\\/[^\\s./?#]+)*)`,
+    'g'
+  );
+
+  // Replace matched URLs with their path only, ensuring no file extension
+  return text.replace(urlRegex, (match, path) => {
+    // Check if the path ends with a file extension (e.g., .png, .jpg)
+    const hasExtension = /\.[a-zA-Z0-9]+$/.test(path.split('/').pop());
+
+    // If there's no extension, return the path; otherwise, keep the original URL
+    return hasExtension ? match : path;
+  });
+};
+
+/**
  * Replaces GitHub URLs in the content with corresponding PagesRoutes.
  *
  * @param content - The input string content containing GitHub URLs.
@@ -165,6 +191,9 @@ export const urlRenamer = (content: string): string => {
     const regex = new RegExp(escapeRegExp(githubUrl), 'g');
     updatedContent = updatedContent.replace(regex, pagesRoute);
   });
+
+  // Remove the base domain from URLs
+  updatedContent = removeURLDomain(updatedContent);
 
   return updatedContent;
 };
