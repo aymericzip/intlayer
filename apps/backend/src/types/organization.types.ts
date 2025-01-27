@@ -15,7 +15,7 @@ export type OrganizationData = {
 export type Organization = OrganizationData & {
   _id: ObjectId;
   creatorId: User['_id'];
-  plan: Plan;
+  plan?: Plan;
   createdAt: number;
   updatedAt: number;
 };

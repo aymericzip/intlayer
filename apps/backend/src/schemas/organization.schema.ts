@@ -34,7 +34,6 @@ export const organizationSchema = new Schema<Organization>(
     },
     plan: {
       type: planSchema,
-      required: true,
     },
   },
   {
