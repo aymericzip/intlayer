@@ -32,7 +32,7 @@ export const OrganizationCreationForm: FC = () => {
     <Form
       schema={organizationSchema}
       onSubmitSuccess={onSubmitSuccess}
-      className="w-full max-w-[400px]"
+      className="w-full max-w-[400px] py-10"
       {...form}
     >
       <Form.Input
