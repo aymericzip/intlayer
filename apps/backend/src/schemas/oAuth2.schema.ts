@@ -28,6 +28,12 @@ export const accessTokenSchema = new Schema<Token>(
   },
   {
     timestamps: true,
+  }
+);
+
+accessTokenSchema.index(
+  { createdAt: 1 },
+  {
     expireAfterSeconds: 60 * 60 * 24 * 10, // 10 Days
   }
 );
