@@ -1,9 +1,11 @@
 import type { OrganizationAPI } from '@intlayer/backend';
-import { Button } from '@intlayer/design-system';
+import { Button, Modal } from '@intlayer/design-system';
 import { useSelectOrganization } from '@intlayer/design-system/hooks';
+import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
+import { useState, type FC } from 'react';
+import { OrganizationCreationForm } from './OrganizationCreationForm';
 import { PagesRoutes } from '@/Routes';
 
 type OrganizationListProps = {
@@ -18,7 +20,9 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   onSelectOrganization,
 }) => {
   const { selectOrganization } = useSelectOrganization();
-  const { selectButton } = useIntlayer('organization-form');
+  const { selectButton, addOrganizationButton } =
+    useIntlayer('organization-form');
+  const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const router = useRouter();
 
   const handleSelectOrganization = (organizationId: OrganizationAPI['_id']) => {
@@ -41,25 +45,44 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   };
 
   return (
-    <div className="flex w-full max-w-[350px] gap-3">
-      {organizations.map((organization) => (
-        <div
-          className="border-neutral dark:border-neutral-dark flex w-full flex-col gap-3 rounded-lg border p-6"
-          key={String(organization._id)}
-        >
-          <h2 className="font-bold">{organization.name}</h2>
-          <Button
-            onClick={() => handleSelectOrganization(organization._id)}
-            label={selectButton.ariaLabel.value}
-            color="text"
-            className="mt-auto"
+    <div className="flex w-full max-w-[350px] flex-col gap-10">
+      <ul className="flex w-full gap-3">
+        {organizations.map((organization) => (
+          <li
+            className="border-neutral dark:border-neutral-dark flex w-full flex-col gap-3 rounded-lg border p-6"
+            key={String(organization._id)}
           >
-            {String(selectedOrganizationId) === String(organization._id)
-              ? selectButton.selected.value
-              : selectButton.unselected.value}
-          </Button>
-        </div>
-      ))}
+            <h2 className="font-bold">{organization.name}</h2>
+            <Button
+              onClick={() => handleSelectOrganization(organization._id)}
+              label={selectButton.ariaLabel.value}
+              color="text"
+              className="mt-auto"
+            >
+              {String(selectedOrganizationId) === String(organization._id)
+                ? selectButton.selected.value
+                : selectButton.unselected.value}
+            </Button>
+          </li>
+        ))}
+      </ul>
+      <Button
+        label={addOrganizationButton.ariaLabel.value}
+        Icon={Plus}
+        color="text"
+        isFullWidth
+        variant="outline"
+        onClick={() => setIsCreationModalOpen(true)}
+      >
+        {addOrganizationButton.text}
+      </Button>
+
+      <Modal
+        isOpen={isCreationModalOpen}
+        onClose={() => setIsCreationModalOpen(false)}
+      >
+        <OrganizationCreationForm />
+      </Modal>
     </div>
   );
 };

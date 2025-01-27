@@ -44,6 +44,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         name="name"
         label={nameInput.label.value}
         placeholder={nameInput.placeholder.value}
+        required
       />
       <Form.Input
         name="expiresAt"
@@ -54,7 +55,9 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
       />
 
       <div>
-        <Form.Label className="w-full">{rights.label}</Form.Label>
+        <Form.Label className="w-full" isRequired>
+          {rights.label}
+        </Form.Label>
         <table className="w-full">
           <thead>
             <tr>

@@ -1,10 +1,5 @@
-import { Locales } from 'intlayer';
 import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod';
-
-const localesEnum = Object.values(Locales) as [
-  (typeof Locales)[keyof typeof Locales],
-];
 
 export const useProjectSchema = () => {
   const { requiredErrorName, invalidTypeErrorName } = useIntlayer(
@@ -20,7 +15,6 @@ export const useProjectSchema = () => {
         invalid_type_error: invalidTypeErrorName,
       })
       .min(1, { message: invalidTypeErrorName }),
-    locales: z.array(z.enum(localesEnum)),
   });
 };
 

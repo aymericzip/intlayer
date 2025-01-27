@@ -1,3 +1,4 @@
+import { addOrganization } from '@intlayer/backend';
 import { t, type DeclarationContent } from 'intlayer';
 
 const organizationFormContent = {
@@ -209,6 +210,38 @@ const organizationFormContent = {
         hi: 'चुनें',
         ar: 'اختر',
         ru: 'Выбрать',
+      }),
+    },
+    addOrganizationButton: {
+      text: t({
+        en: 'Add organization',
+        'en-GB': 'Add organization',
+        fr: 'Ajouter une organisation',
+        de: 'Organisation hinzufügen',
+        es: 'Agregar organización',
+        it: 'Aggiungi organizzazione',
+        pt: 'Adicionar organização',
+        hi: 'संगठन जोड़ें',
+        ar: 'إضافة المنظمة',
+        ru: 'Добавить организацию',
+        ja: '組織を追加',
+        ko: '조직 추가',
+        zh: '添加组织',
+      }),
+      ariaLabel: t({
+        en: 'Click to add organization',
+        'en-GB': 'Click to add organization',
+        fr: 'Cliquez pour ajouter une organisation',
+        de: 'Klicken Sie, um eine Organisation hinzuzufügen',
+        es: 'Haga clic para agregar una organización',
+        it: "Fai clic per aggiungere un'organizzazione",
+        pt: 'Clique para adicionar uma organização',
+        hi: 'संगठन जोड़ने के लिए क्लिक करें',
+        ar: 'انقر لإضافة المنظمة',
+        ru: 'Нажмите, чтобы добавить организацию',
+        ja: '組織を追加するにはクリック',
+        ko: '조직을 추가하려면 클릭',
+        zh: '单击添加组织',
       }),
     },
   },

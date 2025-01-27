@@ -107,7 +107,7 @@ export const addProject = async (
   res: ResponseWithInformation<AddProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user, isOrganizationAdmin, projectRights } = res.locals;
+  const { organization, user, isOrganizationAdmin } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -127,23 +127,11 @@ export const addProject = async (
     );
   }
 
-  if (!projectRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_WRITE');
-    return;
-  }
-
   if (!projectData) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
   }
 
   const { plan } = organization;
-
-  if (!plan) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
-      organizationId: organization._id,
-    });
-    return;
-  }
 
   const planType = getPLanDetails(plan);
 
@@ -162,8 +150,6 @@ export const addProject = async (
       );
       return;
     }
-
-    return;
   }
 
   const project: ProjectData = {
