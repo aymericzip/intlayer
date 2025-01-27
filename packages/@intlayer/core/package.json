@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/core",
-  "version": "4.1.5",
+  "version": "4.1.6",
   "private": false,
   "description": "Includes core Intlayer functions like translation, dictionary, and utility functions shared across multiple packages.",
   "keywords": [
