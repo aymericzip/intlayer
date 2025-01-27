@@ -9,20 +9,26 @@ export const getFileHash = (filePath: string) => {
     .substring(0, 20);
 };
 
-export const transformToCamelCase = (string: string): string => {
-  // Split the string into words using a regex that finds spaces, hyphens, and underscores
-  const words = string.split(/[\s\-_]+/);
+export const kebabCaseToCamelCase = (name: string): string => {
+  return name
+    .split(/[^a-zA-Z0-9]+/) // Split on any non-alphanumeric character
+    .filter(Boolean) // Remove any empty strings
+    .map((word) => {
+      // Convert the entire word to lowercase first
+      const lowerWord = word.toLowerCase();
 
-  // Transform each word except the first to have its first letter uppercase
-  const camelCasedWords = words.map((word, index) => {
-    if (index === 0) {
-      return word[0].toUpperCase() + word.slice(1);
-    }
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  });
+      // Capitalize the first character
+      let capitalized = lowerWord.charAt(0).toUpperCase() + lowerWord.slice(1);
 
-  // Join the words back together
-  return camelCasedWords.join('');
+      // Capitalize any letter that follows a number
+      capitalized = capitalized.replace(
+        /(\d)([a-z])/g,
+        (_, number, char) => number + char.toUpperCase()
+      );
+
+      return capitalized;
+    })
+    .join(''); // Concatenate all parts into a single string
 };
 
 export const sortAlphabetically = (a: string, b: string) => a.localeCompare(b);

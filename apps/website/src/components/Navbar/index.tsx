@@ -55,7 +55,7 @@ export const Navbar: FC = () => {
       desktopSections={Object.values(sections).map(
         ({ id, url, label, title }) => (
           <Link
-            id={id.value}
+            id={id?.value}
             key={url.value}
             href={url.value}
             label={label.value}
@@ -71,7 +71,7 @@ export const Navbar: FC = () => {
       mobileTopSections={Object.values(sections).map(
         ({ id, url, label, title }) => (
           <Link
-            id={id.value}
+            id={id?.value}
             key={url.value}
             href={url.value}
             aria-current={pathWithoutLocale === url.value ? 'page' : undefined}

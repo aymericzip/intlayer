@@ -29,6 +29,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*", ".next/types/**/*.ts"],
+  "include": ["**/*", ".next/types/**/*.ts", ".intlayer/types/**/*.ts"],
   "exclude": ["node_modules", ".next"]
 }

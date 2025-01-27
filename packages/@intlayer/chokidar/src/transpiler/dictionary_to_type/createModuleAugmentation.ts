@@ -2,14 +2,14 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, join, relative } from 'path';
 import { Locales, getConfiguration } from '@intlayer/config';
 import fg from 'fast-glob';
-import { getFileHash, transformToCamelCase } from '../../utils';
+import { getFileHash, kebabCaseToCamelCase } from '../../utils';
 
 const { content, internationalization } = getConfiguration();
 const { typesDir, moduleAugmentationDir } = content;
 const { locales, strictMode } = internationalization;
 
-export const getTypeName = (id: string): string =>
-  transformToCamelCase(`${id}Content`);
+export const getTypeName = (key: string): string =>
+  `${kebabCaseToCamelCase(key)}Content`;
 
 /**
  * This function generates the content of the module augmentation file
@@ -18,7 +18,7 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
   let content = "/* eslint-disable */\nimport { Locales } from 'intlayer';\n";
 
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
-    relativePath: relative(moduleAugmentationDir, dictionaryPath),
+    relativePath: `./${relative(moduleAugmentationDir, dictionaryPath)}`,
     id: basename(dictionaryPath, '.d.ts'), // Get the base name as the dictionary id
     hash: `_${getFileHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
   }));

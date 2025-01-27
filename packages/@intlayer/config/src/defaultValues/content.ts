@@ -16,7 +16,7 @@ export const CONTENT_DIR_NAME = 'src';
 
 export const RESULT_DIR_NAME = '.intlayer';
 
-export const MODULE_AUGMENTATION_DIR_NAME = 'types';
+export const MODULE_AUGMENTATION_DIR_NAME = '.intlayer/types';
 
 export const DICTIONARY_OUTPUT: DictionaryOutput[] = ['intlayer'];
 

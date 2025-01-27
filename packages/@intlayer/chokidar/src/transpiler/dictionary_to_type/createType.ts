@@ -7,6 +7,7 @@ import {
   InputData,
   jsonInputForTargetLanguage,
 } from 'quicktype-core';
+import { kebabCaseToCamelCase } from '../../utils';
 
 const { content } = getConfiguration();
 const { typesDir } = content;
@@ -15,17 +16,6 @@ const requireUncached = (module: string) => {
   delete ESMxCJSRequire.cache[ESMxCJSRequire.resolve(module)];
   return ESMxCJSRequire(module);
 };
-
-const kebabCaseToCamelCase = (name: string): string =>
-  name
-    .split(/[\s\-_]+/) // Regular expression to match space, hyphen, or underscore
-    .map((word, index) => {
-      if (index === 0) {
-        return word; // Return the first word as is
-      }
-      return word.charAt(0).toUpperCase() + word.slice(1); // Capitalize the first letter of subsequent words
-    })
-    .join(''); // Join all the segments into one string
 
 export const generateTypeScriptType = async (
   typeName: string,
@@ -83,15 +73,12 @@ export const createTypes = async (
   for (const dictionaryPath of dictionariesPaths) {
     const dictionary: Dictionary = requireUncached(dictionaryPath);
 
-    const dictionaryName: string = dictionary.key;
-
-    if (!dictionaryName) {
+    if (!dictionary.key) {
       // Skip dictionary if it doesn't have a key, if not exported as default etc
       continue;
     }
 
-    const dictionaryNameCamelCase: string =
-      kebabCaseToCamelCase(dictionaryName) + 'Content';
+    const dictionaryNameCamelCase: string = `${kebabCaseToCamelCase(dictionary.key)}Content`;
 
     const dictionaryContentString: string = JSON.stringify(dictionary);
 
@@ -100,7 +87,7 @@ export const createTypes = async (
       dictionaryContentString
     );
 
-    const outputPath: string = resolve(typesDir, `${dictionaryName}.d.ts`);
+    const outputPath: string = resolve(typesDir, `${dictionary.key}.d.ts`);
 
     writeFileSync(outputPath, typeDefinition);
 
