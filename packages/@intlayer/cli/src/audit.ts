@@ -16,6 +16,7 @@ type AuditOptions = {
   openAiApiKey?: string;
   excludedGlobs?: string[];
   headers?: Record<string, string>;
+  logPrefix?: string;
 };
 
 const projectPath = process.cwd();
@@ -37,7 +38,11 @@ export const auditFile = async (filePath: string, options?: AuditOptions) => {
     const { defaultLocale, locales } = getConfiguration().internationalization;
 
     const relativePath = relative(projectPath, filePath);
-    logger(`Auditing file: ${relativePath}`);
+    logger(`Auditing file: ${relativePath}`, {
+      config: {
+        prefix: options?.logPrefix,
+      },
+    });
 
     // Read the file's content.
     const fileContent = readFileSync(filePath, 'utf-8');
@@ -64,11 +69,24 @@ export const auditFile = async (filePath: string, options?: AuditOptions) => {
 
     writeFileSync(filePath, auditFileResult.data.fileContent);
 
-    logger(`File ${relativePath} updated`);
+    logger(`File ${relativePath} updated`, {
+      config: {
+        prefix: options?.logPrefix,
+      },
+    });
 
-    logger(`${auditFileResult.data.tokenUsed} tokens used in the request`);
+    logger(`${auditFileResult.data.tokenUsed} tokens used in the request`, {
+      config: {
+        prefix: options?.logPrefix,
+      },
+    });
   } catch (error) {
-    logger(error, { level: 'error' });
+    logger(error, {
+      level: 'error',
+      config: {
+        prefix: options?.logPrefix,
+      },
+    });
   }
 };
 

@@ -89,6 +89,7 @@
   },
   "devDependencies": {
     "@intlayer/blog": "workspace:*",
+    "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@types/bcrypt": "^5.0.2",

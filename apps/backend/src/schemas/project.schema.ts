@@ -35,6 +35,30 @@ const oAuth2AccessSchema = new Schema(
   }
 );
 
+const projectConfigSchema = new Schema<Project['configuration']>(
+  {
+    internationalization: {
+      locales: {
+        type: [String],
+        enum: Object.values(Locales),
+        required: true,
+      },
+      defaultLocale: {
+        type: String,
+        enum: Object.values(Locales),
+      },
+    },
+    editor: {
+      applicationURL: {
+        type: String,
+      },
+    },
+  },
+  {
+    _id: false, // Prevents the generation of an _id field for this subdocument
+  }
+);
+
 export const projectSchema = new Schema<Project>(
   {
     organizationId: {
@@ -48,10 +72,7 @@ export const projectSchema = new Schema<Project>(
       minlength: NAME_MIN_LENGTH,
       maxlength: NAME_MAX_LENGTH,
     },
-    locales: {
-      type: [String],
-      enum: Object.values(Locales),
-    },
+    configuration: projectConfigSchema,
     oAuth2Access: [oAuth2AccessSchema],
     membersIds: {
       type: [Schema.Types.ObjectId],

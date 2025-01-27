@@ -28,6 +28,7 @@ import type {
   ProjectAPI,
   ProjectCreationData,
   ProjectData,
+  ProjectConfiguration,
 } from '@/types/project.types';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
@@ -388,6 +389,76 @@ export const updateProjectMembers = async (
         es: 'Los miembros de su proyecto han sido actualizados con éxito',
       }),
       data: formattedProject,
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
+export type PushProjectConfigurationBody = ProjectConfiguration;
+export type PushProjectConfigurationResult = ResponseData<ProjectConfiguration>;
+
+/**
+ * Pushes a project configuration to the database.
+ * @param req - Express request object.
+ * @param  res - Express response object.
+ * @returns Response confirming the deletion.
+ */
+export const pushProjectConfiguration = async (
+  req: Request<any, any, PushProjectConfigurationBody>,
+  res: ResponseWithInformation<PushProjectConfigurationResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { user, project, isProjectAdmin } = res.locals;
+  const projectConfiguration = req.body;
+
+  if (!user) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!project) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    return;
+  }
+
+  if (!isProjectAdmin) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'USER_IS_NOT_ADMIN_OF_PROJECT'
+    );
+    return;
+  }
+
+  try {
+    const projectObject = await projectService.getProjectById(project._id);
+    projectObject.configuration = projectConfiguration;
+
+    projectObject.save();
+
+    if (!projectObject.configuration) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_UPDATE_FAILED', {
+        projectId: project._id,
+      });
+      return;
+    }
+
+    const responseData = formatResponse<ProjectConfiguration>({
+      message: t({
+        en: 'Project configuration updated successfully',
+        fr: 'Configuration du projet mise à jour avec succès',
+        es: 'Configuración del proyecto actualizada con éxito',
+      }),
+      description: t({
+        en: 'Your project configuration has been updated successfully',
+        fr: 'La configuration du projet a été mise à jour avec succès',
+        es: 'Su configuración del proyecto ha sido actualizada con éxito',
+      }),
+      data: projectObject.configuration,
     });
 
     res.json(responseData);

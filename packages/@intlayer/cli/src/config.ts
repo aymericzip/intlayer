@@ -1,9 +1,15 @@
 import { getConfiguration, logger } from '@intlayer/config';
 
-type ConfigOptions = {};
+type ConfigOptions = {
+  logPrefix?: string;
+};
 
-export const getConfig = (_options?: ConfigOptions) => {
+export const getConfig = (options?: ConfigOptions) => {
   const config = getConfiguration();
 
-  logger(config);
+  logger(JSON.stringify(config, null, 2), {
+    config: {
+      prefix: options?.logPrefix,
+    },
+  });
 };

@@ -6,6 +6,7 @@ import {
   selectProject,
   unselectProject,
   updateProjectMembers,
+  pushProjectConfiguration,
 } from '@controllers/project.controller';
 import {
   addNewAccessKey,
@@ -38,6 +39,11 @@ export const projectRoutes = {
   updateProjectMembers: {
     urlModel: '/members',
     url: `${process.env.CLIENT_URL}/api/members`,
+    method: 'PUT',
+  },
+  pushProjectConfiguration: {
+    urlModel: '/configuration',
+    url: `${process.env.CLIENT_URL}/api/configuration`,
     method: 'PUT',
   },
   deleteProject: {
@@ -79,6 +85,10 @@ projectRouter.put(projectRoutes.updateProject.urlModel, updateProject);
 projectRouter.put(
   projectRoutes.updateProjectMembers.urlModel,
   updateProjectMembers
+);
+projectRouter.put(
+  projectRoutes.pushProjectConfiguration.urlModel,
+  pushProjectConfiguration
 );
 projectRouter.delete(projectRoutes.deleteProject.urlModel, deleteProject);
 

@@ -83,11 +83,20 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
     // Check if dictionaries list is empty
     if (distantDictionariesKeys.length === 0) {
-      logger('No dictionaries to fetch', { level: 'error' });
+      logger('No dictionaries to fetch', {
+        level: 'error',
+        config: {
+          prefix: options?.logPrefix,
+        },
+      });
       return;
     }
 
-    logger('Fetching dictionaries:');
+    logger('Fetching dictionaries:', {
+      config: {
+        prefix: options?.logPrefix,
+      },
+    });
 
     // Prepare dictionaries statuses
     const dictionariesStatuses: DictionariesStatus[] =
@@ -168,11 +177,21 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     // Output any error messages
     for (const statusObj of dictionariesStatuses) {
       if (statusObj.errorMessage) {
-        logger(statusObj.errorMessage, { level: 'error' });
+        logger(statusObj.errorMessage, {
+          level: 'error',
+          config: {
+            prefix: options?.logPrefix,
+          },
+        });
       }
     }
   } catch (error) {
-    logger(error, { level: 'error' });
+    logger(error, {
+      level: 'error',
+      config: {
+        prefix: options?.logPrefix,
+      },
+    });
   }
 };
 

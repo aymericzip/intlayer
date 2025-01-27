@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IntlayerConfig } from './types/config';
 
 export type Details = {
@@ -17,7 +18,8 @@ export const logger: Logger = (
     config: { mode: 'default', prefix: '' },
   }
 ) => {
-  const { mode, prefix } = details.config ?? {};
+  const mode = details.config?.mode ?? 'default';
+  const prefix = details.config?.prefix ?? '';
 
   if (mode === 'disabled') return;
 

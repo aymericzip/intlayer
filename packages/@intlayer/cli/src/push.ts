@@ -11,6 +11,7 @@ type PushOptions = {
   deleteLocaleDictionary?: boolean;
   keepLocaleDictionary?: boolean;
   dictionaries?: string[];
+  logPrefix?: string;
 };
 
 type DictionariesStatus = {
@@ -65,7 +66,12 @@ export const push = async (options?: PushOptions): Promise<void> => {
           `The following dictionaries do not exist: ${noneExistingDictionariesOption.join(
             ', '
           )} and have been ignored.`,
-          { level: 'error' }
+          {
+            level: 'error',
+            config: {
+              prefix: options?.logPrefix,
+            },
+          }
         );
       }
 
@@ -77,11 +83,20 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     // Check if the dictionaries list is empty
     if (dictionaries.length === 0) {
-      logger('No local dictionaries found', { level: 'error' });
+      logger('No local dictionaries found', {
+        level: 'error',
+        config: {
+          prefix: options?.logPrefix,
+        },
+      });
       return;
     }
 
-    logger('Pushing dictionaries:');
+    logger('Pushing dictionaries:', {
+      config: {
+        prefix: options?.logPrefix,
+      },
+    });
 
     // Prepare dictionaries statuses
     const dictionariesStatuses: DictionariesStatus[] = dictionaries.map(
@@ -156,7 +171,12 @@ export const push = async (options?: PushOptions): Promise<void> => {
     // Output any error messages
     for (const statusObj of dictionariesStatuses) {
       if (statusObj.errorMessage) {
-        logger(statusObj.errorMessage, { level: 'error' });
+        logger(statusObj.errorMessage, {
+          level: 'error',
+          config: {
+            prefix: options?.logPrefix,
+          },
+        });
       }
     }
 
@@ -172,7 +192,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     if (deleteOption) {
       // Delete only the successfully pushed dictionaries
-      await deleteLocalDictionaries(successfullyPushedDictionaries);
+      await deleteLocalDictionaries(successfullyPushedDictionaries, options);
     } else if (keepOption) {
       // Do nothing, keep the local dictionaries
     } else {
@@ -181,11 +201,16 @@ export const push = async (options?: PushOptions): Promise<void> => {
         'Do you want to delete the local dictionaries that were successfully pushed? (yes/no): '
       );
       if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
-        await deleteLocalDictionaries(successfullyPushedDictionaries);
+        await deleteLocalDictionaries(successfullyPushedDictionaries, options);
       }
     }
   } catch (error) {
-    logger(error, { level: 'error' });
+    logger(error, {
+      level: 'error',
+      config: {
+        prefix: options?.logPrefix,
+      },
+    });
   }
 };
 
@@ -203,7 +228,8 @@ const askUser = (question: string): Promise<string> => {
 };
 
 const deleteLocalDictionaries = async (
-  dictionariesToDelete: Dictionary[]
+  dictionariesToDelete: Dictionary[],
+  options?: PushOptions
 ): Promise<void> => {
   const { baseDir } = getConfiguration().content;
 
@@ -216,6 +242,9 @@ const deleteLocalDictionaries = async (
     if (!filePath) {
       logger(`Dictionary ${dictionary.key} does not have a file path`, {
         level: 'error',
+        config: {
+          prefix: options?.logPrefix,
+        },
       });
       continue;
     }
@@ -231,15 +260,30 @@ const deleteLocalDictionaries = async (
 
       if (stats.isFile()) {
         await fsPromises.unlink(filePath);
-        logger(`Deleted file ${relativePath}`);
+        logger(`Deleted file ${relativePath}`, {
+          config: {
+            prefix: options?.logPrefix,
+          },
+        });
       } else if (stats.isDirectory()) {
-        logger(`Path is a directory ${relativePath}, skipping.`);
+        logger(`Path is a directory ${relativePath}, skipping.`, {
+          config: {
+            prefix: options?.logPrefix,
+          },
+        });
       } else {
-        logger(`Unknown file type for ${relativePath}, skipping.`);
+        logger(`Unknown file type for ${relativePath}, skipping.`, {
+          config: {
+            prefix: options?.logPrefix,
+          },
+        });
       }
     } catch (err) {
       logger(`Error deleting ${relativePath}: ${err}`, {
         level: 'error',
+        config: {
+          prefix: options?.logPrefix,
+        },
       });
     }
   }

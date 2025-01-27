@@ -5,6 +5,7 @@ import { getConfig } from './config';
 import { listContentDeclaration } from './listContentDeclaration';
 import { pull } from './pull';
 import { push } from './push';
+import { pushConfig } from './pushConfig';
 
 /**
  * Set the API for the CLI
@@ -25,7 +26,22 @@ export const setAPI = (): Command => {
     .option('-w, --watch', 'Watch for changes')
     .action(build);
 
-  program
+  /**
+   * DICTIONARIES
+   */
+
+  const dictionariesProgram = program
+    .command('dictionaries')
+    .description('Dictionaries operations');
+
+  dictionariesProgram
+    .command('pull')
+    .option('-d, --dictionaries [ids...]', 'List of dictionary IDs to pull')
+    .option('--newDictionariesPath [path]', 'Path to save the new dictionaries')
+    .action(pull);
+
+  // Define the main `push` command
+  dictionariesProgram
     .command('push')
     .description(
       'Push all dictionaries. Create or update the pushed dictionaries'
@@ -41,16 +57,29 @@ export const setAPI = (): Command => {
     )
     .action(push);
 
-  program
-    .command('pull')
-    .option('-d, --dictionaries [ids...]', 'List of dictionary IDs to pull')
-    .option('--newDictionariesPath [path]', 'Path to save the new dictionaries')
-    .action(pull);
+  /**
+   * CONFIGURATION
+   */
 
-  program
-    .command('get config')
+  const configurationProgram = program
+    .command('config')
+    .description('Configuration operations');
+
+  configurationProgram
+    .command('get')
     .description('Get the configuration')
+
     .action(getConfig);
+
+  // Define the `push config` subcommand and add it to the `push` command
+  configurationProgram
+    .command('push')
+    .description('Push the configuration')
+    .action(pushConfig);
+
+  /**
+   * CONTENT DECLARATION
+   */
 
   program
     .command('content list')

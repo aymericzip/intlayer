@@ -36,6 +36,10 @@ import type {
   // @ts-ignore: @intlayer/backend is not built yet
   UpdateProjectMembersResult,
   // @ts-ignore @intlayer/backend is not build yet
+  PushProjectConfigurationBody,
+  // @ts-ignore @intlayer/backend is not build yet
+  PushProjectConfigurationResult,
+  // @ts-ignore @intlayer/backend is not build yet
 } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from '../fetcher';
@@ -115,6 +119,23 @@ export const getProjectAPI = (
       {
         method: 'PUT',
         body,
+      }
+    );
+
+  /** Pushes a project configuration to the database.
+   * @param projectConfiguration - Project configuration data.
+   */
+  const pushProjectConfiguration = async (
+    projectConfiguration: PushProjectConfigurationBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<PushProjectConfigurationResult>(
+      `${PROJECT_API_ROUTE}/configuration`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PUT',
+        body: projectConfiguration,
       }
     );
 
@@ -228,6 +249,7 @@ export const getProjectAPI = (
     addProject,
     updateProject,
     updateProjectMembers,
+    pushProjectConfiguration,
     deleteProject,
     selectProject,
     unselectProject,

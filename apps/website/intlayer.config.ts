@@ -29,9 +29,9 @@ const config: IntlayerConfig = {
   },
   editor: {
     enabled: true,
-    applicationURL: 'http://localhost:3000',
-    editorURL: 'http://localhost:8000',
-    backendURL: process.env.INTLAYER_BACKEND_URL,
+    applicationURL: process.env.NEXT_PUBLIC_URL,
+    editorURL: process.env.NEXT_PUBLIC_EDITOR_URL,
+    backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },

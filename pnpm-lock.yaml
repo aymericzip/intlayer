@@ -149,6 +149,9 @@ importers:
       '@intlayer/blog':
         specifier: workspace:*
         version: link:../../blog
+      '@intlayer/config':
+        specifier: workspace:*
+        version: link:../../packages/@intlayer/config
       '@intlayer/core':
         specifier: workspace:*
         version: link:../../packages/@intlayer/core

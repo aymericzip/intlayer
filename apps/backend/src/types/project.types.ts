@@ -1,4 +1,4 @@
-import { Locales } from 'intlayer';
+import { IntlayerConfig } from '@intlayer/config';
 import type { Model, ObjectId, Document } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';
@@ -7,14 +7,25 @@ export type ProjectCreationData = {
   name: Project['name'];
 };
 
+type ProjectConfigInternationalization = Pick<
+  IntlayerConfig['internationalization'],
+  'locales' | 'defaultLocale'
+>;
+
+type ProjectConfigEditor = Pick<IntlayerConfig['editor'], 'applicationURL'>;
+
+export type ProjectConfiguration = {
+  internationalization: ProjectConfigInternationalization;
+  editor: ProjectConfigEditor;
+};
+
 export type ProjectData = {
   organizationId: Organization['_id'];
   name: string;
   membersIds: User['_id'][];
   adminsIds: User['_id'][];
   creatorId: User['_id'];
-  defaultLocale?: Locales;
-  locales?: Locales[];
+  configuration?: ProjectConfiguration;
 };
 
 export type Rights = {

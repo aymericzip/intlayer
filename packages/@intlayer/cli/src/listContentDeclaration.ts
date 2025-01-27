@@ -22,12 +22,18 @@ export const getContentDeclaration = (
   return contentDeclarationFilesPath;
 };
 
-type ListContentDeclarationOptions = {};
+type ListContentDeclarationOptions = {
+  logPrefix?: string;
+};
 
 export const listContentDeclaration = (
-  _options: ListContentDeclarationOptions
+  options: ListContentDeclarationOptions
 ) => {
   const contentDeclarationFilesPath = getContentDeclaration();
 
-  logger(`Content declaration files: ${contentDeclarationFilesPath}`);
+  logger(`Content declaration files: ${contentDeclarationFilesPath}`, {
+    config: {
+      prefix: options?.logPrefix,
+    },
+  });
 };
