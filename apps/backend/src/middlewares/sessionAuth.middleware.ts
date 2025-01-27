@@ -72,7 +72,6 @@ export const checkOrganization = async (
 
   try {
     if (!jwtTokenOrganization || jwtTokenOrganization === 'undefined') {
-      clearOrganizationAuth(res);
       return next();
     }
 
@@ -112,7 +111,6 @@ export const checkProject = async (
 
   try {
     if (!jwtTokenProject || jwtTokenProject === 'undefined') {
-      clearProjectAuth(res);
       return next();
     }
 

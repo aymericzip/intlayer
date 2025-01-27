@@ -15,7 +15,7 @@ import type { Response } from 'express';
 // @ts-ignore express-intlayer not build yet
 import { t } from 'express-intlayer';
 import jwt from 'jsonwebtoken';
-import type { Document, ObjectId } from 'mongoose';
+import type { ObjectId } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 // eslint-disable-next-line import/no-cycle
 import { getUserByEmail, getUserById, updateUserById } from './user.service';
