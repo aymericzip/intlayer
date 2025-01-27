@@ -1,5 +1,5 @@
-import { findMatchingCondition } from '../..';
 import type { QuantityContent } from './enumeration';
+import { findMatchingCondition } from './findMatchingCondition';
 
 /**
  * Allow to pick a content based on a quantity.
