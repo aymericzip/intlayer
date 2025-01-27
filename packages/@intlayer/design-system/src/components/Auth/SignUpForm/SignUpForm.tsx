@@ -1,8 +1,10 @@
 'use client';
 
-import type { FC } from 'react';
+import { type FC } from 'react';
+// @ts-ignore react-intlayer not build yet
+import { useDictionary } from 'react-intlayer';
 import { Form, useForm } from '../../Form';
-import { getSignUpContent } from './signUpForm.content';
+import content from './signUpForm.content';
 import { useSignUpSchema, type SignUp } from './useSignUpSchema';
 
 type SignUpFormProps = {
@@ -22,7 +24,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
     passwordConfirmationInput,
     signUpButton,
     loginLink,
-  } = getSignUpContent();
+  } = useDictionary(content);
   const SignUpSchema = useSignUpSchema();
   const { form, isSubmitting } = useForm(SignUpSchema);
 

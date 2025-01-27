@@ -1,12 +1,14 @@
 'use client';
 
+import { UserAPI } from '@intlayer/backend';
 import {
   SignUpForm as SignUpFormUI,
   type SignUp,
+  VerifyEmailForm as VerifyEmailFormUI,
 } from '@intlayer/design-system';
 import { useRegister } from '@intlayer/design-system/hooks';
-import { useRouter } from 'next/navigation';
-import type { FC } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type SignUpFormProps = {
@@ -15,29 +17,38 @@ type SignUpFormProps = {
 
 export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const router = useRouter();
+  const userId = useSearchParams().get('') as string | undefined;
+  const [user, setUser] = useState<UserAPI | null>(null);
 
   const { register } = useRegister();
 
-  const onSubmitSuccess = async ({ email, password }: SignUp) => {
+  const handleRegistration = async ({ email, password }: SignUp) => {
     const response = await register({
       email,
       password,
     });
 
     if (response?.data) {
-      if (callbackUrl) {
-        router.push(callbackUrl);
-      }
+      setUser(response.data);
     }
+  };
+
+  const handleEmailValidated = async () => {
+    router.push(callbackUrl ?? PagesRoutes.Dashboard);
   };
 
   const onClickBackToSignIn = () => {
     router.push(PagesRoutes.Auth_SignIn);
   };
 
-  return (
+  return user ? (
+    <VerifyEmailFormUI
+      onSubmitSuccess={handleEmailValidated}
+      userId={(user?._id ? String(user._id) : undefined) ?? userId}
+    />
+  ) : (
     <SignUpFormUI
-      onSubmitSuccess={onSubmitSuccess}
+      onSubmitSuccess={handleRegistration}
       onClickBackToSignIn={onClickBackToSignIn}
     />
   );

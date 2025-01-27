@@ -11,10 +11,9 @@ import { getVerifyEmailSchema, VerifyEmail } from './VerifyEmailSchema';
 
 export const VerifyEmailStepForm: FC = () => {
   const VerifyEmailSchema = getVerifyEmailSchema();
-  const { revalidateSession } = useUser();
+  const { revalidateSession, user } = useUser();
   const { verifyEmail } = useIntlayer('verify-email-step');
   const userId = useSearchParams().get('userId') as string | undefined;
-  const { user } = useUser();
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const { state: registrationState } = useStep(Steps.Registration);
   const { formData, goNextStep, goPreviousStep, setState, setFormData } =
