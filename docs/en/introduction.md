@@ -1,6 +1,6 @@
 # Intlayer Documentation
 
-Welcome to the official Intlayer documentation! Here, you'll find everything you need to integrate, configure, and master Intlayer for all your internationalization (i18n) needs—whether you’re working with Next.js, React, Vite, Express, or another JavaScript environment.
+Welcome to the official Intlayer documentation! Here, you'll find everything you need to integrate, configure, and master Intlayer for all your internationalization (i18n) needs, whether you’re working with Next.js, React, Vite, Express, or another JavaScript environment.
 
 ## Introduction
 

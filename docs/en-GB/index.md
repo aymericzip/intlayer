@@ -1,6 +1,6 @@
 # Intlayer Documentation
 
-Welcome to the official **Intlayer** documentation! Here, you'll find everything you need to integrate, configure, and master Intlayer for all your internationalization (i18n) needs—whether you’re working with **Next.js**, **React**, **Vite**, **Express**, or another JavaScript environment.
+Welcome to the official **Intlayer** documentation! Here, you'll find everything you need to integrate, configure, and master Intlayer for all your internationalization (i18n) needs,whether you’re working with **Next.js**, **React**, **Vite**, **Express**, or another JavaScript environment.
 
 Intlayer offers a flexible, modern approach to translating your application. Our docs will guide you from installation and setup through advanced features like **AI-powered translation**, **TypeScript** definitions, and **server component** support—empowering you to create a seamless, multilingual experience.
 
