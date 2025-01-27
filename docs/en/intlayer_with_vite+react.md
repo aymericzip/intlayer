@@ -1126,6 +1126,10 @@ const LocaleSwitcher = () => {
             key={localeItem}
           >
             <span>
+              {/* Locale - e.g. FR */}
+              {localeItem}
+            </span>
+            <span>
               {/* Language in its own Locale - e.g. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
@@ -1136,10 +1140,6 @@ const LocaleSwitcher = () => {
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* Language in English - e.g. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-            <span>
-              {/* Language in its own Locale - e.g. FR */}
-              {localeItem}
             </span>
           </a>
         ))}
