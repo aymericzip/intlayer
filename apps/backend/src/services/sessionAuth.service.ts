@@ -7,6 +7,7 @@ import {
   getCookieOptions,
   MAX_AGE,
 } from '@utils/cookies';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { hash, genSalt, compare } from 'bcrypt';
@@ -331,9 +332,10 @@ export const formatUserProviderUpdate = <
   user: Partial<User>,
   providerUpdate: Partial<UserProvider<T>>
 ): User['provider'] => {
-  const userProvider: SessionProviders[] = (
-    user.provider as unknown as Document
-  ).toObject();
+  const userProvider: SessionProviders[] = ensureMongoDocumentToObject<
+    SessionProviders[]
+  >(user.provider ?? []);
+
   const userProviderToUpdate = userProvider?.find(
     (providerEl) => providerEl.provider === provider
   );
