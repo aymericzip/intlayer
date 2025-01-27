@@ -31,7 +31,8 @@
     "**/*.js",
     "**/*.tsx",
     "**/*.json",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".intlayer/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

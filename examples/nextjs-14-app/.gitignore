@@ -37,4 +37,3 @@ next-env.d.ts
 
 # Intlayer
 .intlayer
-**/intlayer.d.ts

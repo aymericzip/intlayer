@@ -247,18 +247,17 @@ A typical output might look like:
 
 ```bash
 .
-├── .intlayer
-│   ├── dictionary  # Contain the dictionary of your content
-│   │   ├── client-component.json
-│   │   └── server-component.json
-│   ├── main  # Contain the entry point of your dictionary to be used in your application
-│   │   ├── dictionary.cjs
-│   │   └── dictionary.mjs
-│   └── types  # Contain the auto-generated type definitions of your dictionary
-│       ├── client-component.d.ts
-│       └── server-component.d.ts
-└── types
-    └── intlayer.d.ts  # Contain the auto-generated type definitions of Intlayer
+└── .intlayer
+    ├── dictionary  # Contain the dictionary of your content
+    │   ├── client-component.json
+    │   └── server-component.json
+    ├── main  # Contain the entry point of your dictionary to be used in your application
+    │   ├── dictionary.cjs
+    │   └── dictionary.mjs
+    └── types  # Contain the auto-generated type definitions of your dictionary
+        ├── intlayer.d.ts  # Contain the auto-generated type definitions of Intlayer
+        ├── client-component.d.ts
+        └── server-component.d.ts
 ```
 
 ### Build i18next resources

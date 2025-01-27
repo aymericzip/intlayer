@@ -23,6 +23,12 @@
       "@providers/*": ["./src/providers/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".intlayer/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

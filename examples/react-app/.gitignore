@@ -24,4 +24,3 @@ yarn-error.log*
 
 # Intlayer
 .intlayer
-**/intlayer.d.ts

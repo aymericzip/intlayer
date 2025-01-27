@@ -20,7 +20,6 @@ dictionaries
 
 # Intlater output
 .intlayer
-intlayer.d.ts
 
 # Storybook
 storybook-static

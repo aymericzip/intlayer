@@ -21,6 +21,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["**/*"],
+  "include": ["**/*", ".intlayer/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

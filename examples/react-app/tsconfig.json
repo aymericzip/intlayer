@@ -18,5 +18,5 @@
     "jsx": "react-jsx"
   },
   "include": ["**/*"],
-  "exclude": ["build", ".intlayer", "node_modules"]
+  "exclude": ["build", ".intlayer/**/*.ts", "node_modules"]
 }
