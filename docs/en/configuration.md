@@ -127,16 +127,22 @@ Defines settings related to the integrated editor, including server port and act
     - `process.env.INTLAYER_EDITOR_URL`
   - _Note_: The URL of the application. Used to restrict the origin of the editor for security reasons. If set to `'*'`, the editor is accessible from any origin.
 
+- **port**:
+
+  - _Type_: `number`
+  - _Default_: `8000`
+  - _Description_: The port used by the visual editor server.
+
 - **editorURL**:
 
   - _Type_: `string`
-  - _Default_: `'*'`
+  - _Default_: `'http://localhost:8000'`
   - _Description_: The URL of the editor server. Used to restrict the origin of the editor for security reasons.
-    - `'*'`
     - `'http://localhost:3000'`
     - `'https://example.com'`
     - `process.env.INTLAYER_EDITOR_URL`
-  - _Note_: The URL of the editor server. Used to restrict the origin of the editor for security reasons. If set to `'*'`, the editor is accessible from any origin.
+    - `''*'`
+  - _Note_: The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
 
 - **backendURL**:
 

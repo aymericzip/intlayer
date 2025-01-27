@@ -116,13 +116,13 @@ const config = {
     /**
      * Optional
      * Default as `8000`.
-     * The port of the editor server.
+     * The port used by the visual editor server.
      */
     port: process.env.INTLAYER_PORT,
     /**
      * Optional
      * Default as "http://localhost:8000"
-     * The URL of the editor server.
+     * The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
   },
