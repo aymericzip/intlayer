@@ -140,9 +140,9 @@ npx intlayer config push
 
 > If you use environment variables in your `intlayer.config.ts` configuration file, you can specify the desired environment using `NODE_ENV`:
 
-    ```bash
-    NODE_ENV=development npx intlayer config push
-    ```
+```bash
+NODE_ENV=development npx intlayer config push
+```
 
 This command uploads your configuration to the Intlayer CMS.
 
@@ -156,9 +156,9 @@ npx intlayer dictionary push -d my-first-dictionary-key
 
 > If you use environment variables in your `intlayer.config.ts` configuration file, you can specify the desired environment using `NODE_ENV`:
 
-    ```bash
-    NODE_ENV=development npx intlayer dictionary push -d my-first-dictionary-key
-    ```
+```bash
+NODE_ENV=development npx intlayer dictionary push -d my-first-dictionary-key
+```
 
 This command uploads your initial content dictionaries, making them available for asynchronous fetching and editing through the Intlayer platform.
 
