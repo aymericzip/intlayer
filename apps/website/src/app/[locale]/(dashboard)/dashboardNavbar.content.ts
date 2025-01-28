@@ -13,6 +13,39 @@ const dashboardNavbarContent = {
   content: {
     navbarLinks: [
       {
+        url: PagesRoutes.Dashboard_Editor,
+        label: t({
+          en: 'Go to Intlayer visual editor',
+          'en-GB': 'Go to Intlayer visual editor',
+          fr: 'Aller sur l’éditeur visuel Intlayer',
+          es: 'Ir al editor visual de Intlayer',
+          de: 'Gehen Sie zum Intlayer-Visual-Editor',
+          ja: 'Intlayer ビジュアルエディタに行く',
+          ko: 'Intlayer 비주얼 편집기로 이동',
+          zh: '转到 Intlayer 可视化编辑器',
+          it: 'Vai alla editor visuale di Intlayer',
+          pt: 'Ir para o editor visual do Intlayer',
+          hi: 'Intlayer व्हिडिओ एडिटर पर जाएं',
+          ar: 'اذهب إلى محرر الفيديو لـ Intlayer',
+          ru: 'Перейти к визуальному редактору Intlayer',
+        }),
+        title: t({
+          en: 'Editor',
+          'en-GB': 'Editor',
+          fr: 'Éditeur',
+          es: 'Editor',
+          de: 'Editor',
+          ja: 'エディタ',
+          ko: '편집기',
+          zh: '编辑器',
+          it: 'Editor',
+          pt: 'Editor',
+          hi: 'संपादक',
+          ar: 'محرر',
+          ru: 'Редактор',
+        }),
+      },
+      {
         url: PagesRoutes.Dashboard_Content,
         label: t({
           en: 'Go to content dashboard',

@@ -112,6 +112,7 @@ export const getConfiguration = (
   const intlayerEditorConfiguration = {
     applicationURL: getEnvValue(env.editor.applicationURL, 'string')!,
     editorURL: getEnvValue(env.editor.editorURL, 'string')!,
+    cmsURL: getEnvValue(env.editor.cmsURL, 'string')!,
     backendURL: getEnvValue(env.editor.backendURL, 'string')!,
     port: getEnvValue(env.editor.port, 'number')!,
     enabled: getEnvValue(env.editor.enabled, 'boolean')!,

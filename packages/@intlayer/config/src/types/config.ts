@@ -118,9 +118,16 @@ export type EditorConfig = {
    *
    * > '*' means that the editor is accessible from any origin
    *
-   * Default: '*'
+   * Default: 'http://localhost:8000'
    */
   editorURL: string;
+
+  /**
+   * URL of the CMS server. Used to restrict the origin of the editor for security reasons.
+   *
+   * Default: 'https://intlayer.org'
+   */
+  cmsURL: string;
 
   /**
    * URL of the backend

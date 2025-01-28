@@ -68,17 +68,25 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
             editor.applicationURL
           );
         }
-
         if (editor.editorURL.length > 0) {
           window.parent?.postMessage(
             data,
             // Use to restrict the origin of the editor for security reasons.
-            // Correspond to the current editor URL.
+            // Correspond to the editor URL to synchronize the locales states.
             editor.editorURL
           );
         }
+
+        if (editor.cmsURL.length > 0) {
+          window.parent?.postMessage(
+            data,
+            // Use to restrict the origin of the CMS for security reasons.
+            // Correspond to the CMS URL.
+            editor.cmsURL
+          );
+        }
       }}
-      allowedOrigins={[editor.editorURL, editor.applicationURL]}
+      allowedOrigins={[editor.editorURL, editor.cmsURL, editor.applicationURL]}
       mode="client"
       configuration={configuration}
     >

@@ -37,7 +37,7 @@ const EditorProviderEnabled: FC<
   );
 };
 
-type EditorProviderProps = UseCrossPlatformStateProps &
+export type EditorProviderProps = UseCrossPlatformStateProps &
   EditorProviderEnabledProps &
   ConfigurationProviderProps;
 

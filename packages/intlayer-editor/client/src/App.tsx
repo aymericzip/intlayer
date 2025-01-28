@@ -1,21 +1,33 @@
 import { type FC, useRef } from 'react';
-import { AppLayout } from './components/AppLayout';
+import { useLocation } from 'react-router-dom';
 import { AppProvider } from './components/AppProvider';
 import { AppRouter } from './components/AppRouter';
-import { IframeController } from './components/IframeController';
+import { EditorLayout } from './components/Editor/EditorLayout';
+import { EditorProvider } from './components/Editor/EditorProvider';
+import { IframeController } from './components/Editor/IframeController';
 
-const App: FC = () => {
+const AppContent: FC = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const location = useLocation();
 
   return (
-    <AppProvider iframeRef={iframeRef}>
-      <AppRouter>
-        <AppLayout>
-          <IframeController iframeRef={iframeRef} />
-        </AppLayout>
-      </AppRouter>
-    </AppProvider>
+    <EditorProvider iframeRef={iframeRef}>
+      <EditorLayout>
+        <IframeController
+          iframeRef={iframeRef}
+          applicationPath={location.pathname}
+        />
+      </EditorLayout>
+    </EditorProvider>
   );
 };
+
+const App: FC = () => (
+  <AppRouter>
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
+  </AppRouter>
+);
 
 export default App;

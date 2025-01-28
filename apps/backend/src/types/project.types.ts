@@ -12,7 +12,10 @@ type ProjectConfigInternationalization = Pick<
   'locales' | 'defaultLocale'
 >;
 
-type ProjectConfigEditor = Pick<IntlayerConfig['editor'], 'applicationURL'>;
+type ProjectConfigEditor = Pick<
+  IntlayerConfig['editor'],
+  'applicationURL' | 'cmsURL'
+>;
 
 export type ProjectConfiguration = {
   internationalization: ProjectConfigInternationalization;

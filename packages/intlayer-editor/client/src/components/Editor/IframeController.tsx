@@ -9,13 +9,13 @@ import {
   useIframeClickMerger,
 } from '@intlayer/editor-react';
 import { type FC, type RefObject, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useEditedContentPersistence } from '../hooks/useEditedContentPersistence';
-import { cn } from '../utils/cn';
+import { useEditedContentPersistence } from '../../hooks/useEditedContentPersistence';
+import { cn } from '../../utils/cn';
 
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement>;
-}> = ({ iframeRef }) => {
+  applicationPath: string;
+}> = ({ iframeRef, applicationPath }) => {
   const { editor } = useConfiguration();
 
   useIframeClickMerger();
@@ -31,7 +31,6 @@ export const IframeController: FC<{
     receive: false,
   });
 
-  const location = useLocation();
   const [iframePath] = useCrossURLPathState(undefined, {
     receive: true,
     emit: false,
@@ -51,7 +50,7 @@ export const IframeController: FC<{
     <div className="size-full overflow-hidden rounded-lg">
       <Loader isLoading={loading} />
       <iframe
-        src={`${editor.applicationURL}/${location.pathname}`}
+        src={`${editor.applicationURL}/${applicationPath}`}
         title="Intlayer Application"
         className={cn('size-full', loading && 'hidden')}
         ref={iframeRef}

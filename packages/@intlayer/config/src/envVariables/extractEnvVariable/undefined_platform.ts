@@ -57,6 +57,7 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
   const editor: ReplaceValue<EditorConfig> = {
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     editorURL: process.env.INTLAYER_EDITOR_URL,
+    cmsURL: process.env.INTLAYER_CMS_URL,
     backendURL: process.env.INTLAYER_BACKEND_URL,
     port: process.env.INTLAYER_PORT,
     enabled: process.env.INTLAYER_ENABLED,

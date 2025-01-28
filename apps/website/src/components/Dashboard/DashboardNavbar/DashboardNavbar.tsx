@@ -48,7 +48,10 @@ const shouldHaveOrganizationRoutes = [
   PagesRoutes.Dashboard_Tags,
 ] as string[];
 
-const shouldHaveProjectRoutes = [PagesRoutes.Dashboard_Content] as string[];
+const shouldHaveProjectRoutes = [
+  PagesRoutes.Dashboard_Editor,
+  PagesRoutes.Dashboard_Content,
+] as string[];
 
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { pathWithoutLocale } = useLocale();

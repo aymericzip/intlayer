@@ -52,6 +52,9 @@ const projectConfigSchema = new Schema<Project['configuration']>(
       applicationURL: {
         type: String,
       },
+      cmsURL: {
+        type: String,
+      },
     },
   },
   {

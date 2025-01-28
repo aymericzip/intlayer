@@ -61,6 +61,7 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
   const editor: ReplaceValue<EditorConfig> = {
     applicationURL: process.env.REACT_APP_INTLAYER_APPLICATION_URL,
     editorURL: process.env.REACT_APP_INTLAYER_EDITOR_URL,
+    cmsURL: process.env.REACT_APP_INTLAYER_CMS_URL,
     backendURL: process.env.REACT_APP_INTLAYER_BACKEND_URL,
     port: process.env.REACT_APP_INTLAYER_PORT,
     enabled: process.env.REACT_APP_INTLAYER_ENABLED,

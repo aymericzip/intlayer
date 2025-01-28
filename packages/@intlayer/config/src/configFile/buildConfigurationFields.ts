@@ -16,6 +16,7 @@ import {
 import {
   APPLICATION_URL,
   EDITOR_URL,
+  CMS_URL,
   BACKEND_URL,
   DICTIONARY_PRIORITY_STRATEGY,
   IS_ENABLED,
@@ -542,6 +543,11 @@ const buildEditorFields = (
    * Default: '*'
    */
   editorURL: customConfiguration?.editorURL ?? EDITOR_URL,
+
+  /**
+   * URL of the CMS server. Used to restrict the origin of the editor for security reasons.
+   */
+  cmsURL: customConfiguration?.cmsURL ?? CMS_URL,
 
   /**
    * URL of the editor server

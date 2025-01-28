@@ -2,11 +2,6 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/Au
 // import { getServerSession } from '@components/Auth/getServerSession';
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
-import {
-  DictionariesRecordProvider,
-  EditedContentProvider,
-  FocusDictionaryProvider,
-} from '@intlayer/editor-react';
 import { PageLayout } from '@layouts/PageLayout';
 import type { Next14LayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';

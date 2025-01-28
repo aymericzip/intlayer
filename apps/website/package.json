@@ -54,6 +54,7 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/backend": "workspace:*",
     "@intlayer/blog": "workspace:*",
+    "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/docs": "workspace:*",

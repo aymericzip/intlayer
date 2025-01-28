@@ -43,14 +43,13 @@ export const useCrossFrameMessageListener = <S,>(
 
         // Check if the message origin is allowed
         if (
-          typeof allowedOrigins !== 'undefined' &&
-          !allowedOrigins.includes(event.origin) &&
-          !allowedOrigins.includes('*')
-        )
-          return;
-
-        // Update the local state with the received data
-        onEventTriggered(event.data.data);
+          typeof allowedOrigins === 'undefined' ||
+          allowedOrigins?.includes(event.origin) ||
+          allowedOrigins?.includes('*')
+        ) {
+          // Update the local state with the received data
+          onEventTriggered(event.data.data);
+        }
       };
 
       window.addEventListener('message', handleMessage);
