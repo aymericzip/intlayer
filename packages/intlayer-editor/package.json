@@ -67,7 +67,7 @@
     "dev:server": "node --import=tsx --watch ./server/src/index.ts",
     "lint": "eslint .",
     "preview": "vite preview --config ./client/vite.config.ts",
-    "start": "NODE_ENV=production node server/dist/index.mjs"
+    "start": "node server/dist/index.mjs"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
