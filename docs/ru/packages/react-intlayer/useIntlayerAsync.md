@@ -62,7 +62,7 @@ Intlayer предоставляет управляемую систему упр
 3. **Отправьте новый словарь локали в Intlayer:**
 
    ```bash
-   npx intlayer push -d my-first-dictionary-key
+   npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
    Эта команда загружает ваши первоначальные словари контента, делая их доступными для асинхронной загрузки и редактирования через платформу Intlayer.

@@ -62,7 +62,7 @@ Intlayer के साथ शुरू करने के लिए:
 3. **Intlayer पर एक नया स्थानीयकृत शब्दकोश पुश करें:**
 
    ```bash
-   npx intlayer push -d my-first-dictionary-key
+   npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
    यह कमांड आपकी प्रारंभिक सामग्री शब्दकोशों को अपलोड करता है, जिससे वे Intlayer प्लेटफ़ॉर्म के माध्यम से असिंक्रोनस रूप से लाने और संपादित करने के लिए उपलब्ध होते हैं।

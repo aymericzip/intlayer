@@ -60,7 +60,7 @@ npx intlayer build --watch
 ### 辞書のプッシュ
 
 ```bash
-npx intlayer push
+npx intlayer dictionary push
 ```
 
 もし[インテレーションエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_editor.md)がインストールされている場合、辞書をエディタにプッシュすることもできます。このコマンドを使用することで、辞書を[編集者](https://intlayer.org/dashboard)に利用可能にし、チームと辞書を共有し、アプリケーションのコードを編集せずにコンテンツを編集できます。
@@ -68,16 +68,16 @@ npx intlayer push
 ##### 引数:
 
 - `-d`, `--dictionaries`: プルする辞書のID。指定しない場合、すべての辞書がプッシュされます。
-  > 例: `npx intlayer push -d my-dictionary-id my-other-dictionary-id`
+  > 例: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 - `-r`, `--deleteLocaleDictionary`: 辞書がプッシュされた後にロケールディレクトリを削除するかどうかの質問をスキップし、削除します。デフォルトでは、辞書がローカルに定義されている場合、遠隔辞書の内容が上書きされます。
-  > 例: `npx intlayer push -r`
+  > 例: `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`: 辞書がプッシュされた後にロケールディレクトリを削除するかどうかの質問をスキップし、保持します。デフォルトでは、辞書がローカルに定義されている場合、遠隔辞書の内容が上書きされます。
-  > 例: `npx intlayer push -k`
+  > 例: `npx intlayer dictionary push -k`
 
 ### 遠隔辞書をプル
 
 ```bash
-npx intlayer pull
+npx intlayer dictionary pull
 ```
 
 もし[インテレーションエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_editor.md)がインストールされている場合、エディタから辞書をプルすることもできます。これにより、アプリケーションの需要に応じて辞書の内容を上書きできます。
@@ -85,13 +85,13 @@ npx intlayer pull
 ##### 引数:
 
 - `-d, --dictionaries`: プルする辞書のID。指定しない場合、すべての辞書がプルされます。
-  > 例: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
+  > 例: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath`: 新しい辞書を保存するディレクトリのパス。指定しない場合、新しい辞書はプロジェクトの`./intlayer-dictionaries`ディレクトリに保存されます。辞書コンテンツ内に`filePath`フィールドが指定されている場合、辞書はこの引数を考慮せず、指定された`filePath`ディレクトリに保存されます。
 
 ##### 例:
 
 ```bash
-npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
 ### 辞書の監査
@@ -136,8 +136,8 @@ npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
-  "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull",
+  "intlayer:push": "npx intlayer dictionary push",
+  "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

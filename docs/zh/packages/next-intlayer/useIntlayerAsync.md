@@ -58,7 +58,7 @@ module.exports = config;
 配置好凭据后，您可以通过运行以下命令将新的本地字典推送到 Intlayer：
 
 ```bash
-npx intlayer push -d my-first-dictionary-key
+npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
 此命令上传您初始的内容字典，使其可用于通过 Intlayer 平台进行异步获取和编辑。

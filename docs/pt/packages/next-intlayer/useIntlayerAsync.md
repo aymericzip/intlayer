@@ -58,7 +58,7 @@ module.exports = config;
 Após configurar suas credenciais, você pode enviar um novo dicionário de localidade para o Intlayer executando:
 
 ```bash
-npx intlayer push -d my-first-dictionary-key
+npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
 Esse comando faz o upload de seus dicionários de conteúdo iniciais, tornando-os disponíveis para busca assíncrona e edição através da plataforma Intlayer.

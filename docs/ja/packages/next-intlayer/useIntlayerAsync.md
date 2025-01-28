@@ -58,7 +58,7 @@ module.exports = config;
 クレデンシャルの設定が完了したら、次のコマンドを実行して Intlayer に新しいロケール辞書をプッシュできます。
 
 ```bash
-npx intlayer push -d my-first-dictionary-key
+npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
 このコマンドは、初期コンテンツ辞書をアップロードし、Intlayer プラットフォームを通じて非同期で取得・編集できるようにします。

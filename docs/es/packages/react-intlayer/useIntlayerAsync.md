@@ -62,7 +62,7 @@ Para comenzar con Intlayer:
 3. **Empuja un nuevo diccionario de locales a Intlayer:**
 
    ```bash
-   npx intlayer push -d my-first-dictionary-key
+   npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
    Este comando sube tus diccionarios de contenido inicial, haciéndolos disponibles para ser obtenidos y editados de manera asincrónica a través de la plataforma Intlayer.

@@ -62,7 +62,7 @@ Intlayer 提供了一个无头内容源管理 (CSM) 系统，使非开发人员�
 3. **将新的语言环境字典推送到 Intlayer:**
 
    ```bash
-   npx intlayer push -d my-first-dictionary-key
+   npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
    该命令上传您的初始内容字典，使其可用于异步获取和通过 Intlayer 平台编辑。

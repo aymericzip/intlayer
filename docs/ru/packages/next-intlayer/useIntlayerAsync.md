@@ -58,7 +58,7 @@ module.exports = config;
 После настройки ваших учетных данных вы можете отправить новый словарь локали в Intlayer, запустив:
 
 ```bash
-npx intlayer push -d my-first-dictionary-key
+npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
 Эта команда загружает ваши начальные словари контента, делая их доступными для асинхронной загрузки и редактирования через платформу Intlayer.

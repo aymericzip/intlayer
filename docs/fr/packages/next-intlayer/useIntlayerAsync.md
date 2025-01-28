@@ -58,7 +58,7 @@ module.exports = config;
 Après avoir configuré vos identifiants, vous pouvez pousser un nouveau dictionnaire de locale vers Intlayer en exécutant :
 
 ```bash
-npx intlayer push -d my-first-dictionary-key
+npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
 Cette commande télécharge vos dictionnaires de contenu initiaux, les rendant disponibles pour un chargement asynchrone et une édition via la plateforme Intlayer.

@@ -60,7 +60,7 @@ npx intlayer build --watch
 ### Публикация словарей
 
 ```bash
-npx intlayer push
+npx intlayer dictionary push
 ```
 
 Если [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_editor.md) установлен, вы также можете отправить словари в редактор. Эта команда позволит сделать словари доступными для [редактора](https://intlayer.org/dashboard). Таким образом, вы можете делиться своими словарями с вашей командой и редактировать ваш контент без изменения кода вашего приложения.
@@ -68,16 +68,16 @@ npx intlayer push
 ##### Аргументы:
 
 - `-d`, `--dictionaries`: идентификаторы словарей для загрузки. Если не указано, все словари будут отправлены.
-  > Пример: `npx intlayer push -d my-dictionary-id my-other-dictionary-id`
+  > Пример: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 - `-r`, `--deleteLocaleDictionary`: Пропустить вопрос о том, нужно ли удалить директории локалей, как только словари будут отправлены, и удалить их. По умолчанию, если словарь определен локально, он перезапишет содержимое удаленных словарей.
-  > Пример: `npx intlayer push -r`
+  > Пример: `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`: Пропустить вопрос о том, нужно ли удалить директории локалей, как только словари будут отправлены, и сохранить их. По умолчанию, если словарь определен локально, он перезапишет содержимое удаленных словарей.
-  > Пример: `npx intlayer push -k`
+  > Пример: `npx intlayer dictionary push -k`
 
 ### Загрузка удаленных словарей
 
 ```bash
-npx intlayer pull
+npx intlayer dictionary pull
 ```
 
 Если [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_editor.md) установлен, вы также можете загрузить словари из редактора. Таким образом, вы можете перезаписать содержимое ваших словарей в соответствии с потребностями вашего приложения.
@@ -85,13 +85,13 @@ npx intlayer pull
 ##### Аргументы:
 
 - `-d, --dictionaries`: Идентификаторы словарей для загрузки. Если не указано, все словари будут загружены.
-  > Пример: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
+  > Пример: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : Путь к директории, где будут сохранены новые словари. Если не указано, новые словари будут сохранены в директории `./intlayer-dictionaries` проекта. Если в вашем контенте словаря указано поле `filePath`, словари не будут учитывать этот аргумент и будут сохранены в указанной директории `filePath`.
 
 ##### Пример:
 
 ```bash
-npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
 ### Аудит словарей
@@ -136,8 +136,8 @@ npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
-  "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull",
+  "intlayer:push": "npx intlayer dictionary push",
+  "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

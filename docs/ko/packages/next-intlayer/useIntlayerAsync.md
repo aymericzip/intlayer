@@ -58,7 +58,7 @@ module.exports = config;
 자격 증명을 구성한 후, 다음 명령을 실행하여 Intlayer에 새 로케일 사전을 푸시할 수 있습니다:
 
 ```bash
-npx intlayer push -d my-first-dictionary-key
+npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
 이 명령은 초기 콘텐츠 사전을 업로드하여 Intlayer 플랫폼을 통해 비동기 가져오기 및 편집이 가능하도록 만듭니다.

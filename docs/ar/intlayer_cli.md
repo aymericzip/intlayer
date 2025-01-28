@@ -60,7 +60,7 @@ npx intlayer build --watch
 ### دفع القواميس
 
 ```bash
-npx intlayer push
+npx intlayer dictionary push
 ```
 
 إذا كانت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md) مثبتة، يمكنك أيضًا دفع القواميس إلى المحرر. سيسمح لك هذا الأمر بجعل القواميس متاحة لـ [المحرر](https://intlayer.org/dashboard). بهذه الطريقة، يمكنك مشاركة قواميسك مع فريقك وتحرير محتواك دون تحرير كود تطبيقك.
@@ -68,16 +68,16 @@ npx intlayer push
 ##### المعاملات:
 
 - `-d`, `--dictionaries`: معرفات القواميس للسحب. إذا لم يتم تحديدها، فسيتم دفع جميع القواميس.
-  > مثال: `npx intlayer push -d my-dictionary-id my-other-dictionary-id`
+  > مثال: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 - `-r`, `--deleteLocaleDictionary`: تخطي السؤال الذي يسأل عن حذف أدلة اللغات بمجرد دفع القواميس، وإزالتها. بشكل افتراضي، إذا تم تعريف القاموس محليًا، فسوف يقوم بالكتابة فوق محتوى القواميس البعيدة.
-  > مثال: `npx intlayer push -r`
+  > مثال: `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`: تخطي السؤال الذي يسأل عن حذف أدلة اللغات بمجرد دفع القواميس، والاحتفاظ بها. بشكل افتراضي، إذا تم تعريف القاموس محليًا، فسوف يقوم بالكتابة فوق محتوى القواميس البعيدة.
-  > مثال: `npx intlayer push -k`
+  > مثال: `npx intlayer dictionary push -k`
 
 ### سحب القواميس البعيدة
 
 ```bash
-npx intlayer pull
+npx intlayer dictionary pull
 ```
 
 إذا كانت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md) مثبتة، يمكنك أيضًا سحب القواميس من المحرر. بهذه الطريقة، يمكنك الكتابة فوق محتوى قواميسك حسب احتياجات تطبيقك.
@@ -85,13 +85,13 @@ npx intlayer pull
 ##### المعاملات:
 
 - `-d, --dictionaries`: معرفات القواميس للسحب. إذا لم يتم تحديدها، فسيتم سحب جميع القواميس.
-  > مثال: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
+  > مثال: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : المسار إلى الدليل الذي سيتم حفظ القواميس الجديدة فيه. إذا لم يتم تحديده، فستُحفظ القواميس الجديدة في دليل `./intlayer-dictionaries` الخاص بالمشروع. إذا تم تحديد حقل `filePath` في محتوى قاموسك، فلن تأخذ القواميس بعين الاعتبار هذه المعلمة وسيتم حفظها في الدليل المحدد `filePath`.
 
 ##### مثال:
 
 ```bash
-npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
 ### تدقيق القواميس
@@ -136,8 +136,8 @@ npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
-  "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull",
+  "intlayer:push": "npx intlayer dictionary push",
+  "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

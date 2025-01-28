@@ -58,7 +58,7 @@ module.exports = config;
 بعد تكوين بيانات الاعتماد الخاصة بك، يمكنك دفع قاموس محلي جديد إلى Intlayer عن طريق تشغيل:
 
 ```bash
-npx intlayer push -d my-first-dictionary-key
+npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
 هذا الأمر يرفع قواميس المحتوى الأولية الخاصة بك، مما يجعلها متاحة للاستخراج والتعديل غير المتزامن من خلال منصة Intlayer.

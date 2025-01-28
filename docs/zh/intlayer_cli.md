@@ -60,7 +60,7 @@ npx intlayer build --watch
 ### 推送字典
 
 ```bash
-npx intlayer push
+npx intlayer dictionary push
 ```
 
 如果安装了 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_editor.md)，您也可以将字典推送到编辑器。此命令将使字典可用于 [编辑器](https://intlayer.org/dashboard)。这样，您可以与团队共享字典并在不编辑应用程序代码的情况下编辑内容。
@@ -68,16 +68,16 @@ npx intlayer push
 ##### 参数：
 
 - `-d`, `--dictionaries`：要拉取的字典的ID。如果未指定，将推送所有字典。
-  > 示例：`npx intlayer push -d my-dictionary-id my-other-dictionary-id`
+  > 示例：`npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 - `-r`, `--deleteLocaleDictionary`：跳过询问推送字典后是否删除地区目录的问题，并将其删除。默认情况下，如果字典在本地定义，它将覆盖远程字典内容。
-  > 示例：`npx intlayer push -r`
+  > 示例：`npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`：跳过询问推送字典后是否删除地区目录的问题，并保留它们。默认情况下，如果字典在本地定义，它将覆盖远程字典内容。
-  > 示例：`npx intlayer push -k`
+  > 示例：`npx intlayer dictionary push -k`
 
 ### 拉取远程字典
 
 ```bash
-npx intlayer pull
+npx intlayer dictionary pull
 ```
 
 如果安装了 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_editor.md)，您也可以从编辑器拉取字典。这样，您可以覆盖字典的内容，以满足应用程序的需求。
@@ -85,13 +85,13 @@ npx intlayer pull
 ##### 参数：
 
 - `-d, --dictionaries`：要拉取的字典的ID。如果未指定，将拉取所有字典。
-  > 示例：`npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
+  > 示例：`npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : 新字典将保存的目录路径。如果未指定，新字典将保存在项目的 `./intlayer-dictionaries` 目录中。如果您的字典内容中指定了 `filePath` 字段，字典将不考虑此参数并保存在指定的 `filePath` 目录中。
 
 ##### 示例：
 
 ```bash
-npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
 ### 审计字典
@@ -136,8 +136,8 @@ npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
-  "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull",
+  "intlayer:push": "npx intlayer dictionary push",
+  "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

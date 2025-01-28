@@ -60,7 +60,7 @@ npx intlayer build --watch
 ### शब्दकोश भेजना
 
 ```bash
-npx intlayer push
+npx intlayer dictionary push
 ```
 
 यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) स्थापित है, तो आप संपादक को शब्दकोश भी भेज सकते हैं। यह कमांड शब्दकोशों को [संपादक](https://intlayer.org/dashboard) के लिए उपलब्ध कराने की अनुमति देगा। इस तरह, आप अपने शब्दकोशों को अपनी टीम के साथ साझा कर सकते हैं और बिना अपने अनुप्रयोग के कोड को संपादित किए अपनी सामग्री को संपादित कर सकते हैं।
@@ -68,16 +68,16 @@ npx intlayer push
 ##### तर्क:
 
 - `-d`, `--dictionaries`: खींचने के लिए शब्दकोश के आईडी। यदि निर्दिष्ट नहीं किया गया है, तो सभी शब्दकोश भेजे जाएंगे।
-  > उदाहरण: `npx intlayer push -d my-dictionary-id my-other-dictionary-id`
+  > उदाहरण: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 - `-r`, `--deleteLocaleDictionary`: एक प्रश्न को छोड़ें जो शब्दकोश भेजे जाने के बाद स्थानीय निर्देशिकाओं को हटाने के लिए पूछता है। डिफ़ॉल्ट के रूप में, यदि शब्दकोश स्थानीय रूप से परिभाषित है, तो यह दूरस्थ शब्दकोश सामग्री को अधिलेखित करेगा।
-  > उदाहरण: `npx intlayer push -r`
+  > उदाहरण: `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`: एक प्रश्न को छोड़ें जो शब्दकोश भेजे जाने के बाद स्थानीय निर्देशिकाओं को हटाने के लिए पूछता है। डिफ़ॉल्ट के रूप में, यदि शब्दकोश स्थानीय रूप से परिभाषित है, तो यह दूरस्थ शब्दकोश सामग्री को अधिलेखित करेगा।
-  > उदाहरण: `npx intlayer push -k`
+  > उदाहरण: `npx intlayer dictionary push -k`
 
 ### दूरस्थ शब्दकोश खींचना
 
 ```bash
-npx intlayer pull
+npx intlayer dictionary pull
 ```
 
 यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) स्थापित है, तो आप संपादक से शब्दकोश भी खींच सकते हैं। इस तरह, आप अपने अनुप्रयोग की आवश्यकताओं के लिए अपने शब्दकोशों की सामग्री को अधिलेखित कर सकते हैं।
@@ -85,13 +85,13 @@ npx intlayer pull
 ##### तर्क:
 
 - `-d, --dictionaries`: खींचने के लिए शब्दकोशों के आईडी। यदि निर्दिष्ट नहीं किया गया है, तो सभी शब्दकोश खींचे जाएंगे।
-  > उदाहरण: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
+  > उदाहरण: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath`: उस निर्देशिका का पथ जहाँ नए शब्दकोश सहेजे जाएंगे। यदि निर्दिष्ट नहीं किया गया है, तो समाचार शब्दकोश परियोजना के `./intlayer-dictionaries` निर्देशिका में सहेजे जाएंगे। यदि आपकी शब्दकोश सामग्री में `filePath` फ़ील्ड निर्दिष्ट है, तो शब्दकोश इस तर्क पर विचार नहीं करेंगे और निर्दिष्ट `filePath` निर्देशिका में सहेजे जाएंगे।
 
 ##### उदाहरण:
 
 ```bash
-npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
 ### शब्दकोशों का ऑडिट करना
@@ -136,8 +136,8 @@ npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
-  "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull",
+  "intlayer:push": "npx intlayer dictionary push",
+  "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

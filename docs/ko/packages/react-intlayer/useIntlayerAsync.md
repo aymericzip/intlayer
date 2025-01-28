@@ -62,7 +62,7 @@ Intlayer를 시작하려면:
 3. **Intlayer에 새 로케일 사전을 푸시하세요:**
 
    ```bash
-   npx intlayer push -d my-first-dictionary-key
+   npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
    이 명령은 초기 콘텐츠 사전을 업로드하여 Intlayer 플랫폼을 통해 비동기적으로 가져오고 편집할 수 있도록 합니다.

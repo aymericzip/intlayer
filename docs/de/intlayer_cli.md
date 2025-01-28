@@ -60,7 +60,7 @@ Dieser Befehl findet Ihre Deklarationsinhaltsdateien standardmäßig unter `./sr
 ### Wörterbücher pushen
 
 ```bash
-npx intlayer push
+npx intlayer dictionary push
 ```
 
 Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md) installiert ist, können Sie auch Wörterbücher an den Editor senden. Dieser Befehl ermöglicht es, die Wörterbücher im [Editor](https://intlayer.org/dashboard) verfügbar zu machen. Auf diese Weise können Sie Ihre Wörterbücher mit Ihrem Team teilen und Ihren Inhalt bearbeiten, ohne den Code Ihrer Anwendung zu ändern.
@@ -68,16 +68,16 @@ Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 ##### Argumente:
 
 - `-d`, `--dictionaries`: ids der Wörterbücher, die abgerufen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher gepusht.
-  > Beispiel: `npx intlayer push -d my-dictionary-id my-other-dictionary-id`
+  > Beispiel: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 - `-r`, `--deleteLocaleDictionary`: Überspringen Sie die Frage, die fragt, ob die Locales-Verzeichnisse gelöscht werden sollen, nachdem die Wörterbücher gepusht wurden, und löschen Sie sie. Standardmäßig wird, wenn das Wörterbuch lokal definiert ist, der Inhalt der fernen Wörterbücher überschrieben.
-  > Beispiel: `npx intlayer push -r`
+  > Beispiel: `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`: Überspringen Sie die Frage, die fragt, ob die Locales-Verzeichnisse gelöscht werden sollen, nachdem die Wörterbücher gepusht wurden, und behalten Sie sie. Standardmäßig wird, wenn das Wörterbuch lokal definiert ist, der Inhalt der fernen Wörterbücher überschrieben.
-  > Beispiel: `npx intlayer push -k`
+  > Beispiel: `npx intlayer dictionary push -k`
 
 ### Fernwörterbücher abrufen
 
 ```bash
-npx intlayer pull
+npx intlayer dictionary pull
 ```
 
 Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md) installiert ist, können Sie auch Wörterbücher vom Editor abrufen. Auf diese Weise können Sie den Inhalt Ihrer Wörterbücher nach Bedarf Ihrer Anwendung überschreiben.
@@ -85,13 +85,13 @@ Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 ##### Argumente:
 
 - `-d, --dictionaries`: Ids der Wörterbücher, die abgerufen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher abgerufen.
-  > Beispiel: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
+  > Beispiel: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : Pfad zum Verzeichnis, in dem die neuen Wörterbücher gespeichert werden. Wenn nicht angegeben, werden die neuen Wörterbücher im Verzeichnis `./intlayer-dictionaries` des Projekts gespeichert. Wenn ein `filePath`-Feld in Ihrem Wörterbuchinhalt angegeben ist, ignorieren die Wörterbücher dieses Argument und werden im angegebenen `filePath`-Verzeichnis gespeichert.
 
 ##### Beispiel:
 
 ```bash
-npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
 ### Wörterbücher prüfen
@@ -136,8 +136,8 @@ Dieser Befehl ignoriert alle Dateien unter `tests/**` und verwendet das Modell `
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
-  "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull",
+  "intlayer:push": "npx intlayer dictionary push",
+  "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

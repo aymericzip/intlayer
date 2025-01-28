@@ -60,7 +60,7 @@ This command will find your declaration content files as default as `./src/**/*.
 ### Push dictionaries
 
 ```bash
-npx intlayer push
+npx intlayer dictionary push
 ```
 
 If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
@@ -68,16 +68,16 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB
 ##### Arguments:
 
 - `-d`, `--dictionaries`: ids of the dictionaries to pull. If not specified, all dictionaries will be pushed.
-  > Example: `npx intlayer push -d my-dictionary-id my-other-dictionary-id`
+  > Example: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 - `-r`, `--deleteLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, if the dictionary is defined locally, it will overwrite remote dictionaries content.
-  > Example: `npx intlayer push -r`
+  > Example: `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, if the dictionary is defined locally, it will overwrite remote dictionaries content.
-  > Example: `npx intlayer push -k`
+  > Example: `npx intlayer dictionary push -k`
 
 ### Pull distant dictionaries
 
 ```bash
-npx intlayer pull
+npx intlayer dictionary pull
 ```
 
 If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
@@ -85,13 +85,13 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB
 ##### Arguments:
 
 - `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
-  > Example: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
+  > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the new dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` field is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
 
 ##### Example:
 
 ```bash
-npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
 ### Audit dictionaries
@@ -136,8 +136,8 @@ This command will ignore any files under `tests/**` and use the `gpt-3.5-turbo` 
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
-  "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull",
+  "intlayer:push": "npx intlayer dictionary push",
+  "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

@@ -60,7 +60,7 @@ Este comando buscará tus archivos de contenido de declaración por defecto como
 ### Empujar diccionarios
 
 ```bash
-npx intlayer push
+npx intlayer dictionary push
 ```
 
 Si el [editor de intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_editor.md) está instalado, también puedes empujar diccionarios al editor. Este comando hará que los diccionarios estén disponibles para [el editor](https://intlayer.org/dashboard). De esta manera, puedes compartir tus diccionarios con tu equipo y editar tu contenido sin editar el código de tu aplicación.
@@ -68,16 +68,16 @@ Si el [editor de intlayer](https://github.com/aymericzip/intlayer/blob/main/docs
 ##### Argumentos:
 
 - `-d`, `--dictionaries`: ids de los diccionarios a extraer. Si no se especifica, se empujarán todos los diccionarios.
-  > Ejemplo: `npx intlayer push -d my-dictionary-id my-other-dictionary-id`
+  > Ejemplo: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
 - `-r`, `--deleteLocaleDictionary`: Salta la pregunta que pregunta si deseas eliminar los directorios locales una vez que se han empujado los diccionarios, y los elimina. Por defecto, si el diccionario está definido localmente, sobreescribirá el contenido de los diccionarios lejanos.
-  > Ejemplo: `npx intlayer push -r`
+  > Ejemplo: `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`: Salta la pregunta que pregunta si deseas eliminar los directorios locales una vez que se han empujado los diccionarios, y los mantiene. Por defecto, si el diccionario está definido localmente, sobreescribirá el contenido de los diccionarios lejanos.
-  > Ejemplo: `npx intlayer push -k`
+  > Ejemplo: `npx intlayer dictionary push -k`
 
 ### Extraer diccionarios lejanos
 
 ```bash
-npx intlayer pull
+npx intlayer dictionary pull
 ```
 
 Si el [editor de intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_editor.md) está instalado, también puedes extraer diccionarios del editor. De esta manera, puedes sobrescribir el contenido de tus diccionarios para las necesidades de tu aplicación.
@@ -85,13 +85,13 @@ Si el [editor de intlayer](https://github.com/aymericzip/intlayer/blob/main/docs
 ##### Argumentos:
 
 - `-d, --dictionaries`: Ids de los diccionarios a extraer. Si no se especifica, se extraerán todos los diccionarios.
-  > Ejemplo: `npx intlayer pull -d my-dictionary-id my-other-dictionary-id`
+  > Ejemplo: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath`: Ruta al directorio donde se guardarán los nuevos diccionarios. Si no se especifica, los nuevos diccionarios se guardarán en el directorio `./intlayer-dictionaries` del proyecto. Si un campo `filePath` está especificado en el contenido de tu diccionario, los diccionarios no considerarán este argumento y se guardarán en el directorio `filePath` especificado.
 
 ##### Ejemplo:
 
 ```bash
-npx intlayer pull --newDictionariesPath ./my-dictionaries-dir/
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
 ### Auditar diccionarios
@@ -136,8 +136,8 @@ Este comando ignorará cualquier archivo bajo `tests/**` y usará el modelo `gpt
 "scripts": {
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
-  "intlayer:push": "npx intlayer push",
-  "intlayer:pull": "npx intlayer pull",
+  "intlayer:push": "npx intlayer dictionary push",
+  "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

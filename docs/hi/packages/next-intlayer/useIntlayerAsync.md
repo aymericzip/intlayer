@@ -60,7 +60,7 @@ module.exports = config;
 After configuring your credentials, you can push a new locale dictionary to Intlayer by running:
 
 ```bash
-npx intlayer push -d my-first-dictionary-key
+npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
 This command uploads your initial content dictionaries, making them available for asynchronous fetching and editing through the Intlayer platform.
