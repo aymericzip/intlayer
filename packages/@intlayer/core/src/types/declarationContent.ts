@@ -47,6 +47,7 @@ type ReplaceContentValueArray<T> = T extends (infer U)[]
   : ReplaceContentValue<T>;
 
 export type DeclarationContent<T = undefined> = {
+  $schema?: string;
   key: string;
   title?: string;
   description?: string;

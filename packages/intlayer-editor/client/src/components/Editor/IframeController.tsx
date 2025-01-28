@@ -57,6 +57,7 @@ export const IframeController: FC<{
         onLoad={() => {
           setLoading(false);
           const { editor } = getConfiguration();
+
           if (editor.enabled) {
             setIsEnabled(true);
           }

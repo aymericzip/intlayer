@@ -89,10 +89,15 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
   const onSubmitSuccess = useCallback(async () => {
     if (!editedContent?.[dictionary.key]) return;
 
+    const updatedDictionary = {
+      ...dictionary,
+      ...editedContent?.[dictionary.key],
+    };
+
     if (mode === 'remote') {
-      await pushDictionaries([editedContent?.[dictionary.key]]);
+      await pushDictionaries([updatedDictionary]);
     } else {
-      await writeDictionary(editedContent?.[dictionary.key]);
+      await writeDictionary(updatedDictionary);
     }
     setLocaleDictionary(editedContent?.[dictionary.key]);
     restoreEditedContent(dictionary.key);
@@ -108,8 +113,12 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
 
   const handleOnAuditFile = async () =>
     await auditContentDeclaration({
-      defaultLocale: project?.defaultLocale ?? Locales.ENGLISH,
-      locales: project?.locales ?? [Locales.ENGLISH],
+      defaultLocale:
+        project?.configuration?.internationalization?.defaultLocale ??
+        Locales.ENGLISH,
+      locales: project?.configuration?.internationalization?.locales ?? [
+        Locales.ENGLISH,
+      ],
       fileContent: JSON.stringify(editedDictionary ?? dictionary),
     }).then((response) => {
       if (!response.data) return;

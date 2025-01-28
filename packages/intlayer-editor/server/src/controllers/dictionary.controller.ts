@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getConfiguration } from '@intlayer/config';
-import { type Dictionary } from '@intlayer/core';
+import { DeclarationContent, type Dictionary } from '@intlayer/core';
 import { DictionaryStatus } from '@intlayer/editor';
 import { writeContentDeclaration as writeContentDeclarationEditor } from '@intlayer/editor/server';
 import { formatResponse, ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 
-export type WriteContentDeclarationBody = Dictionary;
+export type WriteContentDeclarationBody = Dictionary | DeclarationContent;
 type WriteContentDeclarationResultData = {
   status: DictionaryStatus;
   path: string;
@@ -22,11 +22,16 @@ export const writeContentDeclaration = async (
   res: Response<WriteContentDeclarationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const dictionaryData = req.body;
-
-  const config = getConfiguration();
-
   try {
+    const dictionaryData = req.body;
+
+    // Clear unused schema
+    if (dictionaryData['$schema']) {
+      delete dictionaryData['$schema'];
+    }
+
+    const config = getConfiguration();
+
     const result = await writeContentDeclarationEditor(dictionaryData, config);
 
     const formattedResponse = formatResponse<WriteContentDeclarationResultData>(

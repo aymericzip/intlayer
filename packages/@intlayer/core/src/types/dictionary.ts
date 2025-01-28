@@ -16,6 +16,7 @@ export type DictionaryValue =
   | RecursiveDictionaryValue[];
 
 export type Dictionary = {
+  $schema?: string;
   key: string;
   content: DictionaryValue;
   title?: string;

@@ -59,10 +59,15 @@ export const ValidDictionaryChangeButtons: FC<
   const onSubmitSuccess = useCallback(async () => {
     if (!editedContent?.[dictionary.key]) return;
 
+    const updatedDictionary = {
+      ...dictionary,
+      ...editedContent?.[dictionary.key],
+    };
+
     if (mode === 'remote') {
-      await pushDictionaries([editedContent?.[dictionary.key]]);
+      await pushDictionaries([updatedDictionary]);
     } else {
-      await writeDictionary(editedContent?.[dictionary.key]);
+      await writeDictionary(updatedDictionary);
     }
     setLocaleDictionary(editedContent?.[dictionary.key]);
     restoreEditedContent(dictionary.key);
