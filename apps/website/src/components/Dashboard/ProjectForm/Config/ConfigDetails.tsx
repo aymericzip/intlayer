@@ -14,7 +14,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
   const { locale } = useLocale();
   const {
     noConfig,
-    updateCondig,
+    updateConfig,
     pushConfigDocLink,
     title,
     i18nSection,
@@ -79,11 +79,22 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
               {projectConfig.editor.applicationURL}
             </Link>
           </Tag>
+
+          <H5 className="mb-3">{editorSection.cmsURL.title}</H5>
+          <Tag size="sm">
+            <Link
+              href={projectConfig.editor.cmsURL}
+              label={editorSection.cmsURL.label.value}
+              color="text"
+            >
+              {projectConfig.editor.cmsURL}
+            </Link>
+          </Tag>
         </div>
       </div>
       <div className="bg-card dark:bg-card-dark flex flex-col gap-2 rounded-lg p-4 text-sm">
         <strong className="text-neutral dark:text-neutral-dark block">
-          {updateCondig.message}
+          {updateConfig.message}
         </strong>
         <Link
           label={pushConfigDocLink.label.value}

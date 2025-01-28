@@ -114,6 +114,38 @@ const projectConfigDetailsContent = {
           ru: 'Нажмите, чтобы перейти к URL-адресу приложения',
         }),
       },
+      cmsURL: {
+        title: t({
+          en: 'CMS URL',
+          'en-GB': 'CMS URL',
+          fr: 'URL du CMS',
+          es: 'URL del CMS',
+          de: 'CMS-URL',
+          ja: 'CMS URL',
+          ko: 'CMS URL',
+          zh: 'CMS URL',
+          it: 'URL del CMS',
+          pt: 'URL do CMS',
+          hi: 'CMS URL',
+          ar: 'عنوان URL للمحرك المرئي',
+          ru: 'URL-адрес CMS',
+        }),
+        label: t({
+          en: 'Click to navigate to the CMS URL',
+          'en-GB': 'Click to navigate to the CMS URL',
+          fr: 'Cliquez pour accéder à l’URL du CMS',
+          es: 'Haga clic para navegar a la URL del CMS',
+          de: 'Klicken Sie hier, um zur CMS-URL zu navigieren',
+          ja: 'CMS URLに移動するにはクリックしてください',
+          ko: 'CMS URL로 이동하려면 클릭하세요',
+          zh: '点击查看CMS URL',
+          it: 'Clicca per andare all’URL del CMS',
+          pt: 'Clique para acessar a URL do CMS',
+          hi: 'क्लिक करें के लिए CMS URL पर जाएं',
+          ar: 'انقر للانتقال إلى عنوان URL للمحرك المرئي',
+          ru: 'Нажмите, чтобы перейти к URL-адресу CMS',
+        }),
+      },
     },
 
     noConfig: {
@@ -134,7 +166,7 @@ const projectConfigDetailsContent = {
         ru: 'Не загружена конфигурация. Пожалуйста, сначала загрузите конфигурацию с помощью CLI.',
       }),
     },
-    updateCondig: {
+    updateConfig: {
       message: t({
         en: 'You can update your configuration using the CLI.',
         'en-GB': 'You can update your configuration using the CLI.',
