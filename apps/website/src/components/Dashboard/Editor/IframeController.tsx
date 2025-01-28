@@ -3,7 +3,6 @@
 import { Loader } from '@intlayer/design-system';
 import {
   useConfiguration,
-  useCrossURLPathState,
   useEditorEnabledState,
   useIframeClickMerger,
 } from '@intlayer/editor-react';
@@ -29,15 +28,9 @@ export const IframeController: FC<{
     receive: false,
   });
 
-  const [iframePath] = useCrossURLPathState(undefined, {
-    receive: true,
-    emit: false,
-  });
-
   return (
     <div className="contents size-full flex-1">
       <Loader isLoading={loading} />
-      {iframePath}
       <iframe
         src={editor.applicationURL}
         title="Intlayer Application"
