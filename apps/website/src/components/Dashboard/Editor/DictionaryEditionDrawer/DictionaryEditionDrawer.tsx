@@ -68,7 +68,7 @@ export const DictionaryEditionDrawerContent: FC<
           onClickDictionaryList={onClickDictionaryList}
           isDarkMode={isDarkMode}
           availableLocales={localeList}
-          mode="local"
+          mode="remote"
         />
       </Modal>
 
@@ -76,7 +76,7 @@ export const DictionaryEditionDrawerContent: FC<
         dictionary={dictionary}
         locale={locale}
         onClickEdit={setKeyPathEditionModal}
-        mode="local"
+        mode="remote"
       />
     </>
   );
