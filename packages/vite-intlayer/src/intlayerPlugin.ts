@@ -31,13 +31,13 @@ export const intlayerPlugin = (
     // Store the mode
     mode = envObject.mode;
 
-    // Set all configuration values as environment variables
-    const env = formatEnvVariable('vite');
+    const viteEnvVar = loadEnv(mode, process.cwd());
+    const intlayerEnvVar = formatEnvVariable('vite');
 
     process.env = {
-      ...process.env,
-      ...loadEnv(mode, process.cwd()),
-      ...env,
+      ...process.env, // Env var eventually provided by other plugins
+      ...viteEnvVar, // Env var loaded by vite .env files
+      ...intlayerEnvVar, // Env var related to intlayer
     };
 
     const intlayerConfig = getConfiguration();

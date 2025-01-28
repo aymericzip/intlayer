@@ -12,7 +12,7 @@ export type ExtractEnvVariableOptions = {
 export const extractEnvVariable = (
   options?: ExtractEnvVariableOptions
 ): IntlayerConfigEnvVariable => {
-  const platform: Platform = options?.platform ?? getPlatform();
+  const platform = options?.platform ?? getPlatform();
 
   if (platform === 'vite') {
     return extractViteEnvVariable();

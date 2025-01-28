@@ -1,4 +1,4 @@
-export type Platform = 'next' | 'vite' | 'react_app' | 'unknown';
+export type Platform = 'next' | 'vite' | 'react_app' | 'node' | undefined;
 
 export const getPlatform = (): Platform => {
   if (
@@ -18,9 +18,11 @@ export const getPlatform = (): Platform => {
   ) {
     // Likely Create React App
     return 'react_app';
+  } else if (typeof process.env.INTLAYER_DEFAULT_LOCALE !== 'undefined') {
+    return 'node';
   }
 
-  return 'unknown';
+  return undefined;
 };
 
 /**

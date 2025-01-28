@@ -3,12 +3,12 @@ import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import React from 'react';
 import { getPlatform } from '../envVariables/detectPlatform';
 import { loadEnvFile } from '../envVariables/loadEnvFile';
+import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';
 import { ESMxCJSRequire } from '../utils/ESMxCJSRequire';
-import { logger } from '../logger';
 
-// If platform defined, the env file is already loaded by Rollup Webpack or Turbopack.
-if (getPlatform() === 'unknown') {
+// Load the env file if not already loaded
+if (typeof getPlatform() === 'undefined') {
   loadEnvFile();
 }
 
