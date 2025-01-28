@@ -144,6 +144,14 @@ Defines settings related to the integrated editor, including server port and act
     - `''*'`
   - _Note_: The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
 
+- **cmsURL**:
+
+  - _Type_: `string`
+  - _Default_: `'https://intlayer.org'`
+  - _Description_: The URL of the Intlayer CMS.
+  - _Example_: `'https://intlayer.org'`
+  - _Note_: The URL of the Intlayer CMS.
+
 - **backendURL**:
 
   - _Type_: `string`

@@ -55,6 +55,13 @@ const config: IntlayerConfig = {
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+
+    /**
+     * Optional
+     * The URL of the Intlayer CMS.
+     * By default, it is set to https://intlayer.org
+     */
+    cmsURL: process.env.INTLAYER_CMS_URL,
   },
 };
 
@@ -76,8 +83,14 @@ const config = {
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,    /**
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
 
+    /**
+     * Optional
+     * The URL of the Intlayer CMS.
+     * By default, it is set to https://intlayer.org
+     */
+    cmsURL: process.env.INTLAYER_CMS_URL,
   },
 };
 
@@ -98,6 +111,13 @@ const config = {
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+
+    /**
+     * Optional
+     * The URL of the Intlayer CMS.
+     * By default, it is set to https://intlayer.org
+     */
+    cmsURL: process.env.INTLAYER_CMS_URL,
   },
 };
 
@@ -133,6 +153,12 @@ To transform your locale dictionaries in a distant dictionary, you can use the [
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
 ```
+
+> If you use environment variables in your `intlayer.config.ts` configuration file, you can specify the desired environment using `NODE_ENV`:
+
+    ```bash
+    NODE_ENV=development npx intlayer dictionary push -d my-first-dictionary-key
+    ```
 
 This command uploads your initial content dictionaries, making them available for asynchronous fetching and editing through the Intlayer platform.
 
