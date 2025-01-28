@@ -5,6 +5,7 @@ import { useGetProjects } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { Suspense, useState, type FC } from 'react';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
+import { ConfigDetails } from './Config/ConfigDetails';
 import { MembersForm } from './Members/MembersKeyForm';
 import { NoProjectView } from './NoProjectView';
 import { ProjectCreationForm } from './ProjectCreationForm';
@@ -37,6 +38,12 @@ export const ProjectFormContent: FC = () => {
           className="z-20 flex size-full justify-center p-6"
         >
           <ProjectEditionForm />
+        </Container>
+        <Container
+          roundedSize="xl"
+          className="z-20 flex size-full justify-center p-6"
+        >
+          <ConfigDetails projectConfig={project.configuration} />
         </Container>
         <Container
           roundedSize="xl"
