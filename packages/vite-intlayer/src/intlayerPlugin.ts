@@ -9,8 +9,6 @@ type PluginOptions = {
   // Custom options for your plugin, if any
 };
 
-let mode: string; // Shared variable to store the mode
-
 /**
  *
  * A Vite plugin that integrates Intlayer configuration into the build process
@@ -27,10 +25,7 @@ export const intlayerPlugin = (
 ): PluginOption => ({
   name: 'vite-intlayer-plugin',
 
-  config: (config, envObject) => {
-    // Store the mode
-    mode = envObject.mode;
-
+  config: (config, { mode }) => {
     const viteEnvVar = loadEnv(mode, process.cwd());
     const intlayerEnvVar = formatEnvVariable('vite');
 
