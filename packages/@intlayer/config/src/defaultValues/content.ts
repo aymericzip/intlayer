@@ -1,4 +1,3 @@
-import process from 'process';
 import type { DictionaryOutput } from '../types/config';
 
 export const FILE_EXTENSIONS = [

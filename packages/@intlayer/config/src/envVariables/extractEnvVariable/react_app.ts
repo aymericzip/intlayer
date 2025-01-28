@@ -1,4 +1,3 @@
-import process from 'process';
 import type {
   InternationalizationConfig,
   MiddlewareConfig,

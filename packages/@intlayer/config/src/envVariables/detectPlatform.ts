@@ -1,5 +1,3 @@
-import process from 'process';
-
 export type Platform = 'next' | 'vite' | 'react_app' | 'unknown';
 
 export const getPlatform = (): Platform => {

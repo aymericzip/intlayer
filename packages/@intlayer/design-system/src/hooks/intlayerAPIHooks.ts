@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import process from 'process';
 import { intlayerAPI } from '@intlayer/api';
 import { useConfiguration } from '@intlayer/editor-react';
 import { useAuth } from '../components/Auth/useAuth/index';

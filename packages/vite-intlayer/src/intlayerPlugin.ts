@@ -1,5 +1,4 @@
 import { join, relative, resolve } from 'path';
-import process from 'process';
 import { buildAndWatchIntlayer } from '@intlayer/chokidar';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
