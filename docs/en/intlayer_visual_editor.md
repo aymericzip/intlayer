@@ -193,3 +193,16 @@ module.exports = config;
    ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 3. If your content is outlined, you can long-press it to display the edit drawer.
+
+## Debug
+
+If you encounter any issues with the visual editor, check the following:
+
+- The visual editor and the application are running.
+
+- The [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
+
+  - Required fields:
+    - The application URL should match the one you set in the editor configuration (`applicationURL`).
+
+- The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows your application url as `frame-ancestors`. Check the editor console for any error.

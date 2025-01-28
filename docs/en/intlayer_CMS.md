@@ -47,6 +47,16 @@ const config: IntlayerConfig = {
   // ... other configuration settings
   editor: {
     /**
+     * Required
+     *
+     * The URL of the application.
+     * This is the URL targeted by the visual editor.
+     */
+    applicationURL: process.env.INTLAYER_APPLICATION_URL,
+
+    /**
+     * Required
+     *
      * Client ID and client secret are required to enable the editor.
      * They allow the identify the user who is editing the content.
      * They can be obtained by creating a new client in the Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
@@ -58,10 +68,23 @@ const config: IntlayerConfig = {
 
     /**
      * Optional
+     *
+     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the CMS.
+     *
      * The URL of the Intlayer CMS.
      * By default, it is set to https://intlayer.org
      */
     cmsURL: process.env.INTLAYER_CMS_URL,
+
+    /**
+     * Optional
+     *
+     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
+     *
+     * The URL of the Intlayer CMS.
+     * By default, it is set to https://back.intlayer.org
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL,
   },
 };
 
@@ -69,13 +92,21 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... other configuration settings
   editor: {
     /**
+     * Required
+     *
+     * The URL of the application.
+     * This is the URL targeted by the visual editor.
+     */
+    applicationURL: process.env.INTLAYER_APPLICATION_URL,
+
+    /**
+     * Required
+     *
      * Client ID and client secret are required to enable the editor.
      * They allow the identify the user who is editing the content.
      * They can be obtained by creating a new client in the Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
@@ -87,10 +118,23 @@ const config = {
 
     /**
      * Optional
+     *
+     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the CMS.
+     *
      * The URL of the Intlayer CMS.
      * By default, it is set to https://intlayer.org
      */
     cmsURL: process.env.INTLAYER_CMS_URL,
+
+    /**
+     * Optional
+     *
+     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
+     *
+     * The URL of the Intlayer CMS.
+     * By default, it is set to https://back.intlayer.org
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL,
   },
 };
 
@@ -103,6 +147,16 @@ const config = {
   // ... other configuration settings
   editor: {
     /**
+     * Required
+     *
+     * The URL of the application.
+     * This is the URL targeted by the visual editor.
+     */
+    applicationURL: process.env.INTLAYER_APPLICATION_URL,
+
+    /**
+     * Required
+     *
      * Client ID and client secret are required to enable the editor.
      * They allow the identify the user who is editing the content.
      * They can be obtained by creating a new client in the Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
@@ -114,10 +168,23 @@ const config = {
 
     /**
      * Optional
+     *
+     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the CMS.
+     *
      * The URL of the Intlayer CMS.
      * By default, it is set to https://intlayer.org
      */
     cmsURL: process.env.INTLAYER_CMS_URL,
+
+    /**
+     * Optional
+     *
+     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
+     *
+     * The URL of the Intlayer CMS.
+     * By default, it is set to https://back.intlayer.org
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL,
   },
 };
 
@@ -165,3 +232,19 @@ This command uploads your initial content dictionaries, making them available fo
 ### Edit the dictionary
 
 Then you will be able to see and manage your dictionary in the [Intlayer CMS](https://intlayer.org/dashboard/content).
+
+## Debug
+
+If you encounter any issues with the CMS, check the following:
+
+- The application is running.
+
+- The [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
+
+  - Required fields:
+    - The application URL should match the one you set in the editor configuration (`applicationURL`).
+    - The CMS URL
+
+- Ensure that the project configuration was pushed to the Intlayer CMS.
+
+- The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows your application url as `frame-ancestors`. Check the editor console for any error.
