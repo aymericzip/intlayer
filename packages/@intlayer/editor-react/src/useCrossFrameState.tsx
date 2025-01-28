@@ -51,8 +51,7 @@ export const useCrossFrameState = <S,>(
 ): [S, Dispatch<SetStateAction<S>>] => {
   const { postMessage } = useCommunicator();
 
-  const emit = useMemo(() => options?.emit ?? true, [options?.emit]);
-  const receive = useMemo(() => options?.receive ?? true, [options?.receive]);
+  const { emit, receive } = options ?? { emit: true, receive: true };
 
   const handleStateChange = useCallback(
     (state?: SetStateAction<S>, prevState?: S) => {
