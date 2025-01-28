@@ -1,16 +1,10 @@
 import { type Context, runInNewContext } from 'vm';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import React from 'react';
-import { getPlatform } from '../envVariables/detectPlatform';
 import { loadEnvFile } from '../envVariables/loadEnvFile';
 import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';
 import { ESMxCJSRequire } from '../utils/ESMxCJSRequire';
-
-// Load the env file if not already loaded
-if (typeof getPlatform() === 'undefined') {
-  loadEnvFile();
-}
 
 const sandboxContext: Context = {
   exports: {
@@ -20,7 +14,7 @@ const sandboxContext: Context = {
     exports: {},
   },
   React,
-  process,
+  process: { ...process, env: loadEnvFile() },
   console,
   require: ESMxCJSRequire,
 };
