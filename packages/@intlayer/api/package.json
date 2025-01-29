@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/api",
-  "version": "4.1.7",
+  "version": "4.1.8",
   "private": false,
   "description": "SDK for interacting with the Intlayer API, enabling content auditing, and managing organizations, projects, and users.",
   "keywords": [

@@ -1,6 +1,6 @@
 {
   "name": "react-intlayer",
-  "version": "4.1.7",
+  "version": "4.1.8",
   "private": false,
   "description": "Easily internationalize i18n your React applications with type-safe multilingual content management.",
   "keywords": [
