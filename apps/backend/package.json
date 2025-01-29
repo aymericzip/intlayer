@@ -52,12 +52,14 @@
     "build": "pnpm build:package & pnpm build:types",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "clean": "rimraf ./dist",
     "dev": "node --import=tsx --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
+    "reset": "pnpm clean & pnpm build",
     "start": "NODE_ENV=production node dist/esm/index.mjs --max-old-space-size=384"
   },
   "dependencies": {
@@ -114,6 +116,7 @@
     "eslint": "^9.18.0",
     "intlayer": "workspace:*",
     "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
