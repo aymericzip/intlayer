@@ -11,8 +11,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       '@changesets/cli':
-        specifier: 2.27.11
-        version: 2.27.11
+        specifier: 2.27.12
+        version: 2.27.12
       '@commitlint/cli':
         specifier: ^19.6.1
         version: 19.6.1(@types/node@22.10.10)(typescript@5.7.3)
@@ -808,8 +808,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       '@changesets/cli':
-        specifier: 2.27.11
-        version: 2.27.11
+        specifier: 2.27.12
+        version: 2.27.12
       '@intlayer/backend':
         specifier: workspace:*
         version: link:../../../apps/backend
@@ -896,8 +896,8 @@ importers:
         version: 18.3.1
     devDependencies:
       '@changesets/cli':
-        specifier: 2.27.11
-        version: 2.27.11
+        specifier: 2.27.12
+        version: 2.27.12
       '@intlayer/backend':
         specifier: workspace:*
         version: link:../../../apps/backend
@@ -1528,8 +1528,8 @@ importers:
         version: 5.2.0(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15)))
     devDependencies:
       '@changesets/cli':
-        specifier: 2.27.11
-        version: 2.27.11
+        specifier: 2.27.12
+        version: 2.27.12
       '@types/crypto-js':
         specifier: ^4.2.2
         version: 4.2.2
@@ -1595,8 +1595,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       '@changesets/cli':
-        specifier: 2.27.11
-        version: 2.27.11
+        specifier: 2.27.12
+        version: 2.27.12
       '@types/cls-hooked':
         specifier: ^4.3.9
         version: 4.3.9
@@ -1662,8 +1662,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       '@changesets/cli':
-        specifier: 2.27.11
-        version: 2.27.11
+        specifier: 2.27.12
+        version: 2.27.12
       '@types/node':
         specifier: ^22.10.6
         version: 22.10.10
@@ -1717,8 +1717,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       '@changesets/cli':
-        specifier: 2.27.11
-        version: 2.27.11
+        specifier: 2.27.12
+        version: 2.27.12
       '@types/node':
         specifier: ^22.10.6
         version: 22.10.10
@@ -3610,10 +3610,10 @@ packages:
         integrity: sha512-zoeq2LJJVcPJcIotHRJEEA2qCqX0AQIeFE+L21L8sRLPVqDhSXY8ZWAt2sohtBpFZkBwu+LUwMSKRr2lMy3LJA==,
       }
 
-  '@changesets/cli@2.27.11':
+  '@changesets/cli@2.27.12':
     resolution:
       {
-        integrity: sha512-1QislpE+nvJgSZZo9+Lj3Lno5pKBgN46dAV8IVxKJy9wX8AOrs9nn5pYVZuDpoxWJJCALmbfOsHkyxujgetQSg==,
+        integrity: sha512-9o3fOfHYOvBnyEn0mcahB7wzaA3P4bGJf8PNqGit5PKaMEFdsRixik+txkrJWd2VX+O6wRFXpxQL8j/1ANKE9g==,
       }
     hasBin: true
 
@@ -24463,7 +24463,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@changesets/cli@2.27.11':
+  '@changesets/cli@2.27.12':
     dependencies:
       '@changesets/apply-release-plan': 7.0.8
       '@changesets/assemble-release-plan': 6.0.5

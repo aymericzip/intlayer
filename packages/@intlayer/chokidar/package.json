@@ -81,7 +81,7 @@
     "quicktype-core": "^23.0.170"
   },
   "devDependencies": {
-    "@changesets/cli": "2.27.11",
+    "@changesets/cli": "2.27.12",
     "@intlayer/backend": "workspace:*",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.10.6",
