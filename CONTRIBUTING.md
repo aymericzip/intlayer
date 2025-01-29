@@ -6,7 +6,7 @@ To understand the project, you can read the [documentation named "How Intlayer W
 
 ## Development setup
 
-Intlayer is developed as a mono-repo using pmpm.
+Intlayer is developed as a mono-repo using pnpm.
 
 ### Cloning
 
@@ -17,7 +17,7 @@ git clone git@github.com:intlayer-org/intlayer.git
 #### Installing Dependencies
 
 ```sh
-pnpm add
+pnpm install
 ```
 
 ### Preparing the project
@@ -29,42 +29,59 @@ pnpm prepare
 ### Building the source
 
 ```sh
-# One-time build for packages
-pmpm build-packages
+# Build all packages
+pnpm build
+```
 
-# One-time build for example applications
-pmpm build-examples
+```sh
+# Select a package and build it
+pnpm build:pick
+```
 
-# One-time build for website
-pnpm build-website
-
-# One-time build for backend
-pnpm build-backend
+```sh
+# Detect all packages that include changes using git, and build them
+pnpm build:changes
 ```
 
 ### Setup environment variables
 
-For each project necessitating environment variables, you can fond a `.env.template` file in the root of the project. Copy the file and rename it to `.env`. Then, fill the variables with the correct values.
+For each project necessitating environment variables, like `@intlayer/backend`, you can find a `.env.template` file in the root of the project. Copy the file and rename it to `.env`. Then, fill the variables with the correct values.
+
+For specific environment, use `.env.local`, `.env.[environment]` or `.env.[environment].local` files.
 
 ### Development mode
 
 ```sh
-# start development mode for selected packages or apps
-# This command allow to pick the packages to execute in watch-mode, avoid conflicts, and optimize performances during development
-
+# Start development mode for all packages
+# Watch the change related to each files. If the modified file is included in a package, the package will be rebuilt
 pnpm dev
+```
+
+```sh
+# Start development mode for selected packages or apps
+# This command allow to pick the packages to execute in watch-mode, avoid conflicts, and optimize performances during development
+pnpm dev:pick
 ```
 
 ### Resolve build error
 
-If the build block using the commands `pnpm dev` or `pnpm build`, you can use the command `pnpm clean`, `pnpm clean-packages` or `pnpm clean-examples` to remove the build/dist folders of the packages.
+If the build block using the commands `pnpm dev` or `pnpm build`, you can use the command `pnpm clean` to remove the dist folders of the packages.
 
-The commands `reset`, `reset-packages`, or `reset-examples` also clear the related build/dist folders to build it again.
+As well,
+
+- `reset`: Allows to pick one or multiple package. Clear the related `dist` folders and rebuild it.
+- `reset:packages`: or `reset-examples` also clear the related build/dist folders to build it again.
 
 ### Run tests
 
 ```sh
-pmpm test
+# Tests related to the packages
+pnpm test
+```
+
+```sh
+# Pick a package or example to test
+pnpm test:pick
 ```
 
 ### Release and PR
