@@ -72,6 +72,7 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*",
+    "reset": "pnpm clean & pnpm build",
     "test": "",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },

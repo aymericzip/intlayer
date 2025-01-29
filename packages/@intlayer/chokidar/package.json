@@ -64,7 +64,8 @@
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
-    "prettier:fix": "prettier --write src/**/*"
+    "prettier:fix": "prettier --write src/**/*",
+    "reset": "pnpm clean & pnpm build"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",

@@ -66,6 +66,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
+    "reset": "pnpm clean & pnpm build",
     "test": "",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },

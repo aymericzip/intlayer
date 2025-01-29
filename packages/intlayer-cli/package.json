@@ -67,6 +67,7 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
+    "reset": "pnpm clean & pnpm build",
     "serve": "webpack serve --config ./webpack.config.ts",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsup --project ./tsconfig.json --noEmit",
