@@ -5,12 +5,20 @@
       "path": ".",
     },
     {
-      "name": "📖 website",
+      "name": "🌐 website",
       "path": "apps/website",
     },
     {
-      "name": "backend",
+      "name": "⚡️ backend",
       "path": "apps/backend",
+    },
+    {
+      "name": "📖 @intlayer/docs",
+      "path": "docs",
+    },
+    {
+      "name": "📖 @intlayer/blog",
+      "path": "blog",
     },
     {
       "name": "🪄 eslint config",
@@ -29,12 +37,12 @@
       "path": "examples/cli",
     },
     {
-      "name": "🛠️ @intlayer/core",
-      "path": "packages/@intlayer/core",
+      "name": "🛠️ @intlayer/api",
+      "path": "packages/@intlayer/api",
     },
     {
-      "name": "🛠️ @intlayer/webpack",
-      "path": "packages/@intlayer/webpack",
+      "name": "🛠️ @intlayer/chokidar",
+      "path": "packages/@intlayer/chokidar",
     },
     {
       "name": "🛠️ @intlayer/cli",
@@ -45,9 +53,30 @@
       "path": "packages/@intlayer/config",
     },
     {
-      "name": "🛠️ @intlayer/chokidar",
-      "path": "packages/@intlayer/chokidar",
+      "name": "🛠️ @intlayer/core",
+      "path": "packages/@intlayer/core",
     },
+    {
+      "name": "🛠️ @intlayer/design-system",
+      "path": "packages/@intlayer/design-system",
+    },
+    {
+      "name": "🛠️ @intlayer/dictionary-entry",
+      "path": "packages/@intlayer/dictionary-entry",
+    },
+    {
+      "name": "🛠️ @intlayer/editor",
+      "path": "packages/@intlayer/editor",
+    },
+    {
+      "name": "🛠️ @intlayer/editor-react",
+      "path": "packages/@intlayer/editor-react",
+    },
+    {
+      "name": "🛠️ @intlayer/webpack",
+      "path": "packages/@intlayer/webpack",
+    },
+
     {
       "name": "📦 intlayer",
       "path": "packages/intlayer",
@@ -57,12 +86,24 @@
       "path": "packages/intlayer-cli",
     },
     {
+      "name": "📦 react-intlayer",
+      "path": "packages/react-intlayer",
+    },
+    {
+      "name": "📦 react-scripts-intlayer",
+      "path": "packages/react-intlayer",
+    },
+    {
+      "name": "📦 vite-intlayer",
+      "path": "packages/react-intlayer",
+    },
+    {
       "name": "📦 next-intlayer",
       "path": "packages/next-intlayer",
     },
     {
-      "name": "📦 react-intlayer",
-      "path": "packages/react-intlayer",
+      "name": "📦 express-intlayer",
+      "path": "packages/next-intlayer",
     },
     {
       "name": "📦 intlayer-editor",
