@@ -140,11 +140,11 @@ The `get configuration` command retrieves the current configuration for Intlayer
 npx intlayer config get
 ```
 
-If your `intlayer.config.ts` file includes environment variables, you can specify the desired environment using `NODE_ENV`:
+##### Arguments:
 
-```bash
-NODE_ENV=development npx intlayer config get
-```
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--verbose`**: Enable verbose logging for debugging.
 
 #### Push Configuration
 
@@ -154,11 +154,11 @@ The `push configuration` command uploads your configuration to the Intlayer CMS 
 npx intlayer config push
 ```
 
-Similarly, if your configuration file contains environment-specific variables, specify the environment before running the command:
+##### Arguments:
 
-```bash
-NODE_ENV=production npx intlayer config push
-```
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--verbose`**: Enable verbose logging for debugging.
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.
 

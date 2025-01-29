@@ -1,4 +1,4 @@
-import { getConfiguration } from './index';
+import { getConfiguration } from './configFile/getConfiguration';
 import { Logger, logger } from './logger';
 
 export const appLogger: Logger = (content, details) =>

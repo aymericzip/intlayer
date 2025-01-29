@@ -49,7 +49,6 @@ import type {
   EditorConfig,
   LogConfig,
 } from '../types/config';
-import type { GetConfigurationOptions } from './getConfiguration';
 
 let storedConfiguration: IntlayerConfig;
 
@@ -649,7 +648,6 @@ const buildLogFields = (
  * Build the configuration fields by merging the default values with the custom configuration
  */
 export const buildConfigurationFields = (
-  options: GetConfigurationOptions,
   customConfiguration?: CustomIntlayerConfig
 ): IntlayerConfig => {
   const internationalizationConfig = buildInternationalizationFields(

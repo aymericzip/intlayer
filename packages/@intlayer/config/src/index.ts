@@ -1,4 +1,7 @@
-export { getConfiguration } from './configFile/getConfiguration';
+export {
+  getConfiguration,
+  type GetConfigurationOptions,
+} from './configFile/getConfiguration';
 
 export type {
   InternationalizationConfig,

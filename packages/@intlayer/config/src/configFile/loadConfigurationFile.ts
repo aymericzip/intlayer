@@ -1,46 +1,57 @@
 import { type Context, runInNewContext } from 'vm';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import React from 'react';
-import { loadEnvFile } from '../envVariables/loadEnvFile';
+import {
+  loadEnvFile,
+  type LoadEnvFileOptions,
+} from '../envVariables/loadEnvFile';
 import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';
 import { ESMxCJSRequire } from '../utils/ESMxCJSRequire';
 
-const sandboxContext: Context = {
-  exports: {
-    default: {},
-  },
-  module: {
-    exports: {},
-  },
-  React,
-  process: { ...process, env: loadEnvFile() },
-  console,
-  require: ESMxCJSRequire,
+const getSandBoxContext = (envVarOptions?: LoadEnvFileOptions): Context => {
+  const sandboxContext: Context = {
+    exports: {
+      default: {},
+    },
+    module: {
+      exports: {},
+    },
+    React,
+    process: { ...process, env: loadEnvFile(envVarOptions) },
+    console,
+    require: ESMxCJSRequire,
+  };
+
+  return sandboxContext;
 };
 
-const define: Record<string, string> = {};
+const getTransformationOptions = (): BuildOptions => {
+  const define: Record<string, string> = {};
 
-for (const k in process.env) {
-  define[`process.env.${k}`] = JSON.stringify(process.env[k]);
-}
+  for (const k in process.env) {
+    define[`process.env.${k}`] = JSON.stringify(process.env[k]);
+  }
 
-const transformationOption: BuildOptions = {
-  loader: {
-    '.js': 'js',
-    '.jsx': 'jsx',
-    '.mjs': 'js',
-    '.ts': 'ts',
-    '.tsx': 'tsx',
-    '.cjs': 'js',
-    '.json': 'json',
-  },
-  format: 'cjs', // Output format as commonjs
-  target: 'es2017',
-  packages: 'external',
-  write: false,
-  bundle: true,
-  define,
+  const transformationOption: BuildOptions = {
+    loader: {
+      '.js': 'js',
+      '.jsx': 'jsx',
+      '.mjs': 'js',
+      '.ts': 'ts',
+      '.tsx': 'tsx',
+      '.cjs': 'js',
+      '.json': 'json',
+    },
+    format: 'cjs', // Output format as commonjs
+    target: 'es2017',
+    packages: 'external',
+    write: false,
+    bundle: true,
+    define,
+  };
+
+  return transformationOption;
 };
 
 const filterValidConfiguration = (
@@ -57,7 +68,8 @@ const filterValidConfiguration = (
  * Accepts JSON, JS, MJS and TS files as configuration
  */
 export const loadConfigurationFile = (
-  configFilePath: string
+  configFilePath: string,
+  envVarOptions?: LoadEnvFileOptions
 ): CustomIntlayerConfig | undefined => {
   let customConfiguration: CustomIntlayerConfig | undefined = undefined;
 
@@ -70,12 +82,13 @@ export const loadConfigurationFile = (
       return ESMxCJSRequire(configFilePath);
     }
 
+    const sandboxContext = getSandBoxContext(envVarOptions);
+
     // Rest is JS, MJS or TS
 
     const moduleResult: BuildResult = buildSync({
       entryPoints: [configFilePath],
-
-      ...transformationOption,
+      ...getTransformationOptions(),
     });
 
     const moduleResultString = moduleResult.outputFiles?.[0].text;

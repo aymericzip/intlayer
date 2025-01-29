@@ -68,13 +68,18 @@ export const setAPI = (): Command => {
   configurationProgram
     .command('get')
     .description('Get the configuration')
-
+    .option('--env [env]', 'Environment')
+    .option('--env-file [envFile]', 'Environment file')
+    .option('--verbose', 'Verbose')
     .action(getConfig);
 
   // Define the `push config` subcommand and add it to the `push` command
   configurationProgram
     .command('push')
     .description('Push the configuration')
+    .option('--env [env]', 'Environment')
+    .option('--env-file [envFile]', 'Environment file')
+    .option('--verbose', 'Verbose')
     .action(pushConfig);
 
   /**

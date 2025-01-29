@@ -1,13 +1,16 @@
 import { getIntlayerAPI } from '@intlayer/api';
-import { getConfiguration, logger } from '@intlayer/config';
+import {
+  getConfiguration,
+  logger,
+  type GetConfigurationOptions,
+} from '@intlayer/config';
 
 type PushOptions = {
   logPrefix?: string;
-  environment?: string;
-};
+} & GetConfigurationOptions;
 
 export const pushConfig = async (options?: PushOptions) => {
-  const config = getConfiguration();
+  const config = getConfiguration(options);
 
   const { clientId, clientSecret } = config.editor;
 
