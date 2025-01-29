@@ -26,11 +26,11 @@
   "type": "module",
   "scripts": {
     "build": "node ./scripts/script-package-command.mjs --command build",
-    "build:backend": "pnpm build:packages && pnpm --filter './apps/backend' build",
+    "build:backend": "pnpm build && pnpm --filter './apps/backend' build",
     "build:changed": "node ./scripts/script-changed-package-command.mjs --command build",
     "build:examples": "pnpm --filter './examples/**' build",
     "build:pick": "node ./scripts/script-pick.mjs --command build",
-    "build:website": "pnpm build:packages && pnpm --filter './apps/website' build",
+    "build:website": "pnpm build && pnpm --filter './apps/website' build",
     "changeset": "changeset",
     "changeset:publish": "changeset publish",
     "changeset:version": "changeset version",
