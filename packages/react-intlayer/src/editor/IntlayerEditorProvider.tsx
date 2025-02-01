@@ -51,6 +51,7 @@ const IntlayerEditorHooksEnabled: FC = () => {
   const eventSource = new IntlayerEventListener();
 
   useEffect(() => {
+    if (!editor.hotReload) return;
     if (!editor.clientId) return;
     if (!editor.clientSecret) return;
 
