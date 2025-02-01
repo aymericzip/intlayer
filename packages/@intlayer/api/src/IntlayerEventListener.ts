@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { intlayerAPI } from '@intlayer/api';
+// @ts-ignore: @intlayer/backend is not built yet
 import { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration, IntlayerConfig } from '@intlayer/config/client';
 // @ts-ignore @intlayer/backend is not built yet
