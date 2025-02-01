@@ -2,14 +2,22 @@ import { randomBytes } from 'crypto';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
 import { GenericError } from '@utils/errors';
+import { mapOrganizationToAPI } from '@utils/mapper/organization';
+import { mapProjectToAPI } from '@utils/mapper/project';
+import { mapUserToAPI } from '@utils/mapper/user';
 import { getTokenExpireAt } from '@utils/oAuth2';
-import { Client, User, Token as OAuth2Token, Callback } from 'oauth2-server';
-import { Token } from '../schemas/oAuth2.schema';
+import type { Client, Callback } from 'oauth2-server';
+import type { Token } from '../schemas/oAuth2.schema';
 import { getOrganizationById } from './organization.service';
 import { getUserById } from './user.service';
-import { UserDocument } from '@/export';
-import { Organization } from '@/types/organization.types';
-import { OAuth2Access, Project, ProjectDocument } from '@/types/project.types';
+import type { OAuth2Token } from '@/types/oAuth2.types';
+import type { Organization } from '@/types/organization.types';
+import type {
+  OAuth2Access,
+  Project,
+  ProjectDocument,
+} from '@/types/project.types';
+import type { User, UserDocument } from '@/types/user.types';
 
 /**
  * Function to generate client credentials
@@ -128,9 +136,9 @@ export const formatOAuth2Token = (
   const formattedToken: OAuth2Token = {
     ...restToken,
     client,
-    user,
-    organization,
-    project,
+    user: mapUserToAPI(user),
+    organization: mapOrganizationToAPI(organization, false),
+    project: mapProjectToAPI(project, user, false),
     accessToken: token.accessToken,
     accessTokenExpiresAt: token.accessTokenExpiresAt ?? new Date('999-99-99'),
     rights,

@@ -68,6 +68,7 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     clientSecret: process.env.REACT_APP_INTLAYER_CLIENT_SECRET,
     dictionaryPriorityStrategy:
       process.env.REACT_APP_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
+    hotReload: process.env.REACT_APP_INTLAYER_HOT_RELOAD,
   };
 
   const log: ReplaceValue<LogConfig> = {

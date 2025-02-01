@@ -21,6 +21,7 @@ import {
   DICTIONARY_PRIORITY_STRATEGY,
   IS_ENABLED,
   PORT,
+  HOT_RELOAD,
 } from '../defaultValues/editor';
 import {
   DEFAULT_LOCALE,
@@ -618,6 +619,16 @@ const buildEditorFields = (
   dictionaryPriorityStrategy:
     customConfiguration?.dictionaryPriorityStrategy ??
     DICTIONARY_PRIORITY_STRATEGY,
+
+  /**
+   * Indicates if the application should hot reload the locale configurations when a change is detected.
+   * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+   *
+   * The hot reload is only available for clients of the `enterprise` plan.
+   *
+   * Default: false
+   */
+  hotReload: customConfiguration?.hotReload ?? HOT_RELOAD,
 });
 
 const buildLogFields = (

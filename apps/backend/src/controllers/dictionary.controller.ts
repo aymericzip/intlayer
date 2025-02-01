@@ -18,6 +18,7 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
+import * as eventListener from '@/controllers/event-listener';
 import type {
   Dictionary,
   DictionaryAPI,
@@ -253,6 +254,13 @@ export const addDictionary = async (
     });
 
     res.json(responseData);
+
+    eventListener.sendDictionaryUpdate([
+      {
+        dictionary: mapDictionaryToAPI(newDictionary, project._id),
+        status: 'ADDED',
+      },
+    ]);
     return;
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
@@ -331,11 +339,9 @@ export const pushDictionaries = async (
       newDictionariesKey.includes(dictionary.key)
     );
 
-    const result: PushDictionariesResultData = {
-      newDictionaries: [],
-      updatedDictionaries: [],
-      error: [],
-    };
+    const newDictionariesResult: DictionaryAPI[] = [];
+    const updatedDictionariesResult: DictionaryAPI[] = [];
+    const errorResult: PushDictionariesResultData['error'] = [];
 
     for (const dictionaryDataEl of newDictionaries) {
       const publishedVersion = dictionaryDataEl.publishedVersion
@@ -364,7 +370,9 @@ export const pushDictionaries = async (
       try {
         const newDictionary =
           await dictionaryService.createDictionary(dictionary);
-        result.newDictionaries.push(newDictionary.key);
+        newDictionariesResult.push(
+          mapDictionaryToAPI(newDictionary, project._id)
+        );
       } catch (error) {
         ErrorHandler.handleAppErrorResponse(res, error as AppError);
         return;
@@ -428,18 +436,31 @@ export const pushDictionaries = async (
         };
 
         try {
-          const newDictionary = await dictionaryService.updateDictionaryByKey(
-            dictionaryDataEl.key,
-            dictionary,
-            project._id
+          const updatedDictionary =
+            await dictionaryService.updateDictionaryByKey(
+              dictionaryDataEl.key,
+              dictionary,
+              project._id
+            );
+          updatedDictionariesResult.push(
+            mapDictionaryToAPI(updatedDictionary, project._id)
           );
-          result.updatedDictionaries.push(newDictionary.key);
         } catch (error) {
           ErrorHandler.handleAppErrorResponse(res, error as AppError);
           return;
         }
       }
     }
+
+    const result: PushDictionariesResultData = {
+      newDictionaries: newDictionariesResult.map(
+        (dictionary) => dictionary.key
+      ),
+      updatedDictionaries: updatedDictionariesResult.map(
+        (dictionary) => dictionary.key
+      ),
+      error: errorResult,
+    };
 
     const responseData = formatResponse<PushDictionariesResultData>({
       message: t({
@@ -454,6 +475,23 @@ export const pushDictionaries = async (
       }),
       data: result,
     });
+
+    eventListener.sendDictionaryUpdate([
+      ...newDictionariesResult.map(
+        (dictionary) =>
+          ({
+            dictionary,
+            status: 'ADDED',
+          }) as eventListener.SendDictionaryUpdateArg
+      ),
+      ...updatedDictionariesResult.map(
+        (dictionary) =>
+          ({
+            dictionary,
+            status: 'UPDATED',
+          }) as eventListener.SendDictionaryUpdateArg
+      ),
+    ]);
 
     res.json(responseData);
     return;
@@ -525,6 +563,13 @@ export const updateDictionary = async (
       }),
       data: apiResult,
     });
+
+    eventListener.sendDictionaryUpdate([
+      {
+        dictionary: apiResult,
+        status: 'UPDATED',
+      },
+    ]);
 
     res.json(responseData);
     return;
@@ -604,6 +649,14 @@ export const deleteDictionary = async (
     });
 
     res.json(responseData);
+
+    eventListener.sendDictionaryUpdate([
+      {
+        dictionary: apiResult,
+        status: 'DELETED',
+      },
+    ]);
+
     return;
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);

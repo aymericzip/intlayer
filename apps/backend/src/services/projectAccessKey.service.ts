@@ -157,7 +157,7 @@ export const refreshAccessKey = async (
   );
 
   if (result.modifiedCount === 0) {
-    throw new GenericError('ACCESS_KEy_UPDATE_FAILED', {
+    throw new GenericError('ACCESS_KEY_UPDATE_FAILED', {
       clientId,
       projectId,
     });

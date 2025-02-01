@@ -122,6 +122,7 @@ export const getConfiguration = (
       env.editor.dictionaryPriorityStrategy,
       'string'
     )! as 'locale_first' | 'distant_first',
+    hotReload: getEnvValue(env.editor.hotReload, 'boolean')!,
   };
 
   const logConfiguration: LogConfig = {

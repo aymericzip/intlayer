@@ -233,6 +233,88 @@ This command uploads your initial content dictionaries, making them available fo
 
 Then you will be able to see and manage your dictionary in the [Intlayer CMS](https://intlayer.org/dashboard/content).
 
+## Hot reloading
+
+The Intlayer CMS is able to hot reload the dictionaries when a change is detected.
+
+Without the hot reloading, a new build of the application will be needed to display the new content.
+
+By activating the [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration, the application will automatically replace the updated content when it is detected.
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... other configuration settings
+  editor: {
+    // ... other configuration settings
+
+    /**
+     * Indicates if the application should hot reload the locale configurations when a change is detected.
+     * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+     *
+     * Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan
+     *
+     * Default: false
+     */
+    hotReload: true,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... other configuration settings
+  editor: {
+    // ... other configuration settings
+
+    /**
+     * Indicates if the application should hot reload the locale configurations when a change is detected.
+     * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+     *
+     * Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan
+     *
+     * Default: false
+     */
+    hotReload: true,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... other configuration settings
+  editor: {
+    // ... other configuration settings
+
+    /**
+     * Indicates if the application should hot reload the locale configurations when a change is detected.
+     * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+     *
+     * Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan
+     *
+     * Default: false
+     */
+    hotReload: true,
+  },
+};
+
+module.exports = config;
+```
+
+The hot reloading replace the content in both server and client side.
+
+- On the server side, you should ensure that the application process has the write access to the `.intlayer/dictionaries` directory.
+- On the client side, the hot reloading allow the application to hot reload the content in the browser, without needing to reload the page. However, this feature is only available for clients components.
+
+> Because the hot reloading needs an continuous connection to the server using an `EventListener`, it is only available for clients of the `enterprise` plan.
+
 ## Debug
 
 If you encounter any issues with the CMS, check the following:

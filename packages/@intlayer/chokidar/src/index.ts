@@ -14,3 +14,4 @@ export {
   loadDictionaries,
   loadLocalDictionaries,
 } from './loadDictionaries/index';
+export { checkDictionaryChanges } from './checkDictionaryChanges';

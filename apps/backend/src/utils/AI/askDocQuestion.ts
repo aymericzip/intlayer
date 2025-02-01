@@ -1,11 +1,10 @@
 import fs from 'fs';
 import { getBlogs } from '@intlayer/blog';
 import { getDocs } from '@intlayer/docs';
+import dotenv from 'dotenv';
 import { Locales } from 'intlayer';
 import { OpenAI } from 'openai';
 import embeddingsList from './embeddings.json' with { type: 'json' };
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 type VectorStoreEl = {
   fileKey: string;
@@ -80,6 +79,7 @@ const chunkText = (text: string): string[] => {
  * @returns The embedding vector as a number array
  */
 const generateEmbedding = async (text: string): Promise<number[]> => {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   const response = await openai.embeddings.create({
     model: EMBEDDING_MODEL, // Specify the embedding model
     input: text,
@@ -114,6 +114,11 @@ const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
  * Also updates the embeddings.json file if new embeddings are generated.
  */
 export const indexMarkdownFiles = async (): Promise<void> => {
+  const env = process.env.NODE_ENV;
+  dotenv.config({
+    path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
+  });
+
   // Retrieve documentation and blog posts in English locale
   const docs = getDocs(Locales.ENGLISH);
   const blogs = getBlogs(Locales.ENGLISH);
@@ -261,6 +266,8 @@ export type AskDocQuestionResult = {
 export const askDocQuestion = async (
   messages: ChatCompletionRequestMessage[]
 ): Promise<AskDocQuestionResult> => {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
   // Assistant's response are filtered out otherwise the chatbot will be stuck in a self-referential loop
   // Note that the embedding precision will be lowered if the user change of context in the chat
   const userMessages = messages.filter((message) => message.role === 'user');

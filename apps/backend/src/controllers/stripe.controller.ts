@@ -9,8 +9,6 @@ import { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
 import type { Organization } from '@/types/organization.types';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export type GetCheckoutSessionBody = {
   organizationId: string;
   priceId: string;
@@ -34,6 +32,8 @@ export const getSubscription = async (
   res: ResponseWithInformation<GetCheckoutSessionResult>
 ): Promise<void> => {
   try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
     // Extract organization and user from response locals (set by authentication middleware)
     const { organization, user } = res.locals;
     // Get the price ID (Stripe Price ID) from the request body
@@ -161,6 +161,8 @@ export const cancelSubscription = async (
   _req: Request,
   res: ResponseWithInformation<CancelSubscriptionResult>
 ): Promise<void> => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
   try {
     // Extract the organization and user from the response locals
     // These are typically set by authentication middleware earlier in the request pipeline

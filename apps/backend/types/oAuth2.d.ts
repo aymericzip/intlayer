@@ -1,12 +1,14 @@
 import 'oauth2-server';
-import { type Organization } from '../src/types/organization.types';
-import { TokenRights, type Project } from '../src/types/project.types';
-import { type User } from '../src/types/user.types';
+import type { OrganizationAPI } from '../src/types/organization.types';
+import type { ProjectAPI, TokenRights } from '../src/types/project.types';
+import type { UserAPI } from '../src/types/user.types';
 
 declare module 'oauth2-server' {
+  interface User extends UserAPI {}
+
   interface Token {
-    organization: Organization;
-    project: Project;
+    organization: OrganizationAPI;
+    project: ProjectAPI;
     user: User;
     rights: TokenRights;
   }

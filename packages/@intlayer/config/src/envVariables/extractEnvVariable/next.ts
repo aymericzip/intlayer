@@ -68,6 +68,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     clientSecret: process.env.NEXT_PUBLIC_INTLAYER_CLIENT_SECRET,
     dictionaryPriorityStrategy:
       process.env.NEXT_PUBLIC_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
+    hotReload: process.env.NEXT_PUBLIC_INTLAYER_HOT_RELOAD,
   };
 
   const log: ReplaceValue<LogConfig> = {

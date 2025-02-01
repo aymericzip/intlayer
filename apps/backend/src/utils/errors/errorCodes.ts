@@ -763,7 +763,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
-  ACCESS_KEy_UPDATE_FAILED: {
+  ACCESS_KEY_UPDATE_FAILED: {
     title: {
       en: 'Access Key Update Failed',
       fr: "Échec de la mise à jour de la clé d'accès",
@@ -827,6 +827,28 @@ export const errorData = {
       es: 'El correo electrónico o la contraseña proporcionada es incorrecta.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  USER_NOT_AUTHENTICATED: {
+    title: {
+      en: 'User not authenticated',
+      fr: 'Utilisateur non authentifié',
+      es: 'Usuario no autenticado',
+    },
+    message: {
+      en: 'The user is not authenticated.',
+      fr: "L'utilisateur n'est pas authentifié.",
+      es: 'El usuario no está autenticado.',
+    },
+    statusCode: HttpStatusCodes.UNAUTHORIZED_401,
+  },
+  AUTH_ERROR: {
+    title: {
+      en: 'Authentication Error',
+      fr: "Erreur d'authentification",
+      es: 'Error de autentication',
+    },
+    message: {},
+    statusCode: HttpStatusCodes.UNAUTHORIZED_401,
   },
   INVALID_USER_ID: {
     title: {

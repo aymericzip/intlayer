@@ -200,6 +200,16 @@ export type EditorConfig = {
    * - 'distant_first': The first dictionary found in the distant locales is used.
    */
   dictionaryPriorityStrategy: 'locale_first' | 'distant_first';
+
+  /**
+   * Indicates if the application should hot reload the locale configurations when a change is detected.
+   * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+   *
+   * The hot reload is only available for clients of the `enterprise` plan.
+   *
+   * Default: false
+   */
+  hotReload: boolean;
 };
 
 /**

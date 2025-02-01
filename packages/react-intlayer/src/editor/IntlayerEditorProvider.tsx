@@ -2,6 +2,7 @@
 
 'use client';
 
+import { IntlayerEventListener } from '@intlayer/api';
 import { getConfiguration } from '@intlayer/config/client';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -15,6 +16,7 @@ import {
   useDictionariesRecordActions,
   useIframeClickInterceptor,
   useEditorEnabled,
+  useEditedContentActions,
 } from '@intlayer/editor-react';
 import { useEffect, type FC, type PropsWithChildren } from 'react';
 
@@ -40,6 +42,25 @@ const IntlayerEditorHooksEnabled: FC = () => {
    * Click Messages
    */
   useIframeClickInterceptor();
+
+  /**
+   * Hot reloading
+   */
+  const { setEditedContent } = useEditedContentActions();
+  const { editor } = getConfiguration();
+  const eventSource = new IntlayerEventListener();
+
+  useEffect(() => {
+    if (!editor.clientId) return;
+    if (!editor.clientSecret) return;
+
+    eventSource.initialize();
+
+    eventSource.onDictionaryChange = (dictionary) =>
+      setEditedContent(dictionary.key, dictionary.content);
+
+    return () => eventSource.cleanup();
+  }, []);
 
   return <></>;
 };

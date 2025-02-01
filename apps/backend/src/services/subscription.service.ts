@@ -8,8 +8,6 @@ import { getUserById } from './user.service';
 import type { Organization } from '@/types/organization.types';
 import type { Plan } from '@/types/plan.types';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export const addOrUpdateSubscription = async (
   subscriptionId: string,
   priceId: string,
@@ -18,6 +16,7 @@ export const addOrUpdateSubscription = async (
   organization: Organization,
   status: Plan['status']
 ): Promise<Plan | null> => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const user = await getUserById(userId);
 
   if (!user) {
@@ -70,7 +69,7 @@ export const addOrUpdateSubscription = async (
     `Plan updated for organization ${organization._id} - ${planInfo.type} - ${planInfo.period}`
   );
 
-  return updatedOrganization.plan;
+  return updatedOrganization.plan ?? null;
 };
 
 export const cancelSubscription = async (
@@ -107,10 +106,10 @@ export const cancelSubscription = async (
   }
 
   logger.info(
-    `Cancelled plan for organization ${updatedOrganization._id} - ${updatedOrganization.plan.type} - ${updatedOrganization.plan.period}`
+    `Cancelled plan for organization ${updatedOrganization._id} - ${updatedOrganization.plan?.type} - ${updatedOrganization.plan?.period}`
   );
 
-  return updatedOrganization.plan;
+  return updatedOrganization.plan ?? null;
 };
 
 export const changeSubscriptionStatus = async (
@@ -198,5 +197,5 @@ export const changeSubscriptionStatus = async (
       logger.warn(`Unhandled subscription status: ${status}`);
   }
 
-  return updatedOrganization.plan;
+  return updatedOrganization.plan ?? null;
 };

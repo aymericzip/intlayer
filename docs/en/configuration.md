@@ -176,11 +176,20 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
 - **clientSecret**:
+
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
   - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
+
+- **hotReload**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the application should hot reload the locale configurations when a change is detected.
+  - _Example_: `true`
+  - _Note_: For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+  - _Note_: Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan.
 
 ### Middleware Configuration
 

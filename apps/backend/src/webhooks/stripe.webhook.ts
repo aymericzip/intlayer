@@ -11,9 +11,6 @@ import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
 import type { Plan } from '@/types/plan.types';
 
-// Initialize the Stripe client with the secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 type SubscriptionMetadata = {
   locale: Locales; // Localization setting (e.g., 'en', 'fr', 'es')
   userId: string; // ID of the user associated with the subscription
@@ -26,6 +23,9 @@ type SubscriptionMetadata = {
  * @param res - Express response object.
  */
 export const stripeWebhook = async (req: Request, res: Response) => {
+  // Initialize the Stripe client with the secret key
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!; // Webhook secret for verifying event signatures
   const sig = req.headers['stripe-signature']!; // Retrieve the signature from the webhook request headers
 
@@ -105,7 +105,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
 
     // Prevent duplicate subscriptions by canceling conflicting subscriptions
     if (
-      organization.plan.subscriptionId &&
+      organization.plan?.subscriptionId &&
       organization.plan.subscriptionId !== subscriptionId
     ) {
       await stripe.subscriptions.cancel(subscriptionId);

@@ -33,6 +33,7 @@ import { sessionAuthRouter } from '@routes/sessionAuth.routes';
 import { userRouter } from '@routes/user.routes';
 import { stripeRouter } from '@routes/stripe.routes';
 import { aiRouter } from '@routes/ai.routes';
+import { eventListenerRouter } from '@routes/event-listener.routes';
 
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe.webhook';
@@ -61,7 +62,9 @@ const env = app.get('env');
 
 logger.info(`run as ${env}`);
 
-dotenv.config({ path: ['.env', `.env.${env}`] });
+dotenv.config({
+  path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
+});
 
 // Parse incoming requests with cookies
 app.use(cookieParser());
@@ -91,10 +94,8 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // CORS
-const whitelist: string[] = [process.env.CLIENT_URL!];
 const corsOptions: CorsOptions = {
-  origin: whitelist,
-  credentials: true,
+  origin: '*',
   allowedHeaders: [
     'authorization',
     'Content-Type',
@@ -111,7 +112,6 @@ const corsOptions: CorsOptions = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
 app.use(cors(corsOptions));
-logger.info('url whitelist : ', whitelist.join(', '));
 
 // Liveness check
 app.get('/', (_req, res) => {
@@ -174,6 +174,7 @@ app.use('/api/tag', tagRouter);
 app.use('/api/dictionary', dictionaryRouter);
 app.use('/api/stripe', stripeRouter);
 app.use('/api/ai', aiRouter);
+app.use('/api/event-listener', eventListenerRouter);
 
 // Server
 app.listen(process.env.PORT, () => {

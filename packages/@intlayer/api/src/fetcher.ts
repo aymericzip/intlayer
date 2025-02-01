@@ -27,7 +27,6 @@ export const fetcherOptions: FetcherOptions = {
   headers: {
     'Content-Type': 'application/json', // Default content type
   },
-  credentials: 'include', // Include cookies in the request
 };
 
 /**

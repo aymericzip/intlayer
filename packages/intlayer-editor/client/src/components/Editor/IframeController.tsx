@@ -50,7 +50,7 @@ export const IframeController: FC<{
     <div className="size-full overflow-hidden rounded-lg">
       <Loader isLoading={loading} />
       <iframe
-        src={`${editor.applicationURL}/${applicationPath}`}
+        src={`${editor.applicationURL}${applicationPath}`}
         title="Intlayer Application"
         className={cn('size-full', loading && 'hidden')}
         ref={iframeRef}

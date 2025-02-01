@@ -236,6 +236,7 @@ export const planDetails = {
         '10 projects',
         '20 organization users',
         'AI powered content generation',
+        'Hot reloading for client and server side content',
         'Premium support',
       ],
       fr: [
@@ -246,6 +247,7 @@ export const planDetails = {
         '10 projets',
         '20 utilisateurs d’organisation',
         'Génération de contenu IA',
+        'Rechargement rapide pour le contenu côté client et côté serveur',
         'Support premium',
       ],
       es: [
@@ -256,6 +258,7 @@ export const planDetails = {
         '10 proyectos',
         '20 usuarios de la organización',
         'Generación de contenido IA',
+        'Recarga rápida para el contenido del lado del cliente y del servidor',
         'Soporte premium',
       ],
       'en-GB': [
@@ -266,6 +269,7 @@ export const planDetails = {
         '10 projects',
         '20 organization users',
         'AI powered content generation',
+        'Hot reloading for client and server side content',
         'Premium support',
       ],
       de: [
@@ -276,6 +280,7 @@ export const planDetails = {
         '10 Projekte',
         '20 Organisationsbenutzer',
         'KI-gestützte Inhaltsgenerierung',
+        'Hot Reloading für Client- und serverseitige Inhalte',
         'Premium-Support',
       ],
       ja: [
@@ -286,6 +291,7 @@ export const planDetails = {
         '10プロジェクト',
         '20組織ユーザー',
         'AI駆動のコンテンツ生成',
+        'クライアントとサーバーサイドのコンテンツのホットリローディング',
         'プレミアムサポート',
       ],
       ko: [
@@ -296,6 +302,7 @@ export const planDetails = {
         '10 프로젝트',
         '20 조직 사용자',
         'AI 기반 콘텐츠 생성',
+        '클라이언트와 서버 사이드 콘텐츠의 핫 로드',
         '프리미엄 지원',
       ],
       zh: [
@@ -306,6 +313,7 @@ export const planDetails = {
         '10个项目',
         '20个组织用户',
         'AI驱动的内容生成',
+        '客户端和服务端的内容热重载',
         '专业支持',
       ],
       it: [
@@ -316,6 +324,7 @@ export const planDetails = {
         '10 progetti',
         '20 utenti dell’organizzazione',
         'Generazione di contenuti AI',
+        'Aggiornamento rapido per il contenuto lato client e lato server',
         'Supporto premium',
       ],
       pt: [
@@ -326,6 +335,7 @@ export const planDetails = {
         '10 projetos',
         '20 usuários da organização',
         'Geração de conteúdo de IA',
+        'Recarregamento rápido para o conteúdo do lado do cliente e do lado do servidor',
         'Suporte premium',
       ],
       hi: [
@@ -336,6 +346,7 @@ export const planDetails = {
         '10 परियोजनाएँ',
         '20 संगठन उपयोगकर्ता',
         'AI द्वारा संचालित सामग्री निर्माण',
+        'क्लाइंट और सर्वर साइड के लिए हॉट रीलोड',
         'प्रीमियम समर्थन',
       ],
       ar: [
@@ -346,6 +357,7 @@ export const planDetails = {
         '10 مشاريع',
         '20 مستخدم منظمة',
         'إنشاء محتوى مدفوع بالذكاء الاصطناعي',
+        'التحديث السريع للمحتوى على الجانب العميل والجانب الخادم',
         'دعم متميز',
       ],
       ru: [
@@ -356,6 +368,7 @@ export const planDetails = {
         '10 проектов',
         '20 пользователей организации',
         'Генерация контента с поддержкой ИИ',
+        'Быстрое обновление для контента на клиенте и сервере',
         'Премиум поддержка',
       ],
     }),
