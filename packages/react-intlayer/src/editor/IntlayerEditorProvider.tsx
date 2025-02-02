@@ -16,7 +16,7 @@ import {
   useDictionariesRecordActions,
   useIframeClickInterceptor,
   useEditorEnabled,
-  useEditedContentActions,
+  useChangedContentActions,
 } from '@intlayer/editor-react';
 import { useEffect, type FC, type PropsWithChildren } from 'react';
 
@@ -46,7 +46,7 @@ const IntlayerEditorHooksEnabled: FC = () => {
   /**
    * Hot reloading
    */
-  const { setEditedContent } = useEditedContentActions();
+  const { setChangedContent } = useChangedContentActions();
   const { editor } = getConfiguration();
   const eventSource = new IntlayerEventListener();
 
@@ -58,7 +58,7 @@ const IntlayerEditorHooksEnabled: FC = () => {
     eventSource.initialize();
 
     eventSource.onDictionaryChange = (dictionary) =>
-      setEditedContent(dictionary.key, dictionary.content);
+      setChangedContent(dictionary.key, dictionary.content);
 
     return () => eventSource.cleanup();
   }, []);

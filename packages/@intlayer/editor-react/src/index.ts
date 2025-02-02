@@ -8,3 +8,4 @@ export * from './EditorEnabledContext';
 export * from './EditorProvider';
 export * from './useCrossURLPathState';
 export * from './useIframeClickCommunicator';
+export * from './ChangedContentContext';

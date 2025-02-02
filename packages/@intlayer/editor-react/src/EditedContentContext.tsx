@@ -1,19 +1,20 @@
 'use client';
 
-import {
-  type Dictionary,
-  type DictionaryValue,
-  type KeyPath,
-} from '@intlayer/core';
+import type { Dictionary, DictionaryValue, KeyPath } from '@intlayer/core';
 import {
   editDictionaryByKeyPath,
   getDictionaryValueByKeyPath,
   renameDictionaryValueByKeyPath,
 } from '@intlayer/editor';
-import { createContext, useContext, FC, PropsWithChildren } from 'react';
 import {
-  DictionaryContent,
+  createContext,
+  useContext,
+  type FC,
+  type PropsWithChildren,
+} from 'react';
+import {
   useDictionariesRecord,
+  type DictionaryContent,
 } from './DictionariesRecordContext';
 import { useCrossFrameState } from './useCrossFrameState';
 

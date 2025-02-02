@@ -1,7 +1,9 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
+import { useChangedContent } from '@intlayer/editor-react';
 import { useContext } from 'react';
+import { getDictionary } from '../getDictionary';
 import {
   type DictionaryKeys,
   getIntlayer,
@@ -20,7 +22,12 @@ export const useIntlayer: UseIntlayerEditable = <T extends DictionaryKeys>(
   isRenderEditor = true
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { changedContent } = useChangedContent();
   const localeTarget = locale ?? currentLocale;
+
+  if (changedContent?.[key]) {
+    return getDictionary(key, localeTarget, isRenderEditor);
+  }
 
   return getIntlayer(key, localeTarget, isRenderEditor);
 };
