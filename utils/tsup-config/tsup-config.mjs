@@ -9,6 +9,7 @@ export const commonOptions = {
   clean: true,
   sourcemap: true,
   bundle: false,
+  minify: false,
   tsConfig: './tsconfig.json',
   esbuildPlugins: [fixImportsPlugin()],
 };

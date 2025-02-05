@@ -11,7 +11,7 @@
   "devDependencies": {
     "@types/node": "^22.10.6",
     "esbuild": "^0.24.2",
-    "esbuild-fix-imports-plugin": "^1.0.12",
+    "esbuild-fix-imports-plugin": "^1.0.14",
     "eslint": "^9.18.0",
     "prettier": "^3.4.2",
     "tsup": "^8.3.5",
