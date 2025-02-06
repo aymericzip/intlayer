@@ -44,7 +44,7 @@ You are an expert in internationalization, copy writing and content management. 
             es: "",
           }),
         },
-      } satisfies DeclarationContent;
+      } satisfies Dictionary;
       ```
 
       - **Input keyPath:**
@@ -87,7 +87,7 @@ You are an expert in internationalization, copy writing and content management. 
             }),
           },
         },
-      } satisfies DeclarationContent;
+      } satisfies Dictionary;
       ```
 
       - **Input target:**

@@ -9,6 +9,6 @@ const tsContentInSubPath = {
       es: '  progress',
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default tsContentInSubPath;

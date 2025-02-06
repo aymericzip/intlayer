@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const content = {
   key: 'new-members-form-schema',
@@ -19,6 +19,6 @@ const content = {
       ru: 'Пожалуйста, введите правильный адрес электронной почты',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default content;

@@ -29,7 +29,7 @@
 ```
 
 ```tsx fileName="./Components/MyComponent/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
   key: "component-example",
@@ -40,7 +40,7 @@ const componentExampleContent = {
       es: "Hola Mundo",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default componentExampleContent;
 ```

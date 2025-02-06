@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const resetPasswordContent = {
   key: 'reset-password',
@@ -117,4 +117,4 @@ export const resetPasswordContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const profileDashboardContent = {
   key: 'editor-dashboard-page',
@@ -19,6 +19,6 @@ const profileDashboardContent = {
       ru: 'Редактор Intlayer',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default profileDashboardContent;

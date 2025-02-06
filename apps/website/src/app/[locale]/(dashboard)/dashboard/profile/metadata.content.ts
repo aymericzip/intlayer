@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { type Metadata } from 'next';
 
 const metadataContent = {
@@ -135,6 +135,6 @@ const metadataContent = {
       ],
     }),
   },
-} satisfies DeclarationContent<Metadata>;
+} satisfies Dictionary<Metadata>;
 
 export default metadataContent;

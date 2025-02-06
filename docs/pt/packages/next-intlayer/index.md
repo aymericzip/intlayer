@@ -84,7 +84,7 @@ Por padrão, o Intlayer procura arquivos com a extensão `.content.{ts,tsx,js,js
 Aqui está um exemplo de declaração de conteúdo:
 
 ```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 /** @type {DeclarationContent} */
 const clientComponentContent = {
@@ -104,7 +104,7 @@ const clientComponentContent = {
       ">19": "Muitos carros",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default clientComponentContent;
 ```

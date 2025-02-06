@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type SectionsContent = {
@@ -359,6 +359,6 @@ export const navbarContent = {
       }),
     },
   },
-} satisfies DeclarationContent<SectionsContent>;
+} satisfies Dictionary<SectionsContent>;
 
 export default navbarContent;

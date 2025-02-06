@@ -64,7 +64,7 @@ const componentContent = {
       pt: "Este é o conteúdo de um exemplo de componente do cliente",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default componentContent;
 ```

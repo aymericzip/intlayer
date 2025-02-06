@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const navigationViewContent = {
   key: 'navigation-view',
@@ -183,4 +183,4 @@ export const navigationViewContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

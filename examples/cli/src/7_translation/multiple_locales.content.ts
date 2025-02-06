@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const multipleLocalsContent = {
   key: 'multiple_locals',
@@ -9,6 +9,6 @@ const multipleLocalsContent = {
       es: 'Administrar perfil',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default multipleLocalsContent;

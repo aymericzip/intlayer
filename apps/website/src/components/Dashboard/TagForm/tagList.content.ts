@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const tagListContent = {
   key: 'tag-list',
@@ -87,6 +87,6 @@ const tagListContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default tagListContent;

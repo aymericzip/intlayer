@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import type { ReactNode } from 'react';
 
 const appContent = {
@@ -30,6 +30,6 @@ const appContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default appContent;

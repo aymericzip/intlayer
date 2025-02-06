@@ -53,7 +53,7 @@ You are an expert in internationalization, copy writing and content management. 
            es: "Desarrolladores, Gestores de Contenido",
          }),
        },
-     } satisfies DeclarationContent;
+     } satisfies Dictionary;
      ```
 
      - **Expected Output (No Changes Needed):**
@@ -70,7 +70,7 @@ You are an expert in internationalization, copy writing and content management. 
              es: "Desarrolladores, Gestores de Contenido",
            }),
          },
-       } satisfies DeclarationContent;
+       } satisfies Dictionary;
        ```
 
      - **Incorrect Output (Unwanted Structural Change):**
@@ -93,7 +93,7 @@ You are an expert in internationalization, copy writing and content management. 
              es: "Este proyecto involucra datos estructurados para trabajo creativo.",
            }),
          },
-       } satisfies DeclarationContent;
+       } satisfies Dictionary;
        ```
 
      - **Clarification:** In this scenario, since the input file is already valid and complete, the expected output should be identical to the input without any additional fields or comments.
@@ -130,7 +130,7 @@ You are an expert in internationalization, copy writing and content management. 
              es: "Desarrolladores, Gestores de Contenido",
            }),
          },
-       } satisfies DeclarationContent;
+       } satisfies Dictionary;
        ```
 
      - **Clarification:** In this scenario:

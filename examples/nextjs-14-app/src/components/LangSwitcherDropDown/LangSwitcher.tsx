@@ -1,7 +1,7 @@
 'use client';
 
 import { getLocaleName } from 'intlayer';
-import { useIntlayer, useLocale } from 'next-intlayer/client';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import type { ButtonHTMLAttributes, FC } from 'react';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
@@ -9,7 +9,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
   ...props
 }) => (
-  <div className="w-full border-gray-50 p-0.5 ">
+  <div className="w-full border-gray-50 p-0.5">
     <button
       aria-label="language switcher"
       data-mode="system"

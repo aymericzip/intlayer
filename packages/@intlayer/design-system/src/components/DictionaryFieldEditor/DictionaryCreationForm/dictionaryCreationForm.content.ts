@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const dictionaryFormContent = {
   key: 'dictionary-form',
@@ -219,4 +219,4 @@ export const dictionaryFormContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

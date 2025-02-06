@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const chatbotContent = {
   key: 'chatbot-modal',
@@ -36,6 +36,6 @@ const chatbotContent = {
       ru: 'Спросите что-нибудь',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default chatbotContent;

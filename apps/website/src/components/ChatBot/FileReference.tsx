@@ -4,6 +4,7 @@ import { Tag, Link } from '@intlayer/design-system';
 import { File } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { FC } from 'react';
+import { Locales } from 'intlayer';
 
 const FileReferenceTag: FC<{ fileTitle: string; fileUrl: string }> = ({
   fileTitle,
@@ -28,8 +29,8 @@ export const FileReference: FC<{ relatedFiles: string[] }> = ({
 }) => {
   const { relatedFilesLabel } = useIntlayer('chat-form-related-files');
   const { locale } = useLocale();
-  const docArray = getDocDataArray(locale);
-  const blogArray = getBlogDataArray(locale);
+  const docArray = getDocDataArray(locale as Locales);
+  const blogArray = getBlogDataArray(locale as Locales);
 
   if (relatedFiles.length === 0) return <></>;
 

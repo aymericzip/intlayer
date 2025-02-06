@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const profileFormContent = {
   key: 'profile-form',
@@ -117,6 +117,6 @@ const profileFormContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default profileFormContent;

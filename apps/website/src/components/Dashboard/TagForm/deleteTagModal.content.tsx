@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const deleteTagModalContent = {
   key: 'delete-tag-modal',
@@ -101,6 +101,6 @@ const deleteTagModalContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default deleteTagModalContent;

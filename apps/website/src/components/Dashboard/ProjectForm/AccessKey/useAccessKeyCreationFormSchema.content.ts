@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const content = {
   key: 'access-key-creation-form-schema',
@@ -51,6 +51,6 @@ const content = {
       ru: 'Пожалуйста, введите допустимую дату для даты истечения срока действия вашего ключа доступа',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default content;

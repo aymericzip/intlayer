@@ -14,6 +14,6 @@ const asyncFunctionContent = {
   content: {
     text: fakeFetch,
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default asyncFunctionContent;

@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const breadCrumbContent = {
   key: 'breadcrumb',
@@ -19,6 +19,6 @@ export const breadCrumbContent = {
       ru: 'Перейти на',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default breadCrumbContent;

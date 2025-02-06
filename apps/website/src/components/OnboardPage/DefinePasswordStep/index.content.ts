@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const definePasswordStepContent = {
   key: 'define-password-step',
@@ -115,6 +115,6 @@ const definePasswordStepContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default definePasswordStepContent;

@@ -4,13 +4,13 @@ import {
   type KeyPath,
   NodeType,
   type TranslationContent,
-  type DictionaryValue,
+  type ContentNode,
 } from '@intlayer/core';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
 type TranslationWrapperProps = Omit<NodeWrapperProps, 'section'> & {
-  section: TranslationContent<DictionaryValue>;
+  section: TranslationContent<ContentNode>;
 };
 
 export const TranslationWrapper: FC<TranslationWrapperProps> = (props) => {

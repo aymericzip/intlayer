@@ -1,6 +1,6 @@
 import type { DashboardFooterProps } from '@components/Dashboard/DashboardFooter';
 import type { NavbarProps } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
 
 type Content = {
@@ -347,6 +347,6 @@ const dashboardNavbarContent = {
       },
     ],
   },
-} satisfies DeclarationContent<Content>;
+} satisfies Dictionary<Content>;
 
 export default dashboardNavbarContent;

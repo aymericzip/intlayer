@@ -1,4 +1,4 @@
-import { DeclarationContent, t } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 export const useResetPasswordSchemaContent = {
   key: 'reset-password-schema',
@@ -51,6 +51,6 @@ export const useResetPasswordSchemaContent = {
       ru: 'Пожалуйста, введите действующий адрес электронной почты',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default useResetPasswordSchemaContent;

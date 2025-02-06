@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const chatFormSectionContent = {
   key: 'chat-form-related-files',
@@ -19,6 +19,6 @@ const chatFormSectionContent = {
       ru: 'Связанные файлы:',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default chatFormSectionContent;

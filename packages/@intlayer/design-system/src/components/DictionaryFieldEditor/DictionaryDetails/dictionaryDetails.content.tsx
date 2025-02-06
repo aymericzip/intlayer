@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const dictionaryDetailsContent = {
   key: 'dictionary-details',
@@ -423,4 +423,4 @@ export const dictionaryDetailsContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

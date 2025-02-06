@@ -3,7 +3,7 @@
 import {
   type KeyPath,
   isSameKeyPath,
-  type DictionaryValue,
+  type ContentNode,
   NodeType,
 } from '@intlayer/core';
 import { Edit } from 'lucide-react';
@@ -13,7 +13,7 @@ import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
 
 type NestedObjectWrapperProps = Omit<NodeWrapperProps, 'section'> & {
-  section: Record<string, DictionaryValue>;
+  section: Record<string, ContentNode>;
 };
 
 export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {

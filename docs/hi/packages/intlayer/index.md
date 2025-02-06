@@ -122,7 +122,7 @@ Intlayer के साथ, आप अपनी सामग्री को क�
 यहां सामग्री की घोषणा का एक उदाहरण है:
 
 ```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
   key: "client-component",
@@ -141,7 +141,7 @@ const clientComponentContent = {
       ">19": "कई कारें",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default clientComponentContent;
 ```

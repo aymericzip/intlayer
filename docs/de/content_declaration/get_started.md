@@ -51,7 +51,7 @@ export default {
       ">19": "Viele Autos",
     }),
   },
-} satisfies DeclarationContent<Content>;
+} satisfies Dictionary<Content>;
 ```
 
 ```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"

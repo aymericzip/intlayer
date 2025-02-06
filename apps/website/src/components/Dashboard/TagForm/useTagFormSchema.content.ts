@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const content = {
   key: 'tag-form-schema',
@@ -131,6 +131,6 @@ const content = {
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default content;

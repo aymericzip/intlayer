@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const projectFormContent = {
   key: 'project-form',
@@ -245,6 +245,6 @@ const projectFormContent = {
       },
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default projectFormContent;

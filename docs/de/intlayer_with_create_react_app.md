@@ -153,7 +153,7 @@ const appContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default appContent;
 ```

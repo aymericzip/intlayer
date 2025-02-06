@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const chatFormSectionContent = {
   key: 'chat-form-section',
@@ -100,6 +100,6 @@ const chatFormSectionContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default chatFormSectionContent;

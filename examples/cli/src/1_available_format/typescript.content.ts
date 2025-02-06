@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const tsContent = {
   key: 'tsFile',
@@ -9,6 +9,6 @@ const tsContent = {
       es: 'Administrar perfil',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default tsContent;

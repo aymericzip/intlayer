@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
 
 const actionButtonContent = {
@@ -71,6 +71,6 @@ const actionButtonContent = {
       url: PagesRoutes.Doc_Interest,
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default actionButtonContent;

@@ -1,8 +1,11 @@
 'use client';
 
 import { type Locales } from '@intlayer/config';
-import { type KeyPath, type Dictionary } from '@intlayer/core';
-import { getDictionaryValueByKeyPath } from '@intlayer/editor';
+import {
+  type KeyPath,
+  type Dictionary,
+  getContentNodeByKeyPath,
+} from '@intlayer/core';
 import { useFocusDictionary, useEditedContent } from '@intlayer/editor-react';
 import { RotateCcw, X } from 'lucide-react';
 import { useMemo, type FC } from 'react';
@@ -44,13 +47,10 @@ export const EditorView: FC<EditorViewProps> = ({
   } = useEditedContent();
 
   const editedSection = editedContent?.[dictionaryKey]?.content
-    ? getDictionaryValueByKeyPath(
-        editedContent?.[dictionaryKey].content,
-        keyPath
-      )
+    ? getContentNodeByKeyPath(editedContent?.[dictionaryKey].content, keyPath)
     : undefined;
 
-  const dictionarySection = getDictionaryValueByKeyPath(
+  const dictionarySection = getContentNodeByKeyPath(
     dictionary.content,
     keyPath
   );

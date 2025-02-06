@@ -198,7 +198,7 @@ const content = {
       es: "Hola Mundo",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default content;
 ```

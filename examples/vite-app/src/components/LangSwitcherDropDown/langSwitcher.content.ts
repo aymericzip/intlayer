@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const langSwitcherContent = {
   key: 'lang-switcher',
@@ -19,6 +19,6 @@ const langSwitcherContent = {
       fr: 'Passer à ',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default langSwitcherContent;

@@ -8,7 +8,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
 import { useLocaleCookie } from './useLocaleCookie';
 
 type useLocaleProps = {
-  onLocaleChange?: (locale: Locales) => void;
+  onLocaleChange?: (locale: Locales | `${Locales}`) => void;
 };
 
 /**
@@ -36,8 +36,8 @@ export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
   const { setLocaleCookie } = useLocaleCookie();
 
   const setLocale = useCallback(
-    (locale: Locales) => {
-      if (!availableLocales.includes(locale)) {
+    (locale: Locales | `${Locales}`) => {
+      if (!availableLocales.map(String).includes(locale)) {
         console.error(`Locale ${locale} is not available`);
         return;
       }

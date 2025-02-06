@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const profileDashboardContent = {
   key: 'profile-dashboard-page',
@@ -19,6 +19,6 @@ const profileDashboardContent = {
       'en-GB': 'Profile settings',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default profileDashboardContent;

@@ -1,9 +1,8 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { LanguageContent } from '@intlayer/core';
+import { type LanguageContent, getTranslation } from '@intlayer/core';
 import { useContext } from 'react';
-import { getTranslation } from '../getTranslation';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**

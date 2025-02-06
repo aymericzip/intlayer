@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const content = {
   key: 'profile-form-schema',
@@ -35,6 +35,6 @@ const content = {
       ru: 'Пожалуйста, введите действительное имя пользователя',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default content;

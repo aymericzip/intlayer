@@ -37,7 +37,7 @@ Intlayer는 또한 콘텐츠를 쉽게 편집하고 관리할 수 있는 선택�
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-key",
@@ -48,7 +48,7 @@ const componentContent = {
       es: "Hola Mundo",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default componentContent;
 ```

@@ -1,4 +1,4 @@
-import { DeclarationContent, t } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 export const externalsLoginButtonsContent = {
   key: 'externals-login-buttons',
@@ -83,6 +83,6 @@ export const externalsLoginButtonsContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default externalsLoginButtonsContent;

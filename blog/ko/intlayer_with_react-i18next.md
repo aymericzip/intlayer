@@ -237,7 +237,7 @@ const content = {
       es: "Mi descripción en i18n...",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default content;
 ```

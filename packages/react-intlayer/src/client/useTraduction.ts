@@ -1,6 +1,5 @@
-import type { LanguageContent } from '@intlayer/core';
+import { getTranslation, type LanguageContent } from '@intlayer/core';
 import { useContext } from 'react';
-import { getTranslation } from '../getTranslation';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -13,7 +12,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * Usage:
  *
  * ```tsx
- * const content = useTraduction<string>({
+ * const content = useTranslation<string>({
  *  en: 'Hello',
  *  fr: 'Bonjour',
  * }, 'fr');
@@ -24,7 +23,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * - this function will require each locale to be defined if defined in the project configuration.
  * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
-export const useTraduction = <Content = string>(
+export const useTranslation = <Content = string>(
   languageContent: LanguageContent<Content>
 ): Content => {
   const { locale } = useContext(IntlayerClientContext);

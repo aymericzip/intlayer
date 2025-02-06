@@ -1,6 +1,5 @@
 import { BlogData } from '@components/BlogPage/types';
-import { Locales } from 'intlayer';
-import { getIntlayer } from 'next-intlayer';
+import { Locales, getIntlayer } from 'intlayer';
 import { PagesRoutes, GithubRoutes } from '@/Routes';
 
 export const getBlogI18nTechnologiesFrameworksSvelteData = (

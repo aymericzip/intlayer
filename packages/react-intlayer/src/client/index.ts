@@ -9,7 +9,6 @@ export { useIntlayerAsync } from './useIntlayerAsync';
 export { useDictionary } from './useDictionary';
 export { useLocaleBase } from './useLocaleBase';
 export { useLocale } from './useLocale';
-export { useTraduction } from './useTraduction';
 export {
   useLocaleCookie,
   localeCookie,

@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
 
 const docNavTitlesContent = {
@@ -568,6 +568,6 @@ const docNavTitlesContent = {
       },
     ],
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default docNavTitlesContent;

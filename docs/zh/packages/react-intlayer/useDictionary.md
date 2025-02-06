@@ -64,7 +64,7 @@ const componentContent = {
       zh: "这是客户端组件示例的内容",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default componentContent;
 ```

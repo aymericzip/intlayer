@@ -333,7 +333,7 @@ const homeContent = {
       es: "Comience por editar esta página.",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default homeContent;
 ```

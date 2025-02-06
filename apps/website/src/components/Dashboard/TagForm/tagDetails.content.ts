@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const tagFormContent = {
   key: 'tag-details',
@@ -68,6 +68,6 @@ const tagFormContent = {
       ru: 'Словари, связанные с этим тегом',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default tagFormContent;

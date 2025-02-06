@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const useDictionaryDetailsSchemaContent = {
   key: 'dictionary-detail-schema',
@@ -196,4 +196,4 @@ export const useDictionaryDetailsSchemaContent = {
       ru: 'Пожалуйста, введите действительный тег',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

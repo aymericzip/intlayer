@@ -1,4 +1,4 @@
-import { DeclarationContent, t } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 export const dictionaryFormSchemaContent = {
   key: 'dictionary-form-schema',
@@ -67,6 +67,6 @@ export const dictionaryFormSchemaContent = {
       ru: 'Пожалуйста, выберите действительный проект',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default dictionaryFormSchemaContent;

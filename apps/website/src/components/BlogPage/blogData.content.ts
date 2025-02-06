@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const blogDataContent = {
   key: 'blog-data',
@@ -185,6 +185,6 @@ const blogDataContent = {
       },
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default blogDataContent;

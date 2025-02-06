@@ -1,4 +1,4 @@
-import { DeclarationContent, t } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 export const changePasswordSchemaContent = {
   key: 'change-password-form-schema',
@@ -131,6 +131,6 @@ export const changePasswordSchemaContent = {
       ru: 'Новый пароль и подтверждение пароля должны совпадать',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default changePasswordSchemaContent;

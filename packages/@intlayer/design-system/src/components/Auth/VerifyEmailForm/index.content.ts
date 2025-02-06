@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const verifyEmailFormContent = {
   key: 'verify-email-form',
@@ -69,6 +69,6 @@ const verifyEmailFormContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default verifyEmailFormContent;

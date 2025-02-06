@@ -84,7 +84,7 @@ Standardmäßig durchsucht Intlayer nach Dateien mit der Erweiterung `.content.{
 Hier ist ein Beispiel für eine Inhaltsdeklaration:
 
 ```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
   key: "client-component",
@@ -103,7 +103,7 @@ const clientComponentContent = {
       ">19": "Viele Autos",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default clientComponentContent;
 ```

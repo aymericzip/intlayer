@@ -1,6 +1,6 @@
 import { createModuleAugmentation } from '@intlayer/chokidar';
 import { type Locales, getConfiguration } from '@intlayer/config';
-import { getTranslationContent, localeDetector } from '@intlayer/core';
+import { getTranslation, localeDetector } from '@intlayer/core';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, RequestHandler, Request, Response } from 'express';
 import { type IConfigLocales } from 'intlayer';
@@ -46,11 +46,11 @@ export const translateFunction =
       ) {
         return content as unknown as T;
       } else {
-        return getTranslationContent(content, defaultLocale);
+        return getTranslation(content, defaultLocale);
       }
     }
 
-    return getTranslationContent(content, targetLocale);
+    return getTranslation(content, targetLocale);
   };
 
 /**

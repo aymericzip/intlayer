@@ -2,15 +2,15 @@ import { existsSync } from 'fs';
 import * as fsPromises from 'fs/promises';
 import { basename, dirname, extname } from 'path';
 import { getConfiguration, IntlayerConfig } from '@intlayer/config/client';
-import { DeclarationContent, Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import deepEqual from 'deep-equal';
 import { DictionaryStatus } from '../dictionaryStatus';
+import { Dictionary } from '@intlayer/core';
 
 const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
 
 export const writeContentDeclaration = async (
-  dictionary: Dictionary | DeclarationContent,
+  dictionary: Dictionary,
   config?: IntlayerConfig,
   newDictionariesPath?: string
 ): Promise<{ status: DictionaryStatus; path: string }> => {

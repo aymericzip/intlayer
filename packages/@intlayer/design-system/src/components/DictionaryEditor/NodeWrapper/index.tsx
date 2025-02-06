@@ -7,7 +7,7 @@ import {
   type TranslationContent,
   NodeType,
   type KeyPath,
-  type DictionaryValue,
+  type ContentNode,
 } from '@intlayer/core';
 import {
   createElement,
@@ -28,10 +28,10 @@ const isReactNode = (node: Record<string, unknown>): boolean =>
 
 export type NodeWrapperProps = {
   keyPath: KeyPath[];
-  section: DictionaryValue;
+  section: ContentNode;
   onContentChange: (content: { keyPath: KeyPath[]; newValue: string }) => void;
   locale: Locales;
-  editedContent: DictionaryValue;
+  editedContent: ContentNode;
   focusedKeyPath: KeyPath[] | undefined;
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
   onClickEdit?: (keyPath: KeyPath[]) => void;
@@ -89,37 +89,37 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
     }
 
     if (
-      (section as TranslationContent<DictionaryValue>).nodeType ===
+      (section as TranslationContent<ContentNode>).nodeType ===
       NodeType.Translation
     ) {
       return (
         <TranslationWrapper
           {...props}
-          section={section as TranslationContent<DictionaryValue>}
+          section={section as TranslationContent<ContentNode>}
         />
       );
     }
 
     if (
-      (section as EnumerationContent<DictionaryValue>).nodeType ===
+      (section as EnumerationContent<ContentNode>).nodeType ===
       NodeType.Enumeration
     ) {
       return (
         <EnumerationWrapper
           {...props}
-          section={section as EnumerationContent<DictionaryValue>}
+          section={section as EnumerationContent<ContentNode>}
         />
       );
     }
 
     if (Array.isArray(section)) {
-      return <ArrayWrapper {...props} section={section as DictionaryValue[]} />;
+      return <ArrayWrapper {...props} section={section as ContentNode[]} />;
     }
 
     return (
       <NestedObjectWrapper
         {...props}
-        section={section as Record<string, DictionaryValue>}
+        section={section as Record<string, ContentNode>}
       />
     );
   }

@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const registerStepContent = {
   key: 'register-step',
@@ -100,6 +100,6 @@ export const registerStepContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default registerStepContent;

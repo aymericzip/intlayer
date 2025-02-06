@@ -1,5 +1,4 @@
-import { Locales } from 'intlayer';
-import { getIntlayer } from 'next-intlayer';
+import { Locales, getIntlayer } from 'intlayer';
 import { getCliData } from './docDataContent/concept/cli';
 import { getCMSData } from './docDataContent/concept/cms';
 import { getConfigurationData } from './docDataContent/concept/configuration';

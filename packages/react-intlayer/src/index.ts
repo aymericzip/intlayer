@@ -1,4 +1,5 @@
-export { getTranslation } from './getTranslation';
+import { IntlayerNodeCond, ReactNodeCond } from './plugins';
+
 export {
   IntlayerProvider,
   type IntlayerProviderProps,
@@ -7,7 +8,6 @@ export {
   useIntlayerAsync,
   useDictionary,
   useLocale,
-  useTraduction,
   useLocaleCookie,
   useIntlayerContext,
   localeCookie,
@@ -16,6 +16,12 @@ export {
   useLocaleBase,
   t,
 } from './client/index';
-export { getDictionary } from './getDictionary';
-export { getIntlayer } from './getIntlayer';
 export { type IntlayerNode } from './editor/renderContentEditor';
+export * from './plugins';
+
+declare module '@intlayer/core' {
+  interface IPluginCond<T> {
+    intlayerNode: IntlayerNodeCond<T>;
+    reactNode: ReactNodeCond<T>;
+  }
+}

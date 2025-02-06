@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const copyContentContent = {
   key: 'copy-button',
@@ -19,6 +19,6 @@ export const copyContentContent = {
       ru: 'Копировать содержимое',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default copyContentContent;

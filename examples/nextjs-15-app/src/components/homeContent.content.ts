@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const homeContent = {
   key: 'home-content',
@@ -39,6 +39,6 @@ const homeContent = {
       es: 'Ir a Next.js',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default homeContent;

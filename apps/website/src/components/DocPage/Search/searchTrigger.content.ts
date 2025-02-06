@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const searchTriggerContent: DeclarationContent = {
   key: 'doc-search-trigger',

@@ -1,11 +1,13 @@
 'use client';
 
-import type { Dictionary, DictionaryValue, KeyPath } from '@intlayer/core';
 import {
+  type Dictionary,
+  type ContentNode,
+  type KeyPath,
   editDictionaryByKeyPath,
-  getDictionaryValueByKeyPath,
-  renameDictionaryValueByKeyPath,
-} from '@intlayer/editor';
+  getContentNodeByKeyPath,
+  renameContentNodeByKeyPath,
+} from '@intlayer/core';
 import {
   createContext,
   useContext,
@@ -32,11 +34,11 @@ type EditedContentActionsContextType = {
   ) => void;
   setEditedContent: (
     dictionaryKey: Dictionary['key'],
-    newValue: DictionaryValue
+    newValue: Dictionary['content']
   ) => void;
   addEditedContent: (
     dictionaryKey: Dictionary['key'],
-    newValue: DictionaryValue,
+    newValue: ContentNode,
     keyPath?: KeyPath[],
     overwrite?: boolean
   ) => void;
@@ -55,7 +57,7 @@ type EditedContentActionsContextType = {
   getEditedContentValue: (
     dictionaryKey: Dictionary['key'],
     keyPath: KeyPath[]
-  ) => DictionaryValue | undefined;
+  ) => ContentNode | undefined;
 };
 
 const EditedContentActionsContext = createContext<
@@ -81,7 +83,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const setEditedContent = (
     dictionaryKey: Dictionary['key'],
-    newValue: DictionaryValue
+    newValue: Dictionary['content']
   ) => {
     setEditedContentState((prev) => ({
       ...prev,
@@ -94,7 +96,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const addEditedContent = (
     dictionaryKey: Dictionary['key'],
-    newValue: DictionaryValue,
+    newValue: ContentNode,
     keyPath: KeyPath[] = [],
     overwrite: boolean = true
   ) => {
@@ -115,7 +117,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
         // Loop until we find a key that does not exist
         while (
-          typeof getDictionaryValueByKeyPath(currentContent, newKeyPath) !==
+          typeof getContentNodeByKeyPath(currentContent, newKeyPath) !==
           'undefined'
         ) {
           index++;
@@ -138,7 +140,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         ...prev,
         [dictionaryKey]: {
           ...prev?.[dictionaryKey],
-          content: updatedContent,
+          content: updatedContent as Dictionary['content'],
         },
       };
     });
@@ -156,7 +158,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         prev?.[dictionaryKey]?.content ||
         JSON.parse(JSON.stringify(originalContent));
 
-      const contentWithNewField = renameDictionaryValueByKeyPath(
+      const contentWithNewField = renameContentNodeByKeyPath(
         currentContent,
         newKey,
         keyPath
@@ -166,7 +168,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         ...prev,
         [dictionaryKey]: {
           ...prev?.[dictionaryKey],
-          content: contentWithNewField,
+          content: contentWithNewField as Dictionary['content'],
         },
       };
     });
@@ -184,10 +186,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         JSON.parse(JSON.stringify(originalContent));
 
       // Get the initial value from the original dictionary content
-      const initialContent = getDictionaryValueByKeyPath(
-        originalContent,
-        keyPath
-      );
+      const initialContent = getContentNodeByKeyPath(originalContent, keyPath);
 
       // Restore the value at the given keyPath
       const restoredContent = editDictionaryByKeyPath(
@@ -200,7 +199,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         ...prev,
         [dictionaryKey]: {
           ...prev?.[dictionaryKey],
-          content: restoredContent,
+          content: restoredContent as Dictionary['content'],
         },
       };
     });
@@ -233,9 +232,9 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const getEditedContentValue = (
     dictionaryKey: Dictionary['key'],
     keyPath: KeyPath[]
-  ): DictionaryValue | undefined => {
+  ): ContentNode | undefined => {
     const currentContent = editedContent?.[dictionaryKey]?.content ?? {};
-    return getDictionaryValueByKeyPath(currentContent, keyPath);
+    return getContentNodeByKeyPath(currentContent, keyPath);
   };
 
   return (

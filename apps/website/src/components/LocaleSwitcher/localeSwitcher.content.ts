@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const localeSwitcherContent = {
   key: 'locale-switcher',
@@ -96,6 +96,6 @@ const localeSwitcherContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default localeSwitcherContent;

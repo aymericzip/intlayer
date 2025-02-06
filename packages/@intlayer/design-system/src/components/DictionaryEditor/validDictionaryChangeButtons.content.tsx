@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const validDictionaryChangeButtonsContent = {
   key: 'valid-dictionary-change-buttons',
@@ -126,4 +126,4 @@ export const validDictionaryChangeButtonsContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

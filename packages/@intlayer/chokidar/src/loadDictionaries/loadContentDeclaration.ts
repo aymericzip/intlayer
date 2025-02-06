@@ -1,19 +1,8 @@
-import { type Context, runInNewContext } from 'vm';
-import { ESMxCJSRequire } from '@intlayer/config';
-import type { DeclarationContent, Dictionary } from '@intlayer/core';
+import { runInNewContext } from 'vm';
+import { ESMxCJSRequire, getSandBoxContext } from '@intlayer/config';
+import type { Dictionary } from '@intlayer/core';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import { processContentDeclaration } from '../transpiler/declaration_file_to_dictionary/intlayer_dictionary/processContentDeclaration';
-
-const sandboxContext: Context = {
-  exports: {
-    default: {},
-  },
-  module: {
-    exports: {},
-  },
-  console,
-  require: ESMxCJSRequire,
-};
 
 const transformationOption: BuildOptions = {
   loader: {
@@ -32,13 +21,6 @@ const transformationOption: BuildOptions = {
   bundle: true,
 };
 
-const filterValidContentDeclaration = (
-  contentDeclaration: DeclarationContent
-): DeclarationContent => {
-  // @TODO Implement filtering of valid content declaration
-  return contentDeclaration as unknown as DeclarationContent;
-};
-
 /**
  * Load the content declaration from the given path
  *
@@ -46,8 +28,8 @@ const filterValidContentDeclaration = (
  */
 const loadContentDeclaration = (
   contentDeclarationFilePath: string
-): DeclarationContent | undefined => {
-  let contentDeclaration: DeclarationContent | undefined = undefined;
+): Dictionary | undefined => {
+  let contentDeclaration: Dictionary | undefined = undefined;
 
   const fileExtension = contentDeclarationFilePath.split('.').pop() ?? '';
 
@@ -71,6 +53,8 @@ const loadContentDeclaration = (
       console.error('Configuration file could not be loaded.');
       return undefined;
     }
+
+    const sandboxContext = getSandBoxContext();
 
     runInNewContext(moduleResultString, sandboxContext);
 
@@ -105,7 +89,7 @@ const loadContentDeclaration = (
       return undefined;
     }
 
-    return filterValidContentDeclaration(contentDeclaration);
+    return contentDeclaration;
   } catch (error) {
     console.error('Error:', error);
   }
@@ -125,8 +109,9 @@ export const loadContentDeclarations = async (
       continue;
     }
 
-    const processedContentDeclaration =
-      await processContentDeclaration(contentDeclaration);
+    const processedContentDeclaration = await processContentDeclaration(
+      contentDeclaration as Dictionary
+    );
 
     if (!processedContentDeclaration) {
       continue;

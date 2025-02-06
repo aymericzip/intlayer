@@ -84,7 +84,7 @@ Par défaut, Intlayer scanne les fichiers avec l'extension `.content.{ts,tsx,js,
 Voici un exemple de déclaration de contenu :
 
 ```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
   key: "client-component",
@@ -103,7 +103,7 @@ const clientComponentContent = {
       ">19": "De nombreuses voitures",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default clientComponentContent;
 ```

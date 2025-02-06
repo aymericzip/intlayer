@@ -1,5 +1,5 @@
 import type { LinkGroup } from '@intlayer/design-system';
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { ExternalLinks, PagesRoutes } from '../../Routes';
 
 type FooterContent = {
@@ -371,5 +371,5 @@ const footerContent = {
       },
     ],
   },
-} satisfies DeclarationContent<FooterContent>;
+} satisfies Dictionary<FooterContent>;
 export default footerContent;

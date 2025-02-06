@@ -109,7 +109,7 @@ const content = {
       es: "Esta es una descripción",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default content;
 ```

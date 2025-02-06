@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { ReactNode } from 'react';
 
 const appContent = {
@@ -47,6 +47,6 @@ const appContent = {
       es: 'Haga clic en los logotipos de Vite y React para obtener más información',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default appContent;

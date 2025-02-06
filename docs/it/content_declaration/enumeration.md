@@ -23,7 +23,7 @@ const carEnumeration = {
       ">19": "Molte auto",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default carEnumeration;
 ```

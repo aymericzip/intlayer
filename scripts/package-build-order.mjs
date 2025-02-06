@@ -1,9 +1,9 @@
 export const packageBuildOrder = [
   'packages/@intlayer/config',
+  'packages/@intlayer/dictionaries-entry',
+  'packages/@intlayer/api',
   'packages/@intlayer/core',
   'packages/intlayer',
-  'packages/@intlayer/api',
-  'packages/@intlayer/dictionaries-entry',
   'packages/@intlayer/chokidar',
   'packages/@intlayer/editor',
   'packages/@intlayer/editor-react',

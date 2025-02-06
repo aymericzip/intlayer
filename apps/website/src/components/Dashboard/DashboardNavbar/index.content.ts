@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const dashboardNavbarContent = {
   key: 'dashboard-navbar',
@@ -229,6 +229,6 @@ const dashboardNavbarContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default dashboardNavbarContent;

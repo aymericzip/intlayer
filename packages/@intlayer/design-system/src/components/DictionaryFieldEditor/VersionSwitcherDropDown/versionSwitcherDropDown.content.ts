@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const versionSwitcherContent = {
   key: 'version-switcher',
@@ -49,6 +49,6 @@ const versionSwitcherContent = {
       ru: 'Переключиться на',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default versionSwitcherContent;

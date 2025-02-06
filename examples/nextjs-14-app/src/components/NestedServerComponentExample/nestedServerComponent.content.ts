@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const NestedServerComponent = {
   key: 'nested-server-component-example',
@@ -14,6 +14,6 @@ const NestedServerComponent = {
       es: 'Este es el contenido de un ejemplo de componente servidor envuelto en un componente cliente',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default NestedServerComponent;

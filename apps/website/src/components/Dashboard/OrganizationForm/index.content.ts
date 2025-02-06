@@ -1,5 +1,5 @@
 import { addOrganization } from '@intlayer/backend';
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const organizationFormContent = {
   key: 'organization-form',
@@ -245,6 +245,6 @@ const organizationFormContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default organizationFormContent;

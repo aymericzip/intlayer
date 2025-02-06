@@ -7,11 +7,11 @@ import {
   type TranslationContent,
   NodeType,
   type KeyPath,
-  type DictionaryValue,
+  type ContentNode,
   getLocaleName,
   Dictionary,
+  getSectionType,
 } from '@intlayer/core';
-import { getSectionType } from '@intlayer/editor';
 import { useEditedContent } from '@intlayer/editor-react';
 import { Plus, WandSparkles, X } from 'lucide-react';
 import {
@@ -133,7 +133,7 @@ const createReactElement = (element: ReactElement) => {
 export type TextEditorProps = {
   dictionary: Dictionary;
   keyPath: KeyPath[];
-  section: DictionaryValue;
+  section: ContentNode;
   locales: Locales[];
 };
 
@@ -211,7 +211,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
     <table className="w-full table-fixed gap-2">
       <tbody className="divide-y-[1.5px]">
         {Object.keys(
-          (section as EnumerationContent<DictionaryValue>)[NodeType.Enumeration]
+          (section as EnumerationContent<ContentNode>)[NodeType.Enumeration]
         ).map((enumKey) => (
           <tr
             key={enumKey}
@@ -315,7 +315,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   return (
     <table className="w-full gap-2">
       <tbody className="divide-y-[1.5px]">
-        {(section as DictionaryValue[]).map((subSection, index) => (
+        {(section as ContentNode[]).map((subSection, index) => (
           <tr
             key={JSON.stringify(subSection)}
             className="border-text dark:border-text-dark w-full"
@@ -352,7 +352,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
               ...keyPath,
               {
                 type: NodeType.Array,
-                key: (section as DictionaryValue[]).length,
+                key: (section as ContentNode[]).length,
               },
             ];
             addEditedContent(dictionary.key, '', newKeyPath, false);

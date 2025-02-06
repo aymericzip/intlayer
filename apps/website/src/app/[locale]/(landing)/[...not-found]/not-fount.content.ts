@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const notFountContent = {
   key: 'not-found',
@@ -34,6 +34,6 @@ const notFountContent = {
       ru: 'Страница не найдена',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default notFountContent;

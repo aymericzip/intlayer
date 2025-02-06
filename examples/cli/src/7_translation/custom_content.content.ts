@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 interface ICustomContent {
   title: string;
@@ -23,6 +23,6 @@ const customContent: DeclarationContent = {
       },
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default customContent;

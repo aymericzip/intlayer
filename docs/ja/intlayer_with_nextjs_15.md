@@ -299,7 +299,7 @@ const pageContent = {
       pageLink: "src/app/page.tsx",
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default pageContent;
 ```

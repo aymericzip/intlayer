@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const resetPasswordContent = {
   key: 'reset-password-page',
@@ -49,6 +49,6 @@ const resetPasswordContent = {
       ru: 'Введите вашу электронную почту, чтобы сбросить пароль.',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default resetPasswordContent;

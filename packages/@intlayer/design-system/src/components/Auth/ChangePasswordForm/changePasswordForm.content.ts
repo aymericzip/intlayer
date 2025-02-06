@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const changePasswordContent = {
   key: 'change-password-schema',
@@ -164,4 +164,4 @@ export const changePasswordContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

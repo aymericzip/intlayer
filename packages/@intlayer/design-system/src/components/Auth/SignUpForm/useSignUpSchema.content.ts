@@ -1,4 +1,4 @@
-import { DeclarationContent, t } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 export const signUpSchemaContent = {
   key: 'sign-up-schema',
@@ -115,6 +115,6 @@ export const signUpSchemaContent = {
       ru: 'Пароль и подтверждение пароля должны совпадать',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default signUpSchemaContent;

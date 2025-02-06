@@ -1,12 +1,13 @@
-import type { DictionaryValue } from '@intlayer/core';
+import type { ContentNode } from '@intlayer/core';
 import type { Model, ObjectId, Document } from 'mongoose';
 import type { Project } from './project.types';
 import type { User } from './user.types';
+import type { Dictionary as DictionaryCore } from '@intlayer/core';
 
 export type DictionaryCreationData = {
   projectIds: (Project['_id'] | string)[];
   key: string;
-  content?: DictionaryValue;
+  content?: ContentNode;
   title?: string;
   description?: string;
   tags?: string[];
@@ -16,7 +17,7 @@ export type DictionaryCreationData = {
 export type VersionedContentEl = {
   name?: string;
   description?: string;
-  content: DictionaryValue;
+  content: ContentNode;
 };
 
 export type ContentVersion = string;
@@ -41,10 +42,8 @@ export type Dictionary = DictionaryData & {
   availableVersions?: string[];
 };
 
-export type DictionaryAPI = Omit<Dictionary, 'filePath' | 'content'> & {
-  content: DictionaryValue;
-  filePath?: string;
-  availableVersions?: string[];
+export type DictionaryAPI = DictionaryCore & {
+  projectIds: (Project['_id'] | string)[];
 };
 
 export type DictionaryDocument = Document<unknown, {}, Dictionary> & Dictionary;

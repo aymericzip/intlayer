@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const dictionaryEditionDrawerContent = {
   key: 'dictionary-edition-drawer',
@@ -49,6 +49,6 @@ const dictionaryEditionDrawerContent = {
       'en-GB': 'No dictionary focused',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default dictionaryEditionDrawerContent;

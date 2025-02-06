@@ -1,4 +1,4 @@
-import { getEnumerationContent, t, type DeclarationContent } from 'intlayer';
+import { getEnumerationContent, t, type Dictionary } from 'intlayer';
 
 const docDataContent = {
   key: 'doc-data',
@@ -466,6 +466,6 @@ const docDataContent = {
       },
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default docDataContent;

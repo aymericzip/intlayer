@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const contentDashboardContent = {
   key: 'content-dashboard-page',
@@ -19,6 +19,6 @@ const contentDashboardContent = {
       ru: 'Управление контентом',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default contentDashboardContent;

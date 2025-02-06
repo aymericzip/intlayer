@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const dictionariesSelectorContent = {
   key: 'dictionaries-selector',
@@ -34,4 +34,4 @@ export const dictionariesSelectorContent = {
       ru: 'Словарь не найден',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

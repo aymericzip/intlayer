@@ -37,7 +37,7 @@ Intlayer также предоставляет необязательный ви
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-key",
@@ -48,7 +48,7 @@ const componentContent = {
       es: "Hola Mundo",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default componentContent;
 ```

@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const useFormSectionSchemaContent = {
   key: 'chat-form-section-schema',
@@ -35,6 +35,6 @@ const useFormSectionSchemaContent = {
       ru: 'Имя вопроса должно быть правильной строкой.',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default useFormSectionSchemaContent;

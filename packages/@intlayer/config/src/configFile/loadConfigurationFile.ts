@@ -1,30 +1,10 @@
-import { type Context, runInNewContext } from 'vm';
+import { runInNewContext } from 'vm';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
-import React from 'react';
-import {
-  loadEnvFile,
-  type LoadEnvFileOptions,
-} from '../envVariables/loadEnvFile';
+import { type LoadEnvFileOptions } from '../envVariables/loadEnvFile';
 import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';
 import { ESMxCJSRequire } from '../utils/ESMxCJSRequire';
-
-const getSandBoxContext = (envVarOptions?: LoadEnvFileOptions): Context => {
-  const sandboxContext: Context = {
-    exports: {
-      default: {},
-    },
-    module: {
-      exports: {},
-    },
-    React,
-    process: { ...process, env: loadEnvFile(envVarOptions) },
-    console,
-    require: ESMxCJSRequire,
-  };
-
-  return sandboxContext;
-};
+import { getSandBoxContext } from '../getSandboxContext';
 
 const getTransformationOptions = (): BuildOptions => {
   const define: Record<string, string> = {};
@@ -133,6 +113,11 @@ export const loadConfigurationFile = (
 
     return filterValidConfiguration(customConfiguration);
   } catch (error) {
-    logger(`Error: ${error}`, { level: 'error' });
+    logger(
+      `Error: ${error} ${JSON.stringify((error as Error).stack, null, 2)}`,
+      {
+        level: 'error',
+      }
+    );
   }
 };

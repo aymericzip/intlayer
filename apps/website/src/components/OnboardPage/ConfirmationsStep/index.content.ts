@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const confirmationStepContent = {
   key: 'confirmation-step',
@@ -83,6 +83,6 @@ export const confirmationStepContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default confirmationStepContent;

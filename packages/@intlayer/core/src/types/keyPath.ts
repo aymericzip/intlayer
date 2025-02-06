@@ -20,8 +20,32 @@ export type TranslationNode = {
   key: string;
 };
 
+export type ConditionNode = {
+  type: NodeType.Condition;
+  key: string;
+};
+
+export type MarkdownNode = {
+  type: NodeType.Markdown;
+  key?: undefined;
+};
+
+export type ReactNode = {
+  type: NodeType.ReactNode;
+  key?: undefined;
+};
+
+export type NestedNode = {
+  type: NodeType.Nested;
+  key?: undefined;
+};
+
 export type KeyPath =
   | ObjectNode
   | ArrayNode
   | TranslationNode
-  | EnumerationNode;
+  | EnumerationNode
+  | MarkdownNode
+  | ReactNode
+  | ConditionNode
+  | NestedNode;

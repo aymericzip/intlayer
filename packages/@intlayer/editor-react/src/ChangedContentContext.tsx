@@ -1,6 +1,6 @@
 'use client';
 
-import type { Dictionary, DictionaryValue } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import {
   createContext,
   useContext,
@@ -21,7 +21,7 @@ const ChangedContentStateContext = createContext<
 type ChangedContentActionsContextType = {
   setChangedContent: (
     dictionaryKey: Dictionary['key'],
-    newValue: DictionaryValue
+    newValue: Dictionary['content']
   ) => void;
 };
 
@@ -36,7 +36,7 @@ export const ChangedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const setChangedContent = (
     dictionaryKey: Dictionary['key'],
-    newValue: DictionaryValue
+    newValue: Dictionary['content']
   ) => {
     setChangedContentState((prev) => ({
       ...prev,

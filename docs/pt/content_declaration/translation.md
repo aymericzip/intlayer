@@ -25,7 +25,7 @@ export default {
       pt: "Bem-vindo à nossa aplicação", // adicionado para português
     }),
   },
-} satisfies DeclarationContent<Content>;
+} satisfies Dictionary<Content>;
 ```
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
@@ -224,7 +224,7 @@ const customContent = {
       },
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default customContent;
 ```

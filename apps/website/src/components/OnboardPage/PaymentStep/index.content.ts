@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const paymentStepContent = {
   key: 'payment-step',
@@ -101,6 +101,6 @@ export const paymentStepContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default paymentStepContent;

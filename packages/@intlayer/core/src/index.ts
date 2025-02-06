@@ -1,41 +1,27 @@
-export type {
-  CustomizableLanguageContent,
-  LanguageContent,
-  TranslationContent,
-  EnumerationContent,
-  QuantityContent,
-  CustomLocales as Locales,
-} from './transpiler/content_transformers/index';
-export {
-  t,
-  enu,
-  getTranslationContent,
-  findMatchingCondition,
-  getEnumerationContent,
-} from './transpiler/content_transformers/index';
-export type {
-  ContentValue,
-  Content,
-  FlatContentValue,
-  FlatContent,
-  TypedNode,
-  DeclarationContent,
-  KeyPath,
-  ObjectNode,
-  ArrayNode,
-  RecursiveDictionaryValue,
-  TranslationNode,
-  EnumerationNode,
-  DictionaryValue,
-  Dictionary,
-} from './types/index';
-export { NodeType } from './types/index';
-export { getLocaleName } from './getLocaleName';
-export { getHTMLTextDir } from './getHTMLTextDir';
-export { getLocaleLang } from './getLocaleLang';
-export { localeList } from './localeList';
-export { isSameKeyPath } from './utils/isSameKeyPath';
-export { localeDetector } from './localeDetector';
-export { getPathWithoutLocale } from './getPathWithoutLocale';
-export { getMultilingualUrls } from './getMultilingualUrls';
-export { getLocalizedUrl } from './getLocalizedUrl';
+import type {
+  ConditionCond,
+  EnumerationCond,
+  MarkdownCond,
+  NestedCond,
+  TranslationCond,
+} from './interpreter/getContent';
+
+export * from './transpiler/index';
+export * from './transpiler/index';
+export * from './interpreter/index';
+export * from './dictionaryManipulator/index';
+export * from './types/index';
+export * from './utils/isSameKeyPath';
+export * from './utils/checkIsURLAbsolute';
+export * from './utils/isValidReactElement';
+export * from './localization/index';
+
+declare module './interpreter/getContent/deepTransform' {
+  interface IPluginCond<T> {
+    translation: TranslationCond<T>;
+    enumeration: EnumerationCond<T>;
+    condition: ConditionCond<T>;
+    markdown: MarkdownCond<T>;
+    nested: NestedCond<T>;
+  }
+}

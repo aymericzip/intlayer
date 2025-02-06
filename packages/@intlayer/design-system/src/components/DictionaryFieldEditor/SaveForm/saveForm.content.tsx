@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const saveDictionaryContent = {
   key: 'save-dictionary-details',
@@ -164,4 +164,4 @@ export const saveDictionaryContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

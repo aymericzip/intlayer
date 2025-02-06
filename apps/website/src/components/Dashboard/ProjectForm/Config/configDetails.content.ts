@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const projectConfigDetailsContent = {
   key: 'project-config-detail',
@@ -216,6 +216,6 @@ const projectConfigDetailsContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default projectConfigDetailsContent;

@@ -3,17 +3,17 @@ import {
   ContentSelectorWrapper,
   type ContentSelectorWrapperProps,
 } from './ContentSelectorWrapper';
+import { type NodeProps } from '@intlayer/core';
 
-export type IntlayerNode<T = string> = ReactNode & {
+export type IntlayerNode<T = NodeProps['content']> = ReactNode & {
   value: T;
 };
 
 export type RenderIntlayerEditorProps = Omit<
   ContentSelectorWrapperProps,
-  'children'
-> & {
-  content: string;
-};
+  'children' | 'content'
+> &
+  NodeProps;
 
 export const renderIntlayerEditor = (
   props: RenderIntlayerEditorProps

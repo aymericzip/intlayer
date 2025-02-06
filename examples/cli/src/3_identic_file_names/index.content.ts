@@ -9,6 +9,6 @@ const identicFileNameTSContent = {
       es: 'Administrar perfil',
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default identicFileNameTSContent;

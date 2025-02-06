@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const editorViewContent = {
   key: 'editor-view',
@@ -117,4 +117,4 @@ export const editorViewContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

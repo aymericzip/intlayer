@@ -344,10 +344,10 @@ export const pushDictionaries = async (
     const errorResult: PushDictionariesResultData['error'] = [];
 
     for (const dictionaryDataEl of newDictionaries) {
-      const publishedVersion = dictionaryDataEl.publishedVersion
-        ? dictionaryDataEl.publishedVersion === '-1'
+      const publishedVersion = dictionaryDataEl.version
+        ? dictionaryDataEl.version === '-1'
           ? null
-          : dictionaryDataEl.publishedVersion
+          : dictionaryDataEl.version
         : null;
 
       const dictionary: DictionaryData = {
@@ -416,10 +416,10 @@ export const pushDictionaries = async (
           };
         }
 
-        const publishedVersion = dictionaryDataEl.publishedVersion
-          ? dictionaryDataEl.publishedVersion === '-1'
+        const publishedVersion = dictionaryDataEl.version
+          ? dictionaryDataEl.version === '-1'
             ? null
-            : dictionaryDataEl.publishedVersion
+            : dictionaryDataEl.version
           : null;
 
         const dictionary: DictionaryData = {

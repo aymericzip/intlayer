@@ -18,8 +18,8 @@ import { PoweredByMeta } from './PoweredByMeta';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
 
 type IntlayerValue = {
-  locale: Locales;
-  setLocale: (newLocale: Locales) => void;
+  locale: Locales | `${Locales}`;
+  setLocale: (newLocale: Locales | `${Locales}`) => void;
 };
 
 /**
@@ -36,8 +36,8 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
 export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
 export type IntlayerProviderProps = PropsWithChildren & {
-  locale?: Locales;
-  setLocale?: (locale: Locales) => void;
+  locale?: Locales | `${Locales}`;
+  setLocale?: (locale: Locales | `${Locales}`) => void;
 };
 
 /**

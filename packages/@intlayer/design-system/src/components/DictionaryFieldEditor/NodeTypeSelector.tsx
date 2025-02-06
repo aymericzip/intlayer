@@ -2,13 +2,13 @@
 
 import { getConfiguration } from '@intlayer/config/client';
 import {
-  type DictionaryValue,
+  type ContentNode,
   type EnumerationContent,
   type KeyPath,
   NodeType,
   type TranslationContent,
+  getSectionType,
 } from '@intlayer/core';
-import { getSectionType } from '@intlayer/editor';
 import { useEditedContentActions } from '@intlayer/editor-react';
 import { type FC, useEffect, useState } from 'react';
 // @ts-ignore react-intlayer not build yet
@@ -19,7 +19,7 @@ import { nodeTypeSelectorContent } from './nodeTypeSelector.content';
 type NodeTypeSelectorProps = {
   keyPath: KeyPath[];
   dictionaryKey: string;
-  section: DictionaryValue;
+  section: ContentNode;
 };
 
 export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
@@ -55,7 +55,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
                 [locale]: '',
               }))
             ),
-          } as TranslationContent<DictionaryValue>,
+          } as TranslationContent<ContentNode>,
           keyPath
         );
         break;
@@ -68,7 +68,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
               '1': '',
               '>1': '',
             },
-          } as EnumerationContent<DictionaryValue>,
+          } as EnumerationContent<ContentNode>,
           keyPath
         );
         break;

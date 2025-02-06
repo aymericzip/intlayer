@@ -16,7 +16,7 @@ const functionContent = {
   content: {
     text: () => "Dies ist der Inhalt, der von einer Funktion gerendert wird",
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default functionContent;
 ```
@@ -77,7 +77,7 @@ const fakeFetch = async (): Promise<string> => {
 const asyncFunctionContent = {
   key: "async_function",
   content: { text: fakeFetch },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default asyncFunctionContent;
 ```

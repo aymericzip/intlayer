@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const changePasswordContent = {
   key: 'change-password-page',
@@ -49,6 +49,6 @@ const changePasswordContent = {
       ru: 'Измените ваш пароль, чтобы получить доступ к вашей учетной записи.',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default changePasswordContent;

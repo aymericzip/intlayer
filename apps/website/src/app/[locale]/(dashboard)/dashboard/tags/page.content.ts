@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const tagDashboardContent = {
   key: 'tags-dashboard-page',
@@ -19,6 +19,6 @@ const tagDashboardContent = {
       ru: 'Настройки тегов',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default tagDashboardContent;

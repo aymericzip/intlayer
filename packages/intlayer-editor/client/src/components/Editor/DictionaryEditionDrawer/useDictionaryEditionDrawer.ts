@@ -1,4 +1,4 @@
-import type { DictionaryValue, KeyPath } from '@intlayer/core';
+import type { ContentNode, KeyPath } from '@intlayer/core';
 import { useRightDrawerStore } from '@intlayer/design-system';
 import {
   useEditedContentActions,
@@ -25,7 +25,7 @@ type DictionaryEditionDrawer = {
   getEditedContentValue: (
     dictionaryKey: DictionaryKey,
     keyPath: KeyPath[]
-  ) => DictionaryValue | undefined;
+  ) => ContentNode | undefined;
 };
 
 export const useDictionaryEditionDrawer = (

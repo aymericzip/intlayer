@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const landingSectionContent = {
   key: 'landing-section',
@@ -35,6 +35,6 @@ const landingSectionContent = {
       ru: 'Intlayer - это библиотека интернационализации, разработанная специально для разработчиков JavaScript. Она позволяет объявлять ваш контент по всему коду. Она преобразует многоязычные объявления контента в структурированные словари, упрощая интеграцию. Использование TypeScript усиливает вашу разработку и увеличивает эффективность.',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default landingSectionContent;

@@ -122,7 +122,7 @@ Standardmäßig scannt Intlayer nach Dateien mit der Erweiterung `.content.{ts,t
 Hier ist ein Beispiel für die Inhaltsdeklaration:
 
 ```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
   key: "client-component",
@@ -141,7 +141,7 @@ const clientComponentContent = {
       ">19": "Viele Autos",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default clientComponentContent;
 ```

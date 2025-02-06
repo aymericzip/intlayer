@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 type WhyToChoseIntlayerContent = {
   title: string;
@@ -234,6 +234,6 @@ const whyToChoseIntlayerContent = {
       },
     ],
   },
-} satisfies DeclarationContent<WhyToChoseIntlayerContent>;
+} satisfies Dictionary<WhyToChoseIntlayerContent>;
 
 export default whyToChoseIntlayerContent;

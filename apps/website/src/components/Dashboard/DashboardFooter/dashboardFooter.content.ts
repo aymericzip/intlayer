@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { ExternalLinks } from '@/Routes';
 
 type DashboardFooterContent = {
@@ -86,6 +86,6 @@ const dashboardFooterContent = {
       }),
     },
   },
-} satisfies DeclarationContent<DashboardFooterContent>;
+} satisfies Dictionary<DashboardFooterContent>;
 
 export default dashboardFooterContent;

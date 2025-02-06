@@ -16,7 +16,7 @@ const functionContent = {
   content: {
     text: () => "このコンテンツは関数によってレンダリングされます",
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default functionContent;
 ```
@@ -75,7 +75,7 @@ const fakeFetch = async (): Promise<string> => {
 const asyncFunctionContent = {
   key: "async_function",
   content: { text: fakeFetch },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default asyncFunctionContent;
 ```

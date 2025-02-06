@@ -2,7 +2,7 @@
 import {
   isSameKeyPath,
   NodeType,
-  type DictionaryValue,
+  type ContentNode,
   type KeyPath,
 } from '@intlayer/core';
 import { Edit } from 'lucide-react';
@@ -12,7 +12,7 @@ import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
 type ArrayWrapperProps = Omit<NodeWrapperProps, 'section'> & {
-  section: DictionaryValue[];
+  section: ContentNode[];
 };
 
 export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {

@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export default {
   key: 'product-header-structured-data',
@@ -20,4 +20,4 @@ export default {
       ru: 'Intlayer CMS — это гибкая система управления контентом для разработчиков и менеджеров по контенту.',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

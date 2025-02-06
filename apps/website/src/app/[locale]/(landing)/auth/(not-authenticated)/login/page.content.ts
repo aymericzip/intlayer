@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const signInContent = {
   key: 'sign-in-page',
@@ -49,6 +49,6 @@ const signInContent = {
       ru: 'Введите свой адрес электронной почты и пароль, чтобы войти.',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default signInContent;

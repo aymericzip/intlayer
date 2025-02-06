@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const loaderContent = {
   key: 'loader',
@@ -16,6 +16,6 @@ export const loaderContent = {
       pt: 'Ícone animado, o que significa que o site está processando',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default loaderContent;

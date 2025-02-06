@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export default {
   key: 'creative-work-structured-data',
@@ -19,4 +19,4 @@ export default {
       ru: 'Разработчики, менеджеры контента',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

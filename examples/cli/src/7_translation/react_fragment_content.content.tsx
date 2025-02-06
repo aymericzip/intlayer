@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const customContent: DeclarationContent = {
   key: 'react_fragment_content',

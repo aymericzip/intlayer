@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const resetPasswordContent = {
   key: 'onboard-page',
@@ -35,6 +35,6 @@ const resetPasswordContent = {
       ru: 'Настройте свою учетную запись Intlayer, следуя инструкциям.',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default resetPasswordContent;

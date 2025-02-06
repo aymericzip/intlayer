@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export enum Plans {
   Free = 'free',
@@ -551,7 +551,7 @@ export const planDetails = {
       ],
     }),
   },
-} satisfies DeclarationContent<Record<Plans, Partial<PricingInfo>>>['content'];
+} satisfies Dictionary<Record<Plans, Partial<PricingInfo>>>['content'];
 
 const pricing = {
   monthly: {
@@ -705,7 +705,7 @@ const pricing = {
       price: 29.99 * 12,
     },
   },
-} satisfies DeclarationContent<
+} satisfies Dictionary<
   Record<Period, Record<Plans, PricingInfo>>
 >['content'];
 

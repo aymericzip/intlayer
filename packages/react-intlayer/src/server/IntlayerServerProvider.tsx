@@ -7,8 +7,9 @@ const { defaultLocale } = getConfiguration().internationalization;
 /**
  * Context that store the current locale on the server side
  */
-export const IntlayerServerContext =
-  createServerContext<Locales>(defaultLocale);
+export const IntlayerServerContext = createServerContext<
+  Locales | `${Locales}`
+>(defaultLocale);
 
 /**
  * Hook that provides the current locale
@@ -21,7 +22,7 @@ export const useIntlayer = () => getServerContext(IntlayerServerContext);
 export const locale = getServerContext(IntlayerServerContext);
 
 export type IntlayerServerProviderProps = PropsWithChildren & {
-  locale?: Locales;
+  locale?: Locales | `${Locales}`;
 };
 
 /**

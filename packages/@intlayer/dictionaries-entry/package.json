@@ -67,8 +67,7 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/config": "workspace:^",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/config": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "^22.10.6",
@@ -87,7 +86,7 @@
   },
   "peerDependencies": {
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:^"
+    "intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const dictionaryFieldEditorContent = {
   key: 'dictionary-field-editor',
@@ -66,4 +66,4 @@ export const dictionaryFieldEditorContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

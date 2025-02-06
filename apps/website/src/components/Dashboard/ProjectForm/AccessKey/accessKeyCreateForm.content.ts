@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const accessKeyFormContent = {
   key: 'access-key-creation-form',
@@ -225,6 +225,6 @@ const accessKeyFormContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default accessKeyFormContent;

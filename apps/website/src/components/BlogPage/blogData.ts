@@ -1,5 +1,4 @@
-import { Locales } from 'intlayer';
-import { getIntlayer } from 'next-intlayer';
+import { Locales, getIntlayer } from 'intlayer';
 import { getBlogIndexData } from './blogDataContent';
 import { getBlogI18nTechnologiesCMSDrupalData } from './blogDataContent/i18n_technologies/CMS/drupal';
 import { getBlogI18nTechnologiesCMSWixData } from './blogDataContent/i18n_technologies/CMS/wix';

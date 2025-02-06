@@ -5,6 +5,6 @@ const wrongExtensionContent = {
   content: {
     text: 'This file has a wrong extention and should not be included in the final bundle.',
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default wrongExtensionContent;

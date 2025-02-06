@@ -23,7 +23,7 @@ const carEnumeration = {
       ">19": "많은 차",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default carEnumeration;
 ```

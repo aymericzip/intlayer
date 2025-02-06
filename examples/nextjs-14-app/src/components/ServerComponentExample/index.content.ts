@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const serverComponentExampleContent: DeclarationContent = {
   key: 'server-component-example',
@@ -14,6 +14,6 @@ const serverComponentExampleContent: DeclarationContent = {
       es: 'Este es el contenido de un ejemplo de componente servidor',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default serverComponentExampleContent;

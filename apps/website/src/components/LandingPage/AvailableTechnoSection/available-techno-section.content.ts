@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const availableTechnoContent = {
   key: 'available-techno-section',
@@ -70,6 +70,6 @@ const availableTechnoContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default availableTechnoContent;

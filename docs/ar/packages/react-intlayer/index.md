@@ -84,7 +84,7 @@ pnpm add react-intlayer
 إليك مثال على إعلان المحتوى:
 
 ```tsx filePath="src/Component1/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const component1Content = {
   key: "component-1",
@@ -103,7 +103,7 @@ const component1Content = {
       ">19": "Many cars",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default component1Content;
 ```

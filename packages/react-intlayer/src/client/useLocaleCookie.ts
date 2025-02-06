@@ -16,12 +16,13 @@ const cookieAttributes: Cookies.CookieAttributes = {
  */
 export const localeCookie = Cookies.get(cookieName) as unknown as
   | Locales
+  | `${Locales}`
   | undefined;
 
 /**
  * Set the locale cookie
  */
-export const setLocaleCookie = (locale: Locales) => {
+export const setLocaleCookie = (locale: Locales | `${Locales}`) => {
   Cookies.set(cookieName, locale, cookieAttributes);
 };
 

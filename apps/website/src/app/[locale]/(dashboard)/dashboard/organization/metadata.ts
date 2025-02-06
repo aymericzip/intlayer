@@ -1,6 +1,6 @@
-import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import { getLocalizedUrl, getMultilingualUrls, getDictionary } from 'intlayer';
 import type { Metadata } from 'next';
-import { getDictionary, type LocalParams } from 'next-intlayer';
+import { type LocalParams } from 'next-intlayer';
 import metadataContent from './metadata.content';
 import { PagesRoutes } from '@/Routes';
 

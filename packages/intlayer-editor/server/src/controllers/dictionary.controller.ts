@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getConfiguration } from '@intlayer/config';
-import { DeclarationContent, type Dictionary } from '@intlayer/core';
+import { type Dictionary } from '@intlayer/core';
 import { DictionaryStatus } from '@intlayer/editor';
 import { writeContentDeclaration as writeContentDeclarationEditor } from '@intlayer/editor/server';
 import { formatResponse, ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 
-export type WriteContentDeclarationBody = Dictionary | DeclarationContent;
+export type WriteContentDeclarationBody = Dictionary;
 type WriteContentDeclarationResultData = {
   status: DictionaryStatus;
   path: string;

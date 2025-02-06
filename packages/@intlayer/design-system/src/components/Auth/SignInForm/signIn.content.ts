@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const signInContent = {
   key: 'sign-in',
@@ -211,4 +211,4 @@ export const signInContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

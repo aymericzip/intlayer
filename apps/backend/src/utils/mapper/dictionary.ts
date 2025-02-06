@@ -25,7 +25,10 @@ export const mapDictionaryToAPI = (
     returnedVersion = lastVersion;
   }
 
-  const content = dictionaryObject.content[returnedVersion]?.content;
+  const content =
+    dictionaryObject.content[
+      returnedVersion as keyof typeof dictionaryObject.content
+    ].content;
 
   return {
     ...dictionaryObject,

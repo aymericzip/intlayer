@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const navTitlesContent = {
   key: 'nav-titles',
@@ -51,6 +51,6 @@ const navTitlesContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default navTitlesContent;

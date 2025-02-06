@@ -1,4 +1,4 @@
-import { getDictionaryValueByKeyPath } from '@intlayer/editor';
+import { getContentNodeByKeyPath } from '@intlayer/core';
 import type { FC } from 'react';
 import { cn } from '../../../utils/cn';
 import { EditableFieldTextArea } from '../../EditableField';
@@ -15,10 +15,7 @@ export const StringWrapper: FC<StringWrapperProps> = ({
   onContentChange,
   onFocusKeyPath,
 }) => {
-  const editedContentValue = getDictionaryValueByKeyPath(
-    editedContent,
-    keyPath
-  );
+  const editedContentValue = getContentNodeByKeyPath(editedContent, keyPath);
 
   if (editedContentValue && typeof editedContentValue !== 'string') {
     return <>Error loading section</>;

@@ -5,6 +5,6 @@ const functionContent = {
   content: {
     text: () => 'This is the content render by a function',
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default functionContent;

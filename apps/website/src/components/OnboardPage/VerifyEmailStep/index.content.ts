@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const verifyEmailStepContent = {
   key: 'verify-email-step',
@@ -37,6 +37,6 @@ export const verifyEmailStepContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default verifyEmailStepContent;

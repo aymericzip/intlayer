@@ -84,7 +84,7 @@ Intlayer를 사용하면 코드베이스의 어느 곳에서나 구조화된 방
 다음은 콘텐츠 선언의 예입니다:
 
 ```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
   key: "client-component",
@@ -103,7 +103,7 @@ const clientComponentContent = {
       ">19": "Many cars",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default clientComponentContent;
 ```

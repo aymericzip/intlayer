@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const customContent = {
   key: 'react_content',
@@ -9,6 +9,6 @@ const customContent = {
       es: <h1>Título de la página</h1>,
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default customContent;

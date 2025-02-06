@@ -1,6 +1,6 @@
 'use client';
 
-import { isSameKeyPath, type KeyPath } from '@intlayer/core';
+import { type NodeProps, isSameKeyPath } from '@intlayer/core';
 import {
   useFocusDictionary,
   useEditedContentActions,
@@ -17,19 +17,12 @@ import {
 } from 'react';
 import { ContentSelector } from '../UI/ContentSelector';
 
-type ContentData = {
-  dictionaryKey: string;
-  dictionaryPath: string;
-  keyPath: KeyPath[];
-};
-
-export type ContentSelectorWrapperProps = ContentData &
-  HTMLAttributes<HTMLDivElement>;
+export type ContentSelectorWrapperProps = NodeProps &
+  Omit<HTMLAttributes<HTMLDivElement>, 'content'>;
 
 const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
   children,
   dictionaryKey,
-  dictionaryPath,
   keyPath,
   ...props
 }) => {
@@ -48,10 +41,9 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
     () =>
       setFocusedContent({
         dictionaryKey,
-        dictionaryPath,
         keyPath,
       }),
-    [dictionaryKey, dictionaryPath, keyPath, setFocusedContent]
+    [dictionaryKey, keyPath, setFocusedContent]
   );
 
   const isSelected = useMemo(

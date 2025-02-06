@@ -2,9 +2,9 @@ import { getConfiguration, type Locales } from '@intlayer/config';
 import {
   NodeType,
   type TranslationContent,
-  type TypedNode,
   type EnumerationContent,
-  DictionaryValue,
+  type TypedNode,
+  type ContentNode,
 } from '@intlayer/core';
 import { convertPluralsValues } from './convertPluralsValues';
 
@@ -21,20 +21,16 @@ const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.type !== 'undefined';
 
 // Build dictionary for a specific locale
-const buildDictionary = (
-  content: DictionaryValue,
-  locale: Locales
-): unknown => {
+const buildDictionary = (content: ContentNode, locale: Locales): unknown => {
   if (
     // Translation node
     content &&
     (content as TypedNode).nodeType === NodeType.Translation
   ) {
-    const result = (content as TranslationContent<unknown>)[
-      NodeType.Translation
-    ][locale];
+    const contentState = (content as TranslationContent)[NodeType.Translation];
+    const result = contentState[locale as keyof typeof contentState];
 
-    return buildDictionary(result as DictionaryValue, locale);
+    return buildDictionary(result as ContentNode, locale);
   } else if (
     // Translation node
     content &&
@@ -52,7 +48,7 @@ const buildDictionary = (
       ];
 
       plurals[`${letterNumber}_${letterNumber}`] = buildDictionary(
-        value as DictionaryValue,
+        value as ContentNode,
         locale
       );
     });
@@ -73,7 +69,7 @@ const buildDictionary = (
     Object.keys(content).forEach((dictionaryValue) => {
       result.push(
         buildDictionary(
-          content[dictionaryValue as keyof typeof content] as DictionaryValue,
+          content[dictionaryValue as keyof typeof content] as ContentNode,
           locale
         )
       );
@@ -86,12 +82,14 @@ const buildDictionary = (
   ) {
     const result: Record<string, unknown> = {};
 
-    Object.keys(content).forEach((dictionaryValue) => {
-      result[dictionaryValue] = buildDictionary(
-        content[dictionaryValue as keyof typeof content] as DictionaryValue,
-        locale
-      );
-    });
+    Object.keys(content as Record<string, unknown>).forEach(
+      (dictionaryValue) => {
+        result[dictionaryValue] = buildDictionary(
+          content?.[dictionaryValue as keyof typeof content] as ContentNode,
+          locale
+        );
+      }
+    );
 
     return result;
   }
@@ -100,7 +98,7 @@ const buildDictionary = (
 };
 
 export const createI18nextDictionaries = (
-  content: DictionaryValue
+  content: ContentNode
 ): I18nextDictionariesOutput => {
   // Map dictionaries for each locale
   const result: I18nextDictionariesOutput = locales.reduce(

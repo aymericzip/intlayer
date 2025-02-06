@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 import { type Metadata } from 'next';
 
 const docContent = {
@@ -70,6 +70,6 @@ const docContent = {
       ru: ['Введение', 'Начать', 'Intlayer', 'Приложение', 'Пакеты'],
     }),
   },
-} satisfies DeclarationContent<Metadata>;
+} satisfies Dictionary<Metadata>;
 
 export default docContent;

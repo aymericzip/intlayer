@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const projectDashboardContent = {
   key: 'projects-dashboard-page',
@@ -19,6 +19,6 @@ const projectDashboardContent = {
       ru: 'Настройки проектов',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default projectDashboardContent;

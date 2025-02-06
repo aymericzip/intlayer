@@ -74,13 +74,14 @@
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.10",
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
     "negotiator": "^1.0.0"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
     "@types/node": "^22.10.6",
-    "@types/react": "^18.3.1",
     "@typescript-eslint/parser": "^8.20.0",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
@@ -95,8 +96,10 @@
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "react": ">=16.0.0"
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

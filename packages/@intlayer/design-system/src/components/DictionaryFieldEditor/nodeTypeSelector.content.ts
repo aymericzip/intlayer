@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const nodeTypeSelectorContent = {
   key: 'node-type-selector',
@@ -94,4 +94,4 @@ export const nodeTypeSelectorContent = {
       ru: 'Перечисление',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

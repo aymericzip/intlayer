@@ -195,7 +195,7 @@ const appContent = {
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default appContent;
 ```

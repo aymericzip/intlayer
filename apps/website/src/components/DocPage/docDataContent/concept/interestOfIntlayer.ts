@@ -1,5 +1,4 @@
-import { Locales } from 'intlayer';
-import { getIntlayer } from 'next-intlayer';
+import { Locales, getIntlayer } from 'intlayer';
 import { DocData } from '../../types';
 import { PagesRoutes, GithubRoutes } from '@/Routes';
 

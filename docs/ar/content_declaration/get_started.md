@@ -51,7 +51,7 @@ export default {
       ">19": "الكثير من السيارات",
     }),
   },
-} satisfies DeclarationContent<Content>;
+} satisfies Dictionary<Content>;
 ```
 
 ```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"

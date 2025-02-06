@@ -1,3 +1,5 @@
+'use client';
+
 import { type Locales } from '@intlayer/config/client';
 import { getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
 import { useRouter } from 'next/router.js';

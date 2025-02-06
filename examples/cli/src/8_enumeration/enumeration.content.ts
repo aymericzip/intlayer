@@ -1,4 +1,4 @@
-import { enu, type DeclarationContent } from 'intlayer';
+import { enu, type Dictionary } from 'intlayer';
 
 const multipleLocalsContent = {
   key: 'enumeration',
@@ -12,6 +12,6 @@ const multipleLocalsContent = {
       '>19': 'Many cars',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default multipleLocalsContent;

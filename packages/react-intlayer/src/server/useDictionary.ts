@@ -1,21 +1,21 @@
 import type { Locales } from '@intlayer/config/client';
-import type { DeclarationContent } from '@intlayer/core';
-import { getDictionary, type UseDictionary } from '../getDictionary';
+import { type Dictionary } from '@intlayer/core';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
+import { getDictionary } from '../getDictionary';
 
 /**
  * On the server side, Hook that transform a dictionary and return the content
  *
  * If the locale is not provided, it will use the locale from the server context
  */
-export const useDictionary: UseDictionary = <T extends DeclarationContent>(
+export const useDictionary = <T extends Dictionary>(
   dictionary: T,
-  locale?: Locales,
+  locale?: Locales | `${Locales}`,
   isRenderEditor = false
 ) => {
   const localeTarget =
-    locale ?? getServerContext<Locales>(IntlayerServerContext);
+    locale ?? getServerContext<Locales | `${Locales}`>(IntlayerServerContext);
 
-  return getDictionary(dictionary, localeTarget, isRenderEditor);
+  return getDictionary(dictionary, localeTarget);
 };

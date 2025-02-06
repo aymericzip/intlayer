@@ -64,7 +64,7 @@ const exampleContent = {
       ko: "이것은 클라이언트 컴포넌트 예제의 내용입니다",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default exampleContent;
 ```

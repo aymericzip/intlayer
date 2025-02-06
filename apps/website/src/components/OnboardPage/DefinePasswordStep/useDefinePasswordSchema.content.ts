@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const content = {
   key: 'define-password-schema',
@@ -131,6 +131,6 @@ const content = {
       ru: 'Новый пароль и подтверждение пароля должны совпадать',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default content;

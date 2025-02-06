@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export default {
   key: 'website-structured-data',
@@ -199,4 +199,4 @@ export default {
       ],
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const blogNavTitlesContent = {
   key: 'blog-nav-list',
@@ -53,6 +53,6 @@ const blogNavTitlesContent = {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default blogNavTitlesContent;

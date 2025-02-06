@@ -1,4 +1,4 @@
-import { type DeclarationContent, t } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export const setUpOrganizationStepContent = {
   key: 'set-up-organization-step',
@@ -19,6 +19,6 @@ export const setUpOrganizationStepContent = {
       ru: 'Выберите вашу организацию',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default setUpOrganizationStepContent;

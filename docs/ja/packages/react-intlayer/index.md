@@ -84,7 +84,7 @@ Intlayer を使用すると、コードベース内のどこにでも構造化�
 以下はコンテンツ宣言の例です：
 
 ```tsx filePath="src/Component1/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const component1Content = {
   key: "component-1",
@@ -104,7 +104,7 @@ const component1Content = {
       ">19": "多くの車",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default component1Content;
 ```

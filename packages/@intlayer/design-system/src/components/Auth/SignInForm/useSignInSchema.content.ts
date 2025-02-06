@@ -1,4 +1,4 @@
-import { DeclarationContent, t } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
 export const signInSchemaContent = {
   key: 'sign-in-schema',
@@ -67,6 +67,6 @@ export const signInSchemaContent = {
       ru: 'Пожалуйста, введите корректный пароль',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default signInSchemaContent;

@@ -17,7 +17,7 @@ type ContentSelectorProps = {
   onClickOutside?: () => void;
   pressDuration?: number;
   isSelecting?: boolean;
-} & HTMLAttributes<HTMLDivElement>;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'content'>;
 
 export const ContentSelector: FC<ContentSelectorProps> = ({
   children,

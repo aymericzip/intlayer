@@ -1,7 +1,12 @@
 'use client';
 
-import { type Dictionary } from '@intlayer/core';
-import { createContext, useContext, FC, PropsWithChildren } from 'react';
+import type { Dictionary } from '@intlayer/core';
+import {
+  createContext,
+  useContext,
+  type FC,
+  type PropsWithChildren,
+} from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
 export type DictionaryContent = Record<Dictionary['key'], Dictionary>;

@@ -1,43 +1,69 @@
-import type { Locales } from '@intlayer/config/client';
+import { Locales } from '@intlayer/config/client';
 import {
-  type TranslationContent,
+  getTranslation as getTranslationCore,
+  nest as nestCore,
   t as tCore,
-  getTranslationContent as getTranslationContentCore,
-  type LanguageContent,
+  type TranslationContent,
+  type NestedContent,
+  type DictionaryKeys,
+  type TranslationContentState,
+  type Dictionary as DictionaryCore,
+  type ValidDotPathsFor,
 } from '@intlayer/core';
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-export interface IConfigLocales<Content> {
+interface IConfigLocales<Content> {
   // This interface should be augmented in the consuming app
 }
 
 type ConfigLocales = keyof IConfigLocales<unknown>;
 
-export type CustomizableLanguageContent<Content = string> =
-  ConfigLocales extends never
-    ? LanguageContent<Content>
-    : IConfigLocales<Content>;
+type CustomizableLanguageContent<Content = string> = ConfigLocales extends never
+  ? TranslationContentState<Content>
+  : IConfigLocales<Content>;
 
 // Re-exporting the following functions from the core package: to use module augmentation
-export const t: <Content = string>(
+const t: <Content = string>(
   content?: CustomizableLanguageContent<Content>
 ) => TranslationContent<Content> = tCore;
-export const getTranslationContent: <Content = string>(
+const getTranslationContent: <Content = string>(
   languageContent: CustomizableLanguageContent<Content>,
   locale: Locales
-) => Content = getTranslationContentCore;
+) => Content = getTranslationCore;
+const nest: <K extends DictionaryKeys>(
+  dictionaryKey: K,
+  path?: ValidDotPathsFor<K>
+) => NestedContent<K> = nestCore;
 
-export type {
-  LanguageContent,
-  QuantityContent,
-  ContentValue,
-  DeclarationContent,
-} from '@intlayer/core';
+type Dictionary<T = undefined> = DictionaryCore<T, true>;
+
 export {
+  Locales,
+  type Dictionary,
+  type IConfigLocales,
+  t,
+  getTranslationContent,
+  nest,
+};
+
+export {
+  type CustomIntlayerConfig as IntlayerConfig,
+  type LocalesValues,
+  getConfiguration,
+} from '@intlayer/config/client';
+export {
+  type LanguageContent,
+  type ContentNode,
+  type DeclarationContent,
   getLocaleName,
   enu,
-  getEnumerationContent,
+  cond,
+  markdown,
+  getEnumeration,
+  getDictionary,
+  getIntlayer,
+  getIntlayerAsync,
+  getTranslation,
+  getNesting,
   getLocaleLang,
   getHTMLTextDir,
   getPathWithoutLocale,
@@ -45,9 +71,3 @@ export {
   getLocalizedUrl,
   localeList,
 } from '@intlayer/core';
-export {
-  type CustomIntlayerConfig as IntlayerConfig,
-  type LocalesValues,
-  getConfiguration,
-} from '@intlayer/config/client';
-export { Locales } from '@intlayer/config/client';

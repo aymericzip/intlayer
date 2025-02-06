@@ -7,7 +7,8 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { getConfiguration, ESMxCJSRequire } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+// @ts-ignore intlayer declared for module augmentation
+import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 
 let dictionaries = undefined;
 
@@ -20,4 +21,7 @@ if (existsSync(dictionariesPath)) {
   dictionaries = ESMxCJSRequire(dictionariesPath);
 }
 
-export default (dictionaries ?? {}) as Record<Dictionary['key'], Dictionary>;
+export default (dictionaries ?? {}) as Record<
+  IntlayerDictionaryTypesConnector['key'],
+  IntlayerDictionaryTypesConnector
+>;

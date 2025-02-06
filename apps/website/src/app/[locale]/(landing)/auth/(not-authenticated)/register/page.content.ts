@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const signUpContent = {
   key: 'sign-up-page',
@@ -49,6 +49,6 @@ const signUpContent = {
       'en-GB': 'Enter your email and password to create an account.',
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default signUpContent;

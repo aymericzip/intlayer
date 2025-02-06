@@ -1,11 +1,7 @@
 export {
-  getTranslation,
   IntlayerClientContext,
-  getIntlayer,
   useIntlayer,
   useIntlayerAsync,
-  useTraduction,
-  getDictionary,
   useDictionary,
   useLocaleCookie,
   type IntlayerNode,

@@ -10,6 +10,6 @@ const nestedContent = {
       text: 'here the second key',
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default nestedContent;

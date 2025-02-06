@@ -3,10 +3,11 @@ import {
   type EnumerationContent,
   NodeType,
   type KeyPath,
-  type DictionaryValue,
+  type ContentNode,
   isSameKeyPath,
+  getContentNodeByKeyPath,
+  getSectionType,
 } from '@intlayer/core';
-import { getDictionaryValueByKeyPath, getSectionType } from '@intlayer/editor';
 import {
   useEditedContentActions,
   useFocusDictionary,
@@ -26,7 +27,7 @@ export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 export type NodeWrapperProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
-  section: DictionaryValue;
+  section: ContentNode;
 };
 
 export const NavigationViewNode: FC<NodeWrapperProps> = ({
@@ -35,7 +36,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   dictionaryKey,
 }) => {
   const { locales } = getConfiguration().internationalization;
-  const section = getDictionaryValueByKeyPath(sectionProp, keyPath);
+  const section = getContentNodeByKeyPath(sectionProp, keyPath);
   const { addEditedContent } = useEditedContentActions();
   const { setFocusedContentKeyPath, focusedContent } = useFocusDictionary();
   const {
@@ -72,7 +73,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               ...keyPath,
               { type: NodeType.Translation, key: translationKey },
             ];
-            const subSection = getDictionaryValueByKeyPath(
+            const subSection = getContentNodeByKeyPath(
               sectionProp,
               childKeyPath
             );
@@ -123,15 +124,13 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
       return (
         <div className="flex flex-col justify-between gap-2">
           {Object.keys(
-            (section as EnumerationContent<DictionaryValue>)[
-              NodeType.Enumeration
-            ]
+            (section as EnumerationContent<ContentNode>)[NodeType.Enumeration]
           ).map((key) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
               { type: NodeType.Enumeration, key },
             ];
-            const subSection = getDictionaryValueByKeyPath(
+            const subSection = getContentNodeByKeyPath(
               sectionProp,
               childKeyPath
             );
@@ -181,7 +180,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     if (nodeType === NodeType.Array) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {(section as DictionaryValue[]).map((subSection, index) => {
+          {(section as ContentNode[]).map((subSection, index) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
               { type: NodeType.Array, key: index },
@@ -237,7 +236,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 ...keyPath,
                 {
                   type: NodeType.Array,
-                  key: (section as DictionaryValue[]).length,
+                  key: (section as ContentNode[]).length,
                 },
               ];
               addEditedContent(dictionaryKey, {}, newKeyPath, false);
@@ -259,10 +258,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             ...keyPath,
             { type: NodeType.Object, key },
           ];
-          const subSection = getDictionaryValueByKeyPath(
-            sectionProp,
-            childKeyPath
-          );
+          const subSection = getContentNodeByKeyPath(sectionProp, childKeyPath);
           const isEditableSubSection = getIsEditableSection(subSection);
 
           if (isEditableSubSection) {

@@ -2,23 +2,13 @@
 
 import type { Locales } from '@intlayer/config/client';
 import { useContext, useEffect, useMemo, useState } from 'react';
+import { IntlayerClientContext } from './IntlayerProvider';
 import {
-  DataFromDictionaryKey,
+  type Dictionary,
   type DictionaryKeys,
   getIntlayer,
-} from '../getIntlayer';
-import { getIntlayerAsync } from '../getIntlayerAsync';
-import { IntlayerClientContext } from './IntlayerProvider';
-
-export type UseIntlayerAsync = <
-  T extends DictionaryKeys,
-  L extends Locales,
-  R extends boolean = true,
->(
-  key: T,
-  locale?: L,
-  isRenderEditor?: R
-) => DataFromDictionaryKey<T, L, R> & { isLoading: boolean };
+  getIntlayerAsync,
+} from '@intlayer/core';
 
 /**
  * On the client side, Hook that picking one dictionary by its key and return the content
@@ -28,14 +18,14 @@ export type UseIntlayerAsync = <
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useIntlayerAsync: UseIntlayerAsync = <T extends DictionaryKeys>(
+export const useIntlayerAsync = <T extends DictionaryKeys>(
   key: T,
-  locale?: Locales,
+  locale?: Locales | `${Locales}`,
   isRenderEditor = true
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget = locale ?? currentLocale;
-  const localeDictionary = getIntlayer(key, localeTarget, isRenderEditor);
+  const localeDictionary = getIntlayer(key, localeTarget);
   const [distantDictionary, setDistantDictionary] = useState<
     typeof localeDictionary | null | undefined
   >(undefined);
@@ -60,5 +50,7 @@ export const useIntlayerAsync: UseIntlayerAsync = <T extends DictionaryKeys>(
     [distantDictionary, localeDictionary]
   );
 
-  return { ...dictionary, isLoading };
+  return { ...(dictionary as object), isLoading } as typeof localeDictionary & {
+    isLoading: boolean;
+  };
 };

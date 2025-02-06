@@ -1,4 +1,4 @@
-import { t, type DeclarationContent } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 export default {
   key: 'step-layout',
@@ -100,4 +100,4 @@ export default {
       }),
     },
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;

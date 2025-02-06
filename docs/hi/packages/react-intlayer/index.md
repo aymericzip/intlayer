@@ -84,7 +84,7 @@ Intlayer के साथ, आप अपने कोडबेस में क�
 यहाँ सामग्री की घोषणा का एक उदाहरण है:
 
 ```tsx filePath="src/Component1/index.content.ts" codeFormat="typescript"
-import { type DeclarationContent, t } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const component1Content = {
   key: "component-1",
@@ -103,7 +103,7 @@ const component1Content = {
       ">19": "Many cars", // कई कारें
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default component1Content;
 ```

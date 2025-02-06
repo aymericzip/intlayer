@@ -50,7 +50,7 @@ const metadataContent = {
       es: ["Precios", "Suscripción"],
     }),
   },
-} satisfies DeclarationContent<Metadata>;
+} satisfies Dictionary<Metadata>;
 
 export default metadataContent;
 ```

@@ -25,7 +25,7 @@ export default {
       ru: "Добро пожаловать в наше приложение",
     }),
   },
-} satisfies DeclarationContent<Content>;
+} satisfies Dictionary<Content>;
 ```
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
@@ -224,7 +224,7 @@ const customContent = {
       },
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default customContent;
 ```

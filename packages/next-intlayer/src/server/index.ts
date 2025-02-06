@@ -1,7 +1,5 @@
 export {
-  getLocaleContent,
   useDictionary,
-  useTraduction,
   IntlayerServer,
   IntlayerServerProvider,
   locale,

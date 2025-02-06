@@ -23,7 +23,7 @@ const carEnumeration = {
       ">19": "Muchos coches",
     }),
   },
-} satisfies DeclarationContent;
+} satisfies Dictionary;
 
 export default carEnumeration;
 ```
