@@ -36,7 +36,7 @@ export const prepareIntlayer = async (configuration?: IntlayerConfig) => {
   // Build locale dictionaries
   const dictionariesPaths = await buildDictionary(dictionaries);
 
-  await createTypes(dictionariesPaths);
+  createTypes(dictionariesPaths);
 
   createDictionaryList();
 
@@ -71,7 +71,7 @@ export const handleAdditionalContentDeclarationFile = async (
 
   const dictionariesPaths = await buildDictionary(localeDictionaries);
 
-  await createTypes(dictionariesPaths);
+  createTypes(dictionariesPaths);
 
   createDictionaryList();
 
@@ -105,7 +105,7 @@ export const handleContentDeclarationFileChange = async (
   const updatedDictionariesPaths = await buildDictionary(localeDictionaries);
   const allDictionariesPaths: string[] = getDictionariesPath();
 
-  await createTypes(updatedDictionariesPaths);
+  createTypes(updatedDictionariesPaths);
   appLogger('TypeScript types built', {
     isVerbose: true,
   });

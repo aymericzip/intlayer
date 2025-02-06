@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type { Locales } from '@intlayer/config/client';
 import { type KeyPath, NodeType } from '../../types/index';
 
 export interface NodeProps {
   dictionaryKey: string;
   keyPath: KeyPath[];
+  plugins?: Plugins[];
+  locale?: Locales;
   dictionaryPath?: string;
   content?: any;
 }
@@ -45,17 +48,13 @@ export type DeepTransformContent<T> =
  * Applies the *first* plugin that can transform a node, then stops descending further.
  * If no plugin transforms it, it recurses into its children.
  */
-export const deepTransformNode = (
-  node: any,
-  props: NodeProps,
-  plugins: Plugins[]
-): any => {
+export const deepTransformNode = (node: any, props: NodeProps): any => {
   // Otherwise, if it's an object, check if any plugin can handle it:
-  for (const plugin of plugins) {
+  for (const plugin of props.plugins ?? []) {
     if (plugin.canHandle(node)) {
       // Return the transformed node => do NOT recurse further
       return plugin.transform(node, props, (node: any, props: NodeProps) =>
-        deepTransformNode(node, props, plugins)
+        deepTransformNode(node, props)
       );
     }
   }
@@ -76,7 +75,7 @@ export const deepTransformNode = (
           { type: NodeType.Array, key: index } as KeyPath,
         ],
       };
-      return deepTransformNode(child, childProps, plugins);
+      return deepTransformNode(child, childProps);
     });
   }
 
@@ -88,7 +87,7 @@ export const deepTransformNode = (
       content: node[key],
       keyPath: [...props.keyPath, { type: NodeType.Object, key } as KeyPath],
     };
-    result[key] = deepTransformNode(node[key], childProps, plugins);
+    result[key] = deepTransformNode(node[key], childProps);
   }
 
   return result;

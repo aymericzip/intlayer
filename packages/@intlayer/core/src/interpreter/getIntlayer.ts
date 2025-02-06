@@ -26,7 +26,7 @@ export const getIntlayer = <
   }
 
   return getDictionary(
-    dictionary as Dictionary,
+    dictionary as unknown as Dictionary,
     locale,
     plugins
   ) as DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']>;

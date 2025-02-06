@@ -21,18 +21,16 @@ export const getDictionary = <
 >(
   dictionary: T,
   locale?: L,
-  additionalPlugins?: Plugins[]
+  plugins?: Plugins[]
 ) => {
   const props: NodeProps = {
     dictionaryKey: dictionary.key,
     dictionaryPath: dictionary.filePath,
     keyPath: [],
+    plugins,
   };
 
-  return getContent(
-    dictionary.content,
-    props,
-    locale,
-    additionalPlugins
-  ) as DeepTransformContent<T['content']>;
+  return getContent(dictionary.content, props, locale) as DeepTransformContent<
+    T['content']
+  >;
 };

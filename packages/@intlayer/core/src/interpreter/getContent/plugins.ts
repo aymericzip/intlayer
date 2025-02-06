@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { Locales } from '@intlayer/config/client';
-import {
-  getCondition,
-  getEnumeration,
-  getNesting,
-  getTranslation,
-} from '../index';
-import { KeyPath, NodeType } from '../../types/index';
+
+import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import type {
   ConditionContent,
   EnumerationContent,
@@ -16,6 +11,10 @@ import type {
   TranslationContent,
 } from '../../transpiler';
 import type { DeepTransformContent, Plugins } from './deepTransform';
+import { getTranslation } from '../getTranslation';
+import { getEnumeration } from '../getEnumeration';
+import { getCondition } from '../getCondition';
+import { type GetNestingResult, getNesting } from '../getNesting';
 
 /** ---------------------------------------------
  *  TRANSLATION PLUGIN
@@ -146,9 +145,14 @@ export const conditionPlugin: Plugins = {
 
 export type NestedCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Nested]: object;
+  [NodeType.Nested]: infer U;
 }
-  ? DeepTransformContent<object>
+  ? U extends {
+      dictionaryKey: infer K extends DictionaryKeys;
+      path?: infer P;
+    }
+    ? GetNestingResult<K, P>
+    : never
   : never;
 
 /** Nested plugin. Replaces node with the result of `getNesting`. */
@@ -156,8 +160,9 @@ export const nestedPlugin: Plugins = {
   canHandle(node) {
     return typeof node === 'object' && node?.nodeType === NodeType.Nested;
   },
-  transform(node: NestedContent) {
-    return getNesting(node.nested.dictionaryKey, node.nested.path);
+  transform(node: NestedContent, props) {
+    // @ts-ignore
+    return getNesting(node.nested.dictionaryKey, node.nested.path, props);
   },
 };
 

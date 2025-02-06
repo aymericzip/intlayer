@@ -1,11 +1,11 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { basename, join, relative } from 'path';
+import { basename, extname, join, relative } from 'path';
 import { Locales, getConfiguration } from '@intlayer/config';
 import fg from 'fast-glob';
 import { getFileHash, kebabCaseToCamelCase } from '../../utils';
 
 const { content, internationalization } = getConfiguration();
-const { typesDir, moduleAugmentationDir } = content;
+const { moduleAugmentationDir, typesDir } = content;
 const { locales, strictMode } = internationalization;
 
 export const getTypeName = (key: string): string =>
@@ -19,21 +19,20 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
 
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
     relativePath: `./${relative(moduleAugmentationDir, dictionaryPath)}`,
-    id: basename(dictionaryPath, '.d.ts'), // Get the base name as the dictionary id
+    id: basename(dictionaryPath, extname(dictionaryPath)), // Get the base name as the dictionary id (without the extension)
     hash: `_${getFileHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
   }));
 
   // Import all dictionaries
   dictionariesRef.forEach((dictionary) => {
-    const typeName = getTypeName(dictionary.id);
-    content += `import type { ${typeName} as ${dictionary.hash} } from '${dictionary.relativePath}';\n`;
+    content += `import ${dictionary.hash} from '${dictionary.relativePath}';\n`;
   });
 
   content += '\n';
 
   // Format Dictionary Map
   const formattedDictionaryMap: string = dictionariesRef
-    .map((dictionary) => `    "${dictionary.id}": ${dictionary.hash};`)
+    .map((dictionary) => `    "${dictionary.id}": typeof ${dictionary.hash};`)
     .join('\n');
 
   const formatLocales = locales
@@ -94,9 +93,11 @@ export const createModuleAugmentation = () => {
     mkdirSync(moduleAugmentationDir, { recursive: true });
   }
 
-  const dictionaries: string[] = fg.sync(`${typesDir}/**/*.d.ts`);
+  const dictionariesTypesDefinitions: string[] = fg.sync(`${typesDir}/*.ts`, {
+    ignore: ['**/*.d.ts'],
+  });
   // Create the dictionary list file
 
-  const tsContent = generateTypeIndexContent(dictionaries);
+  const tsContent = generateTypeIndexContent(dictionariesTypesDefinitions);
   writeFileSync(join(moduleAugmentationDir, 'intlayer.d.ts'), tsContent);
 };

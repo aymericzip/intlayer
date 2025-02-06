@@ -19,8 +19,8 @@ export const intlayerNodePlugins: Plugins = {
       typeof node === 'number'
     );
   },
-  transform(node) {
-    return renderIntlayerEditor(node);
+  transform(_node, props) {
+    return renderIntlayerEditor(props);
   },
 };
 

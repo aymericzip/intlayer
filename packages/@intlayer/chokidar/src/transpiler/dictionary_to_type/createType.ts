@@ -2,12 +2,6 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { getConfiguration, ESMxCJSRequire } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import {
-  quicktype,
-  InputData,
-  jsonInputForTargetLanguage,
-} from 'quicktype-core';
-import { kebabCaseToCamelCase } from '../../utils';
 
 const { content } = getConfiguration();
 const { typesDir } = content;
@@ -17,52 +11,17 @@ const requireUncached = (module: string) => {
   return ESMxCJSRequire(module);
 };
 
-export const generateTypeScriptType = async (
-  typeName: string,
-  jsonString: string
-) => {
-  const { lines } = await quicktypeJSON(typeName, jsonString);
+export const generateTypeScriptType = (dictionary: Dictionary) => {
+  const jsonString = JSON.stringify(dictionary, null, 2)
+    .replace(/"([^"]+)":/g, '$1:') // Remove quotes around object keys
+    .replace(/"([^"]+)"/g, "'$1'"); // Convert double quotes to single quotes for values
 
-  const linesString: string = lines.join('\n');
-
-  return linesString;
+  return `/* eslint-disable */\nexport default ${jsonString} as const;\n`;
 };
-
-const quicktypeJSON = async (typeName: string, jsonString: string) => {
-  const jsonInput = jsonInputForTargetLanguage('typescript');
-
-  // We could add multiple samples for the same desired
-  // type, or many sources for other types. Here we're
-  // just making one type from one piece of sample JSON.
-
-  await jsonInput.addSource({
-    name: typeName,
-    samples: [jsonString],
-  });
-
-  const inputData = new InputData();
-  inputData.addInput(jsonInput);
-
-  return await quicktype({
-    inputData,
-    lang: 'typescript',
-    alphabetizeProperties: true,
-    rendererOptions: {
-      'just-types': 'true',
-      'explicit-unions': 'true',
-      'acronym-style': 'camel',
-      'prefer-types': 'true',
-      readonly: 'false',
-    },
-  });
-};
-
 /**
  * This function generates a TypeScript type definition from a JSON object
  */
-export const createTypes = async (
-  dictionariesPaths: string[]
-): Promise<string[]> => {
+export const createTypes = (dictionariesPaths: string[]): string[] => {
   const resultTypesPaths: string[] = [];
 
   // Create type folders if they don't exist
@@ -78,16 +37,9 @@ export const createTypes = async (
       continue;
     }
 
-    const dictionaryNameCamelCase: string = `${kebabCaseToCamelCase(dictionary.key)}Content`;
+    const typeDefinition: string = generateTypeScriptType(dictionary);
 
-    const dictionaryContentString: string = JSON.stringify(dictionary);
-
-    const typeDefinition: string = await generateTypeScriptType(
-      dictionaryNameCamelCase,
-      dictionaryContentString
-    );
-
-    const outputPath: string = resolve(typesDir, `${dictionary.key}.d.ts`);
+    const outputPath: string = resolve(typesDir, `${dictionary.key}.ts`);
 
     writeFileSync(outputPath, typeDefinition);
 

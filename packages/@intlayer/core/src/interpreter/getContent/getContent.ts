@@ -18,8 +18,6 @@ import {
  *
  * @param node The node to transform.
  * @param locale The locale to use if your transformers need it (e.g. for translations).
- * @param additionalPlugins An array of NodeTransformer that define how to transform recognized nodes.
- *                      If omitted, we’ll use a default set of plugins.
  */
 export const getContent = <
   T extends ContentNode,
@@ -27,8 +25,7 @@ export const getContent = <
 >(
   node: T,
   nodeProps: NodeProps,
-  locale?: L,
-  additionalPlugins?: Plugins[]
+  locale?: L
 ) => {
   const plugins: Plugins[] = [
     translationPlugin(
@@ -37,8 +34,11 @@ export const getContent = <
     enumerationPlugin,
     conditionPlugin,
     nestedPlugin,
-    ...(additionalPlugins ?? []),
+    ...(nodeProps.plugins ?? []),
   ];
 
-  return deepTransformNode(node, nodeProps, plugins) as DeepTransformContent<T>;
+  return deepTransformNode(node, {
+    ...nodeProps,
+    plugins,
+  }) as DeepTransformContent<T>;
 };

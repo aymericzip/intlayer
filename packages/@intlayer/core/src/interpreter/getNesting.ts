@@ -1,6 +1,28 @@
 import type { ValidDotPathsFor } from '../transpiler';
-import { getIntlayer } from './getIntlayer';
 import type { DictionaryKeys } from '../types';
+import type {
+  DeepTransformContent,
+  NodeProps,
+} from './getContent/deepTransform';
+import { getIntlayer } from './getIntlayer';
+// @ts-ignore intlayer declared for module augmentation
+import { IntlayerDictionaryTypesConnector } from 'intlayer';
+
+type GetSubPath<T, P> = P extends `${infer K}.${infer Rest}`
+  ? K extends keyof T
+    ? GetSubPath<T[K], Rest>
+    : never
+  : P extends keyof T
+    ? T[P]
+    : T;
+
+export type GetNestingResult<
+  K extends DictionaryKeys,
+  P = undefined,
+> = GetSubPath<
+  DeepTransformContent<IntlayerDictionaryTypesConnector[K]['content']>,
+  P
+>;
 
 /**
  * Allow to extract the content of another dictionary.
@@ -11,14 +33,15 @@ import type { DictionaryKeys } from '../types';
  * // 'Example content'
  * ```
  */
-export const getNesting = <K extends DictionaryKeys>(
+export const getNesting = <K extends DictionaryKeys, P>(
   dictionaryKey: K,
-  path?: ValidDotPathsFor<K>
-) => {
-  const dictionary = getIntlayer(dictionaryKey);
+  path?: P extends ValidDotPathsFor<K> ? P : never,
+  props?: NodeProps
+): GetNestingResult<K, P> => {
+  const dictionary = getIntlayer(dictionaryKey, props?.locale, props?.plugins);
 
   if (typeof path === 'string') {
-    const pathArray = path.split('.');
+    const pathArray = (path as string).split('.');
     let current: any = dictionary;
 
     for (const key of pathArray) {
@@ -26,7 +49,7 @@ export const getNesting = <K extends DictionaryKeys>(
       current = current?.[key];
       // If we cannot find the path, return the whole dictionary as a fallback
       if (current === undefined) {
-        return dictionary;
+        return dictionary as any;
       }
     }
 
@@ -34,5 +57,5 @@ export const getNesting = <K extends DictionaryKeys>(
   }
 
   // Default or error handling if path is not a string or otherwise undefined
-  return dictionary;
+  return dictionary as any;
 };
