@@ -27,12 +27,12 @@ import { type GetNestingResult, getNesting } from '../getNesting';
  * > `transformFn` is a function that can be used to deeply transform inside the plugin.
  */
 export type Plugins = {
-  canHandle(node: any): boolean;
-  transform(
+  canHandle: (node: any) => boolean;
+  transform: (
     node: any,
     props: NodeProps,
     transformFn: (node: any, props: NodeProps) => any
-  ): any;
+  ) => any;
 };
 
 /** ---------------------------------------------
@@ -51,10 +51,9 @@ export type TranslationCond<T, S> = T extends {
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const translationPlugin = (locale: Locales | `${Locales}`): Plugins => ({
-  canHandle(node) {
-    return typeof node === 'object' && node?.nodeType === NodeType.Translation;
-  },
-  transform(node: TranslationContent, props, deepTransformNode) {
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Translation,
+  transform: (node: TranslationContent, props, deepTransformNode) => {
     const result = structuredClone(node.translation);
 
     for (const key in result) {
@@ -93,10 +92,9 @@ export type EnumerationCond<T, S> = T extends {
 
 /** Enumeration plugin. Replaces node with a function that takes quantity => string. */
 export const enumerationPlugin: Plugins = {
-  canHandle(node) {
-    return typeof node === 'object' && node?.nodeType === NodeType.Enumeration;
-  },
-  transform(node: EnumerationContent, props, deepTransformNode) {
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Enumeration,
+  transform: (node: EnumerationContent, props, deepTransformNode) => {
     const result = structuredClone(node.enumeration);
 
     for (const key in result) {
@@ -137,10 +135,9 @@ export type ConditionCond<T, S> = T extends {
 
 /** Condition plugin. Replaces node with a function that takes boolean => string. */
 export const conditionPlugin: Plugins = {
-  canHandle(node) {
-    return typeof node === 'object' && node?.nodeType === NodeType.Condition;
-  },
-  transform(node: ConditionContent, props, deepTransformNode) {
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Condition,
+  transform: (node: ConditionContent, props, deepTransformNode) => {
     const result = structuredClone(node.condition);
 
     for (const key in result) {
@@ -181,13 +178,11 @@ export type NestedCond<T, S> = T extends {
 
 /** Nested plugin. Replaces node with the result of `getNesting`. */
 export const nestedPlugin: Plugins = {
-  canHandle(node) {
-    return typeof node === 'object' && node?.nodeType === NodeType.Nested;
-  },
-  transform(node: NestedContent, props) {
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Nested,
+  transform: (node: NestedContent, props) =>
     // @ts-ignore
-    return getNesting(node.nested.dictionaryKey, node.nested.path, props);
-  },
+    getNesting(node.nested.dictionaryKey, node.nested.path, props),
 };
 
 /**
@@ -203,12 +198,9 @@ export type MarkdownCond<T, S> = T extends {
 
 /** Markdown plugin. Replaces node with a function that takes quantity => string. */
 export const markdownPlugin: Plugins = {
-  canHandle(node) {
-    return typeof node === 'object' && node?.nodeType === NodeType.Markdown;
-  },
-  transform(node: MarkdownContent) {
-    return node[NodeType.Markdown];
-  },
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
+  transform: (node: MarkdownContent) => node[NodeType.Markdown],
 };
 
 /**

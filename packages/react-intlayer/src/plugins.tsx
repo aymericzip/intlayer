@@ -17,16 +17,17 @@ export type IntlayerNodeCond<T, _S> = T extends number | string
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const intlayerNodePlugins: Plugins = {
-  canHandle(node) {
-    return (
-      typeof node === 'bigint' ||
-      typeof node === 'string' ||
-      typeof node === 'number'
-    );
-  },
-  transform(_node, props) {
-    return renderIntlayerEditor(props);
-  },
+  canHandle: (node) =>
+    typeof node === 'bigint' ||
+    typeof node === 'string' ||
+    typeof node === 'number',
+  transform: (
+    _node,
+    {
+      plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
+      ...rest
+    }
+  ) => renderIntlayerEditor(rest),
 };
 
 /** ---------------------------------------------
@@ -90,17 +91,13 @@ const createReactElement = (element: ReactElement) => {
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const reactNodePlugins: Plugins = {
-  canHandle(node) {
-    return (
-      typeof node === 'object' &&
-      typeof node.ref !== 'undefined' &&
-      typeof node.props !== 'undefined' &&
-      typeof node.key !== 'undefined'
-    );
-  },
-  transform(node) {
-    return createReactElement(node);
-  },
+  canHandle: (node) =>
+    typeof node === 'object' &&
+    typeof node.ref !== 'undefined' &&
+    typeof node.props !== 'undefined' &&
+    typeof node.key !== 'undefined',
+
+  transform: createReactElement,
 };
 
 /** ---------------------------------------------
