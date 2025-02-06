@@ -22,9 +22,7 @@ export const generateTypeScriptType = (dictionary: Dictionary) => {
       }
       // Otherwise, keep the quotes
       return `"${key}":`;
-    })
-    // Convert all double quotes to single quotes for values (and keys that remain quoted).
-    .replace(/"([^"]+)"/g, "'$1'");
+    });
 
   return `/* eslint-disable */\nexport default ${jsonString} as const;\n`;
 };
