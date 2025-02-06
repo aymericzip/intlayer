@@ -13,8 +13,18 @@ const requireUncached = (module: string) => {
 
 export const generateTypeScriptType = (dictionary: Dictionary) => {
   const jsonString = JSON.stringify(dictionary, null, 2)
-    .replace(/"([^"]+)":/g, '$1:') // Remove quotes around object keys
-    .replace(/"([^"]+)"/g, "'$1'"); // Convert double quotes to single quotes for values
+    // Remove quotes from keys only if they are valid identifiers.
+    .replace(/"([^"]+)":/g, (_, key) => {
+      // Valid identifier: must start with a letter, underscore, or dollar sign,
+      // followed by letters, digits, underscores, or dollar signs.
+      if (/^[$A-Za-z_][0-9A-Za-z_$]*$/.test(key)) {
+        return `${key}:`;
+      }
+      // Otherwise, keep the quotes
+      return `"${key}":`;
+    })
+    // Convert all double quotes to single quotes for values (and keys that remain quoted).
+    .replace(/"([^"]+)"/g, "'$1'");
 
   return `/* eslint-disable */\nexport default ${jsonString} as const;\n`;
 };
