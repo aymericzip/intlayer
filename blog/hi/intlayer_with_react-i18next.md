@@ -213,13 +213,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 ```
 
-## Creating and Managing Your Content Declarations
+## Creating and Managing Your Dictionarys
 
 Intlayer सामग्री घोषणाओं को `./src` के तहत कहीं से भी निकालता है (डिफ़ॉल्ट रूप से)।  
 यहाँ TypeScript में एक न्यूनतम उदाहरण है:
 
 ```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" आपके i18next नेमस्पेस होगा (जैसे, "my-component")

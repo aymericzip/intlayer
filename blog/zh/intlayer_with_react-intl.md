@@ -90,7 +90,7 @@ Intlayer 默认扫描您的代码库（在 `./src` 下），查找匹配 `*.cont
 这里是一个 **TypeScript** 示例：
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" 变成您的 react-intl JSON 文件中的顶级消息键

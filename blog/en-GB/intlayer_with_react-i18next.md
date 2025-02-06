@@ -219,7 +219,7 @@ Intlayer extracts translations from “content declaration files” located anyw
 Here’s a minimal example in TypeScript:
 
 ```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // The "key" will be your i18next namespace (e.g., "my-component")

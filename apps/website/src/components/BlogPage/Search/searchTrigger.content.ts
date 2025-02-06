@@ -1,6 +1,6 @@
 import { t, type Dictionary } from 'intlayer';
 
-const searchTriggerContent: DeclarationContent = {
+const searchTriggerContent: Dictionary = {
   key: 'blog-search-trigger',
   content: {
     searchButton: {

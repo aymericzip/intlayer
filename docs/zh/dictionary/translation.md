@@ -9,7 +9,7 @@
 以下是如何声明具有翻译的内容的示例。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface Content {
   welcomeMessage: string;
@@ -176,7 +176,7 @@ module.exports = MyComponent;
 `intlayer`支持用于翻译的自定义内容对象，使您能够定义更复杂的结构，同时确保类型安全。以下是一个带有自定义对象的示例：
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
   title: string;

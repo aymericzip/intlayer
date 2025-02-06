@@ -9,7 +9,7 @@ Intlayer vous permet de déclarer des fonctions de contenu dans vos modules de c
 Voici un exemple d'une simple fonction synchrone récupérant du contenu :
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const functionContent = {
   key: "function_content",
@@ -22,7 +22,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -34,7 +34,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -65,7 +65,7 @@ Voici un exemple d'une fonction asynchrone qui simule une récupération depuis 
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
   // Attendre 200ms pour simuler une récupération depuis le serveur
@@ -85,7 +85,7 @@ export default asyncFunctionContent;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { setTimeout } from "node:timers/promises");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // Attendre 200ms pour simuler une récupération depuis le serveur
   await setTimeout(200);
@@ -103,7 +103,7 @@ export default asyncFunctionContent;
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { setTimeout } = require("node:timers/promises");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // Attendre 200ms pour simuler une récupération depuis le serveur
   await setTimeout(200);

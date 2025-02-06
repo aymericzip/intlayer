@@ -183,7 +183,7 @@ i18next.use(
 Exemplos de arquivos de declaração de conteúdo em vários formatos:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   key: "my-content",
@@ -202,7 +202,7 @@ export default content;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const content = {
   key: "my-content",
   content: {

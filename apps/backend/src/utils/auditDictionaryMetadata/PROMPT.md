@@ -25,7 +25,7 @@ After completion, provide only the final title, description and tags fields in a
 - Entry:
 
 ```ts
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 import { Metadata } from "next";
 
 const metadataContent = {

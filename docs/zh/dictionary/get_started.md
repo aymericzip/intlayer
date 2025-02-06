@@ -21,7 +21,7 @@
 创建和管理您的内容字典：
 
 ```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
-import { t, enu, type DeclarationContent } from "intlayer";
+import { t, enu, type Dictionary } from "intlayer";
 
 // 内容接口
 interface Content {
@@ -58,7 +58,7 @@ export default {
 ```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 export default {
   key: "page",
   content: {
@@ -85,7 +85,7 @@ export default {
 ```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 module.exports = {
   key: "page",
   content: {

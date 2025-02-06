@@ -9,7 +9,7 @@
 要在你的 Intlayer 项目中设置枚举，你需要创建一个包含枚举定义的内容模块。以下是一个简单的汽车数量枚举的示例：
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { enu, type DeclarationContent } from "intlayer";
+import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
   key: "car_count",
@@ -31,7 +31,7 @@ export default carEnumeration;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { enu } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
   key: "car_count",
   content: {
@@ -50,9 +50,9 @@ export default carEnumeration;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu, type DeclarationContent } = require("intlayer");
+const { enu, type Dictionary } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
   key: "car_count",
   content: {

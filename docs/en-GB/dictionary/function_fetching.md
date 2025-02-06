@@ -9,7 +9,7 @@ Intlayer allows you to declare content functions in your content modules, which 
 Here's an example of a simple synchronous function fetching content:
 
 ```typescript fileName="/**/*" contentDeclarationFormat="typescript"
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const functionContent = {
   key: "function_content",
@@ -22,7 +22,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="/**/*" contentDeclarationFormat="esm"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -34,7 +34,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="/**/*" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -65,7 +65,7 @@ Below is an example of an asynchronous function that simulates a server fetch:
 
 ```typescript fileName="/**/*" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
   // Wait for 200ms to simulate a fetch from the server
@@ -85,7 +85,7 @@ export default asyncFunctionContent;
 ```javascript fileName="/**/*" contentDeclarationFormat="esm"
 import { setTimeout } from "node:timers/promises";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // Wait for 200ms to simulate a fetch from the server
   await setTimeout(200);
@@ -103,7 +103,7 @@ export default asyncFunctionContent;
 ```javascript fileName="/**/*" contentDeclarationFormat="commonjs"
 const { setTimeout } = require("node:timers/promises");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // Wait for 200ms to simulate a fetch from the server
   await setTimeout(200);

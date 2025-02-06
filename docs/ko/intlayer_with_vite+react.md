@@ -144,7 +144,7 @@ module.exports = defineConfig({
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 import type { ReactNode } from "react";
 
 const appContent = {
@@ -202,7 +202,7 @@ export default appContent;
 ```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
   content: {
@@ -261,7 +261,7 @@ export default appContent;
 ```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
   content: {

@@ -101,7 +101,7 @@ This concise overview covers the main elements that should be internationalized,
 
 ---
 
-## Locale Content Declaration vs. CMS Content Externalization
+## Locale Dictionary vs. CMS Content Externalization
 
 When creating a website, a **Content Management System (CMS) like WordPress, Wix, or Drupal generally offer improved maintainability**. Especially for blogs or landing pages, because of their integrated i18n features.
 

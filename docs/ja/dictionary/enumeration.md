@@ -9,7 +9,7 @@ Intlayerでは、列挙は`enu`関数を通じて実現され、特定のキー�
 Intlayerプロジェクトで列挙を設定するには、列挙定義を含むコンテンツモジュールを作成する必要があります。以下は、車の数に関するシンプルな列挙の例です：
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { enu, type DeclarationContent } from "intlayer";
+import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
   key: "car_count",
@@ -31,7 +31,7 @@ export default carEnumeration;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { enu } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
   key: "car_count",
   content: {
@@ -50,9 +50,9 @@ export default carEnumeration;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu, type DeclarationContent } = require("intlayer");
+const { enu, type Dictionary } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
   key: "car_count",
   content: {

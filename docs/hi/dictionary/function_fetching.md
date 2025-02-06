@@ -9,7 +9,7 @@ Intlayer आपको आपके सामग्री मॉड्यूल �
 यहाँ एक सरल समकालिक फ़ंक्शन सामग्री फ़ेचिंग का उदाहरण है:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const functionContent = {
   key: "function_content",
@@ -22,7 +22,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -34,7 +34,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -65,7 +65,7 @@ module.exports = functionContent;
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
   // सर्वर से फ़ेच को अनुकरण करने के लिए 200 मिलीसेकंड तक रुकें
@@ -83,7 +83,7 @@ export default asyncFunctionContent;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { setTimeout } from "node:timers/promises";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // सर्वर से फ़ेच को अनुकरण करने के लिए 200 मिलीसेकंड तक रुकें
   await setTimeout(200);
@@ -101,7 +101,7 @@ export default asyncFunctionContent;
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { setTimeout } = require("node:timers/promises");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // सर्वर से फ़ेच को अनुकरण करने के लिए 200 मिलीसेकंड तक रुकें
   await setTimeout(200);

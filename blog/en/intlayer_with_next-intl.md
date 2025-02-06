@@ -4,7 +4,7 @@ Both next-intl and Intlayer are open-source internationalization (i18n) framewor
 
 They share three principal notions:
 
-1. **Content Declaration**: The method for defining the translatable content of your application.
+1. **Dictionary**: The method for defining the translatable content of your application.
 
    - Named `content declaration file` in Intlayer, which can be a JSON, JS, or TS file exporting the structured data. See [Intlayer documentation](https://intlayer.org/fr/doc/concept/content) for more information.
    - Named `messages` or `locale messages` in next-intl, usually in JSON files. See [next-intl documentation](https://github.com/amannn/next-intl) for more information.
@@ -140,12 +140,12 @@ const config = {
 module.exports = config;
 ```
 
-### Content Declaration
+### Dictionary
 
 Below are examples of content declaration files in multiple formats. Intlayer will compile these into message files that next-intl can consume.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   key: "my-component",
@@ -164,7 +164,7 @@ export default content;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const content = {
   key: "my-component",
   content: {

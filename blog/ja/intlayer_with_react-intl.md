@@ -90,7 +90,7 @@ Intlayer は、デフォルトで `./src` 内のコードベースをスキャ�
 以下は **TypeScript** の例です：
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" は react-intl JSON ファイル内のトップレベルメッセージキーになります

@@ -1,4 +1,4 @@
-import type { DeclarationContent } from 'intlayer';
+import type { Dictionary } from 'intlayer';
 
 const wrongExtensionContent = {
   key: 'wrong_extention_file',

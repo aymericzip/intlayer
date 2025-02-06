@@ -46,7 +46,7 @@ L'hook accetta due parametri:
 Tutti gli oggetti dizionario devono essere dichiarati in file di contenuto strutturati per garantire la sicurezza dei tipi e prevenire errori a runtime. Puoi trovare le istruzioni per la configurazione [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md). Ecco un esempio di dichiarazione del contenuto:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -254,7 +254,7 @@ A differenza delle integrazioni che utilizzano editor visivi, attributi come `bu
 
 ## Suggerimenti Aggiuntivi
 
-- **Sicurezza dei Tipi**: Usa sempre `DeclarationContent` per definire i tuoi dizionari per garantire la sicurezza dei tipi.
+- **Sicurezza dei Tipi**: Usa sempre `Dictionary` per definire i tuoi dizionari per garantire la sicurezza dei tipi.
 - **Aggiornamenti di Localizzazione**: Quando aggiorni contenuti, assicurati che tutte le localizzazioni siano coerenti per evitare traduzioni mancanti.
 
 Questa documentazione si concentra sull'integrazione dell'hook `useDictionary`, fornendo un approccio semplificato per gestire contenuti localizzati senza fare affidamento sulle funzionalità degli editor visivi.

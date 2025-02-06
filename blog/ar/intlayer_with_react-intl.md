@@ -90,7 +90,7 @@ export default config;
 إليك مثال **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" يصبح المفتاح الرئيسي للرسالة في ملف JSON الخاص بك react-intl

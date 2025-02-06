@@ -111,7 +111,7 @@ export default clientComponentContent;
 ```jsx filePath="src/ClientComponent/index.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const clientComponentContent = {
   key: "client-component",
   content: {
@@ -137,7 +137,7 @@ export default clientComponentContent;
 ```jsx filePath="src/ClientComponent/index.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const clientComponentContent = {
   key: "client-component",
   content: {

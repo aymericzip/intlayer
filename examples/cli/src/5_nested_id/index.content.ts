@@ -1,4 +1,4 @@
-import type { DeclarationContent } from 'intlayer';
+import type { Dictionary } from 'intlayer';
 
 const nestedContent = {
   key: 'nested_key_1',

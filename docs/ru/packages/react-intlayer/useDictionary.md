@@ -46,7 +46,7 @@ Hook принимает два параметра:
 Все объекты словаря должны быть объявлены в структурированных файлах контента для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Вы можете найти инструкции по настройке [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md). Вот пример объявления контента:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 // Объект контента компонента
 const componentContent = {
@@ -71,7 +71,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -94,7 +94,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -255,7 +255,7 @@ const ServerComponentExample = ({ locale }) => {
 
 ## Дополнительные советы
 
-- **Безопасность типов**: Всегда используйте `DeclarationContent` для определения ваших словарей, чтобы обеспечить безопасность типов.
+- **Безопасность типов**: Всегда используйте `Dictionary` для определения ваших словарей, чтобы обеспечить безопасность типов.
 - **Обновления локализации**: При обновлении контента убедитесь, что все локализации согласованы, чтобы избежать пропущенных переводов.
 
 Эта документация сосредоточена на интеграции hook'а `useDictionary`, предоставляя упрощенный подход к управлению локализованным контентом без полагания на функционал визуального редактора.

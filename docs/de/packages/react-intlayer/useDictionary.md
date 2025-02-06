@@ -46,7 +46,7 @@ Der Hook akzeptiert zwei Parameter:
 Alle Wörterbuch-Objekte sollten in strukturierten Inhaltsdateien deklariert werden, um die Typsicherheit zu gewährleisten und Laufzeiteffekte zu vermeiden. Sie finden die Einrichtungsanweisungen [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md). Hier ist ein Beispiel für die Inhaltsdeklaration:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 // Inhalt des Komponentenbeispiels
 const componentContent = {
   key: "component-example",
@@ -94,7 +94,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 // Inhalt des Komponentenbeispiels
 const componentContent = {
   key: "component-example",
@@ -256,7 +256,7 @@ Im Gegensatz zu Integrationen mit visuellen Editoren gelten Attribute wie `butto
 
 ## Zusätzliche Tipps
 
-- **Typsicherheit**: Verwenden Sie immer `DeclarationContent`, um Ihre Wörterbücher zu definieren, um die Typsicherheit zu gewährleisten.
+- **Typsicherheit**: Verwenden Sie immer `Dictionary`, um Ihre Wörterbücher zu definieren, um die Typsicherheit zu gewährleisten.
 - **Lokalisierungsaktualisierungen**: Stellen Sie bei Aktualisierungen der Inhalte sicher, dass alle Locales konsistent sind, um fehlende Übersetzungen zu vermeiden.
 
 Diese Dokumentation konzentriert sich auf die Integration des `useDictionary` Hooks und bietet einen optimierten Ansatz zur Verwaltung lokalisierter Inhalte, ohne auf Funktionen visueller Editoren angewiesen zu sein.

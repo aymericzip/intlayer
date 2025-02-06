@@ -46,7 +46,7 @@
 所有字典对象应在结构化内容文件中声明，以确保类型安全并防止运行时错误。您可以在 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md) 找到设置说明。以下是内容声明的示例：
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default exampleContent;
 ```javascript fileName="component.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default exampleContent;
 ```javascript fileName="component.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -236,7 +236,7 @@ const ServerComponentExample = () => {
 
 ## 附加提示
 
-- **类型安全**：始终使用 `DeclarationContent` 来定义您的字典，以确保类型安全。
+- **类型安全**：始终使用 `Dictionary` 来定义您的字典，以确保类型安全。
 - **本地化更新**：更新内容时，确保所有本地化语言的一致性，以避免缺少翻译。
 
 本文档集中于 `useDictionary` hook 的集成，提供了一种简化管理本地化内容的方法，而无需依赖可视化编辑器功能。

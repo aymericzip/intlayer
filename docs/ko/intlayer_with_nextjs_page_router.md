@@ -317,7 +317,7 @@ module.exports = { middleware: intlayerMiddleware, config };
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다.
 
 ```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const homeContent = {
   key: "home",
@@ -341,7 +341,7 @@ export default homeContent;
 ```javascript fileName="src/pages/[locale]/home.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const homeContent = {
   key: "home",
   content: {
@@ -362,7 +362,7 @@ export default homeContent;
 ```javascript fileName="src/pages/[locale]/home.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const homeContent = {
   key: "home",
   content: {

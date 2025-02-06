@@ -21,7 +21,7 @@ Per un elenco completo delle opzioni di configurazione, visita la documentazione
 Crea e gestisci i tuoi dizionari di contenuto:
 
 ```typescript fileName="src/app/{{locale}}/page.content.ts" codeFormat="typescript"
-import { t, enu, type DeclarationContent } from "intlayer";
+import { t, enu, type Dictionary } from "intlayer";
 
 interface Content {
   getStarted: {
@@ -57,7 +57,7 @@ export default {
 ```javascript fileName="src/app/{{locale}}/page.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 export default {
   key: "page",
   content: {
@@ -84,7 +84,7 @@ export default {
 ```javascript fileName="src/app/{{locale}}/page.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 module.exports = {
   key: "page",
   content: {

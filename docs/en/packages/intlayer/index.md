@@ -1,4 +1,4 @@
-# intlayer: NPM Package to Manage Multilingual Content Declaration (i18n)
+# intlayer: NPM Package to Manage Multilingual Dictionary (i18n)
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
 
@@ -149,7 +149,7 @@ export default clientComponentContent;
 ```jsx filePath="src/ClientComponent/index.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const clientComponentContent = {
   key: "client-component",
   content: {
@@ -175,7 +175,7 @@ export default clientComponentContent;
 ```jsx filePath="src/ClientComponent/index.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const clientComponentContent = {
   key: "client-component",
   content: {

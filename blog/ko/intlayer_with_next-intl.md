@@ -145,7 +145,7 @@ module.exports = config;
 다음은 여러 형식의 콘텐츠 선언 파일 예시입니다. Intlayer는 이를 next-intl이 소비할 수 있는 메시지 파일로 컴파일합니다.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   key: "my-component",
@@ -164,7 +164,7 @@ export default content;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const content = {
   key: "my-component",
   content: {

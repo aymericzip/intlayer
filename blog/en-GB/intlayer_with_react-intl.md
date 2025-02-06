@@ -90,7 +90,7 @@ Intlayer scans your codebase (by default, under `./src`) for files matching `*.c
 Here’s a **TypeScript** example:
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" becomes the top-level message key in your react-intl JSON file

@@ -145,7 +145,7 @@ module.exports = config;
 Di seguito sono riportati esempi di file di dichiarazione del contenuto in più formati. Intlayer compilerà questi in file di messaggi che next-intl può consumare.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   key: "my-component",
@@ -164,7 +164,7 @@ export default content;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const content = {
   key: "my-component",
   content: {

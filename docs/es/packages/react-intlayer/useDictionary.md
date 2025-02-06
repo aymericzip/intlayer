@@ -46,7 +46,7 @@ El hook acepta dos parámetros:
 Todos los objetos de diccionario deben declararse en archivos de contenido estructurado para garantizar la seguridad de tipos y evitar errores en tiempo de ejecución. Puedes encontrar las instrucciones de configuración [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md). Aquí hay un ejemplo de declaración de contenido:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -254,7 +254,7 @@ A diferencia de las integraciones que utilizan editores visuales, los atributos 
 
 ## Consejos Adicionales
 
-- **Seguridad de Tipo**: Siempre utiliza `DeclarationContent` para definir tus diccionarios para garantizar la seguridad de tipos.
+- **Seguridad de Tipo**: Siempre utiliza `Dictionary` para definir tus diccionarios para garantizar la seguridad de tipos.
 - **Actualizaciones de Localización**: Al actualizar contenido, asegúrate de que todos los locales sean consistentes para evitar traducciones faltantes.
 
 Esta documentación se centra en la integración del hook `useDictionary`, proporcionando un enfoque simplificado para gestionar contenido localizado sin depender de las funcionalidades de editores visuales.

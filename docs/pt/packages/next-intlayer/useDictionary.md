@@ -46,7 +46,7 @@ O hook aceita dois parâmetros:
 Todos os objetos de dicionário devem ser declarados em arquivos de conteúdo estruturado para garantir segurança de tipo e evitar erros em tempo de execução. Você pode encontrar as instruções de configuração [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md). Aqui está um exemplo de declaração de conteúdo:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default exampleContent;
 ```javascript fileName="component.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default exampleContent;
 ```javascript fileName="component.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -236,7 +236,7 @@ Diferente das integrações que usam editores visuais, atributos como `buttonTit
 
 ## Dicas Adicionais
 
-- **Segurança de Tipo**: Sempre use `DeclarationContent` para definir seus dicionários para garantir segurança de tipo.
+- **Segurança de Tipo**: Sempre use `Dictionary` para definir seus dicionários para garantir segurança de tipo.
 - **Atualizações de Localização**: Ao atualizar conteúdo, garanta que todos os locais sejam consistentes para evitar traduções faltantes.
 
 Esta documentação foca na integração do hook `useDictionary`, proporcionando uma abordagem simplificada para gerenciar conteúdo localizado sem depender das funcionalidades dos editores visuais.

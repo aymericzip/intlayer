@@ -9,7 +9,7 @@
 لإعداد التعداد في مشروع Intlayer الخاص بك، تحتاج إلى إنشاء وحدة محتوى تتضمن تعريفات التعداد. إليك مثال على تعداد بسيط لعدد السيارات:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { enu, type DeclarationContent } from "intlayer";
+import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
   key: "car_count",
@@ -31,7 +31,7 @@ export default carEnumeration;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { enu } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
   key: "car_count",
   content: {
@@ -50,9 +50,9 @@ export default carEnumeration;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu, type DeclarationContent } = require("intlayer");
+const { enu, type Dictionary } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
   key: "car_count",
   content: {

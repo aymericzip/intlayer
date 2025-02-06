@@ -274,7 +274,7 @@ module.exports = { default: LocaleLayout, generateStaticParams };
 Create and manage your content declarations to store translations:
 
 ```tsx fileName="src/app/[locale]/page.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
   key: "page",
@@ -296,7 +296,7 @@ export default pageContent;
 ```javascript fileName="src/app/[locale]/page.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const pageContent = {
   key: "page",
   content: {
@@ -317,7 +317,7 @@ export default pageContent;
 ```javascript fileName="src/app/[locale]/page.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const pageContent = {
   key: "page",
   content: {

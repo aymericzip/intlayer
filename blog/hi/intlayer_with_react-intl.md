@@ -13,7 +13,7 @@ Intlayer को **export** करने के लिए कॉन्फ़ि�
 
 ## Why Use Intlayer with react-intl?
 
-1. **Per-Component Content Declarations**  
+1. **Per-Component Dictionarys**  
    Intlayer कंटेंट घोषणा फ़ाइलें आपके React घटकों के साथ-साथ रह सकती हैं, "अनाथ" अनुवादों से बचती हैं अगर घटक स्थानांतरित या हटा दिए जाएं। उदाहरण के लिए:
 
    ```bash
@@ -84,13 +84,13 @@ export default config;
 
 ---
 
-## Creating Your Intlayer Content Declarations
+## Creating Your Intlayer Dictionarys
 
 Intlayer आपके कोडबेस को स्कैन करता है (डिफ़ॉल्ट रूप से, `./src` के तहत) ऐसी फ़ाइलों के लिए जो `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` से मेल खाती हैं।  
 यहां एक **TypeScript** उदाहरण है:
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" आपके react-intl JSON फ़ाइल में टॉप-लेवल संदेश कुंजी बनता है

@@ -23,7 +23,7 @@ type CustomizableLanguageContent<Content = string> = ConfigLocales extends never
 
 // Re-exporting the following functions from the core package: to use module augmentation
 const t: <Content = string>(
-  content?: CustomizableLanguageContent<Content>
+  content: CustomizableLanguageContent<Content>
 ) => TranslationContent<Content> = tCore;
 const getTranslationContent: <Content = string>(
   languageContent: CustomizableLanguageContent<Content>,
@@ -34,11 +34,16 @@ const nest: <K extends DictionaryKeys>(
   path?: ValidDotPathsFor<K>
 ) => NestedContent<K> = nestCore;
 
-type Dictionary<T = undefined> = DictionaryCore<T, true>;
+type Dictionary<T = string> = DictionaryCore<T, true>;
+/**
+ * @deprecated Use `Dictionary<T>` instead.
+ */
+type DeclarationContent<T = string> = Dictionary<T>;
 
 export {
   Locales,
   type Dictionary,
+  type DeclarationContent,
   type IConfigLocales,
   t,
   getTranslationContent,
@@ -53,11 +58,10 @@ export {
 export {
   type LanguageContent,
   type ContentNode,
-  type DeclarationContent,
   getLocaleName,
   enu,
   cond,
-  markdown,
+  md,
   getEnumeration,
   getDictionary,
   getIntlayer,

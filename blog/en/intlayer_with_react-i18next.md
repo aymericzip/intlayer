@@ -213,13 +213,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 ```
 
-## Creating and Managing Your Content Declarations
+## Creating and Managing Your Dictionarys
 
 Intlayer extracts translations from “content declaration files” located anywhere under `./src` (by default).  
 Here’s a minimal example in TypeScript:
 
 ```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // The "key" will be your i18next namespace (e.g., "my-component")

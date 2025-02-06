@@ -1,5 +1,5 @@
 ```typescript
-import { t, enu, type DeclarationContent } from "intlayer";
+import { t, enu, type Dictionary } from "intlayer";
 
 export default {
   key: "my-key",

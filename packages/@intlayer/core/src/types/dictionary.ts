@@ -77,8 +77,3 @@ export type Dictionary<NodeType = undefined, FetchableNode = false> = {
     ? ContentNode<never, FetchableNode>
     : ReplaceContentValue<NodeType>;
 };
-
-/**
- * @deprecated Use `Dictionary<T>` instead.
- */
-export type DeclarationContent<T = undefined> = Dictionary<T, true>;

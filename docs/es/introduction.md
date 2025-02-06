@@ -56,7 +56,7 @@ export default componentContent;
 ```javascript fileName="src/components/MyComponent/index.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-key",
   content: {
@@ -74,7 +74,7 @@ export default componentContent;
 ```javascript fileName="src/components/MyComponent/index.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-key",
   content: {

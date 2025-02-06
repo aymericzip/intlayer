@@ -46,7 +46,7 @@ The hook accepts two parameters:
 All dictionary objects should be declared in structured content files to ensure type safety and prevent runtime errors. You can find the setup instructions [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md). Here's an example of content declaration:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -254,7 +254,7 @@ Unlike integrations using visual editors, attributes like `buttonTitle.value` do
 
 ## Additional Tips
 
-- **Type Safety**: Always use `DeclarationContent` to define your dictionaries to ensure type safety.
+- **Type Safety**: Always use `Dictionary` to define your dictionaries to ensure type safety.
 - **Localization Updates**: When updating content, ensure all locales are consistent to avoid missing translations.
 
 This documentation focuses on the integration of the `useDictionary` hook, providing a streamlined approach to managing localized content without relying on visual editor functionalities.

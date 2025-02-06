@@ -9,7 +9,7 @@
 Вот пример того, как объявить контент с переводами.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface Content {
   welcomeMessage: string;
@@ -195,7 +195,7 @@ module.exports = MyComponent;
 `intlayer` поддерживает пользовательские объекты контента для перевода, позволяя вам определять более сложные структуры, обеспечивая при этом безопасность типов. Вот пример с пользовательским объектом:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
   title: string;

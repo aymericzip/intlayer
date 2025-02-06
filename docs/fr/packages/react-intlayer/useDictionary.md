@@ -46,7 +46,7 @@ Le hook accepte deux paramètres :
 Tous les objets dictionnaires doivent être déclarés dans des fichiers de contenu structurés pour assurer la sécurité des types et éviter les erreurs d'exécution. Vous pouvez trouver les instructions d'installation [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md). Voici un exemple de déclaration de contenu :
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -254,7 +254,7 @@ Contrairement aux intégrations utilisant des éditeurs visuels, des attributs c
 
 ## Conseils Supplémentaires
 
-- **Sécurité des Types** : Utilisez toujours `DeclarationContent` pour définir vos dictionnaires afin d'assurer la sécurité des types.
+- **Sécurité des Types** : Utilisez toujours `Dictionary` pour définir vos dictionnaires afin d'assurer la sécurité des types.
 - **Mises à jour de Localisation** : Lors de la mise à jour du contenu, assurez-vous que toutes les locales sont cohérentes pour éviter des traductions manquantes.
 
 Cette documentation se concentre sur l'intégration du hook `useDictionary`, offrant une approche rationalisée pour gérer le contenu localisé sans dépendre des fonctionnalités d'éditeur visuel.

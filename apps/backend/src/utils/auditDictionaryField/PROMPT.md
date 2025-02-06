@@ -33,7 +33,7 @@ You are an expert in internationalization, copy writing and content management. 
       - **Input File:**
 
       ```typescript
-      import { t, type DeclarationContent } from "intlayer";
+      import { t, type Dictionary } from "intlayer";
 
       export default {
         key: "creative-work-structured-data",
@@ -60,7 +60,7 @@ You are an expert in internationalization, copy writing and content management. 
       - **Input File:**
 
       ```typescript
-      import { t, enu, type DeclarationContent } from "intlayer";
+      import { t, enu, type Dictionary } from "intlayer";
 
       const content = {
         key: "creative-work-structured-data",

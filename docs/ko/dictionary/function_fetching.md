@@ -9,7 +9,7 @@ Intlayer는 콘텐츠 모듈에서 콘텐츠 함수를 선언할 수 있게 해�
 다음은 간단한 동기 함수로 콘텐츠를 가져오는 예제입니다:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const functionContent = {
   key: "function_content",
@@ -22,7 +22,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -34,7 +34,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -65,7 +65,7 @@ Intlayer는 동기 함수 외에도 비동기 함수를 지원하여 외부 소�
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
   // 서버에서 가져오는 것을 시뮬레이션하기 위해 200ms 기다리기
@@ -83,7 +83,7 @@ export default asyncFunctionContent;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { setTimeout } from "node:timers/promises";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // 서버에서 가져오는 것을 시뮬레이션하기 위해 200ms 기다리기
   await setTimeout(200);
@@ -101,7 +101,7 @@ export default asyncFunctionContent;
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { setTimeout } = require("node:timers/promises");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // 서버에서 가져오는 것을 시뮬레이션하기 위해 200ms 기다리기
   await setTimeout(200);

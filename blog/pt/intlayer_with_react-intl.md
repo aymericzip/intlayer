@@ -90,7 +90,7 @@ O Intlayer escaneia seu código (por padrão, sob `./src`) em busca de arquivos 
 Aqui está um exemplo de **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" se torna a chave de mensagem de nível superior no seu arquivo JSON do react-intl

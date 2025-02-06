@@ -9,7 +9,7 @@ Intlayer ermöglicht es Ihnen, Inhaltsfunktionen in Ihren Inhaltsmodulen zu dekl
 Hier ist ein Beispiel für eine einfache synchrone Funktion, die Inhalte abruft:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const functionContent = {
   key: "function_content",
@@ -22,7 +22,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -34,7 +34,7 @@ export default functionContent;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const functionContent = {
   key: "function_content",
   content: {
@@ -65,7 +65,7 @@ Nachfolgend ein Beispiel für eine asynchrone Funktion, die eine Serverabfrage s
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
-import type { DeclarationContent } from "intlayer";
+import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
   // Warten Sie 200 ms, um eine Abfrage vom Server zu simulieren
@@ -85,7 +85,7 @@ export default asyncFunctionContent;
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { setTimeout } from "node:timers/promises";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // Warten Sie 200 ms, um eine Abfrage vom Server zu simulieren
   await setTimeout(200);
@@ -103,7 +103,7 @@ export default asyncFunctionContent;
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { setTimeout } = require("node:timers/promises");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
   // Warten Sie 200 ms, um eine Abfrage vom Server zu simulieren
   await setTimeout(200);

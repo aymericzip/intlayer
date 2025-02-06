@@ -1,7 +1,7 @@
 ```tsx
 // src/component/client/component.content.ts
 
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component",

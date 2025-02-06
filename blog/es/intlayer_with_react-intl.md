@@ -90,7 +90,7 @@ Intlayer escanea tu base de código (por defecto, bajo `./src`) en busca de arch
 Aquí hay un ejemplo de **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" se convierte en la clave de mensaje de nivel superior en tu archivo JSON de react-intl

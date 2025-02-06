@@ -18,31 +18,44 @@ For a full list of configuration options, visit the configuration documentation.
 
 ## Declare Your Content
 
-Create and manage your content dictionaries:
+Create and manage your dictionaries:
 
-```typescript fileName="src/app/[locale]/page.content.ts" codeFormat="typescript"
-import { t, enu, type DeclarationContent } from "intlayer";
+```typescript fileName="src/example.content.ts" codeFormat="tsx"
+import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 interface Content {
-  getStarted: {
-    main: string;
-    pageLink: string;
+  imbricatedContent: {
+    imbricatedContent2: {
+      stringContent: string;
+      numberContent: number;
+      booleanContent: boolean;
+    };
+    multilingualContent: string;
+    quantityContent: string;
+    conditionalContent: string;
+    nestedContent: string;
+    markdownContent: string;
+    externalContent: string;
   };
-  numberOfCar: string;
 }
 
 export default {
   key: "page",
   content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing",
-        fr: "Commencez par éditer",
-        es: "Comience por editar",
-      }),
-      pageLink: "src/app/page.tsx",
+    imbricatedContent: {
+      imbricatedContent2: {
+        stringContent: "Hello World",
+        numberContent: 123,
+        booleanContent: true,
+      },
     },
-    numberOfCar: enu({
+    multilingualContent: t({
+      en: "English content",
+      "en-GB": "English content (UK)",
+      fr: "French content",
+      es: "Spanish content",
+    }),
+    quantityContent: enu({
       "<-1": "Less than minus one car",
       "-1": "Minus one car",
       "0": "No cars",
@@ -50,88 +63,379 @@ export default {
       ">5": "Some cars",
       ">19": "Many cars",
     }),
+    conditionalContent: cond({
+      true: "Validation is enabled",
+      false: "Validation is disabled",
+    }),
+    nestedContent: nest(
+      "navbar", // The key of the dictionary to nest
+      "login.button" // [Optional] The path to the content to nest
+    ),
+    markdownContent: md("# Markdown Example"),
+    externalContent: async () => await fetch("https://example.com"),
+
+        // Only available using `react-intlayer` or `next-intlayer`
+    jsxContent: <h1>My title</h1>
   },
-} satisfies Dictionary<Content>;
+} satisfies Dictionary<Content>; // [optional] Dictionary is generic and allow you to strengthen the formatting of your dictionary
 ```
 
-```javascript fileName="src/app/[locale]/page.content.mjs" codeFormat="esm"
-import { t } from "intlayer";
+```javascript fileName="src/example.content.mjs" codeFormat="esm"
+import { t, enu, cond, nest, md } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 export default {
   key: "page",
   content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing",
-        fr: "Commencez par éditer",
-        es: "Comience por editar",
-      }),
-      pageLink: "src/app/page.tsx",
+    imbricatedContent: {
+      imbricatedContent2: {
+        stringContent: "Hello World",
+        numberContent: 123,
+        booleanContent: true,
+      },
+      imbricatedArray: [1, 2, 3],
     },
-    numberOfCar: enu({
+    multilingualContent: t({
+      en: "English content",
+      "en-GB": "English content (UK)",
+      fr: "French content",
+      es: "Spanish content",
+    }),
+    quantityContent: enu({
       "<-1": "Less than minus one car",
       "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
+      "0": "No cars",
+      "1": "One car",
       ">5": "Some cars",
       ">19": "Many cars",
     }),
+    conditionalContent: cond({
+      true: "Validation is enabled",
+      false: "Validation is disabled",
+    }),
+    nestedContent: nest(
+      "navbar", // The key of the dictionary to nest
+      "login.button" // [Optional] The path to the content to nest
+    ),
+    markdownContent: md("# Markdown Example"),
+    externalContent: async () => await fetch("https://example.com"),
+
+    // Only available using `react-intlayer` or `next-intlayer`
+    jsxContent: <h1>My title</h1>,
   },
 };
 ```
 
-```javascript fileName="src/app/[locale]/page.content.cjs" codeFormat="commonjs"
-const { t } = require("intlayer");
+```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
+const { t, enu, cond, nest, md } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 module.exports = {
   key: "page",
   content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing",
-        fr: "Commencez par éditer",
-        es: "Comience por editar",
-      }),
-      pageLink: "src/app/page.tsx",
+    imbricatedContent: {
+      imbricatedContent2: {
+        stringContent: "Hello World",
+        numberContent: 123,
+        booleanContent: true,
+      },
+      imbricatedArray: [1, 2, 3],
     },
-    numberOfCar: enu({
+    multilingualContent: t({
+      en: "English content",
+      "en-GB": "English content (UK)",
+      fr: "French content",
+      es: "Spanish content",
+    }),
+    quantityContent: enu({
       "<-1": "Less than minus one car",
       "-1": "Minus one car",
-      0: "No cars",
-      1: "One car",
+      "0": "No cars",
+      "1": "One car",
       ">5": "Some cars",
       ">19": "Many cars",
+    }),
+    conditionalContent: cond({
+      true: "Validation is enabled",
+      false: "Validation is disabled",
+    }),
+    nestedContent: nest(
+      "navbar", // The key of the dictionary to nest
+      "login.button" // [Optional] The path to the content to nest
+    ),
+    markdownContent: md("# Markdown Example"),
+    externalContent: async () => await fetch("https://example.com"),
+
+    // Only available using `react-intlayer` or `next-intlayer`
+    jsxContent: <h1>My title</h1>,
+  },
+};
+```
+
+```json5 fileName="src/example.content.json"  codeFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "page",
+  "content": {
+    "imbricatedContent": {
+      "imbricatedContent2": {
+        "stringContent": "Hello World",
+        "numberContent": 123,
+        "booleanContent": true,
+      },
+      "imbricatedArray": [1, 2, 3],
+    },
+    "multilingualContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "English content",
+        "en-GB": "English content (UK)",
+        "fr": "French content",
+        "es": "Spanish content",
+      },
+    },
+    "quantityContent": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "0": "No cars",
+        "1": "One car",
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        ">5": "Some cars",
+        ">19": "Many cars",
+      },
+    },
+    "conditionalContent": {
+      "nodeType": "condition",
+      "condition": {
+        "true": "Validation is enabled",
+        "false": "Validation is disabled",
+      },
+    },
+    "nestedContent": {
+      "nodeType": "nested",
+      "nested": { "dictionaryKey": "app" },
+    },
+    "markdownContent": {
+      "nodeType": "markdown",
+      "markdown": "# Markdown Example",
+    },
+  },
+}
+```
+
+## Function imbrication
+
+You can without problem imbricate functions into other ones.
+
+Example :
+
+```javascript fileName="src/example.content.ts" codeFormat="tsx"
+import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
+
+const getName = async () => "John Doe";
+
+export default {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage` returns `['Hi', ' ', 'John Doe']`
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Composite content imbricating condition, enumeration, and multilingual content
+    // `getIntlayer('page','en').advancedContent(true)(10) returns 'Multiple items found'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+} satisfies Dictionary;
+```
+
+```javascript fileName="src/example.content.mjs" codeFormat="esm"
+import { t, enu, cond, nest, md } from "intlayer";
+
+const getName = async () => "John Doe";
+
+/** @type {import('intlayer').Dictionary} */
+export default {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage` returns `['Hi', ' ', 'John Doe']`
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Composite content imbricating condition, enumeration, and multilingual content
+    // `getIntlayer('page','en').advancedContent(true)(10) returns 'Multiple items found'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
     }),
   },
 };
 ```
 
-```json5 fileName="src/app/[locale]/page.content.json"  codeFormat="json"
+```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
+const { t, enu, cond, nest, md } = require("intlayer");
+
+const getName = async () => "John Doe";
+
+/** @type {import('intlayer').Dictionary} */
+module.exports = {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage` returns `['Hi', ' ', 'John Doe']`
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Composite content imbricating condition, enumeration, and multilingual content
+    // `getIntlayer('page','en').advancedContent(true)(10) returns 'Multiple items found'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+};
+```
+
+```json5 fileName="src/example.content.json"  codeFormat="json"
 {
+  "$schema": "https://intlayer.org/schema.json",
   "key": "page",
   "content": {
-    "getStarted": {
-      "main": {
-        "nodeType": "translation",
-        "translation": {
-          "en": "Get started by editing",
-          "fr": "Commencez par éditer",
-          "es": "Comience por editar",
+    "hiMessage": {
+      "nodeType": "composite",
+      "composite": [
+        {
+          "nodeType": "translation",
+          "translation": {
+            "en": "Hi",
+            "fr": "Salut",
+            "es": "Hola",
+          },
         },
-      },
-      "pageLink": "src/app/page.tsx",
+        " ",
+        "John Doe",
+      ],
     },
-    "numberOfCar": {
-      "nodeType": "enumeration",
-      "enumeration": {
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars",
+    "advancedContent": {
+      "nodeType": "condition",
+      "condition": {
+        "true": {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "No items found",
+                "fr": "Aucun article trouvé",
+                "es": "No se encontraron artículos",
+              },
+            },
+            "1": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "One item found",
+                "fr": "Un article trouvé",
+                "es": "Se encontró un artículo",
+              },
+            },
+            ">1": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "Multiple items found",
+                "fr": "Plusieurs articles trouvés",
+                "es": "Se encontraron múltiples artículos",
+              },
+            },
+          },
+        },
+        "false": {
+          "nodeType": "translation",
+          "translation": {
+            "en": "No valid data available",
+            "fr": "Aucune donnée valide disponible",
+            "es": "No hay datos válidos disponibles",
+          },
+        },
       },
     },
   },

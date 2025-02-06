@@ -46,7 +46,7 @@
 모든 사전 객체는 유형 안전성을 보장하고 런타임 오류를 방지하기 위해 구조화된 콘텐츠 파일에 선언해야 합니다. 설정 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다. 다음은 콘텐츠 선언의 예입니다:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
   key: "component-example",
@@ -72,7 +72,7 @@ export default exampleContent;
 ```javascript fileName="component.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -97,7 +97,7 @@ export default exampleContent;
 ```javascript fileName="component.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -242,7 +242,7 @@ const ServerComponentExample = () => {
 
 ## 추가 팁
 
-- **유형 안전성**: 항상 `DeclarationContent`를 사용하여 사전을 정의하여 유형 안전성을 보장하세요.
+- **유형 안전성**: 항상 `Dictionary`를 사용하여 사전을 정의하여 유형 안전성을 보장하세요.
 - **지역화 업데이트**: 콘텐츠를 업데이트할 때 모든 로케일이 일관되도록 하여 누락된 번역이 없도록 합니다.
 
 이 문서는 `useDictionary` 훅의 통합에 중점을 두며, 시각 편집기 기능에 의존하지 않고 지역화된 콘텐츠 관리에 대한 간소화된 접근 방식을 제공합니다.

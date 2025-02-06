@@ -6,7 +6,7 @@ Intlayer is another internationalization framework that addresses these limitati
 
 ## Intlayer vs. i18next: Key Differences
 
-### 1. Content Declaration
+### 1. Dictionary
 
 With i18next, translation dictionaries must be declared in a specific folder, which can complicate application scalability. In contrast, Intlayer allows content to be declared within the same directory as your component. This has several advantages:
 

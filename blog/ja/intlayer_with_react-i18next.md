@@ -219,7 +219,7 @@ Intlayer は、`./src` 以下の任意の場所にある「コンテンツ宣言
 以下は TypeScript の簡単な例です。
 
 ```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" はあなたの i18next 名前空間（例: "my-component"）になります

@@ -120,7 +120,7 @@ Cambia tus scripts para usar react-intlayer
 Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
 
 ```tsx fileName="src/app.content.tsx" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 import React, { type ReactNode } from "react";
 
 const appContent = {
@@ -160,7 +160,7 @@ export default appContent;
 ```jsx fileName="src/app.content.mjx" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
   content: {
@@ -186,7 +186,7 @@ export default appContent;
 ```jsx fileName="src/app.content.csx" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
   content: {

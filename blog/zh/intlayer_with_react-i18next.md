@@ -219,7 +219,7 @@ Intlayer 从位于 `./src` 下的“内容声明文件”中提取翻译（默�
 以下是 TypeScript 中的一个最小示例：
 
 ```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // “key” 将是您的 i18next 命名空间（例如，“my-component”）

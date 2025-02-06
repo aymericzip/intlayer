@@ -46,7 +46,7 @@
 すべての辞書オブジェクトは、型安全性を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルに宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)で確認できます。以下はコンテンツ宣言の例です：
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default exampleContent;
 ```javascript fileName="component.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default exampleContent;
 ```javascript fileName="component.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -236,7 +236,7 @@ const ServerComponentExample = () => {
 
 ## 追加のヒント
 
-- **型安全性**: 辞書を定義する際には、常に `DeclarationContent` を使用して型安全性を確保してください。
+- **型安全性**: 辞書を定義する際には、常に `Dictionary` を使用して型安全性を確保してください。
 - **ローカライズの更新**: コンテンツを更新する際には、すべてのロケールが一貫していることを確認し、翻訳の欠落を避けてください。
 
 このドキュメントは、視覚エディタの機能に依存することなく、ローカライズされたコンテンツを管理するための合理化されたアプローチを提供する、`useDictionary` フックの統合に焦点を当てています。

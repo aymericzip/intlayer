@@ -90,7 +90,7 @@ Intlayer scansiona il tuo codice sorgente (per impostazione predefinita, sotto `
 Ecco un esempio in **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "chiave" diventa la chiave di messaggio di primo livello nel tuo file JSON react-intl

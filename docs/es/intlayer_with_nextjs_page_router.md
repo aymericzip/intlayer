@@ -321,7 +321,7 @@ Implementa enrutamiento dinámico para servir contenido localizado basado en el 
 Crea y gestiona tus declaraciones de contenido para almacenar traducciones.
 
 ```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const homeContent = {
   key: "home",
@@ -345,7 +345,7 @@ export default homeContent;
 ```javascript fileName="src/pages/[locale]/home.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const homeContent = {
   key: "home",
   content: {
@@ -366,7 +366,7 @@ export default homeContent;
 ```javascript fileName="src/pages/[locale]/home.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const homeContent = {
   key: "home",
   content: {

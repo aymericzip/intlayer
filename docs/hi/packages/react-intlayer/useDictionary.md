@@ -46,7 +46,7 @@
 सभी शब्दकोश वस्तुओं को संरचित सामग्री फ़ाइलों में घोषित किया जाना चाहिए ताकि प्रकार सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों से बचा जा सके। आप सेटअप निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) पाएंगे। यहां सामग्री घोषणा का एक उदाहरण है:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -254,7 +254,7 @@ const ServerComponentExample = ({ locale }) => {
 
 ## Additional Tips
 
-- **Type Safety**: हमेशा अपने शब्दकोशों को परिभाषित करने के लिए `DeclarationContent` का उपयोग करें ताकि प्रकार सुरक्षा सुनिश्चित हो सके।
+- **Type Safety**: हमेशा अपने शब्दकोशों को परिभाषित करने के लिए `Dictionary` का उपयोग करें ताकि प्रकार सुरक्षा सुनिश्चित हो सके।
 - **Localization Updates**: जब सामग्री अपडेट की जाती है, तो सभी स्थानीय भाषाएँ सुसंगत होने का सुनिश्चित करें ताकि अनुवाद गायब न हों।
 
 यह दस्तावेज़ `useDictionary` हुक के एकीकरण पर केंद्रित है, जो दृश्य संपादक कार्यक्षमता पर निर्भर किए बिना स्थानीयकृत सामग्री को प्रबंधित करने के लिए एक सुव्यवस्थित दृष्टिकोण प्रदान करता है।

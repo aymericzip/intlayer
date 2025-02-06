@@ -90,7 +90,7 @@ Intlayer는 코드베이스를 스캔하여(기본적으로 `./src` 아래에서
 다음은 **TypeScript** 예제입니다:
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key"는 react-intl JSON 파일의 최상위 메시지 키가 됩니다.

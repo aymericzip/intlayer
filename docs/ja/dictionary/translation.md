@@ -9,7 +9,7 @@
 以下は、翻訳付きのコンテンツを宣言する方法の例です。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface Content {
   welcomeMessage: string;
@@ -195,7 +195,7 @@ module.exports = MyComponent;
 `intlayer`は翻訳のためにカスタムコンテンツオブジェクトをサポートしており、型安全性を確保しながらより複雑な構造を定義できます。以下はカスタムオブジェクトを使用した例です。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
   title: string;

@@ -42,7 +42,7 @@ You are an expert in internationalization, copy writing and content management. 
      - **Input File:**
 
      ```typescript
-     import { t, type DeclarationContent } from "intlayer";
+     import { t, type Dictionary } from "intlayer";
 
      export default {
        key: "creative-work-structured-data",
@@ -59,7 +59,7 @@ You are an expert in internationalization, copy writing and content management. 
      - **Expected Output (No Changes Needed):**
 
        ```typescript
-       import { t, type DeclarationContent } from "intlayer";
+       import { t, type Dictionary } from "intlayer";
 
        export default {
          key: "creative-work-structured-data",
@@ -76,7 +76,7 @@ You are an expert in internationalization, copy writing and content management. 
      - **Incorrect Output (Unwanted Structural Change):**
 
        ```typescript
-       import { t, type DeclarationContent } from "intlayer";
+       import { t, type Dictionary } from "intlayer";
 
        export default {
          key: "creative-work-structured-data",
@@ -119,7 +119,7 @@ You are an expert in internationalization, copy writing and content management. 
      - **Expected Output (No Changes Needed):**
 
        ```typescript
-       import { t, type DeclarationContent } from "intlayer";
+       import { t, type Dictionary } from "intlayer";
 
        const content = {
          key: "creative-work-structured-data",
@@ -136,7 +136,7 @@ You are an expert in internationalization, copy writing and content management. 
      - **Clarification:** In this scenario:
        - A missing translation for the `audienceType` key was added.
        - The import of the `t` function was imported from `react-intlayer` instead of `intlayer`.
-       - A type `DeclarationContent` was added to the file to strengthen the content declaration.
+       - A type `Dictionary` was added to the file to strengthen the content declaration.
 
 **Tags Instructions:**
 

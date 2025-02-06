@@ -1,4 +1,4 @@
-import type { DeclarationContent } from 'intlayer';
+import type { Dictionary } from 'intlayer';
 
 const fakeFetch = async (): Promise<string> => {
   // Create a Promise that resolves after 200ms

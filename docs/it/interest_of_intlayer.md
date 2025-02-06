@@ -48,7 +48,7 @@ export default componentExampleContent;
 ```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 // Il contenuto di esempio del componente
 const componentExampleContent = {
   key: "component-example",
@@ -67,7 +67,7 @@ export default componentExampleContent;
 ```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 // Il contenuto di esempio del componente
 const componentExampleContent = {
   key: "component-example",

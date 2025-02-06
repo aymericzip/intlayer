@@ -90,7 +90,7 @@ Intlayer сканирует вашу кодовую базу (по умолча�
 Вот пример на **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" становится ключом верхнего уровня сообщения в вашем файле JSON react-intl

@@ -9,7 +9,7 @@
 다음은 번역이 포함된 콘텐츠를 선언하는 방법의 예입니다.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface Content {
   welcomeMessage: string;
@@ -176,7 +176,7 @@ module.exports = MyComponent;
 `intlayer`는 번역을 위한 사용자 정의 콘텐츠 객체를 지원하여, 타입 안전성을 보장하며 더 복잡한 구조를 정의할 수 있게 해줍니다. 다음은 사용자 정의 객체의 예입니다:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
   title: string;

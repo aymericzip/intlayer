@@ -219,7 +219,7 @@ Intlayer извлекает переводы из “файлов деклара
 Вот минимальный пример на TypeScript:
 
 ```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key" будет вашим пространством имен i18next (например, "my-component")

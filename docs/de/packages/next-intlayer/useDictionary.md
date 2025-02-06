@@ -46,7 +46,7 @@ Der Hook akzeptiert zwei Parameter:
 Alle Wörterbuchobjekte sollten in strukturierten Inhaltsdateien deklariert werden, um die Typsicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Sie können die Einrichtungshinweise [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md) finden. Hier ist ein Beispiel für eine Inhaltserklärung:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default exampleContent;
 ```javascript fileName="component.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default exampleContent;
 ```javascript fileName="component.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -236,7 +236,7 @@ Im Gegensatz zu Integrationen mit visuellen Editoren gelten Attribute wie `butto
 
 ## Zusätzliche Tipps
 
-- **Typsicherheit**: Verwenden Sie immer `DeclarationContent`, um Ihre Wörterbücher zu definieren, um die Typsicherheit zu gewährleisten.
+- **Typsicherheit**: Verwenden Sie immer `Dictionary`, um Ihre Wörterbücher zu definieren, um die Typsicherheit zu gewährleisten.
 - **Aktualisierungen der Lokalisierung**: Stellen Sie bei der Aktualisierung von Inhalten sicher, dass alle Locales konsistent sind, um fehlende Übersetzungen zu vermeiden.
 
 Diese Dokumentation konzentriert sich auf die Integration des `useDictionary`-Hooks und bietet einen optimierten Ansatz zur Verwaltung lokalisierter Inhalte, ohne auf die Funktionalitäten visueller Editoren angewiesen zu sein.

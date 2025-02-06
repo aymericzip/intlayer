@@ -46,7 +46,7 @@ Le hook accepte deux paramètres :
 Tous les objets dictionnaires doivent être déclarés dans des fichiers de contenu structurés pour garantir la sécurité des types et éviter les erreurs d'exécution. Vous pouvez trouver les instructions de configuration [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md). Voici un exemple de déclaration de contenu :
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default exampleContent;
 ```javascript fileName="component.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default exampleContent;
 ```javascript fileName="component.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -236,7 +236,7 @@ Contrairement aux intégrations utilisant des éditeurs visuels, les attributs c
 
 ## Conseils Supplémentaires
 
-- **Sécurité des Types** : Utilisez toujours `DeclarationContent` pour définir vos dictionnaires afin de garantir la sécurité des types.
+- **Sécurité des Types** : Utilisez toujours `Dictionary` pour définir vos dictionnaires afin de garantir la sécurité des types.
 - **Mises à Jour de Localisation** : Lors de la mise à jour du contenu, assurez-vous que toutes les locales sont cohérentes pour éviter les traductions manquantes.
 
 Cette documentation se concentre sur l'intégration du hook `useDictionary`, fournissant une approche rationalisée pour gérer le contenu localisé sans s'appuyer sur les fonctionnalités des éditeurs visuels.

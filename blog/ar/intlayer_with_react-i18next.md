@@ -213,13 +213,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 ```
 
-## Creating and Managing Your Content Declarations
+## Creating and Managing Your Dictionarys
 
 يستخرج Intlayer الترجمات من "ملفات إعلان المحتوى" الموجودة في أي مكان ضمن `./src` (بشكل افتراضي).  
 إليك مثال بسيط في TypeScript:
 
 ```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // سيكون "المفتاح" مساحة اسم i18next الخاصة بك (مثل "my-component")

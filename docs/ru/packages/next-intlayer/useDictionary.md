@@ -46,7 +46,7 @@
 Все объекты словаря должны быть объявлены в структурированных контентных файлах для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Вы можете найти инструкции по настройке [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md). Вот пример объявления контента:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default exampleContent;
 ```javascript fileName="component.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default exampleContent;
 ```javascript fileName="component.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -236,7 +236,7 @@ const ServerComponentExample = () => {
 
 ## Дополнительные советы
 
-- **Безопасность типов**: Всегда используйте `DeclarationContent`, чтобы определить свои словари, чтобы обеспечить безопасность типов.
+- **Безопасность типов**: Всегда используйте `Dictionary`, чтобы определить свои словари, чтобы обеспечить безопасность типов.
 - **Обновления локализации**: При обновлении контента убедитесь, что все локали согласованы, чтобы избежать отсутствия переводов.
 
 Этот документ фокусируется на интеграции хука `useDictionary`, предоставляя упрощенный подход к управлению локализованным контентом без зависимости от функциональности визуального редактора.

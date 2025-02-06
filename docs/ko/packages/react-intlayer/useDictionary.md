@@ -46,7 +46,7 @@
 모든 사전 객체는 타입 안전성을 보장하고 런타임 오류를 방지하기 위해 구조화된 콘텐츠 파일에서 선언되어야 합니다. 설정 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다. 콘텐츠 선언의 예는 다음과 같습니다:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -254,7 +254,7 @@ const ServerComponentExample = ({ locale }) => {
 
 ## Additional Tips
 
-- **타입 안전성**: 항상 `DeclarationContent`를 사용하여 사전을 정의하여 타입 안전성을 보장하세요.
+- **타입 안전성**: 항상 `Dictionary`를 사용하여 사전을 정의하여 타입 안전성을 보장하세요.
 - **지역화 업데이트**: 콘텐츠를 업데이트할 때 모든 로케일이 일치하는지 확인하여 누락된 번역을 방지하세요.
 
 이 문서는 `useDictionary` 훅의 통합에 중점을 두어 시각적 편집기 기능에 의존하지 않고 지역화된 콘텐츠를 관리하는 간소화된 접근 방식을 제공합니다.

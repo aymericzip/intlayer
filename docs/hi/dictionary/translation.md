@@ -9,7 +9,7 @@
 यहाँ अनुवादों के साथ सामग्री घोषित करने का एक उदाहरण है।
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface Content {
   welcomeMessage: string;
@@ -180,7 +180,7 @@ module.exports = MyComponent;
 `intlayer` अनुवाद के लिए कस्टम सामग्री वस्तुओं का समर्थन करता है, जिससे आपको प्रकार की सुरक्षा सुनिश्चित करते हुए अधिक जटिल संरचनाओं को परिभाषित करने की अनुमति मिलती है। यहाँ एक कस्टम वस्तु के साथ उदाहरण है:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
   title: string;

@@ -219,7 +219,7 @@ Intlayer는 `./src` 아래에 위치한 "콘텐츠 선언 파일"에서 번역�
 여기 TypeScript의 최소 예시가 있습니다:
 
 ```typescript title="src/components/MyComponent/MyComponent.content.ts"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const content = {
   // "key"는 당신의 i18next 네임스페이스가 됩니다 (예: "my-component")

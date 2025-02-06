@@ -9,7 +9,7 @@
 إليك مثال على كيفية إعلانات المحتوى مع الترجمة.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface Content {
   welcomeMessage: string;
@@ -180,7 +180,7 @@ module.exports = MyComponent;
 يدعم `intlayer` كائنات المحتوى المخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان أمان النوع. إليك مثال على كائن مخصص:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
   title: string;

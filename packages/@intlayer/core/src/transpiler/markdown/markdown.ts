@@ -24,4 +24,4 @@ const markdown = (content: string): MarkdownContent => ({
   [NodeType.Markdown]: content,
 });
 
-export { markdown };
+export { markdown as md };

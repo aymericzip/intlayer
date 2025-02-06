@@ -46,7 +46,7 @@ const { useDictionary } = require("react-intlayer"); // مستخدم في مكو
 يجب إعلانات جميع كائنات القاموس في ملفات محتوى هيكلية لضمان السلامة النوعية وتجنب الأخطاء في وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md). إليك مثال على إعلان المحتوى:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default componentContent;
 ```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default componentContent;
 ```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const componentContent = {
   key: "component-example",
   content: {
@@ -254,7 +254,7 @@ const ServerComponentExample = ({ locale }) => {
 
 ## نصائح إضافية
 
-- **سلامة النوع**: استخدم دائماً `DeclarationContent` لتعريف قواميسك لضمان سلامة النوع.
+- **سلامة النوع**: استخدم دائماً `Dictionary` لتعريف قواميسك لضمان سلامة النوع.
 - **تحديثات التوطين**: عند تحديث المحتوى، تأكد من أن جميع اللغات متسقة لتجنب الترجمات المفقودة.
 
 تركز هذه الوثيقة على تكامل `useDictionary` hook، مقدمةً نهجاً سلساً لإدارة المحتوى المحلي دون الاعتماد على وظائف محرر المرئي.

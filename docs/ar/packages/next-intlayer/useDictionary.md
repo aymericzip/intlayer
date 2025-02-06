@@ -46,7 +46,7 @@
 يجب إعلان جميع كائنات المعجم في ملفات محتوى منظمة لضمان أمان النوع ومنع الأخطاء في وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md). إليك مثال على إعلان المحتوى:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
   key: "component-example",
@@ -70,7 +70,7 @@ export default exampleContent;
 ```javascript fileName="component.content.mjs" codeFormat="esm"
 import { t } from "intlayer";
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -93,7 +93,7 @@ export default exampleContent;
 ```javascript fileName="component.content.cjs" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-/** @type {import('intlayer').DeclarationContent} */
+/** @type {import('intlayer').Dictionary} */
 const exampleContent = {
   key: "component-example",
   content: {
@@ -236,7 +236,7 @@ const ServerComponentExample = () => {
 
 ## نصائح إضافية
 
-- **أمان النوع**: استخدم دائمًا `DeclarationContent` لتعريف قواميسك لضمان أمان النوع.
+- **أمان النوع**: استخدم دائمًا `Dictionary` لتعريف قواميسك لضمان أمان النوع.
 - **تحديثات الترجمة**: عند تحديث المحتوى، تأكد من أن جميع اللغات متناسقة لتجنب فقدان الترجمات.
 
 تركز هذه الوثائق على تكامل `useDictionary` hook، مما يوفر نهجًا مبسطًا لإدارة المحتوى المترجم دون الاعتماد على وظائف محرر مرئي.

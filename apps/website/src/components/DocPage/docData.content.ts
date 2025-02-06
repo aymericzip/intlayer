@@ -1,4 +1,4 @@
-import { getEnumerationContent, t, type Dictionary } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const docDataContent = {
   key: 'doc-data',
@@ -128,19 +128,19 @@ const docDataContent = {
         },
         content: {
           title: t({
-            en: 'Content Declaration',
-            fr: 'Déclaration de Contenu',
-            es: 'Declaración de Contenido',
-            'en-GB': 'Content Declaration',
-            de: 'Inhaltsdeklaration',
-            ja: 'コンテンツ宣言',
-            ko: '콘텐츠 선언',
-            zh: '内容声明',
-            it: 'Dichiarazione di Contenuto',
-            pt: 'Declaração de Conteúdo',
-            hi: 'सामग्री घोषणा',
-            ar: 'إعلان المحتوى',
-            ru: 'Декларация контента',
+            en: 'Dictionary',
+            fr: 'Dictionnaire',
+            es: 'Diccionario',
+            'en-GB': 'Dictionary',
+            de: 'Wörterbuch',
+            ja: '辞書',
+            ko: '사전',
+            zh: '词典',
+            it: 'Dizionario',
+            pt: 'Dicionário',
+            hi: 'शब्दकोश',
+            ar: 'قاموس',
+            ru: 'Словарь',
           }),
           subsections: {
             translation: {

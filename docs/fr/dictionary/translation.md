@@ -9,7 +9,7 @@ La fonction `t` dans `intlayer` vous permet de déclarer du contenu dans plusieu
 Voici un exemple de la façon de déclarer du contenu avec des traductions.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface Content {
   welcomeMessage: string;
@@ -176,7 +176,7 @@ Ce composant récupère la traduction correspondante en fonction de la locale ac
 `intlayer` prend en charge des objets de contenu personnalisés pour la traduction, vous permettant de définir des structures plus complexes tout en garantissant la sécurité des types. Voici un exemple avec un objet personnalisé :
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { t, type DeclarationContent } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
   title: string;
