@@ -40,6 +40,7 @@
     "clean:node_modules": "rimraf node_modules ./**/node_modules",
     "dev": "node ./scripts/script-dev-package-command.mjs --command build",
     "dev:pick": "node ./scripts/script-pick.mjs --command dev",
+    "dev:reset": "node ./scripts/script-dev-package-command.mjs --command reset",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "lint-staged": "lint-staged --allow-empty",
