@@ -1,15 +1,22 @@
-import { buildAndWatchIntlayer } from '@intlayer/chokidar';
-import { Compiler } from 'webpack';
+import { prepareIntlayer, watch } from '@intlayer/chokidar';
+import { getConfiguration } from '@intlayer/config';
+import type { Compiler } from 'webpack';
 
 // Watch mode or on time build
 export class IntlayerPlugin {
-  private isWatching = false; // Flag to ensure we only start the watcher once
+  private isWatching = false; // Flag to ensure we only start the watcher after the first build
+  private configuration = getConfiguration();
 
   async apply(compiler: Compiler): Promise<void> {
+    if (this.configuration.content.watch) {
+      // Start watching (assuming watch is also async)
+      watch(this.configuration);
+    }
+
     compiler.hooks.beforeCompile.tapPromise('IntlayerPlugin', async () => {
       if (!this.isWatching) {
         try {
-          await buildAndWatchIntlayer();
+          await prepareIntlayer(this.configuration);
           this.isWatching = true;
         } catch (error) {
           console.error('Error in IntlayerPlugin:', error);
