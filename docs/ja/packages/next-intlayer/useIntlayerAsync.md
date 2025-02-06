@@ -199,7 +199,7 @@ const AsyncClientComponentExample = () => {
 
 すべてのコンテンツキーは、型安全性を確保するためにコンテンツ宣言ファイルで定義する必要があります。これにより、TypeScript の検証が行われ、常に存在するキーとロケールを参照できることが保証されます。
 
-コンテンツ宣言ファイルの設定手順については [こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md) にあります。
+コンテンツ宣言ファイルの設定手順については [こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md) にあります。
 
 ## さらなる情報
 

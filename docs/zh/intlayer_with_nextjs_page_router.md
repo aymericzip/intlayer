@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  提供配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 的核心包。
+  提供配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 的核心包。
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-有关声明内容的更多信息，请参阅 [内容声明指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)。
+有关声明内容的更多信息，请参阅 [内容声明指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
 
 ### 第 7 步：在您的代码中使用内容
 
@@ -885,7 +885,7 @@ const LocaleSwitcher = () => {
 ## 其他资源
 
 - **Intlayer 文档:** [GitHub 仓库](https://github.com/aymericzip/intlayer)
-- **内容声明指南:** [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)
+- **内容声明指南:** [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)
 - **配置文档:** [配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)
 
 通过遵循本指南，您可以有效地将 Intlayer 集成到您的 Next.js 应用程序中，使用 Page Router，为您的 web 项目启用强大且可扩展的国际化支持。

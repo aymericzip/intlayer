@@ -199,7 +199,7 @@ Comme avec `useIntlayer`, vous pouvez récupérer des valeurs d'attributs locali
 
 Tous les clés de contenu doivent être définies dans vos fichiers de déclaration de contenu pour garantir la sécurité des types et prévenir les erreurs d'exécution. Ces fichiers permettent la validation TypeScript, garantissant que vous faites toujours référence à des clés et locales existantes.
 
-Les instructions pour configurer les fichiers de déclaration de contenu sont disponibles [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/content_declaration/get_started.md).
+Les instructions pour configurer les fichiers de déclaration de contenu sont disponibles [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
 
 ## Informations Complémentaires
 

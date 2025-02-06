@@ -36,7 +36,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  提供配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 的国际化工具的核心包。
+  提供配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 的国际化工具的核心包。
 
 - **next-intlayer**
 
@@ -372,7 +372,7 @@ module.exports = pageContent;
 ```
 
 > 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`）。并且与内容声明文件扩展名匹配（默认情况下为 `.content.{ts,tsx,js,jsx,mjs,cjs}`）。
-> 有关更多详细信息，请参考 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)。
+> 有关更多详细信息，请参考 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
 
 ### 第 7 步：在代码中使用内容
 

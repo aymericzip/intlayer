@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## intlayer-cli 包
 
-`intlayer-cli` 包旨在将您的 [intlayer 声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md) 转换为字典。
+`intlayer-cli` 包旨在将您的 [intlayer 声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md) 转换为字典。
 
 此包将转换所有 intlayer 文件，例如 `src/**/*.content.{ts|js|mjs|cjs|json}`。 [查看如何声明您的 Intlayer 声明文件](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 

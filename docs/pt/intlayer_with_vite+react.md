@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  O pacote central que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/get_started.md), transpiração e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_cli.md).
+  O pacote central que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md), transpiração e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_cli.md).
 
 - **react-intlayer**
   O pacote que integra o Intlayer com a aplicação React. Ele fornece provedores de contexto e hooks para internacionalização em React. Além disso, inclui o plugin Vite para integrar o Intlayer com o [empacotador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), além de middleware para detectar a localidade preferida do usuário, gerenciar cookies e tratar redirecionamentos de URL.
@@ -375,7 +375,7 @@ module.exports = appContent;
 ```
 
 > Suas declarações de conteúdo podem ser definidas em qualquer lugar na sua aplicação, assim que forem incluídas no diretório `contentDir` (por padrão, `./src`). E combinam com a extensão do arquivo de declaração de conteúdo (por padrão, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/get_started.md).
+> Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
 > Se seu arquivo de conteúdo incluir código TSX, você deve considerar importar `import React from "react";` no seu arquivo de conteúdo.
 
 ### Passo 5: Utilize o Intlayer no Seu Código

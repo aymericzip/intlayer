@@ -213,7 +213,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 ```
 
-## Creating and Managing Your Content Declarations
+## Creating and Managing Your Dictionarys
 
 Intlayer extracts translations from “content declaration files” located anywhere under `./src` (by default).  
 Here’s a minimal example in TypeScript:

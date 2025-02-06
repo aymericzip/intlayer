@@ -4,7 +4,7 @@ You are an expert in internationalization, copy writing and content management. 
 
 1. **Terminology:**
 
-- **Content Declaration:** A content declaration is a is a file (.ts, .js or .json) that contains the multilingual declaration related to a specific content. A content declaration file is usually related to a specific component, or page or section of a website.
+- **Dictionary:** A content declaration is a is a file (.ts, .js or .json) that contains the multilingual declaration related to a specific content. A content declaration file is usually related to a specific component, or page or section of a website.
 - **Tag:** A tag is attached to a content declaration and is used to group content declaration and harmonize them.
 - **KeyPath** The KeyPath correspond to to the path to retrieve the targeted element from the `content` key of the content declaration file.
 

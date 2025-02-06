@@ -199,7 +199,7 @@ Come con `useIntlayer`, puoi recuperare valori di attributi localizzati per vari
 
 Tutte le chiavi di contenuto devono essere definite nei tuoi file di dichiarazione dei contenuti per garantire la sicurezza dei tipi e prevenire errori runtime. Questi file abilitano la convalida TypeScript, garantendo che tu faccia sempre riferimento a chiavi e locale esistenti.
 
-Le istruzioni per impostare i file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md).
+Le istruzioni per impostare i file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 
 ## Ulteriori Informazioni
 

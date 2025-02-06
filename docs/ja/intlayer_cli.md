@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## intlayer-cliパッケージ
 
-`intlayer-cli`パッケージは、あなたの[インテレーション宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)を辞書に変換することを目的としています。
+`intlayer-cli`パッケージは、あなたの[インテレーション宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を辞書に変換することを目的としています。
 
 このパッケージは、`src/**/*.content.{ts|js|mjs|cjs|json}`などのすべてのintlayerファイルを変換します。[Intlayer宣言ファイルの宣言方法はこちらを参照してください](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 

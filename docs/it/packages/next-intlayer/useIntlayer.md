@@ -43,7 +43,7 @@ A seconda che tu stia lavorando su componenti lato client o lato server in un'ap
 
 È fondamentale che tutte le chiavi di contenuto siano definite all'interno dei file di dichiarazione dei contenuti per prevenire errori a runtime e garantire la sicurezza dei tipi. Questo approccio facilita anche l'integrazione con TypeScript per la validazione a tempo di compilazione.
 
-Le istruzioni per configurare i file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md).
+Le istruzioni per configurare i file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 
 ## Esempio di Utilizzo in Next.js
 

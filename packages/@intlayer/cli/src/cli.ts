@@ -94,10 +94,7 @@ export const setAPI = (): Command => {
   program
     .command('audit')
     .description('Audit the dictionaries')
-    .option(
-      '-f, --files [files...]',
-      'List of Content Declaration files to audit'
-    )
+    .option('-f, --files [files...]', 'List of Dictionary files to audit')
     .option(
       '--exclude [excludedGlobs...]',
       'Globs pattern to exclude from the audit'

@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_cli.md).
+  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -403,7 +403,7 @@ module.exports = homeContent;
 }
 ```
 
-For more information on declaring content, refer to the [content declaration guide](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md).
+For more information on declaring content, refer to the [content declaration guide](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md).
 
 ### Step 7: Utilize Content in Your Code
 
@@ -884,7 +884,7 @@ Add the following lines to your `.gitignore` file:
 ## Additional Resources
 
 - **Intlayer Documentation:** [GitHub Repository](https://github.com/aymericzip/intlayer)
-- **Content Declaration Guide:** [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md)
+- **Dictionary Guide:** [Dictionary](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md)
 - **Configuration Documentation:** [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md)
 
 By following this guide, you can effectively integrate Intlayer into your Next.js application using the Page Router, enabling robust and scalable internationalization support for your web projects.

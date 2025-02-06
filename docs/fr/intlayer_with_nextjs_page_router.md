@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  Le package principal qui fournit des outils d'internationalisation pour la gestion de configuration, la traduction, [la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/content_declaration/get_started.md), la transpilation et [les commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_cli.md).
+  Le package principal qui fournit des outils d'internationalisation pour la gestion de configuration, la traduction, [la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md), la transpilation et [les commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-Pour plus d'informations sur la déclaration de contenu, référez-vous au [guide de déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/content_declaration/get_started.md).
+Pour plus d'informations sur la déclaration de contenu, référez-vous au [guide de déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
 
 ### Étape 7 : Utiliser le Contenu dans Votre Code
 
@@ -885,7 +885,7 @@ Ajoutez les lignes suivantes à votre fichier `.gitignore` :
 ## Ressources Supplémentaires
 
 - **Documentation d'Intlayer :** [Dépôt GitHub](https://github.com/aymericzip/intlayer)
-- **Guide de Déclaration de Contenu :** [Déclaration de Contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/content_declaration/get_started.md)
+- **Guide de Déclaration de Contenu :** [Déclaration de Contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md)
 - **Documentation de Configuration :** [Guide de Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md)
 
 En suivant ce guide, vous pouvez intégrer efficacement Intlayer dans votre application Next.js utilisant le Routeur de Page, permettant un support de l'internationalisation robuste et évolutif pour vos projets web.

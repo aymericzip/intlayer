@@ -214,7 +214,7 @@ Sie können auch lokalisierte Attributwerte für verschiedene HTML-Eigenschaften
 
 Alle Inhalts-Schlüssel müssen in Ihren Inhaltsdeklarationsdateien definiert werden, um die Typensicherheit zu gewährleisten und um Laufzeitfehler zu vermeiden. Diese Dateien ermöglichen die TypeScript-Validierung und stellen sicher, dass Sie immer vorhandene Schlüssel und Sprachen referenzieren.
 
-Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md).
+Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
 
 ## Weitere Informationen
 

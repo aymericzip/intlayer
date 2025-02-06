@@ -42,7 +42,7 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AuditContentDeclarationResult>(
-      `${AI_API_ROUTE}/audit/content-declaration`,
+      `${AI_API_ROUTE}/audit/dictionary`,
       authAPIOptions,
       otherOptions,
       {
@@ -61,7 +61,7 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AuditContentDeclarationFieldResult>(
-      `${AI_API_ROUTE}/audit/content-declaration/field`,
+      `${AI_API_ROUTE}/audit/dictionary/field`,
       authAPIOptions,
       otherOptions,
       {
@@ -80,7 +80,7 @@ export const getAiAPI = (
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AuditContentDeclarationMetadataResult>(
-      `${AI_API_ROUTE}/audit/content-declaration/metadata`,
+      `${AI_API_ROUTE}/audit/dictionary/metadata`,
       authAPIOptions,
       otherOptions,
       {

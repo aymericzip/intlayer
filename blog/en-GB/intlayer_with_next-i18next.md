@@ -4,7 +4,7 @@ Both next-i18next and Intlayer are open-source internationalization (i18n) frame
 
 Both solutions include three principal notions:
 
-1. **Content Declaration**: The method for defining the translatable content of your application.
+1. **Dictionary**: The method for defining the translatable content of your application.
 
    - Named `resource` in the case of `i18next`, the content declaration is a structured JSON object containing key-value pairs for translations in one or more languages. See [i18next documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/translation-function/essentials.md) for more information.
    - Named `content declaration file` in the case of `Intlayer`, the content declaration can be a JSON, JS, or TS file exporting the structured data. See [Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/concept/content.md) for more information.
@@ -178,7 +178,7 @@ i18next.use(
 );
 ```
 
-### Content Declaration
+### Dictionary
 
 Examples of content declaration files in various formats:
 

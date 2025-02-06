@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  मुख्य पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md), ट्रांसपाइलिंग, और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतरराष्ट्रीयकरण उपकरण प्रदान करता है।
+  मुख्य पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md), ट्रांसपाइलिंग, और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतरराष्ट्रीयकरण उपकरण प्रदान करता है।
 
 - **react-intlayer**
   पैकेज जो Intlayer को React अनुप्रयोग के साथ एकीकृत करता है। यह React अंतरराष्ट्रीयकरण के लिए संदर्भ प्रदाताओं और हुक प्रदान करता है। इसके अतिरिक्त, यह [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ Intlayer को एकीकृत करने के लिए Vite प्लगइन प्रदान करता है, साथ ही उपयोगकर्ता के पसंदीदा स्थानीयकरण का पता लगाने, कुकीज़ प्रबंधित करने और URL रीडायरेक्शन को संभालने के लिए मिडलवेयर शामिल है।
@@ -375,7 +375,7 @@ module.exports = appContent;
 ```
 
 > आपकी सामग्री घोषणाएँ आपके अनुप्रयोग में कहीं भी परिभाषित की जा सकती हैं जब तक कि वे `contentDir` डाइरेक्टरी (डिफ़ॉल्ट रूप से, `./src`) में शामिल होती हैं। और सामग्री घोषणा फ़ाइल के विस्तार से मेल खाती हैं (डिफ़ॉल्ट रूप से, `.content.{ts,tsx,js,jsx,mjs,cjs}`)।
-> अधिक जानकारी के लिए, [सामग्री घोषणा दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) पर जाएं।
+> अधिक जानकारी के लिए, [सामग्री घोषणा दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) पर जाएं।
 > यदि आपकी सामग्री फ़ाइल में TSX कोड शामिल है, तो आपको अपने सामग्री फ़ाइल में `import React from "react";` आयात करने पर विचार करना चाहिए।
 
 ### Step 5: Utilize Intlayer in Your Code

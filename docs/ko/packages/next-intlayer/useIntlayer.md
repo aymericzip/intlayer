@@ -43,7 +43,7 @@ Next.js 애플리케이션에서 클라이언트 측 또는 서버 측 구성 �
 
 모든 콘텐츠 키는 런타임 오류를 방지하고 타입 안전성을 보장하기 위해 콘텐츠 선언 파일 내에 정의되어야 합니다. 이 접근 방식은 컴파일 타임 검증을 위한 TypeScript 통합을 용이하게 합니다.
 
-콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md)에서 확인할 수 있습니다.
+콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다.
 
 ## Next.js에서의 사용 예시
 

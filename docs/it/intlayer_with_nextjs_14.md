@@ -36,7 +36,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  Il pacchetto core che fornisce strumenti di internazionalizzazione per la gestione della configurazione, traduzione, [dichiarazione del contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md), transpilation e [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
+  Il pacchetto core che fornisce strumenti di internazionalizzazione per la gestione della configurazione, traduzione, [dichiarazione del contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md), transpilation e [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -372,7 +372,7 @@ module.exports = pageContent;
 ```
 
 > Le tue dichiarazioni di contenuto possono essere definite ovunque nella tua applicazione finché sono incluse nella directory `contentDir` (per impostazione predefinita, `./src`). E corrispondono all'estensione dei file di dichiarazione del contenuto (per impostazione predefinita, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> Per ulteriori dettagli, fai riferimento alla [documentazione sulla dichiarazione del contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md).
+> Per ulteriori dettagli, fai riferimento alla [documentazione sulla dichiarazione del contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 
 ### Passo 7: Utilizza il Contenuto nel Tuo Codice
 

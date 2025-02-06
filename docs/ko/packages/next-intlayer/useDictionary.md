@@ -43,7 +43,7 @@
 
 ## 콘텐츠 선언
 
-모든 사전 객체는 유형 안전성을 보장하고 런타임 오류를 방지하기 위해 구조화된 콘텐츠 파일에 선언해야 합니다. 설정 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md)에서 확인할 수 있습니다. 다음은 콘텐츠 선언의 예입니다:
+모든 사전 객체는 유형 안전성을 보장하고 런타임 오류를 방지하기 위해 구조화된 콘텐츠 파일에 선언해야 합니다. 설정 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다. 다음은 콘텐츠 선언의 예입니다:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

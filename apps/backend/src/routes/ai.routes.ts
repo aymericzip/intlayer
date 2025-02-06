@@ -14,18 +14,18 @@ const baseURL = `${process.env.BACKEND_URL}/api/ai`;
 
 export const aiRoutes = {
   auditContentDeclaration: {
-    urlModel: '/audit/content-declaration',
-    url: `${baseURL}/audit/content-declaration`,
+    urlModel: '/audit/dictionary',
+    url: `${baseURL}/audit/dictionary`,
     method: 'POST',
   },
   auditContentDeclarationField: {
-    urlModel: '/audit/content-declaration/field',
-    url: `${baseURL}/audit/content-declaration/field`,
+    urlModel: '/audit/dictionary/field',
+    url: `${baseURL}/audit/dictionary/field`,
     method: 'POST',
   },
   auditContentDeclarationMetadata: {
-    urlModel: '/audit/content-declaration/metadata',
-    url: `${baseURL}/audit/content-declaration/metadata`,
+    urlModel: '/audit/dictionary/metadata',
+    url: `${baseURL}/audit/dictionary/metadata`,
     method: 'POST',
   },
   auditTag: {

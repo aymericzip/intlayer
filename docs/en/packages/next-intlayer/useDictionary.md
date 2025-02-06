@@ -41,9 +41,9 @@ The hook accepts two parameters:
 1. **`dictionary`**: A declared dictionary object containing localized content for specific keys.
 2. **`locale`** (optional): The desired locale. Defaults to the current context's locale if not specified.
 
-## Content Declaration
+## Dictionary
 
-All dictionary objects should be declared in structured content files to ensure type safety and prevent runtime errors. You can find the setup instructions [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md). Here's an example of content declaration:
+All dictionary objects should be declared in structured content files to ensure type safety and prevent runtime errors. You can find the setup instructions [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md). Here's an example of content declaration:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

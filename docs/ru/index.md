@@ -31,16 +31,16 @@ Intlayer предлагает гибкий, современный подход 
 
 Организуйте ваш многоязычный контент близко к вашему коду, чтобы все оставалось последовательным и поддерживаемым.
 
-- **[Начало работы](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md)**  
+- **[Начало работы](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md)**  
   Узнайте основы декларации вашего контента в Intlayer.
 
-- **[Перевод](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/translation.md)**  
+- **[Перевод](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/translation.md)**  
   Поймите, как генерируются, хранятся и используются переводы в вашем приложении.
 
-- **[Перечисление](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/enumeration.md)**  
+- **[Перечисление](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/enumeration.md)**  
   Легко управляйте повторяющимися или фиксированными наборами данных на разных языках.
 
-- **[Получение функций](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/function_fetching.md)**  
+- **[Получение функций](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/function_fetching.md)**  
   Узнайте, как динамически получать контент с помощью пользовательской логики, соответствующей процессу вашего проекта.
 
 ---

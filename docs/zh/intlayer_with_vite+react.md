@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  提供配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 的核心包。
+  提供配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 的核心包。
 
 - **react-intlayer**
   将 Intlayer 集成到 React 应用程序的包。它提供上下文提供者和用于 React 国际化的钩子。此外，它包括用于将 Intlayer 与 [Vite 打包器](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选语言、管理 Cookie 和处理 URL 重定向的中间件。
@@ -375,7 +375,7 @@ module.exports = appContent;
 ```
 
 > 您的内容声明可以在应用程序中的任何地方定义，只要它们被包含在 `contentDir` 目录中（默认情况下，`./src`）。并匹配内容声明文件扩展名（默认情况下，`.content.{ts,tsx,js,jsx,mjs,cjs}`）。
-> 有关更多详细信息，请参见 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)。
+> 有关更多详细信息，请参见 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
 > 如果您的内容文件包含 TSX 代码，您应该考虑在内容文件中导入 `import React from "react";`。
 
 ### 第 5 步：在您的代码中利用 Intlayer

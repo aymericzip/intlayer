@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## حزمة intlayer-cli
 
-تعتزم حزمة `intlayer-cli` تحويل [إعلانات intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md) إلى قواميس.
+تعتزم حزمة `intlayer-cli` تحويل [إعلانات intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md) إلى قواميس.
 
 ستقوم هذه الحزمة بتحويل جميع ملفات intlayer، مثل `src/**/*.content.{ts|js|mjs|cjs|json}`. [انظر كيف تعلن عن ملفات إعلان Intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 

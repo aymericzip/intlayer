@@ -214,7 +214,7 @@ Puoi anche recuperare valori di attributo localizzati per varie proprietà HTML 
 
 Tutti i tasti di contenuto devono essere definiti nei tuoi file di dichiarazione dei contenuti per sicurezza di tipo e per prevenire errori a runtime. Questi file abilitano la validazione TypeScript, assicurando che tu faccia sempre riferimento a chiavi e locali esistenti.
 
-Le istruzioni per la configurazione dei file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md).
+Le istruzioni per la configurazione dei file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 
 ## Ulteriori Informazioni
 

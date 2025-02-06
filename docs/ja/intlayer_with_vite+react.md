@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)、トランスパイレーション、および [CLI コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md) のための国際化ツールを提供するコアパッケージです。
+  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)、トランスパイレーション、および [CLI コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md) のための国際化ツールを提供するコアパッケージです。
 
 - **react-intlayer**
   Intlayer を React アプリケーションに統合するためのパッケージです。React 国際化のためのコンテキストプロバイダーとフックを提供します。また、[Vite バンドラー](https://vite.dev/guide/why.html#why-bundle-for-production) と Intlayer を統合するための Vite プラグイン、ユーザーの優先ロケールの検出、クッキーの管理、URL リダイレクトを処理するためのミドルウェアを含みます。
@@ -375,7 +375,7 @@ module.exports = appContent;
 ```
 
 > コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトは `./src`）内に含まれている限り、アプリケーション内の任意の場所に定義できます。コンテンツ宣言ファイルの拡張子は、デフォルトでは `.content.{ts,tsx,js,jsx,mjs,cjs}` でなければなりません。
-> 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md) を参照してください。
+> 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md) を参照してください。
 > コンテンツファイルに TSX コードが含まれている場合は、コンテンツファイルに `import React from "react";` をインポートすることを検討してください。
 
 ### ステップ 5: コード内で Intlayer を利用する

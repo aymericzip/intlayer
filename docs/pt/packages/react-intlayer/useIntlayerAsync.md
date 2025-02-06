@@ -214,7 +214,7 @@ Você também pode recuperar valores de atributos localizados para várias propr
 
 Todas as chaves de conteúdo devem ser definidas em seus arquivos de declaração de conteúdo para garantir a segurança de tipos e evitar erros em tempo de execução. Esses arquivos permitem a validação do TypeScript, garantindo que você sempre faça referência a chaves e localidades existentes.
 
-Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/get_started.md).
+Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
 
 ## Mais Informações
 

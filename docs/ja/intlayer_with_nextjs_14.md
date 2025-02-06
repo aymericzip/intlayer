@@ -36,7 +36,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)、トランスパイレーション、および [CLI コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージです。
+  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)、トランスパイレーション、および [CLI コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージです。
 
 - **next-intlayer**
 
@@ -377,7 +377,7 @@ module.exports = pageContent;
 ```
 
 > コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトでは `./src`）に含まれている限り、アプリケーション内のどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子と一致する必要があります（デフォルトでは `.content.{ts,tsx,js,jsx,mjs,cjs}`）。
-> 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)を参照してください。
+> 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
 
 ### Step 7: Utilize Content in Your Code
 

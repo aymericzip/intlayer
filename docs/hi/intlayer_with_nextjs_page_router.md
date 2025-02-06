@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  वह मुख्य पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री की घोषणाएँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md), ट्रांसपाइलेशन, और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतर्राष्ट्रीयकरण उपकरण प्रदान करता है।
+  वह मुख्य पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री की घोषणाएँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md), ट्रांसपाइलेशन, और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतर्राष्ट्रीयकरण उपकरण प्रदान करता है।
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-सामग्री की घोषणा करने के बारे में अधिक जानकारी के लिए, [सामग्री की घोषणा गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) का संदर्भ लें।
+सामग्री की घोषणा करने के बारे में अधिक जानकारी के लिए, [सामग्री की घोषणा गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) का संदर्भ लें।
 
 ### चरण 7: अपने कोड में सामग्री का उपयोग करें
 
@@ -885,7 +885,7 @@ const LocaleSwitcher = () => {
 ## अतिरिक्त संसाधन
 
 - **Intlayer दस्तावेज़:** [GitHub संग्रह](https://github.com/aymericzip/intlayer)
-- **सामग्री घोषणा गाइड:** [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md)
+- **सामग्री घोषणा गाइड:** [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md)
 - **कॉन्फ़िगरेशन दस्तावेज़:** [कॉन्फ़िगरेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md)
 
 इस गाइड का पालन करके, आप प्रभावी रूप से Intlayer को अपने Next.js अनुप्रयोग में पृष्ठ राउटर का उपयोग करके एकीकृत कर सकते हैं, अपने वेब प्रोजेक्ट के लिए मजबूत और स्केलेबल अंतर्राष्ट्रीयकरण समर्थन सक्षम कर सकते हैं।

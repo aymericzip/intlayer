@@ -36,7 +36,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  यह मुख्य पैकेज है जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md), ट्रांसपिलेशन, और [CLI कमांड्स](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतर्राष्ट्रीयकरण उपकरण प्रदान करता है।
+  यह मुख्य पैकेज है जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md), ट्रांसपिलेशन, और [CLI कमांड्स](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतर्राष्ट्रीयकरण उपकरण प्रदान करता है।
 
 - **next-intlayer**
 
@@ -372,7 +372,7 @@ module.exports = pageContent;
 ```
 
 > आपकी सामग्री की घोषणाएँ आपके अनुप्रयोग में कहीं भी परिभाषित की जा सकती हैं जब तक कि उन्हें `contentDir` निर्देशिका में शामिल किया जा सके (डिफ़ॉल्ट रूप से, `./src`)। और सामग्री की घोषणा फ़ाइल एक्सटेंशन का मेल खाता हो (डिफ़ॉल्ट रूप से, `.content.{ts,tsx,js,jsx,mjs,cjs}`)।
-> अधिक जानकारी के लिए, [सामग्री घोषणा दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) को संदर्भित करें।
+> अधिक जानकारी के लिए, [सामग्री घोषणा दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) को संदर्भित करें।
 
 ### चरण 7: अपने कोड में सामग्री का उपयोग करें
 

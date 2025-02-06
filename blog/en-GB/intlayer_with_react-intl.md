@@ -13,7 +13,7 @@ By configuring Intlayer to **export** translations in a **react-intl–compatibl
 
 ## Why Use Intlayer with react-intl?
 
-1. **Per-Component Content Declarations**  
+1. **Per-Component Dictionarys**  
    Intlayer content declaration files can live alongside your React components, preventing “orphaned” translations if components are moved or removed. For example:
 
    ```bash
@@ -84,7 +84,7 @@ export default config;
 
 ---
 
-## Creating Your Intlayer Content Declarations
+## Creating Your Intlayer Dictionarys
 
 Intlayer scans your codebase (by default, under `./src`) for files matching `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`.  
 Here’s a **TypeScript** example:

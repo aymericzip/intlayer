@@ -39,11 +39,11 @@ Depending on whether you're working on client-side or server-side components in 
 1. **`key`**: A string identifier for the dictionary key from which you want to retrieve content.
 2. **`locale`** (optional): A specific locale to use. If omitted, the hook defaults to the locale set in the client or server context.
 
-## Content Declaration Files
+## Dictionary Files
 
 It's crucial that all content keys are defined within content declaration files to prevent runtime errors and ensure type safety. This approach also facilitates TypeScript integration for compile-time validation.
 
-Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md).
+Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md).
 
 ## Example Usage in Next.js
 

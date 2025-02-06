@@ -214,7 +214,7 @@ const ComponentExample = () => {
 
 所有内容键必须在您的内容声明文件中定义，以确保类型安全并防止运行时错误。这些文件启用 TypeScript 验证，确保您始终引用现有的键和语言环境。
 
-有关设置内容声明文件的说明，请访问 [https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)。
+有关设置内容声明文件的说明，请访问 [https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
 
 ## 更多信息
 

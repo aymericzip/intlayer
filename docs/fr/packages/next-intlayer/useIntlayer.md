@@ -43,7 +43,7 @@ Selon que vous travailliez sur des composants côté client ou côté serveur da
 
 Il est crucial que toutes les clés de contenu soient définies dans des fichiers de déclaration de contenu afin d'éviter les erreurs d'exécution et d'assurer la sécurité de type. Cette approche facilite également l'intégration de TypeScript pour la validation à la compilation.
 
-Les instructions pour configurer les fichiers de déclaration de contenu sont disponibles [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/content_declaration/get_started.md).
+Les instructions pour configurer les fichiers de déclaration de contenu sont disponibles [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
 
 ## Exemple d'Utilisation dans Next.js
 

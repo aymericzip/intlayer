@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, traduzione, [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md), traspilazione e [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
+  Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, traduzione, [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md), traspilazione e [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
 
 - **react-intlayer**
   Il pacchetto che integra Intlayer con le applicazioni React. Fornisce fornitori di contesto e hook per l'internazionalizzazione in React. Inoltre, include il plugin Vite per integrare Intlayer con il [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), nonché middleware per rilevare il locale preferito dall'utente, gestire i cookie e gestire il reindirizzamento degli URL.
@@ -375,7 +375,7 @@ module.exports = appContent;
 ```
 
 > Le tue dichiarazioni di contenuto possono essere definite ovunque nella tua applicazione fintanto che sono incluse nella directory `contentDir` (per impostazione predefinita, `./src`). E corrispondono all'estensione del file di dichiarazione dei contenuti (per impostazione predefinita, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> Per ulteriori dettagli, fai riferimento alla [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md).
+> Per ulteriori dettagli, fai riferimento alla [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 > Se il tuo file di contenuto include codice TSX, dovresti considerare di importare `import React from "react";` nel tuo file di contenuto.
 
 ### Passo 5: Utilizza Intlayer nel tuo codice

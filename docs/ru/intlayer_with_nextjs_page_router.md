@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  Основной пакет, который предоставляет инструменты интернационализации для управления конфигурацией, переводом, [декларацией контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md), транспиляцией и [CLI-командами](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md).
+  Основной пакет, который предоставляет инструменты интернационализации для управления конфигурацией, переводом, [декларацией контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md), транспиляцией и [CLI-командами](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-Для получения дополнительной информации о декларации контента смотрите [руководство по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md).
+Для получения дополнительной информации о декларации контента смотрите [руководство по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md).
 
 ### Шаг 7: Используйте контент в вашем коде
 
@@ -886,7 +886,7 @@ const LocaleSwitcher = () => {
 ## Дополнительные ресурсы
 
 - **Документация Intlayer:** [GitHub Репозиторий](https://github.com/aymericzip/intlayer)
-- **Руководство по декларации контента:** [Декларация контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md)
+- **Руководство по декларации контента:** [Декларация контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md)
 - **Документация по конфигурации:** [Руководство по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md)
 
 Следуя этому руководству, вы можете эффективно интегрировать Intlayer в ваше приложение Next.js, используя маршрутизатор страниц, позволяя надежную и масштабируемую поддержку интернационализации для ваших веб-проектов.

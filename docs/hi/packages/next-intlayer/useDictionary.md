@@ -41,9 +41,9 @@
 1. **`dictionary`**: एक घोषित शब्दकोश वस्तु जिसमें विशिष्ट कुंजी के लिए स्थानीयकृत सामग्री होती है।
 2. **`locale`** (वैकल्पिक): वांछित स्थानीयता। यदि निर्दिष्ट नहीं किया गया है, तो यह वर्तमान संदर्भ की स्थानीयता पर डिफ़ॉल्ट होता है।
 
-## Content Declaration
+## Dictionary
 
-सभी शब्दकोश वस्तुएं संरचित सामग्री फ़ाइलों में घोषित की जानी चाहिए ताकि प्रकार सुरक्षा सुनिश्चित की जा सके और रनटाइम त्रुटियों से बचा जा सके। आप सेटअप निर्देश [यहां](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) पा सकते हैं। यहाँ सामग्री घोषणा का एक उदाहरण है:
+सभी शब्दकोश वस्तुएं संरचित सामग्री फ़ाइलों में घोषित की जानी चाहिए ताकि प्रकार सुरक्षा सुनिश्चित की जा सके और रनटाइम त्रुटियों से बचा जा सके। आप सेटअप निर्देश [यहां](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) पा सकते हैं। यहाँ सामग्री घोषणा का एक उदाहरण है:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

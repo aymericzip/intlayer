@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/get_started.md), transpiração e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_cli.md).
+  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md), transpiração e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-Para mais informações sobre como declarar conteúdo, consulte o [guia de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/get_started.md).
+Para mais informações sobre como declarar conteúdo, consulte o [guia de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
 
 ### Passo 7: Utilizar Conteúdo em Seu Código
 
@@ -886,7 +886,7 @@ Adicione as seguintes linhas ao seu arquivo `.gitignore`:
 ## Recursos Adicionais
 
 - **Documentação do Intlayer:** [Repositório no GitHub](https://github.com/aymericzip/intlayer)
-- **Guia de Declaração de Conteúdo:** [Declaração de Conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/get_started.md)
+- **Guia de Declaração de Conteúdo:** [Declaração de Conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md)
 - **Documentação de Configuração:** [Guia de Configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md)
 
 Seguindo este guia, você pode integrar efetivamente o Intlayer em sua aplicação Next.js usando o Page Router, habilitando suporte robusto e escalável à internacionalização para seus projetos web.

@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **intlayer**
 
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)、トランスパイレーション、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージです。
+  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)、トランスパイレーション、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージです。
 
 - **react-intlayer**
 
@@ -210,7 +210,7 @@ module.exports = appContent;
 ```
 
 > コンテンツ宣言は、`contentDir`ディレクトリ（デフォルトは`./src`）に含まれる限り、アプリケーションの任意の場所で定義できます。そして、コンテンツ宣言ファイル拡張子（デフォルトは`.content.{ts,tsx,js,jsx,mjs,cjs}`）に一致します。
-> 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)を参照してください。
+> 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
 > コンテンツファイルにTSXコードが含まれている場合は、コンテンツファイルに`import React from "react";`をインポートすることを検討してください。
 
 ### Step 5: Utilize Intlayer in Your Code

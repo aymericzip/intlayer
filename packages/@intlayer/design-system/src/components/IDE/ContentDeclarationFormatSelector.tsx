@@ -14,7 +14,7 @@ export const ContentDeclarationFormatSelector: FC = () => {
       onValueChange={setContentDeclarationFormat}
     >
       <Select.Trigger>
-        <Select.Value placeholder="Content Declaration Format" />
+        <Select.Value placeholder="Dictionary Format" />
       </Select.Trigger>
       <Select.Content>
         <Select.Item value="typescript">TypeScript</Select.Item>

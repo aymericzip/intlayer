@@ -43,7 +43,7 @@ Der Hook akzeptiert zwei Parameter:
 
 ## Inhaltsdeklaration
 
-Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien erklärt werden, um die Typsicherheit zu verbessern und Fehler zu vermeiden. Sie finden die Anleitung zur Einrichtung [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md).
+Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien erklärt werden, um die Typsicherheit zu verbessern und Fehler zu vermeiden. Sie finden die Anleitung zur Einrichtung [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
 
 ## Beispielanwendung in React
 

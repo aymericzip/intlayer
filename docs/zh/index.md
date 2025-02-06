@@ -31,16 +31,16 @@ Intlayer 提供了一种灵活、现代的方式来翻译您的应用程序。�
 
 将您的多语言内容与代码紧密组织，以保持一致性和可维护性。
 
-- **[开始](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)**  
+- **[开始](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)**  
   学习在 Intlayer 中声明内容的基础知识。
 
-- **[翻译](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/translation.md)**  
+- **[翻译](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/translation.md)**  
   了解翻译是如何生成、存储和在您的应用程序中使用的。
 
-- **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/enumeration.md)**  
+- **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/enumeration.md)**  
   轻松管理各种语言中重复或固定的数据集。
 
-- **[功能提取](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/function_fetching.md)**  
+- **[功能提取](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/function_fetching.md)**  
   查看如何使用自定义逻辑动态提取内容以匹配您的项目工作流程。
 
 ---

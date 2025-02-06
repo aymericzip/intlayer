@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## intlayer-cli package
 
-`intlayer-cli` package intends to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md) into dictionaries.
+`intlayer-cli` package intends to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md) into dictionaries.
 
 This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 

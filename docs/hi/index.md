@@ -27,20 +27,20 @@ Intlayer आपके एप्लिकेशन का अनुवाद क�
 
 ## Core Concepts
 
-### Content Declaration
+### Dictionary
 
 अपने बहुभाषी सामग्री को अपने कोड के करीब व्यवस्थित करें ताकि सब कुछ स्थिर और रखरखाव करने योग्य रहे।
 
-- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md)**  
+- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md)**  
   Intlayer में अपनी सामग्री की घोषणा करने के मूल बातें सीखें।
 
-- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/translation.md)**  
+- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/translation.md)**  
   जानें कि अनुवाद कैसे उत्पन्न होते हैं, संग्रहीत होते हैं, और आपके एप्लिकेशन में उपयोग किए जाते हैं।
 
-- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/enumeration.md)**  
+- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/enumeration.md)**  
   विभिन्न भाषाओं में दोहराए जाने वाले या निश्चित डेटा सेट को आसानी से प्रबंधित करें।
 
-- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/function_fetching.md)**  
+- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/function_fetching.md)**  
   जानें कि अपने प्रोजेक्ट के कार्यप्रवाह से मेल खाने के लिए अनुकूलित तर्क के साथ सामग्री को डायनेमिकली कैसे प्राप्त करें।
 
 ---

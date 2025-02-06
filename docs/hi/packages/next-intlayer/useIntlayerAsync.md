@@ -197,11 +197,11 @@ As with `useIntlayer`, you can retrieve localized attribute values for various H
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## Content Declaration Files
+## Dictionary Files
 
 All content keys must be defined in your content declaration files for type safety and to prevent runtime errors. These files enable TypeScript validation, ensuring you always reference existing keys and locales.
 
-Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md).
+Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md).
 
 ## Further Information
 

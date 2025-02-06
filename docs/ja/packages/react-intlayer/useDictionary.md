@@ -41,9 +41,9 @@
 1. **`dictionary`**: 特定のキーのローカライズされたコンテンツを含む宣言された辞書オブジェクト。
 2. **`locale`**（オプション）：希望するロケール。指定されていない場合は、現在のコンテキストのロケールがデフォルトになります。
 
-## Content Declaration
+## Dictionary
 
-すべての辞書オブジェクトは、型安全を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルに宣言する必要があります。セットアップ手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)を参照してください。以下は、コンテンツ宣言の例です：
+すべての辞書オブジェクトは、型安全を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルに宣言する必要があります。セットアップ手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。以下は、コンテンツ宣言の例です：
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

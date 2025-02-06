@@ -36,7 +36,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md), 변환 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)용 국제화 도구를 제공하는 핵심 패키지입니다.
+  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md), 변환 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)용 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **next-intlayer**
 
@@ -372,7 +372,7 @@ module.exports = pageContent;
 ```
 
 > 콘텐츠 선언은 기본적으로 `./src` 내의 `contentDir` 디렉토리에 포함되면 애플리케이션 내 어디서든 정의될 수 있습니다. 콘텐츠 선언 파일의 확장자와 일치해야 합니다(기본적으로 `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md)를 참조하세요.
+> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.
 
 ### 단계 7: 코드에서 콘텐츠 활용
 

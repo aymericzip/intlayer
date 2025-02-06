@@ -214,7 +214,7 @@ También puedes recuperar valores de atributos localizados para varias propiedad
 
 Todas las claves de contenido deben estar definidas en tus archivos de declaración de contenido para asegurar la seguridad de tipo y prevenir errores en tiempo de ejecución. Estos archivos permiten la validación de TypeScript, asegurando que siempre referencias claves y locales existentes.
 
-Las instrucciones para configurar archivos de declaración de contenido están disponibles [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/es/content_declaration/get_started.md).
+Las instrucciones para configurar archivos de declaración de contenido están disponibles [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md).
 
 ## Más Información
 

@@ -27,20 +27,20 @@ Intlayer offers a flexible, modern approach to translating your application. Our
 
 ## Core Concepts
 
-### Content Declaration
+### Dictionary
 
 Organise your multilingual content close to your code to keep everything consistent and maintainable.
 
-- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md)**  
+- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md)**  
   Learn the basics of declaring your content in Intlayer.
 
-- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/translation.md)**  
+- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/translation.md)**  
   Understand how translations are generated, stored, and utilised in your application.
 
-- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/enumeration.md)**  
+- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/enumeration.md)**  
   Easily manage repeated or fixed sets of data across various languages.
 
-- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/function_fetching.md)**  
+- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/function_fetching.md)**  
   See how to dynamically fetch content with custom logic to match your project’s workflow.
 
 ---

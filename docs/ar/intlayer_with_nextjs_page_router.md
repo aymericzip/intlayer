@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلانات المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md)، والتحويل، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
+  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلانات المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md)، والتحويل، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-للمزيد من المعلومات حول إعلان المحتوى، يُرجى الرجوع إلى [دليل إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+للمزيد من المعلومات حول إعلان المحتوى، يُرجى الرجوع إلى [دليل إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ### Step 7: Utilize Content in Your Code
 
@@ -886,7 +886,7 @@ const LocaleSwitcher = () => {
 ## Additional Resources
 
 - **وثائق Intlayer:** [مستودع GitHub](https://github.com/aymericzip/intlayer)
-- **دليل إعلان المحتوى:** [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md)
+- **دليل إعلان المحتوى:** [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md)
 - **وثائق التكوين:** [دليل التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md)
 
 من خلال اتباع هذا الدليل، يمكنك دمج Intlayer بشكل فعال في تطبيق Next.js الخاص بك باستخدام Page Router، مما يتيح دعم ممتاز ومرن للتدويل لمشاريع الويب الخاصة بك.

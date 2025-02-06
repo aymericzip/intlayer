@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, traduzione, [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md), traspilazione e [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
+  Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, traduzione, [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md), traspilazione e [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-Per ulteriori informazioni sulla dichiarazione dei contenuti, fai riferimento alla [guida alla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md).
+Per ulteriori informazioni sulla dichiarazione dei contenuti, fai riferimento alla [guida alla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 
 ### Passo 7: Utilizza i Contenuti nel Tuo Codice
 
@@ -885,7 +885,7 @@ Aggiungi le seguenti righe al tuo file `.gitignore`:
 ## Risorse Aggiuntive
 
 - **Documentazione Intlayer:** [Repository GitHub](https://github.com/aymericzip/intlayer)
-- **Guida alla Dichiarazione dei Contenuti:** [Dichiarazione dei Contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md)
+- **Guida alla Dichiarazione dei Contenuti:** [Dichiarazione dei Contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md)
 - **Documentazione di Configurazione:** [Guida alla Configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md)
 
 Seguendo questa guida, puoi integrare efficacemente Intlayer nella tua applicazione Next.js utilizzando il Page Router, abilitando un supporto di internazionalizzazione robusto e scalabile per i tuoi progetti web.

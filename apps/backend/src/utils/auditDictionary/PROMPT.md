@@ -11,7 +11,7 @@ You are an expert in internationalization, copy writing and content management. 
    - Default locale: {{defaultLocale}}
    - Required Locales: {{otherLocales}} (add the missing locales in `t({ ... })` function)
 
-3. **Content Declaration Format:**
+3. **Dictionary Format:**
 
    - Example format:
 

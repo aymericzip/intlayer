@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## intlayer-cli 패키지
 
-`intlayer-cli` 패키지는 [intlayer 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md)을 사전으로 변환할 의도로 만들어졌습니다.
+`intlayer-cli` 패키지는 [intlayer 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)을 사전으로 변환할 의도로 만들어졌습니다.
 
 이 패키지는 `src/**/*.content.{ts|js|mjs|cjs|json}`와 같은 모든 intlayer 파일을 변환합니다. [Intlayer 선언 파일 설정 방법 보기](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 

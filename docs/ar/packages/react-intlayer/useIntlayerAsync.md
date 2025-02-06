@@ -210,11 +210,11 @@ const ComponentExample = () => {
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## Content Declaration Files
+## Dictionary Files
 
 يجب تعريف جميع مفاتيح المحتوى في ملفات إعلان المحتوى الخاصة بك من أجل سلامة النوع ومنع أخطاء وقت التشغيل. تتيح هذه الملفات تحقق TypeScript، مما يضمن لك دائمًا الإشارة إلى المفاتيح واللغات الموجودة.
 
-التعليمات الخاصة بإعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+التعليمات الخاصة بإعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ## Further Information
 

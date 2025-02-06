@@ -27,20 +27,20 @@ Intlayer는 애플리케이션을 번역하는 데 유연하고 현대적인 접
 
 ## Core Concepts
 
-### Content Declaration
+### Dictionary
 
 다국어 콘텐츠를 코드에 가까이 조직하여 모든 것이 일관되고 유지 관리가 용이하도록 합니다.
 
-- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md)**  
+- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)**  
   Intlayer에서 콘텐츠를 선언하는 기본 개념을 배우세요.
 
-- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/translation.md)**  
+- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/translation.md)**  
   번역이 생성, 저장 및 애플리케이션에서 어떻게 사용되는지 이해하세요.
 
-- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/enumeration.md)**  
+- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/enumeration.md)**  
   다양한 언어에서 반복되거나 고정된 데이터 세트를 쉽게 관리하세요.
 
-- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/function_fetching.md)**  
+- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/function_fetching.md)**  
   프로젝트의 워크플로우에 맞는 사용자 정의 논리로 콘텐츠를 동적으로 가져오는 방법을 확인하세요.
 
 ---

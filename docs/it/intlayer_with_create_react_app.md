@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **intlayer**
 
-  Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, traduzione, [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md), transpilazione e [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
+  Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, traduzione, [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md), transpilazione e [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
 
 - **react-intlayer**
 
@@ -210,7 +210,7 @@ module.exports = appContent;
 ```
 
 > Le tue dichiarazioni di contenuti possono essere definite ovunque nella tua applicazione non appena vengono incluse nella directory `contentDir` (per impostazione predefinita, `./src`). E corrispondere all'estensione del file di dichiarazione dei contenuti (per impostazione predefinita, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> Per ulteriori dettagli, fai riferimento alla [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md).
+> Per ulteriori dettagli, fai riferimento alla [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 > Se il tuo file di contenuti include codice TSX, dovresti considerare di importare `import React from "react";` nel tuo file di contenuti.
 
 ### Passo 5: Utilizza Intlayer nel Tuo Codice

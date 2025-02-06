@@ -43,7 +43,7 @@ Next.jsアプリケーションでクライアントサイドまたはサーバ�
 
 すべてのコンテンツキーは、ランタイムエラーを防ぎ、型安全性を確保するためにコンテンツ宣言ファイル内で定義されていることが重要です。このアプローチは、コンパイル時のバリデーションのためにTypeScriptとの統合も容易にします。
 
-コンテンツ宣言ファイルのセットアップに関する指示は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)で入手できます。
+コンテンツ宣言ファイルのセットアップに関する指示は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)で入手できます。
 
 ## Next.jsでの例
 

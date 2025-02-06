@@ -199,7 +199,7 @@ const AsyncClientComponentExample = () => {
 
 모든 콘텐츠 키는 유형 안전성과 런타임 오류 방지를 위해 콘텐츠 선언 파일에 정의되어야 합니다. 이러한 파일은 TypeScript 유효성 검사를 가능하게 하여 항상 기존 키 및 로케일을 참조할 수 있도록 보장합니다.
 
-콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md)에 있습니다.
+콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에 있습니다.
 
 ## 추가 정보
 

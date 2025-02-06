@@ -43,7 +43,7 @@
 
 ## コンテンツ宣言
 
-すべての辞書キーは、型の安全性を高め、エラーを避けるためにコンテンツ宣言ファイル内で宣言する必要があります。セットアップ手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)を参照してください。
+すべての辞書キーは、型の安全性を高め、エラーを避けるためにコンテンツ宣言ファイル内で宣言する必要があります。セットアップ手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
 
 ## Reactでの使用例
 

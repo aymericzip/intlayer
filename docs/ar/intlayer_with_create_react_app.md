@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **intlayer**
 
-  الحزمة الأساسية التي توفر أدوات التوطين لإدارة التكوين، والترجمة، [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md)، التحويل، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
+  الحزمة الأساسية التي توفر أدوات التوطين لإدارة التكوين، والترجمة، [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md)، التحويل، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
 
 - **react-intlayer**
 
@@ -210,7 +210,7 @@ module.exports = appContent;
 ```
 
 > يمكنك تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (بشكل افتراضي، `./src`). وتطابق امتداد ملف إعلان المحتوى (بشكل افتراضي، `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> لمزيد من التفاصيل، ارجع إلى [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+> لمزيد من التفاصيل، ارجع إلى [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 > إذا كان ملف المحتوى الخاص بك يتضمن رمز TSX، يجب أن تفكر في استيراد `import React from "react";` في ملف المحتوى الخاص بك.
 
 ### الخطوة 5: استخدم Intlayer في كودك

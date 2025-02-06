@@ -43,7 +43,7 @@
 
 من الضروري أن يتم تعريف جميع مفاتيح المحتوى داخل ملفات إعلان المحتوى لتجنب الأخطاء أثناء التشغيل وضمان أمان النوع. يسهل هذا النهج أيضًا دمج TypeScript للتحقق من صحة وقت الترجمة.
 
-تعليمات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+تعليمات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ## مثال على الاستخدام في Next.js
 

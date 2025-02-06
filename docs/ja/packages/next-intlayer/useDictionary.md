@@ -43,7 +43,7 @@
 
 ## コンテンツ宣言
 
-すべての辞書オブジェクトは、型安全性を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルに宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)で確認できます。以下はコンテンツ宣言の例です：
+すべての辞書オブジェクトは、型安全性を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルに宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)で確認できます。以下はコンテンツ宣言の例です：
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

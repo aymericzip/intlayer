@@ -43,7 +43,7 @@ L'hook accetta due parametri:
 
 ## Dichiarazione del Contenuto
 
-Tutti gli oggetti dizionario devono essere dichiarati in file di contenuto strutturati per garantire la sicurezza dei tipi e prevenire errori a runtime. Puoi trovare le istruzioni per la configurazione [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/content_declaration/get_started.md). Ecco un esempio di dichiarazione del contenuto:
+Tutti gli oggetti dizionario devono essere dichiarati in file di contenuto strutturati per garantire la sicurezza dei tipi e prevenire errori a runtime. Puoi trovare le istruzioni per la configurazione [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md). Ecco un esempio di dichiarazione del contenuto:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  Das Kernpaket, das Tools zur Internationalisierung für Konfigurationsmanagement, Übersetzung, [Inhaltserklärung](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md) bereitstellt.
+  Das Kernpaket, das Tools zur Internationalisierung für Konfigurationsmanagement, Übersetzung, [Inhaltserklärung](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md) bereitstellt.
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-Für weitere Informationen zur Deklaration von Inhalten, beachten Sie die [Inhaltserklärungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md).
+Für weitere Informationen zur Deklaration von Inhalten, beachten Sie die [Inhaltserklärungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
 
 ### Schritt 7: Inhalt in Ihrem Code nutzen
 
@@ -885,7 +885,7 @@ Fügen Sie die folgenden Zeilen zu Ihrer `.gitignore`-Datei hinzu:
 ## Zusätzliche Ressourcen
 
 - **Intlayer-Dokumentation:** [GitHub-Repository](https://github.com/aymericzip/intlayer)
-- **Inhaltserklärungsanleitung:** [Inhaltserklärung](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md)
+- **Inhaltserklärungsanleitung:** [Inhaltserklärung](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md)
 - **Konfigurationsdokumentation:** [Konfigurationsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md)
 
 Durch die Befolgung dieser Anleitung können Sie Intlayer erfolgreich in Ihre Next.js-Anwendung mit dem Page Router integrieren und eine robuste und skalierbare Internationalisierungsunterstützung für Ihre Webprojekte aktivieren.

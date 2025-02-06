@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## intlayer-cli पैकेज
 
-`intlayer-cli` पैकेज आपके [intlayer घोषणाओं](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) को शब्दकोशों में बदलने का इरादा रखता है।
+`intlayer-cli` पैकेज आपके [intlayer घोषणाओं](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) को शब्दकोशों में बदलने का इरादा रखता है।
 
 यह पैकेज सभी intlayer फ़ाइलों का परिवर्णन करेगा, जैसे कि `src/**/*.content.{ts|js|mjs|cjs|json}`। [आपकी Intlayer घोषणा फ़ाइलों को घोषित करने का तरीका देखें](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)।
 

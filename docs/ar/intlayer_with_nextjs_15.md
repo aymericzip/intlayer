@@ -36,7 +36,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين والترجمة و [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md) وعمليات التحويل و [أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
+  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين والترجمة و [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md) وعمليات التحويل و [أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -372,7 +372,7 @@ module.exports = pageContent;
 ```
 
 > يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك طالما أنها مضمنة في دليل `contentDir` (بشكل افتراضي، `./src`). و تتوافق مع امتداد ملف إعلان المحتوى (بشكل افتراضي، `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> للحصول على مزيد من التفاصيل، يرجى الرجوع إلى [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+> للحصول على مزيد من التفاصيل، يرجى الرجوع إلى [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ### الخطوة 7: استخدام المحتوى في الكود الخاص بك
 

@@ -43,7 +43,7 @@
 
 ## 内容声明
 
-所有字典键必须在内容声明文件中声明，以增强类型安全性并避免错误。您可以在 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md) 找到设置说明。
+所有字典键必须在内容声明文件中声明，以增强类型安全性并避免错误。您可以在 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md) 找到设置说明。
 
 ## 在 React 中的示例用法
 

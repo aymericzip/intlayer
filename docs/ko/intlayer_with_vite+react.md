@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md), 전환, 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)을 위한 국제화 도구를 제공하는 핵심 패키지입니다.
+  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md), 전환, 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)을 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **react-intlayer**
   Intlayer를 React 애플리케이션과 통합하는 패키지입니다. React 국제화를 위한 컨텍스트 제공자와 훅을 제공합니다. 추가로, Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인을 포함하며, 사용자의 선호 로케일을 감지하고 쿠키를 관리하며 URL 리다이렉션을 처리하는 미들웨어도 포함되어 있습니다.
@@ -375,7 +375,7 @@ module.exports = appContent;
 ```
 
 > 귀하의 콘텐츠 선언은 `contentDir` 디렉토리(기본적으로 `./src`)에 포함된 한 애플리케이션의 아무 곳에서나 정의될 수 있습니다. 콘텐츠 선언 파일 확장자와 일치해야 합니다(기본적으로 `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> 더 많은 세부정보는 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md)를 참조하세요.
+> 더 많은 세부정보는 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.
 > 콘텐츠 파일에 TSX 코드가 포함된 경우 콘텐츠 파일에 `import React from "react";`를 가져오는 것을 고려해야 합니다.
 
 ### Step 5: 코드에서 Intlayer 사용하기

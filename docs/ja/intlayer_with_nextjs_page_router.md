@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)、トランスパイレーション、[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージです。
+  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)、トランスパイレーション、[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージです。
 
 - **next-intlayer**
 
@@ -405,7 +405,7 @@ module.exports = homeContent;
 }
 ```
 
-コンテンツの宣言についての詳細は、[コンテンツ宣言ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)を参照してください。
+コンテンツの宣言についての詳細は、[コンテンツ宣言ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
 
 ### Step 7: Utilize Content in Your Code
 
@@ -885,7 +885,7 @@ const LocaleSwitcher = () => {
 ## Additional Resources
 
 - **Intlayer Documentation:** [GitHub Repository](https://github.com/aymericzip/intlayer)
-- **Content Declaration Guide:** [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md)
+- **Dictionary Guide:** [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)
 - **Configuration Documentation:** [設定ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)
 
 このガイドに従うことで、Next.jsアプリケーションにIntlayerを効果的に統合し、Webプロジェクトのために強力でスケーラブルな国際化サポートを有効にすることができます。

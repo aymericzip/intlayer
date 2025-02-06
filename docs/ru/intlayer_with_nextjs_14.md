@@ -36,7 +36,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  Основной пакет, который предоставляет инструменты интернационализации для управления конфигурацией, переводом, [декларацией контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md), трансалиацией и [CLI командами](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md).
+  Основной пакет, который предоставляет инструменты интернационализации для управления конфигурацией, переводом, [декларацией контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md), трансалиацией и [CLI командами](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -372,7 +372,7 @@ module.exports = pageContent;
 ```
 
 > Ваши декларации контента могут быть определены в любом месте вашего приложения, как только они включены в каталог `contentDir` (по умолчанию `./src`). И совпадают с расширением файла декларации контента (по умолчанию `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> Для получения дополнительных сведений смотрите [документацию по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md).
+> Для получения дополнительных сведений смотрите [документацию по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md).
 
 ### Шаг 7: Используйте контент в вашем коде
 

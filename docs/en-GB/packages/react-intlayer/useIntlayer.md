@@ -41,9 +41,9 @@ The hook accepts two parameters:
 1. **`key`**: The dictionary key to retrieve localized content.
 2. **`locale`** (optional): The desired locale. Defaults to the context's locale if not specified.
 
-## Content Declaration
+## Dictionary
 
-All dictionary keys must be declared within content declaration files to enhance type safety and avoid errors. You can find the setup instructions [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md).
+All dictionary keys must be declared within content declaration files to enhance type safety and avoid errors. You can find the setup instructions [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md).
 
 ## Example Usage in React
 

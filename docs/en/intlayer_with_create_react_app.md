@@ -31,7 +31,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **intlayer**
 
-  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md).
+  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md).
 
 - **react-intlayer**
 
@@ -212,7 +212,7 @@ module.exports = appContent;
 ```
 
 > Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/content_declaration/get_started.md).
+> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md).
 > If your content file includes TSX code, you should consider importing `import React from "react";` in your content file.
 
 ### Step 5: Utilize Intlayer in Your Code

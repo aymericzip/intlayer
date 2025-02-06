@@ -43,7 +43,7 @@
 
 ## Объявление контента
 
-Все объекты словаря должны быть объявлены в структурированных контентных файлах для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Вы можете найти инструкции по настройке [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md). Вот пример объявления контента:
+Все объекты словаря должны быть объявлены в структурированных контентных файлах для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Вы можете найти инструкции по настройке [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md). Вот пример объявления контента:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

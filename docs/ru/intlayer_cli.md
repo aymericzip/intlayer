@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## пакет intlayer-cli
 
-Пакет `intlayer-cli` предназначен для преобразования ваших [объявлений intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/content_declaration/get_started.md) в словари.
+Пакет `intlayer-cli` предназначен для преобразования ваших [объявлений intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md) в словари.
 
 Этот пакет преобразует все файлы intlayer, такие как `src/**/*.content.{ts|js|mjs|cjs|json}`. [Смотрите, как объявить ваши файлы декларации Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 

@@ -43,7 +43,7 @@ Je nachdem, ob Sie an clientseitigen oder serverseitigen Komponenten in einer Ne
 
 Es ist wichtig, dass alle Inhalts-Schlüssel innerhalb von Inhaltserklärungsdateien definiert sind, um Laufzeitfehler zu verhindern und die Typensicherheit zu gewährleisten. Dieser Ansatz erleichtert auch die TypeScript-Integration für die Überprüfung zur Kompilierzeit.
 
-Anleitungen zur Einrichtung von Inhaltserklärungsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md).
+Anleitungen zur Einrichtung von Inhaltserklärungsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
 
 ## Beispielverwendung in Next.js
 

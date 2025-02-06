@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md)، الترجمة، و [أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
+  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md)، الترجمة، و [أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
 
 - **react-intlayer**
   الحزمة التي تدمج Intlayer مع تطبيق React. توفر موفري السياق والركائز لنقل التدويل في React. بالإضافة إلى ذلك، تتضمن الملحق Vite لدمج Intlayer مع [حزمة Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى الوسيط لاكتشاف تفضيلات اللغة للمستخدم، وإدارة ملفات تعريف الارتباط، والتعامل مع إعادة توجيه URL.
@@ -375,7 +375,7 @@ module.exports = appContent;
 ```
 
 > يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك طالما أنها مدرجة في دليل `contentDir` (بشكل افتراضي، `./src`). وتطابق امتداد ملف إعلان المحتوى (بشكل افتراضي، `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+> لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 > إذا كان ملف المحتوى الخاص بك يتضمن شفرة TSX، يجب أن تفكر في استيراد `import React from "react";` في ملف المحتوى الخاص بك.
 
 ### الخطوة 5: استخدم Intlayer في شفرتك

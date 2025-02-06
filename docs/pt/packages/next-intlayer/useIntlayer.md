@@ -43,7 +43,7 @@ Dependendo se você está trabalhando em componentes do lado do cliente ou do se
 
 É crucial que todas as chaves de conteúdo sejam definidas dentro de arquivos de declaração de conteúdo para evitar erros em tempo de execução e garantir segurança de tipo. Essa abordagem também facilita a integração com TypeScript para validação em tempo de compilação.
 
-Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/content_declaration/get_started.md).
+Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
 
 ## Exemplo de Uso no Next.js
 

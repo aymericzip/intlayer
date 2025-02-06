@@ -43,7 +43,7 @@ Le hook accepte deux paramètres :
 
 ## Déclaration du Contenu
 
-Toutes les clés du dictionnaire doivent être déclarées dans les fichiers de déclaration de contenu pour améliorer la sécurité des types et éviter les erreurs. Vous pouvez trouver les instructions de configuration [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/content_declaration/get_started.md).
+Toutes les clés du dictionnaire doivent être déclarées dans les fichiers de déclaration de contenu pour améliorer la sécurité des types et éviter les erreurs. Vous pouvez trouver les instructions de configuration [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
 
 ## Exemple d'Utilisation dans React
 

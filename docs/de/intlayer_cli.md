@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## intlayer-cli-Paket
 
-Das `intlayer-cli`-Paket beabsichtigt, Ihre [Intlayer-Deklarationen](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md) in Wörterbücher zu transpiliieren.
+Das `intlayer-cli`-Paket beabsichtigt, Ihre [Intlayer-Deklarationen](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md) in Wörterbücher zu transpiliieren.
 
 Dieses Paket wird alle Intlayer-Dateien transpiliieren, wie `src/**/*.content.{ts|js|mjs|cjs|json}`. [Sehen Sie, wie Sie Ihre Intlayer-Deklarationsdateien deklarieren](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 

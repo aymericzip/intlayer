@@ -43,7 +43,7 @@
 
 ## إعلان المحتوى
 
-يجب أن يتم الإعلان عن جميع مفاتيح القواميس ضمن ملفات إعلان المحتوى لتعزيز سلامة الأنواع وتجنب الأخطاء. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md).
+يجب أن يتم الإعلان عن جميع مفاتيح القواميس ضمن ملفات إعلان المحتوى لتعزيز سلامة الأنواع وتجنب الأخطاء. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ## مثال على الاستخدام في React
 

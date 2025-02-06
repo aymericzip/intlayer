@@ -43,7 +43,7 @@ const { useDictionary } = require("react-intlayer"); // مستخدم في مكو
 
 ## إعلان المحتوى
 
-يجب إعلانات جميع كائنات القاموس في ملفات محتوى هيكلية لضمان السلامة النوعية وتجنب الأخطاء في وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md). إليك مثال على إعلان المحتوى:
+يجب إعلانات جميع كائنات القاموس في ملفات محتوى هيكلية لضمان السلامة النوعية وتجنب الأخطاء في وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md). إليك مثال على إعلان المحتوى:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

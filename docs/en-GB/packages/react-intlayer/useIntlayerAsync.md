@@ -210,11 +210,11 @@ You can also retrieve localized attribute values for various HTML properties (e.
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## Content Declaration Files
+## Dictionary Files
 
 All content keys must be defined in your content declaration files for type safety and to prevent runtime errors. These files enable TypeScript validation, ensuring you always reference existing keys and locales.
 
-Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/content_declaration/get_started.md).
+Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md).
 
 ## Further Information
 

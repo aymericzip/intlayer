@@ -43,7 +43,7 @@
 
 所有内容键必须在内容声明文件中定义，以防止运行时错误并确保类型安全。这种方法还促进了 TypeScript 集成，以进行编译时验证。
 
-有关设置内容声明文件的说明，请参见 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)。
+有关设置内容声明文件的说明，请参见 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
 
 ## 在 Next.js 中的示例用法
 

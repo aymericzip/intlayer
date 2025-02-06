@@ -199,7 +199,7 @@ Assim como no `useIntlayer`, você pode recuperar valores de atributos localizad
 
 Todas as chaves de conteúdo devem ser definidas em seus arquivos de declaração de conteúdo para segurança de tipo e para prevenir erros em tempo de execução. Esses arquivos permitem a validação do TypeScript, garantindo que você sempre faça referência a chaves e locales existentes.
 
-Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](/pt/content_declaration/get_started.md).
+Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](/pt/dictionary/get_started.md).
 
 ## Informações Adicionais
 

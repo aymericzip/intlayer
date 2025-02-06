@@ -35,7 +35,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  El paquete central que proporciona herramientas de internacionalización para la gestión de configuraciones, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/content_declaration/get_started.md), transpilación, y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md).
+  El paquete central que proporciona herramientas de internacionalización para la gestión de configuraciones, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md), transpilación, y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -409,7 +409,7 @@ module.exports = homeContent;
 }
 ```
 
-Para más información sobre cómo declarar contenido, consulta la [guía de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/content_declaration/get_started.md).
+Para más información sobre cómo declarar contenido, consulta la [guía de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md).
 
 ### Paso 7: Utiliza el Contenido en Tu Código
 
@@ -890,7 +890,7 @@ Agrega las siguientes líneas a tu archivo `.gitignore`:
 ## Recursos Adicionales
 
 - **Documentación de Intlayer:** [Repositorio de GitHub](https://github.com/aymericzip/intlayer)
-- **Guía de Declaración de Contenido:** [Declaración de Contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/content_declaration/get_started.md)
+- **Guía de Declaración de Contenido:** [Declaración de Contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md)
 - **Documentación de Configuración:** [Guía de Configuración](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md)
 
 Siguiendo esta guía, puedes integrar efectivamente Intlayer en tu aplicación Next.js utilizando el Router de Página, habilitando un soporte robusto y escalable de internacionalización para tus proyectos web.

@@ -41,9 +41,9 @@
 1. **`dictionary`**: 특정 키에 대한 지역화된 콘텐츠를 포함하는 선언된 사전 객체.
 2. **`locale`** (선택 사항): 원하는 로케일. 지정되지 않으면 현재 컨텍스트의 로케일이 기본값으로 사용됩니다.
 
-## Content Declaration
+## Dictionary
 
-모든 사전 객체는 타입 안전성을 보장하고 런타임 오류를 방지하기 위해 구조화된 콘텐츠 파일에서 선언되어야 합니다. 설정 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/content_declaration/get_started.md)에서 확인할 수 있습니다. 콘텐츠 선언의 예는 다음과 같습니다:
+모든 사전 객체는 타입 안전성을 보장하고 런타임 오류를 방지하기 위해 구조화된 콘텐츠 파일에서 선언되어야 합니다. 설정 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다. 콘텐츠 선언의 예는 다음과 같습니다:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type DeclarationContent } from "intlayer";

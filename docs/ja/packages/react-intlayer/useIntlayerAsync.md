@@ -214,7 +214,7 @@ const ComponentExample = () => {
 
 すべてのコンテンツキーは、型安全性を確保し、ランタイムエラーを防ぐために、コンテンツ宣言ファイルで定義する必要があります。これらのファイルは、TypeScript のバリデーションを有効にし、常に既存のキーとロケールを参照することを保証します。
 
-コンテンツ宣言ファイルを設定する手順は、[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/content_declaration/get_started.md) で確認できます。
+コンテンツ宣言ファイルを設定する手順は、[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md) で確認できます。
 
 ## さらなる情報
 

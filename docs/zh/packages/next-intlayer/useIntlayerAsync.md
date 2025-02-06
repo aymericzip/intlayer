@@ -199,7 +199,7 @@ const AsyncClientComponentExample = () => {
 
 所有内容键必须在您的内容声明文件中定义，以确保类型安全，并防止运行时错误。这些文件启用 TypeScript 验证，确保您始终引用现有的键和区域设置。
 
-有关设置内容声明文件的说明，请参见 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/content_declaration/get_started.md)。
+有关设置内容声明文件的说明，请参见 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
 
 ## 进一步的信息
 

@@ -31,16 +31,16 @@
 
 نظّم محتواك متعدد اللغات قريبًا من كودك للحفاظ على كل شيء متسقًا وقابلًا للصيانة.
 
-- **[ابدأ](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/get_started.md)**  
+- **[ابدأ](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md)**  
   تعرف على أساسيات إعلان المحتوى في إنتلاير.
 
-- **[الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/translation.md)**  
+- **[الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/translation.md)**  
   افهم كيفية إنشاء الترجمات، تخزينها، واستخدامها في تطبيقك.
 
-- **[التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/enumeration.md)**  
+- **[التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/enumeration.md)**  
   إدارة مجموعات البيانات المتكررة أو الثابتة بسهولة عبر لغات متعددة.
 
-- **[استرجاع الدوال](https://github.com/aymericzip/intlayer/blob/main/docs/ar/content_declaration/function_fetching.md)**  
+- **[استرجاع الدوال](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/function_fetching.md)**  
   انظر كيفية استرجاع المحتوى ديناميكيًا مع منطق مخصص ليتناسب مع سير عمل مشروعك.
 
 ---

@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuraciones, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/content_declaration/get_started.md), transpilation y [comandos de CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md).
+  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuraciones, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md), transpilation y [comandos de CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md).
 
 - **react-intlayer**
   El paquete que integra Intlayer con la aplicación React. Proporciona proveedores de contexto y hooks para la internacionalización de React. Además, incluye el plugin Vite para integrar Intlayer con el [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como middleware para detectar el locale preferido del usuario, gestionar cookies y manejar la redirección de URL.
@@ -375,7 +375,7 @@ module.exports = appContent;
 ```
 
 > Tus declaraciones de contenido pueden definirse en cualquier parte de tu aplicación tan pronto como se incluyan en el directorio `contentDir` (por defecto, `./src`). Y coincidan con la extensión del archivo de declaración de contenido (por defecto, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
-> Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/content_declaration/get_started.md).
+> Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md).
 > Si tu archivo de contenido incluye código TSX, debes considerar importar `import React from "react";` en tu archivo de contenido.
 
 ### Paso 5: Utilizar Intlayer en Tu Código

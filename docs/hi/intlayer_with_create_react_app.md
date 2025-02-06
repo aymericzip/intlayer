@@ -33,7 +33,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **intlayer**
 
-  कोर पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md), ट्रांसपाइलेशन, और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतरराष्ट्रीयकरण उपकरण प्रदान करता है।
+  कोर पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md), ट्रांसपाइलेशन, और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतरराष्ट्रीयकरण उपकरण प्रदान करता है।
 
 - **react-intlayer**
 
@@ -210,7 +210,7 @@ module.exports = appContent;
 ```
 
 > आपकी सामग्री की घोषणाएँ आपके अनुप्रयोग में कहीं भी निर्धारित की जा सकती हैं जब तक कि उन्हें `contentDir` निर्देशिका (डिफ़ॉल्ट रूप से, `./src`) में शामिल किया गया हो। और सामग्री घोषणा फ़ाइल का विस्तार से मेल खाता है (डिफ़ॉल्ट रूप से, `.content.{ts,tsx,js,jsx,mjs,cjs}`)।
-> अधिक विवरण के लिए, [सामग्री घोषणा डोक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/content_declaration/get_started.md) देखें।
+> अधिक विवरण के लिए, [सामग्री घोषणा डोक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) देखें।
 > यदि आपकी सामग्री फ़ाइल में TSX कोड शामिल है, तो आपको अपनी सामग्री फ़ाइल में `import React from "react";` आयात करने पर विचार करना चाहिए।
 
 ### चरण 5: अपने कोड में Intlayer का उपयोग करें

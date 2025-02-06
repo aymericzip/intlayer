@@ -199,7 +199,7 @@ Wie bei `useIntlayer` können Sie lokalisierten Attributwerte für verschiedene 
 
 Alle Inhaltskeys müssen in Ihren Inhaltsdeklarationsdateien definiert sein, um Typsicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Diese Dateien ermöglichen TypeScript-Validierung, sodass Sie immer vorhandene Schlüssel und Sprachen referenzieren.
 
-Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/content_declaration/get_started.md).
+Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
 
 ## Weitere Informationen
 

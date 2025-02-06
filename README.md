@@ -24,7 +24,7 @@ Intlayer offers a more flexible and modern approach to **internationalization** 
 
 ### Key Benefits of Intlayer:
 
-- **Effortless Content Declaration**  
+- **Effortless Dictionary**  
   Organize and maintain your multilingual content efficiently by declaring content dictionaries directly alongside your components. This not only reduces complexity but also improves maintainability.  
   [Learn more about content declaration](https://intlayer.org/doc/concept/content)
 
@@ -75,7 +75,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 - [Intlayer CLI](https://intlayer.org/doc/concept/cli)
 - [Intlayer Editor](https://intlayer.org/doc/concept/editor)
 - [Intlayer CMS](https://intlayer.org/doc/concept/cms)
-- **Content Declaration**
+- **Dictionary**
   - [Declare Your Content](https://intlayer.org/doc/concept/content)
   - [Translation](https://intlayer.org/doc/concept/content/translation)
   - [Enumeration](https://intlayer.org/doc/concept/content/enumeration)
