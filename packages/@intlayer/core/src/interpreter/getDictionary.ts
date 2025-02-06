@@ -1,11 +1,8 @@
-import { type Locales } from '@intlayer/config/client';
-import { type Dictionary } from '../types';
-import {
-  DeepTransformContent,
-  type NodeProps,
-  type Plugins,
-} from './getContent/deepTransform';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Locales } from '@intlayer/config/client';
+import type { Dictionary } from '../types';
 import { getContent } from './getContent/getContent';
+import type { Plugins, NodeProps, DeepTransformContent } from './getContent';
 
 /**
  * Transforms a dictionary in a single pass, applying each plugin as needed.
@@ -30,7 +27,9 @@ export const getDictionary = <
     plugins,
   };
 
-  return getContent(dictionary.content, props, locale) as DeepTransformContent<
-    T['content']
-  >;
+  return getContent(
+    dictionary.content,
+    props,
+    locale
+  ) as any as DeepTransformContent<T['content']>;
 };

@@ -1,4 +1,8 @@
-import { IntlayerNodeCond, ReactNodeCond } from './plugins';
+import { IInterpreterPluginReact } from './plugins';
+
+declare module '@intlayer/core' {
+  interface IInterpreterPlugin<T, S> extends IInterpreterPluginReact<T, S> {}
+}
 
 export {
   IntlayerProvider,
@@ -17,11 +21,3 @@ export {
   t,
 } from './client/index';
 export { type IntlayerNode } from './editor/renderContentEditor';
-export * from './plugins';
-
-declare module '@intlayer/core' {
-  interface IPluginCond<T> {
-    intlayerNode: IntlayerNodeCond<T>;
-    reactNode: ReactNodeCond<T>;
-  }
-}

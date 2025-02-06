@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ValidDotPathsFor } from '../transpiler';
 import type { DictionaryKeys } from '../types';
 import type {
   DeepTransformContent,
+  IInterpreterPluginState,
   NodeProps,
-} from './getContent/deepTransform';
+} from './getContent';
 import { getIntlayer } from './getIntlayer';
 // @ts-ignore intlayer declared for module augmentation
 import { IntlayerDictionaryTypesConnector } from 'intlayer';
@@ -19,8 +21,9 @@ type GetSubPath<T, P> = P extends `${infer K}.${infer Rest}`
 export type GetNestingResult<
   K extends DictionaryKeys,
   P = undefined,
+  S = IInterpreterPluginState,
 > = GetSubPath<
-  DeepTransformContent<IntlayerDictionaryTypesConnector[K]['content']>,
+  DeepTransformContent<IntlayerDictionaryTypesConnector[K]['content'], S>,
   P
 >;
 

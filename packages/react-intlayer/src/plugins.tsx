@@ -1,4 +1,9 @@
-import type { Plugins } from '@intlayer/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type {
+  Plugins,
+  IInterpreterPluginState as IInterpreterPluginStateCore,
+  DeepTransformContent as DeepTransformContentCore,
+} from '@intlayer/core';
 import { type ReactElement, type ReactNode, createElement } from 'react';
 import { type IntlayerNode, renderIntlayerEditor } from './editor';
 
@@ -6,7 +11,7 @@ import { type IntlayerNode, renderIntlayerEditor } from './editor';
  *  INTLAYER NODE PLUGIN
  *  --------------------------------------------- */
 
-export type IntlayerNodeCond<T> = T extends number | string
+export type IntlayerNodeCond<T, _S> = T extends number | string
   ? IntlayerNode<T>
   : never;
 
@@ -28,7 +33,7 @@ export const intlayerNodePlugins: Plugins = {
  *  REACT NODE PLUGIN
  *  --------------------------------------------- */
 
-export type ReactNodeCond<T> = T extends {
+export type ReactNodeCond<T, _S> = T extends {
   ref: any;
   props: any;
   key: any;
@@ -97,3 +102,27 @@ export const reactNodePlugins: Plugins = {
     return createReactElement(node);
   },
 };
+
+/** ---------------------------------------------
+ *  PLUGINS RESULT
+ *  --------------------------------------------- */
+
+export interface IInterpreterPluginReact<T, _S> {
+  intlayerNode: IntlayerNodeCond<T, _S>;
+  reactNode: ReactNodeCond<T, _S>;
+}
+
+/**
+ * Insert this type as param of `DeepTransformContent` to avoid `intlayer` package pollution.
+ *
+ * Otherwise the the `react-intlayer` plugins will override the types of `intlayer` functions.
+ */
+export type IInterpreterPluginState = IInterpreterPluginStateCore & {
+  intlayerNode: true;
+  reactNode: true;
+};
+
+export type DeepTransformContent<T> = DeepTransformContentCore<
+  T,
+  IInterpreterPluginState
+>;

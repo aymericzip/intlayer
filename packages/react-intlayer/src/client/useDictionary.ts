@@ -13,8 +13,7 @@ import { getDictionary } from '../getDictionary';
  */
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,
-  locale?: Locales,
-  isRenderEditor = false
+  locale?: Locales
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget = locale ?? currentLocale;

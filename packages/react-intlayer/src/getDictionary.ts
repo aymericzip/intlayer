@@ -1,14 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  getDictionary as getDictionaryCore,
+  type Dictionary,
   type Plugins,
+  getDictionary as getDictionaryCore,
 } from '@intlayer/core';
-import { intlayerNodePlugins, reactNodePlugins } from './plugins';
+import {
+  type DeepTransformContent,
+  intlayerNodePlugins,
+  reactNodePlugins,
+} from './plugins';
+import type { Locales } from '@intlayer/config/client';
 
-export const getDictionary: typeof getDictionaryCore = (
-  dictionary,
-  locale,
-  additionalPlugins
+export const getDictionary = <
+  T extends Dictionary,
+  L extends Locales | `${Locales}` = Locales,
+>(
+  dictionary: T,
+  locale?: L,
+  additionalPlugins?: Plugins[]
 ) => {
   const plugins: Plugins[] = [
     intlayerNodePlugins,
@@ -16,5 +25,9 @@ export const getDictionary: typeof getDictionaryCore = (
     ...(additionalPlugins ?? []),
   ];
 
-  return getDictionaryCore(dictionary, locale, plugins) as any;
+  return getDictionaryCore(
+    dictionary,
+    locale,
+    plugins
+  ) as any as DeepTransformContent<T['content']>;
 };

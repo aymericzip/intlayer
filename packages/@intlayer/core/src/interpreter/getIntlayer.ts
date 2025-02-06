@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Locales } from '@intlayer/config';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -9,7 +10,7 @@ import type { Dictionary, DictionaryKeys } from '../types';
 import { getDictionary } from './getDictionary';
 // @ts-ignore intlayer declared for module augmentation
 import { IntlayerDictionaryTypesConnector } from 'intlayer';
-import type { DeepTransformContent, Plugins } from './getContent';
+import type { DeepTransformContent, Plugins } from './getContent/plugins';
 
 export const getIntlayer = <
   T extends DictionaryKeys,
@@ -29,5 +30,7 @@ export const getIntlayer = <
     dictionary as unknown as Dictionary,
     locale,
     plugins
-  ) as DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']>;
+  ) as any as DeepTransformContent<
+    IntlayerDictionaryTypesConnector[T]['content']
+  >;
 };

@@ -17,8 +17,7 @@ import { IntlayerDictionaryTypesConnector } from 'intlayer';
  */
 export const useIntlayer = <T extends DictionaryKeys>(
   key: T,
-  locale?: Locales,
-  isRenderEditor = true
+  locale?: Locales
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const { changedContent } = useChangedContent();

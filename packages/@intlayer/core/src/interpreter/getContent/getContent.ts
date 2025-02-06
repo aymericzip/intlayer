@@ -1,16 +1,14 @@
 import { getConfiguration, type Locales } from '@intlayer/config/client';
 import type { ContentNode } from '../../types';
-import {
-  type DeepTransformContent,
-  type NodeProps,
-  type Plugins,
-  deepTransformNode,
-} from './deepTransform';
+import { deepTransformNode } from './deepTransform';
 import {
   translationPlugin,
   enumerationPlugin,
   conditionPlugin,
   nestedPlugin,
+  type DeepTransformContent,
+  type NodeProps,
+  type Plugins,
 } from './plugins';
 
 /**
