@@ -31,6 +31,12 @@ const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
     PagesRoutes.Doc_ContentDeclaration_FunctionFetching,
   [GithubRoutes.ContentDeclaration_Translation]:
     PagesRoutes.Doc_ContentDeclaration_Translation,
+  [GithubRoutes.ContentDeclaration_Markdown]:
+    PagesRoutes.Doc_ContentDeclaration_Markdown,
+  [GithubRoutes.ContentDeclaration_Condition]:
+    PagesRoutes.Doc_ContentDeclaration_Condition,
+  [GithubRoutes.ContentDeclaration_Nesting]:
+    PagesRoutes.Doc_ContentDeclaration_Nesting,
   [GithubRoutes['Packages_intlayer']]: PagesRoutes['Doc_Packages_intlayer'],
   [GithubRoutes['Packages_intlayer_getConfiguration']]:
     PagesRoutes['Doc_Packages_intlayer_getConfiguration'],
