@@ -44,7 +44,7 @@ export type FetchableContentNode<NodeType = ContentNode> = (
   args?: any
 ) => ContentNode<NodeType> | Promise<ContentNode<NodeType>>;
 
-export type ContentNode<NodeType = never, FetchableNode = false> =
+export type ContentNode<NodeType = BaseNode, FetchableNode = false> =
   | NodeType
   | TypedNode<NodeType>
   | { [paramKey: string | number]: ContentNode<NodeType[keyof NodeType]> }
