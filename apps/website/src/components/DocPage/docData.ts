@@ -2,9 +2,12 @@ import { Locales, getIntlayer } from 'intlayer';
 import { getCliData } from './docDataContent/concept/cli';
 import { getCMSData } from './docDataContent/concept/cms';
 import { getConfigurationData } from './docDataContent/concept/configuration';
+import { getContentDeclarationConditionData } from './docDataContent/concept/dictionary/condition';
 import { getContentDeclarationEnumerationData } from './docDataContent/concept/dictionary/enumeration';
 import { getContentDeclarationFunctionFetchingData } from './docDataContent/concept/dictionary/functionFetching';
 import { getContentDeclarationGetStatedData } from './docDataContent/concept/dictionary/getStarted';
+import { getContentDeclarationMarkdownData } from './docDataContent/concept/dictionary/markdown';
+import { getContentDeclarationNestingData } from './docDataContent/concept/dictionary/nesting';
 import { getContentDeclarationTranslationData } from './docDataContent/concept/dictionary/translation';
 import { getHowWorksIntlayerData } from './docDataContent/concept/howWorksIntlayer';
 import { getInterestOfIntlayerData } from './docDataContent/concept/interestOfIntlayer';
@@ -95,6 +98,21 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
                 content.concept.subSections.content.subsections.enumeration
                   .title,
               default: getContentDeclarationEnumerationData(locale),
+            },
+            condition: {
+              title:
+                content.concept.subSections.content.subsections.condition.title,
+              default: getContentDeclarationConditionData(locale),
+            },
+            nesting: {
+              title:
+                content.concept.subSections.content.subsections.nesting.title,
+              default: getContentDeclarationNestingData(locale),
+            },
+            markdown: {
+              title:
+                content.concept.subSections.content.subsections.markdown.title,
+              default: getContentDeclarationMarkdownData(locale),
             },
             'function-fetching': {
               title:

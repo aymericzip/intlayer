@@ -1,12 +1,12 @@
 # Aufzählung / Pluralisierung
 
-## Wie Aufzählung funktioniert
+## Wie Aufzählungen Funktionieren
 
-In Intlayer wird die Aufzählung durch die `enu` Funktion erreicht, die spezifische Schlüssel den entsprechenden Inhalten zuordnet. Diese Schlüssel können numerische Werte, Bereiche oder benutzerdefinierte Identifikatoren darstellen. Bei der Verwendung mit React Intlayer oder Next Intlayer wird der entsprechende Inhalt automatisch basierend auf der Lokalisierung der Anwendung und definierten Regeln ausgewählt.
+In Intlayer wird die Aufzählung durch die `enu`-Funktion erreicht, die spezifische Schlüssel ihren entsprechenden Inhalten zuordnet. Diese Schlüssel können numerische Werte, Bereiche oder benutzerdefinierte Identifikatoren darstellen. Bei der Verwendung mit React Intlayer oder Next Intlayer wird der passende Inhalt basierend auf der Locale der Anwendung und den definierten Regeln automatisch ausgewählt.
 
 ## Einrichten der Aufzählung
 
-Um die Aufzählung in deinem Intlayer-Projekt einzurichten, musst du ein Inhaltsmodul erstellen, das die Aufzählungsdefinitionen umfasst. Hier ist ein Beispiel für eine einfache Aufzählung für die Anzahl der Autos:
+Um die Aufzählung in Ihrem Intlayer-Projekt einzurichten, müssen Sie ein Inhaltsmodul erstellen, das Aufzählungsdefinitionen enthält. Hier ist ein Beispiel für eine einfache Aufzählung der Anzahl der Autos:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -21,6 +21,7 @@ const carEnumeration = {
       "1": "Ein Auto",
       ">5": "Einige Autos",
       ">19": "Viele Autos",
+      "fallback": "Standardwert", // Optional
     }),
   },
 } satisfies Dictionary;
@@ -42,6 +43,7 @@ const carEnumeration = {
       "1": "Ein Auto",
       ">5": "Einige Autos",
       ">19": "Viele Autos",
+      "fallback": "Standardwert", // Optional
     }),
   },
 };
@@ -50,7 +52,7 @@ export default carEnumeration;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu, type Dictionary } = require("intlayer");
+const { enu } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
@@ -63,6 +65,7 @@ const carEnumeration = {
       "1": "Ein Auto",
       ">5": "Einige Autos",
       ">19": "Viele Autos",
+      "fallback": "Standardwert", // Optional
     }),
   },
 };
@@ -76,35 +79,60 @@ module.exports = carEnumeration;
   "key": "car_count",
   "content": {
     "numberOfCar": {
-      "<-1": "Weniger als minus ein Auto",
-      "-1": "Minus ein Auto",
-      "0": "Keine Autos",
-      "1": "Ein Auto",
-      ">5": "Einige Autos",
-      ">19": "Viele Autos"
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Weniger als minus ein Auto",
+        "-1": "Minus ein Auto",
+        "0": "Keine Autos",
+        "1": "Ein Auto",
+        ">5": "Einige Autos",
+        ">19": "Viele Autos",
+        "fallback": "Standardwert" // Optional
+      }
     }
   }
 }
 ```
 
-In diesem Beispiel ordnet `enu` verschiedene Bedingungen spezifischen Inhalten zu. Wenn es in einer React-Komponente verwendet wird, kann Intlayer automatisch den entsprechenden Inhalt basierend auf der gegebenen Variablen auswählen.
+In diesem Beispiel ordnet `enu` verschiedene Bedingungen spezifischen Inhalten zu. Bei der Verwendung in einer React-Komponente kann Intlayer den entsprechenden Inhalt basierend auf der gegebenen Variablen automatisch auswählen.
+
+> Die Reihenfolge der Deklaration ist wichtig bei Intlayer-Aufzählungen. Die erste gültige Deklaration wird ausgeführt. Wenn mehrere Bedingungen zutreffen, stellen Sie sicher, dass sie korrekt angeordnet sind, um unerwartetes Verhalten zu vermeiden.
+
+> Wenn kein Fallback-Wert deklariert ist, gibt die Funktion `undefined` zurück, falls keine Schlüssel übereinstimmen.
 
 ## Verwendung der Aufzählung mit React Intlayer
 
-Um die Aufzählung in einer React-Komponente zu verwenden, kannst du den `useIntlayer` Hook aus dem `react-intlayer` Paket nutzen. Dieser Hook ruft den korrekten Inhalt basierend auf der angegebenen ID ab. Hier ist ein Beispiel, wie man ihn verwendet:
+Um Aufzählungen in einer React-Komponente zu verwenden, können Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket einsetzen. Dieser Hook ruft den richtigen Inhalt basierend auf der angegebenen ID ab. Hier ist ein Beispiel, wie man ihn verwendet:
 
-```typescript fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent: FC = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* Ausgabe: Keine Autos */}
-      <p>{content.numberOfCar(6)}</p> {/* Ausgabe: Einige Autos */}
-      <p>{content.numberOfCar(20)}</p> {/* Ausgabe: Einige Autos */}
+      <p>
+        {
+          numberOfCar(0) // Ausgabe: Keine Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // Ausgabe: Einige Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // Ausgabe: Viele Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // Ausgabe: Standardwert
+        }
+      </p>
     </div>
   );
 };
@@ -114,13 +142,30 @@ const CarComponent: FC = () => {
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* Ausgabe: Keine Autos */}
-      <p>{content.numberOfCar(6)}</p> {/* Ausgabe: Einige Autos */}
-      <p>{content.numberOfCar(20)}</p> {/* Ausgabe: Einige Autos */}
+      <p>
+        {
+          numberOfCar(0) // Ausgabe: Keine Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // Ausgabe: Einige Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // Ausgabe: Viele Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // Ausgabe: Standardwert
+        }
+      </p>
     </div>
   );
 };
@@ -132,13 +177,30 @@ export default CarComponent;
 const { useIntlayer } = require("react-intlayer");
 
 const CarComponent = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* Ausgabe: Keine Autos */}
-      <p>{content.numberOfCar(6)}</p> {/* Ausgabe: Einige Autos */}
-      <p>{content.numberOfCar(20)}</p> {/* Ausgabe: Einige Autos */}
+      <p>
+        {
+          numberOfCar(0) // Ausgabe: Keine Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // Ausgabe: Einige Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // Ausgabe: Viele Autos
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // Ausgabe: Standardwert
+        }
+      </p>
     </div>
   );
 };
@@ -146,28 +208,14 @@ const CarComponent = () => {
 module.exports = CarComponent;
 ```
 
-In diesem Beispiel passt die Komponente ihre Ausgabe dynamisch basierend auf der Anzahl der Autos an. Der korrekte Inhalt wird automatisch ausgewählt, abhängig vom angegebenen Bereich.
-
-## Wichtige Hinweise
-
-- Die Reihenfolge der Deklaration ist entscheidend in Intlayer-Aufzählungen. Die erste gültige Deklaration ist die, die ausgewählt wird.
-- Wenn mehrere Bedingungen zutreffen, stelle sicher, dass sie korrekt angeordnet sind, um unerwartetes Verhalten zu vermeiden.
-
-## Beste Praktiken für Aufzählungen
-
-Um sicherzustellen, dass deine Aufzählungen wie erwartet funktionieren, Folge diesen besten Praktiken:
-
-- **Konsistente Benennung**: Verwende klare und konsistente IDs für Aufzählungsmodule, um Verwirrung zu vermeiden.
-- **Dokumentation**: Dokumentiere deine Aufzählungsschlüssel und deren erwartete Ausgaben, um zukünftige Wartbarkeit sicherzustellen.
-- **Fehlerbehandlung**: Implementiere eine Fehlerbehandlung, um Fälle zu verwalten, in denen keine gültige Aufzählung gefunden wird.
-- **Performance optimieren**: Reduziere für große Anwendungen die Anzahl der überwachten Dateierweiterungen, um die Leistung zu verbessern.
+In diesem Beispiel passt die Komponente ihre Ausgabe dynamisch an die Anzahl der Autos an. Der korrekte Inhalt wird automatisch ausgewählt, abhängig von dem angegebenen Bereich.
 
 ## Zusätzliche Ressourcen
 
-Für detailliertere Informationen zur Konfiguration und Verwendung sieh dir die folgenden Ressourcen an:
+Für detailliertere Informationen zu Konfiguration und Nutzung können Sie auf die folgenden Ressourcen verweisen:
 
 - [Intlayer CLI Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md)
 - [React Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_create_react_app.md)
 - [Next Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_nextjs_15.md)
 
-Diese Ressourcen bieten weitere Einblicke in die Einrichtung und Verwendung von Intlayer in verschiedenen Umgebungen und mit verschiedenen Frameworks.
+Diese Ressourcen bieten weitere Einblicke in die Einrichtung und Nutzung von Intlayer in verschiedenen Umgebungen und mit verschiedenen Frameworks.

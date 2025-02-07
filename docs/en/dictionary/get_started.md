@@ -20,7 +20,7 @@ For a full list of configuration options, visit the configuration documentation.
 
 Create and manage your dictionaries:
 
-```typescript fileName="src/example.content.ts" codeFormat="tsx"
+```tsx fileName="src/example.content.ts" codeFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 interface Content {
@@ -47,6 +47,7 @@ export default {
         stringContent: "Hello World",
         numberContent: 123,
         booleanContent: true,
+        javaScriptContent: `${process.env.NODE_ENV}`,
       },
     },
     multilingualContent: t({
@@ -71,11 +72,13 @@ export default {
       "navbar", // The key of the dictionary to nest
       "login.button" // [Optional] The path to the content to nest
     ),
-    markdownContent: md("# Markdown Example"),
     externalContent: async () => await fetch("https://example.com"),
+    markdownContent: md("# Markdown Example"),
 
-        // Only available using `react-intlayer` or `next-intlayer`
-    jsxContent: <h1>My title</h1>
+    /*
+     * Only available using `react-intlayer` or `next-intlayer`
+     */
+    jsxContent: <h1>My title</h1>,
   },
 } satisfies Dictionary<Content>; // [optional] Dictionary is generic and allow you to strengthen the formatting of your dictionary
 ```
@@ -92,6 +95,7 @@ export default {
         stringContent: "Hello World",
         numberContent: 123,
         booleanContent: true,
+        javaScriptContent: `${process.env.NODE_ENV}`,
       },
       imbricatedArray: [1, 2, 3],
     },
@@ -138,6 +142,7 @@ module.exports = {
         stringContent: "Hello World",
         numberContent: 123,
         booleanContent: true,
+        javaScriptContent: `${process.env.NODE_ENV}`,
       },
       imbricatedArray: [1, 2, 3],
     },
@@ -220,6 +225,14 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Markdown Example",
     },
+    "jsxContent": {
+      "type": "h1",
+      "key": null,
+      "ref": null,
+      "props": {
+        "children": ["My title"],
+      },
+    },
   },
 }
 ```
@@ -230,7 +243,7 @@ You can without problem imbricate functions into other ones.
 
 Example :
 
-```javascript fileName="src/example.content.ts" codeFormat="tsx"
+```javascript fileName="src/example.content.ts" codeFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";

@@ -1,12 +1,12 @@
-# التعداد / التعدد
+# التعداد / الجمع
 
-## كيف يعمل التعداد
+## كيفية عمل التعداد
 
-في Intlayer، يتم تحقيق التعداد من خلال دالة `enu`، التي تربط مفاتيح معينة بمحتواها المقابل. يمكن أن تمثل هذه المفاتيح قيمًا عددية، أو نطاقات، أو معرّفات مخصصة. عند استخدامها مع React Intlayer أو Next Intlayer، يتم اختيار المحتوى المناسب تلقائيًا بناءً على لغة التطبيق والقواعد المحددة.
+في Intlayer، يتم تحقيق التعداد من خلال وظيفة `enu`، التي تقوم بإقران المفاتيح المحددة بمحتواها المقابل. هذه المفاتيح يمكن أن تمثل قيمًا رقمية، أو مدى، أو معرفات مخصصة. عند الاستخدام مع React Intlayer أو Next Intlayer، يتم تحديد المحتوى المناسب تلقائيًا بناءً على إعدادات اللغة والقواعد المعرّفة للتطبيق.
 
 ## إعداد التعداد
 
-لإعداد التعداد في مشروع Intlayer الخاص بك، تحتاج إلى إنشاء وحدة محتوى تتضمن تعريفات التعداد. إليك مثال على تعداد بسيط لعدد السيارات:
+لإعداد التعداد في مشروع Intlayer الخاص بك، تحتاج إلى إنشاء وحدة محتوى تتضمن تعريفات التعداد. هذا مثال على تعداد بسيط لعدد السيارات:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -15,12 +15,13 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "أقل من سيارة واحدة",
-      "-1": "سيارة واحدة سلبية",
+      "<-1": "أقل من سيارة واحدة بالسالب",
+      "-1": "سيارة بالسالب",
       "0": "لا توجد سيارات",
       "1": "سيارة واحدة",
       ">5": "بعض السيارات",
-      ">19": "الكثير من السيارات",
+      ">19": "العديد من السيارات",
+      "fallback": "قيمة الاستبدال", // اختياري
     }),
   },
 } satisfies Dictionary;
@@ -36,12 +37,13 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "أقل من سيارة واحدة",
-      "-1": "سيارة واحدة سلبية",
+      "<-1": "أقل من سيارة واحدة بالسالب",
+      "-1": "سيارة بالسالب",
       "0": "لا توجد سيارات",
       "1": "سيارة واحدة",
       ">5": "بعض السيارات",
-      ">19": "الكثير من السيارات",
+      ">19": "العديد من السيارات",
+      "fallback": "قيمة الاستبدال", // اختياري
     }),
   },
 };
@@ -50,19 +52,20 @@ export default carEnumeration;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu, type Dictionary } = require("intlayer");
+const { enu } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "أقل من سيارة واحدة",
-      "-1": "سيارة واحدة سلبية",
+      "<-1": "أقل من سيارة واحدة بالسالب",
+      "-1": "سيارة بالسالب",
       "0": "لا توجد سيارات",
       "1": "سيارة واحدة",
       ">5": "بعض السيارات",
-      ">19": "الكثير من السيارات",
+      ">19": "العديد من السيارات",
+      "fallback": "قيمة الاستبدال", // اختياري
     }),
   },
 };
@@ -76,35 +79,60 @@ module.exports = carEnumeration;
   "key": "car_count",
   "content": {
     "numberOfCar": {
-      "<-1": "أقل من سيارة واحدة",
-      "-1": "سيارة واحدة سلبية",
-      "0": "لا توجد سيارات",
-      "1": "سيارة واحدة",
-      ">5": "بعض السيارات",
-      ">19": "الكثير من السيارات"
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "أقل من سيارة واحدة بالسالب",
+        "-1": "سيارة بالسالب",
+        "0": "لا توجد سيارات",
+        "1": "سيارة واحدة",
+        ">5": "بعض السيارات",
+        ">19": "العديد من السيارات",
+        "fallback": "قيمة الاستبدال" // اختياري
+      }
     }
   }
 }
 ```
 
-في هذا المثال، تقوم `enu` بتوصيل شروط مختلفة بمحتوى محدد. عند استخدامها في مكون React، يمكن لـ Intlayer اختيار المحتوى المناسب تلقائيًا بناءً على المتغير المحدد.
+في هذا المثال، تقوم `enu` بإقران الشروط المختلفة بمحتواها الخاص. عند الاستخدام في مكون React، يمكن لـ Intlayer اختيار المحتوى المناسب تلقائيًا بناءً على المتغير المقدم.
+
+> ترتيب التعريف مهم في تعداد Intlayer. الشرط الأول الصالح هو الذي سيتم اختياره. إذا كانت عدة شروط تنطبق، تأكد من ترتيبها بشكل صحيح لتجنب السلوك غير المتوقع.
+
+> إذا لم يتم تعريف بدل استبدالي، فإن الدالة ستعيد `undefined` إذا لم تتطابق أي مفاتيح.
 
 ## استخدام التعداد مع React Intlayer
 
-لاستخدام التعداد في مكون React، يمكنك استخدام خطاف `useIntlayer` من حزمة `react-intlayer`. إليك مثال على كيفية استخدامه:
+لاستخدام التعداد في مكون React، يمكنك الاستفادة من وظيفة `useIntlayer` المأخوذة من مكتبة `react-intlayer`. هذه الدالة تسترجع المحتوى الصحيح بناءً على المعرف المحدد. إليك مثال على كيفية استخدامها:
 
-```typescript fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent: FC = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* الناتج: لا توجد سيارات */}
-      <p>{content.numberOfCar(6)}</p> {/* الناتج: بعض السيارات */}
-      <p>{content.numberOfCar(20)}</p> {/* الناتج: بعض السيارات */}
+      <p>
+        {
+          numberOfCar(0) // الناتج: لا توجد سيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // الناتج: بعض السيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // الناتج: العديد من السيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // الناتج: قيمة الاستبدال
+        }
+      </p>
     </div>
   );
 };
@@ -114,13 +142,30 @@ const CarComponent: FC = () => {
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* الناتج: لا توجد سيارات */}
-      <p>{content.numberOfCar(6)}</p> {/* الناتج: بعض السيارات */}
-      <p>{content.numberOfCar(20)}</p> {/* الناتج: بعض السيارات */}
+      <p>
+        {
+          numberOfCar(0) // الناتج: لا توجد سيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // الناتج: بعض السيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // الناتج: العديد من السيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // الناتج: قيمة الاستبدال
+        }
+      </p>
     </div>
   );
 };
@@ -132,13 +177,30 @@ export default CarComponent;
 const { useIntlayer } = require("react-intlayer");
 
 const CarComponent = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* الناتج: لا توجد سيارات */}
-      <p>{content.numberOfCar(6)}</p> {/* الناتج: بعض السيارات */}
-      <p>{content.numberOfCar(20)}</p> {/* الناتج: بعض السيارات */}
+      <p>
+        {
+          numberOfCar(0) // الناتج: لا توجد سيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // الناتج: بعض السيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // الناتج: العديد من السيارات
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // الناتج: قيمة الاستبدال
+        }
+      </p>
     </div>
   );
 };
@@ -146,28 +208,14 @@ const CarComponent = () => {
 module.exports = CarComponent;
 ```
 
-في هذا المثال، يعدل المكون مخرجاته ديناميكيًا بناءً على عدد السيارات. يتم اختيار المحتوى الصحيح تلقائيًا، اعتمادًا على النطاق المحدد.
+في هذا المثال، يقوم المكون بتعديل خروجه ديناميكيًا بناءً على عدد السيارات. يتم اختيار المحتوى الصحيح تلقائيًا، بناءً على النطاق المحدد.
 
-## ملاحظات هامة
+## موارد إضافية
 
-- ترتيب الإعلانات أمر حيوي في تعدادات Intlayer. أول إعلان صالح هو الذي سيتم اختياره.
-- إذا كانت هناك شروط متعددة، فتأكد من ترتيبها بشكل صحيح لتجنب سلوك غير متوقع.
+لمزيد من المعلومات التفصيلية حول الإعداد والاستخدام، يرجى الرجوع إلى الموارد التالية:
 
-## أفضل الممارسات للتعداد
+- [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md)
+- [توثيق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md)
+- [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md)
 
-للتأكد من أن تعداداتك تعمل كما هو متوقع، اتبع هذه الممارسات الأفضل:
-
-- **تسمية متسقة**: استخدم معرّفات واضحة ومتسقة لوحدات التعداد لتجنب الارتباك.
-- **التوثيق**: قم بتوثيق مفاتيح التعداد والمخرجات المتوقعة لضمان الصيانة المستقبلية.
-- **معالجة الأخطاء**: نفذ معالجة الأخطاء لإدارة الحالات التي لا يتم فيها العثور على تعداد صالح.
-- **تحسين الأداء**: لتطبيقات كبيرة، قلل عدد امتدادات الملفات التي يتم مراقبتها لتحسين الأداء.
-
-## الموارد الإضافية
-
-للحصول على معلومات أكثر تفصيلًا حول الإعداد والاستخدام، راجع الموارد التالية:
-
-- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md)
-- [وثائق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md)
-- [وثائق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md)
-
-توفر هذه الموارد رؤى إضافية حول إعداد واستخدام Intlayer في بيئات مختلفة ومع إطارات متعددة.
+توفر هذه الموارد رؤى إضافية عن الإعداد والاستخدام لـ Intlayer في بيئات مختلفة ومع إطار عمل مختلف.

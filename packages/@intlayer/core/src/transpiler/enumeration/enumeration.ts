@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NodeType } from '../../types/index';
 
 type Positif = number | `${number}`;
@@ -22,7 +21,9 @@ export type EnterFormat =
 
 export type EnumerationContentState<Content> = Partial<
   Record<EnterFormat, Content>
->;
+> & {
+  fallback?: Content;
+};
 
 export type EnumerationContent<Content = unknown> = {
   nodeType: NodeType.Enumeration;

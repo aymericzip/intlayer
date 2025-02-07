@@ -1,4 +1,4 @@
-# Enumeration / Plurielisation
+# Enumeration / Pluralisation
 
 ## How Enumeration Works
 
@@ -21,6 +21,7 @@ const carEnumeration = {
       "1": "One car",
       ">5": "Some cars",
       ">19": "Many cars",
+      "fallback": "Fallback value", // Optional
     }),
   },
 } satisfies Dictionary;
@@ -42,6 +43,7 @@ const carEnumeration = {
       "1": "One car",
       ">5": "Some cars",
       ">19": "Many cars",
+      "fallback": "Fallback value", // Optional
     }),
   },
 };
@@ -50,7 +52,7 @@ export default carEnumeration;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu, type Dictionary } = require("intlayer");
+const { enu } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
@@ -63,6 +65,7 @@ const carEnumeration = {
       "1": "One car",
       ">5": "Some cars",
       ">19": "Many cars",
+      "fallback": "Fallback value", // Optional
     }),
   },
 };
@@ -76,12 +79,16 @@ module.exports = carEnumeration;
   "key": "car_count",
   "content": {
     "numberOfCar": {
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars"
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "Less than minus one car",
+        "-1": "Minus one car",
+        "0": "No cars",
+        "1": "One car",
+        ">5": "Some cars",
+        ">19": "Many cars",
+        "fallback": "Fallback value" // Optional
+      }
     }
   }
 }
@@ -89,22 +96,43 @@ module.exports = carEnumeration;
 
 In this example, `enu` maps various conditions to specific content. When used in a React component, Intlayer can automatically choose the appropriate content based on the given variable.
 
+> The order of declaration is important in Intlayer enumerations. The first valid declaration is the one that will be picked up. If multiple conditions apply, ensure they are ordered correctly to avoid unexpected behaviour.
+
+> If no fallback is declared, the function will return `undefined` if no keys match.
+
 ## Using Enumeration with React Intlayer
 
 To use enumeration in a React component, you can leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified ID. Here's an example of how to use it:
 
-```typescript fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent: FC = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* Output: No cars */}
-      <p>{content.numberOfCar(6)}</p> {/* Output: Some cars */}
-      <p>{content.numberOfCar(20)}</p> {/* Output: Some cars */}
+      <p>
+        {
+          numberOfCar(0) // Output: No cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // Output: Some cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // Output: Many cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // Output: Fallback value
+        }
+      </p>
     </div>
   );
 };
@@ -114,13 +142,30 @@ const CarComponent: FC = () => {
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* Output: No cars */}
-      <p>{content.numberOfCar(6)}</p> {/* Output: Some cars */}
-      <p>{content.numberOfCar(20)}</p> {/* Output: Some cars */}
+      <p>
+        {
+          numberOfCar(0) // Output: No cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // Output: Some cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // Output: Many cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // Output: Fallback value
+        }
+      </p>
     </div>
   );
 };
@@ -132,13 +177,30 @@ export default CarComponent;
 const { useIntlayer } = require("react-intlayer");
 
 const CarComponent = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* Output: No cars */}
-      <p>{content.numberOfCar(6)}</p> {/* Output: Some cars */}
-      <p>{content.numberOfCar(20)}</p> {/* Output: Some cars */}
+      <p>
+        {
+          numberOfCar(0) // Output: No cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // Output: Some cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // Output: Many cars
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // Output: Fallback value
+        }
+      </p>
     </div>
   );
 };
@@ -147,20 +209,6 @@ module.exports = CarComponent;
 ```
 
 In this example, the component dynamically adjusts its output based on the number of cars. The correct content is chosen automatically, depending on the specified range.
-
-## Important Notes
-
-- The order of declaration is crucial in Intlayer enumerations. The first valid declaration is the one that will be picked up.
-- If multiple conditions apply, ensure they are ordered correctly to avoid unexpected behaviour.
-
-## Best Practices for Enumeration
-
-To ensure your enumerations work as expected, follow these best practices:
-
-- **Consistent Naming**: Use clear and consistent IDs for enumeration modules to avoid confusion.
-- **Documentation**: Document your enumeration keys and their expected outputs to ensure future maintainability.
-- **Error Handling**: Implement error handling to manage cases where no valid enumeration is found.
-- **Optimize Performance**: For large applications, reduce the number of watched file extensions to improve performance.
 
 ## Additional Resources
 

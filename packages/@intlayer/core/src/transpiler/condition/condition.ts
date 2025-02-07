@@ -1,6 +1,8 @@
 import { NodeType } from '../../types/index';
 
-export type ConditionContentStates<Content> = Record<`${boolean}`, Content>;
+export type ConditionContentStates<Content> = Record<`${boolean}`, Content> & {
+  fallback?: Content;
+};
 
 export type ConditionContent<Content = unknown> = {
   nodeType: NodeType.Condition;

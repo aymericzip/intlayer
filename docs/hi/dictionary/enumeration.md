@@ -1,12 +1,13 @@
-# Enumeration / Plurielisation
+````md
+# गुणगणना / बहुवचन
 
-## How Enumeration Works
+## गुणगणना कैसे काम करता है
 
-Intlayer में, enumeration को `enu` function के माध्यम से सिद्ध किया जाता है, जो विशिष्ट कुंजी को उनके संबंधित सामग्री से जोड़ता है। ये कुंजी संख्यात्मक मान, रेंज, या कस्टम पहचानकर्ताओं का प्रतिनिधित्व कर सकती हैं। जब React Intlayer या Next Intlayer के साथ उपयोग किया जाता है, तो उचित सामग्री को स्वचालित रूप से चुना जाता है जो अनुप्रयोग की स्थानीयता और निर्धारित नियमों के आधार पर होता है।
+Intlayer में, गुणगणना `enu` फ़ंक्शन के माध्यम से पूरी की जाती है, जो विशिष्ट कुंजियों को उनके संबंधित सामग्री से मैप करता है। ये कुंजियाँ संख्यात्मक मान, श्रेणियाँ, या कस्टम पहचानकर्त्ताओं का प्रतिनिधित्व कर सकती हैं। जब React Intlayer या Next Intlayer के साथ उपयोग की जाती है, तो एप्लिकेशन के लोकेल और परिभाषित नियमों के आधार पर उपयुक्त सामग्री का स्वचालित चयन होता है।
 
-## Setting Up Enumeration
+## गुणगणना सेटअप करना
 
-अपने Intlayer प्रोजेक्ट में enumeration सेट करने के लिए, आपको एक सामग्री मॉड्यूल बनाने की आवश्यकता है जिसमें enumeration परिभाषाएँ शामिल हों। यहाँ कारों की संख्या के लिए एक सरल enumeration का उदाहरण दिया गया है:
+अपने Intlayer प्रोजेक्ट में गुणगणना सेटअप करने के लिए, आपको एक सामग्री मॉड्यूल बनाना होगा जिसमें गुणगणना परिभाषाएँ शामिल हों। यहाँ कारों की संख्या के लिए एक सरल गुणगणना का उदाहरण है:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -15,18 +16,20 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "एक से कम माइनस एक कार",
-      "-1": "एक माइनस कार",
+      "<-1": "माइनस एक कार से कम",
+      "-1": "माइनस एक कार",
       "0": "कोई कार नहीं",
       "1": "एक कार",
       ">5": "कुछ कारें",
       ">19": "कई कारें",
+      "fallback": "फॉलबैक मान", // वैकल्पिक
     }),
   },
 } satisfies Dictionary;
 
 export default carEnumeration;
 ```
+````
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { enu } from "intlayer";
@@ -36,12 +39,13 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "एक से कम माइनस एक कार",
-      "-1": "एक माइनस कार",
+      "<-1": "माइनस एक कार से कम",
+      "-1": "माइनस एक कार",
       "0": "कोई कार नहीं",
       "1": "एक कार",
       ">5": "कुछ कारें",
       ">19": "कई कारें",
+      "fallback": "फॉलबैक मान", // वैकल्पिक
     }),
   },
 };
@@ -50,19 +54,20 @@ export default carEnumeration;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu, type Dictionary } = require("intlayer");
+const { enu } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "एक से कम माइनस एक कार",
-      "-1": "एक माइनस कार",
+      "<-1": "माइनस एक कार से कम",
+      "-1": "माइनस एक कार",
       "0": "कोई कार नहीं",
       "1": "एक कार",
       ">5": "कुछ कारें",
       ">19": "कई कारें",
+      "fallback": "फॉलबैक मान", // वैकल्पिक
     }),
   },
 };
@@ -76,35 +81,60 @@ module.exports = carEnumeration;
   "key": "car_count",
   "content": {
     "numberOfCar": {
-      "<-1": "एक से कम माइनस एक कार",
-      "-1": "एक माइनस कार",
-      "0": "कोई कार नहीं",
-      "1": "एक कार",
-      ">5": "कुछ कारें",
-      ">19": "कई कारें"
+      "nodeType": "enumeration",
+      "enumeration": {
+        "<-1": "माइनस एक कार से कम",
+        "-1": "माइनस एक कार",
+        "0": "कोई कार नहीं",
+        "1": "एक कार",
+        ">5": "कुछ कारें",
+        ">19": "कई कारें",
+        "fallback": "फॉलबैक मान" // वैकल्पिक
+      }
     }
   }
 }
 ```
 
-इस उदाहरण में, `enu` विभिन्न परिस्थितियों को विशिष्ट सामग्री से जोड़ता है। जब इसे React घटक में उपयोग किया जाता है, तो Intlayer स्वचालित रूप से दिए गए चर के आधार पर उपयुक्त सामग्री का चयन कर सकता है।
+इस उदाहरण में, `enu` विभिन्न शर्तों को विशिष्ट सामग्री से मैप करता है। जब React घटक में उपयोग किया जाता है, तो Intlayer दी गई वैरिएबल के आधार पर सही सामग्री को स्वचालित रूप से चुन सकता है।
 
-## Using Enumeration with React Intlayer
+> Intlayer गुणगणनाओं में घोषणा का क्रम महत्वपूर्ण है। पहली मान्य घोषणा चुनी जाएगी। यदि एक से अधिक शर्तें लागू होती हैं, तो अप्रत्याशित व्यवहार से बचने के लिए सुनिश्चित करें कि उन्हें सही क्रम में रखा गया है।
 
-React घटक में enumeration का उपयोग करने के लिए, आप `react-intlayer` पैकेज से `useIntlayer` हुक का लाभ उठा सकते हैं। यह हुक निर्दिष्ट ID के आधार पर सही सामग्री को पुनर्प्राप्त करता है। इसे उपयोग करने का एक उदाहरण यहां दिया गया है:
+> यदि कोई फॉलबैक घोषित नहीं किया गया है, तो यदि कोई कुंजी मेल नहीं खाती है तो फ़ंक्शन `undefined` लौटाएगा।
 
-```typescript fileName="**/*.tsx" codeFormat="typescript"
+## React Intlayer के साथ गुणगणना का उपयोग करना
+
+React घटक में गुणगणना का उपयोग करने के लिए, आप `react-intlayer` पैकेज से `useIntlayer` हुक का उपयोग कर सकते हैं। यह हुक निर्दिष्ट ID के आधार पर सही सामग्री को प्राप्त करता है। इसका उपयोग कैसे करें, इसका एक उदाहरण नीचे दिया गया है:
+
+```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent: FC = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* आउटपुट: कोई कार नहीं */}
-      <p>{content.numberOfCar(6)}</p> {/* आउटपुट: कुछ कारें */}
-      <p>{content.numberOfCar(20)}</p> {/* आउटपुट: कुछ कारें */}
+      <p>
+        {
+          numberOfCar(0) // आउटपुट: कोई कार नहीं
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // आउटपुट: कुछ कारें
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // आउटपुट: कई कारें
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // आउटपुट: फॉलबैक मान
+        }
+      </p>
     </div>
   );
 };
@@ -114,13 +144,30 @@ const CarComponent: FC = () => {
 import { useIntlayer } from "react-intlayer";
 
 const CarComponent = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* आउटपुट: कोई कार नहीं */}
-      <p>{content.numberOfCar(6)}</p> {/* आउटपुट: कुछ कारें */}
-      <p>{content.numberOfCar(20)}</p> {/* आउटपुट: कुछ कारें */}
+      <p>
+        {
+          numberOfCar(0) // आउटपुट: कोई कार नहीं
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // आउटपुट: कुछ कारें
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // आउटपुट: कई कारें
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // आउटपुट: फॉलबैक मान
+        }
+      </p>
     </div>
   );
 };
@@ -132,13 +179,30 @@ export default CarComponent;
 const { useIntlayer } = require("react-intlayer");
 
 const CarComponent = () => {
-  const content = useIntlayer("car_count");
+  const { numberOfCar } = useIntlayer("car_count");
 
   return (
     <div>
-      <p>{content.numberOfCar(0)}</p> {/* आउटपुट: कोई कार नहीं */}
-      <p>{content.numberOfCar(6)}</p> {/* आउटपुट: कुछ कारें */}
-      <p>{content.numberOfCar(20)}</p> {/* आउटपुट: कुछ कारें */}
+      <p>
+        {
+          numberOfCar(0) // आउटपुट: कोई कार नहीं
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(6) // आउटपुट: कुछ कारें
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(20) // आउटपुट: कई कारें
+        }
+      </p>
+      <p>
+        {
+          numberOfCar(0.01) // आउटपुट: फॉलबैक मान
+        }
+      </p>
     </div>
   );
 };
@@ -146,28 +210,18 @@ const CarComponent = () => {
 module.exports = CarComponent;
 ```
 
-इस उदाहरण में, घटक गतिशील रूप से कारों की संख्या के आधार पर अपने आउटपुट को समायोजित करता है। निर्दिष्ट रेंज के आधार पर सही सामग्री स्वचालित रूप से चुनी जाती है।
+इस उदाहरण में, घटक कारों की संख्या के आधार पर अपने आउटपुट को गतिशील रूप से समायोजित करता है। निर्दिष्ट श्रेणी के आधार पर सही सामग्री स्वचालित रूप से चुनी जाती है।
 
-## Important Notes
+## अतिरिक्त संसाधन
 
-- Intlayer enumerations में घोषणा का क्रम महत्वपूर्ण है। पहली मान्य घोषणा वही होगी जो उठाई जाएगी।
-- यदि एकाधिक शर्तें लागू होती हैं, तो अप्रत्याशित व्यवहार से बचने के लिए सुनिश्चित करें कि उन्हें सही क्रम में रखा गया है।
+अधिक विस्तृत जानकारी के लिए, निम्नलिखित संसाधनों को देखें:
 
-## Best Practices for Enumeration
+- [Intlayer CLI डाक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md)
+- [React Intlayer डाक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md)
+- [Next Intlayer डाक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md)
 
-यह सुनिश्चित करने के लिए कि आपकी enumerations अपेक्षित रूप से काम करे, इन सर्वोत्तम प्रथाओं का पालन करें:
+ये संसाधन विभिन्न वातावरणों और विभिन्न फ्रेमवर्क्स के साथ Intlayer की सेटअप और उपयोग के बारे में और अंतर्दृष्टि प्रदान करते हैं।
 
-- **सुसंगत नामकरण**: भ्रम से बचने के लिए enumeration मॉड्यूल के लिए स्पष्ट और सुसंगत IDs का उपयोग करें।
-- **दस्तावेज़ीकरण**: अपने enumeration कुंजी और उनके अपेक्षित आउटपुट का दस्तावेज़ीकरण करें ताकि भविष्य की रखरखाव सुनिश्चित हो सके।
-- **त्रुटि हैंडलिंग**: ऐसे मामलों को प्रबंधित करने के लिए त्रुटि हैंडलिंग लागू करें जहां कोई मान्य enumeration नहीं मिले।
-- **प्रदर्शन अनुकूलित करें**: बड़े अनुप्रयोगों के लिए, प्रदर्शन सुधारने के लिए देखे जाने वाले फ़ाइल एक्सटेंशनों की संख्या को कम करें।
+```
 
-## Additional Resources
-
-कॉन्फ़िगरेशन और उपयोग पर अधिक विस्तृत जानकारी के लिए, निम्नलिखित संसाधनों को देखें:
-
-- [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md)
-- [React Intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md)
-- [Next Intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md)
-
-ये संसाधन विभिन्न वातावरणों और विभिन्न ढाँचों के साथ Intlayer की सेटअप और उपयोग में आगे की जानकारी प्रदान करते हैं।
+```

@@ -62,8 +62,6 @@ export const findMatchingCondition = <Content>(
       return key as EnterFormat;
     }
   }
-
-  return '1';
 };
 
 /**
@@ -96,7 +94,8 @@ export const getEnumeration = <Content>(
   enumerationContent: EnumerationContentState<Content>,
   quantity: number
 ): Content => {
-  const key = findMatchingCondition<Content>(enumerationContent, quantity);
+  const key =
+    findMatchingCondition<Content>(enumerationContent, quantity) ?? 'fallback';
 
   // Default or error handling if no keys match
   return enumerationContent[key] as Content;
