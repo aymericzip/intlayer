@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type {
-  Plugins,
-  IInterpreterPluginState as IInterpreterPluginStateCore,
-  DeepTransformContent as DeepTransformContentCore,
+import {
+  type Plugins,
+  type IInterpreterPluginState as IInterpreterPluginStateCore,
+  type DeepTransformContent as DeepTransformContentCore,
+  type MarkdownContent,
+  NodeType,
 } from '@intlayer/core';
 import { type ReactElement, type ReactNode, createElement } from 'react';
-import { type IntlayerNode, renderIntlayerEditor } from './editor';
+import { renderIntlayerEditor } from './editor';
+import type { IntlayerNode } from './IntlayerNode';
+import { renderMarkdown } from './markdown/renderMarkdown';
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -100,13 +104,32 @@ export const reactNodePlugins: Plugins = {
   transform: createReactElement,
 };
 
+/**
+ * MARKDOWN PLUGIN
+ */
+
+export type MarkdownCond<T, _S> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.Markdown]: string;
+}
+  ? IntlayerNode<string>
+  : never;
+
+/** Markdown plugin. Replaces node with a function that takes quantity => string. */
+export const markdownPlugin: Plugins = {
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
+  transform: (node: MarkdownContent) => renderMarkdown(node[NodeType.Markdown]),
+};
+
 /** ---------------------------------------------
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
 export interface IInterpreterPluginReact<T, _S> {
-  intlayerNode: IntlayerNodeCond<T, _S>;
   reactNode: ReactNodeCond<T, _S>;
+  intlayerNode: IntlayerNodeCond<T, _S>;
+  markdown: MarkdownCond<T, _S>;
 }
 
 /**
@@ -115,8 +138,9 @@ export interface IInterpreterPluginReact<T, _S> {
  * Otherwise the the `react-intlayer` plugins will override the types of `intlayer` functions.
  */
 export type IInterpreterPluginState = IInterpreterPluginStateCore & {
-  intlayerNode: true;
   reactNode: true;
+  intlayerNode: true;
+  markdown: true;
 };
 
 export type DeepTransformContent<T> = DeepTransformContentCore<

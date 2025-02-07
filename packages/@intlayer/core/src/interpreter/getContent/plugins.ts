@@ -186,24 +186,6 @@ export const nestedPlugin: Plugins = {
 };
 
 /**
- * MARKDOWN PLUGIN
- */
-
-export type MarkdownCond<T, S> = T extends {
-  nodeType: NodeType | string;
-  [NodeType.Markdown]: object;
-}
-  ? DeepTransformContent<string, S>
-  : never;
-
-/** Markdown plugin. Replaces node with a function that takes quantity => string. */
-export const markdownPlugin: Plugins = {
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
-  transform: (node: MarkdownContent) => node[NodeType.Markdown],
-};
-
-/**
  * PLUGIN RESULT
  */
 
@@ -228,7 +210,6 @@ export interface IInterpreterPlugin<T, S> {
   translation: TranslationCond<T, S>;
   enumeration: EnumerationCond<T, S>;
   condition: ConditionCond<T, S>;
-  markdown: MarkdownCond<T, S>;
   nested: NestedCond<T, S>;
 }
 
@@ -239,7 +220,6 @@ export type IInterpreterPluginState = {
   translation: true;
   enumeration: true;
   condition: true;
-  markdown: true;
   nested: true;
 };
 

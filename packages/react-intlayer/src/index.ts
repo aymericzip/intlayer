@@ -20,4 +20,5 @@ export {
   useLocaleBase,
   t,
 } from './client/index';
-export { type IntlayerNode } from './editor/renderContentEditor';
+export { type IntlayerNode } from './IntlayerNode';
+export { MarkdownProvider } from './markdown/index';

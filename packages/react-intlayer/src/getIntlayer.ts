@@ -8,6 +8,7 @@ import {
 import {
   type DeepTransformContent,
   intlayerNodePlugins,
+  markdownPlugin,
   reactNodePlugins,
 } from './plugins';
 import type { IntlayerDictionaryTypesConnector, Locales } from 'intlayer';
@@ -23,6 +24,7 @@ export const getIntlayer = <
   const plugins: Plugins[] = [
     intlayerNodePlugins,
     reactNodePlugins,
+    markdownPlugin,
     ...(additionalPlugins ?? []),
   ];
 
