@@ -12,14 +12,6 @@ import type { NodeType } from '../../types/index';
 export type ConfigLocales = keyof IConfigLocales<unknown>;
 
 /**
- * If module augmented, it will return the configured locales such as Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH | ...
- * If not, it will return all available locales such as Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH | ...
- */
-export type CustomLocales = ConfigLocales extends never
-  ? LocalesValues
-  : ConfigLocales;
-
-/**
  * Record of locales and content
  *
  * const myVar1: LanguageContent<string> = {
@@ -64,8 +56,8 @@ export type TranslationContentState<Content = unknown> = Partial<
  *
  */
 export type LanguageContent<Content = string> = ConfigLocales extends never
-  ? IConfigLocales<Content>
-  : TranslationContentState<Content>;
+  ? TranslationContentState<Content>
+  : IConfigLocales<Content>;
 
 export type TranslationContent<Content = unknown> = {
   nodeType: NodeType.Translation;
