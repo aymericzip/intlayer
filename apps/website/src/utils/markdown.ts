@@ -21,22 +21,16 @@ const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
   [GithubRoutes.IntlayerWithViteReact]:
     PagesRoutes.Doc_Environment_ViteAndReact,
   [GithubRoutes.IntlayerWithExpress]: PagesRoutes.Doc_Environment_Express,
-  [GithubRoutes.ContentDeclaration_GetStarted]:
+  [GithubRoutes.Dictionary_GetStarted]: PagesRoutes.Doc_ContentDeclaration,
+  [GithubRoutes.Dictionary_ContentExtensionCustomization]:
     PagesRoutes.Doc_ContentDeclaration,
-  [GithubRoutes.ContentDeclaration_ContentExtensionCustomization]:
-    PagesRoutes.Doc_ContentDeclaration,
-  [GithubRoutes.ContentDeclaration_Enumeration]:
-    PagesRoutes.Doc_ContentDeclaration_Enumeration,
-  [GithubRoutes.ContentDeclaration_FunctionFetching]:
-    PagesRoutes.Doc_ContentDeclaration_FunctionFetching,
-  [GithubRoutes.ContentDeclaration_Translation]:
-    PagesRoutes.Doc_ContentDeclaration_Translation,
-  [GithubRoutes.ContentDeclaration_Markdown]:
-    PagesRoutes.Doc_ContentDeclaration_Markdown,
-  [GithubRoutes.ContentDeclaration_Condition]:
-    PagesRoutes.Doc_ContentDeclaration_Condition,
-  [GithubRoutes.ContentDeclaration_Nesting]:
-    PagesRoutes.Doc_ContentDeclaration_Nesting,
+  [GithubRoutes.Dictionary_Enumeration]: PagesRoutes.Doc_Dictionary_Enumeration,
+  [GithubRoutes.Dictionary_FunctionFetching]:
+    PagesRoutes.Doc_Dictionary_FunctionFetching,
+  [GithubRoutes.Dictionary_Translation]: PagesRoutes.Doc_Dictionary_Translation,
+  [GithubRoutes.Dictionary_Markdown]: PagesRoutes.Doc_Dictionary_Markdown,
+  [GithubRoutes.Dictionary_Condition]: PagesRoutes.Doc_Dictionary_Condition,
+  [GithubRoutes.Dictionary_Nesting]: PagesRoutes.Doc_Dictionary_Nesting,
   [GithubRoutes['Packages_intlayer']]: PagesRoutes['Doc_Packages_intlayer'],
   [GithubRoutes['Packages_intlayer_getConfiguration']]:
     PagesRoutes['Doc_Packages_intlayer_getConfiguration'],

@@ -7,7 +7,7 @@ export const getContentDeclarationGetStatedData = (
 ): DocData => ({
   docName: 'dictionary__get_started',
   url: PagesRoutes.Doc_ContentDeclaration,
-  githubUrl: GithubRoutes.ContentDeclaration_GetStarted,
+  githubUrl: GithubRoutes.Dictionary_GetStarted,
   createdAt: new Date('2024-08-11'),
   updatedAt: new Date('2024-08-11'),
   ...getIntlayer('doc-dictionary-metadata', locale),
