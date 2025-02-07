@@ -37,15 +37,16 @@ export type TypedNode<NodeType = never> =
   | MarkdownContent
   | NestedContent<DictionaryKeys>;
 
+export type BaseNode = string | number | bigint | boolean | null | undefined;
+
 export type FetchableContentNode<NodeType = ContentNode> = (
   args?: any
 ) => ContentNode<NodeType> | Promise<ContentNode<NodeType>>;
 
-export type ContentNode<NodeType = never, FetchableNode = false> =
+export type ContentNode<NodeType = BaseNode, FetchableNode = false> =
   | NodeType
   | TypedNode<NodeType>
-  | { [paramKey: string]: ContentNode<NodeType> }
-  | { [paramKey: number]: ContentNode<NodeType> }
+  | { [paramKey: string | number]: ContentNode<NodeType[keyof NodeType]> }
   | ((args?: any) => ContentNode<NodeType>)
   | (FetchableNode extends true ? FetchableContentNode<NodeType> : never);
 

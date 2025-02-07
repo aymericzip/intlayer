@@ -34,11 +34,11 @@ const nest: <K extends DictionaryKeys>(
   path?: ValidDotPathsFor<K>
 ) => NestedContent<K> = nestCore;
 
-type Dictionary<T = string> = DictionaryCore<T, true>;
+type Dictionary<T = undefined> = DictionaryCore<T, true>;
 /**
  * @deprecated Use `Dictionary<T>` instead.
  */
-type DeclarationContent<T = string> = Dictionary<T>;
+type DeclarationContent<T> = Dictionary<T>;
 
 export {
   Locales,
