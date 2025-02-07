@@ -43,7 +43,7 @@ export type FetchableContentNode<NodeType = ContentNode> = (
   args?: any
 ) => ContentNode<NodeType> | Promise<ContentNode<NodeType>>;
 
-export type ContentNode<NodeType = BaseNode, FetchableNode = false> =
+export type ContentNode<NodeType = never, FetchableNode = false> =
   | NodeType
   | TypedNode<NodeType>
   | { [paramKey: string | number]: ContentNode<NodeType[keyof NodeType]> }
@@ -75,6 +75,6 @@ export type Dictionary<NodeType = undefined, FetchableNode = false> = {
   filePath?: string;
   tags?: string[];
   content: NodeType extends undefined // Applying the generic to replace ContentValue with Replacement
-    ? ContentNode<never, FetchableNode>
+    ? ContentNode<any, FetchableNode>
     : ReplaceContentValue<NodeType>;
 };
