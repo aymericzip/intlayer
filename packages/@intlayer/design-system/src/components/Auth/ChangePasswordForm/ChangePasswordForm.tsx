@@ -53,22 +53,22 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         />
         <Form.InputPassword
           name="currentPassword"
-          label={currentPasswordInput.label}
-          placeholder={currentPasswordInput.placeholder}
+          label={currentPasswordInput.label.value}
+          placeholder={currentPasswordInput.placeholder.value}
           autoComplete="current-password"
           isRequired
         />
         <Form.InputPassword
           name="newPassword"
-          label={newPasswordInput.label}
-          placeholder={newPasswordInput.placeholder}
+          label={newPasswordInput.label.value}
+          placeholder={newPasswordInput.placeholder.value}
           autoComplete="new-password"
           isRequired
         />
         <Form.InputPassword
           name="newPasswordConfirmation"
-          label={confirmPasswordInput.label}
-          placeholder={confirmPasswordInput.placeholder}
+          label={confirmPasswordInput.label.value}
+          placeholder={confirmPasswordInput.placeholder.value}
           autoComplete="new-password"
           isRequired
         />
@@ -81,17 +81,17 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         isLoading={isSubmitting}
         disabled={!isValid}
         variant={isSubmitted ? 'outline' : 'default'}
-        label={changePasswordButton.ariaLabel}
+        label={changePasswordButton.ariaLabel.value}
       >
-        {changePasswordButton.text}
+        {changePasswordButton.text.value}
       </Form.Button>
       {isSubmitted && (
         <Form.Button
           className="mt-4 w-full"
-          label={backToHomeButton.ariaLabel}
+          label={backToHomeButton.ariaLabel.value}
           onClick={onClickBackToHome}
         >
-          {backToHomeButton.text}
+          {backToHomeButton.text.value}
         </Form.Button>
       )}
     </Form>

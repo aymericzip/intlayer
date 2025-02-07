@@ -29,7 +29,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
   return (
     <div
       className="border-text text-text dark:border-text-dark dark:text-text-dark rounded-xl border transition-colors"
-      aria-label={versionListLabel}
+      aria-label={versionListLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
@@ -54,7 +54,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
             border
             roundedSize="2xl"
             borderColor="text"
-            aria-label={versionSwitcherLabel}
+            aria-label={versionSwitcherLabel.value}
           >
             <ol className="divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed overflow-y-auto p-1">
               {availableVersions.reverse().map((version) => (

@@ -59,7 +59,7 @@ export const DictionaryEditionDrawerContent: FC<
         isOpen={keyPathEditionModal !== null}
         onClose={() => setKeyPathEditionModal(null)}
         hasCloseButton
-        title={modalTitle}
+        title={modalTitle.value}
         size="xl"
         transparency="lg"
       >
@@ -112,7 +112,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
       identifier={id}
       backButton={{
         onBack: handleOnBack,
-        text: backButtonText,
+        text: backButtonText.value,
       }}
       onClose={close}
     >

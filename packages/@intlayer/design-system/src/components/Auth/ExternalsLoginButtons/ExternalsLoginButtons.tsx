@@ -20,7 +20,7 @@ export const GitHubLoginButton: FC = () => {
 
   return (
     <Button
-      label={externalsLoginButtons.github.label}
+      label={externalsLoginButtons.github.label.value}
       Icon={GithubLogo}
       onClick={loginWithGitHub}
       color="text"
@@ -43,7 +43,7 @@ export const GoogleLoginButton: FC = () => {
   return (
     <Button
       className="bg-red-400 hover:bg-red-500 dark:hover:bg-red-300"
-      label={externalsLoginButtons.google.label}
+      label={externalsLoginButtons.google.label.value}
       Icon={GoogleLogo}
       onClick={loginWithGoogle}
       color="custom"

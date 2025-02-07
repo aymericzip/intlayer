@@ -86,7 +86,7 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
       </Loader>
       <Button
         disabled={!isEmailVerified}
-        label={doneButton.text}
+        label={doneButton.text.value}
         type="submit"
         color="text"
       >

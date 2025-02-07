@@ -36,7 +36,7 @@ export const CopyButton: FC<CopyButtonProps> = ({ content }) => {
       onClick={handleCopy}
       variant="hoverable"
       color="text"
-      label={label}
+      label={label.value}
       size="icon-sm"
     />
   );

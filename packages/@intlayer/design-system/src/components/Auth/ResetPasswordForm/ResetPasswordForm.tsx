@@ -77,8 +77,8 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
       return `${resendInText} ${submissionState.remainingTime}s`;
     }
     return isSubmitted
-      ? resendRecoveryEmailButton.text
-      : sendRecoveryEmailButton.text;
+      ? resendRecoveryEmailButton.text.value
+      : sendRecoveryEmailButton.text.value;
   };
 
   return (
@@ -92,8 +92,8 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
       <div className="flex flex-col gap-y-6">
         <Form.Input
           name="email"
-          label={emailInput.label}
-          placeholder={emailInput.placeholder}
+          label={emailInput.label.value}
+          placeholder={emailInput.placeholder.value}
           isRequired
           autoComplete="email"
           minLength={5}
@@ -108,17 +108,17 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
         isLoading={isSubmitting}
         disabled={!isValid || submissionState.isFrozen}
         variant={isSubmitted ? 'outline' : 'default'}
-        label={sendRecoveryEmailButton.ariaLabel}
+        label={sendRecoveryEmailButton.ariaLabel.value}
       >
         {getSubmitButtonText()}
       </Form.Button>
       {isSubmitted && (
         <Form.Button
           className="mt-4 w-full"
-          label={backToLoginButton.text}
+          label={backToLoginButton.text.value}
           onClick={onClickBackToLogin}
         >
-          {backToLoginButton.text}
+          {backToLoginButton.text.value}
         </Form.Button>
       )}
     </Form>

@@ -100,7 +100,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   return (
     <div
       className="border-text text-text dark:border-text-dark dark:text-text-dark rounded-xl border transition-colors"
-      aria-label={localeSwitcherLabel}
+      aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
@@ -121,12 +121,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
             separator="y"
             role="listbox"
             transparency="sm"
-            aria-label={languageListLabel}
+            aria-label={languageListLabel.value}
           >
             <div className="p-3">
               <Input
                 type="search"
-                placeholder={searchInput.placeholder}
+                placeholder={searchInput.placeholder.value}
                 onChange={(e) => handleSearch(e.target.value)}
                 ref={inputRef}
               />

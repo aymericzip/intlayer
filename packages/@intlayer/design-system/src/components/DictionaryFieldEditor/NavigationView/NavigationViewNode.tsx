@@ -179,7 +179,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     if (nodeType === NodeType.Array) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {(section as ContentNode[]).map((subSection, index) => {
+          {(section as unknown as ContentNode[]).map((subSection, index) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
               { type: NodeType.Array, key: index },
@@ -226,7 +226,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           })}
 
           <Button
-            label={addNewElement.label}
+            label={addNewElement.label.value}
             variant="hoverable"
             color="neutral"
             textAlign="left"
@@ -235,7 +235,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 ...keyPath,
                 {
                   type: NodeType.Array,
-                  key: (section as ContentNode[]).length,
+                  key: (section as unknown as ContentNode[]).length,
                 },
               ];
               addEditedContent(dictionaryKey, {}, newKeyPath, false);
@@ -299,7 +299,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
         })}
 
         <Button
-          label={addNewField.label}
+          label={addNewField.label.value}
           variant="hoverable"
           color="neutral"
           textAlign="left"

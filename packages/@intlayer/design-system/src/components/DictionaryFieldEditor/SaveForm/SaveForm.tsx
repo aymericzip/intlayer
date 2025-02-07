@@ -138,7 +138,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
     >
       <Form.Button
         type="button"
-        label={auditButton.label}
+        label={auditButton.label.value}
         disabled={isSubmitting}
         Icon={WandSparkles}
         variant="outline"
@@ -152,7 +152,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
       {isEdited && (
         <Form.Button
           type="button"
-          label={resetButton.label}
+          label={resetButton.label.value}
           disabled={!isEdited || isSubmitting}
           Icon={RotateCcw}
           variant="outline"
@@ -167,7 +167,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
         isLocalDictionary ? (
           <Form.Button
             type="submit"
-            label={publishButton.label}
+            label={publishButton.label.value}
             disabled={!isEdited || isSubmitting}
             Icon={ArrowUpFromLine}
             color="text"
@@ -180,7 +180,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
           isEdited && (
             <Form.Button
               type="submit"
-              label={saveButton.label}
+              label={saveButton.label.value}
               disabled={!isEdited || isSubmitting}
               Icon={Save}
               color="text"
@@ -194,7 +194,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
       ) : (
         <Form.Button
           type="submit"
-          label={downloadButton.label}
+          label={downloadButton.label.value}
           disabled={!isEdited || isSubmitting}
           Icon={Download}
           color="text"

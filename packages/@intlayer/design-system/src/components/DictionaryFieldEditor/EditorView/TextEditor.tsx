@@ -280,7 +280,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 
       <tfoot>
         <Button
-          label={addNewEnumeration.label}
+          label={addNewEnumeration.label.value}
           variant="hoverable"
           color="neutral"
           textAlign="left"
@@ -314,7 +314,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   return (
     <table className="w-full gap-2">
       <tbody className="divide-y-[1.5px]">
-        {(section as ContentNode[]).map((subSection, index) => (
+        {(section as unknown as ContentNode[]).map((subSection, index) => (
           <tr
             key={JSON.stringify(subSection)}
             className="border-text dark:border-text-dark w-full"
@@ -342,7 +342,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
       </tbody>
       <tfoot>
         <Button
-          label={addNewElement.label}
+          label={addNewElement.label.value}
           variant="hoverable"
           color="neutral"
           textAlign="left"
@@ -351,7 +351,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
               ...keyPath,
               {
                 type: NodeType.Array,
-                key: (section as ContentNode[]).length,
+                key: (section as unknown as ContentNode[]).length,
               },
             ];
             addEditedContent(dictionary.key, '', newKeyPath, false);

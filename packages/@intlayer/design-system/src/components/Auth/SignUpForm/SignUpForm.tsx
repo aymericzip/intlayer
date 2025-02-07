@@ -38,8 +38,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({
       <div className="flex flex-col gap-y-6">
         <Form.Input
           name="email"
-          label={emailInput.label}
-          placeholder={emailInput.placeholder}
+          label={emailInput.label.value}
+          placeholder={emailInput.placeholder.value}
           isRequired
           autoComplete="email"
           minLength={5}
@@ -48,16 +48,16 @@ export const SignUpForm: FC<SignUpFormProps> = ({
 
         <Form.InputPassword
           name="password"
-          label={passwordInput.label}
-          placeholder={passwordInput.placeholder}
+          label={passwordInput.label.value}
+          placeholder={passwordInput.placeholder.value}
           autoComplete="new-password"
           isRequired
         />
 
         <Form.InputPassword
           name="passwordConfirmation"
-          label={passwordConfirmationInput.label}
-          placeholder={passwordConfirmationInput.placeholder}
+          label={passwordConfirmationInput.label.value}
+          placeholder={passwordConfirmationInput.placeholder.value}
           autoComplete="new-password"
           isRequired
         />
@@ -68,7 +68,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         type="submit"
         color="text"
         isLoading={isSubmitting}
-        label={signUpButton.ariaLabel}
+        label={signUpButton.ariaLabel.value}
       >
         {signUpButton.text}
       </Form.Button>
@@ -77,7 +77,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         {loginLink.message}
         <Form.Button
           variant="link"
-          label={loginLink.ariaLabel}
+          label={loginLink.ariaLabel.value}
           color="text"
           onClick={onClickBackToSignIn}
         >

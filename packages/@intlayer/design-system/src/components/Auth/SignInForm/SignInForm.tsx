@@ -43,16 +43,16 @@ export const SignInForm: FC<SignInFormProps> = ({
         <div className="flex flex-col gap-y-6">
           <Form.Input
             name="email"
-            label={emailInput.label}
-            placeholder={emailInput.placeholder}
+            label={emailInput.label.value}
+            placeholder={emailInput.placeholder.value}
             isRequired
             autoComplete="email"
           />
 
           <Form.InputPassword
             name="password"
-            label={passwordInput.label}
-            placeholder={passwordInput.placeholder}
+            label={passwordInput.label.value}
+            placeholder={passwordInput.placeholder.value}
             isRequired
             autoComplete="current-password"
           />
@@ -61,7 +61,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         <Form.Button
           className="ml-auto mt-2 block"
           variant="link"
-          label={forgotPasswordLink.ariaLabel}
+          label={forgotPasswordLink.ariaLabel.value}
           color="text"
           size="sm"
           onClick={onClickForgotPassword}
@@ -74,7 +74,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           type="submit"
           color="text"
           isLoading={isSubmitting}
-          label={loginButton.ariaLabel}
+          label={loginButton.ariaLabel.value}
         >
           {loginButton.text}
         </Form.Button>
@@ -83,7 +83,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           {signUpLink.message}
           <Form.Button
             variant="link"
-            label={signUpLink.ariaLabel}
+            label={signUpLink.ariaLabel.value}
             color="text"
             size="sm"
             onClick={onClickSignUp}

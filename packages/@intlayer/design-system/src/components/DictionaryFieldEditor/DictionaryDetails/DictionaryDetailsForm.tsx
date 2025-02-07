@@ -11,6 +11,7 @@ import {
 } from '@intlayer/editor-react';
 import { ArrowUpFromLine, Download, Save, WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo } from 'react';
+// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import {
   useAuditContentDeclarationMetadata,
@@ -46,7 +47,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const { data: tags, isLoading: isLoadingTags } = useGetTags();
   const dictionaryValue = {
     ...dictionary,
-    publishedVersion: dictionary.publishedVersion ?? '-1',
+    version: dictionary.version ?? '-1',
   };
 
   const DictionaryDetailsSchema = useDictionaryDetailsSchema(
@@ -145,7 +146,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <Form.EditableFieldInput
           name="key"
           label={keyInput.label}
-          placeholder={keyInput.label}
+          placeholder={keyInput.label.value}
           description={keyInput.description}
           disabled={isSubmitting}
           isRequired
@@ -153,7 +154,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <Form.EditableFieldInput
           name="title"
           label={titleInput.label}
-          placeholder={titleInput.placeholder}
+          placeholder={titleInput.placeholder.value}
           description={titleInput.description}
           disabled={isSubmitting}
         />
@@ -161,15 +162,15 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       <Form.EditableFieldTextArea
         name="description"
         label={descriptionInput.label}
-        placeholder={descriptionInput.placeholder}
+        placeholder={descriptionInput.placeholder.value}
         description={descriptionInput.description}
         disabled={isSubmitting}
       />
       <div className="flex size-full flex-1 gap-8 max-md:flex-col">
         <Form.MultiSelect
           name="projectIds"
-          label={projectInput.label}
-          description={projectInput.description}
+          label={projectInput.label.value}
+          description={projectInput.description.value}
         >
           <MultiSelect.Trigger
             getBadgeValue={(value) =>
@@ -177,7 +178,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 ?.name ?? value
             }
           >
-            <MultiSelect.Input placeholder={projectInput.placeholder} />
+            <MultiSelect.Input placeholder={projectInput.placeholder.value} />
           </MultiSelect.Trigger>
           <MultiSelect.Content>
             <Loader isLoading={isLoadingProjects}>
@@ -197,8 +198,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
         <Form.MultiSelect
           name="tags"
-          label={tagsSelect.label}
-          description={tagsSelect.description}
+          label={tagsSelect.label.value}
+          description={tagsSelect.description.value}
         >
           <MultiSelect.Trigger
             getBadgeValue={(value) =>
@@ -206,7 +207,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 ?.name ?? value
             }
           >
-            <MultiSelect.Input placeholder={tagsSelect.placeholder} />
+            <MultiSelect.Input placeholder={tagsSelect.placeholder.value} />
           </MultiSelect.Trigger>
           <MultiSelect.Content>
             <Loader isLoading={isLoadingProjects}>
@@ -228,11 +229,13 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         <div className="flex size-full flex-1 gap-8 max-md:flex-col">
           <Form.Select
             name="publishedVersion"
-            description={publishedVersionSelect.description}
+            description={publishedVersionSelect.description.value}
             label={publishedVersionSelect.label}
           >
             <Select.Trigger>
-              <Select.Value placeholder={publishedVersionSelect.placeholder} />
+              <Select.Value
+                placeholder={publishedVersionSelect.placeholder.value}
+              />
             </Select.Trigger>
             <Select.Content>
               <Select.Item value="-1">LTS</Select.Item>
@@ -252,7 +255,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
         <Form.Button
           type="button"
-          label={auditButton.label}
+          label={auditButton.label.value}
           Icon={WandSparkles}
           variant="outline"
           color="text"
@@ -268,7 +271,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           isLocalDictionary ? (
             <Form.Button
               type="submit"
-              label={publishButton.label}
+              label={publishButton.label.value}
               disabled={isSubmitting || !isFormEdited || isLoading}
               Icon={ArrowUpFromLine}
               color="text"
@@ -281,7 +284,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             isEdited && (
               <Form.Button
                 type="submit"
-                label={saveButton.label}
+                label={saveButton.label.value}
                 disabled={isSubmitting || !isFormEdited || isLoading}
                 Icon={Save}
                 color="text"
@@ -295,7 +298,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         ) : (
           <Form.Button
             type="submit"
-            label={downloadButton.label}
+            label={downloadButton.label.value}
             disabled={isSubmitting || !isFormEdited || isLoading}
             Icon={Download}
             color="text"

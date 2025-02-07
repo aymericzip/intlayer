@@ -91,7 +91,7 @@ export const ValidDictionaryChangeButtons: FC<
         {isEdited && (
           <Form.Button
             type="button"
-            label={resetButton.label}
+            label={resetButton.label.value}
             disabled={!isEdited || isSubmitting}
             className="ml-auto"
             Icon={RotateCcw}
@@ -108,7 +108,7 @@ export const ValidDictionaryChangeButtons: FC<
           isLocalDictionary ? (
             <Form.Button
               type="submit"
-              label={publishButton.label}
+              label={publishButton.label.value}
               disabled={!isEdited || isSubmitting}
               Icon={ArrowUpFromLine}
               color="text"
@@ -121,7 +121,7 @@ export const ValidDictionaryChangeButtons: FC<
             isEdited && (
               <Form.Button
                 type="submit"
-                label={saveButton.label}
+                label={saveButton.label.value}
                 disabled={!isEdited || isSubmitting}
                 Icon={Save}
                 color="text"
@@ -135,7 +135,7 @@ export const ValidDictionaryChangeButtons: FC<
         ) : (
           <Form.Button
             type="submit"
-            label={downloadButton.label}
+            label={downloadButton.label.value}
             disabled={!isEdited || isSubmitting}
             Icon={Download}
             color="text"

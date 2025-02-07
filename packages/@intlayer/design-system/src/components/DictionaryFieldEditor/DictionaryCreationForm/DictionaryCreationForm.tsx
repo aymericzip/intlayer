@@ -39,19 +39,19 @@ export const DictionaryCreationForm: FC = () => {
     >
       <Form.Input
         name="key"
-        label={keyInput.label}
-        placeholder={keyInput.placeholder}
+        label={keyInput.label.value}
+        placeholder={keyInput.placeholder.value}
         isRequired
       />
 
-      <Form.MultiSelect name="projectIds" label={projectInput.label}>
+      <Form.MultiSelect name="projectIds" label={projectInput.label.value}>
         <MultiSelect.Trigger
           getBadgeValue={(value) =>
             projects?.data?.find((project) => String(project._id) === value)
               ?.name ?? value
           }
         >
-          <MultiSelect.Input placeholder={projectInput.placeholder} />
+          <MultiSelect.Input placeholder={projectInput.placeholder.value} />
         </MultiSelect.Trigger>
         <MultiSelect.Content>
           <MultiSelect.List>
@@ -72,7 +72,7 @@ export const DictionaryCreationForm: FC = () => {
         type="submit"
         color="text"
         isLoading={isSubmitting}
-        label={createDictionaryButton.ariaLabel}
+        label={createDictionaryButton.ariaLabel.value}
       >
         {createDictionaryButton.text}
       </Form.Button>

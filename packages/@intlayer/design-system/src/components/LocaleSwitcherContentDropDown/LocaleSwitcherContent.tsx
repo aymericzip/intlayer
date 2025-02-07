@@ -125,7 +125,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
   return (
     <div
       className="border-text text-text dark:border-text-dark dark:text-text-dark rounded-xl border transition-colors"
-      aria-label={localeSwitcherLabel}
+      aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
@@ -152,7 +152,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
             border
             roundedSize="2xl"
             borderColor="text"
-            aria-label={languageListLabel}
+            aria-label={languageListLabel.value}
           >
             {isMultilingual && (
               <div className="m-auto p-2">
@@ -164,11 +164,11 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                   className="!w-60"
                   choices={[
                     {
-                      content: seeAllLocalesSwitch.true,
+                      content: seeAllLocalesSwitch.true.value,
                       value: true,
                     },
                     {
-                      content: seeAllLocalesSwitch.false,
+                      content: seeAllLocalesSwitch.false.value,
                       value: false,
                     },
                   ]}
@@ -181,7 +181,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                 <div className="p-3">
                   <Input
                     type="search"
-                    placeholder={searchInput.placeholder}
+                    placeholder={searchInput.placeholder.value}
                     onChange={(e) => handleSearch(e.target.value)}
                     ref={inputRef}
                   />
