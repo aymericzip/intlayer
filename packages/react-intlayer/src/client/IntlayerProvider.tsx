@@ -83,16 +83,16 @@ const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
 
   return (
     <IntlayerClientContext.Provider value={value}>
-      <ChangedContentProvider>
-        <PoweredByMeta />
-        {children}
-      </ChangedContentProvider>
+      <PoweredByMeta />
+      {children}
     </IntlayerClientContext.Provider>
   );
 };
 
 export const IntlayerProvider: FC<IntlayerProviderProps> = (props) => (
-  <IntlayerEditorProvider>
-    <IntlayerProviderContent {...props} />
-  </IntlayerEditorProvider>
+  <ChangedContentProvider>
+    <IntlayerEditorProvider>
+      <IntlayerProviderContent {...props} />
+    </IntlayerEditorProvider>
+  </ChangedContentProvider>
 );
