@@ -1,6 +1,7 @@
 export {
   type IntlayerProviderProps,
   IntlayerClientContext,
+  IntlayerProviderContent,
   useIntlayerContext,
   IntlayerProvider,
 } from './IntlayerProvider';

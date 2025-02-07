@@ -16,6 +16,7 @@ import {
   HTMLAttributes,
 } from 'react';
 import { ContentSelector } from '../UI/ContentSelector';
+import { useIntlayerContext } from '../client';
 
 export type ContentSelectorWrapperProps = NodeProps &
   Omit<HTMLAttributes<HTMLDivElement>, 'content'>;
@@ -52,7 +53,7 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
         (focusedContent?.keyPath?.length ?? 0) > 0 &&
         isSameKeyPath(focusedContent?.keyPath ?? [], keyPath)) ??
       false,
-    [focusedContent, keyPath]
+    [focusedContent, keyPath, dictionaryKey]
   );
 
   useEffect(() => {
@@ -76,8 +77,9 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
   ...props
 }) => {
   const { enabled } = useEditorEnabled();
+  const { disableEditor } = useIntlayerContext();
 
-  if (enabled) {
+  if (enabled && !disableEditor) {
     return (
       <ContentSelectorWrapperContent {...props}>
         {children}

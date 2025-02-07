@@ -1,4 +1,5 @@
 import { type FC, useRef } from 'react';
+import { IntlayerProviderContent } from 'react-intlayer';
 import { useLocation } from 'react-router-dom';
 import { AppProvider } from './components/AppProvider';
 import { AppRouter } from './components/AppRouter';
@@ -12,12 +13,14 @@ const AppContent: FC = () => {
 
   return (
     <EditorProvider iframeRef={iframeRef}>
-      <EditorLayout>
-        <IframeController
-          iframeRef={iframeRef}
-          applicationPath={location.pathname}
-        />
-      </EditorLayout>
+      <IntlayerProviderContent disableEditor>
+        <EditorLayout>
+          <IframeController
+            iframeRef={iframeRef}
+            applicationPath={location.pathname}
+          />
+        </EditorLayout>
+      </IntlayerProviderContent>
     </EditorProvider>
   );
 };

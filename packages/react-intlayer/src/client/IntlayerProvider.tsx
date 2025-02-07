@@ -20,6 +20,7 @@ import { localeCookie, setLocaleCookie } from './useLocaleCookie';
 type IntlayerValue = {
   locale: Locales | `${Locales}`;
   setLocale: (newLocale: Locales | `${Locales}`) => void;
+  disableEditor?: boolean;
 };
 
 /**
@@ -28,6 +29,7 @@ type IntlayerValue = {
 export const IntlayerClientContext = createContext<IntlayerValue>({
   locale: localeCookie ?? getConfiguration().internationalization.defaultLocale,
   setLocale: () => null,
+  disableEditor: false,
 });
 
 /**
@@ -38,15 +40,17 @@ export const useIntlayerContext = () => useContext(IntlayerClientContext);
 export type IntlayerProviderProps = PropsWithChildren & {
   locale?: Locales | `${Locales}`;
   setLocale?: (locale: Locales | `${Locales}`) => void;
+  disableEditor?: boolean;
 };
 
 /**
  * Provider that store the current locale on the client side
  */
-const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
+export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   locale,
   children,
   setLocale: setLocaleProp,
+  disableEditor,
 }) => {
   const { internationalization } = getConfiguration();
   const { defaultLocale, locales: availableLocales } = internationalization;
@@ -68,7 +72,7 @@ const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
       setCurrentLocale(newLocale); // Update state
       setLocaleCookie(newLocale); // Optionally set cookie for persistence
     },
-    [availableLocales, currentLocale, locale]
+    [availableLocales, currentLocale, locale, setCurrentLocale]
   );
 
   const setLocale = useMemo(
@@ -77,8 +81,8 @@ const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   );
 
   const value: IntlayerValue = useMemo<IntlayerValue>(
-    () => ({ locale: currentLocale, setLocale }),
-    [currentLocale, setLocale]
+    () => ({ locale: currentLocale, setLocale, disableEditor }),
+    [currentLocale, setLocale, disableEditor]
   );
 
   return (

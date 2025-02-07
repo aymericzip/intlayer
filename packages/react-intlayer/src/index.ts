@@ -6,6 +6,7 @@ declare module '@intlayer/core' {
 
 export {
   IntlayerProvider,
+  IntlayerProviderContent,
   type IntlayerProviderProps,
   IntlayerClientContext,
   useIntlayer,
