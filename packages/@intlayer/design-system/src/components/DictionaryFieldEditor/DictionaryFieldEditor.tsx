@@ -4,7 +4,6 @@ import { Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { ArrowLeft } from 'lucide-react';
 import { useState, type FC } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../Button';
 import { Container } from '../Container';

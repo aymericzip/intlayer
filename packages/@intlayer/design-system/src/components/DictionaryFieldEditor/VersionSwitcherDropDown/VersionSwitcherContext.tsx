@@ -8,7 +8,6 @@ import {
   type SetStateAction,
   type FC,
 } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { usePersistedStore } from '../../../hooks';
 
 type VersionSwitcherContextProps = {

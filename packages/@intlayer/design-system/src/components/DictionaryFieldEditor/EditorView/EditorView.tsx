@@ -9,7 +9,6 @@ import {
 import { useFocusDictionary, useEditedContent } from '@intlayer/editor-react';
 import { RotateCcw, X } from 'lucide-react';
 import { useMemo, type FC } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import {
   camelCaseToSentence,

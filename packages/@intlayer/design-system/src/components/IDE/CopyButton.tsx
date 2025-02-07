@@ -2,7 +2,6 @@
 
 import { CopyCheckIcon, CopyIcon } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../Button';
 import { copyContentContent } from './CopyButton.content';

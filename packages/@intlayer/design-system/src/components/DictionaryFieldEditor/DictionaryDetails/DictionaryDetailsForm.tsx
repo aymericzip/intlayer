@@ -11,7 +11,6 @@ import {
 } from '@intlayer/editor-react';
 import { ArrowUpFromLine, Download, Save, WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import {
   useAuditContentDeclarationMetadata,

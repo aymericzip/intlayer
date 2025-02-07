@@ -9,7 +9,6 @@ export const packageBuildOrder = [
   'packages/@intlayer/editor-react',
   'packages/express-intlayer',
   'apps/backend',
-  'packages/@intlayer/design-system',
   'packages/@intlayer/cli',
   'packages/@intlayer/webpack',
   'packages/react-intlayer',
@@ -17,5 +16,6 @@ export const packageBuildOrder = [
   'packages/vite-intlayer',
   'packages/next-intlayer',
   'packages/intlayer-cli',
+  'packages/@intlayer/design-system',
   'packages/intlayer-editor',
 ];

@@ -5,7 +5,6 @@ import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
 import Fuse, { IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { useCallback, useMemo, useRef, useState, type FC } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../Button';
 import { Container } from '../Container';

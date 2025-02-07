@@ -3,7 +3,6 @@
 import { Locales } from '@intlayer/config/client';
 import { ChevronRightIcon } from 'lucide-react';
 import { Fragment, HTMLAttributes, type FC } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { Button, type ButtonProps } from '../Button';

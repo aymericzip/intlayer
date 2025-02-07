@@ -20,7 +20,6 @@ import {
   type ReactNode,
   type FC,
 } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';

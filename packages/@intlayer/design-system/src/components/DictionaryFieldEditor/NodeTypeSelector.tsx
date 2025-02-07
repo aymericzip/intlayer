@@ -11,7 +11,6 @@ import {
 } from '@intlayer/core';
 import { useEditedContentActions } from '@intlayer/editor-react';
 import { type FC, useEffect, useState } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { Select } from '../Select';
 import { nodeTypeSelectorContent } from './nodeTypeSelector.content';

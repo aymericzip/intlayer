@@ -1,4 +1,3 @@
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { z } from 'zod';
 import { useResetPasswordSchemaContent } from './useResetPasswordSchema.content';

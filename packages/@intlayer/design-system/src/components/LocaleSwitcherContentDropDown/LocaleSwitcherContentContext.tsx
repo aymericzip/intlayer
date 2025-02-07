@@ -9,7 +9,6 @@ import {
   type SetStateAction,
   type FC,
 } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useLocale } from 'react-intlayer';
 import { usePersistedStore } from '../../hooks';
 

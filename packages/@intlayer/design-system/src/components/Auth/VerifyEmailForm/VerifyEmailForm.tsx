@@ -2,7 +2,6 @@
 
 import { intlayerAPI } from '@intlayer/api';
 import { Check } from 'lucide-react';
-// @ts-ignore react-intlayer not build yet
 import { useEffect, useMemo, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../../Button';

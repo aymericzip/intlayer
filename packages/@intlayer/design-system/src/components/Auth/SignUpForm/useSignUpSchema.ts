@@ -1,4 +1,3 @@
-// @ts-ignore react-intlayer not build yet
 import { t, useDictionary } from 'react-intlayer';
 import { z } from 'zod';
 import { signUpSchemaContent } from './useSignUpSchema.content';

@@ -8,7 +8,6 @@ import {
 } from '@intlayer/editor-react';
 import { ArrowUpFromLine, Download, RotateCcw, Save } from 'lucide-react';
 import { useCallback, useMemo, type FC } from 'react';
-// @ts-ignore react-intlayer not build yet
 import { useDictionary } from 'react-intlayer';
 import { usePushDictionaries, useWriteDictionary } from '../../hooks';
 import { Form, useForm } from '../Form';
