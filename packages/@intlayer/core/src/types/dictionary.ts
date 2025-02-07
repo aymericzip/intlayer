@@ -47,7 +47,7 @@ export type FetchableContentNode<NodeType = ContentNode> = (
 export type ContentNode<NodeType = BaseNode, FetchableNode = false> =
   | NodeType
   | TypedNode<NodeType>
-  | { [paramKey: string | number]: ContentNode<NodeType[keyof NodeType]> }
+  | { [paramKey: string | number]: ContentNode }
   | ((args?: any) => ContentNode<NodeType>)
   | (FetchableNode extends true ? FetchableContentNode<NodeType> : never);
 
