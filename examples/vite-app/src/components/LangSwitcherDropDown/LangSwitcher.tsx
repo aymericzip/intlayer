@@ -1,6 +1,6 @@
 'use client';
 
-import { getLocaleName, getLocalizedUrl, Locales } from 'intlayer';
+import { getLocaleName, getLocalizedUrl } from 'intlayer';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import type { ButtonHTMLAttributes, FC } from 'react';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
@@ -26,17 +26,15 @@ export const LocaleSwitcher: FC = () => {
   const location = useLocation(); // Get the current URL path. Example: /fr/about
   const navigate = useNavigate();
 
-  const changeUrl = (locale: Locales) => {
-    // Construct the URL with the updated locale
-    // Example: /es/about
-    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
-
-    // Update the URL path
-    navigate(pathWithLocale);
-  };
-
   const { availableLocales, setLocale } = useLocale({
-    onLocaleChange: changeUrl,
+    onLocaleChange: (locale) => {
+      // Construct the URL with the updated locale
+      // Example: /es/about
+      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+      // Update the URL path
+      navigate(pathWithLocale);
+    },
   });
 
   const content = useIntlayer('lang-switcher');

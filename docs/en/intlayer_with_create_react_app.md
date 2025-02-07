@@ -721,17 +721,15 @@ const LocaleSwitcher: FC = () => {
   const location = useLocation(); // Get the current URL path. Example: /fr/about
   const navigate = useNavigate();
 
-  const changeUrl = (locale: Locales) => {
-    // Construct the URL with the updated locale
-    // Example: /es/about with the locale set to Spanish
-    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
-
-    // Update the URL path
-    navigate(pathWithLocale);
-  };
-
   const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: changeUrl,
+    onLocaleChange: (locale) => {
+      // Construct the URL with the updated locale
+      // Example: /es/about with the locale set to Spanish
+      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+      // Update the URL path
+      navigate(pathWithLocale);
+    },
   });
 
   return (
@@ -787,17 +785,15 @@ const LocaleSwitcher = () => {
   const location = useLocation(); // Get the current URL path. Example: /fr/about
   const navigate = useNavigate();
 
-  const changeUrl = (locale) => {
-    // Construct the URL with the updated locale
-    // Example: /es/about with the locale set to Spanish
-    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
-
-    // Update the URL path
-    navigate(pathWithLocale);
-  };
-
   const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: changeUrl,
+    onLocaleChange: (locale) => {
+      // Construct the URL with the updated locale
+      // Example: /es/about with the locale set to Spanish
+      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+      // Update the URL path
+      navigate(pathWithLocale);
+    },
   });
 
   return (
@@ -853,17 +849,15 @@ const LocaleSwitcher = () => {
   const location = useLocation(); // Get the current URL path. Example: /fr/about
   const navigate = useNavigate();
 
-  const changeUrl = (locale) => {
-    // Construct the URL with the updated locale
-    // Example: /es/about with the locale set to Spanish
-    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
-
-    // Update the URL path
-    navigate(pathWithLocale);
-  };
-
   const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: changeUrl,
+    onLocaleChange: (locale) => {
+      // Construct the URL with the updated locale
+      // Example: /es/about with the locale set to Spanish
+      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+      // Update the URL path
+      navigate(pathWithLocale);
+    },
   });
 
   return (

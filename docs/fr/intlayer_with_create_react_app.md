@@ -719,17 +719,15 @@ const LocaleSwitcher: FC = () => {
   const location = useLocation(); // Obtenez le chemin d'URL actuel. Exemple : /fr/about
   const navigate = useNavigate();
 
-  const changeUrl = (locale: Locales) => {
-    // Construire l'URL avec la locale mise à jour
-    // Exemple : /es/about avec la locale définie sur l'espagnol
-    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
-
-    // Mettre à jour le chemin d'URL
-    navigate(pathWithLocale);
-  };
-
   const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: changeUrl,
+    onLocaleChange: (locale) => {
+      // Construire l'URL avec la locale mise à jour
+      // Exemple : /es/about avec la locale définie sur l'espagnol
+      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+      // Mettre à jour le chemin d'URL
+      navigate(pathWithLocale);
+    },
   });
 
   return (
@@ -783,17 +781,15 @@ const LocaleSwitcher = () => {
   const location = useLocation(); // Obtenez le chemin d'URL actuel. Exemple : /fr/about
   const navigate = useNavigate();
 
-  const changeUrl = (locale) => {
-    // Construire l'URL avec la locale mise à jour
-    // Exemple : /es/about avec la locale définie sur l'espagnol
-    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
-
-    // Mettre à jour le chemin d'URL
-    navigate(pathWithLocale);
-  };
-
   const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: changeUrl,
+    onLocaleChange: (locale) => {
+      // Construire l'URL avec la locale mise à jour
+      // Exemple : /es/about avec la locale définie sur l'espagnol
+      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+      // Mettre à jour le chemin d'URL
+      navigate(pathWithLocale);
+    },
   });
 
   return (
@@ -847,17 +843,15 @@ const LocaleSwitcher = () => {
   const location = useLocation(); // Obtenez le chemin d'URL actuel. Exemple : /fr/about
   const navigate = useNavigate();
 
-  const changeUrl = (locale) => {
-    // Construire l'URL avec la locale mise à jour
-    // Exemple : /es/about avec la locale définie sur l'espagnol
-    const pathWithLocale = getLocalizedUrl(location.pathname, locale);
-
-    // Mettre à jour le chemin d'URL
-    navigate(pathWithLocale);
-  };
-
   const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: changeUrl,
+    onLocaleChange: (locale) => {
+      // Construire l'URL avec la locale mise à jour
+      // Exemple : /es/about avec la locale définie sur l'espagnol
+      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+
+      // Mettre à jour le chemin d'URL
+      navigate(pathWithLocale);
+    },
   });
 
   return (

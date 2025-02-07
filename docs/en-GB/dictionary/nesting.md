@@ -10,7 +10,7 @@ To set up nesting in your Intlayer project, you first define the base content th
 
 ### Base Dictionary
 
-Below is an example of a base dictionary with nested content:
+Below is an example of a base dictionary to nest in another dictionary:
 
 ```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
 import { type Dictionary } from "intlayer";

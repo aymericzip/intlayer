@@ -57,10 +57,10 @@ const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   );
 
   const setLocaleBase = useCallback(
-    (newLocale: Locales) => {
+    (newLocale: Locales | `${Locales}`) => {
       if (currentLocale.toString() === newLocale.toString()) return;
 
-      if (!availableLocales.includes(newLocale)) {
+      if (!availableLocales.map(String).includes(newLocale)) {
         console.error(`Locale ${locale} is not available`);
         return;
       }
