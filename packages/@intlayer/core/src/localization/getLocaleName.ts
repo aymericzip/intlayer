@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/config/client';
+import { Locales, type LocalesValues } from '@intlayer/config/client';
 import { arabicLocales } from './localeNames/ar';
 import { germanLocales } from './localeNames/du';
 import { englishLocales } from './localeNames/en';
@@ -15,7 +15,7 @@ import { chineseLocales } from './localeNames/zh';
 
 const localeNameTranslations: Record<
   Locales,
-  Record<Locales | `${Locales}`, string> | undefined
+  Record<LocalesValues, string> | undefined
 > = {
   [Locales.ENGLISH]: englishLocales,
   [Locales.ENGLISH_AUSTRALIA]: englishLocales,
@@ -259,8 +259,8 @@ const localeNameTranslations: Record<
  * If no targetLocale is provided, the displayLocale's own name is returned.
  */
 export const getLocaleName = (
-  displayLocale: Locales | `${Locales}`,
-  targetLocale?: Locales | `${Locales}`
+  displayLocale: LocalesValues,
+  targetLocale?: LocalesValues
 ): string => {
   if (!targetLocale) {
     // Fallback to the displayLocale's own name if targetLocale is not provided

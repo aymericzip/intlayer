@@ -11,12 +11,9 @@ import {
   markdownPlugin,
   reactNodePlugins,
 } from './plugins';
-import type { IntlayerDictionaryTypesConnector, Locales } from 'intlayer';
+import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
 
-export const getIntlayer = <
-  T extends DictionaryKeys,
-  L extends Locales | `${Locales}`,
->(
+export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
   locale?: L,
   additionalPlugins?: Plugins[]

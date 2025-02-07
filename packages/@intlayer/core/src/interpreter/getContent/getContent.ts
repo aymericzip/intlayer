@@ -1,4 +1,8 @@
-import { getConfiguration, type Locales } from '@intlayer/config/client';
+import {
+  getConfiguration,
+  type Locales,
+  type LocalesValues,
+} from '@intlayer/config/client';
 import type { ContentNode } from '../../types';
 import { deepTransformNode } from './deepTransform';
 import {
@@ -19,7 +23,7 @@ import {
  */
 export const getContent = <
   T extends ContentNode,
-  L extends Locales | `${Locales}` = Locales,
+  L extends LocalesValues = Locales,
 >(
   node: T,
   nodeProps: NodeProps,

@@ -1,6 +1,6 @@
 'use client';
 
-import { type Locales } from '@intlayer/config/client';
+import { type LocalesValues } from '@intlayer/config/client';
 import { getLocalizedUrl, getPathWithoutLocale } from '@intlayer/core';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { useCallback, useMemo } from 'react';
@@ -15,7 +15,7 @@ export const useLocale = () => {
   );
 
   const redirectionFunction = useCallback(
-    (locale: Locales | `${Locales}`) => {
+    (locale: LocalesValues) => {
       const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale);
 
       push(pathWithLocale);

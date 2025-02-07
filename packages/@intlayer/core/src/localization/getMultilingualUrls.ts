@@ -1,4 +1,4 @@
-import { getConfiguration, Locales } from '@intlayer/config/client';
+import { getConfiguration, type LocalesValues } from '@intlayer/config/client';
 // @ts-ignore intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
@@ -33,8 +33,8 @@ const { prefixDefault: prefixDefaultDefault } = middleware;
  */
 export const getMultilingualUrls = (
   url: string,
-  locales: (Locales | `${Locales}`)[] = localesDefault,
-  defaultLocale: Locales | `${Locales}` = defaultLocaleDefault,
+  locales: LocalesValues[] = localesDefault,
+  defaultLocale: LocalesValues = defaultLocaleDefault,
   prefixDefault: boolean = prefixDefaultDefault
 ): IConfigLocales<string> => {
   // Remove any existing locale segment from the URL

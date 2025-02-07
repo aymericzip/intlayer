@@ -1,6 +1,6 @@
 'use client';
 
-import { Locales } from 'intlayer';
+import type { LocalesValues } from 'intlayer';
 import {
   createContext,
   useContext,
@@ -13,9 +13,9 @@ import { useLocale } from 'react-intlayer';
 import { usePersistedStore } from '../../hooks';
 
 type LocaleSwitcherContentContextProps = {
-  availableLocales: Locales[];
-  selectedLocales: Locales[];
-  setSelectedLocales: Dispatch<SetStateAction<Locales[]>>;
+  availableLocales: LocalesValues[];
+  selectedLocales: LocalesValues[];
+  setSelectedLocales: Dispatch<SetStateAction<LocalesValues[]>>;
 };
 
 const LocaleSwitcherContentContext =
@@ -29,8 +29,8 @@ export const useLocaleSwitcherContent = () =>
   useContext(LocaleSwitcherContentContext);
 
 type LocaleSwitcherContentProviderProps = {
-  availableLocales: Locales[];
-  defaultSelectedLocales?: Locales[];
+  availableLocales: LocalesValues[];
+  defaultSelectedLocales?: LocalesValues[];
 };
 
 export const LocaleSwitcherContentProvider: FC<
@@ -38,7 +38,9 @@ export const LocaleSwitcherContentProvider: FC<
 > = ({ availableLocales, defaultSelectedLocales, children }) => {
   const { locale } = useLocale();
 
-  const [selectedLocales, setSelectedLocales] = usePersistedStore<Locales[]>(
+  const [selectedLocales, setSelectedLocales] = usePersistedStore<
+    LocalesValues[]
+  >(
     'locale-content-selector-selected-locales',
     defaultSelectedLocales ?? [locale]
   );

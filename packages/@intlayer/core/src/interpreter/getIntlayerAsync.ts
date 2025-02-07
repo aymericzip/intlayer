@@ -1,5 +1,5 @@
 import { fetchDistantDictionary } from '@intlayer/api';
-import type { Locales } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
 import { getDictionary } from './getDictionary';
 import type { DictionaryKeys } from '../types';
 import type { Plugins } from './getContent';
@@ -14,7 +14,7 @@ import type { Plugins } from './getContent';
  */
 export const getIntlayerAsync = async <
   T extends DictionaryKeys,
-  L extends Locales | `${Locales}`,
+  L extends LocalesValues,
 >(
   key: T,
   locale?: L,

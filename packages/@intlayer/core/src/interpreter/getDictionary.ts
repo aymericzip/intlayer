@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Locales } from '@intlayer/config/client';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 import type { Dictionary } from '../types';
 import { getContent } from './getContent/getContent';
 import type { Plugins, NodeProps, DeepTransformContent } from './getContent';
@@ -14,7 +14,7 @@ import type { Plugins, NodeProps, DeepTransformContent } from './getContent';
  */
 export const getDictionary = <
   T extends Dictionary,
-  L extends Locales | `${Locales}` = Locales,
+  L extends LocalesValues = Locales,
 >(
   dictionary: T,
   locale?: L,

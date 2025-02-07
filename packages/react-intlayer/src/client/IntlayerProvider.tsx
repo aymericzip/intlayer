@@ -1,16 +1,16 @@
 'use client';
 
-import { getConfiguration, type Locales } from '@intlayer/config/client';
+import { getConfiguration, type LocalesValues } from '@intlayer/config/client';
 import {
   ChangedContentProvider,
   useCrossFrameState,
 } from '@intlayer/editor-react';
 import {
+  type FC,
   type PropsWithChildren,
   createContext,
   useContext,
   useMemo,
-  type FC,
   useCallback,
 } from 'react';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
@@ -18,8 +18,8 @@ import { PoweredByMeta } from './PoweredByMeta';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
 
 type IntlayerValue = {
-  locale: Locales | `${Locales}`;
-  setLocale: (newLocale: Locales | `${Locales}`) => void;
+  locale: LocalesValues;
+  setLocale: (newLocale: LocalesValues) => void;
   disableEditor?: boolean;
 };
 
@@ -38,8 +38,8 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
 export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
 export type IntlayerProviderProps = PropsWithChildren & {
-  locale?: Locales | `${Locales}`;
-  setLocale?: (locale: Locales | `${Locales}`) => void;
+  locale?: LocalesValues;
+  setLocale?: (locale: LocalesValues) => void;
   disableEditor?: boolean;
 };
 
@@ -61,7 +61,7 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   );
 
   const setLocaleBase = useCallback(
-    (newLocale: Locales | `${Locales}`) => {
+    (newLocale: LocalesValues) => {
       if (currentLocale.toString() === newLocale.toString()) return;
 
       if (!availableLocales.map(String).includes(newLocale)) {

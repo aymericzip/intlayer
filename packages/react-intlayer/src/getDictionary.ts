@@ -10,11 +10,11 @@ import {
   markdownPlugin,
   reactNodePlugins,
 } from './plugins';
-import type { Locales } from '@intlayer/config/client';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 
 export const getDictionary = <
   T extends Dictionary,
-  L extends Locales | `${Locales}` = Locales,
+  L extends LocalesValues = Locales,
 >(
   dictionary: T,
   locale?: L,

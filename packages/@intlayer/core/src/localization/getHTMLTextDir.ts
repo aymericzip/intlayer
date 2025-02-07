@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/config/client';
+import { Locales, type LocalesValues } from '@intlayer/config/client';
 
 type Dir = 'ltr' | 'rtl' | 'auto';
 
@@ -15,7 +15,7 @@ type Dir = 'ltr' | 'rtl' | 'auto';
  * @param locale The locale to get the text direction for.
  * @returns The text direction of the given locale.
  */
-export const getHTMLTextDir = (locale?: Locales | `${Locales}`): Dir => {
+export const getHTMLTextDir = (locale?: LocalesValues): Dir => {
   switch (locale) {
     case Locales.ENGLISH:
     case Locales.FRENCH:

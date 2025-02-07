@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
 import { type Dictionary } from '@intlayer/core';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
@@ -11,11 +11,11 @@ import { getDictionary } from '../getDictionary';
  */
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,
-  locale?: Locales | `${Locales}`,
+  locale?: LocalesValues,
   isRenderEditor = false
 ) => {
   const localeTarget =
-    locale ?? getServerContext<Locales | `${Locales}`>(IntlayerServerContext);
+    locale ?? getServerContext<LocalesValues>(IntlayerServerContext);
 
   return getDictionary(dictionary, localeTarget);
 };

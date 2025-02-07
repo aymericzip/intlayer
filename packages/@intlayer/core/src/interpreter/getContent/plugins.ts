@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { Locales } from '@intlayer/config/client';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 
 import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import type {
   ConditionContent,
   EnumerationContent,
-  MarkdownContent,
   NestedContent,
   TranslationContent,
 } from '../../transpiler';
@@ -50,7 +49,7 @@ export type TranslationCond<T, S> = T extends {
   : never;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
-export const translationPlugin = (locale: Locales | `${Locales}`): Plugins => ({
+export const translationPlugin = (locale: LocalesValues): Plugins => ({
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
   transform: (node: TranslationContent, props, deepTransformNode) => {

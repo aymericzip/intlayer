@@ -1,10 +1,9 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import {
-  type Dictionary,
   type DictionaryKeys,
   getIntlayer,
   getIntlayerAsync,
@@ -20,7 +19,7 @@ import {
  */
 export const useIntlayerAsync = <T extends DictionaryKeys>(
   key: T,
-  locale?: Locales | `${Locales}`,
+  locale?: LocalesValues,
   isRenderEditor = true
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);

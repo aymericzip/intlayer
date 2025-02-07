@@ -1,4 +1,4 @@
-import { getConfiguration, Locales } from '@intlayer/config/client';
+import { getConfiguration, type LocalesValues } from '@intlayer/config/client';
 import { getMultilingualUrls } from './getMultilingualUrls';
 
 // Destructure necessary configurations
@@ -36,9 +36,9 @@ const { prefixDefault: prefixDefaultDefault } = middleware;
  */
 export const getLocalizedUrl = (
   url: string,
-  currentLocale: Locales | `${Locales}`,
-  locales: (Locales | `${Locales}`)[] = localesDefault,
-  defaultLocale: Locales | `${Locales}` = defaultLocaleDefault,
+  currentLocale: LocalesValues,
+  locales: LocalesValues[] = localesDefault,
+  defaultLocale: LocalesValues = defaultLocaleDefault,
   prefixDefault: boolean = prefixDefaultDefault
 ): string => {
   // Remove any existing locale segment from the URL

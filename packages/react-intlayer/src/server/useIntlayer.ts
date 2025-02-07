@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 import { type DictionaryKeys } from '@intlayer/core';
@@ -9,16 +9,13 @@ import { getIntlayer } from '../getIntlayer';
  *
  * If the locale is not provided, it will use the locale from the server context
  */
-export const useIntlayer = <
-  T extends DictionaryKeys,
-  K extends Locales | `${Locales}`,
->(
+export const useIntlayer = <T extends DictionaryKeys, K extends LocalesValues>(
   key: T,
   locale?: K,
   isRenderEditor = true
 ) => {
   const localeTarget =
-    locale ?? getServerContext<Locales | `${Locales}`>(IntlayerServerContext);
+    locale ?? getServerContext<LocalesValues>(IntlayerServerContext);
 
   return getIntlayer(key, localeTarget);
 };

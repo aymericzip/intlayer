@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Locales } from '@intlayer/config';
+import type { LocalesValues } from '@intlayer/config';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
@@ -12,10 +12,7 @@ import { getDictionary } from './getDictionary';
 import { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { DeepTransformContent, Plugins } from './getContent/plugins';
 
-export const getIntlayer = <
-  T extends DictionaryKeys,
-  L extends Locales | `${Locales}`,
->(
+export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
   locale?: L,
   plugins?: Plugins[]

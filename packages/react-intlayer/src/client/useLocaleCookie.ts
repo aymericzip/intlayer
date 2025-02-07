@@ -1,4 +1,4 @@
-import { type Locales, getConfiguration } from '@intlayer/config/client';
+import { type LocalesValues, getConfiguration } from '@intlayer/config/client';
 import Cookies from 'js-cookie';
 
 const { cookieName } = getConfiguration().middleware;
@@ -15,14 +15,13 @@ const cookieAttributes: Cookies.CookieAttributes = {
  * Get the locale cookie
  */
 export const localeCookie = Cookies.get(cookieName) as unknown as
-  | Locales
-  | `${Locales}`
+  | LocalesValues
   | undefined;
 
 /**
  * Set the locale cookie
  */
-export const setLocaleCookie = (locale: Locales | `${Locales}`) => {
+export const setLocaleCookie = (locale: LocalesValues) => {
   Cookies.set(cookieName, locale, cookieAttributes);
 };
 
