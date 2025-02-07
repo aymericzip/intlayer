@@ -27,6 +27,7 @@ export const getDictionary = <
     plugins,
   };
 
+  // @ts-ignore
   return getContent(
     dictionary.content,
     props,
