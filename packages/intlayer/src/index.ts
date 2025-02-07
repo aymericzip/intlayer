@@ -38,7 +38,7 @@ type Dictionary<T = undefined> = DictionaryCore<T, true>;
 /**
  * @deprecated Use `Dictionary<T>` instead.
  */
-type DeclarationContent<T> = Dictionary<T>;
+type DeclarationContent<T = undefined> = Dictionary<T>;
 
 export {
   Locales,
