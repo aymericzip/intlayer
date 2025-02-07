@@ -93,9 +93,11 @@ app.use(express.json({ limit: '50mb' }));
 // Parse incoming requests with urlencoded payloads
 app.use(express.urlencoded({ extended: true }));
 
+const whitelist = [process.env.CLIENT_URL!];
+
 // CORS
 const corsOptions: CorsOptions = {
-  origin: '*',
+  origin: whitelist,
   allowedHeaders: [
     'authorization',
     'Content-Type',
@@ -106,10 +108,10 @@ const corsOptions: CorsOptions = {
     'private-state-token-issuance',
     'browsing-topics',
   ],
-
   exposedHeaders: [''],
   preflightContinue: false,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
 };
 app.use(cors(corsOptions));
 

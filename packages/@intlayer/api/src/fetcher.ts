@@ -27,6 +27,7 @@ export const fetcherOptions: FetcherOptions = {
   headers: {
     'Content-Type': 'application/json', // Default content type
   },
+  credentials: 'include',
 };
 
 /**
