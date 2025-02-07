@@ -79,13 +79,18 @@ const chunkText = (text: string): string[] => {
  * @returns The embedding vector as a number array
  */
 const generateEmbedding = async (text: string): Promise<number[]> => {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  const response = await openai.embeddings.create({
-    model: EMBEDDING_MODEL, // Specify the embedding model
-    input: text,
-  });
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const response = await openai.embeddings.create({
+      model: EMBEDDING_MODEL, // Specify the embedding model
+      input: text,
+    });
 
-  return response.data[0].embedding; // Return the generated embedding
+    return response.data[0].embedding; // Return the generated embedding
+  } catch (error) {
+    console.error('Error generating embedding:', error);
+    return [];
+  }
 };
 
 /**
