@@ -6,10 +6,11 @@ import {
   type MarkdownContent,
   NodeType,
 } from '@intlayer/core';
-import { type ReactElement, type ReactNode, createElement } from 'react';
+import type { ReactNode } from 'react';
 import { renderIntlayerEditor } from './editor';
 import type { IntlayerNode } from './IntlayerNode';
 import { renderMarkdown } from './markdown/renderMarkdown';
+import { renderReactElement } from './reactElement/renderReactElement';
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -46,53 +47,6 @@ export type ReactNodeCond<T, _S> = T extends {
   ? ReactNode
   : never;
 
-// This function recursively creates React elements from a given JSON-like structure
-const createReactElement = (element: ReactElement) => {
-  if (typeof element === 'string') {
-    // If it's a string, simply return it (used for text content)
-    return element;
-  }
-
-  const convertChildrenAsArray = (
-    element: ReactElement<{ children?: ReactNode }>
-  ): ReactElement<{ children?: ReactNode }> => {
-    if (element?.props && typeof element.props.children === 'object') {
-      const childrenResult: ReactNode[] = [];
-      const { children } = element.props;
-
-      // Create the children elements recursively, if any
-      Object.keys(children ?? {}).forEach((key) => {
-        childrenResult.push(
-          createReactElement((children ?? {})[key as keyof typeof children])
-        );
-      });
-
-      return {
-        ...element,
-        props: { ...element.props, children: childrenResult },
-      };
-    }
-
-    return {
-      ...element,
-      props: { ...element.props, children: element.props.children },
-    };
-  };
-
-  const fixedElement = convertChildrenAsArray(
-    element as ReactElement<{ children?: ReactNode }>
-  );
-
-  const { type, props } = fixedElement;
-
-  // Create and return the React element
-  return createElement(
-    type ?? 'div',
-    props,
-    ...(props.children as ReactNode[])
-  );
-};
-
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const reactNodePlugins: Plugins = {
   canHandle: (node) =>
@@ -101,7 +55,7 @@ export const reactNodePlugins: Plugins = {
     typeof node.props !== 'undefined' &&
     typeof node.key !== 'undefined',
 
-  transform: createReactElement,
+  transform: renderReactElement,
 };
 
 /**
