@@ -24,7 +24,7 @@ export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   }
 
   return getDictionary(
-    dictionary as unknown as Dictionary,
+    dictionary as unknown as Dictionary<unknown, false>,
     locale,
     plugins
   ) as any as DeepTransformContent<

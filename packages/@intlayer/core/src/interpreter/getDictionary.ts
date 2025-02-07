@@ -13,7 +13,7 @@ import type { Plugins, NodeProps, DeepTransformContent } from './getContent';
  *                      If omitted, we’ll use a default set of plugins.
  */
 export const getDictionary = <
-  T extends Dictionary,
+  T extends Dictionary<unknown, false>,
   L extends LocalesValues = Locales,
 >(
   dictionary: T,
