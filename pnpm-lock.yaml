@@ -2064,6 +2064,9 @@ importers:
       node-loader:
         specifier: ^2.1.0
         version: 2.1.0(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15)))
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
       webpack:
         specifier: ^5.97.1
         version: 5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))
