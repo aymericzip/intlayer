@@ -1,8 +1,8 @@
-# الوثائق: دالة `getTranslationContent` في `intlayer`
+# الوثائق: دالة `getTranslation` في `intlayer`
 
 ## الوصف:
 
-تسترد دالة `getTranslationContent` المحتوى المقابل لبيئة معينة من مجموعة محتوى لغوي قابلة للتخصيص. إذا لم يتم العثور على البيئة المحددة، فإنها ترجع بشكل افتراضي المحتوى لبيئة اللغة الافتراضية المكونة في المشروع.
+تسترد دالة `getTranslation` المحتوى المقابل لبيئة معينة من مجموعة محتوى لغوي قابلة للتخصيص. إذا لم يتم العثور على البيئة المحددة، فإنها ترجع بشكل افتراضي المحتوى لبيئة اللغة الافتراضية المكونة في المشروع.
 
 ## المعلمات:
 
@@ -27,9 +27,9 @@
 ### الاستخدام الأساسي:
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -41,9 +41,9 @@ console.log(content); // الإخراج: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -55,9 +55,9 @@ console.log(content); // الإخراج: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -71,9 +71,9 @@ console.log(content); // الإخراج: "Bonjour"
 ### بيئة مفقودة:
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -85,9 +85,9 @@ console.log(content); // الإخراج: "Hello" (محتوى البيئة الا
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -99,9 +99,9 @@ console.log(content); // الإخراج: "Hello" (محتوى البيئة الا
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -115,9 +115,9 @@ console.log(content); // الإخراج: "Hello" (محتوى البيئة الا
 ### استخدام أنواع المحتوى المخصصة:
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
@@ -129,9 +129,9 @@ console.log(customContent.greeting); // الإخراج: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
@@ -143,9 +143,9 @@ console.log(customContent.greeting); // الإخراج: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },

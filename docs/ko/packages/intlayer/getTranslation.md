@@ -1,8 +1,8 @@
-# Documentation: `getTranslationContent` Function in `intlayer`
+# Documentation: `getTranslation` Function in `intlayer`
 
 ## Description
 
-`getTranslationContent` 함수는 사용자 정의 언어 콘텐츠 집합에서 특정 로케일에 해당하는 콘텐츠를 검색합니다. 지정된 로케일이 발견되지 않으면 프로젝트에 구성된 기본 로케일의 콘텐츠를 반환하도록 기본값이 설정됩니다.
+`getTranslation` 함수는 사용자 정의 언어 콘텐츠 집합에서 특정 로케일에 해당하는 콘텐츠를 검색합니다. 지정된 로케일이 발견되지 않으면 프로젝트에 구성된 기본 로케일의 콘텐츠를 반환하도록 기본값이 설정됩니다.
 
 ## Parameters
 
@@ -27,9 +27,9 @@
 ### Basic Usage
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -41,9 +41,9 @@ console.log(content); // Output: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -55,9 +55,9 @@ console.log(content); // Output: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -71,9 +71,9 @@ console.log(content); // Output: "Bonjour"
 ### Missing Locale:
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -85,9 +85,9 @@ console.log(content); // Output: "Hello" (default locale content)
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -99,9 +99,9 @@ console.log(content); // Output: "Hello" (default locale content)
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -115,9 +115,9 @@ console.log(content); // Output: "Hello" (default locale content)
 ### Using Custom Content Types:
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
@@ -129,9 +129,9 @@ console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
@@ -143,9 +143,9 @@ console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },

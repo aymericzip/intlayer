@@ -1,8 +1,8 @@
-# Dokumentation: `getTranslationContent` Funktion in `intlayer`
+# Dokumentation: `getTranslation` Funktion in `intlayer`
 
 ## Beschreibung:
 
-Die `getTranslationContent` Funktion ruft den Inhalt ab, der einem bestimmten Locale aus einer Reihe von anpassbaren Sprachinhalten entspricht. Wenn das angegebene Locale nicht gefunden wird, gibt es standardmäßig den Inhalt für das im Projekt konfigurierte Standardlocale zurück.
+Die `getTranslation` Funktion ruft den Inhalt ab, der einem bestimmten Locale aus einer Reihe von anpassbaren Sprachinhalten entspricht. Wenn das angegebene Locale nicht gefunden wird, gibt es standardmäßig den Inhalt für das im Projekt konfigurierte Standardlocale zurück.
 
 ## Parameter:
 
@@ -27,9 +27,9 @@ Die `getTranslationContent` Funktion ruft den Inhalt ab, der einem bestimmten Lo
 ### Grundlegende Verwendung:
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     de: "Hallo",
     fr: "Bonjour",
@@ -41,9 +41,9 @@ console.log(content); // Ausgabe: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     de: "Hallo",
     fr: "Bonjour",
@@ -55,9 +55,9 @@ console.log(content); // Ausgabe: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     de: "Hallo",
     fr: "Bonjour",
@@ -71,9 +71,9 @@ console.log(content); // Ausgabe: "Bonjour"
 ### Fehlendes Locale:
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     de: "Hallo",
     fr: "Bonjour",
@@ -85,9 +85,9 @@ console.log(content); // Ausgabe: "Hallo" (Inhalt des Standardlocales)
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     de: "Hallo",
     fr: "Bonjour",
@@ -99,9 +99,9 @@ console.log(content); // Ausgabe: "Hallo" (Inhalt des Standardlocales)
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const content = getTranslationContent(
+const content = getTranslation(
   {
     de: "Hallo",
     fr: "Bonjour",
@@ -115,9 +115,9 @@ console.log(content); // Ausgabe: "Hallo" (Inhalt des Standardlocales)
 ### Verwendung benutzerdefinierter Inhaltstypen:
 
 ```typescript codeFormat="typescript"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     de: { greeting: "Hallo" },
     fr: { greeting: "Bonjour" },
@@ -129,9 +129,9 @@ console.log(customContent.greeting); // Ausgabe: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
+import { getTranslation, Locales } from "intlayer";
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     de: { greeting: "Hallo" },
     fr: { greeting: "Bonjour" },
@@ -143,9 +143,9 @@ console.log(customContent.greeting); // Ausgabe: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
+const { getTranslation, Locales } = require("intlayer");
 
-const customContent = getTranslationContent<Record<string, string>>(
+const customContent = getTranslation<Record<string, string>>(
   {
     de: { greeting: "Hallo" },
     fr: { greeting: "Bonjour" },
