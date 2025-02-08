@@ -79,6 +79,9 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   - [Declare Your Content](https://intlayer.org/doc/concept/content)
   - [Translation](https://intlayer.org/doc/concept/content/translation)
   - [Enumeration](https://intlayer.org/doc/concept/content/enumeration)
+  - [Condition](https://intlayer.org/doc/concept/content/condition)
+  - [Nesting](https://intlayer.org/doc/concept/content/nesting)
+  - [Markdown](https://intlayer.org/doc/concept/content/markdown)
   - [Function Fetching](https://intlayer.org/doc/concept/content/function-fetching)
 
 ### Environment
