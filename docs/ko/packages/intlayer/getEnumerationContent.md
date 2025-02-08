@@ -1,8 +1,8 @@
-# Documentation: `getEnumerationContent` Function in `intlayer`
+# Documentation: `getEnumeration` Function in `intlayer`
 
 ## 설명:
 
-`getEnumerationContent` 함수는 열거 객체의 미리 정의된 조건에 따라 특정 수량에 해당하는 콘텐츠를 검색합니다. 조건은 키로 정의되며, 그 우선 순위는 객체 내에서의 순서에 의해 결정됩니다.
+`getEnumeration` 함수는 열거 객체의 미리 정의된 조건에 따라 특정 수량에 해당하는 콘텐츠를 검색합니다. 조건은 키로 정의되며, 그 우선 순위는 객체 내에서의 순서에 의해 결정됩니다.
 
 ## 매개변수:
 
@@ -27,9 +27,9 @@
 ### 기본 사용법:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<=-2.3": "당신은 -2.3보다 적습니다.",
     "<1": "당신은 하나보다 적습니다.",
@@ -43,9 +43,9 @@ console.log(content); // 출력: "당신은 두 개를 가지고 있습니다."
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "당신은 하나보다 적습니다.",
     "2": "당신은 두 개를 가지고 있습니다.",
@@ -58,9 +58,9 @@ console.log(content); // 출력: "당신은 두 개를 가지고 있습니다."
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "당신은 하나보다 적습니다.",
     "2": "당신은 두 개를 가지고 있습니다.",
@@ -75,9 +75,9 @@ console.log(content); // 출력: "당신은 두 개를 가지고 있습니다."
 ### 조건의 우선 순위:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "당신은 네 개보다 적습니다.",
     "2": "당신은 두 개를 가지고 있습니다.",
@@ -89,9 +89,9 @@ console.log(content); // 출력: "당신은 네 개보다 적습니다."
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "당신은 네 개보다 적습니다.",
     "2": "당신은 두 개를 가지고 있습니다.",
@@ -103,9 +103,9 @@ console.log(content); // 출력: "당신은 네 개보다 적습니다."
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "당신은 네 개보다 적습니다.",
     "2": "당신은 두 개를 가지고 있습니다.",

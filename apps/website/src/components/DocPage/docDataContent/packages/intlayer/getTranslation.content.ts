@@ -2,44 +2,44 @@ import { t, type Dictionary } from 'intlayer';
 import { type Metadata } from 'next';
 
 const docContent = {
-  key: 'doc-getTranslationContent-intlayer-metadata',
+  key: 'doc-getTranslation-intlayer-metadata',
   content: {
     title: t({
-      en: 'getTranslationContent Function Documentation | intlayer',
-      'en-GB': 'getTranslationContent Function Documentation | intlayer',
-      fr: 'Documentation de la fonction getTranslationContent | intlayer',
-      es: 'Documentación de la función getTranslationContent | intlayer',
+      en: 'getTranslation Function Documentation | intlayer',
+      'en-GB': 'getTranslation Function Documentation | intlayer',
+      fr: 'Documentation de la fonction getTranslation | intlayer',
+      es: 'Documentación de la función getTranslation | intlayer',
       de: 'Dokumentation der t-Funktion | intlayer',
       ja: 't関数のドキュメント | intlayer',
-      ko: 'getTranslationContent 함수 문서 | intlayer',
+      ko: 'getTranslation 함수 문서 | intlayer',
       zh: 't函数文档 | intlayer',
-      it: 'Documentazione della funzione getTranslationContent | intlayer',
-      pt: 'Documentação da função getTranslationContent | intlayer',
-      hi: 'getTranslationContent फ़ंक्शन प्रलेखन | intlayer',
-      ar: 'وثائق دالة getTranslationContent | intlayer',
-      ru: 'Документация функции getTranslationContent | intlayer',
+      it: 'Documentazione della funzione getTranslation | intlayer',
+      pt: 'Documentação da função getTranslation | intlayer',
+      hi: 'getTranslation फ़ंक्शन प्रलेखन | intlayer',
+      ar: 'وثائق دالة getTranslation | intlayer',
+      ru: 'Документация функции getTranslation | intlayer',
     }),
 
     description: t({
-      en: 'See how to use the getTranslationContent function for intlayer package',
+      en: 'See how to use the getTranslation function for intlayer package',
       'en-GB':
-        'See how to use the getTranslationContent function for intlayer package',
-      fr: 'Découvrez commengetTranslationContent utiliser la fonction getTranslationContent pour le package intlayer',
-      es: 'Descubre cómo usar la función getTranslationContent para el paquete intlayer',
-      de: 'Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetTranslationContent verwenden',
+        'See how to use the getTranslation function for intlayer package',
+      fr: 'Découvrez commengetTranslation utiliser la fonction getTranslation pour le package intlayer',
+      es: 'Descubre cómo usar la función getTranslation para el paquete intlayer',
+      de: 'Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetTranslation verwenden',
       ja: 'intlayerパッケージのt関数の使用方法を確認してください',
-      ko: 'intlayer 패키지의 getTranslationContent 함수 사용 방법을 확인하세요',
-      zh: '查看如何使用 intlayer 软件包的 getTranslationContent 函数',
-      it: 'Scopri come utilizzare la funzione getTranslationContent per il pacchetto intlayer',
-      pt: 'Veja como usar a função getTranslationContent para o pacote intlayer',
-      hi: 'intlayer पैकेज के लिए getTranslationContent फ़ंक्शन का उपयोग कैसे करें, यह जानें',
-      ar: 'انظر كيف تستخدم دالة getTranslationContent لحزمة intlayer',
-      ru: 'Узнайте, как использовать функцию getTranslationContent для пакета intlayer',
+      ko: 'intlayer 패키지의 getTranslation 함수 사용 방법을 확인하세요',
+      zh: '查看如何使用 intlayer 软件包的 getTranslation 函数',
+      it: 'Scopri come utilizzare la funzione getTranslation per il pacchetto intlayer',
+      pt: 'Veja como usar a função getTranslation para o pacote intlayer',
+      hi: 'intlayer पैकेज के लिए getTranslation फ़ंक्शन का उपयोग कैसे करें, यह जानें',
+      ar: 'انظر كيف تستخدم دالة getTranslation لحزمة intlayer',
+      ru: 'Узнайте, как использовать функцию getTranslation для пакета intlayer',
     }),
 
     keywords: t({
       en: [
-        'getTranslationContent',
+        'getTranslation',
         'translation',
         'Intlayer',
         'intlayer',
@@ -50,7 +50,7 @@ const docContent = {
         'React',
       ],
       'en-GB': [
-        'getTranslationContent',
+        'getTranslation',
         'translation',
         'Intlayer',
         'intlayer',
@@ -61,7 +61,7 @@ const docContent = {
         'React',
       ],
       fr: [
-        'getTranslationContent',
+        'getTranslation',
         'traduction',
         'Intlayer',
         'intlayer',
@@ -72,7 +72,7 @@ const docContent = {
         'React',
       ],
       es: [
-        'getTranslationContent',
+        'getTranslation',
         'traducción',
         'Intlayer',
         'intlayer',
@@ -83,7 +83,7 @@ const docContent = {
         'React',
       ],
       de: [
-        'getTranslationContent',
+        'getTranslation',
         'Übersetzung',
         'Intlayer',
         'intlayer',
@@ -94,7 +94,7 @@ const docContent = {
         'React',
       ],
       ja: [
-        'getTranslationContent',
+        'getTranslation',
         '翻訳',
         'Intlayer',
         'intlayer',
@@ -105,7 +105,7 @@ const docContent = {
         'React',
       ],
       ko: [
-        'getTranslationContent',
+        'getTranslation',
         '번역',
         'Intlayer',
         'intlayer',
@@ -116,7 +116,7 @@ const docContent = {
         'React',
       ],
       zh: [
-        'getTranslationContent',
+        'getTranslation',
         '翻译',
         'Intlayer',
         'intlayer',
@@ -127,7 +127,7 @@ const docContent = {
         'React',
       ],
       it: [
-        'getTranslationContent',
+        'getTranslation',
         'traduzione',
         'Intlayer',
         'intlayer',
@@ -138,7 +138,7 @@ const docContent = {
         'React',
       ],
       pt: [
-        'getTranslationContent',
+        'getTranslation',
         'tradução',
         'Intlayer',
         'intlayer',
@@ -149,7 +149,7 @@ const docContent = {
         'React',
       ],
       hi: [
-        'getTranslationContent',
+        'getTranslation',
         'अनुवाद',
         'Intlayer',
         'intlayer',
@@ -160,7 +160,7 @@ const docContent = {
         'React',
       ],
       ar: [
-        'getTranslationContent',
+        'getTranslation',
         'ترجمة',
         'Intlayer',
         'intlayer',
@@ -171,7 +171,7 @@ const docContent = {
         'React',
       ],
       ru: [
-        'getTranslationContent',
+        'getTranslation',
         'перевод',
         'Intlayer',
         'intlayer',

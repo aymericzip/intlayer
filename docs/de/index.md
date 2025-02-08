@@ -75,8 +75,8 @@ Kern-Dienstprogrammfunktionen zur Konfiguration und Verwaltung Ihrer i18n-Einric
 - **[getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocalizedUrl.md)**
 - **[getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getMultilingualUrls.md)**
 - **[getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getPathWithoutLocale.md)**
-- **[getTranslationContent](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getTranslationContent.md)**
-- **[getEnumerationContent](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getEnumerationContent.md)**
+- **[getTranslation](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getTranslation.md)**
+- **[getEnumeration](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getEnumeration.md)**
 
 ### `express-intlayer`
 

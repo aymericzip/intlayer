@@ -395,8 +395,8 @@ const docDataContent = {
             getConfiguration: {
               title: 'getConfiguration',
             },
-            getEnumerationContent: {
-              title: 'getEnumerationContent',
+            getEnumeration: {
+              title: 'getEnumeration',
             },
             getHTMLTextDir: {
               title: 'getHTMLTextDir',
@@ -416,8 +416,8 @@ const docDataContent = {
             getPathWithoutLocale: {
               title: 'getPathWithoutLocale',
             },
-            getTranslationContent: {
-              title: 'getTranslationContent',
+            getTranslation: {
+              title: 'getTranslation',
             },
             removeLocaleFromUrl: {
               title: 'removeLocaleFromUrl',

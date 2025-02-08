@@ -75,8 +75,8 @@ i18n 설정을 구성하고 관리하는 핵심 유틸리티 함수입니다.
 - **[getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocalizedUrl.md)**
 - **[getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getMultilingualUrls.md)**
 - **[getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getPathWithoutLocale.md)**
-- **[getTranslationContent](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getTranslationContent.md)**
-- **[getEnumerationContent](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getEnumerationContent.md)**
+- **[getTranslation](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getTranslation.md)**
+- **[getEnumeration](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getEnumeration.md)**
 
 ### `express-intlayer`
 

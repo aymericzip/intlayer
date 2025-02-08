@@ -24,10 +24,18 @@ export {
   t,
   nest,
   getEnumeration,
+  /**
+   * @deprecated Use `getEnumeration` instead.
+   */
+  getEnumeration as getEnumerationContent,
   getDictionary,
   getIntlayer,
   getIntlayerAsync,
   getTranslation,
+  /**
+   * @deprecated Use `getTranslation` instead.
+   */
+  getTranslation as getTranslationContent,
   getNesting,
   getLocaleLang,
   getHTMLTextDir,

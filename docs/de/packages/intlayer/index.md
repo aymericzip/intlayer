@@ -466,8 +466,8 @@ Um Intlayer in Ihrer Express-Anwendung zu verwenden, können Sie [express-intlay
 Das `intlayer`-Paket bietet auch einige Funktionen, um Ihnen zu helfen, Ihre Anwendung zu internationalisieren.
 
 - [`getConfiguration()`](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getConfiguration.md)
-- [`getTranslationContent()`](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getTranslationContent.md)
-- [`getEnumerationContent()`](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getEnumerationContent.md)
+- [`getTranslation()`](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getTranslation.md)
+- [`getEnumeration()`](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getEnumeration.md)
 - [`getLocaleName()`](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocaleName.md)
 - [`getLocaleLang()`](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocaleLang.md)
 - [`getHTMLTextDir()`](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getHTMLTextDir.md)

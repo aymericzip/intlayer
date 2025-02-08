@@ -75,8 +75,8 @@ i18n設定を構成し、管理するためのコアユーティリティ関数�
 - **[getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocalizedUrl.md)**
 - **[getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getMultilingualUrls.md)**
 - **[getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getPathWithoutLocale.md)**
-- **[getTranslationContent](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getTranslationContent.md)**
-- **[getEnumerationContent](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getEnumerationContent.md)**
+- **[getTranslation](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getTranslation.md)**
+- **[getEnumeration](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getEnumeration.md)**
 
 ### `express-intlayer`
 

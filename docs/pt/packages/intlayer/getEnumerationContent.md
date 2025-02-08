@@ -1,8 +1,8 @@
-# Documentação: `getEnumerationContent` Função em `intlayer`
+# Documentação: `getEnumeration` Função em `intlayer`
 
 ## Descrição:
 
-A função `getEnumerationContent` recupera o conteúdo correspondente a uma quantidade específica com base em condições predefinidas em um objeto de enumeração. As condições são definidas como chaves, e sua prioridade é determinada pela sua ordem no objeto.
+A função `getEnumeration` recupera o conteúdo correspondente a uma quantidade específica com base em condições predefinidas em um objeto de enumeração. As condições são definidas como chaves, e sua prioridade é determinada pela sua ordem no objeto.
 
 ## Parâmetros:
 
@@ -27,9 +27,9 @@ A função `getEnumerationContent` recupera o conteúdo correspondente a uma qua
 ### Uso Básico:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<=-2.3": "Você tem menos que -2.3",
     "<1": "Você tem menos que um",
@@ -43,9 +43,9 @@ console.log(content); // Saída: "Você tem dois"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "Você tem menos que um",
     "2": "Você tem dois",
@@ -58,9 +58,9 @@ console.log(content); // Saída: "Você tem dois"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "Você tem menos que um",
     "2": "Você tem dois",
@@ -75,9 +75,9 @@ console.log(content); // Saída: "Você tem dois"
 ### Prioridade das Condições:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "Você tem menos que quatro",
     "2": "Você tem dois",
@@ -89,9 +89,9 @@ console.log(content); // Saída: "Você tem menos que quatro"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "Você tem menos que quatro",
     "2": "Você tem dois",
@@ -103,9 +103,9 @@ console.log(content); // Saída: "Você tem menos que quatro"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "Você tem menos que quatro",
     "2": "Você tem dois",

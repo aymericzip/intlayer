@@ -2,44 +2,44 @@ import { t, type Dictionary } from 'intlayer';
 import { type Metadata } from 'next';
 
 const docContent = {
-  key: 'doc-getEnumerationContent-intlayer-metadata',
+  key: 'doc-getEnumeration-intlayer-metadata',
   content: {
     title: t({
-      en: 'getEnumerationContent Function Documentation | intlayer',
-      'en-GB': 'getEnumerationContent Function Documentation | intlayer',
-      fr: 'Documentation de la fonction getEnumerationContent | intlayer',
-      es: 'Documentación de la función getEnumerationContent | intlayer',
+      en: 'getEnumeration Function Documentation | intlayer',
+      'en-GB': 'getEnumeration Function Documentation | intlayer',
+      fr: 'Documentation de la fonction getEnumeration | intlayer',
+      es: 'Documentación de la función getEnumeration | intlayer',
       de: 'Dokumentation der t-Funktion | intlayer',
       ja: 't関数のドキュメント | intlayer',
-      ko: 'getEnumerationContent 함수 문서 | intlayer',
+      ko: 'getEnumeration 함수 문서 | intlayer',
       zh: 't函数文档 | intlayer',
-      it: 'Documentazione della funzione getEnumerationContent | intlayer',
-      pt: 'Documentação da função getEnumerationContent | intlayer',
-      hi: 'getEnumerationContent फ़ंक्शन प्रलेखन | intlayer',
-      ar: 'وثائق دالة getEnumerationContent | intlayer',
-      ru: 'Документация функции getEnumerationContent | intlayer',
+      it: 'Documentazione della funzione getEnumeration | intlayer',
+      pt: 'Documentação da função getEnumeration | intlayer',
+      hi: 'getEnumeration फ़ंक्शन प्रलेखन | intlayer',
+      ar: 'وثائق دالة getEnumeration | intlayer',
+      ru: 'Документация функции getEnumeration | intlayer',
     }),
 
     description: t({
-      en: 'See how to use the getEnumerationContent function for intlayer package',
+      en: 'See how to use the getEnumeration function for intlayer package',
       'en-GB':
-        'See how to use the getEnumerationContent function for intlayer package',
-      fr: 'Découvrez commengetEnumerationContent utiliser la fonction getEnumerationContent pour le package intlayer',
-      es: 'Descubre cómo usar la función getEnumerationContent para el paquete intlayer',
-      de: 'Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetEnumerationContent verwenden',
+        'See how to use the getEnumeration function for intlayer package',
+      fr: 'Découvrez commengetEnumeration utiliser la fonction getEnumeration pour le package intlayer',
+      es: 'Descubre cómo usar la función getEnumeration para el paquete intlayer',
+      de: 'Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetEnumeration verwenden',
       ja: 'intlayerパッケージのt関数の使用方法を確認してください',
-      ko: 'intlayer 패키지의 getEnumerationContent 함수 사용 방법을 확인하세요',
-      zh: '查看如何使用 intlayer 软件包的 getEnumerationContent 函数',
-      it: 'Scopri come utilizzare la funzione getEnumerationContent per il pacchetto intlayer',
-      pt: 'Veja como usar a função getEnumerationContent para o pacote intlayer',
-      hi: 'intlayer पैकेज के लिए getEnumerationContent फ़ंक्शन का उपयोग कैसे करें, यह जानें',
-      ar: 'انظر كيف تستخدم دالة getEnumerationContent لحزمة intlayer',
-      ru: 'Узнайте, как использовать функцию getEnumerationContent для пакета intlayer',
+      ko: 'intlayer 패키지의 getEnumeration 함수 사용 방법을 확인하세요',
+      zh: '查看如何使用 intlayer 软件包的 getEnumeration 函数',
+      it: 'Scopri come utilizzare la funzione getEnumeration per il pacchetto intlayer',
+      pt: 'Veja como usar a função getEnumeration para o pacote intlayer',
+      hi: 'intlayer पैकेज के लिए getEnumeration फ़ंक्शन का उपयोग कैसे करें, यह जानें',
+      ar: 'انظر كيف تستخدم دالة getEnumeration لحزمة intlayer',
+      ru: 'Узнайте, как использовать функцию getEnumeration для пакета intlayer',
     }),
 
     keywords: t({
       en: [
-        'getEnumerationContent',
+        'getEnumeration',
         'translation',
         'Intlayer',
         'intlayer',
@@ -50,7 +50,7 @@ const docContent = {
         'React',
       ],
       'en-GB': [
-        'getEnumerationContent',
+        'getEnumeration',
         'translation',
         'Intlayer',
         'intlayer',
@@ -61,7 +61,7 @@ const docContent = {
         'React',
       ],
       fr: [
-        'getEnumerationContent',
+        'getEnumeration',
         'traduction',
         'Intlayer',
         'intlayer',
@@ -72,7 +72,7 @@ const docContent = {
         'React',
       ],
       es: [
-        'getEnumerationContent',
+        'getEnumeration',
         'traducción',
         'Intlayer',
         'intlayer',
@@ -83,7 +83,7 @@ const docContent = {
         'React',
       ],
       de: [
-        'getEnumerationContent',
+        'getEnumeration',
         'Übersetzung',
         'Intlayer',
         'intlayer',
@@ -94,7 +94,7 @@ const docContent = {
         'React',
       ],
       ja: [
-        'getEnumerationContent',
+        'getEnumeration',
         '翻訳',
         'Intlayer',
         'intlayer',
@@ -105,7 +105,7 @@ const docContent = {
         'React',
       ],
       ko: [
-        'getEnumerationContent',
+        'getEnumeration',
         '번역',
         'Intlayer',
         'intlayer',
@@ -116,7 +116,7 @@ const docContent = {
         'React',
       ],
       zh: [
-        'getEnumerationContent',
+        'getEnumeration',
         '翻译',
         'Intlayer',
         'intlayer',
@@ -127,7 +127,7 @@ const docContent = {
         'React',
       ],
       it: [
-        'getEnumerationContent',
+        'getEnumeration',
         'traduzione',
         'Intlayer',
         'intlayer',
@@ -138,7 +138,7 @@ const docContent = {
         'React',
       ],
       pt: [
-        'getEnumerationContent',
+        'getEnumeration',
         'tradução',
         'Intlayer',
         'intlayer',
@@ -149,7 +149,7 @@ const docContent = {
         'React',
       ],
       hi: [
-        'getEnumerationContent',
+        'getEnumeration',
         'अनुवाद',
         'Intlayer',
         'intlayer',
@@ -160,7 +160,7 @@ const docContent = {
         'React',
       ],
       ar: [
-        'getEnumerationContent',
+        'getEnumeration',
         'ترجمة',
         'Intlayer',
         'intlayer',
@@ -171,7 +171,7 @@ const docContent = {
         'React',
       ],
       ru: [
-        'getEnumerationContent',
+        'getEnumeration',
         'перевод',
         'Intlayer',
         'intlayer',

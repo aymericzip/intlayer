@@ -1,8 +1,8 @@
-# दस्तावेज़: `getEnumerationContent` फ़ंक्शन `intlayer` में
+# दस्तावेज़: `getEnumeration` फ़ंक्शन `intlayer` में
 
 ## विवरण:
 
-`getEnumerationContent` फ़ंक्शन एक गणना (quantity) के विशिष्ट मान के अनुसार सामग्री को पुनर्प्राप्त करता है जो एक enumeration वस्तु में पूर्वनिर्धारित शर्तों के आधार पर होता है। शर्तें कुंजी के रूप में परिभाषित होती हैं, और उनकी प्राथमिकता उनके क्रम से निर्धारित होती है।
+`getEnumeration` फ़ंक्शन एक गणना (quantity) के विशिष्ट मान के अनुसार सामग्री को पुनर्प्राप्त करता है जो एक enumeration वस्तु में पूर्वनिर्धारित शर्तों के आधार पर होता है। शर्तें कुंजी के रूप में परिभाषित होती हैं, और उनकी प्राथमिकता उनके क्रम से निर्धारित होती है।
 
 ## मापदंड:
 
@@ -27,9 +27,9 @@
 ### बुनियादी उपयोग:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<=-2.3": "आपके पास -2.3 से कम है",
     "<1": "आपके पास एक से कम है",
@@ -43,9 +43,9 @@ console.log(content); // Output: "आपके पास दो हैं"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "आपके पास एक से कम है",
     "2": "आपके पास दो हैं",
@@ -58,9 +58,9 @@ console.log(content); // Output: "आपके पास दो हैं"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "आपके पास एक से कम है",
     "2": "आपके पास दो हैं",
@@ -75,9 +75,9 @@ console.log(content); // Output: "आपके पास दो हैं"
 ### शर्तों की प्राथमिकता:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "आपके पास चार से कम है",
     "2": "आपके पास दो हैं",
@@ -89,9 +89,9 @@ console.log(content); // Output: "आपके पास चार से कम
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "आपके पास चार से कम है",
     "2": "आपके पास दो हैं",
@@ -103,9 +103,9 @@ console.log(content); // Output: "आपके पास चार से कम
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "आपके पास चार से कम है",
     "2": "आपके पास दो हैं",

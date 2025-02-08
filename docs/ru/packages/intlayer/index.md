@@ -466,8 +466,8 @@ Intlayer доступен как пакет для вашего приложен
 Пакет `intlayer` также предоставляет некоторые функции, которые помогут вам интернационализировать ваше приложение.
 
 - [`getConfiguration()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getConfiguration.md)
-- [`getTranslationContent()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getTranslationContent.md)
-- [`getEnumerationContent()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getEnumerationContent.md)
+- [`getTranslation()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getTranslation.md)
+- [`getEnumeration()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getEnumeration.md)
 - [`getLocaleName()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocaleName.md)
 - [`getLocaleLang()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocaleLang.md)
 - [`getHTMLTextDir()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getHTMLTextDir.md)

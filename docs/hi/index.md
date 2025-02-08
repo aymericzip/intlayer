@@ -75,8 +75,8 @@ Intlayer का मॉड्यूलर डिज़ाइन विशेष �
 - **[getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getLocalizedUrl.md)**
 - **[getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getMultilingualUrls.md)**
 - **[getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getPathWithoutLocale.md)**
-- **[getTranslationContent](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getTranslationContent.md)**
-- **[getEnumerationContent](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getEnumerationContent.md)**
+- **[getTranslation](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getTranslation.md)**
+- **[getEnumeration](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getEnumeration.md)**
 
 ### `express-intlayer`
 

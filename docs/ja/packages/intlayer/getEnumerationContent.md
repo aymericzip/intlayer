@@ -1,8 +1,8 @@
-# Documentation: `getEnumerationContent` 関数 in `intlayer`
+# Documentation: `getEnumeration` 関数 in `intlayer`
 
 ## 説明:
 
-`getEnumerationContent` 関数は、列挙オブジェクト内の事前定義された条件に基づいて特定の数量に対応するコンテンツを取得します。条件はキーとして定義されており、その優先順位はオブジェクト内の順序によって決定されます。
+`getEnumeration` 関数は、列挙オブジェクト内の事前定義された条件に基づいて特定の数量に対応するコンテンツを取得します。条件はキーとして定義されており、その優先順位はオブジェクト内の順序によって決定されます。
 
 ## パラメーター:
 
@@ -27,9 +27,9 @@
 ### 基本的な使用法:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<=-2.3": "あなたは -2.3 未満です",
     "<1": "あなたは一未満です",
@@ -43,9 +43,9 @@ console.log(content); // 出力: "あなたは二です"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "あなたは一未満です",
     "2": "あなたは二です",
@@ -58,9 +58,9 @@ console.log(content); // 出力: "あなたは二です"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "あなたは一未満です",
     "2": "あなたは二です",
@@ -75,9 +75,9 @@ console.log(content); // 出力: "あなたは二です"
 ### 条件の優先順位:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "あなたは四未満です",
     "2": "あなたは二です",
@@ -89,9 +89,9 @@ console.log(content); // 出力: "あなたは四未満です"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "あなたは四未満です",
     "2": "あなたは二です",
@@ -103,9 +103,9 @@ console.log(content); // 出力: "あなたは四未満です"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "あなたは四未満です",
     "2": "あなたは二です",

@@ -23,14 +23,14 @@ import { getPackagesExpressIntlayerData } from './docDataContent/packages/expres
 import { getPackagesExpressIntlayerTData } from './docDataContent/packages/express-intlayer/t';
 import { getPackagesIntlayerData } from './docDataContent/packages/intlayer';
 import { getPackagesIntlayerGetConfigurationData } from './docDataContent/packages/intlayer/getConfiguration';
-import { getPackagesIntlayerGetEnumerationContentData } from './docDataContent/packages/intlayer/getEnumerationContent';
+import { getPackagesIntlayerGetEnumerationContentData } from './docDataContent/packages/intlayer/getEnumeration';
 import { getPackagesIntlayerGetHTMLTextDirData } from './docDataContent/packages/intlayer/getHTMLTextDir';
 import { getPackagesIntlayerGetLocaleLangData } from './docDataContent/packages/intlayer/getLocaleLang';
 import { getPackagesIntlayerGetLocaleNameData } from './docDataContent/packages/intlayer/getLocaleName';
 import { getPackagesIntlayerGetLocalizedUrlData } from './docDataContent/packages/intlayer/getLocalizedUrl';
 import { getPackagesIntlayerGetMultilingualUrlsData } from './docDataContent/packages/intlayer/getMultilingualUrls';
 import { getPackagesIntlayerGetPathWithoutLocaleData } from './docDataContent/packages/intlayer/getPathWithoutLocale';
-import { getPackagesIntlayerGetTranslationContentData } from './docDataContent/packages/intlayer/getTranslationContent';
+import { getPackagesIntlayerGetTranslationContentData } from './docDataContent/packages/intlayer/getTranslation';
 import { getPackagesNextIntlayerData } from './docDataContent/packages/next-intlayer';
 import { getPackagesNextIntlayerTData } from './docDataContent/packages/next-intlayer/t';
 import { getPackagesNextIntlayerUseDictionaryData } from './docDataContent/packages/next-intlayer/useDictionary';
@@ -203,16 +203,16 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
                   .getPathWithoutLocale.title,
               default: getPackagesIntlayerGetPathWithoutLocaleData(locale),
             },
-            getTranslationContent: {
+            getTranslation: {
               title:
                 content.packages.subSections['intlayer'].subSections
-                  .getTranslationContent.title,
+                  .getTranslation.title,
               default: getPackagesIntlayerGetTranslationContentData(locale),
             },
-            getEnumerationContent: {
+            getEnumeration: {
               title:
                 content.packages.subSections['intlayer'].subSections
-                  .getEnumerationContent.title,
+                  .getEnumeration.title,
               default: getPackagesIntlayerGetEnumerationContentData(locale),
             },
             getHTMLTextDir: {

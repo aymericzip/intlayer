@@ -466,8 +466,8 @@ Intlayer作为您应用程序的一个包可用。
 `intlayer`包还提供一些函数来帮助您国际化您的应用程序。
 
 - [`getConfiguration()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getConfiguration.md)
-- [`getTranslationContent()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getTranslationContent.md)
-- [`getEnumerationContent()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getEnumerationContent.md)
+- [`getTranslation()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getTranslation.md)
+- [`getEnumeration()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getEnumeration.md)
 - [`getLocaleName()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocaleName.md)
 - [`getLocaleLang()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocaleLang.md)
 - [`getHTMLTextDir()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getHTMLTextDir.md)

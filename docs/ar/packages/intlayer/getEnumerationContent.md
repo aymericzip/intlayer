@@ -1,8 +1,8 @@
-# الوثيقة: دالة `getEnumerationContent` في `intlayer`
+# الوثيقة: دالة `getEnumeration` في `intlayer`
 
 ## الوصف:
 
-تسترجع دالة `getEnumerationContent` المحتوى المقابل لعدد محدد بناءً على شروط محددة مسبقًا في كائن التعداد. يتم تعريف الشروط كمفاتيح، وتحدد أولويتها من خلال ترتيبها في الكائن.
+تسترجع دالة `getEnumeration` المحتوى المقابل لعدد محدد بناءً على شروط محددة مسبقًا في كائن التعداد. يتم تعريف الشروط كمفاتيح، وتحدد أولويتها من خلال ترتيبها في الكائن.
 
 ## المعاملات:
 
@@ -27,9 +27,9 @@
 ### الاستخدام الأساسي:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<=-2.3": "لديك أقل من -2.3",
     "<1": "لديك أقل من واحد",
@@ -43,9 +43,9 @@ console.log(content); // الإخراج: "لديك اثنان"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "لديك أقل من واحد",
     "2": "لديك اثنان",
@@ -58,9 +58,9 @@ console.log(content); // الإخراج: "لديك اثنان"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "لديك أقل من واحد",
     "2": "لديك اثنان",
@@ -75,9 +75,9 @@ console.log(content); // الإخراج: "لديك اثنان"
 ### أولوية الشروط:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "لديك أقل من أربعة",
     "2": "لديك اثنان",
@@ -89,9 +89,9 @@ console.log(content); // الإخراج: "لديك أقل من أربعة"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "لديك أقل من أربعة",
     "2": "لديك اثنان",
@@ -103,9 +103,9 @@ console.log(content); // الإخراج: "لديك أقل من أربعة"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "لديك أقل من أربعة",
     "2": "لديك اثنان",

@@ -280,8 +280,8 @@ To use Intlayer in your Express application, you can use [express-intlayer](http
 The `intlayer` package also provides some functions to help you to internationalize your application.
 
 - [`getConfiguration()`](https://intlayer.org/doc/packages/intlayer/getConfiguration)
-- [`getTranslationContent()`](https://intlayer.org/doc/packages/intlayer/getTranslationContent)
-- [`getEnumerationContent()`](https://intlayer.org/doc/packages/intlayer/getEnumerationContent)
+- [`getTranslation()`](https://intlayer.org/doc/packages/intlayer/getTranslation)
+- [`getEnumeration()`](https://intlayer.org/doc/packages/intlayer/getEnumeration)
 - [`getLocaleName()`](https://intlayer.org/doc/packages/intlayer/getLocaleName)
 - [`getLocaleLang()`](https://intlayer.org/doc/packages/intlayer/getLocaleLang)
 - [`getHTMLTextDir()`](https://intlayer.org/doc/packages/intlayer/getHTMLTextDir)

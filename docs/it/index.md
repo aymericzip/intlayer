@@ -75,8 +75,8 @@ Funzioni utility core per configurare e gestire la vostra configurazione i18n.
 - **[getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getLocalizedUrl.md)**
 - **[getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getMultilingualUrls.md)**
 - **[getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getPathWithoutLocale.md)**
-- **[getTranslationContent](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getTranslationContent.md)**
-- **[getEnumerationContent](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getEnumerationContent.md)**
+- **[getTranslation](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getTranslation.md)**
+- **[getEnumeration](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getEnumeration.md)**
 
 ### `express-intlayer`
 

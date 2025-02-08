@@ -104,8 +104,8 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   - [getLocalizedUrl](https://intlayer.org/doc/packages/intlayer/getLocalizedUrl)
   - [getMultilingualUrls](https://intlayer.org/doc/packages/intlayer/getMultilingualUrls)
   - [getPathWithoutLocale](https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale)
-  - [getTranslationContent](https://intlayer.org/doc/packages/intlayer/getTranslationContent)
-  - [getEnumerationContent](https://intlayer.org/doc/packages/intlayer/getEnumerationContent)
+  - [getTranslation](https://intlayer.org/doc/packages/intlayer/getTranslation)
+  - [getEnumeration](https://intlayer.org/doc/packages/intlayer/getEnumeration)
 
 #### express-intlayer
 

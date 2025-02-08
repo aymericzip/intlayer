@@ -1,8 +1,8 @@
-# Документация: `getEnumerationContent` Функция в `intlayer`
+# Документация: `getEnumeration` Функция в `intlayer`
 
 ## Описание:
 
-Функция `getEnumerationContent` извлекает контент, соответствующий определённому количеству на основе предопределенных условий в объекте перечисления. Условия определяются в качестве ключей, а их приоритет определяется порядком в объекте.
+Функция `getEnumeration` извлекает контент, соответствующий определённому количеству на основе предопределенных условий в объекте перечисления. Условия определяются в качестве ключей, а их приоритет определяется порядком в объекте.
 
 ## Параметры:
 
@@ -27,9 +27,9 @@
 ### Основное использование:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<=-2.3": "У вас меньше чем -2.3",
     "<1": "У вас меньше одного",
@@ -43,9 +43,9 @@ console.log(content); // Вывод: "У вас два"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "У вас меньше одного",
     "2": "У вас два",
@@ -58,9 +58,9 @@ console.log(content); // Вывод: "У вас два"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "У вас меньше одного",
     "2": "У вас два",
@@ -75,9 +75,9 @@ console.log(content); // Вывод: "У вас два"
 ### Приоритет условий:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "У вас меньше четырех",
     "2": "У вас два",
@@ -89,9 +89,9 @@ console.log(content); // Вывод: "У вас меньше четырех"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "У вас меньше четырех",
     "2": "У вас два",
@@ -103,9 +103,9 @@ console.log(content); // Вывод: "У вас меньше четырех"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "У вас меньше четырех",
     "2": "У вас два",

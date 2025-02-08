@@ -48,10 +48,10 @@ const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
     PagesRoutes['Doc_Packages_intlayer_getMultilingualUrls'],
   [GithubRoutes['Packages_intlayer_getPathWithoutLocale']]:
     PagesRoutes['Doc_Packages_intlayer_getPathWithoutLocale'],
-  [GithubRoutes['Packages_intlayer_getTranslationContent']]:
-    PagesRoutes['Doc_Packages_intlayer_getTranslationContent'],
-  [GithubRoutes['Packages_intlayer_getEnumerationContent']]:
-    PagesRoutes['Doc_Packages_intlayer_getEnumerationContent'],
+  [GithubRoutes['Packages_intlayer_getTranslation']]:
+    PagesRoutes['Doc_Packages_intlayer_getTranslation'],
+  [GithubRoutes['Packages_intlayer_getEnumeration']]:
+    PagesRoutes['Doc_Packages_intlayer_getEnumeration'],
   [GithubRoutes['Packages_intlayer_removeLocaleFromUrl']]:
     PagesRoutes['Doc_Packages_intlayer_removeLocaleFromUrl'],
   [GithubRoutes['Packages_express-intlayer']]:

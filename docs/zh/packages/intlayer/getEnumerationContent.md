@@ -1,8 +1,8 @@
-# Documentation: `getEnumerationContent` 函数在 `intlayer`
+# Documentation: `getEnumeration` 函数在 `intlayer`
 
 ## 描述:
 
-`getEnumerationContent` 函数根据在枚举对象中预定义条件检索与特定数量相对应的内容。条件被定义为键，它们的优先级由在对象中的顺序决定。
+`getEnumeration` 函数根据在枚举对象中预定义条件检索与特定数量相对应的内容。条件被定义为键，它们的优先级由在对象中的顺序决定。
 
 ## 参数:
 
@@ -27,9 +27,9 @@
 ### 基本用法:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<=-2.3": "你拥有的少于 -2.3",
     "<1": "你拥有的少于一个",
@@ -43,9 +43,9 @@ console.log(content); // 输出: "你拥有两个"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "你拥有的少于一个",
     "2": "你拥有两个",
@@ -58,9 +58,9 @@ console.log(content); // 输出: "你拥有两个"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<1": "你拥有的少于一个",
     "2": "你拥有两个",
@@ -75,9 +75,9 @@ console.log(content); // 输出: "你拥有两个"
 ### 条件优先级:
 
 ```typescript codeFormat="typescript"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "你拥有的少于四个",
     "2": "你拥有两个",
@@ -89,9 +89,9 @@ console.log(content); // 输出: "你拥有的少于四个"
 ```
 
 ```javascript codeFormat="esm"
-import { getEnumerationContent } from "intlayer";
+import { getEnumeration } from "intlayer";
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "你拥有的少于四个",
     "2": "你拥有两个",
@@ -103,9 +103,9 @@ console.log(content); // 输出: "你拥有的少于四个"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getEnumerationContent } = require("intlayer");
+const { getEnumeration } = require("intlayer");
 
-const content = getEnumerationContent(
+const content = getEnumeration(
   {
     "<4": "你拥有的少于四个",
     "2": "你拥有两个",
