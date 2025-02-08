@@ -27,12 +27,15 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
   section,
 }) => {
   const {
-    multilingualText,
+    multilingual,
     text,
     node,
     array,
     enumeration,
     triggerPlaceHolder,
+    nest,
+    condition,
+    markdown,
   } = useDictionary(nodeTypeSelectorContent);
   const nodeType = getSectionType(section);
   const [keyType, setKeyType] = useState<NodeType>(nodeType);
@@ -95,13 +98,14 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         <Select.Value placeholder={triggerPlaceHolder} />
       </Select.Trigger>
       <Select.Content>
-        <Select.Item value={NodeType.Translation}>
-          {multilingualText}
-        </Select.Item>
+        <Select.Item value={NodeType.Translation}>{multilingual}</Select.Item>
         <Select.Item value={NodeType.Text}>{text}</Select.Item>
         <Select.Item value={NodeType.Object}>{node}</Select.Item>
         <Select.Item value={NodeType.Array}>{array}</Select.Item>
         <Select.Item value={NodeType.Enumeration}>{enumeration}</Select.Item>
+        <Select.Item value={NodeType.Markdown}>{markdown}</Select.Item>
+        <Select.Item value={NodeType.Nested}>{nest}</Select.Item>
+        <Select.Item value={NodeType.Condition}>{condition}</Select.Item>
       </Select.Content>
     </Select>
   );
