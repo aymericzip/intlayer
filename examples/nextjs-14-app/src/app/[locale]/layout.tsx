@@ -1,8 +1,4 @@
-import {
-  getHTMLTextDir,
-  type IConfigLocales,
-  getTranslationContent,
-} from 'intlayer';
+import { getHTMLTextDir, type IConfigLocales, getTranslation } from 'intlayer';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
@@ -15,7 +11,7 @@ export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
   const t = <T extends string>(content: IConfigLocales<T>) =>
-    getTranslationContent(content, locale);
+    getTranslation(content, locale);
 
   const title = t<string>({
     en: 'Create Next App',

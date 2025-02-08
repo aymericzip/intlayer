@@ -572,12 +572,12 @@ const ServerComponentExample = () => {
 
 ### (اختياري) الخطوة 8: دولنة البيانات الوصفية الخاصة بك
 
-في حال كنت ترغب في دولنة بياناتك الوصفية، مثل عنوان صفحتك، يمكنك استخدام وظيفة `generateMetadata` التي توفرها Next.js. داخل الوظيفة، استخدم وظيفة `getTranslationContent` لترجمة بياناتك الوصفية.
+في حال كنت ترغب في دولنة بياناتك الوصفية، مثل عنوان صفحتك، يمكنك استخدام وظيفة `generateMetadata` التي توفرها Next.js. داخل الوظيفة، استخدم وظيفة `getTranslation` لترجمة بياناتك الوصفية.
 
 ````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
 import {
   type IConfigLocales,
-  getTranslationContent,
+  getTranslation,
   getMultilingualUrls,
 } from "intlayer";
 import type { Metadata } from "next";
@@ -586,8 +586,7 @@ import type { LocalParams } from "next-intlayer";
 export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
-  const t = <T>(content: IConfigLocales<T>) =>
-    getTranslationContent(content, locale);
+  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
 
   /**
    * يولد كائنًا يحتوي على جميع الروابط لكل لغة.
@@ -631,10 +630,10 @@ export const generateMetadata = ({
 ````
 
 ````javascript fileName="src/app/[locale]/layout.msx or src/app/[locale]/page.msx" codeFormat="javascript"
-import { getTranslationContent, getMultilingualUrls } from "intlayer";
+import { getTranslation, getMultilingualUrls } from "intlayer";
 
 export const generateMetadata = ({ params: { locale } }) => {
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * يولد كائنًا يحتوي على جميع الروابط لكل لغة.
@@ -678,10 +677,10 @@ export const generateMetadata = ({ params: { locale } }) => {
 ````
 
 ````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="javascript"
-const { getTranslationContent, getMultilingualUrls } = require("intlayer");
+const { getTranslation, getMultilingualUrls } = require("intlayer");
 
 module.exports.generateMetadata = ({ params: { locale } }) => {
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * يولد كائنًا يحتوي على جميع الروابط لكل لغة.

@@ -572,12 +572,12 @@ const ServerComponentExample = () => {
 
 ### (Опционально) Шаг 8: Интернационализация ваших метаданных
 
-В случае, если вы хотите интернационализировать ваши метаданные, такие как заголовок вашей страницы, вы можете использовать функцию `generateMetadata`, предоставляемую Next.js. Внутри функции используйте функцию `getTranslationContent`, чтобы перевести ваши метаданные.
+В случае, если вы хотите интернационализировать ваши метаданные, такие как заголовок вашей страницы, вы можете использовать функцию `generateMetadata`, предоставляемую Next.js. Внутри функции используйте функцию `getTranslation`, чтобы перевести ваши метаданные.
 
 ````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
 import {
   type IConfigLocales,
-  getTranslationContent,
+  getTranslation,
   getMultilingualUrls,
 } from "intlayer";
 import type { Metadata } from "next";
@@ -586,8 +586,7 @@ import type { LocalParams } from "next-intlayer";
 export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
-  const t = <T>(content: IConfigLocales<T>) =>
-    getTranslationContent(content, locale);
+  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
 
   /**
    * Генерирует объект, содержащий все URL для каждой локали.
@@ -631,10 +630,10 @@ export const generateMetadata = ({
 ````
 
 ````javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="javascript"
-import { getTranslationContent, getMultilingualUrls } from "intlayer";
+import { getTranslation, getMultilingualUrls } from "intlayer";
 
 export const generateMetadata = ({ params: { locale } }) => {
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * Генерирует объект, содержащий все URL для каждой локали.
@@ -678,10 +677,10 @@ export const generateMetadata = ({ params: { locale } }) => {
 ````
 
 ````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="javascript"
-const { getTranslationContent, getMultilingualUrls } = require("intlayer");
+const { getTranslation, getMultilingualUrls } = require("intlayer");
 
 module.exports.generateMetadata = ({ params: { locale } }) => {
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * Генерирует объект, содержащий все URL для каждой локали.

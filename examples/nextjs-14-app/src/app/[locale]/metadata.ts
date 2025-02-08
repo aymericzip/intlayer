@@ -1,4 +1,4 @@
-import { getTranslationContent } from 'intlayer';
+import { getTranslation } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalParams } from 'next-intlayer';
 
@@ -6,7 +6,7 @@ export const generateMetadata = ({
   params: { locale },
 }: LocalParams): Metadata => {
   return {
-    title: getTranslationContent<string>(
+    title: getTranslation<string>(
       {
         en: 'page title',
         fr: 'titre de la page',
@@ -14,7 +14,7 @@ export const generateMetadata = ({
       },
       locale
     ),
-    description: getTranslationContent(
+    description: getTranslation(
       {
         en: 'page description',
         es: 'descripción de la página',

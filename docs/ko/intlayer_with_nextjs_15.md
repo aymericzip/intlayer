@@ -577,12 +577,12 @@ const ServerComponentExample = () => {
 
 ### (Optional) Step 8: Internationalization of your metadata
 
-메타데이터, 즉 페이지 제목을 국제화하려면 Next.js에서 제공하는 `generateMetadata` 함수를 사용할 수 있습니다. 함수 내부에서 `getTranslationContent` 함수를 사용하여 메타데이터를 번역합니다.
+메타데이터, 즉 페이지 제목을 국제화하려면 Next.js에서 제공하는 `generateMetadata` 함수를 사용할 수 있습니다. 함수 내부에서 `getTranslation` 함수를 사용하여 메타데이터를 번역합니다.
 
 ````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
 import {
   type IConfigLocales,
-  getTranslationContent,
+  getTranslation,
   getMultilingualUrls,
 } from "intlayer";
 import type { Metadata } from "next";
@@ -593,8 +593,7 @@ export const generateMetadata = async ({
 }: LocalPromiseParams): Metadata => {
   const { locale } = await params;
 
-  const t = <T>(content: IConfigLocales<T>) =>
-    getTranslationContent(content, locale);
+  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
 
   /**
    * 각 로케일에 대한 모든 URL를 포함하는 객체를 생성합니다.
@@ -638,11 +637,11 @@ export const generateMetadata = async ({
 ````
 
 ````javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
-import { getTranslationContent, getMultilingualUrls } from "intlayer";
+import { getTranslation, getMultilingualUrls } from "intlayer";
 
 export const generateMetadata = async ({ params }) => {
   const { locale } = await params;
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * 각 로케일에 대한 모든 URL를 포함하는 객체를 생성합니다.
@@ -686,11 +685,11 @@ export const generateMetadata = async ({ params }) => {
 ````
 
 ````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
-const { getTranslationContent, getMultilingualUrls } = require("intlayer");
+const { getTranslation, getMultilingualUrls } = require("intlayer");
 
 module.exports.generateMetadata = async ({ params }) => {
   const { locale } = await params;
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * 각 로케일에 대한 모든 URL를 포함하는 객체를 생성합니다.

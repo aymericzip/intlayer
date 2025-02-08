@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import {
-  getHTMLTextDir,
-  type IConfigLocales,
-  getTranslationContent,
-} from 'intlayer';
+import { getHTMLTextDir, type IConfigLocales, getTranslation } from 'intlayer';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 
 const geistSans = localFont({
@@ -24,7 +20,7 @@ export const generateMetadata = async ({
   const { locale } = await params;
 
   const t = <T extends string>(content: IConfigLocales<T>) =>
-    getTranslationContent(content, locale);
+    getTranslation(content, locale);
 
   const title = t<string>({
     en: 'Create Next App',

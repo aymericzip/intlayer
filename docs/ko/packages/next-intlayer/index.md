@@ -246,7 +246,7 @@ Intlayer는 Next.js 애플리케이션을 국제화하는 데 도움이 되는 �
 
 - **서버 구성 요소의 국제화**: Intlayer는 클라이언트 구성 요소와 동일한 방식으로 서버 구성 요소를 국제화할 수 있게 해줍니다. 즉, 클라이언트와 서버 구성 요소 모두에 대해 동일한 콘텐츠 선언을 사용할 수 있습니다.
 - **로케일 감지 미들웨어**: Intlayer는 사용자의 선호 로케일을 감지하기 위한 미들웨어를 제공합니다. 이 미들웨어는 사용자의 선호 로케일을 감지하고 [구성](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)에서 지정한 대로 적절한 URL로 리디렉션합니다.
-- **메타데이터의 국제화**: Intlayer는 Next.js에서 제공하는 `generateMetadata` 함수를 사용하여 페이지 제목과 같은 메타데이터를 국제화하는 방법을 제공합니다. 메타데이터를 번역하기 위해 `getTranslationContent` 함수를 사용할 수 있습니다.
+- **메타데이터의 국제화**: Intlayer는 Next.js에서 제공하는 `generateMetadata` 함수를 사용하여 페이지 제목과 같은 메타데이터를 국제화하는 방법을 제공합니다. 메타데이터를 번역하기 위해 `getTranslation` 함수를 사용할 수 있습니다.
 - **sitemap.xml 및 robots.txt의 국제화**: Intlayer는 sitemap.xml 및 robots.txt 파일을 국제화할 수 있게 해줍니다. `getMultilingualUrls` 함수를 사용하여 sitemap에 대한 다국어 URL을 생성할 수 있습니다.
 - **URL의 국제화**: Intlayer는 `getMultilingualUrls` 함수를 사용하여 URL을 국제화할 수 있게 해줍니다. 이 함수는 sitemap에 대한 다국어 URL을 생성합니다.
 

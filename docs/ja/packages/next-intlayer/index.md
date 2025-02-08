@@ -246,7 +246,7 @@ Intlayerは、Next.jsアプリケーションを国際化するための多く�
 
 - **サーバーコンポーネントの国際化**: Intlayerを使用すると、サーバーコンポーネントをクライアントコンポーネントと同様に国際化できます。つまり、クライアントとサーバーの両方のコンポーネントに対して同じコンテンツ宣言を使用できます。
 - **ロケール検出のためのミドルウェア**: Intlayerはユーザーの好ましいロケールを検出するためのミドルウェアを提供します。このミドルウェアは、ユーザーの好ましいロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)に指定された適切なURLにリダイレクトします。
-- **メタデータの国際化**: Intlayerは、Next.jsが提供する`generateMetadata`関数を使用して、ページタイトルなどのメタデータを国際化する方法を提供します。`getTranslationContent`関数を使用してメタデータを翻訳できます。
+- **メタデータの国際化**: Intlayerは、Next.jsが提供する`generateMetadata`関数を使用して、ページタイトルなどのメタデータを国際化する方法を提供します。`getTranslation`関数を使用してメタデータを翻訳できます。
 - **sitemap.xmlとrobots.txtの国際化**: Intlayerはsitemap.xmlとrobots.txtファイルを国際化することを可能にします。`getMultilingualUrls`関数を使用して、sitemapの多言語URLを生成できます。
 - **URLの国際化**: Intlayerは、`getMultilingualUrls`関数を使用してURLを国際化することを可能にします。この関数は、sitemapの多言語URLを生成します。
 

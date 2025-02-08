@@ -159,7 +159,7 @@ Intlayer provides a lot of features to help you internationalize your Next.js ap
 
 - **Internationalization of server components**: Intlayer allows you to internationalize your server components in the same way as your client components. This means that you can use the same content declarations for both client and server components.
 - **Middleware for Locale Detection**: Intlayer provides middleware to detect the user's preferred locale. This middleware is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://intlayer.org/doc/concept/configuration).
-- **Internationalization of metadata**: Intlayer provides a way to internationalize your metadata, such as the title of your page, using the `generateMetadata` function provided by Next.js. You can use the `getTranslationContent` function to translate your metadata.
+- **Internationalization of metadata**: Intlayer provides a way to internationalize your metadata, such as the title of your page, using the `generateMetadata` function provided by Next.js. You can use the `getTranslation` function to translate your metadata.
 - **Internationalization of sitemap.xml and robots.txt**: Intlayer allows you to internationalize your sitemap.xml and robots.txt files. You can use the `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
 - **Internationalization of URLs**: Intlayer allows you to internationalize your URLs by using the `getMultilingualUrls` function. This function generates multilingual URLs for your sitemap.
 

@@ -246,7 +246,7 @@ Intlayer offre de nombreuses fonctionnalités pour vous aider à internationalis
 
 - **Internationalisation des composants serveur** : Intlayer vous permet d'internationaliser vos composants serveur de la même manière que vos composants client. Cela signifie que vous pouvez utiliser les mêmes déclarations de contenu pour les composants clients et serveurs.
 - **Middleware pour la détection de la langue** : Intlayer fournit un middleware pour détecter la langue préférée de l'utilisateur. Ce middleware est utilisé pour détecter la langue préférée de l'utilisateur et le rediriger vers l'URL appropriée comme spécifié dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
-- **Internationalisation des métadonnées** : Intlayer fournit un moyen d'internationaliser vos métadonnées, telles que le titre de votre page, en utilisant la fonction `generateMetadata` fournie par Next.js. Vous pouvez utiliser la fonction `getTranslationContent` pour traduire vos métadonnées.
+- **Internationalisation des métadonnées** : Intlayer fournit un moyen d'internationaliser vos métadonnées, telles que le titre de votre page, en utilisant la fonction `generateMetadata` fournie par Next.js. Vous pouvez utiliser la fonction `getTranslation` pour traduire vos métadonnées.
 - **Internationalisation du sitemap.xml et robots.txt** : Intlayer vous permet d'internationaliser vos fichiers sitemap.xml et robots.txt. Vous pouvez utiliser la fonction `getMultilingualUrls` pour générer des URLs multilingues pour votre sitemap.
 - **Internationalisation des URLs** : Intlayer vous permet d'internationaliser vos URLs en utilisant la fonction `getMultilingualUrls`. Cette fonction génère des URLs multilingues pour votre sitemap.
 

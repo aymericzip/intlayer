@@ -246,7 +246,7 @@ Intlayer 提供了许多功能，以帮助您国际化您的 Next.js 应用程�
 
 - **服务器组件的国际化**：Intlayer 允许您以与客户端组件相同的方式国际化服务器组件。这意味着您可以为客户端和服务器组件使用相同的内容声明。
 - **语言环境检测中间件**：Intlayer 提供中间件以检测用户的首选语言环境。该中间件用于检测用户的首选语言环境，并根据 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 将他们重定向到适当的 URL。
-- **元数据的国际化**：Intlayer 提供了一种国际化您的元数据（例如页面的标题）的方法，使用 Next.js 提供的 `generateMetadata` 函数。您可以使用 `getTranslationContent` 函数来翻译您的元数据。
+- **元数据的国际化**：Intlayer 提供了一种国际化您的元数据（例如页面的标题）的方法，使用 Next.js 提供的 `generateMetadata` 函数。您可以使用 `getTranslation` 函数来翻译您的元数据。
 - **sitemap.xml 和 robots.txt 的国际化**：Intlayer 允许您国际化您的 sitemap.xml 和 robots.txt 文件。您可以使用 `getMultilingualUrls` 函数为您的 sitemap 生成多语言 URL。
 - **URL 的国际化**：Intlayer 允许您通过使用 `getMultilingualUrls` 函数来国际化您的 URL。该函数为您的 sitemap 生成多语言 URL。
 

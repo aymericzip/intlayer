@@ -604,12 +604,12 @@ module.exports = { middleware: intlayerMiddleware, config };
 
 ### (Opzionale) Passo 8: Internazionalizzazione dei Metadati
 
-Nel caso in cui si voglia internazionalizzare i metadati, come ad esempio il titolo della pagina, è possibile utilizzare la funzione `generateMetadata` fornita da Next.js. All'interno della funzione utilizza `getTranslationContent` per tradurre i metadati.
+Nel caso in cui si voglia internazionalizzare i metadati, come ad esempio il titolo della pagina, è possibile utilizzare la funzione `generateMetadata` fornita da Next.js. All'interno della funzione utilizza `getTranslation` per tradurre i metadati.
 
 ````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
 import {
   type IConfigLocales,
-  getTranslationContent,
+  getTranslation,
   getMultilingualUrls,
 } from "intlayer";
 import type { Metadata } from "next";
@@ -619,8 +619,7 @@ export const generateMetadata = async ({
   params,
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const t = <T>(content: IConfigLocales<T>) =>
-    getTranslationContent(content, locale);
+  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
 
   /**
    * Genera un oggetto contenente tutti gli URL per ogni lingua.
@@ -664,11 +663,11 @@ export const generateMetadata = async ({
 ````
 
 ````javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
-import { getTranslationContent, getMultilingualUrls } from "intlayer";
+import { getTranslation, getMultilingualUrls } from "intlayer";
 
 export const generateMetadata = async ({ params }) => {
   const { locale } = await params;
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * Genera un oggetto contenente tutti gli URL per ogni lingua.
@@ -712,12 +711,12 @@ export const generateMetadata = async ({ params }) => {
 ````
 
 ````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
-const { getTranslationContent, getMultilingualUrls } = require("intlayer");
+const { getTranslation, getMultilingualUrls } = require("intlayer");
 
 const generateMetadata = async ({ params }) => {
   const { locale } = await params;
 
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * Genera un oggetto contenente tutti gli URL per ogni lingua.

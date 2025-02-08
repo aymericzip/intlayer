@@ -577,12 +577,12 @@ const ServerComponentExample = () => {
 
 ### （可选）第 8 步：国际化您的元数据
 
-如果您想要国际化您的元数据，例如页面的标题，可以使用 Next.js 提供的 `generateMetadata` 函数。在函数内部使用 `getTranslationContent` 函数翻译您的元数据。
+如果您想要国际化您的元数据，例如页面的标题，可以使用 Next.js 提供的 `generateMetadata` 函数。在函数内部使用 `getTranslation` 函数翻译您的元数据。
 
 ````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
 import {
   type IConfigLocales,
-  getTranslationContent,
+  getTranslation,
   getMultilingualUrls,
 } from "intlayer";
 import type { Metadata } from "next";
@@ -593,8 +593,7 @@ export const generateMetadata = async ({
 }: LocalPromiseParams): Metadata => {
   const { locale } = await params;
 
-  const t = <T>(content: IConfigLocales<T>) =>
-    getTranslationContent(content, locale);
+  const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
 
   /**
    * 生成一个对象，包含每个语言的所有网址。
@@ -638,11 +637,11 @@ export const generateMetadata = async ({
 ````
 
 ````javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
-import { getTranslationContent, getMultilingualUrls } from "intlayer";
+import { getTranslation, getMultilingualUrls } from "intlayer";
 
 export const generateMetadata = async ({ params }) => {
   const { locale } = await params;
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * 生成一个对象，包含每个语言的所有网址。
@@ -686,11 +685,11 @@ export const generateMetadata = async ({ params }) => {
 ````
 
 ````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
-const { getTranslationContent, getMultilingualUrls } = require("intlayer");
+const { getTranslation, getMultilingualUrls } = require("intlayer");
 
 module.exports.generateMetadata = async ({ params }) => {
   const { locale } = await params;
-  const t = (content) => getTranslationContent(content, locale);
+  const t = (content) => getTranslation(content, locale);
 
   /**
    * 生成一个对象，包含每个语言的所有网址。

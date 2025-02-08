@@ -535,11 +535,11 @@ const ComponentExample = () => {
 
 ### (Optional) Step 8: Internationalize Your Metadata
 
-لتدويل البيانات الوصفية مثل عناوين الصفحات والأوصاف، استخدم دالة `getStaticProps` بالتعاون مع دالة `getTranslationContent` الخاصة بـ Intlayer.
+لتدويل البيانات الوصفية مثل عناوين الصفحات والأوصاف، استخدم دالة `getStaticProps` بالتعاون مع دالة `getTranslation` الخاصة بـ Intlayer.
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { GetStaticPaths, GetStaticProps } from "next";
-import { type IConfigLocales, getTranslationContent, Locales } from "intlayer";
+import { type IConfigLocales, getTranslation, Locales } from "intlayer";
 import { useIntlayer } from "next-intlayer";
 
 interface HomePageProps {
@@ -564,8 +564,7 @@ const HomePage = ({ metadata }: HomePageProps) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const locale = params?.locale as string;
 
-  const t = <T,>(content: IConfigLocales<T>) =>
-    getTranslationContent(content, locale);
+  const t = <T,>(content: IConfigLocales<T>) => getTranslation(content, locale);
 
   const metadata = {
     title: t({
@@ -595,7 +594,7 @@ export default HomePage;
 
 ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
 import { GetStaticPaths, GetStaticProps } from "next";
-import { type IConfigLocales, getTranslationContent, Locales } from "intlayer";
+import { type IConfigLocales, getTranslation, Locales } from "intlayer";
 import { useIntlayer } from "next-intlayer";
 
 const HomePage = ({ metadata }) => {
@@ -616,7 +615,7 @@ export const getStaticProps = async ({ params }) => {
   const locale = params?.locale as string;
 
   const t = (content) =>
-    getTranslationContent(content, locale);
+    getTranslation(content, locale);
 
   const metadata = {
     title: t({
@@ -646,7 +645,7 @@ export default HomePage;
 
 ```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
 const { GetStaticPaths, GetStaticProps } = require("next");
-const { type IConfigLocales, getTranslationContent, Locales } = require("intlayer");
+const { type IConfigLocales, getTranslation, Locales } = require("intlayer");
 const { useIntlayer } = require("next-intlayer");
 
 const HomePage = ({ metadata }) => {
@@ -667,7 +666,7 @@ const getStaticProps = async ({ params }) => {
   const locale = params?.locale;
 
   const t = (content) =>
-    getTranslationContent(content, locale);
+    getTranslation(content, locale);
 
   const metadata = {
     title: t({
