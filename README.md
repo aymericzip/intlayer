@@ -75,8 +75,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 - [Intlayer CLI](https://intlayer.org/doc/concept/cli)
 - [Intlayer Editor](https://intlayer.org/doc/concept/editor)
 - [Intlayer CMS](https://intlayer.org/doc/concept/cms)
-- **Dictionary**
-  - [Declare Your Content](https://intlayer.org/doc/concept/content)
+- [Dictionary](https://intlayer.org/doc/concept/content)
   - [Translation](https://intlayer.org/doc/concept/content/translation)
   - [Enumeration](https://intlayer.org/doc/concept/content/enumeration)
   - [Condition](https://intlayer.org/doc/concept/content/condition)
