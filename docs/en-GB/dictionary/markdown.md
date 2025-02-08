@@ -12,8 +12,6 @@ When integrated with a React application, you can use a Markdown rendering provi
 
 To set up Markdown content in your Intlayer project, define a content dictionary that utilizes the `md` function.
 
-### TypeScript Example
-
 ```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
 import { md, type Dictionary } from "intlayer";
 
@@ -26,8 +24,6 @@ const markdownDictionary = {
 
 export default markdownDictionary;
 ```
-
-### JavaScript (ESM) Example
 
 ```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
 import { md } from "intlayer";
@@ -43,8 +39,6 @@ const markdownDictionary = {
 export default markdownDictionary;
 ```
 
-### CommonJS Example
-
 ```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
 const { md } = require("intlayer");
 
@@ -58,8 +52,6 @@ const markdownDictionary = {
 
 module.exports = markdownDictionary;
 ```
-
-### JSON Example
 
 When using JSON, the Markdown content is defined by setting a `nodeType` (e.g., `"markdown"`) and providing the Markdown string. For example:
 
