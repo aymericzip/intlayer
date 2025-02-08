@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore intlayer declared for module augmentation
-import { IntlayerDictionaryTypesConnector } from 'intlayer';
+import { IntlayerDictionaryTypesConnector, t } from 'intlayer';
 import type {
   ConditionContent,
   EnumerationContent,
@@ -52,8 +52,10 @@ export type ContentNode<NodeType = undefined, FetchableNode = false> =
 type IsArray<T> = T extends any[] ? true : false;
 
 type ReplaceContentValueArray<T, FetchableNode> = T extends (infer U)[]
-  ? ReplaceContentValue<U, FetchableNode>[]
-  : ReplaceContentValue<T, FetchableNode>;
+  ? // Allow either a *single* typed node returning the entire array
+    // or an array of typed nodes (or scalar nodes).
+    ContentNode<T, FetchableNode> | ReplaceContentValue<U, FetchableNode>[]
+  : never;
 
 type ReplaceContentValueObject<T, FetchableNode> = {
   [K in keyof T]: ReplaceContentValue<T[K], FetchableNode>;
