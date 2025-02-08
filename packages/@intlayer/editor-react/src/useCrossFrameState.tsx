@@ -51,7 +51,10 @@ export const useCrossFrameState = <S,>(
 ): [S, Dispatch<SetStateAction<S>>] => {
   const { postMessage } = useCommunicator();
 
-  const { emit, receive } = options ?? { emit: true, receive: true };
+  const { emit, receive } = useMemo(
+    () => options ?? { emit: true, receive: true },
+    [options]
+  );
 
   const handleStateChange = useCallback(
     (state?: SetStateAction<S>, prevState?: S) => {
@@ -126,7 +129,8 @@ export const useCrossFrameState = <S,>(
     if (receive && typeof postMessage === 'function') {
       postMessage({ type: `${key}/get` });
     }
-  }, [postMessage, receive, key]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Return the useState state and setter
   return useMemo(() => [state, setStateWrapper], [state, setStateWrapper]);
