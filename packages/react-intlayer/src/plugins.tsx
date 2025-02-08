@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/import/no-cycle */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   type Plugins,
@@ -16,7 +17,7 @@ import { renderReactElement } from './reactElement/renderReactElement';
  *  INTLAYER NODE PLUGIN
  *  --------------------------------------------- */
 
-export type IntlayerNodeCond<T, _S> = T extends number | string
+export type IntlayerNodeCond<T> = T extends number | string
   ? IntlayerNode<T>
   : never;
 
@@ -39,7 +40,7 @@ export const intlayerNodePlugins: Plugins = {
  *  REACT NODE PLUGIN
  *  --------------------------------------------- */
 
-export type ReactNodeCond<T, _S> = T extends {
+export type ReactNodeCond<T> = T extends {
   ref: any;
   props: any;
   key: any;
@@ -62,7 +63,7 @@ export const reactNodePlugins: Plugins = {
  * MARKDOWN PLUGIN
  */
 
-export type MarkdownCond<T, _S> = T extends {
+export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: string;
 }
@@ -80,10 +81,10 @@ export const markdownPlugin: Plugins = {
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
-export interface IInterpreterPluginReact<T, _S> {
-  reactNode: ReactNodeCond<T, _S>;
-  intlayerNode: IntlayerNodeCond<T, _S>;
-  markdown: MarkdownCond<T, _S>;
+export interface IInterpreterPluginReact<T> {
+  reactNode: ReactNodeCond<T>;
+  intlayerNode: IntlayerNodeCond<T>;
+  markdown: MarkdownCond<T>;
 }
 
 /**

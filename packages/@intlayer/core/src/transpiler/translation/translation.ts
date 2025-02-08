@@ -1,4 +1,4 @@
-import { NodeType } from '../../types/index';
+import { formatNodeType, NodeType } from '../../types/index';
 import type { LanguageContent, TranslationContent } from './types';
 
 /**
@@ -21,10 +21,15 @@ import type { LanguageContent, TranslationContent } from './types';
  * - this function require each locale to be defined if defined in the project configuration.
  * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
-const translation = <Content = string>(content?: LanguageContent<Content>) =>
-  ({
-    nodeType: NodeType.Translation,
-    [NodeType.Translation]: content,
-  }) as TranslationContent<Content>;
+const translation = <
+  Content = unknown,
+  ContentRecord extends LanguageContent<Content> = LanguageContent<Content>,
+>(
+  content: ContentRecord
+) =>
+  formatNodeType(NodeType.Translation, content) satisfies TranslationContent<
+    Content,
+    ContentRecord
+  >;
 
 export { translation as t };

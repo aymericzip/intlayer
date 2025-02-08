@@ -1,9 +1,12 @@
 import { createModuleAugmentation } from '@intlayer/chokidar';
 import { type Locales, getConfiguration } from '@intlayer/config';
-import { getTranslation, localeDetector } from '@intlayer/core';
+import {
+  getTranslation,
+  localeDetector,
+  type LanguageContent,
+} from '@intlayer/core';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, RequestHandler, Request, Response } from 'express';
-import { type IConfigLocales } from 'intlayer';
 
 const { middleware, internationalization } = getConfiguration({
   verbose: true,
@@ -17,7 +20,7 @@ createModuleAugmentation();
 export const translateFunction =
   (_req: Request, res: Response, _next?: NextFunction) =>
   <T extends string>(
-    content: IConfigLocales<T> | string,
+    content: LanguageContent<T> | string,
     locale?: Locales
   ): T => {
     const { locale: currentLocale, defaultLocale } = res.locals as {
@@ -36,12 +39,12 @@ export const translateFunction =
     }
 
     if (
-      typeof content?.[targetLocale as unknown as keyof IConfigLocales<T>] ===
+      typeof content?.[targetLocale as unknown as keyof LanguageContent<T>] ===
       'undefined'
     ) {
       if (
         typeof content?.[
-          defaultLocale as unknown as keyof IConfigLocales<T>
+          defaultLocale as unknown as keyof LanguageContent<T>
         ] === 'undefined'
       ) {
         return content as unknown as T;
@@ -98,8 +101,6 @@ export const intlayer = (): RequestHandler => (req, res, next) => {
     next();
   });
 };
-
-type LanguageContent<Content = string> = IConfigLocales<Content>;
 
 export const t = <Content = string>(
   content: LanguageContent<Content>,

@@ -13,7 +13,7 @@ import type { Plugins, NodeProps, DeepTransformContent } from './getContent';
  *                      If omitted, we’ll use a default set of plugins.
  */
 export const getDictionary = <
-  T extends Dictionary<unknown, false>,
+  T extends Dictionary,
   L extends LocalesValues = Locales,
 >(
   dictionary: T,
@@ -27,7 +27,7 @@ export const getDictionary = <
     plugins,
   };
 
-  // @ts-ignore
+  // @ts-ignore Type instantiation is excessively deep and possibly infinite
   return getContent(
     dictionary.content,
     props,

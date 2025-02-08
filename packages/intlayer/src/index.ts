@@ -1,38 +1,4 @@
-import { Locales } from '@intlayer/config/client';
-import {
-  getTranslation as getTranslationCore,
-  nest as nestCore,
-  t as tCore,
-  type TranslationContent,
-  type NestedContent,
-  type DictionaryKeys,
-  type TranslationContentState,
-  type Dictionary as DictionaryCore,
-  type ValidDotPathsFor,
-} from '@intlayer/core';
-
-interface IConfigLocales<Content> {
-  // This interface should be augmented in the consuming app
-}
-
-type ConfigLocales = keyof IConfigLocales<unknown>;
-
-type CustomizableLanguageContent<Content = string> = ConfigLocales extends never
-  ? TranslationContentState<Content>
-  : IConfigLocales<Content>;
-
-// Re-exporting the following functions from the core package: to use module augmentation
-const t: <Content = string>(
-  content: CustomizableLanguageContent<Content>
-) => TranslationContent<Content> = tCore;
-const getTranslationContent: <Content = string>(
-  languageContent: CustomizableLanguageContent<Content>,
-  locale: Locales
-) => Content = getTranslationCore;
-const nest: <K extends DictionaryKeys>(
-  dictionaryKey: K,
-  path?: ValidDotPathsFor<K>
-) => NestedContent<K> = nestCore;
+import type { Dictionary as DictionaryCore } from '@intlayer/core';
 
 type Dictionary<T = undefined> = DictionaryCore<T, true>;
 /**
@@ -40,17 +6,10 @@ type Dictionary<T = undefined> = DictionaryCore<T, true>;
  */
 type DeclarationContent<T = undefined> = Dictionary<T>;
 
-export {
-  Locales,
-  type Dictionary,
-  type DeclarationContent,
-  type IConfigLocales,
-  t,
-  getTranslationContent,
-  nest,
-};
+export type { Dictionary, DeclarationContent };
 
 export {
+  Locales,
   type CustomIntlayerConfig as IntlayerConfig,
   type LocalesValues,
   getConfiguration,
@@ -62,6 +21,8 @@ export {
   enu,
   cond,
   md,
+  t,
+  nest,
   getEnumeration,
   getDictionary,
   getIntlayer,

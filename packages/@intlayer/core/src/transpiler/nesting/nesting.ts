@@ -1,7 +1,11 @@
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { DictionaryKeys } from '../../types/dictionary';
-import { NodeType } from '../../types/index';
+import {
+  formatNodeType,
+  NodeType,
+  type TypedNodeModel,
+} from '../../types/index';
 import type { DeepTransformContent } from '../../interpreter';
 
 /**
@@ -50,10 +54,10 @@ export type NestedContentState<K extends DictionaryKeys> = {
   path?: ValidDotPathsFor<K>;
 };
 
-export type NestedContent<K extends DictionaryKeys = never> = {
-  nodeType: NodeType.Nested;
-  [NodeType.Nested]: NestedContentState<K>;
-};
+export type NestedContent<K extends DictionaryKeys = never> = TypedNodeModel<
+  NodeType.Nested,
+  NestedContentState<K>
+>;
 
 /**
  * Function intended to be used to build intlayer dictionaries.
@@ -73,12 +77,10 @@ export type NestedContent<K extends DictionaryKeys = never> = {
 const nesting = <K extends DictionaryKeys>(
   dictionaryKey: K,
   path?: ValidDotPathsFor<K>
-): NestedContent<K> => ({
-  nodeType: NodeType.Nested,
-  [NodeType.Nested]: {
+): NestedContent<K> =>
+  formatNodeType(NodeType.Nested, {
     dictionaryKey,
     path,
-  },
-});
+  });
 
 export { nesting as nest };

@@ -65,7 +65,6 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    *
    *   type ConfigLocales = Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH;
    *   type ExtractedLocales = Extract<Locales, ConfigLocales>;
-   *   type ExcludedLocales = Exclude<Locales, ConfigLocales>;
    *
    *   interface IConfigLocales<Content> extends Record<ExtractedLocales, Content>, Partial<Record<ExcludedLocales, Content>> {}
    *
@@ -77,7 +76,6 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
   content += `  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  }\n\n`;
   content += `  type ConfigLocales = ${formatLocales};\n`;
   content += `  type ExtractedLocales = Extract<Locales, ConfigLocales>;\n`;
-  content += `  type ExcludedLocales = Exclude<Locales, ConfigLocales>;\n\n`;
   content += `  ${strictModeRecord}\n`;
   content += `}`;
 

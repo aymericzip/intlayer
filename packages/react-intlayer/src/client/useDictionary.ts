@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
-import { type Dictionary } from '@intlayer/core';
+import type { LocalesValues } from '@intlayer/config/client';
+import { DeepTransformContent, type Dictionary } from '@intlayer/core';
 import { useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { getDictionary } from '../getDictionary';
@@ -13,10 +14,13 @@ import { getDictionary } from '../getDictionary';
  */
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,
-  locale?: Locales
+  locale?: LocalesValues
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget = locale ?? currentLocale;
 
-  return getDictionary(dictionary, localeTarget);
+  return getDictionary<T, LocalesValues>(
+    dictionary,
+    localeTarget
+  ) as any as DeepTransformContent<T['content']>;
 };

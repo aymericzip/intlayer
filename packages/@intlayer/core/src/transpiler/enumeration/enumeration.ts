@@ -1,4 +1,4 @@
-import { NodeType } from '../../types/index';
+import { formatNodeType, NodeType, TypedNodeModel } from '../../types/index';
 
 type Positif = number | `${number}`;
 type Negatif = `-${number}`;
@@ -25,10 +25,10 @@ export type EnumerationContentState<Content> = Partial<
   fallback?: Content;
 };
 
-export type EnumerationContent<Content = unknown> = {
-  nodeType: NodeType.Enumeration;
-  [NodeType.Enumeration]: EnumerationContentState<Content>;
-};
+export type EnumerationContent<Content = unknown> = TypedNodeModel<
+  NodeType.Enumeration,
+  EnumerationContentState<Content>
+>;
 
 /**
  * Function intended to be used to build intlayer dictionaries.
@@ -49,9 +49,7 @@ export type EnumerationContent<Content = unknown> = {
  * > The order of the keys will define the priority of the content.
  *
  */
-const enumeration = <Content>(content?: EnumerationContentState<Content>) => ({
-  nodeType: NodeType.Enumeration,
-  [NodeType.Enumeration]: { ...content },
-});
+const enumeration = <Content>(content?: EnumerationContentState<Content>) =>
+  formatNodeType(NodeType.Enumeration, content);
 
 export { enumeration as enu };

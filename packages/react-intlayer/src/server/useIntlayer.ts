@@ -11,8 +11,7 @@ import { getIntlayer } from '../getIntlayer';
  */
 export const useIntlayer = <T extends DictionaryKeys, K extends LocalesValues>(
   key: T,
-  locale?: K,
-  isRenderEditor = true
+  locale?: K
 ) => {
   const localeTarget =
     locale ?? getServerContext<LocalesValues>(IntlayerServerContext);

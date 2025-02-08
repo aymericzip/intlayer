@@ -10,11 +10,11 @@ import type {
 } from '../transpiler/index';
 
 /**
- * Provides a fallback to string type if the generic type T is never,
+ * Provides a fallback to string type if the generic type T is undefined,
  * otherwise returns T. This is useful for handling cases where no keys are found.
- * Example: StringFallback<never> -> string; StringFallback<'key'> -> 'key'
+ * Example: StringFallback<undefined> -> string; StringFallback<'key'> -> 'key'
  */
-export type StringFallback<T> = T extends never ? string : T; // If no keys are found, return string to disable error, and accept any string as dictionary key
+export type StringFallback<T> = T extends undefined ? string : T; // If no keys are found, return string to disable error, and accept any string as dictionary key
 
 /**
  * Represents the keys of the IntlayerDictionaryTypesConnector,
@@ -31,42 +31,47 @@ export type DictionaryKeys = StringFallback<
   keyof IntlayerDictionaryTypesConnector
 >;
 
-export type TypedNode<NodeType = never> =
+export type TypedNode<NodeType = undefined> =
   | TranslationContent<NodeType>
   | EnumerationContent<NodeType>
   | ConditionContent<NodeType>
   | MarkdownContent
   | NestedContent<DictionaryKeys>;
 
-export type BaseNode = string | number | bigint | boolean | null | undefined;
-
-export type FetchableContentNode<NodeType = ContentNode> = (
+type FetchableContentNode<NodeType> = (
   args?: any
 ) => ContentNode<NodeType> | Promise<ContentNode<NodeType>>;
 
-export type ContentNode<NodeType = BaseNode, FetchableNode = false> =
+export type ContentNode<NodeType = undefined, FetchableNode = false> =
   | NodeType
   | TypedNode<NodeType>
-  | { [paramKey: string | number]: ContentNode }
   | ((args?: any) => ContentNode<NodeType>)
-  | (FetchableNode extends true ? FetchableContentNode<NodeType> : never);
+  | (FetchableNode extends true ? FetchableContentNode<NodeType> : undefined);
 
+// Utility types (unchanged)
 type IsArray<T> = T extends any[] ? true : false;
 
-type ReplaceContentValueArray<T> = T extends (infer U)[]
-  ? ReplaceContentValue<U>[]
-  : ReplaceContentValue<T>;
+type ReplaceContentValueArray<T, FetchableNode> = T extends (infer U)[]
+  ? ReplaceContentValue<U, FetchableNode>[]
+  : ReplaceContentValue<T, FetchableNode>;
 
-// Utility type that performs recursive replacement
-type ReplaceContentValue<NodeType, FetchableNode = true> = {
-  [P in keyof NodeType]: IsArray<NodeType[P]> extends true
-    ? ReplaceContentValueArray<NodeType[P]>
-    : NodeType[P] extends object
-      ? ReplaceContentValue<NodeType[P]>
-      : ContentNode<NodeType[P], FetchableNode>;
+type ReplaceContentValueObject<T, FetchableNode> = {
+  [K in keyof T]: ReplaceContentValue<T[K], FetchableNode>;
 };
 
-export type Dictionary<NodeType = undefined, FetchableNode = false> = {
+// Modified: allow a full ContentNode wrapper OR an object shape when T is an object
+type ReplaceContentValue<
+  NodeType,
+  FetchableNode = true,
+> = NodeType extends object
+  ? IsArray<NodeType> extends true
+    ? ReplaceContentValueArray<NodeType, FetchableNode>
+    :
+        | ContentNode<NodeType, FetchableNode>
+        | ReplaceContentValueObject<NodeType, FetchableNode>
+  : ContentNode<NodeType, FetchableNode>;
+
+export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   $schema?: string;
   key: string;
   title?: string;
@@ -75,7 +80,7 @@ export type Dictionary<NodeType = undefined, FetchableNode = false> = {
   version?: string;
   filePath?: string;
   tags?: string[];
-  content: NodeType extends undefined // Applying the generic to replace ContentValue with Replacement
-    ? ContentNode<any, FetchableNode>
-    : ReplaceContentValue<NodeType>;
+  content: ContentType extends undefined // Applying the generic to replace ContentValue with Replacement
+    ? any
+    : ReplaceContentValue<ContentType, FetchableNode> | ContentType;
 };

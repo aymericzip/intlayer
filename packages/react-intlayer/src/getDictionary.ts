@@ -13,7 +13,7 @@ import {
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 
 export const getDictionary = <
-  T extends Dictionary<unknown, false>,
+  T extends Dictionary,
   L extends LocalesValues = Locales,
 >(
   dictionary: T,

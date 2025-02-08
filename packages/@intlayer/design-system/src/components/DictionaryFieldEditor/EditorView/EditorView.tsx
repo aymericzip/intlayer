@@ -38,6 +38,7 @@ export const EditorView: FC<EditorViewProps> = ({
   const initialKeyName = keyPath[keyPath.length - 1]?.key ?? '';
   const { titleInput, deleteButton, nodeTypeSelector, restoreButton } =
     useDictionary(editorViewContent);
+
   const {
     editedContent,
     renameEditedContent,
@@ -103,7 +104,7 @@ export const EditorView: FC<EditorViewProps> = ({
                     name="key"
                     aria-label="Key"
                     key={initialKeyName}
-                    placeholder={titleInput.placeholder}
+                    placeholder={titleInput.placeholder.value}
                     defaultValue={camelCaseToSentence(initialKeyName)}
                     onSave={(value) => handleRenameNodeKey(value)}
                     className="h-8"
@@ -130,7 +131,7 @@ export const EditorView: FC<EditorViewProps> = ({
             <div className="ml-auto flex gap-2">
               {isEdited && (
                 <Button
-                  label={restoreButton.label}
+                  label={restoreButton.label.value}
                   variant="outline"
                   color="text-inverse"
                   Icon={RotateCcw}
@@ -140,7 +141,7 @@ export const EditorView: FC<EditorViewProps> = ({
                 </Button>
               )}
               <Button
-                label={deleteButton.label}
+                label={deleteButton.label.value}
                 variant="outline"
                 color="error"
                 Icon={X}

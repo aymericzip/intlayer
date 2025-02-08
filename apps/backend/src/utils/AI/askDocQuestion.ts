@@ -2,7 +2,7 @@ import fs from 'fs';
 import { getBlogs } from '@intlayer/blog';
 import { getDocs } from '@intlayer/docs';
 import dotenv from 'dotenv';
-import { Locales } from 'intlayer';
+import { Locales } from '@intlayer/config';
 import { OpenAI } from 'openai';
 import embeddingsList from './embeddings.json' with { type: 'json' };
 

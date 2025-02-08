@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/import/no-cycle */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { LocalesValues } from '@intlayer/config';
 /**
@@ -24,7 +25,7 @@ export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   }
 
   return getDictionary(
-    dictionary as unknown as Dictionary<unknown, false>,
+    dictionary as Dictionary,
     locale,
     plugins
   ) as any as DeepTransformContent<

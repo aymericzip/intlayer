@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export enum NodeType {
   Translation = 'translation',
   Enumeration = 'enumeration',
@@ -9,3 +10,18 @@ export enum NodeType {
   ReactNode = 'reactNode',
   Markdown = 'markdown',
 }
+
+export type TypedNodeModel<T extends NodeType, Content> = {
+  nodeType: T | `${T}`;
+} & {
+  [K in T]: Content;
+};
+
+export const formatNodeType = <T extends NodeType, Content = any>(
+  nodeType: T | `${T}`,
+  content: Content
+) =>
+  ({
+    nodeType,
+    [nodeType]: content,
+  }) as TypedNodeModel<T, Content>;

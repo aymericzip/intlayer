@@ -14,19 +14,15 @@ export const getSectionType = (section: ContentNode): NodeType => {
     return NodeType.Text;
   }
 
-  if (
-    (section as TranslationContent<unknown>)?.nodeType === NodeType.Translation
-  ) {
+  if ((section as TranslationContent)?.nodeType === NodeType.Translation) {
     return NodeType.Translation;
   }
 
-  if (
-    (section as EnumerationContent<unknown>)?.nodeType === NodeType.Enumeration
-  ) {
+  if ((section as EnumerationContent)?.nodeType === NodeType.Enumeration) {
     return NodeType.Enumeration;
   }
 
-  if ((section as ConditionContent<unknown>)?.nodeType === NodeType.Condition) {
+  if ((section as ConditionContent)?.nodeType === NodeType.Condition) {
     return NodeType.Condition;
   }
 

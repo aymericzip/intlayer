@@ -1,11 +1,15 @@
-import { NodeType } from '../../types/index';
+import {
+  formatNodeType,
+  NodeType,
+  type TypedNodeModel,
+} from '../../types/index';
 
 export type MarkdownContentState = string;
 
-export type MarkdownContent = {
-  nodeType: NodeType.Markdown;
-  [NodeType.Markdown]: MarkdownContentState;
-};
+export type MarkdownContent = TypedNodeModel<
+  NodeType.Markdown,
+  MarkdownContentState
+>;
 
 /**
  * Function intended to be used to build intlayer dictionaries.
@@ -19,9 +23,7 @@ export type MarkdownContent = {
  * ```
  *
  */
-const markdown = (content: string): MarkdownContent => ({
-  nodeType: NodeType.Markdown,
-  [NodeType.Markdown]: content,
-});
+const markdown = (content: string): MarkdownContent =>
+  formatNodeType(NodeType.Markdown, content);
 
 export { markdown as md };

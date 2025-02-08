@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/import/no-cycle */
 import type { ValidDotPathsFor } from '../transpiler';
 import type { DictionaryKeys } from '../types';
 import type {

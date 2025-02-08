@@ -11,11 +11,10 @@ import { getDictionary } from '../getDictionary';
  */
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,
-  locale?: LocalesValues,
-  isRenderEditor = false
+  locale?: LocalesValues
 ) => {
   const localeTarget =
     locale ?? getServerContext<LocalesValues>(IntlayerServerContext);
 
-  return getDictionary(dictionary, localeTarget);
+  return getDictionary<T, LocalesValues>(dictionary, localeTarget);
 };

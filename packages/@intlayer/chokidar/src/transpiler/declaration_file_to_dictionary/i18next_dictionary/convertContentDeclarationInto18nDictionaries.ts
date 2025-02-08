@@ -85,7 +85,9 @@ const buildDictionary = (content: ContentNode, locale: Locales): unknown => {
     Object.keys(content as Record<string, unknown>).forEach(
       (dictionaryValue) => {
         result[dictionaryValue] = buildDictionary(
-          content?.[dictionaryValue as keyof typeof content] as ContentNode,
+          content?.[
+            dictionaryValue as keyof typeof content
+          ] as unknown as ContentNode,
           locale
         );
       }
