@@ -43,15 +43,15 @@ Intlayer 可视化编辑器是一个允许您在本地词典中通过可视化�
 一旦 Intlayer 在您的项目中配置完成，只需将 `intlayer-editor` 安装为开发依赖：
 
 ```bash packageManager="npm"
-npm install intlayer-editor -D
+npm install intlayer-editor --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-editor -D
+yarn add intlayer-editor --save-dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-editor -D
+pnpm add intlayer-editor --save-dev
 ```
 
 ## 配置

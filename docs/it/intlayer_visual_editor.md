@@ -43,15 +43,15 @@ L'editor visivo in un'applicazione include due cose:
 Una volta configurato Intlayer nel tuo progetto, installa semplicemente `intlayer-editor` come dipendenza di sviluppo:
 
 ```bash packageManager="npm"
-npm install intlayer-editor -D
+npm install intlayer-editor --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-editor -D
+yarn add intlayer-editor --save-dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-editor -D
+pnpm add intlayer-editor --save-dev
 ```
 
 ## Configurazione

@@ -43,15 +43,15 @@ Vite + Reactとの統合については、[setup guide](https://github.com/aymer
 Intlayerがプロジェクト内で構成されたら、単に`intlayer-editor`を開発依存関係としてインストールします：
 
 ```bash packageManager="npm"
-npm install intlayer-editor -D
+npm install intlayer-editor --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-editor -D
+yarn add intlayer-editor --save-dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-editor -D
+pnpm add intlayer-editor --save-dev
 ```
 
 ## Configuration
