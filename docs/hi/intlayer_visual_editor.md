@@ -43,15 +43,15 @@ Vite + React के साथ एकीकरण के लिए, [सेटअ
 एक बार जब Intlayer आपके प्रोजेक्ट में कॉन्फ़िगर किया जाता है, तो बस `intlayer-editor` को विकास निर्भरता के रूप में स्थापित करें:
 
 ```bash packageManager="npm"
-npm install intlayer-editor -D
+npm install intlayer-editor --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-editor -D
+yarn add intlayer-editor --save-dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-editor -D
+pnpm add intlayer-editor --save-dev
 ```
 
 ## Configuration

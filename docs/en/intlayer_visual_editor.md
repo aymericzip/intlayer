@@ -43,15 +43,15 @@ The visual editor in an application that includes two things:
 Once Intlayer is configured in your project, simply install `intlayer-editor` as a development dependency:
 
 ```bash packageManager="npm"
-npm install intlayer-editor -D
+npm install intlayer-editor --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-editor -D
+yarn add intlayer-editor --save-dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-editor -D
+pnpm add intlayer-editor --save-dev
 ```
 
 ## Configuration

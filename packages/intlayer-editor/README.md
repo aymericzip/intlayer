@@ -29,15 +29,15 @@
 Install the necessary package using your preferred package manager:
 
 ```bash packageManager="npm"
-npm install intlayer-editor -D
+npm install intlayer-editor --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-editor -D
+yarn add intlayer-editor --save-dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-editor -D
+pnpm add intlayer-editor --save-dev
 ```
 
 # Intlayer Visual Editor Documentation
