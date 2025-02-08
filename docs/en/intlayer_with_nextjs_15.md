@@ -389,16 +389,14 @@ const Page: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
 
   return (
-    <>
-      <IntlayerServerProvider locale={locale}>
-        <PageContent />
-        <ServerComponentExample />
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+      <ServerComponentExample />
 
-        <IntlayerClientProvider locale={locale}>
-          <ClientComponentExample />
-        </IntlayerClientProvider>
-      </IntlayerServerProvider>
-    </>
+      <IntlayerClientProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerClientProvider>
+    </IntlayerServerProvider>
   );
 };
 
@@ -411,44 +409,64 @@ import { ServerComponentExample } from "@components/ServerComponentExample";
 import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
-const Page = ({ locale }) => {
-  const content = useIntlayer("page", locale);
+const PageContent = () => {
+  const { title, content } = useIntlayer("page");
 
   return (
     <>
       <p>{content.getStarted.main}</p>
       <code>{content.getStarted.pageLink}</code>
-
-      <IntlayerClientProvider locale={locale}>
-        <IntlayerServerProvider locale={locale}>
-          <ClientComponentExample />
-          <ServerComponentExample />
-        </IntlayerServerProvider>
-      </IntlayerClientProvider>
     </>
   );
 };
+
+const Page = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+      <ServerComponentExample />
+
+      <IntlayerClientProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerClientProvider>
+    </IntlayerServerProvider>
+  );
+};
+
+export default Page;
 ```
 
 ```jsx fileName="src/app/[locale]/page.csx" codeFormat="commonjs"
-const { IntlayerClientProvider } = require("next-intlayer");
-const { IntlayerServerProvider, useIntlayer } = require("next-intlayer/server");
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
-const Page = ({ locale }) => {
-  const content = useIntlayer("page", locale);
+const PageContent = () => {
+  const { title, content } = useIntlayer("page");
 
   return (
     <>
       <p>{content.getStarted.main}</p>
       <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+      <ServerComponentExample />
 
       <IntlayerClientProvider locale={locale}>
-        <IntlayerServerProvider locale={locale}>
-          <ClientComponentExample />
-          <ServerComponentExample />
-        </IntlayerServerProvider>
+        <ClientComponentExample />
       </IntlayerClientProvider>
-    </>
+    </IntlayerServerProvider>
   );
 };
 ```
