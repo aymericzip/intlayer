@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/design-system",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "private": false,
   "description": "Intlayer design system, including UI components used in the Intlayer editor, website, and visual editor/CMS.",
   "keywords": [
