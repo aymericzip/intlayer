@@ -241,11 +241,13 @@ type CheckApplyPlugin<T, K extends keyof IInterpreterPlugin<T, S>, S> =
 /**
  * Traverse recursively through an object or array, applying each plugin as needed.
  */
-type Traverse<T, S> = T extends object
-  ? T extends (infer U)[]
-    ? DeepTransformContent<U, S>[] // Transform each element in an array.
-    : { [K in keyof T]: DeepTransformContent<T[K], S> } // Recursively transform each property.
-  : T;
+type Traverse<T, S> =
+  // Turn any read-only array into a plain mutable array
+  T extends ReadonlyArray<infer U>
+    ? Array<DeepTransformContent<U, S>>
+    : T extends object
+      ? { [K in keyof T]: DeepTransformContent<T[K], S> }
+      : T;
 
 /**
  * Traverse recursively through an object or array, applying each plugin as needed.
