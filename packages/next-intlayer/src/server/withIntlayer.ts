@@ -46,13 +46,17 @@ export const withIntlayer = (
           ...(nextConfig.experimental?.turbo ?? {}),
           resolveAlias: {
             ...(nextConfig.experimental?.turbo?.resolveAlias ?? {}),
-            '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+            '@intlayer/dictionaries-entry': relativeDictionariesPath,
           },
           rules: {
             '*.node': {
               as: '*.node',
               loaders: ['node-loader'],
             },
+            '*.md': {
+              as: 'asset',
+              loaders: ['raw-loader'],
+            }, // Fix esbuild error that import README.md file
           },
         },
       }
@@ -106,6 +110,10 @@ export const withIntlayer = (
         test: /\.node$/,
         loader: 'node-loader',
       });
+      config.module.rules.push({
+        test: /\.md$/,
+        type: 'raw-loader',
+      }); // Fix esbuild error that import README.md file
 
       // Only add Intlayer plugin on server side (node runtime)
       const { isServer, nextRuntime } = options;
