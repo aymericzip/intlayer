@@ -263,7 +263,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   );
 };
 
-const NodeTextEditor: FC<TextEditorProps> = ({
+const ConditionTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
@@ -498,6 +498,17 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.Enumeration) {
       return (
         <EnumerationTextEditor
+          dictionary={dictionary}
+          keyPath={keyPath}
+          section={section}
+          locales={locales}
+        />
+      );
+    }
+
+    if (nodeType === NodeType.Condition) {
+      return (
+        <ConditionTextEditor
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
