@@ -149,8 +149,8 @@ export const StructureView: FC<StructureViewProps> = ({
         variant="hoverable"
         size="md"
         color="text"
-        isFullWidth
         Icon={Plus}
+        className="w-80"
         onClick={() => {
           const newKey = 'newKey';
           addEditedContent(dictionaryKey, {}, [
