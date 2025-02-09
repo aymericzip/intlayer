@@ -25,6 +25,7 @@ type DictionaryFieldEditorProps = {
 };
 
 enum EditorViewType {
+  StructureEditor,
   NodeEditor,
   JSONEditor,
 }
@@ -84,11 +85,15 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             onChange={(value) => setEditorView(value)}
             color="text"
             size="sm"
-            className="ml-auto"
+            className="m-auto w-full max-w-2xl"
             choices={[
               {
                 content: 'Node editor',
                 value: EditorViewType.NodeEditor,
+              },
+              {
+                content: 'Structure editor',
+                value: EditorViewType.StructureEditor,
               },
               {
                 content: 'JSON editor',
