@@ -1,5 +1,6 @@
 'use client';
 
+import { getConfiguration } from '@intlayer/config/client';
 import {
   createContext,
   useContext,
@@ -12,9 +13,12 @@ export type UseCrossPlatformStateProps = {
   allowedOrigins?: string[];
 };
 
-const CommunicatorContext = createContext<
-  UseCrossPlatformStateProps | undefined
->(undefined);
+const { editor } = getConfiguration();
+
+const CommunicatorContext = createContext<UseCrossPlatformStateProps>({
+  postMessage: () => null,
+  allowedOrigins: [editor.applicationURL, editor.editorURL, editor.cmsURL],
+});
 
 export const CommunicatorProvider: FC<
   PropsWithChildren<UseCrossPlatformStateProps>
@@ -24,13 +28,4 @@ export const CommunicatorProvider: FC<
   </CommunicatorContext.Provider>
 );
 
-export const useCommunicator = () => {
-  const context = useContext(CommunicatorContext);
-
-  if (!context) {
-    throw new Error(
-      'useCommunicator must be used within a CommunicatorProvider'
-    );
-  }
-  return context;
-};
+export const useCommunicator = () => useContext(CommunicatorContext);

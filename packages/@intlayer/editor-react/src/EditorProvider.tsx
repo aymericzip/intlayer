@@ -17,41 +17,39 @@ import {
 } from './EditorEnabledContext';
 import { FocusDictionaryProvider } from './FocusDictionaryContext';
 
-type EditorProviderEnabledProps = {
+type EditorProviderEnabledProps = UseCrossPlatformStateProps & {
   mode: 'editor' | 'client';
 };
 
 const EditorProviderEnabled: FC<
   PropsWithChildren<EditorProviderEnabledProps>
-> = ({ mode, children }) => {
+> = ({ mode, children, ...props }) => {
   const { enabled } = useEditorEnabled();
 
   return enabled || mode === 'editor' ? (
-    <DictionariesRecordProvider>
-      <EditedContentProvider>
-        <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
-      </EditedContentProvider>
-    </DictionariesRecordProvider>
+    <CommunicatorProvider {...props}>
+      <DictionariesRecordProvider>
+        <EditedContentProvider>
+          <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
+        </EditedContentProvider>
+      </DictionariesRecordProvider>
+    </CommunicatorProvider>
   ) : (
     children
   );
 };
 
-export type EditorProviderProps = UseCrossPlatformStateProps &
-  EditorProviderEnabledProps &
+export type EditorProviderProps = EditorProviderEnabledProps &
   ConfigurationProviderProps;
 
 export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   children,
-  mode,
   configuration,
   ...props
 }) => (
-  <CommunicatorProvider {...props}>
-    <EditorEnabledProvider>
-      <ConfigurationProvider configuration={configuration}>
-        <EditorProviderEnabled mode={mode}>{children}</EditorProviderEnabled>
-      </ConfigurationProvider>
-    </EditorEnabledProvider>
-  </CommunicatorProvider>
+  <EditorEnabledProvider>
+    <ConfigurationProvider configuration={configuration}>
+      <EditorProviderEnabled {...props}>{children}</EditorProviderEnabled>
+    </ConfigurationProvider>
+  </EditorEnabledProvider>
 );

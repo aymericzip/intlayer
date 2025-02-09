@@ -93,6 +93,7 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
             editor.applicationURL
           );
         }
+
         if (editor.editorURL.length > 0) {
           window.parent?.postMessage(
             data,
