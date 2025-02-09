@@ -29,6 +29,7 @@ type DictionaryFieldEditorProps = {
 };
 
 enum EditorViewType {
+  DetailsEditor,
   ContentEditor,
   StructureEditor,
   JSONEditor,
@@ -44,8 +45,9 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const [editorView, setEditorView] = useState<EditorViewType>(
     EditorViewType.ContentEditor
   );
-  const { returnToDictionaryList, titleContent, titleInformation } =
-    useDictionary(dictionaryFieldEditorContent);
+  const { returnToDictionaryList, titleContent } = useDictionary(
+    dictionaryFieldEditorContent
+  );
   const { setFocusedContent } = useFocusDictionaryActions();
   const { setLocaleDictionaries } = useDictionariesRecordActions();
 
@@ -84,17 +86,6 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </label>
         </div>
 
-        {mode === 'remote' && (
-          <Container
-            className="flex size-full justify-center gap-10 p-6"
-            roundedSize="xl"
-          >
-            <H2>{titleInformation}</H2>
-
-            <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
-          </Container>
-        )}
-
         <Container
           className="flex size-full justify-center gap-10 p-6"
           roundedSize="xl"
@@ -108,6 +99,10 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             className="m-auto w-full max-w-xl"
             choices={[
               {
+                content: 'Details',
+                value: EditorViewType.DetailsEditor,
+              },
+              {
                 content: 'Content',
                 value: EditorViewType.ContentEditor,
               },
@@ -119,8 +114,14 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
                 content: 'JSON',
                 value: EditorViewType.JSONEditor,
               },
-            ]}
+            ].filter(
+              ({ value }) =>
+                !(mode === 'local' && value === EditorViewType.DetailsEditor)
+            )}
           />
+          {editorView === EditorViewType.DetailsEditor && (
+            <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
+          )}
           {editorView === EditorViewType.ContentEditor && (
             <ContentEditor dictionary={dictionary} />
           )}
