@@ -25,7 +25,8 @@ type DictionaryFieldEditorProps = {
 };
 
 enum EditorViewType {
-  NodeEditor,
+  ContentEditor,
+  StructureEditor,
   JSONEditor,
 }
 
@@ -37,7 +38,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   mode,
 }) => {
   const [editorView, setEditorView] = useState<EditorViewType>(
-    EditorViewType.NodeEditor
+    EditorViewType.ContentEditor
   );
   const { returnToDictionaryList, titleContent, titleInformation } =
     useDictionary(dictionaryFieldEditorContent);
@@ -84,19 +85,23 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             onChange={(value) => setEditorView(value)}
             color="text"
             size="sm"
-            className="ml-auto"
+            className="m-auto w-full max-w-2xl"
             choices={[
               {
-                content: 'Node editor',
-                value: EditorViewType.NodeEditor,
+                content: 'Content',
+                value: EditorViewType.ContentEditor,
               },
               {
-                content: 'JSON editor',
+                content: 'Structure',
+                value: EditorViewType.StructureEditor,
+              },
+              {
+                content: 'JSON',
                 value: EditorViewType.JSONEditor,
               },
             ]}
           />
-          {editorView === EditorViewType.NodeEditor && (
+          {editorView === EditorViewType.ContentEditor && (
             <NodeEditor dictionary={dictionary} locales={availableLocales} />
           )}
           {editorView === EditorViewType.JSONEditor && (

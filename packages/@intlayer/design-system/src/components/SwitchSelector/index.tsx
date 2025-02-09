@@ -56,7 +56,7 @@ const switchSelectorVariant = cva(
 );
 
 const choiceVariant = cva(
-  'z-1 text-sm font-medium transition-all duration-300 ease-in-out aria-selected:cursor-default aria-selected:text-text-dark motion-reduce:transition-none dark:aria-selected:text-text',
+  'z-1 w-full flex-1 text-sm font-medium transition-all duration-300 ease-in-out aria-selected:cursor-default aria-selected:text-text-dark motion-reduce:transition-none dark:aria-selected:text-text',
   {
     variants: {
       size: {
