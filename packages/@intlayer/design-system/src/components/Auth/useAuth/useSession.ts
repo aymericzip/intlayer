@@ -2,6 +2,7 @@
 
 import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration, IntlayerConfig } from '@intlayer/config/client';
+import { useConfiguration } from '@intlayer/editor-react';
 import { useMemo } from 'react';
 import { useAsync } from '../../../hooks/useAsync';
 import type { Session } from './index';
@@ -10,7 +11,8 @@ export const useSession = (
   sessionProp?: Session | null,
   intlayerConfiguration?: IntlayerConfig
 ) => {
-  const config = intlayerConfiguration ?? getConfiguration();
+  const configuration = useConfiguration();
+  const config = intlayerConfiguration ?? configuration ?? getConfiguration();
   const intlayerAPI = getIntlayerAPI(undefined, config);
 
   const {

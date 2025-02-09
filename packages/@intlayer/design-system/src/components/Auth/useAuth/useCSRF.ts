@@ -2,10 +2,12 @@
 
 import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import { useConfiguration } from '@intlayer/editor-react';
 import { useAsync } from '../../../hooks/useAsync/useAsync';
 
 export const useCSRF = (intlayerConfiguration?: IntlayerConfig) => {
-  const config = intlayerConfiguration ?? getConfiguration();
+  const configuration = useConfiguration();
+  const config = intlayerConfiguration ?? configuration ?? getConfiguration();
   const intlayerAPI = getIntlayerAPI(undefined, config);
 
   const { data, isFetched: csrfTokenFetched } = useAsync(
