@@ -5,6 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "dev:turbo": "next dev --turbo",
     "lint": "next lint",
     "serve": "npx intlayer serve",
     "start": "next start",
