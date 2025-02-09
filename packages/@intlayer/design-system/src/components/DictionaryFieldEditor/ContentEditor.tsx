@@ -1,6 +1,5 @@
 'use client';
 
-import { type Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import { type FC } from 'react';
@@ -12,10 +11,9 @@ import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
 type NodeEditorProps = {
   dictionary: Dictionary;
-  locales: Locales[];
 };
 
-export const ContentEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
+export const ContentEditor: FC<NodeEditorProps> = ({ dictionary }) => {
   const { content: dictionaryContent, key } = dictionary;
   const { editedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
@@ -53,11 +51,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
         </Container>
         <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
           {(focusedKeyPath?.length ?? 0) > 0 && (
-            <EditorView
-              dictionary={dictionary}
-              dictionaryKey={key}
-              locales={locales}
-            />
+            <EditorView dictionary={dictionary} dictionaryKey={key} />
           )}
         </div>
       </div>

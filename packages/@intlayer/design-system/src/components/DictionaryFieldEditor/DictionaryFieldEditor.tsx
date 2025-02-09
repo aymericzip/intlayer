@@ -1,8 +1,8 @@
 'use client';
 
-import { Locales } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import {
+  useConfiguration,
   useDictionariesRecordActions,
   useFocusDictionaryActions,
 } from '@intlayer/editor-react';
@@ -25,7 +25,6 @@ type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   onClickDictionaryList?: () => void;
   isDarkMode?: boolean;
-  availableLocales: Locales[];
   mode: 'local' | 'remote';
 };
 
@@ -39,9 +38,9 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   dictionary,
   onClickDictionaryList,
   isDarkMode,
-  availableLocales,
   mode,
 }) => {
+  const config = useConfiguration();
   const [editorView, setEditorView] = useState<EditorViewType>(
     EditorViewType.ContentEditor
   );
@@ -63,7 +62,9 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   }, [dictionary, setFocusedContent, setLocaleDictionaries]);
 
   return (
-    <LocaleSwitcherContentProvider availableLocales={availableLocales}>
+    <LocaleSwitcherContentProvider
+      availableLocales={config.internationalization.locales ?? []}
+    >
       <div className="flex size-full flex-1 flex-col gap-10">
         <div className="flex items-center gap-2">
           <Button
@@ -121,7 +122,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             ]}
           />
           {editorView === EditorViewType.ContentEditor && (
-            <ContentEditor dictionary={dictionary} locales={availableLocales} />
+            <ContentEditor dictionary={dictionary} />
           )}
           {editorView === EditorViewType.StructureEditor && (
             <StructureEditor dictionary={dictionary} />

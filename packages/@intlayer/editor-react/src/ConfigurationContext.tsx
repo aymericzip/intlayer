@@ -15,7 +15,7 @@ export const useConfigurationState = () =>
   });
 
 export type ConfigurationProviderProps = {
-  configuration: IntlayerConfig;
+  configuration?: IntlayerConfig;
 };
 
 export const ConfigurationProvider: FC<

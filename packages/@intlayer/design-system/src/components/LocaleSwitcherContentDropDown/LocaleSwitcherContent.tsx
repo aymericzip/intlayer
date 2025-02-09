@@ -1,6 +1,6 @@
 'use client';
 
-import { Locales } from '@intlayer/config/client';
+import { Locales, type LocalesValues } from '@intlayer/config/client';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
 import Fuse, { IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
@@ -23,7 +23,7 @@ export type LocaleSwitcherContentProps = {
 const DROPDOWN_IDENTIFIER = 'locale-switcher-content';
 
 type MultilingualAvailableLocales = {
-  locale: Locales;
+  locale: LocalesValues;
   englishName: string;
   currentLocaleName: string;
   ownLocaleName: string;
@@ -99,7 +99,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
     [fuse, multilingualAvailableLocales]
   );
 
-  const handleClickLocale = (localeItem: Locales) => {
+  const handleClickLocale = (localeItem: LocalesValues) => {
     if (isMultilingual) {
       if (selectedLocales.includes(localeItem)) {
         if (selectedLocales.length > 1) {

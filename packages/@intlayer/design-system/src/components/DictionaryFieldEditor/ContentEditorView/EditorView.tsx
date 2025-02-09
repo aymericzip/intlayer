@@ -1,6 +1,5 @@
 'use client';
 
-import { type Locales } from '@intlayer/config';
 import { type Dictionary, getContentNodeByKeyPath } from '@intlayer/core';
 import { useFocusDictionary, useEditedContent } from '@intlayer/editor-react';
 import { type FC } from 'react';
@@ -11,13 +10,11 @@ import { TextEditor } from './TextEditor';
 type EditorViewProps = {
   dictionaryKey: string;
   dictionary: Dictionary;
-  locales: Locales[];
 };
 
 export const EditorView: FC<EditorViewProps> = ({
   dictionaryKey,
   dictionary,
-  locales,
 }) => {
   const { focusedContent } = useFocusDictionary();
   const keyPath = focusedContent?.keyPath ?? [];
@@ -49,7 +46,6 @@ export const EditorView: FC<EditorViewProps> = ({
             keyPath={keyPath}
             section={section}
             dictionary={dictionary}
-            locales={locales}
           />
         </Container>
       )}

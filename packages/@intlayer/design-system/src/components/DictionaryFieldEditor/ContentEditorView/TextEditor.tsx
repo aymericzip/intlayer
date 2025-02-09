@@ -14,7 +14,7 @@ import {
   type ConditionContent,
   MarkdownContent,
 } from '@intlayer/core';
-import { useEditedContent } from '@intlayer/editor-react';
+import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, WandSparkles, X } from 'lucide-react';
 import type { FC } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
@@ -38,16 +38,15 @@ type ContentEditorTextAreaProps = Omit<
 > & {
   keyPath: KeyPath[];
   dictionary: Dictionary;
-  locales: Locales[];
 };
 
 const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   keyPath,
   dictionary,
-  locales,
   ...props
 }) => {
   const { addEditedContent } = useEditedContent();
+  const configuration = useConfiguration();
   const { auditContentDeclarationField, isLoading: isAuditing } =
     useAuditContentDeclarationField();
 
@@ -70,7 +69,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
             auditContentDeclarationField({
               fileContent: JSON.stringify(dictionary),
               keyPath,
-              locales,
+              locales: configuration.internationalization.locales ?? [],
             }).then((response) => {
               if (!response.data) return;
 
@@ -94,14 +93,12 @@ export type TextEditorProps = {
   dictionary: Dictionary;
   keyPath: KeyPath[];
   section: ContentNode;
-  locales: Locales[];
 };
 
 const TranslationTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
-  locales,
 }: TextEditorProps) => {
   const { locale } = useLocale();
   const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
@@ -142,7 +139,6 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
                   { type: NodeType.Translation, key: translationKey },
                 ]}
                 dictionary={dictionary}
-                locales={locales}
               >
                 {
                   (section as TranslationContent<string>)[NodeType.Translation][
@@ -162,7 +158,6 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
-  locales,
 }) => {
   const { addEditedContent } = useEditedContent();
   const { addNewEnumeration } = useDictionary(navigationViewContent);
@@ -226,7 +221,6 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                   { type: NodeType.Enumeration, key: enumKey },
                 ]}
                 dictionary={dictionary}
-                locales={locales}
               >
                 {
                   (section as EnumerationContent<string>)[NodeType.Enumeration][
@@ -267,7 +261,6 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
-  locales,
 }) => {
   const { addEditedContent } = useEditedContent();
   const { addNewEnumeration } = useDictionary(navigationViewContent);
@@ -329,7 +322,6 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
                   { type: NodeType.Enumeration, key: condKey },
                 ]}
                 dictionary={dictionary}
-                locales={locales}
               >
                 {
                   (section as EnumerationContent<string>)[NodeType.Enumeration][
@@ -370,7 +362,6 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
-  locales,
 }) => {
   const { addEditedContent } = useEditedContent();
   const { addNewElement } = useDictionary(navigationViewContent);
@@ -396,7 +387,6 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                   },
                 ]}
                 dictionary={dictionary}
-                locales={locales}
               >
                 {subSection as string}
               </ContentEditorTextArea>
@@ -433,7 +423,6 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
-  locales,
 }) => {
   return (
     <ContentEditorTextArea
@@ -441,7 +430,6 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
       aria-label="Edit field"
       keyPath={[...keyPath, { type: NodeType.Markdown }]}
       dictionary={dictionary}
-      locales={locales}
     >
       {(section as MarkdownContent)[NodeType.Markdown]}
     </ContentEditorTextArea>
@@ -452,7 +440,6 @@ export const TextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
-  locales,
 }) => {
   const { tsxNotEditable, nestNode } = useDictionary(navigationViewContent);
   const nodeType = getSectionType(section);
@@ -490,7 +477,6 @@ export const TextEditor: FC<TextEditorProps> = ({
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
-          locales={locales}
         />
       );
     }
@@ -501,7 +487,6 @@ export const TextEditor: FC<TextEditorProps> = ({
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
-          locales={locales}
         />
       );
     }
@@ -512,7 +497,6 @@ export const TextEditor: FC<TextEditorProps> = ({
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
-          locales={locales}
         />
       );
     }
@@ -523,7 +507,6 @@ export const TextEditor: FC<TextEditorProps> = ({
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
-          locales={locales}
         />
       );
     }
@@ -534,7 +517,6 @@ export const TextEditor: FC<TextEditorProps> = ({
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
-          locales={locales}
         />
       );
     }
@@ -548,7 +530,6 @@ export const TextEditor: FC<TextEditorProps> = ({
           aria-label="Edit field"
           keyPath={keyPath}
           dictionary={dictionary}
-          locales={locales}
         >
           {section as string}
         </ContentEditorTextArea>
