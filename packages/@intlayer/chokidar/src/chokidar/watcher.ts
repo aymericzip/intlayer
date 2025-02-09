@@ -8,7 +8,7 @@ import { getDictionariesPath } from '../getDictionariesPath';
 import { loadDictionaries } from '../loadDictionaries/loadDictionaries';
 import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
 import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
-import { createDictionaryList } from '../transpiler/dictionary_to_main/createDictionaryList';
+import { createDictionaryEntryPoint } from '../transpiler/dictionary_to_main/createDictionaryEntryPoint';
 import {
   createTypes,
   createModuleAugmentation,
@@ -38,7 +38,7 @@ export const prepareIntlayer = async (configuration?: IntlayerConfig) => {
 
   createTypes(dictionariesPaths);
 
-  createDictionaryList();
+  createDictionaryEntryPoint();
 
   appLogger('Dictionaries built');
 
@@ -73,7 +73,7 @@ export const handleAdditionalContentDeclarationFile = async (
 
   createTypes(dictionariesPaths);
 
-  createDictionaryList();
+  createDictionaryEntryPoint();
 
   appLogger('Dictionaries built', {
     isVerbose: true,
@@ -115,7 +115,7 @@ export const handleContentDeclarationFileChange = async (
       allDictionariesPaths.includes(updatedDictionaryPath)
     )
   ) {
-    createDictionaryList();
+    createDictionaryEntryPoint();
 
     appLogger('Dictionary list built', {
       isVerbose: true,

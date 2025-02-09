@@ -1,6 +1,6 @@
 import { existsSync, rmSync } from 'fs';
 import { getConfiguration } from '@intlayer/config';
-import { createDictionaryList } from './transpiler/dictionary_to_main/createDictionaryList';
+import { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
 
 export const cleanOutputDir = () => {
   const { content } = getConfiguration();
@@ -19,5 +19,5 @@ export const cleanOutputDir = () => {
     }
   }
 
-  createDictionaryList();
+  createDictionaryEntryPoint();
 };

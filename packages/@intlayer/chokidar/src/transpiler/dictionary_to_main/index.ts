@@ -1,1 +1,1 @@
-export * from './createDictionaryList';
+export * from './createDictionaryEntryPoint';
