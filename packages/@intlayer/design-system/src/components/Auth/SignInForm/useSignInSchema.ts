@@ -13,17 +13,17 @@ export const useSignInSchema = () => {
   return z.object({
     email: z
       .string({
-        required_error: requiredErrorEmail,
-        invalid_type_error: invalidTypeErrorEmail,
+        required_error: requiredErrorEmail.value,
+        invalid_type_error: invalidTypeErrorEmail.value,
       })
-      .min(1, { message: invalidTypeErrorEmail })
+      .min(1, { message: invalidTypeErrorEmail.value })
       .default(''),
     password: z
       .string({
-        required_error: requiredErrorPassword,
-        invalid_type_error: invalidTypeErrorPassword,
+        required_error: requiredErrorPassword.value,
+        invalid_type_error: invalidTypeErrorPassword.value,
       })
-      .min(1, { message: invalidTypeErrorPassword })
+      .min(1, { message: invalidTypeErrorPassword.value })
       .default(''),
   });
 };

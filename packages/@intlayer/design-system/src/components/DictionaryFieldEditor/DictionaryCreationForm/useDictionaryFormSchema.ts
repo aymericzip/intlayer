@@ -13,16 +13,16 @@ export const useDictionarySchema = (projectId: string) => {
   return z.object({
     key: z
       .string({
-        required_error: requiredErrorName,
-        invalid_type_error: invalidTypeErrorName,
+        required_error: requiredErrorName.value,
+        invalid_type_error: invalidTypeErrorName.value,
       })
-      .min(1, { message: invalidTypeErrorName })
+      .min(1, { message: invalidTypeErrorName.value })
       .default(''),
     projectIds: z
       .array(
         z.string({
-          required_error: requiredErrorProjectId,
-          invalid_type_error: invalidTypeErrorProjectId,
+          required_error: requiredErrorProjectId.value,
+          invalid_type_error: invalidTypeErrorProjectId.value,
         })
       )
       .default([projectId]),

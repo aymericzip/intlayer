@@ -4,15 +4,15 @@ import { useResetPasswordSchemaContent } from './useResetPasswordSchema.content'
 
 export const useResetPasswordSchema = () => {
   const { requiredErrorEmail, invalidTypeErrorEmail, invalidLengthErrorEmail } =
-    useDictionary(useResetPasswordSchemaContent, undefined, false);
+    useDictionary(useResetPasswordSchemaContent);
 
   return z.object({
     email: z
       .string({
-        required_error: requiredErrorEmail,
-        invalid_type_error: invalidTypeErrorEmail,
+        required_error: requiredErrorEmail.value,
+        invalid_type_error: invalidTypeErrorEmail.value,
       })
-      .min(1, { message: invalidLengthErrorEmail }),
+      .min(1, { message: invalidLengthErrorEmail.value }),
   });
 };
 

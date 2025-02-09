@@ -1,4 +1,4 @@
-import { t, useDictionary } from 'react-intlayer';
+import { useDictionary } from 'react-intlayer';
 import { z } from 'zod';
 import { signUpSchemaContent } from './useSignUpSchema.content';
 
@@ -17,26 +17,26 @@ export const useSignUpSchema = () => {
     .object({
       email: z
         .string({
-          required_error: requiredErrorEmail,
-          invalid_type_error: invalidTypeErrorEmail,
+          required_error: requiredErrorEmail.value,
+          invalid_type_error: invalidTypeErrorEmail.value,
         })
-        .min(1, { message: invalidTypeErrorEmail })
-        .email({ message: invalidTypeErrorEmail }),
+        .min(1, { message: invalidTypeErrorEmail.value })
+        .email({ message: invalidTypeErrorEmail.value }),
       password: z
         .string({
-          required_error: requiredErrorPassword,
-          invalid_type_error: invalidTypeErrorPassword,
+          required_error: requiredErrorPassword.value,
+          invalid_type_error: invalidTypeErrorPassword.value,
         })
-        .min(8, { message: invalidTypeErrorPassword }),
+        .min(8, { message: invalidTypeErrorPassword.value }),
       passwordConfirmation: z
         .string({
-          required_error: requiredErrorPasswordConfirmation,
-          invalid_type_error: invalidTypeErrorPasswordConfirmation,
+          required_error: requiredErrorPasswordConfirmation.value,
+          invalid_type_error: invalidTypeErrorPasswordConfirmation.value,
         })
-        .min(8, { message: invalidTypeErrorPasswordConfirmation }),
+        .min(8, { message: invalidTypeErrorPasswordConfirmation.value }),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
-      message: passwordNotMatchError,
+      message: passwordNotMatchError.value,
       path: ['passwordConfirmation'], // This specifies which field the error should be associated with
     });
 };
