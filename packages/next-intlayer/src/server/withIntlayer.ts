@@ -4,6 +4,10 @@ import { IntlayerPlugin } from '@intlayer/webpack';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 
+import nextPkg from 'next/package.json' with { type: 'json' };
+
+const nextMajorVersion = parseInt(nextPkg.version.split('.')[0], 10);
+
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
 /**
@@ -16,44 +20,48 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  * // next.config.js
  * export default withIntlayer(nextConfig)
  * ```
- *
  */
 export const withIntlayer = (
   nextConfig: Partial<NextConfig> = {}
 ): Partial<NextConfig> => {
-  if (typeof nextConfig !== 'object') nextConfig = {};
+  if (typeof nextConfig !== 'object') {
+    nextConfig = {};
+  }
 
   const intlayerConfig = getConfiguration();
 
   // Format all configuration values as environment variables
   const env = formatEnvVariable('next');
-
   const { mainDir, baseDir } = intlayerConfig.content;
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-  return Object.assign({}, nextConfig, {
+  const newConfig: Partial<NextConfig> = {
+    // Merge environment variables
     env: { ...nextConfig.env, ...env },
 
-    serverExternalPackages: [
-      ...(nextConfig.serverExternalPackages ?? []),
-      'esbuild',
-      'module',
-      'fs',
-      'chokidar',
-      'fsevents',
-    ],
+    // Only add `serverExternalPackages` if Next.js is v15+
+    ...(nextMajorVersion >= 15
+      ? {
+          serverExternalPackages: [
+            ...(nextConfig.serverExternalPackages ?? []),
+            'esbuild',
+            'module',
+            'fs',
+            'chokidar',
+            'fsevents',
+          ],
+        }
+      : {}),
 
     experimental: {
       ...(nextConfig.experimental ?? {}),
-      // Using Intlayer with Turbopack is not supported as long external modules can't be resolved (such as esbuild or fs)
       turbo: {
         ...(nextConfig.experimental?.turbo ?? {}),
         resolveAlias: {
           ...(nextConfig.experimental?.turbo?.resolveAlias ?? {}),
           '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
         },
-
         rules: {
           '*.node': {
             as: '*.node',
@@ -64,15 +72,17 @@ export const withIntlayer = (
     },
 
     webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
-      if (nextConfig.webpack) {
-        // Invoke the existing webpack config if it exists
+      // If the user has defined their own webpack config, call it
+      if (typeof nextConfig.webpack === 'function') {
         config = nextConfig.webpack(config, options);
       }
 
+      // Alias the dictionary entry for all builds
       config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
         relativeDictionariesPath
       );
 
+      // Mark these modules as externals
       config.externals.push({
         esbuild: 'esbuild',
         module: 'module',
@@ -80,19 +90,23 @@ export const withIntlayer = (
         chokidar: 'chokidar',
         fsevents: 'fsevents',
       });
+
+      // Use `node-loader` for any `.node` files
       config.module.rules.push({
         test: /\.node$/,
         loader: 'node-loader',
       });
 
+      // Only add Intlayer plugin on server side (node runtime)
       const { isServer, nextRuntime } = options;
-
-      // Apply IntlayerPlugin only on the server-side
       if (isServer && nextRuntime === 'nodejs') {
         config.plugins.push(new IntlayerPlugin());
       }
 
       return config;
     },
-  } satisfies Partial<NextConfig>);
+  };
+
+  // Merge the new config with the user's config
+  return { ...nextConfig, ...newConfig };
 };
