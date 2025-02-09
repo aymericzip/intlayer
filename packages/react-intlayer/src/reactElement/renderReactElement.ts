@@ -41,7 +41,7 @@ export const renderReactElement = (element: ReactElement) => {
 
   // Create and return the React element
   return createElement(
-    type ?? 'div',
+    type ?? 'span',
     props,
     ...(props.children as ReactNode[])
   );
