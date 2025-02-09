@@ -5,10 +5,11 @@ export enum NodeType {
   Condition = 'condition',
   Object = 'object',
   Array = 'array',
-  Text = 'text',
   Nested = 'nested',
   ReactNode = 'reactNode',
   Markdown = 'markdown',
+  Text = 'text',
+  Number = 'number',
 }
 
 export type TypedNodeModel<T extends NodeType, Content> = {

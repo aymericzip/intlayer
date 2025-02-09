@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import {
@@ -38,7 +39,7 @@ type EditedContentActionsContextType = {
   ) => void;
   addEditedContent: (
     dictionaryKey: Dictionary['key'],
-    newValue: ContentNode,
+    newValue: ContentNode<any>,
     keyPath?: KeyPath[],
     overwrite?: boolean
   ) => void;

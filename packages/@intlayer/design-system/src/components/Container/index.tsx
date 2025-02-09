@@ -17,12 +17,21 @@ const containerVariants = cva(
         full: 'rounded-full',
       },
       transparency: {
+        none: '',
+        full: 'bg-none',
+        sm: 'dark:bg-opacity-90',
+        md: 'dark:bg-opacity-70',
+        lg: 'dark:bg-opacity-40',
+        xl: 'dark:bg-opacity-20',
+      },
+      backgroundColor: {
         none: 'bg-card dark:bg-card-dark',
-        full: '',
-        sm: 'bg-card/90 dark:bg-card-dark/90',
-        md: 'bg-card/70 dark:bg-card-dark/70',
-        lg: 'bg-card/40 dark:bg-card-dark/40',
-        xl: 'bg-card/20 dark:bg-card-dark/20',
+        primary: 'bg-primary dark:bg-primary-dark',
+        secondary: 'bg-secondary dark:bg-secondary-dark',
+        neutral: 'bg-neutral dark:bg-neutral-dark',
+        text: 'bg-text dark:bg-text-dark',
+        card: 'bg-card dark:bg-card-dark',
+        contrast: 'bg-background-dark dark:bg-background',
       },
       padding: {
         none: 'p-0',
@@ -48,7 +57,9 @@ const containerVariants = cva(
         text: 'border-text dark:border-text-dark',
       },
       background: {
-        none: 'bg-inherit	',
+        none: 'bg-inherit',
+        hoverable:
+          '!bg-opacity-5 backdrop-blur-0 hover:!bg-opacity-10 hover:backdrop-blur focus:!bg-opacity-10 focus:backdrop-blur aria-selected:!bg-opacity-15 aria-selected:backdrop-blur',
         with: '',
       },
       gap: {
@@ -65,6 +76,7 @@ const containerVariants = cva(
       roundedSize: 'md',
       border: 'none',
       borderColor: 'text',
+      backgroundColor: 'card',
       transparency: 'md',
       padding: 'none',
       separator: 'without',
@@ -74,11 +86,10 @@ const containerVariants = cva(
 );
 
 export type ContainerProps = PropsWithChildren<
-  Omit<VariantProps<typeof containerVariants>, 'border' | 'background'>
+  Omit<VariantProps<typeof containerVariants>, 'border'>
 > &
   HTMLAttributes<HTMLDivElement> & {
     border?: boolean;
-    background?: boolean;
   };
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
@@ -92,6 +103,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       className,
       border,
       borderColor,
+      backgroundColor,
       background,
       ...props
     },
@@ -111,12 +123,8 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
                 ? 'with'
                 : 'none'
               : undefined,
-          background:
-            typeof background === 'boolean'
-              ? background
-                ? 'with'
-                : 'none'
-              : undefined,
+          background,
+          backgroundColor,
           borderColor,
           className,
         })

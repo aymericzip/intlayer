@@ -39,7 +39,7 @@ const buttonVariants = cva(
         md: 'min-h-8 px-6 max-md:py-2 text-sm',
         lg: 'min-h-10 px-8 max-md:py-3 text-base',
         xl: 'min-h-11 px-10 max-md:py-4 text-lg',
-        'icon-sm': 'p-1',
+        'icon-sm': 'p-1.5',
         'icon-md': 'p-1.5',
         'icon-lg': 'p-2',
         'icon-xl': 'p-3',

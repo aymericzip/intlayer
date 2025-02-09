@@ -1,6 +1,7 @@
 import { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
 import { useMemo, type FC } from 'react';
+import { Container } from '../Container';
 import { MonacoCode } from '../IDE/MonacoCode';
 
 type JSONEditorProps = {
@@ -27,7 +28,12 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
   );
 
   return (
-    <div className="overflow-hidden rounded-md">
+    <Container
+      background="none"
+      border
+      roundedSize="xl"
+      className="w-full overflow-hidden p-3"
+    >
       <MonacoCode
         language="json"
         onChange={(content) => {
@@ -39,6 +45,6 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
       >
         {JSON.stringify(displayedContent, null, 2)}
       </MonacoCode>
-    </div>
+    </Container>
   );
 };

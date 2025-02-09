@@ -4,6 +4,8 @@ import type { Dictionary } from '@intlayer/core';
 import {
   createContext,
   useContext,
+  type Dispatch,
+  type SetStateAction,
   type FC,
   type PropsWithChildren,
 } from 'react';
@@ -15,9 +17,7 @@ type DictionariesRecordStatesContextType = {
   localeDictionaries: DictionaryContent;
 };
 type DictionariesRecordActionsContextType = {
-  setLocaleDictionaries: (
-    dictionariesRecord: Record<Dictionary['key'], Dictionary>
-  ) => void;
+  setLocaleDictionaries: Dispatch<SetStateAction<DictionaryContent>>;
   setLocaleDictionary: (dictionary: Dictionary) => void;
 };
 
@@ -58,16 +58,8 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
   );
 };
 
-export const useDictionariesRecordActions = () => {
-  const context = useContext(DictionariesRecordActionsContext);
-
-  if (!context) {
-    throw new Error(
-      'useDictionariesRecordActions must be used within a DictionariesRecordProvider'
-    );
-  }
-  return context;
-};
+export const useDictionariesRecordActions = () =>
+  useContext(DictionariesRecordActionsContext);
 
 export const useDictionariesRecord = () => {
   const actionsContext = useDictionariesRecordActions();

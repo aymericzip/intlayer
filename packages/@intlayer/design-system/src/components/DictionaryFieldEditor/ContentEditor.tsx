@@ -40,7 +40,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
       <div className="flex gap-2 max-md:flex-col">
         <Container
           border
-          background={false}
+          background="none"
           className="top-6 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
           roundedSize="xl"
           transparency="sm"
@@ -53,18 +53,11 @@ export const ContentEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
         </Container>
         <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
           {(focusedKeyPath?.length ?? 0) > 0 && (
-            <Container
-              border
-              background={false}
-              className="h-full flex-1 overflow-hidden"
-              roundedSize="xl"
-            >
-              <EditorView
-                dictionary={dictionary}
-                dictionaryKey={key}
-                locales={locales}
-              />
-            </Container>
+            <EditorView
+              dictionary={dictionary}
+              dictionaryKey={key}
+              locales={locales}
+            />
           )}
         </div>
       </div>

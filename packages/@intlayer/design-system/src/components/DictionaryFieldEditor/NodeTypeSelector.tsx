@@ -2,9 +2,11 @@
 
 import { getConfiguration } from '@intlayer/config/client';
 import {
+  ConditionContent,
   type ContentNode,
   type EnumerationContent,
   type KeyPath,
+  NestedContent,
   NodeType,
   type TranslationContent,
   getSectionType,
@@ -74,6 +76,31 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
           keyPath
         );
         break;
+      case NodeType.Condition:
+        addEditedContent(
+          dictionaryKey,
+          {
+            nodeType: NodeType.Condition,
+            [NodeType.Condition]: {
+              true: '',
+              false: '',
+            },
+          } as ConditionContent<ContentNode>,
+          keyPath
+        );
+        break;
+      case NodeType.Nested:
+        addEditedContent(
+          dictionaryKey,
+          {
+            nodeType: NodeType.Nested,
+            [NodeType.Nested]: {
+              dictionaryKey: undefined,
+            },
+          } as NestedContent,
+          keyPath
+        );
+        break;
       case NodeType.Object:
         addEditedContent(dictionaryKey, {}, keyPath);
         break;
@@ -82,6 +109,12 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         break;
       case NodeType.Text:
         addEditedContent(dictionaryKey, '', keyPath);
+        break;
+      case NodeType.Markdown:
+        addEditedContent(dictionaryKey, '', keyPath);
+        break;
+      case NodeType.Number:
+        addEditedContent(dictionaryKey, 0, keyPath);
         break;
       default:
         addEditedContent(dictionaryKey, {}, keyPath);
@@ -94,7 +127,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
 
   return (
     <Select value={keyType} onValueChange={onValueChange}>
-      <Select.Trigger className="w-40">
+      <Select.Trigger>
         <Select.Value placeholder={triggerPlaceHolder} />
       </Select.Trigger>
       <Select.Content>

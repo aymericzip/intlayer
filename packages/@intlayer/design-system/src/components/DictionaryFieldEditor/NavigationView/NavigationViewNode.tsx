@@ -40,7 +40,6 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   const { setFocusedContentKeyPath, focusedContent } = useFocusDictionary();
   const {
     addNewElement,
-    addNewField,
     goToElement,
     goToField,
     goToEnumeration,
@@ -297,24 +296,6 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             </Accordion>
           );
         })}
-
-        <Button
-          label={addNewField.label.value}
-          variant="hoverable"
-          color="neutral"
-          textAlign="left"
-          onClick={() => {
-            const newKeyPath: KeyPath[] = [
-              ...keyPath,
-              { type: NodeType.Object, key: 'newField' },
-            ];
-            addEditedContent(dictionaryKey, {}, newKeyPath, false);
-            setFocusedContentKeyPath(newKeyPath);
-          }}
-          Icon={Plus}
-        >
-          {addNewField.text}
-        </Button>
       </div>
     );
   }
