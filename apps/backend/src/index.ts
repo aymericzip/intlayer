@@ -97,7 +97,19 @@ const whitelist = [process.env.CLIENT_URL!];
 
 // CORS
 const corsOptions: CorsOptions = {
-  origin: whitelist,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (whitelist.includes(origin)) {
+      console.info('whitelisted origin', origin);
+      return callback(null, true);
+    }
+
+    console.info('non whitelisted origin', origin);
+    // Reflect the request's origin (echo back the origin header)
+    callback(null, origin);
+  },
   allowedHeaders: [
     'authorization',
     'Content-Type',
