@@ -53,10 +53,6 @@ export const withIntlayer = (
               as: '*.node',
               loaders: ['node-loader'],
             },
-            '*.md': {
-              as: 'asset',
-              loaders: ['raw-loader'],
-            }, // Fix esbuild error that import README.md file
           },
         },
       }
@@ -110,10 +106,6 @@ export const withIntlayer = (
         test: /\.node$/,
         loader: 'node-loader',
       });
-      config.module.rules.push({
-        test: /\.md$/,
-        use: 'raw-loader',
-      }); // Fix esbuild error that import README.md file
 
       // Only add Intlayer plugin on server side (node runtime)
       const { isServer, nextRuntime } = options;

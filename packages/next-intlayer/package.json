@@ -86,7 +86,6 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "node-loader": "^2.1.0",
-    "raw-loader": "^4.0.2",
     "react-intlayer": "workspace:*"
   },
   "devDependencies": {
