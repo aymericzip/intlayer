@@ -3,10 +3,13 @@ import { getConfiguration, formatEnvVariable } from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-
 import nextPkg from 'next/package.json' with { type: 'json' };
 
 const nextMajorVersion = parseInt(nextPkg.version.split('.')[0], 10);
+
+// Extract from the start script if --turbo or --turbopack flag is used
+const isTurbopackEnabled =
+  process.env.npm_lifecycle_script?.includes('--turbo');
 
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
@@ -36,6 +39,25 @@ export const withIntlayer = (
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
+  // Only provide turbo-specific config if user explicitly sets it
+  const turboConfig = isTurbopackEnabled
+    ? {
+        turbo: {
+          ...(nextConfig.experimental?.turbo ?? {}),
+          resolveAlias: {
+            ...(nextConfig.experimental?.turbo?.resolveAlias ?? {}),
+            '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+          },
+          rules: {
+            '*.node': {
+              as: '*.node',
+              loaders: ['node-loader'],
+            },
+          },
+        },
+      }
+    : {};
+
   const newConfig: Partial<NextConfig> = {
     // Merge environment variables
     env: { ...nextConfig.env, ...env },
@@ -56,19 +78,7 @@ export const withIntlayer = (
 
     experimental: {
       ...(nextConfig.experimental ?? {}),
-      turbo: {
-        ...(nextConfig.experimental?.turbo ?? {}),
-        resolveAlias: {
-          ...(nextConfig.experimental?.turbo?.resolveAlias ?? {}),
-          '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-        },
-        rules: {
-          '*.node': {
-            as: '*.node',
-            loaders: ['node-loader'],
-          },
-        },
-      },
+      ...turboConfig,
     },
 
     webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
@@ -99,6 +109,7 @@ export const withIntlayer = (
 
       // Only add Intlayer plugin on server side (node runtime)
       const { isServer, nextRuntime } = options;
+
       if (isServer && nextRuntime === 'nodejs') {
         config.plugins.push(new IntlayerPlugin());
       }
