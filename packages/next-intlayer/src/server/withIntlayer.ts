@@ -112,7 +112,7 @@ export const withIntlayer = (
       });
       config.module.rules.push({
         test: /\.md$/,
-        type: 'raw-loader',
+        use: 'raw-loader',
       }); // Fix esbuild error that import README.md file
 
       // Only add Intlayer plugin on server side (node runtime)
