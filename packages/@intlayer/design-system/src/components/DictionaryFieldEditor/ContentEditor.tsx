@@ -6,7 +6,7 @@ import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import { type FC } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
-import { EditorView } from './EditorView/EditorView';
+import { EditorView } from './ContentEditorView/EditorView';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
@@ -15,7 +15,7 @@ type NodeEditorProps = {
   locales: Locales[];
 };
 
-export const NodeEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
+export const ContentEditor: FC<NodeEditorProps> = ({ dictionary, locales }) => {
   const { content: dictionaryContent, key } = dictionary;
   const { editedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();

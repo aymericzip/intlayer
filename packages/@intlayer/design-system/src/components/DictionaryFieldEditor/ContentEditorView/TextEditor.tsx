@@ -11,15 +11,12 @@ import {
   getLocaleName,
   Dictionary,
   getSectionType,
+  type ConditionContent,
+  MarkdownContent,
 } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
 import { Plus, WandSparkles, X } from 'lucide-react';
-import {
-  createElement,
-  type ReactElement,
-  type ReactNode,
-  type FC,
-} from 'react';
+import type { FC } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
@@ -91,42 +88,6 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
       {...props}
     />
   );
-};
-
-const createReactElement = (element: ReactElement) => {
-  if (typeof element === 'string') {
-    // If it's a string, simply return it (used for text content)
-    return element;
-  }
-
-  const convertChildrenAsArray = (element: ReactElement): ReactElement => {
-    if (element?.props && typeof element.props.children === 'object') {
-      const childrenResult: ReactNode[] = [];
-      const { children } = element.props;
-
-      // Create the children elements recursively, if any
-      Object.keys(children).forEach((key) =>
-        childrenResult.push(createReactElement(children[key]))
-      );
-
-      return {
-        ...element,
-        props: { ...element.props, children: childrenResult },
-      };
-    }
-
-    return {
-      ...element,
-      props: { ...element.props, children: element.props.children },
-    };
-  };
-
-  const fixedElement = convertChildrenAsArray(element);
-
-  const { type, props } = fixedElement;
-
-  // Create and return the React element
-  return createElement(type ?? 'div', props, ...props.children);
 };
 
 export type TextEditorProps = {
@@ -302,6 +263,109 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   );
 };
 
+const NodeTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+  locales,
+}) => {
+  const { addEditedContent } = useEditedContent();
+  const { addNewEnumeration } = useDictionary(navigationViewContent);
+
+  return (
+    <table className="w-full table-fixed gap-2">
+      <tbody className="divide-y-[1.5px]">
+        {['true', 'false', 'fallback'].map((condKey) => (
+          <tr
+            key={condKey}
+            className="border-text dark:border-text-dark w-full"
+          >
+            <td className="border-text dark:border-text-dark w-44 border-r-[1.5px] p-2">
+              <div className="flex gap-1">
+                <Button
+                  label="Remove"
+                  variant="hoverable"
+                  size="icon-md"
+                  color="text"
+                  Icon={X}
+                  className="w-16"
+                  onClick={() =>
+                    addEditedContent(dictionary.key, undefined, [
+                      ...keyPath,
+                      {
+                        type: NodeType.Condition,
+                        key: condKey,
+                      },
+                    ])
+                  }
+                />
+                <EnumKeyInput
+                  value={condKey}
+                  onChange={(value) => {
+                    const preValueContent = (
+                      section as ConditionContent<string>
+                    )[NodeType.Condition];
+                    const newValueContent = renameKey(
+                      preValueContent,
+                      condKey as keyof typeof preValueContent,
+                      value
+                    );
+                    const newValue = {
+                      ...(section as ConditionContent<string>),
+                      [NodeType.Condition]: newValueContent,
+                    };
+
+                    addEditedContent(dictionary.key, newValue, keyPath);
+                  }}
+                />
+              </div>
+            </td>
+            <td className="w-full p-2">
+              <ContentEditorTextArea
+                variant="default"
+                aria-label="Edit field"
+                keyPath={[
+                  ...keyPath,
+                  { type: NodeType.Enumeration, key: condKey },
+                ]}
+                dictionary={dictionary}
+                locales={locales}
+              >
+                {
+                  (section as EnumerationContent<string>)[NodeType.Enumeration][
+                    condKey as any
+                  ] as string
+                }
+              </ContentEditorTextArea>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+
+      <tfoot>
+        <Button
+          label={addNewEnumeration.label.value}
+          variant="hoverable"
+          color="neutral"
+          textAlign="left"
+          onClick={() =>
+            addEditedContent(
+              dictionary.key,
+              '',
+              [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }],
+              false
+            )
+          }
+          Icon={Plus}
+          className="m-2"
+        >
+          {addNewEnumeration.text}
+        </Button>
+      </tfoot>
+    </table>
+  );
+};
+
 const ArrayTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
@@ -365,13 +429,32 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   );
 };
 
+const MarkdownTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+  locales,
+}) => {
+  return (
+    <ContentEditorTextArea
+      variant="default"
+      aria-label="Edit field"
+      keyPath={[...keyPath, { type: NodeType.Markdown }]}
+      dictionary={dictionary}
+      locales={locales}
+    >
+      {(section as MarkdownContent)[NodeType.Markdown]}
+    </ContentEditorTextArea>
+  );
+};
+
 export const TextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
   locales,
 }) => {
-  const { tsxNotEditable } = useDictionary(navigationViewContent);
+  const { tsxNotEditable, nestNode } = useDictionary(navigationViewContent);
   const nodeType = getSectionType(section);
   const isEditableSection = getIsEditableSection(section);
 
@@ -381,9 +464,21 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.ReactNode) {
       return (
         <>
-          {createReactElement(section as unknown as ReactElement)}
+          <span>[React Node]</span>
           <span className="text-neutral dark:text-neutral-dark text-xs">
             {tsxNotEditable}
+          </span>
+        </>
+      );
+    }
+
+    if (nodeType === NodeType.Nested) {
+      return (
+        <>
+          <span>[Nest Node]</span>
+          <span className="text-neutral dark:text-neutral-dark text-xs">
+            {nestNode.text1}
+            {nestNode.text2}
           </span>
         </>
       );
@@ -403,6 +498,17 @@ export const TextEditor: FC<TextEditorProps> = ({
     if (nodeType === NodeType.Enumeration) {
       return (
         <EnumerationTextEditor
+          dictionary={dictionary}
+          keyPath={keyPath}
+          section={section}
+          locales={locales}
+        />
+      );
+    }
+
+    if (nodeType === NodeType.Markdown) {
+      return (
+        <MarkdownTextEditor
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
@@ -439,5 +545,5 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  return <>Error loading section</>;
+  return <>Error loading node</>;
 };

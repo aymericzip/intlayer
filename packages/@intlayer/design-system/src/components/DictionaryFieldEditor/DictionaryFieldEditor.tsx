@@ -10,10 +10,10 @@ import { Container } from '../Container';
 import { H2 } from '../Headers';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
 import { SwitchSelector } from '../SwitchSelector';
+import { ContentEditor } from './ContentEditor';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
 import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
 import { JSONEditor } from './JSONEditor';
-import { NodeEditor } from './NodeEditor';
 import { SaveForm } from './SaveForm/SaveForm';
 
 type DictionaryFieldEditorProps = {
@@ -102,7 +102,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             ]}
           />
           {editorView === EditorViewType.ContentEditor && (
-            <NodeEditor dictionary={dictionary} locales={availableLocales} />
+            <ContentEditor dictionary={dictionary} locales={availableLocales} />
           )}
           {editorView === EditorViewType.JSONEditor && (
             <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
