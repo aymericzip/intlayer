@@ -45,7 +45,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const [editorView, setEditorView] = useState<EditorViewType>(
     EditorViewType.ContentEditor
   );
-  const { returnToDictionaryList, titleContent } = useDictionary(
+  const { returnToDictionaryList } = useDictionary(
     dictionaryFieldEditorContent
   );
   const { setFocusedContent } = useFocusDictionaryActions();
@@ -90,7 +90,6 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           className="flex size-full justify-center gap-10 p-6"
           roundedSize="xl"
         >
-          <H2>{titleContent}</H2>
           <SwitchSelector
             defaultValue={editorView}
             onChange={(value) => setEditorView(value)}

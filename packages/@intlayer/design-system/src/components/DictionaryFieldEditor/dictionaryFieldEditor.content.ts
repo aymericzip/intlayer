@@ -3,21 +3,6 @@ import { t, type Dictionary } from 'intlayer';
 export const dictionaryFieldEditorContent = {
   key: 'dictionary-field-editor',
   content: {
-    titleContent: t({
-      en: 'Dictionary content',
-      'en-GB': 'Dictionary content',
-      fr: 'Contenu du dictionnaire',
-      es: 'Contenido del diccionario',
-      de: 'Inhalt des Wörterbuchs',
-      ja: '辞書の内容',
-      ko: '사전 내용',
-      zh: '字典内容',
-      it: 'Contenuto del dizionario',
-      pt: 'Conteúdo do dicionário',
-      hi: 'शब्दकोश की सामग्री',
-      ar: 'محتوى القاموس',
-      ru: 'Содержание словаря',
-    }),
     returnToDictionaryList: {
       label: t({
         en: 'Return to dictionary list',
