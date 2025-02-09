@@ -16,7 +16,7 @@
   "dependencies": {
     "intlayer": "workspace:*",
     "intlayer-editor": "workspace:*",
-    "next": "14.2.23",
+    "next": "15.1.2",
     "next-intlayer": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
