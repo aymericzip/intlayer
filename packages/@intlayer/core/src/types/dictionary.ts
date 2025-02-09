@@ -31,6 +31,8 @@ export type DictionaryKeys = StringFallback<
   keyof IntlayerDictionaryTypesConnector
 >;
 
+type BaseNode = number | string | boolean | null | undefined;
+
 export type TypedNode<NodeType = undefined> =
   | TranslationContent<NodeType>
   | EnumerationContent<NodeType>
@@ -42,7 +44,11 @@ type FetchableContentNode<NodeType> = (
   args?: any
 ) => ContentNode<NodeType> | Promise<ContentNode<NodeType>>;
 
-export type ContentNode<NodeType = undefined, FetchableNode = false> =
+export type ContentNode<
+  T = undefined,
+  FetchableNode = false,
+  NodeType = T extends undefined ? BaseNode : T,
+> =
   | NodeType
   | TypedNode<NodeType>
   | ((args?: any) => ContentNode<NodeType>)
