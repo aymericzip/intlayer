@@ -19,7 +19,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             <Code
               {...props}
               isDarkMode={isDarkMode}
-              language={props.className.replace('lang-', '')}
+              language={props.className?.replace('lang-', '')}
               showHeader={false}
               className="text-xs leading-5"
             />
