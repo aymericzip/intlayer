@@ -102,12 +102,12 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
                 value: EditorViewType.DetailsEditor,
               },
               {
-                content: 'Content',
-                value: EditorViewType.ContentEditor,
-              },
-              {
                 content: 'Structure',
                 value: EditorViewType.StructureEditor,
+              },
+              {
+                content: 'Content',
+                value: EditorViewType.ContentEditor,
               },
               {
                 content: 'JSON',
@@ -121,11 +121,11 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           {editorView === EditorViewType.DetailsEditor && (
             <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
           )}
-          {editorView === EditorViewType.ContentEditor && (
-            <ContentEditor dictionary={dictionary} />
-          )}
           {editorView === EditorViewType.StructureEditor && (
             <StructureEditor dictionary={dictionary} />
+          )}
+          {editorView === EditorViewType.ContentEditor && (
+            <ContentEditor dictionary={dictionary} />
           )}
           {editorView === EditorViewType.JSONEditor && (
             <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
