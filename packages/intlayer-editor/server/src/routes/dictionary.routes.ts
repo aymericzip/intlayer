@@ -7,7 +7,7 @@ export const dictionaryRouter: Router = Router();
 
 const { editor } = getConfiguration();
 
-const baseURL = `${editor.applicationURL}/api/dictionary`;
+const baseURL = `${editor.editorURL}/api/dictionary`;
 
 export const dictionaryRoutes = {
   writeContentDeclaration: {
