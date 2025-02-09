@@ -24,6 +24,7 @@ export type * from '@/types/user.types';
 export type * from '@/types/dictionary.types';
 export type * from '@/types/plan.types';
 export type * from '@/types/tag.types';
+export type * from '@/types/oAuth2.types';
 
 // Utils
 export * from '@utils/cookies';
