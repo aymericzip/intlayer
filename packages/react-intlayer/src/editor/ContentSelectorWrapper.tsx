@@ -25,6 +25,7 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
   children,
   dictionaryKey,
   keyPath,
+  dictionaryPath,
   ...props
 }) => {
   const { focusedContent, setFocusedContent } = useFocusDictionary();
