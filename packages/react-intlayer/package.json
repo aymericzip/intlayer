@@ -93,7 +93,7 @@
     "@intlayer/backend": "workspace:*",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.10.6",
-    "@types/react": "^18.3.1",
+    "@types/react": "^19.0.0",
     "@typescript-eslint/parser": "^8.20.0",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
