@@ -83,10 +83,10 @@ export const Code = forwardRef<HTMLDivElement, CodeCompProps>(
               </div>
               <div className="sticky top-28">
                 <div
-                  className={cn([
+                  className={cn(
                     'absolute bottom-0 right-2 flex h-7 items-center',
-                    hadSelectInHeader && 'h-11',
-                  ])}
+                    hadSelectInHeader && 'h-11'
+                  )}
                 >
                   <CopyButton content={code} />
                 </div>

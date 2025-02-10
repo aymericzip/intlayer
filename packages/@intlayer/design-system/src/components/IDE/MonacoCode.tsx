@@ -100,9 +100,17 @@ export const MonacoCode: FC<CodeCompProps> = ({
         showLineNumbers && 'ml-0'
       )}
     >
-      {showCopyButton && <CopyButton content={children} />}
+      {showCopyButton && (
+        <div className="sticky top-5 z-10">
+          <div
+            className={cn('absolute bottom-0 right-2 flex h-7 items-center')}
+          >
+            <CopyButton content={children} />
+          </div>
+        </div>
+      )}
       <div
-        className="grid size-full grid-cols-[0px] overflow-auto"
+        className="z-0 grid size-full grid-cols-[0px] overflow-auto"
         ref={containerRef}
       >
         <Editor

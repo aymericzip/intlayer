@@ -190,11 +190,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
     <table className="w-full gap-2">
       <tbody className="divide-y-[1.5px]">
         {localesList.map((translationKey) => (
-          <tr
-            key={translationKey}
-            className="border-text dark:border-text-dark w-full"
-            lang={translationKey}
-          >
+          <tr key={translationKey} className="w-full" lang={translationKey}>
             <td className="flex w-full flex-col p-2">
               {selectedLocales.length > 1 && (
                 <span className="w-full p-2 text-xs">
@@ -235,11 +231,8 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
         {Object.keys(
           (section as EnumerationContent<ContentNode>)[NodeType.Enumeration]
         ).map((enumKey) => (
-          <tr
-            key={enumKey}
-            className="border-text dark:border-text-dark w-full"
-          >
-            <td className="w-44 border-r-[1.5px] p-2">
+          <tr key={enumKey} className="w-full">
+            <td className="w-44 p-2">
               <div className="flex gap-1">
                 <Button
                   label="Remove"
@@ -333,11 +326,8 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
     <table className="w-full table-fixed gap-2">
       <tbody className="divide-y-[1.5px]">
         {['true', 'false', 'fallback'].map((condKey) => (
-          <tr
-            key={condKey}
-            className="border-text dark:border-text-dark w-full"
-          >
-            <td className="w-44 border-r-[1.5px] p-2">
+          <tr key={condKey} className="w-full">
+            <td className="w-44 p-2">
               <div className="flex gap-1">
                 <Button
                   label="Remove"
@@ -434,10 +424,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
     <table className="w-full gap-2">
       <tbody className="divide-y-[1.5px]">
         {(section as unknown as ContentNode[]).map((subSection, index) => (
-          <tr
-            key={JSON.stringify(subSection)}
-            className="border-text dark:border-text-dark w-full"
-          >
+          <tr key={JSON.stringify(subSection)} className="w-full">
             <td className="p-2">{index}</td>
             <td className="w-full p-2">
               <TextEditor
@@ -585,20 +572,22 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   if (nodeType === NodeType.Number) {
     return (
-      <ContentEditorInput
-        dictionary={dictionary}
-        keyPath={keyPath}
-        type="number"
-        aria-label="Edit field"
-      >
-        {section as number}
-      </ContentEditorInput>
+      <div className="w-full p-2">
+        <ContentEditorInput
+          dictionary={dictionary}
+          keyPath={keyPath}
+          type="number"
+          aria-label="Edit field"
+        >
+          {section as number}
+        </ContentEditorInput>
+      </div>
     );
   }
 
   if (nodeType === NodeType.Text) {
     return (
-      <div className="border-text dark:border-text-dark w-full border-t-[1.5px] p-2">
+      <div className="w-full p-2">
         <ContentEditorTextArea
           variant="default"
           aria-label="Edit field"
@@ -613,11 +602,13 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   if (nodeType === NodeType.Boolean) {
     return (
-      <ContentEditorToggle
-        dictionary={dictionary}
-        keyPath={keyPath}
-        value={section as boolean}
-      />
+      <div className="w-full p-2">
+        <ContentEditorToggle
+          dictionary={dictionary}
+          keyPath={keyPath}
+          value={section as boolean}
+        />
+      </div>
     );
   }
 

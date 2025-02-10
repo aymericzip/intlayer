@@ -176,7 +176,7 @@ const NodeView: FC<NodeWrapperProps> = ({
       transparency="xl"
       roundedSize="xl"
       background="hoverable"
-      className="min-w-80 gap-2 px-5 py-2"
+      className="w-full min-w-80 gap-2 px-5 py-2"
       backgroundColor="contrast"
       aria-selected={isSameKeyPath(keyPath, focusedContent?.keyPath ?? [])}
       onClick={() => setFocusedContentKeyPath(keyPath)}
@@ -247,9 +247,9 @@ export const ObjectView: FC<ObjectViewProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <ul className="flex w-full flex-col gap-2">
+      <ul className="mr-auto flex flex-col gap-2">
         {Object.keys(section).map((key) => (
-          <li key={key} className="flex">
+          <li key={key} className="flex w-full">
             <NodeView
               sectionKey={key}
               section={section?.[key as keyof typeof section]}
