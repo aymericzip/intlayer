@@ -27,7 +27,7 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
             // If index is 1 -> onFocusKeyPath([{type: NodeType.Object, key: '0'}, {type: NodeType.Array, key: '0'}])
             .slice(0, index + 1)
         ),
-      text: el.key.toString(),
+      text: el.key?.toString() ?? '',
     })),
   ];
 

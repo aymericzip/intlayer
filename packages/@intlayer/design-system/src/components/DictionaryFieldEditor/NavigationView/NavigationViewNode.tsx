@@ -237,7 +237,12 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                   key: (section as unknown as ContentNode[]).length,
                 },
               ];
-              addEditedContent(dictionaryKey, {}, newKeyPath, false);
+              const sectionArray = section as unknown as ContentNode[];
+              const sectionEl =
+                sectionArray[
+                  (sectionArray.length - 1) as keyof typeof sectionArray
+                ] ?? '';
+              addEditedContent(dictionaryKey, sectionEl, newKeyPath, false);
               setFocusedContentKeyPath(newKeyPath);
             }}
             Icon={Plus}

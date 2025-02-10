@@ -22,10 +22,19 @@ import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
 import { Button } from '../../Button';
 import {
+  ContentEditorInput as ContentEditorInputBase,
+  ContentEditorInputProps as ContentEditorInputPropsBase,
+} from '../../ContentEditor/ContentEditorInput';
+import {
   ContentEditorTextArea as ContentEditorTextAreaBase,
   ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
 } from '../../ContentEditor/ContentEditorTextArea';
 import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
+import {
+  SwitchSelectorChoices,
+  SwitchSelector,
+  SwitchSelectorProps,
+} from '../../SwitchSelector';
 import { EnumKeyInput } from '../EnumKeyInput';
 import { getIsEditableSection } from '../getIsEditableSection';
 import { navigationViewContent } from '../NavigationView/navigationViewNode.content';
@@ -89,6 +98,67 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   );
 };
 
+type ContentEditorInputProps = Omit<
+  ContentEditorInputPropsBase,
+  'onContentChange'
+> & {
+  keyPath: KeyPath[];
+  dictionary: Dictionary;
+};
+
+const ContentEditorInput: FC<ContentEditorInputProps> = ({
+  keyPath,
+  dictionary,
+  ...props
+}) => {
+  const { addEditedContent } = useEditedContent();
+
+  return (
+    <ContentEditorInputBase
+      variant="default"
+      onContentChange={(newValue) =>
+        addEditedContent(dictionary.key, newValue, keyPath)
+      }
+      {...props}
+    />
+  );
+};
+
+const toggleContent = [
+  {
+    content: 'False',
+    value: false,
+  },
+  {
+    content: 'True',
+    value: true,
+  },
+] as SwitchSelectorChoices<boolean>;
+
+type ContentEditorToggleProps = SwitchSelectorProps & {
+  dictionary: Dictionary;
+  keyPath: KeyPath[];
+};
+
+const ContentEditorToggle: FC<ContentEditorToggleProps> = ({
+  dictionary,
+  keyPath,
+  ...props
+}) => {
+  const { addEditedContent } = useEditedContent();
+
+  return (
+    <SwitchSelector
+      choices={toggleContent}
+      value={true}
+      onChange={(value) => addEditedContent(dictionary.key, value, keyPath)}
+      color="text"
+      size="sm"
+      {...props}
+    />
+  );
+};
+
 export type TextEditorProps = {
   dictionary: Dictionary;
   keyPath: KeyPath[];
@@ -131,21 +201,18 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
                   {getLocaleName(translationKey, locale)}
                 </span>
               )}
-              <ContentEditorTextArea
-                variant="default"
-                aria-label="Edit field"
+              <TextEditor
+                section={
+                  (section as TranslationContent<string>)[NodeType.Translation][
+                    translationKey
+                  ] as string
+                }
                 keyPath={[
                   ...keyPath,
                   { type: NodeType.Translation, key: translationKey },
                 ]}
                 dictionary={dictionary}
-              >
-                {
-                  (section as TranslationContent<string>)[NodeType.Translation][
-                    translationKey
-                  ] as string
-                }
-              </ContentEditorTextArea>
+              />
             </td>
           </tr>
         ))}
@@ -172,7 +239,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
             key={enumKey}
             className="border-text dark:border-text-dark w-full"
           >
-            <td className="border-text dark:border-text-dark w-44 border-r-[1.5px] p-2">
+            <td className="w-44 border-r-[1.5px] p-2">
               <div className="flex gap-1">
                 <Button
                   label="Remove"
@@ -213,21 +280,18 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
               </div>
             </td>
             <td className="w-full p-2">
-              <ContentEditorTextArea
-                variant="default"
-                aria-label="Edit field"
+              <TextEditor
+                section={
+                  (section as EnumerationContent<string>)[NodeType.Enumeration][
+                    enumKey as any
+                  ] as string
+                }
                 keyPath={[
                   ...keyPath,
                   { type: NodeType.Enumeration, key: enumKey },
                 ]}
                 dictionary={dictionary}
-              >
-                {
-                  (section as EnumerationContent<string>)[NodeType.Enumeration][
-                    enumKey as any
-                  ] as string
-                }
-              </ContentEditorTextArea>
+              />
             </td>
           </tr>
         ))}
@@ -273,7 +337,7 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
             key={condKey}
             className="border-text dark:border-text-dark w-full"
           >
-            <td className="border-text dark:border-text-dark w-44 border-r-[1.5px] p-2">
+            <td className="w-44 border-r-[1.5px] p-2">
               <div className="flex gap-1">
                 <Button
                   label="Remove"
@@ -314,21 +378,21 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
               </div>
             </td>
             <td className="w-full p-2">
-              <ContentEditorTextArea
-                variant="default"
-                aria-label="Edit field"
-                keyPath={[
-                  ...keyPath,
-                  { type: NodeType.Enumeration, key: condKey },
-                ]}
-                dictionary={dictionary}
-              >
-                {
+              <TextEditor
+                section={
                   (section as EnumerationContent<string>)[NodeType.Enumeration][
                     condKey as any
                   ] as string
                 }
-              </ContentEditorTextArea>
+                keyPath={[
+                  ...keyPath,
+                  {
+                    type: NodeType.Array,
+                    key: parseInt(condKey),
+                  } as KeyPath,
+                ]}
+                dictionary={dictionary}
+              />
             </td>
           </tr>
         ))}
@@ -376,9 +440,8 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
           >
             <td className="p-2">{index}</td>
             <td className="w-full p-2">
-              <ContentEditorTextArea
-                variant="default"
-                aria-label="Edit field"
+              <TextEditor
+                section={subSection}
                 keyPath={[
                   ...keyPath,
                   {
@@ -387,9 +450,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                   },
                 ]}
                 dictionary={dictionary}
-              >
-                {subSection as string}
-              </ContentEditorTextArea>
+              />
             </td>
           </tr>
         ))}
@@ -522,6 +583,19 @@ export const TextEditor: FC<TextEditorProps> = ({
     }
   }
 
+  if (nodeType === NodeType.Number) {
+    return (
+      <ContentEditorInput
+        dictionary={dictionary}
+        keyPath={keyPath}
+        type="number"
+        aria-label="Edit field"
+      >
+        {section as number}
+      </ContentEditorInput>
+    );
+  }
+
   if (nodeType === NodeType.Text) {
     return (
       <div className="border-text dark:border-text-dark w-full border-t-[1.5px] p-2">
@@ -534,6 +608,16 @@ export const TextEditor: FC<TextEditorProps> = ({
           {section as string}
         </ContentEditorTextArea>
       </div>
+    );
+  }
+
+  if (nodeType === NodeType.Boolean) {
+    return (
+      <ContentEditorToggle
+        dictionary={dictionary}
+        keyPath={keyPath}
+        value={section as boolean}
+      />
     );
   }
 

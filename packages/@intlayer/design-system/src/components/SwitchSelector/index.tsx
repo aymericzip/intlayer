@@ -22,7 +22,7 @@ const defaultChoices: SwitchSelectorChoices<boolean> = [
   { content: 'On', value: true },
 ];
 
-type SwitchSelectorProps<T = boolean> = {
+export type SwitchSelectorProps<T = boolean> = {
   choices?: SwitchSelectorChoices<T>;
   value?: T;
   defaultValue?: T;
