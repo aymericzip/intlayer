@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 import { type FC } from 'react';
-import packageJson from '../../../../package.json' assert { type: 'json' };
+import packageJson from '../../../../package.json' with { type: 'json' };
 
 export const SoftwareApplicationHeader: FC = () => {
   const { description, keywords, audienceType } = useIntlayer(
