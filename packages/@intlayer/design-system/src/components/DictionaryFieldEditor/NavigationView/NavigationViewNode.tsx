@@ -1,6 +1,5 @@
 import { getConfiguration } from '@intlayer/config/client';
 import {
-  type EnumerationContent,
   NodeType,
   type KeyPath,
   type ContentNode,
@@ -118,15 +117,16 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
       );
     }
 
-    if (nodeType === NodeType.Enumeration) {
+    if (nodeType === NodeType.Enumeration || nodeType === NodeType.Condition) {
       return (
         <div className="flex flex-col justify-between gap-2">
           {Object.keys(
-            (section as EnumerationContent<ContentNode>)[NodeType.Enumeration]
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (section as any)[nodeType as unknown as keyof typeof section]
           ).map((key) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
-              { type: NodeType.Enumeration, key },
+              { type: nodeType, key },
             ];
             const subSection = getContentNodeByKeyPath(
               sectionProp,

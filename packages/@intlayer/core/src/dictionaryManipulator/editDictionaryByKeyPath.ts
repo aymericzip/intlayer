@@ -86,7 +86,7 @@ export const editDictionaryByKeyPath = (
         !currentValue[NodeType.Markdown] ||
         typeof currentValue[NodeType.Markdown] !== 'object'
       ) {
-        currentValue[NodeType.Markdown] = {};
+        currentValue[NodeType.Markdown] = '';
       }
       currentValue = currentValue[NodeType.Markdown];
     } else if (keyObj.type === NodeType.Nested) {

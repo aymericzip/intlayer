@@ -13,10 +13,11 @@ import {
   getNodeType,
   type ConditionContent,
   MarkdownContent,
+  NestedContent,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, WandSparkles, X } from 'lucide-react';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
@@ -29,6 +30,7 @@ import {
   ContentEditorTextArea as ContentEditorTextAreaBase,
   ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
 } from '../../ContentEditor/ContentEditorTextArea';
+import { Label } from '../../Label';
 import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
 import {
   SwitchSelectorChoices,
@@ -473,14 +475,72 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   dictionary,
 }) => {
   return (
-    <ContentEditorTextArea
-      variant="default"
-      aria-label="Edit field"
-      keyPath={[...keyPath, { type: NodeType.Markdown }]}
-      dictionary={dictionary}
-    >
-      {(section as MarkdownContent)[NodeType.Markdown]}
-    </ContentEditorTextArea>
+    <div className="w-full p-2">
+      <ContentEditorTextArea
+        variant="default"
+        aria-label="Edit field"
+        keyPath={[...keyPath, { type: NodeType.Markdown }]}
+        dictionary={dictionary}
+      >
+        {(section as MarkdownContent)[NodeType.Markdown]}
+      </ContentEditorTextArea>
+    </div>
+  );
+};
+
+const NestedTextEditor: FC<TextEditorProps> = ({
+  keyPath,
+  dictionary,
+  section,
+  ...props
+}) => {
+  const { addEditedContent } = useEditedContent();
+
+  const content = (section as NestedContent)[NodeType.Nested];
+  const childrenKeyPath = [...keyPath, { type: NodeType.Nested }] as KeyPath[];
+
+  return (
+    <div className="w-full p-2">
+      <Label>Dictionary key</Label>
+      <ContentEditorInputBase
+        aria-label="Edit field"
+        type="text"
+        variant="default"
+        onContentChange={(newValue) => {
+          addEditedContent(
+            dictionary.key,
+            {
+              ...content,
+              dictionaryKey: String(newValue),
+            },
+            childrenKeyPath
+          );
+        }}
+        {...props}
+      >
+        {content.dictionaryKey ?? ''}
+      </ContentEditorInputBase>
+
+      <Label>Path (optional)</Label>
+      <ContentEditorInputBase
+        aria-label="Edit field"
+        type="text"
+        variant="default"
+        onContentChange={(newValue) => {
+          addEditedContent(
+            dictionary.key,
+            {
+              ...content,
+              path: newValue !== '' ? newValue : undefined,
+            },
+            childrenKeyPath
+          );
+        }}
+        {...props}
+      >
+        {content.path ?? ''}
+      </ContentEditorInputBase>
+    </div>
   );
 };
 
@@ -489,7 +549,7 @@ export const TextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
 }) => {
-  const { tsxNotEditable, nestNode } = useDictionary(navigationViewContent);
+  const { tsxNotEditable } = useDictionary(navigationViewContent);
   const nodeType = getNodeType(section);
   const isEditableSection = getIsEditableSection(section);
 
@@ -509,13 +569,11 @@ export const TextEditor: FC<TextEditorProps> = ({
 
     if (nodeType === NodeType.Nested) {
       return (
-        <>
-          <span>[Nest Node]</span>
-          <span className="text-neutral dark:text-neutral-dark text-xs">
-            {nestNode.text1}
-            {nestNode.text2}
-          </span>
-        </>
+        <NestedTextEditor
+          dictionary={dictionary}
+          keyPath={keyPath}
+          section={section}
+        />
       );
     }
 
@@ -612,5 +670,10 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  return <>Error loading node</>;
+  return (
+    <div className="w-full p-2">
+      Error. Format not supported.
+      {JSON.stringify(section)}
+    </div>
+  );
 };

@@ -46,7 +46,7 @@ export const getDefaultNode = (
       return {
         nodeType: NodeType.Nested,
         [NodeType.Nested]: {
-          dictionaryKey: undefined,
+          dictionaryKey: '',
         },
       } as NestedContent;
 

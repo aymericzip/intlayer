@@ -12,10 +12,10 @@ import { Button } from '../Button';
 import { Input, InputProps } from '../Input';
 
 export type ContentEditorInputProps = {
-  children: number;
-  onContentChange: (content: number) => void;
+  children: InputProps['value'];
+  onContentChange: (content: InputProps['value']) => void;
   disabled?: boolean;
-  validate?: (content: number) => boolean;
+  validate?: (content: InputProps['value']) => boolean;
   additionalButtons?: ReactNode;
 } & Omit<InputProps, 'children'>;
 
@@ -27,7 +27,7 @@ export const ContentEditorInput: FC<ContentEditorInputProps> = ({
   additionalButtons,
   ...props
 }) => {
-  const [newValue, setNewValue] = useState<number>(children);
+  const [newValue, setNewValue] = useState<InputProps['value']>(children);
   const [resetIncrementor, setResetIncrementor] = useState<number>(0); // To reset the div on cancel
   const isEdited: boolean = newValue !== children;
 
@@ -39,8 +39,9 @@ export const ContentEditorInput: FC<ContentEditorInputProps> = ({
     onContentChange(newValue);
   };
 
-  const handleOnContentChange: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setNewValue(e.currentTarget.valueAsNumber ?? 0);
+  const handleOnContentChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setNewValue(e.currentTarget.value);
+  };
 
   useEffect(() => {
     setNewValue(children);
@@ -51,7 +52,7 @@ export const ContentEditorInput: FC<ContentEditorInputProps> = ({
   return (
     <div
       className="flex size-full flex-col items-center justify-between gap-2"
-      key={children}
+      key={String(children)}
     >
       <Input
         onChange={handleOnContentChange}
