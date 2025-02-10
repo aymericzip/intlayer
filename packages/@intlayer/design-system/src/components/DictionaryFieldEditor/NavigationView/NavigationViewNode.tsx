@@ -6,7 +6,7 @@ import {
   type ContentNode,
   isSameKeyPath,
   getContentNodeByKeyPath,
-  getSectionType,
+  getNodeType,
 } from '@intlayer/core';
 import {
   useEditedContentActions,
@@ -45,7 +45,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     goToEnumeration,
     goToTranslation,
   } = useDictionary(navigationViewContent);
-  const nodeType = getSectionType(section);
+  const nodeType = getNodeType(section);
   const isEditableSection = getIsEditableSection(section);
   const getIsSelected = useCallback(
     (keyPath: KeyPath[]) =>

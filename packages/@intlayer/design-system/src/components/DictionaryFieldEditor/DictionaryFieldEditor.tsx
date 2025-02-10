@@ -11,7 +11,6 @@ import { useEffect, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../Button';
 import { Container } from '../Container';
-import { H2 } from '../Headers';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
 import { SwitchSelector } from '../SwitchSelector';
 import { ContentEditor } from './ContentEditor';

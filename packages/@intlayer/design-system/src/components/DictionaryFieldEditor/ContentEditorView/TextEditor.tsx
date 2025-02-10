@@ -10,7 +10,7 @@ import {
   type ContentNode,
   getLocaleName,
   Dictionary,
-  getSectionType,
+  getNodeType,
   type ConditionContent,
   MarkdownContent,
 } from '@intlayer/core';
@@ -442,7 +442,7 @@ export const TextEditor: FC<TextEditorProps> = ({
   dictionary,
 }) => {
   const { tsxNotEditable, nestNode } = useDictionary(navigationViewContent);
-  const nodeType = getSectionType(section);
+  const nodeType = getNodeType(section);
   const isEditableSection = getIsEditableSection(section);
 
   if (!isEditableSection) return <></>;

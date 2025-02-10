@@ -10,6 +10,8 @@ export enum NodeType {
   Markdown = 'markdown',
   Text = 'text',
   Number = 'number',
+  Boolean = 'boolean',
+  Unknown = 'unknown',
 }
 
 export type TypedNodeModel<T extends NodeType, Content> = {

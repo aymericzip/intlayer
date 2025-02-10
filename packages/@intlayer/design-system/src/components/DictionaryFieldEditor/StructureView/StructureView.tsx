@@ -1,12 +1,17 @@
+'use client';
+
 import {
   type KeyPath,
+  type TypedNode,
   type ContentNode,
-  getContentNodeByKeyPath,
-  getSectionType,
+  getNodeChildren,
+  getNodeType,
   isSameKeyPath,
   NodeType,
+  getDefaultNode,
 } from '@intlayer/core';
 import {
+  useConfiguration,
   useEditedContentActions,
   useFocusDictionary,
   useFocusDictionaryActions,
@@ -21,7 +26,121 @@ import { EditableFieldInput } from '../../EditableField';
 import { NodeTypeSelector } from '../NodeTypeSelector';
 import { structureViewContent } from './structureView.content';
 
-export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
+type NodeTypeViewProps = {
+  dictionaryKey: string;
+  keyPath: KeyPath[];
+  section: ContentNode;
+  onNodeTypeChange: (content?: ContentNode) => void;
+};
+
+const NodeTypeView: FC<NodeTypeViewProps> = ({
+  section,
+  dictionaryKey,
+  keyPath,
+  onNodeTypeChange: onNodeTypeChangeProp,
+}) => {
+  const locales = useConfiguration().internationalization.locales;
+  const nodeType = getNodeType(section);
+  const children = getNodeChildren(section);
+
+  const onNodeTypeChange = (content?: ContentNode) => {
+    const transformedContent = getDefaultNode(
+      nodeType,
+      locales,
+      content
+    ) as ContentNode;
+
+    onNodeTypeChangeProp(transformedContent);
+  };
+
+  if (
+    nodeType === NodeType.Translation ||
+    nodeType === NodeType.Condition ||
+    nodeType === NodeType.Enumeration
+  ) {
+    const firstKey = Object.keys(
+      (section as unknown as TypedNode)[nodeType as keyof typeof section]
+    )[0];
+    const childrenKeyPath = [
+      ...keyPath,
+      { type: nodeType, key: firstKey },
+    ] as KeyPath[];
+
+    return (
+      <div className="flex w-full flex-col gap-1">
+        <NodeTypeSelector
+          section={section}
+          onValueChange={(nodeType) =>
+            onNodeTypeChangeProp(
+              getDefaultNode(nodeType, locales) as ContentNode
+            )
+          }
+        />
+
+        <NodeTypeView
+          section={children}
+          keyPath={childrenKeyPath}
+          dictionaryKey={dictionaryKey}
+          onNodeTypeChange={onNodeTypeChange}
+        />
+      </div>
+    );
+  }
+
+  if (nodeType === NodeType.Array) {
+    const childrenKeyPath = [...keyPath, { type: nodeType, key: 0 } as KeyPath];
+    return (
+      <div className="flex w-full flex-col gap-1">
+        <NodeTypeSelector
+          section={section}
+          onValueChange={(nodeType) =>
+            onNodeTypeChangeProp(
+              getDefaultNode(nodeType, locales) as ContentNode
+            )
+          }
+        />
+
+        <NodeTypeView
+          section={children}
+          keyPath={childrenKeyPath}
+          dictionaryKey={dictionaryKey}
+          onNodeTypeChange={onNodeTypeChange}
+        />
+      </div>
+    );
+  }
+
+  if (nodeType === NodeType.Object) {
+    return (
+      <>
+        <NodeTypeSelector
+          section={section}
+          onValueChange={(nodeType) =>
+            onNodeTypeChangeProp(
+              getDefaultNode(nodeType, locales) as ContentNode
+            )
+          }
+        />
+        <div className="ml-10 mt-6">
+          <StructureView
+            keyPath={keyPath}
+            section={section}
+            dictionaryKey={dictionaryKey}
+          />
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <NodeTypeSelector
+      section={section}
+      onValueChange={(nodeType) =>
+        onNodeTypeChangeProp(getDefaultNode(nodeType, locales) as ContentNode)
+      }
+    />
+  );
+};
 
 type NodeWrapperProps = {
   sectionKey: string;
@@ -36,7 +155,6 @@ const NodeView: FC<NodeWrapperProps> = ({
   keyPath,
   dictionaryKey,
 }) => {
-  const nodeType = getSectionType(section);
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
   const { renameEditedContent, addEditedContent } = useEditedContentActions();
 
@@ -63,7 +181,7 @@ const NodeView: FC<NodeWrapperProps> = ({
       aria-selected={isSameKeyPath(keyPath, focusedContent?.keyPath ?? [])}
       onClick={() => setFocusedContentKeyPath(keyPath)}
     >
-      <form className="flex w-full flex-col items-start justify-between gap-3">
+      <div className="flex w-full flex-col items-start justify-between gap-3">
         <div className="w-full">
           <div className="flex w-full items-center justify-between gap-10">
             <EditableFieldInput
@@ -91,36 +209,34 @@ const NodeView: FC<NodeWrapperProps> = ({
           </div>
 
           <span className="text-neutral dark:text-neutral-dark ml-3 text-sm">
-            ({camelCaseToSentence(sectionKey)})
+            ( {camelCaseToSentence(sectionKey)} )
           </span>
         </div>
 
-        <NodeTypeSelector
+        <NodeTypeView
           keyPath={keyPath}
           dictionaryKey={dictionaryKey}
           section={section}
+          onNodeTypeChange={(content) => {
+            addEditedContent(dictionaryKey, content, keyPath);
+          }}
         />
-      </form>
-
-      {nodeType === NodeType.Object && (
-        <StructureView {...{ keyPath, section, dictionaryKey }} />
-      )}
+      </div>
     </Container>
   );
 };
 
-type StructureViewProps = {
+type ObjectViewProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   section: ContentNode;
 };
 
-export const StructureView: FC<StructureViewProps> = ({
-  section: sectionProp,
+export const ObjectView: FC<ObjectViewProps> = ({
+  section,
   keyPath,
   dictionaryKey,
 }) => {
-  const section = getContentNodeByKeyPath(sectionProp, keyPath);
   const { addNodeButton } = useDictionary(structureViewContent);
   const { setFocusedContentKeyPath } = useFocusDictionaryActions();
   const { addEditedContent } = useEditedContentActions();
@@ -135,7 +251,6 @@ export const StructureView: FC<StructureViewProps> = ({
         {Object.keys(section).map((key) => (
           <li key={key} className="flex">
             <NodeView
-              key={key}
               sectionKey={key}
               section={section?.[key as keyof typeof section]}
               keyPath={[...keyPath, { type: NodeType.Object, key }]}
@@ -153,18 +268,51 @@ export const StructureView: FC<StructureViewProps> = ({
         className="w-80"
         onClick={() => {
           const newKey = 'newKey';
-          addEditedContent(dictionaryKey, {}, [
+          const newKeyPath = [
             ...keyPath,
             { type: NodeType.Object, key: newKey },
-          ]);
-          setFocusedContentKeyPath([
-            ...keyPath,
-            { type: NodeType.Object, key: newKey },
-          ]);
+          ] as KeyPath[];
+          addEditedContent(dictionaryKey, '', newKeyPath);
+          setFocusedContentKeyPath(newKeyPath);
         }}
       >
         {addNodeButton.text}
       </Button>
     </div>
+  );
+};
+
+type StructureViewProps = {
+  dictionaryKey: string;
+  keyPath: KeyPath[];
+  section: ContentNode;
+};
+
+export const StructureView: FC<StructureViewProps> = ({
+  section,
+  keyPath,
+  dictionaryKey,
+}) => {
+  if (
+    !section ||
+    typeof section !== 'object' ||
+    typeof section.nodeType === 'string'
+  ) {
+    return (
+      <NodeView
+        sectionKey="content"
+        section={section}
+        keyPath={keyPath}
+        dictionaryKey={dictionaryKey}
+      />
+    );
+  }
+
+  return (
+    <ObjectView
+      section={section}
+      keyPath={keyPath}
+      dictionaryKey={dictionaryKey}
+    />
   );
 };

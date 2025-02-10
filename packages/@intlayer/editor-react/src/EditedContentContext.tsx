@@ -104,9 +104,9 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     setEditedContentState((prev) => {
       // Get the starting content: edited version if available, otherwise a deep copy of the original
       const originalContent = localeDictionaries[dictionaryKey]?.content;
-      const currentContent =
-        prev?.[dictionaryKey]?.content ||
-        JSON.parse(JSON.stringify(originalContent));
+      const currentContent = structuredClone(
+        prev?.[dictionaryKey]?.content ?? originalContent
+      );
 
       let newKeyPath = keyPath;
       if (!overwrite) {
@@ -155,9 +155,9 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     setEditedContentState((prev) => {
       // Retrieve the base content: use edited version if available, otherwise deep copy of original
       const originalContent = localeDictionaries[dictionaryKey]?.content;
-      const currentContent =
-        prev?.[dictionaryKey]?.content ||
-        JSON.parse(JSON.stringify(originalContent));
+      const currentContent = structuredClone(
+        prev?.[dictionaryKey]?.content ?? originalContent
+      );
 
       const contentWithNewField = renameContentNodeByKeyPath(
         currentContent,
@@ -182,9 +182,9 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     setEditedContentState((prev) => {
       // Retrieve the original content as reference
       const originalContent = localeDictionaries[dictionaryKey]?.content;
-      const currentContent =
-        prev?.[dictionaryKey]?.content ||
-        JSON.parse(JSON.stringify(originalContent));
+      const currentContent = structuredClone(
+        prev?.[dictionaryKey]?.content ?? originalContent
+      );
 
       // Get the initial value from the original dictionary content
       const initialContent = getContentNodeByKeyPath(originalContent, keyPath);
