@@ -1,8 +1,8 @@
 import type { VariantProps } from 'class-variance-authority';
 import {
-  forwardRef,
   type TextareaHTMLAttributes,
   type DetailedHTMLProps,
+  type FC,
 } from 'react';
 import { cn } from '../../utils/cn';
 import { inputVariants } from '../Input';
@@ -17,23 +17,21 @@ export type TextAreaProps = DetailedHTMLProps<
   validationStyleEnabled?: boolean;
 } & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
 
-export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, variant, validationStyleEnabled = false, ...props }, ref) => (
-    <textarea
-      className={cn(
-        'resize-none',
-        inputVariants({
-          variant,
-          validationStyleEnabled: validationStyleEnabled
-            ? 'enabled'
-            : 'disabled',
-          className,
-        })
-      )}
-      ref={ref}
-      {...props}
-    />
-  )
+export const TextArea: FC<TextAreaProps> = ({
+  className,
+  variant,
+  validationStyleEnabled = false,
+  ...props
+}) => (
+  <textarea
+    className={cn(
+      'resize-none',
+      inputVariants({
+        variant,
+        validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
+        className,
+      })
+    )}
+    {...props}
+  />
 );
-
-TextArea.displayName = 'TextArea';

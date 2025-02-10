@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
+import { FC, Ref, useImperativeHandle, useMemo, useRef } from 'react';
 import { Input, type InputProps } from '../Input';
 import { EditableFieldLayout } from './EditableFieldLayout';
 
@@ -9,10 +9,12 @@ type EditableFieldInputProps = InputProps & {
   onCancel?: () => void;
 };
 
-export const EditableFieldInput = forwardRef<
-  HTMLInputElement,
-  EditableFieldInputProps
->(({ onSave, onCancel, ...props }, ref) => {
+export const EditableFieldInput: FC<EditableFieldInputProps> = ({
+  onSave,
+  onCancel,
+  ref,
+  ...props
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = () => {
@@ -28,7 +30,7 @@ export const EditableFieldInput = forwardRef<
   };
 
   // Expose the input ref to parent components
-  useImperativeHandle(ref, () => inputRef.current!);
+  useImperativeHandle(ref as Ref<HTMLElement>, () => inputRef.current!);
 
   const value = useMemo(
     () =>
@@ -48,6 +50,4 @@ export const EditableFieldInput = forwardRef<
       <Input ref={inputRef} {...props} />
     </EditableFieldLayout>
   );
-});
-
-EditableFieldInput.displayName = 'EditableFieldInput';
+};

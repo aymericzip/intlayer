@@ -1,11 +1,11 @@
-import { getConfiguration, Locales } from '@intlayer/config/client';
+import { getConfiguration, LocalesValues } from '@intlayer/config/client';
 import { getLocalizedUrl } from '@intlayer/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink } from 'lucide-react';
 import {
-  forwardRef,
   type DetailedHTMLProps,
   type AnchorHTMLAttributes,
+  type FC,
 } from 'react';
 
 const linkVariants = cva(
@@ -62,7 +62,7 @@ export type LinkProps = DetailedHTMLProps<
     label: string;
     isExternalLink?: boolean;
     isActive?: boolean;
-    locale?: Locales;
+    locale?: LocalesValues;
   };
 
 export const checkIsExternalLink = ({
@@ -79,7 +79,7 @@ export const checkIsExternalLink = ({
   return isExternalLink;
 };
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
+export const Link: FC<LinkProps> = (props) => {
   const {
     variant = 'default',
     color = 'primary',
@@ -116,7 +116,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   return (
     <a
       href={href}
-      ref={ref}
       hrefLang={hrefLang}
       aria-label={label}
       rel={rel}
@@ -136,6 +135,4 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
       )}
     </a>
   );
-});
-
-Link.displayName = 'Link';
+};

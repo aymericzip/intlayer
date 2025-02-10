@@ -1,5 +1,7 @@
 import { t, type Dictionary } from 'intlayer';
 
+import type { JSX } from 'react';
+
 const customContent = {
   key: 'react_content',
   content: {

@@ -1,21 +1,18 @@
-/* eslint-disable sonarjs/no-nested-conditional */
-/* eslint-disable sonarjs/cognitive-complexity */
 'use client';
 
 import { X as RemoveIcon, Check } from 'lucide-react';
 import {
-  type ComponentPropsWithoutRef,
+  type ComponentProps,
   type Dispatch,
-  type ElementRef,
   type FC,
   type HTMLAttributes,
   type KeyboardEvent,
+  type LegacyRef,
   type MouseEventHandler,
   type RefObject,
   type SetStateAction,
   type SyntheticEvent,
   createContext,
-  forwardRef,
   useCallback,
   useContext,
   useEffect,
@@ -36,7 +33,7 @@ type MultiSelectContextProps = {
   setInputValue: Dispatch<SetStateAction<string>>;
   activeIndex: number;
   setActiveIndex: Dispatch<SetStateAction<number>>;
-  ref: RefObject<HTMLInputElement>;
+  ref: RefObject<HTMLInputElement | null>;
   handleSelect: (e: SyntheticEvent<HTMLInputElement>) => void;
 };
 
@@ -54,7 +51,7 @@ const useMultiSelect = () => {
  * MultiSelect Docs: {@link: https://shadcn-extension.vercel.app/docs/multi-select}
  */
 
-type MultiSelectProps = ComponentPropsWithoutRef<typeof CommandRoot> & {
+type MultiSelectProps = ComponentProps<typeof CommandRoot> & {
   values?: string[];
   defaultValues?: string[];
   onValueChange?: (value: string[]) => void;
@@ -264,80 +261,73 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
   );
 };
 
-const MultiSelectTrigger = forwardRef<
-  HTMLDivElement,
+const MultiSelectTrigger: FC<
   HTMLAttributes<HTMLDivElement> & {
     getBadgeValue?: (value: string) => string;
     validationStyleEnabled?: boolean;
   }
->(
-  (
-    {
-      className,
-      getBadgeValue = (value) => value,
-      validationStyleEnabled = false,
-      children,
-      ...props
+> = ({
+  className,
+  getBadgeValue = (value) => value,
+  validationStyleEnabled = false,
+  children,
+  ...props
+}) => {
+  const { value, onValueChange, activeIndex } = useMultiSelect();
+
+  const mousePreventDefault: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
     },
-    ref
-  ) => {
-    const { value, onValueChange, activeIndex } = useMultiSelect();
+    []
+  );
 
-    const mousePreventDefault: MouseEventHandler<HTMLButtonElement> =
-      useCallback((e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }, []);
-
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          'flex w-full flex-col gap-3 rounded-lg p-1 py-2',
-          'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex w-full items-center justify-between whitespace-nowrap border px-3 py-2 text-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-          'bg-input-background dark:bg-input-background-dark text-input-text dark:text-input-text-dark w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
-          'border-input-border dark:border-input-border-dark hover:border-input-border-hover dark:hover:border-input-border-hover-dark focus:border-input-border-focus dark:focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-          'aria-[invalid=true]:border-error dark:aria-[invalid=true]:border-error-dark',
-          validationStyleEnabled &&
-            'valid:border-success dark:valid:border-success-dark invalid:border-error dark:invalid:border-error-dark',
-          className
-        )}
-        {...props}
-      >
-        {value.length > 0 && (
-          <div className="flex w-full flex-wrap gap-1">
-            {value.map((item, index) => (
-              <Badge
-                key={item}
-                className={cn(
-                  'flex items-center gap-1 rounded-xl px-1',
-                  activeIndex === index && 'ring-muted-foreground ring-2'
-                )}
-                color="text"
+  return (
+    <div
+      className={cn(
+        'flex w-full flex-col gap-3 rounded-lg p-1 py-2',
+        'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex w-full items-center justify-between whitespace-nowrap border px-3 py-2 text-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+        'bg-input-background dark:bg-input-background-dark text-input-text dark:text-input-text-dark w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
+        'border-input-border dark:border-input-border-dark hover:border-input-border-hover dark:hover:border-input-border-hover-dark focus:border-input-border-focus dark:focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
+        'aria-[invalid=true]:border-error dark:aria-[invalid=true]:border-error-dark',
+        validationStyleEnabled &&
+          'valid:border-success dark:valid:border-success-dark invalid:border-error dark:invalid:border-error-dark',
+        className
+      )}
+      {...props}
+    >
+      {value.length > 0 && (
+        <div className="flex w-full flex-wrap gap-1">
+          {value.map((item, index) => (
+            <Badge
+              key={item}
+              className={cn(
+                'flex items-center gap-1 rounded-xl px-1',
+                activeIndex === index && 'ring-muted-foreground ring-2'
+              )}
+              color="text"
+            >
+              <span className="text-xs">{getBadgeValue(item)}</span>
+              <button
+                aria-label={`Remove ${item} option`}
+                aria-roledescription="button to remove option"
+                onMouseDown={mousePreventDefault}
+                onClick={() => onValueChange(item)}
               >
-                <span className="text-xs">{getBadgeValue(item)}</span>
-                <button
-                  aria-label={`Remove ${item} option`}
-                  aria-roledescription="button to remove option"
-                  onMouseDown={mousePreventDefault}
-                  onClick={() => onValueChange(item)}
-                >
-                  <span className="sr-only">Remove {item} option</span>
-                  <RemoveIcon className="size-4 cursor-pointer" />
-                </button>
-              </Badge>
-            ))}
-          </div>
-        )}
-        {children}
-      </div>
-    );
-  }
-);
+                <span className="sr-only">Remove {item} option</span>
+                <RemoveIcon className="size-4 cursor-pointer" />
+              </button>
+            </Badge>
+          ))}
+        </div>
+      )}
+      {children}
+    </div>
+  );
+};
 
-MultiSelectTrigger.displayName = 'MultiSelectTrigger';
-
-const MultiSelectInput: FC<ComponentPropsWithoutRef<typeof Command.Input>> = ({
+const MultiSelectInput: FC<ComponentProps<typeof Command.Input>> = ({
   className,
   ...props
 }) => {
@@ -355,7 +345,7 @@ const MultiSelectInput: FC<ComponentPropsWithoutRef<typeof Command.Input>> = ({
     <Command.Input
       {...props}
       tabIndex={0}
-      ref={inputRef}
+      ref={inputRef as LegacyRef<HTMLInputElement>}
       value={inputValue}
       onValueChange={activeIndex === -1 ? setInputValue : undefined}
       onSelect={handleSelect}
@@ -371,28 +361,15 @@ const MultiSelectInput: FC<ComponentPropsWithoutRef<typeof Command.Input>> = ({
   );
 };
 
-MultiSelectInput.displayName = 'MultiSelectInput';
-
-const MultiSelectContent = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ children }, ref) => {
+const MultiSelectContent: FC<HTMLAttributes<HTMLDivElement>> = ({
+  children,
+}) => {
   const { open } = useMultiSelect();
-  return (
-    <div ref={ref} className="relative">
-      {open && children}
-    </div>
-  );
-});
+  return <div className="relative">{open && children}</div>;
+};
 
-MultiSelectContent.displayName = 'MultiSelectContent';
-
-const MultiSelectList = forwardRef<
-  ElementRef<typeof Command.List>,
-  ComponentPropsWithoutRef<typeof Command.List>
->(({ className, children }, ref) => (
+const MultiSelectList: typeof Command.List = ({ className, children }) => (
   <Command.List
-    ref={ref}
     className={cn(
       'border-muted bg-input-background dark:bg-input-background-dark absolute top-0 z-10 flex w-full flex-col gap-2 rounded-lg border p-2 shadow-md transition-colors',
       className
@@ -403,14 +380,11 @@ const MultiSelectList = forwardRef<
       <span className="text-muted-foreground">No results found</span>
     </Command.Empty>
   </Command.List>
-));
+);
 
-MultiSelectList.displayName = 'MultiSelectList';
-
-const MultiSelectItem = forwardRef<
-  ElementRef<typeof Command.Item>,
-  { value: string } & ComponentPropsWithoutRef<typeof Command.Item>
->(({ className, value, children, ...props }, ref) => {
+const MultiSelectItem: FC<
+  { value: string } & ComponentProps<typeof Command.Item>
+> = ({ className, value, children, ...props }) => {
   const { value: Options, onValueChange, setInputValue } = useMultiSelect();
 
   const mousePreventDefault: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -424,7 +398,6 @@ const MultiSelectItem = forwardRef<
   const isIncluded = Options.includes(value);
   return (
     <Command.Item
-      ref={ref}
       {...props}
       onSelect={() => {
         onValueChange(value);
@@ -443,7 +416,7 @@ const MultiSelectItem = forwardRef<
       {isIncluded && <Check className="size-4" />}
     </Command.Item>
   );
-});
+};
 
 MultiSelectItem.displayName = 'MultiSelectItem';
 

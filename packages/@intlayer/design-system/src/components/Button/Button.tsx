@@ -1,7 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import {
-  forwardRef,
   type ButtonHTMLAttributes,
   type DetailedHTMLProps,
   type FC,
@@ -131,89 +130,82 @@ export type ButtonProps = DetailedHTMLProps<
     isFullWidth?: boolean;
   };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      variant,
-      size,
-      color,
-      children,
-      Icon,
-      IconRight,
-      iconClassName,
-      isLoading,
-      isActive,
-      isFullWidth = false,
-      textAlign,
-      disabled,
-      label,
-      className,
-      type = 'button',
-      ...props
-    },
-    ref
-  ) => {
-    const isLink = variant === 'link' || variant === 'invisible-link';
+export const Button: FC<ButtonProps> = ({
+  variant,
+  size,
+  color,
+  children,
+  Icon,
+  IconRight,
+  iconClassName,
+  isLoading,
+  isActive,
+  isFullWidth = false,
+  textAlign,
+  disabled,
+  label,
+  className,
+  type = 'button',
+  ...props
+}) => {
+  const isLink = variant === 'link' || variant === 'invisible-link';
 
-    return (
-      <button
-        ref={ref}
-        disabled={isLoading || disabled}
-        aria-current={isActive ? 'page' : undefined}
-        aria-label={label}
-        aria-busy={isLoading}
-        role={isLink ? 'link' : undefined}
-        type={type}
-        className={buttonVariants({
-          variant,
-          size,
-          color,
-          isFullWidth,
-          textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
-          hasIconLeft: Boolean(
-            typeof children !== 'undefined' &&
-              (typeof Icon !== 'undefined' || typeof isLoading !== 'undefined')
-          ),
-          hasIconRight: Boolean(
-            typeof children !== 'undefined' && typeof IconRight !== 'undefined'
-          ),
-          className,
-        })}
-        {...props}
-      >
-        {Icon && !isLoading && (
-          <Icon
-            className={buttonIconVariants({
-              size,
-              className: iconClassName,
-              position: 'left',
-            })}
-          />
-        )}
-
-        <Loader
+  return (
+    <button
+      ref={ref}
+      disabled={isLoading || disabled}
+      aria-current={isActive ? 'page' : undefined}
+      aria-label={label}
+      aria-busy={isLoading}
+      role={isLink ? 'link' : undefined}
+      type={type}
+      className={buttonVariants({
+        variant,
+        size,
+        color,
+        isFullWidth,
+        textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
+        hasIconLeft: Boolean(
+          typeof children !== 'undefined' &&
+            (typeof Icon !== 'undefined' || typeof isLoading !== 'undefined')
+        ),
+        hasIconRight: Boolean(
+          typeof children !== 'undefined' && typeof IconRight !== 'undefined'
+        ),
+        className,
+      })}
+      {...props}
+    >
+      {Icon && !isLoading && (
+        <Icon
           className={buttonIconVariants({
             size,
             className: iconClassName,
             position: 'left',
           })}
-          isLoading={isLoading ?? false}
         />
+      )}
 
-        {children}
+      <Loader
+        className={buttonIconVariants({
+          size,
+          className: iconClassName,
+          position: 'left',
+        })}
+        isLoading={isLoading ?? false}
+      />
 
-        {IconRight && (
-          <IconRight
-            className={buttonIconVariants({
-              size,
-              className: iconClassName,
-              position: 'right',
-            })}
-          />
-        )}
-      </button>
-    );
-  }
-);
+      {children}
 
-Button.displayName = 'Button';
+      {IconRight && (
+        <IconRight
+          className={buttonIconVariants({
+            size,
+            className: iconClassName,
+            position: 'right',
+          })}
+        />
+      )}
+    </button>
+  );
+};

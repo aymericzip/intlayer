@@ -13,7 +13,7 @@ import { useEditedContentPersistence } from '../../hooks/useEditedContentPersist
 import { cn } from '../../utils/cn';
 
 export const IframeController: FC<{
-  iframeRef: RefObject<HTMLIFrameElement>;
+  iframeRef: RefObject<HTMLIFrameElement | null>;
   applicationPath: string;
 }> = ({ iframeRef, applicationPath }) => {
   const { editor } = useConfiguration();

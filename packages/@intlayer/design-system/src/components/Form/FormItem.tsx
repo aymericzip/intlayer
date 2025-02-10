@@ -1,17 +1,8 @@
 'use client';
 
-import {
-  forwardRef,
-  type HTMLAttributes,
-  useId,
-  createContext,
-  useMemo,
-} from 'react';
+import { type HTMLAttributes, useId, createContext, useMemo, FC } from 'react';
 
-export const FormItem = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->((props, ref) => {
+export const FormItem: FC<HTMLAttributes<HTMLDivElement>> = (props, ref) => {
   const id = useId();
 
   const memoValue = useMemo(
@@ -26,8 +17,7 @@ export const FormItem = forwardRef<
       <div className="space-y-2" ref={ref} {...props} />
     </FormItemContext.Provider>
   );
-});
-FormItem.displayName = 'FormItem';
+};
 
 type FormItemContextValue = {
   id: string;

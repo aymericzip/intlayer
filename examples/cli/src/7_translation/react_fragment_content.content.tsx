@@ -1,5 +1,7 @@
 import { t, type Dictionary } from 'intlayer';
 
+import type { JSX } from 'react';
+
 const customContent: DeclarationContent = {
   key: 'react_fragment_content',
   content: {

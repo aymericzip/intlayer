@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from '@hookform/resolvers/zod';
-import { forwardRef, type Ref, type HTMLAttributes } from 'react';
+import { type HTMLAttributes } from 'react';
 import {
   FormProvider,
   type FormProviderProps,
@@ -31,56 +31,51 @@ const awaitFunction = async (fn: any) => {
   // If not a Promise, it will just execute without awaiting
 };
 
-export const Form = forwardRef(
-  <T extends ZodType>(
-    {
-      schema,
-      onSubmit: onSubmitProp,
-      onSubmitSuccess: onSubmitSuccessProp,
-      onSubmitError: onSubmitErrorProp,
-      className,
-      children,
-      autoComplete,
-      ...props
-    }: FormProps<T>,
-    ref: Ref<HTMLFormElement>
-  ) => {
-    const onSubmit = async (values: T) => {
-      const parsedValues = schema?.safeParse(values) ?? {
-        success: true,
-        data: undefined,
-      };
-
-      // onSubmitProp?.(values);
-      await awaitFunction(onSubmitProp?.(values));
-
-      if (parsedValues.success) {
-        await awaitFunction(onSubmitSuccessProp?.(parsedValues.data));
-      } else {
-        await awaitFunction(
-          onSubmitErrorProp?.(
-            new Error(
-              parsedValues.error.errors.map((error) => error.message).join(', ')
-            )
-          )
-        );
-      }
+export const Form = <T extends ZodType>({
+  schema,
+  onSubmit: onSubmitProp,
+  onSubmitSuccess: onSubmitSuccessProp,
+  onSubmitError: onSubmitErrorProp,
+  className,
+  children,
+  autoComplete,
+  ...props
+}: FormProps<T>) => {
+  const onSubmit = async (values: T) => {
+    const parsedValues = schema?.safeParse(values) ?? {
+      success: true,
+      data: undefined,
     };
 
-    return (
-      <FormProvider {...props}>
-        <form
-          className={cn('flex size-full flex-col gap-y-6', className)}
-          onSubmit={props.handleSubmit(onSubmit)}
-          autoComplete={autoComplete ? 'on' : 'off'}
-          ref={ref}
-        >
-          {children}
-        </form>
-      </FormProvider>
-    );
-  }
-);
+    // onSubmitProp?.(values);
+    await awaitFunction(onSubmitProp?.(values));
+
+    if (parsedValues.success) {
+      await awaitFunction(onSubmitSuccessProp?.(parsedValues.data));
+    } else {
+      await awaitFunction(
+        onSubmitErrorProp?.(
+          new Error(
+            parsedValues.error.errors.map((error) => error.message).join(', ')
+          )
+        )
+      );
+    }
+  };
+
+  return (
+    <FormProvider {...props}>
+      <form
+        className={cn('flex size-full flex-col gap-y-6', className)}
+        onSubmit={props.handleSubmit(onSubmit)}
+        autoComplete={autoComplete ? 'on' : 'off'}
+        ref={ref}
+      >
+        {children}
+      </form>
+    </FormProvider>
+  );
+};
 
 Form.displayName = 'Form';
 

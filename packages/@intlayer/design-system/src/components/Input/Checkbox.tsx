@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
-  forwardRef,
+  FC,
   useId,
   type DetailedHTMLProps,
   type InputHTMLAttributes,
@@ -54,41 +54,36 @@ export type CheckboxProps = Omit<
   label?: string;
 } & Omit<VariantProps<typeof checkboxVariants>, 'validationStyleEnabled'>;
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  (
-    {
-      validationStyleEnabled = false,
-      label,
-      size,
-      color,
-      variant,
-      className,
-      ...props
-    },
-    ref
-  ) => {
-    const id = useId();
-    return (
-      <>
-        <input
-          ref={ref}
-          type="checkbox"
-          className={checkboxVariants({
-            variant,
-            size,
-            color,
-            validationStyleEnabled: validationStyleEnabled
-              ? 'enabled'
-              : 'disabled',
-            className,
-          })}
-          id={id}
-          {...props}
-        />
-        <label htmlFor={id}>{label}</label>
-      </>
-    );
-  }
-);
+export const Checkbox: FC<CheckboxProps> = ({
+  validationStyleEnabled = false,
+  label,
+  size,
+  color,
+  variant,
+  className,
+  ...props
+}) => {
+  const id = useId();
+  return (
+    <>
+      <input
+        ref={ref}
+        type="checkbox"
+        className={checkboxVariants({
+          variant,
+          size,
+          color,
+          validationStyleEnabled: validationStyleEnabled
+            ? 'enabled'
+            : 'disabled',
+          className,
+        })}
+        id={id}
+        {...props}
+      />
+      <label htmlFor={id}>{label}</label>
+    </>
+  );
+};
 
 Checkbox.displayName = 'Checkbox';

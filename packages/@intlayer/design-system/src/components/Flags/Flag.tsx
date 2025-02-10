@@ -1,5 +1,5 @@
 import { Locales } from '@intlayer/config/client';
-import type { FC, ImgHTMLAttributes } from 'react';
+import type { FC, ImgHTMLAttributes, JSX } from 'react';
 
 // import andorra from './ad.svg';
 import unitedArabEmirates from './ae.svg';

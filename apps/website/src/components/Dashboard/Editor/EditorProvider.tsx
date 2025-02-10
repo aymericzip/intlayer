@@ -10,7 +10,7 @@ import { type FC, type PropsWithChildren, type RefObject } from 'react';
  */
 export const EditorProvider: FC<
   PropsWithChildren<{
-    iframeRef: RefObject<HTMLIFrameElement>;
+    iframeRef: RefObject<HTMLIFrameElement | null>;
   }>
 > = ({ children, iframeRef }) => {
   const { session } = useAuth();

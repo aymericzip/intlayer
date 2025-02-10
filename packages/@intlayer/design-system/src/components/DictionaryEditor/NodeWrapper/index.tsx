@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-cycle */
 'use client';
 
@@ -42,13 +43,15 @@ export type NodeWrapperProps = {
   onClickEdit?: (keyPath: KeyPath[]) => void;
 };
 
-const createReactElement = (element: ReactElement) => {
+const createReactElement = (element: ReactElement<any>) => {
   if (typeof element === 'string') {
     // If it's a string, simply return it (used for text content)
     return element;
   }
 
-  const convertChildrenAsArray = (element: ReactElement): ReactElement => {
+  const convertChildrenAsArray = (
+    element: ReactElement<any>
+  ): ReactElement<any> => {
     if (element?.props && typeof element.props.children === 'object') {
       const childrenResult: ReactNode[] = [];
       const { children } = element.props;
@@ -85,7 +88,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
     if (isReactNode(section as Record<string, unknown>)) {
       return (
         <>
-          {createReactElement(section as unknown as ReactElement)}
+          {createReactElement(section as unknown as ReactElement<any>)}
           <span className="text-neutral dark:text-neutral-dark text-xs">
             React node not editable
           </span>

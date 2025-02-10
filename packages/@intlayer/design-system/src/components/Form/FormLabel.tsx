@@ -1,18 +1,14 @@
 'use client';
 
-import {
-  forwardRef,
-  type ElementRef,
-  type ComponentPropsWithoutRef,
-} from 'react';
+import { type ComponentProps, type FC } from 'react';
 import { cn } from '../../utils/cn';
 import { Label } from '../Label';
 import { useFormField } from './FormField';
 
-export const FormLabel = forwardRef<
-  ElementRef<typeof Label>,
-  ComponentPropsWithoutRef<typeof Label>
->(({ className, ...props }, ref) => {
+export const FormLabel: FC<ComponentProps<typeof Label>> = ({
+  className,
+  ...props
+}) => {
   const { error, formItemId } = useFormField();
 
   return (
@@ -22,10 +18,8 @@ export const FormLabel = forwardRef<
         error && 'text-error dark:text-error-dark',
         className
       )}
-      ref={ref}
       htmlFor={formItemId}
       {...props}
     />
   );
-});
-FormLabel.displayName = 'FormLabel';
+};

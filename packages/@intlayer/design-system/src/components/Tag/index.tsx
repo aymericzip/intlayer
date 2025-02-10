@@ -1,5 +1,5 @@
 import { cva, VariantProps } from 'class-variance-authority';
-import { forwardRef, HTMLAttributes, PropsWithChildren } from 'react';
+import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
 type TagProps = PropsWithChildren<VariantProps<typeof containerVariants>> &
   HTMLAttributes<HTMLDivElement>;
@@ -53,37 +53,33 @@ const containerVariants = cva('backdrop-blur w-fit', {
   },
 });
 
-export const Tag = forwardRef<HTMLDivElement, TagProps>(
-  (
-    {
-      children,
-      color,
-      roundedSize,
-      size,
-      border,
-      background,
-      className,
-      ...props
-    },
-    ref
-  ) => {
-    return (
-      <div
-        ref={ref}
-        className={containerVariants({
-          color,
-          roundedSize,
-          size,
-          border,
-          background,
-          className,
-        })}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
-
-Tag.displayName = 'Tag';
+export const Tag: FC<TagProps> = (
+  {
+    children,
+    color,
+    roundedSize,
+    size,
+    border,
+    background,
+    className,
+    ...props
+  },
+  ref
+) => {
+  return (
+    <div
+      ref={ref}
+      className={containerVariants({
+        color,
+        roundedSize,
+        size,
+        border,
+        background,
+        className,
+      })}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};

@@ -1,17 +1,10 @@
 'use client';
 
 import { Slot } from '@radix-ui/react-slot';
-import {
-  forwardRef,
-  type ElementRef,
-  type ComponentPropsWithoutRef,
-} from 'react';
+import type { FC, ComponentProps } from 'react';
 import { useFormField } from './FormField';
 
-export const FormControl = forwardRef<
-  ElementRef<typeof Slot>,
-  ComponentPropsWithoutRef<typeof Slot>
->((props, ref) => {
+export const FormControl: FC<ComponentProps<typeof Slot>> = (props, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
@@ -28,5 +21,4 @@ export const FormControl = forwardRef<
       {...props}
     />
   );
-});
-FormControl.displayName = 'FormControl';
+};

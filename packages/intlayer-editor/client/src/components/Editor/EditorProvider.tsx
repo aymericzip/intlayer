@@ -10,7 +10,7 @@ import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
  */
 export const EditorProvider: FC<
   PropsWithChildren<{
-    iframeRef: RefObject<HTMLIFrameElement>;
+    iframeRef: RefObject<HTMLIFrameElement | null>;
   }>
 > = ({ children, iframeRef }) => {
   const intlayerConfig = useIntlayerConfig();

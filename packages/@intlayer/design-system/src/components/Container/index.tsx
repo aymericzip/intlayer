@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { type PropsWithChildren, forwardRef, type HTMLAttributes } from 'react';
+import { type PropsWithChildren, type HTMLAttributes, type FC } from 'react';
 import { cn } from '../../utils/cn';
 
 const containerVariants = cva(
@@ -92,48 +92,38 @@ export type ContainerProps = PropsWithChildren<
     border?: boolean;
   };
 
-export const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  (
-    {
-      children,
-      roundedSize,
-      padding,
-      transparency,
-      separator,
-      className,
-      border,
-      borderColor,
-      backgroundColor,
-      background,
-      ...props
-    },
-    ref
-  ) => (
-    <div
-      ref={ref}
-      className={cn(
-        containerVariants({
-          roundedSize,
-          transparency,
-          padding,
-          separator,
-          border:
-            typeof border === 'boolean'
-              ? border
-                ? 'with'
-                : 'none'
-              : undefined,
-          background,
-          backgroundColor,
-          borderColor,
-          className,
-        })
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  )
+export const Container: FC<ContainerProps> = ({
+  children,
+  roundedSize,
+  padding,
+  transparency,
+  separator,
+  className,
+  border,
+  borderColor,
+  backgroundColor,
+  background,
+  ...props
+}) => (
+  <div
+    className={cn(
+      containerVariants({
+        roundedSize,
+        transparency,
+        padding,
+        separator,
+        border:
+          typeof border === 'boolean' ? (border ? 'with' : 'none') : undefined,
+        background,
+        backgroundColor,
+        borderColor,
+        className,
+      })
+    )}
+    {...props}
+  >
+    {children}
+  </div>
 );
 
 Container.displayName = 'Container';

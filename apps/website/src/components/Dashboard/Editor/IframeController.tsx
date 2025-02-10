@@ -11,7 +11,7 @@ import { type FC, type RefObject, useState } from 'react';
 import { useEditedContentPersistence } from './useEditedContentPersistence';
 
 export const IframeController: FC<{
-  iframeRef: RefObject<HTMLIFrameElement>;
+  iframeRef: RefObject<HTMLIFrameElement | null>;
 }> = ({ iframeRef }) => {
   const { editor } = useConfiguration();
 

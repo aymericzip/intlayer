@@ -1,4 +1,4 @@
-import type { FC, HTMLAttributes, MouseEvent } from 'react';
+import type { FC, HTMLAttributes, MouseEvent, JSX } from 'react';
 import { cn } from '../../utils/cn';
 
 const styledHeading = `relative scroll-mb-8 scroll-mt-[30vh] scroll-p-8`;

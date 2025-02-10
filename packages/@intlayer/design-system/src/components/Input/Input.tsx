@@ -1,9 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import {
-  forwardRef,
-  type DetailedHTMLProps,
-  type InputHTMLAttributes,
-} from 'react';
+import { FC, type DetailedHTMLProps, type InputHTMLAttributes } from 'react';
 
 export const inputVariants = cva('', {
   variants: {
@@ -42,22 +38,18 @@ export type InputProps = DetailedHTMLProps<
   validationStyleEnabled?: boolean;
 } & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    { validationStyleEnabled = false, variant, size, className, ...props },
-    ref
-  ) => (
-    <input
-      ref={ref}
-      className={inputVariants({
-        variant,
-        size,
-        validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
-        className,
-      })}
-      {...props}
-    />
-  )
+export const Input: FC<InputProps> = (
+  { validationStyleEnabled = false, variant, size, className, ...props },
+  ref
+) => (
+  <input
+    ref={ref}
+    className={inputVariants({
+      variant,
+      size,
+      validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
+      className,
+    })}
+    {...props}
+  />
 );
-
-Input.displayName = 'Input';

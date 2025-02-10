@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type ReactElement, type ReactNode, createElement } from 'react';
 
 // This function recursively creates React elements from a given JSON-like structure
-export const renderReactElement = (element: ReactElement) => {
+export const renderReactElement = (element: ReactElement<any>) => {
   if (typeof element === 'string') {
     // If it's a string, simply return it (used for text content)
     return element;

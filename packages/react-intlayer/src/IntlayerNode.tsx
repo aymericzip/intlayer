@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NodeProps } from '@intlayer/core';
 import {
   type PropsWithChildren,
@@ -20,7 +21,7 @@ export const rendererIntlayerNode = <
   value: T;
 }>): IntlayerNode => {
   // If children is not a valid ReactElement, wrap it in a fragment
-  const element: ReactElement = isValidElement(children) ? (
+  const element: ReactElement<any> = isValidElement(children) ? (
     children
   ) : (
     <>{children}</>

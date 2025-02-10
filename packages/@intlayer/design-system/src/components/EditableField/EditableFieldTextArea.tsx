@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, useRef, useImperativeHandle, useMemo } from 'react';
+import { useRef, useImperativeHandle, type FC, type Ref } from 'react';
 import { AutoSizedTextArea, type AutoSizedTextAreaProps } from '../TextArea';
 import { EditableFieldLayout } from './EditableFieldLayout';
 
@@ -9,14 +9,16 @@ type EditableFieldTextAreaProps = AutoSizedTextAreaProps & {
   onCancel?: () => void;
 };
 
-export const EditableFieldTextArea = forwardRef<
-  HTMLTextAreaElement,
-  EditableFieldTextAreaProps
->(({ onSave, onCancel, ...props }, ref) => {
+export const EditableFieldTextArea: FC<EditableFieldTextAreaProps> = ({
+  onSave,
+  onCancel,
+  ref,
+  ...props
+}) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   // Expose the text area ref to parent components
-  useImperativeHandle(ref, () => textAreaRef.current!);
+  useImperativeHandle(ref as Ref<HTMLElement>, () => textAreaRef.current!);
 
   const handleSave = () => {
     // Your save logic here
@@ -30,15 +32,11 @@ export const EditableFieldTextArea = forwardRef<
     onCancel?.();
   };
 
-  const memoValue = useMemo(
-    () =>
-      (props.value as string) ??
-      textAreaRef.current?.value ??
-      (props.defaultValue as string) ??
-      '',
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [props.value, props.defaultValue, textAreaRef.current?.value]
-  );
+  const memoValue =
+    (props.value as string) ??
+    textAreaRef.current?.value ??
+    (props.defaultValue as string) ??
+    '';
 
   return (
     <EditableFieldLayout
@@ -61,6 +59,4 @@ export const EditableFieldTextArea = forwardRef<
       />
     </EditableFieldLayout>
   );
-});
-
-EditableFieldTextArea.displayName = 'EditableFieldTextArea';
+};

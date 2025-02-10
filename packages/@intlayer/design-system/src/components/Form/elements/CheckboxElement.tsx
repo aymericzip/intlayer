@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { forwardRef, type ComponentProps, type FC } from 'react';
+import { type ComponentProps, type FC } from 'react';
 import { Checkbox } from '../../Input';
 import { FormElementProps, FormElement } from './FormElement';
 
@@ -14,12 +14,10 @@ type CheckboxComponentProps = Omit<ComponentProps<typeof Checkbox>, 'label'> & {
   inputLabel?: ComponentProps<typeof Checkbox>['label'];
 };
 
-const CheckboxComponent = forwardRef<HTMLInputElement, CheckboxComponentProps>(
-  ({ inputLabel, ...props }, ref) => (
-    <Checkbox ref={ref} {...props} label={inputLabel} />
-  )
-);
-CheckboxComponent.displayName = 'CheckboxComponent';
+const CheckboxComponent: FC<CheckboxComponentProps> = ({
+  inputLabel,
+  ...props
+}) => <Checkbox {...props} label={inputLabel} />;
 
 export const CheckboxElement: FC<CheckboxElementProps> = ({
   autoComplete,
