@@ -39,7 +39,7 @@ export const StringWrapper: FC<StringWrapperProps> = ({
       }}
     >
       <EditableFieldTextArea
-        defaultValue={content}
+        defaultValue={String(content)}
         onSave={(newValue) => onContentChange({ keyPath, newValue })}
         onCancel={() => null}
       />

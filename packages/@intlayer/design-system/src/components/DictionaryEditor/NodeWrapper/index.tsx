@@ -8,6 +8,9 @@ import {
   NodeType,
   type KeyPath,
   type ContentNode,
+  NestedContent,
+  ConditionContent,
+  MarkdownContent,
 } from '@intlayer/core';
 import {
   createElement,
@@ -16,7 +19,9 @@ import {
   type FC,
 } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
+import { ConditionWrapper } from './ConditionWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
+import { MarkdownWrapper } from './MarkdownWrapper';
 import { NestedObjectWrapper } from './NestedObjectWrapper';
 import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
@@ -88,6 +93,20 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       );
     }
 
+    if ((section as NestedContent).nodeType === NodeType.Nested) {
+      return (
+        <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
+          [Nested] Dictionary
+        </div>
+      );
+    }
+
+    if ((section as MarkdownContent).nodeType === NodeType.Markdown) {
+      return (
+        <MarkdownWrapper {...props} section={section as MarkdownContent} />
+      );
+    }
+
     if (
       (section as TranslationContent<ContentNode>).nodeType ===
       NodeType.Translation
@@ -108,6 +127,17 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
         <EnumerationWrapper
           {...props}
           section={section as EnumerationContent<ContentNode>}
+        />
+      );
+    }
+
+    if (
+      (section as ConditionContent<ContentNode>).nodeType === NodeType.Condition
+    ) {
+      return (
+        <ConditionWrapper
+          {...props}
+          section={section as ConditionContent<ContentNode>}
         />
       );
     }
