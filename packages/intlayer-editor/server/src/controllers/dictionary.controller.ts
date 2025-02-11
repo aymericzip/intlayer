@@ -5,7 +5,7 @@ import { writeContentDeclaration as writeContentDeclarationEditor } from '@intla
 import { type ResponseData, formatResponse } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 
-export type WriteContentDeclarationBody = Dictionary;
+export type WriteContentDeclarationBody = { dictionary: Dictionary };
 type WriteContentDeclarationResultData = {
   status: DictionaryStatus;
   path: string;
@@ -22,12 +22,7 @@ export const writeContentDeclaration = async (
   _next: NextFunction
 ): Promise<void> => {
   try {
-    const dictionaryData = req.body;
-
-    // Clear unused schema
-    if (dictionaryData['$schema']) {
-      delete dictionaryData['$schema'];
-    }
+    const dictionaryData = req.body.dictionary;
 
     const config = getConfiguration();
 
