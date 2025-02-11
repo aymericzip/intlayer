@@ -36,11 +36,17 @@ export const getPathWithoutLocale = (
   // Determine if the original URL is absolute (includes protocol)
   const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);
 
+  let fixedInputUrl = inputUrl;
+
+  if (inputUrl.endsWith('/')) {
+    fixedInputUrl = inputUrl.slice(0, -1);
+  }
+
   // Initialize a URL object if the URL is absolute
   // For relative URLs, use a dummy base to leverage the URL API
   const url = isAbsoluteUrl
-    ? new URL(inputUrl)
-    : new URL(inputUrl, 'http://example.com');
+    ? new URL(fixedInputUrl)
+    : new URL(fixedInputUrl, 'http://example.com');
 
   const pathname = url.pathname;
 
