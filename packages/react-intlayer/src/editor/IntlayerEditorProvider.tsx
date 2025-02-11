@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 'use client';
 
 import { IntlayerEventListener } from '@intlayer/api';
@@ -39,7 +37,6 @@ const IntlayerEditorHooksEnabled: FC = () => {
     setLocaleDictionaries(
       dictionaries as unknown as Record<string, Dictionary>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**

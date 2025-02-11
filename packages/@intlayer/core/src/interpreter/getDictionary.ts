@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import type { Dictionary } from '../types';
-import { getContent } from './getContent/getContent';
 import type { Plugins, NodeProps, DeepTransformContent } from './getContent';
+import { getContent } from './getContent/getContent';
 
 /**
  * Transforms a dictionary in a single pass, applying each plugin as needed.

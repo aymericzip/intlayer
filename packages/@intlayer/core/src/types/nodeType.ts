@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export enum NodeType {
   Translation = 'translation',
   Enumeration = 'enumeration',

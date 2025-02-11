@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IntlayerConfig } from './types/config';
 
 export type Details = {
@@ -7,7 +6,6 @@ export type Details = {
   config?: Partial<IntlayerConfig['log']>;
 };
 
-// @ts-ignore expected any, but it's not possible to type it correctly
 export type Logger = (content: any, details?: Details) => void;
 
 export const logger: Logger = (

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/import/no-cycle */
+import { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { ValidDotPathsFor } from '../transpiler';
 import type { DictionaryKeys } from '../types';
 import type {
@@ -9,7 +8,6 @@ import type {
 } from './getContent';
 import { getIntlayer } from './getIntlayer';
 // @ts-ignore intlayer declared for module augmentation
-import { IntlayerDictionaryTypesConnector } from 'intlayer';
 
 type GetSubPath<T, P> = P extends `${infer K}.${infer Rest}`
   ? K extends keyof T

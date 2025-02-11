@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { Token } from '@schemas/oAuth2.schema';
 import * as oAuth2Service from '@services/oAuth2.service';

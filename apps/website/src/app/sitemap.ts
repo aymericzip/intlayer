@@ -14,9 +14,9 @@ const sitemap = (): MetadataRoute.Sitemap => {
     changeFrequency: 'monthly',
     priority: 0.7,
     alternates: {
-      languages: getMultilingualUrls(
-        `${process.env.NEXT_PUBLIC_URL}${doc.url}`
-      ),
+      languages: {
+        ...getMultilingualUrls(`${process.env.NEXT_PUBLIC_URL}${doc.url}`),
+      },
     },
   }));
 
@@ -26,9 +26,9 @@ const sitemap = (): MetadataRoute.Sitemap => {
     changeFrequency: 'monthly',
     priority: 0.5,
     alternates: {
-      languages: getMultilingualUrls(
-        `${process.env.NEXT_PUBLIC_URL}${blog.url}`
-      ),
+      languages: {
+        ...getMultilingualUrls(`${process.env.NEXT_PUBLIC_URL}${blog.url}`),
+      },
     },
   }));
 
@@ -39,9 +39,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'monthly',
       priority: 1,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`
+          ),
+        },
       },
     },
     {
@@ -50,9 +52,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`
+          ),
+        },
       },
     },
     {
@@ -61,9 +65,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`
+          ),
+        },
       },
     },
     {
@@ -72,9 +78,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'monthly',
       priority: 0.5,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`
+          ),
+        },
       },
     },
     {
@@ -83,9 +91,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`
+          ),
+        },
       },
     },
     {
@@ -94,9 +104,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`
+          ),
+        },
       },
     },
     {
@@ -105,9 +117,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`
+          ),
+        },
       },
     },
     {
@@ -116,9 +130,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`
+          ),
+        },
       },
     },
     {
@@ -127,9 +143,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`
+          ),
+        },
       },
     },
     {
@@ -138,9 +156,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`
+          ),
+        },
       },
     },
     {
@@ -149,9 +169,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
-        languages: getMultilingualUrls(
-          `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`
-        ),
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`
+          ),
+        },
       },
     },
     ...docSitemap,

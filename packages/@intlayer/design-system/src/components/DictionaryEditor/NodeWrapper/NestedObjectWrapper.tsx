@@ -1,14 +1,10 @@
-/* eslint-disable import/no-cycle */
-
 import {
   type KeyPath,
   isSameKeyPath,
   type ContentNode,
   NodeType,
 } from '@intlayer/core';
-import { Edit } from 'lucide-react';
 import type { FC } from 'react';
-import { Button } from '../../Button';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, traceKeys, type NodeWrapperProps } from './index';
 
@@ -17,13 +13,7 @@ type NestedObjectWrapperProps = Omit<NodeWrapperProps, 'section'> & {
 };
 
 export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
-  const {
-    keyPath,
-    section,
-    focusedKeyPath = [],
-    onClickEdit,
-    onFocusKeyPath,
-  } = props;
+  const { keyPath, section, focusedKeyPath = [], onFocusKeyPath } = props;
 
   return Object.keys(section)
     .filter((key) => !traceKeys.includes(key))

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-
 import type { ComponentProps, ReactNode } from 'react';
 import { EditableFieldTextArea } from '../../EditableField/EditableFieldTextArea';
 import { FormElement, type FormElementProps } from './FormElement';

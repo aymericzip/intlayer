@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { type ComponentProps, type FC } from 'react';
 import { Checkbox } from '../../Input';
 import { FormElementProps, FormElement } from './FormElement';

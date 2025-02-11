@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NodeProps } from '@intlayer/core';
 import {
   type PropsWithChildren,

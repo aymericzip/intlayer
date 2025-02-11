@@ -1,18 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 
-import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import type {
   ConditionContent,
   EnumerationContent,
   NestedContent,
   TranslationContent,
 } from '../../transpiler';
-import { getTranslation } from '../getTranslation';
-import { getEnumeration } from '../getEnumeration';
+import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import { getCondition } from '../getCondition';
+import { getEnumeration } from '../getEnumeration';
 import { type GetNestingResult, getNesting } from '../getNesting';
+import { getTranslation } from '../getTranslation';
 
 /** ---------------------------------------------
  *  PLUGIN DEFINITION
@@ -180,7 +178,6 @@ export const nestedPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Nested,
   transform: (node: NestedContent, props) =>
-    // @ts-ignore
     getNesting(node.nested.dictionaryKey, node.nested.path, props),
 };
 

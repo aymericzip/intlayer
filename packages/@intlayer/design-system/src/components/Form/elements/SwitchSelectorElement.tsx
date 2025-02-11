@@ -1,4 +1,5 @@
-/* eslint-disable import/no-cycle */
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { SwitchSelector } from '../../SwitchSelector';
@@ -36,7 +37,6 @@ export const SwitchSelectorElement = ({
       control={control}
       name={name}
       render={({ field }) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
         const { error } = useFormField();
 
         return (

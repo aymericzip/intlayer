@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type ReactElement, type ReactNode, createElement } from 'react';
 
 // This function recursively creates React elements from a given JSON-like structure

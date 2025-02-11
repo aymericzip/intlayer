@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
   type Dictionary,
   type Plugins,
@@ -10,7 +10,6 @@ import {
   markdownPlugin,
   reactNodePlugins,
 } from './plugins';
-import type { Locales, LocalesValues } from '@intlayer/config/client';
 
 export const getDictionary = <
   T extends Dictionary,

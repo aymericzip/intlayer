@@ -102,9 +102,15 @@ const nextConfig = {
     return config;
   },
 
-  // compiler: {
-  //   removeConsole: isProd,
-  // },
+  typescript: {
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    ignoreBuildErrors: true,
+  },
+
+  compiler: {
+    removeConsole: isProd,
+  },
 
   headers: async () => [
     {
@@ -117,12 +123,6 @@ const nextConfig = {
       ],
     },
   ],
-
-  typescript: {
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    ignoreBuildErrors: true,
-  },
 };
 
 const nextConfigPWA = withPWA({
@@ -132,4 +132,7 @@ const nextConfigPWA = withPWA({
   skipWaiting: true,
 })(nextConfig);
 
-export default withIntlayer(nextConfigPWA);
+/** @type {import('next').NextConfig} */
+const config = withIntlayer(nextConfigPWA);
+
+export default config;

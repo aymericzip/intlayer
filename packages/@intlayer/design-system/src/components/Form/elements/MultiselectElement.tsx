@@ -1,4 +1,4 @@
-/* eslint-disable import/no-cycle */
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { MultiSelect } from '../../Select/Multiselect';
@@ -36,7 +36,6 @@ export const MultiSelectElement = ({
       control={control}
       name={name}
       render={({ field }) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks, sonarjs/rules-of-hooks
         const { error } = useFormField();
 
         return (

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type KeyPath, NodeType } from '../../types/index';
 import { NodeProps } from './plugins';
 

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 'use client';
 
 import type { ComponentProps, ElementType, ReactNode } from 'react';

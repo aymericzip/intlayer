@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable import/no-cycle */
+
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Select } from '../../Select/Select';

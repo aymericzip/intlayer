@@ -1,8 +1,10 @@
-import type { ContentNode } from '@intlayer/core';
+import {
+  type ContentNode,
+  type Dictionary as DictionaryCore,
+} from '@intlayer/core';
 import type { Model, ObjectId, Document } from 'mongoose';
 import type { Project } from './project.types';
 import type { User } from './user.types';
-import type { Dictionary as DictionaryCore } from '@intlayer/core';
 
 export type DictionaryCreationData = {
   projectIds: (Project['_id'] | string)[];

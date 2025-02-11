@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import type { LocalesValues } from '@intlayer/config/client';
 import { type Dictionary } from '@intlayer/core';
 import { useContext } from 'react';
-import { IntlayerClientContext } from './IntlayerProvider';
 import { getDictionary } from '../getDictionary';
+import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
  * On the server side, Hook that transform a dictionary and return the content

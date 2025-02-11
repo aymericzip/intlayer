@@ -50,7 +50,7 @@ import { doubleCsrfProtection } from '@utils/CSRF';
 import { connectDB } from '@utils/mongoDB/connectDB';
 
 // Logger
-import { logger } from './logger';
+import { logger } from '@logger';
 
 const app: Express = express();
 
@@ -102,11 +102,11 @@ const corsOptions: CorsOptions = {
     if (!origin) return callback(null, true);
 
     if (whitelist.includes(origin)) {
-      console.info('whitelisted origin', origin);
+      logger.info('whitelisted origin', origin);
       return callback(null, true);
     }
 
-    console.info('non whitelisted origin', origin);
+    logger.info('non whitelisted origin', origin);
     // Reflect the request's origin (echo back the origin header)
     callback(null, origin);
   },

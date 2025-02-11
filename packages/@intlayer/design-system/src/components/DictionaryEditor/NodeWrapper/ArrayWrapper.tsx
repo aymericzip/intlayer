@@ -1,13 +1,10 @@
-/* eslint-disable import/no-cycle */
 import {
   isSameKeyPath,
   NodeType,
   type ContentNode,
   type KeyPath,
 } from '@intlayer/core';
-import { Edit } from 'lucide-react';
 import type { FC } from 'react';
-import { Button } from '../../Button';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 

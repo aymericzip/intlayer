@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/import/no-cycle */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { LocalesValues } from '@intlayer/config';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -7,11 +5,11 @@ import type { LocalesValues } from '@intlayer/config';
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 import dictionaries from '@intlayer/dictionaries-entry';
+import { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { Dictionary, DictionaryKeys } from '../types';
+import type { DeepTransformContent, Plugins } from './getContent/plugins';
 import { getDictionary } from './getDictionary';
 // @ts-ignore intlayer declared for module augmentation
-import { IntlayerDictionaryTypesConnector } from 'intlayer';
-import type { DeepTransformContent, Plugins } from './getContent/plugins';
 
 export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,

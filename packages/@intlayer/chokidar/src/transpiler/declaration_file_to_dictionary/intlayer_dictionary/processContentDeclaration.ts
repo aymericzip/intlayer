@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { logger } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 

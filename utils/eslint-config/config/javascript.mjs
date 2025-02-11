@@ -34,7 +34,8 @@ const subConfig = {
   },
 
   rules: {
-    'import/no-cycle': 2,
+    'import/no-cycle': 'warn',
+
     'no-duplicate-imports': 'off',
 
     'spaced-comment': [

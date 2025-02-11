@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/import/no-cycle */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   type Plugins,
   type IInterpreterPluginState as IInterpreterPluginStateCore,

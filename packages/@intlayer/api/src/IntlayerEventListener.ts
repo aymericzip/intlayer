@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore: @intlayer/backend is not built yet
 import { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration, IntlayerConfig } from '@intlayer/config/client';
@@ -94,7 +93,6 @@ export class IntlayerEventListener {
     if (this.eventSource) {
       this.eventSource.close();
       this.eventSource = null;
-      console.log('IntlayerEventListener cleaned up.');
     }
   }
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const REACT_ELEMENT_TYPE = Symbol.for('react.element');
 
 /**

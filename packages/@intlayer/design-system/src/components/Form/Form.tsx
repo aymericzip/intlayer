@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { Button } from '../Button';
 import {
   FormElement,

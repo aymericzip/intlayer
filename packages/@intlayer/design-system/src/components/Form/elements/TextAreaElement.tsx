@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import type { FC } from 'react';
 import { TextArea } from '../../TextArea/TextArea';
 import { FormElement, type FormElementProps } from './FormElement';

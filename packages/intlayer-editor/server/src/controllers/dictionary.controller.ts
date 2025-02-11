@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getConfiguration } from '@intlayer/config';
 import { type Dictionary } from '@intlayer/core';
 import { DictionaryStatus } from '@intlayer/editor';

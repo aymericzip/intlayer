@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore intlayer declared for module augmentation
-import { IntlayerDictionaryTypesConnector, t } from 'intlayer';
+import { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type {
   ConditionContent,
   EnumerationContent,

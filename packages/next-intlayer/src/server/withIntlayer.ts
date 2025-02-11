@@ -24,11 +24,11 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  * export default withIntlayer(nextConfig)
  * ```
  */
-export const withIntlayer = (
-  nextConfig: Partial<NextConfig> = {}
-): Partial<NextConfig> => {
+export const withIntlayer = <T extends Partial<NextConfig>>(
+  nextConfig: T = {} as T
+): NextConfig & T => {
   if (typeof nextConfig !== 'object') {
-    nextConfig = {};
+    nextConfig = {} as T;
   }
 
   const intlayerConfig = getConfiguration();

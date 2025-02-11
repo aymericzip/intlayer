@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import {
   type DictionaryKeys,
   type Plugins,
   getIntlayer as getIntlayerCore,
 } from '@intlayer/core';
+import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
 import {
   type DeepTransformContent,
   intlayerNodePlugins,
   markdownPlugin,
   reactNodePlugins,
 } from './plugins';
-import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
 
 export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,

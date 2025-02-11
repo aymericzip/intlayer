@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import type { ComponentProps, FC } from 'react';
 import { InputPassword } from '../../Input';
 import { FormElementProps, FormElement } from './FormElement';
