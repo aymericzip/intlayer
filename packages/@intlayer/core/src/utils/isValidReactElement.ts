@@ -1,5 +1,3 @@
-const REACT_ELEMENT_TYPE = Symbol.for('react.element');
-
 /**
  * Verifies the object is a ReactElement.
  * See https://reactjs.org/docs/react-api.html#isvalidelement
@@ -10,5 +8,5 @@ const REACT_ELEMENT_TYPE = Symbol.for('react.element');
 
 export const isValidElement = (object: any): boolean =>
   typeof object === 'object' &&
-  object !== null &&
-  object.$$typeof === REACT_ELEMENT_TYPE;
+  typeof object?.key !== 'undefined' &&
+  typeof object?.props !== 'undefined';

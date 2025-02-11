@@ -18,7 +18,6 @@ import { useCallback, useMemo, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import {
   usePushDictionaries,
-  useGetAllDictionaries,
   useAuditContentDeclaration,
   useWriteDictionary,
 } from '../../../hooks';
@@ -39,7 +38,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
   const { pushDictionaries } = usePushDictionaries();
   const { writeDictionary } = useWriteDictionary();
   const SaveFormSchema = getSaveFormSchema();
-  const { online } = useGetAllDictionaries();
   const { isLoading: isAuditing, auditContentDeclaration } =
     useAuditContentDeclaration();
 
@@ -59,26 +57,13 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
     [editedContent, dictionary.key]
   );
 
-  const onlineDictionary = useMemo(() => {
-    return online?.[dictionary.key];
-  }, [online, dictionary.key]);
-
-  const isEdited = useMemo(() => {
-    if (mode === 'remote') {
-      return (
-        editedDictionary &&
-        onlineDictionary &&
-        JSON.stringify(editedDictionary.content) !==
-          JSON.stringify(onlineDictionary.content)
-      );
-    } else if (mode === 'local') {
-      return (
-        editedDictionary &&
-        JSON.stringify(editedDictionary.content) !==
-          JSON.stringify(dictionary.content)
-      );
-    }
-  }, [onlineDictionary, editedDictionary, dictionary, mode]);
+  const isEdited = useMemo(
+    () =>
+      editedDictionary &&
+      JSON.stringify(editedDictionary.content) !==
+        JSON.stringify(dictionary.content),
+    [editedDictionary, dictionary, mode]
+  );
 
   const isLocalDictionary = useMemo(
     () => typeof (dictionary as DistantDictionary)?._id === 'undefined',

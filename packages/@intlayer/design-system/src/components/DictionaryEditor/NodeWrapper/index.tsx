@@ -2,7 +2,6 @@
 
 import type { Locales } from '@intlayer/config/client';
 import {
-  type NestedContent,
   type ConditionContent,
   type MarkdownContent,
   type EnumerationContent,
@@ -10,6 +9,7 @@ import {
   NodeType,
   type KeyPath,
   type ContentNode,
+  getNodeType,
 } from '@intlayer/core';
 import { type FC } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
@@ -21,9 +21,6 @@ import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
-
-const isReactNode = (node: Record<string, unknown>): boolean =>
-  typeof node?.key !== 'undefined' && typeof node?.props !== 'undefined';
 
 export type NodeWrapperProps = {
   keyPath: KeyPath[];
@@ -38,9 +35,10 @@ export type NodeWrapperProps = {
 
 export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
   const { section } = props;
+  const nodeType = getNodeType(section);
 
   if (typeof section === 'object') {
-    if (isReactNode(section as Record<string, unknown>)) {
+    if (nodeType === NodeType.ReactNode) {
       return (
         <span className="text-neutral dark:text-neutral-dark text-xs">
           React node not editable
@@ -48,7 +46,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       );
     }
 
-    if ((section as NestedContent).nodeType === NodeType.Nested) {
+    if (nodeType === NodeType.Nested) {
       return (
         <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
           [Nested] Dictionary
@@ -56,16 +54,13 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       );
     }
 
-    if ((section as MarkdownContent).nodeType === NodeType.Markdown) {
+    if (nodeType === NodeType.Markdown) {
       return (
         <MarkdownWrapper {...props} section={section as MarkdownContent} />
       );
     }
 
-    if (
-      (section as TranslationContent<ContentNode>).nodeType ===
-      NodeType.Translation
-    ) {
+    if (nodeType === NodeType.Translation) {
       return (
         <TranslationWrapper
           {...props}
@@ -74,10 +69,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       );
     }
 
-    if (
-      (section as EnumerationContent<ContentNode>).nodeType ===
-      NodeType.Enumeration
-    ) {
+    if (nodeType === NodeType.Enumeration) {
       return (
         <EnumerationWrapper
           {...props}
@@ -86,9 +78,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       );
     }
 
-    if (
-      (section as ConditionContent<ContentNode>).nodeType === NodeType.Condition
-    ) {
+    if (nodeType === NodeType.Condition) {
       return (
         <ConditionWrapper
           {...props}
@@ -97,8 +87,13 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       );
     }
 
-    if (Array.isArray(section)) {
-      return <ArrayWrapper {...props} section={section as ContentNode[]} />;
+    if (nodeType === NodeType.Array) {
+      return (
+        <ArrayWrapper
+          {...props}
+          section={section as unknown as ContentNode[]}
+        />
+      );
     }
 
     return (

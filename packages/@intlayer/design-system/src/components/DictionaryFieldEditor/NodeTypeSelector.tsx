@@ -27,6 +27,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
     nest,
     condition,
     markdown,
+    reactNode,
   } = useDictionary(nodeTypeSelectorContent);
   const nodeType = getNodeType(section);
   const [keyType, setKeyType] = useState<NodeType>(nodeType);
@@ -56,6 +57,9 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         <Select.Item value={NodeType.Markdown}>{markdown}</Select.Item>
         <Select.Item value={NodeType.Nested}>{nest}</Select.Item>
         <Select.Item value={NodeType.Condition}>{condition}</Select.Item>
+        <Select.Item value={NodeType.ReactNode} disabled>
+          {reactNode}
+        </Select.Item>
       </Select.Content>
     </Select>
   );
