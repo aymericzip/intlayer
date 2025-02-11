@@ -1,17 +1,17 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
-// import { getServerSession } from '@components/Auth/getServerSession';
+import { getServerSession } from '@components/Auth/getServerSession';
 import { LanguageBackground } from '@components/LandingPage/LanguageSection';
 import type { FC, PropsWithChildren } from 'react';
-import { PagesRoutes } from '@/Routes';
 
-const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
-  const session = undefined; // await getServerSession();
+const AuthLayout: FC<PropsWithChildren> = async ({ children, params }) => {
+  const session = await getServerSession();
+  const { locale } = await params;
 
   return (
     <AuthenticationBarrier
       accessRule="authenticated"
-      redirectionRoute={PagesRoutes.Home}
       session={session}
+      locale={locale}
     >
       <LanguageBackground>{children}</LanguageBackground>
     </AuthenticationBarrier>

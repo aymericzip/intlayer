@@ -1,7 +1,8 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
-// import { getServerSession } from '@components/Auth/getServerSession';
+import { getServerSession } from '@components/Auth/getServerSession';
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
+import type { Session } from '@intlayer/design-system';
 import { PageLayout } from '@layouts/PageLayout';
 import type { Locales } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
@@ -11,12 +12,10 @@ import { PagesRoutes } from '@/Routes';
 
 export { generateMetadata } from './metadata';
 
-const DashboardLayoutContent: FC<PropsWithChildren<{ locale: Locales }>> = ({
-  children,
-  locale,
-}) => {
+const DashboardLayoutContent: FC<
+  PropsWithChildren<{ locale: Locales; session: Session | null }>
+> = ({ children, locale, session }) => {
   const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
-  const session = undefined; // await getServerSession();
 
   const formattedNavbarLinks = navbarLinks.map((el) => ({
     ...el,
@@ -38,8 +37,9 @@ const DashboardLayoutContent: FC<PropsWithChildren<{ locale: Locales }>> = ({
     >
       <AuthenticationBarrier
         accessRule="authenticated"
-        redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${PagesRoutes.Dashboard}`}
+        redirectionRoute={`${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(PagesRoutes.Dashboard)}`}
         session={session}
+        locale={locale}
       >
         {children}
       </AuthenticationBarrier>
@@ -49,9 +49,12 @@ const DashboardLayoutContent: FC<PropsWithChildren<{ locale: Locales }>> = ({
 
 const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
+  const session = await getServerSession();
 
   return (
-    <DashboardLayoutContent locale={locale}>{children}</DashboardLayoutContent>
+    <DashboardLayoutContent locale={locale} session={session}>
+      {children}
+    </DashboardLayoutContent>
   );
 };
 

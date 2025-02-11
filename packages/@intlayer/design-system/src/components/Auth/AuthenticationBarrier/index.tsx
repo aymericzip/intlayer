@@ -8,7 +8,7 @@ export type AuthenticationBarrierProps = {
   children?: ReactNode;
   accessRule?: 'public' | 'authenticated' | 'admin' | 'none-authenticated';
   redirectionRoute?: string;
-  session?: Session;
+  session?: Session | null;
   sessionToken?: string;
   /**
    * Function to replace for a nextjs redirection
