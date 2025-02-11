@@ -2,11 +2,13 @@
 
 import { type Locales } from '@intlayer/config/client';
 import { useCrossFrameState } from '@intlayer/editor-react';
+import { useTheme } from 'next-themes';
 import type { FC, PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
+  const { resolvedTheme } = useTheme();
   const [currentLocale] = useCrossFrameState<Locales>(
     'INTLAYER_CURRENT_LOCALE',
     undefined,
@@ -21,7 +23,10 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
       <div className="flex size-full flex-1 flex-col items-center justify-center p-4">
         {children}
       </div>
-      <DictionaryEditionDrawerController locale={currentLocale} />
+      <DictionaryEditionDrawerController
+        locale={currentLocale}
+        isDarkMode={resolvedTheme === 'dark'}
+      />
       <DictionaryListDrawer />
     </>
   );

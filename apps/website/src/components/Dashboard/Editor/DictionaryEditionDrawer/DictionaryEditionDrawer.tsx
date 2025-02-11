@@ -137,11 +137,12 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
 type DictionaryEditionDrawerControllerProps = {
   locale: Locales;
+  isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
-> = ({ locale }) => {
+> = ({ locale, isDarkMode }) => {
   const { focusedContent } = useFocusDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
@@ -150,6 +151,10 @@ export const DictionaryEditionDrawerController: FC<
   }
 
   return (
-    <DictionaryEditionDrawer locale={locale} dictionaryKey={dictionaryKey} />
+    <DictionaryEditionDrawer
+      locale={locale}
+      dictionaryKey={dictionaryKey}
+      isDarkMode={isDarkMode}
+    />
   );
 };
