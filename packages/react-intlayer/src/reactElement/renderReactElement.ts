@@ -30,7 +30,7 @@ export const renderReactElement = (element: ReactElement<any>) => {
 
     return {
       ...element,
-      props: { ...element.props, children: element.props.children },
+      props: { ...element.props, children: element.props?.children ?? [] },
     };
   };
 
