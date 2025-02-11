@@ -25,7 +25,7 @@ const config: IntlayerConfig = {
     strictMode: 'strict',
   },
   editor: {
-    applicationURL: 'http://localhost:3000',
+    applicationURL: 'http://localhost:5173/',
   },
 };
 

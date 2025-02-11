@@ -11,7 +11,7 @@ export type LocalParams = PropsWithChildren<{
 const inter = Inter({ subsets: ['latin'] });
 
 export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => (
-  <html lang={locale} dir={getHTMLTextDir(locale)}>
+  <html lang={locale} dir={getHTMLTextDir(locale)} suppressHydrationWarning>
     <GoogleAnalytics />
     <body
       className={cn(

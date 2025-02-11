@@ -60,7 +60,8 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
       ...prev,
       [dictionary.key]: dictionary,
     }));
-  }, [dictionary, setFocusedContent, setLocaleDictionaries]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <LocaleSwitcherContentProvider

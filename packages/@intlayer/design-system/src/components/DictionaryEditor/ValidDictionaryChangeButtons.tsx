@@ -70,15 +70,8 @@ export const ValidDictionaryChangeButtons: FC<
     }
     setLocaleDictionary(editedContent?.[dictionary.key]);
     restoreEditedContent(dictionary.key);
-  }, [
-    dictionary,
-    editedContent,
-    pushDictionaries,
-    setLocaleDictionary,
-    writeDictionary,
-    restoreEditedContent,
-    mode,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dictionary, editedContent, mode]);
 
   return (
     <div className="mb-4">

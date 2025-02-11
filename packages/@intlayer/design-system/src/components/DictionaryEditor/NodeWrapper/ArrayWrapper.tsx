@@ -16,13 +16,7 @@ type ArrayWrapperProps = Omit<NodeWrapperProps, 'section'> & {
 };
 
 export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
-  const {
-    keyPath,
-    section,
-    onFocusKeyPath,
-    onClickEdit,
-    focusedKeyPath = [],
-  } = props;
+  const { keyPath, section, onFocusKeyPath, focusedKeyPath = [] } = props;
 
   return section.map((subSection, key) => {
     const newKeyPathEl: KeyPath = {
@@ -42,20 +36,6 @@ export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
           e.stopPropagation();
           onFocusKeyPath(newKeyPath);
         }}
-        rightParam={
-          <Button
-            Icon={Edit}
-            size="icon-sm"
-            variant="hoverable"
-            color="text"
-            label="Open the editor"
-            onClick={(e) => {
-              e.stopPropagation();
-
-              onClickEdit?.(newKeyPath);
-            }}
-          />
-        }
       >
         <NodeWrapper {...props} keyPath={newKeyPath} section={subSection} />
       </ItemLayout>

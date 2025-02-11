@@ -78,8 +78,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const [editedContent, setEditedContentState] =
     useCrossFrameState<DictionaryContent>(
       'INTLAYER_EDITED_CONTENT_CHANGED',
-      undefined,
-      { emit: true, receive: true }
+      undefined
     );
 
   const setEditedContent = (

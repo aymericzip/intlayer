@@ -1,6 +1,13 @@
 'use client';
 
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from 'react';
 import { useCommunicator } from './CommunicatorContext';
 import { type MessageKey } from './messageKey';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
@@ -42,25 +49,32 @@ export const useCrossFrameState = <S,>(
   initialState?: S | (() => S),
   options?: CrossFrameStateOptions
 ): [S, Dispatch<SetStateAction<S>>] => {
-  const { postMessage } = useCommunicator();
+  const { postMessage, senderId } = useCommunicator();
 
-  const { emit, receive } = options ?? { emit: true, receive: true };
+  const { emit, receive } = useMemo(
+    () => options ?? { emit: true, receive: true },
+    [options]
+  );
 
-  const handleStateChange = (state?: SetStateAction<S>, prevState?: S) => {
-    // Initialize state from the provided initial value, if defined
-    const resolvedState: S = resolveState(state, prevState);
+  const handleStateChange = useCallback(
+    (state?: SetStateAction<S>, prevState?: S) => {
+      // Initialize state from the provided initial value, if defined
+      const resolvedState: S = resolveState(state, prevState);
 
-    // Emit the initial state if `emit` is enabled and initial state is defined
-    if (
-      emit &&
-      typeof postMessage === 'function' &&
-      typeof resolvedState !== 'undefined'
-    ) {
-      postMessage({ type: `${key}/post`, data: resolvedState });
-    }
+      // Emit the initial state if `emit` is enabled and initial state is defined
+      if (
+        emit &&
+        typeof postMessage === 'function' &&
+        typeof resolvedState !== 'undefined' &&
+        JSON.stringify(resolvedState) !== JSON.stringify(prevState)
+      ) {
+        postMessage({ type: `${key}/post`, data: resolvedState, senderId });
+      }
 
-    return resolvedState;
-  };
+      return resolvedState;
+    },
+    [key, postMessage, senderId]
+  );
 
   const [state, setState] = useState<S>(() => handleStateChange(initialState));
 
@@ -80,8 +94,11 @@ export const useCrossFrameState = <S,>(
    * @param {SetStateAction<S>} valueOrUpdater - The new state or a function to produce it.
    * @returns {void}
    */
-  const setStateWrapper: Dispatch<SetStateAction<S>> = (valueOrUpdater) =>
-    setState((prevState) => handleStateChange(valueOrUpdater, prevState));
+  const setStateWrapper: Dispatch<SetStateAction<S>> = useCallback(
+    (valueOrUpdater) =>
+      setState((prevState) => handleStateChange(valueOrUpdater, prevState)),
+    [handleStateChange]
+  );
 
   /**
    * Listen for messages with the specified key and update the state accordingly.
@@ -92,30 +109,35 @@ export const useCrossFrameState = <S,>(
     receive ? setState : undefined
   );
 
+  const onGetMessage = useCallback(
+    (_: unknown, originSenderId?: string) => {
+      if (!emit || typeof postMessage !== 'function') return;
+      if (originSenderId === senderId) return;
+      if (typeof state === 'undefined') return;
+
+      postMessage({ type: `${key}/post`, data: state, senderId });
+    },
+    [emit, key, postMessage, senderId, state]
+  );
+
   /**
    * Listen for messages request to get the state content and send it back.
    */
   useCrossFrameMessageListener<S>(
     `${key}/get`,
     // Only activate the state listener if the `emit` option is true
-    emit
-      ? () => {
-          if (typeof state === 'undefined') return;
-
-          postMessage({ type: `${key}/post`, data: state });
-        }
-      : undefined
+    emit ? onGetMessage : undefined
   );
 
   useEffect(() => {
     // If the component is mounted and the hook in receive mode,
     // Request the state from the other instance
     if (receive && typeof postMessage === 'function') {
-      postMessage({ type: `${key}/get` });
+      postMessage({ type: `${key}/get`, senderId });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Return the useState state and setter
-  return [state, setStateWrapper];
+  return useMemo(() => [state, setStateWrapper], [state, setStateWrapper]);
 };

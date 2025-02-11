@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useCommunicator } from './CommunicatorContext';
 import { type MessageKey } from './messageKey';
 
@@ -23,7 +23,7 @@ export const useCrossFrameMessageListener = <S,>(
   key: `${MessageKey}` | `${MessageKey}/post` | `${MessageKey}/get`,
   onEventTriggered?: (data: S) => void
 ) => {
-  const { allowedOrigins, postMessage } = useCommunicator();
+  const { allowedOrigins, postMessage, senderId } = useCommunicator();
 
   useEffect(() => {
     if (onEventTriggered) {
@@ -36,10 +36,15 @@ export const useCrossFrameMessageListener = <S,>(
        * @param {MessageEvent<{ type: string; data: S }>} event - The incoming message event object.
        */
       const handleMessage = (
-        event: MessageEvent<{ type: string; data: S }>
+        event: MessageEvent<{ type: string; data: S; senderId: string }>
       ) => {
+        const { type, data, senderId: msgSenderId } = event.data;
+
         // Ignore messages that do not match the current key
-        if (event.data.type !== key) return;
+        if (type !== key) return;
+
+        // Ignore messages from myself
+        if (msgSenderId === senderId) return;
 
         // Check if the message origin is allowed
         if (
@@ -48,7 +53,7 @@ export const useCrossFrameMessageListener = <S,>(
           allowedOrigins?.includes('*')
         ) {
           // Update the local state with the received data
-          onEventTriggered(event.data.data);
+          onEventTriggered(data);
         }
       };
 
@@ -57,7 +62,8 @@ export const useCrossFrameMessageListener = <S,>(
       // Clean up the event listener on unmount
       return () => window.removeEventListener('message', handleMessage);
     }
-  }, [key, onEventTriggered, allowedOrigins]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allowedOrigins, postMessage, senderId]);
 
   /**
    * A wrapper function around the `postMessage` function to broadcast messages efficiently.
@@ -68,9 +74,12 @@ export const useCrossFrameMessageListener = <S,>(
    * @param {S} data - The data payload to include in the message.
    * @returns {void}
    */
-  const postMessageWrapper: (data: S) => void = (data) => {
-    postMessage({ type: key, data });
-  };
+  const postMessageWrapper: (data: S) => void = useCallback(
+    (data) => {
+      postMessage({ type: key, data, senderId });
+    },
+    [postMessage, key, senderId]
+  );
 
-  return postMessageWrapper;
+  return useMemo(() => postMessageWrapper, [postMessageWrapper]);
 };

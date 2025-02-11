@@ -3,7 +3,7 @@
 import { type FC, type PropsWithChildren } from 'react';
 import {
   CommunicatorProvider,
-  UseCrossPlatformStateProps,
+  CommunicatorProviderProps,
 } from './CommunicatorContext';
 import {
   ConfigurationProvider,
@@ -17,7 +17,7 @@ import {
 } from './EditorEnabledContext';
 import { FocusDictionaryProvider } from './FocusDictionaryContext';
 
-type EditorProviderEnabledProps = UseCrossPlatformStateProps & {
+type EditorProviderEnabledProps = CommunicatorProviderProps & {
   mode: 'editor' | 'client';
 };
 

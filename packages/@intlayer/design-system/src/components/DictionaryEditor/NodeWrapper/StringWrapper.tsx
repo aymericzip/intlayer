@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { getContentNodeByKeyPath } from '@intlayer/core';
 import type { FC } from 'react';
 import { cn } from '../../../utils/cn';
@@ -26,7 +27,9 @@ export const StringWrapper: FC<StringWrapperProps> = ({
   const content = editedContentValue ?? section;
 
   return (
-    <button
+    <span
+      role="button"
+      tabIndex={0}
       className={cn(
         'w-full rounded-md p-2 text-left transition',
         'hover:bg-card/30 dark:hover:bg-card-dark/30 [&:has(.section:hover)]:bg-transparent',
@@ -43,6 +46,6 @@ export const StringWrapper: FC<StringWrapperProps> = ({
         onSave={(newValue) => onContentChange({ keyPath, newValue })}
         onCancel={() => null}
       />
-    </button>
+    </span>
   );
 };

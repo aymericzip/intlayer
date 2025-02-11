@@ -39,7 +39,8 @@ const IntlayerEditorHooksEnabled: FC = () => {
     setLocaleDictionaries(
       dictionaries as unknown as Record<string, Dictionary>
     );
-  }, [setLocaleDictionaries]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Click Messages

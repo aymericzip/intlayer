@@ -17,7 +17,7 @@ export const Link: FC<LinkProps> = ({ prefetch = true, ...props }) => {
 
   return (
     // For internal links, use nextjs's Link for client-side navigation
-    <NextLink href={props.href} prefetch={prefetch} passHref legacyBehavior>
+    <NextLink href={props.href} prefetch={prefetch} legacyBehavior>
       {/* 
         Using legacyBehavior to ensure that nextjs's Link wraps the child <a> tag correctly.
         This allows forwarding the ref to the underlying <a> tag in the design system's Link.

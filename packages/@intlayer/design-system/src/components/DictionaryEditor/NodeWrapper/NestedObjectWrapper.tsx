@@ -43,20 +43,6 @@ export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = (props) => {
 
             onFocusKeyPath(newKeyPath);
           }}
-          rightParam={
-            <Button
-              Icon={Edit}
-              size="icon-sm"
-              variant="hoverable"
-              color="text"
-              label="Open the editor"
-              onClick={(e) => {
-                e.stopPropagation();
-
-                onClickEdit?.(newKeyPath);
-              }}
-            />
-          }
         >
           <NodeWrapper {...props} keyPath={newKeyPath} section={section[key]} />
         </ItemLayout>

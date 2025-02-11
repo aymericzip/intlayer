@@ -8,6 +8,7 @@ import {
   type SetStateAction,
   type FC,
   type PropsWithChildren,
+  useMemo,
 } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
@@ -37,21 +38,29 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
       undefined
     );
 
+  const stateValue = useMemo(
+    () => ({
+      localeDictionaries: localeDictionaries ?? {},
+    }),
+    [localeDictionaries]
+  );
+
+  const actionValue = useMemo(
+    () => ({
+      setLocaleDictionaries,
+      setLocaleDictionary: (dictionary: Dictionary) => {
+        setLocaleDictionaries((dictionaries) => ({
+          ...dictionaries,
+          [dictionary.key]: dictionary,
+        }));
+      },
+    }),
+    [setLocaleDictionaries]
+  );
+
   return (
-    <DictionariesRecordStatesContext
-      value={{ localeDictionaries: localeDictionaries ?? {} }}
-    >
-      <DictionariesRecordActionsContext
-        value={{
-          setLocaleDictionaries,
-          setLocaleDictionary: (dictionary: Dictionary) => {
-            setLocaleDictionaries((dictionaries) => ({
-              ...dictionaries,
-              [dictionary.key]: dictionary,
-            }));
-          },
-        }}
-      >
+    <DictionariesRecordStatesContext value={stateValue}>
+      <DictionariesRecordActionsContext value={actionValue}>
         {children}
       </DictionariesRecordActionsContext>
     </DictionariesRecordStatesContext>
