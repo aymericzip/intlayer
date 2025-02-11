@@ -11,7 +11,6 @@ type DictionaryEditorProps = {
   dictionary: Dictionary;
   locale: Locales;
   mode: 'local' | 'remote';
-  onClickEdit?: (keyPath: KeyPath[]) => void;
 };
 
 export const DictionaryEditor: FC<DictionaryEditorProps> = ({

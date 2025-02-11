@@ -1,7 +1,7 @@
 'use client';
 
 import { cva } from 'class-variance-authority';
-import { m } from 'framer-motion';
+import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
 import type { FC } from 'react';
 import { createPortal } from 'react-dom';

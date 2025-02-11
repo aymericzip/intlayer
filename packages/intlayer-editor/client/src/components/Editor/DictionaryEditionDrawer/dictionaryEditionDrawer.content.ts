@@ -3,6 +3,23 @@ import { t, type Dictionary } from 'intlayer';
 const dictionaryEditionDrawerContent = {
   key: 'dictionary-edition-drawer',
   content: {
+    openDictionaryEditor: {
+      label: t({
+        en: 'Click to open the dictionary in the editor',
+        fr: 'Cliquez pour ouvrir le dictionnaire dans l’éditeur',
+        es: 'Haga clic para abrir el diccionario en el editor',
+        de: 'Klicken Sie hier, um das Wörterbuch im Editor zu öffnen',
+        ja: 'エディターで辞書を開く',
+        ko: '편집기에서 사전 열기',
+        zh: '点击打开词典到编辑器',
+        it: 'Fai clic per aprire il dizionario nell’editor',
+        pt: 'Clique para abrir o dicionário no editor',
+        hi: 'एडिटर में शब्दकोश खोलने के लिए क्लिक करें',
+        ar: 'انقر لفتح قاموس في المحرر',
+        ru: 'Нажмите, чтобы открыть словарь в редакторе',
+        'en-GB': 'Click to open the dictionary in the editor',
+      }),
+    },
     backButtonText: t({
       en: 'Dictionary list',
       fr: 'Liste des dictionnaires',

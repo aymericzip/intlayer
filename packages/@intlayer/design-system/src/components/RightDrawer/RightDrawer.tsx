@@ -152,9 +152,11 @@ export const RightDrawer: FC<RightDrawerProps> = ({
                 />
               </div>
             </div>
-            <h2 className="flex items-center justify-center text-lg font-bold">
-              {title}
-            </h2>
+            {title && (
+              <h2 className="flex items-center justify-center text-lg font-bold">
+                {title}
+              </h2>
+            )}
             {header}
           </div>
 

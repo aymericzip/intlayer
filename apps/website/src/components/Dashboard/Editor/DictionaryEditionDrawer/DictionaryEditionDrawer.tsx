@@ -1,16 +1,18 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { Dictionary, KeyPath } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import {
   RightDrawer,
   DictionaryEditor,
   Modal,
   DictionaryFieldEditor,
   useRightDrawerStore,
+  Button,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionary } from '@intlayer/editor-react';
+import { Pencil } from 'lucide-react';
 import { useDictionary } from 'next-intlayer';
 import { useCallback, useState, type FC } from 'react';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
@@ -24,7 +26,6 @@ import {
 type DictionaryEditionDrawerContentProps = {
   focusedContent: FileContentWithDictionaryPath;
   locale: Locales;
-  localeList: Locales[];
   identifier: string;
   handleOnBack: () => void;
   isDarkMode?: boolean;
@@ -32,16 +33,16 @@ type DictionaryEditionDrawerContentProps = {
 
 export const DictionaryEditionDrawerContent: FC<
   DictionaryEditionDrawerContentProps
-> = ({ locale, localeList, identifier, handleOnBack, isDarkMode }) => {
-  const { modalTitle } = useDictionary(dictionaryEditionDrawerContent);
-  const [keyPathEditionModal, setKeyPathEditionModal] = useState<
-    KeyPath[] | null
-  >(null);
+> = ({ locale, identifier, handleOnBack, isDarkMode }) => {
+  const { modalTitle, openDictionaryEditor } = useDictionary(
+    dictionaryEditionDrawerContent
+  );
+  const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
   const { all: dictionaries } = useGetAllDictionaries();
   const { focusedContent } = useDictionaryEditionDrawer(identifier);
 
   const onClickDictionaryList = useCallback(() => {
-    setKeyPathEditionModal(null);
+    setEditionModalOpen(false);
     handleOnBack();
   }, [handleOnBack]);
 
@@ -56,8 +57,8 @@ export const DictionaryEditionDrawerContent: FC<
   return (
     <>
       <Modal
-        isOpen={keyPathEditionModal !== null}
-        onClose={() => setKeyPathEditionModal(null)}
+        isOpen={editionModalOpen}
+        onClose={() => setEditionModalOpen(false)}
         hasCloseButton
         title={modalTitle.value}
         size="xl"
@@ -67,17 +68,24 @@ export const DictionaryEditionDrawerContent: FC<
           dictionary={dictionary}
           onClickDictionaryList={onClickDictionaryList}
           isDarkMode={isDarkMode}
-          availableLocales={localeList}
           mode="remote"
         />
       </Modal>
 
-      <DictionaryEditor
-        dictionary={dictionary}
-        locale={locale}
-        onClickEdit={setKeyPathEditionModal}
-        mode="remote"
-      />
+      <div className="border-text/20 dark:border-text-dark/20 mb-5 flex w-full border-b border-dashed px-3 pb-2">
+        <h3 className="w-full text-center text-lg">
+          {dictionary.title ? dictionary.title : dictionary.key}
+        </h3>
+        <Button
+          variant="hoverable"
+          color="text"
+          size="icon-md"
+          IconRight={Pencil}
+          label={openDictionaryEditor.label.value}
+          onClick={() => setEditionModalOpen(true)}
+        />
+      </div>
+      <DictionaryEditor dictionary={dictionary} locale={locale} mode="remote" />
     </>
   );
 };
@@ -89,7 +97,6 @@ type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
 
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   locale,
-  localeList,
   dictionaryKey,
   isDarkMode,
 }) => {
@@ -108,7 +115,6 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
   return (
     <RightDrawer
-      title={dictionaryKey}
       identifier={id}
       backButton={{
         onBack: handleOnBack,
@@ -123,7 +129,6 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
           identifier={id}
           handleOnBack={handleOnBack}
           isDarkMode={isDarkMode}
-          localeList={localeList}
         />
       )}
     </RightDrawer>
@@ -132,12 +137,11 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
 type DictionaryEditionDrawerControllerProps = {
   locale: Locales;
-  localeList: Locales[];
 };
 
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
-> = ({ locale, localeList }) => {
+> = ({ locale }) => {
   const { focusedContent } = useFocusDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
@@ -146,10 +150,6 @@ export const DictionaryEditionDrawerController: FC<
   }
 
   return (
-    <DictionaryEditionDrawer
-      locale={locale}
-      localeList={localeList}
-      dictionaryKey={dictionaryKey}
-    />
+    <DictionaryEditionDrawer locale={locale} dictionaryKey={dictionaryKey} />
   );
 };

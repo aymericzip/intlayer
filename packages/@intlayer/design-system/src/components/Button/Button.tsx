@@ -36,8 +36,8 @@ const buttonVariants = cva(
       size: {
         sm: 'min-h-7 px-3 max-md:py-1 text-xs',
         md: 'min-h-8 px-6 max-md:py-2 text-sm',
-        lg: 'min-h-10 px-8 max-md:py-3 text-base',
-        xl: 'min-h-11 px-10 max-md:py-4 text-lg',
+        lg: 'min-h-10 px-8 max-md:py-3 text-lg',
+        xl: 'min-h-11 px-10 max-md:py-4 text-xl',
         'icon-sm': 'p-1.5',
         'icon-md': 'p-1.5',
         'icon-lg': 'p-2',
