@@ -54,7 +54,7 @@ export const CreativeWorkHeader = ({
       'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
     audience: {
       '@type': 'Audience',
-      audienceType,
+      audienceType: audienceType.value,
     },
   };
 

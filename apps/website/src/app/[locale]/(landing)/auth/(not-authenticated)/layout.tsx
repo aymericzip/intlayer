@@ -6,10 +6,10 @@ import { getQueryParams } from '@utils/queryMiddleware';
 import type { FC, PropsWithChildren } from 'react';
 import { PagesRoutes } from '@/Routes';
 
-const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
+const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
   const session = undefined; // await getServerSession();
 
-  const redirectionURLQuery = getQueryParams();
+  const redirectionURLQuery = await getQueryParams();
 
   const redirectURL = redirectionURLQuery ?? PagesRoutes.Home;
 

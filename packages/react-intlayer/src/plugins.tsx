@@ -39,7 +39,6 @@ export const intlayerNodePlugins: Plugins = {
  *  --------------------------------------------- */
 
 export type ReactNodeCond<T> = T extends {
-  ref: any;
   props: any;
   key: any;
 }

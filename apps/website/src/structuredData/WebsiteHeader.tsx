@@ -15,8 +15,8 @@ export const WebsiteHeader = () => {
       target: `${process.env.NEXT_PUBLIC_URL}/doc/search?search={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
-    inLanguage: internationalization,
-    keywords,
+    inLanguage: internationalization.locales,
+    keywords: keywords.map((keyword) => keyword.value),
   };
 
   return (

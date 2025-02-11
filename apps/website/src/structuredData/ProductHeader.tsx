@@ -9,7 +9,7 @@ export const ProductHeader: FC = () => {
     '@type': 'Product',
     url: 'https://intlayer.org/dashboard',
     name: 'Intlayer CMS',
-    description,
+    description: description.value,
     image:
       'https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png', // Example image URL for the product
     // sku: 'INTLAYER-CMS-001', // Example SKU (replace with actual)

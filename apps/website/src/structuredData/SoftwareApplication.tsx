@@ -13,7 +13,7 @@ export const SoftwareApplicationHeader: FC = () => {
     '@type': 'SoftwareApplication',
     name: 'Intlayer',
     url: 'https://www.votresite.com',
-    description,
+    description: description.value,
     softwareVersion: packageJson.version,
     license:
       'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
@@ -30,7 +30,7 @@ export const SoftwareApplicationHeader: FC = () => {
       url: 'https://www.votresite.com',
       logo: 'https://www.votresite.com/assets/logo.png',
     },
-    keywords,
+    keywords: keywords.map((keyword) => keyword.value),
     creator: {
       '@type': 'Person',
       name: 'Aymeric PINEAU',
@@ -44,7 +44,7 @@ export const SoftwareApplicationHeader: FC = () => {
     datePublished: '2024-08-26',
     audience: {
       '@type': 'Audience',
-      audienceType,
+      audienceType: audienceType.value,
     },
     mainEntityOfPage: 'https://intlayer.org',
   };

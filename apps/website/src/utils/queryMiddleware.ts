@@ -14,8 +14,8 @@ export const queryMiddleware = (request: NextRequest) => {
   });
 };
 
-export const getQueryParams = () => {
-  const headerList = headers();
+export const getQueryParams = async () => {
+  const headerList = await headers();
 
   const searchParamsString = headerList.get('x-current-query') ?? '';
 

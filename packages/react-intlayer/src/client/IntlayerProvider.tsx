@@ -94,9 +94,9 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
 };
 
 export const IntlayerProvider: FC<IntlayerProviderProps> = (props) => (
-  <ChangedContentProvider>
-    <IntlayerEditorProvider>
+  <IntlayerEditorProvider>
+    <ChangedContentProvider>
       <IntlayerProviderContent {...props} />
-    </IntlayerEditorProvider>
-  </ChangedContentProvider>
+    </ChangedContentProvider>
+  </IntlayerEditorProvider>
 );
