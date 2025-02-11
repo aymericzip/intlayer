@@ -76,6 +76,7 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
   content += `  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  }\n\n`;
   content += `  type ConfigLocales = ${formatLocales};\n`;
   content += `  type ExtractedLocales = Extract<Locales, ConfigLocales>;\n`;
+  content += `  type ExcludedLocales = Exclude<Locales, ConfigLocales>;\n`;
   content += `  ${strictModeRecord}\n`;
   content += `}`;
 
