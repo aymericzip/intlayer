@@ -1,6 +1,7 @@
 'use client';
 
 import { type FC, type PropsWithChildren } from 'react';
+import { ChangedContentProvider } from './ChangedContentContext';
 import {
   type CommunicatorProviderProps,
   CommunicatorProvider,
@@ -47,9 +48,11 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   configuration,
   ...props
 }) => (
-  <EditorEnabledProvider>
-    <ConfigurationProvider configuration={configuration}>
-      <EditorProviderEnabled {...props}>{children}</EditorProviderEnabled>
-    </ConfigurationProvider>
-  </EditorEnabledProvider>
+  <ChangedContentProvider>
+    <EditorEnabledProvider>
+      <ConfigurationProvider configuration={configuration}>
+        <EditorProviderEnabled {...props}>{children}</EditorProviderEnabled>
+      </ConfigurationProvider>
+    </EditorEnabledProvider>
+  </ChangedContentProvider>
 );

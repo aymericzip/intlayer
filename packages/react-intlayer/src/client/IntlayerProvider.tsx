@@ -1,10 +1,7 @@
 'use client';
 
 import { getConfiguration, type LocalesValues } from '@intlayer/config/client';
-import {
-  ChangedContentProvider,
-  useCrossFrameState,
-} from '@intlayer/editor-react';
+import { useCrossFrameState } from '@intlayer/editor-react';
 import {
   type FC,
   type PropsWithChildren,
@@ -95,8 +92,6 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
 
 export const IntlayerProvider: FC<IntlayerProviderProps> = (props) => (
   <IntlayerEditorProvider>
-    <ChangedContentProvider>
-      <IntlayerProviderContent {...props} />
-    </ChangedContentProvider>
+    <IntlayerProviderContent {...props} />
   </IntlayerEditorProvider>
 );
