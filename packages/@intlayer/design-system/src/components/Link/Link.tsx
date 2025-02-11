@@ -8,7 +8,7 @@ import {
   type FC,
 } from 'react';
 
-const linkVariants = cva(
+export const linkVariants = cva(
   'gap-3 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {

@@ -1,33 +1,76 @@
 'use client';
 
+import { getConfiguration } from '@intlayer/config/client';
+import { getLocalizedUrl } from '@intlayer/core';
 import {
-  Link as LinkUI,
+  linkVariants,
   type LinkProps as LinkUIProps,
   checkIsExternalLink,
 } from '@intlayer/design-system';
+import { ExternalLink } from 'lucide-react';
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import { useLocale } from 'next-intlayer';
-import type { FC } from 'react';
+import { type FC } from 'react';
 
-type LinkProps = LinkUIProps & NextLinkProps;
+export type LinkProps = LinkUIProps & NextLinkProps;
 
-export const Link: FC<LinkProps> = ({ prefetch = true, ...props }) => {
-  const { locale } = useLocale();
+export const Link: FC<LinkProps> = (props) => {
+  const {
+    variant = 'default',
+    color = 'primary',
+    children,
+    label,
+    className,
+    isActive,
+    underlined,
+    locale: localeProp,
+    prefetch,
+    isExternalLink: isExternalLinkProp,
+    href: hrefProp,
+    ...otherProps
+  } = props;
+  const { internationalization } = getConfiguration();
+  const { locale: currentLocale } = useLocale();
+  const locale = localeProp ?? currentLocale;
   const isExternalLink = checkIsExternalLink(props);
+  const isChildrenString = typeof children === 'string';
+
+  const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
+
+  const target = isExternalLink ? '_blank' : '_self';
+
+  const hrefLang = locale
+    ? locale === internationalization.defaultLocale
+      ? 'x-default'
+      : locale
+    : undefined;
+
+  const href =
+    locale && hrefProp && !isExternalLink
+      ? getLocalizedUrl(hrefProp, locale)
+      : hrefProp;
 
   return (
-    // For internal links, use nextjs's Link for client-side navigation
     <NextLink
-      href={props.href}
       prefetch={prefetch}
-      legacyBehavior
-      passHref={false}
+      href={href}
+      hrefLang={hrefLang}
+      aria-label={label}
+      rel={rel}
+      target={target}
+      aria-current={isActive ? 'page' : undefined}
+      className={linkVariants({
+        variant,
+        color,
+        underlined,
+        className,
+      })}
+      {...otherProps}
     >
-      {/* 
-        Using legacyBehavior to ensure that nextjs's Link wraps the child <a> tag correctly.
-        This allows forwarding the ref to the underlying <a> tag in the design system's Link.
-      */}
-      <LinkUI locale={locale} isExternalLink={isExternalLink} {...props} />
+      {children}
+      {isExternalLink && isChildrenString && (
+        <ExternalLink className="ml-2 inline-block size-4" />
+      )}
     </NextLink>
   );
 };
