@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useCommunicator } from './CommunicatorContext';
 import { type MessageKey } from './messageKey';
 
@@ -68,12 +68,9 @@ export const useCrossFrameMessageListener = <S,>(
    * @param {S} data - The data payload to include in the message.
    * @returns {void}
    */
-  const postMessageWrapper: (data: S) => void = useCallback(
-    (data) => {
-      postMessage({ type: key, data });
-    },
-    [key, postMessage]
-  );
+  const postMessageWrapper: (data: S) => void = (data) => {
+    postMessage({ type: key, data });
+  };
 
   return postMessageWrapper;
 };

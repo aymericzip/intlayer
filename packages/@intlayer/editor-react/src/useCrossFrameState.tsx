@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  type Dispatch,
-  type SetStateAction,
-} from 'react';
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import { useCommunicator } from './CommunicatorContext';
 import { type MessageKey } from './messageKey';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
@@ -51,29 +44,23 @@ export const useCrossFrameState = <S,>(
 ): [S, Dispatch<SetStateAction<S>>] => {
   const { postMessage } = useCommunicator();
 
-  const { emit, receive } = useMemo(
-    () => options ?? { emit: true, receive: true },
-    [options]
-  );
+  const { emit, receive } = options ?? { emit: true, receive: true };
 
-  const handleStateChange = useCallback(
-    (state?: SetStateAction<S>, prevState?: S) => {
-      // Initialize state from the provided initial value, if defined
-      const resolvedState: S = resolveState(state, prevState);
+  const handleStateChange = (state?: SetStateAction<S>, prevState?: S) => {
+    // Initialize state from the provided initial value, if defined
+    const resolvedState: S = resolveState(state, prevState);
 
-      // Emit the initial state if `emit` is enabled and initial state is defined
-      if (
-        emit &&
-        typeof postMessage === 'function' &&
-        typeof resolvedState !== 'undefined'
-      ) {
-        postMessage({ type: `${key}/post`, data: resolvedState });
-      }
+    // Emit the initial state if `emit` is enabled and initial state is defined
+    if (
+      emit &&
+      typeof postMessage === 'function' &&
+      typeof resolvedState !== 'undefined'
+    ) {
+      postMessage({ type: `${key}/post`, data: resolvedState });
+    }
 
-      return resolvedState;
-    },
-    [postMessage, emit, key]
-  );
+    return resolvedState;
+  };
 
   const [state, setState] = useState<S>(() => handleStateChange(initialState));
 
@@ -93,11 +80,8 @@ export const useCrossFrameState = <S,>(
    * @param {SetStateAction<S>} valueOrUpdater - The new state or a function to produce it.
    * @returns {void}
    */
-  const setStateWrapper: Dispatch<SetStateAction<S>> = useCallback(
-    (valueOrUpdater) =>
-      setState((prevState) => handleStateChange(valueOrUpdater, prevState)),
-    [handleStateChange]
-  );
+  const setStateWrapper: Dispatch<SetStateAction<S>> = (valueOrUpdater) =>
+    setState((prevState) => handleStateChange(valueOrUpdater, prevState));
 
   /**
    * Listen for messages with the specified key and update the state accordingly.
@@ -133,5 +117,5 @@ export const useCrossFrameState = <S,>(
   }, []);
 
   // Return the useState state and setter
-  return useMemo(() => [state, setStateWrapper], [state, setStateWrapper]);
+  return [state, setStateWrapper];
 };
