@@ -73,7 +73,9 @@
     "reset": "pnpm reset:client && pnpm reset:server",
     "reset:client": "pnpm clean:client && pnpm build:client",
     "reset:server": "pnpm clean:server && pnpm build:server",
-    "start": "node server/dist/index.mjs"
+    "start": "node server/dist/index.mjs",
+    "start:client": "vite preview --config ./client/vite.config.ts",
+    "start:server": "node --watch ./server/dist/esm/index.mjs"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",

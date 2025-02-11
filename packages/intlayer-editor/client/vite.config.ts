@@ -5,7 +5,6 @@ import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
 import { defineConfig } from 'vite';
 import { intlayerPlugin } from 'vite-intlayer';
-import packageJson from '../package.json' with { type: 'json' };
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -22,21 +21,6 @@ export default defineConfig({
           config: path.resolve(__dirname, './tailwind.config.ts'), // Custom path
         }),
         autoprefixer(),
-      ],
-    },
-  },
-
-  build: {
-    rollupOptions: {
-      external: [
-        ...Object.keys(packageJson.dependencies),
-        ...Object.keys(packageJson.peerDependencies),
-        ...Object.keys(packageJson.devDependencies),
-        'react/jsx-runtime',
-        'react/jsx-dev-runtime',
-        '@intlayer/config/client',
-        'path',
-        'url',
       ],
     },
   },
