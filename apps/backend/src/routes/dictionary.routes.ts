@@ -8,7 +8,7 @@ import {
   getDictionariesKeys,
 } from '@controllers/dictionary.controller';
 import { Router } from 'express';
-import { Routes } from '@/types/Routes';
+import type { Routes } from '@/types/Routes';
 
 export const dictionaryRouter: Router = Router();
 

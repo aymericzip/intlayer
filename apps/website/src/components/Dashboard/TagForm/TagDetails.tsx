@@ -5,7 +5,7 @@ import { useGetTags } from '@intlayer/design-system/hooks';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { TagEditionForm } from './TagEditionForm';
 import { TagsDictionariesList } from './TagsDictionariesList';
 import { PagesRoutes } from '@/Routes';

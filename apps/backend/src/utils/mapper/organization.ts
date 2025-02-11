@@ -1,5 +1,5 @@
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
-import { Organization, OrganizationAPI } from '@/types/organization.types';
+import type { Organization, OrganizationAPI } from '@/types/organization.types';
 
 /**
  * Maps an organization to an API response.

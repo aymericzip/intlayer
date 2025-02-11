@@ -5,7 +5,7 @@ import { useRef, useState, type ReactElement, type ReactNode } from 'react';
 import { useScrollBlockage, useScrollDetection } from '../../hooks';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
-import { TabProps } from '../TabSelector';
+import type { TabProps } from '../TabSelector';
 import { Burger } from './Burger';
 
 type MobileNavbarProps<T extends TabProps> = {

@@ -1,7 +1,7 @@
 import * as readline from 'readline';
 import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration, logger } from '@intlayer/config';
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { writeContentDeclaration } from '@intlayer/editor/server';
 import pLimit from 'p-limit';
 

@@ -7,11 +7,18 @@ import {
   Button,
   Input,
 } from '@intlayer/design-system';
-import Fuse, { IFuseOptions } from 'fuse.js';
+import Fuse, { type IFuseOptions } from 'fuse.js';
 import { ArrowRight, Search } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  type FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 // Convert the documentation into an array of objects for Fuse.js
 // Fuse.js options

@@ -2,7 +2,7 @@ import { type Dictionary as LocalDictionary } from '@intlayer/core';
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as dictionaryService from '@services/dictionary.service';
-import { AppError, ErrorHandler } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import {
   type DictionaryFiltersParams,
   getDictionaryFiltersAndPagination,

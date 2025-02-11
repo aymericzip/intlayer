@@ -1,10 +1,10 @@
 'use client';
 
-import {
+import type {
   DictionaryAPI,
   Dictionary as DistantDictionary,
 } from '@intlayer/backend';
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import {
   useDictionariesRecordActions,
   useEditedContent,
@@ -26,8 +26,8 @@ import { Loader } from '../../Loader';
 import { MultiSelect, Select } from '../../Select';
 import { dictionaryDetailsContent } from './dictionaryDetails.content';
 import {
+  type DictionaryDetailsFormData,
   useDictionaryDetailsSchema,
-  DictionaryDetailsFormData,
 } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
@@ -74,7 +74,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
   useEffect(() => {
     form.reset(dictionaryValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dictionary, form?.reset]);
 
   const isFormEdited = form.formState.isDirty;

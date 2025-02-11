@@ -1,10 +1,10 @@
 'use client';
 
-import { intlayerAPI } from '@intlayer/api';
+import type { intlayerAPI } from '@intlayer/api';
 import { useConfiguration } from '@intlayer/editor-react';
 import { useAuth } from '../components/Auth/useAuth/index';
 import { useToast } from '../components/Toaster';
-import { useAsync, UseAsyncOptions } from './useAsync/useAsync';
+import { type UseAsyncOptions, useAsync } from './useAsync/useAsync';
 import { useIntlayerAuth } from './useIntlayerAPI';
 
 /**

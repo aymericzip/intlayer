@@ -3,7 +3,7 @@
 import { Button, Modal } from '@intlayer/design-system';
 import { Search } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { FC, useState } from 'react';
+import { type FC, useState } from 'react';
 import { SearchView } from './SearchView';
 
 type SearchTriggerProps = {

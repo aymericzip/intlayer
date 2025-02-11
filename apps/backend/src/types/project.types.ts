@@ -1,4 +1,4 @@
-import { IntlayerConfig } from '@intlayer/config';
+import type { IntlayerConfig } from '@intlayer/config';
 import type { Model, ObjectId, Document } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';

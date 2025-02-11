@@ -1,5 +1,5 @@
-import { FC, type HTMLAttributes } from 'react';
-import { BundledLanguage } from 'shiki';
+import { type FC, type HTMLAttributes } from 'react';
+import type { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { CodeBlock } from './CodeBlockClient';

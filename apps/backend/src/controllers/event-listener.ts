@@ -1,9 +1,9 @@
-import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { Token } from '@schemas/oAuth2.schema';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { Token } from '@schemas/oAuth2.schema';
 import * as oAuth2Service from '@services/oAuth2.service';
 import { ErrorHandler } from '@utils/errors';
-import { Response, Request } from 'express';
-import { DictionaryAPI } from '@/types/dictionary.types';
+import type { Response, Request } from 'express';
+import type { DictionaryAPI } from '@/types/dictionary.types';
 
 let clients: Array<{ id: number; projectId: string; res: Response }> = [];
 

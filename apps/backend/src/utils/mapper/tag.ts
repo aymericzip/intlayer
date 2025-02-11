@@ -1,5 +1,5 @@
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
-import { Tag, TagAPI } from '@/types/tag.types';
+import type { Tag, TagAPI } from '@/types/tag.types';
 
 /**
  * Maps a tag to an API response.

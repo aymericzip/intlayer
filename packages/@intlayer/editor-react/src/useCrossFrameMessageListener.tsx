@@ -62,7 +62,6 @@ export const useCrossFrameMessageListener = <S,>(
       // Clean up the event listener on unmount
       return () => window.removeEventListener('message', handleMessage);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allowedOrigins, postMessage, senderId]);
 
   /**

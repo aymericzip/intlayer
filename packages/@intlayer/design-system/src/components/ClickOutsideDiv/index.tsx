@@ -1,11 +1,11 @@
 'use client';
 
 import {
+  type HTMLAttributes,
   type FC,
   type PropsWithChildren,
   useRef,
   useEffect,
-  HTMLAttributes,
 } from 'react';
 
 export type ClickOutsideDivProps = PropsWithChildren<{

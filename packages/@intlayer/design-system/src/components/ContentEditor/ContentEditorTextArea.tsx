@@ -2,14 +2,14 @@
 
 import { Check, X } from 'lucide-react';
 import {
+  type ReactNode,
   useState,
   type FC,
   type ChangeEventHandler,
   useEffect,
-  ReactNode,
 } from 'react';
 import { Button } from '../Button';
-import { AutoSizedTextArea, AutoSizedTextAreaProps } from '../TextArea';
+import { type AutoSizedTextAreaProps, AutoSizedTextArea } from '../TextArea';
 
 export type ContentEditorTextAreaProps = {
   children: string;

@@ -1,12 +1,14 @@
-import baseConfig from '@utils/eslint-config';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import typeScriptParser from '@typescript-eslint/parser';
+import baseConfig from '@utils/eslint-config';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
-  baseConfig,
+  ...baseConfig,
   {
     languageOptions: {
       parser: typeScriptParser,

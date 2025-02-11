@@ -3,7 +3,7 @@ import { relative } from 'path';
 import * as readline from 'readline';
 import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration, logger } from '@intlayer/config';
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import pLimit from 'p-limit';
 

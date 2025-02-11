@@ -3,7 +3,7 @@ import typeScriptParser from '@typescript-eslint/parser';
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
-  baseConfig,
+  ...baseConfig,
   {
     languageOptions: {
       parser: typeScriptParser,

@@ -1,8 +1,8 @@
 import type { LocalesValues } from '@intlayer/config/client';
 import { type Dictionary } from '@intlayer/core';
+import { getDictionary } from '../getDictionary';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
-import { getDictionary } from '../getDictionary';
 
 /**
  * On the server side, Hook that transform a dictionary and return the content

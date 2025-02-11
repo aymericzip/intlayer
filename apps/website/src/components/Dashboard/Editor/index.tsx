@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useRef } from 'react';
+import { type FC, useRef } from 'react';
 import { EditorLayout } from './EditorLayout';
 import { EditorProvider } from './EditorProvider';
 import { IframeController } from './IframeController';

@@ -1,4 +1,4 @@
-import { ButtonProps, Form } from '@intlayer/design-system';
+import { type ButtonProps, Form } from '@intlayer/design-system';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, type ReactNode } from 'react';

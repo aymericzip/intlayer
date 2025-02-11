@@ -14,7 +14,7 @@ import {
   refreshAccessKey,
 } from '@controllers/projectAccessKey.controller';
 import { Router } from 'express';
-import { Routes } from '@/types/Routes';
+import type { Routes } from '@/types/Routes';
 
 export const projectRouter: Router = Router();
 

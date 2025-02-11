@@ -5,7 +5,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { formatOnboardUrl } from './formatOnboardUrl';
 import { getPlanDetails } from './getPlanDetails';
 import {
-  OnboardingStepIds,
+  type OnboardingStepIds,
   onboardingSteps,
   sessionStorageIndex,
 } from './steps';

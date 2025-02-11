@@ -1,12 +1,12 @@
-import { LocalesValues } from '@intlayer/config/client';
-import {
+import type { LocalesValues } from '@intlayer/config/client';
+import type {
   TranslationContent,
   EnumerationContent,
   ConditionContent,
   NestedContent,
   MarkdownContent,
 } from '../transpiler';
-import { ContentNode, NodeType } from '../types';
+import { type ContentNode, NodeType } from '../types';
 
 export const getDefaultNode = (
   nodeType: NodeType,

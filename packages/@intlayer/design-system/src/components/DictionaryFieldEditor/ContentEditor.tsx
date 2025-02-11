@@ -1,6 +1,6 @@
 'use client';
 
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import { type FC } from 'react';
 import { Container } from '../Container';

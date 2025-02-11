@@ -1,13 +1,14 @@
 // Import required modules and types from their respective locations.
+import { Locales } from '@intlayer/config';
 import { logger } from '@logger';
 import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
 import type { Response } from 'express';
 // @ts-ignore express-intlayer not build yet
-import { t, LanguageContent } from 'express-intlayer';
-import { Locales } from '@intlayer/config';
-import { ErrorCodes, errorData } from './errorCodes';
-import { AppError } from './ErrorsClass';
-import { HttpStatusCodes, UserAPI } from '@/export';
+import type { LanguageContent } from 'express-intlayer';
+import { t } from 'express-intlayer';
+import { type ErrorCodes, errorData } from './errorCodes';
+import type { AppError } from './ErrorsClass';
+import { type UserAPI, HttpStatusCodes } from '@/export';
 
 // Define a class named 'ErrorHandler' to encapsulate error handling logic.
 export class ErrorHandler {

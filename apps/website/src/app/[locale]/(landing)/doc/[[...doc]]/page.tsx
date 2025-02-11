@@ -13,7 +13,7 @@ import { ChevronLeft, ChevronRight, Edit } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { type LocalParams } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 import type { DocProps } from './layout';
 import { PagesRoutes } from '@/Routes';
 

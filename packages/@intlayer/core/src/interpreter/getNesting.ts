@@ -1,4 +1,5 @@
-import { IntlayerDictionaryTypesConnector } from 'intlayer';
+// @ts-ignore intlayer declared for module augmentation
+import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { ValidDotPathsFor } from '../transpiler';
 import type { DictionaryKeys } from '../types';
 import type {
@@ -7,7 +8,6 @@ import type {
   NodeProps,
 } from './getContent';
 import { getIntlayer } from './getIntlayer';
-// @ts-ignore intlayer declared for module augmentation
 
 type GetSubPath<T, P> = P extends `${infer K}.${infer Rest}`
   ? K extends keyof T

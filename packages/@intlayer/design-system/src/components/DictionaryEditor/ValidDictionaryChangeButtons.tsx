@@ -1,6 +1,6 @@
 'use client';
 
-import { Dictionary as DistantDictionary } from '@intlayer/backend';
+import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import type { Dictionary } from '@intlayer/core';
 import {
   useDictionariesRecordActions,
@@ -70,7 +70,6 @@ export const ValidDictionaryChangeButtons: FC<
     }
     setLocaleDictionary(editedContent?.[dictionary.key]);
     restoreEditedContent(dictionary.key);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dictionary, editedContent, mode]);
 
   return (

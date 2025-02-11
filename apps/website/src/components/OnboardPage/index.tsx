@@ -2,7 +2,7 @@
 
 import type { Period, Plans } from '@components/PricingPage/data.content';
 import { Loader } from '@intlayer/design-system';
-import { FC, Suspense } from 'react';
+import { type FC, Suspense } from 'react';
 import { ConfirmationsStep } from './ConfirmationsStep/ConfirmationsStep';
 import { DefinePasswordStepForm } from './DefinePasswordStep';
 import { PaymentStepForm } from './PaymentStep';

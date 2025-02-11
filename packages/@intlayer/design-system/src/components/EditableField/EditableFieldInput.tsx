@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, Ref, useImperativeHandle, useMemo, useRef } from 'react';
+import { type FC, type Ref, useImperativeHandle, useMemo, useRef } from 'react';
 import { Input, type InputProps } from '../Input';
 import { EditableFieldLayout } from './EditableFieldLayout';
 
@@ -37,7 +37,7 @@ export const EditableFieldInput: FC<EditableFieldInputProps> = ({
       (props.value as string) ??
       inputRef.current?.value ??
       (props.defaultValue as string),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [props.value, props.defaultValue, inputRef.current?.value]
   );
 

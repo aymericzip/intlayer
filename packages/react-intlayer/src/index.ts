@@ -1,4 +1,4 @@
-import { IInterpreterPluginReact } from './plugins';
+import type { IInterpreterPluginReact } from './plugins';
 
 declare module '@intlayer/core' {
   interface IInterpreterPlugin<T, S> extends IInterpreterPluginReact<T> {}

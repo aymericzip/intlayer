@@ -2,7 +2,7 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { TagDetails } from '@components/Dashboard/TagForm/TagDetails';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 type DictionaryDashboardPageProps = {
   tagKey: string;

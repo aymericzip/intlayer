@@ -1,7 +1,10 @@
-import { Context } from 'vm';
-import { loadEnvFile, LoadEnvFileOptions } from './envVariables/loadEnvFile';
-import { ESMxCJSRequire } from './utils/ESMxCJSRequire';
+import type { Context } from 'vm';
 import React from 'react';
+import {
+  type LoadEnvFileOptions,
+  loadEnvFile,
+} from './envVariables/loadEnvFile';
+import { ESMxCJSRequire } from './utils/ESMxCJSRequire';
 
 export const getSandBoxContext = (
   envVarOptions?: LoadEnvFileOptions

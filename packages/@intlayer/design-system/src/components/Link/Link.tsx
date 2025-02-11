@@ -1,4 +1,4 @@
-import { getConfiguration, LocalesValues } from '@intlayer/config/client';
+import { type LocalesValues, getConfiguration } from '@intlayer/config/client';
 import { getLocalizedUrl } from '@intlayer/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink } from 'lucide-react';

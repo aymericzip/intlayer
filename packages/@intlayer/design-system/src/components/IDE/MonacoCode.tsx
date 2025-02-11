@@ -1,6 +1,6 @@
 'use client';
 
-import { Editor, OnChange, OnMount } from '@monaco-editor/react';
+import { type OnChange, type OnMount, Editor } from '@monaco-editor/react';
 import { type FC, useState, useRef, useMemo } from 'react';
 import { cn } from '../../utils/cn';
 import { Loader } from '../Loader';
@@ -39,7 +39,7 @@ export const MonacoCode: FC<CodeCompProps> = ({
 
   const handleMountIde: OnMount = (editor, monaco) => {
     // first time you set the height based on content Height
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     ideRef.current = editor as any;
     const contentHeight = (editor.getContentHeight() ?? 0) + 25;
 

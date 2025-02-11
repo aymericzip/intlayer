@@ -1,7 +1,7 @@
 import type { LocalesValues } from '@intlayer/config/client';
+import { type LanguageContent, getTranslation } from '@intlayer/core';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
-import { type LanguageContent, getTranslation } from '@intlayer/core';
 
 /**
  * On the server side, hook to get the translation content based on the locale

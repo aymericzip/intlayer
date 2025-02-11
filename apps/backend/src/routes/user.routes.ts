@@ -7,7 +7,7 @@ import {
   getUserByAccount,
 } from '@controllers/user.controller';
 import { Router } from 'express';
-import { Routes } from '@/types/Routes';
+import type { Routes } from '@/types/Routes';
 
 export const userRouter: Router = Router();
 

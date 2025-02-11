@@ -4,7 +4,7 @@ import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
-import { AppError, ErrorHandler } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
@@ -21,7 +21,7 @@ import {
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import type { ObjectId } from 'mongoose';
-import { User } from 'oauth2-server';
+import type { User } from 'oauth2-server';
 import * as organizationService from '@/services/organization.service';
 import type {
   Organization,

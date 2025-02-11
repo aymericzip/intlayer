@@ -3,10 +3,10 @@ import {
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
-import { getLocalizedUrl, Locales } from 'intlayer';
+import { type Locales, getLocalizedUrl } from 'intlayer';
 import { type FC, useMemo } from 'react';
 import { getBlogSubSection } from './blogData';
-import { Section } from './types';
+import type { Section } from './types';
 import { PagesRoutes } from '@/Routes';
 
 type BlogBreadCrumbProps = {

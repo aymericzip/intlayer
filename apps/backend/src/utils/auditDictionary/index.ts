@@ -3,9 +3,9 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { getLocaleName } from '@intlayer/core';
 import { logger } from '@logger';
-import { Locales } from 'intlayer';
+import type { Locales } from 'intlayer';
 import { OpenAI } from 'openai';
-import { Tag } from '@/types/tag.types';
+import type { Tag } from '@/types/tag.types';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

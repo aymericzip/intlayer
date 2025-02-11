@@ -1,7 +1,12 @@
 'use client';
 
 import { type IntlayerConfig } from '@intlayer/config/client';
-import { createContext, useContext, FC, PropsWithChildren } from 'react';
+import {
+  type FC,
+  type PropsWithChildren,
+  createContext,
+  useContext,
+} from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
 const ConfigurationStatesContext = createContext<IntlayerConfig | undefined>(

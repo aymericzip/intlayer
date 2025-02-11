@@ -1,7 +1,7 @@
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as tagService from '@services/tag.service';
-import { AppError, ErrorHandler } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getTagFiltersAndPagination,

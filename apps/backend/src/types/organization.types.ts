@@ -1,5 +1,5 @@
 import type { ObjectId, Document } from 'mongoose';
-import { Plan } from './plan.types';
+import type { Plan } from './plan.types';
 import type { User } from './user.types';
 
 export type OrganizationCreationData = {

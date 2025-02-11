@@ -1,6 +1,6 @@
 import { IntlayerEventListener } from '@intlayer/api';
 // @ts-ignore: @intlayer/backend is not built yet
-import { DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI } from '@intlayer/backend';
 import { buildIntlayerDictionary } from './transpiler/declaration_file_to_dictionary/intlayer_dictionary/buildIntlayerDictionary';
 
 const writeDictionary = async (dictionary: DictionaryAPI) => {

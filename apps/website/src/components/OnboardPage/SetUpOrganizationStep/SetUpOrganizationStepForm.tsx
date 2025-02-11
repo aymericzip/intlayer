@@ -3,7 +3,7 @@
 import { NoOrganizationView } from '@components/Dashboard/OrganizationForm/NoOrganizationView';
 import { OrganizationCreationForm } from '@components/Dashboard/OrganizationForm/OrganizationCreationForm';
 import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
-import { OrganizationAPI } from '@intlayer/backend';
+import type { OrganizationAPI } from '@intlayer/backend';
 import {
   Form,
   useForm,
@@ -17,13 +17,19 @@ import {
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { HTMLAttributes, Suspense, useMemo, useState, type FC } from 'react';
+import {
+  type HTMLAttributes,
+  Suspense,
+  useMemo,
+  useState,
+  type FC,
+} from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 import {
+  type SetUpOrganization,
   useSetUpOrganizationSchema,
-  SetUpOrganization,
 } from './useSetUpOrganizationSchema';
 
 const OrganizationFormContent: FC<{

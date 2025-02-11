@@ -2,12 +2,12 @@
 
 import { type FC, type PropsWithChildren } from 'react';
 import {
+  type CommunicatorProviderProps,
   CommunicatorProvider,
-  CommunicatorProviderProps,
 } from './CommunicatorContext';
 import {
+  type ConfigurationProviderProps,
   ConfigurationProvider,
-  ConfigurationProviderProps,
 } from './ConfigurationContext';
 import { DictionariesRecordProvider } from './DictionariesRecordContext';
 import { EditedContentProvider } from './EditedContentContext';

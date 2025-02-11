@@ -1,4 +1,4 @@
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
 import { useMemo, type FC } from 'react';
 import { Container } from '../Container';
@@ -23,7 +23,7 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
 
   const displayedContent = useMemo(
     () => editedContent?.[dictionary.key]?.content ?? dictionary?.content ?? {},
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [dictionary]
   );
 

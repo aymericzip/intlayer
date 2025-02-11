@@ -1,7 +1,7 @@
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 // @ts-ignore express-intlayer not build yet
 import { t, type LanguageContent } from 'express-intlayer';
-import { ErrorCodes, errorData } from './errorCodes';
+import { type ErrorCodes, errorData } from './errorCodes';
 
 /**
  * Custom error class that extends the native JavaScript Error class.

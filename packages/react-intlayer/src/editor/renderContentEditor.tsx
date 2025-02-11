@@ -1,9 +1,9 @@
+import { type NodeProps } from '@intlayer/core';
+import { type IntlayerNode, rendererIntlayerNode } from '../IntlayerNode';
 import {
   ContentSelectorWrapper,
   type ContentSelectorWrapperProps,
 } from './ContentSelectorWrapper';
-import { type NodeProps } from '@intlayer/core';
-import { IntlayerNode, rendererIntlayerNode } from '../IntlayerNode';
 
 export type RenderIntlayerEditorProps = Omit<
   ContentSelectorWrapperProps,

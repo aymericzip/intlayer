@@ -1,4 +1,4 @@
-import { Plan } from '@/types/plan.types';
+import type { Plan } from '@/types/plan.types';
 
 /**
  * Retrieves the plan type based on the price ID.

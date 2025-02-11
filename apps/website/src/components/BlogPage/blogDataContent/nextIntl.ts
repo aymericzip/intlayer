@@ -1,5 +1,5 @@
-import { BlogData } from '@components/BlogPage/types';
-import { Locales, getIntlayer } from 'intlayer';
+import type { BlogData } from '@components/BlogPage/types';
+import { type Locales, getIntlayer } from 'intlayer';
 import { PagesRoutes, GithubRoutes } from '@/Routes';
 
 export const getBlogIntlayerWithNextIntlData = (locale: Locales): BlogData => ({

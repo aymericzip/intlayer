@@ -3,7 +3,7 @@ import {
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
-import { getLocalizedUrl, Locales } from 'intlayer';
+import { type Locales, getLocalizedUrl } from 'intlayer';
 import { type FC, useMemo } from 'react';
 import { getDocSubSection } from './docData';
 import { type CategorizedDocData } from './types';

@@ -1,5 +1,5 @@
 import { getConfiguration } from '@intlayer/config';
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { buildI18nDictionary } from './i18next_dictionary/index';
 import { buildIntlayerDictionary } from './intlayer_dictionary/index';
 

@@ -1,11 +1,11 @@
 'use client';
 
-import { TagAPI } from '@intlayer/backend';
+import type { TagAPI } from '@intlayer/backend';
 import { Form, Modal } from '@intlayer/design-system';
 import { useDeleteTag } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type DeleteTagModalProps = {

@@ -2,7 +2,7 @@
 
 import type { ReactElement, ReactNode } from 'react';
 
-import { TabSelector, TabProps } from '../TabSelector';
+import { type TabProps, TabSelector } from '../TabSelector';
 
 type DesktopNavbarProps<T extends TabProps> = {
   logo: ReactNode;

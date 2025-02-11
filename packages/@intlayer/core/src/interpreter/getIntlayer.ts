@@ -5,11 +5,11 @@ import type { LocalesValues } from '@intlayer/config';
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 import dictionaries from '@intlayer/dictionaries-entry';
-import { IntlayerDictionaryTypesConnector } from 'intlayer';
+// @ts-ignore intlayer declared for module augmentation
+import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { Dictionary, DictionaryKeys } from '../types';
 import type { DeepTransformContent, Plugins } from './getContent/plugins';
 import { getDictionary } from './getDictionary';
-// @ts-ignore intlayer declared for module augmentation
 
 export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,

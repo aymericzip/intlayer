@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, type HTMLAttributes } from 'react';
+import { type FC, type HTMLAttributes } from 'react';
 import { useFormField } from './FormField';
 
 export const FormDescription: FC<HTMLAttributes<HTMLParagraphElement>> = (

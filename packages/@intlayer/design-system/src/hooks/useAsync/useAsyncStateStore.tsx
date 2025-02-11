@@ -1,10 +1,10 @@
 'use client';
 
 import {
+  type PropsWithChildren,
   createContext,
   useContext,
   useReducer,
-  PropsWithChildren,
 } from 'react';
 
 /**

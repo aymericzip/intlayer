@@ -1,6 +1,6 @@
 import { listenChangeSSE } from '@controllers/event-listener';
 import { Router } from 'express';
-import { Routes } from '@/types/Routes';
+import type { Routes } from '@/types/Routes';
 
 export const eventListenerRouter: Router = Router();
 

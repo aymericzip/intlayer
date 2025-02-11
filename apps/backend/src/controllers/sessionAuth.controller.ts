@@ -6,7 +6,7 @@ import { sendEmail } from '@services/email.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
 import { generateToken } from '@utils/CSRF';
-import { ErrorHandler, AppError, GenericError } from '@utils/errors';
+import { type AppError, ErrorHandler, GenericError } from '@utils/errors';
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
@@ -16,8 +16,8 @@ import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 import { Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { OrganizationAPI } from '@/types/organization.types';
-import { ProjectAPI } from '@/types/project.types';
+import type { OrganizationAPI } from '@/types/organization.types';
+import type { ProjectAPI } from '@/types/project.types';
 import type {
   Session,
   GithubSessionProvider,

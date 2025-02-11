@@ -1,6 +1,6 @@
 // @ts-ignore: @intlayer/backend is not built yet
-import { DictionaryAPI } from '@intlayer/backend';
-import { getConfiguration, IntlayerConfig } from '@intlayer/config/client';
+import type { DictionaryAPI } from '@intlayer/backend';
+import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
 import { intlayerAPI } from './getIntlayerAPI';
 
 export type DictionaryMessageEvent = {

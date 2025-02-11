@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { Plan } from '@/types/plan.types';
+import type { Plan } from '@/types/plan.types';
 
 export const planSchema = new Schema<Plan>(
   {

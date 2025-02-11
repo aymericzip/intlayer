@@ -1,13 +1,13 @@
 import {
+  type FC,
   useRef,
   useEffect,
   type ChangeEventHandler,
   useImperativeHandle,
   useCallback,
-  FC,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { TextAreaProps, TextArea } from './TextArea';
+import { type TextAreaProps, TextArea } from './TextArea';
 
 export type AutoSizedTextAreaProps = TextAreaProps & {
   autoSize?: boolean;
@@ -17,10 +17,14 @@ export type AutoSizedTextAreaProps = TextAreaProps & {
 const LINE_HEIGHT = 24; // px
 const LINE_PADDING = 12; // px
 
-export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = (
-  { className, autoSize = true, onChange, maxRows = 999, ref,...props },
-
-) => {
+export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
+  className,
+  autoSize = true,
+  onChange,
+  maxRows = 999,
+  ref,
+  ...props
+}) => {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
   useImperativeHandle(ref, () => textAreaRef.current!);

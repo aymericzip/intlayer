@@ -1,7 +1,7 @@
 import { Link } from '@components/Link/Link';
-import { ProjectConfiguration } from '@intlayer/backend';
+import type { ProjectConfiguration } from '@intlayer/backend';
 import { H3, H4, H5, Tag } from '@intlayer/design-system';
-import { getLocaleName, Locales } from 'intlayer';
+import { type Locales, getLocaleName } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC } from 'react';
 import { PagesRoutes } from '@/Routes';

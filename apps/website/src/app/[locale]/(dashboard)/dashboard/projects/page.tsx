@@ -2,7 +2,7 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { ProjectForm } from '@components/Dashboard/ProjectForm';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export { generateMetadata } from './metadata';
 

@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import { I18nextDictionariesOutput } from '../i18next_dictionary/convertContentDeclarationInto18nDictionaries';
+import type { I18nextDictionariesOutput } from '../i18next_dictionary/convertContentDeclarationInto18nDictionaries';
 
 const { content } = getConfiguration();
 const { reactIntlMessagesDir } = content;

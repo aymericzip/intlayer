@@ -3,7 +3,7 @@ import { Eraser, SendHorizonal } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useCallback, type FC } from 'react';
 import {
-  FormSectionSchemaData,
+  type FormSectionSchemaData,
   useFormSectionSchema,
 } from './useFormSectionSchema';
 

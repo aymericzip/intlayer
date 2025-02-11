@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { Token as TokenType, Client, User } from 'oauth2-server';
+import type { Token as TokenType, Client, User } from 'oauth2-server';
 
 export type Token = Omit<TokenType, 'client' | 'user'> & {
   clientId: Client['id'];

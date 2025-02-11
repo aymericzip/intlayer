@@ -11,7 +11,7 @@ import type {
   Rights,
   TokenRights,
 } from '@/types/project.types';
-import { User } from '@/types/user.types';
+import type { User } from '@/types/user.types';
 
 /**
  * Adds a new access key to a project.

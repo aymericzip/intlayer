@@ -1,7 +1,7 @@
 'use client';
 
-import { Dictionary as DistantDictionary } from '@intlayer/backend';
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary as DistantDictionary } from '@intlayer/backend';
+import type { Dictionary } from '@intlayer/core';
 import {
   useDictionariesRecordActions,
   useEditedContent,

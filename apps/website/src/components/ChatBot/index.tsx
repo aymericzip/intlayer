@@ -5,10 +5,13 @@ import {
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { FC, useCallback, useMemo } from 'react';
+import { type FC, useCallback, useMemo } from 'react';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
-import { ChatCompletionRequestMessage, MessagesList } from './MessagesList';
+import {
+  type ChatCompletionRequestMessage,
+  MessagesList,
+} from './MessagesList';
 
 export type StoredValue = {
   question: string | undefined;

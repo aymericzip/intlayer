@@ -2,14 +2,14 @@
 
 import type { Locales } from '@intlayer/config/client';
 import {
+  type NestedContent,
+  type ConditionContent,
+  type MarkdownContent,
   type EnumerationContent,
   type TranslationContent,
   NodeType,
   type KeyPath,
   type ContentNode,
-  NestedContent,
-  ConditionContent,
-  MarkdownContent,
 } from '@intlayer/core';
 import { type FC } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';

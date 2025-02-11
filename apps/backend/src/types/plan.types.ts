@@ -1,5 +1,5 @@
-import { Document, ObjectId } from 'mongoose';
-import { User } from './user.types';
+import type { Document, ObjectId } from 'mongoose';
+import type { User } from './user.types';
 
 export type PlanType = 'FREE' | 'PREMIUM' | 'ENTERPRISE';
 

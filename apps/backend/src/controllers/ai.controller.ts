@@ -8,10 +8,10 @@ import * as auditContentDeclarationUtil from '@utils/auditDictionary';
 import * as auditContentDeclarationFieldUtil from '@utils/auditDictionaryField';
 import * as auditContentDeclarationMetadataUtil from '@utils/auditDictionaryMetadata';
 import * as auditTagUtil from '@utils/auditTag';
-import { AppError, ErrorHandler } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
-import { Locales } from 'intlayer';
+import type { Locales } from 'intlayer';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { Tag } from '@/types/tag.types';
 

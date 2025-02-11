@@ -1,5 +1,9 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { FC, type DetailedHTMLProps, type InputHTMLAttributes } from 'react';
+import {
+  type FC,
+  type DetailedHTMLProps,
+  type InputHTMLAttributes,
+} from 'react';
 
 export const inputVariants = cva('', {
   variants: {

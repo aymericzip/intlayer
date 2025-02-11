@@ -1,5 +1,5 @@
 // @ts-ignore intlayer declared for module augmentation
-import { IntlayerDictionaryTypesConnector } from 'intlayer';
+import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type {
   ConditionContent,
   EnumerationContent,

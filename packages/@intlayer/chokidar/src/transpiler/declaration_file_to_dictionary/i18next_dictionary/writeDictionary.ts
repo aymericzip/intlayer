@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import { I18nextDictionariesOutput } from './convertContentDeclarationInto18nDictionaries';
+import type { I18nextDictionariesOutput } from './convertContentDeclarationInto18nDictionaries';
 
 const { content } = getConfiguration();
 const { i18nextResourcesDir } = content;

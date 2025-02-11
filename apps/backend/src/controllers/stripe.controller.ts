@@ -1,11 +1,11 @@
-import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as subscriptionService from '@services/subscription.service';
-import { ErrorHandler, AppError } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
-import { formatResponse, ResponseData } from '@utils/responseData';
-import { Request } from 'express';
+import { type ResponseData, formatResponse } from '@utils/responseData';
+import type { Request } from 'express';
 import { t } from 'express-intlayer';
-import { Locales } from 'intlayer';
+import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
 import type { Organization } from '@/types/organization.types';
 

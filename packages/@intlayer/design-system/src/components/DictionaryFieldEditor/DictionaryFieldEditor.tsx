@@ -1,6 +1,6 @@
 'use client';
 
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import {
   useConfiguration,
   useDictionariesRecordActions,
@@ -60,7 +60,6 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
       ...prev,
       [dictionary.key]: dictionary,
     }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

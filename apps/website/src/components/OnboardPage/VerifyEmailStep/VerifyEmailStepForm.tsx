@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
-import { getVerifyEmailSchema, VerifyEmail } from './VerifyEmailSchema';
+import { type VerifyEmail, getVerifyEmailSchema } from './VerifyEmailSchema';
 
 export const VerifyEmailStepForm: FC = () => {
   const VerifyEmailSchema = getVerifyEmailSchema();

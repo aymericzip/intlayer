@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import type { CodeCompAttributes } from './Code';
 import { useCodeContext } from './CodeContext';
 

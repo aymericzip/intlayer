@@ -16,9 +16,9 @@ import {
   useMemo,
 } from 'react';
 import {
-  BundledLanguage,
-  BundledTheme,
-  CodeToHastOptions,
+  type BundledLanguage,
+  type BundledTheme,
+  type CodeToHastOptions,
   codeToHtml,
 } from 'shiki';
 import { cn } from '../../utils/cn';

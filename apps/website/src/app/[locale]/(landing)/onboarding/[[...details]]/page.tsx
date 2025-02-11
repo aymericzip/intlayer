@@ -1,10 +1,10 @@
 import { OnboardFlow } from '@components/OnboardPage';
 import { getPlanDetails } from '@components/OnboardPage/getPlanDetails';
 import { Container } from '@intlayer/design-system';
-import { Locales } from 'intlayer';
+import type { Locales } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 const OnboardPageContent: FC<{ locale: Locales; details: string[] }> = ({
   locale,

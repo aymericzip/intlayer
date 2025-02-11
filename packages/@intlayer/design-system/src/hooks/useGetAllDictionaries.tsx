@@ -5,7 +5,7 @@
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import merge from 'deepmerge';
 import { useMemo } from 'react';

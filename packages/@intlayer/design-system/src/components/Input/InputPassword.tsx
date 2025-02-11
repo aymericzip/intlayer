@@ -1,7 +1,7 @@
 'use client';
 
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
-import { useState, type MouseEventHandler, FC } from 'react';
+import { type FC, useState, type MouseEventHandler } from 'react';
 import { Input, type InputProps } from './Input';
 
 type InputPasswordProps = Omit<InputProps, 'type'>;
@@ -19,10 +19,7 @@ export const InputPassword: FC<InputPasswordProps> = (props) => {
 
   return (
     <div className="relative">
-      <Input
-        {...props}
-        type={isPasswordRevealed ? 'text' : 'password'}
-      />
+      <Input {...props} type={isPasswordRevealed ? 'text' : 'password'} />
 
       <button
         data-testid="eye-icon"

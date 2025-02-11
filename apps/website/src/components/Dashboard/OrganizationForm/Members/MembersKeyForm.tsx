@@ -1,6 +1,6 @@
 'use client';
 
-import {
+import type {
   AddOrganizationMemberBody,
   UpdateOrganizationMembersBody,
   UserAPI,
@@ -19,12 +19,12 @@ import {
   useAddOrganizationMember,
 } from '@intlayer/design-system/hooks';
 import { X } from 'lucide-react';
-import { ObjectId } from 'mongoose';
+import type { ObjectId } from 'mongoose';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import {
+  type OrganizationMembersFormData,
   useOrganizationMembersSchema,
-  OrganizationMembersFormData,
 } from './useMembersFormSchema';
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
 

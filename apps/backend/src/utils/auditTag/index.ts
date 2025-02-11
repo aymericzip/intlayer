@@ -3,8 +3,8 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { logger } from '@logger';
 import { OpenAI } from 'openai';
-import { Dictionary } from '@/types/dictionary.types';
-import { Tag } from '@/types/tag.types';
+import type { Dictionary } from '@/types/dictionary.types';
+import type { Tag } from '@/types/tag.types';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

@@ -3,7 +3,7 @@ import { Container, H1 } from '@intlayer/design-system';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 const DocumentationSearchPageContent: FC = () => {
   const { title } = useIntlayer('doc-chat-page');

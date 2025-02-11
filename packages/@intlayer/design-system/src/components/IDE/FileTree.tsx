@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-selector-parameter */
 'use client';
 
 import { ChevronRight } from 'lucide-react';

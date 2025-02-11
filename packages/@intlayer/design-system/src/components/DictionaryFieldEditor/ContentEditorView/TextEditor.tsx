@@ -1,18 +1,18 @@
 'use client';
 
-import { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/config';
 import {
+  type Dictionary,
+  type MarkdownContent,
+  type NestedContent,
   type EnumerationContent,
   type TranslationContent,
   NodeType,
   type KeyPath,
   type ContentNode,
   getLocaleName,
-  Dictionary,
   getNodeType,
   type ConditionContent,
-  MarkdownContent,
-  NestedContent,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, WandSparkles, X } from 'lucide-react';
@@ -22,19 +22,19 @@ import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
 import { Button } from '../../Button';
 import {
-  ContentEditorInput as ContentEditorInputBase,
   ContentEditorInputProps as ContentEditorInputPropsBase,
+  ContentEditorInput as ContentEditorInputBase,
 } from '../../ContentEditor/ContentEditorInput';
 import {
-  ContentEditorTextArea as ContentEditorTextAreaBase,
   ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
+  ContentEditorTextArea as ContentEditorTextAreaBase,
 } from '../../ContentEditor/ContentEditorTextArea';
 import { Label } from '../../Label';
 import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
 import {
-  SwitchSelectorChoices,
+  type SwitchSelectorChoices,
+  type SwitchSelectorProps,
   SwitchSelector,
-  SwitchSelectorProps,
 } from '../../SwitchSelector';
 import { EnumKeyInput } from '../EnumKeyInput';
 import { getIsEditableSection } from '../getIsEditableSection';

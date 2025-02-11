@@ -1,8 +1,8 @@
 'use client';
 
-import { FC } from 'react';
+import type { FC } from 'react';
+import { type IntlayerNode, rendererIntlayerNode } from '../IntlayerNode';
 import { useMarkdownContext } from './MarkdownProvider';
-import { IntlayerNode, rendererIntlayerNode } from '../IntlayerNode';
 
 export const MarkdownRenderer: FC<{ markdown: string }> = ({
   markdown,

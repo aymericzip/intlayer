@@ -116,7 +116,7 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
         onValueChange?.(newValue);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [value]
   );
 
@@ -213,7 +213,7 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
           break;
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [value, inputValue, activeIndex, loop]
   );
 

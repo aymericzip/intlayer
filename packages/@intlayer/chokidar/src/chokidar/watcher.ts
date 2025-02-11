@@ -1,5 +1,9 @@
 import { relative } from 'path';
-import { appLogger, getConfiguration, IntlayerConfig } from '@intlayer/config';
+import {
+  type IntlayerConfig,
+  appLogger,
+  getConfiguration,
+} from '@intlayer/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import fg from 'fast-glob';

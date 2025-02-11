@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/core';
+import type { Locales } from '@intlayer/core';
 import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 import type { FC } from 'react';
 import { cn } from '../../utils/cn';

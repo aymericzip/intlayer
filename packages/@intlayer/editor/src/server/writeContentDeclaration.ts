@@ -1,11 +1,11 @@
 import { existsSync } from 'fs';
 import * as fsPromises from 'fs/promises';
 import { basename, dirname, extname } from 'path';
-import { getConfiguration, IntlayerConfig } from '@intlayer/config/client';
+import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
+import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import deepEqual from 'deep-equal';
-import { DictionaryStatus } from '../dictionaryStatus';
-import { Dictionary } from '@intlayer/core';
+import type { DictionaryStatus } from '../dictionaryStatus';
 
 const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
 

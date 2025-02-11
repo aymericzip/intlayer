@@ -7,11 +7,19 @@ import {
   Button,
   Input,
 } from '@intlayer/design-system';
-import Fuse, { IFuseOptions } from 'fuse.js';
+import Fuse, { type IFuseOptions } from 'fuse.js';
+import { Locales } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  type FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { type BlogData } from '../types';
 
 // Convert the blog into an array of objects for Fuse.js
@@ -71,7 +79,7 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const { locale } = useLocale();
   const searchQuery = useSearchParams().get('search');
-  const blogArray: BlogData[] = getBlogDataArray(locale);
+  const blogArray: BlogData[] = getBlogDataArray(locale as Locales);
   const [results, setResults] = useState<BlogData[]>([]);
 
   const { noContentText, searchInput } = useIntlayer('blog-search-view');

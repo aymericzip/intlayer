@@ -1,8 +1,8 @@
 'use client';
 
-import { Locales } from '@intlayer/config/client';
+import type { Locales } from '@intlayer/config/client';
 import { ChevronRightIcon } from 'lucide-react';
-import { Fragment, HTMLAttributes, type FC } from 'react';
+import { type HTMLAttributes, Fragment, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { Button, type ButtonProps } from '../Button';

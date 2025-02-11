@@ -1,5 +1,5 @@
 import { t, type Dictionary } from 'intlayer';
-import { ExternalLinks, PagesRoutes } from '@/Routes';
+import { PagesRoutes } from '@/Routes';
 
 export const navbarContent = {
   key: 'navbar-string456-with-random-numbe22rs-into-the-key',

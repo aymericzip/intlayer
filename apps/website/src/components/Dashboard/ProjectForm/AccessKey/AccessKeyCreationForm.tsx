@@ -1,12 +1,12 @@
 'use client';
 
-import { AddNewAccessKeyResponse } from '@intlayer/backend';
+import type { AddNewAccessKeyResponse } from '@intlayer/backend';
 import { Form, useAuth, useForm } from '@intlayer/design-system';
 import { useAddNewAccessKey } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
-  AccessKeyFormCreationData,
+  type AccessKeyFormCreationData,
   useAccessKeyCreationSchema,
 } from './useAccessKeyCreationFormSchema';
 

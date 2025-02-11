@@ -1,5 +1,5 @@
 import { type KeyPath, NodeType } from '../../types/index';
-import { NodeProps } from './plugins';
+import type { NodeProps } from './plugins';
 
 /**
  * Recursively traverses a node (object/array/primitive).

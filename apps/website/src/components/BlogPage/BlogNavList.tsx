@@ -14,7 +14,7 @@ import { cn } from '@utils/cn';
 import { ArrowLeftToLine } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type ComponentProps, type FC } from 'react';
-import { Section } from './types';
+import type { Section } from './types';
 import { PagesRoutes } from '@/Routes';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;

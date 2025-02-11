@@ -8,7 +8,7 @@ import {
 } from 'react-hook-form';
 import { Form } from '../Form';
 import { useFormField } from '../FormField';
-import { FormItemLayout, FormItemLayoutProps } from '../layout';
+import { type FormItemLayoutProps, FormItemLayout } from '../layout';
 
 export type FormElementProps<T extends ElementType> = {
   name: string;

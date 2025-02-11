@@ -2,7 +2,7 @@
 
 import type { ReactElement, ReactNode } from 'react';
 import { useDevice, useIsMounted } from '../../hooks';
-import { TabProps } from '../TabSelector';
+import type { TabProps } from '../TabSelector';
 import { DesktopNavbar } from './DesktopNavbar';
 import { MobileNavbar } from './MobileNavbar';
 

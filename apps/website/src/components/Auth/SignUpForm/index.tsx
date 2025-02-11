@@ -1,6 +1,6 @@
 'use client';
 
-import { UserAPI } from '@intlayer/backend';
+import type { UserAPI } from '@intlayer/backend';
 import {
   SignUpForm as SignUpFormUI,
   type SignUp,

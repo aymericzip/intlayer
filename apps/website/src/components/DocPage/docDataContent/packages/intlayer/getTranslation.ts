@@ -1,5 +1,5 @@
-import { DocData } from '@components/DocPage/types';
-import { Locales, getIntlayer } from 'intlayer';
+import type { DocData } from '@components/DocPage/types';
+import { type Locales, getIntlayer } from 'intlayer';
 import { PagesRoutes, GithubRoutes } from '@/Routes';
 
 export const getPackagesIntlayerGetTranslationContentData = (

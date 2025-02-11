@@ -1,10 +1,10 @@
 import { runInNewContext } from 'vm';
 import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import { type LoadEnvFileOptions } from '../envVariables/loadEnvFile';
+import { getSandBoxContext } from '../getSandboxContext';
 import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';
 import { ESMxCJSRequire } from '../utils/ESMxCJSRequire';
-import { getSandBoxContext } from '../getSandboxContext';
 
 const getTransformationOptions = (): BuildOptions => {
   const define: Record<string, string> = {};

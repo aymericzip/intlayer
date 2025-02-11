@@ -1,4 +1,4 @@
-import { Locales } from 'intlayer';
+import type { Locales } from 'intlayer';
 
 declare module 'intlayer' {
   interface IntlayerDictionaryTypesConnector {}

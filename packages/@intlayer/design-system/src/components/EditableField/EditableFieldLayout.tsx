@@ -4,13 +4,13 @@
 
 import { Pencil, Check, X } from 'lucide-react';
 import {
+  type HTMLAttributes,
   type FC,
   type ReactNode,
   useState,
   useEffect,
   useRef,
   useCallback,
-  HTMLAttributes,
 } from 'react';
 import { cn } from '../../utils/cn';
 import { Button } from '../Button';

@@ -1,3 +1,5 @@
+/* eslint-disable security/detect-non-literal-regexp */
+
 import { Locales } from 'intlayer';
 import { locales } from '../../intlayer.config';
 import { GithubRoutes, PagesRoutes } from '@/Routes';

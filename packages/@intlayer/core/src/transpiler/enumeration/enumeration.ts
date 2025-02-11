@@ -1,4 +1,8 @@
-import { formatNodeType, NodeType, TypedNodeModel } from '../../types/index';
+import {
+  type TypedNodeModel,
+  formatNodeType,
+  NodeType,
+} from '../../types/index';
 
 type Positif = number | `${number}`;
 type Negatif = `-${number}`;

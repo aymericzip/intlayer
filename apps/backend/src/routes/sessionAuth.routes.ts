@@ -14,7 +14,7 @@ import {
   checkIfUserHasPassword,
 } from '@controllers/sessionAuth.controller';
 import { Router } from 'express';
-import { Routes } from '@/types/Routes';
+import type { Routes } from '@/types/Routes';
 
 export const sessionAuthRouter: Router = Router();
 

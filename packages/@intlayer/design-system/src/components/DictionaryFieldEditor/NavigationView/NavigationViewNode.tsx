@@ -121,7 +121,6 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
       return (
         <div className="flex flex-col justify-between gap-2">
           {Object.keys(
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (section as any)[nodeType as unknown as keyof typeof section]
           ).map((key) => {
             const childKeyPath: KeyPath[] = [

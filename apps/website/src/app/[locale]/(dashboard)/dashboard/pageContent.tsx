@@ -2,7 +2,7 @@
 
 import { Loader, type Session, useAuth } from '@intlayer/design-system';
 import { useRouter } from 'next/navigation';
-import { FC, useEffect } from 'react';
+import { type FC, useEffect } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 export const DashboardPageContent: FC<{ sessionServer?: Session }> = ({

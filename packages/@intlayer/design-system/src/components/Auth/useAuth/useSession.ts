@@ -1,7 +1,7 @@
 'use client';
 
 import { getIntlayerAPI } from '@intlayer/api';
-import { getConfiguration, IntlayerConfig } from '@intlayer/config/client';
+import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
 import { useConfiguration } from '@intlayer/editor-react';
 import { useMemo } from 'react';
 import { useAsync } from '../../../hooks/useAsync';

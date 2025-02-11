@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
-  FC,
+  type FC,
   useId,
   type DetailedHTMLProps,
   type InputHTMLAttributes,

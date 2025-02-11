@@ -1,6 +1,6 @@
 import { type ComponentProps, type FC } from 'react';
 import { Checkbox } from '../../Input';
-import { FormElementProps, FormElement } from './FormElement';
+import { type FormElementProps, FormElement } from './FormElement';
 
 type CheckboxElementProps = Omit<FormElementProps<typeof Checkbox>, 'Element'> &
   ComponentProps<typeof Checkbox> & {

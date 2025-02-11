@@ -7,7 +7,7 @@ import {
   type PropsWithChildren,
 } from 'react';
 import {
-  CrossFrameStateOptions,
+  type CrossFrameStateOptions,
   useCrossFrameState,
 } from './useCrossFrameState';
 

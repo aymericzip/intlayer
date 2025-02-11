@@ -1,4 +1,4 @@
-import { IntlayerConfig } from './types/config';
+import type { IntlayerConfig } from './types/config';
 
 export type Details = {
   isVerbose?: boolean;

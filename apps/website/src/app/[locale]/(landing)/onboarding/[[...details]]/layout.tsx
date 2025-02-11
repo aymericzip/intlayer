@@ -1,7 +1,7 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { onboardingSteps } from '@components/OnboardPage/steps';
 import { Period, Plans } from '@components/PricingPage/data.content';
-import { NextLayoutIntlayer } from 'next-intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
 
 export const generateStaticParams = () => {
   const routes = [

@@ -135,7 +135,6 @@ export const useCrossFrameState = <S,>(
     if (receive && typeof postMessage === 'function') {
       postMessage({ type: `${key}/get`, senderId });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Return the useState state and setter

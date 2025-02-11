@@ -1,7 +1,7 @@
 import * as configurationController from '@controllers/configuration.controller';
 import { getConfiguration } from '@intlayer/config/client';
 import { Router } from 'express';
-import { Routes } from '@/types/Routes';
+import type { Routes } from '@/types/Routes';
 
 export const configurationRouter: Router = Router();
 

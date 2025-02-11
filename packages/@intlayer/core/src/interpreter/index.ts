@@ -1,7 +1,6 @@
 export * from './getContent/index';
 export * from './getNesting';
 export * from './getEnumeration';
-export * from './getEnumeration';
 export * from './getIntlayer';
 export * from './getDictionary';
 export * from './getIntlayerAsync';

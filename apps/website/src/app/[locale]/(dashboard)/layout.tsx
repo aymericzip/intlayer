@@ -3,7 +3,7 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/Au
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import { PageLayout } from '@layouts/PageLayout';
-import { Locales } from 'intlayer';
+import type { Locales } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC, PropsWithChildren } from 'react';

@@ -10,7 +10,7 @@ import { H3 } from '../../Headers';
 import { Loader } from '../../Loader';
 import { useUser } from '../useUser';
 import content from './index.content';
-import { getVerifyEmailSchema, VerifyEmail } from './VerifyEmailSchema';
+import { type VerifyEmail, getVerifyEmailSchema } from './VerifyEmailSchema';
 
 type VerifyEmailFormProps = {
   onSubmitSuccess: (data: VerifyEmail) => Promise<void>;

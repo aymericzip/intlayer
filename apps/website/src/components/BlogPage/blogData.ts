@@ -17,7 +17,7 @@ import { getBlogReactI18nVSReactIntlVSIntlayerData } from './blogDataContent/rea
 import { getBlogIntlayerWithReactIntlData } from './blogDataContent/reactIntl';
 import { getBlogSEOData } from './blogDataContent/SEO';
 import { getBlogWhatIsi18nData } from './blogDataContent/whatIsI18n';
-import { CategorizedBlogData, BlogData, Section } from './types';
+import type { CategorizedBlogData, BlogData, Section } from './types';
 
 export const getBlogData = (
   locale = Locales.ENGLISH

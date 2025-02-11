@@ -2,7 +2,7 @@
 
 import { IntlayerEventListener } from '@intlayer/api';
 import { getConfiguration } from '@intlayer/config/client';
-import { Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).

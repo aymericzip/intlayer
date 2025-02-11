@@ -6,7 +6,7 @@ import { useFocusDictionaryActions } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 type TagsDictionariesListProps = {

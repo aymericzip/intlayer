@@ -1,6 +1,6 @@
 import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export const ProductHeader: FC = () => {
   const { description } = useIntlayer('product-header-structured-data');

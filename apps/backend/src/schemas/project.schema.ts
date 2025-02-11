@@ -1,11 +1,11 @@
+import { Locales } from '@intlayer/config';
 import {
   NAME_MIN_LENGTH,
   NAME_MAX_LENGTH,
   MEMBERS_MIN_LENGTH,
 } from '@utils/validation/validateProject';
-import { Locales } from '@intlayer/config';
 import { Schema } from 'mongoose';
-import { Project, Rights, TokenRights } from '@/types/project.types';
+import type { Project, Rights, TokenRights } from '@/types/project.types';
 
 const RightsSchema = new Schema<Rights>({
   read: { type: Boolean, required: true },

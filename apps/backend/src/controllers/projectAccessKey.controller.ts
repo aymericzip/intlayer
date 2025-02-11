@@ -1,6 +1,6 @@
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
-import { AppError, ErrorHandler } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import { type ResponseData, formatResponse } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';

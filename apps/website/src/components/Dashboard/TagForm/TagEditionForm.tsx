@@ -1,6 +1,6 @@
 'use client';
 
-import { TagAPI } from '@intlayer/backend';
+import type { TagAPI } from '@intlayer/backend';
 import { useForm, Form } from '@intlayer/design-system';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';
 import { Save, WandSparkles, XCircle } from 'lucide-react';
@@ -52,7 +52,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
 
   const isEdited = useMemo(
     () => tag && JSON.stringify(tag) !== JSON.stringify(form.getValues()),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [tag, form.getValues()]
   );
 

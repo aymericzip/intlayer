@@ -1,6 +1,6 @@
 'use client';
 
-import { Locales } from '@intlayer/config';
+import type { Locales } from '@intlayer/config';
 import {
   RightDrawer,
   Button,
@@ -9,7 +9,7 @@ import {
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
-import { useCallback, useMemo, FC } from 'react';
+import { type FC, useCallback, useMemo } from 'react';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
 

@@ -1,4 +1,4 @@
-import merge, { Options } from 'deepmerge';
+import merge, { type Options } from 'deepmerge';
 
 // Custom array merge function that merges objects by 'key'
 export const mergeByKey = <T extends { key: string }>(key: keyof T) => {

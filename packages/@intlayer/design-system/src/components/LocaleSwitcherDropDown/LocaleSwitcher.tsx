@@ -2,7 +2,7 @@
 
 import { Locales } from '@intlayer/config/client';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
-import Fuse, { IFuseOptions } from 'fuse.js';
+import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { useCallback, useMemo, useRef, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';

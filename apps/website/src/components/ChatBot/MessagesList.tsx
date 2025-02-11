@@ -1,5 +1,5 @@
 import { Loader } from '@intlayer/design-system';
-import { FC, useEffect, useRef } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 import { ChatBumble, ChatBumbleType } from './ChatBumble';
 
 export type ChatCompletionRequestMessage = {

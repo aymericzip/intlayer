@@ -1,6 +1,6 @@
 import type { ObjectId, Document, Model } from 'mongoose';
-import { Organization } from './organization.types';
-import { User } from './user.types';
+import type { Organization } from './organization.types';
+import type { User } from './user.types';
 
 export type TagCreationData = {
   key: string;

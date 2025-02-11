@@ -1,4 +1,4 @@
-import { FC, type LabelHTMLAttributes } from 'react';
+import { type FC, type LabelHTMLAttributes } from 'react';
 
 export const Label: FC<LabelHTMLAttributes<HTMLLabelElement>> = ({
   htmlFor,

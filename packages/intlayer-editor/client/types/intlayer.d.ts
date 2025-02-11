@@ -1,4 +1,4 @@
-import { Locales } from 'intlayer';
+import type { Locales } from 'intlayer';
 import type { DictionaryEditionDrawerContent as _qBBua9xjcMgNI6rAYznh } from '../.intlayer/types/dictionary-edition-drawer.d.ts';
 
 declare module 'intlayer' {

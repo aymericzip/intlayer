@@ -9,8 +9,8 @@ import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 import {
+  type DefinePassword,
   useDefinePasswordSchema,
-  DefinePassword,
 } from './useDefinePasswordSchema';
 
 export const DefinePasswordStepForm: FC = () => {

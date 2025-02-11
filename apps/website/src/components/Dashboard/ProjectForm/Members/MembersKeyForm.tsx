@@ -1,6 +1,6 @@
 'use client';
 
-import { UpdateProjectMembersBody, UserAPI } from '@intlayer/backend';
+import type { UpdateProjectMembersBody, UserAPI } from '@intlayer/backend';
 import {
   useForm,
   Form,
@@ -16,8 +16,8 @@ import {
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import {
+  type ProjectMembersFormData,
   useProjectMembersSchema,
-  ProjectMembersFormData,
 } from './useMembersFormSchema';
 
 const getUserNames = (

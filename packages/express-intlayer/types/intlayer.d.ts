@@ -14,4 +14,3 @@ declare module 'intlayer' {
 
   interface IConfigLocales<Content> extends Record<ConfigLocales, Content> {}
 }
-

@@ -7,16 +7,16 @@ import {
   useEditorEnabled,
 } from '@intlayer/editor-react';
 import {
+  type HTMLAttributes,
   useCallback,
   useEffect,
   useState,
   useMemo,
   type FC,
   type ReactNode,
-  HTMLAttributes,
 } from 'react';
-import { ContentSelector } from '../UI/ContentSelector';
 import { useIntlayerContext } from '../client';
+import { ContentSelector } from '../UI/ContentSelector';
 
 export type ContentSelectorWrapperProps = NodeProps &
   Omit<HTMLAttributes<HTMLDivElement>, 'content'>;

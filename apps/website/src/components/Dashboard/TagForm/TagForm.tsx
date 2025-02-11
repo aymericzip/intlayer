@@ -1,6 +1,6 @@
 'use client';
 
-import { TagAPI } from '@intlayer/backend';
+import type { TagAPI } from '@intlayer/backend';
 import { Container, Loader } from '@intlayer/design-system';
 import { useGetTags } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';

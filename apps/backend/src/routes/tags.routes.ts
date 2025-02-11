@@ -5,7 +5,7 @@ import {
   updateTag,
 } from '@controllers/tag.controller';
 import { Router } from 'express';
-import { Routes } from '@/types/Routes';
+import type { Routes } from '@/types/Routes';
 
 export const tagRouter: Router = Router();
 

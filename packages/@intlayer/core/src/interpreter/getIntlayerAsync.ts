@@ -1,8 +1,8 @@
 import { fetchDistantDictionary } from '@intlayer/api';
 import type { LocalesValues } from '@intlayer/config/client';
-import { getDictionary } from './getDictionary';
 import type { DictionaryKeys } from '../types';
 import type { Plugins } from './getContent';
+import { getDictionary } from './getDictionary';
 
 /**
  * On the client side, Hook that picking one dictionary by its key and return the content

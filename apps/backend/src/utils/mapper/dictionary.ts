@@ -1,6 +1,6 @@
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
-import { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
-import { Project } from '@/types/project.types';
+import type { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
+import type { Project } from '@/types/project.types';
 
 /**
  * Maps a dictionary to an API response.

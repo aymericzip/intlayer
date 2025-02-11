@@ -7,7 +7,7 @@ import {
 } from '@intlayer/design-system';
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import { useLocale } from 'next-intlayer';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 type LinkProps = LinkUIProps & NextLinkProps;
 

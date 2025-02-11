@@ -1,10 +1,10 @@
 import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
-import { getConfiguration } from '@intlayer/config';
 // @ts-ignore: @intlayer/backend is not built yet
-import { DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI } from '@intlayer/backend';
+import { getConfiguration } from '@intlayer/config';
+import type { Dictionary } from '@intlayer/core';
 import { writeDictionary } from './writeDictionary';
-import { Dictionary } from '@intlayer/core';
 
 const { content } = getConfiguration();
 const { dictionariesDir } = content;

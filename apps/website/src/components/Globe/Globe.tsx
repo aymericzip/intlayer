@@ -2,7 +2,7 @@
 
 import createGlobe from 'cobe';
 import { useTheme } from 'next-themes';
-import { type FC, memo, MutableRefObject, useEffect, useRef } from 'react';
+import { type MutableRefObject, type FC, memo, useEffect, useRef } from 'react';
 import { useSpring } from 'react-spring';
 
 export const Globe: FC = memo(() => {

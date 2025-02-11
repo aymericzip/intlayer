@@ -20,7 +20,7 @@ import { Check, ShoppingCart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
-import { FormEvent, useState, type FC } from 'react';
+import { type FormEvent, useState, type FC } from 'react';
 import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';

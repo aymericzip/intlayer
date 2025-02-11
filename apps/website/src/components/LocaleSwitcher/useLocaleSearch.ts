@@ -1,4 +1,4 @@
-import Fuse, { IFuseOptions } from 'fuse.js';
+import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getLocaleName, Locales, type LocalesValues } from 'intlayer';
 import { useMemo, useState, useCallback } from 'react';
 

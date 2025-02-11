@@ -1,6 +1,10 @@
 'use client';
 
-import { UseAsyncOptions, UseAsyncResult, useAsync } from './useAsync';
+import {
+  type UseAsyncOptions,
+  type UseAsyncResult,
+  useAsync,
+} from './useAsync';
 
 /**
  * This hook allow the declaration of a custom hook that wraps an async function.

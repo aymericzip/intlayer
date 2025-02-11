@@ -24,7 +24,6 @@ export const ProjectEditionForm: FC = () => {
     if (project) {
       form.reset(project);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.reset, project]);
 
   return (

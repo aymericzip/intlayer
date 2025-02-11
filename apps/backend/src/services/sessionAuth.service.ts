@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { logger } from '@logger';
-import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
   Cookies,
   getClearCookieOptions,

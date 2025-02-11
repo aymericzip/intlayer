@@ -11,17 +11,17 @@ import helmet from 'helmet';
 
 // Middlewares
 import {
+  type RequestWithOAuth2Information,
   attachOAuthInstance,
   authenticateOAuth2,
-  RequestWithOAuth2Information,
 } from '@middlewares/oAuth2.middleware';
 import { logAPIRequestURL } from '@middlewares/request.middleware';
 import {
+  type ResponseWithInformation,
   checkUser,
   checkOrganization,
   checkProject,
   checkAdmin,
-  ResponseWithInformation,
 } from '@middlewares/sessionAuth.middleware';
 
 // Routes

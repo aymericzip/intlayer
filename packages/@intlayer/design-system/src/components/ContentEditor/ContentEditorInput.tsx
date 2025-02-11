@@ -2,14 +2,14 @@
 
 import { Check, X } from 'lucide-react';
 import {
+  type ReactNode,
   useState,
   type FC,
   type ChangeEventHandler,
   useEffect,
-  ReactNode,
 } from 'react';
 import { Button } from '../Button';
-import { Input, InputProps } from '../Input';
+import { type InputProps, Input } from '../Input';
 
 export type ContentEditorInputProps = {
   children: InputProps['value'];

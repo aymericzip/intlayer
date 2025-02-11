@@ -3,7 +3,7 @@ import type { ResponseWithInformation } from '@middlewares/sessionAuth.middlewar
 import * as projectService from '@services/project.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
-import { AppError, ErrorHandler } from '@utils/errors';
+import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getProjectFiltersAndPagination,
@@ -21,7 +21,7 @@ import {
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import type { ObjectId } from 'mongoose';
-import { User } from 'oauth2-server';
+import type { User } from 'oauth2-server';
 import type {
   Project,
   ProjectAPI,

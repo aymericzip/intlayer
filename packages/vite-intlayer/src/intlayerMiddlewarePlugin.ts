@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import type { IncomingMessage, ServerResponse } from 'http';
 import { parse } from 'url';
 import { getConfiguration, type Locales } from '@intlayer/config';
 import { localeDetector } from '@intlayer/core';

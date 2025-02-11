@@ -7,7 +7,7 @@ import {
   type DictionaryFields,
   validateDictionary,
 } from '@utils/validation/validateDictionary';
-import { ObjectId } from 'mongoose';
+import type { ObjectId } from 'mongoose';
 import type {
   Dictionary,
   DictionaryData,

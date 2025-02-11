@@ -3,7 +3,7 @@
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useState, type FC, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
-import { Button, ButtonProps } from '../Button';
+import { type ButtonProps, Button } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 type AccordionProps = {

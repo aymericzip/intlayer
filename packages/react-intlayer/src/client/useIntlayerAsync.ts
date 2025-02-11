@@ -1,13 +1,13 @@
 'use client';
 
 import type { LocalesValues } from '@intlayer/config/client';
-import { useContext, useEffect, useMemo, useState } from 'react';
-import { IntlayerClientContext } from './IntlayerProvider';
 import {
   type DictionaryKeys,
   getIntlayer,
   getIntlayerAsync,
 } from '@intlayer/core';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
  * On the client side, Hook that picking one dictionary by its key and return the content
@@ -19,8 +19,7 @@ import {
  */
 export const useIntlayerAsync = <T extends DictionaryKeys>(
   key: T,
-  locale?: LocalesValues,
-  isRenderEditor = true
+  locale?: LocalesValues
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const localeTarget = locale ?? currentLocale;
