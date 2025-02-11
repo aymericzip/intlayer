@@ -72,7 +72,7 @@
     "intlayer-editor": "workspace:*",
     "lucide-react": "^0.475.0",
     "markdown-to-jsx": "^7.7.3",
-    "next": "14.2.23",
+    "next": "^15.1.7",
     "next-intlayer": "workspace:*",
     "next-secure-headers": "^2.2.0",
     "next-themes": "^0.4.4",
@@ -84,7 +84,6 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@svgr/webpack": "^8.1.0",
     "@types/next-pwa": "^5.6.9",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

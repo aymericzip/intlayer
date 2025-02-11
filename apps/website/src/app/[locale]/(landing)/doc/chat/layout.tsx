@@ -1,12 +1,12 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { type Next14LayoutIntlayer } from 'next-intlayer';
+import { type NextLayoutIntlayer } from 'next-intlayer';
 export { generateMetadata } from './metadata';
 
 export type DocProps = {
   doc: string[];
 };
 
-const DocChatLayout: Next14LayoutIntlayer<DocProps> = ({ children }) => (
+const DocChatLayout: NextLayoutIntlayer<DocProps> = ({ children }) => (
   <BackgroundLayout>{children}</BackgroundLayout>
 );
 

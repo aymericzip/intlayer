@@ -1,19 +1,22 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
-import { type Next14LayoutIntlayer } from 'next-intlayer';
+import { type NextLayoutIntlayer } from 'next-intlayer';
 export { generateMetadata } from './metadata';
 
 export type DocProps = {
   doc: string[];
 };
 
-const DocLayout: Next14LayoutIntlayer<DocProps> = ({
+const DocLayout: NextLayoutIntlayer<DocProps> = async ({
   children,
-  params: { locale },
-}) => (
-  <DocPageLayout locale={locale} displayDocNavTitles={false}>
-    <BackgroundLayout>{children}</BackgroundLayout>
-  </DocPageLayout>
-);
+  params,
+}) => {
+  const { locale } = await params;
+  return (
+    <DocPageLayout locale={locale} displayDocNavTitles={false}>
+      <BackgroundLayout>{children}</BackgroundLayout>
+    </DocPageLayout>
+  );
+};
 
 export default DocLayout;

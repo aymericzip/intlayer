@@ -1,4 +1,3 @@
-import { addOrganization } from '@intlayer/backend';
 import { t, type Dictionary } from 'intlayer';
 
 const organizationFormContent = {

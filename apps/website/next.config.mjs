@@ -90,10 +90,6 @@ const secureHeaders = createSecureHeaders({
 const nextConfig = {
   webpack: (config) => {
     config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-    config.module.rules.push({
       test: /\.md$/,
       // This is the asset module.
       type: 'asset/source',

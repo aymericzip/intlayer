@@ -91,9 +91,8 @@ const BlogPageNavigation: FC<BlogPageNavigationProps> = ({
   );
 };
 
-const BlogPage = async ({
-  params: { locale, blog },
-}: LocalParams<BlogProps>) => {
+const BlogPage = async ({ params }: LocalParams<BlogProps>) => {
+  const { locale, blog } = await params;
   const blogData = getBlogDataByPath(blog, locale);
 
   if (!blogData) {

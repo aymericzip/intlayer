@@ -9,13 +9,13 @@
  *      {children}
  * </IntlayerServer>
  */
-import react from 'react';
+import react, { type FC, type PropsWithChildren, type ReactNode } from 'react';
 
 type CacheType<T> = () => { value: T | undefined };
 
 const cacheFallback = () => () => ({ value: undefined });
 
-export const createServerContext = <T>(defaultValue?: T): ServerContext<T> => {
+export const createServerContext = <T,>(defaultValue?: T): ServerContext<T> => {
   throwInClient();
 
   /** @ts-ignore remove error Property 'cache' does not exist on type 'typeof React'. */
@@ -25,18 +25,24 @@ export const createServerContext = <T>(defaultValue?: T): ServerContext<T> => {
     value: undefined,
   }));
 
-  return {
-    Provider: ({ children, value }) => {
-      getCache().value = value;
-      return children;
-    },
-    Consumer: ({ children }) => {
-      const store = getCache();
-      return children(store ? store.value : defaultValue);
-    },
-    _storage: getCache,
-    _defaultValue: defaultValue,
+  const Provider: FC<PropsWithChildren<{ value?: T }>> = ({
+    children,
+    value,
+  }) => {
+    getCache().value = value;
+    return children;
   };
+
+  const ServerContext = Provider as ServerContext<T>;
+  ServerContext.Provider = Provider;
+  ServerContext.Consumer = (props) => {
+    const store = getCache();
+    return props.children(store ? store.value : defaultValue);
+  };
+  ServerContext._storage = getCache;
+  ServerContext._defaultValue = defaultValue;
+
+  return ServerContext;
 };
 
 /**
@@ -46,7 +52,7 @@ export const createServerContext = <T>(defaultValue?: T): ServerContext<T> => {
  * @example
  * getServerContext(IntlayerServer);
  */
-export const getServerContext = <T>({
+export const getServerContext = <T,>({
   _storage,
   _defaultValue,
 }: ServerContext<T>) => {
@@ -56,19 +62,11 @@ export const getServerContext = <T>({
   return store.value;
 };
 
-type ServerContext<T> = {
-  Provider: ({
-    children,
-    value,
-  }: {
-    children: React.ReactNode;
-    value: T;
-  }) => React.ReactNode;
-  Consumer: ({
-    children,
-  }: {
-    children: (context: T | undefined) => React.ReactNode;
-  }) => React.ReactNode;
+type ServerContext<T> = FC<PropsWithChildren<{ value?: T }>> & {
+  Provider: FC<PropsWithChildren<{ value?: T }>>;
+  Consumer: FC<
+    PropsWithChildren<{ children: (context: T | undefined) => ReactNode }>
+  >;
   _storage: () => { value: T | undefined };
   _defaultValue: T | undefined;
 };

@@ -1,17 +1,20 @@
 import { OnboardFlow } from '@components/OnboardPage';
 import { getPlanDetails } from '@components/OnboardPage/getPlanDetails';
 import { Container } from '@intlayer/design-system';
-import type { Next14PageIntlayer } from 'next-intlayer';
+import { Locales } from 'intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC } from 'react';
 
-const OnboardPage: Next14PageIntlayer<{ details: string[] }> = ({
-  params: { locale, details },
+const OnboardPageContent: FC<{ locale: Locales; details: string[] }> = ({
+  locale,
+  details,
 }) => {
   const { title, description } = useIntlayer('onboard-page', locale);
   const pageDetails = getPlanDetails(details);
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <h1 className="hidden">{title}</h1>
       <div className="flex flex-1 flex-col items-center justify-center gap-5 p-10">
         <span className="text-neutral dark:text-neutral-dark text-xs">
@@ -26,6 +29,18 @@ const OnboardPage: Next14PageIntlayer<{ details: string[] }> = ({
           <OnboardFlow {...pageDetails} />
         </Container>
       </div>
+    </>
+  );
+};
+
+const OnboardPage: NextPageIntlayer<{ details: string[] }> = async ({
+  params,
+}) => {
+  const { locale, details } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <OnboardPageContent locale={locale} details={details} />
     </IntlayerServerProvider>
   );
 };

@@ -1,9 +1,10 @@
-import type { Next14PageIntlayer } from 'next-intlayer';
-import { useIntlayer } from 'next-intlayer/server';
+import type { NextPageIntlayer } from 'next-intlayer';
+import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC } from 'react';
 export { generateMetadata } from './metadata';
 
-const NotFountPage: Next14PageIntlayer = ({ params: { locale } }) => {
-  const { title, content } = useIntlayer('not-found', locale);
+const NotFountPageContent: FC = () => {
+  const { title, content } = useIntlayer('not-found');
 
   return (
     <>
@@ -17,6 +18,16 @@ const NotFountPage: Next14PageIntlayer = ({ params: { locale } }) => {
         </span>
       </span>
     </>
+  );
+};
+
+const NotFountPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <NotFountPageContent />
+    </IntlayerServerProvider>
   );
 };
 

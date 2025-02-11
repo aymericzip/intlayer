@@ -281,6 +281,4 @@ export const BlogNavList: FC<BlogNavListProps> = ({
   );
 };
 
-BlogNavList.displayName = 'BlogNavList';
-
 export default BlogNavList;

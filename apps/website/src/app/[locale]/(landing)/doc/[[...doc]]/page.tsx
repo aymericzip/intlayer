@@ -91,9 +91,8 @@ const DocPageNavigation: FC<DocPageNavigationProps> = ({
   );
 };
 
-const DocumentationPage = async ({
-  params: { locale, doc },
-}: LocalParams<DocProps>) => {
+const DocumentationPage = async ({ params }: LocalParams<DocProps>) => {
+  const { locale, doc } = await params;
   const docData = getDocDataByPath(doc, locale);
 
   if (!docData) {

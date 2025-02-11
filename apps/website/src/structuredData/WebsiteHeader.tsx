@@ -3,7 +3,7 @@ import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 
 export const WebsiteHeader = () => {
-  const { keywords } = useIntlayer('website-structured-data', undefined, false);
+  const { keywords } = useIntlayer('website-structured-data');
   const { internationalization } = getConfiguration();
   const website = {
     '@context': 'https://schema.org',

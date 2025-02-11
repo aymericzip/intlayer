@@ -4,9 +4,10 @@ import { type LocalParams } from 'next-intlayer';
 import metadataContent from './metadata.content';
 import { PagesRoutes } from '@/Routes';
 
-export const generateMetadata = ({
-  params: { locale },
-}: LocalParams): Metadata => {
+export const generateMetadata = async ({
+  params,
+}: LocalParams): Promise<Metadata> => {
+  const { locale } = await params;
   const { title, description, keywords } = getDictionary(
     metadataContent,
     locale

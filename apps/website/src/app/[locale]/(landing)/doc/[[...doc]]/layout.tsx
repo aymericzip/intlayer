@@ -5,7 +5,7 @@ import {
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
+import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
 
 export type DocProps = {
   doc: string[];
@@ -18,9 +18,10 @@ export const generateStaticParams = () =>
     doc: path,
   }));
 
-export const generateMetadata = ({
-  params: { locale, doc },
-}: DocPageProps): Metadata => {
+export const generateMetadata = async ({
+  params,
+}: DocPageProps): Promise<Metadata> => {
+  const { locale, doc } = await params;
   const docData = getDocDataByPath(doc, locale);
 
   if (!docData) {
@@ -49,13 +50,16 @@ export const generateMetadata = ({
   };
 };
 
-const DocLayout: Next14LayoutIntlayer<DocProps> = ({
+const DocLayout: NextLayoutIntlayer<DocProps> = async ({
   children,
-  params: { doc, locale },
-}) => (
-  <DocPageLayout activeSections={doc} locale={locale}>
-    {children}
-  </DocPageLayout>
-);
+  params,
+}) => {
+  const { locale, doc } = await params;
+  return (
+    <DocPageLayout activeSections={doc} locale={locale}>
+      {children}
+    </DocPageLayout>
+  );
+};
 
 export default DocLayout;

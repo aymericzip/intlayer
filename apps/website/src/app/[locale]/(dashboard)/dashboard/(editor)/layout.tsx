@@ -3,9 +3,9 @@ import {
   EditedContentProvider,
   FocusDictionaryProvider,
 } from '@intlayer/editor-react';
-import type { Next14LayoutIntlayer } from 'next-intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
 
-const DashboardContentLayout: Next14LayoutIntlayer = ({ children }) => (
+const DashboardContentLayout: NextLayoutIntlayer = async ({ children }) => (
   <DictionariesRecordProvider>
     <EditedContentProvider>
       <FocusDictionaryProvider>{children}</FocusDictionaryProvider>

@@ -1,10 +1,10 @@
 import { getBlogDataArray } from '@components/BlogPage/blogData';
 import { getDocDataArray } from '@components/DocPage/docData';
 import { Tag, Link } from '@intlayer/design-system';
+import { Locales } from 'intlayer';
 import { File } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { FC } from 'react';
-import { Locales } from 'intlayer';
 
 const FileReferenceTag: FC<{ fileTitle: string; fileUrl: string }> = ({
   fileTitle,

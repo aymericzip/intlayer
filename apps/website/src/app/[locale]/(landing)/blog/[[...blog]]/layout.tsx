@@ -5,7 +5,7 @@ import {
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
+import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
 
 export type BlogProps = {
   blog: string[];
@@ -18,9 +18,10 @@ export const generateStaticParams = () =>
     blog: path,
   }));
 
-export const generateMetadata = ({
-  params: { locale, blog },
-}: BlogPageProps): Metadata => {
+export const generateMetadata = async ({
+  params,
+}: BlogPageProps): Promise<Metadata> => {
+  const { locale, blog } = await params;
   const blogData = getBlogDataByPath(blog, locale);
 
   if (!blogData) {
@@ -49,13 +50,16 @@ export const generateMetadata = ({
   };
 };
 
-const BlogLayout: Next14LayoutIntlayer<BlogProps> = ({
+const BlogLayout: NextLayoutIntlayer<BlogProps> = async ({
   children,
-  params: { blog, locale },
-}) => (
-  <BlogPageLayout activeSections={blog} locale={locale}>
-    {children}
-  </BlogPageLayout>
-);
+  params,
+}) => {
+  const { locale, blog } = await params;
+  return (
+    <BlogPageLayout activeSections={blog} locale={locale}>
+      {children}
+    </BlogPageLayout>
+  );
+};
 
 export default BlogLayout;

@@ -5,9 +5,7 @@ import packageJson from '../../../../package.json' with { type: 'json' };
 
 export const SoftwareApplicationHeader: FC = () => {
   const { description, keywords, audienceType } = useIntlayer(
-    'software-application-structured-data',
-    undefined,
-    false
+    'software-application-structured-data'
   );
 
   const softwareApplication = {

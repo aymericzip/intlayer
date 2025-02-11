@@ -1,19 +1,20 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { ContentDashboard } from '@components/Dashboard/ContentDashboard';
-import type { Next14PageIntlayer } from 'next-intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC } from 'react';
 
 type DictionaryDashboardPageProps = {
   dictionaryKey: string;
 };
 
-const DictionaryDashboardPage: Next14PageIntlayer<
-  DictionaryDashboardPageProps
-> = ({ params: { locale, dictionaryKey } }) => {
-  const { title } = useIntlayer('dictionary-dashboard-page', locale);
+const DictionaryDashboardPageContent: FC<DictionaryDashboardPageProps> = ({
+  dictionaryKey,
+}) => {
+  const { title } = useIntlayer('dictionary-dashboard-page');
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <h1 className="border-neutral dark:border-neutral-dark border-b-[0.5px] p-10 text-3xl">
         {title}
       </h1>
@@ -23,6 +24,18 @@ const DictionaryDashboardPage: Next14PageIntlayer<
         </div>
         <BackgroundLayout />
       </div>
+    </>
+  );
+};
+
+const DictionaryDashboardPage: NextPageIntlayer<
+  DictionaryDashboardPageProps
+> = async ({ params }) => {
+  const { locale, dictionaryKey } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <DictionaryDashboardPageContent dictionaryKey={dictionaryKey} />
     </IntlayerServerProvider>
   );
 };

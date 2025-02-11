@@ -1,19 +1,20 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { TagDetails } from '@components/Dashboard/TagForm/TagDetails';
-import type { Next14PageIntlayer } from 'next-intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC } from 'react';
 
 type DictionaryDashboardPageProps = {
   tagKey: string;
 };
 
-const DictionaryDashboardPage: Next14PageIntlayer<
-  DictionaryDashboardPageProps
-> = ({ params: { locale, tagKey } }) => {
-  const { title } = useIntlayer('tag-dashboard-page', locale);
+const DictionaryDashboardPageContent: FC<DictionaryDashboardPageProps> = ({
+  tagKey,
+}) => {
+  const { title } = useIntlayer('tag-dashboard-page');
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <h1 className="border-neutral dark:border-neutral-dark border-b-[0.5px] p-10 text-3xl">
         {title}
       </h1>
@@ -23,6 +24,18 @@ const DictionaryDashboardPage: Next14PageIntlayer<
         </div>
         <BackgroundLayout />
       </div>
+    </>
+  );
+};
+
+const DictionaryDashboardPage: NextPageIntlayer<
+  DictionaryDashboardPageProps
+> = async ({ params }) => {
+  const { locale, tagKey } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <DictionaryDashboardPageContent tagKey={tagKey} />
     </IntlayerServerProvider>
   );
 };

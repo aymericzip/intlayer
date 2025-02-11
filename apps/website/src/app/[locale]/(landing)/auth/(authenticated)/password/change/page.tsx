@@ -1,19 +1,16 @@
 import { ChangePasswordForm } from '@components/Auth/ChangePasswordForm';
 import { Container } from '@intlayer/design-system';
-import type { Next14PageIntlayer } from 'next-intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC } from 'react';
 export { generateMetadata } from './metadata';
 
-const ChangePasswordPage: Next14PageIntlayer = ({ params: { locale } }) => {
-  const { title, title2, description } = useIntlayer(
-    'change-password-page',
-    locale
-  );
+const ChangePasswordPageContent: FC = () => {
+  const { title, title2, description } = useIntlayer('change-password-page');
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <h1 className="hidden">{title}</h1>
-
       <div className="flex flex-1 flex-col items-center justify-center gap-5 p-5 md:p-10">
         <Container
           className="w-full max-w-md justify-center gap-16 p-10 text-2xl"
@@ -27,9 +24,20 @@ const ChangePasswordPage: Next14PageIntlayer = ({ params: { locale } }) => {
               {description}
             </span>
           </div>
+
           <ChangePasswordForm />
         </Container>
       </div>
+    </>
+  );
+};
+
+const ChangePasswordPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <ChangePasswordPageContent />
     </IntlayerServerProvider>
   );
 };

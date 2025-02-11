@@ -1,14 +1,15 @@
 import { Container } from '@intlayer/design-system';
-import type { Next14PageIntlayer } from 'next-intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import type { FC } from 'react';
 import { SignInForm } from '@/components/Auth/SignInForm';
 export { generateMetadata } from './metadata';
 
-const SignInPage: Next14PageIntlayer = ({ params: { locale } }) => {
-  const { title, title2, description } = useIntlayer('sign-in-page', locale);
+const SignInPageContent: FC = () => {
+  const { title, title2, description } = useIntlayer('sign-in-page');
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <h1 className="hidden">{title}</h1>
       <div className="flex h-full flex-1 flex-col items-center justify-center p-5 md:p-10">
         <Container
@@ -23,9 +24,20 @@ const SignInPage: Next14PageIntlayer = ({ params: { locale } }) => {
               {description}
             </span>
           </div>
+
           <SignInForm />
         </Container>
       </div>
+    </>
+  );
+};
+
+const SignInPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <SignInPageContent />
     </IntlayerServerProvider>
   );
 };

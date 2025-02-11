@@ -35,11 +35,7 @@ export const CreativeWorkHeader = ({
   datePublished,
   url,
 }: DocHeaderProps) => {
-  const { audienceType } = useIntlayer(
-    'creative-work-structured-data',
-    undefined,
-    false
-  );
+  const { audienceType } = useIntlayer('creative-work-structured-data');
   const creativeWork = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',

@@ -705,9 +705,7 @@ const pricing = {
       price: 29.99 * 12,
     },
   },
-} satisfies Dictionary<
-  Record<Period, Record<Plans, PricingInfo>>
->['content'];
+} satisfies Dictionary<Record<Period, Record<Plans, PricingInfo>>>['content'];
 
 const pricingContent = {
   key: 'pricing',

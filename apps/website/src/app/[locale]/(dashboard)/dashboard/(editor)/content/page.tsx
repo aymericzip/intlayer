@@ -1,15 +1,16 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DictionaryListDashboard } from '@components/Dashboard/DictionaryListDashboard';
-import type { Next14PageIntlayer } from 'next-intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const ContentDashboardPage: Next14PageIntlayer = ({ params: { locale } }) => {
-  const { title } = useIntlayer('content-dashboard-page', locale);
+const ContentDashboardPageContent: FC = () => {
+  const { title } = useIntlayer('content-dashboard-page');
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <h1 className="border-neutral dark:border-neutral-dark border-b-[0.5px] p-10 text-3xl">
         {title}
       </h1>
@@ -19,6 +20,16 @@ const ContentDashboardPage: Next14PageIntlayer = ({ params: { locale } }) => {
         </div>
         <BackgroundLayout />
       </div>
+    </>
+  );
+};
+
+const ContentDashboardPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <ContentDashboardPageContent />
     </IntlayerServerProvider>
   );
 };

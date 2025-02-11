@@ -3,15 +3,17 @@ import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/Au
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { DashboardNavbar } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import { PageLayout } from '@layouts/PageLayout';
-import type { Next14LayoutIntlayer } from 'next-intlayer';
+import { Locales } from 'intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
+import type { FC, PropsWithChildren } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 export { generateMetadata } from './metadata';
 
-const DashboardLayout: Next14LayoutIntlayer = ({
+const DashboardLayoutContent: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
-  params: { locale },
+  locale,
 }) => {
   const { navbarLinks, footerLinks } = useIntlayer('dashboard-navbar-content');
   const session = undefined; // await getServerSession();
@@ -42,6 +44,14 @@ const DashboardLayout: Next14LayoutIntlayer = ({
         {children}
       </AuthenticationBarrier>
     </PageLayout>
+  );
+};
+
+const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+
+  return (
+    <DashboardLayoutContent locale={locale}>{children}</DashboardLayoutContent>
   );
 };
 

@@ -3,11 +3,7 @@ import { useIntlayer } from 'next-intlayer/server';
 import { FC } from 'react';
 
 export const ProductHeader: FC = () => {
-  const { description } = useIntlayer(
-    'product-header-structured-data',
-    undefined,
-    false
-  );
+  const { description } = useIntlayer('product-header-structured-data');
   const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',

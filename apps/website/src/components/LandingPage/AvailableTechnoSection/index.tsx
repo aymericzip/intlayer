@@ -1,9 +1,9 @@
 import { Link } from '@components/Link/Link';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
-import Nextjs from './nextjs.svg';
-import React from './reactjs.svg';
-import Vite from './vitejs.svg';
+import { NestJSLogo } from './Nextjs';
+import { ReactLogo } from './Reactjs';
+import { ViteLogo } from './Vitejs';
 import { PagesRoutes } from '@/Routes';
 
 export const AvailableTechnoSection: FC = () => {
@@ -19,7 +19,7 @@ export const AvailableTechnoSection: FC = () => {
           color="custom"
           label={react.label.value}
         >
-          <React className="size-full max-h-full" />
+          <ReactLogo className="size-full max-h-full" />
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_NextJS_15}
@@ -27,7 +27,7 @@ export const AvailableTechnoSection: FC = () => {
           color="custom"
           label={nextjs.label.value}
         >
-          <Nextjs className="size-full max-h-full" />
+          <NestJSLogo className="size-full max-h-full" />
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndReact}
@@ -35,7 +35,7 @@ export const AvailableTechnoSection: FC = () => {
           color="custom"
           label={vite.label.value}
         >
-          <Vite className="size-full max-h-full" />
+          <ViteLogo className="size-full max-h-full" />
         </Link>
       </div>
     </section>

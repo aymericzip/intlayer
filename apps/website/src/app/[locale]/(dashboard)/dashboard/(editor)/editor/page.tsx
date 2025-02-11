@@ -1,17 +1,16 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { Editor } from '@components/Dashboard/Editor';
-import type { Next14PageIntlayer } from 'next-intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const OrganizationDashboardPage: Next14PageIntlayer = ({
-  params: { locale },
-}) => {
-  const { title } = useIntlayer('editor-dashboard-page', locale);
+const OrganizationDashboardPageContent: FC = () => {
+  const { title } = useIntlayer('editor-dashboard-page');
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <h1 className="border-neutral dark:border-neutral-dark border-b-[0.5px] p-10 text-3xl">
         {title}
       </h1>
@@ -19,6 +18,16 @@ const OrganizationDashboardPage: Next14PageIntlayer = ({
         <BackgroundLayout />
         <Editor />
       </div>
+    </>
+  );
+};
+
+const OrganizationDashboardPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <OrganizationDashboardPageContent />
     </IntlayerServerProvider>
   );
 };

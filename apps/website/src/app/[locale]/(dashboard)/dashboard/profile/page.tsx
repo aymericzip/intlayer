@@ -1,15 +1,16 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { ProfileForm } from '@components/Dashboard/ProfileForm';
-import type { Next14PageIntlayer } from 'next-intlayer';
+import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const ProfileDashboardPage: Next14PageIntlayer = ({ params: { locale } }) => {
-  const { title } = useIntlayer('profile-dashboard-page', locale);
+const ProfileDashboardPageContent: FC = () => {
+  const { title } = useIntlayer('profile-dashboard-page');
 
   return (
-    <IntlayerServerProvider locale={locale}>
+    <>
       <h1 className="border-neutral dark:border-neutral-dark border-b-[0.5px] p-10 text-3xl">
         {title}
       </h1>
@@ -19,6 +20,16 @@ const ProfileDashboardPage: Next14PageIntlayer = ({ params: { locale } }) => {
         </div>
         <BackgroundLayout />
       </div>
+    </>
+  );
+};
+
+const ProfileDashboardPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <ProfileDashboardPageContent />
     </IntlayerServerProvider>
   );
 };
