@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-cycle */
 'use client';
 
@@ -43,56 +42,15 @@ export type NodeWrapperProps = {
   onClickEdit?: (keyPath: KeyPath[]) => void;
 };
 
-const createReactElement = (element: ReactElement<any>) => {
-  if (typeof element === 'string') {
-    // If it's a string, simply return it (used for text content)
-    return element;
-  }
-
-  const convertChildrenAsArray = (
-    element: ReactElement<any>
-  ): ReactElement<any> => {
-    if (element?.props && typeof element.props.children === 'object') {
-      const childrenResult: ReactNode[] = [];
-      const { children } = element.props;
-
-      // Create the children elements recursively, if any
-      Object.keys(children).forEach((key) => {
-        childrenResult.push(createReactElement(children[key]));
-      });
-
-      return {
-        ...element,
-        props: { ...element.props, children: childrenResult },
-      };
-    }
-
-    return {
-      ...element,
-      props: { ...element.props, children: element.props.children },
-    };
-  };
-
-  const fixedElement = convertChildrenAsArray(element);
-
-  const { type, props } = fixedElement;
-
-  // Create and return the React element
-  return createElement(type ?? 'div', props, ...props.children);
-};
-
 export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
   const { section } = props;
 
   if (typeof section === 'object') {
     if (isReactNode(section as Record<string, unknown>)) {
       return (
-        <>
-          {createReactElement(section as unknown as ReactElement<any>)}
-          <span className="text-neutral dark:text-neutral-dark text-xs">
-            React node not editable
-          </span>
-        </>
+        <span className="text-neutral dark:text-neutral-dark text-xs">
+          React node not editable
+        </span>
       );
     }
 
