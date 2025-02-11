@@ -23,9 +23,7 @@ const CommunicatorContext = createContext<UseCrossPlatformStateProps>({
 export const CommunicatorProvider: FC<
   PropsWithChildren<UseCrossPlatformStateProps>
 > = ({ children, ...props }) => (
-  <CommunicatorContext.Provider value={props}>
-    {children}
-  </CommunicatorContext.Provider>
+  <CommunicatorContext value={props}>{children}</CommunicatorContext>
 );
 
 export const useCommunicator = () => useContext(CommunicatorContext);

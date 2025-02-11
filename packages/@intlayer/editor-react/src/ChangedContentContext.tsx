@@ -48,19 +48,19 @@ export const ChangedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <ChangedContentStateContext.Provider
+    <ChangedContentStateContext
       value={{
         changedContent,
       }}
     >
-      <ChangedContentActionsContext.Provider
+      <ChangedContentActionsContext
         value={{
           setChangedContent,
         }}
       >
         {children}
-      </ChangedContentActionsContext.Provider>
-    </ChangedContentStateContext.Provider>
+      </ChangedContentActionsContext>
+    </ChangedContentStateContext>
   );
 };
 

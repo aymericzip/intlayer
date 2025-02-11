@@ -46,7 +46,7 @@ export const LocaleSwitcherContentProvider: FC<
   );
 
   return (
-    <LocaleSwitcherContentContext.Provider
+    <LocaleSwitcherContentContext
       value={{
         availableLocales,
         selectedLocales,
@@ -54,6 +54,6 @@ export const LocaleSwitcherContentProvider: FC<
       }}
     >
       {children}
-    </LocaleSwitcherContentContext.Provider>
+    </LocaleSwitcherContentContext>
   );
 };

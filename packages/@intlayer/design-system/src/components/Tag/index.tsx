@@ -64,11 +64,10 @@ export const Tag: FC<TagProps> = (
     className,
     ...props
   },
-  ref
+
 ) => {
   return (
     <div
-      ref={ref}
       className={containerVariants({
         color,
         roundedSize,

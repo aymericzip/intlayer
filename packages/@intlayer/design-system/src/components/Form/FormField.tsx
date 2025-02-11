@@ -35,9 +35,9 @@ export const FormField = <
   );
 
   return (
-    <FormFieldContext.Provider value={memoValue}>
+    <FormFieldContext value={memoValue}>
       <Controller {...props} />
-    </FormFieldContext.Provider>
+    </FormFieldContext>
   );
 };
 

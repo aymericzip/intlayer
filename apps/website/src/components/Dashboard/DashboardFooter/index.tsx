@@ -1,6 +1,6 @@
 'use client';
 
-import GithubLogo from '@assets/github.svg';
+import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { Logo } from '@intlayer/design-system';
 import type { Locales } from 'intlayer';
@@ -28,7 +28,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         <Logo type="logoOnly" width={80} height={80} className="size-6" />
       </Link>
       <Link href={github.url.value} label={github.label.value} color="text">
-        <GithubLogo alt={github.alt.value} width={25} />
+        <GithubLogo width={25} />
       </Link>
       <div className="m-auto flex flex-row justify-around gap-x-4 md:gap-x-8">
         {links?.map((link) => (

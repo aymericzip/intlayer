@@ -31,7 +31,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
     languageListLabel,
     defaultLocaleName,
   } = useIntlayer('locale-switcher');
-  let localeName = defaultLocaleName.value;
+  let localeName = defaultLocaleName.value as string;
   const inputRef = useRef<HTMLInputElement>(null);
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();

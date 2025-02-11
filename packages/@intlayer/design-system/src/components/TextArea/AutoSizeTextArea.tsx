@@ -18,8 +18,8 @@ const LINE_HEIGHT = 24; // px
 const LINE_PADDING = 12; // px
 
 export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = (
-  { className, autoSize = true, onChange, maxRows = 999, ...props },
-  ref
+  { className, autoSize = true, onChange, maxRows = 999, ref,...props },
+
 ) => {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 

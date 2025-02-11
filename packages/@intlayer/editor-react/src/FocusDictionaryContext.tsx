@@ -54,13 +54,13 @@ export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
   };
 
   return (
-    <FocusDictionaryStateContext.Provider value={{ focusedContent }}>
-      <FocusDictionaryActionsContext.Provider
+    <FocusDictionaryStateContext value={{ focusedContent }}>
+      <FocusDictionaryActionsContext
         value={{ setFocusedContent, setFocusedContentKeyPath }}
       >
         {children}
-      </FocusDictionaryActionsContext.Provider>
-    </FocusDictionaryStateContext.Provider>
+      </FocusDictionaryActionsContext>
+    </FocusDictionaryStateContext>
   );
 };
 

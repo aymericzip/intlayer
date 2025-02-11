@@ -63,7 +63,7 @@ export const CodeProvider: FC<PropsWithChildren> = ({ children }) => {
     );
 
   return (
-    <CodeContext.Provider
+    <CodeContext
       value={{
         packageManager,
         setPackageManager,
@@ -74,6 +74,6 @@ export const CodeProvider: FC<PropsWithChildren> = ({ children }) => {
       }}
     >
       {children}
-    </CodeContext.Provider>
+    </CodeContext>
   );
 };

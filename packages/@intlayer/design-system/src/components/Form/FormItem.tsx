@@ -2,7 +2,7 @@
 
 import { type HTMLAttributes, useId, createContext, useMemo, FC } from 'react';
 
-export const FormItem: FC<HTMLAttributes<HTMLDivElement>> = (props, ref) => {
+export const FormItem: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const id = useId();
 
   const memoValue = useMemo(
@@ -13,9 +13,9 @@ export const FormItem: FC<HTMLAttributes<HTMLDivElement>> = (props, ref) => {
   );
 
   return (
-    <FormItemContext.Provider value={memoValue}>
-      <div className="space-y-2" ref={ref} {...props} />
-    </FormItemContext.Provider>
+    <FormItemContext value={memoValue}>
+      <div className="space-y-2" {...props} />
+    </FormItemContext>
   );
 };
 

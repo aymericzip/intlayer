@@ -6,7 +6,7 @@ import { X } from 'lucide-react';
 import { type ReactElement, FC, ComponentProps } from 'react';
 import { cn } from '../../utils/cn';
 
-const ToastProvider = ToastPrimitives.Provider;
+const ToastProvider = ToastPrimitives;
 
 const ToastViewport: FC<ComponentProps<typeof ToastPrimitives.Viewport>> = ({
   className,
@@ -92,9 +92,8 @@ const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
 
 const ToastDescription: FC<
   ComponentProps<typeof ToastPrimitives.Description>
-> = ({ className, ...props }, ref) => (
+> = ({ className, ...props }) => (
   <ToastPrimitives.Description
-    ref={ref}
     className={cn('text-sm opacity-90', className)}
     {...props}
   />

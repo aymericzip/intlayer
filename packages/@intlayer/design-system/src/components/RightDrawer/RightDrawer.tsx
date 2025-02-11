@@ -9,6 +9,7 @@ import {
   useEffect,
   useRef,
   type MouseEventHandler,
+  RefObject,
 } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useDevice } from '../../hooks/useDevice';

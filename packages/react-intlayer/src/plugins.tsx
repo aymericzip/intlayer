@@ -52,7 +52,6 @@ export type ReactNodeCond<T> = T extends {
 export const reactNodePlugins: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' &&
-    typeof node.ref !== 'undefined' &&
     typeof node.props !== 'undefined' &&
     typeof node.key !== 'undefined',
 

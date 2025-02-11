@@ -69,7 +69,6 @@ export const Form = <T extends ZodType>({
         className={cn('flex size-full flex-col gap-y-6', className)}
         onSubmit={props.handleSubmit(onSubmit)}
         autoComplete={autoComplete ? 'on' : 'off'}
-        ref={ref}
       >
         {children}
       </form>

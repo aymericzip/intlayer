@@ -38,10 +38,10 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
     );
 
   return (
-    <DictionariesRecordStatesContext.Provider
+    <DictionariesRecordStatesContext
       value={{ localeDictionaries: localeDictionaries ?? {} }}
     >
-      <DictionariesRecordActionsContext.Provider
+      <DictionariesRecordActionsContext
         value={{
           setLocaleDictionaries,
           setLocaleDictionary: (dictionary: Dictionary) => {
@@ -53,8 +53,8 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
         }}
       >
         {children}
-      </DictionariesRecordActionsContext.Provider>
-    </DictionariesRecordStatesContext.Provider>
+      </DictionariesRecordActionsContext>
+    </DictionariesRecordStatesContext>
   );
 };
 

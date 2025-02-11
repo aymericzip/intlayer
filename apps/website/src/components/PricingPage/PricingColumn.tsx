@@ -35,7 +35,6 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       'min-w-80 max-w-lg flex-1 flex-col gap-8 p-4 transition-all duration-300',
       className
     )}
-    ref={ref}
     itemScope
     itemType="http://schema.org/Offer"
     {...props}

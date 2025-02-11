@@ -37,11 +37,11 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
  */
 export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
-export type IntlayerProviderProps = PropsWithChildren & {
+export type IntlayerProviderProps = PropsWithChildren<{
   locale?: LocalesValues;
   setLocale?: (locale: LocalesValues) => void;
   disableEditor?: boolean;
-};
+}>;
 
 /**
  * Provider that store the current locale on the client side
@@ -86,10 +86,10 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   );
 
   return (
-    <IntlayerClientContext.Provider value={value}>
+    <IntlayerClientContext value={value}>
       <PoweredByMeta />
       {children}
-    </IntlayerClientContext.Provider>
+    </IntlayerClientContext>
   );
 };
 

@@ -1,5 +1,10 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { type PropsWithChildren, type HTMLAttributes, type FC } from 'react';
+import {
+  type PropsWithChildren,
+  type HTMLAttributes,
+  type FC,
+  type DetailedHTMLProps,
+} from 'react';
 import { cn } from '../../utils/cn';
 
 const containerVariants = cva(
@@ -88,7 +93,7 @@ const containerVariants = cva(
 export type ContainerProps = PropsWithChildren<
   Omit<VariantProps<typeof containerVariants>, 'border'>
 > &
-  HTMLAttributes<HTMLDivElement> & {
+  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
     border?: boolean;
   };
 

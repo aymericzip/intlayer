@@ -21,7 +21,6 @@ export const InputPassword: FC<InputPasswordProps> = (props) => {
     <div className="relative">
       <Input
         {...props}
-        ref={ref}
         type={isPasswordRevealed ? 'text' : 'password'}
       />
 

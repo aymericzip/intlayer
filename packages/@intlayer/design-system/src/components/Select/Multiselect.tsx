@@ -245,7 +245,7 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
   );
 
   return (
-    <MultiSelectContext.Provider value={memoValue}>
+    <MultiSelectContext value={memoValue}>
       <CommandRoot
         onKeyDown={handleKeyDown}
         className={cn(
@@ -257,7 +257,7 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
       >
         {children}
       </CommandRoot>
-    </MultiSelectContext.Provider>
+    </MultiSelectContext>
   );
 };
 

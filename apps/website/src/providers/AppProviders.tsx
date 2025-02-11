@@ -1,5 +1,4 @@
 import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorkerSubscriber';
-import { Toaster } from '@intlayer/design-system';
 import { AsyncStateProvider } from '@intlayer/design-system/hooks';
 import type { IntlayerClientProviderProps } from 'next-intlayer';
 import type { FC } from 'react';
@@ -14,7 +13,6 @@ export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
     <ThemeProvider>
       <AnimatePresenceProvider>
         <ServiceWorkerSubscriber />
-        <Toaster />
         <AsyncStateProvider>{children}</AsyncStateProvider>
       </AnimatePresenceProvider>
     </ThemeProvider>

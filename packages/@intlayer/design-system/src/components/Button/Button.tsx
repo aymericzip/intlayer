@@ -152,7 +152,6 @@ export const Button: FC<ButtonProps> = ({
 
   return (
     <button
-      ref={ref}
       disabled={isLoading || disabled}
       aria-current={isActive ? 'page' : undefined}
       aria-label={label}

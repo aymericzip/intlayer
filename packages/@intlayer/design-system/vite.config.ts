@@ -5,13 +5,15 @@ import fg from 'fast-glob';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
-import * as packageJson from './package.json';
+import packageJson from './package.json' with { type: 'json' };
 
 // https://vitejs.dev/config/
 
 export default defineConfig(() => ({
   plugins: [
-    react() as unknown as Plugin,
+    react({
+      jsxRuntime: 'automatic', // Ensure automatic JSX runtime is used
+    }) as unknown as Plugin,
     dts({
       entryRoot: 'src',
       exclude: ['**/*.stories.*', '**/*.test.*'],
@@ -62,6 +64,8 @@ export default defineConfig(() => ({
         ...Object.keys(packageJson.dependencies),
         ...Object.keys(packageJson.peerDependencies),
         ...Object.keys(packageJson.devDependencies),
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
         '@intlayer/config/client',
         'path',
         'url',

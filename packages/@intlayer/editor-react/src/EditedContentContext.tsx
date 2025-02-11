@@ -239,12 +239,12 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <EditedContentStateContext.Provider
+    <EditedContentStateContext
       value={{
         editedContent,
       }}
     >
-      <EditedContentActionsContext.Provider
+      <EditedContentActionsContext
         value={{
           setEditedContentState,
           setEditedContent,
@@ -258,8 +258,8 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         }}
       >
         {children}
-      </EditedContentActionsContext.Provider>
-    </EditedContentStateContext.Provider>
+      </EditedContentActionsContext>
+    </EditedContentStateContext>
   );
 };
 

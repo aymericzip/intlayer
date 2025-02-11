@@ -37,7 +37,7 @@ export const VersionSwitcherProvider: FC<
   >('version-selector', defaultSelectedVersion);
 
   return (
-    <VersionSwitcherContext.Provider
+    <VersionSwitcherContext
       value={{
         availableVersions,
         selectedVersion,
@@ -45,6 +45,6 @@ export const VersionSwitcherProvider: FC<
       }}
     >
       {children}
-    </VersionSwitcherContext.Provider>
+    </VersionSwitcherContext>
   );
 };

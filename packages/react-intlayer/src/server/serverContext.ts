@@ -5,9 +5,9 @@
  * @example
  * const IntlayerServer = createServerContext<string | null>(null);
  *
- * <IntlayerServer.Provider value={locale}>
+ * <IntlayerServer value={locale}>
  *      {children}
- * </IntlayerServer.Provider>
+ * </IntlayerServer>
  */
 import react from 'react';
 

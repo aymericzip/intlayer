@@ -38,12 +38,14 @@ export type InputProps = DetailedHTMLProps<
   validationStyleEnabled?: boolean;
 } & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
 
-export const Input: FC<InputProps> = (
-  { validationStyleEnabled = false, variant, size, className, ...props },
-  ref
-) => (
+export const Input: FC<InputProps> = ({
+  validationStyleEnabled = false,
+  variant,
+  size,
+  className,
+  ...props
+}) => (
   <input
-    ref={ref}
     className={inputVariants({
       variant,
       size,

@@ -57,13 +57,13 @@ export const LandingPage: FC = () => (
     <div className="flex flex-col gap-10">
       <LandingSection />
       <DynamicWhyToChoseIntlayerSection />
-      <DynamicAvailableTechnoSection />
+      {/* <DynamicAvailableTechnoSection /> */}
       <DynamicIDESection />
       <DynamicLanguageSection />
       <DynamicDemoSection />
       <CommonQuestionsSection />
     </div>
 
-    <DynamicChatBotModal />
+    {/* <DynamicChatBotModal /> */}
   </>
 );

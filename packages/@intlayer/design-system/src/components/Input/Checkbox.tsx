@@ -67,7 +67,6 @@ export const Checkbox: FC<CheckboxProps> = ({
   return (
     <>
       <input
-        ref={ref}
         type="checkbox"
         className={checkboxVariants({
           variant,
