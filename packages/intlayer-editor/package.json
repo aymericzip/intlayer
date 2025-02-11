@@ -70,9 +70,9 @@
     "dev:server": "node --import=tsx --watch ./server/src/index.ts",
     "lint": "eslint .",
     "preview": "vite preview --config ./client/vite.config.ts",
-    "reset": "pnpm reset:client & pnpm reset:server",
-    "reset:client": "pnpm clean:client & pnpm build:client",
-    "reset:server": "pnpm clean:server & pnpm build:server",
+    "reset": "pnpm reset:client && pnpm reset:server",
+    "reset:client": "pnpm clean:client && pnpm build:client",
+    "reset:server": "pnpm clean:server && pnpm build:server",
     "start": "node server/dist/index.mjs"
   },
   "dependencies": {
