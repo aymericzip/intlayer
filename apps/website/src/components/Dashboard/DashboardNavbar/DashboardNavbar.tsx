@@ -3,14 +3,22 @@
 import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
-import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
 import { Container, Logo, TabSelector, useAuth } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
+import dynamic from 'next/dynamic';
 import { useLocale } from 'next-intlayer';
 import { type FC, type ReactNode } from 'react';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 import { type ExternalLinks, PagesRoutes } from '@/Routes';
+
+const SwitchThemeSwitcher = dynamic(
+  () =>
+    import('@components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
+      (mod) => mod.SwitchThemeSwitcher
+    ),
+  { ssr: false }
+);
 
 export type NavbarProps = {
   links: {

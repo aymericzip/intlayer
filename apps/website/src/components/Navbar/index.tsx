@@ -4,7 +4,6 @@ import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
 import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
-import { SwitchThemeSwitcher } from '@components/ThemeSwitcherDropDown/SwitchThemeSwitcher';
 import {
   Navbar as UINavBar,
   Logo,
@@ -13,8 +12,17 @@ import {
   Avatar,
 } from '@intlayer/design-system';
 import { StarIcon } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
+
+const SwitchThemeSwitcher = dynamic(
+  () =>
+    import('@components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
+      (mod) => mod.SwitchThemeSwitcher
+    ),
+  { ssr: false }
+);
 
 const getCleanTabSelector = (path: string): string => {
   // Split the path into components
