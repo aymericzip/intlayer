@@ -7,12 +7,9 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     strictMode: 'strict',
   },
-  // editor: {
-  //   enabled: true,
-  //   backendURL: process.env.INTLAYER_BACKEND_URL,
-  //   clientId: process.env.INTLAYER_CLIENT_ID,
-  //   clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-  // },
+  editor: {
+    applicationURL: 'http://localhost:3000',
+  },
 };
 
 export default config;
