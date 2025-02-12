@@ -11,7 +11,7 @@ export enum PagesRoutes {
   Dashboard_Organization = '/dashboard/organization',
   Dashboard_Profile = '/dashboard/profile',
 
-  Doc = '/doc',
+  Doc = '/doc/get-started',
   Doc_Search = '/doc/search',
   Doc_Chat = '/doc/chat',
   Doc_HowWorksIntlayer = '/doc/concept/how-works-intlayer',
@@ -62,7 +62,7 @@ export enum PagesRoutes {
   'Doc_Packages_vite-intlayer' = '/doc/packages/vite-intlayer',
   'Doc_Packages_react-scripts-intlayer' = '/doc/packages/react-scripts-intlayer',
 
-  Blog = '/blog',
+  Blog = '/blog/search/',
   Blog_Search = '/blog/search',
   Blog_SEO_and_i18n = '/blog/SEO-and-i18n',
   'Blog_What_is_i18n' = '/blog/what-is-internationalization',
