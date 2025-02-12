@@ -16,7 +16,7 @@ import {
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, WandSparkles, X } from 'lucide-react';
-import { type FC } from 'react';
+import { useState, type FC } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
@@ -31,6 +31,7 @@ import {
 } from '../../ContentEditor/ContentEditorTextArea';
 import { Label } from '../../Label';
 import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
+import { MarkdownRenderer } from '../../MarkDownRender';
 import {
   type SwitchSelectorChoices,
   type SwitchSelectorProps,
@@ -164,6 +165,7 @@ export type TextEditorProps = {
   dictionary: Dictionary;
   keyPath: KeyPath[];
   section: ContentNode;
+  isDarkMode?: boolean;
 };
 
 const TranslationTextEditor: FC<TextEditorProps> = ({
@@ -468,21 +470,54 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   );
 };
 
+enum MarkdownViewMode {
+  Edit,
+  Preview,
+}
+
 const MarkdownTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  isDarkMode,
 }) => {
+  const [mode, setMode] = useState(MarkdownViewMode.Edit);
+  const toggleContent = [
+    {
+      content: 'Edit',
+      value: MarkdownViewMode.Edit,
+    },
+    {
+      content: 'Preview',
+      value: MarkdownViewMode.Preview,
+    },
+  ] as SwitchSelectorChoices<MarkdownViewMode>;
+
+  const content = (section as MarkdownContent)[NodeType.Markdown];
+
   return (
-    <div className="w-full p-2">
-      <ContentEditorTextArea
-        variant="default"
-        aria-label="Edit field"
-        keyPath={[...keyPath, { type: NodeType.Markdown }]}
-        dictionary={dictionary}
-      >
-        {(section as MarkdownContent)[NodeType.Markdown]}
-      </ContentEditorTextArea>
+    <div className="flex w-full flex-col justify-center gap-6 p-2">
+      <SwitchSelector
+        choices={toggleContent}
+        value={mode}
+        onChange={setMode}
+        color="text"
+        size="sm"
+        className="ml-auto"
+      />
+      {mode === MarkdownViewMode.Edit && (
+        <ContentEditorTextArea
+          variant="default"
+          aria-label="Edit field"
+          keyPath={[...keyPath, { type: NodeType.Markdown }]}
+          dictionary={dictionary}
+        >
+          {content}
+        </ContentEditorTextArea>
+      )}
+      {mode === MarkdownViewMode.Preview && (
+        <MarkdownRenderer isDarkMode={isDarkMode}>{content}</MarkdownRenderer>
+      )}
     </div>
   );
 };
@@ -547,6 +582,7 @@ export const TextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  isDarkMode,
 }) => {
   const { tsxNotEditable } = useDictionary(navigationViewContent);
   const nodeType = getNodeType(section);
@@ -612,6 +648,7 @@ export const TextEditor: FC<TextEditorProps> = ({
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
+          isDarkMode={isDarkMode}
         />
       );
     }

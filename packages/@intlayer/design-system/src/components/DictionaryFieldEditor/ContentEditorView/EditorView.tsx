@@ -10,11 +10,13 @@ import { TextEditor } from './TextEditor';
 type EditorViewProps = {
   dictionaryKey: string;
   dictionary: Dictionary;
+  isDarkMode?: boolean;
 };
 
 export const EditorView: FC<EditorViewProps> = ({
   dictionaryKey,
   dictionary,
+  isDarkMode,
 }) => {
   const { focusedContent } = useFocusDictionary();
   const keyPath = focusedContent?.keyPath ?? [];
@@ -46,6 +48,7 @@ export const EditorView: FC<EditorViewProps> = ({
             keyPath={keyPath}
             section={section}
             dictionary={dictionary}
+            isDarkMode={isDarkMode}
           />
         </Container>
       )}

@@ -11,9 +11,13 @@ import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
 type NodeEditorProps = {
   dictionary: Dictionary;
+  isDarkMode?: boolean;
 };
 
-export const ContentEditor: FC<NodeEditorProps> = ({ dictionary }) => {
+export const ContentEditor: FC<NodeEditorProps> = ({
+  dictionary,
+  isDarkMode,
+}) => {
   const { content: dictionaryContent, key } = dictionary;
   const { editedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
@@ -51,7 +55,11 @@ export const ContentEditor: FC<NodeEditorProps> = ({ dictionary }) => {
         </Container>
         <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
           {(focusedKeyPath?.length ?? 0) > 0 && (
-            <EditorView dictionary={dictionary} dictionaryKey={key} />
+            <EditorView
+              dictionary={dictionary}
+              dictionaryKey={key}
+              isDarkMode={isDarkMode}
+            />
           )}
         </div>
       </div>
