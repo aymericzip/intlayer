@@ -333,7 +333,11 @@ export const getDocDataByPath = (
   for (const path of docPath) {
     const sections = currentSection?.[path as keyof typeof currentSection];
 
-    if (sections && path === docPath[docPath.length - 1]) {
+    if (
+      sections &&
+      path === docPath[docPath.length - 1] &&
+      docPath[docPath.length - 1]
+    ) {
       return sections.default;
     } else if (typeof sections?.subSections !== 'undefined') {
       currentSection = sections.subSections;
