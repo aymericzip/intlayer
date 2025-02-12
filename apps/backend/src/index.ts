@@ -50,7 +50,7 @@ import { doubleCsrfProtection } from '@utils/CSRF';
 import { connectDB } from '@utils/mongoDB/connectDB';
 
 // Logger
-import { logger } from '@logger';
+import { logger } from './logger/index';
 
 const app: Express = express();
 
