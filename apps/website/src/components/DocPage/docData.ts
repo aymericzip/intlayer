@@ -329,7 +329,7 @@ export const getDocDataByPath = (
 ): DocData | undefined => {
   let currentSection = getDocData(locale);
 
-  if (docPath.length === 0) {
+  if (docPath.length === 0 || docPath[0] === '%5B%5B...doc%5D%5D') {
     return currentSection['get-started'].default;
   }
 

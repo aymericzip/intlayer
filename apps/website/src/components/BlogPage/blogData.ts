@@ -153,7 +153,7 @@ export const getBlogDataByPath = (
 ): BlogData | undefined => {
   const blogData = getBlogData(locale);
 
-  if (docPath.length === 0) {
+  if (docPath.length === 0 || docPath[0] === '%5B%5B...blog%5D%5D') {
     return blogData['blog'].default;
   }
 
