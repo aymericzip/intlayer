@@ -23,4 +23,8 @@ export const useMarkdownContext = () => useContext(MarkdownContext);
 export const MarkdownProvider: FC<MarkdownProviderProps> = ({
   children,
   renderMarkdown,
-}) => <MarkdownContext value={{ renderMarkdown }}>{children}</MarkdownContext>;
+}) => (
+  <MarkdownContext.Provider value={{ renderMarkdown }}>
+    {children}
+  </MarkdownContext.Provider>
+);

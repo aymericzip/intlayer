@@ -30,4 +30,8 @@ export type IntlayerServerProviderProps = PropsWithChildren & {
 export const IntlayerServerProvider: FC<IntlayerServerProviderProps> = ({
   children,
   locale = defaultLocale,
-}) => <IntlayerServerContext value={locale}>{children}</IntlayerServerContext>;
+}) => (
+  <IntlayerServerContext.Provider value={locale}>
+    {children}
+  </IntlayerServerContext.Provider>
+);

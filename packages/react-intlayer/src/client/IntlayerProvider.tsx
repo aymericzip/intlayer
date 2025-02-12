@@ -83,10 +83,10 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   );
 
   return (
-    <IntlayerClientContext value={value}>
+    <IntlayerClientContext.Provider value={value}>
       <PoweredByMeta />
       {children}
-    </IntlayerClientContext>
+    </IntlayerClientContext.Provider>
   );
 };
 

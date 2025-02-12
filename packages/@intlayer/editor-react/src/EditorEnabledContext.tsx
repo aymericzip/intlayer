@@ -29,9 +29,9 @@ export const EditorEnabledProvider: FC<PropsWithChildren> = ({ children }) => {
   });
 
   return (
-    <EditorEnabledContext value={{ enabled: isEnabled }}>
+    <EditorEnabledContext.Provider value={{ enabled: isEnabled }}>
       {children}
-    </EditorEnabledContext>
+    </EditorEnabledContext.Provider>
   );
 };
 

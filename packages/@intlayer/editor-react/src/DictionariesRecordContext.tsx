@@ -59,11 +59,11 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
   );
 
   return (
-    <DictionariesRecordStatesContext value={stateValue}>
-      <DictionariesRecordActionsContext value={actionValue}>
+    <DictionariesRecordStatesContext.Provider value={stateValue}>
+      <DictionariesRecordActionsContext.Provider value={actionValue}>
         {children}
-      </DictionariesRecordActionsContext>
-    </DictionariesRecordStatesContext>
+      </DictionariesRecordActionsContext.Provider>
+    </DictionariesRecordStatesContext.Provider>
   );
 };
 

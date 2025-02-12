@@ -42,7 +42,11 @@ export const CommunicatorProvider: FC<CommunicatorProviderProps> = ({
     [postMessage, allowedOrigins, senderIdRef.current]
   );
 
-  return <CommunicatorContext value={value}>{children}</CommunicatorContext>;
+  return (
+    <CommunicatorContext.Provider value={value}>
+      {children}
+    </CommunicatorContext.Provider>
+  );
 };
 
 export const useCommunicator = () => useContext(CommunicatorContext);

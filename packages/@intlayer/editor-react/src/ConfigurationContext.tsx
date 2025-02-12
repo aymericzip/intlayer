@@ -26,9 +26,9 @@ export type ConfigurationProviderProps = {
 export const ConfigurationProvider: FC<
   PropsWithChildren<ConfigurationProviderProps>
 > = ({ children, configuration }) => (
-  <ConfigurationStatesContext value={configuration}>
+  <ConfigurationStatesContext.Provider value={configuration}>
     {children}
-  </ConfigurationStatesContext>
+  </ConfigurationStatesContext.Provider>
 );
 
 export const useConfiguration = () => {
