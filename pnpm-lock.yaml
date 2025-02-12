@@ -248,9 +248,6 @@ importers:
       '@intlayer/api':
         specifier: workspace:*
         version: link:../../packages/@intlayer/api
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../backend
       '@intlayer/blog':
         specifier: workspace:*
         version: link:../../blog
@@ -336,6 +333,9 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
+      '@intlayer/backend':
+        specifier: workspace:*
+        version: link:../backend
       '@types/next-pwa':
         specifier: ^5.6.9
         version: 5.6.9(@babel/core@7.26.8)(@types/babel__core@7.20.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

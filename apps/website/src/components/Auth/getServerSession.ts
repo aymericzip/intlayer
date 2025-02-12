@@ -1,11 +1,10 @@
 import { getIntlayerAPI } from '@intlayer/api';
-import { Cookies } from '@intlayer/backend';
 import type { Session } from '@intlayer/design-system';
 import { cookies } from 'next/headers';
 
 export const getServerSession = async () => {
   const cookiesStore = await cookies();
-  const session_token = cookiesStore.get(Cookies.JWT_AUTH);
+  const session_token = cookiesStore.get('intlayer_auth');
 
   if (!session_token?.value) {
     return null;

@@ -53,7 +53,6 @@
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
-    "@intlayer/backend": "workspace:*",
     "@intlayer/blog": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -84,6 +83,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@intlayer/backend": "workspace:*",
     "@types/next-pwa": "^5.6.9",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

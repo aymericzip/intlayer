@@ -1,6 +1,6 @@
 'use client';
 
-import { type OAuth2Access } from '@intlayer/backend';
+import type { OAuth2Access } from '@intlayer/backend';
 import {
   useForm,
   Form,
