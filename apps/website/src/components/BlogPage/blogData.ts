@@ -153,10 +153,6 @@ export const getBlogDataByPath = (
 ): BlogData | undefined => {
   const blogData = getBlogData(locale);
 
-  if (docPath.length === 0 || docPath[0] === '%5B%5B...blog%5D%5D') {
-    return blogData['blog'].default;
-  }
-
   let currentSection = blogData['blog'].subSections;
 
   // Traverse the nested structure based on the docPath array
@@ -168,9 +164,11 @@ export const getBlogDataByPath = (
     } else if (typeof sections?.subSections !== 'undefined') {
       currentSection = sections.subSections;
     } else {
-      return undefined; // Path is invalid if any segment does not exist
+      break; // Exit loop instead of returning undefined
     }
   }
+
+  return blogData['blog'].default;
 };
 
 export const getBlogSubSection = (

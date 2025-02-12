@@ -329,10 +329,6 @@ export const getDocDataByPath = (
 ): DocData | undefined => {
   let currentSection = getDocData(locale);
 
-  if (docPath.length === 0 || docPath[0] === '%5B%5B...doc%5D%5D') {
-    return currentSection['get-started'].default;
-  }
-
   // Traverse the nested structure based on the docPath array
   for (const path of docPath) {
     const sections = currentSection?.[path as keyof typeof currentSection];
@@ -342,9 +338,11 @@ export const getDocDataByPath = (
     } else if (typeof sections?.subSections !== 'undefined') {
       currentSection = sections.subSections;
     } else {
-      return undefined; // Path is invalid if any segment does not exist
+      break; // Exit loop instead of returning undefined
     }
   }
+
+  return currentSection['get-started'].default;
 };
 
 export const getDocSubSection = (
