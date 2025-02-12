@@ -205,4 +205,4 @@ If you encounter any issues with the visual editor, check the following:
   - Required fields:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
 
-- The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows your application url as `frame-ancestors`. Check the editor console for any error.
+- The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS url as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.

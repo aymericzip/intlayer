@@ -68,7 +68,7 @@ const secureHeaders = createSecureHeaders({
         '*.codesandbox.io',
         'codesandbox.io',
         '*.youtube.com',
-        '*.intlayer.org',
+        'intlayer.org',
         'localhost:*',
       ],
       manifestSrc: ["'self'"],
