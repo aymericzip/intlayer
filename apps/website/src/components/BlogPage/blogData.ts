@@ -147,6 +147,24 @@ export const getBlogData = (
   } satisfies Record<string, CategorizedBlogData>;
 };
 
+export const checkIfBlogPathExists = (docPath: string[] = []): boolean => {
+  const docData = getBlogData();
+
+  let currentSection: any = docData;
+
+  for (const path of docPath) {
+    if (currentSection?.[path]) {
+      currentSection = currentSection[path];
+    } else if (currentSection?.subSections?.[path]) {
+      currentSection = currentSection.subSections[path];
+    } else {
+      return false;
+    }
+  }
+
+  return typeof currentSection.default !== 'undefined';
+};
+
 export const getBlogDataByPath = (
   docPath: string[] = [],
   locale: Locales = Locales.ENGLISH
@@ -159,11 +177,7 @@ export const getBlogDataByPath = (
   for (const path of docPath) {
     const sections = currentSection?.[path as keyof typeof currentSection];
 
-    if (
-      sections &&
-      path === docPath[docPath.length - 1] &&
-      docPath[docPath.length - 1]
-    ) {
+    if (sections && path === docPath[docPath.length - 1]) {
       return sections.default;
     } else if (typeof sections?.subSections !== 'undefined') {
       currentSection = sections.subSections;

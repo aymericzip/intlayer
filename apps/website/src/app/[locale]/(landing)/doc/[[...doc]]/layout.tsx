@@ -1,17 +1,18 @@
 import {
   getDocPathsArray,
   getDocDataByPath,
+  checkIfDocPathExists,
 } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
+import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 
 export type DocProps = {
   doc: string[];
 };
 
-export type DocPageProps = LocalParams<DocProps>;
+export type DocPageProps = LocalPromiseParams<DocProps>;
 
 export const generateStaticParams = () =>
   getDocPathsArray().map((path) => ({
@@ -22,7 +23,10 @@ export const generateMetadata = async ({
   params,
 }: DocPageProps): Promise<Metadata> => {
   const { locale, doc } = await params;
-  const docData = getDocDataByPath(doc, locale);
+  const isDocPathExists = checkIfDocPathExists(doc);
+  const docPath = isDocPathExists ? doc : ['get-started'];
+
+  const docData = getDocDataByPath(docPath, locale);
 
   if (!docData) {
     throw new Error(`Doc not found ${JSON.stringify(doc)}`);
@@ -55,8 +59,12 @@ const DocLayout: NextLayoutIntlayer<DocProps> = async ({
   params,
 }) => {
   const { locale, doc } = await params;
+
+  const isDocPathExists = checkIfDocPathExists(doc);
+  const docPath = isDocPathExists ? doc : ['get-started'];
+
   return (
-    <DocPageLayout activeSections={doc} locale={locale}>
+    <DocPageLayout activeSections={docPath} locale={locale}>
       {children}
     </DocPageLayout>
   );

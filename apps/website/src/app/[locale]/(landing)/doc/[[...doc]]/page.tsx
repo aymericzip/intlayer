@@ -1,4 +1,5 @@
 import {
+  checkIfDocPathExists,
   getDocDataByPath,
   getPreviousNextDocData,
 } from '@components/DocPage/docData';
@@ -11,7 +12,7 @@ import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
 import { ChevronLeft, ChevronRight, Edit } from 'lucide-react';
 import { redirect } from 'next/navigation';
-import { type LocalParams } from 'next-intlayer';
+import { type LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import type { DocProps } from './layout';
@@ -91,9 +92,11 @@ const DocPageNavigation: FC<DocPageNavigationProps> = ({
   );
 };
 
-const DocumentationPage = async ({ params }: LocalParams<DocProps>) => {
+const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
   const { locale, doc } = await params;
-  const docData = getDocDataByPath(doc, locale);
+  const isDocPathExists = checkIfDocPathExists(doc);
+  const docPath = isDocPathExists ? doc : ['get-started'];
+  const docData = getDocDataByPath(docPath, locale);
 
   if (!docData) {
     return redirect(PagesRoutes.Doc);

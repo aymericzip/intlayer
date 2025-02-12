@@ -1,6 +1,7 @@
 import {
   getBlogPathsArray,
   getBlogDataByPath,
+  checkIfBlogPathExists,
 } from '@components/BlogPage/blogData';
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
@@ -22,10 +23,13 @@ export const generateMetadata = async ({
   params,
 }: BlogPageProps): Promise<Metadata> => {
   const { locale, blog } = await params;
-  const blogData = getBlogDataByPath(blog, locale);
+  const isBlogPathExists = checkIfBlogPathExists(blog);
+  const blogPath = isBlogPathExists ? blog : [];
+
+  const blogData = getBlogDataByPath(blogPath, locale);
 
   if (!blogData) {
-    throw new Error(`Blog not found ${JSON.stringify(blog)}`);
+    throw new Error(`Blog not found ${JSON.stringify(blogPath)}`);
   }
 
   return {
@@ -55,8 +59,11 @@ const BlogLayout: NextLayoutIntlayer<BlogProps> = async ({
   params,
 }) => {
   const { locale, blog } = await params;
+  const isBlogPathExists = checkIfBlogPathExists(blog);
+  const blogPath = isBlogPathExists ? blog : [];
+
   return (
-    <BlogPageLayout activeSections={blog} locale={locale}>
+    <BlogPageLayout activeSections={blogPath} locale={locale}>
       {children}
     </BlogPageLayout>
   );
