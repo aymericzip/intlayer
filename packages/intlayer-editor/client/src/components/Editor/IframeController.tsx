@@ -1,7 +1,7 @@
 'use client';
 
 import { getConfiguration } from '@intlayer/config/client';
-import { Loader } from '@intlayer/design-system';
+import { Container, Loader } from '@intlayer/design-system';
 import {
   useConfiguration,
   useCrossURLPathState,
@@ -11,6 +11,7 @@ import {
 import { type FC, type RefObject, useEffect, useState } from 'react';
 import { useEditedContentPersistence } from '../../hooks/useEditedContentPersistence';
 import { cn } from '../../utils/cn';
+import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement | null>;
@@ -45,6 +46,16 @@ export const IframeController: FC<{
      */
     window.history.replaceState({}, '', iframePath);
   }, [iframePath]);
+
+  if (!editor.applicationURL) {
+    return (
+      <div className="flex size-full items-center justify-center">
+        <Container className="flex max-w-xl flex-col gap-4 p-6">
+          <NoApplicationURLView />
+        </Container>
+      </div>
+    );
+  }
 
   return (
     <div className="size-full overflow-hidden rounded-lg">

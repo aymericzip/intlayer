@@ -14,7 +14,9 @@ export const EditorProvider: FC<
   }>
 > = ({ children, iframeRef }) => {
   const intlayerConfig = useIntlayerConfig();
-  const applicationURL = intlayerConfig?.editor.applicationURL ?? '*';
+  const applicationURL = intlayerConfig?.editor.applicationURL
+    ? intlayerConfig?.editor.applicationURL
+    : '*';
   const editorURL = intlayerConfig?.editor.editorURL ?? '*';
 
   if (!intlayerConfig) return <Loader />;
