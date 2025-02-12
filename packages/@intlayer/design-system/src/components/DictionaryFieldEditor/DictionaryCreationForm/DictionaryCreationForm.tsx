@@ -15,7 +15,13 @@ import {
   type DictionaryFormData,
 } from './useDictionaryFormSchema';
 
-export const DictionaryCreationForm: FC = () => {
+type DictionaryCreationFormProps = {
+  onDictionaryCreated?: () => void;
+};
+
+export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
+  onDictionaryCreated,
+}) => {
   const { session } = useAuth();
   const { project } = session ?? {};
   const { addDictionary } = useAddDictionary();
@@ -27,7 +33,7 @@ export const DictionaryCreationForm: FC = () => {
   );
 
   const onSubmitSuccess = async (data: DictionaryFormData) => {
-    await addDictionary(data);
+    await addDictionary(data).then(() => onDictionaryCreated?.());
   };
 
   return (

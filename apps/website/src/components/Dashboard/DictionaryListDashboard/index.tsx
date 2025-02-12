@@ -83,7 +83,9 @@ export const DictionaryListDashboardContent: FC = () => {
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
       >
-        <DictionaryCreationForm />
+        <DictionaryCreationForm
+          onDictionaryCreated={() => setIsCreationModalOpen(false)}
+        />
       </Modal>
     </Container>
   );
