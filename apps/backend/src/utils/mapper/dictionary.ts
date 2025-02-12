@@ -20,14 +20,14 @@ export const mapDictionaryToAPI = (
   let returnedVersion = version;
 
   if (!returnedVersion) {
-    const versionList = dictionaryObject.availableVersions ?? [];
+    const versionList = [...(dictionaryObject.content.keys() ?? [])];
     const lastVersion = versionList[versionList.length - 1];
     returnedVersion = lastVersion;
   }
 
-  const content = dictionaryObject.content[
-    returnedVersion as keyof typeof dictionaryObject.content
-  ].content as DictionaryAPI['content'];
+  const content =
+    (dictionaryObject.content.get(returnedVersion)
+      ?.content as DictionaryAPI['content']) ?? null;
 
   return {
     ...dictionaryObject,

@@ -1,4 +1,7 @@
-import { type Dictionary as LocalDictionary } from '@intlayer/core';
+import type {
+  ContentNode,
+  Dictionary as LocalDictionary,
+} from '@intlayer/core';
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as dictionaryService from '@services/dictionary.service';
@@ -178,7 +181,7 @@ export const getDictionaryByKey = async (
   }
 };
 
-export type AddDictionaryBody = DictionaryCreationData;
+export type AddDictionaryBody = { dictionary: DictionaryCreationData };
 export type AddDictionaryResult = ResponseData<DictionaryAPI>;
 
 /**
@@ -190,7 +193,7 @@ export const addDictionary = async (
   _next: NextFunction
 ): Promise<void> => {
   const { project, user, dictionaryRights } = res.locals;
-  const dictionaryData = req.body;
+  const dictionaryData = req.body.dictionary;
 
   if (!dictionaryData) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_DATA_NOT_FOUND');
@@ -221,11 +224,9 @@ export const addDictionary = async (
     key: dictionaryData.key,
     title: dictionaryData.title,
     description: dictionaryData.description,
-    content: {
-      v1: {
-        content: dictionaryData.content,
-      },
-    },
+    content: new Map([
+      ['v1', { content: dictionaryData.content ?? ({} as ContentNode) }],
+    ]),
     creatorId: user._id,
     filePath: {
       [String(project._id)]: dictionaryData.filePath ?? '',
@@ -354,11 +355,9 @@ export const pushDictionaries = async (
         description: dictionaryDataEl.description,
         projectIds: [String(project._id)],
         creatorId: user._id,
-        content: {
-          v1: {
-            content: dictionaryDataEl.content,
-          },
-        },
+        content: new Map([
+          ['v1', { content: dictionaryDataEl.content ?? ({} as ContentNode) }],
+        ]),
         filePath: {
           [String(project._id)]: dictionaryDataEl.filePath ?? '',
         },

@@ -23,7 +23,7 @@ export type VersionedContentEl = {
 };
 
 export type ContentVersion = string;
-export type VersionedContent = Record<string, VersionedContentEl>;
+export type VersionedContent = Map<string, VersionedContentEl>;
 
 export type DictionaryData = {
   key: string;

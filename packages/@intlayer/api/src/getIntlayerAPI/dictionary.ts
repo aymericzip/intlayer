@@ -101,7 +101,7 @@ export const getDictionaryAPI = (
       otherOptions,
       {
         method: 'POST',
-        body: dictionary,
+        body: { dictionary },
       }
     );
 

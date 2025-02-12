@@ -60,7 +60,11 @@ export const findDictionaries = async (
       // }
     ]);
 
-    return dictionaries;
+    const formattedResults = dictionaries.map(
+      (result) => new DictionaryModel(result)
+    );
+
+    return formattedResults;
   } catch (error) {
     console.error('Error fetching dictionaries:', error);
     throw error;
@@ -80,7 +84,7 @@ export const findDictionaries = async (
 export const getDictionaryById = async (
   dictionaryId: string | ObjectId
 ): Promise<DictionaryDocument> => {
-  const dictionary = await DictionaryModel.aggregate<DictionaryDocument>([
+  const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
     // Stage 1: Match the document by ID
     { $match: { _id: dictionaryId } },
 
@@ -98,11 +102,11 @@ export const getDictionaryById = async (
     },
   ]);
 
-  if (!dictionary.length) {
+  if (!dictionaries.length) {
     throw new GenericError('DICTIONARY_NOT_FOUND', { dictionaryId });
   }
 
-  return dictionary[0];
+  return new DictionaryModel(dictionaries[0]);
 };
 
 /**
@@ -148,7 +152,11 @@ export const getDictionariesByKeys = async (
     });
   }
 
-  return dictionaries;
+  const formattedResults = dictionaries.map(
+    (result) => new DictionaryModel(result)
+  );
+
+  return formattedResults;
 };
 
 export const getDictionariesKeys = async (
@@ -188,7 +196,11 @@ export const getDictionariesByTags = async (
     },
   ]);
 
-  return dictionaries;
+  const formattedResults = dictionaries.map(
+    (result) => new DictionaryModel(result)
+  );
+
+  return formattedResults;
 };
 
 /**
