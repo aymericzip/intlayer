@@ -10,6 +10,7 @@
     "lint:fix": "eslint . --cache --fix",
     "start": "react-scripts-intlayer start",
     "start:customCracoConfig": "craco start",
+    "start:editor": "npx intlayer-editor start",
     "start:original": "react-scripts start",
     "test": "react-scripts test --watchAll=false",
     "transpile": "intlayer build"
@@ -54,6 +55,7 @@
   },
   "devDependencies": {
     "eslint": "^8.57.1",
+    "intlayer-editor": "workspace:*",
     "prettier": "^3.5.0",
     "tailwindcss": "^3.4.17"
   }

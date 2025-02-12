@@ -571,9 +571,6 @@ importers:
       intlayer:
         specifier: workspace:*
         version: link:../../packages/intlayer
-      intlayer-editor:
-        specifier: workspace:*
-        version: link:../../packages/intlayer-editor
       next:
         specifier: 14.2.23
         version: 14.2.23(@babel/core@7.26.8)(react-dom@18.3.1(react@19.0.0))(react@19.0.0)
@@ -605,6 +602,9 @@ importers:
       eslint-config-next:
         specifier: 15.0.3
         version: 15.0.3(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
+      intlayer-editor:
+        specifier: workspace:*
+        version: link:../../packages/intlayer-editor
       postcss:
         specifier: ^8.5.1
         version: 8.5.2
@@ -651,6 +651,9 @@ importers:
       eslint-config-next:
         specifier: 15.1.4
         version: 15.1.4(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
+      intlayer-editor:
+        specifier: workspace:*
+        version: link:../../packages/intlayer-editor
       postcss:
         specifier: ^8.5.1
         version: 8.5.2
@@ -721,6 +724,9 @@ importers:
       eslint:
         specifier: ^8.57.1
         version: 8.57.1
+      intlayer-editor:
+        specifier: workspace:*
+        version: link:../../packages/intlayer-editor
       prettier:
         specifier: ^3.5.0
         version: 3.5.0
@@ -733,9 +739,6 @@ importers:
       intlayer:
         specifier: workspace:*
         version: link:../../packages/intlayer
-      intlayer-editor:
-        specifier: workspace:*
-        version: link:../../packages/intlayer-editor
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -779,6 +782,9 @@ importers:
       eslint-plugin-react-refresh:
         specifier: ^0.4.18
         version: 0.4.19(eslint@9.20.0(jiti@2.4.2))
+      intlayer-editor:
+        specifier: workspace:*
+        version: link:../../packages/intlayer-editor
       postcss:
         specifier: ^8.5.1
         version: 8.5.2
