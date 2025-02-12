@@ -1,0 +1,72 @@
+import { t, type Dictionary } from 'intlayer';
+
+const noApplicationURLViewContent = {
+  key: 'no-application-url-view',
+  content: {
+    title: t({
+      en: 'Your project configuration do not includes application URL',
+      'en-GB': 'Your project configuration do not includes application URL',
+      fr: 'Votre configuration de projet ne comprend pas l’URL de l’application',
+      es: 'Su configuración de proyecto no incluye la URL de la aplicación',
+      de: 'Ihre Projektkonfiguration enthält keine Anwendungs-URL',
+      ja: 'あなたのプロジェクト構成にはアプリケーション URL が含まれていません',
+      ko: '당신의 프로젝트 구성에 앱 URL이 포함되어 있지 않습니다.',
+      zh: '您的项目配置未包含应用程序 URL',
+      pt: 'Sua configuração do projeto não inclui a URL do aplicativo',
+      ru: 'Ваша конфигурация проекта не включает URL-адрес приложения',
+      ar: 'تم إنشاء مشروعك بدون تضمين عنوان URL التطبيق',
+      hi: 'आपके प्रोजेक्ट कॉन्फ़िगरेशन में ऐप का URL शामिल नहीं है',
+      it: 'La configurazione del progetto non include l’URL dell’applicazione',
+    }),
+    description: t({
+      en: 'To use the CMS, you need to add the URL of the application to access to the configuration file.',
+      'en-GB':
+        'To use the CMS, you need to add the URL of the application to access to the configuration file.',
+      fr: 'Pour utiliser le CMS, vous devez ajouter l’URL de l’application pour accéder au fichier de configuration.',
+      es: 'Para usar el CMS, debe agregar la URL de la aplicación para acceder al archivo de configuración.',
+      de: 'Um den CMS zu verwenden, müssen Sie die URL der Anwendung hinzufügen, um auf die Konfigurationsdatei zuzugreifen.',
+      ja: 'CMS を使用するには、アプリケーションの URL を設定ファイルに追加する必要があります。',
+      ko: 'CMS를 사용하려면 설정 파일에 앱 URL을 추가해야 합니다.',
+      zh: '要使用 CMS，您需要将应用程序 URL 添加到访问配置文件。',
+      pt: 'Para usar o CMS, você precisa adicionar a URL do aplicativo para acessar o arquivo de configuração.',
+      ru: 'Чтобы использовать CMS, вам необходимо добавить URL-адрес приложения для доступа к файлу конфигурации.',
+      ar: 'لاستخدام محرك المحتوى، يجب عليك إضافة عنوان URL التطبيق للوصول إلى ملف التكوين.',
+      hi: 'कैम्स का उपयोग करने के लिए, आपको कॉन्फ़िगरेशन फ़ाइल तक ऐप का URL को जोड़ना होगा।',
+      it: 'Per utilizzare il CMS, è necessario aggiungere l’URL dell’applicazione per accedere al file di configurazione.',
+    }),
+    documentationLink: {
+      label: t({
+        en: 'Click to go to the CMS documentation',
+        'en-GB': 'Click to go to the CMS documentation',
+        fr: 'Cliquez ici pour accéder à la documentation du CMS',
+        es: 'Haga clic aquí para acceder a la documentación del CMS',
+        de: 'Klicken Sie hier, um die CMS-Dokumentation zu besuchen',
+        ja: 'CMS ドキュメントに移動するには、ここをクリックしてください',
+        ko: 'CMS 문서로 이동하려면 여기를 클릭하십시오.',
+        zh: '点击此处访问 CMS 文档',
+        pt: 'Clique aqui para acessar a documentação do CMS',
+        ru: 'Нажмите, чтобы перейти к документации CMS',
+        ar: 'انقر هنا للوصول إلى وثائق محرك المحتوى',
+        hi: 'क्या आप कैम्स का डॉक्यूमेंट पर जाए रखना चाहते हैं?',
+        it: 'Fai clic qui per accedere alla documentazione del CMS',
+      }),
+      text: t({
+        en: 'See how to configure the CMS',
+        'en-GB': 'See how to configure the CMS',
+        fr: 'Voir comment configurer le CMS',
+        de: 'Siehe, wie man den CMS konfiguriert',
+        ar: 'انظر كيفية تكوين محرك المحتوى',
+        hi: 'कैम्स को काने के बारे में देखें',
+        it: 'Vedi come configurare il CMS',
+        ja: 'CMSの設定方法を見る',
+        ru: 'Смотрите, как настроить CMS',
+        es: 'Vea cómo configurar el CMS',
+        pt: 'Veja como configurar o CMS',
+        ko: 'CMS 설정 방법을 보십시오',
+        zh: '查看如何配置CMS',
+      }),
+    },
+  },
+} satisfies Dictionary;
+
+export default noApplicationURLViewContent;

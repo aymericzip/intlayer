@@ -60,6 +60,9 @@ const containerVariants = cva(
         secondary: 'border-secondary dark:border-secondary-dark',
         neutral: 'border-neutral dark:border-neutral-dark',
         text: 'border-text dark:border-text-dark',
+        error: 'border-error dark:border-error-dark',
+        warning: 'border-warning dark:border-warning-dark',
+        success: 'border-success dark:border-success-dark',
       },
       background: {
         none: 'bg-inherit',

@@ -1,6 +1,6 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
+import { Container, Loader } from '@intlayer/design-system';
 import {
   useConfiguration,
   useEditorEnabledState,
@@ -8,6 +8,7 @@ import {
 } from '@intlayer/editor-react';
 import { cn } from '@utils/cn';
 import { type FC, type RefObject, useState } from 'react';
+import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 import { useEditedContentPersistence } from './useEditedContentPersistence';
 
 export const IframeController: FC<{
@@ -27,6 +28,14 @@ export const IframeController: FC<{
     emit: true,
     receive: false,
   });
+
+  if (!editor.applicationURL) {
+    return (
+      <Container className="flex max-w-xl flex-col gap-4 p-6">
+        <NoApplicationURLView />
+      </Container>
+    );
+  }
 
   return (
     <div className="contents size-full flex-1">

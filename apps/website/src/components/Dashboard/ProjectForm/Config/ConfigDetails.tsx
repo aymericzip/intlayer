@@ -71,25 +71,33 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
         <div>
           <H5 className="mb-3">{editorSection.applicationURL.title}</H5>
           <Tag size="sm">
-            <Link
-              href={projectConfig.editor.applicationURL}
-              label={editorSection.applicationURL.label.value}
-              color="text"
-            >
-              {projectConfig.editor.applicationURL}
-            </Link>
+            {projectConfig.editor.applicationURL ? (
+              <Link
+                href={projectConfig.editor.applicationURL}
+                label={editorSection.applicationURL.label.value}
+                color="text"
+              >
+                {projectConfig.editor.applicationURL}
+              </Link>
+            ) : (
+              '-'
+            )}
           </Tag>
 
           <H5 className="mb-3">{editorSection.cmsURL.title}</H5>
-          <Tag size="sm">
-            <Link
-              href={projectConfig.editor.cmsURL}
-              label={editorSection.cmsURL.label.value}
-              color="text"
-            >
-              {projectConfig.editor.cmsURL}
-            </Link>
-          </Tag>
+          {projectConfig.editor.cmsURL ? (
+            <Tag size="sm">
+              <Link
+                href={projectConfig.editor.cmsURL}
+                label={editorSection.cmsURL.label.value}
+                color="text"
+              >
+                {projectConfig.editor.cmsURL}
+              </Link>
+            </Tag>
+          ) : (
+            '-'
+          )}
         </div>
       </div>
       <div className="bg-card dark:bg-card-dark flex flex-col gap-2 rounded-lg p-4 text-sm">
