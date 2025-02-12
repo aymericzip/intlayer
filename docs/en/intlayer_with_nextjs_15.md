@@ -1123,7 +1123,7 @@ Below is the implementation of a localized `Link` component in TypeScript:
 import { getLocalizedUrl } from "intlayer";
 import NextLink, { type LinkProps as NextLinkProps } from "next/link";
 import { useLocale } from "next-intlayer";
-import { forwardRef, PropsWithChildren, type ForwardedRef } from "react";
+import type { PropsWithChildren, FC } from "react";
 
 /**
  * Utility function to check whether a given URL is external.
@@ -1137,10 +1137,11 @@ export const checkIsExternalLink = (href?: string): boolean =>
  * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
  * This ensures that navigation stays within the same locale context.
  */
-export const Link = forwardRef<
-  HTMLAnchorElement,
-  PropsWithChildren<NextLinkProps>
->(({ href, children, ...props }, ref: ForwardedRef<HTMLAnchorElement>) => {
+export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
+  href,
+  children,
+  ...props
+}) => {
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
@@ -1149,36 +1150,32 @@ export const Link = forwardRef<
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
   return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
+    <NextLink href={hrefI18n} {...props}>
       {children}
     </NextLink>
   );
-});
-
-Link.displayName = "Link";
+};
 ```
 
 ```jsx fileName="src/components/Link.mjx" codeFormat="esm"
-'use client';
+"use client";
 
-import { getLocalizedUrl } from 'intlayer';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from 'next-intlayer';
-import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
+import { getLocalizedUrl } from "intlayer";
+import NextLink from "next/link";
+import { useLocale } from "next-intlayer";
 
 /**
  * Utility function to check whether a given URL is external.
  * If the URL starts with http:// or https://, it's considered external.
  */
-export const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
+export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
 /**
  * A custom Link component that adapts the href attribute based on the current locale.
  * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
  * This ensures that navigation stays within the same locale context.
  */
-export const Link = forwardRef(({ href, children, ...props }, ref) => {
+export const Link = ({ href, children, ...props }) => {
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
@@ -1187,47 +1184,45 @@ export const Link = forwardRef(({ href, children, ...props }, ref) => {
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
   return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
+    <NextLink href={hrefI18n} {...props}>
       {children}
     </NextLink>
   );
-});
-
-Link.displayName = 'Link';
+};
 ```
 
 ```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
-'use client';
+"use client";
 
 const { getLocalizedUrl } = require("intlayer");
 const NextLink = require("next/link");
 const { useLocale } = require("next-intlayer");
-const { forwardRef } = require("react");
 
 /**
  * Utility function to check whether a given URL is external.
  * If the URL starts with http:// or https://, it's considered external.
  */
-const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
+const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
-
-const Link = forwardRef(({ href, children, ...props }, ref) => {
+/**
+ * A custom Link component that adapts the href attribute based on the current locale.
+ * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
+ * This ensures that navigation stays within the same locale context.
+ */
+const Link = ({ href, children, ...props }) => {
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
   // If the link is internal and a valid href is provided, get the localized URL.
-  const hrefI18n: NextLinkProps['href'] =
+  const hrefI18n =
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
   return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
+    <NextLink href={hrefI18n} {...props}>
       {children}
     </NextLink>
   );
-});
-
-Link.displayName = 'Link';
+};
 ```
 
 #### How It Works
