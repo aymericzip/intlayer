@@ -18,7 +18,7 @@ export const logger = createLogger({
   ],
 });
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === '') {
   logger.add(
     new transports.File({ filename: 'logs/error.log', level: 'error' })
   );
