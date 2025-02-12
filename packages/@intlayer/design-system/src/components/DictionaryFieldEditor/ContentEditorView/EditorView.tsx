@@ -23,15 +23,20 @@ export const EditorView: FC<EditorViewProps> = ({
 
   const { editedContent } = useEditedContent();
 
-  const editedSection = editedContent?.[dictionaryKey]?.content
-    ? getContentNodeByKeyPath(editedContent?.[dictionaryKey].content, keyPath)
-    : undefined;
+  const editedSection =
+    typeof editedContent?.[dictionaryKey]?.content === 'undefined'
+      ? undefined
+      : getContentNodeByKeyPath(
+          editedContent?.[dictionaryKey].content,
+          keyPath
+        );
 
   const dictionarySection = getContentNodeByKeyPath(
     dictionary.content,
     keyPath
   );
-  const section = editedSection ?? dictionarySection;
+  const section =
+    typeof editedSection === 'undefined' ? dictionarySection : editedSection;
   const isEditableSection = getIsEditableSection(section);
 
   return (

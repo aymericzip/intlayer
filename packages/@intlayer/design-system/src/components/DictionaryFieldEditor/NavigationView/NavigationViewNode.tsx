@@ -53,9 +53,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     [focusedContent?.keyPath]
   );
 
-  if (isEditableSection) return <>-</>;
-
-  if (!section) return <>-</>;
+  if (!section || isEditableSection) return <></>;
 
   if (typeof section === 'object') {
     if (nodeType === NodeType.ReactNode) {

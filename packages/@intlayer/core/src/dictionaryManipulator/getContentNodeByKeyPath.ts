@@ -5,7 +5,7 @@ export const getContentNodeByKeyPath = (
   dictionaryContent: ContentNode,
   keyPath: KeyPath[]
 ): ContentNode => {
-  let currentValue: any = structuredClone(dictionaryContent ?? {});
+  let currentValue: any = structuredClone(dictionaryContent);
 
   for (const keyObj of keyPath) {
     if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {

@@ -40,27 +40,29 @@ export const ContentEditor: FC<NodeEditorProps> = ({
       </div>
 
       <div className="flex gap-2 max-md:flex-col">
-        <Container
-          border
-          background="none"
-          className="top-6 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
-          roundedSize="xl"
-          transparency="sm"
-        >
-          <NavigationViewNode
-            keyPath={[]}
-            section={section}
-            dictionaryKey={key}
-          />
-        </Container>
-        <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
-          {(focusedKeyPath?.length ?? 0) > 0 && (
-            <EditorView
-              dictionary={dictionary}
-              dictionaryKey={key}
-              isDarkMode={isDarkMode}
-            />
+        {typeof section === 'object' &&
+          section &&
+          Object.keys(section).length > 0 && (
+            <Container
+              border
+              background="none"
+              className="top-6 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
+              roundedSize="xl"
+              transparency="sm"
+            >
+              <NavigationViewNode
+                keyPath={[]}
+                section={section}
+                dictionaryKey={key}
+              />
+            </Container>
           )}
+        <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
+          <EditorView
+            dictionary={dictionary}
+            dictionaryKey={key}
+            isDarkMode={isDarkMode}
+          />
         </div>
       </div>
     </>
