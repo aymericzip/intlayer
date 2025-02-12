@@ -95,10 +95,10 @@
     "mime": "^4.0.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-intlayer": "workspace:^",
+    "react-intlayer": "workspace:*",
     "react-router-dom": "^7.1.1",
     "rimraf": "^6.0.1",
-    "vite-intlayer": "workspace:^"
+    "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
@@ -133,10 +133,10 @@
     "intlayer": "workspace:*",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
-    "react-intlayer": "workspace:^",
+    "react-intlayer": "workspace:*",
     "react-router-dom": ">=6.0.0",
     "tailwind-merge": "^2.6.0",
-    "vite-intlayer": "workspace:^"
+    "vite-intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

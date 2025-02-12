@@ -73,7 +73,7 @@
   "dependencies": {
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:^"
+    "@intlayer/core": "workspace:*"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.0",
@@ -95,7 +95,7 @@
   "peerDependencies": {
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:^"
+    "@intlayer/core": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

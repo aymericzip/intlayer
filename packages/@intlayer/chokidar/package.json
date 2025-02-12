@@ -102,7 +102,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "fast-glob": "^3.3.3",
-    "intlayer": "workspace:^",
+    "intlayer": "workspace:*",
     "react": ">=16.0.0"
   },
   "engines": {

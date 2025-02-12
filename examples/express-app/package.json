@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "express": "^5.0.1",
-    "express-intlayer": "workspace:^"
+    "express-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

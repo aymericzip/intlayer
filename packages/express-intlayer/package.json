@@ -103,7 +103,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "intlayer": "workspace:^"
+    "intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

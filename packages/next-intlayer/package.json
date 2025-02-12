@@ -113,7 +113,7 @@
     "intlayer": "workspace:*",
     "next": ">=14.0.0",
     "react": ">=16.0.0",
-    "react-intlayer": "workspace:^"
+    "react-intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

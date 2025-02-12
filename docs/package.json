@@ -65,7 +65,7 @@
     "translate": "node --import=tsx ./src/translate.ts"
   },
   "dependencies": {
-    "@intlayer/config": "workspace:^"
+    "@intlayer/config": "workspace:*"
   },
   "devDependencies": {
     "@intlayer/core": "workspace:*",

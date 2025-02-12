@@ -388,7 +388,7 @@ importers:
   blog:
     dependencies:
       '@intlayer/config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../packages/@intlayer/config
     devDependencies:
       '@intlayer/core':
@@ -443,7 +443,7 @@ importers:
   docs:
     dependencies:
       '@intlayer/config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../packages/@intlayer/config
     devDependencies:
       '@intlayer/core':
@@ -498,7 +498,7 @@ importers:
   examples/cli:
     dependencies:
       intlayer:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/intlayer
     devDependencies:
       '@types/node':
@@ -526,7 +526,7 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       express-intlayer:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/express-intlayer
     devDependencies:
       '@types/express':
@@ -1335,7 +1335,7 @@ importers:
   packages/@intlayer/dictionaries-entry:
     dependencies:
       '@intlayer/config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../config
       intlayer:
         specifier: workspace:*
@@ -1442,7 +1442,7 @@ importers:
   packages/@intlayer/editor-react:
     dependencies:
       '@intlayer/config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../config
       '@intlayer/core':
         specifier: workspace:*
@@ -1655,7 +1655,7 @@ importers:
         specifier: workspace:*
         version: link:../@intlayer/config
       '@intlayer/core':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../@intlayer/core
     devDependencies:
       '@changesets/changelog-github':
@@ -1822,7 +1822,7 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
       react-intlayer:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../react-intlayer
       react-router-dom:
         specifier: ^7.1.1
@@ -1834,7 +1834,7 @@ importers:
         specifier: ^2.6.0
         version: 2.6.0
       vite-intlayer:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../vite-intlayer
     devDependencies:
       '@intlayer/backend':
