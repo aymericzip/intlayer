@@ -12,6 +12,10 @@ export const editDictionaryByKeyPath = (
   let parentValue: any = null;
   let lastKeys: LastKeyType[] = [];
 
+  if (keyPath.length === 0) {
+    return newValue;
+  }
+
   for (let i = 0; i < keyPath.length; i++) {
     const keyObj = keyPath[i];
     parentValue = currentValue;

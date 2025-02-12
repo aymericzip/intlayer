@@ -143,13 +143,13 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
 };
 
 type NodeWrapperProps = {
-  sectionKey: string;
+  sectionKey?: string;
   dictionaryKey: string;
   keyPath: KeyPath[];
   section: ContentNode;
 };
 
-const NodeView: FC<NodeWrapperProps> = ({
+export const NodeView: FC<NodeWrapperProps> = ({
   sectionKey,
   section,
   keyPath,
@@ -175,44 +175,45 @@ const NodeView: FC<NodeWrapperProps> = ({
     <Container
       transparency="xl"
       roundedSize="xl"
-      background="hoverable"
       className="w-full min-w-80 gap-2 px-5 py-2"
-      backgroundColor="contrast"
+      border
+      borderColor="text"
       aria-selected={isSameKeyPath(keyPath, focusedContent?.keyPath ?? [])}
       onClick={() => setFocusedContentKeyPath(keyPath)}
     >
       <div className="flex w-full flex-col items-start justify-between gap-3">
-        <div className="w-full">
-          <div className="flex w-full items-center justify-between gap-10">
-            <EditableFieldInput
-              name="key"
-              aria-label="Key"
-              placeholder={titleInput.placeholder.value}
-              defaultValue={sectionKey}
-              onSave={(value) => handleRenameNodeKey(value)}
-              variant="invisible"
-            />
-            <Button
-              label={deleteButton.label.value}
-              variant="hoverable"
-              size="icon-sm"
-              color="text"
-              className="translate-x-2"
-              Icon={Trash}
-              onClick={() => {
-                addEditedContent(dictionaryKey, undefined, keyPath);
+        {typeof sectionKey === 'string' && (
+          <div className="w-full">
+            <div className="flex w-full items-center justify-between gap-10">
+              <EditableFieldInput
+                name="key"
+                aria-label="Key"
+                placeholder={titleInput.placeholder.value}
+                defaultValue={sectionKey}
+                onSave={(value) => handleRenameNodeKey(value)}
+                variant="invisible"
+              />
+              <Button
+                label={deleteButton.label.value}
+                variant="hoverable"
+                size="icon-sm"
+                color="text"
+                className="translate-x-2"
+                Icon={Trash}
+                onClick={() => {
+                  addEditedContent(dictionaryKey, undefined, keyPath);
 
-                const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
-                setFocusedContentKeyPath(parentKeyPath);
-              }}
-            />
+                  const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
+                  setFocusedContentKeyPath(parentKeyPath);
+                }}
+              />
+            </div>
+
+            <span className="text-neutral dark:text-neutral-dark ml-3 text-sm">
+              ( {camelCaseToSentence(sectionKey)} )
+            </span>
           </div>
-
-          <span className="text-neutral dark:text-neutral-dark ml-3 text-sm">
-            ( {camelCaseToSentence(sectionKey)} )
-          </span>
-        </div>
-
+        )}
         <NodeTypeView
           keyPath={keyPath}
           dictionaryKey={dictionaryKey}
@@ -247,7 +248,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <ul className="mr-auto flex flex-col gap-2">
+      <ul className="mr-auto flex flex-col gap-4">
         {Object.keys(section).map((key) => (
           <li key={key} className="flex w-full">
             <NodeView
@@ -265,7 +266,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
         size="md"
         color="text"
         Icon={Plus}
-        className="w-80"
+        className="flex-1"
         onClick={() => {
           const newKey = 'newKey';
           const newKeyPath = [
@@ -300,7 +301,7 @@ export const StructureView: FC<StructureViewProps> = ({
   ) {
     return (
       <NodeView
-        sectionKey="content"
+        sectionKey={'content'}
         section={section}
         keyPath={keyPath}
         dictionaryKey={dictionaryKey}
