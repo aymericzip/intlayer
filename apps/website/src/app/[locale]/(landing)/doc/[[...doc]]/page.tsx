@@ -1,5 +1,4 @@
 import {
-  checkIfDocPathExists,
   getDocDataByPath,
   getPreviousNextDocData,
 } from '@components/DocPage/docData';
@@ -94,9 +93,7 @@ const DocPageNavigation: FC<DocPageNavigationProps> = ({
 
 const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
   const { locale, doc } = await params;
-  const isDocPathExists = checkIfDocPathExists(doc);
-  const docPath = isDocPathExists ? doc : ['get-started'];
-  const docData = getDocDataByPath(docPath, locale);
+  const docData = getDocDataByPath(doc, locale);
 
   if (!docData) {
     return redirect(PagesRoutes.Doc);

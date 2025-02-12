@@ -1,5 +1,4 @@
 import {
-  checkIfBlogPathExists,
   getBlogDataByPath,
   getPreviousNextBlogData,
 } from '@components/BlogPage/blogData';
@@ -12,7 +11,7 @@ import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
 import { ChevronLeft, ChevronRight, Edit } from 'lucide-react';
 import { redirect } from 'next/navigation';
-import { type LocalPromiseParams, type LocalParams } from 'next-intlayer';
+import { type LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import type { BlogProps } from './layout';
@@ -94,9 +93,7 @@ const BlogPageNavigation: FC<BlogPageNavigationProps> = ({
 
 const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
   const { locale, blog } = await params;
-  const isBlogPathExists = checkIfBlogPathExists(blog);
-  const blogPath = isBlogPathExists ? blog : [];
-  const blogData = getBlogDataByPath(blogPath, locale);
+  const blogData = getBlogDataByPath(blog, locale);
 
   if (!blogData) {
     return redirect(PagesRoutes.Blog);

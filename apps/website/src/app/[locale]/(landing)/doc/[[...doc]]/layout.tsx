@@ -1,7 +1,6 @@
 import {
   getDocPathsArray,
   getDocDataByPath,
-  checkIfDocPathExists,
 } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
@@ -23,10 +22,8 @@ export const generateMetadata = async ({
   params,
 }: DocPageProps): Promise<Metadata> => {
   const { locale, doc } = await params;
-  const isDocPathExists = checkIfDocPathExists(doc);
-  const docPath = isDocPathExists ? doc : ['get-started'];
 
-  const docData = getDocDataByPath(docPath, locale);
+  const docData = getDocDataByPath(doc, locale);
 
   if (!docData) {
     throw new Error(`Doc not found ${JSON.stringify(doc)}`);
@@ -60,11 +57,8 @@ const DocLayout: NextLayoutIntlayer<DocProps> = async ({
 }) => {
   const { locale, doc } = await params;
 
-  const isDocPathExists = checkIfDocPathExists(doc);
-  const docPath = isDocPathExists ? doc : ['get-started'];
-
   return (
-    <DocPageLayout activeSections={docPath} locale={locale}>
+    <DocPageLayout activeSections={doc} locale={locale}>
       {children}
     </DocPageLayout>
   );

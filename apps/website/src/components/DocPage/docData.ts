@@ -323,24 +323,6 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
   } satisfies Section;
 };
 
-export const checkIfDocPathExists = (docPath: string[] = []): boolean => {
-  const docData = getDocData();
-
-  let currentSection: any = docData;
-
-  for (const path of docPath) {
-    if (currentSection?.[path]) {
-      currentSection = currentSection[path];
-    } else if (currentSection?.subSections?.[path]) {
-      currentSection = currentSection.subSections[path];
-    } else {
-      return false;
-    }
-  }
-
-  return typeof currentSection.default !== 'undefined';
-};
-
 export const getDocDataByPath = (
   docPath: string[] = [],
   locale: Locales = Locales.ENGLISH
