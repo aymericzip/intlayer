@@ -586,9 +586,6 @@ export const TextEditor: FC<TextEditorProps> = ({
 }) => {
   const { tsxNotEditable } = useDictionary(navigationViewContent);
   const nodeType = getNodeType(section);
-  const isEditableSection = getIsEditableSection(section);
-
-  if (!isEditableSection) return <></>;
 
   if (typeof section === 'object') {
     if (nodeType === NodeType.ReactNode) {

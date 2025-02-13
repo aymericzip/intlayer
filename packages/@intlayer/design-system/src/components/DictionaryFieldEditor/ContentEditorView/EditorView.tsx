@@ -4,7 +4,6 @@ import { type Dictionary, getContentNodeByKeyPath } from '@intlayer/core';
 import { useFocusDictionary, useEditedContent } from '@intlayer/editor-react';
 import { type FC } from 'react';
 import { Container } from '../../Container';
-import { getIsEditableSection } from '../getIsEditableSection';
 import { TextEditor } from './TextEditor';
 
 type EditorViewProps = {
@@ -37,26 +36,21 @@ export const EditorView: FC<EditorViewProps> = ({
   );
   const section =
     typeof editedSection === 'undefined' ? dictionarySection : editedSection;
-  const isEditableSection = getIsEditableSection(section);
 
   return (
-    <>
-      {isEditableSection && (
-        <Container
-          border
-          background="none"
-          className="h-full flex-1 overflow-hidden"
-          roundedSize="xl"
-        >
-          <TextEditor
-            key={keyPath.join('.')}
-            keyPath={keyPath}
-            section={section}
-            dictionary={dictionary}
-            isDarkMode={isDarkMode}
-          />
-        </Container>
-      )}
-    </>
+    <Container
+      border
+      background="none"
+      className="h-full flex-1 overflow-hidden"
+      roundedSize="xl"
+    >
+      <TextEditor
+        key={keyPath.join('.')}
+        keyPath={keyPath}
+        section={section}
+        dictionary={dictionary}
+        isDarkMode={isDarkMode}
+      />
+    </Container>
   );
 };

@@ -6,6 +6,7 @@ import { type FC } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
 import { EditorView } from './ContentEditorView/EditorView';
+import { getIsEditableSection } from './getIsEditableSection';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
 
@@ -23,8 +24,11 @@ export const ContentEditor: FC<NodeEditorProps> = ({
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
-
-  const section = editedContent?.[key]?.content ?? dictionaryContent;
+  const section =
+    typeof editedContent?.[dictionary.key]?.content === 'undefined'
+      ? dictionaryContent
+      : editedContent?.[key]?.content;
+  const isEditableSection = getIsEditableSection(section);
 
   return (
     <>
@@ -42,7 +46,8 @@ export const ContentEditor: FC<NodeEditorProps> = ({
       <div className="flex gap-2 max-md:flex-col">
         {typeof section === 'object' &&
           section &&
-          Object.keys(section).length > 0 && (
+          Object.keys(section).length > 0 &&
+          !isEditableSection && (
             <Container
               border
               background="none"
@@ -57,13 +62,15 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               />
             </Container>
           )}
-        <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
-          <EditorView
-            dictionary={dictionary}
-            dictionaryKey={key}
-            isDarkMode={isDarkMode}
-          />
-        </div>
+        {isEditableSection ?? (
+          <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
+            <EditorView
+              dictionary={dictionary}
+              dictionaryKey={key}
+              isDarkMode={isDarkMode}
+            />
+          </div>
+        )}
       </div>
     </>
   );
