@@ -20,6 +20,8 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
 
       // If json is valid, parse it
       try {
+        if (typeof errorMessage === 'undefined') return;
+
         error = JSON.parse(errorMessage);
       } catch (e) {
         console.error(e);
