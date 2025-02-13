@@ -323,7 +323,6 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
   dictionary,
 }) => {
   const { addEditedContent } = useEditedContent();
-  const { addNewEnumeration } = useDictionary(navigationViewContent);
 
   return (
     <table className="w-full table-fixed gap-2">
@@ -373,15 +372,15 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
             <td className="w-full p-2">
               <TextEditor
                 section={
-                  (section as EnumerationContent<string>)[NodeType.Enumeration][
-                    condKey as any
+                  (section as ConditionContent<string>)[NodeType.Condition][
+                    condKey as keyof ConditionContent[NodeType.Condition]
                   ] as string
                 }
                 keyPath={[
                   ...keyPath,
                   {
-                    type: NodeType.Array,
-                    key: parseInt(condKey),
+                    type: NodeType.Condition,
+                    key: condKey,
                   } as KeyPath,
                 ]}
                 dictionary={dictionary}
@@ -390,27 +389,6 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
           </tr>
         ))}
       </tbody>
-
-      <tfoot>
-        <Button
-          label={addNewEnumeration.label.value}
-          variant="hoverable"
-          color="neutral"
-          textAlign="left"
-          onClick={() =>
-            addEditedContent(
-              dictionary.key,
-              '',
-              [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }],
-              false
-            )
-          }
-          Icon={Plus}
-          className="m-2"
-        >
-          {addNewEnumeration.text}
-        </Button>
-      </tfoot>
     </table>
   );
 };

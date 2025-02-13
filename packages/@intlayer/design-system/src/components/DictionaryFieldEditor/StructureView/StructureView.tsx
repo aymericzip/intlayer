@@ -175,7 +175,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
     <Container
       transparency="xl"
       roundedSize="xl"
-      className="w-full min-w-80 gap-2 px-5 py-2"
+      className="w-full min-w-80 gap-2 overflow-auto px-5 py-2"
       border
       borderColor="text"
       aria-selected={isSameKeyPath(keyPath, focusedContent?.keyPath ?? [])}
@@ -247,7 +247,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 overflow-y-scroll">
       <ul className="mr-auto flex flex-col gap-4">
         {Object.keys(section).map((key) => (
           <li key={key} className="flex w-full">

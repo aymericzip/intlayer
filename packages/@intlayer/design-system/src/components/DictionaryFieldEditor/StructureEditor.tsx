@@ -10,17 +10,19 @@ type NodeEditorProps = {
 };
 
 export const StructureEditor: FC<NodeEditorProps> = ({ dictionary }) => {
-  const { content: dictionaryContent, key } = dictionary;
+  const { content, key } = dictionary;
+
   const { editedContent } = useEditedContent();
-  const initialSection = editedContent?.[key]?.content ?? dictionaryContent;
+  const initialSection =
+    typeof editedContent?.[key]?.content === 'undefined'
+      ? content
+      : editedContent?.[key]?.content;
 
   return (
-    <div className="w-full overflow-scroll p-5">
-      <NodeView
-        section={initialSection}
-        keyPath={[]}
-        dictionaryKey={dictionary.key}
-      />
-    </div>
+    <NodeView
+      section={initialSection}
+      keyPath={[]}
+      dictionaryKey={dictionary.key}
+    />
   );
 };

@@ -45,7 +45,6 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     goToTranslation,
   } = useDictionary(navigationViewContent);
   const nodeType = getNodeType(section);
-  const isEditableSection = getIsEditableSection(section);
   const getIsSelected = useCallback(
     (keyPath: KeyPath[]) =>
       (focusedContent?.keyPath?.length ?? 0) > 0 &&
@@ -53,7 +52,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     [focusedContent?.keyPath]
   );
 
-  if (!section || isEditableSection) return <></>;
+  if (!section) return <></>;
 
   if (typeof section === 'object') {
     if (nodeType === NodeType.ReactNode) {

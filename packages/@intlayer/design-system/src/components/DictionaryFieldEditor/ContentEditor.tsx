@@ -1,11 +1,11 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
+import { getContentNodeByKeyPath, type Dictionary } from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
-import { type FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
-import { EditorView } from './ContentEditorView/EditorView';
+import { TextEditor } from './ContentEditorView/TextEditor';
 import { getIsEditableSection } from './getIsEditableSection';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
@@ -19,16 +19,24 @@ export const ContentEditor: FC<NodeEditorProps> = ({
   dictionary,
   isDarkMode,
 }) => {
-  const { content: dictionaryContent, key } = dictionary;
+  const { content, key } = dictionary;
   const { editedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
   const section =
     typeof editedContent?.[dictionary.key]?.content === 'undefined'
-      ? dictionaryContent
+      ? content
       : editedContent?.[key]?.content;
-  const isEditableSection = getIsEditableSection(section);
+
+  const focusedSection = getContentNodeByKeyPath(section, focusedKeyPath ?? []);
+  const isEditableFocusedSection = getIsEditableSection(focusedSection);
+
+  useEffect(() => {
+    if (typeof focusedSection === 'undefined') {
+      setFocusedContentKeyPath(focusedContent?.keyPath?.slice(0, -1) ?? []);
+    }
+  }, []);
 
   return (
     <>
@@ -42,12 +50,10 @@ export const ContentEditor: FC<NodeEditorProps> = ({
           <LocaleSwitcherContent />
         </div>
       </div>
-
       <div className="flex gap-2 max-md:flex-col">
         {typeof section === 'object' &&
           section &&
-          Object.keys(section).length > 0 &&
-          !isEditableSection && (
+          Object.keys(section).length > 0 && (
             <Container
               border
               background="none"
@@ -62,14 +68,20 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               />
             </Container>
           )}
-        {isEditableSection ?? (
-          <div className="top-6 flex h-full flex-1 flex-col gap-6 md:sticky">
-            <EditorView
+        {isEditableFocusedSection && (
+          <Container
+            border
+            background="none"
+            className="top-6 flex h-full flex-1 flex-col gap-6 overflow-hidden md:sticky"
+            roundedSize="xl"
+          >
+            <TextEditor
+              keyPath={focusedKeyPath ?? []}
+              section={focusedSection}
               dictionary={dictionary}
-              dictionaryKey={key}
               isDarkMode={isDarkMode}
             />
-          </div>
+          </Container>
         )}
       </div>
     </>
