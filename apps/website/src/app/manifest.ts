@@ -9,12 +9,12 @@ const manifest = (): MetadataRoute.Manifest => ({
     'Intlayer offers a more flexible and modern approach to internationalization. Its seamless integration with Next.js and React, customizable configuration, and support for various content declaration formats make it a powerful choice for internationalization.',
   icons: [
     {
-      src: '/assets/android-chrome-192x192.png',
+      src: '/android-chrome-192x192.png',
       sizes: '192x192',
       type: 'image/png',
     },
     {
-      src: '/assets/android-chrome-512x512.png',
+      src: '/android-chrome-512x512.png',
       sizes: '512x512',
       type: 'image/png',
     },

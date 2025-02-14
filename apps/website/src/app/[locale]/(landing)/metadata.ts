@@ -38,23 +38,23 @@ export const generateMetadata = async ({
     icons: {
       icon: [
         {
-          url: `${process.env.NEXT_PUBLIC_URL}/assets/favicon.ico`,
+          url: `${process.env.NEXT_PUBLIC_URL}/favicon.ico`,
           type: 'image/x-icon',
         },
         {
-          url: `${process.env.NEXT_PUBLIC_URL}/assets/favicon-16x16.png`,
+          url: `${process.env.NEXT_PUBLIC_URL}/favicon-16x16.png`,
           type: 'image/png',
           sizes: '16x16',
         },
         {
-          url: `${process.env.NEXT_PUBLIC_URL}/assets/favicon-32x32.png`,
+          url: `${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`,
           type: 'image/png',
           sizes: '32x32',
         },
       ],
       apple: [
         {
-          url: `${process.env.NEXT_PUBLIC_URL}/assets/apple-touch-icon.png`,
+          url: `${process.env.NEXT_PUBLIC_URL}/apple-touch-icon.png`,
           sizes: '180x180',
           type: 'image/png',
         },
@@ -69,7 +69,7 @@ export const generateMetadata = async ({
       siteName: 'Intlayer',
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_URL}/assets/android-chrome-512x512.png`,
+          url: `${process.env.NEXT_PUBLIC_URL}/android-chrome-512x512.png`,
         },
       ],
     },
@@ -79,7 +79,7 @@ export const generateMetadata = async ({
       description,
       site: '@Intlayer183096',
       creator: '@aymericzip',
-      images: `${process.env.NEXT_PUBLIC_URL}/assets/cover.png`,
+      images: `${process.env.NEXT_PUBLIC_URL}/cover.png`,
     },
     verification: undefined,
     appleWebApp: {
