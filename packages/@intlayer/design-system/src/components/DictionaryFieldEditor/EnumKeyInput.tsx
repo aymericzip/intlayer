@@ -92,7 +92,7 @@ export const EnumKeyInput: FC<EnumKeyInputProps> = ({ value, onChange }) => {
         type="number"
         defaultValue={numberValue ?? undefined}
         onChange={(e) => setNumberValue(e.target.value)}
-        className="w-full"
+        className="min-w-4"
       />
     </div>
   );

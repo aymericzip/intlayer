@@ -5,7 +5,7 @@ import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import { useEffect, type FC } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
-import { TextEditor } from './ContentEditorView/TextEditor';
+import { TextEditorContainer } from './ContentEditorView/TextEditor';
 import { getIsEditableSection } from './getIsEditableSection';
 import { KeyPathBreadcrumb } from './KeyPathBreadcrumb';
 import { NavigationViewNode } from './NavigationView/NavigationViewNode';
@@ -68,20 +68,13 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               />
             </Container>
           )}
-        {isEditableFocusedSection && (
-          <Container
-            border
-            background="none"
-            className="top-6 flex h-full flex-1 flex-col gap-6 overflow-hidden md:sticky"
-            roundedSize="xl"
-          >
-            <TextEditor
-              keyPath={focusedKeyPath ?? []}
-              section={focusedSection}
-              dictionary={dictionary}
-              isDarkMode={isDarkMode}
-            />
-          </Container>
+        {(isEditableFocusedSection || (focusedKeyPath ?? []).length > 0) && (
+          <TextEditorContainer
+            keyPath={focusedKeyPath ?? []}
+            section={focusedSection}
+            dictionary={dictionary}
+            isDarkMode={isDarkMode}
+          />
         )}
       </div>
     </>

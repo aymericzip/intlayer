@@ -13,20 +13,22 @@ import {
   getLocaleName,
   getNodeType,
   type ConditionContent,
+  getEmptyNode,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
-import { Plus, WandSparkles, X } from 'lucide-react';
-import { useState, type FC } from 'react';
+import { Plus, Trash, WandSparkles } from 'lucide-react';
+import { Fragment, useState, type FC } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
 import { Button } from '../../Button';
+import { Container } from '../../Container';
 import {
-  ContentEditorInputProps as ContentEditorInputPropsBase,
+  type ContentEditorInputProps as ContentEditorInputPropsBase,
   ContentEditorInput as ContentEditorInputBase,
 } from '../../ContentEditor/ContentEditorInput';
 import {
-  ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
+  type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
   ContentEditorTextArea as ContentEditorTextAreaBase,
 } from '../../ContentEditor/ContentEditorTextArea';
 import { Label } from '../../Label';
@@ -38,7 +40,6 @@ import {
   SwitchSelector,
 } from '../../SwitchSelector';
 import { EnumKeyInput } from '../EnumKeyInput';
-import { getIsEditableSection } from '../getIsEditableSection';
 import { navigationViewContent } from '../NavigationView/navigationViewNode.content';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
@@ -173,7 +174,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
 }: TextEditorProps) => {
-  const { locale } = useLocale();
+  const { locale, defaultLocale } = useLocale();
   const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
 
   const sectionContent = (section as TranslationContent<string>)[
@@ -189,22 +190,21 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
     : // If the translation include content in other locales, we display all of them
       [...new Set([...availableLocales, ...sectionContentKeys])];
 
+  const content = (section as TranslationContent<string>)[NodeType.Translation];
+
   return (
-    <table className="w-full gap-2">
-      <tbody className="divide-y-[1.5px]">
+    <table className="w-full">
+      <tbody className="flex w-full flex-col gap-2">
         {localesList.map((translationKey) => (
-          <tr key={translationKey} className="w-full" lang={translationKey}>
-            <td className="flex w-full flex-col p-2">
-              {selectedLocales.length > 1 && (
-                <span className="w-full p-2 text-xs">
-                  {getLocaleName(translationKey, locale)}
-                </span>
-              )}
-              <TextEditor
+          <Fragment key={translationKey}>
+            <tr className="mt-2 w-full p-2 text-xs">
+              {getLocaleName(translationKey, locale)}
+            </tr>
+            <tr>
+              <TextEditorContainer
                 section={
-                  (section as TranslationContent<string>)[NodeType.Translation][
-                    translationKey
-                  ] as string
+                  content[translationKey] ??
+                  getEmptyNode(content[defaultLocale])
                 }
                 keyPath={[
                   ...keyPath,
@@ -212,8 +212,8 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
                 ]}
                 dictionary={dictionary}
               />
-            </td>
-          </tr>
+            </tr>
+          </Fragment>
         ))}
       </tbody>
     </table>
@@ -226,94 +226,102 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   dictionary,
 }) => {
   const { addEditedContent } = useEditedContent();
-  const { addNewEnumeration } = useDictionary(navigationViewContent);
+  const { addNewEnumeration, removeEnumeration } = useDictionary(
+    navigationViewContent
+  );
+
+  const content = (section as EnumerationContent<string>)[NodeType.Enumeration];
+  const firstKey = Object.keys(content)[0] as keyof typeof content;
 
   return (
-    <table className="w-full table-fixed gap-2">
-      <tbody className="divide-y-[1.5px]">
-        {Object.keys(
-          (section as EnumerationContent<ContentNode>)[NodeType.Enumeration]
-        ).map((enumKey) => (
-          <tr key={enumKey} className="w-full">
-            <td className="w-44 p-2">
-              <div className="flex gap-1">
-                <Button
-                  label="Remove"
-                  variant="hoverable"
-                  size="icon-md"
-                  color="text"
-                  Icon={X}
-                  className="w-16"
-                  onClick={() =>
-                    addEditedContent(dictionary.key, undefined, [
-                      ...keyPath,
-                      {
-                        type: NodeType.Enumeration,
-                        key: enumKey,
-                      },
-                    ])
-                  }
-                />
-                <EnumKeyInput
-                  value={enumKey}
-                  onChange={(value) => {
-                    const preValueContent = (
-                      section as EnumerationContent<string>
-                    )[NodeType.Enumeration];
-                    const newValueContent = renameKey(
-                      preValueContent,
-                      enumKey as keyof typeof preValueContent,
-                      value
-                    );
-                    const newValue = {
-                      ...(section as EnumerationContent<string>),
-                      [NodeType.Enumeration]: newValueContent,
-                    };
+    <div className="flex flex-col gap-2">
+      <table className="w-full">
+        <tbody className="flex w-full flex-col gap-2">
+          {Object.keys(
+            (section as EnumerationContent<ContentNode>)[NodeType.Enumeration]
+          ).map((enumKey) => {
+            const childrenKeyPath = [
+              ...keyPath,
+              { type: NodeType.Enumeration },
+            ] as KeyPath[];
+            return (
+              <Fragment key={enumKey}>
+                <tr className="mt-2 w-full">
+                  <div className="flex flex-1">
+                    <Button
+                      label={removeEnumeration.label.value}
+                      variant="hoverable"
+                      color="text"
+                      Icon={Trash}
+                      className="ml-auto"
+                      onClick={() =>
+                        addEditedContent(
+                          dictionary.key,
+                          undefined,
+                          childrenKeyPath
+                        )
+                      }
+                    >
+                      {removeEnumeration.text}
+                    </Button>
+                  </div>
+                </tr>
+                <tr className="w-full p-2">
+                  <EnumKeyInput
+                    value={enumKey}
+                    onChange={(value) => {
+                      const preValueContent = (
+                        section as EnumerationContent<string>
+                      )[NodeType.Enumeration];
+                      const newValueContent = renameKey(
+                        preValueContent,
+                        enumKey as keyof typeof preValueContent,
+                        value
+                      );
+                      const newValue = {
+                        ...(section as EnumerationContent<string>),
+                        [NodeType.Enumeration]: newValueContent,
+                      };
 
-                    addEditedContent(dictionary.key, newValue, keyPath);
-                  }}
-                />
-              </div>
-            </td>
-            <td className="w-full p-2">
-              <TextEditor
-                section={
-                  (section as EnumerationContent<string>)[NodeType.Enumeration][
-                    enumKey as any
-                  ] as string
-                }
-                keyPath={[
-                  ...keyPath,
-                  { type: NodeType.Enumeration, key: enumKey },
-                ]}
-                dictionary={dictionary}
-              />
-            </td>
-          </tr>
-        ))}
-      </tbody>
+                      addEditedContent(dictionary.key, newValue, keyPath);
+                    }}
+                  />
+                </tr>
+                <tr className="block w-full">
+                  <TextEditor
+                    section={
+                      content[enumKey as keyof typeof content] ??
+                      getEmptyNode(content[firstKey])
+                    }
+                    keyPath={childrenKeyPath}
+                    dictionary={dictionary}
+                  />
+                </tr>
+              </Fragment>
+            );
+          })}
+        </tbody>
+      </table>
 
-      <tfoot>
-        <Button
-          label={addNewEnumeration.label.value}
-          variant="hoverable"
-          color="neutral"
-          textAlign="left"
-          onClick={() =>
-            addEditedContent(
-              dictionary.key,
-              '',
-              [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }],
-              false
-            )
-          }
-          Icon={Plus}
-          className="m-2"
-        >
-          {addNewEnumeration.text}
-        </Button>
-      </tfoot>
-    </table>
+      <Button
+        label={addNewEnumeration.label.value}
+        variant="hoverable"
+        color="neutral"
+        textAlign="left"
+        isFullWidth
+        onClick={() =>
+          addEditedContent(
+            dictionary.key,
+            getEmptyNode(content[firstKey]) ?? '',
+            [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }]
+          )
+        }
+        Icon={Plus}
+        className="m-2"
+      >
+        {addNewEnumeration.text}
+      </Button>
+    </div>
   );
 };
 
@@ -322,59 +330,21 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
 }) => {
-  const { addEditedContent } = useEditedContent();
+  const content = (section as ConditionContent<string>)[NodeType.Condition];
 
   return (
-    <table className="w-full table-fixed gap-2">
-      <tbody className="divide-y-[1.5px]">
+    <table className="w-full">
+      <tbody className="flex w-full flex-col gap-2">
         {['true', 'false', 'fallback'].map((condKey) => (
-          <tr key={condKey} className="w-full">
-            <td className="w-44 p-2">
-              <div className="flex gap-1">
-                <Button
-                  label="Remove"
-                  variant="hoverable"
-                  size="icon-md"
-                  color="text"
-                  Icon={X}
-                  className="w-16"
-                  onClick={() =>
-                    addEditedContent(dictionary.key, undefined, [
-                      ...keyPath,
-                      {
-                        type: NodeType.Condition,
-                        key: condKey,
-                      },
-                    ])
-                  }
-                />
-                <EnumKeyInput
-                  value={condKey}
-                  onChange={(value) => {
-                    const preValueContent = (
-                      section as ConditionContent<string>
-                    )[NodeType.Condition];
-                    const newValueContent = renameKey(
-                      preValueContent,
-                      condKey as keyof typeof preValueContent,
-                      value
-                    );
-                    const newValue = {
-                      ...(section as ConditionContent<string>),
-                      [NodeType.Condition]: newValueContent,
-                    };
-
-                    addEditedContent(dictionary.key, newValue, keyPath);
-                  }}
-                />
-              </div>
-            </td>
-            <td className="w-full p-2">
-              <TextEditor
+          <Fragment key={condKey}>
+            <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
+              {String(condKey)}
+            </tr>
+            <tr key={condKey} className="block w-full">
+              <TextEditorContainer
                 section={
-                  (section as ConditionContent<string>)[NodeType.Condition][
-                    condKey as keyof ConditionContent[NodeType.Condition]
-                  ] as string
+                  content[condKey as keyof typeof content] ??
+                  getEmptyNode(content['true'])
                 }
                 keyPath={[
                   ...keyPath,
@@ -385,8 +355,8 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
                 ]}
                 dictionary={dictionary}
               />
-            </td>
-          </tr>
+            </tr>
+          </Fragment>
         ))}
       </tbody>
     </table>
@@ -399,54 +369,135 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   dictionary,
 }) => {
   const { addEditedContent } = useEditedContent();
-  const { addNewElement } = useDictionary(navigationViewContent);
+  const { addNewElement, removeElement } = useDictionary(navigationViewContent);
 
   return (
-    <table className="w-full gap-2">
-      <tbody className="divide-y-[1.5px]">
-        {(section as unknown as ContentNode[]).map((subSection, index) => (
-          <tr key={JSON.stringify(subSection)} className="w-full">
-            <td className="p-2">{index}</td>
-            <td className="w-full p-2">
-              <TextEditor
-                section={subSection}
-                keyPath={[
-                  ...keyPath,
-                  {
-                    type: NodeType.Array,
-                    key: index,
-                  },
-                ]}
-                dictionary={dictionary}
-              />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-      <tfoot>
-        <Button
-          label={addNewElement.label.value}
-          variant="hoverable"
-          color="neutral"
-          textAlign="left"
-          onClick={() => {
-            const newKeyPath: KeyPath[] = [
-              ...keyPath,
-              {
-                type: NodeType.Array,
-                key: (section as unknown as ContentNode[]).length,
-              },
-            ];
-            addEditedContent(dictionary.key, '', newKeyPath, false);
-          }}
-          Icon={Plus}
-        >
-          {addNewElement.text}
-        </Button>
-      </tfoot>
-    </table>
+    <div className="flex flex-col gap-2">
+      <table className="w-full">
+        <tbody className="flex w-full flex-col gap-2">
+          {(section as unknown as ContentNode[]).map((subSection, index) => (
+            <Fragment key={JSON.stringify(subSection)}>
+              <tr className="mt-2 flex w-full justify-between gap-2 p-2">
+                <span className="text-xs">{String(index)}</span>
+                <Button
+                  label={removeElement.label.value}
+                  variant="hoverable"
+                  color="neutral"
+                  className="ml-auto"
+                  textAlign="left"
+                  onClick={() => {
+                    const newKeyPath: KeyPath[] = [
+                      ...keyPath,
+                      {
+                        type: NodeType.Array,
+                        key: (section as unknown as ContentNode[]).length,
+                      },
+                    ];
+                    addEditedContent(dictionary.key, undefined, newKeyPath);
+                  }}
+                  Icon={Trash}
+                >
+                  {removeElement.text}
+                </Button>
+              </tr>
+
+              <tr className="block w-full">
+                <TextEditorContainer
+                  section={
+                    subSection ??
+                    getEmptyNode((section as unknown as ContentNode[])[0])
+                  }
+                  keyPath={[
+                    ...keyPath,
+                    {
+                      type: NodeType.Array,
+                      key: index,
+                    },
+                  ]}
+                  dictionary={dictionary}
+                />
+              </tr>
+            </Fragment>
+          ))}
+        </tbody>
+      </table>
+      <Button
+        label={addNewElement.label.value}
+        variant="hoverable"
+        color="neutral"
+        textAlign="left"
+        isFullWidth
+        onClick={() => {
+          const newKeyPath: KeyPath[] = [
+            ...keyPath,
+            {
+              type: NodeType.Array,
+              key: (section as unknown as ContentNode[]).length,
+            },
+          ];
+          addEditedContent(
+            dictionary.key,
+            getEmptyNode((section as unknown as ContentNode[])[0]) ?? '',
+            newKeyPath,
+            false
+          );
+        }}
+        Icon={Plus}
+      >
+        {addNewElement.text}
+      </Button>
+    </div>
   );
 };
+
+const ObjectTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+}) => (
+  <>
+    <table className="w-full">
+      <tbody className="flex flex-col gap-2">
+        {Object.keys(section as unknown as Record<string, ContentNode>).map(
+          (key) => {
+            const childKeyPath: KeyPath[] = [
+              ...keyPath,
+              { type: NodeType.Object, key },
+            ];
+            const typedSection = section as unknown as Record<
+              string,
+              ContentNode
+            >;
+            const firstKey = Object.keys(
+              typedSection
+            )[0] as keyof typeof section;
+            const subSection =
+              typedSection[key as keyof typeof section] ??
+              getEmptyNode(typedSection[firstKey]);
+
+            return (
+              <Fragment key={key}>
+                <tr
+                  key={JSON.stringify(subSection)}
+                  className="mt-2 p-2 text-xs"
+                >
+                  {String(key)}
+                </tr>
+                <tr key={JSON.stringify(subSection)} className="block w-full">
+                  <TextEditor
+                    section={subSection}
+                    keyPath={childKeyPath}
+                    dictionary={dictionary}
+                  />
+                </tr>
+              </Fragment>
+            );
+          }
+        )}
+      </tbody>
+    </table>
+  </>
+);
 
 enum MarkdownViewMode {
   Edit,
@@ -565,78 +616,88 @@ export const TextEditor: FC<TextEditorProps> = ({
   const { tsxNotEditable } = useDictionary(navigationViewContent);
   const nodeType = getNodeType(section);
 
-  if (typeof section === 'object') {
-    if (nodeType === NodeType.ReactNode) {
-      return (
-        <>
-          <span>[React Node]</span>
-          <span className="text-neutral dark:text-neutral-dark text-xs">
-            {tsxNotEditable}
-          </span>
-        </>
-      );
-    }
+  if (nodeType === NodeType.ReactNode) {
+    return (
+      <>
+        <span>[React Node]</span>
+        <span className="text-neutral dark:text-neutral-dark text-xs">
+          {tsxNotEditable}
+        </span>
+      </>
+    );
+  }
 
-    if (nodeType === NodeType.Nested) {
-      return (
-        <NestedTextEditor
+  if (nodeType === NodeType.Nested) {
+    return (
+      <NestedTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.Translation) {
+    return (
+      <TranslationTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.Enumeration) {
+    return (
+      <EnumerationTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.Condition) {
+    return (
+      <ConditionTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.Markdown) {
+    return (
+      <MarkdownTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+        isDarkMode={isDarkMode}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.Array) {
+    return (
+      <ArrayTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.Object) {
+    return (
+      <>
+        <ObjectTextEditor
           dictionary={dictionary}
           keyPath={keyPath}
           section={section}
         />
-      );
-    }
-
-    if (nodeType === NodeType.Translation) {
-      return (
-        <TranslationTextEditor
-          dictionary={dictionary}
-          keyPath={keyPath}
-          section={section}
-        />
-      );
-    }
-
-    if (nodeType === NodeType.Enumeration) {
-      return (
-        <EnumerationTextEditor
-          dictionary={dictionary}
-          keyPath={keyPath}
-          section={section}
-        />
-      );
-    }
-
-    if (nodeType === NodeType.Condition) {
-      return (
-        <ConditionTextEditor
-          dictionary={dictionary}
-          keyPath={keyPath}
-          section={section}
-        />
-      );
-    }
-
-    if (nodeType === NodeType.Markdown) {
-      return (
-        <MarkdownTextEditor
-          dictionary={dictionary}
-          keyPath={keyPath}
-          section={section}
-          isDarkMode={isDarkMode}
-        />
-      );
-    }
-
-    if (nodeType === NodeType.Array) {
-      return (
-        <ArrayTextEditor
-          dictionary={dictionary}
-          keyPath={keyPath}
-          section={section}
-        />
-      );
-    }
+      </>
+    );
   }
 
   if (nodeType === NodeType.Number) {
@@ -684,7 +745,20 @@ export const TextEditor: FC<TextEditorProps> = ({
   return (
     <div className="w-full p-2">
       Error. Format not supported.
-      {JSON.stringify(section)}
+      {JSON.stringify(section, null, 2)}
+      {JSON.stringify(keyPath, null, 2)}
+      NodeType : {nodeType}
     </div>
   );
 };
+
+export const TextEditorContainer: FC<TextEditorProps> = (props) => (
+  <Container
+    border
+    background="none"
+    className="top-6 flex h-full flex-1 flex-col gap-6 overflow-hidden p-2 md:sticky"
+    roundedSize="xl"
+  >
+    <TextEditor {...props} />
+  </Container>
+);

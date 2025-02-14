@@ -6,6 +6,7 @@ import {
   isSameKeyPath,
   getContentNodeByKeyPath,
   getNodeType,
+  getEmptyNode,
 } from '@intlayer/core';
 import {
   useEditedContentActions,
@@ -76,7 +77,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             if (isEditableSubSection) {
               return (
                 <Button
-                  label={`${goToTranslation.label} ${translationKey}`}
+                  label={`${goToTranslation.label.value} ${translationKey}`}
                   key={translationKey}
                   isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
@@ -93,7 +94,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             return (
               <Accordion
                 key={translationKey}
-                label={`${goToTranslation.label} ${translationKey}`}
+                label={`${goToTranslation.label.value} ${translationKey}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={translationKey}
@@ -133,7 +134,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             if (isEditableSubSection) {
               return (
                 <Button
-                  label={`${goToEnumeration.label} ${key}`}
+                  label={`${goToEnumeration.label.value} ${key}`}
                   key={key}
                   isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
@@ -150,7 +151,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             return (
               <Accordion
                 key={key}
-                label={`${goToEnumeration.label} ${key}`}
+                label={`${goToEnumeration.label.value} ${key}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={key}
@@ -185,7 +186,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             if (isEditableSubSection) {
               return (
                 <Button
-                  label={`${goToElement.label} ${index}`}
+                  label={`${goToElement.label.value} ${index}`}
                   key={`${index}`}
                   isActive={getIsSelected(childKeyPath)}
                   variant="hoverable"
@@ -202,7 +203,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             return (
               <Accordion
                 key={`${index}`}
-                label={`${goToElement.label} ${index}`}
+                label={`${goToElement.label.value} ${index}`}
                 isActive={getIsSelected(childKeyPath)}
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 header={index}
@@ -234,11 +235,18 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 },
               ];
               const sectionArray = section as unknown as ContentNode[];
-              const sectionEl =
-                sectionArray[
-                  (sectionArray.length - 1) as keyof typeof sectionArray
-                ] ?? '';
-              addEditedContent(dictionaryKey, sectionEl, newKeyPath, false);
+              const emptySectionEl =
+                getEmptyNode(
+                  sectionArray[
+                    (sectionArray.length - 1) as keyof typeof sectionArray
+                  ] as ContentNode
+                ) ?? '';
+              addEditedContent(
+                dictionaryKey,
+                emptySectionEl,
+                newKeyPath,
+                false
+              );
               setFocusedContentKeyPath(newKeyPath);
             }}
             Icon={Plus}
@@ -263,7 +271,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           if (isEditableSubSection) {
             return (
               <Button
-                label={`${goToField.label} ${key}`}
+                label={`${goToField.label.value} ${key}`}
                 key={key}
                 isActive={getIsSelected(childKeyPath)}
                 variant="hoverable"
@@ -280,7 +288,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           return (
             <Accordion
               key={key}
-              label={`${goToField.label} ${key}`}
+              label={`${goToField.label.value} ${key}`}
               isActive={getIsSelected(childKeyPath)}
               onClick={() => setFocusedContentKeyPath(childKeyPath)}
               header={camelCaseToSentence(key)}

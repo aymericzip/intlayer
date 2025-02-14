@@ -6,3 +6,4 @@ export * from './renameContentNodeByKeyPath';
 export * from './getNodeType';
 export * from './updateNodeChildren';
 export * from './getDefaultNode';
+export * from './getEmptyNode';
