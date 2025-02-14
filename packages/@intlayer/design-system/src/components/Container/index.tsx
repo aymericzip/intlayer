@@ -65,7 +65,7 @@ const containerVariants = cva(
         success: 'border-success dark:border-success-dark',
       },
       background: {
-        none: 'bg-inherit',
+        none: 'bg-inherit dark:bg-inherit',
         hoverable:
           '!bg-opacity-5 backdrop-blur-0 hover:!bg-opacity-10 hover:backdrop-blur focus:!bg-opacity-10 focus:backdrop-blur aria-selected:!bg-opacity-15 aria-selected:backdrop-blur',
         with: '',
