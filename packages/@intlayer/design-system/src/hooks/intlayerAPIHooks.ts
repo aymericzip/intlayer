@@ -24,7 +24,6 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
 
         error = JSON.parse(errorMessage);
       } catch (e) {
-        console.error(e);
         // If json is not valid, set error to the original errorMessage
 
         error = errorMessage;
