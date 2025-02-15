@@ -20,13 +20,16 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
 }) => (
   <div
     aria-hidden={isHidden}
+    tabIndex={isFocusable ? 0 : undefined}
+    role={isFocusable ? 'button' : 'none'}
     className={cn(
       'group/height-smoother relative grid w-full grid-rows-[0fr] overflow-hidden transition-all duration-700 ease-in-out',
       typeof isHidden !== 'undefined' &&
         !isHidden &&
         'grid-rows-[1fr] overflow-x-auto',
       isOverable && 'hover:grid-rows-[1fr] hover:overflow-x-auto',
-      isFocusable && 'focus:grid-rows-[1fr] focus:overflow-x-auto',
+      isFocusable &&
+        'focus-within:grid-rows-[1fr] focus-within:overflow-x-auto focus:grid-rows-[1fr] focus:overflow-x-auto',
       className
     )}
     {...props}

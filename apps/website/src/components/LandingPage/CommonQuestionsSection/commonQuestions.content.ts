@@ -19,21 +19,7 @@ const docNavTitlesContent = {
       ar: 'الأسئلة الشائعة',
       ru: 'Часто задаваемые вопросы',
     }),
-    accordionLabel: t({
-      fr: 'Clicker pour dérouler',
-      en: 'Click to expand',
-      es: 'Haga clic para expandir',
-      'en-GB': 'Click to expand',
-      de: 'Klicken zum Erweitern',
-      ja: '展開するにはクリック',
-      ko: '확장하려면 클릭',
-      zh: '点击展开',
-      it: 'Clicca per espandere',
-      pt: 'Clique para expandir',
-      hi: 'विस्तारित करने के लिए क्लिक करें',
-      ar: 'انقر للتوسيع',
-      ru: 'Нажмите, чтобы развернуть',
-    }),
+
     content: [
       {
         question: t({
