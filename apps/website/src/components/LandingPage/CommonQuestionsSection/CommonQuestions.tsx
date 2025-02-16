@@ -2,20 +2,30 @@
 
 import { Link } from '@components/Link/Link';
 import { Container, MaxHeightSmoother } from '@intlayer/design-system';
+import { cn } from '@utils/cn';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 
 const QuestionItem: FC<{
   question: IntlayerNode;
   answer: IntlayerNode;
-  callToAction?: { label: IntlayerNode; url: IntlayerNode };
-}> = ({ question, answer, callToAction }) => {
+  callToAction: { label: IntlayerNode; url: IntlayerNode };
+  numberOfColumns: number;
+}> = ({ question, answer, callToAction, numberOfColumns }) => {
   const [minHeight, setMinHeight] = useState<number>(100);
 
   useEffect(() => {
-    // Generate random minHeight only on the client after mount.
-    setMinHeight(Math.random() * 150 + 75);
-  }, []);
+    if (numberOfColumns > 2) {
+      // Generate random minHeight only on the client after mount.
+      setMinHeight(Math.random() * 150 + 75);
+    } else if (numberOfColumns === 2) {
+      // Generate random minHeight only on the client after mount.
+      setMinHeight(Math.random() * 50 + 100);
+    } else {
+      // Generate random minHeight only on the client after mount.
+      setMinHeight(90);
+    }
+  }, [numberOfColumns]);
 
   return (
     <Container
@@ -31,29 +41,30 @@ const QuestionItem: FC<{
         isFocusable
         minHeight={minHeight}
         id={question.value}
-        className="px-6 py-2"
       >
-        <h3 className="text-wrap pb-4 text-base font-bold" itemProp="name">
-          {question}
-        </h3>
+        <div className="px-2 pt-3 sm:px-6">
+          <h3 className="text-wrap pb-4 text-base font-bold" itemProp="name">
+            {question}
+          </h3>
 
-        <div
-          itemProp="acceptedAnswer"
-          itemScope
-          itemType="https://schema.org/Answer"
-          className="text-neutral dark:text-neutral-dark leading-8"
-        >
-          <span itemProp="text">{answer}</span>
-          {callToAction && (
-            <Link
-              href={callToAction.url.value}
-              label={callToAction.label.value}
-              color="text"
-              className="text-sm"
-            >
-              {callToAction.label}
-            </Link>
-          )}
+          <div
+            itemProp="acceptedAnswer"
+            itemScope
+            itemType="https://schema.org/Answer"
+            className="text-neutral dark:text-neutral-dark leading-8"
+          >
+            <span itemProp="text">{answer}</span>
+            {callToAction && (
+              <Link
+                href={callToAction.url.value}
+                label={callToAction.label.value}
+                color="text"
+                className="text-sm"
+              >
+                {callToAction.label}
+              </Link>
+            )}
+          </div>
         </div>
       </MaxHeightSmoother>
     </Container>
@@ -112,14 +123,6 @@ export const CommonQuestionsSection: FC = () => {
   // Distribute the content items into columns.
   const columns = distributeItemsIntoColumns(content, numberOfColumns);
 
-  // Use a static mapping since Tailwind needs to know the classes at build time.
-  const gridColsClass =
-    numberOfColumns === 1
-      ? 'grid-cols-1'
-      : numberOfColumns === 2
-        ? 'grid-cols-2'
-        : 'grid-cols-3';
-
   return (
     <section className="m-auto flex w-full max-w-6xl flex-col items-center justify-center">
       <h2 className="text-neutral dark:text-neutral-dark">{title}</h2>
@@ -127,12 +130,20 @@ export const CommonQuestionsSection: FC = () => {
       <div
         itemScope
         itemType="https://schema.org/FAQPage"
-        className={`mt-2 grid w-full grid-flow-row-dense auto-rows-auto gap-x-6 px-16 ${gridColsClass}`}
+        className={cn(
+          'mt-2 grid w-full grid-flow-row-dense auto-rows-auto grid-cols-3 gap-x-6 px-6',
+          numberOfColumns === 1 && 'grid-cols-1',
+          numberOfColumns === 2 && 'grid-cols-2'
+        )}
       >
         {columns.map((column, colIndex) => (
           <div key={colIndex} className="m-auto flex size-full flex-col gap-6">
             {column.map((props) => (
-              <QuestionItem key={props.question.value} {...props} />
+              <QuestionItem
+                key={props.question.value}
+                numberOfColumns={numberOfColumns}
+                {...props}
+              />
             ))}
           </div>
         ))}
