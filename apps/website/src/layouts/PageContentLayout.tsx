@@ -19,7 +19,7 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
   className,
   ...props
 }) => (
-  <KeyboardScreenAdapter className="flex size-full flex-col">
+  <KeyboardScreenAdapter className="flex flex-col">
     {navbar ?? <Navbar />}
     <main
       className={cn('relative flex w-full flex-1 flex-col', className)}
