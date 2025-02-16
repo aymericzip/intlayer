@@ -10,6 +10,7 @@ import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
+import { KeyboardScreenAdapter } from '../KeyboardScreenAdapter';
 
 type ModalProps = {
   children: React.ReactNode;
@@ -105,56 +106,58 @@ export const Modal: FC<ModalProps> = ({
       }}
       aria-hidden={!isOpen}
     >
-      <MotionModal
-        onClick={(e) => e.stopPropagation()}
-        initial={{ scale: isOpen ? 0.5 : 1 }}
-        animate={{ scale: isOpen ? 1 : 0.5 }}
-        transition={{ duration: 0.3 }}
-        className={modalVariants({
-          size,
-          className,
-        })}
-        role="dialog"
-        aria-modal
-        roundedSize="2xl"
-        {...props}
-      >
-        <div
-          className={cn(
-            'cursor-default',
-            hasCloseButton && hasTitle
-              ? `flex items-center justify-center`
-              : hasCloseButton
-                ? `flex items-center justify-end`
-                : hasTitle
-                  ? `items-center`
-                  : `hidden`
-          )}
+      <KeyboardScreenAdapter>
+        <MotionModal
+          onClick={(e) => e.stopPropagation()}
+          initial={{ scale: isOpen ? 0.5 : 1 }}
+          animate={{ scale: isOpen ? 1 : 0.5 }}
+          transition={{ duration: 0.3 }}
+          className={modalVariants({
+            size,
+            className,
+          })}
+          role="dialog"
+          aria-modal
+          roundedSize="2xl"
+          {...props}
         >
-          {hasTitle && (
-            <H3 className="flex items-center justify-center text-lg font-bold">
-              {title}
-            </H3>
-          )}
-          {hasCloseButton && (
-            <Button
-              variant="hoverable"
-              color="text"
-              label="Close modal"
-              className="ml-auto"
-              onClick={(e) => {
-                e.stopPropagation();
-                onClose?.();
-              }}
-              Icon={X}
-              size="icon-md"
-            />
-          )}
-        </div>
-        <div className="flex flex-1 flex-col items-center overflow-auto">
-          {children}
-        </div>
-      </MotionModal>
+          <div
+            className={cn(
+              'cursor-default',
+              hasCloseButton && hasTitle
+                ? `flex items-center justify-center`
+                : hasCloseButton
+                  ? `flex items-center justify-end`
+                  : hasTitle
+                    ? `items-center`
+                    : `hidden`
+            )}
+          >
+            {hasTitle && (
+              <H3 className="flex items-center justify-center text-lg font-bold">
+                {title}
+              </H3>
+            )}
+            {hasCloseButton && (
+              <Button
+                variant="hoverable"
+                color="text"
+                label="Close modal"
+                className="ml-auto"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose?.();
+                }}
+                Icon={X}
+                size="icon-md"
+              />
+            )}
+          </div>
+          <div className="flex flex-1 flex-col items-center overflow-auto">
+            {children}
+          </div>
+        </MotionModal>
+      </KeyboardScreenAdapter>
     </m.div>,
     containerElement
   );

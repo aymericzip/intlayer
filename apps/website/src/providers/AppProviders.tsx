@@ -1,3 +1,4 @@
+import GoogleAnalytics from '@components/GoogleAnalytics';
 import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorkerSubscriber';
 import { AsyncStateProvider } from '@intlayer/design-system/hooks';
 import type { IntlayerClientProviderProps } from 'next-intlayer';
@@ -13,7 +14,10 @@ export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
     <ThemeProvider>
       <AnimatePresenceProvider>
         <ServiceWorkerSubscriber />
-        <AsyncStateProvider>{children}</AsyncStateProvider>
+        <AsyncStateProvider>
+          <GoogleAnalytics />
+          {children}
+        </AsyncStateProvider>
       </AnimatePresenceProvider>
     </ThemeProvider>
   </LocaleContextProvider>

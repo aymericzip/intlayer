@@ -1,3 +1,4 @@
+import { KeyboardScreenAdapter } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
 import { Footer } from '@/components/Footer';
@@ -18,7 +19,7 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
   className,
   ...props
 }) => (
-  <div className="flex-0 flex min-h-screen flex-col">
+  <KeyboardScreenAdapter className="flex size-full flex-col">
     {navbar ?? <Navbar />}
     <main
       className={cn('relative flex w-full flex-1 flex-col', className)}
@@ -28,5 +29,5 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
     </main>
 
     <div className="flex-0 flex w-full flex-col">{footer ?? <Footer />}</div>
-  </div>
+  </KeyboardScreenAdapter>
 );
