@@ -24,10 +24,10 @@ const containerVariants = cva(
       transparency: {
         none: '',
         full: 'bg-none',
-        sm: 'dark:bg-opacity-90',
-        md: 'dark:bg-opacity-70',
-        lg: 'dark:bg-opacity-40',
-        xl: 'dark:bg-opacity-20',
+        sm: 'bg-opacity-90 dark:bg-opacity-90',
+        md: 'bg-opacity-70 dark:bg-opacity-70',
+        lg: 'bg-opacity-40 dark:bg-opacity-40',
+        xl: 'bg-opacity-20 dark:bg-opacity-20',
       },
       backgroundColor: {
         none: 'bg-card dark:bg-card-dark',
