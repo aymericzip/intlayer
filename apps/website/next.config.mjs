@@ -17,7 +17,6 @@ const secureHeaders = createSecureHeaders({
       ],
       styleSrcElem: [
         "'self'",
-        "'unsafe-inline'",
         "'report-sample'",
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
         'fonts.googleapis.com',
@@ -125,6 +124,22 @@ const nextConfig = {
         ...secureHeaders,
         { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
         { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
+        {
+          key: 'Strict-Transport-Security',
+          value: 'max-age=31536000; includeSubDomains; preload',
+        },
+        {
+          key: 'X-Frame-Options',
+          value: 'SAMEORIGIN',
+        },
+        {
+          key: 'X-XSS-Protection',
+          value: '0', // Disables legacy XSS protection
+        },
+        {
+          key: 'Permissions-Policy',
+          value: 'fullscreen=(self)',
+        },
       ],
     },
   ],
