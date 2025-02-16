@@ -19,15 +19,15 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: PagesRoutes.Doc_Search,
+      canonical: PagesRoutes.Doc_Chat,
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Doc_Search),
-        'x-default': PagesRoutes.Doc_Search,
+        ...getMultilingualUrls(PagesRoutes.Doc_Chat),
+        'x-default': PagesRoutes.Doc_Chat,
       },
     },
     openGraph: {
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`,
+        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Chat}`,
         locale
       ),
       title,
