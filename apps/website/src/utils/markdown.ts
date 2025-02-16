@@ -156,7 +156,7 @@ const removeURLDomain = (text: string): string => {
   // Retrieve the application domain from environment variables
 
   // Escape special regex characters in the domain to prevent regex injection
-  const escapedDomain = process.env.NEXT_PUBLIC_DOMAIN!.replace(
+  const escapedDomain = process.env.NEXT_PUBLIC_URL!.replace(
     /[.*+?^${}()|[\]\\]/g,
     '\\$&'
   );
