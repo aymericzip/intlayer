@@ -2,45 +2,31 @@ import { t, type Dictionary } from 'intlayer';
 import { type Metadata } from 'next';
 
 const blogContent = {
-  key: 'blog-next-i18n-vs-next-intl-vs-intlayer-metadata',
+  key: 'blog-react-i18n-vs-react-intl-vs-intlayer-metadata',
   content: {
-    title: t({
-      en: 'next-i18n vs next-intl vs Intlayer',
-      'en-GB': 'next-i18n vs next-intl vs Intlayer',
-      fr: 'next-i18n vs next-intl vs Intlayer',
-      es: 'next-i18n vs next-intl vs Intlayer',
-      de: 'next-i18n vs next-intl vs Intlayer',
-      ja: 'next-i18n vs next-intl vs Intlayer',
-      ko: 'next-i18n vs next-intl vs Intlayer',
-      zh: 'next-i18n vs next-intl vs Intlayer',
-      it: 'next-i18n vs next-intl vs Intlayer',
-      pt: 'next-i18n vs next-intl vs Intlayer',
-      hi: 'next-i18n vs next-intl vs Intlayer',
-      ar: 'next-i18n vs next-intl vs Intlayer',
-      ru: 'next-i18n vs next-intl vs Intlayer',
-    }),
+    title: 'react-i18n vs react-intl vs Intlayer',
 
     description: t({
-      en: 'Integrate next-i18n with next-intl and Intlayer for the internationalization (i18n) of a React app',
+      en: 'Integrate react-i18next with next-intl and Intlayer for the internationalization (i18n) of a React app',
       'en-GB':
-        'Integrate next-i18n with next-intl and Intlayer for the internationalization (i18n) of a React app',
-      fr: "Intègre next-i18n avec next-intl et Intlayer pour l'internationalisation (i18n) d'une application React",
-      es: 'Integra next-i18n con next-intl y Intlayer para la internacionalización (i18n) de una aplicación React',
-      de: 'Integrieren Sie next-i18n mit next-intl und Intlayer für die Internationalisierung (i18n) einer React-App',
-      ja: 'Reactアプリのためにnext-i18nとnext-intlとIntlayerを連携する',
-      ko: 'React 앱에서 next-i18n와 next-intl와 Intlayer를 통합하십시오',
-      zh: '与React应用程序一起使用next-i18n和next-intl和Intlayer',
-      it: "Integra next-i18n con next-intl e Intlayer per l'internazionalizzazione (i18n) di un'app React",
-      pt: 'Integre o next-i18n com o next-intl e Intlayer para a internacionalização (i18n) de um aplicativo React',
-      hi: 'React एप्लिकेशन के लिए next-i18n के साथ next-intl और Intlayer के साथ एक नेटवर्क ऐप की अंतर्राष्ट्रीयकरण (i18n) की तुलना करें',
-      ar: 'قارن بين next-i18n باستخدام next-intl و Intlayer للتدويل الدولي (i18n) لتطبيق React',
-      ru: 'Интегрируйте next-i18n с next-intl и Intlayer для интернационализации (i18n) приложения React',
+        'Integrate react-i18next with next-intl and Intlayer for the internationalization (i18n) of a React app',
+      fr: "Intègre react-i18next avec next-intl et Intlayer pour l'internationalisation (i18n) d'une application React",
+      es: 'Integra react-i18next con next-intl y Intlayer para la internacionalización (i18n) de una aplicación React',
+      de: 'Integrieren Sie react-i18next mit next-intl und Intlayer für die Internationalisierung (i18n) einer React-App',
+      ja: 'react-i18nextとnext-intlとIntlayerを連携する',
+      ko: 'React 앱에서 react-i18next와 next-intl와 Intlayer를 통합하십시오',
+      zh: 'react-i18next和next-intl和Intlayer',
+      it: "Integra react-i18next con next-intl e Intlayer per l'internazionalizzazione (i18n) di un'app React",
+      pt: 'Integre o react-i18next com o next-intl e Intlayer para a internacionalização (i18n) de um aplicativo React',
+      hi: 'React एप्लिकेशन के लिए react-i18next के साथ next-intl और Intlayer के साथ एक नेटवर्क ऐप की अंतर्राष्ट्रीयकरण (i18n) की तुलना करें',
+      ar: 'قارن بين react-i18next باستخدام next-intl و Intlayer للتدويل الدولي (i18n) لتطبيق React',
+      ru: 'Интегрируйте react-i18next с next-intl и Intlayer для интернационализации (i18n) приложения React',
     }),
 
     keywords: t({
       en: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'Internationalization',
         'Blog',
@@ -50,7 +36,7 @@ const blogContent = {
       ],
       'en-GB': [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'Internationalisation',
         'Blog',
@@ -60,7 +46,7 @@ const blogContent = {
       ],
       fr: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'Internationalisation',
         'Blog',
@@ -70,7 +56,7 @@ const blogContent = {
       ],
       es: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'Internacionalización',
         'Blogumentación',
@@ -80,7 +66,7 @@ const blogContent = {
       ],
       de: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'Internationalisierung',
         'Dokumentation',
@@ -90,7 +76,7 @@ const blogContent = {
       ],
       ja: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         '国際化',
         'ドキュメンテーション',
@@ -100,7 +86,7 @@ const blogContent = {
       ],
       ko: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         '국제화',
         '문서화',
@@ -110,7 +96,7 @@ const blogContent = {
       ],
       zh: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         '国际化',
         '文档',
@@ -120,7 +106,7 @@ const blogContent = {
       ],
       it: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'Internazionalizzazione',
         'Blogumentazione',
@@ -130,7 +116,7 @@ const blogContent = {
       ],
       pt: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'Internacionalização',
         'Blogumentação',
@@ -140,7 +126,7 @@ const blogContent = {
       ],
       hi: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'अंतर्राष्ट्रीयकरण',
         'दस्तावेज़ीकरण',
@@ -150,7 +136,7 @@ const blogContent = {
       ],
       ar: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'التدويل',
         'التوثيق',
@@ -160,7 +146,7 @@ const blogContent = {
       ],
       ru: [
         'next-intl',
-        'next-i18next',
+        'react-i18next',
         'Intlayer',
         'Интернационализация',
         'Документация',

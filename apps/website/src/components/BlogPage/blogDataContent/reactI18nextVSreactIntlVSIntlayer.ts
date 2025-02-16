@@ -10,5 +10,5 @@ export const getBlogReactI18nVSReactIntlVSIntlayerData = (
   githubUrl: GithubRoutes['React-i18next_vs_React-intl_vs_Intlayer'],
   createdAt: new Date('2025-01-02'),
   updatedAt: new Date('2025-01-02'),
-  ...getIntlayer('blog-next-i18n-vs-next-intl-vs-intlayer-metadata', locale),
+  ...getIntlayer('blog-react-i18n-vs-react-intl-vs-intlayer-metadata', locale),
 });

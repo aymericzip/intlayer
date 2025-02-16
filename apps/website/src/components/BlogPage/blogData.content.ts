@@ -123,10 +123,10 @@ const blogDataContent = {
           }),
         },
         'next-i18next_vs_next-intl_vs_intlayer': {
-          title: 'next-i18n vs next-intl vs Intlayer',
+          title: 'next-i18next vs next-intl vs Intlayer',
         },
         'react-i18n-vs-react-intl-vs-intlayer': {
-          title: 'react-i18n vs react-intl vs Intlayer',
+          title: 'react-i18next vs react-intl vs Intlayer',
         },
         'i18n-technologies': {
           title: t({
