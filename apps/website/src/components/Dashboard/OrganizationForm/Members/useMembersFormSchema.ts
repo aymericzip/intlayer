@@ -3,9 +3,7 @@ import { z } from 'zod';
 
 export const useOrganizationMembersSchema = () => {
   const { requiredErrorMember, requiredErrorAdmin } = useIntlayer(
-    'members-form-schema',
-    undefined,
-    false
+    'members-form-schema'
   );
 
   return z.object({

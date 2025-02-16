@@ -3,15 +3,13 @@ import { z } from 'zod';
 
 export const useSetUpOrganizationSchema = () => {
   const { requiredErrorOrganizationId } = useIntlayer(
-    'set-up-organization-schema',
-    undefined,
-    false
+    'set-up-organization-schema'
   );
 
   return z.object({
     organizationId: z.string({
-      required_error: requiredErrorOrganizationId,
-      invalid_type_error: requiredErrorOrganizationId,
+      required_error: requiredErrorOrganizationId.value,
+      invalid_type_error: requiredErrorOrganizationId.value,
     }),
   });
 };

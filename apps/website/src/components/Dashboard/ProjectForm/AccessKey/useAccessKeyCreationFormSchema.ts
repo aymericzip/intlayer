@@ -3,15 +3,15 @@ import { z } from 'zod';
 
 export const useAccessKeyCreationSchema = () => {
   const { requiredErrorName, invalidTypeErrorName, invalidDateErrorName } =
-    useIntlayer('access-key-creation-form-schema', undefined, false);
+    useIntlayer('access-key-creation-form-schema');
 
   return z.object({
     name: z
       .string({
-        required_error: requiredErrorName,
-        invalid_type_error: invalidTypeErrorName,
+        required_error: requiredErrorName.value,
+        invalid_type_error: invalidTypeErrorName.value,
       })
-      .min(1, { message: invalidTypeErrorName })
+      .min(1, { message: invalidTypeErrorName.value })
       .default(''),
     expiresAt: z
       .string()

@@ -2,7 +2,7 @@ import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod';
 
 export const useProjectMembersSchema = () => {
-  const { schema } = useIntlayer('project-members-form', undefined, false);
+  const { schema } = useIntlayer('project-members-form');
 
   return z.object({
     membersIds: z

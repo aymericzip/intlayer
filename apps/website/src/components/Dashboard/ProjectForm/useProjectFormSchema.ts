@@ -3,18 +3,16 @@ import { z } from 'zod';
 
 export const useProjectSchema = () => {
   const { requiredErrorName, invalidTypeErrorName } = useIntlayer(
-    'project-form-schema',
-    undefined,
-    false
+    'project-form-schema'
   );
 
   return z.object({
     name: z
       .string({
-        required_error: requiredErrorName,
-        invalid_type_error: invalidTypeErrorName,
+        required_error: requiredErrorName.value,
+        invalid_type_error: invalidTypeErrorName.value,
       })
-      .min(1, { message: invalidTypeErrorName }),
+      .min(1, { message: invalidTypeErrorName.value }),
   });
 };
 
