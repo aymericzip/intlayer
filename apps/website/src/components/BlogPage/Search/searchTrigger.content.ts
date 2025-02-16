@@ -7,7 +7,7 @@ const searchTriggerContent: Dictionary = {
       text: t({
         en: 'Search Blog',
         'en-GB': 'Search Blog',
-        fr: 'Rechercher une blog',
+        fr: 'Rechercher un blog',
         es: 'Buscar blogación',
         de: 'Dokumentation durchsuchen',
         ja: 'ドキュメントを検索',
