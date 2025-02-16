@@ -18,8 +18,9 @@ export const ChatBotModal: FC = () => {
         onClose={() => setIsModalOpen(false)}
         roundedSize="2xl"
         padding="none"
-        className="relative m-auto h-[calc(100vh-100px)] w-full max-w-2xl overflow-hidden"
+        className="relative m-auto h-[calc(95vh-100px)] overflow-hidden"
         disableScroll
+        hasCloseButton
       >
         <ChatBot />
       </Modal>

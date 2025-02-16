@@ -3,7 +3,7 @@
 import { cva } from 'class-variance-authority';
 import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
-import type { FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';
@@ -37,7 +37,7 @@ const modalVariants = cva(
   'cursor-default overflow-auto p-3 shadow justify-center',
   {
     variants: {
-      variant: {
+      size: {
         sm: 'max-h-[30vh] w-[95vw] max-w-xl',
         md: 'max-h-[50vh] w-[95vw] max-w-xl',
         lg: 'max-h-[70vh] w-[95vw] max-w-2xl',
@@ -46,7 +46,7 @@ const modalVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'unset',
+      size: 'unset',
     },
   }
 );
@@ -72,11 +72,29 @@ export const Modal: FC<ModalProps> = ({
   hasCloseButton = false,
   title,
   size = 'md',
+  className,
   ...props
 }) => {
   const containerElement = useGetElementOrWindow(container);
+  const [viewportHeight, setViewportHeight] = useState<number | null>(null);
 
   useScrollBlockage({ key: 'modal', disableScroll: isOpen && disableScroll });
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (window.visualViewport) {
+        setViewportHeight(window.visualViewport.height);
+      }
+    };
+
+    // Listen for changes in visualViewport height
+    window.visualViewport?.addEventListener('resize', updateHeight);
+    updateHeight(); // Set initial height
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', updateHeight);
+    };
+  }, []);
 
   if (!containerElement) return <></>;
 
@@ -110,8 +128,12 @@ export const Modal: FC<ModalProps> = ({
         animate={{ scale: isOpen ? 1 : 0.5 }}
         transition={{ duration: 0.3 }}
         className={modalVariants({
-          variant: size,
+          size,
+          className,
         })}
+        style={{
+          maxHeight: viewportHeight ? `${viewportHeight * 0.9}px` : '',
+        }}
         role="dialog"
         aria-modal
         roundedSize="2xl"
