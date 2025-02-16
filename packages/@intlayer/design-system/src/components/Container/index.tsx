@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 const containerVariants = cva(
-  'flex flex-col text-text backdrop-blur dark:text-text-dark',
+  'flex text-text backdrop-blur dark:text-text-dark',
   {
     variants: {
       roundedSize: {
