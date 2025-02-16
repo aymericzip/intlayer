@@ -3,7 +3,7 @@
 import { cva } from 'class-variance-authority';
 import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
-import { useEffect, useState, type FC } from 'react';
+import { type FC } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';
@@ -38,11 +38,11 @@ const modalVariants = cva(
   {
     variants: {
       size: {
-        sm: 'max-h-[30vh] w-[95vw] max-w-xl',
-        md: 'max-h-[50vh] w-[95vw] max-w-xl',
-        lg: 'max-h-[70vh] w-[95vw] max-w-2xl',
-        xl: 'max-h-[95vh] w-[95vw] max-w-3xl',
-        unset: 'max-h-[95vh] w-[95vw]',
+        sm: 'h-full max-h-[30vh] w-[95vw] max-w-xl',
+        md: 'h-full max-h-[50vh] w-[95vw] max-w-xl',
+        lg: 'h-full max-h-[70vh] w-[95vw] max-w-2xl',
+        xl: 'h-full max-h-[95vh] w-[95vw] max-w-3xl',
+        unset: 'h-full max-h-[95vh] w-[95vw]',
       },
     },
     defaultVariants: {
@@ -76,25 +76,8 @@ export const Modal: FC<ModalProps> = ({
   ...props
 }) => {
   const containerElement = useGetElementOrWindow(container);
-  const [viewportHeight, setViewportHeight] = useState<number | null>(null);
 
   useScrollBlockage({ key: 'modal', disableScroll: isOpen && disableScroll });
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (window.visualViewport) {
-        setViewportHeight(window.visualViewport.height);
-      }
-    };
-
-    // Listen for changes in visualViewport height
-    window.visualViewport?.addEventListener('resize', updateHeight);
-    updateHeight(); // Set initial height
-
-    return () => {
-      window.visualViewport?.removeEventListener('resize', updateHeight);
-    };
-  }, []);
 
   if (!containerElement) return <></>;
 
@@ -102,7 +85,7 @@ export const Modal: FC<ModalProps> = ({
 
   return createPortal(
     <m.div
-      className="bg-background/40 dark:bg-background-dark/40 invisible fixed left-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto backdrop-blur"
+      className="bg-background/40 dark:bg-background-dark/40 invisible fixed left-0 top-0 z-50 flex size-full cursor-pointer overflow-auto p-4 backdrop-blur"
       animate={isOpen ? 'visible' : 'invisible'}
       variants={{
         visible: {
@@ -131,9 +114,6 @@ export const Modal: FC<ModalProps> = ({
           size,
           className,
         })}
-        style={{
-          maxHeight: viewportHeight ? `${viewportHeight * 0.9}px` : '',
-        }}
         role="dialog"
         aria-modal
         roundedSize="2xl"

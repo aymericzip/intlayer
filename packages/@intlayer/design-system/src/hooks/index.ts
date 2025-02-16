@@ -9,3 +9,4 @@ export * from './useItemSelector';
 export * from './useGetAllDictionaries';
 export * from './usePersistedStore';
 export * from './useIsDarkMode';
+export * from './useKeyboardDetector';
