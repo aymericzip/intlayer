@@ -4,11 +4,11 @@ const landingSectionContent = {
   key: 'landing-section',
   content: {
     title: t({
-      en: 'Internationalize (i18n) your website React and Next.js easily',
-      'en-GB': 'Internationalize (i18n) your website React and Next.js easily',
-      fr: 'Internationalisez (i18n) votre site web React et Next.js facilement',
-      es: 'Internacionalice (i18n) su sitio web React y Next.js fácilmente',
-      de: 'Internationalisieren Sie Ihre Website React und Next.js einfach',
+      en: 'Internationalize (i18n) your website React and Next.js',
+      'en-GB': 'Internationalize (i18n) your website React and Next.js',
+      fr: 'Internationalisez (i18n) votre site web React et Next.js',
+      es: 'Internacionalice (i18n) su sitio web React y Next.js',
+      de: 'Internationalisieren Sie Ihre Website React und Next.js',
       ja: 'ReactおよびNext.jsを簡単に国際化（i18n）します',
       ko: '웹사이트 React 및 Next.js를 쉽게 국제화 (i18n)하세요',
       zh: '轻松国际化您的网站React和Next.js',
