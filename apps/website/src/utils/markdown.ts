@@ -106,6 +106,8 @@ const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
     PagesRoutes['Blog_i18n-technologies__frameworks__svelte'],
   [GithubRoutes['i18n-technologies__frameworks__flutter']]:
     PagesRoutes['Blog_i18n-technologies__frameworks__flutter'],
+  [GithubRoutes['i18n-technologies__frameworks__react']]:
+    PagesRoutes['Blog_i18n-technologies__frameworks__react'],
   [GithubRoutes['i18n-technologies__frameworks__react-native']]:
     PagesRoutes['Blog_i18n-technologies__frameworks__react-native'],
   [GithubRoutes['i18n-technologies__CMS__wordpress']]:
