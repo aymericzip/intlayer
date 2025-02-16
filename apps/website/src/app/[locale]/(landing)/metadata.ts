@@ -7,7 +7,7 @@ export const generateMetadata = async ({
   params,
 }: LocalParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords } = getDictionary(
+  const { title, description, keywords, openGraph } = getDictionary(
     metadataContent,
     locale
   );
@@ -64,7 +64,7 @@ export const generateMetadata = async ({
     openGraph: {
       type: 'website',
       url: getLocalizedUrl(process.env.NEXT_PUBLIC_URL!, locale),
-      title,
+      title: openGraph.title,
       description,
       siteName: 'Intlayer',
       images: [

@@ -230,6 +230,23 @@ const metadataContent = {
         'Система управления контентом',
       ],
     }),
+    openGraph: {
+      title: t({
+        en: 'Internationalization (i18n) Next.js | Intlayer',
+        fr: 'Internationalisation (i18n) Next.js | Intlayer',
+        es: 'Internacionalización (i18n) Next.js | Intlayer',
+        'en-GB': 'Internationalization (i18n) Next.js | Intlayer',
+        de: 'Internationalisierung (i18n) Next.js | Intlayer',
+        it: 'Internazionalizzazione (i18n) Next.js | Intlayer',
+        ja: '国際化（i18n）Next.jsが簡単に | Intlayer',
+        ko: '국제화 (i18n) Next.js를 쉽게 만드는 방법 | Intlayer',
+        zh: '国际化（i18n）Next.js 轻松实现 | Intlayer',
+        pt: 'Internacionalização (i18n) Next.js | Intlayer',
+        hi: 'अंतर्राष्ट्रीयकरण (i18n) Next.js को आसानी से बनाया गया | Intlayer',
+        ar: 'التدويل (i18n) يجعل Next.js سهلًا | Intlayer',
+        ru: 'Интернационализация (i18n) Next.js стала простой | Intlayer',
+      }),
+    },
   },
 } satisfies Dictionary<Metadata>;
 
