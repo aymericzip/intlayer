@@ -51,6 +51,10 @@ export const generateMetadata = async ({
           type: 'image/png',
           sizes: '32x32',
         },
+        {
+          url: `${process.env.NEXT_PUBLIC_URL}/logo.svg`,
+          type: 'image/svg+xml',
+        },
       ],
       apple: [
         {
