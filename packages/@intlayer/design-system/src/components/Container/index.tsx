@@ -5,9 +5,10 @@ import {
   type FC,
   type DetailedHTMLProps,
 } from 'react';
+import { cn } from '../../utils/cn';
 
 const containerVariants = cva(
-  'flex text-text backdrop-blur dark:text-text-dark',
+  'flex text-text flex-col backdrop-blur dark:text-text-dark',
   {
     variants: {
       roundedSize: {
@@ -113,18 +114,20 @@ export const Container: FC<ContainerProps> = ({
   ...props
 }) => (
   <div
-    className={containerVariants({
-      roundedSize,
-      transparency,
-      padding,
-      separator,
-      border:
-        typeof border === 'boolean' ? (border ? 'with' : 'none') : undefined,
-      background,
-      backgroundColor,
-      borderColor,
-      className,
-    })}
+    className={cn(
+      containerVariants({
+        roundedSize,
+        transparency,
+        padding,
+        separator,
+        border:
+          typeof border === 'boolean' ? (border ? 'with' : 'none') : undefined,
+        background,
+        backgroundColor,
+        borderColor,
+        className,
+      })
+    )}
     {...props}
   >
     {children}
