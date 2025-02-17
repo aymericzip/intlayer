@@ -1,6 +1,6 @@
 import type { Locales } from './locales';
 
-export type StrictMode = 'strict' | 'required_only' | 'loose';
+export type StrictMode = 'strict' | 'inclusive' | 'loose';
 
 /**
  * Configuration for internationalization settings
@@ -16,14 +16,26 @@ export type InternationalizationConfig = {
   locales: Locales[];
 
   /**
+   * Locales required by TypeScript to ensure strong implementations of internationalized content using typescript.
+   *
+   * Default: []
+   *
+   * If empty, all locales are required in `strict` mode.
+   *
+   * Ensure required locales are also defined in the `locales` field.
+   */
+  requiredLocales: Locales[];
+
+  /**
    * Ensure strong implementations of internationalized content using typescript.
    * - If set to "strict", the translation `t` function will require each declared locales to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
-   * - If set to "required_only", the translation `t` function will require each declared locales to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exist.
+   * - If set to "inclusive", the translation `t` function will require each declared locales to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exist.
    * - If set to "loose", the translation `t` function will accept any existing locale.
    *
-   * Default: "required_only"
+   * Default: "inclusive"
    */
   strictMode: StrictMode;
+
   /**
    * Default locale of the application for fallback
    *

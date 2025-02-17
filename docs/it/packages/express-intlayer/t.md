@@ -308,11 +308,11 @@ Ad esempio:
 
 Configura la funzione `t` per imporre una rigorosa aderenza alle lingue dichiarate:
 
-| Modalità        | Comportamento                                                                                       |
-| --------------- | --------------------------------------------------------------------------------------------------- |
-| `strict`        | Tutte le lingue dichiarate devono avere traduzioni fornite. Le lingue mancanti genereranno errori.  |
-| `required_only` | Le lingue dichiarate devono avere traduzioni. Le lingue mancanti attivano avvisi ma sono accettate. |
-| `loose`         | Qualsiasi lingua esistente è accettata, anche se non dichiarata.                                    |
+| Modalità    | Comportamento                                                                                       |
+| ----------- | --------------------------------------------------------------------------------------------------- |
+| `strict`    | Tutte le lingue dichiarate devono avere traduzioni fornite. Le lingue mancanti genereranno errori.  |
+| `inclusive` | Le lingue dichiarate devono avere traduzioni. Le lingue mancanti attivano avvisi ma sono accettate. |
+| `loose`     | Qualsiasi lingua esistente è accettata, anche se non dichiarata.                                    |
 
 Esempio di Configurazione:
 

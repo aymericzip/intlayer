@@ -6,10 +6,21 @@ import { getFileHash, kebabCaseToCamelCase } from '../../utils';
 
 const { content, internationalization } = getConfiguration();
 const { moduleAugmentationDir, typesDir } = content;
-const { locales, strictMode } = internationalization;
+const { locales, requiredLocales, strictMode } = internationalization;
 
 export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;
+
+const formatLocales = (locales: Locales[]): string =>
+  locales
+    .map((locale) => {
+      for (const key in Locales) {
+        if (Locales[key as keyof typeof Locales] === locale) {
+          return `Locales.${key}`;
+        }
+      }
+    })
+    .join(' | ');
 
 /**
  * This function generates the content of the module augmentation file
@@ -35,20 +46,20 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
     .map((dictionary) => `    "${dictionary.id}": typeof ${dictionary.hash};`)
     .join('\n');
 
-  const formatLocales = locales
-    .map((locale) => {
-      for (const key in Locales) {
-        if (Locales[key as keyof typeof Locales] === locale) {
-          return `Locales.${key}`;
-        }
-      }
-    })
-    .join(' | ');
+  const requiredLocalesValues =
+    requiredLocales.length > 0
+      ? requiredLocales.filter((locale) =>
+          locales.map((locale) => String(locale)).includes(String(locale))
+        )
+      : locales;
+
+  const formattedLocales = formatLocales(locales);
+  const formattedRequiredLocales = formatLocales(requiredLocalesValues);
 
   const strictModeRecord =
     strictMode === 'strict'
-      ? `interface IConfigLocales<Content> extends Record<ExtractedLocales, Content> {}`
-      : strictMode === 'required_only'
+      ? `interface IConfigLocales<Content> extends Record<DeclaredLocales, Content> {}`
+      : strictMode === 'inclusive'
         ? `interface IConfigLocales<Content> extends Record<ExtractedLocales, Content>, Partial<Record<ExcludedLocales, Content>> {}`
         : `interface IConfigLocales<Content> extends Partial<Record<Locales, Content>> {}`;
 
@@ -74,9 +85,10 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    */
   content += `declare module 'intlayer' {\n`;
   content += `  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  }\n\n`;
-  content += `  type ConfigLocales = ${formatLocales};\n`;
-  content += `  type ExtractedLocales = Extract<Locales, ConfigLocales>;\n`;
-  content += `  type ExcludedLocales = Exclude<Locales, ConfigLocales>;\n`;
+  content += `  type DeclaredLocales = ${formattedLocales};\n`;
+  content += `  type RequiredLocales = ${formattedRequiredLocales};\n`;
+  content += `  type ExtractedLocales = Extract<Locales, RequiredLocales>;\n`;
+  content += `  type ExcludedLocales = Exclude<Locales, RequiredLocales>;\n`;
   content += `  ${strictModeRecord}\n`;
   content += `}`;
 

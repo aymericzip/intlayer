@@ -94,10 +94,10 @@ Define as configurações relacionadas à internacionalização, incluindo locai
 - **strictMode**:
 
   - _Tipo_: `string`
-  - _Padrão_: `required_only`
+  - _Padrão_: `inclusive`
   - _Descrição_: Garantir implementações fortes de conteúdo internacionalizado usando TypeScript.
   - _Nota_: Se definido como "strict", a função de tradução `t` exigirá que cada local declarado seja definido. Se um local estiver faltando, ou se um local não estiver declarado em sua configuração, gerará um erro.
-  - _Nota_: Se definido como "required_only", a função de tradução `t` exigirá que cada local declarado seja definido. Se um local estiver faltando, gerará um aviso. Mas aceitará se um local não estiver declarado em sua configuração, mas existir.
+  - _Nota_: Se definido como "inclusive", a função de tradução `t` exigirá que cada local declarado seja definido. Se um local estiver faltando, gerará um aviso. Mas aceitará se um local não estiver declarado em sua configuração, mas existir.
   - _Nota_: Se definido como "loose", a função de tradução `t` aceitará qualquer local existente.
 
 - **defaultLocale**:

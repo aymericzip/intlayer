@@ -95,10 +95,10 @@ Définit les paramètres liés à l'internationalisation, y compris les locales 
 - **strictMode**:
 
   - _Type_: `string`
-  - _Default_: `required_only`
+  - _Default_: `inclusive`
   - _Description_: Garantit une forte mise en œuvre d'un contenu internationalisé en utilisant TypeScript.
   - _Note_: Si défini sur "strict", la fonction de traduction `t` exigera que chaque locale déclarée soit définie. Si une locale est manquante, ou si une locale n'est pas déclarée dans votre configuration, cela déclenchera une erreur.
-  - _Note_: Si défini sur "required_only", la fonction de traduction `t` exigera que chaque locale déclarée soit définie. Si une locale est manquante, cela déclenchera un avertissement. Mais cela acceptera si une locale n'est pas déclarée dans votre configuration, mais existe.
+  - _Note_: Si défini sur "inclusive", la fonction de traduction `t` exigera que chaque locale déclarée soit définie. Si une locale est manquante, cela déclenchera un avertissement. Mais cela acceptera si une locale n'est pas déclarée dans votre configuration, mais existe.
   - _Note_: Si défini sur "loose", la fonction de traduction `t` acceptera toute locale existante.
 
 - **defaultLocale**:

@@ -19,6 +19,7 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const internationalization: ReplaceValue<InternationalizationConfig> = {
     locales: import.meta.env.VITE_INTLAYER_LOCALES,
+    requiredLocales: import.meta.env.VITE_INTLAYER_REQUIRED_LOCALES,
     strictMode: import.meta.env.VITE_INTLAYER_STRICT_MODE,
     defaultLocale: import.meta.env.VITE_INTLAYER_DEFAULT_LOCALE,
   };

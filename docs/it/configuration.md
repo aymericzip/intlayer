@@ -94,10 +94,10 @@ Definisce le impostazioni relative all'internazionalizzazione, comprese le local
 - **strictMode**:
 
   - _Tipo_: `string`
-  - _Predefinito_: `required_only`
+  - _Predefinito_: `inclusive`
   - _Descrizione_: Assicura implementazioni forti di contenuti internazionalizzati utilizzando TypeScript.
   - _Nota_: Se impostato su "strict", la funzione di traduzione `t` richiederà che ciascuna localizzazione dichiarata sia definita. Se una localizzazione è assente, o se una localizzazione non è dichiarata nella tua configurazione, verrà generato un errore.
-  - _Nota_: Se impostato su "required_only", la funzione di traduzione `t` richiederà che ciascuna localizzazione dichiarata sia definita. Se una localizzazione è assente, verrà generato un avviso. Ma verrà accettato se una localizzazione non è dichiarata nella tua configurazione, ma esiste.
+  - _Nota_: Se impostato su "inclusive", la funzione di traduzione `t` richiederà che ciascuna localizzazione dichiarata sia definita. Se una localizzazione è assente, verrà generato un avviso. Ma verrà accettato se una localizzazione non è dichiarata nella tua configurazione, ma esiste.
   - _Nota_: Se impostato su "loose", la funzione di traduzione `t` accetterà qualsiasi localizzazione esistente.
 
 - **defaultLocale**:

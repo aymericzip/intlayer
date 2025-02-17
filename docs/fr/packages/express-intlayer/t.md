@@ -308,11 +308,11 @@ Par exemple :
 
 Configurez la fonction `t` pour imposer une adhésion stricte aux locales déclarées :
 
-| Mode            | Comportement                                                                                                                    |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `strict`        | Toutes les locales déclarées doivent avoir des traductions fournies. Les locales manquantes généreront des erreurs.             |
-| `required_only` | Les locales déclarées doivent avoir des traductions. Les locales manquantes déclenchent des avertissements mais sont acceptées. |
-| `loose`         | Toute locale existante est acceptée, même si elle n'est pas déclarée.                                                           |
+| Mode        | Comportement                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `strict`    | Toutes les locales déclarées doivent avoir des traductions fournies. Les locales manquantes généreront des erreurs.             |
+| `inclusive` | Les locales déclarées doivent avoir des traductions. Les locales manquantes déclenchent des avertissements mais sont acceptées. |
+| `loose`     | Toute locale existante est acceptée, même si elle n'est pas déclarée.                                                           |
 
 Exemple de Configuration :
 

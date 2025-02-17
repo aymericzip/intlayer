@@ -308,11 +308,11 @@ For example:
 
 Configure the `t` function to enforce strict adherence to declared locales:
 
-| Mode            | Behavior                                                                                    |
-| --------------- | ------------------------------------------------------------------------------------------- |
-| `strict`        | All declared locales must have translations provided. Missing locales will throw errors.    |
-| `required_only` | Declared locales must have translations. Missing locales trigger warnings but are accepted. |
-| `loose`         | Any existing locale is accepted, even if not declared.                                      |
+| Mode        | Behavior                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------- |
+| `strict`    | All declared locales must have translations provided. Missing locales will throw errors.    |
+| `inclusive` | Declared locales must have translations. Missing locales trigger warnings but are accepted. |
+| `loose`     | Any existing locale is accepted, even if not declared.                                      |
 
 Configuration Example:
 

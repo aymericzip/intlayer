@@ -308,11 +308,11 @@ Por exemplo:
 
 Configure a função `t` para impor adesão estrita aos locais declarados:
 
-| Modo            | Comportamento                                                                             |
-| --------------- | ----------------------------------------------------------------------------------------- |
-| `strict`        | Todos os locais declarados devem ter traduções fornecidas. Locais ausentes gerarão erros. |
-| `required_only` | Locais declarados devem ter traduções. Locais ausentes geram avisos, mas são aceitos.     |
-| `loose`         | Qualquer local existente é aceito, mesmo que não declarado.                               |
+| Modo        | Comportamento                                                                             |
+| ----------- | ----------------------------------------------------------------------------------------- |
+| `strict`    | Todos os locais declarados devem ter traduções fornecidas. Locais ausentes gerarão erros. |
+| `inclusive` | Locais declarados devem ter traduções. Locais ausentes geram avisos, mas são aceitos.     |
+| `loose`     | Qualquer local existente é aceito, mesmo que não declarado.                               |
 
 Exemplo de Configuração:
 

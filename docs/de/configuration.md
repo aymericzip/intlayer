@@ -94,10 +94,10 @@ Definiert Einstellungen, die mit der Internationalisierung zusammenhängen, eins
 - **strictMode**:
 
   - _Typ_: `string`
-  - _Standard_: `required_only`
+  - _Standard_: `inclusive`
   - _Beschreibung_: Stellt sicher, dass die Durchsetzung internationalisierter Inhalte mithilfe von TypeScript stark ist.
   - _Hinweis_: Wenn auf "strict" gesetzt, erfordert die Übersetzungsfunktion `t`, dass jede deklarierte Lokalisierung definiert ist. Wenn eine Lokalisierung fehlt oder in Ihrer Konfiguration nicht deklariert ist, wird ein Fehler ausgegeben.
-  - _Hinweis_: Wenn auf "required_only" gesetzt, erfordert die Übersetzungsfunktion `t`, dass jede deklarierte Lokalisierung definiert ist. Wenn eine Lokalisierung fehlt, wird eine Warnung ausgegeben. Aber akzeptiert, wenn eine Lokalisierung nicht in Ihrer Konfiguration deklariert ist, aber existiert.
+  - _Hinweis_: Wenn auf "inclusive" gesetzt, erfordert die Übersetzungsfunktion `t`, dass jede deklarierte Lokalisierung definiert ist. Wenn eine Lokalisierung fehlt, wird eine Warnung ausgegeben. Aber akzeptiert, wenn eine Lokalisierung nicht in Ihrer Konfiguration deklariert ist, aber existiert.
   - _Hinweis_: Wenn auf "loose" gesetzt, akzeptiert die Übersetzungsfunktion `t` jede vorhandene Lokalisierung.
 
 - **defaultLocale**:

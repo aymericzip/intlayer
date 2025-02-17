@@ -308,11 +308,11 @@ Beispielsweise:
 
 Konfigurieren Sie die `t` Funktion, um eine strikte Einhaltung der deklarierten Sprachen durchzusetzen:
 
-| Modus           | Verhalten                                                                                                       |
-| --------------- | --------------------------------------------------------------------------------------------------------------- |
-| `strict`        | Alle deklarierten Sprachen müssen Übersetzungen bereitstellen. Fehlende Sprachen verursachen Fehler.            |
-| `required_only` | Deklarierte Sprachen müssen Übersetzungen haben. Fehlende Sprachen lösen Warnungen aus, werden aber akzeptiert. |
-| `loose`         | Jede vorhandene Sprache wird akzeptiert, auch wenn sie nicht deklariert ist.                                    |
+| Modus       | Verhalten                                                                                                       |
+| ----------- | --------------------------------------------------------------------------------------------------------------- |
+| `strict`    | Alle deklarierten Sprachen müssen Übersetzungen bereitstellen. Fehlende Sprachen verursachen Fehler.            |
+| `inclusive` | Deklarierte Sprachen müssen Übersetzungen haben. Fehlende Sprachen lösen Warnungen aus, werden aber akzeptiert. |
+| `loose`     | Jede vorhandene Sprache wird akzeptiert, auch wenn sie nicht deklariert ist.                                    |
 
 Konfigurationsbeispiel:
 

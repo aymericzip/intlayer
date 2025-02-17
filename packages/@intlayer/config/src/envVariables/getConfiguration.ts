@@ -27,6 +27,10 @@ export const getConfiguration = (
 
   const intlayerIntlConfiguration: InternationalizationConfig = {
     locales: getEnvValue<Locales>(env.internationalization.locales, 'array')!,
+    requiredLocales: getEnvValue<Locales>(
+      env.internationalization.requiredLocales,
+      'array'
+    )!,
     strictMode: getEnvValue<StrictMode>(
       env.internationalization.strictMode,
       'string'
