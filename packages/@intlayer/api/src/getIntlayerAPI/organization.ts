@@ -40,7 +40,8 @@ export const getOrganizationAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const { backendURL } = (intlayerConfig ?? getConfiguration()).editor;
+  const backendURL =
+    intlayerConfig?.editor.backendURL ?? getConfiguration().editor.backendURL;
   const ORGANIZATION_API_ROUTE = `${backendURL}/api/organization`;
 
   /**

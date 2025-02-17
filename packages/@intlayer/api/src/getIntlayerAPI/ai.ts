@@ -29,7 +29,8 @@ export const getAiAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const { backendURL } = (intlayerConfig ?? getConfiguration()).editor;
+  const backendURL =
+    intlayerConfig?.editor.backendURL ?? getConfiguration().editor.backendURL;
   const AI_API_ROUTE = `${backendURL}/api/ai`;
 
   /**

@@ -83,7 +83,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
               keyPath,
               locales: configuration.internationalization.locales ?? [],
             }).then((response) => {
-              if (!response.data) return;
+              if (!response?.data) return;
 
               try {
                 const editedContent = response.data.fileContent as string;
@@ -690,13 +690,11 @@ export const TextEditor: FC<TextEditorProps> = ({
 
   if (nodeType === NodeType.Object) {
     return (
-      <>
-        <ObjectTextEditor
-          dictionary={dictionary}
-          keyPath={keyPath}
-          section={section}
-        />
-      </>
+      <ObjectTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+      />
     );
   }
 

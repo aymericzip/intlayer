@@ -38,7 +38,8 @@ export const getDictionaryAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const { backendURL } = (intlayerConfig ?? getConfiguration()).editor;
+  const backendURL =
+    intlayerConfig?.editor.backendURL ?? getConfiguration().editor.backendURL;
   const PROJECT_API_ROUTE = `${backendURL}/api/dictionary`;
 
   /**
