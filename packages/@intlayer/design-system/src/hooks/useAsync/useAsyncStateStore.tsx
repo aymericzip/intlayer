@@ -67,23 +67,6 @@ const createDefaultStates = <T,>(): States<T> => ({
 });
 
 /**
- * Ensures that a given value is returned as an array.
- * If the value is undefined or null, returns an empty array.
- * If the value is not already an array, wraps it in one.
- */
-const ensureArray = <T,>(value?: T | T[]): T[] => {
-  if (!value) {
-    // If no value is provided, return an empty array
-    return [];
-  } else if (Array.isArray(value)) {
-    // If it's already an array, just return it
-    return value;
-  }
-  // If it's a single value, wrap it in an array
-  return [value];
-};
-
-/**
  * Given a list of selector keys and a list of keys that may contain arguments,
  * this function returns all keys that match the selectors. Matching is determined
  * by comparing the initial part (split by "/") of the key.
@@ -151,12 +134,16 @@ const reducer = <T,>(
     }
     case 'SET_QUERIES_STATE': {
       const { keys, value } = action;
-      const keyArray = ensureArray(keys);
-      if (keyArray.length === 0) return state;
+      const keyArray = [keys].flat();
+
+      // Find all keys that match the given selectors
+      const allKeys = Object.keys(state.states);
+      const matchedKeys = getMatchKeys(keyArray, allKeys);
+      if (matchedKeys.length === 0) return state;
 
       // Update multiple keys in a single action
-      const updatedStates = { ...state.states };
-      keyArray.forEach((key) => {
+      const updatedStates = structuredClone(state.states);
+      matchedKeys.forEach((key) => {
         updatedStates[key] = {
           ...(state.states[key] ?? createDefaultStates<T>()),
           ...value,
@@ -170,7 +157,7 @@ const reducer = <T,>(
     }
     case 'RESET_KEY_STATE': {
       const { keys } = action;
-      const keyArray = ensureArray(keys);
+      const keyArray = [keys].flat();
       if (keyArray.length === 0) return state;
 
       // Find all keys that match the given selectors
@@ -190,8 +177,9 @@ const reducer = <T,>(
       };
     }
     case 'RESET_STATE': {
-      const excludeArray = ensureArray(action.excludeKeys);
+      const excludeArray = [action.excludeKeys].flat();
       const allKeys = Object.keys(state.states);
+
       const matchedKeys = getMatchKeys(excludeArray, allKeys);
 
       // Reset all states except those that match the exclude keys
