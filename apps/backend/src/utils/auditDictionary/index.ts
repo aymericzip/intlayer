@@ -121,7 +121,7 @@ export const auditDictionary = async ({
 
     // Example of how you might request a completion from ChatGPT:
     const chatCompletion = await openai.chat.completions.create({
-      model: model ?? 'gpt-4o-mini',
+      model: model ?? 'gpt-4o-2024-11-20',
       messages: [{ role: 'system', content: prompt }],
     });
 

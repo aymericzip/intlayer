@@ -32,7 +32,7 @@ export const auditFile = async (filePath: string, locale: Locales) => {
 
     // Example of how you might request a completion from ChatGPT:
     const chatCompletion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o-2024-11-20',
       messages: [{ role: 'system', content: prompt }],
     });
 

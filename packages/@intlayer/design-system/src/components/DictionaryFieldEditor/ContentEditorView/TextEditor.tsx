@@ -57,7 +57,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   dictionary,
   ...props
 }) => {
-  const { addEditedContent } = useEditedContent();
+  const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
   const { auditContentDeclarationField, isLoading: isAuditing } =
     useAuditContentDeclarationField();
@@ -79,7 +79,10 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
           isLoading={isAuditing}
           onClick={() => {
             auditContentDeclarationField({
-              fileContent: JSON.stringify(dictionary),
+              fileContent: JSON.stringify({
+                ...dictionary,
+                ...(editedContent?.[dictionary.key] ?? {}),
+              }),
               keyPath,
               locales: configuration.internationalization.locales ?? [],
             }).then((response) => {
