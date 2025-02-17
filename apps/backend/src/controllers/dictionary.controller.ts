@@ -5,6 +5,7 @@ import type {
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as dictionaryService from '@services/dictionary.service';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {
   type DictionaryFiltersParams,
@@ -67,7 +68,7 @@ export const getDictionaries = async (
     const totalItems = await dictionaryService.countDictionaries(filters);
 
     const dictionariesAPI = dictionaries.map((el) =>
-      mapDictionaryToAPI(el, project._id, el.publishedVersion ?? undefined)
+      mapDictionaryToAPI(el, project._id)
     );
 
     const responseData = formatPaginatedResponse<DictionaryAPI>({
@@ -344,12 +345,6 @@ export const pushDictionaries = async (
     const errorResult: PushDictionariesResultData['error'] = [];
 
     for (const dictionaryDataEl of newDictionaries) {
-      const publishedVersion = dictionaryDataEl.version
-        ? dictionaryDataEl.version === '-1'
-          ? null
-          : dictionaryDataEl.version
-        : null;
-
       const dictionary: DictionaryData = {
         title: dictionaryDataEl.title,
         description: dictionaryDataEl.description,
@@ -362,7 +357,6 @@ export const pushDictionaries = async (
           [String(project._id)]: dictionaryDataEl.filePath ?? '',
         },
         key: dictionaryDataEl.key,
-        publishedVersion,
       };
 
       try {
@@ -389,12 +383,12 @@ export const pushDictionaries = async (
           (dictionaryDB) => dictionaryDB.key === dictionaryDataEl.key
         )!;
 
-        const existingContentArray = Object.values(
-          existingDictionaryDB.content
-        );
+        const versionList = [...(existingDictionaryDB.content.keys() ?? [])];
+        const lastVersion = versionList[versionList.length - 1];
 
         const lastContent =
-          existingContentArray[existingContentArray.length - 1].content;
+          (existingDictionaryDB.content.get(lastVersion)
+            ?.content as DictionaryAPI['content']) ?? null;
 
         const isSameContent =
           JSON.stringify(lastContent) ===
@@ -414,14 +408,8 @@ export const pushDictionaries = async (
           };
         }
 
-        const publishedVersion = dictionaryDataEl.version
-          ? dictionaryDataEl.version === '-1'
-            ? null
-            : dictionaryDataEl.version
-          : null;
-
         const dictionary: DictionaryData = {
-          ...existingDictionaryDB,
+          ...ensureMongoDocumentToObject(existingDictionaryDB),
           ...dictionaryDataEl,
           content: newContent,
           projectIds: [String(project._id)],
@@ -429,7 +417,6 @@ export const pushDictionaries = async (
           filePath: {
             [String(project._id)]: dictionaryDataEl.filePath ?? '',
           },
-          publishedVersion,
           key: dictionaryDataEl.key,
         };
 

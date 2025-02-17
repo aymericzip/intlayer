@@ -34,7 +34,6 @@ export type DictionaryData = {
   description?: string;
   tags?: string[];
   filePath?: Record<string, string>;
-  publishedVersion?: string | null;
 };
 
 export type Dictionary = DictionaryData & {

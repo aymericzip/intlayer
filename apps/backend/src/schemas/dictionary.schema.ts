@@ -58,10 +58,6 @@ export const dictionarySchema = new Schema<Dictionary>(
       of: String,
       default: null,
     },
-    publishedVersion: {
-      type: String,
-      default: null,
-    },
   },
   {
     timestamps: true,
