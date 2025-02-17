@@ -6,22 +6,10 @@ import {
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
-import { Locales } from 'intlayer';
-import {
-  ArrowUpFromLine,
-  Download,
-  RotateCcw,
-  Save,
-  WandSparkles,
-} from 'lucide-react';
+import { ArrowUpFromLine, Download, RotateCcw, Save } from 'lucide-react';
 import { useCallback, useMemo, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import {
-  usePushDictionaries,
-  useAuditContentDeclaration,
-  useWriteDictionary,
-} from '../../../hooks';
-import { useAuth } from '../../Auth';
+import { usePushDictionaries, useWriteDictionary } from '../../../hooks';
 import { Form, useForm } from '../../Form';
 import { saveDictionaryContent } from './saveForm.content';
 import { getSaveFormSchema } from './SaveFormSchema';
@@ -32,25 +20,15 @@ type DictionaryDetailsProps = {
 };
 
 export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
-  const { session } = useAuth();
-  const project = session?.project;
   const { setLocaleDictionary } = useDictionariesRecordActions();
   const { pushDictionaries } = usePushDictionaries();
   const { writeDictionary } = useWriteDictionary();
   const SaveFormSchema = getSaveFormSchema();
-  const { isLoading: isAuditing, auditContentDeclaration } =
-    useAuditContentDeclaration();
 
-  const { editedContent, restoreEditedContent, setEditedContent } =
-    useEditedContent();
+  const { editedContent, restoreEditedContent } = useEditedContent();
   const { form, isSubmitting } = useForm(SaveFormSchema);
-  const {
-    auditButton,
-    resetButton,
-    saveButton,
-    publishButton,
-    downloadButton,
-  } = useDictionary(saveDictionaryContent);
+  const { resetButton, saveButton, publishButton, downloadButton } =
+    useDictionary(saveDictionaryContent);
 
   const editedDictionary = useMemo(
     () => editedContent?.[dictionary.key],
@@ -60,8 +38,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
   const isEdited = useMemo(
     () =>
       editedDictionary &&
-      JSON.stringify(editedDictionary.content) !==
-        JSON.stringify(dictionary.content),
+      JSON.stringify(editedDictionary) !== JSON.stringify(dictionary),
     [editedDictionary, dictionary, mode]
   );
 
@@ -85,34 +62,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
     }
     setLocaleDictionary(editedContent?.[dictionary.key]);
     restoreEditedContent(dictionary.key);
-  }, [
-    dictionary,
-    editedContent,
-    pushDictionaries,
-    setLocaleDictionary,
-    writeDictionary,
-    restoreEditedContent,
-    mode,
-  ]);
-
-  const handleOnAuditFile = async () =>
-    await auditContentDeclaration({
-      defaultLocale:
-        project?.configuration?.internationalization?.defaultLocale ??
-        Locales.ENGLISH,
-      locales: project?.configuration?.internationalization?.locales ?? [
-        Locales.ENGLISH,
-      ],
-      fileContent: JSON.stringify(editedDictionary ?? dictionary),
-    }).then((response) => {
-      if (!response.data) return;
-
-      const editedDictionary = JSON.parse(
-        response.data.fileContent
-      ) as Dictionary;
-
-      setEditedContent(dictionary.key, editedDictionary.content);
-    });
+  }, [dictionary, editedContent, mode]);
 
   return (
     <Form
@@ -121,19 +71,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
       schema={SaveFormSchema}
       onSubmitSuccess={onSubmitSuccess}
     >
-      <Form.Button
-        type="button"
-        label={auditButton.label.value}
-        disabled={isSubmitting}
-        Icon={WandSparkles}
-        variant="outline"
-        color="text"
-        className="ml-auto max-md:w-full"
-        isLoading={isAuditing}
-        onClick={handleOnAuditFile}
-      >
-        {auditButton.text}
-      </Form.Button>
       {isEdited && (
         <Form.Button
           type="button"

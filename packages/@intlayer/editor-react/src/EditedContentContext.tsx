@@ -9,8 +9,10 @@ import {
   renameContentNodeByKeyPath,
 } from '@intlayer/core';
 import {
+  type Dispatch,
   createContext,
   useContext,
+  type SetStateAction,
   type FC,
   type PropsWithChildren,
 } from 'react';
@@ -32,6 +34,7 @@ type EditedContentActionsContextType = {
   setEditedContentState: (
     editedContent: Record<Dictionary['key'], Dictionary>
   ) => void;
+  setEditedDictionary: Dispatch<SetStateAction<Dictionary>>;
   setEditedContent: (
     dictionaryKey: Dictionary['key'],
     newValue: Dictionary['content']
@@ -71,6 +74,11 @@ export const useEditedContentState = () =>
     { emit: true, receive: false }
   );
 
+const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
+  typeof state === 'function'
+    ? (state as (prevState?: S) => S)(prevState)
+    : (state as S);
+
 export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const { localeDictionaries } = useDictionariesRecord();
 
@@ -79,6 +87,26 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       'INTLAYER_EDITED_CONTENT_CHANGED',
       undefined
     );
+
+  const setEditedDictionary: Dispatch<SetStateAction<Dictionary>> = (
+    newValue
+  ) => {
+    let updatedDictionaries: Dictionary = resolveState(newValue);
+
+    setEditedContentState((prev) => {
+      updatedDictionaries = resolveState(
+        newValue,
+        prev?.[updatedDictionaries.key]
+      );
+
+      return {
+        ...prev,
+        [updatedDictionaries.key]: updatedDictionaries,
+      };
+    });
+
+    return updatedDictionaries;
+  };
 
   const setEditedContent = (
     dictionaryKey: Dictionary['key'],
@@ -245,6 +273,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       <EditedContentActionsContext.Provider
         value={{
           setEditedContentState,
+          setEditedDictionary,
           setEditedContent,
           addEditedContent,
           renameEditedContent,

@@ -6,7 +6,7 @@ type EditableFieldInputElementProps = Omit<
   FormElementProps<typeof EditableFieldInput>,
   'Element'
 > &
-  Omit<ComponentProps<typeof EditableFieldInput>, 'onChange'> & {
+  ComponentProps<typeof EditableFieldInput> & {
     name: string;
     description?: ReactNode;
     placeholder?: string;
