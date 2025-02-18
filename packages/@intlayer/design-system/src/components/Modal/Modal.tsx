@@ -86,7 +86,7 @@ export const Modal: FC<ModalProps> = ({
 
   return createPortal(
     <m.div
-      className="bg-background/40 dark:bg-background-dark/40 invisible fixed left-0 top-0 z-50 flex size-full cursor-pointer overflow-auto p-4 backdrop-blur"
+      className="bg-background/40 dark:bg-background-dark/40 invisible fixed left-0 top-0 z-50 flex size-full cursor-pointer overflow-auto backdrop-blur"
       animate={isOpen ? 'visible' : 'invisible'}
       variants={{
         visible: {
@@ -106,7 +106,7 @@ export const Modal: FC<ModalProps> = ({
       }}
       aria-hidden={!isOpen}
     >
-      <KeyboardScreenAdapter>
+      <KeyboardScreenAdapter className="flex justify-center p-4">
         <MotionModal
           onClick={(e) => e.stopPropagation()}
           initial={{ scale: isOpen ? 0.5 : 1 }}

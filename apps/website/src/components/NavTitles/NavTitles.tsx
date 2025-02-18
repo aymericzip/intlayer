@@ -210,10 +210,10 @@ export const NavTitles: FC<NavTitlesProps> = (props) => {
               variant="hoverable"
               color="text"
               label={collapseButton.label.value}
-              className={cn([
+              className={cn(
                 'transition-transform max-md:hidden',
-                isHidden && 'rotate-180',
-              ])}
+                isHidden && 'rotate-180'
+              )}
               onClick={() => setIsHidden((isHidden) => !isHidden)}
             />
             <MaxWidthSmoother isHidden={isHidden}>
