@@ -65,8 +65,6 @@ const SelectScrollDownButton: FC<
     <ChevronDownIcon />
   </SelectPrimitive.ScrollDownButton>
 );
-SelectScrollDownButton.displayName =
-  SelectPrimitive.ScrollDownButton.displayName;
 
 export const SelectContent: FC<
   ComponentProps<typeof SelectPrimitive.Content>

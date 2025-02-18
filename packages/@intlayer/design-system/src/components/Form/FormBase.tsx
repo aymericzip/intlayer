@@ -75,8 +75,6 @@ export const Form = <T extends ZodType>({
   );
 };
 
-Form.displayName = 'Form';
-
 export const useForm = <T extends ZodType>(
   schema: T,
   props?: UseFormProps<z.infer<T>>

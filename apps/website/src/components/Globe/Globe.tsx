@@ -2,14 +2,13 @@
 
 import createGlobe from 'cobe';
 import { useTheme } from 'next-themes';
-import { type MutableRefObject, type FC, memo, useEffect, useRef } from 'react';
+import { type RefObject, type FC, memo, useEffect, useRef } from 'react';
 import { useSpring } from 'react-spring';
 
 export const Globe: FC = memo(() => {
   const { resolvedTheme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pointerInteracting: MutableRefObject<number | null> =
-    useRef<number>(null);
+  const pointerInteracting: RefObject<number | null> = useRef<number>(null);
   const pointerInteractionMovement = useRef<number>(0);
   const [{ r }, api] = useSpring(() => ({
     r: 10,

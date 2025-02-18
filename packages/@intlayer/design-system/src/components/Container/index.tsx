@@ -133,5 +133,3 @@ export const Container: FC<ContainerProps> = ({
     {children}
   </div>
 );
-
-Container.displayName = 'Container';

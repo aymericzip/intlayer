@@ -418,8 +418,6 @@ const MultiSelectItem: FC<
   );
 };
 
-MultiSelectItem.displayName = 'MultiSelectItem';
-
 type MultiSelectType = typeof MultiSelectRoot & {
   Trigger: typeof MultiSelectTrigger;
   Input: typeof MultiSelectInput;

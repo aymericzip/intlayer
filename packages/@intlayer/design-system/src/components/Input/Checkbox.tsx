@@ -84,5 +84,3 @@ export const Checkbox: FC<CheckboxProps> = ({
     </>
   );
 };
-
-Checkbox.displayName = 'Checkbox';

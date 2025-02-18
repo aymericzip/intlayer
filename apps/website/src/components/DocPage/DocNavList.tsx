@@ -230,6 +230,4 @@ export const DocNavList: FC<DocNavListProps> = ({
   );
 };
 
-DocNavList.displayName = 'DocNavList';
-
 export default DocNavList;
