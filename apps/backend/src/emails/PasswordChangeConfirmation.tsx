@@ -30,7 +30,7 @@ export const PasswordChangeConfirmationEmailEN = ({
           <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                src={`https://intlayer.org/assets/favicon-32x32.png`}
+                src={`https://intlayer.org/favicon-32x32.png`}
                 width="40"
                 height="37"
                 alt="Intlayer"
@@ -78,7 +78,7 @@ export const PasswordChangeConfirmationEmailFR = ({
           <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                src={`https://intlayer.org/assets/favicon-32x32.png`}
+                src={`https://intlayer.org/favicon-32x32.png`}
                 width="40"
                 height="37"
                 alt="Intlayer"
@@ -127,7 +127,7 @@ export const PasswordChangeConfirmationEmailES = ({
           <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                src={`https://intlayer.org/assets/favicon-32x32.png`}
+                src={`https://intlayer.org/favicon-32x32.png`}
                 width="40"
                 height="37"
                 alt="Intlayer"
