@@ -10,7 +10,6 @@ import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
-import { KeyboardScreenAdapter } from '../KeyboardScreenAdapter';
 
 type ModalProps = {
   children: React.ReactNode;
@@ -106,7 +105,7 @@ export const Modal: FC<ModalProps> = ({
       }}
       aria-hidden={!isOpen}
     >
-      <KeyboardScreenAdapter className="flex justify-center p-4">
+      <div className="flex justify-center p-4">
         <MotionModal
           onClick={(e) => e.stopPropagation()}
           initial={{ scale: isOpen ? 0.5 : 1 }}
@@ -157,7 +156,7 @@ export const Modal: FC<ModalProps> = ({
             {children}
           </div>
         </MotionModal>
-      </KeyboardScreenAdapter>
+      </div>
     </m.div>,
     containerElement
   );
