@@ -12,6 +12,7 @@ import React, {
   useState,
   useRef,
 } from 'react';
+import { VisualEditorSection } from './VisualEditorSection';
 
 type SectionItemProps = {
   isActive: boolean;
@@ -125,7 +126,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
         </div>
 
         {/* Titles that move depending on `activeIndex` */}
-        <div className="top-15 absolute left-0 z-10 size-full md:top-[15vh]">
+        <div className="top-15 absolute left-0 z-20 size-full md:top-[15vh]">
           {sections.map((section, index) => {
             const isActive = index === activeIndex;
             // Define the angle step (in radians) between items.
@@ -167,7 +168,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
         {/* Section content “carousel” in a sticky container */}
         {sections.map((section, index) => (
           <div
-            className="absolute right-0 top-[50vh] z-20 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3"
+            className="absolute right-0 top-[50vh] z-10 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3"
             key={section.id.value}
           >
             <SectionItem isActive={index === activeIndex}>
@@ -178,7 +179,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
 
         {sections.map((section, index) => (
           <div
-            className="absolute left-0 top-[35vh] z-20 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3"
+            className="absolute left-0 top-[35vh] z-10 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3"
             key={section.id.value}
           >
             <SectionDescription isActive={index === activeIndex}>
@@ -201,27 +202,29 @@ const DynamicIDESection = dynamic(
 export const FeaturesSection: FC = () => {
   const sectionsData = useIntlayer('features-section');
 
-  const sections: Section[] = sectionsData.map((sectionData) => {
-    switch (sectionData.id.value) {
-      case 'maintainability':
-        return { ...sectionData, children: <DynamicIDESection /> };
+  const sections: Section[] = sectionsData
+    .filter((el) => ['maintainability', 'visual-editor'].includes(el.id.value))
+    .map((sectionData) => {
+      switch (sectionData.id.value) {
+        case 'maintainability':
+          return { ...sectionData, children: <DynamicIDESection /> };
 
-      case 'visual-editor':
-        return { ...sectionData, children: <>{sectionData.title}</> };
+        case 'visual-editor':
+          return { ...sectionData, children: <VisualEditorSection /> };
 
-      case 'autocomplete-suggestions':
-        return { ...sectionData, children: <>{sectionData.title}</> };
+        case 'autocomplete-suggestions':
+          return { ...sectionData, children: <>{sectionData.title}</> };
 
-      case 'translate':
-        return { ...sectionData, children: <>{sectionData.title}</> };
+        case 'translate':
+          return { ...sectionData, children: <>{sectionData.title}</> };
 
-      case 'markdown':
-        return { ...sectionData, children: <>{sectionData.title}</> };
+        case 'markdown':
+          return { ...sectionData, children: <>{sectionData.title}</> };
 
-      default:
-        return { ...sectionData, children: <>{sectionData.title}</> };
-    }
-  });
+        default:
+          return { ...sectionData, children: <>{sectionData.title}</> };
+      }
+    });
 
   return <FeaturesCarousel sections={sections} />;
 };
