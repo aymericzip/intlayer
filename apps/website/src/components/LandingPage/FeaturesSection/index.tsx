@@ -1,5 +1,6 @@
 'use client';
 
+import { useDevice } from '@intlayer/design-system/hooks';
 import { motion } from 'framer-motion';
 import { Loader } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -64,6 +65,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
   // Track scroll progress within the active section
   const [progress, setProgress] = useState(0);
   const nbSections = sections.length;
+  const { isMobile } = useDevice();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,6 +139,8 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
             // Define a radius in rem units.
             const radius = 10;
 
+            const fontConst = isMobile ? 2 : 3;
+
             return (
               <motion.h3
                 key={section.id.value}
@@ -155,7 +159,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
                         3
                       }rem`,
                   opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,
-                  fontSize: `${3 / (absIndexDiff + 1)}rem`,
+                  fontSize: `${fontConst / (absIndexDiff + 1)}rem`,
                 }}
                 transition={{ duration: 0.3 }}
                 aria-selected={isActive}
