@@ -42,14 +42,10 @@ export const IDESection: FC = () => {
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === 'dark';
   return (
-    <section className="flex w-full flex-col items-center justify-center">
-      <div className="w-full max-w-[1000px] px-10 md:px-20">
-        <IDE
-          isDarkMode={isDarkMode}
-          pages={ideTabs}
-          className="m-auto max-h-[440px] min-h-[440px] text-xs"
-        />
-      </div>
-    </section>
+    <IDE
+      isDarkMode={isDarkMode}
+      pages={ideTabs}
+      className="mx-auto max-h-[440px] flex-1 text-xs"
+    />
   );
 };

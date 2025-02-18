@@ -31,15 +31,15 @@ const DynamicWhyToChoseIntlayerSection = dynamic(
   }
 );
 
-const DynamicDemoSection = dynamic(
-  () => import('./DemoSection').then((mod) => mod.DemoSection),
+const DynamicFeaturesSection = dynamic(
+  () => import('./FeaturesSection').then((mod) => mod.FeaturesSection),
   {
     loading: () => <Loader />,
   }
 );
 
-const DynamicIDESection = dynamic(
-  () => import('./IDESection').then((mod) => mod.IDESection),
+const DynamicDemoSection = dynamic(
+  () => import('./DemoSection').then((mod) => mod.DemoSection),
   {
     loading: () => <Loader />,
   }
@@ -57,8 +57,8 @@ export const LandingPage: FC = () => (
     <div className="flex flex-col gap-10">
       <LandingSection />
       <DynamicWhyToChoseIntlayerSection />
+      <DynamicFeaturesSection />
       <DynamicAvailableTechnoSection />
-      <DynamicIDESection />
       <DynamicLanguageSection />
       <DynamicDemoSection />
       <CommonQuestionsSection />
