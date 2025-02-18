@@ -1,6 +1,7 @@
 'use client';
 
 import { useDevice } from '@intlayer/design-system/hooks';
+import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
 import { Loader } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -128,7 +129,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
         </div>
 
         {/* Titles that move depending on `activeIndex` */}
-        <div className="top-15 absolute left-0 z-20 size-full md:top-[15vh]">
+        <div className="top-15 absolute left-0 z-30 size-full md:top-[15vh] md:w-1/3">
           {sections.map((section, index) => {
             const isActive = index === activeIndex;
             // Define the angle step (in radians) between items.
@@ -172,7 +173,10 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
         {/* Section content “carousel” in a sticky container */}
         {sections.map((section, index) => (
           <div
-            className="absolute right-0 top-[50vh] z-10 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3"
+            className={cn(
+              'absolute right-0 top-[50vh] z-0 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3',
+              index === activeIndex && 'z-30'
+            )}
             key={section.id.value}
           >
             <SectionItem isActive={index === activeIndex}>
@@ -183,7 +187,10 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
 
         {sections.map((section, index) => (
           <div
-            className="absolute left-0 top-[35vh] z-10 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3"
+            className={cn(
+              'absolute left-0 top-[35vh] z-0 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3',
+              index === activeIndex && 'z-20'
+            )}
             key={section.id.value}
           >
             <SectionDescription isActive={index === activeIndex}>
