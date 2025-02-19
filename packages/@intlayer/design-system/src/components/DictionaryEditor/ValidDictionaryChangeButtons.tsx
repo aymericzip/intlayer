@@ -29,8 +29,9 @@ export const ValidDictionaryChangeButtons: FC<
     useDictionary(validDictionaryChangeButtonsContent);
 
   const { setLocaleDictionary } = useDictionariesRecordActions();
-  const { writeDictionary } = useWriteDictionary();
-  const { pushDictionaries } = usePushDictionaries();
+  const { writeDictionary, isLoading: isWriting } = useWriteDictionary();
+  const { pushDictionaries, isLoading: isPushing } = usePushDictionaries();
+  const isLoading = isWriting || isPushing;
 
   const { editedContent, restoreEditedContent } = useEditedContent();
   const { form, isSubmitting } = useForm(
@@ -55,7 +56,7 @@ export const ValidDictionaryChangeButtons: FC<
     [dictionary]
   );
 
-  const onSubmitSuccess = useCallback(async () => {
+  const handleSaveDictionary = useCallback(async () => {
     if (!editedContent?.[dictionary.key]) return;
 
     const updatedDictionary = {
@@ -63,81 +64,90 @@ export const ValidDictionaryChangeButtons: FC<
       ...editedContent?.[dictionary.key],
     };
 
-    if (mode === 'remote') {
-      await pushDictionaries([updatedDictionary]);
-    } else {
-      await writeDictionary(updatedDictionary);
-    }
-    setLocaleDictionary(editedContent?.[dictionary.key]);
-    restoreEditedContent(dictionary.key);
+    await writeDictionary(updatedDictionary).then(() => {
+      setLocaleDictionary(editedContent?.[dictionary.key]);
+      restoreEditedContent(dictionary.key);
+    });
+  }, [dictionary, editedContent, mode]);
+
+  const handlePushDictionary = useCallback(async () => {
+    if (!editedContent?.[dictionary.key]) return;
+
+    const updatedDictionary = {
+      ...dictionary,
+      ...editedContent?.[dictionary.key],
+    };
+
+    await pushDictionaries([updatedDictionary]).then(() => {
+      setLocaleDictionary(editedContent?.[dictionary.key]);
+      restoreEditedContent(dictionary.key);
+    });
   }, [dictionary, editedContent, mode]);
 
   return (
-    <div className="mb-4">
-      <Form
-        className="flex w-full flex-row flex-wrap justify-end gap-3"
-        {...form}
-        schema={ValidDictionaryChangeButtonsSchemaSchema}
-        onSubmitSuccess={onSubmitSuccess}
-      >
-        {isEdited && (
-          <Form.Button
-            type="button"
-            label={resetButton.label.value}
-            disabled={!isEdited || isSubmitting}
-            className="ml-auto"
-            Icon={RotateCcw}
-            variant="outline"
-            color="text"
-            isFullWidth
-            isLoading={isSubmitting}
-            onClick={() => restoreEditedContent(dictionary.key)}
-          >
-            {resetButton.text}
-          </Form.Button>
-        )}
-        {mode === 'remote' ? (
-          isLocalDictionary ? (
-            <Form.Button
-              type="submit"
-              label={publishButton.label.value}
-              disabled={!isEdited || isSubmitting}
-              Icon={ArrowUpFromLine}
-              color="text"
-              isFullWidth
-              isLoading={isSubmitting}
-            >
-              {publishButton.text}
-            </Form.Button>
-          ) : (
-            isEdited && (
-              <Form.Button
-                type="submit"
-                label={saveButton.label.value}
-                disabled={!isEdited || isSubmitting}
-                Icon={Save}
-                color="text"
-                isFullWidth
-                isLoading={isSubmitting}
-              >
-                {saveButton.text}
-              </Form.Button>
-            )
-          )
-        ) : (
-          <Form.Button
-            type="submit"
-            label={downloadButton.label.value}
-            disabled={!isEdited || isSubmitting}
-            Icon={Download}
-            color="text"
-            isFullWidth
-            isLoading={isSubmitting}
-          >
-            {downloadButton.text}
-          </Form.Button>
-        )}
-      </Form>
-    </div>
+    <Form
+      className="flex w-full flex-row flex-wrap justify-end gap-3"
+      {...form}
+      schema={ValidDictionaryChangeButtonsSchemaSchema}
+    >
+      {isEdited && (
+        <Form.Button
+          type="button"
+          label={resetButton.label.value}
+          disabled={!isEdited || isSubmitting || isLoading}
+          className="ml-auto"
+          Icon={RotateCcw}
+          variant="outline"
+          color="text"
+          isFullWidth
+          isLoading={isSubmitting}
+          onClick={() => restoreEditedContent(dictionary.key)}
+        >
+          {resetButton.text}
+        </Form.Button>
+      )}
+      {mode === 'remote' && isLocalDictionary && (
+        <Form.Button
+          type="submit"
+          label={publishButton.label.value}
+          disabled={isSubmitting || isLoading}
+          Icon={ArrowUpFromLine}
+          color="text"
+          isFullWidth
+          isLoading={isSubmitting}
+          onClick={handlePushDictionary}
+        >
+          {publishButton.text}
+        </Form.Button>
+      )}
+      {mode === 'remote' && isEdited && (
+        <Form.Button
+          type="submit"
+          label={saveButton.label.value}
+          disabled={!isEdited || isSubmitting || isLoading}
+          Icon={Save}
+          color="text"
+          isFullWidth
+          isLoading={isSubmitting}
+          onClick={handleSaveDictionary}
+        >
+          {saveButton.text}
+        </Form.Button>
+      )}
+      {mode === 'local' && (
+        <Form.Button
+          type="submit"
+          label={downloadButton.label.value}
+          disabled={!isEdited || isSubmitting || isLoading}
+          Icon={Download}
+          color="text"
+          isFullWidth
+          isLoading={isSubmitting}
+          onClick={handlePushDictionary}
+        >
+          {downloadButton.text}
+        </Form.Button>
+      )}
+    </Form>
   );
 };

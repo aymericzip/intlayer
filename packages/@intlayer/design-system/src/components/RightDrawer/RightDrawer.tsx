@@ -162,7 +162,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
           <div className="flex h-full flex-col overflow-y-auto p-2">
             <div
-              className="flex-1"
+              className="flex flex-1 flex-col"
               onClick={handleSpareSpaceClick}
               ref={childrenContainerRef}
             >

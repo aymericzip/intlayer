@@ -1,7 +1,7 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { Dictionary, KeyPath } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import type { FC } from 'react';
 import { NodeWrapper } from './NodeWrapper';
@@ -24,7 +24,7 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   const focusedKeyPath = focusedContent?.keyPath;
 
   return (
-    <div className="flex h-full flex-col justify-between gap-2">
+    <div className="flex flex-1 flex-col justify-between gap-2">
       <div>
         <NodeWrapper
           {...props}
@@ -41,7 +41,9 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
           onFocusKeyPath={setFocusedContentKeyPath}
         />
       </div>
-      <ValidDictionaryChangeButtons dictionary={dictionary} mode={mode} />
+      <div className="mb-4">
+        <ValidDictionaryChangeButtons dictionary={dictionary} mode={mode} />
+      </div>
     </div>
   );
 };
