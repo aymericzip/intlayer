@@ -1,6 +1,6 @@
 {
   "name": "intlayer-cli",
-  "version": "5.1.4",
+  "version": "5.1.5",
   "private": false,
   "description": "Lightweight CLI tool for Intlayer, enabling content audits, dictionary management, and CMS sync. Ideal for JavaScript developers using React or Express.",
   "keywords": [
