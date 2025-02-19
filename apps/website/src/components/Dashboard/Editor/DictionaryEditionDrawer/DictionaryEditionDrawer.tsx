@@ -64,12 +64,14 @@ export const DictionaryEditionDrawerContent: FC<
         size="xl"
         transparency="lg"
       >
-        <DictionaryFieldEditor
-          dictionary={dictionary}
-          onClickDictionaryList={onClickDictionaryList}
-          isDarkMode={isDarkMode}
-          mode="remote"
-        />
+        <div className="size-full px-3 pt-5">
+          <DictionaryFieldEditor
+            dictionary={dictionary}
+            onClickDictionaryList={onClickDictionaryList}
+            isDarkMode={isDarkMode}
+            mode="remote"
+          />
+        </div>
       </Modal>
 
       <div className="border-text/20 dark:border-text-dark/20 mb-5 flex w-full border-b border-dashed px-3 pb-2">

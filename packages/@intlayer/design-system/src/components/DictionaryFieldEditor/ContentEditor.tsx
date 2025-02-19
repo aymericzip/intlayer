@@ -39,8 +39,8 @@ export const ContentEditor: FC<NodeEditorProps> = ({
   }, []);
 
   return (
-    <>
-      <div className="flex items-center justify-between gap-2">
+    <div>
+      <div className="mb-6 flex items-center justify-between gap-2">
         <KeyPathBreadcrumb
           dictionaryKey={key}
           keyPath={focusedKeyPath ?? []}
@@ -77,6 +77,6 @@ export const ContentEditor: FC<NodeEditorProps> = ({
           />
         )}
       </div>
-    </>
+    </div>
   );
 };

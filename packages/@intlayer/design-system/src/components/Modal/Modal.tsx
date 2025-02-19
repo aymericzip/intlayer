@@ -34,15 +34,15 @@ type ModalProps = {
 >;
 
 const modalVariants = cva(
-  'cursor-default overflow-auto p-3 shadow justify-center',
+  'cursor-default overflow-auto py-3 shadow justify-center',
   {
     variants: {
       size: {
-        sm: 'h-full max-h-[30vh] w-[95vw] max-w-xl',
-        md: 'h-full max-h-[50vh] w-[95vw] max-w-xl',
-        lg: 'h-full max-h-[70vh] w-[95vw] max-w-2xl',
-        xl: 'h-full max-h-[95vh] w-[95vw] max-w-3xl',
-        unset: 'h-full max-h-[95vh] w-[95vw]',
+        sm: 'h-auto max-h-[30vh] w-[95vw] max-w-xl',
+        md: 'h-auto max-h-[50vh] w-[95vw] max-w-xl',
+        lg: 'h-auto max-h-[70vh] w-[95vw] max-w-2xl',
+        xl: 'h-auto max-h-[95vh] w-[95vw] max-w-6xl',
+        unset: 'h-auto max-h-[95vh] w-[95vw]',
       },
     },
     defaultVariants: {
@@ -85,7 +85,7 @@ export const Modal: FC<ModalProps> = ({
 
   return createPortal(
     <m.div
-      className="bg-background/40 dark:bg-background-dark/40 invisible fixed left-0 top-0 z-50 flex size-full cursor-pointer overflow-auto backdrop-blur"
+      className="bg-background/40 dark:bg-background-dark/40 invisible fixed left-0 top-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto backdrop-blur"
       animate={isOpen ? 'visible' : 'invisible'}
       variants={{
         visible: {
@@ -122,7 +122,7 @@ export const Modal: FC<ModalProps> = ({
         >
           <div
             className={cn(
-              'cursor-default',
+              'cursor-default px-4',
               hasCloseButton && hasTitle
                 ? `flex items-center justify-center`
                 : hasCloseButton
@@ -133,7 +133,7 @@ export const Modal: FC<ModalProps> = ({
             )}
           >
             {hasTitle && (
-              <H3 className="flex items-center justify-center text-lg font-bold">
+              <H3 className="ml-4 flex items-center justify-center text-lg font-bold">
                 {title}
               </H3>
             )}

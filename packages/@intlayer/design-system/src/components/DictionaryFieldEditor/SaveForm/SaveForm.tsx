@@ -66,7 +66,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
 
   return (
     <Form
-      className="flex w-full flex-1 flex-row flex-wrap justify-end gap-3"
+      className="flex h-auto w-full flex-col flex-wrap justify-end gap-3 md:flex-row"
       {...form}
       schema={SaveFormSchema}
       onSubmitSuccess={onSubmitSuccess}

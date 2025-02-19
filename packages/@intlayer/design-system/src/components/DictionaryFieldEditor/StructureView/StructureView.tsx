@@ -178,6 +178,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
       className="w-full min-w-80 gap-2 overflow-auto px-5 py-2"
       border
       borderColor="text"
+      background="none"
       aria-selected={isSameKeyPath(keyPath, focusedContent?.keyPath ?? [])}
       onClick={() => setFocusedContentKeyPath(keyPath)}
     >

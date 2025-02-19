@@ -66,71 +66,61 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     <LocaleSwitcherContentProvider
       availableLocales={config.internationalization.locales ?? []}
     >
-      <div className="flex size-full flex-1 flex-col gap-10">
-        <div className="flex items-center gap-2">
-          <Button
-            onClick={() => onClickDictionaryList?.()}
-            variant="hoverable"
-            size="icon-md"
-            color="text"
-            id="return-to-dictionary-list"
-            Icon={ArrowLeft}
-            label={returnToDictionaryList.label.value}
-          />
-          <label
-            className="cursor-pointer text-xs hover:underline"
-            htmlFor="return-to-dictionary-list"
-          >
-            {returnToDictionaryList.text}
-          </label>
-        </div>
-
-        <Container
-          className="flex size-full justify-center gap-10 p-6"
-          roundedSize="xl"
+      <div className="flex size-full flex-col gap-6 px-2">
+        <Button
+          onClick={onClickDictionaryList}
+          variant="hoverable"
+          className="z-10 ml-5 mr-auto"
+          color="text"
+          Icon={ArrowLeft}
+          label={returnToDictionaryList.label.value}
         >
-          <SwitchSelector
-            defaultValue={editorView}
-            onChange={(value) => setEditorView(value)}
-            color="text"
-            size="sm"
-            className="m-auto w-full max-w-xl"
-            choices={[
-              {
-                content: 'Details',
-                value: EditorViewType.DetailsEditor,
-              },
-              {
-                content: 'Structure',
-                value: EditorViewType.StructureEditor,
-              },
-              {
-                content: 'Content',
-                value: EditorViewType.ContentEditor,
-              },
-              {
-                content: 'JSON',
-                value: EditorViewType.JSONEditor,
-              },
-            ].filter(
-              ({ value }) =>
-                !(mode === 'local' && value === EditorViewType.DetailsEditor)
-            )}
-          />
-          {editorView === EditorViewType.DetailsEditor && (
-            <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
+          {returnToDictionaryList.text}
+        </Button>
+
+        <SwitchSelector
+          defaultValue={editorView}
+          onChange={(value) => setEditorView(value)}
+          color="text"
+          size="sm"
+          className="m-auto w-full max-w-xl"
+          choices={[
+            {
+              content: 'Details',
+              value: EditorViewType.DetailsEditor,
+            },
+            {
+              content: 'Structure',
+              value: EditorViewType.StructureEditor,
+            },
+            {
+              content: 'Content',
+              value: EditorViewType.ContentEditor,
+            },
+            {
+              content: 'JSON',
+              value: EditorViewType.JSONEditor,
+            },
+          ].filter(
+            ({ value }) =>
+              !(mode === 'local' && value === EditorViewType.DetailsEditor)
           )}
-          {editorView === EditorViewType.StructureEditor && (
-            <StructureEditor dictionary={dictionary} />
-          )}
-          {editorView === EditorViewType.ContentEditor && (
-            <ContentEditor dictionary={dictionary} isDarkMode={isDarkMode} />
-          )}
-          {editorView === EditorViewType.JSONEditor && (
-            <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
-          )}
-          <SaveForm dictionary={dictionary} mode={mode} />
-        </Container>
+        />
+
+        {editorView === EditorViewType.DetailsEditor && (
+          <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
+        )}
+        {editorView === EditorViewType.StructureEditor && (
+          <StructureEditor dictionary={dictionary} />
+        )}
+        {editorView === EditorViewType.ContentEditor && (
+          <ContentEditor dictionary={dictionary} isDarkMode={isDarkMode} />
+        )}
+        {editorView === EditorViewType.JSONEditor && (
+          <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
+        )}
+
+        <SaveForm dictionary={dictionary} mode={mode} />
       </div>
     </LocaleSwitcherContentProvider>
   );
