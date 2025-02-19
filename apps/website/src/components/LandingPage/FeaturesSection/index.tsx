@@ -113,7 +113,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 
   return (
     <section
-      className="relative h-[600vh] w-screen"
+      className="relative -z-10 h-[600vh] w-screen"
       style={{
         // Make the entire container as tall as the number of sections * 100vh
         height: `${nbSections * 150}vh`,
@@ -213,10 +213,6 @@ const DynamicIDESection = dynamic(
     loading: () => <Loader />,
   }
 );
-
-// import { MarkdownSection } from './MarkdownSection';
-// import { TranslationSection } from './TranslationSection';
-// import { VisualEditorSection } from './VisualEditorSection';
 
 const DynamicMarkdownSection = dynamic(
   () => import('./MarkdownSection').then((mod) => mod.MarkdownSection),
