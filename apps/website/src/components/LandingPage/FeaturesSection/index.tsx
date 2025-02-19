@@ -14,6 +14,8 @@ import React, {
   useState,
   useRef,
 } from 'react';
+import { MarkdownSection } from './MarkdownSection';
+import { TranslationSection } from './TranslationSection';
 import { VisualEditorSection } from './VisualEditorSection';
 
 type SectionItemProps = {
@@ -57,14 +59,19 @@ export type Section = {
 
 type FeaturesCarouselProps = {
   sections: Section[];
+  progress: number;
+  setProgress: (progress: number) => void;
 };
 
-export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
+export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
+  sections,
+  progress,
+  setProgress,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   // Track which section is currently "active"
   const [activeIndex, setActiveIndex] = useState(0);
   // Track scroll progress within the active section
-  const [progress, setProgress] = useState(0);
   const nbSections = sections.length;
   const { isMobile } = useDevice();
 
@@ -112,7 +119,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
       className="relative w-screen"
       style={{
         // Make the entire container as tall as the number of sections * 100vh
-        height: `${nbSections * 100}vh`,
+        height: `${nbSections * 150}vh`,
       }}
       ref={containerRef}
     >
@@ -129,7 +136,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
         </div>
 
         {/* Titles that move depending on `activeIndex` */}
-        <div className="top-15 absolute left-0 z-30 size-full md:top-[15vh] md:w-1/3">
+        <div className="top-15 absolute left-0 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap">
           {sections.map((section, index) => {
             const isActive = index === activeIndex;
             // Define the angle step (in radians) between items.
@@ -145,7 +152,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
             return (
               <motion.h3
                 key={section.id.value}
-                className="text-neutral dark:text-neutral-dark aria-selected:text-text dark:aria-selected:text-text-dark absolute left-3 top-1/4 inline text-xl font-bold leading-snug"
+                className="text-neutral dark:text-neutral-dark aria-selected:text-text dark:aria-selected:text-text-dark absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-md"
                 animate={{
                   // Convert polar coords to Cartesian (rem units)
                   translateX: isActive
@@ -175,7 +182,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
           <div
             className={cn(
               'absolute right-0 top-[50vh] z-0 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3',
-              index === activeIndex && 'z-30'
+              index === activeIndex && 'z-20'
             )}
             key={section.id.value}
           >
@@ -189,7 +196,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({ sections }) => {
           <div
             className={cn(
               'absolute left-0 top-[35vh] z-0 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3',
-              index === activeIndex && 'z-20'
+              index === activeIndex && 'z-10'
             )}
             key={section.id.value}
           >
@@ -211,31 +218,41 @@ const DynamicIDESection = dynamic(
 );
 
 export const FeaturesSection: FC = () => {
+  const [progress, setProgress] = useState(0);
   const sectionsData = useIntlayer('features-section');
 
   const sections: Section[] = sectionsData
-    .filter((el) => ['maintainability', 'visual-editor'].includes(el.id.value))
+    .filter((el) => !['autocomplete'].includes(el.id.value))
     .map((sectionData) => {
       switch (sectionData.id.value) {
-        case 'maintainability':
+        case 'codebase':
           return { ...sectionData, children: <DynamicIDESection /> };
 
         case 'visual-editor':
           return { ...sectionData, children: <VisualEditorSection /> };
 
-        case 'autocomplete-suggestions':
+        case 'autocomplete':
           return { ...sectionData, children: <>{sectionData.title}</> };
 
         case 'translate':
-          return { ...sectionData, children: <>{sectionData.title}</> };
+          return {
+            ...sectionData,
+            children: <TranslationSection scrollProgress={progress} />,
+          };
 
         case 'markdown':
-          return { ...sectionData, children: <>{sectionData.title}</> };
+          return { ...sectionData, children: <MarkdownSection /> };
 
         default:
           return { ...sectionData, children: <>{sectionData.title}</> };
       }
     });
 
-  return <FeaturesCarousel sections={sections} />;
+  return (
+    <FeaturesCarousel
+      sections={sections}
+      progress={progress}
+      setProgress={setProgress}
+    />
+  );
 };
