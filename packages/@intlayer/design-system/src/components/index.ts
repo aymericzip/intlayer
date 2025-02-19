@@ -28,6 +28,7 @@ export * from './InformationTag';
 export * from './Form';
 export * from './Label';
 export * from './Input';
+export * from './TextArea';
 export * from './Auth';
 export * from './Toaster';
 export * from './Link';
