@@ -3,8 +3,7 @@ import type { FC, SVGProps } from 'react';
 export const ViteLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="410"
-    height="404"
+    preserveAspectRatio="xMidYMid"
     viewBox="0 0 410 404"
     fill="none"
     {...props}

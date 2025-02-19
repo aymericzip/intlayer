@@ -3,9 +3,8 @@ import type { FC, SVGProps } from 'react';
 export const ReactLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    height="2500"
+    preserveAspectRatio="xMidYMid"
     viewBox="175.7 78 490.6 436.9"
-    width="2194"
     {...props}
   >
     <g fill="#61dafb">
