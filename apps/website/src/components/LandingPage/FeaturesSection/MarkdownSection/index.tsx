@@ -39,9 +39,15 @@ export const MarkdownSection: FC<MarkdownSectionProps> = ({
         background="none"
         border
         roundedSize="2xl"
-        className="w-full flex-1 overflow-scroll"
+        className="w-full flex-1 overflow-scroll p-5"
       >
-        <MarkdownRenderer>{text}</MarkdownRenderer>
+        <MarkdownRenderer
+          options={{
+            wrapper: (props) => <>{props.children}</>,
+          }}
+        >
+          {text}
+        </MarkdownRenderer>
       </Container>
       <TextArea
         defaultValue={text}
@@ -49,7 +55,7 @@ export const MarkdownSection: FC<MarkdownSectionProps> = ({
           setIsControlled(true);
           setText(e.target.value);
         }}
-        className="h-32"
+        className="h-44"
       />
     </div>
   );
