@@ -4,13 +4,13 @@ import type { Locales } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
 import type { FC } from 'react';
+import { SaveForm } from '../DictionaryFieldEditor/SaveForm/SaveForm';
 import { NodeWrapper } from './NodeWrapper';
-import { ValidDictionaryChangeButtons } from './ValidDictionaryChangeButtons';
 
 type DictionaryEditorProps = {
   dictionary: Dictionary;
   locale: Locales;
-  mode: 'local' | 'remote';
+  mode: ('local' | 'remote')[];
 };
 
 export const DictionaryEditor: FC<DictionaryEditorProps> = ({
@@ -41,9 +41,7 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
           onFocusKeyPath={setFocusedContentKeyPath}
         />
       </div>
-      <div className="mb-4">
-        <ValidDictionaryChangeButtons dictionary={dictionary} mode={mode} />
-      </div>
+      <SaveForm dictionary={dictionary} mode={mode} className="mb-4 flex-col" />
     </div>
   );
 };

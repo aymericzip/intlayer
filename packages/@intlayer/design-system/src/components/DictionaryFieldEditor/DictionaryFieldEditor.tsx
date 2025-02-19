@@ -10,7 +10,6 @@ import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../Button';
-import { Container } from '../Container';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
 import { SwitchSelector } from '../SwitchSelector';
 import { ContentEditor } from './ContentEditor';
@@ -24,7 +23,7 @@ type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   onClickDictionaryList?: () => void;
   isDarkMode?: boolean;
-  mode: 'local' | 'remote';
+  mode: ('local' | 'remote')[];
 };
 
 enum EditorViewType {
@@ -103,7 +102,10 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
             },
           ].filter(
             ({ value }) =>
-              !(mode === 'local' && value === EditorViewType.DetailsEditor)
+              !(
+                !mode.includes('remote') &&
+                value === EditorViewType.DetailsEditor
+              )
           )}
         />
 

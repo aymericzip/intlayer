@@ -3,32 +3,45 @@
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import type { Dictionary } from '@intlayer/core';
 import {
+  useConfiguration,
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
 import { ArrowUpFromLine, Download, RotateCcw, Save } from 'lucide-react';
-import { useCallback, useMemo, type FC } from 'react';
+import {
+  type DetailedHTMLProps,
+  type FormHTMLAttributes,
+  useMemo,
+  type FC,
+} from 'react';
 import { useDictionary } from 'react-intlayer';
 import { usePushDictionaries, useWriteDictionary } from '../../../hooks';
-import { Form, useForm } from '../../Form';
+import { cn } from '../../../utils/cn';
+import { Form } from '../../Form';
 import { saveDictionaryContent } from './saveForm.content';
-import { getSaveFormSchema } from './SaveFormSchema';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
-  mode: 'local' | 'remote';
-};
+  mode: ('local' | 'remote')[];
+} & DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
 
-export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
+export const SaveForm: FC<DictionaryDetailsProps> = ({
+  dictionary,
+  mode,
+  className,
+  ...props
+}) => {
+  const { editor } = useConfiguration();
   const { setLocaleDictionary } = useDictionariesRecordActions();
-  const { pushDictionaries } = usePushDictionaries();
-  const { writeDictionary } = useWriteDictionary();
-  const SaveFormSchema = getSaveFormSchema();
+  const { writeDictionary, isLoading: isWriting } = useWriteDictionary();
+  const { pushDictionaries, isLoading: isPushing } = usePushDictionaries();
+  const isLoading = isWriting || isPushing;
 
   const { editedContent, restoreEditedContent } = useEditedContent();
-  const { form, isSubmitting } = useForm(SaveFormSchema);
   const { resetButton, saveButton, publishButton, downloadButton } =
     useDictionary(saveDictionaryContent);
+
+  const hasIntlayerAccessKey = Boolean(editor.clientId && editor.clientSecret);
 
   const editedDictionary = useMemo(
     () => editedContent?.[dictionary.key],
@@ -47,7 +60,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
     [dictionary]
   );
 
-  const onSubmitSuccess = useCallback(async () => {
+  const handleSaveDictionary = async () => {
     if (!editedContent?.[dictionary.key]) return;
 
     const updatedDictionary = {
@@ -55,27 +68,35 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
       ...editedContent?.[dictionary.key],
     };
 
-    if (mode === 'remote') {
-      await pushDictionaries([updatedDictionary]);
-    } else {
-      await writeDictionary(updatedDictionary);
-    }
-    setLocaleDictionary(editedContent?.[dictionary.key]);
-    restoreEditedContent(dictionary.key);
-  }, [dictionary, editedContent, mode]);
+    await writeDictionary(updatedDictionary).then(() => {
+      setLocaleDictionary(editedContent?.[dictionary.key]);
+      restoreEditedContent(dictionary.key);
+    });
+  };
+
+  const handlePushDictionary = async () => {
+    if (!editedContent?.[dictionary.key]) return;
+
+    const updatedDictionary = {
+      ...dictionary,
+      ...editedContent?.[dictionary.key],
+    };
+
+    await pushDictionaries([updatedDictionary]).then(() => {
+      setLocaleDictionary(editedContent?.[dictionary.key]);
+      restoreEditedContent(dictionary.key);
+    });
+  };
 
   return (
-    <Form
-      className="flex h-auto w-full flex-col flex-wrap justify-end gap-3 md:flex-row"
-      {...form}
-      schema={SaveFormSchema}
-      onSubmitSuccess={onSubmitSuccess}
+    <form
+      className={cn('flex justify-end gap-2 max-md:flex-col', className)}
+      {...props}
     >
       {isEdited && (
         <Form.Button
-          type="button"
           label={resetButton.label.value}
-          disabled={!isEdited || isSubmitting}
+          disabled={!isEdited}
           Icon={RotateCcw}
           variant="outline"
           color="text"
@@ -85,47 +106,45 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({ dictionary, mode }) => {
           {resetButton.text}
         </Form.Button>
       )}
-      {mode === 'remote' ? (
-        isLocalDictionary ? (
-          <Form.Button
-            type="submit"
-            label={publishButton.label.value}
-            disabled={!isEdited || isSubmitting}
-            Icon={ArrowUpFromLine}
-            color="text"
-            className="max-md:w-full"
-            isLoading={isSubmitting}
-          >
-            {publishButton.text}
-          </Form.Button>
-        ) : (
-          isEdited && (
-            <Form.Button
-              type="submit"
-              label={saveButton.label.value}
-              disabled={!isEdited || isSubmitting}
-              Icon={Save}
-              color="text"
-              className="max-md:w-full"
-              isLoading={isSubmitting}
-            >
-              {saveButton.text}
-            </Form.Button>
-          )
-        )
-      ) : (
+      {mode.includes('remote') && hasIntlayerAccessKey && isLocalDictionary && (
         <Form.Button
-          type="submit"
+          label={publishButton.label.value}
+          disabled={!isEdited}
+          Icon={ArrowUpFromLine}
+          color="text"
+          className="max-md:w-full"
+          isLoading={isPushing}
+          onClick={handlePushDictionary}
+        >
+          {publishButton.text}
+        </Form.Button>
+      )}
+      {mode.includes('remote') && hasIntlayerAccessKey && isEdited && (
+        <Form.Button
+          label={saveButton.label.value}
+          disabled={!isEdited || isLoading}
+          Icon={Save}
+          color="text"
+          className="max-md:w-full"
+          isLoading={isPushing}
+          onClick={handlePushDictionary}
+        >
+          {saveButton.text}
+        </Form.Button>
+      )}
+      {mode.includes('local') && (
+        <Form.Button
           label={downloadButton.label.value}
-          disabled={!isEdited || isSubmitting}
+          disabled={!isEdited || isLoading}
           Icon={Download}
           color="text"
           className="max-md:w-full"
-          isLoading={isSubmitting}
+          isLoading={isWriting}
+          onClick={handleSaveDictionary}
         >
           {downloadButton.text}
         </Form.Button>
       )}
-    </Form>
+    </form>
   );
 };

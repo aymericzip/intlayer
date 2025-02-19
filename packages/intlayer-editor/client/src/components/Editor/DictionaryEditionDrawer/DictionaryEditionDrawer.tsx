@@ -69,7 +69,7 @@ export const DictionaryEditionDrawerContent: FC<
             dictionary={dictionary}
             onClickDictionaryList={onClickDictionaryList}
             isDarkMode={isDarkMode}
-            mode="local"
+            mode={['local', 'remote']}
           />
         </div>
       </Modal>
@@ -87,7 +87,12 @@ export const DictionaryEditionDrawerContent: FC<
           onClick={() => setEditionModalOpen(true)}
         />
       </div>
-      <DictionaryEditor dictionary={dictionary} locale={locale} mode="remote" />
+
+      <DictionaryEditor
+        dictionary={dictionary}
+        locale={locale}
+        mode={['local', 'remote']}
+      />
     </>
   );
 };

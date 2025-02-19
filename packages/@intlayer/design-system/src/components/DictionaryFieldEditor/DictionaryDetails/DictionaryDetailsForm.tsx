@@ -25,7 +25,7 @@ import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
-  mode: 'local' | 'remote';
+  mode: ('local' | 'remote')[];
 };
 
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
