@@ -14,9 +14,6 @@ import React, {
   useState,
   useRef,
 } from 'react';
-import { MarkdownSection } from './MarkdownSection';
-import { TranslationSection } from './TranslationSection';
-import { VisualEditorSection } from './VisualEditorSection';
 
 type SectionItemProps = {
   isActive: boolean;
@@ -217,6 +214,31 @@ const DynamicIDESection = dynamic(
   }
 );
 
+// import { MarkdownSection } from './MarkdownSection';
+// import { TranslationSection } from './TranslationSection';
+// import { VisualEditorSection } from './VisualEditorSection';
+
+const DynamicMarkdownSection = dynamic(
+  () => import('./MarkdownSection').then((mod) => mod.MarkdownSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
+const DynamicTranslationSection = dynamic(
+  () => import('./TranslationSection').then((mod) => mod.TranslationSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
+const DynamicVisualEditorSection = dynamic(
+  () => import('./VisualEditorSection').then((mod) => mod.VisualEditorSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 export const FeaturesSection: FC = () => {
   const [progress, setProgress] = useState(0);
   const sectionsData = useIntlayer('features-section');
@@ -229,7 +251,7 @@ export const FeaturesSection: FC = () => {
           return { ...sectionData, children: <DynamicIDESection /> };
 
         case 'visual-editor':
-          return { ...sectionData, children: <VisualEditorSection /> };
+          return { ...sectionData, children: <DynamicVisualEditorSection /> };
 
         case 'autocomplete':
           return { ...sectionData, children: <>{sectionData.title}</> };
@@ -237,11 +259,11 @@ export const FeaturesSection: FC = () => {
         case 'translate':
           return {
             ...sectionData,
-            children: <TranslationSection scrollProgress={progress} />,
+            children: <DynamicTranslationSection scrollProgress={progress} />,
           };
 
         case 'markdown':
-          return { ...sectionData, children: <MarkdownSection /> };
+          return { ...sectionData, children: <DynamicMarkdownSection /> };
 
         default:
           return { ...sectionData, children: <>{sectionData.title}</> };
