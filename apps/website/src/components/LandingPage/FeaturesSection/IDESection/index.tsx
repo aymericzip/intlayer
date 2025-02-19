@@ -45,7 +45,7 @@ export const IDESection: FC = () => {
     <IDE
       isDarkMode={isDarkMode}
       pages={ideTabs}
-      className="mx-auto max-h-[440px] flex-1 text-xs"
+      className="mx-auto max-h-[440px] flex-1 scale-90 text-xs"
     />
   );
 };
