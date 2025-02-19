@@ -113,7 +113,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 
   return (
     <section
-      className="relative -z-10 h-[600vh] w-screen"
+      className="relative z-0 h-[600vh] w-screen"
       style={{
         // Make the entire container as tall as the number of sections * 100vh
         height: `${nbSections * 150}vh`,
@@ -259,7 +259,10 @@ export const FeaturesSection: FC = () => {
           };
 
         case 'markdown':
-          return { ...sectionData, children: <DynamicMarkdownSection /> };
+          return {
+            ...sectionData,
+            children: <DynamicMarkdownSection scrollProgress={progress} />,
+          };
 
         default:
           return { ...sectionData, children: <>{sectionData.title}</> };

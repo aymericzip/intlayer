@@ -28,7 +28,7 @@ const shuffleArray = (array: string[], limit?: number) => {
 const LocalCard: FC<{ locale: string }> = ({ locale, ...props }) => (
   <li
     key={locale}
-    className="group mx-8 list-none transition-transform duration-300 hover:scale-105"
+    className="group z-10 mx-8 list-none transition-transform duration-300 hover:scale-105"
     {...props}
   >
     <Container roundedSize="xl">
