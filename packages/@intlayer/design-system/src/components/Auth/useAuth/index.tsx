@@ -27,6 +27,7 @@ type SessionContextProps = {
   revalidateSession: () => Promise<Session | null | undefined>;
   csrfToken: string | null | undefined;
   csrfTokenFetched: boolean;
+  isAuthenticated: boolean;
   oAuth2AccessToken: OAuth2Token | null | undefined;
   isProjectAdmin: boolean | null | undefined;
   isOrganizationAdmin: boolean | null | undefined;
@@ -55,6 +56,7 @@ export const useAuth = ({
       csrfToken,
       csrfTokenFetched,
       oAuth2AccessToken,
+      isAuthenticated: Boolean(session || oAuth2AccessToken),
       isProjectAdmin: session?.isProjectAdmin,
       isOrganizationAdmin: session?.isOrganizationAdmin,
     }),

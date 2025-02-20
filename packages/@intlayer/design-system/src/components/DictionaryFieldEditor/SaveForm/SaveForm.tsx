@@ -17,6 +17,7 @@ import {
 import { useDictionary } from 'react-intlayer';
 import { usePushDictionaries, useWriteDictionary } from '../../../hooks';
 import { cn } from '../../../utils/cn';
+import { useAuth } from '../../Auth';
 import { Form } from '../../Form';
 import { saveDictionaryContent } from './saveForm.content';
 
@@ -31,7 +32,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   className,
   ...props
 }) => {
-  const { editor } = useConfiguration();
   const { setLocaleDictionary } = useDictionariesRecordActions();
   const { writeDictionary, isLoading: isWriting } = useWriteDictionary();
   const { pushDictionaries, isLoading: isPushing } = usePushDictionaries();
@@ -40,8 +40,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   const { editedContent, restoreEditedContent } = useEditedContent();
   const { resetButton, saveButton, publishButton, downloadButton } =
     useDictionary(saveDictionaryContent);
-
-  const hasIntlayerAccessKey = Boolean(editor.clientId && editor.clientSecret);
+  const { isAuthenticated } = useAuth();
 
   const editedDictionary = useMemo(
     () => editedContent?.[dictionary.key],
@@ -106,7 +105,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           {resetButton.text}
         </Form.Button>
       )}
-      {mode.includes('remote') && hasIntlayerAccessKey && isLocalDictionary && (
+      {mode.includes('remote') && isAuthenticated && isLocalDictionary && (
         <Form.Button
           label={publishButton.label.value}
           disabled={!isEdited}
@@ -119,7 +118,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           {publishButton.text}
         </Form.Button>
       )}
-      {mode.includes('remote') && hasIntlayerAccessKey && isEdited && (
+      {mode.includes('remote') && isAuthenticated && isEdited && (
         <Form.Button
           label={saveButton.label.value}
           disabled={!isEdited || isLoading}

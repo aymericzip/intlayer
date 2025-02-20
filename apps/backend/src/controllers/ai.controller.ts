@@ -339,7 +339,7 @@ export const askDocQuestion = async (
 export type AutocompleteBody = {
   text: string;
   model?: string;
-  openAiApiKey: string;
+  openAiApiKey?: string;
   customPrompt?: string;
 };
 

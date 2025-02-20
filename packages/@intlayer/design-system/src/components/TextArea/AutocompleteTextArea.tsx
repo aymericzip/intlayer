@@ -32,9 +32,10 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
   suggestion: suggestionProp,
   ...props
 }) => {
+  const defaultValue = String(props.value ?? props.defaultValue ?? '');
   const { autocomplete } = useAutocomplete();
   const [isTyped, setIsTyped] = useState(false);
-  const [text, setText] = useState('');
+  const [text, setText] = useState(defaultValue);
   const [suggestion, setSuggestion] = useState('');
 
   // Only update this “debouncedText” after the user stops typing for 500ms
@@ -42,7 +43,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
 
   useEffect(() => {
     if (typeof props.value === 'undefined') return;
-    setText(String(props.value ?? props.defaultValue ?? ''));
+    setText(defaultValue);
   }, [props.value, props.defaultValue]);
 
   useEffect(() => {
