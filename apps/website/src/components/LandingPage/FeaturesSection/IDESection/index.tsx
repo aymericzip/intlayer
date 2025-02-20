@@ -38,13 +38,20 @@ export const ideTabs = [
   },
 ];
 
-export const IDESection: FC = () => {
+type IDESectionProps = {
+  scrollProgress: number;
+};
+
+export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === 'dark';
+
+  const activeTab = Math.floor(scrollProgress * ideTabs.length);
+
   return (
     <IDE
-      isDarkMode={isDarkMode}
+      isDarkMode={resolvedTheme === 'dark'}
       pages={ideTabs}
+      activeTab={activeTab}
       className="mx-auto max-h-[440px] flex-1 scale-90 text-xs"
     />
   );

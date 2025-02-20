@@ -1,9 +1,9 @@
 'use client';
 
+import { Loader } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
-import { Loader } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import React, {
@@ -244,7 +244,10 @@ export const FeaturesSection: FC = () => {
     .map((sectionData) => {
       switch (sectionData.id.value) {
         case 'codebase':
-          return { ...sectionData, children: <DynamicIDESection /> };
+          return {
+            ...sectionData,
+            children: <DynamicIDESection scrollProgress={progress} />,
+          };
 
         case 'visual-editor':
           return { ...sectionData, children: <DynamicVisualEditorSection /> };

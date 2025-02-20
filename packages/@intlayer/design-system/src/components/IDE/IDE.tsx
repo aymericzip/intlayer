@@ -1,6 +1,6 @@
 'use client';
 
-import { type HTMLAttributes, useState, type FC } from 'react';
+import { type HTMLAttributes, useState, type FC, useEffect } from 'react';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { WithResizer } from '../WithResizer';
@@ -14,19 +14,25 @@ export type IDEProps = {
     isOpen?: boolean;
   }[];
   isDarkMode?: boolean;
+  activeTab?: number;
 } & HTMLAttributes<HTMLDivElement>;
 
 export const IDE: FC<IDEProps> = ({
   pages: initialPages,
   isDarkMode,
   className,
+  activeTab: defaultActiveTab,
   ...props
 }) => {
   const [pages, setPages] = useState(initialPages);
   const tabs = pages.filter(({ isOpen }) => isOpen);
 
   const firstTabIndex = tabs.findIndex(({ isOpen }) => isOpen);
-  const [activeTab, setActiveTab] = useState(firstTabIndex);
+  const [activeTab, setActiveTab] = useState(defaultActiveTab ?? firstTabIndex);
+
+  useEffect(() => {
+    setActiveTab(defaultActiveTab ?? firstTabIndex);
+  }, [initialPages, defaultActiveTab]);
 
   const { content, path } = pages[activeTab];
   const filePaths = initialPages.map(({ path: title }) => title);
