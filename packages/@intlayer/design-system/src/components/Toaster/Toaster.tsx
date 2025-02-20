@@ -14,7 +14,7 @@ export const Toaster = () => {
   const { toasts } = useToast();
 
   return (
-    <ToastProvider>
+    <ToastProvider.Provider>
       {toasts.map(({ id, title, description, action, ...props }) => (
         <Toast key={id} {...props}>
           <div className="grid gap-1">
@@ -26,6 +26,6 @@ export const Toaster = () => {
         </Toast>
       ))}
       <ToastViewport />
-    </ToastProvider>
+    </ToastProvider.Provider>
   );
 };

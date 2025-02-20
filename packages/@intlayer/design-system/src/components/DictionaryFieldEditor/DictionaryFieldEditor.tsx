@@ -110,7 +110,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         />
 
         {editorView === EditorViewType.DetailsEditor && (
-          <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
+          <DictionaryDetailsForm dictionary={dictionary} />
         )}
         {editorView === EditorViewType.StructureEditor && (
           <StructureEditor dictionary={dictionary} />

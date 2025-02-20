@@ -6,10 +6,9 @@ import { ChevronLeft, X } from 'lucide-react';
 import {
   type ReactNode,
   type FC,
+  type MouseEventHandler,
   useEffect,
   useRef,
-  type MouseEventHandler,
-  RefObject,
 } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useDevice } from '../../hooks/useDevice';

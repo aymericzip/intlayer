@@ -33,7 +33,9 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
   );
 
   const onSubmitSuccess = async (data: DictionaryFormData) => {
-    await addDictionary(data).then(() => onDictionaryCreated?.());
+    await addDictionary({ dictionary: data }).then(() =>
+      onDictionaryCreated?.()
+    );
   };
 
   return (

@@ -3,7 +3,6 @@
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import type { Dictionary } from '@intlayer/core';
 import {
-  useConfiguration,
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';

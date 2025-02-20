@@ -1,10 +1,7 @@
 'use client';
 
 import type { Dictionary } from '@intlayer/core';
-import {
-  useDictionariesRecordActions,
-  useEditedContent,
-} from '@intlayer/editor-react';
+import { useEditedContent } from '@intlayer/editor-react';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useDictionary } from 'react-intlayer';
@@ -12,8 +9,6 @@ import {
   useAuditContentDeclarationMetadata,
   useGetProjects,
   useGetTags,
-  usePushDictionaries,
-  useWriteDictionary,
 } from '../../../hooks';
 import { useAuth } from '../../Auth';
 import { Container } from '../../Container';
@@ -25,17 +20,13 @@ import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
-  mode: ('local' | 'remote')[];
 };
 
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
-  mode,
 }) => {
   const { session } = useAuth();
   const { project } = session ?? {};
-  const { setLocaleDictionary } = useDictionariesRecordActions();
-  const { pushDictionaries } = usePushDictionaries();
   const { data: projects, isLoading: isLoadingProjects } = useGetProjects();
   const { data: tags } = useGetTags();
 
@@ -57,7 +48,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   } = useDictionary(dictionaryDetailsContent);
   const { auditContentDeclaration, isLoading: isAuditing } =
     useAuditContentDeclarationMetadata();
-  const { writeDictionary } = useWriteDictionary();
   const updatedDictionary = editedContent?.[dictionary.key];
 
   useEffect(() => {
@@ -69,18 +59,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       form.reset(dictionary);
     }
   }, [updatedDictionary]);
-
-  const onSubmitSuccess = async () => {
-    if (!updatedDictionary) return;
-
-    if (mode === 'remote') {
-      await pushDictionaries([updatedDictionary]);
-    } else {
-      await writeDictionary(updatedDictionary);
-    }
-
-    setLocaleDictionary(updatedDictionary);
-  };
 
   const handleOnAuditFile = async () => {
     const dictionaryToAudit = {
@@ -130,7 +108,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             ...data,
           }))
         }
-        onSubmitSuccess={onSubmitSuccess}
       >
         <div className="flex w-full flex-1 gap-8 max-md:flex-col">
           <Form.EditableFieldInput
