@@ -102,6 +102,10 @@ export const TranslationSection: FC<TranslationSectionProps> = ({
                   ? 1
                   : scrollProgress * localesArray.length - index
               )}
+              onChange={
+                // Empty onChange to avoid warning
+                () => null
+              }
             />
           </Container>
         </motion.div>
