@@ -117,19 +117,22 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           {publishButton.text}
         </Form.Button>
       )}
-      {mode.includes('remote') && isAuthenticated && isEdited && (
-        <Form.Button
-          label={saveButton.label.value}
-          disabled={!isEdited || isLoading}
-          Icon={Save}
-          color="text"
-          className="max-md:w-full"
-          isLoading={isPushing}
-          onClick={handlePushDictionary}
-        >
-          {saveButton.text}
-        </Form.Button>
-      )}
+      {mode.includes('remote') &&
+        isAuthenticated &&
+        !isLocalDictionary &&
+        isEdited && (
+          <Form.Button
+            label={saveButton.label.value}
+            disabled={!isEdited || isLoading}
+            Icon={Save}
+            color="text"
+            className="max-md:w-full"
+            isLoading={isPushing}
+            onClick={handlePushDictionary}
+          >
+            {saveButton.text}
+          </Form.Button>
+        )}
       {mode.includes('local') && (
         <Form.Button
           label={downloadButton.label.value}
