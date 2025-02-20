@@ -104,6 +104,20 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           {resetButton.text}
         </Form.Button>
       )}
+      {mode.includes('local') && (
+        <Form.Button
+          label={downloadButton.label.value}
+          disabled={!isEdited || isLoading}
+          Icon={Download}
+          color="text"
+          variant={isAuthenticated ? 'outline' : 'default'}
+          className="max-md:w-full"
+          isLoading={isWriting}
+          onClick={handleSaveDictionary}
+        >
+          {downloadButton.text}
+        </Form.Button>
+      )}
       {mode.includes('remote') && isAuthenticated && isLocalDictionary && (
         <Form.Button
           label={publishButton.label.value}
@@ -133,19 +147,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             {saveButton.text}
           </Form.Button>
         )}
-      {mode.includes('local') && (
-        <Form.Button
-          label={downloadButton.label.value}
-          disabled={!isEdited || isLoading}
-          Icon={Download}
-          color="text"
-          className="max-md:w-full"
-          isLoading={isWriting}
-          onClick={handleSaveDictionary}
-        >
-          {downloadButton.text}
-        </Form.Button>
-      )}
     </form>
   );
 };
