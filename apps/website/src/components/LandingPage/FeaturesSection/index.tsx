@@ -277,8 +277,8 @@ const DynamicMarkdownSection = dynamic(
   }
 );
 
-const DynamicTranslationSection = dynamic(
-  () => import('./TranslationSection').then((mod) => mod.TranslationSection),
+const DynamicMultilingualSection = dynamic(
+  () => import('./MultilingualSection').then((mod) => mod.MultilingualSection),
   {
     loading: () => <Loader />,
   }
@@ -314,10 +314,10 @@ export const FeaturesSection: FC = () => {
             ...sectionData,
             children: <DynamicVisualEditorSection />,
           };
-        case 'translate':
+        case 'multilingual':
           return {
             ...sectionData,
-            children: <DynamicTranslationSection scrollProgress={progress} />,
+            children: <DynamicMultilingualSection scrollProgress={progress} />,
           };
         case 'markdown':
           return {

@@ -6,7 +6,7 @@ import { getLocaleName, Locales } from 'intlayer';
 import { useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
-type TranslationSectionProps = {
+type MultilingualSectionProps = {
   scrollProgress: number;
 };
 
@@ -25,7 +25,7 @@ const getTextContent = (text: string, textProgress: number) => {
     .join('');
 };
 
-export const TranslationSection: FC<TranslationSectionProps> = ({
+export const MultilingualSection: FC<MultilingualSectionProps> = ({
   scrollProgress,
 }) => {
   const { locale: currentLocale } = useLocale();
