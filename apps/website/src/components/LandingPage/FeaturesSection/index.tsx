@@ -13,7 +13,12 @@ import React, {
   useEffect,
   useState,
   useRef,
+  startTransition,
 } from 'react';
+
+/* -------------------------------------------------------------------------- */
+/*                               Subcomponents                                */
+/* -------------------------------------------------------------------------- */
 
 type SectionItemProps = {
   isActive: boolean;
@@ -54,6 +59,56 @@ export type Section = {
   children: ReactNode;
 };
 
+type TitlesProps = {
+  sections: Section[];
+  activeIndex: number;
+  isMobile: boolean;
+};
+
+const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
+  <>
+    {sections.map((section, index) => {
+      const isActive = index === activeIndex;
+      // Define the angle step (in radians) between items.
+      const angleStep = Math.PI / 10;
+      const absIndexDiff = Math.abs(index - activeIndex);
+      // Calculate the angle for this item relative to the active item.
+      const angle = (index - activeIndex) * angleStep;
+      // Define a radius in rem units.
+      const radius = 10;
+
+      const fontConst = isMobile ? 2 : 3;
+
+      return (
+        <motion.h3
+          key={section.id.value}
+          className="text-neutral dark:text-neutral-dark aria-selected:text-text dark:aria-selected:text-text-dark absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-md"
+          animate={{
+            // Convert polar coords to Cartesian (rem units)
+            translateX: isActive
+              ? '5rem'
+              : `${(radius * Math.cos(angle)) / 4 + 3}rem`,
+            translateY: isActive
+              ? '3rem'
+              : `${
+                  (2 / 3) *
+                    (radius * Math.sin(angle) * 2 +
+                      2 / (absIndexDiff / 5 + 1)) +
+                  3
+                }rem`,
+            opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,
+            fontSize: `${fontConst / (absIndexDiff + 1)}rem`,
+          }}
+          transition={{ duration: 0.3 }}
+          aria-selected={isActive}
+        >
+          {section.title}
+        </motion.h3>
+      );
+    })}
+  </>
+);
+
 type FeaturesCarouselProps = {
   sections: Section[];
   progress: number;
@@ -68,40 +123,69 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   // Track which section is currently "active"
   const [activeIndex, setActiveIndex] = useState(0);
-  // Track scroll progress within the active section
+
+  // We keep references to compare old vs new, so we only update state if changed
+  const activeIndexRef = useRef(activeIndex);
+  const progressRef = useRef(progress);
+
+  // Keep them in sync whenever state changes
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  useEffect(() => {
+    progressRef.current = progress;
+  }, [progress]);
+
   const nbSections = sections.length;
   const { isMobile } = useDevice();
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const containerTop = containerRef.current?.offsetTop;
-      const containerHeight = containerRef.current?.offsetHeight;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!containerRef.current) {
+            ticking = false;
+            return;
+          }
+          const scrollY = window.scrollY;
+          const containerTop = containerRef.current.offsetTop;
+          const containerHeight = containerRef.current.offsetHeight;
 
-      if (
-        typeof containerTop !== 'number' ||
-        typeof containerHeight !== 'number'
-      )
-        return;
+          const scrollYInContainer = scrollY - containerTop;
+          const scrollableHeight = containerHeight - window.innerHeight;
+          const sectionHeight = scrollableHeight / nbSections;
 
-      const scrollYInContainer = scrollY - containerTop;
-      const scrollableHeight = containerHeight - window.innerHeight;
-      const sectionHeight = scrollableHeight / nbSections;
+          const newIndex = Math.floor(scrollYInContainer / sectionHeight);
+          const clampedIndex = Math.max(0, Math.min(newIndex, nbSections - 1));
 
-      // Determine which section index we’re in, based on multiples of 100vh
-      const newIndex = Math.floor(scrollYInContainer / sectionHeight);
-      // Clamp to valid section indices
-      const clampedIndex = Math.max(0, Math.min(newIndex, nbSections));
-      setActiveIndex(clampedIndex);
+          // Only update if index changed
+          if (activeIndexRef.current !== clampedIndex) {
+            startTransition(() => {
+              setActiveIndex(clampedIndex);
+            });
+          }
 
-      const isOverflowing = scrollYInContainer > scrollableHeight;
-      const isUnderflowing = scrollYInContainer < 0;
+          // Check boundaries
+          const isOverflowing = scrollYInContainer > scrollableHeight;
+          const isUnderflowing = scrollYInContainer < 0;
 
-      if (!isOverflowing && !isUnderflowing) {
-        // Determine progress (0..1) within the current section
-        const progressInSection =
-          (scrollYInContainer % sectionHeight) / sectionHeight;
-        setProgress(progressInSection);
+          if (!isOverflowing && !isUnderflowing) {
+            const progressInSection =
+              (scrollYInContainer % sectionHeight) / sectionHeight;
+            // Only update if progress changed
+            if (progressRef.current !== progressInSection) {
+              startTransition(() => {
+                setProgress(progressInSection);
+              });
+            }
+          }
+
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -109,20 +193,20 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [sections.length]);
+  }, [nbSections, setProgress]);
 
   return (
     <section
-      className="relative z-0 h-[600vh] w-screen"
+      className="relative z-0 w-screen"
       style={{
-        // Make the entire container as tall as the number of sections * 100vh
+        // Make the entire container as tall as the number of sections * 150vh
         height: `${nbSections * 150}vh`,
       }}
       ref={containerRef}
     >
-      {/* Left column with “floating” titles */}
-      <div className="sticky left-0 top-0 h-[30vh] w-full">
-        {/* Example of a vertical progress bar based on `progress` */}
+      {/* Sticky container */}
+      <div className="sticky left-0 top-0 mb-[70vh] h-[30vh] w-full">
+        {/* Progress Bar */}
         <div className="absolute left-10 top-20 flex h-3/5 w-[2px] md:top-[20vh]">
           <div className="bg-neutral/20 dark:bg-neutral-dark size-full rounded-full">
             <div
@@ -132,48 +216,15 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
           </div>
         </div>
 
-        {/* Titles that move depending on `activeIndex` */}
+        {/* Titles */}
         <div className="top-15 absolute left-0 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap">
-          {sections.map((section, index) => {
-            const isActive = index === activeIndex;
-            // Define the angle step (in radians) between items.
-            const angleStep = Math.PI / 10;
-            const absIndexDiff = Math.abs(index - activeIndex);
-            // Calculate the angle for this item relative to the active item.
-            const angle = (index - activeIndex) * angleStep;
-            // Define a radius in rem units.
-            const radius = 10;
-
-            const fontConst = isMobile ? 2 : 3;
-
-            return (
-              <motion.h3
-                key={section.id.value}
-                className="text-neutral dark:text-neutral-dark aria-selected:text-text dark:aria-selected:text-text-dark absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-md"
-                animate={{
-                  // Convert polar coords to Cartesian (rem units)
-                  translateX: isActive
-                    ? '5rem'
-                    : `${(radius * Math.cos(angle)) / 4 + 3}rem`,
-                  translateY: isActive
-                    ? '3rem'
-                    : `${
-                        (2 / 3) *
-                          (radius * Math.sin(angle) * 2 +
-                            2 / (absIndexDiff / 5 + 1)) +
-                        3
-                      }rem`,
-                  opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,
-                  fontSize: `${fontConst / (absIndexDiff + 1)}rem`,
-                }}
-                transition={{ duration: 0.3 }}
-                aria-selected={isActive}
-              >
-                {section.title}
-              </motion.h3>
-            );
-          })}
+          <Titles
+            sections={sections}
+            activeIndex={activeIndex}
+            isMobile={isMobile ?? true}
+          />
         </div>
+
         {/* Section content “carousel” in a sticky container */}
         {sections.map((section, index) => (
           <div
@@ -189,6 +240,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
           </div>
         ))}
 
+        {/* Descriptions */}
         {sections.map((section, index) => (
           <div
             className={cn(
@@ -206,6 +258,10 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
     </section>
   );
 };
+
+/* -------------------------------------------------------------------------- */
+/*                   Dynamic Imports for Heavy Child Sections                 */
+/* -------------------------------------------------------------------------- */
 
 const DynamicIDESection = dynamic(
   () => import('./IDESection').then((mod) => mod.IDESection),
@@ -235,11 +291,16 @@ const DynamicVisualEditorSection = dynamic(
   }
 );
 
+/* -------------------------------------------------------------------------- */
+/*                       FeaturesSection Wrapper Example                      */
+/* -------------------------------------------------------------------------- */
+
 export const FeaturesSection: FC = () => {
   const [progress, setProgress] = useState(0);
   const sectionsData = useIntlayer('features-section');
 
   const sections: Section[] = sectionsData
+    // Filter out anything you don’t want to display
     .filter((el) => !['autocomplete'].includes(el.id.value))
     .map((sectionData) => {
       switch (sectionData.id.value) {
@@ -248,27 +309,26 @@ export const FeaturesSection: FC = () => {
             ...sectionData,
             children: <DynamicIDESection scrollProgress={progress} />,
           };
-
         case 'visual-editor':
-          return { ...sectionData, children: <DynamicVisualEditorSection /> };
-
-        case 'autocomplete':
-          return { ...sectionData, children: <>{sectionData.title}</> };
-
+          return {
+            ...sectionData,
+            children: <DynamicVisualEditorSection />,
+          };
         case 'translate':
           return {
             ...sectionData,
             children: <DynamicTranslationSection scrollProgress={progress} />,
           };
-
         case 'markdown':
           return {
             ...sectionData,
             children: <DynamicMarkdownSection scrollProgress={progress} />,
           };
-
         default:
-          return { ...sectionData, children: <>{sectionData.title}</> };
+          return {
+            ...sectionData,
+            children: <>{sectionData.title}</>,
+          };
       }
     });
 
