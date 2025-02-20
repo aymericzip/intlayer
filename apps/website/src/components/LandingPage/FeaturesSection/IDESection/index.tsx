@@ -2,7 +2,7 @@
 
 import { IDE } from '@intlayer/design-system';
 import { useTheme } from 'next-themes';
-import { type FC } from 'react';
+import { useMemo, type FC } from 'react';
 
 import clientComponent from './content/client-component.md';
 import clientComponentContent from './content/client-content.md';
@@ -45,13 +45,25 @@ type IDESectionProps = {
 export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
   const { resolvedTheme } = useTheme();
 
-  const activeTab = Math.floor(scrollProgress * ideTabs.length);
+  // Memoize `activeTab` to prevent unnecessary re-renders
+  const activeTab = useMemo(
+    () => Math.floor(scrollProgress * ideTabs.length),
+    [scrollProgress]
+  );
+
+  // Memoize IDE props to avoid unnecessary renders
+  const ideProps = useMemo(
+    () => ({
+      isDarkMode: resolvedTheme === 'dark',
+      pages: ideTabs, // ideTabs is static, no need to memoize
+      activeTab,
+    }),
+    [activeTab, resolvedTheme]
+  );
 
   return (
     <IDE
-      isDarkMode={resolvedTheme === 'dark'}
-      pages={ideTabs}
-      activeTab={activeTab}
+      {...ideProps}
       className="mx-auto max-h-[440px] flex-1 scale-90 text-xs"
     />
   );
