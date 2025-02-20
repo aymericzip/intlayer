@@ -284,6 +284,14 @@ const DynamicMultilingualSection = dynamic(
   }
 );
 
+const DynamicAutocompletionSection = dynamic(
+  () =>
+    import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 const DynamicVisualEditorSection = dynamic(
   () => import('./VisualEditorSection').then((mod) => mod.VisualEditorSection),
   {
@@ -301,7 +309,6 @@ export const FeaturesSection: FC = () => {
 
   const sections: Section[] = sectionsData
     // Filter out anything you don’t want to display
-    .filter((el) => !['autocomplete'].includes(el.id.value))
     .map((sectionData) => {
       switch (sectionData.id.value) {
         case 'codebase':
@@ -323,6 +330,13 @@ export const FeaturesSection: FC = () => {
           return {
             ...sectionData,
             children: <DynamicMarkdownSection scrollProgress={progress} />,
+          };
+        case 'autocomplete':
+          return {
+            ...sectionData,
+            children: (
+              <DynamicAutocompletionSection scrollProgress={progress} />
+            ),
           };
         default:
           return {

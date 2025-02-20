@@ -698,6 +698,10 @@ export const useAskDocQuestion = (
   args?: UseAsyncOptions<typeof intlayerAPI.ai.askDocQuestion>
 ) => useAppAsync('askDocQuestion', useIntlayerAuth().ai.askDocQuestion, args);
 
+export const useAutocomplete = (
+  args?: UseAsyncOptions<typeof intlayerAPI.ai.autocomplete>
+) => useAppAsync('autocomplete', useIntlayerAuth().ai.autocomplete, args);
+
 /**
  * Editor
  */

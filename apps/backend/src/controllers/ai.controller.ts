@@ -3,10 +3,11 @@ import type { ResponseWithInformation } from '@middlewares/sessionAuth.middlewar
 import { getDictionariesByTags } from '@services/dictionary.service';
 import { getTagsByKeys } from '@services/tag.service';
 import * as tagService from '@services/tag.service';
-import * as askDocQuestionUtil from '@utils/AI/askDocQuestion';
-import * as auditContentDeclarationUtil from '@utils/auditDictionary';
-import * as auditContentDeclarationFieldUtil from '@utils/auditDictionaryField';
-import * as auditContentDeclarationMetadataUtil from '@utils/auditDictionaryMetadata';
+import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
+import * as auditContentDeclarationUtil from '@utils/AI/auditDictionary';
+import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryField';
+import * as auditContentDeclarationMetadataUtil from '@utils/AI/auditDictionaryMetadata';
+import * as autocompleteUtil from '@utils/AI/autocomplete';
 import * as auditTagUtil from '@utils/auditTag';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
@@ -325,6 +326,46 @@ export const askDocQuestion = async (
 
     const responseData =
       formatResponse<askDocQuestionUtil.AskDocQuestionResult>({
+        data: response,
+      });
+
+    res.json(responseData);
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
+export type AutocompleteBody = {
+  text: string;
+  model?: string;
+  openAiApiKey: string;
+  customPrompt?: string;
+};
+
+export type AutocompleteResponse = ResponseData<{
+  autocompletion: string;
+}>;
+
+export const autocomplete = async (
+  req: Request<undefined, undefined, AutocompleteBody>,
+  res: ResponseWithInformation<AutocompleteResponse>
+) => {
+  try {
+    const { text, model, openAiApiKey, customPrompt } =
+      req.body as AutocompleteBody;
+    const response = (await autocompleteUtil.autocomplete({
+      text,
+      model,
+      openAiApiKey,
+      customPrompt,
+    })) ?? {
+      autocompletion: '',
+      tokenUsed: 0,
+    };
+
+    const responseData =
+      formatResponse<autocompleteUtil.AutocompleteFileResultData>({
         data: response,
       });
 

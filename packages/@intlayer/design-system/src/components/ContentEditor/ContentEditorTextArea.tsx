@@ -9,7 +9,7 @@ import {
   useEffect,
 } from 'react';
 import { Button } from '../Button';
-import { type AutoSizedTextAreaProps, AutoSizedTextArea } from '../TextArea';
+import { type AutoSizedTextAreaProps, AutoCompleteTextarea } from '../TextArea';
 
 export type ContentEditorTextAreaProps = {
   children: string;
@@ -53,7 +53,7 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
       className="flex size-full flex-col items-center justify-between gap-2"
       key={children}
     >
-      <AutoSizedTextArea
+      <AutoCompleteTextarea
         onChange={handleOnContentChange}
         key={resetIncrementor}
         variant="invisible"

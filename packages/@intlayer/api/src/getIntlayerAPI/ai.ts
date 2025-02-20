@@ -20,6 +20,10 @@ import type {
   // @ts-ignore: @intlayer/backend is not built yet
   AskDocQuestionResult,
   // @ts-ignore: @intlayer/backend is not built yet
+  AutocompleteBody,
+  // @ts-ignore: @intlayer/backend is not built yet
+  AutocompleteResponse,
+  // @ts-ignore: @intlayer/backend is not built yet
 } from '@intlayer/backend';
 
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
@@ -126,12 +130,27 @@ export const getAiAPI = (
       }
     );
 
+  const autocomplete = async (
+    body?: AutocompleteBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<AutocompleteResponse>(
+      `${AI_API_ROUTE}/autocomplete`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: body,
+      }
+    );
+
   return {
     auditContentDeclaration,
     auditContentDeclarationField,
     auditContentDeclarationMetadata,
     auditTag,
     askDocQuestion,
+    autocomplete,
   };
 };
 

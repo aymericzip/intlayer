@@ -4,6 +4,7 @@ import {
   auditContentDeclarationField,
   auditContentDeclarationMetadata,
   auditTag,
+  autocomplete,
 } from '@controllers/ai.controller';
 import { Router } from 'express';
 import type { Routes } from '@/types/Routes';
@@ -38,6 +39,11 @@ export const aiRoutes = {
     url: `${baseURL}/ask`,
     method: 'POST',
   },
+  autocomplete: {
+    urlModel: '/autocomplete',
+    url: `${baseURL}/autocomplete`,
+    method: 'POST',
+  },
 } satisfies Routes;
 
 aiRouter.post(
@@ -55,3 +61,5 @@ aiRouter.post(
 aiRouter.post(aiRoutes.ask.urlModel, askDocQuestion);
 
 aiRouter.post(aiRoutes.auditTag.urlModel, auditTag);
+
+aiRouter.post(aiRoutes.autocomplete.urlModel, autocomplete);
