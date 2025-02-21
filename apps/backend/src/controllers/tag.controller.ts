@@ -106,15 +106,6 @@ export const addTag = async (
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
   }
 
-  const { plan } = organization;
-
-  if (!plan) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
-      organizationId: organization._id,
-    });
-    return;
-  }
-
   const tag: TagData = {
     creatorId: user._id,
     organizationId: organization._id,
