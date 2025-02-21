@@ -73,7 +73,7 @@ const dictionaryFormContent = {
     noDictionaryView: {
       title: t({
         en: 'No dictionary',
-        fr: 'Aucune dictionaire',
+        fr: 'Aucun dictionaire',
         es: 'Sin diccionario',
         'en-GB': 'No dictionary',
         de: 'Kein Wörterbuch',
