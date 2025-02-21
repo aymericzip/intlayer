@@ -19,7 +19,7 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
   ...props
 }) => (
   <div
-    aria-hidden={isHidden}
+    aria-hidden={isFocusable ? isHidden : undefined}
     tabIndex={isFocusable ? 0 : undefined}
     role={isFocusable ? 'button' : 'none'}
     className={cn(
