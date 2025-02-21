@@ -8,14 +8,14 @@ const {
 } = getConfiguration();
 
 export const buildDictionary = async (
-  contentDeclarationsPaths: Dictionary[]
+  dictionaries: Dictionary[]
 ): Promise<string[]> => {
   if (dictionaryOutput.includes('i18next')) {
-    await buildI18nDictionary(contentDeclarationsPaths);
+    await buildI18nDictionary(dictionaries);
   }
 
   if (dictionaryOutput.includes('intlayer')) {
-    return await buildIntlayerDictionary(contentDeclarationsPaths);
+    return await buildIntlayerDictionary(dictionaries);
   }
 
   return [];

@@ -14,8 +14,8 @@ export const writeDictionary = async (dictionaries: Dictionary[]) => {
       ...dictionaryContent,
     });
 
-    const id = dictionaryContent.key;
-    const outputFileName = `${id}.json`;
+    const key = dictionaryContent.key;
+    const outputFileName = `${key}.json`;
     const resultFilePath = resolve(dictionariesDir, outputFileName);
 
     // Create the json file
