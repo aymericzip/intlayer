@@ -211,7 +211,7 @@ export const addDictionary = async (
     return;
   }
 
-  if (!dictionaryData.projectIds.includes(String(project._id))) {
+  if (!dictionaryData.projectIds?.includes(String(project._id))) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
     return;
   }

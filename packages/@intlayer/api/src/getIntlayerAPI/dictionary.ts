@@ -93,7 +93,7 @@ export const getDictionaryAPI = (
    * @param dictionary - Dictionary data.
    */
   const addDictionary = async (
-    dictionary: AddDictionaryBody,
+    body: AddDictionaryBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AddDictionaryResult>(
@@ -102,7 +102,7 @@ export const getDictionaryAPI = (
       otherOptions,
       {
         method: 'POST',
-        body: { dictionary },
+        body,
       }
     );
 
