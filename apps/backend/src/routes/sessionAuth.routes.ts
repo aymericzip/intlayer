@@ -5,7 +5,7 @@ import {
   updatePassword,
   validEmail,
   askResetPassword,
-  resetPassword,
+  definePassword,
   githubCallback,
   googleCallback,
   githubLoginQuery,
@@ -47,11 +47,10 @@ export const getSessionAuthRoutes = () =>
       url: `${baseURL()}/password/reset`,
       method: 'POST',
     },
-    resetPassword: {
-      urlModel: '/:userId/password/reset/:secret',
-      url: ({ userId, secret }: { userId: string; secret: string }) =>
-        `${baseURL()}/${userId}/password/reset/${secret}`,
-      method: 'PUT',
+    defineNewPassword: {
+      urlModel: '/password/define',
+      url: `${baseURL()}/password/define`,
+      method: 'POST',
     },
     checkIfUserHasPassword: {
       urlModel: '/password/has',
@@ -122,9 +121,9 @@ sessionAuthRouter.post(
   getSessionAuthRoutes().askResetPassword.urlModel,
   askResetPassword
 );
-sessionAuthRouter.put(
-  getSessionAuthRoutes().resetPassword.urlModel,
-  resetPassword
+sessionAuthRouter.post(
+  getSessionAuthRoutes().defineNewPassword.urlModel,
+  definePassword
 );
 
 sessionAuthRouter.get(

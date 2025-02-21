@@ -8,3 +8,4 @@ export * from './useAuth';
 export * from './AuthenticationBarrier';
 export * from './useUser';
 export * from './VerifyEmailForm';
+export * from './DefineNewPasswordForm';

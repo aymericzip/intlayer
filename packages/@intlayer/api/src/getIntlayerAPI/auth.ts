@@ -30,6 +30,10 @@ import type {
   // @ts-ignore: @intlayer/backend is not built yet
   ResetPasswordResult,
   // @ts-ignore: @intlayer/backend is not built yet
+  DefinePasswordBody,
+  // @ts-ignore: @intlayer/backend is not built yet
+  DefinePasswordResult,
+  // @ts-ignore: @intlayer/backend is not built yet
   UpdatePasswordBody,
   // @ts-ignore: @intlayer/backend is not built yet
   UpdatePasswordResult,
@@ -173,6 +177,25 @@ export const getAuthAPI = (
    * @param data - New password and confirmation.
    * @returns User object.
    */
+  const defineNewPassword = async (
+    data: DefinePasswordBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<DefinePasswordResult>(
+      `${AUTH_API_ROUTE}/password/define`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
+
+  /**
+   * Changes the password of a user with the provided data.
+   * @param data - New password and confirmation.
+   * @returns User object.
+   */
   const changePassword = async (
     data: UpdatePasswordBody,
     otherOptions: FetcherOptions = {}
@@ -305,6 +328,7 @@ export const getAuthAPI = (
     register,
     logout,
     resetPassword,
+    defineNewPassword,
     askResetPassword,
     checkIfUserHasPassword,
     verifyEmail,

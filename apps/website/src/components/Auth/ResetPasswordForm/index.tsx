@@ -22,11 +22,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
   const { askResetPassword } = useAskResetPassword();
 
   const onSubmitSuccess = async ({ email }: ResetPassword) => {
-    const response = await askResetPassword(email);
-
-    if (response.data ?? callbackUrl) {
-      router.push(callbackUrl);
-    }
+    await askResetPassword(email);
   };
 
   const onClickBackToLogin = () => router.push(callbackUrl);

@@ -566,13 +566,10 @@ export const askResetPassword = async (
       type: 'resetPassword',
       to: updatedUser.email,
       username: updatedUser.name,
-      resetLink: getSessionAuthRoutes().resetPassword.url({
-        userId: String(updatedUser._id),
-        secret:
-          updatedUser.provider?.find(
-            (provider) => provider.provider === 'email'
-          )?.secret ?? '',
-      }),
+      resetLink: `${process.env.CLIENT_URL}/auth/password/reset/${String(updatedUser._id)}/${
+        updatedUser.provider?.find((provider) => provider.provider === 'email')
+          ?.secret ?? ''
+      }`,
     });
 
     const responseData = formatResponse<undefined>({
@@ -597,19 +594,22 @@ export const askResetPassword = async (
   }
 };
 
-export type ResetPasswordParams = { secret: string; userId: string };
-export type ResetPasswordResult = ResponseData<UserAPI>;
+export type DefinePasswordBody = {
+  password: string;
+  secret: string;
+  userId: string;
+};
+export type DefinePasswordResult = ResponseData<UserAPI>;
 
 /**
  * Resets a user's password based on the provided secret and user ID.
  */
-export const resetPassword = async (
-  req: Request<ResetPasswordParams, any, any>,
-  res: Response<ResetPasswordResult>,
+export const definePassword = async (
+  req: Request<undefined, any, DefinePasswordBody>,
+  res: Response<DefinePasswordResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { secret, userId } = req.params as Partial<ResetPasswordParams>;
-  const password: string = req.body.password;
+  const { secret, userId, password } = req.body;
 
   const userIdString = String(userId);
 
