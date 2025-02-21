@@ -48,6 +48,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
         size="lg"
         title={modal.deleteTitle.value}
         hasCloseButton
+        className="p-3"
       >
         <p className="text-neutral dark:text-neutral text-sm">
           {modal.deleteMessage}
@@ -70,6 +71,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
         onClose={() => setIsUpdateModalOpen(false)}
         size="lg"
         title="Are you sure you want to update this access key?"
+        className="p-3"
         hasCloseButton
       >
         <p className="text-neutral dark:text-neutral text-sm">
@@ -206,7 +208,6 @@ export const AccessKeyForm: FC = () => {
   const { session } = useAuth();
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const [createdAccessKey, setCreatedAccessKey] = useState<OAuth2Access[]>([]);
   const AccessKeyFormSchema = getAccessKeySchema();
   const { form, isSubmitting } = useForm(AccessKeyFormSchema);
   const {
@@ -218,8 +219,7 @@ export const AccessKeyForm: FC = () => {
     warningMessage,
   } = useIntlayer('access-key-form');
 
-  const nbAccessKeys =
-    project?.oAuth2Access.length ?? 0 + createdAccessKey.length;
+  const nbAccessKeys = project?.oAuth2Access.length ?? 0;
 
   return (
     <>
@@ -228,18 +228,16 @@ export const AccessKeyForm: FC = () => {
         onClose={() => setIsCreationModalOpen(false)}
         hasCloseButton
       >
-        <AccessKeyCreationForm
-          onAccessKeyCreated={(response) => {
-            if (!response.data) {
-              return;
-            }
-            setIsCreationModalOpen(false);
-            setCreatedAccessKey((prev) => [
-              ...prev,
-              response.data as OAuth2Access,
-            ]);
-          }}
-        />
+        <div className="p-3">
+          <AccessKeyCreationForm
+            onAccessKeyCreated={(response) => {
+              if (!response.data) {
+                return;
+              }
+              setIsCreationModalOpen(false);
+            }}
+          />
+        </div>
       </Modal>
 
       <Form
@@ -255,9 +253,6 @@ export const AccessKeyForm: FC = () => {
         </span>
         <Form.Label>{title}</Form.Label>
         {project?.oAuth2Access.map((accessKey) => (
-          <AccessKeyItem key={String(accessKey._id)} value={accessKey} />
-        ))}
-        {createdAccessKey.map((accessKey) => (
           <AccessKeyItem key={String(accessKey._id)} value={accessKey} />
         ))}
         {nbAccessKeys === 0 && (
