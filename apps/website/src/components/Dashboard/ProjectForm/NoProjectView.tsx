@@ -1,6 +1,7 @@
 'use client';
 
 import { useForm, Button } from '@intlayer/design-system';
+import { Plus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useProjectSchema } from './useProjectFormSchema';
@@ -31,6 +32,7 @@ export const NoProjectView: FC<NoProjectViewProps> = ({
         isFullWidth={false}
         variant="outline"
         onClick={onClickCreateProject}
+        Icon={Plus}
       >
         {createProjectButton.text}
       </Button>
