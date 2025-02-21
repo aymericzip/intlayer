@@ -30,6 +30,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
       : editedContent?.[key]?.content;
 
   const focusedSection = getContentNodeByKeyPath(section, focusedKeyPath ?? []);
+  const isEditableBaseSection = getIsEditableSection(section);
   const isEditableFocusedSection = getIsEditableSection(focusedSection);
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
       <div className="flex gap-2 max-md:flex-col">
         {typeof section === 'object' &&
           section &&
+          !isEditableBaseSection &&
           Object.keys(section).length > 0 && (
             <Container
               border
