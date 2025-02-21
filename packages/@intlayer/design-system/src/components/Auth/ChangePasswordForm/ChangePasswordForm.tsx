@@ -10,27 +10,23 @@ import {
 
 type ChangePasswordFormProps = {
   onSubmitSuccess: (data: ChangePassword) => Promise<void>;
-  onClickBackToHome: () => void;
   onSubmitError?: (error: Error) => void;
 };
 
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
   onSubmitSuccess,
   onSubmitError,
-  onClickBackToHome,
 }) => {
   const {
     currentPasswordInput,
     newPasswordInput,
     confirmPasswordInput,
     changePasswordButton,
-    backToHomeButton,
   } = useDictionary(changePasswordContent);
   const { user } = useUser();
   const ChangePasswordSchema = useChangePasswordSchema();
 
-  const { form, isSubmitting, isSubmitted, isValid } =
-    useForm(ChangePasswordSchema);
+  const { form, isSubmitting, isValid } = useForm(ChangePasswordSchema);
 
   return (
     <Form
@@ -80,20 +76,10 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         color="text"
         isLoading={isSubmitting}
         disabled={!isValid}
-        variant={isSubmitted ? 'outline' : 'default'}
         label={changePasswordButton.ariaLabel.value}
       >
         {changePasswordButton.text.value}
       </Form.Button>
-      {isSubmitted && (
-        <Form.Button
-          className="mt-4 w-full"
-          label={backToHomeButton.ariaLabel.value}
-          onClick={onClickBackToHome}
-        >
-          {backToHomeButton.text.value}
-        </Form.Button>
-      )}
     </Form>
   );
 };

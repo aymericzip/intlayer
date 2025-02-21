@@ -108,10 +108,7 @@ export const AuthModal: FC<AuthModalProps> = ({
         />
       )}
       {state === AuthState.ChangePassword && (
-        <ChangePasswordForm
-          onSubmitSuccess={onSubmitChangePasswordSuccess}
-          onClickBackToHome={() => setState(AuthState.SignIn)}
-        />
+        <ChangePasswordForm onSubmitSuccess={onSubmitChangePasswordSuccess} />
       )}
     </Modal>
   );
