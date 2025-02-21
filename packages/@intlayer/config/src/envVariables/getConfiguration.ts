@@ -125,7 +125,7 @@ export const getConfiguration = (
     dictionaryPriorityStrategy: getEnvValue(
       env.editor.dictionaryPriorityStrategy,
       'string'
-    )! as 'locale_first' | 'distant_first',
+    )! as 'local_first' | 'distant_first',
     hotReload: getEnvValue(env.editor.hotReload, 'boolean')!,
   };
 

@@ -622,10 +622,10 @@ const buildEditorFields = (
    * Strategy for prioritizing dictionaries. If a dictionary is both present online and locally, the content will be merge.
    * However, is a field is defined in both dictionary, this setting determines which fields takes the priority over the other.
    *
-   * Default: 'locale_first'
+   * Default: 'local_first'
    *
-   * The strategy for prioritizing dictionaries. It can be either 'locale_first' or 'distant_first'.
-   * - 'locale_first': The first dictionary found in the locale is used.
+   * The strategy for prioritizing dictionaries. It can be either 'local_first' or 'distant_first'.
+   * - 'local_first': The first dictionary found in the locale is used.
    * - 'distant_first': The first dictionary found in the distant locales is used.
    */
   dictionaryPriorityStrategy:

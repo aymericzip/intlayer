@@ -193,12 +193,19 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
 - **hotReload**:
+
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Indicates if the application should hot reload the locale configurations when a change is detected.
   - _Example_: `true`
   - _Note_: For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
   - _Note_: Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan.
+
+- **dictionaryPriorityStrategy**:
+  - _Type_: `string`
+  - _Default_: `'local_first'`
+  - _Description_: The strategy to prioritize dictionaries in the case of both local and distant dictionaries being present. If set to `'distant_first'`, the application will prioritize distant dictionaries over local dictionaries. If set to `'local_first'`, the application will prioritize local dictionaries over distant dictionaries.
+  - _Example_: `'distant_first'`
 
 ### Middleware Configuration
 

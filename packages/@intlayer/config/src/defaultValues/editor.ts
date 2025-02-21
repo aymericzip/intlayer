@@ -5,4 +5,4 @@ export const PORT = 8000;
 export const BACKEND_URL = 'https://back.intlayer.org';
 export const IS_ENABLED = true;
 export const HOT_RELOAD = false;
-export const DICTIONARY_PRIORITY_STRATEGY = 'locale_first';
+export const DICTIONARY_PRIORITY_STRATEGY = 'local_first';
