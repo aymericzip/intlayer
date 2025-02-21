@@ -31,14 +31,4 @@ export const ConfigurationProvider: FC<
   </ConfigurationStatesContext.Provider>
 );
 
-export const useConfiguration = () => {
-  const statesContext = useContext(ConfigurationStatesContext);
-
-  if (!statesContext) {
-    throw new Error(
-      'useConfigurationStates must be used within a ConfigurationProvider'
-    );
-  }
-
-  return statesContext;
-};
+export const useConfiguration = () => useContext(ConfigurationStatesContext);

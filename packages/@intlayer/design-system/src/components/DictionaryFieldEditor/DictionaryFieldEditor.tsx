@@ -63,7 +63,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
 
   return (
     <LocaleSwitcherContentProvider
-      availableLocales={config.internationalization.locales ?? []}
+      availableLocales={config?.internationalization.locales ?? []}
     >
       <div className="flex size-full flex-col gap-6 px-2">
         <Button
