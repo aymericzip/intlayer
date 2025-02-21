@@ -7,21 +7,28 @@ import type { Routes } from '@/types/Routes';
 
 export const stripeRouter: Router = Router();
 
-const baseURL = `${process.env.BACKEND_URL}/api/stipe`;
+const baseURL = () => `${process.env.BACKEND_URL}/api/stipe`;
 
-export const stripeRoutes = {
-  createSubscription: {
-    urlModel: '/create-subscription',
-    url: `${baseURL}/create-subscription`,
-    method: 'POST',
-  },
-  cancelSubscription: {
-    urlModel: '/cancel-subscription',
-    url: `${baseURL}/cancel-subscription`,
-    method: 'POST',
-  },
-} satisfies Routes;
+export const getStripeRoutes = () =>
+  ({
+    createSubscription: {
+      urlModel: '/create-subscription',
+      url: `${baseURL}/create-subscription`,
+      method: 'POST',
+    },
+    cancelSubscription: {
+      urlModel: '/cancel-subscription',
+      url: `${baseURL}/cancel-subscription`,
+      method: 'POST',
+    },
+  }) satisfies Routes;
 
-stripeRouter.post(stripeRoutes.createSubscription.urlModel, getSubscription);
+stripeRouter.post(
+  getStripeRoutes().createSubscription.urlModel,
+  getSubscription
+);
 
-stripeRouter.post(stripeRoutes.cancelSubscription.urlModel, cancelSubscription);
+stripeRouter.post(
+  getStripeRoutes().cancelSubscription.urlModel,
+  cancelSubscription
+);

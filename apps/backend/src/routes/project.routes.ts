@@ -18,86 +18,99 @@ import type { Routes } from '@/types/Routes';
 
 export const projectRouter: Router = Router();
 
-const baseURL = `${process.env.BACKEND_URL}/api/project`;
+const baseURL = () => `${process.env.BACKEND_URL}/api/project`;
 
-export const projectRoutes = {
-  getProjects: {
-    urlModel: '/',
-    url: baseURL,
-    method: 'GET',
-  },
-  addProject: {
-    urlModel: '/',
-    url: baseURL,
-    method: 'POST',
-  },
-  updateProject: {
-    urlModel: '/',
-    url: baseURL,
-    method: 'PUT',
-  },
-  updateProjectMembers: {
-    urlModel: '/members',
-    url: `${process.env.CLIENT_URL}/api/members`,
-    method: 'PUT',
-  },
-  pushProjectConfiguration: {
-    urlModel: '/configuration',
-    url: `${process.env.CLIENT_URL}/api/configuration`,
-    method: 'PUT',
-  },
-  deleteProject: {
-    urlModel: '/',
-    url: baseURL,
-    method: 'DELETE',
-  },
-  selectProject: {
-    urlModel: '/:projectId',
-    url: ({ projectId }: { projectId: string }) => `${baseURL}/${projectId}`,
-    method: 'PUT',
-  },
-  unselectProject: {
-    urlModel: '/logout',
-    url: `${baseURL}/logout`,
-    method: 'POST',
-  },
-  addNewAccessKey: {
-    urlModel: '/access_key',
-    url: `${baseURL}/access_key`,
-    method: 'POST',
-  },
-  refreshAccessKey: {
-    urlModel: '/access_key',
-    url: `${baseURL}/access_key`,
-    method: 'PATCH',
-  },
-  deleteAccessKey: {
-    urlModel: '/access_key',
-    url: `${baseURL}/access_key`,
-    method: 'DELETE',
-  },
-} satisfies Routes;
+export const getProjectRoutes = () =>
+  ({
+    getProjects: {
+      urlModel: '/',
+      url: baseURL,
+      method: 'GET',
+    },
+    addProject: {
+      urlModel: '/',
+      url: baseURL,
+      method: 'POST',
+    },
+    updateProject: {
+      urlModel: '/',
+      url: baseURL,
+      method: 'PUT',
+    },
+    updateProjectMembers: {
+      urlModel: '/members',
+      url: `${process.env.CLIENT_URL}/api/members`,
+      method: 'PUT',
+    },
+    pushProjectConfiguration: {
+      urlModel: '/configuration',
+      url: `${process.env.CLIENT_URL}/api/configuration`,
+      method: 'PUT',
+    },
+    deleteProject: {
+      urlModel: '/',
+      url: baseURL,
+      method: 'DELETE',
+    },
+    selectProject: {
+      urlModel: '/:projectId',
+      url: ({ projectId }: { projectId: string }) => `${baseURL}/${projectId}`,
+      method: 'PUT',
+    },
+    unselectProject: {
+      urlModel: '/logout',
+      url: `${baseURL}/logout`,
+      method: 'POST',
+    },
+    addNewAccessKey: {
+      urlModel: '/access_key',
+      url: `${baseURL}/access_key`,
+      method: 'POST',
+    },
+    refreshAccessKey: {
+      urlModel: '/access_key',
+      url: `${baseURL}/access_key`,
+      method: 'PATCH',
+    },
+    deleteAccessKey: {
+      urlModel: '/access_key',
+      url: `${baseURL}/access_key`,
+      method: 'DELETE',
+    },
+  }) satisfies Routes;
 
-projectRouter.get(projectRoutes.getProjects.urlModel, getProjects);
+projectRouter.get(getProjectRoutes().getProjects.urlModel, getProjects);
 
-projectRouter.post(projectRoutes.addProject.urlModel, addProject);
-projectRouter.put(projectRoutes.updateProject.urlModel, updateProject);
+projectRouter.post(getProjectRoutes().addProject.urlModel, addProject);
+projectRouter.put(getProjectRoutes().updateProject.urlModel, updateProject);
 projectRouter.put(
-  projectRoutes.updateProjectMembers.urlModel,
+  getProjectRoutes().updateProjectMembers.urlModel,
   updateProjectMembers
 );
 projectRouter.put(
-  projectRoutes.pushProjectConfiguration.urlModel,
+  getProjectRoutes().pushProjectConfiguration.urlModel,
   pushProjectConfiguration
 );
-projectRouter.delete(projectRoutes.deleteProject.urlModel, deleteProject);
+projectRouter.delete(getProjectRoutes().deleteProject.urlModel, deleteProject);
 
-projectRouter.post(projectRoutes.addNewAccessKey.urlModel, addNewAccessKey);
+projectRouter.post(
+  getProjectRoutes().addNewAccessKey.urlModel,
+  addNewAccessKey
+);
 
-projectRouter.patch(projectRoutes.refreshAccessKey.urlModel, refreshAccessKey);
+projectRouter.patch(
+  getProjectRoutes().refreshAccessKey.urlModel,
+  refreshAccessKey
+);
 
-projectRouter.delete(projectRoutes.deleteAccessKey.urlModel, deleteAccessKey);
+projectRouter.delete(
+  getProjectRoutes().deleteAccessKey.urlModel,
+  deleteAccessKey
+);
 
-projectRouter.post(projectRoutes.unselectProject.urlModel, unselectProject);
+projectRouter.post(
+  getProjectRoutes().unselectProject.urlModel,
+  unselectProject
+);
 
-projectRouter.put(projectRoutes.selectProject.urlModel, selectProject);
+projectRouter.put(getProjectRoutes().selectProject.urlModel, selectProject);

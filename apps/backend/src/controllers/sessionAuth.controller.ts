@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
+import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
@@ -123,7 +123,7 @@ export const registerEmailPassword = async (
       type: 'validate',
       to: user.email,
       username: user.name ?? user.email.split('@')[0],
-      validationLink: sessionAuthRoutes.validEmail.url({
+      validationLink: getSessionAuthRoutes().validEmail.url({
         userId: String(user._id),
         secret:
           user.provider?.find((provider) => provider.provider === 'email')
@@ -566,7 +566,7 @@ export const askResetPassword = async (
       type: 'resetPassword',
       to: updatedUser.email,
       username: updatedUser.name,
-      resetLink: sessionAuthRoutes.resetPassword.url({
+      resetLink: getSessionAuthRoutes().resetPassword.url({
         userId: String(updatedUser._id),
         secret:
           updatedUser.provider?.find(

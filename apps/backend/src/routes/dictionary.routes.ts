@@ -12,74 +12,78 @@ import type { Routes } from '@/types/Routes';
 
 export const dictionaryRouter: Router = Router();
 
-const baseURL = `${process.env.BACKEND_URL}/api/dictionary`;
+const baseURL = () => `${process.env.BACKEND_URL}/api/dictionary`;
 
-export const dictionaryRoutes = {
-  getDictionaries: {
-    urlModel: '/',
-    url: baseURL,
-    method: 'GET',
-  },
-  getDictionariesKeys: {
-    urlModel: '/keys',
-    url: `${baseURL}/keys`,
-    method: 'GET',
-  },
-  getDictionary: {
-    urlModel: '/:dictionaryKey',
-    url: ({ dictionaryKey }: { dictionaryKey: string }) =>
-      `${baseURL}/${dictionaryKey}`,
-    method: 'GET',
-  },
-  addDictionary: {
-    urlModel: '/',
-    url: baseURL,
-    method: 'POST',
-  },
-  pushDictionaries: {
-    urlModel: '/',
-    url: baseURL,
-    method: 'PATCH',
-  },
-  updateDictionary: {
-    urlModel: '/:dictionaryId',
-    url: ({ dictionaryId }: { dictionaryId: string }) =>
-      `${baseURL}/${dictionaryId}`,
-    method: 'PUT',
-  },
-  deleteDictionary: {
-    urlModel: '/:dictionaryId',
-    url: ({ dictionaryId }: { dictionaryId: string }) =>
-      `${baseURL}/${dictionaryId}`,
-    method: 'DELETE',
-  },
-} satisfies Routes;
+export const getDictionaryRoutes = () =>
+  ({
+    getDictionaries: {
+      urlModel: '/',
+      url: baseURL,
+      method: 'GET',
+    },
+    getDictionariesKeys: {
+      urlModel: '/keys',
+      url: `${baseURL}/keys`,
+      method: 'GET',
+    },
+    getDictionary: {
+      urlModel: '/:dictionaryKey',
+      url: ({ dictionaryKey }: { dictionaryKey: string }) =>
+        `${baseURL}/${dictionaryKey}`,
+      method: 'GET',
+    },
+    addDictionary: {
+      urlModel: '/',
+      url: baseURL,
+      method: 'POST',
+    },
+    pushDictionaries: {
+      urlModel: '/',
+      url: baseURL,
+      method: 'PATCH',
+    },
+    updateDictionary: {
+      urlModel: '/:dictionaryId',
+      url: ({ dictionaryId }: { dictionaryId: string }) =>
+        `${baseURL}/${dictionaryId}`,
+      method: 'PUT',
+    },
+    deleteDictionary: {
+      urlModel: '/:dictionaryId',
+      url: ({ dictionaryId }: { dictionaryId: string }) =>
+        `${baseURL}/${dictionaryId}`,
+      method: 'DELETE',
+    },
+  }) satisfies Routes;
 
 dictionaryRouter.get(
-  dictionaryRoutes.getDictionaries.urlModel,
+  getDictionaryRoutes().getDictionaries.urlModel,
   getDictionaries
 );
 
 dictionaryRouter.get(
-  dictionaryRoutes.getDictionariesKeys.urlModel,
+  getDictionaryRoutes().getDictionariesKeys.urlModel,
   getDictionariesKeys
 );
 
 dictionaryRouter.get(
-  dictionaryRoutes.getDictionary.urlModel,
+  getDictionaryRoutes().getDictionary.urlModel,
   getDictionaryByKey
 );
 
-dictionaryRouter.post(dictionaryRoutes.addDictionary.urlModel, addDictionary);
+dictionaryRouter.post(
+  getDictionaryRoutes().addDictionary.urlModel,
+  addDictionary
+);
 dictionaryRouter.patch(
-  dictionaryRoutes.pushDictionaries.urlModel,
+  getDictionaryRoutes().pushDictionaries.urlModel,
   pushDictionaries
 );
 dictionaryRouter.put(
-  dictionaryRoutes.updateDictionary.urlModel,
+  getDictionaryRoutes().updateDictionary.urlModel,
   updateDictionary
 );
 dictionaryRouter.delete(
-  dictionaryRoutes.deleteDictionary.urlModel,
+  getDictionaryRoutes().deleteDictionary.urlModel,
   deleteDictionary
 );

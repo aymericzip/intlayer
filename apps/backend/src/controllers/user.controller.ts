@@ -1,6 +1,6 @@
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
+import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -48,7 +48,7 @@ export const createUser = async (
       type: 'welcome',
       to: newUser.email,
       username: newUser.name,
-      loginLink: sessionAuthRoutes.loginEmailPassword.url,
+      loginLink: getSessionAuthRoutes().loginEmailPassword.url,
     });
 
     const formattedUser = mapUserToAPI(newUser);

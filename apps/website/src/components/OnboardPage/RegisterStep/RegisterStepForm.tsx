@@ -29,6 +29,7 @@ export const RegisterStepForm: FC = () => {
     formData,
     nextUrl,
   } = useStep(Steps.Registration);
+  const { goNextStep: goToNextStep2 } = useStep(Steps.Password);
 
   const defaultValues = useMemo(
     () => ({ ...formData, email: user?.email ?? formData?.email }),
@@ -101,7 +102,7 @@ export const RegisterStepForm: FC = () => {
           </Form.Button>
         </span>
 
-        <ExternalsLoginButtons />
+        <ExternalsLoginButtons onLogin={goToNextStep2} />
       </StepLayout>
     </Form>
   );

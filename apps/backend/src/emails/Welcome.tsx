@@ -31,7 +31,7 @@ export const WelcomeEmailEN = ({ username, loginLink }: WelcomeEmailProps) => {
           <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                src={`https://intlayer.org/favicon-32x32.png`}
+                src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
                 height="37"
                 alt="Intlayer"
@@ -87,7 +87,7 @@ export const WelcomeEmailFR = ({ username, loginLink }: WelcomeEmailProps) => {
           <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                src={`https://intlayer.org/favicon-32x32.png`}
+                src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
                 height="37"
                 alt="Intlayer"
@@ -143,7 +143,7 @@ export const WelcomeEmailES = ({ username, loginLink }: WelcomeEmailProps) => {
           <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-solid border-[#eaeaea] bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                src={`https://intlayer.org/favicon-32x32.png`}
+                src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
                 height="37"
                 alt="Intlayer"

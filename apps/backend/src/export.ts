@@ -1,9 +1,9 @@
 // Routes
-export { userRoutes } from '@routes/user.routes';
-export { organizationRoutes } from '@routes/organization.routes';
-export { projectRoutes } from '@routes/project.routes';
-export { dictionaryRoutes } from '@routes/dictionary.routes';
-export { sessionAuthRoutes } from '@routes/sessionAuth.routes';
+export { getUserRoutes } from '@routes/user.routes';
+export { getOrganizationRoutes } from '@routes/organization.routes';
+export { getProjectRoutes } from '@routes/project.routes';
+export { getDictionaryRoutes } from '@routes/dictionary.routes';
+export { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
 
 // Controllers types
 export type * from '@controllers/sessionAuth.controller';

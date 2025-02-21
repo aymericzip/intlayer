@@ -1,14 +1,18 @@
 'use client';
 
-import type { FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { intlayerAPI } from '../../../../../api/src';
 import { Button } from '../../Button';
+import { useUser } from '../useUser';
 import { GithubLogo } from './assets/GithubLogo';
 import { GoogleLogo } from './assets/GoogleLogo';
 import { externalsLoginButtonsContent } from './externalsLoginButtons.content';
 
-export const GitHubLoginButton: FC = () => {
+export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
+  onLogin,
+}) => {
+  const { user } = useUser();
   const externalsLoginButtons = useDictionary(externalsLoginButtonsContent);
   const loginWithGitHub = () => {
     const origin = window.location.href;
@@ -18,6 +22,11 @@ export const GitHubLoginButton: FC = () => {
     window.location.href = authURL;
   };
 
+  useEffect(() => {
+    if (user?.email) {
+      onLogin();
+    }
+  }, [user]);
   return (
     <Button
       label={externalsLoginButtons.github.label.value}
@@ -30,7 +39,10 @@ export const GitHubLoginButton: FC = () => {
   );
 };
 
-export const GoogleLoginButton: FC = () => {
+export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
+  onLogin,
+}) => {
+  const { user } = useUser();
   const externalsLoginButtons = useDictionary(externalsLoginButtonsContent);
   const loginWithGoogle = () => {
     const origin = window.location.href;
@@ -39,6 +51,12 @@ export const GoogleLoginButton: FC = () => {
 
     window.location.href = authURL;
   };
+
+  useEffect(() => {
+    if (user?.email) {
+      onLogin();
+    }
+  }, [user]);
 
   return (
     <Button
@@ -53,7 +71,13 @@ export const GoogleLoginButton: FC = () => {
   );
 };
 
-export const ExternalsLoginButtons: FC = () => {
+type ExternalsLoginButtonsProps = {
+  onLogin: () => void;
+};
+
+export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = (
+  props
+) => {
   const externalsLoginButtons = useDictionary(externalsLoginButtonsContent);
 
   return (
@@ -65,8 +89,8 @@ export const ExternalsLoginButtons: FC = () => {
         </div>
         <div className="bg-neutral dark:bg-neutral-dark h-px w-full" />
       </div>
-      <GoogleLoginButton />
-      <GitHubLoginButton />
+      <GoogleLoginButton {...props} />
+      <GitHubLoginButton {...props} />
     </div>
   );
 };

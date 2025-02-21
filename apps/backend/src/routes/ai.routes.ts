@@ -11,55 +11,56 @@ import type { Routes } from '@/types/Routes';
 
 export const aiRouter: Router = Router();
 
-const baseURL = `${process.env.BACKEND_URL}/api/ai`;
+const baseURL = () => `${process.env.BACKEND_URL}/api/ai`;
 
-export const aiRoutes = {
-  auditContentDeclaration: {
-    urlModel: '/audit/dictionary',
-    url: `${baseURL}/audit/dictionary`,
-    method: 'POST',
-  },
-  auditContentDeclarationField: {
-    urlModel: '/audit/dictionary/field',
-    url: `${baseURL}/audit/dictionary/field`,
-    method: 'POST',
-  },
-  auditContentDeclarationMetadata: {
-    urlModel: '/audit/dictionary/metadata',
-    url: `${baseURL}/audit/dictionary/metadata`,
-    method: 'POST',
-  },
-  auditTag: {
-    urlModel: '/audit/tag',
-    url: `${baseURL}/audit/tag`,
-    method: 'POST',
-  },
-  ask: {
-    urlModel: '/ask',
-    url: `${baseURL}/ask`,
-    method: 'POST',
-  },
-  autocomplete: {
-    urlModel: '/autocomplete',
-    url: `${baseURL}/autocomplete`,
-    method: 'POST',
-  },
-} satisfies Routes;
+export const getAiRoutes = () =>
+  ({
+    auditContentDeclaration: {
+      urlModel: '/audit/dictionary',
+      url: `${baseURL()}/audit/dictionary`,
+      method: 'POST',
+    },
+    auditContentDeclarationField: {
+      urlModel: '/audit/dictionary/field',
+      url: `${baseURL()}/audit/dictionary/field`,
+      method: 'POST',
+    },
+    auditContentDeclarationMetadata: {
+      urlModel: '/audit/dictionary/metadata',
+      url: `${baseURL()}/audit/dictionary/metadata`,
+      method: 'POST',
+    },
+    auditTag: {
+      urlModel: '/audit/tag',
+      url: `${baseURL()}/audit/tag`,
+      method: 'POST',
+    },
+    ask: {
+      urlModel: '/ask',
+      url: `${baseURL()}/ask`,
+      method: 'POST',
+    },
+    autocomplete: {
+      urlModel: '/autocomplete',
+      url: `${baseURL()}/autocomplete`,
+      method: 'POST',
+    },
+  }) satisfies Routes;
 
 aiRouter.post(
-  aiRoutes.auditContentDeclaration.urlModel,
+  getAiRoutes().auditContentDeclaration.urlModel,
   auditContentDeclaration
 );
 aiRouter.post(
-  aiRoutes.auditContentDeclarationField.urlModel,
+  getAiRoutes().auditContentDeclarationField.urlModel,
   auditContentDeclarationField
 );
 aiRouter.post(
-  aiRoutes.auditContentDeclarationMetadata.urlModel,
+  getAiRoutes().auditContentDeclarationMetadata.urlModel,
   auditContentDeclarationMetadata
 );
-aiRouter.post(aiRoutes.ask.urlModel, askDocQuestion);
+aiRouter.post(getAiRoutes().ask.urlModel, askDocQuestion);
 
-aiRouter.post(aiRoutes.auditTag.urlModel, auditTag);
+aiRouter.post(getAiRoutes().auditTag.urlModel, auditTag);
 
-aiRouter.post(aiRoutes.autocomplete.urlModel, autocomplete);
+aiRouter.post(getAiRoutes().autocomplete.urlModel, autocomplete);

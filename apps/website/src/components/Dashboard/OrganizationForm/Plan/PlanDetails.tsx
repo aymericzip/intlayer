@@ -57,20 +57,22 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
         title={cancelModal.title.value}
         hasCloseButton
       >
-        <p className="text-neutral dark:text-neutral text-sm">
-          {cancelModal.message}
-        </p>
-        <Form.Button
-          variant="outline"
-          label={cancelModal.buttonLabel.value}
-          color="error"
-          isFullWidth={true}
-          className="mt-10 w-auto"
-          isLoading={isDeleting}
-          onClick={() => handleCancelSubscription()}
-        >
-          {cancelModal.confirmText}
-        </Form.Button>
+        <div className="p-3">
+          <p className="text-neutral dark:text-neutral text-sm">
+            {cancelModal.message}
+          </p>
+          <Form.Button
+            variant="outline"
+            label={cancelModal.buttonLabel.value}
+            color="error"
+            isFullWidth={true}
+            className="mt-10 w-auto"
+            isLoading={isDeleting}
+            onClick={() => handleCancelSubscription()}
+          >
+            {cancelModal.confirmText}
+          </Form.Button>
+        </div>
       </Modal>
       <div className="relative flex flex-col gap-2">
         <H3 className="mb-5">{title}</H3>

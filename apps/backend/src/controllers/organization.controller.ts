@@ -1,6 +1,6 @@
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { sessionAuthRoutes } from '@routes/sessionAuth.routes';
+import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
@@ -340,7 +340,7 @@ export const addOrganizationMember = async (
       invitedByUsername: user.name,
       invitedByEmail: user.email,
       organizationName: organization.name,
-      inviteLink: sessionAuthRoutes.loginEmailPassword.url,
+      inviteLink: getSessionAuthRoutes().loginEmailPassword.url,
       inviteFromIp: req.ip ?? '',
       inviteFromLocation: req.hostname,
     });

@@ -1,6 +1,7 @@
 'use client';
 
 import { useForm, Button, H3 } from '@intlayer/design-system';
+import { Plus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useOrganizationSchema } from './useOrganizationFormSchema';
@@ -33,6 +34,7 @@ export const NoOrganizationView: FC<NoOrganizationViewProps> = ({
         isFullWidth={false}
         variant="outline"
         onClick={onClickCreateOrganization}
+        Icon={Plus}
       >
         {createOrganizationButton.text}
       </Button>

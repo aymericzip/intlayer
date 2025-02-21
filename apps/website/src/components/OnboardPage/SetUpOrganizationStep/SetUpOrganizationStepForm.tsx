@@ -123,31 +123,16 @@ export const SetupOrganizationStepForm: FC = () => {
         onSkipStep={goNextStep}
       >
         <H2>{title}</H2>
-        <Suspense fallback={<Loader />}>
-          <Form.Element
-            name="organizationId"
-            Element={(props: HTMLAttributes<HTMLDivElement>) => (
-              <div {...props}>
-                <OrganizationFormContent
-                  onSelectOrganization={(organization) => {
-                    if (
-                      form.getValues().organizationId ===
-                      String(organization._id)
-                    ) {
-                      form.setValue(
-                        'organizationId',
-                        null as unknown as string
-                      );
-                    } else {
-                      form.setValue('organizationId', String(organization._id));
-                    }
-                  }}
-                  selectedOrganizationId={form.getValues().organizationId}
-                />
-              </div>
-            )}
-          />
-        </Suspense>
+        <OrganizationFormContent
+          onSelectOrganization={(organization) => {
+            if (form.getValues().organizationId === String(organization._id)) {
+              form.setValue('organizationId', null as unknown as string);
+            } else {
+              form.setValue('organizationId', String(organization._id));
+            }
+          }}
+          selectedOrganizationId={form.getValues().organizationId}
+        />
       </StepLayout>
     </Form>
   );

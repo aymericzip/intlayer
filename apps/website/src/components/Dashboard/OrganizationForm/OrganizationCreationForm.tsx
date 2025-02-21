@@ -5,6 +5,7 @@ import {
   useAddOrganization,
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
+import { Plus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
@@ -48,6 +49,7 @@ export const OrganizationCreationForm: FC = () => {
         color="text"
         isLoading={isSubmitting}
         label={createOrganizationButton.ariaLabel.value}
+        Icon={Plus}
       >
         {createOrganizationButton.text}
       </Form.Button>
