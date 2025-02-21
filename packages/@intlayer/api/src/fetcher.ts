@@ -186,8 +186,6 @@ export const fetcher = async <T>(
   if (!response.ok) {
     const result = await response.json();
 
-    console.error(result);
-
     // You can customize the error message or include more details
     throw new Error(JSON.stringify(result.error) ?? 'An error occurred');
   }
