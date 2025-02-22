@@ -183,6 +183,71 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
+export const PaymentStepForm: FC<PaymentStepContentProps> = ({
+  plan,
+  period,
+}) => {
+  const {
+    title,
+    incorrectProductMessage,
+    invalidPaymentRequestMessage,
+    pickANewProductButton,
+  } = useIntlayer('payment-step');
+
+  const { theme } = useTheme();
+  const router = useRouter();
+  const priceId = retrievePriceId(plan, period);
+
+  const { data, isLoading } = useGetSubscription({
+    autoFetch: true,
+    enable: true,
+    args: {
+      priceId,
+    },
+  });
+
+  const isDarkMode = theme === 'dark';
+
+  const appearance = isDarkMode ? appearanceDark : appearanceLight;
+
+  return (
+    <>
+      <H2 className="mb-4">{title}</H2>
+      {!priceId && <span>{incorrectProductMessage}</span>}
+      <Loader isLoading={isLoading}>
+        {data?.data?.clientSecret ? (
+          <Elements
+            stripe={stripePromise}
+            options={{
+              clientSecret: data.data.clientSecret,
+              appearance,
+            }}
+          >
+            <PaymentStepContent plan={plan} period={period} />
+          </Elements>
+        ) : (
+          <Container
+            className="text-error dark:text-error-dark gap-6 p-6 text-sm"
+            background="none"
+            border
+            roundedSize="xl"
+          >
+            <span>{invalidPaymentRequestMessage}</span>
+            <Button
+              label={pickANewProductButton.label.value}
+              color="text"
+              Icon={ShoppingCart}
+              onClick={() => router.push(PagesRoutes.Pricing)}
+            >
+              {pickANewProductButton.text}
+            </Button>
+          </Container>
+        )}
+      </Loader>
+    </>
+  );
+};
+
 const appearanceLight: Appearance = {
   theme: 'flat',
   variables: {
@@ -278,46 +343,4 @@ const appearanceDark: Appearance = {
       opacity: '0.7',
     },
   },
-};
-
-export const PaymentStepForm: FC<PaymentStepContentProps> = ({
-  plan,
-  period,
-}) => {
-  const { title, incorrectProductMessage } = useIntlayer('payment-step');
-  const { theme } = useTheme();
-  const priceId = retrievePriceId(plan, period);
-
-  const { data, isLoading } = useGetSubscription({
-    autoFetch: true,
-    enable: true,
-    args: {
-      priceId,
-    },
-  });
-
-  const isDarkMode = theme === 'dark';
-
-  const appearance = isDarkMode ? appearanceDark : appearanceLight;
-
-  return (
-    <>
-      <H2 className="mb-4">{title}</H2>
-      {!priceId && <span>{incorrectProductMessage}</span>}
-
-      <Loader isLoading={isLoading}>
-        {data?.data?.clientSecret && (
-          <Elements
-            stripe={stripePromise}
-            options={{
-              clientSecret: data.data.clientSecret,
-              appearance,
-            }}
-          >
-            <PaymentStepContent plan={plan} period={period} />
-          </Elements>
-        )}
-      </Loader>
-    </>
-  );
 };

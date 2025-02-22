@@ -100,6 +100,23 @@ export const paymentStepContent = {
         ru: 'Выберите новый продукт',
       }),
     },
+
+    invalidPaymentRequestMessage: t({
+      en: 'Invalid payment request. Maybe you have already subscribed to this plan. Please try again.',
+      'en-GB':
+        'Invalid payment request. Maybe you have already subscribed to this plan. Please try again.',
+      fr: 'Demande de paiement invalide. Peut-être que vous avez déjà souscrit à ce plan. Veuillez reessayer la commande.',
+      es: 'Solicitud de pago no válida. Tal vez ya haya suscrito a este plan. Por favor, inténtelo de nuevo.',
+      de: 'Ungültige Zahlungsanfrage. Vielleicht hast du bereits dieses Abonnement abgeschlossen. Bitte versuche es erneut.',
+      ja: '無効な支払いリクエストです。おそらく、このプランにすでに登録しています。もう一度やり直してください。',
+      ko: '유효하지 않은 결제 요청입니다. 아직 이 계획을 구독하지 않았을 수 있습니다. 다시 시도하십시오.',
+      zh: '无效的付款请求。也许你已经订阅了这个计划。请再试一次。',
+      it: 'Richiesta di pagamento non valida. Forse hai già sottoscritto a questo piano. Riprova.',
+      pt: 'Solicitação de pagamento inválida. Talvez você já tenha assinado este plano. Por favor, tente novamente.',
+      hi: 'अमान्य भुगतान अनुरोध है। यह प्रोजेक्ट को पहले से ही सब्सक्राइब है। कृपया फिर से प्रयास करें।',
+      ar: 'طلب الدفع غير صالح. ربما قمت بالاشتراك في هذا الخطة. يرجى إعادة المحاولة.',
+      ru: 'Недействительный запрос на оплату. Возможно, вы уже подписались на этот план. Пожалуйста, попробуйте еще раз.',
+    }),
   },
 } satisfies Dictionary;
 
