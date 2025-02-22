@@ -180,7 +180,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
       if (JSON.stringify(result) !== JSON.stringify(embeddingsList)) {
         // If there are new embeddings, save them to embeddings.json
         fs.writeFileSync(
-          'src/utils/AI/embeddings.json',
+          'src/utils/AI/askDocQuestion/embeddings.json',
           JSON.stringify(result, null, 2)
         );
       }
