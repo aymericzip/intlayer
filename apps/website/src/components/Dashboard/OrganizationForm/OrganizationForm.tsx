@@ -12,7 +12,7 @@ import { Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { Suspense, useState, type FC } from 'react';
 import { DeleteOrganizationModal } from './DeleteOrganizationModal';
-import { MembersForm } from './Members/MembersKeyForm';
+import { MembersForm } from './Members/MembersForm';
 import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
 import { OrganizationEditionForm } from './OrganizationEditionForm';

@@ -22,19 +22,12 @@ import { X } from 'lucide-react';
 import type { ObjectId } from 'mongoose';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
+import { RemoveMemberModal } from './RemoveMemberModal';
 import {
   type OrganizationMembersFormData,
   useOrganizationMembersSchema,
 } from './useMembersFormSchema';
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
-
-const getUserNames = (
-  users: UserAPI[],
-  id: UserAPI['_id'] | string
-): string => {
-  const user = users.find((user) => String(user._id) === String(id));
-  return user?.name ?? user?.email ?? String(id);
-};
 
 export const MembersForm: FC = () => {
   const { session, isOrganizationAdmin } = useAuth();
@@ -48,10 +41,8 @@ export const MembersForm: FC = () => {
     },
   });
 
-  const { form: newUserForm, isSubmitting: IsSubmittingNewUser } = useForm(
-    NewMembersFormSchema,
-    {}
-  );
+  const { form: newUserForm, isSubmitting: IsSubmittingNewUser } =
+    useForm(NewMembersFormSchema);
   const {
     title,
     description,
@@ -64,12 +55,12 @@ export const MembersForm: FC = () => {
   } = useIntlayer('organization-members-form');
   const { updateOrganizationMembers } = useUpdateOrganizationMembers();
   const { addOrganizationMember } = useAddOrganizationMember();
-  const { getUsers, isWaitingData: isLoadingUsers } = useGetUsers();
-  const [users, setUsers] = useState<UserAPI[]>([]);
-
-  const handleUpdateMembers = async (data: UpdateOrganizationMembersBody) => {
-    await updateOrganizationMembers(data);
-  };
+  const {
+    data: usersResponse,
+    getUsers,
+    isWaitingData: isLoadingUsers,
+  } = useGetUsers();
+  const [memberIdToRemove, setMemberIdToRemove] = useState<ObjectId>();
 
   const onSubmitSuccess = async (data: OrganizationMembersFormData) => {
     const formattedData: UpdateOrganizationMembersBody = {
@@ -79,22 +70,7 @@ export const MembersForm: FC = () => {
       })),
     };
 
-    await handleUpdateMembers(formattedData);
-  };
-
-  const handleRemoveMember = async (memberId: string | ObjectId) => {
-    if (!organization) return;
-
-    const formattedData: UpdateOrganizationMembersBody = {
-      membersIds: organization.membersIds
-        .filter((id) => String(id) !== String(memberId))
-        .map((id) => ({
-          userId: id,
-          isAdmin: organization.adminsIds?.includes(id) ?? false,
-        })),
-    };
-
-    await handleUpdateMembers(formattedData);
+    await updateOrganizationMembers(formattedData);
   };
 
   const onSubmitSuccessAddMember = async () => {
@@ -110,16 +86,26 @@ export const MembersForm: FC = () => {
     if (organization?.membersIds) {
       const membersIds = organization.membersIds.map((el) => String(el));
 
-      getUsers({ ids: membersIds }).then((response) => {
-        if (response?.data) {
-          setUsers(response.data);
-        }
-      });
+      getUsers({ ids: membersIds });
     }
   }, [getUsers, organization]);
 
+  const getUserName = (memberId: UserAPI['_id'] | string) => {
+    const user = usersResponse?.data?.find(
+      (user) => String(user._id) === String(memberId)
+    );
+    return user?.name ?? user?.email ?? String(memberId);
+  };
+
   return (
     <>
+      <RemoveMemberModal
+        organization={organization}
+        memberId={memberIdToRemove}
+        isOpen={Boolean(memberIdToRemove)}
+        onClose={() => setMemberIdToRemove(undefined)}
+        onRemove={() => setMemberIdToRemove(undefined)}
+      />
       <H3 className="mb-8">{title}</H3>
       {isLoadingUsers ? (
         <Loader />
@@ -172,14 +158,14 @@ export const MembersForm: FC = () => {
                   key={String(memberId)}
                   className="bg-text/10 dark:bg-text-dark/10 flex items-center justify-between rounded-lg px-2 py-1"
                 >
-                  <span>{getUserNames(users, memberId)}</span>
+                  <span>{getUserName(memberId)}</span>
                   {isOrganizationAdmin && (
                     <Form.Button
                       color="text"
                       label={deleteMemberButton.label.value}
                       variant="hoverable"
                       size="icon-md"
-                      onClick={() => handleRemoveMember(memberId)}
+                      onClick={() => setMemberIdToRemove(memberId)}
                     >
                       <X size={16} />
                     </Form.Button>
@@ -195,7 +181,7 @@ export const MembersForm: FC = () => {
               description={adminsSelect.description.value}
             >
               <MultiSelect.Trigger
-                getBadgeValue={(value) => getUserNames(users, value)}
+                getBadgeValue={(value) => getUserName(value)}
               >
                 <MultiSelect.Input
                   placeholder={adminsSelect.placeholder.value}
@@ -208,7 +194,7 @@ export const MembersForm: FC = () => {
                       value={String(memberId)}
                       key={String(memberId)}
                     >
-                      {getUserNames(users, memberId)}
+                      {getUserName(memberId)}
                     </MultiSelect.Item>
                   ))}
                 </MultiSelect.List>

@@ -312,7 +312,7 @@ export const useUpdateOrganizationMembers = (
     'updateOrganizationMembers',
     useIntlayerAuth().organization.updateOrganizationMembers,
     {
-      invalidateQueries: ['getOrganizations'],
+      invalidateQueries: ['getOrganizations', 'getSession'],
       ...args,
     }
   );
@@ -323,7 +323,7 @@ export const useAddOrganizationMember = (
     'addOrganizationMember',
     useIntlayerAuth().organization.addOrganizationMember,
     {
-      invalidateQueries: ['getOrganizations'],
+      invalidateQueries: ['getOrganizations', 'getSession'],
       ...args,
     }
   );
