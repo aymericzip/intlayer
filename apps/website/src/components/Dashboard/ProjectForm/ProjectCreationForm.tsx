@@ -1,12 +1,19 @@
 'use client';
 
+import type { ProjectAPI } from '@intlayer/backend';
 import { useForm, Form } from '@intlayer/design-system';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
 
-export const ProjectCreationForm: FC = () => {
+type ProjectCreationFormProps = {
+  onProjectCreated?: (project: ProjectAPI) => void;
+};
+
+export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
+  onProjectCreated,
+}) => {
   const ProjectSchema = useProjectSchema();
   const { addProject } = useAddProject();
   const { selectProject } = useSelectProject();
@@ -20,6 +27,8 @@ export const ProjectCreationForm: FC = () => {
       const projectId = String(result.data?._id);
 
       await selectProject(projectId);
+
+      onProjectCreated?.(result.data);
     });
   };
 

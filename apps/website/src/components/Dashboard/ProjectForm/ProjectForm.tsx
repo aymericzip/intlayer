@@ -8,11 +8,12 @@ import {
   useAuth,
 } from '@intlayer/design-system';
 import { useGetProjects } from '@intlayer/design-system/hooks';
-import { Plus } from 'lucide-react';
+import { Plus, Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { Suspense, useState, type FC } from 'react';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
 import { ConfigDetails } from './Config/ConfigDetails';
+import { DeleteProjectModal } from './DeleteProjectModal';
 import { MembersForm } from './Members/MembersKeyForm';
 import { NoProjectView } from './NoProjectView';
 import { ProjectCreationForm } from './ProjectCreationForm';
@@ -23,8 +24,10 @@ export const ProjectFormContent: FC = () => {
   const { session, isProjectAdmin } = useAuth();
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
+  const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
   const { data: projects, isWaitingData, isSuccess } = useGetProjects();
-  const { noAdminMessage, createProjectButton } = useIntlayer('project-form');
+  const { noAdminMessage, createProjectButton, deleteProjectButton } =
+    useIntlayer('project-form');
 
   if (project) {
     return (
@@ -64,6 +67,27 @@ export const ProjectFormContent: FC = () => {
         >
           <AccessKeyForm />
         </Container>
+        <Container
+          roundedSize="xl"
+          className="flex size-full justify-center p-6"
+        >
+          <DeleteProjectModal
+            isOpen={isDeletionModalOpen}
+            onClose={() => setIsDeletionModalOpen(false)}
+            onDelete={() => setIsDeletionModalOpen(false)}
+          />
+          <Button
+            type="submit"
+            color="error"
+            label={deleteProjectButton.ariaLabel.value}
+            isFullWidth
+            variant="outline"
+            onClick={() => setIsDeletionModalOpen(true)}
+            Icon={Trash}
+          >
+            {deleteProjectButton.text}
+          </Button>
+        </Container>
       </div>
     );
   }
@@ -75,7 +99,9 @@ export const ProjectFormContent: FC = () => {
           isOpen={isCreationModalOpen}
           onClose={() => setIsCreationModalOpen(false)}
         >
-          <ProjectCreationForm />
+          <ProjectCreationForm
+            onProjectCreated={() => setIsCreationModalOpen(false)}
+          />
         </Modal>
         <ProjectList projects={projects?.data ?? []} />
         <Button

@@ -1097,6 +1097,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
+  PROJECTS_EXIST: {
+    title: {
+      en: 'Projects Exist',
+      fr: 'Des projets existent',
+      es: 'Existen proyectos',
+    },
+    message: {
+      en: 'Projects exist in this organization. Please delete them before deleting the organization.',
+      fr: "Des projets existent dans cette organisation. Veuillez les supprimer avant de supprimer l'organisation.",
+      es: 'Existen proyectos en esta organización. Por favor, elimine los antes de eliminar la organización.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
   PLAN_NOT_FOUND: {
     title: {
       en: 'Plan Not Found',

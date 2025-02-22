@@ -334,7 +334,7 @@ export const useDeleteOrganization = (
     'deleteOrganization',
     useIntlayerAuth().organization.deleteOrganization,
     {
-      invalidateQueries: ['getOrganizations'],
+      invalidateQueries: ['getOrganizations', 'getSession'],
       ...args,
     }
   );
@@ -414,7 +414,7 @@ export const useDeleteProject = (
   args?: UseAsyncOptions<typeof intlayerAPI.project.deleteProject>
 ) =>
   useAppAsync('deleteProject', useIntlayerAuth().project.deleteProject, {
-    invalidateQueries: ['getProjects'],
+    invalidateQueries: ['getProjects', 'getSession'],
     ...args,
   });
 export const useSelectProject = (

@@ -92,8 +92,12 @@ const buttonVariants = cva(
         false: '',
       },
 
-      hasIcon: {
-        true: 'px-14',
+      hasIconLeft: {
+        true: 'px-12',
+        false: '',
+      },
+      hasIconRight: {
+        true: 'pr-8',
         false: '',
       },
     },
@@ -103,7 +107,8 @@ const buttonVariants = cva(
       color: 'primary',
       textAlign: 'center',
       isFullWidth: false,
-      hasIcon: false,
+      hasIconRight: false,
+      hasIconLeft: false,
     },
   }
 );
@@ -159,13 +164,13 @@ export const Button: FC<ButtonProps> = ({
         color,
         isFullWidth,
         textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
-        hasIcon: Boolean(
+        hasIconLeft: Boolean(
           typeof children !== 'undefined' &&
-            (typeof Icon !== 'undefined' ||
-              typeof isLoading !== 'undefined' ||
-              typeof IconRight !== 'undefined')
+            (typeof Icon !== 'undefined' || typeof isLoading !== 'undefined')
         ),
-
+        hasIconRight: Boolean(
+          typeof children !== 'undefined' && typeof IconRight !== 'undefined'
+        ),
         className,
       })}
       {...props}

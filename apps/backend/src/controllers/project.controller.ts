@@ -547,6 +547,8 @@ export const deleteProject = async (
       data: formattedProject,
     });
 
+    sessionAuthService.clearProjectAuth(res);
+
     res.json(responseData);
     return;
   } catch (error) {

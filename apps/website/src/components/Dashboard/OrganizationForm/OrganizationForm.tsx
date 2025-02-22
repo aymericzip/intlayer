@@ -1,8 +1,17 @@
 'use client';
 
-import { Container, Loader, Modal, useAuth } from '@intlayer/design-system';
+import {
+  Button,
+  Container,
+  Loader,
+  Modal,
+  useAuth,
+} from '@intlayer/design-system';
 import { useGetOrganizations } from '@intlayer/design-system/hooks';
+import { Trash } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
 import { Suspense, useState, type FC } from 'react';
+import { DeleteOrganizationModal } from './DeleteOrganizationModal';
 import { MembersForm } from './Members/MembersKeyForm';
 import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
@@ -14,11 +23,13 @@ const OrganizationFormContent: FC = () => {
   const { session } = useAuth();
   const { organization } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
+  const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
   const {
     data: organizations,
     isWaitingData,
     isSuccess,
   } = useGetOrganizations();
+  const { deleteOrganizationButton } = useIntlayer('organization-form');
 
   if (organization) {
     return (
@@ -43,6 +54,27 @@ const OrganizationFormContent: FC = () => {
         >
           <PlanDetails />
         </Container>
+        <Container
+          roundedSize="xl"
+          className="z-10 flex size-full justify-center p-6"
+        >
+          <DeleteOrganizationModal
+            isOpen={isDeletionModalOpen}
+            onClose={() => setIsDeletionModalOpen(false)}
+            onDelete={() => setIsDeletionModalOpen(false)}
+          />
+          <Button
+            type="submit"
+            color="error"
+            label={deleteOrganizationButton.ariaLabel.value}
+            isFullWidth
+            variant="outline"
+            onClick={() => setIsDeletionModalOpen(true)}
+            Icon={Trash}
+          >
+            {deleteOrganizationButton.text}
+          </Button>
+        </Container>
       </div>
     );
   }
@@ -58,7 +90,9 @@ const OrganizationFormContent: FC = () => {
           isOpen={isCreationModalOpen}
           onClose={() => setIsCreationModalOpen(false)}
         >
-          <OrganizationCreationForm />
+          <OrganizationCreationForm
+            onOrganizationCreated={() => setIsCreationModalOpen(false)}
+          />
         </Modal>
 
         <NoOrganizationView

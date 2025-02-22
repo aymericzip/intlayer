@@ -2,6 +2,7 @@ import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
+import * as projectService from '@services/project.service';
 import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -22,6 +23,7 @@ import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import type { ObjectId } from 'mongoose';
 import type { User } from 'oauth2-server';
+import { Stripe } from 'stripe';
 import * as organizationService from '@/services/organization.service';
 import type {
   Organization,
@@ -496,6 +498,7 @@ export const deleteOrganization = async (
   res: ResponseWithInformation,
   _next: NextFunction
 ): Promise<void> => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const { isOrganizationAdmin, organization, organizationRights } = res.locals;
 
   if (!organization) {
@@ -519,7 +522,23 @@ export const deleteOrganization = async (
     return;
   }
 
+  const projects = await projectService.findProjects({
+    organizationId: organization._id,
+  });
+
+  if (projects.length > 0) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECTS_EXIST', {
+      organizationId: organization._id,
+    });
+    return;
+  }
+
   try {
+    // Cancel the subscription on Stripe if it exists
+    if (organization.plan?.subscriptionId) {
+      await stripe.subscriptions.cancel(organization.plan.subscriptionId);
+    }
+
     const deletedOrganization =
       await organizationService.deleteOrganizationById(organization._id);
 
@@ -545,6 +564,8 @@ export const deleteOrganization = async (
       }),
       data: deletedOrganization,
     });
+
+    sessionAuthService.clearOrganizationAuth(res);
 
     res.json(responseData);
     return;
