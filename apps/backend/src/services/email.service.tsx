@@ -214,7 +214,7 @@ export const sendEmail = async <T extends EmailType>({
 
   await resend.emails
     .send({
-      from: 'Intlayer <no-replay@intlayer.org>',
+      from: 'Intlayer <no-reply@intlayer.org>',
       to,
       subject: subject ?? baseSubject,
       react,
