@@ -24,7 +24,7 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
 
   useEffect(() => {
     if (user?.email) {
-      onLogin();
+      onLogin?.();
     }
   }, [user]);
   return (
@@ -54,7 +54,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
 
   useEffect(() => {
     if (user?.email) {
-      onLogin();
+      onLogin?.();
     }
   }, [user]);
 
@@ -72,7 +72,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
 };
 
 type ExternalsLoginButtonsProps = {
-  onLogin: () => void;
+  onLogin?: () => void;
 };
 
 export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = (
