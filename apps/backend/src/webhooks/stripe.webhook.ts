@@ -93,18 +93,32 @@ export const stripeWebhook = async (req: Request, res: Response) => {
       status
     );
 
-    await emailService.sendEmail({
-      type: 'subscriptionPaymentSuccess',
-      to: user.email,
-      email: user.email,
-      subscriptionStartDate: new Date(
-        subscription.current_period_start
-      ).toLocaleDateString(),
-      manageSubscriptionLink: `${process.env.CLIENT_URL}/dashboard/organization`,
-      username: user.name,
-      organizationName: organization.name,
-      planName: organization.plan?.type ?? 'Unknown',
-    });
+    if (status === 'active') {
+      await emailService.sendEmail({
+        type: 'subscriptionPaymentSuccess',
+        to: user.email,
+        email: user.email,
+        subscriptionStartDate: new Date().toLocaleDateString(),
+        manageSubscriptionLink: `${process.env.CLIENT_URL}/dashboard/organization`,
+        username: user.name,
+        organizationName: organization.name,
+        planName: organization.plan?.type ?? 'Unknown',
+      });
+    }
+    if (status === 'canceled') {
+      await emailService.sendEmail({
+        type: 'subscriptionPaymentCancellation',
+        to: user.email,
+        email: user.email,
+        cancellationDate: new Date(
+          subscription.current_period_end
+        ).toLocaleDateString(),
+        reactivateLink: `${process.env.CLIENT_URL}/pricing`,
+        username: user.name,
+        organizationName: organization.name,
+        planName: organization.plan?.type ?? 'Unknown',
+      });
+    }
   };
 
   // Handles invoice-related events (payment success or failure)
