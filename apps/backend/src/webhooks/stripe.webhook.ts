@@ -1,10 +1,12 @@
 import { logger } from '@logger';
+import * as emailService from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
 import {
   addOrUpdateSubscription,
   cancelSubscription,
   changeSubscriptionStatus,
 } from '@services/subscription.service';
+import { getUserById } from '@services/user.service';
 import { GenericError } from '@utils/errors';
 import type { Request, Response } from 'express';
 import type { Locales } from 'intlayer';
@@ -73,6 +75,12 @@ export const stripeWebhook = async (req: Request, res: Response) => {
       throw new GenericError('ORGANIZATION_NOT_FOUND');
     }
 
+    const user = await getUserById(userId);
+
+    if (!user) {
+      throw new GenericError('USER_NOT_FOUND');
+    }
+
     const status = statusOverride ?? subscription.status; // Use the provided status override or the subscription's status
 
     // Update or create a subscription record in the database
@@ -84,6 +92,19 @@ export const stripeWebhook = async (req: Request, res: Response) => {
       organization,
       status
     );
+
+    await emailService.sendEmail({
+      type: 'subscriptionPaymentSuccess',
+      to: user.email,
+      email: user.email,
+      subscriptionStartDate: new Date(
+        subscription.current_period_start
+      ).toLocaleDateString(),
+      manageSubscriptionLink: `${process.env.CLIENT_URL}/dashboard/organization`,
+      username: user.name,
+      organizationName: organization.name,
+      planName: organization.plan?.type ?? 'Unknown',
+    });
   };
 
   // Handles invoice-related events (payment success or failure)

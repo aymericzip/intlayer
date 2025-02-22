@@ -16,6 +16,7 @@ export type SubscriptionPaymentCancellationProps = {
   username: string; // The name of the user receiving the email
   email: string; // The email address of the user
   planName: string; // The name of the subscription plan
+  organizationName: string; // The name of the organization
   cancellationDate: string; // The date when the subscription will end
   reactivateLink: string; // A link for the user to reactivate their subscription
 };
@@ -23,6 +24,7 @@ export type SubscriptionPaymentCancellationProps = {
 export const SubscriptionPaymentCancellationEN = ({
   username,
   planName,
+  organizationName,
   cancellationDate,
   reactivateLink,
 }: SubscriptionPaymentCancellationProps) => {
@@ -55,6 +57,9 @@ export const SubscriptionPaymentCancellationEN = ({
               <strong>{planName}</strong> plan has been canceled. You will still
               have access until <strong>{cancellationDate}</strong>.
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organization: <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -73,6 +78,7 @@ export const SubscriptionPaymentCancellationEN = ({
 export const SubscriptionPaymentCancellationFR = ({
   username,
   planName,
+  organizationName,
   cancellationDate,
   reactivateLink,
 }: SubscriptionPaymentCancellationProps) => {
@@ -105,6 +111,9 @@ export const SubscriptionPaymentCancellationFR = ({
               <strong>{planName}</strong> a été annulé. Vous aurez toujours
               accès jusqu'au <strong>{cancellationDate}</strong>.
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organisation : <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -123,6 +132,7 @@ export const SubscriptionPaymentCancellationFR = ({
 export const SubscriptionPaymentCancellationES = ({
   username,
   planName,
+  organizationName,
   cancellationDate,
   reactivateLink,
 }: SubscriptionPaymentCancellationProps) => {
@@ -155,6 +165,9 @@ export const SubscriptionPaymentCancellationES = ({
               <strong>{planName}</strong> ha sido cancelada. Tendrás acceso
               hasta <strong>{cancellationDate}</strong>.
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organización : <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -174,6 +187,7 @@ const PreviewProps: SubscriptionPaymentCancellationProps = {
   username: 'John Doe',
   email: 'john.doe@example.com',
   planName: 'Pro Plan',
+  organizationName: 'My Organization',
   cancellationDate: 'November 30, 2024',
   reactivateLink: 'https://intlayer.org/reactivate-subscription',
 };

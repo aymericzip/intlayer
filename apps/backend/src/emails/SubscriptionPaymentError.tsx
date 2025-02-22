@@ -16,6 +16,7 @@ export type SubscriptionPaymentErrorProps = {
   username: string; // The name of the user receiving the email
   email: string; // The email address of the user
   planName: string; // The name of the subscription plan
+  organizationName: string; // The name of the organization
   errorDate: string; // The date the payment error occurred
   retryPaymentLink: string; // A link for the user to retry their payment
 };
@@ -24,6 +25,7 @@ export type SubscriptionPaymentErrorProps = {
 export const SubscriptionPaymentErrorEN = ({
   username,
   planName,
+  organizationName,
   errorDate,
   retryPaymentLink,
 }: SubscriptionPaymentErrorProps) => {
@@ -57,6 +59,9 @@ export const SubscriptionPaymentErrorEN = ({
               Please update your payment information to ensure continued access
               to your subscription.
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organization: <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -76,6 +81,7 @@ export const SubscriptionPaymentErrorEN = ({
 export const SubscriptionPaymentErrorFR = ({
   username,
   planName,
+  organizationName,
   errorDate,
   retryPaymentLink,
 }: SubscriptionPaymentErrorProps) => {
@@ -110,6 +116,9 @@ export const SubscriptionPaymentErrorFR = ({
               informations de paiement pour garantir un accès continu à votre
               abonnement.
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organisation : <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -129,6 +138,7 @@ export const SubscriptionPaymentErrorFR = ({
 export const SubscriptionPaymentErrorES = ({
   username,
   planName,
+  organizationName,
   errorDate,
   retryPaymentLink,
 }: SubscriptionPaymentErrorProps) => {
@@ -162,6 +172,9 @@ export const SubscriptionPaymentErrorES = ({
               favor, actualiza tu información de pago para garantizar el acceso
               continuo a tu suscripción.
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organización : <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -182,6 +195,7 @@ const PreviewProps: SubscriptionPaymentErrorProps = {
   username: 'John Doe',
   email: 'john.doe@example.com',
   planName: 'Pro Plan',
+  organizationName: 'My Organization',
   errorDate: 'November 18, 2024',
   retryPaymentLink: 'https://intlayer.org/retry-payment',
 };

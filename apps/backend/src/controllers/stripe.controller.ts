@@ -1,4 +1,5 @@
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
@@ -235,6 +236,17 @@ export const cancelSubscription = async (
 
     // Send the response back to the client
     res.json(formattedPlan);
+
+    await emailService.sendEmail({
+      type: 'subscriptionPaymentCancellation',
+      to: user.email,
+      email: user.email,
+      cancellationDate: new Date().toLocaleDateString(),
+      reactivateLink: `${process.env.CLIENT_URL}/pricing`,
+      username: user.name,
+      organizationName: organization.name,
+      planName: plan.type,
+    });
   } catch (error) {
     // Handle any errors that occur during the cancellation process
     ErrorHandler.handleAppErrorResponse(res, error as AppError);

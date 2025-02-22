@@ -16,6 +16,7 @@ export type SubscriptionPaymentSuccessProps = {
   username: string; // The name of the user receiving the email
   email: string; // The email address of the user
   planName: string; // The name of the subscription plan
+  organizationName: string; // The name of the organization
   subscriptionStartDate: string; // The start date of the subscription
   manageSubscriptionLink: string; // A link for the user to manage their subscription
 };
@@ -23,6 +24,7 @@ export type SubscriptionPaymentSuccessProps = {
 export const SubscriptionPaymentSuccessEN = ({
   username,
   planName,
+  organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
 }: SubscriptionPaymentSuccessProps) => {
@@ -57,6 +59,9 @@ export const SubscriptionPaymentSuccessEN = ({
             <Text className="text-[14px] leading-[24px] text-black">
               Start Date: <strong>{subscriptionStartDate}</strong>
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organization: <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -75,6 +80,7 @@ export const SubscriptionPaymentSuccessEN = ({
 export const SubscriptionPaymentSuccessFR = ({
   username,
   planName,
+  organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
 }: SubscriptionPaymentSuccessProps) => {
@@ -109,6 +115,9 @@ export const SubscriptionPaymentSuccessFR = ({
             <Text className="text-[14px] leading-[24px] text-black">
               Date de début : <strong>{subscriptionStartDate}</strong>
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organisation : <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -127,6 +136,7 @@ export const SubscriptionPaymentSuccessFR = ({
 export const SubscriptionPaymentSuccessES = ({
   username,
   planName,
+  organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
 }: SubscriptionPaymentSuccessProps) => {
@@ -161,6 +171,9 @@ export const SubscriptionPaymentSuccessES = ({
             <Text className="text-[14px] leading-[24px] text-black">
               Fecha de inicio: <strong>{subscriptionStartDate}</strong>
             </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Organización: <strong>{organizationName}</strong>
+            </Text>
             <Section className="my-[32px] text-center">
               <Button
                 className="rounded-md bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
@@ -180,6 +193,7 @@ const PreviewProps: SubscriptionPaymentSuccessProps = {
   username: 'John Doe',
   email: 'john.doe@example.com',
   planName: 'Pro Plan',
+  organizationName: 'My Organization',
   subscriptionStartDate: 'November 20, 2024',
   manageSubscriptionLink: 'https://intlayer.org/manage-subscription',
 };
