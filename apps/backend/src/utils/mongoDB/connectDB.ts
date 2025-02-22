@@ -1,4 +1,9 @@
 import { logger } from '@logger';
+import { DictionaryModel } from '@models/dictionary.model';
+import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
+import { ProjectModel } from '@models/project.model';
+import { TagModel } from '@models/tag.model';
+import { UserModel } from '@models/user.model';
 import mongoose from 'mongoose';
 
 export const connectDB = async () => {
@@ -8,6 +13,13 @@ export const connectDB = async () => {
     );
 
     logger.info('MongoDB connected');
+
+    // Recreate indexes for models
+    await ProjectModel.syncIndexes();
+    await UserModel.createIndexes();
+    await OAuth2AccessTokenModel.createIndexes();
+    await TagModel.createIndexes();
+    await DictionaryModel.createIndexes();
 
     return client;
   } catch (error) {

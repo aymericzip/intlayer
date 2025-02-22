@@ -22,12 +22,12 @@ export const TokenRightsSchema = new Schema<TokenRights>({
 // Define the oAuth2Access subdocument schema with timestamps
 const oAuth2AccessSchema = new Schema(
   {
-    clientId: { type: String, required: true, unique: true },
+    clientId: { type: String, required: true },
     clientSecret: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     name: { type: String, required: true },
     expiresAt: { type: Date },
-    accessToken: { type: [String], required: true },
+    accessToken: { type: [String], required: true, default: [] },
     rights: { type: TokenRightsSchema, required: true },
   },
   {

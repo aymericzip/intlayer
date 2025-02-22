@@ -81,18 +81,13 @@ export const SetupOrganizationStepForm: FC = () => {
     Steps.SetupOrganization
   );
 
-  const defaultValues = useMemo(
-    () => ({
+  const { form, isSubmitting } = useForm(SetUpOrganizationSchema, {
+    defaultValues: {
       ...formData,
       organizationId: session?.organization?._id
         ? String(session?.organization?._id)
         : formData?.organizationId,
-    }),
-    [formData, session]
-  );
-
-  const { form, isSubmitting } = useForm(SetUpOrganizationSchema, {
-    defaultValues,
+    },
   });
   const { title } = useIntlayer('set-up-organization-step');
 
@@ -131,7 +126,7 @@ export const SetupOrganizationStepForm: FC = () => {
               form.setValue('organizationId', String(organization._id));
             }
           }}
-          selectedOrganizationId={form.getValues().organizationId}
+          selectedOrganizationId={form.watch('organizationId')}
         />
       </StepLayout>
     </Form>

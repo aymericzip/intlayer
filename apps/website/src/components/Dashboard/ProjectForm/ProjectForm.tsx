@@ -1,7 +1,14 @@
 'use client';
 
-import { Container, Loader, Modal, useAuth } from '@intlayer/design-system';
+import {
+  Button,
+  Container,
+  Loader,
+  Modal,
+  useAuth,
+} from '@intlayer/design-system';
 import { useGetProjects } from '@intlayer/design-system/hooks';
+import { Plus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { Suspense, useState, type FC } from 'react';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
@@ -17,7 +24,7 @@ export const ProjectFormContent: FC = () => {
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { data: projects, isWaitingData, isSuccess } = useGetProjects();
-  const { noAdminMessage } = useIntlayer('project-form');
+  const { noAdminMessage, createProjectButton } = useIntlayer('project-form');
 
   if (project) {
     return (
@@ -62,7 +69,28 @@ export const ProjectFormContent: FC = () => {
   }
 
   if ((projects?.data ?? []).length > 0) {
-    return <ProjectList projects={projects?.data ?? []} />;
+    return (
+      <div className="flex flex-col gap-6">
+        <Modal
+          isOpen={isCreationModalOpen}
+          onClose={() => setIsCreationModalOpen(false)}
+        >
+          <ProjectCreationForm />
+        </Modal>
+        <ProjectList projects={projects?.data ?? []} />
+        <Button
+          type="submit"
+          color="text"
+          label={createProjectButton.ariaLabel.value}
+          isFullWidth
+          variant="outline"
+          onClick={() => setIsCreationModalOpen(true)}
+          Icon={Plus}
+        >
+          {createProjectButton.text}
+        </Button>
+      </div>
+    );
   }
 
   if (isSuccess && !isWaitingData) {
