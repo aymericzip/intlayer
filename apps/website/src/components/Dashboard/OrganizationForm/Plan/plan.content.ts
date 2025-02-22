@@ -51,6 +51,40 @@ const planContent = {
         ru: 'Нажмите, чтобы обновить',
       }),
     },
+
+    renewButton: {
+      text: t({
+        en: 'Renew plan',
+        fr: 'Renouveler le plan',
+        es: 'Renovar plan',
+        'en-GB': 'Renew plan',
+        de: 'Plan erneuern',
+        ja: 'プランを更新',
+        ko: '계획 업그레이드',
+        zh: '续订计划',
+        it: 'Rinnova piano',
+        pt: 'Renovar plano',
+        hi: 'प्रोजेक्ट रीनोवर्ड करें',
+        ar: 'إعادة ترقية الخطة',
+        ru: 'Продлить план',
+      }),
+      label: t({
+        en: 'Click to renew plan',
+        fr: 'Cliquez pour renouveler le plan',
+        es: 'Haz clic para renovar el plan',
+        'en-GB': 'Click to renew plan',
+        de: 'Klicken Sie, um das Plan zu erneuern',
+        ja: 'プランを更新するにはクリックしてください',
+        ko: '계획을 업그레이드하려면 클릭하세요',
+        zh: '点击续订计划',
+        it: 'Clicca per rinnovare il piano',
+        pt: 'Clique para renovar o plano',
+        hi: 'प्रोजेक्ट रीनोवर्ड करने के लिए क्लिक करें',
+        ar: 'انقر لإعادة ترقية الخطة',
+        ru: 'Нажмите, чтобы продлить план',
+      }),
+    },
+
     cancelButton: {
       text: t({
         en: 'Cancel plan',

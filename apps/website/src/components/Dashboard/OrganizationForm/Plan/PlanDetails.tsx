@@ -1,7 +1,7 @@
 import type { Plan } from '@intlayer/backend';
 import { Button, H3, useAuth, Tag, Form, Modal } from '@intlayer/design-system';
 import { useCancelSubscription } from '@intlayer/design-system/hooks';
-import { ChevronsUp, CircleX } from 'lucide-react';
+import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type FC } from 'react';
@@ -36,7 +36,7 @@ const getTypeTagColor = (plan?: Plan) => {
 
 export const PlanDetails: FC<PlanDetailsProps> = () => {
   const { session } = useAuth();
-  const { title, upgradeButton, cancelButton, cancelModal } =
+  const { title, upgradeButton, renewButton, cancelButton, cancelModal } =
     useIntlayer('organization-plan');
   const { cancelSubscription, isLoading: isDeleting } = useCancelSubscription();
   const plan = session?.organization?.plan;
@@ -92,7 +92,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             </Tag>
           )}
         </div>
-        {plan?.type !== 'ENTERPRISE' && (
+        {plan?.type !== 'ENTERPRISE' && plan?.status === 'active' && (
           <Button
             label={upgradeButton.label.value}
             color="text"
@@ -100,6 +100,16 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             onClick={() => router.push(PagesRoutes.Pricing)}
           >
             {upgradeButton.text}
+          </Button>
+        )}
+        {plan?.status !== 'active' && (
+          <Button
+            label={renewButton.label.value}
+            color="text"
+            Icon={RotateCcw}
+            onClick={() => router.push(PagesRoutes.Pricing)}
+          >
+            {renewButton.text}
           </Button>
         )}
         {!getIsFreePlan(plan) && plan?.status === 'active' && (

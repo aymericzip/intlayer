@@ -72,8 +72,10 @@ export const getSubscription = async (
     const { period, type } = retrievePlanInformation(priceId);
 
     if (
-      organization.plan?.subscriptionId ||
-      (organization.plan?.type === type && organization.plan?.period === period)
+      organization.plan?.subscriptionId &&
+      organization.plan?.type === type &&
+      organization.plan?.period === period &&
+      organization.plan?.status === 'active'
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'ALREADY_SUBSCRIBED', {
         organizationId: organization._id,
