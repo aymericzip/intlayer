@@ -31,7 +31,7 @@
     "intlayer-editor": "workspace:*",
     "postcss": "^8.5.1",
     "prettier": "^3.5.0",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.0.8",
     "typescript": "^5.7.3",
     "vite": "^6.0.11"
   }
