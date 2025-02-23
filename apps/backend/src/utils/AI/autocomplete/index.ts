@@ -6,12 +6,16 @@ import { OpenAI } from 'openai';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+export type AIOptions = {
+  model?: string;
+  temperature?: number;
+  openAiApiKey?: string;
+};
+
 export type AutocompleteOptions = {
   text: string;
-  model?: string;
-  openAiApiKey: string;
   customPrompt?: string;
-};
+} & AIOptions;
 export type AutocompleteFileResultData = {
   autocompletion: string;
   tokenUsed: number;
@@ -44,6 +48,7 @@ export const autocomplete = async ({
   text,
   model,
   openAiApiKey,
+  temperature,
   customPrompt,
 }: AutocompleteOptions): Promise<AutocompleteFileResultData | undefined> => {
   try {
@@ -51,7 +56,7 @@ export const autocomplete = async ({
     // Uncomment and configure the following lines if you have `openai` installed and want to call the API:
 
     const openai = new OpenAI({
-      apiKey: openAiApiKey,
+      apiKey: openAiApiKey ?? process.env.OPENAI_API_KEY,
     });
 
     // Prepare the prompt for ChatGPT by replacing placeholders with actual values.
@@ -59,7 +64,8 @@ export const autocomplete = async ({
 
     // Example of how you might request a completion from ChatGPT:
     const chatCompletion = await openai.chat.completions.create({
-      model: model ?? 'gpt-4o-mini',
+      model: openAiApiKey ? (model ?? 'gpt-4o-mini') : 'gpt-4o-mini',
+      temperature: openAiApiKey ? (temperature ?? 0.1) : 0.1,
       messages: [
         { role: 'system', content: prompt },
         { role: 'user', content: text },

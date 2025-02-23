@@ -127,6 +127,12 @@ export const getConfiguration = (
       'string'
     )! as 'local_first' | 'distant_first',
     hotReload: getEnvValue(env.editor.hotReload, 'boolean')!,
+    openAiApiKey: getEnvValue(env.editor.openAiApiKey, 'string')!,
+    openAiApiModel: getEnvValue(env.editor.openAiApiModel, 'string')!,
+    openAiApiTemperature: getEnvValue(
+      env.editor.openAiApiTemperature,
+      'number'
+    )!,
   };
 
   const logConfiguration: LogConfig = {

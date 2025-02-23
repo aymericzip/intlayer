@@ -24,6 +24,7 @@ export type AuditContentDeclarationBody = {
   fileContent: string;
   filePath?: string;
   model?: string;
+  temperature?: number;
   tagsKeys?: string[];
 };
 export type AuditContentDeclarationResult =
@@ -37,25 +38,22 @@ export const auditContentDeclaration = async (
   res: ResponseWithInformation<AuditContentDeclarationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, organization } = res.locals;
   const {
     fileContent,
     filePath,
     openAiApiKey,
     customPrompt,
     model,
+    temperature,
     locales,
     defaultLocale,
     tagsKeys,
   } = req.body;
 
   if (!openAiApiKey) {
-    if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-      return;
-    }
-    if (!project) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    if (!user || !project || !organization) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
       return;
     }
   }
@@ -71,7 +69,8 @@ export const auditContentDeclaration = async (
       fileContent,
       filePath,
       model,
-      openAiApiKey: openAiApiKey ?? process.env.OPENAI_API_KEY,
+      temperature,
+      openAiApiKey,
       customPrompt,
       locales,
       defaultLocale,
@@ -103,6 +102,7 @@ export type AuditContentDeclarationFieldBody = {
   fileContent: string;
   filePath?: string;
   model?: string;
+  temperature?: number;
   tagsKeys?: string[];
   keyPath: KeyPath[];
 };
@@ -117,24 +117,21 @@ export const auditContentDeclarationField = async (
   res: ResponseWithInformation<AuditContentDeclarationFieldResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, organization } = res.locals;
   const {
     fileContent,
     openAiApiKey,
     customPrompt,
     model,
+    temperature,
     locales,
     tagsKeys,
     keyPath,
   } = req.body;
 
   if (!openAiApiKey) {
-    if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-      return;
-    }
-    if (!project) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    if (!user || !project || !organization) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
       return;
     }
   }
@@ -150,7 +147,8 @@ export const auditContentDeclarationField = async (
       await auditContentDeclarationFieldUtil.auditDictionaryField({
         fileContent,
         model,
-        openAiApiKey: openAiApiKey ?? process.env.OPENAI_API_KEY,
+        temperature,
+        openAiApiKey,
         customPrompt,
         locales,
         tags,
@@ -180,6 +178,7 @@ export type AuditContentDeclarationMetadataBody = {
   customPrompt?: string;
   fileContent: string;
   model?: string;
+  temperature?: number;
 };
 export type AuditContentDeclarationMetadataResult =
   ResponseData<auditContentDeclarationUtil.AuditFileResultData>;
@@ -193,19 +192,12 @@ export const auditContentDeclarationMetadata = async (
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization, project } = res.locals;
-  const { fileContent, openAiApiKey, customPrompt, model } = req.body;
+  const { fileContent, openAiApiKey, customPrompt, model, temperature } =
+    req.body;
 
   if (!openAiApiKey) {
-    if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-      return;
-    }
-    if (!organization) {
-      ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-      return;
-    }
-    if (!project) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    if (!user || !project || !organization) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
       return;
     }
   }
@@ -223,7 +215,8 @@ export const auditContentDeclarationMetadata = async (
       await auditContentDeclarationMetadataUtil.auditDictionaryMetadata({
         fileContent,
         model,
-        openAiApiKey: openAiApiKey ?? process.env.OPENAI_API_KEY,
+        openAiApiKey,
+        temperature,
         customPrompt,
         tags,
       });
@@ -251,6 +244,7 @@ export type AuditTagBody = {
   customPrompt?: string;
   filePath?: string;
   model?: string;
+  temperature?: number;
   tag: Tag;
 };
 export type AuditTagResult =
@@ -264,16 +258,12 @@ export const auditTag = async (
   res: ResponseWithInformation<AuditTagResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
-  const { openAiApiKey, customPrompt, model, tag } = req.body;
+  const { user, project, organization } = res.locals;
+  const { openAiApiKey, customPrompt, model, temperature, tag } = req.body;
 
   if (!openAiApiKey) {
-    if (!user) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-      return;
-    }
-    if (!project) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    if (!user || !project || !organization) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
       return;
     }
   }
@@ -286,7 +276,8 @@ export const auditTag = async (
 
     const auditResponse = await auditTagUtil.auditTag({
       model,
-      openAiApiKey: openAiApiKey ?? process.env.OPENAI_API_KEY!,
+      openAiApiKey,
+      temperature,
       customPrompt,
       dictionaries,
       tag,
@@ -339,6 +330,7 @@ export const askDocQuestion = async (
 export type AutocompleteBody = {
   text: string;
   model?: string;
+  temperature?: number;
   openAiApiKey?: string;
   customPrompt?: string;
 };
@@ -352,12 +344,21 @@ export const autocomplete = async (
   res: ResponseWithInformation<AutocompleteResponse>
 ) => {
   try {
-    const { text, model, openAiApiKey, customPrompt } =
-      req.body as AutocompleteBody;
+    const { text, model, openAiApiKey, customPrompt, temperature } = req.body;
+    const { user, project, organization } = res.locals;
+
+    if (!openAiApiKey) {
+      if (!user || !project || !organization) {
+        ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+        return;
+      }
+    }
+
     const response = (await autocompleteUtil.autocomplete({
       text,
       model,
       openAiApiKey,
+      temperature,
       customPrompt,
     })) ?? {
       autocompletion: '',

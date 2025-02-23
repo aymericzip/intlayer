@@ -79,6 +79,9 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryPriorityStrategy: import.meta.env
       .VITE_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
     hotReload: import.meta.env.VITE_INTLAYER_HOT_RELOAD,
+    openAiApiKey: import.meta.env.VITE_INTLAYER_OPEN_AI_API_KEY,
+    openAiApiModel: import.meta.env.VITE_INTLAYER_OPEN_AI_API_MODEL,
+    openAiApiTemperature: import.meta.env.VITE_INTLAYER_OPEN_AI_API_TEMPERATURE,
   };
 
   const log: ReplaceValue<LogConfig> = {

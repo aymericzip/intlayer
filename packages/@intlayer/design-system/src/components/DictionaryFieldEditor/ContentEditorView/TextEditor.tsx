@@ -85,6 +85,9 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
               }),
               keyPath,
               locales: configuration.internationalization.locales ?? [],
+              openAiApiKey: configuration.editor.openAiApiKey,
+              model: configuration.editor.openAiApiModel,
+              temperature: configuration.editor.openAiApiTemperature,
             }).then((response) => {
               if (!response?.data) return;
 

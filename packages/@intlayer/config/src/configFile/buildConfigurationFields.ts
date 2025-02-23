@@ -22,6 +22,9 @@ import {
   IS_ENABLED,
   PORT,
   HOT_RELOAD,
+  OPEN_AI_API_KEY,
+  OPEN_AI_API_MODEL,
+  OPEN_AI_API_TEMPERATURE,
 } from '../defaultValues/editor';
 import {
   DEFAULT_LOCALE,
@@ -641,6 +644,39 @@ const buildEditorFields = (
    * Default: false
    */
   hotReload: customConfiguration?.hotReload ?? HOT_RELOAD,
+
+  /**
+   * OpenAI API key
+   *
+   * Use your own OpenAI API key to use the AI features of Intlayer.
+   * If you don't have an OpenAI API key, you can get one for free at https://openai.com/api/.
+   *
+   * Default: ''
+   */
+  openAiApiKey: customConfiguration?.openAiApiKey ?? OPEN_AI_API_KEY,
+
+  /**
+   * OpenAI API model
+   *
+   * The model to use for the AI features of Intlayer.
+   *
+   * Default: 'gpt-4o-2024-11-20'
+   *
+   * > Necessitate to define openAiApiKey to use this model
+   */
+  openAiApiModel: customConfiguration?.openAiApiModel ?? OPEN_AI_API_MODEL,
+
+  /**
+   * OpenAI API temperature
+   *
+   * The temperature to use for the AI features of Intlayer.
+   * The temperature controls the randomness of the AI's responses.
+   * A higher temperature will make the AI more creative and less predictable.
+   *
+   * Default: 0.1
+   */
+  openAiApiTemperature:
+    customConfiguration?.openAiApiTemperature ?? OPEN_AI_API_TEMPERATURE,
 });
 
 const buildLogFields = (

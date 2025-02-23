@@ -70,6 +70,10 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryPriorityStrategy:
       process.env.NEXT_PUBLIC_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
     hotReload: process.env.NEXT_PUBLIC_INTLAYER_HOT_RELOAD,
+    openAiApiKey: process.env.NEXT_PUBLIC_INTLAYER_OPENAI_API_KEY,
+    openAiApiModel: process.env.NEXT_PUBLIC_INTLAYER_OPENAI_API_MODEL,
+    openAiApiTemperature:
+      process.env.NEXT_PUBLIC_INTLAYER_OPENAI_API_TEMPERATURE,
   };
 
   const log: ReplaceValue<LogConfig> = {

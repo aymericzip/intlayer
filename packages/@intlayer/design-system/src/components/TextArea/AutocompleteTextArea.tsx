@@ -1,5 +1,6 @@
 'use client';
 
+import { useConfiguration } from '@intlayer/editor-react';
 import { type FC, useState, useEffect } from 'react';
 import { useAutocomplete } from '../../hooks';
 import {
@@ -34,6 +35,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
 }) => {
   const defaultValue = String(props.value ?? props.defaultValue ?? '');
   const { autocomplete } = useAutocomplete();
+  const configuration = useConfiguration();
   const [isTyped, setIsTyped] = useState(false);
   const [text, setText] = useState(defaultValue);
   const [suggestion, setSuggestion] = useState('');
@@ -52,7 +54,12 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
 
     const fetchSuggestion = async () => {
       try {
-        const response = await autocomplete({ text: debouncedText });
+        const response = await autocomplete({
+          text: debouncedText,
+          openAiApiKey: configuration.editor.openAiApiKey,
+          model: configuration.editor.openAiApiModel,
+          temperature: configuration.editor.openAiApiTemperature,
+        });
         // e.g. response.data.autocompletion = "Hello World"
         const autocompletion = response?.data?.autocompletion ?? '';
 

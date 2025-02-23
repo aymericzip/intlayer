@@ -7,13 +7,17 @@ import type { Tag } from '@/types/tag.types';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+export type AIOptions = {
+  model?: string;
+  temperature?: number;
+  openAiApiKey?: string;
+};
+
 export type AuditOptions = {
   tags: Tag[];
   fileContent: string;
-  model?: string;
-  openAiApiKey: string;
   customPrompt?: string;
-};
+} & AIOptions;
 export type AuditFileResultData = { fileContent: string; tokenUsed: number };
 
 /**
@@ -42,6 +46,7 @@ const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
 export const auditDictionaryMetadata = async ({
   model,
   openAiApiKey,
+  temperature,
   customPrompt,
   tags,
   fileContent,
@@ -51,7 +56,7 @@ export const auditDictionaryMetadata = async ({
     // Uncomment and configure the following lines if you have `openai` installed and want to call the API:
 
     const openai = new OpenAI({
-      apiKey: openAiApiKey,
+      apiKey: openAiApiKey ?? process.env.OPENAI_API_KEY,
     });
 
     // Prepare the prompt for ChatGPT by replacing placeholders with actual values.
@@ -70,7 +75,10 @@ export const auditDictionaryMetadata = async ({
 
     // Example of how you might request a completion from ChatGPT:
     const chatCompletion = await openai.chat.completions.create({
-      model: model ?? 'gpt-4o-2024-11-20',
+      model: openAiApiKey
+        ? (model ?? 'gpt-4o-2024-11-20')
+        : 'gpt-4o-2024-11-20',
+      temperature: openAiApiKey ? (temperature ?? 0.1) : 0.1,
       messages: [{ role: 'system', content: prompt }],
     });
 

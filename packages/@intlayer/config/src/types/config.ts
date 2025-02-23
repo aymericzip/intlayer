@@ -222,6 +222,38 @@ export type EditorConfig = {
    * Default: false
    */
   hotReload: boolean;
+
+  /**
+   * OpenAI API key
+   *
+   * Use your own OpenAI API key to use the AI features of Intlayer.
+   * If you don't have an OpenAI API key, you can get one for free at https://openai.com/api/.
+   *
+   * Default: ''
+   */
+  openAiApiKey: string;
+
+  /**
+   * OpenAI API model
+   *
+   * The model to use for the AI features of Intlayer.
+   *
+   * Default: 'gpt-4o-2024-11-20'
+   *
+   * > Necessitate to define openAiApiKey to use this model
+   */
+  openAiApiModel: string;
+
+  /**
+   * OpenAI API temperature
+   *
+   * The temperature to use for the AI features of Intlayer.
+   * The temperature controls the randomness of the AI's responses.
+   * A higher temperature will make the AI more creative and less predictable.
+   *
+   * Default: 0.1
+   */
+  openAiApiTemperature: number;
 };
 
 /**
