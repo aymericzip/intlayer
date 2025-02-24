@@ -5,8 +5,6 @@
 @source "../src/**/*.{ts,tsx}";
 @source "../../../../packages/@intlayer/design-system/src/**/*.{ts,tsx}";
 
-@import url('./shiki.css');
-
 @keyframes infiniteScroll {
   from {
     transform: translateX(0);

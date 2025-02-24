@@ -22,17 +22,13 @@
   --shiki-highlighted-word-border-color: rgba(255, 255, 255, 0.5);
 }
 
-pre {
+pre.shiki {
   background-color: transparent !important;
 }
 
 code {
   counter-reset: step;
   counter-increment: step 0;
-}
-
-.shiki {
-  background-color: transparent !important;
 }
 
 .with-line-number .line::before {

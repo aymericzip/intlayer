@@ -37,7 +37,13 @@ export const CodeBlockShiki = (async ({
 
   const out = await codeToHtml(children, shikiOptions);
 
-  return <div dangerouslySetInnerHTML={{ __html: out }} {...props} />;
+  return (
+    <div
+      dangerouslySetInnerHTML={{ __html: out }}
+      {...props}
+      style={{ backgroundColor: 'transparent' }}
+    />
+  );
 }) as unknown as FC<CodeBlockProps>;
 
 const CodeDefault: FC<CodeBlockProps> = ({

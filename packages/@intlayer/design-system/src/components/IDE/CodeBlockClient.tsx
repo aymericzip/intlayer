@@ -70,7 +70,13 @@ export const CodeBlockShiki = (({
 
   if (!out) return <CodeDefault>{children}</CodeDefault>;
 
-  return <div dangerouslySetInnerHTML={{ __html: out }} {...props} />;
+  return (
+    <div
+      dangerouslySetInnerHTML={{ __html: out }}
+      {...props}
+      style={{ backgroundColor: 'transparent' }}
+    />
+  );
 }) as unknown as FC<CodeBlockProps>;
 
 export type CodeBlockProps = {
