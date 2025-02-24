@@ -1,4 +1,4 @@
-import eslintPluginTailwindCss from 'eslint-plugin-tailwindcss';
+// import eslintPluginTailwindCss from 'eslint-plugin-tailwindcss';
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
@@ -11,7 +11,7 @@ const config = [
       },
     },
     plugins: {
-      tailwindcss: eslintPluginTailwindCss,
+      // tailwindcss: eslintPluginTailwindCss,
     },
 
     rules: {
