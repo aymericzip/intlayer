@@ -30,7 +30,7 @@ const buttonIconVariants = cva('', {
 });
 
 const buttonVariants = cva(
-  'relative truncate whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+  'relative cursor-pointer truncate whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
