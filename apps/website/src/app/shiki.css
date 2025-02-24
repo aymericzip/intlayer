@@ -32,7 +32,7 @@ code {
 }
 
 .shiki {
-  background: transparent !important;
+  background-color: transparent !important;
 }
 
 .with-line-number .line::before {
