@@ -31,6 +31,10 @@ code {
   counter-increment: step 0;
 }
 
+.shiki {
+  background: transparent !important;
+}
+
 .with-line-number .line::before {
   content: counter(step);
   counter-increment: step;
