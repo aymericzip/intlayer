@@ -115,9 +115,9 @@
 
   --color-input-background: rgba(255, 255, 255);
   --color-input-text: rgba(18, 18, 18);
-  --color-input-border: rgba(246, 246, 246);
-  --color-input-border-hover: rgba(231, 231, 231);
-  --color-input-border-focus: rgba(209, 209, 209);
+  --color-input-border: rgba(216, 216, 216);
+  --color-input-border-hover: rgba(201, 201, 201);
+  --color-input-border-focus: rgba(189, 189, 189);
   --color-input-border-disabled: rgba(255, 255, 255);
 }
 
