@@ -106,7 +106,8 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
     handleSearch(searchQuery);
   }, [searchQuery, handleSearch]);
 
-  const isNoResult = results.length === 0 && inputRef.current?.value !== '';
+  const isNoResult =
+    results.length === 0 && inputRef.current && inputRef.current?.value !== '';
 
   return (
     <div className="relative w-full">
