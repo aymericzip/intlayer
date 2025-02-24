@@ -21,7 +21,7 @@ export const linkVariants = cva(
         button:
           'rounded-lg bg-current *:text-text-opposite min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
         'button-outlined':
-          'rounded-lg border-[1.5px] bg-current hover:bg-current/30 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+          'rounded-lg border-[1.5px] hover:bg-current/30 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
         hoverable:
           'block rounded-lg border-none bg-current/0 transition hover:bg-current/10 aria-[current]:bg-current/5',
       },
@@ -130,11 +130,7 @@ export const Link: FC<LinkProps> = (props) => {
       )}
       {...otherProps}
     >
-      {typeof children === 'string' && variant === 'button' ? (
-        <span>{children}</span>
-      ) : (
-        children
-      )}
+      {variant === 'button' ? <span>{children}</span> : children}
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />
       )}
