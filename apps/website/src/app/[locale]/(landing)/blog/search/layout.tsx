@@ -14,7 +14,7 @@ const BlogLayout: NextLayoutIntlayer<BlogProps> = async ({
   const { locale } = await params;
   return (
     <BlogPageLayout locale={locale} displayBlogNavTitles={false}>
-      <BackgroundLayout>{children}</BackgroundLayout>
+      {children}
     </BlogPageLayout>
   );
 };

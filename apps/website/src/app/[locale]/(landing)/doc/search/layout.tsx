@@ -14,7 +14,7 @@ const DocLayout: NextLayoutIntlayer<DocProps> = async ({
   const { locale } = await params;
   return (
     <DocPageLayout locale={locale} displayDocNavTitles={false}>
-      <BackgroundLayout>{children}</BackgroundLayout>
+      {children}
     </DocPageLayout>
   );
 };
