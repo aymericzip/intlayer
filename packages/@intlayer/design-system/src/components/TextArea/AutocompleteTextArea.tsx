@@ -100,7 +100,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
         Mirrors user's typed text and shows suggestion as ghosted/gray
       */}
       <div
-        className="pointer-events-none absolute inset-0 whitespace-pre-wrap break-words px-1 py-3 text-base leading-[1.45rem] md:py-1 md:text-sm"
+        className="pointer-events-none absolute inset-0 whitespace-pre-wrap break-words px-1 py-3 text-base leading-[1.45rem] md:py-1 md:text-sm md:leading-[1.23rem]"
         aria-hidden="true"
       >
         <span className="align-text-top text-transparent">{text}</span>
