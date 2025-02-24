@@ -245,15 +245,15 @@ export const PricingCarousel = ({
    * Set column X position based on its index relative to the displayed plan
    * @param index - Index of the plan column
    * @param displayedIndex - Index of the displayed plan column
-   * @param columnWidth - Width of the column element
    * @returns - Calculated X position for the column
    */
   const setColumnPositionX = useCallback(
-    (index: number, displayedIndex: number, columnWidth: number) => {
+    (index: number, displayedIndex: number) => {
       const diff = index - displayedIndex;
       const screenWidth = window.innerWidth;
       const offset = (3 * screenWidth) / 10;
-      return -columnWidth / 2 + diff * offset;
+
+      return diff * offset;
     },
     []
   );
@@ -322,11 +322,7 @@ export const PricingCarousel = ({
             columnRef?.current?.offsetWidth
               ? {
                   transform: `
-              translateX(${setColumnPositionX(
-                index,
-                displayedPlanIndex,
-                columnRef.current.offsetWidth
-              )}px)
+              translateX(${setColumnPositionX(index, displayedPlanIndex)}px)
               scale(${setColumnScale(index, displayedPlanIndex)})
             `,
                 }
