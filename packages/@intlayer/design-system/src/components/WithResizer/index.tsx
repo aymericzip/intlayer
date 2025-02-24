@@ -89,8 +89,8 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         minWidth && `max-w-[${maxWidth}px]`,
         maxWidth && `min-w-[${minWidth}px]`,
         'relative h-full w-full max-w-[80%] cursor-ew-resize border-r-[2px] border-neutral-200 transition dark:border-neutral-950',
-        'after:absolute after:right-0 after:top-1/2 after:block after:h-10 after:w-2 after:-translate-y-1/2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] after:dark:bg-neutral-950',
-        'active:border-neutral-400 after:active:bg-neutral-400 dark:active:border-neutral-600 dark:after:active:bg-neutral-600'
+        'after:absolute after:right-0 after:top-1/2 after:block after:h-10 after:w-2 after:-translate-y-1/2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+        'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600'
       )}
       style={{
         width: `${width}px`,

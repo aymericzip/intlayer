@@ -40,9 +40,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
   if (typeof section === 'object') {
     if (nodeType === NodeType.ReactNode) {
       return (
-        <span className="text-neutral dark:text-neutral-dark text-xs">
-          React node not editable
-        </span>
+        <span className="text-neutral text-xs">React node not editable</span>
       );
     }
 

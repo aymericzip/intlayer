@@ -57,7 +57,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
             <OptionalLink
               href={sectionDefault?.url ?? ''}
               className={cn([
-                'text-neutral hover:text-text dark:hover:text-text-dark h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors dark:text-neutral-200',
+                'text-neutral hover:text-text h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors',
               ])}
               label={key1}
               isActive={isActive}
@@ -66,7 +66,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
             </OptionalLink>
 
             {subSections && Object.keys(subSections).length > 0 && (
-              <ul className="border-neutral dark:border-neutral-dark mt-4 flex flex-col gap-4 border-l-[0.5px] p-1 text-base">
+              <ul className="border-neutral mt-4 flex flex-col gap-4 border-l-[0.5px] p-1 text-base">
                 {Object.keys(subSections).map((key2) => {
                   const section2Data = subSections[key2];
                   const sectionDefault = section2Data.default;
@@ -84,7 +84,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                             <OptionalLink
                               label={key2}
                               href={sectionDefault?.url ?? ''}
-                              className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap pl-2 text-left text-sm transition-colors dark:text-neutral-200"
+                              className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap pl-2 text-left text-sm transition-colors"
                               isActive={isActive}
                             >
                               {section2Data?.title}
@@ -97,7 +97,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           <div className="pl-3">
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
-                                <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
+                                <div className="text-neutral hover:text-text flex flex-col items-start gap-2 p-1 transition-colors">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
                                     const sectionDefault = section3Data.default;
@@ -118,7 +118,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                           <OptionalLink
                                             label={key3}
                                             href={sectionDefault?.url ?? ''}
-                                            className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap pl-2 text-left text-xs transition-colors dark:text-neutral-200"
+                                            className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap pl-2 text-left text-xs transition-colors"
                                             isActive={isActive}
                                           >
                                             {section3Data?.title}
@@ -132,7 +132,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                           {subSections3 &&
                                             Object.keys(subSections3).length >
                                               0 && (
-                                              <div className="text-neutral hover:text-text dark:hover:text-text-dark flex flex-col items-start gap-2 p-1 transition-colors">
+                                              <div className="text-neutral hover:text-text flex flex-col items-start gap-2 p-1 transition-colors">
                                                 {Object.keys(subSections3).map(
                                                   (key4) => {
                                                     const section4Data =
@@ -156,7 +156,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                                           section4Data.default
                                                             ?.url ?? ''
                                                         }
-                                                        className="text-neutral hover:text-text dark:hover:text-text-dark block w-full text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200"
+                                                        className="text-neutral hover:text-text block w-full text-nowrap p-2 text-left text-xs transition-colors"
                                                         isActive={isActive}
                                                       >
                                                         {section4Data.title}
@@ -173,7 +173,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                         key={key3}
                                         label={key3}
                                         href={section3Data.default?.url ?? ''}
-                                        className="text-neutral hover:text-text dark:hover:text-text-dark block w-full text-nowrap p-2 text-left text-xs transition-colors dark:text-neutral-200"
+                                        className="text-neutral hover:text-text block w-full text-nowrap p-2 text-left text-xs transition-colors"
                                         isActive={isActive}
                                       >
                                         {section3Data.title}
@@ -187,7 +187,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                       ) : (
                         <OptionalLink
                           href={sectionDefault?.url ?? ''}
-                          className="text-neutral hover:text-text dark:hover:text-text-dark block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors dark:text-neutral-200"
+                          className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
                           label={key2}
                           isActive={isActive}
                         >
@@ -206,7 +206,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         <OptionalLink
           href={PagesRoutes.Doc}
           className={cn([
-            'text-neutral hover:text-text dark:hover:text-text-dark h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors dark:text-neutral-200',
+            'text-neutral hover:text-text h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors',
           ])}
           label={docButton.label.value}
         >
@@ -261,7 +261,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
                 ])}
                 onClick={() => setIsHidden((isHidden) => !isHidden)}
               />
-              <div className="from-card/90 dark:from-card-dark/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
+              <div className="from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
             </div>
           </Container>
 

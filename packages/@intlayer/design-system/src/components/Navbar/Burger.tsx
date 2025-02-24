@@ -6,7 +6,7 @@ interface BurgerProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const lineStyle =
-  'bg-text dark:bg-text-dark absolute top-1/2 block h-[2px] w-8 transition duration-300';
+  'bg-text  absolute top-1/2 block h-[2px] w-8 transition duration-300';
 
 export const Burger = ({
   isActive = false,

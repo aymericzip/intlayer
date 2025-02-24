@@ -1,4 +1,3 @@
-import { KeyboardScreenAdapter } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
 import { Footer } from '@/components/Footer';

@@ -105,7 +105,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
       >
         <span className="align-text-top text-transparent">{text}</span>
         {(suggestion || suggestionProp) && (
-          <span className="text-neutral dark:text-neutral-dark ml-3 align-text-top">
+          <span className="text-neutral ml-3 align-text-top">
             {suggestionProp ?? suggestion}
           </span>
         )}

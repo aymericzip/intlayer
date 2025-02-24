@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '@intlayer/design-system/css';
+@config '@intlayer/design-system/tailwind-config';
+
+@source "./**/*.{ts,tsx}";
+@source "../../../@intlayer/design-system/src/**/*.{ts,tsx}";
 
 html {
   font-family: 'Inter';
@@ -15,5 +18,6 @@ html {
 
 @font-face {
   font-family: 'Inter';
-  src: local('Inter-VariableFont'), url('./assets/fonts/Inter-VariableFont.ttf');
+  src:
+    local('Inter-VariableFont'), url('./assets/fonts/Inter-VariableFont.ttf');
 }

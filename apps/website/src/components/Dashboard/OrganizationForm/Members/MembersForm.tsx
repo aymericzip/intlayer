@@ -148,15 +148,15 @@ export const MembersForm: FC = () => {
             <Form.Description>{description}</Form.Description>
 
             {!organization?.membersIds.length && (
-              <span className="text-neutral dark:text-neutral-dark flex size-full justify-center text-sm">
+              <span className="text-neutral flex size-full justify-center text-sm">
                 {noMembers}
               </span>
             )}
-            <div className="border-text dark:border-text-dark flex max-h-48 flex-col gap-2 overflow-auto rounded-xl border-2 p-2">
+            <div className="border-text flex max-h-48 flex-col gap-2 overflow-auto rounded-xl border-2 p-2">
               {organization?.membersIds.map((memberId) => (
                 <div
                   key={String(memberId)}
-                  className="bg-text/10 dark:bg-text-dark/10 flex items-center justify-between rounded-lg px-2 py-1"
+                  className="bg-text/10 flex items-center justify-between rounded-lg px-2 py-1"
                 >
                   <span>{getUserName(memberId)}</span>
                   {isOrganizationAdmin && (

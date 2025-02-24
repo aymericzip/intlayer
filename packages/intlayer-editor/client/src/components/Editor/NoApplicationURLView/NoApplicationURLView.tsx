@@ -9,9 +9,7 @@ export const NoApplicationURLView: FC = () => {
   return (
     <div className="flex flex-col gap-6">
       <H3 className="mb-8">{title}</H3>
-      <strong className="text-neutral dark:text-neutral-dark block">
-        {description}
-      </strong>
+      <strong className="text-neutral block">{description}</strong>
       <Link
         label={documentationLink.label.value}
         href="https://intlayer.org/doc/concept/configuration#editor-configuration"

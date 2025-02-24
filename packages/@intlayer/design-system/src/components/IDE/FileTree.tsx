@@ -113,7 +113,7 @@ export const FileTree: FC<FileTreeProps> = ({
   const fileTree = createFileTree(filesPaths);
 
   return (
-    <div className="text-neutral dark:text-neutral-dark flex size-full flex-col items-start justify-start py-1">
+    <div className="text-neutral flex size-full flex-col items-start justify-start py-1">
       {fileTree.map(({ path, subPath, isFile }) => (
         <FileItem
           key={path}

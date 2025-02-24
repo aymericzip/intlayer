@@ -26,11 +26,11 @@ export const ConfirmationsStep: FC = () => {
               user?.name ?? user?.email ?? ''
             )}
           </span>
-          <span className="text-neutral dark:text-neutral text-sm">
+          <span className="text-neutral text-sm">
             {confirmation.description}
           </span>
-          <div className="bg-success/30 dark:bg-success-dark/30 m-auto aspect-square rounded-full p-5">
-            <Check className="text-success dark:text-success-dark" size={50} />
+          <div className="bg-success/30 m-auto aspect-square rounded-full p-5">
+            <Check className="text-success" size={50} />
           </div>
         </div>
       </StepLayout>

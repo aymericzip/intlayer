@@ -26,10 +26,8 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
       <div className="flex flex-col gap-4">
         <H3 className="mb-8">{title}</H3>
 
-        <div className="bg-card dark:bg-card-dark flex flex-col gap-2 rounded-lg p-4 text-sm">
-          <strong className="text-neutral dark:text-neutral-dark block">
-            {noConfig.message}
-          </strong>
+        <div className="bg-card flex flex-col gap-2 rounded-lg p-4 text-sm">
+          <strong className="text-neutral block">{noConfig.message}</strong>
           <Link
             label={pushConfigDocLink.label.value}
             href={`${PagesRoutes.Doc_IntlayerCMS}#using-the-cms`}
@@ -100,10 +98,8 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           )}
         </div>
       </div>
-      <div className="bg-card dark:bg-card-dark flex flex-col gap-2 rounded-lg p-4 text-sm">
-        <strong className="text-neutral dark:text-neutral-dark block">
-          {updateConfig.message}
-        </strong>
+      <div className="bg-card flex flex-col gap-2 rounded-lg p-4 text-sm">
+        <strong className="text-neutral block">{updateConfig.message}</strong>
         <Link
           label={pushConfigDocLink.label.value}
           href={`${PagesRoutes.Doc_IntlayerCMS}#using-the-cms`}

@@ -14,7 +14,7 @@ export const Popover: FC<PopoverProps> = ({ children, content }) => (
   >
     {children}
     <div
-      className="bg-card dark:bg-card-dark absolute bottom-0 left-5 z-50 translate-y-[150%] rounded-md p-1 text-xs text-opacity-75 opacity-0 ring-2 ring-current transition-all delay-200 duration-200 ease-in-out hover:delay-0 group-hover:opacity-100"
+      className="bg-card absolute bottom-0 left-5 z-50 translate-y-[150%] rounded-md p-1 text-xs text-opacity-75 opacity-0 ring-2 ring-current transition-all delay-200 duration-200 ease-in-out hover:delay-0 group-hover:opacity-100"
       aria-hidden={true}
     >
       {content}

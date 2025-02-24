@@ -36,9 +36,7 @@ export const DictionaryListDashboardContent: FC = () => {
       <H2 className="mb-6">{dictionaryList.title}</H2>
 
       {dictionaries.length === 0 && (
-        <span className="text-neutral-dark dark:text-neutral-dark text-sm">
-          {noDictionaryView.title}
-        </span>
+        <span className="text-neutral text-sm">{noDictionaryView.title}</span>
       )}
       {dictionaries.map((dictionary) => (
         <Button
@@ -62,7 +60,7 @@ export const DictionaryListDashboardContent: FC = () => {
             )}
             {dictionary.key && <span>{dictionary.key}</span>}
             {dictionary.description && (
-              <span className="text-neutral dark:text-neutral-dark line-clamp-2 text-wrap">
+              <span className="text-neutral line-clamp-2 text-wrap">
                 {dictionary.description}
               </span>
             )}

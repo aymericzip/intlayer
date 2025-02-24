@@ -44,8 +44,8 @@ export const DefineNewPasswordForm: FC<ForgotPasswordFormProps> = ({
   if (isSuccess) {
     return (
       <>
-        <div className="bg-success/30 dark:bg-success-dark/30 m-auto aspect-square rounded-full p-5">
-          <Check className="text-success dark:text-success-dark" size={50} />
+        <div className="bg-success/30 m-auto aspect-square rounded-full p-5">
+          <Check className="text-success" size={50} />
         </div>
         <Button
           label={goToLoginButton.text.value}

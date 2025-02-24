@@ -96,7 +96,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
                   </Button>
                 ))
               ) : (
-                <span className="text-neutral dark:text-neutral-dark text-center text-xs">
+                <span className="text-neutral text-center text-xs">
                   {noOtherProjects}
                 </span>
               )}

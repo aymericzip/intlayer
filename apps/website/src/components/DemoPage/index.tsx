@@ -14,20 +14,18 @@ export const DemoPage: FC = () => {
         </div>
         <div>
           <h1 className="mb-3 mt-24 text-4xl font-bold">{title}</h1>
-          <p className="text-md text-neutral dark:text-neutral-dark">
-            {landingParagraph}
-          </p>
+          <p className="text-md text-neutral">{landingParagraph}</p>
         </div>
       </div>
       <div className="relative mx-auto my-10 flex max-w-[700px] flex-col gap-28">
         {tutoParagraphs.map((paragraph, index) => (
           <AnimatedDiv key={paragraph.title.value} className="flex gap-10">
-            <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-4 border-lime-300 text-xl font-black text-lime-800 dark:border-lime-900 dark:text-lime-600">
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-4 border-lime-300 text-xl font-black text-lime-800">
               <span>{index + 1}</span>
             </span>
             <div>
               <h3 className="mb-2 text-lg font-semibold">{paragraph.title}</h3>
-              <p className="text-neutral dark:text-neutral-dark text-sm leading-7">
+              <p className="text-neutral text-sm leading-7">
                 {paragraph.description}
               </p>
             </div>

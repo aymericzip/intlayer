@@ -23,7 +23,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
   const { pathWithoutLocale } = useLocale();
 
   return (
-    <ul className="border-neutral dark:border-neutral-dark my-3 flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
+    <ul className="border-neutral my-3 flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
       {title2.map((h3) => {
         const { id } = h3;
         const isActive = activeSectionsId === id;
@@ -36,7 +36,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               aria-current={isActive ? 'location' : undefined}
               color="text"
               variant="hoverable"
-              className="text-neutral text-wrap p-2 transition-colors dark:text-neutral-200"
+              className="text-neutral text-wrap p-2 transition-colors"
             >
               {h3.innerText}
             </Link>
@@ -166,7 +166,7 @@ export const NavTitles1: FC = () => {
                 color="text"
                 variant="hoverable"
                 isActive={isActive}
-                className="text-neutral text-wrap p-2 transition-colors dark:text-neutral-200"
+                className="text-neutral text-wrap p-2 transition-colors"
               >
                 {h2.innerText}
               </Link>
@@ -219,7 +219,7 @@ export const NavTitles: FC<NavTitlesProps> = (props) => {
             <MaxWidthSmoother isHidden={isHidden}>
               <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
             </MaxWidthSmoother>
-            <div className="from-card/90 dark:from-card-dark/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
+            <div className="from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
           </div>
         </Container>
         <div className="flex flex-1 md:sticky md:top-28 md:pt-0">

@@ -44,7 +44,7 @@ const CommandInput: FC<ComponentProps<typeof CommandPrimitive.Input>> = ({
     <Search className="mr-2 size-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
       className={cn(
-        'placeholder:text-muted-foreground flex w-full rounded-md bg-transparent text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        'placeholder:text-muted-foreground outline-hidden flex w-full rounded-md bg-transparent text-sm disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       {...props}
@@ -94,7 +94,7 @@ const CommandItem: FC<ComponentProps<typeof CommandPrimitive.Item>> = ({
 }) => (
   <CommandPrimitive.Item
     className={cn(
-      'data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
+      'data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground outline-hidden relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
       className
     )}
     {...props}

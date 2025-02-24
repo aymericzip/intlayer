@@ -32,8 +32,8 @@ export const StringWrapper: FC<StringWrapperProps> = ({
       tabIndex={0}
       className={cn(
         'w-full rounded-md p-2 text-left transition',
-        'hover:bg-card/30 dark:hover:bg-card-dark/30 [&:has(.section:hover)]:bg-transparent',
-        level === 2 && 'hover:bg-card/30 dark:hover:bg-card-dark/30',
+        'hover:bg-card/30 [&:has(.section:hover)]:bg-transparent',
+        level === 2 && 'hover:bg-card/30',
         level >= 3 && ''
       )}
       onClick={(e) => {

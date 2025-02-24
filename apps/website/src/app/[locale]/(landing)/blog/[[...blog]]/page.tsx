@@ -27,7 +27,7 @@ const Contribution: FC<{ githubUrl: string }> = ({ githubUrl }) => {
       border={true}
       padding="lg"
       borderColor="neutral"
-      className="text-neutral dark:text-neutral-dark mx-10 flex flex-row gap-6 text-xs"
+      className="text-neutral mx-10 flex flex-row gap-6 text-xs"
     >
       <Edit className="ml-3 mt-1 size-5" size={24} />
       <div className="flex flex-1 flex-col gap-2">

@@ -20,9 +20,7 @@ const SignInPageContent: FC = () => {
         >
           <div className="flex flex-col gap-3 py-3 text-center">
             <h2 className="font-extrabold">{title2}</h2>
-            <span className="text-neutral dark:text-neutral-dark text-xs">
-              {description}
-            </span>
+            <span className="text-neutral text-xs">{description}</span>
           </div>
 
           <SignInForm />

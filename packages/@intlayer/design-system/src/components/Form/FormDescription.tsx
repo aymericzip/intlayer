@@ -9,10 +9,6 @@ export const FormDescription: FC<HTMLAttributes<HTMLParagraphElement>> = (
   const { formDescriptionId } = useFormField();
 
   return (
-    <p
-      className="text-neutral dark:text-neutral-dark text-sm"
-      id={formDescriptionId}
-      {...props}
-    />
+    <p className="text-neutral text-sm" id={formDescriptionId} {...props} />
   );
 };

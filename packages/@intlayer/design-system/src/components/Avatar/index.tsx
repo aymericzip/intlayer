@@ -46,7 +46,7 @@ export const Avatar: FC<AvatarProps> = ({
   return (
     <Container
       className={cn(
-        `border-text dark:border-text-dark size-9 rounded-full border-[1.5px] p-[1.5px]`,
+        `border-text size-9 rounded-full border-[1.5px] p-[1.5px]`,
         isClickable && `cursor-pointer`,
         className
       )}
@@ -54,7 +54,7 @@ export const Avatar: FC<AvatarProps> = ({
       {...props}
     >
       <div className="relative flex size-full flex-row items-center justify-center">
-        <div className="bg-text text-text-dark dark:bg-text-dark dark:text-text absolute left-0 top-0 flex size-full flex-col items-center justify-center rounded-full">
+        <div className="bg-text text-text-opposite absolute left-0 top-0 flex size-full flex-col items-center justify-center rounded-full">
           {displayLoader && <Loader className="w-3/4" />}
           {displayAvatar && (
             <img

@@ -105,7 +105,7 @@ export const Navbar: FC = () => {
             GitHub
             <StarIcon
               width={18}
-              className="group-hover/github:fill-text dark:group-hover/github:fill-text-dark mr-1"
+              className="group-hover/github:fill-text mr-1"
             />
           </Link>
 
@@ -150,12 +150,12 @@ export const Navbar: FC = () => {
             label={github.label.value}
             href={github.url.value}
             color="custom"
-            className="group/github !bg-text !text-text-dark dark:!bg-text-dark dark:!text-text flex cursor-pointer items-center gap-2 rounded-full p-1"
+            className="group/github !bg-text !text-text-opposite flex cursor-pointer items-center gap-2 rounded-full p-1"
           >
             <GithubLogo width={25} />
             <StarIcon
               width={18}
-              className="group-hover/github:fill-text-dark dark:group-hover/github:fill-text mr-1"
+              className="group-hover/github:fill-text-opposite mr-1"
             />
           </Link>
           <ProfileDropDown />

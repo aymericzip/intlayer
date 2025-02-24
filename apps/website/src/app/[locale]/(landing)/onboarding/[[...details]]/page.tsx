@@ -17,9 +17,7 @@ const OnboardPageContent: FC<{ locale: Locales; details: string[] }> = ({
     <>
       <h1 className="hidden">{title}</h1>
       <div className="flex flex-1 flex-col items-center justify-center gap-5 p-10">
-        <span className="text-neutral dark:text-neutral-dark text-xs">
-          {description}
-        </span>
+        <span className="text-neutral text-xs">{description}</span>
         <Container
           className="w-full max-w-md justify-center p-10 text-2xl"
           padding="xl"

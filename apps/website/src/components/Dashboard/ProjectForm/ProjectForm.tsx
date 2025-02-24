@@ -37,9 +37,7 @@ export const ProjectFormContent: FC = () => {
             roundedSize="xl"
             className="flex size-full justify-center p-6"
           >
-            <p className="text-neutral dark:text-neutral-dark text-sm">
-              {noAdminMessage}
-            </p>
+            <p className="text-neutral text-sm">{noAdminMessage}</p>
           </Container>
         )}
 

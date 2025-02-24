@@ -83,11 +83,9 @@ export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = (
   return (
     <div className="relative flex flex-col justify-center gap-y-3">
       <div className="mb-3 flex w-full items-center gap-3 text-center text-base">
-        <div className="bg-neutral dark:bg-neutral-dark h-px w-full" />
-        <div className="text-neutral dark:text-neutral-dark">
-          {externalsLoginButtons.span}
-        </div>
-        <div className="bg-neutral dark:bg-neutral-dark h-px w-full" />
+        <div className="bg-neutral h-px w-full" />
+        <div className="text-neutral">{externalsLoginButtons.span}</div>
+        <div className="bg-neutral h-px w-full" />
       </div>
       <GoogleLoginButton {...props} />
       <GitHubLoginButton {...props} />

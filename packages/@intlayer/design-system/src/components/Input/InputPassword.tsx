@@ -28,7 +28,7 @@ export const InputPassword: FC<InputPasswordProps> = (props) => {
         aria-label={isPasswordRevealed ? 'Hide password' : 'Show password'}
       >
         <EyeIconComponent
-          className="text-neutral dark:text-neutral-dark mr-2 inline-block"
+          className="text-neutral mr-2 inline-block"
           size={20}
         />
       </button>

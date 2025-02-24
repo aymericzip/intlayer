@@ -7,91 +7,88 @@ import {
 } from 'react';
 import { cn } from '../../utils/cn';
 
-const containerVariants = cva(
-  'flex text-text flex-col backdrop-blur dark:text-text-dark',
-  {
-    variants: {
-      roundedSize: {
-        none: 'rounded-none',
-        sm: 'rounded-sm',
-        md: 'rounded-md',
-        lg: 'rounded-lg',
-        xl: 'rounded-xl',
-        '2xl': 'rounded-2xl',
-        '3xl': 'rounded-3xl',
-        full: 'rounded-full',
-      },
-      transparency: {
-        none: '',
-        full: 'bg-none',
-        sm: 'bg-opacity-90 dark:bg-opacity-90',
-        md: 'bg-opacity-70 dark:bg-opacity-70',
-        lg: 'bg-opacity-40 dark:bg-opacity-40',
-        xl: 'bg-opacity-20 dark:bg-opacity-20',
-      },
-      backgroundColor: {
-        none: 'bg-card dark:bg-card-dark',
-        primary: 'bg-primary dark:bg-primary-dark',
-        secondary: 'bg-secondary dark:bg-secondary-dark',
-        neutral: 'bg-neutral dark:bg-neutral-dark',
-        text: 'bg-text dark:bg-text-dark',
-        card: 'bg-card dark:bg-card-dark',
-        contrast: 'bg-background-dark dark:bg-background',
-      },
-      padding: {
-        none: 'p-0',
-        sm: 'p-1',
-        md: 'p-2',
-        lg: 'p-3',
-        xl: 'p-4',
-      },
-      separator: {
-        without: '',
-        x: 'divide-x divide-dashed divide-text/20 dark:divide-text-dark/20',
-        y: 'divide-y divide-dashed divide-text/20 dark:divide-text-dark/20',
-        both: 'divide-x divide-y divide-dashed divide-text/20 dark:divide-text-dark/20',
-      },
-      border: {
-        none: '',
-        with: 'border-[1.5px]',
-      },
-      borderColor: {
-        primary: 'border-primary dark:border-primary-dark',
-        secondary: 'border-secondary dark:border-secondary-dark',
-        neutral: 'border-neutral dark:border-neutral-dark',
-        text: 'border-text dark:border-text-dark',
-        error: 'border-error dark:border-error-dark',
-        warning: 'border-warning dark:border-warning-dark',
-        success: 'border-success dark:border-success-dark',
-      },
-      background: {
-        none: 'bg-inherit dark:bg-inherit',
-        hoverable:
-          '!bg-opacity-5 backdrop-blur-0 hover:!bg-opacity-10 hover:backdrop-blur focus:!bg-opacity-10 focus:backdrop-blur aria-selected:!bg-opacity-15 aria-selected:backdrop-blur',
-        with: '',
-      },
-      gap: {
-        none: 'gap-0',
-        sm: 'gap-1',
-        md: 'gap-3',
-        lg: 'gap-5',
-        xl: 'gap-8',
-        '2xl': 'gap-10',
-      },
+const containerVariants = cva('flex text-text flex-col backdrop-blur', {
+  variants: {
+    roundedSize: {
+      none: 'rounded-none',
+      sm: 'rounded-sm',
+      md: 'rounded-md',
+      lg: 'rounded-lg',
+      xl: 'rounded-xl',
+      '2xl': 'rounded-2xl',
+      '3xl': 'rounded-3xl',
+      full: 'rounded-full',
     },
+    transparency: {
+      none: '',
+      full: 'bg-none',
+      sm: 'bg-opacity-90',
+      md: 'bg-opacity-70',
+      lg: 'bg-opacity-40',
+      xl: 'bg-opacity-20',
+    },
+    backgroundColor: {
+      none: 'bg-card',
+      primary: 'bg-primary',
+      secondary: 'bg-secondary',
+      neutral: 'bg-neutral ',
+      text: 'bg-text ',
+      card: 'bg-card',
+      contrast: 'bg-background-opposite',
+    },
+    padding: {
+      none: 'p-0',
+      sm: 'p-1',
+      md: 'p-2',
+      lg: 'p-3',
+      xl: 'p-4',
+    },
+    separator: {
+      without: '',
+      x: 'divide-x divide-dashed divide-text/20',
+      y: 'divide-y divide-dashed divide-text/20',
+      both: 'divide-x divide-y divide-dashed divide-text/20',
+    },
+    border: {
+      none: '',
+      with: 'border-[1.5px]',
+    },
+    borderColor: {
+      primary: 'border-primary',
+      secondary: 'border-secondary',
+      neutral: 'border-neutral',
+      text: 'border-text ',
+      error: 'border-error',
+      warning: 'border-warning',
+      success: 'border-success',
+    },
+    background: {
+      none: 'bg-inherit',
+      hoverable:
+        '!bg-opacity-5 backdrop-blur-0 hover:!bg-opacity-10 hover:backdrop-blur focus:!bg-opacity-10 focus:backdrop-blur aria-selected:!bg-opacity-15 aria-selected:backdrop-blur',
+      with: '',
+    },
+    gap: {
+      none: 'gap-0',
+      sm: 'gap-1',
+      md: 'gap-3',
+      lg: 'gap-5',
+      xl: 'gap-8',
+      '2xl': 'gap-10',
+    },
+  },
 
-    defaultVariants: {
-      roundedSize: 'md',
-      border: 'none',
-      borderColor: 'text',
-      backgroundColor: 'card',
-      transparency: 'md',
-      padding: 'none',
-      separator: 'without',
-      gap: 'none',
-    },
-  }
-);
+  defaultVariants: {
+    roundedSize: 'md',
+    border: 'none',
+    borderColor: 'text',
+    backgroundColor: 'card',
+    transparency: 'md',
+    padding: 'none',
+    separator: 'without',
+    gap: 'none',
+  },
+});
 
 export type ContainerProps = PropsWithChildren<
   Omit<VariantProps<typeof containerVariants>, 'border'>

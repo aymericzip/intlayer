@@ -54,7 +54,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
         </span>
       </span>
       <span
-        className="text-neutral dark:text-neutral-dark text-center text-xl"
+        className="text-neutral text-center text-xl"
         itemProp="billingPeriod"
       >
         {period} {/* This can be 'monthly' or 'yearly' */}
@@ -70,7 +70,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       {callToActionText}
     </Link>
     <span
-      className="text-neutral dark:text-neutral-dark justify-center text-sm leading-7"
+      className="text-neutral justify-center text-sm leading-7"
       itemProp="description"
     >
       {description}
@@ -78,13 +78,10 @@ export const PricingColumn: FC<PricingColumnProps> = ({
     <ul className="flex flex-col gap-4 p-4">
       {checkPoint.map((el, index) => (
         <li className="flex items-start gap-3" key={index}>
-          <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
+          <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800">
             <Check className="size-4" />
           </span>
-          <span
-            className="text-neutral dark:text-neutral-dark text-sm"
-            itemProp="feature"
-          >
+          <span className="text-neutral text-sm" itemProp="feature">
             {el}
           </span>
         </li>

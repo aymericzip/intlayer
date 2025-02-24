@@ -23,10 +23,10 @@ export const ItemLayout: FC<ItemWrapperProps> = ({
   <div
     className={cn(
       'rounded-md p-2 transition',
-      'hover:bg-card/30 dark:hover:bg-card-dark/30 [&:has(.section:hover)]:bg-transparent',
-      level === 2 && 'hover:bg-card/30 dark:hover:bg-card-dark/30',
+      'hover:bg-card/30 [&:has(.section:hover)]:bg-transparent',
+      level === 2 && 'hover:bg-card/30',
       level >= 3 && '',
-      isSelected === true && 'bg-card/40 dark:bg-card-dark/40'
+      isSelected === true && 'bg-card/40'
     )}
     {...props}
   >

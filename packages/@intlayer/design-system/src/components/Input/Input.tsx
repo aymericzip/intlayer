@@ -9,13 +9,13 @@ export const inputVariants = cva('', {
   variants: {
     variant: {
       default: [
-        'w-full select-text resize-none rounded-xl border-2 bg-input-background text-base md:text-sm text-input-text shadow-none outline-0 transition-all dark:bg-input-background-dark dark:text-input-text-dark',
-        'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none] dark:border-input-border-dark dark:hover:border-input-border-hover-dark dark:focus:border-input-border-focus',
-        'aria-[invalid=true]:border-error dark:aria-[invalid=true]:border-error-dark',
+        'w-full select-text resize-none rounded-xl border-2 bg-input-background text-base md:text-sm text-input-text shadow-none outline-0 transition-all',
+        'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
+        'aria-[invalid=true]:border-error',
         'disabled:opacity-50',
       ],
       invisible: [
-        'w-full border-none bg-inherit text-inherit outline-none ring-0',
+        'w-full border-none bg-inherit text-inherit outline-hidden ring-0',
       ],
     },
     size: {
@@ -24,8 +24,7 @@ export const inputVariants = cva('', {
     },
     validationStyleEnabled: {
       disabled: '',
-      enabled:
-        'valid:border-success invalid:border-error dark:valid:border-success-dark dark:invalid:border-error-dark',
+      enabled: 'valid:border-success invalid:border-error',
     },
   },
   defaultVariants: {

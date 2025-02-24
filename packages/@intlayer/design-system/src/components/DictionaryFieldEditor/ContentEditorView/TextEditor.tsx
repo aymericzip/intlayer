@@ -626,9 +626,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <>
         <span>[React Node]</span>
-        <span className="text-neutral dark:text-neutral-dark text-xs">
-          {tsxNotEditable}
-        </span>
+        <span className="text-neutral text-xs">{tsxNotEditable}</span>
       </>
     );
   }

@@ -14,9 +14,7 @@ export const PricingPage: FC = () => {
     <div className="m-auto w-full max-w-full">
       <div className="m-auto max-w-5xl px-10 py-4">
         <H1 className="my-10 ml-4 text-4xl">{title}</H1>
-        <p className="text-neutral dark:text-neutral-dark py-4 text-sm">
-          {description}
-        </p>
+        <p className="text-neutral py-4 text-sm">{description}</p>
       </div>
 
       <SwitchSelector

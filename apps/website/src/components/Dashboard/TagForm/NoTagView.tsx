@@ -18,9 +18,7 @@ export const NoTagView: FC<NoTagViewProps> = ({ onClickCreateTag }) => {
   return (
     <div className="flex size-full max-w-[400px] flex-1 flex-col items-center justify-center gap-3">
       <span className="font-bold">{createTagTitle}</span>
-      <span className="text-neutral dark:text-neutral-dark mb-3 text-sm">
-        {createTagDescription}
-      </span>
+      <span className="text-neutral mb-3 text-sm">{createTagDescription}</span>
       <Button
         type="submit"
         color="text"

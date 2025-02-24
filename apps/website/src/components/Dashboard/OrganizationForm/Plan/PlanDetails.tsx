@@ -58,9 +58,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
         hasCloseButton
       >
         <div className="p-3">
-          <p className="text-neutral dark:text-neutral text-sm">
-            {cancelModal.message}
-          </p>
+          <p className="text-neutral text-sm">{cancelModal.message}</p>
           <Form.Button
             variant="outline"
             label={cancelModal.buttonLabel.value}

@@ -27,7 +27,7 @@ const navVariants: Variants = {
 };
 
 const bgStyle =
-  'bg-card/95 dark:bg-card-dark/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur';
+  'bg-card/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur';
 
 export const MobileNavbar = <T extends TabProps>({
   logo,
@@ -94,7 +94,7 @@ export const MobileNavbar = <T extends TabProps>({
       >
         <MaxHeightSmoother isHidden={!isUnrolled}>
           <m.div
-            className="text-text dark:text-text-dark flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide"
+            className="text-text flex w-full flex-col pb-[20%] pt-10 text-lg tracking-wide"
             onClick={() => setIsUnrolled(false)}
             animate={isUnrolled ? 'open' : 'closed'}
             variants={navVariants}

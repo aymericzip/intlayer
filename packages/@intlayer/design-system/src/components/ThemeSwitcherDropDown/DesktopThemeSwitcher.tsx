@@ -10,7 +10,7 @@ import { Modes } from './types';
 const ButtonItem: FC<ButtonProps> = ({ Icon, children, ...props }) => (
   <div className="relative w-full p-0.5">
     <Button
-      className="hover:bg-text/10 focus:bg-text-opposite/20 dark:hover:bg-text-opposite/10 dark:focus:bg-text-opposite/20 w-full cursor-pointer rounded-lg p-1 text-left focus:outline-none disabled:text-white/25"
+      className="hover:bg-text/10 focus:bg-text-opposite/20 focus:outline-hidden w-full cursor-pointer rounded-lg p-1 text-left disabled:text-white/25"
       Icon={Icon}
       data-mode="system"
       role="option"

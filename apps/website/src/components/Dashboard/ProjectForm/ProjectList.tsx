@@ -27,7 +27,7 @@ export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
     <div className="flex w-full max-w-[350px] gap-3">
       {projects.map((project) => (
         <div
-          className="border-neutral dark:border-neutral-dark flex w-full flex-col gap-3 rounded-lg border p-6"
+          className="border-neutral flex w-full flex-col gap-3 rounded-lg border p-6"
           key={String(project._id)}
         >
           <h2 className="font-bold">{project.name}</h2>

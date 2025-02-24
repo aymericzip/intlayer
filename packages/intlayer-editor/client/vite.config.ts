@@ -1,10 +1,9 @@
-import path, { dirname } from 'path';
+import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import react from '@vitejs/plugin-react';
-import autoprefixer from 'autoprefixer';
-import tailwindcss from 'tailwindcss';
 import { defineConfig } from 'vite';
 import { intlayerPlugin } from 'vite-intlayer';
+import tailwindcss from '@tailwindcss/vite';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -14,16 +13,6 @@ export default defineConfig({
   server: {
     port: 8000,
   },
-  css: {
-    postcss: {
-      plugins: [
-        tailwindcss({
-          config: path.resolve(__dirname, './tailwind.config.ts'), // Custom path
-        }),
-        autoprefixer(),
-      ],
-    },
-  },
 
-  plugins: [react(), intlayerPlugin()],
+  plugins: [react(), intlayerPlugin(), tailwindcss()],
 });

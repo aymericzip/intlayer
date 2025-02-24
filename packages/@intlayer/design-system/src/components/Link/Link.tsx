@@ -7,36 +7,35 @@ import {
   type AnchorHTMLAttributes,
   type FC,
 } from 'react';
+import { cn } from '../../utils/cn';
 
 export const linkVariants = cva(
-  'gap-3 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'gap-3 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default:
-          'h-auto justify-start text-wrap border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline dark:bg-transparent hover:dark:bg-transparent',
+          'h-auto justify-start text-wrap border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0 hover:underline',
         'invisible-link':
-          'h-auto justify-start text-wrap border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent',
-
+          'h-auto justify-start text-wrap border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
         button:
-          'rounded-lg text-text-opposite dark:text-text-opposite-dark min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+          'rounded-lg text-current min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
         'button-outlined':
-          'rounded-lg border-[1.5px] bg-opacity-0 hover:bg-opacity-30 dark:bg-opacity-0 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+          'rounded-lg border-[1.5px] bg-current hover:bg-current/30 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
         hoverable:
-          'block rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10 aria-[current]:bg-opacity-5 dark:border-none dark:bg-opacity-0 dark:hover:bg-opacity-10',
+          'block rounded-lg border-none bg-current/0 transition hover:bg-current/10 aria-[current]:bg-current/5',
       },
       color: {
-        primary:
-          'border-primary bg-primary text-primary hover:bg-primary-500 dark:border-primary-dark dark:bg-primary-dark dark:text-primary-dark hover:dark:bg-primary-300',
-        secondary:
-          'border-secondary bg-secondary text-secondary hover:bg-secondary-300 dark:border-secondary-dark dark:bg-secondary-dark dark:text-secondary-dark hover:dark:bg-secondary-100',
-        destructive:
-          'border-destructive bg-destructive text-destructive hover:bg-destructive-500 dark:border-destructive-dark dark:bg-destructive-dark hover:dark:bg-destructive-200',
-        neutral:
-          'border-neutral bg-neutral text-neutral hover:bg-neutral-600 dark:border-neutral-dark dark:bg-neutral-dark dark:text-neutral-dark hover:dark:bg-neutral-400',
-        light: 'border-white bg-white text-white hover:bg-neutral-500',
-        dark: 'border-neutral-800 bg-neutral-800 text-neutral-800 hover:bg-neutral-900 dark:hover:bg-neutral-700',
-        text: 'border-text bg-text text-text hover:opacity-80 dark:border-text-dark dark:bg-text-dark dark:text-text-dark',
+        primary: 'text-primary',
+        secondary: 'text-secondary',
+        destructive: 'text-destructive',
+        neutral: 'text-neutral',
+        light: 'text-white',
+        dark: 'text-neutral-800',
+        text: 'text-text',
+        'text-inverse': 'text-text-opposite',
+        error: 'text-error',
+        success: 'text-success',
         custom: '',
       },
       underlined: {
@@ -121,12 +120,14 @@ export const Link: FC<LinkProps> = (props) => {
       rel={rel}
       target={target}
       aria-current={isActive ? 'page' : undefined}
-      className={linkVariants({
-        variant,
-        color,
-        underlined,
-        className,
-      })}
+      className={cn(
+        linkVariants({
+          variant,
+          color,
+          underlined,
+          className,
+        })
+      )}
       {...otherProps}
     >
       {children}

@@ -11,7 +11,7 @@ export const AvailableTechnoSection: FC = () => {
 
   return (
     <section className="z-10 flex w-full flex-col items-center justify-center">
-      <h2 className="text-neutral dark:text-neutral-dark">{text}</h2>
+      <h2 className="text-neutral">{text}</h2>
       <div className="flex h-28 w-3/4 flex-row justify-evenly gap-6 p-6">
         <Link
           href={PagesRoutes.Doc_Environment_CRA}

@@ -36,9 +36,7 @@ export const FileReference: FC<{ relatedFiles: string[] }> = ({
 
   return (
     <div className="pl-4">
-      <span className="text-neutral dark:text-emerald-dark text-sm">
-        {relatedFilesLabel}
-      </span>
+      <span className="text-neutral text-sm">{relatedFilesLabel}</span>
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
         {relatedFiles.map((fileKey) => {
           const fileData =

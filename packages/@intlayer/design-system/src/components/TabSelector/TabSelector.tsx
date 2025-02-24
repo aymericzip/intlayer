@@ -15,17 +15,13 @@ const tabSelectorVariant = cva(
   {
     variants: {
       color: {
-        primary:
-          'border-primary text-primary dark:border-primary-dark dark:text-primary-dark',
-        secondary:
-          'border-secondary text-secondary dark:border-secondary-dark dark:text-secondary-dark',
-        destructive:
-          'border-destructive bg-destructive text-destructive dark:border-destructive-dark dark:bg-destructive-dark',
-        neutral:
-          'border-neutral text-neutral dark:border-neutral-dark dark:text-neutral-dark',
+        primary: 'border-primary text-primary',
+        secondary: 'border-secondary text-secondary',
+        destructive: 'border-destructive bg-destructive text-destructive',
+        neutral: 'border-neutral text-neutral ',
         light: 'border-white text-white',
         dark: 'border-neutral-800 text-neutral-800',
-        text: 'border-text text-text dark:border-text-dark dark:text-text-dark',
+        text: 'border-text text-text',
       },
     },
     defaultVariants: {
@@ -39,17 +35,13 @@ const indicatorVariant = cva(
   {
     variants: {
       color: {
-        primary:
-          'bg-primary/10 aria-selected:text-text dark:bg-primary-dark/10 dark:aria-selected:text-text-dark',
-        secondary:
-          'bg-secondary/10 aria-selected:text-text dark:bg-secondary-dark/10 dark:aria-selected:text-text-dark',
-        destructive:
-          'bg-destructive/10 aria-selected:text-text dark:bg-destructive-dark/10 dark:aria-selected:text-text-dark',
-        neutral:
-          'bg-neutral/10 aria-selected:text-white dark:bg-neutral-dark/10 dark:aria-selected:text-text',
+        primary: 'bg-primary/10 aria-selected:text-text',
+        secondary: 'bg-secondary/10 aria-selected:text-text',
+        destructive: 'bg-destructive/10 aria-selected:text-text',
+        neutral: 'bg-neutral/10 aria-selected:text-white/10',
         light: 'bg-white/10 aria-selected:text-black',
         dark: 'bg-neutral-800/10 aria-selected:text-white',
-        text: 'bg-text/10 aria-selected:text-text-dark dark:bg-text-dark/10 dark:aria-selected:text-text',
+        text: 'bg-text/10 aria-selected:text-text-opposite',
       },
     },
   }
@@ -129,9 +121,11 @@ export const TabSelector = <T extends TabProps>({
       })}
       {choiceIndicatorPosition && (
         <div
-          className={indicatorVariant({
-            color,
-          })}
+          className={cn(
+            indicatorVariant({
+              color,
+            })
+          )}
           style={choiceIndicatorPosition}
           ref={indicatorRef}
           key={`${selectedChoice}${JSON.stringify(tabs.map((tab) => tab.key))}`}

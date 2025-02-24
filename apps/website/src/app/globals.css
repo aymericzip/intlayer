@@ -1,6 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '@intlayer/design-system/css';
+@config '@intlayer/design-system/tailwind-config';
+
+@source "../src/**/*.{ts,tsx}";
+@source "../../../../packages/@intlayer/design-system/src/**/*.{ts,tsx}";
+
 @import url('./shiki.css');
 
 @keyframes infiniteScroll {

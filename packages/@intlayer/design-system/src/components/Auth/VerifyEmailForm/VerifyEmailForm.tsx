@@ -76,12 +76,10 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
       onSubmitError={onSubmitError}
     >
       <H3>{verifyEmail.title}</H3>
-      <span className="text-neutral dark:text-neutral text-sm">
-        {verifyEmail.description}
-      </span>
+      <span className="text-neutral text-sm">{verifyEmail.description}</span>
       <Loader isLoading={!isEmailVerified}>
-        <div className="bg-success/30 dark:bg-success-dark/30 m-auto aspect-square rounded-full p-5">
-          <Check className="text-success dark:text-success-dark" size={50} />
+        <div className="bg-success/30 m-auto aspect-square rounded-full p-5">
+          <Check className="text-success" size={50} />
         </div>
       </Loader>
       <Button

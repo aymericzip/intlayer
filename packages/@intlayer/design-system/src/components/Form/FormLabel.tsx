@@ -13,11 +13,7 @@ export const FormLabel: FC<ComponentProps<typeof Label>> = ({
 
   return (
     <Label
-      className={cn(
-        'mb-2',
-        error && 'text-error dark:text-error-dark',
-        className
-      )}
+      className={cn('mb-2', error && 'text-error', className)}
       htmlFor={formItemId}
       {...props}
     />

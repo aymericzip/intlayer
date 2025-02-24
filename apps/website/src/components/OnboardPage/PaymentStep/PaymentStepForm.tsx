@@ -55,7 +55,7 @@ const PaymentDetails: FC<PaymentStepContentProps> = ({ plan, period }) => {
           </span>
         </span>
         <span
-          className="text-neutral dark:text-neutral-dark text-center text-lg"
+          className="text-neutral text-center text-lg"
           itemProp="priceValidUntil"
         >
           {periodContent[period]}
@@ -63,7 +63,7 @@ const PaymentDetails: FC<PaymentStepContentProps> = ({ plan, period }) => {
       </div>
 
       <span
-        className="text-neutral dark:text-neutral-dark justify-center text-xs"
+        className="text-neutral justify-center text-xs"
         itemProp="description"
       >
         {description}
@@ -153,11 +153,8 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
 
         {isPlanValid ? (
           <>
-            <div className="bg-success/30 dark:bg-success-dark/30 m-auto aspect-square rounded-full p-5">
-              <Check
-                className="text-success dark:text-success-dark"
-                size={50}
-              />
+            <div className="bg-success/30 m-auto aspect-square rounded-full p-5">
+              <Check className="text-success" size={50} />
             </div>
             <span className="text-center text-base">
               {youReOrganizationIsAlreadySubscribed.title}
@@ -227,7 +224,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
           </Elements>
         ) : (
           <Container
-            className="text-error dark:text-error-dark gap-6 p-6 text-sm"
+            className="text-error gap-6 p-6 text-sm"
             background="none"
             border
             roundedSize="xl"

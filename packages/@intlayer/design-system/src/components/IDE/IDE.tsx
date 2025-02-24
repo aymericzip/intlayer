@@ -67,7 +67,7 @@ export const IDE: FC<IDEProps> = ({
       transparency="none"
       {...props}
     >
-      <div className="text-neutral dark:text-neutral-dark flex w-auto flex-row items-center justify-start gap-1 rounded-t-3xl bg-neutral-200 text-xs dark:bg-neutral-950">
+      <div className="text-neutral flex w-auto flex-row items-center justify-start gap-1 rounded-t-3xl bg-neutral-200 text-xs dark:bg-neutral-950">
         <div className="mx-2 flex items-center justify-start gap-2 p-1">
           <div className="size-3 rounded-full bg-red-500" />
           <div className="size-3 rounded-full bg-yellow-500" />
@@ -84,8 +84,8 @@ export const IDE: FC<IDEProps> = ({
                 className={cn(
                   'flex h-8 min-w-20 items-center justify-start px-3 py-1 transition',
                   isActive
-                    ? 'bg-card dark:bg-card-dark'
-                    : 'dark:hover:bg-card-dark cursor-pointer bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-950'
+                    ? 'bg-card'
+                    : 'cursor-pointer bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-950'
                 )}
                 key={title}
                 onClick={() => setActiveTab(index)}

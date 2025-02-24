@@ -60,9 +60,7 @@ const SearchResultItem: FC<{ doc: DocData; onClickLink: () => void }> = ({
       <div className="flex items-center justify-between gap-2 text-wrap p-3">
         <div className="flex flex-1 flex-col gap-2 text-left">
           <strong className="text-base">{doc.title}</strong>
-          <p className="text-neutral dark:text-neutral-dark text-sm">
-            {doc.description}
-          </p>
+          <p className="text-neutral text-sm">{doc.description}</p>
           <Breadcrumb links={breadcrumbLinks} className="text-xs opacity-30" />
         </div>
         <ArrowRight size={24} />

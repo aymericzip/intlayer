@@ -13,7 +13,7 @@ export const FileList: FC<FileListProps> = ({ filePaths, ...props }) => (
     transparency="none"
     {...props}
   >
-    <div className="text-neutral dark:text-neutral-dark flex w-auto flex-row items-center justify-start gap-1 rounded-t-3xl bg-neutral-200 text-xs dark:bg-neutral-950">
+    <div className="text-neutral flex w-auto flex-row items-center justify-start gap-1 rounded-t-3xl bg-neutral-200 text-xs dark:bg-neutral-950">
       <div className="mx-2 flex items-center justify-start gap-2 p-1">
         <div className="size-3 rounded-full bg-red-500" />
         <div className="size-3 rounded-full bg-yellow-500" />

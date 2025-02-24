@@ -21,7 +21,7 @@ export const NoProjectView: FC<NoProjectViewProps> = ({
   return (
     <div className="flex size-full max-w-[400px] flex-1 flex-col items-center justify-center gap-3">
       <span className="font-bold">{createProjectTitle}</span>
-      <span className="text-neutral dark:text-neutral-dark mb-3 text-sm">
+      <span className="text-neutral mb-3 text-sm">
         {createProjectDescription}
       </span>
       <Button

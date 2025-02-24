@@ -124,7 +124,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
 
   return (
     <div
-      className="border-text text-text dark:border-text-dark dark:text-text-dark rounded-xl border transition-colors"
+      className="border-text text-text rounded-xl border transition-colors"
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
@@ -186,7 +186,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                     ref={inputRef}
                   />
                 </div>
-                <ol className="divide-text/20 dark:divide-text-dark/20 divide-y divide-dashed overflow-y-auto p-1">
+                <ol className="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
                   {results.map(
                     ({
                       locale: localeItem,
@@ -225,11 +225,11 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                                 >
                                   {ownLocaleName}
                                 </span>
-                                <span className="text-neutral dark:text-neutral-dark text-xs">
+                                <span className="text-neutral text-xs">
                                   {currentLocaleName}
                                 </span>
                               </div>
-                              <span className="text-neutral dark:text-neutral-dark text-sm">
+                              <span className="text-neutral text-sm">
                                 {localeItem.toUpperCase()}
                               </span>
                             </div>

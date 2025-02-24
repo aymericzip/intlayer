@@ -52,7 +52,7 @@ export const Accordion: FC<AccordionProps> = ({
           onClick?.(e);
         }}
         isFullWidth
-        className="flex items-center justify-between gap-2 bg-red-300"
+        className="flex items-center justify-between gap-2"
         IconRight={ChevronDown}
         iconClassName={cn(
           'transform transition-transform duration-500 ease-in-out',

@@ -43,7 +43,7 @@ const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.p
-    className="text-neutral dark:text-neutral-dark bg-background dark:bg-background-dark flex size-full items-center justify-center px-16 text-sm md:pr-0 lg:pr-16"
+    className="text-neutral bg-background flex size-full items-center justify-center px-16 text-sm md:pr-0 lg:pr-16"
     initial={{ x: '-100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut', delay: isActive ? 0.5 : 0 }}
@@ -82,7 +82,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
       return (
         <motion.h3
           key={section.id.value}
-          className="text-neutral dark:text-neutral-dark aria-selected:text-text dark:aria-selected:text-text-dark absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-md"
+          className="text-neutral aria-selected:text-text absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-md"
           animate={{
             // Convert polar coords to Cartesian (rem units)
             translateX: isActive
@@ -208,9 +208,9 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       <div className="sticky left-0 top-0 mb-[70vh] h-[30vh] w-full">
         {/* Progress Bar */}
         <div className="absolute left-10 top-20 flex h-3/5 w-[2px] md:top-[20vh]">
-          <div className="bg-neutral/20 dark:bg-neutral-dark size-full rounded-full">
+          <div className="bg-neutral/20 size-full rounded-full">
             <div
-              className="bg-text dark:bg-text-dark w-full"
+              className="bg-text w-full"
               style={{ height: `${progress * 100}%` }}
             />
           </div>

@@ -74,7 +74,7 @@ export const DictionaryEditionDrawerContent: FC<
         </div>
       </Modal>
 
-      <div className="border-text/20 dark:border-text-dark/20 mb-5 flex w-full border-b border-dashed px-3 pb-2">
+      <div className="border-text/20 /20 mb-5 flex w-full border-b border-dashed px-3 pb-2">
         <h3 className="w-full text-center text-lg">
           {dictionary.title ? dictionary.title : dictionary.key}
         </h3>

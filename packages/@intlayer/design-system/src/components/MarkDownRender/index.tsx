@@ -34,7 +34,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
 
             code: (props) =>
               typeof props.className === 'undefined' ? (
-                <strong className="bg-card/60 dark:bg-card-dark/60 rounded p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+                <strong className="bg-card/60 rounded p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
                   {props.children}
                 </strong>
               ) : (
@@ -48,7 +48,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             blockquote: ({ className, ...props }) => (
               <blockquote
                 className={cn(
-                  'border-card dark:border-card-dark text-neutral dark:text-neutral-dark mt-5 flex flex-col gap-3 border-l-4 pl-5',
+                  'border-card text-neutral mt-5 flex flex-col gap-3 border-l-4 pl-5',
                   className
                 )}
                 {...props}
@@ -110,10 +110,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             ),
             tr: ({ className, ...props }) => (
               <tr
-                className={cn(
-                  'hover:bg-neutral/10 hover:dark:bg-neutral-dark/10',
-                  className
-                )}
+                className={cn('hover:bg-neutral/10 hover:/10', className)}
                 {...props}
               />
             ),

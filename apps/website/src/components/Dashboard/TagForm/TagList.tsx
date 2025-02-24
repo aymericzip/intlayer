@@ -26,9 +26,7 @@ export const TagList: FC = () => {
         <H2 className="mb-6">{tagList.title}</H2>
 
         {tags.length === 0 && (
-          <span className="text-neutral-dark dark:text-neutral-dark text-sm">
-            {noTagView.title}
-          </span>
+          <span className="text-neutral text-sm">{noTagView.title}</span>
         )}
         {tags.map((tag) => (
           <Button
@@ -47,7 +45,7 @@ export const TagList: FC = () => {
               )}
               {tag.key && <span>{tag.key}</span>}
               {tag.description && (
-                <span className="text-neutral dark:text-neutral-dark line-clamp-2 text-wrap">
+                <span className="text-neutral line-clamp-2 text-wrap">
                   {tag.description}
                 </span>
               )}

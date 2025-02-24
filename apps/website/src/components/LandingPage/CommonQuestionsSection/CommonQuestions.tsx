@@ -51,7 +51,7 @@ const QuestionItem: FC<{
             itemProp="acceptedAnswer"
             itemScope
             itemType="https://schema.org/Answer"
-            className="text-neutral dark:text-neutral-dark leading-8"
+            className="text-neutral leading-8"
           >
             <span itemProp="text">{answer}</span>
             {callToAction && (
@@ -125,7 +125,7 @@ export const CommonQuestionsSection: FC = () => {
 
   return (
     <section className="m-auto flex w-full max-w-6xl flex-col items-center justify-center">
-      <h2 className="text-neutral dark:text-neutral-dark">{title}</h2>
+      <h2 className="text-neutral">{title}</h2>
 
       <div
         itemScope

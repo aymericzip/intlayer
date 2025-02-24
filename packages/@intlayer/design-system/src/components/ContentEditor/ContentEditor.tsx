@@ -41,7 +41,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
     <div className="flex flex-row items-center justify-between gap-2">
       <AutoSizedTextArea
         className={cn(
-          'break-word m-3 inline w-full bg-transparent outline-none',
+          'break-word outline-hidden m-3 inline w-full bg-transparent',
           isEditing ? 'cursor-text' : 'cursor-pointer'
         )}
         onChange={handleOnContentChange}

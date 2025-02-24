@@ -20,7 +20,7 @@ export const FormItem: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
 
   return (
     <FormItemContext value={memoValue}>
-      <div className="space-y-2" {...props} />
+      <div className="flex flex-col gap-2 p-2" {...props} />
     </FormItemContext>
   );
 };

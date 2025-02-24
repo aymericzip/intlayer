@@ -18,7 +18,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   );
 
   return (
-    <div className="bg-card-dark relative size-full p-3">
+    <div className="bg-card relative size-full p-3">
       {children}
       <DictionaryEditionDrawerController
         locale={currentLocale}

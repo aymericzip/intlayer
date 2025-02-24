@@ -15,9 +15,7 @@ const DictionaryDashboardPageContent: FC<DictionaryDashboardPageProps> = ({
 
   return (
     <>
-      <h1 className="border-neutral dark:border-neutral-dark border-b-[0.5px] p-10 text-3xl">
-        {title}
-      </h1>
+      <h1 className="border-neutral border-b-[0.5px] p-10 text-3xl">{title}</h1>
       <div className="relative flex size-full flex-1 flex-col items-center">
         <div className="flex size-full flex-1 flex-col items-center p-10">
           <ContentDashboard dictionaryKey={dictionaryKey} />

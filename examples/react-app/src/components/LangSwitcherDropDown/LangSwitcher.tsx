@@ -9,10 +9,10 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
   ...props
 }) => (
-  <div className="w-full border-gray-50 p-0.5 ">
+  <div className="w-full border-gray-50 p-0.5">
     <button
       data-mode="system"
-      className="my-1 w-full cursor-pointer rounded-lg p-2 text-left hover:bg-white/10 focus:bg-white/10 focus:outline-none disabled:text-white/25"
+      className="focus:outline-hidden my-1 w-full cursor-pointer rounded-lg p-2 text-left hover:bg-white/10 focus:bg-white/10 disabled:text-white/25"
       {...props}
     >
       {children}

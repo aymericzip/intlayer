@@ -287,12 +287,11 @@ const MultiSelectTrigger: FC<
     <div
       className={cn(
         'flex w-full flex-col gap-3 rounded-lg p-1 py-2',
-        'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex w-full items-center justify-between whitespace-nowrap border px-3 py-2 text-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-        'bg-input-background dark:bg-input-background-dark text-input-text dark:text-input-text-dark w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
-        'border-input-border dark:border-input-border-dark hover:border-input-border-hover dark:hover:border-input-border-hover-dark focus:border-input-border-focus dark:focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
-        'aria-[invalid=true]:border-error dark:aria-[invalid=true]:border-error-dark',
-        validationStyleEnabled &&
-          'valid:border-success dark:valid:border-success-dark invalid:border-error dark:invalid:border-error-dark',
+        'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring focus:outline-hidden flex w-full items-center justify-between whitespace-nowrap border px-3 py-2 text-sm focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+        'bg-input-background text-input-text w-full select-text resize-none rounded-xl border-2 px-2 py-1 text-sm shadow-none outline-0 transition-all',
+        'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
+        'aria-[invalid=true]:border-error',
+        validationStyleEnabled && 'valid:border-success invalid:border-error',
         className
       )}
       {...props}
@@ -353,7 +352,7 @@ const MultiSelectInput: FC<ComponentProps<typeof Command.Input>> = ({
       onFocus={() => setOpen(true)}
       onClick={() => setActiveIndex(-1)}
       className={cn(
-        'ml-2 flex-1 cursor-pointer outline-none',
+        'outline-hidden ml-2 flex-1 cursor-pointer',
         className,
         activeIndex !== -1 && 'caret-transparent'
       )}
@@ -371,7 +370,7 @@ const MultiSelectContent: FC<HTMLAttributes<HTMLDivElement>> = ({
 const MultiSelectList: typeof Command.List = ({ className, children }) => (
   <Command.List
     className={cn(
-      'border-muted bg-input-background dark:bg-input-background-dark absolute top-0 z-10 flex w-full flex-col gap-2 rounded-lg border p-2 shadow-md transition-colors',
+      'border-muted bg-input-background absolute top-0 z-10 flex w-full flex-col gap-2 rounded-lg border p-2 shadow-md transition-colors',
       className
     )}
   >
@@ -405,7 +404,7 @@ const MultiSelectItem: FC<
       }}
       className={cn(
         'flex cursor-pointer justify-between rounded-lg px-2 py-1 transition-colors',
-        'hover:bg-neutral/10 dark:hover:bg-neutral-dark/10',
+        'hover:bg-neutral/10',
         className,
         isIncluded && 'opacity-50',
         props.disabled && 'cursor-not-allowed opacity-50'

@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { extname, relative } from 'path';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import fg from 'fast-glob';
 import preserveDirectives from 'rollup-preserve-directives';
@@ -23,6 +24,7 @@ export default defineConfig(() => ({
       }),
     }),
     preserveDirectives() as Plugin,
+    tailwindcss(),
   ],
   define: {
     'process.env': {},

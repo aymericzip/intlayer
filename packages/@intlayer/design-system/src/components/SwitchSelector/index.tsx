@@ -36,17 +36,13 @@ const switchSelectorVariant = cva(
   {
     variants: {
       color: {
-        primary:
-          'border-primary text-primary dark:border-primary-dark dark:text-primary-dark',
-        secondary:
-          'border-secondary text-secondary dark:border-secondary-dark dark:text-secondary-dark',
-        destructive:
-          'border-destructive bg-destructive text-destructive dark:border-destructive-dark dark:bg-destructive-dark',
-        neutral:
-          'border-neutral text-neutral dark:border-neutral-dark dark:text-neutral-dark',
+        primary: 'border-primary text-primary',
+        secondary: 'border-secondary text-secondary',
+        destructive: 'border-destructive bg-destructive text-destructive',
+        neutral: 'border-neutral text-neutral ',
         light: 'border-white text-white',
         dark: 'border-neutral-800 text-neutral-800',
-        text: 'border-text text-text dark:border-text-dark dark:text-text-dark',
+        text: 'border-text text-text',
       },
     },
     defaultVariants: {
@@ -56,7 +52,7 @@ const switchSelectorVariant = cva(
 );
 
 const choiceVariant = cva(
-  'z-1 w-full flex-1 text-sm font-medium transition-all duration-300 ease-in-out aria-selected:cursor-default aria-selected:text-text-dark motion-reduce:transition-none dark:aria-selected:text-text',
+  'z-1 w-full flex-1 text-sm font-medium transition-all duration-300 ease-in-out aria-selected:cursor-default aria-selected:text-text-opposite motion-reduce:transition-none',
   {
     variants: {
       size: {
@@ -76,17 +72,13 @@ const indicatorVariant = cva(
   {
     variants: {
       color: {
-        primary:
-          'bg-primary aria-selected:text-text dark:bg-primary-dark dark:aria-selected:text-text-dark',
-        secondary:
-          'bg-secondary aria-selected:text-text dark:bg-secondary-dark dark:aria-selected:text-text-dark',
-        destructive:
-          'bg-destructive aria-selected:text-text dark:bg-destructive-dark dark:aria-selected:text-text-dark',
-        neutral:
-          'bg-neutral aria-selected:text-white dark:bg-neutral-dark dark:aria-selected:text-text',
+        primary: 'bg-primary aria-selected:text-text',
+        secondary: 'bg-secondary aria-selected:text-text',
+        destructive: 'bg-destructive aria-selected:text-text',
+        neutral: 'bg-neutral aria-selected:text-white ',
         light: 'bg-white aria-selected:text-black',
         dark: 'bg-neutral-800 aria-selected:text-white',
-        text: 'bg-text aria-selected:text-text-dark dark:bg-text-dark dark:aria-selected:text-text',
+        text: 'bg-text aria-selected:text-text-opposite',
       },
     },
   }

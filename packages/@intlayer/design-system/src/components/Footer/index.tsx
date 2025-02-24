@@ -16,7 +16,7 @@ export const Footer: FC<FooterProps> = ({ links }) => (
   <footer className="flex flex-auto flex-row flex-wrap items-center justify-around gap-10 p-6">
     <aside className="flex flex-col items-center justify-between md:w-1/4">
       <Logo type="logoWithTextBelow" width={80} height={80} />
-      <span className="text-neutral dark:text-neutral-dark text-center text-xs">
+      <span className="text-neutral text-center text-xs">
         © 2024 Intlayer, Inc.
       </span>
     </aside>
