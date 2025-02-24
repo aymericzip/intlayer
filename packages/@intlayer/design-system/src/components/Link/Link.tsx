@@ -10,14 +10,14 @@ import {
 import { cn } from '../../utils/cn';
 
 export const linkVariants = cva(
-  'gap-3 whitespace-nowrap font-medium text-wrap transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+  'gap-3 font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default:
-          'h-auto justify-start text-wrap border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0 hover:underline',
+          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0 hover:underline',
         'invisible-link':
-          'h-auto justify-start text-wrap border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
+          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
         button:
           'rounded-lg bg-current *:text-text-opposite min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
         'button-outlined':
