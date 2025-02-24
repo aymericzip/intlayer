@@ -244,7 +244,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute left-0 top-[32vh] z-0 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3',
+              'absolute left-0 top-[37vh] z-0 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3',
               index === activeIndex && 'z-10'
             )}
             key={section.id.value}
