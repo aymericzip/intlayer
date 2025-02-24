@@ -20,7 +20,7 @@ export const DemoPage: FC = () => {
       <div className="relative mx-auto my-10 flex max-w-[700px] flex-col gap-28">
         {tutoParagraphs.map((paragraph, index) => (
           <AnimatedDiv key={paragraph.title.value} className="flex gap-10">
-            <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-4 border-lime-300 text-xl font-black text-lime-800">
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-4 border-lime-300 text-xl font-black text-lime-800 dark:border-lime-900 dark:text-lime-600">
               <span>{index + 1}</span>
             </span>
             <div>

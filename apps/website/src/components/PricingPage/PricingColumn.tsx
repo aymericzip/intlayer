@@ -36,6 +36,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       className
     )}
     itemScope
+    transparency="lg"
     itemType="http://schema.org/Offer"
     {...props}
   >
@@ -78,7 +79,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
     <ul className="flex flex-col gap-4 p-4">
       {checkPoint.map((el, index) => (
         <li className="flex items-start gap-3" key={index}>
-          <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800">
+          <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
             <Check className="size-4" />
           </span>
           <span className="text-neutral text-sm" itemProp="feature">

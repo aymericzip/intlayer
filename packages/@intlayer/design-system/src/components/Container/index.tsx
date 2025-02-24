@@ -20,21 +20,12 @@ const containerVariants = cva('flex text-text flex-col backdrop-blur', {
       full: 'rounded-full',
     },
     transparency: {
-      none: '',
-      full: 'bg-none',
-      sm: 'bg-opacity-90',
-      md: 'bg-opacity-70',
-      lg: 'bg-opacity-40',
-      xl: 'bg-opacity-20',
-    },
-    backgroundColor: {
       none: 'bg-card',
-      primary: 'bg-primary',
-      secondary: 'bg-secondary',
-      neutral: 'bg-neutral ',
-      text: 'bg-text ',
-      card: 'bg-card',
-      contrast: 'bg-background-opposite',
+      sm: 'bg-card/90',
+      md: 'bg-card/70',
+      lg: 'bg-card/40',
+      xl: 'bg-card/20',
+      full: '',
     },
     padding: {
       none: 'p-0',
@@ -77,12 +68,10 @@ const containerVariants = cva('flex text-text flex-col backdrop-blur', {
       '2xl': 'gap-10',
     },
   },
-
   defaultVariants: {
     roundedSize: 'md',
     border: 'none',
     borderColor: 'text',
-    backgroundColor: 'card',
     transparency: 'md',
     padding: 'none',
     separator: 'without',
@@ -106,7 +95,6 @@ export const Container: FC<ContainerProps> = ({
   className,
   border,
   borderColor,
-  backgroundColor,
   background,
   ...props
 }) => (
@@ -120,7 +108,6 @@ export const Container: FC<ContainerProps> = ({
         border:
           typeof border === 'boolean' ? (border ? 'with' : 'none') : undefined,
         background,
-        backgroundColor,
         borderColor,
         className,
       })
