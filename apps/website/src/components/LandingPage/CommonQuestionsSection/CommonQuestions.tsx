@@ -42,7 +42,14 @@ const QuestionItem: FC<{
         minHeight={minHeight}
         id={question.value}
       >
-        <div className="px-2 pt-3 sm:px-6">
+        <div
+          className={cn(
+            'px-2 pt-3 sm:px-6',
+            numberOfColumns === 1 && 'w-[80vw]',
+            numberOfColumns === 2 && 'w-[40vw]',
+            numberOfColumns === 3 && 'w-[30vw]'
+          )}
+        >
           <h3 className="text-wrap pb-4 text-base font-bold" itemProp="name">
             {question}
           </h3>
@@ -130,14 +137,10 @@ export const CommonQuestionsSection: FC = () => {
       <div
         itemScope
         itemType="https://schema.org/FAQPage"
-        className={cn(
-          'mt-2 grid w-full grid-flow-row-dense auto-rows-auto grid-cols-3 gap-x-6 px-6',
-          numberOfColumns === 1 && 'grid-cols-1',
-          numberOfColumns === 2 && 'grid-cols-2'
-        )}
+        className="mt-2 flex w-full flex-row justify-start gap-x-6 px-6"
       >
         {columns.map((column, colIndex) => (
-          <div key={colIndex} className="m-auto flex size-full flex-col gap-6">
+          <div key={colIndex} className="mx-auto flex flex-col gap-6">
             {column.map((props) => (
               <QuestionItem
                 key={props.question.value}

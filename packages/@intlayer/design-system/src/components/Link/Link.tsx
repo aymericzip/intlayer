@@ -10,7 +10,7 @@ import {
 import { cn } from '../../utils/cn';
 
 export const linkVariants = cva(
-  'gap-3 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+  'gap-3 whitespace-nowrap font-medium text-wrap transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
