@@ -47,7 +47,7 @@ const QuestionItem: FC<{
             'px-2 pt-3 sm:px-6',
             numberOfColumns === 1 && 'w-[80vw]',
             numberOfColumns === 2 && 'w-[40vw]',
-            numberOfColumns === 3 && 'w-[30vw]'
+            numberOfColumns === 3 && 'w-[25vw]'
           )}
         >
           <h3 className="text-wrap pb-4 text-base font-bold" itemProp="name">
@@ -137,10 +137,10 @@ export const CommonQuestionsSection: FC = () => {
       <div
         itemScope
         itemType="https://schema.org/FAQPage"
-        className="mt-2 flex w-full flex-row justify-start gap-x-6 px-6"
+        className="mt-2 flex w-full flex-row items-start justify-center gap-x-6"
       >
         {columns.map((column, colIndex) => (
-          <div key={colIndex} className="mx-auto flex flex-col gap-6">
+          <div key={colIndex} className="flex flex-col gap-6">
             {column.map((props) => (
               <QuestionItem
                 key={props.question.value}
