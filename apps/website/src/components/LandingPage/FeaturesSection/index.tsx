@@ -82,7 +82,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
       return (
         <motion.h3
           key={section.id.value}
-          className="text-neutral aria-selected:text-text absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-md"
+          className="text-neutral aria-selected:text-text absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-sm"
           animate={{
             // Convert polar coords to Cartesian (rem units)
             translateX: isActive
@@ -200,7 +200,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       className="relative z-0 w-screen"
       style={{
         // Make the entire container as tall as the number of sections * 150vh
-        height: `${nbSections * 150}vh`,
+        height: `${nbSections * 110}vh`,
       }}
       ref={containerRef}
     >
