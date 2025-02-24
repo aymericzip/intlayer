@@ -1,6 +1,6 @@
 import typeScriptParser from '@typescript-eslint/parser';
 import globals from 'globals';
-import _ from 'lodash';
+import merge from 'deepmerge';
 
 import javaScriptConfig from './config/javascript.mjs';
 import jsonConfig from './config/json.mjs';
@@ -10,7 +10,7 @@ import reactConfig from './config/react.mjs';
 import regexpConfig from './config/regexp.mjs';
 // import sonarConfig from './config/sonar.mjs';
 import securityConfig from './config/security.mjs';
-import tailwindConfig from './config/tailwind.mjs';
+// import tailwindConfig from './config/tailwind.mjs';
 import typescriptConfig from './config/typescript.mjs';
 
 /** @type {import('eslint').Linter.Config} */
@@ -41,10 +41,10 @@ const config = [
     ...reactConfig,
     ...regexpConfig,
     // ...sonarConfig,
-    ...tailwindConfig,
+    // ...tailwindConfig,
     ...typescriptConfig,
     ...securityConfig,
-  ].map((config) => _.merge({}, subConfig, config)),
+  ].map((config) => merge({}, subConfig, config)),
   {
     ignores: [
       '**/node_modules/*',
