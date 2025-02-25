@@ -14,6 +14,7 @@ const secureHeaders = createSecureHeaders({
         "'report-sample'",
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
         'fonts.googleapis.com',
+        "'unsafe-inline'",
       ],
       styleSrcElem: [
         "'self'",
@@ -21,7 +22,7 @@ const secureHeaders = createSecureHeaders({
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
         'fonts.googleapis.com',
         'cdn.jsdelivr.net',
-        !isProd && "'unsafe-inline'", // React dev tools and nextjs errors
+        "'unsafe-inline'",
       ],
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
       connectSrc: [
