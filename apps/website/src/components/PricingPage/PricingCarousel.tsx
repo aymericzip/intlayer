@@ -1,3 +1,5 @@
+'use client';
+
 import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
 import { Steps } from '@components/OnboardPage/steps';
 import { useUser } from '@intlayer/design-system';
