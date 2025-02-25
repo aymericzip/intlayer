@@ -4,6 +4,10 @@ import type {
   // @ts-ignore: @intlayer/backend is not built yet
   GetCheckoutSessionResult,
   // @ts-ignore @intlayer/backend is not build yet
+  GetPricingBody,
+  // @ts-ignore @intlayer/backend is not build yet
+  GetPricingResult,
+  // @ts-ignore @intlayer/backend is not build yet
 } from '@intlayer/backend';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from '../fetcher';
@@ -14,6 +18,24 @@ export const getStripeAPI = (
 ) => {
   const backendURL = (intlayerConfig ?? getConfiguration()).editor.backendURL;
   const STRIPE_API_ROUTE = `${backendURL}/api/stripe`;
+
+  /**
+   * Get a pricing plan calculated for a given promotion code.
+   * @param body - Pricing plan body.
+   */
+  const getPricing = async (
+    body?: GetPricingBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetPricingResult>(
+      `${STRIPE_API_ROUTE}/pricing`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body,
+      }
+    );
 
   /**
    * Retrieves a checkout session.
@@ -48,6 +70,7 @@ export const getStripeAPI = (
     );
 
   return {
+    getPricing,
     getSubscription,
     cancelSubscription,
   };

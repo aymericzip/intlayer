@@ -1,12 +1,19 @@
 import { Link } from '@components/Link/Link';
-import { H2, Container, type ContainerProps } from '@intlayer/design-system';
+import {
+  H2,
+  Container,
+  type ContainerProps,
+  Loader,
+} from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { Check } from 'lucide-react';
 import { type ReactNode, type FC } from 'react';
 
 type PricingColumnProps = {
   title: ReactNode;
-  price: number;
+  totalPrice: number;
+  basePrice: number;
+  isPriceLoading: boolean;
   unit?: ReactNode;
   period: ReactNode;
   description: ReactNode;
@@ -18,7 +25,9 @@ type PricingColumnProps = {
 
 export const PricingColumn: FC<PricingColumnProps> = ({
   title,
-  price,
+  totalPrice,
+  basePrice,
+  isPriceLoading,
   unit,
   period,
   description,
@@ -44,16 +53,37 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       {title}
     </H2>
     <div className="flex flex-col justify-center">
-      <span className="text-center text-6xl font-bold">
-        <span itemProp="price" className="hidden">
-          {price.toFixed(2)}
+      <Loader isLoading={isPriceLoading}>
+        <span className="relative m-auto text-center text-6xl font-bold">
+          <span itemProp="price" className="hidden">
+            {totalPrice.toFixed(2)}
+          </span>
+          <span>{totalPrice.toFixed(2).split('.')[0]}</span>
+          <span className="text-3xl">
+            {'.' + totalPrice.toFixed(2).split('.')[1]}
+          </span>
+          <span className="text-xl" itemProp="priceCurrency">
+            {unit}
+          </span>
+
+          {totalPrice !== basePrice && (
+            <span className="text-neutral absolute left-full top-0 m-auto scale-90 text-center text-2xl font-bold">
+              <span className="bg-neutral absolute left-0 top-1/2 h-[2px] w-full" />
+
+              <span itemProp="price" className="hidden">
+                {basePrice.toFixed(2)}
+              </span>
+              <span>{basePrice.toFixed(2).split('.')[0]}</span>
+              <span className="text-xl">
+                {'.' + basePrice.toFixed(2).split('.')[1]}
+              </span>
+              <span className="text-base" itemProp="priceCurrency">
+                $
+              </span>
+            </span>
+          )}
         </span>
-        <span>{price.toFixed(2).split('.')[0]}</span>
-        <span className="text-3xl">{'.' + price.toFixed(2).split('.')[1]}</span>
-        <span className="text-xl" itemProp="priceCurrency">
-          {unit}
-        </span>
-      </span>
+      </Loader>
       <span
         className="text-neutral text-center text-xl"
         itemProp="billingPeriod"

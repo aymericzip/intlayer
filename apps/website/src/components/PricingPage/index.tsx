@@ -5,8 +5,13 @@ import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { Period } from './data.content';
 import { PricingCarousel } from './PricingCarousel';
+import { GetPricingResult } from '@intlayer/backend';
 
-export const PricingPage: FC = () => {
+type PricingPageProps = {
+  pricings: GetPricingResult['data'];
+};
+
+export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
   const [focusedPeriod, setFocusedPeriod] = useState<Period>(Period.Yearly);
   const { title, period, description } = useIntlayer('pricing');
 
@@ -30,6 +35,7 @@ export const PricingPage: FC = () => {
       <PricingCarousel
         focusedPeriod={focusedPeriod}
         setFocusedPeriod={setFocusedPeriod}
+        pricings={pricings}
       />
     </div>
   );

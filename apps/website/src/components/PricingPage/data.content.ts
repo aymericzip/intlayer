@@ -13,8 +13,8 @@ export enum Period {
 
 export type PricingInfo = {
   title: string;
-  price: number;
   description: string;
+  priceId?: string;
   checkPoint: string[];
   callToAction: {
     label: string;
@@ -39,7 +39,6 @@ export const planDetails = {
       ar: 'مجاني',
       ru: 'Бесплатный',
     }),
-    price: 0,
     description: t({
       en: 'Ideal for individuals looking to activate the visual editor on their application. Edit content directly with the AI interface and get a feel for Intlayer’s capabilities.',
       fr: 'Idéal pour les personnes qui cherchent à activer l’éditeur visuel sur leur application. Modifiez le contenu directement avec l’interface AI et obtenez un aperçu des capacités de Intlayer.',
@@ -558,6 +557,7 @@ const pricing = {
     free: planDetails.free,
     premium: {
       ...planDetails.premium,
+      priceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
       callToAction: {
         label: t({
           en: 'Get started',
@@ -590,10 +590,10 @@ const pricing = {
           ru: 'Начать',
         }),
       },
-      price: 18.99,
     },
     enterprise: {
       ...planDetails.enterprise,
+      priceId: process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
       callToAction: {
         label: t({
           en: 'Get started',
@@ -626,7 +626,6 @@ const pricing = {
           ru: 'Начать',
         }),
       },
-      price: 34.99,
     },
   },
   yearly: {
@@ -634,6 +633,7 @@ const pricing = {
 
     premium: {
       ...planDetails.premium,
+      priceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
       callToAction: {
         label: t({
           en: 'Get started',
@@ -666,10 +666,10 @@ const pricing = {
           ru: 'Начать',
         }),
       },
-      price: 14.99 * 12,
     },
     enterprise: {
       ...planDetails.enterprise,
+      priceId: process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
       callToAction: {
         label: t({
           en: 'Get started',
@@ -702,7 +702,6 @@ const pricing = {
           ru: 'Начать',
         }),
       },
-      price: 29.99 * 12,
     },
   },
 } satisfies Dictionary<Record<Period, Record<Plans, PricingInfo>>>['content'];

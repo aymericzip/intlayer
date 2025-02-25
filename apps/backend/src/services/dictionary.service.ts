@@ -341,21 +341,10 @@ export const updateDictionaryByKey = async (
     });
   }
 
-  const dd = dictionaryToUpdate;
-
-  // Convert Map fields to plain objects
-  if (dd.content instanceof Map) {
-    dd.content = Object.fromEntries(dd.content) as any;
-  }
-
-  console.log('dictionaryToUpdate 2', dictionaryToUpdate);
-
   const result = await DictionaryModel.updateOne(
     { key: dictionaryKey, projectIds: projectId },
     dictionaryToUpdate
   );
-
-  console.log('result', result);
 
   if (result.matchedCount === 0) {
     throw new GenericError('DICTIONARY_UPDATE_FAILED', { dictionaryKey });

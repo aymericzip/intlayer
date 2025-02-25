@@ -52,12 +52,7 @@ export const MultilingualSection: FC<MultilingualSectionProps> = ({
         <Label color="neutral" className="text-sm">
           {getLocaleName(Locales.ENGLISH, currentLocale)}
         </Label>
-        <Input
-          value="Hello world"
-          onChange={(value) => {
-            console.log(value);
-          }}
-        />
+        <Input value="Hello world" onChange={() => null} />
       </Container>
       {Object.keys(content).map((locale, index) => (
         <motion.div

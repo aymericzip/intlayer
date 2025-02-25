@@ -18,7 +18,9 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
 
   const { details } = useParams<{ details: string[] }>();
   const pageDetails = getPlanDetails(details);
-  const origin = useSearchParams().get('origin') as string | undefined;
+
+  const searchParams = useSearchParams();
+  const { origin, ...otherParams } = Object.fromEntries(searchParams.entries());
   const [dynamicsContent, setDynamicsContent] = usePersistedStore<Pick<
     Step,
     'state' | 'formData'
@@ -35,6 +37,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
           ...pageDetails,
           origin,
           step: step.getNextStep(pageDetails),
+          otherParams,
         })
       : undefined
   ) as NextUrlType;

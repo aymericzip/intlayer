@@ -10,18 +10,46 @@ import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
 import type { Organization } from '@/types/organization.types';
 
+export type GetPricingBody = {
+  priceIds: string[];
+  promoCode?: string;
+};
+
+export type GetPricingResult = ResponseData<subscriptionService.PricingResult>;
+
+/**
+ * Simulate pricing for a given set of prices and a promotion code.
+ *
+ * @param req - The request object containing the price IDs and promotion code.
+ * @param res - The response object to send the simulated pricing result.
+ */
+export const getPricing = async (
+  req: Request<undefined, undefined, GetPricingBody>,
+  res: ResponseWithInformation<GetPricingResult>
+) => {
+  const { priceIds, promoCode } = req.body;
+
+  const pricingResult = await subscriptionService.getPricing(
+    priceIds,
+    promoCode
+  );
+
+  const formattedPricingResult =
+    formatResponse<subscriptionService.PricingResult>({
+      data: pricingResult,
+    });
+
+  res.status(200).json(formattedPricingResult);
+};
+
 export type GetCheckoutSessionBody = {
-  organizationId: string;
   priceId: string;
+  promoCode?: string;
 };
 
-type CheckoutSessionData = {
-  subscriptionId: string;
-  clientSecret: string;
-  status: Stripe.Subscription.Status;
-};
-
-export type GetCheckoutSessionResult = ResponseData<CheckoutSessionData>;
+export type GetCheckoutSessionResult = ResponseData<
+  Stripe.Response<Stripe.Subscription>
+>;
 
 /**
  * Handles subscription creation or update with Stripe and returns a ClientSecret.
@@ -38,7 +66,7 @@ export const getSubscription = async (
     // Extract organization and user from response locals (set by authentication middleware)
     const { organization, user } = res.locals;
     // Get the price ID (Stripe Price ID) from the request body
-    const { priceId } = req.body;
+    const { priceId, promoCode } = req.body;
 
     // Validate that the organization exists
     if (!organization) {
@@ -100,6 +128,14 @@ export const getSubscription = async (
       customerId = customer.id;
     }
 
+    const promoCodeId = promoCode
+      ? await subscriptionService.getCouponId(promoCode)
+      : null;
+
+    const discounts: Stripe.SubscriptionCreateParams.Discount[] = promoCodeId
+      ? [{ coupon: promoCodeId }]
+      : [];
+
     // If no subscription exists, create a new one
     const subscription = await stripe.subscriptions.create({
       customer: customerId, // Associate the subscription with the customer
@@ -109,6 +145,7 @@ export const getSubscription = async (
         payment_method_types: ['card'], // Specify payment method types
       },
       payment_behavior: 'default_incomplete', // Create the subscription in an incomplete state until payment is confirmed
+      discounts: discounts,
     });
 
     // Handle subscription creation failure
@@ -126,17 +163,8 @@ export const getSubscription = async (
     }
 
     // Prepare the response data with subscription details
-    const responseData = formatResponse<CheckoutSessionData>({
-      data: {
-        subscriptionId: subscription.id,
-        // Retrieve the client secret from the payment intent to complete payment on the client side
-        clientSecret:
-          (
-            (subscription.latest_invoice as Stripe.Invoice)
-              .payment_intent as Stripe.PaymentIntent
-          )?.client_secret ?? '',
-        status: subscription.status, // Subscription status (e.g., 'incomplete', 'active')
-      },
+    const responseData = formatResponse<Stripe.Response<Stripe.Subscription>>({
+      data: subscription,
     });
 
     // Send the response back to the client

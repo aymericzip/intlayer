@@ -3,6 +3,7 @@ import { Steps } from '@components/OnboardPage/steps';
 import { useUser } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import React, {
+  type FC,
   type MouseEventHandler,
   type TouchEventHandler,
   type HTMLAttributes,
@@ -13,8 +14,12 @@ import React, {
 } from 'react';
 import { Plans, type Period } from './data.content';
 import { PricingColumn } from './PricingColumn';
+import { useSearchParams } from 'next/navigation';
+import { useGetPricing } from '@intlayer/design-system/hooks';
+import { GetPricingResult } from '@intlayer/backend';
 
 type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
+  pricings: GetPricingResult['data'];
   focusedPeriod: Period;
   setFocusedPeriod: (period: Period) => void;
 };
@@ -23,10 +28,10 @@ const plans: Plans[] = [Plans.Free, Plans.Premium, Plans.Enterprise];
 
 const getPrice = (price: number, period: Period): number => {
   if (period === 'yearly') {
-    return price / 12;
+    return price / 12 / 100;
   }
 
-  return price;
+  return price / 100;
 };
 
 /**
@@ -36,13 +41,32 @@ const getPrice = (price: number, period: Period): number => {
  * @param setFocusedPeriod - Function to update the focused pricing period
  * @returns - PricingCarousel component for the pricing plans
  */
-export const PricingCarousel = ({
+export const PricingCarousel: FC<PricingCarouselProps> = ({
   focusedPeriod,
   setFocusedPeriod,
+  pricings,
   ...props
-}: PricingCarouselProps) => {
+}) => {
   const { user } = useUser();
+  const searchParams = useSearchParams();
+  const allParams = Object.fromEntries(searchParams.entries());
+
   const { pricing, period } = useIntlayer('pricing');
+  const { data: pricingData, isLoading } = useGetPricing({
+    autoFetch: true,
+    enable: Boolean(allParams.promoCode),
+    args: [
+      {
+        priceIds: [
+          process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
+          process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
+          process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
+          process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
+        ],
+        promoCode: allParams.promoCode,
+      },
+    ],
+  });
   const [selectedPlanIndex, setSelectedPlanIndex] = useState<number | null>(
     null
   ); // Index of selected plan, starting as null
@@ -339,8 +363,23 @@ export const PricingCarousel = ({
           <PricingColumn
             unit="$"
             period={period['monthly'].value}
-            price={getPrice(
-              pricing[focusedPeriod][plan].price.value,
+            isPriceLoading={isLoading}
+            totalPrice={getPrice(
+              pricingData?.data?.[
+                (pricing[focusedPeriod][plan] as any).priceId?.value
+              ]?.finalTotal ??
+                pricings?.[(pricing[focusedPeriod][plan] as any).priceId?.value]
+                  ?.finalTotal ??
+                0,
+              focusedPeriod
+            )}
+            basePrice={getPrice(
+              pricingData?.data?.[
+                (pricing[focusedPeriod][plan] as any).priceId?.value
+              ]?.originalTotal ??
+                pricings?.[(pricing[focusedPeriod][plan] as any).priceId?.value]
+                  ?.originalTotal ??
+                0,
               focusedPeriod
             )}
             checkPoint={pricing[focusedPeriod][plan].checkPoint.map(
@@ -356,6 +395,7 @@ export const PricingCarousel = ({
               plan,
               period: focusedPeriod,
               step: user ? Steps.SetupOrganization : Steps.Registration,
+              otherParams: allParams,
             })}
             title={pricing[focusedPeriod][plan].title.value}
             description={pricing[focusedPeriod][plan].description.value}

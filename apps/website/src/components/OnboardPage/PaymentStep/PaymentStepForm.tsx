@@ -17,7 +17,7 @@ import {
 } from '@stripe/react-stripe-js';
 import { type Appearance, loadStripe } from '@stripe/stripe-js';
 import { Check, ShoppingCart } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import { type FormEvent, useState, type FC } from 'react';
@@ -26,15 +26,25 @@ import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 import { PagesRoutes } from '@/Routes';
+import type Stripe from 'stripe';
 
 type PaymentStepContentProps = {
   plan: Plans;
   period: Period;
+  invoice: Stripe.Invoice;
 };
 
-const PaymentDetails: FC<PaymentStepContentProps> = ({ plan, period }) => {
+const PaymentDetails: FC<PaymentStepContentProps> = ({
+  plan,
+  period,
+  invoice,
+}) => {
   const { pricing, period: periodContent } = useIntlayer('pricing');
-  const { title, price, description } = pricing[period][plan];
+  const { title, description } = pricing[period][plan];
+  const subtotal = invoice.subtotal / 100;
+  const total = invoice.total / 100;
+
+  const hasDiscount = subtotal !== total;
 
   return (
     <>
@@ -42,18 +52,36 @@ const PaymentDetails: FC<PaymentStepContentProps> = ({ plan, period }) => {
         {title}
       </H3>
       <div className="mb-6 flex flex-col justify-center gap-3">
-        <span className="text-center text-4xl font-bold">
+        <span className="relative m-auto text-center text-4xl font-bold">
           <span itemProp="price" className="hidden">
-            {price.value.toFixed(2)}
+            {total.toFixed(2)}
           </span>
-          <span>{price.value.toFixed(2).split('.')[0]}</span>
+          <span>{total.toFixed(2).split('.')[0]}</span>
           <span className="text-2xl">
-            {'.' + price.value.toFixed(2).split('.')[1]}
+            {'.' + total.toFixed(2).split('.')[1]}
           </span>
           <span className="text-lg" itemProp="priceCurrency">
             $
           </span>
+
+          {hasDiscount && (
+            <span className="text-neutral top-1/5 scale-80 absolute left-full m-auto text-center text-2xl font-bold">
+              <span className="bg-neutral absolute left-0 top-1/2 h-[2px] w-full" />
+
+              <span itemProp="price" className="hidden">
+                {subtotal.toFixed(2)}
+              </span>
+              <span>{subtotal.toFixed(2).split('.')[0]}</span>
+              <span className="text-xl">
+                {'.' + subtotal.toFixed(2).split('.')[1]}
+              </span>
+              <span className="text-base" itemProp="priceCurrency">
+                $
+              </span>
+            </span>
+          )}
         </span>
+
         <span
           className="text-neutral text-center text-lg"
           itemProp="priceValidUntil"
@@ -75,6 +103,7 @@ const PaymentDetails: FC<PaymentStepContentProps> = ({ plan, period }) => {
 export const PaymentStepContent: FC<PaymentStepContentProps> = ({
   plan,
   period,
+  invoice,
 }) => {
   const { goNextStep, goPreviousStep, setState, nextUrl } = useStep(
     Steps.Payment
@@ -148,7 +177,7 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
           transparency="full"
           gap="xl"
         >
-          <PaymentDetails plan={plan} period={period} />
+          <PaymentDetails plan={plan} period={period} invoice={invoice} />
         </Container>
 
         {isPlanValid ? (
@@ -193,15 +222,29 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 
   const { theme } = useTheme();
   const router = useRouter();
+  const params = useSearchParams();
+  const promoCode = params.get('promoCode') ?? undefined;
   const priceId = retrievePriceId(plan, period);
+
+  if (!priceId) {
+    return <>Error</>;
+  }
 
   const { data, isLoading } = useGetSubscription({
     autoFetch: true,
     enable: true,
-    args: {
-      priceId,
-    },
+    args: [
+      {
+        priceId,
+        promoCode,
+      },
+    ],
   });
+
+  const subscription = data?.data;
+  const invoice = subscription?.latest_invoice as Stripe.Invoice;
+  const paymentIntent = invoice?.payment_intent as Stripe.PaymentIntent;
+  const clientSecret = paymentIntent?.client_secret;
 
   const isDarkMode = theme === 'dark';
 
@@ -212,15 +255,15 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
       <H2 className="mb-4">{title}</H2>
       {!priceId && <span>{incorrectProductMessage}</span>}
       <Loader isLoading={isLoading}>
-        {data?.data?.clientSecret ? (
+        {clientSecret ? (
           <Elements
             stripe={stripePromise}
             options={{
-              clientSecret: data.data.clientSecret,
+              clientSecret: clientSecret,
               appearance,
             }}
           >
-            <PaymentStepContent plan={plan} period={period} />
+            <PaymentStepContent plan={plan} period={period} invoice={invoice} />
           </Elements>
         ) : (
           <Container

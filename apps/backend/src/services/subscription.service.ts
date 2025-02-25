@@ -173,6 +173,7 @@ export const changeSubscriptionStatus = async (
       await sendEmail({
         ...emailData,
         type: 'subscriptionPaymentSuccess',
+        organizationName: organization.name,
         subscriptionStartDate: emailData.date,
         manageSubscriptionLink: emailData.link,
       });
@@ -181,6 +182,7 @@ export const changeSubscriptionStatus = async (
       await sendEmail({
         ...emailData,
         type: 'subscriptionPaymentCancellation',
+        organizationName: organization.name,
         cancellationDate: emailData.date,
         reactivateLink: emailData.link,
       });
@@ -189,6 +191,7 @@ export const changeSubscriptionStatus = async (
       await sendEmail({
         ...emailData,
         type: 'subscriptionPaymentError',
+        organizationName: organization.name,
         errorDate: emailData.date,
         retryPaymentLink: emailData.link,
       });
@@ -198,4 +201,122 @@ export const changeSubscriptionStatus = async (
   }
 
   return updatedOrganization.plan ?? null;
+};
+
+export const getCouponId = async (
+  promoCode: string
+): Promise<string | null> => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+  try {
+    // Retrieve the coupon details by name
+    const coupons = await stripe.coupons.list();
+    const matchingCoupon = coupons.data.find(
+      (coupon) => coupon.name === promoCode
+    );
+
+    return matchingCoupon ? matchingCoupon.id : null;
+  } catch (error) {
+    console.error('Error retrieving coupon:', error);
+    return null;
+  }
+};
+
+export type PricingResult = Record<
+  string,
+  {
+    originalTotal: number;
+    discountApplied: number;
+    discountType: 'amount' | 'percentage' | null;
+    finalTotal: number;
+    currency: string;
+  }
+>;
+
+export const getPricing = async (
+  priceIds: string[],
+  promoCode?: string
+): Promise<PricingResult> => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+  try {
+    // 1. Fetch all price objects
+    const pricePromises = priceIds.map((priceId) =>
+      stripe.prices.retrieve(priceId)
+    );
+    const prices = await Promise.all(pricePromises);
+
+    // Calculate the total amount before discount (to help with proportional distribution if needed)
+    const totalAmount = prices.reduce(
+      (sum, price) => sum + (price.unit_amount ?? 0),
+      0
+    );
+
+    // 2. Retrieve the discount (if promo code is provided)
+    let discountAmount = 0;
+    let discountType: 'amount' | 'percentage' | null = null;
+
+    if (promoCode) {
+      const coupons = await stripe.coupons.list();
+      const matchingCoupons = coupons.data.find(
+        (coupon) => coupon.name === promoCode
+      );
+      if (matchingCoupons) {
+        if (matchingCoupons.amount_off) {
+          discountAmount = matchingCoupons.amount_off;
+          discountType = 'amount';
+        } else if (matchingCoupons.percent_off) {
+          // For a percentage discount, we won't store discountAmount as a raw number
+          // because each price line is discounted individually by the same percentage.
+          discountAmount = matchingCoupons.percent_off;
+          discountType = 'percentage';
+        }
+      }
+    }
+
+    // 3. Build the result for each priceId
+    const results: PricingResult = {};
+
+    for (const price of prices) {
+      if (!price.id || !price.unit_amount) {
+        continue; // Skip any invalid price
+      }
+
+      const originalTotal = price.unit_amount;
+      let appliedDiscount = 0;
+      let finalTotal = originalTotal;
+
+      // Apply discount based on the discount type
+      if (discountType === 'percentage' && discountAmount > 0) {
+        // percentage-based discount
+        appliedDiscount = (originalTotal * discountAmount) / 100;
+        finalTotal = originalTotal - appliedDiscount;
+      } else if (
+        discountType === 'amount' &&
+        totalAmount > 0 &&
+        discountAmount > 0
+      ) {
+        // fixed amount discount - distribute proportionally
+        const proportion = originalTotal / totalAmount;
+        appliedDiscount = discountAmount * proportion;
+        finalTotal = originalTotal - appliedDiscount;
+      }
+
+      // Prevent final total from going negative due to rounding
+      finalTotal = Math.max(finalTotal, 0);
+
+      results[price.id] = {
+        originalTotal: originalTotal,
+        discountApplied: appliedDiscount,
+        discountType,
+        finalTotal: finalTotal,
+        currency: price.currency,
+      };
+    }
+
+    return results;
+  } catch (error) {
+    console.error('Error calculating pricing per priceId:', error);
+    throw new Error('Failed to calculate pricing breakdown.');
+  }
 };

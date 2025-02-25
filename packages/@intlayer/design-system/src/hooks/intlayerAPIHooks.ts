@@ -621,6 +621,15 @@ export const useDeleteTag = (
  * Stripe
  */
 
+export const useGetPricing = (
+  args?: UseAsyncOptions<typeof intlayerAPI.stripe.getPricing>
+) =>
+  useAppAsync('getPricing', useIntlayerAuth().stripe.getPricing, {
+    store: true,
+    cache: true,
+    ...args,
+  });
+
 export const useGetSubscription = (
   args?: UseAsyncOptions<typeof intlayerAPI.stripe.getSubscription>
 ) =>

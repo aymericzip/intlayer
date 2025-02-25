@@ -7,13 +7,14 @@ type Args = {
   step?: Steps;
   period?: Period;
   origin?: string;
+  otherParams?: Record<string, string>;
 };
-
 export const formatOnboardUrl = ({
   plan = Plans.Free,
   step = Steps.Registration,
   period = Period.Monthly,
   origin = typeof window !== 'undefined' ? window.location.href : '',
+  otherParams = {},
 }: Args = {}) => {
   // Start building the URL manually
   let url = PagesRoutes.Onboarding_Flow.replace('{{step}}', step!).replace(
@@ -27,9 +28,27 @@ export const formatOnboardUrl = ({
     url = url.replace('{{period}}/', '');
   }
 
+  // Create an array to hold query parameter strings
+  const queryParams: string[] = [];
+
+  // Add the origin if available
   if (origin) {
-    url += `?origin=${encodeURIComponent(origin)}`;
+    queryParams.push(`origin=${encodeURIComponent(origin)}`);
   }
 
-  return url.toString();
+  // Loop through the additional params and add them
+  for (const key in otherParams) {
+    if (otherParams.hasOwnProperty(key)) {
+      queryParams.push(
+        `${encodeURIComponent(key)}=${encodeURIComponent(otherParams[key])}`
+      );
+    }
+  }
+
+  // Append query parameters to the URL if any exist
+  if (queryParams.length > 0) {
+    url += `?${queryParams.join('&')}`;
+  }
+
+  return url;
 };
