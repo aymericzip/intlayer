@@ -26,6 +26,9 @@ const PricingPage: NextPageIntlayer = async ({ params }) => {
       <SoftwareApplicationHeader />
       <ProductHeader />
 
+      {process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID}
+      {JSON.stringify(response)}
+
       <PricingPageContent pricings={response.data} />
     </IntlayerServerProvider>
   );
