@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "5.1.6",
+  "version": "5.1.7",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
