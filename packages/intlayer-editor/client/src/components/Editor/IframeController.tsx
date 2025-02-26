@@ -45,6 +45,7 @@ export const IframeController: FC<{
      * nor will it unmount/remount components
      */
     window.history.replaceState({}, '', iframePath);
+    setIsEnabled(true);
   }, [iframePath]);
 
   if (!editor.applicationURL) {
