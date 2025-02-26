@@ -48,7 +48,7 @@ export const useCrossFrameState = <S,>(
   key: `${MessageKey}`,
   initialState?: S | (() => S),
   options?: CrossFrameStateOptions
-): [S, Dispatch<SetStateAction<S>>] => {
+): [S, Dispatch<SetStateAction<S>>, typeof postState] => {
   const { postMessage, senderId } = useCommunicator();
 
   const { emit, receive } = useMemo(
@@ -75,6 +75,11 @@ export const useCrossFrameState = <S,>(
     },
     [key, postMessage, senderId]
   );
+
+  const postState = useCallback(() => {
+    if (typeof postMessage !== 'function') return;
+    postMessage({ type: `${key}/post`, data: state, senderId });
+  }, [key, postMessage, senderId]);
 
   const [state, setState] = useState<S>(() => handleStateChange(initialState));
 
@@ -138,5 +143,8 @@ export const useCrossFrameState = <S,>(
   }, []);
 
   // Return the useState state and setter
-  return useMemo(() => [state, setStateWrapper], [state, setStateWrapper]);
+  return useMemo(
+    () => [state, setStateWrapper, postState],
+    [state, setStateWrapper, postState]
+  );
 };
