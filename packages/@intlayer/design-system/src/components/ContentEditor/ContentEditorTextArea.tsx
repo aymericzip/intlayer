@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { Button } from '../Button';
 import { type AutoSizedTextAreaProps, AutoCompleteTextarea } from '../TextArea';
+import { useUser } from '../Auth';
 
 export type ContentEditorTextAreaProps = {
   children: string;
@@ -27,6 +28,7 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
   additionalButtons,
   ...props
 }) => {
+  const { isAuthenticated } = useUser();
   const [newValue, setNewValue] = useState<string>(children);
   const [resetIncrementor, setResetIncrementor] = useState<number>(0); // To reset the div on cancel
   const isEdited: boolean = newValue !== children;
@@ -59,6 +61,7 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
         variant="invisible"
         className="size-full"
         defaultValue={children}
+        isActive={isAuthenticated}
         {...props}
       />
       {(isEdited || additionalButtons) && (
