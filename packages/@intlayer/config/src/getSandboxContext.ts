@@ -17,7 +17,10 @@ export const getSandBoxContext = (
       exports: {},
     },
     React,
-    process: { ...process, env: loadEnvFile(envVarOptions) },
+    process: {
+      ...process,
+      env: { ...process.env, ...loadEnvFile(envVarOptions) },
+    },
     console,
     require: ESMxCJSRequire,
   };
