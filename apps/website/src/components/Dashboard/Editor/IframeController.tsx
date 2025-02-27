@@ -3,8 +3,9 @@
 import { Container, Loader } from '@intlayer/design-system';
 import {
   useConfiguration,
-  useEditorEnabledState,
+  useGetEditorEnabledState,
   useIframeClickMerger,
+  usePostEditorEnabledState,
 } from '@intlayer/editor-react';
 import { cn } from '@utils/cn';
 import { type FC, type RefObject, useState } from 'react';
@@ -16,18 +17,14 @@ export const IframeController: FC<{
 }> = ({ iframeRef }) => {
   const { editor } = useConfiguration();
 
+  const enableEditor = () => postEditorEnabled(editor.enabled);
+  const postEditorEnabled = usePostEditorEnabledState(); // Allow to set the editor enabled state on the client side
+  useGetEditorEnabledState(enableEditor); // Listen if the client ask if the editor is connected and send enable state
+
   useIframeClickMerger();
   useEditedContentPersistence();
 
   const [loading, setLoading] = useState(false);
-
-  /**
-   * We need to enable the editor to receive messages from the iframe
-   */
-  const [, setIsEnabled] = useEditorEnabledState({
-    emit: true,
-    receive: false,
-  });
 
   if (!editor.applicationURL) {
     return (
@@ -50,7 +47,7 @@ export const IframeController: FC<{
         ref={iframeRef}
         onLoad={() => {
           setLoading(false);
-          setIsEnabled(true);
+          enableEditor();
         }}
       />
     </div>

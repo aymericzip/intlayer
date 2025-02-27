@@ -118,7 +118,7 @@ export const useCrossFrameMessageListener = <S,>(
    * @param {S} data - The data payload to include in the message.
    * @returns {void}
    */
-  const postMessageWrapper: (data: S) => void = useCallback(
+  const postMessageWrapper: (data?: S) => void = useCallback(
     (data) => {
       postMessage({ type: key, data, senderId });
     },

@@ -10,17 +10,31 @@ import {
   type CrossFrameStateOptions,
   useCrossFrameState,
 } from './useCrossFrameState';
+import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
 export type EditorEnabledStateProps = {
   enabled: boolean;
 };
 
-const EditorEnabledContext = createContext<EditorEnabledStateProps | undefined>(
-  undefined
-);
+const EditorEnabledContext = createContext<EditorEnabledStateProps>({
+  enabled: false,
+});
 
 export const useEditorEnabledState = (options?: CrossFrameStateOptions) =>
   useCrossFrameState('INTLAYER_EDITOR_ENABLED', false, options);
+
+export const usePostEditorEnabledState = <S,>(
+  onEventTriggered?: (data: S) => void
+) =>
+  useCrossFrameMessageListener(
+    'INTLAYER_EDITOR_ENABLED/post',
+    onEventTriggered
+  );
+
+export const useGetEditorEnabledState = <S,>(
+  onEventTriggered?: (data: S) => void
+) =>
+  useCrossFrameMessageListener('INTLAYER_EDITOR_ENABLED/get', onEventTriggered);
 
 export const EditorEnabledProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isEnabled] = useEditorEnabledState({
@@ -35,11 +49,4 @@ export const EditorEnabledProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export const useEditorEnabled = () => {
-  const context = useContext(EditorEnabledContext);
-
-  if (!context) {
-    throw new Error('useEditorEnabled must be used within a EnabledProvider');
-  }
-  return context;
-};
+export const useEditorEnabled = () => useContext(EditorEnabledContext);

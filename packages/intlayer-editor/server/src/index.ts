@@ -46,7 +46,6 @@ const startServer = async (app: Express) => {
   app.use(express.urlencoded({ extended: true }));
 
   app.use('/api/dictionary', dictionaryRouter);
-
   app.use('/api/config', configurationRouter);
 
   app.use(express.static(clientDistPath));

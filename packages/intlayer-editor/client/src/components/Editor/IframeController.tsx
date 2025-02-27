@@ -1,12 +1,12 @@
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
 import { Container, Loader } from '@intlayer/design-system';
 import {
+  usePostEditorEnabledState,
   useConfiguration,
   useCrossURLPathState,
-  useEditorEnabledState,
   useIframeClickMerger,
+  useGetEditorEnabledState,
 } from '@intlayer/editor-react';
 import { type FC, type RefObject, useEffect, useState } from 'react';
 import { useEditedContentPersistence } from '../../hooks/useEditedContentPersistence';
@@ -19,6 +19,10 @@ export const IframeController: FC<{
 }> = ({ iframeRef, applicationPath }) => {
   const { editor } = useConfiguration();
 
+  const enableEditor = () => postEditorEnabled(editor.enabled);
+  const postEditorEnabled = usePostEditorEnabledState(); // Allow to set the editor enabled state on the client side
+  useGetEditorEnabledState(enableEditor); // Listen if the client ask if the editor is connected and send enable state
+
   useIframeClickMerger();
   useEditedContentPersistence();
 
@@ -27,10 +31,6 @@ export const IframeController: FC<{
   /**
    * We need to enable the editor to receive messages from the iframe
    */
-  const [, setIsEnabled] = useEditorEnabledState({
-    emit: true,
-    receive: false,
-  });
 
   const [iframePath] = useCrossURLPathState(undefined, {
     receive: true,
@@ -45,7 +45,6 @@ export const IframeController: FC<{
      * nor will it unmount/remount components
      */
     window.history.replaceState({}, '', iframePath);
-    setIsEnabled(true);
   }, [iframePath]);
 
   if (!editor.applicationURL) {
@@ -68,11 +67,7 @@ export const IframeController: FC<{
         ref={iframeRef}
         onLoad={() => {
           setLoading(false);
-          const { editor } = getConfiguration();
-
-          if (editor.enabled) {
-            setIsEnabled(true);
-          }
+          enableEditor();
         }}
       />
     </div>

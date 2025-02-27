@@ -9,12 +9,13 @@ import {
 export const useCrossURLPathState = (
   initialState?: string,
   options?: CrossFrameStateOptions
-) => {
-  const states = useCrossFrameState<string>(
-    'INTLAYER_URL_CHANGE',
-    initialState,
-    options
-  );
+) => useCrossFrameState('INTLAYER_URL_CHANGE', initialState, options);
+
+export const useCrossURLPathSetter = (initialState?: string) => {
+  const states = useCrossURLPathState(initialState, {
+    emit: true,
+    receive: false,
+  });
   const [_state, setState] = states;
 
   useEffect(() => {
@@ -69,7 +70,7 @@ export const useCrossURLPathState = (
       history.pushState = originalPushState;
       history.replaceState = originalReplaceState;
     };
-  }, [setState]);
+  }, []);
 
   return states;
 };

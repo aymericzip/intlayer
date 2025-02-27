@@ -1,5 +1,5 @@
 import { writeContentDeclaration } from '@controllers/dictionary.controller';
-import { getConfiguration } from '@intlayer/config/client';
+import { getConfiguration } from '@intlayer/config';
 import { Router } from 'express';
 import type { Routes } from '@/types/Routes';
 
@@ -7,17 +7,18 @@ export const dictionaryRouter: Router = Router();
 
 const { editor } = getConfiguration();
 
-const baseURL = `${editor.editorURL}/api/dictionary`;
+const getBaseURL = () => `${editor.editorURL}/api/dictionary`;
 
-export const dictionaryRoutes = {
-  writeContentDeclaration: {
-    urlModel: '/',
-    url: baseURL,
-    method: 'POST',
-  },
-} satisfies Routes;
+export const getDictionaryRoutes = () =>
+  ({
+    writeContentDeclaration: {
+      urlModel: '/',
+      url: getBaseURL(),
+      method: 'POST',
+    },
+  }) satisfies Routes;
 
 dictionaryRouter.post(
-  dictionaryRoutes.writeContentDeclaration.urlModel,
+  getDictionaryRoutes().writeContentDeclaration.urlModel,
   writeContentDeclaration
 );

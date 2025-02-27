@@ -11,7 +11,7 @@ import type { Dictionary } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
 import {
   EditorProvider,
-  useCrossURLPathState,
+  useCrossURLPathSetter,
   useDictionariesRecordActions,
   useIframeClickInterceptor,
   useEditorEnabled,
@@ -23,10 +23,7 @@ const IntlayerEditorHooksEnabled: FC = () => {
   /**
    * URL Messages
    */
-  useCrossURLPathState(undefined, {
-    receive: false,
-    emit: true,
-  });
+  useCrossURLPathSetter();
 
   /**
    * Locale Dictionaries Messages
