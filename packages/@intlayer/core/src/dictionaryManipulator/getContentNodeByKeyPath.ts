@@ -15,9 +15,9 @@ export const getContentNodeByKeyPath = (
     } else if (keyObj.type === NodeType.Enumeration) {
       currentValue = currentValue?.[NodeType.Enumeration][keyObj.key];
     } else if (keyObj.type === NodeType.Condition) {
-      currentValue = currentValue[NodeType.Condition];
+      currentValue = currentValue?.[NodeType.Condition];
     } else if (keyObj.type === NodeType.Markdown) {
-      currentValue = currentValue[NodeType.Markdown];
+      currentValue = currentValue?.[NodeType.Markdown];
     }
   }
 

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { getContentNodeByKeyPath } from '@intlayer/core';
 import type { FC } from 'react';
 import { cn } from '../../../utils/cn';

@@ -1,5 +1,6 @@
 export {
   IntlayerClientContext,
+  MarkdownProvider,
   useIntlayer,
   useIntlayerAsync,
   useDictionary,

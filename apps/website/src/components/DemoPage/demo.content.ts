@@ -1,4 +1,4 @@
-import { t, type Dictionary } from 'intlayer';
+import { md, t, type Dictionary } from 'intlayer';
 
 const demoContent = {
   key: 'demo-page',
@@ -19,21 +19,86 @@ const demoContent = {
       ru: 'Попробуйте новый визуальный редактор Intlayer',
     }),
     landingParagraph: t({
-      fr: 'Déléguez la gestion de votre contenu à vos équipes en transformant votre application en CMS en un clique.',
-      en: 'Delegate content management to your teams by transforming your application into a CMS with a single click.',
-      es: 'Delegue la gestión de su contenido a sus equipos transformando su aplicación en un CMS con un solo clic.',
-      'en-GB':
-        'Delegate content management to your teams by transforming your application into a CMS with a single click.',
-      de: 'Delegieren Sie das Content-Management an Ihre Teams, indem Sie Ihre Anwendung mit einem Klick in ein CMS umwandeln.',
-      ja: 'アプリケーションをワンクリックでCMSに変換することで、コンテンツ管理をチームに委任します。',
-      ko: '애플리케이션을 클릭 한 번으로 CMS로 변환하여 팀에 콘텐츠 관리를 위임합니다.',
-      zh: '通过将您的应用程序一次性转换为CMS，将内容管理委托给您的团队。',
-      it: 'Delegare la gestione dei contenuti ai tuoi team trasformando la tua applicazione in un CMS con un solo clic.',
-      pt: 'Delegue a gestão de conteúdo para suas equipes, transformando seu aplicativo em um CMS com um único clique.',
-      hi: 'अपनी ऐप्लिकेशन को एक क्लिक में CMS में बदलकर अपनी टीमों को सामग्री प्रबंधन का कार्य सौंपें।',
-      ar: 'فوّض إدارة المحتوى إلى فرقك عن طريق تحويل تطبيقك إلى CMS بنقرة واحدة.',
-      ru: 'Делегируйте управление контентом своим командам, преобразовав свое приложение в CMS одним щелчком мыши.',
+      en: md(
+        '- **Delegate content management to your teams** by transforming your application into a CMS with a single click.\n' +
+          '- **Simplify content formatting** with Markdown support, making it easier to structure and style your content.\n' +
+          '- **Boost your productivity with AI**, leveraging smart suggestions and automation to streamline content creation.\n' +
+          '- **Support multiple languages** effortlessly, ensuring seamless localization for global audiences.'
+      ),
+      'en-GB': md(
+        '- **Delegate content management to your teams** by transforming your application into a CMS with a single click.\n' +
+          '- **Simplify content formatting** with Markdown support, making it easier to structure and style your content.\n' +
+          '- **Boost your productivity with AI**, leveraging smart suggestions and automation to streamline content creation.\n' +
+          '- **Support multiple languages** effortlessly, ensuring seamless localization for global audiences.'
+      ),
+      fr: md(
+        '- **Déléguez la gestion de contenu à vos équipes** en transformant votre application en CMS avec un seul clic.\n' +
+          '- **Simplifiez la mise en forme du contenu** avec le support Markdown, facilitant la structure et la mise en forme de votre contenu.\n' +
+          "- **Améliorez votre productivité avec l'IA**, en utilisant des suggestions intelligentes et une automatisation pour streamliner la création de contenu.\n" +
+          '- **Soutenez plusieurs langues** de manière fluide, garantissant une localisation fluide pour les audiences mondiales.'
+      ),
+      es: md(
+        '- **Delegar la gestión de contenido a tus equipos** transformando tu aplicación en CMS con un solo clic.\n' +
+          '- **Simplificar el formato de contenido** con el soporte de Markdown, haciendo que sea más fácil estructurar y dar estilo a tu contenido.\n' +
+          '- **Mejora tu productividad con la IA**, aprovechando sugerencias inteligentes y automatización para simplificar la creación de contenido.\n' +
+          '- **Soporte múltiples idiomas** de forma fluida, garantizando localización fluida para audiencias globales.'
+      ),
+      de: md(
+        '- **Delegieren Sie die Inhaltsverwaltung an Ihre Teams**, indem Sie Ihre Anwendung in ein CMS umwandeln, indem Sie einen Klick machen.\n' +
+          '- **Vereinfachen Sie die Inhaltsformatierung** mit Markdown-Unterstützung, um die Struktur und das Formatieren Ihres Inhalts einfacher zu machen.\n' +
+          '- **Steigern Sie Ihre Produktivität mit AI**, indem Sie intelligente Vorschläge und Automatisierung nutzen, um den Inhaltsbearbeitungsprozess zu vereinfachen.\n' +
+          '- **Unterstützen Sie mehrere Sprachen** effizient, um eine nahtlose Lokalisierung für globale Zielgruppen sicherzustellen.'
+      ),
+      ja: md(
+        '- **コンテンツ管理をチームに委任** し、アプリケーションをワンクリックでCMSに変換します。\n' +
+          '- **Markdown サポートによるコンテンツのフォーマットの簡素化** により、コンテンツの構造化とスタイル付けが容易になります。\n' +
+          '- **AIを活用して生産性を向上** させ、スマートな提案と自動化によりコンテンツ作成を効率化します。\n' +
+          '- **複数の言語を簡単にサポート** し、グローバルなオーディエンス向けのシームレスなローカライズを実現します。'
+      ),
+      ko: md(
+        '- **콘텐츠 관리를 팀에 위임**하여 한 번의 클릭으로 애플리케이션을 CMS로 변환하세요.\n' +
+          '- **Markdown 지원으로 콘텐츠 서식을 간소화**하여 구조화 및 스타일링을 쉽게 할 수 있습니다.\n' +
+          '- **AI를 활용하여 생산성을 향상**시키고, 스마트 제안 및 자동화를 통해 콘텐츠 제작을 간소화하세요.\n' +
+          '- **여러 언어를 쉽게 지원**하여 글로벌 오디언스를 위한 원활한 현지화를 보장합니다。'
+      ),
+      zh: md(
+        '- **将内容管理委托给您的团队**，只需点击一下，即可将您的应用程序转换为CMS。\n' +
+          '- **利用Markdown支持简化内容格式**，轻松结构化和美化您的内容。\n' +
+          '- **借助AI提高您的生产力**，利用智能建议和自动化来简化内容创建。\n' +
+          '- **轻松支持多种语言**，确保全球受众的无缝本地化。'
+      ),
+      it: md(
+        '- **Delega la gestione dei contenuti ai tuoi team** trasformando la tua applicazione in un CMS con un solo clic.\n' +
+          '- **Semplifica la formattazione dei contenuti** con il supporto Markdown, rendendo più facile strutturare e stilizzare i tuoi contenuti.\n' +
+          "- **Aumenta la tua produttività con l'IA**, sfruttando suggerimenti intelligenti e automazione per semplificare la creazione di contenuti.\n" +
+          '- **Supporta più lingue** in modo fluido, garantendo una localizzazione senza interruzioni per un pubblico globale。'
+      ),
+      pt: md(
+        '- **Delegue a gestão de conteúdo para suas equipes** transformando seu aplicativo em um CMS com um único clique.\n' +
+          '- **Simplifique a formatação de conteúdo** com suporte a Markdown, facilitando a estruturação e o estilo do seu conteúdo.\n' +
+          '- **Aumente sua produtividade com IA**, aproveitando sugestões inteligentes e automação para simplificar a criação de conteúdo.\n' +
+          '- **Suporte vários idiomas** sem esforço, garantindo uma localização perfeita para públicos globais。'
+      ),
+      hi: md(
+        '- **अपनी टीमों को सामग्री प्रबंधन सौंपें** और अपनी एप्लिकेशन को केवल एक क्लिक में CMS में बदलें।\n' +
+          '- **Markdown समर्थन के साथ सामग्री प्रारूपण को सरल बनाएं**, जिससे आपकी सामग्री को संरचित और शैलीबद्ध करना आसान हो जाता है।\n' +
+          '- **AI की मदद से अपनी उत्पादकता बढ़ाएं**, स्मार्ट सुझावों और स्वचालन का उपयोग करके सामग्री निर्माण को सुचारू बनाएं।\n' +
+          '- **कई भाषाओं का समर्थन करें** और वैश्विक दर्शकों के लिए निर्बाध स्थानीयकरण सुनिश्चित करें।'
+      ),
+      ar: md(
+        '- **قم بتفويض إدارة المحتوى إلى فرقك** عن طريق تحويل تطبيقك إلى نظام إدارة محتوى بنقرة واحدة.\n' +
+          '- **قم بتبسيط تنسيق المحتوى** من خلال دعم Markdown، مما يسهل تنظيم وتنسيق المحتوى الخاص بك.\n' +
+          '- **عزز إنتاجيتك باستخدام الذكاء الاصطناعي**، مستفيدًا من الاقتراحات الذكية والأتمتة لتبسيط إنشاء المحتوى.\n' +
+          '- **ادعم لغات متعددة** بسهولة، مما يضمن التوطين السلس للجماهير العالمية。'
+      ),
+      ru: md(
+        '- **Делегируйте управление контентом своим командам**, превратив свое приложение в CMS одним кликом.\n' +
+          '- **Упрощайте форматирование контента** с поддержкой Markdown, что делает структуру и стилизацию вашего контента проще.\n' +
+          '- **Повышайте свою продуктивность с AI**, используя интеллектуальные предложения и автоматизацию для упрощения создания контента.\n' +
+          '- **Поддерживайте несколько языков** без усилий, обеспечивая плавную локализацию для глобальной аудитории。'
+      ),
     }),
+
     imageAlt: t({
       fr: "Capture d'écran de l'éditeur Intlayer",
       en: 'Screenshot of the Intlayer editor',

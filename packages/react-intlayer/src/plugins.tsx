@@ -52,7 +52,18 @@ export const reactNodePlugins: Plugins = {
     typeof node.props !== 'undefined' &&
     typeof node.key !== 'undefined',
 
-  transform: renderReactElement,
+  transform: (
+    node,
+    {
+      plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
+      ...rest
+    }
+  ) =>
+    renderIntlayerEditor({
+      ...rest,
+      content: renderReactElement(node),
+      value: '[[react-element]]',
+    }),
 };
 
 /**
@@ -70,7 +81,18 @@ export type MarkdownCond<T> = T extends {
 export const markdownPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Markdown,
-  transform: (node: MarkdownContent) => renderMarkdown(node[NodeType.Markdown]),
+  transform: (
+    node: MarkdownContent,
+    {
+      plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
+      ...rest
+    }
+  ) =>
+    renderIntlayerEditor({
+      ...rest,
+      content: renderMarkdown(node[NodeType.Markdown]),
+      value: node[NodeType.Markdown],
+    }),
 };
 
 /** ---------------------------------------------

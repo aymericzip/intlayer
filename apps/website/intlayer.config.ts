@@ -31,6 +31,7 @@ const config: IntlayerConfig = {
     enabled: true,
     applicationURL: process.env.NEXT_PUBLIC_URL,
     editorURL: process.env.NEXT_PUBLIC_EDITOR_URL,
+    cmsURL: process.env.NEXT_PUBLIC_CMS_URL,
     backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,

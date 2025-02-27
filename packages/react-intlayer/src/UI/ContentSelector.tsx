@@ -31,6 +31,7 @@ export const ContentSelector: FC<ContentSelectorProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [isSelectingState, setIsSelectingState] = useState(isSelectingProp);
   const pressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isChildrenString = typeof children === 'string';
 
   const handleOnLongPress = () => {
     setIsSelectingState(true);
@@ -101,7 +102,7 @@ export const ContentSelector: FC<ContentSelectorProps> = ({
   return (
     <span
       style={{
-        display: 'inline',
+        display: isChildrenString ? 'inline' : 'inline-block',
         cursor: 'pointer',
         userSelect: 'none',
         borderRadius: '0.375rem',

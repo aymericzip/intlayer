@@ -4,8 +4,9 @@ import {
 } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { IntlayerMarkdownProvider } from './IntlayerMarkdownProvider';
 
-export const LocaleContextProvider: FC<IntlayerClientProviderProps> = ({
+export const IntlayerProvider: FC<IntlayerClientProviderProps> = ({
   children,
   locale,
 }) => (
@@ -20,7 +21,7 @@ export const LocaleContextProvider: FC<IntlayerClientProviderProps> = ({
        *   IntlayerClientProvider can be set in any parent component, including the layout
        */}
       <IntlayerClientProvider locale={locale}>
-        {children}
+        <IntlayerMarkdownProvider>{children}</IntlayerMarkdownProvider>
       </IntlayerClientProvider>
     </IntlayerServerProvider>
   </>

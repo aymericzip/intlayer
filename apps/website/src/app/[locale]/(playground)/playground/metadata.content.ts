@@ -1,0 +1,116 @@
+import { t, type Dictionary } from 'intlayer';
+import { type Metadata } from 'next';
+
+const metadataContent = {
+  key: 'playground-metadata',
+  content: {
+    title: t({
+      en: 'Playground | Intlayer',
+      'en-GB': 'Playground | Intlayer',
+      fr: 'Playground | Intlayer',
+      es: 'Playground | Intlayer',
+      de: 'Playground | Intlayer',
+      ja: 'Playground | Intlayer',
+      ko: 'Playground | Intlayer',
+      zh: 'Playground | Intlayer',
+      it: 'Playground | Intlayer',
+      pt: 'Playground | Intlayer',
+      hi: 'प्लेगन | Intlayer',
+      ar: 'Playground | Intlayer',
+      ru: 'Playground | Intlayer',
+    }),
+    description: t({
+      en: 'Test the Intlayer visual editor by interacting with the website.',
+      'en-GB':
+        'Test the Intlayer visual editor by interacting with the website.',
+      fr: 'Testez l\éditeur visuel Intlayer en interagissant avec le site Web.',
+      es: 'Pruebe el editor visual de Intlayer interactuando con el sitio web.',
+      de: 'Testen Sie den Intlayer-visuellen Editor, indem Sie mit dem Website interagieren.',
+      ja: 'Intlayer ビジュアルエディタをウェブサイトとの相互作用でテストします。',
+      ko: 'Intlayer 시각 편집기를 웹사이트와 상호 작용하여 테스트합니다.',
+      zh: '通过与网站进行互动来测试 Intlayer 视觉编辑器。',
+      it: 'Testa l\editor visuale di Intlayer interagendo con il sito web.',
+      pt: 'Teste o editor visual do Intlayer interagindo com o site.',
+      hi: 'वेबसाइट के साथ इन्टलैयार व्हिडिओ एडिटर का अनुकूलता को प्रयोग करके जाँच करें।',
+      ar: 'اختبار محرر الفيديو لـ Intlayer عن طريق التفاعل مع الموقع.',
+      ru: 'Тестируйте визуальный редактор Intlayer, взаимодействуя с веб-сайтом.',
+    }),
+    keywords: t<string[]>({
+      en: [
+        'CMS',
+        'Content Management System',
+        'Visual Editor',
+        'Editor',
+        'Dashboard',
+      ],
+      'en-GB': [
+        'CMS',
+        'Content Management System',
+        'Visual Editor',
+        'Editor',
+        'Dashboard',
+      ],
+      fr: [
+        'CMS',
+        'Système de gestion de contenu',
+        'Éditeur visuel',
+        'Éditeur',
+        'Tableau de bord',
+      ],
+      es: [
+        'CMS',
+        'Sistema de gestión de contenido',
+        'Editor visual',
+        'Editor',
+        'Panel de control',
+      ],
+      de: [
+        'CMS',
+        'Inhaltsmanagementsystem',
+        'Visueller Editor',
+        'Editor',
+        'Dashboard',
+      ],
+      ja: [
+        'CMS',
+        'コンテンツ管理システム',
+        'ビジュアルエディタ',
+        'エディタ',
+        'ダッシュボード',
+      ],
+      ko: ['CMS', '콘텐츠 관리 시스템', '시각 편집기', '편집기', '대시보드'],
+      zh: ['CMS', '内容管理系统', '视觉编辑器', '编辑器', '仪表板'],
+      it: [
+        'CMS',
+        'Sistema di gestione dei contenuti',
+        'Editor visuale',
+        'Editor',
+        'Cruscotto',
+      ],
+      pt: [
+        'CMS',
+        'Sistema de Gerenciamento de Conteúdo',
+        'Editor Visual',
+        'Editor',
+        'Painel',
+      ],
+      hi: [
+        'CMS',
+        'सामग्री प्रबंधन सिस्टम',
+        'व्हिडिओ एडिटर',
+        'एडिटर',
+        'डैशबोर्ड',
+      ],
+      ar: ['CMS', 'نظام إدارة المحتوى', 'محرر الفيديو', 'محرر', 'لوحة القيادة'],
+      ru: [
+        'CMS',
+        'Система управления контентом',
+        'Визуальный редактор',
+        'Редактор',
+        'Панель управления',
+      ],
+    }),
+  },
+} satisfies Dictionary<Metadata>;
+
+export default metadataContent;

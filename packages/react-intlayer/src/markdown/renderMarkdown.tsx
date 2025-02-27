@@ -1,8 +1,6 @@
-import { type IntlayerNode, rendererIntlayerNode } from '../IntlayerNode';
+import type { ReactNode } from 'react';
 import { MarkdownRenderer } from './MarkdownRenderer';
 
-export const renderMarkdown = (markdown: string): IntlayerNode =>
-  rendererIntlayerNode({
-    value: markdown,
-    children: <MarkdownRenderer markdown={markdown} />,
-  });
+export const renderMarkdown = (markdown: string): ReactNode => (
+  <MarkdownRenderer markdown={markdown} />
+);

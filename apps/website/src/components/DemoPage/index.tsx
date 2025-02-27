@@ -1,22 +1,14 @@
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { AnimatedDiv } from './AnimatedDiv';
-import { AsideImage } from './AsideImage';
 
 export const DemoPage: FC = () => {
   const { title, landingParagraph, tutoParagraphs } = useIntlayer('demo-page');
 
   return (
-    <div className="m-auto flex w-full flex-col p-8 sm:p-12 md:size-full md:p-20">
-      <div className="flex min-h-[70vh] w-full flex-col items-center gap-10">
-        <div className="max-w-[500px]">
-          <AsideImage />
-        </div>
-        <div>
-          <h1 className="mb-3 mt-24 text-4xl font-bold">{title}</h1>
-          <p className="text-md text-neutral">{landingParagraph}</p>
-        </div>
-      </div>
+    <div className="m-auto flex w-full max-w-3xl flex-col p-8 sm:p-12 md:size-full md:p-10">
+      <h1 className="mb-3 mt-14 text-4xl font-bold">{title}</h1>
+      <div className="text-md text-neutral py-10">{landingParagraph}</div>
       <div className="relative mx-auto my-10 flex max-w-[700px] flex-col gap-28">
         {tutoParagraphs.map((paragraph, index) => (
           <AnimatedDiv key={paragraph.title.value} className="flex gap-10">

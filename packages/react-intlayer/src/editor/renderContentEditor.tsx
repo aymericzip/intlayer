@@ -9,13 +9,15 @@ export type RenderIntlayerEditorProps = Omit<
   ContentSelectorWrapperProps,
   'children' | 'content'
 > &
-  NodeProps;
+  NodeProps & {
+    value?: string;
+  };
 
 export const renderIntlayerEditor = (
   props: RenderIntlayerEditorProps
 ): IntlayerNode =>
   rendererIntlayerNode({
-    value: props.content,
+    value: props.value ?? props.content,
     children: (
       <ContentSelectorWrapper {...props}>
         {props.content}

@@ -5,13 +5,13 @@ import { AsyncStateProvider } from '@intlayer/design-system/hooks';
 import type { IntlayerClientProviderProps } from 'next-intlayer';
 import type { FC } from 'react';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
-import { LocaleContextProvider } from './IntlayerProvider';
+import { IntlayerProvider } from './IntlayerProvider';
 import { ThemeProvider } from './ThemeProvider';
 
 export type AppProvidersProps = IntlayerClientProviderProps;
 
 export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
-  <LocaleContextProvider locale={locale}>
+  <IntlayerProvider locale={locale}>
     <ThemeProvider>
       <AnimatePresenceProvider>
         <ServiceWorkerSubscriber />
@@ -22,5 +22,5 @@ export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
         </AsyncStateProvider>
       </AnimatePresenceProvider>
     </ThemeProvider>
-  </LocaleContextProvider>
+  </IntlayerProvider>
 );
