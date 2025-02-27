@@ -17,7 +17,7 @@ export const IframeController: FC<{
 }> = ({ iframeRef }) => {
   const { editor } = useConfiguration();
 
-  const enableEditor = () => postEditorEnabled(editor.enabled);
+  const enableEditor = () => postEditorEnabled(true);
   const postEditorEnabled = usePostEditorEnabledState(); // Allow to set the editor enabled state on the client side
   useGetEditorEnabledState(enableEditor); // Listen if the client ask if the editor is connected and send enable state
 
