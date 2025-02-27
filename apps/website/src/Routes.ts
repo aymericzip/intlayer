@@ -1,6 +1,7 @@
 export enum PagesRoutes {
   Home = '/',
   Demo = '/demo',
+  Playground = '/playground',
   NotFound = '/404',
 
   Dashboard = '/dashboard',
