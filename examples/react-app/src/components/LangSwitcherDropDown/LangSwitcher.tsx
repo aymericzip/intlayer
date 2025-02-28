@@ -1,9 +1,10 @@
 'use client';
 
-import { getLocaleName } from 'intlayer';
+import { getLocaleName, getLocalizedUrl } from 'intlayer';
 import type { ButtonHTMLAttributes, FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
@@ -21,7 +22,20 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 );
 
 export const LocaleSwitcher: FC = () => {
-  const { localeList, availableLocales, setLocale } = useLocale();
+  const { pathname, search } = useLocation(); // Get the current URL path. Example: /fr/about
+  const navigate = useNavigate();
+
+  const { localeList, availableLocales, setLocale } = useLocale({
+    onLocaleChange: (locale) => {
+      // Construct the URL with the updated locale
+      // Example: /es/about
+      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
+
+      // Update the URL path
+      navigate(pathWithLocale);
+    },
+  });
+
   const content = useIntlayer('lang-switcher');
 
   return (

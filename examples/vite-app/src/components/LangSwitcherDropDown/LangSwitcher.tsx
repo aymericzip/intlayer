@@ -23,14 +23,14 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 );
 
 export const LocaleSwitcher: FC = () => {
-  const location = useLocation(); // Get the current URL path. Example: /fr/about
+  const { pathname, search } = useLocation(); // Get the current URL path. Example: /fr/about
   const navigate = useNavigate();
 
   const { availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // Construct the URL with the updated locale
       // Example: /es/about
-      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
 
       // Update the URL path
       navigate(pathWithLocale);

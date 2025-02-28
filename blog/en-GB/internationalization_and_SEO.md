@@ -151,14 +151,14 @@ import { useLocale } from "react-intlayer";
 import { type FC } from "react";
 
 const LocaleSwitcher: FC = () => {
-  const location = useLocation(); // Get the current URL path. Example: /fr/about
+  const { pathname, search } = useLocation(); // Get the current URL path. Example: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { locale, availableLocales, setLocale } = useLocale({
+  const { availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // Construct the URL with the updated locale
-      // Example: /es/about with the locale set to Spanish
-      const pathWithLocale = getLocalizedUrl(location.pathname, locale);
+      // Example: /es/about?foo=bar
+      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
 
       // Update the URL path
       navigate(pathWithLocale);
