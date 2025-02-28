@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useCommunicator } from './CommunicatorContext';
 import { type MessageKey } from './messageKey';
 
@@ -57,8 +57,9 @@ const compareUrls = (url1: string, url2: string): boolean => {
  * state or events across different windows, iframes, or contexts.
  *
  * @template S - The type of the data payload in the message.
- * @param {`${MessageKey}` | `${MessageKey}/post` | `${MessageKey}/get`} key - A unique identifier for the message type to listen for.
- * @param {(data: S) => void} [onEventTriggered] - A callback function triggered when a message
+ * @param key - A unique identifier for the message type to listen for.
+ * @param [onEventTriggered] - A callback function triggered when a message
+ * @param [revalidator] - A function that re-suscribes the listener. Could be usefull if onEventTriggered depend of some state
  * with the specified key is received. The callback receives the message data as its argument.
  *
  * @returns {{ postMessage: (data: S) => void }} An object containing a `postMessage` function
@@ -66,7 +67,8 @@ const compareUrls = (url1: string, url2: string): boolean => {
  */
 export const useCrossFrameMessageListener = <S,>(
   key: `${MessageKey}` | `${MessageKey}/post` | `${MessageKey}/get`,
-  onEventTriggered?: (data: S) => void
+  onEventTriggered?: (data: S) => void,
+  revalidator?: any
 ) => {
   const { allowedOrigins, postMessage, senderId } = useCommunicator();
 
@@ -107,7 +109,7 @@ export const useCrossFrameMessageListener = <S,>(
       // Clean up the event listener on unmount
       return () => window.removeEventListener('message', handleMessage);
     }
-  }, [allowedOrigins, postMessage, senderId]);
+  }, [allowedOrigins, postMessage, senderId, revalidator]);
 
   /**
    * A wrapper function around the `postMessage` function to broadcast messages efficiently.
@@ -118,12 +120,9 @@ export const useCrossFrameMessageListener = <S,>(
    * @param {S} data - The data payload to include in the message.
    * @returns {void}
    */
-  const postMessageWrapper: (data?: S) => void = useCallback(
-    (data) => {
-      postMessage({ type: key, data, senderId });
-    },
-    [postMessage, key, senderId]
-  );
+  const postMessageWrapper: (data?: S) => void = (data) => {
+    postMessage({ type: key, data, senderId });
+  };
 
-  return useMemo(() => postMessageWrapper, [postMessageWrapper]);
+  return postMessageWrapper;
 };

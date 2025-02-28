@@ -21,6 +21,7 @@ import {
   type DictionaryContent,
 } from './DictionariesRecordContext';
 import { useCrossFrameState } from './useCrossFrameState';
+import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
 type EditedContentStateContextType = {
   editedContent: Record<Dictionary['key'], Dictionary> | undefined;
@@ -29,6 +30,22 @@ type EditedContentStateContextType = {
 const EditedContentStateContext = createContext<
   EditedContentStateContextType | undefined
 >(undefined);
+
+export const usePostEditedContentState = <S,>(
+  onEventTriggered?: (data: S) => void
+) =>
+  useCrossFrameMessageListener(
+    'INTLAYER_EDITED_CONTENT_CHANGED/post',
+    onEventTriggered
+  );
+
+export const useGetEditedContentState = <S,>(
+  onEventTriggered?: (data: S) => void
+) =>
+  useCrossFrameMessageListener(
+    'INTLAYER_EDITED_CONTENT_CHANGED/get',
+    onEventTriggered
+  );
 
 type EditedContentActionsContextType = {
   setEditedContentState: (
@@ -67,13 +84,6 @@ const EditedContentActionsContext = createContext<
   EditedContentActionsContextType | undefined
 >(undefined);
 
-export const useEditedContentState = () =>
-  useCrossFrameState<DictionaryContent>(
-    'INTLAYER_EDITED_CONTENT_CHANGED',
-    undefined,
-    { emit: true, receive: false }
-  );
-
 const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
   typeof state === 'function'
     ? (state as (prevState?: S) => S)(prevState)
@@ -83,10 +93,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const { localeDictionaries } = useDictionariesRecord();
 
   const [editedContent, setEditedContentState] =
-    useCrossFrameState<DictionaryContent>(
-      'INTLAYER_EDITED_CONTENT_CHANGED',
-      undefined
-    );
+    useCrossFrameState<DictionaryContent>('INTLAYER_EDITED_CONTENT_CHANGED');
 
   const setEditedDictionary: Dispatch<SetStateAction<Dictionary>> = (
     newValue

@@ -24,6 +24,13 @@ export const EditorProvider: FC<
   return (
     <EditorProviderComponent
       postMessage={(data) => {
+        window?.postMessage(
+          data,
+          // Use to restrict the origin of the editor for security reasons.
+          // Correspond to the current editor URL.
+          editorURL
+        );
+
         iframeRef.current?.contentWindow?.postMessage(
           data,
           // Use to restrict the origin of the editor for security reasons.

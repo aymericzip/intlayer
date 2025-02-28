@@ -17,7 +17,10 @@ import {
   ConfigurationProvider,
 } from './ConfigurationContext';
 import { DictionariesRecordProvider } from './DictionariesRecordContext';
-import { EditedContentProvider } from './EditedContentContext';
+import {
+  EditedContentProvider,
+  useGetEditedContentState,
+} from './EditedContentContext';
 import {
   EditorEnabledProvider,
   useEditorEnabled,
@@ -29,13 +32,21 @@ import { FocusDictionaryProvider } from './FocusDictionaryContext';
  * This component add all the providers needed by the editor.
  * It is used to wrap the application, or the editor to work together.
  */
-const EditorProvidersWrapper: FC<PropsWithChildren> = ({ children }) => (
-  <DictionariesRecordProvider>
-    <EditedContentProvider>
-      <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
-    </EditedContentProvider>
-  </DictionariesRecordProvider>
-);
+const EditorProvidersWrapper: FC<PropsWithChildren> = ({ children }) => {
+  const getEditedContentState = useGetEditedContentState();
+
+  useEffect(() => {
+    getEditedContentState();
+  }, []);
+
+  return (
+    <DictionariesRecordProvider>
+      <EditedContentProvider>
+        <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
+      </EditedContentProvider>
+    </DictionariesRecordProvider>
+  );
+};
 
 type FallbackProps = {
   fallback: ReactNode;
@@ -49,6 +60,7 @@ const EditorEnabledCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
   fallback,
 }) => {
   const getEditorEnabled = useGetEditorEnabledState();
+
   const { enabled } = useEditorEnabled();
 
   useEffect(() => {

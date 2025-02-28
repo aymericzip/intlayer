@@ -21,8 +21,8 @@ export const IframeController: FC<{
   const postEditorEnabled = usePostEditorEnabledState(); // Allow to set the editor enabled state on the client side
   useGetEditorEnabledState(enableEditor); // Listen if the client ask if the editor is connected and send enable state
 
-  useIframeClickMerger();
   useEditedContentPersistence();
+  useIframeClickMerger();
 
   const [loading, setLoading] = useState(false);
 
