@@ -60,6 +60,19 @@ const sitemap = (): MetadataRoute.Sitemap => {
       },
     },
     {
+      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`
+          ),
+        },
+      },
+    },
+    {
       url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
