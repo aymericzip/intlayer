@@ -21,7 +21,7 @@ export const AuthenticationBarrierServer: FC<AuthenticationBarrierProps> = ({
   <AuthenticationBarrierServerUI
     {...props}
     redirectionRoute={redirectionRoute}
-    redirectionFunction={redirect}
+    redirectionFunction={console.log}
   >
     {children}
   </AuthenticationBarrierServerUI>
