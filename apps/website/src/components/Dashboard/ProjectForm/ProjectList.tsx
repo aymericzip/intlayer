@@ -24,9 +24,9 @@ export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
   };
 
   return (
-    <div className="flex w-full max-w-[350px] gap-3">
+    <ul className="flex w-full flex-wrap gap-3">
       {projects.map((project) => (
-        <div
+        <li
           className="border-neutral flex w-full flex-col gap-3 rounded-lg border p-6"
           key={String(project._id)}
         >
@@ -38,8 +38,8 @@ export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
           >
             {selectButton.text}
           </Button>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
