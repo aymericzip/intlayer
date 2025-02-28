@@ -52,6 +52,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
           ...pageDetails,
           origin,
           step: step.getPreviousStep(pageDetails),
+          otherParams,
         })
       : undefined
   ) as PreviousUrlType;

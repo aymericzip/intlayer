@@ -17,13 +17,7 @@ import {
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import {
-  type HTMLAttributes,
-  Suspense,
-  useMemo,
-  useState,
-  type FC,
-} from 'react';
+import { useState, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -31,6 +25,8 @@ import {
   type SetUpOrganization,
   useSetUpOrganizationSchema,
 } from './useSetUpOrganizationSchema';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { PagesRoutes } from '@/Routes';
 
 const OrganizationFormContent: FC<{
   selectedOrganizationId?: OrganizationAPI['_id'] | string;
@@ -76,6 +72,9 @@ const OrganizationFormContent: FC<{
 export const SetupOrganizationStepForm: FC = () => {
   const SetUpOrganizationSchema = useSetUpOrganizationSchema();
   const { session } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const { selectOrganization } = useSelectOrganization();
   const { formData, goNextStep, goPreviousStep, setFormData } = useStep(
     Steps.SetupOrganization
@@ -112,7 +111,17 @@ export const SetupOrganizationStepForm: FC = () => {
       {...form}
     >
       <StepLayout
-        onGoToPreviousStep={goPreviousStep}
+        onGoToPreviousStep={() => {
+          if (session?.user) {
+            router.push(
+              searchParams
+                ? `${PagesRoutes.Pricing}?${searchParams.toString()}`
+                : PagesRoutes.Pricing
+            );
+          } else {
+            goPreviousStep();
+          }
+        }}
         isLoading={isSubmitting}
         isSkippable={Boolean(session?.organization?._id)}
         onSkipStep={goNextStep}
