@@ -105,7 +105,8 @@ const handleNoPrefix = (
     locale,
     pathname,
     basePath,
-    basePathTrailingSlash
+    basePathTrailingSlash,
+    request.nextUrl.search
   );
   return rewriteUrl(request, newPath, locale);
 };
@@ -185,7 +186,8 @@ const handleMissingPathLocale = (
     locale,
     pathname,
     basePath,
-    basePathTrailingSlash
+    basePathTrailingSlash,
+    request.nextUrl.search
   );
 
   return prefixDefault || locale !== defaultLocale
