@@ -15,6 +15,7 @@ import { StarIcon } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
+import { useRouter } from 'next/navigation';
 
 const SwitchThemeSwitcher = dynamic(
   () =>
@@ -47,9 +48,12 @@ export const Navbar: FC = () => {
   } = useIntlayer('navbar');
   const { isAuthenticated, logout, user } = useUser();
   const { pathWithoutLocale } = useLocale();
+  const router = useRouter();
 
   const handleLogOut = () => {
-    logout().catch((err) => console.error(err));
+    logout()
+      .then(() => router.refresh())
+      .catch((err) => console.error(err));
   };
 
   return (

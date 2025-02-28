@@ -17,6 +17,10 @@ export const SignInForm: FC = () => {
     await login({
       email,
       password,
+    }).then((res) => {
+      if (res.data?.email) {
+        router.refresh();
+      }
     });
   };
 

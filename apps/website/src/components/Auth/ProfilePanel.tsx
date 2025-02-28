@@ -10,7 +10,9 @@ export const ProfilePanel: FC = () => {
   const router = useRouter();
 
   const handleLogOut = () => {
-    logout().catch((err) => console.error(err));
+    logout()
+      .then(() => router.refresh())
+      .catch((err) => console.error(err));
   };
 
   if (isUnauthenticated) {
