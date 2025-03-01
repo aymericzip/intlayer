@@ -46,6 +46,7 @@ import { getPackagesReactIntlayerUseLocaleData } from './docDataContent/packages
 import { getPackagesReactScriptsIntlayerData } from './docDataContent/packages/react-scripts-intlayer';
 import { getPackagesViteIntlayerData } from './docDataContent/packages/vite-intlayer';
 import type { CategorizedDocData, DocData, Section } from './types';
+import { getRoadmapData } from './docDataContent/concept/roadmap';
 
 export const getDocData = (locale = Locales.ENGLISH): Section => {
   const content = getIntlayer('doc-data', locale);
@@ -54,6 +55,10 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
     'get-started': {
       title: content['get-started'].title,
       default: getIntroductionData(locale),
+    },
+    roadmap: {
+      title: content.roadmap.title,
+      default: getRoadmapData(locale),
     },
     concept: {
       title: content.concept.title,

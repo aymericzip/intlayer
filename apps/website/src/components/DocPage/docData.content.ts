@@ -20,6 +20,23 @@ const docDataContent = {
         ru: 'Начать',
       }),
     },
+    roadmap: {
+      title: t({
+        en: 'Roadmap',
+        fr: 'Feuille de route',
+        es: 'Hoja de ruta',
+        'en-GB': 'Roadmap',
+        de: 'Fahrplan',
+        ja: 'ロードマップ',
+        ko: '로드맵',
+        zh: '路线图',
+        it: 'Tabella di marcia',
+        pt: 'Roteiro',
+        hi: 'रोडमैप',
+        ar: 'خريطة الطريق',
+        ru: 'Дорожная карта',
+      }),
+    },
     concept: {
       title: t({
         en: 'Concept',

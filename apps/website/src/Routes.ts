@@ -13,6 +13,7 @@ export enum PagesRoutes {
   Dashboard_Profile = '/dashboard/profile',
 
   Doc = '/doc/get-started',
+  Doc_Roadmap = '/doc/concept/roadmap',
   Doc_Search = '/doc/search',
   Doc_Chat = '/doc/chat',
   Doc_HowWorksIntlayer = '/doc/concept/how-works-intlayer',
@@ -107,6 +108,7 @@ export enum ExternalLinks {
 
 export enum GithubRoutes {
   Introduction = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md',
+  Roadmap = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md',
   HowWorksIntlayer = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md',
   Configuration = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md',
   InterestOfIntlayer = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md',
