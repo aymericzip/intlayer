@@ -44,12 +44,14 @@ export const LOCALE_LIST: Locales[] = [
   Locales.RUSSIAN,
 ];
 
-const NB_SIMULTANEOUS_REQUESTS = 3;
+const NB_SIMULTANEOUS_REQUESTS: number = 1;
 
-const SKIP_RANGE_OF_LAST_UPDATE_TIME = 2 * 60 * 60 * 1000; // 2 hours
+const SKIP_RANGE_OF_LAST_UPDATE_TIME: number = 2 * 60 * 60 * 1000; // 2 hours
 
-const ERROR_MAX_RETRY_COUNT = 3;
-const ERROR_WAIT_TIME = 30 * 1000; // 30 seconds
+const ERROR_MAX_RETRY_COUNT: number = 3;
+const ERROR_WAIT_TIME: number = 30 * 1000; // 30 seconds
+
+const CHECK_STRUCTURE_INCONSISTENCY: boolean = true;
 
 const getFileContent = (filePath: string): string => {
   // Read the file content using Node.js fs module.
@@ -67,6 +69,30 @@ const writeFileContent = (filePath: string, content: string) => {
   writeFileSync(filePath, content);
 };
 
+const getIsSimilarStructure = (
+  baseFileContent: string,
+  translatedFileContent: string
+): boolean => {
+  const translatedFileHashtagCount =
+    translatedFileContent.split('#').length - 1;
+  const baseFileHashtagCount = baseFileContent.split('#').length - 1;
+
+  logger(`   -> Number of hashtags in base file: ${baseFileHashtagCount}`);
+  logger(
+    `   -> Number of hashtags in translated file: ${translatedFileHashtagCount}`
+  );
+
+  return translatedFileHashtagCount === baseFileHashtagCount;
+};
+
+const getIsFileUpdatedRecently = (localeFilePath: string): boolean => {
+  const stats = statSync(localeFilePath);
+  const lastModified = new Date(stats.mtime);
+  const oneHourAgo = new Date(Date.now() - SKIP_RANGE_OF_LAST_UPDATE_TIME);
+
+  return lastModified > oneHourAgo;
+};
+
 export const auditFile = async (filePath: string, locale: Locales) => {
   try {
     const projectPath = process.cwd();
@@ -76,20 +102,35 @@ export const auditFile = async (filePath: string, locale: Locales) => {
     // Determine the target locale file path
     const localeFilePath = filePath.replace('en/', `${locale}/`);
 
+    const fileContent = getFileContent(filePath);
+
     // Check if the file was already generated/updated in the time defined
     if (existsSync(localeFilePath)) {
-      const stats = statSync(localeFilePath);
-      const lastModified = new Date(stats.mtime);
-      const oneHourAgo = new Date(Date.now() - SKIP_RANGE_OF_LAST_UPDATE_TIME);
-      if (lastModified > oneHourAgo) {
-        logger(
-          `   -> Skipping file ${localeFilePath} as it was updated within the last range of time.`
+      if (CHECK_STRUCTURE_INCONSISTENCY) {
+        const translatedFileContent = getFileContent(localeFilePath);
+
+        const isSimilarStructure = getIsSimilarStructure(
+          fileContent,
+          translatedFileContent
         );
-        return;
+
+        if (isSimilarStructure) {
+          logger(
+            `   -> Skipping file ${localeFilePath} as its structure is the same as the base file.`
+          );
+          return;
+        }
+      } else {
+        const isFileUpdatedRecently = getIsFileUpdatedRecently(localeFilePath);
+
+        if (isFileUpdatedRecently) {
+          logger(
+            `   -> Skipping file ${localeFilePath} as it was updated within the last range of time.`
+          );
+          return;
+        }
       }
     }
-
-    const fileContent = getFileContent(filePath);
 
     const openai = new OpenAI({
       apiKey: process.env.OPEN_AI_API_KEY,
@@ -108,30 +149,51 @@ export const auditFile = async (filePath: string, locale: Locales) => {
     let chatCompletion;
     let retryCount = 0;
     const maxRetries = ERROR_MAX_RETRY_COUNT; // You can adjust the maximum number of retries as needed
+    let newContent;
 
     while (retryCount < maxRetries) {
       try {
-        chatCompletion = await openai.chat.completions.create({
-          model: OPEN_AI_MODEL,
-          temperature: OPEN_AI_TEMPERATURE,
-          messages: [{ role: 'system', content: prompt }],
-        });
+        try {
+          chatCompletion = await openai.chat.completions.create({
+            model: OPEN_AI_MODEL,
+            temperature: OPEN_AI_TEMPERATURE,
+            messages: [{ role: 'system', content: prompt }],
+          });
+        } catch (error) {
+          // If the request failed, wait and throw the error again to retry
+          await new Promise((resolve) => setTimeout(resolve, ERROR_WAIT_TIME));
+
+          logger(
+            `    -> ChatGPT request failed. Waiting 30 seconds before retrying... Error: ${error}`
+          );
+          throw new Error((error as Error).message as string);
+        }
+
+        // If the request failed after maximum retries, throw an error
+        if (!chatCompletion.choices[0].message?.content) {
+          throw new Error('ChatGPT request failed after maximum retries.');
+        }
+        newContent = chatCompletion.choices[0].message?.content;
+
+        const isSimilarStructure = getIsSimilarStructure(
+          fileContent,
+          newContent
+        );
+
+        if (!isSimilarStructure) {
+          throw new Error(
+            'Translation file failed to be updated as its structure is not the same as the base file.'
+          );
+        }
+
         break; // If the request succeeds, exit the loop
       } catch (error) {
         retryCount++;
         logger(
-          `    -> ChatGPT request failed (attempt ${retryCount}). Waiting 30 seconds before retrying... ${error}`
+          `    -> ChatGPT request failed (attempt ${retryCount}). Retrying...`
         );
-        await new Promise((resolve) => setTimeout(resolve, ERROR_WAIT_TIME));
       }
     }
-
-    // If the request failed after maximum retries, throw an error
-    if (!chatCompletion) {
-      throw new Error('    -> ChatGPT request failed after maximum retries.');
-    }
-
-    let newContent = chatCompletion.choices[0].message?.content;
 
     if (newContent?.startsWith('```')) {
       // Remove first and last lines of the code block
@@ -146,7 +208,7 @@ export const auditFile = async (filePath: string, locale: Locales) => {
     }
 
     logger(
-      `    -> ${chatCompletion.usage?.total_tokens} tokens used in the request`
+      `    -> ${chatCompletion?.usage?.total_tokens} tokens used in the request`
     );
   } catch (error) {
     console.error(error);
