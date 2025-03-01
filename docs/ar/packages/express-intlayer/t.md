@@ -1,21 +1,21 @@
-# وثائق: وظيفة `t` في `express-intlayer`
+# التوثيق: وظيفة `t` في `express-intlayer`
 
-وظيفة `t` في حزمة `express-intlayer` هي الأداة الأساسية لتوفير استجابات مترجمة في تطبيق Express الخاص بك. تبسط عملية التدويل (i18n) من خلال اختيار المحتوى ديناميكيًا بناءً على اللغة المفضلة للمستخدم.
+وظيفة `t` في حزمة `express-intlayer` هي الأداة الأساسية لتوفير استجابات مترجمة في تطبيق Express الخاص بك. تبسط عملية التدويل (i18n) عن طريق اختيار المحتوى ديناميكيًا بناءً على اللغة المفضلة للمستخدم.
 
 ---
 
 ## نظرة عامة
 
-تُستخدم وظيفة `t` لتعريف واسترجاع الترجمات لمجموعة معينة من اللغات. تحدد تلقائيًا اللغة المناسبة للإرجاع بناءً على إعدادات طلب العميل، مثل ترويسة `Accept-Language`. إذا لم تكن اللغة المفضلة متوفرة، فإنها تعود بسلاسة إلى اللغة الافتراضية المحددة في التكوين الخاص بك.
+تُستخدم وظيفة `t` لتعريف واسترجاع الترجمات لمجموعة معينة من اللغات. تقوم تلقائيًا بتحديد اللغة المناسبة للإرجاع بناءً على إعدادات طلب العميل، مثل ترويسة `Accept-Language`. إذا كانت اللغة المفضلة غير متوفرة، فإنها تعود بسلاسة إلى اللغة الافتراضية المحددة في التكوين الخاص بك.
 
 ---
 
 ## الميزات الرئيسية
 
-- **التدويل الديناميكي**: يختار الترجمة الأنسب للعميل تلقائيًا.
-- **العودة إلى اللغة الافتراضية**: يعود إلى اللغة الافتراضية إذا لم تكن اللغة المفضلة للعميل متوفرة، مما يضمن استمرارية تجربة المستخدم.
-- **خفيف وسريع**: مصمم للتطبيقات عالية الأداء، مما يضمن الحد الأدنى من التأثير.
-- **دعم الوضع الصارم**: يفرض الالتزام الصارم باللغات المعلنة لضمان السلوك الموثوق.
+- **التوطين الديناميكي**: تختار تلقائيًا الترجمة الأكثر ملاءمة للعميل.
+- **الرجوع إلى اللغة الافتراضية**: تعود إلى اللغة الافتراضية إذا لم تكن اللغة المفضلة للعميل متوفرة، مما يضمن استمرارية تجربة المستخدم.
+- **خفيفة وسريعة**: مصممة للتطبيقات عالية الأداء، مما يضمن الحد الأدنى من العبء.
+- **دعم الوضع الصارم**: فرض الالتزام الصارم باللغات المعلنة لضمان السلوك الموثوق.
 
 ---
 
@@ -25,7 +25,7 @@
 t(translations: Record<string, string>): string;
 ```
 
-### المعلمات
+### المعاملات
 
 - `translations`: كائن حيث تكون المفاتيح رموز اللغات (مثل `en`, `fr`, `es-MX`) والقيم هي النصوص المترجمة المقابلة.
 
@@ -35,9 +35,9 @@ t(translations: Record<string, string>): string;
 
 ---
 
-## تحميل معالج طلب التدويل
+## تحميل معالج طلبات التدويل
 
-لضمان عمل وظيفة التدويل التي يوفرها `express-intlayer` بشكل صحيح، **يجب** تحميل الوسيط الخاص بالتدويل في بداية تطبيق Express الخاص بك. يتيح ذلك وظيفة `t` ويضمن التعامل الصحيح مع اكتشاف اللغة والترجمة.
+لضمان عمل وظيفة التدويل التي توفرها `express-intlayer` بشكل صحيح، **يجب** تحميل الوسيط الخاص بالتدويل في بداية تطبيق Express الخاص بك. يتيح ذلك وظيفة `t` ويضمن التعامل الصحيح مع اكتشاف اللغة والترجمة.
 
 ضع الوسيط `app.use(intlayer())` **قبل أي مسارات** في تطبيقك لضمان استفادة جميع المسارات من التدويل:
 
@@ -47,17 +47,17 @@ import { intlayer } from "express-intlayer";
 
 const app: Express = express();
 
-// تحميل معالج طلب التدويل
+// تحميل معالج طلبات التدويل
 app.use(intlayer());
 
 // تعريف المسارات بعد تحميل الوسيط
 app.get("/", (_req, res) => {
   res.send(
     t({
+      ar: "مرحبًا بالعالم!",
       en: "Hello, World!",
       fr: "Bonjour le monde!",
       es: "¡Hola, Mundo!",
-      ar: "مرحبًا، العالم!",
     })
   );
 });
@@ -69,17 +69,17 @@ import { intlayer } from "express-intlayer";
 
 const app = express();
 
-// تحميل معالج طلب التدويل
+// تحميل معالج طلبات التدويل
 app.use(intlayer());
 
 // تعريف المسارات بعد تحميل الوسيط
 app.get("/", (_req, res) => {
   res.send(
     t({
+      ar: "مرحبًا بالعالم!",
       en: "Hello, World!",
       fr: "Bonjour le monde!",
       es: "¡Hola, Mundo!",
-      ar: "مرحبًا، العالم!",
     })
   );
 });
@@ -91,17 +91,17 @@ const { intlayer } = require("express-intlayer");
 
 const app = express();
 
-// تحميل معالج طلب التدويل
+// تحميل معالج طلبات التدويل
 app.use(intlayer());
 
 // تعريف المسارات بعد تحميل الوسيط
 app.get("/", (_req, res) => {
   res.send(
     t({
+      ar: "مرحبًا بالعالم!",
       en: "Hello, World!",
       fr: "Bonjour le monde!",
       es: "¡Hola, Mundo!",
-      ar: "مرحبًا، العالم!",
     })
   );
 });
@@ -110,8 +110,8 @@ app.get("/", (_req, res) => {
 ### لماذا هذا مطلوب
 
 - **اكتشاف اللغة**: يقوم الوسيط `intlayer` بمعالجة الطلبات الواردة لاكتشاف اللغة المفضلة للمستخدم بناءً على الترويسات أو الكوكيز أو الطرق الأخرى المكونة.
-- **سياق الترجمة**: يهيئ السياق اللازم لوظيفة `t` للعمل بشكل صحيح، مما يضمن إرجاع الترجمات باللغة الصحيحة.
-- **منع الأخطاء**: بدون هذا الوسيط، ستؤدي وظيفة `t` إلى أخطاء وقت التشغيل لأن معلومات اللغة اللازمة لن تكون متوفرة.
+- **سياق الترجمة**: يهيئ السياق اللازم لوظيفة `t` للعمل بشكل صحيح، مما يضمن أن الترجمات تُرجع باللغة الصحيحة.
+- **منع الأخطاء**: بدون هذا الوسيط، ستؤدي محاولة استخدام وظيفة `t` إلى أخطاء أثناء التشغيل لأن معلومات اللغة اللازمة لن تكون متوفرة.
 
 ---
 
@@ -125,10 +125,10 @@ app.get("/", (_req, res) => {
 app.get("/", (_req, res) => {
   res.send(
     t({
+      ar: "أهلاً وسهلاً!",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
-      ar: "مرحبًا!",
     })
   );
 });
@@ -138,10 +138,10 @@ app.get("/", (_req, res) => {
 app.get("/", (_req, res) => {
   res.send(
     t({
+      ar: "أهلاً وسهلاً!",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
-      ar: "مرحبًا!",
     })
   );
 });
@@ -151,10 +151,10 @@ app.get("/", (_req, res) => {
 app.get("/", (_req, res) => {
   res.send(
     t({
+      ar: "أهلاً وسهلاً!",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
-      ar: "مرحبًا!",
     })
   );
 });
@@ -162,11 +162,11 @@ app.get("/", (_req, res) => {
 
 **طلبات العميل:**
 
-- العميل مع `Accept-Language: fr` سيستلم `Bienvenue!`.
-- العميل مع `Accept-Language: es` سيستلم `¡Bienvenido!`.
-- العميل مع `Accept-Language: de` سيستلم `Welcome!` (اللغة الافتراضية).
+- العميل مع `Accept-Language: fr` سيتلقى `Bienvenue!`.
+- العميل مع `Accept-Language: es` سيتلقى `¡Bienvenido!`.
+- العميل مع `Accept-Language: de` سيتلقى `Welcome!` (اللغة الافتراضية).
 
-### معالجة الأخطاء
+### التعامل مع الأخطاء
 
 توفير رسائل خطأ بلغات متعددة:
 
@@ -174,10 +174,10 @@ app.get("/", (_req, res) => {
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
+      ar: "حدث خطأ غير متوقع.",
       en: "An unexpected error occurred.",
       fr: "Une erreur inattendue s'est produite.",
       es: "Ocurrió un error inesperado.",
-      ar: "حدث خطأ غير متوقع.",
     })
   );
 });
@@ -187,10 +187,10 @@ app.get("/error", (_req, res) => {
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
+      ar: "حدث خطأ غير متوقع.",
       en: "An unexpected error occurred.",
       fr: "Une erreur inattendue s'est produite.",
       es: "Ocurrió un error inesperado.",
-      ar: "حدث خطأ غير متوقع.",
     })
   );
 });
@@ -200,10 +200,10 @@ app.get("/error", (_req, res) => {
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
+      ar: "حدث خطأ غير متوقع.",
       en: "An unexpected error occurred.",
       fr: "Une erreur inattendue s'est produite.",
       es: "Ocurrió un error inesperado.",
-      ar: "حدث خطأ غير متوقع.",
     })
   );
 });
@@ -219,12 +219,12 @@ app.get("/error", (_req, res) => {
 app.get("/greet", (_req, res) => {
   res.send(
     t({
+      ar: "مرحبًا!",
       en: "Hello!",
       "en-GB": "Hello, mate!",
       fr: "Bonjour!",
       "es-MX": "¡Hola, amigo!",
       "es-ES": "¡Hola!",
-      ar: "مرحبًا!",
     })
   );
 });
@@ -234,12 +234,12 @@ app.get("/greet", (_req, res) => {
 app.get("/greet", (_req, res) => {
   res.send(
     t({
+      ar: "مرحبًا!",
       en: "Hello!",
       "en-GB": "Hello, mate!",
       fr: "Bonjour!",
       "es-MX": "¡Hola, amigo!",
       "es-ES": "¡Hola!",
-      ar: "مرحبًا!",
     })
   );
 });
@@ -249,12 +249,12 @@ app.get("/greet", (_req, res) => {
 app.get("/greet", (_req, res) => {
   res.send(
     t({
+      ar: "مرحبًا!",
       en: "Hello!",
       "en-GB": "Hello, mate!",
       fr: "Bonjour!",
       "es-MX": "¡Hola, amigo!",
       "es-ES": "¡Hola!",
-      ar: "مرحبًا!",
     })
   );
 });
@@ -262,18 +262,18 @@ app.get("/greet", (_req, res) => {
 
 ---
 
-## مواضيع متقدمة
+## المواضيع المتقدمة
 
-### آلية العودة
+### آلية الرجوع
 
-إذا لم تكن اللغة المفضلة متوفرة، فإن وظيفة `t` ستعود إلى اللغة الافتراضية المحددة في التكوين:
+إذا كانت اللغة المفضلة غير متوفرة، فإن وظيفة `t` ستعود إلى اللغة الافتراضية المحددة في التكوين:
 
 ```typescript {5-6} fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
 } satisfies IntlayerConfig;
@@ -287,7 +287,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
 };
@@ -301,8 +301,69 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
+  },
+};
+
+module.exports = config;
+```
+
+على سبيل المثال:
+
+- إذا كانت `defaultLocale` هي `Locales.CHINESE` وطلب العميل `Locales.DUTCH`، فستكون الترجمة المرجعة هي القيمة الافتراضية لـ `Locales.CHINESE`.
+
+---
+
+---
+
+### فرض وضع صارم
+
+قم بتكوين وظيفة `t` لفرض الالتزام الصارم باللغات المعلنة:
+
+| الوضع       | السلوك                                                                               |
+| ----------- | ------------------------------------------------------------------------------------ |
+| `strict`    | يجب توفير ترجمات لجميع اللغات المعلنة. ستظهر أخطاء إذا كانت هناك لغات مفقودة.        |
+| `inclusive` | يجب أن تحتوي اللغات المعلنة على ترجمات. اللغات المفقودة ستظهر تحذيرات ولكنها مقبولة. |
+| `loose`     | يتم قبول أي لغة موجودة، حتى لو لم تكن معلنة.                                         |
+
+مثال على التكوين:
+
+```typescript {7} fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config = {
+  // ... تكوينك الحالي
+  internationalization: {
+    // ... تكوين التدويل الحالي الخاص بك
+    strictMode: "strict", // فرض الوضع الصارم
+  },
+} satisfies IntlayerConfig;
+
+export default config;
+```
+
+```javascript {7} fileName="intlayer.config.mjs" codeFormat="esm"
+import { type IntlayerConfig } from "intlayer";
+
+const config = {
+  // ... تكوينك الحالي
+  internationalization: {
+    // ... تكوين التدويل الحالي الخاص بك
+    strictMode: "strict", // فرض الوضع الصارم
+  },
+};
+
+export default config;
+```
+
+```javascript {7} fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... تكوينك الحالي
+  internationalization: {
+    // ... تكوين التدويل الحالي الخاص بك
+    strictMode: "strict", // فرض الوضع الصارم
   },
 };
 
@@ -311,6 +372,77 @@ module.exports = config;
 
 ---
 
+### تكامل TypeScript
+
+وظيفة `t` آمنة من حيث النوع عند استخدامها مع TypeScript. قم بتعريف كائن ترجمات آمن من حيث النوع:
+
+```typescript fileName="src/index.ts" codeFormat="typescript"
+import { type LanguageContent } from "express-intlayer";
+
+const translations: LanguageContent<string> = {
+  ar: "صباح الخير!",
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+import { type LanguageContent } from "express-intlayer";
+
+/** @type {import('express-intlayer').LanguageContent<string>} */
+const translations = {
+  ar: "صباح الخير!",
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+const { type LanguageContent } = require("express-intlayer");
+
+/** @type {import('express-intlayer').LanguageContent<string>} */
+const translations = {
+  ar: "صباح الخير!",
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+---
+
+### الأخطاء الشائعة واستكشاف الأخطاء وإصلاحها
+
+| المشكلة                  | السبب                                  | الحل                                              |
+| ------------------------ | -------------------------------------- | ------------------------------------------------- |
+| وظيفة `t` لا تعمل        | لم يتم تحميل الوسيط                    | تأكد من إضافة `app.use(intlayer())` قبل المسارات. |
+| خطأ في الترجمات المفقودة | تم تمكين الوضع الصارم بدون جميع اللغات | قم بتوفير جميع الترجمات المطلوبة.                 |
+
+---
+
+## نصائح للاستخدام الفعّال
+
+1. **مركزية الترجمات**: استخدم وحدة مركزية أو ملفات JSON لإدارة الترجمات لتحسين قابلية الصيانة.
+2. **التحقق من الترجمات**: تأكد من أن كل متغير لغة يحتوي على ترجمة مقابلة لمنع العودة غير الضرورية.
+3. **الدمج مع التدويل الأمامي**: قم بمزامنة التدويل مع الواجهة الأمامية لتجربة مستخدم سلسة عبر التطبيق.
+4. **قياس الأداء**: اختبر أوقات استجابة التطبيق عند إضافة الترجمات لضمان تأثير ضئيل.
+
+---
+
 ## الخاتمة
 
-وظيفة `t` هي أداة قوية للتدويل في الخلفية. باستخدامها بشكل فعال، يمكنك إنشاء تطبيق أكثر شمولية وملاءمة للمستخدمين على مستوى العالم. لمزيد من الاستخدامات المتقدمة وخيارات التكوين التفصيلية، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+وظيفة `t` هي أداة قوية لتدويل الواجهة الخلفية. باستخدامها بفعالية، يمكنك إنشاء تطبيق أكثر شمولاً وسهولة في الاستخدام لجمهور عالمي. للحصول على استخدام متقدم وخيارات تكوين مفصلة، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).

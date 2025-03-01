@@ -44,7 +44,7 @@ export const LOCALE_LIST: Locales[] = [
   Locales.RUSSIAN,
 ];
 
-const NB_SIMULTANEOUS_REQUESTS: number = 1;
+const NB_SIMULTANEOUS_REQUESTS: number = 3;
 
 const SKIP_RANGE_OF_LAST_UPDATE_TIME: number = 2 * 60 * 60 * 1000; // 2 hours
 
