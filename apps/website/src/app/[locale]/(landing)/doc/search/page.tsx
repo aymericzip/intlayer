@@ -1,9 +1,26 @@
 import { SearchView } from '@components/DocPage/Search/SearchView';
-import { Container, Loader } from '@intlayer/design-system';
+import { Container, H1, Loader } from '@intlayer/design-system';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
-import { IntlayerServerProvider } from 'next-intlayer/server';
-import { Suspense } from 'react';
+import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { FC, Suspense } from 'react';
+
+const DocumentationSearchPageContent: FC = () => {
+  const { title } = useIntlayer('doc-search-page');
+
+  return (
+    <>
+      <H1>{title}</H1>
+      <div className="flex size-full flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">
+        <Container className="mx-auto w-full max-w-3xl p-10" roundedSize="2xl">
+          <Suspense fallback={<Loader />}>
+            <SearchView />
+          </Suspense>
+        </Container>
+      </div>
+    </>
+  );
+};
 
 const DocumentationSearchPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
@@ -11,13 +28,7 @@ const DocumentationSearchPage: NextPageIntlayer = async ({ params }) => {
   return (
     <IntlayerServerProvider locale={locale}>
       <WebsiteHeader />
-      <div className="flex size-full flex-1 items-baseline p-10 md:mt-[10vh]">
-        <Container className="mx-auto w-full max-w-3xl p-10" roundedSize="2xl">
-          <Suspense fallback={<Loader />}>
-            <SearchView />
-          </Suspense>
-        </Container>
-      </div>
+      <DocumentationSearchPageContent />
     </IntlayerServerProvider>
   );
 };
