@@ -1,13 +1,17 @@
-import { relative } from 'path';
+import { dirname, join, relative } from 'path';
 import dotenv from 'dotenv';
 import { Locales, logger } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import fg from 'fast-glob';
 import { OpenAI } from 'openai';
 import pLimit from 'p-limit';
-import { getFileContent, getAbsolutePath, writeFileContent } from './fs';
-import { localeObject } from './localeList';
-import { existsSync, statSync } from 'fs';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from 'fs';
 
 dotenv.config();
 
@@ -24,10 +28,44 @@ const DOC_LIST: string[] = [
   // '/Users/aymericpineau/Documents/intlayer/docs/en/intlayer_with_nextjs_15.md',
 ];
 
+export const LOCALE_LIST: Locales[] = [
+  // Locales.ENGLISH,
+  Locales.FRENCH,
+  Locales.SPANISH,
+  Locales.ENGLISH_UNITED_KINGDOM,
+  Locales.GERMAN,
+  Locales.JAPANESE,
+  Locales.KOREAN,
+  Locales.CHINESE,
+  Locales.ITALIAN,
+  Locales.PORTUGUESE,
+  Locales.HINDI,
+  Locales.ARABIC,
+  Locales.RUSSIAN,
+];
+
+const NB_SIMULTANEOUS_REQUESTS = 3;
+
 const SKIP_RANGE_OF_LAST_UPDATE_TIME = 2 * 60 * 60 * 1000; // 2 hours
 
 const ERROR_MAX_RETRY_COUNT = 3;
 const ERROR_WAIT_TIME = 30 * 1000; // 30 seconds
+
+const getFileContent = (filePath: string): string => {
+  // Read the file content using Node.js fs module.
+  const fileContent = readFileSync(filePath, 'utf-8');
+  return fileContent;
+};
+
+const getAbsolutePath = (filePath: string): string => join(__dirname, filePath);
+
+const writeFileContent = (filePath: string, content: string) => {
+  // Create the directory if it doesn't exist
+  const dir = dirname(filePath);
+  mkdirSync(dir, { recursive: true });
+
+  writeFileSync(filePath, content);
+};
 
 export const auditFile = async (filePath: string, locale: Locales) => {
   try {
@@ -115,8 +153,6 @@ export const auditFile = async (filePath: string, locale: Locales) => {
   }
 };
 
-const excludedLocales = [Locales.ENGLISH];
-
 /**
  * Audits the content declaration files by constructing a prompt for ChatGPT.
  * The prompt includes details about the project's locales, file paths of content declarations,
@@ -129,7 +165,7 @@ const excludedLocales = [Locales.ENGLISH];
  * @returns This function returns a Promise that resolves once the audit is complete.
  */
 export const audit = async () => {
-  const limit = pLimit(3); // Limit the number of concurrent requests
+  const limit = pLimit(NB_SIMULTANEOUS_REQUESTS); // Limit the number of concurrent requests
 
   const docList: string[] =
     DOC_LIST.length > 0 ? DOC_LIST : fg.sync('en/**/*.md');
@@ -140,13 +176,9 @@ export const audit = async () => {
     );
   }
 
-  const pushPromises = Object.keys(localeObject)
-    .filter((locale) => !excludedLocales.includes(locale as Locales))
-    .map((locale) =>
-      docList.map((docPath) =>
-        limit(() => auditFile(docPath, locale as Locales))
-      )
-    );
+  const pushPromises = LOCALE_LIST.map((locale) =>
+    docList.map((docPath) => limit(() => auditFile(docPath, locale as Locales)))
+  );
 
   await Promise.all(pushPromises.flat());
 };
