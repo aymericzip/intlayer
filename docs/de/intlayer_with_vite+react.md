@@ -6,10 +6,10 @@
 
 Mit Intlayer können Sie:
 
-- **Übersetzungen einfach verwalten** mit deklarativen Wörterbüchern auf Komponentenebene.
+- **Übersetzungen einfach verwalten** durch deklarative Wörterbücher auf Komponentenebene.
 - **Metadaten, Routen und Inhalte dynamisch lokalisieren**.
 - **TypeScript-Unterstützung sicherstellen** mit automatisch generierten Typen, die die Autovervollständigung und Fehlererkennung verbessern.
-- **Von erweiterten Funktionen profitieren**, wie dynamische Spracherkennung und -umschaltung.
+- **Von erweiterten Funktionen profitieren**, wie dynamische Lokalerkennung und -umschaltung.
 
 ---
 
@@ -33,13 +33,13 @@ yarn add intlayer react-intlayer vite-intlayer
 
 - **intlayer**
 
-  Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md) bereitstellt.
+  Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzungen, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md) bereitstellt.
 
 - **react-intlayer**
-  Das Paket, das Intlayer mit React-Anwendungen integriert. Es bietet Kontextanbieter und Hooks für die React-Internationalisierung.
+  Das Paket, das Intlayer in React-Anwendungen integriert. Es bietet Kontextanbieter und Hooks für die Internationalisierung in React.
 
 - **vite-intlayer**
-  Beinhaltet das Vite-Plugin zur Integration von Intlayer mit dem [Vite-Bundler](https://vite.dev/guide/why.html#why-bundle-for-production) sowie Middleware zur Erkennung der bevorzugten Sprache des Benutzers, Verwaltung von Cookies und URL-Umleitungen.
+  Beinhaltet das Vite-Plugin zur Integration von Intlayer mit dem [Vite-Bundler](https://vite.dev/guide/why.html#why-bundle-for-production) sowie Middleware zur Erkennung der bevorzugten Benutzersprache, Verwaltung von Cookies und URL-Weiterleitungen.
 
 ### Schritt 2: Konfiguration Ihres Projekts
 
@@ -101,11 +101,11 @@ const config = {
 module.exports = config;
 ```
 
-> Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Umleitungen, Cookienamen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen festlegen, Intlayer-Protokolle in der Konsole deaktivieren und mehr. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md).
+> Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Weiterleitungen, Cookienamen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen festlegen, Intlayer-Logs in der Konsole deaktivieren und mehr. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md).
 
 ### Schritt 3: Integration von Intlayer in Ihre Vite-Konfiguration
 
-Fügen Sie das intlayer-Plugin in Ihre Konfiguration ein.
+Fügen Sie das Intlayer-Plugin in Ihre Konfiguration ein.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -140,7 +140,7 @@ module.exports = defineConfig({
 });
 ```
 
-> Das `intlayerPlugin()` Vite-Plugin wird verwendet, um Intlayer mit Vite zu integrieren. Es stellt sicher, dass Inhaltsdeklarationsdateien erstellt und im Entwicklungsmodus überwacht werden. Es definiert Intlayer-Umgebungsvariablen innerhalb der Vite-Anwendung. Zusätzlich bietet es Aliase zur Leistungsoptimierung.
+> Das `intlayerPlugin()` Vite-Plugin wird verwendet, um Intlayer mit Vite zu integrieren. Es sorgt für den Aufbau von Inhaltsdeklarationsdateien und überwacht diese im Entwicklungsmodus. Es definiert Intlayer-Umgebungsvariablen innerhalb der Vite-Anwendung. Zusätzlich bietet es Aliase zur Optimierung der Leistung.
 
 ### Schritt 4: Deklarieren Sie Ihre Inhalte
 
@@ -157,11 +157,13 @@ const appContent = {
       en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
+      de: "Vite-Logo",
     }),
     reactLogo: t({
       en: "React logo",
       fr: "Logo React",
       es: "Logo React",
+      de: "React-Logo",
     }),
 
     title: "Vite + React",
@@ -170,10 +172,11 @@ const appContent = {
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
+      de: "Anzahl ist ",
     }),
 
     edit: t<ReactNode>({
-      // Don't forget to import React if you use a React node in your content
+      // Vergessen Sie nicht, React zu importieren, wenn Sie einen React-Knoten in Ihrem Inhalt verwenden
       en: (
         <>
           Edit <code>src/App.tsx</code> and save to test HMR
@@ -189,12 +192,19 @@ const appContent = {
           Edita <code>src/App.tsx</code> y guarda para probar HMR
         </>
       ),
+      de: (
+        <>
+          Bearbeiten Sie <code>src/App.tsx</code> und speichern Sie, um HMR zu
+          testen
+        </>
+      ),
     }),
 
     readTheDocs: t({
       en: "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
+      de: "Klicken Sie auf die Vite- und React-Logos, um mehr zu erfahren",
     }),
   },
 } satisfies Dictionary;
@@ -212,7 +222,8 @@ export default appContent;
       "translation": {
         "en": "Vite logo",
         "fr": "Logo Vite",
-        "es": "Logo Vite"
+        "es": "Logo Vite",
+        "de": "Vite-Logo"
       }
     },
     "reactLogo": {
@@ -220,7 +231,8 @@ export default appContent;
       "translation": {
         "en": "React logo",
         "fr": "Logo React",
-        "es": "Logo React"
+        "es": "Logo React",
+        "de": "React-Logo"
       }
     },
     "title": {
@@ -228,7 +240,8 @@ export default appContent;
       "translation": {
         "en": "Vite + React",
         "fr": "Vite + React",
-        "es": "Vite + React"
+        "es": "Vite + React",
+        "de": "Vite + React"
       }
     },
     "count": {
@@ -236,7 +249,8 @@ export default appContent;
       "translation": {
         "en": "count is ",
         "fr": "le compte est ",
-        "es": "el recuento es "
+        "es": "el recuento es ",
+        "de": "Anzahl ist "
       }
     },
     "edit": {
@@ -244,7 +258,8 @@ export default appContent;
       "translation": {
         "en": "Edit src/App.tsx and save to test HMR",
         "fr": "Éditez src/App.tsx et enregistrez pour tester HMR",
-        "es": "Edita src/App.tsx y guarda para probar HMR"
+        "es": "Edita src/App.tsx y guarda para probar HMR",
+        "de": "Bearbeiten Sie src/App.tsx und speichern Sie, um HMR zu testen"
       }
     },
     "readTheDocs": {
@@ -252,20 +267,20 @@ export default appContent;
       "translation": {
         "en": "Click on the Vite and React logos to learn more",
         "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
-        "es": "Haga clic en los logotipos de Vite y React para obtener más información"
+        "es": "Haga clic en los logotipos de Vite y React para obtener más información",
+        "de": "Klicken Sie auf die Vite- und React-Logos, um mehr zu erfahren"
       }
     }
   }
 }
 ```
 
-> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie sich im `contentDir`-Verzeichnis befinden (standardmäßig `./src`). Und die Inhaltsdeklarationsdateierweiterung (standardmäßig `.content.{ts,tsx,js,jsx,mjs,cjs}`) übereinstimmt.
-> Weitere Details finden Sie in der [Inhaltsdeklarationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
-> Wenn Ihre Inhaltsdatei TSX-Code enthält, sollten Sie in Betracht ziehen, `import React from "react";` in Ihrer Inhaltsdatei zu importieren.
+> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie sich im `contentDir`-Verzeichnis befinden (standardmäßig `./src`). Und sie müssen der Inhaltsdeklarationsdateierweiterung entsprechen (standardmäßig `.content.{ts,tsx,js,jsx,mjs,cjs}`). Weitere Details finden Sie in der [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).  
+> Wenn Ihre Inhaltsdatei TSX-Code enthält, sollten Sie in Ihrer Inhaltsdatei `import React from "react";` importieren.
 
 ### Schritt 5: Verwenden Sie Intlayer in Ihrem Code
 
-Greifen Sie auf Ihre Inhaltswörterbücher in Ihrer gesamten Anwendung zu:
+Greifen Sie in Ihrer gesamten Anwendung auf Ihre Inhaltswörterbücher zu:
 
 ```tsx {5,9} fileName="src/App.tsx" codeFormat="typescript"
 import { useState, type FC } from "react";
@@ -320,8 +335,32 @@ export default App;
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> Um mehr über den `useIntlayer`-Hook zu erfahren, lesen Sie die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/useIntlayer.md).
+> Weitere Informationen zum `useIntlayer`-Hook finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/useIntlayer.md).
 
 ### (Optional) Schritt 6: Ändern Sie die Sprache Ihrer Inhalte
 
-Um die Sprache Ihrer Inhalte zu ändern, können Sie die `setLocale`-Funktion verwenden, die vom `useLocale`-Hook bereitgestellt wird.
+Um die Sprache Ihrer Inhalte zu ändern, können Sie die Funktion `setLocale` verwenden, die vom `useLocale`-Hook bereitgestellt wird. Diese Funktion ermöglicht es Ihnen, die Sprache der Anwendung festzulegen und die Inhalte entsprechend zu aktualisieren.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const LocaleSwitcher: FC = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.GERMAN)}>
+      Sprache auf Deutsch ändern
+    </button>
+  );
+};
+```
+
+> Weitere Informationen zum `useLocale`-Hook finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/useLocale.md).
+
+---
+
+### Gehen Sie weiter
+
+Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md) externalisieren.

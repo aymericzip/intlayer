@@ -1,4 +1,4 @@
-# Getting Started Internationalising (i18n) with Intlayer and Vite and React
+# Getting Started Internationalising (i18n) with Intlayer, Vite, and React
 
 ## What is Intlayer?
 
@@ -36,7 +36,7 @@ yarn add intlayer react-intlayer vite-intlayer
   The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_cli.md).
 
 - **react-intlayer**
-  The package that integrates Intlayer with React application. It provides context providers and hooks for React internationalisation.
+  The package that integrates Intlayer with React applications. It provides context providers and hooks for React internationalisation.
 
 - **vite-intlayer**
   Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
@@ -155,11 +155,13 @@ const appContent = {
   content: {
     viteLogo: t({
       en: "Vite logo",
+      "en-GB": "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     reactLogo: t({
       en: "React logo",
+      "en-GB": "React logo",
       fr: "Logo React",
       es: "Logo React",
     }),
@@ -168,6 +170,7 @@ const appContent = {
 
     count: t({
       en: "count is ",
+      "en-GB": "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
     }),
@@ -175,6 +178,11 @@ const appContent = {
     edit: t<ReactNode>({
       // Don't forget to import React if you use a React node in your content
       en: (
+        <>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </>
+      ),
+      "en-GB": (
         <>
           Edit <code>src/App.tsx</code> and save to test HMR
         </>
@@ -193,6 +201,7 @@ const appContent = {
 
     readTheDocs: t({
       en: "Click on the Vite and React logos to learn more",
+      "en-GB": "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
     }),
@@ -211,11 +220,13 @@ const appContent = {
   content: {
     viteLogo: t({
       en: "Vite logo",
+      "en-GB": "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     reactLogo: t({
       en: "React logo",
+      "en-GB": "React logo",
       fr: "Logo React",
       es: "Logo React",
     }),
@@ -224,6 +235,7 @@ const appContent = {
 
     count: t({
       en: "count is ",
+      "en-GB": "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
     }),
@@ -234,6 +246,11 @@ const appContent = {
       {
         // Don't forget to import React if you use a React node in your content
         en: (
+          <>
+            Edit <code>src/App.tsx</code> and save to test HMR
+          </>
+        ),
+        "en-GB": (
           <>
             Edit <code>src/App.tsx</code> and save to test HMR
           </>
@@ -252,6 +269,7 @@ const appContent = {
 
     readTheDocs: t({
       en: "Click on the Vite and React logos to learn more",
+      "en-GB": "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
     }),
@@ -270,11 +288,13 @@ const appContent = {
   content: {
     viteLogo: t({
       en: "Vite logo",
+      "en-GB": "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     reactLogo: t({
       en: "React logo",
+      "en-GB": "React logo",
       fr: "Logo React",
       es: "Logo React",
     }),
@@ -283,6 +303,7 @@ const appContent = {
 
     count: t({
       en: "count is ",
+      "en-GB": "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
     }),
@@ -293,6 +314,11 @@ const appContent = {
       {
         // Don't forget to import React if you use a React node in your content
         en: (
+          <>
+            Edit <code>src/App.tsx</code> and save to test HMR
+          </>
+        ),
+        "en-GB": (
           <>
             Edit <code>src/App.tsx</code> and save to test HMR
           </>
@@ -311,6 +337,7 @@ const appContent = {
 
     readTheDocs: t({
       en: "Click on the Vite and React logos to learn more",
+      "en-GB": "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
     }),
@@ -329,6 +356,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en": "Vite logo",
+        "en-GB": "Vite logo",
         "fr": "Logo Vite",
         "es": "Logo Vite"
       }
@@ -337,6 +365,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en": "React logo",
+        "en-GB": "React logo",
         "fr": "Logo React",
         "es": "Logo React"
       }
@@ -345,6 +374,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en": "Vite + React",
+        "en-GB": "Vite + React",
         "fr": "Vite + React",
         "es": "Vite + React"
       }
@@ -353,6 +383,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en": "count is ",
+        "en-GB": "count is ",
         "fr": "le compte est ",
         "es": "el recuento es "
       }
@@ -361,6 +392,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en": "Edit src/App.tsx and save to test HMR",
+        "en-GB": "Edit src/App.tsx and save to test HMR",
         "fr": "Éditez src/App.tsx et enregistrez pour tester HMR",
         "es": "Edita src/App.tsx y guarda para probar HMR"
       }
@@ -369,6 +401,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en": "Click on the Vite and React logos to learn more",
+        "en-GB": "Click on the Vite and React logos to learn more",
         "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
         "es": "Haga clic en los logotipos de Vite y React para obtener más información"
       }
@@ -377,7 +410,7 @@ module.exports = appContent;
 }
 ```
 
-> Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
+> Your content declarations can be defined anywhere in your application as soon as they are included in the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md).
 > If your content file includes TSX code, you should consider importing `import React from "react";` in your content file.
 
@@ -547,7 +580,7 @@ const LocaleSwitcher: FC = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.English)}>
+    <button onClick={() => setLocale(Locales.ENGLISH)}>
       Change Language to English
     </button>
   );
@@ -562,7 +595,7 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.English)}>
+    <button onClick={() => setLocale(Locales.ENGLISH)}>
       Change Language to English
     </button>
   );
@@ -577,7 +610,7 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.English)}>
+    <button onClick={() => setLocale(Locales.ENGLISH)}>
       Change Language to English
     </button>
   );
@@ -1230,7 +1263,7 @@ Ensure your TypeScript configuration includes the autogenerated types.
   // your custom config
   "include": [
     "src",
-    "types", // <- Include the auto generated types
+    "types", // <- Include the auto-generated types
   ],
 }
 ```

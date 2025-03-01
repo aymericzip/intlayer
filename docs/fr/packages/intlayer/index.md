@@ -1,4 +1,4 @@
-# intlayer : Package NPM pour gérer un dictionnaire multilingue (i18n)
+# intlayer : Package NPM pour Gérer un Dictionnaire Multilingue (i18n)
 
 **Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, Next.js et Express.js.
 
@@ -6,8 +6,8 @@
 
 ## Pourquoi intégrer Intlayer ?
 
-- **Gestion de contenu propulsée par JavaScript** : Exploitez la flexibilité de JavaScript pour définir et gérer efficacement votre contenu.
-- **Environnement Type-Safe** : Utilisez TypeScript pour garantir que toutes vos définitions de contenu sont précises et sans erreur.
+- **Gestion de contenu propulsée par JavaScript** : Exploitez la flexibilité de JavaScript pour définir et gérer votre contenu efficacement.
+- **Environnement Type-Safe** : Profitez de TypeScript pour garantir que toutes vos définitions de contenu soient précises et sans erreur.
 - **Fichiers de contenu intégrés** : Gardez vos traductions proches de leurs composants respectifs, améliorant ainsi la maintenabilité et la clarté.
 
 ## Installation
@@ -34,7 +34,7 @@ Intlayer fournit un fichier de configuration pour configurer votre projet. Place
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -48,7 +48,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -62,7 +62,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -75,7 +75,7 @@ module.exports = config;
 
 ## Exemple d'utilisation
 
-Avec Intlayer, vous pouvez déclarer votre contenu de manière structurée n'importe où dans votre code.
+Avec Intlayer, vous pouvez déclarer votre contenu de manière structurée n'importe où dans votre base de code.
 
 Par défaut, Intlayer recherche les fichiers avec l'extension `.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
@@ -122,7 +122,6 @@ Par défaut, Intlayer recherche les fichiers avec l'extension `.content.{ts,tsx,
 Voici un exemple de déclaration de contenu :
 
 ```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
-// Déclaration de contenu pour le composant client
 import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
@@ -134,12 +133,12 @@ const clientComponentContent = {
       es: "Hola Mundo",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "Moins d'une voiture",
+      "-1": "Moins une voiture",
+      "0": "Aucune voiture",
+      "1": "Une voiture",
+      ">5": "Quelques voitures",
+      ">19": "Beaucoup de voitures",
     }),
   },
 } satisfies Dictionary;
@@ -148,7 +147,6 @@ export default clientComponentContent;
 ```
 
 ```jsx filePath="src/ClientComponent/index.content.mjs" codeFormat="esm"
-// Déclaration de contenu pour le composant client
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -161,12 +159,12 @@ const clientComponentContent = {
       es: "Hola Mundo",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "Moins d'une voiture",
+      "-1": "Moins une voiture",
+      "0": "Aucune voiture",
+      "1": "Une voiture",
+      ">5": "Quelques voitures",
+      ">19": "Beaucoup de voitures",
     }),
   },
 };
@@ -175,7 +173,6 @@ export default clientComponentContent;
 ```
 
 ```jsx filePath="src/ClientComponent/index.content.cjs" codeFormat="commonjs"
-// Déclaration de contenu pour le composant client
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -188,12 +185,12 @@ const clientComponentContent = {
       es: "Hola Mundo",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "Moins d'une voiture",
+      "-1": "Moins une voiture",
+      "0": "Aucune voiture",
+      "1": "Une voiture",
+      ">5": "Quelques voitures",
+      ">19": "Beaucoup de voitures",
     }),
   },
 };
@@ -216,12 +213,12 @@ module.exports = clientComponentContent;
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars"
+        "<-1": "Moins d'une voiture",
+        "-1": "Moins une voiture",
+        "0": "Aucune voiture",
+        "1": "Une voiture",
+        ">5": "Quelques voitures",
+        ">19": "Beaucoup de voitures"
       }
     }
   }
@@ -244,9 +241,9 @@ yarn intlayer build
 pnpm intlayer build
 ```
 
-Cette commande scanne tous les fichiers `*.content.*`, les compile et écrit les résultats dans le répertoire spécifié dans votre fichier **`intlayer.config.ts`** (par défaut, `./.intlayer`).
+Cette commande scanne tous les fichiers `*.content.*`, les compile et écrit les résultats dans le répertoire spécifié dans votre **`intlayer.config.ts`** (par défaut, `./.intlayer`).
 
-Un exemple de sortie typique pourrait ressembler à :
+Une sortie typique pourrait ressembler à :
 
 ```bash
 .
@@ -349,6 +346,92 @@ Par exemple, le fichier **en/client-component.json** pourrait ressembler à :
 }
 ```
 
+### Construisez des dictionnaires next-intl
+
+Intlayer peut être configuré pour construire des dictionnaires pour [i18next](https://www.i18next.com/) ou [next-intl](https://github.com/formatjs/react-intl/tree/main/packages/next-intl). Pour cela, vous devez ajouter la configuration suivante à votre fichier `intlayer.config.ts` :
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  /* ... */
+  content: {
+    // Indique à Intlayer de générer des fichiers de messages pour next-intl
+    dictionaryOutput: ["next-intl"],
+
+    // Le répertoire où Intlayer écrira vos fichiers JSON de messages
+    nextIntlMessagesDir: "./i18next/messages",
+  },
+};
+```
+
+```typescript fileName="intlayer.config.mjs" codeFormat="esm"
+import { Locales } from "intlayer";
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  /* ... */
+  content: {
+    // Indique à Intlayer de générer des fichiers de messages pour next-intl
+    dictionaryOutput: ["next-intl"],
+
+    // Le répertoire où Intlayer écrira vos fichiers JSON de messages
+    nextIntlMessagesDir: "./i18next/messages",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  /* ... */
+  content: {
+    // Indique à Intlayer de générer des fichiers de messages pour next-intl
+    dictionaryOutput: ["next-intl"],
+
+    // Le répertoire où Intlayer écrira vos fichiers JSON de messages
+    nextIntlMessagesDir: "./intl/messages",
+  },
+};
+
+module.exports = config;
+```
+
+> Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
+
+Sortie :
+
+```bash
+.
+└── intl
+    └── messages
+        ├── en
+        │   ├── client-component.json
+        │   └── server-component.json
+        ├── es
+        │   ├── client-component.json
+        │   └── server-component.json
+        └── fr
+            ├── client-component.json
+            └── server-component.json
+```
+
+Par exemple, le fichier **en/client-component.json** pourrait ressembler à :
+
+```json filePath="intlayer/dictionary/en/client-component.json"
+{
+  "myTranslatedContent": "Hello World",
+  "zero_numberOfCar": "No cars",
+  "one_numberOfCar": "One car",
+  "two_numberOfCar": "Two cars",
+  "other_numberOfCar": "Some cars"
+}
+```
+
 ## Outils CLI
 
 Intlayer fournit un outil CLI pour :
@@ -359,7 +442,7 @@ Intlayer fournit un outil CLI pour :
 
 Consultez [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_cli.md) pour plus d'informations.
 
-## Utilisez Intlayer dans votre application
+## Utiliser Intlayer dans votre application
 
 Une fois votre contenu déclaré, vous pouvez consommer vos dictionnaires Intlayer dans votre application.
 

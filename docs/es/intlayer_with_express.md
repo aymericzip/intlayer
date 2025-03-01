@@ -2,21 +2,21 @@
 
 `express-intlayer` es un middleware de internacionalización (i18n) potente para aplicaciones Express, diseñado para hacer que tus servicios backend sean accesibles globalmente al proporcionar respuestas localizadas basadas en las preferencias del cliente.
 
-## ¿Por qué internacionalizar tu backend?
+## ¿Por qué Internacionalizar tu Backend?
 
-Internacionalizar tu backend es esencial para atender a una audiencia global de manera efectiva. Permite que tu aplicación entregue contenido y mensajes en el idioma preferido de cada usuario. Esta capacidad mejora la experiencia del usuario y amplía el alcance de tu aplicación al hacerla más accesible y relevante para personas de diferentes antecedentes lingüísticos.
+Internacionalizar tu backend es esencial para atender eficazmente a una audiencia global. Permite que tu aplicación entregue contenido y mensajes en el idioma preferido de cada usuario. Esta capacidad mejora la experiencia del usuario y amplía el alcance de tu aplicación al hacerla más accesible y relevante para personas de diferentes contextos lingüísticos.
 
-### Casos de uso prácticos
+### Casos Prácticos
 
-- **Mostrar errores del backend en el idioma del usuario**: Cuando ocurre un error, mostrar mensajes en el idioma nativo del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes de frontend como toasts o modales.
+- **Mostrar Errores del Backend en el Idioma del Usuario**: Cuando ocurre un error, mostrar mensajes en el idioma nativo del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes del frontend como toasts o modales.
 
-- **Recuperar contenido multilingüe**: Para aplicaciones que obtienen contenido de una base de datos, la internacionalización asegura que puedas servir este contenido en múltiples idiomas. Esto es crucial para plataformas como sitios de comercio electrónico o sistemas de gestión de contenido que necesitan mostrar descripciones de productos, artículos y otro contenido en el idioma preferido por el usuario.
+- **Recuperar Contenido Multilingüe**: Para aplicaciones que obtienen contenido de una base de datos, la internacionalización asegura que puedas servir este contenido en múltiples idiomas. Esto es crucial para plataformas como sitios de comercio electrónico o sistemas de gestión de contenido que necesitan mostrar descripciones de productos, artículos y otros contenidos en el idioma preferido por el usuario.
 
-- **Enviar correos electrónicos multilingües**: Ya sea correos electrónicos transaccionales, campañas de marketing o notificaciones, enviar correos en el idioma del destinatario puede aumentar significativamente el compromiso y la efectividad.
+- **Enviar Correos Electrónicos Multilingües**: Ya sean correos transaccionales, campañas de marketing o notificaciones, enviar correos en el idioma del destinatario puede aumentar significativamente el compromiso y la efectividad.
 
-- **Notificaciones push multilingües**: Para aplicaciones móviles, enviar notificaciones push en el idioma preferido del usuario puede mejorar la interacción y la retención. Este toque personal puede hacer que las notificaciones se sientan más relevantes y accionables.
+- **Notificaciones Push Multilingües**: Para aplicaciones móviles, enviar notificaciones push en el idioma preferido del usuario puede mejorar la interacción y la retención. Este toque personal puede hacer que las notificaciones se sientan más relevantes y accionables.
 
-- **Otras comunicaciones**: Cualquier forma de comunicación desde el backend, como mensajes SMS, alertas del sistema o actualizaciones de la interfaz de usuario, se beneficia de estar en el idioma del usuario, asegurando claridad y mejorando la experiencia general del usuario.
+- **Otras Comunicaciones**: Cualquier forma de comunicación desde el backend, como mensajes SMS, alertas del sistema o actualizaciones de la interfaz de usuario, se beneficia de estar en el idioma del usuario, asegurando claridad y mejorando la experiencia general del usuario.
 
 Al internacionalizar el backend, tu aplicación no solo respeta las diferencias culturales, sino que también se alinea mejor con las necesidades del mercado global, convirtiéndose en un paso clave para escalar tus servicios a nivel mundial.
 
@@ -101,12 +101,12 @@ const config = {
 module.exports = config;
 ```
 
-### Configuración de la aplicación Express
+### Configuración de la Aplicación Express
 
 Configura tu aplicación Express para usar `express-intlayer`:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
-// Configuración de la aplicación Express
+// Configuración de Express con internacionalización
 import express, { type Express } from "express";
 import { intlayer, t } from "express-intlayer";
 
@@ -128,11 +128,11 @@ app.get("/", (_req, res) => {
 });
 
 // Iniciar servidor
-app.listen(3000, () => console.log(`Listening on port 3000`));
+app.listen(3000, () => console.log(`Escuchando en el puerto 3000`));
 ```
 
 ```javascript fileName="src/index.mjs" codeFormat="esm"
-// Configuración de la aplicación Express
+// Configuración de Express con internacionalización
 import express from "express";
 import { intlayer, t } from "express-intlayer";
 
@@ -154,11 +154,11 @@ app.get("/", (_req, res) => {
 });
 
 // Iniciar servidor
-app.listen(3000, () => console.log(`Listening on port 3000`));
+app.listen(3000, () => console.log(`Escuchando en el puerto 3000`));
 ```
 
 ```javascript fileName="src/index.cjs" codeFormat="commonjs"
-// Configuración de la aplicación Express
+// Configuración de Express con internacionalización
 const express = require("express");
 const { intlayer, t } = require("express-intlayer");
 
@@ -180,7 +180,7 @@ app.get("/", (_req, res) => {
 });
 
 // Iniciar servidor
-app.listen(3000, () => console.log(`Listening on port 3000`));
+app.listen(3000, () => console.log(`Escuchando en el puerto 3000`));
 ```
 
 ### Compatibilidad
@@ -246,7 +246,7 @@ Por defecto, `express-intlayer` interpretará el encabezado `Accept-Language` pa
 
 ### Configurar TypeScript
 
-`express-intlayer` aprovecha las capacidades robustas de TypeScript para mejorar el proceso de internacionalización. La tipificación estática de TypeScript asegura que cada clave de traducción esté contabilizada, reduciendo el riesgo de traducciones faltantes y mejorando el mantenimiento.
+`express-intlayer` aprovecha las capacidades robustas de TypeScript para mejorar el proceso de internacionalización. El tipado estático de TypeScript asegura que cada clave de traducción esté contabilizada, reduciendo el riesgo de traducciones faltantes y mejorando el mantenimiento.
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
@@ -255,11 +255,10 @@ Por defecto, `express-intlayer` interpretará el encabezado `Accept-Language` pa
 Asegúrate de que los tipos autogenerados (por defecto en ./types/intlayer.d.ts) estén incluidos en tu archivo tsconfig.json.
 
 ```json5 fileName="tsconfig.json"
-// Configuración de TypeScript
 {
-  // ... Tus configuraciones existentes de TypeScript
+  // ... Tu configuración existente de TypeScript
   "include": [
-    // ... Tus configuraciones existentes de TypeScript
+    // ... Tu configuración existente de TypeScript
     ".intlayer/**/*.ts", // Incluir los tipos autogenerados
   ],
 }
@@ -267,11 +266,11 @@ Asegúrate de que los tipos autogenerados (por defecto en ./types/intlayer.d.ts)
 
 ### Configuración de Git
 
-Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio Git.
+Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar que se incluyan en tu repositorio Git.
 
-Para hacer esto, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
+Para hacerlo, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
 
 ```plaintext fileName=".gitignore"
-// Ignorar los archivos generados por Intlayer
+# Ignorar los archivos generados por Intlayer
 .intlayer
 ```

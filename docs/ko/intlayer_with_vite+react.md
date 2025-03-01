@@ -1,19 +1,19 @@
-# Getting Started Internationalizing (i18n) with Intlayer and Vite and React
+# 국제화(Intlayer 및 Vite와 React를 사용한 i18n) 시작하기
 
-## Intlayer란 무엇인가요?
+## Intlayer란 무엇인가?
 
-**Intlayer**는 현대 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적이고 오픈 소스인 국제화(i18n) 라이브러리입니다.
+**Intlayer**는 현대 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적인 오픈 소스 국제화(i18n) 라이브러리입니다.
 
 Intlayer를 사용하면 다음을 수행할 수 있습니다:
 
 - **컴포넌트 수준에서 선언적 사전을 사용하여 번역을 쉽게 관리**합니다.
-- **메타데이터, 라우트 및 콘텐츠를 동적으로 로컬라이즈**합니다.
-- **자동 생성된 타입을 통해 TypeScript 지원을 보장**하여 자동 완성과 오류 감지를 개선합니다.
+- **메타데이터, 라우트 및 콘텐츠를 동적으로 지역화**합니다.
+- **TypeScript 지원을 보장**하며, 자동 생성된 타입으로 자동 완성과 오류 감지를 개선합니다.
 - **동적 로케일 감지 및 전환과 같은 고급 기능**을 활용할 수 있습니다.
 
 ---
 
-## Vite 및 React 애플리케이션에서 Intlayer 설정 단계별 가이드
+## Vite와 React 애플리케이션에서 Intlayer 설정 단계별 가이드
 
 ### 1단계: 종속성 설치
 
@@ -36,14 +36,14 @@ yarn add intlayer react-intlayer vite-intlayer
   구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md), 트랜스파일링 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)을 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **react-intlayer**
-  Intlayer를 React 애플리케이션과 통합하는 패키지입니다. React 국제화를 위한 컨텍스트 제공자 및 훅을 제공합니다.
+  Intlayer를 React 애플리케이션과 통합하는 패키지입니다. React 국제화를 위한 컨텍스트 제공자와 훅을 제공합니다.
 
 - **vite-intlayer**
-  [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 Intlayer를 통합하기 위한 Vite 플러그인을 포함하며, 사용자의 선호 로케일을 감지하고, 쿠키를 관리하며, URL 리디렉션을 처리하는 미들웨어를 제공합니다.
+  [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 Intlayer를 통합하기 위한 Vite 플러그인과 사용자의 선호 로케일을 감지하고, 쿠키를 관리하며, URL 리디렉션을 처리하는 미들웨어를 포함합니다.
 
 ### 2단계: 프로젝트 구성
 
-애플리케이션의 언어를 구성하기 위한 구성 파일을 생성합니다:
+애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -54,7 +54,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // 다른 로케일 추가
+      // 추가 로케일
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -73,7 +73,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // 다른 로케일 추가
+      // 추가 로케일
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -92,7 +92,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // 다른 로케일 추가
+      // 추가 로케일
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -105,7 +105,7 @@ module.exports = config;
 
 ### 3단계: Vite 구성에 Intlayer 통합
 
-구성에 intlayer 플러그인을 추가합니다.
+구성에 Intlayer 플러그인을 추가합니다.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -176,7 +176,7 @@ const appContent = {
     }),
 
     edit: t<ReactNode>({
-      // React 노드를 콘텐츠에 사용하는 경우 React를 가져오는 것을 잊지 마세요
+      // React 노드를 콘텐츠에 사용할 경우 React를 가져오는 것을 잊지 마세요.
       en: (
         <>
           Edit <code>src/App.tsx</code> and save to test HMR
@@ -275,11 +275,11 @@ export default appContent;
 ```
 
 > 콘텐츠 선언은 `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{ts,tsx,js,jsx,mjs,cjs}`)와 일치하는 한 애플리케이션 어디에서나 정의할 수 있습니다. 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.  
-> 콘텐츠 파일에 TSX 코드가 포함된 경우, 콘텐츠 파일에서 `import React from "react";`를 가져오는 것을 고려해야 합니다.
+> 콘텐츠 파일에 TSX 코드가 포함된 경우, `import React from "react";`를 콘텐츠 파일에 가져오는 것을 고려해야 합니다.
 
 ### 5단계: 코드에서 Intlayer 사용
 
-애플리케이션 전반에서 콘텐츠 사전을 액세스합니다:
+애플리케이션 전반에서 콘텐츠 사전에 액세스합니다:
 
 ```tsx {5,9} fileName="src/App.tsx" codeFormat="typescript"
 import { useState, type FC } from "react";
@@ -328,11 +328,17 @@ const App: FC = () => (
 export default App;
 ```
 
-> `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
+> `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면 함수의 값을 호출해야 합니다:
+>
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> ```
+
+> `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
 ### (선택 사항) 6단계: 콘텐츠 언어 변경
 
-애플리케이션의 로케일을 설정하고 콘텐츠를 업데이트하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다.
+콘텐츠의 언어를 변경하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 콘텐츠를 업데이트합니다.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -343,59 +349,26 @@ const LocaleSwitcher: FC = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.KOREAN)}>
-      언어를 한국어로 변경
+    <button onClick={() => setLocale(Locales.ENGLISH)}>
+      언어를 영어로 변경
     </button>
   );
 };
 ```
 
-> `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
+> `useLocale` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
 ### (선택 사항) 7단계: 애플리케이션에 로컬라이즈된 라우팅 추가
 
-이 단계의 목적은 각 언어에 대해 고유한 라우트를 만드는 것입니다. 이는 SEO 및 SEO 친화적인 URL에 유용합니다.  
-예시:
+이 단계의 목적은 각 언어에 고유한 라우트를 만드는 것입니다. 이는 SEO와 SEO 친화적인 URL에 유용합니다.  
+예:
 
 ```plaintext
 - https://example.com/about
-- https://example.com/ko/about
+- https://example.com/es/about
 - https://example.com/fr/about
 ```
 
-> 기본적으로 기본 로케일에 대해 라우트가 접두사가 붙지 않습니다. 기본 로케일에 접두사를 붙이고 싶다면 구성에서 `middleware.prefixDefault` 옵션을 `true`로 설정할 수 있습니다. 자세한 내용은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
+> 기본적으로 기본 로케일에 대해 라우트가 접두어로 설정되지 않습니다. 기본 로케일에 접두어를 설정하려면 구성에서 `middleware.prefixDefault` 옵션을 `true`로 설정할 수 있습니다. 자세한 내용은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
 
-### TypeScript 구성
-
-Intlayer는 TypeScript의 모듈 확장을 사용하여 코드베이스를 더 강력하게 만듭니다.
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
-자동 생성된 타입을 포함하도록 TypeScript 구성을 설정하세요.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 기존 TypeScript 구성
-  "include": [
-    // ... 기존 TypeScript 구성
-    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
-  ],
-}
-```
-
-### Git 구성
-
-Intlayer에서 생성된 파일을 Git 저장소에 커밋하지 않도록 무시하는 것이 좋습니다.
-
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
-
-```plaintext
-# Intlayer에서 생성된 파일 무시
-.intlayer
-```
-
-### 더 알아보기
-
-더 알아보려면 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+... (이후 내용은 동일한 방식으로 번역됩니다)

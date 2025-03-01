@@ -20,10 +20,10 @@ Pour cela, Intlayer passe par plusieurs étapes :
 
    - Les types de dictionnaires sont générés à partir des dictionnaires intlayer. Par défaut, les types de dictionnaires intlayer sont générés dans le répertoire `types` du projet.
 
-4. Génération de l'augmentation du module Intlayer
+4. Génération de l'augmentation de module Intlayer
 
-   - L'[augmentation de module](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) Intlayer est une fonctionnalité TypeScript qui permet de définir des types supplémentaires pour Intlayer. Cela facilite l'expérience de développement en suggérant des arguments disponibles ou requis.
-     Parmi les types générés, les types de dictionnaires intlayer ou même les types de configuration de langue sont ajoutés au fichier `types/intlayer.d.ts` et utilisés par d'autres packages. Pour cela, il est nécessaire que le fichier `tsconfig.json` soit configuré pour inclure le répertoire `types` du projet.
+   - L'[augmentation de module](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) Intlayer est une fonctionnalité TypeScript qui permet de définir des types supplémentaires pour Intlayer. Cela facilite l'expérience de développement en suggérant les arguments disponibles ou requis.
+     Parmi les types générés, les types de dictionnaires intlayer ou même les types de configuration de langue sont ajoutés au fichier `types/intlayer.d.ts`, et utilisés par d'autres packages. Pour cela, il est nécessaire que le fichier `tsconfig.json` soit configuré pour inclure le répertoire `types` du projet.
 
 5. Surveillance des fichiers de contenu
 
@@ -40,7 +40,7 @@ Intlayer est composé de plusieurs packages, chacun ayant un rôle spécifique d
 
 ### intlayer
 
-Le package `intlayer` est utilisé dans les applications pour déclarer du contenu dans les fichiers de contenu.
+Le package `intlayer` est utilisé dans les applications pour déclarer du contenu dans des fichiers de contenu.
 
 ### react-intlayer
 
@@ -69,7 +69,7 @@ Le serveur, basé sur Express, est utilisé pour recevoir les requêtes visuelle
 
 ### intlayer-cli
 
-Le package `intlayer-cli` peut être utilisé pour générer des dictionnaires en utilisant la commande `npx intlayer build`. Si `intlayer` est déjà installé, le cli est automatiquement installé et ce package n'est pas nécessaire.
+Le package `intlayer-cli` peut être utilisé pour générer des dictionnaires en utilisant la commande `npx intlayer build`. Si `intlayer` est déjà installé, le CLI est automatiquement installé et ce package n'est pas nécessaire.
 
 ### @intlayer/core
 
@@ -81,7 +81,7 @@ Le package `@intlayer/config` est utilisé pour configurer les paramètres d'Int
 
 ### @intlayer/webpack
 
-Le package `@intlayer/webpack` est utilisé pour fournir une configuration Webpack afin de faire fonctionner une application basée sur Webpack avec Intlayer. Le package fournit également un plugin à ajouter dans une application Webpack existante.
+Le package `@intlayer/webpack` est utilisé pour fournir une configuration Webpack permettant de faire fonctionner une application basée sur Webpack avec Intlayer. Le package fournit également un plugin à ajouter dans une application Webpack existante.
 
 ### @intlayer/cli
 
@@ -89,7 +89,7 @@ Le package `@intlayer/cli` est un package NPM utilisé pour déclarer les script
 
 ### @intlayer/dictionaries-entry
 
-Le package `@intlayer/dictionaries-entry` est un package qui retourne uniquement le chemin d'entrée des dictionnaires intlayer. Étant donné que la recherche dans le système de fichiers est impossible depuis le navigateur, l'utilisation de bundlers comme Webpack ou Rollup pour récupérer le chemin d'entrée des dictionnaires n'est pas possible. Ce package vise à être utilisé comme alias.
+Le package `@intlayer/dictionaries-entry` est un package qui retourne uniquement le chemin d'entrée des dictionnaires intlayer. Puisque la recherche dans le système de fichiers est impossible depuis le navigateur, utiliser des bundlers comme Webpack ou Rollup pour récupérer le chemin d'entrée des dictionnaires n'est pas possible. Ce package vise à être utilisé comme alias.
 
 ### @intlayer/chokidar
 

@@ -14,8 +14,8 @@ La fonction `t` est utilisée pour définir et récupérer des traductions pour 
 
 - **Localisation dynamique** : Sélectionne automatiquement la traduction la plus appropriée pour le client.
 - **Retour à la locale par défaut** : Revient à une locale par défaut si la langue préférée du client n'est pas disponible, garantissant une continuité dans l'expérience utilisateur.
-- **Léger et rapide** : Conçu pour des applications haute performance, garantissant une surcharge minimale.
-- **Support du mode strict** : Applique une adhérence stricte aux locales déclarées pour un comportement fiable.
+- **Léger et rapide** : Conçu pour des applications à haute performance, garantissant un impact minimal.
+- **Support du mode strict** : Applique une adhésion stricte aux locales déclarées pour un comportement fiable.
 
 ---
 
@@ -104,11 +104,11 @@ app.get("/", (_req, res) => {
 });
 ```
 
-### Pourquoi est-ce nécessaire
+### Pourquoi cela est requis
 
 - **Détection des locales** : Le middleware `intlayer` traite les requêtes entrantes pour détecter la locale préférée de l'utilisateur en fonction des en-têtes, des cookies ou d'autres méthodes configurées.
 - **Contexte de traduction** : Configure le contexte nécessaire pour que la fonction `t` fonctionne correctement, garantissant que les traductions sont retournées dans la langue correcte.
-- **Prévention des erreurs** : Sans ce middleware, l'utilisation de la fonction `t` entraînera des erreurs d'exécution car les informations de locale nécessaires ne seront pas disponibles.
+- **Prévention des erreurs** : Sans ce middleware, l'utilisation de la fonction `t` entraînera des erreurs d'exécution car les informations nécessaires sur les locales ne seront pas disponibles.
 
 ---
 
@@ -154,7 +154,7 @@ app.get("/", (_req, res) => {
 });
 ```
 
-**Requêtes des clients :**
+**Requêtes client :**
 
 - Un client avec `Accept-Language: fr` recevra `Bienvenue!`.
 - Un client avec `Accept-Language: es` recevra `¡Bienvenido!`.
@@ -202,7 +202,7 @@ app.get("/error", (_req, res) => {
 
 ---
 
-### Utilisation de variantes de locales
+### Utilisation des variantes de locales
 
 Spécifiez des traductions pour des variantes spécifiques de locales :
 
@@ -296,6 +296,134 @@ const config = {
 
 module.exports = config;
 ```
+
+Par exemple :
+
+- Si `defaultLocale` est `Locales.CHINESE` et un client demande `Locales.DUTCH`, la traduction retournée sera celle de `Locales.CHINESE`.
+- Si `defaultLocale` n'est pas définie, la fonction `t` reviendra à la valeur de `Locales.ENGLISH`.
+
+---
+
+### Application du mode strict
+
+Configurez la fonction `t` pour appliquer une adhésion stricte aux locales déclarées :
+
+| Mode        | Comportement                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `strict`    | Toutes les locales déclarées doivent avoir des traductions fournies. Les locales manquantes déclenchent des erreurs.            |
+| `inclusive` | Les locales déclarées doivent avoir des traductions. Les locales manquantes déclenchent des avertissements mais sont acceptées. |
+| `loose`     | Toute locale existante est acceptée, même si elle n'est pas déclarée.                                                           |
+
+Exemple de configuration :
+
+```typescript {7} fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config = {
+  // ... Votre configuration existante
+  internationalization: {
+    // ... Votre configuration d'internationalisation existante
+    strictMode: "strict", // Appliquer le mode strict
+  },
+} satisfies IntlayerConfig;
+
+export default config;
+```
+
+```javascript {7} fileName="intlayer.config.mjs" codeFormat="esm"
+import { type IntlayerConfig } from "intlayer";
+
+const config = {
+  // ... Votre configuration existante
+  internationalization: {
+    // ... Votre configuration d'internationalisation existante
+    strictMode: "strict", // Appliquer le mode strict
+  },
+};
+
+export default config;
+```
+
+```javascript {7} fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Votre configuration existante
+  internationalization: {
+    // ... Votre configuration d'internationalisation existante
+    strictMode: "strict", // Appliquer le mode strict
+  },
+};
+
+module.exports = config;
+```
+
+---
+
+### Intégration avec TypeScript
+
+La fonction `t` est typée de manière sécurisée lorsqu'elle est utilisée avec TypeScript. Définissez un objet de traductions typé :
+
+```typescript fileName="src/index.ts" codeFormat="typescript"
+import { type LanguageContent } from "express-intlayer";
+
+const translations: LanguageContent<string> = {
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+```javascript fileName="src/index.mjs" codeFormat="esm"
+import { type LanguageContent } from "express-intlayer";
+
+/** @type {import('express-intlayer').LanguageContent<string>} */
+const translations = {
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+```javascript fileName="src/index.cjs" codeFormat="commonjs"
+const { type LanguageContent } = require("express-intlayer");
+
+/** @type {import('express-intlayer').LanguageContent<string>} */
+const translations = {
+  en: "Good morning!",
+  fr: "Bonjour!",
+  es: "¡Buenos días!",
+};
+
+app.get("/morning", (_req, res) => {
+  res.send(t(translations));
+});
+```
+
+---
+
+### Erreurs courantes et dépannage
+
+| Problème                         | Cause                                      | Solution                                                            |
+| -------------------------------- | ------------------------------------------ | ------------------------------------------------------------------- |
+| Fonction `t` non fonctionnelle   | Middleware non chargé                      | Assurez-vous que `app.use(intlayer())` est ajouté avant les routes. |
+| Erreur de traductions manquantes | Mode strict activé sans toutes les locales | Fournissez toutes les traductions requises.                         |
+
+---
+
+## Conseils pour une utilisation efficace
+
+1. **Centralisez les traductions** : Utilisez un module centralisé ou des fichiers JSON pour gérer les traductions et améliorer la maintenabilité.
+2. **Validez les traductions** : Assurez-vous que chaque variante linguistique dispose d'une traduction correspondante pour éviter des retours inutiles.
+3. **Combinez avec l'i18n frontend** : Synchronisez avec l'internationalisation frontend pour une expérience utilisateur homogène dans toute l'application.
+4. **Mesurez les performances** : Testez les temps de réponse de votre application lors de l'ajout de traductions pour garantir un impact minimal.
 
 ---
 
