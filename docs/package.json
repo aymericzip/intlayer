@@ -74,6 +74,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
+    "dotenv": "^16.4.7",
     "eslint": "^9.20.0",
     "fast-glob": "^3.3.3",
     "openai": "^4.78.1",
