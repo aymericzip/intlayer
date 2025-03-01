@@ -13,7 +13,7 @@ export enum PagesRoutes {
   Dashboard_Profile = '/dashboard/profile',
 
   Doc = '/doc/get-started',
-  Doc_Roadmap = '/doc/concept/roadmap',
+  Doc_Roadmap = '/doc/roadmap',
   Doc_Search = '/doc/search',
   Doc_Chat = '/doc/chat',
   Doc_HowWorksIntlayer = '/doc/concept/how-works-intlayer',
