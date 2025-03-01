@@ -100,9 +100,9 @@ export const auditFile = async (filePath: string, locale: Locales) => {
       CHAT_GPT_CUSTOM_PROMPT !== ''
         ? CHAT_GPT_CUSTOM_PROMPT
         : getFileContent(getAbsolutePath('./PROMPT.md'))
-            .replace('{{locale}}', locale)
-            .replace('{{localeName}}', getLocaleName(locale))
-            .replace('{{fileContent}}', fileContent);
+            .replaceAll('{{locale}}', locale)
+            .replaceAll('{{localeName}}', getLocaleName(locale))
+            .replaceAll('{{fileContent}}', fileContent);
 
     // Retry mechanism: wait 30 seconds and retry if the ChatGPT request fails
     let chatCompletion;

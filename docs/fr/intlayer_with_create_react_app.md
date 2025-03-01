@@ -1,15 +1,15 @@
-# Bien démarrer avec l'internationalisation (i18n) avec Intlayer et React Create App
+# Getting Started Internationalizing (i18n) with Intlayer and React Create App
 
 ## Qu'est-ce qu'Intlayer ?
 
-**Intlayer** est une bibliothèque open-source innovante d'internationalisation (i18n) conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
+**Intlayer** est une bibliothèque innovante et open-source d'internationalisation (i18n) conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
 
 Avec Intlayer, vous pouvez :
 
 - **Gérer facilement les traductions** en utilisant des dictionnaires déclaratifs au niveau des composants.
 - **Localiser dynamiquement les métadonnées**, les routes et le contenu.
 - **Assurer la prise en charge de TypeScript** avec des types générés automatiquement, améliorant l'autocomplétion et la détection des erreurs.
-- **Bénéficier de fonctionnalités avancées**, comme la détection et le changement dynamiques de langue.
+- **Bénéficier de fonctionnalités avancées**, comme la détection et le changement dynamiques de la langue.
 
 ## Guide étape par étape pour configurer Intlayer dans une application React
 
@@ -31,7 +31,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **intlayer**
 
-  Le package principal qui fournit des outils d'internationalisation pour la gestion des configurations, des traductions, [la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md), la transpilation et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_cli.md).
+  Le package principal qui fournit des outils d'internationalisation pour la gestion des configurations, la traduction, [la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md), la transpilation et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_cli.md).
 
 - **react-intlayer**
 
@@ -49,7 +49,7 @@ Créez un fichier de configuration pour configurer les langues de votre applicat
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -68,7 +68,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -87,7 +87,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -101,7 +101,7 @@ const config = {
 module.exports = config;
 ```
 
-> Grâce à ce fichier de configuration, vous pouvez configurer des URLs localisées, des redirections middleware, des noms de cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et bien plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
+> Grâce à ce fichier de configuration, vous pouvez configurer des URL localisées, des redirections middleware, des noms de cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
 
 ### Étape 3 : Intégrer Intlayer dans votre configuration CRA
 
@@ -211,7 +211,7 @@ const appContent = {
 module.exports = appContent;
 ```
 
-> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
+> Vos déclarations de contenu peuvent être définies n'importe où dans votre application tant qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{ts,tsx,js,jsx,mjs,cjs}`).
 > Pour plus de détails, consultez la [documentation sur les déclarations de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
 > Si votre fichier de contenu inclut du code TSX, vous devriez envisager d'importer `import React from "react";` dans votre fichier de contenu.
 
@@ -326,6 +326,57 @@ const App = () => (
 
 > Pour en savoir plus sur le hook `useIntlayer`, consultez la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/react-intlayer/useIntlayer.md).
 
-### Étape 6 à Étape 9 et plus loin
+### (Optionnel) Étape 6 : Changer la langue de votre contenu
 
-Pour les étapes suivantes et les configurations avancées, veuillez consulter les sections correspondantes dans la documentation traduite.
+Pour changer la langue de votre contenu, vous pouvez utiliser la fonction `setLocale` fournie par le hook `useLocale`. Cette fonction vous permet de définir la langue de l'application et de mettre à jour le contenu en conséquence.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const LocaleSwitcher = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Changer la langue en anglais
+    </button>
+  );
+};
+```
+
+```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const LocaleSwitcher = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Changer la langue en anglais
+    </button>
+  );
+};
+```
+
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+const { Locales } = require("intlayer");
+const { useLocale } = require("react-intlayer");
+
+const LocaleSwitcher = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Changer la langue en anglais
+    </button>
+  );
+};
+```
+
+> Pour en savoir plus sur le hook `useLocale`, consultez la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/react-intlayer/useLocale.md).
+
+### (Optionnel) Étape 7 : Ajouter un routage localisé à votre application
+
+...
