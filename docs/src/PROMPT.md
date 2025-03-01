@@ -17,9 +17,10 @@ You are an expert in internationalization and content management. Your task is t
      - Each code element should be translated and present in the output file.
      - Each image should be translated and present in the output file.
      - Each link should be translated and present in the output file.
-   - If a list of translation is provided, such as `t({en: 'Hello', fr: 'Bonjour', es: 'Hola'})`, and `{{locale}}:` is not present in the list, you should add the {{locale}} to the list.
-     - Example for `fr`: `t({en: 'Hello', fr: 'Bonjour', es: 'Hola'})`.
-     - Example for `zh`: `t({en: 'Hello', fr: 'Bonjour', es: 'Hola', zh: '你好'})`.
+   - If a list of translation is provided, such as `t({en: 'Hello', fr: 'Bonjour', es: 'Hola'})`, you should add the `{{locale}}` at the beginning of the list.
+     - Example for `fr`: `t({ fr: 'Bonjour', en: 'Hello', es: 'Hola'})`.
+     - Example for `zh`: `t({ zh: '你好', en: 'Hello', fr: 'Bonjour', es: 'Hola'})`.
+     - Example for `en-GB`: `t({ 'en-GB': 'Hello', en: 'Hello', fr: 'Bonjour', es: 'Hola'})`.
 
 2. **Locales:**
 
