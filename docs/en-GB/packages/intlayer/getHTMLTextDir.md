@@ -17,7 +17,7 @@ The `getHTMLTextDir` function determines the text direction (`ltr`, `rtl`, or `a
 - **Description**: The text direction corresponding to the locale:
   - `'ltr'` for left-to-right languages.
   - `'rtl'` for right-to-left languages.
-  - `'auto'` if the locale is not recognised.
+  - `'auto'` if the locale is not recognized.
 
 ## Example Usage
 
@@ -53,8 +53,8 @@ getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
 
   - The function returns `'auto'` when `locale` is `undefined`.
 
-- **Unrecognised Locale:**
-  - For unrecognised locales, the function defaults to `'auto'`.
+- **Unrecognized Locale:**
+  - For unrecognized locales, the function defaults to `'auto'`.
 
 ## Usage in Components:
 

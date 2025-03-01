@@ -1,22 +1,22 @@
-# react-intlayer: NPM包以国际化（i18n）React应用程序
+# react-intlayer: 用于国际化 (i18n) React 应用的 NPM 包
 
-**Intlayer** 是一套专门为JavaScript开发人员设计的包。它与React、React和Express.js等框架兼容。
+**Intlayer** 是一套专为 JavaScript 开发者设计的工具包。它兼容 React、React 和 Express.js 等框架。
 
-**`react-intlayer`包**允许您国际化您的React应用程序。它为React国际化提供上下文提供者和钩子。
+**`react-intlayer` 包** 允许您对 React 应用进行国际化。它为 React 国际化提供了上下文提供者和钩子。
 
-## 为什么要国际化您的React应用程序？
+## 为什么要国际化您的 React 应用？
 
-国际化您的React应用程序对于有效地服务全球受众至关重要。它使您的应用程序能够以每个用户的首选语言传递内容和信息。此功能提升了用户体验，并通过使其更具可访问性和相关性来拓宽应用程序的覆盖面，使其适合来自不同语言背景的人。
+国际化您的 React 应用对于有效服务全球受众至关重要。它使您的应用能够以每个用户的首选语言传递内容和消息。这种能力增强了用户体验，并通过使您的应用对不同语言背景的人更具可访问性和相关性，从而扩大了应用的覆盖范围。
 
-## 为什么要集成Intlayer？
+## 为什么要集成 Intlayer？
 
-- **基于JavaScript的内容管理**：利用JavaScript的灵活性高效地定义和管理您的内容。
-- **类型安全环境**：利用TypeScript确保您的所有内容定义都是准确且无误的。
-- **集成内容文件**：将您的翻译与各自组件保持紧密，增强可维护性和清晰度。
+- **JavaScript 驱动的内容管理**：利用 JavaScript 的灵活性高效地定义和管理您的内容。
+- **类型安全的环境**：利用 TypeScript 确保所有内容定义都精确且无错误。
+- **集成的内容文件**：将翻译与其相关组件紧密结合，增强可维护性和清晰度。
 
 ## 安装
 
-使用您首选的包管理器安装必要的包：
+使用您首选的包管理器安装所需的包：
 
 ```bash packageManager="npm"
 npm install react-intlayer
@@ -30,13 +30,13 @@ yarn add react-intlayer
 pnpm add react-intlayer
 ```
 
-## 示例
+## 使用示例
 
-使用Intlayer，您可以在代码库的任何地方以结构化的方式声明您的内容。
+使用 Intlayer，您可以在代码库中的任何地方以结构化方式声明内容。
 
-默认情况下，Intlayer扫描扩展名为`.content.{ts,tsx,js,jsx,mjs,cjs}`的文件。
+默认情况下，Intlayer 会扫描扩展名为 `.content.{ts,tsx,js,jsx,mjs,cjs}` 的文件。
 
-> 您可以通过在 [配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 中设置 `contentDir` 属性来修改默认扩展名。
+> 您可以通过在[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)中设置 `contentDir` 属性来修改默认扩展名。
 
 ```bash codeFormat="typescript"
 .
@@ -79,7 +79,7 @@ pnpm add react-intlayer
 
 ### 声明您的内容
 
-`react-intlayer` 旨在与 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md) 一起使用。`intlayer` 是一个允许您在代码的任何地方声明内容的包。它将多语言内容声明转换为结构化词典，可无缝集成到您的应用中。
+`react-intlayer` 是为 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md) 设计的。`intlayer` 是一个允许您在代码中的任何地方声明内容的包。它将多语言内容声明转换为结构化字典，无缝集成到您的应用中。
 
 以下是内容声明的示例：
 
@@ -187,9 +187,9 @@ module.exports = component1Content;
 }
 ```
 
-### 在您的代码中利用内容
+### 在代码中使用内容
 
-一旦您声明了内容，就可以在代码中使用它。以下是如何在React组件中使用内容的示例：
+声明内容后，您可以在代码中使用它。以下是如何在 React 组件中使用内容的示例：
 
 ```tsx {4,7} fileName="src/components/Component1Example.tsx" codeFormat="typescript"
 "use client";
@@ -240,15 +240,15 @@ const Component1Example = () => {
 };
 ```
 
-## 掌握您React应用程序的国际化
+## 掌握 React 应用的国际化
 
-Intlayer提供了许多功能来帮助您国际化您的React应用程序。
+Intlayer 提供了许多功能来帮助您国际化您的 React 应用。
 
-**要了解有关这些功能的更多信息，请参阅 [与Intlayer和Vite及React的React国际化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)指南，或 [使用Intlayer和React（CRA）的React国际化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)指南。**
+**要了解更多关于这些功能的信息，请参考 [使用 Intlayer 和 Vite 以及 React 进行 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md) 的指南，或 [使用 Intlayer 和 React (CRA) 进行 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md) 的指南。**
 
-## `react-intlayer`包提供的功能
+## `react-intlayer` 包提供的功能
 
-`react-intlayer`包还提供了一些功能，帮助您国际化应用程序。
+`react-intlayer` 包还提供了一些功能来帮助您国际化您的应用。
 
 - [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/t.md)
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/useIntlayer.md)

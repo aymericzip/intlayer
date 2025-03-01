@@ -2,7 +2,7 @@
 
 ## Definiendo Traducciones
 
-La función `t` en `intlayer` te permite declarar contenido en varios idiomas. Esta función garantiza la seguridad de tipo, generando un error si faltan traducciones, lo cual es especialmente útil en entornos TypeScript.
+La función `t` en `intlayer` te permite declarar contenido en múltiples idiomas. Esta función asegura la seguridad de tipos, generando un error si faltan traducciones, lo cual es particularmente útil en entornos TypeScript.
 
 ### Usando TypeScript
 
@@ -76,7 +76,7 @@ module.exports = {
 
 ## Configuración para Locales
 
-Para asegurar un manejo adecuado de la traducción, puedes configurar los locales aceptados en `intlayer.config.ts`. Esta configuración te permite definir los idiomas que tu aplicación admite:
+Para asegurar un manejo adecuado de las traducciones, puedes configurar los locales aceptados en `intlayer.config.ts`. Esta configuración te permite definir los idiomas que tu aplicación soporta:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -116,9 +116,9 @@ const config = {
 module.exports = config;
 ```
 
-## Usando Traducciones en Componentes de React
+## Usando Traducciones en Componentes React
 
-Con `react-intlayer`, puedes usar traducciones en componentes de React. Aquí hay un ejemplo:
+Con `react-intlayer`, puedes usar traducciones en componentes React. Aquí hay un ejemplo:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -169,11 +169,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-Este componente obtiene la traducción correspondiente basándose en el locale actual establecido en tu aplicación.
+Este componente obtiene la traducción correspondiente basada en el locale actual configurado en tu aplicación.
 
 ## Objetos de Contenido Personalizados
 
-`intlayer` admite objetos de contenido personalizados para traducción, permitiendo que definas estructuras más complejas mientras garantizas la seguridad de tipos. Aquí hay un ejemplo con un objeto personalizado:
+`intlayer` soporta objetos de contenido personalizados para traducción, permitiéndote definir estructuras más complejas mientras asegura la seguridad de tipos. Aquí hay un ejemplo con un objeto personalizado:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";

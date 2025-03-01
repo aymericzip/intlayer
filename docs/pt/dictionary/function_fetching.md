@@ -1,12 +1,12 @@
 # Função de Busca
 
-Intlayer permite que você declare funções de conteúdo em seus módulos de conteúdo, que podem ser síncronas ou assíncronas. Quando a aplicação é construída, o Intlayer executa essas funções para obter o resultado da função. O valor de retorno deve ser um objeto JSON ou um valor simples, como uma string ou um número.
+O Intlayer permite que você declare funções de conteúdo em seus módulos de conteúdo, que podem ser síncronas ou assíncronas. Quando o aplicativo é construído, o Intlayer executa essas funções para obter o resultado da função. O valor de retorno deve ser um objeto JSON ou um valor simples como uma string ou número.
 
-> Aviso: a busca de função atualmente não está disponível na declaração de conteúdo JSON e em arquivos de declarações de conteúdo distantes.
+> Aviso: a função de busca atualmente não está disponível em declarações de conteúdo JSON e arquivos de declarações de conteúdo remoto.
 
 ## Declarações de Função
 
-Aqui está um exemplo de uma simples função síncrona que busca conteúdo:
+Aqui está um exemplo de uma função síncrona simples buscando conteúdo:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import type { Dictionary } from "intlayer";
@@ -55,20 +55,20 @@ module.exports = functionContent;
 }
 ```
 
-Neste exemplo, a chave `text` contém uma função que retorna uma string. Este conteúdo pode ser renderizado em seus componentes React usando os pacotes interpretadores do Intlayer, como `react-intlayer`.
+Neste exemplo, a chave `text` contém uma função que retorna uma string. Este conteúdo pode ser renderizado em seus componentes React usando os pacotes de intérprete do Intlayer, como `react-intlayer`.
 
 ## Busca de Função Assíncrona
 
-Além das funções síncronas, o Intlayer suporta funções assíncronas, permitindo que você busque dados de fontes externas ou simule a recuperação de dados com dados fictícios.
+Além de funções síncronas, o Intlayer suporta funções assíncronas, permitindo buscar dados de fontes externas ou simular a recuperação de dados com dados fictícios.
 
-Abaixo está um exemplo de uma função assíncrona que simula uma busca de servidor:
+Abaixo está um exemplo de uma função assíncrona que simula uma busca no servidor:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
-  // Espera 200ms para simular uma busca do servidor
+  // Aguarde 200ms para simular uma busca no servidor
   return await setTimeout(200).then(
     () => "Este é o conteúdo buscado do servidor"
   );
@@ -87,7 +87,7 @@ import { setTimeout } from "node:timers/promises";
 
 /** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
-  // Espera 200ms para simular uma busca do servidor
+  // Aguarde 200ms para simular uma busca no servidor
   await setTimeout(200);
   return "Este é o conteúdo buscado do servidor";
 };
@@ -105,7 +105,7 @@ const { setTimeout } = require("node:timers/promises");
 
 /** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
-  // Espera 200ms para simular uma busca do servidor
+  // Aguarde 200ms para simular uma busca no servidor
   await setTimeout(200);
   return "Este é o conteúdo buscado do servidor";
 };
@@ -119,14 +119,14 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-Sem como buscar conteúdo de um arquivo JSON, use um arquivo .ts ou .js em vez disso
+Não há como buscar conteúdo de um arquivo JSON, use um arquivo .ts ou .js em vez disso
 ```
 
-Neste caso, a função `fakeFetch` imita um atraso para simular o tempo de resposta do servidor. O Intlayer executa a função assíncrona e usa o resultado como o conteúdo da chave `text`.
+Neste caso, a função `fakeFetch` imita um atraso para simular o tempo de resposta do servidor. O Intlayer executa a função assíncrona e usa o resultado como o conteúdo para a chave `text`.
 
 ## Usando Conteúdo Baseado em Função em Componentes React
 
-Para usar conteúdo baseado em função em um componente React, você precisa importar `useIntlayer` de `react-intlayer` e chamá-lo com a ID do conteúdo para recuperar o conteúdo. Aqui está um exemplo:
+Para usar conteúdo baseado em função em um componente React, você precisa importar `useIntlayer` de `react-intlayer` e chamá-lo com o ID do conteúdo para recuperar o conteúdo. Aqui está um exemplo:
 
 ```typescript fileName="**/*.jsx" codeFormat="typescript"
 import type { FC } from "react";

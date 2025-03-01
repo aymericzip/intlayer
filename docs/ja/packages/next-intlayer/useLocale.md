@@ -1,18 +1,18 @@
-# Next.js インテグレーション: `useLocale` フックのドキュメント for `next-intlayer`
+# Next.js統合: `useLocale`フックのドキュメント for `next-intlayer`
 
-このセクションでは、`next-intlayer` ライブラリ内での Next.js アプリケーション向けに特化した `useLocale` フックの詳細なドキュメントを提供します。ロケールの変更とルーティングを効率的に処理するために設計されています。
+このセクションでは、`next-intlayer`ライブラリ内でNext.jsアプリケーション向けに調整された`useLocale`フックの詳細なドキュメントを提供します。これは、ロケールの変更とルーティングを効率的に処理するよう設計されています。
 
-## Next.js での `useLocale` のインポート
+## Next.jsでの`useLocale`のインポート
 
-Next.js アプリケーションで `useLocale` フックを利用するために、次のようにインポートします。
+Next.jsアプリケーションで`useLocale`フックを利用するには、以下のようにインポートします:
 
 ```javascript
-import { useLocale } from "next-intlayer"; // Next.js でロケールとルーティングを管理するために使用されます
+import { useLocale } from "next-intlayer"; // Next.jsでロケールとルーティングを管理するために使用
 ```
 
 ## 使用方法
 
-Next.js コンポーネント内で `useLocale` フックを実装する方法は次のとおりです。
+Next.jsコンポーネント内で`useLocale`フックを実装する方法は以下の通りです:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -92,14 +92,14 @@ const LocaleSwitcher = () => {
 
 ## パラメータと戻り値
 
-`useLocale` フックを呼び出すと、以下のプロパティを含むオブジェクトが返されます。
+`useLocale`フックを呼び出すと、以下のプロパティを含むオブジェクトが返されます:
 
-- **`locale`**: React コンテキストで設定された現在のロケール。
+- **`locale`**: Reactコンテキストで設定された現在のロケール。
 - **`defaultLocale`**: 設定で定義された主要なロケール。
-- **`availableLocales`**: 設定で定義されたすべての利用可能なロケールのリスト。
-- **`setLocale`**: アプリケーションのロケールを変更し、URLを更新するための関数。設定に基づいてパスにロケールを追加するかどうかの接頭辞ルールを処理します。`next/navigation` の `useRouter` を利用して、`push` や `refresh` などのナビゲーション機能を使用します。
-- **`pathWithoutLocale`**: ロケールなしのパスを返す計算プロパティ。URLを比較するのに便利です。例えば、現在のロケールが `fr` で、URL が `fr/my_path` の場合、ロケールのないパスは `/my_path` です。`next/navigation` の `usePathname` を利用して現在のパスを取得します。
+- **`availableLocales`**: 設定で定義された利用可能なすべてのロケールのリスト。
+- **`setLocale`**: アプリケーションのロケールを変更し、URLを更新するための関数。設定に基づいて、パスにロケールを追加するかどうかのルールを処理します。`next/navigation`の`useRouter`を利用して、`push`や`refresh`などのナビゲーション機能を提供。
+- **`pathWithoutLocale`**: ロケールなしのパスを返す計算プロパティ。URLを比較する際に便利です。例えば、現在のロケールが`fr`で、URLが`fr/my_path`の場合、ロケールなしのパスは`/my_path`です。現在のパスを取得するために`next/navigation`の`usePathname`を利用。
 
 ## 結論
 
-`next-intlayer` の `useLocale` フックは、Next.js アプリケーションでロケールを管理するための重要なツールです。ロケールの保存、状態管理、URLの変更をシームレスに処理し、複数のロケールに適応する統合アプローチを提供します。
+`next-intlayer`の`useLocale`フックは、Next.jsアプリケーションでロケールを管理するための重要なツールです。ロケールの保存、状態管理、URLの変更をシームレスに処理する統合的なアプローチを提供します。

@@ -1,6 +1,6 @@
 # Traduzione
 
-## Definire Traduzioni
+## Definizione delle Traduzioni
 
 La funzione `t` in `intlayer` consente di dichiarare contenuti in più lingue. Questa funzione garantisce la sicurezza dei tipi, generando un errore se mancano traduzioni, il che è particolarmente utile negli ambienti TypeScript.
 
@@ -19,7 +19,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      it: "Benvenuto nella nostra applicazione",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -34,7 +34,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      it: "Benvenuto nella nostra applicazione",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -49,7 +49,7 @@ module.exports = {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      it: "Benvenuto nella nostra applicazione",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -65,7 +65,7 @@ module.exports = {
     "welcomeMessage": {
       "nodeType": "translation",
       "translation": {
-        "it": "Benvenuto nella nostra applicazione",
+        "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
         "es": "Bienvenido a nuestra aplicación"
       }
@@ -74,16 +74,16 @@ module.exports = {
 }
 ```
 
-## Configurazione per Locali
+## Configurazione per le Localizzazioni
 
-Per garantire una corretta gestione delle traduzioni, puoi configurare le lingue accettate in `intlayer.config.ts`. Questa configurazione consente di definire le lingue che la tua applicazione supporta:
+Per garantire una corretta gestione delle traduzioni, è possibile configurare le localizzazioni accettate in `intlayer.config.ts`. Questa configurazione consente di definire le lingue supportate dalla tua applicazione:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ITALIAN, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -96,7 +96,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ITALIAN, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -109,7 +109,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ITALIAN, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -169,7 +169,7 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-Questo componente recupera la traduzione corrispondente in base alla lingua attualmente impostata nella tua applicazione.
+Questo componente recupera la traduzione corrispondente in base alla localizzazione attuale impostata nella tua applicazione.
 
 ## Oggetti di Contenuto Personalizzati
 
@@ -187,9 +187,9 @@ const customContent = {
   key: "custom_content",
   content: {
     profileText: t<ICustomContent>({
-      it: {
-        title: "Titolo della Pagina",
-        content: "Contenuto della Pagina",
+      en: {
+        title: "Page Title",
+        content: "Page Content",
       },
       fr: {
         title: "Titre de la Page",
@@ -216,9 +216,9 @@ export default {
       t <
       ICustomContent >
       {
-        it: {
-          title: "Titolo della Pagina",
-          content: "Contenuto della Pagina",
+        en: {
+          title: "Page Title",
+          content: "Page Content",
         },
         fr: {
           title: "Titre de la Page",
@@ -243,9 +243,9 @@ module.exports = {
       t <
       ICustomContent >
       {
-        it: {
-          title: "Titolo della Pagina",
-          content: "Contenuto della Pagina",
+        en: {
+          title: "Page Title",
+          content: "Page Content",
         },
         fr: {
           title: "Titre de la Page",
@@ -268,9 +268,9 @@ module.exports = {
     "profileText": {
       "nodeType": "translation",
       "translation": {
-        "it": {
-          "title": "Titolo della Pagina",
-          "content": "Contenuto della Pagina"
+        "en": {
+          "title": "Page Title",
+          "content": "Page Content"
         },
         "fr": {
           "title": "Titre de la Page",

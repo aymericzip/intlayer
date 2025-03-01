@@ -1,20 +1,20 @@
 # Dokumentation: `t` Funktion in `react-intlayer`
 
-Die `t` Funktion im `react-intlayer` Paket ist ein grundlegendes Werkzeug für Inline-Internationalisierung innerhalb Ihrer React-Anwendung. Sie ermöglicht es Ihnen, Übersetzungen direkt in Ihren Komponenten zu definieren, wodurch es einfach ist, lokalisierten Inhalt basierend auf der aktuellen Locale anzuzeigen.
+Die `t` Funktion im `react-intlayer` Paket ist ein grundlegendes Werkzeug für Inline-Internationalisierung innerhalb Ihrer React-Anwendung. Sie ermöglicht es, Übersetzungen direkt in Ihren Komponenten zu definieren, was es einfach macht, lokalisierte Inhalte basierend auf der aktuellen Sprache anzuzeigen.
 
 ---
 
 ## Übersicht
 
-Die `t` Funktion wird verwendet, um Übersetzungen für verschiedene Lokalisierungen direkt in Ihren Komponenten bereitzustellen. Durch das Übergeben eines Objekts, das Übersetzungen für jede unterstützte Locale enthält, gibt `t` die entsprechende Übersetzung basierend auf dem aktuellen Locale-Kontext in Ihrer React-Anwendung zurück.
+Die `t` Funktion wird verwendet, um Übersetzungen für verschiedene Sprachen direkt in Ihren Komponenten bereitzustellen. Durch die Übergabe eines Objekts, das Übersetzungen für jede unterstützte Sprache enthält, gibt `t` die entsprechende Übersetzung basierend auf dem aktuellen Sprachkontext in Ihrer React-Anwendung zurück.
 
 ---
 
 ## Hauptmerkmale
 
-- **Inline-Übersetzungen**: Ideal für schnellen, Inline-Text, der keine separate Inhaltsdeklaration erfordert.
-- **Automatische Locale-Auswahl**: Gibt automatisch die Übersetzung zurück, die der aktuellen Locale entspricht.
-- **TypeScript-Unterstützung**: Bietet Typensicherheit und Autovervollständigung bei Verwendung mit TypeScript.
+- **Inline-Übersetzungen**: Ideal für schnelle, inline Texte, die keine separate Inhaltsdeklaration erfordern.
+- **Automatische Sprachauswahl**: Gibt automatisch die Übersetzung zurück, die der aktuellen Sprache entspricht.
+- **TypeScript-Unterstützung**: Bietet Typsicherheit und Autovervollständigung bei der Verwendung mit TypeScript.
 - **Einfache Integration**: Funktioniert nahtlos innerhalb von React-Komponenten.
 
 ---
@@ -27,11 +27,11 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### Parameter
 
-- `translations`: Ein Objekt, bei dem die Schlüssel Locale-Codes sind (z. B. `en`, `fr`, `es`) und die Werte die entsprechenden übersetzten Zeichenfolgen sind.
+- `translations`: Ein Objekt, bei dem die Schlüssel Sprachcodes (z. B. `en`, `fr`, `es`) und die Werte die entsprechenden übersetzten Zeichenketten sind.
 
-### Rückgabe
+### Rückgabewert
 
-- Eine Zeichenfolge, die den übersetzten Inhalt für die aktuelle Locale darstellt.
+- Eine Zeichenkette, die den übersetzten Inhalt für die aktuelle Sprache darstellt.
 
 ---
 
@@ -96,7 +96,7 @@ const ComponentExample = () => {
 
 ### Inline-Übersetzungen in Attributen
 
-Die `t` Funktion ist besonders nützlich für Inline-Übersetzungen in JSX-Attributen. Wenn Sie Attribute wie `alt`, `title`, `href` oder `aria-label` lokalisieren, können Sie `t` direkt innerhalb des Attributs verwenden.
+Die `t` Funktion ist besonders nützlich für Inline-Übersetzungen in JSX-Attributen. Beim Lokalisieren von Attributen wie `alt`, `title`, `href` oder `aria-label` können Sie `t` direkt im Attribut verwenden.
 
 ```jsx
 <button
@@ -128,7 +128,7 @@ Die `t` Funktion ist besonders nützlich für Inline-Übersetzungen in JSX-Attri
 
 ### TypeScript-Integration
 
-Die `t` Funktion ist typensicher, wenn sie mit TypeScript verwendet wird, und stellt sicher, dass alle erforderlichen Lokalisierungen bereitgestellt werden.
+Die `t` Funktion ist typsicher, wenn sie mit TypeScript verwendet wird, und stellt sicher, dass alle erforderlichen Sprachen bereitgestellt werden.
 
 ```typescript codeFormat="typescript"
 import { t, type IConfigLocales } from "react-intlayer";
@@ -168,9 +168,9 @@ const translations = {
 const greeting = t(translations);
 ```
 
-### Locale-Erkennung und Kontext
+### Spracherkennung und Kontext
 
-In `react-intlayer` wird die aktuelle Locale durch den `IntlayerProvider` verwaltet. Stellen Sie sicher, dass dieser Provider Ihre Komponenten umschließt und das `locale` Prop korrekt übergeben wird.
+In `react-intlayer` wird die aktuelle Sprache durch den `IntlayerProvider` verwaltet. Stellen Sie sicher, dass dieser Provider Ihre Komponenten umschließt und die `locale` Eigenschaft korrekt übergeben wird.
 
 #### Beispiel:
 
@@ -208,25 +208,25 @@ const App = ({ locale }) => (
 
 ---
 
-## Häufige Fehler und Fehlersuche
+## Häufige Fehler und Fehlerbehebung
 
-### `t` gibt undefinierte oder falsche Übersetzung zurück
+### `t` gibt undefined oder falsche Übersetzung zurück
 
-- **Ursache**: Die aktuelle Locale ist nicht korrekt eingestellt oder die Übersetzung für die aktuelle Locale fehlt.
+- **Ursache**: Die aktuelle Sprache ist nicht richtig eingestellt, oder die Übersetzung für die aktuelle Sprache fehlt.
 - **Lösung**:
-  - Überprüfen Sie, ob der `IntlayerProvider` richtig konfiguriert ist mit der entsprechenden `locale`.
-  - Stellen Sie sicher, dass Ihr Übersetzungsobjekt alle erforderlichen Lokalisierungen enthält.
+  - Überprüfen Sie, ob der `IntlayerProvider` korrekt mit der entsprechenden `locale` eingerichtet ist.
+  - Stellen Sie sicher, dass Ihr Übersetzungsobjekt alle erforderlichen Sprachen enthält.
 
 ### Fehlende Übersetzungen in TypeScript
 
-- **Ursache**: Das Übersetzungsobjekt erfüllt nicht die erforderlichen Lokalisierungen, was zu TypeScript-Fehlern führt.
+- **Ursache**: Das Übersetzungsobjekt erfüllt nicht die erforderlichen Sprachen, was zu TypeScript-Fehlern führt.
 - **Lösung**: Verwenden Sie den Typ `IConfigLocales`, um die Vollständigkeit Ihrer Übersetzungen zu erzwingen.
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // Fehlendes 'es' verursacht einen TypeScript-Fehler
+  // es: 'Texto', // Fehlendes 'es' führt zu einem TypeScript-Fehler
 };
 
 const text = t(translations);
@@ -236,7 +236,7 @@ const text = t(translations);
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // Fehlendes 'es' verursacht einen TypeScript-Fehler
+  // es: 'Texto', // Fehlendes 'es' führt zu einem TypeScript-Fehler
 };
 
 const text = t(translations);
@@ -249,7 +249,7 @@ const { t, type IConfigLocales } = require("react-intlayer");
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // Fehlendes 'es' verursacht einen TypeScript-Fehler
+  // es: 'Texto', // Fehlendes 'es' führt zu einem TypeScript-Fehler
 };
 
 const text = t(translations);
@@ -257,21 +257,21 @@ const text = t(translations);
 
 ---
 
-## Tipps für eine effektive Nutzung
+## Tipps für effektive Nutzung
 
-1. **Verwenden Sie `t` für einfache Inline-Übersetzungen**: Ideal für die Übersetzung kleiner Textstücke direkt innerhalb Ihrer Komponenten.
-2. **Bevorzugen Sie `useIntlayer` für strukturierte Inhalte**: Für komplexere Übersetzungen und Inhaltswiederverwendung definieren Sie Inhalte in Deklarationsdateien und verwenden `useIntlayer`.
-3. **Konsistente Locale-Bereitstellung**: Stellen Sie sicher, dass Ihre Locale konsistent in Ihrer Anwendung durch den `IntlayerProvider` bereitgestellt wird.
-4. **Nutzen Sie TypeScript**: Verwenden Sie TypeScript-Typen, um fehlende Übersetzungen zu erkennen und Typensicherheit zu gewährleisten.
+1. **Verwenden Sie `t` für einfache Inline-Übersetzungen**: Ideal zum Übersetzen kleiner Textstücke direkt in Ihren Komponenten.
+2. **Bevorzugen Sie `useIntlayer` für strukturierte Inhalte**: Für komplexere Übersetzungen und Inhaltswiederverwendung definieren Sie Inhalte in Deklarationsdateien und verwenden Sie `useIntlayer`.
+3. **Konsistente Sprachbereitstellung**: Stellen Sie sicher, dass Ihre Sprache konsistent über den `IntlayerProvider` in Ihrer Anwendung bereitgestellt wird.
+4. **Nutzen Sie TypeScript**: Verwenden Sie TypeScript-Typen, um fehlende Übersetzungen zu erkennen und Typsicherheit zu gewährleisten.
 
 ---
 
 ## Fazit
 
-Die `t` Funktion in `react-intlayer` ist ein mächtiges und praktisches Werkzeug für das Management von Inline-Übersetzungen in Ihren React-Anwendungen. Durch eine effektive Integration verbessern Sie die Internationalisierungsfähigkeiten Ihrer App und bieten eine bessere Erfahrung für Benutzer weltweit.
+Die `t` Funktion in `react-intlayer` ist ein leistungsstarkes und praktisches Werkzeug zur Verwaltung von Inline-Übersetzungen in Ihren React-Anwendungen. Durch eine effektive Integration verbessern Sie die Internationalisierungsfähigkeiten Ihrer App und bieten Nutzern weltweit ein besseres Erlebnis.
 
-Für detailliertere Nutzung und erweiterte Funktionen, siehe die [react-intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md).
+Für detailliertere Nutzung und erweiterte Funktionen lesen Sie die [react-intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md).
 
 ---
 
-**Hinweis**: Denken Sie daran, Ihren `IntlayerProvider` ordnungsgemäß einzurichten, um sicherzustellen, dass die aktuelle Locale korrekt an Ihre Komponenten weitergegeben wird. Dies ist entscheidend, damit die `t` Funktion die richtigen Übersetzungen zurückgibt.
+**Hinweis**: Denken Sie daran, Ihren `IntlayerProvider` korrekt einzurichten, um sicherzustellen, dass die aktuelle Sprache korrekt an Ihre Komponenten weitergegeben wird. Dies ist entscheidend, damit die `t` Funktion die richtigen Übersetzungen zurückgibt.

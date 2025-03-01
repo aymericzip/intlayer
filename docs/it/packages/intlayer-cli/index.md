@@ -1,10 +1,10 @@
-# intlayer-cli: Pacchetto NPM per usare l'Intlayer CLI
+# intlayer-cli: Pacchetto NPM per utilizzare l'Intlayer CLI
 
-**Intlayer** è una suite di pacchetti progettati specificamente per sviluppatori JavaScript. È compatibile con framework come React, React e Express.js.
+**Intlayer** è una suite di pacchetti progettata specificamente per gli sviluppatori JavaScript. È compatibile con framework come React, React e Express.js.
 
-Il pacchetto **`intlayer-cli`** è un pacchetto NPM che consuma il pacchetto `@intlayer/cli` e lo rende disponibile per le interfacce a riga di comando di `intlayer`.
+Il pacchetto **`intlayer-cli`** è un pacchetto NPM che utilizza il pacchetto `@intlayer/cli` e lo rende disponibile per le interfacce a riga di comando `intlayer`.
 
-> Nota che questo pacchetto non è necessario se il pacchetto [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/it/packages/intlayer/index.md) è installato. Rispetto al pacchetto `intlayer`, il pacchetto `intlayer-cli` è un pacchetto più leggero che contiene solo lo strumento CLI, senza le dipendenze di `@intlayer/core`.
+> Nota che questo pacchetto non è necessario se il pacchetto [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/it/packages/intlayer/index.md) è installato. Rispetto al pacchetto `intlayer`, il pacchetto `intlayer-cli` è un pacchetto più leggero che contiene solo lo strumento CLI, senza dipendenze da `@intlayer/core`.
 
 ## Installazione
 
@@ -34,8 +34,8 @@ npx intlayer build
 
 Intlayer fornisce uno strumento CLI per:
 
-- audit delle tue dichiarazioni di contenuto e completare le traduzioni mancanti
-- costruire dizionari dalle tue dichiarazioni di contenuto
-- push e pull di dizionari remoti dal tuo CMS al tuo progetto locale
+- verificare le dichiarazioni dei contenuti e completare le traduzioni mancanti
+- costruire dizionari dalle dichiarazioni dei contenuti
+- inviare e ricevere dizionari remoti dal tuo CMS al tuo progetto locale
 
-Consulta [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md) per ulteriori informazioni.
+Consulta [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md) per maggiori informazioni.

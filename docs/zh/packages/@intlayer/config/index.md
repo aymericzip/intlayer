@@ -1,12 +1,12 @@
-# @intlayer/config: NPM 包以检索 Intlayer 配置
+# @intlayer/config: 用于检索 Intlayer 配置的 NPM 包
 
-**Intlayer** 是一套专为 JavaScript 开发者设计的包。它兼容 React、React 和 Express.js 等框架。
+**Intlayer** 是专为 JavaScript 开发人员设计的一套包。它兼容 React、React 和 Express.js 等框架。
 
-**`@intlayer/config`** 包是一个 NPM 包，允许您检索 Intlayer 的配置，并定义与当前环境相关的环境变量。
+**`@intlayer/config`** 包是一个 NPM 包，允许您检索 Intlayer 的配置并定义与当前环境相关的环境变量。
 
 ## 安装
 
-使用您首选的包管理器安装必要的包：
+使用您喜欢的包管理器安装必要的包：
 
 ```bash packageManager="npm"
 npm install @intlayer/config
@@ -20,9 +20,9 @@ pnpm add @intlayer/config
 yarn add @intlayer/config
 ```
 
-## 使用
+## 使用方法
 
-### 通过文件系统读取 Intlayer 的配置
+### 使用文件系统读取 Intlayer 配置
 
 示例：
 
@@ -41,9 +41,9 @@ console.log(config);
 // }
 ```
 
-> 此函数使用 `fs` 包，且仅在服务器端工作。
+> 此函数使用 `fs` 包，仅在服务器端工作。
 
-### 通过环境变量读取 Intlayer 的配置
+### 使用环境变量读取 Intlayer 配置
 
 示例：
 
@@ -64,11 +64,11 @@ console.log(config);
 // }
 ```
 
-> 如果环境变量未定义，此函数将不返回任何内容。
+> 如果未定义环境变量，此函数将不会返回任何内容。
 
 ### 定义环境变量
 
-1. 创建配置文件。
+1. 创建一个配置文件。
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig } from "intlayer";
@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 更多细节请参见 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 查看 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 了解更多详情。
 
 2. 定义环境变量。
 
@@ -103,7 +103,7 @@ const intlayerConfig = getConfiguration();
 // 将所有配置值格式化为环境变量
 const env = formatEnvVariable();
 
-// 在 process.env 中设置每个格式化的环境变量
+// 将每个格式化的环境变量设置到 process.env
 Object.assign(process.env, env);
 ```
 

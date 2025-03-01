@@ -10,13 +10,13 @@
 - `.content.mjs`
 - `.content.cjs`
 
-Приложение по умолчанию будет искать файлы, соответствующие шаблону `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}`.
+Приложение будет искать файлы, соответствующие шаблону `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` по умолчанию.
 
-Эти стандартные расширения подходят для большинства приложений. Однако, если у вас есть специфические требования, обратитесь к [руководству по настройке расширений контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#content-configuration) для инструкций об их управлении.
+Эти стандартные расширения подходят для большинства приложений. Однако, если у вас есть специфические требования, обратитесь к [руководству по настройке расширений контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#content-configuration) для инструкций по их управлению.
 
-Для получения полного списка опций конфигурации посетите документацию по конфигурации.
+Для полного списка опций конфигурации посетите документацию по конфигурации.
 
-## Декларация вашего контента
+## Объявление вашего контента
 
 Создавайте и управляйте вашими словарями:
 
@@ -55,13 +55,14 @@ export default {
       "en-GB": "English content (UK)",
       fr: "French content",
       es: "Spanish content",
+      ru: "Русский контент",
     }),
     quantityContent: enu({
       "<-1": "Меньше минус одной машины",
       "-1": "Минус одна машина",
       "0": "Нет машин",
       "1": "Одна машина",
-      ">5": "Некоторое количество машин",
+      ">5": "Несколько машин",
       ">19": "Много машин",
     }),
     conditionalContent: cond({
@@ -80,7 +81,7 @@ export default {
      */
     jsxContent: <h1>Мой заголовок</h1>,
   },
-} satisfies Dictionary<Content>; // [необязательно] Dictionary является обобщением и позволяет усилить форматирование словаря
+} satisfies Dictionary<Content>; // [необязательно] Dictionary является обобщением и позволяет усилить форматирование вашего словаря
 ```
 
 ```javascript fileName="src/example.content.mjs" codeFormat="esm"
@@ -104,13 +105,14 @@ export default {
       "en-GB": "English content (UK)",
       fr: "French content",
       es: "Spanish content",
+      ru: "Русский контент",
     }),
     quantityContent: enu({
       "<-1": "Меньше минус одной машины",
       "-1": "Минус одна машина",
       "0": "Нет машин",
       "1": "Одна машина",
-      ">5": "Некоторое количество машин",
+      ">5": "Несколько машин",
       ">19": "Много машин",
     }),
     conditionalContent: cond({
@@ -151,13 +153,14 @@ module.exports = {
       "en-GB": "English content (UK)",
       fr: "French content",
       es: "Spanish content",
+      ru: "Русский контент",
     }),
     quantityContent: enu({
       "<-1": "Меньше минус одной машины",
       "-1": "Минус одна машина",
       "0": "Нет машин",
       "1": "Одна машина",
-      ">5": "Некоторое количество машин",
+      ">5": "Несколько машин",
       ">19": "Много машин",
     }),
     conditionalContent: cond({
@@ -197,6 +200,7 @@ module.exports = {
         "en-GB": "English content (UK)",
         "fr": "French content",
         "es": "Spanish content",
+        "ru": "Русский контент",
       },
     },
     "quantityContent": {
@@ -206,7 +210,7 @@ module.exports = {
         "1": "Одна машина",
         "<-1": "Меньше минус одной машины",
         "-1": "Минус одна машина",
-        ">5": "Некоторое количество машин",
+        ">5": "Несколько машин",
         ">19": "Много машин",
       },
     },
@@ -246,17 +250,18 @@ module.exports = {
 ```javascript fileName="src/example.content.ts" codeFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
-const getName = async () => "Джон Доу";
+const getName = async () => "Иван Иванов";
 
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','ru').hiMessage` возвращает `['Привет', ' ', 'Джон Доу']`
+    // `getIntlayer('page','ru').hiMessage` возвращает `['Привет', ' ', 'Иван Иванов']`
     hiMessage: [
       t({
         en: "Hi",
         fr: "Salut",
         es: "Hola",
+        ru: "Привет",
       }),
       " ",
       getName(),
@@ -269,188 +274,28 @@ export default {
           en: "No items found",
           fr: "Aucun article trouvé",
           es: "No se encontraron artículos",
+          ru: "Элементы не найдены",
         }),
         "1": t({
           en: "One item found",
           fr: "Un article trouvé",
           es: "Se encontró un artículo",
+          ru: "Найден один элемент",
         }),
         ">1": t({
           en: "Multiple items found",
           fr: "Plusieurs articles trouvés",
           es: "Se encontraron múltiples artículos",
+          ru: "Найдено несколько элементов",
         }),
       }),
       false: t({
         en: "No valid data available",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
+        ru: "Нет доступных данных",
       }),
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjs" codeFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "Джон Доу";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','ru').hiMessage` возвращает `['Привет', ' ', 'Джон Доу']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Составной контент, включающий условие, перечисление и многоязычный контент
-    // `getIntlayer('page','ru').advancedContent(true)(10) возвращает 'Найдено несколько элементов'`
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "Джон Доу";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','ru').hiMessage` возвращает `['Привет', ' ', 'Джон Доу']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Составной контент, включающий условие, перечисление и многоязычный контент
-    // `getIntlayer('page','ru').advancedContent(true)(10) возвращает 'Найдено несколько элементов'`
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```json5 fileName="src/example.content.json"  codeFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "page",
-  "content": {
-    "hiMessage": {
-      "nodeType": "composite",
-      "composite": [
-        {
-          "nodeType": "translation",
-          "translation": {
-            "en": "Hi",
-            "fr": "Salut",
-            "es": "Hola",
-          },
-        },
-        " ",
-        "Джон Доу",
-      ],
-    },
-    "advancedContent": {
-      "nodeType": "condition",
-      "condition": {
-        "true": {
-          "nodeType": "enumeration",
-          "enumeration": {
-            "0": {
-              "nodeType": "translation",
-              "translation": {
-                "en": "No items found",
-                "fr": "Aucun article trouvé",
-                "es": "No se encontraron artículos",
-              },
-            },
-            "1": {
-              "nodeType": "translation",
-              "translation": {
-                "en": "One item found",
-                "fr": "Un article trouvé",
-                "es": "Se encontró un artículo",
-              },
-            },
-            ">1": {
-              "nodeType": "translation",
-              "translation": {
-                "en": "Multiple items found",
-                "fr": "Plusieurs articles trouvés",
-                "es": "Se encontraron múltiples artículos",
-              },
-            },
-          },
-        },
-        "false": {
-          "nodeType": "translation",
-          "translation": {
-            "en": "No valid data available",
-            "fr": "Aucune donnée valide disponible",
-            "es": "No hay datos válidos disponibles",
-          },
-        },
-      },
-    },
-  },
-}
 ```

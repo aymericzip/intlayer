@@ -1,20 +1,20 @@
-# Intlayer Visual Editor Documentation
+# Documentation de l'Éditeur Visuel Intlayer
 
-L'éditeur visuel Intlayer est un outil qui enveloppe votre site web pour interagir avec vos fichiers de déclaration de contenu à l'aide d'un éditeur visuel.
+L'Éditeur Visuel Intlayer est un outil qui enveloppe votre site web pour interagir avec vos fichiers de déclaration de contenu à l'aide d'un éditeur visuel.
 
-![Interface de l'éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Interface de l'Éditeur Visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
-Le paquet `intlayer-editor` est basé sur Intlayer et est disponible pour les applications JavaScript, telles que React (Create React App), Vite + React, et Next.js.
+Le package `intlayer-editor` est basé sur Intlayer et est disponible pour les applications JavaScript, telles que React (Create React App), Vite + React, et Next.js.
 
 ## Éditeur visuel vs CMS
 
-L'éditeur visuel Intlayer est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour des dictionnaires locaux. Une fois qu'un changement est effectué, le contenu sera remplacé dans le code de base. Cela signifie que l'application sera reconstruite et la page sera rechargée pour afficher le nouveau contenu.
+L'Éditeur Visuel Intlayer est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour des dictionnaires locaux. Une fois une modification effectuée, le contenu sera remplacé dans la base de code. Cela signifie que l'application sera reconstruite et la page sera rechargée pour afficher le nouveau contenu.
 
-En revanche, le [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_CMS.md) est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour des dictionnaires distants. Une fois qu'un changement est effectué, le contenu **n'**impactera **pas** votre code de base. Et le site web affichera automatiquement le contenu changé.
+En revanche, le [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_CMS.md) est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour des dictionnaires distants. Une fois une modification effectuée, le contenu **n'affectera pas** votre base de code. Et le site web affichera automatiquement le contenu modifié.
 
 ## Intégrer Intlayer dans votre application
 
-Pour plus de détails sur la façon d'intégrer intlayer, consultez la section pertinente ci-dessous :
+Pour plus de détails sur l'intégration d'Intlayer, consultez la section correspondante ci-dessous :
 
 ### Intégration avec Next.js
 
@@ -28,15 +28,15 @@ Pour l'intégration avec Create React App, consultez le [guide d'installation](h
 
 Pour l'intégration avec Vite + React, consultez le [guide d'installation](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_vite+react.md).
 
-## Comment fonctionne l'éditeur Intlayer
+## Comment fonctionne l'Éditeur Intlayer
 
-L'éditeur visuel dans une application comprend deux choses :
+L'éditeur visuel dans une application comprend deux éléments :
 
-- Une application frontend qui affichera votre site web dans un iframe. Si votre site web utilise Intlayer, l'éditeur visuel détectera automatiquement votre contenu et vous permettra d'interagir avec celui-ci. Une fois qu'une modification est effectuée, vous pourrez télécharger vos changements.
+- Une application frontend qui affichera votre site web dans une iframe. Si votre site web utilise Intlayer, l'éditeur visuel détectera automatiquement votre contenu et vous permettra d'interagir avec lui. Une fois une modification effectuée, vous pourrez télécharger vos changements.
 
 - Une fois que vous avez cliqué sur le bouton de téléchargement, l'éditeur visuel enverra une requête au serveur pour remplacer vos fichiers de déclaration de contenu par le nouveau contenu (où que ces fichiers soient déclarés dans votre projet).
 
-> Notez qu'actuellement, l'éditeur Intlayer écrira vos fichiers de déclaration de contenu en tant que fichiers JSON.
+> Notez que pour l'instant, l'Éditeur Intlayer écrira vos fichiers de déclaration de contenu sous forme de fichiers JSON.
 
 ## Installation
 
@@ -56,8 +56,6 @@ pnpm add intlayer-editor --save-dev
 
 ## Configuration
 
-### 1. Activer l’éditeur dans votre fichier intlayer.config.ts
-
 Dans votre fichier de configuration Intlayer, vous pouvez personnaliser les paramètres de l'éditeur :
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -67,29 +65,30 @@ const config: IntlayerConfig = {
   // ... autres paramètres de configuration
   editor: {
     /**
-     * Requis
+     * Obligatoire
      * L'URL de l'application.
      * C'est l'URL ciblée par l'éditeur visuel.
+     * Exemple : 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     /**
      * Optionnel
-     * Par défaut `8000`.
+     * Par défaut à `true`. Si `false`, l'éditeur est inactif et ne peut pas être accessible.
+     * Peut être utilisé pour désactiver l'éditeur pour des environnements spécifiques pour des raisons de sécurité, comme la production.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
+    /**
+     * Optionnel
+     * Par défaut à `8000`.
      * Le port du serveur de l'éditeur.
      */
     port: process.env.INTLAYER_PORT,
     /**
      * Optionnel
-     * Par défaut "http://localhost:8000"
+     * Par défaut à "http://localhost:8000"
      * L'URL du serveur de l'éditeur.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optionnel
-     * Par défaut `true`. Si `false`, l'éditeur est inactif et ne peut pas être accessible.
-     * Peut être utilisé pour désactiver l'éditeur pour des environnements spécifiques pour des raisons de sécurité, comme la production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -97,36 +96,35 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... autres paramètres de configuration
   editor: {
-   /**
-     * Requis
+    /**
+     * Obligatoire
      * L'URL de l'application.
      * C'est l'URL ciblée par l'éditeur visuel.
+     * Exemple : 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     /**
      * Optionnel
-     * Par défaut `8000`.
-     * Le port du serveur de l'éditeur.
+     * Par défaut à `true`. Si `false`, l'éditeur est inactif et ne peut pas être accessible.
+     * Peut être utilisé pour désactiver l'éditeur pour des environnements spécifiques pour des raisons de sécurité, comme la production.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
+    /**
+     * Optionnel
+     * Par défaut à `8000`.
+     * Le port utilisé par le serveur de l'éditeur visuel.
      */
     port: process.env.INTLAYER_PORT,
     /**
      * Optionnel
-     * Par défaut "http://localhost:8000"
-     * L'URL du serveur de l'éditeur.
+     * Par défaut à "http://localhost:8000"
+     * L'URL du serveur de l'éditeur pour accéder depuis l'application. Utilisé pour restreindre les origines pouvant interagir avec l'application pour des raisons de sécurité. Si défini à `'*'`, l'éditeur est accessible depuis n'importe quelle origine. Devrait être défini si le port est modifié ou si l'éditeur est hébergé sur un domaine différent.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optionnel
-     * Par défaut `true`. Si `false`, l'éditeur est inactif et ne peut pas être accessible.
-     * Peut être utilisé pour désactiver l'éditeur pour des environnements spécifiques pour des raisons de sécurité, comme la production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -139,26 +137,26 @@ const config = {
   // ... autres paramètres de configuration
   editor: {
     /**
-     * Requis
+     * Obligatoire
      * L'URL de l'application.
      * C'est l'URL ciblée par l'éditeur visuel.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     /**
      * Optionnel
-     * Par défaut `8000`.
+     * Par défaut à `8000`.
      * Le port du serveur de l'éditeur.
      */
     port: process.env.INTLAYER_PORT,
     /**
      * Optionnel
-     * Par défaut "http://localhost:8000"
+     * Par défaut à "http://localhost:8000"
      * L'URL du serveur de l'éditeur.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
     /**
      * Optionnel
-     * Par défaut `true`. Si `false`, l'éditeur est inactif et ne peut pas être accessible.
+     * Par défaut à `true`. Si `false`, l'éditeur est inactif et ne peut pas être accessible.
      * Peut être utilisé pour désactiver l'éditeur pour des environnements spécifiques pour des raisons de sécurité, comme la production.
      */
     enabled: process.env.INTLAYER_ENABLED,
@@ -170,9 +168,9 @@ module.exports = config;
 
 > Pour voir tous les paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
 
-## Utiliser l'éditeur
+## Utilisation de l'Éditeur
 
-1. Lorsque l'éditeur est installé, vous pouvez démarrer l'éditeur en utilisant la commande suivante :
+1. Une fois l'éditeur installé, vous pouvez démarrer l'éditeur en utilisant la commande suivante :
 
    ```bash packageManager="npm"
    npx intlayer-editor start
@@ -186,10 +184,25 @@ module.exports = config;
    pnpm intlayer-editor start
    ```
 
+   > **Notez que vous devez exécuter votre application en parallèle.** L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
+
 2. Ensuite, ouvrez l'URL fournie. Par défaut `http://localhost:8000`.
 
-   Vous pouvez voir chaque champ indexé par Intlayer en survolant votre contenu avec votre curseur.
+   Vous pouvez visualiser chaque champ indexé par Intlayer en survolant votre contenu avec votre curseur.
 
    ![Survoler le contenu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-3. Si votre contenu est entouré, vous pouvez le maintenir en pression pour afficher le tiroir d'édition.
+3. Si votre contenu est encadré, vous pouvez effectuer un appui long pour afficher le tiroir d'édition.
+
+## Débogage
+
+Si vous rencontrez des problèmes avec l'éditeur visuel, vérifiez les points suivants :
+
+- L'éditeur visuel et l'application sont en cours d'exécution.
+
+- La [configuration de l'éditeur](https://intlayer.org/doc/concept/configuration#editor-configuration) est correctement définie dans votre fichier de configuration Intlayer.
+
+  - Champs obligatoires :
+    - L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
+
+- L'éditeur visuel utilise une iframe pour afficher votre site web. Assurez-vous que la politique de sécurité du contenu (CSP) de votre site web autorise l'URL du CMS en tant que `frame-ancestors` ('http://localhost:8000' par défaut). Vérifiez la console de l'éditeur pour toute erreur.

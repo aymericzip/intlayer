@@ -1,6 +1,6 @@
 # Intlayer: アプリケーションを翻訳するための近道
 
-**Intlayer** は、JavaScript 開発者向けに特別に設計された国際化ライブラリです。コードのどこにでもコンテンツを宣言できるようにします。マルチリンガルコンテンツの宣言を構造化された辞書に変換し、コードに容易に統合できるようにします。TypeScript を使用することで、**Intlayer** はあなたの開発をより強力で効率的にします。
+**Intlayer**は、JavaScript開発者向けに設計された国際化ライブラリです。コード内のどこでもコンテンツを宣言できるようにします。多言語コンテンツの宣言を構造化された辞書に変換し、コードに簡単に統合できます。TypeScriptを使用することで、**Intlayer**は開発をより強力かつ効率的にします。
 
 ## 使用例
 
@@ -111,12 +111,12 @@ const ComponentExample = () => {
 };
 ```
 
-## なぜ Intlayer を選ぶべきか？
+## なぜIntlayerを選ぶのか？
 
-- **JavaScript 主導のコンテンツ管理**: JavaScript の柔軟性を活用して、効率的にコンテンツを定義および管理します。
-- **型安全な環境**: TypeScript を活用して、すべてのコンテンツ定義が正確でエラーがないことを保証します。
-- **統合されたコンテンツファイル**: 翻訳をそれぞれのコンポーネントに近づけて保管し、保守性と明確性を向上させます。
-- **簡素化されたセットアップ**: 最小限の設定で迅速に立ち上げが可能で、特に Next.js プロジェクトに最適化されています。
-- **サーバーコンポーネントのサポート**: Next.js のサーバーコンポーネントに完全に適合し、スムーズなサーバーサイドレンダリングを保証します。
-- **強化されたルーティング**: Next.js アプリのルーティングを完全にサポートし、複雑なアプリケーション構造にシームレスに適応します。
-- **相互運用性**: i18next との相互運用性を許可します。(ベータ版)
+- **JavaScriptベースのコンテンツ管理**: JavaScriptの柔軟性を活かして、効率的にコンテンツを定義および管理。
+- **型安全な環境**: TypeScriptを活用して、すべてのコンテンツ定義を正確かつエラーのないものに。
+- **統合されたコンテンツファイル**: 翻訳を対応するコンポーネントの近くに保ち、保守性と明確さを向上。
+- **簡素化されたセットアップ**: 最小限の設定で迅速に開始可能、特にNext.jsプロジェクトに最適化。
+- **サーバーコンポーネントのサポート**: Next.jsのサーバーコンポーネントに完全対応し、スムーズなサーバーサイドレンダリングを実現。
+- **強化されたルーティング**: Next.jsアプリのルーティングを完全サポートし、複雑なアプリケーション構造にシームレスに適応。
+- **相互運用性**: [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_next-intl.md)、および[react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_react-intl.md)との相互運用性を提供。

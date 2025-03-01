@@ -1,37 +1,37 @@
-# React Интеграция: Документация на Хук `useIntlayer`
+# React Интеграция: Документация по хуку `useIntlayer`
 
-Этот раздел предоставляет подробные рекомендации по использованию хука `useIntlayer` в React приложениях, позволяя эффективно локализовать контент.
+Этот раздел предоставляет подробное руководство по использованию хука `useIntlayer` в React-приложениях, позволяя эффективно локализовать контент.
 
 ## Импортирование `useIntlayer` в React
 
-Хук `useIntlayer` можно интегрировать в React приложения, импортируя его в зависимости от контекста:
+Хук `useIntlayer` можно интегрировать в React-приложения, импортируя его в зависимости от контекста:
 
-- **Клиентский Компонент:**
+- **Клиентский компонент:**
 
   ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Используется в клиентских React компонентах
+  import { useIntlayer } from "react-intlayer"; // Используется в клиентских React-компонентах
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Используется в клиентских React компонентах
+  import { useIntlayer } from "react-intlayer"; // Используется в клиентских React-компонентах
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Используется в клиентских React компонентах
+  const { useIntlayer } = require("react-intlayer"); // Используется в клиентских React-компонентах
   ```
 
-- **Серверный Компонент:**
+- **Серверный компонент:**
 
   ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Используется в серверных React компонентах
+  import { useIntlayer } from "react-intlayer/server"; // Используется в серверных React-компонентах
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Используется в серверных React компонентах
+  import { useIntlayer } from "react-intlayer/server"; // Используется в серверных React-компонентах
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Используется в серверных React компонентах
+  const { useIntlayer } = require("react-intlayer/server"); // Используется в серверных React-компонентах
   ```
 
 ## Параметры
@@ -39,15 +39,15 @@
 Хук принимает два параметра:
 
 1. **`key`**: Ключ словаря для получения локализованного контента.
-2. **`locale`** (необязательный): Желаемая локаль. По умолчанию используется локаль контекста, если не указано.
+2. **`locale`** (необязательно): Желаемая локаль. По умолчанию используется локаль из контекста, если не указано.
 
-## Объявление Контента
+## Словарь
 
-Все ключи словаря должны быть объявлены в файлах объявления контента для повышения безопасности типов и предотвращения ошибок. Вы можете найти инструкции по настройке [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md).
+Все ключи словаря должны быть объявлены в файлах декларации контента для повышения безопасности типов и предотвращения ошибок. Инструкции по настройке можно найти [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md).
 
-## Пример Использования в React
+## Пример использования в React
 
-Демонстрация хука `useIntlayer` внутри React компонента:
+Демонстрация использования хука `useIntlayer` в React-компоненте:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -210,16 +210,16 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Обработка Атрибутов
+## Работа с атрибутами
 
-При локализации атрибутов доступ к значениям контента осуществляется правильно:
+При локализации атрибутов корректно обращайтесь к значениям контента:
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
-## Дополнительные Ресурсы
+## Дополнительные ресурсы
 
-- **Интерактивный Редактор Intlayer**: Для более интуитивного управления контентом обратитесь к документации редактора [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_editor.md).
+- **Визуальный редактор Intlayer**: Для более интуитивного управления контентом обратитесь к документации по визуальному редактору [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md).
 
-Этот раздел специально нацелен на интеграцию хука `useIntlayer` в React приложениях, упрощая процесс локализации и обеспечивая консистентность контента в разных локалях.
+Этот раздел специально ориентирован на интеграцию хука `useIntlayer` в React-приложениях, упрощая процесс локализации и обеспечивая согласованность контента для разных локалей.

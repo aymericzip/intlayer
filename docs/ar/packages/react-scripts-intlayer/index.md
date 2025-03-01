@@ -1,16 +1,16 @@
 # react-scripts-intlayer: حزمة NPM لاستخدام Intlayer في تطبيق React Create App
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. إنها متوافقة مع Frameworks مثل React و React و Express.js.
+**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React، وReact، وExpress.js.
 
-**حزمة `react-scripts-intlayer`** تتضمن أوامر وملحقات `react-scripts-intlayer` لدمج Intlayer مع التطبيق القائم على Create React App. هذه الملحقات تعتمد على [craco](https://craco.js.org/) وتشتمل على تكوين إضافي لمجمع [Webpack](https://webpack.js.org/).
+**حزمة `react-scripts-intlayer`** تتضمن أوامر ومكونات `react-scripts-intlayer` لدمج Intlayer مع تطبيق يعتمد على Create React App. تعتمد هذه المكونات على [craco](https://craco.js.org/) وتشمل تكوينًا إضافيًا لمجمع [Webpack](https://webpack.js.org/).
 
 ## التكوين
 
-تعمل حزمة `react-scripts-intlayer` بسلاسة مع حزمة [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/index.md) وحزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). ألقِ نظرة على الوثائق ذات الصلة لمزيد من المعلومات.
+تعمل حزمة `react-scripts-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/index.md)، و[حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). اطلع على الوثائق ذات الصلة لمزيد من المعلومات.
 
 ## التثبيت
 
-قم بتثبيت الحزمة الضرورية باستخدام مدير الحزم المفضل لديك:
+قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
 
 ```bash packageManager="npm"
 npm install react-scripts-intlayer
@@ -26,9 +26,9 @@ pnpm add react-scripts-intlayer
 
 ## الاستخدام
 
-### أوامر سطر الأوامر (CLI)
+### أوامر CLI
 
-تقدم حزمة `react-scripts-intlayer` الأوامر التالية:
+توفر حزمة `react-scripts-intlayer` أوامر CLI التالية:
 
 - `npx react-scripts-intlayer build`: يبني تطبيق React مع تكوين Intlayer.
 - `npx react-scripts-intlayer start`: يبدأ خادم التطوير مع تكوين Intlayer.
@@ -46,12 +46,12 @@ pnpm add react-scripts-intlayer
 }
 ```
 
-## استخدم تكوين Webpack مخصص
+## استخدام تكوين Webpack مخصص
 
-`react-scripts-intlayer` يعتمد على [craco](https://craco.js.org/)، مما يسمح لك بتخصيص تكوين Webpack.
-إذا كنت بحاجة إلى تخصيص تكوين Webpack، يمكنك أيضًا تنفيذ إعداد خاص بك استنادًا إلى ملحق intlayer craco. [انظر المثال هنا](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
+تعتمد `react-scripts-intlayer` على [craco](https://craco.js.org/)، مما يسمح لك بتخصيص تكوين Webpack.
+إذا كنت بحاجة إلى تخصيص تكوين Webpack، يمكنك أيضًا تنفيذ إعدادك الخاص بناءً على مكون intlayer craco. [انظر المثال هنا](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-## اقرأ الدليل الكامل لـ Intlayer لتطبيق React Create
+## اقرأ دليل Intlayer الكامل لـ React Create App
 
-يقدم Intlayer الكثير من الميزات لمساعدتك في دولنة تطبيق React الخاص بك.
-[انظر كيف تستخدم intlayer مع React Create App](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md).
+يوفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق React الخاص بك.
+[اطلع على كيفية استخدام intlayer مع React Create App](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md).

@@ -1,19 +1,19 @@
-# Integração React: Documentação do Hook `useIntlayerAsync`
+# Integração com React: Documentação do Hook `useIntlayerAsync`
 
-O hook `useIntlayerAsync` estende a funcionalidade de `useIntlayer` ao não apenas retornar dicionários pré-renderizados, mas também buscar atualizações de forma assíncrona, tornando-o ideal para aplicações que frequentemente atualizam seu conteúdo localizado após a renderização inicial.
+O hook `useIntlayerAsync` estende a funcionalidade do `useIntlayer`, retornando não apenas dicionários pré-renderizados, mas também buscando atualizações de forma assíncrona, tornando-o ideal para aplicações que frequentemente atualizam seu conteúdo localizado após a renderização inicial.
 
 ## Visão Geral
 
 - **Carregamento Assíncrono de Dicionários:**  
-  Na montagem inicial, `useIntlayerAsync` primeiro retorna qualquer dicionário de localidade pré-buscado ou estático (assim como `useIntlayer` faria) e, em seguida, busca e mescla assíncronamente quaisquer dicionários remotos novos disponíveis.
+  Na montagem inicial, o `useIntlayerAsync` primeiro retorna qualquer dicionário de localidade pré-buscado ou empacotado estaticamente (assim como o `useIntlayer` faria) e, em seguida, busca e mescla de forma assíncrona quaisquer novos dicionários remotos disponíveis.
 - **Gerenciamento do Estado de Progresso:**  
-  O hook também fornece um estado `isLoading`, que indica quando um dicionário remoto está sendo buscado. Isso permite que os desenvolvedores exibam indicadores de carregamento ou estados de esqueleto para uma experiência do usuário mais suave.
+  O hook também fornece um estado `isLoading`, indicando quando um dicionário remoto está sendo buscado. Isso permite que os desenvolvedores exibam indicadores de carregamento ou estados de esqueleto para uma experiência do usuário mais suave.
 
 ## Configuração do Ambiente
 
-Intlayer fornece um sistema de Gerenciamento de Fonte de Conteúdo (CSM) sem cabeça que capacita não desenvolvedores a gerenciar e atualizar o conteúdo do aplicativo sem esforço. Ao usar o painel intuitivo do Intlayer, sua equipe pode editar texto localizado, imagens e outros recursos sem modificar diretamente o código. Isso agiliza o processo de gerenciamento de conteúdo, promove a colaboração e garante que as atualizações possam ser feitas de forma rápida e fácil.
+O Intlayer fornece um sistema de Gerenciamento de Fonte de Conteúdo (CSM) sem interface gráfica que capacita não desenvolvedores a gerenciar e atualizar o conteúdo da aplicação de forma contínua. Usando o painel intuitivo do Intlayer, sua equipe pode editar texto localizado, imagens e outros recursos sem modificar diretamente o código. Isso simplifica o processo de gerenciamento de conteúdo, promove a colaboração e garante que as atualizações possam ser feitas de forma rápida e fácil.
 
-Para começar a usar o Intlayer:
+Para começar com o Intlayer:
 
 1. **Registre-se e obtenha um token de acesso** em [https://intlayer.org/dashboard](https://intlayer.org/dashboard).
 2. **Adicione credenciais ao seu arquivo de configuração:**  
@@ -65,11 +65,11 @@ Para começar a usar o Intlayer:
    npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
-   Este comando faz o upload de seus dicionários de conteúdo iniciais, tornando-os disponíveis para busca assíncrona e edição através da plataforma Intlayer.
+   Este comando faz o upload dos seus dicionários de conteúdo iniciais, tornando-os disponíveis para busca assíncrona e edição através da plataforma Intlayer.
 
 ## Importando `useIntlayerAsync` no React
 
-Em seus componentes React, importe `useIntlayerAsync`:
+Nos seus componentes React, importe `useIntlayerAsync`:
 
 ```ts codeFormat="typescript"
 import { useIntlayerAsync } from "react-intlayer";
@@ -87,19 +87,19 @@ const { useIntlayerAsync } = require("react-intlayer");
 
 1. **`key`**:  
    **Tipo**: `DictionaryKeys`  
-   A chave do dicionário usada para identificar o bloco de conteúdo localizado. Esta chave deve ser definida em seus arquivos de declaração de conteúdo.
+   A chave do dicionário usada para identificar o bloco de conteúdo localizado. Esta chave deve ser definida nos seus arquivos de declaração de conteúdo.
 
 2. **`locale`** (opcional):  
    **Tipo**: `Locales`  
-   A localidade específica que você deseja atingir. Se omitido, o hook usa a localidade do contexto atual do Intlayer.
+   A localidade específica que você deseja direcionar. Se omitida, o hook usa a localidade do contexto atual do Intlayer.
 
-3. **`isRenderEditor`** (opcional, padrão `true`):  
+3. **`isRenderEditor`** (opcional, padrão é `true`):  
    **Tipo**: `boolean`  
-   Determina se o conteúdo deve estar pronto para renderização com a sobreposição do editor Intlayer. Se definido como `false`, os dados do dicionário retornado excluirão recursos específicos do editor.
+   Determina se o conteúdo deve estar pronto para renderização com a sobreposição do editor do Intlayer. Se definido como `false`, os dados do dicionário retornados excluirão recursos específicos do editor.
 
 ## Valor de Retorno
 
-O hook retorna um objeto dicionário contendo conteúdo localizado indexado por `key` e `locale`. Também inclui um booleano `isLoading` indicando se um dicionário remoto está sendo buscado atualmente.
+O hook retorna um objeto de dicionário contendo conteúdo localizado indexado por `key` e `locale`. Ele também inclui um booleano `isLoading` indicando se um dicionário remoto está sendo buscado no momento.
 
 ## Exemplo de Uso em um Componente React
 
@@ -112,7 +112,7 @@ export const ComponentExample: FC = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("O conteúdo está sendo carregado...");
+      console.log("O conteúdo está carregando...");
     }
   }, [isLoading]);
 
@@ -121,7 +121,7 @@ export const ComponentExample: FC = () => {
       {isLoading ? (
         <div>
           <h1>Carregando…</h1>
-          <p>Por favor, aguarde enquanto o conteúdo é atualizado.</p>
+          <p>Aguarde enquanto o conteúdo é atualizado.</p>
         </div>
       ) : (
         <div>
@@ -143,7 +143,7 @@ const ComponentExample = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("O conteúdo está sendo carregado...");
+      console.log("O conteúdo está carregando...");
     }
   }, [isLoading]);
 
@@ -152,7 +152,7 @@ const ComponentExample = () => {
       {isLoading ? (
         <div>
           <h1>Carregando…</h1>
-          <p>Por favor, aguarde enquanto o conteúdo é atualizado.</p>
+          <p>Aguarde enquanto o conteúdo é atualizado.</p>
         </div>
       ) : (
         <div>
@@ -174,7 +174,7 @@ const ComponentExample = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("O conteúdo está sendo carregado...");
+      console.log("O conteúdo está carregando...");
     }
   }, [isLoading]);
 
@@ -183,7 +183,7 @@ const ComponentExample = () => {
       {isLoading ? (
         <div>
           <h1>Carregando…</h1>
-          <p>Por favor, aguarde enquanto o conteúdo é atualizado.</p>
+          <p>Aguarde enquanto o conteúdo é atualizado.</p>
         </div>
       ) : (
         <div>
@@ -196,13 +196,13 @@ const ComponentExample = () => {
 };
 ```
 
-**Pontos Chave:**
+**Pontos-Chave:**
 
 - Na renderização inicial, `title` e `description` vêm do dicionário de localidade pré-buscado ou embutido estaticamente.
 - Enquanto `isLoading` é `true`, uma solicitação em segundo plano busca um dicionário atualizado.
-- Assim que a busca é concluída, `title` e `description` são atualizados com o conteúdo mais recente, e `isLoading` retorna `false`.
+- Assim que a busca é concluída, `title` e `description` são atualizados com o conteúdo mais recente, e `isLoading` retorna para `false`.
 
-## Tratando Localization de Atributos
+## Tratando Localização de Atributos
 
 Você também pode recuperar valores de atributos localizados para várias propriedades HTML (por exemplo, `alt`, `title`, `aria-label`):
 
@@ -210,17 +210,17 @@ Você também pode recuperar valores de atributos localizados para várias propr
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## Arquivos de Declaração de Conteúdo
+## Arquivos de Dicionário
 
-Todas as chaves de conteúdo devem ser definidas em seus arquivos de declaração de conteúdo para garantir a segurança de tipos e evitar erros em tempo de execução. Esses arquivos permitem a validação do TypeScript, garantindo que você sempre faça referência a chaves e localidades existentes.
+Todas as chaves de conteúdo devem ser definidas nos seus arquivos de declaração de conteúdo para segurança de tipo e para evitar erros em tempo de execução. Esses arquivos permitem validação no TypeScript, garantindo que você sempre faça referência a chaves e localidades existentes.
 
 Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
 
 ## Mais Informações
 
 - **Editor Visual Intlayer:**  
-  Integre-se com o editor visual Intlayer para gerenciar e editar conteúdo diretamente da interface. Mais detalhes [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_editor.md).
+  Integre com o editor visual do Intlayer para gerenciar e editar conteúdo diretamente da interface. Mais detalhes [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md).
 
 ---
 
-**Em resumo**, `useIntlayerAsync` é um poderoso hook React projetado para aprimorar a experiência do usuário e manter a frescura do conteúdo ao mesclar dicionários pré-renderizados ou pré-buscados com atualizações de dicionários assíncronas. Ao aproveitar `isLoading` e declarações de conteúdo baseadas em TypeScript, você pode integrar de forma contínua conteúdo localizado e dinâmico em suas aplicações React.
+**Em resumo**, o `useIntlayerAsync` é um hook poderoso do React projetado para melhorar a experiência do usuário e manter a atualização do conteúdo ao mesclar dicionários pré-renderizados ou pré-buscados com atualizações assíncronas de dicionários. Ao aproveitar `isLoading` e declarações de conteúdo baseadas em TypeScript, você pode integrar perfeitamente conteúdo dinâmico e localizado em suas aplicações React.

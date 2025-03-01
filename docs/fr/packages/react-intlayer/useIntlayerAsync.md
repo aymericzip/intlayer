@@ -1,23 +1,23 @@
 # Intégration React : Documentation du Hook `useIntlayerAsync`
 
-Le hook `useIntlayerAsync` étend la fonctionnalité de `useIntlayer` en retournant non seulement des dictionnaires pré-rendus, mais aussi en récupérant des mises à jour de manière asynchrone, ce qui le rend idéal pour les applications qui mettent fréquemment à jour leur contenu localisé après le rendu initial.
+Le hook `useIntlayerAsync` étend la fonctionnalité de `useIntlayer` en retournant non seulement des dictionnaires pré-rendus, mais également en récupérant des mises à jour de manière asynchrone, ce qui le rend idéal pour les applications qui mettent fréquemment à jour leur contenu localisé après le rendu initial.
 
-## Aperçu
+## Vue d'ensemble
 
 - **Chargement asynchrone des dictionnaires :**  
-  Lors du premier montage, `useIntlayerAsync` retourne d'abord tout dictionnaire de locale pré-récupéré ou statiquement groupé (tout comme le ferait `useIntlayer`), puis récupère et fusionne de manière asynchrone tout nouveau dictionnaire distant disponible.
+  Lors du montage initial, `useIntlayerAsync` retourne d'abord tout dictionnaire de locale préchargé ou inclus statiquement (comme le ferait `useIntlayer`), puis récupère et fusionne de manière asynchrone tout nouveau dictionnaire distant disponible.
 - **Gestion de l'état de progression :**  
-  Le hook fournit également un état `isLoading`, indiquant quand un dictionnaire distant est en cours de récupération. Cela permet aux développeurs d'afficher des indicateurs de chargement ou des états d'ébauche pour une expérience utilisateur plus fluide.
+  Le hook fournit également un état `isLoading`, indiquant lorsqu'un dictionnaire distant est en cours de récupération. Cela permet aux développeurs d'afficher des indicateurs de chargement ou des états de squelette pour une expérience utilisateur plus fluide.
 
 ## Configuration de l'environnement
 
-Intlayer fournit un système de gestion de contenu sans tête (CSM) qui permet aux non-développeurs de gérer et de mettre à jour le contenu des applications en toute transparence. En utilisant le tableau de bord intuitif d'Intlayer, votre équipe peut modifier le texte localisé, les images et d'autres ressources sans modifier le code directement. Cela simplifie le processus de gestion du contenu, favorise la collaboration et garantit que les mises à jour peuvent être effectuées rapidement et facilement.
+Intlayer fournit un système de gestion de source de contenu (CSM) sans interface utilisateur qui permet aux non-développeurs de gérer et de mettre à jour le contenu des applications de manière transparente. En utilisant le tableau de bord intuitif d'Intlayer, votre équipe peut modifier le texte localisé, les images et d'autres ressources sans modifier directement le code. Cela simplifie le processus de gestion de contenu, favorise la collaboration et garantit que les mises à jour peuvent être effectuées rapidement et facilement.
 
 Pour commencer avec Intlayer :
 
-1. **Inscrivez-vous et obtenez un jeton d'accès** à [https://intlayer.org/dashboard](https://intlayer.org/dashboard).
-2. **Ajoutez les informations d'identification à votre fichier de configuration :**  
-   Dans votre projet React, configurez le client Intlayer avec vos informations d'identification :
+1. **Inscrivez-vous et obtenez un jeton d'accès** sur [https://intlayer.org/dashboard](https://intlayer.org/dashboard).
+2. **Ajoutez les identifiants à votre fichier de configuration :**  
+   Dans votre projet React, configurez le client Intlayer avec vos identifiants :
 
    ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
    import type { IntlayerConfig } from "intlayer";
@@ -59,13 +59,13 @@ Pour commencer avec Intlayer :
    module.exports = config;
    ```
 
-3. **Poussez un nouveau dictionnaire de locale à Intlayer :**
+3. **Poussez un nouveau dictionnaire de locale vers Intlayer :**
 
    ```bash
    npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
-   Cette commande téléverse vos dictionnaires de contenu initiaux, les rendant disponibles pour une récupération asynchrone et une modification via la plateforme Intlayer.
+   Cette commande télécharge vos dictionnaires de contenu initiaux, les rendant disponibles pour la récupération et l'édition asynchrones via la plateforme Intlayer.
 
 ## Importation de `useIntlayerAsync` dans React
 
@@ -85,21 +85,21 @@ const { useIntlayerAsync } = require("react-intlayer");
 
 ## Paramètres
 
-1. **`key` :**  
+1. **`key`** :  
    **Type** : `DictionaryKeys`  
    La clé du dictionnaire utilisée pour identifier le bloc de contenu localisé. Cette clé doit être définie dans vos fichiers de déclaration de contenu.
 
 2. **`locale`** (optionnel) :  
    **Type** : `Locales`  
-   La locale spécifique que vous souhaitez cibler. Si omis, le hook utilise la locale du contexte Intlayer actuel.
+   La locale spécifique que vous souhaitez cibler. Si omise, le hook utilise la locale du contexte Intlayer actuel.
 
-3. **`isRenderEditor`** (optionnel, par défaut `true`) :  
+3. **`isRenderEditor`** (optionnel, par défaut à `true`) :  
    **Type** : `boolean`  
-   Détermine si le contenu doit être prêt à être rendu avec l'overlay de l'éditeur Intlayer. Si défini sur `false`, les données du dictionnaire retournées excluront les fonctionnalités spécifiques à l'éditeur.
+   Détermine si le contenu doit être prêt pour le rendu avec la superposition de l'éditeur Intlayer. Si défini sur `false`, les données du dictionnaire retournées excluront les fonctionnalités spécifiques à l'éditeur.
 
 ## Valeur de retour
 
-Le hook retourne un objet de dictionnaire contenant le contenu localisé indexé par `key` et `locale`. Il inclut également un boolean `isLoading` indiquant si un dictionnaire distant est actuellement en cours de récupération.
+Le hook retourne un objet dictionnaire contenant le contenu localisé indexé par `key` et `locale`. Il inclut également un booléen `isLoading` indiquant si un dictionnaire distant est actuellement en cours de récupération.
 
 ## Exemple d'utilisation dans un composant React
 
@@ -121,7 +121,7 @@ export const ComponentExample: FC = () => {
       {isLoading ? (
         <div>
           <h1>Chargement…</h1>
-          <p>Veuillez patienter pendant que le contenu se met à jour.</p>
+          <p>Veuillez patienter pendant la mise à jour du contenu.</p>
         </div>
       ) : (
         <div>
@@ -152,7 +152,7 @@ const ComponentExample = () => {
       {isLoading ? (
         <div>
           <h1>Chargement…</h1>
-          <p>Veuillez patienter pendant que le contenu se met à jour.</p>
+          <p>Veuillez patienter pendant la mise à jour du contenu.</p>
         </div>
       ) : (
         <div>
@@ -183,7 +183,7 @@ const ComponentExample = () => {
       {isLoading ? (
         <div>
           <h1>Chargement…</h1>
-          <p>Veuillez patienter pendant que le contenu se met à jour.</p>
+          <p>Veuillez patienter pendant la mise à jour du contenu.</p>
         </div>
       ) : (
         <div>
@@ -198,8 +198,8 @@ const ComponentExample = () => {
 
 **Points clés :**
 
-- Lors du rendu initial, `title` et `description` proviennent du dictionnaire de locale pré-récupéré ou intégré statiquement.
-- Tant que `isLoading` est `true`, une demande en arrière-plan récupère un dictionnaire mis à jour.
+- Lors du rendu initial, `title` et `description` proviennent du dictionnaire de locale préchargé ou intégré statiquement.
+- Pendant que `isLoading` est à `true`, une requête en arrière-plan récupère un dictionnaire mis à jour.
 - Une fois la récupération terminée, `title` et `description` sont mis à jour avec le contenu le plus récent, et `isLoading` revient à `false`.
 
 ## Gestion de la localisation des attributs
@@ -210,17 +210,17 @@ Vous pouvez également récupérer des valeurs d'attribut localisées pour diver
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## Fichiers de déclaration de contenu
+## Fichiers de dictionnaire
 
-Toutes les clés de contenu doivent être définies dans vos fichiers de déclaration de contenu pour garantir la sécurité de type et éviter les erreurs d'exécution. Ces fichiers permettent la validation TypeScript, garantissant que vous référencez toujours des clés et des locales existantes.
+Toutes les clés de contenu doivent être définies dans vos fichiers de déclaration de contenu pour garantir la sécurité des types et éviter les erreurs d'exécution. Ces fichiers permettent la validation TypeScript, garantissant que vous référencez toujours des clés et des locales existantes.
 
 Les instructions pour configurer les fichiers de déclaration de contenu sont disponibles [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
 
 ## Informations supplémentaires
 
 - **Éditeur visuel Intlayer :**  
-  Intégrez-vous à l'éditeur visuel Intlayer pour gérer et éditer le contenu directement depuis l'interface utilisateur. Plus de détails [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_editor.md).
+  Intégrez-vous à l'éditeur visuel Intlayer pour gérer et éditer le contenu directement depuis l'interface utilisateur. Plus de détails [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_visual_editor.md).
 
 ---
 
-**En résumé**, `useIntlayerAsync` est un puissant hook React conçu pour améliorer l'expérience utilisateur et maintenir la fraîcheur du contenu en fusionnant des dictionnaires pré-rendus ou pré-récupérés avec des mises à jour de dictionnaire asynchrones. En tirant parti de `isLoading` et des déclarations de contenu basées sur TypeScript, vous pouvez intégrer de manière transparente du contenu localisé dynamique dans vos applications React.
+**En résumé**, `useIntlayerAsync` est un hook React puissant conçu pour améliorer l'expérience utilisateur et maintenir la fraîcheur du contenu en fusionnant des dictionnaires pré-rendus ou préchargés avec des mises à jour de dictionnaires asynchrones. En utilisant `isLoading` et les déclarations de contenu basées sur TypeScript, vous pouvez intégrer de manière transparente un contenu dynamique et localisé dans vos applications React.

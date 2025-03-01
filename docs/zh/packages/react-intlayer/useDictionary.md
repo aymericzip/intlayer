@@ -1,10 +1,10 @@
-# React 集成：`useDictionary` Hook 文档
+# React 集成: `useDictionary` 钩子文档
 
-本节提供有关在 React 应用程序中使用 `useDictionary` hook 的详细指南，使您能够高效处理本地化内容，而无需可视编辑器。
+本节提供了在 React 应用程序中使用 `useDictionary` 钩子的详细指南，支持在没有可视化编辑器的情况下高效处理本地化内容。
 
 ## 在 React 中导入 `useDictionary`
 
-`useDictionary` hook 可以根据上下文集成到 React 应用程序中：
+可以通过以下方式将 `useDictionary` 钩子集成到 React 应用程序中：
 
 - **客户端组件：**
 
@@ -20,30 +20,30 @@
   const { useDictionary } = require("react-intlayer"); // 用于客户端 React 组件
   ```
 
-- **服务器组件：**
+- **服务端组件：**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // 用于服务器端 React 组件
+  import { useDictionary } from "react-intlayer/server"; // 用于服务端 React 组件
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // 用于服务器端 React 组件
+  import { useDictionary } from "react-intlayer/server"; // 用于服务端 React 组件
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // 用于服务器端 React 组件
+  const { useDictionary } = require("react-intlayer/server"); // 用于服务端 React 组件
   ```
 
 ## 参数
 
-该 hook 接受两个参数：
+该钩子接受两个参数：
 
-1. **`dictionary`**：一个声明的字典对象，包含特定键的本地化内容。
-2. **`locale`**（可选）：所需的区域设置。如果未指定，则默认为当前上下文的区域设置。
+1. **`dictionary`**: 一个声明的字典对象，包含特定键的本地化内容。
+2. **`locale`**（可选）：所需的语言环境。如果未指定，则默认为当前上下文的语言环境。
 
-## 内容声明
+## 字典
 
-所有字典对象应在结构化内容文件中声明，以确保类型安全并防止运行时错误。您可以在 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md) 查找设置说明。以下是内容声明的示例：
+所有字典对象应在结构化内容文件中声明，以确保类型安全并防止运行时错误。您可以在[这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)找到设置说明。以下是内容声明的示例：
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -55,13 +55,11 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      zh: "客户端组件示例",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      zh: "这是客户端组件示例的内容",
     }),
   },
 } satisfies Dictionary;
@@ -80,13 +78,11 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      zh: "客户端组件示例",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      zh: "这是客户端组件示例的内容",
     }),
   },
 };
@@ -105,13 +101,11 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      zh: "客户端组件示例",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      zh: "这是客户端组件示例的内容",
     }),
   },
 };
@@ -129,8 +123,7 @@ module.exports = componentContent;
       "translation": {
         "en": "Client Component Example",
         "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente",
-        "zh": "客户端组件示例"
+        "es": "Ejemplo de componente cliente"
       }
     },
     "content": {
@@ -138,8 +131,7 @@ module.exports = componentContent;
       "translation": {
         "en": "This is the content of a client component example",
         "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente",
-        "zh": "这是客户端组件示例的内容"
+        "es": "Este es el contenido de un ejemplo de componente cliente"
       }
     }
   }
@@ -148,7 +140,7 @@ module.exports = componentContent;
 
 ## 在 React 中的示例用法
 
-以下是如何在 React 组件中使用 `useDictionary` hook 的示例：
+以下是如何在 React 组件中使用 `useDictionary` 钩子的示例：
 
 ```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -199,9 +191,9 @@ const ComponentExample = () => {
 };
 ```
 
-## 服务器集成
+## 服务端集成
 
-如果您在 `IntlayerProvider` 之外使用 `useDictionary` hook，则在渲染组件时必须显式提供区域设置作为参数：
+如果您在 `IntlayerProvider` 之外使用 `useDictionary` 钩子，则在渲染组件时必须显式提供语言环境作为参数：
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -252,9 +244,9 @@ const ServerComponentExample = ({ locale }) => {
 };
 ```
 
-## 属性注意事项
+## 关于属性的注意事项
 
-与使用可视编辑器的集成不同，像 `buttonTitle.value` 这样的属性在这里不适用。相反，直接访问作为声明的本地化字符串。
+与使用可视化编辑器的集成不同，此处不适用诸如 `buttonTitle.value` 之类的属性。相反，直接访问您内容中声明的本地化字符串。
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -262,7 +254,7 @@ const ServerComponentExample = ({ locale }) => {
 
 ## 额外提示
 
-- **类型安全**：始终使用 `Dictionary` 来定义您的字典，以确保类型安全。
-- **本地化更新**：更新内容时，确保所有区域设置一致，以避免缺失翻译。
+- **类型安全**：始终使用 `Dictionary` 定义您的字典，以确保类型安全。
+- **本地化更新**：更新内容时，请确保所有语言环境保持一致，以避免遗漏翻译。
 
-本文档重点介绍了 `useDictionary` hook 的集成，提供了一种简化管理本地化内容的方法，无需依赖可视编辑器功能。
+本篇文档专注于 `useDictionary` 钩子的集成，提供了一种无需依赖可视化编辑器功能的本地化内容管理简化方法。

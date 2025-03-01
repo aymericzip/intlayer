@@ -1,12 +1,12 @@
 # 条件内容 / Intlayer 中的条件
 
-## 条件的工作原理
+## 条件如何工作
 
-在 Intlayer 中，通过 `cond` 函数实现条件内容，它将特定条件（通常是布尔值）映射到其对应的内容。这种方法使您能根据给定条件动态选择内容。当与 React Intlayer 或 Next Intlayer 集成时，系统会根据运行时提供的条件自动选择适当的内容。
+在 Intlayer 中，通过 `cond` 函数实现条件内容，该函数将特定条件（通常是布尔值）映射到其对应的内容。这种方法使您能够根据给定条件动态选择内容。当与 React Intlayer 或 Next Intlayer 集成时，会根据运行时提供的条件自动选择适当的内容。
 
 ## 设置条件内容
 
-要在您的 Intlayer 项目中设置条件内容，请创建一个包含条件定义的内容模块。以下是多种格式的示例。
+要在您的 Intlayer 项目中设置条件内容，请创建一个包含条件定义的内容模块。以下是各种格式的示例。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { cond, type Dictionary } from "intlayer";
@@ -15,9 +15,9 @@ const myConditionalContent = {
   key: "my_key",
   content: {
     myCondition: cond({
-      true: "当条件为 true 时的内容",
-      false: "当条件为 false 时的内容",
-      fallback: "当条件未通过验证时的内容", // 可选
+      true: "当条件为真时的内容",
+      false: "当条件为假时的内容",
+      fallback: "当条件不满足时的内容", // 可选
     }),
   },
 } satisfies Dictionary;
@@ -33,9 +33,9 @@ const myConditionalContent = {
   key: "my_key",
   content: {
     myCondition: cond({
-      true: "当条件为 true 时的内容",
-      false: "当条件为 false 时的内容",
-      fallback: "当条件未通过验证时的内容", // 可选
+      true: "当条件为真时的内容",
+      false: "当条件为假时的内容",
+      fallback: "当条件不满足时的内容", // 可选
     }),
   },
 };
@@ -51,9 +51,9 @@ const myConditionalContent = {
   key: "my_key",
   content: {
     myCondition: cond({
-      true: "当条件为 true 时的内容",
-      false: "当条件为 false 时的内容",
-      fallback: "当条件未通过验证时的内容", // 可选
+      true: "当条件为真时的内容",
+      false: "当条件为假时的内容",
+      fallback: "当条件不满足时的内容", // 可选
     }),
   },
 };
@@ -69,16 +69,16 @@ module.exports = myConditionalContent;
     "myCondition": {
       "nodeType": "condition",
       "condition": {
-        "true": "当条件为 true 时的内容",
-        "false": "当条件为 false 时的内容",
-        "fallback": "当条件未通过验证时的内容", // 可选
+        "true": "当条件为真时的内容",
+        "false": "当条件为假时的内容",
+        "fallback": "当条件不满足时的内容", // 可选
       },
     },
   },
 }
 ```
 
-> 如果未声明 fallback，如果条件不满足，则最后声明的键将用作 fallback。
+> 如果未声明 fallback，当条件不满足时将使用最后声明的键作为 fallback。
 
 ## 在 React Intlayer 中使用条件内容
 
@@ -95,25 +95,25 @@ const ConditionalComponent: FC = () => {
     <div>
       <p>
         {
-          /* 输出: 当条件为 true 时的内容 */
+          /* 输出: 当条件为真时的内容 */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* 输出: 当条件为 false 时的内容 */
+          /* 输出: 当条件为假时的内容 */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* 输出: 当条件未通过验证时的内容 */
+          /* 输出: 当条件不满足时的内容 */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* 输出: 当条件未通过验证时的内容 */
+          /* 输出: 当条件不满足时的内容 */
           myCondition(undefined)
         }
       </p>
@@ -134,25 +134,25 @@ const ConditionalComponent = () => {
     <div>
       <p>
         {
-          /* 输出: 当条件为 true 时的内容 */
+          /* 输出: 当条件为真时的内容 */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* 输出: 当条件为 false 时的内容 */
+          /* 输出: 当条件为假时的内容 */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* 输出: 当条件未通过验证时的内容 */
+          /* 输出: 当条件不满足时的内容 */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* 输出: 当条件未通过验证时的内容 */
+          /* 输出: 当条件不满足时的内容 */
           myCondition(undefined)
         }
       </p>
@@ -173,25 +173,25 @@ const ConditionalComponent = () => {
     <div>
       <p>
         {
-          /* 输出: 当条件为 true 时的内容 */
+          /* 输出: 当条件为真时的内容 */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* 输出: 当条件为 false 时的内容 */
+          /* 输出: 当条件为假时的内容 */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* 输出: 当条件未通过验证时的内容 */
+          /* 输出: 当条件不满足时的内容 */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* 输出: 当条件未通过验证时的内容 */
+          /* 输出: 当条件不满足时的内容 */
           myCondition(undefined)
         }
       </p>
@@ -202,12 +202,12 @@ const ConditionalComponent = () => {
 module.exports = ConditionalComponent;
 ```
 
-## 额外资源
+## 其他资源
 
-有关配置和使用的详细信息，请参阅以下资源：
+有关配置和使用的更多详细信息，请参考以下资源：
 
 - [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)
 - [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)
 - [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)
 
-这些资源提供了有关在各种环境和框架中设置和使用 Intlayer 的更多见解。
+这些资源提供了在各种环境和框架中设置和使用 Intlayer 的进一步见解。

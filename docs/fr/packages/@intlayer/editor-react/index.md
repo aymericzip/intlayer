@@ -1,12 +1,12 @@
-# @intlayer/editor-react: Paquet NPM fournissant des États, Contextes, Hooks et Composants pour interagir avec l'éditeur Intlayer
+# @intlayer/editor-react : Package NPM fournissant des États React, Contextes, Hooks et Composants pour interagir avec l'éditeur Intlayer
 
-**Intlayer** est une suite de paquets conçus spécifiquement pour les développeurs JavaScript. Il est compatible avec des frameworks tels que React, Next.js et Express.js.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, Next.js et Express.js.
 
-Le **`@intlayer/editor-react`** paquet fournit des états, contextes, hooks et composants pour interagir avec l'éditeur Intlayer pour une application React.
+Le package **`@intlayer/editor-react`** fournit des états, contextes, hooks et composants pour interagir avec l'éditeur Intlayer dans une application React.
 
 ## Installation
 
-Installez le paquet nécessaire en utilisant votre gestionnaire de paquets préféré :
+Installez le package nécessaire en utilisant votre gestionnaire de packages préféré :
 
 ```bash
 npm install @intlayer/editor-react
@@ -19,5 +19,3 @@ yarn add @intlayer/editor-react
 ```bash
 pnpm add @intlayer/editor-react
 ```
-
-Pour plus de détails, vous pouvez consulter la documentation ici : [Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/fr/installation.md)

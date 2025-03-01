@@ -1,8 +1,8 @@
 # Intlayer: طريقة أقرب لترجمة تطبيقك
 
-**Intlayer** هي مكتبة دولية مصممة خصيصًا لمطوري JavaScript. تتيح لك إعلان المحتوى في كل مكان في كودك. تقوم بتحويل إعلان المحتوى متعدد اللغات إلى قواميس منظمة لتتكامل بسهولة في كودك. باستخدام TypeScript، تجعل **Intlayer** تطويرك أقوى وأكفأ.
+**Intlayer** هي مكتبة للتدويل مصممة خصيصًا لمطوري JavaScript. تتيح لك إعلان المحتوى الخاص بك في أي مكان في الكود الخاص بك. تقوم بتحويل إعلان المحتوى متعدد اللغات إلى قواميس منظمة لتتكامل بسهولة في الكود الخاص بك. باستخدام TypeScript، تجعل **Intlayer** تطويرك أقوى وأكثر كفاءة.
 
-## مثال للاستخدام
+## مثال على الاستخدام
 
 ```bash codeFormat="typescript"
 .
@@ -38,6 +38,7 @@ const componentExampleContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبا بالعالم",
     }),
   },
 } satisfies Dictionary;
@@ -56,6 +57,7 @@ const componentExampleContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبا بالعالم",
     }),
   },
 };
@@ -74,6 +76,7 @@ const componentExampleContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبا بالعالم",
     }),
   },
 };
@@ -111,12 +114,12 @@ const ComponentExample = () => {
 };
 ```
 
-## لماذا اخترت Intlayer؟
+## لماذا تختار Intlayer؟
 
-- **إدارة محتوى مدعومة بواسطة JavaScript**: استغل مرونة JavaScript لتعريف وإدارة محتواك بكفاءة.
-- **بيئة آمنة من النوع**: استغل TypeScript لضمان أن جميع تعريفات المحتوى لديك دقيقية وخالية من الأخطاء.
-- **ملفات محتوى متكاملة**: احتفظ بترجماتك قريبة من مكوناتها الخاصة، مما يعزز القابلية للصيانة والوضوح.
-- **إعداد مبسط**: ابدأ بسرعة مع الحد الأدنى من التكوين، وتم تحسينه بشكل خاص لمشاريع Next.js.
-- **دعم مكونات الخادم**: مناسب تمامًا لمكونات خادم Next.js، مما يضمن تقديم سلس من جانب الخادم.
-- **توجيه معزز**: دعم كامل لتوجيه تطبيق Next.js، متكيفًا بسلاسة مع الهياكل المعقدة للتطبيقات.
-- **التشغيل البيني**: السماح بالتشغيل البيني مع i18next. (بيتا)
+- **إدارة محتوى مدعومة بـ JavaScript**: استغل مرونة JavaScript لتعريف وإدارة المحتوى الخاص بك بكفاءة.
+- **بيئة آمنة النوع**: استفد من TypeScript لضمان أن جميع تعريفات المحتوى دقيقة وخالية من الأخطاء.
+- **ملفات محتوى متكاملة**: احتفظ بترجماتك بالقرب من مكوناتها ذات الصلة، مما يعزز القابلية للصيانة والوضوح.
+- **إعداد مبسط**: ابدأ بسرعة مع الحد الأدنى من التكوين، خاصةً الأمثل لمشاريع Next.js.
+- **دعم مكونات الخادم**: مناسب تمامًا لمكونات خادم Next.js، مما يضمن عرضًا سلسًا من جانب الخادم.
+- **تحسين التوجيه**: دعم كامل لتوجيه تطبيق Next.js، يتكيف بسلاسة مع هياكل التطبيقات المعقدة.
+- **التشغيل البيني**: يسمح بالتشغيل البيني مع [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_react-i18next.md)، [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_next-i18next.md)، [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_next-intl.md)، و [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_react-intl.md).

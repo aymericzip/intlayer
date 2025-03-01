@@ -2,7 +2,7 @@
 
 ## Overview
 
-Intlayer configuration files allow customization of various aspects of the plugin, such as internationalization, middleware, and content handling. This document provides a detailed description of each property in the configuration.
+Intlayer configuration files allow customization of various aspects of the plugin, such as internationalisation, middleware, and content handling. This document provides a detailed description of each property in the configuration.
 
 ---
 
@@ -25,7 +25,7 @@ Intlayer accepts JSON, JS, MJS, and TS configuration file formats:
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH],
   },
   content: {
@@ -44,7 +44,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH],
   },
   content: {
@@ -60,7 +60,7 @@ module.exports = config;
 
 ```json5 fileName=".intlayerrc" codeFormat="json"
 {
-  "internationalization": {
+  "internationalisation": {
     "locales": ["en"],
   },
   "content": {
@@ -80,22 +80,31 @@ The following sections describe the various configuration settings available for
 
 ---
 
-### Internationalization Configuration
+### Internationalisation Configuration
 
-Defines settings related to internationalization, including available locales and the default locale for the application.
+Defines settings related to internationalisation, including available locales and the default locale for the application.
 
 #### Properties
 
 - **locales**:
+
   - _Type_: `string[]`
   - _Default_: `['en']`
   - _Description_: The list of supported locales in the application.
   - _Example_: `['en', 'fr', 'es']`
+
+- **requiredLocales**:
+  - _Type_: `string[]`
+  - _Default_: `[]`
+  - _Description_: The list of required locales in the application.
+  - _Example_: `[]`
+  - _Note_: If empty, all locales are required in `strict` mode.
+  - _Note_: Ensure required locales are also defined in the `locales` field.
 - **strictMode**:
 
   - _Type_: `string`
   - _Default_: `inclusive`
-  - _Description_: Ensure strong implementations of internationalized content using typescript.
+  - _Description_: Ensure strong implementations of internationalised content using typescript.
   - _Note_: If set to "strict", the translation `t` function will require each declared locales to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
   - _Note_: If set to "inclusive", the translation `t` function will require each declared locales to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exists.
   - _Note_: If set to "loose", the translation `t` function will accept any existing locale.
@@ -115,6 +124,43 @@ Defines settings related to the integrated editor, including server port and act
 
 #### Properties
 
+- **applicationURL**:
+
+  - _Type_: `string`
+  - _Default_: `'*'`
+  - _Description_: The URL of the application. Used to restrict the origin of the editor for security reasons.
+  - _Example_:
+    - `'*'`
+    - `'http://localhost:3000'`
+    - `'https://example.com'`
+    - `process.env.INTLAYER_EDITOR_URL`
+  - _Note_: The URL of the application. Used to restrict the origin of the editor for security reasons. If set to `'*'`, the editor is accessible from any origin.
+
+- **port**:
+
+  - _Type_: `number`
+  - _Default_: `8000`
+  - _Description_: The port used by the visual editor server.
+
+- **editorURL**:
+
+  - _Type_: `string`
+  - _Default_: `'http://localhost:8000'`
+  - _Description_: The URL of the editor server. Used to restrict the origin of the editor for security reasons.
+    - `'http://localhost:3000'`
+    - `'https://example.com'`
+    - `process.env.INTLAYER_EDITOR_URL`
+    - `''*'`
+  - _Note_: The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
+
+- **cmsURL**:
+
+  - _Type_: `string`
+  - _Default_: `'https://intlayer.org'`
+  - _Description_: The URL of the Intlayer CMS.
+  - _Example_: `'https://intlayer.org'`
+  - _Note_: The URL of the Intlayer CMS.
+
 - **backendURL**:
 
   - _Type_: `string`
@@ -126,9 +172,9 @@ Defines settings related to the integrated editor, including server port and act
 
   - _Type_: `boolean`
   - _Default_: `true`
-  - _Description_: Indicates if the editor is active.
-  - _Example_: `true`
-  - _Note_: Can be set using NODE_ENV, or other dedicated env variable
+  - _Description_: Indicates if the application interacts with the visual editor.
+  - _Example_: `process.env.NODE_ENV !== 'production'`
+  - _Note_: If true, the editor will be able to interact with the application. If false, the editor will not be able to interact with the application. In any case, the editor can only be enabled by the visual editor. Disabling the editor for specific environments is a way to enforce the security.
 
 - **clientId**:
 
@@ -139,15 +185,31 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
 - **clientSecret**:
+
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
   - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
+- **hotReload**:
+
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the application should hot reload the locale configurations when a change is detected.
+  - _Example_: `true`
+  - _Note_: For example, when a new dictionary is added or updated, the application will update the content to display on the page.
+  - _Note_: Because the hot reloading needs a continuous connection to the server, it is only available for clients of the `enterprise` plan.
+
+- **dictionaryPriorityStrategy**:
+  - _Type_: `string`
+  - _Default_: `'local_first'`
+  - _Description_: The strategy to prioritise dictionaries in the case of both local and distant dictionaries being present. If set to `'distant_first'`, the application will prioritise distant dictionaries over local dictionaries. If set to `'local_first'`, the application will prioritise local dictionaries over distant dictionaries.
+  - _Example_: `'distant_first'`
+
 ### Middleware Configuration
 
-Settings that control middleware behavior, including how the application handles cookies, headers, and URL prefixes for locale management.
+Settings that control middleware behaviour, including how the application handles cookies, headers, and URL prefixes for locale management.
 
 #### Properties
 
@@ -206,7 +268,7 @@ Settings related to content handling within the application, including directory
   - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _Description_: File extensions to look for when building dictionaries.
   - _Example_: `['.data.ts', '.data.js', '.data.json']`
-  - _Note_: Customizing file extensions can help avoid conflicts.
+  - _Note_: Customising file extensions can help avoid conflicts.
 - **baseDir**:
   - _Type_: `string`
   - _Default_: `process.cwd()`
@@ -239,7 +301,7 @@ Settings related to content handling within the application, including directory
 
   - _Type_: `string`
   - _DerivedFrom_: `'baseDir'` / `'resultDirName'`
-  - _Description_: The directory path for storing intermediate or output results.
+  - _Description_: The directory for storing intermediate or output results.
 
 - **moduleAugmentationDirName**:
 
@@ -265,7 +327,7 @@ Settings related to content handling within the application, including directory
 
   - _Type_: `string`
   - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
-  - _Description_: The directory for storing localization dictionaries.
+  - _Description_: The directory for storing localisation dictionaries.
 
 - **i18nextResourcesDirName**:
   - _Type_: `string`
@@ -313,22 +375,17 @@ Settings related to content handling within the application, including directory
 
 ### Logger Configuration
 
-Settings that control the logger, including the level of logging and the prefix to use.
+Settings that control the logger, including the prefix to use.
 
 #### Properties
 
-- **enabled**:
-  - _Type_: `boolean`
-  - _Default_: `true`
-  - _Description_: Indicates if the logger is enabled.
-  - _Example_: `true`
-  - _Note_: Can be set using NODE_ENV, or other dedicated env variable
-- **level**:
-  - _Type_: `'info' | 'warn' | 'debug' | 'log'`
-  - _Default_: `'log'`
-  - _Description_: The level of the logger.
-  - _Example_: `'info'`
-  - _Note_: The level of the logger. It can be either 'log', 'info', 'warn', 'error', or 'debug'.
+- **mode**:
+  - _Type_: `string`
+  - _Default_: `default`
+  - _Description_: Indicates the mode of the logger.
+  - _Options_: `default`, `verbose`, `disabled`
+  - _Example_: `default`
+  - _Note_: The mode of the logger. Verbose mode will log more information, but can be used for debugging purposes. Disabled mode will disable the logger.
 - **prefix**:
   - _Type_: `string`
   - _Default_: `'[intlayer] '`

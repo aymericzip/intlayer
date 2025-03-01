@@ -1,24 +1,22 @@
-# @intlayer/chokidar: Paquete NPM para Escanear y construir archivos de declaración de Intlayer en diccionarios
+# @intlayer/chokidar: Paquete NPM para escanear y construir archivos de declaración de Intlayer en diccionarios
 
-**Intlayer** es un conjunto de paquetes diseñado específicamente para desarrolladores de JavaScript. Es compatible con marcos como React, React y Express.js.
+**Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
 
-El **`@intlayer/chokidar`** paquete se utiliza para escanear y construir archivos de declaración de Intlayer en diccionarios utilizando [chokidar](https://github.com/paulmillr/chokidar) y de acuerdo con la [configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md).
+El paquete **`@intlayer/chokidar`** se utiliza para escanear y construir archivos de declaración de Intlayer en diccionarios utilizando [chokidar](https://github.com/paulmillr/chokidar) y de acuerdo con la [configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md).
 
 ## Uso
 
 ```ts
-import { watch } from "@intlayer/chokidar";
+import { watch, prepareIntlayer } from "@intlayer/chokidar";
 
-watch(); // Construir diccionarios de Intlayer
+await prepareIntlayer(); // Construir diccionarios de Intlayer
 
-// O
-
-watch({ persistent: true }); // Modo de vigilancia
+watch({ persistent: true }); // Observar cambios en los archivos de configuración
 ```
 
 ## Instalación
 
-Instala el paquete necesario utilizando tu gestor de paquetes preferido:
+Instale el paquete necesario utilizando su gestor de paquetes preferido:
 
 ```bash packageManager="npm"
 npm install @intlayer/chokidar

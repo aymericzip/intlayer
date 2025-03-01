@@ -1,30 +1,30 @@
-# Documentazione: `getEnumeration` Funzione in `intlayer`
+# Documentazione: Funzione `getEnumeration` in `intlayer`
 
-## Descrizione:
+## Descrizione
 
-La funzione `getEnumeration` recupera contenuto corrispondente a una specifica quantità in base a condizioni predefinite in un oggetto di enumerazione. Le condizioni sono definite come chiavi e la loro priorità è determinata dal loro ordine nell'oggetto.
+La funzione `getEnumeration` recupera il contenuto corrispondente a una quantità specifica basandosi su condizioni predefinite in un oggetto enumerazione. Le condizioni sono definite come chiavi, e la loro priorità è determinata dall'ordine nell'oggetto.
 
-## Parametri:
+## Parametri
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **Descrizione**: Un oggetto dove le chiavi rappresentano condizioni (ad es., `<=`, `<`, `>=`, `=`) e i valori rappresentano il contenuto corrispondente. L'ordine delle chiavi definisce la loro priorità di corrispondenza.
+  - **Descrizione**: Un oggetto in cui le chiavi rappresentano condizioni (ad esempio, `<=`, `<`, `>=`, `=`) e i valori rappresentano il contenuto corrispondente. L'ordine delle chiavi definisce la priorità di corrispondenza.
   - **Tipo**: `QuantityContent<Content>`
     - `Content` può essere di qualsiasi tipo.
 
 - `quantity: number`
 
-  - **Descrizione**: Il valore numerico utilizzato per confrontare le condizioni in `enumerationContent`.
+  - **Descrizione**: Il valore numerico utilizzato per confrontarsi con le condizioni in `enumerationContent`.
   - **Tipo**: `number`
 
-## Restituisce:
+## Restituisce
 
 - **Tipo**: `Content`
-- **Descrizione**: Il contenuto corrispondente alla prima condizione corrispondente in `enumerationContent`. Se non viene trovata alcuna corrispondenza, si applicano le modalità di gestione predefinite (ad es., errore o contenuto di fallback).
+- **Descrizione**: Il contenuto corrispondente alla prima condizione che corrisponde in `enumerationContent`. Se non viene trovata alcuna corrispondenza, si prevede un comportamento predefinito basato sull'implementazione (ad esempio, errore o contenuto di fallback).
 
-## Esempio di Utilizzo:
+## Esempio di Utilizzo
 
-### Utilizzo di Base:
+### Utilizzo Base
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -72,7 +72,7 @@ const content = getEnumeration(
 console.log(content); // Output: "Hai due"
 ```
 
-### Priorità delle Condizioni:
+### Priorità delle Condizioni
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -116,7 +116,7 @@ const content = getEnumeration(
 console.log(content); // Output: "Hai meno di quattro"
 ```
 
-## Casi Marginali:
+## Casi Limite
 
 - **Nessuna Condizione Corrispondente:**
 
@@ -124,15 +124,15 @@ console.log(content); // Output: "Hai meno di quattro"
 
 - **Condizioni Ambigue:**
 
-  - Se le condizioni si sovrappongono, la prima condizione corrispondente (in base all'ordine dell'oggetto) ha la precedenza.
+  - Se le condizioni si sovrappongono, la prima condizione corrispondente (basata sull'ordine dell'oggetto) ha la precedenza.
 
 - **Chiavi Non Valide:**
 
-  - La funzione presume che tutte le chiavi in `enumerationContent` siano valide e formattabili come condizioni. Chiavi non valide o formattate in modo errato possono portare a comportamenti imprevisti.
+  - La funzione presume che tutte le chiavi in `enumerationContent` siano valide e analizzabili come condizioni. Chiavi non valide o formattate in modo errato possono portare a comportamenti inaspettati.
 
-- **Forzatura di TypeScript:**
-  - La funzione garantisce che il tipo `Content` sia coerente tra tutte le chiavi, consentendo la sicurezza dei tipi nel contenuto recuperato.
+- **Enforcement di TypeScript:**
+  - La funzione garantisce che il tipo `Content` sia coerente su tutte le chiavi, permettendo la sicurezza del tipo nel contenuto recuperato.
 
-## Note:
+## Note
 
-- L'utility `findMatchingCondition` è utilizzata per determinare la condizione appropriata in base alla quantità fornita.
+- L'utilità `findMatchingCondition` è utilizzata per determinare la condizione appropriata basandosi sulla quantità fornita.

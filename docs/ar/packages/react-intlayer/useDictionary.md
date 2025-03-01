@@ -1,6 +1,6 @@
-# تكامل React: توثيق `useDictionary` Hook
+# دمج React: توثيق `useDictionary` Hook
 
-هذا القسم يقدم إرشادات مفصلة حول استخدام `useDictionary` hook ضمن تطبيقات React، مما يمكّن من التعامل بفعالية مع المحتوى المحلي دون محرر مرئي.
+يوفر هذا القسم إرشادات مفصلة حول استخدام `useDictionary` hook داخل تطبيقات React، مما يتيح التعامل الفعّال مع المحتوى المحلي دون محرر مرئي.
 
 ## استيراد `useDictionary` في React
 
@@ -9,41 +9,41 @@
 - **مكون العميل:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // مستخدم في مكونات React على جانب العميل
+  import { useDictionary } from "react-intlayer"; // يُستخدم في مكونات React على جانب العميل
   ```
 
-```javascript codeFormat="esm"
-import { useDictionary } from "react-intlayer"; // مستخدم في مكونات React على جانب العميل
-```
+  ```javascript codeFormat="esm"
+  import { useDictionary } from "react-intlayer"; // يُستخدم في مكونات React على جانب العميل
+  ```
 
-```javascript codeFormat="commonjs"
-const { useDictionary } = require("react-intlayer"); // مستخدم في مكونات React على جانب العميل
-```
+  ```javascript codeFormat="commonjs"
+  const { useDictionary } = require("react-intlayer"); // يُستخدم في مكونات React على جانب العميل
+  ```
 
 - **مكون الخادم:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // مستخدم في مكونات React على جانب الخادم
+  import { useDictionary } from "react-intlayer/server"; // يُستخدم في مكونات React على جانب الخادم
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // مستخدم في مكونات React على جانب الخادم
+  import { useDictionary } from "react-intlayer/server"; // يُستخدم في مكونات React على جانب الخادم
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // مستخدم في مكونات React على جانب الخادم
+  const { useDictionary } = require("react-intlayer/server"); // يُستخدم في مكونات React على جانب الخادم
   ```
 
 ## المعلمات
 
-الهوك يقبل معلمين:
+يقبل الـ hook معلمتين:
 
-1. **`dictionary`**: كائن قاموس تم إعلانه يحتوي على محتوى محلي لمفاتيح معينة.
-2. **`locale`** (اختياري): اللغة المرغوبة. افتراضياً تكون لغة السياق الحالية إذا لم يتم تحديدها.
+1. **`dictionary`**: كائن قاموس مُعلن يحتوي على المحتوى المحلي لمفاتيح محددة.
+2. **`locale`** (اختياري): اللغة المطلوبة. يتم افتراض اللغة الحالية للسياق إذا لم يتم تحديدها.
 
-## إعلان المحتوى
+## القاموس
 
-يجب إعلانات جميع كائنات القاموس في ملفات محتوى هيكلية لضمان السلامة النوعية وتجنب الأخطاء في وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md). إليك مثال على إعلان المحتوى:
+يجب إعلان جميع كائنات القاموس في ملفات محتوى منظمة لضمان أمان النوع وتجنب أخطاء وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md). فيما يلي مثال على إعلان المحتوى:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -55,11 +55,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      ar: "مثال على مكون العميل",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      ar: "هذا هو محتوى مثال على مكون العميل",
     }),
   },
 } satisfies Dictionary;
@@ -78,11 +80,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      ar: "مثال على مكون العميل",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      ar: "هذا هو محتوى مثال على مكون العميل",
     }),
   },
 };
@@ -101,11 +105,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      ar: "مثال على مكون العميل",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      ar: "هذا هو محتوى مثال على مكون العميل",
     }),
   },
 };
@@ -123,7 +129,8 @@ module.exports = componentContent;
       "translation": {
         "en": "Client Component Example",
         "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente"
+        "es": "Ejemplo de componente cliente",
+        "ar": "مثال على مكون العميل"
       }
     },
     "content": {
@@ -131,7 +138,8 @@ module.exports = componentContent;
       "translation": {
         "en": "This is the content of a client component example",
         "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente"
+        "es": "Este es el contenido de un ejemplo de componente cliente",
+        "ar": "هذا هو محتوى مثال على مكون العميل"
       }
     }
   }
@@ -191,9 +199,9 @@ const ComponentExample = () => {
 };
 ```
 
-## تكامل الخادم
+## دمج الخادم
 
-إذا كنت تستخدم `useDictionary` hook خارج `IntlayerProvider`، يجب تقديم اللغة بشكل صريح كمعلمة عند عرض المكون:
+إذا كنت تستخدم `useDictionary` hook خارج `IntlayerProvider`، فيجب تحديد اللغة بشكل صريح كمعلمة عند عرض المكون:
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -244,9 +252,9 @@ const ServerComponentExample = ({ locale }) => {
 };
 ```
 
-## ملاحظات حول الخصائص
+## ملاحظات حول السمات
 
-على عكس التكاملات التي تستخدم محررات مرئية، لا تنطبق الخصائص مثل `buttonTitle.value` هنا. بدلاً من ذلك، الوصول مباشرةً إلى السلاسل المحلية كما تم إعلانها في المحتوى الخاص بك.
+على عكس عمليات الدمج باستخدام المحررات المرئية، فإن السمات مثل `buttonTitle.value` لا تنطبق هنا. بدلاً من ذلك، قم بالوصول مباشرة إلى النصوص المحلية كما تم إعلانها في المحتوى الخاص بك.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -254,7 +262,7 @@ const ServerComponentExample = ({ locale }) => {
 
 ## نصائح إضافية
 
-- **سلامة النوع**: استخدم دائماً `Dictionary` لتعريف قواميسك لضمان سلامة النوع.
-- **تحديثات التوطين**: عند تحديث المحتوى، تأكد من أن جميع اللغات متسقة لتجنب الترجمات المفقودة.
+- **أمان النوع**: استخدم دائمًا `Dictionary` لتعريف القواميس لضمان أمان النوع.
+- **تحديثات التوطين**: عند تحديث المحتوى، تأكد من أن جميع اللغات متسقة لتجنب فقدان الترجمات.
 
-تركز هذه الوثيقة على تكامل `useDictionary` hook، مقدمةً نهجاً سلساً لإدارة المحتوى المحلي دون الاعتماد على وظائف محرر المرئي.
+تركز هذه الوثيقة على دمج `useDictionary` hook، مما يوفر نهجًا مبسطًا لإدارة المحتوى المحلي دون الاعتماد على وظائف المحرر المرئي.

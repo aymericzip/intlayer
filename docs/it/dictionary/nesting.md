@@ -1,16 +1,16 @@
-# Nidificazione / Riferimento a Contenuti Subordinati
+# Annidamento / Riferimento a Contenuti Annidati
 
-## Come Funziona la Nidificazione
+## Come Funziona l'Annidamento
 
-In Intlayer, la nidificazione viene realizzata tramite la funzione `nest`, che consente di fare riferimento e riutilizzare contenuti da un altro dizionario. Invece di duplicare i contenuti, è possibile puntare a un modulo di contenuto esistente usando la sua chiave.
+In Intlayer, l'annidamento viene realizzato tramite la funzione `nest`, che consente di fare riferimento e riutilizzare contenuti da un altro dizionario. Invece di duplicare i contenuti, è possibile puntare a un modulo di contenuto esistente tramite la sua chiave.
 
-## Configurare la Nidificazione
+## Configurazione dell'Annidamento
 
-Per configurare la nidificazione nel tuo progetto Intlayer, devi prima definire il contenuto di base che desideri riutilizzare. Successivamente, in un modulo di contenuto separato, utilizzi la funzione `nest` per importare quel contenuto.
+Per configurare l'annidamento nel tuo progetto Intlayer, devi prima definire il contenuto base che desideri riutilizzare. Successivamente, in un modulo di contenuto separato, utilizzi la funzione `nest` per importare quel contenuto.
 
-### Dizionario di Base
+### Dizionario Base
 
-Di seguito è riportato un esempio di un dizionario di base con contenuti nidificati:
+Di seguito è riportato un esempio di un dizionario base da annidare in un altro dizionario:
 
 ```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
 import { type Dictionary } from "intlayer";
@@ -75,9 +75,9 @@ module.exports = firstDictionary;
 }
 ```
 
-### Fare Riferimento con Nest
+### Riferimento con Annidamento
 
-Ora crea un altro modulo di contenuto che utilizza la funzione `nest` per fare riferimento al contenuto sopra. Puoi fare riferimento all'intero contenuto o a un valore specifico nidificato:
+Ora, crea un altro modulo di contenuto che utilizza la funzione `nest` per fare riferimento al contenuto sopra. Puoi fare riferimento all'intero contenuto o a un valore specifico annidato:
 
 ```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
 import { nest, type Dictionary } from "intlayer";
@@ -85,9 +85,9 @@ import { nest, type Dictionary } from "intlayer";
 const myNestingContent = {
   key: "key_of_my_second_dictionary",
   content: {
-    // Riferisce l'intero dizionario:
+    // Riferisce all'intero dizionario:
     fullNestedContent: nest("key_of_my_first_dictionary"),
-    // Riferisce un valore specifico nidificato:
+    // Riferisce a un valore specifico annidato:
     partialNestedContent: nest(
       "key_of_my_first_dictionary",
       "subContent.contentNumber"
@@ -156,11 +156,11 @@ module.exports = myNestingContent;
 }
 ```
 
-Come secondo parametro, puoi specificare un percorso verso un valore nidificato all'interno di quel contenuto. Quando non viene fornito alcun percorso, viene restituito l'intero contenuto del dizionario referenziato.
+Come secondo parametro, puoi specificare un percorso verso un valore annidato all'interno di quel contenuto. Quando non viene fornito alcun percorso, viene restituito l'intero contenuto del dizionario di riferimento.
 
-## Utilizzare la Nidificazione con React Intlayer
+## Utilizzo dell'Annidamento con React Intlayer
 
-Per utilizzare i contenuti nidificati in un componente React, sfrutta il hook `useIntlayer` dal pacchetto `react-intlayer`. Questo hook recupera il contenuto corretto in base alla chiave specificata. Ecco un esempio di utilizzo:
+Per utilizzare contenuti annidati in un componente React, sfrutta il hook `useIntlayer` del pacchetto `react-intlayer`. Questo hook recupera il contenuto corretto in base alla chiave specificata. Ecco un esempio di come utilizzarlo:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -174,11 +174,11 @@ const NestComponent: FC = () => {
   return (
     <div>
       <p>
-        Contenuto Nidificato Completo: {JSON.stringify(fullNestedContent)}
+        Contenuto Annidato Completo: {JSON.stringify(fullNestedContent)}
         {/* Output: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        Valore Parziale Nidificato: {partialNestedContent}
+        Valore Annidato Parziale: {partialNestedContent}
         {/* Output: 0 */}
       </p>
     </div>
@@ -199,11 +199,11 @@ const NestComponent = () => {
   return (
     <div>
       <p>
-        Contenuto Nidificato Completo: {JSON.stringify(fullNestedContent)}
+        Contenuto Annidato Completo: {JSON.stringify(fullNestedContent)}
         {/* Output: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        Valore Parziale Nidificato: {partialNestedContent}
+        Valore Annidato Parziale: {partialNestedContent}
         {/* Output: 0 */}
       </p>
     </div>
@@ -224,11 +224,11 @@ const NestComponent = () => {
   return (
     <div>
       <p>
-        Contenuto Nidificato Completo: {JSON.stringify(fullNestedContent)}
+        Contenuto Annidato Completo: {JSON.stringify(fullNestedContent)}
         {/* Output: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        Valore Parziale Nidificato: {partialNestedContent}
+        Valore Annidato Parziale: {partialNestedContent}
         {/* Output: 0 */}
       </p>
     </div>
@@ -240,10 +240,10 @@ module.exports = NestComponent;
 
 ## Risorse Aggiuntive
 
-Per informazioni più dettagliate su configurazione e utilizzo, consulta le seguenti risorse:
+Per informazioni più dettagliate sulla configurazione e sull'utilizzo, consulta le seguenti risorse:
 
-- [Documentazione CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md)
+- [Documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md)
 - [Documentazione React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_create_react_app.md)
 - [Documentazione Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_nextjs_15.md)
 
-Queste risorse forniscono ulteriori approfondimenti sull'impostazione e l'utilizzo di Intlayer in diversi ambienti e framework.
+Queste risorse forniscono ulteriori approfondimenti sulla configurazione e sull'utilizzo di Intlayer in diversi ambienti e con vari framework.

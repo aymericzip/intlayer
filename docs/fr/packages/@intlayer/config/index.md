@@ -1,12 +1,12 @@
-# @intlayer/config: Package NPM pour récupérer la configuration d'Intlayer
+# @intlayer/config: Paquet NPM pour récupérer la configuration d'Intlayer
 
-**Intlayer** est un ensemble de packages conçus spécifiquement pour les développeurs JavaScript. Il est compatible avec des frameworks comme React, React, et Express.js.
+**Intlayer** est une suite de paquets conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React et Express.js.
 
-Le package **`@intlayer/config`** est un package NPM qui vous permet de récupérer la configuration d'Intlayer et de définir les variables d'environnement liées à l'environnement actuel.
+Le paquet **`@intlayer/config`** est un paquet NPM qui vous permet de récupérer la configuration d'Intlayer et de définir les variables d'environnement liées à l'environnement actuel.
 
 ## Installation
 
-Installez le package nécessaire en utilisant votre gestionnaire de packages préféré :
+Installez le paquet nécessaire en utilisant votre gestionnaire de paquets préféré :
 
 ```bash packageManager="npm"
 npm install @intlayer/config
@@ -41,7 +41,7 @@ console.log(config);
 // }
 ```
 
-> Cette fonction utilise des packages `fs` et ne fonctionnera que côté serveur.
+> Cette fonction utilise les paquets `fs` et ne fonctionnera que côté serveur.
 
 ### Lire la configuration d'Intlayer en utilisant les variables d'environnement
 
@@ -64,7 +64,7 @@ console.log(config);
 // }
 ```
 
-> Cette fonction ne renverra rien si les variables d'environnement ne sont pas définies.
+> Cette fonction ne retournera rien si les variables d'environnement ne sont pas définies.
 
 ### Définir les variables d'environnement
 
@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Voir [documentation de configuration d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md) pour plus de détails.
+> Voir [Documentation de configuration d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md) pour plus de détails.
 
 2. Définissez les variables d'environnement.
 

@@ -1,8 +1,8 @@
-# @intlayer/editor-react: حزمة NPM توفر حالات و Contexts و Hooks و مكونات للتفاعل مع محرر Intlayer
+# @intlayer/editor-react: حزمة NPM توفر حالات React، وسياقات، وخطافات ومكونات للتفاعل مع محرر Intlayer
 
-**Intlayer** هي مجموعة من الحزم مصممة خصيصاً لمطوري JavaScript. إنها متوافقة مع أطر العمل مثل React و Next.js و Express.js.
+**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React، وNext.js، وExpress.js.
 
-تقدم حزمة **`@intlayer/editor-react`** حالات و Contexts و Hooks ومكونات للتفاعل مع محرر Intlayer لتطبيق React.
+توفر حزمة **`@intlayer/editor-react`** حالات، وسياقات، وخطافات ومكونات للتفاعل مع محرر Intlayer لتطبيق React.
 
 ## التثبيت
 

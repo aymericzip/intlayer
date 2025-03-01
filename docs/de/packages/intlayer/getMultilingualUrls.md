@@ -1,43 +1,43 @@
 # Dokumentation: `getMultilingualUrls` Funktion in `intlayer`
 
-## Beschreibung:
+## Beschreibung
 
-Die `getMultilingualUrls` Funktion erstellt eine Zuordnung von mehrsprachigen URLs, indem sie die gegebene URL mit jedem unterstützten Locale präfixiert. Sie kann sowohl absolute als auch relative URLs verarbeiten und wendet das entsprechende Locale-Präfix basierend auf der bereitgestellten Konfiguration oder den Standards an.
+Die Funktion `getMultilingualUrls` generiert eine Zuordnung von mehrsprachigen URLs, indem sie die gegebene URL mit jedem unterstützten Gebietsschema (Locale) präfixiert. Sie kann sowohl absolute als auch relative URLs verarbeiten und wendet das entsprechende Gebietsschema-Präfix basierend auf der bereitgestellten Konfiguration oder den Standardwerten an.
 
 ---
 
-## Parameter:
+## Parameter
 
 - `url: string`
 
-  - **Beschreibung**: Die originale URL-Zeichenfolge, die mit Locales präfixiert werden soll.
+  - **Beschreibung**: Die ursprüngliche URL-Zeichenkette, die mit Gebietsschemata präfixiert werden soll.
   - **Typ**: `string`
 
 - `locales: Locales[]`
 
-  - **Beschreibung**: Optionale Array von unterstützten Locales. Standardmäßig auf die konfigurierten Locales im Projekt eingestellt.
+  - **Beschreibung**: Optionale Liste der unterstützten Gebietsschemata. Standardmäßig werden die im Projekt konfigurierten Gebietsschemata verwendet.
   - **Typ**: `Locales[]`
   - **Standard**: `localesDefault`
 
 - `defaultLocale: Locales`
 
-  - **Beschreibung**: Das Standard-Locale für die Anwendung. Standardmäßig auf das konfigurierte Standard-Locale im Projekt eingestellt.
+  - **Beschreibung**: Das Standard-Gebietsschema für die Anwendung. Standardmäßig wird das im Projekt konfigurierte Standard-Gebietsschema verwendet.
   - **Typ**: `Locales`
   - **Standard**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **Beschreibung**: Ob das Standard-Locale präfixiert werden soll. Standardmäßig auf den konfigurierten Wert im Projekt eingestellt.
+  - **Beschreibung**: Gibt an, ob das Standard-Gebietsschema präfixiert werden soll. Standardmäßig wird der im Projekt konfigurierte Wert verwendet.
   - **Typ**: `boolean`
   - **Standard**: `prefixDefaultDefault`
 
-### Gibt zurück:
+### Rückgabewerte
 
 - **Typ**: `IConfigLocales<string>`
-- **Beschreibung**: Ein Objekt, das jedem Locale die entsprechende mehrsprachige URL zuordnet.
+- **Beschreibung**: Ein Objekt, das jedes Gebietsschema seiner entsprechenden mehrsprachigen URL zuordnet.
 
 ---
 
-## Beispiel Verwendung:
+## Beispielverwendung
 
 ### Relative URLs
 
@@ -103,29 +103,29 @@ getMultilingualUrls(
 
 ---
 
-## Randfälle:
+## Randfälle
 
-- **Kein Locale-Segment:**
+- **Kein Gebietsschema-Segment:**
 
-  - Die Funktion entfernt vorhandene Locale-Segmente aus der URL, bevor sie die mehrsprachigen Zuordnungen generiert.
+  - Die Funktion entfernt vorhandene Gebietsschema-Segmente aus der URL, bevor die mehrsprachigen Zuordnungen generiert werden.
 
-- **Standard-Locale:**
+- **Standard-Gebietsschema:**
 
-  - Wenn `prefixDefault` auf `false` gesetzt ist, präfixiert die Funktion die URL für das Standard-Locale nicht.
+  - Wenn `prefixDefault` auf `false` gesetzt ist, wird die URL für das Standard-Gebietsschema nicht präfixiert.
 
-- **Unterstützte Locales:**
-  - Nur die im `locales` Array bereitgestellten Locales werden zur Generierung der URLs berücksichtigt.
+- **Nicht unterstützte Gebietsschemata:**
+  - Es werden nur die Gebietsschemata berücksichtigt, die im Array `locales` bereitgestellt werden.
 
 ---
 
-## Verwendung in Anwendungen:
+## Verwendung in Anwendungen
 
-In einer mehrsprachigen Anwendung ist die Konfiguration der Internationalisierungseinstellungen mit `locales` und `defaultLocale` entscheidend, um sicherzustellen, dass die korrekte Sprache angezeigt wird. Unten finden Sie ein Beispiel, wie `getMultilingualUrls` in einer Anwendungseinrichtung verwendet werden kann:
+In einer mehrsprachigen Anwendung ist die Konfiguration der Internationalisierungseinstellungen mit `locales` und `defaultLocale` entscheidend, um sicherzustellen, dass die richtige Sprache angezeigt wird. Unten finden Sie ein Beispiel, wie `getMultilingualUrls` in einer Anwendungskonfiguration verwendet werden kann:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// Konfiguration für unterstützte Locales und das Standard-Locale
+// Konfiguration für unterstützte Gebietsschemata und Standard-Gebietsschema
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -166,7 +166,7 @@ module.exports = config;
 
 Die obige Konfiguration stellt sicher, dass die Anwendung `ENGLISH`, `FRENCH` und `SPANISH` als unterstützte Sprachen erkennt und `ENGLISH` als Fallback-Sprache verwendet.
 
-Mit dieser Konfiguration kann die Funktion `getMultilingualUrls` dynamisch mehrsprachige URL-Zuordnungen basierend auf den unterstützten Locales der Anwendung generieren:
+Mit dieser Konfiguration kann die Funktion `getMultilingualUrls` dynamisch mehrsprachige URL-Zuordnungen basierend auf den unterstützten Gebietsschemata der Anwendung generieren:
 
 ```typescript
 getMultilingualUrls(
@@ -195,4 +195,4 @@ getMultilingualUrls(
 // }
 ```
 
-Durch die Integration von `getMultilingualUrls` können Entwickler konsistente URL-Strukturen über mehrere Sprachen hinweg aufrechterhalten, was sowohl die Benutzererfahrung als auch die SEO verbessert.
+Durch die Integration von `getMultilingualUrls` können Entwickler konsistente URL-Strukturen über mehrere Sprachen hinweg beibehalten, was sowohl die Benutzererfahrung als auch die SEO verbessert.

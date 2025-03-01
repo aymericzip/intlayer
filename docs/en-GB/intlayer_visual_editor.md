@@ -56,7 +56,7 @@ pnpm add intlayer-editor --save-dev
 
 ## Configuration
 
-In your Intlayer configuration file, you can customize the editor settings:
+In your Intlayer configuration file, you can customise the editor settings:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -68,8 +68,15 @@ const config: IntlayerConfig = {
      * Required
      * The URL of the application.
      * This is the URL targeted by the visual editor.
+     * Example: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
+    /**
+     * Optional
+     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
+     * Can be used to disable the editor for specific environments for security reason, such as production.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
     /**
      * Optional
      * Default as `8000`.
@@ -82,12 +89,6 @@ const config: IntlayerConfig = {
      * The URL of the editor server.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -95,36 +96,35 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... other configuration settings
   editor: {
-   /**
+    /**
      * Required
      * The URL of the application.
      * This is the URL targeted by the visual editor.
+     * Example: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optional
-     * Default as `8000`.
-     * The port of the editor server.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optional
-     * Default as "http://localhost:8000"
-     * The URL of the editor server.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
     /**
      * Optional
      * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
      * Can be used to disable the editor for specific environments for security reason, such as production.
      */
     enabled: process.env.INTLAYER_ENABLED,
+    /**
+     * Optional
+     * Default as `8000`.
+     * The port used by the visual editor server.
+     */
+    port: process.env.INTLAYER_PORT,
+    /**
+     * Optional
+     * Default as "http://localhost:8000"
+     * The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
+     */
+    editorURL: process.env.INTLAYER_EDITOR_URL,
   },
 };
 
@@ -184,6 +184,8 @@ module.exports = config;
    pnpm intlayer-editor start
    ```
 
+   > **Note that you should run your application in parallel.** The application URL should match the one you set in the editor configuration (`applicationURL`).
+
 2. Then, open the URL provided. By default `http://localhost:8000`.
 
    You can view each field indexed by Intlayer by hovering over your content with your cursor.
@@ -191,3 +193,16 @@ module.exports = config;
    ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 3. If your content is outlined, you can long-press it to display the edit drawer.
+
+## Debug
+
+If you encounter any issues with the visual editor, check the following:
+
+- The visual editor and the application are running.
+
+- The [`editor`](/en-GB/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
+
+  - Required fields:
+    - The application URL should match the one you set in the editor configuration (`applicationURL`).
+
+- The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS url as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.

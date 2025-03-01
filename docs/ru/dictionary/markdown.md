@@ -2,17 +2,15 @@
 
 ## Как работает Markdown
 
-Intlayer поддерживает контент с богатым форматированием, определенный с использованием синтаксиса Markdown. Это достигается с помощью функции `md`, которая преобразует строку Markdown в формат, управляемый Intlayer. Используя Markdown, вы можете легко писать и поддерживать контент с богатым форматированием, например, блоги, статьи и многое другое.
+Intlayer поддерживает контент с богатым форматированием, определяемый с использованием синтаксиса Markdown. Это достигается с помощью функции `md`, которая преобразует строку Markdown в формат, который может управляться Intlayer. Используя Markdown, вы можете легко писать и поддерживать контент с богатым форматированием, такой как блоги, статьи и многое другое.
 
-[Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md) и [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md) поддерживают управление контентом в формате Markdown.
+[Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md) и [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md) оба поддерживают управление контентом Markdown.
 
-При интеграции с React-приложением вы можете использовать провайдер рендера Markdown (например, [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)) для преобразования контента Markdown в HTML. Это позволяет писать контент в формате Markdown, одновременно обеспечивая его корректное отображение в приложении.
+При интеграции с React-приложением вы можете использовать провайдер рендеринга Markdown (например, [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)) для преобразования контента Markdown в HTML. Это позволяет писать контент в Markdown, обеспечивая его корректное отображение в вашем приложении.
 
 ## Настройка контента Markdown
 
 Чтобы настроить контент Markdown в вашем проекте Intlayer, определите словарь контента, который использует функцию `md`.
-
-### Пример TypeScript
 
 ```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
 import { md, type Dictionary } from "intlayer";
@@ -27,13 +25,10 @@ const markdownDictionary = {
 export default markdownDictionary;
 ```
 
-### Пример JavaScript (ESM)
-
 ```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
 import { md } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-// Создаем словарь контента с помощью функции md
 const markdownDictionary = {
   key: "app",
   content: {
@@ -44,13 +39,10 @@ const markdownDictionary = {
 export default markdownDictionary;
 ```
 
-### Пример CommonJS
-
 ```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
 const { md } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-// Создаем словарь контента с использованием функции md
 const markdownDictionary = {
   key: "app",
   content: {
@@ -60,10 +52,6 @@ const markdownDictionary = {
 
 module.exports = markdownDictionary;
 ```
-
-### Пример JSON
-
-При использовании JSON контент Markdown определяется путем установки `nodeType` (например, `"markdown"`) и предоставления строки Markdown. Пример:
 
 ```json fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
 {
@@ -80,41 +68,78 @@ module.exports = markdownDictionary;
 
 ## Использование Markdown с React Intlayer
 
-Чтобы отобразить контент Markdown в React-приложении, вы можете использовать хук `useIntlayer` из пакета `react-intlayer` совместно с провайдером рендера Markdown. В этом примере используется пакет [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) для преобразования Markdown в HTML.
+Чтобы отобразить контент Markdown в React-приложении, вы можете использовать хук `useIntlayer` из пакета `react-intlayer` вместе с провайдером рендеринга Markdown. В этом примере используется пакет [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) для преобразования Markdown в HTML.
 
 ```tsx fileName="App.tsx" codeFormat="typescript"
+// Компонент для отображения контента
 import { FC } from "react";
 import { useIntlayer, MarkdownProvider } from "react-intlayer";
-import { LocaleRouter } from "./Router";
 import Markdown from "markdown-to-jsx";
-import "./App.css";
 
 const AppContent: FC = () => {
-  // Получаем контент Markdown из словаря
   const { myMarkdownContent } = useIntlayer("app");
 
   return <>{myMarkdownContent}</>;
 };
 
-const App: FC = () => (
-  <LocaleRouter>
-    <MarkdownProvider
-      // Преобразование Markdown в JSX с помощью markdown-to-jsx
-      renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-    >
-      <AppContent />
-    </MarkdownProvider>
-  </LocaleRouter>
+export const AppProvider: FC = () => (
+  <MarkdownProvider
+    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
+  >
+    <AppContent />
+  </MarkdownProvider>
 );
-
-export default App;
 ```
 
-В данной реализации:
+```jsx fileName="App.jsx" codeFormat="esm"
+// Компонент для отображения контента
+import { useIntlayer, MarkdownProvider } from "react-intlayer";
+import Markdown from "markdown-to-jsx";
 
-- Провайдер `MarkdownProvider` оборачивает приложение (или соответствующую его часть) и принимает функцию `renderMarkdown`. Эта функция используется для преобразования строк Markdown в JSX с использованием пакета `markdown-to-jsx`.
+const AppContent = () => {
+  const { myMarkdownContent } = useIntlayer("app");
+
+  return <>{myMarkdownContent}</>;
+};
+
+export const AppProvider = () => (
+  <MarkdownProvider
+    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
+  >
+    <AppContent />
+  </MarkdownProvider>
+);
+```
+
+```jsx fileName="App.jsx" codeFormat="commonjs"
+// Компонент для отображения контента
+const { useIntlayer, MarkdownProvider } = require("react-intlayer");
+const Markdown = require("markdown-to-jsx");
+
+const AppContent = () => {
+  const { myMarkdownContent } = useIntlayer("app");
+
+  return <>{myMarkdownContent}</>;
+};
+
+AppProvider = () => (
+  <MarkdownProvider
+    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
+  >
+    <AppContent />
+  </MarkdownProvider>
+);
+
+module.exports = {
+  AppProvider,
+};
+```
+
+В этой реализации:
+
+- `MarkdownProvider` оборачивает приложение (или соответствующую его часть) и принимает функцию `renderMarkdown`. Эта функция используется для преобразования строк Markdown в JSX с использованием пакета `markdown-to-jsx`.
 - Хук `useIntlayer` используется для получения контента Markdown (`myMarkdownContent`) из словаря с ключом `"app"`.
-- Контент Markdown рендерится напрямую в компоненте, а обработка рендера Markdown выполняется провайдером.
+- Контент Markdown отображается непосредственно в компоненте, а рендеринг Markdown обрабатывается провайдером.
 
 ## Дополнительные ресурсы
 

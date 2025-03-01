@@ -1,5 +1,7 @@
-![Logo](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/@intlayer/design-system/src/components/Logo/logo_with_text_no_frame.svg)
+**File Translated to 中文 (Simplified Chinese):**
 
-**国际化变得轻而易举**
+![Logo](https://github.com/aymericzip/intlayer/blob/main/packages/@intlayer/design-system/src/components/Logo/logo_with_text_no_frame.svg)
 
-Intlayer 为您网站的国际化提供了一种更灵活和现代化的方法。它与 Next.js 和 React 的无缝集成、可自定义的配置以及对各种内容声明格式的支持，使其成为国际化的强大选择。
+**国际化变得简单**
+
+Intlayer 为您的网站国际化提供了一种更灵活和现代的方法。它与 Next.js 和 React 的无缝集成、可定制的配置以及对各种内容声明格式的支持，使其成为国际化的强大选择。

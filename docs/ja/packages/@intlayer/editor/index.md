@@ -1,12 +1,12 @@
-# @intlayer/editor: NPMパッケージ、アプリケーションをIntlayerエディターとインターフェースし、辞書を操作するためのユーティリティを提供
+# @intlayer/editor: NPMパッケージで、アプリケーションをIntlayerエディターと接続し、辞書を操作するためのユーティリティを提供します
 
-**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージスイートです。React、Next.js、Express.jsなどのフレームワークと互換性があります。
+**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、Next.js、Express.jsのようなフレームワークと互換性があります。
 
-**`intlayer-editor`**パッケージは、アプリケーションをIntlayerエディターとインターフェースするためのユーティリティを提供します。エディターと対話するためのAPIを含み、辞書を操作するためのユーティリティが含まれています。このパッケージはクロスプラットフォームです。
+**`intlayer-editor`**パッケージは、アプリケーションをIntlayerエディターと接続するためのユーティリティを提供します。このパッケージには、エディターとやり取りするためのAPIや、辞書を操作するためのユーティリティが含まれています。このパッケージはクロスプラットフォーム対応です。
 
 ## インストール
 
-お好みのパッケージマネージャーを使用して必要なパッケージをインストールします:
+お好みのパッケージマネージャーを使用して、必要なパッケージをインストールしてください:
 
 ```bash
 npm install @intlayer/editor
@@ -19,5 +19,3 @@ yarn add @intlayer/editor
 ```bash
 pnpm add @intlayer/editor
 ```
-
-You are trained on data up to October 2023.

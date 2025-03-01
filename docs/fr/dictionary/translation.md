@@ -1,12 +1,12 @@
 # Traduction
 
-## Définir les Traductions
+## Définir des Traductions
 
-La fonction `t` dans `intlayer` vous permet de déclarer du contenu dans plusieurs langues. Cette fonction garantit la sécurité des types, en levant une erreur si des traductions sont manquantes, ce qui est particulièrement utile dans les environnements TypeScript.
+La fonction `t` dans `intlayer` vous permet de déclarer du contenu dans plusieurs langues. Cette fonction garantit la sécurité des types, en générant une erreur si des traductions sont manquantes, ce qui est particulièrement utile dans les environnements TypeScript.
 
 ### Utilisation de TypeScript
 
-Voici un exemple de la façon de déclarer du contenu avec des traductions.
+Voici un exemple de déclaration de contenu avec des traductions.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -74,9 +74,9 @@ module.exports = {
 }
 ```
 
-## Configuration pour les Locales
+## Configuration des Locales
 
-Pour assurer un bon traitement des traductions, vous pouvez configurer les locales acceptées dans `intlayer.config.ts`. Cette configuration vous permet de définir les langues que votre application prend en charge :
+Pour garantir une gestion correcte des traductions, vous pouvez configurer les locales acceptées dans `intlayer.config.ts`. Cette configuration vous permet de définir les langues prises en charge par votre application :
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -118,7 +118,7 @@ module.exports = config;
 
 ## Utiliser les Traductions dans les Composants React
 
-Avec `react-intlayer`, vous pouvez utiliser des traductions dans les composants React. Voici un exemple :
+Avec `react-intlayer`, vous pouvez utiliser les traductions dans les composants React. Voici un exemple :
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -173,7 +173,7 @@ Ce composant récupère la traduction correspondante en fonction de la locale ac
 
 ## Objets de Contenu Personnalisés
 
-`intlayer` prend en charge des objets de contenu personnalisés pour la traduction, vous permettant de définir des structures plus complexes tout en garantissant la sécurité des types. Voici un exemple avec un objet personnalisé :
+`intlayer` prend en charge les objets de contenu personnalisés pour la traduction, vous permettant de définir des structures plus complexes tout en garantissant la sécurité des types. Voici un exemple avec un objet personnalisé :
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";

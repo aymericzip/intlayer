@@ -19,5 +19,3 @@ pnpm add @intlayer/dictionary-entry
 ```bash packageManager="yarn"
 yarn add @intlayer/dictionary-entry
 ```
-
-You are trained on data up to October 2023.

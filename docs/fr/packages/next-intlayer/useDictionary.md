@@ -1,10 +1,10 @@
 # Intégration React : Documentation du Hook `useDictionary`
 
-Cette section fournit des conseils détaillés sur l'utilisation du hook `useDictionary` dans les applications React, permettant un traitement efficace du contenu localisé sans éditeur visuel.
+Cette section fournit des instructions détaillées sur l'utilisation du hook `useDictionary` dans les applications React, permettant une gestion efficace du contenu localisé sans éditeur visuel.
 
 ## Importation de `useDictionary` dans React
 
-Le hook `useDictionary` peut être intégré dans les applications React en l'importing en fonction du contexte :
+Le hook `useDictionary` peut être intégré dans les applications React en l'important selon le contexte :
 
 - **Composant Client :**
 
@@ -38,10 +38,10 @@ Le hook `useDictionary` peut être intégré dans les applications React en l'im
 
 Le hook accepte deux paramètres :
 
-1. **`dictionary`** : Un objet dictionnaire déclaré contenant du contenu localisé pour des clés spécifiques.
-2. **`locale`** (optionnel) : La locale souhaitée. Par défaut, elle prend la locale du contexte actuel si elle n'est pas spécifiée.
+1. **`dictionary`** : Un objet dictionnaire déclaré contenant le contenu localisé pour des clés spécifiques.
+2. **`locale`** (optionnel) : La locale souhaitée. Par défaut, utilise la locale du contexte actuel si non spécifiée.
 
-## Déclaration de Contenu
+## Dictionnaire
 
 Tous les objets dictionnaires doivent être déclarés dans des fichiers de contenu structurés pour garantir la sécurité des types et éviter les erreurs d'exécution. Vous pouvez trouver les instructions de configuration [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md). Voici un exemple de déclaration de contenu :
 
@@ -113,9 +113,9 @@ const exampleContent = {
 module.exports = exampleContent;
 ```
 
-## Exemple d'Utilisation dans un Composant Client React
+## Exemple d'utilisation dans un composant React Client
 
-Voici un exemple de la façon d'utiliser le hook `useDictionary` dans un composant React :
+Voici un exemple d'utilisation du hook `useDictionary` dans un composant React :
 
 ```tsx fileName="ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -173,9 +173,9 @@ const ClientComponentExample = () => {
 };
 ```
 
-## Exemple d'Utilisation dans un Composant Serveur React
+## Exemple d'utilisation dans un composant React Serveur
 
-Si vous utilisez le hook `useDictionary` en dehors de `IntlayerServerProvider`, la locale doit être explicitement fournie en tant que paramètre lors du rendu du composant :
+Si vous utilisez le hook `useDictionary` en dehors du `IntlayerServerProvider`, la locale doit être explicitement fournie en tant que paramètre lors du rendu du composant :
 
 ```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -226,9 +226,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Remarques sur les Attributs
+## Notes sur les Attributs
 
-Contrairement aux intégrations utilisant des éditeurs visuels, les attributs comme `buttonTitle.value` ne s'appliquent pas ici. Au lieu de cela, accédez directement aux chaînes localisées telles que déclarées dans votre contenu.
+Contrairement aux intégrations utilisant des éditeurs visuels, des attributs comme `buttonTitle.value` ne s'appliquent pas ici. Accédez directement aux chaînes localisées telles que déclarées dans votre contenu.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -239,4 +239,4 @@ Contrairement aux intégrations utilisant des éditeurs visuels, les attributs c
 - **Sécurité des Types** : Utilisez toujours `Dictionary` pour définir vos dictionnaires afin de garantir la sécurité des types.
 - **Mises à Jour de Localisation** : Lors de la mise à jour du contenu, assurez-vous que toutes les locales sont cohérentes pour éviter les traductions manquantes.
 
-Cette documentation se concentre sur l'intégration du hook `useDictionary`, fournissant une approche rationalisée pour gérer le contenu localisé sans s'appuyer sur les fonctionnalités des éditeurs visuels.
+Cette documentation se concentre sur l'intégration du hook `useDictionary`, offrant une approche simplifiée pour gérer le contenu localisé sans dépendre des fonctionnalités d'un éditeur visuel.

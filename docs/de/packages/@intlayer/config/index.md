@@ -1,12 +1,12 @@
-# @intlayer/config: NPM-Paket zum Abrufen der Intlayer-Konfiguration
+# @intlayer/config: NPM-Paket zur Abrufung der Intlayer-Konfiguration
 
-**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist mit Frameworks wie React, React und Express.js kompatibel.
+**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist kompatibel mit Frameworks wie React, React und Express.js.
 
-Das **`@intlayer/config`** Paket ist ein NPM-Paket, das es Ihnen ermöglicht, die Konfiguration von Intlayer abzurufen und die Umgebungsvariablen für die aktuelle Umgebung zu definieren.
+Das **`@intlayer/config`**-Paket ist ein NPM-Paket, das es Ihnen ermöglicht, die Konfiguration von Intlayer abzurufen und die Umgebungsvariablen im Zusammenhang mit der aktuellen Umgebung zu definieren.
 
 ## Installation
 
-Installieren Sie das erforderliche Paket mit Ihrem bevorzugten Paketmanager:
+Installieren Sie das notwendige Paket mit Ihrem bevorzugten Paketmanager:
 
 ```bash packageManager="npm"
 npm install @intlayer/config
@@ -22,7 +22,7 @@ yarn add @intlayer/config
 
 ## Verwendung
 
-### Lesen Sie die Konfiguration von Intlayer mit dem Dateisystem
+### Lesen der Intlayer-Konfiguration über das Dateisystem
 
 Beispiel:
 
@@ -41,9 +41,9 @@ console.log(config);
 // }
 ```
 
-> Diese Funktion verwendet `fs` Pakete und funktioniert nur auf der Serverseite.
+> Diese Funktion verwendet `fs`-Pakete und funktioniert nur auf der Serverseite.
 
-### Lesen Sie die Konfiguration von Intlayer mit Umgebungsvariablen
+### Lesen der Intlayer-Konfiguration über Umgebungsvariablen
 
 Beispiel:
 
@@ -66,7 +66,7 @@ console.log(config);
 
 > Diese Funktion gibt nichts zurück, wenn die Umgebungsvariablen nicht definiert sind.
 
-### Definieren Sie die Umgebungsvariablen
+### Definieren der Umgebungsvariablen
 
 1. Erstellen Sie eine Konfigurationsdatei.
 

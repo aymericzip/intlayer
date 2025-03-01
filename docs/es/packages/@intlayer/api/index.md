@@ -1,15 +1,14 @@
 # @intlayer/api: Paquete NPM para interactuar con la API de Intlayer
 
-**Intlayer** es un conjunto de paquetes diseñado específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
+**Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
 
-El paquete **`@intlayer/api`** es un SDK (Kit de Desarrollo de Software) para interactuar con la API de Intlayer. Proporciona un conjunto de funciones para auditar la declaración de contenido, interactuar con organizaciones, proyectos y usuarios, etc.
+El paquete **`@intlayer/api`** es un SDK (Kit de Desarrollo de Software) para interactuar con la API de Intlayer. Proporciona un conjunto de funciones para auditar declaraciones de contenido, interactuar con organizaciones, proyectos, usuarios, etc.
 
 ## Uso
 
 ```ts
 import { intlayerAPI } from "@intlayer/api";
 
-// Obtener API del usuario
 intlayerAPI.user.getUser({
   ids: ["user-id-1", "user-id-2"],
 });
@@ -17,7 +16,7 @@ intlayerAPI.user.getUser({
 
 ## Instalación
 
-Instala el paquete necesario utilizando tu gestor de paquetes preferido:
+Instale el paquete necesario utilizando su gestor de paquetes preferido:
 
 ```bash packageManager="npm"
 npm install @intlayer/api

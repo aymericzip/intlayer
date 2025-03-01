@@ -1,53 +1,53 @@
-# تكامل Next.js: توثيق `useIntlayer` هك
+# دمج Next.js: توثيق `useIntlayer` Hook
 
-يتم تصميم هك `useIntlayer` لتطبيقات Next.js لجلب وإدارة المحتوى المحلي بكفاءة. ستركز هذه الوثيقة على كيفية استخدام الهك ضمن مشاريع Next.js، مع ضمان اتباع ممارسات الترجمة الصحيحة.
+تم تصميم `useIntlayer` خصيصًا لتطبيقات Next.js لجلب وإدارة المحتوى المحلي بكفاءة. يركز هذا التوثيق على كيفية استخدام الـ hook داخل مشاريع Next.js، مع ضمان اتباع ممارسات التوطين الصحيحة.
 
 ## استيراد `useIntlayer` في Next.js
 
-اعتمادًا على ما إذا كنت تعمل على مكونات من جانب العميل أو من جانب الخادم في تطبيق Next.js، يمكنك استيراد هك `useIntlayer` على النحو التالي:
+اعتمادًا على ما إذا كنت تعمل على مكونات العميل أو الخادم في تطبيق Next.js، يمكنك استيراد الـ hook `useIntlayer` كما يلي:
 
 - **مكون العميل:**
 
   ```typescript codeFormat="typescript"
-  import { useIntlayer } from "next-intlayer"; // يُستخدم في مكونات جانب العميل
+  import { useIntlayer } from "next-intlayer"; // يُستخدم في مكونات العميل
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "next-intlayer"; // يُستخدم في مكونات جانب العميل
+  import { useIntlayer } from "next-intlayer"; // يُستخدم في مكونات العميل
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("next-intlayer"); // يُستخدم في مكونات جانب العميل
+  const { useIntlayer } = require("next-intlayer"); // يُستخدم في مكونات العميل
   ```
 
 - **مكون الخادم:**
 
   ```tsx codeFormat="typescript"
-  import { useIntlayer } from "next-intlayer/server"; // يُستخدم في مكونات جانب الخادم
+  import { useIntlayer } from "next-intlayer/server"; // يُستخدم في مكونات الخادم
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "next-intlayer/server"; // يُستخدم في مكونات جانب الخادم
+  import { useIntlayer } from "next-intlayer/server"; // يُستخدم في مكونات الخادم
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("next-intlayer/server"); // يُستخدم في مكونات جانب الخادم
+  const { useIntlayer } = require("next-intlayer/server"); // يُستخدم في مكونات الخادم
   ```
 
-## المعايير
+## المعاملات
 
-1. **`key`**: مُعرف سلسلة لمفتاح القاموس الذي تريد استرداد المحتوى منه.
-2. **`locale`** (اختياري): منطقة محددة للاستخدام. إذا تم تخطيه، يتعذر على الهك الخيار الافتراضي للمنطقة المحددة في سياق العميل أو الخادم.
+1. **`key`**: معرف نصي لمفتاح القاموس الذي تريد استرداد المحتوى منه.
+2. **`locale`** (اختياري): لغة معينة للاستخدام. إذا لم يتم تحديدها، فإن الـ hook يستخدم اللغة الافتراضية المحددة في سياق العميل أو الخادم.
 
-## ملفات إعلان المحتوى
+## ملفات القاموس
 
-من الضروري أن يتم تعريف جميع مفاتيح المحتوى داخل ملفات إعلان المحتوى لتجنب الأخطاء أثناء التشغيل وضمان أمان النوع. يسهل هذا النهج أيضًا دمج TypeScript للتحقق من صحة وقت الترجمة.
+من المهم أن يتم تعريف جميع مفاتيح المحتوى داخل ملفات تعريف المحتوى لتجنب أخطاء وقت التشغيل وضمان سلامة النوع. يتيح هذا النهج أيضًا تكامل TypeScript للتحقق أثناء وقت الترجمة.
 
-تعليمات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+تعليمات إعداد ملفات تعريف المحتوى متوفرة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ## مثال على الاستخدام في Next.js
 
-إليك كيفية تنفيذ هك `useIntlayer` ضمن صفحة Next.js لتحميل المحتوى المحلي ديناميكيًا استنادًا إلى منطقة التطبيق الحالية:
+إليك كيفية تنفيذ الـ hook `useIntlayer` داخل صفحة Next.js لتحميل المحتوى المحلي ديناميكيًا بناءً على اللغة الحالية للتطبيق:
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -222,16 +222,16 @@ const ServerComponentExample = () => {
 };
 ```
 
-## التعامل مع ترجمة السمات
+## التعامل مع توطين السمات
 
-لترجمة السمات مثل `alt`، `title`، `href`، `aria-label`، إلخ، تأكد من الإشارة إلى المحتوى بشكل صحيح:
+لتوطين السمات مثل `alt`، `title`، `href`، `aria-label`، إلخ، تأكد من الرجوع إلى المحتوى بشكل صحيح:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
 ```
 
-## مزيد من المعلومات
+## معلومات إضافية
 
-- **محرر إنتلاير المرئي**: تعرف على كيفية استخدام المحرر المرئي لإدارة المحتوى بشكل أسهل [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md).
+- **محرر Intlayer البصري**: تعرف على كيفية استخدام المحرر البصري لإدارة المحتوى بسهولة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
 
-توضح هذه الوثيقة استخدام هك `useIntlayer` بشكل محدد ضمن بيئات Next.js، مما يوفر حلاً قويًا لإدارة الترجمة عبر تطبيقات Next.js الخاصة بك.
+يوضح هذا التوثيق استخدام الـ hook `useIntlayer` بشكل خاص في بيئات Next.js، مما يوفر حلاً قويًا لإدارة التوطين عبر تطبيقات Next.js الخاصة بك.

@@ -1,16 +1,16 @@
-# Вложение / Ссылки на вложенный контент
+# Вложенность / Ссылки на Подконтент
 
-## Как работает вложение
+## Как работает вложенность
 
-В Intlayer вложение достигается с помощью функции `nest`, которая позволяет ссылаться и повторно использовать контент из другого словаря. Вместо дублирования контента вы можете указать на существующий модуль контента по его ключу.
+В Intlayer вложенность достигается с помощью функции `nest`, которая позволяет ссылаться и повторно использовать контент из другого словаря. Вместо дублирования контента вы можете указать на существующий модуль контента по его ключу.
 
-## Настройка вложения
+## Настройка вложенности
 
-Чтобы настроить вложение в вашем проекте Intlayer, сначала определите базовое содержимое, которое вы хотите повторно использовать. Затем в отдельном модуле содержимого используйте функцию `nest` для импорта этого содержимого.
+Чтобы настроить вложенность в вашем проекте Intlayer, сначала определите базовый контент, который вы хотите повторно использовать. Затем в отдельном модуле контента используйте функцию `nest` для импорта этого контента.
 
 ### Базовый словарь
 
-Ниже приведен пример базового словаря с вложенным контентом:
+Ниже приведен пример базового словаря для вложения в другой словарь:
 
 ```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
 import { type Dictionary } from "intlayer";
@@ -75,9 +75,9 @@ module.exports = firstDictionary;
 }
 ```
 
-### Ссылки с помощью Nest
+### Ссылка с помощью Nest
 
-Теперь создайте другой модуль содержимого, который использует функцию `nest`, чтобы ссылаться на указанное выше содержимое. Вы можете ссылаться на весь контент или на конкретное вложенное значение:
+Теперь создайте другой модуль контента, который использует функцию `nest` для ссылки на вышеуказанный контент. Вы можете ссылаться на весь контент или на определенное вложенное значение:
 
 ```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
 import { nest, type Dictionary } from "intlayer";
@@ -85,9 +85,9 @@ import { nest, type Dictionary } from "intlayer";
 const myNestingContent = {
   key: "key_of_my_second_dictionary",
   content: {
-    // Ссылается на весь словарь:
+    // Ссылка на весь словарь:
     fullNestedContent: nest("key_of_my_first_dictionary"),
-    // Ссылается на определенное вложенное значение:
+    // Ссылка на определенное вложенное значение:
     partialNestedContent: nest(
       "key_of_my_first_dictionary",
       "subContent.contentNumber"
@@ -156,13 +156,13 @@ module.exports = myNestingContent;
 }
 ```
 
-В качестве второго параметра вы можете указать путь к вложенному значению внутри этого контента. Если путь не предоставлен, возвращается весь контент ссылочного словаря.
+В качестве второго параметра вы можете указать путь к вложенному значению внутри этого контента. Если путь не указан, возвращается весь контент ссылочного словаря.
 
-## Использование вложения с React Intlayer
+## Использование вложенности с React Intlayer
 
-Чтобы использовать вложенный контент в React-компоненте, используйте хук `useIntlayer` из пакета `react-intlayer`. Этот хук получает правильный контент на основе указанного ключа. Вот пример использования:
+Чтобы использовать вложенный контент в React-компоненте, используйте хук `useIntlayer` из пакета `react-intlayer`. Этот хук извлекает правильный контент на основе указанного ключа. Вот пример его использования:
 
-```tsx fileName="/**/ru/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -174,7 +174,7 @@ const NestComponent: FC = () => {
   return (
     <div>
       <p>
-        Полное вложенное содержание: {JSON.stringify(fullNestedContent)}
+        Полный вложенный контент: {JSON.stringify(fullNestedContent)}
         {/* Вывод: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
@@ -188,7 +188,7 @@ const NestComponent: FC = () => {
 export default NestComponent;
 ```
 
-```javascript fileName="/**/ru/*.mjx" codeFormat="esm"
+```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const NestComponent = () => {
@@ -199,7 +199,7 @@ const NestComponent = () => {
   return (
     <div>
       <p>
-        Полное вложенное содержание: {JSON.stringify(fullNestedContent)}
+        Полный вложенный контент: {JSON.stringify(fullNestedContent)}
         {/* Вывод: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
@@ -213,7 +213,7 @@ const NestComponent = () => {
 export default NestComponent;
 ```
 
-```javascript fileName="/**/ru/*.cjx" codeFormat="commonjs"
+```javascript fileName="**/*.cjx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
 const NestComponent = () => {
@@ -224,7 +224,7 @@ const NestComponent = () => {
   return (
     <div>
       <p>
-        Полное вложенное содержание: {JSON.stringify(fullNestedContent)}
+        Полный вложенный контент: {JSON.stringify(fullNestedContent)}
         {/* Вывод: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
@@ -240,10 +240,10 @@ module.exports = NestComponent;
 
 ## Дополнительные ресурсы
 
-Чтобы получить более подробную информацию о настройке и использовании, обратитесь к следующим ресурсам:
+Для получения более подробной информации о настройке и использовании обратитесь к следующим ресурсам:
 
 - [Документация Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md)
 - [Документация React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_create_react_app.md)
 - [Документация Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_15.md)
 
-Эти ресурсы предоставляют дополнительную информацию о настройке и использовании Intlayer в различных средах и с разными фреймворками.
+Эти ресурсы предоставляют дополнительные сведения о настройке и использовании Intlayer в различных средах и с различными фреймворками.

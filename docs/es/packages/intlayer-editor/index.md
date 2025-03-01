@@ -1,14 +1,14 @@
 # intlayer-editor: Paquete NPM para usar el editor visual de Intlayer
 
-**Intlayer** es un conjunto de paquetes diseñado específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React, y Express.js.
+**Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
 
-El paquete **`intlayer-editor`** es un paquete NPM que integra el editor visual de Intlayer en tu proyecto de React.
+El paquete **`intlayer-editor`** es un paquete NPM que integra el editor visual de Intlayer en tu proyecto React.
 
-## Cómo Funciona el Editor de Intlayer
+## Cómo funciona el Editor de Intlayer
 
-El editor de intlayer permite interactuar con el diccionario distante de Intlayer. Se puede instalar en el lado del cliente y transformar tu aplicación en un editor similar a un CMS para gestionar el contenido de tu sitio en todos los idiomas configurados.
+El editor de Intlayer permite interactuar con el diccionario remoto de Intlayer. Puede instalarse en el lado del cliente y transformar tu aplicación en un editor tipo CMS para gestionar el contenido de tu sitio en todos los idiomas configurados.
 
-![Interfaz del Editor Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/assets/intlayer_editor_ui.png)
+![Interfaz del Editor de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
 ## Instalación
 
@@ -28,29 +28,29 @@ yarn add intlayer-editor
 
 ### Configuración
 
-En tu archivo de configuración de Intlayer, puedes personalizar la configuración del editor:
+En tu archivo de configuración de Intlayer, puedes personalizar los ajustes del editor:
 
 ```typescript
 const config: IntlayerConfig = {
-  // ... otras configuraciones
+  // ... otros ajustes de configuración
   editor: {
     enabled: process.env.INTLAYER_ENABLED === "true", // Si es falso, el editor está inactivo y no se puede acceder.
-    // El ID del cliente y el secreto del cliente son necesarios para habilitar el editor.
+    // Se requieren el ID de cliente y el secreto de cliente para habilitar el editor.
     // Permiten identificar al usuario que está editando el contenido.
-    // Se pueden obtener creando un nuevo cliente en el panel de control de Intlayer - Proyectos (https://intlayer.org/dashboard/projects).
+    // Se pueden obtener creando un nuevo cliente en el Panel de Intlayer - Proyectos (https://intlayer.org/dashboard/projects).
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 ```
 
-> Si no tienes un ID de cliente y un secreto de cliente, puedes obtenerlos creando un nuevo cliente en el [Panel de Control de Intlayer - Proyectos](https://intlayer.org/dashboard/projects).
+> Si no tienes un ID de cliente y un secreto de cliente, puedes obtenerlos creando un nuevo cliente en el [Panel de Intlayer - Proyectos](https://intlayer.org/dashboard/projects).
 
 > Para ver todos los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md)
 
-El paquete `intlayer-editor` está basado en Intlayer y está disponible para aplicaciones de JavaScript, como React (Create React App), Vite + React y Next.js.
+El paquete `intlayer-editor` está basado en Intlayer y está disponible para aplicaciones JavaScript, como React (Create React App), Vite + React y Next.js.
 
-Para más detalles sobre cómo instalar el paquete, consulta la sección relevante a continuación:
+Para más detalles sobre cómo instalar el paquete, consulta la sección correspondiente a continuación:
 
 ### Integración con Next.js
 
@@ -66,9 +66,9 @@ Para la integración con Vite + React, consulta la [guía de configuración](htt
 
 ### Ejemplo de integración
 
-Para integrar el editor visual de Intlayer en tu proyecto de React, sigue estos pasos:
+Para integrar el editor visual de Intlayer en tu proyecto React, sigue estos pasos:
 
-- Importa el componente del editor de Intlayer en tu aplicación de React:
+- Importa el componente del editor de Intlayer en tu aplicación React:
 
   ```tsx fileName="src/App.jsx"
   import { IntlayerEditorProvider } from "intlayer-editor";
@@ -78,14 +78,16 @@ Para integrar el editor visual de Intlayer en tu proyecto de React, sigue estos 
     return (
       <IntlayerProvider>
         <IntlayerEditorProvider>
-          <IntlayerEditor>{/* Tu contenido de App aquí */}</IntlayerEditor>
+          <IntlayerEditor>
+            {/* Tu contenido de la aplicación aquí */}
+          </IntlayerEditor>
         </IntlayerEditorProvider>
       </IntlayerProvider>
     );
   }
   ```
 
-- Importa los estilos del editor de Intlayer en tu aplicación de Next.js:
+- Importa los estilos del editor de Intlayer en tu aplicación Next.js:
 
   ```tsx fileName="src/app/[locale]/layout.jsx"
   import { IntlayerEditorStyles } from "intlayer-editor";
@@ -104,10 +106,10 @@ Para integrar el editor visual de Intlayer en tu proyecto de React, sigue estos 
   }
   ```
 
-## Usando el Editor
+## Uso del Editor
 
-Cuando el editor está instalado, habilitado y iniciado, puedes ver cada campo indexado por Intlayer pasando el cursor sobre tu contenido.
+Cuando el editor está instalado, habilitado y en funcionamiento, puedes ver cada campo indexado por Intlayer al pasar el cursor sobre tu contenido.
 
-![Pasando el cursor sobre el contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/assets/intlayer_editor_hover_content.png)
+![Pasando el cursor sobre el contenido](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-Si tu contenido está resaltado, puedes presionar prolongadamente para mostrar el panel de edición.
+Si tu contenido está delineado, puedes mantenerlo presionado para mostrar el cajón de edición.

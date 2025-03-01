@@ -1,26 +1,26 @@
-# Documentation: `getLocaleName` 함수 in `intlayer`
+# 문서: `getLocaleName` 함수 in `intlayer`
 
-## 설명:
+## 설명
 
-`getLocaleName` 함수는 주어진 로케일(`targetLocale`)의 로컬화된 이름을 표시 로케일(`displayLocale`)에서 반환합니다. `targetLocale`이 제공되지 않으면, `displayLocale`의 이름을 자신의 언어로 반환합니다.
+`getLocaleName` 함수는 주어진 로케일(`targetLocale`)의 로컬라이즈된 이름을 표시 로케일(`displayLocale`)에서 반환합니다. `targetLocale`이 제공되지 않으면, 표시 로케일의 이름을 해당 언어로 반환합니다.
 
-## 매개변수:
+## 매개변수
 
 - `displayLocale: Locales`
 
   - **설명**: 대상 로케일의 이름이 표시될 로케일입니다.
-  - **타입**: 유효한 로케일을 나타내는 Enum 또는 문자열.
+  - **유형**: 유효한 로케일을 나타내는 열거형 또는 문자열.
 
 - `targetLocale?: Locales`
-  - **설명**: 이름이 로컬화될 로케일입니다.
-  - **타입**: 선택 사항입니다. 유효한 로케일을 나타내는 Enum 또는 문자열.
+  - **설명**: 로컬라이즈된 이름을 가져올 로케일입니다.
+  - **유형**: 선택 사항. 유효한 로케일을 나타내는 열거형 또는 문자열.
 
-## 반환값:
+## 반환값
 
-- **타입**: `string`
-- **설명**: `displayLocale`에서 `targetLocale`의 로컬화된 이름이거나, `targetLocale`이 제공되지 않은 경우 `displayLocale` 자신의 이름입니다. 번역을 찾을 수 없는 경우 `"Unknown locale"`을 반환합니다.
+- **유형**: `string`
+- **설명**: `displayLocale`에서 `targetLocale`의 로컬라이즈된 이름 또는 `targetLocale`이 제공되지 않은 경우 `displayLocale` 자신의 이름. 번역을 찾을 수 없는 경우 `"Unknown locale"`을 반환합니다.
 
-## 예시 사용법:
+## 사용 예시
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -85,9 +85,9 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 출력: "Chinese"
 getLocaleName("unknown-locale"); // 출력: "Unknown locale"
 ```
 
-## 엣지 케이스:
+## 엣지 케이스
 
-- **`targetLocale`이 제공되지 않는 경우:**
-  - 함수는 기본적으로 `displayLocale`의 자신의 이름을 반환합니다.
-- **누락된 번역:**
-  - 만약 `localeNameTranslations`가 `targetLocale`이나 특정 `displayLocale`에 대한 항목을 포함하지 않는 경우, 함수는 `ownLocalesName`으로 돌아가거나 `"Unknown locale"`을 반환합니다.
+- **`targetLocale`가 제공되지 않은 경우:**
+  - 함수는 기본적으로 `displayLocale` 자신의 이름을 반환합니다.
+- **번역 누락:**
+  - `localeNameTranslations`에 `targetLocale` 또는 특정 `displayLocale`에 대한 항목이 없으면, 함수는 `ownLocalesName`으로 대체하거나 `"Unknown locale"`을 반환합니다.

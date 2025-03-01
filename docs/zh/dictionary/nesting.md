@@ -1,16 +1,16 @@
 # 嵌套 / 子内容引用
 
-## 如何实现嵌套
+## 嵌套如何工作
 
-在 Intlayer 中，嵌套是通过 `nest` 函数实现的，该函数允许您引用并重用来自另一个字典的内容。与其重复内容，不如通过其键指向现有的内容模块。
+在 Intlayer 中，嵌套是通过 `nest` 函数实现的，它允许您引用和重用来自另一个字典的内容。与其重复内容，不如通过其键指向现有的内容模块。
 
 ## 设置嵌套
 
-要在 Intlayer 项目中设置嵌套，首先需要定义您希望重用的基础内容。然后，在一个单独的内容模块中，使用 `nest` 函数来导入该内容。
+要在您的 Intlayer 项目中设置嵌套，您首先需要定义您希望重用的基础内容。然后，在一个单独的内容模块中，使用 `nest` 函数导入该内容。
 
 ### 基础字典
 
-以下是一个包含嵌套内容的基础字典示例：
+以下是一个基础字典的示例，用于在另一个字典中嵌套：
 
 ```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
 import { type Dictionary } from "intlayer";
@@ -77,7 +77,7 @@ module.exports = firstDictionary;
 
 ### 使用 Nest 引用
 
-现在，创建另一个内容模块，使用 `nest` 函数来引用上面的内容。您可以引用整个内容或特定的嵌套值：
+现在，创建另一个内容模块，使用 `nest` 函数引用上述内容。您可以引用整个内容或特定的嵌套值：
 
 ```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
 import { nest, type Dictionary } from "intlayer";
@@ -85,9 +85,9 @@ import { nest, type Dictionary } from "intlayer";
 const myNestingContent = {
   key: "key_of_my_second_dictionary",
   content: {
-    // 引用整个字典:
+    // 引用整个字典：
     fullNestedContent: nest("key_of_my_first_dictionary"),
-    // 引用特定嵌套值:
+    // 引用特定的嵌套值：
     partialNestedContent: nest(
       "key_of_my_first_dictionary",
       "subContent.contentNumber"
@@ -156,11 +156,11 @@ module.exports = myNestingContent;
 }
 ```
 
-作为参数的第二部分，您可以指定该内容中一个嵌套值的路径。如果未提供路径，则返回引用字典的整个内容。
+作为第二个参数，您可以指定该内容中嵌套值的路径。如果未提供路径，则返回引用字典的整个内容。
 
 ## 在 React Intlayer 中使用嵌套
 
-在 React 组件中使用嵌套内容时，可以利用 `react-intlayer` 包中的 `useIntlayer` hook。此 hook 根据指定的键检索正确的内容。以下是一个使用它的示例：
+要在 React 组件中使用嵌套内容，可以利用 `react-intlayer` 包中的 `useIntlayer` 钩子。此钩子根据指定的键检索正确的内容。以下是如何使用它的示例：
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -174,11 +174,11 @@ const NestComponent: FC = () => {
   return (
     <div>
       <p>
-        完整嵌套内容: {JSON.stringify(fullNestedContent)}
+        Full Nested Content: {JSON.stringify(fullNestedContent)}
         {/* 输出: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        部分嵌套值: {partialNestedContent}
+        Partial Nested Value: {partialNestedContent}
         {/* 输出: 0 */}
       </p>
     </div>
@@ -199,11 +199,11 @@ const NestComponent = () => {
   return (
     <div>
       <p>
-        完整嵌套内容: {JSON.stringify(fullNestedContent)}
+        Full Nested Content: {JSON.stringify(fullNestedContent)}
         {/* 输出: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        部分嵌套值: {partialNestedContent}
+        Partial Nested Value: {partialNestedContent}
         {/* 输出: 0 */}
       </p>
     </div>
@@ -224,11 +224,11 @@ const NestComponent = () => {
   return (
     <div>
       <p>
-        完整嵌套内容: {JSON.stringify(fullNestedContent)}
+        Full Nested Content: {JSON.stringify(fullNestedContent)}
         {/* 输出: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        部分嵌套值: {partialNestedContent}
+        Partial Nested Value: {partialNestedContent}
         {/* 输出: 0 */}
       </p>
     </div>

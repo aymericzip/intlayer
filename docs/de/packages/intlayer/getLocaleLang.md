@@ -1,24 +1,24 @@
 # Dokumentation: `getLocaleLang` Funktion in `intlayer`
 
-## Beschreibung:
+## Beschreibung
 
-Die `getLocaleLang` Funktion extrahiert den Sprachcode aus einer Locale-Zeichenfolge. Sie unterstützt Locales mit oder ohne Ländercodes. Wenn keine Locale angegeben wird, gibt sie standardmäßig eine leere Zeichenfolge zurück.
+Die Funktion `getLocaleLang` extrahiert den Sprachcode aus einem Locale-String. Sie unterstützt Locales mit oder ohne Ländercodes. Wenn kein Locale angegeben wird, gibt sie standardmäßig einen leeren String zurück.
 
-## Parameter:
+## Parameter
 
 - `locale?: Locales`
 
-  - **Beschreibung**: Die Locale-Zeichenfolge (z.B. `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`), aus der der Sprachcode extrahiert wird.
+  - **Beschreibung**: Der Locale-String (z. B. `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`), aus dem der Sprachcode extrahiert wird.
   - **Typ**: `Locales` (optional)
 
-## Rückgaben:
+## Rückgabewerte
 
 - **Typ**: `string`
-- **Beschreibung**: Der aus der Locale extrahierte Sprachcode. Wenn die Locale nicht angegeben wird, gibt sie eine leere Zeichenfolge zurück (`''`).
+- **Beschreibung**: Der aus dem Locale extrahierte Sprachcode. Wenn kein Locale angegeben wird, gibt die Funktion einen leeren String (`''`) zurück.
 
-## Beispielverwendung:
+## Beispielverwendung
 
-### Extraktion von Sprachcodes:
+### Extrahieren von Sprachcodes:
 
 ```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
@@ -47,11 +47,11 @@ getLocaleLang(Locales.FRENCH_CANADA); // Ausgabe: "fr"
 getLocaleLang(Locales.FRENCH); // Ausgabe: "fr"
 ```
 
-## Randfälle:
+## Sonderfälle
 
-- **Keine Locale angegeben:**
+- **Kein Locale angegeben:**
 
-  - Die Funktion gibt eine leere Zeichenfolge zurück, wenn `locale` `undefined` ist.
+  - Die Funktion gibt einen leeren String zurück, wenn `locale` `undefined` ist.
 
-- **Fehlerhaft formatierte Locale-Zeichenfolgen:**
-  - Wenn die `locale` nicht dem Format `sprache-land` folgt (z.B. `Locales.ENGLISH-US`), gibt die Funktion sicher den Teil vor `'-'` oder die gesamte Zeichenfolge zurück, wenn kein `'-'` vorhanden ist.
+- **Fehlerhafte Locale-Strings:**
+  - Wenn das `locale` nicht dem Format `language-country` entspricht (z. B. `Locales.ENGLISH-US`), gibt die Funktion sicher den Teil vor `'-'` oder den gesamten String zurück, wenn kein `'-'` vorhanden ist.

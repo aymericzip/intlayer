@@ -1,12 +1,12 @@
 # Enumeración / Pluralización
 
-## Cómo funciona la Enumeración
+## Cómo funciona la enumeración
 
-En Intlayer, la enumeración se logra a través de la función `enu`, que asigna claves específicas a su contenido correspondiente. Estas claves pueden representar valores numéricos, rangos o identificadores personalizados. Cuando se utiliza con React Intlayer o Next Intlayer, el contenido adecuado se selecciona automáticamente en base al locale de la aplicación y las reglas definidas.
+En Intlayer, la enumeración se logra a través de la función `enu`, que asigna claves específicas a su contenido correspondiente. Estas claves pueden representar valores numéricos, rangos o identificadores personalizados. Cuando se utiliza con React Intlayer o Next Intlayer, el contenido apropiado se selecciona automáticamente según la configuración regional de la aplicación y las reglas definidas.
 
-## Configuración de Enumeración
+## Configuración de la enumeración
 
-Para configurar la enumeración en tu proyecto de Intlayer, necesitas crear un módulo de contenido que incluya definiciones de enumeración. Aquí hay un ejemplo de una enumeración sencilla para el número de coches:
+Para configurar la enumeración en tu proyecto de Intlayer, necesitas crear un módulo de contenido que incluya definiciones de enumeración. Aquí tienes un ejemplo de una enumeración simple para el número de autos:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -15,12 +15,12 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
+      "<-1": "Menos de menos un auto",
+      "-1": "Menos un auto",
+      "0": "Sin autos",
+      "1": "Un auto",
+      ">5": "Algunos autos",
+      ">19": "Muchos autos",
       "fallback": "Valor por defecto", // Opcional
     }),
   },
@@ -37,12 +37,12 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
+      "<-1": "Menos de menos un auto",
+      "-1": "Menos un auto",
+      "0": "Sin autos",
+      "1": "Un auto",
+      ">5": "Algunos autos",
+      ">19": "Muchos autos",
       "fallback": "Valor por defecto", // Opcional
     }),
   },
@@ -59,12 +59,12 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
+      "<-1": "Menos de menos un auto",
+      "-1": "Menos un auto",
+      "0": "Sin autos",
+      "1": "Un auto",
+      ">5": "Algunos autos",
+      ">19": "Muchos autos",
       "fallback": "Valor por defecto", // Opcional
     }),
   },
@@ -81,12 +81,12 @@ module.exports = carEnumeration;
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Menos de menos un coche",
-        "-1": "Menos un coche",
-        "0": "Sin coches",
-        "1": "Un coche",
-        ">5": "Algunos coches",
-        ">19": "Muchos coches",
+        "<-1": "Menos de menos un auto",
+        "-1": "Menos un auto",
+        "0": "Sin autos",
+        "1": "Un auto",
+        ">5": "Algunos autos",
+        ">19": "Muchos autos",
         "fallback": "Valor por defecto" // Opcional
       }
     }
@@ -94,15 +94,15 @@ module.exports = carEnumeration;
 }
 ```
 
-En este ejemplo, `enu` asigna varias condiciones a contenido específico. Cuando se utiliza en un componente de React, Intlayer puede seleccionar automáticamente el contenido adecuado basado en la variable dada.
+En este ejemplo, `enu` asigna varias condiciones a contenido específico. Cuando se utiliza en un componente de React, Intlayer puede elegir automáticamente el contenido apropiado basado en la variable dada.
 
-> El orden de la declaración es importante en las enumeraciones de Intlayer. La primera declaración válida es la que se tomará. Si múltiples condiciones aplican, asegúrate de que estén ordenadas correctamente para evitar comportamientos inesperados.
+> El orden de declaración es importante en las enumeraciones de Intlayer. La primera declaración válida es la que se seleccionará. Si se aplican múltiples condiciones, asegúrate de que estén ordenadas correctamente para evitar comportamientos inesperados.
 
-> Si no se declara un valor por defecto, la función retornará `undefined` si ninguna clave coincide.
+> Si no se declara un valor por defecto, la función devolverá `undefined` si no coincide ninguna clave.
 
-## Usando Enumeración con React Intlayer
+## Uso de enumeración con React Intlayer
 
-Para usar enumeración en un componente de React, puedes aprovechar el hook `useIntlayer` del paquete `react-intlayer`. Este hook recupera el contenido correcto basado en el ID especificado. Aquí tienes un ejemplo de cómo usarlo:
+Para usar la enumeración en un componente de React, puedes aprovechar el hook `useIntlayer` del paquete `react-intlayer`. Este hook recupera el contenido correcto basado en el ID especificado. Aquí tienes un ejemplo de cómo usarlo:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -115,17 +115,17 @@ const CarComponent: FC = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Salida: Sin coches
+          numberOfCar(0) // Salida: Sin autos
         }
       </p>
       <p>
         {
-          numberOfCar(6) // Salida: Algunos coches
+          numberOfCar(6) // Salida: Algunos autos
         }
       </p>
       <p>
         {
-          numberOfCar(20) // Salida: Muchos coches
+          numberOfCar(20) // Salida: Muchos autos
         }
       </p>
       <p>
@@ -148,17 +148,17 @@ const CarComponent = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Salida: Sin coches
+          numberOfCar(0) // Salida: Sin autos
         }
       </p>
       <p>
         {
-          numberOfCar(6) // Salida: Algunos coches
+          numberOfCar(6) // Salida: Algunos autos
         }
       </p>
       <p>
         {
-          numberOfCar(20) // Salida: Muchos coches
+          numberOfCar(20) // Salida: Muchos autos
         }
       </p>
       <p>
@@ -183,17 +183,17 @@ const CarComponent = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Salida: Sin coches
+          numberOfCar(0) // Salida: Sin autos
         }
       </p>
       <p>
         {
-          numberOfCar(6) // Salida: Algunos coches
+          numberOfCar(6) // Salida: Algunos autos
         }
       </p>
       <p>
         {
-          numberOfCar(20) // Salida: Muchos coches
+          numberOfCar(20) // Salida: Muchos autos
         }
       </p>
       <p>
@@ -208,14 +208,14 @@ const CarComponent = () => {
 module.exports = CarComponent;
 ```
 
-En este ejemplo, el componente ajusta dinámicamente su salida en función del número de coches. El contenido correcto se elige automáticamente dependiendo del rango especificado.
+En este ejemplo, el componente ajusta dinámicamente su salida según el número de autos. El contenido correcto se elige automáticamente, dependiendo del rango especificado.
 
 ## Recursos adicionales
 
 Para obtener información más detallada sobre la configuración y el uso, consulta los siguientes recursos:
 
-- [Documentación de CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md)
+- [Documentación de Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md)
 - [Documentación de React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_create_react_app.md)
 - [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_nextjs_15.md)
 
-Estos recursos proporcionan más detalles sobre la configuración y uso de Intlayer en diferentes entornos y con diversas frameworks.
+Estos recursos proporcionan más información sobre la configuración y el uso de Intlayer en diferentes entornos y con varios frameworks.

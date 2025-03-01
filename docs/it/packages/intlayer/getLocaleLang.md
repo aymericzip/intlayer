@@ -1,22 +1,22 @@
-# Documentazione: `getLocaleLang` Funzione in `intlayer`
+# Documentazione: Funzione `getLocaleLang` in `intlayer`
 
-## Descrizione:
+## Descrizione
 
-La funzione `getLocaleLang` estrae il codice della lingua da una stringa di locale. Supporta le località con o senza codici di paese. Se non viene fornita alcuna località, restituisce di default una stringa vuota.
+La funzione `getLocaleLang` estrae il codice della lingua da una stringa locale. Supporta locali con o senza codici paese. Se non viene fornito alcun locale, restituisce una stringa vuota per impostazione predefinita.
 
-## Parametri:
+## Parametri
 
 - `locale?: Locales`
 
-  - **Descrizione**: La stringa di locale (ad esempio, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) da cui viene estratto il codice della lingua.
+  - **Descrizione**: La stringa locale (ad esempio, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) da cui viene estratto il codice della lingua.
   - **Tipo**: `Locales` (opzionale)
 
-## Ritorna:
+## Restituisce
 
 - **Tipo**: `string`
-- **Descrizione**: Il codice della lingua estratto dalla località. Se la località non è fornita, restituisce una stringa vuota (`''`).
+- **Descrizione**: Il codice della lingua estratto dal locale. Se il locale non è fornito, restituisce una stringa vuota (`''`).
 
-## Esempio di Utilizzo:
+## Esempio di Utilizzo
 
 ### Estrazione dei Codici Lingua:
 
@@ -47,11 +47,11 @@ getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
 getLocaleLang(Locales.FRENCH); // Output: "fr"
 ```
 
-## Casi Limite:
+## Casi Limite
 
-- **Nessuna Locale Fornita:**
+- **Nessun Locale Fornito:**
 
   - La funzione restituisce una stringa vuota quando `locale` è `undefined`.
 
-- **Stringhe di Locale Malformate:**
-  - Se la `locale` non segue il formato `lingua-paese` (ad esempio, `Locales.ENGLISH-US`), la funzione restituisce in sicurezza la parte prima di `'-'` o l'intera stringa se non è presente alcun `'-'`.
+- **Stringhe Locale Malformate:**
+  - Se il `locale` non segue il formato `lingua-paese` (ad esempio, `Locales.ENGLISH-US`), la funzione restituisce in modo sicuro la parte prima di `'-'` o l'intera stringa se non è presente `'-'`.

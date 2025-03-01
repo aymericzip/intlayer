@@ -18,13 +18,13 @@ pnpm add intlayer-cli
 
 > Wenn das `intlayer`-Paket bereits installiert ist, wird die CLI automatisch installiert. Sie können diesen Schritt überspringen.
 
-## intlayer-cli-Paket
+## intlayer-cli Paket
 
-Das `intlayer-cli`-Paket beabsichtigt, Ihre [Intlayer-Deklarationen](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md) in Wörterbücher zu transpiliieren.
+Das `intlayer-cli`-Paket dient dazu, Ihre [Intlayer-Deklarationen](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md) in Wörterbücher zu transpilieren.
 
-Dieses Paket wird alle Intlayer-Dateien transpiliieren, wie `src/**/*.content.{ts|js|mjs|cjs|json}`. [Sehen Sie, wie Sie Ihre Intlayer-Deklarationsdateien deklarieren](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Dieses Paket wird alle Intlayer-Dateien transpilieren, wie z. B. `src/**/*.content.{ts|js|mjs|cjs|json}`. [Erfahren Sie hier, wie Sie Ihre Intlayer-Deklarationsdateien deklarieren können](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-Um Intlayer-Wörterbücher zu interpretieren, können Sie Interpreten wie [react-intlayer](https://www.npmjs.com/package/react-intlayer) oder [next-intlayer](https://www.npmjs.com/package/next-intlayer) verwenden.
+Um Intlayer-Wörterbücher zu interpretieren, können Sie Interpreter wie [react-intlayer](https://www.npmjs.com/package/react-intlayer) oder [next-intlayer](https://www.npmjs.com/package/next-intlayer) verwenden.
 
 ## Unterstützung für Konfigurationsdateien
 
@@ -37,56 +37,56 @@ Intlayer akzeptiert mehrere Formate für Konfigurationsdateien:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-Um zu sehen, wie Sie verfügbare Locales oder andere Parameter konfigurieren, beziehen Sie sich auf die [Konfigurationsdokumentation hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md).
+Um zu sehen, wie verfügbare Lokalisierungen oder andere Parameter konfiguriert werden, lesen Sie die [Konfigurationsdokumentation hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md).
 
-## Führen Sie Intlayer-Befehle aus
+## Intlayer-Befehle ausführen
 
 ### Wörterbücher erstellen
 
-Um Ihre Wörterbücher zu erstellen, können Sie die Befehle ausführen:
+Um Ihre Wörterbücher zu erstellen, können Sie die folgenden Befehle ausführen:
 
 ```bash
 npx intlayer build
 ```
 
-oder im Überwachungsmodus
+oder im Watch-Modus
 
 ```bash
 npx intlayer build --watch
 ```
 
-Dieser Befehl findet Ihre Deklarationsinhaltsdateien standardmäßig unter `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Und erstellt die Wörterbücher im `.intlayer`-Verzeichnis.
+Dieser Befehl findet standardmäßig Ihre Deklarationsinhaltsdateien unter `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` und erstellt die Wörterbücher im Verzeichnis `.intlayer`.
 
-### Wörterbücher pushen
+### Wörterbücher hochladen
 
 ```bash
 npx intlayer dictionary push
 ```
 
-Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md) installiert ist, können Sie auch Wörterbücher an den Editor senden. Dieser Befehl ermöglicht es, die Wörterbücher im [Editor](https://intlayer.org/dashboard) verfügbar zu machen. Auf diese Weise können Sie Ihre Wörterbücher mit Ihrem Team teilen und Ihren Inhalt bearbeiten, ohne den Code Ihrer Anwendung zu ändern.
+Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md) installiert ist, können Sie Wörterbücher auch in den Editor hochladen. Dieser Befehl macht die Wörterbücher im [Editor](https://intlayer.org/dashboard) verfügbar. Auf diese Weise können Sie Ihre Wörterbücher mit Ihrem Team teilen und Inhalte bearbeiten, ohne den Code Ihrer Anwendung zu ändern.
 
 ##### Argumente:
 
-- `-d`, `--dictionaries`: ids der Wörterbücher, die abgerufen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher gepusht.
+- `-d`, `--dictionaries`: IDs der Wörterbücher, die hochgeladen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher hochgeladen.
   > Beispiel: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Überspringen Sie die Frage, die fragt, ob die Locales-Verzeichnisse gelöscht werden sollen, nachdem die Wörterbücher gepusht wurden, und löschen Sie sie. Standardmäßig wird, wenn das Wörterbuch lokal definiert ist, der Inhalt der fernen Wörterbücher überschrieben.
+- `-r`, `--deleteLocaleDictionary`: Überspringt die Frage, ob die Lokalisierungsverzeichnisse nach dem Hochladen der Wörterbücher gelöscht werden sollen, und entfernt sie. Standardmäßig wird der lokale Wörterbuchinhalt überschrieben, wenn das Wörterbuch lokal definiert ist.
   > Beispiel: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Überspringen Sie die Frage, die fragt, ob die Locales-Verzeichnisse gelöscht werden sollen, nachdem die Wörterbücher gepusht wurden, und behalten Sie sie. Standardmäßig wird, wenn das Wörterbuch lokal definiert ist, der Inhalt der fernen Wörterbücher überschrieben.
+- `-k`, `--keepLocaleDictionary`: Überspringt die Frage, ob die Lokalisierungsverzeichnisse nach dem Hochladen der Wörterbücher gelöscht werden sollen, und behält sie bei. Standardmäßig wird der lokale Wörterbuchinhalt überschrieben, wenn das Wörterbuch lokal definiert ist.
   > Beispiel: `npx intlayer dictionary push -k`
 
-### Fernwörterbücher abrufen
+### Entfernte Wörterbücher abrufen
 
 ```bash
 npx intlayer dictionary pull
 ```
 
-Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md) installiert ist, können Sie auch Wörterbücher vom Editor abrufen. Auf diese Weise können Sie den Inhalt Ihrer Wörterbücher nach Bedarf Ihrer Anwendung überschreiben.
+Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md) installiert ist, können Sie Wörterbücher auch aus dem Editor abrufen. Auf diese Weise können Sie den Inhalt Ihrer Wörterbücher für die Anforderungen Ihrer Anwendung überschreiben.
 
 ##### Argumente:
 
-- `-d, --dictionaries`: Ids der Wörterbücher, die abgerufen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher abgerufen.
+- `-d, --dictionaries`: IDs der Wörterbücher, die abgerufen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher abgerufen.
   > Beispiel: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : Pfad zum Verzeichnis, in dem die neuen Wörterbücher gespeichert werden. Wenn nicht angegeben, werden die neuen Wörterbücher im Verzeichnis `./intlayer-dictionaries` des Projekts gespeichert. Wenn ein `filePath`-Feld in Ihrem Wörterbuchinhalt angegeben ist, ignorieren die Wörterbücher dieses Argument und werden im angegebenen `filePath`-Verzeichnis gespeichert.
+- `--newDictionariesPath`: Pfad zum Verzeichnis, in dem die neuen Wörterbücher gespeichert werden. Wenn nicht angegeben, werden die neuen Wörterbücher im Verzeichnis `./intlayer-dictionaries` des Projekts gespeichert. Wenn ein `filePath`-Feld in Ihrem Wörterbuchinhalt angegeben ist, wird dieses Argument ignoriert und die Wörterbücher werden im angegebenen `filePath`-Verzeichnis gespeichert.
 
 ##### Beispiel:
 
@@ -100,27 +100,27 @@ npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 npx intlayer audit
 ```
 
-Dieser Befehl analysiert Ihre Deklarationsinhaltsdateien auf potenzielle Probleme wie fehlende Übersetzungen, strukturelle Inkonsistenzen oder Typenunterschiede. Wenn Probleme gefunden werden, wird **intlayer audit** Aktualisierungen vorschlagen oder anwenden, um Ihre Wörterbücher konsistent und vollständig zu halten.
+Dieser Befehl analysiert Ihre Inhaltsdeklarationsdateien auf potenzielle Probleme wie fehlende Übersetzungen, strukturelle Inkonsistenzen oder Typabweichungen. Wenn Probleme gefunden werden, schlägt **intlayer audit** Updates vor oder wendet sie an, um Ihre Wörterbücher konsistent und vollständig zu halten.
 
 ##### Argumente:
 
 - **`-f, --files [files...]`**  
-  Eine Liste spezifischer Deklarationsinhaltsdateien zur Prüfung. Wenn nicht angegeben, werden alle entdeckten `*.content.{ts,js,mjs,cjs,tsx,jsx,json}`-Dateien geprüft.
+  Eine Liste spezifischer Inhaltsdeklarationsdateien, die geprüft werden sollen. Wenn nicht angegeben, werden alle gefundenen `*.content.{ts,js,mjs,cjs,tsx,jsx,json}`-Dateien geprüft.
 
 - **`--exclude [excludedGlobs...]`**  
-  Globs-Muster, die von der Prüfung ausgeschlossen werden sollen (z.B. `--exclude "src/test/**"`).
+  Glob-Muster, die von der Prüfung ausgeschlossen werden sollen (z. B. `--exclude "src/test/**"`).
 
 - **`-m, --model [model]`**  
-  Das ChatGPT-Modell, das für die Prüfung verwendet werden soll (z.B. `gpt-3.5-turbo`).
+  Das ChatGPT-Modell, das für die Prüfung verwendet werden soll (z. B. `gpt-3.5-turbo`).
 
 - **`-p, --custom-prompt [prompt]`**  
-  Geben Sie einen benutzerdefinierten Eingabeaufforderung für Ihre Prüfanweisungen an.
+  Benutzerdefinierte Eingabeaufforderung für Ihre Prüfungsanweisungen bereitstellen.
 
 - **`-l, --async-limit [asyncLimit]`**  
   Maximale Anzahl von Dateien, die gleichzeitig verarbeitet werden sollen.
 
 - **`-k, --open-ai-api-key [openAiApiKey]`**  
-  Geben Sie Ihren eigenen OpenAI API-Schlüssel an, um die OAuth2-Authentifizierung zu umgehen.
+  Eigener OpenAI-API-Schlüssel, um die OAuth2-Authentifizierung zu umgehen.
 
 ##### Beispiel:
 
@@ -128,9 +128,41 @@ Dieser Befehl analysiert Ihre Deklarationsinhaltsdateien auf potenzielle Problem
 npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 ```
 
-Dieser Befehl ignoriert alle Dateien unter `tests/**` und verwendet das Modell `gpt-3.5-turbo`, um die entdeckten Deklarationsinhaltsdateien zu prüfen. Wenn Probleme gefunden werden – wie fehlende Übersetzungen – werden sie direkt korrigiert und die ursprüngliche Dateistruktur bleibt erhalten.
+Dieser Befehl ignoriert alle Dateien unter `tests/**` und verwendet das Modell `gpt-3.5-turbo`, um die gefundenen Inhaltsdeklarationsdateien zu prüfen. Wenn Probleme wie fehlende Übersetzungen gefunden werden, werden diese direkt korrigiert, wobei die ursprüngliche Dateistruktur erhalten bleibt.
 
-## Verwenden Sie Intlayer-Befehle in Ihrer `package.json`
+### Konfiguration verwalten
+
+#### Konfiguration abrufen
+
+Der Befehl `get configuration` ruft die aktuelle Konfiguration für Intlayer ab, insbesondere die Lokalisierungseinstellungen. Dies ist nützlich, um Ihre Einrichtung zu überprüfen.
+
+```bash
+npx intlayer config get
+```
+
+##### Argumente:
+
+- **`--env`**: Geben Sie die Umgebung an (z. B. `development`, `production`).
+- **`--env-file`**: Benutzerdefinierte Umgebungsdatei angeben, aus der Variablen geladen werden sollen.
+- **`--verbose`**: Aktivieren Sie ausführliche Protokollierung für Debugging.
+
+#### Konfiguration hochladen
+
+Der Befehl `push configuration` lädt Ihre Konfiguration in das Intlayer-CMS und den Editor hoch. Dieser Schritt ist erforderlich, um die Verwendung entfernter Wörterbücher im Intlayer Visual Editor zu ermöglichen.
+
+```bash
+npx intlayer config push
+```
+
+##### Argumente:
+
+- **`--env`**: Geben Sie die Umgebung an (z. B. `development`, `production`).
+- **`--env-file`**: Benutzerdefinierte Umgebungsdatei angeben, aus der Variablen geladen werden sollen.
+- **`--verbose`**: Aktivieren Sie ausführliche Protokollierung für Debugging.
+
+Durch das Hochladen der Konfiguration wird Ihr Projekt vollständig in das Intlayer-CMS integriert, was eine nahtlose Wörterbuchverwaltung über Teams hinweg ermöglicht.
+
+## Intlayer-Befehle in Ihrer `package.json` verwenden
 
 ```json fileName="package.json"
 "scripts": {

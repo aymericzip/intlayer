@@ -1,18 +1,18 @@
-# intlayer-editor: Package NPM pour utiliser l'éditeur visuel Intlayer
+# intlayer-editor : Package NPM pour utiliser l'éditeur visuel Intlayer
 
-**Intlayer** est une suite de packages conçus spécifiquement pour les développeurs JavaScript. Il est compatible avec des frameworks comme React, React et Express.js.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Il est compatible avec des frameworks comme React, React et Express.js.
 
 Le package **`intlayer-editor`** est un package NPM qui intègre l'éditeur visuel Intlayer dans votre projet React.
 
 ## Comment fonctionne l'éditeur Intlayer
 
-L'éditeur intlayer permet d'interagir avec le dictionnaire distant Intlayer. Il peut être installé côté client et transformer votre application en un éditeur de type CMS pour gérer le contenu de votre site dans toutes les langues configurées.
+L'éditeur Intlayer permet d'interagir avec le dictionnaire distant Intlayer. Il peut être installé côté client et transforme votre application en un éditeur de type CMS pour gérer le contenu de votre site dans toutes les langues configurées.
 
-![Interface de l'éditeur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/assets/intlayer_editor_ui.png)
+![Interface de l'éditeur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
 ## Installation
 
-Installez le package nécessaire à l'aide de votre gestionnaire de packages préféré :
+Installez le package nécessaire en utilisant votre gestionnaire de packages préféré :
 
 ```bash packageManager="npm"
 npm install intlayer-editor
@@ -34,8 +34,8 @@ Dans votre fichier de configuration Intlayer, vous pouvez personnaliser les para
 const config: IntlayerConfig = {
   // ... autres paramètres de configuration
   editor: {
-    enabled: process.env.INTLAYER_ENABLED === "true", // Si faux, l'éditeur est inactif et ne peut pas être accédé.
-    // L'ID client et le secret client sont nécessaires pour activer l'éditeur.
+    enabled: process.env.INTLAYER_ENABLED === "true", // Si false, l'éditeur est inactif et ne peut pas être accessible.
+    // L'ID client et le secret client sont requis pour activer l'éditeur.
     // Ils permettent d'identifier l'utilisateur qui édite le contenu.
     // Ils peuvent être obtenus en créant un nouveau client dans le tableau de bord Intlayer - Projets (https://intlayer.org/dashboard/projects).
     clientId: process.env.INTLAYER_CLIENT_ID,
@@ -50,7 +50,7 @@ const config: IntlayerConfig = {
 
 Le package `intlayer-editor` est basé sur Intlayer et est disponible pour les applications JavaScript, telles que React (Create React App), Vite + React et Next.js.
 
-Pour plus de détails sur la façon d'installer le package, consultez la section pertinente ci-dessous :
+Pour plus de détails sur la façon d'installer le package, consultez la section correspondante ci-dessous :
 
 ### Intégration avec Next.js
 
@@ -79,7 +79,7 @@ Pour intégrer l'éditeur visuel Intlayer dans votre projet React, suivez ces é
       <IntlayerProvider>
         <IntlayerEditorProvider>
           <IntlayerEditor>
-            {/* Le contenu de votre application ici */}
+            {/* Contenu de votre application ici */}
           </IntlayerEditor>
         </IntlayerEditorProvider>
       </IntlayerProvider>
@@ -108,8 +108,8 @@ Pour intégrer l'éditeur visuel Intlayer dans votre projet React, suivez ces é
 
 ## Utilisation de l'éditeur
 
-Lorsque l'éditeur est installé, activé et démarré, vous pouvez voir chaque champ indexé par Intlayer en survolant votre contenu avec votre curseur.
+Lorsque l'éditeur est installé, activé et démarré, vous pouvez visualiser chaque champ indexé par Intlayer en survolant votre contenu avec votre curseur.
 
-![Survoler le contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/assets/intlayer_editor_hover_content.png)
+![Survoler le contenu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-Si votre contenu est souligné, vous pouvez le long-appuyer pour afficher le tiroir de modification.
+Si votre contenu est délimité, vous pouvez effectuer un appui long pour afficher le tiroir d'édition.

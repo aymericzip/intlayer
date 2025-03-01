@@ -1,49 +1,49 @@
-# React Integration: `useDictionary` Hook Documentation
+# React統合: `useDictionary`フックのドキュメント
 
-このセクションでは、Reactアプリケーション内で`useDictionary`フックを使用するための詳細なガイダンスを提供し、視覚的なエディターなしでローカライズされたコンテンツを効率的に扱えるようにします。
+このセクションでは、Reactアプリケーション内で`useDictionary`フックを使用するための詳細なガイダンスを提供し、ビジュアルエディタを使用せずに効率的にローカライズされたコンテンツを管理する方法を説明します。
 
-## Importing `useDictionary` in React
+## Reactでの`useDictionary`のインポート
 
-`useDictionary`フックは、コンテキストに基づいてReactアプリケーションに統合できます：
+`useDictionary`フックは、以下のコンテキストに基づいてインポートすることでReactアプリケーションに統合できます:
 
 - **クライアントコンポーネント:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用します
+  import { useDictionary } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用します
+  import { useDictionary } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // クライアントサイドのReactコンポーネントで使用します
+  const { useDictionary } = require("react-intlayer"); // クライアントサイドのReactコンポーネントで使用
   ```
 
 - **サーバーコンポーネント:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用します
+  import { useDictionary } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用します
+  import { useDictionary } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // サーバーサイドのReactコンポーネントで使用します
+  const { useDictionary } = require("react-intlayer/server"); // サーバーサイドのReactコンポーネントで使用
   ```
 
-## Parameters
+## パラメータ
 
-このフックは2つのパラメーターを受け入れます：
+このフックは、以下の2つのパラメータを受け取ります:
 
-1. **`dictionary`**: 特定のキーのローカライズされたコンテンツを含む宣言された辞書オブジェクト。
-2. **`locale`**（オプション）：希望するロケール。指定されていない場合は、現在のコンテキストのロケールがデフォルトになります。
+1. **`dictionary`**: 特定のキーに対するローカライズされたコンテンツを含む宣言済みの辞書オブジェクト。
+2. **`locale`** (オプション): 希望するロケール。指定されない場合は現在のコンテキストのロケールがデフォルトになります。
 
-## Dictionary
+## 辞書
 
-すべての辞書オブジェクトは、型安全を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルに宣言する必要があります。セットアップ手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。以下は、コンテンツ宣言の例です：
+すべての辞書オブジェクトは、型の安全性を確保し、実行時エラーを防ぐために構造化されたコンテンツファイルで宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)で確認できます。以下はコンテンツ宣言の例です:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -71,7 +71,6 @@ export default componentContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-// コンテンツの宣言
 const componentContent = {
   key: "component-example",
   content: {
@@ -95,7 +94,6 @@ export default componentContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-// コンテンツの宣言
 const componentContent = {
   key: "component-example",
   content: {
@@ -140,9 +138,9 @@ module.exports = componentContent;
 }
 ```
 
-## Example Usage in React
+## Reactでの使用例
 
-以下は、Reactコンポーネント内で`useDictionary`フックを使用する方法の例です：
+以下は、Reactコンポーネントで`useDictionary`フックを使用する例です:
 
 ```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -193,9 +191,9 @@ const ComponentExample = () => {
 };
 ```
 
-## Server Integration
+## サーバー統合
 
-`IntlayerProvider`の外で`useDictionary`フックを使用している場合、コンポーネントをレンダリングするときにロケールを明示的にパラメーターとして提供する必要があります：
+`IntlayerProvider`の外部で`useDictionary`フックを使用する場合、コンポーネントをレンダリングする際にロケールを明示的にパラメータとして指定する必要があります:
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -246,17 +244,17 @@ const ServerComponentExample = ({ locale }) => {
 };
 ```
 
-## Notes on Attributes
+## 属性に関する注意点
 
-視覚的なエディタを使用した統合とは異なり、`buttonTitle.value`のような属性はここでは適用されません。代わりに、コンテンツに宣言されたローカライズされた文字列に直接アクセスします。
+ビジュアルエディタを使用する統合とは異なり、`buttonTitle.value`のような属性はここでは適用されません。代わりに、コンテンツで宣言されたローカライズされた文字列に直接アクセスします。
 
 ```jsx
 <button title={content.title}>{content.content}</button>
 ```
 
-## Additional Tips
+## 追加のヒント
 
-- **型安全**: 常に`Dictionary`を使用して辞書を定義し、型安全を確保してください。
-- **ローカライズの更新**: コンテンツを更新するときは、すべてのロケールが一貫していることを確認し、翻訳が不足しないようにしてください。
+- **型の安全性**: 辞書を定義する際は常に`Dictionary`を使用して型の安全性を確保してください。
+- **ローカライズの更新**: コンテンツを更新する際は、すべてのロケールが一貫していることを確認し、翻訳漏れを防いでください。
 
-このドキュメントは、`useDictionary`フックの統合に焦点を当て、視覚的なエディタ機能に依存せずにローカライズされたコンテンツを管理するための合理化されたアプローチを提供します。
+このドキュメントは、`useDictionary`フックの統合に焦点を当てており、ビジュアルエディタ機能に依存せずにローカライズされたコンテンツを管理するための効率的なアプローチを提供します。

@@ -1,22 +1,22 @@
-# Documentación: `getLocaleLang` Función en `intlayer`
+# Documentación: Función `getLocaleLang` en `intlayer`
 
-## Descripción:
+## Descripción
 
-La función `getLocaleLang` extrae el código de idioma de una cadena de localización. Admite localidades con o sin códigos de país. Si no se proporciona ninguna localidad, por defecto devuelve una cadena vacía.
+La función `getLocaleLang` extrae el código de idioma de una cadena de configuración regional. Soporta configuraciones regionales con o sin códigos de país. Si no se proporciona una configuración regional, por defecto devuelve una cadena vacía.
 
-## Parámetros:
+## Parámetros
 
 - `locale?: Locales`
 
-  - **Descripción**: La cadena de localización (por ejemplo, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) de la que se extrae el código de idioma.
+  - **Descripción**: La cadena de configuración regional (por ejemplo, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) de la cual se extrae el código de idioma.
   - **Tipo**: `Locales` (opcional)
 
-## Retornos:
+## Retornos
 
 - **Tipo**: `string`
-- **Descripción**: El código de idioma extraído de la localidad. Si no se proporciona la localidad, devuelve una cadena vacía (`''`).
+- **Descripción**: El código de idioma extraído de la configuración regional. Si no se proporciona la configuración regional, devuelve una cadena vacía (`''`).
 
-## Ejemplo de Uso:
+## Ejemplo de Uso
 
 ### Extracción de Códigos de Idioma:
 
@@ -47,11 +47,11 @@ getLocaleLang(Locales.FRENCH_CANADA); // Salida: "fr"
 getLocaleLang(Locales.FRENCH); // Salida: "fr"
 ```
 
-## Casos Límite:
+## Casos Especiales
 
-- **No se Proporciona Localidad:**
+- **No se Proporciona Configuración Regional:**
 
   - La función devuelve una cadena vacía cuando `locale` es `undefined`.
 
-- **Cadenas de Localidad Malformadas:**
-  - Si la `locale` no sigue el formato `idioma-país` (por ejemplo, `Locales.ENGLISH-US`), la función devuelve de manera segura la parte antes de `'-'` o la cadena completa si no hay `'-'` presente.
+- **Cadenas de Configuración Regional Malformadas:**
+  - Si la `locale` no sigue el formato `language-country` (por ejemplo, `Locales.ENGLISH-US`), la función devuelve de forma segura la parte antes de `'-'` o la cadena completa si no hay `'-'` presente.

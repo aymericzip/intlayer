@@ -2,11 +2,11 @@
 
 ## 翻訳の定義
 
-`intlayer` の `t` 関数は、複数の言語でコンテンツを宣言することを可能にします。この関数は型安全性を確保し、欠落している翻訳がある場合にはエラーを発生させます。この機能は特に TypeScript 環境で便利です。
+`intlayer` の `t` 関数を使用すると、複数の言語でコンテンツを宣言できます。この関数は型の安全性を確保し、翻訳が不足している場合にエラーを発生させます。これは特に TypeScript 環境で役立ちます。
 
 ### TypeScript の使用
 
-以下は、翻訳付きのコンテンツを宣言する方法の例です。
+以下は、翻訳を使用してコンテンツを宣言する方法の例です。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -22,7 +22,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ja: "私たちのアプリケーションへようこそ",
     }),
   },
 } satisfies Dictionary<Content>;
@@ -38,7 +37,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ja: "私たちのアプリケーションへようこそ",
     }),
   },
 };
@@ -54,7 +52,6 @@ module.exports = {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ja: "私たちのアプリケーションへようこそ",
     }),
   },
 };
@@ -70,8 +67,7 @@ module.exports = {
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nuestra aplicación",
-        "ja": "私たちのアプリケーションへようこそ"
+        "es": "Bienvenido a nuestra aplicación"
       }
     }
   }
@@ -80,19 +76,14 @@ module.exports = {
 
 ## ロケールの設定
 
-適切な翻訳処理を確保するために、`intlayer.config.ts`で受け入れられるロケールを設定できます。この設定により、アプリケーションがサポートする言語を定義できます。
+適切な翻訳処理を確保するために、`intlayer.config.ts` で受け入れ可能なロケールを設定できます。この設定により、アプリケーションがサポートする言語を定義できます。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.JAPANESE,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -105,12 +96,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.JAPANESE,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -123,12 +109,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.JAPANESE,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -137,7 +118,7 @@ module.exports = config;
 
 ## React コンポーネントでの翻訳の使用
 
-`react-intlayer`を使用すると、React コンポーネントで翻訳を使用できます。以下はその例です。
+`react-intlayer` を使用すると、React コンポーネントで翻訳を使用できます。以下はその例です。
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -188,11 +169,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-このコンポーネントは、アプリケーション内の現在のロケールに基づいた対応する翻訳を取得します。
+このコンポーネントは、アプリケーションで設定された現在のロケールに基づいて対応する翻訳を取得します。
 
 ## カスタムコンテンツオブジェクト
 
-`intlayer`は翻訳のためにカスタムコンテンツオブジェクトをサポートしており、型安全性を確保しながらより複雑な構造を定義できます。以下はカスタムオブジェクトを使用した例です。
+`intlayer` は翻訳用のカスタムコンテンツオブジェクトをサポートしており、より複雑な構造を定義しながら型の安全性を確保できます。以下はカスタムオブジェクトの例です。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -217,10 +198,6 @@ const customContent = {
       es: {
         title: "Título de la Página",
         content: "Contenido de la Página",
-      },
-      ja: {
-        title: "ページタイトル",
-        content: "ページ内容",
       },
     }),
   },
@@ -251,10 +228,6 @@ export default {
           title: "Título de la Página",
           content: "Contenido de la Página",
         },
-        ja: {
-          title: "ページタイトル",
-          content: "ページ内容",
-        },
       },
   },
 };
@@ -282,10 +255,6 @@ module.exports = {
           title: "Título de la Página",
           content: "Contenido de la Página",
         },
-        ja: {
-          title: "ページタイトル",
-          content: "ページ内容",
-        },
       },
   },
 };
@@ -310,10 +279,6 @@ module.exports = {
         "es": {
           "title": "Título de la Página",
           "content": "Contenido de la Página"
-        },
-        "ja": {
-          "title": "ページタイトル",
-          "content": "ページ内容"
         }
       }
     }

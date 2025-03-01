@@ -1,22 +1,24 @@
 # Intlayer Sistema de Gerenciamento de Conteúdo (CMS) Documentação
 
-O Intlayer CMS é um aplicativo que permite externalizar seu conteúdo de um projeto Intlayer.
+O Intlayer CMS é um aplicativo que permite externalizar o conteúdo de um projeto Intlayer.
 
 Para isso, o Intlayer introduz o conceito de 'dicionários distantes'.
 
-## Entendendo dicionários distantes
+![Interface do Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
-O Intlayer faz diferença entre dicionários 'locais' e 'distantes'.
+## Entendendo os dicionários distantes
 
-- Um dicionário 'local' é um dicionário que é declarado em seu projeto Intlayer. Como por exemplo, o arquivo de declaração de um botão ou sua barra de navegação. Externalizar seu conteúdo não faz sentido nesse caso, pois esse conteúdo não deve mudar com frequência.
+O Intlayer faz uma distinção entre dicionários 'locais' e 'distantes'.
 
-- Um dicionário 'distante' é um dicionário que é gerenciado através do Intlayer CMS. Pode ser útil para permitir que sua equipe gerencie seu conteúdo diretamente em seu site e também visa usar recursos de testes A/B e otimização automática de SEO.
+- Um dicionário 'local' é um dicionário declarado no seu projeto Intlayer. Como o arquivo de declaração de um botão ou sua barra de navegação. Externalizar seu conteúdo não faz sentido neste caso, pois este conteúdo não deve mudar frequentemente.
+
+- Um dicionário 'distante' é um dicionário gerenciado através do Intlayer CMS. Ele pode ser útil para permitir que sua equipe gerencie seu conteúdo diretamente no site e também tem como objetivo usar recursos de teste A/B e otimização automática de SEO.
 
 ## Editor visual vs CMS
 
-O [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md) é uma ferramenta que permite gerenciar seu conteúdo em um editor visual para dicionários locais. Uma vez que uma alteração é feita, o conteúdo será substituído na base do código. Isso significa que o aplicativo será reconstruído e a página será recarregada para exibir o novo conteúdo.
+O [Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md) é uma ferramenta que permite gerenciar seu conteúdo em um editor visual para dicionários locais. Uma vez feita uma alteração, o conteúdo será substituído na base de código. Isso significa que o aplicativo será reconstruído e a página será recarregada para exibir o novo conteúdo.
 
-Em contraste, o Intlayer CMS é uma ferramenta que permite gerenciar seu conteúdo em um editor visual para dicionários distantes. Uma vez que uma alteração é feita, o conteúdo **não** impactará sua base de código. E o site exibirá automaticamente o conteúdo alterado.
+Em contraste, o Intlayer CMS é uma ferramenta que permite gerenciar seu conteúdo em um editor visual para dicionários distantes. Uma vez feita uma alteração, o conteúdo **não** impactará sua base de código. E o site exibirá automaticamente o conteúdo alterado.
 
 ## Integração
 
@@ -36,18 +38,26 @@ Para integração com Vite + React, consulte o [guia de configuração](https://
 
 ## Configuração
 
-### 1. Ative o Editor em seu arquivo intlayer.config.ts
-
-Em seu arquivo de configuração do Intlayer, você pode personalizar as configurações do editor:
+No arquivo de configuração do Intlayer, você pode personalizar as configurações do CMS:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... outras configurações de configuração
+  // ... outras configurações
   editor: {
     /**
-     * O Client ID e o client secret são necessários para ativar o editor.
+     * Obrigatório
+     *
+     * A URL do aplicativo.
+     * Esta é a URL direcionada pelo editor visual.
+     */
+    applicationURL: process.env.INTLAYER_APPLICATION_URL,
+
+    /**
+     * Obrigatório
+     *
+     * O ID do cliente e o segredo do cliente são necessários para habilitar o editor.
      * Eles permitem identificar o usuário que está editando o conteúdo.
      * Eles podem ser obtidos criando um novo cliente no Intlayer Dashboard - Projetos (https://intlayer.org/dashboard/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
@@ -55,12 +65,26 @@ const config: IntlayerConfig = {
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+
     /**
      * Opcional
-     * Padrão como `true`. Se `false`, o editor está inativo e não pode ser acessado.
-     * Pode ser usado para desativar o editor para ambientes específicos por razões de segurança, como produção.
+     *
+     * Caso você esteja hospedando o Intlayer CMS, pode definir a URL do CMS.
+     *
+     * A URL do Intlayer CMS.
+     * Por padrão, está definido como https://intlayer.org
      */
-    enabled: process.env.INTLAYER_ENABLED,
+    cmsURL: process.env.INTLAYER_CMS_URL,
+
+    /**
+     * Opcional
+     *
+     * Caso você esteja hospedando o Intlayer CMS, pode definir a URL do backend.
+     *
+     * A URL do backend do Intlayer CMS.
+     * Por padrão, está definido como https://back.intlayer.org
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL,
   },
 };
 
@@ -68,26 +92,49 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... outras configurações de configuração
+  // ... outras configurações
   editor: {
     /**
-     * O Client ID e o client secret são necessários para ativar o editor.
+     * Obrigatório
+     *
+     * A URL do aplicativo.
+     * Esta é a URL direcionada pelo editor visual.
+     */
+    applicationURL: process.env.INTLAYER_APPLICATION_URL,
+
+    /**
+     * Obrigatório
+     *
+     * O ID do cliente e o segredo do cliente são necessários para habilitar o editor.
      * Eles permitem identificar o usuário que está editando o conteúdo.
      * Eles podem ser obtidos criando um novo cliente no Intlayer Dashboard - Projetos (https://intlayer.org/dashboard/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,    /**
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+
+    /**
      * Opcional
-     * Padrão como `true`. Se `false`, o editor está inativo e não pode ser acessado.
-     * Pode ser usado para desativar o editor para ambientes específicos por razões de segurança, como produção.
+     *
+     * Caso você esteja hospedando o Intlayer CMS, pode definir a URL do CMS.
+     *
+     * A URL do Intlayer CMS.
+     * Por padrão, está definido como https://intlayer.org
      */
-    enabled: process.env.INTLAYER_ENABLED,
+    cmsURL: process.env.INTLAYER_CMS_URL,
+
+    /**
+     * Opcional
+     *
+     * Caso você esteja hospedando o Intlayer CMS, pode definir a URL do backend.
+     *
+     * A URL do backend do Intlayer CMS.
+     * Por padrão, está definido como https://back.intlayer.org
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL,
   },
 };
 
@@ -97,10 +144,20 @@ export default config;
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... outras configurações de configuração
+  // ... outras configurações
   editor: {
     /**
-     * O Client ID e o client secret são necessários para ativar o editor.
+     * Obrigatório
+     *
+     * A URL do aplicativo.
+     * Esta é a URL direcionada pelo editor visual.
+     */
+    applicationURL: process.env.INTLAYER_APPLICATION_URL,
+
+    /**
+     * Obrigatório
+     *
+     * O ID do cliente e o segredo do cliente são necessários para habilitar o editor.
      * Eles permitem identificar o usuário que está editando o conteúdo.
      * Eles podem ser obtidos criando um novo cliente no Intlayer Dashboard - Projetos (https://intlayer.org/dashboard/projects).
      * clientId: process.env.INTLAYER_CLIENT_ID,
@@ -108,26 +165,168 @@ const config = {
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+
     /**
      * Opcional
-     * Padrão como `true`. Se `false`, o editor está inativo e não pode ser acessado.
-     * Pode ser usado para desativar o editor para ambientes específicos por razões de segurança, como produção.
+     *
+     * Caso você esteja hospedando o Intlayer CMS, pode definir a URL do CMS.
+     *
+     * A URL do Intlayer CMS.
+     * Por padrão, está definido como https://intlayer.org
      */
-    enabled: process.env.INTLAYER_ENABLED,
+    cmsURL: process.env.INTLAYER_CMS_URL,
+
+    /**
+     * Opcional
+     *
+     * Caso você esteja hospedando o Intlayer CMS, pode definir a URL do backend.
+     *
+     * A URL do backend do Intlayer CMS.
+     * Por padrão, está definido como https://back.intlayer.org
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL,
   },
 };
 
 module.exports = config;
 ```
 
-> Se você não tem um Client ID e client secret, você pode obtê-los criando um novo cliente no [Intlayer Dashboard - Projetos](https://intlayer.org/dashboard/projects).
+> Se você não tiver um ID de cliente e um segredo de cliente, pode obtê-los criando um novo cliente no [Intlayer Dashboard - Projetos](https://intlayer.org/dashboard/projects).
 
 > Para ver todos os parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
 
 ## Usando o CMS
 
-Quando o editor está instalado, você pode visualizar cada campo indexado pelo Intlayer passando o cursor sobre seu conteúdo.
+### Enviar sua configuração
 
-![Passando o cursor sobre o conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+Para configurar o Intlayer CMS, você pode usar os comandos do [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/pt/intlayer_cli.md).
 
-Se seu conteúdo estiver contornado, você pode pressioná-lo longamente para exibir a gaveta de edição.
+```bash
+npx intlayer config push
+```
+
+> Se você usar variáveis de ambiente no arquivo `intlayer.config.ts`, pode especificar o ambiente desejado usando o argumento `--env`:
+
+```bash
+npx intlayer config push --env production
+```
+
+Este comando carrega sua configuração para o Intlayer CMS.
+
+### Enviar um dicionário
+
+Para transformar seus dicionários locais em um dicionário distante, você pode usar os comandos do [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/pt/intlayer_cli.md).
+
+```bash
+npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+> Se você usar variáveis de ambiente no arquivo `intlayer.config.ts`, pode especificar o ambiente desejado usando o argumento `--env`:
+
+```bash
+npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+Este comando carrega seus dicionários de conteúdo iniciais, tornando-os disponíveis para busca assíncrona e edição através da plataforma Intlayer.
+
+### Editar o dicionário
+
+Então, você poderá ver e gerenciar seu dicionário no [Intlayer CMS](https://intlayer.org/dashboard/content).
+
+## Hot reloading
+
+O Intlayer CMS é capaz de recarregar os dicionários automaticamente quando uma alteração é detectada.
+
+Sem o hot reloading, será necessário um novo build do aplicativo para exibir o novo conteúdo.
+
+Ao ativar a configuração [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), o aplicativo substituirá automaticamente o conteúdo atualizado quando detectado.
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... outras configurações
+  editor: {
+    // ... outras configurações
+
+    /**
+     * Indica se o aplicativo deve recarregar automaticamente as configurações de localidade quando uma alteração for detectada.
+     * Por exemplo, quando um novo dicionário é adicionado ou atualizado, o aplicativo atualizará o conteúdo exibido na página.
+     *
+     * Como o hot reloading requer uma conexão contínua com o servidor, ele está disponível apenas para clientes do plano `enterprise`.
+     *
+     * Padrão: false
+     */
+    hotReload: true,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... outras configurações
+  editor: {
+    // ... outras configurações
+
+    /**
+     * Indica se o aplicativo deve recarregar automaticamente as configurações de localidade quando uma alteração for detectada.
+     * Por exemplo, quando um novo dicionário é adicionado ou atualizado, o aplicativo atualizará o conteúdo exibido na página.
+     *
+     * Como o hot reloading requer uma conexão contínua com o servidor, ele está disponível apenas para clientes do plano `enterprise`.
+     *
+     * Padrão: false
+     */
+    hotReload: true,
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... outras configurações
+  editor: {
+    // ... outras configurações
+
+    /**
+     * Indica se o aplicativo deve recarregar automaticamente as configurações de localidade quando uma alteração for detectada.
+     * Por exemplo, quando um novo dicionário é adicionado ou atualizado, o aplicativo atualizará o conteúdo exibido na página.
+     *
+     * Como o hot reloading requer uma conexão contínua com o servidor, ele está disponível apenas para clientes do plano `enterprise`.
+     *
+     * Padrão: false
+     */
+    hotReload: true,
+  },
+};
+
+module.exports = config;
+```
+
+O hot reloading substitui o conteúdo tanto no lado do servidor quanto no lado do cliente.
+
+- No lado do servidor, você deve garantir que o processo do aplicativo tenha acesso de gravação ao diretório `.intlayer/dictionaries`.
+- No lado do cliente, o hot reloading permite que o aplicativo recarregue o conteúdo no navegador, sem a necessidade de recarregar a página. No entanto, este recurso está disponível apenas para componentes clientes.
+
+> Como o hot reloading requer uma conexão contínua com o servidor usando um `EventListener`, ele está disponível apenas para clientes do plano `enterprise`.
+
+## Depuração
+
+Se você encontrar problemas com o CMS, verifique o seguinte:
+
+- O aplicativo está em execução.
+
+- As configurações do [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) estão corretamente definidas no arquivo de configuração do Intlayer.
+
+  - Campos obrigatórios:
+    - A URL do aplicativo deve corresponder à que você definiu na configuração do editor (`applicationURL`).
+    - A URL do CMS.
+
+- Certifique-se de que a configuração do projeto foi enviada para o Intlayer CMS.
+
+- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permite a URL do CMS como `frame-ancestors` ('https://intlayer.org' por padrão). Verifique o console do editor para quaisquer erros.

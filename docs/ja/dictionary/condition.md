@@ -2,7 +2,7 @@
 
 ## 条件の仕組み
 
-Intlayerでは、`cond`関数を使用して条件付きコンテンツを実現します。この関数は特定の条件（通常はブール値）を対応するコンテンツにマッピングします。このアプローチにより、与えられた条件に基づいて動的にコンテンツを選択できます。React IntlayerやNext Intlayerと統合すると、実行時に提供される条件に応じて適切なコンテンツが自動的に選択されます。
+Intlayerでは、条件付きコンテンツは`cond`関数を使用して実現されます。この関数は特定の条件（通常はブール値）を対応するコンテンツにマッピングします。このアプローチにより、指定された条件に基づいて動的にコンテンツを選択することが可能になります。React IntlayerやNext Intlayerと統合することで、実行時に提供された条件に応じて適切なコンテンツが自動的に選択されます。
 
 ## 条件付きコンテンツの設定
 
@@ -15,9 +15,9 @@ const myConditionalContent = {
   key: "my_key",
   content: {
     myCondition: cond({
-      true: "条件が真の場合のコンテンツ",
-      false: "条件が偽の場合のコンテンツ",
-      fallback: "条件が成立しない場合のコンテンツ", // オプション
+      true: "条件がtrueの場合のコンテンツ",
+      false: "条件がfalseの場合のコンテンツ",
+      fallback: "条件が失敗した場合のコンテンツ", // オプション
     }),
   },
 } satisfies Dictionary;
@@ -33,9 +33,9 @@ const myConditionalContent = {
   key: "my_key",
   content: {
     myCondition: cond({
-      true: "条件が真の場合のコンテンツ",
-      false: "条件が偽の場合のコンテンツ",
-      fallback: "条件が成立しない場合のコンテンツ", // オプション
+      true: "条件がtrueの場合のコンテンツ",
+      false: "条件がfalseの場合のコンテンツ",
+      fallback: "条件が失敗した場合のコンテンツ", // オプション
     }),
   },
 };
@@ -51,9 +51,9 @@ const myConditionalContent = {
   key: "my_key",
   content: {
     myCondition: cond({
-      true: "条件が真の場合のコンテンツ",
-      false: "条件が偽の場合のコンテンツ",
-      fallback: "条件が成立しない場合のコンテンツ", // オプション
+      true: "条件がtrueの場合のコンテンツ",
+      false: "条件がfalseの場合のコンテンツ",
+      fallback: "条件が失敗した場合のコンテンツ", // オプション
     }),
   },
 };
@@ -69,20 +69,20 @@ module.exports = myConditionalContent;
     "myCondition": {
       "nodeType": "condition",
       "condition": {
-        "true": "条件が真の場合のコンテンツ",
-        "false": "条件が偽の場合のコンテンツ",
-        "fallback": "条件が成立しない場合のコンテンツ", // オプション
+        "true": "条件がtrueの場合のコンテンツ",
+        "false": "条件がfalseの場合のコンテンツ",
+        "fallback": "条件が失敗した場合のコンテンツ", // オプション
       },
     },
   },
 }
 ```
 
-> フォールバックが定義されていない場合、条件が満たされないと最後に定義されたキーがフォールバックとして使用されます。
+> フォールバックが宣言されていない場合、条件が検証されない場合は最後に宣言されたキーがフォールバックとして使用されます。
 
 ## React Intlayerでの条件付きコンテンツの使用
 
-Reactコンポーネント内で条件付きコンテンツを使用するには、`react-intlayer`パッケージから`useIntlayer`フックをインポートして使用します。このフックは指定したキーのコンテンツを取得し、適切な出力を選択するために条件を渡すことができます。
+Reactコンポーネント内で条件付きコンテンツを利用するには、`react-intlayer`パッケージから`useIntlayer`フックをインポートして使用します。このフックは指定されたキーのコンテンツを取得し、条件を渡して適切な出力を選択できるようにします。
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -95,25 +95,25 @@ const ConditionalComponent: FC = () => {
     <div>
       <p>
         {
-          /* 出力: 条件が真の場合のコンテンツ */
+          /* 出力: 条件がtrueの場合のコンテンツ */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* 出力: 条件が偽の場合のコンテンツ */
+          /* 出力: 条件がfalseの場合のコンテンツ */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* 出力: 条件が成立しない場合のコンテンツ */
+          /* 出力: 条件が失敗した場合のコンテンツ */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* 出力: 条件が成立しない場合のコンテンツ */
+          /* 出力: 条件が失敗した場合のコンテンツ */
           myCondition(undefined)
         }
       </p>
@@ -134,25 +134,25 @@ const ConditionalComponent = () => {
     <div>
       <p>
         {
-          /* 出力: 条件が真の場合のコンテンツ */
+          /* 出力: 条件がtrueの場合のコンテンツ */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* 出力: 条件が偽の場合のコンテンツ */
+          /* 出力: 条件がfalseの場合のコンテンツ */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* 出力: 条件が成立しない場合のコンテンツ */
+          /* 出力: 条件が失敗した場合のコンテンツ */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* 出力: 条件が成立しない場合のコンテンツ */
+          /* 出力: 条件が失敗した場合のコンテンツ */
           myCondition(undefined)
         }
       </p>
@@ -173,25 +173,25 @@ const ConditionalComponent = () => {
     <div>
       <p>
         {
-          /* 出力: 条件が真の場合のコンテンツ */
+          /* 出力: 条件がtrueの場合のコンテンツ */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* 出力: 条件が偽の場合のコンテンツ */
+          /* 出力: 条件がfalseの場合のコンテンツ */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* 出力: 条件が成立しない場合のコンテンツ */
+          /* 出力: 条件が失敗した場合のコンテンツ */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* 出力: 条件が成立しない場合のコンテンツ */
+          /* 出力: 条件が失敗した場合のコンテンツ */
           myCondition(undefined)
         }
       </p>
@@ -206,8 +206,8 @@ module.exports = ConditionalComponent;
 
 設定と使用に関する詳細情報については、以下のリソースを参照してください：
 
-- [Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)
-- [React Intlayerドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)
-- [Next Intlayerドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)
+- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)
+- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)
+- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)
 
-これらのリソースは、さまざまな環境やフレームワークでのIntlayerのセットアップと使用法に関するさらなる洞察を提供します。
+これらのリソースは、さまざまな環境やフレームワークでのIntlayerの設定と使用に関するさらなる洞察を提供します。

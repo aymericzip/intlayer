@@ -1,32 +1,32 @@
-# Documentation: `getConfiguration` Function in `intlayer`
+# التوثيق: وظيفة `getConfiguration` في `intlayer`
 
-## الوصف:
+## الوصف
 
-تسترجع دالة `getConfiguration` التكوين الكامل لتطبيق `intlayer` من خلال استخراج متغيرات البيئة. توفر هذه الدالة المرونة لاستخدام نفس التكوين على كلا الجانبين، العميل والخادم، مما يضمن التناسق عبر التطبيق.
+وظيفة `getConfiguration` تسترجع التكوين الكامل لتطبيق `intlayer` عن طريق استخراج متغيرات البيئة. توفر هذه الوظيفة المرونة لاستخدام نفس التكوين على جانبي العميل والخادم، مما يضمن التناسق عبر التطبيق.
 
 ---
 
-## المعلمات:
+## المعلمات
 
-لا تأخذ الدالة أي معلمات. بدلاً من ذلك، تستخدم متغيرات البيئة للتكوين.
+لا تأخذ الوظيفة أي معلمات. بدلاً من ذلك، تستخدم متغيرات البيئة للتكوين.
 
-### العائدات:
+### الإرجاع
 
 - **النوع**: `IntlayerConfig`
-- **الوصف**: كائن يحتوي على التكوين الكامل لـ `intlayer`. يتضمن التكوين الأقسام التالية:
+- **الوصف**: كائن يحتوي على التكوين الكامل لـ `intlayer`. يشمل التكوين الأقسام التالية:
 
-  - `internationalization`: إعدادات متعلقة باللغات ووضع الصرامة.
-  - `middleware`: إعدادات متعلقة بإدارة URL وملفات الكوكيز.
-  - `content`: إعدادات متعلقة بملفات المحتوى، الأدلة، والأنماط.
-  - `editor`: تكوينات محددة للمحرر.
+  - `internationalization`: الإعدادات المتعلقة باللغات ووضع الصرامة.
+  - `middleware`: الإعدادات المتعلقة بإدارة الروابط وملفات تعريف الارتباط.
+  - `content`: الإعدادات المتعلقة بملفات المحتوى، الأدلة، والأنماط.
+  - `editor`: التكوينات الخاصة بالمحرر.
 
-راجع [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md) لمزيد من التفاصيل.
+راجع [توثيق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md) لمزيد من التفاصيل.
 
 ---
 
-## مثال على الاستخدام:
+## مثال على الاستخدام
 
-### استرجاع التكوين الكامل:
+### استرجاع التكوين الكامل
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -70,14 +70,13 @@ console.log(config);
 // }
 ```
 
-### استخراج `availableLocales` و `defaultLocale`:
+### استخراج `availableLocales` و `defaultLocale`
 
 يوفر قسم `internationalization` من التكوين إعدادات متعلقة باللغات مثل `locales` (اللغات المتاحة) و `defaultLocale` (اللغة الافتراضية).
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
 
-// استرجاع الإعدادات المعنية
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
@@ -90,7 +89,6 @@ console.log(cookieName); // الإخراج: "INTLAYER_LOCALE"
 ```javascript codeFormat="esm"
 import { getConfiguration } from "intlayer";
 
-// استرجاع الإعدادات المعنية
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
@@ -103,7 +101,6 @@ console.log(cookieName); // الإخراج: "INTLAYER_LOCALE"
 ```javascript codeFormat="commonjs"
 const { getConfiguration } = require("intlayer");
 
-// استرجاع الإعدادات المعنية
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
@@ -113,11 +110,11 @@ console.log(defaultLocale); // مثال على الإخراج: "en"
 console.log(cookieName); // الإخراج: "INTLAYER_LOCALE"
 ```
 
-## ملاحظات:
+## ملاحظات
 
-- تأكد من إعداد جميع متغيرات البيئة المطلوبة بشكل صحيح قبل استدعاء هذه الدالة. ستؤدي المتغيرات المفقودة إلى أخطاء أثناء التهيئة.
-- يمكن استخدام هذه الدالة على كلا الجانبين، العميل والخادم، مما يجعلها أداة متعددة الاستخدامات لإدارة التكوينات بطريقة موحدة.
+- تأكد من تعيين جميع متغيرات البيئة المطلوبة بشكل صحيح قبل استدعاء هذه الوظيفة. ستتسبب المتغيرات المفقودة في حدوث أخطاء أثناء التهيئة.
+- يمكن استخدام هذه الوظيفة على جانبي العميل والخادم، مما يجعلها أداة متعددة الاستخدامات لإدارة التكوينات بطريقة موحدة.
 
-## الاستخدام في التطبيقات:
+## الاستخدام في التطبيقات
 
-تعتبر دالة `getConfiguration` أداة أساسية لت初始化 وإدارة تكوين تطبيق `intlayer`. من خلال تقديم الوصول إلى إعدادات مثل اللغات، والوسائط، وأدلة المحتوى، تضمن التناسق وقابلية التوسع عبر التطبيقات المتعددة اللغات والمحتوى.
+وظيفة `getConfiguration` هي أداة أساسية لتهيئة وإدارة تكوين تطبيق `intlayer`. من خلال توفير الوصول إلى إعدادات مثل اللغات، الوسيط، وأدلة المحتوى، تضمن التناسق والقابلية للتوسع عبر التطبيقات متعددة اللغات والمحتوى.

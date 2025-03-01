@@ -30,7 +30,7 @@ pnpm add vite-intlayer
 
 ## Example of usage
 
-See an example of how to include the plugins into your vite configuration.
+See an example of how to include the plugins into your Vite configuration.
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

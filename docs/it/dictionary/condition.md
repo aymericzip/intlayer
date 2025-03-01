@@ -2,7 +2,7 @@
 
 ## Come Funziona la Condizione
 
-In Intlayer, il contenuto condizionale si ottiene tramite la funzione `cond`, che mappa condizioni specifiche (tipicamente valori booleani) al loro contenuto corrispondente. Questo approccio consente di selezionare dinamicamente il contenuto in base a una condizione fornita. Quando integrata con React Intlayer o Next Intlayer, il contenuto appropriato viene automaticamente scelto in base alla condizione fornita durante l'esecuzione.
+In Intlayer, il contenuto condizionale viene realizzato tramite la funzione `cond`, che mappa condizioni specifiche (tipicamente valori booleani) al loro contenuto corrispondente. Questo approccio consente di selezionare dinamicamente il contenuto in base a una determinata condizione. Quando integrato con React Intlayer o Next Intlayer, il contenuto appropriato viene automaticamente scelto in base alla condizione fornita in fase di esecuzione.
 
 ## Configurazione del Contenuto Condizionale
 
@@ -78,11 +78,11 @@ module.exports = myConditionalContent;
 }
 ```
 
-> Se non viene dichiarato alcun fallback, l'ultima chiave dichiarata verrà presa come fallback se la condizione non è validata.
+> Se non viene dichiarato alcun fallback, l'ultima chiave dichiarata sarà presa come fallback se la condizione non viene validata.
 
 ## Utilizzo del Contenuto Condizionale con React Intlayer
 
-Per utilizzare il contenuto condizionale all'interno di un componente React, importa e usa il hook `useIntlayer` dal pacchetto `react-intlayer`. Questo hook recupera il contenuto per la chiave specificata e consente di passare una condizione per selezionare il risultato appropriato.
+Per utilizzare il contenuto condizionale all'interno di un componente React, importa e utilizza il hook `useIntlayer` dal pacchetto `react-intlayer`. Questo hook recupera il contenuto per la chiave specificata e consente di passare una condizione per selezionare l'output appropriato.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -123,8 +123,6 @@ const ConditionalComponent: FC = () => {
 
 export default ConditionalComponent;
 ```
-
-### Modulo ECMAScript (`.mjx`)
 
 ```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
@@ -208,8 +206,8 @@ module.exports = ConditionalComponent;
 
 Per informazioni più dettagliate sulla configurazione e sull'utilizzo, consulta le seguenti risorse:
 
-- [Documentazione Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md)
+- [Documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md)
 - [Documentazione React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_create_react_app.md)
 - [Documentazione Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_nextjs_15.md)
 
-Queste risorse offrono ulteriori approfondimenti sull'impostazione e sull'utilizzo di Intlayer in vari ambienti e framework.
+Queste risorse offrono ulteriori approfondimenti sulla configurazione e sull'utilizzo di Intlayer in diversi ambienti e framework.

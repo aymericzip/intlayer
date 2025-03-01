@@ -1,5 +1,4 @@
-````md
-# Démarrage pour déclarer votre contenu
+# Commencer la déclaration de votre contenu
 
 ## Extensions de fichiers
 
@@ -11,13 +10,13 @@ Par défaut, Intlayer surveille tous les fichiers avec les extensions suivantes 
 - `.content.mjs`
 - `.content.cjs`
 
-L'application recherchera par défaut des fichiers correspondant au motif glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}`.
+L'application recherchera par défaut les fichiers correspondant au modèle glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
-Ces extensions par défaut conviennent à la plupart des applications. Cependant, si vous avez des exigences spécifiques, référez-vous au [guide de personnalisation des extensions de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md#content-configuration) pour des instructions sur leur gestion.
+Ces extensions par défaut conviennent à la plupart des applications. Cependant, si vous avez des exigences spécifiques, consultez le [guide de personnalisation des extensions de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md#content-configuration) pour des instructions sur la manière de les gérer.
 
-Pour une liste complète des options de configuration, consultez la documentation de configuration.
+Pour une liste complète des options de configuration, visitez la documentation de configuration.
 
-## Déclarez votre contenu
+## Déclarez Votre Contenu
 
 Créez et gérez vos dictionnaires :
 
@@ -45,7 +44,7 @@ export default {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Bonjour le monde", // Traduction
+        stringContent: "Bonjour le monde",
         numberContent: 123,
         booleanContent: true,
         javaScriptContent: `${process.env.NODE_ENV}`,
@@ -53,7 +52,7 @@ export default {
     },
     multilingualContent: t({
       en: "Contenu en anglais",
-      "en-GB": "Contenu anglais (Royaume-Uni)",
+      "en-GB": "Contenu en anglais (UK)",
       fr: "Contenu en français",
       es: "Contenu en espagnol",
     }),
@@ -63,7 +62,7 @@ export default {
       "0": "Aucune voiture",
       "1": "Une voiture",
       ">5": "Quelques voitures",
-      ">19": "De nombreuses voitures",
+      ">19": "Beaucoup de voitures",
     }),
     conditionalContent: cond({
       true: "La validation est activée",
@@ -71,19 +70,18 @@ export default {
     }),
     nestedContent: nest(
       "navbar", // La clé du dictionnaire à imbriquer
-      "login.button" // [Optionnel] Le chemin du contenu à imbriquer
+      "login.button" // [Optionnel] Le chemin vers le contenu à imbriquer
     ),
     externalContent: async () => await fetch("https://example.com"),
     markdownContent: md("# Exemple de Markdown"),
 
     /*
-     * Uniquement disponible avec `react-intlayer` ou `next-intlayer`
+     * Disponible uniquement avec `react-intlayer` ou `next-intlayer`
      */
     jsxContent: <h1>Mon titre</h1>,
   },
-} satisfies Dictionary<Content>; // [optionnel] Le dictionnaire est générique et permet de renforcer le formatage de votre dictionnaire
+} satisfies Dictionary<Content>; // [optionnel] Dictionary est générique et vous permet de renforcer le formatage de votre dictionnaire
 ```
-````
 
 ```javascript fileName="src/example.content.mjs" codeFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
@@ -94,7 +92,7 @@ export default {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Bonjour le monde", // Traduction
+        stringContent: "Bonjour le monde",
         numberContent: 123,
         booleanContent: true,
         javaScriptContent: `${process.env.NODE_ENV}`,
@@ -103,7 +101,7 @@ export default {
     },
     multilingualContent: t({
       en: "Contenu en anglais",
-      "en-GB": "Contenu anglais (Royaume-Uni)",
+      "en-GB": "Contenu en anglais (UK)",
       fr: "Contenu en français",
       es: "Contenu en espagnol",
     }),
@@ -113,7 +111,7 @@ export default {
       "0": "Aucune voiture",
       "1": "Une voiture",
       ">5": "Quelques voitures",
-      ">19": "De nombreuses voitures",
+      ">19": "Beaucoup de voitures",
     }),
     conditionalContent: cond({
       true: "La validation est activée",
@@ -121,12 +119,12 @@ export default {
     }),
     nestedContent: nest(
       "navbar", // La clé du dictionnaire à imbriquer
-      "login.button" // [Optionnel] Le chemin du contenu à imbriquer
+      "login.button" // [Optionnel] Le chemin vers le contenu à imbriquer
     ),
     markdownContent: md("# Exemple de Markdown"),
     externalContent: async () => await fetch("https://example.com"),
 
-    // Uniquement disponible avec `react-intlayer` ou `next-intlayer`
+    // Disponible uniquement avec `react-intlayer` ou `next-intlayer`
     jsxContent: <h1>Mon titre</h1>,
   },
 };
@@ -141,7 +139,7 @@ module.exports = {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Bonjour le monde", // Traduction
+        stringContent: "Bonjour le monde",
         numberContent: 123,
         booleanContent: true,
         javaScriptContent: `${process.env.NODE_ENV}`,
@@ -150,7 +148,7 @@ module.exports = {
     },
     multilingualContent: t({
       en: "Contenu en anglais",
-      "en-GB": "Contenu anglais (Royaume-Uni)",
+      "en-GB": "Contenu en anglais (UK)",
       fr: "Contenu en français",
       es: "Contenu en espagnol",
     }),
@@ -160,7 +158,7 @@ module.exports = {
       "0": "Aucune voiture",
       "1": "Une voiture",
       ">5": "Quelques voitures",
-      ">19": "De nombreuses voitures",
+      ">19": "Beaucoup de voitures",
     }),
     conditionalContent: cond({
       true: "La validation est activée",
@@ -168,12 +166,12 @@ module.exports = {
     }),
     nestedContent: nest(
       "navbar", // La clé du dictionnaire à imbriquer
-      "login.button" // [Optionnel] Le chemin du contenu à imbriquer
+      "login.button" // [Optionnel] Le chemin vers le contenu à imbriquer
     ),
     markdownContent: md("# Exemple de Markdown"),
     externalContent: async () => await fetch("https://example.com"),
 
-    // Uniquement disponible avec `react-intlayer` ou `next-intlayer`
+    // Disponible uniquement avec `react-intlayer` ou `next-intlayer`
     jsxContent: <h1>Mon titre</h1>,
   },
 };
@@ -186,7 +184,7 @@ module.exports = {
   "content": {
     "imbricatedContent": {
       "imbricatedContent2": {
-        "stringContent": "Bonjour le monde", // Traduction
+        "stringContent": "Bonjour le monde",
         "numberContent": 123,
         "booleanContent": true,
       },
@@ -196,7 +194,7 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": "Contenu en anglais",
-        "en-GB": "Contenu anglais (Royaume-Uni)",
+        "en-GB": "Contenu en anglais (UK)",
         "fr": "Contenu en français",
         "es": "Contenu en espagnol",
       },
@@ -209,7 +207,7 @@ module.exports = {
         "<-1": "Moins d'une voiture",
         "-1": "Moins une voiture",
         ">5": "Quelques voitures",
-        ">19": "De nombreuses voitures",
+        ">19": "Beaucoup de voitures",
       },
     },
     "conditionalContent": {
@@ -239,7 +237,7 @@ module.exports = {
 }
 ```
 
-## Fonction imbriquée
+## Imbrication de fonctions
 
 Vous pouvez sans problème imbriquer des fonctions dans d'autres.
 
@@ -248,14 +246,211 @@ Exemple :
 ```javascript fileName="src/example.content.ts" codeFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
-const getName = async () => "John Doe"; // Exemple
+const getName = async () => "Jean Dupont";
 
 export default {
   key: "page",
-  content: { ... }
+  content: {
+    // `getIntlayer('page','fr').hiMessage` retourne `['Salut', ' ', 'Jean Dupont']`
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Contenu composite imbriquant condition, énumération et contenu multilingue
+    // `getIntlayer('page','fr').advancedContent(true)(10) retourne 'Plusieurs articles trouvés'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
 } satisfies Dictionary;
 ```
 
+```javascript fileName="src/example.content.mjs" codeFormat="esm"
+import { t, enu, cond, nest, md } from "intlayer";
+
+const getName = async () => "Jean Dupont";
+
+/** @type {import('intlayer').Dictionary} */
+export default {
+  key: "page",
+  content: {
+    // `getIntlayer('page','fr').hiMessage` retourne `['Salut', ' ', 'Jean Dupont']`
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Contenu composite imbriquant condition, énumération et contenu multilingue
+    // `getIntlayer('page','fr').advancedContent(true)(10) retourne 'Plusieurs articles trouvés'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+};
 ```
 
+```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
+const { t, enu, cond, nest, md } = require("intlayer");
+
+const getName = async () => "Jean Dupont";
+
+/** @type {import('intlayer').Dictionary} */
+module.exports = {
+  key: "page",
+  content: {
+    // `getIntlayer('page','fr').hiMessage` retourne `['Salut', ' ', 'Jean Dupont']`
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Contenu composite imbriquant condition, énumération et contenu multilingue
+    // `getIntlayer('page','fr').advancedContent(true)(10) retourne 'Plusieurs articles trouvés'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+};
+```
+
+```json5 fileName="src/example.content.json"  codeFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "page",
+  "content": {
+    "hiMessage": {
+      "nodeType": "composite",
+      "composite": [
+        {
+          "nodeType": "translation",
+          "translation": {
+            "en": "Hi",
+            "fr": "Salut",
+            "es": "Hola",
+          },
+        },
+        " ",
+        "Jean Dupont",
+      ],
+    },
+    "advancedContent": {
+      "nodeType": "condition",
+      "condition": {
+        "true": {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "No items found",
+                "fr": "Aucun article trouvé",
+                "es": "No se encontraron artículos",
+              },
+            },
+            "1": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "One item found",
+                "fr": "Un article trouvé",
+                "es": "Se encontró un artículo",
+              },
+            },
+            ">1": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "Multiple items found",
+                "fr": "Plusieurs articles trouvés",
+                "es": "Se encontraron múltiples artículos",
+              },
+            },
+          },
+        },
+        "false": {
+          "nodeType": "translation",
+          "translation": {
+            "en": "No valid data available",
+            "fr": "Aucune donnée valide disponible",
+            "es": "No hay datos válidos disponibles",
+          },
+        },
+      },
+    },
+  },
+}
 ```

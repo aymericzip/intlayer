@@ -1,12 +1,12 @@
-# Aufzählung / Pluralisierung
+# Enumeration / Pluralisierung
 
-## Wie Aufzählungen Funktionieren
+## Wie Enumeration funktioniert
 
-In Intlayer wird die Aufzählung durch die `enu`-Funktion erreicht, die spezifische Schlüssel ihren entsprechenden Inhalten zuordnet. Diese Schlüssel können numerische Werte, Bereiche oder benutzerdefinierte Identifikatoren darstellen. Bei der Verwendung mit React Intlayer oder Next Intlayer wird der passende Inhalt basierend auf der Locale der Anwendung und den definierten Regeln automatisch ausgewählt.
+In Intlayer wird die Enumeration durch die `enu`-Funktion erreicht, die spezifische Schlüssel ihren entsprechenden Inhalten zuordnet. Diese Schlüssel können numerische Werte, Bereiche oder benutzerdefinierte Bezeichner darstellen. Bei Verwendung mit React Intlayer oder Next Intlayer wird der passende Inhalt automatisch basierend auf der Anwendungslokalisierung und definierten Regeln ausgewählt.
 
-## Einrichten der Aufzählung
+## Einrichtung der Enumeration
 
-Um die Aufzählung in Ihrem Intlayer-Projekt einzurichten, müssen Sie ein Inhaltsmodul erstellen, das Aufzählungsdefinitionen enthält. Hier ist ein Beispiel für eine einfache Aufzählung der Anzahl der Autos:
+Um die Enumeration in Ihrem Intlayer-Projekt einzurichten, müssen Sie ein Inhaltsmodul erstellen, das Enumerationsdefinitionen enthält. Hier ist ein Beispiel für eine einfache Enumeration für die Anzahl der Autos:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -21,7 +21,7 @@ const carEnumeration = {
       "1": "Ein Auto",
       ">5": "Einige Autos",
       ">19": "Viele Autos",
-      "fallback": "Standardwert", // Optional
+      "fallback": "Fallback-Wert", // Optional
     }),
   },
 } satisfies Dictionary;
@@ -43,7 +43,7 @@ const carEnumeration = {
       "1": "Ein Auto",
       ">5": "Einige Autos",
       ">19": "Viele Autos",
-      "fallback": "Standardwert", // Optional
+      "fallback": "Fallback-Wert", // Optional
     }),
   },
 };
@@ -65,7 +65,7 @@ const carEnumeration = {
       "1": "Ein Auto",
       ">5": "Einige Autos",
       ">19": "Viele Autos",
-      "fallback": "Standardwert", // Optional
+      "fallback": "Fallback-Wert", // Optional
     }),
   },
 };
@@ -87,22 +87,22 @@ module.exports = carEnumeration;
         "1": "Ein Auto",
         ">5": "Einige Autos",
         ">19": "Viele Autos",
-        "fallback": "Standardwert" // Optional
+        "fallback": "Fallback-Wert" // Optional
       }
     }
   }
 }
 ```
 
-In diesem Beispiel ordnet `enu` verschiedene Bedingungen spezifischen Inhalten zu. Bei der Verwendung in einer React-Komponente kann Intlayer den entsprechenden Inhalt basierend auf der gegebenen Variablen automatisch auswählen.
+In diesem Beispiel ordnet `enu` verschiedene Bedingungen spezifischen Inhalten zu. Bei Verwendung in einer React-Komponente kann Intlayer automatisch den passenden Inhalt basierend auf der angegebenen Variablen auswählen.
 
-> Die Reihenfolge der Deklaration ist wichtig bei Intlayer-Aufzählungen. Die erste gültige Deklaration wird ausgeführt. Wenn mehrere Bedingungen zutreffen, stellen Sie sicher, dass sie korrekt angeordnet sind, um unerwartetes Verhalten zu vermeiden.
+> Die Reihenfolge der Deklaration ist wichtig bei Intlayer-Enumerationen. Die erste gültige Deklaration wird übernommen. Wenn mehrere Bedingungen zutreffen, stellen Sie sicher, dass sie korrekt geordnet sind, um unerwartetes Verhalten zu vermeiden.
 
-> Wenn kein Fallback-Wert deklariert ist, gibt die Funktion `undefined` zurück, falls keine Schlüssel übereinstimmen.
+> Wenn kein Fallback deklariert ist, gibt die Funktion `undefined` zurück, wenn keine Schlüssel übereinstimmen.
 
-## Verwendung der Aufzählung mit React Intlayer
+## Verwendung der Enumeration mit React Intlayer
 
-Um Aufzählungen in einer React-Komponente zu verwenden, können Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket einsetzen. Dieser Hook ruft den richtigen Inhalt basierend auf der angegebenen ID ab. Hier ist ein Beispiel, wie man ihn verwendet:
+Um Enumeration in einer React-Komponente zu verwenden, können Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket nutzen. Dieser Hook ruft den korrekten Inhalt basierend auf der angegebenen ID ab. Hier ist ein Beispiel, wie man ihn verwendet:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -130,7 +130,7 @@ const CarComponent: FC = () => {
       </p>
       <p>
         {
-          numberOfCar(0.01) // Ausgabe: Standardwert
+          numberOfCar(0.01) // Ausgabe: Fallback-Wert
         }
       </p>
     </div>
@@ -163,7 +163,7 @@ const CarComponent = () => {
       </p>
       <p>
         {
-          numberOfCar(0.01) // Ausgabe: Standardwert
+          numberOfCar(0.01) // Ausgabe: Fallback-Wert
         }
       </p>
     </div>
@@ -198,7 +198,7 @@ const CarComponent = () => {
       </p>
       <p>
         {
-          numberOfCar(0.01) // Ausgabe: Standardwert
+          numberOfCar(0.01) // Ausgabe: Fallback-Wert
         }
       </p>
     </div>
@@ -208,11 +208,11 @@ const CarComponent = () => {
 module.exports = CarComponent;
 ```
 
-In diesem Beispiel passt die Komponente ihre Ausgabe dynamisch an die Anzahl der Autos an. Der korrekte Inhalt wird automatisch ausgewählt, abhängig von dem angegebenen Bereich.
+In diesem Beispiel passt die Komponente ihre Ausgabe dynamisch basierend auf der Anzahl der Autos an. Der korrekte Inhalt wird automatisch abhängig vom angegebenen Bereich ausgewählt.
 
 ## Zusätzliche Ressourcen
 
-Für detailliertere Informationen zu Konfiguration und Nutzung können Sie auf die folgenden Ressourcen verweisen:
+Für detailliertere Informationen zur Konfiguration und Nutzung lesen Sie die folgenden Ressourcen:
 
 - [Intlayer CLI Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md)
 - [React Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_create_react_app.md)

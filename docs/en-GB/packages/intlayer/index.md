@@ -71,7 +71,7 @@ const config = {
 module.exports = config;
 ```
 
-> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
+> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md).
 
 ## Example of usage
 
@@ -79,7 +79,7 @@ With Intlayer, you can declare your content in a structured way anywhere in your
 
 By default, Intlayer scans for files with the extension `.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
-> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
+> can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -247,18 +247,17 @@ A typical output might look like:
 
 ```bash
 .
-├── .intlayer
-│   ├── dictionary  # Contain the dictionary of your content
-│   │   ├── client-component.json
-│   │   └── server-component.json
-│   ├── main  # Contain the entry point of your dictionary to be used in your application
-│   │   ├── dictionary.cjs
-│   │   └── dictionary.mjs
-│   └── types  # Contain the auto-generated type definitions of your dictionary
-│       ├── client-component.d.ts
-│       └── server-component.d.ts
-└── types
-    └── intlayer.d.ts  # Contain the auto-generated type definitions of Intlayer
+└── .intlayer
+    ├── dictionary  # Contain the dictionary of your content
+    │   ├── client-component.json
+    │   └── server-component.json
+    ├── main  # Contain the entry point of your dictionary to be used in your application
+    │   ├── dictionary.cjs
+    │   └── dictionary.mjs
+    └── types  # Contain the auto-generated type definitions of your dictionary
+        ├── intlayer.d.ts  # Contain the auto-generated type definitions of Intlayer
+        ├── client-component.d.ts
+        └── server-component.d.ts
 ```
 
 ### Build i18next resources
@@ -316,7 +315,7 @@ const config = {
 module.exports = config;
 ```
 
-> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
+> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md).
 
 Output:
 
@@ -337,7 +336,7 @@ Output:
 
 For example, the **en/client-component.json** might look like:
 
-```json filePath="intlayer/dictionary/en-GB/client-component.json"
+```json filePath="intlayer/dictionary/en/client-component.json"
 {
   "myTranslatedContent": "Hello World",
   "zero_numberOfCar": "No cars",
@@ -395,14 +394,14 @@ const config = {
     dictionaryOutput: ["next-intl"],
 
     // The directory where Intlayer will write your message JSON files
-    nextIntlMessagesDir: "./i18next/messages",
+    nextIntlMessagesDir: "./intl/messages",
   },
 };
 
 module.exports = config;
 ```
 
-> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
+> For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md).
 
 Output:
 
@@ -423,7 +422,7 @@ Output:
 
 For example, the **en/client-component.json** might look like:
 
-```json filePath="intlayer/dictionary/en-GB/client-component.json"
+```json filePath="intlayer/dictionary/en/client-component.json"
 {
   "myTranslatedContent": "Hello World",
   "zero_numberOfCar": "No cars",
@@ -441,7 +440,7 @@ Intlayer provides a CLI tool to:
 - build dictionaries from your content declarations
 - push and pull distant dictionaries from your CMS to your locale project
 
-Consult [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_cli.md) for more information.
+Consult [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/intlayer_cli.md) for more information.
 
 ## Use Intlayer into your application
 
@@ -451,27 +450,27 @@ Intlayer is available as a package for your application.
 
 ### React Application
 
-To use Intlayer in your React application, you can use [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/index.md).
+To use Intlayer in your React application, you can use [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/react-intlayer/index.md).
 
 ### Next.js Application
 
-To use Intlayer in your Next.js application, you can use [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/next-intlayer/index.md).
+To use Intlayer in your Next.js application, you can use [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/next-intlayer/index.md).
 
 ### Express Application
 
-To use Intlayer in your Express application, you can use [express-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/express-intlayer/index.md).
+To use Intlayer in your Express application, you can use [express-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/express-intlayer/index.md).
 
 ## Functions provided by `intlayer` package
 
 The `intlayer` package also provides some functions to help you to internationalize your application.
 
-- [`getConfiguration()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getConfiguration.md)
-- [`getTranslation()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getTranslation.md)
-- [`getEnumeration()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getEnumeration.md)
-- [`getLocaleName()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getLocaleName.md)
-- [`getLocaleLang()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getLocaleLang.md)
-- [`getHTMLTextDir()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getHTMLTextDir.md)
-- [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getPathWithoutLocale.md)
-- [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getMultilingualUrls.md)
-- [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getLocalizedUrl.md)
-- [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getPathWithoutLocale.md)
+- [`getConfiguration()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getConfiguration.md)
+- [`getTranslation()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getTranslation.md)
+- [`getEnumeration()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getEnumeration.md)
+- [`getLocaleName()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getLocaleName.md)
+- [`getLocaleLang()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getLocaleLang.md)
+- [`getHTMLTextDir()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getHTMLTextDir.md)
+- [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getPathWithoutLocale.md)
+- [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getMultilingualUrls.md)
+- [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getLocalizedUrl.md)
+- [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/getPathWithoutLocale.md)

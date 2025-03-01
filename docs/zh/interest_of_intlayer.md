@@ -1,6 +1,6 @@
-# Intlayer: 更接近翻译您的应用程序
+# Intlayer: 更贴近的方式翻译您的应用程序
 
-**Intlayer** 是一个专为 JavaScript 开发人员设计的国际化库。它允许您在代码的各个地方声明内容。它将多语言内容的声明转换为结构化的字典，以便更容易地集成到您的代码中。使用 TypeScript，**Intlayer** 使您的开发更强大且更高效。
+**Intlayer** 是一个专为 JavaScript 开发者设计的国际化库。它允许您在代码中的任何地方声明内容。它将多语言内容的声明转换为结构化的字典，便于集成到您的代码中。通过使用 TypeScript，**Intlayer** 使您的开发更强大、更高效。
 
 ## 使用示例
 
@@ -113,10 +113,10 @@ const ComponentExample = () => {
 
 ## 为什么选择 Intlayer？
 
-- **JavaScript 驱动的内容管理**: 利用 JavaScript 的灵活性高效地定义和管理您的内容。
-- **类型安全环境**: 利用 TypeScript 确保您的内容定义精确且无错误。
-- **集成内容文件**: 将翻译文本与其各自的组件紧密结合，增强可维护性和清晰性。
-- **简化设置**: 通过最小的配置快速启动，特别为 Next.js 项目优化。
-- **服务器组件支持**: 完美适合 Next.js 服务器组件，确保流畅的服务器端渲染。
-- **增强路由**: 完全支持 Next.js 应用路由，能够无缝适应复杂的应用结构。
-- **互操作性**: 允许与 i18next 的互操作性。（beta）
+- **基于 JavaScript 的内容管理**：利用 JavaScript 的灵活性高效定义和管理您的内容。
+- **类型安全环境**：借助 TypeScript 确保所有内容定义精确且无错误。
+- **集成内容文件**：将翻译内容与其相关组件紧密结合，提升可维护性和清晰度。
+- **简化的设置**：通过最少的配置快速启动，特别为 Next.js 项目优化。
+- **服务器组件支持**：完美适配 Next.js 服务器组件，确保流畅的服务器端渲染。
+- **增强的路由功能**：完全支持 Next.js 应用路由，无缝适应复杂的应用结构。
+- **互操作性**：支持与 [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_next-intl.md) 和 [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_react-intl.md) 的互操作性。

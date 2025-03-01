@@ -1,14 +1,14 @@
 # Dokumentation: `getEnumeration` Funktion in `intlayer`
 
-## Beschreibung:
+## Beschreibung
 
-Die `getEnumeration` Funktion ruft Inhalte ab, die einer bestimmten Menge basierend auf vordefinierten Bedingungen in einem Aufzählungsobjekt entsprechen. Die Bedingungen sind als Schlüssel definiert, und ihre Priorität wird durch ihre Reihenfolge im Objekt bestimmt.
+Die Funktion `getEnumeration` ruft Inhalte ab, die einer bestimmten Menge entsprechen, basierend auf vordefinierten Bedingungen in einem Enumerationsobjekt. Die Bedingungen sind als Schlüssel definiert, und ihre Priorität wird durch ihre Reihenfolge im Objekt bestimmt.
 
-## Parameter:
+## Parameter
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **Beschreibung**: Ein Objekt, in dem Schlüssel Bedingungen darstellen (z.B. `<=`, `<`, `>=`, `=`) und die Werte den entsprechenden Inhalt repräsentieren. Die Reihenfolge der Schlüssel definiert ihre Übereinstimmungspriorität.
+  - **Beschreibung**: Ein Objekt, bei dem die Schlüssel Bedingungen darstellen (z. B. `<=`, `<`, `>=`, `=`) und die Werte den entsprechenden Inhalt repräsentieren. Die Reihenfolge der Schlüssel definiert ihre Priorität beim Abgleich.
   - **Typ**: `QuantityContent<Content>`
     - `Content` kann jeden Typ haben.
 
@@ -17,14 +17,14 @@ Die `getEnumeration` Funktion ruft Inhalte ab, die einer bestimmten Menge basier
   - **Beschreibung**: Der numerische Wert, der verwendet wird, um mit den Bedingungen in `enumerationContent` abzugleichen.
   - **Typ**: `number`
 
-## Rückgaben:
+## Rückgabewerte
 
 - **Typ**: `Content`
-- **Beschreibung**: Der Inhalt, der der ersten passenden Bedingung in `enumerationContent` entspricht. Wenn keine Übereinstimmung gefunden wird, wird standardmäßig auf die Implementierung zurückgegriffen (z.B. Fehler oder Fallback-Inhalt).
+- **Beschreibung**: Der Inhalt, der der ersten übereinstimmenden Bedingung in `enumerationContent` entspricht. Wenn keine Übereinstimmung gefunden wird, erfolgt die Handhabung basierend auf der Implementierung (z. B. Fehler oder Fallback-Inhalt).
 
-## Beispielverwendung:
+## Beispielverwendung
 
-### Grundlegende Verwendung:
+### Grundlegende Verwendung
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -72,7 +72,7 @@ const content = getEnumeration(
 console.log(content); // Ausgabe: "Sie haben zwei"
 ```
 
-### Priorität der Bedingungen:
+### Priorität der Bedingungen
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -116,23 +116,25 @@ const content = getEnumeration(
 console.log(content); // Ausgabe: "Sie haben weniger als vier"
 ```
 
-## Randfälle:
+## Randfälle
 
-- **Keine passende Bedingung:**
+- **Keine übereinstimmende Bedingung:**
 
-  - Wenn keine Bedingung mit der angegebenen Menge übereinstimmt, wird die Funktion entweder `undefined` zurückgeben oder das Standard-/Fallback-Szenario explizit behandeln.
+  - Wenn keine Bedingung mit der angegebenen Menge übereinstimmt, gibt die Funktion entweder `undefined` zurück oder behandelt das Standard-/Fallback-Szenario explizit.
 
 - **Mehrdeutige Bedingungen:**
 
-  - Wenn Bedingungen sich überschneiden, hat die erste passende Bedingung (basierend auf der Objektreihenfolge) Vorrang.
+  - Wenn sich Bedingungen überschneiden, hat die erste übereinstimmende Bedingung (basierend auf der Objektreihenfolge) Vorrang.
 
 - **Ungültige Schlüssel:**
 
-  - Die Funktion geht davon aus, dass alle Schlüssel in `enumerationContent` gültig und als Bedingungen analysierbar sind. Ungültige oder schlecht formatierte Schlüssel können zu unerwartetem Verhalten führen.
+  - Die Funktion geht davon aus, dass alle Schlüssel in `enumerationContent` gültig und als Bedingungen interpretierbar sind. Ungültige oder falsch formatierte Schlüssel können zu unerwartetem Verhalten führen.
 
-- **TypeScript Durchsetzung:**
-  - Die Funktion sorgt dafür, dass der `Content`-Typ über alle Schlüssel hinweg konsistent ist, was Typensicherheit im abgerufenen Inhalt gewährleistet.
+- **TypeScript-Durchsetzung:**
+  - Die Funktion stellt sicher, dass der `Content`-Typ über alle Schlüssel hinweg konsistent ist, was Typsicherheit für den abgerufenen Inhalt ermöglicht.
 
-## Hinweise:
+## Hinweise
 
-- Die `findMatchingCondition`-Hilfsfunktion wird verwendet, um die geeignete Bedingung basierend auf der angegebenen Menge zu bestimmen.
+- Das Dienstprogramm `findMatchingCondition` wird verwendet, um die passende Bedingung basierend auf der angegebenen Menge zu bestimmen.
+
+[Zurück zur Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/**/*.md)

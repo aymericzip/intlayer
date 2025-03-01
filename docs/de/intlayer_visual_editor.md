@@ -1,42 +1,42 @@
 # Intlayer Visual Editor Dokumentation
 
-Der Intlayer Visual Editor ist ein Tool, das Ihre Website umhüllt, um mit Ihren Inhaltsdeklarationsdateien über einen visuellen Editor zu interagieren.
+Der Intlayer Visual Editor ist ein Tool, das Ihre Website einbindet, um mit Ihren Inhaltsdeklarationsdateien über einen visuellen Editor zu interagieren.
 
-![Intlayer Visual Editor Benutzeroberfläche](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Intlayer Visual Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
-Das `intlayer-editor`-Paket basiert auf Intlayer und ist für JavaScript-Anwendungen wie React (Create React App), Vite + React und Next.js verfügbar.
+Das `intlayer-editor`-Paket basiert auf Intlayer und ist für JavaScript-Anwendungen verfügbar, wie React (Create React App), Vite + React und Next.js.
 
 ## Visueller Editor vs CMS
 
-Der Intlayer Visual Editor ist ein Tool, das es Ihnen ermöglicht, Ihre Inhalte in einem visuellen Editor für lokale Wörterbücher zu verwalten. Sobald eine Änderung vorgenommen wird, wird der Inhalt im Code-Basis ersetzt. Das bedeutet, dass die Anwendung neu gebaut wird und die Seite neu geladen wird, um den neuen Inhalt anzuzeigen.
+Der Intlayer Visual Editor ist ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für lokale Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wird der Inhalt im Code-Basis ersetzt. Das bedeutet, dass die Anwendung neu aufgebaut wird und die Seite neu geladen wird, um den neuen Inhalt anzuzeigen.
 
-Im Gegensatz dazu ist das [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md) ein Tool, das es Ihnen ermöglicht, Ihre Inhalte in einem visuellen Editor für entfernte Wörterbücher zu verwalten. Sobald eine Änderung vorgenommen wird, wird der Inhalt **nicht** Ihre Code-Basis beeinflussen. Und die Website zeigt automatisch die geänderten Inhalte an.
+Im Gegensatz dazu ist das [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md) ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für entfernte Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wird der Inhalt **nicht** Ihre Code-Basis beeinflussen. Und die Website zeigt automatisch den geänderten Inhalt an.
 
-## Integrieren Sie Intlayer in Ihre Anwendung
+## Intlayer in Ihre Anwendung integrieren
 
-Für weitere Details zur Integration von Intlayer siehe den entsprechenden Abschnitt unten:
+Für weitere Details zur Integration von Intlayer, siehe den entsprechenden Abschnitt unten:
 
 ### Integration mit Next.js
 
-Für die Integration mit Next.js verweisen Sie auf die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_nextjs_15.md).
+Für die Integration mit Next.js, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_nextjs_15.md).
 
 ### Integration mit Create React App
 
-Für die Integration mit Create React App verweisen Sie auf die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_create_react_app.md).
+Für die Integration mit Create React App, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_create_react_app.md).
 
 ### Integration mit Vite + React
 
-Für die Integration mit Vite + React verweisen Sie auf die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_vite+react.md).
+Für die Integration mit Vite + React, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_vite+react.md).
 
-## So funktioniert der Intlayer Editor
+## Wie der Intlayer Editor funktioniert
 
 Der visuelle Editor in einer Anwendung umfasst zwei Dinge:
 
-- Eine Frontend-Anwendung, die Ihre Website in ein iframe einfügt. Wenn Ihre Website Intlayer verwendet, erkennt der visuelle Editor automatisch Ihren Inhalt und ermöglicht es Ihnen, damit zu interagieren. Sobald eine Änderung vorgenommen wird, können Sie Ihre Änderungen herunterladen.
+- Eine Frontend-Anwendung, die Ihre Website in einem iframe anzeigt. Wenn Ihre Website Intlayer verwendet, erkennt der visuelle Editor automatisch Ihre Inhalte und ermöglicht Ihnen, mit ihnen zu interagieren. Sobald eine Änderung vorgenommen wurde, können Sie Ihre Änderungen herunterladen.
 
-- Sobald Sie auf die Schaltfläche "Download" klicken, sendet der visuelle Editor eine Anfrage an den Server, um Ihre Inhaltsdeklarationsdateien mit den neuen Inhalten zu ersetzen (wo auch immer diese Dateien in Ihrem Projekt deklariert sind).
+- Sobald Sie auf die Schaltfläche "Herunterladen" klicken, sendet der visuelle Editor eine Anfrage an den Server, um Ihre Inhaltsdeklarationsdateien mit dem neuen Inhalt zu ersetzen (wo auch immer diese Dateien in Ihrem Projekt deklariert sind).
 
-> Beachten Sie, dass der Intlayer Editor Ihre Inhaltsdeklarationsdateien vorerst als JSON-Dateien schreibt.
+> Beachten Sie, dass der Intlayer Editor Ihre Inhaltsdeklarationsdateien derzeit als JSON-Dateien schreibt.
 
 ## Installation
 
@@ -56,8 +56,6 @@ pnpm add intlayer-editor --save-dev
 
 ## Konfiguration
 
-### 1. Aktivieren Sie den Editor in Ihrer intlayer.config.ts-Datei
-
 In Ihrer Intlayer-Konfigurationsdatei können Sie die Editor-Einstellungen anpassen:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -69,9 +67,16 @@ const config: IntlayerConfig = {
     /**
      * Erforderlich
      * Die URL der Anwendung.
-     * Dies ist die URL, die vom visuellen Editor angesteuert wird.
+     * Dies ist die URL, die vom visuellen Editor angezielt wird.
+     * Beispiel: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
+    /**
+     * Optional
+     * Standardmäßig `true`. Wenn `false`, ist der Editor inaktiv und kann nicht aufgerufen werden.
+     * Kann verwendet werden, um den Editor aus Sicherheitsgründen für bestimmte Umgebungen wie Produktion zu deaktivieren.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
     /**
      * Optional
      * Standardmäßig `8000`.
@@ -84,12 +89,6 @@ const config: IntlayerConfig = {
      * Die URL des Editor-Servers.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optional
-     * Standardmäßig `true`. Wenn `false`, ist der Editor inaktiv und kann nicht aufgerufen werden.
-     * Kann verwendet werden, um den Editor aus Sicherheitsgründen in bestimmten Umgebungen, wie z.B. Produktion, zu deaktivieren.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -97,36 +96,35 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... andere Konfigurationseinstellungen
   editor: {
-   /**
+    /**
      * Erforderlich
      * Die URL der Anwendung.
-     * Dies ist die URL, die vom visuellen Editor angesteuert wird.
+     * Dies ist die URL, die vom visuellen Editor angezielt wird.
+     * Beispiel: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     /**
      * Optional
+     * Standardmäßig `true`. Wenn `false`, ist der Editor inaktiv und kann nicht aufgerufen werden.
+     * Kann verwendet werden, um den Editor aus Sicherheitsgründen für bestimmte Umgebungen wie Produktion zu deaktivieren.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
+    /**
+     * Optional
      * Standardmäßig `8000`.
-     * Der Port des Editor-Servers.
+     * Der Port, der vom Server des visuellen Editors verwendet wird.
      */
     port: process.env.INTLAYER_PORT,
     /**
      * Optional
      * Standardmäßig "http://localhost:8000"
-     * Die URL des Editor-Servers.
+     * Die URL des Editor-Servers, die von der Anwendung erreicht werden kann. Wird verwendet, um die Ursprünge einzuschränken, die mit der Anwendung interagieren können, aus Sicherheitsgründen. Wenn auf `'*'` gesetzt, ist der Editor von jedem Ursprung aus zugänglich. Sollte gesetzt werden, wenn der Port geändert wird oder wenn der Editor auf einer anderen Domain gehostet wird.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optional
-     * Standardmäßig `true`. Wenn `false`, ist der Editor inaktiv und kann nicht aufgerufen werden.
-     * Kann verwendet werden, um den Editor aus Sicherheitsgründen in bestimmten Umgebungen, wie z.B. Produktion, zu deaktivieren.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -141,7 +139,7 @@ const config = {
     /**
      * Erforderlich
      * Die URL der Anwendung.
-     * Dies ist die URL, die vom visuellen Editor angesteuert wird.
+     * Dies ist die URL, die vom visuellen Editor angezielt wird.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     /**
@@ -159,7 +157,7 @@ const config = {
     /**
      * Optional
      * Standardmäßig `true`. Wenn `false`, ist der Editor inaktiv und kann nicht aufgerufen werden.
-     * Kann verwendet werden, um den Editor aus Sicherheitsgründen in bestimmten Umgebungen, wie z.B. Produktion, zu deaktivieren.
+     * Kann verwendet werden, um den Editor aus Sicherheitsgründen für bestimmte Umgebungen wie Produktion zu deaktivieren.
      */
     enabled: process.env.INTLAYER_ENABLED,
   },
@@ -186,10 +184,25 @@ module.exports = config;
    pnpm intlayer-editor start
    ```
 
-2. Öffnen Sie dann die angegebene URL. Standardmäßig `http://localhost:8000`.
+   > **Beachten Sie, dass Sie Ihre Anwendung parallel ausführen sollten.** Die Anwendungs-URL sollte mit der übereinstimmen, die Sie in der Editor-Konfiguration (`applicationURL`) festgelegt haben.
 
-   Sie können jedes Feld, das von Intlayer indiziert ist, sehen, indem Sie mit dem Cursor über Ihren Inhalt fahren.
+2. Öffnen Sie dann die bereitgestellte URL. Standardmäßig `http://localhost:8000`.
 
-   ![Mit dem Inhalt Hover](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+   Sie können jedes von Intlayer indizierte Feld anzeigen, indem Sie mit dem Cursor über Ihren Inhalt fahren.
 
-3. Wenn Ihr Inhalt umrissen ist, können Sie lange darauf klicken, um das Bearbeitungsfeld anzuzeigen.
+   ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+
+3. Wenn Ihr Inhalt umrissen ist, können Sie ihn lange drücken, um die Bearbeitungsleiste anzuzeigen.
+
+## Debuggen
+
+Wenn Sie Probleme mit dem visuellen Editor haben, überprüfen Sie Folgendes:
+
+- Der visuelle Editor und die Anwendung laufen.
+
+- Die [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) Konfiguration ist korrekt in Ihrer Intlayer-Konfigurationsdatei eingestellt.
+
+  - Erforderliche Felder:
+    - Die Anwendungs-URL sollte mit der übereinstimmen, die Sie in der Editor-Konfiguration (`applicationURL`) festgelegt haben.
+
+- Der visuelle Editor verwendet ein iframe, um Ihre Website anzuzeigen. Stellen Sie sicher, dass die Content Security Policy (CSP) Ihrer Website die CMS-URL als `frame-ancestors` ('http://localhost:8000' standardmäßig) erlaubt. Überprüfen Sie die Editor-Konsole auf Fehler.

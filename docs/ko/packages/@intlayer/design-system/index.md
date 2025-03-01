@@ -1,8 +1,8 @@
-# @intlayer/design-system: NPM 패키지로 Intlayer의 UI 라이브러리 포함
+# @intlayer/design-system: Intlayer의 UI 라이브러리를 포함하는 NPM 패키지
 
-**Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 패키지 모음입니다. React, React 및 Express.js와 같은 프레임워크와 호환됩니다.
+**Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 패키지 모음입니다. React, React, Express.js와 같은 프레임워크와 호환됩니다.
 
-**`@intlayer/design-system`** 패키지는 Intlayer의 디자인 시스템을 포함하는 NPM 패키지입니다. 이 패키지는 [Intlayer 편집기](https://github.com/aymericzip/intlayer/tree/main/docs/ko/packages/intlayer-editor/index.md), [웹사이트](https://intlayer.org) 및 [비주얼 편집기 / CMS](https://intlayer.org/dashboard)에서 사용됩니다.
+**`@intlayer/design-system`** 패키지는 Intlayer의 디자인 시스템을 포함하는 NPM 패키지입니다. 이 패키지는 특히 [Intlayer 편집기](https://github.com/aymericzip/intlayer/tree/main/docs/ko/packages/intlayer-editor/index.md), [웹사이트](https://intlayer.org) 및 [비주얼 편집기 / CMS](https://intlayer.org/dashboard)에서 사용됩니다.
 
 ## 설치
 

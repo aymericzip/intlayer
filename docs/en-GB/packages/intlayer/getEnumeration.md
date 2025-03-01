@@ -136,3 +136,5 @@ console.log(content); // Output: "You have less than four"
 ## Notes
 
 - The `findMatchingCondition` utility is used to determine the appropriate condition based on the given quantity.
+
+[Documentation in English (United Kingdom)](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/getEnumeration.md)

@@ -1,30 +1,30 @@
-# Documentation: `getTranslationContent` Function in `intlayer`
+# Documentation: Fonction `getTranslationContent` dans `intlayer`
 
 ## Description
 
-La fonction `getTranslationContent` récupère le contenu correspondant à un locale spécifique d'un ensemble de contenu linguistique personnalisable. Si le locale spécifié n'est pas trouvé, il retourne par défaut le contenu pour le locale par défaut configuré dans le projet.
+La fonction `getTranslationContent` récupère le contenu correspondant à une locale spécifique à partir d'un ensemble de contenus linguistiques personnalisables. Si la locale spécifiée n'est pas trouvée, elle retourne par défaut le contenu de la locale par défaut configurée dans le projet.
 
-## Parameters
+## Paramètres
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Description**: Un objet contenant des traductions pour divers locales. Chaque clé représente un locale, et sa valeur est le contenu correspondant.
-  - **Type**: `CustomizableLanguageContent<Content>`
-    - `Content` peut être de n'importe quel type, par défaut un `string`.
+  - **Description** : Un objet contenant les traductions pour diverses locales. Chaque clé représente une locale, et sa valeur est le contenu correspondant.
+  - **Type** : `CustomizableLanguageContent<Content>`
+    - `Content` peut être de n'importe quel type, par défaut `string`.
 
 - `locale: Locales`
 
-  - **Description**: Le locale pour lequel le contenu doit être récupéré.
-  - **Type**: `Locales`
+  - **Description** : La locale pour laquelle le contenu doit être récupéré.
+  - **Type** : `Locales`
 
-## Returns
+## Retours
 
-- **Type**: `Content`
-- **Description**: Le contenu correspondant au locale spécifié. Si le locale n'est pas trouvé, le contenu du locale par défaut est retourné.
+- **Type** : `Content`
+- **Description** : Le contenu correspondant à la locale spécifiée. Si la locale n'est pas trouvée, le contenu de la locale par défaut est retourné.
 
-## Example Usage
+## Exemple d'utilisation
 
-### Basic Usage
+### Utilisation de base
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -37,7 +37,7 @@ const content = getTranslationContent(
   Locales.ENGLISH
 );
 
-console.log(content); // Sortie: "Bonjour"
+console.log(content); // Résultat : "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
@@ -51,7 +51,7 @@ const content = getTranslationContent(
   Locales.ENGLISH
 );
 
-console.log(content); // Sortie: "Bonjour"
+console.log(content); // Résultat : "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -65,10 +65,10 @@ const content = getTranslationContent(
   Locales.ENGLISH
 );
 
-console.log(content); // Sortie: "Bonjour"
+console.log(content); // Résultat : "Bonjour"
 ```
 
-### Missing Locale:
+### Locale manquante :
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -81,7 +81,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Sortie: "Hello" (contenu du locale par défaut)
+console.log(content); // Résultat : "Hello" (contenu de la locale par défaut)
 ```
 
 ```javascript codeFormat="esm"
@@ -95,7 +95,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Sortie: "Hello" (contenu du locale par défaut)
+console.log(content); // Résultat : "Hello" (contenu de la locale par défaut)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -109,10 +109,10 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Sortie: "Hello" (contenu du locale par défaut)
+console.log(content); // Résultat : "Hello" (contenu de la locale par défaut)
 ```
 
-### Using Custom Content Types:
+### Utilisation de types de contenu personnalisés :
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -125,7 +125,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Sortie: "Bonjour"
+console.log(customContent.greeting); // Résultat : "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
@@ -139,7 +139,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Sortie: "Bonjour"
+console.log(customContent.greeting); // Résultat : "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -153,16 +153,14 @@ const customContent = getTranslationContent<Record<string, string>>(
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Sortie: "Bonjour"
+console.log(customContent.greeting); // Résultat : "Bonjour"
 ```
 
-## Edge Cases
+## Cas particuliers
 
-- **Locale Not Found:**
-  - Lorsque le `locale` n'est pas trouvé dans le `languageContent`, la fonction retourne le contenu pour le locale par défaut.
-- **Incomplete Language Content:**
-
-  - Si un locale est partiellement défini, la fonction ne fusionne pas les contenus. Elle récupère strictement la valeur du locale spécifié ou revient au défaut.
-
-- **TypeScript Enforcement:**
-  - Si les locales dans `languageContent` ne correspondent pas à la configuration du projet, TypeScript imposera que tous les locales requis soient définis, garantissant que le contenu est complet et type-sécurisé.
+- **Locale non trouvée :**
+  - Lorsque la `locale` n'est pas trouvée dans le `languageContent`, la fonction retourne le contenu de la locale par défaut.
+- **Contenu linguistique incomplet :**
+  - Si une locale est partiellement définie, la fonction ne fusionne pas les contenus. Elle récupère strictement la valeur de la locale spécifiée ou revient à la valeur par défaut.
+- **Application stricte de TypeScript :**
+  - Si les locales dans `languageContent` ne correspondent pas à la configuration du projet, TypeScript imposera que toutes les locales requises soient définies, garantissant que le contenu est complet et conforme au typage.

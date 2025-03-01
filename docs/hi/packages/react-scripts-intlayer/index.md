@@ -1,16 +1,16 @@
-# react-scripts-intlayer: NPM पैकेज को Intlayer को एक React Create App एप्लिकेशन में उपयोग करने के लिए
+# react-scripts-intlayer: NPM पैकेज जो Intlayer को React Create App एप्लिकेशन में उपयोग करने के लिए है
 
-**Intlayer** एक ऐसा पैकेज है जिसे विशेष रूप से JavaScript डेवलपर्स के लिए डिज़ाइन किया गया है। यह React, React और Express.js जैसे फ्रेमवर्क के साथ संगत है।
+**Intlayer** जावास्क्रिप्ट डेवलपर्स के लिए विशेष रूप से डिज़ाइन किए गए पैकेजों का एक सूट है। यह React, React, और Express.js जैसे फ्रेमवर्क के साथ संगत है।
 
-**`react-scripts-intlayer` पैकेज** `react-scripts-intlayer` कमांड और प्लगइन्स को शामिल करता है जो Create React App आधारित एप्लिकेशन के साथ Intlayer को एकीकृत करने के लिए उपयोग होता है। ये प्लगइन्स [craco](https://craco.js.org/) पर आधारित हैं और [Webpack](https://webpack.js.org/) बंडलर के लिए अतिरिक्त कॉन्फ़िगरेशन शामिल करते हैं।
+**`react-scripts-intlayer` पैकेज** में `react-scripts-intlayer` कमांड और प्लगइन्स शामिल हैं जो Intlayer को Create React App आधारित एप्लिकेशन के साथ एकीकृत करते हैं। ये प्लगइन्स [craco](https://craco.js.org/) पर आधारित हैं और [Webpack](https://webpack.js.org/) बंडलर के लिए अतिरिक्त कॉन्फ़िगरेशन शामिल करते हैं।
 
 ## कॉन्फ़िगरेशन
 
-`react-scripts-intlayer` पैकेज [`react-intlayer` पैकेज](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/react-intlayer/index.md) और [`intlayer` पैकेज](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/index.md) के साथ निर्बाध रूप से काम करता है। अधिक जानकारी के लिए प्रासंगिक दस्तावेज़ देखें।
+`react-scripts-intlayer` पैकेज [`react-intlayer` पैकेज](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/react-intlayer/index.md) और [`intlayer` पैकेज](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/index.md) के साथ सहजता से काम करता है। अधिक जानकारी के लिए संबंधित दस्तावेज़ देखें।
 
-## स्थापना
+## इंस्टॉलेशन
 
-आवश्यक पैकेज को अपने पसंदीदा पैकेज प्रबंधक का उपयोग करके स्थापित करें:
+अपने पसंदीदा पैकेज मैनेजर का उपयोग करके आवश्यक पैकेज इंस्टॉल करें:
 
 ```bash packageManager="npm"
 npm install react-scripts-intlayer
@@ -26,16 +26,16 @@ pnpm add react-scripts-intlayer
 
 ## उपयोग
 
-### CLI कमांड
+### CLI कमांड्स
 
-`react-scripts-intlayer` पैकेज निम्नलिखित CLI कमांड प्रदान करता है:
+`react-scripts-intlayer` पैकेज निम्नलिखित CLI कमांड्स प्रदान करता है:
 
-- `npx react-scripts-intlayer build`: Intlayer कॉन्फ़िगरेशन के साथ React एप्लिकेशन बनाता है।
+- `npx react-scripts-intlayer build`: Intlayer कॉन्फ़िगरेशन के साथ React एप्लिकेशन को बनाता है।
 - `npx react-scripts-intlayer start`: Intlayer कॉन्फ़िगरेशन के साथ विकास सर्वर शुरू करता है।
 
-### package.json स्क्रिप्ट को बदलें
+### package.json स्क्रिप्ट्स को बदलें
 
-`react-scripts-intlayer` पैकेज का उपयोग करने के लिए, आपको निम्नलिखित कमांड के साथ `package.json` स्क्रिप्ट को बदलने की आवश्यकता है:
+`react-scripts-intlayer` पैकेज का उपयोग करने के लिए, आपको `package.json` स्क्रिप्ट्स को निम्नलिखित कमांड्स के साथ बदलना होगा:
 
 ```json fileName="package.json"
 {
@@ -48,10 +48,10 @@ pnpm add react-scripts-intlayer
 
 ## कस्टम Webpack कॉन्फ़िगरेशन का उपयोग करें
 
-`react-scripts-intlayer` [craco](https://craco.js.org/) पर आधारित है, जो आपको Webpack कॉन्फ़िगरेशन को अनुकूलित करने की अनुमति देता है।
-यदि आपको Webpack कॉन्फ़िगरेशन को अनुकूलित करने की आवश्यकता है, तो आप intlayer craco प्लगइन पर आधारित अपनी सेटअप को भी लागू कर सकते हैं। [यहां उदाहरण देखें](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)।
+`react-scripts-intlayer` [craco](https://craco.js.org/) पर आधारित है, जो आपको Webpack कॉन्फ़िगरेशन को कस्टमाइज़ करने की अनुमति देता है।
+यदि आपको Webpack कॉन्फ़िगरेशन को कस्टमाइज़ करने की आवश्यकता है, तो आप intlayer craco प्लगइन पर आधारित अपनी सेटअप को भी लागू कर सकते हैं। [यहां उदाहरण देखें](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)।
 
-## React Create App के लिए पूर्ण Intlayer गाइड पढ़ें
+## React Create App के लिए पूरी Intlayer गाइड पढ़ें
 
-Intlayer आपके React एप्लिकेशन को अंतरराष्ट्रीय बनाने में मदद करने के लिए बहुत से फीचर्स प्रदान करता है।
-[React Create App के साथ Intlayer का उपयोग करने का तरीका देखें](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md)।
+Intlayer आपके React एप्लिकेशन को अंतर्राष्ट्रीय बनाने में मदद करने के लिए कई सुविधाएँ प्रदान करता है।
+[देखें कि React Create App के साथ Intlayer का उपयोग कैसे करें](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md)।

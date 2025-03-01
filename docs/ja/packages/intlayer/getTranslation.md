@@ -1,30 +1,30 @@
-# Documentation: `getTranslationContent` 関数 in `intlayer`
+# ドキュメント: `getTranslationContent` 関数 in `intlayer`
 
-## Description
+## 説明
 
-`getTranslationContent` 関数は、カスタマイズ可能な言語コンテンツのセットから特定のロケールに対応するコンテンツを取得します。指定されたロケールが見つからない場合、プロジェクトで設定されたデフォルトロケールのコンテンツが返されます。
+`getTranslationContent` 関数は、カスタマイズ可能な言語コンテンツのセットから特定のロケールに対応するコンテンツを取得します。指定されたロケールが見つからない場合、プロジェクトで設定されたデフォルトロケールのコンテンツを返します。
 
-## Parameters
+## パラメータ
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Description**: 様々なロケールの翻訳を含むオブジェクトです。各キーはロケールを表し、その値は対応するコンテンツです。
-  - **Type**: `CustomizableLanguageContent<Content>`
-    - `Content` は任意の型で、デフォルトは `string` です。
+  - **説明**: 様々なロケールの翻訳を含むオブジェクト。各キーはロケールを表し、その値は対応するコンテンツです。
+  - **型**: `CustomizableLanguageContent<Content>`
+    - `Content` は任意の型であり、デフォルトは `string` です。
 
 - `locale: Locales`
 
-  - **Description**: コンテンツを取得するためのロケールです。
-  - **Type**: `Locales`
+  - **説明**: コンテンツを取得するロケール。
+  - **型**: `Locales`
 
-## Returns
+## 戻り値
 
-- **Type**: `Content`
-- **Description**: 指定されたロケールに対応するコンテンツです。ロケールが見つからない場合は、デフォルトロケールのコンテンツが返されます。
+- **型**: `Content`
+- **説明**: 指定されたロケールに対応するコンテンツ。ロケールが見つからない場合、デフォルトロケールのコンテンツを返します。
 
-## Example Usage
+## 使用例
 
-### Basic Usage
+### 基本的な使用法
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -68,7 +68,7 @@ const content = getTranslationContent(
 console.log(content); // 出力: "Bonjour"
 ```
 
-### Missing Locale:
+### ロケールが見つからない場合:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -81,7 +81,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // 出力: "Hello"（デフォルトロケールのコンテンツ）
+console.log(content); // 出力: "Hello" (デフォルトロケールのコンテンツ)
 ```
 
 ```javascript codeFormat="esm"
@@ -95,7 +95,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // 出力: "Hello"（デフォルトロケールのコンテンツ）
+console.log(content); // 出力: "Hello" (デフォルトロケールのコンテンツ)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -109,10 +109,10 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // 出力: "Hello"（デフォルトロケールのコンテンツ）
+console.log(content); // 出力: "Hello" (デフォルトロケールのコンテンツ)
 ```
 
-### Using Custom Content Types:
+### カスタムコンテンツタイプの使用:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -156,13 +156,11 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // 出力: "Bonjour"
 ```
 
-## Edge Cases
+## エッジケース
 
-- **Locale Not Found:**
-  - `languageContent` に `locale` が見つからない場合、関数はデフォルトロケールのコンテンツを返します。
-- **Incomplete Language Content:**
-
+- **ロケールが見つからない場合:**
+  - `locale` が `languageContent` に見つからない場合、関数はデフォルトロケールのコンテンツを返します。
+- **不完全な言語コンテンツ:**
   - ロケールが部分的に定義されている場合、関数はコンテンツをマージしません。指定されたロケールの値を厳密に取得するか、デフォルトにフォールバックします。
-
-- **TypeScript Enforcement:**
-  - `languageContent` のロケールがプロジェクトの設定と一致しない場合、TypeScript は必要なすべてのロケールが定義されていることを強制し、コンテンツが完全で型安全であることを保証します。
+- **TypeScript の強制:**
+  - `languageContent` のロケールがプロジェクト設定と一致しない場合、TypeScript は必要なすべてのロケールが定義されていることを強制し、コンテンツが完全で型安全であることを保証します。

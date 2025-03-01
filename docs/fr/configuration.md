@@ -1,12 +1,12 @@
-# Intlayer Configuration Documentation
+# Documentation de Configuration Intlayer
 
 ## Vue d'ensemble
 
-Les fichiers de configuration d'Intlayer permettent de personnaliser divers aspects du plugin, tels que l'internationalisation, le middleware et la gestion du contenu. Ce document fournit une description détaillée de chaque propriété dans la configuration.
+Les fichiers de configuration Intlayer permettent de personnaliser divers aspects du plugin, tels que l'internationalisation, le middleware et la gestion du contenu. Ce document fournit une description détaillée de chaque propriété dans la configuration.
 
 ---
 
-## Support des fichiers de configuration
+## Formats de fichiers de configuration pris en charge
 
 Intlayer accepte les formats de fichiers de configuration JSON, JS, MJS et TS :
 
@@ -24,15 +24,16 @@ Intlayer accepte les formats de fichiers de configuration JSON, JS, MJS et TS :
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
+// Configuration Intlayer
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH],
+    locales: [Locales.ENGLISH], // Locales disponibles
   },
   content: {
-    typesDir: "content/types",
+    typesDir: "content/types", // Répertoire des types
   },
   middleware: {
-    noPrefix: false,
+    noPrefix: false, // Pas de préfixe
   },
 };
 
@@ -43,16 +44,16 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
-// La configuration est définie ici
+// Configuration Intlayer
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH],
+    locales: [Locales.ENGLISH], // Locales disponibles
   },
   content: {
-    typesDir: "content/types",
+    typesDir: "content/types", // Répertoire des types
   },
   middleware: {
-    noPrefix: false,
+    noPrefix: false, // Pas de préfixe
   },
 };
 
@@ -60,279 +61,344 @@ module.exports = config;
 ```
 
 ```json5 fileName=".intlayerrc" codeFormat="json"
+// Configuration Intlayer
 {
   "internationalization": {
-    "locales": ["en"],
+    "locales": ["en"], // Locales disponibles
   },
   "content": {
-    "typesDir": "content/types",
+    "typesDir": "content/types", // Répertoire des types
   },
   "middleware": {
-    "noPrefix": false,
+    "noPrefix": false, // Pas de préfixe
   },
 }
 ```
 
 ---
 
-## Référence de configuration
+## Référence de Configuration
 
 Les sections suivantes décrivent les différents paramètres de configuration disponibles pour Intlayer.
 
 ---
 
-### Configuration de l'internationalisation
+### Configuration d'Internationalisation
 
 Définit les paramètres liés à l'internationalisation, y compris les locales disponibles et la locale par défaut pour l'application.
 
 #### Propriétés
 
-- **locales**:
-  - _Type_: `string[]`
-  - _Default_: `['en']`
-  - _Description_: La liste des locales prises en charge dans l'application.
-  - _Example_: `['en', 'fr', 'es']`
-- **strictMode**:
+- **locales** :
 
-  - _Type_: `string`
-  - _Default_: `inclusive`
-  - _Description_: Garantit une forte mise en œuvre d'un contenu internationalisé en utilisant TypeScript.
-  - _Note_: Si défini sur "strict", la fonction de traduction `t` exigera que chaque locale déclarée soit définie. Si une locale est manquante, ou si une locale n'est pas déclarée dans votre configuration, cela déclenchera une erreur.
-  - _Note_: Si défini sur "inclusive", la fonction de traduction `t` exigera que chaque locale déclarée soit définie. Si une locale est manquante, cela déclenchera un avertissement. Mais cela acceptera si une locale n'est pas déclarée dans votre configuration, mais existe.
-  - _Note_: Si défini sur "loose", la fonction de traduction `t` acceptera toute locale existante.
+  - _Type_ : `string[]`
+  - _Défaut_ : `['en']`
+  - _Description_ : La liste des locales prises en charge dans l'application.
+  - _Exemple_ : `['en', 'fr', 'es']`
 
-- **defaultLocale**:
-  - _Type_: `string`
-  - _Default_: `'en'`
-  - _Description_: La locale par défaut utilisée comme solution de secours si la locale demandée n'est pas trouvée.
-  - _Example_: `'en'`
-  - _Note_: Ceci est utilisé pour déterminer la locale lorsque aucune n'est spécifiée dans l'URL, le cookie ou l'en-tête.
+- **requiredLocales** :
 
----
+  - _Type_ : `string[]`
+  - _Défaut_ : `[]`
+  - _Description_ : La liste des locales requises dans l'application.
+  - _Exemple_ : `[]`
+  - _Remarque_ : Si vide, toutes les locales sont requises en mode `strict`.
+  - _Remarque_ : Assurez-vous que les locales requises sont également définies dans le champ `locales`.
 
-### Configuration de l'éditeur
+- **strictMode** :
 
-Définit les paramètres liés à l'éditeur intégré, y compris le port du serveur et le statut actif.
+  - _Type_ : `string`
+  - _Défaut_ : `inclusive`
+  - _Description_ : Assure une implémentation stricte du contenu internationalisé en utilisant TypeScript.
+  - _Remarque_ : Si défini sur "strict", la fonction de traduction `t` nécessitera que chaque locale déclarée soit définie. Si une locale manque ou si une locale n'est pas déclarée dans votre configuration, une erreur sera levée.
+  - _Remarque_ : Si défini sur "inclusive", la fonction de traduction `t` nécessitera que chaque locale déclarée soit définie. Si une locale manque, un avertissement sera émis. Cependant, elle acceptera une locale non déclarée dans votre configuration mais existante.
+  - _Remarque_ : Si défini sur "loose", la fonction de traduction `t` acceptera toute locale existante.
 
-#### Propriétés
-
-- **backendURL**:
-
-  - _Type_: `string`
-  - _Default_: `https://back.intlayer.org`
-  - _Description_: L'URL du serveur backend.
-  - _Example_: `http://localhost:4000`
-
-- **enabled**:
-
-  - _Type_: `boolean`
-  - _Default_: `true`
-  - _Description_: Indique si l'éditeur est actif.
-  - _Example_: `true`
-  - _Note_: Peut être défini en utilisant NODE_ENV ou d'autres variables d'environnement dédiées.
-
-- **clientId**:
-
-  - _Type_: `string` | `undefined`
-  - _Default_: `undefined`
-  - _Description_: clientId et clientSecret permettent aux paquets intlayer de s'authentifier avec le backend en utilisant l'authentification oAuth2. Un token d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un token d'accès, allez sur https://intlayer.org/dashboard/project et créez un compte.
-  - _Example_: `true`
-  - _Note_: Important : Le clientId et le clientSecret doivent être gardés secrets et ne pas être partagés publiquement. Veuillez vous assurer de les conserver dans un endroit sûr, comme des variables d'environnement.
-
-- **clientSecret**:
-  - _Type_: `string` | `undefined`
-  - _Default_: `undefined`
-  - _Description_: clientId et clientSecret permettent aux paquets intlayer de s'authentifier avec le backend en utilisant l'authentification oAuth2. Un token d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un token d'accès, allez sur https://intlayer.org/dashboard/project et créez un compte.
-  - _Example_: `true`
-  - _Note_: Important : Le clientId et le clientSecret doivent être gardés secrets et ne pas être partagés publiquement. Veuillez vous assurer de les conserver dans un endroit sûr, comme des variables d'environnement.
-
-### Configuration du middleware
-
-Paramètres qui contrôlent le comportement du middleware, notamment la façon dont l'application gère les cookies, les en-têtes et les préfixes d'URL pour la gestion des locales.
-
-#### Propriétés
-
-- **headerName**:
-  - _Type_: `string`
-  - _Default_: `'x-intlayer-locale'`
-  - _Description_: Le nom de l'en-tête HTTP utilisé pour déterminer la locale.
-  - _Example_: `'x-custom-locale'`
-  - _Note_: Ceci est utile pour la détermination de la locale basée sur l'API.
-- **cookieName**:
-  - _Type_: `string`
-  - _Default_: `'intlayer-locale'`
-  - _Description_: Le nom du cookie utilisé pour stocker la locale.
-  - _Example_: `'custom-locale'`
-  - _Note_: Utilisé pour persister la locale à travers les sessions.
-- **prefixDefault**:
-  - _Type_: `boolean`
-  - _Default_: `true`
-  - _Description_: Si oui ou non inclure la locale par défaut dans l'URL.
-  - _Example_: `false`
-  - _Note_: Si `false`, les URLs pour la locale par défaut n'auront pas de préfixe de locale.
-- **basePath**:
-  - _Type_: `string`
-  - _Default_: `''`
-  - _Description_: Le chemin de base pour les URLs de l'application.
-  - _Example_: `'/my-app'`
-  - _Note_: Ceci affecte la façon dont les URLs sont construites pour l'application.
-- **serverSetCookie**:
-  - _Type_: `string`
-  - _Default_: `'always'`
-  - _Description_: Règle pour définir le cookie de locale sur le serveur.
-  - _Options_: `'always'`, `'never'`
-  - _Example_: `'never'`
-  - _Note_: Contrôle si le cookie de locale est défini à chaque requête ou jamais.
-- **noPrefix**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Si oui ou non omettre le préfixe de locale des URLs.
-  - _Example_: `true`
-  - _Note_: Si `true`, les URLs ne contiendront pas d'informations sur la locale.
+- **defaultLocale** :
+  - _Type_ : `string`
+  - _Défaut_ : `'en'`
+  - _Description_ : La locale par défaut utilisée comme solution de repli si la locale demandée n'est pas trouvée.
+  - _Exemple_ : `'en'`
+  - _Remarque_ : Utilisé pour déterminer la locale lorsqu'aucune n'est spécifiée dans l'URL, le cookie ou l'en-tête.
 
 ---
 
-### Configuration du contenu
+### Configuration de l'Éditeur
+
+Définit les paramètres liés à l'éditeur intégré, y compris le port du serveur et l'état actif.
+
+#### Propriétés
+
+- **applicationURL** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'*'`
+  - _Description_ : L'URL de l'application. Utilisé pour restreindre l'origine de l'éditeur pour des raisons de sécurité.
+  - _Exemple_ :
+    - `'*'`
+    - `'http://localhost:3000'`
+    - `'https://example.com'`
+    - `process.env.INTLAYER_EDITOR_URL`
+  - _Remarque_ : Si défini sur `'*'`, l'éditeur est accessible depuis n'importe quelle origine.
+
+- **port** :
+
+  - _Type_ : `number`
+  - _Défaut_ : `8000`
+  - _Description_ : Le port utilisé par le serveur de l'éditeur visuel.
+
+- **editorURL** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'http://localhost:8000'`
+  - _Description_ : L'URL du serveur de l'éditeur. Utilisé pour restreindre l'origine de l'éditeur pour des raisons de sécurité.
+    - `'http://localhost:3000'`
+    - `'https://example.com'`
+    - `process.env.INTLAYER_EDITOR_URL`
+    - `''*'`
+  - _Remarque_ : Si défini sur `'*'`, l'éditeur est accessible depuis n'importe quelle origine.
+
+- **cmsURL** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'https://intlayer.org'`
+  - _Description_ : L'URL du CMS Intlayer.
+  - _Exemple_ : `'https://intlayer.org'`
+
+- **backendURL** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `https://back.intlayer.org`
+  - _Description_ : L'URL du serveur backend.
+  - _Exemple_ : `http://localhost:4000`
+
+- **enabled** :
+
+  - _Type_ : `boolean`
+  - _Défaut_ : `true`
+  - _Description_ : Indique si l'application interagit avec l'éditeur visuel.
+  - _Exemple_ : `process.env.NODE_ENV !== 'production'`
+  - _Remarque_ : Si vrai, l'éditeur pourra interagir avec l'application. Si faux, l'éditeur ne pourra pas interagir avec l'application.
+
+- **clientId** :
+
+  - _Type_ : `string` | `undefined`
+  - _Défaut_ : `undefined`
+  - _Description_ : clientId et clientSecret permettent aux packages Intlayer de s'authentifier avec le backend en utilisant l'authentification oAuth2.
+  - _Exemple_ : `true`
+  - _Remarque_ : Important : Le clientId et le clientSecret doivent rester secrets.
+
+- **clientSecret** :
+
+  - _Type_ : `string` | `undefined`
+  - _Défaut_ : `undefined`
+  - _Description_ : clientId et clientSecret permettent aux packages Intlayer de s'authentifier avec le backend en utilisant l'authentification oAuth2.
+  - _Exemple_ : `true`
+  - _Remarque_ : Important : Le clientId et le clientSecret doivent rester secrets.
+
+- **hotReload** :
+
+  - _Type_ : `boolean`
+  - _Défaut_ : `false`
+  - _Description_ : Indique si l'application doit recharger à chaud les configurations de locale lorsqu'un changement est détecté.
+  - _Exemple_ : `true`
+  - _Remarque_ : Disponible uniquement pour les clients du plan `enterprise`.
+
+- **dictionaryPriorityStrategy** :
+  - _Type_ : `string`
+  - _Défaut_ : `'local_first'`
+  - _Description_ : La stratégie pour prioriser les dictionnaires en cas de présence de dictionnaires locaux et distants.
+  - _Exemple_ : `'distant_first'`
+
+---
+
+### Configuration Middleware
+
+Paramètres qui contrôlent le comportement du middleware, y compris la gestion des cookies, des en-têtes et des préfixes d'URL pour la gestion des locales.
+
+#### Propriétés
+
+- **headerName** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'x-intlayer-locale'`
+  - _Description_ : Le nom de l'en-tête HTTP utilisé pour déterminer la locale.
+  - _Exemple_ : `'x-custom-locale'`
+
+- **cookieName** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'intlayer-locale'`
+  - _Description_ : Le nom du cookie utilisé pour stocker la locale.
+  - _Exemple_ : `'custom-locale'`
+
+- **prefixDefault** :
+
+  - _Type_ : `boolean`
+  - _Défaut_ : `true`
+  - _Description_ : Inclure ou non la locale par défaut dans l'URL.
+  - _Exemple_ : `false`
+
+- **basePath** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `''`
+  - _Description_ : Le chemin de base pour les URL de l'application.
+  - _Exemple_ : `'/my-app'`
+
+- **serverSetCookie** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'always'`
+  - _Description_ : Règle pour définir le cookie de locale sur le serveur.
+  - _Options_ : `'always'`, `'never'`
+  - _Exemple_ : `'never'`
+
+- **noPrefix** :
+  - _Type_ : `boolean`
+  - _Défaut_ : `false`
+  - _Description_ : Omettre ou non le préfixe de locale dans les URLs.
+  - _Exemple_ : `true`
+
+---
+
+### Configuration du Contenu
 
 Paramètres liés à la gestion du contenu au sein de l'application, y compris les noms de répertoires, les extensions de fichiers et les configurations dérivées.
 
 #### Propriétés
 
-- **watch**:
-  - _Type_: `boolean`
-  - _Default_: `process.env.NODE_ENV === 'development'`
-  - _Description_: Indique si Intlayer doit surveiller les modifications dans les fichiers de déclaration de contenu dans l'application pour reconstruire les dictionnaires associés.
-- **fileExtensions**:
-  - _Type_: `string[]`
-  - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
-  - _Description_: Extensions de fichiers à rechercher lors de la construction des dictionnaires.
-  - _Example_: `['.data.ts', '.data.js', '.data.json']`
-  - _Note_: La personnalisation des extensions de fichiers peut aider à éviter les conflits.
-- **baseDir**:
-  - _Type_: `string`
-  - _Default_: `process.cwd()`
-  - _Description_: Le répertoire de base pour le projet.
-  - _Example_: `'/path/to/project'`
-  - _Note_: Ceci est utilisé pour résoudre tous les répertoires liés à Intlayer.
-- **dictionaryOutput**:
-  - _Type_: `string[]`
-  - _Default_: `['intlayer']`
-  - _Description_: Le type de sortie du dictionnaire à utiliser, par exemple, `'intlayer'` ou `'i18next'`.
-- **contentDirName**:
-  - _Type_: `string`
-  - _Default_: `'src'`
-  - _Description_: Le nom du répertoire où le contenu est stocké.
-  - _Example_: `'data'`, `'content'`, `'locales'`
-  - _Note_: Si ce n'est pas au niveau du répertoire de base, mettez à jour le `contentDir`.
-- **contentDir**:
+- **watch** :
 
-  - _Type_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'contentDirName'`
-  - _Description_: Le chemin du répertoire où le contenu est stocké.
+  - _Type_ : `boolean`
+  - _Défaut_ : `process.env.NODE_ENV === 'development'`
+  - _Description_ : Indique si Intlayer doit surveiller les changements dans les fichiers de déclaration de contenu.
 
-- **resultDirName**:
-  - _Type_: `string`
-  - _Default_: `'.intlayer'`
-  - _Description_: Le nom du répertoire où les résultats sont stockés.
-  - _Example_: `'outputOFIntlayer'`
-  - _Note_: Si ce répertoire n'est pas au niveau de base, mettez à jour `resultDir`.
-- **resultDir**:
+- **fileExtensions** :
 
-  - _Type_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'resultDirName'`
-  - _Description_: Le chemin du répertoire pour stocker les résultats intermédiaires ou de sortie.
+  - _Type_ : `string[]`
+  - _Défaut_ : `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
+  - _Description_ : Extensions de fichiers à rechercher lors de la construction des dictionnaires.
 
-- **moduleAugmentationDirName**:
+- **baseDir** :
 
-  - _Type_: `string`
-  - _Default_: `'types'`
-  - _Description_: Répertoire pour l'augmentation de module, permettant de meilleures suggestions IDE et un contrôle de type.
-  - _Example_: `'intlayer-types'`
-  - _Note_: Assurez-vous d'inclure cela dans `tsconfig.json`.
+  - _Type_ : `string`
+  - _Défaut_ : `process.cwd()`
+  - _Description_ : Le répertoire de base pour le projet.
 
-- **moduleAugmentationDir**:
+- **dictionaryOutput** :
 
-  - _Type_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'moduleAugmentationDirName'`
-  - _Description_: Le chemin pour l'augmentation de module et les définitions de type supplémentaires.
+  - _Type_ : `string[]`
+  - _Défaut_ : `['intlayer']`
+  - _Description_ : Le type de sortie de dictionnaire à utiliser.
 
-- **dictionariesDirName**:
-  - _Type_: `string`
-  - _Default_: `'dictionary'`
-  - _Description_: Répertoire pour stocker les dictionnaires.
-  - _Example_: `'translations'`
-  - _Note_: Si ce n'est pas au niveau du répertoire de résultat, mettez à jour `dictionariesDir`.
-- **dictionariesDir**:
+- **contentDirName** :
 
-  - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
-  - _Description_: Le répertoire pour stocker les dictionnaires de localisation.
+  - _Type_ : `string`
+  - _Défaut_ : `'src'`
+  - _Description_ : Le nom du répertoire où le contenu est stocké.
 
-- **i18nextResourcesDirName**:
-  - _Type_: `string`
-  - _Default_: `'i18next_dictionary'`
-  - _Description_: Répertoire pour stocker les dictionnaires i18n.
-  - _Example_: `'translations'`
-  - _Note_: Si ce n'est pas au niveau du répertoire de résultat, mettez à jour `i18nextResourcesDir`.
-  - _Note_: Assurez-vous que la sortie des dictionnaires i18n inclut i18next pour construire les dictionnaires pour i18next.
-- **i18nextResourcesDir**:
+- **contentDir** :
 
-  - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'i18nextResourcesDirName'`
-  - _Description_: Le répertoire pour stocker les dictionnaires i18n.
-  - _Note_: Assurez-vous que ce répertoire est configuré pour le type de sortie i18next.
+  - _Type_ : `string`
+  - _Dérivé de_ : `'baseDir'` / `'contentDirName'`
+  - _Description_ : Le chemin du répertoire où le contenu est stocké.
 
-- **typeDirName**:
+- **resultDirName** :
 
-  - _Type_: `string`
-  - _Default_: `'types'`
-  - _Description_: Répertoire pour stocker les types de dictionnaire.
-  - _Example_: `'intlayer-types'`
-  - _Note_: Si ce n'est pas au niveau du répertoire de résultat, mettez à jour `typesDir`.
+  - _Type_ : `string`
+  - _Défaut_ : `'.intlayer'`
+  - _Description_ : Le nom du répertoire où les résultats sont stockés.
 
-- **typesDir**:
+- **resultDir** :
 
-  - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'typeDirName'`
-  - _Description_: Le répertoire pour stocker les types de dictionnaire.
+  - _Type_ : `string`
+  - _Dérivé de_ : `'baseDir'` / `'resultDirName'`
+  - _Description_ : Le chemin du répertoire pour stocker les résultats intermédiaires ou finaux.
 
-- **mainDirName**:
-  - _Type_: `string`
-  - _Default_: `'main'`
-  - _Description_: Répertoire pour stocker les fichiers principaux.
-  - _Example_: `'intlayer-main'`
-  - _Note_: Si ce n'est pas au niveau du répertoire de résultat, mettez à jour `mainDir`.
-- **mainDir**:
-  - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'mainDirName'`
-  - _Description_: Le répertoire où les fichiers principaux de l'application sont stockés.
-- **excludedPath**:
-  - _Type_: `string[]`
-  - _Default_: `['node_modules']`
-  - _Description_: Répertoires exclus de la recherche de contenu.
-  - _Note_: Ce paramètre n'est pas encore utilisé, mais prévu pour une implémentation future.
+- **moduleAugmentationDirName** :
 
-### Configuration du logger
+  - _Type_ : `string`
+  - _Défaut_ : `'types'`
+  - _Description_ : Répertoire pour l'augmentation de modules.
 
-Paramètres qui contrôlent le logger, y compris le niveau de journalisation et le préfixe à utiliser.
+- **moduleAugmentationDir** :
+
+  - _Type_ : `string`
+  - _Dérivé de_ : `'baseDir'` / `'moduleAugmentationDirName'`
+  - _Description_ : Le chemin pour l'augmentation de modules.
+
+- **dictionariesDirName** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'dictionary'`
+  - _Description_ : Répertoire pour stocker les dictionnaires.
+
+- **dictionariesDir** :
+
+  - _Type_ : `string`
+  - _Dérivé de_ : `'resultDir'` / `'dictionariesDirName'`
+  - _Description_ : Le répertoire pour stocker les dictionnaires de localisation.
+
+- **i18nextResourcesDirName** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'i18next_dictionary'`
+  - _Description_ : Répertoire pour stocker les dictionnaires i18n.
+
+- **i18nextResourcesDir** :
+
+  - _Type_ : `string`
+  - _Dérivé de_ : `'resultDir'` / `'i18nextResourcesDirName'`
+  - _Description_ : Le répertoire pour stocker les dictionnaires i18n.
+
+- **typeDirName** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'types'`
+  - _Description_ : Répertoire pour stocker les types de dictionnaires.
+
+- **typesDir** :
+
+  - _Type_ : `string`
+  - _Dérivé de_ : `'resultDir'` / `'typeDirName'`
+  - _Description_ : Le répertoire pour stocker les types de dictionnaires.
+
+- **mainDirName** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `'main'`
+  - _Description_ : Répertoire pour stocker les fichiers principaux.
+
+- **mainDir** :
+
+  - _Type_ : `string`
+  - _Dérivé de_ : `'resultDir'` / `'mainDirName'`
+  - _Description_ : Le répertoire où les fichiers principaux de l'application sont stockés.
+
+- **excludedPath** :
+  - _Type_ : `string[]`
+  - _Défaut_ : `['node_modules']`
+  - _Description_ : Répertoires exclus de la recherche de contenu.
+
+---
+
+### Configuration du Logger
+
+Paramètres qui contrôlent le logger, y compris le préfixe à utiliser.
 
 #### Propriétés
 
-- **enabled**:
-  - _Type_: `boolean`
-  - _Default_: `true`
-  - _Description_: Indique si le logger est activé.
-  - _Example_: `true`
-  - _Note_: Peut être défini en utilisant NODE_ENV ou d'autres variables d'environnement dédiées.
-- **level**:
-  - _Type_: `'info' | 'warn' | 'debug' | 'log'`
-  - _Default_: `'log'`
-  - _Description_: Le niveau du logger.
-  - _Example_: `'info'`
-  - _Note_: Le niveau du logger. Il peut être soit 'log', 'info', 'warn', 'error', ou 'debug'.
-- **prefix**:
-  - _Type_: `string`
-  - _Default_: `'[intlayer] '`
-  - _Description_: Le préfixe du logger.
-  - _Example_: `'[my custom prefix] '`
-  - _Note_: Le préfixe du logger.
+- **mode** :
+
+  - _Type_ : `string`
+  - _Défaut_ : `default`
+  - _Description_ : Indique le mode du logger.
+  - _Options_ : `default`, `verbose`, `disabled`
+  - _Exemple_ : `default`
+
+- **prefix** :
+  - _Type_ : `string`
+  - _Défaut_ : `'[intlayer] '`
+  - _Description_ : Le préfixe du logger.
+  - _Exemple_ : `'[my custom prefix] '`

@@ -1,22 +1,22 @@
-# next-intlayer: حزمة NPM لجعل تطبيق Next.js متعدد اللغات (i18n)
+# next-intlayer: حزمة NPM لتدويل (i18n) تطبيق Next.js
 
-**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React و Next.js و Express.js.
+**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وNext.js وExpress.js.
 
-**حزمة `next-intlayer`** تتيح لك جعل تطبيق Next.js الخاص بك متعدد اللغات. إنها توفر موفرات سياق و هوكات للترجمة في Next.js. بالإضافة إلى ذلك، تشمل مكون Next.js للإدماج مع [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)، وكذلك وسائط لتحديد لغة المستخدم المفضلة وإدارة الكوكيز، والتعامل مع إعادة توجيه عناوين URL.
+**حزمة `next-intlayer`** تتيح لك تدويل تطبيق Next.js الخاص بك. توفر موفري السياق وخطافات لتدويل Next.js. بالإضافة إلى ذلك، تتضمن مكون إضافي لـ Next.js لدمج Intlayer مع [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)، بالإضافة إلى وسيط لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، ومعالجة إعادة توجيه الروابط.
 
-## لماذا تجعل تطبيق Next.js متعدد اللغات؟
+## لماذا تدويل تطبيق Next.js الخاص بك؟
 
-جعل تطبيق Next.js الخاص بك متعدد اللغات أمر ضروري لخدمة جمهور عالمي بشكل فعال. إنه يتيح لتطبيقك تقديم محتوى ورسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة من تجربة المستخدم وتوسع نطاق تطبيقك من خلال جعله أكثر إمكانية للوصول وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+تدويل تطبيق Next.js الخاص بك أمر ضروري لخدمة جمهور عالمي بفعالية. يتيح لتطبيقك تقديم المحتوى والرسائل بلغة المستخدم المفضلة. هذه القدرة تعزز تجربة المستخدم وتوسع نطاق تطبيقك بجعله أكثر وصولًا وملاءمة للأشخاص من خلفيات لغوية مختلفة.
 
-## لماذا تدمج Intlayer؟
+## لماذا دمج Intlayer؟
 
-- **إدارة المحتوى المدعومة بواسطة JavaScript**: استغل مرونة JavaScript لتعريف وإدارة محتواك بشكل فعال.
-- **بيئة آمنة من نوع البيانات**: استفد من TypeScript لضمان أن تعريفات محتواك دقيقة وخالية من الأخطاء.
-- **ملفات محتوى مدمجة**: احتفظ بترجماتك قريبة من مكوناتها المعنية، مما يعزز من سهولة الصيانة والوضوح.
+- **إدارة محتوى مدعومة بـ JavaScript**: استغل مرونة JavaScript لتعريف وإدارة المحتوى بكفاءة.
+- **بيئة آمنة من الأخطاء**: استفد من TypeScript لضمان أن تكون جميع تعريفات المحتوى دقيقة وخالية من الأخطاء.
+- **ملفات محتوى متكاملة**: احتفظ بترجماتك قريبة من مكوناتها ذات الصلة، مما يعزز القابلية للصيانة والوضوح.
 
 ## التثبيت
 
-قم بتثبيت الحزمة الضرورية باستخدام مدير الحزم المفضل لديك:
+قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
 
 ```bash packageManager="npm"
 npm install next-intlayer
@@ -30,13 +30,13 @@ yarn add next-intlayer
 pnpm add next-intlayer
 ```
 
-## مثال للاستخدام
+## مثال على الاستخدام
 
-مع Intlayer، يمكنك إعلان محتواك بطريقة منظمة في أي مكان ضمن قاعدة الشيفرة الخاصة بك.
+مع Intlayer، يمكنك إعلان المحتوى الخاص بك بطريقة منظمة في أي مكان في قاعدة الكود الخاصة بك.
 
-بشكل افتراضي، تقوم Intlayer بمسح الملفات ذات الامتداد `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+بشكل افتراضي، يقوم Intlayer بفحص الملفات ذات الامتداد `.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
-> يمكنك تعديل الامتداد الافتراضي عن طريق إعداد خاصية `contentDir` في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+> يمكنك تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -77,11 +77,11 @@ pnpm add next-intlayer
             └── index.cjx
 ```
 
-### أعلن عن محتواك
+### إعلان المحتوى الخاص بك
 
-تم تصميم `next-intlayer` للعمل مع حزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). حزمة `intlayer` هي حزمة تتيح لك إعلان محتواك في أي مكان ضمن الشيفرة الخاصة بك. وهي تحول إعلانات المحتوى متعدد اللغات إلى قواميس منظمة تتكامل بسلاسة مع تطبيقك.
+`next-intlayer` مصمم للعمل مع [حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). `intlayer` هي حزمة تتيح لك إعلان المحتوى الخاص بك في أي مكان في الكود الخاص بك. تقوم بتحويل إعلانات المحتوى متعدد اللغات إلى قواميس منظمة تندمج بسلاسة في تطبيقك.
 
-إليك مثال على إعلان محتوى:
+إليك مثال على إعلان المحتوى:
 
 ```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -93,14 +93,15 @@ const clientComponentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "أقل من ناقص سيارة واحدة",
+      "-1": "ناقص سيارة واحدة",
+      "0": "لا سيارات",
+      "1": "سيارة واحدة",
+      ">5": "بعض السيارات",
+      ">19": "الكثير من السيارات",
     }),
   },
 } satisfies Dictionary;
@@ -119,14 +120,15 @@ const clientComponentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "أقل من ناقص سيارة واحدة",
+      "-1": "ناقص سيارة واحدة",
+      "0": "لا سيارات",
+      "1": "سيارة واحدة",
+      ">5": "بعض السيارات",
+      ">19": "الكثير من السيارات",
     }),
   },
 };
@@ -145,14 +147,15 @@ const clientComponentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "أقل من ناقص سيارة واحدة",
+      "-1": "ناقص سيارة واحدة",
+      "0": "لا سيارات",
+      "1": "سيارة واحدة",
+      ">5": "بعض السيارات",
+      ">19": "الكثير من السيارات",
     }),
   },
 };
@@ -169,27 +172,28 @@ module.exports = clientComponentContent;
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
+        "es": "Hola Mundo",
+        "ar": "مرحبًا بالعالم"
       }
     },
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars"
+        "<-1": "أقل من ناقص سيارة واحدة",
+        "-1": "ناقص سيارة واحدة",
+        "0": "لا سيارات",
+        "1": "سيارة واحدة",
+        ">5": "بعض السيارات",
+        ">19": "الكثير من السيارات"
       }
     }
   }
 }
 ```
 
-### استخدم المحتوى في الشيفرة الخاصة بك
+### استخدام المحتوى في الكود الخاص بك
 
-بمجرد أن تعلن عن محتواك، يمكنك استخدامه في شيفرتك. إليك مثال على كيفية استخدام المحتوى في مكون React:
+بمجرد إعلان المحتوى الخاص بك، يمكنك استخدامه في الكود الخاص بك. إليك مثال على كيفية استخدام المحتوى في مكون React:
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -240,21 +244,21 @@ const ClientComponentExample = () => {
 };
 ```
 
-## إتقان التدويل في تطبيق Next.js الخاص بك
+## إتقان تدويل تطبيق Next.js الخاص بك
 
-تقدم Intlayer الكثير من الميزات لمساعدتك في جعل تطبيق Next.js الخاص بك متعدد اللغات. فيما يلي بعض الميزات الرئيسية:
+يوفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق Next.js الخاص بك. إليك بعض الميزات الرئيسية:
 
-- **تدويل مكونات الخادم**: تتيح لك Intlayer جعل مكونات الخادم الخاصة بك متعددة اللغات بنفس الطريقة الخاصة بمكونات العميل. وهذا يعني أنه يمكنك استخدام نفس إعلانات المحتوى لكل من مكونات العميل والخادم.
-- **وسائط لاكتشاف اللغة**: تقدم Intlayer وسائط لاكتشاف اللغة المفضلة لدى المستخدم. تُستخدم هذه الوسائط لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيههم إلى عنوان URL المناسب كما هو محدد في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
-- **تدويل البيانات الوصفية**: توفر Intlayer وسيلة لتدويل البيانات الوصفية الخاصة بك، مثل عنوان صفحتك، باستخدام دالة `generateMetadata` المقدمة من Next.js. يمكنك استخدام دالة `getTranslation` لترجمة البيانات الوصفية الخاصة بك.
-- **تدويل ملفات sitemap.xml و robots.txt**: تتيح لك Intlayer جعل ملفات sitemap.xml و robots.txt الخاصة بك متعددة اللغات. يمكنك استخدام دالة `getMultilingualUrls` لإنشاء عناوين URL متعددة اللغات لخريطة الموقع الخاصة بك.
-- **تدويل عناوين URL**: تتيح لك Intlayer جعل عناوين URL الخاصة بك متعددة اللغات باستخدام دالة `getMultilingualUrls`. تقوم هذه الدالة بإنشاء عناوين URL متعددة اللغات لخريطة الموقع الخاصة بك.
+- **تدويل مكونات الخادم**: يتيح لك Intlayer تدويل مكونات الخادم بنفس طريقة مكونات العميل. هذا يعني أنه يمكنك استخدام نفس إعلانات المحتوى لكل من مكونات العميل والخادم.
+- **وسيط لاكتشاف اللغة**: يوفر Intlayer وسيطًا لاكتشاف اللغة المفضلة للمستخدم. يُستخدم هذا الوسيط لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيههم إلى الرابط المناسب كما هو محدد في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+- **تدويل البيانات الوصفية**: يوفر Intlayer طريقة لتدويل البيانات الوصفية الخاصة بك، مثل عنوان صفحتك، باستخدام وظيفة `generateMetadata` التي يوفرها Next.js. يمكنك استخدام وظيفة `getTranslation` لترجمة البيانات الوصفية الخاصة بك.
+- **تدويل sitemap.xml وrobots.txt**: يتيح لك Intlayer تدويل ملفات sitemap.xml وrobots.txt الخاصة بك. يمكنك استخدام وظيفة `getMultilingualUrls` لإنشاء روابط متعددة اللغات لملف sitemap الخاص بك.
+- **تدويل الروابط**: يتيح لك Intlayer تدويل الروابط الخاصة بك باستخدام وظيفة `getMultilingualUrls`. تقوم هذه الوظيفة بإنشاء روابط متعددة اللغات لملف sitemap الخاص بك.
 
-**للمزيد من المعلومات حول هذه الميزات، راجع [تعليمات Next.js للتدويل (i18n) مع Intlayer و Next.js 15 App Router](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md).**
+**لتعلم المزيد عن هذه الميزات، راجع دليل [تدويل Next.js (i18n) مع Intlayer وNext.js 15 App Router](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md).**
 
-## الوظائف المقدمة بواسطة حزمة `next-intlayer`
+## الوظائف التي توفرها حزمة `next-intlayer`
 
-تقدم حزمة `next-intlayer` أيضًا بعض الوظائف لمساعدتك في تدويل تطبيقك.
+توفر حزمة `next-intlayer` أيضًا بعض الوظائف لمساعدتك في تدويل تطبيقك.
 
 - [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/t.md)
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useIntlayer.md)

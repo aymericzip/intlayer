@@ -1,12 +1,12 @@
-# @intlayer/design-system: Paquet NPM contenant la bibliothèque UI d'Intlayer
+# @intlayer/design-system: Package NPM contenant la bibliothèque UI d'Intlayer
 
-**Intlayer** est une suite de paquets conçue spécifiquement pour les développeurs JavaScript. Il est compatible avec des frameworks comme React, React, et Express.js.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React et Express.js.
 
-Le paquet **`@intlayer/design-system`** est un paquet NPM incluant le système de design d'Intlayer. Ce paquet est notamment utilisé par l'[éditeur Intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer-editor/index.md), dans le [site Web](https://intlayer.org) et le [Visual Editor / CMS](https://intlayer.org/dashboard).
+Le package **`@intlayer/design-system`** est un package NPM incluant le système de design d'Intlayer. Ce package est notamment utilisé par l'[éditeur Intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer-editor/index.md), dans le [Site Web](https://intlayer.org) et l'[Éditeur Visuel / CMS](https://intlayer.org/dashboard).
 
 ## Installation
 
-Installez le paquet nécessaire en utilisant votre gestionnaire de paquets préféré :
+Installez le package nécessaire en utilisant votre gestionnaire de packages préféré :
 
 ```bash packageManager="npm"
 npm install @intlayer/design-system

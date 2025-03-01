@@ -1,16 +1,16 @@
-# وثائق Intlayer
+# Intlayer وثائق
 
-مرحبًا بكم في وثائق Intlayer. يوفر هذا الدليل نظرة عامة على Intlayer وميزاته الرئيسية وكيفية استخدام هذه الوثائق بشكل فعال لتعزيز تجربة تطويرك.
+مرحبًا بكم في الوثائق الرسمية لـ Intlayer! هنا، ستجد كل ما تحتاجه لتكامل، تكوين، وإتقان Intlayer لجميع احتياجاتك في التدويل (i18n)، سواء كنت تعمل مع Next.js، React، Vite، Express، أو بيئة JavaScript أخرى.
 
-## مقدمة
+## المقدمة
 
 ### ما هو Intlayer؟
 
-**Intlayer** هو مكتبة دولية مصممة خصيصًا لمطوري JavaScript. يسمح لك بإعلان محتواك في كل مكان في الكود الخاص بك. يقوم بتحويل إعلان المحتوى متعدد اللغات إلى قواميس منسقة للتكامل بسهولة في كودك. باستخدام TypeScript، تجعل **Intlayer** تطويرك أقوى وأكثر كفاءة.
+**Intlayer** هو مكتبة تدويل مصممة خصيصًا لمطوري JavaScript. يتيح لك إعلان المحتوى الخاص بك في أي مكان في الكود الخاص بك. يقوم بتحويل إعلان المحتوى متعدد اللغات إلى قواميس منظمة لتتكامل بسهولة في الكود الخاص بك. باستخدام TypeScript، يجعل **Intlayer** تطويرك أقوى وأكثر كفاءة.
 
-كما توفر Intlayer محررًا بصريًا اختياريًا يسمح لك بسهولة تحرير وإدارة محتواك. هذا المحرر مفيد بشكل خاص للمطورين الذين يفضلون واجهة بصرية لإدارة المحتوى، أو للفرق التي تولد المحتوى دون الحاجة للقلق بشأن الكود.
+يوفر Intlayer أيضًا محررًا بصريًا اختياريًا يتيح لك تحرير وإدارة المحتوى الخاص بك بسهولة. هذا المحرر مفيد بشكل خاص للمطورين الذين يفضلون واجهة بصرية لإدارة المحتوى، أو للفرق التي تنشئ المحتوى دون الحاجة إلى القلق بشأن الكود.
 
-## مثال على الاستخدام
+### مثال على الاستخدام
 
 ```bash codeFormat="typescript"
 .
@@ -46,6 +46,7 @@ const componentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
   },
 } satisfies Dictionary;
@@ -57,7 +58,6 @@ export default componentContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-// محتوى المكون
 const componentContent = {
   key: "component-key",
   content: {
@@ -65,6 +65,7 @@ const componentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
   },
 };
@@ -76,7 +77,6 @@ export default componentContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-// محتوى المكون
 const componentContent = {
   key: "component-key",
   content: {
@@ -84,6 +84,7 @@ const componentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
   },
 };
@@ -101,7 +102,8 @@ module.exports = componentContent;
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
+        "es": "Hola Mundo",
+        "ar": "مرحبًا بالعالم"
       }
     }
   }
@@ -139,28 +141,50 @@ const MyComponent = () => {
 };
 ```
 
-### الميزات الرئيسية
+## الميزات الرئيسية
 
-تقدم Intlayer مجموعة متنوعة من الميزات المصممة لتلبية احتياجات تطوير الويب الحديث. أدناه الميزات الرئيسية، مع الروابط إلى الوثائق التفصيلية لكل منها:
+يقدم Intlayer مجموعة متنوعة من الميزات المصممة لتلبية احتياجات تطوير الويب الحديث. فيما يلي الميزات الرئيسية، مع روابط إلى وثائق مفصلة لكل منها:
 
 - **دعم التدويل**: عزز الوصول العالمي لتطبيقك مع دعم مدمج للتدويل.
-- **محرر بصري**: تحسين سير عمل تطويرك من خلال مكونات المحرر المصممة لـ Intlayer. اطّلع على [دليل المحرر البصري](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md).
-- **مرونة التكوين**: تخصيص إعدادك مع خيارات تكوين واسعة مفصلة في [دليل التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
-- **أدوات CLI متقدمة**: إدارة مشاريعك بكفاءة باستخدام واجهة سطر الأوامر الخاصة بـ Intlayer. استكشف الإمكانيات في [وثائق أدوات CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
-- **التوافق مع i18n**: تعمل Intlayer بسلاسة مع مكتبات التدويل الأخرى. تحقق من [دليل i18n](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_i18next.md) لمزيد من المعلومات.
+- **محرر بصري**: حسن سير العمل الخاص بك مع إضافات المحرر المصممة لـ Intlayer. تحقق من [دليل المحرر البصري](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
+- **مرونة التكوين**: قم بتخصيص الإعداد الخاص بك مع خيارات التكوين الشاملة المفصلة في [دليل التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+- **أدوات CLI المتقدمة**: قم بإدارة مشاريعك بكفاءة باستخدام واجهة سطر الأوامر الخاصة بـ Intlayer. استكشف الإمكانيات في [وثائق أدوات CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
 
-### المنصات المدعومة
+## المفاهيم الأساسية
 
-تم تصميم Intlayer للعمل بسلاسة مع تطبيقات Next.js وReact. كما أنها تدعم Vite وCreate React App.
+### القاموس
 
-- **تكامل Next.js**: استغل قوة Next.js داخل Intlayer من أجل تقديم الصفحات على الخادم وتوليد المواقع الثابتة. التفاصيل متاحة في [دليل تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md).
-- **تكامل Vite وReact**: استغل Vite داخل Intlayer من أجل تقديم الصفحات على الخادم وتوليد المواقع الثابتة. التفاصيل متاحة في [دليل تكامل Vite وReact](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_vite+react.md).
-- **تكامل Create React App**: استغل قوة Create React App داخل Intlayer من أجل تقديم الصفحات على الخادم وتوليد المواقع الثابتة. التفاصيل متاحة في [دليل تكامل Create React App](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md).
+نظم المحتوى متعدد اللغات الخاص بك بالقرب من الكود الخاص بك للحفاظ على كل شيء متسقًا وقابلًا للصيانة.
 
-### كيفية استخدام هذه الوثائق
+- **[ابدأ](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md)**  
+  تعرف على أساسيات إعلان المحتوى في Intlayer.
 
-للحصول على أقصى استفادة من هذه الوثائق:
+- **[الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/translation.md)**  
+  فهم كيفية إنشاء الترجمات وتخزينها واستخدامها في تطبيقك.
 
-1. **انتقل إلى الأقسام ذات الصلة**: استخدم الروابط المقدمة أعلاه للانتقال مباشرة إلى الأقسام التي تلبي احتياجاتك.
-2. **أمثلة تفاعلية**: حيثما كان ذلك ممكنًا، استفد من الأمثلة التفاعلية لرؤية كيفية عمل الميزات في الوقت الفعلي.
-3. **التعليقات والمساهمات**: تعليقاتك ذات قيمة. إذا كان لديك اقتراحات أو تصحيحات، يرجى النظر في المساهمة في الوثائق.
+- **[التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/enumeration.md)**  
+  إدارة مجموعات البيانات المتكررة أو الثابتة بسهولة عبر لغات مختلفة.
+
+- **[جلب الوظائف](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/function_fetching.md)**  
+  تعرف على كيفية جلب المحتوى ديناميكيًا باستخدام منطق مخصص ليتناسب مع سير عمل مشروعك.
+
+### البيئات والتكاملات
+
+تم تصميم Intlayer مع مراعاة المرونة، مما يوفر تكاملًا سلسًا عبر الأطر الشائعة وأدوات البناء:
+
+- **[Intlayer مع Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md)**
+- **[Intlayer مع Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_14.md)**
+- **[Intlayer مع Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_page_router.md)**
+- **[Intlayer مع React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md)**
+- **[Intlayer مع Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_vite+react.md)**
+- **[Intlayer مع Express](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_express.md)**
+
+يتضمن كل دليل تكامل أفضل الممارسات لاستخدام ميزات Intlayer—مثل **التقديم من جانب الخادم**، **التوجيه الديناميكي**، أو **التقديم من جانب العميل**—لذلك يمكنك الحفاظ على تطبيق سريع، صديق لمحركات البحث، وقابل للتوسع بشكل كبير.
+
+## المساهمة والتغذية الراجعة
+
+نحن نقدر قوة المصادر المفتوحة والتطوير القائم على المجتمع. إذا كنت ترغب في اقتراح تحسينات، إضافة دليل جديد، أو تصحيح أي مشكلات في وثائقنا، فلا تتردد في تقديم طلب سحب أو فتح مشكلة في [مستودع GitHub الخاص بنا](https://github.com/aymericzip/intlayer/blob/main/docs).
+
+**هل أنت مستعد لترجمة تطبيقك بشكل أسرع وأكثر كفاءة؟** استعرض وثائقنا لبدء استخدام Intlayer اليوم. جرب نهجًا قويًا ومبسطًا للتدويل يحافظ على تنظيم المحتوى الخاص بك ويجعل فريقك أكثر إنتاجية.
+
+ترجمة سعيدة!

@@ -1,8 +1,8 @@
-# @intlayer/editor-react: NPM पैकेज जो Intlayer संपादक के साथ बातचीत करने के लिए React States, Contexts, Hooks और Components प्रदान करता है
+# @intlayer/editor-react: NPM पैकेज जो React States, Contexts, Hooks और Components प्रदान करता है Intlayer संपादक के साथ इंटरैक्ट करने के लिए
 
-**Intlayer** विशेष रूप से JavaScript डेवलपर्स के लिए डिज़ाइन किए गए पैकेजों का एक सूट है। यह React, Next.js, और Express.js जैसे फ़्रेमवर्क के साथ संगत है।
+**Intlayer** विशेष रूप से जावास्क्रिप्ट डेवलपर्स के लिए डिज़ाइन किए गए पैकेजों का एक सूट है। यह React, Next.js, और Express.js जैसे फ्रेमवर्क्स के साथ संगत है।
 
-**`@intlayer/editor-react`** पैकेज React एप्लिकेशन के लिए Intlayer संपादक के साथ बातचीत करने के लिए states, contexts, hooks और components प्रदान करता है।
+**`@intlayer/editor-react`** पैकेज React एप्लिकेशन के लिए Intlayer संपादक के साथ इंटरैक्ट करने के लिए states, contexts, hooks और components प्रदान करता है।
 
 ## स्थापना
 

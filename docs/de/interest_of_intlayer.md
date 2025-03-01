@@ -1,34 +1,34 @@
-# Intlayer: Eine nähere Möglichkeit, Ihre Anwendung zu übersetzen
+# Intlayer: Ein näherer Weg, Ihre Anwendung zu übersetzen
 
-**Intlayer** ist eine Internationalisierungsbibliothek, die speziell für JavaScript-Entwickler entwickelt wurde. Sie ermöglicht die Deklaration Ihres Inhalts überall in Ihrem Code. Es wandelt die Deklaration mehrsprachigen Inhalts in strukturierte Wörterbücher um, um eine einfache Integration in Ihren Code zu ermöglichen. Mit TypeScript macht **Intlayer** Ihre Entwicklung robuster und effizienter.
+**Intlayer** ist eine Internationalisierungsbibliothek, die speziell für JavaScript-Entwickler entwickelt wurde. Sie ermöglicht die Deklaration Ihrer Inhalte überall in Ihrem Code. Sie wandelt die Deklaration von mehrsprachigen Inhalten in strukturierte Wörterbücher um, die leicht in Ihren Code integriert werden können. Mit TypeScript macht **Intlayer** Ihre Entwicklung stärker und effizienter.
 
-## Beispiel für die Verwendung
+## Beispiel der Nutzung
 
 ```bash codeFormat="typescript"
 .
-└── Komponenten
-    └── meineKomponente
+└── Components
+    └── MyComponent
         ├── index.content.ts
         └── index.tsx
 ```
 
 ```bash codeFormat="commonjs"
 .
-└── Komponenten
-    └── meineKomponente
+└── Components
+    └── MyComponent
         ├── index.content.cjs
         └── index.mjs
 ```
 
 ```bash codeFormat="esm"
 .
-└── Komponenten
-    └── meineKomponente
+└── Components
+    └── MyComponent
         ├── index.content.mjs
         └── index.js
 ```
 
-```tsx fileName="./Komponenten/MeineKomponente/index.content.ts" codeFormat="typescript"
+```tsx fileName="./Components/MyComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -45,10 +45,11 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-```jsx fileName="./Komponenten/MeineKomponente/index.mjx" codeFormat="esm"
+```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Kommentar: Definition des Inhalts für die Komponente
 const componentExampleContent = {
   key: "component-example",
   content: {
@@ -63,10 +64,11 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-```jsx fileName="./Komponenten/MeineKomponente/index.csx" codeFormat="commonjs"
+```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// Kommentar: Definition des Inhalts für die Komponente
 const componentExampleContent = {
   key: "component-example",
   content: {
@@ -81,7 +83,7 @@ const componentExampleContent = {
 module.exports = componentExampleContent;
 ```
 
-```tsx fileName="./Komponenten/MeineKomponente/index.tsx" codeFormat="typescript"
+```tsx fileName="./Components/MyComponent/index.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer";
 
 export const ComponentExample = () => {
@@ -91,9 +93,10 @@ export const ComponentExample = () => {
 };
 ```
 
-```jsx fileName="./Komponenten/MeineKomponente/index.mjx" codeFormat="esm"
+```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
+// Kommentar: Beispielkomponente, die den übersetzten Inhalt verwendet
 const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -101,9 +104,10 @@ const ComponentExample = () => {
 };
 ```
 
-```jsx fileName="./Komponenten/MeineKomponente/index.csx" codeFormat="commonjs"
+```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
+// Kommentar: Beispielkomponente, die den übersetzten Inhalt verwendet
 const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -113,10 +117,10 @@ const ComponentExample = () => {
 
 ## Warum Intlayer wählen?
 
-- **JavaScript-gestütztes Inhaltsmanagement**: Nutzen Sie die Flexibilität von JavaScript, um Ihren Inhalt effizient zu definieren und zu verwalten.
-- **Typensicheres Umfeld**: Nutzen Sie TypeScript, um sicherzustellen, dass alle Ihre Inhaltsdefinitionen präzise und fehlerfrei sind.
-- **Integrierte Inhaltsdateien**: Halten Sie Ihre Übersetzungen in der Nähe ihrer jeweiligen Komponenten, um Wartbarkeit und Klarheit zu verbessern.
-- **Vereinfachte Einrichtung**: Schnell einsatzbereit mit minimaler Konfiguration, speziell optimiert für Next.js-Projekte.
-- **Unterstützung für Serverkomponenten**: Perfekt geeignet für Next.js-Serverkomponenten, die ein reibungsloses serverseitiges Rendering gewährleisten.
-- **Verbesserte Navigation**: Vollständige Unterstützung für die Next.js-App-Navigation, die sich nahtlos an komplexe Anwendungsstrukturen anpasst.
-- **Interoperabilität**: Ermöglicht die Interoperabilität mit i18next. (Beta)
+- **JavaScript-gestützte Inhaltsverwaltung**: Nutzen Sie die Flexibilität von JavaScript, um Ihre Inhalte effizient zu definieren und zu verwalten.
+- **Typensicheres Umfeld**: Verwenden Sie TypeScript, um sicherzustellen, dass alle Ihre Inhaltsdefinitionen präzise und fehlerfrei sind.
+- **Integrierte Inhaltsdateien**: Halten Sie Ihre Übersetzungen nah an ihren jeweiligen Komponenten, um Wartbarkeit und Klarheit zu verbessern.
+- **Vereinfachte Einrichtung**: Schnell einsatzbereit mit minimaler Konfiguration, besonders optimiert für Next.js-Projekte.
+- **Unterstützung für Serverkomponenten**: Perfekt geeignet für Next.js-Serverkomponenten, um ein reibungsloses serverseitiges Rendering zu gewährleisten.
+- **Verbessertes Routing**: Volle Unterstützung für Next.js-App-Routing, das sich nahtlos an komplexe Anwendungsstrukturen anpasst.
+- **Interoperabilität**: Ermöglicht die Interoperabilität mit [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_next-intl.md) und [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_react-intl.md).

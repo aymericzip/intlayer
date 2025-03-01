@@ -1,30 +1,30 @@
 # React統合: `useLocale`フックのドキュメント
 
-このセクションでは、Reactアプリケーションにおけるロケール管理のために設計された`react-intlayer`ライブラリの`useLocale`フックに関する詳細を提供します。
+このセクションでは、Reactアプリケーションでロケール管理を行うために設計された`react-intlayer`ライブラリの`useLocale`フックに関する包括的な詳細を提供します。
 
 ## Reactでの`useLocale`のインポート
 
-`useLocale`フックをReactアプリケーションに統合するには、対応するパッケージからインポートします：
+Reactアプリケーションに`useLocale`フックを統合するには、対応するパッケージからインポートします:
 
 ```typescript codeFormat="typescript"
-import { useLocale } from "react-intlayer"; // ロケール管理のためにReactコンポーネントで使用
+import { useLocale } from "react-intlayer"; // Reactコンポーネントでロケール管理に使用
 ```
 
 ```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // ロケール管理のためにReactコンポーネントで使用
+import { useLocale } from "react-intlayer"; // Reactコンポーネントでロケール管理に使用
 ```
 
 ```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // ロケール管理のためにReactコンポーネントで使用
+const { useLocale } = require("react-intlayer"); // Reactコンポーネントでロケール管理に使用
 ```
 
 ## 概要
 
-`useLocale`フックは、Reactコンポーネント内でロケール設定を簡単にアクセスおよび操作する方法を提供します。現在のロケール、デフォルトロケール、利用可能なすべてのロケール、そしてロケール設定を更新するための関数にアクセスできます。
+`useLocale`フックは、Reactコンポーネント内でロケール設定にアクセスし、操作するための簡単な方法を提供します。現在のロケール、デフォルトのロケール、利用可能なすべてのロケール、およびロケール設定を更新するための関数にアクセスできます。
 
-## 使い方
+## 使用方法
 
-以下は、Reactコンポーネント内で`useLocale`フックの使い方です：
+以下は、Reactコンポーネント内で`useLocale`フックを使用する方法の例です:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -36,7 +36,7 @@ const LocaleSwitcher: FC = () => {
   return (
     <div>
       <h1>現在のロケール: {locale}</h1>
-      <p>デフォルトロケール: {defaultLocale}</p>
+      <p>デフォルトのロケール: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -60,7 +60,7 @@ const LocaleSwitcher = () => {
   return (
     <div>
       <h1>現在のロケール: {locale}</h1>
-      <p>デフォルトロケール: {defaultLocale}</p>
+      <p>デフォルトのロケール: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -84,7 +84,7 @@ const LocaleSwitcher = () => {
   return (
     <div>
       <h1>現在のロケール: {locale}</h1>
-      <p>デフォルトロケール: {defaultLocale}</p>
+      <p>デフォルトのロケール: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -101,16 +101,16 @@ export default LocaleSwitcher;
 
 ## パラメータと戻り値
 
-`useLocale`フックを呼び出すと、次のプロパティを含むオブジェクトが返されます：
+`useLocale`フックを呼び出すと、以下のプロパティを含むオブジェクトが返されます:
 
-- **`locale`**: Reactコンテキストで設定された現在のロケール。
-- **`defaultLocale`**: 設定で定義された主要ロケール。
-- **`availableLocales`**: 設定で定義されたすべての利用可能なロケールのリスト。
+- **`locale`**: Reactコンテキストで設定されている現在のロケール。
+- **`defaultLocale`**: 設定で定義された主要なロケール。
+- **`availableLocales`**: 設定で定義された利用可能なすべてのロケールのリスト。
 - **`setLocale`**: アプリケーションのコンテキスト内で現在のロケールを更新するための関数。
 
 ## 例
 
-この例では、`useLocale`フックを使用してロケールスイッチャーをレンダリングするコンポーネントを示し、ユーザーがアプリケーションのロケールを動的に変更できるようにします：
+この例では、`useLocale`フックを使用してロケールスイッチャーをレンダリングし、ユーザーがアプリケーションのロケールを動的に変更できるようにするコンポーネントを示します:
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -120,7 +120,7 @@ const LocaleSelector: FC = () => {
   const { locale, setLocale, availableLocales } = useLocale();
 
   const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale); // 新しいロケールを設定
+    setLocale(newLocale);
   };
 
   return (
@@ -142,7 +142,7 @@ const LocaleSelector = () => {
   const { locale, setLocale, availableLocales } = useLocale();
 
   const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale); // 新しいロケールを設定
+    setLocale(newLocale);
   };
 
   return (
@@ -164,7 +164,7 @@ const LocaleSelector = () => {
   const { locale, setLocale, availableLocales } = useLocale();
 
   const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale); // 新しいロケールを設定
+    setLocale(newLocale);
   };
 
   return (
@@ -181,4 +181,4 @@ const LocaleSelector = () => {
 
 ## 結論
 
-`react-intlayer`の`useLocale`フックは、Reactアプリケーションのロケール管理において不可欠なツールであり、さまざまな国際的なオーディエンスにアプリケーションを適応させるために必要な機能を提供します。
+`react-intlayer`の`useLocale`フックは、Reactアプリケーションでロケールを管理するための重要なツールであり、さまざまな国際的なオーディエンスにアプリケーションを効果的に適応させるために必要な機能を提供します。

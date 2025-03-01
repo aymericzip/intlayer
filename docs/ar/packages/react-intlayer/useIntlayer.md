@@ -1,53 +1,53 @@
-# دمج React: توثيق Hook `useIntlayer`
+# React Integration: `useIntlayer` Hook Documentation
 
-هذا القسم يوفر إرشادات مفصلة حول استخدام Hook `useIntlayer` داخل تطبيقات React، مما يسمح بفعالية بتوطين المحتوى.
+هذا القسم يوفر إرشادات مفصلة حول استخدام `useIntlayer` في تطبيقات React، مما يتيح توطين المحتوى بكفاءة.
 
 ## استيراد `useIntlayer` في React
 
-يمكن دمج Hook `useIntlayer` في تطبيقات React عن طريق استيراده بناءً على السياق:
+يمكن دمج `useIntlayer` في تطبيقات React عن طريق استيراده بناءً على السياق:
 
 - **مكون العميل:**
 
   ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // المستخدم في مكونات React من جانب العميل
+  import { useIntlayer } from "react-intlayer"; // يُستخدم في مكونات React على جانب العميل
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // المستخدم في مكونات React من جانب العميل
+  import { useIntlayer } from "react-intlayer"; // يُستخدم في مكونات React على جانب العميل
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // المستخدم في مكونات React من جانب العميل
+  const { useIntlayer } = require("react-intlayer"); // يُستخدم في مكونات React على جانب العميل
   ```
 
 - **مكون الخادم:**
 
   ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // المستخدم في مكونات React من جانب الخادم
+  import { useIntlayer } from "react-intlayer/server"; // يُستخدم في مكونات React على جانب الخادم
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // المستخدم في مكونات React من جانب الخادم
+  import { useIntlayer } from "react-intlayer/server"; // يُستخدم في مكونات React على جانب الخادم
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // المستخدم في مكونات React من جانب الخادم
+  const { useIntlayer } = require("react-intlayer/server"); // يُستخدم في مكونات React على جانب الخادم
   ```
 
 ## المعلمات
 
-يقبل hook معلمين:
+يقبل الخطاف معلمتين:
 
-1. **`key`**: المفتاح القاموسي لاسترجاع المحتوى المترجم.
-2. **`locale`** (اختياري): اللغة المطلوبة. الافتراضي هو لغة السياق إذا لم يتم تحديدها.
+1. **`key`**: مفتاح القاموس لاسترجاع المحتوى الموطّن.
+2. **`locale`** (اختياري): اللغة المطلوبة. يتم استخدام لغة السياق الافتراضية إذا لم يتم تحديدها.
 
-## إعلان المحتوى
+## القاموس
 
-يجب أن يتم الإعلان عن جميع مفاتيح القواميس ضمن ملفات إعلان المحتوى لتعزيز سلامة الأنواع وتجنب الأخطاء. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+يجب أن يتم إعلان جميع مفاتيح القاموس داخل ملفات تعريف المحتوى لتعزيز أمان النوع وتجنب الأخطاء. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ## مثال على الاستخدام في React
 
-توضيح Hook `useIntlayer` داخل مكون React:
+عرض استخدام الخطاف `useIntlayer` داخل مكون React:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -212,7 +212,7 @@ const ServerComponentExample = () => {
 
 ## التعامل مع السمات
 
-عند توطين السمات، الوصول إلى قيم المحتوى بشكل مناسب:
+عند توطين السمات، قم بالوصول إلى قيم المحتوى بشكل مناسب:
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
@@ -220,6 +220,6 @@ const ServerComponentExample = () => {
 
 ## موارد إضافية
 
-- ** محرر Intlayer المرئي**: للحصول على تجربة إدارة محتوى أكثر بديهية، راجع توثيق المحرر المرئي [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md).
+- **محرر Intlayer البصري**: للحصول على تجربة إدارة محتوى أكثر سهولة، راجع وثائق المحرر البصري [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
 
-هذا القسم يركز بشكل خاص على دمج Hook `useIntlayer` في تطبيقات React، مما يبسط عملية التوطين ويضمن تناسق المحتوى عبر لغات مختلفة.
+هذا القسم يستهدف تحديدًا دمج الخطاف `useIntlayer` في تطبيقات React، مما يبسط عملية التوطين ويضمن تناسق المحتوى عبر اللغات المختلفة.

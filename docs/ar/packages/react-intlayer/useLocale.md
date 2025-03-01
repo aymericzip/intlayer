@@ -1,26 +1,26 @@
-# دمج React: وثائق `useLocale` Hook
+# دمج React: توثيق `useLocale` Hook
 
-تقدم هذه القسم تفاصيل شاملة حول `useLocale` hook من مكتبة `react-intlayer`، المصممة للتعامل مع إدارة اللغات في تطبيقات React.
+يوفر هذا القسم تفاصيل شاملة حول `useLocale` hook من مكتبة `react-intlayer`، المصممة لإدارة إعدادات اللغة في تطبيقات React.
 
 ## استيراد `useLocale` في React
 
-لدمج `useLocale` hook في تطبيق React الخاص بك، قم باستيراده من حزمتها المعنية:
+لدمج `useLocale` hook في تطبيق React الخاص بك، قم باستيراده من الحزمة الخاصة به:
 
 ```typescript codeFormat="typescript"
-import { useLocale } from "react-intlayer"; // مستخدم في مكونات React لإدارة اللغات
+import { useLocale } from "react-intlayer"; // تُستخدم في مكونات React لإدارة إعدادات اللغة
 ```
 
 ```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // مستخدم في مكونات React لإدارة اللغات
+import { useLocale } from "react-intlayer"; // تُستخدم في مكونات React لإدارة إعدادات اللغة
 ```
 
 ```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // مستخدم في مكونات React لإدارة اللغات
+const { useLocale } = require("react-intlayer"); // تُستخدم في مكونات React لإدارة إعدادات اللغة
 ```
 
 ## نظرة عامة
 
-يوفر `useLocale` hook وسيلة سهلة للوصول إلى إعدادات اللغة والتلاعب بها داخل مكونات React. يوفر الوصول إلى اللغة الحالية، اللغة الافتراضية، جميع اللغات المتاحة، ووظائف لتحديث إعدادات اللغة.
+يوفر `useLocale` hook طريقة سهلة للوصول إلى إعدادات اللغة والتعامل معها داخل مكونات React. يتيح الوصول إلى اللغة الحالية، اللغة الافتراضية، جميع اللغات المتاحة، ووظائف لتحديث إعدادات اللغة.
 
 ## الاستخدام
 
@@ -101,16 +101,16 @@ export default LocaleSwitcher;
 
 ## المعلمات وقيم الإرجاع
 
-عندما تستدعي `useLocale` hook، فإنه يُرجع كائنًا يحتوي على الخصائص التالية:
+عند استدعاء `useLocale` hook، فإنه يُرجع كائنًا يحتوي على الخصائص التالية:
 
-- **`locale`**: اللغة الحالية كما هو محدد في سياق React.
+- **`locale`**: اللغة الحالية كما تم تعيينها في سياق React.
 - **`defaultLocale`**: اللغة الأساسية المحددة في التكوين.
-- **`availableLocales`**: قائمة بجميع اللغات المتاحة كما هو محدد في التكوين.
-- **`setLocale`**: دالة لتحديث اللغة الحالية داخل سياق التطبيق.
+- **`availableLocales`**: قائمة بجميع اللغات المتاحة كما تم تعريفها في التكوين.
+- **`setLocale`**: وظيفة لتحديث اللغة الحالية داخل سياق التطبيق.
 
 ## مثال
 
-يظهر هذا المثال مكون يستخدم `useLocale` hook لعرض محول اللغة، مما يسمح للمستخدمين بتغيير اللغة في التطبيق ديناميكيًا:
+يوضح هذا المثال مكونًا يستخدم `useLocale` hook لعرض مبدل لغة، مما يسمح للمستخدمين بتغيير لغة التطبيق ديناميكيًا:
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -181,4 +181,4 @@ const LocaleSelector = () => {
 
 ## الخاتمة
 
-`useLocale` hook من `react-intlayer` هو أداة أساسية لإدارة اللغات في تطبيقات React الخاصة بك، حيث يوفر الوظائف اللازمة لتكييف تطبيقك مع مختلف الجماهير الدولية بفعالية.
+يُعد `useLocale` hook من `react-intlayer` أداة أساسية لإدارة اللغات في تطبيقات React الخاصة بك، حيث يوفر الوظائف اللازمة لتكييف تطبيقك مع جمهور دولي متنوع بشكل فعال.

@@ -1,45 +1,45 @@
-# Documentation: `getMultilingualUrls` Function in `intlayer`
+# दस्तावेज़: `getMultilingualUrls` फ़ंक्शन `intlayer` में
 
-## Description
+## विवरण
 
-`getMultilingualUrls` फ़ंक्शन बहुभाषी URL का मैप तैयार करता है, जो दिए गए URL को प्रत्येक समर्थित लोकल के साथ प्रीफिक्स करता है। यह पूर्ण और सापेक्ष दोनों URLs को संभाल सकता है, प्रदान की गई कॉन्फ़िगरेशन या डिफ़ॉल्ट के आधार पर उपयुक्त लोकल प्रीफिक्स लागू करता है।
+`getMultilingualUrls` फ़ंक्शन बहुभाषी URLs का एक मैपिंग उत्पन्न करता है, दिए गए URL को प्रत्येक समर्थित लोकेल के साथ प्रीफिक्स करके। यह दोनों पूर्ण और सापेक्ष URLs को संभाल सकता है, प्रदान की गई कॉन्फ़िगरेशन या डिफ़ॉल्ट्स के आधार पर उपयुक्त लोकेल प्रीफिक्स लागू करता है।
 
 ---
 
-## Parameters
+## पैरामीटर्स
 
 - `url: string`
 
-  - **Description**: ओरिजिनल URL स्ट्रिंग जिसे लोकल के साथ प्रीफिक्स किया जाना है।
-  - **Type**: `string`
+  - **विवरण**: मूल URL स्ट्रिंग जिसे लोकेल्स के साथ प्रीफिक्स किया जाना है।
+  - **प्रकार**: `string`
 
 - `locales: Locales[]`
 
-  - **Description**: समर्थित लोकल का वैकल्पिक ऐरे। प्रोजेक्ट में कॉन्फ़िगर किए गए लोकल के रूप में डिफ़ॉल्ट होता है।
-  - **Type**: `Locales[]`
-  - **Default**: `localesDefault`
+  - **विवरण**: समर्थित लोकेल्स की वैकल्पिक सूची। प्रोजेक्ट में कॉन्फ़िगर किए गए लोकेल्स को डिफ़ॉल्ट मानता है।
+  - **प्रकार**: `Locales[]`
+  - **डिफ़ॉल्ट**: `localesDefault`
 
 - `defaultLocale: Locales`
 
-  - **Description**: एप्लिकेशन के लिए डिफ़ॉल्ट लोकल। प्रोजेक्ट में कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकल के रूप में डिफ़ॉल्ट होता है।
-  - **Type**: `Locales`
-  - **Default**: `defaultLocaleDefault`
+  - **विवरण**: एप्लिकेशन के लिए डिफ़ॉल्ट लोकेल। प्रोजेक्ट में कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकेल को डिफ़ॉल्ट मानता है।
+  - **प्रकार**: `Locales`
+  - **डिफ़ॉल्ट**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **Description**: क्या डिफ़ॉल्ट लोकल को प्रीफिक्स किया जाना चाहिए। प्रोजेक्ट में कॉन्फ़िगर किए गए मान के रूप में डिफ़ॉल्ट होता है।
-  - **Type**: `boolean`
-  - **Default**: `prefixDefaultDefault`
+  - **विवरण**: डिफ़ॉल्ट लोकेल को प्रीफिक्स करना है या नहीं। प्रोजेक्ट में कॉन्फ़िगर किए गए मान को डिफ़ॉल्ट मानता है।
+  - **प्रकार**: `boolean`
+  - **डिफ़ॉल्ट**: `prefixDefaultDefault`
 
-### Returns
+### रिटर्न्स
 
-- **Type**: `IConfigLocales<string>`
-- **Description**: प्रत्येक लोकल को उसके संबंधित बहुभाषी URL से मैप करने वाला एक ऑब्जेक्ट।
+- **प्रकार**: `IConfigLocales<string>`
+- **विवरण**: प्रत्येक लोकेल को उसके संबंधित बहुभाषी URL के साथ मैप करने वाला एक ऑब्जेक्ट।
 
 ---
 
-## Example Usage
+## उदाहरण उपयोग
 
-### Relative URLs
+### सापेक्ष URLs
 
 ```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
@@ -50,7 +50,7 @@ getMultilingualUrls(
   Locales.ENGLISH,
   false
 );
-// Output: {
+// आउटपुट: {
 //   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
@@ -65,7 +65,7 @@ getMultilingualUrls(
   Locales.ENGLISH,
   false
 );
-// Output: {
+// आउटपुट: {
 //   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
@@ -80,13 +80,13 @@ getMultilingualUrls(
   Locales.ENGLISH,
   false
 );
-// Output: {
+// आउटपुट: {
 //   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
 
-### Absolute URLs
+### पूर्ण URLs
 
 ```typescript
 getMultilingualUrls(
@@ -95,7 +95,7 @@ getMultilingualUrls(
   Locales.ENGLISH,
   true
 );
-// Output: {
+// आउटपुट: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
 // }
@@ -103,29 +103,29 @@ getMultilingualUrls(
 
 ---
 
-## Edge Cases
+## किनारे के मामले
 
-- **No Locale Segment:**
+- **कोई लोकेल सेगमेंट नहीं:**
 
-  - फ़ंक्शन URL से पहले से मौजूद किसी भी लोकल खंड को हटा देता है, इससे पहले कि बहुभाषी मैपिंग उत्पन्न की जाए।
+  - फ़ंक्शन URL से किसी भी मौजूदा लोकेल सेगमेंट को हटाता है, इससे पहले कि बहुभाषी मैपिंग उत्पन्न हो।
 
-- **Default Locale:**
+- **डिफ़ॉल्ट लोकेल:**
 
-  - जब `prefixDefault` `false` होता है, फ़ंक्शन डिफ़ॉल्ट लोकल के लिए URL को प्रीफिक्स नहीं करता है।
+  - जब `prefixDefault` `false` होता है, तो फ़ंक्शन डिफ़ॉल्ट लोकेल के लिए URL को प्रीफिक्स नहीं करता।
 
-- **Unsupported Locales:**
-  - केवल `locales` ऐरे में दिए गए लोकल को URLs उत्पन्न करने के लिए विचारित किया जाता है।
+- **असमर्थित लोकेल्स:**
+  - केवल `locales` ऐरे में प्रदान किए गए लोकेल्स को URLs उत्पन्न करने के लिए माना जाता है।
 
 ---
 
-## Usage in Applications
+## एप्लिकेशन में उपयोग
 
-एक बहुभाषी एप्लिकेशन में, `locales` और `defaultLocale` के साथ अंतर्राष्ट्रीयकरण सेटिंग्स को कॉन्फ़िगर करना सही भाषा प्रदर्शित करने के लिए महत्वपूर्ण है। नीचे एक उदाहरण है कि कैसे `getMultilingualUrls` को एक एप्लिकेशन सेटअप में उपयोग किया जा सकता है:
+एक बहुभाषी एप्लिकेशन में, `locales` और `defaultLocale` के साथ अंतर्राष्ट्रीयकरण सेटिंग्स को कॉन्फ़िगर करना सही भाषा सुनिश्चित करने के लिए महत्वपूर्ण है। नीचे दिखाया गया है कि `getMultilingualUrls` को एप्लिकेशन सेटअप में कैसे उपयोग किया जा सकता है:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// समर्थित लोकल और डिफ़ॉल्ट लोकल के लिए कॉन्फ़िगरेशन
+// समर्थित लोकेल्स और डिफ़ॉल्ट लोकेल के लिए कॉन्फ़िगरेशन
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -164,9 +164,9 @@ const config = {
 module.exports = config;
 ```
 
-उपरोक्त कॉन्फ़िगरेशन यह सुनिश्चित करता है कि एप्लिकेशन `ENGLISH`, `FRENCH`, और `SPANISH` को समर्थित भाषाओं के रूप में पहचानता है और `ENGLISH` को फॉलबैक भाषा के रूप में उपयोग करता है।
+उपरोक्त कॉन्फ़िगरेशन यह सुनिश्चित करता है कि एप्लिकेशन `ENGLISH`, `FRENCH`, और `SPANISH` को समर्थित भाषाओं के रूप में पहचानता है और `ENGLISH` को बैकअप भाषा के रूप में उपयोग करता है।
 
-इस कॉन्फ़िगरेशन का उपयोग करके, `getMultilingualUrls` फ़ंक्शन एप्लिकेशन के समर्थित लोकल के आधार पर गतिशील रूप से बहुभाषी URL मैपिंग उत्पन्न कर सकता है:
+इस कॉन्फ़िगरेशन का उपयोग करके, `getMultilingualUrls` फ़ंक्शन एप्लिकेशन के समर्थित लोकेल्स के आधार पर गतिशील रूप से बहुभाषी URL मैपिंग उत्पन्न कर सकता है:
 
 ```typescript
 getMultilingualUrls(
@@ -174,7 +174,7 @@ getMultilingualUrls(
   [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   Locales.ENGLISH
 );
-// Output:
+// आउटपुट:
 // {
 //   en: "/dashboard",
 //   fr: "/fr/dashboard",
@@ -187,7 +187,7 @@ getMultilingualUrls(
   Locales.ENGLISH,
   true
 );
-// Output:
+// आउटपुट:
 // {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard",
@@ -195,4 +195,4 @@ getMultilingualUrls(
 // }
 ```
 
-`getMultilingualUrls` को एकीकृत करके, डेवलपर्स कई भाषाओं में स्थिर URL संरचनाएँ बनाए रख सकते हैं, जो उपयोगकर्ता अनुभव और SEO दोनों को बढ़ावा देती हैं।
+`getMultilingualUrls` को एकीकृत करके, डेवलपर्स कई भाषाओं में सुसंगत URL संरचनाओं को बनाए रख सकते हैं, जिससे उपयोगकर्ता अनुभव और SEO दोनों में सुधार होता है।

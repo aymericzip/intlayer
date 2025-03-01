@@ -1,12 +1,12 @@
-# ترجمة
+# الترجمة
 
-## تعريف الترجمة
+## تعريف الترجمات
 
-تتيح لك وظيفة `t` في `intlayer` الإشارة إلى المحتوى بعدة لغات. تضمن هذه الوظيفة أمان النوع، مما يؤدي إلى رفع خطأ إذا كانت أي ترجمات مفقودة، وهو أمر مفيد بشكل خاص في بيئات TypeScript.
+تتيح لك وظيفة `t` في `intlayer` إعلان المحتوى بلغات متعددة. تضمن هذه الوظيفة سلامة النوع، مما يؤدي إلى ظهور خطأ إذا كانت هناك ترجمات مفقودة، وهو أمر مفيد بشكل خاص في بيئات TypeScript.
 
 ### استخدام TypeScript
 
-إليك مثال على كيفية إعلانات المحتوى مع الترجمة.
+إليك مثال على كيفية إعلان المحتوى مع الترجمات.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -22,7 +22,7 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ar: "مرحبًا بكم في تطبيقنا",
+      ar: "مرحبًا بك في تطبيقنا",
     }),
   },
 } satisfies Dictionary<Content>;
@@ -38,7 +38,7 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ar: "مرحبًا بكم في تطبيقنا",
+      ar: "مرحبًا بك في تطبيقنا",
     }),
   },
 };
@@ -54,7 +54,7 @@ module.exports = {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ar: "مرحبًا بكم في تطبيقنا",
+      ar: "مرحبًا بك في تطبيقنا",
     }),
   },
 };
@@ -71,16 +71,16 @@ module.exports = {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
         "es": "Bienvenido a nuestra aplicación",
-        "ar": "مرحبًا بكم في تطبيقنا"
+        "ar": "مرحبًا بك في تطبيقنا"
       }
     }
   }
 }
 ```
 
-## إعداد اللغات
+## إعداد التكوين للغات
 
-لضمان التعامل الصحيح مع الترجمات، يمكنك ضبط اللغات المقبولة في `intlayer.config.ts`. يتيح لك هذا التكوين تحديد اللغات التي تدعمها تطبيقك:
+لضمان التعامل الصحيح مع الترجمات، يمكنك تكوين اللغات المقبولة في `intlayer.config.ts`. يتيح لك هذا التكوين تحديد اللغات التي يدعمها تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -173,11 +173,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-تقوم هذه المكونة بجلب الترجمة المناسبة بناءً على اللغة الحالية المحددة في التطبيق الخاص بك.
+يقوم هذا المكون بجلب الترجمة المقابلة بناءً على اللغة الحالية المحددة في تطبيقك.
 
 ## كائنات المحتوى المخصصة
 
-يدعم `intlayer` كائنات المحتوى المخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان أمان النوع. إليك مثال على كائن مخصص:
+يدعم `intlayer` كائنات المحتوى المخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان سلامة النوع. إليك مثالًا مع كائن مخصص:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";

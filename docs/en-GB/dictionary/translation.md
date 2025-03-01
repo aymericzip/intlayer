@@ -19,7 +19,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application",
+      en-GB: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -34,7 +34,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application",
+      en-GB: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -49,7 +49,7 @@ module.exports = {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Welcome to our application",
+      en-GB: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -65,7 +65,7 @@ module.exports = {
     "welcomeMessage": {
       "nodeType": "translation",
       "translation": {
-        "en": "Welcome to our application",
+        "en-GB": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
         "es": "Bienvenido a nuestra aplicación"
       }
@@ -83,7 +83,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -96,7 +96,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -109,7 +109,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -187,7 +187,7 @@ const customContent = {
   key: "custom_content",
   content: {
     profileText: t<ICustomContent>({
-      en: {
+      en-GB: {
         title: "Page Title",
         content: "Page Content",
       },
@@ -216,7 +216,7 @@ export default {
       t <
       ICustomContent >
       {
-        en: {
+        en-GB: {
           title: "Page Title",
           content: "Page Content",
         },
@@ -243,7 +243,7 @@ module.exports = {
       t <
       ICustomContent >
       {
-        en: {
+        en-GB: {
           title: "Page Title",
           content: "Page Content",
         },
@@ -268,7 +268,7 @@ module.exports = {
     "profileText": {
       "nodeType": "translation",
       "translation": {
-        "en": {
+        "en-GB": {
           "title": "Page Title",
           "content": "Page Content"
         },

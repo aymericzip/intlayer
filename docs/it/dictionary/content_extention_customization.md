@@ -2,11 +2,11 @@
 
 ## Estensioni dei File di Contenuto
 
-Intlayer consente di personalizzare le estensioni per i file di dichiarazione dei contenuti. Questa personalizzazione fornisce flessibilità nella gestione di progetti su larga scala e aiuta a evitare conflitti con altri moduli.
+Intlayer consente di personalizzare le estensioni per i file di dichiarazione dei contenuti. Questa personalizzazione offre flessibilità nella gestione di progetti su larga scala e aiuta a evitare conflitti con altri moduli.
 
 ### Estensioni Predefinite
 
-Per impostazione predefinita, Intlayer osserva tutti i file con le seguenti estensioni per le dichiarazioni di contenuto:
+Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti estensioni per le dichiarazioni di contenuto:
 
 - `.content.ts`
 - `.content.tsx`
@@ -14,13 +14,13 @@ Per impostazione predefinita, Intlayer osserva tutti i file con le seguenti este
 - `.content.mjs`
 - `.content.cjs`
 
-Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, quando hai esigenze specifiche, puoi definire estensioni personalizzate per semplificare il processo di build e ridurre il rischio di conflitti con altri componenti.
+Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, quando hai esigenze specifiche, puoi definire estensioni personalizzate per ottimizzare il processo di build e ridurre il rischio di conflitti con altri componenti.
 
 ### Personalizzazione delle Estensioni dei Contenuti
 
-Per personalizzare le estensioni dei file che Intlayer utilizza per identificare i file di dichiarazione dei contenuti, puoi specificarle nel file di configurazione di Intlayer. Questo approccio è vantaggioso per i progetti su larga scala, dove limitare l'ambito del processo di osservazione migliora le prestazioni di build.
+Per personalizzare le estensioni dei file che Intlayer utilizza per identificare i file di dichiarazione dei contenuti, puoi specificarle nel file di configurazione di Intlayer. Questo approccio è utile per progetti su larga scala, dove limitare l'ambito del processo di monitoraggio migliora le prestazioni di build.
 
-Ecco un esempio di come definire estensioni personalizzate per i contenuti nella tua configurazione:
+Ecco un esempio di come definire estensioni personalizzate nel file di configurazione:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -56,22 +56,22 @@ const config = {
 module.exports = config;
 ```
 
-In questo esempio, la configurazione specifica due estensioni personalizzate: `.my_content.ts` e `.my_content.tsx`. Intlayer osserverà solo i file con queste estensioni per costruire i dizionari.
+In questo esempio, la configurazione specifica due estensioni personalizzate: `.my_content.ts` e `.my_content.tsx`. Intlayer monitorerà solo i file con queste estensioni per costruire i dizionari.
 
 ### Vantaggi delle Estensioni Personalizzate
 
-- **Prestazioni di Build**: Ridurre l'ambito dei file osservati può migliorare significativamente le prestazioni di build nei progetti di grandi dimensioni.
+- **Prestazioni di Build**: Ridurre l'ambito dei file monitorati può migliorare significativamente le prestazioni di build in progetti di grandi dimensioni.
 - **Evitare Conflitti**: Le estensioni personalizzate aiutano a prevenire conflitti con altri file JavaScript o TypeScript nel tuo progetto.
-- **Organizzazione**: Le estensioni personalizzate consentono di organizzare i tuoi file di dichiarazione dei contenuti secondo le esigenze del tuo progetto.
+- **Organizzazione**: Le estensioni personalizzate ti consentono di organizzare i file di dichiarazione dei contenuti in base alle esigenze del tuo progetto.
 
-### Linee Guida per Estensioni Personalizzate
+### Linee Guida per le Estensioni Personalizzate
 
-Quando personalizzi le estensioni dei file di contenuto, tieni a mente le seguenti linee guida:
+Quando personalizzi le estensioni dei file di contenuto, tieni presente le seguenti linee guida:
 
-- **Unicità**: Scegli estensioni che siano uniche all'interno del tuo progetto per evitare conflitti.
-- **Naming Consistente**: Utilizza convenzioni di naming coerenti per una migliore leggibilità e manutenzione del codice.
-- **Evitare Estensioni Comuni**: Evita di usare estensioni comuni come `.ts` o `.js` per prevenire conflitti con altri moduli o librerie.
+- **Unicità**: Scegli estensioni uniche all'interno del tuo progetto per evitare conflitti.
+- **Nomenclatura Coerente**: Usa convenzioni di denominazione coerenti per una migliore leggibilità e manutenzione del codice.
+- **Evitare Estensioni Comuni**: Evita di utilizzare estensioni comuni come `.ts` o `.js` per prevenire conflitti con altri moduli o librerie.
 
 ## Conclusione
 
-Personalizzare le estensioni dei file di contenuto in Intlayer è una funzionalità preziosa per ottimizzare le prestazioni e evitare conflitti nelle applicazioni su larga scala. Seguendo le linee guida delineate in questa documentazione, puoi gestire efficacemente le tue dichiarazioni di contenuto e garantire un'integrazione fluida con altre parti del tuo progetto.
+Personalizzare le estensioni dei file di contenuto in Intlayer è una funzionalità preziosa per ottimizzare le prestazioni e prevenire conflitti in applicazioni su larga scala. Seguendo le linee guida descritte in questa documentazione, puoi gestire efficacemente le dichiarazioni di contenuto e garantire un'integrazione fluida con altre parti del tuo progetto.

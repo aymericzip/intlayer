@@ -1,10 +1,10 @@
-# React Integration: `useIntlayer` Hook Dokumentation
+# React-Integration: `useIntlayer` Hook Dokumentation
 
-Dieser Abschnitt bietet detaillierte Anleitungen zur Verwendung des `useIntlayer` Hooks innerhalb von React-Anwendungen, um eine effiziente Inhaltslokalisierung zu ermöglichen.
+Dieser Abschnitt bietet eine detaillierte Anleitung zur Verwendung des `useIntlayer` Hooks in React-Anwendungen, um eine effiziente Inhaltslokalisierung zu ermöglichen.
 
 ## Importieren von `useIntlayer` in React
 
-Der `useIntlayer` Hook kann in React-Anwendungen integriert werden, indem er basierend auf dem Kontext importiert wird:
+Der `useIntlayer` Hook kann in React-Anwendungen integriert werden, indem er je nach Kontext importiert wird:
 
 - **Client-Komponente:**
 
@@ -38,16 +38,16 @@ Der `useIntlayer` Hook kann in React-Anwendungen integriert werden, indem er bas
 
 Der Hook akzeptiert zwei Parameter:
 
-1. **`key`**: Der Wörterbuchschlüssel zum Abrufen lokalisierten Inhalts.
-2. **`locale`** (optional): Die gewünschte Lokalisierung. Standardmäßig wird die Lokalisierung des Kontexts verwendet, wenn sie nicht angegeben ist.
+1. **`key`**: Der Wörterbuchschlüssel, um lokalisierte Inhalte abzurufen.
+2. **`locale`** (optional): Die gewünschte Sprache. Standardmäßig wird die Sprache des Kontexts verwendet, wenn nicht angegeben.
 
-## Inhaltsdeklaration
+## Wörterbuch
 
-Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien erklärt werden, um die Typsicherheit zu verbessern und Fehler zu vermeiden. Sie finden die Anleitung zur Einrichtung [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
+Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien deklariert werden, um die Typsicherheit zu erhöhen und Fehler zu vermeiden. Die Einrichtungsanweisungen finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
 
-## Beispielanwendung in React
+## Beispielverwendung in React
 
-Demonstration des `useIntlayer` Hooks innerhalb einer React-Komponente:
+Demonstration des `useIntlayer` Hooks in einer React-Komponente:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -210,9 +210,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Handhabung von Attributen
+## Umgang mit Attributen
 
-Bei der Lokalisierung von Attributen greifen Sie auf die Inhaltswerte entsprechend zu:
+Beim Lokalisieren von Attributen greifen Sie entsprechend auf die Inhaltswerte zu:
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
@@ -220,6 +220,6 @@ Bei der Lokalisierung von Attributen greifen Sie auf die Inhaltswerte entspreche
 
 ## Zusätzliche Ressourcen
 
-- **Intlayer Visual Editor**: Für eine intuitivere Inhaltsverwaltung, lesen Sie die Dokumentation des visuellen Editors [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_editor.md).
+- **Intlayer Visual Editor**: Für eine intuitivere Inhaltsverwaltung finden Sie die Dokumentation zum visuellen Editor [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md).
 
-Dieser Abschnitt richtet sich speziell an die Integration des `useIntlayer` Hooks in React-Anwendungen, vereinfacht den Lokalisierungsprozess und gewährleistet Konsistenz der Inhalte über verschiedene Lokalisierungen hinweg.
+Dieser Abschnitt richtet sich speziell an die Integration des `useIntlayer` Hooks in React-Anwendungen, um den Lokalisierungsprozess zu vereinfachen und die Konsistenz der Inhalte über verschiedene Sprachen hinweg sicherzustellen.

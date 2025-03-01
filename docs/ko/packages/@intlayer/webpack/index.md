@@ -1,8 +1,8 @@
-# @intlayer/webpack: NPM 패키지를 사용하여 애플리케이션에 Intlayer Webpack 플러그인을 추가하기
+# @intlayer/webpack: Intlayer Webpack 플러그인을 애플리케이션에 사용하기 위한 NPM 패키지
 
-**Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 패키지 모음입니다. React, React 및 Express.js와 같은 프레임워크와 호환됩니다.
+**Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 패키지 모음입니다. React, React, Express.js와 같은 프레임워크와 호환됩니다.
 
-**`@intlayer/webpack`** 패키지는 Intlayer와 함께 Webpack 기반 애플리케이션 작업을 용이하게 하기 위한 Webpack 구성을 제공합니다. 이 패키지는 기존 Webpack 애플리케이션에 추가할 수 있는 플러그인도 제공합니다.
+**`@intlayer/webpack`** 패키지는 Intlayer와 함께 Webpack 기반 애플리케이션 작업을 쉽게 하기 위한 Webpack 구성을 제공합니다. 이 패키지는 기존 Webpack 애플리케이션에 추가할 플러그인도 제공합니다.
 
 ## 사용법
 

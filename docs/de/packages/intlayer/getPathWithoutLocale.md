@@ -1,26 +1,26 @@
 # Dokumentation: `getPathWithoutLocale` Funktionen in `intlayer`
 
-## Beschreibung:
+## Beschreibung
 
-Entfernt den Lokalisierungsabschnitt aus der angegebenen URL oder dem Pfadnamen, wenn vorhanden. Es funktioniert sowohl mit absoluten URLs als auch mit relativen Pfadnamen.
+Entfernt das Locale-Segment aus der angegebenen URL oder dem Pfadnamen, falls vorhanden. Funktioniert sowohl mit absoluten URLs als auch mit relativen Pfadnamen.
 
-## Parameter:
+## Parameter
 
 - `inputUrl: string`
 
-  - **Beschreibung**: Die vollständige URL-Zeichenfolge oder der Pfadname, der verarbeitet werden soll.
+  - **Beschreibung**: Die vollständige URL-Zeichenkette oder der zu verarbeitende Pfadname.
   - **Typ**: `string`
 
 - `locales: Locales[]`
-  - **Beschreibung**: Optionales Array unterstützter Lokalisierungen. Standardmäßig werden die konfigurierten Lokalisierungen im Projekt verwendet.
+  - **Beschreibung**: Optionale Liste der unterstützten Locales. Standardmäßig werden die im Projekt konfigurierten Locales verwendet.
   - **Typ**: `Locales[]`
 
-## Rückgaben:
+## Rückgabewerte
 
 - **Typ**: `string`
-- **Beschreibung**: Die URL-Zeichenfolge oder der Pfadname ohne den Lokalisierungsabschnitt.
+- **Beschreibung**: Die URL-Zeichenkette oder der Pfadname ohne das Locale-Segment.
 
-## Beispielverwendung:
+## Beispielverwendung
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

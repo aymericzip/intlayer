@@ -1,10 +1,10 @@
-# Documentación: `getEnumeration` Función en `intlayer`
+# Documentación: Función `getEnumeration` en `intlayer`
 
-## Descripción:
+## Descripción
 
 La función `getEnumeration` recupera contenido correspondiente a una cantidad específica basada en condiciones predefinidas en un objeto de enumeración. Las condiciones se definen como claves, y su prioridad se determina por su orden en el objeto.
 
-## Parámetros:
+## Parámetros
 
 - `enumerationContent: QuantityContent<Content>`
 
@@ -17,14 +17,14 @@ La función `getEnumeration` recupera contenido correspondiente a una cantidad e
   - **Descripción**: El valor numérico utilizado para coincidir con las condiciones en `enumerationContent`.
   - **Tipo**: `number`
 
-## Retornos:
+## Retornos
 
 - **Tipo**: `Content`
-- **Descripción**: El contenido correspondiente a la primera condición coincidente en `enumerationContent`. Si no se encuentra coincidencia, se maneja de acuerdo con la implementación (por ejemplo, error o contenido de respaldo).
+- **Descripción**: El contenido correspondiente a la primera condición coincidente en el `enumerationContent`. Si no se encuentra coincidencia, se maneja según la implementación (por ejemplo, error o contenido predeterminado).
 
-## Ejemplo de Uso:
+## Ejemplo de Uso
 
-### Uso Básico:
+### Uso Básico
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -72,7 +72,7 @@ const content = getEnumeration(
 console.log(content); // Salida: "Tienes dos"
 ```
 
-### Prioridad de Condiciones:
+### Prioridad de Condiciones
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -116,23 +116,23 @@ const content = getEnumeration(
 console.log(content); // Salida: "Tienes menos de cuatro"
 ```
 
-## Casos Límites:
+## Casos Especiales
 
 - **Sin Condición Coincidente:**
 
-  - Si ninguna condición coincide con la cantidad proporcionada, la función retornará `undefined` o manejará el escenario predeterminado/de respaldo explícitamente.
+  - Si ninguna condición coincide con la cantidad proporcionada, la función devolverá `undefined` o manejará explícitamente el escenario predeterminado.
 
 - **Condiciones Ambiguas:**
 
-  - Si las condiciones se superponen, la primera condición coincidente (basada en el orden del objeto) tendrá prioridad.
+  - Si las condiciones se superponen, la primera condición coincidente (basada en el orden del objeto) tiene prioridad.
 
 - **Claves Inválidas:**
 
-  - La función asume que todas las claves en `enumerationContent` son válidas y pueden analizarse como condiciones. Claves inválidas o mal formateadas pueden llevar a un comportamiento inesperado.
+  - La función asume que todas las claves en `enumerationContent` son válidas y analizables como condiciones. Las claves inválidas o mal formateadas pueden llevar a un comportamiento inesperado.
 
-- **Aplicación de TypeScript:**
+- **Cumplimiento de TypeScript:**
   - La función asegura que el tipo `Content` sea consistente en todas las claves, permitiendo la seguridad de tipos en el contenido recuperado.
 
-## Notas:
+## Notas
 
 - La utilidad `findMatchingCondition` se utiliza para determinar la condición apropiada basada en la cantidad dada.

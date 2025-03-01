@@ -15,6 +15,7 @@ To set up Markdown content in your Intlayer project, define a content dictionary
 ```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
 import { md, type Dictionary } from "intlayer";
 
+// Define a dictionary for Markdown content
 const markdownDictionary = {
   key: "app",
   content: {
@@ -29,6 +30,7 @@ export default markdownDictionary;
 import { md } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Define a dictionary for Markdown content
 const markdownDictionary = {
   key: "app",
   content: {
@@ -43,6 +45,7 @@ export default markdownDictionary;
 const { md } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// Define a dictionary for Markdown content
 const markdownDictionary = {
   key: "app",
   content: {
@@ -52,8 +55,6 @@ const markdownDictionary = {
 
 module.exports = markdownDictionary;
 ```
-
-When using JSON, the Markdown content is defined by setting a `nodeType` (e.g., `"markdown"`) and providing the Markdown string. For example:
 
 ```json fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
 {
@@ -75,27 +76,69 @@ To render the Markdown content in a React application, you can leverage the `use
 ```tsx fileName="App.tsx" codeFormat="typescript"
 import { FC } from "react";
 import { useIntlayer, MarkdownProvider } from "react-intlayer";
-import { LocaleRouter } from "/en-GB/Router";
 import Markdown from "markdown-to-jsx";
-import "./App.css";
 
+// Define the main content component
 const AppContent: FC = () => {
   const { myMarkdownContent } = useIntlayer("app");
 
   return <>{myMarkdownContent}</>;
 };
 
-const App: FC = () => (
-  <LocaleRouter>
-    <MarkdownProvider
-      renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-    >
-      <AppContent />
-    </MarkdownProvider>
-  </LocaleRouter>
+// Define the provider for the application
+export const AppProvider: FC = () => (
+  <MarkdownProvider
+    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
+  >
+    <AppContent />
+  </MarkdownProvider>
+);
+```
+
+```jsx fileName="App.jsx" codeFormat="esm"
+import { useIntlayer, MarkdownProvider } from "react-intlayer";
+import Markdown from "markdown-to-jsx";
+
+// Define the main content component
+const AppContent = () => {
+  const { myMarkdownContent } = useIntlayer("app");
+
+  return <>{myMarkdownContent}</>;
+};
+
+// Define the provider for the application
+export const AppProvider = () => (
+  <MarkdownProvider
+    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
+  >
+    <AppContent />
+  </MarkdownProvider>
+);
+```
+
+```jsx fileName="App.jsx" codeFormat="commonjs"
+const { useIntlayer, MarkdownProvider } = require("react-intlayer");
+const Markdown = require("markdown-to-jsx");
+
+// Define the main content component
+const AppContent = () => {
+  const { myMarkdownContent } = useIntlayer("app");
+
+  return <>{myMarkdownContent}</>;
+};
+
+// Define the provider for the application
+AppProvider = () => (
+  <MarkdownProvider
+    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
+  >
+    <AppContent />
+  </MarkdownProvider>
 );
 
-export default App;
+module.exports = {
+  AppProvider,
+};
 ```
 
 In this implementation:

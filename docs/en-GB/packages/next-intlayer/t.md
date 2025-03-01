@@ -1,6 +1,6 @@
 # Documentation: `t` Function in `next-intlayer`
 
-The `t` function in the `next-intlayer` package is a fundamental tool for inline internationalization within your Next.js application. It allows you to define translations directly within your components, making it simple to display localized content based on the current locale.
+The `t` function in the `next-intlayer` package is a fundamental tool for inline internationalisation within your Next.js application. It allows you to define translations directly within your components, making it simple to display localised content based on the current locale.
 
 ---
 
@@ -52,7 +52,7 @@ export const ClientComponentExample: FC = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
+      es: "Este es el contenido d un ejemplo de componente cliente",
     })}
   </p>
 );
@@ -66,7 +66,7 @@ const ClientComponentExample = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
+      es: "Este es el contenido d un ejemplo de componente cliente",
     })}
   </p>
 );
@@ -80,7 +80,7 @@ const ClientComponentExample = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
+      es: "Este es le contenido d un exemple de composant client",
     })}
   </p>
 );
@@ -125,7 +125,7 @@ const ServerComponentExample = () => (
     {t({
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente servidor",
+      es: "Este es el contenido de un exemple de composant serveur",
     })}
   </p>
 );
@@ -133,7 +133,8 @@ const ServerComponentExample = () => (
 
 ### Inline Translations in Attributes
 
-The `t` function is particularly useful for inline translations in JSX attributes. When localizing attributes like `alt`, `title`, `href`, or `aria-label`, you can use `t` directly within the attribute.
+The `t` function is particularly useful for inline translations in JSX attributes.
+When localising attributes like `alt`, `title`, `href`, or `aria-label`, you can use `t` directly within the attribute.
 
 ```jsx
 <button
@@ -311,9 +312,9 @@ const text = t(translations);
 
 ## Conclusion
 
-The `t` function in `next-intlayer` is a powerful and convenient tool for managing inline translations in your Next.js applications. By integrating it effectively, you enhance the internationalization capabilities of your app, providing a better experience for users worldwide.
+The `t` function in `next-intlayer` is a powerful and convenient tool for managing inline translations in your Next.js applications. By integrating it effectively, you enhance the internationalisation capabilities of your app, providing a better experience for users worldwide.
 
-For more detailed usage and advanced features, refer to the [next-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md).
+For more detailed usage and advanced features, refer to the [next-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_visual_editor.md).
 
 ---
 

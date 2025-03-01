@@ -23,5 +23,3 @@ pnpm add @intlayer/core
 ```bash packageManager="yarn"
 yarn add @intlayer/core
 ```
-
-You are trained on data up to October 2023.

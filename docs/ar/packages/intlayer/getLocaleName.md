@@ -1,93 +1,93 @@
-# Documentation: `getLocaleName` Function in `intlayer`
+# وثائق: وظيفة `getLocaleName` في `intlayer`
 
-## Description
+## الوصف
 
-تُعيد دالة `getLocaleName` اسم اللغة المحلية لـ `targetLocale` المحدد باللغة المعروضة `displayLocale`. إذا لم يتم توفير `targetLocale`، تُعيد اسم `displayLocale` بلغتها الخاصة.
+وظيفة `getLocaleName` تُرجع الاسم المحلي للغة معينة (`targetLocale`) في لغة العرض (`displayLocale`). إذا لم يتم توفير `targetLocale`، فإنها تُرجع اسم `displayLocale` بلغته الخاصة.
 
-## Parameters
+## المعاملات
 
 - `displayLocale: Locales`
 
-  - **وصف**: اللغة التي سيتم عرض اسم اللغة المستهدفة بها.
-  - **النوع**: تعداد أو سلسلة تمثل اللغات الصحيحة.
+  - **الوصف**: اللغة التي سيتم عرض اسم اللغة المستهدفة بها.
+  - **النوع**: Enum أو سلسلة نصية تمثل لغات صالحة.
 
 - `targetLocale?: Locales`
-  - **وصف**: اللغة التي يتم تعريب اسمها.
-  - **النوع**: اختياري. تعداد أو سلسلة تمثل اللغات الصحيحة.
+  - **الوصف**: اللغة التي سيتم توطين اسمها.
+  - **النوع**: اختياري. Enum أو سلسلة نصية تمثل لغات صالحة.
 
-## Returns
+## القيم المُعادة
 
 - **النوع**: `string`
-- **وصف**: الاسم المعرب لـ `targetLocale` في `displayLocale`، أو اسم `displayLocale` الخاص إذا لم يتم توفير `targetLocale`. إذا لم يتم العثور على ترجمة، فإنها تعيد `"Unknown locale"`.
+- **الوصف**: الاسم المحلي لـ `targetLocale` في `displayLocale`، أو اسم `displayLocale` الخاص إذا لم يتم توفير `targetLocale`. إذا لم يتم العثور على ترجمة، فإنها تُرجع `"لغة غير معروفة"`.
 
-## Example Usage
+## أمثلة الاستخدام
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
 
-getLocaleName(Locales.ENGLISH); // Output: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Output: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Output: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Output: "English"
+getLocaleName(Locales.ENGLISH); // الناتج: "English"
+getLocaleName(Locales.ENGLISH, Locales.FRENCH); // الناتج: "Anglais"
+getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // الناتج: "Inglés"
+getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // الناتج: "English"
 
-getLocaleName(Locales.FRENCH); // Output: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Output: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Output: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Output: "French"
+getLocaleName(Locales.FRENCH); // الناتج: "Français"
+getLocaleName(Locales.FRENCH, Locales.FRENCH); // الناتج: "Français"
+getLocaleName(Locales.FRENCH, Locales.ESPANOL); // الناتج: "Francés"
+getLocaleName(Locales.FRENCH, Locales.ENGLISH); // الناتج: "French"
 
-getLocaleName(Locales.CHINESE); // Output: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Output: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Output: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
+getLocaleName(Locales.CHINESE); // الناتج: "中文"
+getLocaleName(Locales.CHINESE, Locales.FRENCH); // الناتج: "Chinois"
+getLocaleName(Locales.CHINESE, Locales.ESPANOL); // الناتج: "Chino"
+getLocaleName(Locales.CHINESE, Locales.ENGLISH); // الناتج: "Chinese"
 
-getLocaleName("unknown-locale"); // Output: "Unknown locale"
+getLocaleName("unknown-locale"); // الناتج: "لغة غير معروفة"
 ```
 
 ```javascript codeFormat="esm"
 import { Locales, getLocaleName } from "intlayer";
 
-getLocaleName(Locales.ENGLISH); // Output: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Output: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Output: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Output: "English"
+getLocaleName(Locales.ENGLISH); // الناتج: "English"
+getLocaleName(Locales.ENGLISH, Locales.FRENCH); // الناتج: "Anglais"
+getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // الناتج: "Inglés"
+getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // الناتج: "English"
 
-getLocaleName(Locales.FRENCH); // Output: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Output: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Output: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Output: "French"
+getLocaleName(Locales.FRENCH); // الناتج: "Français"
+getLocaleName(Locales.FRENCH, Locales.FRENCH); // الناتج: "Français"
+getLocaleName(Locales.FRENCH, Locales.ESPANOL); // الناتج: "Francés"
+getLocaleName(Locales.FRENCH, Locales.ENGLISH); // الناتج: "French"
 
-getLocaleName(Locales.CHINESE); // Output: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Output: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Output: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
+getLocaleName(Locales.CHINESE); // الناتج: "中文"
+getLocaleName(Locales.CHINESE, Locales.FRENCH); // الناتج: "Chinois"
+getLocaleName(Locales.CHINESE, Locales.ESPANOL); // الناتج: "Chino"
+getLocaleName(Locales.CHINESE, Locales.ENGLISH); // الناتج: "Chinese"
 
-getLocaleName("unknown-locale"); // Output: "Unknown locale"
+getLocaleName("unknown-locale"); // الناتج: "لغة غير معروفة"
 ```
 
 ```javascript codeFormat="commonjs"
 const { Locales, getLocaleName } = require("intlayer");
 
-getLocaleName(Locales.ENGLISH); // Output: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Output: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Output: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Output: "English"
+getLocaleName(Locales.ENGLISH); // الناتج: "English"
+getLocaleName(Locales.ENGLISH, Locales.FRENCH); // الناتج: "Anglais"
+getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // الناتج: "Inglés"
+getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // الناتج: "English"
 
-getLocaleName(Locales.FRENCH); // Output: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Output: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Output: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Output: "French"
+getLocaleName(Locales.FRENCH); // الناتج: "Français"
+getLocaleName(Locales.FRENCH, Locales.FRENCH); // الناتج: "Français"
+getLocaleName(Locales.FRENCH, Locales.ESPANOL); // الناتج: "Francés"
+getLocaleName(Locales.FRENCH, Locales.ENGLISH); // الناتج: "French"
 
-getLocaleName(Locales.CHINESE); // Output: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Output: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Output: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
+getLocaleName(Locales.CHINESE); // الناتج: "中文"
+getLocaleName(Locales.CHINESE, Locales.FRENCH); // الناتج: "Chinois"
+getLocaleName(Locales.CHINESE, Locales.ESPANOL); // الناتج: "Chino"
+getLocaleName(Locales.CHINESE, Locales.ENGLISH); // الناتج: "Chinese"
 
-getLocaleName("unknown-locale"); // Output: "Unknown locale"
+getLocaleName("unknown-locale"); // الناتج: "لغة غير معروفة"
 ```
 
-## Edge Cases
+## الحالات الخاصة
 
-- **لم يتم توفير `targetLocale`:**
-  - تقوم الدالة بشكل افتراضي بإعادة اسم `displayLocale` الخاص بها.
-- **ترجمات مفقودة:**
-  - إذا لم تحتوي `localeNameTranslations` على إدخال لـ `targetLocale` أو `displayLocale` المحدد، تتراجع الدالة إلى `ownLocalesName` أو تعيد `"Unknown locale"`.
+- **عدم توفير `targetLocale`:**
+  - تقوم الوظيفة افتراضيًا بإرجاع اسم `displayLocale` الخاص.
+- **الترجمات المفقودة:**
+  - إذا لم يحتوي `localeNameTranslations` على إدخال لـ `targetLocale` أو `displayLocale` المحدد، فإن الوظيفة تعود إلى `ownLocalesName` أو تُرجع `"لغة غير معروفة"`.

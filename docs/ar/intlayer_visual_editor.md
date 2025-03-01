@@ -1,20 +1,20 @@
-# توثيق محرر Intlayer Visual
+# وثائق محرر Intlayer البصري
 
-محرر Intlayer Visual هو أداة ستقوم بتغليف موقع الويب الخاص بك للتفاعل مع ملفات إعلان المحتوى الخاصة بك باستخدام محرر مرئي.
+محرر Intlayer البصري هو أداة تتيح لك التفاعل مع ملفات إعلان المحتوى الخاصة بموقعك باستخدام محرر بصري.
 
-![واجهة محرر Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/ar/assets/visual_editor.gif)
+![واجهة محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
-حزمة `intlayer-editor` مستندة إلى Intlayer ومتاحة لتطبيقات JavaScript مثل React (Create React App) وVite + React وNext.js.
+حزمة `intlayer-editor` تعتمد على Intlayer ومتاحة لتطبيقات JavaScript، مثل React (Create React App)، Vite + React، و Next.js.
 
-## محرر مرئي مقابل نظام إدارة المحتوى
+## المحرر البصري مقابل CMS
 
-محرر Intlayer Visual هو أداة تسمح لك بإدارة المحتوى الخاص بك في محرر مرئي للقواميس المحلية. بمجرد إجراء تغيير، سيتم استبدال المحتوى في قاعدة الشيفرة. مما يعني أن التطبيق سيتم إعادة بنائه وسيتم إعادة تحميل الصفحة لعرض المحتوى الجديد.
+محرر Intlayer البصري هو أداة تتيح لك إدارة المحتوى الخاص بك في محرر بصري للقواميس المحلية. بمجرد إجراء تغيير، سيتم استبدال المحتوى في قاعدة الكود. هذا يعني أن التطبيق سيتم إعادة بنائه وستتم إعادة تحميل الصفحة لعرض المحتوى الجديد.
 
-بالمقابل، [نظام إدارة المحتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md) هو أداة تسمح لك بإدارة المحتوى الخاص بك في محرر مرئي للقواميس البعيدة. بمجرد إجراء تغيير، لن يؤثر المحتوى على قاعدة الشيفرة الخاصة بك. وسيقوم الموقع تلقائيًا بعرض المحتوى المتغير.
+على النقيض من ذلك، فإن [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md) هو أداة تتيح لك إدارة المحتوى الخاص بك في محرر بصري للقواميس البعيدة. بمجرد إجراء تغيير، لن يؤثر المحتوى على قاعدة الكود الخاصة بك. وسيعرض الموقع تلقائيًا المحتوى الذي تم تغييره.
 
 ## دمج Intlayer في تطبيقك
 
-لمزيد من التفاصيل حول كيفية دمج Intlayer، انظر القسم ذي الصلة أدناه:
+لمزيد من التفاصيل حول كيفية دمج Intlayer، راجع القسم المناسب أدناه:
 
 ### الدمج مع Next.js
 
@@ -30,17 +30,17 @@
 
 ## كيفية عمل محرر Intlayer
 
-المحرر المرئي في تطبيق يتضمن شيئان:
+المحرر البصري في تطبيق يتضمن شيئين:
 
-- تطبيق واجهة أمامية سيعرض موقعك في iframe. إذا كان موقعك يستخدم Intlayer، سيتعرف المحرر المرئي تلقائيًا على المحتوى الخاص بك، وسيسمح لك بالتفاعل معه. بمجرد إجراء تعديل، ستمكن من تنزيل التغييرات الخاصة بك.
+- تطبيق واجهة أمامية يعرض موقعك داخل iframe. إذا كان موقعك يستخدم Intlayer، سيكتشف المحرر البصري محتواك تلقائيًا، وسيسمح لك بالتفاعل معه. بمجرد إجراء تعديل، ستتمكن من تنزيل تغييراتك.
 
-- بمجرد النقر على زر التنزيل، سيرسل المحرر المرئي طلبًا إلى الخادم لاستبدال ملفات إعلان المحتوى الخاصة بك بالمحتوى الجديد (أينما تم إعلان هذه الملفات في مشروعك).
+- بمجرد النقر على زر التنزيل، سيرسل المحرر البصري طلبًا إلى الخادم لاستبدال ملفات إعلان المحتوى الخاصة بك بالمحتوى الجديد (أينما تم إعلان هذه الملفات في مشروعك).
 
 > لاحظ أنه في الوقت الحالي، سيكتب محرر Intlayer ملفات إعلان المحتوى الخاصة بك كملفات JSON.
 
 ## التثبيت
 
-بمجرد تكوين Intlayer في مشروعك، قم بتثبيت `intlayer-editor` كاعتماد تطوير:
+بمجرد تكوين Intlayer في مشروعك، قم ببساطة بتثبيت `intlayer-editor` كاعتماد تطوير:
 
 ```bash packageManager="npm"
 npm install intlayer-editor --save-dev
@@ -56,8 +56,6 @@ pnpm add intlayer-editor --save-dev
 
 ## التكوين
 
-### 1. تمكين المحرر في ملف intlayer.config.ts الخاص بك
-
 في ملف تكوين Intlayer الخاص بك، يمكنك تخصيص إعدادات المحرر:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -69,9 +67,16 @@ const config: IntlayerConfig = {
     /**
      * مطلوب
      * عنوان URL للتطبيق.
-     * هذا هو عنوان URL المستهدف من قبل المحرر المرئي.
+     * هذا هو عنوان URL المستهدف من قبل المحرر البصري.
+     * مثال: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
+    /**
+     * اختياري
+     * الافتراضي هو `true`. إذا كان `false`، فإن المحرر غير نشط ولا يمكن الوصول إليه.
+     * يمكن استخدامه لتعطيل المحرر لبيئات محددة لأسباب أمنية، مثل الإنتاج.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
     /**
      * اختياري
      * الافتراضي هو `8000`.
@@ -84,12 +89,6 @@ const config: IntlayerConfig = {
      * عنوان URL لخادم المحرر.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * اختياري
-     * الافتراضي هو `true`. إذا كان `false`، فإن المحرر غير مفعل ولا يمكن الوصول إليه.
-     * يمكن استخدامه لتعطيل المحرر لبيئات محددة لأسباب أمنية، مثل الإنتاج.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -97,18 +96,23 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... إعدادات التكوين الأخرى
   editor: {
-   /**
+    /**
      * مطلوب
      * عنوان URL للتطبيق.
-     * هذا هو عنوان URL المستهدف من قبل المحرر المرئي.
+     * هذا هو عنوان URL المستهدف من قبل المحرر البصري.
+     * مثال: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
+    /**
+     * اختياري
+     * الافتراضي هو `true`. إذا كان `false`، فإن المحرر غير نشط ولا يمكن الوصول إليه.
+     * يمكن استخدامه لتعطيل المحرر لبيئات محددة لأسباب أمنية، مثل الإنتاج.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
     /**
      * اختياري
      * الافتراضي هو `8000`.
@@ -121,12 +125,6 @@ const config = {
      * عنوان URL لخادم المحرر.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * اختياري
-     * الافتراضي هو `true`. إذا كان `false`، فإن المحرر غير مفعل ولا يمكن الوصول إليه.
-     * يمكن استخدامه لتعطيل المحرر لبيئات محددة لأسباب أمنية، مثل الإنتاج.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -141,7 +139,7 @@ const config = {
     /**
      * مطلوب
      * عنوان URL للتطبيق.
-     * هذا هو عنوان URL المستهدف من قبل المحرر المرئي.
+     * هذا هو عنوان URL المستهدف من قبل المحرر البصري.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     /**
@@ -158,7 +156,7 @@ const config = {
     editorURL: process.env.INTLAYER_EDITOR_URL,
     /**
      * اختياري
-     * الافتراضي هو `true`. إذا كان `false`، فإن المحرر غير مفعل ولا يمكن الوصول إليه.
+     * الافتراضي هو `true`. إذا كان `false`، فإن المحرر غير نشط ولا يمكن الوصول إليه.
      * يمكن استخدامه لتعطيل المحرر لبيئات محددة لأسباب أمنية، مثل الإنتاج.
      */
     enabled: process.env.INTLAYER_ENABLED,
@@ -168,11 +166,11 @@ const config = {
 module.exports = config;
 ```
 
-> لرؤية جميع المعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+> لمشاهدة جميع المعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
 
 ## استخدام المحرر
 
-1. عند تثبيت المحرر، يمكنك بدء المحرر باستخدام الأمر التالي:
+1. عند تثبيت المحرر، يمكنك بدء تشغيله باستخدام الأمر التالي:
 
    ```bash packageManager="npm"
    npx intlayer-editor start
@@ -186,10 +184,25 @@ module.exports = config;
    pnpm intlayer-editor start
    ```
 
-2. ثم، افتح عنوان URL المقدم. بشكل افتراضي `http://localhost:8000`.
+   > **لاحظ أنه يجب تشغيل تطبيقك بالتوازي.** يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
 
-   يمكنك عرض كل حقل فهرسه Intlayer عن طريق تمرير المؤشر فوق المحتوى الخاص بك.
+2. ثم افتح عنوان URL المقدم. الافتراضي هو `http://localhost:8000`.
 
-   ![المرور فوق المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/assets/intlayer_editor_hover_content.png)
+   يمكنك عرض كل حقل مفهرس بواسطة Intlayer عن طريق التمرير فوق المحتوى الخاص بك باستخدام المؤشر.
 
-3. إذا كان المحتوى الخاص بك محددًا، يمكنك الضغط عليه لفترة طويلة لعرض درج التحرير.
+   ![التمرير فوق المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+
+3. إذا تم تحديد محتواك، يمكنك الضغط عليه مطولاً لعرض درج التعديل.
+
+## التصحيح
+
+إذا واجهت أي مشاكل مع المحرر البصري، تحقق من التالي:
+
+- المحرر البصري والتطبيق يعملان.
+
+- تم إعداد [تكوين المحرر](https://intlayer.org/doc/concept/configuration#editor-configuration) بشكل صحيح في ملف تكوين Intlayer الخاص بك.
+
+  - الحقول المطلوبة:
+    - يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
+
+- يستخدم المحرر البصري iframe لعرض موقعك. تأكد من أن سياسة أمان المحتوى (CSP) لموقعك تسمح بعنوان URL الخاص بـ CMS كـ `frame-ancestors` ('http://localhost:8000' افتراضيًا). تحقق من وحدة تحكم المحرر لأي خطأ.

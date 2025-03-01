@@ -8,7 +8,7 @@ The **`intlayer-editor`** package is a NPM package that integrates the Intlayer 
 
 The intlayer editor allows to interact with the Intlayer distant dictionary. It can be installed on the client side and transform your application into a CMS-like editor to manage your site's content in all configured languages.
 
-![Intlayer Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor_ui.png)
+![Intlayer Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
 ## Installation
 
@@ -28,7 +28,7 @@ yarn add intlayer-editor
 
 ### Configuration
 
-In your Intlayer configuration file, you can customize the editor settings:
+In your Intlayer configuration file, you can customise the editor settings:
 
 ```typescript
 const config: IntlayerConfig = {
@@ -87,7 +87,7 @@ To integrate the Intlayer visual editor into your React project, follow these st
 
 - Import the Intlayer editor styles into your Next.js application:
 
-  ```tsx fileName="src/app/[locale]/layout.jsx"
+  ```tsx fileName="src/app/{{locale}}/layout.jsx"
   import { IntlayerEditorStyles } from "intlayer-editor";
 
   export default async function RootLayout({ children, params }) {
@@ -108,6 +108,6 @@ To integrate the Intlayer visual editor into your React project, follow these st
 
 When the editor is installed, enabled, and started, you can view each field indexed by Intlayer by hovering over your content with your cursor.
 
-![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor_hover_content.png)
+![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 If your content is outlined, you can long-press it to display the edit drawer.

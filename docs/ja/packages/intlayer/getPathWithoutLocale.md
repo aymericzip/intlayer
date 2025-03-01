@@ -1,10 +1,10 @@
-# Documentation: `getPathWithoutLocale` Functions in `intlayer`
+# ドキュメント: `getPathWithoutLocale` 関数 in `intlayer`
 
-## 説明:
+## 説明
 
-指定されたURLまたはパス名からロケールセグメントを削除します。絶対URLと相対パス名の両方で機能します。
+指定されたURLまたはパス名からロケールセグメントを削除します（存在する場合）。絶対URLと相対パス名の両方で動作します。
 
-## パラメータ:
+## パラメータ
 
 - `inputUrl: string`
 
@@ -15,12 +15,12 @@
   - **説明**: サポートされているロケールのオプション配列。プロジェクトで設定されたロケールがデフォルトです。
   - **型**: `Locales[]`
 
-## 戻り値:
+## 戻り値
 
 - **型**: `string`
-- **説明**: ロケールセグメントなしのURL文字列またはパス名。
+- **説明**: ロケールセグメントを除いたURL文字列またはパス名。
 
-## 使用例:
+## 使用例
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

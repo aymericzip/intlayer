@@ -1,26 +1,26 @@
-# Documentación: `getLocaleName` Función en `intlayer`
+# Documentación: Función `getLocaleName` en `intlayer`
 
-## Descripción:
+## Descripción
 
-La función `getLocaleName` devuelve el nombre localizado de un locale dado (`targetLocale`) en el locale de visualización (`displayLocale`). Si no se proporciona un `targetLocale`, devuelve el nombre del `displayLocale` en su propio idioma.
+La función `getLocaleName` devuelve el nombre localizado de una localización (`targetLocale`) en la localización de visualización (`displayLocale`). Si no se proporciona un `targetLocale`, devuelve el nombre de la `displayLocale` en su propio idioma.
 
-## Parámetros:
+## Parámetros
 
 - `displayLocale: Locales`
 
-  - **Descripción**: El locale en el que se mostrará el nombre del locale objetivo.
-  - **Tipo**: Enum o cadena que representa locales válidos.
+  - **Descripción**: La localización en la que se mostrará el nombre de la localización objetivo.
+  - **Tipo**: Enum o cadena que representa localizaciones válidas.
 
 - `targetLocale?: Locales`
-  - **Descripción**: El locale cuyo nombre se va a localizar.
-  - **Tipo**: Opcional. Enum o cadena que representa locales válidos.
+  - **Descripción**: La localización cuyo nombre debe ser localizado.
+  - **Tipo**: Opcional. Enum o cadena que representa localizaciones válidas.
 
-## Retornos:
+## Retornos
 
 - **Tipo**: `string`
-- **Descripción**: El nombre localizado del `targetLocale` en el `displayLocale`, o el propio nombre del `displayLocale` si no se proporciona `targetLocale`. Si no se encuentra ninguna traducción, devuelve `"Unknown locale"`.
+- **Descripción**: El nombre localizado del `targetLocale` en el `displayLocale`, o el propio nombre del `displayLocale` si no se proporciona `targetLocale`. Si no se encuentra una traducción, devuelve `"Unknown locale"`.
 
-## Ejemplo de Uso:
+## Ejemplo de Uso
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -85,9 +85,9 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Salida: "Chinese"
 getLocaleName("unknown-locale"); // Salida: "Unknown locale"
 ```
 
-## Casos de Uso:
+## Casos Especiales
 
 - **No se proporciona `targetLocale`:**
-  - La función devuelve por defecto el nombre del `displayLocale`.
+  - La función por defecto devuelve el propio nombre del `displayLocale`.
 - **Traducciones faltantes:**
-  - Si `localeNameTranslations` no contiene una entrada para el `targetLocale` o el `displayLocale` específico, la función vuelve al `ownLocalesName` o devuelve `"Unknown locale"`.
+  - Si `localeNameTranslations` no contiene una entrada para el `targetLocale` o el `displayLocale` específico, la función recurre al `ownLocalesName` o devuelve `"Unknown locale"`.

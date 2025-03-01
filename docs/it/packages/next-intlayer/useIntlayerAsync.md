@@ -1,19 +1,19 @@
-# Integrazione di Next.js: Documentazione del Hook `useIntlayerAsync`
+# Integrazione Next.js: Documentazione del hook `useIntlayerAsync`
 
-L'hook `useIntlayerAsync` estende la funzionalità di `useIntlayer` restituendo non solo dizionari pre-renderizzati ma anche recuperando aggiornamenti in modo asincrono, rendendolo ideale per applicazioni che aggiornano frequentemente i loro contenuti localizzati dopo il rendering iniziale.
+Il hook `useIntlayerAsync` estende la funzionalità di `useIntlayer` non solo restituendo dizionari pre-renderizzati, ma anche recuperando aggiornamenti in modo asincrono, rendendolo ideale per applicazioni che aggiornano frequentemente i loro contenuti localizzati dopo il rendering iniziale.
 
 ## Panoramica
 
 - **Caricamento Asincrono dei Dizionari:**  
-  Sul lato client, `useIntlayerAsync` restituisce prima il dizionario locale pre-renderizzato (proprio come `useIntlayer`) e poi recupera e fonde in modo asincrono eventuali nuovi dizionari remoti disponibili.
-- **Gestione dello Stato di Progressione:**  
-  L'hook fornisce anche uno stato `isLoading`, che indica quando un dizionario remoto è in fase di recupero. Questo consente agli sviluppatori di visualizzare indicatori di caricamento o stati scheletro per una migliore esperienza utente.
+  Sul lato client, `useIntlayerAsync` restituisce inizialmente il dizionario della lingua pre-renderizzato (come `useIntlayer`) e successivamente recupera e unisce asincronamente eventuali nuovi dizionari remoti disponibili.
+- **Gestione dello Stato di Progresso:**  
+  Il hook fornisce anche uno stato `isLoading`, che indica quando un dizionario remoto è in fase di recupero. Questo consente agli sviluppatori di mostrare indicatori di caricamento o stati scheletrici per un'esperienza utente più fluida.
 
 ## Configurazione dell'Ambiente
 
-Intlayer fornisce un sistema di Content Source Management (CSM) senza testa che consente ai non sviluppatori di gestire e aggiornare i contenuti dell'applicazione senza sforzo. Utilizzando la dashboard intuitiva di Intlayer, il tuo team può modificare testo localizzato, immagini e altre risorse senza modificare direttamente il codice. Questo semplifica il processo di gestione dei contenuti, favorisce la collaborazione e garantisce che gli aggiornamenti possano essere effettuati rapidamente e facilmente.
+Intlayer fornisce un sistema di Content Source Management (CSM) senza testa che consente ai non sviluppatori di gestire e aggiornare i contenuti delle applicazioni senza problemi. Utilizzando il dashboard intuitivo di Intlayer, il tuo team può modificare testi localizzati, immagini e altre risorse senza modificare direttamente il codice. Questo semplifica il processo di gestione dei contenuti, favorisce la collaborazione e garantisce che gli aggiornamenti possano essere effettuati rapidamente e facilmente.
 
-Per iniziare con Intlayer, dovrai prima registrarti e ottenere un token di accesso su [https://intlayer.org/dashboard](https://intlayer.org/dashboard). Una volta ottenuti i tuoi riferimenti, aggiungili al tuo file di configurazione come mostrato di seguito:
+Per iniziare con Intlayer, è necessario registrarsi e ottenere un token di accesso su [https://intlayer.org/dashboard](https://intlayer.org/dashboard). Una volta ottenute le credenziali, aggiungile al file di configurazione come mostrato di seguito:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -55,17 +55,17 @@ const config = {
 module.exports = config;
 ```
 
-Dopo aver configurato le tue credenziali, puoi caricare un nuovo dizionario locale su Intlayer eseguendo:
+Dopo aver configurato le credenziali, puoi caricare un nuovo dizionario di lingua su Intlayer eseguendo:
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
-Questo comando carica i tuoi dizionari di contenuto iniziali, rendendoli disponibili per il recupero asincrono e la modifica tramite la piattaforma Intlayer.
+Questo comando carica i tuoi dizionari di contenuti iniziali, rendendoli disponibili per il recupero asincrono e la modifica tramite la piattaforma Intlayer.
 
 ## Importazione di `useIntlayerAsync` in Next.js
 
-Poiché `useIntlayerAsync` è destinato a componenti **lato client**, dovrai importarlo dallo stesso punto di ingresso del client di `useIntlayer`:
+Poiché `useIntlayerAsync` è destinato ai componenti **client-side**, lo importerai dallo stesso punto di ingresso client di `useIntlayer`:
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -85,29 +85,29 @@ import { useIntlayerAsync } from "next-intlayer";
 const { useIntlayerAsync } = require("next-intlayer");
 ```
 
-Assicurati che il file di importazione sia annotato con `"use client"` in cima, se stai utilizzando il Router App di Next.js con componenti server e client separati.
+Assicurati che il file di importazione sia annotato con `"use client"` nella parte superiore, se stai utilizzando il Router App di Next.js con componenti server e client separati.
 
 ## Parametri
 
 1. **`key`**:  
    **Tipo**: `DictionaryKeys`  
-   La chiave del dizionario utilizzata per identificare il blocco di contenuti localizzati. Questa chiave dovrebbe essere definita nei tuoi file di dichiarazione del contenuto.
+   La chiave del dizionario utilizzata per identificare il blocco di contenuto localizzato. Questa chiave deve essere definita nei file di dichiarazione dei contenuti.
 
 2. **`locale`** (opzionale):  
    **Tipo**: `Locales`  
-   La specifica locale che desideri targetizzare. Se omesso, l'hook utilizza la locale dal contesto del client.
+   La lingua specifica che desideri targetizzare. Se omessa, il hook utilizza la lingua dal contesto client.
 
 3. **`isRenderEditor`** (opzionale, predefinito `true`):  
    **Tipo**: `boolean`  
-   Determina se i contenuti devono essere pronti per il rendering con il sovrapposizione dell'editor di Intlayer. Se impostato su `false`, i dati del dizionario restituiti escluderanno funzionalità specifiche dell'editor.
+   Determina se il contenuto deve essere pronto per il rendering con la sovrapposizione dell'editor Intlayer. Se impostato su `false`, i dati del dizionario restituiti escluderanno le funzionalità specifiche dell'editor.
 
-## Valore di Ritorno
+## Valore Restituito
 
-L'hook restituisce un oggetto dizionario contenente contenuti localizzati indicizzati per `key` e `locale`. Include anche un booleano `isLoading` che indica se un dizionario distante è attualmente in fase di recupero.
+Il hook restituisce un oggetto dizionario contenente contenuti localizzati indicizzati da `key` e `locale`. Include anche un booleano `isLoading` che indica se un dizionario remoto è attualmente in fase di recupero.
 
 ## Esempio di Utilizzo in Next.js
 
-### Esempio di Componente Lato Client
+### Esempio di Componente Client-Side
 
 ```tsx fileName="src/components/AsyncClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -183,29 +183,29 @@ const AsyncClientComponentExample = () => {
 
 **Punti Chiave:**
 
-- Al rendering iniziale, `title` e `description` provengono dal dizionario locale pre-renderizzato.
-- Mentre `isLoading` è `true`, viene effettuata in background una richiesta remota per recuperare un dizionario aggiornato.
-- Una volta completato il recupero, `title` e `description` vengono aggiornati con il contenuto più recente e `isLoading` torna a `false`.
+- Al rendering iniziale, `title` e `description` provengono dal dizionario della lingua pre-renderizzato.
+- Mentre `isLoading` è `true`, viene effettuata una richiesta remota in background per recuperare un dizionario aggiornato.
+- Una volta completato il recupero, `title` e `description` vengono aggiornati con i contenuti più recenti e `isLoading` torna a `false`.
 
 ## Gestione della Localizzazione degli Attributi
 
-Come con `useIntlayer`, puoi recuperare valori di attributi localizzati per varie proprietà HTML (ad es., `alt`, `title`, `aria-label`):
+Come con `useIntlayer`, puoi recuperare valori di attributi localizzati per varie proprietà HTML (ad esempio, `alt`, `title`, `aria-label`):
 
 ```tsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## File di Dichiarazione dei Contenuti
+## File dei Dizionari
 
-Tutte le chiavi di contenuto devono essere definite nei tuoi file di dichiarazione dei contenuti per garantire la sicurezza dei tipi e prevenire errori runtime. Questi file abilitano la convalida TypeScript, garantendo che tu faccia sempre riferimento a chiavi e locale esistenti.
+Tutte le chiavi di contenuto devono essere definite nei file di dichiarazione dei contenuti per garantire la sicurezza dei tipi e prevenire errori a runtime. Questi file abilitano la validazione TypeScript, assicurandoti di fare sempre riferimento a chiavi e lingue esistenti.
 
-Le istruzioni per impostare i file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
+Le istruzioni per configurare i file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 
 ## Ulteriori Informazioni
 
-- **Editor Visivo di Intlayer:**  
-  Integra con l'editor visivo di Intlayer per gestire e modificare contenuti direttamente dall'interfaccia utente. Maggiori dettagli [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_editor.md).
+- **Editor Visivo Intlayer:**  
+  Integra con l'editor visivo Intlayer per gestire e modificare i contenuti direttamente dall'interfaccia utente. Maggiori dettagli [qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md).
 
 ---
 
-**In sintesi**, `useIntlayerAsync` è un potente hook lato client progettato per migliorare l'esperienza utente e mantenere la freschezza del contenuto abbinando dizionari pre-renderizzati con aggiornamenti di dizionari asincroni. Sfruttando `isLoading` e dichiarazioni di contenuto basate su TypeScript, puoi integrare senza problemi contenuti dinamici e localizzati nelle tue applicazioni Next.js.
+**In sintesi**, `useIntlayerAsync` è un potente hook client-side progettato per migliorare l'esperienza utente e mantenere freschi i contenuti combinando dizionari pre-renderizzati con aggiornamenti asincroni. Sfruttando `isLoading` e le dichiarazioni di contenuti basate su TypeScript, puoi integrare senza problemi contenuti dinamici e localizzati nelle tue applicazioni Next.js.

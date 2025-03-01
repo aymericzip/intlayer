@@ -20,7 +20,7 @@ The function does not take any parameters. Instead, it uses environment variable
   - `content`: Settings related to content files, directories, and patterns.
   - `editor`: Editor-specific configurations.
 
-See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md) for more details.
+See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md) for more details.
 
 ---
 

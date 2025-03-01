@@ -2,11 +2,11 @@
 
 ## Comment Fonctionne la Condition
 
-Dans Intlayer, le contenu conditionnel est obtenu via la fonction `cond`, qui associe des conditions spécifiques (généralement des valeurs booléennes) à leur contenu correspondant. Cette approche vous permet de sélectionner dynamiquement le contenu en fonction d'une condition donnée. Lorsque cette fonctionnalité est intégrée à React Intlayer ou Next Intlayer, le contenu approprié est automatiquement choisi en fonction de la condition fournie à l'exécution.
+Dans Intlayer, le contenu conditionnel est réalisé via la fonction `cond`, qui associe des conditions spécifiques (généralement des valeurs booléennes) à leur contenu correspondant. Cette approche vous permet de sélectionner dynamiquement le contenu en fonction d'une condition donnée. Lorsqu'il est intégré à React Intlayer ou Next Intlayer, le contenu approprié est automatiquement choisi en fonction de la condition fournie au moment de l'exécution.
 
 ## Configuration du Contenu Conditionnel
 
-Pour configurer du contenu conditionnel dans votre projet Intlayer, créez un module de contenu qui inclut vos définitions conditionnelles. Voici des exemples dans différents formats.
+Pour configurer le contenu conditionnel dans votre projet Intlayer, créez un module de contenu qui inclut vos définitions conditionnelles. Voici des exemples dans différents formats.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { cond, type Dictionary } from "intlayer";
@@ -82,7 +82,7 @@ module.exports = myConditionalContent;
 
 ## Utilisation du Contenu Conditionnel avec React Intlayer
 
-Pour utiliser du contenu conditionnel dans un composant React, importez et utilisez le hook `useIntlayer` depuis le package `react-intlayer`. Ce hook récupère le contenu pour la clé spécifiée et vous permet de passer une condition pour sélectionner la sortie appropriée.
+Pour utiliser le contenu conditionnel dans un composant React, importez et utilisez le hook `useIntlayer` du package `react-intlayer`. Ce hook récupère le contenu pour la clé spécifiée et vous permet de passer une condition pour sélectionner la sortie appropriée.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -210,4 +210,4 @@ Pour plus d'informations détaillées sur la configuration et l'utilisation, con
 - [Documentation React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_create_react_app.md)
 - [Documentation Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_nextjs_15.md)
 
-Ces ressources offrent des informations complémentaires sur la configuration et l'utilisation d'Intlayer dans différents environnements et frameworks.
+Ces ressources offrent des informations supplémentaires sur la configuration et l'utilisation d'Intlayer dans divers environnements et frameworks.

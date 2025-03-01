@@ -1,16 +1,16 @@
-# Documentation: `getMultilingualUrls` Function in `intlayer`
+# ドキュメント: `getMultilingualUrls` 関数 in `intlayer`
 
-## 説明:
+## 説明
 
-`getMultilingualUrls` 関数は、指定された URL に各サポートされているロケールでプレフィックスを付けることによって、マルチリンガル URL のマッピングを生成します。この関数は、絶対 URL と相対 URL の両方を処理でき、提供された設定やデフォルトに基づいて適切なロケールプレフィックスを適用します。
+`getMultilingualUrls` 関数は、指定された URL に各サポートされているロケールをプレフィックスとして付加することで、多言語 URL のマッピングを生成します。この関数は絶対 URL と相対 URL の両方を処理でき、提供された設定またはデフォルトに基づいて適切なロケールプレフィックスを適用します。
 
 ---
 
-## パラメータ:
+## パラメータ
 
 - `url: string`
 
-  - **説明**: ロケールでプレフィックスを付ける元の URL 文字列。
+  - **説明**: ロケールをプレフィックスとして付加する元の URL 文字列。
   - **型**: `string`
 
 - `locales: Locales[]`
@@ -26,20 +26,20 @@
   - **デフォルト**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **説明**: デフォルトロケールにプレフィックスを付けるかどうか。プロジェクトで設定された値がデフォルトです。
+  - **説明**: デフォルトロケールをプレフィックスするかどうか。プロジェクトで設定された値がデフォルトです。
   - **型**: `boolean`
   - **デフォルト**: `prefixDefaultDefault`
 
-### 戻り値:
+### 戻り値
 
 - **型**: `IConfigLocales<string>`
-- **説明**: 各ロケールをその対応するマルチリンガル URL へマッピングしたオブジェクト。
+- **説明**: 各ロケールを対応する多言語 URL にマッピングするオブジェクト。
 
 ---
 
-## 使用例:
+## 使用例
 
-### 相対 URL:
+### 相対 URL
 
 ```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
@@ -86,7 +86,7 @@ getMultilingualUrls(
 // }
 ```
 
-### 絶対 URL:
+### 絶対 URL
 
 ```typescript
 getMultilingualUrls(
@@ -103,24 +103,24 @@ getMultilingualUrls(
 
 ---
 
-## エッジケース:
+## エッジケース
 
 - **ロケールセグメントなし:**
 
-  - 関数は、マルチリンガルマッピングを生成する前に、URL から既存のロケールセグメントを削除します。
+  - 関数は URL から既存のロケールセグメントを削除してから多言語マッピングを生成します。
 
 - **デフォルトロケール:**
 
-  - `prefixDefault` が `false` のとき、関数はデフォルトロケールの URL にプレフィックスを付けません。
+  - `prefixDefault` が `false` の場合、デフォルトロケールの URL にプレフィックスを付加しません。
 
 - **サポートされていないロケール:**
-  - `locales` 配列で提供されたロケールのみが URL の生成に考慮されます。
+  - `locales` 配列に提供されたロケールのみが URL の生成に考慮されます。
 
 ---
 
-## アプリケーションでの使用:
+## アプリケーションでの使用
 
-マルチリンガルアプリケーションでは、`locales` と `defaultLocale` で国際化設定を構成することが、正しい言語を表示するために重要です。以下は、アプリケーションセットアップで `getMultilingualUrls` を使用する方法の例です:
+多言語アプリケーションでは、`locales` と `defaultLocale` を使用して国際化設定を構成することが、正しい言語を表示するために重要です。以下は、アプリケーション設定で `getMultilingualUrls` を使用する例です:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -164,9 +164,9 @@ const config = {
 module.exports = config;
 ```
 
-上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、および `SPANISH` をサポートされている言語として認識し、`ENGLISH` をフォールバック言語として使用します。
+上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
 
-この設定を使用して、`getMultilingualUrls` 関数はアプリケーションのサポートされているロケールに基づいてマルチリンガル URL マッピングを動的に生成できます:
+この設定を使用して、`getMultilingualUrls` 関数はアプリケーションのサポートされているロケールに基づいて動的に多言語 URL マッピングを生成できます:
 
 ```typescript
 getMultilingualUrls(
@@ -195,4 +195,4 @@ getMultilingualUrls(
 // }
 ```
 
-`getMultilingualUrls` を統合することで、開発者は複数の言語で一貫した URL 構造を維持でき、ユーザーエクスペリエンスと SEO の両方を向上させます。
+`getMultilingualUrls` を統合することで、開発者は複数の言語にわたる一貫した URL 構造を維持し、ユーザーエクスペリエンスと SEO を向上させることができます。

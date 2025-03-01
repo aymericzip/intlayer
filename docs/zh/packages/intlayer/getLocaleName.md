@@ -1,26 +1,26 @@
-# 文档: `getLocaleName` 函数在 `intlayer`
+# 文档: `getLocaleName` 函数在 `intlayer` 中
 
-## 描述:
+## 描述
 
-`getLocaleName` 函数返回给定语言环境 (`targetLocale`) 在显示语言环境 (`displayLocale`) 中的本地化名称。如果未提供 `targetLocale`，则返回 `displayLocale` 在其自身语言中的名称。
+`getLocaleName` 函数返回在显示语言环境 (`displayLocale`) 中给定语言环境 (`targetLocale`) 的本地化名称。如果未提供 `targetLocale`，则返回 `displayLocale` 在其自身语言中的名称。
 
-## 参数:
+## 参数
 
 - `displayLocale: Locales`
 
-  - **描述**: 显示目标语言名称的语言环境。
+  - **描述**: 显示目标语言环境名称的语言环境。
   - **类型**: 表示有效语言环境的枚举或字符串。
 
 - `targetLocale?: Locales`
-  - **描述**: 需要本地化名称的语言环境。
+  - **描述**: 要本地化其名称的语言环境。
   - **类型**: 可选。表示有效语言环境的枚举或字符串。
 
-## 返回:
+## 返回值
 
 - **类型**: `string`
-- **描述**: 在 `displayLocale` 中的 `targetLocale` 的本地化名称，如果未提供 `targetLocale`，则返回 `displayLocale` 自己的名称。如果找不到翻译，则返回 `"Unknown locale"`。
+- **描述**: 在 `displayLocale` 中本地化的 `targetLocale` 名称，或者如果未提供 `targetLocale`，则返回 `displayLocale` 的自身名称。如果未找到翻译，则返回 `"Unknown locale"`。
 
-## 示例用法:
+## 示例用法
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -85,9 +85,9 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 输出: "Chinese"
 getLocaleName("unknown-locale"); // 输出: "Unknown locale"
 ```
 
-## 边缘情况:
+## 边界情况
 
-- **未提供 `targetLocale`**:
-  - 函数默认返回 `displayLocale` 自己的名称。
-- **缺失翻译**:
-  - 如果 `localeNameTranslations` 不包含 `targetLocale` 或特定 `displayLocale` 的条目，则函数回退到 `ownLocalesName` 或返回 `"Unknown locale"`。
+- **未提供 `targetLocale`:**
+  - 函数默认为返回 `displayLocale` 的自身名称。
+- **缺少翻译:**
+  - 如果 `localeNameTranslations` 不包含 `targetLocale` 或特定 `displayLocale` 的条目，函数将回退到 `ownLocalesName` 或返回 `"Unknown locale"`。

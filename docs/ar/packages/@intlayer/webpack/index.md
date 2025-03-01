@@ -1,8 +1,8 @@
-# @intlayer/webpack: حزمة NPM لاستخدام إضافة Intlayer Webpack في تطبيقك
+# @intlayer/webpack: حزمة NPM لاستخدام مكون Intlayer Webpack في تطبيقك
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React و React و Express.js.
+**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وReact وExpress.js.
 
-تُستخدم حزمة **`@intlayer/webpack`** لتوفير تكوين Webpack لتسهيل العمل بتطبيق يعتمد على Webpack مع Intlayer. كما أن الحزمة توفر إضافة (plugin) لإضافتها إلى تطبيق Webpack قائم.
+حزمة **`@intlayer/webpack`** تُستخدم لتوفير تكوين Webpack لجعل العمل مع تطبيق يعتمد على Webpack مع Intlayer أسهل. كما توفر الحزمة مكونًا إضافيًا لإضافته إلى تطبيق Webpack موجود.
 
 ## الاستخدام
 
@@ -12,7 +12,7 @@ import { IntlayerPlugin } from "@intlayer/webpack";
 export default {
   plugins: [
     new IntlayerPlugin({
-      // خيارات
+      // الخيارات
     }),
   ],
 };

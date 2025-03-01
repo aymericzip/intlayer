@@ -1,8 +1,8 @@
-# 시작하기 - 콘텐츠 선언
+# 시작하기: 콘텐츠 선언
 
 ## 파일 확장자
 
-기본적으로 Intlayer는 다음 확장자로 된 파일에서 콘텐츠 선언을 감시합니다:
+기본적으로 Intlayer는 콘텐츠 선언을 위해 다음 확장자를 가진 모든 파일을 감시합니다:
 
 - `.content.ts`
 - `.content.tsx`
@@ -10,15 +10,15 @@
 - `.content.mjs`
 - `.content.cjs`
 
-애플리케이션은 기본적으로 `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` 글롭 패턴과 일치하는 파일을 검색합니다.
+애플리케이션은 기본적으로 `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` 글로브 패턴과 일치하는 파일을 검색합니다.
 
-이 기본 확장자는 대부분의 애플리케이션에 적합합니다. 그러나 특정 요구 사항이 있는 경우 [콘텐츠 확장자 사용자 지정 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md#content-configuration)를 참조하여 이를 관리하는 방법을 확인하세요.
+이 기본 확장자는 대부분의 애플리케이션에 적합합니다. 그러나 특정 요구 사항이 있는 경우 [콘텐츠 확장자 사용자 정의 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md#content-configuration)를 참조하여 이를 관리하는 방법을 확인하세요.
 
-구성 옵션의 전체 목록은 configuration 문서를 방문하세요.
+구성 옵션의 전체 목록은 구성 문서를 참조하세요.
 
-## 콘텐츠 선언
+## 콘텐츠 선언하기
 
-사전(dictionaries)을 생성하고 관리하세요:
+사전(dictionary)을 생성하고 관리하세요:
 
 ```tsx fileName="src/example.content.ts" codeFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
@@ -65,8 +65,8 @@ export default {
       ">19": "많은 자동차",
     }),
     conditionalContent: cond({
-      true: "검증이 활성화되었습니다",
-      false: "검증이 비활성화되었습니다",
+      true: "유효성 검사가 활성화되었습니다",
+      false: "유효성 검사가 비활성화되었습니다",
     }),
     nestedContent: nest(
       "navbar", // 중첩할 사전의 키
@@ -76,11 +76,11 @@ export default {
     markdownContent: md("# Markdown 예제"),
 
     /*
-     * `react-intlayer` 또는 `next-intlayer`를 사용해야만 가능합니다.
+     * `react-intlayer` 또는 `next-intlayer`를 사용할 때만 사용 가능
      */
-    jsxContent: <h1>My title</h1>,
+    jsxContent: <h1>내 제목</h1>,
   },
-} satisfies Dictionary<Content>; // [선택 사항] Dictionary는 제네릭으로 제공되며 사전 포맷 강화를 허용합니다.
+} satisfies Dictionary<Content>; // [선택 사항] Dictionary는 제네릭으로 사전의 형식을 강화할 수 있습니다.
 ```
 
 ```javascript fileName="src/example.content.mjs" codeFormat="esm"
@@ -114,8 +114,8 @@ export default {
       ">19": "많은 자동차",
     }),
     conditionalContent: cond({
-      true: "검증이 활성화되었습니다",
-      false: "검증이 비활성화되었습니다",
+      true: "유효성 검사가 활성화되었습니다",
+      false: "유효성 검사가 비활성화되었습니다",
     }),
     nestedContent: nest(
       "navbar", // 중첩할 사전의 키
@@ -124,8 +124,8 @@ export default {
     markdownContent: md("# Markdown 예제"),
     externalContent: async () => await fetch("https://example.com"),
 
-    // `react-intlayer` 또는 `next-intlayer`를 사용해야만 가능합니다.
-    jsxContent: <h1>My title</h1>,
+    // `react-intlayer` 또는 `next-intlayer`를 사용할 때만 사용 가능
+    jsxContent: <h1>내 제목</h1>,
   },
 };
 ```
@@ -161,8 +161,8 @@ module.exports = {
       ">19": "많은 자동차",
     }),
     conditionalContent: cond({
-      true: "검증이 활성화되었습니다",
-      false: "검증이 비활성화되었습니다",
+      true: "유효성 검사가 활성화되었습니다",
+      false: "유효성 검사가 비활성화되었습니다",
     }),
     nestedContent: nest(
       "navbar", // 중첩할 사전의 키
@@ -171,8 +171,8 @@ module.exports = {
     markdownContent: md("# Markdown 예제"),
     externalContent: async () => await fetch("https://example.com"),
 
-    // `react-intlayer` 또는 `next-intlayer`를 사용해야만 가능합니다.
-    jsxContent: <h1>My title</h1>,
+    // `react-intlayer` 또는 `next-intlayer`를 사용할 때만 사용 가능
+    jsxContent: <h1>내 제목</h1>,
   },
 };
 ```
@@ -213,8 +213,8 @@ module.exports = {
     "conditionalContent": {
       "nodeType": "condition",
       "condition": {
-        "true": "검증이 활성화되었습니다",
-        "false": "검증이 비활성화되었습니다",
+        "true": "유효성 검사가 활성화되었습니다",
+        "false": "유효성 검사가 비활성화되었습니다",
       },
     },
     "nestedContent": {
@@ -230,7 +230,7 @@ module.exports = {
       "key": null,
       "ref": null,
       "props": {
-        "children": ["My title"],
+        "children": ["내 제목"],
       },
     },
   },
@@ -239,9 +239,9 @@ module.exports = {
 
 ## 함수 중첩
 
-함수를 다른 함수에 문제 없이 중첩하여 사용할 수 있습니다.
+함수를 다른 함수 안에 문제없이 중첩할 수 있습니다.
 
-예시:
+예제:
 
 ```javascript fileName="src/example.content.ts" codeFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
@@ -251,7 +251,7 @@ const getName = async () => "John Doe";
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','en').hiMessage`는 `['Hi', ' ', 'John Doe']`을 반환합니다.
+    // `getIntlayer('page','en').hiMessage`는 `['Hi', ' ', 'John Doe']`를 반환합니다.
     hiMessage: [
       t({
         en: "Hi",
@@ -262,27 +262,27 @@ export default {
       getName(),
     ],
     // 조건, 열거, 다국어 콘텐츠를 중첩한 복합 콘텐츠
-    // `getIntlayer('page','en').advancedContent(true)(10)`은 '다수 항목 발견됨' 반환
+    // `getIntlayer('page','en').advancedContent(true)(10)`은 'Multiple items found'를 반환합니다.
     advancedContent: cond({
       true: enu({
         "0": t({
-          en: "항목 없음",
+          en: "No items found",
           fr: "Aucun article trouvé",
           es: "No se encontraron artículos",
         }),
         "1": t({
-          en: "1개 항목 발견됨",
+          en: "One item found",
           fr: "Un article trouvé",
           es: "Se encontró un artículo",
         }),
         ">1": t({
-          en: "다수 항목 발견됨",
+          en: "Multiple items found",
           fr: "Plusieurs articles trouvés",
           es: "Se encontraron múltiples artículos",
         }),
       }),
       false: t({
-        en: "유효한 데이터 없음",
+        en: "No valid data available",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
       }),
@@ -291,6 +291,166 @@ export default {
 } satisfies Dictionary;
 ```
 
-```javascript fileName="src/example
+```javascript fileName="src/example.content.mjs" codeFormat="esm"
+import { t, enu, cond, nest, md } from "intlayer";
 
+const getName = async () => "John Doe";
+
+/** @type {import('intlayer').Dictionary} */
+export default {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage`는 `['Hi', ' ', 'John Doe']`를 반환합니다.
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // 조건, 열거, 다국어 콘텐츠를 중첩한 복합 콘텐츠
+    // `getIntlayer('page','en').advancedContent(true)(10)`은 'Multiple items found'를 반환합니다.
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+};
+```
+
+```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
+const { t, enu, cond, nest, md } = require("intlayer");
+
+const getName = async () => "John Doe";
+
+/** @type {import('intlayer').Dictionary} */
+module.exports = {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage`는 `['Hi', ' ', 'John Doe']`를 반환합니다.
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // 조건, 열거, 다국어 콘텐츠를 중첩한 복합 콘텐츠
+    // `getIntlayer('page','en').advancedContent(true)(10)`은 'Multiple items found'를 반환합니다.
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+};
+```
+
+```json5 fileName="src/example.content.json"  codeFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "page",
+  "content": {
+    "hiMessage": {
+      "nodeType": "composite",
+      "composite": [
+        {
+          "nodeType": "translation",
+          "translation": {
+            "en": "Hi",
+            "fr": "Salut",
+            "es": "Hola",
+          },
+        },
+        " ",
+        "John Doe",
+      ],
+    },
+    "advancedContent": {
+      "nodeType": "condition",
+      "condition": {
+        "true": {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "No items found",
+                "fr": "Aucun article trouvé",
+                "es": "No se encontraron artículos",
+              },
+            },
+            "1": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "One item found",
+                "fr": "Un article trouvé",
+                "es": "Se encontró un artículo",
+              },
+            },
+            ">1": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "Multiple items found",
+                "fr": "Plusieurs articles trouvés",
+                "es": "Se encontraron múltiples artículos",
+              },
+            },
+          },
+        },
+        "false": {
+          "nodeType": "translation",
+          "translation": {
+            "en": "No valid data available",
+            "fr": "Aucune donnée valide disponible",
+            "es": "No hay datos válidos disponibles",
+          },
+        },
+      },
+    },
+  },
+}
 ```

@@ -1,12 +1,12 @@
 # Übersetzung
 
-## Übersetzungen definieren
+## Definition von Übersetzungen
 
-Die `t` Funktion in `intlayer` ermöglicht es Ihnen, Inhalte in mehreren Sprachen zu deklarieren. Diese Funktion gewährleistet die Typensicherheit und gibt einen Fehler aus, wenn Übersetzungen fehlen, was besonders nützlich in TypeScript-Umgebungen ist.
+Die `t`-Funktion in `intlayer` ermöglicht es Ihnen, Inhalte in mehreren Sprachen zu deklarieren. Diese Funktion stellt die Typsicherheit sicher und gibt einen Fehler aus, wenn Übersetzungen fehlen, was besonders in TypeScript-Umgebungen nützlich ist.
 
-### TypeScript verwenden
+### Verwendung von TypeScript
 
-Hier ist ein Beispiel, wie Sie Inhalte mit Übersetzungen deklarieren.
+Hier ist ein Beispiel, wie Inhalte mit Übersetzungen deklariert werden können.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -19,7 +19,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Willkommen in unserer Anwendung",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -34,7 +34,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Willkommen in unserer Anwendung",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -49,7 +49,7 @@ module.exports = {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en: "Willkommen in unserer Anwendung",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -65,7 +65,7 @@ module.exports = {
     "welcomeMessage": {
       "nodeType": "translation",
       "translation": {
-        "en": "Willkommen in unserer Anwendung",
+        "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
         "es": "Bienvenido a nuestra aplicación"
       }
@@ -74,9 +74,9 @@ module.exports = {
 }
 ```
 
-## Konfiguration der lokalen Einstellungen
+## Konfiguration für Sprachen
 
-Um eine ordnungsgemäße Handhabung von Übersetzungen sicherzustellen, können Sie die akzeptierten Sprachen in `intlayer.config.ts` konfigurieren. Diese Konfiguration ermöglicht es Ihnen, die Sprachen zu definieren, die Ihre Anwendung unterstützt:
+Um eine ordnungsgemäße Übersetzungsverwaltung sicherzustellen, können Sie die akzeptierten Sprachen in `intlayer.config.ts` konfigurieren. Diese Konfiguration ermöglicht es Ihnen, die Sprachen zu definieren, die Ihre Anwendung unterstützt:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -169,11 +169,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-Diese Komponente ruft die entsprechende Übersetzung basierend auf der aktuellen Sprache ab, die in Ihrer Anwendung gesetzt ist.
+Diese Komponente ruft die entsprechende Übersetzung basierend auf der aktuellen Spracheinstellung Ihrer Anwendung ab.
 
 ## Benutzerdefinierte Inhaltsobjekte
 
-`intlayer` unterstützt benutzerdefinierte Inhaltsobjekte für Übersetzungen, sodass Sie komplexere Strukturen definieren können, während die Typensicherheit gewährleistet bleibt. Hier ist ein Beispiel mit einem benutzerdefinierten Objekt:
+`intlayer` unterstützt benutzerdefinierte Inhaltsobjekte für Übersetzungen, sodass Sie komplexere Strukturen definieren können, während die Typsicherheit gewährleistet bleibt. Hier ist ein Beispiel mit einem benutzerdefinierten Objekt:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -188,8 +188,8 @@ const customContent = {
   content: {
     profileText: t<ICustomContent>({
       en: {
-        title: "Seitenüberschrift",
-        content: "Seiteninhalt",
+        title: "Page Title",
+        content: "Page Content",
       },
       fr: {
         title: "Titre de la Page",
@@ -217,8 +217,8 @@ export default {
       ICustomContent >
       {
         en: {
-          title: "Seitenüberschrift",
-          content: "Seiteninhalt",
+          title: "Page Title",
+          content: "Page Content",
         },
         fr: {
           title: "Titre de la Page",
@@ -244,8 +244,8 @@ module.exports = {
       ICustomContent >
       {
         en: {
-          title: "Seitenüberschrift",
-          content: "Seiteninhalt",
+          title: "Page Title",
+          content: "Page Content",
         },
         fr: {
           title: "Titre de la Page",
@@ -269,8 +269,8 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": {
-          "title": "Seitenüberschrift",
-          "content": "Seiteninhalt"
+          "title": "Page Title",
+          "content": "Page Content"
         },
         "fr": {
           "title": "Titre de la Page",

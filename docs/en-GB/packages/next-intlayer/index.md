@@ -1,4 +1,4 @@
-# next-intlayer: NPM Package to internationalise (i18n) an Next.js application
+# next-intlayer: NPM Package to internationalise (i18n) a Next.js application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
 
@@ -187,7 +187,7 @@ module.exports = clientComponentContent;
 }
 ```
 
-### Utilize Content in Your Code
+### Utilise Content in Your Code
 
 Once you have declared your content, you can use it in your code. Here's an example of how to use the content in a React component:
 

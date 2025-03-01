@@ -8,7 +8,7 @@
 
 Internationalising your React application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
-## Why integrate Intlayer?
+## Why to integrate Intlayer?
 
 - **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
 - **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.

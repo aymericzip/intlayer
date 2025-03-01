@@ -9,7 +9,7 @@ For this, Intlayer goes through several steps:
 1. Declaration of content files
 
    - Content files can be defined in various formats, such as TypeScript, ECMAScript, CommonJS, or JSON.
-   - Content files can be defined everywhere in the project, which allows for better maintenance and scalability. It is important to respect the file extension conventions for content files. This extension is by default `*.content.{js|cjs|mjs|ts|tsx|json}`, but it can be modified in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
+   - Content files can be defined everywhere in the project, which allows for better maintenance and scalability. It is important to respect the file extension conventions for content files. This extension is by default `*.content.{js|cjs|mjs|ts|tsx|json}`, but it can be modified in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md).
 
 2. Generation of dictionaries
 
@@ -85,7 +85,7 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 ### @intlayer/cli
 
-The `@intlayer/cli` package is a NPM package that is used to declare the script related to the intlayer commands line interfaces. It ensure the uniformity of all intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en-GB/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en-GB/packages/intlayer/index.md) packages.
+The `@intlayer/cli` package is a NPM package that is used to declare the script related to the intlayer commands line interfaces. It ensure the uniformity of all intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/packages/intlayer/index.md) packages.
 
 ### @intlayer/dictionaries-entry
 
@@ -95,6 +95,14 @@ The `@intlayer/dictionaries-entry` package is a package that only returns the en
 
 The `@intlayer/chokidar` package is used to monitor content files and regenerate the modified dictionary at each modification.
 
+### @intlayer/editor
+
+The `@intlayer/editor` package provides the utilities related to the dictionary editor. It notably includes the API to interface a application with the Intlayer editor, and utilities to manipulate dictionaries. This package is cross-platform.
+
+### @intlayer/editor-react
+
+The `@intlayer/editor-react` package provides states, contexts, hooks and components to interface a React application with the Intlayer editor.
+
 ## Chat with our smart documentation
 
-- [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)
+- [Ask your questions to our smart documentation](https://intlayer.org/{{locale}}/docs/chat)

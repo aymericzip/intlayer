@@ -1,26 +1,26 @@
-# Documentazione: `getLocaleName` Funzione in `intlayer`
+# Documentazione: Funzione `getLocaleName` in `intlayer`
 
-## Descrizione:
+## Descrizione
 
-La funzione `getLocaleName` restituisce il nome localizzato di una data locale (`targetLocale`) nella locale di visualizzazione (`displayLocale`). Se non viene fornita una `targetLocale`, restituisce il nome della `displayLocale` nella propria lingua.
+La funzione `getLocaleName` restituisce il nome localizzato di una determinata lingua (`targetLocale`) nella lingua di visualizzazione (`displayLocale`). Se non viene fornito un `targetLocale`, restituisce il nome del `displayLocale` nella sua lingua.
 
-## Parametri:
+## Parametri
 
 - `displayLocale: Locales`
 
-  - **Descrizione**: La locale in cui verrà visualizzato il nome della locale target.
-  - **Tipo**: Enum o stringa che rappresenta le locali valide.
+  - **Descrizione**: La lingua in cui verrà visualizzato il nome della lingua di destinazione.
+  - **Tipo**: Enum o stringa che rappresenta lingue valide.
 
 - `targetLocale?: Locales`
-  - **Descrizione**: La locale il cui nome deve essere localizzato.
-  - **Tipo**: Facoltativo. Enum o stringa che rappresenta le locali valide.
+  - **Descrizione**: La lingua di cui si desidera localizzare il nome.
+  - **Tipo**: Opzionale. Enum o stringa che rappresenta lingue valide.
 
-## Restituisce:
+## Restituisce
 
 - **Tipo**: `string`
-- **Descrizione**: Il nome localizzato della `targetLocale` nella `displayLocale`, o il nome della `displayLocale` stessa se non è fornita una `targetLocale`. Se non viene trovata alcuna traduzione, restituisce `"Unknown locale"`.
+- **Descrizione**: Il nome localizzato del `targetLocale` nel `displayLocale`, o il nome del `displayLocale` se `targetLocale` non è fornito. Se non viene trovata alcuna traduzione, restituisce `"Unknown locale"`.
 
-## Esempio di Utilizzo:
+## Esempio di utilizzo
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -85,9 +85,9 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
 getLocaleName("unknown-locale"); // Output: "Unknown locale"
 ```
 
-## Casi Limite:
+## Casi limite
 
-- **Nessuna `targetLocale` fornita:**
-  - La funzione restituisce per default il nome della `displayLocale`.
+- **Nessun `targetLocale` fornito:**
+  - La funzione restituisce di default il nome del `displayLocale`.
 - **Traduzioni mancanti:**
-  - Se `localeNameTranslations` non contiene una voce per la `targetLocale` o la specifica `displayLocale`, la funzione torna al `ownLocalesName` o restituisce `"Unknown locale"`.
+  - Se `localeNameTranslations` non contiene una voce per il `targetLocale` o il `displayLocale` specifico, la funzione utilizza il `ownLocalesName` o restituisce `"Unknown locale"`.

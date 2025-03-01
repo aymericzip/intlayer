@@ -1,26 +1,26 @@
 # Documentation: `getPathWithoutLocale` Functions in `intlayer`
 
-## 설명:
+## 설명
 
-주어진 URL 또는 경로에서 로케일 세그먼트를 제거합니다. 절대 URL과 상대 경로 모두에서 작동합니다.
+주어진 URL 또는 경로명에서 로케일 세그먼트를 제거합니다(존재하는 경우). 절대 URL과 상대 경로명 모두에서 작동합니다.
 
-## 매개변수:
+## 매개변수
 
 - `inputUrl: string`
 
-  - **설명**: 처리할 전체 URL 문자열 또는 경로입니다.
+  - **설명**: 처리할 전체 URL 문자열 또는 경로명입니다.
   - **유형**: `string`
 
 - `locales: Locales[]`
-  - **설명**: 지원되는 로케일의 선택적 배열입니다. 프로젝트에서 구성된 로케일로 기본값이 설정됩니다.
+  - **설명**: 지원되는 로케일의 선택적 배열입니다. 프로젝트에서 구성된 로케일이 기본값으로 설정됩니다.
   - **유형**: `Locales[]`
 
-## 반환값:
+## 반환값
 
 - **유형**: `string`
-- **설명**: 로케일 세그먼트가 없는 URL 문자열 또는 경로입니다.
+- **설명**: 로케일 세그먼트가 제거된 URL 문자열 또는 경로명입니다.
 
-## 사용 예시:
+## 사용 예시
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

@@ -16,19 +16,19 @@ yarn add intlayer-cli
 pnpm add intlayer-cli
 ```
 
-> Se il pacchetto `intlayer` è già installato, il cli è installato automaticamente. Puoi saltare questo passaggio.
+> Se il pacchetto `intlayer` è già installato, la CLI viene installata automaticamente. Puoi saltare questo passaggio.
 
-## intlayer-cli package
+## Pacchetto intlayer-cli
 
-Il pacchetto `intlayer-cli` ha l'intento di transpile le tue [dichiarazioni intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md) in dizionari.
+Il pacchetto `intlayer-cli` ha lo scopo di trasporre le tue [dichiarazioni intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md) in dizionari.
 
-Questo pacchetto transpilerà tutti i file intlayer, come `src/**/*.content.{ts|js|mjs|cjs|json}`. [Vedi come dichiarare i tuoi file di dichiarazione Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Questo pacchetto trasporrà tutti i file intlayer, come `src/**/*.content.{ts|js|mjs|cjs|json}`. [Scopri come dichiarare i tuoi file di dichiarazione Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-Per interpretare i dizionari intlayer, puoi utilizzare interpreti, come [react-intlayer](https://www.npmjs.com/package/react-intlayer), o [next-intlayer](https://www.npmjs.com/package/next-intlayer)
+Per interpretare i dizionari intlayer puoi utilizzare interpreti, come [react-intlayer](https://www.npmjs.com/package/react-intlayer), o [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 
-## Supporto File di Configurazione
+## Supporto per file di configurazione
 
-Intlayer accetta più formati di file di configurazione:
+Intlayer accetta diversi formati di file di configurazione:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -37,9 +37,9 @@ Intlayer accetta più formati di file di configurazione:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-Per vedere come configurare le localizzazioni disponibili, o altri parametri, fai riferimento alla [documentazione di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+Per vedere come configurare le lingue disponibili o altri parametri, fai riferimento alla [documentazione di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
 
-## Esegui i comandi di intlayer
+## Esegui comandi intlayer
 
 ### Costruisci dizionari
 
@@ -55,38 +55,38 @@ o in modalità watch
 npx intlayer build --watch
 ```
 
-Questo comando troverà i tuoi file di contenuto per le dichiarazioni come default in `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. E costruirà i dizionari nella directory `.intlayer`.
+Questo comando troverà i tuoi file di dichiarazione dei contenuti come predefinito `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. E costruirà i dizionari nella directory `.intlayer`.
 
-### Spingi i dizionari
+### Carica dizionari
 
 ```bash
 npx intlayer dictionary push
 ```
 
-Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_editor.md) è installato, puoi anche spingere i dizionari all'editor. Questo comando permetterà di rendere i dizionari disponibili per [l'editor](https://intlayer.org/dashboard). In questo modo, puoi condividere i tuoi dizionari con il tuo team e modificare i tuoi contenuti senza modificare il codice della tua applicazione.
+Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md) è installato, puoi anche caricare i dizionari nell'editor. Questo comando renderà i dizionari disponibili per [l'editor](https://intlayer.org/dashboard). In questo modo, puoi condividere i tuoi dizionari con il tuo team e modificare i tuoi contenuti senza modificare il codice della tua applicazione.
 
 ##### Argomenti:
 
-- `-d`, `--dictionaries`: ids dei dizionari da estrarre. Se non specificato, tutti i dizionari verranno inviati.
+- `-d`, `--dictionaries`: ID dei dizionari da caricare. Se non specificato, tutti i dizionari verranno caricati.
   > Esempio: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Salta la domanda che chiede di eliminare le directory delle localizzazioni una volta che i dizionari sono stati inviati, e rimuovili. Per impostazione predefinita, se il dizionario è definito localmente, sovrascriverà il contenuto dei dizionari remoti.
+- `-r`, `--deleteLocaleDictionary`: Salta la domanda che chiede di eliminare le directory delle lingue una volta che i dizionari sono stati caricati e rimuovili. Per impostazione predefinita, se il dizionario è definito localmente, sovrascriverà il contenuto dei dizionari remoti.
   > Esempio: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Salta la domanda che chiede di eliminare le directory delle localizzazioni una volta che i dizionari sono stati inviati, e conservale. Per impostazione predefinita, se il dizionario è definito localmente, sovrascriverà il contenuto dei dizionari remoti.
+- `-k`, `--keepLocaleDictionary`: Salta la domanda che chiede di eliminare le directory delle lingue una volta che i dizionari sono stati caricati e conservali. Per impostazione predefinita, se il dizionario è definito localmente, sovrascriverà il contenuto dei dizionari remoti.
   > Esempio: `npx intlayer dictionary push -k`
 
-### Estrai dizionari remoti
+### Scarica dizionari remoti
 
 ```bash
 npx intlayer dictionary pull
 ```
 
-Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_editor.md) è installato, puoi anche estrarre i dizionari dall'editor. In questo modo, puoi sovrascrivere il contenuto dei tuoi dizionari per le necessità della tua applicazione.
+Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md) è installato, puoi anche scaricare i dizionari dall'editor. In questo modo, puoi sovrascrivere il contenuto dei tuoi dizionari per le esigenze della tua applicazione.
 
 ##### Argomenti:
 
-- `-d, --dictionaries`: Ids dei dizionari da estrarre. Se non specificato, tutti i dizionari verranno estratti.
+- `-d, --dictionaries`: ID dei dizionari da scaricare. Se non specificato, tutti i dizionari verranno scaricati.
   > Esempio: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : Percorso della directory in cui i nuovi dizionari saranno salvati. Se non specificato, i nuovi dizionari saranno salvati nella directory `./intlayer-dictionaries` del progetto. Se un campo `filePath` è specificato nel contenuto del tuo dizionario, i dizionari non considereranno questo argomento e saranno salvati nella directory `filePath` specificata.
+- `--newDictionariesPath`: Percorso della directory in cui verranno salvati i nuovi dizionari. Se non specificato, i nuovi dizionari verranno salvati nella directory `./intlayer-dictionaries` del progetto. Se un campo `filePath` è specificato nel contenuto del dizionario, i dizionari non considereranno questo argomento e verranno salvati nella directory specificata in `filePath`.
 
 ##### Esempio:
 
@@ -94,27 +94,27 @@ Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/it/in
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
-### Audit dizionari
+### Analizza dizionari
 
 ```bash
 npx intlayer audit
 ```
 
-Questo comando analizza i tuoi file di dichiarazione di contenuto per potenziali problemi come traduzioni mancanti, incoerenze strutturali o incompatibilità di tipo. Se trova dei problemi, **intlayer audit** proporrà o applicherà aggiornamenti per mantenere i tuoi dizionari coerenti e completi.
+Questo comando analizza i tuoi file di dichiarazione dei contenuti per potenziali problemi come traduzioni mancanti, incoerenze strutturali o discrepanze di tipo. Se trova problemi, **intlayer audit** proporrà o applicherà aggiornamenti per mantenere i tuoi dizionari coerenti e completi.
 
 ##### Argomenti:
 
 - **`-f, --files [files...]`**  
-  Un elenco di specifici file di dichiarazione di contenuto da audire. Se non fornito, tutti i file `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` scoperti saranno auditati.
+  Un elenco di file di dichiarazione dei contenuti specifici da analizzare. Se non fornito, verranno analizzati tutti i file `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` scoperti.
 
 - **`--exclude [excludedGlobs...]`**  
-  Pattern glob per escludere dall'audit (ad esempio `--exclude "src/test/**"`).
+  Modelli glob per escludere dall'analisi (ad esempio `--exclude "src/test/**"`).
 
 - **`-m, --model [model]`**  
-  Il modello ChatGPT da usare per l'audit (ad esempio, `gpt-3.5-turbo`).
+  Il modello ChatGPT da utilizzare per l'analisi (ad esempio, `gpt-3.5-turbo`).
 
 - **`-p, --custom-prompt [prompt]`**  
-  Fornisci un prompt personalizzato per le istruzioni del tuo audit.
+  Fornisci un prompt personalizzato per le istruzioni di analisi.
 
 - **`-l, --async-limit [asyncLimit]`**  
   Numero massimo di file da elaborare contemporaneamente.
@@ -128,9 +128,41 @@ Questo comando analizza i tuoi file di dichiarazione di contenuto per potenziali
 npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 ```
 
-Questo comando ignorerà qualsiasi file sotto `tests/**` e utilizzerà il modello `gpt-3.5-turbo` per auditare i file di dichiarazione di contenuto scoperti. Se vengono trovati problemi—come traduzioni mancanti—verranno corretti in loco, preservando la struttura originale del file.
+Questo comando ignorerà tutti i file sotto `tests/**` e utilizzerà il modello `gpt-3.5-turbo` per analizzare i file di dichiarazione dei contenuti scoperti. Se vengono trovati problemi, come traduzioni mancanti, verranno corretti in loco, preservando la struttura originale del file.
 
-## Usa i comandi di intlayer nel tuo `package.json`
+### Gestisci configurazione
+
+#### Ottieni configurazione
+
+Il comando `get configuration` recupera la configurazione corrente per Intlayer, in particolare le impostazioni delle lingue. Questo è utile per verificare la tua configurazione.
+
+```bash
+npx intlayer config get
+```
+
+##### Argomenti:
+
+- **`--env`**: Specifica l'ambiente (ad esempio, `development`, `production`).
+- **`--env-file`**: Fornisci un file di ambiente personalizzato da cui caricare le variabili.
+- **`--verbose`**: Abilita il logging dettagliato per il debug.
+
+#### Carica configurazione
+
+Il comando `push configuration` carica la tua configurazione nel CMS e nell'editor di Intlayer. Questo passaggio è necessario per abilitare l'uso di dizionari remoti nell'Intlayer Visual Editor.
+
+```bash
+npx intlayer config push
+```
+
+##### Argomenti:
+
+- **`--env`**: Specifica l'ambiente (ad esempio, `development`, `production`).
+- **`--env-file`**: Fornisci un file di ambiente personalizzato da cui caricare le variabili.
+- **`--verbose`**: Abilita il logging dettagliato per il debug.
+
+Caricando la configurazione, il tuo progetto è completamente integrato con il CMS di Intlayer, consentendo una gestione fluida dei dizionari tra i team.
+
+## Usa i comandi intlayer nel tuo `package.json`
 
 ```json fileName="package.json"
 "scripts": {

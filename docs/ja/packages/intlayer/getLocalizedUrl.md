@@ -1,50 +1,50 @@
-# Documentation: `getLocalizedUrl` Function in `intlayer`
+# ドキュメント: `getLocalizedUrl` 関数 in `intlayer`
 
-## 説明:
+## 説明
 
-`getLocalizedUrl` 関数は、指定されたURLを指定されたロケールでプレフィックスすることでローカライズされたURLを生成します。絶対URLと相対URLの両方を処理し、構成に基づいて正しいロケールプレフィックスが適用されることを保証します。
+`getLocalizedUrl` 関数は、指定されたロケールをプレフィックスとして付加することでローカライズされたURLを生成します。この関数は絶対URLと相対URLの両方を処理し、設定に基づいて正しいロケールプレフィックスが適用されることを保証します。
 
 ---
 
-## パラメータ:
+## パラメータ
 
 - `url: string`
 
-  - **説明**: ロケールでプレフィックスされる元のURL文字列。
+  - **説明**: ロケールをプレフィックスとして付加する元のURL文字列。
   - **型**: `string`
 
 - `currentLocale: Locales`
 
-  - **説明**: URLがローカライズされる現在のロケール。
+  - **説明**: URLをローカライズするための現在のロケール。
   - **型**: `Locales`
 
 - `locales: Locales[]`
 
-  - **説明**: サポートされるロケールのオプションの配列。デフォルトでは、プロジェクトで構成されたロケールが提供されます。
+  - **説明**: サポートされているロケールのオプション配列。デフォルトでは、プロジェクトで設定されたロケールが提供されます。
   - **型**: `Locales[]`
-  - **デフォルト**: [`プロジェクトの構成`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#middleware)
+  - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
-  - **説明**: アプリケーションのデフォルトロケール。デフォルトでは、プロジェクトで構成されたデフォルトロケールが提供されます。
+  - **説明**: アプリケーションのデフォルトロケール。デフォルトでは、プロジェクトで設定されたデフォルトロケールが提供されます。
   - **型**: `Locales`
-  - **デフォルト**: [`プロジェクトの構成`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#middleware)
+  - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#middleware)
 
 - `prefixDefault: boolean`
-  - **説明**: デフォルトのロケールのURLにプレフィックスを付けるかどうか。デフォルトでは、プロジェクトで構成された値が提供されます。
+  - **説明**: デフォルトロケールのURLにプレフィックスを付加するかどうか。デフォルトでは、プロジェクトで設定された値が提供されます。
   - **型**: `boolean`
-  - **デフォルト**: [`プロジェクトの構成`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#middleware)
+  - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#middleware)
 
-### 戻り値:
+### 戻り値
 
 - **型**: `string`
 - **説明**: 指定されたロケールのローカライズされたURL。
 
 ---
 
-## 使用例:
+## 使用例
 
-### 相対URL:
+### 相対URL
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
@@ -57,8 +57,8 @@ getLocalizedUrl(
   false
 );
 
-// 出力: "/fr/about" (フランス語ロケール用)
-// 出力: "/about" (デフォルト（英語）ロケール用)
+// 出力: "/fr/about" (フランス語ロケールの場合)
+// 出力: "/about" (デフォルトの英語ロケールの場合)
 ```
 
 ```javascript codeFormat="esm"
@@ -72,8 +72,8 @@ getLocalizedUrl(
   false
 );
 
-// 出力: "/fr/about" (フランス語ロケール用)
-// 出力: "/about" (デフォルト（英語）ロケール用)
+// 出力: "/fr/about" (フランス語ロケールの場合)
+// 出力: "/about" (デフォルトの英語ロケールの場合)
 ```
 
 ```javascript codeFormat="esm"
@@ -87,8 +87,8 @@ getLocalizedUrl(
   false
 );
 
-// 出力: "/fr/about" (フランス語ロケール用)
-// 出力: "/about" (デフォルト（英語）ロケール用)
+// 出力: "/fr/about" (フランス語ロケールの場合)
+// 出力: "/about" (デフォルトの英語ロケールの場合)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -102,11 +102,11 @@ getLocalizedUrl(
   false
 );
 
-// 出力: "/fr/about" (フランス語ロケール用)
-// 出力: "/about" (デフォルト（英語）ロケール用)
+// 出力: "/fr/about" (フランス語ロケールの場合)
+// 出力: "/about" (デフォルトの英語ロケールの場合)
 ```
 
-### 絶対URL:
+### 絶対URL
 
 ```typescript
 getLocalizedUrl(
@@ -114,27 +114,27 @@ getLocalizedUrl(
   Locales.FRENCH, // 現在のロケール
   [Locales.ENGLISH, Locales.FRENCH], // サポートされているロケール
   Locales.ENGLISH, // デフォルトロケール
-  false // デフォルトロケールをプレフィックスするか
-); // 出力: "https://example.com/fr/about" (フランス語用)
+  false // デフォルトロケールのプレフィックス
+); // 出力: "https://example.com/fr/about" (フランス語の場合)
 
 getLocalizedUrl(
   "https://example.com/about",
   Locales.ENGLISH, // 現在のロケール
   [Locales.ENGLISH, Locales.FRENCH], // サポートされているロケール
   Locales.ENGLISH, // デフォルトロケール
-  false // デフォルトロケールをプレフィックスするか
-); // 出力: "https://example.com/about" (英語用)
+  false // デフォルトロケールのプレフィックス
+); // 出力: "https://example.com/about" (英語の場合)
 
 getLocalizedUrl(
   "https://example.com/about",
   Locales.ENGLISH, // 現在のロケール
   [Locales.ENGLISH, Locales.FRENCH], // サポートされているロケール
   Locales.ENGLISH, // デフォルトロケール
-  true // デフォルトロケールをプレフィックスするか
-); // 出力: "https://example.com/en/about" (英語用)
+  true // デフォルトロケールのプレフィックス
+); // 出力: "https://example.com/en/about" (英語の場合)
 ```
 
-### サポートされていないロケール:
+### サポートされていないロケール
 
 ```typescript
 getLocalizedUrl(
@@ -142,12 +142,12 @@ getLocalizedUrl(
   Locales.ITALIAN, // 現在のロケール
   [Locales.ENGLISH, Locales.FRENCH], // サポートされているロケール
   Locales.ENGLISH // デフォルトロケール
-); // 出力: "/about" (サポートされていないロケールにはプレフィックスを適用しない)
+); // 出力: "/about" (サポートされていないロケールにはプレフィックスが適用されません)
 ```
 
 ---
 
-## エッジケース:
+## エッジケース
 
 - **ロケールセグメントなし:**
 
@@ -155,21 +155,21 @@ getLocalizedUrl(
 
 - **デフォルトロケール:**
 
-  - `prefixDefault`が`false`の場合、関数はデフォルトロケールのURLにプレフィックスを付けません。
+  - `prefixDefault` が `false` の場合、関数はデフォルトロケールのURLにプレフィックスを付加しません。
 
 - **サポートされていないロケール:**
-  - `locales`にリストされていないロケールの場合、関数はプレフィックスを適用しません。
+  - `locales` にリストされていないロケールの場合、関数はプレフィックスを適用しません。
 
 ---
 
-## アプリケーションでの使用方法:
+## アプリケーションでの使用
 
-多言語アプリケーションでは、`locales`と`defaultLocale`を使用して国際化設定を構成することが、適切な言語が表示されることを保証するために重要です。以下は、アプリケーションのセットアップで`getLocalizedUrl`がどのように使用されるかの例です：
+多言語対応アプリケーションでは、`locales` と `defaultLocale` を設定することで、正しい言語が表示されるようにすることが重要です。以下は、アプリケーション設定で `getLocalizedUrl` を使用する例です:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// サポートされているロケールとデフォルトロケールの構成
+// サポートされているロケールとデフォルトロケールの設定
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -208,9 +208,9 @@ const config = {
 module.exports = config;
 ```
 
-上記の構成により、アプリケーションは`ENGLISH`、`FRENCH`、`SPANISH`をサポートされている言語として認識し、`ENGLISH`をフォールバック言語として使用します。
+上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
 
-この構成を使用すると、`getLocalizedUrl`関数はユーザーの言語設定に基づいて動的にローカライズされたURLを生成できます：
+この設定を使用すると、`getLocalizedUrl` 関数はユーザーの言語設定に基づいて動的にローカライズされたURLを生成できます:
 
 ```typescript
 getLocalizedUrl("/about", Locales.FRENCH); // 出力: "/fr/about"
@@ -218,4 +218,4 @@ getLocalizedUrl("/about", Locales.SPANISH); // 出力: "/es/about"
 getLocalizedUrl("/about", Locales.ENGLISH); // 出力: "/about"
 ```
 
-`getLocalizedUrl`を統合することで、開発者は複数の言語間で一貫したURL構造を維持でき、ユーザー体験とSEOの両方を向上させることができます。
+`getLocalizedUrl` を統合することで、開発者は複数言語間で一貫したURL構造を維持し、ユーザーエクスペリエンスとSEOを向上させることができます。

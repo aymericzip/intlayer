@@ -1,46 +1,46 @@
-# كيف تعمل Intlayer
+# كيف يعمل Intlayer
 
 ## نظرة عامة
 
 دور Intlayer هو تفسير ملفات إعلان محتوى JavaScript إلى قواميس.
 
-لذلك، تمر Intlayer بعدة خطوات:
+لهذا، يمر Intlayer بعدة خطوات:
 
 1. إعلان ملفات المحتوى
 
    - يمكن تعريف ملفات المحتوى بتنسيقات مختلفة، مثل TypeScript، ECMAScript، CommonJS، أو JSON.
-   - يمكن تعريف ملفات المحتوى في أي مكان في المشروع، مما يسمح بتحسين الصيانة وقابلية التوسع. من المهم احترام تقاليد امتدادات الملفات لملفات المحتوى. هذه الإضافة هي بشكل افتراضي `*.content.{js|cjs|mjs|ts|tsx|json}`، ولكن يمكن تعديلها في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+   - يمكن تعريف ملفات المحتوى في أي مكان في المشروع، مما يسمح بصيانة وقابلية التوسع بشكل أفضل. من المهم احترام اتفاقيات امتداد الملفات لملفات المحتوى. هذا الامتداد هو افتراضيًا `*.content.{js|cjs|mjs|ts|tsx|json}`، ولكن يمكن تعديله في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
 
-2. إنتاج القواميس
+2. إنشاء القواميس
 
-   - يتم إنتاج القواميس من ملفات المحتوى. بشكل افتراضي، يتم إنتاج قواميس intlayer في دليل `.intlayer/dictionary` من المشروع.
-   - يمكن إنتاج نوعين من القواميس: قواميس intlayer وقواميس i18n (بيتا).
+   - يتم إنشاء القواميس من ملفات المحتوى. افتراضيًا، يتم إنشاء قواميس intlayer في دليل `.intlayer/dictionary` الخاص بالمشروع.
+   - يمكن إنشاء نوعين من القواميس: قواميس intlayer وقواميس i18n (بيتا).
 
-3. إنتاج أنواع القواميس
+3. إنشاء أنواع القواميس
 
-   - يتم إنتاج أنواع القواميس من قواميس intlayer. بشكل افتراضي، يتم إنتاج أنواع قواميس intlayer في دليل `types` من المشروع.
+   - يتم إنشاء أنواع القواميس من قواميس intlayer. افتراضيًا، يتم إنشاء أنواع قواميس intlayer في دليل `types` الخاص بالمشروع.
 
-4. إنتاج تعزيز وحدة Intlayer
+4. إنشاء تعزيز وحدة Intlayer
 
-   - [تعزيز وحدة Intlayer](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) هو ميزة في TypeScript تتيح لك تعريف أنواع إضافية لـ Intlayer. ويجعل ذلك تجربة التطوير أسهل من خلال اقتراح الحجج المتاحة أو الحجج المطلوبة.
-     من بين الأنواع المنتجة، يتم إضافة أنواع قواميس intlayer أو حتى أنواع تكوين اللغة إلى ملف `types/intlayer.d.ts`، وتستخدم من قبل حزم أخرى. للقيام بذلك، من الضروري أن يكون ملف `tsconfig.json` مكونًا لتضمين دليل` types` من المشروع.
+   - [تعزيز وحدة Intlayer](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) هو ميزة TypeScript تتيح لك تعريف أنواع إضافية لـ Intlayer. هذا يجعل تجربة التطوير أسهل من خلال اقتراح الوسائط المتاحة أو الوسائط المطلوبة.
+     من بين الأنواع التي تم إنشاؤها، يتم إضافة أنواع قواميس intlayer أو حتى أنواع تكوين اللغة إلى ملف `types/intlayer.d.ts`، وتستخدمها الحزم الأخرى. للقيام بذلك، من الضروري أن يتم تكوين ملف `tsconfig.json` لتضمين دليل `types` الخاص بالمشروع.
 
 5. مراقبة ملفات المحتوى
 
-   - يتم مراقبة ملفات المحتوى ليتم إعادة إنتاجها في كل مرة يتم تعديلها.
+   - يتم مراقبة ملفات المحتوى ليتم إعادة إنشائها في كل مرة يتم تعديلها.
 
 6. تفسير القواميس
-   - يتم تفسير القواميس في النهاية لاستخدامها في التطبيقات.
+   - يتم تفسير القواميس أخيرًا لاستخدامها في التطبيقات.
 
 ## الحزم
 
-تتكون Intlayer من عدة حزم، كل منها له دور محدد في عملية الترجمة. إليك تمثيل رسومي لبنية هذه الحزمة:
+يتكون Intlayer من عدة حزم، كل منها له دور محدد في عملية الترجمة. فيما يلي تمثيل رسومي لهيكل هذه الحزمة:
 
 ![حزم intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/packages_dependency_graph.svg)
 
 ### intlayer
 
-تُستخدم حزمة `intlayer` في التطبيقات للإعلان عن المحتوى في ملفات المحتوى.
+تُستخدم حزمة `intlayer` في التطبيقات لإعلان المحتوى في ملفات المحتوى.
 
 ### react-intlayer
 
@@ -48,53 +48,61 @@
 
 ### next-intlayer
 
-تُستخدم حزمة `next-intlayer` كطبقة فوق `react-intlayer` لجعل قواميس intlayer قابلة للاستخدام في تطبيقات Next.js. يدمج ميزات أساسية لجعل Intlayer يعمل في بيئة Next.js، مثل برنامج ترجمة الوساطة، والتوجيه، أو تكوين ملف `next.config.js`.
+تُستخدم حزمة `next-intlayer` كطبقة فوق `react-intlayer` لجعل قواميس intlayer قابلة للاستخدام في تطبيقات Next.js. يتضمن ميزات أساسية لجعل Intlayer يعمل في بيئة Next.js، مثل وسيط الترجمة، التوجيه، أو تكوين ملف `next.config.js`.
 
 ### vite-intlayer
 
-يتضمن إضافة Vite لدمج Intlayer مع [تجميع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى الوسيط لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، والتعامل مع إعادة توجيه عنوان URL.
+تشمل مكون Vite لإدماج Intlayer مع [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط لاكتشاف اللغة المفضلة للمستخدم، وإدارة الكوكيز، ومعالجة إعادة توجيه URL.
 
 ### react-scripts-intlayer
 
-يتضمن أوامر وملحقات `react-scripts-intlayer` لدمج Intlayer مع تطبيق يعتمد على Create React App. تستند هذه الملحقات إلى [craco](https://craco.js.org/) وتتضمن تكوينًا إضافيًا لتجميع [Webpack](https://webpack.js.org/).
+تشمل أوامر ومكونات `react-scripts-intlayer` لإدماج Intlayer مع تطبيقات Create React App. تعتمد هذه المكونات على [craco](https://craco.js.org/) وتشمل تكوينًا إضافيًا لـ [Webpack](https://webpack.js.org/).
 
 ### intlayer-editor
 
-تُستخدم حزمة `intlayer-editor` للسماح باستخدام المحرر المرئي. يمكن تثبيت هذه الحزمة الاختيارية في التطبيقات وستستخدم من قبل حزمة `react-intlayer`.
-تتكون من قسمين: الخادم والعميل.
+تُستخدم حزمة `intlayer-editor` للسماح باستخدام المحرر المرئي. هذه الحزمة اختيارية ويمكن تثبيتها في التطبيقات وستُستخدم بواسطة حزمة `react-intlayer`.
+تتكون من جزئين: الخادم والعميل.
 
-يحتوي العميل على عناصر واجهة المستخدم التي ستستخدمها `react-intlayer`.
+يحتوي العميل على عناصر واجهة المستخدم التي ستُستخدم بواسطة `react-intlayer`.
 
-يستخدم الخادم، المستند إلى Express، لاستقبال الطلبات المرئية للمحرر وإدارة أو تعديل ملفات المحتوى.
+الخادم، المستند إلى Express، يُستخدم لتلقي طلبات المحرر المرئية وإدارة أو تعديل ملفات المحتوى.
 
 ### intlayer-cli
 
-يمكن استخدام حزمة `intlayer-cli` لإنتاج قواميس باستخدام الأمر `npx intlayer build`. إذا كانت حزمة `intlayer` مثبتة بالفعل، يتم تثبيت cli تلقائيًا ولا تكون هذه الحزمة ضرورية.
+يمكن استخدام حزمة `intlayer-cli` لإنشاء القواميس باستخدام الأمر `npx intlayer build`. إذا تم تثبيت `intlayer` بالفعل، يتم تثبيت cli تلقائيًا وهذه الحزمة ليست ضرورية.
 
 ### @intlayer/core
 
-حزمة `@intlayer/core` هي الحزمة الرئيسية لـ Intlayer. تحتوي على وظائف إدارة الترجمة والقواميس. حزمة `@intlayer/core` متعددة المنصات وتستخدم من قبل حزم أخرى لتنفيذ تفسير القواميس.
+حزمة `@intlayer/core` هي الحزمة الرئيسية لـ Intlayer. تحتوي على وظائف الترجمة وإدارة القواميس. `@intlayer/core` متعددة المنصات وتُستخدم من قبل الحزم الأخرى لتنفيذ تفسير القواميس.
 
 ### @intlayer/config
 
-تُستخدم حزمة `@intlayer/config` لتكوين إعدادات Intlayer، مثل اللغات المتاحة، ومعلمات الوسيط لـ Next.js أو إعدادات المحرر المدمج.
+تُستخدم حزمة `@intlayer/config` لتكوين إعدادات Intlayer، مثل اللغات المتاحة، معلمات وسيط Next.js أو إعدادات المحرر المدمج.
 
 ### @intlayer/webpack
 
-تستخدم حزمة `@intlayer/webpack` لتوفير تكوين Webpack لجعل العمل على تطبيق قائم على Webpack مع Intlayer. توفر الحزمة أيضًا ملحقًا للإضافة إلى تطبيق Webpack موجود.
+تُستخدم حزمة `@intlayer/webpack` لتوفير تكوين Webpack لجعل تطبيق يعتمد على Webpack يعمل مع Intlayer. توفر الحزمة أيضًا مكونًا إضافيًا لإضافته إلى تطبيق Webpack موجود.
 
 ### @intlayer/cli
 
-تُعتبر حزمة `@intlayer/cli` حزمة NPM تستخدم لإعلان النص المرتبط بواجهات الأوامر الخاصة بـ intlayer. تضمن التناسق لجميع أوامر CLI الخاصة بـ intlayer. يتم استهلاك هذه الحزمة بشكل ملحوظ من قبل [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/ar/packages/intlayer-cli/index.md)، و [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ar/packages/intlayer/index.md) الحزم.
+حزمة `@intlayer/cli` هي حزمة NPM تُستخدم لإعلان السكربتات المتعلقة بواجهات أوامر intlayer. تضمن توحيد جميع أوامر CLI الخاصة بـ intlayer. يتم استهلاك هذه الحزمة بشكل خاص من قبل [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/ar/packages/intlayer-cli/index.md)، و [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ar/packages/intlayer/index.md).
 
 ### @intlayer/dictionaries-entry
 
-تُعتبر حزمة `@intlayer/dictionaries-entry` حزمة تعيد فقط مسار إدخال قواميس intlayer. نظرًا لأن البحث في نظام الملفات غير ممكن من المتصفح، فإن استخدام تجميعات مثل Webpack أو Rollup لاسترداد مسار الإدخال للقواميس غير ممكن. تهدف هذه الحزمة إلى أن تُعطى تسميات مستعارة.
+حزمة `@intlayer/dictionaries-entry` هي حزمة تُرجع فقط مسار الإدخال لقواميس intlayer. نظرًا لأن البحث في نظام الملفات غير ممكن من المتصفح، فإن استخدام أدوات التجميع مثل Webpack أو Rollup لاسترداد مسار الإدخال للقواميس غير ممكن. تهدف هذه الحزمة إلى أن تكون مستبدلة.
 
 ### @intlayer/chokidar
 
-تُستخدم حزمة `@intlayer/chokidar` لمراقبة ملفات المحتوى وإعادة إنتاج القاموس المعدل عند كل تعديل.
+تُستخدم حزمة `@intlayer/chokidar` لمراقبة ملفات المحتوى وإعادة إنشاء القاموس المعدل عند كل تعديل.
 
-## التحدث مع وثائقنا الذكية
+### @intlayer/editor
 
-- [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/docs/chat)
+توفر حزمة `@intlayer/editor` الأدوات المتعلقة بمحرر القواميس. تشمل بشكل خاص API لربط تطبيق مع محرر Intlayer، وأدوات للتعامل مع القواميس. هذه الحزمة متعددة المنصات.
+
+### @intlayer/editor-react
+
+توفر حزمة `@intlayer/editor-react` حالات، وسياقات، وخطافات، ومكونات لربط تطبيق React مع محرر Intlayer.
+
+## الدردشة مع وثائقنا الذكية
+
+- [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/ar/docs/chat)

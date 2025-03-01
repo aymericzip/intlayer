@@ -1,49 +1,49 @@
-# React Integration: `useDictionary` Hook Documentation
+# React एकीकरण: `useDictionary` हुक दस्तावेज़ीकरण
 
-यह अनुभाग React अनुप्रयोगों में `useDictionary` हुक का उपयोग करने पर विस्तृत मार्गदर्शन प्रदान करता है, जो दृश्य संपादक के बिना स्थानीयकृत सामग्री को कुशलता से संभालने की अनुमति देता है।
+यह अनुभाग React अनुप्रयोगों में `useDictionary` हुक का उपयोग करने पर विस्तृत मार्गदर्शन प्रदान करता है, जो दृश्य संपादक के बिना स्थानीयकृत सामग्री को कुशलतापूर्वक संभालने में सक्षम बनाता है।
 
-## Importing `useDictionary` in React
+## React में `useDictionary` आयात करना
 
-`useDictionary` हुक को React अनुप्रयोगों में संदर्भ के आधार पर आयात करके एकीकृत किया जा सकता है:
+React अनुप्रयोगों में `useDictionary` हुक को संदर्भ के आधार पर आयात करके एकीकृत किया जा सकता है:
 
 - **क्लाइंट घटक:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // क्लाइंट साइड React घटकों में उपयोग किया जाता है
+  import { useDictionary } from "react-intlayer"; // क्लाइंट-साइड React घटकों में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // क्लाइंट साइड React घटकों में उपयोग किया जाता है
+  import { useDictionary } from "react-intlayer"; // क्लाइंट-साइड React घटकों में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // क्लाइंट साइड React घटकों में उपयोग किया जाता है
+  const { useDictionary } = require("react-intlayer"); // क्लाइंट-साइड React घटकों में उपयोग किया जाता है
   ```
 
 - **सर्वर घटक:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // सर्वर साइड React घटकों में उपयोग किया जाता है
+  import { useDictionary } from "react-intlayer/server"; // सर्वर-साइड React घटकों में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // सर्वर साइड React घटकों में उपयोग किया जाता है
+  import { useDictionary } from "react-intlayer/server"; // सर्वर-साइड React घटकों में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // सर्वर साइड React घटकों में उपयोग किया जाता है
+  const { useDictionary } = require("react-intlayer/server"); // सर्वर-साइड React घटकों में उपयोग किया जाता है
   ```
 
-## Parameters
+## पैरामीटर
 
 हुक दो पैरामीटर स्वीकार करता है:
 
-1. **`dictionary`**: एक घोषित शब्दकोश वस्तु जिसमें विशिष्ट कुंजी के लिए स्थानीयकृत सामग्री होती है।
-2. **`locale`** (वैकल्पिक): इच्छित स्थानीय भाषा। यदि निर्दिष्ट नहीं किया गया है तो वर्तमान संदर्भ की स्थानीय भाषा पर डिफ़ॉल्ट होता है।
+1. **`dictionary`**: एक घोषित शब्दकोश वस्तु जिसमें विशिष्ट कुंजियों के लिए स्थानीयकृत सामग्री होती है।
+2. **`locale`** (वैकल्पिक): वांछित लोकेल। यदि निर्दिष्ट नहीं किया गया है, तो यह वर्तमान संदर्भ के लोकेल पर डिफ़ॉल्ट होता है।
 
-## Dictionary
+## शब्दकोश
 
-सभी शब्दकोश वस्तुओं को संरचित सामग्री फ़ाइलों में घोषित किया जाना चाहिए ताकि प्रकार सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों से बचा जा सके। आप सेटअप निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) पाएंगे। यहां सामग्री घोषणा का एक उदाहरण है:
+सभी शब्दकोश वस्तुओं को संरचित सामग्री फ़ाइलों में घोषित किया जाना चाहिए ताकि प्रकार सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों को रोका जा सके। सेटअप निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) पाए जा सकते हैं। यहाँ सामग्री घोषणा का एक उदाहरण है:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -55,11 +55,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      hi: "क्लाइंट घटक उदाहरण",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      hi: "यह क्लाइंट घटक उदाहरण की सामग्री है",
     }),
   },
 } satisfies Dictionary;
@@ -78,11 +80,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      hi: "क्लाइंट घटक उदाहरण",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      hi: "यह क्लाइंट घटक उदाहरण की सामग्री है",
     }),
   },
 };
@@ -101,11 +105,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      hi: "क्लाइंट घटक उदाहरण",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      hi: "यह क्लाइंट घटक उदाहरण की सामग्री है",
     }),
   },
 };
@@ -123,7 +129,8 @@ module.exports = componentContent;
       "translation": {
         "en": "Client Component Example",
         "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente"
+        "es": "Ejemplo de componente cliente",
+        "hi": "क्लाइंट घटक उदाहरण"
       }
     },
     "content": {
@@ -131,16 +138,17 @@ module.exports = componentContent;
       "translation": {
         "en": "This is the content of a client component example",
         "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente"
+        "es": "Este es el contenido de un ejemplo de componente cliente",
+        "hi": "यह क्लाइंट घटक उदाहरण की सामग्री है"
       }
     }
   }
 }
 ```
 
-## Example Usage in React
+## React में उपयोग का उदाहरण
 
-नीचे एक उदाहरण दिया गया है कि कैसे `useDictionary` हुक को एक React घटक में उपयोग किया जाए:
+नीचे React घटक में `useDictionary` हुक का उपयोग करने का एक उदाहरण दिया गया है:
 
 ```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -191,9 +199,9 @@ const ComponentExample = () => {
 };
 ```
 
-## Server Integration
+## सर्वर एकीकरण
 
-यदि आप `IntlayerProvider` के बाहर `useDictionary` हुक का उपयोग कर रहे हैं, तो घटक को रेंडर करते समय स्थानीय भाषा को स्पष्ट रूप से पैरामीटर के रूप में प्रदान करना होगा:
+यदि आप `IntlayerProvider` के बाहर `useDictionary` हुक का उपयोग कर रहे हैं, तो घटक को रेंडर करते समय लोकेल को स्पष्ट रूप से पैरामीटर के रूप में प्रदान करना आवश्यक है:
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -244,17 +252,17 @@ const ServerComponentExample = ({ locale }) => {
 };
 ```
 
-## Notes on Attributes
+## विशेषताओं पर नोट्स
 
-दृश्य संपादकों का उपयोग करने वाली संपूर्णताओं के विपरीत, यहाँ गुण जैसे `buttonTitle.value` लागू नहीं होते हैं। इसके बजाय, आपकी सामग्री में दर्ज स्थानीयकृत स्ट्रिंग को सीधे एक्सेस करें।
+दृश्य संपादकों का उपयोग करने वाले एकीकरणों के विपरीत, `buttonTitle.value` जैसे विशेषताएँ यहाँ लागू नहीं होती हैं। इसके बजाय, अपनी सामग्री में घोषित स्थानीयकृत स्ट्रिंग्स को सीधे एक्सेस करें।
 
 ```jsx
 <button title={content.title}>{content.content}</button>
 ```
 
-## Additional Tips
+## अतिरिक्त सुझाव
 
-- **Type Safety**: हमेशा अपने शब्दकोशों को परिभाषित करने के लिए `Dictionary` का उपयोग करें ताकि प्रकार सुरक्षा सुनिश्चित हो सके।
-- **Localization Updates**: जब सामग्री अपडेट की जाती है, तो सभी स्थानीय भाषाएँ सुसंगत होने का सुनिश्चित करें ताकि अनुवाद गायब न हों।
+- **प्रकार सुरक्षा**: अपने शब्दकोशों को परिभाषित करने के लिए हमेशा `Dictionary` का उपयोग करें ताकि प्रकार सुरक्षा सुनिश्चित हो सके।
+- **स्थानीयकरण अपडेट**: सामग्री को अपडेट करते समय, सभी लोकेल को सुसंगत रखें ताकि अनुवाद छूटने से बचा जा सके।
 
-यह दस्तावेज़ `useDictionary` हुक के एकीकरण पर केंद्रित है, जो दृश्य संपादक कार्यक्षमता पर निर्भर किए बिना स्थानीयकृत सामग्री को प्रबंधित करने के लिए एक सुव्यवस्थित दृष्टिकोण प्रदान करता है।
+यह दस्तावेज़ीकरण `useDictionary` हुक के एकीकरण पर केंद्रित है, जो दृश्य संपादक कार्यक्षमताओं पर निर्भर किए बिना स्थानीयकृत सामग्री को प्रबंधित करने के लिए एक सुव्यवस्थित दृष्टिकोण प्रदान करता है।

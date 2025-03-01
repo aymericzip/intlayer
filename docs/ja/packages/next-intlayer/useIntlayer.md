@@ -1,10 +1,10 @@
-# Next.js Integration: `useIntlayer` Hook Documentation
+# Next.js統合: `useIntlayer`フックのドキュメント
 
-`useIntlayer`フックは、Next.jsアプリケーション向けにローカライズされたコンテンツを効率的に取得し、管理するためにカスタマイズされています。このドキュメントでは、Next.jsプロジェクト内でフックを利用する方法に焦点を当て、適切なローカリゼーションプラクティスを確保します。
+`useIntlayer`フックは、Next.jsアプリケーション向けに設計されており、ローカライズされたコンテンツを効率的に取得および管理するためのものです。このドキュメントでは、Next.jsプロジェクト内でフックを利用する方法に焦点を当て、適切なローカライゼーションの実践を確保します。
 
 ## Next.jsでの`useIntlayer`のインポート
 
-Next.jsアプリケーションでクライアントサイドまたはサーバーサイドコンポーネントを作業しているかに応じて、次のように`useIntlayer`フックをインポートできます。
+Next.jsアプリケーションでクライアントサイドまたはサーバーサイドのコンポーネントを操作するかに応じて、以下のように`useIntlayer`フックをインポートできます。
 
 - **クライアントコンポーネント:**
 
@@ -36,18 +36,18 @@ Next.jsアプリケーションでクライアントサイドまたはサーバ�
 
 ## パラメータ
 
-1. **`key`**: 取得したいコンテンツの辞書キーの識別子を示す文字列。
-2. **`locale`**（オプション）: 使用する特定のロケール。省略された場合、フックはクライアントまたはサーバーのコンテキストで設定されたロケールをデフォルトとして使用します。
+1. **`key`**: 取得したいコンテンツの辞書キーを示す文字列識別子。
+2. **`locale`** (オプション): 使用する特定のロケール。省略された場合、フックはクライアントまたはサーバーコンテキストで設定されたロケールをデフォルトとして使用します。
 
-## コンテンツ宣言ファイル
+## 辞書ファイル
 
-すべてのコンテンツキーは、ランタイムエラーを防ぎ、型安全性を確保するためにコンテンツ宣言ファイル内で定義されていることが重要です。このアプローチは、コンパイル時のバリデーションのためにTypeScriptとの統合も容易にします。
+すべてのコンテンツキーがコンテンツ宣言ファイル内で定義されていることが重要です。これにより、ランタイムエラーを防ぎ、型安全性を確保できます。このアプローチは、TypeScript統合を容易にし、コンパイル時の検証を可能にします。
 
-コンテンツ宣言ファイルのセットアップに関する指示は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)で入手できます。
+コンテンツ宣言ファイルの設定手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)をご覧ください。
 
-## Next.jsでの例
+## Next.jsでの使用例
 
-Next.jsページ内で`useIntlayer`フックを実装し、アプリケーションの現在のロケールに基づいてローカライズされたコンテンツを動的にロードする方法は次のとおりです。
+以下は、`useIntlayer`フックをNext.jsページ内で実装し、アプリケーションの現在のロケールに基づいてローカライズされたコンテンツを動的にロードする方法です。
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -222,16 +222,16 @@ const ServerComponentExample = () => {
 };
 ```
 
-## 属性ローカリゼーションの処理
+## 属性ローカライゼーションの処理
 
-`alt`、`title`、`href`、`aria-label`などの属性をローカライズするには、コンテンツを正しく参照することを確認してください。
+`alt`、`title`、`href`、`aria-label`などの属性をローカライズするには、コンテンツを正しく参照してください。
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
 ```
 
-## さらなる情報
+## 詳細情報
 
-- **Intlayerビジュアルエディタ**: より簡単にコンテンツを管理するためのビジュアルエディタの使い方については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_editor.md)をご覧ください。
+- **Intlayerビジュアルエディタ**: コンテンツ管理を容易にするビジュアルエディタの使用方法については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
-このドキュメントでは、Next.js環境内で特に`useIntlayer`フックの使用を概説しており、Next.jsアプリケーション全体でのローカリゼーション管理の堅牢なソリューションを提供します。
+このドキュメントは、Next.js環境内での`useIntlayer`フックの使用に特化しており、Next.jsアプリケーション全体でローカライゼーションを管理するための堅牢なソリューションを提供します。

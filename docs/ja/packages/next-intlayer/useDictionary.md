@@ -1,49 +1,49 @@
-# React Integration: `useDictionary` フックのドキュメンテーション
+# React統合: `useDictionary`フックドキュメント
 
-このセクションでは、React アプリケーション内で `useDictionary` フックを使用するための詳細なガイダンスを提供し、視覚エディタなしでローカライズされたコンテンツの効率的な処理を可能にします。
+このセクションでは、Reactアプリケーション内で`useDictionary`フックを使用するための詳細なガイダンスを提供します。これにより、ビジュアルエディタを使用せずに効率的にローカライズされたコンテンツを処理できます。
 
-## React での `useDictionary` のインポート
+## Reactでの`useDictionary`のインポート
 
-`useDictionary` フックは、コンテキストに基づいて React アプリケーションに統合できます:
+`useDictionary`フックは、コンテキストに基づいてインポートすることでReactアプリケーションに統合できます。
 
 - **クライアントコンポーネント:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "next-intlayer"; // クライアントサイドの React コンポーネントで使用
+  import { useDictionary } from "next-intlayer"; // クライアントサイドのReactコンポーネントで使用
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "next-intlayer"; // クライアントサイドの React コンポーネントで使用
+  import { useDictionary } from "next-intlayer"; // クライアントサイドのReactコンポーネントで使用
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("next-intlayer"); // クライアントサイドの React コンポーネントで使用
+  const { useDictionary } = require("next-intlayer"); // クライアントサイドのReactコンポーネントで使用
   ```
 
 - **サーバーコンポーネント:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "next-intlayer/server"; // サーバーサイドの React コンポーネントで使用
+  import { useDictionary } from "next-intlayer/server"; // サーバーサイドのReactコンポーネントで使用
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "next-intlayer/server"; // サーバーサイドの React コンポーネントで使用
+  import { useDictionary } from "next-intlayer/server"; // サーバーサイドのReactコンポーネントで使用
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("next-intlayer/server"); // サーバーサイドの React コンポーネントで使用
+  const { useDictionary } = require("next-intlayer/server"); // サーバーサイドのReactコンポーネントで使用
   ```
 
 ## パラメータ
 
-このフックは2つのパラメータを受け取ります：
+このフックは2つのパラメータを受け取ります:
 
 1. **`dictionary`**: 特定のキーに対するローカライズされたコンテンツを含む宣言された辞書オブジェクト。
-2. **`locale`**（オプション）: 希望するロケール。指定されていない場合は、現在のコンテキストのロケールがデフォルトとして使用されます。
+2. **`locale`** (オプション): 希望するロケール。指定されていない場合は現在のコンテキストのロケールがデフォルトになります。
 
-## コンテンツ宣言
+## 辞書
 
-すべての辞書オブジェクトは、型安全性を確保し、ランタイムエラーを防ぐために構造化されたコンテンツファイルに宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)で確認できます。以下はコンテンツ宣言の例です：
+すべての辞書オブジェクトは、型安全性を確保し、実行時エラーを防ぐために構造化されたコンテンツファイルで宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)をご覧ください。以下はコンテンツ宣言の例です:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -113,9 +113,9 @@ const exampleContent = {
 module.exports = exampleContent;
 ```
 
-## React クライアントコンポーネントでの使用例
+## Reactクライアントコンポーネントでの使用例
 
-以下は、React コンポーネント内で `useDictionary` フックを使用する方法の例です：
+以下は、Reactコンポーネントで`useDictionary`フックを使用する例です:
 
 ```tsx fileName="ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -173,9 +173,9 @@ const ClientComponentExample = () => {
 };
 ```
 
-## React サーバーコンポーネントでの使用例
+## Reactサーバーコンポーネントでの使用例
 
-`useDictionary` フックを `IntlayerServerProvider` の外で使用する場合、コンポーネントのレンダリング時にロケールを明示的にパラメータとして提供する必要があります：
+`IntlayerServerProvider`の外部で`useDictionary`フックを使用する場合、コンポーネントをレンダリングする際にロケールを明示的に指定する必要があります:
 
 ```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -226,9 +226,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## 属性に関する注意事項
+## 属性に関する注意点
 
-視覚エディタを使用した統合とは異なり、`buttonTitle.value` のような属性はここでは適用されません。代わりに、コンテンツに宣言されたローカライズされた文字列に直接アクセスしてください。
+ビジュアルエディタを使用する統合とは異なり、`buttonTitle.value`のような属性はここでは適用されません。代わりに、コンテンツで宣言されたローカライズされた文字列に直接アクセスします。
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -236,7 +236,7 @@ const ServerComponentExample = () => {
 
 ## 追加のヒント
 
-- **型安全性**: 辞書を定義する際には、常に `Dictionary` を使用して型安全性を確保してください。
-- **ローカライズの更新**: コンテンツを更新する際には、すべてのロケールが一貫していることを確認し、翻訳の欠落を避けてください。
+- **型安全性**: 辞書を定義する際は常に`Dictionary`を使用して型安全性を確保してください。
+- **ローカライズの更新**: コンテンツを更新する際は、すべてのロケールが一貫していることを確認し、翻訳漏れを防いでください。
 
-このドキュメントは、視覚エディタの機能に依存することなく、ローカライズされたコンテンツを管理するための合理化されたアプローチを提供する、`useDictionary` フックの統合に焦点を当てています。
+このドキュメントは、`useDictionary`フックの統合に焦点を当てており、ビジュアルエディタ機能に依存せずにローカライズされたコンテンツを管理するための効率的なアプローチを提供します。

@@ -1,8 +1,8 @@
-# @intlayer/editor: حزمة NPM توفر الأدوات لتوصيل التطبيق مع محرر Intlayer والتلاعب بالقواميس
+# @intlayer/editor: حزمة NPM توفر أدوات للتفاعل مع التطبيق باستخدام محرر Intlayer ومعالجة القواميس
 
-**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React، Next.js، و Express.js.
+**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React و Next.js و Express.js.
 
-تقدم حزمة **`intlayer-editor`** أدوات لتوصيل التطبيق مع محرر Intlayer. تتضمن واجهة برمجة التطبيقات للتفاعل مع المحرر، وأدوات للتلاعب بالقواميس. هذه الحزمة متعددة المنصات.
+حزمة **`intlayer-editor`** توفر أدوات للتفاعل مع التطبيق باستخدام محرر Intlayer. تتضمن واجهة برمجة التطبيقات للتفاعل مع المحرر، وأدوات لمعالجة القواميس. هذه الحزمة متعددة المنصات.
 
 ## التثبيت
 
@@ -19,5 +19,3 @@ yarn add @intlayer/editor
 ```bash
 pnpm add @intlayer/editor
 ```
-
-You are trained on data up to October 2023.

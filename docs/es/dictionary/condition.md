@@ -1,12 +1,12 @@
 # Contenido Condicional / Condición en Intlayer
 
-## Cómo funciona la condición
+## Cómo Funciona la Condición
 
-En Intlayer, el contenido condicional se logra a través de la función `cond`, que asigna condiciones específicas (típicamente valores booleanos) a su contenido correspondiente. Este enfoque le permite seleccionar dinámicamente el contenido en función de una condición dada. Cuando se integra con React Intlayer o Next Intlayer, el contenido apropiado se elige automáticamente de acuerdo con la condición proporcionada en tiempo de ejecución.
+En Intlayer, el contenido condicional se logra a través de la función `cond`, que asigna condiciones específicas (típicamente valores booleanos) a su contenido correspondiente. Este enfoque permite seleccionar dinámicamente el contenido basado en una condición dada. Cuando se integra con React Intlayer o Next Intlayer, el contenido apropiado se elige automáticamente según la condición proporcionada en tiempo de ejecución.
 
-## Configuración del contenido condicional
+## Configuración de Contenido Condicional
 
-Para configurar contenido condicional en su proyecto Intlayer, cree un módulo de contenido que incluya sus definiciones condicionales. A continuación se muestran ejemplos en varios formatos.
+Para configurar contenido condicional en tu proyecto Intlayer, crea un módulo de contenido que incluya tus definiciones condicionales. A continuación, se muestran ejemplos en varios formatos.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { cond, type Dictionary } from "intlayer";
@@ -80,9 +80,9 @@ module.exports = myConditionalContent;
 
 > Si no se declara un fallback, la última clave declarada se tomará como fallback si la condición no se valida.
 
-## Uso de contenido condicional con React Intlayer
+## Uso de Contenido Condicional con React Intlayer
 
-Para utilizar contenido condicional dentro de un componente React, importe y use el hook `useIntlayer` del paquete `react-intlayer`. Este hook obtiene el contenido para la clave especificada y le permite pasar una condición para seleccionar la salida adecuada.
+Para utilizar contenido condicional dentro de un componente React, importa y usa el hook `useIntlayer` del paquete `react-intlayer`. Este hook obtiene el contenido para la clave especificada y te permite pasar una condición para seleccionar la salida apropiada.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -202,12 +202,12 @@ const ConditionalComponent = () => {
 module.exports = ConditionalComponent;
 ```
 
-## Recursos adicionales
+## Recursos Adicionales
 
-Para información más detallada sobre la configuración y el uso, consulte los siguientes recursos:
+Para obtener información más detallada sobre la configuración y el uso, consulta los siguientes recursos:
 
-- [Documentación del CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md)
+- [Documentación de Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md)
 - [Documentación de React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_create_react_app.md)
 - [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_nextjs_15.md)
 
-Estos recursos ofrecen más información sobre la configuración y uso de Intlayer en diversos entornos y marcos.
+Estos recursos ofrecen más información sobre la configuración y el uso de Intlayer en diversos entornos y frameworks.

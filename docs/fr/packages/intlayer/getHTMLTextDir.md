@@ -1,64 +1,64 @@
-# Documentation: `getHTMLTextDir` Function in `intlayer`
+# Documentation: `getHTMLTextDir` Fonction dans `intlayer`
 
 ## Description
 
-La fonction `getHTMLTextDir` détermine la direction du texte (`ltr`, `rtl` ou `auto`) en fonction du locale fourni. Elle est conçue pour aider les développeurs à définir l'attribut `dir` dans HTML pour un rendu correct du texte.
+La fonction `getHTMLTextDir` détermine la direction du texte (`ltr`, `rtl` ou `auto`) en fonction de la locale fournie. Elle est conçue pour aider les développeurs à définir l'attribut `dir` dans HTML pour un rendu correct du texte.
 
-## Parameters
+## Paramètres
 
 - `locale?: Locales`
 
-  - **Description**: La chaîne de locale (par exemple, `Locales.ENGLISH`, `Locales.ARABIC`) utilisée pour déterminer la direction du texte.
-  - **Type**: `Locales` (optionnel)
+  - **Description** : La chaîne de locale (par exemple, `Locales.ENGLISH`, `Locales.ARABIC`) utilisée pour déterminer la direction du texte.
+  - **Type** : `Locales` (optionnel)
 
-## Returns
+## Retours
 
-- **Type**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
-- **Description**: La direction du texte correspondant au locale :
+- **Type** : `Dir` (`'ltr' | 'rtl' | 'auto'`)
+- **Description** : La direction du texte correspondant à la locale :
   - `'ltr'` pour les langues de gauche à droite.
   - `'rtl'` pour les langues de droite à gauche.
-  - `'auto'` si le locale n'est pas reconnu.
+  - `'auto'` si la locale n'est pas reconnue.
 
-## Example Usage
+## Exemple d'utilisation
 
-### Détermination de la direction du texte :
+### Déterminer la direction du texte
 
 ```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
 
-getHTMLTextDir(Locales.ENGLISH); // Sortie : "ltr"
-getHTMLTextDir(Locales.FRENCH); // Sortie : "ltr"
-getHTMLTextDir(Locales.ARABIC); // Sortie : "rtl"
+getHTMLTextDir(Locales.ENGLISH); // Résultat : "ltr"
+getHTMLTextDir(Locales.FRENCH); // Résultat : "ltr"
+getHTMLTextDir(Locales.ARABIC); // Résultat : "rtl"
 ```
 
 ```javascript codeFormat="esm"
 import { getHTMLTextDir } from "intlayer";
 
-getHTMLTextDir(Locales.ENGLISH); // Sortie : "ltr"
-getHTMLTextDir(Locales.FRENCH); // Sortie : "ltr"
-getHTMLTextDir(Locales.ARABIC); // Sortie : "rtl"
+getHTMLTextDir(Locales.ENGLISH); // Résultat : "ltr"
+getHTMLTextDir(Locales.FRENCH); // Résultat : "ltr"
+getHTMLTextDir(Locales.ARABIC); // Résultat : "rtl"
 ```
 
 ```javascript codeFormat="commonjs"
 const { getHTMLTextDir } = require("intlayer");
 
-getHTMLTextDir(Locales.ENGLISH); // Sortie : "ltr"
-getHTMLTextDir(Locales.FRENCH); // Sortie : "ltr"
-getHTMLTextDir(Locales.ARABIC); // Sortie : "rtl"
+getHTMLTextDir(Locales.ENGLISH); // Résultat : "ltr"
+getHTMLTextDir(Locales.FRENCH); // Résultat : "ltr"
+getHTMLTextDir(Locales.ARABIC); // Résultat : "rtl"
 ```
 
-## Edge Cases
+## Cas particuliers
 
-- **Aucun locale fourni :**
+- **Aucune locale fournie :**
 
-  - La fonction renvoie `'auto'` lorsque `locale` est `undefined`.
+  - La fonction retourne `'auto'` lorsque `locale` est `undefined`.
 
-- **Locale non reconnu :**
-  - Pour les locales non reconnues, la fonction par défaut est `'auto'`.
+- **Locale non reconnue :**
+  - Pour les locales non reconnues, la fonction retourne par défaut `'auto'`.
 
-## Usage dans les composants :
+## Utilisation dans les composants :
 
-La fonction `getHTMLTextDir` peut être utilisée pour définir dynamiquement l'attribut `dir` dans un document HTML pour un rendu correct du texte en fonction du locale.
+La fonction `getHTMLTextDir` peut être utilisée pour définir dynamiquement l'attribut `dir` dans un document HTML pour un rendu correct du texte en fonction de la locale.
 
 ```tsx codeFormat="typescript"
 import type { FC } from "react";
@@ -94,4 +94,4 @@ const HTMLLayout = ({ children, locale }) => (
 );
 ```
 
-Dans l'exemple ci-dessus, l'attribut `dir` est défini dynamiquement en fonction du locale.
+Dans l'exemple ci-dessus, l'attribut `dir` est défini dynamiquement en fonction de la locale.

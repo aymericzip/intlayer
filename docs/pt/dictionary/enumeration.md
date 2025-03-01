@@ -2,7 +2,7 @@
 
 ## Como Funciona a Enumeração
 
-No Intlayer, a enumeração é realizada através da função `enu`, que mapeia chaves específicas para seu conteúdo correspondente. Essas chaves podem representar valores numéricos, intervalos ou identificadores personalizados. Quando utilizado com React Intlayer ou Next Intlayer, o conteúdo apropriado é automaticamente selecionado com base no idioma do aplicativo e nas regras definidas.
+No Intlayer, a enumeração é realizada através da função `enu`, que mapeia chaves específicas para seu conteúdo correspondente. Essas chaves podem representar valores numéricos, intervalos ou identificadores personalizados. Quando usado com React Intlayer ou Next Intlayer, o conteúdo apropriado é automaticamente selecionado com base no locale da aplicação e nas regras definidas.
 
 ## Configurando a Enumeração
 
@@ -96,9 +96,9 @@ module.exports = carEnumeration;
 
 Neste exemplo, `enu` mapeia várias condições para conteúdos específicos. Quando usado em um componente React, o Intlayer pode escolher automaticamente o conteúdo apropriado com base na variável fornecida.
 
-> A ordem de declaração é importante nas enumerações do Intlayer. A primeira declaração válida será a utilizada. Se várias condições se aplicarem, certifique-se de que elas estejam ordenadas corretamente para evitar comportamentos inesperados.
+> A ordem de declaração é importante nas enumerações do Intlayer. A primeira declaração válida é a que será escolhida. Se várias condições se aplicarem, certifique-se de que estão ordenadas corretamente para evitar comportamentos inesperados.
 
-> Se nenhum valor padrão (`fallback`) for declarado, a função retornará `undefined` caso nenhuma chave corresponda.
+> Se nenhum fallback for declarado, a função retornará `undefined` se nenhuma chave corresponder.
 
 ## Usando Enumeração com React Intlayer
 
@@ -208,7 +208,7 @@ const CarComponent = () => {
 module.exports = CarComponent;
 ```
 
-Neste exemplo, o componente ajusta dinamicamente sua saída com base no número de carros. O conteúdo correto é automaticamente escolhido, dependendo do intervalo especificado.
+Neste exemplo, o componente ajusta dinamicamente sua saída com base no número de carros. O conteúdo correto é escolhido automaticamente, dependendo do intervalo especificado.
 
 ## Recursos Adicionais
 
@@ -218,4 +218,4 @@ Para informações mais detalhadas sobre configuração e uso, consulte os segui
 - [Documentação do React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_create_react_app.md)
 - [Documentação do Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_nextjs_15.md)
 
-Esses recursos fornecem mais informações sobre a configuração e o uso do Intlayer em diferentes ambientes e com vários frameworks.
+Esses recursos fornecem mais informações sobre a configuração e uso do Intlayer em diferentes ambientes e com vários frameworks.

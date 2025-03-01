@@ -1,8 +1,8 @@
 # @intlayer/config: Pacchetto NPM per recuperare la configurazione di Intlayer
 
-**Intlayer** è una suite di pacchetti progettati specificamente per gli sviluppatori JavaScript. È compatibile con framework come React, React e Express.js.
+**Intlayer** è una suite di pacchetti progettata specificamente per gli sviluppatori JavaScript. È compatibile con framework come React, React e Express.js.
 
-Il pacchetto **`@intlayer/config`** è un pacchetto NPM che ti permette di recuperare la configurazione di Intlayer e definire le variabili di ambiente relative all'ambiente corrente.
+Il pacchetto **`@intlayer/config`** è un pacchetto NPM che consente di recuperare la configurazione di Intlayer e definire le variabili di ambiente relative all'ambiente corrente.
 
 ## Installazione
 
@@ -22,7 +22,7 @@ yarn add @intlayer/config
 
 ## Utilizzo
 
-### Leggi la configurazione di Intlayer utilizzando il file system
+### Leggere la configurazione di Intlayer utilizzando il file system
 
 Esempio:
 
@@ -41,9 +41,9 @@ console.log(config);
 // }
 ```
 
-> Questa funzione utilizza il pacchetto `fs` e funzionerà solo sul lato server.
+> Questa funzione utilizza i pacchetti `fs` e funzionerà solo lato server.
 
-### Leggi la configurazione di Intlayer utilizzando le variabili di ambiente
+### Leggere la configurazione di Intlayer utilizzando le variabili di ambiente
 
 Esempio:
 
@@ -66,7 +66,7 @@ console.log(config);
 
 > Questa funzione non restituirà nulla se le variabili di ambiente non sono definite.
 
-### Definisci le variabili di ambiente
+### Definire le variabili di ambiente
 
 1. Crea un file di configurazione.
 
@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Vedi [documentazione sulla configurazione di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md) per ulteriori dettagli.
+> Consulta la [documentazione sulla configurazione di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md) per maggiori dettagli.
 
 2. Definisci le variabili di ambiente.
 

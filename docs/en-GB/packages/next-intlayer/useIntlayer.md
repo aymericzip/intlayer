@@ -1,6 +1,6 @@
 # Next.js Integration: `useIntlayer` Hook Documentation
 
-The `useIntlayer` hook is tailored for Next.js applications to fetch and manage localized content efficiently. This documentation will focus on how to utilize the hook within Next.js projects, ensuring proper localization practices.
+The `useIntlayer` hook is tailored for Next.js applications to fetch and manage localized content efficiently. This documentation will focus on how to utilise the hook within Next.js projects, ensuring proper localisation practices.
 
 ## Importing `useIntlayer` in Next.js
 
@@ -47,9 +47,9 @@ Instructions for setting up content declaration files are available [here](https
 
 ## Example Usage in Next.js
 
-Here's how you can implement the `useIntlayer` hook within a Next.js page to dynamically load localized content based on the application's current locale:
+Here's how you can implement the `useIntlayer` hook within a Next.js page to dynamically load localised content based on the application's current locale:
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx fileName="src/pages/{{locale}}/index.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -74,7 +74,7 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
 };
 ```
 
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="esm"
+```jsx fileName="src/pages/{{locale}}/index.csx" codeFormat="esm"
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
 import { IntlayerClientProvider } from "next-intlayer";
@@ -222,9 +222,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Handling Attribute Localization
+## Handling Attribute Localisation
 
-To localize attributes such as `alt`, `title`, `href`, `aria-label`, etc., ensure you reference the content correctly:
+To localise attributes such as `alt`, `title`, `href`, `aria-label`, etc., ensure you reference the content correctly:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
@@ -232,6 +232,6 @@ To localize attributes such as `alt`, `title`, `href`, `aria-label`, etc., ensur
 
 ## Further Information
 
-- **Intlayer Visual Editor**: Learn how to use the visual editor for easier content management [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md).
+- **Intlayer Visual Editor**: Learn how to use the visual editor for easier content management [here](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_visual_editor.md).
 
-This documentation outlines the use of the `useIntlayer` hook specifically within Next.js environments, providing a robust solution for managing localization across your Next.js applications.
+This documentation outlines the use of the `useIntlayer` hook specifically within Next.js environments, providing a robust solution for managing localisation across your Next.js applications.

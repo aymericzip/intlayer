@@ -1,8 +1,8 @@
-# Iniziare con la dichiarazione del proprio contenuto
+# Iniziare la dichiarazione del tuo contenuto
 
 ## Estensioni dei file
 
-Per impostazione predefinita, Intlayer osserva tutti i file con le seguenti estensioni per dichiarazioni di contenuto:
+Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti estensioni per le dichiarazioni di contenuto:
 
 - `.content.ts`
 - `.content.tsx`
@@ -12,11 +12,11 @@ Per impostazione predefinita, Intlayer osserva tutti i file con le seguenti este
 
 L'applicazione cercherà i file che corrispondono al pattern glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` per impostazione predefinita.
 
-Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, fai riferimento alla [guida su come personalizzare le estensioni dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md#content-configuration) per istruzioni su come gestirle.
+Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, consulta la [guida alla personalizzazione delle estensioni di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md#content-configuration) per istruzioni su come gestirle.
 
 Per un elenco completo delle opzioni di configurazione, visita la documentazione di configurazione.
 
-## Dichiarare il proprio contenuto
+## Dichiarare il tuo contenuto
 
 Crea e gestisci i tuoi dizionari:
 
@@ -52,7 +52,7 @@ export default {
     },
     multilingualContent: t({
       en: "Contenuto in inglese",
-      "en-GB": "Contenuto in inglese (Regno Unito)",
+      "en-GB": "Contenuto in inglese (UK)",
       fr: "Contenuto in francese",
       es: "Contenuto in spagnolo",
     }),
@@ -65,8 +65,8 @@ export default {
       ">19": "Molte macchine",
     }),
     conditionalContent: cond({
-      true: "La convalida è abilitata",
-      false: "La convalida è disabilitata",
+      true: "La validazione è abilitata",
+      false: "La validazione è disabilitata",
     }),
     nestedContent: nest(
       "navbar", // La chiave del dizionario da annidare
@@ -101,7 +101,7 @@ export default {
     },
     multilingualContent: t({
       en: "Contenuto in inglese",
-      "en-GB": "Contenuto in inglese (Regno Unito)",
+      "en-GB": "Contenuto in inglese (UK)",
       fr: "Contenuto in francese",
       es: "Contenuto in spagnolo",
     }),
@@ -114,8 +114,8 @@ export default {
       ">19": "Molte macchine",
     }),
     conditionalContent: cond({
-      true: "La convalida è abilitata",
-      false: "La convalida è disabilitata",
+      true: "La validazione è abilitata",
+      false: "La validazione è disabilitata",
     }),
     nestedContent: nest(
       "navbar", // La chiave del dizionario da annidare
@@ -148,7 +148,7 @@ module.exports = {
     },
     multilingualContent: t({
       en: "Contenuto in inglese",
-      "en-GB": "Contenuto in inglese (Regno Unito)",
+      "en-GB": "Contenuto in inglese (UK)",
       fr: "Contenuto in francese",
       es: "Contenuto in spagnolo",
     }),
@@ -161,8 +161,8 @@ module.exports = {
       ">19": "Molte macchine",
     }),
     conditionalContent: cond({
-      true: "La convalida è abilitata",
-      false: "La convalida è disabilitata",
+      true: "La validazione è abilitata",
+      false: "La validazione è disabilitata",
     }),
     nestedContent: nest(
       "navbar", // La chiave del dizionario da annidare
@@ -194,7 +194,7 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": "Contenuto in inglese",
-        "en-GB": "Contenuto in inglese (Regno Unito)",
+        "en-GB": "Contenuto in inglese (UK)",
         "fr": "Contenuto in francese",
         "es": "Contenuto in spagnolo",
       },
@@ -213,8 +213,8 @@ module.exports = {
     "conditionalContent": {
       "nodeType": "condition",
       "condition": {
-        "true": "La convalida è abilitata",
-        "false": "La convalida è disabilitata",
+        "true": "La validazione è abilitata",
+        "false": "La validazione è disabilitata",
       },
     },
     "nestedContent": {
@@ -237,21 +237,21 @@ module.exports = {
 }
 ```
 
-## Annidamento delle funzioni
+## Imbricazione delle funzioni
 
-Puoi annidare le funzioni in altre funzioni senza problemi.
+Puoi senza problemi imbricare funzioni in altre.
 
 Esempio:
 
 ```javascript fileName="src/example.content.ts" codeFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
-const getName = async () => "Mario Rossi";
+const getName = async () => "John Doe";
 
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'Mario Rossi']`
+    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Ciao",
@@ -261,34 +261,196 @@ export default {
       " ",
       getName(),
     ],
-    // Contenuto composito che annida condizione, enumerazione e contenuto multilingue
-    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Trovati più articoli'`
+    // Contenuto composito che imbrica condizione, enumerazione e contenuto multilingue
+    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Trovati più elementi'`
     advancedContent: cond({
       true: enu({
         "0": t({
-          en: "Nessun articolo trovato",
-          fr: "Nessun articolo trovato",
-          es: "Nessun articolo trovato",
+          en: "Nessun elemento trovato",
+          fr: "Aucun élément trouvé",
+          es: "Ningún elemento encontrado",
         }),
         "1": t({
-          en: "Un articolo trovato",
-          fr: "Un articolo trovato",
-          es: "Un articolo trovato",
+          en: "Un elemento trovato",
+          fr: "Un élément trouvé",
+          es: "Un elemento encontrado",
         }),
         ">1": t({
-          en: "Trovati più articoli",
-          fr: "Trovati più articoli",
-          es: "Trovati più articoli",
+          en: "Trovati più elementi",
+          fr: "Plusieurs éléments trouvés",
+          es: "Se encontraron múltiples elementos",
         }),
       }),
       false: t({
         en: "Nessun dato valido disponibile",
-        fr: "Dati non validi",
-        es: "No se encontraron datos válidos",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
       }),
     }),
   },
 } satisfies Dictionary;
 ```
 
-...restanti script in forma tradotta, lasciando invariata la struttura.
+```javascript fileName="src/example.content.mjs" codeFormat="esm"
+import { t, enu, cond, nest, md } from "intlayer";
+
+const getName = async () => "John Doe";
+
+/** @type {import('intlayer').Dictionary} */
+export default {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'John Doe']`
+    hiMessage: [
+      t({
+        en: "Ciao",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Contenuto composito che imbrica condizione, enumerazione e contenuto multilingue
+    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Trovati più elementi'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "Nessun elemento trovato",
+          fr: "Aucun élément trouvé",
+          es: "Ningún elemento encontrado",
+        }),
+        "1": t({
+          en: "Un elemento trovato",
+          fr: "Un élément trouvé",
+          es: "Un elemento encontrado",
+        }),
+        ">1": t({
+          en: "Trovati più elementi",
+          fr: "Plusieurs éléments trouvés",
+          es: "Se encontraron múltiples elementos",
+        }),
+      }),
+      false: t({
+        en: "Nessun dato valido disponibile",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+};
+```
+
+```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
+const { t, enu, cond, nest, md } = require("intlayer");
+
+const getName = async () => "John Doe";
+
+/** @type {import('intlayer').Dictionary} */
+module.exports = {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'John Doe']`
+    hiMessage: [
+      t({
+        en: "Ciao",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Contenuto composito che imbrica condizione, enumerazione e contenuto multilingue
+    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Trovati più elementi'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "Nessun elemento trovato",
+          fr: "Aucun élément trouvé",
+          es: "Ningún elemento encontrado",
+        }),
+        "1": t({
+          en: "Un elemento trovato",
+          fr: "Un élément trouvé",
+          es: "Un elemento encontrado",
+        }),
+        ">1": t({
+          en: "Trovati più elementi",
+          fr: "Plusieurs éléments trouvés",
+          es: "Se encontraron múltiples elementos",
+        }),
+      }),
+      false: t({
+        en: "Nessun dato valido disponibile",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+};
+```
+
+```json5 fileName="src/example.content.json"  codeFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "page",
+  "content": {
+    "hiMessage": {
+      "nodeType": "composite",
+      "composite": [
+        {
+          "nodeType": "translation",
+          "translation": {
+            "en": "Ciao",
+            "fr": "Salut",
+            "es": "Hola",
+          },
+        },
+        " ",
+        "John Doe",
+      ],
+    },
+    "advancedContent": {
+      "nodeType": "condition",
+      "condition": {
+        "true": {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "Nessun elemento trovato",
+                "fr": "Aucun élément trouvé",
+                "es": "Ningún elemento encontrado",
+              },
+            },
+            "1": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "Un elemento trovato",
+                "fr": "Un élément trouvé",
+                "es": "Un elemento encontrado",
+              },
+            },
+            ">1": {
+              "nodeType": "translation",
+              "translation": {
+                "en": "Trovati più elementi",
+                "fr": "Plusieurs éléments trouvés",
+                "es": "Se encontraron múltiples elementos",
+              },
+            },
+          },
+        },
+        "false": {
+          "nodeType": "translation",
+          "translation": {
+            "en": "Nessun dato valido disponibile",
+            "fr": "Aucune donnée valide disponible",
+            "es": "No hay datos válidos disponibles",
+          },
+        },
+      },
+    },
+  },
+}
+```

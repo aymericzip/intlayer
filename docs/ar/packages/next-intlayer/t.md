@@ -1,25 +1,25 @@
-# الوثائق: دالة `t` في `next-intlayer`
+# التوثيق: وظيفة `t` في `next-intlayer`
 
-تعتبر دالة `t` في حزمة `next-intlayer` أداة أساسية للتدويل داخل تطبيقات Next.js. تتيح لك تعريف الترجمات مباشرة داخل المكونات الخاصة بك، مما يجعل من السهل عرض المحتوى المحلي بناءً على اللغة الحالية.
+وظيفة `t` في حزمة `next-intlayer` هي أداة أساسية للتدويل المضمّن داخل تطبيق Next.js الخاص بك. تتيح لك تعريف الترجمات مباشرة داخل مكوناتك، مما يجعل من السهل عرض المحتوى المحلي بناءً على اللغة الحالية.
 
 ---
 
 ## نظرة عامة
 
-تستخدم دالة `t` لتوفير الترجمات لمناطق محلية مختلفة مباشرة في المكونات الخاصة بك. من خلال تمرير كائن يحتوي على ترجمات لكل لغة مدعومة، تقوم دالة `t` بإرجاع الترجمة المناسبة بناءً على سياق اللغة الحالي في تطبيق Next.js الخاص بك.
+تُستخدم وظيفة `t` لتوفير الترجمات للغات المختلفة مباشرة في مكوناتك. من خلال تمرير كائن يحتوي على الترجمات لكل لغة مدعومة، تُرجع `t` الترجمة المناسبة بناءً على سياق اللغة الحالي في تطبيق Next.js الخاص بك.
 
 ---
 
 ## الميزات الرئيسية
 
-- **ترجمات ضمنية**: مثالية للنصوص السريعة التي لا تتطلب إعلان محتوى منفصل.
-- **اختيار اللغة التلقائي**: تقوم بإرجاع الترجمة المقابلة للغة الحالية تلقائيًا.
-- **دعم TypeScript**: توفر أمان النوع والتكمل التلقائي عند استخدامها مع TypeScript.
-- **تكامل سهل**: تعمل بسلاسة داخل كل من مكوناته العميلة والخادمة في Next.js.
+- **ترجمات مضمّنة**: مثالية للنصوص السريعة والمضمّنة التي لا تتطلب إعلان محتوى منفصل.
+- **اختيار اللغة تلقائيًا**: تُرجع الترجمة المطابقة للغة الحالية تلقائيًا.
+- **دعم TypeScript**: يوفر أمان الأنواع والإكمال التلقائي عند استخدامه مع TypeScript.
+- **تكامل سهل**: يعمل بسلاسة داخل المكونات العميلة والخادم في Next.js.
 
 ---
 
-## توقيع الدالة
+## توقيع الوظيفة
 
 ```typescript
 t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
@@ -27,7 +27,7 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### المعلمات
 
-- `translations`: كائن حيث تعتبر المفاتيح رموز لغات (مثل `en`, `fr`, `es`) والقيم هي السلاسل المترجمة المقابلة.
+- `translations`: كائن حيث تكون المفاتيح هي رموز اللغات (مثل `en`, `fr`, `es`) والقيم هي النصوص المترجمة المقابلة.
 
 ### الإرجاع
 
@@ -35,11 +35,11 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ---
 
-## أمثلة على الاستخدام
+## أمثلة الاستخدام
 
 ### استخدام `t` في مكون عميل
 
-تأكد من تضمين التوجيه `'use client';` في أعلى ملف المكون الخاص بك عند استخدام `t` في مكون جانب العميل.
+تأكد من تضمين التوجيه `'use client';` في أعلى ملف المكون الخاص بك عند استخدام `t` في مكون على جانب العميل.
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -53,6 +53,7 @@ export const ClientComponentExample: FC = () => (
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido d un ejemplo de componente cliente",
+      ar: "هذا هو محتوى مثال لمكون عميل",
     })}
   </p>
 );
@@ -67,6 +68,7 @@ const ClientComponentExample = () => (
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido d un ejemplo de componente cliente",
+      ar: "هذا هو محتوى مثال لمكون عميل",
     })}
   </p>
 );
@@ -80,7 +82,8 @@ const ClientComponentExample = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido d un ejemplo de componente cliente",
+      es: "Este es le contenido d un ejemplo de componente cliente",
+      ar: "هذا هو محتوى مثال لمكون عميل",
     })}
   </p>
 );
@@ -98,6 +101,7 @@ export const ServerComponentExample: FC = () => (
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
+      ar: "هذا هو محتوى مثال لمكون خادم",
     })}
   </p>
 );
@@ -112,6 +116,7 @@ const ServerComponentExample = () => (
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
+      ar: "هذا هو محتوى مثال لمكون خادم",
     })}
   </p>
 );
@@ -126,14 +131,16 @@ const ServerComponentExample = () => (
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
+      ar: "هذا هو محتوى مثال لمكون خادم",
     })}
   </p>
 );
 ```
 
-### الترجمات المدمجة في السمات
+### الترجمات المضمّنة في السمات
 
-تعتبر دالة `t` مفيدة بشكل خاص للترجمات المدمجة في سمات JSX. عند تحديد السمات مثل `alt` و `title` و `href` أو `aria-label`، يمكنك استخدام `t` مباشرة داخل السمة.
+تعتبر وظيفة `t` مفيدة بشكل خاص للترجمات المضمّنة في سمات JSX.
+عند توطين السمات مثل `alt`, `title`, `href`, أو `aria-label`، يمكنك استخدام `t` مباشرة داخل السمة.
 
 ```jsx
 <button
@@ -141,12 +148,14 @@ const ServerComponentExample = () => (
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
+    ar: "إرسال",
   })}
 >
   {t({
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
+    ar: "إرسال",
   })}
   <img
     src="/path/to/image"
@@ -154,6 +163,7 @@ const ServerComponentExample = () => (
       en: "A beautiful scenery",
       fr: "Un beau paysage",
       es: "Un hermoso paisaje",
+      ar: "منظر جميل",
     })}
   />
 </button>
@@ -161,11 +171,11 @@ const ServerComponentExample = () => (
 
 ---
 
-## الموضوعات المتقدمة
+## مواضيع متقدمة
 
 ### تكامل TypeScript
 
-تعتبر دالة `t` آمنة من حيث النوع عند استخدامها مع TypeScript، مما يضمن توفير جميع اللغات المطلوبة.
+وظيفة `t` آمنة من حيث الأنواع عند استخدامها مع TypeScript، مما يضمن توفير جميع اللغات المطلوبة.
 
 ```typescript codeFormat="typescript"
 import { t, type IConfigLocales } from "next-intlayer";
@@ -174,6 +184,7 @@ const translations: IConfigLocales<string> = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  ar: "مرحبًا",
 };
 
 const greeting = t(translations);
@@ -187,6 +198,7 @@ const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  ar: "مرحبًا",
 };
 
 const greeting = t(translations);
@@ -200,14 +212,15 @@ const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  ar: "مرحبًا",
 };
 
 const greeting = t(translations);
 ```
 
-### الكشف عن اللغة والسياق
+### اكتشاف اللغة والسياق
 
-في `next-intlayer`، تتم إدارة اللغة الحالية من خلال مزودي السياق: `IntlayerClientProvider` و `IntlayerServerProvider`. تأكد من أن هذه المزودات تغلف مكوناتك وأن خاصية `locale` تمر بشكل صحيح.
+في `next-intlayer`، تتم إدارة اللغة الحالية من خلال موفري السياق: `IntlayerClientProvider` و `IntlayerServerProvider`. تأكد من أن هؤلاء الموفّرين يلفون مكوناتك وأن الخاصية `locale` يتم تمريرها بشكل صحيح.
 
 #### مثال:
 
@@ -251,25 +264,26 @@ const Page = ({ locale }) => (
 
 ---
 
-## أخطاء شائعة واستكشاف الأخطاء وإصلاحها
+## الأخطاء الشائعة واستكشاف الأخطاء وإصلاحها
 
-### دالة `t` تعيد قيمة غير معرفة أو ترجمة غير صحيحة
+### `t` تُرجع undefined أو ترجمة غير صحيحة
 
-- **السبب**: قد لا تكون اللغة الحالية مضبوطة بشكل صحيح، أو قد تكون الترجمة للغة الحالية مفقودة.
+- **السبب**: لم يتم تعيين اللغة الحالية بشكل صحيح، أو الترجمة للغة الحالية مفقودة.
 - **الحل**:
-  - تحقق من أن `IntlayerClientProvider` أو `IntlayerServerProvider` مُعد بشكل صحيح مع `locale` المناسب.
+  - تحقق من أن `IntlayerClientProvider` أو `IntlayerServerProvider` تم إعدادهما بشكل صحيح مع اللغة المناسبة.
   - تأكد من أن كائن الترجمات الخاص بك يتضمن جميع اللغات الضرورية.
 
 ### الترجمات المفقودة في TypeScript
 
-- **السبب**: قد لا يحقق كائن الترجمات اللغات المطلوبة، مما يؤدي إلى أخطاء في TypeScript.
-- **الحل**: استخدم نوع `IConfigLocales` لفرض اكتمال الترجمات الخاصة بك.
+- **السبب**: كائن الترجمات لا يفي باللغات المطلوبة، مما يؤدي إلى أخطاء في TypeScript.
+- **الحل**: استخدم نوع `IConfigLocales` لفرض اكتمال الترجمات.
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // عدم توفر 'es' سيسبب خطأ في TypeScript [!code error]
+  // es: 'Texto', // فقدان 'es' سيتسبب في خطأ TypeScript [!code error]
+  ar: "نص",
 };
 
 const text = t(translations);
@@ -279,7 +293,8 @@ const text = t(translations);
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // عدم توفر 'es' سيسبب خطأ في TypeScript [!code error]
+  // es: 'Texto', // فقدان 'es' سيتسبب في خطأ TypeScript [!code error]
+  ar: "نص",
 };
 
 const text = t(translations);
@@ -292,7 +307,8 @@ const { t, type IConfigLocales } = require("next-intlayer");
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // عدم توفر 'es' سيسبب خطأ في TypeScript [!code error]
+  // es: 'Texto', // فقدان 'es' سيتسبب في خطأ TypeScript [!code error]
+  ar: "نص",
 };
 
 const text = t(translations);
@@ -300,21 +316,21 @@ const text = t(translations);
 
 ---
 
-## نصائح للاستخدام الفعال
+## نصائح للاستخدام الفعّال
 
-1. **استخدم `t` لترجمات بسيطة ضمنية**: مثالية لترجمة قطع صغيرة من النص مباشرة داخل المكونات الخاصة بك.
-2. **يفضل `useIntlayer` للمحتوى المنظم**: بالنسبة للترجمات الأكثر تعقيداً وإعادة استخدام المحتوى، حدد المحتوى في ملفات إعلان واستخدم `useIntlayer`.
-3. **توفير اللغة بشكل متسق**: تأكد من أن لغتك يتم توفيرها بشكل متسق عبر تطبيقك من خلال المزودات المناسبة.
-4. **استفد من TypeScript**: استخدم أنواع TypeScript للقبض على الترجمات المفقودة وضمان أمان النوع.
+1. **استخدم `t` للترجمات المضمّنة البسيطة**: مثالية لترجمة النصوص الصغيرة مباشرة داخل مكوناتك.
+2. **فضل `useIntlayer` للمحتوى المنظم**: للحصول على ترجمات أكثر تعقيدًا وإعادة استخدام المحتوى، قم بتعريف المحتوى في ملفات الإعلان واستخدم `useIntlayer`.
+3. **توفير اللغة بشكل متسق**: تأكد من أن اللغة يتم توفيرها بشكل متسق عبر تطبيقك من خلال الموفّرين المناسبين.
+4. **استفد من TypeScript**: استخدم أنواع TypeScript لاكتشاف الترجمات المفقودة وضمان أمان الأنواع.
 
 ---
 
 ## الخاتمة
 
-تعتبر دالة `t` في `next-intlayer` أداة قوية ومريحة لإدارة الترجمات الداخلية في تطبيقات Next.js الخاصة بك. من خلال دمجها بشكل فعال، يمكنك تعزيز قدرات التدويل في تطبيقك، مما يوفر تجربة أفضل للمستخدمين في جميع أنحاء العالم.
+وظيفة `t` في `next-intlayer` هي أداة قوية ومريحة لإدارة الترجمات المضمّنة في تطبيقات Next.js الخاصة بك. من خلال دمجها بشكل فعّال، تعزز قدرات التدويل لتطبيقك، مما يوفر تجربة أفضل للمستخدمين في جميع أنحاء العالم.
 
-لمزيد من الاستخدام التفصيلي والميزات المتقدمة، راجع [وثائق next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_editor.md).
+للحصول على استخدام أكثر تفصيلاً وميزات متقدمة، راجع [توثيق next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
 
 ---
 
-**ملاحظة**: تذكر إعداد `IntlayerClientProvider` و `IntlayerServerProvider` بشكل صحيح لضمان تمرير اللغة الحالية بشكل صحيح إلى مكوناتك. هذا أمر حيوي لكي تقوم دالة `t` بإرجاع الترجمات الصحيحة.
+**ملاحظة**: تذكر إعداد `IntlayerClientProvider` و `IntlayerServerProvider` بشكل صحيح لضمان تمرير اللغة الحالية بشكل صحيح إلى مكوناتك. هذا أمر بالغ الأهمية لكي تُرجع وظيفة `t` الترجمات الصحيحة.

@@ -1,12 +1,12 @@
 # 函数获取
 
-Intlayer 允许您在内容模块中声明内容函数，这些函数可以是同步的或异步的。当应用程序构建时，Intlayer 执行这些函数以获取函数的结果。返回值必须是一个 JSON 对象或一个简单值，如字符串或数字。
+Intlayer 允许您在内容模块中声明内容函数，这些函数可以是同步的或异步的。当应用程序构建时，Intlayer 执行这些函数以获取函数的结果。返回值必须是一个 JSON 对象或一个简单的值，例如字符串或数字。
 
-> 警告：函数获取目前不支持在 JSON 内容声明和远程内容声明文件中。
+> 警告：函数获取目前不支持 JSON 内容声明和远程内容声明文件。
 
 ## 函数声明
 
-下面是一个简单同步函数获取内容的示例：
+以下是一个简单的同步函数获取内容的示例：
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import type { Dictionary } from "intlayer";
@@ -55,13 +55,13 @@ module.exports = functionContent;
 }
 ```
 
-在这个示例中，`text` 键包含一个返回字符串的函数。这个内容可以通过使用 Intlayer 的解释器包（如 `react-intlayer`）在您的 React 组件中渲染。
+在此示例中，`text` 键包含一个返回字符串的函数。可以使用 Intlayer 的解释器包（如 `react-intlayer`）在 React 组件中渲染此内容。
 
 ## 异步函数获取
 
-除了同步函数，Intlayer 还支持异步函数，允许您从外部来源获取数据或用模拟数据模拟数据检索。
+除了同步函数，Intlayer 还支持异步函数，允许您从外部来源获取数据或使用模拟数据模拟数据检索。
 
-下面是一个模拟服务器获取的异步函数的示例：
+以下是一个模拟服务器获取的异步函数示例：
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
@@ -117,14 +117,14 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-无法从 JSON 文件获取内容，请使用 .ts 或 .js 文件
+无法从 JSON 文件中获取内容，请改用 .ts 或 .js 文件
 ```
 
-在这种情况下，`fakeFetch` 函数模拟延迟以模拟服务器响应时间。Intlayer 执行异步函数并使用结果作为 `text` 键的内容。
+在这种情况下，`fakeFetch` 函数模拟了一个延迟以模拟服务器响应时间。Intlayer 执行异步函数并将结果用作 `text` 键的内容。
 
 ## 在 React 组件中使用基于函数的内容
 
-要在 React 组件中使用基于函数的内容，您需要从 `react-intlayer` 导入 `useIntlayer` 并使用内容 ID 调用它以检索内容。下面是一个示例：
+要在 React 组件中使用基于函数的内容，您需要从 `react-intlayer` 导入 `useIntlayer` 并通过内容 ID 调用它以检索内容。以下是一个示例：
 
 ```typescript fileName="**/*.jsx" codeFormat="typescript"
 import type { FC } from "react";

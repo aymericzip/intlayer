@@ -6,7 +6,7 @@ O pacote **`@intlayer/config`** é um pacote NPM que permite recuperar a configu
 
 ## Instalação
 
-Instale o pacote necessário usando seu gerenciador de pacotes preferido:
+Instale o pacote necessário usando o gerenciador de pacotes de sua preferência:
 
 ```bash packageManager="npm"
 npm install @intlayer/config
@@ -41,7 +41,7 @@ console.log(config);
 // }
 ```
 
-> Esta função utiliza o pacote `fs` e só funcionará no lado do servidor.
+> Esta função usa pacotes `fs` e funcionará apenas no lado do servidor.
 
 ### Ler a configuração do Intlayer usando variáveis de ambiente
 
@@ -100,10 +100,10 @@ import { getConfiguration } from "@intlayer/config";
 
 const intlayerConfig = getConfiguration();
 
-// Formatar todos os valores de configuração como variáveis de ambiente
+// Formata todos os valores de configuração como variáveis de ambiente
 const env = formatEnvVariable();
 
-// Definir cada variável de ambiente formatada em process.env
+// Define cada variável de ambiente formatada em process.env
 Object.assign(process.env, env);
 ```
 

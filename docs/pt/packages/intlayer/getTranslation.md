@@ -1,30 +1,30 @@
-# Documentação: `getTranslationContent` Função em `intlayer`
+# Documentação: Função `getTranslationContent` em `intlayer`
 
-## Descrição:
+## Descrição
 
-A função `getTranslationContent` recupera o conteúdo correspondente a um local específico a partir de um conjunto de conteúdos de linguagem personalizáveis. Se o local especificado não for encontrado, ele retorna, por padrão, o conteúdo para o local padrão configurado no projeto.
+A função `getTranslationContent` recupera o conteúdo correspondente a um local específico de um conjunto de conteúdos de idioma personalizáveis. Se o local especificado não for encontrado, ela retorna por padrão o conteúdo do local padrão configurado no projeto.
 
-## Parâmetros:
+## Parâmetros
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
   - **Descrição**: Um objeto contendo traduções para vários locais. Cada chave representa um local, e seu valor é o conteúdo correspondente.
   - **Tipo**: `CustomizableLanguageContent<Content>`
-    - `Content` pode ser qualquer tipo, padrão para `string`.
+    - `Content` pode ser de qualquer tipo, com padrão como `string`.
 
 - `locale: Locales`
 
   - **Descrição**: O local para o qual o conteúdo deve ser recuperado.
   - **Tipo**: `Locales`
 
-## Retornos:
+## Retornos
 
 - **Tipo**: `Content`
-- **Descrição**: O conteúdo correspondente ao local especificado. Se o local não for encontrado, o conteúdo do local padrão é retornado.
+- **Descrição**: O conteúdo correspondente ao local especificado. Se o local não for encontrado, o conteúdo do local padrão será retornado.
 
-## Exemplo de Uso:
+## Exemplo de Uso
 
-### Uso Básico:
+### Uso Básico
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -33,6 +33,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    pt: "Olá",
   },
   Locales.ENGLISH
 );
@@ -47,6 +48,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    pt: "Olá",
   },
   Locales.ENGLISH
 );
@@ -61,6 +63,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    pt: "Olá",
   },
   Locales.ENGLISH
 );
@@ -68,7 +71,7 @@ const content = getTranslationContent(
 console.log(content); // Saída: "Bonjour"
 ```
 
-### Locale Ausente:
+### Local Ausente:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -77,6 +80,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    pt: "Olá",
   },
   Locales.SPANISH
 );
@@ -91,6 +95,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    pt: "Olá",
   },
   Locales.SPANISH
 );
@@ -105,6 +110,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    pt: "Olá",
   },
   Locales.SPANISH
 );
@@ -121,6 +127,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    pt: { greeting: "Olá" },
   },
   Locales.FRENCH
 );
@@ -135,6 +142,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    pt: { greeting: "Olá" },
   },
   Locales.FRENCH
 );
@@ -149,6 +157,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    pt: { greeting: "Olá" },
   },
   Locales.FRENCH
 );
@@ -156,13 +165,11 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // Saída: "Bonjour"
 ```
 
-## Casos Limite:
+## Casos de Borda
 
 - **Local Não Encontrado:**
-  - Quando o `locale` não é encontrado no `languageContent`, a função retorna o conteúdo para o local padrão.
-- **Conteúdo de Linguagem Incompleto:**
-
-  - Se um local estiver parcialmente definido, a função não mescla conteúdos. Ela estritamente recupera o valor do local especificado ou recua para o padrão.
-
+  - Quando o `locale` não é encontrado no `languageContent`, a função retorna o conteúdo do local padrão.
+- **Conteúdo de Idioma Incompleto:**
+  - Se um local estiver parcialmente definido, a função não mescla conteúdos. Ela recupera estritamente o valor do local especificado ou retorna ao padrão.
 - **Aplicação do TypeScript:**
-  - Se os locais no `languageContent` não corresponderem à configuração do projeto, o TypeScript exigirá que todos os locais necessários sejam definidos, garantindo que o conteúdo esteja completo e seguro em termos de tipos.
+  - Se os locais em `languageContent` não corresponderem à configuração do projeto, o TypeScript exigirá que todos os locais necessários sejam definidos, garantindo que o conteúdo seja completo e seguro em termos de tipo.

@@ -2,7 +2,7 @@
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-The **`@intlayer/design-system`** package is a NPM package including the design system of Intlayer. This package is notably used by the [Intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer-editor/index.md), in the [Website](https://intlayer.org) and the [Visual Editor / CMS](https://intlayer.org/dashboard).
+The **`@intlayer/design-system`** package is a NPM package including the design system of Intlayer. This package is notably used by the [Intlayer editor](https://github.com/aymericzip/intlayer/tree/main/docs/{{locale}}/packages/intlayer-editor/index.md), in the [Website](https://intlayer.org) and the [Visual Editor / CMS](https://intlayer.org/dashboard).
 
 ## Installation
 

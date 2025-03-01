@@ -1,53 +1,53 @@
-# Next.js Integration: `useIntlayer` Hook Documentation
+# Next.js एकीकरण: `useIntlayer` हुक दस्तावेज़ीकरण
 
-The `useIntlayer` hook को Next.js एप्लिकेशन के लिए स्थानीयकृत सामग्री को प्रभावी ढंग से लाने और प्रबंधित करने के लिए तैयार किया गया है। यह दस्तावेज़ दिखाएगा कि Next.js परियोजनाओं के भीतर इस हुक का उपयोग कैसे करें, सुनिश्चित करते हुए कि उचित स्थानीयकरण प्रथाओं का पालन किया जाए।
+`useIntlayer` हुक Next.js अनुप्रयोगों के लिए डिज़ाइन किया गया है ताकि स्थानीयकृत सामग्री को प्रभावी ढंग से प्राप्त और प्रबंधित किया जा सके। यह दस्तावेज़ीकरण Next.js परियोजनाओं में हुक का उपयोग करने पर ध्यान केंद्रित करेगा, यह सुनिश्चित करते हुए कि उचित स्थानीयकरण प्रथाओं का पालन किया जाए।
 
-## Importing `useIntlayer` in Next.js
+## Next.js में `useIntlayer` आयात करना
 
-चाहे आप Next.js एप्लिकेशन में क्लाइंट-साइड या सर्वर-साइड घटकों पर काम कर रहे हों, आप `useIntlayer` हुक को निम्न तरीके से आयात कर सकते हैं:
+यह इस बात पर निर्भर करता है कि आप Next.js अनुप्रयोग में क्लाइंट-साइड या सर्वर-साइड घटकों पर काम कर रहे हैं, आप `useIntlayer` हुक को निम्नानुसार आयात कर सकते हैं:
 
-- **क्लाइंट कंपोनेंट:**
+- **क्लाइंट घटक:**
 
   ```typescript codeFormat="typescript"
-  import { useIntlayer } from "next-intlayer"; // क्लाइंट-साइड घटकों में उपयोग किया गया
+  import { useIntlayer } from "next-intlayer"; // क्लाइंट-साइड घटकों में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "next-intlayer"; // क्लाइंट-साइड घटकों में उपयोग किया गया
+  import { useIntlayer } from "next-intlayer"; // क्लाइंट-साइड घटकों में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("next-intlayer"); // क्लाइंट-साइड घटकों में उपयोग किया गया
+  const { useIntlayer } = require("next-intlayer"); // क्लाइंट-साइड घटकों में उपयोग किया जाता है
   ```
 
-- **सर्वर कंपोनेंट:**
+- **सर्वर घटक:**
 
   ```tsx codeFormat="typescript"
-  import { useIntlayer } from "next-intlayer/server"; // सर्वर-साइड घटकों में उपयोग किया गया
+  import { useIntlayer } from "next-intlayer/server"; // सर्वर-साइड घटकों में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "next-intlayer/server"; // सर्वर-साइड घटकों में उपयोग किया गया
+  import { useIntlayer } from "next-intlayer/server"; // सर्वर-साइड घटकों में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("next-intlayer/server"); // सर्वर-साइड घटकों में उपयोग किया गया
+  const { useIntlayer } = require("next-intlayer/server"); // सर्वर-साइड घटकों में उपयोग किया जाता है
   ```
 
-## Parameters
+## पैरामीटर
 
-1. **`key`**: एक स्ट्रिंग पहचानकर्ता जो शब्दकोश की कुंजी के लिए है जिससे आप सामग्री को प्राप्त करना चाहते हैं।
-2. **`locale`** (वैकल्पिक): उपयोग के लिए एक विशिष्ट स्थानीयकरण। यदि छोड़ा गया, तो हुक उस स्थानीयकरण का डिफॉल्ट सेट कर देता है जो क्लाइंट या सर्वर संदर्भ में सेट है।
+1. **`key`**: उस शब्दकोश कुंजी के लिए एक स्ट्रिंग पहचानकर्ता जिससे आप सामग्री प्राप्त करना चाहते हैं।
+2. **`locale`** (वैकल्पिक): उपयोग करने के लिए एक विशिष्ट लोकेल। यदि छोड़ा गया है, तो हुक क्लाइंट या सर्वर संदर्भ में सेट लोकेल को डिफ़ॉल्ट करता है।
 
-## सामग्री घोषणा फ़ाइलें
+## शब्दकोश फ़ाइलें
 
-यह सुनिश्चित करना महत्वपूर्ण है कि सभी सामग्री कुंजियाँ सामग्री घोषणा फ़ाइलों के भीतर परिभाषित हैं ताकि रUNTIME त्रुटियों से बचा जा सके और प्रकार की सुरक्षा सुनिश्चित की जा सके। यह दृष्टिकोण संकलन समय की_validation के लिए TypeScript एकीकरण की भी सुविधा देता है।
+यह महत्वपूर्ण है कि सभी सामग्री कुंजियाँ सामग्री घोषणा फ़ाइलों के भीतर परिभाषित हों ताकि रनटाइम त्रुटियों को रोका जा सके और प्रकार सुरक्षा सुनिश्चित की जा सके। यह दृष्टिकोण टाइपस्क्रिप्ट एकीकरण को संकलन-समय मान्यता के लिए भी सक्षम बनाता है।
 
-सामग्री घोषणा फ़ाइलों को सेट करने के लिए निर्देश [यहां](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
+सामग्री घोषणा फ़ाइलों को सेट करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
 
-## Next.js में उदाहरण उपयोग
+## Next.js में उपयोग का उदाहरण
 
-यहां बताया गया है कि आप Next.js पृष्ठ के भीतर `useIntlayer` हुक को कैसे लागू कर सकते हैं ताकि एप्लिकेशन के वर्तमान स्थानीयकरण के आधार पर स्थानीयकृत सामग्री को गतिशील रूप से लोड किया जा सके:
+यहाँ बताया गया है कि आप `useIntlayer` हुक को Next.js पृष्ठ के भीतर कैसे लागू कर सकते हैं ताकि अनुप्रयोग के वर्तमान लोकेल के आधार पर स्थानीयकृत सामग्री को गतिशील रूप से लोड किया जा सके:
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -222,16 +222,16 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Handling Attribute Localization
+## विशेषता स्थानीयकरण को संभालना
 
-ऐसे गुणों को स्थानीयकृत करने के लिए जैसे `alt`, `title`, `href`, `aria-label` आदि, सुनिश्चित करें कि आप सामग्री का सही संदर्भ लें:
+`alt`, `title`, `href`, `aria-label`, आदि जैसे विशेषताओं को स्थानीयकृत करने के लिए, सुनिश्चित करें कि आप सामग्री को सही ढंग से संदर्भित कर रहे हैं:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
 ```
 
-## Further Information
+## अधिक जानकारी
 
-- **Intlayer Visual Editor**: विज़ुअल संपादक का उपयोग कैसे करें इसके लिए आसान सामग्री प्रबंधन [यहां](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) जानें।
+- **Intlayer विज़ुअल संपादक**: आसान सामग्री प्रबंधन के लिए विज़ुअल संपादक का उपयोग कैसे करें [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md) जानें।
 
-यह दस्तावेज़ विशेष रूप से Next.js वातावरण के भीतर `useIntlayer` हुक के उपयोग का वर्णन करता है, जो आपके Next.js एप्लिकेशनों में स्थानीयकरण प्रबंधन के लिए एक मजबूत समाधान प्रदान करता है।
+यह दस्तावेज़ीकरण विशेष रूप से Next.js वातावरण के भीतर `useIntlayer` हुक के उपयोग को रेखांकित करता है, जो आपके Next.js अनुप्रयोगों में स्थानीयकरण प्रबंधन के लिए एक मजबूत समाधान प्रदान करता है।

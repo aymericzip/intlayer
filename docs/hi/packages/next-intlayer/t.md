@@ -1,45 +1,45 @@
-# Documentation: `t` Function in `next-intlayer`
+# दस्तावेज़: `t` फ़ंक्शन `next-intlayer` में
 
-`next-intlayer` पैकेज में `t` फ़ंक्शन आपके Next.js एप्लिकेशन में इनलाइन अंतरराष्ट्रीयकरण के लिए एक मौलिक टूल है। यह आपको अपने घटकों के भीतर सीधे अनुवाद को परिभाषित करने की अनुमति देता है, जिससे वर्तमान स्थान के आधार पर स्थानीयकृत सामग्री प्रदर्शित करना सरल हो जाता है।
-
----
-
-## Overview
-
-`t` फ़ंक्शन का उपयोग आपके घटकों में सीधे विभिन्न स्थलों के लिए अनुवाद प्रदान करने के लिए किया जाता है। प्रत्येक समर्थित स्थान के लिए अनुवादों वाली एक वस्तु प्राप्त करके, `t` आपके Next.js एप्लिकेशन के वर्तमान स्थान संदर्भ के आधार पर उपयुक्त अनुवाद लौटाता है।
+`next-intlayer` पैकेज में `t` फ़ंक्शन आपके Next.js एप्लिकेशन में इनलाइन अंतर्राष्ट्रीयकरण के लिए एक मौलिक उपकरण है। यह आपको अपने घटकों के भीतर सीधे अनुवाद परिभाषित करने की अनुमति देता है, जिससे वर्तमान लोकेल के आधार पर स्थानीयकृत सामग्री प्रदर्शित करना सरल हो जाता है।
 
 ---
 
-## Key Features
+## अवलोकन
 
-- **Inline Translations**: तेजी से, इनलाइन टेक्स्ट के लिए अनुकूल है जिसे एक अलग सामग्री घोषणा की आवश्यकता नहीं है।
-- **Automatic Locale Selection**: वर्तमान स्थान से संबंधित अनुवाद स्वचालित रूप से लौटाता है।
-- **TypeScript Support**: TypeScript के साथ उपयोग करने पर प्रकार सुरक्षा और स्व-पूर्णता प्रदान करता है।
-- **Easy Integration**: Next.js में ग्राहक और सर्वर दोनों घटकों के भीतर आसानी से काम करता है।
+`t` फ़ंक्शन का उपयोग आपके घटकों में सीधे विभिन्न लोकेल्स के लिए अनुवाद प्रदान करने के लिए किया जाता है। प्रत्येक समर्थित लोकेल के लिए अनुवादों की एक वस्तु पास करके, `t` आपके Next.js एप्लिकेशन में वर्तमान लोकेल संदर्भ के आधार पर उपयुक्त अनुवाद लौटाता है।
 
 ---
 
-## Function Signature
+## मुख्य विशेषताएं
+
+- **इनलाइन अनुवाद**: त्वरित, इनलाइन टेक्स्ट के लिए आदर्श जो अलग सामग्री घोषणा की आवश्यकता नहीं है।
+- **स्वचालित लोकेल चयन**: स्वचालित रूप से वर्तमान लोकेल के अनुरूप अनुवाद लौटाता है।
+- **टाइपस्क्रिप्ट समर्थन**: टाइपस्क्रिप्ट के साथ उपयोग किए जाने पर प्रकार सुरक्षा और स्वतः पूर्णता प्रदान करता है।
+- **आसान एकीकरण**: Next.js में क्लाइंट और सर्वर दोनों घटकों के भीतर सहजता से काम करता है।
+
+---
+
+## फ़ंक्शन हस्ताक्षर
 
 ```typescript
 t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 ```
 
-### Parameters
+### पैरामीटर
 
-- `translations`: एक वस्तु जहाँ कुंजियाँ स्थान कोड (जैसे, `en`, `fr`, `es`) हैं और मान संबंधित अनुवादित स्ट्रिंग्स हैं।
+- `translations`: एक वस्तु जहां कुंजियाँ लोकेल कोड (जैसे, `en`, `fr`, `es`) हैं और मान संबंधित अनुवादित स्ट्रिंग्स हैं।
 
-### Returns
+### रिटर्न्स
 
-- वर्तमान स्थान के लिए अनुवादित सामग्री का प्रतिनिधित्व करने वाला एक स्ट्रिंग।
+- एक स्ट्रिंग जो वर्तमान लोकेल के लिए अनुवादित सामग्री का प्रतिनिधित्व करती है।
 
 ---
 
-## Usage Examples
+## उपयोग के उदाहरण
 
-### Using `t` in a Client Component
+### क्लाइंट घटक में `t` का उपयोग करना
 
-जब आप `t` को ग्राहक-पक्ष घटक में उपयोग कर रहे हैं, तो सुनिश्चित करें कि आप अपने घटक फ़ाइल के शीर्ष पर `'use client';` निर्देश शामिल करें।
+जब क्लाइंट-साइड घटक में `t` का उपयोग करते हैं, तो सुनिश्चित करें कि आप अपने घटक फ़ाइल के शीर्ष पर `'use client';` निर्देश शामिल करें।
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -53,6 +53,7 @@ export const ClientComponentExample: FC = () => (
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido d un ejemplo de componente cliente",
+      hi: "यह एक क्लाइंट घटक उदाहरण की सामग्री है",
     })}
   </p>
 );
@@ -67,6 +68,7 @@ const ClientComponentExample = () => (
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido d un ejemplo de componente cliente",
+      hi: "यह एक क्लाइंट घटक उदाहरण की सामग्री है",
     })}
   </p>
 );
@@ -80,13 +82,14 @@ const ClientComponentExample = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido d un ejemplo de componente cliente",
+      es: "Este es le contenido d un ejemplo de componente cliente",
+      hi: "यह एक क्लाइंट घटक उदाहरण की सामग्री है",
     })}
   </p>
 );
 ```
 
-### Using `t` in a Server Component
+### सर्वर घटक में `t` का उपयोग करना
 
 ```tsx codeFormat="typescript"
 import type { FC } from "react";
@@ -98,6 +101,7 @@ export const ServerComponentExample: FC = () => (
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
+      hi: "यह एक सर्वर घटक उदाहरण की सामग्री है",
     })}
   </p>
 );
@@ -112,6 +116,7 @@ const ServerComponentExample = () => (
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
+      hi: "यह एक सर्वर घटक उदाहरण की सामग्री है",
     })}
   </p>
 );
@@ -126,15 +131,15 @@ const ServerComponentExample = () => (
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
+      hi: "यह एक सर्वर घटक उदाहरण की सामग्री है",
     })}
   </p>
 );
 ```
 
-### Inline Translations in Attributes
+### गुणों में इनलाइन अनुवाद
 
-`t` फ़ंक्शन JSX गुणों में इनलाइन अनुवादों के लिए विशेष रूप से उपयोगी है।
-जब `alt`, `title`, `href`, या `aria-label` जैसे गुणों का स्थानीयकरण करना हो, तो आप विशेष रूप से गुण के भीतर सीधे `t` का उपयोग कर सकते हैं।
+`t` फ़ंक्शन JSX गुणों में इनलाइन अनुवाद के लिए विशेष रूप से उपयोगी है। जब `alt`, `title`, `href`, या `aria-label` जैसे गुणों को स्थानीयकृत करते हैं, तो आप सीधे गुण के भीतर `t` का उपयोग कर सकते हैं।
 
 ```jsx
 <button
@@ -142,12 +147,14 @@ const ServerComponentExample = () => (
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
+    hi: "जमा करें",
   })}
 >
   {t({
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
+    hi: "जमा करें",
   })}
   <img
     src="/path/to/image"
@@ -155,6 +162,7 @@ const ServerComponentExample = () => (
       en: "A beautiful scenery",
       fr: "Un beau paysage",
       es: "Un hermoso paisaje",
+      hi: "एक सुंदर दृश्य",
     })}
   />
 </button>
@@ -162,11 +170,11 @@ const ServerComponentExample = () => (
 
 ---
 
-## Advanced Topics
+## उन्नत विषय
 
-### TypeScript Integration
+### टाइपस्क्रिप्ट एकीकरण
 
-`t` फ़ंक्शन TypeScript के साथ उपयोग करने पर प्रकार-सुरक्षित होता है, यह सुनिश्चित करता है कि सभी आवश्यक स्थलों को प्रदान किया गया है।
+जब टाइपस्क्रिप्ट के साथ उपयोग किया जाता है, तो `t` फ़ंक्शन प्रकार-सुरक्षित होता है, यह सुनिश्चित करता है कि सभी आवश्यक लोकेल प्रदान किए गए हैं।
 
 ```typescript codeFormat="typescript"
 import { t, type IConfigLocales } from "next-intlayer";
@@ -175,6 +183,7 @@ const translations: IConfigLocales<string> = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  hi: "स्वागत है",
 };
 
 const greeting = t(translations);
@@ -188,6 +197,7 @@ const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  hi: "स्वागत है",
 };
 
 const greeting = t(translations);
@@ -201,16 +211,17 @@ const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  hi: "स्वागत है",
 };
 
 const greeting = t(translations);
 ```
 
-### Locale Detection and Context
+### लोकेल का पता लगाना और संदर्भ
 
-`next-intlayer` में, वर्तमान स्थान को संदर्भ प्रदाताओं के माध्यम से प्रबंधित किया जाता है: `IntlayerClientProvider` और `IntlayerServerProvider`। सुनिश्चित करें कि ये प्रदाता आपके घटकों को लपेटें और `locale` प्रॉप सही ढंग से पास किया गया है।
+`next-intlayer` में, वर्तमान लोकेल संदर्भ प्रदाताओं के माध्यम से प्रबंधित किया जाता है: `IntlayerClientProvider` और `IntlayerServerProvider`। सुनिश्चित करें कि ये प्रदाता आपके घटकों को लपेटते हैं और `locale` प्रॉप सही ढंग से पास किया गया है।
 
-#### Example:
+#### उदाहरण:
 
 ```tsx codeFormat="typescript"
 import type { FC } from "react";
@@ -220,7 +231,7 @@ import { IntlayerClientProvider } from "next-intlayer";
 const Page: FC<{ locale: Locales }> = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
-      {/* आपके घटक यहाँ */}
+      {/* आपके घटक यहां */}
     </IntlayerClientProvider>
   </IntlayerServerProvider>
 );
@@ -232,7 +243,7 @@ import { IntlayerClientProvider } from "next-intlayer";
 const Page = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
-      {/* आपके घटक यहाँ */}
+      {/* आपके घटक यहां */}
     </IntlayerClientProvider>
   </IntlayerServerProvider>
 );
@@ -244,7 +255,7 @@ const { IntlayerClientProvider } = require("next-intlayer");
 const Page = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
-      {/* आपके घटक यहाँ */}
+      {/* आपके घटक यहां */}
     </IntlayerClientProvider>
   </IntlayerServerProvider>
 );
@@ -252,25 +263,25 @@ const Page = ({ locale }) => (
 
 ---
 
-## Common Errors and Troubleshooting
+## सामान्य त्रुटियां और समस्या निवारण
 
-### `t` Returns Undefined or Incorrect Translation
+### `t` अपरिभाषित या गलत अनुवाद लौटाता है
 
-- **Cause**: वर्तमान स्थान सही रूप से सेट नहीं किया गया है, या वर्तमान स्थान के लिए अनुवाद गायब है।
-- **Solution**:
-  - सत्यापित करें कि `IntlayerClientProvider` या `IntlayerServerProvider` सही रूप से सेट अप किया गया है।
-  - सुनिश्चित करें कि आपकी अनुवादों की वस्तु सभी आवश्यक स्थलों को शामिल करती है।
+- **कारण**: वर्तमान लोकेल सही ढंग से सेट नहीं है, या वर्तमान लोकेल के लिए अनुवाद गायब है।
+- **समाधान**:
+  - सत्यापित करें कि `IntlayerClientProvider` या `IntlayerServerProvider` उचित `locale` के साथ सही ढंग से सेट किया गया है।
+  - सुनिश्चित करें कि आपकी अनुवाद वस्तु में सभी आवश्यक लोकेल शामिल हैं।
 
-### Missing Translations in TypeScript
+### टाइपस्क्रिप्ट में गायब अनुवाद
 
-- **Cause**: अनुवादों की वस्तु आवश्यक स्थलों को संतुष्ट नहीं करती है, जिससे TypeScript त्रुटियाँ होती हैं।
-- **Solution**: अपने अनुवादों की पूर्णता को लागू करने के लिए `IConfigLocales` प्रकार का उपयोग करें।
+- **कारण**: अनुवाद वस्तु आवश्यक लोकेल को संतुष्ट नहीं करती है, जिससे टाइपस्क्रिप्ट त्रुटियां होती हैं।
+- **समाधान**: अपने अनुवादों की पूर्णता को लागू करने के लिए `IConfigLocales` प्रकार का उपयोग करें।
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // Missing 'es' will cause a TypeScript error [!code error]
+  // es: 'Texto', // 'es' गायब होने से टाइपस्क्रिप्ट त्रुटि होगी [!code error]
 };
 
 const text = t(translations);
@@ -280,7 +291,7 @@ const text = t(translations);
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // Missing 'es' will cause a TypeScript error [!code error]
+  // es: 'Texto', // 'es' गायब होने से टाइपस्क्रिप्ट त्रुटि होगी [!code error]
 };
 
 const text = t(translations);
@@ -293,7 +304,7 @@ const { t, type IConfigLocales } = require("next-intlayer");
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // Missing 'es' will cause a TypeScript error [!code error]
+  // es: 'Texto', // 'es' गायब होने से टाइपस्क्रिप्ट त्रुटि होगी [!code error]
 };
 
 const text = t(translations);
@@ -301,21 +312,21 @@ const text = t(translations);
 
 ---
 
-## Tips for Effective Usage
+## प्रभावी उपयोग के लिए सुझाव
 
-1. **Use `t` for Simple Inline Translations**: सीधे अपने घटकों के भीतर छोटे टेक्स्ट के अनुवाद के लिए आदर्श।
-2. **Prefer `useIntlayer` for Structured Content**: अधिक जटिल अनुवादों और सामग्री पुन: उपयोग के लिए, सामग्री को घोषणा फ़ाइलों में परिभाषित करें और `useIntlayer` का उपयोग करें।
-3. **Consistent Locale Provision**: सुनिश्चित करें कि आपके एप्लिकेशन में उचित प्रदाताओं के माध्यम से स्थलों को स्थिरता से प्रदान किया गया है।
-4. **Leverage TypeScript**: गायब अनुवादों को पकड़ने और प्रकार सुरक्षा सुनिश्चित करने के लिए TypeScript प्रकारों का उपयोग करें।
-
----
-
-## Conclusion
-
-`next-intlayer` में `t` फ़ंक्शन आपके Next.js एप्लिकेशनों में इनलाइन अनुवादों को प्रबंधित करने के लिए एक शक्तिशाली और सुविधाजनक टूल है। इसे प्रभावी ढंग से एकीकृत करके, आप अपने ऐप के अंतरराष्ट्रीयकरण क्षमताओं को बढ़ाते हैं, जो विश्वभर के उपयोगकर्ताओं के लिए बेहतर अनुभव प्रदान करता है।
-
-अधिक विस्तृत उपयोग और उन्नत सुविधाओं के लिए, [next-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) पर जाएं।
+1. **सरल इनलाइन अनुवाद के लिए `t` का उपयोग करें**: अपने घटकों के भीतर सीधे छोटे टेक्स्ट का अनुवाद करने के लिए आदर्श।
+2. **संरचित सामग्री के लिए `useIntlayer` को प्राथमिकता दें**: अधिक जटिल अनुवाद और सामग्री पुन: उपयोग के लिए, घोषणा फ़ाइलों में सामग्री परिभाषित करें और `useIntlayer` का उपयोग करें।
+3. **संगत लोकेल प्रावधान**: सुनिश्चित करें कि आपके एप्लिकेशन में उपयुक्त प्रदाताओं के माध्यम से आपका लोकेल लगातार प्रदान किया गया है।
+4. **टाइपस्क्रिप्ट का लाभ उठाएं**: गायब अनुवादों को पकड़ने और प्रकार सुरक्षा सुनिश्चित करने के लिए टाइपस्क्रिप्ट प्रकारों का उपयोग करें।
 
 ---
 
-**Note**: सुनिश्चित करें कि आप अपने `IntlayerClientProvider` और `IntlayerServerProvider` को सही ढंग से सेट अप करें ताकि वर्तमान स्थान को सही रूप से आपके घटकों तक पहुँचाया जा सके। यह आवश्यक है ताकि `t` फ़ंक्शन सही अनुवाद लौटाए।
+## निष्कर्ष
+
+`next-intlayer` में `t` फ़ंक्शन आपके Next.js एप्लिकेशन में इनलाइन अनुवाद प्रबंधन के लिए एक शक्तिशाली और सुविधाजनक उपकरण है। इसे प्रभावी ढंग से एकीकृत करके, आप अपने ऐप की अंतर्राष्ट्रीयकरण क्षमताओं को बढ़ाते हैं, जिससे दुनिया भर के उपयोगकर्ताओं के लिए बेहतर अनुभव मिलता है।
+
+अधिक विस्तृत उपयोग और उन्नत सुविधाओं के लिए, [next-intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md) देखें।
+
+---
+
+**नोट**: सुनिश्चित करें कि आपके `IntlayerClientProvider` और `IntlayerServerProvider` को सही ढंग से सेट किया गया है ताकि वर्तमान लोकेल आपके घटकों तक सही ढंग से पहुंच सके। यह सुनिश्चित करने के लिए महत्वपूर्ण है कि `t` फ़ंक्शन सही अनुवाद लौटाए।

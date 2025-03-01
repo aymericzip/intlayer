@@ -1,4 +1,4 @@
-# Comenzando la declaración de tu contenido
+# Comenzando la declaración de su contenido
 
 ## Extensiones de archivos
 
@@ -10,20 +10,19 @@ Por defecto, Intlayer observa todos los archivos con las siguientes extensiones 
 - `.content.mjs`
 - `.content.cjs`
 
-La aplicación buscará archivos que coincidan con el patrón glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` de forma predeterminada.
+La aplicación buscará archivos que coincidan con el patrón glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` por defecto.
 
-Estas extensiones son adecuadas para la mayoría de aplicaciones. Sin embargo, si tienes requisitos específicos, consulta la [guía de personalización de extensiones de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md#content-configuration) para obtener instrucciones sobre cómo gestionarlos.
+Estas extensiones predeterminadas son adecuadas para la mayoría de las aplicaciones. Sin embargo, si tiene requisitos específicos, consulte la [guía de personalización de extensiones de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md#content-configuration) para obtener instrucciones sobre cómo gestionarlas.
 
-Para una lista completa de opciones de configuración, visita la documentación de configuración.
+Para una lista completa de opciones de configuración, visite la documentación de configuración.
 
-## Declara tu contenido
+## Declare Su Contenido
 
-Crea y gestiona tus diccionarios:
+Cree y gestione sus diccionarios:
 
 ```tsx fileName="src/example.content.ts" codeFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
-// Declaración del contenido
 interface Content {
   imbricatedContent: {
     imbricatedContent2: {
@@ -45,7 +44,7 @@ export default {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Hola Mundo",
+        stringContent: "Hello World",
         numberContent: 123,
         booleanContent: true,
         javaScriptContent: `${process.env.NODE_ENV}`,
@@ -55,12 +54,12 @@ export default {
       en: "English content",
       "en-GB": "English content (UK)",
       fr: "French content",
-      es: "Contenido en español",
+      es: "Spanish content",
     }),
     quantityContent: enu({
       "<-1": "Menos de menos un coche",
       "-1": "Menos un coche",
-      "0": "Ningún coche",
+      "0": "Sin coches",
       "1": "Un coche",
       ">5": "Algunos coches",
       ">19": "Muchos coches",
@@ -71,17 +70,17 @@ export default {
     }),
     nestedContent: nest(
       "navbar", // La clave del diccionario a anidar
-      "login.button" // [Opcional] La ruta del contenido a anidar
+      "login.button" // [Opcional] La ruta al contenido a anidar
     ),
     externalContent: async () => await fetch("https://example.com"),
     markdownContent: md("# Ejemplo de Markdown"),
 
     /*
-     * Disponible solo usando `react-intlayer` o `next-intlayer`
+     * Solo disponible usando `react-intlayer` o `next-intlayer`
      */
     jsxContent: <h1>Mi título</h1>,
   },
-} satisfies Dictionary<Content>; // [Opcional] Dictionary es genérico y permite reforzar el formato de tu diccionario
+} satisfies Dictionary<Content>; // [opcional] Dictionary es genérico y permite fortalecer el formato de su diccionario
 ```
 
 ```javascript fileName="src/example.content.mjs" codeFormat="esm"
@@ -93,7 +92,7 @@ export default {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Hola Mundo",
+        stringContent: "Hello World",
         numberContent: 123,
         booleanContent: true,
         javaScriptContent: `${process.env.NODE_ENV}`,
@@ -104,12 +103,12 @@ export default {
       en: "English content",
       "en-GB": "English content (UK)",
       fr: "French content",
-      es: "Contenido en español",
+      es: "Spanish content",
     }),
     quantityContent: enu({
       "<-1": "Menos de menos un coche",
       "-1": "Menos un coche",
-      "0": "Ningún coche",
+      "0": "Sin coches",
       "1": "Un coche",
       ">5": "Algunos coches",
       ">19": "Muchos coches",
@@ -120,12 +119,12 @@ export default {
     }),
     nestedContent: nest(
       "navbar", // La clave del diccionario a anidar
-      "login.button" // [Opcional] La ruta del contenido a anidar
+      "login.button" // [Opcional] La ruta al contenido a anidar
     ),
     markdownContent: md("# Ejemplo de Markdown"),
     externalContent: async () => await fetch("https://example.com"),
 
-    // Disponible solo usando `react-intlayer` o `next-intlayer`
+    // Solo disponible usando `react-intlayer` o `next-intlayer`
     jsxContent: <h1>Mi título</h1>,
   },
 };
@@ -140,7 +139,7 @@ module.exports = {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Hola Mundo",
+        stringContent: "Hello World",
         numberContent: 123,
         booleanContent: true,
         javaScriptContent: `${process.env.NODE_ENV}`,
@@ -151,12 +150,12 @@ module.exports = {
       en: "English content",
       "en-GB": "English content (UK)",
       fr: "French content",
-      es: "Contenido en español",
+      es: "Spanish content",
     }),
     quantityContent: enu({
       "<-1": "Menos de menos un coche",
       "-1": "Menos un coche",
-      "0": "Ningún coche",
+      "0": "Sin coches",
       "1": "Un coche",
       ">5": "Algunos coches",
       ">19": "Muchos coches",
@@ -167,12 +166,12 @@ module.exports = {
     }),
     nestedContent: nest(
       "navbar", // La clave del diccionario a anidar
-      "login.button" // [Opcional] La ruta del contenido a anidar
+      "login.button" // [Opcional] La ruta al contenido a anidar
     ),
     markdownContent: md("# Ejemplo de Markdown"),
     externalContent: async () => await fetch("https://example.com"),
 
-    // Disponible solo usando `react-intlayer` o `next-intlayer`
+    // Solo disponible usando `react-intlayer` o `next-intlayer`
     jsxContent: <h1>Mi título</h1>,
   },
 };
@@ -185,7 +184,7 @@ module.exports = {
   "content": {
     "imbricatedContent": {
       "imbricatedContent2": {
-        "stringContent": "Hola Mundo",
+        "stringContent": "Hello World",
         "numberContent": 123,
         "booleanContent": true,
       },
@@ -197,13 +196,13 @@ module.exports = {
         "en": "English content",
         "en-GB": "English content (UK)",
         "fr": "French content",
-        "es": "Contenido en español",
+        "es": "Spanish content",
       },
     },
     "quantityContent": {
       "nodeType": "enumeration",
       "enumeration": {
-        "0": "Ningún coche",
+        "0": "Sin coches",
         "1": "Un coche",
         "<-1": "Menos de menos un coche",
         "-1": "Menos un coche",
@@ -238,9 +237,9 @@ module.exports = {
 }
 ```
 
-## Funciones anidadas
+## Imbricación de funciones
 
-Puedes sin problema anidar funciones dentro de otras funciones.
+Puede sin problema imbricar funciones en otras.
 
 Ejemplo:
 
@@ -262,7 +261,7 @@ export default {
       " ",
       getName(),
     ],
-    // Contenido compuesto anidando condición, enumeración y contenido multilingüe
+    // Contenido compuesto imbricando condición, enumeración y contenido multilingüe
     // `getIntlayer('page','es').advancedContent(true)(10) devuelve 'Se encontraron múltiples artículos'`
     advancedContent: cond({
       true: enu({
@@ -301,6 +300,7 @@ const getName = async () => "John Doe";
 export default {
   key: "page",
   content: {
+    // `getIntlayer('page','es').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Hi",
@@ -310,6 +310,8 @@ export default {
       " ",
       getName(),
     ],
+    // Contenido compuesto imbricando condición, enumeración y contenido multilingüe
+    // `getIntlayer('page','es').advancedContent(true)(10) devuelve 'Se encontraron múltiples artículos'`
     advancedContent: cond({
       true: enu({
         "0": t({
@@ -347,6 +349,7 @@ const getName = async () => "John Doe";
 module.exports = {
   key: "page",
   content: {
+    // `getIntlayer('page','es').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Hi",
@@ -356,6 +359,8 @@ module.exports = {
       " ",
       getName(),
     ],
+    // Contenido compuesto imbricando condición, enumeración y contenido multilingüe
+    // `getIntlayer('page','es').advancedContent(true)(10) devuelve 'Se encontraron múltiples artículos'`
     advancedContent: cond({
       true: enu({
         "0": t({

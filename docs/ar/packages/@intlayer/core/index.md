@@ -1,16 +1,16 @@
-# @intlayer/core: حزمة NPM تحتوي على الدوال الأساسية لـ Intlayer
+# @intlayer/core: حزمة NPM تحتوي على وظائف Intlayer الأساسية
 
-**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري JavaScript. إنها متوافقة مع أطر العمل مثل React وExpress.js.
+**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وReact وExpress.js.
 
-حزمة **`@intlayer/core`** هي حزمة NPM تتضمن الدوال الأساسية لـ Intlayer التي تشترك فيها حزم متعددة. وتشمل بشكل خاص:
+حزمة **`@intlayer/core`** هي حزمة NPM تتضمن الوظائف الأساسية لـ Intlayer المشتركة بين عدة حزم. وتشمل بشكل خاص:
 
-- دوال الترجمة
-- دوال القاموس
-- دوال المرافق
+- وظائف الترجمة
+- وظائف القاموس
+- وظائف الأدوات
 
 ## التثبيت
 
-ثبت الحزمة الضرورية باستخدام مدير الحزم المفضل لديك:
+قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
 
 ```bash packageManager="npm"
 npm install @intlayer/core
@@ -23,5 +23,3 @@ pnpm add @intlayer/core
 ```bash packageManager="yarn"
 yarn add @intlayer/core
 ```
-
-You are trained on data up to October 2023.

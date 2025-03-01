@@ -1,18 +1,18 @@
-# intlayer-editor: NPM-Paket zur Verwendung des Intlayer-Visual-Editors
+# intlayer-editor: NPM-Paket zur Verwendung des visuellen Intlayer-Editors
 
-**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurden. Es ist mit Frameworks wie React, React und Express.js kompatibel.
+**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist kompatibel mit Frameworks wie React, React und Express.js.
 
-Das **`intlayer-editor`**-Paket ist ein NPM-Paket, das den Intlayer-Visual-Editor in Ihr React-Projekt integriert.
+Das **`intlayer-editor`**-Paket ist ein NPM-Paket, das den visuellen Intlayer-Editor in Ihr React-Projekt integriert.
 
 ## Wie der Intlayer-Editor funktioniert
 
-Der Intlayer-Editor ermöglicht die Interaktion mit dem Intlayer-Fernwörterbuch. Es kann auf der Client-Seite installiert werden und verwandelt Ihre Anwendung in einen CMS-ähnlichen Editor, um die Inhalte Ihrer Webseite in allen konfigurierten Sprachen zu verwalten.
+Der Intlayer-Editor ermöglicht die Interaktion mit dem entfernten Intlayer-Wörterbuch. Er kann auf der Client-Seite installiert werden und Ihre Anwendung in einen CMS-ähnlichen Editor verwandeln, um den Inhalt Ihrer Website in allen konfigurierten Sprachen zu verwalten.
 
-![Intlayer Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/de/assets/intlayer_editor_ui.png)
+![Intlayer Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
 ## Installation
 
-Installieren Sie das notwendige Paket mit Ihrem bevorzugten Paketmanager:
+Installieren Sie das erforderliche Paket mit Ihrem bevorzugten Paketmanager:
 
 ```bash packageManager="npm"
 npm install intlayer-editor
@@ -34,39 +34,39 @@ In Ihrer Intlayer-Konfigurationsdatei können Sie die Editor-Einstellungen anpas
 const config: IntlayerConfig = {
   // ... andere Konfigurationseinstellungen
   editor: {
-    enabled: process.env.INTLAYER_ENABLED === "true", // Wenn falsch, ist der Editor inaktiv und kann nicht zugegriffen werden.
-    // Client-ID und Client-Geheimnis sind erforderlich, um den Editor zu aktivieren.
+    enabled: process.env.INTLAYER_ENABLED === "true", // Wenn false, ist der Editor inaktiv und kann nicht aufgerufen werden.
+    // Client-ID und Client-Secret sind erforderlich, um den Editor zu aktivieren.
     // Sie ermöglichen die Identifizierung des Benutzers, der den Inhalt bearbeitet.
-    // Sie können erhalten werden, indem Sie einen neuen Client im Intlayer-Dashboard - Projekte erstellen (https://intlayer.org/dashboard/projects).
+    // Sie können durch das Erstellen eines neuen Clients im Intlayer-Dashboard - Projekte (https://intlayer.org/dashboard/projects) erhalten werden.
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 ```
 
-> Wenn Sie keine Client-ID und kein Client-Geheimnis haben, können Sie diese erhalten, indem Sie einen neuen Client im [Intlayer-Dashboard - Projekte](https://intlayer.org/dashboard/projects) erstellen.
+> Wenn Sie keine Client-ID und kein Client-Secret haben, können Sie diese durch das Erstellen eines neuen Clients im [Intlayer-Dashboard - Projekte](https://intlayer.org/dashboard/projects) erhalten.
 
-> Um alle verfügbaren Parameter zu sehen, siehe die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md)
+> Um alle verfügbaren Parameter zu sehen, lesen Sie die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md)
 
-Das `intlayer-editor`-Paket basiert auf Intlayer und ist für JavaScript-Anwendungen wie React (Create React App), Vite + React und Next.js verfügbar.
+Das `intlayer-editor`-Paket basiert auf Intlayer und ist für JavaScript-Anwendungen verfügbar, wie React (Create React App), Vite + React und Next.js.
 
-Für weitere Details zur Paketeinstallation siehe den relevanten Abschnitt unten:
+Für weitere Details zur Installation des Pakets siehe den entsprechenden Abschnitt unten:
 
 ### Integration mit Next.js
 
-Für die Integration mit Next.js siehe die [Setup-Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_nextjs_15.md).
+Für die Integration mit Next.js lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_nextjs_15.md).
 
 ### Integration mit Create React App
 
-Für die Integration mit Create React App siehe die [Setup-Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_create_react_app.md)
+Für die Integration mit Create React App lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_create_react_app.md)
 
 ### Integration mit Vite + React
 
-Für die Integration mit Vite + React siehe die [Setup-Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_vite+react.md)
+Für die Integration mit Vite + React lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_vite+react.md)
 
-### Beispiel für Integration
+### Beispiel für die Integration
 
-Um den Intlayer-Visual-Editor in Ihr React-Projekt zu integrieren, befolgen Sie diese Schritte:
+Um den visuellen Intlayer-Editor in Ihr React-Projekt zu integrieren, folgen Sie diesen Schritten:
 
 - Importieren Sie die Intlayer-Editor-Komponente in Ihre React-Anwendung:
 
@@ -78,7 +78,7 @@ Um den Intlayer-Visual-Editor in Ihr React-Projekt zu integrieren, befolgen Sie 
     return (
       <IntlayerProvider>
         <IntlayerEditorProvider>
-          <IntlayerEditor>{/* Ihr Anwendungsinhalt hier */}</IntlayerEditor>
+          <IntlayerEditor>{/* Ihr App-Inhalt hier */}</IntlayerEditor>
         </IntlayerEditorProvider>
       </IntlayerProvider>
     );
@@ -106,8 +106,8 @@ Um den Intlayer-Visual-Editor in Ihr React-Projekt zu integrieren, befolgen Sie 
 
 ## Verwendung des Editors
 
-Wenn der Editor installiert, aktiviert und gestartet ist, können Sie jedes von Intlayer indizierte Feld sehen, indem Sie mit dem Cursor über Ihren Inhalt fahren.
+Wenn der Editor installiert, aktiviert und gestartet ist, können Sie jedes von Intlayer indizierte Feld anzeigen, indem Sie mit dem Cursor über Ihren Inhalt fahren.
 
-![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/de/assets/intlayer_editor_hover_content.png)
+![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-Wenn Ihr Inhalt umrandet ist, können Sie längere Zeit darauf drücken, um die Bearbeitungsleiste anzuzeigen.
+Wenn Ihr Inhalt umrandet ist, können Sie ihn lange drücken, um die Bearbeitungsleiste anzuzeigen.

@@ -1,16 +1,16 @@
 # Intlayer 文档
 
-欢迎来到 Intlayer 文档。 本指南提供了 Intlayer 的概述、主要功能以及如何有效利用这些文档来增强您的开发体验。
+欢迎来到官方 Intlayer 文档！在这里，您将找到集成、配置和掌握 Intlayer 所需的一切，无论您是使用 Next.js、React、Vite、Express 还是其他 JavaScript 环境。
 
 ## 介绍
 
 ### 什么是 Intlayer？
 
-**Intlayer** 是一个专为 JavaScript 开发者设计的国际化库。它允许在代码的任何地方声明您的内容。它将多语言内容的声明转换为结构化字典，以便轻松集成到代码中。使用 TypeScript，**Intlayer** 使您的开发更强大、更高效。
+**Intlayer** 是专为 JavaScript 开发者设计的国际化库。它允许您在代码中的任何地方声明内容，并将多语言内容的声明转换为结构化字典，以便轻松集成到您的代码中。通过使用 TypeScript，**Intlayer** 使您的开发更强大、更高效。
 
-Intlayer 还提供了一个可选的可视化编辑器，允许您轻松编辑和管理您的内容。这个编辑器对那些喜欢内容管理的可视化接口的开发者特别有用，或者对于生成内容而不必担心代码的团队。
+Intlayer 还提供了一个可选的可视化编辑器，允许您轻松编辑和管理内容。对于喜欢使用可视化界面进行内容管理的开发者，或者无需担心代码的内容生成团队来说，这个编辑器特别有用。
 
-## 使用示例
+### 使用示例
 
 ```bash codeFormat="typescript"
 .
@@ -137,28 +137,50 @@ const MyComponent = () => {
 };
 ```
 
-### 主要功能
+## 主要功能
 
-Intlayer 提供一系列功能来满足现代 web 开发的需求。以下是关键功能的概述，包括每个功能的详细文档链接：
+Intlayer 提供了多种功能，以满足现代 Web 开发的需求。以下是关键功能，并附有详细文档的链接：
 
-- **国际化支持**: 通过内置的国际化支持增强您的应用程序的全球覆盖范围。
-- **可视化编辑器**: 通过为 Intlayer 设计的编辑器插件改善您的开发工作流程。查看 [可视化编辑器指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_editor.md)。
-- **配置灵活性**: 根据 [配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 中详细说明的广泛配置选项自定义您的设置。
-- **先进的 CLI 工具**: 使用 Intlayer 的命令行界面高效管理您的项目。了解 [CLI 工具文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 中的功能。
-- **与 i18n 的兼容性**: Intlayer 与其他国际化库无缝协作。有关更多信息，请查看 [i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_i18next.md)。
+- **国际化支持**：通过内置的国际化支持，增强您的应用程序的全球影响力。
+- **可视化编辑器**：通过为 Intlayer 设计的编辑器插件改进您的开发工作流。查看 [可视化编辑器指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)。
+- **配置灵活性**：通过广泛的配置选项自定义您的设置，详细信息请参阅 [配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+- **高级 CLI 工具**：使用 Intlayer 的命令行界面高效管理您的项目。探索 [CLI 工具文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 中的功能。
 
-### 支持的平台
+## 核心概念
 
-Intlayer 旨在与 Next.js 和 React 应用程序无缝协作。它还支持 Vite 和 Create React App。
+### 字典
 
-- **Next.js 集成**: 在 Intlayer 中利用 Next.js 的强大功能来实现服务器端渲染和静态站点生成。详细信息在我们的 [Next.js 集成指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md) 中提供。
-- **Vite 和 React 集成**: 在 Intlayer 中利用 Vite 实现服务器端渲染和静态站点生成。详细信息在我们的 [Vite 和 React 集成指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md) 中提供。
-- **Create React App 集成**: 在 Intlayer 中利用 Create React App 的强大功能来实现服务器端渲染和静态站点生成。详细信息在我们的 [Create React App 集成指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md) 中提供。
+将您的多语言内容组织在代码附近，以保持一致性和可维护性。
 
-### 如何使用此文档
+- **[快速开始](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)**  
+  学习在 Intlayer 中声明内容的基础知识。
 
-为了充分利用此文档：
+- **[翻译](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/translation.md)**  
+  了解翻译是如何生成、存储和在您的应用程序中使用的。
 
-1. **导航到相关部分**: 使用上面提供的链接直接访问满足您需求的部分。
-2. **交互式示例**: 在可用的地方，利用交互式示例实时查看功能是如何工作的。
-3. **反馈和贡献**: 您的反馈至关重要。如果您有建议或更正，请考虑为文档做出贡献。
+- **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/enumeration.md)**  
+  轻松管理跨多种语言的重复或固定数据集。
+
+- **[函数获取](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/function_fetching.md)**  
+  了解如何使用自定义逻辑动态获取内容，以匹配您的项目工作流。
+
+### 环境与集成
+
+我们设计了 Intlayer 的灵活性，提供了与流行框架和构建工具的无缝集成：
+
+- **[Intlayer 与 Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)**
+- **[Intlayer 与 Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_14.md)**
+- **[Intlayer 与 Next.js 页面路由](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_page_router.md)**
+- **[Intlayer 与 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)**
+- **[Intlayer 与 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)**
+- **[Intlayer 与 Express](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_express.md)**
+
+每个集成指南都包括使用 Intlayer 功能的最佳实践，例如 **服务器端渲染**、**动态路由** 或 **客户端渲染**，以便您可以维护快速、SEO 友好且高度可扩展的应用程序。
+
+## 贡献与反馈
+
+我们重视开源和社区驱动的开发。如果您想提出改进建议、添加新指南或纠正文档中的任何问题，请随时在我们的 [GitHub 仓库](https://github.com/aymericzip/intlayer/blob/main/docs) 提交拉取请求或打开问题。
+
+**准备好更快、更高效地翻译您的应用程序了吗？** 浏览我们的文档，立即开始使用 Intlayer。体验一种强大、简化的国际化方法，让您的内容井然有序，让您的团队更高效。
+
+祝翻译愉快！

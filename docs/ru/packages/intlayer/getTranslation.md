@@ -1,30 +1,30 @@
 # Документация: Функция `getTranslationContent` в `intlayer`
 
-## Описание:
+## Описание
 
-Функция `getTranslationContent` извлекает содержимое, соответствующее конкретной локали из набора настраиваемого языкового контента. Если указанная локаль не найдена, по умолчанию возвращается контент для локали по умолчанию, настроенной в проекте.
+Функция `getTranslationContent` извлекает содержимое, соответствующее определенной локали, из набора настраиваемого языкового содержимого. Если указанная локаль не найдена, по умолчанию возвращается содержимое для локали по умолчанию, настроенной в проекте.
 
-## Параметры:
+## Параметры
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Описание**: Объект, содержащий переводы для различных локалей. Каждой ключ соответствует локали, а его значение - соответствующий контент.
+  - **Описание**: Объект, содержащий переводы для различных локалей. Каждый ключ представляет локаль, а его значение — соответствующее содержимое.
   - **Тип**: `CustomizableLanguageContent<Content>`
-    - `Content` может быть любого типа, по умолчанию - `string`.
+    - `Content` может быть любого типа, по умолчанию `string`.
 
 - `locale: Locales`
 
-  - **Описание**: Локаль, для которой нужно извлечь содержимое.
+  - **Описание**: Локаль, для которой нужно получить содержимое.
   - **Тип**: `Locales`
 
-## Возвращает:
+## Возвращаемое значение
 
 - **Тип**: `Content`
-- **Описание**: Содержимое, соответствующее указанной локали. Если локаль не найдена, возвращается контент локали по умолчанию.
+- **Описание**: Содержимое, соответствующее указанной локали. Если локаль не найдена, возвращается содержимое локали по умолчанию.
 
-## Пример использования:
+## Пример использования
 
-### Основное использование:
+### Базовое использование
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -33,6 +33,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ru: "Привет",
   },
   Locales.ENGLISH
 );
@@ -47,6 +48,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ru: "Привет",
   },
   Locales.ENGLISH
 );
@@ -61,6 +63,7 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ru: "Привет",
   },
   Locales.ENGLISH
 );
@@ -77,11 +80,12 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ru: "Привет",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Вывод: "Hello" (контент локали по умолчанию)
+console.log(content); // Вывод: "Hello" (содержимое локали по умолчанию)
 ```
 
 ```javascript codeFormat="esm"
@@ -91,11 +95,12 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ru: "Привет",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Вывод: "Hello" (контент локали по умолчанию)
+console.log(content); // Вывод: "Hello" (содержимое локали по умолчанию)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -105,14 +110,15 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ru: "Привет",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Вывод: "Hello" (контент локали по умолчанию)
+console.log(content); // Вывод: "Hello" (содержимое локали по умолчанию)
 ```
 
-### Использование настраиваемых типов контента:
+### Использование пользовательских типов содержимого:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -121,6 +127,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    ru: { greeting: "Привет" },
   },
   Locales.FRENCH
 );
@@ -135,6 +142,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    ru: { greeting: "Привет" },
   },
   Locales.FRENCH
 );
@@ -149,6 +157,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    ru: { greeting: "Привет" },
   },
   Locales.FRENCH
 );
@@ -156,13 +165,13 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // Вывод: "Bonjour"
 ```
 
-## Пограничные случаи:
+## Граничные случаи
 
 - **Локаль не найдена:**
-  - Когда `locale` не найдена в `languageContent`, функция возвращает контент для локали по умолчанию.
-- **Неполный языковой контент:**
+  - Когда `locale` не найдена в `languageContent`, функция возвращает содержимое для локали по умолчанию.
+- **Неполное языковое содержимое:**
+  - Если локаль определена частично, функция не объединяет содержимое. Она строго извлекает значение указанной локали или возвращает значение по умолчанию.
+- **Применение TypeScript:**
+  - Если локали в `languageContent` не соответствуют конфигурации проекта, TypeScript потребует определения всех необходимых локалей, обеспечивая полноту и безопасность типов.
 
-  - Если локаль частично определена, функция не объединяет содержимое. Она строго извлекает значение указанной локали или возвращается к значению по умолчанию.
-
-- **Принуждение TypeScript:**
-  - Если локали в `languageContent` не соответствуют конфигурации проекта, TypeScript будет настаивать на том, чтобы все требуемые локали были определены, обеспечивая полноту и типобезопасность контента.
+[Документация на GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/ru/getTranslationContent.md)

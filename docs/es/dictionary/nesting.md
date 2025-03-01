@@ -1,8 +1,8 @@
-# Anidación / Referenciación de Sub Contenido
+# Anidación / Referencia de Subcontenido
 
 ## Cómo Funciona la Anidación
 
-En Intlayer, la anidación se logra a través de la función `nest`, que te permite referenciar y reutilizar contenido de otro diccionario. En lugar de duplicar contenido, puedes apuntar a un módulo de contenido existente mediante su clave.
+En Intlayer, la anidación se logra a través de la función `nest`, que permite referenciar y reutilizar contenido de otro diccionario. En lugar de duplicar contenido, puedes apuntar a un módulo de contenido existente mediante su clave.
 
 ## Configuración de la Anidación
 
@@ -10,7 +10,7 @@ Para configurar la anidación en tu proyecto de Intlayer, primero defines el con
 
 ### Diccionario Base
 
-A continuación, se muestra un ejemplo de un diccionario base con contenido anidado:
+A continuación, se muestra un ejemplo de un diccionario base para anidar en otro diccionario:
 
 ```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
 import { type Dictionary } from "intlayer";
@@ -75,9 +75,9 @@ module.exports = firstDictionary;
 }
 ```
 
-### Referenciación con Nest
+### Referenciando con Nest
 
-Ahora, crea otro módulo de contenido que utilice la función `nest` para referenciar el contenido anterior. Puedes referenciar todo el contenido o un valor específico anidado:
+Ahora, crea otro módulo de contenido que utilice la función `nest` para referenciar el contenido anterior. Puedes referenciar el contenido completo o un valor específico anidado:
 
 ```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
 import { nest, type Dictionary } from "intlayer";
@@ -85,9 +85,9 @@ import { nest, type Dictionary } from "intlayer";
 const myNestingContent = {
   key: "key_of_my_second_dictionary",
   content: {
-    // Referencia todo el diccionario:
+    // Referencia el diccionario completo:
     fullNestedContent: nest("key_of_my_first_dictionary"),
-    // Referencia un valor anidado específico:
+    // Referencia un valor específico anidado:
     partialNestedContent: nest(
       "key_of_my_first_dictionary",
       "subContent.contentNumber"
@@ -156,11 +156,11 @@ module.exports = myNestingContent;
 }
 ```
 
-Como segundo parámetro, puedes especificar una ruta a un valor anidado dentro de ese contenido. Cuando no se proporciona una ruta, se devuelve todo el contenido del diccionario referenciado.
+Como segundo parámetro, puedes especificar una ruta a un valor anidado dentro de ese contenido. Cuando no se proporciona una ruta, se devuelve el contenido completo del diccionario referenciado.
 
-## Usando la Anidación con React Intlayer
+## Usando Anidación con React Intlayer
 
-Para usar contenido anidado en un componente React, aprovecha el hook `useIntlayer` del paquete `react-intlayer`. Este hook recupera el contenido correcto según la clave especificada. Aquí hay un ejemplo de cómo usarlo:
+Para usar contenido anidado en un componente de React, utiliza el hook `useIntlayer` del paquete `react-intlayer`. Este hook recupera el contenido correcto basado en la clave especificada. Aquí tienes un ejemplo de cómo usarlo:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -246,4 +246,4 @@ Para obtener información más detallada sobre la configuración y el uso, consu
 - [Documentación de React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_create_react_app.md)
 - [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_nextjs_15.md)
 
-Estos recursos proporcionan más detalles sobre la configuración y el uso de Intlayer en diferentes entornos y con varios frameworks.
+Estos recursos proporcionan más información sobre la configuración y el uso de Intlayer en diferentes entornos y con varios frameworks.

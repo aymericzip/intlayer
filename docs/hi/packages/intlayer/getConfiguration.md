@@ -1,40 +1,39 @@
-# Documentation: `getConfiguration` Function in `intlayer`
+# दस्तावेज़: `getConfiguration` फ़ंक्शन `intlayer` में
 
-## Description
+## विवरण
 
-`getConfiguration` फ़ंक्शन `intlayer` एप्लिकेशन के लिए पूरी कॉन्फ़िगरेशन को निकालता है, जो वातावरण चर को निकालता है। यह फ़ंक्शन क्लाइंट और सर्वर दोनों पक्षों पर समान कॉन्फ़िगरेशन का उपयोग करने की लचीलेपन को प्रदान करता है, जिससे एप्लिकेशन में स्थिरता सुनिश्चित होती है।
+`getConfiguration` फ़ंक्शन `intlayer` एप्लिकेशन के लिए संपूर्ण कॉन्फ़िगरेशन को पर्यावरण चर से निकालकर पुनः प्राप्त करता है। यह फ़ंक्शन क्लाइंट और सर्वर दोनों पक्षों पर एक ही कॉन्फ़िगरेशन का उपयोग करने की लचीलापन प्रदान करता है, जिससे एप्लिकेशन में स्थिरता सुनिश्चित होती है।
 
 ---
 
-## Parameters
+## पैरामीटर्स
 
-यह फ़ंक्शन कोई पैरामीटर नहीं लेता है। इसके बजाय, यह कॉन्फ़िगरेशन के लिए वातावरण चर का उपयोग करता है।
+यह फ़ंक्शन कोई पैरामीटर नहीं लेता है। इसके बजाय, यह कॉन्फ़िगरेशन के लिए पर्यावरण चर का उपयोग करता है।
 
-### Returns
+### रिटर्न करता है
 
-- **Type**: `IntlayerConfig`
-- **Description**: `intlayer` के लिए पूरी कॉन्फ़िगरेशन शामिल करने वाला एक ऑब्जेक्ट। कॉन्फ़िगरेशन में निम्नलिखित अनुभाग शामिल हैं:
+- **प्रकार**: `IntlayerConfig`
+- **विवरण**: `intlayer` के लिए संपूर्ण कॉन्फ़िगरेशन युक्त एक ऑब्जेक्ट। कॉन्फ़िगरेशन में निम्नलिखित अनुभाग शामिल हैं:
 
   - `internationalization`: स्थानीय और सख्त मोड से संबंधित सेटिंग्स।
   - `middleware`: URL और कुकी प्रबंधन से संबंधित सेटिंग्स।
   - `content`: सामग्री फ़ाइलों, निर्देशिकाओं और पैटर्न से संबंधित सेटिंग्स।
   - `editor`: संपादक-विशिष्ट कॉन्फ़िगरेशन।
 
-अधिक जानकारी के लिए [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
+अधिक विवरण के लिए [Intlayer कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
 
 ---
 
-## Example Usage
+## उदाहरण उपयोग
 
-### Retrieving the Full Configuration
+### संपूर्ण कॉन्फ़िगरेशन पुनः प्राप्त करना
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
 
-// पूरी कॉन्फ़िगरेशन प्राप्त करें
 const config = getConfiguration();
 console.log(config);
-// Output:
+// आउटपुट:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -46,10 +45,9 @@ console.log(config);
 ```javascript codeFormat="esm"
 import { getConfiguration } from "intlayer";
 
-// पूरी कॉन्फ़िगरेशन प्राप्त करें
 const config = getConfiguration();
 console.log(config);
-// Output:
+// आउटपुट:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -61,10 +59,9 @@ console.log(config);
 ```javascript codeFormat="commonjs"
 const { getConfiguration } = require("intlayer");
 
-// पूरी कॉन्फ़िगरेशन प्राप्त करें
 const config = getConfiguration();
 console.log(config);
-// Output:
+// आउटपुट:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -73,9 +70,9 @@ console.log(config);
 // }
 ```
 
-### Extracting `availableLocales` and `defaultLocale`
+### `availableLocales` और `defaultLocale` निकालना
 
-कॉन्फ़िगरेशन के `internationalization` अनुभाग में `locales` (उपलब्ध स्थानीय) और `defaultLocale` (फॉलबैक भाषा) जैसी स्थानीय से संबंधित सेटिंग्स प्रदान की जाती हैं।
+कॉन्फ़िगरेशन का `internationalization` अनुभाग स्थानीय से संबंधित सेटिंग्स प्रदान करता है जैसे `locales` (उपलब्ध स्थानीय) और `defaultLocale` (फॉलबैक भाषा)।
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -84,9 +81,9 @@ const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
-console.log(availableLocales); // Output example: ["en", "fr", "es"]
-console.log(defaultLocale); // Output example: "en"
-console.log(cookieName); // Output: "INTLAYER_LOCALE"
+console.log(availableLocales); // आउटपुट उदाहरण: ["en", "fr", "es"]
+console.log(defaultLocale); // आउटपुट उदाहरण: "en"
+console.log(cookieName); // आउटपुट: "INTLAYER_LOCALE"
 ```
 
 ```javascript codeFormat="esm"
@@ -96,9 +93,9 @@ const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
-console.log(availableLocales); // Output example: ["en", "fr", "es"]
-console.log(defaultLocale); // Output example: "en"
-console.log(cookieName); // Output: "INTLAYER_LOCALE"
+console.log(availableLocales); // आउटपुट उदाहरण: ["en", "fr", "es"]
+console.log(defaultLocale); // आउटपुट उदाहरण: "en"
+console.log(cookieName); // आउटपुट: "INTLAYER_LOCALE"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -108,16 +105,16 @@ const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
-console.log(availableLocales); // Output example: ["en", "fr", "es"]
-console.log(defaultLocale); // Output example: "en"
-console.log(cookieName); // Output: "INTLAYER_LOCALE"
+console.log(availableLocales); // आउटपुट उदाहरण: ["en", "fr", "es"]
+console.log(defaultLocale); // आउटपुट उदाहरण: "en"
+console.log(cookieName); // आउटपुट: "INTLAYER_LOCALE"
 ```
 
-## Notes
+## नोट्स
 
-- सुनिश्चित करें कि सभी आवश्यक वातावरण चर सही ढंग से सेट हैं इससे पहले कि आप इस फ़ंक्शन को कॉल करें। गायब चर प्रारंभिककरण के दौरान त्रुटियाँ उत्पन्न करेंगे।
-- यह फ़ंक्शन क्लाइंट और सर्वर दोनों पक्षों पर उपयोग किया जा सकता है, जिससे यह कॉन्फ़िगरेशन को एकीकृत तरीके से प्रबंधित करने का एक बहुपरकारी उपकरण बन जाता है।
+- इस फ़ंक्शन को कॉल करने से पहले सुनिश्चित करें कि सभी आवश्यक पर्यावरण चर सही ढंग से सेट हैं। गायब चर प्रारंभिकरण के दौरान त्रुटियां उत्पन्न करेंगे।
+- यह फ़ंक्शन क्लाइंट और सर्वर दोनों पक्षों पर उपयोग किया जा सकता है, जिससे यह एकीकृत तरीके से कॉन्फ़िगरेशन प्रबंधन के लिए एक बहुमुखी उपकरण बनता है।
 
-## Usage in Applications
+## एप्लिकेशन में उपयोग
 
-`getConfiguration` फ़ंक्शन `intlayer` एप्लिकेशन के लिए कॉन्फ़िगरेशन को प्रारंभ करने और प्रबंधित करने के लिए एक कोने का पत्थर उपयोगिता है। यह स्थानीय, मिडलवेयर और सामग्री निर्देशिकाओं जैसी सेटिंग्स तक पहुंच प्रदान करके, यह बहुभाषी और सामग्री-चालित एप्लिकेशनों में स्थिरता और स्केलेबिलिटी सुनिश्चित करता है।
+`getConfiguration` फ़ंक्शन `intlayer` एप्लिकेशन के कॉन्फ़िगरेशन को प्रारंभ और प्रबंधित करने के लिए एक मुख्य उपयोगिता है। यह स्थानीय, मिडलवेयर और सामग्री निर्देशिकाओं जैसी सेटिंग्स तक पहुंच प्रदान करके बहुभाषी और सामग्री-चालित अनुप्रयोगों में स्थिरता और मापनीयता सुनिश्चित करता है।

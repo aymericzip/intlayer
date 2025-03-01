@@ -270,7 +270,7 @@ const text = t(translations);
 
 The `t` function in `react-intlayer` is a powerful and convenient tool for managing inline translations in your React applications. By integrating it effectively, you enhance the internationalisation capabilities of your app, providing a better experience for users worldwide.
 
-For more detailed usage and advanced features, refer to the [react-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md).
+For more detailed usage and advanced features, refer to the [react-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_visual_editor.md).
 
 ---
 

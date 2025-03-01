@@ -1,10 +1,10 @@
 # React 통합: `useIntlayer` 훅 문서
 
-이 섹션은 React 애플리케이션에서 `useIntlayer` 훅을 사용하는 방법에 대한 자세한 안내를 제공하여 효율적인 콘텐츠 로컬라이제이션을 가능하게 합니다.
+이 섹션은 React 애플리케이션 내에서 `useIntlayer` 훅을 사용하여 효율적인 콘텐츠 로컬라이제이션을 구현하는 방법에 대한 자세한 지침을 제공합니다.
 
 ## React에서 `useIntlayer` 가져오기
 
-`useIntlayer` 훅은 컨텍스트에 따라 React 애플리케이션에 통합할 수 있습니다:
+`useIntlayer` 훅은 다음과 같이 React 애플리케이션에 통합할 수 있습니다:
 
 - **클라이언트 컴포넌트:**
 
@@ -36,16 +36,16 @@
 
 ## 매개변수
 
-훅은 두 개의 매개변수를 받습니다:
+이 훅은 두 개의 매개변수를 받습니다:
 
-1. **`key`**: 로컬라이즈된 콘텐츠를 가져오기 위한 사전 키.
-2. **`locale`** (선택 사항): 원하는 로케일. 지정하지 않을 경우 컨텍스트의 로케일로 기본 설정됩니다.
+1. **`key`**: 로컬라이즈된 콘텐츠를 가져오기 위한 딕셔너리 키.
+2. **`locale`** (선택 사항): 원하는 로케일. 지정하지 않으면 컨텍스트의 로케일을 기본값으로 사용합니다.
 
-## 콘텐츠 선언
+## 딕셔너리
 
-모든 사전 키는 타입 안전성을 높이고 오류를 피하기 위해 콘텐츠 선언 파일 내에서 선언되어야 합니다. 설정 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다.
+모든 딕셔너리 키는 타입 안전성을 높이고 오류를 방지하기 위해 콘텐츠 선언 파일 내에 선언되어야 합니다. 설정 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다.
 
-## React에서의 예제 사용법
+## React에서의 사용 예시
 
 React 컴포넌트 내에서 `useIntlayer` 훅을 사용하는 예시:
 
@@ -212,7 +212,7 @@ const ServerComponentExample = () => {
 
 ## 속성 처리
 
-속성을 로컬라이즈할 때는 콘텐츠 값을 적절하게 접근합니다:
+속성을 로컬라이즈할 때는 콘텐츠 값을 적절히 접근합니다:
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
@@ -220,6 +220,6 @@ const ServerComponentExample = () => {
 
 ## 추가 리소스
 
-- **Intlayer 비주얼 에디터**: 보다 직관적인 콘텐츠 관리 환경을 위해 비주얼 에디터 문서를 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_editor.md)에서 참조하세요.
+- **Intlayer 비주얼 에디터**: 보다 직관적인 콘텐츠 관리 경험을 위해 비주얼 에디터 문서를 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)에서 참조하세요.
 
-이 섹션은 React 애플리케이션에서 `useIntlayer` 훅의 통합을 구체적으로 다루며, 로컬라이제이션 프로세스를 단순화하고 다양한 로케일 간의 콘텐츠 일관성을 보장합니다.
+이 섹션은 React 애플리케이션에서 `useIntlayer` 훅의 통합을 구체적으로 다루며, 로컬라이제이션 프로세스를 단순화하고 다양한 로케일에서 콘텐츠 일관성을 보장합니다.

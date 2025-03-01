@@ -1,24 +1,24 @@
-# IntlayerとNext.js 15アプリルーターでの国際化 (i18n) の始め方
+# Getting Started internationalizing (i18n) with Intlayer and Next.js 15 App Router
 
-## Intlayerとは？
+## Intlayerを始める
 
-**Intlayer**は、モダンウェブアプリケーションにおける多言語サポートを簡素化するために設計された革新的なオープンソース国際化(i18n)ライブラリです。Intlayerは最新の**Next.js 15**フレームワークとシームレスに統合され、強力な**アプリルーター**も含まれています。効率的なレンダリングのために**サーバーコンポーネント**での動作に最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack)にも完全に対応しています。
+**Intlayer**は、最新のウェブアプリケーションで多言語対応を簡素化するために設計された、革新的なオープンソースの国際化（i18n）ライブラリです。Intlayerは、強力な**App Router**を含む最新の**Next.js 15**フレームワークとシームレスに統合されます。**Server Components**での効率的なレンダリングに最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack)とも完全に互換性があります。
 
-Intlayerを使用すると、以下を実現できます：
+Intlayerを使用すると、以下のことが可能です：
 
-- **宣言型辞書を使用して翻訳を簡単に管理**することができます。
-- **メタデータ、ルート、およびコンテンツを動的にローカライズ**することができます。
-- **クライアントサイドおよびサーバーサイドコンポーネントで翻訳にアクセス**することができます。
-- **自動生成された型を使用してTypeScriptサポート**を確保し、オートコンプリートとエラーチェックを向上させます。
-- **動的ロケール検出や切り替え**などの高度な機能を利用できます。
+- コンポーネントレベルで宣言的な辞書を使用して**簡単に翻訳を管理**。
+- メタデータ、ルート、およびコンテンツを**動的にローカライズ**。
+- **クライアントサイドおよびサーバーサイドのコンポーネントで翻訳にアクセス**。
+- 自動生成された型で**TypeScriptサポート**を確保し、オートコンプリートとエラー検出を改善。
+- 動的なロケール検出や切り替えなどの**高度な機能**を活用。
 
-> IntlayerはNext.js 12、13、14、15に対応しています。Next.js Page Routerを使用している場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_page_router.md)を参照してください。Next.js 12、13、14でApp Routerを使っている場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_14.md)を参照してください。
+> IntlayerはNext.js 12、13、14、15と互換性があります。Next.js Page Routerを使用している場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_page_router.md)を参照してください。Next.js 12、13、14でApp Routerを使用している場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_14.md)を参照してください。
 
 ---
 
-## Next.jsアプリケーションにIntlayerをセットアップする手順ガイド
+## Next.jsアプリケーションでIntlayerをセットアップするステップバイステップガイド
 
-### ステップ1: 依存関係をインストール
+### ステップ1: 依存関係をインストールする
 
 npmを使用して必要なパッケージをインストールします：
 
@@ -36,15 +36,15 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)、トランスパイレーション、[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージです。
+  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)を提供する国際化ツールのコアパッケージ。
 
 - **next-intlayer**
 
-  IntlayerとNext.jsを統合するパッケージです。Next.js国際化のためのコンテキストプロバイダーとフックを提供します。さらに、Intlayerを[Webpack](https://webpack.js.org/)や[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)と統合するNext.jsプラグイン、およびユーザーの好ましいロケールを検出し、クッキーを管理し、URLリダイレクトを処理するためのミドルウェアを含んでいます。
+  IntlayerをNext.jsと統合するパッケージ。Next.jsの国際化のためのコンテキストプロバイダーとフックを提供します。また、[Webpack](https://webpack.js.org/)または[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)とIntlayerを統合するNext.jsプラグインや、ユーザーの優先ロケールを検出し、クッキーを管理し、URLリダイレクションを処理するミドルウェアも含まれています。
 
 ### ステップ2: プロジェクトを設定する
 
-アプリケーションの言語を設定するための構成ファイルを作成します：
+アプリケーションの言語を設定するための設定ファイルを作成します：
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -52,12 +52,12 @@ import { Locales, type IntlayerConfig } from "intlayer";
 const config: IntlayerConfig = {
   internationalization: {
     locales: [
-      Locales.JAPANESE,
+      Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // その他のロケール
+      // 他のロケール
     ],
-    defaultLocale: Locales.JAPANESE,
+    defaultLocale: Locales.ENGLISH,
   },
 };
 
@@ -71,12 +71,12 @@ import { Locales } from "intlayer";
 const config = {
   internationalization: {
     locales: [
-      Locales.JAPANESE,
+      Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // その他のロケール
+      // 他のロケール
     ],
-    defaultLocale: Locales.JAPANESE,
+    defaultLocale: Locales.ENGLISH,
   },
 };
 
@@ -90,73 +90,62 @@ const { Locales } = require("intlayer");
 const config = {
   internationalization: {
     locales: [
-      Locales.JAPANESE,
+      Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // その他のロケール
+      // 他のロケール
     ],
-    defaultLocale: Locales.JAPANESE,
+    defaultLocale: Locales.ENGLISH,
   },
 };
 
 module.exports = config;
 ```
 
-> この構成ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子の設定、Intlayerのログをコンソールに表示しないようにするなどを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
+> この設定ファイルを通じて、ローカライズされたURL、ミドルウェアリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Next.js設定にIntlayerを統合
+### ステップ3: Next.js設定にIntlayerを統合する
 
-Next.jsのセットアップをIntlayerを使用するように設定します：
+Next.jsの設定をIntlayerを使用するように構成します：
 
-```typescript fileName="next.config.mjs"
+```typescript filename="next.config.ts" codeFormat="typescript"
+import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig: NextConfig = {
+  /* 設定オプションをここに記述 */
+};
 
 export default withIntlayer(nextConfig);
 ```
 
-> `withIntlayer()` Next.jsプラグインは、IntlayerをNext.jsに統合するために使用されます。これは、コンテンツ宣言ファイルのビルドを保証し、開発モードでそれらを監視します。WebpackまたはTurbopack環境内でIntlayerの環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供し、サーバーコンポーネントとの互換性を確保します。
+```typescript fileName="next.config.mjs" codeFormat="esm"
+import { withIntlayer } from "next-intlayer/server";
 
-### ステップ4: ロケール検出のためのミドルウェアを設定
-
-ユーザーの好ましいロケールを検出するためのミドルウェアを設定します：
-
-```typescript fileName="src/middleware.ts" codeFormat="typescript"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerMiddleware } = require("next-intlayer/middleware");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  /* 設定オプションをここに記述 */
 };
 
-module.exports = { middleware: intlayerMiddleware, config };
+export default withIntlayer(nextConfig);
 ```
 
-> `intlayerMiddleware`は、ユーザーの好ましいロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で指定された適切なURLにリダイレクトします。また、ユーザーの好ましいロケールをクッキーに保存することを可能にします。
+```typescript fileName="next.config.cjs" codeFormat="commonjs"
+const { withIntlayer } = require("next-intlayer/server");
 
-### ステップ5: 動的ロケールルートを定義
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  /* 設定オプションをここに記述 */
+};
 
-`RootLayout`からすべてを削除し、次のコードに置き換えます：
+module.exports = withIntlayer(nextConfig);
+```
+
+> `withIntlayer()` Next.jsプラグインは、IntlayerをNext.jsと統合するために使用されます。コンテンツ宣言ファイルのビルドを確実にし、開発モードでそれらを監視します。また、[Webpack](https://webpack.js.org/)または[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)環境内でIntlayer環境変数を定義します。さらに、パフォーマンスを最適化するエイリアスを提供し、サーバーコンポーネントとの互換性を確保します。
+
+### ステップ4: 動的ロケールルートを定義する
+
+`RootLayout`からすべてを削除し、以下のコードに置き換えます：
 
 ```tsx {3} fileName="src/app/layout.tsx" codeFormat="typescript"
 import type { PropsWithChildren, FC } from "react";
@@ -186,9 +175,9 @@ module.exports = {
 };
 ```
 
-> `RootLayout`コンポーネントを空にすることで、`<html>`タグに`lang`と`dir`属性を設定できます。
+> `RootLayout`コンポーネントを空に保つことで、[`lang`](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/lang)および[`dir`](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)属性を`<html>`タグに設定できます。
 
-動的ルーティングを実装するために、`[locale]`ディレクトリに新しいレイアウトを追加してロケールのパスを設定します：
+動的ルーティングを実装するには、`[locale]`ディレクトリに新しいレイアウトを追加してロケールのパスを提供します：
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 import type { NextLayoutIntlayer } from "next-intlayer";
@@ -244,45 +233,45 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
 module.exports = LocaleLayout;
 ```
 
-> `[locale]`パスセグメントはロケールを定義するために使用されます。例：`/en-US/about`は`en-US`に、`/fr/about`は`fr`に関連します。
+> `[locale]`パスセグメントはロケールを定義するために使用されます。例：`/en-US/about`は`en-US`を参照し、`/fr/about`は`fr`を参照します。
 
 次に、アプリケーションレイアウトに`generateStaticParams`関数を実装します。
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
-export { generateStaticParams } from "next-intlayer"; // 挿入行
+export { generateStaticParams } from "next-intlayer"; // 挿入する行
 
 const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  /*... 後のコード*/
+  /*... 残りのコード*/
 };
 
 export default LocaleLayout;
 ```
 
 ```jsx {1} fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
-export { generateStaticParams } from "next-intlayer"; // 挿入行
+export { generateStaticParams } from "next-intlayer"; // 挿入する行
 
 const LocaleLayout = async ({ children, params: { locale } }) => {
-  /*... 後のコード*/
+  /*... 残りのコード*/
 };
 
-// ... 後のコード
+// ... 残りのコード
 ```
 
 ```jsx {1,7} fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
-const { generateStaticParams } = require("next-intlayer"); // 挿入行
+const { generateStaticParams } = require("next-intlayer"); // 挿入する行
 
 const LocaleLayout = async ({ children, params: { locale } }) => {
-  /*... 後のコード*/
+  /*... 残りのコード*/
 };
 
 module.exports = { default: LocaleLayout, generateStaticParams };
 ```
 
-> `generateStaticParams`は、アプリケーションがすべてのロケールの必要なページを事前にビルドすることを保証し、ランタイム計算を減少させ、ユーザーエクスペリエンスを向上させます。詳細については、[Next.jsのgenerateStaticParamsに関するドキュメント](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params)を参照してください。
+> `generateStaticParams`は、アプリケーションがすべてのロケールに必要なページを事前ビルドし、ランタイム計算を削減し、ユーザーエクスペリエンスを向上させます。詳細については、[Next.jsのgenerateStaticParamsに関するドキュメント](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params)を参照してください。
 
-### ステップ6: コンテンツを宣言する
+### ステップ5: コンテンツを宣言する
 
-翻訳を保存するためのコンテンツ宣言を作成して管理します：
+翻訳を保存するためのコンテンツ宣言を作成および管理します：
 
 ```tsx fileName="src/app/[locale]/page.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -292,7 +281,7 @@ const pageContent = {
   content: {
     getStarted: {
       main: t({
-        ja: "編集を始めるには",
+        en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
@@ -313,7 +302,7 @@ const pageContent = {
   content: {
     getStarted: {
       main: t({
-        ja: "編集を始めるには",
+        en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
@@ -334,7 +323,7 @@ const pageContent = {
   content: {
     getStarted: {
       main: t({
-        ja: "編集を始めるには",
+        en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
@@ -354,7 +343,7 @@ module.exports = pageContent;
     "getStarted": {
       "nodeType": "translation",
       "translation": {
-        "ja": "編集を始めるには",
+        "en": "Get started by editing",
         "fr": "Commencez par éditer",
         "es": "Comience por editar"
       }
@@ -362,7 +351,7 @@ module.exports = pageContent;
     "pageLink": {
       "nodeType": "translation",
       "translation": {
-        "ja": "src/app/page.tsx",
+        "en": "src/app/page.tsx",
         "fr": "src/app/page.tsx",
         "es": "src/app/page.tsx"
       }
@@ -371,10 +360,10 @@ module.exports = pageContent;
 }
 ```
 
-> コンテンツ宣言は、アプリケーション内の任意の場所で定義できますが、`contentDir`ディレクトリに含まれている必要があります（デフォルトは`./src`）。また、コンテンツ宣言ファイルの拡張子と一致する必要があります（デフォルトは`.content.{ts,tsx,js,jsx,mjs,cjs}`）。
-> 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
+> コンテンツ宣言は、`contentDir`ディレクトリ（デフォルトでは`./src`）に含まれている限り、アプリケーション内のどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトでは`.content.{ts,tsx,js,jsx,mjs,cjs}`）に一致する必要があります。
+> 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
 
-### ステップ7: コード内のコンテンツを利用
+### ステップ6: コード内でコンテンツを利用する
 
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
@@ -400,16 +389,14 @@ const Page: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
 
   return (
-    <>
-      <IntlayerServerProvider locale={locale}>
-        <PageContent />
-        <ServerComponentExample />
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+      <ServerComponentExample />
 
-        <IntlayerClientProvider locale={locale}>
-          <ClientComponentExample />
-        </IntlayerClientProvider>
-      </IntlayerServerProvider>
-    </>
+      <IntlayerClientProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerClientProvider>
+    </IntlayerServerProvider>
   );
 };
 
@@ -422,52 +409,72 @@ import { ServerComponentExample } from "@components/ServerComponentExample";
 import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
-const Page = ({ locale }) => {
-  const content = useIntlayer("page", locale);
+const PageContent = () => {
+  const { title, content } = useIntlayer("page");
 
   return (
     <>
       <p>{content.getStarted.main}</p>
       <code>{content.getStarted.pageLink}</code>
-
-      <IntlayerClientProvider locale={locale}>
-        <IntlayerServerProvider locale={locale}>
-          <ClientComponentExample />
-          <ServerComponentExample />
-        </IntlayerServerProvider>
-      </IntlayerClientProvider>
     </>
   );
 };
+
+const Page = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+      <ServerComponentExample />
+
+      <IntlayerClientProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerClientProvider>
+    </IntlayerServerProvider>
+  );
+};
+
+export default Page;
 ```
 
 ```jsx fileName="src/app/[locale]/page.csx" codeFormat="commonjs"
-const { IntlayerClientProvider } = require("next-intlayer");
-const { IntlayerServerProvider, useIntlayer } = require("next-intlayer/server");
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
+import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
-const Page = ({ locale }) => {
-  const content = useIntlayer("page", locale);
+const PageContent = () => {
+  const { title, content } = useIntlayer("page");
 
   return (
     <>
       <p>{content.getStarted.main}</p>
       <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+      <ServerComponentExample />
 
       <IntlayerClientProvider locale={locale}>
-        <IntlayerServerProvider locale={locale}>
-          <ClientComponentExample />
-          <ServerComponentExample />
-        </IntlayerServerProvider>
+        <ClientComponentExample />
       </IntlayerClientProvider>
-    </>
+    </IntlayerServerProvider>
   );
 };
 ```
 
-- **`IntlayerClientProvider`**は、クライアントサイドコンポーネントにロケールを提供するために使用されます。親コンポーネントの中であれば、どこにでも配置できますが、レイアウトに配置することが推奨されます。これにより、Next.jsはページ間でレイアウトコードを共有し、効率が向上します。レイアウトで`IntlayerClientProvider`を使用すると、各ページで再初期化することを避け、パフォーマンスが向上し、アプリケーション全体で一貫したローカライズコンテキストを維持できます。
-- **`IntlayerServerProvider`**は、サーバーの子要素にロケールを提供するために使用されます。レイアウト内で設定することはできません。
+- **`IntlayerClientProvider`**は、クライアントサイドコンポーネントにロケールを提供するために使用されます。任意の親コンポーネントに配置できますが、レイアウトに配置することをお勧めします。これは、Next.jsがページ間でレイアウトコードを共有するため、より効率的です。`IntlayerClientProvider`をレイアウトに使用することで、各ページで再初期化する必要がなくなり、パフォーマンスが向上し、アプリケーション全体で一貫したローカリゼーションコンテキストが維持されます。
+- **`IntlayerServerProvider`**は、サーバーの子コンポーネントにロケールを提供するために使用されます。レイアウトに設定することはできません。
 
-  > レイアウトとページで共通のサーバーコンテキストを共有することはできません。なぜなら、サーバーコンテキストシステムはリクエストごとのデータストア（[Reactのキャッシュ](https://react.dev/reference/react/cache)メカニズム経由）のために基づいているからです。これにより、アプリケーションの異なるセグメントに対して各「コンテキスト」が再作成されます。プロバイダを共有レイアウトに配置すると、この隔離が壊れ、サーバーコンテキストの値がサーバーコンポーネントに正しく伝播されなくなります。
+  > レイアウトとページは共通のサーバーコンテキストを共有できません。これは、サーバーコンテキストシステムがリクエストごとのデータストア（[Reactのキャッシュ](https://react.dev/reference/react/cache)メカニズムを介して）に基づいているためです。これにより、アプリケーションの異なるセグメントに対して各「コンテキスト」が再作成されます。共有レイアウトにプロバイダーを配置すると、この分離が破損し、サーバーコンポーネントにサーバーコンテキスト値が正しく伝播されなくなります。
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -567,7 +574,7 @@ const ServerComponentExample = () => {
 };
 ```
 
-> もし、`alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用したい場合は、関数の値を呼び出す必要があります。例えば：
+> コンテンツを`alt`、`title`、`href`、`aria-label`などの`string`属性で使用する場合は、関数の値を呼び出す必要があります。例えば：
 >
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
@@ -575,9 +582,44 @@ const ServerComponentExample = () => {
 
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useIntlayer.md)を参照してください。
 
+### (オプション) ステップ7: ロケール検出用ミドルウェアを設定する
+
+ユーザーの優先ロケールを検出するためのミドルウェアを設定します：
+
+```typescript fileName="src/middleware.ts" codeFormat="typescript"
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+
+export const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+```
+
+```javascript fileName="src/middleware.mjs" codeFormat="esm"
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+
+export const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+```
+
+```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
+const { intlayerMiddleware } = require("next-intlayer/middleware");
+
+const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+
+module.exports = { middleware: intlayerMiddleware, config };
+```
+
+> `intlayerMiddleware`は、ユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で指定された適切なURLにリダイレクトします。また、ユーザーの優先ロケールをクッキーに保存することも可能です。
+
 ### (オプション) ステップ8: メタデータの国際化
 
-ページのタイトルなどのメタデータを国際化したい場合は、Next.jsが提供する`generateMetadata`関数を使用できます。この関数の中で`getTranslation`関数を使用してメタデータを翻訳します。
+ページのタイトルなどのメタデータを国際化する場合は、Next.jsが提供する`generateMetadata`関数を使用できます。この関数内で`getTranslation`関数を使用してメタデータを翻訳します。
 
 ````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
 import {
@@ -589,10 +631,9 @@ import type { Metadata } from "next";
 import type { LocalPromiseParams } from "next-intlayer";
 
 export const generateMetadata = async ({
-  params: { locale },
-}: LocalPromiseParams): Metadata => {
+  params,
+}: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-
   const t = <T>(content: IConfigLocales<T>) => getTranslation(content, locale);
 
   /**
@@ -602,9 +643,9 @@ export const generateMetadata = async ({
    * ```ts
    *  getMultilingualUrls('/about');
    *
-   *  // 返り値
+   *  // 結果
    *  // {
-   *  //   ja: '/about',
+   *  //   en: '/about',
    *  //   fr: '/fr/about',
    *  //   es: '/es/about',
    *  // }
@@ -614,12 +655,12 @@ export const generateMetadata = async ({
 
   return {
     title: t<string>({
-      ja: "私のタイトル",
+      en: "My title",
       fr: "Mon titre",
       es: "Mi título",
     }),
     description: t({
-      ja: "私の説明",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -633,7 +674,7 @@ export const generateMetadata = async ({
   };
 };
 
-// ... 後のコード
+// ... 残りのコード
 ````
 
 ````javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
@@ -650,9 +691,9 @@ export const generateMetadata = async ({ params }) => {
    * ```ts
    *  getMultilingualUrls('/about');
    *
-   *  // 返り値
+   *  // 結果
    *  // {
-   *  //   ja: '/about',
+   *  //   en: '/about',
    *  //   fr: '/fr/about',
    *  //   es: '/es/about'
    *  // }
@@ -662,12 +703,12 @@ export const generateMetadata = async ({ params }) => {
 
   return {
     title: t({
-      ja: "私のタイトル",
+      en: "My title",
       fr: "Mon titre",
       es: "Mi título",
     }),
     description: t({
-      ja: "私の説明",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -681,14 +722,15 @@ export const generateMetadata = async ({ params }) => {
   };
 };
 
-// ... 後のコード
+// ... 残りのコード
 ````
 
 ````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
 const { getTranslation, getMultilingualUrls } = require("intlayer");
 
-module.exports.generateMetadata = async ({ params }) => {
+const generateMetadata = async ({ params }) => {
   const { locale } = await params;
+
   const t = (content) => getTranslation(content, locale);
 
   /**
@@ -698,9 +740,9 @@ module.exports.generateMetadata = async ({ params }) => {
    * ```ts
    *  getMultilingualUrls('/about');
    *
-   *  // 返り値
+   *  // 結果
    *  // {
-   *  //   ja: '/about',
+   *  //   en: '/about',
    *  //   fr: '/fr/about',
    *  //   es: '/es/about'
    *  // }
@@ -710,12 +752,12 @@ module.exports.generateMetadata = async ({ params }) => {
 
   return {
     title: t({
-      ja: "私のタイトル",
+      en: "My title",
       fr: "Mon titre",
       es: "Mi título",
     }),
     description: t({
-      ja: "私の説明",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -729,14 +771,16 @@ module.exports.generateMetadata = async ({ params }) => {
   };
 };
 
-// ... 後のコード
+module.exports = { generateMetadata };
+
+// ... 残りのコード
 ````
 
-> メタデータの最適化については、[Next.jsの公式ドキュメント](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)を参照してください。
+> メタデータの最適化について詳しくは、[公式Next.jsドキュメント](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)を参照してください。
 
-### (オプション) ステップ9: sitemap.xmlとrobots.txtの国際化
+### (オプション) ステップ9: sitemap.xmlおよびrobots.txtの国際化
 
-`sitemap.xml`と`robots.txt`を国際化するために、Intlayerが提供する`getMultilingualUrls`関数を使用できます。この関数を用いることで、サイトマップ用の多言語URLを生成できます。
+`sitemap.xml`および`robots.txt`を国際化するには、Intlayerが提供する`getMultilingualUrls`関数を使用します。この関数を使用すると、サイトマップ用の多言語URLを生成できます。
 
 ```tsx fileName="src/app/sitemap.ts" codeFormat="typescript"
 import { getMultilingualUrls } from "intlayer";
@@ -746,19 +790,19 @@ const sitemap = (): MetadataRoute.Sitemap => [
   {
     url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls("https://example.com"),
+      languages: { ...getMultilingualUrls("https://example.com") },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/login"),
+      languages: { ...getMultilingualUrls("https://example.com/login") },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/register"),
+      languages: { ...getMultilingualUrls("https://example.com/register") },
     },
   },
 ];
@@ -773,19 +817,19 @@ const sitemap = () => [
   {
     url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls("https://example.com"),
+      languages: { ...getMultilingualUrls("https://example.com") },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/login"),
+      languages: { ...getMultilingualUrls("https://example.com/login") },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/register"),
+      languages: { ...getMultilingualUrls("https://example.com/register") },
     },
   },
 ];
@@ -800,19 +844,19 @@ const sitemap = () => [
   {
     url: "https://example.com",
     alternates: {
-      languages: getMultilingualUrls("https://example.com"),
+      languages: { ...getMultilingualUrls("https://example.com") },
     },
   },
   {
     url: "https://example.com/login",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/login"),
+      languages: { ...getMultilingualUrls("https://example.com/login") },
     },
   },
   {
     url: "https://example.com/register",
     alternates: {
-      languages: getMultilingualUrls("https://example.com/register"),
+      languages: { ...getMultilingualUrls("https://example.com/register") },
     },
   },
 ];
@@ -878,11 +922,11 @@ const robots = () => ({
 module.exports = robots;
 ```
 
-> サイトマップの最適化に関する詳細は、[Next.jsの公式ドキュメント](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)を参照してください。robots.txtの最適化に関する詳細は、[Next.jsの公式ドキュメント](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)を参照してください。
+> サイトマップの最適化について詳しくは、[公式Next.jsドキュメント](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)を参照してください。robots.txtの最適化について詳しくは、[公式Next.jsドキュメント](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)を参照してください。
 
-### (オプション) ステップ10: コンテンツの言語を変更
+### (オプション) ステップ10: コンテンツの言語を変更する
 
-コンテンツの言語を変更するには、`useLocale`フックが提供する`setLocale`関数を使用できます。この関数を使用すると、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
+コンテンツの言語を変更するには、`useLocale`フックが提供する`setLocale`関数を使用します。この関数を使用すると、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -902,12 +946,14 @@ export const LocaleSwitcher: FC = () => {
     useLocale();
 
   return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -915,30 +961,30 @@ export const LocaleSwitcher: FC = () => {
             }}
           >
             <span>
-              {/* 自国のロケールでの言語名 - 例: 日本語 */}
+              {/* ロケール - 例: FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* 自身のロケールでの言語 - 例: Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 現在のロケールでの言語名 - 例: 日本語がLocales.SPANISHに設定されているときのEspañol */}
+              {/* 現在のロケールでの言語 - 例: Francés (現在のロケールがLocales.SPANISHに設定されている場合) */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英語での言語名 - 例: Japanese */}
+              {/* 英語での言語 - 例: French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
-            <span>
-              {/* 自国のロケールでの言語名 - 例: JA */}
-              {localeItem}
-            </span>
           </Link>
-        </li>
-      ))}
-    </ol>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
+```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
 "use client";
 
 import {
@@ -955,12 +1001,14 @@ export const LocaleSwitcher = () => {
     useLocale();
 
   return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -968,25 +1016,25 @@ export const LocaleSwitcher = () => {
             }}
           >
             <span>
-              {/* 自国のロケールでの言語名 - 例: 日本語 */}
+              {/* ロケール - 例: FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* 自身のロケールでの言語 - 例: Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 現在のロケールでの言語名 - 例: 日本語がLocales.SPANISHに設定されているときのEspañol */}
+              {/* 現在のロケールでの言語 - 例: Francés (現在のロケールがLocales.SPANISHに設定されている場合) */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英語での言語名 - 例: Japanese */}
+              {/* 英語での言語 - 例: French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
-            <span>
-              {/* 自国のロケールでの言語名 - 例: JA */}
-              {localeItem}
-            </span>
           </Link>
-        </li>
-      ))}
-    </ol>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -1008,12 +1056,14 @@ export const LocaleSwitcher = () => {
     useLocale();
 
   return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -1021,25 +1071,25 @@ export const LocaleSwitcher = () => {
             }}
           >
             <span>
-              {/* 自国のロケールでの言語名 - 例: 日本語 */}
+              {/* ロケール - 例: FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* 自身のロケールでの言語 - 例: Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 現在のロケールでの言語名 - 例: 日本語がLocales.SPANISHに設定されているときのEspañol */}
+              {/* 現在のロケールでの言語 - 例: Francés (現在のロケールがLocales.SPANISHに設定されている場合) */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英語での言語名 - 例: Japanese */}
+              {/* 英語での言語 - 例: French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
-            <span>
-              {/* 自国のロケールでの言語名 - 例: JA */}
-              {localeItem}
-            </span>
           </Link>
-        </li>
-      ))}
-    </ol>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -1050,38 +1100,178 @@ export const LocaleSwitcher = () => {
 > - [`getLocaleName`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocaleName.md)
 > - [`getLocalizedUrl`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocalizedUrl.md)
 > - [`getHTMLTextDir`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getHTMLTextDir.md)
-> - [`hrefLang`属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - [`lang`属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
-> - [`dir`属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current`属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`hrefLang`属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ja)
+> - [`lang`属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/lang)
+> - [`dir`属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current`属性](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### TypeScriptの設定
+### (オプション) ステップ11: ローカライズされたリンクコンポーネントを作成する
 
-Intlayerは、TypeScriptの利点を活用し、コードベースを強化するためにモジュール拡張を使用します。
+アプリケーションのナビゲーションが現在のロケールを尊重するようにするために、カスタム`Link`コンポーネントを作成できます。このコンポーネントは、内部URLを自動的に現在の言語でプレフィックスします。例えば、フランス語を話すユーザーが「About」ページへのリンクをクリックすると、`/about`ではなく`/fr/about`にリダイレクトされます。
+
+この動作は以下の理由で便利です：
+
+- **SEOとユーザーエクスペリエンス**：ローカライズされたURLは、検索エンジンが言語固有のページを正しくインデックスし、ユーザーに好みの言語でコンテンツを提供するのに役立ちます。
+- **一貫性**：アプリケーション全体でローカライズされたリンクを使用することで、ナビゲーションが現在のロケール内に留まり、予期しない言語の切り替えを防ぎます。
+- **保守性**：ローカリゼーションロジックを単一のコンポーネントに集中させることで、URLの管理が簡素化され、アプリケーションが成長するにつれてコードベースの保守性が向上します。
+
+以下は、TypeScriptでのローカライズされた`Link`コンポーネントの実装例です：
+
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+"use client";
+
+import { getLocalizedUrl } from "intlayer";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { useLocale } from "next-intlayer";
+import type { PropsWithChildren, FC } from "react";
+
+/**
+ * 指定されたURLが外部リンクかどうかを確認するユーティリティ関数。
+ * URLがhttp://またはhttps://で始まる場合、外部リンクと見なされます。
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * 現在のロケールに基づいてhref属性を適応させるカスタムLinkコンポーネント。
+ * 内部リンクの場合、`getLocalizedUrl`を使用してURLにロケールをプレフィックスします（例：/fr/about）。
+ * これにより、ナビゲーションが同じロケールコンテキスト内に留まることが保証されます。
+ */
+export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
+  href,
+  children,
+  ...props
+}) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // リンクが内部リンクで有効なhrefが提供されている場合、ローカライズされたURLを取得します。
+  const hrefI18n: NextLinkProps["href"] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} {...props}>
+      {children}
+    </NextLink>
+  );
+};
+```
+
+```jsx fileName="src/components/Link.mjx" codeFormat="esm"
+"use client";
+
+import { getLocalizedUrl } from "intlayer";
+import NextLink from "next/link";
+import { useLocale } from "next-intlayer";
+
+/**
+ * 指定されたURLが外部リンクかどうかを確認するユーティリティ関数。
+ * URLがhttp://またはhttps://で始まる場合、外部リンクと見なされます。
+ */
+export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
+
+/**
+ * 現在のロケールに基づいてhref属性を適応させるカスタムLinkコンポーネント。
+ * 内部リンクの場合、`getLocalizedUrl`を使用してURLにロケールをプレフィックスします（例：/fr/about）。
+ * これにより、ナビゲーションが同じロケールコンテキスト内に留まることが保証されます。
+ */
+export const Link = ({ href, children, ...props }) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // リンクが内部リンクで有効なhrefが提供されている場合、ローカライズされたURLを取得します。
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} {...props}>
+      {children}
+    </NextLink>
+  );
+};
+```
+
+```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
+"use client";
+
+const { getLocalizedUrl } = require("intlayer");
+const NextLink = require("next/link");
+const { useLocale } = require("next-intlayer");
+
+/**
+ * 指定されたURLが外部リンクかどうかを確認するユーティリティ関数。
+ * URLがhttp://またはhttps://で始まる場合、外部リンクと見なされます。
+ */
+const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
+
+/**
+ * 現在のロケールに基づいてhref属性を適応させるカスタムLinkコンポーネント。
+ * 内部リンクの場合、`getLocalizedUrl`を使用してURLにロケールをプレフィックスします（例：/fr/about）。
+ * これにより、ナビゲーションが同じロケールコンテキスト内に留まることが保証されます。
+ */
+const Link = ({ href, children, ...props }) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // リンクが内部リンクで有効なhrefが提供されている場合、ローカライズされたURLを取得します。
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} {...props}>
+      {children}
+    </NextLink>
+  );
+};
+```
+
+#### 動作の仕組み
+
+- **外部リンクの検出**：  
+  ヘルパー関数`checkIsExternalLink`は、URLが外部リンクかどうかを判定します。外部リンクは変更されません。なぜなら、それらはローカリゼーションを必要としないからです。
+
+- **現在のロケールの取得**：  
+  `useLocale`フックは、現在のロケール（例：`fr`はフランス語）を提供します。
+
+- **URLのローカライズ**：  
+  内部リンク（つまり、外部リンクではないもの）については、`getLocalizedUrl`を使用してURLに現在のロケールを自動的にプレフィックスします。これにより、ユーザーがフランス語を使用している場合、`/about`を`href`として渡すと、`/fr/about`に変換されます。
+
+- **リンクの返却**：  
+  コンポーネントは、ローカライズされたURLを持つ`<a>`要素を返し、一貫性のあるロケールに基づいたナビゲーションを保証します。
+
+この`Link`コンポーネントをアプリケーション全体で統合することで、一貫性があり、言語に配慮したユーザーエクスペリエンスを維持しながら、SEOと使いやすさを向上させることができます。
+
+### TypeScriptを設定する
+
+Intlayerは、TypeScriptのメリットを活用し、コードベースを強化するためにモジュール拡張を使用します。
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
-TypeScript設定に自動生成された型が含まれていることを確認してください。
+自動生成された型を含めるようにTypeScript設定を確認してください。
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... 既存のTypeScript構成
+  // ... 既存のTypeScript設定
   "include": [
-    // ... 既存のTypeScript構成
-    "types", // 自動生成された型を含める
+    // ... 既存のTypeScript設定
+    ".intlayer/**/*.ts", // 自動生成された型を含める
   ],
 }
 ```
 
-### Gitの設定
+### Git設定
 
-Intlayerによって生成されたファイルを無視することが推奨されます。これにより、それらをGitリポジトリにコミットすることを避けることができます。
+Intlayerによって生成されたファイルを無視することをお勧めします。これにより、それらをGitリポジトリにコミットすることを避けることができます。
 
-これを行うには、`.gitignore`ファイルに次の指示を追加します：
+これを行うには、以下の指示を`.gitignore`ファイルに追加します：
 
 ```plaintext fileName=".gitignore"
-# Intlayerによって生成されたファイルを無視
+# Intlayerによって生成されたファイルを無視する
 .intlayer
 ```
+
+### さらに進む
+
+さらに進むために、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。

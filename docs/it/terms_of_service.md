@@ -1,4 +1,6 @@
-# Intlayer Termini di Utilizzo
+**File Translated to Italiano:**
+
+# Termini di Utilizzo di Intlayer
 
 ## 1. Accettazione dei Termini
 
@@ -6,28 +8,28 @@ Utilizzando Intlayer, accetti di essere vincolato da questi termini di utilizzo.
 
 ## 2. Licenza
 
-Intlayer è distribuito sotto la **licenza Apache 2.0** che consente l'uso, la modifica e la distribuzione del codice sia per progetti open-source che commerciali. Gli utenti sono autorizzati a modificare il codice sorgente e a inviare contributi tramite pull request in conformità con le linee guida stabilite nella nostra [guida ai contributi](https://github.com/aymericzip/intlayer/blob/main/docs/it/CONTRIBUTING.md). Il furto di codice per uso commerciale è severamente vietato.
+Intlayer è distribuito sotto la **licenza Apache 2.0**, che consente l'uso, la modifica e la distribuzione del codice sia per progetti open-source che commerciali. Gli utenti sono autorizzati a modificare il codice sorgente e a inviare contributi tramite pull request in conformità con le linee guida stabilite nella nostra [guida ai contributi](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md). Il furto di codice per uso commerciale è severamente vietato.
 
 ## 3. Uso Commerciale
 
-Sei autorizzato a utilizzare Intlayer per progetti commerciali. Tuttavia, riutilizzare il codice per creare strumenti concorrenti diretti basati su Intlayer senza una trasformazione significativa o un'aggiunta sostanziale di valore è vietato.
+È consentito utilizzare Intlayer per progetti commerciali. Tuttavia, è vietato riutilizzare il codice per creare strumenti concorrenti diretti basati su Intlayer senza una trasformazione significativa o un'aggiunta sostanziale di valore.
 
 ## 4. Responsabilità
 
-I manutentori di Intlayer si sforzano di correggere bug e problemi di sicurezza non appena vengono scoperti. Tuttavia, declinano ogni responsabilità per danni risultanti da tali problemi sulle infrastrutture degli utenti. Incoraggiamo gli utenti a segnalare problemi tramite il nostro [sistema di tracciamento dei problemi](https://github.com/aymericzip/intlayer/issues).
+I manutentori di Intlayer si impegnano a correggere bug e problemi di sicurezza non appena vengono scoperti. Tuttavia, declinano ogni responsabilità per danni derivanti da tali problemi sulle infrastrutture degli utenti. Incoraggiamo gli utenti a segnalare i problemi tramite il nostro [sistema di tracciamento dei problemi](https://github.com/aymericzip/intlayer/issues).
 
 ## 5. Privacy
 
-Intlayer non raccoglie né memorizza dati personali degli utenti.
+Intlayer non raccoglie né memorizza alcun dato personale degli utenti.
 
 ## 6. Contributi
 
-Gli utenti sono incoraggiati a contribuire a Intlayer seguendo le linee guida fornite nella nostra guida ai contributi. Qualsiasi codice inviato deve aderire agli standard di qualità stabiliti e sarà esaminato dai manutentori prima dell'integrazione.
+Gli utenti sono incoraggiati a contribuire a Intlayer seguendo le linee guida fornite nella nostra guida ai contributi. Qualsiasi codice inviato deve rispettare gli standard di qualità stabiliti e sarà revisionato dai manutentori prima dell'integrazione.
 
 ## 7. Attribuzione
 
-Qualsiasi strumento sviluppato per estendere o utilizzare il codice di Intlayer deve chiaramente attribuire a Intlayer come base del codice. Questa attribuzione deve essere visibile nel codice sorgente così come in qualsiasi documentazione per gli utenti o promozionale.
+Qualsiasi strumento sviluppato per estendere o utilizzare il codice di Intlayer deve chiaramente attribuire a Intlayer la base del codice. Questa attribuzione deve essere visibile nel codice sorgente così come in qualsiasi documentazione utente o promozionale.
 
 ## 8. Modifica dei Termini
 
-Questi termini di utilizzo possono essere modificati in qualsiasi momento. Gli utenti saranno informati di eventuali modifiche significative nei termini di utilizzo e dovranno accettare le modifiche per continuare a utilizzare Intlayer.
+Questi termini di utilizzo possono essere modificati in qualsiasi momento. Gli utenti saranno informati di eventuali modifiche significative ai termini di utilizzo e dovranno accettare le modifiche per continuare a utilizzare Intlayer.

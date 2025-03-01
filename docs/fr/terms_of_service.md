@@ -1,4 +1,4 @@
-# Intlayer Conditions d'utilisation
+# Conditions d'utilisation d'Intlayer
 
 ## 1. Acceptation des conditions
 
@@ -6,19 +6,19 @@ En utilisant Intlayer, vous acceptez d'être lié par ces conditions d'utilisati
 
 ## 2. Licence
 
-Intlayer est distribué sous la **licence Apache 2.0** qui permet l'utilisation, la modification et la distribution du code pour des projets open-source et commerciaux. Les utilisateurs sont autorisés à modifier le code source et à soumettre des contributions via des pull requests conformément aux directives établies dans notre [guide de contribution](https://github.com/aymericzip/intlayer/blob/main/docs/fr/CONTRIBUTING.md). Le vol de code pour un usage commercial est strictement interdit.
+Intlayer est distribué sous la **licence Apache 2.0**, qui permet l'utilisation, la modification et la distribution du code pour des projets open-source et commerciaux. Les utilisateurs sont autorisés à modifier le code source et à soumettre des contributions via des pull requests conformément aux directives établies dans notre [guide de contribution](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md). Le vol de code à des fins commerciales est strictement interdit.
 
 ## 3. Utilisation commerciale
 
-Vous êtes autorisé à utiliser Intlayer pour des projets commerciaux. Cependant, la réutilisation du code pour créer des outils concurrents directs basés sur Intlayer sans transformation significative ou ajout de valeur substantiel est interdite.
+Vous êtes autorisé à utiliser Intlayer pour des projets commerciaux. Cependant, la réutilisation du code pour créer des outils concurrents directs basés sur Intlayer sans transformation significative ou ajout substantiel de valeur est interdite.
 
 ## 4. Responsabilité
 
-Les mainteneurs d'Intlayer s'efforcent de corriger les bugs et les problèmes de sécurité dès qu'ils sont découverts. Cependant, ils déclinent toute responsabilité pour les dommages résultant de tels problèmes sur les infrastructures des utilisateurs. Nous encourageons les utilisateurs à signaler les problèmes via notre [système de suivi des problèmes](https://github.com/aymericzip/intlayer/issues).
+Les mainteneurs d'Intlayer s'efforcent de corriger les bugs et les problèmes de sécurité dès qu'ils sont découverts. Cependant, ils déclinent toute responsabilité pour les dommages résultant de ces problèmes sur les infrastructures des utilisateurs. Nous encourageons les utilisateurs à signaler les problèmes via notre [système de suivi des problèmes](https://github.com/aymericzip/intlayer/issues).
 
 ## 5. Confidentialité
 
-Intlayer ne collecte ni ne stocke de données personnelles des utilisateurs.
+Intlayer ne collecte ni ne stocke aucune donnée personnelle des utilisateurs.
 
 ## 6. Contributions
 
@@ -26,7 +26,7 @@ Les utilisateurs sont encouragés à contribuer à Intlayer en suivant les direc
 
 ## 7. Attribution
 
-Tout outil développé pour étendre ou utiliser le code d'Intlayer doit clairement créditer Intlayer comme étant à la base du code. Cette attribution doit être visible dans le code source ainsi que dans toute documentation utilisateur ou promotionnelle.
+Tout outil développé pour étendre ou utiliser le code d'Intlayer doit clairement créditer Intlayer comme base du code. Cette attribution doit être visible dans le code source ainsi que dans toute documentation utilisateur ou promotionnelle.
 
 ## 8. Modification des conditions
 

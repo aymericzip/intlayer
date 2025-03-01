@@ -1,26 +1,26 @@
 # 文档: `getPathWithoutLocale` 函数在 `intlayer`
 
-## 描述:
+## 描述
 
-如果存在，从给定的 URL 或路径名称中删除 locale 段。它适用于绝对 URL 和相对路径名称。
+从给定的 URL 或路径名中移除语言环境段（如果存在）。它适用于绝对 URL 和相对路径名。
 
-## 参数:
+## 参数
 
 - `inputUrl: string`
 
-  - **描述**: 要处理的完整 URL 字符串或路径名称。
+  - **描述**: 要处理的完整 URL 字符串或路径名。
   - **类型**: `string`
 
 - `locales: Locales[]`
-  - **描述**: 可选的支持 locale 数组。默认为项目中配置的 locale。
+  - **描述**: 可选的支持语言环境数组。默认为项目中配置的语言环境。
   - **类型**: `Locales[]`
 
-## 返回:
+## 返回值
 
 - **类型**: `string`
-- **描述**: 不带 locale 段的 URL 字符串或路径名称。
+- **描述**: 没有语言环境段的 URL 字符串或路径名。
 
-## 示例用法:
+## 示例用法
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

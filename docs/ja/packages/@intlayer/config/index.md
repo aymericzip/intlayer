@@ -1,12 +1,12 @@
-# @intlayer/config: NPMパッケージでIntlayer設定を取得
+# @intlayer/config: Intlayerの設定を取得するためのNPMパッケージ
 
-**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージのスイートです。React、React、およびExpress.jsなどのフレームワークと互換性があります。
+**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージスイートです。React、React、Express.jsなどのフレームワークと互換性があります。
 
-**`@intlayer/config`**パッケージは、Intlayerの設定を取得し、現在の環境に関連する環境変数を定義することができるNPMパッケージです。
+**`@intlayer/config`** パッケージは、Intlayerの設定を取得し、現在の環境に関連する環境変数を定義するためのNPMパッケージです。
 
 ## インストール
 
-好みのパッケージマネージャを使用して必要なパッケージをインストールします:
+お好みのパッケージマネージャーを使用して必要なパッケージをインストールします:
 
 ```bash packageManager="npm"
 npm install @intlayer/config
@@ -20,7 +20,7 @@ pnpm add @intlayer/config
 yarn add @intlayer/config
 ```
 
-## 使用法
+## 使用方法
 
 ### ファイルシステムを使用してIntlayerの設定を読み取る
 
@@ -41,7 +41,7 @@ console.log(config);
 // }
 ```
 
-> この関数は`fs`パッケージを使用し、サーバー側のみで動作します。
+> この関数は`fs`パッケージを使用しており、サーバーサイドでのみ動作します。
 
 ### 環境変数を使用してIntlayerの設定を読み取る
 
@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 詳細については[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
+> 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)をご覧ください。
 
 2. 環境変数を定義します。
 
@@ -103,7 +103,7 @@ const intlayerConfig = getConfiguration();
 // すべての設定値を環境変数としてフォーマット
 const env = formatEnvVariable();
 
-// 各フォーマットされた環境変数をprocess.envに設定
+// フォーマットされた各環境変数をprocess.envに設定
 Object.assign(process.env, env);
 ```
 

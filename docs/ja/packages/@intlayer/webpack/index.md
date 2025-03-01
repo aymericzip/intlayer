@@ -1,10 +1,10 @@
-# @intlayer/webpack: NPMパッケージを使用してアプリケーションにIntlayer Webpackプラグインを組み込む
+# @intlayer/webpack: アプリケーションで Intlayer Webpack プラグインを使用するための NPM パッケージ
 
-**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージのスイートです。React、React、Express.jsなどのフレームワークと互換性があります。
+**Intlayer** は、JavaScript 開発者向けに特別に設計されたパッケージ群です。React、Next.js、Express.js などのフレームワークと互換性があります。
 
-**`@intlayer/webpack`**パッケージは、Intlayerを使用してWebpackベースのアプリケーションを作業するためのWebpack設定を提供するために使用されます。このパッケージは、既存のWebpackアプリケーションに追加するためのプラグインも提供します。
+**`@intlayer/webpack`** パッケージは、Intlayer を使用した Webpack ベースのアプリケーションを簡単に構成するための Webpack 設定を提供します。このパッケージは、既存の Webpack アプリケーションに追加できるプラグインも提供します。
 
-## 使用法
+## 使用方法
 
 ```ts
 import { IntlayerPlugin } from "@intlayer/webpack";
@@ -20,7 +20,7 @@ export default {
 
 ## インストール
 
-お好みのパッケージマネージャーを使用して必要なパッケージをインストールします：
+お好みのパッケージマネージャーを使用して必要なパッケージをインストールしてください:
 
 ```bash packageManager="npm"
 npm install @intlayer/webpack
@@ -33,5 +33,3 @@ pnpm add @intlayer/webpack
 ```bash packageManager="yarn"
 yarn add @intlayer/webpack
 ```
-
-[詳細については、こちらを参照してください。](https://github.com/aymericzip/intlayer/blob/main/docs/ja/**/*)

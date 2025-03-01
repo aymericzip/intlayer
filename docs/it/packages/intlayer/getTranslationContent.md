@@ -1,40 +1,40 @@
-# Documentation: `getTranslation` Funzione in `intlayer`
+# Documentazione: Funzione `getTranslation` in `intlayer`
 
-## Descrizione:
+## Descrizione
 
-La funzione `getTranslation` recupera il contenuto corrispondente a una specifica locale da un insieme di contenuti linguistici personalizzabili. Se la locale specificata non viene trovata, restituisce per impostazione predefinita il contenuto per la locale predefinita configurata nel progetto.
+La funzione `getTranslation` recupera il contenuto corrispondente a una specifica lingua da un set di contenuti linguistici personalizzabili. Se la lingua specificata non viene trovata, restituisce il contenuto della lingua predefinita configurata nel progetto.
 
-## Parametri:
+## Parametri
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Descrizione**: Un oggetto contenente traduzioni per varie localizzazioni. Ogni chiave rappresenta una locale e il suo valore è il contenuto corrispondente.
+  - **Descrizione**: Un oggetto contenente traduzioni per varie lingue. Ogni chiave rappresenta una lingua, e il suo valore è il contenuto corrispondente.
   - **Tipo**: `CustomizableLanguageContent<Content>`
-    - `Content` può essere di qualsiasi tipo, predefinito a `string`.
+    - `Content` può essere di qualsiasi tipo, predefinito come `string`.
 
 - `locale: Locales`
 
-  - **Descrizione**: La locale per la quale il contenuto deve essere recuperato.
+  - **Descrizione**: La lingua per cui recuperare il contenuto.
   - **Tipo**: `Locales`
 
-## Restituisce:
+## Restituisce
 
 - **Tipo**: `Content`
-- **Descrizione**: Il contenuto corrispondente alla locale specificata. Se la locale non viene trovata, viene restituito il contenuto della locale predefinita.
+- **Descrizione**: Il contenuto corrispondente alla lingua specificata. Se la lingua non viene trovata, viene restituito il contenuto della lingua predefinita.
 
-## Esempio di Utilizzo:
+## Esempio di Utilizzo
 
-### Utilizzo Base:
+### Utilizzo Base
 
 ```typescript codeFormat="typescript"
 import { getTranslation, Locales } from "intlayer";
 
 const content = getTranslation(
   {
-    it: "Ciao",
+    en: "Hello",
     fr: "Bonjour",
   },
-  Locales.ITALIAN
+  Locales.ENGLISH
 );
 
 console.log(content); // Output: "Bonjour"
@@ -45,10 +45,10 @@ import { getTranslation, Locales } from "intlayer";
 
 const content = getTranslation(
   {
-    it: "Ciao",
+    en: "Hello",
     fr: "Bonjour",
   },
-  Locales.ITALIAN
+  Locales.ENGLISH
 );
 
 console.log(content); // Output: "Bonjour"
@@ -59,29 +59,29 @@ const { getTranslation, Locales } = require("intlayer");
 
 const content = getTranslation(
   {
-    it: "Ciao",
+    en: "Hello",
     fr: "Bonjour",
   },
-  Locales.ITALIAN
+  Locales.ENGLISH
 );
 
 console.log(content); // Output: "Bonjour"
 ```
 
-### Locale Mancante:
+### Lingua Mancante:
 
 ```typescript codeFormat="typescript"
 import { getTranslation, Locales } from "intlayer";
 
 const content = getTranslation(
   {
-    it: "Ciao",
+    en: "Hello",
     fr: "Bonjour",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Ciao" (contenuto della locale predefinita)
+console.log(content); // Output: "Hello" (contenuto della lingua predefinita)
 ```
 
 ```javascript codeFormat="esm"
@@ -89,13 +89,13 @@ import { getTranslation, Locales } from "intlayer";
 
 const content = getTranslation(
   {
-    it: "Ciao",
+    en: "Hello",
     fr: "Bonjour",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Ciao" (contenuto della locale predefinita)
+console.log(content); // Output: "Hello" (contenuto della lingua predefinita)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -103,13 +103,13 @@ const { getTranslation, Locales } = require("intlayer");
 
 const content = getTranslation(
   {
-    it: "Ciao",
+    en: "Hello",
     fr: "Bonjour",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Ciao" (contenuto della locale predefinita)
+console.log(content); // Output: "Hello" (contenuto della lingua predefinita)
 ```
 
 ### Utilizzo di Tipi di Contenuto Personalizzati:
@@ -119,7 +119,7 @@ import { getTranslation, Locales } from "intlayer";
 
 const customContent = getTranslation<Record<string, string>>(
   {
-    it: { greeting: "Ciao" },
+    en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
   },
   Locales.FRENCH
@@ -133,7 +133,7 @@ import { getTranslation, Locales } from "intlayer";
 
 const customContent = getTranslation<Record<string, string>>(
   {
-    it: { greeting: "Ciao" },
+    en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
   },
   Locales.FRENCH
@@ -147,7 +147,7 @@ const { getTranslation, Locales } = require("intlayer");
 
 const customContent = getTranslation<Record<string, string>>(
   {
-    it: { greeting: "Ciao" },
+    en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
   },
   Locales.FRENCH
@@ -156,13 +156,11 @@ const customContent = getTranslation<Record<string, string>>(
 console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
-## Casi Limite:
+## Casi Limite
 
-- **Locale Non Trovata:**
-  - Quando la `locale` non viene trovata in `languageContent`, la funzione restituisce il contenuto per la locale predefinita.
+- **Lingua Non Trovata:**
+  - Quando la `locale` non viene trovata in `languageContent`, la funzione restituisce il contenuto della lingua predefinita.
 - **Contenuto Linguistico Incompleto:**
-
-  - Se una locale è parzialmente definita, la funzione non unisce i contenuti. Recupera rigorosamente il valore della locale specificata o torna alla predefinita.
-
-- **Conformità TypeScript:**
-  - Se le localizzazioni in `languageContent` non corrispondono alla configurazione del progetto, TypeScript impone che tutte le localizzazioni richieste siano definite, garantendo che il contenuto sia completo e sicuro dal punto di vista del tipo.
+  - Se una lingua è definita parzialmente, la funzione non unisce i contenuti. Recupera strettamente il valore della lingua specificata o ricade sulla lingua predefinita.
+- **Enforcement di TypeScript:**
+  - Se le lingue in `languageContent` non corrispondono alla configurazione del progetto, TypeScript richiederà che tutte le lingue necessarie siano definite, garantendo che il contenuto sia completo e sicuro per il tipo.

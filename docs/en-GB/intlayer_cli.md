@@ -20,7 +20,7 @@ pnpm add intlayer-cli
 
 ## intlayer-cli package
 
-`intlayer-cli` package intends to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md) into dictionaries.
+`intlayer-cli` package intend to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md) into dictionaries.
 
 This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
@@ -63,15 +63,15 @@ This command will find your declaration content files as default as `./src/**/*.
 npx intlayer dictionary push
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
 
 ##### Arguments:
 
 - `-d`, `--dictionaries`: ids of the dictionaries to pull. If not specified, all dictionaries will be pushed.
   > Example: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, if the dictionary is defined locally, it will overwrite remote dictionaries content.
+- `-r`, `--deleteLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
   > Example: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, if the dictionary is defined locally, it will overwrite remote dictionaries content.
+- `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
   > Example: `npx intlayer dictionary push -k`
 
 ### Pull distant dictionaries
@@ -80,13 +80,13 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB
 npx intlayer dictionary pull
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_visual_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
 
 ##### Arguments:
 
 - `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the new dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` field is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
+- `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
 
 ##### Example:
 
@@ -100,7 +100,7 @@ npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 npx intlayer audit
 ```
 
-This command analyses your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer audit** will propose or apply updates to keep your dictionaries consistent and complete.
+This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer audit** will propose or apply updates to keep your dictionaries consistent and complete.
 
 ##### Arguments:
 
@@ -129,6 +129,38 @@ npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
 ```
 
 This command will ignore any files under `tests/**` and use the `gpt-3.5-turbo` model to audit the discovered content declaration files. If any issues are found—like missing translations—they will be corrected in-place, preserving the original file structure.
+
+### Manage Configuration
+
+#### Get Configuration
+
+The `get configuration` command retrieves the current configuration for Intlayer, particularly the locale settings. This is useful for verifying your setup.
+
+```bash
+npx intlayer config get
+```
+
+##### Arguments:
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--verbose`**: Enable verbose logging for debugging.
+
+#### Push Configuration
+
+The `push configuration` command uploads your configuration to the Intlayer CMS and editor. This step is necessary to enable the use of distant dictionaries in the Intlayer Visual Editor.
+
+```bash
+npx intlayer config push
+```
+
+##### Arguments:
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--verbose`**: Enable verbose logging for debugging.
+
+By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.
 
 ## Use intlayer commands in your `package.json`
 

@@ -1,6 +1,6 @@
 # @intlayer/config: Paquete NPM para recuperar la configuración de Intlayer
 
-**Intlayer** es un conjunto de paquetes diseñado específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React, y Express.js.
+**Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
 
 El paquete **`@intlayer/config`** es un paquete NPM que te permite recuperar la configuración de Intlayer y definir las variables de entorno relacionadas con el entorno actual.
 
@@ -22,7 +22,7 @@ yarn add @intlayer/config
 
 ## Uso
 
-### Leer la configuración de Intlayer usando el sistema de archivos
+### Leer la configuración de Intlayer utilizando el sistema de archivos
 
 Ejemplo:
 
@@ -41,9 +41,9 @@ console.log(config);
 // }
 ```
 
-> Esta función utiliza paquetes `fs` y solo funcionará en el lado del servidor.
+> Esta función utiliza paquetes `fs` y solo funcionará del lado del servidor.
 
-### Leer la configuración de Intlayer usando variables de entorno
+### Leer la configuración de Intlayer utilizando variables de entorno
 
 Ejemplo:
 
@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Consulta [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md) para más detalles.
+> Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md) para más detalles.
 
 2. Define las variables de entorno.
 

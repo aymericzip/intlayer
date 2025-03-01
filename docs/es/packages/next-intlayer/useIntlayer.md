@@ -1,12 +1,12 @@
-# Next.js Integración: Documentación del Hook `useIntlayer`
+# Integración con Next.js: Documentación del Hook `useIntlayer`
 
-El hook `useIntlayer` está diseñado para aplicaciones Next.js para obtener y gestionar contenido localizado de manera eficiente. Esta documentación se centrará en cómo utilizar el hook dentro de proyectos Next.js, asegurando prácticas de localización adecuadas.
+El hook `useIntlayer` está diseñado para aplicaciones Next.js para obtener y gestionar contenido localizado de manera eficiente. Esta documentación se centrará en cómo utilizar el hook dentro de proyectos Next.js, asegurando prácticas adecuadas de localización.
 
 ## Importando `useIntlayer` en Next.js
 
 Dependiendo de si estás trabajando en componentes del lado del cliente o del servidor en una aplicación Next.js, puedes importar el hook `useIntlayer` de la siguiente manera:
 
-- **Componente del Cliente:**
+- **Componente Cliente:**
 
   ```typescript codeFormat="typescript"
   import { useIntlayer } from "next-intlayer"; // Usado en componentes del lado del cliente
@@ -20,7 +20,7 @@ Dependiendo de si estás trabajando en componentes del lado del cliente o del se
   const { useIntlayer } = require("next-intlayer"); // Usado en componentes del lado del cliente
   ```
 
-- **Componente del Servidor:**
+- **Componente Servidor:**
 
   ```tsx codeFormat="typescript"
   import { useIntlayer } from "next-intlayer/server"; // Usado en componentes del lado del servidor
@@ -36,29 +36,29 @@ Dependiendo de si estás trabajando en componentes del lado del cliente o del se
 
 ## Parámetros
 
-1. **`key`**: Un identificador de cadena para la clave del diccionario desde la que deseas recuperar contenido.
-2. **`locale`** (opcional): Un locale específico para usar. Si se omite, el hook se ajusta al locale establecido en el contexto del cliente o del servidor.
+1. **`key`**: Un identificador de cadena para la clave del diccionario de la que deseas recuperar contenido.
+2. **`locale`** (opcional): Una localización específica a usar. Si se omite, el hook utiliza por defecto la localización establecida en el contexto del cliente o servidor.
 
-## Archivos de Declaración de Contenido
+## Archivos de Diccionario
 
-Es crucial que todas las claves de contenido estén definidas dentro de archivos de declaración de contenido para prevenir errores en tiempo de ejecución y asegurar la seguridad de tipos. Este enfoque también facilita la integración con TypeScript para la validación en tiempo de compilación.
+Es crucial que todas las claves de contenido estén definidas dentro de los archivos de declaración de contenido para evitar errores en tiempo de ejecución y garantizar la seguridad de tipos. Este enfoque también facilita la integración con TypeScript para la validación en tiempo de compilación.
 
-Las instrucciones para configurar archivos de declaración de contenido están disponibles [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md).
+Las instrucciones para configurar los archivos de declaración de contenido están disponibles [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md).
 
 ## Ejemplo de Uso en Next.js
 
-Aquí se muestra cómo puedes implementar el hook `useIntlayer` dentro de una página de Next.js para cargar dinámicamente contenido localizado según el locale actual de la aplicación:
+Aquí se muestra cómo puedes implementar el hook `useIntlayer` dentro de una página Next.js para cargar dinámicamente contenido localizado basado en la localización actual de la aplicación:
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
-import { ClientComponentExample } from "@components/ClientComponentExample"; // Ejemplo del Componente del Cliente
-import { ServerComponentExample } from "@components/ServerComponentExample"; // Ejemplo del Componente del Servidor
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { useIntlayer, IntlayerServerProvider } from "next-intlayer/server";
 
 const HomePage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
 
-  const content = useIntlayer("homepage", locale); // Obtener contenido de la página de inicio
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
@@ -75,13 +75,13 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
 ```
 
 ```jsx fileName="src/pages/[locale]/index.csx" codeFormat="esm"
-import { ClientComponentExample } from "@components/ClientComponentExample"; // Ejemplo del Componente del Cliente
-import { ServerComponentExample } from "@components/ServerComponentExample"; // Ejemplo del Componente del Servidor
+import { ClientComponentExample } from "@components/ClientComponentExample";
+import { ServerComponentExample } from "@components/ServerComponentExample";
 import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const HomePage = ({ locale }) => {
-  const content = useIntlayer("homepage", locale); // Obtener contenido de la página de inicio
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
@@ -100,15 +100,15 @@ const HomePage = ({ locale }) => {
 ```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
 const {
   ClientComponentExample,
-} = require("@components/ClientComponentExample"); // Ejemplo del Componente del Cliente
+} = require("@components/ClientComponentExample");
 const {
   ServerComponentExample,
-} = require("@components/ServerComponentExample"); // Ejemplo del Componente del Servidor
+} = require("@components/ServerComponentExample");
 const { IntlayerClientProvider } = require("next-intlayer");
 const { useIntlayer } = require("next-intlayer/server");
 
 const HomePage = ({ locale }) => {
-  const content = useIntlayer("homepage", locale); // Obtener contenido de la página de inicio
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
@@ -131,7 +131,7 @@ import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 const ClientComponentExample: FC = () => {
-  const content = useIntlayer("component-content"); // Obtener contenido del componente
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -148,7 +148,7 @@ const ClientComponentExample: FC = () => {
 import { useIntlayer } from "next-intlayer";
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("component-content"); // Obtener contenido del componente
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -165,7 +165,7 @@ const ServerComponentExample = () => {
 const { useIntlayer } = require("next-intlayer");
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("component-content"); // Obtener contenido del componente
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -181,7 +181,7 @@ import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample: FC = () => {
-  const content = useIntlayer("component-content"); // Obtener contenido del componente
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -196,7 +196,7 @@ const ServerComponentExample: FC = () => {
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("component-content"); // Obtener contenido del componente
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -211,7 +211,7 @@ const ServerComponentExample = () => {
 const { useIntlayer } = require("next-intlayer/server");
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("component-content"); // Obtener contenido del componente
+  const content = useIntlayer("component-content");
 
   return (
     <div>
@@ -222,16 +222,16 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Manejo de la Localización de Atributos
+## Manejo de Localización de Atributos
 
 Para localizar atributos como `alt`, `title`, `href`, `aria-label`, etc., asegúrate de referenciar el contenido correctamente:
 
 ```tsx
-<img src={content.image.src.value} alt={content.image.alt.value} /> // Localización de atributo alt
+<img src={content.image.src.value} alt={content.image.alt.value} />
 ```
 
-## Información Adicional
+## Más Información
 
-- **Editor Visual de Intlayer**: Aprende cómo utilizar el editor visual para una gestión de contenido más sencilla [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_editor.md).
+- **Editor Visual de Intlayer**: Aprende cómo usar el editor visual para una gestión más sencilla del contenido [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_visual_editor.md).
 
 Esta documentación describe el uso del hook `useIntlayer` específicamente dentro de entornos Next.js, proporcionando una solución robusta para gestionar la localización en tus aplicaciones Next.js.

@@ -1,45 +1,45 @@
-# Documentação: `getMultilingualUrls` Função em `intlayer`
+# Documentação: Função `getMultilingualUrls` em `intlayer`
 
-## Descrição:
+## Descrição
 
-A função `getMultilingualUrls` gera um mapeamento de URLs multilíngues prefixando a URL dada com cada locale suportado. Ela pode lidar com URLs absolutas e relativas, aplicando o prefixo apropriado de locale com base na configuração fornecida ou padrões.
+A função `getMultilingualUrls` gera um mapeamento de URLs multilíngues prefixando a URL fornecida com cada localidade suportada. Ela pode lidar com URLs absolutas e relativas, aplicando o prefixo de localidade apropriado com base na configuração fornecida ou nos padrões.
 
 ---
 
-## Parâmetros:
+## Parâmetros
 
 - `url: string`
 
-  - **Descrição**: A string da URL original a ser prefixada com locales.
+  - **Descrição**: A URL original a ser prefixada com localidades.
   - **Tipo**: `string`
 
 - `locales: Locales[]`
 
-  - **Descrição**: Array opcional de locales suportados. Por padrão, utiliza os locales configurados no projeto.
+  - **Descrição**: Array opcional de localidades suportadas. Padrão para as localidades configuradas no projeto.
   - **Tipo**: `Locales[]`
   - **Padrão**: `localesDefault`
 
 - `defaultLocale: Locales`
 
-  - **Descrição**: O locale padrão para a aplicação. Por padrão, utiliza o locale padrão configurado no projeto.
+  - **Descrição**: A localidade padrão para a aplicação. Padrão para a localidade padrão configurada no projeto.
   - **Tipo**: `Locales`
   - **Padrão**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **Descrição**: Se deve prefixar o locale padrão. Por padrão, utiliza o valor configurado no projeto.
+  - **Descrição**: Indica se deve prefixar a localidade padrão. Padrão para o valor configurado no projeto.
   - **Tipo**: `boolean`
   - **Padrão**: `prefixDefaultDefault`
 
-### Retorna:
+### Retornos
 
 - **Tipo**: `IConfigLocales<string>`
-- **Descrição**: Um objeto mapeando cada locale para sua respectiva URL multilíngue.
+- **Descrição**: Um objeto mapeando cada localidade para sua correspondente URL multilíngue.
 
 ---
 
-## Exemplo de Uso:
+## Exemplo de Uso
 
-### URLs Relativas:
+### URLs Relativas
 
 ```typescript codeFormat="typescript"
 import { getMultilingualUrls, Locales } from "intlayer";
@@ -86,7 +86,7 @@ getMultilingualUrls(
 // }
 ```
 
-### URLs Absolutas:
+### URLs Absolutas
 
 ```typescript
 getMultilingualUrls(
@@ -103,29 +103,29 @@ getMultilingualUrls(
 
 ---
 
-## Casos Limite:
+## Casos de Borda
 
-- **Sem Segmento de Locale:**
+- **Sem Segmento de Localidade:**
 
-  - A função remove qualquer segmento de locale existente da URL antes de gerar os mapeamentos multilíngues.
+  - A função remove qualquer segmento de localidade existente na URL antes de gerar os mapeamentos multilíngues.
 
-- **Locale Padrão:**
+- **Localidade Padrão:**
 
-  - Quando `prefixDefault` é `false`, a função não prefixa a URL para o locale padrão.
+  - Quando `prefixDefault` é `false`, a função não prefixa a URL para a localidade padrão.
 
-- **Locales Não Suportadas:**
-  - Somente os locales fornecidos no array `locales` são considerados para gerar as URLs.
+- **Localidades Não Suportadas:**
+  - Apenas as localidades fornecidas no array `locales` são consideradas para gerar as URLs.
 
 ---
 
-## Uso em Aplicações:
+## Uso em Aplicações
 
-Em uma aplicação multilíngue, configurar as definições de internacionalização com `locales` e `defaultLocale` é crítico para garantir que o idioma correto seja exibido. Abaixo está um exemplo de como `getMultilingualUrls` pode ser usado em uma configuração de aplicação:
+Em uma aplicação multilíngue, configurar as definições de internacionalização com `locales` e `defaultLocale` é fundamental para garantir que o idioma correto seja exibido. Abaixo está um exemplo de como a função `getMultilingualUrls` pode ser usada na configuração de uma aplicação:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// Configuração para locales suportados e locale padrão
+// Configuração para localidades suportadas e localidade padrão
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -164,9 +164,9 @@ const config = {
 module.exports = config;
 ```
 
-A configuração acima garante que a aplicação reconheça `ENGLISH`, `FRENCH` e `SPANISH` como idiomas suportados e utilize `ENGLISH` como idioma de fallback.
+A configuração acima garante que a aplicação reconheça `ENGLISH`, `FRENCH` e `SPANISH` como idiomas suportados e use `ENGLISH` como idioma de fallback.
 
-Usando esta configuração, a função `getMultilingualUrls` pode gerar dinamicamente mapeamentos de URLs multilíngues com base nos locales suportados da aplicação:
+Usando essa configuração, a função `getMultilingualUrls` pode gerar dinamicamente mapeamentos de URLs multilíngues com base nas localidades suportadas pela aplicação:
 
 ```typescript
 getMultilingualUrls(
@@ -195,4 +195,4 @@ getMultilingualUrls(
 // }
 ```
 
-Ao integrar `getMultilingualUrls`, os desenvolvedores podem manter estruturas de URL consistentes em vários idiomas, melhorando tanto a experiência do usuário quanto o SEO.
+Ao integrar `getMultilingualUrls`, os desenvolvedores podem manter estruturas de URLs consistentes em vários idiomas, melhorando tanto a experiência do usuário quanto o SEO.

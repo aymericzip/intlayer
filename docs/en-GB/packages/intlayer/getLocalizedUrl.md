@@ -22,18 +22,18 @@ The `getLocalizedUrl` function generates a localized URL by prefixing the given 
 
   - **Description**: Optional array of supported locales. By defaults, the configured locales in the project are provided.
   - **Type**: `Locales[]`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **Description**: The default locale for the application. By defaults, the configured default locale in the project are provided.
   - **Type**: `Locales`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md#middleware)
 
 - `prefixDefault: boolean`
   - **Description**: Whether to prefix the URL for the default locale. By defaults, the configured value in the project are provided.
   - **Type**: `boolean`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md#middleware)
 
 ### Returns
 
@@ -208,7 +208,7 @@ const config = {
 module.exports = config;
 ```
 
-The above configuration ensures that the application recognises `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.
+The above configuration ensures that the application recognizes `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.
 
 Using this configuration, the `getLocalizedUrl` function can dynamically generate localized URLs based on the user's language preference:
 

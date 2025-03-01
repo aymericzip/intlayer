@@ -1,24 +1,22 @@
-# @intlayer/chokidar: NPM包，用于扫描并构建Intlayer声明文件为字典
+# @intlayer/chokidar: 用于扫描和构建 Intlayer 声明文件到字典的 NPM 包
 
-**Intlayer** 是一套专为JavaScript开发者设计的包。它与React、React 和 Express.js等框架兼容。
+**Intlayer** 是专为 JavaScript 开发者设计的一套工具包。它兼容 React、React 和 Express.js 等框架。
 
-**`@intlayer/chokidar`** 包用于使用 [chokidar](https://github.com/paulmillr/chokidar) 扫描并构建Intlayer声明文件为字典，并根据 [Intlayer配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+**`@intlayer/chokidar`** 包用于使用 [chokidar](https://github.com/paulmillr/chokidar) 根据 [Intlayer 配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 扫描和构建 Intlayer 声明文件到字典。
 
 ## 用法
 
 ```ts
-import { watch } from "@intlayer/chokidar";
+import { watch, prepareIntlayer } from "@intlayer/chokidar";
 
-watch(); // 构建Intlayer字典
+await prepareIntlayer(); // 构建 Intlayer 字典
 
-// 或者
-
-watch({ persistent: true }); // 观察模式
+watch({ persistent: true }); // 监视配置文件的更改
 ```
 
 ## 安装
 
-使用您首选的包管理器安装必要的包：
+使用您喜欢的包管理器安装必要的包：
 
 ```bash packageManager="npm"
 npm install @intlayer/chokidar

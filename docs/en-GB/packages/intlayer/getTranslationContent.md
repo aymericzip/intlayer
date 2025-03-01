@@ -161,8 +161,6 @@ console.log(customContent.greeting); // Output: "Bonjour"
 - **Locale Not Found:**
   - When the `locale` is not found in the `languageContent`, the function returns the content for the default locale.
 - **Incomplete Language Content:**
-
   - If a locale is partially defined, the function does not merge contents. It strictly retrieves the value of the specified locale or falls back to the default.
-
 - **TypeScript Enforcement:**
   - If the locales in `languageContent` do not match the project configuration, TypeScript will enforce all required locales to be defined, ensuring the content is complete and type-safe.

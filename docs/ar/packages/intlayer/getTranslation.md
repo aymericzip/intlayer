@@ -1,168 +1,175 @@
-# الوثائق: دالة `getTranslation` في `intlayer`
+# التوثيق: وظيفة `getTranslationContent` في `intlayer`
 
-## الوصف:
+## الوصف
 
-تسترد دالة `getTranslation` المحتوى المقابل لبيئة معينة من مجموعة محتوى لغوي قابلة للتخصيص. إذا لم يتم العثور على البيئة المحددة، فإنها ترجع بشكل افتراضي المحتوى لبيئة اللغة الافتراضية المكونة في المشروع.
+تقوم وظيفة `getTranslationContent` باسترجاع المحتوى المقابل للغة معينة من مجموعة محتوى لغوي قابل للتخصيص. إذا لم يتم العثور على اللغة المحددة، فإنها تعود افتراضيًا إلى إرجاع المحتوى الخاص باللغة الافتراضية المكونة في المشروع.
 
-## المعلمات:
+## المعاملات
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **الوصف**: كائن يحتوي على الترجمات لبيئات مختلفة. يمثل كل مفتاح بيئة، وقيمته هي المحتوى المقابل.
+  - **الوصف**: كائن يحتوي على الترجمات للغات مختلفة. كل مفتاح يمثل لغة، وقيمته هي المحتوى المقابل.
   - **النوع**: `CustomizableLanguageContent<Content>`
-    - يمكن أن يكون `Content` من أي نوع، ويكون بشكل افتراضي `string`.
+    - `Content` يمكن أن يكون أي نوع، والافتراضي هو `string`.
 
 - `locale: Locales`
 
-  - **الوصف**: البيئة التي يجب استرداد المحتوى من أجلها.
+  - **الوصف**: اللغة التي سيتم استرجاع المحتوى الخاص بها.
   - **النوع**: `Locales`
 
-## القيم المعادة:
+## الإرجاع
 
 - **النوع**: `Content`
-- **الوصف**: المحتوى المقابل للبيئة المحددة. إذا لم يتم العثور على البيئة، يتم إرجاع محتوى البيئة الافتراضية.
+- **الوصف**: المحتوى المقابل للغة المحددة. إذا لم يتم العثور على اللغة، يتم إرجاع محتوى اللغة الافتراضية.
 
-## مثال على الاستخدام:
+## مثال على الاستخدام
 
-### الاستخدام الأساسي:
+### الاستخدام الأساسي
 
 ```typescript codeFormat="typescript"
-import { getTranslation, Locales } from "intlayer";
+import { getTranslationContent, Locales } from "intlayer";
 
-const content = getTranslation(
+const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ar: "مرحبًا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // الإخراج: "Bonjour"
+console.log(content); // Output: "Hello"
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
+import { getTranslationContent, Locales } from "intlayer";
 
-const content = getTranslation(
+const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ar: "مرحبًا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // الإخراج: "Bonjour"
+console.log(content); // Output: "Hello"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
+const { getTranslationContent, Locales } = require("intlayer");
 
-const content = getTranslation(
+const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ar: "مرحبًا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // الإخراج: "Bonjour"
+console.log(content); // Output: "Hello"
 ```
 
-### بيئة مفقودة:
+### لغة مفقودة:
 
 ```typescript codeFormat="typescript"
-import { getTranslation, Locales } from "intlayer";
+import { getTranslationContent, Locales } from "intlayer";
 
-const content = getTranslation(
+const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ar: "مرحبًا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // الإخراج: "Hello" (محتوى البيئة الافتراضية)
+console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
+import { getTranslationContent, Locales } from "intlayer";
 
-const content = getTranslation(
+const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ar: "مرحبًا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // الإخراج: "Hello" (محتوى البيئة الافتراضية)
+console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
+const { getTranslationContent, Locales } = require("intlayer");
 
-const content = getTranslation(
+const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
+    ar: "مرحبًا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // الإخراج: "Hello" (محتوى البيئة الافتراضية)
+console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
 ```
 
-### استخدام أنواع المحتوى المخصصة:
+### استخدام أنواع محتوى مخصصة:
 
 ```typescript codeFormat="typescript"
-import { getTranslation, Locales } from "intlayer";
+import { getTranslationContent, Locales } from "intlayer";
 
-const customContent = getTranslation<Record<string, string>>(
+const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    ar: { greeting: "مرحبًا" },
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // الإخراج: "Bonjour"
+console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
+import { getTranslationContent, Locales } from "intlayer";
 
-const customContent = getTranslation<Record<string, string>>(
+const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    ar: { greeting: "مرحبًا" },
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // الإخراج: "Bonjour"
+console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
+const { getTranslationContent, Locales } = require("intlayer");
 
-const customContent = getTranslation<Record<string, string>>(
+const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
+    ar: { greeting: "مرحبًا" },
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // الإخراج: "Bonjour"
+console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
-## حالات الحافة:
+## الحالات الخاصة
 
-- **لم يتم العثور على البيئة:**
-  - عندما لا يتم العثور على `locale` في `languageContent`، ترجع الدالة المحتوى للبيئة الافتراضية.
-- **محتوى اللغة غير مكتمل:**
-
-  - إذا كانت البيئة مُعرفة جزئيًا، فإن الدالة لا تدمج المحتويات. بل تسترد القيمة للبيئة المحددة أو تعود إلى الافتراضي.
-
-- **فرضية TypeScript:**
-  - إذا كانت البيئات في `languageContent` لا تتطابق مع تكوين المشروع، ستجبر TypeScript على تعريف جميع البيئات المطلوبة، مما يضمن أن المحتوى مكتمل وآمن من حيث النوع.
+- **اللغة غير موجودة:**
+  - عندما لا يتم العثور على `locale` في `languageContent`، تقوم الوظيفة بإرجاع المحتوى الخاص باللغة الافتراضية.
+- **محتوى لغوي غير مكتمل:**
+  - إذا كانت اللغة معرفة جزئيًا، فإن الوظيفة لا تدمج المحتويات. تسترجع فقط القيمة الخاصة باللغة المحددة أو تعود إلى الافتراضية.
+- **فرض TypeScript:**
+  - إذا لم تتطابق اللغات في `languageContent` مع تكوين المشروع، فإن TypeScript يفرض تعريف جميع اللغات المطلوبة، مما يضمن أن المحتوى كامل وآمن من حيث النوع.

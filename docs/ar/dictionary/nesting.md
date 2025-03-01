@@ -1,8 +1,8 @@
-# Nesting / مرجعية المحتوى الفرعي
+# التعشيش / الإشارة إلى المحتوى الفرعي
 
 ## كيف يعمل التعشيش
 
-في Intlayer، يتم تحقيق التعشيش من خلال وظيفة `nest`، التي تتيح لك الرجوع إلى وإعادة استخدام المحتوى من قاموس آخر. بدلاً من تكرار المحتوى، يمكنك الإشارة إلى وحدة محتوى موجودة باستخدام مفتاحها.
+في Intlayer، يتم تحقيق التعشيش من خلال وظيفة `nest`، التي تتيح لك الإشارة إلى وإعادة استخدام المحتوى من قاموس آخر. بدلاً من تكرار المحتوى، يمكنك الإشارة إلى وحدة محتوى موجودة باستخدام مفتاحها.
 
 ## إعداد التعشيش
 
@@ -10,7 +10,7 @@
 
 ### القاموس الأساسي
 
-فيما يلي مثال على قاموس أساسي بمحتوى معشش:
+فيما يلي مثال على قاموس أساسي للتعشيش في قاموس آخر:
 
 ```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
 import { type Dictionary } from "intlayer";
@@ -75,9 +75,9 @@ module.exports = firstDictionary;
 }
 ```
 
-### المرجعية مع Nest
+### الإشارة باستخدام Nest
 
-الآن، قم بإنشاء وحدة محتوى أخرى تستخدم وظيفة `nest` للإشارة إلى المحتوى أعلاه. يمكنك الرجوع إلى المحتوى بالكامل أو قيمة فرعية معينة:
+الآن، قم بإنشاء وحدة محتوى أخرى تستخدم وظيفة `nest` للإشارة إلى المحتوى أعلاه. يمكنك الإشارة إلى المحتوى بالكامل أو إلى قيمة فرعية محددة:
 
 ```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
 import { nest, type Dictionary } from "intlayer";
@@ -85,9 +85,9 @@ import { nest, type Dictionary } from "intlayer";
 const myNestingContent = {
   key: "key_of_my_second_dictionary",
   content: {
-    // يشار إلى القاموس بأكمله:
+    // يشير إلى القاموس بالكامل:
     fullNestedContent: nest("key_of_my_first_dictionary"),
-    // الإشارة إلى قيمة فرعية معينة:
+    // يشير إلى قيمة فرعية محددة:
     partialNestedContent: nest(
       "key_of_my_first_dictionary",
       "subContent.contentNumber"
@@ -156,11 +156,11 @@ module.exports = myNestingContent;
 }
 ```
 
-كمُعامل ثانٍ، يمكنك تحديد مسار للقيمة الفرعية داخل هذا المحتوى. إذا لم يتم توفير مسار، يتم إرجاع المحتوى بالكامل للقاموس المُشار إليه.
+كمعامل ثانٍ، يمكنك تحديد مسار إلى قيمة فرعية داخل هذا المحتوى. عندما لا يتم توفير مسار، يتم إرجاع المحتوى الكامل للقاموس المشار إليه.
 
 ## استخدام التعشيش مع React Intlayer
 
-لاستخدام المحتوى المعشش في مكوّن React، استخدم تعليمة `useIntlayer` من حزمة `react-intlayer`. تسترجع هذه التعليمة المحتوى الصحيح بناءً على المفتاح المحدد. فيما يلي مثال على كيفية استخدامه:
+لاستخدام المحتوى المتعشش في مكون React، استخدم الخطاف `useIntlayer` من حزمة `react-intlayer`. يسترجع هذا الخطاف المحتوى الصحيح بناءً على المفتاح المحدد. إليك مثال على كيفية استخدامه:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -174,12 +174,12 @@ const NestComponent: FC = () => {
   return (
     <div>
       <p>
-        محتوى معشش بالكامل: {JSON.stringify(fullNestedContent)}
-        {/* النتيجة: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
+        Full Nested Content: {JSON.stringify(fullNestedContent)}
+        {/* الإخراج: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        قيمة فرعية معششة: {partialNestedContent}
-        {/* النتيجة: 0 */}
+        Partial Nested Value: {partialNestedContent}
+        {/* الإخراج: 0 */}
       </p>
     </div>
   );
@@ -199,12 +199,12 @@ const NestComponent = () => {
   return (
     <div>
       <p>
-        محتوى معشش بالكامل: {JSON.stringify(fullNestedContent)}
-        {/* النتيجة: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
+        Full Nested Content: {JSON.stringify(fullNestedContent)}
+        {/* الإخراج: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        قيمة فرعية معششة: {partialNestedContent}
-        {/* النتيجة: 0 */}
+        Partial Nested Value: {partialNestedContent}
+        {/* الإخراج: 0 */}
       </p>
     </div>
   );
@@ -224,12 +224,12 @@ const NestComponent = () => {
   return (
     <div>
       <p>
-        محتوى معشش بالكامل: {JSON.stringify(fullNestedContent)}
-        {/* النتيجة: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
+        Full Nested Content: {JSON.stringify(fullNestedContent)}
+        {/* الإخراج: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
       </p>
       <p>
-        قيمة فرعية معششة: {partialNestedContent}
-        {/* النتيجة: 0 */}
+        Partial Nested Value: {partialNestedContent}
+        {/* الإخراج: 0 */}
       </p>
     </div>
   );
@@ -238,12 +238,12 @@ const NestComponent = () => {
 module.exports = NestComponent;
 ```
 
-## الموارد الإضافية
+## موارد إضافية
 
-لمزيد من المعلومات التفصيلية حول الإعداد والاستخدام، يُرجى الرجوع إلى الموارد التالية:
+لمزيد من المعلومات التفصيلية حول التكوين والاستخدام، راجع الموارد التالية:
 
-- [توثيق CLI لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md)
-- [توثيق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md)
-- [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md)
+- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md)
+- [وثائق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md)
+- [وثائق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md)
 
-توفر هذه الموارد رؤى إضافية حول إعداد واستخدام Intlayer في بيئات مختلفة ومع أطر عمل متنوعة.
+توفر هذه الموارد مزيدًا من الأفكار حول إعداد واستخدام Intlayer في بيئات مختلفة ومع أطر عمل متنوعة.

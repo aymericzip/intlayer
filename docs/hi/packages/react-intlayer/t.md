@@ -1,43 +1,43 @@
-# Documentation: `t` Function in `react-intlayer`
+# दस्तावेज़: `t` फ़ंक्शन `react-intlayer` में
 
-`react-intlayer` पैकेज में `t` फ़ंक्शन आपके React ऐप्लिकेशन के भीतर इनलाइन अंतर्राष्ट्रीयकरण के लिए एक मौलिक उपकरण है। यह आपको अपने घटकों के भीतर सीधे अनुवादों को परिभाषित करने की अनुमति देता है, जिससे वर्तमान स्थानीयता के आधार पर स्थानीयकृत सामग्री प्रदर्शित करना सरल हो जाता है।
-
----
-
-## Overview
-
-`t` फ़ंक्शन का उपयोग आपके घटकों में सीधे विभिन्न स्थानीयताओं के लिए अनुवाद प्रदान करने के लिए किया जाता है। प्रत्येक समर्थित स्थानीयता के लिए अनुवादों को शामिल करने वाले एक ऑब्जेक्ट को पास करके, `t` आपके React ऐप्लिकेशन में वर्तमान स्थानीयता संदर्भ के आधार पर उपयुक्त अनुवाद लौटाता है।
+`react-intlayer` पैकेज में `t` फ़ंक्शन आपके React एप्लिकेशन में इनलाइन अंतर्राष्ट्रीयकरण के लिए एक मौलिक उपकरण है। यह आपको अपने घटकों के भीतर सीधे अनुवाद परिभाषित करने की अनुमति देता है, जिससे वर्तमान लोकेल के आधार पर स्थानीयकृत सामग्री प्रदर्शित करना सरल हो जाता है।
 
 ---
 
-## Key Features
+## अवलोकन
 
-- **Inline Translations**: त्वरित, इनलाइन टेक्स्ट के लिए आदर्श जो अलग सामग्री घोषणा की आवश्यकता नहीं है।
-- **Automatic Locale Selection**: स्वचालित रूप से वर्तमान स्थानीयता से संबंधित अनुवाद लौटाता है।
-- **TypeScript Support**: TypeScript के साथ उपयोग करने पर प्रकार सुरक्षा और ऑटोकम्प्लीशन प्रदान करता है।
-- **Easy Integration**: React घटकों के भीतर बेधड़क काम करता है।
+`t` फ़ंक्शन का उपयोग आपके घटकों में विभिन्न लोकेल्स के लिए अनुवाद प्रदान करने के लिए किया जाता है। प्रत्येक समर्थित लोकेल के लिए अनुवादों वाली एक वस्तु पास करके, `t` आपके React एप्लिकेशन में वर्तमान लोकेल संदर्भ के आधार पर उपयुक्त अनुवाद लौटाता है।
 
 ---
 
-## Function Signature
+## मुख्य विशेषताएँ
+
+- **इनलाइन अनुवाद**: त्वरित, इनलाइन टेक्स्ट के लिए आदर्श जो अलग सामग्री घोषणा की आवश्यकता नहीं है।
+- **स्वचालित लोकेल चयन**: स्वचालित रूप से वर्तमान लोकेल के अनुरूप अनुवाद लौटाता है।
+- **टाइपस्क्रिप्ट समर्थन**: टाइप सेफ्टी और टाइपस्क्रिप्ट के साथ उपयोग किए जाने पर ऑटो-कम्प्लीशन प्रदान करता है।
+- **आसान एकीकरण**: React घटकों के भीतर सहजता से काम करता है।
+
+---
+
+## फ़ंक्शन हस्ताक्षर
 
 ```typescript
 t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 ```
 
-### Parameters
+### पैरामीटर्स
 
-- `translations`: एक ऑब्जेक्ट जहाँ कुंजी स्थानीयता कोड (जैसे, `en`, `fr`, `es`) हैं और मान संबंधित अनुवादित स्ट्रिंग हैं।
+- `translations`: एक वस्तु जहाँ कुंजियाँ लोकेल कोड्स (जैसे, `en`, `fr`, `es`) हैं और मान संबंधित अनुवादित स्ट्रिंग्स हैं।
 
-### Returns
+### रिटर्न्स
 
-- वर्तमान स्थानीयता के लिए अनुवादित सामग्री का प्रतिनिधित्व करने वाला एक स्ट्रिंग।
+- वर्तमान लोकेल के लिए अनुवादित सामग्री का प्रतिनिधित्व करने वाली एक स्ट्रिंग।
 
 ---
 
-## Usage Examples
+## उपयोग के उदाहरण
 
-### Basic Usage of `t` in a Component
+### एक घटक में `t` का बुनियादी उपयोग
 
 ```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -51,6 +51,7 @@ export const ComponentExample: FC = () => {
           en: "This is an example of a component",
           fr: "Ceci est un exemple de composant",
           es: "Este es un ejemplo de componente",
+          hi: "यह एक घटक का उदाहरण है",
         })}
       </p>
     </div>
@@ -69,6 +70,7 @@ const ComponentExample = () => {
           en: "This is an example of a component",
           fr: "Ceci est un exemple de composant",
           es: "Este es un ejemplo de componente",
+          hi: "यह एक घटक का उदाहरण है",
         })}
       </p>
     </div>
@@ -87,6 +89,7 @@ const ComponentExample = () => {
           en: "This is an example of a component",
           fr: "Ceci est un exemple de composant",
           es: "Este es un ejemplo de componente",
+          hi: "यह एक घटक का उदाहरण है",
         })}
       </p>
     </div>
@@ -94,9 +97,9 @@ const ComponentExample = () => {
 };
 ```
 
-### Inline Translations in Attributes
+### गुणों में इनलाइन अनुवाद
 
-`t` फ़ंक्शन JSX विशेषताओं में इनलाइन अनुवादों के लिए विशेष रूप से उपयोगी है। जैसे `alt`, `title`, `href`, या `aria-label` जैसे विशेषताओं को स्थानीयकृत करने के लिए, आप विशेषता के भीतर सीधे `t` का उपयोग कर सकते हैं।
+`t` फ़ंक्शन JSX गुणों में इनलाइन अनुवाद के लिए विशेष रूप से उपयोगी है। `alt`, `title`, `href`, या `aria-label` जैसे गुणों को स्थानीयकृत करते समय, आप सीधे गुण के भीतर `t` का उपयोग कर सकते हैं।
 
 ```jsx
 <button
@@ -104,12 +107,14 @@ const ComponentExample = () => {
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
+    hi: "जमा करें",
   })}
 >
   {t({
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
+    hi: "जमा करें",
   })}
   <img
     src="/path/to/image"
@@ -117,6 +122,7 @@ const ComponentExample = () => {
       en: "A beautiful scenery",
       fr: "Un beau paysage",
       es: "Un hermoso paisaje",
+      hi: "एक सुंदर दृश्य",
     })}
   />
 </button>
@@ -124,11 +130,11 @@ const ComponentExample = () => {
 
 ---
 
-## Advanced Topics
+## उन्नत विषय
 
-### TypeScript Integration
+### टाइपस्क्रिप्ट एकीकरण
 
-`t` फ़ंक्शन TypeScript के साथ उपयोग करने पर प्रकार-निष्क्रिय होता है, यह सुनिश्चित करते हुए कि सभी आवश्यक स्थानीयताएं प्रदान की गई हैं।
+जब टाइपस्क्रिप्ट के साथ उपयोग किया जाता है, तो `t` फ़ंक्शन टाइप-सुरक्षित होता है, यह सुनिश्चित करता है कि सभी आवश्यक लोकेल्स प्रदान किए गए हैं।
 
 ```typescript codeFormat="typescript"
 import { t, type IConfigLocales } from "react-intlayer";
@@ -137,6 +143,7 @@ const translations: IConfigLocales<string> = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  hi: "स्वागत है",
 };
 
 const greeting = t(translations);
@@ -150,6 +157,7 @@ const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  hi: "स्वागत है",
 };
 
 const greeting = t(translations);
@@ -163,16 +171,17 @@ const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
+  hi: "स्वागत है",
 };
 
 const greeting = t(translations);
 ```
 
-### Locale Detection and Context
+### लोकेल डिटेक्शन और संदर्भ
 
-`react-intlayer` में वर्तमान स्थानीयता को `IntlayerProvider` के माध्यम से प्रबंधित किया जाता है। सुनिश्चित करें कि यह प्रदाता आपके घटकों को लपेटता है और `locale` प्रॉप सही ढंग से पास की गई है।
+`react-intlayer` में, वर्तमान लोकेल `IntlayerProvider` के माध्यम से प्रबंधित किया जाता है। सुनिश्चित करें कि यह प्रदाता आपके घटकों को रैप करता है और `locale` प्रॉप सही तरीके से पास किया गया है।
 
-#### Example:
+#### उदाहरण:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -202,25 +211,26 @@ const App = ({ locale }) => (
 
 ---
 
-## Common Errors and Troubleshooting
+## सामान्य त्रुटियाँ और समस्या निवारण
 
-### `t` Returns Undefined or Incorrect Translation
+### `t` अपरिभाषित या गलत अनुवाद लौटाता है
 
-- **Cause**: वर्तमान स्थानीयता ठीक से सेट नहीं की गई है, या वर्तमान स्थानीयता के लिए अनुवाद गायब है।
-- **Solution**:
-  - यह सत्यापित करें कि `IntlayerProvider` को उचित `locale` के साथ सही तरीके से सेट किया गया है।
-  - सुनिश्चित करें कि आपकी अनुवादों की वस्तु सभी आवश्यक स्थानीयताओं को शामिल करती है।
+- **कारण**: वर्तमान लोकेल सही तरीके से सेट नहीं है, या वर्तमान लोकेल के लिए अनुवाद गायब है।
+- **समाधान**:
+  - सुनिश्चित करें कि `IntlayerProvider` उपयुक्त `locale` के साथ सही तरीके से सेटअप किया गया है।
+  - सुनिश्चित करें कि आपकी अनुवाद वस्तु में सभी आवश्यक लोकेल्स शामिल हैं।
 
-### Missing Translations in TypeScript
+### टाइपस्क्रिप्ट में गायब अनुवाद
 
-- **Cause**: अनुवादों की वस्तु आवश्यक स्थानीयताओं को पूरा नहीं करती, जिसके कारण TypeScript त्रुटियाँ उत्पन्न होती हैं।
-- **Solution**: अपने अनुवादों की पूर्णता को प्रवर्तित करने के लिए `IConfigLocales` प्रकार का उपयोग करें।
+- **कारण**: अनुवाद वस्तु आवश्यक लोकेल्स को संतुष्ट नहीं करती है, जिससे टाइपस्क्रिप्ट त्रुटियाँ होती हैं।
+- **समाधान**: अपने अनुवादों की पूर्णता को लागू करने के लिए `IConfigLocales` प्रकार का उपयोग करें।
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // 'es' का गायब होना TypeScript त्रुटि का कारण बनेगा
+  // es: 'Texto', // 'es' गायब होने से टाइपस्क्रिप्ट त्रुटि होगी
+  hi: "पाठ",
 };
 
 const text = t(translations);
@@ -230,7 +240,8 @@ const text = t(translations);
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // 'es' का गायब होना TypeScript त्रुटि का कारण बनेगा
+  // es: 'Texto', // 'es' गायब होने से टाइपस्क्रिप्ट त्रुटि होगी
+  hi: "पाठ",
 };
 
 const text = t(translations);
@@ -243,7 +254,8 @@ const { t, type IConfigLocales } = require("react-intlayer");
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // 'es' का गायब होना TypeScript त्रुटि का कारण बनेगा
+  // es: 'Texto', // 'es' गायब होने से टाइपस्क्रिप्ट त्रुटि होगी
+  hi: "पाठ",
 };
 
 const text = t(translations);
@@ -251,21 +263,21 @@ const text = t(translations);
 
 ---
 
-## Tips for Effective Usage
+## प्रभावी उपयोग के लिए सुझाव
 
-1. **Use `t` for Simple Inline Translations**: अपने घटकों के भीतर सीधे छोटे टेक्स्ट के अनुवाद के लिए आदर्श।
-2. **Prefer `useIntlayer` for Structured Content**: अधिक जटिल अनुवादों और सामग्री पुनः उपयोग के लिए, सामग्री को घोषणा फ़ाइलों में परिभाषित करें और `useIntlayer` का उपयोग करें।
-3. **Consistent Locale Provision**: सुनिश्चित करें कि आपकी स्थानीयता को `IntlayerProvider` के माध्यम से आपके ऐप्लिकेशन में लगातार प्रदान किया गया है।
-4. **Leverage TypeScript**: गायब अनुवादों को पकड़ने और प्रकार की सुरक्षा सुनिश्चित करने के लिए TypeScript प्रकारों का उपयोग करें।
-
----
-
-## Conclusion
-
-`react-intlayer` में `t` फ़ंक्शन आपके React ऐप्लिकेशन में इनलाइन अनुवादों को प्रबंधित करने के लिए एक शक्तिशाली और सुविधाजनक उपकरण है। इसे प्रभावी ढंग से एकीकृत करके, आप अपने ऐप की अंतर्राष्ट्रीयकरण क्षमताओं को बढ़ाते हैं, जिससे दुनिया भर के उपयोगकर्ताओं के लिए बेहतर अनुभव प्रदान करते हैं।
-
-अधिक विस्तृत उपयोग और उन्नत विशेषताओं के लिए [react-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md) पर जाएँ।
+1. **सरल इनलाइन अनुवादों के लिए `t` का उपयोग करें**: अपने घटकों के भीतर सीधे छोटे टेक्स्ट का अनुवाद करने के लिए आदर्श।
+2. **संरचित सामग्री के लिए `useIntlayer` को प्राथमिकता दें**: अधिक जटिल अनुवादों और सामग्री पुन: उपयोग के लिए, घोषणा फ़ाइलों में सामग्री परिभाषित करें और `useIntlayer` का उपयोग करें।
+3. **संगत लोकेल प्रावधान**: सुनिश्चित करें कि आपके एप्लिकेशन में `IntlayerProvider` के माध्यम से आपका लोकेल लगातार प्रदान किया गया है।
+4. **टाइपस्क्रिप्ट का लाभ उठाएँ**: गायब अनुवादों को पकड़ने और टाइप सेफ्टी सुनिश्चित करने के लिए टाइपस्क्रिप्ट प्रकारों का उपयोग करें।
 
 ---
 
-**Note**: सुनिश्चित करें कि आपके `IntlayerProvider` को ठीक से सेट अप किया गया है ताकि वर्तमान स्थानीयता आपके घटकों को सही तरीके से पास की जा सके। यह `t` फ़ंक्शन के द्वारा सही अनुवाद लौटाने के लिए महत्वपूर्ण है।
+## निष्कर्ष
+
+`react-intlayer` में `t` फ़ंक्शन आपके React एप्लिकेशन में इनलाइन अनुवाद प्रबंधन के लिए एक शक्तिशाली और सुविधाजनक उपकरण है। इसे प्रभावी ढंग से एकीकृत करके, आप अपने ऐप की अंतर्राष्ट्रीयकरण क्षमताओं को बढ़ाते हैं, जिससे दुनिया भर के उपयोगकर्ताओं के लिए बेहतर अनुभव प्रदान होता है।
+
+अधिक विस्तृत उपयोग और उन्नत सुविधाओं के लिए, [react-intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md) देखें।
+
+---
+
+**नोट**: सुनिश्चित करें कि आपका `IntlayerProvider` सही तरीके से सेटअप किया गया है ताकि वर्तमान लोकेल आपके घटकों तक सही तरीके से पहुँचाया जा सके। यह सुनिश्चित करने के लिए महत्वपूर्ण है कि `t` फ़ंक्शन सही अनुवाद लौटाए।

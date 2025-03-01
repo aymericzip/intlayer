@@ -1,5 +1,7 @@
-![Logo](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/@intlayer/design-system/src/components/Logo/logo_with_text_no_frame.svg)
+**File Translated to العربية:**
 
-**تمكين التعريب بسهولة**
+![الشعار](https://github.com/aymericzip/intlayer/blob/main/packages/@intlayer/design-system/src/components/Logo/logo_with_text_no_frame.svg)
 
-يوفر Intlayer نهجًا أكثر مرونة وحداثة لتعريب موقعك الإلكتروني. إن تكامله السلس مع Next.js و React، والتكوين القابل للتخصيص، ودعمه لمختلف تنسيقات الإعلانات عن المحتوى، يجعل منه خيارًا قويًا للتعريب.
+**تسهيل التدويل**
+
+يوفر Intlayer نهجًا أكثر مرونة وحداثة لتدويل موقعك الإلكتروني. تكامله السلس مع Next.js وReact، وإعداداته القابلة للتخصيص، ودعمه لمجموعة متنوعة من تنسيقات إعلان المحتوى يجعله خيارًا قويًا للتدويل.

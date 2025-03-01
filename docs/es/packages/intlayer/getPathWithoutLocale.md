@@ -1,26 +1,26 @@
-# Documentación: `getPathWithoutLocale` Funciones en `intlayer`
+# Documentación: Funciones `getPathWithoutLocale` en `intlayer`
 
-## Descripción:
+## Descripción
 
-Elimina el segmento de localización de la URL o ruta dada si está presente. Funciona con URLs absolutas y rutas relativas.
+Elimina el segmento de la configuración regional del URL o ruta proporcionada si está presente. Funciona con URLs absolutas y rutas relativas.
 
-## Parámetros:
+## Parámetros
 
 - `inputUrl: string`
 
-  - **Descripción**: La cadena de URL completa o ruta a procesar.
+  - **Descripción**: La cadena completa del URL o ruta a procesar.
   - **Tipo**: `string`
 
 - `locales: Locales[]`
-  - **Descripción**: Array opcional de locales soportados. Por defecto, utiliza los locales configurados en el proyecto.
+  - **Descripción**: Matriz opcional de configuraciones regionales compatibles. Por defecto, utiliza las configuraciones regionales configuradas en el proyecto.
   - **Tipo**: `Locales[]`
 
-## Retorna:
+## Retorna
 
 - **Tipo**: `string`
-- **Descripción**: La cadena de URL o ruta sin el segmento de localización.
+- **Descripción**: La cadena del URL o ruta sin el segmento de configuración regional.
 
-## Ejemplo de Uso:
+## Ejemplo de Uso
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";

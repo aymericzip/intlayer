@@ -45,13 +45,13 @@ The `getMultilingualUrls` function generates a mapping of multilingual URLs by p
 import { getMultilingualUrls, Locales } from "intlayer";
 
 getMultilingualUrls(
-  "/dashboard",
+  "/{{locale}}/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en-GB: "/dashboard",
+//   en: "/en-GB/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -60,13 +60,13 @@ getMultilingualUrls(
 import { getMultilingualUrls, Locales } from "intlayer";
 
 getMultilingualUrls(
-  "/dashboard",
+  "/{{locale}}/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en-GB: "/dashboard",
+//   en: "/en-GB/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -75,13 +75,13 @@ getMultilingualUrls(
 const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
-  "/dashboard",
+  "/{{locale}}/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en-GB: "/dashboard",
+//   en: "/en-GB/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -96,7 +96,7 @@ getMultilingualUrls(
   true
 );
 // Output: {
-//   en-GB: "https://example.com/en/dashboard",
+//   en: "https://example.com/en-GB/dashboard",
 //   fr: "https://example.com/fr/dashboard"
 // }
 ```
@@ -164,19 +164,19 @@ const config = {
 module.exports = config;
 ```
 
-The above configuration ensures that the application recognises `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.
+The above configuration ensures that the application recognizes `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.
 
-Using this configuration, the `getMultilingualUrls` function can dynamically generate multilingual URL mappings based on the application’s supported locales:
+Using this configuration, the `getMultilingualUrls` function can dynamically generate multilingual URL mappings based on the application's supported locales:
 
 ```typescript
 getMultilingualUrls(
-  "/dashboard",
+  "/{{locale}}/dashboard",
   [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   Locales.ENGLISH
 );
 // Output:
 // {
-//   en-GB: "/dashboard",
+//   en: "/en-GB/dashboard",
 //   fr: "/fr/dashboard",
 //   es: "/es/dashboard"
 // }
@@ -189,7 +189,7 @@ getMultilingualUrls(
 );
 // Output:
 // {
-//   en-GB: "https://example.com/en/dashboard",
+//   en: "https://example.com/en-GB/dashboard",
 //   fr: "https://example.com/fr/dashboard",
 //   es: "https://example.com/es/dashboard"
 // }

@@ -162,7 +162,7 @@ As second parameter, you can specify a path to a nested value within that conten
 
 To use nested content in a React component, leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified key. Here's an example of how to use it:
 
-```tsx fileName="/en-GB/**/*.tsx" codeFormat="typescript"
+```tsx fileName="/{{locale}}/**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -188,7 +188,7 @@ const NestComponent: FC = () => {
 export default NestComponent;
 ```
 
-```javascript fileName="/en-GB/**/*.mjx" codeFormat="esm"
+```javascript fileName="/{{locale}}/**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const NestComponent = () => {
@@ -213,7 +213,7 @@ const NestComponent = () => {
 export default NestComponent;
 ```
 
-```javascript fileName="/en-GB/**/*.cjx" codeFormat="commonjs"
+```javascript fileName="/{{locale}}/**/*.cjx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
 const NestComponent = () => {

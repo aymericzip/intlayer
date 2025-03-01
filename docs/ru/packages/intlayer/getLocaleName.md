@@ -1,26 +1,26 @@
 # Документация: Функция `getLocaleName` в `intlayer`
 
-## Описание:
+## Описание
 
-Функция `getLocaleName` возвращает локализованное имя указанной локали (`targetLocale`) в локали отображения (`displayLocale`). Если `targetLocale` не предоставлена, она возвращает имя `displayLocale` на ее собственном языке.
+Функция `getLocaleName` возвращает локализованное название указанной локали (`targetLocale`) на языке отображаемой локали (`displayLocale`). Если `targetLocale` не указана, возвращается название `displayLocale` на её собственном языке.
 
-## Параметры:
+## Параметры
 
 - `displayLocale: Locales`
 
-  - **Описание**: Локаль, в которой будет отображено имя целевой локали.
-  - **Тип**: Перечисление или строка, представляющая допустимые локали.
+  - **Описание**: Локаль, на языке которой будет отображаться название целевой локали.
+  - **Тип**: Enum или строка, представляющая допустимые локали.
 
 - `targetLocale?: Locales`
-  - **Описание**: Локаль, имя которой должно быть локализовано.
-  - **Тип**: Необязательный. Перечисление или строка, представляющая допустимые локали.
+  - **Описание**: Локаль, название которой нужно локализовать.
+  - **Тип**: Необязательный. Enum или строка, представляющая допустимые локали.
 
-## Возвращает:
+## Возвращаемое значение
 
 - **Тип**: `string`
-- **Описание**: Локализованное имя `targetLocale` в `displayLocale`, или собственное имя `displayLocale`, если `targetLocale` не предоставлена. Если перевод не найден, возвращает `"Неизвестная локаль"`.
+- **Описание**: Локализованное название `targetLocale` на языке `displayLocale`, или собственное название `displayLocale`, если `targetLocale` не указана. Если перевод не найден, возвращается `"Unknown locale"`.
 
-## Пример использования:
+## Пример использования
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -40,7 +40,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Вывод: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Вывод: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Вывод: "Chinese"
 
-getLocaleName("unknown-locale"); // Вывод: "Неизвестная локаль"
+getLocaleName("unknown-locale"); // Вывод: "Unknown locale"
 ```
 
 ```javascript codeFormat="esm"
@@ -61,7 +61,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Вывод: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Вывод: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Вывод: "Chinese"
 
-getLocaleName("unknown-locale"); // Вывод: "Неизвестная локаль"
+getLocaleName("unknown-locale"); // Вывод: "Unknown locale"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -82,12 +82,12 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Вывод: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Вывод: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Вывод: "Chinese"
 
-getLocaleName("unknown-locale"); // Вывод: "Неизвестная локаль"
+getLocaleName("unknown-locale"); // Вывод: "Unknown locale"
 ```
 
-## Пограничные случаи:
+## Граничные случаи
 
-- **Не предоставлена `targetLocale`:**
-  - Функция по умолчанию возвращает собственное имя `displayLocale`.
-- **Отсутствуют переводы:**
-  - Если `localeNameTranslations` не содержит записи для `targetLocale` или конкретного `displayLocale`, функция возвращает `ownLocalesName` или `"Неизвестная локаль"`.
+- **`targetLocale` не указана:**
+  - Функция по умолчанию возвращает собственное название `displayLocale`.
+- **Отсутствие переводов:**
+  - Если в `localeNameTranslations` отсутствует запись для `targetLocale` или конкретной `displayLocale`, функция возвращает `ownLocalesName` или `"Unknown locale"`.

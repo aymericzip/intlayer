@@ -1,54 +1,53 @@
-# Интеграция React: Документация Hook'а `useDictionary`
+# Интеграция React: Документация по хуку `useDictionary`
 
-Этот раздел предоставляет подробные рекомендации по использованию hook'а `useDictionary` в React-приложениях, позволяя эффективно обрабатывать локализованный контент без визуального редактора.
+Этот раздел предоставляет подробное руководство по использованию хука `useDictionary` в приложениях React, позволяя эффективно управлять локализованным контентом без визуального редактора.
 
-## Импортирование `useDictionary` в React
+## Импорт `useDictionary` в React
 
-Hook `useDictionary` можно интегрировать в React-приложения, импортируя его в зависимости от контекста:
+Хук `useDictionary` может быть интегрирован в приложения React путем импорта в зависимости от контекста:
 
 - **Клиентский компонент:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Используется в клиентских React-компонентах
+  import { useDictionary } from "react-intlayer"; // Используется в клиентских компонентах React
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Используется в клиентских React-компонентах
+  import { useDictionary } from "react-intlayer"; // Используется в клиентских компонентах React
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Используется в клиентских React-компонентах
+  const { useDictionary } = require("react-intlayer"); // Используется в клиентских компонентах React
   ```
 
 - **Серверный компонент:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Используется в серверных React-компонентах
+  import { useDictionary } from "react-intlayer/server"; // Используется в серверных компонентах React
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Используется в серверных React-компонентах
+  import { useDictionary } from "react-intlayer/server"; // Используется в серверных компонентах React
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Используется в серверных React-компонентах
+  const { useDictionary } = require("react-intlayer/server"); // Используется в серверных компонентах React
   ```
 
 ## Параметры
 
-Hook принимает два параметра:
+Хук принимает два параметра:
 
-1. **`dictionary`**: Объявленный объект словаря, содержащий локализованный контент для конкретных ключей.
-2. **`locale`** (необязательно): Желаемая локализация. По умолчанию используется локализация текущего контекста, если не указано.
+1. **`dictionary`**: Объявленный объект словаря, содержащий локализованный контент для определенных ключей.
+2. **`locale`** (необязательно): Желаемая локаль. По умолчанию используется локаль текущего контекста, если не указано.
 
-## Объявление контента
+## Словарь
 
-Все объекты словаря должны быть объявлены в структурированных файлах контента для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Вы можете найти инструкции по настройке [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md). Вот пример объявления контента:
+Все объекты словаря должны быть объявлены в структурированных файлах контента для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Инструкции по настройке можно найти [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md). Вот пример объявления контента:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
-// Объект контента компонента
 const componentContent = {
   key: "component-example",
   content: {
@@ -56,11 +55,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      ru: "Пример клиентского компонента",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      ru: "Это содержимое примера клиентского компонента",
     }),
   },
 } satisfies Dictionary;
@@ -79,11 +80,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      ru: "Пример клиентского компонента",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      ru: "Это содержимое примера клиентского компонента",
     }),
   },
 };
@@ -102,11 +105,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
+      ru: "Пример клиентского компонента",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
+      ru: "Это содержимое примера клиентского компонента",
     }),
   },
 };
@@ -124,7 +129,8 @@ module.exports = componentContent;
       "translation": {
         "en": "Client Component Example",
         "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente"
+        "es": "Ejemplo de componente cliente",
+        "ru": "Пример клиентского компонента"
       }
     },
     "content": {
@@ -132,7 +138,8 @@ module.exports = componentContent;
       "translation": {
         "en": "This is the content of a client component example",
         "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente"
+        "es": "Este es el contenido de un ejemplo de componente cliente",
+        "ru": "Это содержимое примера клиентского компонента"
       }
     }
   }
@@ -141,7 +148,7 @@ module.exports = componentContent;
 
 ## Пример использования в React
 
-Ниже представлен пример того, как использовать hook `useDictionary` в React-компоненте:
+Ниже приведен пример использования хука `useDictionary` в компоненте React:
 
 ```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -194,7 +201,7 @@ const ComponentExample = () => {
 
 ## Интеграция на сервере
 
-Если вы используете hook `useDictionary` вне `IntlayerProvider`, локализация должна быть явно предоставлена в качестве параметра при рендеринге компонента:
+Если вы используете хук `useDictionary` вне `IntlayerProvider`, локаль должна быть явно указана в качестве параметра при рендеринге компонента:
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -245,9 +252,9 @@ const ServerComponentExample = ({ locale }) => {
 };
 ```
 
-## Примечания по атрибутам
+## Заметки по атрибутам
 
-В отличие от интеграций с использованием визуальных редакторов, такие атрибуты, как `buttonTitle.value`, здесь не применяются. Вместо этого напрямую получайте доступ к локализованным строкам, как указано в вашем контенте.
+В отличие от интеграций с использованием визуальных редакторов, такие атрибуты, как `buttonTitle.value`, здесь не применяются. Вместо этого напрямую используйте локализованные строки, как они объявлены в вашем контенте.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -256,6 +263,6 @@ const ServerComponentExample = ({ locale }) => {
 ## Дополнительные советы
 
 - **Безопасность типов**: Всегда используйте `Dictionary` для определения ваших словарей, чтобы обеспечить безопасность типов.
-- **Обновления локализации**: При обновлении контента убедитесь, что все локализации согласованы, чтобы избежать пропущенных переводов.
+- **Обновления локализации**: При обновлении контента убедитесь, что все локали согласованы, чтобы избежать отсутствия переводов.
 
-Эта документация сосредоточена на интеграции hook'а `useDictionary`, предоставляя упрощенный подход к управлению локализованным контентом без полагания на функционал визуального редактора.
+Эта документация сосредоточена на интеграции хука `useDictionary`, предоставляя упрощенный подход к управлению локализованным контентом без использования функционала визуального редактора.

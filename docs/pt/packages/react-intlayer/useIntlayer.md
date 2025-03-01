@@ -1,53 +1,53 @@
 # Integração com React: Documentação do Hook `useIntlayer`
 
-Esta seção fornece orientações detalhadas sobre o uso do hook `useIntlayer` em aplicações React, permitindo a localização eficiente de conteúdo.
+Esta seção fornece orientações detalhadas sobre como usar o hook `useIntlayer` em aplicações React, permitindo uma localização de conteúdo eficiente.
 
 ## Importando `useIntlayer` no React
 
 O hook `useIntlayer` pode ser integrado em aplicações React importando-o com base no contexto:
 
-- **Componente do Cliente:**
+- **Componente Cliente:**
 
   ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Usado em componentes React do lado do cliente
+  import { useIntlayer } from "react-intlayer"; // Usado em componentes React no lado do cliente
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Usado em componentes React do lado do cliente
+  import { useIntlayer } from "react-intlayer"; // Usado em componentes React no lado do cliente
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Usado em componentes React do lado do cliente
+  const { useIntlayer } = require("react-intlayer"); // Usado em componentes React no lado do cliente
   ```
 
-- **Componente do Servidor:**
+- **Componente Servidor:**
 
   ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Usado em componentes React do lado do servidor
+  import { useIntlayer } from "react-intlayer/server"; // Usado em componentes React no lado do servidor
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Usado em componentes React do lado do servidor
+  import { useIntlayer } from "react-intlayer/server"; // Usado em componentes React no lado do servidor
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Usado em componentes React do lado do servidor
+  const { useIntlayer } = require("react-intlayer/server"); // Usado em componentes React no lado do servidor
   ```
 
 ## Parâmetros
 
 O hook aceita dois parâmetros:
 
-1. **`key`**: A chave do dicionário para recuperar conteúdo localizado.
-2. **`locale`** (opcional): O local desejado. Por padrão, usa o local do contexto se não especificado.
+1. **`key`**: A chave do dicionário para recuperar o conteúdo localizado.
+2. **`locale`** (opcional): O idioma desejado. Por padrão, usa o idioma do contexto se não especificado.
 
-## Declaração de Conteúdo
+## Dicionário
 
-Todas as chaves do dicionário devem ser declaradas dentro de arquivos de declaração de conteúdo para aumentar a segurança de tipo e evitar erros. Você pode encontrar as instruções de configuração [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
+Todas as chaves do dicionário devem ser declaradas em arquivos de declaração de conteúdo para melhorar a segurança de tipos e evitar erros. Você pode encontrar as instruções de configuração [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
 
 ## Exemplo de Uso no React
 
-Demonstrando o hook `useIntlayer` dentro de um componente React:
+Demonstração do hook `useIntlayer` em um componente React:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -57,11 +57,11 @@ import { useIntlayer, IntlayerServerProvider } from "react-intlayer/server";
 import { Locales } from "intlayer";
 
 const App: FC<{ locale: Locales }> = ({ locale }) => {
-  const content = useIntlayer("homepage", locale); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
-      <p>{content.introduction}</p> // Introdução do conteúdo
+      <p>{content.introduction}</p>
       <IntlayerProvider locale={locale}>
         <ClientComponentExample />
       </IntlayerProvider>
@@ -79,11 +79,11 @@ import { IntlayerProvider } from "react-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
 
 const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
-      <p>{content.introduction}</p> // Introdução do conteúdo
+      <p>{content.introduction}</p>
       <IntlayerProvider locale={locale}>
         <ClientComponentExample />
       </IntlayerProvider>
@@ -103,11 +103,11 @@ const {
 } = require("react-intlayer/server");
 
 const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
-      <p>{content.introduction}</p> // Introdução do conteúdo
+      <p>{content.introduction}</p>
       <IntlayerProvider locale={locale}>
         <ClientComponentExample />
       </IntlayerProvider>
@@ -124,12 +124,12 @@ import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 const ComponentExample: FC = () => {
-  const content = useIntlayer("component-example"); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("component-example");
 
   return (
     <div>
-      <h1>{content.title}</h1> // Título do componente
-      <p>{content.description}</p> // Descrição do componente
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };
@@ -139,12 +139,12 @@ const ComponentExample: FC = () => {
 import { useIntlayer } from "react-intlayer";
 
 const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("component-example");
 
   return (
     <div>
-      <h1>{content.title}</h1> // Título do componente
-      <p>{content.description}</p> // Descrição do componente
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };
@@ -154,12 +154,12 @@ const ComponentExample = () => {
 const { useIntlayer } = require("react-intlayer");
 
 const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("component-example");
 
   return (
     <div>
-      <h1>{content.title}</h1> // Título do componente
-      <p>{content.description}</p> // Descrição do componente
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };
@@ -169,12 +169,12 @@ const ComponentExample = () => {
 import { useIntlayer } from "react-intlayer/server";
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component"); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("server-component");
 
   return (
     <div>
-      <h1>{content.title}</h1> // Título do componente do servidor
-      <p>{content.description}</p> // Descrição do componente do servidor
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };
@@ -184,12 +184,12 @@ const ServerComponentExample = () => {
 import { useIntlayer } from "react-intlayer/server";
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component"); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("server-component");
 
   return (
     <div>
-      <h1>{content.title}</h1> // Título do componente do servidor
-      <p>{content.description}</p> // Descrição do componente do servidor
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };
@@ -199,12 +199,12 @@ const ServerComponentExample = () => {
 const { useIntlayer } = require("react-intlayer/server");
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component"); // Usando o hook para recuperar conteúdo
+  const content = useIntlayer("server-component");
 
   return (
     <div>
-      <h1>{content.title}</h1> // Título do componente do servidor
-      <p>{content.description}</p> // Descrição do componente do servidor
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };
@@ -212,14 +212,14 @@ const ServerComponentExample = () => {
 
 ## Manipulando Atributos
 
-Ao localizar atributos, acesse os valores do conteúdo adequadamente:
+Ao localizar atributos, acesse os valores de conteúdo adequadamente:
 
 ```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button> // Utilizando título local
+<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Recursos Adicionais
 
-- **Editor Visual do Intlayer**: Para uma experiência mais intuitiva de gerenciamento de conteúdo, consulte a documentação do editor visual [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_editor.md).
+- **Editor Visual do Intlayer**: Para uma experiência de gerenciamento de conteúdo mais intuitiva, consulte a documentação do editor visual [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md).
 
-Esta seção visa especificamente a integração do hook `useIntlayer` em aplicações React, simplificando o processo de localização e garantindo consistência de conteúdo entre diferentes locais.
+Esta seção foca especificamente na integração do hook `useIntlayer` em aplicações React, simplificando o processo de localização e garantindo a consistência do conteúdo entre diferentes idiomas.

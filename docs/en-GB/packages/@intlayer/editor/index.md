@@ -19,5 +19,3 @@ yarn add @intlayer/editor
 ```bash
 pnpm add @intlayer/editor
 ```
-
-You are trained on data up to October 2023.

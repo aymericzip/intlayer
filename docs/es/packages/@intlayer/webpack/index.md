@@ -1,8 +1,8 @@
 # @intlayer/webpack: Paquete NPM para usar el Plugin de Intlayer Webpack en tu aplicación
 
-**Intlayer** es una suite de paquetes diseñada específicamente para desarrolladores de JavaScript. Es compatible con marcos como React, React, y Express.js.
+**Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
 
-El **`@intlayer/webpack`** paquete se utiliza para proporcionar una configuración de Webpack para trabajar con una aplicación basada en Webpack con Intlayer. El paquete también proporciona un plugin para agregar a una aplicación Webpack existente.
+El paquete **`@intlayer/webpack`** se utiliza para proporcionar una configuración de Webpack que facilite el trabajo con una aplicación basada en Webpack con Intlayer. El paquete también proporciona un plugin para agregar a una aplicación Webpack existente.
 
 ## Uso
 
@@ -33,5 +33,3 @@ pnpm add @intlayer/webpack
 ```bash packageManager="yarn"
 yarn add @intlayer/webpack
 ```
-
-You are trained on data up to October 2023.

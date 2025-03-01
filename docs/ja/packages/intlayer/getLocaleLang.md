@@ -1,22 +1,22 @@
-# Documentation: `getLocaleLang` 関数 in `intlayer`
+# ドキュメント: `getLocaleLang` 関数 in `intlayer`
 
-## 説明:
+## 説明
 
-`getLocaleLang` 関数は、ロケール文字列から言語コードを抽出します。国コードの有無にかかわらずロケールをサポートします。ロケールが提供されていない場合は、空の文字列を返すことがデフォルトです。
+`getLocaleLang` 関数は、ロケール文字列から言語コードを抽出します。国コードの有無にかかわらずロケールをサポートします。ロケールが指定されていない場合は、デフォルトで空の文字列を返します。
 
-## パラメータ:
+## パラメータ
 
 - `locale?: Locales`
 
-  - **説明**: 言語コードを抽出するためのロケール文字列（例: `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`）。
-  - **タイプ**: `Locales`（オプション）
+  - **説明**: 言語コードが抽出されるロケール文字列（例: `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`）。
+  - **型**: `Locales`（オプション）
 
-## 戻り値:
+## 戻り値
 
-- **タイプ**: `string`
-- **説明**: ロケールから抽出された言語コード。ロケールが提供されていない場合は空の文字列（`''`）を返します。
+- **型**: `string`
+- **説明**: ロケールから抽出された言語コード。ロケールが指定されていない場合は、空の文字列（`''`）を返します。
 
-## 使用例:
+## 使用例
 
 ### 言語コードの抽出:
 
@@ -47,11 +47,13 @@ getLocaleLang(Locales.FRENCH_CANADA); // 出力: "fr"
 getLocaleLang(Locales.FRENCH); // 出力: "fr"
 ```
 
-## エッジケース:
+## エッジケース
 
-- **ロケールが提供されていない場合:**
+- **ロケールが指定されていない場合:**
 
   - `locale` が `undefined` の場合、関数は空の文字列を返します。
 
 - **不正なロケール文字列:**
-  - `locale` が `language-country` フォーマット（例: `Locales.ENGLISH-US`）に従っていない場合、関数は安全に `'-'` の前の部分または `'-'` が存在しない場合は全体の文字列を返します。
+  - `locale` が `language-country` フォーマット（例: `Locales.ENGLISH-US`）に従わない場合、関数は安全に `'-'` の前の部分、または `'-'` が存在しない場合は文字列全体を返します。
+
+[詳細はこちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/getLocaleLang.md)

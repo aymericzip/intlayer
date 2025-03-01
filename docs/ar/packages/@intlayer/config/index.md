@@ -1,12 +1,12 @@
 # @intlayer/config: حزمة NPM لاسترجاع تكوين Intlayer
 
-**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر مثل React و Express.js.
+**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وReact وExpress.js.
 
-حزمة **`@intlayer/config`** هي حزمة NPM تسمح لك باسترجاع إعدادات Intlayer وتعريف المتغيرات البيئية المتعلقة بالبيئة الحالية.
+حزمة **`@intlayer/config`** هي حزمة NPM تتيح لك استرجاع تكوين Intlayer وتحديد متغيرات البيئة المتعلقة بالبيئة الحالية.
 
 ## التثبيت
 
-قم بتثبيت الحزمة الضرورية باستخدام مدير الحزم الذي تفضله:
+قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
 
 ```bash packageManager="npm"
 npm install @intlayer/config
@@ -32,7 +32,7 @@ import { getConfiguration, type IntlayerConfig } from "@intlayer/config";
 const config: IntlayerConfig = getConfiguration();
 
 console.log(config);
-// النتيجة:
+// الإخراج:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -41,9 +41,9 @@ console.log(config);
 // }
 ```
 
-> هذه الدالة تستخدم حزمة `fs` وستعمل فقط على جانب الخادم.
+> تستخدم هذه الوظيفة حزم `fs` وستعمل فقط على جانب الخادم.
 
-### قراءة تكوين Intlayer باستخدام المتغيرات البيئية
+### قراءة تكوين Intlayer باستخدام متغيرات البيئة
 
 مثال:
 
@@ -55,7 +55,7 @@ const config: IntlayerConfig = getConfiguration({
 });
 
 console.log(config);
-// النتيجة:
+// الإخراج:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -64,11 +64,11 @@ console.log(config);
 // }
 ```
 
-> هذه الدالة لن ترجع أي شيء إذا لم يتم تعريف المتغيرات البيئية.
+> لن تُرجع هذه الوظيفة أي شيء إذا لم يتم تعريف متغيرات البيئة.
 
-### تعريف المتغيرات البيئية
+### تحديد متغيرات البيئة
 
-1. إنشاء ملف تكوين.
+1. قم بإنشاء ملف تكوين.
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig } from "intlayer";
@@ -91,19 +91,19 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> انظر [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md) للحصول على مزيد من التفاصيل.
+> انظر [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md) لمزيد من التفاصيل.
 
-2. تعريف المتغيرات البيئية.
+2. قم بتحديد متغيرات البيئة.
 
 ```ts
 import { getConfiguration } from "@intlayer/config";
 
 const intlayerConfig = getConfiguration();
 
-// تنسيق جميع قيم التكوين كمتغيرات بيئية
+// تنسيق جميع قيم التكوين كمتغيرات بيئة
 const env = formatEnvVariable();
 
-// تعيين كل متغير بيئي مُنسق في process.env
+// تعيين كل متغير بيئة مُنسق في process.env
 Object.assign(process.env, env);
 ```
 

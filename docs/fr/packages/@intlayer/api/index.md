@@ -1,15 +1,14 @@
-# @intlayer/api: NPM Package pour interagir avec l'API Intlayer
+# @intlayer/api : Package NPM pour interagir avec l'API Intlayer
 
-**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Il est compatible avec des frameworks comme React, React, et Express.js.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React et Express.js.
 
-Le package **`@intlayer/api`** est un SDK (Kit de Développement Logiciel) pour interagir avec l'API Intlayer. Il fournit un ensemble de fonctions pour auditer la déclaration de contenu, interagir avec des organisations, des projets, et des utilisateurs, etc.
+Le package **`@intlayer/api`** est un SDK (Software Development Kit) pour interagir avec l'API Intlayer. Il fournit un ensemble de fonctions pour auditer les déclarations de contenu, interagir avec les organisations, les projets, les utilisateurs, etc.
 
 ## Utilisation
 
 ```ts
 import { intlayerAPI } from "@intlayer/api";
 
-// Récupère les informations de l'utilisateur
 intlayerAPI.user.getUser({
   ids: ["user-id-1", "user-id-2"],
 });

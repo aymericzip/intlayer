@@ -1,19 +1,19 @@
-# Next.js Integration: `useIntlayerAsync` フックドキュメント
+# Next.js統合: `useIntlayerAsync`フックドキュメント
 
-`useIntlayerAsync` フックは、`useIntlayer` の機能を拡張し、事前レンダリングされた辞書を返すだけでなく、非同期での更新を取得するため、初回レンダリング後にローカライズされたコンテンツが頻繁に更新されるアプリケーションに最適です。
+`useIntlayerAsync`フックは、事前レンダリングされた辞書を返すだけでなく、非同期で更新を取得する機能を追加し、初期レンダリング後にローカライズされたコンテンツを頻繁に更新するアプリケーションに最適です。
 
 ## 概要
 
 - **非同期辞書読み込み:**  
-  クライアント側では、`useIntlayerAsync` は最初に事前レンダリングされたロケール辞書を返し（`useIntlayer` のように）、その後非同期で新しく利用可能なリモート辞書を取得してマージします。
-- **進捗状態管理:**  
-  フックは、リモート辞書が取得されている場合を示す `isLoading` ステートを提供します。これにより、開発者はよりスムーズなユーザー体験のためにローディングインジケーターやスケルトン状態を表示できます。
+  クライアント側では、`useIntlayerAsync`はまず事前レンダリングされたロケール辞書を返し（`useIntlayer`と同様）、その後非同期で新しく利用可能なリモート辞書を取得してマージします。
+- **進行状態管理:**  
+  このフックは、リモート辞書が取得されているときに`isLoading`状態を提供します。これにより、開発者はスムーズなユーザー体験のためにローディングインジケーターやスケルトン状態を表示できます。
 
 ## 環境設定
 
-Intlayer は、非開発者がアプリケーションコンテンツをシームレスに管理・更新できるヘッドレスコンテンツソース管理（CSM）システムを提供します。Intlayer の直感的なダッシュボードを使用することで、チームはコードを直接変更することなくローカライズされたテキスト、画像、およびその他のリソースを編集できます。これにより、コンテンツ管理プロセスが効率化され、コラボレーションが促進され、更新を迅速かつ簡単に行えるようになります。
+Intlayerは、開発者以外の人々がアプリケーションコンテンツをシームレスに管理および更新できるヘッドレスコンテンツソース管理（CSM）システムを提供します。Intlayerの直感的なダッシュボードを使用することで、チームはコードを直接変更することなく、ローカライズされたテキスト、画像、その他のリソースを編集できます。これにより、コンテンツ管理プロセスが合理化され、コラボレーションが促進され、迅速かつ簡単に更新が可能になります。
 
-Intlayer を開始するには、最初に [https://intlayer.org/dashboard](https://intlayer.org/dashboard) で登録し、アクセストークンを取得する必要があります。クレデンシャルを取得したら、以下のように構成ファイルに追加します。
+Intlayerを始めるには、まず[https://intlayer.org/dashboard](https://intlayer.org/dashboard)で登録し、アクセストークンを取得する必要があります。資格情報を取得したら、以下のように設定ファイルに追加します:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -55,17 +55,17 @@ const config = {
 module.exports = config;
 ```
 
-クレデンシャルの設定が完了したら、次のコマンドを実行して Intlayer に新しいロケール辞書をプッシュできます。
+資格情報を設定した後、以下のコマンドを実行して新しいロケール辞書をIntlayerにプッシュできます:
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
-このコマンドは、初期コンテンツ辞書をアップロードし、Intlayer プラットフォームを通じて非同期で取得・編集できるようにします。
+このコマンドは初期コンテンツ辞書をアップロードし、非同期取得およびIntlayerプラットフォームを通じた編集が可能になります。
 
-## Next.js への `useIntlayerAsync` のインポート
+## Next.jsでの`useIntlayerAsync`のインポート
 
-`useIntlayerAsync` は **クライアントサイド** コンポーネント専用であるため、`useIntlayer` と同じクライアントエントリーポイントからインポートします。
+`useIntlayerAsync`は**クライアントサイド**コンポーネント用に設計されているため、`useIntlayer`と同じクライアントエントリポイントからインポートします:
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -85,29 +85,29 @@ import { useIntlayerAsync } from "next-intlayer";
 const { useIntlayerAsync } = require("next-intlayer");
 ```
 
-インポートファイルが Next.js App Router を使用している場合は、「`use client`」を上部に注記してください。
+Next.jsのApp Routerでサーバーコンポーネントとクライアントコンポーネントが分離されている場合、インポートするファイルの先頭に`"use client"`を記述してください。
 
 ## パラメーター
 
 1. **`key`**:  
-   **タイプ**: `DictionaryKeys`  
-   ローカライズされたコンテンツブロックを識別するために使用する辞書キー。このキーは、コンテンツ宣言ファイルで定義されている必要があります。
+   **型**: `DictionaryKeys`  
+   ローカライズされたコンテンツブロックを識別するために使用される辞書キー。このキーはコンテンツ宣言ファイルで定義する必要があります。
 
-2. **`locale`**（オプション）:  
-   **タイプ**: `Locales`  
-   ターゲットとする特定のロケール。省略すると、フックはクライアントコンテキストのロケールを使用します。
+2. **`locale`** (オプション):  
+   **型**: `Locales`  
+   ターゲットとする特定のロケール。省略された場合、フックはクライアントコンテキストのロケールを使用します。
 
-3. **`isRenderEditor`**（オプション、デフォルトは `true`）:  
-   **タイプ**: `boolean`  
-   コンテンツを Intlayer エディタオーバーレイでレンダリング可能にするかどうかを決定します。`false` に設定すると、返された辞書データにはエディタ特有の機能が含まれません。
+3. **`isRenderEditor`** (オプション、デフォルトは`true`):  
+   **型**: `boolean`  
+   コンテンツがIntlayerエディターオーバーレイでレンダリング可能であるかどうかを決定します。`false`に設定すると、返される辞書データにはエディター固有の機能が含まれません。
 
 ## 戻り値
 
-フックは、`key` と `locale` でキー付けされたローカライズされたコンテンツを含む辞書オブジェクトを返します。これには、現在リモート辞書が取得中であるかどうかを示す `isLoading` ブール値も含まれます。
+このフックは、`key`および`locale`でキー付けされたローカライズされたコンテンツを含む辞書オブジェクトを返します。また、リモート辞書が現在取得中であるかどうかを示す`isLoading`ブール値も含まれます。
 
-## Next.js における使用例
+## Next.jsでの使用例
 
-### クライアントサイドコンポーネント例
+### クライアントサイドコンポーネントの例
 
 ```tsx fileName="src/components/AsyncClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -120,7 +120,7 @@ export const AsyncClientComponentExample: FC = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("コンテンツが読み込まれています...");
+      console.log("コンテンツを読み込み中...");
     }
   }, [isLoading]);
 
@@ -144,7 +144,7 @@ const AsyncClientComponentExample = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("コンテンツが読み込まれています...");
+      console.log("コンテンツを読み込み中...");
     }
   }, [isLoading]);
 
@@ -168,7 +168,7 @@ const AsyncClientComponentExample = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("コンテンツが読み込まれています...");
+      console.log("コンテンツを読み込み中...");
     }
   }, [isLoading]);
 
@@ -181,31 +181,31 @@ const AsyncClientComponentExample = () => {
 };
 ```
 
-**主なポイント:**
+**重要なポイント:**
 
-- 初回レンダリング時に、`title` と `description` は事前レンダリングされたロケール辞書から提供されます。
-- `isLoading` が `true` の間、バックグラウンドでリモートリクエストが行われ、新しい辞書が取得されます。
-- フェッチが完了すると、`title` と `description` は最新のコンテンツで更新され、`isLoading` は `false` に戻ります。
+- 初期レンダリング時、`title`と`description`は事前レンダリングされたロケール辞書から取得されます。
+- `isLoading`が`true`の間、バックグラウンドでリモートリクエストが行われ、更新された辞書が取得されます。
+- 取得が完了すると、`title`と`description`は最新のコンテンツに更新され、`isLoading`は`false`に戻ります。
 
-## 属性ローカリゼーションの取り扱い
+## 属性ローカライズの処理
 
-`useIntlayer` と同様に、さまざまな HTML プロパティ（例：`alt`、`title`、`aria-label`）のローカライズされた属性値を取得できます。
+`useIntlayer`と同様に、さまざまなHTMLプロパティ（例: `alt`、`title`、`aria-label`）のローカライズされた属性値を取得できます:
 
 ```tsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## コンテンツ宣言ファイル
+## 辞書ファイル
 
-すべてのコンテンツキーは、型安全性を確保するためにコンテンツ宣言ファイルで定義する必要があります。これにより、TypeScript の検証が行われ、常に存在するキーとロケールを参照できることが保証されます。
+すべてのコンテンツキーは、型安全性を確保し、ランタイムエラーを防ぐためにコンテンツ宣言ファイルで定義する必要があります。これらのファイルはTypeScriptによる検証を可能にし、常に既存のキーとロケールを参照することを保証します。
 
-コンテンツ宣言ファイルの設定手順については [こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md) にあります。
+コンテンツ宣言ファイルの設定手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)をご覧ください。
 
-## さらなる情報
+## 詳細情報
 
-- **Intlayer ビジュアルエディタ:**  
-  Intlayer ビジュアルエディタと統合し、UI から直接コンテンツを管理・編集することができます。詳細は [こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_editor.md) にあります。
+- **Intlayerビジュアルエディター:**  
+  UIから直接コンテンツを管理および編集するためにIntlayerビジュアルエディターと統合します。詳細は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
 ---
 
-**要約すると、** `useIntlayerAsync` は、事前レンダリングされた辞書と非同期の辞書更新を組み合わせることでユーザー体験を向上させ、コンテンツの新鮮さを維持するために設計された強力なクライアントサイドフックです。`isLoading` と TypeScript ベースのコンテンツ宣言を活用すれば、Next.js アプリケーションに動的でローカライズされたコンテンツをシームレスに統合できます。
+**まとめとして**, `useIntlayerAsync`は、事前レンダリングされた辞書と非同期辞書更新を組み合わせることで、ユーザー体験を向上させ、コンテンツの新鮮さを維持するために設計された強力なクライアントサイドフックです。`isLoading`とTypeScriptベースのコンテンツ宣言を活用することで、Next.jsアプリケーションに動的でローカライズされたコンテンツをシームレスに統合できます。

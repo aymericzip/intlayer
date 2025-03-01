@@ -1,72 +1,72 @@
-# Intlayer Documentation
+# Intlayer ドキュメント
 
-ようこそ、公式**Intlayer**ドキュメントへ！ここでは、**Next.js**、**React**、**Vite**、**Express**、または他のJavaScript環境を使用して、国際化（i18n）ニーズに合わせてIntlayerを統合、構成、マスターするために必要なすべての情報を見つけることができます。
+公式の **Intlayer** ドキュメントへようこそ！ここでは、**Next.js**、**React**、**Vite**、**Express**、またはその他のJavaScript環境での国際化（i18n）ニーズに対応するためのIntlayerの統合、設定、習得に必要なすべての情報を見つけることができます。
 
-Intlayerは、アプリケーションの翻訳に柔軟でモダンなアプローチを提供します。私たちのドキュメントは、インストールと設定から、**AI駆動の翻訳**、**TypeScript**定義、**サーバーコンポーネント**サポートなどの高度な機能までをガイドし、シームレスで多言語対応の体験を構築する力を与えます。
+Intlayerは、アプリケーションの翻訳に柔軟でモダンなアプローチを提供します。このドキュメントでは、インストールとセットアップから、**AIによる翻訳**、**TypeScript**定義、**サーバーコンポーネント**サポートなどの高度な機能まで、シームレスで多言語対応の体験を作成するためのガイドを提供します。
 
 ---
 
-## Getting Started
+## はじめに
 
-- **[Introduction](https://github.com/aymericzip/intlayer/blob/main/docs/ja/introduction.md)**  
-  Intlayerの動作、コア機能、そしてi18nにおけるゲームチェンジャーとしての理由を概観します。
+- **[イントロダクション](https://github.com/aymericzip/intlayer/blob/main/docs/ja/introduction.md)**  
+  Intlayerの仕組み、そのコア機能、そしてi18nにおけるゲームチェンジャーである理由を概観します。
 
-- **[How Intlayer Works](https://github.com/aymericzip/intlayer/blob/main/docs/ja/how_works_intlayer.md)**  
-  アーキテクチャの設計に飛び込み、Intlayerがコンテンツの宣言から翻訳の配信までをどのように処理するか学びます。
+- **[Intlayerの仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/ja/how_works_intlayer.md)**  
+  アーキテクチャ設計に飛び込み、Intlayerがコンテンツ宣言から翻訳配信までをどのように処理するかを学びます。
 
-- **[Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)**  
-  あなたのプロジェクトのニーズに合わせてIntlayerをカスタマイズします。ミドルウェアオプション、ディレクトリ構造、高度な設定を探ります。
+- **[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)**  
+  プロジェクトのニーズに合わせてIntlayerをカスタマイズします。ミドルウェアオプション、ディレクトリ構造、詳細設定を探ります。
 
 - **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)**  
-  コマンドラインツールを使用してコンテンツと翻訳を管理します。コンテンツをプッシュおよびプルする方法、翻訳の自動化、その他多数について発見します。
+  コマンドラインツールを使用してコンテンツと翻訳を管理します。コンテンツのプッシュとプル、翻訳の自動化などを学びます。
 
-- **[Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_editor.md)**  
-  非開発者とのコラボレーションを簡素化し、AIを活用して翻訳を強化します—私たちの無料で直感的なCMSで。
-
----
-
-## Core Concepts
-
-### Dictionary
-
-コードに近い多言語コンテンツを整理して、一貫性を持たせ、維持しやすくします。
-
-- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)**  
-  Intlayerでのコンテンツ宣言の基本を学びます。
-
-- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/translation.md)**  
-  翻訳がどのように生成、保存、アプリケーションで使用されるかを理解します。
-
-- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/enumeration.md)**  
-  様々な言語で繰り返しまたは固定セットのデータを簡単に管理します。
-
-- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/function_fetching.md)**  
-  プロジェクトのワークフローに合わせて、カスタムロジックでコンテンツを動的に取得する方法を確認します。
+- **[Intlayer エディター](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)**  
+  非開発者とのコラボレーションを簡素化し、AIを活用した翻訳を無料で直感的なCMSで実現します。
 
 ---
 
-## Environments & Integrations
+## コアコンセプト
 
-柔軟性を念頭に置いてIntlayerを構築し、人気のあるフレームワークやビルドツールにシームレスに統合しています：
+### 辞書
 
-- **[Intlayer with Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)**
-- **[Intlayer with Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_14.md)**
-- **[Intlayer with Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer with React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)**
-- **[Intlayer with Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)**
-- **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_express.md)**
+コードに近い場所で多言語コンテンツを整理し、一貫性と保守性を保ちます。
 
-各統合ガイドには、Intlayerの機能を使用するためのベストプラクティス—**サーバーサイドレンダリング**、**動的ルーティング**、または**クライアントサイドレンダリング**など—が含まれており、迅速でSEOフレンドリー、かつ大規模なアプリケーションを維持できます。
+- **[はじめに](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)**  
+  Intlayerでコンテンツを宣言する基本を学びます。
+
+- **[翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/translation.md)**  
+  翻訳がどのように生成され、保存され、アプリケーションで利用されるかを理解します。
+
+- **[列挙](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/enumeration.md)**  
+  様々な言語で繰り返し使用される固定データセットを簡単に管理します。
+
+- **[関数フェッチ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/function_fetching.md)**  
+  プロジェクトのワークフローに合わせてカスタムロジックでコンテンツを動的に取得する方法を確認します。
 
 ---
 
-## Packages
+## 環境と統合
 
-Intlayerのモジュラー設計は、特定の環境やニーズ向けの専用パッケージを提供します。
+Intlayerは柔軟性を念頭に設計されており、人気のあるフレームワークやビルドツールとのシームレスな統合を提供します：
+
+- **[Next.js 15でのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)**
+- **[Next.js 14（App Router）でのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_14.md)**
+- **[Next.js Page RouterでのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_page_router.md)**
+- **[React CRAでのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)**
+- **[Vite + ReactでのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)**
+- **[ExpressでのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_express.md)**
+
+各統合ガイドには、**サーバーサイドレンダリング**、**動的ルーティング**、**クライアントサイドレンダリング**などのIntlayerの機能を使用するためのベストプラクティスが含まれており、高速でSEOに優れた、スケーラブルなアプリケーションを維持できます。
+
+---
+
+## パッケージ
+
+Intlayerのモジュール設計は、特定の環境やニーズに対応する専用パッケージを提供します：
 
 ### `intlayer`
 
-i18n設定を構成し、管理するためのコアユーティリティ関数。
+i18n設定を構成および管理するためのコアユーティリティ関数。
 
 - **[getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getConfiguration.md)**
 - **[getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getHTMLTextDir.md)**
@@ -80,14 +80,14 @@ i18n設定を構成し、管理するためのコアユーティリティ関数�
 
 ### `express-intlayer`
 
-**Express**ベースのアプリでIntlayerを活用します：
+**Express**ベースのアプリでIntlayerを活用：
 
 - **[t](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/express-intlayer/t.md)**  
-  サーバールートやビュー用のミニマルで簡単な翻訳ヘルパー。
+  サーバールートやビュー用の最小限で簡単な翻訳ヘルパー。
 
 ### `react-intlayer`
 
-強力なフックを使用して**React**アプリケーションを強化します：
+**React**アプリケーションを強化する強力なフック：
 
 - **[t](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/t.md)**
 - **[useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useIntlayer.md)**
@@ -96,7 +96,7 @@ i18n設定を構成し、管理するためのコアユーティリティ関数�
 
 ### `next-intlayer`
 
-**Next.js**とシームレスに統合します：
+**Next.js**とのシームレスな統合：
 
 - **[t](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/t.md)**
 - **[useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useIntlayer.md)**
@@ -105,21 +105,21 @@ i18n設定を構成し、管理するためのコアユーティリティ関数�
 
 ---
 
-## Additional Resources
+## 追加リソース
 
-- **[Blog: Intlayer and i18next](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_i18next.md)**  
-  Intlayerが人気の**i18next**ライブラリとどのように補完し、比較されるかを学びます。
+- **[ブログ: Intlayerとi18next](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_i18next.md)**  
+  Intlayerが人気の**i18next**ライブラリをどのように補完し、比較されるかを学びます。
 
-- **[Live Tutorial on YouTube](https://youtu.be/W2G7KxuSD4c?si=GyU_KpVhr61razRw)**  
+- **[YouTubeでのライブチュートリアル](https://youtu.be/W2G7KxuSD4c?si=GyU_KpVhr61razRw)**  
   包括的なデモを視聴し、リアルタイムでIntlayerを統合する方法を学びます。
 
 ---
 
-## Contributing & Feedback
+## 貢献とフィードバック
 
-私たちは、オープンソースとコミュニティ主導の開発の力を重視しています。改善を提案したり、新しいガイドを追加したり、ドキュメントの問題を修正したりしたい場合は、プルリクエストを提出するか、私たちの[GitHubリポジトリ](https://github.com/aymericzip/intlayer/blob/main/docs)に問題を開くことができます。
+オープンソースとコミュニティ主導の開発の力を大切にしています。改善提案、新しいガイドの追加、またはドキュメントの問題修正を希望する場合は、[GitHubリポジトリ](https://github.com/aymericzip/intlayer/blob/main/docs)でプルリクエストを送信するか、問題を報告してください。
 
-**アプリケーションをより迅速かつ効率的に翻訳する準備はできていますか？** 私たちのドキュメントを読み進めて、今日からIntlayerを使用し始めましょう。あなたのコンテンツを整理し、チームの生産性を高めるための堅牢で効率的な国際化アプローチを体験してください。
+**アプリケーションをより速く、効率的に翻訳する準備はできましたか？** ドキュメントを読み進めて、今日からIntlayerを使い始めましょう。コンテンツを整理し、チームの生産性を向上させる堅牢で効率的な国際化アプローチを体験してください。
 
 翻訳を楽しんでください！  
-— Intlayerチーム
+— Intlayer チーム

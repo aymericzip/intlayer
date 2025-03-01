@@ -1,12 +1,12 @@
-# @intlayer/editor-react: NPM包提供用于与Intlayer编辑器交互的React状态、上下文、钩子和组件
+# @intlayer/editor-react: 提供 React 状态、上下文、钩子和组件与 Intlayer 编辑器交互的 NPM 包
 
-**Intlayer**是为JavaScript开发人员专门设计的一套包。它兼容React、Next.js和Express.js等框架。
+**Intlayer** 是专为 JavaScript 开发人员设计的一套软件包。它兼容 React、Next.js 和 Express.js 等框架。
 
-**`@intlayer/editor-react`**包提供用于与React应用程序中的Intlayer编辑器交互的状态、上下文、钩子和组件。
+**`@intlayer/editor-react`** 包为 React 应用程序提供与 Intlayer 编辑器交互的状态、上下文、钩子和组件。
 
 ## 安装
 
-使用您首选的包管理器安装必要的包：
+使用您喜欢的包管理器安装必要的包：
 
 ```bash
 npm install @intlayer/editor-react

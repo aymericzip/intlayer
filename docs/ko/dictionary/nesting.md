@@ -1,16 +1,16 @@
 # 중첩 / 하위 콘텐츠 참조
 
-## 중첩이 작동하는 방식
+## 중첩 작동 방식
 
-Intlayer에서는 `nest` 기능을 통해 다른 사전의 콘텐츠를 참조하고 재사용할 수 있습니다. 콘텐츠를 중복하는 대신, 기존 콘텐츠 모듈의 키를 통해 이를 지칭할 수 있습니다.
+Intlayer에서 중첩은 `nest` 함수를 통해 이루어지며, 이를 통해 다른 사전의 콘텐츠를 참조하고 재사용할 수 있습니다. 콘텐츠를 중복 작성하는 대신, 기존 콘텐츠 모듈의 키를 통해 해당 콘텐츠를 가리킬 수 있습니다.
 
-## 중첩 설정하기
+## 중첩 설정
 
-Intlayer 프로젝트에서 중첩을 설정하려면 먼저 재사용하려는 기본 콘텐츠를 정의합니다. 그런 다음 별도의 콘텐츠 모듈에서 `nest` 기능을 사용하여 해당 콘텐츠를 가져옵니다.
+Intlayer 프로젝트에서 중첩을 설정하려면 먼저 재사용하려는 기본 콘텐츠를 정의합니다. 그런 다음, 별도의 콘텐츠 모듈에서 `nest` 함수를 사용하여 해당 콘텐츠를 가져옵니다.
 
 ### 기본 사전
 
-다음은 중첩된 콘텐츠를 포함한 기본 사전의 예입니다:
+다음은 다른 사전에 중첩할 기본 사전의 예제입니다:
 
 ```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
 import { type Dictionary } from "intlayer";
@@ -77,7 +77,7 @@ module.exports = firstDictionary;
 
 ### Nest를 사용한 참조
 
-이제 위의 콘텐츠를 참조하는 `nest` 기능을 사용하는 또 다른 콘텐츠 모듈을 만듭니다. 전체 콘텐츠 또는 특정 중첩 값을 참조할 수 있습니다:
+이제 위의 콘텐츠를 참조하는 `nest` 함수를 사용하는 또 다른 콘텐츠 모듈을 생성합니다. 전체 콘텐츠 또는 특정 중첩 값을 참조할 수 있습니다:
 
 ```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
 import { nest, type Dictionary } from "intlayer";
@@ -85,7 +85,7 @@ import { nest, type Dictionary } from "intlayer";
 const myNestingContent = {
   key: "key_of_my_second_dictionary",
   content: {
-    // 사전 전체를 참조합니다:
+    // 전체 사전을 참조합니다:
     fullNestedContent: nest("key_of_my_first_dictionary"),
     // 특정 중첩 값을 참조합니다:
     partialNestedContent: nest(
@@ -160,7 +160,7 @@ module.exports = myNestingContent;
 
 ## React Intlayer와 함께 중첩 사용
 
-React 컴포넌트에서 중첩 콘텐츠를 사용하려면 `react-intlayer` 패키지의 `useIntlayer` 훅을 활용합니다. 이 훅은 지정된 키를 기반으로 올바른 콘텐츠를 검색합니다. 사용 예시는 다음과 같습니다:
+React 컴포넌트에서 중첩된 콘텐츠를 사용하려면 `react-intlayer` 패키지의 `useIntlayer` 훅을 활용하세요. 이 훅은 지정된 키를 기반으로 올바른 콘텐츠를 가져옵니다. 사용 예제는 다음과 같습니다:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -240,10 +240,10 @@ module.exports = NestComponent;
 
 ## 추가 자료
 
-구성 및 사용에 대한 자세한 정보는 다음 리소스를 참조하십시오:
+구성 및 사용에 대한 자세한 정보는 다음 리소스를 참조하세요:
 
 - [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)
 - [React Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_create_react_app.md)
 - [Next Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)
 
-위 리소스는 다양한 환경 및 프레임워크에서 Intlayer를 설정하고 사용하는 방법에 대한 추가 정보를 제공합니다.
+이 리소스들은 다양한 환경 및 프레임워크에서 Intlayer를 설정하고 사용하는 방법에 대한 추가적인 통찰을 제공합니다.

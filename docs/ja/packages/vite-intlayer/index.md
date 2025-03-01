@@ -1,20 +1,20 @@
-# vite-intlayer: NPMパッケージでViteアプリケーションを国際化する (i18n)
+# vite-intlayer: Viteアプリケーションを国際化（i18n）するためのNPMパッケージ
 
-**Intlayer**は、特にJavaScript開発者のために設計されたパッケージのスイートです。React、React、およびExpress.jsなどのフレームワークと互換性があります。
+**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。
 
-**`vite-intlayer`パッケージ**は、Viteアプリケーションを国際化するためのものです。それは、環境変数を介して設定を[Viteバンドラー](https://vitejs.dev/guide/why.html#why-bundle-for-production)に設定するためのViteプラグインを含みます。また、ユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で指定された適切なURLにリダイレクトするためのミドルウェアも提供します。
+**`vite-intlayer`パッケージ**は、Viteアプリケーションを国際化するためのものです。このパッケージには、[Viteバンドラー](https://vitejs.dev/guide/why.html#why-bundle-for-production)に環境変数を設定するためのViteプラグインが含まれています。また、ユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で指定された適切なURLにリダイレクトするためのミドルウェアも提供します。
 
 ## なぜViteアプリケーションを国際化するのか？
 
-Viteアプリケーションを国際化することは、グローバルなオーディエンスに効果的にサービスを提供するために不可欠です。これにより、ユーザーごとの好ましい言語でコンテンツやメッセージを配信できます。この機能はユーザー体験を向上させ、異なる言語的背景を持つ人々にとってアプリケーションがよりアクセス可能で関連性のあるものにすることによって、アプリケーションのリーチを広げます。
+Viteアプリケーションを国際化することは、グローバルなオーディエンスに効果的にサービスを提供するために不可欠です。これにより、各ユーザーの好みの言語でコンテンツやメッセージを提供することができます。この機能はユーザーエクスペリエンスを向上させ、異なる言語背景を持つ人々にとってアプリケーションをよりアクセスしやすく、関連性のあるものにすることで、アプリケーションのリーチを広げます。
 
 ## 設定
 
-`vite-intlayer`パッケージは、[`react-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/index.md)および[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/index.md)とシームレスに動作します。詳細については関連するドキュメントを確認してください。
+`vite-intlayer`パッケージは、[`react-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/index.md)や[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/index.md)とシームレスに連携します。詳細については、関連するドキュメントをご覧ください。
 
 ## インストール
 
-お好みのパッケージマネージャを使用して必要なパッケージをインストールします：
+お好みのパッケージマネージャーを使用して必要なパッケージをインストールします：
 
 ```bash packageManager="npm"
 npm install vite-intlayer
@@ -30,7 +30,7 @@ pnpm add vite-intlayer
 
 ## 使用例
 
-Vite設定にプラグインを含める方法の例を見てみましょう。
+Vite設定にプラグインを含める方法の例を以下に示します。
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -42,12 +42,12 @@ export default defineConfig({
 });
 ```
 
-> `intlayerPlugin()` Viteプラグインは、IntlayerをViteに統合するために使用されます。これは、コンテンツ宣言ファイルのビルドを確保し、開発モードでそれらを監視します。Viteアプリケーション内にIntlayer環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供します。
+> `intlayerPlugin()` Viteプラグインは、IntlayerをViteに統合するために使用されます。これにより、コンテンツ宣言ファイルの構築が保証され、開発モードでそれらを監視します。また、Viteアプリケーション内でIntlayer環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供します。
 
-> `intLayerMiddlewarePlugin()`は、アプリケーションにサーバーサイドのルーティングを追加します。このプラグインは、URLに基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザ言語の設定に基づいて最も適切なロケールを決定します。ロケールが検出されない場合、デフォルトのロケールにリダイレクトされます。
+> `intLayerMiddlewarePlugin()`は、アプリケーションにサーバーサイドルーティングを追加します。このプラグインは、URLに基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、ユーザーのブラウザの言語設定に基づいて最適なロケールを決定します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
 
-## Viteアプリケーションの国際化を習得する
+## Viteアプリケーションの国際化をマスターする
 
-Intlayerは、Viteアプリケーションの国際化を支援するための多くの機能を提供します。
+Intlayerは、Viteアプリケーションを国際化するための多くの機能を提供します。
 
-**これらの機能について詳しくは、ViteおよびReactアプリケーションのための[React国際化 (i18n) とIntlayerおよびVite](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)ガイドを参照してください。**
+**これらの機能について詳しくは、[IntlayerとViteおよびReactを使用したReactの国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)ガイドをご覧ください。**

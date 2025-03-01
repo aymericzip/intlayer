@@ -50,7 +50,7 @@ Intlayer provides a configuration file to set up your project. Place this file i
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -64,7 +64,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -78,7 +78,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -99,7 +99,7 @@ import { intlayer, t } from "express-intlayer";
 
 const app: Express = express();
 
-// Load internationalization request handler
+// Load internationalisation request handler
 app.use(intlayer());
 
 // Routes
@@ -124,7 +124,7 @@ import { intlayer, t } from "express-intlayer";
 
 const app = express();
 
-// Load internationalization request handler
+// Load internationalisation request handler
 app.use(intlayer());
 
 // Routes
@@ -149,7 +149,7 @@ const { intlayer, t } = require("express-intlayer");
 
 const app = express();
 
-// Load internationalization request handler
+// Load internationalisation request handler
 app.use(intlayer());
 
 // Routes
@@ -176,7 +176,7 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 - [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/next-intlayer/index.md) for Next.js applications
 - [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/vite-intlayer/index.md) for Vite applications
 
-It also works seamlessly with any internationalisation solution across various environments, including browsers and API requests. You can customize the middleware to detect locale through headers or cookies:
+It also works seamlessly with any internationalisation solution across various environments, including browsers and API requests. You can customise the middleware to detect locale through headers or cookies:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";

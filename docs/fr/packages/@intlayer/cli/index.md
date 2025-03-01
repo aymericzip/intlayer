@@ -1,8 +1,8 @@
-# @intlayer/cli : paquet NPM pour utiliser les scripts fournis par l'intlayer CLI
+# @intlayer/cli : Package NPM pour utiliser les scripts fournis par l'intlayer CLI
 
-**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks tels que React, React, et Express.js.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React et Express.js.
 
-Le package **`@intlayer/cli`** est un paquet NPM utilisé pour déclarer le script lié aux interfaces de ligne de commande intlayer. Il assure l'uniformité de toutes les commandes CLI d'intlayer. Ce package est notamment consommé par les packages [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/intlayer-cli/index.md), et [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/intlayer/index.md).
+Le package **`@intlayer/cli`** est un package NPM utilisé pour déclarer les scripts liés aux interfaces en ligne de commande d'intlayer. Il garantit l'uniformité de toutes les commandes CLI d'intlayer. Ce package est notamment utilisé par les packages [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer-cli/index.md) et [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer/index.md).
 
 ## Installation
 

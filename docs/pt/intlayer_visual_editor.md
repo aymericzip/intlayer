@@ -1,20 +1,20 @@
-# Intlayer Visual Editor Documentation
+# Documentação do Editor Visual Intlayer
 
-O Intlayer Visual Editor é uma ferramenta que irá encapsular seu site para interagir com seus arquivos de declaração de conteúdo usando um editor visual.
+O Editor Visual Intlayer é uma ferramenta que envolverá seu site para interagir com seus arquivos de declaração de conteúdo usando um editor visual.
 
-![Intlayer Visual Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+![Interface do Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
 O pacote `intlayer-editor` é baseado no Intlayer e está disponível para aplicações JavaScript, como React (Create React App), Vite + React e Next.js.
 
 ## Editor visual vs CMS
 
-O editor visual Intlayer é uma ferramenta que permite gerenciar seu conteúdo em um editor visual para dicionários locais. Uma vez feita uma alteração, o conteúdo será substituído na base de código. Isso significa que a aplicação será reconstruída e a página será recarregada para exibir o novo conteúdo.
+O Editor Visual Intlayer é uma ferramenta que permite gerenciar seu conteúdo em um editor visual para dicionários locais. Uma vez feita uma alteração, o conteúdo será substituído na base de código. Isso significa que a aplicação será reconstruída e a página será recarregada para exibir o novo conteúdo.
 
-Em contraste, o [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_CMS.md) é uma ferramenta que permite gerenciar seu conteúdo em um editor visual para dicionários distantes. Uma vez feita uma alteração, o conteúdo **não** impactará sua base de código. E o site exibirá automaticamente o conteúdo alterado.
+Em contraste, o [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_CMS.md) é uma ferramenta que permite gerenciar seu conteúdo em um editor visual para dicionários remotos. Uma vez feita uma alteração, o conteúdo **não** impactará sua base de código. E o site exibirá automaticamente o conteúdo alterado.
 
 ## Integrar o Intlayer na sua aplicação
 
-Para mais detalhes sobre como integrar o intlayer, consulte a seção relevante abaixo:
+Para mais detalhes sobre como integrar o Intlayer, consulte a seção relevante abaixo:
 
 ### Integração com Next.js
 
@@ -28,19 +28,19 @@ Para integração com Create React App, consulte o [guia de configuração](http
 
 Para integração com Vite + React, consulte o [guia de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_vite+react.md).
 
-## Como o Intlayer Editor Funciona
+## Como o Editor Intlayer Funciona
 
-O editor visual em uma aplicação que inclui duas coisas:
+O editor visual em uma aplicação inclui duas coisas:
 
-- Uma aplicação frontend que exibirá seu site em um iframe. Se seu site usar o Intlayer, o editor visual irá detectar automaticamente seu conteúdo e permitirá que você interaja com ele. Uma vez feita uma modificação, você poderá baixar suas alterações.
+- Uma aplicação frontend que exibirá seu site em um iframe. Se seu site usa o Intlayer, o editor visual detectará automaticamente seu conteúdo e permitirá que você interaja com ele. Uma vez feita uma modificação, você poderá baixar suas alterações.
 
-- Uma vez que você clicar no botão de download, o editor visual enviará um pedido ao servidor para substituir seus arquivos de declaração de conteúdo pelo novo conteúdo (onde quer que esses arquivos estejam declarados em seu projeto).
+- Após clicar no botão de download, o editor visual enviará uma solicitação ao servidor para substituir seus arquivos de declaração de conteúdo pelo novo conteúdo (onde quer que esses arquivos estejam declarados em seu projeto).
 
-> Note que por enquanto, o Intlayer Editor irá gravar seus arquivos de declaração de conteúdo como arquivos JSON.
+> Observe que, por enquanto, o Editor Intlayer gravará seus arquivos de declaração de conteúdo como arquivos JSON.
 
 ## Instalação
 
-Uma vez que o Intlayer está configurado em seu projeto, simplesmente instale `intlayer-editor` como uma dependência de desenvolvimento:
+Depois que o Intlayer estiver configurado em seu projeto, basta instalar o `intlayer-editor` como uma dependência de desenvolvimento:
 
 ```bash packageManager="npm"
 npm install intlayer-editor --save-dev
@@ -56,9 +56,7 @@ pnpm add intlayer-editor --save-dev
 
 ## Configuração
 
-### 1. Habilite o Editor no seu arquivo intlayer.config.ts
-
-Em seu arquivo de configuração do Intlayer, você pode personalizar as configurações do editor:
+No arquivo de configuração do Intlayer, você pode personalizar as configurações do editor:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -69,9 +67,16 @@ const config: IntlayerConfig = {
     /**
      * Obrigatório
      * A URL da aplicação.
-     * Esta é a URL direcionada pelo editor visual.
+     * Esta é a URL alvo do editor visual.
+     * Exemplo: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
+    /**
+     * Opcional
+     * Padrão como `true`. Se `false`, o editor está inativo e não pode ser acessado.
+     * Pode ser usado para desativar o editor em ambientes específicos por razões de segurança, como produção.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
     /**
      * Opcional
      * Padrão como `8000`.
@@ -84,12 +89,6 @@ const config: IntlayerConfig = {
      * A URL do servidor do editor.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Opcional
-     * Padrão como `true`. Se `false`, o editor está inativo e não pode ser acessado.
-     * Pode ser usado para desabilitar o editor para ambientes específicos por motivos de segurança, como produção.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -97,36 +96,35 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... outras configurações
   editor: {
-   /**
+    /**
      * Obrigatório
      * A URL da aplicação.
-     * Esta é a URL direcionada pelo editor visual.
+     * Esta é a URL alvo do editor visual.
+     * Exemplo: 'http://localhost:3000'
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     /**
      * Opcional
+     * Padrão como `true`. Se `false`, o editor está inativo e não pode ser acessado.
+     * Pode ser usado para desativar o editor em ambientes específicos por razões de segurança, como produção.
+     */
+    enabled: process.env.INTLAYER_ENABLED,
+    /**
+     * Opcional
      * Padrão como `8000`.
-     * A porta do servidor do editor.
+     * A porta usada pelo servidor do editor visual.
      */
     port: process.env.INTLAYER_PORT,
     /**
      * Opcional
      * Padrão como "http://localhost:8000"
-     * A URL do servidor do editor.
+     * A URL do servidor do editor para acessar a partir da aplicação. Usado para restringir as origens que podem interagir com a aplicação por razões de segurança. Se definido como `'*'`, o editor é acessível de qualquer origem. Deve ser configurado se a porta for alterada ou se o editor estiver hospedado em um domínio diferente.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Opcional
-     * Padrão como `true`. Se `false`, o editor está inativo e não pode ser acessado.
-     * Pode ser usado para desabilitar o editor para ambientes específicos por motivos de segurança, como produção.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
   },
 };
 
@@ -141,7 +139,7 @@ const config = {
     /**
      * Obrigatório
      * A URL da aplicação.
-     * Esta é a URL direcionada pelo editor visual.
+     * Esta é a URL alvo do editor visual.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
     /**
@@ -159,7 +157,7 @@ const config = {
     /**
      * Opcional
      * Padrão como `true`. Se `false`, o editor está inativo e não pode ser acessado.
-     * Pode ser usado para desabilitar o editor para ambientes específicos por motivos de segurança, como produção.
+     * Pode ser usado para desativar o editor em ambientes específicos por razões de segurança, como produção.
      */
     enabled: process.env.INTLAYER_ENABLED,
   },
@@ -172,7 +170,7 @@ module.exports = config;
 
 ## Usando o Editor
 
-1. Quando o editor estiver instalado, você pode iniciar o editor usando o seguinte comando:
+1. Quando o editor estiver instalado, você pode iniciá-lo usando o seguinte comando:
 
    ```bash packageManager="npm"
    npx intlayer-editor start
@@ -186,10 +184,25 @@ module.exports = config;
    pnpm intlayer-editor start
    ```
 
+   > **Observe que você deve executar sua aplicação em paralelo.** A URL da aplicação deve corresponder à que você configurou no editor (`applicationURL`).
+
 2. Em seguida, abra a URL fornecida. Por padrão `http://localhost:8000`.
 
    Você pode visualizar cada campo indexado pelo Intlayer passando o cursor sobre seu conteúdo.
 
-   ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+   ![Passando o cursor sobre o conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-3. Se seu conteúdo estiver destacado, você pode pressioná-lo longamente para exibir a gaveta de edição.
+3. Se o seu conteúdo estiver destacado, você pode pressioná-lo por um longo tempo para exibir a gaveta de edição.
+
+## Depuração
+
+Se você encontrar problemas com o editor visual, verifique o seguinte:
+
+- O editor visual e a aplicação estão em execução.
+
+- As configurações do [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) estão corretamente definidas no arquivo de configuração do Intlayer.
+
+  - Campos obrigatórios:
+    - A URL da aplicação deve corresponder à que você configurou no editor (`applicationURL`).
+
+- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permite a URL do CMS como `frame-ancestors` ('http://localhost:8000' por padrão). Verifique o console do editor para quaisquer erros.

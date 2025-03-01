@@ -1,25 +1,25 @@
-# Intlayer और Next.js के साथ अंतर्राष्ट्रीयकरण (i18n) शुरू करना
+# अंतर्राष्ट्रीयकरण (i18n) के साथ Intlayer और Next.js का उपयोग करते हुए पेज राउटर के साथ शुरुआत करें
 
 ## Intlayer क्या है?
 
-**Intlayer** एक अभिनव, ओपन-सोर्स अंतर्राष्ट्रीयकरण (i18n) पुस्तकालय है जिसे आधुनिक वेब अनुप्रयोगों में बहुभाषाई समर्थन को सरल बनाने के लिए डिज़ाइन किया गया है। Intlayer नवीनतम **Next.js** ढांचे के साथ निर्बाध रूप से एकीकृत होता है, जिसमें इसका पारंपरिक **पृष्ठ राउटर** शामिल है।
+**Intlayer** एक अभिनव, ओपन-सोर्स अंतर्राष्ट्रीयकरण (i18n) लाइब्रेरी है जिसे आधुनिक वेब अनुप्रयोगों में बहुभाषी समर्थन को सरल बनाने के लिए डिज़ाइन किया गया है। Intlayer नवीनतम **Next.js** फ्रेमवर्क के साथ सहजता से एकीकृत होता है, जिसमें इसका पारंपरिक **पेज राउटर** भी शामिल है।
 
 Intlayer के साथ, आप कर सकते हैं:
 
-- **आसान तरीके से अनुवाद प्रबंधित करें** उपयोगी शब्दकोशों का उपयोग करके जो घटक स्तर पर होते हैं।
-- **गतिशील रूप से मेटाडेटा**, रूट और सामग्री का स्थानीयकरण करें।
-- **TypeScript समर्थन सुनिश्चित करें** स्वचालित प्रकारों के साथ, जो ऑटोकंप्लीशन और त्रुटि पहचान में सुधार करता है।
-- **उन्नत सुविधाओं का लाभ उठाएं**, जैसे गतिशील स्थानीयता पहचान और स्विचिंग।
+- **अनुवादों को आसानी से प्रबंधित करें** घटक स्तर पर घोषणात्मक शब्दकोशों का उपयोग करके।
+- **मेटाडेटा, रूट्स और सामग्री को गतिशील रूप से स्थानीयकृत करें**।
+- **TypeScript समर्थन सुनिश्चित करें** स्वचालित रूप से उत्पन्न प्रकारों के साथ, जो ऑटोकम्प्लीशन और त्रुटि पहचान में सुधार करता है।
+- **उन्नत सुविधाओं का लाभ उठाएं**, जैसे गतिशील स्थानीय डिटेक्शन और स्विचिंग।
 
-> Intlayer Next.js 12, 13, 14, और 15 के साथ संगत है। यदि आप Next.js ऐप राउटर का उपयोग कर रहे हैं, तो [ऐप राउटर गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_14.md) का संदर्भ लें। Next.js 15 के लिए, इस [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md) का पालन करें।
+> Intlayer Next.js 12, 13, 14, और 15 के साथ संगत है। यदि आप Next.js ऐप राउटर का उपयोग कर रहे हैं, तो [ऐप राउटर गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_14.md) देखें। Next.js 15 के लिए, इस [गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md) का पालन करें।
 
 ---
 
-## Next.js अनुप्रयोग में पृष्ठ राउटर का उपयोग करके Intlayer सेटअप करने के लिए चरण-दर-चरण गाइड
+## पेज राउटर का उपयोग करते हुए Next.js एप्लिकेशन में Intlayer सेट अप करने के लिए चरण-दर-चरण गाइड
 
 ### चरण 1: निर्भरताएँ स्थापित करें
 
-अपने पसंदीदा पैकेज प्रबंधक का उपयोग करके आवश्यक पैकेज स्थापित करें:
+अपना पसंदीदा पैकेज मैनेजर का उपयोग करके आवश्यक पैकेज स्थापित करें:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
@@ -35,15 +35,15 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  वह मुख्य पैकेज जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री की घोषणाएँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md), ट्रांसपाइलेशन, और [CLI कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतर्राष्ट्रीयकरण उपकरण प्रदान करता है।
+  यह मुख्य पैकेज है जो कॉन्फ़िगरेशन प्रबंधन, अनुवाद, [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md), ट्रांसपिलेशन, और [CLI कमांड्स](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) के लिए अंतर्राष्ट्रीयकरण उपकरण प्रदान करता है।
 
 - **next-intlayer**
 
-  वह पैकेज जो Intlayer को Next.js के साथ एकीकृत करता है। यह Next.js अंतर्राष्ट्रीयकरण के लिए संदर्भ प्रदाताओं और हुक प्रदान करता है। इसके अतिरिक्त, इसमें Intlayer को [Webpack](https://webpack.js.org/) या [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) के साथ एकीकृत करने के लिए Next.js प्लगइन शामिल है, साथ ही उपयोगकर्ता की पसंदीदा स्थानीयता का पता लगाने, कुकीज़ प्रबंधित करने, और URL पुनर्निर्देशन करने के लिए मध्यवर्ती भी शामिल है।
+  यह पैकेज Intlayer को Next.js के साथ एकीकृत करता है। यह Next.js अंतर्राष्ट्रीयकरण के लिए संदर्भ प्रदाता और हुक प्रदान करता है। इसके अतिरिक्त, यह Intlayer को [Webpack](https://webpack.js.org/) या [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) के साथ एकीकृत करने के लिए Next.js प्लगइन और उपयोगकर्ता की पसंदीदा स्थानीयता का पता लगाने, कुकीज़ प्रबंधन, और URL रीडायरेक्शन को संभालने के लिए मिडलवेयर शामिल करता है।
 
 ### चरण 2: अपने प्रोजेक्ट को कॉन्फ़िगर करें
 
-एक कॉन्फ़िगरेशन फ़ाइल बनाएं जो आपकी अनुप्रयोग द्वारा समर्थित भाषाओं को परिभाषित करें:
+उन भाषाओं को परिभाषित करने के लिए एक कॉन्फ़िगरेशन फ़ाइल बनाएँ जो आपका एप्लिकेशन समर्थन करता है:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -54,7 +54,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // यहाँ अपनी अन्य स्थानीयताएँ जोड़ें
+      // अपनी अन्य स्थानीयताएँ यहाँ जोड़ें
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -73,7 +73,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // यहाँ अपनी अन्य स्थानीयताएँ जोड़ें
+      // अपनी अन्य स्थानीयताएँ यहाँ जोड़ें
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -92,7 +92,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // यहाँ अपनी अन्य स्थानीयताएँ जोड़ें
+      // अपनी अन्य स्थानीयताएँ यहाँ जोड़ें
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -101,11 +101,11 @@ const config = {
 module.exports = config;
 ```
 
-> इस कॉन्फ़िगरेशन फ़ाइल के माध्यम से, आप स्थानीयकृत URLs सेट कर सकते हैं, मध्यवर्ती पुनर्निर्देशन, कुकी नाम, अपनी सामग्री घोषणाओं का स्थान और विस्तार, कंसोल में Intlayer लॉग को बंद करें, और अधिक। उपलब्ध पैरामीटर की पूर्ण सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) का संदर्भ लें।
+> इस कॉन्फ़िगरेशन फ़ाइल के माध्यम से, आप स्थानीयकृत URL, मिडलवेयर रीडायरेक्शन, कुकी नाम, अपनी सामग्री घोषणाओं का स्थान और एक्सटेंशन, कंसोल में Intlayer लॉग को अक्षम करना, और अधिक सेट कर सकते हैं। उपलब्ध सभी पैरामीटरों की पूरी सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
 
 ### चरण 3: Next.js कॉन्फ़िगरेशन के साथ Intlayer को एकीकृत करें
 
-Intlayer को समाहित करने के लिए अपने Next.js कॉन्फ़िगरेशन में संशोधन करें:
+Intlayer को शामिल करने के लिए अपने Next.js कॉन्फ़िगरेशन को संशोधित करें:
 
 ```typescript fileName="next.config.mjs"
 import { withIntlayer } from "next-intlayer/server";
@@ -118,11 +118,11 @@ const nextConfig = {
 export default withIntlayer(nextConfig);
 ```
 
-> `withIntlayer()` Next.js प्लगइन का उपयोग Intlayer को Next.js के साथ एकीकृत करने के लिए किया जाता है। यह सामग्री की घोषणाओं वाली फ़ाइलों के निर्माण को सुनिश्चित करता है और विकास मोड में उन्हें मॉनिटर करता है। यह [Webpack](https://webpack.js.org/) या [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) परिवेश के भीतर Intlayer वातावरणीय चर परिभाषित करता है। इसके अतिरिक्त, यह प्रदर्शन को अनुकूलित करने के लिए उपनाम प्रदान करता है और सर्वर घटकों के साथ संगतता सुनिश्चित करता है।
+> `withIntlayer()` Next.js प्लगइन का उपयोग Intlayer को Next.js के साथ एकीकृत करने के लिए किया जाता है। यह सामग्री घोषणा फ़ाइलों के निर्माण को सुनिश्चित करता है और विकास मोड में उनकी निगरानी करता है। यह [Webpack](https://webpack.js.org/) या [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) वातावरण के भीतर Intlayer पर्यावरण चर को परिभाषित करता है। इसके अतिरिक्त, यह प्रदर्शन को अनुकूलित करने के लिए उपनाम प्रदान करता है और सर्वर घटकों के साथ संगतता सुनिश्चित करता है।
 
-### चरण 4: स्थानीयता पहचान के लिए मध्यवर्ती को कॉन्फ़िगर करें
+### चरण 4: स्थानीयता का पता लगाने के लिए मिडलवेयर कॉन्फ़िगर करें
 
-उपयोगकर्ता की पसंदीदा स्थानीयता का स्वचालित रूप से पता लगाने और प्रबंधित करने के लिए मध्यवर्ती सेट करें:
+उपयोगकर्ता की पसंदीदा स्थानीयता का स्वचालित रूप से पता लगाने और संभालने के लिए मिडलवेयर सेट करें:
 
 ```typescript fileName="src/middleware.ts" codeFormat="typescript"
 export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
@@ -153,15 +153,15 @@ const config = {
 module.exports = { middleware: intlayerMiddleware, config };
 ```
 
-> `matcher` पैरामीटर को आपकी अनुप्रयोग के रूट से मेल खाने के लिए अनुकूलित करें। अधिक जानकारी के लिए, [मीडियावरे दस्तावेज़ पर](https://nextjs.org/docs/app/building-your-application/routing/middleware) जाएं।
+> `matcher` पैरामीटर को अपने एप्लिकेशन के रूट्स से मेल खाने के लिए अनुकूलित करें। अधिक विवरण के लिए, [Next.js दस्तावेज़](https://nextjs.org/docs/app/building-your-application/routing/middleware) पर `matcher` को कॉन्फ़िगर करने के बारे में पढ़ें।
 
-### चरण 5: गतिशील स्थानीयता रूट परिभाषित करें
+### चरण 5: डायनामिक स्थानीय रूट्स परिभाषित करें
 
-उपयोगकर्ता की स्थानीयता के आधार पर स्थानीयकृत सामग्री प्रदान करने के लिए गतिशील रूटिंग लागू करें।
+उपयोगकर्ता की स्थानीयता के आधार पर स्थानीयकृत सामग्री प्रदान करने के लिए डायनामिक रूटिंग लागू करें।
 
-1.  **स्थानीयता-विशिष्ट पृष्ठ बनाएँ:**
+1.  **स्थानीयता-विशिष्ट पेज बनाएँ:**
 
-    अपने मुख्य पृष्ठ फ़ाइल का नाम बदलें ताकि `[locale]` गतिशील खंड शामिल हो।
+    अपने मुख्य पेज फ़ाइल का नाम बदलें ताकि `[locale]` डायनामिक सेगमेंट शामिल हो।
 
     ```bash
     mv src/pages/index.tsx src/pages/[locale]/index.tsx
@@ -169,14 +169,14 @@ module.exports = { middleware: intlayerMiddleware, config };
 
 2.  **स्थानीयकरण को संभालने के लिए `_app.tsx` अपडेट करें:**
 
-    अपने `_app.tsx` को Intlayer प्रदाताओं सहित संशोधित करें।
+    अपने `_app.tsx` को Intlayer प्रदाताओं को शामिल करने के लिए संशोधित करें।
 
     ```tsx fileName="src/pages/_app.tsx" codeFormat="typescript"
     import type { FC } from "react";
     import type { AppProps } from "next/app";
     import { IntlayerClientProvider } from "next-intlayer";
 
-    const App: FC<AppProps> = ({ Component, pageProps }) => {
+    const App = FC<AppProps>({ Component, pageProps }) => {
       const { locale } = pageProps;
 
       return (
@@ -184,9 +184,9 @@ module.exports = { middleware: intlayerMiddleware, config };
           <Component {...pageProps} />
         </IntlayerClientProvider>
       );
-    };
+    }
 
-    export default App;
+    export default MyApp;
     ```
 
     ```jsx fileName="src/pages/_app.mjx" codeFormat="esm"
@@ -215,7 +215,7 @@ module.exports = { middleware: intlayerMiddleware, config };
 
 3.  **`getStaticPaths` और `getStaticProps` सेट करें:**
 
-    अपने `[locale]/index.tsx` में, विभिन्न स्थानीयताओं को संभालने के लिए पथों और प्रॉप्स परिभाषित करें।
+    अपने `[locale]/index.tsx` में, विभिन्न स्थानीयताओं को संभालने के लिए पाथ्स और प्रॉप्स परिभाषित करें।
 
     ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
     import type { FC } from "react";
@@ -310,11 +310,11 @@ module.exports = { middleware: intlayerMiddleware, config };
     };
     ```
 
-> `getStaticPaths` और `getStaticProps` सुनिश्चित करते हैं कि आपका अनुप्रयोग Next.js पृष्ठ राउटर में सभी स्थानीयताओं के लिए आवश्यक पृष्ठों को पूर्व-निर्माण कर रहा है। यह दृष्टिकोण रनटाइम गणनाओं को कम करता है और उपयोगकर्ता के अनुभव को सुधारता है। अधिक जानकारी के लिए, [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) और [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) पर Next.js दस्तावेज़ का संदर्भ लें।
+> `getStaticPaths` और `getStaticProps` यह सुनिश्चित करते हैं कि आपका एप्लिकेशन Next.js पेज राउटर में सभी स्थानीयताओं के लिए आवश्यक पेजों को पहले से बना ले। यह रनटाइम गणना को कम करता है और उपयोगकर्ता अनुभव को बेहतर बनाता है। अधिक विवरण के लिए, Next.js दस्तावेज़ पर [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) और [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) देखें।
 
-### चरण 6: अपनी सामग्री की घोषणा करें
+### चरण 6: अपनी सामग्री घोषित करें
 
-अनुवाद स्टोर करने के लिए अपनी सामग्री घोषणाओं को बनाएं और प्रबंधित करें।
+अनुवादों को संग्रहीत करने के लिए अपनी सामग्री घोषणाएँ बनाएँ और प्रबंधित करें।
 
 ```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -323,14 +323,16 @@ const homeContent = {
   key: "home",
   content: {
     title: t({
-      en: "My वेबसाइट पर स्वागत है",
+      en: "Welcome to My Website",
       fr: "Bienvenue sur mon site Web",
       es: "Bienvenido a mi sitio web",
+      hi: "मेरी वेबसाइट में आपका स्वागत है",
     }),
     description: t({
-      en: "इस पृष्ठ को संपादित करके शुरू करें।",
+      en: "Get started by editing this page.",
       fr: "Commencez par éditer cette page.",
       es: "Comience por editar esta página.",
+      hi: "इस पेज को संपादित करके शुरू करें।",
     }),
   },
 } satisfies Dictionary;
@@ -347,9 +349,10 @@ const homeContent = {
   content: {
     getStarted: {
       main: t({
-        en: "इस पृष्ठ को संपादित करके शुरू करें।",
+        en: "Get started by editing this page.",
         fr: "Commencez par éditer cette page.",
         es: "Comience por editar esta página.",
+        hi: "इस पेज को संपादित करके शुरू करें।",
       }),
       pageLink: "src/app/page.tsx",
     },
@@ -368,9 +371,10 @@ const homeContent = {
   content: {
     getStarted: {
       main: t({
-        en: "इस पृष्ठ को संपादित करके शुरू करें।",
+        en: "Get started by editing this page.",
         fr: "Commencez par éditer cette page.",
         es: "Comience por editar esta página.",
+        hi: "इस पेज को संपादित करके शुरू करें।",
       }),
       pageLink: "src/app/page.tsx",
     },
@@ -388,9 +392,10 @@ module.exports = homeContent;
     "getStarted": {
       "nodeType": "translation",
       "translation": {
-        "en": "इस पृष्ठ को संपादित करके शुरू करें।",
+        "en": "Get started by editing this page.",
         "fr": "Commencez par éditer cette page.",
-        "es": "Comience por editar esta página."
+        "es": "Comience por editar esta página.",
+        "hi": "इस पेज को संपादित करके शुरू करें।"
       }
     },
     "pageLink": {
@@ -398,18 +403,19 @@ module.exports = homeContent;
       "translation": {
         "en": "src/app/page.tsx",
         "fr": "src/app/page.tsx",
-        "es": "src/app/page.tsx"
+        "es": "src/app/page.tsx",
+        "hi": "src/app/page.tsx"
       }
     }
   }
 }
 ```
 
-सामग्री की घोषणा करने के बारे में अधिक जानकारी के लिए, [सामग्री की घोषणा गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) का संदर्भ लें।
+For more information on declaring content, refer to the [content declaration guide](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md).
 
-### चरण 7: अपने कोड में सामग्री का उपयोग करें
+### Step 7: Utilize Content in Your Code
 
-अपने अनुप्रयोग में अनुवादित सामग्री प्रदर्शित करने के लिए अपनी सामग्री शब्दकोशों तक पहुंचें।
+Access your content dictionaries throughout your application to display translated content.
 
 ```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -424,12 +430,12 @@ const HomePage: FC = () => {
       <h1>{content.title}</h1>
       <p>{content.description}</p>
       <ComponentExample />
-      {/* अतिरिक्त घटक */}
+      {/* Additional components */}
     </div>
   );
 };
 
-// ... कोड का बाकी भाग, जिसमें getStaticPaths और getStaticProps शामिल हैं
+// ... Rest of the code, including getStaticPaths and getStaticProps
 
 export default HomePage;
 ```
@@ -447,12 +453,12 @@ const HomePage = () => {
       <code>{content.getStarted.pageLink}</code>
 
       <ComponentExample />
-      {/* अतिरिक्त घटक */}
+      {/* Additional components */}
     </div>
   );
 };
 
-// ... कोड का बाकी भाग, जिसमें getStaticPaths और getStaticProps शामिल हैं
+// ... Rest of the code, including getStaticPaths and getStaticProps
 
 export default HomePage;
 ```
@@ -470,12 +476,12 @@ const HomePage = () => {
       <code>{content.getStarted.pageLink}</code>
 
       <ComponentExample />
-      {/* अतिरिक्त घटक */}
+      {/* Additional components */}
     </div>
   );
 };
 
-// ... कोड का बाकी भाग, जिसमें getStaticPaths और getStaticProps शामिल हैं
+// ... Rest of the code, including getStaticPaths and getStaticProps
 ```
 
 ```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
@@ -524,20 +530,20 @@ const ComponentExample = () => {
 };
 ```
 
-> जब अनुवादों का उपयोग करते समय `string` गुणों (जैसे, `alt`, `title`, `href`, `aria-label`) में मानों को कॉल करें, तो फ़ंक्शन के मान को इस प्रकार कॉल करें:
+> जब `string` विशेषताओं (जैसे `alt`, `title`, `href`, `aria-label`) में अनुवादों का उपयोग करते हैं, तो फ़ंक्शन के मान को निम्नानुसार कॉल करें:
 >
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> `useIntlayer` हुक के बारे में अधिक जानकारी जानने के लिए, [दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/useIntlayer.md) का संदर्भ लें।
+> `useIntlayer` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/useIntlayer.md) देखें।
 
-### (वैकल्पिक) चरण 8: अपने मेटाडेटा का अंतर्राष्ट्रीयकरण करें
+### (Optional) Step 8: Internationalize Your Metadata
 
-पृष्ठ के शीर्षक और विवरण जैसे मेटाडेटा को अंतर्राष्ट्रीयकरण करने के लिए, `getStaticProps` फ़ंक्शन का उपयोग Intlayer के `getTranslation` फ़ंक्शन के साथ करें।
+To internationalize metadata such as page titles and descriptions, use the `getStaticProps` function in conjunction with Intlayer's `getTranslation` function.
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
-import type { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { type IConfigLocales, getTranslation, Locales } from "intlayer";
 import { useIntlayer } from "next-intlayer";
 
@@ -547,7 +553,7 @@ interface HomePageProps {
 }
 
 const HomePage = ({ metadata }: HomePageProps) => {
-  // मेटाडेटा का उपयोग आवश्यकतानुसार head या अन्य घटकों में किया जा सकता है
+  // Metadata can be used in the head or other components as needed
   return (
     <div>
       <Head>
@@ -555,7 +561,7 @@ const HomePage = ({ metadata }: HomePageProps) => {
         <meta name="description" content={metadata.description} />
       </Head>
 
-      {/* अतिरिक्त सामग्री */}
+      {/* Additional content */}
     </div>
   );
 };
@@ -567,14 +573,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const metadata = {
     title: t({
-      en: "मेरी वेबसाइट",
+      en: "My Website",
       fr: "Mon Site Web",
       es: "Mi Sitio Web",
+      hi: "मेरी वेबसाइट",
     }),
     description: t({
-      en: "मेरी वेबसाइट पर आपका स्वागत है।",
+      en: "Welcome to my website.",
       fr: "Bienvenue sur mon site Web.",
       es: "Bienvenido a mi sitio web.",
+      hi: "मेरी वेबसाइट पर आपका स्वागत है।",
     }),
   };
 
@@ -588,7 +596,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export default HomePage;
 
-// ... कोड का बाकी भाग जिसमें getStaticPaths शामिल है
+// ... Rest of the code including getStaticPaths
 ```
 
 ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
@@ -596,8 +604,10 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { type IConfigLocales, getTranslation, Locales } from "intlayer";
 import { useIntlayer } from "next-intlayer";
 
+
+
 const HomePage = ({ metadata }) => {
-  // मेटाडेटा का उपयोग आवश्यकतानुसार head या अन्य घटकों में किया जा सकता है
+  // Metadata can be used in the head or other components as needed
   return (
     <div>
       <Head>
@@ -605,7 +615,7 @@ const HomePage = ({ metadata }) => {
         <meta name="description" content={metadata.description} />
       </Head>
 
-      {/* अतिरिक्त सामग्री */}
+      {/* Additional content */}
     </div>
   );
 };
@@ -618,14 +628,16 @@ export const getStaticProps = async ({ params }) => {
 
   const metadata = {
     title: t({
-      en: "मेरी वेबसाइट",
+      en: "My Website",
       fr: "Mon Site Web",
       es: "Mi Sitio Web",
+      hi: "मेरी वेबसाइट",
     }),
     description: t({
-      en: "मेरी वेबसाइट पर आपका स्वागत है।",
+      en: "Welcome to my website.",
       fr: "Bienvenue sur mon site Web.",
       es: "Bienvenido a mi sitio web.",
+      hi: "मेरी वेबसाइट पर आपका स्वागत है।",
     }),
   };
 
@@ -639,7 +651,7 @@ export const getStaticProps = async ({ params }) => {
 
 export default HomePage;
 
-// ... कोड का बाकी भाग जिसमें getStaticPaths शामिल है
+// ... Rest of the code including getStaticPaths
 ```
 
 ```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
@@ -647,8 +659,9 @@ const { GetStaticPaths, GetStaticProps } = require("next");
 const { type IConfigLocales, getTranslation, Locales } = require("intlayer");
 const { useIntlayer } = require("next-intlayer");
 
+
 const HomePage = ({ metadata }) => {
-  // मेटाडेटा का उपयोग आवश्यकतानुसार head या अन्य घटकों में किया जा सकता है
+  // Metadata can be used in the head or other components as needed
   return (
     <div>
       <Head>
@@ -656,7 +669,7 @@ const HomePage = ({ metadata }) => {
         <meta name="description" content={metadata.description} />
       </Head>
 
-      {/* अतिरिक्त सामग्री */}
+      {/* Additional content */}
     </div>
   );
 };
@@ -669,14 +682,16 @@ const getStaticProps = async ({ params }) => {
 
   const metadata = {
     title: t({
-      en: "मेरी वेबसाइट",
+      en: "My Website",
       fr: "Mon Site Web",
       es: "Mi Sitio Web",
+      hi: "मेरी वेबसाइट",
     }),
     description: t({
-      en: "मेरी वेबसाइट पर आपका स्वागत है।",
+      en: "Welcome to my website.",
       fr: "Bienvenue sur mon site Web.",
       es: "Bienvenido a mi sitio web.",
+      hi: "मेरी वेबसाइट पर आपका स्वागत है।",
     }),
   };
 
@@ -694,12 +709,12 @@ module.exports = {
   default: HomePage,
 };
 
-// ... कोड का बाकी भाग जिसमें getStaticPaths शामिल है
+// ... Rest of the code including getStaticPaths
 ```
 
-### (वैकल्पिक) चरण 9: अपनी सामग्री का भाषा बदलिए
+### (Optional) Step 9: Change the Language of Your Content
 
-उपयोगकर्ताओं को गतिशील रूप से भाषाएँ स्विच करने की अनुमति देने के लिए, `useLocale` हुक द्वारा प्रदान की गई `setLocale` फ़ंक्शन का उपयोग करें।
+To allow users to switch languages dynamically, use the `setLocale` function provided by the `useLocale` hook.
 
 ```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat="typescript"
 import {
@@ -710,18 +725,21 @@ import {
 } from "intlayer";
 import { useLocalePageRouter } from "next-intlayer";
 import { type FC } from "react";
+import Link from "next/link";
 
 const LocaleSwitcher: FC = () => {
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocalePageRouter();
 
   return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
-          <a
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
+          <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -729,25 +747,25 @@ const LocaleSwitcher: FC = () => {
             }}
           >
             <span>
-              {/* अपनी स्थानीयता में भाषा - जैसे फ्रेंच */}
+              {/* Locale - e.g. FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Language in its own Locale - e.g. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* वर्तमान स्थानीयता में भाषा - जैसे "Francés" जब वर्तमान स्थानीयता Locales.SPANISH पर सेट हो */}
+              {/* Language in current Locale - e.g. Francés with current locale set to Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* अंग्रेजी में भाषा - जैसे फ्रेंच */}
+              {/* Language in English - e.g. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
-            <span>
-              {/* अपनी स्थानीयता में भाषा - जैसे FR */}
-              {localeItem}
-            </span>
-          </a>
-        </li>
-      ))}
-    </ol>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -766,12 +784,14 @@ const LocaleSwitcher = () => {
     useLocalePageRouter();
 
   return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
-          <a
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
+          <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
+            key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -779,25 +799,25 @@ const LocaleSwitcher = () => {
             }}
           >
             <span>
-              {/* अपनी स्थानीयता में भाषा - जैसे फ्रेंच */}
+              {/* Locale - e.g. FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Language in its own Locale - e.g. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* वर्तमान स्थानीयता में भाषा - जैसे "Francés" जब वर्तमान स्थानीयता Locales.SPANISH पर सेट हो */}
+              {/* Language in current Locale - e.g. Francés with current locale set to Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* अंग्रेजी में भाषा - जैसे फ्रेंच */}
+              {/* Language in English - e.g. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
-            <span>
-              {/* अपनी स्थानीयता में भाषा - जैसे FR */}
-              {localeItem}
-            </span>
-          </a>
-        </li>
-      ))}
-    </ol>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 };
 ```
@@ -816,9 +836,9 @@ const LocaleSwitcher = () => {
     useLocalePageRouter();
 
   return (
-    <ol>
+    <select>
       {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
+        <option value={localeItem} key={localeItem}>
           <a
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             hrefLang={localeItem}
@@ -829,62 +849,221 @@ const LocaleSwitcher = () => {
             }}
           >
             <span>
-              {/* अपनी स्थानीयता में भाषा - जैसे फ्रेंच */}
+              {/* Locale - e.g. FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Language in its own Locale - e.g. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* वर्तमान स्थानीयता में भाषा - जैसे "Francés" जब वर्तमान स्थानीयता Locales.SPANISH पर सेट हो */}
+              {/* Language in current Locale - e.g. Francés with current locale set to Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* अंग्रेजी में भाषा - जैसे फ्रेंच */}
+              {/* Language in English - e.g. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
-            <span>
-              {/* अपनी स्थानीयता में भाषा - जैसे FR */}
-              {localeItem}
-            </span>
           </a>
-        </li>
+        </option>
       ))}
-    </ol>
+    </select>
   );
 };
 ```
 
-> `useLocalePageRouter` API, `useLocale` के समान है। `useLocale` हुक के बारे में अधिक जानकारी के लिए, [दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/useLocale.md) का संदर्भ लें।
+> The `useLocalePageRouter` API is the same as `useLocale`. To Learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/useLocale.md).
 
-> दस्तावेज़ संदर्भ:
+> Documentation references:
 >
-> - [`getLocaleName` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getHTMLTextDir.md)
-> - [`hrefLang` एट्रिब्यूट](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - [`lang` एट्रिब्यूट](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` एट्रिब्यूट](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` एट्रिब्यूट](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getHTMLTextDir.md)
+> - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [`lang` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-2. **TypeScript लाभ का उदाहरण:**
+### (Optional) Step 10: Creating a Localized Link Component
 
-   ![ऑटोकंप्लीशन उदाहरण](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
 
-   ![अनुवाद त्रुटि उदाहरण](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+This behavior is useful for several reasons:
 
-### गिट कॉन्फ़िगरेशन
+- **SEO and User Experience**: Localized URLs help search engines index language-specific pages correctly and provide users with content in their preferred language.
+- **Consistency**: By using a localized link throughout your application, you guarantee that navigation stays within the current locale, preventing unexpected language switches.
+- **Maintainability**: Centralizing the localization logic in a single component simplifies the management of URLs, making your codebase easier to maintain and extend as your application grows.
 
-अपने भंडार को साफ रखने के लिए और उत्पन्न फ़ाइलों को संवित करने से रोकने के लिए, Intlayer द्वारा बनाई गई फ़ाइलों की अनदेखी करना अनुशंसा की जाती है।
+Below is the implementation of a localized `Link` component in TypeScript:
 
-अपने `.gitignore` फ़ाइल में निम्नलिखित पंक्तियाँ जोड़ें:
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+"use client";
+
+import { getLocalizedUrl } from "intlayer";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { useLocale } from "next-intlayer";
+import { forwardRef, PropsWithChildren, type ForwardedRef } from "react";
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * A custom Link component that adapts the href attribute based on the current locale.
+ * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
+ * This ensures that navigation stays within the same locale context.
+ */
+export const Link = forwardRef<
+  HTMLAnchorElement,
+  PropsWithChildren<NextLinkProps>
+>(({ href, children, ...props }, ref: ForwardedRef<HTMLAnchorElement>) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // If the link is internal and a valid href is provided, get the localized URL.
+  const hrefI18n: NextLinkProps["href"] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </NextLink>
+  );
+});
+
+Link.displayName = "Link";
+```
+
+```jsx fileName="src/components/Link.mjx" codeFormat="esm"
+'use client';
+
+import { getLocalizedUrl } from 'intlayer';
+import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
+import { useLocale } from 'next-intlayer';
+import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+export const checkIsExternalLink = (href) =>
+  /^https?:\/\//.test(href ?? '');
+
+/**
+ * A custom Link component that adapts the href attribute based on the current locale.
+ * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
+ * This ensures that navigation stays within the same locale context.
+ */
+export const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // If the link is internal and a valid href is provided, get the localized URL.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </NextLink>
+  );
+});
+
+Link.displayName = 'Link';
+```
+
+```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
+'use client';
+
+const { getLocalizedUrl } = require("intlayer");
+const NextLink = require("next/link");
+const { useLocale } = require("next-intlayer");
+const { forwardRef } = require("react");
+
+/**
+ * Utility function to check whether a given URL is external.
+ * If the URL starts with http:// or https://, it's considered external.
+ */
+const checkIsExternalLink = (href) =>
+  /^https?:\/\//.test(href ?? '');
+
+
+const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // If the link is internal and a valid href is provided, get the localized URL.
+  const hrefI18n: NextLinkProps['href'] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </NextLink>
+  );
+});
+
+Link.displayName = 'Link';
+```
+
+#### How It Works
+
+- **Detecting External Links**:  
+  The helper function `checkIsExternalLink` determines whether a URL is external. External links are left unchanged because they do not need localization.
+
+- **Retrieving the Current Locale**:  
+  The `useLocale` hook provides the current locale (e.g., `fr` for French).
+
+- **Localizing the URL**:  
+  For internal links (i.e., non-external), `getLocalizedUrl` is used to automatically prefix the URL with the current locale. This means that if your user is in French, passing `/about` as the `href` will transform it to `/fr/about`.
+
+- **Returning the Link**:  
+  The component returns an `<a>` element with the localized URL, ensuring that navigation is consistent with the locale.
+
+By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience while also benefitting from improved SEO and usability.
+
+### Configure TypeScript
+
+Intlayer use module augmentation to get benefits of TypeScript and make your codebase stronger.
+
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+
+Ensure your TypeScript configuration includes the autogenerated types.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Your existing TypeScript configurations
+  "include": [
+    // ... Your existing TypeScript configurations
+    ".intlayer/**/*.ts", // Include the auto-generated types
+  ],
+}
+```
+
+### Git Configuration
+
+To keep your repository clean and avoid committing generated files, it's recommended to ignore files created by Intlayer.
+
+Add the following lines to your `.gitignore` file:
 
 ```plaintext fileName=".gitignore"
-# Intlayer द्वारा उत्पन्न फ़ाइलों की अनदेखी करें
+# Ignore the files generated by Intlayer
 .intlayer
 ```
 
-## अतिरिक्त संसाधन
+## Additional Resources
 
-- **Intlayer दस्तावेज़:** [GitHub संग्रह](https://github.com/aymericzip/intlayer)
-- **सामग्री घोषणा गाइड:** [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md)
-- **कॉन्फ़िगरेशन दस्तावेज़:** [कॉन्फ़िगरेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md)
+- **Intlayer Documentation:** [GitHub Repository](https://github.com/aymericzip/intlayer)
+- **Dictionary Guide:** [Dictionary](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md)
+- **Configuration Documentation:** [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md)
 
-इस गाइड का पालन करके, आप प्रभावी रूप से Intlayer को अपने Next.js अनुप्रयोग में पृष्ठ राउटर का उपयोग करके एकीकृत कर सकते हैं, अपने वेब प्रोजेक्ट के लिए मजबूत और स्केलेबल अंतर्राष्ट्रीयकरण समर्थन सक्षम कर सकते हैं।
+By following this guide, you can effectively integrate Intlayer into your Next.js application using the Page Router, enabling robust and scalable internationalization support for your web projects.
+
+### Go Further
+
+To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_CMS.md).

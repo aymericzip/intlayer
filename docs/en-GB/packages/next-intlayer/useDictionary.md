@@ -1,6 +1,6 @@
 # React Integration: `useDictionary` Hook Documentation
 
-This section provides detailed guidance on using the `useDictionary` hook within React applications, enabling efficient handling of localized content without a visual editor.
+This section provides detailed guidance on using the `useDictionary` hook within React applications, enabling efficient handling of localised content without a visual editor.
 
 ## Importing `useDictionary` in React
 
@@ -38,7 +38,7 @@ The `useDictionary` hook can be integrated into React applications by importing 
 
 The hook accepts two parameters:
 
-1. **`dictionary`**: A declared dictionary object containing localized content for specific keys.
+1. **`dictionary`**: A declared dictionary object containing localised content for specific keys.
 2. **`locale`** (optional): The desired locale. Defaults to the current context's locale if not specified.
 
 ## Dictionary
@@ -228,7 +228,7 @@ const ServerComponentExample = () => {
 
 ## Notes on Attributes
 
-Unlike integrations using visual editors, attributes like `buttonTitle.value` do not apply here. Instead, directly access the localized strings as declared in your content.
+Unlike integrations using visual editors, attributes like `buttonTitle.value` do not apply here. Instead, directly access the localised strings as declared in your content.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -237,6 +237,6 @@ Unlike integrations using visual editors, attributes like `buttonTitle.value` do
 ## Additional Tips
 
 - **Type Safety**: Always use `Dictionary` to define your dictionaries to ensure type safety.
-- **Localization Updates**: When updating content, ensure all locales are consistent to avoid missing translations.
+- **Localisation Updates**: When updating content, ensure all locales are consistent to avoid missing translations.
 
-This documentation focuses on the integration of the `useDictionary` hook, providing a streamlined approach to managing localized content without relying on visual editor functionalities.
+This documentation focuses on the integration of the `useDictionary` hook, providing a streamlined approach to managing localised content without relying on visual editor functionalities.

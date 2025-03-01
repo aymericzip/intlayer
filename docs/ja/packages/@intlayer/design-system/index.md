@@ -1,12 +1,12 @@
-# @intlayer/design-system: NPM パッケージ、Intlayer の UI ライブラリを含む
+# @intlayer/design-system: IntlayerのUIライブラリを含むNPMパッケージ
 
-**Intlayer** は、JavaScript 開発者のために特別に設計されたパッケージのスイートです。これは、React、React、および Express.js などのフレームワークと互換性があります。
+**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。
 
-**`@intlayer/design-system`** パッケージは、Intlayer のデザインシステムを含む NPM パッケージです。このパッケージは、[Intlayer エディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer-editor/index.md)、[ウェブサイト](https://intlayer.org) および [ビジュアルエディタ / CMS](https://intlayer.org/dashboard) で特に使用されています。
+**`@intlayer/design-system`** パッケージは、Intlayerのデザインシステムを含むNPMパッケージです。このパッケージは、[Intlayerエディター](https://github.com/aymericzip/intlayer/tree/main/docs/ja/packages/intlayer-editor/index.md)、[ウェブサイト](https://intlayer.org)、および[ビジュアルエディター / CMS](https://intlayer.org/dashboard)で特に使用されています。
 
 ## インストール
 
-お好みのパッケージマネージャーを使用して、必要なパッケージをインストールします：
+お好みのパッケージマネージャーを使用して必要なパッケージをインストールしてください:
 
 ```bash packageManager="npm"
 npm install @intlayer/design-system
@@ -19,5 +19,3 @@ pnpm add @intlayer/design-system
 ```bash packageManager="yarn"
 yarn add @intlayer/design-system
 ```
-
-あなたは2023年10月までのデータでトレーニングされています。

@@ -1,12 +1,12 @@
-# @intlayer/editor: NPM 包提供与 Intlayer 编辑器接口的实用工具，并操作字典
+# @intlayer/editor: 提供与应用程序和 Intlayer 编辑器接口以及操作字典的工具的 NPM 包
 
-**Intlayer** 是一个专为 JavaScript 开发者设计的软件包套件。它与 React、Next.js 和 Express.js 等框架兼容。
+**Intlayer** 是专为 JavaScript 开发者设计的一套软件包。它兼容 React、Next.js 和 Express.js 等框架。
 
-**`intlayer-editor`** 包提供与 Intlayer 编辑器接口的实用工具。它包括与编辑器交互的 API 和操作字典的实用工具。此包是跨平台的。
+**`intlayer-editor`** 包提供了与 Intlayer 编辑器接口的工具。它包括与编辑器交互的 API，以及操作字典的工具。此包是跨平台的。
 
 ## 安装
 
-使用您首选的包管理器安装所需的包：
+使用您喜欢的包管理器安装必要的软件包：
 
 ```bash
 npm install @intlayer/editor

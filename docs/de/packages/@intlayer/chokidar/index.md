@@ -2,23 +2,21 @@
 
 **Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist kompatibel mit Frameworks wie React, React und Express.js.
 
-Das **`@intlayer/chokidar`**-Paket wird verwendet, um Intlayer-Deklarationsdateien mit [chokidar](https://github.com/paulmillr/chokidar) zu scannen und in Wörterbücher zu erstellen, gemäß der [Intlayer-Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md).
+Das **`@intlayer/chokidar`**-Paket wird verwendet, um Intlayer-Deklarationsdateien in Wörterbücher zu scannen und zu erstellen, indem [chokidar](https://github.com/paulmillr/chokidar) und die [Intlayer-Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md) verwendet werden.
 
 ## Verwendung
 
 ```ts
-import { watch } from "@intlayer/chokidar";
+import { watch, prepareIntlayer } from "@intlayer/chokidar";
 
-watch(); // Erstelle Intlayer-Wörterbücher
+await prepareIntlayer(); // Intlayer-Wörterbücher erstellen
 
-// Oder
-
-watch({ persistent: true }); // Überwachungsmodus
+watch({ persistent: true }); // Änderungen in den Konfigurationsdateien überwachen
 ```
 
 ## Installation
 
-Installieren Sie das notwendige Paket mit Ihrem bevorzugten Paketmanager:
+Installieren Sie das erforderliche Paket mit Ihrem bevorzugten Paketmanager:
 
 ```bash packageManager="npm"
 npm install @intlayer/chokidar

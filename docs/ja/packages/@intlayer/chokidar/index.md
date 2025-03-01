@@ -1,26 +1,22 @@
-# @intlayer/chokidar: NPM パッケージとして Intlayer 宣言ファイルを辞書にスキャンして構築する
+# @intlayer/chokidar: Intlayer宣言ファイルを辞書にスキャンして構築するためのNPMパッケージ
 
-**Intlayer** は、JavaScript 開発者のために特別に設計されたパッケージのスイートです。React、React、Express.js などのフレームワークと互換性があります。
+**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。
 
-**`@intlayer/chokidar`** パッケージは、[chokidar](https://github.com/paulmillr/chokidar) を使用して Intlayer 宣言ファイルを辞書にスキャンして構築し、[Intlayer 設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md) に従います。
+**`@intlayer/chokidar`**パッケージは、[chokidar](https://github.com/paulmillr/chokidar)を使用して、[Intlayer設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)に従ってIntlayer宣言ファイルを辞書にスキャンして構築するために使用されます。
 
-## 使用法
+## 使用方法
 
 ```ts
-import { watch } from "@intlayer/chokidar";
+import { watch, prepareIntlayer } from "@intlayer/chokidar";
 
-// Intlayer 辞書を構築する
-watch();
+await prepareIntlayer(); // Intlayer辞書を構築する
 
-// または
-
-// ウォッチモード
-watch({ persistent: true });
+watch({ persistent: true }); // 設定ファイルの変更を監視する
 ```
 
 ## インストール
 
-お好みのパッケージマネージャーを使用して必要なパッケージをインストールします：
+お好みのパッケージマネージャーを使用して必要なパッケージをインストールしてください:
 
 ```bash packageManager="npm"
 npm install @intlayer/chokidar

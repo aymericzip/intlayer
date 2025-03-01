@@ -1,22 +1,22 @@
 # react-intlayer: حزمة NPM لتدويل (i18n) تطبيق React
 
-**Intlayer** هو مجموعة من الحزم مصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React و Express.js.
+**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وExpress.js.
 
-**حزمة `react-intlayer`** تتيح لك تدويل تطبيق React الخاص بك. إنها توفر موفري سياق ورفوف لتدويل React.
+**حزمة `react-intlayer`** تتيح لك تدويل تطبيق React الخاص بك. توفر مزودي السياق وخطافات لتدويل React.
 
-## لماذا تدول تطبيق React الخاص بك؟
+## لماذا تدويل تطبيق React الخاص بك؟
 
-تدويل تطبيق React الخاص بك أمر ضروري لخدمة جمهور عالمي بفعالية. يتيح لتطبيقك تقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك من خلال جعله أكثر وصولًا وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+تدويل تطبيق React الخاص بك أمر ضروري لخدمة جمهور عالمي بفعالية. يتيح لتطبيقك تقديم المحتوى والرسائل بلغة المستخدم المفضلة. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك من خلال جعله أكثر وصولًا وملاءمة للأشخاص من خلفيات لغوية مختلفة.
 
 ## لماذا دمج Intlayer؟
 
-- **إدارة محتوى مدعومة بواسطة JavaScript**: استخدم مرونة JavaScript لتعريف وإدارة المحتوى بكفاءة.
-- **بيئة آمنة من النوع**: استغل TypeScript لضمان دقة وتعريفات المحتوى الخاصة بك خالية من الأخطاء.
-- **ملفات محتوى متكاملة**: احتفظ بترجماتك بالقرب من مكوناتها، مما يعزز القابلية للصيانة والوضوح.
+- **إدارة المحتوى المدعومة بـ JavaScript**: استغل مرونة JavaScript لتعريف وإدارة المحتوى بكفاءة.
+- **بيئة آمنة من الأخطاء**: استفد من TypeScript لضمان أن تكون جميع تعريفات المحتوى دقيقة وخالية من الأخطاء.
+- **ملفات محتوى متكاملة**: احتفظ بترجماتك قريبة من مكوناتها ذات الصلة، مما يعزز القابلية للصيانة والوضوح.
 
 ## التثبيت
 
-قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
+قم بتثبيت الحزمة المطلوبة باستخدام مدير الحزم المفضل لديك:
 
 ```bash packageManager="npm"
 npm install react-intlayer
@@ -32,7 +32,7 @@ pnpm add react-intlayer
 
 ## مثال على الاستخدام
 
-مع Intlayer، يمكنك إعلان محتواك بطريقة منظمة في أي مكان داخل قاعدة الشيفرة الخاصة بك.
+مع Intlayer، يمكنك تعريف المحتوى الخاص بك بطريقة منظمة في أي مكان في قاعدة الكود الخاصة بك.
 
 بشكل افتراضي، يقوم Intlayer بمسح الملفات ذات الامتداد `.content.{ts,tsx,js,jsx,mjs,cjs}`.
 
@@ -77,11 +77,11 @@ pnpm add react-intlayer
             └── index.cjx
 ```
 
-### أعلن عن محتواك
+### تعريف المحتوى الخاص بك
 
-تم تصميم `react-intlayer` للعمل مع حزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). `intlayer` هي حزمة تسمح لك بإعلان محتواك في أي مكان في الشيفرة الخاصة بك. إنها تتحول إلى إعلانات محتوى متعددة اللغات إلى قواميس منظمة تندمج بسلاسة في تطبيقك.
+`react-intlayer` مصمم للعمل مع حزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). `intlayer` هي حزمة تتيح لك تعريف المحتوى الخاص بك في أي مكان في الكود الخاص بك. تقوم بتحويل تعريفات المحتوى متعدد اللغات إلى قواميس منظمة تتكامل بسلاسة مع تطبيقك.
 
-إليك مثال على إعلان المحتوى:
+إليك مثال على تعريف المحتوى:
 
 ```tsx filePath="src/Component1/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -93,14 +93,15 @@ const component1Content = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "أقل من ناقص سيارة واحدة",
+      "-1": "ناقص سيارة واحدة",
+      "0": "لا سيارات",
+      "1": "سيارة واحدة",
+      ">5": "بعض السيارات",
+      ">19": "الكثير من السيارات",
     }),
   },
 } satisfies Dictionary;
@@ -119,14 +120,15 @@ const component1Content = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "أقل من ناقص سيارة واحدة",
+      "-1": "ناقص سيارة واحدة",
+      "0": "لا سيارات",
+      "1": "سيارة واحدة",
+      ">5": "بعض السيارات",
+      ">19": "الكثير من السيارات",
     }),
   },
 };
@@ -145,14 +147,15 @@ const component1Content = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ar: "مرحبًا بالعالم",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "أقل من ناقص سيارة واحدة",
+      "-1": "ناقص سيارة واحدة",
+      "0": "لا سيارات",
+      "1": "سيارة واحدة",
+      ">5": "بعض السيارات",
+      ">19": "الكثير من السيارات",
     }),
   },
 };
@@ -169,27 +172,28 @@ module.exports = component1Content;
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
+        "es": "Hola Mundo",
+        "ar": "مرحبًا بالعالم"
       }
     },
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars"
+        "<-1": "أقل من ناقص سيارة واحدة",
+        "-1": "ناقص سيارة واحدة",
+        "0": "لا سيارات",
+        "1": "سيارة واحدة",
+        ">5": "بعض السيارات",
+        ">19": "الكثير من السيارات"
       }
     }
   }
 }
 ```
 
-### استخدم المحتوى في الشيفرة الخاصة بك
+### استخدام المحتوى في الكود الخاص بك
 
-بمجرد أن تعلن عن محتواك، يمكنك استخدامه في الشيفرة الخاصة بك. إليك مثال على كيفية استخدام المحتوى في مكون React:
+بمجرد تعريف المحتوى الخاص بك، يمكنك استخدامه في الكود الخاص بك. إليك مثال على كيفية استخدام المحتوى في مكون React:
 
 ```tsx {4,7} fileName="src/components/Component1Example.tsx" codeFormat="typescript"
 "use client";
@@ -198,7 +202,7 @@ import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 export const Component1Example: FC = () => {
-  const { myTranslatedContent } = useIntlayer("component-1"); // إنشاء إعلان محتوى ذي صلة
+  const { myTranslatedContent } = useIntlayer("component-1"); // إنشاء تعريف المحتوى المرتبط
 
   return (
     <div>
@@ -214,7 +218,7 @@ export const Component1Example: FC = () => {
 import { useIntlayer } from "react-intlayer";
 
 const Component1Example = () => {
-  const { myTranslatedContent } = useIntlayer("component-1"); // إنشاء إعلان محتوى ذي صلة
+  const { myTranslatedContent } = useIntlayer("component-1"); // إنشاء تعريف المحتوى المرتبط
 
   return (
     <div>
@@ -230,7 +234,7 @@ const Component1Example = () => {
 const { useIntlayer } = require("react-intlayer");
 
 const Component1Example = () => {
-  const { myTranslatedContent } = useIntlayer("component-1"); // إنشاء إعلان محتوى ذي صلة
+  const { myTranslatedContent } = useIntlayer("component-1"); // إنشاء تعريف المحتوى المرتبط
 
   return (
     <div>
@@ -242,13 +246,13 @@ const Component1Example = () => {
 
 ## إتقان تدويل تطبيق React الخاص بك
 
-يوفر Intlayer الكثير من الميزات لمساعدتك في تدويل تطبيق React الخاص بك.
+يوفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق React الخاص بك.
 
-**لتتعلم المزيد عن هذه الميزات، راجع [دليل تدويل React (i18n) مع Intlayer و Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_vite+react.md) لتطبيق Vite و React، أو [دليل تدويل React (i18n) مع Intlayer و React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md) لتطبيق Create React.**
+**لتعلم المزيد عن هذه الميزات، راجع [دليل تدويل React (i18n) مع Intlayer و Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_vite+react.md) لتطبيق Vite و React، أو [دليل تدويل React (i18n) مع Intlayer و React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md) لتطبيق React Create App.**
 
-## الوظائف المقدمة من حزمة `react-intlayer`
+## الوظائف التي توفرها حزمة `react-intlayer`
 
-تقدم حزمة `react-intlayer` أيضًا بعض الوظائف لمساعدتك في تدويل تطبيقك.
+توفر حزمة `react-intlayer` أيضًا بعض الوظائف لمساعدتك في تدويل تطبيقك.
 
 - [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/t.md)
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useIntlayer.md)

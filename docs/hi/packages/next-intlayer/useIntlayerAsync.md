@@ -1,19 +1,19 @@
-# Next.js Integration: `useIntlayerAsync` Hook Documentation
+# Next.js एकीकरण: `useIntlayerAsync` हुक दस्तावेज़ीकरण
 
-The `useIntlayerAsync` hook extends the functionality of `useIntlayer` by not only returning pre-rendered dictionaries but also fetching updates asynchronously, making it ideal for applications that frequently update their localized content after initial render.
+`useIntlayerAsync` हुक `useIntlayer` की कार्यक्षमता को बढ़ाता है, जो केवल पूर्व-रेंडर की गई शब्दकोशों को लौटाने के बजाय, अद्यतन को असिंक्रोनस रूप से प्राप्त करता है। यह उन अनुप्रयोगों के लिए आदर्श है जो प्रारंभिक रेंडर के बाद अपने स्थानीयकृत सामग्री को बार-बार अपडेट करते हैं।
 
-## Overview
+## अवलोकन
 
-- **Asynchronous Dictionary Loading:**  
-  On the client side, `useIntlayerAsync` first returns the pre-rendered locale dictionary (just like `useIntlayer`) and then asynchronously fetches and merges any newly available remote dictionaries.
-- **Progress State Management:**  
-  The hook also provides an `isLoading` state, indicating when a remote dictionary is being fetched. This allows developers to display loading indicators or skeleton states for a smoother user experience.
+- **असिंक्रोनस शब्दकोश लोडिंग:**  
+  क्लाइंट साइड पर, `useIntlayerAsync` पहले पूर्व-रेंडर की गई स्थानीय शब्दकोश लौटाता है (जैसे `useIntlayer`) और फिर किसी भी नए उपलब्ध रिमोट शब्दकोश को असिंक्रोनस रूप से प्राप्त और मर्ज करता है।
+- **प्रगति स्थिति प्रबंधन:**  
+  यह हुक एक `isLoading` स्थिति भी प्रदान करता है, जो यह संकेत देता है कि रिमोट शब्दकोश को प्राप्त किया जा रहा है। यह डेवलपर्स को एक स्मूथ उपयोगकर्ता अनुभव के लिए लोडिंग संकेतक या कंकाल स्थिति प्रदर्शित करने की अनुमति देता है।
 
-## Environment Setup
+## पर्यावरण सेटअप
 
-Intlayer provides a headless Content Source Management (CSM) system that empowers non-developers to manage and update application content seamlessly. By using Intlayer’s intuitive dashboard, your team can edit localized text, images, and other resources without directly modifying code. This streamlines the content management process, fosters collaboration, and ensures that updates can be made quickly and easily.
+Intlayer एक हेडलेस कंटेंट सोर्स मैनेजमेंट (CSM) सिस्टम प्रदान करता है जो गैर-डेवलपर्स को एप्लिकेशन सामग्री को निर्बाध रूप से प्रबंधित और अपडेट करने में सक्षम बनाता है। Intlayer के सहज डैशबोर्ड का उपयोग करके, आपकी टीम सीधे कोड को संशोधित किए बिना स्थानीयकृत टेक्स्ट, छवियों और अन्य संसाधनों को संपादित कर सकती है। यह सामग्री प्रबंधन प्रक्रिया को सुव्यवस्थित करता है, सहयोग को बढ़ावा देता है, और यह सुनिश्चित करता है कि अपडेट जल्दी और आसानी से किए जा सकते हैं।
 
-To get started with Intlayer, you will first need to register and obtain an access token at [https://intlayer.org/dashboard](https://intlayer.org/dashboard). Once you have your credentials, add them to your configuration file as shown below:
+Intlayer के साथ आरंभ करने के लिए, आपको पहले [https://intlayer.org/dashboard](https://intlayer.org/dashboard) पर पंजीकरण करना होगा और एक एक्सेस टोकन प्राप्त करना होगा। एक बार जब आपके पास आपकी क्रेडेंशियल्स हों, तो उन्हें नीचे दिखाए गए अनुसार अपने कॉन्फ़िगरेशन फ़ाइल में जोड़ें:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -31,7 +31,6 @@ export default {
 import { type IntlayerConfig } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
-// यह कॉन्फ़िगरेशन सेटिंग हैं
 const config = {
   // ...
   editor: {
@@ -45,7 +44,6 @@ export default config;
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 /** @type {import('intlayer').IntlayerConfig} */
-// यह कॉन्फ़िगरेशन सेटिंग हैं
 const config = {
   // ...
   editor: {
@@ -57,17 +55,17 @@ const config = {
 module.exports = config;
 ```
 
-After configuring your credentials, you can push a new locale dictionary to Intlayer by running:
+अपनी क्रेडेंशियल्स को कॉन्फ़िगर करने के बाद, आप निम्नलिखित कमांड चलाकर Intlayer पर एक नया स्थानीय शब्दकोश पुश कर सकते हैं:
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
-This command uploads your initial content dictionaries, making them available for asynchronous fetching and editing through the Intlayer platform.
+यह कमांड आपकी प्रारंभिक सामग्री शब्दकोशों को अपलोड करता है, जिससे वे असिंक्रोनस रूप से प्राप्त करने और Intlayer प्लेटफ़ॉर्म के माध्यम से संपादित करने के लिए उपलब्ध हो जाते हैं।
 
-## Importing `useIntlayerAsync` in Next.js
+## Next.js में `useIntlayerAsync` आयात करना
 
-Since `useIntlayerAsync` is intended for **client-side** components, you’ll import it from the same client entry point as `useIntlayer`:
+चूंकि `useIntlayerAsync` **क्लाइंट-साइड** घटकों के लिए अभिप्रेत है, आप इसे उसी क्लाइंट एंट्री पॉइंट से आयात करेंगे जैसे `useIntlayer`:
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -87,29 +85,29 @@ import { useIntlayerAsync } from "next-intlayer";
 const { useIntlayerAsync } = require("next-intlayer");
 ```
 
-Make sure that the importing file is annotated with `"use client"` at the top, if you’re using Next.js App Router with server and client components separated.
+सुनिश्चित करें कि आयात करने वाली फ़ाइल के शीर्ष पर `"use client"` एनोटेट किया गया है, यदि आप Next.js ऐप राउटर का उपयोग कर रहे हैं जिसमें सर्वर और क्लाइंट घटक अलग-अलग हैं।
 
-## Parameters
+## पैरामीटर
 
 1. **`key`**:  
-   **Type**: `DictionaryKeys`  
-   The dictionary key used to identify the localized content block. This key should be defined in your content declaration files.
+   **प्रकार**: `DictionaryKeys`  
+   स्थानीयकृत सामग्री ब्लॉक की पहचान करने के लिए उपयोग की जाने वाली शब्दकोश कुंजी। यह कुंजी आपकी सामग्री घोषणा फ़ाइलों में परिभाषित होनी चाहिए।
 
-2. **`locale`** (optional):  
-   **Type**: `Locales`  
-   The specific locale you want to target. If omitted, the hook uses the locale from the client context.
+2. **`locale`** (वैकल्पिक):  
+   **प्रकार**: `Locales`  
+   वह विशिष्ट स्थानीय जिसे आप लक्षित करना चाहते हैं। यदि छोड़ा गया है, तो हुक क्लाइंट संदर्भ से स्थानीय का उपयोग करता है।
 
-3. **`isRenderEditor`** (optional, defaults to `true`):  
-   **Type**: `boolean`  
-   Determines whether the content should be ready for rendering with the Intlayer editor overlay. If set to `false`, the returned dictionary data will exclude editor-specific features.
+3. **`isRenderEditor`** (वैकल्पिक, डिफ़ॉल्ट `true`):  
+   **प्रकार**: `boolean`  
+   यह निर्धारित करता है कि सामग्री Intlayer संपादक ओवरले के साथ रेंडरिंग के लिए तैयार होनी चाहिए या नहीं। यदि `false` पर सेट है, तो लौटाए गए शब्दकोश डेटा में संपादक-विशिष्ट सुविधाएँ शामिल नहीं होंगी।
 
-## Return Value
+## रिटर्न वैल्यू
 
-The hook returns a dictionary object containing localized content keyed by `key` and `locale`. It also includes an `isLoading` boolean indicating whether a distant dictionary is currently being fetched.
+हुक एक शब्दकोश ऑब्जेक्ट लौटाता है जिसमें `key` और `locale` द्वारा कुंजीबद्ध स्थानीयकृत सामग्री होती है। इसमें एक `isLoading` बूलियन भी शामिल है जो यह संकेत देता है कि क्या वर्तमान में एक दूरस्थ शब्दकोश प्राप्त किया जा रहा है।
 
-## Example Usage in Next.js
+## Next.js में उदाहरण उपयोग
 
-### Client-Side Component Example
+### क्लाइंट-साइड घटक उदाहरण
 
 ```tsx fileName="src/components/AsyncClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -183,31 +181,31 @@ const AsyncClientComponentExample = () => {
 };
 ```
 
-**Key Points:**
+**मुख्य बिंदु:**
 
-- On initial render, `title` and `description` come from the pre-rendered locale dictionary.
-- While `isLoading` is `true`, a remote request is made in the background to fetch an updated dictionary.
-- Once the fetch completes, `title` and `description` are updated with the newest content, and `isLoading` returns to `false`.
+- प्रारंभिक रेंडर पर, `title` और `description` पूर्व-रेंडर की गई स्थानीय शब्दकोश से आते हैं।
+- जबकि `isLoading` `true` है, पृष्ठभूमि में एक रिमोट अनुरोध किया जाता है ताकि एक अद्यतन शब्दकोश प्राप्त किया जा सके।
+- एक बार प्राप्ति पूरी हो जाने के बाद, `title` और `description` नवीनतम सामग्री के साथ अपडेट हो जाते हैं, और `isLoading` `false` पर लौट आता है।
 
-## Handling Attribute Localization
+## विशेषता स्थानीयकरण को संभालना
 
-As with `useIntlayer`, you can retrieve localized attribute values for various HTML properties (e.g., `alt`, `title`, `aria-label`):
+`useIntlayer` की तरह, आप विभिन्न HTML गुणों (जैसे, `alt`, `title`, `aria-label`) के लिए स्थानीयकृत विशेषता मान प्राप्त कर सकते हैं:
 
 ```tsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## Dictionary Files
+## शब्दकोश फ़ाइलें
 
-All content keys must be defined in your content declaration files for type safety and to prevent runtime errors. These files enable TypeScript validation, ensuring you always reference existing keys and locales.
+सभी सामग्री कुंजियाँ आपकी सामग्री घोषणा फ़ाइलों में परिभाषित होनी चाहिए ताकि प्रकार सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों को रोका जा सके। ये फ़ाइलें TypeScript सत्यापन को सक्षम करती हैं, यह सुनिश्चित करते हुए कि आप हमेशा मौजूदा कुंजियों और स्थानीयों का संदर्भ देते हैं।
 
-Instructions for setting up content declaration files are available [here](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md).
+सामग्री घोषणा फ़ाइलों को सेट करने के लिए निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
 
-## Further Information
+## अधिक जानकारी
 
-- **Intlayer Visual Editor:**  
-  Integrate with the Intlayer visual editor for managing and editing content directly from the UI. More details [here](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_editor.md).
+- **Intlayer विज़ुअल एडिटर:**  
+  UI से सीधे सामग्री प्रबंधित और संपादित करने के लिए Intlayer विज़ुअल एडिटर के साथ एकीकृत करें। अधिक विवरण [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md)।
 
 ---
 
-**In summary**, `useIntlayerAsync` is a powerful client-side hook designed to enhance the user experience and maintain content freshness by marrying pre-rendered dictionaries with asynchronous dictionary updates. By leveraging `isLoading` and TypeScript-based content declarations, you can seamlessly integrate dynamic, localized content into your Next.js applications.
+**सारांश में**, `useIntlayerAsync` एक शक्तिशाली क्लाइंट-साइड हुक है जिसे उपयोगकर्ता अनुभव को बढ़ाने और पूर्व-रेंडर की गई शब्दकोशों को असिंक्रोनस शब्दकोश अपडेट के साथ जोड़कर सामग्री ताजगी बनाए रखने के लिए डिज़ाइन किया गया है। `isLoading` और TypeScript-आधारित सामग्री घोषणाओं का लाभ उठाकर, आप अपने Next.js अनुप्रयोगों में गतिशील, स्थानीयकृत सामग्री को निर्बाध रूप से एकीकृत कर सकते हैं।

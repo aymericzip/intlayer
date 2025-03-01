@@ -2,7 +2,7 @@
 
 ## Definindo Traduções
 
-A função `t` no `intlayer` permite que você declare conteúdo em múltiplas línguas. Esta função garante segurança de tipos, levantando um erro se qualquer tradução estiver ausente, o que é particularmente útil em ambientes TypeScript.
+A função `t` no `intlayer` permite declarar conteúdo em vários idiomas. Esta função garante segurança de tipo, gerando um erro se alguma tradução estiver ausente, o que é particularmente útil em ambientes TypeScript.
 
 ### Usando TypeScript
 
@@ -22,7 +22,7 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      pt: "Bem-vindo à nossa aplicação", // adicionado para português
+      pt: "Bem-vindo ao nosso aplicativo",
     }),
   },
 } satisfies Dictionary<Content>;
@@ -37,8 +37,8 @@ export default {
     welcomeMessage: t({
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nuestra aplicación",
-      pt: "Bem-vindo à nossa aplicação", // adicionado para português
+      es: "Bienvenido a nuestra aplicação",
+      pt: "Bem-vindo ao nosso aplicativo",
     }),
   },
 };
@@ -53,8 +53,8 @@ module.exports = {
     welcomeMessage: t({
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nuestra aplicación",
-      pt: "Bem-vindo à nossa aplicação", // adicionado para português
+      es: "Bienvenido a nossa aplicação",
+      pt: "Bem-vindo ao nosso aplicativo",
     }),
   },
 };
@@ -70,8 +70,8 @@ module.exports = {
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nuestra aplicación",
-        "pt": "Bem-vindo à nossa aplicação" // adicionado para português
+        "es": "Bienvenido a nossa aplicação",
+        "pt": "Bem-vindo ao nosso aplicativo"
       }
     }
   }
@@ -80,7 +80,7 @@ module.exports = {
 
 ## Configuração para Locales
 
-Para garantir o manuseio adequado das traduções, você pode configurar os locais aceitos em `intlayer.config.ts`. Esta configuração permite que você defina os idiomas que seu aplicativo suporta:
+Para garantir o manuseio adequado das traduções, você pode configurar os locais aceitos no `intlayer.config.ts`. Esta configuração permite definir os idiomas que sua aplicação suporta:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -92,7 +92,7 @@ const config: IntlayerConfig = {
       Locales.FRENCH,
       Locales.SPANISH,
       Locales.PORTUGUESE,
-    ], // adicionado para português
+    ],
   },
 };
 
@@ -110,7 +110,7 @@ const config = {
       Locales.FRENCH,
       Locales.SPANISH,
       Locales.PORTUGUESE,
-    ], // adicionado para português
+    ],
   },
 };
 
@@ -128,7 +128,7 @@ const config = {
       Locales.FRENCH,
       Locales.SPANISH,
       Locales.PORTUGUESE,
-    ], // adicionado para português
+    ],
   },
 };
 
@@ -137,7 +137,7 @@ module.exports = config;
 
 ## Usando Traduções em Componentes React
 
-Com `react-intlayer`, você pode usar traduções em componentes React. Aqui está um exemplo:
+Com o `react-intlayer`, você pode usar traduções em componentes React. Aqui está um exemplo:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -188,11 +188,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-Este componente busca a tradução correspondente com base na localidade atual definida em seu aplicativo.
+Este componente busca a tradução correspondente com base no local atual definido em sua aplicação.
 
 ## Objetos de Conteúdo Personalizados
 
-O `intlayer` suporta objetos de conteúdo personalizados para tradução, permitindo que você defina estruturas mais complexas enquanto garante segurança de tipos. Aqui está um exemplo com um objeto personalizado:
+O `intlayer` suporta objetos de conteúdo personalizados para tradução, permitindo definir estruturas mais complexas enquanto garante a segurança de tipo. Aqui está um exemplo com um objeto personalizado:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -219,8 +219,8 @@ const customContent = {
         content: "Contenido de la Página",
       },
       pt: {
-        title: "Título da Página", // adicionado para português
-        content: "Conteúdo da Página", // adicionado para português
+        title: "Título da Página",
+        content: "Conteúdo da Página",
       },
     }),
   },
@@ -252,8 +252,8 @@ export default {
           content: "Contenido de la Página",
         },
         pt: {
-          title: "Título da Página", // adicionado para português
-          content: "Conteúdo da Página", // adicionado para português
+          title: "Título da Página",
+          content: "Conteúdo da Página",
         },
       },
   },
@@ -283,8 +283,8 @@ module.exports = {
           content: "Contenido de la Página",
         },
         pt: {
-          title: "Título da Página", // adicionado para português
-          content: "Conteúdo da Página", // adicionado para português
+          title: "Título da Página",
+          content: "Conteúdo da Página",
         },
       },
   },
@@ -312,7 +312,6 @@ module.exports = {
           "content": "Contenido de la Página"
         },
         "pt": {
-          // adicionado para português
           "title": "Título da Página",
           "content": "Conteúdo da Página"
         }

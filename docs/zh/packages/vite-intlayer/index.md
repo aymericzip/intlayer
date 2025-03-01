@@ -1,20 +1,20 @@
-# vite-intlayer: NPM 包用于国际化 (i18n) Vite 应用程序
+# vite-intlayer: 用于国际化 (i18n) Vite 应用的 NPM 包
 
-**Intlayer** 是一套专门为 JavaScript 开发者设计的软件包。它与 React、Vue 和 Express.js 等框架兼容。
+**Intlayer** 是专为 JavaScript 开发者设计的一套工具包。它兼容 React、React 和 Express.js 等框架。
 
-**`vite-intlayer` 包** 允许你国际化你的 Vite 应用程序。它包含 Vite 插件，通过环境变量设置配置到 [Vite 打包器](https://vitejs.dev/guide/why.html#why-bundle-for-production)。它还提供中间件以检测用户的首选语言环境，并将用户重定向到相应的 URL，如 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 中指定。
+**`vite-intlayer` 包** 允许您对 Vite 应用进行国际化。它包括一个 Vite 插件，通过环境变量将配置设置到 [Vite 打包器](https://vitejs.dev/guide/why.html#why-bundle-for-production)。此外，它还提供中间件来检测用户的首选语言环境，并根据 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 将用户重定向到适当的 URL。
 
-## 为什么要国际化你的 Vite 应用程序？
+## 为什么要对 Vite 应用进行国际化？
 
-国际化你的 Vite 应用程序对于有效服务全球受众至关重要。它使你的应用程序能够以每个用户的首选语言传递内容和信息。这种能力增强了用户体验，并通过使应用程序对来自不同语言背景的人们更可访问和相关，扩展了你的应用程序的覆盖范围。
+对 Vite 应用进行国际化对于有效服务全球用户至关重要。它使您的应用能够以每个用户的首选语言提供内容和消息。这种能力提升了用户体验，并通过使您的应用对不同语言背景的用户更具可访问性和相关性，从而扩大了应用的覆盖范围。
 
 ## 配置
 
-`vite-intlayer` 包与 [`react-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/index.md) 和 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md) 无缝协作。请查看相关文档以获取更多信息。
+`vite-intlayer` 包可以无缝地与 [`react-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/index.md) 和 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md) 一起使用。有关更多信息，请参阅相关文档。
 
 ## 安装
 
-使用你喜欢的包管理器安装必要的包：
+使用您喜欢的包管理器安装必要的包：
 
 ```bash packageManager="npm"
 npm install vite-intlayer
@@ -30,7 +30,7 @@ pnpm add vite-intlayer
 
 ## 使用示例
 
-查看如何将插件包含到你的 Vite 配置中的示例。
+查看如何将插件包含到您的 Vite 配置中的示例。
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -42,12 +42,12 @@ export default defineConfig({
 });
 ```
 
-> `intlayerPlugin()` Vite 插件用于将 Intlayer 集成到 Vite 中。它确保内容声明文件的构建，并在开发模式中监视它们。它在 Vite 应用程序中定义 Intlayer 环境变量。此外，它提供别名以优化性能。
+> `intlayerPlugin()` Vite 插件用于将 Intlayer 集成到 Vite 中。它确保内容声明文件的构建，并在开发模式下监视它们。它在 Vite 应用中定义 Intlayer 环境变量。此外，它还提供别名以优化性能。
 
-> `intLayerMiddlewarePlugin()` 向你的应用程序添加服务器端路由。此插件将自动根据 URL 检测当前语言环境，并设置适当的语言环境 cookie。如果没有指定语言环境，插件将根据用户的浏览器语言偏好确定最合适的语言环境。如果没有检测到语言环境，它将重定向到默认语言环境。
+> `intLayerMiddlewarePlugin()` 为您的应用添加服务器端路由。此插件将根据 URL 自动检测当前语言环境并设置适当的语言环境 Cookie。如果未指定语言环境，插件将根据用户的浏览器语言偏好确定最合适的语言环境。如果未检测到语言环境，它将重定向到默认语言环境。
 
-## 精通你的 Vite 应用程序的国际化
+## 掌握 Vite 应用的国际化
 
-Intlayer 提供了许多功能来帮助你国际化你的 Vite 应用程序。
+Intlayer 提供了许多功能来帮助您对 Vite 应用进行国际化。
 
-**要了解有关这些功能的更多信息，请参阅 [与 Intlayer 和 Vite 和 React 的 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md) 指南，以获取 Vite 和 React 应用程序。**
+**要了解更多这些功能，请参考 [使用 Intlayer 和 Vite 以及 React 进行国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md) 的指南，适用于 Vite 和 React 应用。**
