@@ -21,20 +21,20 @@ const docContent = {
     }),
 
     description: t({
-      en: 'See how to use the useDictionary hook for next-intlayer package',
+      en: 'See how to use the useDictionary hook for react-intlayer package',
       'en-GB':
-        'See how to use the useDictionary hook for next-intlayer package',
-      fr: 'Découvrez comment utiliser le hook useDictionary pour le package next-intlayer',
-      es: 'Descubre cómo usar el hook useDictionary para el paquete next-intlayer',
-      de: 'Erfahren Sie, wie Sie den useDictionary-Hook für das Paket next-intlayer verwenden',
-      ja: 'next-intlayerパッケージのuseDictionaryフックの使用方法を確認する',
-      ko: 'next-intlayer 패키지를 위한 useDictionary 훅을 사용하는 방법 보기',
-      zh: '查看如何使用 next-intlayer 包的 useDictionary 钩子',
-      it: 'Scopri come utilizzare il hook useDictionary per il pacchetto next-intlayer',
-      pt: 'Veja como usar o hook useDictionary para o pacote next-intlayer',
-      hi: 'next-intlayer पैकेज के लिए useDictionary हुक का उपयोग कैसे करें यह देखें',
-      ar: 'شاهد كيفية استخدام hook useDictionary لحزمة next-intlayer',
-      ru: 'Узнайте, как использовать хук useDictionary для пакета next-intlayer',
+        'See how to use the useDictionary hook for react-intlayer package',
+      fr: 'Découvrez comment utiliser le hook useDictionary pour le package react-intlayer',
+      es: 'Descubre cómo usar el hook useDictionary para el paquete react-intlayer',
+      de: 'Erfahren Sie, wie Sie den useDictionary-Hook für das Paket react-intlayer verwenden',
+      ja: 'react-intlayerパッケージのuseDictionaryフックの使用方法を確認する',
+      ko: 'react-intlayer 패키지를 위한 useDictionary 훅을 사용하는 방법 보기',
+      zh: '查看如何使用 react-intlayer 包的 useDictionary 钩子',
+      it: 'Scopri come utilizzare il hook useDictionary per il pacchetto react-intlayer',
+      pt: 'Veja como usar o hook useDictionary para o pacote react-intlayer',
+      hi: 'react-intlayer पैकेज के लिए useDictionary हुक का उपयोग कैसे करें यह देखें',
+      ar: 'شاهد كيفية استخدام hook useDictionary لحزمة react-intlayer',
+      ru: 'Узнайте, как использовать хук useDictionary для пакета react-intlayer',
     }),
 
     keywords: t({

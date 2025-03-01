@@ -18,17 +18,17 @@ export const generateMetadata = async ({
     description,
     keywords,
     alternates: {
-      canonical: PagesRoutes.Dashboard_Editor,
+      canonical: PagesRoutes.Playground,
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Dashboard_Editor),
-        'x-default': PagesRoutes.Dashboard_Editor,
+        ...getMultilingualUrls(PagesRoutes.Playground),
+        'x-default': PagesRoutes.Playground,
       },
     },
     openGraph: {
       title,
       description,
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL!}${PagesRoutes.Dashboard_Editor}`,
+        `${process.env.NEXT_PUBLIC_URL!}${PagesRoutes.Playground}`,
         locale
       ),
     },

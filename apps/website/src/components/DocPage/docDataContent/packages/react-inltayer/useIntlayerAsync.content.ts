@@ -21,20 +21,20 @@ const docContent = {
     }),
 
     description: t({
-      en: 'See how to use the useIntlayerAsync hook for next-intlayer package',
+      en: 'See how to use the useIntlayerAsync hook for react-intlayer package',
       'en-GB':
-        'See how to use the useIntlayerAsync hook for next-intlayer package',
-      fr: 'Découvrez comment utiliser le hook useIntlayerAsync pour le package next-intlayer',
-      es: 'Descubre cómo usar el hook useIntlayerAsync para el paquete next-intlayer',
-      de: 'Erfahren Sie, wie Sie den useIntlayerAsync-Hook für das next-intlayer-Paket verwenden',
-      ja: 'next-intlayerパッケージのuseIntlayerAsyncフックの使用方法を確認してください',
-      ko: 'next-intlayer 패키지에 대한 useIntlayerAsync 훅 사용 방법을 확인하세요',
-      zh: '查看如何为next-intlayer包使用useIntlayerAsync钩子',
-      it: 'Scopri come utilizzare il hook useIntlayerAsync per il pacchetto next-intlayer',
-      pt: 'Veja como usar o hook useIntlayerAsync para o pacote next-intlayer',
-      hi: 'next-intlayer पैकेज के लिए useIntlayerAsync हुक का उपयोग कैसे करें यह देखें',
-      ar: 'انظر كيف تستخدم خطاف useIntlayerAsync لحزمة next-intlayer',
-      ru: 'Узнайте, как использовать хук useIntlayerAsync для пакета next-intlayer',
+        'See how to use the useIntlayerAsync hook for react-intlayer package',
+      fr: 'Découvrez comment utiliser le hook useIntlayerAsync pour le package react-intlayer',
+      es: 'Descubre cómo usar el hook useIntlayerAsync para el paquete react-intlayer',
+      de: 'Erfahren Sie, wie Sie den useIntlayerAsync-Hook für das react-intlayer-Paket verwenden',
+      ja: 'react-intlayerパッケージのuseIntlayerAsyncフックの使用方法を確認してください',
+      ko: 'react-intlayer 패키지에 대한 useIntlayerAsync 훅 사용 방법을 확인하세요',
+      zh: '查看如何为react-intlayer包使用useIntlayerAsync钩子',
+      it: 'Scopri come utilizzare il hook useIntlayerAsync per il pacchetto react-intlayer',
+      pt: 'Veja como usar o hook useIntlayerAsync para o pacote react-intlayer',
+      hi: 'react-intlayer पैकेज के लिए useIntlayerAsync हुक का उपयोग कैसे करें यह देखें',
+      ar: 'انظر كيف تستخدم خطاف useIntlayerAsync لحزمة react-intlayer',
+      ru: 'Узнайте, как использовать хук useIntlayerAsync для пакета react-intlayer',
     }),
 
     keywords: t({
