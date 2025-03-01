@@ -159,6 +159,9 @@ export const auditFile = async (filePath: string, locale: Locales) => {
             temperature: OPEN_AI_TEMPERATURE,
             messages: [{ role: 'system', content: prompt }],
           });
+          logger(
+            `    -> ${chatCompletion?.usage?.total_tokens} tokens used in the request`
+          );
         } catch (error) {
           // If the request failed, wait and throw the error again to retry
           await new Promise((resolve) => setTimeout(resolve, ERROR_WAIT_TIME));
@@ -206,10 +209,6 @@ export const auditFile = async (filePath: string, locale: Locales) => {
       writeFileContent(localeFilePath, newContent);
       logger(`    -> File ${localeFilePath} created/updated`);
     }
-
-    logger(
-      `    -> ${chatCompletion?.usage?.total_tokens} tokens used in the request`
-    );
   } catch (error) {
     console.error(error);
   }
