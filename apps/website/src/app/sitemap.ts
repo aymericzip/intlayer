@@ -189,6 +189,32 @@ const sitemap = (): MetadataRoute.Sitemap => {
         },
       },
     },
+    {
+      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`,
+      lastModified: new Date(),
+      changeFrequency: 'never',
+      priority: 0.1,
+      alternates: {
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`
+          ),
+        },
+      },
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Blog_Search}`,
+      lastModified: new Date(),
+      changeFrequency: 'never',
+      priority: 0.1,
+      alternates: {
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Blog_Search}`
+          ),
+        },
+      },
+    },
     ...docSitemap,
     ...blogSitemap,
   ];
