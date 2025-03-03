@@ -92,7 +92,9 @@ export const listenChangeSSE = async (
   };
   clients.push(newClient);
 
-  logger.info('New client connected to SSE. Total clients: ', clients.length);
+  logger.info(
+    `New client connected to SSE. Total clients: ${clients.length ?? 0}`
+  );
 
   // Remove client on connection close
   req.on('close', () => {

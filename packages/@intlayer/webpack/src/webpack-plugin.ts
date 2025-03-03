@@ -1,11 +1,17 @@
-import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { getConfiguration } from '@intlayer/config';
+import {
+  checkDictionaryChanges,
+  prepareIntlayer,
+  watch,
+} from '@intlayer/chokidar';
+import { getConfiguration, logger } from '@intlayer/config';
 import type { Compiler } from 'webpack';
+import { IntlayerEventListener } from '@intlayer/api';
 
 // Watch mode or on time build
 export class IntlayerPlugin {
   private isWatching = false; // Flag to ensure we only start the watcher after the first build
   private configuration = getConfiguration();
+  private eventListener: IntlayerEventListener | undefined;
 
   async apply(compiler: Compiler): Promise<void> {
     if (this.configuration.content.watch) {
@@ -14,12 +20,18 @@ export class IntlayerPlugin {
     }
 
     compiler.hooks.beforeCompile.tapPromise('IntlayerPlugin', async () => {
+      if (this.configuration.editor.hotReload) {
+        this.eventListener = await checkDictionaryChanges();
+      }
+
       if (!this.isWatching) {
         try {
           await prepareIntlayer(this.configuration);
           this.isWatching = true;
         } catch (error) {
-          console.error('Error in IntlayerPlugin:', error);
+          logger(`Error in IntlayerPlugin: ${error}`, {
+            level: 'error',
+          });
         }
       }
     });

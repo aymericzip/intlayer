@@ -1,7 +1,10 @@
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
-import { intlayerAPI } from './getIntlayerAPI';
+import { getIntlayerAPI } from './getIntlayerAPI';
+import { EventSource as NodeEventSource } from 'eventsource'; // Directly import the default export
+
+const EventSource = globalThis.EventSource ?? NodeEventSource;
 
 export type IntlayerMessageEvent = MessageEvent;
 
@@ -54,30 +57,32 @@ export class IntlayerEventListener {
    * (or the default config if none was provided).
    */
   public async initialize(): Promise<void> {
-    try {
-      const config = this.intlayerConfig ?? getConfiguration();
-      const { backendURL } = config.editor;
+    const config = this.intlayerConfig ?? getConfiguration();
+    const { backendURL } = config.editor;
 
-      // Retrieve the access token
-      const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
-      const accessToken = oAuth2TokenResult.data?.accessToken;
+    // Retrieve the access token
+    const oAuth2TokenResult = await getIntlayerAPI(
+      {},
+      config
+    ).auth.getOAuth2AccessToken();
+    const accessToken = oAuth2TokenResult.data?.accessToken;
 
-      if (!accessToken) {
-        throw new Error('Failed to retrieve access token');
-      }
-
-      if (oAuth2TokenResult.data?.organization.plan?.type !== 'ENTERPRISE')
-        return;
-
-      const API_ROUTE = `${backendURL}/api/event-listener`;
-      const url = `${API_ROUTE}/${accessToken}`;
-
-      this.eventSource = new EventSource(url);
-      this.eventSource.onmessage = (event) => this.handleMessage(event);
-      this.eventSource.onerror = (event) => this.handleError(event);
-    } catch (error) {
-      console.error('Error initializing IntlayerEventListener:', error);
+    if (!accessToken) {
+      throw new Error('Failed to retrieve access token');
     }
+
+    if (oAuth2TokenResult.data?.organization.plan?.type !== 'ENTERPRISE') {
+      throw new Error(
+        'Hot reload is enabled, but is only available for enterprise plans'
+      );
+    }
+
+    const API_ROUTE = `${backendURL}/api/event-listener`;
+    const url = `${API_ROUTE}/${accessToken}`;
+
+    this.eventSource = new EventSource(url);
+    this.eventSource.onmessage = (event) => this.handleMessage(event);
+    this.eventSource.onerror = (event) => this.handleError(event);
   }
 
   /**

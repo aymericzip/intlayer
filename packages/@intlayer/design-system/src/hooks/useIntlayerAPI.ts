@@ -20,8 +20,6 @@ export const useIntlayerAuth = (props?: UseIntlayerAuthProps) => {
 
   const body = csrfToken ? { csrf_token: csrfToken } : undefined;
 
-  console.log({ headers, body, oAuth2AccessToken });
-
   return getIntlayerAPI(
     {
       headers,

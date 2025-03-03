@@ -59,10 +59,14 @@ const IntlayerEditorHook: FC = () => {
     if (!editor.clientSecret) return;
 
     const eventSource = new IntlayerEventListener();
-    eventSource.initialize();
-
-    eventSource.onDictionaryChange = (dictionary) =>
-      setChangedContent(dictionary.key, dictionary.content);
+    try {
+      eventSource.initialize().then(() => {
+        eventSource.onDictionaryChange = (dictionary) =>
+          setChangedContent(dictionary.key, dictionary.content);
+      });
+    } catch (error) {
+      console.error('Error initializing IntlayerEventListener:', error);
+    }
 
     return () => eventSource.cleanup();
   }, []);
