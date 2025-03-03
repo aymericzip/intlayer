@@ -41,18 +41,24 @@ const IntlayerEditorHooksEnabled: FC = () => {
    */
   useIframeClickInterceptor();
 
+  return <></>;
+};
+
+const IntlayerEditorHook: FC = () => {
+  const { enabled } = useEditorEnabled();
+
   /**
    * Hot reloading
    */
   const { setChangedContent } = useChangedContentActions();
   const { editor } = getConfiguration();
-  const eventSource = new IntlayerEventListener();
 
   useEffect(() => {
     if (!editor.hotReload) return;
     if (!editor.clientId) return;
     if (!editor.clientSecret) return;
 
+    const eventSource = new IntlayerEventListener();
     eventSource.initialize();
 
     eventSource.onDictionaryChange = (dictionary) =>
@@ -60,12 +66,6 @@ const IntlayerEditorHooksEnabled: FC = () => {
 
     return () => eventSource.cleanup();
   }, []);
-
-  return <></>;
-};
-
-const IntlayerEditorHook: FC = () => {
-  const { enabled } = useEditorEnabled();
 
   return enabled ? <IntlayerEditorHooksEnabled /> : <></>;
 };

@@ -1,5 +1,3 @@
-/* eslint-disable import/order */
-
 // Libraries
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -33,7 +31,7 @@ import { sessionAuthRouter } from '@routes/sessionAuth.routes';
 import { userRouter } from '@routes/user.routes';
 import { stripeRouter } from '@routes/stripe.routes';
 import { aiRouter } from '@routes/ai.routes';
-import { eventListenerRouter } from '@routes/event-listener.routes';
+import { eventListenerRouter } from '@routes/eventListener.routes';
 
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe.webhook';

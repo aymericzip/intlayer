@@ -847,8 +847,25 @@ export const errorData = {
       fr: "Erreur d'authentification",
       es: 'Error de autentication',
     },
-    message: {},
+    message: {
+      en: 'Authentication fail because access token is invalid.',
+      fr: "L'authentification a échoué car le jeton d'accès est invalide.",
+      es: 'La autenticación falló porque el token de acceso es inválido.',
+    },
     statusCode: HttpStatusCodes.UNAUTHORIZED_401,
+  },
+  TOO_MANY_CONNECTIONS: {
+    title: {
+      en: 'Too many connections',
+      fr: 'Trop de connexions',
+      es: 'Demasiadas conexiones',
+    },
+    message: {
+      en: 'Too many connections. Please try again later.',
+      fr: 'Trop de connexions. Veuillez réessayer plus tard.',
+      es: 'Demasiadas conexiones. Por favor, inténtelo de nuevo más tarde.',
+    },
+    statusCode: HttpStatusCodes.CONFLICT_409,
   },
   INVALID_USER_ID: {
     title: {

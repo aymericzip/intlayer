@@ -4,8 +4,19 @@ import * as oAuth2Service from '@services/oAuth2.service';
 import { ErrorHandler } from '@utils/errors';
 import type { Response, Request } from 'express';
 import type { DictionaryAPI } from '@/types/dictionary.types';
+import { logger } from '@logger';
+
+export type Object = 'DICTIONARY';
+export type Status = 'ADDED' | 'UPDATED' | 'DELETED' | 'CREATED';
+
+export type MessageEventData = {
+  object: Object;
+  status: Status;
+  data: any;
+};
 
 let clients: Array<{ id: number; projectId: string; res: Response }> = [];
+const MAX_SSE_CONNECTIONS = 10;
 
 export type SendDictionaryUpdateArg = {
   dictionary: DictionaryAPI;
@@ -19,9 +30,18 @@ export const sendDictionaryUpdate = (args: SendDictionaryUpdateArg[]) => {
     projectIds.map((id) => String(id)).includes(String(client.projectId))
   );
 
-  for (const client of filteredClients) {
-    client.res.write(`data: ${JSON.stringify(args)}\n\n`);
-  }
+  const data: MessageEventData[] = args.map((arg) => ({
+    object: 'DICTIONARY',
+    status: arg.status,
+    data: arg.dictionary,
+  }));
+
+  process.nextTick(() => {
+    for (const client of filteredClients) {
+      client.res.write(`data: ${JSON.stringify(data)}\n\n`);
+      client.res.flush?.(); // Ensure the data is sent immediately
+    }
+  });
 };
 
 export type CheckDictionaryChangeSSEParams = { accessToken: string };
@@ -37,12 +57,19 @@ export const listenChangeSSE = async (
 
   if (!accessToken) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_AUTHENTICATED');
+    return;
   }
 
   const tokenInformation = await oAuth2Service.getAccessToken(accessToken);
 
   if (!tokenInformation) {
     ErrorHandler.handleGenericErrorResponse(res, 'AUTH_ERROR');
+    return;
+  }
+
+  if (clients.length >= MAX_SSE_CONNECTIONS) {
+    ErrorHandler.handleGenericErrorResponse(res, 'TOO_MANY_CONNECTIONS');
+    return;
   }
 
   // Set headers for SSE
@@ -53,7 +80,7 @@ export const listenChangeSSE = async (
 
   // Send initial data to ensure the connection is open
   res.write(':\n\n'); // Comment to keep connection alive
-  res.flushHeaders();
+  res.flushHeaders?.();
 
   const clientId = Date.now();
 
@@ -64,6 +91,8 @@ export const listenChangeSSE = async (
     res,
   };
   clients.push(newClient);
+
+  logger.info('New client connected to SSE. Total clients: ', clients.length);
 
   // Remove client on connection close
   req.on('close', () => {

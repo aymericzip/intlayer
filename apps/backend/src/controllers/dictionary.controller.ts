@@ -21,7 +21,7 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import * as eventListener from '@/controllers/event-listener';
+import * as eventListener from '@controllers/eventListener.controller';
 import type {
   Dictionary,
   DictionaryAPI,
@@ -400,12 +400,11 @@ export const pushDictionaries = async (
           const newContentVersion =
             dictionaryService.incrementVersion(existingDictionaryDB);
 
-          newContent = new Map([
-            [
-              newContentVersion,
-              { content: dictionaryDataEl.content ?? ({} as ContentNode) },
-            ],
-          ]);
+          existingDictionaryDB.content.set(newContentVersion, {
+            content: dictionaryDataEl.content ?? ({} as ContentNode),
+          });
+
+          newContent = existingDictionaryDB.content;
         }
 
         const dictionary: DictionaryData = {

@@ -80,9 +80,11 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       ...editedContent?.[dictionary.key],
     };
 
-    await pushDictionaries([updatedDictionary]).then(() => {
-      setLocaleDictionary(editedContent?.[dictionary.key]);
-      restoreEditedContent(dictionary.key);
+    await pushDictionaries([updatedDictionary]).then((res) => {
+      if (res) {
+        setLocaleDictionary(editedContent?.[dictionary.key]);
+        restoreEditedContent(dictionary.key);
+      }
     });
   };
 
@@ -121,7 +123,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       {mode.includes('remote') && isAuthenticated && isLocalDictionary && (
         <Form.Button
           label={publishButton.label.value}
-          disabled={!isEdited}
+          disabled={isLoading}
           Icon={ArrowUpFromLine}
           color="text"
           className="max-md:w-full"

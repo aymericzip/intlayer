@@ -40,7 +40,6 @@ export type Dictionary = DictionaryData & {
   _id: ObjectId;
   createdAt: number;
   updatedAt: number;
-  availableVersions?: string[];
 };
 
 export type DictionaryAPI = DictionaryCore & {

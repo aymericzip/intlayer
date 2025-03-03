@@ -1,4 +1,4 @@
-import { listenChangeSSE } from '@controllers/event-listener';
+import { listenChangeSSE } from '@controllers/eventListener.controller';
 import { Router } from 'express';
 import type { Routes } from '@/types/Routes';
 

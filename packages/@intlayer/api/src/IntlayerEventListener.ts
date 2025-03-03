@@ -1,15 +1,9 @@
 // @ts-ignore: @intlayer/backend is not built yet
-import type { DictionaryAPI } from '@intlayer/backend';
+import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
 import { intlayerAPI } from './getIntlayerAPI';
 
-export type DictionaryMessageEvent = {
-  object: 'DICTIONARY';
-  dictionary: DictionaryAPI;
-  status: 'ADDED' | 'UPDATED' | 'DELETED' | 'CREATED';
-};
-
-export type IntlayerMessageEvent = MessageEvent<DictionaryMessageEvent[]>;
+export type IntlayerMessageEvent = MessageEvent;
 
 /**
  * IntlayerEventListener class to listen for dictionary changes via SSE (Server-Sent Events).
@@ -103,18 +97,21 @@ export class IntlayerEventListener {
   private async handleMessage(event: IntlayerMessageEvent): Promise<void> {
     try {
       const { data } = event;
-      for (const dataEl of data) {
+
+      const dataJSON: MessageEventData[] = JSON.parse(data);
+
+      for (const dataEl of dataJSON) {
         switch (dataEl.object) {
           case 'DICTIONARY':
             switch (dataEl.status) {
               case 'ADDED':
-                await this.onDictionaryAdded?.(dataEl.dictionary);
+                await this.onDictionaryAdded?.(dataEl.data);
                 break;
               case 'UPDATED':
-                await this.onDictionaryChange?.(dataEl.dictionary);
+                await this.onDictionaryChange?.(dataEl.data);
                 break;
               case 'DELETED':
-                await this.onDictionaryDeleted?.(dataEl.dictionary);
+                await this.onDictionaryDeleted?.(dataEl.data);
                 break;
               default:
                 console.error('Unhandled dictionary status:', dataEl.status);

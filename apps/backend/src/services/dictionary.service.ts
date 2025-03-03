@@ -37,27 +37,6 @@ export const findDictionaries = async (
 
       // Stage 3: Limit the number of documents
       { $limit: limit },
-
-      // Stage 4: Add the 'availableVersions' field
-      {
-        $addFields: {
-          availableVersions: {
-            $map: {
-              input: { $objectToArray: '$content' },
-              as: 'version',
-              in: '$$version.k',
-            },
-          },
-        },
-      },
-
-      // (Optional) Stage 5: Project the fields you want to include/exclude
-      // For example, to exclude the entire 'content' field and keep only 'availableVersions'
-      // {
-      //   $project: {
-      //     content: 0 // Exclude the 'content' field
-      //   }
-      // }
     ]);
 
     const formattedResults = dictionaries.map(
@@ -372,27 +351,23 @@ export const deleteDictionaryById = async (
   return dictionary;
 };
 
+// Function to extract the numeric part of the version
+const getVersionNumber = (version: string): number => {
+  const match = version.match(/^v(\d+)$/);
+  if (!match) {
+    throw new Error(`Invalid version format: ${version}`);
+  }
+  return parseInt(match[1], 10);
+};
+
 export const incrementVersion = (dictionary: Dictionary): string => {
   const VERSION_PREFIX = 'v';
-  const availableVersions = dictionary.availableVersions ?? [];
 
-  // Get the current version from the version list, default to 'v1' if not present
-  const currentVersion =
-    availableVersions.length > 0
-      ? availableVersions[availableVersions.length - 1]
-      : 'v1';
-
-  // Function to extract the numeric part of the version
-  const getVersionNumber = (version: string): number => {
-    const match = version.match(/^v(\d+)$/);
-    if (!match) {
-      throw new Error(`Invalid version format: ${version}`);
-    }
-    return parseInt(match[1], 10);
-  };
+  const availableVersions = [...(dictionary.content.keys() ?? [])];
+  const lastVersion = availableVersions[availableVersions.length - 1];
 
   // Start with the next version number
-  let newNumber = getVersionNumber(currentVersion) + 1;
+  let newNumber = getVersionNumber(lastVersion) + 1;
   let newVersion = `${VERSION_PREFIX}${newNumber}`;
 
   // Loop until a unique version is found
