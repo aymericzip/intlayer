@@ -400,12 +400,12 @@ export const pushDictionaries = async (
           const newContentVersion =
             dictionaryService.incrementVersion(existingDictionaryDB);
 
-          newContent = {
-            ...newContent,
-            [newContentVersion]: {
-              content: dictionaryDataEl.content,
-            },
-          };
+          newContent = new Map([
+            [
+              newContentVersion,
+              { content: dictionaryDataEl.content ?? ({} as ContentNode) },
+            ],
+          ]);
         }
 
         const dictionary: DictionaryData = {
