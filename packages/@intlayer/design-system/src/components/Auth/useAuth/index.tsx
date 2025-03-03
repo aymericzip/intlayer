@@ -39,37 +39,24 @@ export const useAuth = ({
 }: {
   session?: Session | null;
   intlayerConfiguration?: IntlayerConfig;
-} = {}) => {
+} = {}): SessionContextProps => {
   const { csrfToken, csrfTokenFetched } = useCSRF(intlayerConfiguration);
   const { session, fetchSession, revalidateSession, setSession } = useSession(
     sessionProp,
     intlayerConfiguration
   );
-  const { oAuth2AccessToken } = useOAuth2(csrfToken, intlayerConfiguration);
+  const { oAuth2AccessToken } = useOAuth2(intlayerConfiguration);
 
-  const memoValue: SessionContextProps = useMemo(
-    () => ({
-      session,
-      fetchSession,
-      setSession,
-      revalidateSession,
-      csrfToken,
-      csrfTokenFetched,
-      oAuth2AccessToken,
-      isAuthenticated: Boolean(session || oAuth2AccessToken),
-      isProjectAdmin: session?.isProjectAdmin,
-      isOrganizationAdmin: session?.isOrganizationAdmin,
-    }),
-    [
-      session,
-      setSession,
-      fetchSession,
-      revalidateSession,
-      csrfToken,
-      csrfTokenFetched,
-      oAuth2AccessToken,
-    ]
-  );
-
-  return memoValue;
+  return {
+    session,
+    fetchSession,
+    setSession,
+    revalidateSession,
+    csrfToken,
+    csrfTokenFetched,
+    oAuth2AccessToken,
+    isAuthenticated: Boolean(session || oAuth2AccessToken),
+    isProjectAdmin: session?.isProjectAdmin,
+    isOrganizationAdmin: session?.isOrganizationAdmin,
+  };
 };

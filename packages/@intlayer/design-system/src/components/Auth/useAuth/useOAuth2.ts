@@ -5,28 +5,18 @@ import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
 import { useConfiguration } from '@intlayer/editor-react';
 import { useAsync } from '../../../hooks/useAsync/useAsync';
 
-export const useOAuth2 = (
-  csrfToken: string | null | undefined,
-  intlayerConfiguration?: IntlayerConfig
-) => {
+export const useOAuth2 = (intlayerConfiguration?: IntlayerConfig) => {
   const configuration = useConfiguration();
   const config = intlayerConfiguration ?? configuration ?? getConfiguration();
   const intlayerAPI = getIntlayerAPI(undefined, config);
 
   const { data } = useAsync(
     'getOAuth2AccessToken',
-    () =>
-      intlayerAPI.auth.getOAuth2AccessToken({
-        body: { csrf_token: csrfToken },
-      }),
+    () => intlayerAPI.auth.getOAuth2AccessToken(),
     {
       cache: true,
       autoFetch: true,
-      enable: !!(
-        config.editor.clientId &&
-        config.editor.clientSecret &&
-        csrfToken
-      ),
+      enable: !!(config.editor.clientId && config.editor.clientSecret),
     }
   );
 

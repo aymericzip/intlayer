@@ -155,97 +155,94 @@ export const useAsync = <
    * Manage state updates on success and error
    * Manage eventual invalidation of other queries
    */
-  const fetch: T = useCallback<T>(
-    (async (...args) => {
-      const keyWithArgs = getKeyWithArgs(key, args);
+  const fetch: T = (async (...args) => {
+    const keyWithArgs = getKeyWithArgs(key, args);
 
-      /**
-       * ABORT CONTROLLER
-       *
-       * cancel an unnecessary request.
-       * For example, if a user navigates away from a page or triggers a new request that makes the previous one obsolete, you can abort the previous fetch
-       */
-      if (controllerRef.current) {
-        // Abort the previous request
-        controllerRef.current.abort();
-      }
+    /**
+     * ABORT CONTROLLER
+     *
+     * cancel an unnecessary request.
+     * For example, if a user navigates away from a page or triggers a new request that makes the previous one obsolete, you can abort the previous fetch
+     */
+    if (controllerRef.current) {
+      // Abort the previous request
+      controllerRef.current.abort();
+    }
 
-      // Create a new AbortController
-      const controller = new AbortController();
-      controllerRef.current = controller;
+    // Create a new AbortController
+    const controller = new AbortController();
+    controllerRef.current = controller;
 
-      /**
-       * PENDING PROMISES
-       *
-       * This logic ensures that if two parts of your application trigger the same request simultaneously,
-       * only one network call is made, and both receive the same result.
-       */
-      if (pendingPromises.has(keyWithArgs)) {
-        // Return the existing pending promise
-        return pendingPromises.get(keyWithArgs);
-      }
+    /**
+     * PENDING PROMISES
+     *
+     * This logic ensures that if two parts of your application trigger the same request simultaneously,
+     * only one network call is made, and both receive the same result.
+     */
+    if (pendingPromises.has(keyWithArgs)) {
+      // Return the existing pending promise
+      return pendingPromises.get(keyWithArgs);
+    }
 
-      const promise = (async () => {
-        setQueryState(keyWithArgs, { isLoading: true });
-        let response = null;
+    const promise = (async () => {
+      setQueryState(keyWithArgs, { isLoading: true });
+      let response = null;
 
-        await asyncFunction(...args)
-          .then((result) => {
-            response = result;
+      await asyncFunction(...args)
+        .then((result) => {
+          response = result;
 
-            setQueryState(keyWithArgs, {
-              data: result,
-              errorCount: 0,
-              isLoading: false,
-              isFetched: true,
-              fetchedDateTime: new Date(),
-              isSuccess: true,
-              isInvalidated: false,
-              error: null,
-            });
-
-            onSuccess?.(result);
-
-            // Invalidate other queries if necessary
-            if (invalidateQueries.length > 0) {
-              setQueriesState(invalidateQueries, {
-                isInvalidated: true,
-              });
-            }
-
-            // Update other queries if necessary
-            if (updateQueries.length > 0) {
-              setQueriesState(updateQueries, {
-                data: result,
-              });
-            }
-
-            // Store the result in local storage
-            if (storeEnabled) {
-              localStorage.setItem(keyWithArgs, JSON.stringify(result));
-            }
-          })
-          .catch((error) => {
-            const msg = error instanceof Error ? error.message : String(error);
-
-            makeQueryInError(keyWithArgs, msg);
-            onError?.(error.message);
-          })
-          .finally(() => {
-            // Remove the pending promise from the cache
-            pendingPromises.delete(keyWithArgs);
+          setQueryState(keyWithArgs, {
+            data: result,
+            errorCount: 0,
+            isLoading: false,
+            isFetched: true,
+            fetchedDateTime: new Date(),
+            isSuccess: true,
+            isInvalidated: false,
+            error: null,
           });
 
-        return response;
-      })();
+          onSuccess?.(result);
 
-      // Store the pending promise in the cache
-      pendingPromises.set(keyWithArgs, promise);
+          // Invalidate other queries if necessary
+          if (invalidateQueries.length > 0) {
+            setQueriesState(invalidateQueries, {
+              isInvalidated: true,
+            });
+          }
 
-      return await promise;
-    }) as T,
-    [asyncFunction, keyWithArgs, storeEnabled, cacheEnabled, onSuccess, onError]
-  );
+          // Update other queries if necessary
+          if (updateQueries.length > 0) {
+            setQueriesState(updateQueries, {
+              data: result,
+            });
+          }
+
+          // Store the result in local storage
+          if (storeEnabled) {
+            localStorage.setItem(keyWithArgs, JSON.stringify(result));
+          }
+        })
+        .catch((error) => {
+          const msg = error instanceof Error ? error.message : String(error);
+
+          makeQueryInError(keyWithArgs, msg);
+          onError?.(error.message);
+        })
+        .finally(() => {
+          // Remove the pending promise from the cache
+          pendingPromises.delete(keyWithArgs);
+        });
+
+      return response;
+    })();
+
+    // Store the pending promise in the cache
+    pendingPromises.set(keyWithArgs, promise);
+
+    return await promise;
+  }) as T;
 
   /**
    * REVALIDATE FUNCTION
@@ -254,21 +251,18 @@ export const useAsync = <
    * Handle arguments caching
    *
    */
-  const revalidate: T = useCallback<T>(
-    (async (...args) => {
-      if (!isEnabled || !enabled) return; // Hook is disabled
+  const revalidate: T = (async (...args) => {
+    if (!isEnabled || !enabled) return; // Hook is disabled
 
-      if (args) {
-        // Revalidation arguments can be different from the initial fetch arguments
-        // If arguments are provided, store/update them for future periodic revalidation
+    if (args) {
+      // Revalidation arguments can be different from the initial fetch arguments
+      // If arguments are provided, store/update them for future periodic revalidation
 
-        storedArgsRef.current = getArgs(args);
-      }
+      storedArgsRef.current = getArgs(args);
+    }
 
-      return await fetch(...storedArgsRef.current);
-    }) as T,
-    [isEnabled, enabled, storedArgsRef, fetch]
-  );
+    return await fetch(...storedArgsRef.current);
+  }) as T;
 
   /**
    * EXECUTION FUNCTION
@@ -276,32 +270,20 @@ export const useAsync = <
    * Wrap revalidation function
    * If data is valid return it directly to avoid fetching again
    */
-  const execute: T = useCallback<T>(
-    (async (...args) => {
-      if (!isEnabled || !enabled) return; // Hook is disabled
-      if (isLoading) return; // Fetch is already in progress
+  const execute: T = (async (...args) => {
+    if (!isEnabled || !enabled) return; // Hook is disabled
+    if (isLoading) return; // Fetch is already in progress
 
-      const shouldReturnData =
-        !isInvalidated && // If data are invalidated, we should refetch to revalidate the data
-        isSuccess &&
-        cacheEnabled &&
-        data;
+    const shouldReturnData =
+      !isInvalidated && // If data are invalidated, we should refetch to revalidate the data
+      isSuccess &&
+      cacheEnabled &&
+      data;
 
-      if (shouldReturnData) return data; // Data are already fetched and should be returned directly. Avoid fetching again.
+    if (shouldReturnData) return data; // Data are already fetched and should be returned directly. Avoid fetching again.
 
-      return await revalidate(...args);
-    }) as T,
-    [
-      isEnabled,
-      enabled,
-      isInvalidated,
-      cacheEnabled,
-      isSuccess,
-      data,
-      isLoading,
-      revalidate,
-    ]
-  );
+    return await revalidate(...args);
+  }) as T;
 
   /**
    * HANDLE SYNCHRONIZATION HOOKS DISACTIVATION
@@ -436,48 +418,29 @@ export const useAsync = <
   ]);
 
   // Memoization of the setData function to prevent unnecessary re-renders
-  const setDataMemo = useCallback(
-    (data: Awaited<ReturnType<T> | null>) => {
-      setQueryState(keyWithArgs, {
-        data,
-      });
-    },
-    [keyWithArgs]
-  );
+  const setDataMemo = (data: Awaited<ReturnType<T> | null>) => {
+    setQueryState(keyWithArgs, {
+      data,
+    });
+  };
 
   // Memoization to prevent unnecessary re-renders
-  const memoResult = useMemo(
-    () => ({
-      isFetched,
-      isInvalidated,
-      error,
-      data,
-      errorCount,
-      isSuccess,
-      isEnabled,
-      isDisabled: !isEnabled,
-      isLoading,
-      isWaitingData: isLoading && !isFetched && !data, // Check if the data is still being fetched. Stay at true during revalidation or if data are stored in local storage
-      isRevalidating: isLoading && isFetched, // Check if the data is valid and is being revalidated
-      [key]: execute, // Name the execute function as the given key to avoid conflicts with other hooks (e.g. `const { fetchUser } = useAsync('fetchUser', () => fetchUserFunction());`)
-      revalidate,
-      setData: setDataMemo,
-    }),
-    [
-      isFetched,
-      isLoading,
-      isInvalidated,
-      error,
-      isSuccess,
-      data,
-      errorCount,
-      isEnabled,
-      key,
-      execute,
-      revalidate,
-      setDataMemo,
-    ]
-  );
+  const memoResult = {
+    isFetched,
+    isInvalidated,
+    error,
+    data,
+    errorCount,
+    isSuccess,
+    isEnabled,
+    isDisabled: !isEnabled,
+    isLoading,
+    isWaitingData: isLoading && !isFetched && !data, // Check if the data is still being fetched. Stay at true during revalidation or if data are stored in local storage
+    isRevalidating: isLoading && isFetched, // Check if the data is valid and is being revalidated
+    [key]: execute, // Name the execute function as the given key to avoid conflicts with other hooks (e.g. `const { fetchUser } = useAsync('fetchUser', () => fetchUserFunction());`)
+    revalidate,
+    setData: setDataMemo,
+  };
 
   useEffect(
     () => () => {
