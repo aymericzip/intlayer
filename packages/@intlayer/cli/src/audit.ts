@@ -1,7 +1,11 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, relative } from 'path';
 import { intlayerAPI } from '@intlayer/api';
-import { getConfiguration, logger } from '@intlayer/config';
+import {
+  getConfiguration,
+  GetConfigurationOptions,
+  logger,
+} from '@intlayer/config';
 import pLimit from 'p-limit';
 import { getContentDeclaration } from './listContentDeclaration';
 
@@ -17,7 +21,7 @@ type AuditOptions = {
   excludedGlobs?: string[];
   headers?: Record<string, string>;
   logPrefix?: string;
-};
+} & GetConfigurationOptions;
 
 const projectPath = process.cwd();
 
@@ -111,7 +115,7 @@ const getAbsolutePath = (filePath: string): string => {
  * @returns This function returns a Promise that resolves once the audit is complete.
  */
 export const audit = async (options: AuditOptions) => {
-  const { clientId, clientSecret } = getConfiguration().editor;
+  const { clientId, clientSecret } = getConfiguration(options).editor;
   let headers: Record<string, string> = {};
 
   if (clientId && clientSecret) {

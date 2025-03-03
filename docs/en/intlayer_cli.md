@@ -65,6 +65,10 @@ npx intlayer dictionary push
 
 If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
 
+##### Aliases:
+
+- `npx intlayer dictionaries push`
+
 ##### Arguments:
 
 - `-d`, `--dictionaries`: ids of the dictionaries to pull. If not specified, all dictionaries will be pushed.
@@ -73,6 +77,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
   > Example: `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
   > Example: `npx intlayer dictionary push -k`
+- `--env`: Specify the environment (e.g., `development`, `production`).
 
 ### Pull distant dictionaries
 
@@ -82,11 +87,16 @@ npx intlayer dictionary pull
 
 If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
 
+##### Aliases:
+
+- `npx intlayer dictionaries pull`
+
 ##### Arguments:
 
 - `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
 
 ##### Example:
 
@@ -97,10 +107,14 @@ npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ### Audit dictionaries
 
 ```bash
-npx intlayer audit
+npx intlayer dictionary audit
 ```
 
 This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer audit** will propose or apply updates to keep your dictionaries consistent and complete.
+
+##### Aliases:
+
+- `npx intlayer dictionaries audit`
 
 ##### Arguments:
 
@@ -122,6 +136,8 @@ This command analyzes your content declaration files for potential issues such a
 - **`-k, --open-ai-api-key [openAiApiKey]`**  
   Provide your own OpenAI API key to bypass OAuth2 authentication.
 
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+
 ##### Example:
 
 ```bash
@@ -134,11 +150,16 @@ This command will ignore any files under `tests/**` and use the `gpt-3.5-turbo` 
 
 #### Get Configuration
 
-The `get configuration` command retrieves the current configuration for Intlayer, particularly the locale settings. This is useful for verifying your setup.
+The `configuration get` command retrieves the current configuration for Intlayer, particularly the locale settings. This is useful for verifying your setup.
 
 ```bash
-npx intlayer config get
+npx intlayer configuration get
 ```
+
+##### Aliases:
+
+- `npx intlayer config get`
+- `npx intlayer conf get`
 
 ##### Arguments:
 
@@ -148,11 +169,16 @@ npx intlayer config get
 
 #### Push Configuration
 
-The `push configuration` command uploads your configuration to the Intlayer CMS and editor. This step is necessary to enable the use of distant dictionaries in the Intlayer Visual Editor.
+The `configuration push` command uploads your configuration to the Intlayer CMS and editor. This step is necessary to enable the use of distant dictionaries in the Intlayer Visual Editor.
 
 ```bash
-npx intlayer config push
+npx intlayer configuration push
 ```
+
+##### Aliases:
+
+- `npx intlayer config push`
+- `npx intlayer conf push`
 
 ##### Arguments:
 

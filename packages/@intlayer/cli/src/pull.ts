@@ -1,6 +1,10 @@
 import * as readline from 'readline';
 import { getIntlayerAPI } from '@intlayer/api';
-import { getConfiguration, logger } from '@intlayer/config';
+import {
+  getConfiguration,
+  GetConfigurationOptions,
+  logger,
+} from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { writeContentDeclaration } from '@intlayer/editor/server';
 import pLimit from 'p-limit';
@@ -9,7 +13,7 @@ type PullOptions = {
   dictionaries?: string[];
   newDictionariesPath?: string;
   logPrefix?: string;
-};
+} & GetConfigurationOptions;
 
 type DictionariesStatus = {
   dictionaryKey: string;
@@ -47,7 +51,7 @@ const GREY_DARK = '\x1b[90m';
  */
 export const pull = async (options?: PullOptions): Promise<void> => {
   try {
-    const config = getConfiguration();
+    const config = getConfiguration(options);
     const { clientId, clientSecret } = config.editor;
 
     if (!clientId || !clientSecret) {

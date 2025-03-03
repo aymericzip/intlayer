@@ -1,16 +1,20 @@
-import { getConfiguration, logger } from '@intlayer/config';
+import {
+  getConfiguration,
+  type GetConfigurationOptions,
+  logger,
+} from '@intlayer/config';
 import fg from 'fast-glob';
 
 type GetContentDeclarationOptions = {
   exclude?: string[];
-};
+} & GetConfigurationOptions;
 
 export const getContentDeclaration = (
   options?: GetContentDeclarationOptions
 ): string[] => {
   const {
     content: { watchedFilesPatternWithPath },
-  } = getConfiguration();
+  } = getConfiguration(options);
 
   const contentDeclarationFilesPath: string[] = fg.sync(
     watchedFilesPatternWithPath,

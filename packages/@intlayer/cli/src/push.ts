@@ -2,7 +2,11 @@ import * as fsPromises from 'fs/promises';
 import { relative } from 'path';
 import * as readline from 'readline';
 import { getIntlayerAPI } from '@intlayer/api';
-import { getConfiguration, logger } from '@intlayer/config';
+import {
+  getConfiguration,
+  GetConfigurationOptions,
+  logger,
+} from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import pLimit from 'p-limit';
@@ -12,7 +16,7 @@ type PushOptions = {
   keepLocaleDictionary?: boolean;
   dictionaries?: string[];
   logPrefix?: string;
-};
+} & GetConfigurationOptions;
 
 type DictionariesStatus = {
   dictionary: Dictionary;
@@ -38,7 +42,7 @@ const GREY_DARK = '\x1b[90m';
  */
 export const push = async (options?: PushOptions): Promise<void> => {
   try {
-    const config = getConfiguration();
+    const config = getConfiguration(options);
     const { clientId, clientSecret } = config.editor;
 
     if (!clientId || !clientSecret) {
