@@ -694,6 +694,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // Modèle de route pour capturer la langue (par exemple, /en/, /fr/) et correspondre à tous les chemins suivants
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Enveloppe les enfants avec la gestion de la langue
           />
         ))}
@@ -789,8 +790,8 @@ const AppLocalized = ({ children, locale }) => {
   }
 };
 
-
-* Un composant routeur qui configure des routes spécifiques à la langue.
+/**
+ * Un composant routeur qui configure des routes spécifiques à la langue.
  * Il utilise React Router pour gérer la navigation et rendre des composants localisés.
  */
 export const LocaleRouter = ({ children }) => (
@@ -804,6 +805,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // Modèle de route pour capturer la langue (par exemple, /en/, /fr/) et correspondre à tous les chemins suivants
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Enveloppe les enfants avec la gestion de la langue
           />
         ))}
@@ -913,6 +915,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // Modèle de route pour capturer la langue (par exemple, /en/, /fr/) et correspondre à tous les chemins suivants
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Enveloppe les enfants avec la gestion de la langue
           />
         ))}

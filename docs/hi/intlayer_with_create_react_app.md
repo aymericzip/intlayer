@@ -497,6 +497,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // लोकेल को कैप्चर करने के लिए रूट पैटर्न (जैसे, /en/, /fr/) और सभी सब्सीक्वेंट पथों से मेल खाता है
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // बच्चों को लोकेल प्रबंधन के साथ रैप करता है
           />
         ))}
@@ -593,6 +594,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // मार्ग पैटर्न जो स्थानीय को कैप्चर करता है (जैसे, /en/, /fr/) और सभी बाद के पथों से मेल खाता है
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // बच्चों को स्थानीय प्रबंधन के साथ लपेटता है
           />
         ))}
@@ -702,6 +704,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // मार्ग पैटर्न जो स्थानीय को कैप्चर करता है (जैसे, /en/, /fr/) और सभी बाद के पथों से मेल खाता है
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // बच्चों को स्थानीय प्रबंधन के साथ लपेटता है
           />
         ))}

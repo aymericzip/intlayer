@@ -681,6 +681,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // ロケールをキャプチャし（例: /en/, /fr/）、すべての後続パスにマッチするルートパターン
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 子要素をロケール管理でラップ
           />
         ))}
@@ -776,6 +777,7 @@ const AppLocalized = ({ children, locale }) => {
   }
 };
 
+/**
  * React Routerを使用してナビゲーションを管理し、ローカライズされたコンポーネントをレンダリングします。
  */
 export const LocaleRouter = ({ children }) => (
@@ -789,6 +791,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // ロケールをキャプチャするルートパターン（例: /en/, /fr/）とその後のすべてのパスを一致させる
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 子要素をロケール管理でラップ
           />
         ))}
@@ -898,6 +901,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // ロケールをキャプチャするルートパターン（例: /en/, /fr/）とその後のすべてのパスを一致させる
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 子要素をロケール管理でラップ
           />
         ))}

@@ -681,6 +681,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // 路由模式，用于捕获语言（例如 /en/, /fr/）并匹配所有后续路径
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 使用语言管理包装子组件
           />
         ))}
@@ -791,6 +792,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // 路由模式，用于捕获语言环境（例如 /en/, /fr/）并匹配所有后续路径
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 使用语言环境管理包装子组件
           />
         ))}
@@ -900,6 +902,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // 路由模式，用于捕获语言环境（例如 /en/, /fr/）并匹配所有后续路径
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 使用语言环境管理包装子组件
           />
         ))}

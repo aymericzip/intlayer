@@ -689,6 +689,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // نمط المسار لالتقاط اللغة (مثل /en/, /fr/) ومطابقة جميع المسارات اللاحقة
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يلتف حول الأطفال مع إدارة اللغة
           />
         ))}
@@ -784,6 +785,7 @@ const AppLocalized = ({ children, locale }) => {
   }
 };
 
+/**
  * مكون موجه يقوم بإعداد مسارات خاصة باللغات.
  * يستخدم React Router لإدارة التنقل وعرض المكونات المترجمة.
  */
@@ -798,6 +800,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // نمط المسار لالتقاط اللغة (مثل /en/, /fr/) ومطابقة جميع المسارات اللاحقة
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يلف الأطفال بإدارة اللغة
           />
         ))}
@@ -907,6 +910,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // نمط المسار لالتقاط اللغة (مثل /en/, /fr/) ومطابقة جميع المسارات اللاحقة
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يلف الأطفال بإدارة اللغة
           />
         ))}

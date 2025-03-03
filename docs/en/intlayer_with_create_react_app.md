@@ -485,6 +485,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // Route pattern to capture the locale (e.g., /en/, /fr/) and match all subsequent paths
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Wraps children with locale management
           />
         ))}
@@ -595,6 +596,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // Route pattern to capture the locale (e.g., /en/, /fr/) and match all subsequent paths
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Wraps children with locale management
           />
         ))}
@@ -704,6 +706,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // Route pattern to capture the locale (e.g., /en/, /fr/) and match all subsequent paths
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Wraps children with locale management
           />
         ))}

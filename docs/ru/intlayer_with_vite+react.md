@@ -689,6 +689,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // Шаблон маршрута для захвата языка (например, /en/, /fr/) и соответствия всем последующим путям
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Оборачивает дочерние элементы с управлением языком
           />
         ))}
@@ -872,6 +873,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // Шаблон маршрута для захвата локали (например, /en/, /fr/) и сопоставления всех последующих путей
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Оборачивание дочерних элементов с управлением локалями
           />
         ))}

@@ -493,6 +493,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // نمط المسار لالتقاط اللغة (مثل /en/، /fr/) ومطابقة جميع المسارات اللاحقة
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يلتف حول الأطفال مع إدارة اللغة
           />
         ))}
@@ -603,6 +604,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // نمط المسار لالتقاط اللغة (مثل /en/, /fr/) ومطابقة جميع المسارات اللاحقة
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يغلف العناصر الفرعية بإدارة اللغة
           />
         ))}
@@ -712,6 +714,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // نمط المسار لالتقاط اللغة (مثل /en/, /fr/) ومطابقة جميع المسارات اللاحقة
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // يغلف العناصر الفرعية بإدارة اللغة
           />
         ))}

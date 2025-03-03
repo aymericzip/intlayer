@@ -694,6 +694,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // Patrón de ruta para capturar el idioma (por ejemplo, /en/, /fr/) y coincidir con todas las rutas subsecuentes
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de idioma
           />
         ))}
@@ -789,6 +790,7 @@ const AppLocalized = ({ children, locale }) => {
   }
 };
 
+/**
  * Un componente de enrutador que configura rutas específicas para cada idioma.
  * Utiliza React Router para gestionar la navegación y renderizar componentes localizados.
  */
@@ -803,6 +805,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // Patrón de ruta para capturar el idioma (por ejemplo, /en/, /fr/) y coincidir con todas las rutas subsecuentes
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de idioma
           />
         ))}
@@ -912,6 +915,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // Patrón de ruta para capturar el idioma (por ejemplo, /en/, /fr/) y coincidir con todas las rutas subsecuentes
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de idioma
           />
         ))}

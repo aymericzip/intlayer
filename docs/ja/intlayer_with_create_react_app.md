@@ -479,6 +479,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // ロケールをキャプチャするルートパターン（例：/en/、/fr/）とその後のすべてのパスを一致
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // ロケール管理で子要素をラップ
           />
         ))}
@@ -589,6 +590,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // ロケールをキャプチャするルートパターン（例：/en/、/fr/）とその後のすべてのパスを一致
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // ロケール管理で子要素をラップ
           />
         ))}
@@ -698,6 +700,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // ロケールをキャプチャするルートパターン（例：/en/、/fr/）とその後のすべてのパスを一致
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // ロケール管理で子要素をラップ
           />
         ))}

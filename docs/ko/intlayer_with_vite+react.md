@@ -689,6 +689,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
           <Route
             // 로케일을 캡처하고 모든 후속 경로와 일치하는 라우트 패턴
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 자식을 로케일 관리로 감쌈
           />
         ))}
@@ -784,6 +785,7 @@ const AppLocalized = ({ children, locale }) => {
   }
 };
 
+/**
  * React Router를 사용하여 탐색을 관리하고 로컬라이즈된 컴포넌트를 렌더링합니다.
  */
 export const LocaleRouter = ({ children }) => (
@@ -797,6 +799,7 @@ export const LocaleRouter = ({ children }) => (
           <Route
             // 로케일을 캡처하는 경로 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 일치
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 자식을 로케일 관리로 래핑
           />
         ))}
@@ -906,6 +909,7 @@ const LocaleRouter = ({ children }) => (
           <Route
             // 로케일을 캡처하는 경로 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 일치
             path={`/${locale}/*`}
+            key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 자식을 로케일 관리로 래핑
           />
         ))}
