@@ -1,5 +1,5 @@
 import { join, relative, resolve } from 'path';
-import { buildAndWatchIntlayer } from '@intlayer/chokidar';
+import { prepareIntlayer, watch } from '@intlayer/chokidar';
 import { getConfiguration, formatEnvVariable } from '@intlayer/config';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { loadEnv, type PluginOption } from 'vite';
@@ -55,7 +55,7 @@ export const intlayerPlugin = (
       config.optimizeDeps = {
         ...config.optimizeDeps,
         exclude: [
-          ...(config.optimizeDeps?.exclude || []),
+          ...(config.optimizeDeps?.exclude ?? []),
           '@intlayer/dictionaries-entry',
         ],
       };
@@ -75,12 +75,19 @@ export const intlayerPlugin = (
     return config;
   },
 
+  configureServer: async () => {
+    // Runs when the dev server starts
+    const intlayerConfig = getConfiguration();
+
+    if (intlayerConfig.content.watch) {
+      // Start watching (assuming watch is also async)
+      watch({ configuration: intlayerConfig });
+    }
+  },
+
   buildStart: async () => {
     // Code to run when Vite build starts
-    try {
-      await buildAndWatchIntlayer();
-    } catch (error) {
-      console.error('Error starting the watch process:', error);
-    }
+    const intlayerConfig = getConfiguration();
+    await prepareIntlayer(intlayerConfig);
   },
 });
