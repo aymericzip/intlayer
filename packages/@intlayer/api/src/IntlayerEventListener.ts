@@ -2,9 +2,6 @@
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
 import { getIntlayerAPI } from './getIntlayerAPI';
-import { EventSource as NodeEventSource } from 'eventsource'; // Directly import the default export
-
-const EventSource = globalThis.EventSource ?? NodeEventSource;
 
 export type IntlayerMessageEvent = MessageEvent;
 
