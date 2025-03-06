@@ -20,13 +20,6 @@ export const setAPI = (): Command => {
 
   program.version('1.0.0').description('Intlayer CLI');
 
-  program
-    .command('build')
-    .description('Build the dictionaries')
-    .option('-w, --watch', 'Watch for changes')
-    .option('-e, --env [env]', 'Environment')
-    .action(build);
-
   /**
    * DICTIONARIES
    */
@@ -36,6 +29,13 @@ export const setAPI = (): Command => {
     .alias('dictionaries')
     .alias('dic')
     .description('Dictionaries operations');
+
+  dictionariesProgram
+    .command('build')
+    .description('Build the dictionaries')
+    .option('-w, --watch', 'Watch for changes')
+    .option('-e, --env [env]', 'Environment')
+    .action(build);
 
   dictionariesProgram
     .command('pull')
