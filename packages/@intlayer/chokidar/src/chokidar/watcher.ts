@@ -6,10 +6,7 @@ import {
 } from '@intlayer/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
-import fg from 'fast-glob';
-import { cleanOutputDir } from '../cleanOutputDir';
 import { getDictionariesPath } from '../getDictionariesPath';
-import { loadDictionaries } from '../loadDictionaries/loadDictionaries';
 import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
 import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
 import { createDictionaryEntryPoint } from '../transpiler/dictionary_to_main/createDictionaryEntryPoint';
@@ -17,41 +14,7 @@ import {
   createTypes,
   createModuleAugmentation,
 } from '../transpiler/dictionary_to_type/index';
-
-export const prepareIntlayer = async (configuration?: IntlayerConfig) => {
-  const { content } =
-    configuration ??
-    getConfiguration({
-      verbose: true,
-    });
-
-  const { watchedFilesPatternWithPath } = content;
-
-  cleanOutputDir();
-
-  appLogger('Output directory cleaned', {
-    isVerbose: true,
-  });
-
-  const files: string[] = fg.sync(watchedFilesPatternWithPath);
-
-  const dictionaries = await loadDictionaries(files);
-
-  // Build locale dictionaries
-  const dictionariesPaths = await buildDictionary(dictionaries);
-
-  createTypes(dictionariesPaths);
-
-  createDictionaryEntryPoint();
-
-  appLogger('Dictionaries built');
-
-  createModuleAugmentation();
-
-  appLogger('Module augmentation built', {
-    isVerbose: true,
-  });
-};
+import { prepareIntlayer } from '../prepareIntlayer';
 
 export const handleAdditionalContentDeclarationFile = async (
   filePath: string,

@@ -29,4 +29,6 @@ export const TYPES_DIR_NAME = 'types';
 
 export const MAIN_DIR_NAME = 'main';
 
+export const CONFIG_DIR_NAME = 'config';
+
 export const WATCH = process.env.NODE_ENV === 'development';

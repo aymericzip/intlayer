@@ -12,6 +12,7 @@ import {
   DICTIONARY_OUTPUT,
   WATCH,
   REACT_INTL_MESSAGES_DIR_NAME,
+  CONFIG_DIR_NAME,
 } from '../defaultValues/content';
 import {
   APPLICATION_URL,
@@ -324,6 +325,16 @@ const buildContentFields = (
     mainDirName: customConfiguration?.mainDirName ?? MAIN_DIR_NAME,
 
     /**
+     * Name of the directory where the configuration files are stored
+     *
+     * Default: 'config'
+     *
+     * Example: 'intlayer-config'
+     *
+     */
+    configDirName: customConfiguration?.configDirName ?? CONFIG_DIR_NAME,
+
+    /**
      * Should exclude some directories from the content search
      *
      * Default: ['node_modules']
@@ -500,6 +511,24 @@ const buildContentFields = (
     mainDir: join(
       baseDirDerivedConfiguration.resultDir,
       notDerivedContentConfig.mainDirName
+    ),
+
+    /**
+     * Directory where the configuration files are stored
+     *
+     * Relative to the result directory
+     *
+     * Default: {{resultDir}} / {{configDirName}}
+     *
+     * Example: '/path/to/project/.intlayer/config'
+     *
+     * Note:
+     *
+     * - If the configuration files are not at the result directory level, update the configDirName field instead
+     */
+    configDir: join(
+      baseDirDerivedConfiguration.resultDir,
+      notDerivedContentConfig.configDirName
     ),
   };
 

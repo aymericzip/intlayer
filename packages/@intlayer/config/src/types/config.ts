@@ -429,6 +429,15 @@ export type BaseContentConfig = {
   mainDirName: string;
 
   /**
+   * Name of the directory where the configuration files are stored
+   *
+   * Default: 'config'
+   *
+   * Specifies the directory for storing configuration files.
+   */
+  configDirName: string;
+
+  /**
    * Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
    *
    * Default: process.env.NODE_ENV === 'development'
@@ -538,6 +547,15 @@ export type ResultDirDerivedConfig = {
    * Specifies the derived path for the main files relative to the result directory.
    */
   mainDir: string;
+
+  /**
+   * Directory where the configuration files are stored, relative to the result directory
+   *
+   * Default: {{resultDir}} / {{configDirName}}
+   *
+   * Specifies the derived path for the configuration files relative to the result directory.
+   */
+  configDir: string;
 };
 
 /**
