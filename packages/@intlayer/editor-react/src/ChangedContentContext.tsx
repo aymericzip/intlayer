@@ -67,24 +67,12 @@ export const ChangedContentProvider: FC<PropsWithChildren> = ({ children }) => {
 export const useChangedContentActions = () => {
   const context = useContext(ChangedContentActionsContext);
 
-  if (!context) {
-    throw new Error(
-      'useChangedContent must be used within an ChangedContentProvider'
-    );
-  }
-
   return context;
 };
 
 export const useChangedContent = () => {
   const stateContext = useContext(ChangedContentStateContext);
   const actionContext = useChangedContentActions();
-
-  if (!stateContext) {
-    throw new Error(
-      'useChangedContent must be used within an ChangedContentProvider'
-    );
-  }
 
   return { ...stateContext, ...actionContext };
 };
