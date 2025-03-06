@@ -2,6 +2,7 @@ export { getLocaleName } from './getLocaleName';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocaleLang } from './getLocaleLang';
 export { localeList } from './localeList';
+export { localeResolver } from './localeResolver';
 export { localeDetector } from './localeDetector';
 export { getPathWithoutLocale } from './getPathWithoutLocale';
 export { getMultilingualUrls } from './getMultilingualUrls';

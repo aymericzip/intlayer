@@ -7,12 +7,11 @@ import {
   type PropsWithChildren,
   createContext,
   useContext,
-  useMemo,
-  useCallback,
 } from 'react';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
 import { PoweredByMeta } from './PoweredByMeta';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
+import { localeResolver } from '@intlayer/core';
 
 type IntlayerValue = {
   locale: LocalesValues;
@@ -36,6 +35,7 @@ export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
 export type IntlayerProviderProps = PropsWithChildren<{
   locale?: LocalesValues;
+  defaultLocale?: LocalesValues;
   setLocale?: (locale: LocalesValues) => void;
   disableEditor?: boolean;
 }>;
@@ -44,46 +44,48 @@ export type IntlayerProviderProps = PropsWithChildren<{
  * Provider that store the current locale on the client side
  */
 export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
-  locale,
+  locale: localeProp,
+  defaultLocale: defaultLocaleProp,
   children,
   setLocale: setLocaleProp,
   disableEditor,
 }) => {
   const { internationalization } = getConfiguration();
-  const { defaultLocale, locales: availableLocales } = internationalization;
+  const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
+    internationalization;
+
+  const defaultLocale =
+    localeProp ?? localeCookie ?? defaultLocaleProp ?? defaultLocaleConfig;
 
   const [currentLocale, setCurrentLocale] = useCrossFrameState(
     'INTLAYER_CURRENT_LOCALE',
-    locale ?? localeCookie ?? defaultLocale
+    defaultLocale
   );
 
-  const setLocaleBase = useCallback(
-    (newLocale: LocalesValues) => {
-      if (currentLocale.toString() === newLocale.toString()) return;
+  const setLocaleBase = (newLocale: LocalesValues) => {
+    if (currentLocale.toString() === newLocale.toString()) return;
 
-      if (!availableLocales.map(String).includes(newLocale)) {
-        console.error(`Locale ${locale} is not available`);
-        return;
-      }
+    if (!availableLocales.map(String).includes(newLocale)) {
+      console.error(`Locale ${newLocale} is not available`);
+      return;
+    }
 
-      setCurrentLocale(newLocale); // Update state
-      setLocaleCookie(newLocale); // Optionally set cookie for persistence
-    },
-    [availableLocales, currentLocale, locale, setCurrentLocale]
-  );
+    setCurrentLocale(newLocale); // Update state
+    setLocaleCookie(newLocale); // Optionally set cookie for persistence
+  };
 
-  const setLocale = useMemo(
-    () => setLocaleProp ?? setLocaleBase,
-    [setLocaleProp, setLocaleBase]
-  );
+  const setLocale = setLocaleProp ?? setLocaleBase;
 
-  const value: IntlayerValue = useMemo<IntlayerValue>(
-    () => ({ locale: currentLocale, setLocale, disableEditor }),
-    [currentLocale, setLocale, disableEditor]
-  );
+  const resolvedLocale = localeResolver(localeProp ?? currentLocale);
 
   return (
-    <IntlayerClientContext.Provider value={value}>
+    <IntlayerClientContext.Provider
+      value={{
+        locale: resolvedLocale,
+        setLocale,
+        disableEditor,
+      }}
+    >
       {children}
     </IntlayerClientContext.Provider>
   );

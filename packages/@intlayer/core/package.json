@@ -73,7 +73,6 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.10",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
