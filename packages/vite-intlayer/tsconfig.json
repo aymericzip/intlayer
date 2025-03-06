@@ -4,8 +4,5 @@
   "compilerOptions": {
     "types": ["node"]
   },
-  "include": [
-    "**/*",
-    "../@intlayer/config/src/envVariables/removeUndefinedValueObject.ts"
-  ]
+  "include": ["**/*"]
 }
