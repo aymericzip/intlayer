@@ -12,7 +12,7 @@ export const configMetroIntlayer = async (
 ): Promise<MetroConfig> => {
   const intlayerConfig = getConfiguration();
 
-  // await prepareIntlayer(intlayerConfig);
+  await prepareIntlayer(intlayerConfig);
 
   const { mainDir, configDir, watchedFilesPattern } = intlayerConfig.content;
 
@@ -35,7 +35,14 @@ export const configMetroIntlayer = async (
             filePath: require.resolve(configurationPath),
             type: 'sourceFile',
           };
+        } else if (moduleName === '@intlayer/config/client') {
+          return {
+            filePath: require.resolve('@intlayer/config/client'),
+            type: 'sourceFile',
+          };
         }
+
+        // Prevent infinite recursion
         return resolve(context, moduleName, platform);
       },
       blockList: exclusionList(watchedFilesPattern),
