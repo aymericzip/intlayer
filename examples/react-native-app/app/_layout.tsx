@@ -20,7 +20,7 @@ intlayerPolyfill();
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-const getDeviceLocale = () => getLocales()[0]?.languageTag ?? 'en';
+const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

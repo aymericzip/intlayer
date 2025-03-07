@@ -40,6 +40,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./metro": {
+      "types": "./dist/types/metro.d.ts",
+      "require": "./dist/cjs/metro.cjs",
+      "import": "./dist/esm/metro.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",

@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Platform } from 'react-native';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -7,7 +7,6 @@ import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
   const { title, steps } = useIntlayer('home-screen');
-  const { locale } = useLocale();
 
   return (
     <ParallaxScrollView
@@ -20,7 +19,6 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">{locale}</ThemedText>
         <ThemedText type="title">{title}</ThemedText>
         <HelloWave />
       </ThemedView>

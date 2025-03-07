@@ -11,7 +11,7 @@ export default function NotFoundScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: screenTitle }} />
+      <Stack.Screen options={{ title: screenTitle.value }} />
       <ThemedView style={styles.container}>
         <ThemedText type="title">{title}</ThemedText>
         <Link href="/" style={styles.link}>
