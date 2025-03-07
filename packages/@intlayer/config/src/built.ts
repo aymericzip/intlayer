@@ -3,7 +3,7 @@
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  */
 
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from './configFile/getConfiguration';
 
 const configuration = getConfiguration();
 
