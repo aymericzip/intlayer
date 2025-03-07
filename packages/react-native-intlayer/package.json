@@ -1,6 +1,6 @@
 {
   "name": "react-native-intlayer",
-  "version": "5.1.8",
+  "version": "5.2.0",
   "private": false,
   "description": "A React Native plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
   "keywords": [
