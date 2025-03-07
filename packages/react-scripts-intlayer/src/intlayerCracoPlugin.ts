@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 
 import { resolve, relative, join } from 'path';
@@ -59,6 +58,9 @@ export const overrideCracoConfig = ({
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
+  const configurationPath = join(configDir, 'configuration.json');
+  const relativeConfigurationPath = relative(baseDir, configurationPath);
+
   return {
     ...cracoConfig,
     webpack: {
@@ -81,6 +83,7 @@ export const overrideCracoConfig = ({
       alias: {
         ...cracoConfig.webpack?.alias,
         '@intlayer/dictionaries-entry': resolve('./', relativeDictionariesPath),
+        '@intlayer/config/built': resolve('./', relativeConfigurationPath),
       },
     },
   };

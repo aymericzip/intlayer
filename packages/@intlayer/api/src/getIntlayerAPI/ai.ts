@@ -26,15 +26,16 @@ import type {
   // @ts-ignore: @intlayer/backend is not built yet
 } from '@intlayer/backend';
 
-import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getAiAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const backendURL =
-    intlayerConfig?.editor.backendURL ?? getConfiguration().editor.backendURL;
+  const { backendURL } = intlayerConfig.editor;
   const AI_API_ROUTE = `${backendURL}/api/ai`;
 
   /**

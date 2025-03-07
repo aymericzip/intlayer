@@ -69,6 +69,7 @@ export default defineConfig(() => ({
         'react/jsx-runtime',
         'react/jsx-dev-runtime',
         '@intlayer/config/client',
+        '@intlayer/config/built',
         'path',
         'url',
       ],

@@ -19,15 +19,16 @@ import type {
   UpdateTagResult,
   // @ts-ignore @intlayer/backend is not build yet
 } from '@intlayer/backend';
-import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getTagAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const backendURL =
-    intlayerConfig?.editor.backendURL ?? getConfiguration().editor.backendURL;
+  const { backendURL } = intlayerConfig.editor;
   const PROJECT_API_ROUTE = `${backendURL}/api/tag`;
 
   /**

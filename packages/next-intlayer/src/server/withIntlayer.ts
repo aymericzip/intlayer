@@ -1,9 +1,14 @@
 import { resolve, relative, join } from 'path';
-import { getConfiguration, formatEnvVariable } from '@intlayer/config';
+import {
+  getConfiguration,
+  formatEnvVariable,
+  ESMxCJSRequire,
+} from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-import nextPkg from 'next/package.json' with { type: 'json' };
+
+const nextPkg = ESMxCJSRequire('next/package.json');
 
 const nextMajorVersion = parseInt(nextPkg.version.split('.')[0], 10);
 
@@ -35,9 +40,13 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
 
   // Format all configuration values as environment variables
   const env = formatEnvVariable('next');
-  const { mainDir, baseDir } = intlayerConfig.content;
+  const { mainDir, configDir, baseDir } = intlayerConfig.content;
+
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
+
+  const configurationPath = join(configDir, 'configuration.json');
+  const relativeConfigurationPath = relative(baseDir, configurationPath);
 
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = isTurbopackEnabled
@@ -47,6 +56,7 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
           resolveAlias: {
             ...(nextConfig.experimental?.turbo?.resolveAlias ?? {}),
             '@intlayer/dictionaries-entry': relativeDictionariesPath,
+            '@intlayer/config/built': relativeConfigurationPath,
           },
           rules: {
             '*.node': {
@@ -90,6 +100,9 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
       // Alias the dictionary entry for all builds
       config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
         relativeDictionariesPath
+      );
+      config.resolve.alias['@intlayer/config/built'] = resolve(
+        relativeConfigurationPath
       );
 
       // Mark these modules as externals

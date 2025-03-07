@@ -1,4 +1,5 @@
-import { getConfiguration } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import {
   NodeType,
   type KeyPath,
@@ -34,7 +35,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   keyPath,
   dictionaryKey,
 }) => {
-  const { locales } = getConfiguration().internationalization;
+  const { locales } = configuration?.internationalization;
   const section = getContentNodeByKeyPath(sectionProp, keyPath);
   const { addEditedContent } = useEditedContentActions();
   const { setFocusedContentKeyPath, focusedContent } = useFocusDictionary();

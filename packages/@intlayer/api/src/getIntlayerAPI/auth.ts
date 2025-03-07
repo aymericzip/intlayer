@@ -53,16 +53,17 @@ import type {
   CheckIfUserHasPasswordResult,
   // @ts-ignore @intlayer/backend is not build yet
 } from '@intlayer/backend';
-import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getAuthAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { backendURL, clientId, clientSecret } = (
-    intlayerConfig ?? getConfiguration()
-  ).editor;
+  const { backendURL, clientId, clientSecret } = intlayerConfig.editor;
+
   const AUTH_API_ROUTE = `${backendURL}/api/auth`;
 
   /**

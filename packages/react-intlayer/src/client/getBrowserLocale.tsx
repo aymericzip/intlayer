@@ -1,4 +1,6 @@
-import { getConfiguration, type Locales } from '@intlayer/config/client';
+import { Locales } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { localeList } from '@intlayer/core';
 
 export enum LanguageDetector {
@@ -22,7 +24,7 @@ type LanguageDetectorOptions = {
 };
 
 const getDefaultsOptions = (): LanguageDetectorOptions => {
-  const { middleware } = getConfiguration();
+  const { middleware } = configuration;
 
   return {
     order: [
@@ -32,7 +34,7 @@ const getDefaultsOptions = (): LanguageDetectorOptions => {
       LanguageDetector.HtmlTag,
     ],
     lookupQuerystring: 'locale',
-    lookupCookie: middleware.cookieName,
+    lookupCookie: middleware?.cookieName,
     htmlTag: document.documentElement,
   };
 };
@@ -152,7 +154,7 @@ const getFirstAvailableLocale = (
   locales: Record<LanguageDetector, Locales | Locales[]>,
   order: LanguageDetector[]
 ): Locales => {
-  const { internationalization } = getConfiguration();
+  const { internationalization } = configuration;
 
   for (const detector of order) {
     const localesArray = [locales[detector]].flat();
@@ -160,12 +162,12 @@ const getFirstAvailableLocale = (
     for (const locale of localesArray) {
       if (
         locale &&
-        (internationalization.locales ?? localeList).includes(locale)
+        (internationalization?.locales ?? localeList).includes(locale)
       ) {
         return locale;
       } else if (
         locale?.includes('-') &&
-        (internationalization.locales ?? localeList).includes(
+        (internationalization?.locales ?? localeList).includes(
           locale.split('-')[0] as Locales
         )
       ) {
@@ -174,7 +176,7 @@ const getFirstAvailableLocale = (
     }
   }
 
-  return internationalization.defaultLocale;
+  return internationalization?.defaultLocale ?? Locales.ENGLISH;
 };
 
 /**

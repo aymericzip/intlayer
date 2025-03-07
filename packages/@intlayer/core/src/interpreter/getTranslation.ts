@@ -1,4 +1,6 @@
-import { type LocalesValues, getConfiguration } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import type { LanguageContent } from '../transpiler/translation/types';
 
 /**
@@ -26,7 +28,7 @@ export const getTranslation = <Content = string>(
   languageContent: LanguageContent<Content>,
   locale?: LocalesValues
 ): Content => {
-  const { defaultLocale } = getConfiguration().internationalization;
+  const { defaultLocale } = configuration?.internationalization;
 
   const result =
     languageContent[

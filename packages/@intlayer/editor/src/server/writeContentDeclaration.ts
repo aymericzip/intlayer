@@ -1,7 +1,8 @@
 import { existsSync } from 'fs';
 import * as fsPromises from 'fs/promises';
 import { basename, dirname, extname } from 'path';
-import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import deepEqual from 'deep-equal';
@@ -11,12 +12,11 @@ const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
 
 export const writeContentDeclaration = async (
   dictionary: Dictionary,
-  config?: IntlayerConfig,
+  config: IntlayerConfig = configuration,
   newDictionariesPath?: string
 ): Promise<{ status: DictionaryStatus; path: string }> => {
-  const {
-    content: { baseDir },
-  } = config ?? getConfiguration();
+  const { content } = config;
+  const { baseDir } = content;
 
   const newDictionaryRelativeLocationPath =
     newDictionariesPath ?? DEFAULT_NEW_DICTIONARY_PATH;

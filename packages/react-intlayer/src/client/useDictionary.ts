@@ -1,7 +1,7 @@
 'use client';
 
 import type { LocalesValues } from '@intlayer/config/client';
-import { type Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { useContext } from 'react';
 import { getDictionary } from '../getDictionary';
 import { IntlayerClientContext } from './IntlayerProvider';

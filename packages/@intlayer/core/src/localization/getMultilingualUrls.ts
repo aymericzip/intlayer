@@ -1,11 +1,13 @@
-import { getConfiguration, type LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 // @ts-ignore intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
 
 // Destructure necessary configurations
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales: localesDefault, defaultLocale: defaultLocaleDefault } =
   internationalization;
 const { prefixDefault: prefixDefaultDefault } = middleware;

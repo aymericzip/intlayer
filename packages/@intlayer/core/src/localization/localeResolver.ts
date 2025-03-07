@@ -1,11 +1,8 @@
-import {
-  getConfiguration,
-  LocalesValues,
-  type Locales,
-} from '@intlayer/config/client';
+import { LocalesValues, type Locales } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
 
 const { locales: envLocales, defaultLocale: defaultLocaleEnv } =
-  getConfiguration().internationalization;
+  configuration.internationalization;
 
 /**
  * Resolves the most specific locale from a user-provided list,

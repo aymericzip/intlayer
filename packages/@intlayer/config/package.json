@@ -46,6 +46,11 @@
       "require": "./dist/cjs/client.cjs",
       "import": "./dist/esm/client.mjs"
     },
+    "./built": {
+      "types": "./dist/types/built.d.ts",
+      "require": "./dist/cjs/built.cjs",
+      "import": "./dist/esm/built.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",

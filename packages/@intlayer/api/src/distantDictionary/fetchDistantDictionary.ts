@@ -1,6 +1,8 @@
 // @ts-ignore @intlayer/backend is not build yet
-import { type DictionaryAPI } from '@intlayer/backend';
-import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import type { DictionaryAPI } from '@intlayer/backend';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { getIntlayerAPI } from '../getIntlayerAPI/index';
 
 /**
@@ -8,11 +10,10 @@ import { getIntlayerAPI } from '../getIntlayerAPI/index';
  */
 export const fetchDistantDictionary = async (
   dictionaryKey: string,
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig = configuration
 ): Promise<DictionaryAPI | undefined> => {
   try {
-    const config = intlayerConfig ?? getConfiguration();
-    const { clientId, clientSecret } = config.editor;
+    const { clientId, clientSecret } = intlayerConfig?.editor;
 
     if (!clientId || !clientSecret) {
       throw new Error(
@@ -20,7 +21,7 @@ export const fetchDistantDictionary = async (
       );
     }
 
-    const intlayerAPI = getIntlayerAPI(undefined, config);
+    const intlayerAPI = getIntlayerAPI(undefined, intlayerConfig);
 
     const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
 

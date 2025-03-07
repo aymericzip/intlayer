@@ -49,6 +49,7 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
       .VITE_INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
     typeDirName: import.meta.env.VITE_INTLAYER_TYPE_DIR_NAME,
     mainDirName: import.meta.env.VITE_INTLAYER_MAIN_DIR_NAME,
+    configDirName: import.meta.env.VITE_INTLAYER_CONFIG_DIR_NAME,
     resultDir: import.meta.env.VITE_INTLAYER_RESULT_DIR,
     moduleAugmentationDir: import.meta.env
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR,
@@ -58,6 +59,7 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
       .VITE_INTLAYER_REACT_INTL_DICTIONARIES_DIR,
     typesDir: import.meta.env.VITE_INTLAYER_TYPE_DIR,
     mainDir: import.meta.env.VITE_INTLAYER_MAIN_DIR,
+    configDir: import.meta.env.VITE_INTLAYER_CONFIG_DIR,
     watchedFilesPattern: import.meta.env.VITE_INTLAYER_WATCHED_FILES_PATTERN,
     watchedFilesPatternWithPath: import.meta.env
       .VITE_INTLAYER_WATCHED_FILES_PATTERN_WITH_PATH,

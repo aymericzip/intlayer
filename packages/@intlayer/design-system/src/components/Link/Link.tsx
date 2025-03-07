@@ -1,4 +1,6 @@
-import { type LocalesValues, getConfiguration } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { getLocalizedUrl } from '@intlayer/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink } from 'lucide-react';
@@ -92,7 +94,7 @@ export const Link: FC<LinkProps> = (props) => {
     href: hrefProp,
     ...otherProps
   } = props;
-  const { internationalization } = getConfiguration();
+  const { internationalization } = configuration;
 
   const isExternalLink = checkIsExternalLink(props);
   const isChildrenString = typeof children === 'string';

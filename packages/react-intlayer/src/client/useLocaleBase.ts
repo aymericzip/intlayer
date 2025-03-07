@@ -1,12 +1,13 @@
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { localeList } from '@intlayer/core';
 import { useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 const { defaultLocale, locales: availableLocales } =
-  getConfiguration().internationalization;
+  configuration.internationalization;
 
 /**
  * On the client side, hook to get the current locale and all related fields

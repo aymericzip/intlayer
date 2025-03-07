@@ -1,6 +1,8 @@
 'use client';
 
-import { type LocalesValues, getConfiguration } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { localeList } from '@intlayer/core';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -26,33 +28,25 @@ export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
      *
      */
     prefixDefault,
-  } = getConfiguration().middleware;
+  } = configuration?.middleware ?? {};
   const { defaultLocale, locales: availableLocales } =
-    getConfiguration().internationalization;
+    configuration?.internationalization ?? {};
+
   const { locale, setLocale: setLocaleState } = useContext(
     IntlayerClientContext
   );
   const { setLocaleCookie } = useLocaleCookie();
 
-  const setLocale = useCallback(
-    (locale: LocalesValues) => {
-      if (!availableLocales.map(String).includes(locale)) {
-        console.error(`Locale ${locale} is not available`);
-        return;
-      }
+  const setLocale = (locale: LocalesValues) => {
+    if (!availableLocales?.map(String).includes(locale)) {
+      console.error(`Locale ${locale} is not available`);
+      return;
+    }
 
-      setLocaleState(locale);
-      setLocaleCookie(locale);
-      onLocaleChange?.(locale);
-    },
-    [
-      onLocaleChange,
-      availableLocales,
-      setLocaleState,
-      prefixDefault,
-      defaultLocale,
-    ]
-  );
+    setLocaleState(locale);
+    setLocaleCookie(locale);
+    onLocaleChange?.(locale);
+  };
 
   return {
     locale, // Current locale

@@ -1,7 +1,9 @@
 'use client';
 
 import { getIntlayerAPI } from '@intlayer/api';
-import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import defaultConfiguration from '@intlayer/config/built';
+
 import { useConfiguration } from '@intlayer/editor-react';
 import { useMemo } from 'react';
 import { useAsync } from '../../../hooks/useAsync';
@@ -12,7 +14,7 @@ export const useSession = (
   intlayerConfiguration?: IntlayerConfig
 ) => {
   const configuration = useConfiguration();
-  const config = intlayerConfiguration ?? configuration ?? getConfiguration();
+  const config = intlayerConfiguration ?? configuration ?? defaultConfiguration;
   const intlayerAPI = getIntlayerAPI(undefined, config);
 
   const {

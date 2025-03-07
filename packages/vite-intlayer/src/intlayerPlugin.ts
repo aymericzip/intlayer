@@ -36,10 +36,18 @@ export const intlayerPlugin = (
     };
 
     const intlayerConfig = getConfiguration();
-    const { mainDir, baseDir, watch: isWatchMode } = intlayerConfig.content;
+    const {
+      mainDir,
+      configDir,
+      baseDir,
+      watch: isWatchMode,
+    } = intlayerConfig.content;
 
     const dictionariesPath = join(mainDir, 'dictionaries.mjs');
     const relativeDictionariesPath = relative(baseDir, dictionariesPath);
+
+    const configurationPath = join(configDir, 'configuration.json');
+    const relativeConfigurationPath = relative(baseDir, configurationPath);
 
     // Update Vite's resolve alias
     config.resolve = {
@@ -47,6 +55,7 @@ export const intlayerPlugin = (
       alias: {
         ...config.resolve?.alias,
         '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+        '@intlayer/config/built': resolve(relativeConfigurationPath),
       },
     };
 
@@ -57,6 +66,7 @@ export const intlayerPlugin = (
         exclude: [
           ...(config.optimizeDeps?.exclude ?? []),
           '@intlayer/dictionaries-entry',
+          '@intlayer/config/built',
         ],
       };
     }

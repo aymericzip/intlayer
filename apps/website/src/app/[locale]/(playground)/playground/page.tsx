@@ -1,8 +1,7 @@
 import { PagesRoutes } from '@/Routes';
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { Editor } from '@components/Dashboard/Editor';
-import { getConfiguration } from '@intlayer/config/client';
-import { Container } from '@intlayer/design-system';
+import baseConfiguration from '@intlayer/config/built';
 import { ConfigurationProvider } from '@intlayer/editor-react';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
@@ -11,8 +10,7 @@ import type { FC } from 'react';
 export { generateMetadata } from './metadata';
 
 const PlaygroundContent: FC = () => {
-  const { title, description, seeTheResult } = useIntlayer('playground-page');
-  const baseConfiguration = getConfiguration();
+  const { title, description } = useIntlayer('playground-page');
 
   const applicationURL = `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`;
 

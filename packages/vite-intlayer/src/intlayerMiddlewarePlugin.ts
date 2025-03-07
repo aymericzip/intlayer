@@ -210,7 +210,7 @@ const handleNoPrefix = ({
       supportedLocales,
       defaultLocale
     );
-    locale = detectedLocale;
+    locale = detectedLocale as Locales;
   }
 
   // Just rewrite the URL in-place (no prefix). We do NOT redirect because we do not want to alter the URL.
@@ -279,13 +279,12 @@ const handleMissingPathLocale = ({
   cookieLocale?: Locales;
 }) => {
   // 1. Choose the best locale
-  let locale =
-    cookieLocale ??
+  let locale = (cookieLocale ??
     localeDetector(
       req.headers as Record<string, string>,
       supportedLocales,
       defaultLocale
-    );
+    )) as Locales;
 
   // 2. If still invalid, fallback
   if (!supportedLocales.includes(locale)) {

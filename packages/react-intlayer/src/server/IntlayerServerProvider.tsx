@@ -1,8 +1,10 @@
-import { type LocalesValues, getConfiguration } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import type { FC, PropsWithChildren } from 'react';
 import { createServerContext, getServerContext } from './serverContext';
 
-const { defaultLocale } = getConfiguration().internationalization;
+const { defaultLocale } = configuration?.internationalization ?? {};
 
 /**
  * Context that store the current locale on the server side

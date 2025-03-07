@@ -1,5 +1,5 @@
 /**
- * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
+ * @intlayer/dictionaries-entry is a package that only returns the dictionary entry file.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */

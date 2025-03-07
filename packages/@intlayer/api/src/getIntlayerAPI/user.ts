@@ -25,15 +25,16 @@ import type {
   UpdateUserResult,
   // @ts-ignore @intlayer/backend is not build yet
 } from '@intlayer/backend';
-import { getConfiguration, type IntlayerConfig } from '@intlayer/config/client';
+import { type IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getUserAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const backendURL =
-    intlayerConfig?.editor.backendURL ?? getConfiguration().editor.backendURL;
+  const { backendURL } = intlayerConfig.editor;
   const USER_API_ROUTE = `${backendURL}/api/user`;
 
   /**

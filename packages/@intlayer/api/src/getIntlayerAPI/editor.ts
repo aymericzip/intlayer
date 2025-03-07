@@ -1,7 +1,6 @@
-import {
-  getConfiguration as getLocaleConfiguration,
-  type IntlayerConfig,
-} from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import type {
   // @ts-ignore: intlayer-editor is not built yet
   GetConfigurationResult,
@@ -15,9 +14,9 @@ import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getEditorAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { editorURL } = (intlayerConfig ?? getLocaleConfiguration()).editor;
+  const { editorURL } = intlayerConfig.editor;
   const EDITOR_API_ROUTE = `${editorURL}/api`;
 
   /**

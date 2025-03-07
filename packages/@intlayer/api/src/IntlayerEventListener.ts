@@ -1,6 +1,8 @@
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
-import { type IntlayerConfig, getConfiguration } from '@intlayer/config/client';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { getIntlayerAPI } from './getIntlayerAPI';
 
 export type IntlayerMessageEvent = MessageEvent;
@@ -47,20 +49,19 @@ export class IntlayerEventListener {
    */
   public onDictionaryDeleted?: (dictionary: DictionaryAPI) => any;
 
-  constructor(private intlayerConfig?: IntlayerConfig) {}
+  constructor(private intlayerConfig: IntlayerConfig = configuration) {}
 
   /**
    * Initializes the EventSource connection using the given intlayerConfig
    * (or the default config if none was provided).
    */
   public async initialize(): Promise<void> {
-    const config = this.intlayerConfig ?? getConfiguration();
-    const { backendURL } = config.editor;
+    const backendURL = this.intlayerConfig.editor.backendURL;
 
     // Retrieve the access token
     const oAuth2TokenResult = await getIntlayerAPI(
       {},
-      config
+      this.intlayerConfig
     ).auth.getOAuth2AccessToken();
     const accessToken = oAuth2TokenResult.data?.accessToken;
 

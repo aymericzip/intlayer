@@ -1,7 +1,9 @@
-import { type LocalesValues, getConfiguration } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import Cookies from 'js-cookie';
 
-const { cookieName } = getConfiguration().middleware;
+const { cookieName } = configuration.middleware;
 
 const cookieAttributes: Cookies.CookieAttributes = {
   path: '/',

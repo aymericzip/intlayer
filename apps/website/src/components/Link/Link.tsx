@@ -1,6 +1,7 @@
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { getLocalizedUrl } from '@intlayer/core';
 import {
   linkVariants,
@@ -29,7 +30,6 @@ export const Link: FC<LinkProps> = (props) => {
     href: hrefProp,
     ...otherProps
   } = props;
-  const { internationalization } = getConfiguration();
   const { locale: currentLocale } = useLocale();
   const locale = localeProp ?? currentLocale;
   const isExternalLink = checkIsExternalLink(props);
@@ -40,7 +40,7 @@ export const Link: FC<LinkProps> = (props) => {
   const target = isExternalLink ? '_blank' : '_self';
 
   const hrefLang = locale
-    ? locale === internationalization.defaultLocale
+    ? locale === configuration.internationalization.defaultLocale
       ? 'x-default'
       : locale
     : undefined;

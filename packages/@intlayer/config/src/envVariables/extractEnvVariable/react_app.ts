@@ -40,6 +40,7 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
       process.env.REACT_APP_INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
     typeDirName: process.env.REACT_APP_INTLAYER_TYPE_DIR_NAME,
     mainDirName: process.env.REACT_APP_INTLAYER_MAIN_DIR_NAME,
+    configDirName: process.env.REACT_APP_INTLAYER_CONFIG_DIR_NAME,
     resultDir: process.env.REACT_APP_INTLAYER_RESULT_DIR,
     moduleAugmentationDir:
       process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR,
@@ -49,6 +50,7 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
       process.env.REACT_APP_INTLAYER_REACT_INTL_DICTIONARIES_DIR,
     typesDir: process.env.REACT_APP_INTLAYER_TYPE_DIR,
     mainDir: process.env.REACT_APP_INTLAYER_MAIN_DIR,
+    configDir: process.env.REACT_APP_INTLAYER_CONFIG_DIR,
     watchedFilesPattern: process.env.REACT_APP_INTLAYER_WATCHED_FILES_PATTERN,
     watchedFilesPatternWithPath:
       process.env.REACT_APP_INTLAYER_WATCHED_FILES_PATTERN_WITH_PATH,

@@ -1,6 +1,7 @@
 'use client';
 
-import { getConfiguration } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import {
   createContext,
   useContext,
@@ -17,11 +18,15 @@ export type UseCrossPlatformStateProps = {
   senderId: string;
 };
 
-const { editor } = getConfiguration();
+const { editor } = configuration;
 
 const CommunicatorContext = createContext<UseCrossPlatformStateProps>({
   postMessage: () => null,
-  allowedOrigins: [editor.applicationURL, editor.editorURL, editor.cmsURL],
+  allowedOrigins: [
+    editor?.applicationURL,
+    editor?.editorURL,
+    editor?.cmsURL,
+  ] as string[],
   senderId: '',
 });
 

@@ -98,6 +98,8 @@ export const getConfiguration = (
     typesDir: getEnvValue(env.content.typesDir, 'string')!,
     mainDirName: getEnvValue(env.content.mainDirName, 'string')!,
     mainDir: getEnvValue(env.content.mainDir, 'string')!,
+    configDirName: getEnvValue(env.content.configDirName, 'string')!,
+    configDir: getEnvValue(env.content.configDir, 'string')!,
     watchedFilesPattern: getEnvValue<string>(
       env.content.watchedFilesPattern,
       'array'

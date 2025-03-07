@@ -1,11 +1,9 @@
-import {
-  getConfiguration,
-  type Locales,
-  type LocalesValues,
-} from '@intlayer/config/client';
+import { type Locales, type LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
-const { internationalization } = getConfiguration();
+const { internationalization } = configuration;
 const { locales: localesDefault } = internationalization;
 
 /**

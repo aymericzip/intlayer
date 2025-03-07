@@ -1,6 +1,8 @@
 'use client';
 
-import { getConfiguration, type LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { useCrossFrameState } from '@intlayer/editor-react';
 import {
   type FC,
@@ -23,7 +25,7 @@ type IntlayerValue = {
  * Context that store the current locale on the client side
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: localeCookie ?? getConfiguration().internationalization.defaultLocale,
+  locale: localeCookie ?? configuration?.internationalization?.defaultLocale,
   setLocale: () => null,
   disableEditor: false,
 });
@@ -50,9 +52,9 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   setLocale: setLocaleProp,
   disableEditor,
 }) => {
-  const { internationalization } = getConfiguration();
+  const { internationalization } = configuration ?? {};
   const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
-    internationalization;
+    internationalization ?? {};
 
   const defaultLocale =
     localeProp ?? localeCookie ?? defaultLocaleProp ?? defaultLocaleConfig;
@@ -65,7 +67,7 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale.toString() === newLocale.toString()) return;
 
-    if (!availableLocales.map(String).includes(newLocale)) {
+    if (!availableLocales?.map(String).includes(newLocale)) {
       console.error(`Locale ${newLocale} is not available`);
       return;
     }

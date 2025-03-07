@@ -1,4 +1,6 @@
-import { type Locales, getConfiguration } from '@intlayer/config/client';
+import { type Locales } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import {
   type NextFetchEvent,
   type NextRequest,
@@ -6,7 +8,7 @@ import {
 } from 'next/server';
 import { localeDetector } from './localeDetector';
 
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 const {
   headerName,
@@ -175,7 +177,9 @@ const handleMissingPathLocale = (
   pathname: string,
   basePathTrailingSlash: boolean
 ): NextResponse => {
-  let locale = cookieLocale ?? localeDetector?.(request) ?? defaultLocale;
+  let locale = (cookieLocale ??
+    localeDetector?.(request) ??
+    defaultLocale) as Locales;
   if (!locales.includes(locale)) {
     console.warn(
       'The localeDetector callback must return a locale included in your locales array. Reverting to using defaultLocale.'

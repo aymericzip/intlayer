@@ -38,6 +38,7 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     reactIntlMessagesDirName: process.env.INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
     typeDirName: process.env.INTLAYER_TYPE_DIR_NAME,
     mainDirName: process.env.INTLAYER_MAIN_DIR_NAME,
+    configDirName: process.env.INTLAYER_CONFIG_DIR_NAME,
     resultDir: process.env.INTLAYER_RESULT_DIR,
     moduleAugmentationDir: process.env.INTLAYER_MODULE_AUGMENTATION_DIR,
     dictionariesDir: process.env.INTLAYER_DICTIONARIES_DIR,
@@ -45,6 +46,7 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     reactIntlMessagesDir: process.env.INTLAYER_REACT_INTL_DICTIONARIES_DIR,
     typesDir: process.env.INTLAYER_TYPE_DIR,
     mainDir: process.env.INTLAYER_MAIN_DIR,
+    configDir: process.env.INTLAYER_CONFIG_DIR,
     watchedFilesPattern: process.env.INTLAYER_WATCHED_FILES_PATTERN,
     watchedFilesPatternWithPath:
       process.env.INTLAYER_WATCHED_FILES_PATTERN_WITH_PATH,

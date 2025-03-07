@@ -39,6 +39,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
       process.env.NEXT_PUBLIC_INTLAYER_REACT_INTL_MESSAGES_DIR,
     typeDirName: process.env.NEXT_PUBLIC_INTLAYER_TYPE_DIR_NAME,
     mainDirName: process.env.NEXT_PUBLIC_INTLAYER_MAIN_DIR_NAME,
+    configDirName: process.env.NEXT_PUBLIC_INTLAYER_CONFIG_DIR_NAME,
     resultDir: process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR,
     moduleAugmentationDir:
       process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR,
@@ -49,6 +50,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
       process.env.NEXT_PUBLIC_INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
     typesDir: process.env.NEXT_PUBLIC_INTLAYER_TYPE_DIR,
     mainDir: process.env.NEXT_PUBLIC_INTLAYER_MAIN_DIR,
+    configDir: process.env.NEXT_PUBLIC_INTLAYER_CONFIG_DIR,
     watchedFilesPattern: process.env.NEXT_PUBLIC_INTLAYER_WATCHED_FILES_PATTERN,
     watchedFilesPatternWithPath:
       process.env.NEXT_PUBLIC_INTLAYER_WATCHED_FILES_PATTERN_WITH_PATH,

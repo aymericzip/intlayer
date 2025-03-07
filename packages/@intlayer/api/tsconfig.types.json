@@ -3,7 +3,7 @@
   "extends": "@utils/ts-config-types",
   "include": ["src/**/*"],
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": "./src",
     "outDir": "dist/types",
     "baseUrl": "src"
   }

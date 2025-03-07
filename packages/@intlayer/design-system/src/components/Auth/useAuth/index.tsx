@@ -6,8 +6,7 @@ import type {
   ProjectAPI,
   UserAPI,
 } from '@intlayer/backend';
-import { type IntlayerConfig } from '@intlayer/config/client';
-import { useMemo } from 'react';
+import type { IntlayerConfig } from '@intlayer/config/client';
 import { useCSRF } from './useCSRF';
 import { useOAuth2 } from './useOAuth2';
 import { useSession } from './useSession';

@@ -1,8 +1,10 @@
-import { getConfiguration, type LocalesValues } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import { getMultilingualUrls } from './getMultilingualUrls';
 
 // Destructure necessary configurations
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales: localesDefault, defaultLocale: defaultLocaleDefault } =
   internationalization;
 const { prefixDefault: prefixDefaultDefault } = middleware;

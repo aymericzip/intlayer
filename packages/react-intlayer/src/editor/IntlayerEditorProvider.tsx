@@ -1,7 +1,8 @@
 'use client';
 
 import { IntlayerEventListener } from '@intlayer/api';
-import { getConfiguration } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+
 import type { Dictionary } from '@intlayer/core';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
@@ -44,6 +45,8 @@ const IntlayerEditorHooksEnabled: FC = () => {
   return <></>;
 };
 
+const { editor } = configuration;
+
 const IntlayerEditorHook: FC = () => {
   const { enabled } = useEditorEnabled();
 
@@ -51,7 +54,6 @@ const IntlayerEditorHook: FC = () => {
    * Hot reloading
    */
   const { setChangedContent } = useChangedContentActions();
-  const { editor } = getConfiguration();
 
   useEffect(() => {
     if (!editor.hotReload) return;
@@ -75,10 +77,6 @@ const IntlayerEditorHook: FC = () => {
 };
 
 export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
-  const configuration = getConfiguration();
-
-  const { editor } = configuration;
-
   return (
     <EditorProvider
       postMessage={(data: any) => {
@@ -111,7 +109,11 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
           );
         }
       }}
-      allowedOrigins={[editor.editorURL, editor.cmsURL, editor.applicationURL]}
+      allowedOrigins={[
+        editor?.editorURL,
+        editor?.cmsURL,
+        editor?.applicationURL,
+      ]}
       mode="client"
       configuration={configuration}
     >

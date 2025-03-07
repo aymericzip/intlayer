@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config';
+import type { LocalesValues } from '@intlayer/config';
 import { localeDetector as localeDetectorCore } from '@intlayer/core';
 import type { NextRequest } from 'next/server.js';
 
@@ -7,7 +7,7 @@ import type { NextRequest } from 'next/server.js';
  *
  * Headers are provided by the browser and can be used to determine the user's preferred language
  */
-export const localeDetector = (request: NextRequest): Locales => {
+export const localeDetector = (request: NextRequest): LocalesValues => {
   const negotiatorHeaders: Record<string, string> = {};
 
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
