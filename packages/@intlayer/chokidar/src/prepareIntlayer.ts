@@ -24,7 +24,22 @@ export const prepareIntlayer = async (
   });
 
   const files: string[] = fg.sync(
-    configuration.content.watchedFilesPatternWithPath
+    configuration.content.watchedFilesPatternWithPath,
+    {
+      ignore: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/.github/**',
+        '**/.next/**',
+        '**/.expo/**',
+        '**/.expo-shared/**',
+        '**/.vercel/**',
+        '**/.cache/**',
+        '**/dist/**',
+        '**/build/**',
+        '**/.intlayer/**',
+      ],
+    }
   );
 
   const dictionaries = await loadDictionaries(files);

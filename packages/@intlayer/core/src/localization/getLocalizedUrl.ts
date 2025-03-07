@@ -3,12 +3,6 @@ import configuration from '@intlayer/config/built';
 
 import { getMultilingualUrls } from './getMultilingualUrls';
 
-// Destructure necessary configurations
-const { internationalization, middleware } = configuration;
-const { locales: localesDefault, defaultLocale: defaultLocaleDefault } =
-  internationalization;
-const { prefixDefault: prefixDefaultDefault } = middleware;
-
 /**
  * Generate URL by prefixing the given URL with the referenced locale.
  * Handles both absolute and relative URLs appropriately.
@@ -39,9 +33,10 @@ const { prefixDefault: prefixDefaultDefault } = middleware;
 export const getLocalizedUrl = (
   url: string,
   currentLocale: LocalesValues,
-  locales: LocalesValues[] = localesDefault,
-  defaultLocale: LocalesValues = defaultLocaleDefault,
-  prefixDefault: boolean = prefixDefaultDefault
+  locales: LocalesValues[] = configuration.internationalization.locales,
+  defaultLocale: LocalesValues = configuration.internationalization
+    .defaultLocale,
+  prefixDefault: boolean = configuration.middleware.prefixDefault
 ): string => {
   // Remove any existing locale segment from the URL
   const urlWithoutLocale = getMultilingualUrls(

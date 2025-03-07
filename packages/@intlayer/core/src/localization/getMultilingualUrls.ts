@@ -6,12 +6,6 @@ import type { IConfigLocales } from 'intlayer';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
 
-// Destructure necessary configurations
-const { internationalization, middleware } = configuration;
-const { locales: localesDefault, defaultLocale: defaultLocaleDefault } =
-  internationalization;
-const { prefixDefault: prefixDefaultDefault } = middleware;
-
 /**
  * Generates multilingual URLs by prefixing the given URL with each supported locale.
  * Handles both absolute and relative URLs appropriately.
@@ -35,9 +29,10 @@ const { prefixDefault: prefixDefaultDefault } = middleware;
  */
 export const getMultilingualUrls = (
   url: string,
-  locales: LocalesValues[] = localesDefault,
-  defaultLocale: LocalesValues = defaultLocaleDefault,
-  prefixDefault: boolean = prefixDefaultDefault
+  locales: LocalesValues[] = configuration.internationalization.locales,
+  defaultLocale: LocalesValues = configuration.internationalization
+    .defaultLocale,
+  prefixDefault: boolean = configuration.middleware.prefixDefault
 ): IConfigLocales<string> => {
   // Remove any existing locale segment from the URL
   const urlWithoutLocale = getPathWithoutLocale(url, locales);

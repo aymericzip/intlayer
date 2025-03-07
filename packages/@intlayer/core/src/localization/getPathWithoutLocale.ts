@@ -3,9 +3,6 @@ import configuration from '@intlayer/config/built';
 
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
-const { internationalization } = configuration;
-const { locales: localesDefault } = internationalization;
-
 /**
  * Removes the locale segment from the given URL or pathname if present.
  *
@@ -29,7 +26,8 @@ const { locales: localesDefault } = internationalization;
  */
 export const getPathWithoutLocale = (
   inputUrl: string,
-  locales: LocalesValues[] = localesDefault
+  locales: LocalesValues[] = configuration.internationalization
+    .locales as LocalesValues[]
 ): string => {
   // Determine if the original URL is absolute (includes protocol)
   const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);

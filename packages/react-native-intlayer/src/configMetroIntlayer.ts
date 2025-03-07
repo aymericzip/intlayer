@@ -3,14 +3,21 @@ import { getConfiguration } from '@intlayer/config';
 import { join } from 'path';
 import { resolve } from 'metro-resolver';
 import { exclusionList } from './exclusionList';
+import { prepareIntlayer } from '@intlayer/chokidar';
 
 type MetroConfig = ReturnType<typeof getDefaultConfig>;
 
-export const configMetroIntlayer = (baseConfig: MetroConfig): MetroConfig => {
+export const configMetroIntlayer = async (
+  baseConfig: MetroConfig
+): Promise<MetroConfig> => {
   const intlayerConfig = getConfiguration();
-  const { mainDir, watchedFilesPattern } = intlayerConfig.content;
+
+  // await prepareIntlayer(intlayerConfig);
+
+  const { mainDir, configDir, watchedFilesPattern } = intlayerConfig.content;
 
   const dictionariesPath = join(mainDir, 'dictionaries.cjs');
+  const configurationPath = join(configDir, 'configuration.json');
 
   const config = {
     ...baseConfig,
@@ -23,9 +30,9 @@ export const configMetroIntlayer = (baseConfig: MetroConfig): MetroConfig => {
             filePath: require.resolve(dictionariesPath),
             type: 'sourceFile',
           };
-        } else if (moduleName === '@intlayer/config/client') {
+        } else if (moduleName === '@intlayer/config/built') {
           return {
-            filePath: require.resolve('@intlayer/config/client'),
+            filePath: require.resolve(configurationPath),
             type: 'sourceFile',
           };
         }
