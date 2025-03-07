@@ -1,6 +1,6 @@
 import { t, type Dictionary } from 'intlayer';
 
-const serverComponentExampleContent: DeclarationContent = {
+const serverComponentExampleContent = {
   key: 'server-component-example',
   content: {
     title: t({

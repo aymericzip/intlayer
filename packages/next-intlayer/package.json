@@ -90,7 +90,6 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.6",
-    "@types/react": "^19.0.0",
     "@typescript-eslint/parser": "^8.24.0",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
@@ -110,9 +109,12 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/webpack": "workspace:*",
+    "@types/react": ">=16.0.0",
+    "@types/react-dom": ">=16.0.0",
     "intlayer": "workspace:*",
     "next": ">=14.0.0",
     "react": ">=16.0.0",
+    "react-dom": ">=16.0.0",
     "react-intlayer": "workspace:*"
   },
   "engines": {
