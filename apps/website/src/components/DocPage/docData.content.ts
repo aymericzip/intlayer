@@ -370,6 +370,23 @@ const docDataContent = {
             ru: 'Intlayer с Vite и React',
           }),
         },
+        'react-native-and-expo': {
+          title: t({
+            en: 'Intlayer with React Native and Expo',
+            fr: 'Intlayer avec React Native et Expo',
+            es: 'Intlayer con React Native y Expo',
+            'en-GB': 'Intlayer with React Native and Expo',
+            de: 'Intlayer mit React Native und Expo',
+            ja: 'IntlayerとReact NativeとExpo',
+            ko: 'Intlayer와 React Native 및 Expo',
+            zh: 'Intlayer与React Native和Expo',
+            it: 'Intlayer con React Native e Expo',
+            pt: 'Intlayer com React Native e Expo',
+            hi: 'Intlayer के साथ React Native और Expo',
+            ar: 'Intlayer مع React Native و Expo',
+            ru: 'Intlayer с React Native и Expo',
+          }),
+        },
         express: {
           title: t({
             en: 'Intlayer with Express',

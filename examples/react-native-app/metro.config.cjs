@@ -4,7 +4,7 @@ const { configMetroIntlayer } = require('react-native-intlayer/metro');
 const getConfig = async () => {
   const defaultConfig = getDefaultConfig(__dirname);
 
-  return configMetroIntlayer(defaultConfig);
+  return await configMetroIntlayer(defaultConfig);
 };
 
 module.exports = (async () => await getConfig())();

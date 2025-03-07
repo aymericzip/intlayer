@@ -26,6 +26,7 @@ const CHAT_GPT_CUSTOM_PROMPT: string = '';
 const DOC_LIST: string[] = [
   // '/path/to/en/specific_file_1.md',
   // '/path/to/en/specific_file_2.md',
+  '/Users/aymericpineau/Documents/intlayer/docs/en/intlayer_with_react_native+expo.md',
 ];
 
 export const LOCALE_LIST: Locales[] = [

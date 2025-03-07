@@ -14,6 +14,7 @@ declare module '@intlayer/docs' {
     intlayer_with_nextjs_14,
     intlayer_with_nextjs_page_router,
     intlayer_with_vite_react,
+    intlayer_with_react_native_and_expo,
     dictionary__translation,
     dictionary__enumeration,
     dictionary__condition,
