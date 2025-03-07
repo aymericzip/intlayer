@@ -1,14 +1,9 @@
-import { resolve, relative, join } from 'path';
-import {
-  getConfiguration,
-  formatEnvVariable,
-  ESMxCJSRequire,
-} from '@intlayer/config';
+import { resolve, relative, join, dirname } from 'path';
+import { getConfiguration, formatEnvVariable } from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-
-const nextPkg = ESMxCJSRequire('next/package.json');
+import nextPkg from 'next/package.json' with { type: 'json' };
 
 const nextMajorVersion = parseInt(nextPkg.version.split('.')[0], 10);
 
