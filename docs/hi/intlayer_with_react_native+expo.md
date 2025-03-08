@@ -114,11 +114,11 @@ module.exports = config;
 const { getDefaultConfig } = require("expo/metro-config");
 const { configMetroIntlayer } = require("react-native-intlayer/metro");
 
-const getConfig = async () => {
+module.exports = (async () => {
   const defaultConfig = getDefaultConfig(__dirname);
 
   return await configMetroIntlayer(defaultConfig);
-};
+})();
 ```
 
 ## चरण 4: इंटलेयर प्रदाता जोड़ें

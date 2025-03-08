@@ -114,11 +114,11 @@ Metro is a bundler for React Native. It is the default bundler for React Native 
 const { getDefaultConfig } = require("expo/metro-config");
 const { configMetroIntlayer } = require("react-native-intlayer/metro");
 
-const getConfig = async () => {
+module.exports = (async () => {
   const defaultConfig = getDefaultConfig(__dirname);
 
   return await configMetroIntlayer(defaultConfig);
-};
+})();
 ```
 
 ## Step 4: Add the Intlayer provider

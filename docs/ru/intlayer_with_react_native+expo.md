@@ -114,11 +114,11 @@ Metro — это бандлер для React Native. Это бандлер по 
 const { getDefaultConfig } = require("expo/metro-config");
 const { configMetroIntlayer } = require("react-native-intlayer/metro");
 
-const getConfig = async () => {
+module.exports = (async () => {
   const defaultConfig = getDefaultConfig(__dirname);
 
   return await configMetroIntlayer(defaultConfig);
-};
+})();
 ```
 
 ## Шаг 4: Добавьте провайдер Intlayer

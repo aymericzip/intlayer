@@ -114,11 +114,11 @@ Metro는 React Native의 번들러입니다. 이는 `react-native init` 명령�
 const { getDefaultConfig } = require("expo/metro-config");
 const { configMetroIntlayer } = require("react-native-intlayer/metro");
 
-const getConfig = async () => {
+module.exports = (async () => {
   const defaultConfig = getDefaultConfig(__dirname);
 
   return await configMetroIntlayer(defaultConfig);
-};
+})();
 ```
 
 ## 4단계: Intlayer 제공자 추가

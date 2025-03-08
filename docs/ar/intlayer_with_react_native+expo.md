@@ -114,11 +114,11 @@ Metro هو مجمع لـ React Native. وهو المجمع الافتراضي ل
 const { getDefaultConfig } = require("expo/metro-config");
 const { configMetroIntlayer } = require("react-native-intlayer/metro");
 
-const getConfig = async () => {
+module.exports = (async () => {
   const defaultConfig = getDefaultConfig(__dirname);
 
   return await configMetroIntlayer(defaultConfig);
-};
+})();
 ```
 
 ## الخطوة 4: إضافة موفر Intlayer

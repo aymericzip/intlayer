@@ -80,6 +80,8 @@ const getConfig = async () => {
   const defaultConfig = getDefaultConfig(__dirname);
   return await configMetroIntlayer(defaultConfig);
 };
+
+module.exports = getConfig();
 ```
 
 ## Paso 4: Agregar el proveedor de Intlayer

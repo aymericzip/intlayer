@@ -114,11 +114,11 @@ Metro 是 React Native 的打包器。它是通过 `react-native init` 命令创
 const { getDefaultConfig } = require("expo/metro-config");
 const { configMetroIntlayer } = require("react-native-intlayer/metro");
 
-const getConfig = async () => {
+module.exports = (async () => {
   const defaultConfig = getDefaultConfig(__dirname);
 
   return await configMetroIntlayer(defaultConfig);
-};
+})();
 ```
 
 ## 第四步：添加 Intlayer 提供者
