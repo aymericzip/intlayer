@@ -1,4 +1,4 @@
-import { resolve, relative, join, dirname } from 'path';
+import { resolve, relative, join } from 'path';
 import {
   getConfiguration,
   formatEnvVariable,

@@ -17,6 +17,7 @@ export const packageBuildOrder = [
   'packages/react-scripts-intlayer',
   'packages/vite-intlayer',
   'packages/react-native-intlayer',
+  'packages/lynx-intlayer',
   'packages/@intlayer/design-system',
   'packages/intlayer-editor',
 ];
