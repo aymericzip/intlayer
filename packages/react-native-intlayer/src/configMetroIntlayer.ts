@@ -14,7 +14,7 @@ export const configMetroIntlayer = async (
 
   await prepareIntlayer(intlayerConfig);
 
-  const { mainDir, configDir, watchedFilesPattern } = intlayerConfig.content;
+  const { mainDir, configDir } = intlayerConfig.content;
 
   const dictionariesPath = join(mainDir, 'dictionaries.cjs');
   const configurationPath = join(configDir, 'configuration.json');
@@ -45,7 +45,12 @@ export const configMetroIntlayer = async (
         // Prevent infinite recursion
         return resolve(context, moduleName, platform);
       },
-      blockList: exclusionList(watchedFilesPattern),
+      blockList: exclusionList([
+        ...[baseConfig.resolver?.blockList ?? []].flat(),
+        // the following instruction should be replaced intlayerConfig.content.watchedFilesPattern
+        // but using watchedFilesPattern does not exclude the files properly for now
+        /.*\.content\.(?:ts|tsx|js|jsx|cjs|cjx|mjs|mjx|json)$/,
+      ]),
     },
   } satisfies MetroConfig;
 

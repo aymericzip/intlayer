@@ -11,7 +11,7 @@ const escapeRegExp = (pattern: RegExp | string) => {
   }
 };
 
-export const exclusionList = (additionalExclusions?: RegExp[] | string[]) =>
+export const exclusionList = (additionalExclusions?: (RegExp | string)[]) =>
   new RegExp(
     '(' + (additionalExclusions || []).map(escapeRegExp).join('|') + ')$'
   );
