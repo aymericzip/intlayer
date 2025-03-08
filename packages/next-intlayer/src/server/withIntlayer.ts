@@ -1,11 +1,27 @@
 import { resolve, relative, join, dirname } from 'path';
-import { getConfiguration, formatEnvVariable } from '@intlayer/config';
+import {
+  getConfiguration,
+  formatEnvVariable,
+  ESMxCJSRequire,
+} from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-import nextPkg from 'next/package.json' with { type: 'json' };
+import { readFileSync } from 'fs';
 
-const nextMajorVersion = parseInt(nextPkg.version.split('.')[0], 10);
+const getNextVersion = () => {
+  try {
+    const nextConfigPath = ESMxCJSRequire.resolve('next/package.json');
+
+    const nextPkg = JSON.parse(readFileSync(nextConfigPath, 'utf-8'));
+
+    return parseInt(nextPkg.version.split('.')[0], 10);
+  } catch (e) {
+    return undefined;
+  }
+};
+
+const nextMajorVersion = getNextVersion();
 
 // Extract from the start script if --turbo or --turbopack flag is used
 const isTurbopackEnabled =
@@ -68,7 +84,7 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
     env: { ...nextConfig.env, ...env },
 
     // Only add `serverExternalPackages` if Next.js is v15+
-    ...(nextMajorVersion >= 15
+    ...(!nextMajorVersion || nextMajorVersion >= 15
       ? {
           serverExternalPackages: [
             ...(nextConfig.serverExternalPackages ?? []),
