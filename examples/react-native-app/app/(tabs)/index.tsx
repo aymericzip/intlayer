@@ -4,6 +4,7 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 
 export default function HomeScreen() {
   const { title, steps } = useIntlayer('home-screen');
@@ -18,6 +19,7 @@ export default function HomeScreen() {
         />
       }
     >
+      <LocaleSwitcher />
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">{title}</ThemedText>
         <HelloWave />
@@ -28,7 +30,7 @@ export default function HomeScreen() {
           {steps.step1.description.edit}
           <ThemedText type="defaultSemiBold">
             {steps.step1.description.path}
-          </ThemedText>{' '}
+          </ThemedText>
           {steps.step1.description.toSeeChanges}
           <ThemedText type="defaultSemiBold">
             {Platform.select({
@@ -36,7 +38,7 @@ export default function HomeScreen() {
               android: 'cmd + m',
               web: 'F12',
             })}
-          </ThemedText>{' '}
+          </ThemedText>
           {steps.step1.description.toOpen}
         </ThemedText>
       </ThemedView>

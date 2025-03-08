@@ -23,9 +23,9 @@ const homeScreenContent = {
           }),
           path: 'app/(tabs)/index.tsx',
           toSeeChanges: t({
-            en: 'to see changes. Press ',
-            fr: 'pour voir les modifications. Appuyez sur ',
-            es: 'para ver los cambios. Presiona ',
+            en: ' to see changes. Press ',
+            fr: ' pour voir les modifications. Appuyez sur ',
+            es: ' para ver los cambios. Presiona ',
           }),
           toOpen: t({
             en: ' to open developer tools.',

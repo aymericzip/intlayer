@@ -429,58 +429,135 @@ To switch locales from within your components, you can use the `useLocale` hookâ
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { type FC } from "react";
-import { Button } from "react-native";
-import { Locales } from "intlayer";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
 export const LocaleSwitcher: FC = () => {
-  const { setLocale } = useLocale();
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="Switch to French"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8, // Spacing between buttons
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd", // Light background
+  },
+  text: {
+    fontSize: 14, // Smaller text
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { Locales } from "intlayer";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
+export const LocaleSwitcher = () => {
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="Switch to French"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8, // Spacing between buttons
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd", // Light background
+  },
+  text: {
+    fontSize: 14, // Smaller text
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+const { View, Text, TouchableOpacity, StyleSheet } = require("react-native");
+const { getLocaleName } = require("intlayer");
 const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="Switch to French"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8, // Spacing between buttons
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd", // Light background
+  },
+  text: {
+    fontSize: 14, // Smaller text
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
 This triggers a re-render of all components that use Intlayer content, now showing translations for the new locale.

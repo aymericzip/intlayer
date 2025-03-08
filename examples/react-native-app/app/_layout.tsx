@@ -9,18 +9,16 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { getLocales } from 'expo-localization';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { IntlayerProviderContent } from 'react-intlayer';
 import { intlayerPolyfill } from 'react-native-intlayer';
+import { IntlayerProviderContent } from 'react-intlayer';
+import { getLocales } from 'expo-localization';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 intlayerPolyfill();
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-const getDeviceLocale = () => getLocales()[0]?.languageTag;
+const getDeviceLocale = () => getLocales()[0]?.languageTag ?? 'en';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -39,7 +37,7 @@ export default function RootLayout() {
   }
 
   return (
-    <IntlayerProviderContent locale={getDeviceLocale()}>
+    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
