@@ -26,7 +26,7 @@ export const GridPattern: FC<GridPatternProps> = ({
     <svg
       aria-hidden="true"
       className={cn(
-        'fill-neutral/10 stroke-neutral/10 pointer-events-none absolute inset-0 h-full max-h-full w-full',
+        'fill-neutral/10 stroke-neutral/15 dark:stroke-neutral/30 pointer-events-none absolute inset-0 h-full max-h-full w-full',
         className
       )}
       {...props}
