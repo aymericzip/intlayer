@@ -388,8 +388,8 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 必要な依存関係と関数をインポート
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
-import { FC, PropsWithChildren } from "react"; // Reactの型
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
+import type { FC, PropsWithChildren } from "react"; // Reactの型
 import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキスト用プロバイダー
 import {
   BrowserRouter,
@@ -400,7 +400,7 @@ import {
 } from "react-router-dom"; // ナビゲーション管理用のルーターコンポーネント
 
 // Intlayerからの設定を分解
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -502,8 +502,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // 必要な依存関係と関数をインポート
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
-import { FC, PropsWithChildren } from "react"; // Reactの型
+import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
 import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキスト用プロバイダー
 import {
   BrowserRouter,
@@ -514,7 +513,7 @@ import {
 } from "react-router-dom"; // ナビゲーション管理用のルーターコンポーネント
 
 // Intlayerからの設定を分解
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -613,7 +612,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // 必要な依存関係と関数をインポート
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'からのユーティリティ関数と型
+const { configuration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'からのユーティリティ関数と型
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国際化コンテキスト用プロバイダー
 const {
   BrowserRouter,
@@ -624,7 +623,7 @@ const {
 } = require("react-router-dom"); // ナビゲーション管理用のルーターコンポーネント
 
 // Intlayerからの設定を分解
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**

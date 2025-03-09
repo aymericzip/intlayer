@@ -394,8 +394,8 @@ Pour ajouter un routage localisé à votre application, vous pouvez créer un co
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importation des dépendances nécessaires et des fonctions
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Fonctions utilitaires et types d'intlayer
-import { FC, PropsWithChildren } from "react"; // Types React pour les composants fonctionnels et les props
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // Fonctions utilitaires et types d'intlayer
+import type { FC, PropsWithChildren } from "react"; // Types React pour les composants fonctionnels et les props
 import { IntlayerProvider } from "react-intlayer"; // Fournisseur pour le contexte d'internationalisation
 import {
   BrowserRouter,
@@ -508,8 +508,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Importation des dépendances nécessaires et des fonctions
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Fonctions utilitaires et types d'intlayer
-import { FC, PropsWithChildren } from "react"; // Types React pour les composants fonctionnels et les props
+import { configuration, getPathWithoutLocale } from "intlayer"; // Fonctions utilitaires et types d'intlayer
 import { IntlayerProvider } from "react-intlayer"; // Fournisseur pour le contexte d'internationalisation
 import {
   BrowserRouter,
@@ -619,7 +618,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // Importation des dépendances nécessaires et des fonctions
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // Fonctions utilitaires et types d'intlayer
+const { configuration, getPathWithoutLocale } = require("intlayer"); // Fonctions utilitaires et types d'intlayer
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // Fournisseur pour le contexte d'internationalisation
 const {
   BrowserRouter,

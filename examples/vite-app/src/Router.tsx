@@ -1,5 +1,5 @@
 // Importing necessary dependencies and functions
-import { Locales, getConfiguration, getPathWithoutLocale } from 'intlayer'; // Utility functions and types from 'intlayer'
+import { Locales, configuration, getPathWithoutLocale } from 'intlayer'; // Utility functions and types from 'intlayer'
 import { FC, PropsWithChildren } from 'react'; // React types for functional components and props
 import { IntlayerProvider } from 'react-intlayer'; // Provider for internationalization context
 import {
@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom'; // Router components for managing navigation
 
 // Destructuring configuration from Intlayer
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**

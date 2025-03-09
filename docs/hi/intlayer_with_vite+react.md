@@ -571,8 +571,8 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx" codeFormat="typescript"
 // आवश्यक डिपेंडेंसी और फ़ंक्शन्स को इम्पोर्ट करना
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer' से यूटिलिटी फ़ंक्शन्स और प्रकार
-import { FC, PropsWithChildren } from "react"; // फ़ंक्शनल कंपोनेंट्स और प्रॉप्स के लिए React प्रकार
+import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer' से यूटिलिटी फ़ंक्शन्स और प्रकार
+import type { FC, PropsWithChildren } from "react"; // फ़ंक्शनल कंपोनेंट्स और प्रॉप्स के लिए React प्रकार
 import { IntlayerProvider } from "react-intlayer"; // अंतर्राष्ट्रीयकरण संदर्भ के लिए प्रोवाइडर
 import {
   BrowserRouter,
@@ -583,7 +583,7 @@ import {
 } from "react-router-dom"; // नेविगेशन प्रबंधन के लिए राउटर घटक
 
 // Intlayer से कॉन्फ़िगरेशन को डेस्ट्रक्चर करना
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -685,8 +685,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // आवश्यक डिपेंडेंसी और फ़ंक्शन्स को इम्पोर्ट करना
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer' से यूटिलिटी फ़ंक्शन्स और प्रकार
-import { FC, PropsWithChildren } from "react"; // फ़ंक्शनल कंपोनेंट्स और प्रॉप्स के लिए React प्रकार
+import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer' से यूटिलिटी फ़ंक्शन्स और प्रकार
 import { IntlayerProvider } from "react-intlayer"; // अंतर्राष्ट्रीयकरण संदर्भ के लिए प्रोवाइडर
 import {
   BrowserRouter,
@@ -697,7 +696,7 @@ import {
 } from "react-router-dom"; // नेविगेशन प्रबंधन के लिए राउटर घटक
 
 // Intlayer से कॉन्फ़िगरेशन को डेस्ट्रक्चर करना
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -796,7 +795,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // आवश्यक डिपेंडेंसी और फ़ंक्शन्स को इम्पोर्ट करना
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // 'intlayer' से यूटिलिटी फ़ंक्शन्स और प्रकार
+const { configuration, getPathWithoutLocale } = require("intlayer"); // 'intlayer' से यूटिलिटी फ़ंक्शन्स और प्रकार
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // अंतर्राष्ट्रीयकरण संदर्भ के लिए प्रोवाइडर
 const {
   BrowserRouter,
@@ -807,7 +806,7 @@ const {
 } = require("react-router-dom"); // नेविगेशन प्रबंधन के लिए राउटर घटक
 
 // Intlayer से कॉन्फ़िगरेशन को डीस्ट्रक्चर करना
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**

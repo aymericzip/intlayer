@@ -590,8 +590,9 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 导入必要的依赖项和函数
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
-import { FC, PropsWithChildren } from "react"; // React 的函数组件和属性类型
+// 来自 'intlayer' 的实用函数和类型
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
+import type { FC, PropsWithChildren } from "react"; // React 的函数组件和属性类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供者
 import {
   BrowserRouter,
@@ -602,7 +603,7 @@ import {
 } from "react-router-dom"; // 用于管理导航的路由组件
 
 // 从 Intlayer 中解构配置
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -704,8 +705,8 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // 导入必要的依赖项和函数
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
-import { FC, PropsWithChildren } from "react"; // React 的函数组件和属性类型
+// 来自 'intlayer' 的实用函数和类型
+import { configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供者
 import {
   BrowserRouter,
@@ -716,7 +717,7 @@ import {
 } from "react-router-dom"; // 用于管理导航的路由组件
 
 // 从 Intlayer 中解构配置
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -815,7 +816,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // 导入必要的依赖和函数
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // 从 'intlayer' 获取的工具函数和类型
+const { configuration, getPathWithoutLocale } = require("intlayer"); // 从 'intlayer' 获取的工具函数和类型
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国际化上下文的提供者
 const {
   BrowserRouter,
@@ -826,7 +827,7 @@ const {
 } = require("react-router-dom"); // 用于管理导航的路由组件
 
 // 从 Intlayer 解构配置
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**

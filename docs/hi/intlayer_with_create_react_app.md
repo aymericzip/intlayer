@@ -406,8 +406,8 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // आवश्यक डिपेंडेंसी और फ़ंक्शन आयात करें
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer' से उपयोगी फ़ंक्शन और प्रकार
-import { FC, PropsWithChildren } from "react"; // फ़ंक्शनल कंपोनेंट्स और प्रॉप्स के लिए React प्रकार
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer' से उपयोगी फ़ंक्शन और प्रकार
+import type { FC, PropsWithChildren } from "react"; // फ़ंक्शनल कंपोनेंट्स और प्रॉप्स के लिए React प्रकार
 import { IntlayerProvider } from "react-intlayer"; // अंतर्राष्ट्रीयकरण संदर्भ के लिए प्रोवाइडर
 import {
   BrowserRouter,
@@ -418,7 +418,7 @@ import {
 } from "react-router-dom"; // नेविगेशन प्रबंधन के लिए राउटर कंपोनेंट्स
 
 // Intlayer से कॉन्फ़िगरेशन को डेस्ट्रक्चर करें
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -518,7 +518,214 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 );
 
 // Intlayer से कॉन्फ़िगरेशन को डीस्ट्रक्चर करना
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
+const { locales, defaultLocale } = internationalization;
+
+/**
+ * एक घटक जो स्थानीयकरण को संभालता है और बच्चों को उपयुक्त स्थानीय संदर्भ के साथ लपेटता है।
+ * यह URL-आधारित स्थानीय पहचान और मान्यता का प्रबंधन करता है।
+ */
+const AppLocalized = ({ children, locale }) => {
+  const { pathname, search } = useLocation(); // वर्तमान URL पथ प्राप्त करें
+
+  // वर्तमान स्थानीय निर्धारित करें, यदि प्रदान नहीं किया गया तो डिफ़ॉल्ट पर वापस जाएं
+  const currentLocale = locale ?? defaultLocale;
+
+  // पथ से स्थानीय उपसर्ग को हटाकर एक आधार पथ बनाएं
+  const pathWithoutLocale = getPathWithoutLocale(
+    pathname // वर्तमान URL पथ
+  );
+
+  /**
+   * यदि middleware.prefixDefault सत्य है, तो डिफ़ॉल्ट स्थानीय को हमेशा उपसर्गित किया जाना चाहिए।
+   */
+  if (middleware.prefixDefault) {
+    // स्थानीय को मान्य करें
+    if (!locale || !locales.includes(locale)) {
+      // अद्यतन पथ के साथ डिफ़ॉल्ट स्थानीय पर पुनर्निर्देशित करें
+      return (
+        <Navigate
+          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
+          replace // वर्तमान इतिहास प्रविष्टि को नए के साथ बदलें
+        />
+      );
+    }
+
+    // बच्चों को IntlayerProvider के साथ लपेटें और वर्तमान स्थानीय सेट करें
+    return (
+      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
+    );
+  } else {
+    /**
+     * जब middleware.prefixDefault झूठा है, तो डिफ़ॉल्ट स्थानीय उपसर्गित नहीं होता है।
+     * सुनिश्चित करें कि वर्तमान स्थानीय मान्य है और डिफ़ॉल्ट स्थानीय नहीं है।
+     */
+    if (
+      currentLocale.toString() !== defaultLocale.toString() &&
+      !locales
+        .filter(
+          (locale) => locale.toString() !== defaultLocale.toString() // डिफ़ॉल्ट स्थानीय को बाहर करें
+        )
+        .includes(currentLocale) // जांचें कि वर्तमान स्थानीय मान्य स्थानीय की सूची में है या नहीं
+    ) {
+      // स्थानीय उपसर्ग के बिना पथ पर पुनर्निर्देशित करें
+      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
+    }
+
+    // बच्चों को IntlayerProvider के साथ लपेटें और वर्तमान स्थानीय सेट करें
+    return (
+      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
+    );
+  }
+};
+
+/**
+ * एक राउटर घटक जो स्थानीय-विशिष्ट मार्ग सेट करता है।
+ * यह नेविगेशन प्रबंधन और स्थानीयकृत घटकों को प्रस्तुत करने के लिए React Router का उपयोग करता है।
+ */
+export const LocaleRouter = ({ children }) => (
+  <BrowserRouter>
+    <Routes>
+      {locales
+        .filter(
+          (locale) => middleware.prefixDefault || locale !== defaultLocale
+        )
+        .map((locale) => (
+          <Route
+            // मार्ग पैटर्न जो स्थानीय को कैप्चर करता है (जैसे, /en/, /fr/) और सभी बाद के पथों से मेल खाता है
+            path={`/${locale}/*`}
+            key={locale}
+            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // बच्चों को स्थानीय प्रबंधन के साथ लपेटता है
+          />
+        ))}
+
+      {
+        // यदि डिफ़ॉल्ट स्थानीय को उपसर्गित करना अक्षम है, तो बच्चों को सीधे रूट पथ पर प्रस्तुत करें
+        !middleware.prefixDefault && (
+          <Route
+            path="*"
+            element={
+              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
+            } // बच्चों को स्थानीय प्रबंधन के साथ लपेटता है
+          />
+        )
+      }
+    </Routes>
+  </BrowserRouter>
+);
+```
+
+```jsx fileName="src/components/LocaleRouter.mjx" codeFormat='esm'
+// आवश्यक डिपेंडेंसी और फ़ंक्शन आयात करें
+import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer' से उपयोगी फ़ंक्शन और प्रकार
+import { IntlayerProvider } from "react-intlayer"; // अंतर्राष्ट्रीयकरण संदर्भ के लिए प्रोवाइडर
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom"; // नेविगेशन प्रबंधन के लिए राउटर कंपोनेंट्स
+
+// Intlayer से कॉन्फ़िगरेशन को डेस्ट्रक्चर करें
+const { internationalization, middleware } = configuration;
+const { locales, defaultLocale } = internationalization;
+
+/**
+ * एक कंपोनेंट जो स्थानीयकरण को संभालता है और बच्चों को उपयुक्त लोकेल संदर्भ के साथ रैप करता है।
+ * यह URL-आधारित लोकेल डिटेक्शन और वैलिडेशन को प्रबंधित करता है।
+ */
+const AppLocalized = ({ children, locale }) => {
+  const { pathname, search } = useLocation(); // वर्तमान URL पथ प्राप्त करें
+
+  // वर्तमान लोकेल निर्धारित करें, यदि प्रदान नहीं किया गया है तो डिफ़ॉल्ट पर वापस जाएं
+  const currentLocale = locale ?? defaultLocale;
+
+  // लोकेल प्रीफिक्स को पथ से हटा दें ताकि एक बेस पथ बनाया जा सके
+  const pathWithoutLocale = getPathWithoutLocale(
+    pathname // वर्तमान URL पथ
+  );
+
+  /**
+   * यदि middleware.prefixDefault सत्य है, तो डिफ़ॉल्ट लोकेल को हमेशा प्रीफिक्स किया जाना चाहिए।
+   */
+  if (middleware.prefixDefault) {
+    // लोकेल को वैलिडेट करें
+    if (!locale || !locales.includes(locale)) {
+      // डिफ़ॉल्ट लोकेल के साथ अपडेटेड पथ पर रीडायरेक्ट करें
+      return (
+        <Navigate
+          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
+          replace // वर्तमान इतिहास प्रविष्टि को नए के साथ बदलें
+        />
+      );
+    }
+
+    // बच्चों को IntlayerProvider के साथ रैप करें और वर्तमान लोकेल सेट करें
+    return (
+      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
+    );
+  } else {
+    /**
+     * जब middleware.prefixDefault झूठा होता है, तो डिफ़ॉल्ट लोकेल को प्रीफिक्स नहीं किया जाता है।
+     * सुनिश्चित करें कि वर्तमान लोकेल मान्य है और डिफ़ॉल्ट लोकेल नहीं है।
+     */
+    if (
+      currentLocale.toString() !== defaultLocale.toString() &&
+      !locales
+        .filter(
+          (locale) => locale.toString() !== defaultLocale.toString() // डिफ़ॉल्ट लोकेल को बाहर करें
+        )
+        .includes(currentLocale) // जांचें कि वर्तमान लोकेल वैध लोकेल की सूची में है
+    ) {
+      // लोकेल प्रीफिक्स के बिना पथ पर रीडायरेक्ट करें
+      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
+    }
+
+    // बच्चों को IntlayerProvider के साथ रैप करें और वर्तमान लोकेल सेट करें
+    return (
+      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
+    );
+  }
+};
+
+/**
+ * एक राउटर कंपोनेंट जो लोकेल-विशिष्ट रूट्स सेट करता है।
+ * यह नेविगेशन प्रबंधन और स्थानीयकृत कंपोनेंट्स को रेंडर करने के लिए React Router का उपयोग करता है।
+ */
+export const LocaleRouter = ({ children }) => (
+  <BrowserRouter>
+    <Routes>
+      {locales
+        .filter(
+          (locale) => middleware.prefixDefault || locale !== defaultLocale
+        )
+        .map((locale) => (
+          <Route
+            // लोकेल को कैप्चर करने के लिए रूट पैटर्न (जैसे, /en/, /fr/) और सभी सब्सीक्वेंट पथों से मेल खाता है
+            path={`/${locale}/*`}
+            key={locale}
+            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // बच्चों को लोकेल प्रबंधन के साथ रैप करता है
+          />
+        ))}
+
+      {
+        // यदि डिफ़ॉल्ट लोकेल को प्रीफिक्स करना अक्षम है, तो बच्चों को सीधे रूट पथ पर रेंडर करें
+        !middleware.prefixDefault && (
+          <Route
+            path="*"
+            element={
+              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
+            } // बच्चों को लोकेल प्रबंधन के साथ रैप करता है
+          />
+        )
+      }
+    </Routes>
+  </BrowserRouter>
+);
+
+// Intlayer से कॉन्फ़िगरेशन को डीस्ट्रक्चर करना
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -617,7 +824,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // आवश्यक निर्भरताओं और कार्यों को आयात करना
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // 'intlayer' से यूटिलिटी फ़ंक्शन और प्रकार
+const { configuration, getPathWithoutLocale } = require("intlayer"); // 'intlayer' से यूटिलिटी फ़ंक्शन और प्रकार
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // अंतर्राष्ट्रीयकरण संदर्भ के लिए प्रदाता
 const {
   BrowserRouter,
@@ -628,7 +835,7 @@ const {
 } = require("react-router-dom"); // नेविगेशन प्रबंधन के लिए राउटर घटक
 
 // Intlayer से कॉन्फ़िगरेशन को डीस्ट्रक्चर करना
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**

@@ -1,8 +1,8 @@
 import { join, relative, resolve } from 'path';
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { getConfiguration, formatEnvVariable } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
-import { loadEnv, type PluginOption } from 'vite';
+import { type PluginOption } from 'vite';
 
 // Plugin options type definition
 type PluginOptions = {
@@ -25,16 +25,7 @@ export const intlayerPlugin = (
 ): PluginOption => ({
   name: 'vite-intlayer-plugin',
 
-  config: (config, { mode }) => {
-    const viteEnvVar = loadEnv(mode, process.cwd());
-    const intlayerEnvVar = formatEnvVariable('vite');
-
-    process.env = {
-      ...process.env, // Env var eventually provided by other plugins
-      ...viteEnvVar, // Env var loaded by vite .env files
-      ...intlayerEnvVar, // Env var related to intlayer
-    };
-
+  config: (config) => {
     const intlayerConfig = getConfiguration();
     const {
       mainDir,

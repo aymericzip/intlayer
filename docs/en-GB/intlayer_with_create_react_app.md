@@ -394,8 +394,8 @@ To add localised routing to your application, you can create a `LocaleRouter` co
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importing necessary dependencies and functions
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Utility functions and types from 'intlayer'
-import { FC, PropsWithChildren } from "react"; // React types for functional components and props
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // Utility functions and types from 'intlayer'
+import type { FC, PropsWithChildren } from "react"; // React types for functional components and props
 import { IntlayerProvider } from "react-intlayer"; // Provider for internationalisation context
 import {
   BrowserRouter,
@@ -508,8 +508,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Importing necessary dependencies and functions
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Utility functions and types from 'intlayer'
-import { FC, PropsWithChildren } from "react"; // React types for functional components and props
+import { configuration, getPathWithoutLocale } from "intlayer"; // Utility functions and types from 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // Provider for internationalisation context
 import {
   BrowserRouter,
@@ -619,7 +618,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // Importing necessary dependencies and functions
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // Utility functions and types from 'intlayer'
+const { configuration, getPathWithoutLocale } = require("intlayer"); // Utility functions and types from 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // Provider for internationalisation context
 const {
   BrowserRouter,

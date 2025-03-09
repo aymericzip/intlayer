@@ -13,16 +13,10 @@ import {
   ESMxCJSRequire,
 } from '@intlayer/config';
 import { IntlayerPlugin as IntlayerWebpackPlugin } from '@intlayer/webpack';
-import {
-  type Configuration as WebpackConfig,
-  EnvironmentPlugin,
-} from 'webpack';
+import { type Configuration as WebpackConfig } from 'webpack';
 
 // Get Intlayer configuration
 const intlayerConfig = getConfiguration();
-
-// Format environment variables
-const env: Record<string, string> = formatEnvVariable('react_app');
 
 // Custom CRACO plugin function to override webpack configuration
 export const overrideWebpackConfig = ({
@@ -67,7 +61,7 @@ export const overrideCracoConfig = ({
       ...cracoConfig.webpack,
       plugins: {
         ...cracoConfig.webpack?.plugins,
-        add: [new EnvironmentPlugin(env), new IntlayerWebpackPlugin()],
+        add: [new IntlayerWebpackPlugin()],
       },
       configure: {
         ...(cracoConfig.webpack?.configure ?? {}),

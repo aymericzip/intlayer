@@ -50,7 +50,6 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   const intlayerConfig = getConfiguration();
 
   // Format all configuration values as environment variables
-  const env = formatEnvVariable('next');
   const { mainDir, configDir, baseDir } = intlayerConfig.content;
 
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
@@ -80,9 +79,6 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
     : {};
 
   const newConfig: Partial<NextConfig> = {
-    // Merge environment variables
-    env: { ...nextConfig.env, ...env },
-
     // Only add `serverExternalPackages` if Next.js is v15+
     ...(!nextMajorVersion || nextMajorVersion >= 15
       ? {

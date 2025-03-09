@@ -402,8 +402,8 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // استيراد التبعيات والوظائف اللازمة
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // وظائف وأدوات من 'intlayer'
-import { FC, PropsWithChildren } from "react"; // أنواع React للمكونات الوظيفية والخصائص
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // وظائف وأدوات من 'intlayer'
+import type { FC, PropsWithChildren } from "react"; // أنواع React للمكونات الوظيفية والخصائص
 import { IntlayerProvider } from "react-intlayer"; // مزود لسياق التدويل
 import {
   BrowserRouter,
@@ -414,7 +414,7 @@ import {
 } from "react-router-dom"; // مكونات التوجيه لإدارة التنقل
 
 // استخراج التكوين من Intlayer
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -516,8 +516,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // استيراد التبعيات والوظائف اللازمة
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // وظائف وأدوات من 'intlayer'
-import { FC, PropsWithChildren } from "react"; // أنواع React للمكونات الوظيفية والخصائص
+import { configuration, getPathWithoutLocale } from "intlayer"; // وظائف وأدوات من 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // مزود لسياق التدويل
 import {
   BrowserRouter,
@@ -528,7 +527,7 @@ import {
 } from "react-router-dom"; // مكونات التوجيه لإدارة التنقل
 
 // استيراد التكوين من Intlayer
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -627,7 +626,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // استيراد التبعيات والوظائف اللازمة
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // وظائف وأدوات مساعدة من 'intlayer'
+const { configuration, getPathWithoutLocale } = require("intlayer"); // وظائف وأدوات مساعدة من 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // موفر لسياق التوطين
 const {
   BrowserRouter,
@@ -638,7 +637,7 @@ const {
 } = require("react-router-dom"); // مكونات الموجه لإدارة التنقل
 
 // استيراد التكوين من Intlayer
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**

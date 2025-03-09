@@ -1,3 +1,4 @@
+export * from '@intlayer/config/client';
 import type { Dictionary as DictionaryCore } from '@intlayer/core';
 
 type Dictionary<T = undefined> = DictionaryCore<T, true>;
@@ -8,12 +9,16 @@ type DeclarationContent<T = undefined> = Dictionary<T>;
 
 export type { Dictionary, DeclarationContent };
 
-export {
-  Locales,
-  type CustomIntlayerConfig as IntlayerConfig,
-  type LocalesValues,
-  getConfiguration,
-} from '@intlayer/config/client';
+/**
+ * Rexport using named import because of Tsup bug in CJS
+ */
+import configuration from '@intlayer/config/built';
+/**
+ * @deprecated Use `import { configuration } from 'intlayer'` instead.
+ */
+const getConfiguration = () => configuration;
+export { configuration, getConfiguration };
+
 export {
   type LanguageContent,
   type ContentNode,

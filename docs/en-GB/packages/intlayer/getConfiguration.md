@@ -77,7 +77,7 @@ The `internationalization` section of the configuration provides locale-related 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
 
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
@@ -89,7 +89,7 @@ console.log(cookieName); // Output: "INTLAYER_LOCALE"
 ```javascript codeFormat="esm"
 import { getConfiguration } from "intlayer";
 
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
@@ -101,7 +101,7 @@ console.log(cookieName); // Output: "INTLAYER_LOCALE"
 ```javascript codeFormat="commonjs"
 const { getConfiguration } = require("intlayer");
 
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 

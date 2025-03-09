@@ -391,8 +391,8 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 필요한 종속성과 함수 가져오기
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
-import { FC, PropsWithChildren } from "react"; // React의 함수형 컴포넌트 및 props 타입
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
+import type { FC, PropsWithChildren } from "react"; // React의 함수형 컴포넌트 및 props 타입
 import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 제공자
 import {
   BrowserRouter,
@@ -403,7 +403,7 @@ import {
 } from "react-router-dom"; // 탐색 관리를 위한 라우터 컴포넌트
 
 // Intlayer에서 구성 해체
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -505,8 +505,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // 필요한 종속성과 함수 가져오기
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
-import { FC, PropsWithChildren } from "react"; // React의 함수형 컴포넌트 및 props 타입
+import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
 import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 제공자
 import {
   BrowserRouter,
@@ -517,7 +516,7 @@ import {
 } from "react-router-dom"; // 탐색 관리를 위한 라우터 컴포넌트
 
 // Intlayer에서 구성 설정 가져오기
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -616,7 +615,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // 필요한 종속성과 함수 가져오기
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
+const { configuration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // 국제화 컨텍스트를 위한 Provider
 const {
   BrowserRouter,
@@ -627,7 +626,7 @@ const {
 } = require("react-router-dom"); // 탐색 관리를 위한 라우터 컴포넌트
 
 // Intlayer에서 구성 설정 가져오기
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**

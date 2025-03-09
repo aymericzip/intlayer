@@ -404,8 +404,9 @@ Para adicionar rotas localizadas à sua aplicação, você pode criar um compone
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importação de dependências e funções necessárias
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
-import { FC, PropsWithChildren } from "react"; // Tipos React para componentes funcionais e props
+// Funções utilitárias e tipos do 'intlayer'
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer";
+import type { FC, PropsWithChildren } from "react"; // Tipos React para componentes funcionais e props
 import { IntlayerProvider } from "react-intlayer"; // Provedor para contexto de internacionalização
 import {
   BrowserRouter,
@@ -416,7 +417,7 @@ import {
 } from "react-router-dom"; // Componentes de roteamento para gerenciar navegação
 
 // Desestruturação da configuração do Intlayer
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -518,8 +519,8 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Importação de dependências e funções necessárias
-import { Locales, getConfiguration, getPathWithoutLocale } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
-import { FC, PropsWithChildren } from "react"; // Tipos React para componentes funcionais e props
+// Funções utilitárias e tipos do 'intlayer'
+import { configuration, getPathWithoutLocale } from "intlayer";
 import { IntlayerProvider } from "react-intlayer"; // Provedor para contexto de internacionalização
 import {
   BrowserRouter,
@@ -530,7 +531,7 @@ import {
 } from "react-router-dom"; // Componentes de roteamento para gerenciar navegação
 
 // Desestruturação da configuração do Intlayer
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
@@ -629,7 +630,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // Importação de dependências e funções necessárias
-const { getConfiguration, getPathWithoutLocale } = require("intlayer"); // Funções utilitárias e tipos do 'intlayer'
+const { configuration, getPathWithoutLocale } = require("intlayer"); // Funções utilitárias e tipos do 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // Provedor para contexto de internacionalização
 const {
   BrowserRouter,
@@ -640,7 +641,7 @@ const {
 } = require("react-router-dom"); // Componentes de roteamento para gerenciar navegação
 
 // Desestruturação da configuração do Intlayer
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
