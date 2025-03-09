@@ -22,7 +22,7 @@ const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 );
 
 export const LocaleSwitcher: FC = () => {
-  const { localeList, availableLocales, setLocale } = useLocale();
+  const { availableLocales, setLocale } = useLocale();
   const { langButtonLabel, langSwitcherLabel, title } =
     useIntlayer('lang-switcher');
 
@@ -35,7 +35,7 @@ export const LocaleSwitcher: FC = () => {
         <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">
           <h2 className={`mb-3 text-xl font-semibold`}>{title} </h2>
 
-          {localeList.map((lang) => (
+          {availableLocales.map((lang) => (
             <ButtonItem
               key={lang}
               onClick={() => setLocale(lang)}
