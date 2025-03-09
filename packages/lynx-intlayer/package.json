@@ -40,6 +40,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./plugin": {
+      "types": "./dist/types/plugin/index.d.ts",
+      "require": "./dist/cjs/plugin/index.cjs",
+      "import": "./dist/esm/plugin/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
