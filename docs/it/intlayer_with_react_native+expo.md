@@ -11,8 +11,6 @@ Con Intlayer, puoi:
 - **Localizzare dinamicamente** i contenuti, incluse **stringhe dell'interfaccia utente** (e, per React web, anche i metadati HTML, ecc.).
 - **Beneficiare di funzionalità avanzate**, come il rilevamento dinamico della lingua e il cambio di lingua in tempo reale.
 
-> **Importante**: In React Native, non utilizzerai `<html lang="...">` o plugin di Vite. Invece, integrerai l'API di `react-intlayer`, potrai opzionalmente coordinarti con [`I18nManager`](https://reactnative.dev/docs/i18nmanager) per il supporto RTL e, se usi React Navigation, adatterai il router per riflettere le modifiche della lingua.
-
 ---
 
 ## Passaggio 1: Installa le Dipendenze

@@ -11,8 +11,6 @@
 - **动态本地化**内容，包括 **UI 字符串**（在 Web 的 React 中，它还可以本地化 HTML 元数据等）。
 - **受益于高级功能**，如动态语言检测和切换。
 
-> **重要提示**：在 React Native 中，您不会更改 `<html lang="...">` 或依赖 Vite 插件。相反，您将集成 `react-intlayer` API，可选地与 [`I18nManager`](https://reactnative.dev/docs/i18nmanager) 协调以支持 RTL，并且如果您使用 React Navigation，还需要调整路由器以反映语言更改。
-
 ---
 
 ## 第一步：安装依赖项

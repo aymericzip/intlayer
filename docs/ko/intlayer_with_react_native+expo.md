@@ -11,8 +11,6 @@ Intlayer를 사용하면 다음을 수행할 수 있습니다:
 - **UI 문자열**을 포함하여 콘텐츠를 **동적으로 로컬라이즈**할 수 있습니다(React 웹에서는 HTML 메타데이터 등도 로컬라이즈 가능).
 - 동적 로케일 감지 및 전환과 같은 **고급 기능**을 활용할 수 있습니다.
 
-> **중요**: React Native에서는 `<html lang="...">`를 변경하거나 Vite 플러그인에 의존하지 않습니다. 대신 `react-intlayer` API를 통합하고, 필요에 따라 [`I18nManager`](https://reactnative.dev/docs/i18nmanager)와 협력하여 RTL 지원을 제공하며, React Navigation을 사용하는 경우 로케일 변경을 반영하도록 라우터를 조정합니다.
-
 ---
 
 ## 1단계: 종속성 설치

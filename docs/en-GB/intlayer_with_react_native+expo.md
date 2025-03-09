@@ -11,8 +11,6 @@ With Intlayer, you can:
 - **Dynamically localise** content, including **UI strings** (and in React for web, it can also localise HTML metadata, etc.).
 - **Benefit from advanced features**, like dynamic locale detection and switching.
 
-> **Important**: In React Native, you won’t be changing `<html lang="...">` or relying on Vite plugins. Instead, you’ll integrate the `react-intlayer` API, optionally coordinate with [`I18nManager`](https://reactnative.dev/docs/i18nmanager) for RTL support, and, if you use React Navigation, adapt the router to reflect locale changes.
-
 ---
 
 ## Step 1: Install Dependencies

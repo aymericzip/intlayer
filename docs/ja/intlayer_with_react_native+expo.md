@@ -11,8 +11,6 @@ Intlayerを使用すると、以下が可能です：
 - **UI文字列**を含むコンテンツを**動的にローカライズ**できます（React for webではHTMLメタデータなどもローカライズ可能）。
 - 動的なロケール検出や切り替えなどの**高度な機能を活用**できます。
 
-> **重要**: React Nativeでは、`<html lang="...">`を変更したり、Viteプラグインに依存することはありません。その代わりに、`react-intlayer` APIを統合し、必要に応じて[`I18nManager`](https://reactnative.dev/docs/i18nmanager)と連携してRTLサポートを行い、React Navigationを使用している場合は、ルーターをロケール変更に適応させます。
-
 ---
 
 ## ステップ1: 依存関係をインストールする

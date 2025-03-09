@@ -387,6 +387,23 @@ const docDataContent = {
             ru: 'Intlayer с React Native и Expo',
           }),
         },
+        'lynx-and-react': {
+          title: t({
+            en: 'Intlayer with Lynx and React',
+            fr: 'Intlayer avec Lynx et React',
+            es: 'Intlayer con Lynx y React',
+            'en-GB': 'Intlayer with Lynx and React',
+            de: 'Intlayer mit Lynx und React',
+            ja: 'IntlayerとLynxおよびReact',
+            ko: 'Intlayer와 Lynx 및 React',
+            zh: 'Intlayer与Lynx和React',
+            it: 'Intlayer con Lynx e React',
+            pt: 'Intlayer com Lynx e React',
+            hi: 'Intlayer के साथ Lynx और React',
+            ar: 'Intlayer مع Lynx و React',
+            ru: 'Intlayer с Lynx и React',
+          }),
+        },
         express: {
           title: t({
             en: 'Intlayer with Express',

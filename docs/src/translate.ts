@@ -24,9 +24,7 @@ const CHAT_GPT_CUSTOM_PROMPT: string = '';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_LIST: string[] = [
-  // '/path/to/en/specific_file_1.md',
-  // '/path/to/en/specific_file_2.md',
-  '/Users/aymericpineau/Documents/intlayer/docs/en/intlayer_with_react_native+expo.md',
+  // '/Users/aymericpineau/Documents/intlayer/docs/en/intlayer_with_lynx+react.md',
 ];
 
 export const LOCALE_LIST: Locales[] = [

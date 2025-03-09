@@ -11,8 +11,6 @@ With Intlayer, you can:
 - **Dynamically localize** content, including **UI strings** (and in React for web, it can also localize HTML metadata, etc.).
 - **Benefit from advanced features**, like dynamic locale detection and switching.
 
-> **Important**: In React Native, you won’t be changing `<html lang="...">` or relying on Vite plugins. Instead, you’ll integrate the `react-intlayer` API, optionally coordinate with [`I18nManager`](https://reactnative.dev/docs/i18nmanager) for RTL support, and, if you use React Navigation, adapt the router to reflect locale changes.
-
 ---
 
 ## Step 1: Install Dependencies
@@ -108,7 +106,7 @@ Within this config, you can:
 
 ## Step 3: Add the Metro plugin
 
-Metro is a bundler for React Native. It is the default bundler for React Native projects created with the `react-native init` command. Tu use Intlayer with Metro, you need to add the plugin to your `metro.config.js` file:
+Metro is a bundler for React Native. It is the default bundler for React Native projects created with the `react-native init` command. To use Intlayer with Metro, you need to add the plugin to your `metro.config.js` file:
 
 ```js fileName="metro.config.js"
 const { getDefaultConfig } = require("expo/metro-config");
@@ -124,8 +122,6 @@ module.exports = (async () => {
 ## Step 4: Add the Intlayer provider
 
 To keep synchronized the user language across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer`.
-
-Wrap your **root** or top-level component with `IntlayerProvider` from `react-intlayer`.
 
 Also, you need to add the `intlayerPolyfill` function to your `index.js` file to ensure that Intlayer can work properly.
 
@@ -294,7 +290,7 @@ module.exports = appContent;
 
 ## Step 4: Use Intlayer in Your Components
 
-Wrap your **root** or top-level component with `IntlayerProvider` from `react-intlayer`. Then, use the `useIntlayer` hook in child components to get localized content.
+Use the `useIntlayer` hook in child components to get localized content.
 
 ### Example
 

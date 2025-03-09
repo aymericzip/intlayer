@@ -48,6 +48,7 @@ import { getPackagesViteIntlayerData } from './docDataContent/packages/vite-intl
 import type { CategorizedDocData, DocData, Section } from './types';
 import { getRoadmapData } from './docDataContent/concept/roadmap';
 import { getEnvironmentReactNativeAndExpoData } from './docDataContent/environment/reactNative';
+import { getEnvironmentLynxAndReactData } from './docDataContent/environment/lynxAndReact';
 
 export const getDocData = (locale = Locales.ENGLISH): Section => {
   const content = getIntlayer('doc-data', locale);
@@ -163,6 +164,10 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         'react-native-and-expo': {
           title: content.environment.subSections['react-native-and-expo'].title,
           default: getEnvironmentReactNativeAndExpoData(locale),
+        },
+        'lynx-and-react': {
+          title: content.environment.subSections['lynx-and-react'].title,
+          default: getEnvironmentLynxAndReactData(locale),
         },
         express: {
           title: content.environment.subSections.express.title,
