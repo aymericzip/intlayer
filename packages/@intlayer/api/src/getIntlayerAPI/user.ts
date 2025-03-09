@@ -34,7 +34,14 @@ export const getUserAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { backendURL } = intlayerConfig.editor;
+  const { backendURL } = intlayerConfig?.editor ?? {};
+
+  if (!backendURL) {
+    throw new Error(
+      'Backend URL is not defined in the Intlayer configuration.'
+    );
+  }
+
   const USER_API_ROUTE = `${backendURL}/api/user`;
 
   /**
@@ -167,5 +174,3 @@ export const getUserAPI = (
     deleteUser,
   };
 };
-
-export const userAPI = getUserAPI();

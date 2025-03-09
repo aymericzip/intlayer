@@ -5,13 +5,13 @@ import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 import { generateMetadata } from './metadata';
-import { intlayerAPI } from '@intlayer/api';
+import { getIntlayerAPI } from '@intlayer/api';
 
 export { generateMetadata };
 
 const PricingPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
-  const response = await intlayerAPI.stripe.getPricing({
+  const response = await getIntlayerAPI().stripe.getPricing({
     priceIds: [
       process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
       process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,

@@ -24,5 +24,3 @@ export const getIntlayerAPI = (
   tag: getTagAPI(authAPIOptions, intlayerConfig),
   editor: getEditorAPI(authAPIOptions, intlayerConfig),
 });
-
-export const intlayerAPI = getIntlayerAPI();

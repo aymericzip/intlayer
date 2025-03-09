@@ -50,7 +50,14 @@ export const getProjectAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { backendURL } = intlayerConfig.editor;
+  const { backendURL } = intlayerConfig?.editor ?? {};
+
+  if (!backendURL) {
+    throw new Error(
+      'Backend URL is not defined in the Intlayer configuration.'
+    );
+  }
+
   const PROJECT_API_ROUTE = `${backendURL}/api/project`;
 
   /**
@@ -260,5 +267,3 @@ export const getProjectAPI = (
     refreshAccessKey,
   };
 };
-
-export const projectAPI = getProjectAPI();

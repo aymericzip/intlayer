@@ -16,7 +16,12 @@ export const getEditorAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { editorURL } = intlayerConfig.editor;
+  const { editorURL } = intlayerConfig?.editor ?? {};
+
+  if (!editorURL) {
+    throw new Error('Editor URL is not defined in the Intlayer configuration.');
+  }
+
   const EDITOR_API_ROUTE = `${editorURL}/api`;
 
   /**
@@ -58,5 +63,3 @@ export const getEditorAPI = (
     writeDictionary,
   };
 };
-
-export const editorAPI = getEditorAPI();

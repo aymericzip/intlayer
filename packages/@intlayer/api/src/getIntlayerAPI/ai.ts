@@ -35,7 +35,14 @@ export const getAiAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { backendURL } = intlayerConfig.editor;
+  const { backendURL } = intlayerConfig?.editor ?? {};
+
+  if (!backendURL) {
+    throw new Error(
+      'Backend URL is not defined in the Intlayer configuration.'
+    );
+  }
+
   const AI_API_ROUTE = `${backendURL}/api/ai`;
 
   /**
@@ -154,5 +161,3 @@ export const getAiAPI = (
     autocomplete,
   };
 };
-
-export const userAPI = getAiAPI();

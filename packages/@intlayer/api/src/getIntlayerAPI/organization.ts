@@ -42,7 +42,14 @@ export const getOrganizationAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { backendURL } = intlayerConfig.editor;
+  const { backendURL } = intlayerConfig?.editor ?? {};
+
+  if (!backendURL) {
+    throw new Error(
+      'Backend URL is not defined in the Intlayer configuration--.'
+    );
+  }
+
   const ORGANIZATION_API_ROUTE = `${backendURL}/api/organization`;
 
   /**
@@ -205,5 +212,3 @@ export const getOrganizationAPI = (
     unselectOrganization,
   };
 };
-
-export const organizationAPI = getOrganizationAPI();

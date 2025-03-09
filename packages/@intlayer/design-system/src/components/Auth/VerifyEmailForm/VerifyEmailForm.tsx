@@ -1,6 +1,6 @@
 'use client';
 
-import { intlayerAPI } from '@intlayer/api';
+import { getIntlayerAPI } from '@intlayer/api';
 import { Check } from 'lucide-react';
 import { useEffect, useMemo, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
@@ -41,7 +41,7 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
     // EventSource alow to receive server-sent events from the server
     // In this case, we are listening to the email verification status
     const eventSource = new EventSource(
-      intlayerAPI.auth.getVerifyEmailStatusURL(targetedUserId!)
+      getIntlayerAPI().auth.getVerifyEmailStatusURL(targetedUserId!)
     );
 
     eventSource.onmessage = async (event) => {

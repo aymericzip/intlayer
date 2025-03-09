@@ -62,7 +62,13 @@ export const getAuthAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { backendURL, clientId, clientSecret } = intlayerConfig.editor;
+  const { backendURL, clientId, clientSecret } = intlayerConfig?.editor ?? {};
+
+  if (!backendURL) {
+    throw new Error(
+      'Backend URL is not defined in the Intlayer configuration.'
+    );
+  }
 
   const AUTH_API_ROUTE = `${backendURL}/api/auth`;
 
@@ -341,5 +347,3 @@ export const getAuthAPI = (
     getOAuth2AccessToken,
   };
 };
-
-export const authAPI = getAuthAPI();

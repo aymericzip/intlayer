@@ -2,12 +2,12 @@
 
 import { useEffect, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { intlayerAPI } from '../../../../../api/src';
 import { Button } from '../../Button';
 import { useUser } from '../useUser';
 import { GithubLogo } from './assets/GithubLogo';
 import { GoogleLogo } from './assets/GoogleLogo';
 import { externalsLoginButtonsContent } from './externalsLoginButtons.content';
+import { getIntlayerAPI } from '@intlayer/api';
 
 export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
   onLogin,
@@ -17,7 +17,7 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
   const loginWithGitHub = () => {
     const origin = window.location.href;
 
-    const authURL = intlayerAPI.auth.getLoginWithGitHubURL({ origin });
+    const authURL = getIntlayerAPI().auth.getLoginWithGitHubURL({ origin });
 
     window.location.href = authURL;
   };
@@ -47,7 +47,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
   const loginWithGoogle = () => {
     const origin = window.location.href;
 
-    const authURL = intlayerAPI.auth.getLoginWithGoogleURL({ origin });
+    const authURL = getIntlayerAPI().auth.getLoginWithGoogleURL({ origin });
 
     window.location.href = authURL;
   };

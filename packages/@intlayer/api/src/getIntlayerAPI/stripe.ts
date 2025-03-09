@@ -19,6 +19,13 @@ export const getStripeAPI = (
   intlayerConfig: IntlayerConfig = configuration
 ) => {
   const { backendURL } = intlayerConfig.editor;
+
+  if (!backendURL) {
+    throw new Error(
+      'Backend URL is not defined in the Intlayer configuration.'
+    );
+  }
+
   const STRIPE_API_ROUTE = `${backendURL}/api/stripe`;
 
   /**

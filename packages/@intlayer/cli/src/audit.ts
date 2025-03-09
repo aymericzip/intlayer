@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, relative } from 'path';
-import { intlayerAPI } from '@intlayer/api';
+import { getIntlayerAPI } from '@intlayer/api';
 import {
   getConfiguration,
   GetConfigurationOptions,
@@ -52,7 +52,7 @@ export const auditFile = async (filePath: string, options?: AuditOptions) => {
     const fileContent = readFileSync(filePath, 'utf-8');
 
     // Example of how you might request a completion from ChatGPT:
-    const auditFileResult = await intlayerAPI.ai.auditContentDeclaration(
+    const auditFileResult = await getIntlayerAPI().ai.auditContentDeclaration(
       {
         fileContent,
         filePath,
@@ -119,7 +119,8 @@ export const audit = async (options: AuditOptions) => {
   let headers: Record<string, string> = {};
 
   if (clientId && clientSecret) {
-    const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
+    const oAuth2TokenResult =
+      await getIntlayerAPI().auth.getOAuth2AccessToken();
 
     const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
 

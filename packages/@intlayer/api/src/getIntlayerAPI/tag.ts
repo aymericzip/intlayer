@@ -28,7 +28,14 @@ export const getTagAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig: IntlayerConfig = configuration
 ) => {
-  const { backendURL } = intlayerConfig.editor;
+  const { backendURL } = intlayerConfig?.editor ?? {};
+
+  if (!backendURL) {
+    throw new Error(
+      'Backend URL is not defined in the Intlayer configuration.'
+    );
+  }
+
   const PROJECT_API_ROUTE = `${backendURL}/api/tag`;
 
   /**
@@ -107,5 +114,3 @@ export const getTagAPI = (
     deleteTag,
   };
 };
-
-export const tagAPI = getTagAPI();
