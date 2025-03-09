@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom'; // Router components for managing navigation
 
 // Destructuring configuration from Intlayer
-const { internationalization, middleware } = getConfiguration();
+const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
