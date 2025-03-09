@@ -403,8 +403,6 @@ export const LocaleSwitcher: FC = () => {
           style={{
             color: localeEl === locale ? "#fff" : "#888",
             fontSize: "12px",
-            padding: 5,
-            borderRadius: 5,
           }}
           bindtap={() => setLocale(localeEl)}
         >
