@@ -3,7 +3,6 @@ import {
   type PropsWithChildren,
   type ReactNode,
   type ReactElement,
-  cloneElement,
   isValidElement,
 } from 'react';
 
@@ -27,5 +26,5 @@ export const rendererIntlayerNode = <
   );
 
   // Use React.cloneElement to add the "value" prop to the element
-  return { ...cloneElement(element), value };
+  return { ...element, value };
 };
