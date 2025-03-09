@@ -1,5 +1,5 @@
 import './App.css';
-import { IntlayerProvider, useIntlayer } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 import logo from './logo.svg';
 import { LocaleRouter } from './Router';

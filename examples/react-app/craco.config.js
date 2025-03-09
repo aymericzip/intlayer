@@ -1,4 +1,4 @@
-const intlayerPlugin = require('react-intlayer/craco-plugin');
+const { intlayerCracoPlugin } = require('react-scripts-intlayer');
 
 /**
  * Here an example of how to use the intlayer plugin in a custom craco configuration file.
@@ -8,7 +8,15 @@ const intlayerPlugin = require('react-intlayer/craco-plugin');
 module.exports = {
   plugins: [
     {
-      plugin: intlayerPlugin,
+      plugin: intlayerCracoPlugin,
     },
   ],
+  style: {
+    postcss: {
+      plugins: [
+        require('postcss-preset-env')({ stage: 0 }),
+        require('autoprefixer'),
+      ],
+    },
+  },
 };

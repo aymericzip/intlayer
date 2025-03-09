@@ -47,7 +47,7 @@ export const overrideWebpackConfig = ({
 export const overrideCracoConfig = ({
   cracoConfig,
 }: CracoConfigOverride): CracoConfig => {
-  const { mainDir, baseDir } = intlayerConfig.content;
+  const { mainDir, baseDir, configDir } = intlayerConfig.content;
 
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
@@ -101,7 +101,7 @@ export const overrideCracoConfig = ({
  * ```
  *
  */
-export const plugin: CracoPlugin = {
+export const intlayerCracoPlugin: CracoPlugin = {
   overrideCracoConfig,
   overrideWebpackConfig,
 };
