@@ -17,15 +17,15 @@ Con Intlayer, puedes:
 
 Desde tu proyecto Lynx, instala los siguientes paquetes:
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
 ```
 

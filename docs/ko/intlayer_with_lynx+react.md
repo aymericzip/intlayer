@@ -17,15 +17,15 @@ Intlayer를 사용하면:
 
 Lynx 프로젝트에서 다음 패키지를 설치하세요:
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
 ```
 

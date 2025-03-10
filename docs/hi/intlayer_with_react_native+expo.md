@@ -17,15 +17,15 @@
 
 अपने रिएक्ट नेटिव प्रोजेक्ट से, निम्नलिखित पैकेज स्थापित करें:
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer react-native-intlayer
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer react-native-intlayer
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer react-intlayer react-native-intlayer
 ```
 

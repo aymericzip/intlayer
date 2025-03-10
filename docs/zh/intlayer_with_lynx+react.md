@@ -19,15 +19,15 @@
 
 在您的 Lynx 项目中，安装以下包：
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
 ```
 

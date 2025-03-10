@@ -17,15 +17,15 @@
 
 В вашем проекте React Native установите следующие пакеты:
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer react-native-intlayer
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer react-native-intlayer
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer react-intlayer react-native-intlayer
 ```
 

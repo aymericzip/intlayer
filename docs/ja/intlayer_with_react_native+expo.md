@@ -17,15 +17,15 @@ Intlayerを使用すると、以下が可能です：
 
 React Nativeプロジェクトから、以下のパッケージをインストールします：
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer react-native-intlayer
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer react-native-intlayer
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn add intlayer react-intlayer react-native-intlayer
 ```
 
