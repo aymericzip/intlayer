@@ -105,12 +105,11 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
       }
 
       // Alias the dictionary entry for all builds
-      config.resolve.alias['@intlayer/dictionaries-entry'] = resolve(
-        relativeDictionariesPath
-      );
-      config.resolve.alias['@intlayer/config/built'] = resolve(
-        relativeConfigurationPath
-      );
+      config.resolve.alias = {
+        ...(config.resolve.alias ?? {}),
+        '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+        '@intlayer/config/built': resolve(relativeConfigurationPath),
+      };
 
       // Mark these modules as externals
       config.externals.push({
