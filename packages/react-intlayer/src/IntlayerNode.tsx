@@ -25,6 +25,14 @@ export const rendererIntlayerNode = <
     <>{children}</>
   );
 
-  // Use React.cloneElement to add the "value" prop to the element
-  return { ...element, value };
+  // Return a Proxy that pretends to be the original element
+  // but also has a .value getter.
+  return new Proxy(element as ReactElement, {
+    get(target, prop, receiver) {
+      if (prop === 'value') {
+        return value;
+      }
+      return Reflect.get(target, prop, receiver);
+    },
+  }) as IntlayerNode<T>;
 };
