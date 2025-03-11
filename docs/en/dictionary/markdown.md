@@ -269,6 +269,12 @@ module.exports = {
 };
 ```
 
+In this implementation:
+
+- The `MarkdownProvider` wraps the application (or the relevant portion of it) and accepts a `renderMarkdown` function. This function is used to convert Markdown strings into JSX using the `markdown-to-jsx` package.
+- The `useIntlayer` hook is used to retrieve the Markdown content (`myMarkdownContent`) from the dictionary with the key `"app"`.
+- The Markdown content is rendered directly in the component, and the Markdown rendering is handled by the provider.
+
 ### Using Markdown with Next Intlayer
 
 The implementation using `next-intlayer` package is similar to the one above. The only difference is that the `renderMarkdown` function should be passed to the `MarkdownProvider` component in a client component.
@@ -323,12 +329,6 @@ const IntlayerMarkdownProvider = ({ children }) => (
   </MarkdownProvider>
 );
 ```
-
-In this implementation:
-
-- The `MarkdownProvider` wraps the application (or the relevant portion of it) and accepts a `renderMarkdown` function. This function is used to convert Markdown strings into JSX using the `markdown-to-jsx` package.
-- The `useIntlayer` hook is used to retrieve the Markdown content (`myMarkdownContent`) from the dictionary with the key `"app"`.
-- The Markdown content is rendered directly in the component, and the Markdown rendering is handled by the provider.
 
 ## Additional Resources
 
