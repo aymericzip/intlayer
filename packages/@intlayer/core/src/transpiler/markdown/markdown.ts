@@ -23,7 +23,7 @@ export type MarkdownContent = TypedNodeModel<
  * ```
  *
  */
-const markdown = (content: string): MarkdownContent =>
-  formatNodeType(NodeType.Markdown, content);
+const markdown = (content: string | Promise<string>): MarkdownContent =>
+  formatNodeType(NodeType.Markdown, content as MarkdownContentState);
 
 export { markdown as md };

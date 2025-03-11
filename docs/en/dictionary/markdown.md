@@ -66,7 +66,7 @@ module.exports = markdownDictionary;
 }
 ```
 
-## Import multilingual `.md` file
+## Import (multilingual) `.md` file
 
 ```typescript fileName="md.d.ts" contentDeclarationFormat="typescript"
 // This declaration allows TypeScript to recognize and import Markdown (.md) files as modules.
@@ -78,18 +78,32 @@ declare module "*.md";
 
 ```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
 import { md, t, type Dictionary } from "intlayer";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
 import markdown_en from "./myMarkdown.en.md";
 import markdown_fr from "./myMarkdown.fr.md";
 import markdown_es from "./myMarkdown.es.md";
 
+const importMDUsingFS = () => {
+  const filePath = resolve(process.cwd(), "doc/test.md");
+  return readFileSync(filePath, "utf8");
+};
+
 const markdownDictionary = {
   key: "app",
   content: {
-    myMarkdownContent: t({
+    contentImport: t({
       en: md(markdown_en),
       fr: md(markdown_fr),
       es: md(markdown_es),
     }),
+    contentFS: md(importMDUsingFS()),
+    contentRequire: md(require("./myMarkdown.md")),
+    contentAsyncImport: md(
+      md(import("./myMarkdown.md").then((module) => module.default))
+    ),
+    contentFetch: md(fetch("https://example.com")),
   },
 } satisfies Dictionary;
 
@@ -98,19 +112,33 @@ export default markdownDictionary;
 
 ```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
 import { md, t } from "intlayer";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
 import markdown_en from "./myMarkdown.en.md";
 import markdown_fr from "./myMarkdown.fr.md";
 import markdown_es from "./myMarkdown.es.md";
+
+const importMDUsingFS = () => {
+  const filePath = resolve(process.cwd(), "doc/test.md");
+  return readFileSync(filePath, "utf8");
+};
 
 /** @type {import('intlayer').Dictionary} */
 const markdownDictionary = {
   key: "app",
   content: {
-    myMarkdownContent: t({
+    contentImport: t({
       en: md(markdown_en),
       fr: md(markdown_fr),
       es: md(markdown_es),
     }),
+    contentFS: md(importMDUsingFS()),
+    contentRequire: md(require("./myMarkdown.md")),
+    contentAsyncImport: md(
+      md(import("./myMarkdown.md").then((module) => module.default))
+    ),
+    contentFetch: md(fetch("https://example.com")),
   },
 };
 
@@ -119,9 +147,15 @@ export default markdownDictionary;
 
 ```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
 const { md, t } = require("intlayer");
+
 const markdown_en = require("./myMarkdown.en.md");
 const markdown_fr = require("./myMarkdown.fr.md");
 const markdown_es = require("./myMarkdown.es.md");
+
+const importMDUsingFS = () => {
+  const filePath = resolve(process.cwd(), "doc/test.md");
+  return readFileSync(filePath, "utf8");
+};
 
 /** @type {import('intlayer').Dictionary} */
 const markdownDictionary = {
@@ -132,6 +166,8 @@ const markdownDictionary = {
       fr: md(markdown_fr),
       es: md(markdown_es),
     }),
+    myMarkdownContentFS: md(importMDUsingFS()),
+    contentFetch: md(fetch("https://example.com")),
   },
 };
 
@@ -139,7 +175,8 @@ module.exports = markdownDictionary;
 ```
 
 ```jsonc fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-// Importing external Markdown files (.md) is only possible using JS or TS declaration files.
+// - Importing external Markdown files (.md) is only possible using JS or TS declaration files.
+// - Fetching external Markdown content is only possible using JS or TS declaration files.
 
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -230,6 +267,61 @@ AppProvider = () => (
 module.exports = {
   AppProvider,
 };
+```
+
+### Using Markdown with Next Intlayer
+
+The implementation using `next-intlayer` package is similar to the one above. The only difference is that the `renderMarkdown` function should be passed to the `MarkdownProvider` component in a client component.
+
+```tsx title="src/providers/IntlayerMarkdownProvider.tsx" codeFormat="typescript"
+"use client";
+
+import type { FC, PropsWithChildren } from "react";
+import { MarkdownProvider } from "next-intlayer";
+
+const renderMarkdown = (markdown: string) => (
+  <span style={{ color: "red" }}>{markdown}</span>
+);
+
+export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
+  children,
+}) => (
+  <MarkdownProvider renderMarkdown={renderMarkdown}>
+    {children}
+  </MarkdownProvider>
+);
+```
+
+```jsx title="src/providers/IntlayerMarkdownProvider.msx" codeFormat="esm"
+"use client";
+
+import { MarkdownProvider } from "next-intlayer";
+
+const renderMarkdown = (markdown) => (
+  <span style={{ color: "red" }}>{markdown}</span>
+);
+
+export const IntlayerMarkdownProvider = ({ children }) => (
+  <MarkdownProvider renderMarkdown={renderMarkdown}>
+    {children}
+  </MarkdownProvider>
+);
+```
+
+```jsx title="src/providers/IntlayerMarkdownProvider.csx" codeFormat="commonjs"
+"use client";
+
+const { MarkdownProvider } = require("next-intlayer");
+
+const renderMarkdown = (markdown) => (
+  <span style={{ color: "red" }}>{markdown}</span>
+);
+
+const IntlayerMarkdownProvider = ({ children }) => (
+  <MarkdownProvider renderMarkdown={renderMarkdown}>
+    {children}
+  </MarkdownProvider>
+);
 ```
 
 In this implementation:

@@ -25,9 +25,10 @@ const awaitFunction = async (fn: any) => {
 
   if (fn && typeof fn.then === 'function') {
     // It's a Promise, so wait for it to resolve
-    await fn;
+    return await fn;
   }
   // If not a Promise, it will just execute without awaiting
+  return fn;
 };
 
 export const Form = <T extends ZodType>({

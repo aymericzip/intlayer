@@ -2,41 +2,30 @@ import { logger } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 
 /**
- * Helper that awaits either a synchronous or asynchronous value.
- */
-const awaitFunction = async (fn: any) => {
-  // Check if result is a Promise (Thenable)
-
-  if (fn && typeof fn.then === 'function') {
-    // It's a Promise, so wait for it to resolve
-    await fn;
-  }
-  // If not a Promise, it will just execute without awaiting
-};
-
-/**
  * A more "unified" approach where each type (function, array, object, primitive)
  * is handled inside the main recursive body.
  */
 const processFunctionResults = async <T = unknown>(entry: any): Promise<T> => {
-  // If entry is a function, invoke it and process the result
-  if (typeof entry === 'function') {
-    const result = await awaitFunction(entry());
-    // Recursively process the result in case it contains nested arrays/objects/functions
-    return await processFunctionResults(result);
+  // Check if entry is a Promise (Thenable)
+  if (entry && typeof entry.then === 'function') {
+    const awaited = await entry;
+    return processFunctionResults(awaited);
   }
 
-  // If entry is an array, recursively process each item
+  // If entry is a function, invoke it and process the result
+  if (typeof entry === 'function') {
+    const result = entry();
+    return processFunctionResults(result);
+  }
+
   if (Array.isArray(entry)) {
     return Promise.all(
-      entry.map(async (item) => await processFunctionResults(item))
+      entry.map(async (item) => processFunctionResults(item))
     ) as unknown as T;
   }
 
-  // If entry is an object, recursively process each property
   if (entry && typeof entry === 'object') {
     const result: Record<string, any> = {};
-    // Use Promise.all to handle any async resolution for the properties
     const keys = Object.keys(entry);
     await Promise.all(
       keys.map(async (key) => {
@@ -46,7 +35,6 @@ const processFunctionResults = async <T = unknown>(entry: any): Promise<T> => {
     return result as T;
   }
 
-  // Otherwise, it's a primitive value—just return as is
   return entry as T;
 };
 
