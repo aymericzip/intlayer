@@ -74,7 +74,6 @@
     "chokidar": "^3.6.0",
     "crypto-js": "^4.2.0",
     "deepmerge": "^4.3.1",
-    "esbuild": "^0.24.2",
     "fast-glob": "^3.3.3",
     "intlayer": "workspace:*",
     "p-limit": "^3.1.0"

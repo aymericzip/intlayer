@@ -29,3 +29,4 @@ export { ESMxCJSRequire } from './utils/ESMxCJSRequire';
 export { logger } from './logger';
 export { appLogger } from './appLoggerServer';
 export { getSandBoxContext } from './getSandboxContext';
+export { loadExternalFile } from './loadExternalFile';
