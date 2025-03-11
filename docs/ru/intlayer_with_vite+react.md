@@ -897,7 +897,7 @@ const LocaleRouter = ({ children }) => (
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
-import { FC } from "react";
+import type { FC } from "react";
 
 // ... Ваш компонент AppContent
 
@@ -1273,7 +1273,7 @@ module.exports = { useI18nHTMLAttributes };
 Интегрируйте хук в ваш основной компонент, чтобы атрибуты HTML обновлялись при изменении локали:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
@@ -1295,7 +1295,6 @@ export default App;
 ```
 
 ```jsx fileName="src/App.msx" codeFormat="esm"
-import { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";

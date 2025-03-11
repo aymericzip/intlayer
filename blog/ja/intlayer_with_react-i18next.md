@@ -253,7 +253,7 @@ Intlayer リソースを **ビルド** し、react-i18next を構成した後は
 たとえば：
 
 ```tsx title="src/components/MyComponent/MyComponent.tsx"
-import { FC } from "react";
+import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 /**

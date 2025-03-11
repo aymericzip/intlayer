@@ -738,7 +738,7 @@ const LocaleRouter = ({ children }) => (
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
-import { FC } from "react";
+import type { FC } from "react";
 
 // ... مكون AppContent الخاص بك
 
@@ -1073,7 +1073,7 @@ module.exports = { useI18nHTMLAttributes };
 قم بدمج الخطاف في المكون الرئيسي الخاص بك بحيث يتم تحديث سمات HTML كلما تغيرت اللغة:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
@@ -1095,7 +1095,6 @@ export default App;
 ```
 
 ```jsx fileName="src/App.msx" codeFormat="esm"
-import { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";

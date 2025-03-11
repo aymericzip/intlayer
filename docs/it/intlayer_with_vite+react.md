@@ -931,7 +931,7 @@ Ora puoi utilizzare il componente `LocaleRouter` nella tua applicazione:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
-import { FC } from "react";
+import type { FC } from "react";
 
 // ... Il tuo componente AppContent
 
@@ -1307,7 +1307,7 @@ module.exports = { useI18nHTMLAttributes };
 Integra l'hook nel tuo componente principale in modo che gli attributi HTML vengano aggiornati ogni volta che cambia la lingua:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
@@ -1329,7 +1329,6 @@ export default App;
 ```
 
 ```jsx fileName="src/App.msx" codeFormat="esm"
-import { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";

@@ -928,7 +928,7 @@ const LocaleRouter = ({ children }) => (
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
-import { FC } from "react";
+import type { FC } from "react";
 
 // ... 您的 AppContent 组件
 
@@ -1304,7 +1304,7 @@ module.exports = { useI18nHTMLAttributes };
 将该 Hook 集成到您的主组件中，以便在语言环境更改时更新 HTML 属性：
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
@@ -1326,7 +1326,6 @@ export default App;
 ```
 
 ```jsx fileName="src/App.msx" codeFormat="esm"
-import { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";

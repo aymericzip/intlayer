@@ -253,7 +253,7 @@ Después de que hayas **construido** tus recursos de Intlayer y configurado reac
 Por ejemplo:
 
 ```tsx title="src/components/MyComponent/MyComponent.tsx"
-import { FC } from "react";
+import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 /**

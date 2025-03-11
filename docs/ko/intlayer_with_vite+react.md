@@ -933,7 +933,7 @@ const LocaleRouter = ({ children }) => (
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
-import { FC } from "react";
+import type { FC } from "react";
 
 // ... AppContent 컴포넌트
 
@@ -1309,7 +1309,7 @@ module.exports = { useI18nHTMLAttributes };
 로케일이 변경될 때마다 HTML 속성이 업데이트되도록 메인 컴포넌트에 훅을 통합하세요:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
@@ -1331,7 +1331,6 @@ export default App;
 ```
 
 ```jsx fileName="src/App.msx" codeFormat="esm"
-import { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";

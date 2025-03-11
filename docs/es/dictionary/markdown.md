@@ -74,7 +74,7 @@ module.exports = markdownDictionary;
 Para renderizar el contenido de Markdown en una aplicación React, puedes aprovechar el hook `useIntlayer` del paquete `react-intlayer` junto con un proveedor de renderizado de Markdown. En este ejemplo, usamos el paquete [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) para convertir el Markdown en HTML.
 
 ```tsx fileName="App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { useIntlayer, MarkdownProvider } from "react-intlayer";
 import Markdown from "markdown-to-jsx";
 

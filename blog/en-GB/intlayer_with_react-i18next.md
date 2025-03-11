@@ -253,7 +253,7 @@ After you’ve **built** your Intlayer resources and configured react-i18next, y
 For instance:
 
 ```tsx title="src/components/MyComponent/MyComponent.tsx"
-import { FC } from "react";
+import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 /**

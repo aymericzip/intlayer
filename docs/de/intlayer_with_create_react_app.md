@@ -738,7 +738,7 @@ Dann können Sie die `LocaleRouter`-Komponente in Ihrer Anwendung verwenden:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
-import { FC } from "react";
+import type { FC } from "react";
 
 // ... Ihre AppContent-Komponente
 
@@ -1077,7 +1077,7 @@ module.exports = { useI18nHTMLAttributes };
 Integrieren Sie den Hook in Ihre Hauptkomponente, sodass die HTML-Attribute aktualisiert werden, wenn sich die Lokalisierung ändert:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
@@ -1099,7 +1099,6 @@ export default App;
 ```
 
 ```jsx fileName="src/App.msx" codeFormat="esm"
-import { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";

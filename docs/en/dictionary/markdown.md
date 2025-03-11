@@ -66,12 +66,112 @@ module.exports = markdownDictionary;
 }
 ```
 
+## Import multilingual `.md` file
+
+```typescript fileName="md.d.ts" contentDeclarationFormat="typescript"
+// This declaration allows TypeScript to recognize and import Markdown (.md) files as modules.
+// Without this, TypeScript would throw an error when trying to import Markdown files,
+// as it does not natively support non-code file imports.
+
+declare module "*.md";
+```
+
+```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
+import { md, t, type Dictionary } from "intlayer";
+import markdown_en from "./myMarkdown.en.md";
+import markdown_fr from "./myMarkdown.fr.md";
+import markdown_es from "./myMarkdown.es.md";
+
+const markdownDictionary = {
+  key: "app",
+  content: {
+    myMarkdownContent: t({
+      en: md(markdown_en),
+      fr: md(markdown_fr),
+      es: md(markdown_es),
+    }),
+  },
+} satisfies Dictionary;
+
+export default markdownDictionary;
+```
+
+```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
+import { md, t } from "intlayer";
+import markdown_en from "./myMarkdown.en.md";
+import markdown_fr from "./myMarkdown.fr.md";
+import markdown_es from "./myMarkdown.es.md";
+
+/** @type {import('intlayer').Dictionary} */
+const markdownDictionary = {
+  key: "app",
+  content: {
+    myMarkdownContent: t({
+      en: md(markdown_en),
+      fr: md(markdown_fr),
+      es: md(markdown_es),
+    }),
+  },
+};
+
+export default markdownDictionary;
+```
+
+```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
+const { md, t } = require("intlayer");
+const markdown_en = require("./myMarkdown.en.md");
+const markdown_fr = require("./myMarkdown.fr.md");
+const markdown_es = require("./myMarkdown.es.md");
+
+/** @type {import('intlayer').Dictionary} */
+const markdownDictionary = {
+  key: "app",
+  content: {
+    myMarkdownContent: t({
+      en: md(markdown_en),
+      fr: md(markdown_fr),
+      es: md(markdown_es),
+    }),
+  },
+};
+
+module.exports = markdownDictionary;
+```
+
+```jsonc fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
+// Importing external Markdown files (.md) is only possible using JS or TS declaration files.
+
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "app",
+  "content": {
+    "myMarkdownContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": {
+          "nodeType": "markdown",
+          "markdown": "# My Markdown\n\nThis is a Markdown content.",
+        },
+        "fr": {
+          "nodeType": "markdown",
+          "markdown": "# Mon Markdown\n\nC'est un contenu Markdown.",
+        },
+        "es": {
+          "nodeType": "markdown",
+          "markdown": "# Mi Markdown\n\nEsto es un contenido Markdown.",
+        },
+      },
+    },
+  },
+}
+```
+
 ## Using Markdown with React Intlayer
 
 To render the Markdown content in a React application, you can leverage the `useIntlayer` hook from the `react-intlayer` package along with a Markdown rendering provider. In this example, we use the [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) package to convert the Markdown into HTML.
 
 ```tsx fileName="App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { useIntlayer, MarkdownProvider } from "react-intlayer";
 import Markdown from "markdown-to-jsx";
 

@@ -1,21 +1,18 @@
-# Markdown / リッチテキストコンテンツ
+## マークダウンの仕組み
 
-## Markdownの仕組み
+Intlayerは、マークダウン構文を使用して定義されたリッチテキストコンテンツをサポートします。これは、`md`関数を通じて実現され、マークダウン文字列をIntlayerで管理可能な形式に変換します。マークダウンを使用することで、ブログ、記事などのリッチなフォーマットのコンテンツを簡単に作成および管理できます。
 
-IntlayerはMarkdown構文を使用して定義されたリッチテキストコンテンツをサポートしています。これは、Markdown文字列をIntlayerで管理可能な形式に変換する`md`関数を通じて実現されます。Markdownを使用することで、ブログや記事などのリッチなフォーマットのコンテンツを簡単に作成および管理できます。
+[Intlayerビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)および[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)は、どちらもマークダウンコンテンツ管理をサポートしています。
 
-[Intlayerビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)および[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)は、どちらもMarkdownコンテンツ管理をサポートしています。
+Reactアプリケーションと統合する際には、[`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)のようなマークダウンレンダリングプロバイダーを使用して、マークダウンコンテンツをHTMLにレンダリングできます。これにより、マークダウンでコンテンツを記述しながら、アプリ内で適切に表示されることを保証します。
 
-Reactアプリケーションと統合する際には、Markdownレンダリングプロバイダー（例: [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)）を使用してMarkdownコンテンツをHTMLにレンダリングできます。これにより、Markdownでコンテンツを記述しつつ、アプリ内で適切に表示されるようにできます。
+## マークダウンコンテンツの設定
 
-## Markdownコンテンツの設定
-
-IntlayerプロジェクトでMarkdownコンテンツを設定するには、`md`関数を利用したコンテンツ辞書を定義します。
+Intlayerプロジェクトでマークダウンコンテンツを設定するには、`md`関数を利用したコンテンツ辞書を定義します。
 
 ```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
 import { md, type Dictionary } from "intlayer";
 
-// Markdownコンテンツを含む辞書を定義
 const markdownDictionary = {
   key: "app",
   content: {
@@ -29,7 +26,6 @@ export default markdownDictionary;
 ```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
 import { md } from "intlayer";
 
-// Markdownコンテンツを含む辞書を定義
 /** @type {import('intlayer').Dictionary} */
 const markdownDictionary = {
   key: "app",
@@ -44,7 +40,6 @@ export default markdownDictionary;
 ```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
 const { md } = require("intlayer");
 
-// Markdownコンテンツを含む辞書を定義
 /** @type {import('intlayer').Dictionary} */
 const markdownDictionary = {
   key: "app",
@@ -69,23 +64,131 @@ module.exports = markdownDictionary;
 }
 ```
 
-## React IntlayerでのMarkdownの使用
+## 多言語 `.md` ファイルのインポート
 
-ReactアプリケーションでMarkdownコンテンツをレンダリングするには、`react-intlayer`パッケージの`useIntlayer`フックとMarkdownレンダリングプロバイダーを活用します。この例では、[`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)パッケージを使用してMarkdownをHTMLに変換します。
+```typescript fileName="md.d.ts" contentDeclarationFormat="typescript"
+// この宣言により、TypeScriptがMarkdown (.md) ファイルをモジュールとして認識してインポートできるようになります。
+// これがないと、TypeScriptはMarkdownファイルのインポート時にエラーをスローします。
+// TypeScriptは非コードファイルのインポートをネイティブにサポートしていないためです。
+
+declare module "*.md";
+```
+
+```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
+import { md, t, type Dictionary } from "intlayer";
+import markdown_ja from "./myMarkdown.ja.md";
+import markdown_en from "./myMarkdown.en.md";
+import markdown_fr from "./myMarkdown.fr.md";
+import markdown_es from "./myMarkdown.es.md";
+
+const markdownDictionary = {
+  key: "app",
+  content: {
+    myMarkdownContent: t({
+      ja: md(markdown_ja),
+      en: md(markdown_en),
+      fr: md(markdown_fr),
+      es: md(markdown_es),
+    }),
+  },
+} satisfies Dictionary;
+
+export default markdownDictionary;
+```
+
+```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
+import { md, t } from "intlayer";
+import markdown_ja from "./myMarkdown.ja.md";
+import markdown_en from "./myMarkdown.en.md";
+import markdown_fr from "./myMarkdown.fr.md";
+import markdown_es from "./myMarkdown.es.md";
+
+/** @type {import('intlayer').Dictionary} */
+const markdownDictionary = {
+  key: "app",
+  content: {
+    myMarkdownContent: t({
+      ja: md(markdown_ja),
+      en: md(markdown_en),
+      fr: md(markdown_fr),
+      es: md(markdown_es),
+    }),
+  },
+};
+
+export default markdownDictionary;
+```
+
+```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
+const { md, t } = require("intlayer");
+const markdown_ja = require("./myMarkdown.ja.md");
+const markdown_en = require("./myMarkdown.en.md");
+const markdown_fr = require("./myMarkdown.fr.md");
+const markdown_es = require("./myMarkdown.es.md");
+
+/** @type {import('intlayer').Dictionary} */
+const markdownDictionary = {
+  key: "app",
+  content: {
+    myMarkdownContent: t({
+      ja: md(markdown_ja),
+      en: md(markdown_en),
+      fr: md(markdown_fr),
+      es: md(markdown_es),
+    }),
+  },
+};
+
+module.exports = markdownDictionary;
+```
+
+```jsonc fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
+// 外部のMarkdownファイル (.md) のインポートは、JSまたはTS宣言ファイルを使用する場合にのみ可能です。
+
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "app",
+  "content": {
+    "myMarkdownContent": {
+      "nodeType": "translation",
+      "translation": {
+        "ja": {
+          "nodeType": "markdown",
+          "markdown": "# My Markdown\n\nThis is a Markdown content.",
+        },
+        "en": {
+          "nodeType": "markdown",
+          "markdown": "# My Markdown\n\nThis is a Markdown content.",
+        },
+        "fr": {
+          "nodeType": "markdown",
+          "markdown": "# Mon Markdown\n\nC'est un contenu Markdown.",
+        },
+        "es": {
+          "nodeType": "markdown",
+          "markdown": "# Mi Markdown\n\nEsto es un contenido Markdown.",
+        },
+      },
+    },
+  },
+}
+```
+
+## React Intlayerでのマークダウンの使用
+
+Reactアプリケーションでマークダウンコンテンツをレンダリングするには、`react-intlayer`パッケージの`useIntlayer`フックとマークダウンレンダリングプロバイダーを活用します。この例では、[`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)パッケージを使用してマークダウンをHTMLに変換します。
 
 ```tsx fileName="App.tsx" codeFormat="typescript"
-import { FC } from "react";
+import type { FC } from "react";
 import { useIntlayer, MarkdownProvider } from "react-intlayer";
 import Markdown from "markdown-to-jsx";
 
-// アプリケーションコンテンツを定義
 const AppContent: FC = () => {
   const { myMarkdownContent } = useIntlayer("app");
 
   return <>{myMarkdownContent}</>;
 };
 
-// プロバイダーでアプリケーションをラップ
 export const AppProvider: FC = () => (
   <MarkdownProvider
     renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
@@ -99,14 +202,12 @@ export const AppProvider: FC = () => (
 import { useIntlayer, MarkdownProvider } from "react-intlayer";
 import Markdown from "markdown-to-jsx";
 
-// アプリケーションコンテンツを定義
 const AppContent = () => {
   const { myMarkdownContent } = useIntlayer("app");
 
   return <>{myMarkdownContent}</>;
 };
 
-// プロバイダーでアプリケーションをラップ
 export const AppProvider = () => (
   <MarkdownProvider
     renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
@@ -120,14 +221,12 @@ export const AppProvider = () => (
 const { useIntlayer, MarkdownProvider } = require("react-intlayer");
 const Markdown = require("markdown-to-jsx");
 
-// アプリケーションコンテンツを定義
 const AppContent = () => {
   const { myMarkdownContent } = useIntlayer("app");
 
   return <>{myMarkdownContent}</>;
 };
 
-// プロバイダーでアプリケーションをラップ
 AppProvider = () => (
   <MarkdownProvider
     renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
@@ -141,11 +240,11 @@ module.exports = {
 };
 ```
 
-この実装では:
+この実装では：
 
-- `MarkdownProvider`はアプリケーション（またはその関連部分）をラップし、`renderMarkdown`関数を受け取ります。この関数は、`markdown-to-jsx`パッケージを使用してMarkdown文字列をJSXに変換します。
-- `useIntlayer`フックを使用して、キー`"app"`を持つ辞書からMarkdownコンテンツ（`myMarkdownContent`）を取得します。
-- Markdownコンテンツはコンポーネント内で直接レンダリングされ、レンダリングはプロバイダーによって処理されます。
+- `MarkdownProvider`はアプリケーション（またはその関連部分）をラップし、`renderMarkdown`関数を受け取ります。この関数は、`markdown-to-jsx`パッケージを使用してマークダウン文字列をJSXに変換します。
+- `useIntlayer`フックは、辞書からキー`"app"`を使用してマークダウンコンテンツ（`myMarkdownContent`）を取得します。
+- マークダウンコンテンツはコンポーネント内で直接レンダリングされ、マークダウンレンダリングはプロバイダーによって処理されます。
 
 ## 追加リソース
 

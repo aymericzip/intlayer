@@ -72,7 +72,7 @@ module.exports = markdownDictionary;
 
 ```tsx fileName="App.tsx" codeFormat="typescript"
 // Компонент для отображения контента
-import { FC } from "react";
+import type { FC } from "react";
 import { useIntlayer, MarkdownProvider } from "react-intlayer";
 import Markdown from "markdown-to-jsx";
 

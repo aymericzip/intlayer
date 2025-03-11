@@ -253,7 +253,7 @@ Intlayer 리소스를 **구축**하고 react-i18next를 구성한 후, **react-i
 예를 들면:
 
 ```tsx title="src/components/MyComponent/MyComponent.tsx"
-import { FC } from "react";
+import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 /**
