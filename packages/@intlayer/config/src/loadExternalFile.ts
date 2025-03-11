@@ -21,6 +21,8 @@ const getTransformationOptions = (): BuildOptions => {
       '.tsx': 'tsx',
       '.cjs': 'js',
       '.json': 'json',
+      '.md': 'text',
+      '.mdx': 'text',
     },
     format: 'cjs', // Output format as commonjs
     target: 'es2017',
