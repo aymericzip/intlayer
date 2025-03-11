@@ -13,7 +13,7 @@
   "dependencies": {
     "intlayer": "workspace:*",
     "markdown-to-jsx": "^7.7.3",
-    "next": "^15.1.7",
+    "next": "^15.2.2",
     "next-intlayer": "workspace:*",
     "react": "18.3.1",
     "react-dom": "18.3.1"
