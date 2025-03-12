@@ -90,6 +90,7 @@ const secureHeaders = createSecureHeaders({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverExternalPackages: ['@intlayer/backend'],
+  productionBrowserSourceMaps: true,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
