@@ -24,6 +24,13 @@ export const VisualEditorSection: FC = () => {
       >
         <source src="/assets/visual_editor.mp4" type="video/mp4" />
         <source src="/assets/visual_editor.webm" type="video/webm" />
+        <track
+          src="/assets/captions.vtt"
+          kind="subtitles"
+          srcLang="en"
+          label="English"
+          default
+        />
       </video>
       <div className="flex w-full flex-col gap-4">
         <span className="text-neutral text-sm">{description}</span>
