@@ -34,6 +34,21 @@ const markdownSectionContent = {
       hi: 'आपके आदेश की पुष्टि करने के लिए',
       ko: '당신의 주문을 확인하려면',
     }),
+    ariaLabel: t({
+      en: 'Autocompletion editor',
+      'en-GB': 'Autocompletion editor',
+      fr: 'Éditeur de complétion automatique',
+      es: 'Editor de autocompletado',
+      de: 'Autovervollständigungs-Editor',
+      it: 'Editor di autocompletamento',
+      pt: 'Editor de autocompletar',
+      ru: 'Редактор автозавершения',
+      zh: '自动补全编辑器',
+      ja: '自動補完エディター',
+      ar: 'محرر الإكمال التلقائي',
+      hi: 'स्वचालित पूर्णिति एडिटर',
+      ko: '자동 완성 편집기',
+    }),
   },
 } satisfies Dictionary;
 

@@ -23,7 +23,9 @@ type AutocompletionSectionProps = {
 export const AutocompletionSection: FC<AutocompletionSectionProps> = ({
   scrollProgress,
 }) => {
-  const { input, suggestion } = useIntlayer('autocompletion-section');
+  const { input, suggestion, ariaLabel } = useIntlayer(
+    'autocompletion-section'
+  );
   const [text, setText] = useState<string>('');
   const [isControlled, setIsControlled] = useState(false);
 
@@ -43,6 +45,7 @@ export const AutocompletionSection: FC<AutocompletionSectionProps> = ({
       >
         <AutoCompleteTextarea
           value={text}
+          aria-label={ariaLabel.value}
           onChange={(e) => {
             setText(e.target.value);
           }}
