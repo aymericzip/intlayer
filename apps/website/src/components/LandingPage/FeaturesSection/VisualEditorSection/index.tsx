@@ -20,14 +20,14 @@ export const VisualEditorSection: FC = () => {
         width={3024}
         height={1812}
         preload="metadata"
-        poster="/assets/visual_editor.png"
+        poster="/assets/visual_editor.webp"
       >
         <source src="/assets/visual_editor.mp4" type="video/mp4" />
         <source src="/assets/visual_editor.webm" type="video/webm" />
         <track
           src="/assets/captions.vtt"
-          kind="subtitles"
           srcLang="en"
+          kind="captions"
           label="English"
           default
         />
