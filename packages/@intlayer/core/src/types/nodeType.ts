@@ -21,9 +21,11 @@ export type TypedNodeModel<T extends NodeType, Content> = {
 
 export const formatNodeType = <T extends NodeType, Content = any>(
   nodeType: T | `${T}`,
-  content: Content
+  content: Content,
+  additionalAttributes?: { [key: string]: any }
 ) =>
   ({
+    ...additionalAttributes,
     nodeType,
     [nodeType]: content,
   }) as TypedNodeModel<T, Content>;

@@ -18,7 +18,12 @@ export const StringWrapper: FC<StringWrapperProps> = ({
   const editedContentValue = getContentNodeByKeyPath(editedContent, keyPath);
 
   if (editedContentValue && typeof editedContentValue !== 'string') {
-    return <>Error loading section</>;
+    return (
+      <>
+        Error loading section - Edited content Incoherence with the original
+        content format
+      </>
+    );
   }
 
   const level = keyPath.length;

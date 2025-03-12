@@ -4,12 +4,15 @@ import {
   type DeepTransformContent as DeepTransformContentCore,
   type MarkdownContent,
   NodeType,
+  KeyPath,
+  getMarkdownMetadata,
+  deepTransformNode,
 } from '@intlayer/core';
 import type { ReactNode } from 'react';
-import { renderIntlayerEditor } from './editor';
-import type { IntlayerNode } from './IntlayerNode';
-import { renderMarkdown } from './markdown/renderMarkdown';
-import { renderReactElement } from './reactElement/renderReactElement';
+import { renderIntlayerNode, type IntlayerNode } from './IntlayerNode';
+import { EditedContentRenderer } from './editor/useEditedContentRenderer';
+import { ContentSelectorRenderer } from './editor';
+import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -31,7 +34,18 @@ export const intlayerNodePlugins: Plugins = {
       plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest
     }
-  ) => renderIntlayerEditor(rest),
+  ) =>
+    renderIntlayerNode({
+      ...rest,
+      value: rest.children,
+      children: (
+        <ContentSelectorRenderer {...rest}>
+          <EditedContentRenderer {...rest}>
+            {rest.children}
+          </EditedContentRenderer>
+        </ContentSelectorRenderer>
+      ),
+    }),
 };
 
 /** ---------------------------------------------
@@ -59,10 +73,14 @@ export const reactNodePlugins: Plugins = {
       ...rest
     }
   ) =>
-    renderIntlayerEditor({
+    renderIntlayerNode({
       ...rest,
-      content: renderReactElement(node),
       value: '[[react-element]]',
+      children: (
+        <ContentSelectorRenderer {...rest}>
+          renderReactElement(node)
+        </ContentSelectorRenderer>
+      ),
     }),
 };
 
@@ -73,26 +91,77 @@ export const reactNodePlugins: Plugins = {
 export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: string;
+  metadata?: infer U;
 }
-  ? IntlayerNode<string>
+  ? IntlayerNode<string, { metadata: DeepTransformContent<U> }>
   : never;
 
 /** Markdown plugin. Replaces node with a function that takes quantity => string. */
 export const markdownPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Markdown,
-  transform: (
-    node: MarkdownContent,
-    {
+  transform: (node: MarkdownContent, props) => {
+    const {
       plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest
-    }
-  ) =>
-    renderIntlayerEditor({
-      ...rest,
-      content: renderMarkdown(node[NodeType.Markdown]),
-      value: node[NodeType.Markdown],
-    }),
+    } = props;
+
+    const newKeyPath: KeyPath[] = [
+      ...props.keyPath,
+      {
+        type: NodeType.Markdown,
+      },
+    ];
+
+    const content = node[NodeType.Markdown];
+    const metadata = getMarkdownMetadata(content);
+
+    const metadataPlugins: Plugins = {
+      canHandle: (node) =>
+        typeof node === 'string' ||
+        typeof node === 'number' ||
+        typeof node === 'boolean' ||
+        !node,
+      transform: (node, props) =>
+        renderIntlayerNode({
+          ...props,
+          value: node,
+          children: (
+            <ContentSelectorRenderer {...rest} keyPath={newKeyPath}>
+              <MarkdownMetadataRenderer
+                {...rest}
+                keyPath={newKeyPath}
+                metadataKeyPath={props.keyPath}
+              >
+                {content}
+              </MarkdownMetadataRenderer>
+            </ContentSelectorRenderer>
+          ),
+        }),
+    };
+
+    // Transform metadata while keeping the same structure
+    const metadataNodes = deepTransformNode(metadata, {
+      plugins: [metadataPlugins],
+      dictionaryKey: rest.dictionaryKey,
+      keyPath: [],
+    });
+
+    return renderIntlayerNode({
+      ...props,
+      value: content,
+      children: (
+        <ContentSelectorRenderer {...rest} keyPath={newKeyPath}>
+          <MarkdownRenderer {...rest} keyPath={newKeyPath}>
+            {content}
+          </MarkdownRenderer>
+        </ContentSelectorRenderer>
+      ),
+      additionalProps: {
+        metadata: metadataNodes,
+      },
+    });
+  },
 };
 
 /** ---------------------------------------------

@@ -55,7 +55,7 @@ export const translationPlugin = (locale: LocalesValues): Plugins => ({
     for (const key in result) {
       const childProps = {
         ...props,
-        content: result[key as unknown as keyof typeof result],
+        children: result[key as unknown as keyof typeof result],
         keyPath: [
           ...props.keyPath,
           { type: NodeType.Translation, key } as KeyPath,
@@ -97,7 +97,7 @@ export const enumerationPlugin: Plugins = {
       const child = result[key as unknown as keyof typeof result];
       const childProps = {
         ...props,
-        content: child,
+        children: child,
         keyPath: [
           ...props.keyPath,
           { type: NodeType.Enumeration, key } as KeyPath,
@@ -140,7 +140,7 @@ export const conditionPlugin: Plugins = {
       const child = result[key as keyof typeof result];
       const childProps = {
         ...props,
-        content: child,
+        children: child,
         keyPath: [
           ...props.keyPath,
           { type: NodeType.Condition, key } as KeyPath,
@@ -194,7 +194,7 @@ export interface NodeProps {
   plugins?: Plugins[];
   locale?: Locales;
   dictionaryPath?: string;
-  content?: any;
+  children?: any;
 }
 
 /**

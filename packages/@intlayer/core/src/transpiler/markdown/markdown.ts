@@ -3,6 +3,7 @@ import {
   NodeType,
   type TypedNodeModel,
 } from '../../types/index';
+import { getMarkdownMetadata } from './getMarkdownMetadata';
 
 export type MarkdownContentState = string;
 
@@ -23,7 +24,10 @@ export type MarkdownContent = TypedNodeModel<
  * ```
  *
  */
-const markdown = (content: string | Promise<string>): MarkdownContent =>
-  formatNodeType(NodeType.Markdown, content as MarkdownContentState);
+const markdown = (content: string | Promise<string>): MarkdownContent => {
+  const metadata = getMarkdownMetadata(content as string);
+
+  return formatNodeType(NodeType.Markdown, content as string, { metadata });
+};
 
 export { markdown as md };

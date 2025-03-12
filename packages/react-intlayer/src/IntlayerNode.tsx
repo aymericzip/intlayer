@@ -6,18 +6,26 @@ import {
   isValidElement,
 } from 'react';
 
-export type IntlayerNode<T = NodeProps['content']> = ReactNode & {
+export type IntlayerNode<
+  T = NodeProps['children'],
+  AdditionalProps = {},
+> = ReactNode & {
   value: T;
-};
+} & AdditionalProps;
 
-export const rendererIntlayerNode = <
+type RenderIntlayerNodeProps<T> = PropsWithChildren<{
+  value: T;
+  children: ReactNode;
+  additionalProps?: { [key: string]: any };
+}>;
+
+export const renderIntlayerNode = <
   T extends number | string | boolean | undefined | null,
 >({
-  value,
   children,
-}: PropsWithChildren<{
-  value: T;
-}>): IntlayerNode => {
+  value,
+  additionalProps,
+}: RenderIntlayerNodeProps<T>): IntlayerNode<T> => {
   // If children is not a valid ReactElement, wrap it in a fragment
   const element: ReactElement<any> = isValidElement(children) ? (
     children
@@ -32,6 +40,14 @@ export const rendererIntlayerNode = <
       if (prop === 'value') {
         return value;
       }
+
+      if (
+        additionalProps &&
+        Object.keys(additionalProps).includes(prop as string)
+      ) {
+        return additionalProps[prop as keyof typeof additionalProps];
+      }
+
       return Reflect.get(target, prop, receiver);
     },
   }) as IntlayerNode<T>;

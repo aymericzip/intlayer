@@ -1,43 +1,20 @@
 'use client';
 
 import { type NodeProps, isSameKeyPath } from '@intlayer/core';
-import {
-  useFocusDictionary,
-  useEditedContentActions,
-  useEditorEnabled,
-} from '@intlayer/editor-react';
-import {
-  type HTMLAttributes,
-  useCallback,
-  useEffect,
-  useState,
-  useMemo,
-  type FC,
-  type ReactNode,
-} from 'react';
+import { useFocusDictionary, useEditorEnabled } from '@intlayer/editor-react';
+import { type HTMLAttributes, useCallback, useMemo, type FC } from 'react';
 import { useIntlayerContext } from '../client';
 import { ContentSelector } from '../UI/ContentSelector';
 
 export type ContentSelectorWrapperProps = NodeProps &
-  Omit<HTMLAttributes<HTMLDivElement>, 'content'>;
+  Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
 const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
   children,
   dictionaryKey,
   keyPath,
-  dictionaryPath,
-  ...props
 }) => {
   const { focusedContent, setFocusedContent } = useFocusDictionary();
-  const { getEditedContentValue } = useEditedContentActions();
-
-  const editedValue = useMemo(
-    () => getEditedContentValue(dictionaryKey, keyPath),
-    [dictionaryKey, keyPath, getEditedContentValue]
-  );
-
-  const [displayedChildren, setDisplayedChildren] =
-    useState<ReactNode>(children);
 
   const handleSelect = useCallback(
     () =>
@@ -45,7 +22,7 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
         dictionaryKey,
         keyPath,
       }),
-    [dictionaryKey, keyPath, setFocusedContent]
+    [dictionaryKey, keyPath]
   );
 
   const isSelected = useMemo(
@@ -57,23 +34,14 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
     [focusedContent, keyPath, dictionaryKey]
   );
 
-  useEffect(() => {
-    // Use useEffect to avoid 'Text content does not match server-rendered HTML' error
-    if (editedValue && typeof editedValue === 'string') {
-      setDisplayedChildren(editedValue);
-    } else {
-      setDisplayedChildren(children);
-    }
-  }, [editedValue, focusedContent, children]);
-
   return (
-    <ContentSelector onPress={handleSelect} isSelecting={isSelected} {...props}>
-      {displayedChildren}
+    <ContentSelector onPress={handleSelect} isSelecting={isSelected}>
+      {children}
     </ContentSelector>
   );
 };
 
-export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
+export const ContentSelectorRenderer: FC<ContentSelectorWrapperProps> = ({
   children,
   ...props
 }) => {
@@ -88,5 +56,5 @@ export const ContentSelectorWrapper: FC<ContentSelectorWrapperProps> = ({
     );
   }
 
-  return <>{children}</>;
+  return children;
 };

@@ -27,7 +27,7 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
     return node.map((child, index) => {
       const childProps = {
         ...props,
-        content: child,
+        children: child,
         keyPath: [
           ...props.keyPath,
           { type: NodeType.Array, key: index } as KeyPath,
@@ -42,7 +42,7 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
   for (const key in node) {
     const childProps = {
       ...props,
-      content: node[key],
+      children: node[key],
       keyPath: [...props.keyPath, { type: NodeType.Object, key } as KeyPath],
     };
     result[key] = deepTransformNode(node[key], childProps);

@@ -14,7 +14,7 @@ import {
   useFocusDictionary,
 } from '@intlayer/editor-react';
 import { ChevronRight, Plus } from 'lucide-react';
-import { useCallback, type FC } from 'react';
+import type { FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { camelCaseToSentence } from '../../../utils/camelCase';
 import { Accordion } from '../../Accordion';
@@ -47,12 +47,9 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     goToTranslation,
   } = useDictionary(navigationViewContent);
   const nodeType = getNodeType(section);
-  const getIsSelected = useCallback(
-    (keyPath: KeyPath[]) =>
-      (focusedContent?.keyPath?.length ?? 0) > 0 &&
-      isSameKeyPath(keyPath, focusedContent?.keyPath ?? []),
-    [focusedContent?.keyPath]
-  );
+  const getIsSelected = (keyPath: KeyPath[]) =>
+    (focusedContent?.keyPath?.length ?? 0) > 0 &&
+    isSameKeyPath(keyPath, focusedContent?.keyPath ?? []);
 
   if (!section) return <></>;
 
@@ -266,6 +263,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             ...keyPath,
             { type: NodeType.Object, key },
           ];
+
           const subSection = getContentNodeByKeyPath(sectionProp, childKeyPath);
           const isEditableSubSection = getIsEditableSection(subSection);
 

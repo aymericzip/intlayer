@@ -297,27 +297,12 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export const useEditedContentActions = () => {
-  const context = useContext(EditedContentActionsContext);
-
-  if (!context) {
-    throw new Error(
-      'useEditedContent must be used within an EditedContentProvider'
-    );
-  }
-
-  return context;
-};
+export const useEditedContentActions = () =>
+  useContext(EditedContentActionsContext);
 
 export const useEditedContent = () => {
   const stateContext = useContext(EditedContentStateContext);
   const actionContext = useEditedContentActions();
-
-  if (!stateContext) {
-    throw new Error(
-      'useEditedContent must be used within an EditedContentProvider'
-    );
-  }
 
   return { ...stateContext, ...actionContext };
 };
