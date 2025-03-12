@@ -23,15 +23,15 @@ type MarkdownSectionProps = {
 export const MarkdownSection: FC<MarkdownSectionProps> = ({
   scrollProgress,
 }) => {
-  const content = useIntlayer('markdown-section');
+  const { markdown, ariaLabel } = useIntlayer('markdown-section');
   const [text, setText] = useState<string>('');
   const [isControlled, setIsControlled] = useState(false);
 
   useEffect(() => {
     if (!isControlled) {
-      setText(getTextContent(content.value, scrollProgress));
+      setText(getTextContent(markdown.value, scrollProgress));
     }
-  }, [content.value, scrollProgress, isControlled]);
+  }, [markdown.value, scrollProgress, isControlled]);
 
   return (
     <div className="flex size-full max-h-[50vh] flex-1 scale-90 flex-col justify-center gap-4 max-md:flex-col">
@@ -51,6 +51,7 @@ export const MarkdownSection: FC<MarkdownSectionProps> = ({
       </Container>
       <TextArea
         defaultValue={text}
+        aria-label={ariaLabel.value}
         onChange={(e) => {
           setIsControlled(true);
           setText(e.target.value);

@@ -57,6 +57,7 @@ export const ContentEditorInput: FC<ContentEditorInputProps> = ({
       <Input
         onChange={handleOnContentChange}
         key={resetIncrementor}
+        aria-label="value"
         variant="invisible"
         className="size-full"
         defaultValue={children}

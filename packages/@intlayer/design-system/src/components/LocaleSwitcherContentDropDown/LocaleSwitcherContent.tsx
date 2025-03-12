@@ -181,6 +181,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                 <div className="p-3">
                   <Input
                     type="search"
+                    aria-label={searchInput.ariaLabel.value}
                     placeholder={searchInput.placeholder.value}
                     onChange={(e) => handleSearch(e.target.value)}
                     ref={inputRef}

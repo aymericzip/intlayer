@@ -90,6 +90,7 @@ export const EnumKeyInput: FC<EnumKeyInputProps> = ({ value, onChange }) => {
       </Select>
       <Input
         type="number"
+        aria-label="Quantity"
         defaultValue={numberValue ?? undefined}
         onChange={(e) => setNumberValue(e.target.value)}
         className="min-w-4"

@@ -19,7 +19,11 @@ export const InputPassword: FC<InputPasswordProps> = (props) => {
 
   return (
     <div className="relative">
-      <Input {...props} type={isPasswordRevealed ? 'text' : 'password'} />
+      <Input
+        {...props}
+        aria-label="password"
+        type={isPasswordRevealed ? 'text' : 'password'}
+      />
 
       <button
         data-testid="eye-icon"

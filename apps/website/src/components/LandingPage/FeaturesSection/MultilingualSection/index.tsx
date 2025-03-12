@@ -3,7 +3,7 @@
 import { Container, Input, Label } from '@intlayer/design-system';
 import { motion } from 'framer-motion';
 import { getLocaleName, Locales } from 'intlayer';
-import { useLocale } from 'next-intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
 type MultilingualSectionProps = {
@@ -28,6 +28,7 @@ const getTextContent = (text: string, textProgress: number) => {
 export const MultilingualSection: FC<MultilingualSectionProps> = ({
   scrollProgress,
 }) => {
+  const { inputLabel } = useIntlayer('multilingual-section');
   const { locale: currentLocale } = useLocale();
   const content = {
     ja: 'こんにちは世界',
@@ -52,7 +53,11 @@ export const MultilingualSection: FC<MultilingualSectionProps> = ({
         <Label color="neutral" className="text-sm">
           {getLocaleName(Locales.ENGLISH, currentLocale)}
         </Label>
-        <Input value="Hello world" onChange={() => null} />
+        <Input
+          aria-label={`${inputLabel.value} ${getLocaleName(Locales.ENGLISH, currentLocale)}`}
+          value="Hello world"
+          onChange={() => null}
+        />
       </Container>
       {Object.keys(content).map((locale, index) => (
         <motion.div
@@ -91,6 +96,7 @@ export const MultilingualSection: FC<MultilingualSectionProps> = ({
               {getLocaleName(locale as Locales, currentLocale)}
             </Label>
             <Input
+              aria-label={`${inputLabel.value} ${getLocaleName(locale as Locales, currentLocale)}`}
               value={getTextContent(
                 content[locale as keyof typeof content],
                 index < activeIndex
