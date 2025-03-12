@@ -10,11 +10,21 @@ export const VisualEditorSection: FC = () => {
   );
   return (
     <div className="flex flex-col items-center justify-center gap-10 p-10">
-      <img
-        alt="Visual Editor"
+      <video
         className="rounded-xl"
-        src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif?raw=true"
-      />
+        aria-label="Visual Editor"
+        autoPlay
+        loop
+        muted
+        playsInline
+        width={3024}
+        height={1812}
+        preload="metadata"
+        poster="/assets/visual_editor.png"
+      >
+        <source src="/assets/visual_editor.mp4" type="video/mp4" />
+        <source src="/assets/visual_editor.webm" type="video/webm" />
+      </video>
       <div className="flex w-full flex-col gap-4">
         <span className="text-neutral text-sm">{description}</span>
         <Link
