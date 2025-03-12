@@ -33,6 +33,7 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "next build",
     "dev": "next dev",

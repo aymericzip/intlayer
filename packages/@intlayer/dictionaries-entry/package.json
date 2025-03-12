@@ -29,6 +29,7 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
