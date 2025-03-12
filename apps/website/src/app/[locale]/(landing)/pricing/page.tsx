@@ -9,16 +9,18 @@ import { getIntlayerAPI } from '@intlayer/api';
 
 export { generateMetadata };
 
+// Cache the data at build time
+const pricingData = await getIntlayerAPI().stripe.getPricing({
+  priceIds: [
+    process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
+    process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
+    process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
+    process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
+  ],
+});
+
 const PricingPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
-  const response = await getIntlayerAPI().stripe.getPricing({
-    priceIds: [
-      process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
-      process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
-      process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
-      process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
-    ],
-  });
 
   return (
     <IntlayerServerProvider locale={locale}>
@@ -26,7 +28,7 @@ const PricingPage: NextPageIntlayer = async ({ params }) => {
       <SoftwareApplicationHeader />
       <ProductHeader />
 
-      <PricingPageContent pricings={response.data} />
+      <PricingPageContent pricings={pricingData.data} />
     </IntlayerServerProvider>
   );
 };
