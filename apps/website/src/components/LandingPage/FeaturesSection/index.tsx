@@ -99,6 +99,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
             opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,
             fontSize: `${fontConst / (absIndexDiff + 1)}rem`,
           }}
+          role="tab"
           transition={{ duration: 0.3 }}
           aria-selected={isActive}
         >
@@ -217,7 +218,10 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         </div>
 
         {/* Titles */}
-        <div className="top-15 absolute left-0 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap">
+        <div
+          role="tablist"
+          className="top-15 absolute left-0 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap"
+        >
           <Titles
             sections={sections}
             activeIndex={activeIndex}
