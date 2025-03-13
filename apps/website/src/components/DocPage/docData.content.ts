@@ -526,6 +526,12 @@ const docDataContent = {
         'vite-intlayer': {
           title: 'vite-intlayer',
         },
+        'lynx-intlayer': {
+          title: 'lynx-intlayer',
+        },
+        'react-native-intlayer': {
+          title: 'react-native-intlayer',
+        },
         'react-scripts-intlayer': {
           title: 'react-scripts-intlayer',
         },

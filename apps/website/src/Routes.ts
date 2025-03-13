@@ -64,6 +64,8 @@ export enum PagesRoutes {
   'Doc_Packages_next-intlayer_useDictionary' = '/doc/packages/next-intlayer/useDictionary',
   'Doc_Packages_next-intlayer_useLocale' = '/doc/packages/next-intlayer/useLocale',
   'Doc_Packages_vite-intlayer' = '/doc/packages/vite-intlayer',
+  'Doc_Packages_lynx-intlayer' = '/doc/packages/lynx-intlayer',
+  'Doc_Packages_react-native-intlayer' = '/doc/packages/react-native-intlayer',
   'Doc_Packages_react-scripts-intlayer' = '/doc/packages/react-scripts-intlayer',
 
   Blog = '/blog/search/',
@@ -160,6 +162,8 @@ export enum GithubRoutes {
   'Packages_next-intlayer_useDictionary' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md',
   'Packages_next-intlayer_useLocale' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md',
   'Packages_vite-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md',
+  'Packages_lynx-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md',
+  'Packages_react-native-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md',
   'Packages_react-scripts-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md',
 
   BlogIndex = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md',

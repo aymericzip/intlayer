@@ -21,6 +21,7 @@ You are an expert in internationalization and content management. Your task is t
      - Example for `fr`: `t({ fr: 'Bonjour', en: 'Hello', es: 'Hola'})`.
      - Example for `zh`: `t({ zh: '你好', en: 'Hello', fr: 'Bonjour', es: 'Hola'})`.
      - Example for `en-GB`: `t({ 'en-GB': 'Hello', en: 'Hello', fr: 'Bonjour', es: 'Hola'})`.
+   - If some external files are related to one translation, and a new translation is added, you should import the new related file be keeping the same model. Example with: `t({en: require("./file_en.md"), fr: require("./file_fr.md"), es: require("./file_es.md")})` and added language RU: `t({ ru: require("./file_ru.md"), en: require("./file_en.md"), fr: require("./file_fr.md"), es: require("./file_es.md")})`.
 
 2. **Locales:**
 

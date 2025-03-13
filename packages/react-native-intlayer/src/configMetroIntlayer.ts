@@ -7,6 +7,18 @@ import { prepareIntlayer } from '@intlayer/chokidar';
 
 type MetroConfig = ReturnType<typeof getDefaultConfig>;
 
+/**
+ * // metro.config.js
+ * const { getDefaultConfig } = require("expo/metro-config");
+ * const { configMetroIntlayer } = require("react-native-intlayer/metro");
+ *
+ * module.exports = (async () => {
+ *   const defaultConfig = getDefaultConfig(__dirname);
+ *
+ *   return await configMetroIntlayer(defaultConfig);
+ * })();
+ * ```
+ */
 export const configMetroIntlayer = async (
   baseConfig: MetroConfig
 ): Promise<MetroConfig> => {

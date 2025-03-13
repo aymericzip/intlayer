@@ -1,14 +1,16 @@
-## Come Funziona il Markdown
+# Markdown / Contenuto Rich Text
 
-Intlayer supporta contenuti di testo ricco definiti utilizzando la sintassi Markdown. Questo è realizzato attraverso la funzione `md`, che converte una stringa Markdown in un formato che può essere gestito da Intlayer. Utilizzando Markdown, puoi facilmente scrivere e mantenere contenuti con formattazione ricca, come blog, articoli e altro.
+## Come Funziona Markdown
+
+Intlayer supporta contenuti rich text definiti utilizzando la sintassi Markdown. Questo è possibile grazie alla funzione `md`, che converte una stringa Markdown in un formato gestibile da Intlayer. Utilizzando Markdown, è possibile scrivere e mantenere facilmente contenuti con formattazione avanzata, come blog, articoli e altro.
 
 [Il Visual editor di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md) e il [CMS di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_CMS.md) supportano entrambi la gestione dei contenuti Markdown.
 
-Quando integrato con un'applicazione React, puoi utilizzare un provider di rendering Markdown (come [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)) per rendere il contenuto Markdown in HTML. Questo ti consente di scrivere contenuti in Markdown assicurandoti che vengano visualizzati correttamente nella tua app.
+Quando integrato con un'applicazione React, è possibile utilizzare un provider di rendering Markdown (come [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)) per rendere il contenuto Markdown in HTML. Questo consente di scrivere contenuti in Markdown assicurandosi che vengano visualizzati correttamente nella tua app.
 
-## Configurazione del Contenuto Markdown
+## Configurazione dei Contenuti Markdown
 
-Per configurare il contenuto Markdown nel tuo progetto Intlayer, definisci un dizionario di contenuti che utilizza la funzione `md`.
+Per configurare i contenuti Markdown nel tuo progetto Intlayer, definisci un dizionario di contenuti che utilizza la funzione `md`.
 
 ```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
 import { md, type Dictionary } from "intlayer";
@@ -64,11 +66,11 @@ module.exports = markdownDictionary;
 }
 ```
 
-## Importare file `.md` multilingua
+## Importazione di file `.md` (multilingua)
 
 ```typescript fileName="md.d.ts" contentDeclarationFormat="typescript"
 // Questa dichiarazione consente a TypeScript di riconoscere e importare file Markdown (.md) come moduli.
-// Senza questa dichiarazione, TypeScript genererebbe un errore tentando di importare file Markdown,
+// Senza questa dichiarazione, TypeScript genererebbe un errore quando si tenta di importare file Markdown,
 // poiché non supporta nativamente l'importazione di file non di codice.
 
 declare module "*.md";
@@ -76,7 +78,9 @@ declare module "*.md";
 
 ```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
 import { md, t, type Dictionary } from "intlayer";
-import markdown_it from "./myMarkdown.it.md";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
 import markdown_en from "./myMarkdown.en.md";
 import markdown_fr from "./myMarkdown.fr.md";
 import markdown_es from "./myMarkdown.es.md";
@@ -84,11 +88,20 @@ import markdown_es from "./myMarkdown.es.md";
 const markdownDictionary = {
   key: "app",
   content: {
-    myMarkdownContent: t({
-      it: md(markdown_it),
+    contentImport: t({
+      it: md(markdown_en),
       en: md(markdown_en),
       fr: md(markdown_fr),
       es: md(markdown_es),
+    }),
+    contentRequire: md(require("./myMarkdown.md")),
+    contentAsyncImport: md(
+      md(import("./myMarkdown.md").then((module) => module.default))
+    ),
+    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
+    contentFS: md(() => {
+      const filePath = resolve(process.cwd(), "doc/test.md");
+      return readFileSync(filePath, "utf8");
     }),
   },
 } satisfies Dictionary;
@@ -98,7 +111,9 @@ export default markdownDictionary;
 
 ```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
 import { md, t } from "intlayer";
-import markdown_it from "./myMarkdown.it.md";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
 import markdown_en from "./myMarkdown.en.md";
 import markdown_fr from "./myMarkdown.fr.md";
 import markdown_es from "./myMarkdown.es.md";
@@ -107,11 +122,20 @@ import markdown_es from "./myMarkdown.es.md";
 const markdownDictionary = {
   key: "app",
   content: {
-    myMarkdownContent: t({
-      it: md(markdown_it),
+    contentImport: t({
+      it: md(markdown_en),
       en: md(markdown_en),
       fr: md(markdown_fr),
       es: md(markdown_es),
+    }),
+    contentRequire: md(require("./myMarkdown.md")),
+    contentAsyncImport: md(
+      md(import("./myMarkdown.md").then((module) => module.default))
+    ),
+    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
+    contentFS: md(() => {
+      const filePath = resolve(process.cwd(), "doc/test.md");
+      return readFileSync(filePath, "utf8");
     }),
   },
 };
@@ -121,7 +145,7 @@ export default markdownDictionary;
 
 ```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
 const { md, t } = require("intlayer");
-const markdown_it = require("./myMarkdown.it.md");
+
 const markdown_en = require("./myMarkdown.en.md");
 const markdown_fr = require("./myMarkdown.fr.md");
 const markdown_es = require("./myMarkdown.es.md");
@@ -130,11 +154,16 @@ const markdown_es = require("./myMarkdown.es.md");
 const markdownDictionary = {
   key: "app",
   content: {
-    myMarkdownContent: t({
-      it: md(markdown_it),
+    contentImport: t({
+      it: md(markdown_en),
       en: md(markdown_en),
       fr: md(markdown_fr),
       es: md(markdown_es),
+    }),
+    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
+    contentFS: md(() => {
+      const filePath = resolve(process.cwd(), "doc/test.md");
+      return readFileSync(filePath, "utf8");
     }),
   },
 };
@@ -143,7 +172,8 @@ module.exports = markdownDictionary;
 ```
 
 ```jsonc fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-// L'importazione di file Markdown esterni (.md) è possibile solo utilizzando file di dichiarazione JS o TS.
+// - L'importazione di file Markdown esterni (.md) è possibile solo utilizzando file di dichiarazione JS o TS.
+// - Il recupero di contenuti Markdown esterni è possibile solo utilizzando file di dichiarazione JS o TS.
 
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -174,9 +204,9 @@ module.exports = markdownDictionary;
 }
 ```
 
-## Utilizzare Markdown con React Intlayer
+## Utilizzo di Markdown con React Intlayer
 
-Per rendere il contenuto Markdown in un'applicazione React, puoi sfruttare il hook `useIntlayer` dal pacchetto `react-intlayer` insieme a un provider di rendering Markdown. In questo esempio, utilizziamo il pacchetto [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) per convertire il Markdown in HTML.
+Per rendere il contenuto Markdown in un'applicazione React, puoi utilizzare il hook `useIntlayer` dal pacchetto `react-intlayer` insieme a un provider di rendering Markdown. In questo esempio, utilizziamo il pacchetto [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) per convertire il Markdown in HTML.
 
 ```tsx fileName="App.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -234,17 +264,74 @@ AppProvider = () => (
     <AppContent />
   </MarkdownProvider>
 );
+```
 
 module.exports = {
-  AppProvider,
+AppProvider,
 };
-```
+
+````
 
 In questa implementazione:
 
 - Il `MarkdownProvider` avvolge l'applicazione (o la parte rilevante di essa) e accetta una funzione `renderMarkdown`. Questa funzione viene utilizzata per convertire le stringhe Markdown in JSX utilizzando il pacchetto `markdown-to-jsx`.
 - Il hook `useIntlayer` viene utilizzato per recuperare il contenuto Markdown (`myMarkdownContent`) dal dizionario con la chiave `"app"`.
 - Il contenuto Markdown viene reso direttamente nel componente, e il rendering del Markdown è gestito dal provider.
+
+### Utilizzo di Markdown con Next Intlayer
+
+L'implementazione utilizzando il pacchetto `next-intlayer` è simile a quella sopra. L'unica differenza è che la funzione `renderMarkdown` deve essere passata al componente `MarkdownProvider` in un componente client.
+
+```tsx title="src/providers/IntlayerMarkdownProvider.tsx" codeFormat="typescript"
+"use client";
+
+import type { FC, PropsWithChildren } from "react";
+import { MarkdownProvider } from "next-intlayer";
+
+const renderMarkdown = (markdown: string) => (
+  <span style={{ color: "red" }}>{markdown}</span>
+);
+
+export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
+  children,
+}) => (
+  <MarkdownProvider renderMarkdown={renderMarkdown}>
+    {children}
+  </MarkdownProvider>
+);
+````
+
+```jsx title="src/providers/IntlayerMarkdownProvider.msx" codeFormat="esm"
+"use client";
+
+import { MarkdownProvider } from "next-intlayer";
+
+const renderMarkdown = (markdown) => (
+  <span style={{ color: "red" }}>{markdown}</span>
+);
+
+export const IntlayerMarkdownProvider = ({ children }) => (
+  <MarkdownProvider renderMarkdown={renderMarkdown}>
+    {children}
+  </MarkdownProvider>
+);
+```
+
+```jsx title="src/providers/IntlayerMarkdownProvider.csx" codeFormat="commonjs"
+"use client";
+
+const { MarkdownProvider } = require("next-intlayer");
+
+const renderMarkdown = (markdown) => (
+  <span style={{ color: "red" }}>{markdown}</span>
+);
+
+const IntlayerMarkdownProvider = ({ children }) => (
+  <MarkdownProvider renderMarkdown={renderMarkdown}>
+    {children}
+  </MarkdownProvider>
+);
+```
 
 ## Risorse Aggiuntive
 
@@ -253,4 +340,4 @@ In questa implementazione:
 - [Documentazione Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_nextjs_15.md)
 - [markdown-to-jsx su npm](https://www.npmjs.com/package/markdown-to-jsx)
 
-Queste risorse forniscono ulteriori approfondimenti sulla configurazione e l'utilizzo di Intlayer con vari tipi di contenuti e framework.
+Queste risorse forniscono ulteriori approfondimenti su come configurare e utilizzare Intlayer con vari tipi di contenuti e framework.

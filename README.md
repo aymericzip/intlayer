@@ -90,6 +90,8 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   - [Intlayer with Next.js Page Router](https://intlayer.org/doc/environment/nextjs/next-with-Page-Router)
 - [Intlayer with React CRA](https://intlayer.org/doc/environment/create-react-app)
 - [Intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md)
+- [Intlayer with React Native](https://intlayer.org/fr/doc/environment/react-native-and-expo)
+- [Intlayer with Lynx and React](https://intlayer.org/fr/doc/environment/lynx-and-react)
 - [Intlayer with Express](https://intlayer.org/doc/environment/express)
 
 ### Packages
@@ -131,6 +133,14 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 #### vite-intlayer
 
 - [Package](https://intlayer.org/doc/packages/vite-intlayer)
+
+#### lynx-intlayer
+
+- [Package](https://intlayer.org/doc/packages/lynx-intlayer)
+
+#### react-native-intlayer
+
+- [Package](https://intlayer.org/doc/packages/react-native-intlayer)
 
 #### react-scripts-intlayer
 

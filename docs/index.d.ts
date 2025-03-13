@@ -52,6 +52,8 @@ declare module '@intlayer/docs' {
     'package__react-intlayer__useIntlayerAsync',
     'package__react-intlayer__useLocale',
     'package__vite-intlayer',
+    'package__lynx-intlayer',
+    'package__react-native-intlayer',
     'package__react-scripts-intlayer',
     'package__intlayer-editor',
     'package__@intlayer_api',
