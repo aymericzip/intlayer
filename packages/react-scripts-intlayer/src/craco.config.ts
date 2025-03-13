@@ -10,4 +10,5 @@ const cracoConfig = {
   ],
 } satisfies CracoConfig;
 
-export default cracoConfig;
+// Necessary Exporting as CJS for CRACO to work
+module.exports = cracoConfig;

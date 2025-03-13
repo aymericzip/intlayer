@@ -104,7 +104,7 @@ export const overrideCracoConfig = ({
  * const cracoConfig: CracoConfig = {
  *  plugins: [
  *   {
- *    plugin: intlayerCracoPlugin(),
+ *    plugin: intlayerCracoPlugin,
  *   },
  *  ],
  * };
