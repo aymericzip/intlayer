@@ -139,7 +139,7 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
 
   await prepareIntlayer(configuration);
 
-  if (configuration.content.watch) {
+  if (configuration.content.watch | options.persistent) {
     // Start watching (assuming watch is also async)
     watch({ ...options, configuration });
   }
