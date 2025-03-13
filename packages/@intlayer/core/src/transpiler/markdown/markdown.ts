@@ -24,10 +24,23 @@ export type MarkdownContent = TypedNodeModel<
  * ```
  *
  */
-const markdown = (content: string | Promise<string>): MarkdownContent => {
-  const metadata = getMarkdownMetadata(content as string);
+const markdown = (
+  content: string | Promise<string> | (() => string)
+): MarkdownContent => {
+  const getMetadata = () => {
+    if (typeof content === 'string') {
+      return getMarkdownMetadata(content);
+    }
+    if (typeof content === 'function') {
+      return () => getMarkdownMetadata(content());
+    } else {
+      return async () => getMarkdownMetadata(await content);
+    }
+  };
 
-  return formatNodeType(NodeType.Markdown, content as string, { metadata });
+  return formatNodeType(NodeType.Markdown, content as string, {
+    metadata: getMetadata(),
+  });
 };
 
 export { markdown as md };

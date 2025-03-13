@@ -5,22 +5,24 @@ import type { Dictionary } from '@intlayer/core';
  * A more "unified" approach where each type (function, array, object, primitive)
  * is handled inside the main recursive body.
  */
-const processFunctionResults = async <T = unknown>(entry: any): Promise<T> => {
+export const resolveContentPromises = async <T = unknown>(
+  entry: any
+): Promise<T> => {
   // Check if entry is a Promise (Thenable)
   if (entry && typeof entry.then === 'function') {
     const awaited = await entry;
-    return processFunctionResults(awaited);
+    return resolveContentPromises(awaited);
   }
 
   // If entry is a function, invoke it and process the result
   if (typeof entry === 'function') {
     const result = entry();
-    return processFunctionResults(result);
+    return resolveContentPromises(result);
   }
 
   if (Array.isArray(entry)) {
     return Promise.all(
-      entry.map(async (item) => processFunctionResults(item))
+      entry.map(async (item) => resolveContentPromises(item))
     ) as unknown as T;
   }
 
@@ -29,7 +31,7 @@ const processFunctionResults = async <T = unknown>(entry: any): Promise<T> => {
     const keys = Object.keys(entry);
     await Promise.all(
       keys.map(async (key) => {
-        result[key] = await processFunctionResults(entry[key]);
+        result[key] = await resolveContentPromises(entry[key]);
       })
     );
     return result as T;
@@ -45,7 +47,7 @@ export const processContentDeclaration = async (
   contentDeclaration: Dictionary
 ): Promise<Dictionary | undefined> => {
   try {
-    const content = (await processFunctionResults(
+    const content = (await resolveContentPromises(
       contentDeclaration.content
     )) as Dictionary['content'];
 

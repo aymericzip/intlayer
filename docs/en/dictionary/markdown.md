@@ -85,11 +85,6 @@ import markdown_en from "./myMarkdown.en.md";
 import markdown_fr from "./myMarkdown.fr.md";
 import markdown_es from "./myMarkdown.es.md";
 
-const importMDUsingFS = () => {
-  const filePath = resolve(process.cwd(), "doc/test.md");
-  return readFileSync(filePath, "utf8");
-};
-
 const markdownDictionary = {
   key: "app",
   content: {
@@ -98,12 +93,15 @@ const markdownDictionary = {
       fr: md(markdown_fr),
       es: md(markdown_es),
     }),
-    contentFS: md(importMDUsingFS()),
     contentRequire: md(require("./myMarkdown.md")),
     contentAsyncImport: md(
       md(import("./myMarkdown.md").then((module) => module.default))
     ),
-    contentFetch: md(fetch("https://example.com")),
+    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
+    contentFS: md(() => {
+      const filePath = resolve(process.cwd(), "doc/test.md");
+      return readFileSync(filePath, "utf8");
+    }),
   },
 } satisfies Dictionary;
 
@@ -119,11 +117,6 @@ import markdown_en from "./myMarkdown.en.md";
 import markdown_fr from "./myMarkdown.fr.md";
 import markdown_es from "./myMarkdown.es.md";
 
-const importMDUsingFS = () => {
-  const filePath = resolve(process.cwd(), "doc/test.md");
-  return readFileSync(filePath, "utf8");
-};
-
 /** @type {import('intlayer').Dictionary} */
 const markdownDictionary = {
   key: "app",
@@ -133,12 +126,15 @@ const markdownDictionary = {
       fr: md(markdown_fr),
       es: md(markdown_es),
     }),
-    contentFS: md(importMDUsingFS()),
     contentRequire: md(require("./myMarkdown.md")),
     contentAsyncImport: md(
       md(import("./myMarkdown.md").then((module) => module.default))
     ),
-    contentFetch: md(fetch("https://example.com")),
+    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
+    contentFS: md(() => {
+      const filePath = resolve(process.cwd(), "doc/test.md");
+      return readFileSync(filePath, "utf8");
+    }),
   },
 };
 
@@ -152,22 +148,20 @@ const markdown_en = require("./myMarkdown.en.md");
 const markdown_fr = require("./myMarkdown.fr.md");
 const markdown_es = require("./myMarkdown.es.md");
 
-const importMDUsingFS = () => {
-  const filePath = resolve(process.cwd(), "doc/test.md");
-  return readFileSync(filePath, "utf8");
-};
-
 /** @type {import('intlayer').Dictionary} */
 const markdownDictionary = {
   key: "app",
   content: {
-    myMarkdownContent: t({
+    contentImport: t({
       en: md(markdown_en),
       fr: md(markdown_fr),
       es: md(markdown_es),
     }),
-    myMarkdownContentFS: md(importMDUsingFS()),
-    contentFetch: md(fetch("https://example.com")),
+    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
+    contentFS: md(() => {
+      const filePath = resolve(process.cwd(), "doc/test.md");
+      return readFileSync(filePath, "utf8");
+    }),
   },
 };
 
