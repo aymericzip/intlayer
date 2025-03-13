@@ -35,48 +35,54 @@ const parseToObject = <T = any>(input: string): T | null => {
   return JSON.parse(normalizedInput) as T;
 };
 
-export const getMarkdownMetadata = (markdown: string): Record<string, any> => {
-  const lines = markdown.split(/\r?\n/);
+export const getMarkdownMetadata = (
+  markdown: string
+): Record<string, any> | undefined => {
+  try {
+    const lines = markdown.split(/\r?\n/);
 
-  // Check if the very first non-empty line is the metadata start delimiter.
-  const firstNonEmptyLine = lines.find((line) => line.trim() !== '');
+    // Check if the very first non-empty line is the metadata start delimiter.
+    const firstNonEmptyLine = lines.find((line) => line.trim() !== '');
 
-  if (!firstNonEmptyLine || firstNonEmptyLine.trim() !== '---') {
-    return {};
-  }
-
-  const metadata: Record<string, any> = {};
-  let inMetadataBlock = false;
-
-  for (const line of lines) {
-    const trimmedLine = line.trim();
-
-    // Toggle metadata block on encountering the delimiter.
-    if (trimmedLine === '---') {
-      if (!inMetadataBlock) {
-        // Begin metadata block.
-        inMetadataBlock = true;
-        continue;
-      } else {
-        // End of metadata block; stop processing.
-        break;
-      }
+    if (!firstNonEmptyLine || firstNonEmptyLine.trim() !== '---') {
+      return {};
     }
 
-    // If we're inside the metadata block, parse key: value pairs.
-    if (inMetadataBlock) {
-      const match = line.match(/^([^:]+)\s*:\s*(.*)$/);
-      if (match) {
-        const key = match[1].trim();
-        const value = match[2].trim();
-        try {
-          metadata[key] = parseToObject(value);
-        } catch (e) {
-          metadata[key] = value;
+    const metadata: Record<string, any> = {};
+    let inMetadataBlock = false;
+
+    for (const line of lines) {
+      const trimmedLine = line.trim();
+
+      // Toggle metadata block on encountering the delimiter.
+      if (trimmedLine === '---') {
+        if (!inMetadataBlock) {
+          // Begin metadata block.
+          inMetadataBlock = true;
+          continue;
+        } else {
+          // End of metadata block; stop processing.
+          break;
+        }
+      }
+
+      // If we're inside the metadata block, parse key: value pairs.
+      if (inMetadataBlock) {
+        const match = line.match(/^([^:]+)\s*:\s*(.*)$/);
+        if (match) {
+          const key = match[1].trim();
+          const value = match[2].trim();
+          try {
+            metadata[key] = parseToObject(value);
+          } catch (e) {
+            metadata[key] = value;
+          }
         }
       }
     }
-  }
 
-  return metadata;
+    return metadata;
+  } catch (e) {
+    return undefined;
+  }
 };

@@ -24,17 +24,16 @@ export type MarkdownContent = TypedNodeModel<
  * ```
  *
  */
-const markdown = (
-  content: string | Promise<string> | (() => string)
-): MarkdownContent => {
+const markdown = <Content = unknown>(content: Content): MarkdownContent => {
   const getMetadata = () => {
     if (typeof content === 'string') {
       return getMarkdownMetadata(content);
     }
     if (typeof content === 'function') {
       return () => getMarkdownMetadata(content());
-    } else {
-      return async () => getMarkdownMetadata(await content);
+    } else if (typeof (content as Promise<string>).then === 'function') {
+      return async () =>
+        getMarkdownMetadata(await (content as Promise<string>));
     }
   };
 

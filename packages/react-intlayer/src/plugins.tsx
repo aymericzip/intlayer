@@ -24,6 +24,7 @@ export type IntlayerNodeCond<T> = T extends number | string
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const intlayerNodePlugins: Plugins = {
+  id: 'intlayer-node-plugin',
   canHandle: (node) =>
     typeof node === 'bigint' ||
     typeof node === 'string' ||
@@ -61,6 +62,7 @@ export type ReactNodeCond<T> = T extends {
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const reactNodePlugins: Plugins = {
+  id: 'react-node-plugin',
   canHandle: (node) =>
     typeof node === 'object' &&
     typeof node.props !== 'undefined' &&
@@ -88,35 +90,24 @@ export const reactNodePlugins: Plugins = {
  * MARKDOWN PLUGIN
  */
 
-export type MarkdownCond<T> = T extends {
-  nodeType: NodeType | string;
-  [NodeType.Markdown]: string;
-  metadata?: infer U;
-}
-  ? IntlayerNode<string, { metadata: DeepTransformContent<U> }>
+export type MarkdownStringCond<T> = T extends string
+  ? IntlayerNode<string, { metadata: DeepTransformContent<string> }>
   : never;
 
-/** Markdown plugin. Replaces node with a function that takes quantity => string. */
-export const markdownPlugin: Plugins = {
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
-  transform: (node: MarkdownContent, props) => {
+/** Markdown string plugin. Replaces string node with a component that render the markdown. */
+export const markdownStringPlugin: Plugins = {
+  id: 'markdown-string-plugin',
+  canHandle: (node) => typeof node === 'string',
+  transform: (node: string, props, deepTransformNode) => {
     const {
       plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest
     } = props;
 
-    const newKeyPath: KeyPath[] = [
-      ...props.keyPath,
-      {
-        type: NodeType.Markdown,
-      },
-    ];
-
-    const content = node[NodeType.Markdown];
-    const metadata = getMarkdownMetadata(content);
+    const metadata = getMarkdownMetadata(node);
 
     const metadataPlugins: Plugins = {
+      id: 'markdown-metadata-plugin',
       canHandle: (node) =>
         typeof node === 'string' ||
         typeof node === 'number' ||
@@ -127,13 +118,12 @@ export const markdownPlugin: Plugins = {
           ...props,
           value: node,
           children: (
-            <ContentSelectorRenderer {...rest} keyPath={newKeyPath}>
+            <ContentSelectorRenderer {...rest}>
               <MarkdownMetadataRenderer
                 {...rest}
-                keyPath={newKeyPath}
                 metadataKeyPath={props.keyPath}
               >
-                {content}
+                {node}
               </MarkdownMetadataRenderer>
             </ContentSelectorRenderer>
           ),
@@ -149,12 +139,10 @@ export const markdownPlugin: Plugins = {
 
     return renderIntlayerNode({
       ...props,
-      value: content,
+      value: node,
       children: (
-        <ContentSelectorRenderer {...rest} keyPath={newKeyPath}>
-          <MarkdownRenderer {...rest} keyPath={newKeyPath}>
-            {content}
-          </MarkdownRenderer>
+        <ContentSelectorRenderer {...rest}>
+          <MarkdownRenderer {...rest}>{node}</MarkdownRenderer>
         </ContentSelectorRenderer>
       ),
       additionalProps: {
@@ -164,6 +152,36 @@ export const markdownPlugin: Plugins = {
   },
 };
 
+export type MarkdownCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.Markdown]: infer M;
+  metadata?: infer U;
+}
+  ? IntlayerNode<DeepTransformContent<M>, { metadata: DeepTransformContent<U> }>
+  : never;
+
+export const markdownPlugin: Plugins = {
+  id: 'markdown-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
+  transform: (node: MarkdownContent, props, deepTransformNode) => {
+    const newKeyPath: KeyPath[] = [
+      ...props.keyPath,
+      {
+        type: NodeType.Markdown,
+      },
+    ];
+
+    const children = node[NodeType.Markdown];
+
+    return deepTransformNode(children, {
+      ...props,
+      children,
+      keyPath: newKeyPath,
+      plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
+    });
+  },
+};
 /** ---------------------------------------------
  *  PLUGINS RESULT
  *  --------------------------------------------- */

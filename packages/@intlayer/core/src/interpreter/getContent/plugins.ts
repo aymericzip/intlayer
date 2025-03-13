@@ -23,6 +23,7 @@ import { getTranslation } from '../getTranslation';
  * > `transformFn` is a function that can be used to deeply transform inside the plugin.
  */
 export type Plugins = {
+  id: string;
   canHandle: (node: any) => boolean;
   transform: (
     node: any,
@@ -47,6 +48,7 @@ export type TranslationCond<T, S> = T extends {
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const translationPlugin = (locale: LocalesValues): Plugins => ({
+  id: 'translation-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
   transform: (node: TranslationContent, props, deepTransformNode) => {
@@ -88,6 +90,7 @@ export type EnumerationCond<T, S> = T extends {
 
 /** Enumeration plugin. Replaces node with a function that takes quantity => string. */
 export const enumerationPlugin: Plugins = {
+  id: 'enumeration-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Enumeration,
   transform: (node: EnumerationContent, props, deepTransformNode) => {
@@ -131,6 +134,7 @@ export type ConditionCond<T, S> = T extends {
 
 /** Condition plugin. Replaces node with a function that takes boolean => string. */
 export const conditionPlugin: Plugins = {
+  id: 'condition-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Condition,
   transform: (node: ConditionContent, props, deepTransformNode) => {
@@ -174,6 +178,7 @@ export type NestedCond<T, S> = T extends {
 
 /** Nested plugin. Replaces node with the result of `getNesting`. */
 export const nestedPlugin: Plugins = {
+  id: 'nested-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Nested,
   transform: (node: NestedContent, props) =>
