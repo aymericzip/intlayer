@@ -14,5 +14,17 @@ export default defineConfig({
     port: 8000,
   },
 
+  build: {
+    rollupOptions: {
+      external: ['@intlayer/config/built', 'path', 'url', 'vm', 'fs'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    },
+  },
+
   plugins: [react(), intlayerPlugin(), tailwindcss()],
 });
