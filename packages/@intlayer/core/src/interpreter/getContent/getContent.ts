@@ -8,6 +8,8 @@ import {
   enumerationPlugin,
   conditionPlugin,
   nestedPlugin,
+  insertionPlugin,
+  filePlugin,
   type DeepTransformContent,
   type NodeProps,
   type Plugins,
@@ -28,10 +30,12 @@ export const getContent = <
   locale: L = configuration.internationalization.defaultLocale as L
 ) => {
   const plugins: Plugins[] = [
+    insertionPlugin,
     translationPlugin(locale),
     enumerationPlugin,
     conditionPlugin,
     nestedPlugin,
+    filePlugin,
     ...(nodeProps.plugins ?? []),
   ];
 

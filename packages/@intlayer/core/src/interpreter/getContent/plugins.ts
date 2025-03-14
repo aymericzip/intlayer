@@ -5,6 +5,7 @@ import type {
   NestedContent,
   TranslationContent,
   InsertionContent,
+  FileContent,
 } from '../../transpiler';
 import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import { getCondition } from '../getCondition';
@@ -166,39 +167,14 @@ export const conditionPlugin: Plugins = {
  *  INSERTION PLUGIN
  *  --------------------------------------------- */
 
-/**
- * Traverse recursively through an object or array, applying each plugin as needed.
- */
-type TraverseEl<T, I> =
-  // Turn any read-only array into a plain mutable array
-  T extends ReadonlyArray<infer U>
-    ? Array<DeepTransformInsertion<U, I>>
-    : T extends object
-      ? { [K in keyof T]: DeepTransformInsertion<T[K], I> }
-      : T;
-
-/**
- * Traverse recursively through an object or array, applying each plugin as needed.
- */
-type DeepTransformInsertion<T, I> =
-  // Check if there is a plugin for T:
-  T extends string
-    ? // A plugin was found – use the plugin’s transformation.
-      I
-    : // No plugin was found, so try to transform T recursively:
-      TraverseEl<T, I>;
-
-export type InsertionCond<T> = T extends {
+export type InsertionCond<T, S> = T extends {
   nodeType: NodeType | string;
   [NodeType.Insertion]: infer I;
   fields?: infer U;
 }
   ? U extends readonly string[]
-    ? DeepTransformInsertion<
-        I,
-        (data: Record<U[number], string>) => Record<U[number], string>
-      >
-    : DeepTransformInsertion<I, (data: Record<string, string>) => string>
+    ? (data: Record<U[number], string>) => DeepTransformContent<I, S>
+    : (data: Record<string, string>) => DeepTransformContent<I, S>
   : never;
 
 export const insertionPlugin: Plugins = {
@@ -219,22 +195,37 @@ export const insertionPlugin: Plugins = {
     const insertionStringPlugin: Plugins = {
       id: 'insertion-string-plugin',
       canHandle: (node) => typeof node === 'string',
-      transform:
-        (node: string) =>
-        (values: {
+      transform: (node: string, subProps, deepTransformNode) => {
+        const transformedResult = deepTransformNode(node, {
+          ...subProps,
+          children: node,
+          plugins: [
+            ...(props.plugins ?? ([] as Plugins[])).filter(
+              (plugin) => plugin.id !== 'intlayer-node-plugin'
+            ),
+          ],
+        });
+
+        return (values: {
           [K in InsertionContent['fields'][number]]: string;
-        }) =>
-          getInsertion(node, values),
+        }) => {
+          const children = getInsertion(transformedResult, values);
+
+          return deepTransformNode(children, {
+            ...subProps,
+            plugins: props.plugins,
+            children,
+          });
+        };
+      },
     };
 
-    const result = deepTransformNode(children, {
+    return deepTransformNode(children, {
       ...props,
       children,
       keyPath: newKeyPath,
       plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
     });
-
-    return result;
   },
 };
 
@@ -263,6 +254,30 @@ export const nestedPlugin: Plugins = {
     getNesting(node.nested.dictionaryKey, node.nested.path, props),
 };
 
+/** ---------------------------------------------
+ *  FILE PLUGIN
+ *  --------------------------------------------- */
+
+export type FileCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.File]: string;
+  content?: string;
+}
+  ? string
+  : never;
+
+/** File plugin. Replaces node with the result of `getNesting`. */
+export const filePlugin: Plugins = {
+  id: 'file-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.File,
+  transform: (node: FileContent, props, deepTransform) =>
+    deepTransform(node.content, {
+      ...props,
+      children: node.content,
+    }),
+};
+
 /**
  * PLUGIN RESULT
  */
@@ -286,10 +301,11 @@ export interface NodeProps {
  */
 export interface IInterpreterPlugin<T, S> {
   translation: TranslationCond<T, S>;
+  insertion: InsertionCond<T, S>;
   enumeration: EnumerationCond<T, S>;
   condition: ConditionCond<T, S>;
-  insertion: InsertionCond<T>;
   nested: NestedCond<T, S>;
+  file: FileCond<T>;
 }
 
 /**
@@ -301,6 +317,7 @@ export type IInterpreterPluginState = {
   condition: true;
   insertion: true;
   nested: true;
+  file: true;
 };
 
 /**
