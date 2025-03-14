@@ -30,7 +30,6 @@ export {
   t,
   nest,
   insert,
-  // file,
   getEnumeration,
   /**
    * @deprecated Use `getEnumeration` instead.
@@ -52,3 +51,4 @@ export {
   getLocalizedUrl,
   localeList,
 } from '@intlayer/core';
+export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser

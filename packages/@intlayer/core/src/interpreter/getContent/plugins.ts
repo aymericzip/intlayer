@@ -5,6 +5,7 @@ import type {
   NestedContent,
   TranslationContent,
   InsertionContent,
+  FileContent,
 } from '../../transpiler';
 import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import { getCondition } from '../getCondition';
@@ -257,25 +258,25 @@ export const nestedPlugin: Plugins = {
 //  *  FILE PLUGIN
 //  *  --------------------------------------------- */
 
-// export type FileCond<T> = T extends {
-//   nodeType: NodeType | string;
-//   [NodeType.File]: string;
-//   content?: string;
-// }
-//   ? string
-//   : never;
+export type FileCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.File]: string;
+  content?: string;
+}
+  ? string
+  : never;
 
-// /** File plugin. Replaces node with the result of `getNesting`. */
-// export const filePlugin: Plugins = {
-//   id: 'file-plugin',
-//   canHandle: (node) =>
-//     typeof node === 'object' && node?.nodeType === NodeType.File,
-//   transform: (node: FileContent, props, deepTransform) =>
-//     deepTransform(node.content, {
-//       ...props,
-//       children: node.content,
-//     }),
-// };
+/** File plugin. Replaces node with the result of `getNesting`. */
+export const filePlugin: Plugins = {
+  id: 'file-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.File,
+  transform: (node: FileContent, props, deepTransform) =>
+    deepTransform(node.content, {
+      ...props,
+      children: node.content,
+    }),
+};
 
 /**
  * PLUGIN RESULT

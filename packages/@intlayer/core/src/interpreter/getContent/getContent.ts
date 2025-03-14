@@ -9,7 +9,7 @@ import {
   conditionPlugin,
   nestedPlugin,
   insertionPlugin,
-  // filePlugin,
+  filePlugin,
   type DeepTransformContent,
   type NodeProps,
   type Plugins,
@@ -35,7 +35,7 @@ export const getContent = <
     enumerationPlugin,
     conditionPlugin,
     nestedPlugin,
-    // filePlugin,
+    filePlugin,
     ...(nodeProps.plugins ?? []),
   ];
 

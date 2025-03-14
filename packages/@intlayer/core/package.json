@@ -42,6 +42,17 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./file": {
+      "types": "./dist/types/transpiler/file/file.d.ts",
+      "node": {
+        "require": "./dist/cjs/transpiler/file/file.cjs",
+        "import": "./dist/esm/transpiler/file/file.mjs"
+      },
+      "browser": {
+        "require": "./dist/cjs/transpiler/file/fileBrowser.cjs",
+        "import": "./dist/esm/transpiler/file/fileBrowser.mjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",

@@ -34,7 +34,7 @@ declare const intlayer_file_dir: string; // Injected by esbuild to track the fil
  * file('path/to/file.md') // relative path
  * ```
  */
-const file = (path: string): FileContent => {
+export const file = (path: string): FileContent => {
   const callerDir = intlayer_file_dir ?? process.cwd();
 
   const isAbsolutePath = path.startsWith('/');
@@ -68,5 +68,3 @@ const file = (path: string): FileContent => {
     fixedPath: relative(process.cwd(), filePath),
   });
 };
-
-export default file;
