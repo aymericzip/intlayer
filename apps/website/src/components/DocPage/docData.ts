@@ -51,6 +51,8 @@ import { getEnvironmentReactNativeAndExpoData } from './docDataContent/environme
 import { getEnvironmentLynxAndReactData } from './docDataContent/environment/lynxAndReact';
 import { getPackagesLynxIntlayerData } from './docDataContent/packages/lynx-intlayer';
 import { getPackagesReactNativeIntlayerData } from './docDataContent/packages/react-native-intlayer';
+import { getContentDeclarationFileData } from './docDataContent/concept/dictionary/file';
+import { getContentDeclarationInsertionData } from './docDataContent/concept/dictionary/insertion';
 
 export const getDocData = (locale = Locales.ENGLISH): Section => {
   const content = getIntlayer('doc-data', locale);
@@ -112,6 +114,15 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
               title:
                 content.concept.subSections.content.subsections.condition.title,
               default: getContentDeclarationConditionData(locale),
+            },
+            insertion: {
+              title:
+                content.concept.subSections.content.subsections.insertion.title,
+              default: getContentDeclarationInsertionData(locale),
+            },
+            file: {
+              title: content.concept.subSections.content.subsections.file.title,
+              default: getContentDeclarationFileData(locale),
             },
             nesting: {
               title:

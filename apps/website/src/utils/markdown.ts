@@ -1,5 +1,3 @@
-/* eslint-disable security/detect-non-literal-regexp */
-
 import { Locales } from 'intlayer';
 import { locales } from '../../intlayer.config';
 import { GithubRoutes, PagesRoutes } from '@/Routes';
@@ -33,6 +31,8 @@ const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
   [GithubRoutes.Dictionary_Markdown]: PagesRoutes.Doc_Dictionary_Markdown,
   [GithubRoutes.Dictionary_Condition]: PagesRoutes.Doc_Dictionary_Condition,
   [GithubRoutes.Dictionary_Nesting]: PagesRoutes.Doc_Dictionary_Nesting,
+  [GithubRoutes.Dictionary_File]: PagesRoutes.Doc_Dictionary_File,
+  [GithubRoutes.Dictionary_Insertion]: PagesRoutes.Doc_Dictionary_Insertion,
   [GithubRoutes['Packages_intlayer']]: PagesRoutes['Doc_Packages_intlayer'],
   [GithubRoutes['Packages_intlayer_getConfiguration']]:
     PagesRoutes['Doc_Packages_intlayer_getConfiguration'],
@@ -84,6 +84,15 @@ const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
     PagesRoutes['Doc_Packages_next-intlayer_useDictionary'],
   [GithubRoutes['Packages_next-intlayer_useLocale']]:
     PagesRoutes['Doc_Packages_next-intlayer_useLocale'],
+  [GithubRoutes['Packages_react-scripts-intlayer']]:
+    PagesRoutes['Doc_Packages_react-scripts-intlayer'],
+  [GithubRoutes['Packages_vite-intlayer']]:
+    PagesRoutes['Doc_Packages_vite-intlayer'],
+  [GithubRoutes['Packages_lynx-intlayer']]:
+    PagesRoutes['Doc_Packages_lynx-intlayer'],
+  [GithubRoutes['Packages_react-native-intlayer']]:
+    PagesRoutes['Doc_Packages_react-native-intlayer'],
+
   [GithubRoutes.BlogIndex]: PagesRoutes['Blog'],
   [GithubRoutes.IntlayerWithNextI18next]:
     PagesRoutes['Blog_Intlayer_with_Next-i18next'],

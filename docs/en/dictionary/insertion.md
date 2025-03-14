@@ -64,7 +64,7 @@ module.exports = myInsertionContent;
   "content": {
     "myInsertion": {
       "nodeType": "insertion",
-      "value": "Hello, my name is {{name}} and I am {{age}} years old!",
+      "insertion": "Hello, my name is {{name}} and I am {{age}} years old!",
     },
   },
 }
