@@ -2,6 +2,8 @@ export enum NodeType {
   Translation = 'translation',
   Enumeration = 'enumeration',
   Condition = 'condition',
+  Insertion = 'insertion',
+  File = 'file',
   Object = 'object',
   Array = 'array',
   Nested = 'nested',
@@ -13,13 +15,25 @@ export enum NodeType {
   Unknown = 'unknown',
 }
 
-export type TypedNodeModel<T extends NodeType, Content> = {
+type AdditionalAttributesType = {
+  [key: string]: any;
+};
+
+export type TypedNodeModel<
+  T extends NodeType,
+  Content,
+  AdditionalAttributes extends AdditionalAttributesType = {},
+> = {
   nodeType: T | `${T}`;
 } & {
   [K in T]: Content;
-};
+} & AdditionalAttributes;
 
-export const formatNodeType = <T extends NodeType, Content = any>(
+export const formatNodeType = <
+  T extends NodeType,
+  Content = any,
+  AdditionalAttributes extends AdditionalAttributesType = {},
+>(
   nodeType: T | `${T}`,
   content: Content,
   additionalAttributes?: { [key: string]: any }
@@ -28,4 +42,4 @@ export const formatNodeType = <T extends NodeType, Content = any>(
     ...additionalAttributes,
     nodeType,
     [nodeType]: content,
-  }) as TypedNodeModel<T, Content>;
+  }) as TypedNodeModel<T, Content, AdditionalAttributes>;

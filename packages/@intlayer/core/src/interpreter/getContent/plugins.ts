@@ -4,12 +4,14 @@ import type {
   EnumerationContent,
   NestedContent,
   TranslationContent,
+  InsertionContent,
 } from '../../transpiler';
 import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import { getCondition } from '../getCondition';
 import { getEnumeration } from '../getEnumeration';
 import { type GetNestingResult, getNesting } from '../getNesting';
 import { getTranslation } from '../getTranslation';
+import { getInsertion } from '../getInsertion';
 
 /** ---------------------------------------------
  *  PLUGIN DEFINITION
@@ -52,7 +54,7 @@ export const translationPlugin = (locale: LocalesValues): Plugins => ({
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
   transform: (node: TranslationContent, props, deepTransformNode) => {
-    const result = structuredClone(node.translation);
+    const result = structuredClone(node[NodeType.Translation]);
 
     for (const key in result) {
       const childProps = {
@@ -94,7 +96,7 @@ export const enumerationPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Enumeration,
   transform: (node: EnumerationContent, props, deepTransformNode) => {
-    const result = structuredClone(node.enumeration);
+    const result = structuredClone(node[NodeType.Enumeration]);
 
     for (const key in result) {
       const child = result[key as unknown as keyof typeof result];
@@ -138,7 +140,7 @@ export const conditionPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Condition,
   transform: (node: ConditionContent, props, deepTransformNode) => {
-    const result = structuredClone(node.condition);
+    const result = structuredClone(node[NodeType.Condition]);
 
     for (const key in result) {
       const child = result[key as keyof typeof result];
@@ -157,6 +159,82 @@ export const conditionPlugin: Plugins = {
     }
 
     return (value: boolean) => getCondition(result, value);
+  },
+};
+
+/** ---------------------------------------------
+ *  INSERTION PLUGIN
+ *  --------------------------------------------- */
+
+/**
+ * Traverse recursively through an object or array, applying each plugin as needed.
+ */
+type TraverseEl<T, I> =
+  // Turn any read-only array into a plain mutable array
+  T extends ReadonlyArray<infer U>
+    ? Array<DeepTransformInsertion<U, I>>
+    : T extends object
+      ? { [K in keyof T]: DeepTransformInsertion<T[K], I> }
+      : T;
+
+/**
+ * Traverse recursively through an object or array, applying each plugin as needed.
+ */
+type DeepTransformInsertion<T, I> =
+  // Check if there is a plugin for T:
+  T extends string
+    ? // A plugin was found – use the plugin’s transformation.
+      I
+    : // No plugin was found, so try to transform T recursively:
+      TraverseEl<T, I>;
+
+export type InsertionCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.Insertion]: infer I;
+  fields?: infer U;
+}
+  ? U extends readonly string[]
+    ? DeepTransformInsertion<
+        I,
+        (data: Record<U[number], string>) => Record<U[number], string>
+      >
+    : DeepTransformInsertion<I, (data: Record<string, string>) => string>
+  : never;
+
+export const insertionPlugin: Plugins = {
+  id: 'insertion-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
+  transform: (node: InsertionContent, props, deepTransformNode) => {
+    const newKeyPath: KeyPath[] = [
+      ...props.keyPath,
+      {
+        type: NodeType.Insertion,
+      },
+    ];
+
+    const children = node[NodeType.Insertion];
+
+    /** Insertion string plugin. Replaces string node with a component that render the insertion. */
+    const insertionStringPlugin: Plugins = {
+      id: 'insertion-string-plugin',
+      canHandle: (node) => typeof node === 'string',
+      transform:
+        (node: string) =>
+        (values: {
+          [K in InsertionContent['fields'][number]]: string;
+        }) =>
+          getInsertion(node, values),
+    };
+
+    const result = deepTransformNode(children, {
+      ...props,
+      children,
+      keyPath: newKeyPath,
+      plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
+    });
+
+    return result;
   },
 };
 
@@ -210,6 +288,7 @@ export interface IInterpreterPlugin<T, S> {
   translation: TranslationCond<T, S>;
   enumeration: EnumerationCond<T, S>;
   condition: ConditionCond<T, S>;
+  insertion: InsertionCond<T>;
   nested: NestedCond<T, S>;
 }
 
@@ -220,6 +299,7 @@ export type IInterpreterPluginState = {
   translation: true;
   enumeration: true;
   condition: true;
+  insertion: true;
   nested: true;
 };
 

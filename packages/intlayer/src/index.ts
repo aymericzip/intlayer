@@ -29,6 +29,8 @@ export {
   md,
   t,
   nest,
+  insert,
+  file,
   getEnumeration,
   /**
    * @deprecated Use `getEnumeration` instead.

@@ -4,36 +4,32 @@ import { getSandBoxContext } from './getSandboxContext';
 import { ESMxCJSRequire } from './utils/ESMxCJSRequire';
 import { logger } from './logger';
 import { LoadEnvFileOptions } from './envVariables/loadEnvFile';
+import { dirname } from 'path';
 
-const getTransformationOptions = (): BuildOptions => {
-  const define: Record<string, string> = {};
-
-  for (const k in process.env) {
-    define[`process.env.${k}`] = JSON.stringify(process.env[k]);
-  }
-
-  const transformationOption: BuildOptions = {
-    loader: {
-      '.js': 'js',
-      '.jsx': 'jsx',
-      '.mjs': 'js',
-      '.ts': 'ts',
-      '.tsx': 'tsx',
-      '.cjs': 'js',
-      '.json': 'json',
-      '.md': 'text',
-      '.mdx': 'text',
-    },
-    format: 'cjs', // Output format as commonjs
-    target: 'es2017',
-    packages: 'external',
-    write: false,
-    bundle: true,
-    define,
-  };
-
-  return transformationOption;
-};
+const getTransformationOptions = (filePath: string): BuildOptions => ({
+  loader: {
+    '.js': 'js',
+    '.jsx': 'jsx',
+    '.mjs': 'js',
+    '.ts': 'ts',
+    '.tsx': 'tsx',
+    '.cjs': 'js',
+    '.json': 'json',
+    '.md': 'text',
+    '.mdx': 'text',
+  },
+  format: 'cjs', // Output format as commonjs
+  target: 'es2017',
+  packages: 'external',
+  write: false,
+  bundle: true,
+  banner: {
+    js: `
+    globalThis.intlayer_file_path = ${JSON.stringify(filePath)};
+    globalThis.intlayer_file_dir = ${JSON.stringify(dirname(filePath))};
+    `,
+  },
+});
 
 /**
  * Load the content declaration from the given path
@@ -58,7 +54,7 @@ export const loadExternalFile = (
 
     const moduleResult: BuildResult = buildSync({
       entryPoints: [filePath],
-      ...getTransformationOptions(),
+      ...getTransformationOptions(filePath),
     });
 
     const moduleResultString = moduleResult.outputFiles?.[0].text;
