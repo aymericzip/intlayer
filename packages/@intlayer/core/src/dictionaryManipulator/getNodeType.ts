@@ -1,11 +1,4 @@
-import type {
-  TranslationContent,
-  EnumerationContent,
-  ConditionContent,
-  MarkdownContent,
-  NestedContent,
-} from '../transpiler';
-import { NodeType, type DictionaryKeys } from '../types';
+import { NodeType, type TypedNode } from '../types';
 import type { ContentNode } from '../types/dictionary';
 import { isValidElement } from '../utils/isValidReactElement';
 
@@ -14,26 +7,8 @@ export const getNodeType = (content: ContentNode): NodeType => {
     return NodeType.Text;
   }
 
-  if ((content as TranslationContent)?.nodeType === NodeType.Translation) {
-    return NodeType.Translation;
-  }
-
-  if ((content as EnumerationContent)?.nodeType === NodeType.Enumeration) {
-    return NodeType.Enumeration;
-  }
-
-  if ((content as ConditionContent)?.nodeType === NodeType.Condition) {
-    return NodeType.Condition;
-  }
-
-  if ((content as MarkdownContent)?.nodeType === NodeType.Markdown) {
-    return NodeType.Markdown;
-  }
-
-  if (
-    (content as NestedContent<DictionaryKeys>)?.nodeType === NodeType.Nested
-  ) {
-    return NodeType.Nested;
+  if (typeof (content as TypedNode)?.nodeType === 'string') {
+    return (content as TypedNode).nodeType as NodeType;
   }
 
   if (Array.isArray(content)) {

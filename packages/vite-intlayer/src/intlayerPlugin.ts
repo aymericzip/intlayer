@@ -62,17 +62,6 @@ export const intlayerPlugin = (
       };
     }
 
-    const externals: string[] = (config.build?.rollupOptions?.external ??
-      []) as string[];
-
-    config.build = {
-      ...config.build,
-      rollupOptions: {
-        ...config.build?.rollupOptions,
-        external: [...externals, 'module'],
-      },
-    };
-
     return config;
   },
 

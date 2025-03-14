@@ -6,7 +6,6 @@ import {
   NodeType,
   KeyPath,
   getMarkdownMetadata,
-  deepTransformNode,
 } from '@intlayer/core';
 import type { ReactNode } from 'react';
 import { renderIntlayerNode, type IntlayerNode } from './IntlayerNode';
@@ -69,7 +68,7 @@ export const reactNodePlugins: Plugins = {
     typeof node.key !== 'undefined',
 
   transform: (
-    node,
+    _node,
     {
       plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest

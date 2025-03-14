@@ -69,4 +69,4 @@ const file = (path: string): FileContent => {
   });
 };
 
-export { file };
+export default file;

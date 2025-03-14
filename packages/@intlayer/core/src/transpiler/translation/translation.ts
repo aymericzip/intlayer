@@ -1,5 +1,14 @@
-import { formatNodeType, NodeType } from '../../types/index';
-import type { LanguageContent, TranslationContent } from './types';
+import {
+  formatNodeType,
+  NodeType,
+  type LanguageContent,
+  type TypedNodeModel,
+} from '../../types/index';
+
+export type TranslationContent<
+  Content = unknown,
+  RecordContent extends LanguageContent<Content> = LanguageContent<Content>,
+> = TypedNodeModel<NodeType.Translation, RecordContent>;
 
 /**
  *

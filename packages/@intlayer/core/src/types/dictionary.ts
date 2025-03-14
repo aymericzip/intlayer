@@ -1,12 +1,12 @@
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import type {
-  ConditionContent,
-  EnumerationContent,
-  MarkdownContent,
-  NestedContent,
-  TranslationContent,
-} from '../transpiler/index';
+import type { ConditionContent } from '../transpiler/condition';
+import type { EnumerationContent } from '../transpiler/enumeration';
+import type { FileContent } from '../transpiler/file';
+import type { InsertionContent } from '../transpiler/insertion';
+import type { MarkdownContent } from '../transpiler/markdown';
+import type { NestedContent } from '../transpiler/nesting';
+import type { TranslationContent } from '../transpiler/translation';
 
 /**
  * Provides a fallback to string type if the generic type T is undefined,
@@ -36,8 +36,10 @@ export type TypedNode<NodeType = undefined> =
   | TranslationContent<NodeType>
   | EnumerationContent<NodeType>
   | ConditionContent<NodeType>
+  | InsertionContent<NodeType>
   | MarkdownContent
-  | NestedContent<DictionaryKeys>;
+  | NestedContent<DictionaryKeys>
+  | FileContent;
 
 type FetchableContentNode<NodeType> = (
   args?: any

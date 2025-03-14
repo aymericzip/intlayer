@@ -5,7 +5,6 @@ import type {
   NestedContent,
   TranslationContent,
   InsertionContent,
-  FileContent,
 } from '../../transpiler';
 import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import { getCondition } from '../getCondition';
@@ -254,29 +253,29 @@ export const nestedPlugin: Plugins = {
     getNesting(node.nested.dictionaryKey, node.nested.path, props),
 };
 
-/** ---------------------------------------------
- *  FILE PLUGIN
- *  --------------------------------------------- */
+// /** ---------------------------------------------
+//  *  FILE PLUGIN
+//  *  --------------------------------------------- */
 
-export type FileCond<T> = T extends {
-  nodeType: NodeType | string;
-  [NodeType.File]: string;
-  content?: string;
-}
-  ? string
-  : never;
+// export type FileCond<T> = T extends {
+//   nodeType: NodeType | string;
+//   [NodeType.File]: string;
+//   content?: string;
+// }
+//   ? string
+//   : never;
 
-/** File plugin. Replaces node with the result of `getNesting`. */
-export const filePlugin: Plugins = {
-  id: 'file-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.File,
-  transform: (node: FileContent, props, deepTransform) =>
-    deepTransform(node.content, {
-      ...props,
-      children: node.content,
-    }),
-};
+// /** File plugin. Replaces node with the result of `getNesting`. */
+// export const filePlugin: Plugins = {
+//   id: 'file-plugin',
+//   canHandle: (node) =>
+//     typeof node === 'object' && node?.nodeType === NodeType.File,
+//   transform: (node: FileContent, props, deepTransform) =>
+//     deepTransform(node.content, {
+//       ...props,
+//       children: node.content,
+//     }),
+// };
 
 /**
  * PLUGIN RESULT
@@ -305,7 +304,7 @@ export interface IInterpreterPlugin<T, S> {
   enumeration: EnumerationCond<T, S>;
   condition: ConditionCond<T, S>;
   nested: NestedCond<T, S>;
-  file: FileCond<T>;
+  // file: FileCond<T>;
 }
 
 /**
@@ -317,7 +316,7 @@ export type IInterpreterPluginState = {
   condition: true;
   insertion: true;
   nested: true;
-  file: true;
+  // file: true;
 };
 
 /**

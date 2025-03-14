@@ -1,7 +1,6 @@
 import type { LocalesValues } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
-
-import type { LanguageContent } from '../transpiler/translation/types';
+import { LanguageContent } from '../types';
 
 /**
  *

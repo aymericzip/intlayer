@@ -3,7 +3,6 @@
 import type { LocalesValues } from '@intlayer/config/client';
 // @ts-ignore intlayer declared for module augmentation
 import type { IConfigLocales } from 'intlayer';
-import type { NodeType, TypedNodeModel } from '../../types/index';
 
 /**
  * If module augmented, it will return the configured locales such as Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH | ...
@@ -32,8 +31,3 @@ export type LanguageContent<Content = unknown> =
   keyof IConfigLocales<unknown> extends never
     ? TranslationContentState<Content> // Fall including all locales as optional
     : IConfigLocales<Content>;
-
-export type TranslationContent<
-  Content = unknown,
-  RecordContent extends LanguageContent<Content> = LanguageContent<Content>,
-> = TypedNodeModel<NodeType.Translation, RecordContent>;
