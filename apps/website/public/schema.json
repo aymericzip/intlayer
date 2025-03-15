@@ -1,8 +1,8 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "DeclarationContent.schema.json",
-  "title": "DeclarationContent",
-  "description": "JSON Schema for DeclarationContent<T = undefined>. Because JSON cannot represent functions or promises, we handle them (and TypedNode) via placeholders or string descriptions.",
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "Dictionary.schema.json",
+  "title": "Dictionary",
+  "description": "JSON Schema Intlayer Dictionary",
   "type": "object",
   "properties": {
     "$schema": {
@@ -29,51 +29,16 @@
         "type": "string"
       }
     },
+    "availableVersions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "content": {
       "type": "object",
-      "description": "Represents Record<string, ContentValue | ContentValue[]>",
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "type": "string",
-            "description": "Represents a simple string or a placeholder for a function/promise if used that way."
-          },
-          {
-            "type": "array",
-            "description": "Array variant for either string[] or number[] or array of placeholders.",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "description": "String array item."
-                },
-                {
-                  "type": "number",
-                  "description": "Number array item."
-                },
-                {
-                  "type": "object",
-                  "description": "Nested object or typed node within an array.",
-                  "additionalProperties": {
-                    "$ref": "#/definitions/contentValue"
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "type": "number",
-            "description": "Represents a simple numeric value."
-          },
-          {
-            "type": "object",
-            "description": "Represents { [key: string]: ContentValue }, or a nested structure, or a typed node. This is where recursion happens.",
-            "additionalProperties": {
-              "$ref": "#/definitions/contentValue"
-            }
-          }
-        ]
-      }
+      "description": "Represents content of the dictionary to be processed.",
+      "$ref": "#/definitions/contentValue"
     }
   },
   "required": ["key", "content"],
@@ -81,41 +46,241 @@
 
   "definitions": {
     "contentValue": {
+      "description": "Any valid content node or scalar value.",
       "anyOf": [
+        { "$ref": "#/definitions/stringValue" },
+        { "$ref": "#/definitions/numberValue" },
+        { "$ref": "#/definitions/booleanValue" },
+        { "$ref": "#/definitions/nullValue" },
+        { "$ref": "#/definitions/arrayValue" },
         {
-          "type": "string",
-          "description": "Represents a string or a placeholder for function/promise/TypedNode."
-        },
-        {
-          "type": "number"
-        },
-        {
-          "type": "array",
-          "items": {
+          "if": {
+            "properties": { "nodeType": { "type": "string" } },
+            "required": ["nodeType"]
+          },
+          "then": {
             "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "object",
-                "additionalProperties": {
-                  "$ref": "#/definitions/contentValue"
-                }
-              }
+              { "$ref": "#/definitions/translationContent" },
+              { "$ref": "#/definitions/enumerationContent" },
+              { "$ref": "#/definitions/conditionContent" },
+              { "$ref": "#/definitions/insertionContent" },
+              { "$ref": "#/definitions/markdownContent" },
+              { "$ref": "#/definitions/nestedContent" },
+              { "$ref": "#/definitions/fileContent" }
             ]
-          }
+          },
+          "else": { "$ref": "#/definitions/objectValue" }
+        }
+      ]
+    },
+
+    "stringValue": {
+      "type": "string",
+      "description": "Represents a simple string or a placeholder for a function/promise."
+    },
+    "numberValue": {
+      "type": "number",
+      "description": "Represents a simple numeric value."
+    },
+    "booleanValue": {
+      "type": "boolean",
+      "description": "Represents a simple boolean value."
+    },
+    "nullValue": {
+      "type": "null",
+      "description": "Represents a simple null value."
+    },
+    "objectValue": {
+      "type": "object",
+      "description": "Represents an object shape { [key: string]: ContentValue }.",
+      "additionalProperties": {
+        "$ref": "#/definitions/contentValue"
+      }
+    },
+
+    "arrayValue": {
+      "type": "array",
+      "description": "Represents an array of content values.",
+      "items": {
+        "$ref": "#/definitions/contentValue"
+      }
+    },
+
+    "translationContent": {
+      "type": "object",
+      "description": "Represents a translation node.",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "translation"
         },
-        {
+        "translation": {
           "type": "object",
-          "description": "Nested object or typed node structure. Could also be a placeholder for a deeper typed node.",
+          "description": "Translation object with arbitrary locale codes as keys.",
           "additionalProperties": {
             "$ref": "#/definitions/contentValue"
           }
         }
-      ]
+      },
+      "required": ["nodeType", "translation"],
+      "additionalProperties": false
+    },
+
+    "enumerationContent": {
+      "type": "object",
+      "description": "Represents an enumeration node.",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "enumeration"
+        },
+        "enumeration": {
+          "type": "object",
+          "description": "Enumeration object (keys can be numeric strings, comparison strings, or 'fallback').",
+          "additionalProperties": {
+            "$ref": "#/definitions/contentValue"
+          }
+        }
+      },
+      "required": ["nodeType", "enumeration"],
+      "additionalProperties": false
+    },
+
+    "conditionContent": {
+      "type": "object",
+      "description": "Represents a condition node.",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "condition"
+        },
+        "condition": {
+          "type": "object",
+          "description": "Condition object with keys like 'true', 'false', 'fallback'.",
+          "properties": {
+            "true": { "$ref": "#/definitions/contentValue" },
+            "false": { "$ref": "#/definitions/contentValue" },
+            "fallback": { "$ref": "#/definitions/contentValue" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["nodeType", "condition"],
+      "additionalProperties": false
+    },
+
+    "insertionContent": {
+      "type": "object",
+      "description": "Represents an insertion node with a string that may have placeholders.",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "insertion"
+        },
+        "insertion": {
+          "$ref": "#/definitions/contentValue"
+        }
+      },
+      "required": ["nodeType", "insertion"],
+      "additionalProperties": false
+    },
+
+    "markdownContent": {
+      "type": "object",
+      "description": "Represents a markdown node (either plain string or another content node).",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "markdown"
+        },
+        "markdown": {
+          "$ref": "#/definitions/contentValue"
+        }
+      },
+      "required": ["nodeType", "markdown"],
+      "additionalProperties": false
+    },
+
+    "fileContent": {
+      "type": "object",
+      "description": "Represents a file node, referencing an external file path.",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "file"
+        },
+        "file": {
+          "type": "string",
+          "description": "Represents a file path."
+        }
+      },
+      "required": ["nodeType", "file"],
+      "additionalProperties": false
+    },
+
+    "nestedContent": {
+      "type": "object",
+      "description": "Represents a reference to another dictionary node (by dictionaryKey + path).",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "nested"
+        },
+        "nested": {
+          "type": "object",
+          "properties": {
+            "dictionaryKey": { "type": "string" },
+            "path": { "type": "string" }
+          },
+          "required": ["dictionaryKey"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["nodeType", "nested"],
+      "additionalProperties": false
+    },
+
+    "reactNode": {
+      "type": "object",
+      "description": "A React node structure. Not strictly enforceable, but we allow typical React props.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "React element type (e.g., 'div', 'span', 'code', etc.)."
+        },
+        "key": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }]
+        },
+        "_owner": {
+          "anyOf": [{ "type": "object" }, { "type": "null" }]
+        },
+        "_store": { "type": "object" },
+        "props": {
+          "type": "object",
+          "properties": {
+            "children": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      { "type": "string" },
+                      { "$ref": "#/definitions/reactNode" }
+                    ]
+                  }
+                },
+                { "$ref": "#/definitions/reactNode" }
+              ]
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["props"],
+      "additionalProperties": true
     }
   }
 }
