@@ -90,6 +90,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.0.1",
+    "express-intlayer": "workspace:*",
     "framer-motion": "^11.18.0",
     "helmet": "^8.0.0",
     "lucide-react": "^0.475.0",

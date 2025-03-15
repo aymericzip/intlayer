@@ -194,6 +194,40 @@ module.exports = config;
 
 3. If your content is outlined, you can long-press it to display the edit drawer.
 
+## Environment configuration
+
+The editor can be configured to use a specific environment file. This is useful when you want to use the same configuration file for development and production.
+
+To use a specific environment file, you can use the `--env-file` or `-f` flag when starting the editor:
+
+```bash
+npx intlayer-editor start -f .env.development
+```
+
+```bash
+yarn intlayer-editor start -f .env.development
+```
+
+```bash
+pnpm intlayer-editor start -f .env.development
+```
+
+> Note that the environment file should be located in the root directory of your project.
+
+Or you can use the `--env` or `-e` flag to specify the environment:
+
+```bash
+npx intlayer-editor start -e development
+```
+
+```bash
+yarn intlayer-editor start -e development
+```
+
+```bash
+pnpm intlayer-editor start -e development
+```
+
 ## Debug
 
 If you encounter any issues with the visual editor, check the following:

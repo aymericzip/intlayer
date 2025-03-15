@@ -22,6 +22,7 @@ export { Locales } from './types/locales';
 export {
   formatEnvVariable,
   getConfiguration as getClientConfiguration,
+  getEnvFilePath,
   loadEnvFile,
   getPlatform,
 } from './envVariables/index';

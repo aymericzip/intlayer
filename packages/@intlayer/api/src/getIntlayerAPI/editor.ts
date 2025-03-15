@@ -46,7 +46,7 @@ export const getEditorAPI = (
   const writeDictionary = async (
     dictionary: WriteContentDeclarationBody,
     otherOptions: FetcherOptions = {}
-  ) => {
+  ) =>
     await fetcher<WriteContentDeclarationResult>(
       `${EDITOR_API_ROUTE}/dictionary`,
       authAPIOptions,
@@ -56,7 +56,6 @@ export const getEditorAPI = (
         body: { dictionary },
       }
     );
-  };
 
   return {
     getConfiguration,

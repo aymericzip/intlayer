@@ -1,23 +1,39 @@
-import { existsSync, lstatSync } from 'node:fs';
+import { existsSync, lstatSync, readFileSync } from 'node:fs';
 import path, { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, getEnvFilePath } from '@intlayer/config';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
+import { intlayer } from 'express-intlayer';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
 import express, { type Express } from 'express';
 import helmet from 'helmet';
 import mime from 'mime';
+import { checkPortAvailability } from '@utils/checkPortAvailability';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const envFileOptions = {
+  env: process.env.NODE_ENV,
+  envFile: process.env.ENV_FILE,
+};
+
+// Load package.json
+const packageJson = JSON.parse(
+  readFileSync(resolve(__dirname, '../../package.json'), 'utf8')
+);
 
 const app: Express = express();
 
+// Load internationalization request handler
+app.use(intlayer());
+
 const FALLBACK_PORT = 8000;
-const config = getConfiguration();
+const config = getConfiguration(envFileOptions);
 const port = config.editor.port ?? FALLBACK_PORT;
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const clientDistPath = resolve(__dirname, '../../client/dist');
 
 const corsOptions: CorsOptions = {
@@ -26,6 +42,13 @@ const corsOptions: CorsOptions = {
 };
 
 const startServer = async (app: Express) => {
+  const isPortAvailable = await checkPortAvailability(port);
+
+  if (!isPortAvailable) {
+    console.error(`\x1b[1;31mError: Port ${port} is already in use.\x1b[0m`);
+    process.exit(255);
+  }
+
   app.disable('x-powered-by'); // Disabled to prevent attackers from knowing that the app is running Express
   app.use(
     helmet({
@@ -67,7 +90,18 @@ const startServer = async (app: Express) => {
   });
 
   app.listen(port, () => {
-    console.log(`Intlayer editor running at http://localhost:${port}`);
+    const dotEnvFilePath = getEnvFilePath(
+      envFileOptions.env,
+      envFileOptions.envFile
+    );
+
+    console.log(`
+    \x1b[1;90mINTLAYER v${packageJson.version}\x1b[0m
+
+    Editor running at:          \x1b[90mhttp://localhost:${port}\x1b[0m
+    - Watching application at:  \x1b[90m${config.editor.applicationURL}\x1b[0m
+    - Environment:              ${dotEnvFilePath}
+    `);
   });
 };
 

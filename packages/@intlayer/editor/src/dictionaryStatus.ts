@@ -2,6 +2,7 @@ export type DictionaryStatus =
   | 'pending'
   | 'fetching'
   | 'up-to-date'
+  | 'replaced'
   | 'updated'
   | 'fetched'
   | 'unknown'
