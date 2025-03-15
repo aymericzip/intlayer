@@ -1,27 +1,27 @@
 import {
   type KeyPath,
   NodeType,
-  type MarkdownContent,
+  type InsertionContent,
   type ContentNode,
 } from '@intlayer/core';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
-type MarkdownWrapperProps = Omit<NodeWrapperProps, 'section'> & {
-  section: MarkdownContent<ContentNode>;
+type InsertionWrapperProps = Omit<NodeWrapperProps, 'section'> & {
+  section: InsertionContent<ContentNode>;
 };
 
-export const MarkdownWrapper: FC<MarkdownWrapperProps> = (props) => {
+export const InsertionWrapper: FC<InsertionWrapperProps> = (props) => {
   const { keyPath, section } = props;
 
   const newKeyPath: KeyPath[] = [
     ...keyPath,
     {
-      type: NodeType.Markdown,
+      type: NodeType.Insertion,
     },
   ];
 
-  const subSection = section[NodeType.Markdown];
+  const subSection = section[NodeType.Insertion];
 
   return (
     <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">

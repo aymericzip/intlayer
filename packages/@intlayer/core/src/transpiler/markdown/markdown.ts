@@ -5,11 +5,9 @@ import {
 } from '../../types/index';
 import { getMarkdownMetadata } from './getMarkdownMetadata';
 
-export type MarkdownContentState = string;
-
-export type MarkdownContent = TypedNodeModel<
+export type MarkdownContent<Content = unknown> = TypedNodeModel<
   NodeType.Markdown,
-  MarkdownContentState
+  Content
 >;
 
 /**

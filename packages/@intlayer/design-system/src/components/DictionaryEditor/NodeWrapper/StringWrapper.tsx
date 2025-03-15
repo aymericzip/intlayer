@@ -46,6 +46,7 @@ export const StringWrapper: FC<StringWrapperProps> = ({
       }}
     >
       <EditableFieldTextArea
+        aria-label="Editable field"
         defaultValue={String(content)}
         onSave={(newValue) => onContentChange({ keyPath, newValue })}
         onCancel={() => null}

@@ -37,7 +37,7 @@ export type TypedNode<NodeType = undefined> =
   | EnumerationContent<NodeType>
   | ConditionContent<NodeType>
   | InsertionContent<NodeType>
-  | MarkdownContent
+  | MarkdownContent<NodeType>
   | NestedContent<DictionaryKeys>
   | FileContent;
 

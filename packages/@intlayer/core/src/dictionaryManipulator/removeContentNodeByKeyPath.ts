@@ -15,21 +15,25 @@ export const removeContentNodeByKeyPath = (
     if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
       lastKey = keyObj.key;
       currentValue = currentValue[keyObj.key];
-    } else if (keyObj.type === NodeType.Translation) {
-      lastKey = NodeType.Translation;
-      currentValue = currentValue[NodeType.Translation][keyObj.key];
-    } else if (keyObj.type === NodeType.Enumeration) {
-      lastKey = NodeType.Enumeration;
-      currentValue = currentValue[NodeType.Enumeration][keyObj.key];
-    } else if (keyObj.type === NodeType.Condition) {
-      lastKey = NodeType.Condition;
-      currentValue = currentValue[NodeType.Condition];
-    } else if (keyObj.type === NodeType.Markdown) {
-      lastKey = NodeType.Markdown;
-      currentValue = currentValue[NodeType.Markdown];
-    } else if (keyObj.type === NodeType.ReactNode) {
-      lastKey = NodeType.ReactNode;
-      currentValue = currentValue[NodeType.ReactNode];
+    }
+
+    if (
+      keyObj.type === NodeType.Translation ||
+      keyObj.type === NodeType.Enumeration ||
+      keyObj.type === NodeType.Condition
+    ) {
+      lastKey = keyObj.type;
+      currentValue = currentValue[keyObj.type][keyObj.key];
+    }
+
+    if (
+      keyObj.type === NodeType.Markdown ||
+      keyObj.type === NodeType.ReactNode ||
+      keyObj.type === NodeType.Insertion ||
+      keyObj.type === NodeType.File
+    ) {
+      lastKey = keyObj.type;
+      currentValue = currentValue[keyObj.type];
     }
   }
 

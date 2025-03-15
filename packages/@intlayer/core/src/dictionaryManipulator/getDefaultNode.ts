@@ -5,6 +5,8 @@ import type {
   ConditionContent,
   NestedContent,
   MarkdownContent,
+  InsertionContent,
+  FileContent,
 } from '../transpiler';
 import { type ContentNode, NodeType } from '../types';
 
@@ -42,6 +44,14 @@ export const getDefaultNode = (
         },
       } as ConditionContent<ContentNode>;
 
+    case NodeType.Insertion:
+      return {
+        nodeType: NodeType.Insertion,
+        [NodeType.Insertion]: {
+          insertion: content ?? '',
+        },
+      } as InsertionContent<ContentNode>;
+
     case NodeType.Nested:
       return {
         nodeType: NodeType.Nested,
@@ -55,6 +65,12 @@ export const getDefaultNode = (
         nodeType: NodeType.Markdown,
         [NodeType.Markdown]: content ?? '',
       } as MarkdownContent;
+
+    case NodeType.File:
+      return {
+        nodeType: NodeType.File,
+        [NodeType.File]: content ?? '',
+      } as FileContent;
 
     case NodeType.Object:
       return {

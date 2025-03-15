@@ -17,13 +17,18 @@ export const getEmptyNode = (section: ContentNode): ContentNode => {
     if (
       typedNode.nodeType === NodeType.Translation ||
       typedNode.nodeType === NodeType.Enumeration ||
-      typedNode.nodeType === NodeType.Condition
+      typedNode.nodeType === NodeType.Condition ||
+      typedNode.nodeType === NodeType.Insertion
     ) {
       return getEmptyNode(content as ContentNode);
     }
 
     if (typedNode.nodeType === NodeType.Nested) {
-      return typedNode;
+      return 'dictionary-key';
+    }
+
+    if (typedNode.nodeType === NodeType.File) {
+      return 'file/path';
     }
 
     if (typedNode.nodeType === NodeType.Markdown) {

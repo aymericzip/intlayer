@@ -54,7 +54,10 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
 
     if (nodeType === NodeType.Markdown) {
       return (
-        <MarkdownWrapper {...props} section={section as MarkdownContent} />
+        <MarkdownWrapper
+          {...props}
+          section={section as MarkdownContent<ContentNode>}
+        />
       );
     }
 
@@ -85,6 +88,12 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
       );
     }
 
+    if (nodeType === NodeType.Insertion) {
+      return (
+        <span className="text-neutral text-xs">Insertion not editable</span>
+      );
+    }
+
     if (nodeType === NodeType.Array) {
       return (
         <ArrayWrapper
@@ -92,6 +101,10 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
           section={section as unknown as ContentNode[]}
         />
       );
+    }
+
+    if (nodeType === NodeType.File) {
+      return <span className="text-neutral text-xs">File not editable</span>;
     }
 
     return (

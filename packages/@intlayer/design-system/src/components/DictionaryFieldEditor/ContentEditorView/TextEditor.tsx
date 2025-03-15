@@ -14,6 +14,8 @@ import {
   getNodeType,
   type ConditionContent,
   getEmptyNode,
+  InsertionContent,
+  FileContent,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
@@ -527,8 +529,10 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
       value: MarkdownViewMode.Preview,
     },
   ] as SwitchSelectorChoices<MarkdownViewMode>;
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Markdown }];
 
-  const content = (section as MarkdownContent)[NodeType.Markdown];
+  const content = (section as MarkdownContent<ContentNode>)[NodeType.Markdown];
+  const isStringContent = typeof content === 'string';
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
@@ -540,19 +544,75 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         size="sm"
         className="ml-auto"
       />
-      {mode === MarkdownViewMode.Edit && (
-        <ContentEditorTextArea
-          variant="default"
-          aria-label="Edit field"
-          keyPath={[...keyPath, { type: NodeType.Markdown }]}
+      {isStringContent ? (
+        <>
+          {mode === MarkdownViewMode.Edit && (
+            <ContentEditorTextArea
+              variant="default"
+              aria-label="Edit field"
+              keyPath={[...keyPath, { type: NodeType.Markdown }]}
+              dictionary={dictionary}
+            >
+              {content}
+            </ContentEditorTextArea>
+          )}
+          {mode === MarkdownViewMode.Preview && (
+            <MarkdownRenderer isDarkMode={isDarkMode}>
+              {content}
+            </MarkdownRenderer>
+          )}
+        </>
+      ) : (
+        <TextEditorContainer
+          section={content}
+          keyPath={childKeyPath}
           dictionary={dictionary}
-        >
-          {content}
-        </ContentEditorTextArea>
+        />
       )}
-      {mode === MarkdownViewMode.Preview && (
-        <MarkdownRenderer isDarkMode={isDarkMode}>{content}</MarkdownRenderer>
-      )}
+    </div>
+  );
+};
+
+const InsertionTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+}) => {
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Insertion }];
+
+  const content = (section as InsertionContent<ContentNode>)[
+    NodeType.Insertion
+  ];
+
+  return (
+    <div className="flex w-full flex-col justify-center gap-6 p-2">
+      <TextEditorContainer
+        section={content}
+        keyPath={childKeyPath}
+        dictionary={dictionary}
+      />
+    </div>
+  );
+};
+
+const FileTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+}) => {
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.File }];
+
+  const fileUrl = (section as FileContent)[NodeType.File];
+  const { content } = section as FileContent;
+
+  return (
+    <div className="flex w-full flex-col justify-center gap-6 p-2">
+      <span className="text-neutral text-sm">URL: {fileUrl} </span>
+      <TextEditorContainer
+        section={content}
+        keyPath={childKeyPath}
+        dictionary={dictionary}
+      />
     </div>
   );
 };
@@ -671,6 +731,16 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
+  if (nodeType === NodeType.Insertion) {
+    return (
+      <InsertionTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
   if (nodeType === NodeType.Markdown) {
     return (
       <MarkdownTextEditor
@@ -678,6 +748,16 @@ export const TextEditor: FC<TextEditorProps> = ({
         keyPath={keyPath}
         section={section}
         isDarkMode={isDarkMode}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.File) {
+    return (
+      <FileTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
       />
     );
   }

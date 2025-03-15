@@ -10,14 +10,18 @@ export const getContentNodeByKeyPath = (
   for (const keyObj of keyPath) {
     if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
       currentValue = currentValue?.[keyObj.key];
-    } else if (keyObj.type === NodeType.Translation) {
-      currentValue = currentValue?.[NodeType.Translation][keyObj.key];
-    } else if (keyObj.type === NodeType.Enumeration) {
-      currentValue = currentValue?.[NodeType.Enumeration][keyObj.key];
-    } else if (keyObj.type === NodeType.Condition) {
-      currentValue = currentValue?.[NodeType.Condition];
-    } else if (keyObj.type === NodeType.Markdown) {
-      currentValue = currentValue?.[NodeType.Markdown];
+    } else if (
+      keyObj.type === NodeType.Translation ||
+      keyObj.type === NodeType.Condition ||
+      keyObj.type === NodeType.Enumeration
+    ) {
+      currentValue = currentValue?.[keyObj.type][keyObj.key];
+    } else if (
+      keyObj.type === NodeType.Markdown ||
+      keyObj.type === NodeType.Insertion ||
+      keyObj.type === NodeType.File
+    ) {
+      currentValue = currentValue?.[keyObj.type];
     }
   }
 

@@ -59,4 +59,5 @@ export type KeyPath =
   | MarkdownNode
   | ReactNode
   | ConditionNode
-  | NestedNode;
+  | NestedNode
+  | FileNode;
