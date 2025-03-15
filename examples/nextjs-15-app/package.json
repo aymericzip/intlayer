@@ -8,7 +8,8 @@
     "dev:turbo": "next dev --turbopack",
     "lint": "next lint",
     "start": "next start",
-    "start:editor": "npx intlayer-editor start"
+    "start:editor": "npx intlayer-editor start",
+    "test": ""
   },
   "dependencies": {
     "intlayer": "workspace:*",

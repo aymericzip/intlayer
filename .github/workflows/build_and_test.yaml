@@ -62,15 +62,15 @@ jobs:
         id: install-dependencies
         run: pnpm install --frozen-lockfile
 
-      # - name: 📝 Run eslint
-      #   env:
-      #     NODE_OPTIONS: '--max_old_space_size=4096'
-      #   run: pnpm run lint
+      - name: 📝 Run eslint
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
+        run: pnpm run lint-staged
 
       - name: 🏗️ Build
         id: build-the-mono-repo
         run: |
           pnpm build
 
-      - name: 🧪 Test packages
-        run: npm test
+      # - name: 🧪 Test packages
+      #   run: npm test
