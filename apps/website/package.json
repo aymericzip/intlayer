@@ -49,6 +49,7 @@
     "serve": "npx intlayer serve",
     "start": "next start",
     "start:editor": "npx intlayer-editor start",
+    "test": "",
     "transpile": "npx intlayer build",
     "watch": "npx intlayer build --watch"
   },

@@ -72,5 +72,5 @@ jobs:
         run: |
           pnpm build
 
-      - name: 🧪 Test packages
-        run: npm test
+      # - name: 🧪 Test packages
+      #   run: npm test

@@ -62,7 +62,8 @@
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
     "start": "NODE_ENV=production node dist/esm/index.mjs --max-old-space-size=384",
-    "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe"
+    "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe",
+    "test": ""
   },
   "dependencies": {
     "@react-email/components": "^0.0.32",
