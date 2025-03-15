@@ -7,6 +7,7 @@ import {
   type ConditionContent,
   type MarkdownContent,
   type EnumerationContent,
+  type InsertionContent,
   type TranslationContent,
   type KeyPath,
   type ContentNode,
@@ -22,6 +23,7 @@ import { NestedObjectWrapper } from './NestedObjectWrapper';
 import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
 import { FileWrapper } from './FileWrapper';
+import { InsertionWrapper } from './InsertionWrapper';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -95,7 +97,10 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
 
     if (nodeType === NodeType.Insertion) {
       return (
-        <span className="text-neutral text-xs">Insertion not editable</span>
+        <InsertionWrapper
+          {...props}
+          section={section as InsertionContent<ContentNode>}
+        />
       );
     }
 
