@@ -9,7 +9,7 @@ export const sentenceToCamelCase = (string: string): string => {
   return `${sentence.charAt(0).toLowerCase()}${sentence.slice(1)}`;
 };
 
-export const camelCaseToSentence = (string: string): string => {
-  const result = string.replace(/([A-Z])/g, ' $1');
+export const camelCaseToSentence = (content: string): string => {
+  const result = String(content).replace(/([A-Z])/g, ' $1');
   return result.toLowerCase().trim();
 };

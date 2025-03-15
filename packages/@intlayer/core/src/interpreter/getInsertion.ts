@@ -15,5 +15,6 @@ import type { InsertionContent } from '../transpiler';
  */
 export const getInsertion = (
   content: string,
-  values: { [K in InsertionContent['fields'][number]]: string }
-) => content.replace(/\{\{(.*?)\}\}/g, (_, key) => values[key] ?? '');
+  values: { [K in InsertionContent['fields'][number]]: string | number }
+) =>
+  content.replace(/\{\{(.*?)\}\}/g, (_, key) => (values[key] ?? '').toString());

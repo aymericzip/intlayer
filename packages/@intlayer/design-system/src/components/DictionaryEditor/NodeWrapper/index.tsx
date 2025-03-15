@@ -2,16 +2,17 @@
 
 import type { Locales } from '@intlayer/config/client';
 import {
+  getNodeType,
+  NodeType,
   type ConditionContent,
   type MarkdownContent,
   type EnumerationContent,
   type TranslationContent,
-  NodeType,
   type KeyPath,
   type ContentNode,
-  getNodeType,
+  type FileContent,
 } from '@intlayer/core';
-import { type FC } from 'react';
+import { ReactNode, type FC } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
 import { ConditionWrapper } from './ConditionWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
@@ -19,6 +20,7 @@ import { MarkdownWrapper } from './MarkdownWrapper';
 import { NestedObjectWrapper } from './NestedObjectWrapper';
 import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
+import { FileWrapper } from './FileWrapper';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -31,6 +33,7 @@ export type NodeWrapperProps = {
   focusedKeyPath: KeyPath[] | undefined;
   onFocusKeyPath: (keyPath: KeyPath[]) => void;
   onClickEdit?: (keyPath: KeyPath[]) => void;
+  renderSection?: (content: string) => ReactNode;
 };
 
 export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
@@ -104,7 +107,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
     }
 
     if (nodeType === NodeType.File) {
-      return <span className="text-neutral text-xs">File not editable</span>;
+      return <FileWrapper {...props} section={section as FileContent} />;
     }
 
     return (

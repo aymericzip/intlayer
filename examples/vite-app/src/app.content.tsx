@@ -1,9 +1,16 @@
-import { t, type Dictionary } from 'intlayer';
+import { file, insert, md, t, type Dictionary } from 'intlayer';
 import { ReactNode } from 'react';
 
 const appContent = {
   key: 'app',
   content: {
+    markdown: md('## Hello world'),
+    file: t({
+      en: md(file('./test.md')),
+      fr: md(file('./test.md')),
+      es: md(file('./test.md')),
+    }),
+    insertion: insert('test {{ count }}'),
     viteLogo: t({
       en: 'Vite logo',
       fr: 'Logo Vite',

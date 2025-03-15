@@ -21,8 +21,8 @@ export const FileWrapper: FC<FileWrapperProps> = (props) => {
 
   return (
     <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
-      <span className="text-neutral text-sm">URL: {subSection} </span>
-      <NodeWrapper {...props} keyPath={newKeyPath} section={content} />;
+      <span className="text-neutral text-sm">{subSection} </span>
+      <NodeWrapper {...props} keyPath={newKeyPath} section={content} />
     </div>
   );
 };

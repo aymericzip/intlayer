@@ -19,7 +19,7 @@ import {
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
-import { Fragment, useState, type FC } from 'react';
+import { Fragment, ReactNode, useState, type FC } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
@@ -175,12 +175,14 @@ export type TextEditorProps = {
   keyPath: KeyPath[];
   section: ContentNode;
   isDarkMode?: boolean;
+  renderSection?: (content: string) => ReactNode;
 };
 
 const TranslationTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  renderSection,
 }: TextEditorProps) => {
   const { locale, defaultLocale } = useLocale();
   const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
@@ -219,6 +221,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
                   { type: NodeType.Translation, key: translationKey },
                 ]}
                 dictionary={dictionary}
+                renderSection={renderSection}
               />
             </tr>
           </Fragment>
@@ -232,6 +235,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  renderSection,
 }) => {
   const { addEditedContent } = useEditedContent();
   const { addNewEnumeration, removeEnumeration } = useDictionary(
@@ -303,6 +307,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                     }
                     keyPath={childrenKeyPath}
                     dictionary={dictionary}
+                    renderSection={renderSection}
                   />
                 </tr>
               </Fragment>
@@ -337,6 +342,7 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  renderSection,
 }) => {
   const content = (section as ConditionContent<string>)[NodeType.Condition];
 
@@ -362,6 +368,7 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
                   } as KeyPath,
                 ]}
                 dictionary={dictionary}
+                renderSection={renderSection}
               />
             </tr>
           </Fragment>
@@ -375,6 +382,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  renderSection,
 }) => {
   const { addEditedContent } = useEditedContent();
   const { addNewElement, removeElement } = useDictionary(navigationViewContent);
@@ -423,6 +431,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                     },
                   ]}
                   dictionary={dictionary}
+                  renderSection={renderSection}
                 />
               </tr>
             </Fragment>
@@ -462,6 +471,7 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  renderSection,
 }) => (
   <>
     <table className="w-full">
@@ -496,6 +506,7 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
                     section={subSection}
                     keyPath={childKeyPath}
                     dictionary={dictionary}
+                    renderSection={renderSection}
                   />
                 </tr>
               </Fragment>
@@ -532,7 +543,6 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Markdown }];
 
   const content = (section as MarkdownContent<ContentNode>)[NodeType.Markdown];
-  const isStringContent = typeof content === 'string';
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
@@ -544,31 +554,21 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         size="sm"
         className="ml-auto"
       />
-      {isStringContent ? (
-        <>
-          {mode === MarkdownViewMode.Edit && (
-            <ContentEditorTextArea
-              variant="default"
-              aria-label="Edit field"
-              keyPath={[...keyPath, { type: NodeType.Markdown }]}
-              dictionary={dictionary}
-            >
-              {content}
-            </ContentEditorTextArea>
-          )}
-          {mode === MarkdownViewMode.Preview && (
-            <MarkdownRenderer isDarkMode={isDarkMode}>
-              {content}
-            </MarkdownRenderer>
-          )}
-        </>
-      ) : (
-        <TextEditorContainer
-          section={content}
-          keyPath={childKeyPath}
-          dictionary={dictionary}
-        />
-      )}
+
+      <TextEditorContainer
+        section={content}
+        keyPath={childKeyPath}
+        dictionary={dictionary}
+        renderSection={
+          mode === MarkdownViewMode.Preview
+            ? (content) => (
+                <MarkdownRenderer isDarkMode={isDarkMode}>
+                  {content}
+                </MarkdownRenderer>
+              )
+            : undefined
+        }
+      />
     </div>
   );
 };
@@ -577,6 +577,7 @@ const InsertionTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  renderSection,
 }) => {
   const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Insertion }];
 
@@ -590,6 +591,7 @@ const InsertionTextEditor: FC<TextEditorProps> = ({
         section={content}
         keyPath={childKeyPath}
         dictionary={dictionary}
+        renderSection={renderSection}
       />
     </div>
   );
@@ -599,6 +601,7 @@ const FileTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  renderSection,
 }) => {
   const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.File }];
 
@@ -607,11 +610,12 @@ const FileTextEditor: FC<TextEditorProps> = ({
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
-      <span className="text-neutral text-sm">URL: {fileUrl} </span>
+      <span className="text-neutral text-sm">{fileUrl} </span>
       <TextEditorContainer
         section={content}
         keyPath={childKeyPath}
         dictionary={dictionary}
+        renderSection={renderSection}
       />
     </div>
   );
@@ -620,6 +624,7 @@ const FileTextEditor: FC<TextEditorProps> = ({
 const NestedTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
+  renderSection,
   section,
   ...props
 }) => {
@@ -677,6 +682,7 @@ export const TextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
   dictionary,
+  renderSection,
   isDarkMode,
 }) => {
   const { tsxNotEditable } = useDictionary(navigationViewContent);
@@ -695,6 +701,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <NestedTextEditor
         dictionary={dictionary}
+        renderSection={renderSection}
         keyPath={keyPath}
         section={section}
       />
@@ -705,6 +712,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <TranslationTextEditor
         dictionary={dictionary}
+        renderSection={renderSection}
         keyPath={keyPath}
         section={section}
       />
@@ -715,6 +723,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <EnumerationTextEditor
         dictionary={dictionary}
+        renderSection={renderSection}
         keyPath={keyPath}
         section={section}
       />
@@ -725,6 +734,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <ConditionTextEditor
         dictionary={dictionary}
+        renderSection={renderSection}
         keyPath={keyPath}
         section={section}
       />
@@ -735,6 +745,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <InsertionTextEditor
         dictionary={dictionary}
+        renderSection={renderSection}
         keyPath={keyPath}
         section={section}
       />
@@ -756,6 +767,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <FileTextEditor
         dictionary={dictionary}
+        renderSection={renderSection}
         keyPath={keyPath}
         section={section}
       />
@@ -766,6 +778,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <ArrayTextEditor
         dictionary={dictionary}
+        renderSection={renderSection}
         keyPath={keyPath}
         section={section}
       />
@@ -776,6 +789,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     return (
       <ObjectTextEditor
         dictionary={dictionary}
+        renderSection={renderSection}
         keyPath={keyPath}
         section={section}
       />
@@ -800,14 +814,18 @@ export const TextEditor: FC<TextEditorProps> = ({
   if (nodeType === NodeType.Text) {
     return (
       <div className="w-full p-2">
-        <ContentEditorTextArea
-          variant="default"
-          aria-label="Edit field"
-          keyPath={keyPath}
-          dictionary={dictionary}
-        >
-          {section as string}
-        </ContentEditorTextArea>
+        {typeof renderSection === 'function' ? (
+          renderSection(section as string)
+        ) : (
+          <ContentEditorTextArea
+            variant="default"
+            aria-label="Edit field"
+            keyPath={keyPath}
+            dictionary={dictionary}
+          >
+            {section as string}
+          </ContentEditorTextArea>
+        )}
       </div>
     );
   }

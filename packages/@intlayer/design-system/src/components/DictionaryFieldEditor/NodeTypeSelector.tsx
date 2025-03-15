@@ -1,7 +1,7 @@
 'use client';
 
 import { type ContentNode, NodeType, getNodeType } from '@intlayer/core';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useState } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { Select } from '../Select';
 import { nodeTypeSelectorContent } from './nodeTypeSelector.content';
@@ -27,7 +27,9 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
     nest,
     condition,
     markdown,
+    insertion,
     reactNode,
+    file,
   } = useDictionary(nodeTypeSelectorContent);
   const nodeType = getNodeType(section);
   const [keyType, setKeyType] = useState<NodeType>(nodeType);
@@ -36,10 +38,6 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
     setKeyType(keyType);
     onValueChangeProp(keyType);
   };
-
-  useEffect(() => {
-    setKeyType(nodeType);
-  }, [nodeType]);
 
   return (
     <Select value={keyType} onValueChange={onValueChange}>
@@ -54,12 +52,14 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         <Select.Item value={NodeType.Object}>{node}</Select.Item>
         <Select.Item value={NodeType.Array}>{array}</Select.Item>
         <Select.Item value={NodeType.Enumeration}>{enumeration}</Select.Item>
+        <Select.Item value={NodeType.Insertion}>{insertion}</Select.Item>
         <Select.Item value={NodeType.Markdown}>{markdown}</Select.Item>
         <Select.Item value={NodeType.Nested}>{nest}</Select.Item>
         <Select.Item value={NodeType.Condition}>{condition}</Select.Item>
         <Select.Item value={NodeType.ReactNode} disabled>
           {reactNode}
         </Select.Item>
+        <Select.Item value={NodeType.File}>{file}</Select.Item>
       </Select.Content>
     </Select>
   );

@@ -173,8 +173,8 @@ export type InsertionCond<T, S> = T extends {
   fields?: infer U;
 }
   ? U extends readonly string[]
-    ? (data: Record<U[number], string>) => DeepTransformContent<I, S>
-    : (data: Record<string, string>) => DeepTransformContent<I, S>
+    ? (data: Record<U[number], string | number>) => DeepTransformContent<I, S>
+    : (data: Record<string, string | number>) => DeepTransformContent<I, S>
   : never;
 
 export const insertionPlugin: Plugins = {
@@ -207,7 +207,7 @@ export const insertionPlugin: Plugins = {
         });
 
         return (values: {
-          [K in InsertionContent['fields'][number]]: string;
+          [K in InsertionContent['fields'][number]]: string | number;
         }) => {
           const children = getInsertion(transformedResult, values);
 

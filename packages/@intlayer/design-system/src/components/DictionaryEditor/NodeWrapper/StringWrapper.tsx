@@ -14,6 +14,7 @@ export const StringWrapper: FC<StringWrapperProps> = ({
   editedContent,
   onContentChange,
   onFocusKeyPath,
+  renderSection,
 }) => {
   const editedContentValue = getContentNodeByKeyPath(editedContent, keyPath);
 
@@ -28,7 +29,7 @@ export const StringWrapper: FC<StringWrapperProps> = ({
 
   const level = keyPath.length;
 
-  const content = editedContentValue ?? section;
+  const content = String(editedContentValue ?? section);
 
   return (
     <span
@@ -45,12 +46,16 @@ export const StringWrapper: FC<StringWrapperProps> = ({
         onFocusKeyPath(keyPath);
       }}
     >
-      <EditableFieldTextArea
-        aria-label="Editable field"
-        defaultValue={String(content)}
-        onSave={(newValue) => onContentChange({ keyPath, newValue })}
-        onCancel={() => null}
-      />
+      {typeof renderSection === 'function' ? (
+        renderSection(content)
+      ) : (
+        <EditableFieldTextArea
+          aria-label="Editable field"
+          defaultValue={content}
+          onSave={(newValue) => onContentChange({ keyPath, newValue })}
+          onCancel={() => null}
+        />
+      )}
     </span>
   );
 };
