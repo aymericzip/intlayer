@@ -100,7 +100,7 @@ const startServer = async (app: Express) => {
 
     Editor running at:          \x1b[90mhttp://localhost:${port}\x1b[0m
     - Watching application at:  \x1b[90m${config.editor.applicationURL}\x1b[0m
-    - Environment:              ${dotEnvFilePath}
+    - Environment:              ${dotEnvFilePath ?? '-'}
     `);
   });
 };
