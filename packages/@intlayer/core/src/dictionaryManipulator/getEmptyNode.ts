@@ -50,7 +50,7 @@ export const getEmptyNode = (section: ContentNode): ContentNode => {
 
   const mappedSectionObject = Object.entries(section).map(([key, value]) => [
     key,
-    getEmptyNode(value),
+    getEmptyNode(value as ContentNode),
   ]);
 
   const mappedSectionArray = Object.fromEntries(mappedSectionObject);

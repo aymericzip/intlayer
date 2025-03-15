@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/editor-react",
-  "version": "5.3.3",
+  "version": "5.3.4",
   "private": false,
   "description": "Provides the states, contexts, hooks and components to interact with the Intlayer editor for a React application",
   "keywords": [
@@ -69,7 +69,6 @@
   "dependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "@intlayer/editor": "workspace:*",
     "uuid": "^11.0.5"
   },
   "devDependencies": {
@@ -94,7 +93,6 @@
   "peerDependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "@intlayer/editor": "workspace:*",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0"
   },

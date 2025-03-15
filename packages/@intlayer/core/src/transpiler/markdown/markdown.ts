@@ -5,10 +5,14 @@ import {
 } from '../../types/index';
 import { getMarkdownMetadata } from './getMarkdownMetadata';
 
-export type MarkdownContent<Content = unknown> = TypedNodeModel<
-  NodeType.Markdown,
-  Content
->;
+export type MarkdownContentConstructer<
+  T extends Record<string, any> = {},
+  Content = unknown,
+> = TypedNodeModel<NodeType.Markdown, Content, T>;
+
+export type MarkdownContent<Content = unknown> = MarkdownContentConstructer<{
+  metadata?: Record<string, any>;
+}>;
 
 /**
  * Function intended to be used to build intlayer dictionaries.

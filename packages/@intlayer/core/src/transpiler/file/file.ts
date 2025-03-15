@@ -7,14 +7,13 @@ import {
 import { relative, resolve } from 'path';
 import { appLogger } from '@intlayer/config';
 
-export type FileContent = TypedNodeModel<
-  NodeType.File,
-  string,
-  {
-    content: string;
-    fixedPath?: string;
-  }
->;
+export type FileContentConstructer<T extends Record<string, any> = {}> =
+  TypedNodeModel<NodeType.File, string, T>;
+
+export type FileContent = FileContentConstructer<{
+  content: string;
+  fixedPath?: string;
+}>;
 
 declare const intlayer_file_path: string; // Injected by esbuild to track the file content
 declare const intlayer_file_dir: string; // Injected by esbuild to track the file path

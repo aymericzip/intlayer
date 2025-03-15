@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/chokidar",
-  "version": "5.3.3",
+  "version": "5.3.4",
   "private": false,
   "description": "Uses chokidar to scan and build Intlayer declaration files into dictionaries based on Intlayer configuration.",
   "keywords": [
@@ -73,8 +73,10 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
     "chokidar": "^3.6.0",
     "crypto-js": "^4.2.0",
+    "deep-equal": "^2.2.3",
     "deepmerge": "^4.3.1",
     "fast-glob": "^3.3.3",
     "intlayer": "workspace:*",
@@ -84,6 +86,7 @@
     "@changesets/cli": "2.27.12",
     "@intlayer/backend": "workspace:*",
     "@types/crypto-js": "^4.2.2",
+    "@types/deep-equal": "^1.0.4",
     "@types/node": "^22.10.6",
     "@typescript-eslint/parser": "^8.24.0",
     "@utils/eslint-config": "workspace:*",

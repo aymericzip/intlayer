@@ -1,8 +1,10 @@
 import { getConfiguration } from '@intlayer/config';
 import { type Dictionary } from '@intlayer/core';
-import type { DictionaryStatus } from '@intlayer/editor';
-import { writeContentDeclaration as writeContentDeclarationEditor } from '@intlayer/editor/server';
 import { type ResponseData, formatResponse } from '@utils/responseData';
+import {
+  writeContentDeclaration as writeContentDeclarationEditor,
+  type DictionaryStatus,
+} from '@intlayer/chokidar';
 import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 

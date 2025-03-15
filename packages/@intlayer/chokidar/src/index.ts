@@ -16,3 +16,8 @@ export {
 } from './loadDictionaries/index';
 export { checkDictionaryChanges } from './checkDictionaryChanges';
 export { listDictionaries } from './listDictionariesPath';
+export { prepareContentDeclaration } from './prepareContentDeclaration';
+export {
+  writeContentDeclaration,
+  type DictionaryStatus,
+} from './writeContentDeclaration';

@@ -29,6 +29,7 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
         <NodeWrapper
           {...props}
           keyPath={[]}
+          dictionary={dictionary}
           key={JSON.stringify(
             (editedContent?.[dictionary.key] ?? dictionary).content
           )}

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/editor",
-  "version": "5.3.3",
+  "version": "5.3.4",
   "private": false,
   "description": "Provides the utilities to interface the application with the Intlayer editor and manipulate dictionaries",
   "keywords": [
@@ -71,14 +71,7 @@
     "test": "",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
-  "dependencies": {
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
-    "deep-equal": "^2.2.3"
-  },
   "devDependencies": {
-    "@types/deep-equal": "^1.0.4",
     "@types/node": "^22.10.6",
     "@typescript-eslint/parser": "^8.24.0",
     "@utils/eslint-config": "workspace:*",
@@ -92,11 +85,6 @@
     "tsc-alias": "^1.8.10",
     "tsup": "^8.3.5",
     "typescript": "^5.7.3"
-  },
-  "peerDependencies": {
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

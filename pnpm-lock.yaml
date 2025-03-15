@@ -1015,12 +1015,18 @@ importers:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../core
+      '@intlayer/dictionaries-entry':
+        specifier: workspace:*
+        version: link:../dictionaries-entry
       chokidar:
         specifier: ^3.6.0
         version: 3.6.0
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
+      deep-equal:
+        specifier: ^2.2.3
+        version: 2.2.3
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -1046,6 +1052,9 @@ importers:
       '@types/crypto-js':
         specifier: ^4.2.2
         version: 4.2.2
+      '@types/deep-equal':
+        specifier: ^1.0.4
+        version: 1.0.4
       '@types/node':
         specifier: ^22.10.6
         version: 22.13.10
@@ -1100,9 +1109,6 @@ importers:
       '@intlayer/dictionaries-entry':
         specifier: workspace:*
         version: link:../dictionaries-entry
-      '@intlayer/editor':
-        specifier: workspace:*
-        version: link:../editor
       commander:
         specifier: ^13.0.0
         version: 13.1.0
@@ -1286,9 +1292,6 @@ importers:
       '@intlayer/dictionaries-entry':
         specifier: workspace:*
         version: link:../dictionaries-entry
-      '@intlayer/editor':
-        specifier: workspace:*
-        version: link:../editor
       '@intlayer/editor-react':
         specifier: workspace:*
         version: link:../editor-react
@@ -1527,23 +1530,7 @@ importers:
         version: 5.8.2
 
   packages/@intlayer/editor:
-    dependencies:
-      '@intlayer/config':
-        specifier: workspace:*
-        version: link:../config
-      '@intlayer/core':
-        specifier: workspace:*
-        version: link:../core
-      '@intlayer/dictionaries-entry':
-        specifier: workspace:*
-        version: link:../dictionaries-entry
-      deep-equal:
-        specifier: ^2.2.3
-        version: 2.2.3
     devDependencies:
-      '@types/deep-equal':
-        specifier: ^1.0.4
-        version: 1.0.4
       '@types/node':
         specifier: ^22.10.6
         version: 22.13.10
@@ -1592,9 +1579,6 @@ importers:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../core
-      '@intlayer/editor':
-        specifier: workspace:*
-        version: link:../editor
       uuid:
         specifier: ^11.0.5
         version: 11.1.0
@@ -1912,6 +1896,9 @@ importers:
       '@intlayer/api':
         specifier: workspace:*
         version: link:../@intlayer/api
+      '@intlayer/chokidar':
+        specifier: workspace:*
+        version: link:../@intlayer/chokidar
       '@intlayer/config':
         specifier: workspace:*
         version: link:../@intlayer/config
@@ -1921,9 +1908,9 @@ importers:
       '@intlayer/design-system':
         specifier: workspace:*
         version: link:../@intlayer/design-system
-      '@intlayer/editor':
+      '@intlayer/dictionaries-entry':
         specifier: workspace:*
-        version: link:../@intlayer/editor
+        version: link:../@intlayer/dictionaries-entry
       '@intlayer/editor-react':
         specifier: workspace:*
         version: link:../@intlayer/editor-react

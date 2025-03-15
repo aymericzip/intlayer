@@ -11,6 +11,7 @@ import {
   type KeyPath,
   type ContentNode,
   type FileContent,
+  type Dictionary,
 } from '@intlayer/core';
 import { ReactNode, type FC } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
@@ -26,6 +27,7 @@ export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
 export type NodeWrapperProps = {
   keyPath: KeyPath[];
+  dictionary: Dictionary;
   section: ContentNode;
   onContentChange: (content: { keyPath: KeyPath[]; newValue: string }) => void;
   locale: Locales;

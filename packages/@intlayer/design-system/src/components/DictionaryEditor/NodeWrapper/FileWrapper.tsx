@@ -1,13 +1,27 @@
-import { type KeyPath, NodeType, FileContent } from '@intlayer/core';
+import {
+  getContentNodeByKeyPath,
+  NodeType,
+  type FileContent,
+  type KeyPath,
+} from '@intlayer/core';
 import type { FC } from 'react';
-import { NodeWrapper, type NodeWrapperProps } from './index';
+import { useEditedContent } from '@intlayer/editor-react';
+import { StringWrapper, type StringWrapperProps } from './StringWrapper';
 
-type FileWrapperProps = Omit<NodeWrapperProps, 'section'> & {
+type FileWrapperProps = Omit<StringWrapperProps, 'section'> & {
   section: FileContent;
 };
 
 export const FileWrapper: FC<FileWrapperProps> = (props) => {
   const { keyPath, section } = props;
+  const { addEditedContent } = useEditedContent();
+  const editedContentValue = getContentNodeByKeyPath(
+    props.editedContent,
+    keyPath
+  ) as FileContent | undefined;
+
+  const subSection = section[NodeType.File];
+  const { content } = section;
 
   const newKeyPath: KeyPath[] = [
     ...keyPath,
@@ -16,13 +30,34 @@ export const FileWrapper: FC<FileWrapperProps> = (props) => {
     },
   ];
 
-  const subSection = section[NodeType.File];
-  const { content } = section;
-
   return (
     <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
       <span className="text-neutral text-sm">{subSection} </span>
-      <NodeWrapper {...props} keyPath={newKeyPath} section={content} />
+      <StringWrapper
+        {...props}
+        keyPath={newKeyPath}
+        section={content}
+        editedContentValue={editedContentValue?.content}
+        onContentChange={(content) => {
+          console.log('lll', {
+            subSection,
+            file: {
+              ...section,
+              content: content.newValue,
+            },
+            keyPath,
+            newKeyPath,
+          });
+          addEditedContent(
+            props.dictionary.key,
+            {
+              ...section,
+              content: content.newValue,
+            } as FileContent,
+            keyPath
+          );
+        }}
+      />
     </div>
   );
 };

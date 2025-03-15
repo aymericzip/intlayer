@@ -2,11 +2,12 @@ import { existsSync } from 'fs';
 import * as fsPromises from 'fs/promises';
 import { basename, dirname, extname } from 'path';
 import type { IntlayerConfig } from '@intlayer/config/client';
+import { prepareContentDeclaration } from '@intlayer/chokidar';
 import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import deepEqual from 'deep-equal';
-import type { DictionaryStatus } from '../dictionaryStatus';
+import type { DictionaryStatus } from './dictionaryStatus';
 
 const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
 
@@ -24,9 +25,17 @@ export const writeContentDeclaration = async (
 
   const existingDictionary = dictionariesRecord[dictionary.key];
 
-  if (existingDictionary) {
-    const { filePath, ...dictionaryWithoutPath } = dictionary;
+  const preparedContentDeclaration =
+    await prepareContentDeclaration(dictionary);
 
+  const { filePath, $schema, ...dictionaryWithoutPath } =
+    preparedContentDeclaration;
+  const formattedContentDeclaration = {
+    $schema: 'https://intlayer.org/schema.json',
+    ...dictionaryWithoutPath,
+  };
+
+  if (existingDictionary) {
     // Compare existing dictionary with distant dictionary
     if (deepEqual(existingDictionary, dictionary)) {
       // Up to date, nothing to do
@@ -41,19 +50,9 @@ export const writeContentDeclaration = async (
         if (isDictionaryJSON) {
           const contentDeclarationPath = `${baseDir}/${filePath}`;
 
-          const formattedDictionary = JSON.stringify(
-            {
-              $schema: 'https://intlayer.org/schema.json',
-              ...dictionaryWithoutPath,
-            },
-            null,
-            2
-          );
-
-          // Write the dictionary to the same location of the existing dictionary file
-          await fsPromises.writeFile(
+          await writeFileWithDirectories(
             contentDeclarationPath,
-            formattedDictionary
+            formattedContentDeclaration
           );
           return { status: 'updated', path: contentDeclarationPath };
         } else {
@@ -68,7 +67,7 @@ export const writeContentDeclaration = async (
 
           await writeFileWithDirectories(
             newFilePath,
-            JSON.stringify(dictionaryWithoutPath, null, 2)
+            formattedContentDeclaration
           );
 
           return {
@@ -79,10 +78,12 @@ export const writeContentDeclaration = async (
       } else {
         // Write the dictionary to the intlayer-dictionaries directory
         const contentDeclarationPath = `${newDictionaryLocationPath}/${dictionary.key}.content.json`;
+
         await writeFileWithDirectories(
           contentDeclarationPath,
-          JSON.stringify(dictionaryWithoutPath, null, 2)
+          formattedContentDeclaration
         );
+
         return {
           status: 'reimported in new location',
           path: contentDeclarationPath,
@@ -95,7 +96,7 @@ export const writeContentDeclaration = async (
 
     await writeFileWithDirectories(
       contentDeclarationPath,
-      JSON.stringify(dictionary, null, 2)
+      formattedContentDeclaration
     );
 
     return {
@@ -121,8 +122,10 @@ const writeFileWithDirectories = async (
       await fsPromises.mkdir(dir, { recursive: true });
     }
 
+    const jsonDictionary = JSON.stringify(data, null, 2);
+
     // Write the file
-    await fsPromises.writeFile(filePath, data);
+    await fsPromises.writeFile(filePath, jsonDictionary);
   } catch (error) {
     throw new Error(`Error writing file to ${filePath}: ${error}`);
   }

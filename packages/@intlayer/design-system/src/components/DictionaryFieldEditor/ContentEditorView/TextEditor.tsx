@@ -176,6 +176,7 @@ export type TextEditorProps = {
   section: ContentNode;
   isDarkMode?: boolean;
   renderSection?: (content: string) => ReactNode;
+  onContentChange?: (newValue: string) => void;
 };
 
 const TranslationTextEditor: FC<TextEditorProps> = ({
@@ -528,6 +529,7 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
   isDarkMode,
+  onContentChange,
 }) => {
   const [mode, setMode] = useState(MarkdownViewMode.Edit);
   const toggleContent = [
@@ -542,7 +544,9 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   ] as SwitchSelectorChoices<MarkdownViewMode>;
   const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Markdown }];
 
-  const content = (section as MarkdownContent<ContentNode>)[NodeType.Markdown];
+  const content = (section as MarkdownContent<ContentNode>)[
+    NodeType.Markdown
+  ] as ContentNode;
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
@@ -568,6 +572,7 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
               )
             : undefined
         }
+        onContentChange={onContentChange}
       />
     </div>
   );
@@ -576,8 +581,7 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
 const InsertionTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionary,
-  renderSection,
+  ...props
 }) => {
   const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Insertion }];
 
@@ -590,8 +594,7 @@ const InsertionTextEditor: FC<TextEditorProps> = ({
       <TextEditorContainer
         section={content}
         keyPath={childKeyPath}
-        dictionary={dictionary}
-        renderSection={renderSection}
+        {...props}
       />
     </div>
   );
@@ -600,8 +603,7 @@ const InsertionTextEditor: FC<TextEditorProps> = ({
 const FileTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
-  dictionary,
-  renderSection,
+  ...props
 }) => {
   const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.File }];
 
@@ -614,8 +616,7 @@ const FileTextEditor: FC<TextEditorProps> = ({
       <TextEditorContainer
         section={content}
         keyPath={childKeyPath}
-        dictionary={dictionary}
-        renderSection={renderSection}
+        {...props}
       />
     </div>
   );
@@ -640,6 +641,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
         aria-label="Edit field"
         type="text"
         variant="default"
+        {...props}
         onContentChange={(newValue) => {
           addEditedContent(
             dictionary.key,
@@ -650,7 +652,6 @@ const NestedTextEditor: FC<TextEditorProps> = ({
             childrenKeyPath
           );
         }}
-        {...props}
       >
         {content.dictionaryKey ?? ''}
       </ContentEditorInputBase>
@@ -660,6 +661,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
         aria-label="Edit field"
         type="text"
         variant="default"
+        {...props}
         onContentChange={(newValue) => {
           addEditedContent(
             dictionary.key,
@@ -670,7 +672,6 @@ const NestedTextEditor: FC<TextEditorProps> = ({
             childrenKeyPath
           );
         }}
-        {...props}
       >
         {content.path ?? ''}
       </ContentEditorInputBase>

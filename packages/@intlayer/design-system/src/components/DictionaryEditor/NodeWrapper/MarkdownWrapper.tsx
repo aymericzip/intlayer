@@ -21,7 +21,7 @@ export const MarkdownWrapper: FC<MarkdownWrapperProps> = (props) => {
     },
   ];
 
-  const subSection = section[NodeType.Markdown];
+  const subSection = section[NodeType.Markdown] as ContentNode;
 
   return (
     <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">

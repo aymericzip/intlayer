@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "5.3.3",
+  "version": "5.3.4",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
@@ -84,7 +84,6 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
-    "@intlayer/editor": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
@@ -124,10 +123,11 @@
     "vitest": "^3.0.5"
   },
   "peerDependencies": {
+    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
-    "@intlayer/editor": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.8",

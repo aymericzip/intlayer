@@ -4,19 +4,22 @@ import { cn } from '../../../utils/cn';
 import { EditableFieldTextArea } from '../../EditableField';
 import type { NodeWrapperProps } from './index';
 
-type StringWrapperProps = Omit<NodeWrapperProps, 'section'> & {
+export type StringWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: string;
+  editedContentValue?: string;
 };
 
 export const StringWrapper: FC<StringWrapperProps> = ({
   keyPath,
   section,
   editedContent,
+  editedContentValue: editedContentValueProp,
   onContentChange,
   onFocusKeyPath,
   renderSection,
 }) => {
-  const editedContentValue = getContentNodeByKeyPath(editedContent, keyPath);
+  const editedContentValue =
+    editedContentValueProp ?? getContentNodeByKeyPath(editedContent, keyPath);
 
   if (editedContentValue && typeof editedContentValue !== 'string') {
     return (

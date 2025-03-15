@@ -6,7 +6,10 @@ import {
   logger,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { writeContentDeclaration } from '@intlayer/editor/server';
+import {
+  writeContentDeclaration,
+  type DictionaryStatus,
+} from '@intlayer/chokidar';
 import pLimit from 'p-limit';
 
 type PullOptions = {
@@ -17,17 +20,7 @@ type PullOptions = {
 
 type DictionariesStatus = {
   dictionaryKey: string;
-  status:
-    | 'pending'
-    | 'fetching'
-    | 'up-to-date'
-    | 'updated'
-    | 'fetched'
-    | 'unknown'
-    | 'error'
-    | 'imported'
-    | 'reimported in JSON'
-    | 'reimported in new location';
+  status: DictionaryStatus;
   icon: string;
   index: number;
   error?: Error;

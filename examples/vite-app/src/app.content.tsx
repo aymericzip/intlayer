@@ -5,11 +5,8 @@ const appContent = {
   key: 'app',
   content: {
     markdown: md('## Hello world'),
-    file: t({
-      en: md(file('./test.md')),
-      fr: md(file('./test.md')),
-      es: md(file('./test.md')),
-    }),
+    file: md(file('./test.md')),
+
     insertion: insert('test {{ count }}'),
     viteLogo: t({
       en: 'Vite logo',
