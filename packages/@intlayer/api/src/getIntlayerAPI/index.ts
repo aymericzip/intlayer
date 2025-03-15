@@ -24,3 +24,5 @@ export const getIntlayerAPI = (
   tag: getTagAPI(authAPIOptions, intlayerConfig),
   editor: getEditorAPI(authAPIOptions, intlayerConfig),
 });
+
+export type IntlayerAPI = ReturnType<typeof getIntlayerAPI>;

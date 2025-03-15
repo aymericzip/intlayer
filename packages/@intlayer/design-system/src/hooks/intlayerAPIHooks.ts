@@ -1,6 +1,6 @@
 'use client';
 
-import type { intlayerAPI } from '@intlayer/api';
+import type { IntlayerAPI } from '@intlayer/api';
 import { useConfiguration } from '@intlayer/editor-react';
 import { useAuth } from '../components/Auth/useAuth/index';
 import { useToast } from '../components/Toaster';
@@ -147,31 +147,31 @@ const useEditorAsync = <
  */
 
 export const useLogin = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.login>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['login']>
 ) =>
   useAppAsync('login', useIntlayerAuth().auth.login, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useRegister = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.register>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['register']>
 ) =>
   useAppAsync('register', useIntlayerAuth().auth.register, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useLogout = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.logout>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['logout']>
 ) =>
   useAppAsync('logout', useIntlayerAuth().auth.logout, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useChangePassword = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.changePassword>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['changePassword']>
 ) => useAppAsync('changePassword', useIntlayerAuth().auth.changePassword, args);
 export const useAskResetPassword = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.askResetPassword>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['askResetPassword']>
 ) =>
   useAppAsync(
     'askResetPassword',
@@ -179,10 +179,10 @@ export const useAskResetPassword = (
     args
   );
 export const useResetPassword = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.resetPassword>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['resetPassword']>
 ) => useAppAsync('resetPassword', useIntlayerAuth().auth.resetPassword, args);
 export const useDefineNewPassword = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.defineNewPassword>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['defineNewPassword']>
 ) =>
   useAppAsync(
     'defineNewPassword',
@@ -190,7 +190,7 @@ export const useDefineNewPassword = (
     args
   );
 export const useCheckIfUserHasPassword = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.checkIfUserHasPassword>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['checkIfUserHasPassword']>
 ) =>
   useAppAsync(
     'checkIfUserHasPassword',
@@ -201,11 +201,11 @@ export const useCheckIfUserHasPassword = (
     }
   );
 export const useVerifyEmail = (
-  args?: UseAsyncOptions<typeof intlayerAPI.auth.verifyEmail>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['verifyEmail']>
 ) => useAppAsync('verifyEmail', useIntlayerAuth().auth.verifyEmail, args);
 
 export const useGetUserByAccount = (
-  args?: UseAsyncOptions<typeof intlayerAPI.user.getUserByAccount>
+  args?: UseAsyncOptions<IntlayerAPI['user']['getUserByAccount']>
 ) =>
   useAppAsync(
     'getUserByAccount',
@@ -218,7 +218,7 @@ export const useGetUserByAccount = (
  */
 
 export const useGetUsers = (
-  args?: UseAsyncOptions<typeof intlayerAPI.user.getUsers>
+  args?: UseAsyncOptions<IntlayerAPI['user']['getUsers']>
 ) =>
   useAppAsync(
     'getUsers',
@@ -236,21 +236,21 @@ export const useGetUsers = (
     }
   );
 export const useCreateUser = (
-  args?: UseAsyncOptions<typeof intlayerAPI.user.createUser>
+  args?: UseAsyncOptions<IntlayerAPI['user']['createUser']>
 ) =>
   useAppAsync('createUser', useIntlayerAuth().user.createUser, {
     invalidateQueries: ['getUsers'],
     ...args,
   });
 export const useUpdateUser = (
-  args?: UseAsyncOptions<typeof intlayerAPI.user.updateUser>
+  args?: UseAsyncOptions<IntlayerAPI['user']['updateUser']>
 ) =>
   useAppAsync('updateUser', useIntlayerAuth().user.updateUser, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useDeleteUser = (
-  args?: UseAsyncOptions<typeof intlayerAPI.user.deleteUser>
+  args?: UseAsyncOptions<IntlayerAPI['user']['deleteUser']>
 ) =>
   useAppAsync('deleteUser', useIntlayerAuth().user.deleteUser, {
     invalidateQueries: ['getUsers'],
@@ -262,7 +262,7 @@ export const useDeleteUser = (
  */
 
 export const useGetOrganizations = (
-  args?: UseAsyncOptions<typeof intlayerAPI.organization.getOrganizations>
+  args?: UseAsyncOptions<IntlayerAPI['organization']['getOrganizations']>
 ) =>
   useAppAsync(
     'getOrganizations',
@@ -282,7 +282,7 @@ export const useGetOrganizations = (
   );
 
 export const useAddOrganization = (
-  args?: UseAsyncOptions<typeof intlayerAPI.organization.addOrganization>
+  args?: UseAsyncOptions<IntlayerAPI['organization']['addOrganization']>
 ) =>
   useAppAsync(
     'addOrganization',
@@ -293,7 +293,7 @@ export const useAddOrganization = (
     }
   );
 export const useUpdateOrganization = (
-  args?: UseAsyncOptions<typeof intlayerAPI.organization.updateOrganization>
+  args?: UseAsyncOptions<IntlayerAPI['organization']['updateOrganization']>
 ) =>
   useAppAsync(
     'updateOrganization',
@@ -305,7 +305,7 @@ export const useUpdateOrganization = (
   );
 export const useUpdateOrganizationMembers = (
   args?: UseAsyncOptions<
-    typeof intlayerAPI.organization.updateOrganizationMembers
+    IntlayerAPI['organization']['updateOrganizationMembers']
   >
 ) =>
   useAppAsync(
@@ -317,7 +317,7 @@ export const useUpdateOrganizationMembers = (
     }
   );
 export const useAddOrganizationMember = (
-  args?: UseAsyncOptions<typeof intlayerAPI.organization.addOrganizationMember>
+  args?: UseAsyncOptions<IntlayerAPI['organization']['addOrganizationMember']>
 ) =>
   useAppAsync(
     'addOrganizationMember',
@@ -328,7 +328,7 @@ export const useAddOrganizationMember = (
     }
   );
 export const useDeleteOrganization = (
-  args?: UseAsyncOptions<typeof intlayerAPI.organization.deleteOrganization>
+  args?: UseAsyncOptions<IntlayerAPI['organization']['deleteOrganization']>
 ) =>
   useAppAsync(
     'deleteOrganization',
@@ -339,7 +339,7 @@ export const useDeleteOrganization = (
     }
   );
 export const useSelectOrganization = (
-  args?: UseAsyncOptions<typeof intlayerAPI.organization.selectOrganization>
+  args?: UseAsyncOptions<IntlayerAPI['organization']['selectOrganization']>
 ) =>
   useAppAsync(
     'selectOrganization',
@@ -350,7 +350,7 @@ export const useSelectOrganization = (
     }
   );
 export const useUnselectOrganization = (
-  args?: UseAsyncOptions<typeof intlayerAPI.organization.unselectOrganization>
+  args?: UseAsyncOptions<IntlayerAPI['organization']['unselectOrganization']>
 ) =>
   useAppAsync(
     'unselectOrganization',
@@ -366,7 +366,7 @@ export const useUnselectOrganization = (
  */
 
 export const useGetProjects = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.getProjects>
+  args?: UseAsyncOptions<IntlayerAPI['project']['getProjects']>
 ) =>
   useAppAsync(
     'getProjects',
@@ -386,21 +386,21 @@ export const useGetProjects = (
     }
   );
 export const useAddProject = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.addProject>
+  args?: UseAsyncOptions<IntlayerAPI['project']['addProject']>
 ) =>
   useAppAsync('addProject', useIntlayerAuth().project.addProject, {
     invalidateQueries: ['getProjects'],
     ...args,
   });
 export const useUpdateProject = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.updateProject>
+  args?: UseAsyncOptions<IntlayerAPI['project']['updateProject']>
 ) =>
   useAppAsync('updateProject', useIntlayerAuth().project.updateProject, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useUpdateProjectMembers = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.updateProjectMembers>
+  args?: UseAsyncOptions<IntlayerAPI['project']['updateProjectMembers']>
 ) =>
   useAppAsync(
     'updateProjectMembers',
@@ -411,42 +411,42 @@ export const useUpdateProjectMembers = (
     }
   );
 export const useDeleteProject = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.deleteProject>
+  args?: UseAsyncOptions<IntlayerAPI['project']['deleteProject']>
 ) =>
   useAppAsync('deleteProject', useIntlayerAuth().project.deleteProject, {
     invalidateQueries: ['getProjects', 'getSession'],
     ...args,
   });
 export const useSelectProject = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.selectProject>
+  args?: UseAsyncOptions<IntlayerAPI['project']['selectProject']>
 ) =>
   useAppAsync('selectProject', useIntlayerAuth().project.selectProject, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useUnselectProject = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.unselectProject>
+  args?: UseAsyncOptions<IntlayerAPI['project']['unselectProject']>
 ) =>
   useAppAsync('unselectProject', useIntlayerAuth().project.unselectProject, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useAddNewAccessKey = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.addNewAccessKey>
+  args?: UseAsyncOptions<IntlayerAPI['project']['addNewAccessKey']>
 ) =>
   useAppAsync('addNewAccessKey', useIntlayerAuth().project.addNewAccessKey, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useDeleteAccessKey = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.deleteAccessKey>
+  args?: UseAsyncOptions<IntlayerAPI['project']['deleteAccessKey']>
 ) =>
   useAppAsync('deleteAccessKey', useIntlayerAuth().project.deleteAccessKey, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 export const useRefreshAccessKey = (
-  args?: UseAsyncOptions<typeof intlayerAPI.project.refreshAccessKey>
+  args?: UseAsyncOptions<IntlayerAPI['project']['refreshAccessKey']>
 ) =>
   useAppAsync('refreshAccessKey', useIntlayerAuth().project.refreshAccessKey, {
     invalidateQueries: ['getSession'],
@@ -458,7 +458,7 @@ export const useRefreshAccessKey = (
  */
 
 export const useGetDictionaries = (
-  args?: UseAsyncOptions<typeof intlayerAPI.dictionary.getDictionaries>
+  args?: UseAsyncOptions<IntlayerAPI['dictionary']['getDictionaries']>
 ) =>
   useAppAsync(
     'getDictionaries',
@@ -480,7 +480,7 @@ export const useGetDictionaries = (
   );
 
 export const useGetDictionariesKeys = (
-  args?: UseAsyncOptions<typeof intlayerAPI.dictionary.getDictionariesKeys>
+  args?: UseAsyncOptions<IntlayerAPI['dictionary']['getDictionariesKeys']>
 ) =>
   useAppAsync(
     'getDictionariesKeys',
@@ -502,7 +502,7 @@ export const useGetDictionariesKeys = (
   );
 
 export const useGetDictionary = (
-  args?: UseAsyncOptions<typeof intlayerAPI.dictionary.getDictionary>
+  args?: UseAsyncOptions<IntlayerAPI['dictionary']['getDictionary']>
 ) =>
   useAppAsync(
     'getDictionary',
@@ -522,7 +522,7 @@ export const useGetDictionary = (
     }
   );
 export const useAddDictionary = (
-  args?: UseAsyncOptions<typeof intlayerAPI.dictionary.addDictionary>
+  args?: UseAsyncOptions<IntlayerAPI['dictionary']['addDictionary']>
 ) =>
   useAppAsync('addDictionary', useIntlayerAuth().dictionary.addDictionary, {
     invalidateQueries: ['getDictionaries', 'getDictionariesKeys'],
@@ -530,7 +530,7 @@ export const useAddDictionary = (
   });
 
 export const usePushDictionaries = (
-  args?: UseAsyncOptions<typeof intlayerAPI.dictionary.pushDictionaries>
+  args?: UseAsyncOptions<IntlayerAPI['dictionary']['pushDictionaries']>
 ) =>
   useAppAsync(
     'pushDictionaries',
@@ -545,7 +545,7 @@ export const usePushDictionaries = (
     }
   );
 export const useUpdateDictionary = (
-  args?: UseAsyncOptions<typeof intlayerAPI.dictionary.updateDictionary>
+  args?: UseAsyncOptions<IntlayerAPI['dictionary']['updateDictionary']>
 ) =>
   useAppAsync(
     'updateDictionary',
@@ -556,7 +556,7 @@ export const useUpdateDictionary = (
     }
   );
 export const useDeleteDictionary = (
-  args?: UseAsyncOptions<typeof intlayerAPI.dictionary.deleteDictionary>
+  args?: UseAsyncOptions<IntlayerAPI['dictionary']['deleteDictionary']>
 ) =>
   useAppAsync(
     'deleteDictionary',
@@ -576,7 +576,7 @@ export const useDeleteDictionary = (
  */
 
 export const useGetTags = (
-  args?: UseAsyncOptions<typeof intlayerAPI.tag.getTags>
+  args?: UseAsyncOptions<IntlayerAPI['tag']['getTags']>
 ) =>
   useAppAsync(
     'getTags',
@@ -596,21 +596,21 @@ export const useGetTags = (
     }
   );
 export const useAddTag = (
-  args?: UseAsyncOptions<typeof intlayerAPI.tag.addTag>
+  args?: UseAsyncOptions<IntlayerAPI['tag']['addTag']>
 ) =>
   useAppAsync('addTag', useIntlayerAuth().tag.addTag, {
     invalidateQueries: ['getTags'],
     ...args,
   });
 export const useUpdateTag = (
-  args?: UseAsyncOptions<typeof intlayerAPI.tag.updateTag>
+  args?: UseAsyncOptions<IntlayerAPI['tag']['updateTag']>
 ) =>
   useAppAsync('updateTag', useIntlayerAuth().tag.updateTag, {
     invalidateQueries: ['getTags'],
     ...args,
   });
 export const useDeleteTag = (
-  args?: UseAsyncOptions<typeof intlayerAPI.tag.deleteTag>
+  args?: UseAsyncOptions<IntlayerAPI['tag']['deleteTag']>
 ) =>
   useAppAsync('deleteTag', useIntlayerAuth().tag.deleteTag, {
     invalidateQueries: ['getTags'],
@@ -622,7 +622,7 @@ export const useDeleteTag = (
  */
 
 export const useGetPricing = (
-  args?: UseAsyncOptions<typeof intlayerAPI.stripe.getPricing>
+  args?: UseAsyncOptions<IntlayerAPI['stripe']['getPricing']>
 ) =>
   useAppAsync('getPricing', useIntlayerAuth().stripe.getPricing, {
     store: true,
@@ -631,7 +631,7 @@ export const useGetPricing = (
   });
 
 export const useGetSubscription = (
-  args?: UseAsyncOptions<typeof intlayerAPI.stripe.getSubscription>
+  args?: UseAsyncOptions<IntlayerAPI['stripe']['getSubscription']>
 ) =>
   useAppAsync(
     'getSubscription',
@@ -644,7 +644,7 @@ export const useGetSubscription = (
   );
 
 export const useCancelSubscription = (
-  args?: UseAsyncOptions<typeof intlayerAPI.stripe.cancelSubscription>
+  args?: UseAsyncOptions<IntlayerAPI['stripe']['cancelSubscription']>
 ) =>
   useAppAsync(
     'cancelSubscription',
@@ -661,7 +661,7 @@ export const useCancelSubscription = (
  */
 
 export const useAuditContentDeclaration = (
-  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditContentDeclaration>
+  args?: UseAsyncOptions<IntlayerAPI['ai']['auditContentDeclaration']>
 ) =>
   useAppAsync(
     'auditContentDeclaration',
@@ -675,7 +675,7 @@ export const useAuditContentDeclaration = (
   );
 
 export const useAuditContentDeclarationMetadata = (
-  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditContentDeclarationMetadata>
+  args?: UseAsyncOptions<IntlayerAPI['ai']['auditContentDeclarationMetadata']>
 ) =>
   useAppAsync(
     'auditContentDeclaration',
@@ -689,7 +689,7 @@ export const useAuditContentDeclarationMetadata = (
   );
 
 export const useAuditContentDeclarationField = (
-  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditContentDeclarationField>
+  args?: UseAsyncOptions<IntlayerAPI['ai']['auditContentDeclarationField']>
 ) =>
   useAppAsync(
     'auditContentDeclarationField',
@@ -703,7 +703,7 @@ export const useAuditContentDeclarationField = (
   );
 
 export const useAuditTag = (
-  args?: UseAsyncOptions<typeof intlayerAPI.ai.auditTag>
+  args?: UseAsyncOptions<IntlayerAPI['ai']['auditTag']>
 ) =>
   useAppAsync('auditTag', useIntlayerAuth().ai.auditTag, args, {
     requireUser: true,
@@ -712,11 +712,11 @@ export const useAuditTag = (
   });
 
 export const useAskDocQuestion = (
-  args?: UseAsyncOptions<typeof intlayerAPI.ai.askDocQuestion>
+  args?: UseAsyncOptions<IntlayerAPI['ai']['askDocQuestion']>
 ) => useAppAsync('askDocQuestion', useIntlayerAuth().ai.askDocQuestion, args);
 
 export const useAutocomplete = (
-  args?: UseAsyncOptions<typeof intlayerAPI.ai.autocomplete>
+  args?: UseAsyncOptions<IntlayerAPI['ai']['autocomplete']>
 ) => useAppAsync('autocomplete', useIntlayerAuth().ai.autocomplete, args);
 
 /**
@@ -724,7 +724,7 @@ export const useAutocomplete = (
  */
 
 export const useWriteDictionary = (
-  args?: UseAsyncOptions<typeof intlayerAPI.editor.writeDictionary>
+  args?: UseAsyncOptions<IntlayerAPI['editor']['writeDictionary']>
 ) =>
   useEditorAsync(
     'writeDictionary',
