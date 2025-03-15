@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, extname, relative, resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
-import { getDictionariesPath } from '../../getDictionariesPath';
+import { getBuiltDictionariesPath } from '../../getBuiltDictionariesPath';
 import { getFileHash } from '../../utils';
 
 const { content } = getConfiguration();
@@ -54,7 +54,7 @@ export const createDictionaryEntryPoint = () => {
     mkdirSync(mainDir, { recursive: true });
   }
 
-  const dictionariesPath: string[] = getDictionariesPath();
+  const dictionariesPath: string[] = getBuiltDictionariesPath();
 
   // Create the dictionary list file
   const cjsContent = generateDictionaryListContent(dictionariesPath, 'cjs');

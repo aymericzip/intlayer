@@ -46,6 +46,8 @@ export const loadExternalFile = (
 
   try {
     if (fileExtension === 'json') {
+      // Remove cache to force reloading
+      delete ESMxCJSRequire.cache[ESMxCJSRequire.resolve(filePath)];
       // Assume JSON
       return ESMxCJSRequire(filePath);
     }

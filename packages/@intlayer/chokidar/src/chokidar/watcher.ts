@@ -1,4 +1,4 @@
-import { relative } from 'path';
+import { basename, relative } from 'path';
 import {
   type IntlayerConfig,
   appLogger,
@@ -6,7 +6,7 @@ import {
 } from '@intlayer/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
-import { getDictionariesPath } from '../getDictionariesPath';
+import { getBuiltDictionariesPath } from '../getBuiltDictionariesPath';
 import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
 import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
 import { createDictionaryEntryPoint } from '../transpiler/dictionary_to_main/createDictionaryEntryPoint';
@@ -15,6 +15,9 @@ import {
   createModuleAugmentation,
 } from '../transpiler/dictionary_to_type/index';
 import { prepareIntlayer } from '../prepareIntlayer';
+import { listDictionaries } from '../listDictionariesPath';
+
+const recentlyAddedFiles = new Set<string>();
 
 export const handleAdditionalContentDeclarationFile = async (
   filePath: string,
@@ -53,6 +56,42 @@ export const handleAdditionalContentDeclarationFile = async (
   });
 };
 
+export const handleUnlikedContentDeclarationFile = async (
+  filePath: string,
+  configuration?: IntlayerConfig
+) => {
+  const { content } =
+    configuration ??
+    getConfiguration({
+      verbose: true,
+    });
+
+  // Process the file with the functionToRun
+  appLogger(`Unlinked detected: ${relative(content.baseDir, filePath)}`, {
+    isVerbose: true,
+  });
+
+  const files: string[] = listDictionaries(configuration);
+
+  const localeDictionaries = await loadLocalDictionaries(files);
+
+  const dictionariesPaths = await buildDictionary(localeDictionaries);
+
+  createTypes(dictionariesPaths);
+
+  createDictionaryEntryPoint();
+
+  appLogger('Dictionaries rebuilt', {
+    isVerbose: true,
+  });
+
+  createModuleAugmentation();
+
+  appLogger('Module augmentation built', {
+    isVerbose: true,
+  });
+};
+
 export const handleContentDeclarationFileChange = async (
   filePath: string,
   configuration?: IntlayerConfig
@@ -69,8 +108,9 @@ export const handleContentDeclarationFileChange = async (
   });
 
   const localeDictionaries = await loadLocalDictionaries(filePath);
+
   const updatedDictionariesPaths = await buildDictionary(localeDictionaries);
-  const allDictionariesPaths: string[] = getDictionariesPath();
+  const allDictionariesPaths: string[] = getBuiltDictionariesPath();
 
   createTypes(updatedDictionariesPaths);
   appLogger('TypeScript types built', {
@@ -78,19 +118,14 @@ export const handleContentDeclarationFileChange = async (
   });
 
   if (
-    updatedDictionariesPaths.some((updatedDictionaryPath) =>
-      allDictionariesPaths.includes(updatedDictionaryPath)
+    updatedDictionariesPaths.some(
+      (updatedDictionaryPath) =>
+        !allDictionariesPaths.includes(updatedDictionaryPath)
     )
   ) {
     createDictionaryEntryPoint();
 
     appLogger('Dictionary list built', {
-      isVerbose: true,
-    });
-
-    createModuleAugmentation();
-
-    appLogger('Module augmentation built', {
       isVerbose: true,
     });
   }
@@ -117,21 +152,40 @@ export const watch = (options?: WatchOptions) => {
     ignoreInitial: true, // Process existing files
     ...options,
   })
-    .on(
-      'add',
-      async (filePath) =>
-        await handleAdditionalContentDeclarationFile(filePath, configuration)
-    )
+    .on('add', async (filePath) => {
+      const fileName = basename(filePath);
+      recentlyAddedFiles.add(fileName);
+
+      await handleAdditionalContentDeclarationFile(filePath, configuration);
+
+      setTimeout(() => recentlyAddedFiles.delete(fileName), 1000); // Allow time for unlink to trigger if it's a move
+    })
     .on(
       'change',
       async (filePath) =>
         await handleContentDeclarationFileChange(filePath, configuration)
     )
-    .on('error', (error) =>
+    .on('unlink', async (filePath) => {
+      setTimeout(async () => {
+        const fileName = basename(filePath);
+
+        if (recentlyAddedFiles.has(fileName)) {
+          // The file was moved, so ignore unlink
+          return;
+        }
+
+        await handleUnlikedContentDeclarationFile(filePath, configuration);
+      }, 300); // Allow time for unlink to trigger if it's a move
+    })
+    .on('error', async (error) => {
       appLogger('Watcher error: ' + error, {
         level: 'error',
-      })
-    );
+      });
+
+      appLogger('Restarting watcher');
+
+      await prepareIntlayer(configuration);
+    });
 };
 
 export const buildAndWatchIntlayer = async (options?: WatchOptions) => {

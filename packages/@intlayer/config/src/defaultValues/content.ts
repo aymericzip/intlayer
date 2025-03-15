@@ -4,7 +4,7 @@ export const FILE_EXTENSIONS = [
   '.content.ts',
   '.content.js',
   '.content.cjs',
-  '.cintent.cjx',
+  '.content.cjx',
   '.content.mjs',
   '.content.mjx',
   '.content.json',

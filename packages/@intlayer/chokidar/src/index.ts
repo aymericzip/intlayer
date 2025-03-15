@@ -15,3 +15,4 @@ export {
   loadLocalDictionaries,
 } from './loadDictionaries/index';
 export { checkDictionaryChanges } from './checkDictionaryChanges';
+export { listDictionaries } from './listDictionariesPath';

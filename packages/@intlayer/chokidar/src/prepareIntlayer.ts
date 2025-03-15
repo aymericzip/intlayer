@@ -3,7 +3,6 @@ import {
   appLogger,
   getConfiguration,
 } from '@intlayer/config';
-import fg from 'fast-glob';
 import { cleanOutputDir } from './cleanOutputDir';
 import { loadDictionaries } from './loadDictionaries/loadDictionaries';
 import { buildDictionary } from './transpiler/declaration_file_to_dictionary/index';
@@ -13,6 +12,7 @@ import {
   createModuleAugmentation,
 } from './transpiler/dictionary_to_type/index';
 import { writeConfiguration } from './writeConfiguration';
+import { listDictionaries } from './listDictionariesPath';
 
 export const prepareIntlayer = async (
   configuration: IntlayerConfig = getConfiguration()
@@ -23,24 +23,7 @@ export const prepareIntlayer = async (
     isVerbose: true,
   });
 
-  const files: string[] = fg.sync(
-    configuration.content.watchedFilesPatternWithPath,
-    {
-      ignore: [
-        '**/node_modules/**',
-        '**/.git/**',
-        '**/.github/**',
-        '**/.next/**',
-        '**/.expo/**',
-        '**/.expo-shared/**',
-        '**/.vercel/**',
-        '**/.cache/**',
-        '**/dist/**',
-        '**/build/**',
-        '**/.intlayer/**',
-      ],
-    }
-  );
+  const files: string[] = listDictionaries(configuration);
 
   const dictionaries = await loadDictionaries(files);
 

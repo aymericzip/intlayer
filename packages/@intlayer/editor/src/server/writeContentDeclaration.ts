@@ -40,20 +40,26 @@ export const writeContentDeclaration = async (
 
         if (isDictionaryJSON) {
           const contentDeclarationPath = `${baseDir}/${filePath}`;
+
+          const formattedDictionary = JSON.stringify(
+            {
+              $schema: 'https://intlayer.org/schema.json',
+              ...dictionaryWithoutPath,
+            },
+            null,
+            2
+          );
+
           // Write the dictionary to the same location of the existing dictionary file
           await fsPromises.writeFile(
             contentDeclarationPath,
-            JSON.stringify(
-              {
-                $schema: 'https://intlayer.org/schema.json',
-                ...dictionaryWithoutPath,
-              },
-              null,
-              2
-            )
+            formattedDictionary
           );
           return { status: 'updated', path: contentDeclarationPath };
         } else {
+          // Remove the existing dictionary file
+          await fsPromises.rm(filePath);
+
           // Write the dictionary to the intlayer-dictionaries directory
           const dictionariesDirPath = dirname(filePath);
           const dictionariesFileName = basename(filePath, extname(filePath));
@@ -66,7 +72,7 @@ export const writeContentDeclaration = async (
           );
 
           return {
-            status: 'updated',
+            status: 'replaced',
             path: newFilePath,
           };
         }
