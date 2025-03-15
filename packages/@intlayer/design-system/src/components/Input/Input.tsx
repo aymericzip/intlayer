@@ -34,21 +34,12 @@ export const inputVariants = cva('', {
   },
 });
 
-type LabelType =
-  | {
-      'aria-labelledby': string;
-    }
-  | {
-      'aria-label': string;
-    };
-
 export type InputProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & {
   validationStyleEnabled?: boolean;
-} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'> &
-  LabelType;
+} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
 
 export const Input: FC<InputProps> = ({
   validationStyleEnabled = false,

@@ -6,13 +6,16 @@ type EditableFieldTextAreaElementProps = Omit<
   FormElementProps<typeof EditableFieldTextArea>,
   'Element'
 > &
-  ComponentProps<typeof EditableFieldTextArea> & {
-    name: string;
-    description?: ReactNode;
-    placeholder?: string;
-    className?: string;
-    children?: ReactNode;
-  };
+  Omit<
+    ComponentProps<typeof EditableFieldTextArea> & {
+      name: string;
+      description?: ReactNode;
+      placeholder?: string;
+      className?: string;
+      children?: ReactNode;
+    },
+    'aria-label' | 'aria-labelledby'
+  >;
 
 export const EditableFieldTextAreaElement = (
   props: EditableFieldTextAreaElementProps
@@ -20,6 +23,8 @@ export const EditableFieldTextAreaElement = (
   <FormElement
     id={props.name}
     data-testid={props.name}
+    aria-labelledby={props.label ? `${props.name}-label` : undefined}
+    aria-label={props.label ? undefined : props.name}
     Element={EditableFieldTextArea}
     {...props}
   />

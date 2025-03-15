@@ -6,10 +6,13 @@ type InputPasswordElementProps = Omit<
   FormElementProps<typeof InputPassword>,
   'Element'
 > &
-  ComponentProps<typeof InputPassword> & {
-    name: string;
-    autoComplete: 'current-password' | 'new-password';
-  };
+  Omit<
+    ComponentProps<typeof InputPassword> & {
+      name: string;
+      autoComplete: 'current-password' | 'new-password';
+    },
+    'aria-label' | 'aria-labelledby'
+  >;
 
 export const InputPasswordElement: FC<InputPasswordElementProps> = ({
   autoComplete,
@@ -19,6 +22,8 @@ export const InputPasswordElement: FC<InputPasswordElementProps> = ({
     Element={InputPassword}
     id={props.name}
     data-testid={props.name}
+    aria-labelledby={props.label ? `${props.name}-label` : undefined}
+    aria-label={props.label ? undefined : props.name}
     autoComplete={autoComplete}
     minLength={6}
     maxLength={255}

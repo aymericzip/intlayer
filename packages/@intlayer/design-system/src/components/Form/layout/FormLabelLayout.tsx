@@ -21,7 +21,11 @@ export const FormLabelLayout: FC<FormLabelLayoutProps> = ({
 }) => (
   <div className="ml-1 flex gap-1 align-middle text-base leading-none">
     {children && (
-      <FormLabel htmlFor={htmlFor} className={clsx('font-bold', className)}>
+      <FormLabel
+        htmlFor={htmlFor}
+        id={`${htmlFor}-label`}
+        className={clsx('font-bold', className)}
+      >
         {children}
         <RequiredStar isRequired={isRequired} />
       </FormLabel>

@@ -7,14 +7,6 @@ import {
 import { cn } from '../../utils/cn';
 import { inputVariants } from '../Input';
 
-type LabelType =
-  | {
-      'aria-labelledby': string;
-    }
-  | {
-      'aria-label': string;
-    };
-
 export type TextAreaProps = DetailedHTMLProps<
   DetailedHTMLProps<
     TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -23,8 +15,7 @@ export type TextAreaProps = DetailedHTMLProps<
   HTMLTextAreaElement
 > & {
   validationStyleEnabled?: boolean;
-} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'> &
-  LabelType;
+} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
 
 export const TextArea: FC<TextAreaProps> = ({
   className,

@@ -1,20 +1,18 @@
 'use client';
 
 import { Check, X } from 'lucide-react';
-import {
-  type HTMLAttributes,
-  useState,
-  type FC,
-  type ChangeEventHandler,
-} from 'react';
+import { useState, type FC, type ChangeEventHandler } from 'react';
 import { cn } from '../../utils/cn';
-import { AutoSizedTextArea } from '../TextArea/AutoSizeTextArea';
+import {
+  AutoSizedTextArea,
+  AutoSizedTextAreaProps,
+} from '../TextArea/AutoSizeTextArea';
 
 export type ContentEditorProps = {
   children: string;
   onContentChange: (content: string) => void;
   isEditing?: boolean;
-} & HTMLAttributes<HTMLTextAreaElement>;
+} & AutoSizedTextAreaProps;
 
 export const ContentEditor: FC<ContentEditorProps> = ({
   children,
