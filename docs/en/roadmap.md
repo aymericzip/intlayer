@@ -35,16 +35,62 @@ Intlayer is a content management and internationalization solution designed to s
 >
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md)
 
-### 4. Conditional Rendering
+### 4. External file support
 
-- Define content that adapts based on specific conditions, such as user language, user login status, or any other context-related variable.
-- Helps tailor personalized experiences without duplicating content across multiple files.
+- Import content from external files as text format, such as TXT, HTML, JSON, YAML, or CSV.
+- Use the `file` function in Intlayer to embed external file content into a dictionary, ensuring seamless integration with the Intlayer Visual Editor and CMS.
+- Supports dynamic content updates, meaning that when the source file is modified, the content updates automatically within Intlayer.
+- Enables multilingual content management by linking language-specific Markdown files dynamically.
 
 > Resources:
 >
-> - [Conditional Rendering](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md)
+> - [File Content Embedding](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md)
 
-### 5. Content Declaration Formats
+### 5. Dynamic Content & Function Fetching
+
+Intlayer provides various methods to insert and manage dynamic content, ensuring flexibility and adaptability in content delivery. This includes functions for dynamic content insertion, conditional rendering, enumeration, nesting, and function fetching.
+
+a. Dynamic Content Insertion
+
+    Use the insert function to define content with placeholders ({{name}}, {{age}}, etc.).
+
+    Enables template-like content that adapts based on user input, API responses, or other dynamic data sources.
+
+    Works seamlessly with TypeScript, ESM, CommonJS, and JSON configurations.
+
+    Easily integrates with React Intlayer and Next Intlayer using useIntlayer.
+
+b. Conditional Rendering
+
+    Define content that adapts based on user-specific conditions, such as language or authentication status.
+
+    Tailor personalized experiences without duplicating content across multiple files.
+
+c. Enumeration & Pluralization
+
+    Use the enu function to define content variations based on numeric values, ranges, or custom keys.
+
+    Ensures automatic selection of the correct phrase based on a given value.
+
+    Supports ordering rules, ensuring predictable behavior.
+
+d. Nesting & Sub-Content Referencing
+
+    Use the nest function to reference and reuse content from another dictionary, reducing duplication.
+
+    Supports structured and hierarchical content management for better maintainability.
+
+e. Function Fetching
+
+    Intlayer allows content to be declared as functions, enabling both synchronous and asynchronous content retrieval.
+
+    Synchronous Functions: Content is generated dynamically at build time.
+
+    Asynchronous Functions: Fetch data from external sources (e.g., APIs, databases) dynamically.
+
+    Integration: Works with TypeScript, ESM, and CommonJS but is not supported in JSON or remote content files.
+
+### 6. Content Declaration Formats
 
 Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring content.
 
@@ -105,6 +151,24 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 > Resources:
 >
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md)
+
+### 4. React Native
+
+- Integrate Intlayer with React Native to manage content and internationalize your mobile applications.
+- Supports both iOS and Android platforms.
+
+> Resources:
+>
+> - [React Native](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react_native.md)
+
+### 5. Lynx
+
+- Integrate Intlayer with Lynx to manage content and internationalize your mobile applications.
+- Supports both iOS and Android platforms.
+
+> Resources:
+>
+> - [Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx.md)
 
 ---
 
