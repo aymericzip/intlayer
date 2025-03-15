@@ -86,7 +86,7 @@ export default config;
 
 ## Intlayer コンテンツ宣言の作成
 
-Intlayer は、デフォルトで `./src` 内のコードベースをスキャンし、 `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` に一致するファイルを探します。  
+Intlayer は、デフォルトで `./src` 内のコードベースをスキャンし、 `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}` に一致するファイルを探します。  
 以下は **TypeScript** の例です：
 
 ```typescript title="src/components/MyComponent/index.content.ts"

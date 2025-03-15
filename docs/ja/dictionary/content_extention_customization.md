@@ -8,11 +8,15 @@ Intlayerは、コンテンツ宣言ファイルの拡張子をカスタマイズ
 
 デフォルトでは、Intlayerは以下の拡張子を持つすべてのファイルをコンテンツ宣言として監視します:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 これらのデフォルトの拡張子は、ほとんどのアプリケーションに適しています。ただし、特定のニーズがある場合は、カスタム拡張子を定義してビルドプロセスを効率化し、他のコンポーネントとの競合リスクを軽減することができます。
 

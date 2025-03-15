@@ -86,7 +86,7 @@ export default config;
 
 ## Создание деклараций контента Intlayer
 
-Intlayer сканирует вашу кодовую базу (по умолчанию, в `./src`) на наличие файлов, соответствующих `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`.  
+Intlayer сканирует вашу кодовую базу (по умолчанию, в `./src`) на наличие файлов, соответствующих `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`.  
 Вот пример на **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"

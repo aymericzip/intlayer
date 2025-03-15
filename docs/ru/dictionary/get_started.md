@@ -4,11 +4,15 @@
 
 По умолчанию Intlayer отслеживает все файлы с следующими расширениями для деклараций контента:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 Приложение будет искать файлы, соответствующие шаблону `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` по умолчанию.
 

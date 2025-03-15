@@ -8,11 +8,15 @@ Intlayer consente di personalizzare le estensioni per i file di dichiarazione de
 
 Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti estensioni per le dichiarazioni di contenuto:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, quando hai esigenze specifiche, puoi definire estensioni personalizzate per ottimizzare il processo di build e ridurre il rischio di conflitti con altri componenti.
 

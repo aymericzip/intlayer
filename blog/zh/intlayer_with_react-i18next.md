@@ -245,7 +245,7 @@ export default content;
 如果您更喜欢 JSON、`.cjs` 或 `.mjs`，请参考 [Intlayer 文档](https://intlayer.org/zh/doc/concept/content)。
 
 > 默认情况下，有效的内容声明匹配文件扩展名模式：  
-> `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`
+> `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
 
 ## 在 React 组件中使用翻译
 

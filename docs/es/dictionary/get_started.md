@@ -4,11 +4,15 @@
 
 Por defecto, Intlayer observa todos los archivos con las siguientes extensiones para declaraciones de contenido:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 La aplicación buscará archivos que coincidan con el patrón glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` por defecto.
 

@@ -4,11 +4,15 @@
 
 بشكل افتراضي، يراقب Intlayer جميع الملفات ذات الامتدادات التالية لإعلانات المحتوى:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 سيبحث التطبيق عن الملفات التي تطابق النمط `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` بشكل افتراضي.
 

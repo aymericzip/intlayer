@@ -4,11 +4,15 @@
 
 默认情况下，Intlayer 会监视以下扩展名的所有文件以声明内容：
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 应用程序将默认搜索与 `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` 全局模式匹配的文件。
 

@@ -86,7 +86,7 @@ export default config;
 
 ## 创建您的 Intlayer 内容声明
 
-Intlayer 默认扫描您的代码库（在 `./src` 下），查找匹配 `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` 的文件。  
+Intlayer 默认扫描您的代码库（在 `./src` 下），查找匹配 `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}` 的文件。  
 这里是一个 **TypeScript** 示例：
 
 ```typescript title="src/components/MyComponent/index.content.ts"

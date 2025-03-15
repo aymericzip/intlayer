@@ -86,7 +86,7 @@ export default config;
 
 ## Creazione delle dichiarazioni di contenuto di Intlayer
 
-Intlayer scansiona il tuo codice sorgente (per impostazione predefinita, sotto `./src`) per file che corrispondono a `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`.  
+Intlayer scansiona il tuo codice sorgente (per impostazione predefinita, sotto `./src`) per file che corrispondono a `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`.  
 Ecco un esempio in **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"

@@ -4,11 +4,15 @@
 
 Par défaut, Intlayer surveille tous les fichiers avec les extensions suivantes pour les déclarations de contenu :
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 L'application recherchera par défaut les fichiers correspondant au modèle glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}`.
 

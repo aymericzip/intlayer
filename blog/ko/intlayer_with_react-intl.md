@@ -86,7 +86,7 @@ export default config;
 
 ## Intlayer 콘텐츠 선언 생성하기
 
-Intlayer는 코드베이스를 스캔하여(기본적으로 `./src` 아래에서) `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`와 일치하는 파일을 찾습니다.  
+Intlayer는 코드베이스를 스캔하여(기본적으로 `./src` 아래에서) `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`와 일치하는 파일을 찾습니다.  
 다음은 **TypeScript** 예제입니다:
 
 ```typescript title="src/components/MyComponent/index.content.ts"

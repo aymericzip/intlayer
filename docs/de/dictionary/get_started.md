@@ -4,11 +4,15 @@
 
 Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen für Inhaltsdeklarationen:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 Die Anwendung sucht standardmäßig nach Dateien, die dem Glob-Muster `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` entsprechen.
 

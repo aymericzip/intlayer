@@ -86,7 +86,7 @@ export default config;
 
 ## Creating Your Intlayer Dictionarys
 
-Intlayer आपके कोडबेस को स्कैन करता है (डिफ़ॉल्ट रूप से, `./src` के तहत) ऐसी फ़ाइलों के लिए जो `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` से मेल खाती हैं।  
+Intlayer आपके कोडबेस को स्कैन करता है (डिफ़ॉल्ट रूप से, `./src` के तहत) ऐसी फ़ाइलों के लिए जो `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}` से मेल खाती हैं।  
 यहां एक **TypeScript** उदाहरण है:
 
 ```typescript title="src/components/MyComponent/index.content.ts"

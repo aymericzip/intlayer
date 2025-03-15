@@ -8,11 +8,15 @@ Intlayer permite personalizar las extensiones para los archivos de declaración 
 
 Por defecto, Intlayer supervisa todos los archivos con las siguientes extensiones para declaraciones de contenido:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 Estas extensiones predeterminadas son adecuadas para la mayoría de las aplicaciones. Sin embargo, cuando tienes necesidades específicas, puedes definir extensiones personalizadas para optimizar el proceso de construcción y reducir el riesgo de conflictos con otros componentes.
 

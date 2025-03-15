@@ -86,7 +86,7 @@ export default config;
 
 ## Creating Your Intlayer Dictionarys
 
-Intlayer scans your codebase (by default, under `./src`) for files matching `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`.  
+Intlayer scans your codebase (by default, under `./src`) for files matching `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`.  
 Here’s a **TypeScript** example:
 
 ```typescript title="src/components/MyComponent/index.content.ts"

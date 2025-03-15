@@ -4,11 +4,15 @@
 
 Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti estensioni per le dichiarazioni di contenuto:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 L'applicazione cercherà i file che corrispondono al pattern glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` per impostazione predefinita.
 

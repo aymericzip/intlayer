@@ -245,7 +245,7 @@ export default content;
 Если вы предпочитаете JSON, `.cjs` или `.mjs`, обратитесь к [документации Intlayer](https://intlayer.org/ru/doc/concept/content).
 
 > По умолчанию действительные декларации контента соответствуют шаблону расширения файла:  
-> `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`
+> `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
 
 ## Использование переводов в React-компонентах
 

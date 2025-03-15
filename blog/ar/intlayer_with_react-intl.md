@@ -86,7 +86,7 @@ export default config;
 
 ## إنشاء إعلانات محتوى Intlayer الخاصة بك
 
-يقوم Intlayer بفحص قاعدة الشيفرة الخاصة بك (بشكل افتراضي، تحت `./src`) للملفات المطابقة لـ `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`.  
+يقوم Intlayer بفحص قاعدة الشيفرة الخاصة بك (بشكل افتراضي، تحت `./src`) للملفات المطابقة لـ `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`.  
 إليك مثال **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"

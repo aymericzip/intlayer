@@ -86,7 +86,7 @@ export default config;
 
 ## Criando Suas Declarações de Conteúdo do Intlayer
 
-O Intlayer escaneia seu código (por padrão, sob `./src`) em busca de arquivos que correspondam a `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`.  
+O Intlayer escaneia seu código (por padrão, sob `./src`) em busca de arquivos que correspondam a `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`.  
 Aqui está um exemplo de **TypeScript**:
 
 ```typescript title="src/components/MyComponent/index.content.ts"

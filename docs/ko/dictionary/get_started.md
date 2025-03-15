@@ -4,11 +4,15 @@
 
 기본적으로 Intlayer는 콘텐츠 선언을 위해 다음 확장자를 가진 모든 파일을 감시합니다:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 애플리케이션은 기본적으로 `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` 글로브 패턴과 일치하는 파일을 검색합니다.
 

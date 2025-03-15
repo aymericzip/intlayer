@@ -8,11 +8,15 @@ Intlayer는 콘텐츠 선언 파일의 확장자를 커스터마이징할 수 �
 
 기본적으로 Intlayer는 콘텐츠 선언을 위해 다음 확장자를 가진 모든 파일을 감시합니다:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 이 기본 확장자는 대부분의 애플리케이션에 적합합니다. 그러나 특정 요구 사항이 있는 경우, 커스텀 확장자를 정의하여 빌드 프로세스를 간소화하고 다른 구성 요소와의 충돌 위험을 줄일 수 있습니다.
 

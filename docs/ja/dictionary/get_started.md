@@ -4,11 +4,15 @@
 
 デフォルトでは、Intlayerは以下の拡張子を持つファイルをコンテンツ宣言として監視します:
 
+- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
+- `.content.jsx`
 - `.content.mjs`
+- `.content.mjx`
 - `.content.cjs`
+- `.cintent.cjx`
 
 アプリケーションはデフォルトで `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` のグロブパターンに一致するファイルを検索します。
 

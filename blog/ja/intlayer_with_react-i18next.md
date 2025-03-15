@@ -245,7 +245,7 @@ export default content;
 JSON、`.cjs`、または `.mjs` を好む場合は、[Intlayer ドキュメント](https://intlayer.org/ja/doc/concept/content)を参照してください。
 
 > デフォルトでは、有効なコンテンツ宣言は次のファイル拡張子パターンと一致します：  
-> `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`
+> `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
 
 ## React コンポーネントでの翻訳の使用
 
