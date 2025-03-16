@@ -342,6 +342,9 @@ importers:
       '@types/next-pwa':
         specifier: ^5.6.9
         version: 5.6.9(@babel/core@7.26.10)(@types/babel__core@7.20.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@types/node':
+        specifier: ^22.10.6
+        version: 22.13.10
       '@types/react':
         specifier: ^19.0.0
         version: 19.0.10
