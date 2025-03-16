@@ -8,8 +8,6 @@ In Intlayer, the `file` function allows embedding external file content into a d
 
 To embed file content in your Intlayer project, use the `file` function in a content module. Below are examples demonstrating different implementations.
 
-### TypeScript Implementation
-
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { file, type Dictionary } from "intlayer";
 
@@ -22,8 +20,6 @@ const myFileContent = {
 
 export default myFileContent;
 ```
-
-### ECMAScript Module (ESM) Implementation
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { file } from "intlayer";
@@ -39,8 +35,6 @@ const myFileContent = {
 export default myFileContent;
 ```
 
-### CommonJS Implementation
-
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { file } = require("intlayer");
 
@@ -54,8 +48,6 @@ const myFileContent = {
 
 module.exports = myFileContent;
 ```
-
-### JSON Configuration
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
 {
