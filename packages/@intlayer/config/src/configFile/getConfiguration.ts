@@ -48,7 +48,10 @@ export const getConfiguration = (
     }
 
     // Save the configuration to avoid reading the file again
-    storedConfiguration = buildConfigurationFields(customConfiguration);
+    storedConfiguration = buildConfigurationFields(
+      customConfiguration,
+      baseDir
+    );
 
     storedConfigurationFilePath = configurationFilePath;
     storedNumCustomConfiguration = numCustomConfiguration;

@@ -170,7 +170,8 @@ const buildMiddlewareFields = (
 });
 
 const buildContentFields = (
-  customConfiguration?: Partial<ContentConfig>
+  customConfiguration?: Partial<ContentConfig>,
+  baseDir?: string
 ): ContentConfig => {
   const notDerivedContentConfig: BaseContentConfig = {
     /**
@@ -197,7 +198,7 @@ const buildContentFields = (
      * - The base directory should be the root of the project
      * - Can be changed to a custom directory to externalize either the content used in the project, or the intlayer application from the project
      */
-    baseDir: customConfiguration?.baseDir ?? process.cwd(),
+    baseDir: customConfiguration?.baseDir ?? baseDir ?? process.cwd(),
 
     /**
      * Directory name where the content is stored
@@ -736,7 +737,8 @@ const buildLogFields = (
  * Build the configuration fields by merging the default values with the custom configuration
  */
 export const buildConfigurationFields = (
-  customConfiguration?: CustomIntlayerConfig
+  customConfiguration?: CustomIntlayerConfig,
+  baseDir?: string
 ): IntlayerConfig => {
   const internationalizationConfig = buildInternationalizationFields(
     customConfiguration?.internationalization
@@ -746,7 +748,10 @@ export const buildConfigurationFields = (
     customConfiguration?.middleware
   );
 
-  const contentConfig = buildContentFields(customConfiguration?.content);
+  const contentConfig = buildContentFields(
+    customConfiguration?.content,
+    baseDir
+  );
 
   const editorConfig = buildEditorFields(customConfiguration?.editor);
 

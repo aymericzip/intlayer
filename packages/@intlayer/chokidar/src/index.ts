@@ -9,6 +9,7 @@ export { buildDictionary } from './transpiler/declaration_file_to_dictionary/ind
 export { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
 export { fetchDistantDictionaries } from './fetchDistantDictionaries';
+export { fetchDistantDictionaryKeys } from './fetchDistantDictionaryKeys';
 export {
   loadDistantDictionaries,
   loadDictionaries,
