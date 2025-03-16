@@ -68,6 +68,10 @@ module.exports = markdownDictionary;
 
 ## Import (multilingual) `.md` file
 
+If your Markdown file is a `.md` file, you can import it using different import formats provided by JavaScript, or Intlayer.
+
+It is recommended to prioritize importing via the [`file` function](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md), as it allows Intlayer to properly manage paths relative to the file’s location and ensures the integration of this file with the Visual Editor / CMS.
+
 ```typescript fileName="md.d.ts" contentDeclarationFormat="typescript"
 // This declaration allows TypeScript to recognize and import Markdown (.md) files as modules.
 // Without this, TypeScript would throw an error when trying to import Markdown files,
@@ -77,7 +81,7 @@ declare module "*.md";
 ```
 
 ```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
-import { md, t, type Dictionary } from "intlayer";
+import { md, file, t, type Dictionary } from "intlayer";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
@@ -88,11 +92,14 @@ import markdown_es from "./myMarkdown.es.md";
 const markdownDictionary = {
   key: "app",
   content: {
-    contentImport: t({
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
+    contentFileImport: md(file("./myMarkdown.md")),
+    contentMultilingualFileImport: t({
+      en: md(file("./myMarkdown.en.md")),
+      fr: md(file("./myMarkdown.fr.md")),
+      es: md(file("./myMarkdown.es.md")),
     }),
+
+    contentImport: md(markdown),
     contentRequire: md(require("./myMarkdown.md")),
     contentAsyncImport: md(
       md(import("./myMarkdown.md").then((module) => module.default))
@@ -109,23 +116,24 @@ export default markdownDictionary;
 ```
 
 ```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
-import { md, t } from "intlayer";
+import { md, file, t } from "intlayer";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
-import markdown_en from "./myMarkdown.en.md";
-import markdown_fr from "./myMarkdown.fr.md";
-import markdown_es from "./myMarkdown.es.md";
+import markdown from "./myMarkdown.md";
 
 /** @type {import('intlayer').Dictionary} */
 const markdownDictionary = {
   key: "app",
   content: {
-    contentImport: t({
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
+    contentFileImport: md(file("./myMarkdown.md")),
+    contentMultilingualFileImport: t({
+      en: md(file("./myMarkdown.en.md")),
+      fr: md(file("./myMarkdown.fr.md")),
+      es: md(file("./myMarkdown.es.md")),
     }),
+
+    contentImport: md(markdown),
     contentRequire: md(require("./myMarkdown.md")),
     contentAsyncImport: md(
       md(import("./myMarkdown.md").then((module) => module.default))
@@ -142,7 +150,7 @@ export default markdownDictionary;
 ```
 
 ```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { md, t } = require("intlayer");
+const { md, file, t } = require("intlayer");
 
 const markdown_en = require("./myMarkdown.en.md");
 const markdown_fr = require("./myMarkdown.fr.md");
@@ -152,11 +160,14 @@ const markdown_es = require("./myMarkdown.es.md");
 const markdownDictionary = {
   key: "app",
   content: {
-    contentImport: t({
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
+    contentFileImport: md(file("./myMarkdown.md")),
+    contentMultilingualFileImport: t({
+      en: md(file("./myMarkdown.en.md")),
+      fr: md(file("./myMarkdown.fr.md")),
+      es: md(file("./myMarkdown.es.md")),
     }),
+
+    contentImport: md(markdown),
     contentFetch: md(fetch("https://example.com").then((res) => res.text())),
     contentFS: md(() => {
       const filePath = resolve(process.cwd(), "doc/test.md");
@@ -169,27 +180,44 @@ module.exports = markdownDictionary;
 ```
 
 ```jsonc fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-// - Importing external Markdown files (.md) is only possible using JS or TS declaration files.
+// - Importing external Markdown files (.md) is only possible using `file` node, or JS or TS declaration files.
 // - Fetching external Markdown content is only possible using JS or TS declaration files.
 
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
   "content": {
-    "myMarkdownContent": {
+    "contentFileImport": {
+      "nodeType": "markdown",
+      "markdown": {
+        "nodeType": "file",
+        "file": "./myMarkdown.md",
+      },
+    },
+
+    "contentMultilingualFileImport": {
       "nodeType": "translation",
       "translation": {
         "en": {
           "nodeType": "markdown",
-          "markdown": "# My Markdown\n\nThis is a Markdown content.",
+          "markdown": {
+            "nodeType": "file",
+            "file": "./myMarkdown.en.md",
+          },
         },
         "fr": {
           "nodeType": "markdown",
-          "markdown": "# Mon Markdown\n\nC'est un contenu Markdown.",
+          "markdown": {
+            "nodeType": "file",
+            "file": "./myMarkdown.fr.md",
+          },
         },
         "es": {
           "nodeType": "markdown",
-          "markdown": "# Mi Markdown\n\nEsto es un contenido Markdown.",
+          "markdown": {
+            "nodeType": "file",
+            "file": "./myMarkdown.es.md",
+          },
         },
       },
     },
