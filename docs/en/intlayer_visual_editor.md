@@ -200,15 +200,15 @@ The editor can be configured to use a specific environment file. This is useful 
 
 To use a specific environment file, you can use the `--env-file` or `-f` flag when starting the editor:
 
-```bash
+```bash packageManager="npm"
 npx intlayer-editor start -f .env.development
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn intlayer-editor start -f .env.development
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm intlayer-editor start -f .env.development
 ```
 
@@ -216,15 +216,15 @@ pnpm intlayer-editor start -f .env.development
 
 Or you can use the `--env` or `-e` flag to specify the environment:
 
-```bash
+```bash packageManager="npm"
 npx intlayer-editor start -e development
 ```
 
-```bash
+```bash packageManager="yarn"
 yarn intlayer-editor start -e development
 ```
 
-```bash
+```bash packageManager="pnpm"
 pnpm intlayer-editor start -e development
 ```
 
