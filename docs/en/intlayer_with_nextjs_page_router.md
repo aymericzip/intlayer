@@ -1045,6 +1045,21 @@ Add the following lines to your `.gitignore` file:
 .intlayer
 ```
 
+### VS Code Extension
+
+To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+
+[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+This extension provides:
+
+- **Autocompletion** for translation keys.
+- **Real-time error detection** for missing translations.
+- **Inline previews** of translated content.
+- **Quick actions** to easily create and update translations.
+
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+
 ## Additional Resources
 
 - **Intlayer Documentation:** [GitHub Repository](https://github.com/aymericzip/intlayer)
