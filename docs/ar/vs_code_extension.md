@@ -6,6 +6,10 @@
 
 مع هذا الامتداد، يمكن للمطورين **التنقل بسرعة** إلى قواميس المحتوى الخاصة بهم، إدارة ملفات التوطين، وتبسيط سير العمل الخاص بهم باستخدام أوامر أتمتة قوية.
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
+رابط الامتداد: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+
 ## الميزات
 
 ### التنقل الفوري

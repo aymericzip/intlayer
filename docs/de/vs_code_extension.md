@@ -6,6 +6,10 @@
 
 Mit dieser Erweiterung können Entwickler **schnell zu ihren Inhaltswörterbüchern navigieren**, Lokalisierungsdateien verwalten und ihren Workflow mit leistungsstarken Automatisierungsbefehlen optimieren.
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
+Erweiterungslink: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+
 ## Funktionen
 
 ### Sofortige Navigation

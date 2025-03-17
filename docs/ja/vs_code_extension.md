@@ -6,6 +6,10 @@
 
 この拡張機能を使用すると、開発者はコンテンツ辞書に**迅速に移動**し、ローカライズファイルを管理し、強力な自動化コマンドでワークフローを効率化できます。
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
+拡張機能リンク: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+
 ## 機能
 
 ### 即時ナビゲーション

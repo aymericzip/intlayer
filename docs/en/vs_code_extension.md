@@ -4,6 +4,8 @@
 
 [**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) is the official Visual Studio Code extension for **Intlayer**, designed to improve the developer experience when working with localized content in your projects.
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
 Extension link: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 
 ## Features
@@ -88,14 +90,6 @@ Sync the latest dictionary content:
 1. Open the **Command Palette**.
 2. Search for **Pull Dictionaries**.
 3. Choose the dictionaries to pull.
-
-### Customizing Dictionary File Paths
-
-By default, the extension follows the standard **Intlayer** project structure. However, you can configure custom paths:
-
-1. Open **Settings (`Cmd + ,` on macOS / `Ctrl + ,` on Windows/Linux)`**.
-2. Search for `Intlayer`.
-3. Adjust the content file path setting.
 
 ## Development & Contribution
 

@@ -6,6 +6,10 @@
 
 इस एक्सटेंशन के साथ, डेवलपर्स **तेजी से नेविगेट** कर सकते हैं अपनी सामग्री डिक्शनरीज़ तक, स्थानीयकरण फ़ाइलों का प्रबंधन कर सकते हैं, और शक्तिशाली स्वचालन कमांड्स के साथ अपने वर्कफ़्लो को सुव्यवस्थित कर सकते हैं।
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
+एक्सटेंशन लिंक: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+
 ## विशेषताएँ
 
 ### त्वरित नेविगेशन

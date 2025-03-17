@@ -6,6 +6,10 @@
 
 Avec cette extension, les développeurs peuvent **naviguer rapidement** vers leurs dictionnaires de contenu, gérer les fichiers de localisation et optimiser leur flux de travail grâce à des commandes d'automatisation puissantes.
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
+Lien de l'extension : [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+
 ## Fonctionnalités
 
 ### Navigation Instantanée

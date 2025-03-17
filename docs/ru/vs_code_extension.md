@@ -6,6 +6,10 @@
 
 С помощью этого расширения разработчики могут **быстро перемещаться** к своим словарям контента, управлять файлами локализации и оптимизировать свой рабочий процесс с помощью мощных автоматизированных команд.
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
+Ссылка на расширение: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+
 ## Возможности
 
 ### Мгновенная навигация

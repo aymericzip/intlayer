@@ -4,6 +4,10 @@
 
 通过此扩展，开发者可以**快速导航**到其内容字典，管理本地化文件，并通过强大的自动化命令优化工作流程。
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
+扩展链接: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+
 ## 功能
 
 ### 即时导航

@@ -6,6 +6,10 @@
 
 이 확장 프로그램을 사용하면 개발자는 콘텐츠 사전을 **빠르게 탐색**하고, 로컬라이제이션 파일을 관리하며, 강력한 자동화 명령으로 워크플로우를 간소화할 수 있습니다.
 
+![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+
+확장 프로그램 링크: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+
 ## 기능
 
 ### 즉시 탐색
