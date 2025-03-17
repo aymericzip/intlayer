@@ -7,10 +7,10 @@ import {
 import { relative, resolve } from 'path';
 import { appLogger } from '@intlayer/config';
 
-export type FileContentConstructer<T extends Record<string, any> = {}> =
+export type FileContentConstructor<T extends Record<string, any> = {}> =
   TypedNodeModel<NodeType.File, string, T>;
 
-export type FileContent = FileContentConstructer<{
+export type FileContent = FileContentConstructor<{
   content: string;
   fixedPath?: string;
 }>;

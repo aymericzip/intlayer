@@ -4,11 +4,11 @@ import {
   type Dictionary,
   NodeType,
   type FileContent,
-  type FileContentConstructer,
+  type FileContentConstructor,
   type MarkdownContent,
   type InsertionContent,
-  type MarkdownContentConstructer,
-  type InsertionContentConstructer,
+  type MarkdownContentConstructor,
+  type InsertionContentConstructor,
 } from '@intlayer/core';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
@@ -53,7 +53,7 @@ const writeFilePlugin: Plugins = {
       throw new Error(`Error writing file to ${filePath}: ${error}`);
     }
 
-    const transformedFileContent: FileContentConstructer = {
+    const transformedFileContent: FileContentConstructor = {
       nodeType: NodeType.File,
       [NodeType.File]: node.file,
     };
@@ -71,7 +71,7 @@ const mardownFilePlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Markdown,
   transform: (node: MarkdownContent, props, deepTransformNode) => {
-    const simplifiedMarkdownNode: MarkdownContentConstructer = {
+    const simplifiedMarkdownNode: MarkdownContentConstructor = {
       nodeType: NodeType.Markdown,
       [NodeType.Markdown]: deepTransformNode(node.markdown, props),
     };
@@ -89,7 +89,7 @@ const insertionFilePlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Insertion,
   transform: (node: InsertionContent, props, deepTransformNode) => {
-    const simplifiedInsertionNode: InsertionContentConstructer = {
+    const simplifiedInsertionNode: InsertionContentConstructor = {
       nodeType: NodeType.Insertion,
       [NodeType.Insertion]: deepTransformNode(node.insertion, props),
     };

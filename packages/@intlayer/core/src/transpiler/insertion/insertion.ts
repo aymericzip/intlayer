@@ -5,12 +5,12 @@ import {
 } from '../../types/index';
 import { getInsertionValues } from './getInsertionValues';
 
-export type InsertionContentConstructer<
+export type InsertionContentConstructor<
   Content = unknown,
   T extends Record<string, any> = {},
 > = TypedNodeModel<NodeType.Insertion, Content, T>;
 
-export type InsertionContent<Content = unknown> = InsertionContentConstructer<
+export type InsertionContent<Content = unknown> = InsertionContentConstructor<
   Content,
   {
     fields: string[];

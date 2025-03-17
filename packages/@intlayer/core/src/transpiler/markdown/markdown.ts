@@ -5,12 +5,12 @@ import {
 } from '../../types/index';
 import { getMarkdownMetadata } from './getMarkdownMetadata';
 
-export type MarkdownContentConstructer<
+export type MarkdownContentConstructor<
   T extends Record<string, any> = {},
   Content = unknown,
 > = TypedNodeModel<NodeType.Markdown, Content, T>;
 
-export type MarkdownContent<Content = unknown> = MarkdownContentConstructer<{
+export type MarkdownContent<Content = unknown> = MarkdownContentConstructor<{
   metadata?: Record<string, any>;
 }>;
 
