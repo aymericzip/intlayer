@@ -571,6 +571,23 @@ const docDataContent = {
         },
       },
     },
+    'vs-code-extension': {
+      title: t({
+        en: 'VS Code Extension',
+        fr: 'Extension VS Code',
+        es: 'Extensión VS Code',
+        'en-GB': 'VS Code Extension',
+        de: 'VS Code-Erweiterung',
+        ja: 'VS Code拡張機能',
+        ko: 'VS Code 확장 기능',
+        zh: 'VS Code扩展',
+        it: 'Estensione VS Code',
+        pt: 'Extensão VS Code',
+        ru: 'Расширение VS Code',
+        ar: 'امتداد VS Code',
+        hi: 'VS Code एक्सटेंशन',
+      }),
+    },
     blog: {
       title: t({
         en: 'Blog',

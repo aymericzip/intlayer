@@ -92,6 +92,8 @@ const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
     PagesRoutes['Doc_Packages_lynx-intlayer'],
   [GithubRoutes['Packages_react-native-intlayer']]:
     PagesRoutes['Doc_Packages_react-native-intlayer'],
+  [GithubRoutes['VS_Code_extension_intlayer']]:
+    PagesRoutes['VS_Code_Extension'],
 
   [GithubRoutes.BlogIndex]: PagesRoutes['Blog'],
   [GithubRoutes.IntlayerWithNextI18next]:

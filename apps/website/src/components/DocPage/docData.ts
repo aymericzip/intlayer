@@ -53,6 +53,7 @@ import { getPackagesLynxIntlayerData } from './docDataContent/packages/lynx-intl
 import { getPackagesReactNativeIntlayerData } from './docDataContent/packages/react-native-intlayer';
 import { getContentDeclarationFileData } from './docDataContent/concept/dictionary/file';
 import { getContentDeclarationInsertionData } from './docDataContent/concept/dictionary/insertion';
+import { getVSCodeExtensionData } from './docDataContent/vscode_extension';
 
 export const getDocData = (locale = Locales.ENGLISH): Section => {
   const content = getIntlayer('doc-data', locale);
@@ -355,6 +356,10 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
           default: getPackagesReactScriptsIntlayerData(locale),
         },
       },
+    },
+    'vs-code-extension': {
+      title: content['vs-code-extension'].title,
+      default: getVSCodeExtensionData(locale),
     },
   } satisfies Section;
 };

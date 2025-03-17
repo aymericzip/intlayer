@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { Locales } = require('@intlayer/config');
 
 /**
@@ -6,7 +5,6 @@ const { Locales } = require('@intlayer/config');
  */
 if (require.extensions) {
   require.extensions['.md'] = (module, filename) => {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
     module.exports = require('fs').readFileSync(filename, 'utf8');
   };
 }
@@ -1013,6 +1011,21 @@ const docs = {
     ru: require('./ru/packages/@intlayer/editor-react/index.md'),
     zh: require('./zh/packages/@intlayer/editor-react/index.md'),
     ar: require('./ar/packages/@intlayer/editor-react/index.md'),
+  },
+  vscode_extension: {
+    en: require('./en/vs_code_extension.md'),
+    de: require('./de/vs_code_extension.md'),
+    hi: require('./hi/vs_code_extension.md'),
+    it: require('./it/vs_code_extension.md'),
+    ja: require('./ja/vs_code_extension.md'),
+    ko: require('./ko/vs_code_extension.md'),
+    pt: require('./pt/vs_code_extension.md'),
+    ru: require('./ru/vs_code_extension.md'),
+    zh: require('./zh/vs_code_extension.md'),
+    ar: require('./ar/vs_code_extension.md'),
+    fr: require('./fr/vs_code_extension.md'),
+    es: require('./es/vs_code_extension.md'),
+    'en-GB': require('./en-GB/vs_code_extension.md'),
   },
 };
 

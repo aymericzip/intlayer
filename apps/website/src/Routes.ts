@@ -69,6 +69,7 @@ export enum PagesRoutes {
   'Doc_Packages_lynx-intlayer' = '/doc/packages/lynx-intlayer',
   'Doc_Packages_react-native-intlayer' = '/doc/packages/react-native-intlayer',
   'Doc_Packages_react-scripts-intlayer' = '/doc/packages/react-scripts-intlayer',
+  'VS_Code_Extension' = '/doc/vs-code-extension',
 
   Blog = '/blog/search/',
   Blog_Search = '/blog/search',
@@ -169,6 +170,7 @@ export enum GithubRoutes {
   'Packages_lynx-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md',
   'Packages_react-native-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md',
   'Packages_react-scripts-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md',
+  'VS_Code_extension_intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/vs_code_extension.md',
 
   BlogIndex = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md',
   WhatIsi18n = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md',

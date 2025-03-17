@@ -68,6 +68,7 @@ declare module '@intlayer/docs' {
     'package__@intlayer_webpack',
     'package__@intlayer_editor',
     'package__@intlayer_editor-react',
+    vscode_extension,
   }
 
   export type DocsKeys = keyof typeof DocsKeysEnum;

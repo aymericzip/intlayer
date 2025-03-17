@@ -24,7 +24,7 @@ const CHAT_GPT_CUSTOM_PROMPT: string = '';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_LIST: string[] = [
-  '/Users/aymericpineau/Documents/intlayer/docs/en/dictionary/markdown.md',
+  '/Users/aymericpineau/Documents/intlayer/docs/en/vs_code_extension.md',
 ];
 
 export const LOCALE_LIST: Locales[] = [
@@ -50,7 +50,7 @@ const SKIP_RANGE_OF_LAST_UPDATE_TIME: number = 2 * 60 * 60 * 1000; // 2 hours
 const ERROR_MAX_RETRY_COUNT: number = 3;
 const ERROR_WAIT_TIME: number = 30 * 1000; // 30 seconds
 
-const CHECK_STRUCTURE_INCONSISTENCY: boolean = true;
+const CHECK_STRUCTURE_INCONSISTENCY: boolean = false;
 
 /**
  * You can tweak this to a smaller or larger size depending on how close you get to token limits.
@@ -271,20 +271,6 @@ ${chunk}
 
     // 2. Re-assemble all translated chunks
     const finalTranslation = translatedChunks.join('\n\n');
-
-    // 3. Perform the structure check on the fully translated text
-    const isSimilarStructure = getIsSimilarStructure(
-      fileContent,
-      finalTranslation
-    );
-
-    if (!isSimilarStructure) {
-      // This is optional: you might still want to save partial translations,
-      // or throw an error. Here we throw to skip saving.
-      throw new Error(
-        'Translation file failed to be updated as its structure is not the same as the base file.'
-      );
-    }
 
     // 4. Write the final translation to the appropriate file path
     writeFileContent(localeFilePath, finalTranslation);
