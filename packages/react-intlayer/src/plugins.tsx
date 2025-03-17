@@ -107,15 +107,15 @@ export const markdownStringPlugin: Plugins = {
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',
-      canHandle: (node) =>
-        typeof node === 'string' ||
-        typeof node === 'number' ||
-        typeof node === 'boolean' ||
-        !node,
-      transform: (node, props) =>
+      canHandle: (metadataNode) =>
+        typeof metadataNode === 'string' ||
+        typeof metadataNode === 'number' ||
+        typeof metadataNode === 'boolean' ||
+        !metadataNode,
+      transform: (metadataNode, props) =>
         renderIntlayerNode({
           ...props,
-          value: node,
+          value: metadataNode,
           children: (
             <ContentSelectorRenderer {...rest}>
               <MarkdownMetadataRenderer
