@@ -85,6 +85,12 @@
     "pnpm": ">=9.0.0",
     "yarn": "please-use-pnpm"
   },
+  "pnpm": {
+    "overrides": {
+      "react": "19.0.0",
+      "react-dom": "19.0.0"
+    }
+  },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"
   }
