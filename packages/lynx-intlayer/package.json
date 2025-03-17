@@ -1,6 +1,6 @@
 {
   "name": "lynx-intlayer",
-  "version": "5.3.6",
+  "version": "5.3.7",
   "private": false,
   "description": "A React Native plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
   "keywords": [
