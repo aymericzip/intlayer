@@ -6,16 +6,18 @@ import {
 import { ESMxCJSRequire } from './utils/ESMxCJSRequire';
 
 export const getSandBoxContext = (
-  envVarOptions?: LoadEnvFileOptions
+  envVarOptions?: LoadEnvFileOptions,
+  projectRequire = ESMxCJSRequire
 ): Context => {
-  let ReactModule;
+  let additionalGlobalVar = {};
 
   try {
     // Dynamically try to require React if it's installed in the project
-    ReactModule = ESMxCJSRequire('react');
+    additionalGlobalVar = {
+      React: projectRequire('react'),
+    };
   } catch (err) {
     // React is not installed, so we don't inject it
-    ReactModule = undefined;
   }
 
   const sandboxContext: Context = {
@@ -33,8 +35,8 @@ export const getSandBoxContext = (
       },
     },
     console,
-    require: ESMxCJSRequire,
-    ...(ReactModule ? { React: ReactModule } : {}), // Only inject React if found
+    require: projectRequire,
+    ...additionalGlobalVar,
   };
 
   // Dynamically inject all global variables

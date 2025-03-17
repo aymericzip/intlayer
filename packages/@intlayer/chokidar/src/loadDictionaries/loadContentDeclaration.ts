@@ -1,12 +1,13 @@
-import { loadExternalFile } from '@intlayer/config';
+import { ESMxCJSRequire, loadExternalFile } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { processContentDeclaration } from '../transpiler/declaration_file_to_dictionary/intlayer_dictionary/processContentDeclaration';
 
 export const loadContentDeclarations = async (
-  contentDeclarationFilePath: string[]
+  contentDeclarationFilePath: string[],
+  projectRequire = ESMxCJSRequire
 ): Promise<Dictionary[]> => {
   const contentDeclarations = contentDeclarationFilePath.map((path) => ({
-    ...loadExternalFile(path),
+    ...loadExternalFile(path, undefined, projectRequire),
     filePath: path,
   }));
   const resultDictionariesPaths: Dictionary[] = [];

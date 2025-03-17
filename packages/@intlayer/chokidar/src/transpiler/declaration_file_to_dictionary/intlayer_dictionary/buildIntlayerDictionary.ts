@@ -6,20 +6,21 @@ import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { writeDictionary } from './writeDictionary';
 
-const { content } = getConfiguration();
-const { dictionariesDir } = content;
-
 /**
  * This function transpile the bundled code to to make dictionaries as JSON files
  */
 export const buildIntlayerDictionary = async (
-  contentDeclarations: (DictionaryAPI | Dictionary)[]
+  contentDeclarations: (DictionaryAPI | Dictionary)[],
+  configuration = getConfiguration()
 ) => {
+  const { dictionariesDir } = configuration.content;
+
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dictionariesDir), { recursive: true });
 
   const dictionariesPaths: string[] = await writeDictionary(
-    contentDeclarations as Dictionary[]
+    contentDeclarations as Dictionary[],
+    configuration
   );
 
   return dictionariesPaths;

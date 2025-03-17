@@ -11,10 +11,6 @@ import { convertPluralsValues } from './convertPluralsValues';
 type Dictionary = Record<string, unknown>;
 export type I18nextDictionariesOutput = Partial<Record<Locales, Dictionary>>;
 
-const {
-  internationalization: { locales },
-} = getConfiguration();
-
 const isReactNode = (node: Record<string, unknown>): boolean =>
   typeof node?.key !== 'undefined' &&
   typeof node?.props !== 'undefined' &&
@@ -100,8 +96,11 @@ const buildDictionary = (content: ContentNode, locale: Locales): unknown => {
 };
 
 export const createI18nextDictionaries = (
-  content: ContentNode
+  content: ContentNode,
+  configuration = getConfiguration()
 ): I18nextDictionariesOutput => {
+  const { locales } = configuration.internationalization;
+
   // Map dictionaries for each locale
   const result: I18nextDictionariesOutput = locales.reduce(
     (acc, locale) => ({

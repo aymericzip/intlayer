@@ -38,7 +38,8 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
  */
 export const loadExternalFile = (
   filePath: string,
-  envVarOptions?: LoadEnvFileOptions
+  envVarOptions?: LoadEnvFileOptions,
+  projectRequire = ESMxCJSRequire
 ): any | undefined => {
   let fileContent: any | undefined = undefined;
 
@@ -66,7 +67,7 @@ export const loadExternalFile = (
       return undefined;
     }
 
-    const sandboxContext = getSandBoxContext(envVarOptions);
+    const sandboxContext = getSandBoxContext(envVarOptions, projectRequire);
 
     runInNewContext(moduleResultString, sandboxContext);
 

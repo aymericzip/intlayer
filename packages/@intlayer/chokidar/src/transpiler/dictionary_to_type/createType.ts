@@ -1,10 +1,11 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
-import { getConfiguration, ESMxCJSRequire } from '@intlayer/config';
+import {
+  getConfiguration,
+  ESMxCJSRequire,
+  IntlayerConfig,
+} from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-
-const { content } = getConfiguration();
-const { typesDir } = content;
 
 const requireUncached = (module: string) => {
   delete ESMxCJSRequire.cache[ESMxCJSRequire.resolve(module)];
@@ -29,7 +30,11 @@ export const generateTypeScriptType = (dictionary: Dictionary) => {
 /**
  * This function generates a TypeScript type definition from a JSON object
  */
-export const createTypes = (dictionariesPaths: string[]): string[] => {
+export const createTypes = (
+  dictionariesPaths: string[],
+  configuration: IntlayerConfig = getConfiguration()
+): string[] => {
+  const { typesDir } = configuration.content;
   const resultTypesPaths: string[] = [];
 
   // Create type folders if they don't exist

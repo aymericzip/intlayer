@@ -3,17 +3,17 @@ import { resolve } from 'path';
 import { getConfiguration } from '@intlayer/config';
 import type { I18nextDictionariesOutput } from './convertContentDeclarationInto18nDictionaries';
 
-const { content } = getConfiguration();
-const { i18nextResourcesDir } = content;
-
 export type DictionariesDeclaration = Record<string, I18nextDictionariesOutput>;
 
 /**
  * This function writes the dictionaries to the file system
  */
 export const writeDictionary = async (
-  dictionariesDeclaration: DictionariesDeclaration
+  dictionariesDeclaration: DictionariesDeclaration,
+  configuration = getConfiguration()
 ) => {
+  const { i18nextResourcesDir } = configuration.content;
+
   const resultDictionariesPaths: string[] = [];
 
   for (const [nameSpace, localContent] of Object.entries(

@@ -1,6 +1,6 @@
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { appLogger, getConfiguration } from '@intlayer/config';
+import { appLogger, ESMxCJSRequire, getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import merge from 'deepmerge';
 import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
@@ -11,10 +11,12 @@ import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadDistantDictionaries } from './loadDistantDictionaries';
 
 export const loadDictionaries = async (
-  contentDeclarationsPaths: string[] | string
+  contentDeclarationsPaths: string[] | string,
+  configuration = getConfiguration(),
+  projectRequire = ESMxCJSRequire
 ): Promise<Dictionary[]> => {
   try {
-    const { editor } = getConfiguration();
+    const { editor } = configuration;
 
     appLogger('Dictionaries:', { isVerbose: true });
 
@@ -22,9 +24,13 @@ export const loadDictionaries = async (
       ? contentDeclarationsPaths
       : [contentDeclarationsPaths];
 
-    const localDictionaries: Dictionary[] =
-      await loadContentDeclarations(files);
-    const localDictionaryKeys = localDictionaries.map((dict) => dict.key);
+    const localDictionaries: Dictionary[] = await loadContentDeclarations(
+      files,
+      projectRequire
+    );
+    const localDictionaryKeys = localDictionaries
+      .map((dict) => dict.key)
+      .filter(Boolean); // Remove empty or undefined keys
 
     // Initialize the logger with both local and distant dictionaries
     logger.init(localDictionaryKeys, []);
@@ -49,6 +55,7 @@ export const loadDictionaries = async (
 
         const orderedDistantDictionaryKeys =
           distantDictionaryKeys.sort(sortAlphabetically);
+
         // Add distant dictionaries to the logger
         logger.addDictionaryKeys('distant', orderedDistantDictionaryKeys);
 

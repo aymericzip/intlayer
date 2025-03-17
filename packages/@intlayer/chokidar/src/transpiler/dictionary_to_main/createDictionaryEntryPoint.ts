@@ -4,16 +4,16 @@ import { getConfiguration } from '@intlayer/config';
 import { getBuiltDictionariesPath } from '../../getBuiltDictionariesPath';
 import { getFileHash } from '../../utils';
 
-const { content } = getConfiguration();
-const { mainDir } = content;
-
 /**
  * This function generates the content of the dictionary list file
  */
 const generateDictionaryListContent = (
   dictionaries: string[],
-  format: 'cjs' | 'esm' = 'esm'
+  format: 'cjs' | 'esm' = 'esm',
+  configuration = getConfiguration()
 ): string => {
+  const { mainDir } = configuration.content;
+
   let content = '';
 
   const dictionariesRef = dictionaries.map((dictionaryPath) => ({
@@ -48,18 +48,30 @@ const generateDictionaryListContent = (
 /**
  * This function generates a list of dictionaries in the main directory
  */
-export const createDictionaryEntryPoint = () => {
+export const createDictionaryEntryPoint = (
+  configuration = getConfiguration()
+) => {
+  const { mainDir } = configuration.content;
+
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {
     mkdirSync(mainDir, { recursive: true });
   }
 
-  const dictionariesPath: string[] = getBuiltDictionariesPath();
+  const dictionariesPath: string[] = getBuiltDictionariesPath(configuration);
 
   // Create the dictionary list file
-  const cjsContent = generateDictionaryListContent(dictionariesPath, 'cjs');
+  const cjsContent = generateDictionaryListContent(
+    dictionariesPath,
+    'cjs',
+    configuration
+  );
   writeFileSync(resolve(mainDir, 'dictionaries.cjs'), cjsContent);
 
-  const esmContent = generateDictionaryListContent(dictionariesPath, 'esm');
+  const esmContent = generateDictionaryListContent(
+    dictionariesPath,
+    'esm',
+    configuration
+  );
   writeFileSync(resolve(mainDir, 'dictionaries.mjs'), esmContent);
 };

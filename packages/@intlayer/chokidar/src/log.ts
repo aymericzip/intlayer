@@ -42,14 +42,12 @@ class Logger {
     | null = null;
   private extraLines: number = 0;
   private isUpdating: boolean = false;
-  private config: IntlayerConfig;
+  private config?: IntlayerConfig;
 
   // Singleton instance
   private static instance: Logger;
 
-  private constructor() {
-    this.config = getConfiguration();
-  }
+  private constructor() {}
 
   public static getInstance(): Logger {
     if (!Logger.instance) {
@@ -60,8 +58,11 @@ class Logger {
 
   public init(
     localDictionariesKeys: string[],
-    distantDictionariesKeys: string[]
+    distantDictionariesKeys: string[],
+    configuration: IntlayerConfig = getConfiguration()
   ) {
+    this.config = configuration;
+
     const allKeys = Array.from(
       new Set(
         [...localDictionariesKeys, ...distantDictionariesKeys].sort(
@@ -172,7 +173,7 @@ class Logger {
 
   // Method to update the terminal output
   private updateOutput(content: string) {
-    if (this.config.log.mode !== 'verbose') return;
+    if (this.config?.log.mode !== 'verbose') return;
 
     // Monkey-patch process.stdout.write to keep track of extra lines
     if (!this.originalStdoutWrite) {
@@ -333,7 +334,7 @@ class Logger {
       return `${colorStart}${statusBlock}${colorEnd}`;
     });
 
-    return `${this.config.log.prefix}- ${paddedKey} ${states.join(' ')}`;
+    return `${this.config?.log.prefix}- ${paddedKey} ${states.join(' ')}`;
   }
 
   // Replace logUpdate calls with your custom methods
@@ -356,7 +357,7 @@ class Logger {
 
     if (lines.length > maxVisibleLines) {
       const visibleLines = lines.slice(0, maxVisibleLines - 5);
-      const summary = `${this.config.log.prefix}... and ${lines.length - visibleLines.length} more`;
+      const summary = `${this.config?.log.prefix}... and ${lines.length - visibleLines.length} more`;
       content = LINE_DETECTOR + visibleLines.join('\n') + '\n' + summary;
     } else {
       content = lines.join('\n');

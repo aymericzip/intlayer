@@ -4,10 +4,6 @@ import { Locales, getConfiguration } from '@intlayer/config';
 import fg from 'fast-glob';
 import { getFileHash, kebabCaseToCamelCase } from '../../utils';
 
-const { content, internationalization } = getConfiguration();
-const { moduleAugmentationDir, typesDir } = content;
-const { locales, requiredLocales, strictMode } = internationalization;
-
 export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;
 
@@ -25,8 +21,16 @@ const formatLocales = (locales: Locales[]): string =>
 /**
  * This function generates the content of the module augmentation file
  */
-const generateTypeIndexContent = (typeFiles: string[]): string => {
-  let content = "/* eslint-disable */\nimport { Locales } from 'intlayer';\n";
+const generateTypeIndexContent = (
+  typeFiles: string[],
+  configuration = getConfiguration()
+): string => {
+  const { content, internationalization } = configuration;
+  const { moduleAugmentationDir } = content;
+  const { locales, requiredLocales, strictMode } = internationalization;
+
+  let fileContent =
+    "/* eslint-disable */\nimport { Locales } from 'intlayer';\n";
 
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
     relativePath: `./${relative(moduleAugmentationDir, dictionaryPath)}`,
@@ -36,10 +40,10 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
 
   // Import all dictionaries
   dictionariesRef.forEach((dictionary) => {
-    content += `import ${dictionary.hash} from '${dictionary.relativePath}';\n`;
+    fileContent += `import ${dictionary.hash} from '${dictionary.relativePath}';\n`;
   });
 
-  content += '\n';
+  fileContent += '\n';
 
   // Format Dictionary Map
   const formattedDictionaryMap: string = dictionariesRef
@@ -83,22 +87,26 @@ const generateTypeIndexContent = (typeFiles: string[]): string => {
    * }
    * See https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
    */
-  content += `declare module 'intlayer' {\n`;
-  content += `  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  }\n\n`;
-  content += `  type DeclaredLocales = ${formattedLocales};\n`;
-  content += `  type RequiredLocales = ${formattedRequiredLocales};\n`;
-  content += `  type ExtractedLocales = Extract<Locales, RequiredLocales>;\n`;
-  content += `  type ExcludedLocales = Exclude<Locales, RequiredLocales>;\n`;
-  content += `  ${strictModeRecord}\n`;
-  content += `}`;
+  fileContent += `declare module 'intlayer' {\n`;
+  fileContent += `  interface IntlayerDictionaryTypesConnector {\n${formattedDictionaryMap}\n  }\n\n`;
+  fileContent += `  type DeclaredLocales = ${formattedLocales};\n`;
+  fileContent += `  type RequiredLocales = ${formattedRequiredLocales};\n`;
+  fileContent += `  type ExtractedLocales = Extract<Locales, RequiredLocales>;\n`;
+  fileContent += `  type ExcludedLocales = Exclude<Locales, RequiredLocales>;\n`;
+  fileContent += `  ${strictModeRecord}\n`;
+  fileContent += `}`;
 
-  return content;
+  return fileContent;
 };
 
 /**
  * This function generates a index file merging all the types
  */
-export const createModuleAugmentation = () => {
+export const createModuleAugmentation = (
+  configuration = getConfiguration()
+) => {
+  const { moduleAugmentationDir, typesDir } = configuration.content;
+
   // Create main directory if it doesn't exist
   if (!existsSync(moduleAugmentationDir)) {
     mkdirSync(moduleAugmentationDir, { recursive: true });

@@ -1,4 +1,5 @@
 import {
+  ESMxCJSRequire,
   type IntlayerConfig,
   appLogger,
   getConfiguration,
@@ -15,9 +16,10 @@ import { writeConfiguration } from './writeConfiguration';
 import { listDictionaries } from './listDictionariesPath';
 
 export const prepareIntlayer = async (
-  configuration: IntlayerConfig = getConfiguration()
+  configuration: IntlayerConfig = getConfiguration(),
+  projectRequire = ESMxCJSRequire
 ) => {
-  cleanOutputDir();
+  cleanOutputDir(configuration);
 
   appLogger('Output directory cleaned', {
     isVerbose: true,
@@ -25,18 +27,22 @@ export const prepareIntlayer = async (
 
   const files: string[] = listDictionaries(configuration);
 
-  const dictionaries = await loadDictionaries(files);
+  const dictionaries = await loadDictionaries(
+    files,
+    configuration,
+    projectRequire
+  );
 
   // Build locale dictionaries
-  const dictionariesPaths = await buildDictionary(dictionaries);
+  const dictionariesPaths = await buildDictionary(dictionaries, configuration);
 
-  createTypes(dictionariesPaths);
+  createTypes(dictionariesPaths, configuration);
 
-  createDictionaryEntryPoint();
+  createDictionaryEntryPoint(configuration);
 
   appLogger('Dictionaries built');
 
-  createModuleAugmentation();
+  createModuleAugmentation(configuration);
 
   appLogger('Module augmentation built', {
     isVerbose: true,
