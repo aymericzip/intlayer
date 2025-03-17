@@ -1,20 +1,11 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import type {
-  TranslationContent,
-  EnumerationContent,
-  ConditionContent,
-  NestedContent,
-  MarkdownContent,
-  InsertionContent,
-  FileContent,
-} from '../transpiler';
 import { type ContentNode, NodeType } from '../types';
 
 export const getDefaultNode = (
   nodeType: NodeType,
   locales: LocalesValues[],
   content?: ContentNode
-) => {
+): ContentNode => {
   switch (nodeType) {
     case NodeType.Translation:
       return {
@@ -25,7 +16,7 @@ export const getDefaultNode = (
             [locale]: content ?? '',
           }))
         ),
-      } as TranslationContent<ContentNode>;
+      } as ContentNode;
 
     case NodeType.Enumeration:
       return {
@@ -33,7 +24,7 @@ export const getDefaultNode = (
         [NodeType.Enumeration]: {
           '1': content ?? '',
         },
-      } as EnumerationContent<ContentNode>;
+      } as ContentNode;
 
     case NodeType.Condition:
       return {
@@ -42,7 +33,7 @@ export const getDefaultNode = (
           true: content ?? '',
           false: content ?? '',
         },
-      } as ConditionContent<ContentNode>;
+      } as ContentNode;
 
     case NodeType.Insertion:
       return {
@@ -50,7 +41,7 @@ export const getDefaultNode = (
         [NodeType.Insertion]: {
           insertion: content ?? '',
         },
-      } as InsertionContent<ContentNode>;
+      } as unknown as ContentNode;
 
     case NodeType.Nested:
       return {
@@ -58,27 +49,27 @@ export const getDefaultNode = (
         [NodeType.Nested]: {
           dictionaryKey: '',
         },
-      } as NestedContent;
+      } as ContentNode;
 
     case NodeType.Markdown:
       return {
         nodeType: NodeType.Markdown,
         [NodeType.Markdown]: content ?? '',
-      } as MarkdownContent;
+      } as ContentNode;
 
     case NodeType.File:
       return {
         nodeType: NodeType.File,
         [NodeType.File]: content ?? '',
-      } as FileContent;
+      } as ContentNode;
 
     case NodeType.Object:
       return {
         newKey: content ?? '',
-      } as Record<string, ContentNode>;
+      } as unknown as ContentNode;
 
     case NodeType.Array:
-      return [content ?? ''] as Record<number, ContentNode>;
+      return [content ?? ''] as unknown as ContentNode;
 
     case NodeType.Text:
       return content ?? '';
