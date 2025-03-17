@@ -1,9 +1,10 @@
 import { getIntlayerAPI } from '@intlayer/api';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
 
-export const fetchDistantDictionaryKeys = async (): Promise<string[]> => {
-  const config = getConfiguration();
-  const { clientId, clientSecret } = config.editor;
+export const fetchDistantDictionaryKeys = async (
+  configuration: IntlayerConfig = getConfiguration()
+): Promise<string[]> => {
+  const { clientId, clientSecret } = configuration.editor;
 
   if (!clientId || !clientSecret) {
     throw new Error(
@@ -11,7 +12,7 @@ export const fetchDistantDictionaryKeys = async (): Promise<string[]> => {
     );
   }
 
-  const intlayerAPI = getIntlayerAPI(undefined, config);
+  const intlayerAPI = getIntlayerAPI(undefined, configuration);
 
   const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
 
