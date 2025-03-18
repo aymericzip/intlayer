@@ -6,3 +6,4 @@ export * from './getDictionary';
 export * from './getIntlayerAsync';
 export * from './getTranslation';
 export * from './getCondition';
+export * from './getContent/index';

@@ -73,8 +73,7 @@ export const editDictionaryByKeyPath = (
 
     if (
       keyObj.type === NodeType.Markdown ||
-      keyObj.type === NodeType.Insertion ||
-      keyObj.type === NodeType.File
+      keyObj.type === NodeType.Insertion
     ) {
       lastKeys = [keyObj.type];
       if (
@@ -84,6 +83,12 @@ export const editDictionaryByKeyPath = (
         currentValue[keyObj.type] = '';
       }
       currentValue = currentValue[keyObj.type];
+    }
+
+    if (keyObj.type === NodeType.File) {
+      lastKeys = ['content'];
+
+      currentValue = currentValue['content'];
     }
 
     if (keyObj.type) {

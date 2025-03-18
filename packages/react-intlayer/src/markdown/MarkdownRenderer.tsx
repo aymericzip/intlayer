@@ -8,11 +8,14 @@ import {
   getContentNodeByKeyPath,
   getMarkdownMetadata,
   KeyPath,
+  getContent,
 } from '@intlayer/core';
+import { LocalesValues } from 'intlayer';
 
 type MarkdownRendererProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
+  locale?: LocalesValues;
   children: string;
 };
 
@@ -20,6 +23,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   dictionaryKey,
   keyPath,
   children,
+  locale,
 }): ReactNode => {
   const { renderMarkdown } = useMarkdownContext();
   const editedContentContext = useEditedContentRenderer({
@@ -27,6 +31,27 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
     keyPath,
     children,
   });
+
+  if (typeof editedContentContext !== 'string') {
+    const transformedEditedContent = getContent(
+      editedContentContext,
+      {
+        dictionaryKey,
+        keyPath,
+      },
+      locale
+    );
+
+    if (typeof transformedEditedContent !== 'string') {
+      console.error(
+        `Incorrect Markdown content. Edited Markdown content type: ${typeof transformedEditedContent}. Expected string. Value ${JSON.stringify(transformedEditedContent)}`
+      );
+
+      return renderMarkdown(children);
+    }
+
+    return renderMarkdown(transformedEditedContent);
+  }
 
   return renderMarkdown(editedContentContext);
 };
