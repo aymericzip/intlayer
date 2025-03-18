@@ -55,7 +55,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.8",
+    "@tailwindcss/postcss": "^4.0.14",
     "eslint": "^8.57.1",
     "intlayer-editor": "workspace:*",
     "prettier": "^3.5.0",

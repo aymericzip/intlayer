@@ -14,13 +14,13 @@
   "dependencies": {
     "intlayer": "workspace:*",
     "markdown-to-jsx": "^7.7.3",
-    "next": "^15.2.2",
+    "next": "^15.2.3",
     "next-intlayer": "workspace:*",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.8",
+    "@tailwindcss/postcss": "^4.0.14",
     "@types/node": "^22.10.6",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
