@@ -79,6 +79,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
             return (
               <NavigationViewNode
+                key={translationKey}
                 keyPath={childKeyPath}
                 section={sectionProp}
                 dictionaryKey={dictionaryKey}
@@ -102,6 +103,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
             return (
               <NavigationViewNode
+                key={key}
                 keyPath={childKeyPath}
                 section={sectionProp}
                 dictionaryKey={dictionaryKey}
@@ -123,6 +125,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
             return (
               <NavigationViewNode
+                key={JSON.stringify(childKeyPath)}
                 keyPath={childKeyPath}
                 section={sectionProp}
                 dictionaryKey={dictionaryKey}

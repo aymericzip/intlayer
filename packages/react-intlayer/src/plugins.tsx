@@ -39,7 +39,7 @@ export const intlayerNodePlugins: Plugins = {
       ...rest,
       value: rest.children,
       children: (
-        <ContentSelectorRenderer {...rest}>
+        <ContentSelectorRenderer {...rest} key={rest.children}>
           <EditedContentRenderer {...rest}>
             {rest.children}
           </EditedContentRenderer>
