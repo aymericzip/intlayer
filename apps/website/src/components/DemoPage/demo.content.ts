@@ -50,8 +50,8 @@ const demoContent = {
       ru: 'Скриншот редактора Intlayer',
     }),
 
-    tutoParagraphs: [
-      {
+    tutoParagraphs: {
+      selection: {
         title: t({
           fr: 'Sélectionnez le contenu à modifier',
           en: 'Hover the content to be modified',
@@ -84,7 +84,7 @@ const demoContent = {
           ru: 'Нажмите и удерживайте, чтобы визуальный редактор появился. Панель редактирования расширяется справа, выделяя контент, выбранный для редактирования.',
         }),
       },
-      {
+      edition: {
         title: t({
           fr: 'Faites vos modifications en remplaçant le texte concerné',
           en: 'Make your modifications by replacing the relevant text',
@@ -117,7 +117,7 @@ const demoContent = {
           ru: 'Выделенный текст на панели редактирования можно изменять или заменять по желанию. Изменения появятся мгновенно на главной странице, что упростит обзор контента. Чтобы отменить внесенные изменения, нажмите на крестик.',
         }),
       },
-      {
+      validation: {
         title: t({
           fr: 'Validez vos changements',
           en: 'Confirm your changes',
@@ -150,7 +150,7 @@ const demoContent = {
           ru: 'После внесения изменений подтвердите изменения, внесенные в соответствующее поле, затем подтвердите изменения, внесенные в словарь. Когда изменения в словаре будут подтверждены, Intlayer запишет изменения в соответствующий файл.',
         }),
       },
-    ],
+    },
 
     tryItByYourself: {
       title: t({
