@@ -18,6 +18,7 @@ const demoContent = {
       ar: 'جرّب محرر Intlayer المرئي الجديد',
       ru: 'Попробуйте новый визуальный редактор Intlayer',
     }),
+
     landingParagraph: t({
       en: md(file('./landingParagraph.en.md')),
       'en-GB': md(file('./landingParagraph.en-GB.md')),
@@ -36,19 +37,19 @@ const demoContent = {
     tutoParagraphs: {
       selection: {
         title: t({
-          fr: 'Sélectionnez le contenu à modifier',
-          en: 'Hover the content to be modified',
-          es: 'Pase el cursor sobre el contenido a modificar',
-          'en-GB': 'Hover the content to be modified',
-          de: 'Fahren Sie mit der Maus über den zu ändernden Inhalt',
-          ja: '変更するコンテンツにカーソルを合わせてください',
-          ko: '수정할 콘텐츠 위로 마우스를 올리세요',
-          zh: '将鼠标悬停在要修改的内容上',
-          it: 'Passa il mouse sul contenuto da modificare',
-          pt: 'Passe o mouse sobre o conteúdo a ser modificado',
-          hi: 'संशोधित करने के लिए सामग्री पर होवर करें',
-          ar: 'ضع المؤشر على المحتوى الذي تريد تعديله',
-          ru: 'Наведите курсор на содержимое, которое нужно изменить',
+          fr: 'Sélectionnez et appuyez longuement le contenu à modifier',
+          en: 'Hover and long press the content to be modified',
+          'en-GB': 'Hover and long press the content to be modified',
+          es: 'Pase el cursor sobre el contenido a modificar y mantenga presionado',
+          de: 'Fahren Sie mit der Maus über den zu ändernden Inhalt und halten Sie die Maustaste gedrückt',
+          ja: '変更するコンテンツにカーソルを合わせてください。ホバーしてロングプレスを押します',
+          ko: '수정할 콘텐츠 위로 마우스를 올리고 길게 누르세요',
+          zh: '将鼠标悬停在要修改的内容上，并按住鼠标左键',
+          it: 'Passa il mouse sopra il contenuto da modificare e tieni premuto',
+          pt: 'Passe o mouse sobre o conteúdo a ser modificado e mantenha pressionado',
+          hi: 'संशोधित करने के लिए सामग्री पर होवर करें और लंबे दबाएं',
+          ar: 'ضع المؤشر على المحتوى الذي تريد تعديله واضغط مع الاستمرار',
+          ru: 'Наведите курсор на содержимое, которое нужно изменить и удерживайте его',
         }),
         description: t({
           fr: "Exercez un clic prolongé pour faire apparaître l'éditeur visuel. Le panneau d'édition s'étend de la droite et met en évidence le contenu sélectionné pour édition.",
