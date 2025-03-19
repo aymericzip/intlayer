@@ -33,23 +33,6 @@ const demoContent = {
       ar: md(file('./landingParagraph.ar.md')),
       ru: md(file('./landingParagraph.ru.md')),
     }),
-
-    imageAlt: t({
-      fr: "Capture d'écran de l'éditeur Intlayer",
-      en: 'Screenshot of the Intlayer editor',
-      es: 'Captura de pantalla del editor de Intlayer',
-      'en-GB': 'Screenshot of the Intlayer editor',
-      de: 'Screenshot des Intlayer-Editors',
-      ja: 'Intlayerエディターのスクリーンショット',
-      ko: 'Intlayer 편집기의 스크린샷',
-      zh: 'Intlayer编辑器的截图',
-      it: 'Screenshot dell`editor di Intlayer',
-      pt: 'Captura de tela do editor Intlayer',
-      hi: 'Intlayer संपादक का स्क्रीनशॉट',
-      ar: 'لقطة شاشة لمحرر Intlayer',
-      ru: 'Скриншот редактора Intlayer',
-    }),
-
     tutoParagraphs: {
       selection: {
         title: t({
@@ -150,24 +133,6 @@ const demoContent = {
           ru: 'После внесения изменений подтвердите изменения, внесенные в соответствующее поле, затем подтвердите изменения, внесенные в словарь. Когда изменения в словаре будут подтверждены, Intlayer запишет изменения в соответствующий файл.',
         }),
       },
-    },
-
-    tryItByYourself: {
-      title: t({
-        fr: 'Essayez-le par vous-même',
-        en: 'Try it by yourself',
-        es: 'Pruébelo usted mismo',
-        'en-GB': 'Try it by yourself',
-        de: 'Probieren Sie es selbst aus',
-        ja: '自分で試してみてください',
-        ko: '직접 시도해 보세요',
-        zh: '自己尝试一下',
-        it: 'Provalo tu stesso',
-        pt: 'Experimente você mesmo',
-        hi: 'इसे स्वयं आजमाएँ',
-        ar: 'جربه بنفسك',
-        ru: 'Попробуйте это самостоятельно',
-      }),
     },
   },
 } satisfies Dictionary;
