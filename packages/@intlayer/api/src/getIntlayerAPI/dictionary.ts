@@ -38,9 +38,10 @@ import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getDictionaryAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = configuration
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const { backendURL } = intlayerConfig?.editor ?? {};
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
 
   if (!backendURL) {
     throw new Error(

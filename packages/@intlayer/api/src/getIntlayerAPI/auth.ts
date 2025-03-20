@@ -60,9 +60,11 @@ import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getAuthAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = configuration
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const { backendURL, clientId, clientSecret } = intlayerConfig?.editor ?? {};
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
+  const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
 
   if (!backendURL) {
     throw new Error(
