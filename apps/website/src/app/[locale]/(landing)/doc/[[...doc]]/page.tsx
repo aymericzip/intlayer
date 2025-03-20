@@ -1,50 +1,22 @@
+import { PagesRoutes } from '@/Routes';
+import { ContributionMessage } from '@components/DocPage/ContributionMessage';
 import {
   getDocDataByPath,
   getPreviousNextDocData,
 } from '@components/DocPage/docData';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
+import { TranslatedContentMessage } from '@components/DocPage/TranslatedContentMessage';
 import { Link } from '@components/Link/Link';
-import { Container } from '@intlayer/design-system';
 import { getDoc } from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
-import { ChevronLeft, ChevronRight, Edit } from 'lucide-react';
-import { redirect } from 'next/navigation';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { type LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { redirect } from 'next/navigation';
 import type { FC } from 'react';
 import type { DocProps } from './layout';
-import { PagesRoutes } from '@/Routes';
-
-const Contribution: FC<{ githubUrl: string }> = ({ githubUrl }) => {
-  const { contribution } = useIntlayer('doc-page');
-
-  return (
-    <Container
-      roundedSize="md"
-      transparency="full"
-      border={true}
-      padding="lg"
-      borderColor="neutral"
-      className="text-neutral mx-10 flex flex-row gap-6 text-xs"
-    >
-      <Edit className="ml-3 mt-1 size-5" size={24} />
-      <div className="flex flex-1 flex-col gap-2">
-        <p>{contribution.text}</p>
-        <Link
-          href={githubUrl}
-          label={contribution.buttonLabel.value}
-          target="_blank"
-          rel="noreferrer"
-          color="text"
-        >
-          {contribution.button}
-        </Link>
-      </div>
-    </Container>
-  );
-};
 
 type DocPageNavigationProps = {
   nextDoc?: {
@@ -129,8 +101,9 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
         datePublished={docData.createdAt}
         url={docData.url}
       />
+      <TranslatedContentMessage pageUrl={docData.url} />
       <DocumentationRender>{docContent}</DocumentationRender>
-      <Contribution
+      <ContributionMessage
         githubUrl={docData.githubUrl.replace('/en/', `/${locale}/`)}
       />
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
