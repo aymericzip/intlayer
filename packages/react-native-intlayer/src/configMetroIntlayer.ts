@@ -52,6 +52,14 @@ export const configMetroIntlayer = async (
             filePath: require.resolve('@intlayer/config/client'),
             type: 'sourceFile',
           };
+        } else if (moduleName.startsWith('@intlayer/core/file')) {
+          // Force React Native to use the correct transpiled version
+          return {
+            filePath: require.resolve(
+              moduleName.replace('/file', '/file/browser')
+            ),
+            type: 'sourceFile',
+          };
         }
 
         // Prevent infinite recursion

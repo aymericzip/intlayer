@@ -53,6 +53,10 @@
         "import": "./dist/esm/transpiler/file/fileBrowser.mjs"
       }
     },
+    "./file/browser": {
+      "require": "./dist/cjs/transpiler/file/fileBrowser.cjs",
+      "import": "./dist/esm/transpiler/file/fileBrowser.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
