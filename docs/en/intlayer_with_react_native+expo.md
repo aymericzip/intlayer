@@ -457,16 +457,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 8, // Spacing between buttons
+    gap: 8,
   },
   button: {
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 6,
-    backgroundColor: "#ddd", // Light background
+    backgroundColor: "#ddd",
   },
   text: {
-    fontSize: 14, // Smaller text
+    fontSize: 14,
     fontWeight: "500",
     color: "#333",
   },
@@ -501,16 +501,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 8, // Spacing between buttons
+    gap: 8,
   },
   button: {
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 6,
-    backgroundColor: "#ddd", // Light background
+    backgroundColor: "#ddd",
   },
   text: {
-    fontSize: 14, // Smaller text
+    fontSize: 14,
     fontWeight: "500",
     color: "#333",
   },
@@ -545,16 +545,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 8, // Spacing between buttons
+    gap: 8,
   },
   button: {
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 6,
-    backgroundColor: "#ddd", // Light background
+    backgroundColor: "#ddd",
   },
   text: {
-    fontSize: 14, // Smaller text
+    fontSize: 14,
     fontWeight: "500",
     color: "#333",
   },
