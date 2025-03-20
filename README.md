@@ -82,6 +82,8 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   - [Nesting](https://intlayer.org/doc/concept/content/nesting)
   - [Markdown](https://intlayer.org/doc/concept/content/markdown)
   - [Function Fetching](https://intlayer.org/doc/concept/content/function-fetching)
+  - [Insertion](https://intlayer.org/doc/concept/content/insertion)
+  - [File](https://intlayer.org/doc/concept/content/file)
 
 ### Environment
 
