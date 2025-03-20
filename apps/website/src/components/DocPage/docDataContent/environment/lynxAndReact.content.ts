@@ -2,7 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 import { type Metadata } from 'next';
 
 const docContent = {
-  key: 'doc-intlayer-with-react-native-expo-metadata',
+  key: 'doc-intlayer-with-lynx-and-react-metadata',
   content: {
     title: t({
       en: 'Translate your Lynx and React mobile app',
