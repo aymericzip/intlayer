@@ -201,10 +201,15 @@ module.exports = RootLayout;
 
 Создайте файлы **объявления контента** в любом месте вашего проекта (обычно в `src/`), используя любой из форматов расширений, поддерживаемых Intlayer:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - и т. д.
 
 Пример (TypeScript с узлами TSX для React Native):

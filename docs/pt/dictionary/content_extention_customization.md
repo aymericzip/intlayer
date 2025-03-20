@@ -16,7 +16,7 @@ Por padrão, o Intlayer monitora todos os arquivos com as seguintes extensões p
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 Essas extensões padrão são adequadas para a maioria das aplicações. No entanto, quando você tem necessidades específicas, pode definir extensões personalizadas para otimizar o processo de construção e reduzir o risco de conflitos com outros componentes.
 

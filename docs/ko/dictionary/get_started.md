@@ -12,7 +12,7 @@
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 애플리케이션은 기본적으로 `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` 글로브 패턴과 일치하는 파일을 검색합니다.
 

@@ -12,7 +12,7 @@
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 Приложение будет искать файлы, соответствующие шаблону `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` по умолчанию.
 

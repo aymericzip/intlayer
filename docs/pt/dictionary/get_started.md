@@ -12,7 +12,7 @@ Por padrão, o Intlayer monitora todos os arquivos com as seguintes extensões p
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 O aplicativo buscará arquivos que correspondam ao padrão glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` por padrão.
 

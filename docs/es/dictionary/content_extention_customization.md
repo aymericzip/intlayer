@@ -16,7 +16,7 @@ Por defecto, Intlayer supervisa todos los archivos con las siguientes extensione
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 Estas extensiones predeterminadas son adecuadas para la mayoría de las aplicaciones. Sin embargo, cuando tienes necesidades específicas, puedes definir extensiones personalizadas para optimizar el proceso de construcción y reducir el riesgo de conflictos con otros componentes.
 

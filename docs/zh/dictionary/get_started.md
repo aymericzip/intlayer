@@ -12,7 +12,7 @@
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 应用程序将默认搜索与 `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` 全局模式匹配的文件。
 

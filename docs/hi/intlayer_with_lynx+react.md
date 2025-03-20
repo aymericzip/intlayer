@@ -155,10 +155,15 @@ if (import.meta.webpackHot) {
 
 अपने प्रोजेक्ट में कहीं भी **सामग्री घोषणा** फ़ाइलें बनाएं (आमतौर पर `src/` के भीतर), किसी भी एक्सटेंशन प्रारूप का उपयोग करके जिसे इंटलेयर समर्थन करता है:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - आदि।
 
 उदाहरण (लिनक्स के लिए TSX नोड्स के साथ टाइपस्क्रिप्ट):

@@ -12,7 +12,7 @@
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 アプリケーションはデフォルトで `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` のグロブパターンに一致するファイルを検索します。
 

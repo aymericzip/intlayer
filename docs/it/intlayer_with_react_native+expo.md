@@ -159,10 +159,15 @@ export default RootLayout;
 
 Crea file di dichiarazione dei contenuti nel tuo progetto (solitamente in `src/`), con uno dei formati supportati da Intlayer:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - ecc.
 
 Esempio (TypeScript con nodi TSX per React Native):

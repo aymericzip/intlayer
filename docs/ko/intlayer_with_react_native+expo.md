@@ -201,10 +201,15 @@ module.exports = RootLayout;
 
 프로젝트 내 어디에서나 **콘텐츠 선언** 파일을 생성하세요(일반적으로 `src/` 내). Intlayer가 지원하는 확장 형식을 사용할 수 있습니다:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - 등등.
 
 예제 (React Native용 TSX 노드를 사용하는 TypeScript):

@@ -16,7 +16,7 @@ Intlayer 允许您自定义内容声明文件的扩展名。这种自定义提�
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 这些默认扩展名适用于大多数应用程序。然而，当您有特定需求时，可以定义自定义扩展名以简化构建过程并减少与其他组件的冲突风险。
 

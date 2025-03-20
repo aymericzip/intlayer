@@ -201,10 +201,15 @@ module.exports = RootLayout;
 
 قم بإنشاء ملفات **إعلان المحتوى** في أي مكان في مشروعك (عادةً داخل `src/`)، باستخدام أي من تنسيقات الامتداد التي يدعمها Intlayer:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - إلخ.
 
 مثال (TypeScript مع عقد TSX لـ React Native):

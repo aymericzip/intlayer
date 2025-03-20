@@ -12,7 +12,7 @@ Par défaut, Intlayer surveille tous les fichiers avec les extensions suivantes 
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 L'application recherchera par défaut les fichiers correspondant au modèle glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}`.
 

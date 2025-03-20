@@ -159,10 +159,15 @@ export default RootLayout;
 
 Crie arquivos de **declaração de conteúdo** em qualquer lugar do seu projeto (geralmente dentro de `src/`), usando qualquer um dos formatos suportados pelo Intlayer:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - etc.
 
 Exemplo:

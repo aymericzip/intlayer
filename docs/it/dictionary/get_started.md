@@ -12,7 +12,7 @@ Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti est
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 L'applicazione cercherà i file che corrispondono al pattern glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` per impostazione predefinita.
 

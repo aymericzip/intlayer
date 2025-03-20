@@ -13,7 +13,7 @@ By default, Intlayer watches all files with the following extensions for content
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 The application will search for files that match the `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` glob pattern by default.
 

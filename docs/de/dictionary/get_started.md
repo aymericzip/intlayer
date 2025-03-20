@@ -12,7 +12,7 @@ Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 Die Anwendung sucht standardmäßig nach Dateien, die dem Glob-Muster `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` entsprechen.
 

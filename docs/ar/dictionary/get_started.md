@@ -12,7 +12,7 @@
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 سيبحث التطبيق عن الملفات التي تطابق النمط `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` بشكل افتراضي.
 

@@ -150,10 +150,15 @@ if (import.meta.webpackHot) {
 
 Crea file di **dichiarazione dei contenuti** ovunque nel tuo progetto (comunemente all'interno di `src/`), utilizzando uno qualsiasi dei formati di estensione supportati da Intlayer:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - ecc.
 
 Esempio (TypeScript con nodi TSX per Lynx):

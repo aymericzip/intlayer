@@ -199,10 +199,15 @@ module.exports = RootLayout;
 
 Create **content declaration** files anywhere in your project (commonly within `src/`), using any of the extension formats that Intlayer supports:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - etc.
 
 Example (TypeScript with TSX nodes for React Native):

@@ -150,10 +150,15 @@ if (import.meta.webpackHot) {
 
 Erstellen Sie **Inhaltsdeklarationsdateien** an beliebiger Stelle in Ihrem Projekt (häufig innerhalb von `src/`), indem Sie eines der von Intlayer unterstützten Erweiterungsformate verwenden:
 
-- `.content.ts`
-- `.content.mjs`
-- `.content.cjs`
 - `.content.json`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.cjx`
 - usw.
 
 Beispiel (TypeScript mit TSX-Knoten für Lynx):

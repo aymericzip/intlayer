@@ -12,7 +12,7 @@
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.cintent.cjx`
+- `.content.cjx`
 
 एप्लिकेशन डिफ़ॉल्ट रूप से `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` ग्लोब पैटर्न से मेल खाने वाली फ़ाइलों की खोज करेगा।
 
