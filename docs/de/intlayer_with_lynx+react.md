@@ -449,7 +449,7 @@ Intlayer generiert Typdefinitionen in einem versteckten Ordner (standardmäßig 
   // ... Ihre bestehende TS-Konfiguration
   "include": [
     "src", // Ihr Quellcode
-    ".intlayer", // <-- Stellen Sie sicher, dass die automatisch generierten Typen enthalten sind
+    ".intlayer/types/**/*.ts", // <-- Stellen Sie sicher, dass die automatisch generierten Typen enthalten sind
     // ... alles andere, was Sie bereits einbeziehen
   ],
 }

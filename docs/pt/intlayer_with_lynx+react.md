@@ -434,7 +434,7 @@ O Intlayer gera definições de tipos em uma pasta oculta (por padrão `.intlaye
   // ... sua configuração TS existente
   "include": [
     "src", // seu código-fonte
-    ".intlayer", // <-- certifique-se de incluir os tipos gerados automaticamente
+    ".intlayer/types/**/*.ts", // <-- certifique-se de incluir os tipos gerados automaticamente
     // ... qualquer outra coisa que você já inclua
   ],
 }

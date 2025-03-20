@@ -449,7 +449,7 @@ Intlayer genera definizioni di tipo in una cartella nascosta (di default `.intla
   // ... la tua configurazione TS esistente
   "include": [
     "src", // il tuo codice sorgente
-    ".intlayer", // <-- assicurati che i tipi generati automaticamente siano inclusi
+    ".intlayer/types/**/*.ts", // <-- assicurati che i tipi generati automaticamente siano inclusi
     // ... qualsiasi altra cosa già inclusa
   ],
 }

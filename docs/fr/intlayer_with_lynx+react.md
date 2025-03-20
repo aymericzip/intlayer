@@ -433,7 +433,7 @@ Intlayer génère des définitions de types dans un dossier caché (par défaut 
   // ... votre configuration TS existante
   "include": [
     "src", // votre code source
-    ".intlayer", // <-- assurez-vous que les types générés automatiquement sont inclus
+    ".intlayer/types/**/*.ts", // <-- assurez-vous que les types générés automatiquement sont inclus
     // ... tout autre élément que vous incluez déjà
   ],
 }

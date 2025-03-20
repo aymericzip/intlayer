@@ -575,7 +575,7 @@ Intlayer generates type definitions in a hidden folder (by default `.intlayer`) 
   // ... your existing TS config
   "include": [
     "src", // your source code
-    ".intlayer", // <-- ensure the auto-generated types are included
+    ".intlayer/types/**/*.ts", // <-- ensure the auto-generated types are included
     // ... anything else you already include
   ],
 }

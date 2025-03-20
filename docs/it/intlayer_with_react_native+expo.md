@@ -247,7 +247,7 @@ Aggiungi `.intlayer` a `tsconfig.json` per includere i tipi generati:
 
 ```json
 {
-  "include": ["src", ".intlayer"]
+  "include": ["src", ".intlayer/types/**/*.ts"]
 }
 ```
 
