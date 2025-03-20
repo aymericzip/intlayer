@@ -1,14 +1,14 @@
+import { type IntlayerNode } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC, ReactNode } from 'react';
 import { AnimatedDiv } from './AnimatedDiv';
-import { type IntlayerNode } from 'next-intlayer';
 
 const Item: FC<{
   index: number;
   title: IntlayerNode;
   description: ReactNode;
 }> = ({ index, title, description }) => (
-  <AnimatedDiv key={title} className="flex gap-10">
+  <AnimatedDiv key={title.value} className="flex gap-10">
     <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-4 border-lime-300 text-xl font-black text-lime-800 dark:border-lime-900 dark:text-lime-600">
       <span>{index + 1}</span>
     </span>
