@@ -83,21 +83,21 @@
   },
   "devDependencies": {
     "@rsbuild/core": "^1.2.16",
-    "@types/node": "^22.10.6",
-    "@typescript-eslint/parser": "^8.24.0",
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/parser": "^8.27.0",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
-    "eslint": "^9.20.0",
+    "eslint": "^9.22.0",
     "expo": "^52.0.37",
     "metro-resolver": "^0.82.0",
-    "prettier": "^3.5.0",
+    "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.10",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.3"
+    "tsc-alias": "^1.8.11",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
