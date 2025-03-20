@@ -161,9 +161,9 @@ Create **content declaration** files anywhere in your project (commonly within `
 - `.content.cjx`
 - etc.
 
-Example (TypeScript with TSX nodes for Lynx):
+Example:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
