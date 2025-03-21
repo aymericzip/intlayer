@@ -50,45 +50,45 @@ Intlayer is a content management and internationalization solution designed to s
 
 Intlayer provides various methods to insert and manage dynamic content, ensuring flexibility and adaptability in content delivery. This includes functions for dynamic content insertion, conditional rendering, enumeration, nesting, and function fetching.
 
-a. Dynamic Content Insertion
+1. Dynamic Content Insertion
 
-    Use the insert function to define content with placeholders ({{name}}, {{age}}, etc.).
+   Use the insert function to define content with placeholders ({{name}}, {{age}}, etc.).
 
-    Enables template-like content that adapts based on user input, API responses, or other dynamic data sources.
+   Enables template-like content that adapts based on user input, API responses, or other dynamic data sources.
 
-    Works seamlessly with TypeScript, ESM, CommonJS, and JSON configurations.
+   Works seamlessly with TypeScript, ESM, CommonJS, and JSON configurations.
 
-    Easily integrates with React Intlayer and Next Intlayer using useIntlayer.
+   Easily integrates with React Intlayer and Next Intlayer using useIntlayer.
 
-b. Conditional Rendering
+2. Conditional Rendering
 
-    Define content that adapts based on user-specific conditions, such as language or authentication status.
+   Define content that adapts based on user-specific conditions, such as language or authentication status.
 
-    Tailor personalized experiences without duplicating content across multiple files.
+   Tailor personalized experiences without duplicating content across multiple files.
 
-c. Enumeration & Pluralization
+3. Enumeration & Pluralization
 
-    Use the enu function to define content variations based on numeric values, ranges, or custom keys.
+   Use the enu function to define content variations based on numeric values, ranges, or custom keys.
 
-    Ensures automatic selection of the correct phrase based on a given value.
+   Ensures automatic selection of the correct phrase based on a given value.
 
-    Supports ordering rules, ensuring predictable behavior.
+   Supports ordering rules, ensuring predictable behavior.
 
-d. Nesting & Sub-Content Referencing
+4. Nesting & Sub-Content Referencing
 
-    Use the nest function to reference and reuse content from another dictionary, reducing duplication.
+   Use the nest function to reference and reuse content from another dictionary, reducing duplication.
 
-    Supports structured and hierarchical content management for better maintainability.
+   Supports structured and hierarchical content management for better maintainability.
 
-e. Function Fetching
+5. Function Fetching
 
-    Intlayer allows content to be declared as functions, enabling both synchronous and asynchronous content retrieval.
+   Intlayer allows content to be declared as functions, enabling both synchronous and asynchronous content retrieval.
 
-    Synchronous Functions: Content is generated dynamically at build time.
+   Synchronous Functions: Content is generated dynamically at build time.
 
-    Asynchronous Functions: Fetch data from external sources (e.g., APIs, databases) dynamically.
+   Asynchronous Functions: Fetch data from external sources (e.g., APIs, databases) dynamically.
 
-    Integration: Works with TypeScript, ESM, and CommonJS but is not supported in JSON or remote content files.
+   Integration: Works with TypeScript, ESM, and CommonJS but is not supported in JSON or remote content files.
 
 ### 6. Content Declaration Formats
 
