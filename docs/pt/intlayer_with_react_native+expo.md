@@ -142,7 +142,7 @@ const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout: FC = () => {
   return (
-    <IntlayerProviderContent locale={getDeviceLocale()}>
+    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
