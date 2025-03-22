@@ -1,14 +1,14 @@
 import {
   deepTransformNode,
-  type Plugins,
-  type Dictionary,
   NodeType,
+  type Dictionary,
   type FileContent,
   type FileContentConstructor,
-  type MarkdownContent,
   type InsertionContent,
-  type MarkdownContentConstructor,
   type InsertionContentConstructor,
+  type MarkdownContent,
+  type MarkdownContentConstructor,
+  type Plugins,
 } from '@intlayer/core';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
@@ -81,7 +81,7 @@ const mardownFilePlugin: Plugins = {
 };
 
 /**
- * Injection file plugin
+ * Insertion file plugin
  */
 
 const insertionFilePlugin: Plugins = {
