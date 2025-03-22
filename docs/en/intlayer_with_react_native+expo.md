@@ -47,6 +47,9 @@ yarn add intlayer react-intlayer react-native-intlayer
 In your project root (or anywhere convenient), create an **Intlayer config** file. It might look like this:
 
 ```ts fileName="intlayer.config.ts" codeFormat="typescript"
+/**
+ * If Locales types is not available, try to set moduleResolution to "bundler" in your tsconfig.json
+ */
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
