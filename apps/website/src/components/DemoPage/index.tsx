@@ -28,19 +28,16 @@ export const DemoPage: FC = () => {
       <div className="text-md text-neutral py-10">{landingParagraph}</div>
       <div className="relative mx-auto my-10 flex max-w-[700px] flex-col gap-28">
         <Item
-          key={tutoParagraphs.selection}
           index={0}
           title={tutoParagraphs.selection.title}
           description={tutoParagraphs.selection.description}
         />
         <Item
-          key={tutoParagraphs.edition}
           index={1}
           title={tutoParagraphs.edition.title}
           description={tutoParagraphs.edition.description}
         />
         <Item
-          key={tutoParagraphs.validation}
           index={2}
           title={tutoParagraphs.validation.title}
           description={tutoParagraphs.validation.description}
