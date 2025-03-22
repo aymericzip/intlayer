@@ -31,17 +31,32 @@ Intlayer offers a flexible, modern approach to translating your application. Our
 
 Organise your multilingual content close to your code to keep everything consistent and maintainable.
 
-- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md)**  
+- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md)**  
   Learn the basics of declaring your content in Intlayer.
 
-- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/translation.md)**  
-  Understand how translations are generated, stored, and utilised in your application.
+- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md)**  
+  Understand how translations are generated, stored, and utilized in your application.
 
-- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/enumeration.md)**  
+- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md)**  
   Easily manage repeated or fixed sets of data across various languages.
 
-- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/function_fetching.md)**  
+- **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/conditional.md)**  
+  Learn how to use conditional logic in Intlayer to create dynamic content.
+
+- **[Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md)**
+  Discover how to insert values in a string using insertion placeholders.
+
+- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md)**  
   See how to dynamically fetch content with custom logic to match your project’s workflow.
+
+- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md)**  
+  Learn how to use Markdown in Intlayer to create rich content.
+
+- **[File embeddings](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file_embeddings.md)**  
+  Discover how to embed externals files in Intlayer to use them in the content editor.
+
+- **[Nesting](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md)**  
+  Understand how to nest content in Intlayer to create complex structures.
 
 ---
 
@@ -54,6 +69,8 @@ We’ve built Intlayer with flexibility in mind, offering seamless integration a
 - **[Intlayer with Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_nextjs_page_router.md)**
 - **[Intlayer with React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_create_react_app.md)**
 - **[Intlayer with Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_vite+react.md)**
+- **[Intlayer with React Native and Expo](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react_native+expo.md)**
+- **[Intlayer with Lynx and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md)**
 - **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_express.md)**
 
 Each integration guide includes best practices for using Intlayer’s features—like **server-side rendering**, **dynamic routing**, or **client-side rendering**—so you can maintain a fast, SEO-friendly, and highly scalable application.
