@@ -1,3 +1,10 @@
+import type {
+  Project,
+  ProjectAPI,
+  ProjectConfiguration,
+  ProjectCreationData,
+  ProjectData,
+} from '@/types/project.types';
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as projectService from '@services/project.service';
@@ -14,21 +21,14 @@ import { mapProjectsToAPI, mapProjectToAPI } from '@utils/mapper/project';
 import { getPLanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
-  type ResponseData,
-  type PaginatedResponse,
   formatResponse,
+  type PaginatedResponse,
+  type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import type { ObjectId } from 'mongoose';
 import type { User } from 'oauth2-server';
-import type {
-  Project,
-  ProjectAPI,
-  ProjectCreationData,
-  ProjectData,
-  ProjectConfiguration,
-} from '@/types/project.types';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
 export type GetProjectsResult = PaginatedResponse<ProjectAPI>;
@@ -412,7 +412,7 @@ export const pushProjectConfiguration = async (
   res: ResponseWithInformation<PushProjectConfigurationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, isProjectAdmin } = res.locals;
+  const { user, project } = res.locals;
   const projectConfiguration = req.body;
 
   if (!user) {
@@ -422,14 +422,6 @@ export const pushProjectConfiguration = async (
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
-    return;
-  }
-
-  if (!isProjectAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_PROJECT'
-    );
     return;
   }
 
