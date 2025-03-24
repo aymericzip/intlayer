@@ -1,3 +1,4 @@
+import type { Dictionary } from '@/types/dictionary.types';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
@@ -5,10 +6,19 @@ import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
-import type { Dictionary } from '@/types/dictionary.types';
 
 export type DictionaryFiltersParams = {
   ids?: string | string[];
+  projectId?: string;
+  projectIds?: string[];
+  organizationId?: string;
+  organizationIds?: string[];
+  userId?: string;
+  userIds?: string[];
+  creatorId?: string;
+  creatorIds?: string[];
+  title?: string;
+  description?: string;
   key?: string;
   keys?: string[];
   tags?: string | string[];
@@ -30,12 +40,80 @@ export const getDictionaryFiltersAndPagination = (
   let filters: DictionaryFilters = {};
 
   if (Object.keys(filtersRequest).length > 0) {
-    const { key, keys, tags, ids, version } = filtersRequest;
+    const {
+      key,
+      keys,
+      tags,
+      ids,
+      projectId,
+      projectIds,
+      organizationId,
+      organizationIds,
+      userId,
+      userIds,
+      creatorId,
+      creatorIds,
+      title,
+      description,
+      version,
+    } = filtersRequest;
 
     filters = {};
 
     if (ids) {
       filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+    }
+
+    if (projectId) {
+      filters = { ...filters, projectIds: projectId };
+    }
+
+    if (projectIds) {
+      filters = {
+        ...filters,
+        projectIds: { $in: ensureArrayQueryFilter(projectIds) },
+      };
+    }
+
+    if (organizationId) {
+      filters = { ...filters, organizationIds: organizationId };
+    }
+
+    if (organizationIds) {
+      filters = {
+        ...filters,
+        organizationIds: { $in: ensureArrayQueryFilter(organizationIds) },
+      };
+    }
+
+    if (userId) {
+      filters = { ...filters, creatorId: userId };
+    }
+
+    if (userIds) {
+      filters = {
+        ...filters,
+        creatorId: { $in: ensureArrayQueryFilter(userIds) },
+      };
+    }
+
+    if (creatorId) {
+      filters = { ...filters, creatorId: creatorId };
+    }
+
+    if (creatorIds) {
+      filters = {
+        ...filters,
+        creatorId: { $in: ensureArrayQueryFilter(creatorIds) },
+      };
+    }
+
+    if (title) {
+      filters = { ...filters, title: new RegExp(title, 'i') };
+    }
+
+    if (description) {
+      filters = { ...filters, description: new RegExp(description, 'i') };
     }
 
     if (key) {

@@ -1,4 +1,12 @@
 import type {
+  Dictionary,
+  DictionaryAPI,
+  DictionaryCreationData,
+  DictionaryData,
+  VersionedContent,
+} from '@/types/dictionary.types';
+import * as eventListener from '@controllers/eventListener.controller';
+import type {
   ContentNode,
   Dictionary as LocalDictionary,
 } from '@intlayer/core';
@@ -15,20 +23,12 @@ import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFilter
 import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
 import {
   formatPaginatedResponse,
-  type ResponseData,
-  type PaginatedResponse,
   formatResponse,
+  type PaginatedResponse,
+  type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import * as eventListener from '@controllers/eventListener.controller';
-import type {
-  Dictionary,
-  DictionaryAPI,
-  DictionaryCreationData,
-  DictionaryData,
-  VersionedContent,
-} from '@/types/dictionary.types';
 
 export type GetDictionariesParams =
   FiltersAndPagination<DictionaryFiltersParams>;
@@ -42,7 +42,7 @@ export const getDictionaries = async (
   res: ResponseWithInformation<GetDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, dictionaryRights } = res.locals;
+  const { user, project, organization, dictionaryRights } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(req);
 
@@ -61,7 +61,11 @@ export const getDictionaries = async (
 
   try {
     const dictionaries = await dictionaryService.findDictionaries(
-      filters,
+      {
+        ...filters,
+        projectIds: [project._id],
+        organizationId: [organization?._id],
+      },
       skip,
       pageSize
     );
