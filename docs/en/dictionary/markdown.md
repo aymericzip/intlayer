@@ -85,15 +85,13 @@ import { md, file, t, type Dictionary } from "intlayer";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
-import markdown_en from "./myMarkdown.en.md";
-import markdown_fr from "./myMarkdown.fr.md";
-import markdown_es from "./myMarkdown.es.md";
+import markdown from "./myMarkdown.md";
 
 const markdownDictionary = {
   key: "app",
   content: {
     contentFileImport: md(file("./myMarkdown.md")),
-    contentMultilingualFileImport: t({
+    contentMultilingualFile: t({
       en: md(file("./myMarkdown.en.md")),
       fr: md(file("./myMarkdown.fr.md")),
       es: md(file("./myMarkdown.es.md")),
@@ -127,7 +125,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     contentFileImport: md(file("./myMarkdown.md")),
-    contentMultilingualFileImport: t({
+    contentMultilingualFile: t({
       en: md(file("./myMarkdown.en.md")),
       fr: md(file("./myMarkdown.fr.md")),
       es: md(file("./myMarkdown.es.md")),
@@ -161,7 +159,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     contentFileImport: md(file("./myMarkdown.md")),
-    contentMultilingualFileImport: t({
+    contentMultilingualFile: t({
       en: md(file("./myMarkdown.en.md")),
       fr: md(file("./myMarkdown.fr.md")),
       es: md(file("./myMarkdown.es.md")),
@@ -195,7 +193,7 @@ module.exports = markdownDictionary;
       },
     },
 
-    "contentMultilingualFileImport": {
+    "contentMultilingualFile": {
       "nodeType": "translation",
       "translation": {
         "en": {
