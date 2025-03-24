@@ -80,8 +80,7 @@ export default {
       "navbar", // 중첩할 사전의 키
       "login.button" // [선택 사항] 중첩할 콘텐츠의 경로
     ),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Markdown 예제"),
 
     /*
@@ -131,8 +130,7 @@ export default {
       "login.button" // [선택 사항] 중첩할 콘텐츠의 경로
     ),
     markdownContent: md("# Markdown 예제"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // `react-intlayer` 또는 `next-intlayer`를 사용할 때만 사용 가능
     jsxContent: <h1>내 제목</h1>,
@@ -179,8 +177,7 @@ module.exports = {
       "login.button" // [선택 사항] 중첩할 콘텐츠의 경로
     ),
     markdownContent: md("# Markdown 예제"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // `react-intlayer` 또는 `next-intlayer`를 사용할 때만 사용 가능
     jsxContent: <h1>내 제목</h1>,

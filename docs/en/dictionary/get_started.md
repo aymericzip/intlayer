@@ -25,6 +25,7 @@ For a full list of configuration options, visit the configuration documentation.
 Create and manage your dictionaries:
 
 ```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+import { type ReactNode } from "react";
 import {
   t,
   enu,
@@ -46,11 +47,12 @@ interface Content {
     multilingualContent: string;
     quantityContent: string;
     conditionalContent: string;
-    markdownContent: string;
+    markdownContent: any;
     externalContent: string;
     insertionContent: string;
     nestedContent: string;
     fileContent: string;
+    jsxContent: ReactNode;
   };
 }
 
@@ -89,8 +91,7 @@ export default {
       "login.button" // [Optional] The path to the content to nest
     ),
     fileContent: file("./path/to/file.txt"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Markdown Example"),
 
     /*
@@ -142,8 +143,7 @@ export default {
     ),
     markdownContent: md("# Markdown Example"),
     fileContent: file("./path/to/file.txt"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Only available using `react-intlayer` or `next-intlayer`
     jsxContent: <h1>My title</h1>,
@@ -192,8 +192,7 @@ module.exports = {
     ),
     markdownContent: md("# Markdown Example"),
     fileContent: file("./path/to/file.txt"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Only available using `react-intlayer` or `next-intlayer`
     jsxContent: <h1>My title</h1>,

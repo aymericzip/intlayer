@@ -80,8 +80,7 @@ export default {
       "navbar", // The key of the dictionary to nest
       "login.button" // [Optional] The path to the content to nest
     ),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Markdown Example"),
 
     /*
@@ -131,8 +130,7 @@ export default {
       "login.button" // [Optional] The path to the content to nest
     ),
     markdownContent: md("# Markdown Example"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Only available using `react-intlayer` or `next-intlayer`
     jsxContent: <h1>My title</h1>,
@@ -179,8 +177,7 @@ module.exports = {
       "login.button" // [Optional] The path to the content to nest
     ),
     markdownContent: md("# Markdown Example"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Only available using `react-intlayer` or `next-intlayer`
     jsxContent: <h1>My title</h1>,

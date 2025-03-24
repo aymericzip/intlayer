@@ -80,8 +80,7 @@ export default {
       "navbar", // La clé du dictionnaire à imbriquer
       "login.button" // [Optionnel] Le chemin vers le contenu à imbriquer
     ),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Exemple de Markdown"),
 
     /*
@@ -131,8 +130,7 @@ export default {
       "login.button" // [Optionnel] Le chemin vers le contenu à imbriquer
     ),
     markdownContent: md("# Exemple de Markdown"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Disponible uniquement avec `react-intlayer` ou `next-intlayer`
     jsxContent: <h1>Mon titre</h1>,
@@ -179,8 +177,7 @@ module.exports = {
       "login.button" // [Optionnel] Le chemin vers le contenu à imbriquer
     ),
     markdownContent: md("# Exemple de Markdown"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Disponible uniquement avec `react-intlayer` ou `next-intlayer`
     jsxContent: <h1>Mon titre</h1>,

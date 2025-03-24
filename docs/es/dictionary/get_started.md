@@ -80,8 +80,7 @@ export default {
       "navbar", // La clave del diccionario a anidar
       "login.button" // [Opcional] La ruta al contenido a anidar
     ),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Ejemplo de Markdown"),
 
     /*
@@ -131,8 +130,7 @@ export default {
       "login.button" // [Opcional] La ruta al contenido a anidar
     ),
     markdownContent: md("# Ejemplo de Markdown"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Solo disponible usando `react-intlayer` o `next-intlayer`
     jsxContent: <h1>Mi título</h1>,
@@ -179,8 +177,7 @@ module.exports = {
       "login.button" // [Opcional] La ruta al contenido a anidar
     ),
     markdownContent: md("# Ejemplo de Markdown"),
-    externalContent: async () =>
-      await fetch("https://example.com").then((res) => res.json())
+    externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Solo disponible usando `react-intlayer` o `next-intlayer`
     jsxContent: <h1>Mi título</h1>,
