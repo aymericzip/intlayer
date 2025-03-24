@@ -21,20 +21,20 @@ const docContent = {
     }),
 
     description: t({
-      en: 'Discover how to make your Vite and React using Page Router website multilingual. Follow the documentation to internationalize (i18n) and translate it.',
+      en: 'Discover how to make your Vite and React website multilingual. Follow the documentation to internationalize (i18n) and translate it.',
       'en-GB':
-        'Discover how to make your Vite and React using Page Router website multilingual. Follow the documentation to internationalize (i18n) and translate it.',
-      ar: 'اكتشف كيفية جعل موقعك الذي يستخدم Vite و React مع Page Router متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.',
-      de: 'Entdecken Sie, wie Sie Ihre mit Vite und React unter Verwendung des Page Router erstellte Website mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.',
-      es: 'Descubre cómo hacer que tu sitio web que utiliza Vite y React con Page Router sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.',
-      fr: 'Découvrez comment rendre votre site web utilisant Vite et React avec Page Router multilingue. Suivez la documentation pour l’internationaliser (i18n) et le traduire.',
-      hi: 'जानें कि कैसे अपनी Vite और React का उपयोग करते हुए Page Router वेबसाइट को बहुभाषी बनाया जाए। इसे अंतर्राष्ट्रीय बनाने (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।',
-      it: 'Scopri come rendere il tuo sito web che utilizza Vite e React con Page Router multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.',
-      ja: 'ViteとReactを使用してPage Routerを利用したウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。',
-      ko: 'Vite와 React를 사용하여 Page Router 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.',
-      pt: 'Descubra como tornar seu site que utiliza Vite e React com Page Router multilíngue. Siga a documentação para internacionalizar (i18n) e traduzi-lo.',
-      ru: 'Узнайте, как сделать ваш сайт, использующий Vite и React с Page Router, многоязычным. Следуйте документации для интернационализации (i18n) и перевода.',
-      zh: '了解如何使您的使用 Vite 和 React 的 Page Router 网站实现多语言。请遵循文档进行国际化（i18n）和翻译。',
+        'Discover how to make your Vite and React website multilingual. Follow the documentation to internationalise (i18n) and translate it.',
+      ar: 'اكتشف كيفية جعل موقعك الإلكتروني باستخدام Vite وReact متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.',
+      de: 'Erfahren Sie, wie Sie Ihre mit Vite und React erstellte Website mehrsprachig gestalten können. Folgen Sie der Dokumentation zur Internationalisierung (i18n) und Übersetzung.',
+      es: 'Descubre cómo hacer que tu sitio web con Vite y React sea multilingüe. Sigue la documentación para internacionalizarlo (i18n) y traducirlo.',
+      fr: 'Découvrez comment rendre votre site web avec Vite et React multilingue. Suivez la documentation pour l’internationaliser (i18n) et le traduire.',
+      hi: 'जानें कि Vite और React का उपयोग करके अपनी वेबसाइट को बहुभाषी कैसे बनाएं। इसे अंतर्राष्ट्रीय (i18n) और अनुवादित करने के लिए प्रलेखन का पालन करें।',
+      it: 'Scopri come rendere multilingue il tuo sito web con Vite e React. Segui la documentazione per internazionalizzarlo (i18n) e tradurlo.',
+      ja: 'ViteとReactを使ったウェブサイトを多言語対応にする方法を学びましょう。国際化（i18n）と翻訳のためにドキュメントに従ってください。',
+      ko: 'Vite와 React를 사용한 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위해 문서를 참조하세요.',
+      pt: 'Descubra como tornar seu site com Vite e React multilíngue. Siga a documentação para internacionalizá-lo (i18n) e traduzi-lo.',
+      ru: 'Узнайте, как сделать ваш сайт на Vite и React многоязычным. Следуйте документации для интернационализации (i18n) и перевода.',
+      zh: '了解如何使您使用 Vite 和 React 构建的网站实现多语言支持。请参阅文档以进行国际化（i18n）和翻译。',
     }),
     keywords: t({
       en: [
