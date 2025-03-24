@@ -33,14 +33,18 @@ interface Content {
       stringContent: string;
       numberContent: number;
       booleanContent: boolean;
+      javaScriptContent: string;
     };
-    multilingualContent: string;
-    quantityContent: string;
-    conditionalContent: string;
-    nestedContent: string;
-    markdownContent: string;
-    externalContent: string;
   };
+  multilingualContent: string;
+  quantityContent: string;
+  conditionalContent: string;
+  externalContent: string;
+  insertionContent: string;
+  fileContent: string;
+  nestedContent: any;
+  markdownContent: any;
+  jsxContent: any;
 }
 
 export default {
