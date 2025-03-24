@@ -80,7 +80,7 @@ module.exports = config;
 
 通过Intlayer，您可以在代码库中的任何地方以结构化的方式声明内容。
 
-默认情况下，Intlayer会扫描扩展名为`.content.{ts,tsx,js,jsx,mjs,cjs}`的文件。
+默认情况下，Intlayer会扫描扩展名为`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`的文件。
 
 > 可以通过在[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)中设置`contentDir`属性来修改默认扩展名。
 

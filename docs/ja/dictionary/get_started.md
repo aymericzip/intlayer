@@ -14,7 +14,7 @@
 - `.content.cjs`
 - `.content.cjx`
 
-アプリケーションはデフォルトで `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` のグロブパターンに一致するファイルを検索します。
+アプリケーションはデフォルトで `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` のグロブパターンに一致するファイルを検索します。
 
 これらのデフォルト拡張子はほとんどのアプリケーションに適しています。ただし、特定の要件がある場合は、[コンテンツ拡張子カスタマイズガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#content-configuration) を参照して管理方法を確認してください。
 

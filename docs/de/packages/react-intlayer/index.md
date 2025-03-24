@@ -34,7 +34,7 @@ pnpm add react-intlayer
 
 Mit Intlayer können Sie Ihre Inhalte strukturiert an beliebiger Stelle in Ihrem Codebase deklarieren.
 
-Standardmäßig durchsucht Intlayer Dateien mit der Erweiterung `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+Standardmäßig durchsucht Intlayer Dateien mit der Erweiterung `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
 > Sie können die Standarderweiterung ändern, indem Sie die Eigenschaft `contentDir` in der [Konfigurationsdatei](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md) festlegen.
 

@@ -14,7 +14,7 @@
 - `.content.cjs`
 - `.content.cjx`
 
-애플리케이션은 기본적으로 `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` 글로브 패턴과 일치하는 파일을 검색합니다.
+애플리케이션은 기본적으로 `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` 글로브 패턴과 일치하는 파일을 검색합니다.
 
 이 기본 확장자는 대부분의 애플리케이션에 적합합니다. 그러나 특정 요구 사항이 있는 경우 [콘텐츠 확장자 사용자 정의 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md#content-configuration)를 참조하여 이를 관리하는 방법을 확인하세요.
 

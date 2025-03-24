@@ -81,7 +81,7 @@ module.exports = config;
 
 С помощью Intlayer вы можете структурированно объявлять ваш контент в любом месте вашего кода.
 
-По умолчанию Intlayer сканирует файлы с расширением `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+По умолчанию Intlayer сканирует файлы с расширением `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
 > Вы можете изменить расширение по умолчанию, установив свойство `contentDir` в [файле конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md).
 

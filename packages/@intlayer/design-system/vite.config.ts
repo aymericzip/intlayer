@@ -1,8 +1,8 @@
-import { fileURLToPath } from 'node:url';
-import { extname, relative } from 'path';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import fg from 'fast-glob';
+import { fileURLToPath } from 'node:url';
+import { extname, relative } from 'path';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -41,8 +41,10 @@ export default defineConfig(() => ({
     lib: {
       entry: Object.fromEntries(
         fg
-          .sync('src/**/*.{ts,tsx,js,jsx,mjs,cjs}', {
-            ignore: ['src/**/*.{stories,test,specs}.{ts,tsx,js,jsx,mjs,cjs}'],
+          .sync('src/**/*.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}', {
+            ignore: [
+              'src/**/*.{stories,test,specs}.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}',
+            ],
           })
           .map((file) => [
             // The name of the entry point

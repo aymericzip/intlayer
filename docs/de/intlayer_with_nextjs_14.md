@@ -371,7 +371,7 @@ module.exports = pageContent;
 }
 ```
 
-> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie im `contentDir`-Verzeichnis enthalten sind (standardmäßig `./src`). Und die Inhaltsdeklarationsdateierweiterung übereinstimmt (standardmäßig `.content.{ts,tsx,js,jsx,mjs,cjs}`).
+> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie im `contentDir`-Verzeichnis enthalten sind (standardmäßig `./src`). Und die Inhaltsdeklarationsdateierweiterung übereinstimmt (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 > Weitere Details finden Sie in der [Inhaltsdeklarationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
 
 ### Schritt 7: Inhalte in Ihrem Code verwenden

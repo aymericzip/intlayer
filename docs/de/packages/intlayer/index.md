@@ -77,7 +77,7 @@ module.exports = config;
 
 Mit Intlayer können Sie Ihre Inhalte strukturiert überall in Ihrem Code deklarieren.
 
-Standardmäßig scannt Intlayer nach Dateien mit der Erweiterung `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+Standardmäßig scannt Intlayer nach Dateien mit der Erweiterung `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
 > Sie können die Standarderweiterung ändern, indem Sie die Eigenschaft `contentDir` in der [Konfigurationsdatei](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md) festlegen.
 

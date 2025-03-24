@@ -77,7 +77,7 @@ module.exports = config;
 
 With Intlayer, you can declare your content in a structured way anywhere in your codebase.
 
-By default, Intlayer scans for files with the extension `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
 > can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/configuration.md).
 

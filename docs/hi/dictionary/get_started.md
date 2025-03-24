@@ -14,7 +14,7 @@
 - `.content.cjs`
 - `.content.cjx`
 
-एप्लिकेशन डिफ़ॉल्ट रूप से `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` ग्लोब पैटर्न से मेल खाने वाली फ़ाइलों की खोज करेगा।
+एप्लिकेशन डिफ़ॉल्ट रूप से `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` ग्लोब पैटर्न से मेल खाने वाली फ़ाइलों की खोज करेगा।
 
 ये डिफ़ॉल्ट एक्सटेंशन अधिकांश एप्लिकेशन के लिए उपयुक्त हैं। हालांकि, यदि आपके पास विशिष्ट आवश्यकताएँ हैं, तो उन्हें प्रबंधित करने के निर्देशों के लिए [सामग्री एक्सटेंशन अनुकूलन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md#content-configuration) देखें।
 

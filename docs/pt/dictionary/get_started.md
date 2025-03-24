@@ -14,7 +14,7 @@ Por padrão, o Intlayer monitora todos os arquivos com as seguintes extensões p
 - `.content.cjs`
 - `.content.cjx`
 
-O aplicativo buscará arquivos que correspondam ao padrão glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` por padrão.
+O aplicativo buscará arquivos que correspondam ao padrão glob `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` por padrão.
 
 Essas extensões padrão são adequadas para a maioria das aplicações. No entanto, se você tiver requisitos específicos, consulte o [guia de personalização de extensões de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md#content-configuration) para obter instruções sobre como gerenciá-las.
 

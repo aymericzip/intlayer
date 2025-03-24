@@ -80,7 +80,7 @@ module.exports = config;
 
 مع Intlayer، يمكنك إعلان المحتوى الخاص بك بطريقة منظمة في أي مكان في قاعدة الكود الخاصة بك.
 
-بشكل افتراضي، يقوم Intlayer بفحص الملفات ذات الامتداد `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+بشكل افتراضي، يقوم Intlayer بفحص الملفات ذات الامتداد `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
 > يمكن تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
 

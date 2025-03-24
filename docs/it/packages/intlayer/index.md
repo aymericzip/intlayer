@@ -77,7 +77,7 @@ module.exports = config;
 
 Con Intlayer, puoi dichiarare i tuoi contenuti in modo strutturato ovunque nella tua base di codice.
 
-Per impostazione predefinita, Intlayer esegue la scansione dei file con estensione `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+Per impostazione predefinita, Intlayer esegue la scansione dei file con estensione `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
 > Puoi modificare l'estensione predefinita impostando la proprietà `contentDir` nel [file di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
 

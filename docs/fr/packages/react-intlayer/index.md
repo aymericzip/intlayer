@@ -34,7 +34,7 @@ pnpm add react-intlayer
 
 Avec Intlayer, vous pouvez déclarer votre contenu de manière structurée n'importe où dans votre code.
 
-Par défaut, Intlayer recherche les fichiers avec l'extension `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+Par défaut, Intlayer recherche les fichiers avec l'extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
 > Vous pouvez modifier l'extension par défaut en définissant la propriété `contentDir` dans le [fichier de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
 

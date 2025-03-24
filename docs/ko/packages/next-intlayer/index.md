@@ -34,7 +34,7 @@ pnpm add next-intlayer
 
 Intlayer를 사용하면 코드베이스 어디에서나 구조화된 방식으로 콘텐츠를 선언할 수 있습니다.
 
-기본적으로 Intlayer는 `.content.{ts,tsx,js,jsx,mjs,cjs}` 확장자를 가진 파일을 스캔합니다.
+기본적으로 Intlayer는 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` 확장자를 가진 파일을 스캔합니다.
 
 > [구성 파일](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)의 `contentDir` 속성을 설정하여 기본 확장자를 수정할 수 있습니다.
 

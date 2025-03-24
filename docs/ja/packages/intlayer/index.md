@@ -77,7 +77,7 @@ module.exports = config;
 
 Intlayerを使用すると、コードベースのどこにでも構造化された方法でコンテンツを宣言できます。
 
-デフォルトでは、Intlayerは拡張子が`.content.{ts,tsx,js,jsx,mjs,cjs}`のファイルをスキャンします。
+デフォルトでは、Intlayerは拡張子が`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`のファイルをスキャンします。
 
 > デフォルトの拡張子は、[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で`contentDir`プロパティを設定することで変更できます。
 

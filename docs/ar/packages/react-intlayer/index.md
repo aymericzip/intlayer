@@ -34,7 +34,7 @@ pnpm add react-intlayer
 
 مع Intlayer، يمكنك تعريف المحتوى الخاص بك بطريقة منظمة في أي مكان في قاعدة الكود الخاصة بك.
 
-بشكل افتراضي، يقوم Intlayer بمسح الملفات ذات الامتداد `.content.{ts,tsx,js,jsx,mjs,cjs}`.
+بشكل افتراضي، يقوم Intlayer بمسح الملفات ذات الامتداد `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
 > يمكنك تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
 

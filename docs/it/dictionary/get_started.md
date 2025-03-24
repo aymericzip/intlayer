@@ -14,7 +14,7 @@ Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti est
 - `.content.cjs`
 - `.content.cjx`
 
-L'applicazione cercherà i file che corrispondono al pattern glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` per impostazione predefinita.
+L'applicazione cercherà i file che corrispondono al pattern glob `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` per impostazione predefinita.
 
 Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, consulta la [guida alla personalizzazione delle estensioni di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md#content-configuration) per istruzioni su come gestirle.
 

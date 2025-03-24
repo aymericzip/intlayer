@@ -14,7 +14,7 @@
 - `.content.cjs`
 - `.content.cjx`
 
-سيبحث التطبيق عن الملفات التي تطابق النمط `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` بشكل افتراضي.
+سيبحث التطبيق عن الملفات التي تطابق النمط `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` بشكل افتراضي.
 
 هذه الامتدادات الافتراضية مناسبة لمعظم التطبيقات. ومع ذلك، إذا كانت لديك متطلبات محددة، راجع [دليل تخصيص امتداد المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md#content-configuration) للحصول على تعليمات حول كيفية إدارتها.
 

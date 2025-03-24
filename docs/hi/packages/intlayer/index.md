@@ -80,7 +80,7 @@ module.exports = config;
 
 Intlayer के साथ, आप अपनी सामग्री को अपने कोडबेस में कहीं भी संरचित तरीके से घोषित कर सकते हैं।
 
-डिफ़ॉल्ट रूप से, Intlayer `.content.{ts,tsx,js,jsx,mjs,cjs}` एक्सटेंशन वाली फ़ाइलों को स्कैन करता है।
+डिफ़ॉल्ट रूप से, Intlayer `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` एक्सटेंशन वाली फ़ाइलों को स्कैन करता है।
 
 > आप [कॉन्फ़िगरेशन फ़ाइल](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) में `contentDir` प्रॉपर्टी सेट करके डिफ़ॉल्ट एक्सटेंशन को संशोधित कर सकते हैं।
 

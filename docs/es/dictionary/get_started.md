@@ -14,7 +14,7 @@ Por defecto, Intlayer observa todos los archivos con las siguientes extensiones 
 - `.content.cjs`
 - `.content.cjx`
 
-La aplicación buscará archivos que coincidan con el patrón glob `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` por defecto.
+La aplicación buscará archivos que coincidan con el patrón glob `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` por defecto.
 
 Estas extensiones predeterminadas son adecuadas para la mayoría de las aplicaciones. Sin embargo, si tiene requisitos específicos, consulte la [guía de personalización de extensiones de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md#content-configuration) para obtener instrucciones sobre cómo gestionarlas.
 

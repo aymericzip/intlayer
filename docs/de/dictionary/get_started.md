@@ -14,7 +14,7 @@ Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen
 - `.content.cjs`
 - `.content.cjx`
 
-Die Anwendung sucht standardmäßig nach Dateien, die dem Glob-Muster `./src/**/*.content.{ts,tsx,js,jsx,mjs,cjs}` entsprechen.
+Die Anwendung sucht standardmäßig nach Dateien, die dem Glob-Muster `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` entsprechen.
 
 Diese Standarderweiterungen sind für die meisten Anwendungen geeignet. Wenn Sie jedoch spezifische Anforderungen haben, lesen Sie den [Leitfaden zur Anpassung von Inhaltserweiterungen](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md#content-configuration), um Anweisungen zur Verwaltung zu erhalten.
 
