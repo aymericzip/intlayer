@@ -1,16 +1,10 @@
-import {
-  buildSync,
-  type BuildFailure,
-  type BuildOptions,
-  type BuildResult,
-} from 'esbuild';
-import { dirname } from 'path';
 import { runInNewContext } from 'vm';
-import { LoadEnvFileOptions } from './envVariables/loadEnvFile';
+import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
 import { getSandBoxContext } from './getSandboxContext';
-import { logger } from './logger';
-import { logTypeScriptErrors } from './logTypeScriptErrors';
 import { ESMxCJSRequire } from './utils/ESMxCJSRequire';
+import { logger } from './logger';
+import { LoadEnvFileOptions } from './envVariables/loadEnvFile';
+import { dirname } from 'path';
 
 const getTransformationOptions = (filePath: string): BuildOptions => ({
   loader: {
@@ -61,25 +55,10 @@ export const loadExternalFile = (
 
     // Rest is JS, MJS or TS
 
-    if (fileExtension === 'ts' || fileExtension === 'tsx') {
-      logTypeScriptErrors(filePath);
-    }
-
     const moduleResult: BuildResult = buildSync({
       entryPoints: [filePath],
       ...getTransformationOptions(filePath),
-      logLevel: 'silent', // prevent auto printing
     });
-
-    // Log Warnings from esbuild
-    if (moduleResult.warnings?.length > 0) {
-      for (const warn of moduleResult.warnings) {
-        logger(
-          `[ESBUILD WARNING] ${warn.text} at ${warn.location?.file ?? filePath}:${warn.location?.line ?? '?'}:${warn.location?.column ?? '?'}`,
-          { level: 'warn' }
-        );
-      }
-    }
 
     const moduleResultString = moduleResult.outputFiles?.[0].text;
 
@@ -125,17 +104,6 @@ export const loadExternalFile = (
 
     return fileContent;
   } catch (error) {
-    // Specific handling for esbuild errors (i.e. build-time TypeScript errors)
-    if ((error as BuildFailure).errors) {
-      const esbuildErrors = (error as BuildFailure).errors;
-      for (const err of esbuildErrors) {
-        logger(
-          `${err.text} at ${err.location?.file}:${err.location?.line}:${err.location?.column}`,
-          { level: 'error' }
-        );
-      }
-    }
-
     logger(
       `Error: ${error} ${JSON.stringify((error as Error).stack, null, 2)}`,
       {
