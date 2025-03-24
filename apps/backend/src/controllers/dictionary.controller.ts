@@ -63,8 +63,7 @@ export const getDictionaries = async (
     const dictionaries = await dictionaryService.findDictionaries(
       {
         ...filters,
-        projectIds: [project._id],
-        organizationId: [organization?._id],
+        projectIds: project._id,
       },
       skip,
       pageSize
