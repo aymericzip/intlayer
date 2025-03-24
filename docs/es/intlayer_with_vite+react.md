@@ -1550,26 +1550,6 @@ Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerado
 
 ```json5 fileName="tsconfig.json"
 {
-  // tu configuración personalizada
-  "include": [
-    "src",
-    "types", // <- Incluir los tipos autogenerados
-  ],
-}
-```
-
-### Configurar TypeScript
-
-Intlayer utiliza la ampliación de módulos para aprovechar los beneficios de TypeScript y fortalecer tu base de código.
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
-Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
-
-```json5 fileName="tsconfig.json"
-{
   // ... Tus configuraciones existentes de TypeScript
   "include": [
     // ... Tus configuraciones existentes de TypeScript

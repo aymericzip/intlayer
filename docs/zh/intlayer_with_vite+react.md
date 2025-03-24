@@ -1535,26 +1535,6 @@ Intlayer 使用模块增强功能来利用 TypeScript，使您的代码库更强
 
 ```json5 fileName="tsconfig.json"
 {
-  // 您的自定义配置
-  "include": [
-    "src",
-    "types", // <- 包含自动生成的类型
-  ],
-}
-```
-
-### 配置 TypeScript
-
-Intlayer 使用模块增强功能来利用 TypeScript，使您的代码库更强大。
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
-确保您的 TypeScript 配置包含自动生成的类型。
-
-```json5 fileName="tsconfig.json"
-{
   // ... 您现有的 TypeScript 配置
   "include": [
     // ... 您现有的 TypeScript 配置

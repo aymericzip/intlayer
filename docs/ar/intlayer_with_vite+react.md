@@ -1540,26 +1540,6 @@ Link.displayName = "Link";
 
 ```json5 fileName="tsconfig.json"
 {
-  // إعداداتك المخصصة
-  "include": [
-    "src",
-    "types", // <- تضمين الأنواع المولدة تلقائيًا
-  ],
-}
-```
-
-### إعداد TypeScript
-
-يستخدم Intlayer توسيع الوحدات للاستفادة من TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
-تأكد من أن إعدادات TypeScript الخاصة بك تتضمن الأنواع المولدة تلقائيًا.
-
-```json5 fileName="tsconfig.json"
-{
   // ... إعدادات TypeScript الحالية الخاصة بك
   "include": [
     // ... إعدادات TypeScript الحالية الخاصة بك

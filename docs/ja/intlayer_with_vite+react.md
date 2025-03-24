@@ -1513,26 +1513,6 @@ TypeScript 設定に自動生成された型を含めてください。
 
 ```json5 fileName="tsconfig.json"
 {
-  // カスタム設定
-  "include": [
-    "src",
-    "types", // <- 自動生成された型を含める
-  ],
-}
-```
-
-### TypeScript の設定
-
-Intlayer はモジュール拡張を使用して TypeScript の利点を活用し、コードベースを強化します。
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
-
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
-TypeScript 設定に自動生成された型を含めてください。
-
-```json5 fileName="tsconfig.json"
-{
   // ... 既存の TypeScript 設定
   "include": [
     // ... 既存の TypeScript 設定
