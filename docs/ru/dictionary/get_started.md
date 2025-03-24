@@ -24,7 +24,7 @@
 
 Создавайте и управляйте вашими словарями:
 
-```tsx fileName="src/example.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 interface Content {
@@ -93,7 +93,7 @@ export default {
 } satisfies Dictionary<Content>; // [необязательно] Dictionary является обобщением и позволяет усилить форматирование вашего словаря
 ```
 
-```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -142,7 +142,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -258,7 +258,7 @@ module.exports = {
 
 Пример:
 
-```javascript fileName="src/example.content.ts" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "Иван Иванов";

@@ -24,7 +24,7 @@ Für eine vollständige Liste der Konfigurationsoptionen besuchen Sie die Konfig
 
 Erstellen und verwalten Sie Ihre Wörterbücher:
 
-```tsx fileName="src/example.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 interface Content {
@@ -92,7 +92,7 @@ export default {
 } satisfies Dictionary<Content>; // [optional] Dictionary ist generisch und ermöglicht es Ihnen, die Formatierung Ihres Wörterbuchs zu stärken
 ```
 
-```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -140,7 +140,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -254,7 +254,7 @@ Sie können problemlos Funktionen in andere Funktionen verschachteln.
 
 Beispiel:
 
-```javascript fileName="src/example.content.ts" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -302,7 +302,7 @@ export default {
 } satisfies Dictionary;
 ```
 
-```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -351,7 +351,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 const getName = async () => "John Doe";

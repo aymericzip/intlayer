@@ -24,7 +24,7 @@
 
 사전(dictionary)을 생성하고 관리하세요:
 
-```tsx fileName="src/example.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 interface Content {
@@ -92,7 +92,7 @@ export default {
 } satisfies Dictionary<Content>; // [선택 사항] Dictionary는 제네릭으로 사전의 형식을 강화할 수 있습니다.
 ```
 
-```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -140,7 +140,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -254,7 +254,7 @@ module.exports = {
 
 예제:
 
-```javascript fileName="src/example.content.ts" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -302,7 +302,7 @@ export default {
 } satisfies Dictionary;
 ```
 
-```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -351,7 +351,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 const getName = async () => "John Doe";

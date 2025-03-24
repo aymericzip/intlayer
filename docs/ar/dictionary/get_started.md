@@ -24,7 +24,7 @@
 
 قم بإنشاء وإدارة القواميس الخاصة بك:
 
-```tsx fileName="src/example.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 interface Content {
@@ -93,7 +93,7 @@ export default {
 } satisfies Dictionary<Content>; // [اختياري] القاموس هو عام ويسمح لك بتقوية تنسيق القاموس الخاص بك
 ```
 
-```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -142,7 +142,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -258,7 +258,7 @@ module.exports = {
 
 مثال:
 
-```javascript fileName="src/example.content.ts" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "جون دو";
@@ -311,7 +311,7 @@ export default {
 } satisfies Dictionary;
 ```
 
-```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 const getName = async () => "جون دو";
@@ -365,7 +365,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 const getName = async () => "جون دو";
