@@ -76,7 +76,8 @@ export default {
       "navbar", // La chiave del dizionario da annidare
       "login.button" // [Opzionale] Il percorso del contenuto da annidare
     ),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Esempio di Markdown"),
 
     /*
@@ -126,7 +127,8 @@ export default {
       "login.button" // [Opzionale] Il percorso del contenuto da annidare
     ),
     markdownContent: md("# Esempio di Markdown"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // Disponibile solo utilizzando `react-intlayer` o `next-intlayer`
     jsxContent: <h1>Il mio titolo</h1>,
@@ -173,7 +175,8 @@ module.exports = {
       "login.button" // [Opzionale] Il percorso del contenuto da annidare
     ),
     markdownContent: md("# Esempio di Markdown"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // Disponibile solo utilizzando `react-intlayer` o `next-intlayer`
     jsxContent: <h1>Il mio titolo</h1>,

@@ -76,7 +76,8 @@ export default {
       "navbar", // ネストする辞書のキー
       "login.button" // [オプション] ネストするコンテンツのパス
     ),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Markdownの例"),
 
     /*
@@ -126,7 +127,8 @@ export default {
       "login.button" // [オプション] ネストするコンテンツのパス
     ),
     markdownContent: md("# Markdownの例"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // `react-intlayer` または `next-intlayer` を使用する場合のみ利用可能
     jsxContent: <h1>私のタイトル</h1>,
@@ -173,7 +175,8 @@ module.exports = {
       "login.button" // [オプション] ネストするコンテンツのパス
     ),
     markdownContent: md("# Markdownの例"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // `react-intlayer` または `next-intlayer` を使用する場合のみ利用可能
     jsxContent: <h1>私のタイトル</h1>,

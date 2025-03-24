@@ -77,7 +77,8 @@ export default {
       "navbar", // Ключ словаря для вложения
       "login.button" // [Необязательно] Путь к контенту для вложения
     ),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Пример Markdown"),
 
     /*
@@ -128,7 +129,8 @@ export default {
       "login.button" // [Необязательно] Путь к контенту для вложения
     ),
     markdownContent: md("# Пример Markdown"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // Доступно только с использованием `react-intlayer` или `next-intlayer`
     jsxContent: <h1>Мой заголовок</h1>,
@@ -176,7 +178,8 @@ module.exports = {
       "login.button" // [Необязательно] Путь к контенту для вложения
     ),
     markdownContent: md("# Пример Markdown"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // Доступно только с использованием `react-intlayer` или `next-intlayer`
     jsxContent: <h1>Мой заголовок</h1>,

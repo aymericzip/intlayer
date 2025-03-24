@@ -77,7 +77,8 @@ export default {
       "navbar", // 要嵌套的字典键
       "login.button" // [可选] 要嵌套的内容路径
     ),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Markdown 示例"),
 
     /*
@@ -128,7 +129,8 @@ export default {
       "login.button" // [可选] 要嵌套的内容路径
     ),
     markdownContent: md("# Markdown 示例"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // 仅在使用 `react-intlayer` 或 `next-intlayer` 时可用
     jsxContent: <h1>我的标题</h1>,
@@ -176,7 +178,8 @@ module.exports = {
       "login.button" // [可选] 要嵌套的内容路径
     ),
     markdownContent: md("# Markdown 示例"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // 仅在使用 `react-intlayer` 或 `next-intlayer` 时可用
     jsxContent: <h1>我的标题</h1>,

@@ -77,7 +77,8 @@ export default {
       "navbar", // مفتاح القاموس للتداخل
       "login.button" // [اختياري] المسار إلى المحتوى للتداخل
     ),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# مثال Markdown"),
 
     /*
@@ -128,7 +129,8 @@ export default {
       "login.button" // [اختياري] المسار إلى المحتوى للتداخل
     ),
     markdownContent: md("# مثال Markdown"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // متاح فقط باستخدام `react-intlayer` أو `next-intlayer`
     jsxContent: <h1>عنواني</h1>,
@@ -176,7 +178,8 @@ module.exports = {
       "login.button" // [اختياري] المسار إلى المحتوى للتداخل
     ),
     markdownContent: md("# مثال Markdown"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // متاح فقط باستخدام `react-intlayer` أو `next-intlayer`
     jsxContent: <h1>عنواني</h1>,

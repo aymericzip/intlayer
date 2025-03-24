@@ -90,7 +90,8 @@ export default {
       "login.button" // [Optional] The path to the content to nest
     ),
     fileContent: file("./path/to/file.txt"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Markdown Example"),
 
     /*
@@ -142,7 +143,8 @@ export default {
     ),
     markdownContent: md("# Markdown Example"),
     fileContent: file("./path/to/file.txt"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // Only available using `react-intlayer` or `next-intlayer`
     jsxContent: <h1>My title</h1>,
@@ -191,7 +193,8 @@ module.exports = {
     ),
     markdownContent: md("# Markdown Example"),
     fileContent: file("./path/to/file.txt"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // Only available using `react-intlayer` or `next-intlayer`
     jsxContent: <h1>My title</h1>,

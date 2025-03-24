@@ -77,7 +77,8 @@ export default {
       "navbar", // नेस्ट करने के लिए डिक्शनरी की कुंजी
       "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
     ),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# मार्कडाउन उदाहरण"),
 
     /*
@@ -128,7 +129,8 @@ export default {
       "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
     ),
     markdownContent: md("# मार्कडाउन उदाहरण"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // केवल `react-intlayer` या `next-intlayer` का उपयोग करके उपलब्ध
     jsxContent: <h1>मेरा शीर्षक</h1>,
@@ -176,7 +178,8 @@ module.exports = {
       "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
     ),
     markdownContent: md("# मार्कडाउन उदाहरण"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // केवल `react-intlayer` या `next-intlayer` का उपयोग करके उपलब्ध
     jsxContent: <h1>मेरा शीर्षक</h1>,

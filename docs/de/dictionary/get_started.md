@@ -76,7 +76,8 @@ export default {
       "navbar", // Der Schlüssel des zu verschachtelnden Wörterbuchs
       "login.button" // [Optional] Der Pfad zum zu verschachtelnden Inhalt
     ),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
     markdownContent: md("# Markdown-Beispiel"),
 
     /*
@@ -126,7 +127,8 @@ export default {
       "login.button" // [Optional] Der Pfad zum zu verschachtelnden Inhalt
     ),
     markdownContent: md("# Markdown-Beispiel"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // Nur verfügbar mit `react-intlayer` oder `next-intlayer`
     jsxContent: <h1>Mein Titel</h1>,
@@ -173,7 +175,8 @@ module.exports = {
       "login.button" // [Optional] Der Pfad zum zu verschachtelnden Inhalt
     ),
     markdownContent: md("# Markdown-Beispiel"),
-    externalContent: async () => await fetch("https://example.com"),
+    externalContent: async () =>
+      await fetch("https://example.com").then((res) => res.json())
 
     // Nur verfügbar mit `react-intlayer` oder `next-intlayer`
     jsxContent: <h1>Mein Titel</h1>,
