@@ -151,7 +151,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.mjs" codeFormat="esm"
+```jsx filePath="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
 // सामग्री को बहुभाषी रूप में परिभाषित करें
 import { t } from "intlayer";
 
@@ -179,7 +179,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.cjs" codeFormat="commonjs"
+```jsx filePath="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
 // सामग्री को बहुभाषी रूप में परिभाषित करें
 const { t } = require("intlayer");
 

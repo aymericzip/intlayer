@@ -67,7 +67,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-```javascript fileName="component.content.mjs" codeFormat="esm"
+```javascript fileName="component.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -90,7 +90,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-```javascript fileName="component.content.cjs" codeFormat="commonjs"
+```javascript fileName="component.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */

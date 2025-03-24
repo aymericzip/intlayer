@@ -24,7 +24,7 @@ For a full list of configuration options, visit the configuration documentation.
 
 Create and manage your dictionaries:
 
-```tsx fileName="src/example.content.ts" codeFormat="typescript"
+```tsx fileName="src/example.content.ts" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 interface Content {
@@ -87,7 +87,7 @@ export default {
 } satisfies Dictionary<Content>; // [optional] Dictionary is generic and allow you to strengthen the formatting of your dictionary
 ```
 
-```javascript fileName="src/example.content.mjs" codeFormat="esm"
+```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -134,7 +134,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
+```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -181,7 +181,7 @@ module.exports = {
 };
 ```
 
-```json5 fileName="src/example.content.json"  codeFormat="json"
+```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "page",
@@ -247,7 +247,7 @@ You can without problem imbricate functions into other ones.
 
 Example :
 
-```javascript fileName="src/example.content.ts" codeFormat="typescript"
+```javascript fileName="src/example.content.ts" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -295,7 +295,7 @@ export default {
 } satisfies Dictionary;
 ```
 
-```javascript fileName="src/example.content.mjs" codeFormat="esm"
+```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -344,7 +344,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
+```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 const getName = async () => "John Doe";
@@ -393,7 +393,7 @@ module.exports = {
 };
 ```
 
-```json5 fileName="src/example.content.json"  codeFormat="json"
+```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "page",

@@ -109,7 +109,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.mjs" codeFormat="esm"
+```jsx filePath="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -136,7 +136,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.cjs" codeFormat="commonjs"
+```jsx filePath="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */

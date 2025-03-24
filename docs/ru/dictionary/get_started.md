@@ -24,7 +24,7 @@
 
 Создавайте и управляйте вашими словарями:
 
-```tsx fileName="src/example.content.ts" codeFormat="typescript"
+```tsx fileName="src/example.content.ts" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 interface Content {
@@ -88,7 +88,7 @@ export default {
 } satisfies Dictionary<Content>; // [необязательно] Dictionary является обобщением и позволяет усилить форматирование вашего словаря
 ```
 
-```javascript fileName="src/example.content.mjs" codeFormat="esm"
+```javascript fileName="src/example.content.mjs" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -136,7 +136,7 @@ export default {
 };
 ```
 
-```javascript fileName="src/example.content.cjs" codeFormat="commonjs"
+```javascript fileName="src/example.content.cjs" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -184,7 +184,7 @@ module.exports = {
 };
 ```
 
-```json5 fileName="src/example.content.json"  codeFormat="json"
+```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "page",
@@ -251,7 +251,7 @@ module.exports = {
 
 Пример:
 
-```javascript fileName="src/example.content.ts" codeFormat="typescript"
+```javascript fileName="src/example.content.ts" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "Иван Иванов";

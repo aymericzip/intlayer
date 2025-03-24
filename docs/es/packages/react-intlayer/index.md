@@ -109,7 +109,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.mjs" codeFormat="esm"
+```jsx filePath="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
 // Declaración de contenido para el componente 1
 import { t } from "intlayer";
 
@@ -136,7 +136,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.cjs" codeFormat="commonjs"
+```jsx filePath="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
 // Declaración de contenido para el componente 1
 const { t } = require("intlayer");
 
