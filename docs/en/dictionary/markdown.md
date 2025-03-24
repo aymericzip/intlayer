@@ -90,7 +90,6 @@ import markdown from "./myMarkdown.md";
 const markdownDictionary = {
   key: "app",
   content: {
-    contentFileImport: md(file("./myMarkdown.md")),
     contentMultilingualFile: t({
       en: md(file("./myMarkdown.en.md")),
       fr: md(file("./myMarkdown.fr.md")),
@@ -124,7 +123,6 @@ import markdown from "./myMarkdown.md";
 const markdownDictionary = {
   key: "app",
   content: {
-    contentFileImport: md(file("./myMarkdown.md")),
     contentMultilingualFile: t({
       en: md(file("./myMarkdown.en.md")),
       fr: md(file("./myMarkdown.fr.md")),
@@ -158,7 +156,6 @@ const markdown_es = require("./myMarkdown.es.md");
 const markdownDictionary = {
   key: "app",
   content: {
-    contentFileImport: md(file("./myMarkdown.md")),
     contentMultilingualFile: t({
       en: md(file("./myMarkdown.en.md")),
       fr: md(file("./myMarkdown.fr.md")),
@@ -185,9 +182,7 @@ module.exports = markdownDictionary;
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
   "content": {
-    "contentFileImport": {
-      "nodeType": "markdown",
-      "markdown": {
+    "": {
         "nodeType": "file",
         "file": "./myMarkdown.md",
       },
