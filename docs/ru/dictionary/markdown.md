@@ -94,7 +94,7 @@ const markdownDictionary = {
     }),
     contentRequire: md(require("./myMarkdown.md")),
     contentAsyncImport: md(
-      md(import("./myMarkdown.md").then((module) => module.default))
+      import("./myMarkdown.md").then((module) => module.default)
     ),
     contentFetch: md(fetch("https://example.com").then((res) => res.text())),
     contentFS: md(() => {
@@ -128,7 +128,7 @@ const markdownDictionary = {
     }),
     contentRequire: md(require("./myMarkdown.md")),
     contentAsyncImport: md(
-      md(import("./myMarkdown.md").then((module) => module.default))
+      import("./myMarkdown.md").then((module) => module.default)
     ),
     contentFetch: md(fetch("https://example.com").then((res) => res.text())),
     contentFS: md(() => {
