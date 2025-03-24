@@ -9,7 +9,6 @@ Intlayer allows you to customize the extensions for your content declaration fil
 By default, Intlayer watches all files with the following extensions for content declarations:
 
 - `.content.json`
-- `.content.json`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
