@@ -381,7 +381,7 @@ import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const PageContent: FC = () => {
-  const { title, content } = useIntlayer("page");
+  const content = useIntlayer("page");
 
   return (
     <>
@@ -416,7 +416,7 @@ import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const PageContent = () => {
-  const { title, content } = useIntlayer("page");
+  const content = useIntlayer("page");
 
   return (
     <>
@@ -451,7 +451,7 @@ import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const PageContent = () => {
-  const { title, content } = useIntlayer("page");
+  const content = useIntlayer("page");
 
   return (
     <>
