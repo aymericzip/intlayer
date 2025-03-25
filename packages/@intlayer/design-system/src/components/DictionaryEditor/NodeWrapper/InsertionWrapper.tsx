@@ -1,8 +1,8 @@
 import {
-  type KeyPath,
   NodeType,
-  type InsertionContent,
   type ContentNode,
+  type InsertionContent,
+  type KeyPath,
 } from '@intlayer/core';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';
@@ -25,7 +25,7 @@ export const InsertionWrapper: FC<InsertionWrapperProps> = (props) => {
 
   return (
     <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
-      <NodeWrapper {...props} keyPath={newKeyPath} section={subSection} />;
+      <NodeWrapper {...props} keyPath={newKeyPath} section={subSection} />
     </div>
   );
 };
