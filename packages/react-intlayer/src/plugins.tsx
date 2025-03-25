@@ -1,17 +1,18 @@
 import {
-  type Plugins,
-  type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type DeepTransformContent as DeepTransformContentCore,
-  type MarkdownContent,
-  NodeType,
   KeyPath,
+  NodeType,
   getMarkdownMetadata,
+  type DeepTransformContent as DeepTransformContentCore,
+  type IInterpreterPluginState as IInterpreterPluginStateCore,
+  type MarkdownContent,
+  type Plugins,
 } from '@intlayer/core';
 import type { ReactNode } from 'react';
 import { renderIntlayerNode, type IntlayerNode } from './IntlayerNode';
-import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { ContentSelectorRenderer } from './editor';
+import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
+import { renderReactElement } from './reactElement/renderReactElement';
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -68,7 +69,7 @@ export const reactNodePlugins: Plugins = {
     typeof node.key !== 'undefined',
 
   transform: (
-    _node,
+    node,
     {
       plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest
@@ -79,7 +80,7 @@ export const reactNodePlugins: Plugins = {
       value: '[[react-element]]',
       children: (
         <ContentSelectorRenderer {...rest}>
-          renderReactElement(node)
+          {renderReactElement(node)}
         </ContentSelectorRenderer>
       ),
     }),
