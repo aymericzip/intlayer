@@ -4,8 +4,6 @@
 
 The `t` function in `intlayer` allows you to declare content in multiple languages. This function ensures type safety, raising an error if any translations are missing, which is particularly useful in TypeScript environments.
 
-### Using TypeScript
-
 Here's an example of how to declare content with translations.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
