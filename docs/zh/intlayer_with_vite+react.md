@@ -176,7 +176,6 @@ const appContent = {
     }),
 
     edit: t<ReactNode>({
-      // 如果在内容中使用 React 节点，请记得导入 React
       zh: (
         <>
           编辑 <code>src/App.tsx</code> 并保存以测试 HMR

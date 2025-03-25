@@ -176,7 +176,6 @@ const appContent = {
     }),
 
     edit: t<ReactNode>({
-      // React 노드를 콘텐츠에 사용할 경우 React를 가져오는 것을 잊지 마세요
       en: (
         <>
           Edit <code>src/App.tsx</code> and save to test HMR

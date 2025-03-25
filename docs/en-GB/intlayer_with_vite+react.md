@@ -176,7 +176,6 @@ const appContent = {
     }),
 
     edit: t<ReactNode>({
-      // Don't forget to import React if you use a React node in your content
       en: (
         <>
           Edit <code>src/App.tsx</code> and save to test HMR

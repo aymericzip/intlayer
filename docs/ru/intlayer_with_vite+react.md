@@ -176,7 +176,6 @@ const appContent = {
     }),
 
     edit: t<ReactNode>({
-      // Не забудьте импортировать React, если вы используете React node в вашем контенте
       ru: (
         <>
           Редактируйте <code>src/App.tsx</code> и сохраните, чтобы

@@ -176,7 +176,6 @@ const appContent = {
     }),
 
     edit: t<ReactNode>({
-      // لا تنسَ استيراد React إذا كنت تستخدم عقدة React في المحتوى الخاص بك
       ar: (
         <>
           قم بتحرير <code>src/App.tsx</code> واحفظ لاختبار HMR

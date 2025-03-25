@@ -176,7 +176,6 @@ const appContent = {
     }),
 
     edit: t<ReactNode>({
-      // Ricorda di importare React se utilizzi un nodo React nei tuoi contenuti
       it: (
         <>
           Modifica <code>src/App.tsx</code> e salva per testare HMR
