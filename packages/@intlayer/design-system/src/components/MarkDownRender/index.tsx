@@ -70,7 +70,6 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               <li className={cn('list-disc', className)} {...props} />
             ),
             img: ({ className, ...props }) => (
-              // eslint-disable-next-line jsx-a11y/alt-text
               <img
                 {...props}
                 loading="lazy"
@@ -126,7 +125,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             <>
               <SectionScroller />
               <div
-                className={cn('flex flex-col gap-6 p-10', className)}
+                className={cn('flex flex-col gap-8 p-10', className)}
                 {...props}
               />
             </>

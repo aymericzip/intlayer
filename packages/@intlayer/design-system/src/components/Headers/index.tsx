@@ -1,4 +1,4 @@
-import type { FC, HTMLAttributes, MouseEvent, JSX } from 'react';
+import type { FC, HTMLAttributes, JSX, MouseEvent } from 'react';
 import { cn } from '../../utils/cn';
 
 const styledHeading = `relative scroll-mb-8 scroll-mt-[30vh] scroll-p-8`;
@@ -7,18 +7,14 @@ const styledAfter = `after:content-['#'] after:scale-75 after:px-6 after:text-ne
 const StyledH1: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
-}) => (
-  // eslint-disable-next-line jsx-a11y/heading-has-content
-  <h1 className={cn('mt-5 text-2xl font-bold', className)} {...props} />
-);
+}) => <h1 className={cn('mt-5 text-2xl font-bold', className)} {...props} />;
 
 const StyledH2: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  // eslint-disable-next-line jsx-a11y/heading-has-content
   <h2
-    className={cn('mt-5 text-2xl font-bold', styledHeading, className)}
+    className={cn('mt-16 mb-2 text-2xl font-bold', styledHeading, className)}
     {...props}
   />
 );
@@ -27,9 +23,8 @@ const StyledH3: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  // eslint-disable-next-line jsx-a11y/heading-has-content
   <h3
-    className={cn('mt-3 text-xl font-bold', styledHeading, className)}
+    className={cn('mt-5 mb-2 text-xl font-bold', styledHeading, className)}
     {...props}
   />
 );
@@ -38,7 +33,6 @@ const StyledH4: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  // eslint-disable-next-line jsx-a11y/heading-has-content
   <h4
     className={cn('mt-3 text-lg font-bold', styledHeading, className)}
     {...props}
@@ -49,7 +43,6 @@ const StyledH5: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  // eslint-disable-next-line jsx-a11y/heading-has-content
   <h5
     className={cn('mt-3 text-base font-bold', styledHeading, className)}
     {...props}
