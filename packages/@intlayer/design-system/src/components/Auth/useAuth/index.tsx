@@ -54,7 +54,7 @@ export const useAuth = ({
     csrfToken,
     csrfTokenFetched,
     oAuth2AccessToken,
-    isAuthenticated: Boolean(session || oAuth2AccessToken),
+    isAuthenticated: Boolean(session?.user || oAuth2AccessToken),
     isProjectAdmin: session?.isProjectAdmin,
     isOrganizationAdmin: session?.isOrganizationAdmin,
   };
