@@ -1,17 +1,17 @@
-import { existsSync, lstatSync, readFileSync } from 'node:fs';
-import path, { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { getConfiguration, getEnvFilePath } from '@intlayer/config';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
-import { intlayer } from 'express-intlayer';
+import { checkPortAvailability } from '@utils/checkPortAvailability';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { type CorsOptions } from 'cors';
 import express, { type Express } from 'express';
+import { intlayer } from 'express-intlayer';
 import helmet from 'helmet';
 import mime from 'mime';
-import { checkPortAvailability } from '@utils/checkPortAvailability';
+import { existsSync, lstatSync, readFileSync } from 'node:fs';
+import path, { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -99,7 +99,7 @@ const startServer = async (app: Express) => {
     \x1b[1;90mINTLAYER v${packageJson.version}\x1b[0m
 
     Editor running at:          \x1b[90mhttp://localhost:${port}\x1b[0m
-    - Watching application at:  \x1b[90m${config.editor.applicationURL}\x1b[0m
+    - Watching application at:  ${config.editor.applicationURL === '' ? '-' : `\x1b[90m${config.editor.applicationURL}\x1b[0m`}
     - Access key:               ${config.editor.clientId ?? '-'}
     - Environment:              ${dotEnvFilePath ?? '-'}
     `);
