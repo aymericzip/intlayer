@@ -1,15 +1,14 @@
-import { type Locales, type LocalesValues } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
-
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 import type { ContentNode } from '../../types';
 import { deepTransformNode } from './deepTransform';
 import {
-  translationPlugin,
-  enumerationPlugin,
   conditionPlugin,
-  nestedPlugin,
-  insertionPlugin,
+  enumerationPlugin,
   filePlugin,
+  insertionPlugin,
+  nestedPlugin,
+  translationPlugin,
   type DeepTransformContent,
   type NodeProps,
   type Plugins,

@@ -1,16 +1,16 @@
 'use client';
 
-import type { FC, ReactNode } from 'react';
-import { useMarkdownContext } from './MarkdownProvider';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
+import { LocalesValues } from '@intlayer/config/client';
 import {
   ContentNode,
+  getContent,
   getContentNodeByKeyPath,
   getMarkdownMetadata,
   KeyPath,
-  getContent,
 } from '@intlayer/core';
-import { LocalesValues } from 'intlayer';
+import type { FC, ReactNode } from 'react';
+import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
+import { useMarkdownContext } from './MarkdownProvider';
 
 type MarkdownRendererProps = {
   dictionaryKey: string;
