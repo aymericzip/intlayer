@@ -2,28 +2,29 @@
 
 import type { Locales } from '@intlayer/config/client';
 import {
+  getContentNodeByKeyPath,
   getNodeType,
   NodeType,
   type ConditionContent,
-  type MarkdownContent,
-  type EnumerationContent,
-  type InsertionContent,
-  type TranslationContent,
-  type KeyPath,
   type ContentNode,
-  type FileContent,
   type Dictionary,
+  type EnumerationContent,
+  type FileContent,
+  type InsertionContent,
+  type KeyPath,
+  type MarkdownContent,
+  type TranslationContent,
 } from '@intlayer/core';
 import { ReactNode, type FC } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
 import { ConditionWrapper } from './ConditionWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
+import { FileWrapper } from './FileWrapper';
+import { InsertionWrapper } from './InsertionWrapper';
 import { MarkdownWrapper } from './MarkdownWrapper';
 import { NestedObjectWrapper } from './NestedObjectWrapper';
 import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
-import { FileWrapper } from './FileWrapper';
-import { InsertionWrapper } from './InsertionWrapper';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -41,7 +42,11 @@ export type NodeWrapperProps = {
 };
 
 export const NodeWrapper: FC<NodeWrapperProps> = (props) => {
-  const { section } = props;
+  const editedContentValue = getContentNodeByKeyPath(
+    props.editedContent,
+    props.keyPath
+  );
+  const section = editedContentValue ?? props.section;
   const nodeType = getNodeType(section);
 
   if (typeof section === 'object') {
