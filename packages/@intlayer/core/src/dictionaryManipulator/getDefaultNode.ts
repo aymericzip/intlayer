@@ -6,6 +6,7 @@ export const getDefaultNode = (
   locales: LocalesValues[],
   content?: ContentNode
 ): ContentNode => {
+  const clonedContent = structuredClone(content);
   switch (nodeType) {
     case NodeType.Translation:
       return {
@@ -13,7 +14,7 @@ export const getDefaultNode = (
         [NodeType.Translation]: Object.assign(
           {},
           ...locales.map((locale) => ({
-            [locale]: content ?? '',
+            [locale]: structuredClone(clonedContent) ?? '',
           }))
         ),
       } as ContentNode;
@@ -22,7 +23,7 @@ export const getDefaultNode = (
       return {
         nodeType: NodeType.Enumeration,
         [NodeType.Enumeration]: {
-          '1': content ?? '',
+          '1': clonedContent ?? '',
         },
       } as ContentNode;
 
@@ -30,8 +31,8 @@ export const getDefaultNode = (
       return {
         nodeType: NodeType.Condition,
         [NodeType.Condition]: {
-          true: content ?? '',
-          false: content ?? '',
+          true: clonedContent ?? '',
+          false: clonedContent ?? '',
         },
       } as ContentNode;
 
@@ -39,7 +40,7 @@ export const getDefaultNode = (
       return {
         nodeType: NodeType.Insertion,
         [NodeType.Insertion]: {
-          insertion: content ?? '',
+          insertion: clonedContent ?? '',
         },
       } as unknown as ContentNode;
 
@@ -54,33 +55,33 @@ export const getDefaultNode = (
     case NodeType.Markdown:
       return {
         nodeType: NodeType.Markdown,
-        [NodeType.Markdown]: content ?? '',
+        [NodeType.Markdown]: clonedContent ?? '',
       } as ContentNode;
 
     case NodeType.File:
       return {
         nodeType: NodeType.File,
-        [NodeType.File]: content ?? '',
+        [NodeType.File]: clonedContent ?? '',
       } as ContentNode;
 
     case NodeType.Object:
       return {
-        newKey: content ?? '',
+        newKey: clonedContent ?? '',
       } as unknown as ContentNode;
 
     case NodeType.Array:
-      return [content ?? ''] as unknown as ContentNode;
+      return [clonedContent ?? ''] as unknown as ContentNode;
 
     case NodeType.Text:
-      return content ?? '';
+      return clonedContent ?? '';
 
     case NodeType.Number:
-      return content ?? 0;
+      return clonedContent ?? 0;
 
     case NodeType.Boolean:
-      return content ?? true;
+      return clonedContent ?? true;
 
     default:
-      return content ?? '';
+      return clonedContent ?? '';
   }
 };
