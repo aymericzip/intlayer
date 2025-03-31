@@ -11,7 +11,7 @@ Este documento destaca os critérios principais:
 5. **Roteamento e middleware aprimorados** para Next.js
 6. **Simplicidade de configuração**
 
-O guia também fornece uma **análise aprofundada do Intlayer**, mostrando por que pode ser uma escolha forte—especialmente para Next.js 13+, incluindo **App Router** e **Componentes de Servidor**.
+O guia também fornece uma **análise aprofundada do Intlayer**, mostrando por que pode ser uma escolha forte, especialmente para Next.js 13+, incluindo **App Router** e **Componentes de Servidor**.
 
 ---
 
@@ -55,7 +55,7 @@ O guia também fornece uma **análise aprofundada do Intlayer**, mostrando por q
 
 1. **Arquitetura**
 
-   - Incentiva colocar **traduções bem ao lado de seus componentes**. Cada página ou componente pode ter seu próprio arquivo `.content.ts` (ou JSON)—sem mais vasculhar uma pasta de tradução gigante.
+   - Incentiva colocar **traduções bem ao lado de seus componentes**. Cada página ou componente pode ter seu próprio arquivo `.content.ts` (ou JSON), sem mais vasculhar uma pasta de tradução gigante.
    - Isso torna seu código mais **modular e manutenível**, especialmente em grandes bases de código.
 
 2. **Suporte a TypeScript**
@@ -82,7 +82,7 @@ O guia também fornece uma **análise aprofundada do Intlayer**, mostrando por q
 6. **Configuração Simplificada**
    - Um único arquivo de configuração (`intlayer.config.ts`) para definir seus locales, locale padrão e preferências de integração.
    - Um plugin wrapper `withIntlayer(nextConfig)` que **injeta** todas as variáveis de ambiente e observadores para seu conteúdo.
-   - **Sem grandes configurações de fallback**—o sistema foi feito para "simplesmente funcionar" com mínima fricção.
+   - **Sem grandes configurações de fallback**, o sistema foi feito para "simplesmente funcionar" com mínima fricção.
 
 > **Resumo**: O Intlayer é uma solução moderna que deseja **impulsionar as melhores práticas**: desde **manter traduções próximas** a cada componente React, até oferecer **suporte robusto a TS** e uso **fácil do lado do servidor**, enquanto **drasticamente reduz o boilerplate**.
 
@@ -90,14 +90,14 @@ O guia também fornece uma **análise aprofundada do Intlayer**, mostrando por q
 
 ## Comparação de Recursos Lado a Lado
 
-| **Recurso**                         | **next-intl**                           | **next-i18next**                              | **Intlayer**                                   |
-| ----------------------------------- | --------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| **Manter traduções perto dos componentes** | Parcial – tipicamente uma pasta de locales | Não é padrão – frequentemente `public/locales` | **Sim – recomendado e fácil**                  |
-| **TypeScript Autogerado**          | Definições TS básicas                   | Suporte TS básico                              | **Sim – avançado e pronto para uso**          |
-| **Detecção de traduções ausentes**  | Principalmente strings fallback         | Principalmente strings fallback                 | **Sim – checagens em tempo de construção**     |
-| **Suporte a Componentes de Servidor** | Funciona, mas não é especializado      | Suportado, mas pode ser verboso                | **Total suporte com provedores especializados** |
-| **Roteamento & Middleware**        | Integrado manualmente com o middleware do Next | Fornecido via reescrita de configuração      | **Middleware i18n dedicado + hooks avançados** |
-| **Complexidade da Configuração**    | Simples, configuração mínima            | Tradicional, pode ser verboso para uso avançado | **Um arquivo de configuração e plugin**        |
+| **Recurso**                                | **next-intl**                                  | **next-i18next**                                | **Intlayer**                                    |
+| ------------------------------------------ | ---------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| **Manter traduções perto dos componentes** | Parcial – tipicamente uma pasta de locales     | Não é padrão – frequentemente `public/locales`  | **Sim – recomendado e fácil**                   |
+| **TypeScript Autogerado**                  | Definições TS básicas                          | Suporte TS básico                               | **Sim – avançado e pronto para uso**            |
+| **Detecção de traduções ausentes**         | Principalmente strings fallback                | Principalmente strings fallback                 | **Sim – checagens em tempo de construção**      |
+| **Suporte a Componentes de Servidor**      | Funciona, mas não é especializado              | Suportado, mas pode ser verboso                 | **Total suporte com provedores especializados** |
+| **Roteamento & Middleware**                | Integrado manualmente com o middleware do Next | Fornecido via reescrita de configuração         | **Middleware i18n dedicado + hooks avançados**  |
+| **Complexidade da Configuração**           | Simples, configuração mínima                   | Tradicional, pode ser verboso para uso avançado | **Um arquivo de configuração e plugin**         |
 
 ---
 
@@ -255,7 +255,7 @@ Abaixo está um _snippet muito_ condensado ilustrando como aproveitar o Intlayer
 
 ## Conclusão
 
-Cada solução—**next-intl**, **next-i18next** e **Intlayer**—tem se mostrado eficaz para projetos multilíngues Next.js. No entanto, **Intlayer** vai mais longe:
+Cada solução, **next-intl**, **next-i18next** e **Intlayer**, tem se mostrado eficaz para projetos multilíngues Next.js. No entanto, **Intlayer** vai mais longe:
 
 - **Incentivando fortemente uma arquitetura de tradução a nível de componente**
 - Integrando-se perfeitamente com **Next.js 13+ e Componentes de Servidor**

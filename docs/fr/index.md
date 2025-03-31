@@ -2,7 +2,7 @@
 
 Bienvenue dans la documentation officielle **Intlayer** ! Ici, vous trouverez tout ce dont vous avez besoin pour intégrer, configurer et maîtriser Intlayer pour tous vos besoins en matière d'internationalisation (i18n), que vous travailliez avec **Next.js**, **React**, **Vite**, **Express** ou un autre environnement JavaScript.
 
-Intlayer offre une approche flexible et moderne pour traduire votre application. Nos documents vous guideront de l'installation et de la configuration aux fonctionnalités avancées telles que la **traduction assistée par IA**, les définitions **TypeScript** et la prise en charge des **composants serveur**—vous permettant de créer une expérience multilingue fluide.
+Intlayer offre une approche flexible et moderne pour traduire votre application. Nos documents vous guideront de l'installation et de la configuration aux fonctionnalités avancées telles que la **traduction assistée par IA**, les définitions **TypeScript** et la prise en charge des **composants serveur**, vous permettant de créer une expérience multilingue fluide.
 
 ---
 
@@ -21,7 +21,7 @@ Intlayer offre une approche flexible et moderne pour traduire votre application.
   Gérez le contenu et les traductions à l'aide de notre outil en ligne de commande. Découvrez comment pousser et récupérer du contenu, automatiser les traductions, et plus encore.
 
 - **[Éditeur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_visual_editor.md)**  
-  Simplifiez la collaboration avec les non-développeurs et alimentez vos traductions avec l'IA—directement dans notre CMS gratuit et intuitif.
+  Simplifiez la collaboration avec les non-développeurs et alimentez vos traductions avec l'IA, directement dans notre CMS gratuit et intuitif.
 
 ---
 
@@ -56,7 +56,7 @@ Nous avons conçu Intlayer avec flexibilité à l'esprit, offrant une intégrati
 - **[Intlayer avec Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_vite+react.md)**
 - **[Intlayer avec Express](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_express.md)**
 
-Chaque guide d'intégration inclut les meilleures pratiques pour utiliser les fonctionnalités d'Intlayer—comme le **rendu côté serveur**, le **routage dynamique** ou le **rendu côté client**—afin que vous puissiez maintenir une application rapide, optimisée pour le SEO et hautement évolutive.
+Chaque guide d'intégration inclut les meilleures pratiques pour utiliser les fonctionnalités d'Intlayer, comme le **rendu côté serveur**, le **routage dynamique** ou le **rendu côté client**, afin que vous puissiez maintenir une application rapide, optimisée pour le SEO et hautement évolutive.
 
 ---
 

@@ -11,7 +11,7 @@ This document highlights key criteria:
 5. **Enhanced routing & middleware** for Next.js
 6. **Simplicity of setup**
 
-The guide also provides an **in-depth look at Intlayer**, showing why it can be a strong choice—especially for Next.js 13+, including **App Router** and **Server Components**.
+The guide also provides an **in-depth look at Intlayer**, showing why it can be a strong choice, especially for Next.js 13+, including **App Router** and **Server Components**.
 
 ---
 
@@ -55,7 +55,7 @@ The guide also provides an **in-depth look at Intlayer**, showing why it can be 
 
 1. **Architecture**
 
-   - Encourages placing **translations right next to their components**. Each page or component can have its own `.content.ts` (or JSON) file—no more rummaging through a giant translation folder.
+   - Encourages placing **translations right next to their components**. Each page or component can have its own `.content.ts` (or JSON) file, no more rummaging through a giant translation folder.
    - This makes your code more **modular and maintainable**, especially in large codebases.
 
 2. **TypeScript Support**
@@ -82,7 +82,7 @@ The guide also provides an **in-depth look at Intlayer**, showing why it can be 
 6. **Simplified Setup**
    - A single config file (`intlayer.config.ts`) to define your locales, default locale, and integration preferences.
    - A wrapper plugin `withIntlayer(nextConfig)` that **injects** all environment variables and watchers for your content.
-   - **No large fallback configurations**—the system is built to “just work” with minimal friction.
+   - **No large fallback configurations**, the system is built to “just work” with minimal friction.
 
 > **Bottom line**: Intlayer is a modern solution that wants to **push best practices**: from **keeping translations close** to each React component, to offering **robust TS support** and **easy server-side** usage, while **drastically reducing boilerplate**.
 
@@ -255,7 +255,7 @@ Below is a _very_ condensed snippet illustrating how to harness Intlayer in a Ne
 
 ## Conclusion
 
-Each solution—**next-intl**, **next-i18next**, and **Intlayer**—has proven effective for multilingual Next.js projects. However, **Intlayer** goes further by:
+Each solution, **next-intl**, **next-i18next**, and **Intlayer**, has proven effective for multilingual Next.js projects. However, **Intlayer** goes further by:
 
 - **Strongly encouraging a component-level translation architecture**
 - Integrating seamlessly with **Next.js 13+ and Server Components**

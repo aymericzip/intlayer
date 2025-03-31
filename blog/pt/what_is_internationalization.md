@@ -66,7 +66,7 @@ Este resumo conciso cobre os principais elementos que devem ser internacionaliza
   Diferentes idiomas têm regras plurais variadas, às vezes com múltiplas formas. Utilizar bibliotecas como ICU MessageFormat pode simplificar o tratamento dessas complexidades de pluralização.
 
 - **Comprimento de UI e texto**  
-  Alguns idiomas—alemão, por exemplo—tendem a ter textos mais longos do que o inglês. Isso pode interromper layouts se o design não for flexível, então um design responsivo é fundamental.
+  Alguns idiomas, alemão, por exemplo, tendem a ter textos mais longos do que o inglês. Isso pode interromper layouts se o design não for flexível, então um design responsivo é fundamental.
 
 - **Codificação de caracteres**  
   Usar a codificação de caracteres adequada (como UTF-8) é crucial para exibir corretamente diversos alfabetos e símbolos, prevenindo textos mal interpretados ou distorcidos.
@@ -141,6 +141,6 @@ Se você está procurando uma lista de bibliotecas e ferramentas de i18n por tec
 
 ## Conclusão
 
-A internacionalização (i18n) é mais do que apenas uma tarefa técnica; é um **investimento estratégico** que permite que seu software fale a língua dos seus usuários—literalmente. Ao abstrair elementos específicos do local, acomodar variações linguísticas e culturais e planejar para a expansão futura, você capacita seu produto a prosperar em um mercado global.
+A internacionalização (i18n) é mais do que apenas uma tarefa técnica; é um **investimento estratégico** que permite que seu software fale a língua dos seus usuários, literalmente. Ao abstrair elementos específicos do local, acomodar variações linguísticas e culturais e planejar para a expansão futura, você capacita seu produto a prosperar em um mercado global.
 
 Seja você construindo um aplicativo móvel, uma plataforma SaaS ou uma ferramenta empresarial, **a i18n garante que seu produto possa se adaptar e atrair usuários de todo o mundo**, sem a necessidade de reescritas constantes de código. Ao aproveitar melhores práticas, estruturas robustas e estratégias contínuas de localização, desenvolvedores e equipes de produtos podem oferecer experiências de software **verdadeiramente globais**.

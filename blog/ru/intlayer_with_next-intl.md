@@ -11,7 +11,7 @@
 
 2. **Утилиты**: Инструменты для создания и интерпретации деклараций содержимого в приложении, такие как `useIntlayer()` или `useLocale()` для Intlayer и `useTranslations()` для next-intl.
 
-3. **Плагины и промежуточные программные обеспечения**: Функции для управления перенаправлением URL, оптимизацией пакетов и многое другое — например, `intlayerMiddleware` для Intlayer или [`createMiddleware`](https://github.com/amannn/next-intl) для next-intl.
+3. **Плагины и промежуточные программные обеспечения**: Функции для управления перенаправлением URL, оптимизацией пакетов и многое другое , например, `intlayerMiddleware` для Intlayer или [`createMiddleware`](https://github.com/amannn/next-intl) для next-intl.
 
 ## Intlayer против next-intl: Ключевые различия
 

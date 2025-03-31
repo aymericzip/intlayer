@@ -1,6 +1,6 @@
 # Explorando Soluciones de i18n para Traducir tu Aplicación Flutter
 
-En un mundo cada vez más conectado, ofrecer tu aplicación Flutter en varios idiomas puede ampliar su alcance y mejorar la usabilidad para los hablantes no nativos de inglés. Implementar la internacionalización (i18n) en Flutter asegura que el texto, las fechas y otra información culturalmente sensible estén localizados correctamente. En este artículo, exploraremos diferentes enfoques para i18n en Flutter—desde los marcos oficiales hasta las bibliotecas impulsadas por la comunidad—para que puedas seleccionar el mejor para tu proyecto.
+En un mundo cada vez más conectado, ofrecer tu aplicación Flutter en varios idiomas puede ampliar su alcance y mejorar la usabilidad para los hablantes no nativos de inglés. Implementar la internacionalización (i18n) en Flutter asegura que el texto, las fechas y otra información culturalmente sensible estén localizados correctamente. En este artículo, exploraremos diferentes enfoques para i18n en Flutter, desde los marcos oficiales hasta las bibliotecas impulsadas por la comunidad, para que puedas seleccionar el mejor para tu proyecto.
 
 ---
 
@@ -99,7 +99,7 @@ Repositorio: [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages/fl
 Sitio web: [https://intlayer.org/](https://intlayer.org/)
 
 **Descripción General**  
-**Intlayer** es una solución de i18n de código abierto que busca simplificar el soporte multilingüe a través de múltiples frameworks, incluyendo **Flutter**. Enfatiza un enfoque declarativo, fuerte tipado, y soporte SSR en otros ecosistemas—aunque SSR no es típico en Flutter estándar, podrías encontrar sinergias si tu proyecto utiliza Flutter web o frameworks avanzados.
+**Intlayer** es una solución de i18n de código abierto que busca simplificar el soporte multilingüe a través de múltiples frameworks, incluyendo **Flutter**. Enfatiza un enfoque declarativo, fuerte tipado, y soporte SSR en otros ecosistemas, aunque SSR no es típico en Flutter estándar, podrías encontrar sinergias si tu proyecto utiliza Flutter web o frameworks avanzados.
 
 **Características Clave**
 

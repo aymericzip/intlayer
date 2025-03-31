@@ -11,7 +11,7 @@ next-intl 和 Intlayer 是为 Next.js 应用程序设计的开源国际化 (i18n
 
 2. **工具**: 用于构建和解释应用程序中的内容声明的工具，例如 Intlayer 的 `useIntlayer()` 或 `useLocale()`，以及 next-intl 的 `useTranslations()`。
 
-3. **插件和中间件**: 用于管理 URL 重定向、打包优化等功能——例如，Intlayer 的 `intlayerMiddleware` 或 next-intl 的 [`createMiddleware`](https://github.com/amannn/next-intl/blob/main/docs/zh/api/middleware.md)。
+3. **插件和中间件**: 用于管理 URL 重定向、打包优化等功能, , 例如，Intlayer 的 `intlayerMiddleware` 或 next-intl 的 [`createMiddleware`](https://github.com/amannn/next-intl/blob/main/docs/zh/api/middleware.md)。
 
 ## Intlayer 与 next-intl: 关键区别
 

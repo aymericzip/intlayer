@@ -182,7 +182,7 @@ Criamos o Intlayer com flexibilidade em mente, oferecendo integração perfeita 
 - **[Intlayer com Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_vite+react.md)**
 - **[Intlayer com Express](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_express.md)**
 
-Cada guia de integração inclui as melhores práticas para usar os recursos do Intlayer—como **renderização no lado do servidor**, **roteamento dinâmico** ou **renderização no lado do cliente**—para que você possa manter um aplicativo rápido, amigável para SEO e altamente escalável.
+Cada guia de integração inclui as melhores práticas para usar os recursos do Intlayer, como **renderização no lado do servidor**, **roteamento dinâmico** ou **renderização no lado do cliente**, para que você possa manter um aplicativo rápido, amigável para SEO e altamente escalável.
 
 ## Contribuindo e Feedback
 

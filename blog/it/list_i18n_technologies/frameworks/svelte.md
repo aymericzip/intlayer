@@ -1,6 +1,6 @@
 # Esplorare le soluzioni i18n per tradurre il tuo sito Svelte
 
-Man mano che il web continua a connettere persone in tutto il mondo, fornire contenuti in più lingue diventa sempre più importante. Per gli sviluppatori che lavorano con **Svelte**, implementare l’i18n è essenziale per gestire efficacemente le traduzioni, mantenere un codice pulito e rispettare buone pratiche SEO. In questo articolo, esploreremo diverse soluzioni i18n e flussi di lavoro per Svelte—aiutandoti a scegliere quello che meglio si adatta alle esigenze del tuo progetto.
+Man mano che il web continua a connettere persone in tutto il mondo, fornire contenuti in più lingue diventa sempre più importante. Per gli sviluppatori che lavorano con **Svelte**, implementare l’i18n è essenziale per gestire efficacemente le traduzioni, mantenere un codice pulito e rispettare buone pratiche SEO. In questo articolo, esploreremo diverse soluzioni i18n e flussi di lavoro per Svelte, aiutandoti a scegliere quello che meglio si adatta alle esigenze del tuo progetto.
 
 ![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
 
@@ -46,7 +46,7 @@ Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaise
 
 - **Organizzazione del progetto**: Dovrai strutturare i tuoi file di traduzione in modo logico man mano che il progetto cresce.
 - **Impostazione SSR**: Configurare SSR per SEO potrebbe richiedere passaggi aggiuntivi per garantire un rilevamento corretto della lingua sul lato server.
-- **Prestazioni**: Sebbene sia flessibile a runtime, un numero elevato di traduzioni caricate tutte insieme può influire sui tempi di caricamento iniziali—considera strategie di lazy loading o caching.
+- **Prestazioni**: Sebbene sia flessibile a runtime, un numero elevato di traduzioni caricate tutte insieme può influire sui tempi di caricamento iniziali, considera strategie di lazy loading o caching.
 
 ---
 
@@ -104,4 +104,4 @@ Quando selezioni una strategia i18n per la tua app Svelte:
 4. **Integrazione TypeScript**: Se fai un ampio uso di TypeScript, soluzioni come **Intlayer** o librerie con chiavi tipizzate possono ridurre significativamente gli errori a runtime e migliorare l'esperienza dello sviluppatore.
 5. **Manutenibilità e Scalabilità**: Pianifica come organizzerai, aggiornerai e versionerai i tuoi file di traduzione. L'estrazione automatizzata, le convenzioni di denominazione e una struttura di cartelle coerente ti faranno risparmiare tempo nel lungo periodo.
 
-In definitiva, ogni libreria offre punti di forza unici. La tua scelta dipende da **prestazioni**, **esperienza dello sviluppatore**, **esigenze SEO** e **manutenibilità a lungo termine**. Scegliendo una soluzione che si allinei con gli obiettivi del tuo progetto, puoi creare un'applicazione veramente globale in Svelte—una che delizia gli utenti in tutto il mondo.
+In definitiva, ogni libreria offre punti di forza unici. La tua scelta dipende da **prestazioni**, **esperienza dello sviluppatore**, **esigenze SEO** e **manutenibilità a lungo termine**. Scegliendo una soluzione che si allinei con gli obiettivi del tuo progetto, puoi creare un'applicazione veramente globale in Svelte, una che delizia gli utenti in tutto il mondo.

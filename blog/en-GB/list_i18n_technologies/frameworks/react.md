@@ -1,6 +1,6 @@
 # Exploring i18n Solutions to Translate Your React Website
 
-In today's digital landscape, expanding your website’s reach to cater to a global audience is essential. For developers building with React, implementing internationalization (i18n) is key to managing translations efficiently while preserving application structure, SEO value, and user experience. In this article, we explore various i18n approaches—from dedicated libraries to custom-coded solutions—helping you decide which one best suits your project needs.
+In today's digital landscape, expanding your website’s reach to cater to a global audience is essential. For developers building with React, implementing internationalization (i18n) is key to managing translations efficiently while preserving application structure, SEO value, and user experience. In this article, we explore various i18n approaches, from dedicated libraries to custom-coded solutions, helping you decide which one best suits your project needs.
 
 ---
 
@@ -94,7 +94,7 @@ Website: [https://formatjs.io/docs/react-intl/](https://formatjs.io/docs/react-i
 **Considerations**
 
 - **Verbosity & Boilerplate**: Reliance on dedicated components can lead to more verbose code, especially in large applications.
-- **Splitting Translations**: Core library doesn’t provide built-in support for splitting translations into multiple files—requires additional setup or plugins.
+- **Splitting Translations**: Core library doesn’t provide built-in support for splitting translations into multiple files, requires additional setup or plugins.
 - **Maintainability**: The straightforward approach to formatting can be beneficial, but message extraction and organizational overhead can grow quickly.
 
 ### 4. LinguiJS
@@ -130,4 +130,4 @@ When choosing an i18n library for React:
 - **Maintainability & Scalability**: Larger projects often need a clear, maintainable structure for translations, so factor in your long-term roadmap.
 - **SEO & Metadata**: If SEO is crucial, confirm that your chosen solution supports localized metadata, routes, and sitemaps/robots for each language.
 
-All these libraries can power a multilingual React application—each with slightly different priorities and strengths. Select the one that most closely aligns with your project’s **performance**, **DX (developer experience)**, and **business goals**.
+All these libraries can power a multilingual React application, each with slightly different priorities and strengths. Select the one that most closely aligns with your project’s **performance**, **DX (developer experience)**, and **business goals**.

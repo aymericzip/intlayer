@@ -1,6 +1,6 @@
 # Explorando Soluções i18n para Traduzir Seu App React Native
 
-Em um mercado cada vez mais global, entregar seu app React Native em múltiplas línguas pode melhorar significativamente a acessibilidade e a satisfação do usuário. A internacionalização (i18n) é central para gerenciar traduções de maneira eficaz—permitindo que você exiba texto específico de idioma, formatos de data e hora, moeda, e mais, sem complicar sua base de código. Neste artigo, vamos mergulhar em várias abordagens de i18n—variando de bibliotecas dedicadas a soluções mais gerais—e ajudar você a encontrar a que melhor se adapta ao seu projeto React Native.
+Em um mercado cada vez mais global, entregar seu app React Native em múltiplas línguas pode melhorar significativamente a acessibilidade e a satisfação do usuário. A internacionalização (i18n) é central para gerenciar traduções de maneira eficaz, permitindo que você exiba texto específico de idioma, formatos de data e hora, moeda, e mais, sem complicar sua base de código. Neste artigo, vamos mergulhar em várias abordagens de i18n, variando de bibliotecas dedicadas a soluções mais gerais, e ajudar você a encontrar a que melhor se adapta ao seu projeto React Native.
 
 ---
 
@@ -8,7 +8,7 @@ Em um mercado cada vez mais global, entregar seu app React Native em múltiplas 
 
 ## O que é Internacionalização (i18n)?
 
-A internacionalização, ou i18n, envolve estruturar um aplicativo para que ele possa se adaptar facilmente a diferentes idiomas, formatos regionais e normas culturais. Em React Native, a i18n inclui o tratamento de strings para botões e rótulos, bem como a formatação de datas, horas, moedas e mais de acordo com o local do usuário. Aplicativos React Native devidamente preparados permitem que você integre facilmente idiomas adicionais e comportamentos específicos de local posteriormente—sem grandes refatorações.
+A internacionalização, ou i18n, envolve estruturar um aplicativo para que ele possa se adaptar facilmente a diferentes idiomas, formatos regionais e normas culturais. Em React Native, a i18n inclui o tratamento de strings para botões e rótulos, bem como a formatação de datas, horas, moedas e mais de acordo com o local do usuário. Aplicativos React Native devidamente preparados permitem que você integre facilmente idiomas adicionais e comportamentos específicos de local posteriormente, sem grandes refatorações.
 
 Para uma visão mais aprofundada sobre conceitos de internacionalização, confira nosso artigo:  
 [O que é Internacionalização (i18n)? Definição e Desafios](https://github.com/aymericzip/intlayer/blob/main/blog/pt/o_que_e_internacionalizacao.md).
@@ -45,7 +45,7 @@ Abaixo estão várias abordagens populares para gerenciar conteúdo multilíngue
 > Website: [https://intlayer.org/](https://intlayer.org/)
 
 **Visão Geral**  
-**Intlayer** é uma biblioteca de internacionalização inovadora e de código aberto, projetada para simplificar o suporte multilíngue em aplicativos modernos de JavaScript—including React Native. Ela oferece uma abordagem declarativa para tradução, permitindo que você defina dicionários diretamente ao lado dos componentes.
+**Intlayer** é uma biblioteca de internacionalização inovadora e de código aberto, projetada para simplificar o suporte multilíngue em aplicativos modernos de JavaScript, including React Native. Ela oferece uma abordagem declarativa para tradução, permitindo que você defina dicionários diretamente ao lado dos componentes.
 
 **Principais Recursos**
 
@@ -84,7 +84,7 @@ Abaixo estão várias abordagens populares para gerenciar conteúdo multilíngue
   Fornece hooks (`useTranslation`), componentes de ordem superior (HOCs) e mais para integrar a i18n de forma fluida em seus componentes.
 
 - **Carregamento Assíncrono**  
-  Carregue traduções sob demanda—útil para aplicativos grandes ou ao adicionar novos pacotes de idiomas com o tempo.
+  Carregue traduções sob demanda, útil para aplicativos grandes ou ao adicionar novos pacotes de idiomas com o tempo.
 
 - **Ricas Capacidades de Tradução**  
   Lida com traduções aninhadas, interpolação, pluralização e substituições de variáveis com facilidade.
@@ -118,7 +118,7 @@ Abaixo estão várias abordagens populares para gerenciar conteúdo multilíngue
   `<FormattedMessage>`, `<FormattedDate>`, `<FormattedTime>`, e outros simplificam tarefas de formatação em iOS e Android.
 
 - **Leve & Extensível**  
-  Você pode importar apenas as partes do FormatJS que precisa, mantendo seu pacote geral enxuto—crucial para mobile.
+  Você pode importar apenas as partes do FormatJS que precisa, mantendo seu pacote geral enxuto, crucial para mobile.
 
 - **Polyfills para Locais Não Suportados**  
   Garante formatação consistente de data/número em versões mais antigas do Android ou iOS.
@@ -132,7 +132,7 @@ Abaixo estão várias abordagens populares para gerenciar conteúdo multilíngue
   Requer um fluxo de trabalho de extração, o que pode adicionar complexidade ao seu processo de build. No entanto, é poderoso para grandes equipes gerenciando muitas traduções.
 
 - **Tamanho do App & Implantações**  
-  Se você depender de múltiplos polyfills ou arquivos de tradução grandes, fique atento ao tamanho total do seu app—especialmente importante em contextos móveis.
+  Se você depender de múltiplos polyfills ou arquivos de tradução grandes, fique atento ao tamanho total do seu app, especialmente importante em contextos móveis.
 
 - **Exemplos da Comunidade**  
   Embora amplamente utilizado, exemplos de uso específicos do React Native podem ser menos numerosos do que para a web React. Você provavelmente precisará adaptar a documentação e padrões existentes para um ambiente nativo.
@@ -185,7 +185,7 @@ Ao selecionar uma solução i18n para sua aplicação React Native:
 2. **Considere Diferenças de Plataforma**
 
    - Certifique-se de que qualquer biblioteca suporte variações de local de iOS e Android, especialmente peculiaridades de data/número/moeda.
-   - Considere o uso offline—algumas traduções podem precisar estar incorporadas ao aplicativo, enquanto outras podem ser buscadas remotamente.
+   - Considere o uso offline, algumas traduções podem precisar estar incorporadas ao aplicativo, enquanto outras podem ser buscadas remotamente.
 
 3. **Escolha uma Estrutura para Escalabilidade**
 
@@ -196,6 +196,6 @@ Ao selecionar uma solução i18n para sua aplicação React Native:
    - As restrições de dados móveis significam que você deve prestar atenção ao tamanho dos seus arquivos de tradução e quaisquer polyfills.
 
 5. **Experiência do Desenvolvedor (DX)**
-   - Procure bibliotecas que se alinhem com as habilidades de sua equipe—algumas soluções são mais verbosas, mas diretas, enquanto outras oferecem mais automação à custa da complexidade de configuração.
+   - Procure bibliotecas que se alinhem com as habilidades de sua equipe, algumas soluções são mais verbosas, mas diretas, enquanto outras oferecem mais automação à custa da complexidade de configuração.
 
-Cada solução—Intlayer, React-i18next, React Intl e LinguiJS—provou ser eficaz em ambientes React Native, embora com prioridades ligeiramente diferentes. Avaliar o roteiro do seu projeto, preferências dos desenvolvedores e necessidades de localização o guiará para o encaixe ideal para entregar um aplicativo React Native verdadeiramente global.
+Cada solução, Intlayer, React-i18next, React Intl e LinguiJS, provou ser eficaz em ambientes React Native, embora com prioridades ligeiramente diferentes. Avaliar o roteiro do seu projeto, preferências dos desenvolvedores e necessidades de localização o guiará para o encaixe ideal para entregar um aplicativo React Native verdadeiramente global.

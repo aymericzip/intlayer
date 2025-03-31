@@ -90,14 +90,14 @@ La guía también proporciona una **visión detallada de Intlayer**, mostrando p
 
 ## Comparación de características lado a lado
 
-| **Característica**                    | **next-intl**                             | **next-i18next**                              | **Intlayer**                                   |
-|---------------------------------------|-------------------------------------------|------------------------------------------------|------------------------------------------------|
-| **Mantener traducciones cerca de los componentes** | Parcial - típicamente una carpeta de locales | No por defecto - a menudo `public/locales`     | **Sí - recomendado y fácil**                   |
-| **TypeScript Autogenerado**          | Definiciones de TS básicas                | Soporte básico de TS                          | **Sí - avanzado lista para usar**              |
-| **Detección de traducciones faltantes** | Principalmente cadenas de retroceso        | Principalmente cadenas de retroceso            | **Sí - comprobaciones en tiempo de construcción**|
-| **Soporte para Componentes del Servidor** | Funciona pero no está especializado       | Soportado pero puede ser verboso             | **Soporte total con proveedores especializados**|
-| **Enrutamiento y Middleware**        | Integrado manualmente con middleware de Next | Proporcionado a través de configuración de reescritura | **Middleware de i18n dedicado + ganchos avanzados** |
-| **Complejidad de configuración**     | Simple, configuración mínima              | Tradicional, puede ser verbosa para uso avanzado | **Un archivo de configuración y complemento**   |
+| **Característica**                                 | **next-intl**                                | **next-i18next**                                       | **Intlayer**                                        |
+| -------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------- |
+| **Mantener traducciones cerca de los componentes** | Parcial - típicamente una carpeta de locales | No por defecto - a menudo `public/locales`             | **Sí - recomendado y fácil**                        |
+| **TypeScript Autogenerado**                        | Definiciones de TS básicas                   | Soporte básico de TS                                   | **Sí - avanzado lista para usar**                   |
+| **Detección de traducciones faltantes**            | Principalmente cadenas de retroceso          | Principalmente cadenas de retroceso                    | **Sí - comprobaciones en tiempo de construcción**   |
+| **Soporte para Componentes del Servidor**          | Funciona pero no está especializado          | Soportado pero puede ser verboso                       | **Soporte total con proveedores especializados**    |
+| **Enrutamiento y Middleware**                      | Integrado manualmente con middleware de Next | Proporcionado a través de configuración de reescritura | **Middleware de i18n dedicado + ganchos avanzados** |
+| **Complejidad de configuración**                   | Simple, configuración mínima                 | Tradicional, puede ser verbosa para uso avanzado       | **Un archivo de configuración y complemento**       |
 
 ---
 
@@ -255,7 +255,7 @@ A continuación se presenta un _fragmento muy_ condensado que ilustra cómo apro
 
 ## Conclusión
 
-Cada solución—**next-intl**, **next-i18next** e **Intlayer**—ha demostrado ser efectiva para proyectos multilingües de Next.js. Sin embargo, **Intlayer** va más allá al:
+Cada solución, **next-intl**, **next-i18next** e **Intlayer**, ha demostrado ser efectiva para proyectos multilingües de Next.js. Sin embargo, **Intlayer** va más allá al:
 
 - **Fomentar fuertemente una arquitectura de traducción a nivel de componente**
 - Integrarse sin problemas con **Next.js 13+ y Componentes del Servidor**

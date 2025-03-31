@@ -118,7 +118,7 @@ Di seguito sono riportati diversi approcci popolari per gestire contenuti multil
   `<FormattedMessage>`, `<FormattedDate>`, `<FormattedTime>` e altri semplificano i compiti di formattazione su iOS e Android.
 
 - **Leggero & Estensibile**  
-  Puoi importare solo le parti di FormatJS di cui hai bisogno, mantenendo il tuo pacchetto complessivo snello—cruciale per il mobile.
+  Puoi importare solo le parti di FormatJS di cui hai bisogno, mantenendo il tuo pacchetto complessivo snello, cruciale per il mobile.
 
 - **Polyfill per locali non supportati**  
   Assicura una formattazione coerente di data/numero su versioni più vecchie di Android o iOS.
@@ -132,7 +132,7 @@ Di seguito sono riportati diversi approcci popolari per gestire contenuti multil
   Richiede un flusso di lavoro di estrazione, il che può aggiungere complessità al tuo processo di build. Tuttavia, è potente per grandi team che gestiscono molte traduzioni.
 
 - **Dimensione dell'app & Deployments**  
-  Se fai affidamento su più polyfill o grandi file di traduzione, presta attenzione alla dimensione complessiva della tua app—particolarmente importante nel contesto mobile.
+  Se fai affidamento su più polyfill o grandi file di traduzione, presta attenzione alla dimensione complessiva della tua app, particolarmente importante nel contesto mobile.
 
 - **Esempi comunitari**  
   Sebbene sia ampiamente utilizzato, gli esempi di utilizzo specifici per React Native possono essere meno numerosi rispetto a React web. Probabilmente dovrai adattare la documentazione esistente e i modelli a un ambiente nativo.
@@ -198,4 +198,4 @@ Quando selezioni una soluzione i18n per la tua applicazione React Native:
 5. **Esperienza dello sviluppatore (DX)**
    - Cerca librerie che si allineano con le competenze del tuo team: alcune soluzioni sono più verbose ma dirette, mentre altre offrono più automazione a scapito della complessità di configurazione.
 
-Ogni soluzione—Intlayer, React-i18next, React Intl e LinguiJS—si è dimostrata efficace negli ambienti React Native, sebbene con priorità leggermente diverse. Valutare il piano di lavoro del tuo progetto, le preferenze degli sviluppatori e le esigenze di localizzazione ti guiderà verso la scelta ideale per fornire una reale app React Native globale.
+Ogni soluzione, Intlayer, React-i18next, React Intl e LinguiJS, si è dimostrata efficace negli ambienti React Native, sebbene con priorità leggermente diverse. Valutare il piano di lavoro del tuo progetto, le preferenze degli sviluppatori e le esigenze di localizzazione ti guiderà verso la scelta ideale per fornire una reale app React Native globale.

@@ -37,7 +37,7 @@ Flutter는 [`intl`](https://pub.dev/packages/intl) 패키지와 `flutter_localiz
 
 **주요 기능**
 
-- **공식 및 통합**: 외부 라이브러리 필요 없음—`MaterialApp` 및 `CupertinoApp`이 직접 로컬화를 참조할 수 있습니다.
+- **공식 및 통합**: 외부 라이브러리 필요 없음, `MaterialApp` 및 `CupertinoApp`이 직접 로컬화를 참조할 수 있습니다.
 - **intl 패키지**: 날짜/숫자 형식화, 복수형, 성별 처리 및 기타 ICU 지원 기능을 제공합니다.
 - **컴파일 시간 검사**: ARB 파일에서 코드를 생성하면 컴파일 중 누락된 번역을 찾아낼 수 있습니다.
 - **강력한 커뮤니티 지원**: Google의 지원을 받으며 풍부한 문서 및 예제가 있습니다.
@@ -99,7 +99,7 @@ Flutter는 [`intl`](https://pub.dev/packages/intl) 패키지와 `flutter_localiz
 웹사이트: [https://intlayer.org/](https://intlayer.org/)
 
 **개요**  
-**Intlayer**는 Flutter를 포함한 여러 프레임워크에서 다국어 지원을 단순화하기 위해 설계된 오픈 소스 i18n 솔루션입니다. 선언적 접근, 강력한 타입 및 다른 생태계에서의 SSR 지원을 강조합니다—하지만 SSR은 표준 Flutter에서 일반적이지 않지만, Flutter 웹이나 고급 프레임워크에서 동기화를 찾을 수 있습니다.
+**Intlayer**는 Flutter를 포함한 여러 프레임워크에서 다국어 지원을 단순화하기 위해 설계된 오픈 소스 i18n 솔루션입니다. 선언적 접근, 강력한 타입 및 다른 생태계에서의 SSR 지원을 강조합니다, 하지만 SSR은 표준 Flutter에서 일반적이지 않지만, Flutter 웹이나 고급 프레임워크에서 동기화를 찾을 수 있습니다.
 
 **주요 기능**
 

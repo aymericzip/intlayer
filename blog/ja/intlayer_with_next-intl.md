@@ -11,7 +11,7 @@ next-intl と Intlayer は、Next.js アプリケーション向けに設計さ�
 
 2. **ユーティリティ**: アプリケーション内でコンテンツ宣言を構築および解釈するためのツールで、Intlayer の `useIntlayer()` または `useLocale()`、および next-intl の `useTranslations()` などがあります。
 
-3. **プラグインとミドルウェア**: URL リダイレクション、バンドル最適化などの機能—例として、Intlayer の `intlayerMiddleware` や next-intl の [`createMiddleware`](https://github.com/amannn/next-intl) があります。
+3. **プラグインとミドルウェア**: URL リダイレクション、バンドル最適化などの機能, 例として、Intlayer の `intlayerMiddleware` や next-intl の [`createMiddleware`](https://github.com/amannn/next-intl) があります。
 
 ## Intlayer と next-intl の主な違い
 

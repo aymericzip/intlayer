@@ -1,6 +1,6 @@
 # vite-intlayer: Пакет NPM для интернационализации (i18n) приложения Vite
 
-**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+**Intlayer** , это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
 **Пакет `vite-intlayer`** позволяет интернационализировать ваше приложение Vite. Он включает плагин Vite для настройки конфигурации через переменные окружения в [сборщике Vite](https://vitejs.dev/guide/why.html#why-bundle-for-production). Также он предоставляет middleware для определения предпочтительного языка пользователя и перенаправления пользователя на соответствующий URL, как указано в [конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md).
 

@@ -181,7 +181,7 @@ Nous avons conçu Intlayer avec flexibilité à l'esprit, offrant une intégrati
 - **[Intlayer avec Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_vite+react.md)**
 - **[Intlayer avec Express](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_express.md)**
 
-Chaque guide d'intégration inclut les meilleures pratiques pour utiliser les fonctionnalités d'Intlayer—comme le **rendu côté serveur**, le **routage dynamique** ou le **rendu côté client**—afin que vous puissiez maintenir une application rapide, optimisée pour le SEO et hautement évolutive.
+Chaque guide d'intégration inclut les meilleures pratiques pour utiliser les fonctionnalités d'Intlayer, comme le **rendu côté serveur**, le **routage dynamique** ou le **rendu côté client**, afin que vous puissiez maintenir une application rapide, optimisée pour le SEO et hautement évolutive.
 
 ## Contribution et retours
 

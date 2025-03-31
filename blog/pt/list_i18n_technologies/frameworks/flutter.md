@@ -35,7 +35,7 @@ O Flutter vem com suporte oficial para localização através do pacote [`intl`]
 
 **Características Principais**
 
-- **Oficial e Integrado**: Não é necessário bibliotecas externas—`MaterialApp` e `CupertinoApp` podem referenciar diretamente suas localizações.
+- **Oficial e Integrado**: Não é necessário bibliotecas externas, `MaterialApp` e `CupertinoApp` podem referenciar diretamente suas localizações.
 - **Pacote intl**: Oferece formatação de data/número, plurais, tratamento de gênero e outros recursos suportados pelo ICU.
 - **Verificações em Tempo de Compilação**: Gerar código a partir de arquivos ARB ajuda a capturar traduções ausentes durante a compilação.
 - **Forte Suporte da Comunidade**: Apoiado pelo Google, com uma abundância de documentação e exemplos.
@@ -97,7 +97,7 @@ Repositório: [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages/f
 Website: [https://intlayer.org/](https://intlayer.org/)
 
 **Visão Geral**  
-**Intlayer** é uma solução de i18n de código aberto que visa simplificar o suporte multilíngue em várias estruturas, incluindo **Flutter**. Enfatiza uma abordagem declarativa, forte tipagem e suporte a SSR em outros ecossistemas—embora SSR não seja típico no Flutter padrão, você pode encontrar sinergia se seu projeto usar Flutter web ou frameworks avançados.
+**Intlayer** é uma solução de i18n de código aberto que visa simplificar o suporte multilíngue em várias estruturas, incluindo **Flutter**. Enfatiza uma abordagem declarativa, forte tipagem e suporte a SSR em outros ecossistemas, embora SSR não seja típico no Flutter padrão, você pode encontrar sinergia se seu projeto usar Flutter web ou frameworks avançados.
 
 **Características Principais**
 

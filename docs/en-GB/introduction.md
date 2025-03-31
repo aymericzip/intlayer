@@ -192,7 +192,7 @@ We’ve built Intlayer with flexibility in mind, offering seamless integration a
 - **[Intlayer with Lynx and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md)**
 - **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_express.md)**
 
-Each integration guide includes best practices for using Intlayer’s features—like **server-side rendering**, **dynamic routing**, or **client-side rendering**—so you can maintain a fast, SEO-friendly, and highly scalable application.
+Each integration guide includes best practices for using Intlayer’s features, like **server-side rendering**, **dynamic routing**, or **client-side rendering**, so you can maintain a fast, SEO-friendly, and highly scalable application.
 
 ## Contributing & Feedback
 

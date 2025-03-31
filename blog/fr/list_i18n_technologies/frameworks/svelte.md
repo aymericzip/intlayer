@@ -1,6 +1,6 @@
 # Explorer les solutions i18n pour traduire votre site Web Svelte
 
-Au fur et à mesure que le web continue de connecter les gens à travers le monde, il est de plus en plus important de fournir du contenu dans plusieurs langues. Pour les développeurs travaillant avec **Svelte**, la mise en œuvre de l'i18n est essentielle pour gérer efficacement les traductions, maintenir un code propre et respecter de bonnes pratiques en matière de SEO. Dans cet article, nous plongeons dans diverses solutions et flux de travail i18n pour Svelte—vous aidant à choisir celle qui convient le mieux aux besoins de votre projet.
+Au fur et à mesure que le web continue de connecter les gens à travers le monde, il est de plus en plus important de fournir du contenu dans plusieurs langues. Pour les développeurs travaillant avec **Svelte**, la mise en œuvre de l'i18n est essentielle pour gérer efficacement les traductions, maintenir un code propre et respecter de bonnes pratiques en matière de SEO. Dans cet article, nous plongeons dans diverses solutions et flux de travail i18n pour Svelte, vous aidant à choisir celle qui convient le mieux aux besoins de votre projet.
 
 ---
 
@@ -48,7 +48,7 @@ Dépôt : [https://github.com/kaisermann/svelte-i18n](https://github.com/kaiserm
 
 - **Organisation du projet** : Vous devrez structurer logiquement vos fichiers de traduction à mesure que le projet grandit.
 - **Configuration SSR** : La configuration du SSR pour le SEO pourrait nécessiter des étapes supplémentaires pour garantir une détection correcte des locales côté serveur.
-- **Performance** : Bien que flexible à l'exécution, un grand nombre de traductions chargées en même temps peut affecter les temps de chargement initiaux—envisagez des stratégies de chargement paresseux ou de mise en cache.
+- **Performance** : Bien que flexible à l'exécution, un grand nombre de traductions chargées en même temps peut affecter les temps de chargement initiaux, envisagez des stratégies de chargement paresseux ou de mise en cache.
 
 ---
 
@@ -106,4 +106,4 @@ Lors du choix d'une stratégie i18n pour votre application Svelte :
 4. **Intégration TypeScript** : Si vous dépendez fortement de TypeScript, des solutions comme **Intlayer** ou des bibliothèques avec des clés typées peuvent réduire considérablement les erreurs d'exécution et améliorer l'expérience des développeurs.
 5. **Maintenabilité et évolutivité** : Planifiez comment vous allez organiser, mettre à jour et versionner vos fichiers de traduction. L'extraction automatique, les conventions de nommage et une structure de dossiers cohérente vous feront gagner du temps à long terme.
 
-En fin de compte, chaque bibliothèque offre des forces uniques. Votre choix dépend de **performance**, **expérience développeur**, **besoins SEO**, et **maintenabilité à long terme**. En sélectionnant une solution qui s'aligne avec les objectifs de votre projet, vous pouvez créer une application véritablement globale dans Svelte—une qui ravira les utilisateurs du monde entier.
+En fin de compte, chaque bibliothèque offre des forces uniques. Votre choix dépend de **performance**, **expérience développeur**, **besoins SEO**, et **maintenabilité à long terme**. En sélectionnant une solution qui s'aligne avec les objectifs de votre projet, vous pouvez créer une application véritablement globale dans Svelte, une qui ravira les utilisateurs du monde entier.

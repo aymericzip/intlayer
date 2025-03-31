@@ -1,6 +1,6 @@
 # react-scripts-intlayer: NPM Пакет для использования Intlayer в приложении React Create App
 
-**Intlayer** — это набор пакетов, разработанных специально для разработчиков на JavaScript. Он совместим с такими фреймворками, как React, React и Express.js.
+**Intlayer** , это набор пакетов, разработанных специально для разработчиков на JavaScript. Он совместим с такими фреймворками, как React, React и Express.js.
 
 **Пакет `react-scripts-intlayer`** включает команды и плагины `react-scripts-intlayer` для интеграции Intlayer с приложением на основе Create React App. Эти плагины основаны на [craco](https://craco.js.org/) и включают дополнительную конфигурацию для сборщика [Webpack](https://webpack.js.org/).
 

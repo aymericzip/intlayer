@@ -11,7 +11,7 @@ next-intl और Intlayer दोनों ओपन-सोर्स अंतर
 
 2. **उपकरण**: एप्लिकेशन में सामग्री घोषणाएं बनाने और व्याख्यित करने के लिए उपकरण, जैसे Intlayer के लिए `useIntlayer()` या `useLocale()`, और next-intl के लिए `useTranslations()`।
 
-3. **प्लगइन्स और मिडलवेयर**: URL रीडायरेक्शन, बंडलिंग ऑप्टिमाइजेशन, और अन्य प्रबंधित करने के लिए सुविधाएँ—जैसे, Intlayer के लिए `intlayerMiddleware` या next-intl के लिए [`createMiddleware`](https://github.com/amannn/next-intl)।
+3. **प्लगइन्स और मिडलवेयर**: URL रीडायरेक्शन, बंडलिंग ऑप्टिमाइजेशन, और अन्य प्रबंधित करने के लिए सुविधाएँ, जैसे, Intlayer के लिए `intlayerMiddleware` या next-intl के लिए [`createMiddleware`](https://github.com/amannn/next-intl)।
 
 ## Intlayer और next-intl: प्रमुख अंतरों
 

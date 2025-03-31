@@ -1,6 +1,6 @@
 # 探索 i18n 解决方案以翻译您的 Flutter 应用
 
-在一个日益互联的世界中，提供多语言的 Flutter 应用能够扩展其覆盖范围，提高非英语使用者的可用性。在 Flutter 中实现国际化 (i18n) 确保文本、日期和其他文化敏感信息得到适当本地化。在本文中，我们将探索 Flutter 中不同的 i18n 方法——从官方框架到社区驱动的库——让您能够为项目选择最佳的解决方案。
+在一个日益互联的世界中，提供多语言的 Flutter 应用能够扩展其覆盖范围，提高非英语使用者的可用性。在 Flutter 中实现国际化 (i18n) 确保文本、日期和其他文化敏感信息得到适当本地化。在本文中，我们将探索 Flutter 中不同的 i18n 方法, , 从官方框架到社区驱动的库, , 让您能够为项目选择最佳的解决方案。
 
 ---
 
@@ -37,7 +37,7 @@ Flutter 自带了通过 [`intl`](https://pub.dev/packages/intl) 包和与 `flutt
 
 **主要特性**
 
-- **官方及集成**：无需外部库——`MaterialApp` 和 `CupertinoApp` 可以直接引用您的本地化。
+- **官方及集成**：无需外部库, , `MaterialApp` 和 `CupertinoApp` 可以直接引用您的本地化。
 - **intl 包**：提供日期/数字格式、复数、性别处理和其他基于 ICU 的功能。
 - **编译时检查**：从 ARB 文件生成代码有助于在编译过程中捕获缺失的翻译。
 - **强大的社区支持**：由 Google 支持，拥有大量文档和示例。
@@ -99,7 +99,7 @@ Repository: [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages/flu
 Website: [https://intlayer.org/](https://intlayer.org/)
 
 **概述**  
-**Intlayer** 是一个开源的 i18n 解决方案，旨在简化多个框架（包括 **Flutter**）的多语言支持。它强调声明式方法、强类型和在其他生态系统中的 SSR 支持——尽管 SSR 在标准 Flutter 中并不常见，如果您的项目使用 Flutter web 或高级框架，您可能会发现协同效应。
+**Intlayer** 是一个开源的 i18n 解决方案，旨在简化多个框架（包括 **Flutter**）的多语言支持。它强调声明式方法、强类型和在其他生态系统中的 SSR 支持, , 尽管 SSR 在标准 Flutter 中并不常见，如果您的项目使用 Flutter web 或高级框架，您可能会发现协同效应。
 
 **主要特性**
 

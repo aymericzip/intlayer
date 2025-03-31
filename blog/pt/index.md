@@ -45,7 +45,7 @@ Acreditamos em compartilhamento de conhecimento impulsionado pela comunidade. Se
 
 [**Envie seu post aqui**](https://github.com/aymericzip/intlayer/blob/main/blog)
 
-Suas contribuições nos ajudam a enriquecer esta plataforma e capacitar desenvolvedores em todo o mundo. Vamos construir uma comunidade de aplicações com foco global—juntos.
+Suas contribuições nos ajudam a enriquecer esta plataforma e capacitar desenvolvedores em todo o mundo. Vamos construir uma comunidade de aplicações com foco global, juntos.
 
 ---
 

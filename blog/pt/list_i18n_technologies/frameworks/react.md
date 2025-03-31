@@ -1,6 +1,6 @@
 # Explorando Soluções de i18n para Traduzir Seu Site em React
 
-No cenário digital de hoje, expandir o alcance do seu site para atender a um público global é essencial. Para desenvolvedores que trabalham com React, implementar a internacionalização (i18n) é a chave para gerenciar traduções de forma eficiente, ao mesmo tempo que preserva a estrutura da aplicação, o valor de SEO e a experiência do usuário. Neste artigo, exploramos várias abordagens de i18n—desde bibliotecas dedicadas até soluções codificadas sob medida—ajudando você a decidir qual delas melhor atende às suas necessidades do projeto.
+No cenário digital de hoje, expandir o alcance do seu site para atender a um público global é essencial. Para desenvolvedores que trabalham com React, implementar a internacionalização (i18n) é a chave para gerenciar traduções de forma eficiente, ao mesmo tempo que preserva a estrutura da aplicação, o valor de SEO e a experiência do usuário. Neste artigo, exploramos várias abordagens de i18n, desde bibliotecas dedicadas até soluções codificadas sob medida, ajudando você a decidir qual delas melhor atende às suas necessidades do projeto.
 
 ---
 
@@ -94,7 +94,7 @@ Website: [https://formatjs.io/docs/react-intl/](https://formatjs.io/docs/react-i
 **Considerações**
 
 - **Verborragia & Boilerplate**: A dependência de componentes dedicados pode levar a um código mais verboso, especialmente em aplicações grandes.
-- **Divisão de Traduções**: A biblioteca central não fornece suporte embutido para dividir traduções em vários arquivos—requer configuração ou plugins adicionais.
+- **Divisão de Traduções**: A biblioteca central não fornece suporte embutido para dividir traduções em vários arquivos, requer configuração ou plugins adicionais.
 - **Manutenção**: A abordagem direta para formatação pode ser benéfica, mas a extração de mensagens e a sobrecarga organizacional podem crescer rapidamente.
 
 ### 4. LinguiJS
@@ -130,4 +130,4 @@ Ao escolher uma biblioteca de i18n para React:
 - **Manutenção & Escalabilidade**: Projetos maiores frequentemente precisam de uma estrutura clara e sustentável para traduções, portanto, considere seu planejamento a longo prazo.
 - **SEO & Metadados**: Se o SEO for crucial, confirme se sua solução escolhida suporta metadados, rotas e sitemaps/robots localizados para cada idioma.
 
-Todas essas bibliotecas podem potencializar um aplicativo React multilíngue—cada uma com prioridades e pontos fortes ligeiramente diferentes. Selecione a que mais se alinha com o **desempenho**, **DX (experiência do desenvolvedor)** e **metas de negócios** do seu projeto.
+Todas essas bibliotecas podem potencializar um aplicativo React multilíngue, cada uma com prioridades e pontos fortes ligeiramente diferentes. Selecione a que mais se alinha com o **desempenho**, **DX (experiência do desenvolvedor)** e **metas de negócios** do seu projeto.

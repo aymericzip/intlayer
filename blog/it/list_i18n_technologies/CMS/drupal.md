@@ -1,12 +1,12 @@
 # Esplorare soluzioni i18n per tradurre il tuo sito Drupal
 
-Nell'attuale panorama digitale, espandere la portata del tuo sito web per soddisfare un pubblico globale è essenziale. Per i proprietari di siti Drupal, implementare soluzioni di internazionalizzazione (i18n) è fondamentale per gestire le traduzioni in modo efficiente, preservando l'architettura del sito, il valore SEO e l'esperienza utente. In questo articolo, esploriamo vari approcci—dalla sfruttamento delle capacità multilingue integrate nel Core di Drupal all'integrazione di moduli contribuiti e soluzioni personalizzate—aiutandoti a decidere quale sia il più adatto alle esigenze del tuo progetto.
+Nell'attuale panorama digitale, espandere la portata del tuo sito web per soddisfare un pubblico globale è essenziale. Per i proprietari di siti Drupal, implementare soluzioni di internazionalizzazione (i18n) è fondamentale per gestire le traduzioni in modo efficiente, preservando l'architettura del sito, il valore SEO e l'esperienza utente. In questo articolo, esploriamo vari approcci, dalla sfruttamento delle capacità multilingue integrate nel Core di Drupal all'integrazione di moduli contribuiti e soluzioni personalizzate, aiutandoti a decidere quale sia il più adatto alle esigenze del tuo progetto.
 
 ---
 
 ## Cos'è l'internazionalizzazione (i18n)?
 
-L'internazionalizzazione (i18n) è il processo di progettazione del tuo sito web in modo che possa essere facilmente adattato a diverse lingue e contesti culturali senza la necessità di ridisegnare il suo framework. In Drupal, questo comporta la costruzione di una base in cui i contenuti—comprendenti pagine, post, menu e impostazioni di configurazione—possono essere tradotti e localizzati in modo efficiente per pubblici diversi.
+L'internazionalizzazione (i18n) è il processo di progettazione del tuo sito web in modo che possa essere facilmente adattato a diverse lingue e contesti culturali senza la necessità di ridisegnare il suo framework. In Drupal, questo comporta la costruzione di una base in cui i contenuti, comprendenti pagine, post, menu e impostazioni di configurazione, possono essere tradotti e localizzati in modo efficiente per pubblici diversi.
 
 Scopri di più sull'i18n leggendo la nostra guida completa: [Cos'è l'internazionalizzazione (i18n)? Definizione e sfide](https://github.com/aymericzip/intlayer/blob/main/docs/it/what_is_internationalization.md).
 
@@ -118,6 +118,6 @@ Quando decidi un approccio i18n per il tuo sito Drupal, considera i seguenti fat
 
 ## Conclusione
 
-Tradurre il tuo sito Drupal comporta più che semplicemente convertire il testo—è un modo per connettersi con un pubblico globale, migliorare l'esperienza utente e ottimizzare le prestazioni di ricerca internazionale. Sia che tu sfrutti le robuste funzionalità multilingue integrate nel Core di Drupal, le completi con lo Strumento di Gestione delle Traduzioni o investa in una soluzione personalizzata, la chiave è selezionare un approccio che si allinei con gli obiettivi e le risorse del tuo progetto.
+Tradurre il tuo sito Drupal comporta più che semplicemente convertire il testo, è un modo per connettersi con un pubblico globale, migliorare l'esperienza utente e ottimizzare le prestazioni di ricerca internazionale. Sia che tu sfrutti le robuste funzionalità multilingue integrate nel Core di Drupal, le completi con lo Strumento di Gestione delle Traduzioni o investa in una soluzione personalizzata, la chiave è selezionare un approccio che si allinei con gli obiettivi e le risorse del tuo progetto.
 
 Valutando attentamente le tue opzioni e pianificando la manutenzione a lungo termine, puoi creare un sito Drupal multilingue scalabile che risuoni efficacemente con gli utenti di tutto il mondo. Buona traduzione e auguri per il successo internazionale del tuo sito!

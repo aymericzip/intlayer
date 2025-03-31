@@ -114,7 +114,7 @@ const content = {
 export default content;
 ```
 
-JSON や異なる JS フレーバー（ `.cjs`、 `.mjs`）を好む場合、構造はほぼ同じです— [Intlayer ドキュメントのコンテンツ宣言](https://intlayer.org/ja/doc/concept/content) を参照してください。
+JSON や異なる JS フレーバー（ `.cjs`、 `.mjs`）を好む場合、構造はほぼ同じです, [Intlayer ドキュメントのコンテンツ宣言](https://intlayer.org/ja/doc/concept/content) を参照してください。
 
 ---
 
@@ -263,7 +263,7 @@ export default function MyComponent() {
 }
 ```
 
-どちらのアプローチも有効です — アプリに合ったスタイルを選択してください。
+どちらのアプローチも有効です , アプリに合ったスタイルを選択してください。
 
 ---
 

@@ -2,7 +2,7 @@
 
 Welcome to the official **Intlayer** documentation! Here, you'll find everything you need to integrate, configure, and master Intlayer for all your internationalization (i18n) needs, whether you’re working with **Next.js**, **React**, **Vite**, **Express**, or another JavaScript environment.
 
-Intlayer offers a flexible, modern approach to translating your application. Our docs will guide you from installation and setup through advanced features like **AI-powered translation**, **TypeScript** definitions, and **server component** support—empowering you to create a seamless, multilingual experience.
+Intlayer offers a flexible, modern approach to translating your application. Our docs will guide you from installation and setup through advanced features like **AI-powered translation**, **TypeScript** definitions, and **server component** support, empowering you to create a seamless, multilingual experience.
 
 ---
 
@@ -21,7 +21,7 @@ Intlayer offers a flexible, modern approach to translating your application. Our
   Manage content and translations using our command-line tool. Discover how to push and pull content, automate translations, and more.
 
 - **[Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md)**  
-  Simplify collaboration with non-developers and power your translations with AI—directly in our free, intuitive CMS.
+  Simplify collaboration with non-developers and power your translations with AI, directly in our free, intuitive CMS.
 
 ---
 
@@ -73,7 +73,7 @@ We’ve built Intlayer with flexibility in mind, offering seamless integration a
 - **[Intlayer with Lynx and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md)**
 - **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md)**
 
-Each integration guide includes best practices for using Intlayer’s features—like **server-side rendering**, **dynamic routing**, or **client-side rendering**—so you can maintain a fast, SEO-friendly, and highly scalable application.
+Each integration guide includes best practices for using Intlayer’s features, like **server-side rendering**, **dynamic routing**, or **client-side rendering**, so you can maintain a fast, SEO-friendly, and highly scalable application.
 
 ---
 

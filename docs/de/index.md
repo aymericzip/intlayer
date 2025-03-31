@@ -122,4 +122,4 @@ Wir schätzen die Kraft von Open Source und gemeinschaftsgetriebener Entwicklung
 **Bereit, Ihre Anwendung schneller und effizienter zu übersetzen?** Tauchen Sie in unsere Dokumentation ein, um Intlayer noch heute zu nutzen. Erleben Sie einen robusten, optimierten Ansatz zur Internationalisierung, der Ihre Inhalte organisiert und Ihr Team produktiver macht.
 
 Viel Spaß beim Übersetzen!  
-— Das Intlayer-Team
+, Das Intlayer-Team

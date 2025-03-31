@@ -111,7 +111,7 @@ Below, you’ll find an overview of each solution, followed by a feature compari
 ### Cons
 
 - Still **relatively new** compared to React-Intl or React-i18next.
-- Heavier focus on a “component-level content declaration” approach—may be a shift from typical .json catalogs.
+- Heavier focus on a “component-level content declaration” approach, may be a shift from typical .json catalogs.
 - Smaller ecosystem and community compared to the more established libraries.
 
 ---
@@ -123,7 +123,7 @@ Below, you’ll find an overview of each solution, followed by a feature compari
 | **Primary Use Case**           | String-based translations, date/number formatting, ICU message syntax | Full-featured i18n with easy dynamic switching, nesting, plugin ecosystem                           | Type-safe translations with focus on declarative content, localized routing, & optional server middleware                  |
 | **Approach**                   | Utilize `<IntlProvider>` & FormatJS message components                | Utilize `I18nextProvider` & `useTranslation()` hook                                                 | Utilize `<IntlayerProvider>` & `useIntlayer()` hook with content declarations                                              |
 | **Localization Format**        | ICU-based strings (JSON or JavaScript catalogs)                       | JSON resource files (or custom loaders). ICU format optional via i18next plugin                     | `.content.[ts/js/tsx]` or JSON declarations; can contain strings or React components                                       |
-| **Routing**                    | Handled externally (no built-in localized routing)                    | Handled externally with i18next plugins (path, subdomain detection, etc.)                           | Built-in localized routing support (e.g., `/en-GB/about`, `/fr/about`), plus optional server middleware (for SSR/Vite)        |
+| **Routing**                    | Handled externally (no built-in localized routing)                    | Handled externally with i18next plugins (path, subdomain detection, etc.)                           | Built-in localized routing support (e.g., `/en-GB/about`, `/fr/about`), plus optional server middleware (for SSR/Vite)     |
 | **TypeScript Support**         | Good (typings for official packages)                                  | Good but extra config for typed translations if you want strict checking                            | Excellent (auto-generated type definitions for content keys and translations)                                              |
 | **Pluralization & Formatting** | Advanced: Built-in date/time/number formatting, plural/gender support | Configurable pluralization. Date/time formatting typically done via external libs or i18next plugin | Can rely on standard JavaScript Intl or embed logic in content. Not as specialized as FormatJS, but handles typical cases. |
 | **Community & Ecosystem**      | Large, part of FormatJS ecosystem                                     | Very large, highly active, lots of plugins (detection, caching, frameworks)                         | Smaller but growing; open-source, modern approach                                                                          |
@@ -172,4 +172,4 @@ Your choice largely depends on project requirements, desired developer experienc
 - [Intlayer + CRA Getting Started Guide](/#) (from your doc)
 - [Intlayer + Vite & React Getting Started Guide](/#) (from your doc)
 
-Feel free to mix and match approaches to suit your requirements—there is no “one-size-fits-all” solution, and each library continues to evolve to address new use cases in the React ecosystem.
+Feel free to mix and match approaches to suit your requirements, there is no “one-size-fits-all” solution, and each library continues to evolve to address new use cases in the React ecosystem.

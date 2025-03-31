@@ -1,6 +1,6 @@
 # Explorando Soluções de i18n para Traduzir Seu Site Svelte
 
-À medida que a web continua a conectar pessoas ao redor do mundo, fornecer conteúdo em múltiplas línguas se torna cada vez mais importante. Para desenvolvedores que trabalham com **Svelte**, implementar i18n é essencial para gerenciar traduções de forma eficiente, manter um código limpo e preservar boas práticas de SEO. Neste artigo, mergulhamos em várias soluções e fluxos de trabalho de i18n para Svelte—ajudando você a escolher a que melhor se adapta às necessidades do seu projeto.
+À medida que a web continua a conectar pessoas ao redor do mundo, fornecer conteúdo em múltiplas línguas se torna cada vez mais importante. Para desenvolvedores que trabalham com **Svelte**, implementar i18n é essencial para gerenciar traduções de forma eficiente, manter um código limpo e preservar boas práticas de SEO. Neste artigo, mergulhamos em várias soluções e fluxos de trabalho de i18n para Svelte, ajudando você a escolher a que melhor se adapta às necessidades do seu projeto.
 
 ---
 
@@ -48,7 +48,7 @@ Repositório: [https://github.com/kaisermann/svelte-i18n](https://github.com/kai
 
 - **Organização do Projeto**: Você precisará estruturar seus arquivos de tradução logicamente à medida que o projeto cresce.
 - **Configuração do SSR**: A configuração do SSR para SEO pode exigir etapas adicionais para garantir a detecção correta do local no lado do servidor.
-- **Desempenho**: Embora flexível em tempo de execução, um grande número de traduções carregadas de uma vez pode impactar os tempos de carregamento iniciais—considere estratégias de carregamento preguiçoso ou cache.
+- **Desempenho**: Embora flexível em tempo de execução, um grande número de traduções carregadas de uma vez pode impactar os tempos de carregamento iniciais, considere estratégias de carregamento preguiçoso ou cache.
 
 ---
 
@@ -106,4 +106,4 @@ Ao selecionar uma estratégia de i18n para seu aplicativo Svelte:
 4. **Integração com TypeScript**: Se você depender fortemente de TypeScript, soluções como **Intlayer** ou bibliotecas com chaves tipadas podem reduzir significativamente erros em tempo de execução e melhorar a experiência do desenvolvedor.
 5. **Manutenibilidade e Escalabilidade**: Planeje como organizar, atualizar e versionar seus arquivos de tradução. A extração automática, convenções de nomenclatura e uma estrutura de pastas consistente economizarão tempo a longo prazo.
 
-No final, cada biblioteca oferece forças únicas. Sua escolha depende de **desempenho**, **experiência do desenvolvedor**, **necessidades de SEO** e **manutenibilidade a longo prazo**. Ao selecionar uma solução que alinha com os objetivos do seu projeto, você pode criar uma aplicação verdadeiramente global em Svelte—uma que encanta usuários ao redor do mundo.
+No final, cada biblioteca oferece forças únicas. Sua escolha depende de **desempenho**, **experiência do desenvolvedor**, **necessidades de SEO** e **manutenibilidade a longo prazo**. Ao selecionar uma solução que alinha com os objetivos do seu projeto, você pode criar uma aplicação verdadeiramente global em Svelte, uma que encanta usuários ao redor do mundo.

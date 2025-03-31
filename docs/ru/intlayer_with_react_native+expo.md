@@ -2,7 +2,7 @@
 
 ## Что такое Intlayer?
 
-**Intlayer** — это **инновационная, открытая библиотека интернационализации (i18n)**, которая упрощает поддержку нескольких языков в современных приложениях. Она работает в различных средах JavaScript/TypeScript, **включая React Native** (через пакет `react-intlayer`).
+**Intlayer** , это **инновационная, открытая библиотека интернационализации (i18n)**, которая упрощает поддержку нескольких языков в современных приложениях. Она работает в различных средах JavaScript/TypeScript, **включая React Native** (через пакет `react-intlayer`).
 
 С помощью Intlayer вы можете:
 
@@ -106,7 +106,7 @@ module.exports = config;
 
 ## Шаг 3: Добавьте плагин Metro
 
-Metro — это бандлер для React Native. Это бандлер по умолчанию для проектов React Native, созданных с помощью команды `react-native init`. Чтобы использовать Intlayer с Metro, вам нужно добавить плагин в ваш файл `metro.config.js`:
+Metro , это бандлер для React Native. Это бандлер по умолчанию для проектов React Native, созданных с помощью команды `react-native init`. Чтобы использовать Intlayer с Metro, вам нужно добавить плагин в ваш файл `metro.config.js`:
 
 ```js fileName="metro.config.js"
 const { getDefaultConfig } = require("expo/metro-config");

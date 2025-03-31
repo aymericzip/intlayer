@@ -1,4 +1,4 @@
-**Intlayer** — это набор пакетов, специально разработанных для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+**Intlayer** , это набор пакетов, специально разработанных для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
 **Пакет `react-native-intlayer`** позволяет интернационализировать ваше приложение Vite. Он включает плагин Metro для настройки конфигурации через переменные окружения в [Metro bundler](https://docs.expo.dev/guides/customizing-metro/).
 

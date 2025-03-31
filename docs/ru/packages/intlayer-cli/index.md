@@ -1,8 +1,8 @@
 # intlayer-cli: NPM Пакет для использования Intlayer CLI
 
-**Intlayer** — это набор пакетов, специально разработанных для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+**Intlayer** , это набор пакетов, специально разработанных для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
-Пакет **`intlayer-cli`** — это NPM пакет, который использует пакет `@intlayer/cli` и делает его доступным для интерфейсов командной строки `intlayer`.
+Пакет **`intlayer-cli`** , это NPM пакет, который использует пакет `@intlayer/cli` и делает его доступным для интерфейсов командной строки `intlayer`.
 
 > Обратите внимание, что этот пакет не требуется, если установлен пакет [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer/index.md). В отличие от пакета `intlayer`, пакет `intlayer-cli` является более легким пакетом, который содержит только инструмент CLI, без зависимостей `@intlayer/core`.
 

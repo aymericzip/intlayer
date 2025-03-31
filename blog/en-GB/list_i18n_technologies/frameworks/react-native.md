@@ -1,6 +1,6 @@
 # Exploring i18n Solutions to Translate Your React Native App
 
-In an increasingly global market, delivering your React Native app in multiple languages can significantly enhance accessibility and user satisfaction. Internationalization (i18n) is central to managing translations effectively—allowing you to display language-specific text, date and time formats, currency, and more without complicating your codebase. In this article, we’ll dive into various i18n approaches—ranging from dedicated libraries to more general solutions—and help you find the one that best fits your React Native project.
+In an increasingly global market, delivering your React Native app in multiple languages can significantly enhance accessibility and user satisfaction. Internationalization (i18n) is central to managing translations effectively, allowing you to display language-specific text, date and time formats, currency, and more without complicating your codebase. In this article, we’ll dive into various i18n approaches, ranging from dedicated libraries to more general solutions, and help you find the one that best fits your React Native project.
 
 ---
 
@@ -8,7 +8,7 @@ In an increasingly global market, delivering your React Native app in multiple l
 
 ## What is Internationalization (i18n)?
 
-Internationalization, or i18n, involves structuring an application so it can easily adapt to different languages, regional formats, and cultural norms. In React Native, i18n includes handling strings for buttons and labels, as well as formatting dates, times, currencies, and more according to a user’s locale. Properly prepared React Native apps let you seamlessly integrate additional languages and locale-specific behaviour later on—without massive refactors.
+Internationalization, or i18n, involves structuring an application so it can easily adapt to different languages, regional formats, and cultural norms. In React Native, i18n includes handling strings for buttons and labels, as well as formatting dates, times, currencies, and more according to a user’s locale. Properly prepared React Native apps let you seamlessly integrate additional languages and locale-specific behaviour later on, without massive refactors.
 
 For a deeper dive into internationalization concepts, check out our article:  
 [What is Internationalization (i18n)? Definition and Challenges](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/what_is_internationalization.md).
@@ -45,7 +45,7 @@ Below are several popular approaches to managing multilingual content in React N
 > Website: [https://intlayer.org/](https://intlayer.org/)
 
 **Overview**  
-**Intlayer** is an innovative, open-source internationalization library designed to streamline multilingual support in modern JavaScript apps—including React Native. It offers a declarative approach to translation, allowing you to define dictionaries directly alongside components.
+**Intlayer** is an innovative, open-source internationalization library designed to streamline multilingual support in modern JavaScript apps, including React Native. It offers a declarative approach to translation, allowing you to define dictionaries directly alongside components.
 
 **Key Features**
 
@@ -84,7 +84,7 @@ Below are several popular approaches to managing multilingual content in React N
   Provides hooks (`useTranslation`), higher-order components (HOCs), and more to integrate i18n seamlessly into your components.
 
 - **Asynchronous Loading**  
-  Load translations on demand—beneficial for large apps or when adding new language packs over time.
+  Load translations on demand, beneficial for large apps or when adding new language packs over time.
 
 - **Rich Translation Capabilities**  
   Handle nested translations, interpolation, pluralisation, and variable replacements out of the box.
@@ -118,7 +118,7 @@ Below are several popular approaches to managing multilingual content in React N
   `<FormattedMessage>`, `<FormattedDate>`, `<FormattedTime>`, and others streamline formatting tasks across iOS and Android.
 
 - **Lightweight & Extensible**  
-  You can import just the parts of FormatJS you need, keeping your overall bundle lean—crucial for mobile.
+  You can import just the parts of FormatJS you need, keeping your overall bundle lean, crucial for mobile.
 
 - **Polyfills for Unsupported Locales**  
   Ensures consistent date/number formatting on older Android or iOS versions.
@@ -132,7 +132,7 @@ Below are several popular approaches to managing multilingual content in React N
   Requires an extraction workflow, which can add complexity to your build process. However, it’s powerful for large teams managing many translations.
 
 - **App Size & Deployments**  
-  If you rely on multiple polyfills or large translation files, watch your app’s overall size—especially important in mobile contexts.
+  If you rely on multiple polyfills or large translation files, watch your app’s overall size, especially important in mobile contexts.
 
 - **Community Examples**  
   While widely used, React Native-specific usage examples may be fewer than for React web. You’ll likely adapt existing docs and patterns to a native environment.
@@ -185,7 +185,7 @@ When selecting an i18n solution for your React Native application:
 2. **Mind Platform Differences**
 
    - Ensure any library supports iOS and Android locale variations, especially date/number/currency quirks.
-   - Consider offline usage—some translations might need to be bundled with the app, while others can be fetched remotely.
+   - Consider offline usage, some translations might need to be bundled with the app, while others can be fetched remotely.
 
 3. **Choose a Structure for Scalability**
 
@@ -196,6 +196,6 @@ When selecting an i18n solution for your React Native application:
    - Mobile data constraints mean you should keep a close eye on the size of your translation files and any polyfills.
 
 5. **Developer Experience (DX)**
-   - Look for libraries that align with your team’s skill set—some solutions are more verbose but straightforward, while others offer more automation at the cost of setup complexity.
+   - Look for libraries that align with your team’s skill set, some solutions are more verbose but straightforward, while others offer more automation at the cost of setup complexity.
 
-Each solution—Intlayer, React-i18next, React Intl, and LinguiJS—has proven effective in React Native environments, though with slightly different priorities. Evaluating your project’s roadmap, developer preferences, and localisation needs will guide you to the ideal fit for delivering a truly global React Native app.
+Each solution, Intlayer, React-i18next, React Intl, and LinguiJS, has proven effective in React Native environments, though with slightly different priorities. Evaluating your project’s roadmap, developer preferences, and localisation needs will guide you to the ideal fit for delivering a truly global React Native app.

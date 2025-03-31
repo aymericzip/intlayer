@@ -114,7 +114,7 @@ const content = {
 export default content;
 ```
 
-Se preferir JSON ou diferentes variantes JS (`.cjs`, `.mjs`), a estrutura é em grande parte a mesma — veja [documentação do Intlayer sobre declaração de conteúdo](https://intlayer.org/pt/doc/concept/content).
+Se preferir JSON ou diferentes variantes JS (`.cjs`, `.mjs`), a estrutura é em grande parte a mesma , veja [documentação do Intlayer sobre declaração de conteúdo](https://intlayer.org/pt/doc/concept/content).
 
 ---
 
@@ -133,7 +133,7 @@ yarn intlayer build
 pnpm intlayer build
 ```
 
-Isso escaneia todos os arquivos `*.content.*`, os compila e grava os resultados no diretório especificado no seu **`intlayer.config.ts`** — neste exemplo, `./react-intl/messages`.  
+Isso escaneia todos os arquivos `*.content.*`, os compila e grava os resultados no diretório especificado no seu **`intlayer.config.ts`** , neste exemplo, `./react-intl/messages`.  
 Uma saída típica pode parecer com:
 
 ```bash
@@ -265,7 +265,7 @@ export default function MyComponent() {
 }
 ```
 
-Ambas as abordagens são válidas — escolha o estilo que melhor se adequa ao seu aplicativo.
+Ambas as abordagens são válidas , escolha o estilo que melhor se adequa ao seu aplicativo.
 
 ---
 

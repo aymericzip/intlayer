@@ -94,7 +94,7 @@ Sito web: [https://formatjs.io/docs/react-intl/](https://formatjs.io/docs/react-
 **Considerazioni**
 
 - **Verbositù e boilerplate**: La dipendenza da componenti dedicati può portare a un codice più verboso, specialmente in applicazioni grandi.
-- **Divisione delle traduzioni**: La libreria di base non fornisce supporto integrato per la divisione delle traduzioni in più file—richiede configurazione o plugin aggiuntivi.
+- **Divisione delle traduzioni**: La libreria di base non fornisce supporto integrato per la divisione delle traduzioni in più file, richiede configurazione o plugin aggiuntivi.
 - **Manutenibilità**: L'approccio diretto alla formattazione può essere vantaggioso, ma l'estrazione dei messaggi e l'overhead organizzativo possono aumentare rapidamente.
 
 ### 4. LinguiJS

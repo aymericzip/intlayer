@@ -11,7 +11,7 @@
 
 2. **الأدوات**: أدوات لبناء وتفسير إعلانات المحتوى في التطبيق، مثل `useIntlayer()` أو `useLocale()` لـ Intlayer، و `useTranslations()` لـ next-intl.
 
-3. **الإضافات والبرمجيات الوسيطة**: ميزات لإدارة إعادة توجيه عنوان URL، وتحسين التجميع، وأكثر—على سبيل المثال، `intlayerMiddleware` لـ Intlayer أو [`createMiddleware`](https://github.com/amannn/next-intl) لـ next-intl.
+3. **الإضافات والبرمجيات الوسيطة**: ميزات لإدارة إعادة توجيه عنوان URL، وتحسين التجميع، وأكثر, على سبيل المثال، `intlayerMiddleware` لـ Intlayer أو [`createMiddleware`](https://github.com/amannn/next-intl) لـ next-intl.
 
 ## Intlayer مقابل next-intl: الاختلافات الرئيسية
 

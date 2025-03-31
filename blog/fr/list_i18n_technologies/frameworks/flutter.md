@@ -1,6 +1,6 @@
 # Explorer les solutions i18n pour traduire votre application Flutter
 
-Dans un monde de plus en plus connecté, offrir votre application Flutter en plusieurs langues peut élargir sa portée et améliorer son utilisation pour les non-anglophones. La mise en œuvre de l'internationalisation (i18n) dans Flutter garantit que le texte, les dates et d'autres informations culturellement sensibles sont correctement localisés. Dans cet article, nous explorerons différentes approches de l'i18n dans Flutter—des frameworks officiels aux bibliothèques communautaires—afin que vous puissiez choisir celle qui convient le mieux à votre projet.
+Dans un monde de plus en plus connecté, offrir votre application Flutter en plusieurs langues peut élargir sa portée et améliorer son utilisation pour les non-anglophones. La mise en œuvre de l'internationalisation (i18n) dans Flutter garantit que le texte, les dates et d'autres informations culturellement sensibles sont correctement localisés. Dans cet article, nous explorerons différentes approches de l'i18n dans Flutter, des frameworks officiels aux bibliothèques communautaires, afin que vous puissiez choisir celle qui convient le mieux à votre projet.
 
 ---
 
@@ -37,7 +37,7 @@ Flutter est livré avec un support officiel pour la localisation via le package 
 
 **Caractéristiques clés**
 
-- **Officiel et intégré** : Pas besoin de bibliothèques externes—`MaterialApp` et `CupertinoApp` peuvent directement référencer vos localisations.
+- **Officiel et intégré** : Pas besoin de bibliothèques externes, `MaterialApp` et `CupertinoApp` peuvent directement référencer vos localisations.
 - **Package intl** : Offre la mise en forme des dates/nombres, des pluriels, la gestion du genre et d'autres fonctionnalités basées sur l'ICU.
 - **Vérifications à la compilation** : Générer du code à partir de fichiers ARB aide à attraper les traductions manquantes lors de la compilation.
 - **Forte communauté de support** : Soutenu par Google, avec une richesse de documentation et d'exemples.
@@ -99,7 +99,7 @@ Dépôt : [https://pub.dev/packages/flutter_i18n](https://pub.dev/packages/flutt
 Site web : [https://intlayer.org/](https://intlayer.org/)
 
 **Aperçu**  
-**Intlayer** est une solution i18n open-source visant à simplifier le support multilingue à travers plusieurs frameworks, y compris **Flutter**. Elle met l'accent sur une approche déclarative, un typage fort, et le support SSR dans d'autres écosystèmes—bien que le SSR ne soit pas typique dans Flutter standard, vous pourriez trouver une synergie si votre projet utilise Flutter web ou des frameworks avancés.
+**Intlayer** est une solution i18n open-source visant à simplifier le support multilingue à travers plusieurs frameworks, y compris **Flutter**. Elle met l'accent sur une approche déclarative, un typage fort, et le support SSR dans d'autres écosystèmes, bien que le SSR ne soit pas typique dans Flutter standard, vous pourriez trouver une synergie si votre projet utilise Flutter web ou des frameworks avancés.
 
 **Caractéristiques clés**
 
