@@ -188,5 +188,3 @@ Chaque guide d'intégration inclut les meilleures pratiques pour utiliser les fo
 Nous valorisons la puissance de l'open-source et du développement communautaire. Si vous souhaitez proposer des améliorations, ajouter un nouveau guide ou corriger des problèmes dans notre documentation, n'hésitez pas à soumettre une Pull Request ou à ouvrir une issue sur notre [dépôt GitHub](https://github.com/aymericzip/intlayer/blob/main/docs).
 
 **Prêt à traduire votre application plus rapidement et efficacement ?** Plongez dans notre documentation pour commencer à utiliser Intlayer dès aujourd'hui. Découvrez une approche robuste et rationalisée de l'internationalisation qui garde votre contenu organisé et rend votre équipe plus productive.
-
-Bonne traduction !
