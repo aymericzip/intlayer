@@ -1021,7 +1021,7 @@ const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // 현재 URL 경로 가져오기. 예: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 업데이트된 로케일로 URL을 구성합니다.
       // 예: /es/about?foo=bar
@@ -1085,7 +1085,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // 현재 URL 경로를 가져옵니다. 예: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 업데이트된 로케일로 URL을 구성합니다.
       // 예: /es/about?foo=bar
@@ -1149,7 +1149,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // 현재 URL 경로를 가져옵니다. 예: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 업데이트된 로케일로 URL을 구성합니다.
       // 예: /es/about?foo=bar

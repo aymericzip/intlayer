@@ -1053,7 +1053,7 @@ const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // Get the current URL path. Example: /en-GB/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
 
  * Custom hook to update the HTML `lang` and `dir` attributes based on the current locale.
  */

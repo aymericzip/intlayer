@@ -790,7 +790,7 @@ const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي. مثال: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // إنشاء عنوان URL مع اللغة المحلية المحدثة
       // مثال: /es/about?foo=bar
@@ -854,7 +854,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي. مثال: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // إنشاء عنوان URL مع اللغة المحلية المحدثة
       // مثال: /es/about?foo=bar
@@ -918,7 +918,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي. مثال: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // إنشاء عنوان URL مع اللغة المحلية المحدثة
       // مثال: /es/about?foo=bar

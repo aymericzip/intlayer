@@ -778,7 +778,7 @@ const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // 現在のURLパスを取得。例：/fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 更新されたロケールでURLを構築
       // 例：/es/about?foo=bar
@@ -842,7 +842,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // 現在のURLパスを取得。例：/fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 更新されたロケールでURLを構築
       // 例：/es/about?foo=bar
@@ -906,7 +906,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // 現在のURLパスを取得。例：/fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 更新されたロケールでURLを構築
       // 例：/es/about?foo=bar

@@ -788,7 +788,7 @@ const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // 获取当前 URL 路径。例如：/fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 使用更新的语言环境构造 URL
       // 示例：/es/about?foo=bar
@@ -852,7 +852,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // 获取当前 URL 路径。例如：/fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 使用更新的语言环境构造 URL
       // 示例：/es/about?foo=bar
@@ -916,7 +916,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // 获取当前 URL 路径。例如：/fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // 使用更新的语言环境构造 URL
       // 示例：/es/about?foo=bar

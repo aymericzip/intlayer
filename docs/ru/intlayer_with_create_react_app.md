@@ -789,7 +789,7 @@ const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // Получить текущий путь URL. Пример: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // Построить URL с обновленной локалью
       // Пример: /es/about?foo=bar
@@ -853,7 +853,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // Получить текущий путь URL. Пример: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // Построить URL с обновленной локалью
       // Пример: /es/about?foo=bar
@@ -917,7 +917,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // Получить текущий путь URL. Пример: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // Построить URL с обновленной локалью
       // Пример: /es/about?foo=bar

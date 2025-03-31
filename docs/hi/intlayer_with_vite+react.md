@@ -995,7 +995,7 @@ const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // वर्तमान URL पथ प्राप्त करें। उदाहरण: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // अद्यतनित लोकेल के साथ URL का निर्माण करें
       // उदाहरण: /es/about?foo=bar
@@ -1059,7 +1059,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // वर्तमान URL पथ प्राप्त करें। उदाहरण: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // अद्यतनित लोकेल के साथ URL का निर्माण करें
       // उदाहरण: /es/about?foo=bar
@@ -1123,7 +1123,7 @@ const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // वर्तमान URL पथ प्राप्त करें। उदाहरण: /fr/about?foo=bar
   const navigate = useNavigate();
 
-  const { availableLocales, setLocale } = useLocale({
+  const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // अद्यतनित लोकेल के साथ URL का निर्माण करें
       // उदाहरण: /es/about?foo=bar
