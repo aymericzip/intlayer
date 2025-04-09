@@ -1,5 +1,7 @@
 # 开始声明您的内容
 
+<iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 ## 文件扩展名
 
 默认情况下，Intlayer 会监视以下扩展名的所有文件以声明内容：

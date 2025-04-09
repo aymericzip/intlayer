@@ -1,5 +1,7 @@
 # Intlayer Content Management System (CMS) Dokumentation
 
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 Das Intlayer CMS ist eine Anwendung, die es Ihnen ermöglicht, den Inhalt eines Intlayer-Projekts auszulagern.
 
 Dafür führt Intlayer das Konzept der 'entfernten Wörterbücher' ein.

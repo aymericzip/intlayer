@@ -1,5 +1,7 @@
 # Documentação do Editor Visual Intlayer
 
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 O Editor Visual Intlayer é uma ferramenta que envolverá seu site para interagir com seus arquivos de declaração de conteúdo usando um editor visual.
 
 ![Interface do Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)

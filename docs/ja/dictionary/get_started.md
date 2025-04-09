@@ -1,5 +1,7 @@
 # コンテンツの宣言を始める
 
+<iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 ## ファイル拡張子
 
 デフォルトでは、Intlayerは以下の拡張子を持つファイルをコンテンツ宣言として監視します:

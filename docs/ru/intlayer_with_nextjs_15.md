@@ -1,5 +1,7 @@
 # Начало работы с интернационализацией (i18n) с Intlayer и Next.js 15 App Router
 
+<iframe title="The best i18n solution for Next.js? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 ## Что такое Intlayer?
 
 **Intlayer** , это инновационная, открытая библиотека интернационализации (i18n), разработанная для упрощения поддержки многоязычности в современных веб-приложениях. Intlayer бесшовно интегрируется с последней версией фреймворка **Next.js 15**, включая его мощный **App Router**. Она оптимизирована для работы с **Server Components** для эффективного рендеринга и полностью совместима с [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).

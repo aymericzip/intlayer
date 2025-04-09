@@ -1,5 +1,7 @@
 # Intlayer सामग्री प्रबंधन प्रणाली (CMS) दस्तावेज़ीकरण
 
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 Intlayer CMS एक ऐसा एप्लिकेशन है जो आपको Intlayer प्रोजेक्ट की सामग्री को बाहरी रूप से प्रबंधित करने की अनुमति देता है।
 
 इसके लिए, Intlayer 'दूरस्थ शब्दकोशों' की अवधारणा प्रस्तुत करता है।

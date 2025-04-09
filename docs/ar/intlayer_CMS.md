@@ -1,5 +1,7 @@
 # نظام إدارة المحتوى (CMS) الخاص بـ Intlayer
 
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 نظام إدارة المحتوى Intlayer هو تطبيق يتيح لك فصل محتوى مشروع Intlayer الخاص بك.
 
 لهذا الغرض، يقدم Intlayer مفهوم "القواميس البعيدة".

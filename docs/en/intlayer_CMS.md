@@ -1,5 +1,7 @@
 # Intlayer Content Management System (CMS) Documentation
 
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 The Intlayer CMS is am Application that allows you to externalize your content of an Intlayer project.
 
 For that, Intlayer introduce the concept of 'distant dictionaries'.

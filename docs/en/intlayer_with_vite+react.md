@@ -1,5 +1,7 @@
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and React
 
+<iframe title="Vite + React: Build a Multilingual App from Scratch using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 ## What is Intlayer?
 
 **Intlayer** is an innovative, open-source internationalization (i18n) library designed to simplify multilingual support in modern web applications.

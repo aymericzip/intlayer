@@ -1,5 +1,7 @@
 # Intlayer 콘텐츠 관리 시스템 (CMS) 문서
 
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
 Intlayer CMS는 Intlayer 프로젝트의 콘텐츠를 외부화할 수 있는 애플리케이션입니다.
 
 이를 위해 Intlayer는 '원격 사전'이라는 개념을 도입합니다.
