@@ -1,16 +1,8 @@
-'use client';
-
-import { useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 
-const videoIdEN = 'W2G7KxuSD4c';
-const videoIdFF = '4DVFoim54Ko';
+const videoIdEN = 'e_PPG7PTqGU';
 
 export const DemoYoutube: FC = () => {
-  const { locale } = useLocale();
-
-  const videoId = locale === 'fr' ? videoIdFF : videoIdEN;
-
   return (
     <iframe
       title="Demo YouTube - How to Internationalize your application using Intlayer"
@@ -19,7 +11,7 @@ export const DemoYoutube: FC = () => {
       loading="lazy"
       width={1080}
       height="auto"
-      src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://intlayer.org&controls=0&rel=1`}
+      src={`https://www.youtube.com/embed/${videoIdEN}?autoplay=0&origin=http://intlayer.org&controls=0&rel=1`}
     />
   );
 };
