@@ -1,5 +1,7 @@
 # IntlayerとReact Create Appを使用した国際化(i18n)の開始方法
 
+[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-react-cra-template)をGitHubで見る。
+
 ## Intlayerとは？
 
 **Intlayer**は、モダンなWebアプリケーションにおける多言語対応を簡素化するために設計された革新的なオープンソースの国際化(i18n)ライブラリです。

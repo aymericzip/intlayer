@@ -1,5 +1,7 @@
 # البدء في التدويل (i18n) باستخدام Intlayer و Next.js 14 مع App Router
 
+انظر [Template Application](https://github.com/aymericzip/intlayer-next-14-template) على GitHub.
+
 ## ما هو Intlayer؟
 
 **Intlayer** هو مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر مصممة لتبسيط دعم اللغات المتعددة في تطبيقات الويب الحديثة. يتكامل Intlayer بسلاسة مع إطار العمل الحديث **Next.js 14**، بما في ذلك **App Router** القوي. تم تحسينه للعمل مع **مكونات الخادم** لتقديم فعال ومتوافق تمامًا مع [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) (من Next.js >= 15).

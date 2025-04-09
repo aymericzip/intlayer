@@ -1,5 +1,7 @@
 # Getting Started Internationalising (i18n) with Intlayer and Lynx and React
 
+See [Application Template](https://github.com/aymericzip/intlayer-lynx-template) on GitHub.
+
 ## What is Intlayer?
 
 **Intlayer** is an **innovative, open-source internationalisation (i18n) library** that simplifies multilingual support in modern applications. It works in many JavaScript/TypeScript environments, **including Lynx** (via the `react-intlayer` package).

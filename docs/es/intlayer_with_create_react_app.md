@@ -1,5 +1,7 @@
 # Comenzando con la Internacionalización (i18n) con Intlayer y React Create App
 
+Consulta [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) en GitHub.
+
 ## ¿Qué es Intlayer?
 
 **Intlayer** es una biblioteca innovadora y de código abierto para la internacionalización (i18n) diseñada para simplificar el soporte multilingüe en aplicaciones web modernas.

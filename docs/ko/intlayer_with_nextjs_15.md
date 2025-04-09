@@ -2,6 +2,8 @@
 
 <iframe title="The best i18n solution for Next.js? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+[애플리케이션 템플릿](https://github.com/aymericzip/intlayer-next-15-template)를 GitHub에서 보십시오.
+
 ## Intlayer로 시작하기
 
 **Intlayer**는 현대 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적이고 오픈 소스인 국제화(i18n) 라이브러리입니다. Intlayer는 강력한 **App Router**를 포함한 최신 **Next.js 15** 프레임워크와 원활하게 통합됩니다. **서버 컴포넌트**와의 효율적인 렌더링을 위해 최적화되어 있으며, [**Turbopack**](https://nextjs.org/docs/architecture/turbopack)과 완벽히 호환됩니다.

@@ -1,5 +1,7 @@
 # Getting Started internationalizing (i18n) with Intlayer and Next.js 14 with App Router
 
+Consulta [Application Template](https://github.com/aymericzip/intlayer-next-14-template) su GitHub.
+
 ## Cosa è Intlayer?
 
 **Intlayer** è una libreria innovativa e open-source per l'internazionalizzazione (i18n) progettata per semplificare il supporto multilingue nelle moderne applicazioni web. Intlayer si integra perfettamente con l'ultimo framework **Next.js 14**, inclusa la sua potente **App Router**. È ottimizzata per funzionare con i **Server Components** per un rendering efficiente ed è completamente compatibile con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) (da Next.js >= 15).

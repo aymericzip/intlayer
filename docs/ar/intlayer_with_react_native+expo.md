@@ -1,5 +1,7 @@
 # البدء في التدويل (i18n) باستخدام Intlayer و React Native
 
+انظر [Template Application](https://github.com/aymericzip/intlayer-vite-react-template) على GitHub.
+
 ## ما هو Intlayer؟
 
 **Intlayer** هو **مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر** تسهل دعم اللغات المتعددة في التطبيقات الحديثة. تعمل في العديد من بيئات JavaScript/TypeScript، **بما في ذلك React Native** (عبر حزمة `react-intlayer`).

@@ -2,6 +2,8 @@
 
 <iframe title="The best i18n solution for Next.js? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+在 GitHub 上查看 [应用程序模板](https://github.com/aymericzip/intlayer-next-15-template)。
+
 ## 什么是 Intlayer？
 
 **Intlayer** 是一个创新的开源国际化 (i18n) 库，旨在简化现代 Web 应用程序中的多语言支持。Intlayer 无缝集成了最新的 **Next.js 15** 框架，包括其强大的 **App Router**。它针对 **Server Components** 进行了高效渲染优化，并完全兼容 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack)。

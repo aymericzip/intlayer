@@ -1,5 +1,7 @@
 # 开始使用 Intlayer 和 Next.js 14 的 App Router 进行国际化 (i18n)
 
+Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-next-14-template) на GitHub.
+
 ## 什么是 Intlayer？
 
 **Intlayer** 是一个创新的开源国际化 (i18n) 库，旨在简化现代 Web 应用中的多语言支持。Intlayer 无缝集成了最新的 **Next.js 14** 框架，包括其强大的 **App Router**。它针对 **服务器组件** 的高效渲染进行了优化，并完全兼容 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack)（适用于 Next.js >= 15）。

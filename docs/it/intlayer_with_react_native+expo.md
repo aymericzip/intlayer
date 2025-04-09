@@ -1,5 +1,7 @@
 # Introduzione all'Internazionalizzazione (i18n) con Intlayer e React Native
 
+Consulta [Application Template](https://github.com/aymericzip/intlayer-react-native-template) su GitHub.
+
 ## Cos'è Intlayer?
 
 **Intlayer** è una **libreria open-source innovativa per l'internazionalizzazione (i18n)** che semplifica il supporto multilingue nelle applicazioni moderne. Funziona in diversi ambienti JavaScript/TypeScript, **incluso React Native** (tramite il pacchetto `react-intlayer`).

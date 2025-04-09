@@ -1,5 +1,7 @@
 # 开始使用 Intlayer 和 React Native 进行国际化 (i18n)
 
+Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-react-native-template) на GitHub.
+
 ## 什么是 Intlayer？
 
 **Intlayer** 是一个**创新的开源国际化 (i18n) 库**，简化了现代应用程序中的多语言支持。它适用于许多 JavaScript/TypeScript 环境，**包括 React Native**（通过 `react-intlayer` 包）。

@@ -1,5 +1,7 @@
 # البدء في التدويل (i18n) باستخدام Intlayer و Lynx و React
 
+انظر [Template Application](https://github.com/aymericzip/intlayer-lynx-template) على GitHub.
+
 ## ما هو Intlayer؟
 
 **Intlayer** هو **مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر** تُبسط دعم اللغات المتعددة في التطبيقات الحديثة. يعمل في العديد من بيئات JavaScript/TypeScript، **بما في ذلك Lynx** (عبر حزمة `react-intlayer`).

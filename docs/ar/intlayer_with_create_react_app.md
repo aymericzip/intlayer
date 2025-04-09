@@ -1,5 +1,7 @@
 # البدء في التدويل (i18n) باستخدام Intlayer و React Create App
 
+انظر [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) على GitHub.
+
 ## ما هو Intlayer؟
 
 **Intlayer** هو مكتبة مفتوحة المصدر مبتكرة للتدويل (i18n) مصممة لتبسيط دعم اللغات المتعددة في تطبيقات الويب الحديثة.
