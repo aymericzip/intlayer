@@ -5,70 +5,116 @@
 </div>
 
 <div align="center">
-  <a href="https://www.npmjs.com/package/vite-intlayer">
-    <img alt="npm" src="https://img.shields.io/npm/v/vite-intlayer.svg?labelColor=49516F&color=8994BC" />
+  <a href="https://www.npmjs.com/package/vue-intlayer">
+    <img alt="npm" src="https://img.shields.io/npm/v/vue-intlayer.svg?labelColor=49516F&color=8994BC" />
   </a>
-  <a href="https://npmjs.org/package/vite-intlayer">
-    <img alt="downloads" src="https://badgen.net/npm/dm/vite-intlayer?labelColor=49516F&color=8994BC" />
+  <a href="https://npmjs.org/package/vue-intlayer">
+    <img alt="downloads" src="https://badgen.net/npm/dm/vue-intlayer?labelColor=49516F&color=8994BC" />
   </a>
-  <a href="https://npmjs.org/package/vite-intlayer">
-    <img alt="types included" src="https://badgen.net/npm/types/vite-intlayer?labelColor=49516F&color=8994BC" 
+  <a href="https://npmjs.org/package/vue-intlayer">
+    <img alt="types included" src="https://badgen.net/npm/types/vue-intlayer?labelColor=49516F&color=8994BC" 
   />
 </div>
 
-# vite-intlayer: Internationalize (i18n) an Vite application
+> This package is in development.
 
-**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
+# vue-intlayer: Internationalize (i18n) an Vue application
 
-**The `vite-intlayer` package** allows you to internationalize your Vite application. It includes the Vite plugin to set the configuration through environment variables into the [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). It also provides middleware to detect the user's preferred locale, and redirect the user to the appropriate URL as specified in the [configuration](https://intlayer.org/doc/concept/configuration).
+**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like Vue, Svelte, and Express.js.
 
-## Why Internationalize Your Vite Application?
+**The `vue-intlayer` package** allows you to internationalize your Vue application. It provides context providers and hooks for Vue internationalization.
 
-Internationalizing your Vite application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
+## Why Internationalize Your Vue Application?
 
-## Configuration
+Internationalizing your Vue application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
-The `vite-intlayer` package works seamlessly with the [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
+## Why to integrate Intlayer?
+
+- **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
+- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
+- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
 
 ## Installation
 
 Install the necessary package using your preferred package manager:
 
 ```bash packageManager="npm"
-npm install vite-intlayer
+npm install vue-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add vite-intlayer
+yarn add vue-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add vite-intlayer
+pnpm add vue-intlayer
 ```
 
 ## Example of usage
 
-See an example of how to include the plugins into your vite configuration.
+With Intlayer, you can declare your content in a structured way anywhere in your codebase.
 
-```typescript fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin()],
-});
+> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://intlayer.org/doc/concept/configuration).
+
+```bash codeFormat="typescript"
+.
+├── intlayer.config.ts
+└── src
+    └── components
+        ├── Component1
+        │   ├── index.content.ts
+        │   └── index.vue
+        └── Component2
+            ├── index.content.ts
+            └── index.vue
 ```
 
-> The `intlayerPlugin()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimize performance.
+### Declare your content
 
-> The `intLayerMiddlewarePlugin()` add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+`vue-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
 
-## Mastering the internationalization of your Vite application
+Here’s an example of content declaration:
 
-Intlayer provides a lot of features to help you internationalize your Vite application.
+```tsx filePath="src/Component1/index.content.ts" codeFormat="typescript"
+import { t, type Dictionary } from "intlayer";
 
-**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application.**
+const component1Content = {
+  key: "component-1",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola Mundo",
+    }),
+    numberOfCar: enu({
+      "<-1": "Less than minus one car",
+      "-1": "Minus one car",
+      "0": "No cars",
+      "1": "One car",
+      ">5": "Some cars",
+      ">19": "Many cars",
+    }),
+  },
+} satisfies Dictionary;
+
+export default component1Content;
+```
+
+### Utilize Content in Your Code
+
+...
+
+## Mastering the internationalization of your Vue application
+
+Intlayer provides a lot of features to help you internationalize your Vue application.
+
+**To learn more about these features, refer to the [Vue Internationalization (i18n) with Intlayer and Vite and Vue](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and Vue Application, or the [Vue Internationalization (i18n) with Intlayer and Vue (CRA)](https://intlayer.org/doc/environment/create-react-app) guide for Vue Create App.**
+
+## Functions provided by `vue-intlayer` package
+
+The `vue-intlayer` package also provides some functions to help you to internationalize your application.
 
 ## Read about Intlayer
 
