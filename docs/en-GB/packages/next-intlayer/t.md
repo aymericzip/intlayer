@@ -169,7 +169,8 @@ When localising attributes like `alt`, `title`, `href`, or `aria-label`, you can
 The `t` function is type-safe when used with TypeScript, ensuring that all required locales are provided.
 
 ```typescript codeFormat="typescript"
-import { t, type IConfigLocales } from "next-intlayer";
+import type { IConfigLocales } from "intlayer";
+import { t } from "next-intlayer";
 
 const translations: IConfigLocales<string> = {
   en: "Welcome",
@@ -181,7 +182,8 @@ const greeting = t(translations);
 ```
 
 ```javascript codeFormat="esm"
-import { t, type IConfigLocales } from "next-intlayer";
+import type { IConfigLocales } from "intlayer";
+import { t } from "next-intlayer";
 
 /** @type {import('next-intlayer').IConfigLocales<string>} */
 const translations = {
@@ -194,7 +196,7 @@ const greeting = t(translations);
 ```
 
 ```javascript codeFormat="commonjs"
-const { t, type IConfigLocales } = require("next-intlayer");
+const { t } = require("next-intlayer");
 
 /** @type {import('next-intlayer').IConfigLocales<string>} */
 const translations = {
@@ -216,6 +218,7 @@ In `next-intlayer`, the current locale is managed through context providers: `In
 import type { FC } from "react";
 import type { Locales } from "intlayer";
 import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerServerProvider } from "next-intlayer/server";
 
 const Page: FC<{ locale: Locales }> = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
@@ -228,6 +231,7 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
 
 ```javascript codeFormat="esm"
 import { IntlayerClientProvider } from "next-intlayer";
+import { IntlayerServerProvider } from "next-intlayer/server";
 
 const Page = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
@@ -240,6 +244,7 @@ const Page = ({ locale }) => (
 
 ```javascript codeFormat="commonjs"
 const { IntlayerClientProvider } = require("next-intlayer");
+const { IntlayerServerProvider } = require("next-intlayer/server");
 
 const Page = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
@@ -287,7 +292,7 @@ const text = t(translations);
 ```
 
 ```javascript codeFormat="commonjs"
-const { t, type IConfigLocales } = require("next-intlayer");
+const { t } = require("next-intlayer");
 
 /** @type {import('next-intlayer').IConfigLocales<string>} */
 const translations = {
