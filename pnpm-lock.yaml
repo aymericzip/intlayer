@@ -2402,6 +2402,58 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
 
+  packages/svelte-intlayer:
+    dependencies:
+      '@intlayer/chokidar':
+        specifier: workspace:*
+        version: link:../@intlayer/chokidar
+      '@intlayer/config':
+        specifier: workspace:*
+        version: link:../@intlayer/config
+      '@intlayer/core':
+        specifier: workspace:*
+        version: link:../@intlayer/core
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.13.10
+      '@typescript-eslint/parser':
+        specifier: ^8.27.0
+        version: 8.27.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
+      '@utils/eslint-config':
+        specifier: workspace:*
+        version: link:../../utils/eslint-config
+      '@utils/ts-config':
+        specifier: workspace:*
+        version: link:../../utils/ts-config
+      '@utils/ts-config-types':
+        specifier: workspace:*
+        version: link:../../utils/ts-config-types
+      '@utils/tsup-config':
+        specifier: workspace:*
+        version: link:../../utils/tsup-config
+      concurrently:
+        specifier: ^9.1.2
+        version: 9.1.2
+      eslint:
+        specifier: ^9.22.0
+        version: 9.22.0(jiti@2.4.2)
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsc-alias:
+        specifier: ^1.8.11
+        version: 1.8.11
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(@microsoft/api-extractor@7.52.1(@types/node@22.13.10))(@swc/core@1.11.11(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+
   packages/vite-intlayer:
     dependencies:
       '@intlayer/chokidar':
@@ -2416,6 +2468,58 @@ importers:
       vite:
         specifier: '>=4.0.0'
         version: 6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.13.10
+      '@typescript-eslint/parser':
+        specifier: ^8.27.0
+        version: 8.27.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
+      '@utils/eslint-config':
+        specifier: workspace:*
+        version: link:../../utils/eslint-config
+      '@utils/ts-config':
+        specifier: workspace:*
+        version: link:../../utils/ts-config
+      '@utils/ts-config-types':
+        specifier: workspace:*
+        version: link:../../utils/ts-config-types
+      '@utils/tsup-config':
+        specifier: workspace:*
+        version: link:../../utils/tsup-config
+      concurrently:
+        specifier: ^9.1.2
+        version: 9.1.2
+      eslint:
+        specifier: ^9.22.0
+        version: 9.22.0(jiti@2.4.2)
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsc-alias:
+        specifier: ^1.8.11
+        version: 1.8.11
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(@microsoft/api-extractor@7.52.1(@types/node@22.13.10))(@swc/core@1.11.11(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+
+  packages/vue-intlayer:
+    dependencies:
+      '@intlayer/chokidar':
+        specifier: workspace:*
+        version: link:../@intlayer/chokidar
+      '@intlayer/config':
+        specifier: workspace:*
+        version: link:../@intlayer/config
+      '@intlayer/core':
+        specifier: workspace:*
+        version: link:../@intlayer/core
     devDependencies:
       '@types/node':
         specifier: ^22.13.10
@@ -42465,7 +42569,7 @@ snapshots:
 
   send@1.1.0:
     dependencies:
-      debug: 4.3.6
+      debug: 4.4.0
       destroy: 1.2.0
       encodeurl: 2.0.0
       escape-html: 1.0.3
