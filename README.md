@@ -161,4 +161,4 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 ## Live tutorial on YouTube
 
-[![How to Internationalize your application using Intlayer](https://i.ytimg.com/vi/W2G7KxuSD4c/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/W2G7KxuSD4c?si=GyU_KpVhr61razRw)
+[![How to Internationalize your application using Intlayer](https://i.ytimg.com/vi/e_PPG7PTqGU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/e_PPG7PTqGU?si=GyU_KpVhr61razRw)
