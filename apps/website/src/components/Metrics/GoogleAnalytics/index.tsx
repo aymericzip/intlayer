@@ -1,7 +1,6 @@
 import Script from 'next/script';
-import React from 'react';
 
-const GoogleAnalytics = () => (
+export const GoogleAnalytics = () => (
   <>
     <Script
       strategy="lazyOnload"
@@ -20,5 +19,3 @@ const GoogleAnalytics = () => (
     </Script>
   </>
 );
-
-export default GoogleAnalytics;

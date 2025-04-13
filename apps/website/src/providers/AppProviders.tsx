@@ -1,4 +1,5 @@
-import GoogleAnalytics from '@components/GoogleAnalytics';
+import { FacebookPixel } from '@components/Metrics/FacebookPixel';
+import { GoogleAnalytics } from '@components/Metrics/GoogleAnalytics';
 import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorkerSubscriber';
 import { Toaster } from '@intlayer/design-system';
 import { AsyncStateProvider } from '@intlayer/design-system/hooks';
@@ -18,6 +19,7 @@ export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
         <AsyncStateProvider>
           <Toaster />
           <GoogleAnalytics />
+          <FacebookPixel />
           {children}
         </AsyncStateProvider>
       </AnimatePresenceProvider>
