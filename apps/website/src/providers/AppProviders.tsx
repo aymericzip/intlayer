@@ -1,8 +1,7 @@
-import { FacebookPixel } from '@components/Metrics/FacebookPixel';
-import { GoogleAnalytics } from '@components/Metrics/GoogleAnalytics';
 import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorkerSubscriber';
 import { Toaster } from '@intlayer/design-system';
 import { AsyncStateProvider } from '@intlayer/design-system/hooks';
+import { GoogleTagManager } from '@next/third-parties/google';
 import type { IntlayerClientProviderProps } from 'next-intlayer';
 import type { FC } from 'react';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
@@ -18,8 +17,11 @@ export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
         <ServiceWorkerSubscriber />
         <AsyncStateProvider>
           <Toaster />
-          <GoogleAnalytics />
-          <FacebookPixel />
+          {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
+            <GoogleTagManager
+              gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
+            />
+          )}
           {children}
         </AsyncStateProvider>
       </AnimatePresenceProvider>
