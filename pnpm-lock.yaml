@@ -2124,6 +2124,9 @@ importers:
       '@intlayer/webpack':
         specifier: workspace:*
         version: link:../@intlayer/webpack
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       next:
         specifier: '>=14.0.0'
         version: 15.2.2(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

@@ -1,37 +1,23 @@
-import { resolve, relative, join } from 'path';
-import {
-  getConfiguration,
-  formatEnvVariable,
-  ESMxCJSRequire,
-} from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
+import merge from 'deepmerge';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-import { readFileSync } from 'fs';
-
-const getNextVersion = () => {
-  try {
-    const nextConfigPath = ESMxCJSRequire.resolve('next/package.json');
-
-    const nextPkg = JSON.parse(readFileSync(nextConfigPath, 'utf-8'));
-
-    return parseInt(nextPkg.version.split('.')[0], 10);
-  } catch (e) {
-    return undefined;
-  }
-};
-
-const nextMajorVersion = getNextVersion();
+import { join, relative, resolve } from 'path';
+import { compareVersions } from './compareVersion';
+import { getNextVersion } from './getNextVertion';
 
 // Extract from the start script if --turbo or --turbopack flag is used
 const isTurbopackEnabled =
   process.env.npm_lifecycle_script?.includes('--turbo');
+const isNext15 = compareVersions(getNextVersion(), '15.0.0', 'gte');
+const isTurbopackStable = compareVersions(getNextVersion(), '15.3.0', 'gte');
 
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
 /**
  * A Next.js plugin that adds the intlayer configuration to the webpack configuration
- * and sets the environment variables
+ * and sets the environment variablesi
  *
  * Usage:
  *
@@ -59,44 +45,40 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   const relativeConfigurationPath = relative(baseDir, configurationPath);
 
   // Only provide turbo-specific config if user explicitly sets it
-  const turboConfig = isTurbopackEnabled
-    ? {
-        turbo: {
-          ...(nextConfig.experimental?.turbo ?? {}),
-          resolveAlias: {
-            ...(nextConfig.experimental?.turbo?.resolveAlias ?? {}),
-            '@intlayer/dictionaries-entry': relativeDictionariesPath,
-            '@intlayer/config/built': relativeConfigurationPath,
-          },
-          rules: {
-            '*.node': {
-              as: '*.node',
-              loaders: ['node-loader'],
-            },
-          },
-        },
-      }
-    : {};
+  const turboConfig = {
+    resolveAlias: {
+      '@intlayer/dictionaries-entry': relativeDictionariesPath,
+      '@intlayer/config/built': relativeConfigurationPath,
+    },
+    rules: {
+      '*.node': {
+        as: '*.node',
+        loaders: ['node-loader'],
+      },
+    },
+  };
 
   const newConfig: Partial<NextConfig> = {
     // Only add `serverExternalPackages` if Next.js is v15+
-    ...(!nextMajorVersion || nextMajorVersion >= 15
+    ...(isNext15
       ? {
           serverExternalPackages: [
-            ...(nextConfig.serverExternalPackages ?? []),
             'esbuild',
             'module',
             'fs',
             'chokidar',
             'fsevents',
           ],
+          experimental: {
+            turbo:
+              isTurbopackEnabled && !isTurbopackStable
+                ? turboConfig
+                : undefined,
+          },
+          turbopack:
+            isTurbopackEnabled && isTurbopackStable ? turboConfig : undefined,
         }
       : {}),
-
-    experimental: {
-      ...(nextConfig.experimental ?? {}),
-      ...turboConfig,
-    },
 
     webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
       // If the user has defined their own webpack config, call it
@@ -138,5 +120,5 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   };
 
   // Merge the new config with the user's config
-  return { ...nextConfig, ...newConfig };
+  return merge(nextConfig, newConfig) as NextConfig & T;
 };
