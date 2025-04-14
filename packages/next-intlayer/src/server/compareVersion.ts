@@ -8,8 +8,8 @@
  */
 export const compareVersions = (
   version1: string,
-  version2: string,
-  comparison: 'gt' | 'lt' | 'eq' | 'gte' | 'lte'
+  comparison: '>' | '<' | '=' | '≥' | '≤',
+  version2: string
 ): boolean => {
   const v1Parts = version1.split('.').map(Number);
   const v2Parts = version2.split('.').map(Number);
@@ -30,15 +30,15 @@ export const compareVersions = (
   }
 
   switch (comparison) {
-    case 'gt':
+    case '>':
       return result === 1;
-    case 'lt':
+    case '<':
       return result === -1;
-    case 'eq':
+    case '=':
       return result === 0;
-    case 'gte':
+    case '≥':
       return result === 0 || result === 1;
-    case 'lte':
+    case '≤':
       return result === 0 || result === -1;
   }
 };

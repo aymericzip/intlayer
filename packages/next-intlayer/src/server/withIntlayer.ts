@@ -10,8 +10,10 @@ import { getNextVersion } from './getNextVertion';
 // Extract from the start script if --turbo or --turbopack flag is used
 const isTurbopackEnabled =
   process.env.npm_lifecycle_script?.includes('--turbo');
-const isNext15 = compareVersions(getNextVersion(), '15.0.0', 'gte');
-const isTurbopackStable = compareVersions(getNextVersion(), '15.3.0', 'gte');
+const nextVersion = getNextVersion();
+const isGteNext13 = compareVersions(nextVersion, '≥', '13.0.0');
+const isGteNext15 = compareVersions(nextVersion, '≥', '15.0.0');
+const isTurbopackStable = compareVersions(nextVersion, '≥', '15.3.0');
 
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
@@ -41,7 +43,7 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-  const configurationPath = join(configDir, 'configuration.json');
+  const configurationPath = join(configDir, 'configuration.mjs');
   const relativeConfigurationPath = relative(baseDir, configurationPath);
 
   // Only provide turbo-specific config if user explicitly sets it
@@ -58,27 +60,41 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
     },
   };
 
+  const serverExternalPackages = [
+    'esbuild',
+    'module',
+    'fs',
+    'chokidar',
+    'fsevents',
+  ];
+
   const newConfig: Partial<NextConfig> = {
     // Only add `serverExternalPackages` if Next.js is v15+
-    ...(isNext15
+    ...(isGteNext15
       ? {
-          serverExternalPackages: [
-            'esbuild',
-            'module',
-            'fs',
-            'chokidar',
-            'fsevents',
-          ],
-          experimental: {
-            turbo:
-              isTurbopackEnabled && !isTurbopackStable
-                ? turboConfig
-                : undefined,
-          },
-          turbopack:
-            isTurbopackEnabled && isTurbopackStable ? turboConfig : undefined,
+          // only for Next ≥15
+          serverExternalPackages,
         }
-      : {}),
+      : {
+          // only for Next ≥13 and <15.3
+          ...(isGteNext13 && {
+            serverComponentsExternalPackages: serverExternalPackages,
+          }),
+        }),
+
+    ...(isTurbopackEnabled && {
+      ...(isGteNext15 && isTurbopackStable
+        ? {
+            // only for Next ≥15.3
+            turbopack: turboConfig,
+          }
+        : {
+            experimental: {
+              // only for Next ≥13 and <15.3
+              turbo: turboConfig,
+            },
+          }),
+    }),
 
     webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
       // If the user has defined their own webpack config, call it
@@ -88,7 +104,7 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
 
       // Alias the dictionary entry for all builds
       config.resolve.alias = {
-        ...(config.resolve.alias ?? {}),
+        ...config.resolve.alias,
         '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
         '@intlayer/config/built': resolve(relativeConfigurationPath),
       };
@@ -120,5 +136,5 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   };
 
   // Merge the new config with the user's config
-  return merge(nextConfig, newConfig) as NextConfig & T;
+  return merge(newConfig, nextConfig) as NextConfig & T;
 };
