@@ -84,7 +84,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "esbuild": "^0.25.1"
+    "esbuild": "^0.25.2"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",

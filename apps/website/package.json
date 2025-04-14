@@ -96,7 +96,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
-    "esbuild": "^0.25.1",
+    "esbuild": "^0.25.2",
     "eslint": "^9.22.0",
     "eslint-config-next": "15.0.4",
     "next-pwa": "^5.6.0",
