@@ -189,7 +189,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 ### 5. Compatibility with More Frameworks
 
-- Efforts are underway to support **Vite, Angular, React Native**, and more.
+- Efforts are underway to support **Vue, Solid, Svelte, Angular**, and more.
 - Aim to make Intlayer compatible with **any JavaScript-powered application**.
 
 ### 6. IDE Extensions

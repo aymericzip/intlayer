@@ -189,7 +189,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 ### 5. 더 많은 프레임워크와의 호환성
 
-- **Vite, Angular, React Native** 등과의 호환성을 지원하기 위한 노력이 진행 중입니다.
+- **Vue, Solid, Svelte, Angular** 등과의 호환성을 지원하기 위한 노력이 진행 중입니다.
 - **JavaScript 기반 애플리케이션**과 호환되도록 목표를 설정합니다.
 
 ### 6. IDE 확장
