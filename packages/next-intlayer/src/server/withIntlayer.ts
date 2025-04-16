@@ -43,7 +43,7 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-  const configurationPath = join(configDir, 'configuration.mjs');
+  const configurationPath = join(configDir, 'configuration.json');
   const relativeConfigurationPath = relative(baseDir, configurationPath);
 
   // Only provide turbo-specific config if user explicitly sets it
@@ -136,5 +136,5 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   };
 
   // Merge the new config with the user's config
-  return merge(newConfig, nextConfig) as NextConfig & T;
+  return merge(nextConfig, newConfig) as NextConfig & T;
 };

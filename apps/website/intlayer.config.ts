@@ -38,9 +38,6 @@ const config: IntlayerConfig = {
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
-  log: {
-    mode: 'disabled',
-  },
 };
 
 export default config;
