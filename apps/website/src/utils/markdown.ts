@@ -1,6 +1,6 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import { Locales } from 'intlayer';
 import { locales } from '../../intlayer.config';
-import { GithubRoutes, PagesRoutes } from '@/Routes';
 
 const getDocLocale = (url: string, locale: Locales): string =>
   url.replace('/en/', `/${locale}/`);
@@ -167,7 +167,7 @@ const removeURLDomain = (text: string): string => {
   // Retrieve the application domain from environment variables
 
   // Escape special regex characters in the domain to prevent regex injection
-  const escapedDomain = process.env.NEXT_PUBLIC_URL!.replace(
+  const escapedDomain = process.env.NEXT_PUBLIC_DOMAIN!.replace(
     /[.*+?^${}()|[\]\\]/g,
     '\\$&'
   );
