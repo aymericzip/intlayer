@@ -1,8 +1,9 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/config/client';
 
+import { localeResolver } from '@intlayer/core';
 import { useCrossFrameState } from '@intlayer/editor-react';
 import {
   type FC,
@@ -11,9 +12,7 @@ import {
   useContext,
 } from 'react';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
-import { PoweredByMeta } from './PoweredByMeta';
 import { localeCookie, setLocaleCookie } from './useLocaleCookie';
-import { localeResolver } from '@intlayer/core';
 
 type IntlayerValue = {
   locale: LocalesValues;
@@ -95,7 +94,6 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
 
 export const IntlayerProvider: FC<IntlayerProviderProps> = (props) => (
   <IntlayerEditorProvider>
-    <PoweredByMeta />
     <IntlayerProviderContent {...props} />
   </IntlayerEditorProvider>
 );
