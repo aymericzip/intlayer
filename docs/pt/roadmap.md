@@ -164,7 +164,7 @@ O Intlayer suporta **TypeScript** (também JavaScript) e **JSON** para declarar 
 
 ---
 
-# Roteiro: Recursos Futuros
+## Roteiro: Recursos Futuros
 
 ### 1. Testes A/B e Personalização
 

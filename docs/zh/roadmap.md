@@ -164,7 +164,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 ---
 
-# 路线图：即将推出的功能
+## 路线图：即将推出的功能
 
 ### 1. A/B 测试与个性化
 

@@ -115,7 +115,7 @@ Intlayer soporta **TypeScript** (también JavaScript) y **JSON** para declarar c
 
 ---
 
-# Hoja de Ruta: Funcionalidades Futuras
+## Funcionalidades Futuras
 
 ### 1. Pruebas A/B y Personalización
 

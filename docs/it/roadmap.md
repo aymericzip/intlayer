@@ -164,7 +164,7 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 
 ---
 
-# Roadmap: Funzionalità in Arrivo
+## Roadmap: Funzionalità in Arrivo
 
 ### 1. Test A/B e Personalizzazione
 

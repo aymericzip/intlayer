@@ -228,7 +228,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 ---
 
-# Roadmap: Upcoming Features
+## Upcoming Features
 
 ### 1. A/B Testing & Personalization
 

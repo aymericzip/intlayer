@@ -164,7 +164,7 @@ Intlayer prend en charge **TypeScript** (également JavaScript) et **JSON** pour
 
 ---
 
-# Feuille de route : Fonctionnalités à venir
+## Feuille de route : Fonctionnalités à venir
 
 ### 1. Tests A/B et personnalisation
 

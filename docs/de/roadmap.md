@@ -164,7 +164,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** für die Dek
 
 ---
 
-# Roadmap: Zukünftige Funktionen
+## Roadmap: Zukünftige Funktionen
 
 ### 1. A/B-Tests & Personalisierung
 
