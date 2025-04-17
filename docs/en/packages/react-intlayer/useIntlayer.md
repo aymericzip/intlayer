@@ -43,7 +43,7 @@ The hook accepts two parameters:
 
 ## Dictionary
 
-All dictionary keys must be declared within content declaration files to enhance type safety and avoid errors. You can find the setup instructions [here](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md).
+All dictionary keys must be declared within content declaration files to enhance type safety and avoid errors. You can find the [setup instructions here](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md).
 
 ## Example Usage in React
 

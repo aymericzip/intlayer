@@ -13,7 +13,7 @@ The `useIntlayerAsync` hook extends the functionality of `useIntlayer` by not on
 
 Intlayer provides a headless Content Source Management (CSM) system that empowers non-developers to manage and update application content seamlessly. By using Intlayer’s intuitive dashboard, your team can edit localized text, images, and other resources without directly modifying code. This streamlines the content management process, fosters collaboration, and ensures that updates can be made quickly and easily.
 
-To get started with Intlayer, you will first need to register and obtain an access token at [https://intlayer.org/dashboard](https://intlayer.org/dashboard). Once you have your credentials, add them to your configuration file as shown below:
+To get started with Intlayer, you will first need to register and obtain an access token in the [dashboard](https://intlayer.org/dashboard). Once you have your credentials, add them to your configuration file as shown below:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
