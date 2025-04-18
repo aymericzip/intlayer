@@ -1,10 +1,7 @@
-import { dirname, join, relative } from 'path';
-import dotenv from 'dotenv';
 import { Locales, logger } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
+import dotenv from 'dotenv';
 import fg from 'fast-glob';
-import { OpenAI } from 'openai';
-import pLimit from 'p-limit';
 import {
   existsSync,
   mkdirSync,
@@ -12,6 +9,9 @@ import {
   statSync,
   writeFileSync,
 } from 'fs';
+import { OpenAI } from 'openai';
+import pLimit from 'p-limit';
+import { dirname, join, relative } from 'path';
 
 dotenv.config();
 
@@ -23,9 +23,7 @@ const CHAT_GPT_CUSTOM_PROMPT: string = '';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_LIST: string[] = [
-  '/Users/aymericpineau/Documents/intlayer/docs/en/vs_code_extension.md',
-];
+const DOC_LIST: string[] = ['./en/privacy_notice.md'];
 
 export const LOCALE_LIST: Locales[] = [
   // Locales.ENGLISH,
