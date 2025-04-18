@@ -1,9 +1,9 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
 export const getPackagesIntlayerGetHTMLTextDirData = (
-  locale: Locales
+  locale: LocalesValues
 ): DocData => ({
   docName: 'package__intlayer__getHTMLTextDir',
   url: PagesRoutes['Doc_Packages_intlayer_getHTMLTextDir'],

@@ -1,8 +1,10 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getPackagesExpressIntlayerData = (locale: Locales): DocData => ({
+export const getPackagesExpressIntlayerData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'package__express-intlayer',
   url: PagesRoutes['Doc_Packages_express-intlayer'],
   githubUrl: GithubRoutes['Packages_express-intlayer'],

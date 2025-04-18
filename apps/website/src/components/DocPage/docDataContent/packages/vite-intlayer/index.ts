@@ -1,8 +1,10 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getPackagesViteIntlayerData = (locale: Locales): DocData => ({
+export const getPackagesViteIntlayerData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'package__vite-intlayer',
   url: PagesRoutes['Doc_Packages_vite-intlayer'],
   githubUrl: GithubRoutes['Packages_vite-intlayer'],

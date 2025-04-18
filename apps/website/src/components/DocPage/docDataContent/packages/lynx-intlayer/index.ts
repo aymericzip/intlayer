@@ -1,8 +1,10 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getPackagesLynxIntlayerData = (locale: Locales): DocData => ({
+export const getPackagesLynxIntlayerData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'package__lynx-intlayer',
   url: PagesRoutes['Doc_Packages_lynx-intlayer'],
   githubUrl: GithubRoutes['Packages_lynx-intlayer'],

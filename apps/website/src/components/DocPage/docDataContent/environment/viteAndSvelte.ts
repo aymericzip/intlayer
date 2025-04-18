@@ -1,8 +1,10 @@
 import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getEnvironmentViteAndSvelteData = (locale: Locales): DocData => ({
+export const getEnvironmentViteAndSvelteData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'intlayer_with_vite_svelte',
   url: PagesRoutes.Doc_Environment_ViteAndSvelte,
   githubUrl: GithubRoutes.IntlayerWithViteSvelte,

@@ -1,9 +1,9 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
 export const getEnvironmentReactNativeAndExpoData = (
-  locale: Locales
+  locale: LocalesValues
 ): DocData => ({
   docName: 'intlayer_with_react_native_and_expo',
   url: PagesRoutes.Doc_Environment_ReactNativeAndExpo,

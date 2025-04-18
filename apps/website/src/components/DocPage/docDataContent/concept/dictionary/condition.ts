@@ -1,9 +1,9 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
 export const getContentDeclarationConditionData = (
-  locale: Locales
+  locale: LocalesValues
 ): DocData => ({
   docName: 'dictionary__condition',
   url: PagesRoutes.Doc_Dictionary_Condition,

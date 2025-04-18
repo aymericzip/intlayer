@@ -1,9 +1,9 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
 export const getPackagesReactIntlayerUseIntlayerAsyncData = (
-  locale: Locales
+  locale: LocalesValues
 ): DocData => ({
   docName: 'package__react-intlayer__useIntlayerAsync',
   url: PagesRoutes['Doc_Packages_react-intlayer_useIntlayerAsync'],

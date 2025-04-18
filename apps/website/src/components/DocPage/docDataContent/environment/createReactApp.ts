@@ -1,8 +1,10 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getEnvironmentCreateReactAppData = (locale: Locales): DocData => ({
+export const getEnvironmentCreateReactAppData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'intlayer_with_create_react_app',
   url: PagesRoutes.Doc_Environment_CRA,
   githubUrl: GithubRoutes.IntlayerWithReactCRA,

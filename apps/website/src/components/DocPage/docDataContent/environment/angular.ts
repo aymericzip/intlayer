@@ -1,8 +1,8 @@
 import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getEnvironmentAngularData = (locale: Locales): DocData => ({
+export const getEnvironmentAngularData = (locale: LocalesValues): DocData => ({
   docName: 'intlayer_with_angular',
   url: PagesRoutes.Doc_Environment_Angular,
   githubUrl: GithubRoutes.IntlayerWithAngular,

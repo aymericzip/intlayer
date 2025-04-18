@@ -1,9 +1,9 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
 export const getEnvironmentNextJSPageRouterData = (
-  locale: Locales
+  locale: LocalesValues
 ): DocData => ({
   docName: 'intlayer_with_nextjs_page_router',
   url: PagesRoutes.Doc_Intlayer_with_NextJS_using_Page_Router,

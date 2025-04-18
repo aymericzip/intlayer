@@ -1,8 +1,10 @@
 import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getEnvironmentViteAndPreactData = (locale: Locales): DocData => ({
+export const getEnvironmentViteAndPreactData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'intlayer_with_vite_preact',
   url: PagesRoutes.Doc_Environment_ViteAndPreact,
   githubUrl: GithubRoutes.IntlayerWithVitePreact,

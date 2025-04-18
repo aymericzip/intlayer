@@ -1,8 +1,10 @@
 import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getPackagesSvelteIntlayerData = (locale: Locales): DocData => ({
+export const getPackagesSvelteIntlayerData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'package__svelte-intlayer',
   url: PagesRoutes['Doc_Packages_svelte-intlayer'],
   githubUrl: GithubRoutes['Packages_svelte-intlayer'],

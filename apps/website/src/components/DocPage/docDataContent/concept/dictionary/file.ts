@@ -1,8 +1,10 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getContentDeclarationFileData = (locale: Locales): DocData => ({
+export const getContentDeclarationFileData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'dictionary__file',
   url: PagesRoutes.Doc_Dictionary_File,
   githubUrl: GithubRoutes.Dictionary_File,

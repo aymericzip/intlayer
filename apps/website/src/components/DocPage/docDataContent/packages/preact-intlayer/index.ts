@@ -1,8 +1,10 @@
 import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getPackagesPreactIntlayerData = (locale: Locales): DocData => ({
+export const getPackagesPreactIntlayerData = (
+  locale: LocalesValues
+): DocData => ({
   docName: 'package__preact-intlayer',
   url: PagesRoutes['Doc_Packages_preact-intlayer'],
   githubUrl: GithubRoutes['Packages_preact-intlayer'],

@@ -10,8 +10,8 @@ import {
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Locales } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   type FC,
   useCallback,
@@ -109,7 +109,7 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
     results.length === 0 && inputRef.current && inputRef.current?.value !== '';
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full p-4">
       <div className="flex items-center gap-1">
         <Search />
         <Input

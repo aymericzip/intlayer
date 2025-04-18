@@ -1,13 +1,14 @@
+import { type GithubRoutes, type PagesRoutes } from '@/Routes';
 import { type DocsKeys } from '@intlayer/docs';
-import { type PagesRoutes, type GithubRoutes } from '@/Routes';
+import { IntlayerNode } from 'next-intlayer';
 
 export type DocData = {
   docName: DocsKeys;
   url: PagesRoutes;
   githubUrl: GithubRoutes;
-  title: string;
-  description: string;
-  keywords: string[];
+  title: IntlayerNode | string;
+  description: IntlayerNode | string;
+  keywords: (IntlayerNode | string)[];
   createdAt: Date;
   updatedAt: Date;
 };
@@ -15,7 +16,7 @@ export type DocData = {
 export type Section = Record<string, CategorizedDocData>;
 
 export type CategorizedDocData = {
-  title: string;
+  title: IntlayerNode | string;
   default?: DocData;
   subSections?: Section;
 };

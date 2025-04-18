@@ -1,8 +1,8 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
-export const getVisualEditorData = (locale: Locales): DocData => ({
+export const getVisualEditorData = (locale: LocalesValues): DocData => ({
   docName: 'intlayer_visual_editor',
   url: PagesRoutes.Doc_IntlayerVisualEditor,
   githubUrl: GithubRoutes.IntlayerVisualEditor,

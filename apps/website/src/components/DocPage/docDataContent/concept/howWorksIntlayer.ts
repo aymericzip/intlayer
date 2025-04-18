@@ -1,8 +1,8 @@
-import { type Locales, getIntlayer } from 'intlayer';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 import type { DocData } from '../../types';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
 
-export const getHowWorksIntlayerData = (locale: Locales): DocData => ({
+export const getHowWorksIntlayerData = (locale: LocalesValues): DocData => ({
   docName: 'how_works_intlayer',
   url: PagesRoutes.Doc_HowWorksIntlayer,
   githubUrl: GithubRoutes.HowWorksIntlayer,

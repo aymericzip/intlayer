@@ -1,9 +1,9 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
 export const getContentDeclarationMarkdownData = (
-  locale: Locales
+  locale: LocalesValues
 ): DocData => ({
   docName: 'dictionary__markdown',
   url: PagesRoutes.Doc_Dictionary_Markdown,

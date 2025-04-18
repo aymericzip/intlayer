@@ -1,9 +1,9 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
 export const getPackagesReactNativeIntlayerData = (
-  locale: Locales
+  locale: LocalesValues
 ): DocData => ({
   docName: 'package__react-native-intlayer',
   url: PagesRoutes['Doc_Packages_react-native-intlayer'],

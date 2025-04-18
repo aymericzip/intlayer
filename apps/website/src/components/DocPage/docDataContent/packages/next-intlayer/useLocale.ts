@@ -1,9 +1,9 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import type { DocData } from '@components/DocPage/types';
-import { type Locales, getIntlayer } from 'intlayer';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 
 export const getPackagesNextIntlayerUseLocaleData = (
-  locale: Locales
+  locale: LocalesValues
 ): DocData => ({
   docName: 'package__next-intlayer__useLocale',
   url: PagesRoutes['Doc_Packages_next-intlayer_useLocale'],

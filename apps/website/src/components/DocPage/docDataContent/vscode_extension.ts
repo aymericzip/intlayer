@@ -1,8 +1,8 @@
-import { type Locales, getIntlayer } from 'intlayer';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 import type { DocData } from '../types';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
 
-export const getVSCodeExtensionData = (locale: Locales): DocData => ({
+export const getVSCodeExtensionData = (locale: LocalesValues): DocData => ({
   docName: 'vscode_extension',
   url: PagesRoutes.VS_Code_Extension,
   githubUrl: GithubRoutes['VS_Code_extension_intlayer'],

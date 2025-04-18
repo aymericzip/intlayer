@@ -1,8 +1,8 @@
-import { type Locales, getIntlayer } from 'intlayer';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { getIntlayer, LocalesValues } from 'intlayer';
 import type { DocData } from '../../types';
-import { PagesRoutes, GithubRoutes } from '@/Routes';
 
-export const getInterestOfIntlayerData = (locale: Locales): DocData => ({
+export const getInterestOfIntlayerData = (locale: LocalesValues): DocData => ({
   docName: 'interest_of_intlayer',
   url: PagesRoutes.Doc_Interest,
   githubUrl: GithubRoutes.InterestOfIntlayer,
