@@ -1,0 +1,22 @@
+{
+  "name": "vite-vue-app-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "intlayer": "workspace:*",
+    "vite-intlayer": "workspace:*",
+    "vue": "^3.5.13",
+    "vue-intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@vitejs/plugin-vue": "^5.2.2",
+    "vite": "^6.3.0"
+  }
+}
