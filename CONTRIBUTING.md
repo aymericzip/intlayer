@@ -20,13 +20,9 @@ git clone git@github.com:intlayer-org/intlayer.git
 pnpm install
 ```
 
-### Preparing the project
-
-```sh
-pnpm prepare
-```
-
 ### Development mode
+
+> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 ```sh
 # Start development mode for all packages
@@ -41,6 +37,8 @@ pnpm dev:pick
 ```
 
 ### Building pacakges
+
+> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 ```sh
 # Build all packages
@@ -58,6 +56,8 @@ pnpm build:changes
 ```
 
 ### Reset the source
+
+> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 If you meet problems with the build, you can use the command `pnpm clean` to remove the dist folders of the packages.
 
