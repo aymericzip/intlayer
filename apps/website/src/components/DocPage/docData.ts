@@ -4,21 +4,32 @@ import { getCMSData } from './docDataContent/concept/cms';
 import { getConfigurationData } from './docDataContent/concept/configuration';
 import { getContentDeclarationConditionData } from './docDataContent/concept/dictionary/condition';
 import { getContentDeclarationEnumerationData } from './docDataContent/concept/dictionary/enumeration';
+import { getContentDeclarationFileData } from './docDataContent/concept/dictionary/file';
 import { getContentDeclarationFunctionFetchingData } from './docDataContent/concept/dictionary/functionFetching';
 import { getContentDeclarationGetStatedData } from './docDataContent/concept/dictionary/getStarted';
+import { getContentDeclarationInsertionData } from './docDataContent/concept/dictionary/insertion';
 import { getContentDeclarationMarkdownData } from './docDataContent/concept/dictionary/markdown';
 import { getContentDeclarationNestingData } from './docDataContent/concept/dictionary/nesting';
 import { getContentDeclarationTranslationData } from './docDataContent/concept/dictionary/translation';
 import { getHowWorksIntlayerData } from './docDataContent/concept/howWorksIntlayer';
 import { getInterestOfIntlayerData } from './docDataContent/concept/interestOfIntlayer';
 import { getIntroductionData } from './docDataContent/concept/introduction';
+import { getRoadmapData } from './docDataContent/concept/roadmap';
 import { getVisualEditorData } from './docDataContent/concept/visual_editor';
+import { getEnvironmentAngularData } from './docDataContent/environment/angular';
 import { getEnvironmentCreateReactAppData } from './docDataContent/environment/createReactApp';
 import { getEnvironmentExpressData } from './docDataContent/environment/express';
+import { getEnvironmentLynxAndReactData } from './docDataContent/environment/lynxAndReact';
 import { getEnvironmentNextJSNextJS15Data } from './docDataContent/environment/nextjs';
 import { getEnvironmentNextJSNextJS14Data } from './docDataContent/environment/nextjs14';
 import { getEnvironmentNextJSPageRouterData } from './docDataContent/environment/pageRouter';
+import { getEnvironmentReactNativeAndExpoData } from './docDataContent/environment/reactNative';
+import { getEnvironmentViteAndPreactData } from './docDataContent/environment/viteAndPreact';
 import { getEnvironmentViteAndReactData } from './docDataContent/environment/viteAndReact';
+import { getEnvironmentViteAndSolidData } from './docDataContent/environment/viteAndSolid';
+import { getEnvironmentViteAndSvelteData } from './docDataContent/environment/viteAndSvelte';
+import { getEnvironmentViteAndVueData } from './docDataContent/environment/viteAndVue';
+import { getPackagesAngularIntlayerData } from './docDataContent/packages/angular-intlayer';
 import { getPackagesExpressIntlayerData } from './docDataContent/packages/express-intlayer';
 import { getPackagesExpressIntlayerTData } from './docDataContent/packages/express-intlayer/t';
 import { getPackagesIntlayerData } from './docDataContent/packages/intlayer';
@@ -31,29 +42,28 @@ import { getPackagesIntlayerGetLocalizedUrlData } from './docDataContent/package
 import { getPackagesIntlayerGetMultilingualUrlsData } from './docDataContent/packages/intlayer/getMultilingualUrls';
 import { getPackagesIntlayerGetPathWithoutLocaleData } from './docDataContent/packages/intlayer/getPathWithoutLocale';
 import { getPackagesIntlayerGetTranslationContentData } from './docDataContent/packages/intlayer/getTranslation';
+import { getPackagesLynxIntlayerData } from './docDataContent/packages/lynx-intlayer';
 import { getPackagesNextIntlayerData } from './docDataContent/packages/next-intlayer';
 import { getPackagesNextIntlayerTData } from './docDataContent/packages/next-intlayer/t';
 import { getPackagesNextIntlayerUseDictionaryData } from './docDataContent/packages/next-intlayer/useDictionary';
 import { getPackagesNextIntlayerUseIntlayerData } from './docDataContent/packages/next-intlayer/useIntlayer';
 import { getPackagesNextIntlayerUseIntlayerAsyncData } from './docDataContent/packages/next-intlayer/useIntlayerAsync';
 import { getPackagesNextIntlayerUseLocaleData } from './docDataContent/packages/next-intlayer/useLocale';
+import { getPackagesPreactIntlayerData } from './docDataContent/packages/preact-intlayer';
 import { getPackagesReactIntlayerData } from './docDataContent/packages/react-inltayer';
 import { getPackagesReactIntlayerTData } from './docDataContent/packages/react-inltayer/t';
 import { getPackagesReactIntlayerUseDictionaryData } from './docDataContent/packages/react-inltayer/useDictionary';
 import { getPackagesReactIntlayerUseIntlayerData } from './docDataContent/packages/react-inltayer/useIntlayer';
 import { getPackagesReactIntlayerUseIntlayerAsyncData } from './docDataContent/packages/react-inltayer/useIntlayerAsync';
 import { getPackagesReactIntlayerUseLocaleData } from './docDataContent/packages/react-inltayer/useLocale';
-import { getPackagesReactScriptsIntlayerData } from './docDataContent/packages/react-scripts-intlayer';
-import { getPackagesViteIntlayerData } from './docDataContent/packages/vite-intlayer';
-import type { CategorizedDocData, DocData, Section } from './types';
-import { getRoadmapData } from './docDataContent/concept/roadmap';
-import { getEnvironmentReactNativeAndExpoData } from './docDataContent/environment/reactNative';
-import { getEnvironmentLynxAndReactData } from './docDataContent/environment/lynxAndReact';
-import { getPackagesLynxIntlayerData } from './docDataContent/packages/lynx-intlayer';
 import { getPackagesReactNativeIntlayerData } from './docDataContent/packages/react-native-intlayer';
-import { getContentDeclarationFileData } from './docDataContent/concept/dictionary/file';
-import { getContentDeclarationInsertionData } from './docDataContent/concept/dictionary/insertion';
+import { getPackagesReactScriptsIntlayerData } from './docDataContent/packages/react-scripts-intlayer';
+import { getPackagesSolidIntlayerData } from './docDataContent/packages/solid-intlayer';
+import { getPackagesSvelteIntlayerData } from './docDataContent/packages/svelte-intlayer';
+import { getPackagesViteIntlayerData } from './docDataContent/packages/vite-intlayer';
+import { getPackagesVueIntlayerData } from './docDataContent/packages/vue-intlayer';
 import { getVSCodeExtensionData } from './docDataContent/vscode_extension';
+import type { CategorizedDocData, DocData, Section } from './types';
 
 export const getDocData = (locale = Locales.ENGLISH): Section => {
   const content = getIntlayer('doc-data', locale);
@@ -174,6 +184,26 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         'vite-and-react': {
           title: content.environment.subSections['vite-and-react'].title,
           default: getEnvironmentViteAndReactData(locale),
+        },
+        'vite-and-vue': {
+          title: content.environment.subSections['vite-and-vue'].title,
+          default: getEnvironmentViteAndVueData(locale),
+        },
+        'vite-and-solid': {
+          title: content.environment.subSections['vite-and-solid'].title,
+          default: getEnvironmentViteAndSolidData(locale),
+        },
+        'vite-and-svelte': {
+          title: content.environment.subSections['vite-and-svelte'].title,
+          default: getEnvironmentViteAndSvelteData(locale),
+        },
+        'vite-and-preact': {
+          title: content.environment.subSections['vite-and-preact'].title,
+          default: getEnvironmentViteAndPreactData(locale),
+        },
+        angular: {
+          title: content.environment.subSections['angular'].title,
+          default: getEnvironmentAngularData(locale),
         },
         'react-native-and-expo': {
           title: content.environment.subSections['react-native-and-expo'].title,
@@ -342,6 +372,26 @@ export const getDocData = (locale = Locales.ENGLISH): Section => {
         'vite-intlayer': {
           title: content.packages.subSections['vite-intlayer'].title,
           default: getPackagesViteIntlayerData(locale),
+        },
+        'vue-intlayer': {
+          title: content.packages.subSections['vue-intlayer'].title,
+          default: getPackagesVueIntlayerData(locale),
+        },
+        'solid-intlayer': {
+          title: content.packages.subSections['solid-intlayer'].title,
+          default: getPackagesSolidIntlayerData(locale),
+        },
+        'svelte-intlayer': {
+          title: content.packages.subSections['svelte-intlayer'].title,
+          default: getPackagesSvelteIntlayerData(locale),
+        },
+        'preact-intlayer': {
+          title: content.packages.subSections['preact-intlayer'].title,
+          default: getPackagesPreactIntlayerData(locale),
+        },
+        'angular-intlayer': {
+          title: content.packages.subSections['angular-intlayer'].title,
+          default: getPackagesAngularIntlayerData(locale),
         },
         'lynx-intlayer': {
           title: content.packages.subSections['lynx-intlayer'].title,

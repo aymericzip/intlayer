@@ -1,12 +1,12 @@
-# vue-intlayer: NPM Package to internationalize (i18n) an React application
+# vue-intlayer: NPM Package to internationalize (i18n) an Vue application
 
-**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
+**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like Vue, Vue, and Express.js.
 
-**The `vue-intlayer` package** allows you to internationalize your React application. It provides context providers and hooks for React internationalization.
+**The `vue-intlayer` package** allows you to internationalize your Vue application. It provides context providers and hooks for Vue internationalization.
 
-## Why Internationalize Your React Application?
+## Why Internationalize Your Vue Application?
 
-Internationalizing your React application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
+Internationalizing your Vue application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
 ## Why to integrate Intlayer?
 

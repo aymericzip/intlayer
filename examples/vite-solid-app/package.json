@@ -1,0 +1,22 @@
+{
+  "name": "vite-solid-app-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "intlayer": "workspace:*",
+    "solid-intlayer": "workspace:*",
+    "solid-js": "^1.9.5",
+    "vite-intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1",
+    "vite-plugin-solid": "^2.11.6"
+  }
+}
