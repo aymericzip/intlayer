@@ -1,10 +1,10 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/config/client';
 
 import { localeList } from '@intlayer/core';
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useLocaleCookie } from './useLocaleCookie';
 
@@ -16,19 +16,6 @@ type useLocaleProps = {
  * On the client side, hook to get the current locale and all related fields
  */
 export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
-  const {
-    /**
-     * Prefix default prefix the default locale to the path as other locales.
-     *
-     * Example with prefixDefault = true and defaultLocale = 'en':
-     * path = /en/dashboard or /fr/dashboard
-     *
-     * Example with prefixDefault = false and defaultLocale = 'en':
-     * path = /dashboard or /fr/dashboard
-     *
-     */
-    prefixDefault,
-  } = configuration?.middleware ?? {};
   const { defaultLocale, locales: availableLocales } =
     configuration?.internationalization ?? {};
 
