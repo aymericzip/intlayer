@@ -92,7 +92,8 @@
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "preact": "^10.26.4"
   },
   "engines": {
     "node": ">=14.18"

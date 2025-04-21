@@ -92,7 +92,8 @@
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "vue": "^3.5.13"
   },
   "engines": {
     "node": ">=14.18"

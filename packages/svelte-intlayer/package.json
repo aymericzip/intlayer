@@ -92,7 +92,8 @@
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "svelte": "^5.23.1"
   },
   "engines": {
     "node": ">=14.18"
