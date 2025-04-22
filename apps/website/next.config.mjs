@@ -107,6 +107,14 @@ const nextConfig = {
 
     return config;
   },
+  turbopack: {
+    rules: {
+      '*.md': {
+        as: '*.ts',
+        loaders: ['raw-loader'],
+      },
+    },
+  },
 
   typescript: {
     // Dangerously allow production builds to successfully complete even if

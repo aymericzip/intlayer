@@ -267,12 +267,12 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 /*                   Dynamic Imports for Heavy Child Sections                 */
 /* -------------------------------------------------------------------------- */
 
-// const DynamicIDESection = dynamic(
-//   () => import('./IDESection').then((mod) => mod.IDESection),
-//   {
-//     loading: () => <Loader />,
-//   }
-// );
+const DynamicIDESection = dynamic(
+  () => import('./IDESection').then((mod) => mod.IDESection),
+  {
+    loading: () => <Loader />,
+  }
+);
 
 const DynamicMarkdownSection = dynamic(
   () => import('./MarkdownSection').then((mod) => mod.MarkdownSection),
@@ -318,7 +318,7 @@ export const FeaturesSection: FC = () => {
         case 'codebase':
           return {
             ...sectionData,
-            children: <></>, // <DynamicIDESection scrollProgress={progress} />,
+            children: <DynamicIDESection scrollProgress={progress} />,
           };
         case 'visual-editor':
           return {

@@ -38,7 +38,7 @@
     "build": "next build",
     "dev": "next dev",
     "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
-    "dev:turbo": "next dev --turbo",
+    "dev:turbo": "next dev --turbopack",
     "editor": "intlayer-editor start",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
     "lint": "next lint",
@@ -103,6 +103,7 @@
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "pwa-asset-generator": "^6.4.0",
+    "raw-loader": "^4.0.2",
     "tailwindcss": "^4.0.14",
     "typescript": "^5.8.2"
   }

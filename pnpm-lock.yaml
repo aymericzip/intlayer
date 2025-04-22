@@ -391,6 +391,9 @@ importers:
       pwa-asset-generator:
         specifier: ^6.4.0
         version: 6.4.0
+      raw-loader:
+        specifier: ^4.0.2
+        version: 4.0.2(webpack@5.98.0(esbuild@0.25.2))
       tailwindcss:
         specifier: ^4.0.14
         version: 4.0.14
@@ -5823,7 +5826,7 @@ packages:
       {
         integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==,
       }
-    engines: { '0': node >=0.10.0 }
+    engines: { node: '>=0.10.0' }
 
   '@expo/cli@0.22.19':
     resolution:
@@ -23152,6 +23155,15 @@ packages:
         integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==,
       }
     engines: { node: '>= 0.8' }
+
+  raw-loader@4.0.2:
+    resolution:
+      {
+        integrity: sha512-ZnScIV3ag9A4wPX/ZayxL/jZH+euYb6FcUinPcgiQW0+UBtEv0O6Q3lGd3cqJ+GHH+rksEv3Pj99oxJ3u3VIKA==,
+      }
+    engines: { node: '>= 10.13.0' }
+    peerDependencies:
+      webpack: ^4.0.0 || ^5.0.0
 
   rc@1.2.8:
     resolution:
@@ -42873,6 +42885,12 @@ snapshots:
       http-errors: 2.0.0
       iconv-lite: 0.6.3
       unpipe: 1.0.0
+
+  raw-loader@4.0.2(webpack@5.98.0(esbuild@0.25.2)):
+    dependencies:
+      loader-utils: 2.0.4
+      schema-utils: 3.3.0
+      webpack: 5.98.0(esbuild@0.25.2)
 
   rc@1.2.8:
     dependencies:
