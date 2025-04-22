@@ -1,12 +1,14 @@
 import { createModuleAugmentation } from '@intlayer/chokidar';
-import { type Locales, getConfiguration } from '@intlayer/config';
+import { getConfiguration, type Locales } from '@intlayer/config';
 import {
+  getDictionary as getDictionaryFunction,
+  getIntlayer as getIntlayerFunction,
   getTranslation,
   localeDetector,
   type LanguageContent,
 } from '@intlayer/core';
 import { createNamespace } from 'cls-hooked';
-import type { NextFunction, RequestHandler, Request, Response } from 'express';
+import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
 const { middleware, internationalization } = getConfiguration({
   verbose: true,
@@ -93,10 +95,27 @@ export const intlayer = (): RequestHandler => (req, res, next) => {
   res.locals.defaultLocale = internationalization.defaultLocale;
 
   const t = translateFunction(req, res, next);
+
+  const getIntlayer: typeof getIntlayerFunction = (
+    key,
+    localeArg = localeDetected as Parameters<typeof getIntlayerFunction>[1],
+    ...props
+  ) => getIntlayerFunction(key, localeArg, ...props);
+
+  const getDictionary: typeof getDictionaryFunction = (
+    key,
+    localeArg = localeDetected as Parameters<typeof getDictionaryFunction>[1],
+    ...props
+  ) => getDictionaryFunction(key, localeArg, ...props);
+
   res.locals.t = t;
+  res.locals.getIntlayer = getIntlayer;
+  res.locals.getDictionary = getDictionary;
 
   appNamespace.run(() => {
     appNamespace.set('t', t);
+    appNamespace.set('getIntlayer', getIntlayer);
+    appNamespace.set('getDictionary', getDictionary);
 
     next();
   });
@@ -106,5 +125,10 @@ export const t = <Content = string>(
   content: LanguageContent<Content>,
   locale?: Locales
 ): Content => appNamespace.get('t')(content, locale);
+
+export const getIntlayer: typeof getIntlayerFunction = (...args) =>
+  appNamespace.get('getIntlayer')(...args);
+export const getDictionary: typeof getDictionaryFunction = (...args) =>
+  appNamespace.get('getDictionary')(...args);
 
 export { LanguageContent };
