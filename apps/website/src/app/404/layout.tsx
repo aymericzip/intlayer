@@ -1,1 +1,1 @@
-export { default } from '../[...not-found]/layout';
+export { default } from '../[locale]/(landing)/[...not-found]/layout';
