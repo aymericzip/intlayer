@@ -1,6 +1,6 @@
 import { getConfiguration } from 'intlayer';
-import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
+import Script from 'next/script';
 
 export const WebsiteHeader = () => {
   const { keywords } = useIntlayer('website-structured-data');
@@ -22,6 +22,7 @@ export const WebsiteHeader = () => {
   return (
     <Script
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(website),
       }}

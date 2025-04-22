@@ -1,5 +1,5 @@
-import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
+import Script from 'next/script';
 import type { FC } from 'react';
 
 export const ProductHeader: FC = () => {
@@ -118,6 +118,7 @@ export const ProductHeader: FC = () => {
   return (
     <Script
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(product),
       }}
