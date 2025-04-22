@@ -49,8 +49,9 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
     resolveAlias: {
-      '@intlayer/dictionaries-entry': relativeDictionariesPath,
-      '@intlayer/config/built': relativeConfigurationPath,
+      // "prefix by './' to consider the path as relative to the project root. This is necessary for turbo to work correctly."
+      '@intlayer/dictionaries-entry': './' + relativeDictionariesPath,
+      '@intlayer/config/built': './' + relativeConfigurationPath,
     },
     rules: {
       '*.node': {
