@@ -14,6 +14,12 @@ Intlayer is developed as a mono-repo using pnpm.
 git clone git@github.com:intlayer-org/intlayer.git
 ```
 
+#### Installing packages manager
+
+```sh
+npm i -g pnpm@10.6.3
+```
+
 #### Installing Dependencies
 
 ```sh
