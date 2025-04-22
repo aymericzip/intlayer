@@ -4,16 +4,16 @@ import { Loader } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
-import React, {
-  type ReactNode,
-  type PropsWithChildren,
+import dynamic from 'next/dynamic';
+import {
   type FC,
-  useEffect,
-  useState,
-  useRef,
+  type PropsWithChildren,
+  type ReactNode,
   startTransition,
+  useEffect,
+  useRef,
+  useState,
 } from 'react';
 
 /* -------------------------------------------------------------------------- */
@@ -267,12 +267,12 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 /*                   Dynamic Imports for Heavy Child Sections                 */
 /* -------------------------------------------------------------------------- */
 
-const DynamicIDESection = dynamic(
-  () => import('./IDESection').then((mod) => mod.IDESection),
-  {
-    loading: () => <Loader />,
-  }
-);
+// const DynamicIDESection = dynamic(
+//   () => import('./IDESection').then((mod) => mod.IDESection),
+//   {
+//     loading: () => <Loader />,
+//   }
+// );
 
 const DynamicMarkdownSection = dynamic(
   () => import('./MarkdownSection').then((mod) => mod.MarkdownSection),
@@ -318,7 +318,7 @@ export const FeaturesSection: FC = () => {
         case 'codebase':
           return {
             ...sectionData,
-            children: <DynamicIDESection scrollProgress={progress} />,
+            children: <></>, // <DynamicIDESection scrollProgress={progress} />,
           };
         case 'visual-editor':
           return {

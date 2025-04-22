@@ -679,7 +679,7 @@ export const generateMetadata = async ({
       zh: "我的描述",
     }),
     alternates: {
-      canonical: "/",
+      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -729,7 +729,7 @@ export const generateMetadata = async ({ params }) => {
       zh: "我的描述",
     }),
     alternates: {
-      canonical: "/",
+      canonical: multilingualUrls[locale],
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -780,7 +780,7 @@ const generateMetadata = async ({ params }) => {
       zh: "我的描述",
     }),
     alternates: {
-      canonical: "/",
+      canonical: multilingualUrls[locale],
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {

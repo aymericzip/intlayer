@@ -1,4 +1,4 @@
-import { getLocalizedUrl, getMultilingualUrls, getDictionary } from 'intlayer';
+import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata, Viewport } from 'next';
 import { type LocalParams } from 'next-intlayer';
 import metadataContent from './metadata.content';
@@ -31,7 +31,7 @@ export const generateMetadata = async ({
     robots: 'index, follow',
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     alternates: {
-      canonical: '/',
+      canonical: getLocalizedUrl('/', locale),
       languages: { ...getMultilingualUrls('/'), 'x-default': '/' },
     },
 

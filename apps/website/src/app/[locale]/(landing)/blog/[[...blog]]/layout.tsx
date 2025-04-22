@@ -1,6 +1,6 @@
 import {
-  getBlogPathsArray,
   getBlogDataByPath,
+  getBlogPathsArray,
 } from '@components/BlogPage/blogData';
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
@@ -34,7 +34,7 @@ export const generateMetadata = async ({
     description: blogData.description,
     keywords: blogData.keywords,
     alternates: {
-      canonical: blogData.url,
+      canonical: getLocalizedUrl(blogData.url, locale),
       languages: {
         ...getMultilingualUrls(blogData.url),
         'x-default': blogData.url,

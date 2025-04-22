@@ -1,6 +1,6 @@
 import {
-  getDocPathsArray,
   getDocDataByPath,
+  getDocPathsArray,
 } from '@components/DocPage/docData';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
@@ -34,7 +34,7 @@ export const generateMetadata = async ({
     description: docData.description,
     keywords: docData.keywords,
     alternates: {
-      canonical: docData.url,
+      canonical: getLocalizedUrl(docData.url, locale),
       languages: {
         ...getMultilingualUrls(docData.url),
         'x-default': docData.url,

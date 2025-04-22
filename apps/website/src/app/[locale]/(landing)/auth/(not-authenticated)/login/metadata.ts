@@ -1,8 +1,8 @@
-import { getLocalizedUrl, getMultilingualUrls, getDictionary } from 'intlayer';
+import { PagesRoutes } from '@/Routes';
+import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import { type LocalParams } from 'next-intlayer';
 import metadataContent from './metadata.content';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -19,7 +19,7 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: PagesRoutes.Auth_SignIn,
+      canonical: getLocalizedUrl(PagesRoutes.Auth_SignIn, locale),
       languages: {
         ...getMultilingualUrls(PagesRoutes.Auth_SignIn),
         'x-default': PagesRoutes.Auth_SignIn,

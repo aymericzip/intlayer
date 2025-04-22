@@ -676,7 +676,7 @@ export const generateMetadata = async ({
       ko: "내 설명",
     }),
     alternates: {
-      canonical: "/",
+      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -726,7 +726,7 @@ export const generateMetadata = async ({ params }) => {
       ko: "내 설명",
     }),
     alternates: {
-      canonical: "/",
+      canonical: multilingualUrls[locale],
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
@@ -777,7 +777,7 @@ const generateMetadata = async ({ params }) => {
       ko: "내 설명",
     }),
     alternates: {
-      canonical: "/",
+      canonical: multilingualUrls[locale],
       languages: { ...multilingualUrls, "x-default": "/" },
     },
     openGraph: {
