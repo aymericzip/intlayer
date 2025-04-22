@@ -1,5 +1,6 @@
 import express, { type Express } from 'express';
-import { intlayer, t } from 'express-intlayer';
+import { getDictionary, getIntlayer, intlayer, t } from 'express-intlayer';
+import dictionaryExample from './index.content';
 
 const app: Express = express();
 
@@ -18,6 +19,13 @@ app.get('/', (_req, res) => {
   );
 });
 
+app.get('/getIntlayer', (_req, res) => {
+  res.send(getIntlayer('index').exampleOfContent);
+});
+
+app.get('/getDictionary', (_req, res) => {
+  res.send(getDictionary(dictionaryExample).exampleOfContent);
+});
 // Liveness check
 app.get('/error', (_req, res) => {
   res.status(500).send(

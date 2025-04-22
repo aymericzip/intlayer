@@ -98,13 +98,95 @@ const config = {
 module.exports = config;
 ```
 
+### Declare Your Content
+
+Create and manage your content declarations to store translations:
+
+```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+import { t, type Dictionary } from "intlayer";
+
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+} satisfies Dictionary;
+
+export default indexContent;
+```
+
+```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+/** @type {import('intlayer').Dictionary} */
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+};
+
+export default indexContent;
+```
+
+```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+};
+
+module.exports = indexContent;
+```
+
+```json fileName="src/index.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "index",
+  "content": {
+    "exampleOfContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Example of returned content in English",
+        "fr": "Exemple de contenu renvoyé en français",
+        "es-ES": "Ejemplo de contenido devuelto en español (España)",
+        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+      }
+    }
+  }
+}
+```
+
+> Your content declarations can be defined anywhere in your application as soon as they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md).
+
 ### Express Application Setup
 
 Setup your Express application to use `express-intlayer`:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
-import { intlayer, t } from "express-intlayer";
+import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
+import dictionaryExample from "./index.content";
 
 const app: Express = express();
 
@@ -112,7 +194,7 @@ const app: Express = express();
 app.use(intlayer());
 
 // Routes
-app.get("/", (_req, res) => {
+app.get("/t_example", (_req, res) => {
   res.send(
     t({
       en: "Example of returned content in English",
@@ -121,6 +203,14 @@ app.get("/", (_req, res) => {
       "es-MX": "Ejemplo de contenido devuelto en español (México)",
     })
   );
+});
+
+app.get("/getIntlayer_example", (_req, res) => {
+  res.send(getIntlayer("index").exampleOfContent);
+});
+
+app.get("/getDictionary_example", (_req, res) => {
+  res.send(getDictionary(dictionaryExample).exampleOfContent);
 });
 
 // Start server
@@ -129,7 +219,8 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 ```javascript fileName="src/index.mjs" codeFormat="esm"
 import express from "express";
-import { intlayer, t } from "express-intlayer";
+import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
+import dictionaryExample from "./index.content";
 
 const app = express();
 
@@ -137,15 +228,23 @@ const app = express();
 app.use(intlayer());
 
 // Routes
-app.get("/", (_req, res) => {
+app.get("/t_example", (_req, res) => {
   res.send(
     t({
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
     })
   );
+});
+
+app.get("/getIntlayer_example", (_req, res) => {
+  res.send(getIntlayer("index").exampleOfContent);
+});
+
+app.get("/getDictionary_example", (_req, res) => {
+  res.send(getDictionary(dictionaryExample).exampleOfContent);
 });
 
 // Start server
@@ -154,7 +253,8 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 ```javascript fileName="src/index.cjs" codeFormat="commonjs"
 const express = require("express");
-const { intlayer, t } = require("express-intlayer");
+const { intlayer, t, getDictionary, getIntlayer } = require("express-intlayer");
+const dictionaryExample = require("./index.content");
 
 const app = express();
 
@@ -162,15 +262,23 @@ const app = express();
 app.use(intlayer());
 
 // Routes
-app.get("/", (_req, res) => {
+app.get("/t_example", (_req, res) => {
   res.send(
     t({
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
     })
   );
+});
+
+app.get("/getIntlayer_example", (_req, res) => {
+  res.send(getIntlayer("index").exampleOfContent);
+});
+
+app.get("/getDictionary_example", (_req, res) => {
+  res.send(getDictionary(dictionaryExample).exampleOfContent);
 });
 
 // Start server
