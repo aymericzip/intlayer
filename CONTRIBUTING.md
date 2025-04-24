@@ -90,6 +90,43 @@ For each project necessitating environment variables, like `@intlayer/backend`, 
 
 For specific environment, use `.env.local`, `.env.[environment]` or `.env.[environment].local` files.
 
+### Commit formatting
+
+We follow a conventional commit format to make our Git history cleaner and more readable. Each commit message should follow the pattern:
+
+```
+<type>(<scope>): <message>
+```
+
+- `<type>`: One of the allowed types listed below.
+- `<scope>` (optional): Can be a package name, app name, or a general scope.
+- `<message>`: A clear, concise description of the change.
+
+#### Common types
+
+- `feat`: New features or capabilities
+- `fix`: Bug fixes
+- `refactor`: Code changes that neither fix a bug nor add a feature
+- `style`: Code style changes (formatting, spacing, etc.)
+- `chore`: Routine tasks (e.g., updates to lockfiles or CI)
+- `doc`: Documentation changes only
+- `test`: Adding or updating tests
+- `perf`: Performance improvements
+- `build`: Changes affecting the build system or dependencies
+- `ci`: Changes to CI configuration or scripts
+
+#### Examples
+
+```sh
+feat(next-intlayer): add version comparison utility and integrate deepmerge for configuration management
+fix(website): fix 404 layout
+feat(solid-intlayer): prepare solid and preact intlayer
+doc: fix anchors
+chore: update lockfile
+```
+
+Maintaining this format helps ensure consistent, readable commit history and is also necessary for automated tools like [changesets](https://github.com/changesets/changesets) to work correctly.
+
 ### Release and PR
 
 > Dont works properly. Need to fix it.
