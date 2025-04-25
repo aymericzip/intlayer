@@ -148,6 +148,26 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 - [Package](https://intlayer.org/doc/packages/react-scripts-intlayer)
 
+#### vue-intlayer
+
+- [Package](https://intlayer.org/doc/packages/vue-intlayer)
+
+#### svelte-intlayer
+
+- [Package](https://intlayer.org/doc/packages/svelte-intlayer)
+
+#### solid-intlayer
+
+- [Package](https://intlayer.org/doc/packages/solid-intlayer)
+
+#### angular-intlayer
+
+- [Package](https://intlayer.org/doc/packages/angular-intlayer)
+
+#### preact-intlayer
+
+- [Package](https://intlayer.org/doc/packages/preact-intlayer)
+
 ### Blog
 
 - [What is i18n](https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md)
