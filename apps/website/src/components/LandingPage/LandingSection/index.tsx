@@ -10,7 +10,7 @@ export const LandingSection: FC = () => {
   return (
     <section className="flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:px-10 md:pr-0">
       <div className="relative flex w-full flex-1 flex-col items-center justify-between md:justify-center">
-        <div className="flex md:flex-auto md:items-center">
+        <div className="flex md:flex-auto md:items-center w-full">
           <div className="relative z-10 flex flex-col md:w-3/5">
             <div className="/90 bg-background/90 relative z-10 flex w-full flex-col justify-evenly gap-10 md:!bg-transparent">
               <h1 className="mt-20 px-8 text-4xl font-light leading-[3.5rem] md:mt-5 md:w-[120%] md:text-6xl md:leading-[4rem]">
