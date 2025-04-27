@@ -15,7 +15,7 @@ export const generateMetadata = async ({
   return {
     title,
     description,
-    applicationName: 'Internationalization (i18n) Next.js made easy | Intlayer',
+    applicationName: 'i18n Solution & CMS for React, Next.js, Vue | Intlayer',
     authors: [
       {
         name: 'Intlayer',
@@ -121,7 +121,7 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   height: 'device-height',
-  initialScale: 1,
+  initialScale: 0.7,
   // minimumScale: 3,
   // maximumScale: 3,
   // userScalable: true,

@@ -1,24 +1,40 @@
 import { Globe } from '@components/Globe/Globe';
+import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { ActionButtons } from './ActionButtons';
 import { AnimatedDescription } from './AnimatedDescription';
 
 export const LandingSection: FC = () => {
-  const { title, description } = useIntlayer('landing-section');
+  const { title, description, keyPoints } = useIntlayer('landing-section');
 
   return (
     <section className="flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:px-10 md:pr-0">
       <div className="relative flex w-full flex-1 flex-col items-center justify-between md:justify-center">
         <div className="flex md:flex-auto md:items-center w-full">
           <div className="relative z-10 flex flex-col md:w-3/5">
-            <div className="/90 bg-background/90 relative z-10 flex w-full flex-col justify-evenly gap-10 md:!bg-transparent">
-              <h1 className="mt-20 px-8 text-4xl font-light leading-[3.5rem] md:mt-5 md:w-[120%] md:text-6xl md:leading-[4rem]">
+            <div className="/90 bg-background/90 relative z-10 flex w-full flex-col justify-evenly gap-4 md:gap-16 md:!bg-transparent">
+              <h1 className="mt-5 px-8 text-4xl font-light leading-[3rem] md:w-[120%] md:text-6xl md:leading-[4rem]">
                 {title}
               </h1>
-              <AnimatedDescription className="text-neutral inset-x-0 w-full px-8 leading-7">
-                {description}
-              </AnimatedDescription>
+              <div className="flex flex-col gap-4">
+                {description.map((el) => (
+                  <AnimatedDescription className="text-neutral inset-x-0 w-full px-8 leading-7">
+                    {el}
+                  </AnimatedDescription>
+                ))}
+              </div>
+              <div className="flex flex-col gap-3 px-8 ml-8">
+                {keyPoints.map((el) => (
+                  <div className="flex gap-2 items-center text-sm">
+                    <Check className="text-lime-800  dark:text-lime-600 size-3" />
+
+                    <span className="text-neutral" key={el.value}>
+                      {el}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="from-background/90 relative z-10 flex h-20 flex-col gap-10 bg-gradient-to-b from-0% to-100% md:hidden md:w-3/5"></div>
             <ActionButtons className="mt-10 px-8 max-md:hidden lg:mt-[15vh]" />
