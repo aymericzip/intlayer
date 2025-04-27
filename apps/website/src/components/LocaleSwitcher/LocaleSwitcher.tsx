@@ -3,10 +3,10 @@
 import { Link } from '@components/Link/Link';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
 import {
+  Container,
   DropDown,
   Input,
   type PanelProps,
-  Container,
 } from '@intlayer/design-system';
 import { MoveVertical } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
@@ -90,6 +90,11 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                       isActive={locale === localeItem}
                       variant="hoverable"
                       color="text"
+                      onPointerDown={(e) => {
+                        // fires earlier than click
+                        e.preventDefault();
+                        setLocale(localeItem);
+                      }}
                       onClick={(e) => {
                         e.preventDefault();
                         setLocale(localeItem);

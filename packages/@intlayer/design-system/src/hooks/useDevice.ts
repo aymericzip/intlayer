@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 export type SizeType = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-const getBreakpointFromSize = (breakpoint: SizeType | number) => {
+export const getBreakpointFromSize = (breakpoint: SizeType | number) => {
   switch (breakpoint) {
     case 'sm':
       return 640;
@@ -21,7 +21,7 @@ const getBreakpointFromSize = (breakpoint: SizeType | number) => {
   }
 };
 
-const checkIsMobileUserAgent = (): boolean | undefined => {
+export const checkIsMobileUserAgent = (): boolean | undefined => {
   if (typeof window === 'undefined') return;
 
   const userAgent = window.navigator?.userAgent;
@@ -33,7 +33,25 @@ const checkIsMobileUserAgent = (): boolean | undefined => {
   );
 };
 
-const checkIsMobileScreen = (breakpoint: number): boolean | undefined => {
+export const checkIsIphoneOrSafariDevice = (): boolean | undefined => {
+  if (typeof window === 'undefined') return;
+
+  const userAgent = window.navigator?.userAgent;
+
+  /* 1 . is it Safari?  (Chrome & co. also contain “Safari/…”, so exclude them) */
+  const isSafari =
+    /Safari\/\d/i.test(userAgent) && // has “Safari/xxx”
+    !/Chrome|CriOS|FxiOS|Edg|OPR/i.test(userAgent); // …but not the other browsers
+
+  /* 2. is it an Apple device? (macOS or iOS/iPadOS) */
+  const isAppleDevice = /Macintosh|iP(?:hone|ad|od)/.test(userAgent);
+
+  return isSafari && isAppleDevice; // true for mac-Safari & iOS-Safari
+};
+
+export const checkIsMobileScreen = (
+  breakpoint: number
+): boolean | undefined => {
   if (typeof window === 'undefined') return;
 
   return (window?.innerWidth ?? 0) <= breakpoint;
@@ -45,7 +63,7 @@ type UseDeviceState = {
   isMobile: boolean | undefined;
 };
 
-const calculateIsMobile = (breakpoint: SizeType | number) => {
+export const calculateIsMobile = (breakpoint: SizeType | number = 'md') => {
   const breakpointValue = getBreakpointFromSize(breakpoint);
 
   const isMobileUserAgent = checkIsMobileUserAgent();
