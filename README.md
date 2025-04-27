@@ -16,7 +16,7 @@
   />
 </div>
 
-# Intlayer: A closer way to translate your application
+# Intlayer: A tailored way to translate your website
 
 Intlayer offers a more flexible and modern approach to **internationalization** (i18n). Its seamless integration with **Next.js**, **React**, **Vite** and **Express**, customizable configuration, and support for various content declaration formats, such as **TypeScript** make it a powerful choice for internationalization.
 

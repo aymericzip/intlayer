@@ -1,4 +1,4 @@
-# Intlayer: A closer way to translate your application
+# Intlayer: A tailored way to translate your website
 
 **Intlayer** is an internationalization library designed specifically for JavaScript developers. It allow the declaration of your content everywhere in your code. It converts declaration of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** make your development stronger and more efficient.
 
